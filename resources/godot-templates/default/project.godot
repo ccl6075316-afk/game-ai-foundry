@@ -1,0 +1,9 @@
+; Game Factory default project template
+config_version=5
+
+[application]
+config/name="Game"
+config/features=PackedStringArray("4.6")
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
