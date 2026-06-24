@@ -4,3 +4,9 @@ __pycache__/
 .env
 .venv/
 venv/
+output/
+*.mp4
+*.png
+*.jpg
+*.jpeg
+config.local.json

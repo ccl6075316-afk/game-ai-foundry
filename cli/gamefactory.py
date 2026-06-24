@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Game Factory CLI — image generation and asset tooling."""
+"""Game AI Foundry CLI — AI-powered game asset generation pipeline.
+
+Image generation (OpenRouter), image processing (OpenCV/rembg),
+video generation (Seedance), and Godot project management.
+"""
 
 from __future__ import annotations
 
