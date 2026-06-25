@@ -14,7 +14,7 @@ You are none of them.
 - Read `brief.json` and shared context.
 - Delegate prompt writing to the **prompt-crafter** agent (separate session/skill).
 - Delegate image API calls to the **image-generator** agent (separate session/skill).
-- Run post-process CLI (`remove-bg`, `slice`, `video`, `godot`).
+- Run post-process CLI (`trim`, `remove-bg`, `slice`, `video`, `godot`). See **matting** skill for 切图/抠图与用户反馈处理（白边→腐蚀等）.
 - Retry or escalate on validation failure.
 
 ## Not your job
@@ -44,9 +44,13 @@ python gamefactory.py image generate \
   --plan-file plans/knight.json \
   --output output/knight.png --validate
 
-# Step 3 — orchestrator: post-process
+# Step 3 — orchestrator: post-process (see matting skill)
+python gamefactory.py image trim \
+  --input output/knight.png --output output/knight_trimmed.png
+
 python gamefactory.py image remove-bg \
-  --input output/knight.png --output output/knight_nobg.png
+  --input output/knight_trimmed.png --output output/knight_nobg.png
+# remove-bg 默认跑 validate-matting；失败则按 matting skill 调 erode/fuzz 重试
 ```
 
 ## Animation

@@ -539,9 +539,17 @@ def godot() -> None:
 
 
 # Register image subcommands
-from image_cmds import slice_cmd, remove_bg_cmd, resize_cmd  # noqa: E402
+from image_cmds import (
+    slice_cmd,
+    trim_cmd,
+    remove_bg_cmd,
+    resize_cmd,
+    validate_matting_cmd,
+)  # noqa: E402
+image.add_command(trim_cmd)
 image.add_command(slice_cmd)
 image.add_command(remove_bg_cmd)
+image.add_command(validate_matting_cmd)
 image.add_command(resize_cmd)
 
 # Register video subcommands

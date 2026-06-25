@@ -76,7 +76,9 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
             "pipeline": [
                 {"step": "generate_image"},
                 {"step": "validate"},
-                {"step": "remove_bg"},
+                {"step": "trim"},
+                {"step": "remove_bg", "mode": "color"},
+                {"step": "validate_matting"},
             ],
             "requires_background_removal": True,
             "requires_reference_image": False,
@@ -92,7 +94,9 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
                 {"step": "generate_image"},
                 {"step": "validate"},
                 {"step": "slice", "mode": "grid", "grid": spec.grid},
-                {"step": "remove_bg", "per_tile": True},
+                {"step": "trim", "per_tile": True},
+                {"step": "remove_bg", "mode": "color", "per_tile": True},
+                {"step": "validate_matting", "per_tile": True},
             ],
             "requires_background_removal": True,
             "requires_reference_image": False,
@@ -132,7 +136,9 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
             "pipeline": [
                 {"step": "generate_image", "reference_asset": spec.reference_asset},
                 {"step": "validate"},
-                {"step": "remove_bg"},
+                {"step": "trim"},
+                {"step": "remove_bg", "mode": "color"},
+                {"step": "validate_matting"},
             ],
             "requires_background_removal": True,
             "requires_reference_image": True,
@@ -264,7 +270,7 @@ def build_animation_pipeline(
                     "duration": spec.duration_seconds,
                 },
                 {"step": "video_split_frames"},
-                {"step": "remove_bg", "batch": True},
+                {"step": "remove_bg", "mode": "color", "batch": True},
             ],
             requires_reference_image=True,
             requires_background_removal=True,
@@ -291,7 +297,7 @@ def build_animation_pipeline(
         {"step": "generate_image", "asset": ref_name},
         {"step": "generate_image", "asset": spec.name, "method": "img2img"},
         {"step": "validate"},
-        {"step": "remove_bg"},
+        {"step": "remove_bg", "mode": "color"},
     ]
     return plan
 

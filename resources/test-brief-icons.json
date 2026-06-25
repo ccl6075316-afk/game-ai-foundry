@@ -1,0 +1,17 @@
+{
+  "project": {
+    "title": "Wasteland Survivors",
+    "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife.",
+    "art_direction": "gritty stylized 2D game art, muted desaturated palette with rust and toxic green accents, thick readable silhouettes",
+    "dimension": "2d"
+  },
+  "assets": [
+    {
+      "name": "survival_icons",
+      "type": "icon_kit",
+      "items": ["rusty machete", "scrap metal shield", "green glowing medkit", "radiation coin"],
+      "grid": "2x2",
+      "display_size": "64x64 px per icon"
+    }
+  ]
+}

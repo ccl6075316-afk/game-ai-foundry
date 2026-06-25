@@ -17,14 +17,14 @@ Solid white background. Clean silhouette. {art style cues}.
 
 Validation: one subject region, light background, not a horizontal frame strip.
 
-## icon_kit (white background, multiple items)
+Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key). User reports 白边 → auto `--erode` / config `morph_erode`.
 
 ```
 {item1}, {item2}, ... — {rows}x{cols} grid, each item centered in its cell.
 Game item icons, consistent scale. Solid white background. {art style cues}.
 ```
 
-Post: grid slice → remove background per tile.
+Post: grid slice → trim white borders per tile → remove background per tile.
 
 ## texture (no white studio bg)
 

@@ -9,7 +9,7 @@ from roles import IMAGE_GENERATOR_ROLE, ORCHESTRATOR_ROLE, PROMPT_CRAFTER_ROLE
 _SKILLS_ROOT = Path(__file__).resolve().parent.parent / "resources" / "skills"
 
 ROLE_SKILLS: dict[str, tuple[str, ...]] = {
-    ORCHESTRATOR_ROLE: ("pipeline",),
+    ORCHESTRATOR_ROLE: ("pipeline", "matting"),
     PROMPT_CRAFTER_ROLE: ("asset-planner", "asset-gen"),
     IMAGE_GENERATOR_ROLE: ("generate",),
 }
