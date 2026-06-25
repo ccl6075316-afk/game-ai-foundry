@@ -10,15 +10,19 @@ from pathlib import Path
 import click
 import requests
 
+from proxy_utils import activate_proxy, http_get, http_post, resolve_config_proxy
+
 
 def _load_config() -> dict:
     config_path = Path.home() / ".gamefactory" / "config.json"
     if not config_path.exists():
         return {}
     try:
-        return json.loads(config_path.read_text(encoding="utf-8"))
+        config = json.loads(config_path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return {}
+    activate_proxy(config)
+    return config
 
 
 @click.command("generate")
@@ -33,10 +37,12 @@ def _load_config() -> dict:
 def generate_cmd(model: str, prompt: str, output_path: Path, api_key: str | None,
                  api_base: str | None, fps: int, duration: int) -> None:
     """Generate a video via API."""
-    config = _load_config().get("video", {})
+    config = _load_config()
+    video_cfg = config.get("video", {})
+    proxy = resolve_config_proxy(config)
 
-    resolved_key = api_key or config.get("api_key") or None
-    resolved_base = api_base or config.get("api_base", "https://api.seedance.com/v1")
+    resolved_key = api_key or video_cfg.get("api_key") or None
+    resolved_base = api_base or video_cfg.get("api_base", "https://api.seedance.com/v1")
 
     if not resolved_key:
         click.echo("Error: API key not found. Set in config or pass --api-key.", err=True)
@@ -47,7 +53,7 @@ def generate_cmd(model: str, prompt: str, output_path: Path, api_key: str | None
     payload = {"model": model, "prompt": prompt, "fps": fps, "duration": duration}
 
     try:
-        resp = requests.post(endpoint, headers=headers, json=payload, timeout=300)
+        resp = http_post(proxy, endpoint, headers=headers, json=payload, timeout=300)
         if resp.status_code != 200:
             detail = resp.text[:300]
             try:
@@ -65,7 +71,7 @@ def generate_cmd(model: str, prompt: str, output_path: Path, api_key: str | None
             raise RuntimeError("No video URL in API response")
 
         # Download video
-        video = requests.get(video_url, timeout=300)
+        video = http_get(proxy, video_url, timeout=300)
         video.raise_for_status()
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_bytes(video.content)

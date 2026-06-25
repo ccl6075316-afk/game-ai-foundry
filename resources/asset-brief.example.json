@@ -1,0 +1,50 @@
+{
+  "project": {
+    "title": "Forest Platformer",
+    "description": "2D side-scrolling platformer with a knight hero and collectible items.",
+    "art_direction": "flat colored sprite illustrations, cartoony, warm palette",
+    "dimension": "2d"
+  },
+  "assets": [
+    {
+      "name": "knight",
+      "type": "character",
+      "description": "armored knight with red plume",
+      "display_size": "128x128 px"
+    },
+    {
+      "name": "knight_walk",
+      "type": "character",
+      "description": "armored knight",
+      "action": "walking to the right, smooth walk cycle",
+      "reference_asset": "knight",
+      "animation_method": "video",
+      "duration_seconds": 2
+    },
+    {
+      "name": "knight_attack_pose",
+      "type": "character_pose",
+      "action": "sword slash attack pose, mid-swing",
+      "reference_asset": "knight"
+    },
+    {
+      "name": "item_icons",
+      "type": "icon_kit",
+      "items": ["sword", "shield", "potion", "gold coin"],
+      "grid": "2x2",
+      "display_size": "64x64 px per icon"
+    },
+    {
+      "name": "grass_tile",
+      "type": "texture",
+      "description": "green meadow grass"
+    },
+    {
+      "name": "forest_bg",
+      "type": "background",
+      "description": "dense forest with layered parallax trees and soft sky",
+      "aspect_ratio": "16:9",
+      "display_size": "1920x1080"
+    }
+  ]
+}

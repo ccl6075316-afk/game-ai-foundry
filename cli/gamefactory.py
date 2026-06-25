@@ -18,9 +18,60 @@ from urllib.parse import urljoin
 import click
 import requests
 
+from proxy_utils import (
+    activate_proxy,
+    http_get,
+    http_post,
+    region_error_hint,
+    resolve_config_proxy,
+)
+
 DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
 DEFAULT_SIZE = "1024x1024"
 CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
+
+
+def resolve_prompt_api_settings(
+    config: dict[str, Any],
+    *,
+    prompt_model: str | None = None,
+    api_key: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+) -> dict[str, str | None]:
+    """Resolve LLM settings for prompt crafting (falls back to image config)."""
+    from prompt_craft import DEFAULT_PROMPT_MODEL
+
+    prompt_cfg = config.get("prompt", {})
+    image_cfg = config.get("image", {}) if isinstance(config.get("image"), dict) else {}
+
+    resolved_model = (
+        prompt_model
+        or (prompt_cfg.get("model") if isinstance(prompt_cfg, dict) else None)
+        or os.environ.get("GAMEFACTORY_PROMPT_MODEL")
+        or DEFAULT_PROMPT_MODEL
+    )
+    resolved_key = (
+        api_key
+        or (prompt_cfg.get("api_key") if isinstance(prompt_cfg, dict) else None)
+        or image_cfg.get("api_key")
+        or os.environ.get("GAMEFACTORY_API_KEY")
+        or os.environ.get("OPENROUTER_API_KEY")
+    )
+    resolved_base = (
+        api_base
+        or (prompt_cfg.get("api_base") if isinstance(prompt_cfg, dict) else None)
+        or image_cfg.get("api_base")
+        or os.environ.get("GAMEFACTORY_API_BASE")
+        or DEFAULT_API_BASE
+    )
+    resolved_proxy = resolve_config_proxy(config, proxy)
+    return {
+        "prompt_model": str(resolved_model),
+        "api_key": str(resolved_key) if resolved_key else None,
+        "api_base": str(resolved_base),
+        "proxy": str(resolved_proxy) if resolved_proxy else None,
+    }
 
 
 def load_config() -> dict[str, Any]:
@@ -51,6 +102,14 @@ def resolve_image_setting(
     if env_value:
         return env_value
     return default
+
+
+def resolve_image_proxy(
+    config: dict[str, Any],
+    cli_value: str | None = None,
+) -> str | None:
+    """Resolve image API proxy: CLI > config > shell env > macOS system proxy."""
+    return resolve_config_proxy(config, cli_value)
 
 
 def extract_image_url(response_data: dict[str, Any]) -> str:
@@ -86,7 +145,9 @@ def extract_image_url(response_data: dict[str, Any]) -> str:
     raise ValueError(f"Could not extract image from response")
 
 
-def download_image(url: str, output_path: Path, timeout: int = 120) -> None:
+def download_image(
+    url: str, output_path: Path, timeout: int = 120, proxy: str | None = None
+) -> None:
     """Download or decode an image and save it to disk."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -99,7 +160,7 @@ def download_image(url: str, output_path: Path, timeout: int = 120) -> None:
 
     # Handle HTTP URL
     try:
-        response = requests.get(url, timeout=timeout, stream=True)
+        response = http_get(proxy, url, timeout=timeout, stream=True)
     except requests.RequestException as exc:
         raise RuntimeError(f"Failed to download image from {url}: {exc}") from exc
 
@@ -123,6 +184,7 @@ def generate_image(
     api_key: str,
     api_base: str,
     proxy: str | None = None,
+    reference_image: Path | None = None,
 ) -> None:
     """Call the chat completions API, extract the image URL, and save the file."""
     endpoint = urljoin(api_base.rstrip("/") + "/", "chat/completions")
@@ -130,15 +192,39 @@ def generate_image(
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
+
+    if reference_image is not None:
+        import base64
+
+        suffix = reference_image.suffix.lower()
+        mime = {
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".webp": "image/webp",
+        }.get(suffix, "image/png")
+        encoded = base64.b64encode(reference_image.read_bytes()).decode("ascii")
+        content: list[dict[str, Any]] | str = [
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {"url": f"data:{mime};base64,{encoded}"}},
+        ]
+    else:
+        content = prompt
+
     payload = {
         "model": model,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [{"role": "user", "content": content}],
         "modalities": ["image", "text"],
     }
 
     try:
-        proxies = {"http": proxy, "https": proxy} if proxy else None
-        response = requests.post(endpoint, headers=headers, json=payload, timeout=120, proxies=proxies)
+        response = http_post(
+            proxy,
+            endpoint,
+            headers=headers,
+            json=payload,
+            timeout=120,
+        )
     except requests.RequestException as exc:
         raise RuntimeError(f"API request failed: {exc}") from exc
 
@@ -149,6 +235,8 @@ def generate_image(
             detail = error_body.get("error", {}).get("message", detail)
         except (json.JSONDecodeError, AttributeError, TypeError):
             pass
+        if response.status_code == 403 and "region" in detail.lower():
+            detail = f"{detail}\n{region_error_hint()}"
         raise RuntimeError(f"API error (HTTP {response.status_code}): {detail}")
 
     try:
@@ -157,7 +245,7 @@ def generate_image(
         raise RuntimeError(f"Invalid JSON in API response: {exc}") from exc
 
     image_url = extract_image_url(data)
-    download_image(image_url, output)
+    download_image(image_url, output, proxy=proxy)
 
 
 @click.group()
@@ -165,7 +253,9 @@ def generate_image(
 def cli(ctx: click.Context) -> None:
     """Game Factory — generate game assets from the command line."""
     ctx.ensure_object(dict)
-    ctx.obj["config"] = load_config()
+    config = load_config()
+    ctx.obj["config"] = config
+    ctx.obj["proxy"] = activate_proxy(config)
 
 
 @cli.group()
@@ -175,43 +265,89 @@ def image() -> None:
 
 @image.command("generate")
 @click.option("--model", default=None, help="Image model (default from config).")
-@click.option("--prompt", required=True, help="The image description.")
+@click.option(
+    "--prompt",
+    default=None,
+    help="Generation prompt (image-generator: use --plan-file from prompt-crafter instead).",
+)
+@click.option(
+    "--plan-file",
+    "plan_path",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Handoff JSON from `prompt craft` (preferred for image-generator agent).",
+)
+@click.option(
+    "--reference-image",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Reference image for img2img when plan requires it.",
+)
+@click.option("--validate/--no-validate", default=False, help="Validate output using plan rules.")
 @click.option(
     "--output",
     required=True,
     type=click.Path(path_type=Path),
-    help="Output file path (e.g. ./assets/player_sprite.png).",
+    help="Output file path.",
 )
-@click.option(
-    "--size",
-    default=None,
-    show_default=f"{DEFAULT_SIZE} (from config/env)",
-    help="Image dimensions.",
-)
-@click.option("--api-key", default=None, help="Override API key from config/env.")
-@click.option(
-    "--api-base",
-    default=None,
-    help=f"API base URL override (default: {DEFAULT_API_BASE}).",
-)
-@click.option(
-    "--proxy",
-    default=None,
-    help="HTTP proxy for API requests (e.g. http://127.0.0.1:7897).",
-)
+@click.option("--size", default=None, help="Image dimensions.")
+@click.option("--api-key", default=None, help="Image API key override.")
+@click.option("--api-base", default=None, help="Image API base override.")
+@click.option("--proxy", default=None, help="HTTP proxy for image API.")
 @click.pass_context
 def generate(
     ctx: click.Context,
-    model: str,
-    prompt: str,
+    model: str | None,
+    prompt: str | None,
+    plan_path: Path | None,
+    reference_image: Path | None,
+    validate: bool,
     output: Path,
     size: str | None,
     api_key: str | None,
     api_base: str | None,
     proxy: str | None,
 ) -> None:
-    """Generate an image via OpenRouter-compatible chat completions."""
+    """image-generator agent: call image API only. No prompt crafting."""
+    from asset_pipeline import AssetType, validate_image
+    from plan_io import (
+        asset_type_from_handoff,
+        load_handoff,
+        prompt_from_handoff,
+        validation_from_handoff,
+    )
+
     config = ctx.obj["config"]
+    resolved_prompt = prompt
+    ref_image = reference_image
+    validation_rules = None
+    asset_type_name = None
+
+    if plan_path is not None:
+        if prompt:
+            click.echo("Error: use either --plan-file or --prompt, not both.", err=True)
+            sys.exit(1)
+        try:
+            handoff = load_handoff(plan_path)
+            plan = handoff["plan"]
+            resolved_prompt = prompt_from_handoff(handoff)
+            validation_rules = validation_from_handoff(handoff)
+            asset_type_name = asset_type_from_handoff(handoff)
+            if plan.get("requires_reference_image") and ref_image is None:
+                click.echo(
+                    "Error: plan requires --reference-image for img2img.",
+                    err=True,
+                )
+                sys.exit(1)
+        except (ValueError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+    elif not resolved_prompt:
+        click.echo(
+            "Error: image-generator requires --plan-file (from prompt craft) or --prompt.",
+            err=True,
+        )
+        sys.exit(1)
 
     resolved_model = resolve_image_setting(
         config, model, "model", "GAMEFACTORY_IMAGE_MODEL"
@@ -221,12 +357,7 @@ def generate(
         config, api_key, "api_key", "GAMEFACTORY_API_KEY"
     ) or os.environ.get("OPENROUTER_API_KEY")
 
-    resolved_proxy = resolve_image_setting(
-        config,
-        proxy,
-        "proxy",
-        "GAMEFACTORY_PROXY",
-    )
+    resolved_proxy = resolve_image_proxy(config, proxy)
 
     resolved_api_base = resolve_image_setting(
         config,
@@ -263,18 +394,138 @@ def generate(
     try:
         generate_image(
             model=resolved_model,
-            prompt=prompt,
+            prompt=resolved_prompt,
             output=output,
             size=resolved_size,
             api_key=resolved_api_key,
             api_base=resolved_api_base,
             proxy=resolved_proxy,
+            reference_image=ref_image,
         )
     except (RuntimeError, ValueError) as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
 
+    if validate and validation_rules is not None and asset_type_name:
+        try:
+            atype = AssetType(asset_type_name)
+        except ValueError:
+            atype = AssetType.CHARACTER
+        result = validate_image(output, atype, validation_rules)
+        click.echo(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
+        if not result.ok:
+            sys.exit(2)
+
     click.echo(str(output.resolve()))
+
+
+@cli.group()
+def prompt() -> None:
+    """prompt-crafter agent — write generation prompts (not image API)."""
+
+
+from prompt_cmds import register_prompt_commands  # noqa: E402
+
+register_prompt_commands(prompt, resolve_prompt_api_settings)
+
+
+@image.command("plan")
+@click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--asset", default=None)
+@click.option("--animation", is_flag=True)
+def plan_deprecated(brief_path: Path, asset: str | None, animation: bool) -> None:
+    """Deprecated — use `prompt craft` or `prompt scaffold`."""
+    click.echo(
+        "Deprecated: use `prompt craft` (prompt-crafter) or `prompt scaffold`.",
+        err=True,
+    )
+    sys.exit(1)
+
+
+@image.command("validate")
+@click.option(
+    "--input",
+    "input_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Image to validate.",
+)
+@click.option(
+    "--brief",
+    "brief_path",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Load validation rules from brief asset spec.",
+)
+@click.option("--asset", default=None, help="Asset name (required with --brief).")
+@click.option(
+    "--type",
+    "asset_type",
+    default=None,
+    type=click.Choice(
+        ["character", "icon_kit", "texture", "background", "character_pose"],
+        case_sensitive=False,
+    ),
+    help="Asset type when not using --brief.",
+)
+def validate_cmd(
+    input_path: Path,
+    brief_path: Path | None,
+    asset: str | None,
+    asset_type: str | None,
+) -> None:
+    """Validate a generated image against asset-type rules."""
+    from asset_pipeline import (
+        AssetType,
+        build_prompt_scaffold,
+        find_asset,
+        load_brief,
+        validate_image,
+    )
+
+    try:
+        if brief_path:
+            if not asset:
+                click.echo("Error: --asset required with --brief.", err=True)
+                sys.exit(1)
+            project, assets = load_brief(brief_path)
+            spec = find_asset(assets, asset)
+            rules = build_prompt_scaffold(project, spec).validation
+            atype = spec.type
+        elif asset_type:
+            atype = AssetType(asset_type.lower())
+            rules = None
+        else:
+            click.echo("Error: pass --brief + --asset or --type.", err=True)
+            sys.exit(1)
+
+        result = validate_image(input_path, atype, rules)
+        click.echo(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
+        if not result.ok:
+            sys.exit(2)
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
+@cli.command("context")
+@click.option(
+    "--brief",
+    "brief_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Project brief JSON.",
+)
+@click.option("--asset", required=True, help="Asset name to build shared context for.")
+def context_cmd(brief_path: Path, asset: str) -> None:
+    """Print shared project+asset context (same payload all roles receive)."""
+    from shared_context import dump_role_context, load_role_context
+
+    try:
+        click.echo(dump_role_context(load_role_context(brief_path, asset)))
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
 
 
 @cli.group()

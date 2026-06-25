@@ -1,0 +1,502 @@
+"""Asset prompt planning and image validation for Game AI Foundry.
+
+Godogen-style split:
+- Markdown skills (resources/skills/) — constraints and cheatsheets
+- LLM — crafts the actual generation prompt (prompt_craft.py)
+- Python — pipeline metadata, validation heuristics, CLI only
+"""
+
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Any
+
+import cv2
+import numpy as np
+
+from brief import (
+    ANIMATION_METHOD_IMG2IMG,
+    ANIMATION_METHOD_VIDEO,
+    AssetSpec,
+    AssetType,
+    ProjectContext,
+    find_asset,
+    load_brief,
+)
+from prompt_craft import DEFAULT_PROMPT_MODEL, PromptCraftError, craft_asset_prompt
+from roles import PROMPT_CRAFTER_ROLE
+from shared_context import build_role_context
+from skill_loader import ROLE_SKILLS
+
+
+@dataclass
+class PromptPlan:
+    asset_name: str
+    asset_type: str
+    prompt: str | None
+    negative_hints: list[str]
+    validation: dict[str, Any]
+    pipeline: list[dict[str, Any]]
+    requires_reference_image: bool = False
+    requires_background_removal: bool = False
+    animation_method: str | None = None
+    prompt_source: str = "pending"  # llm | pending | scaffold_only
+    role: str = PROMPT_CRAFTER_ROLE
+    skill_refs: list[str] = field(
+        default_factory=lambda: list(ROLE_SKILLS[PROMPT_CRAFTER_ROLE])
+    )
+    video_prompt: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class ValidationResult:
+    ok: bool
+    asset_type: str
+    checks: list[dict[str, Any]]
+    message: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
+    """Pipeline, validation, and flags — always deterministic."""
+    if spec.type == AssetType.CHARACTER:
+        return {
+            "negative_hints": [
+                "Do not prompt for transparent background or checkerboard.",
+                "Do not include multiple characters or action frames.",
+            ],
+            "validation": _validation_spec(spec.type),
+            "pipeline": [
+                {"step": "generate_image"},
+                {"step": "validate"},
+                {"step": "remove_bg"},
+            ],
+            "requires_background_removal": True,
+            "requires_reference_image": False,
+            "animation_method": None,
+        }
+    if spec.type == AssetType.ICON_KIT:
+        if not spec.items:
+            raise ValueError(f"icon_kit '{spec.name}' requires an 'items' list.")
+        return {
+            "negative_hints": ["One kit image — slice into separate icons after generation."],
+            "validation": _validation_spec(spec.type, grid=spec.grid, item_count=len(spec.items)),
+            "pipeline": [
+                {"step": "generate_image"},
+                {"step": "validate"},
+                {"step": "slice", "mode": "grid", "grid": spec.grid},
+                {"step": "remove_bg", "per_tile": True},
+            ],
+            "requires_background_removal": True,
+            "requires_reference_image": False,
+            "animation_method": None,
+        }
+    if spec.type == AssetType.TEXTURE:
+        return {
+            "negative_hints": ["Do not remove background — the full image is the texture."],
+            "validation": _validation_spec(spec.type),
+            "pipeline": [{"step": "generate_image"}, {"step": "validate"}],
+            "requires_background_removal": False,
+            "requires_reference_image": False,
+            "animation_method": None,
+        }
+    if spec.type == AssetType.BACKGROUND:
+        return {
+            "negative_hints": ["Do not use a flat white studio background."],
+            "validation": _validation_spec(spec.type, aspect_ratio=spec.aspect_ratio),
+            "pipeline": [{"step": "generate_image"}, {"step": "validate"}],
+            "requires_background_removal": False,
+            "requires_reference_image": False,
+            "animation_method": None,
+        }
+    if spec.type == AssetType.CHARACTER_POSE:
+        if not spec.action.strip():
+            raise ValueError(f"character_pose '{spec.name}' requires an 'action' field.")
+        if not spec.reference_asset.strip():
+            raise ValueError(
+                f"character_pose '{spec.name}' requires 'reference_asset'."
+            )
+        return {
+            "negative_hints": [
+                "Image-to-image: describe only the pose change.",
+                "Never request multiple frames or animation sheet in one image.",
+            ],
+            "validation": _validation_spec(AssetType.CHARACTER),
+            "pipeline": [
+                {"step": "generate_image", "reference_asset": spec.reference_asset},
+                {"step": "validate"},
+                {"step": "remove_bg"},
+            ],
+            "requires_background_removal": True,
+            "requires_reference_image": True,
+            "animation_method": ANIMATION_METHOD_IMG2IMG,
+        }
+    raise ValueError(f"Unhandled asset type: {spec.type}")
+
+
+def build_prompt_scaffold(project: ProjectContext, spec: AssetSpec) -> PromptPlan:
+    """Pipeline + validation metadata only. Prompt is null until LLM crafts it."""
+    meta = _plan_metadata(project, spec)
+    return PromptPlan(
+        asset_name=spec.name,
+        asset_type=spec.type.value,
+        prompt=None,
+        prompt_source="scaffold_only",
+        skill_refs=list(ROLE_SKILLS[PROMPT_CRAFTER_ROLE]),
+        **meta,
+    )
+
+
+def build_prompt(
+    project: ProjectContext,
+    spec: AssetSpec,
+    *,
+    craft: bool = True,
+    prompt_model: str = DEFAULT_PROMPT_MODEL,
+    api_key: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+) -> PromptPlan:
+    """Craft generation prompt via LLM reading skill docs (Godogen model)."""
+    plan = build_prompt_scaffold(project, spec)
+
+    if not craft:
+        return plan
+
+    if not api_key or not api_base:
+        raise PromptCraftError(
+            "Prompt crafting requires an API key (config.prompt or config.image). "
+            "Godogen uses its orchestrator LLM the same way — there is no hardcoded prompt."
+        )
+
+    crafted = craft_asset_prompt(
+        context=build_role_context(project, spec),
+        model=prompt_model,
+        api_key=api_key,
+        api_base=api_base,
+        proxy=proxy,
+        kind="image",
+    )
+    plan.prompt = crafted["prompt"]
+    plan.prompt_source = "llm"
+    return plan
+
+
+def build_animation_pipeline(
+    project: ProjectContext,
+    spec: AssetSpec,
+    assets: list[AssetSpec],
+    *,
+    craft: bool = True,
+    prompt_model: str = DEFAULT_PROMPT_MODEL,
+    api_key: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+) -> PromptPlan:
+    """Plan animation workflow: video first, img2img as fallback."""
+    if spec.type != AssetType.CHARACTER or not spec.action:
+        raise ValueError(
+            "Animation planning requires a character asset with an 'action' field."
+        )
+
+    method = spec.animation_method
+    if method not in (ANIMATION_METHOD_VIDEO, ANIMATION_METHOD_IMG2IMG):
+        raise ValueError(
+            f"animation_method must be '{ANIMATION_METHOD_VIDEO}' or "
+            f"'{ANIMATION_METHOD_IMG2IMG}', got '{method}'."
+        )
+
+    ref_name = spec.reference_asset or spec.name
+    ref_spec = find_asset(assets, ref_name) if ref_name != spec.name else spec
+    if ref_spec.type != AssetType.CHARACTER:
+        raise ValueError(f"Animation reference '{ref_name}' must be type 'character'.")
+
+    action = spec.action.strip() or "smooth walk cycle to the right"
+
+    if craft:
+        if not api_key or not api_base:
+            raise PromptCraftError(
+                "Animation prompt crafting requires an API key. "
+                "See resources/skills/asset-planner.md for the workflow."
+            )
+        anim_context = build_role_context(project, spec)
+        anim_context["asset"]["action"] = action
+        crafted = craft_asset_prompt(
+            context=anim_context,
+            model=prompt_model,
+            api_key=api_key,
+            api_base=api_base,
+            proxy=proxy,
+            kind="animation",
+        )
+        video_prompt = crafted["video_prompt"]
+        prompt_source = "llm"
+    else:
+        video_prompt = None
+        prompt_source = "scaffold_only"
+
+    if method == ANIMATION_METHOD_VIDEO:
+        return PromptPlan(
+            asset_name=spec.name,
+            asset_type="character_animation",
+            prompt=video_prompt,
+            prompt_source=prompt_source,
+            skill_refs=list(ROLE_SKILLS[PROMPT_CRAFTER_ROLE]),
+            video_prompt=video_prompt,
+            negative_hints=[
+                "Never generate a multi-frame spritesheet from one image prompt.",
+                "Preferred path: reference → optional pose frame → video → split frames → rembg.",
+            ],
+            validation={"forbidden_patterns": ["spritesheet", "multiple_action_frames"]},
+            pipeline=[
+                {"step": "generate_image", "asset": ref_name, "note": "character reference"},
+                {"step": "generate_image", "asset": f"{spec.name}_pose", "optional": True},
+                {
+                    "step": "video_generate",
+                    "prompt": video_prompt,
+                    "duration": spec.duration_seconds,
+                },
+                {"step": "video_split_frames"},
+                {"step": "remove_bg", "batch": True},
+            ],
+            requires_reference_image=True,
+            requires_background_removal=True,
+            animation_method=ANIMATION_METHOD_VIDEO,
+        )
+
+    pose_spec = AssetSpec(
+        name=spec.name,
+        type=AssetType.CHARACTER_POSE,
+        action=action,
+        reference_asset=ref_name,
+    )
+    plan = build_prompt(
+        project,
+        pose_spec,
+        craft=craft,
+        prompt_model=prompt_model,
+        api_key=api_key,
+        api_base=api_base,
+        proxy=proxy,
+    )
+    plan.animation_method = ANIMATION_METHOD_IMG2IMG
+    plan.pipeline = [
+        {"step": "generate_image", "asset": ref_name},
+        {"step": "generate_image", "asset": spec.name, "method": "img2img"},
+        {"step": "validate"},
+        {"step": "remove_bg"},
+    ]
+    return plan
+
+
+def _validation_spec(asset_type: AssetType, **extra: Any) -> dict[str, Any]:
+    base: dict[str, Any] = {"asset_type": asset_type.value, **extra}
+    if asset_type in (AssetType.CHARACTER, AssetType.CHARACTER_POSE):
+        base.update(
+            {
+                "require_light_background": True,
+                "max_subject_regions": 1,
+                "forbid_spritesheet_layout": True,
+            }
+        )
+    elif asset_type == AssetType.ICON_KIT:
+        base.update(
+            {
+                "require_light_background": True,
+                "min_subject_regions": 2,
+            }
+        )
+    elif asset_type == AssetType.BACKGROUND:
+        base.update(
+            {
+                "require_light_background": False,
+                "forbid_uniform_white_studio": True,
+                "min_color_variance": 20.0,
+            }
+        )
+    elif asset_type == AssetType.TEXTURE:
+        base.update({"require_light_background": False})
+    return base
+
+
+def _parse_grid(grid: str) -> tuple[int, int]:
+    parts = grid.lower().split("x")
+    if len(parts) != 2:
+        raise ValueError(f"Invalid grid '{grid}', expected ROWxCOL e.g. 2x2")
+    return int(parts[0]), int(parts[1])
+
+
+def _corner_mean_rgb(img: np.ndarray, margin: int = 8) -> np.ndarray:
+    h, w = img.shape[:2]
+    m = min(margin, h // 4, w // 4)
+    corners = [
+        img[:m, :m],
+        img[:m, -m:],
+        img[-m:, :m],
+        img[-m:, -m:],
+    ]
+    pixels = np.concatenate([c.reshape(-1, 3) for c in corners], axis=0)
+    return pixels.mean(axis=0)
+
+
+def _count_subject_regions(gray: np.ndarray, min_area: int = 200) -> int:
+    _, thresh = cv2.threshold(gray, 245, 255, cv2.THRESH_BINARY_INV)
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    return sum(1 for c in contours if cv2.contourArea(c) >= min_area)
+
+
+def _looks_like_spritesheet(gray: np.ndarray, min_area: int = 200) -> bool:
+    """Heuristic: several similar-width blobs in a horizontal row."""
+    _, thresh = cv2.threshold(gray, 245, 255, cv2.THRESH_BINARY_INV)
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    boxes = [cv2.boundingRect(c) for c in contours if cv2.contourArea(c) >= min_area]
+    if len(boxes) < 3:
+        return False
+    boxes.sort(key=lambda b: b[0])
+    widths = [b[2] for b in boxes]
+    if max(widths) - min(widths) > max(widths) * 0.5:
+        return False
+    ys = [b[1] for b in boxes]
+    return max(ys) - min(ys) < gray.shape[0] * 0.15
+
+
+def validate_image(
+    image_path: Path,
+    asset_type: AssetType | str,
+    rules: dict[str, Any] | None = None,
+) -> ValidationResult:
+    """Run OpenCV heuristics for asset-type-specific QA."""
+    if isinstance(asset_type, str):
+        asset_type = AssetType(asset_type)
+
+    rules = rules or _validation_spec(asset_type)
+    img = cv2.imread(str(image_path))
+    if img is None:
+        return ValidationResult(
+            ok=False,
+            asset_type=asset_type.value,
+            checks=[],
+            message=f"Cannot read image: {image_path}",
+        )
+
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    checks: list[dict[str, Any]] = []
+    ok = True
+
+    corner_rgb = _corner_mean_rgb(img)
+    corner_brightness = float(corner_rgb.mean())
+    checks.append({"check": "corner_brightness", "value": corner_brightness})
+
+    if rules.get("require_light_background"):
+        passed = corner_brightness >= 200
+        checks.append({"check": "require_light_background", "passed": passed, "min": 200})
+        ok = ok and passed
+
+    if rules.get("forbid_uniform_white_studio"):
+        passed = corner_brightness < 245 or float(np.std(img)) > 25
+        checks.append({"check": "forbid_uniform_white_studio", "passed": passed})
+        ok = ok and passed
+
+    regions = _count_subject_regions(gray)
+    checks.append({"check": "subject_regions", "value": regions})
+
+    if rules.get("max_subject_regions") is not None:
+        passed = regions <= int(rules["max_subject_regions"])
+        checks.append(
+            {
+                "check": "max_subject_regions",
+                "passed": passed,
+                "max": rules["max_subject_regions"],
+            }
+        )
+        ok = ok and passed
+
+    if rules.get("min_subject_regions") is not None:
+        passed = regions >= int(rules["min_subject_regions"])
+        checks.append(
+            {
+                "check": "min_subject_regions",
+                "passed": passed,
+                "min": rules["min_subject_regions"],
+            }
+        )
+        ok = ok and passed
+
+    if rules.get("forbid_spritesheet_layout"):
+        sheet = _looks_like_spritesheet(gray)
+        checks.append({"check": "forbid_spritesheet_layout", "passed": not sheet})
+        if sheet:
+            ok = False
+
+    if rules.get("min_color_variance") is not None:
+        variance = float(np.std(img))
+        passed = variance >= float(rules["min_color_variance"])
+        checks.append(
+            {
+                "check": "min_color_variance",
+                "passed": passed,
+                "value": variance,
+                "min": rules["min_color_variance"],
+            }
+        )
+        ok = ok and passed
+
+    if not ok:
+        if rules.get("forbid_spritesheet_layout") and _looks_like_spritesheet(gray):
+            msg = (
+                "Image looks like a multi-frame spritesheet. "
+                "Use video generation for actions, or img2img for a single pose frame."
+            )
+        else:
+            msg = f"Validation failed for asset type '{asset_type.value}'."
+    else:
+        msg = f"Validation passed for asset type '{asset_type.value}'."
+
+    return ValidationResult(ok=ok, asset_type=asset_type.value, checks=checks, message=msg)
+
+
+def plan_all(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    *,
+    craft: bool = True,
+    prompt_model: str = DEFAULT_PROMPT_MODEL,
+    api_key: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+) -> list[dict[str, Any]]:
+    plans: list[dict[str, Any]] = []
+    for spec in assets:
+        if spec.action and spec.type == AssetType.CHARACTER:
+            plans.append(
+                build_animation_pipeline(
+                    project,
+                    spec,
+                    assets,
+                    craft=craft,
+                    prompt_model=prompt_model,
+                    api_key=api_key,
+                    api_base=api_base,
+                    proxy=proxy,
+                ).to_dict()
+            )
+        else:
+            plans.append(
+                build_prompt(
+                    project,
+                    spec,
+                    craft=craft,
+                    prompt_model=prompt_model,
+                    api_key=api_key,
+                    api_base=api_base,
+                    proxy=proxy,
+                ).to_dict()
+            )
+    return plans
