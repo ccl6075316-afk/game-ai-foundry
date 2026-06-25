@@ -1,101 +1,160 @@
-# Game AI Foundry — AI Agent Handoff（2026-06-25）
+# Game AI Foundry — AI Agent Handoff
 
-> **读者**：后续接手的 AI Agent / 自动化编排器。本文档汇总截至 2026-06-25 的架构、配置、VPN、抠图流水线与已验证命令，无需翻阅完整对话历史即可继续工作。
+> **读者**：后续接手的 AI Agent / 自动化编排器。  
+> **最后更新**：2026-06-25（Windows 开发机，`E:\game-ai-foundry`）  
+> 无需翻阅完整对话历史即可继续工作。
 
 ---
 
-## 1. 项目是什么
+## 0. 总目标
 
-**Game AI Foundry**（`game-ai-foundry`）是一个 **纯 Python CLI** 游戏资产生成工具链：
+**自然语言描述游戏 → AI 生成资产（图、动画、音频、代码）→ 组装 Godot 工程 → 可玩**
 
-- 通过 OpenRouter 调用图像/LLM API 生图、写 prompt
-- 本地 OpenCV 做裁边、色键抠图、边缘校验（默认不依赖 rembg）
-- 可选 Godot 项目初始化、视频生成（Seedance）
+编排模式：**Agent + Skill + `gamefactory` CLI**（Hermes / Cursor 调 terminal，**Godot 部分不需要 MCP**）。
 
-**仓库根目录**：`/Users/czl/projects/game-ai-foundry`  
-**CLI 入口**：`cli/gamefactory.py`（在 `cli/` 目录下执行）
+---
+
+## 1. 项目结构
 
 ```
 game-ai-foundry/
-├── cli/                          # Python CLI（无 LLM 运行时依赖）
-│   ├── gamefactory.py            # 主入口
-│   ├── prompt_craft.py           # prompt-crafter 逻辑
-│   ├── asset_pipeline.py         # 资产类型 → pipeline 元数据
-│   ├── plan_io.py                # plan/handoff JSON 读写
-│   ├── proxy_utils.py            # 代理解析与注入（必读）
-│   ├── image_cmds.py             # trim / remove-bg / slice / resize / validate-matting
-│   ├── matting_config.py         # matting 配置解析
-│   ├── matting_validate.py       # 抠图边缘 QA
-│   └── skill_loader.py           # Agent skill 加载
+├── cli/
+│   ├── gamefactory.py          # 主入口
+│   ├── asset_pipeline.py       # 资产类型 → pipeline 元数据 + 纯白校验
+│   ├── seedance_api.py         # Volcengine Seedance 异步 API
+│   ├── video_cmds.py           # video generate / split-frames / matte-frames
+│   ├── video_config.py         # 视频生成参数解析（成本可控）
+│   ├── video_frames.py         # 拆帧（--frames 均匀采样）
+│   ├── video_matting.py        # 视频帧 AI 抠图（rembg）
+│   ├── image_cmds.py           # trim / remove-bg / slice / resize / validate-matting
+│   ├── godot_cmds.py           # init / inject / validate / open / export
+│   ├── matting_config.py
+│   ├── plan_io.py              # handoff JSON
+│   └── skill_loader.py
 ├── resources/
-│   ├── config.example.json       # 配置模板（含 proxy + matting）
-│   ├── skills/                   # 三 Agent 的 skill 文档
-│   │   ├── orchestrator/         # pipeline.md, matting.md
-│   │   ├── prompt-crafter/       # asset-planner.md, asset-gen.md
-│   │   └── image-generator/      # generate.md
-│   ├── test-brief-wasteland-5.json
-│   └── test-brief-icons.json
-├── docs/
-│   └── AI-HANDOFF.md             # 本文件
-└── output/                       # 生成产物（gitignored）
+│   ├── config.example.json
+│   ├── skills/                 # 四 Agent skill 文档
+│   ├── godot-templates/default/
+│   ├── test-brief-prison*.json # 监狱 demo brief
+│   └── asset-brief.example.json
+├── plans/                      # 示例 handoff plan
+├── docs/AI-HANDOFF.md          # 本文件
+└── output/                     # 生成产物（gitignored）
 ```
+
+**CLI 入口**：在 `cli/` 目录执行 `python gamefactory.py --help`
 
 ---
 
-## 2. 三 Agent 架构
+## 2. 四 Agent 架构
 
-| Agent | Role ID | Skill 文件 | CLI 命令 | 职责 |
-|-------|---------|-----------|----------|------|
-| **Orchestrator** | `orchestrator` | `pipeline.md`, `matting.md` | 编排、后处理 | 读 brief、委派、跑 trim/remove-bg/validate |
-| **Prompt Crafter** | `prompt-crafter` | `asset-planner.md`, `asset-gen.md` | `prompt craft` | LLM 写 prompt → 输出 plan JSON |
-| **Image Generator** | `image-generator` | `generate.md` | `image generate` | 只调图像 API，不写 prompt |
+| Agent | Role ID | Skills | CLI | 职责 |
+|-------|---------|--------|-----|------|
+| Orchestrator | `orchestrator` | `pipeline`, `matting`, `matting-video` | 编排后处理 | brief → 委派；trim/remove-bg/video/godot |
+| Prompt Crafter | `prompt-crafter` | `asset-planner`, `asset-gen` | `prompt craft` | LLM 写 prompt / video_prompt → plan JSON |
+| Image Generator | `image-generator` | `generate` | `image generate` | 只调 OpenRouter 生图 |
+| Video Generator | `video-generator` | `generate` | `video generate` | 只调 Seedance 图生/文生视频 |
 
-### 标准端到端流水线
+**Handoff**：`prompt craft -o plans/x.json` → image/video generator 读 `--plan-file`。
+
+---
+
+## 3. 进度总表（2026-06-25）
+
+### ✅ 已完成
+
+| 模块 | 内容 |
+|------|------|
+| **静图 pipeline** | generate → 纯白 validate → trim → color-key remove-bg → validate-matting |
+| **三类资产规则** | character（白底+抠图）/ background（场景不抠）/ icon_kit（网格 slice+抠图） |
+| **Seedance 视频** | 正确 API、`video generate`、pro/fast/mini、本地参考图 base64 |
+| **视频拆帧** | `video split-frames --frames N`（默认 8，均匀采样） |
+| **视频抠图** | `video matte-frames --engine ai`（rembg BiRefNet），与静图色键分开 |
+| **成本参数** | brief / config / CLI 三级：`model`, `duration`, `resolution`, `ratio`, `generate_audio`, `sprite_frames` |
+| **Godot 基础** | `init` / `inject` / `validate` / `open` / `export` |
+| **Skills** | 7 个 skill 文件，pipeline 元数据已更新 |
+
+### 监狱 demo 已跑通（`output/prison-test/`，gitignored）
+
+| 步骤 | 产出 |
+|------|------|
+| 囚犯角色 v2 | 白底 → trim → 色键 nobg |
+| 监狱场景 | background raw |
+| 4 件 icon | slice → trim → nobg |
+| 走路动画 | 图生视频 mini → 61 帧拆帧 → AI 抠图；8 帧采样已验证 |
+| 参考 brief | `resources/test-brief-prison.json`, `-walk.json`, `-scene-icons.json` |
+
+### 🔜 下一步（优先级）
+
+| P | 任务 | 说明 |
+|---|------|------|
+| **P0** | `godot import-sprites` | 把 `walk_frames_nobg/` → 拷入 `res://` + 生成 `SpriteFrames` |
+| **P0** | Godot 场景模板 | 扩展 `godot-templates/`（AnimatedSprite2D + Player） |
+| **P0** | `godot-assemble` skill | orchestrator 串 init → import → inject → validate |
+| **P1** | 动画 E2E 闭环 | brief → 视频 → 8 帧 → 抠图 → **Godot 可播放 walk** |
+| **P1** | 帧 resize 128×128 | 抠图后统一缩放（目前需手动或 loop） |
+| **P2** | 文档 | `ROADMAP.md` 仍过时（写 Seedance stub），需同步 |
+
+### ⬜ 未完成
+
+| 模块 | 说明 |
+|------|------|
+| Godot 全自动组装 | 不能从 brief 一键到可玩场景 |
+| 音频 BGM/SFX | 未规划实现 |
+| Hermes ↔ gamefactory | 文档有架构，未正式集成 |
+| Electron GUI + MCP IPC | 未来 GUI 层，非 Godot 必需 |
+| CI / golden 回归测试 | 未做 |
+| 一句话端到端 demo | 「做一个 xxx 游戏」→ 可玩工程 |
+
+---
+
+## 4. 两套抠图（必读）
+
+| 来源 | 工具 | 技术 |
+|------|------|------|
+| 静图（character / icon） | `image remove-bg --mode color` | 白底色键，~0.1s，需纯白底 |
+| 视频拆帧 | `video matte-frames --engine ai` | rembg BiRefNet，~5–8s/帧，灰底也行 |
+
+**禁止**对视频帧用静图色键（Seedance 背景会从 ~253 漂到 ~225）。
+
+---
+
+## 5. 标准命令速查
 
 ```bash
 cd cli
 
-# Step 1 — prompt-crafter
-python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-wasteland-5.json \
-  --asset scavenger_scout \
-  -o ../plans/scavenger_scout.json
+# ── 静图 ──
+python gamefactory.py prompt craft --brief ../resources/test-brief-prison.json --asset prison_inmate -o ../plans/prison_inmate.json
+python gamefactory.py image generate --plan-file ../plans/prison_inmate.json -o ../output/prison-test/prison_inmate_raw.png --validate
+python gamefactory.py image trim -i ../output/prison-test/prison_inmate_raw.png -o ../output/prison-test/prison_inmate_trimmed.png
+python gamefactory.py image remove-bg -i ../output/prison-test/prison_inmate_trimmed.png -o ../output/prison-test/prison_inmate_nobg.png
 
-# Step 2 — image-generator
-python gamefactory.py image generate \
-  --plan-file ../plans/scavenger_scout.json \
-  -o ../output/scavenger_scout.png \
-  --validate
+# ── 动画（视频路径）──
+python gamefactory.py prompt craft --brief ../resources/test-brief-prison-walk.json --asset prison_inmate_walk -o ../plans/prison_inmate_walk.json
+python gamefactory.py video generate \
+  --plan-file ../plans/prison_inmate_walk.json \
+  --reference-image ../output/prison-test/prison_inmate_v2_raw.png \
+  --output ../output/prison-test/prison_inmate_walk_mini.mp4
+python gamefactory.py video split-frames \
+  --input ../output/prison-test/prison_inmate_walk_mini.mp4 \
+  --output-dir ../output/prison-test/walk_frames_8 \
+  --frames 8
+python gamefactory.py video matte-frames \
+  --input-dir ../output/prison-test/walk_frames_8 \
+  --output-dir ../output/prison-test/walk_frames_nobg \
+  --engine ai
 
-# Step 3 — orchestrator 后处理（顺序固定）
-python gamefactory.py image trim \
-  --input ../output/scavenger_scout.png \
-  --output ../output/scavenger_scout_trimmed.png
-
-python gamefactory.py image remove-bg \
-  --input ../output/scavenger_scout_trimmed.png \
-  --output ../output/scavenger_scout_nobg.png
-# remove-bg 默认附带 validate-matting；失败 exit code 2
-
-# 可选单独复检
-python gamefactory.py image validate-matting \
-  --input ../output/scavenger_scout_nobg.png
+# ── Godot（当前仅脚手架）──
+python gamefactory.py godot init --path ../games/prison-demo --name "Prison Demo"
+python gamefactory.py godot inject --project ../games/prison-demo --file scripts/player.gd --content "extends Node2D"
+python gamefactory.py godot validate --project ../games/prison-demo
 ```
-
-`asset_pipeline.py` 中各类资产的 `pipeline` 元数据已更新为：`generate_image` → `validate` → `trim` → `remove_bg (color)` → `validate_matting`。
 
 ---
 
-## 3. VPN / 代理配置（必读）
+## 6. 配置（`~/.gamefactory/config.json`）
 
-### 3.1 环境背景
-
-开发机使用 **Clash**（macOS），HTTP 代理端口 **`127.0.0.1:7897`**。  
-OpenRouter（`openrouter.ai`）在中国大陆需走代理；**规则模式**下若 `openrouter.ai` 规则为 DIRECT，即使配置了 proxy 也会地区限制失败。
-
-### 3.2 配置文件
-
-路径：`~/.gamefactory/config.json`  
 模板：`resources/config.example.json`
 
 ```json
@@ -109,224 +168,79 @@ OpenRouter（`openrouter.ai`）在中国大陆需走代理；**规则模式**下
   "prompt": {
     "model": "deepseek/deepseek-chat",
     "api_key": "YOUR_OPENROUTER_KEY",
-    "api_base": "https://openrouter.ai/api/v1",
     "proxy": "http://127.0.0.1:7897"
   },
-  "matting": { "...": "见第 4 节" }
-}
-```
-
-**`image` 与 `prompt` 段都要配 `proxy`**（prompt craft 用 LLM，image generate 用图像 API）。
-
-### 3.3 代理解析优先级（`cli/proxy_utils.py`）
-
-1. CLI `--proxy` 参数  
-2. `config.json` 顶层 `proxy` 或 `image`/`prompt`/`video` 段内的 `proxy`  
-3. 环境变量：`GAMEFACTORY_PROXY`、`http_proxy`、`https_proxy` 等  
-4. macOS 系统代理（`scutil --proxy`，Clash 开启系统代理时可自动读到）
-
-CLI 启动时调用 `activate_proxy(config)`，向进程注入 `http_proxy`/`https_proxy` 等，且 `requests.Session` 设置 `trust_env=False` 强制走配置的 proxy。
-
-### 3.4 Clash 规则模式排错
-
-| 现象 | 原因 | 处理 |
-|------|------|------|
-| 已配 proxy 仍报地区限制 | Clash 规则让 `openrouter.ai` 直连 | 在 Clash 规则加 `DOMAIN-SUFFIX,openrouter.ai,PROXY` |
-| 同上 | 规则模式未命中代理 | 临时切 **全局模式** 验证 |
-| 连接超时 | Clash 未启动或端口不对 | 确认 Clash 监听 `7897`，或改 config 端口 |
-
-代码内错误提示（`region_error_hint()`）：
-> 若已配置代理仍出现地区限制，可能是 Clash 规则模式下 openrouter.ai 走了直连。请在 Clash 规则中将 DOMAIN-SUFFIX,openrouter.ai 设为 PROXY，或临时切换全局模式。
-
-### 3.5 环境变量备选
-
-```bash
-export GAMEFACTORY_PROXY=http://127.0.0.1:7897
-export OPENROUTER_API_KEY=sk-or-...
-```
-
----
-
-## 4. 抠图 / 切图流水线（Matting）
-
-### 4.1 术语（与用户沟通）
-
-| 用户说法 | CLI | 含义 |
-|----------|-----|------|
-| 切图、裁边、去白边 | `image trim` | 按内容外接矩形裁掉四周白边 |
-| 抠图、透明底 | `image remove-bg` | 白底 → 透明 PNG |
-| 检查白边 | `image validate-matting` | 轮廓 1–2px 带检测白晕 |
-| 拆 kit、网格切 | `image slice --mode grid` | icon_kit 网格拆分（**不是**切图） |
-
-### 4.2 色键算法（默认 `--mode color`）
-
-OpenCV 实现，**无 ML**，适合白底黑边精灵：
-
-1. 四角采样背景色 → 亮度 + 色差候选背景像素  
-2. **`key_scope`** 决定抠白范围（见下表）  
-3. （仅 `exterior`）轮廓贴外缘 1px 白晕清理  
-4. Morph：`erode` / `dilate` / `despeckle`  
-5. 硬 alpha（0/255）+ 透明区 RGB 清零  
-
-| `key_scope` | CLI | 行为 |
-|-------------|-----|------|
-| `exterior`（**默认**） | `--key-scope exterior` | 只抠与画布边缘连通的白色（魔术棒），**保留**角色内部浅色高光 |
-| `global` | `--key-scope global` | 所有符合亮度/色差的白色变透明（含内部浅色） |
-
-备选：`--mode ai` 使用 rembg（需 `pip install "rembg[cpu]"`，已从默认 requirements 移除）。
-
-### 4.3 Matting 配置段
-
-```json
-"matting": {
-  "trim": {
-    "threshold": 240,
-    "padding": 2
+  "video": {
+    "api_key": "YOUR_ARK_API_KEY",
+    "api_base": "https://ark.cn-beijing.volces.com/api/v3",
+    "model": "mini",
+    "duration": 4,
+    "resolution": "480p",
+    "ratio": "1:1",
+    "generate_audio": false,
+    "split_frames": { "frames": 8 }
   },
-  "color_key": {
-    "threshold": 235,
-    "fuzz": 24,
-    "key_scope": "exterior",
-    "morph_erode": 2,
-    "morph_dilate": 1,
-    "despeckle": 1
+  "godot": {
+    "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe"
   },
-  "validate_edges": {
-    "edge_width": 2,
-    "brightness_threshold": 220,
-    "max_white_ratio": 0.01,
-    "max_semi_transparent": 0
+  "matting": {
+    "trim": { "threshold": 240, "padding": 2 },
+    "color_key": { "threshold": 235, "fuzz": 24, "key_scope": "exterior" },
+    "video_frames": { "engine": "ai", "model": "birefnet-general" }
   }
 }
 ```
 
-CLI 参数覆盖 config：`--threshold`, `--fuzz`, `--erode`, `--dilate`, `--despeckle`, `--key-scope`。
+**Brief 动画字段**：`duration_seconds`, `sprite_frames`, `video_model`, `video_resolution`, `video_ratio`, `generate_audio`
 
-### 4.4 边缘校验
+**代理**：OpenRouter 需 Clash；规则模式加 `DOMAIN-SUFFIX,openrouter.ai,PROXY`。Seedance 国内一般直连。
 
-`remove-bg` 默认 `--validate-edges`（color 模式）。失败时 **exit 2**，输出 JSON 诊断。
-
-**不要为此重生成图**，按 escalation 调参重跑 `remove-bg`：
-
-```bash
-python gamefactory.py image remove-bg \
-  --input trimmed.png --output nobg_v2.png \
-  --erode 2 --dilate 1 --despeckle 1 --fuzz 24 --threshold 235
-```
-
-| 用户反馈 | 自动动作 |
-|----------|----------|
-| 白边、白晕 | `--erode 2`，`morph_erode: 2` |
-| 白点碎屑 | `--despeckle 1` |
-| 抠完太瘦 | 减 erode、加 dilate |
-| 还有白底 | 先 `trim`，再 `--fuzz 24 --threshold 235` |
-| 四周空白多 | 先 `trim` 再 `remove-bg` |
-
-详细规则见 `resources/skills/orchestrator/matting.md`。
+**视频 AI 抠图依赖**：`pip install "rembg[cpu]"`（首次下载 BiRefNet ~973MB）
 
 ---
 
-## 5. 已完成的开发与测试（2026-06-25）
+## 7. 给后续 AI 的操作原则
 
-### 5.1 Git 历史
-
-| Commit | 内容 |
-|--------|------|
-| `a0fe3b4` | 三 Agent 流水线、`proxy_utils`、prompt craft / image generate handoff |
-| **本次提交** | Matting 全栈：trim、color-key remove-bg、validate-matting、key_scope、config、skills |
-
-### 5.2 生图测试（均已成功）
-
-- 单角色：盗龙、老虎、狮子  
-- 五角色末世套装（`resources/test-brief-wasteland-5.json`）  
-  - `scavenger_scout`, `mutant_boar`, `drone_wasp`, `raider_brute`, `feral_hound`  
-- 输出目录：`output/`、`output/wasteland5/`
-
-### 5.3 抠图测试结果（wasteland5）
-
-| 资产 | 默认参数 | 备注 |
-|------|----------|------|
-| scavenger_scout | ✅ | |
-| drone_wasp | ✅ | |
-| raider_brute | ✅ | |
-| feral_hound | ✅ | |
-| mutant_boar | 需加参 | `--erode 3 --fuzz 28` |
-
-`key_scope` 对比（drone_wasp）：`global` 比 `exterior` 多透明约 3.5 万像素（内部近白区域），行为符合预期。
+1. **生图 validate 失败**（非纯白）→ 回 prompt-crafter 重生成，**不要** trim/remove-bg  
+2. **静图白边** → 调色键参数（erode/fuzz），不要重生成图  
+3. **视频帧** → 只用 `video matte-frames`，不用 `image remove-bg`  
+4. **切图** = `trim`；**拆 kit** = `slice --mode grid`  
+5. **Godot** → 走 CLI，不需要配 MCP；下一步做 import-sprites  
+6. **省钱默认值**：mini + 480p + 4s + 8 帧 + no audio  
 
 ---
 
-## 6. CLI 速查
-
-```bash
-cd cli && pip install -r requirements.txt
-
-# Agent skills
-python gamefactory.py context --brief ../resources/test-brief-wasteland-5.json --asset scavenger_scout
-
-# 图像
-python gamefactory.py image generate --plan-file ../plans/x.json -o ../output/x.png --validate
-python gamefactory.py image trim -i raw.png -o trimmed.png
-python gamefactory.py image remove-bg -i trimmed.png -o nobg.png
-python gamefactory.py image remove-bg -i trimmed.png -o nobg.png --key-scope global
-python gamefactory.py image validate-matting -i nobg.png
-python gamefactory.py image slice -i kit.png --mode grid --rows 2 --cols 2 -o ../output/tiles/
-python gamefactory.py image resize -i ./sprites/ -w 64 -h 64
-
-# Prompt
-python gamefactory.py prompt craft --brief brief.json --asset NAME -o plans/NAME.json
-python gamefactory.py prompt scaffold --brief brief.json --asset NAME -o plans/NAME.json
-```
-
----
-
-## 7. 依赖
-
-`cli/requirements.txt`：
-
-```
-click>=8.1.0
-requests>=2.31.0
-opencv-python-headless>=4.8.0
-numpy>=1.24.0
-# Optional AI matting: pip install "rembg[cpu]"
-```
-
----
-
-## 8. 给后续 AI 的操作原则
-
-1. **生图问题** → 查 proxy / Clash 规则；不要先改抠图参数。  
-2. **白边/抠图问题** → 按 `matting.md` escalation 调参重跑 `remove-bg`；不要重生成图。  
-3. **切图** = `trim`；**拆 kit** = `slice --mode grid`；不要混用。  
-4. **交付资产** → `remove-bg` 后必须通过 `validate-matting`。  
-5. **内部高光被抠掉** → 确认 `key_scope` 为 `exterior`（默认）；若用户要全白透明才用 `global`。  
-6. **读 skill** → `resources/skills/<role>/`；orchestrator 同时加载 `pipeline` + `matting`。
-
----
-
-## 9. 待办 / 未实现
-
-- [ ] README 仍写旧版 `slice --mode auto`、单步 `remove-bg`，可对照本文档更新  
-- [ ] 动画 pipeline 的 batch matting 自动化 CLI 封装  
-- [ ] CI 对 matting 回归测试（golden PNG + validate-matting）  
-- [ ] `mutant_boar` 默认参数是否写入 config preset  
-
----
-
-## 10. 关键文件索引
+## 8. 关键文件索引
 
 | 用途 | 路径 |
 |------|------|
-| 代理 | `cli/proxy_utils.py` |
-| 抠图实现 | `cli/image_cmds.py` → `remove_bg_color_key()` |
-| 配置解析 | `cli/matting_config.py` |
-| 边缘 QA | `cli/matting_validate.py` |
-| Pipeline 元数据 | `cli/asset_pipeline.py` |
-| Orchestrator skill | `resources/skills/orchestrator/matting.md` |
-| 配置模板 | `resources/config.example.json` |
-| 测试 brief | `resources/test-brief-wasteland-5.json` |
+| 动画 pipeline 元数据 | `cli/asset_pipeline.py` → `build_animation_pipeline()` |
+| Seedance API | `cli/seedance_api.py` |
+| 视频参数解析 | `cli/video_config.py` |
+| 拆帧逻辑 | `cli/video_frames.py` |
+| 视频抠图 | `cli/video_matting.py` |
+| 静图抠图 | `cli/image_cmds.py` |
+| Orchestrator skills | `resources/skills/orchestrator/` |
+| Video generator skill | `resources/skills/video-generator/generate.md` |
+| 监狱 walk brief | `resources/test-brief-prison-walk.json` |
+| 示例 plan | `plans/prison_inmate_walk.json` |
 
 ---
 
-*文档版本：2026-06-25 · 与 `main` 分支同步提交*
+## 9. Git / 里程碑
+
+| Commit | 内容 |
+|--------|------|
+| `a0fe3b4` | 三 Agent + proxy |
+| `ef77f0b` | 静图 matting 色键 + 边缘校验 |
+| `c1ac879` | Seedance 视频 + 视频帧 AI 抠图 + 拆帧/成本参数 |
+
+**里程碑进度**：
+- M1 视频流水线 ~95%（缺 Godot 闭环）
+- M2 Hermes 0%
+- M3 GUI 0%
+- M4 完整可玩 demo ~20%
+
+---
+
+*文档版本：2026-06-25 · 与 `main` 同步*
