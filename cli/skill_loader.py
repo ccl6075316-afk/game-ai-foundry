@@ -4,14 +4,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from roles import IMAGE_GENERATOR_ROLE, ORCHESTRATOR_ROLE, PROMPT_CRAFTER_ROLE
+from roles import (
+    IMAGE_GENERATOR_ROLE,
+    ORCHESTRATOR_ROLE,
+    PROMPT_CRAFTER_ROLE,
+    VIDEO_GENERATOR_ROLE,
+)
 
 _SKILLS_ROOT = Path(__file__).resolve().parent.parent / "resources" / "skills"
 
 ROLE_SKILLS: dict[str, tuple[str, ...]] = {
-    ORCHESTRATOR_ROLE: ("pipeline", "matting"),
+    ORCHESTRATOR_ROLE: ("pipeline", "matting", "matting-video"),
     PROMPT_CRAFTER_ROLE: ("asset-planner", "asset-gen"),
     IMAGE_GENERATOR_ROLE: ("generate",),
+    VIDEO_GENERATOR_ROLE: ("generate",),
 }
 
 

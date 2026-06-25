@@ -38,6 +38,18 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["action"] = spec.action
         data["animation_method"] = spec.animation_method
         data["duration_seconds"] = spec.duration_seconds
+        if spec.sprite_frames > 0:
+            data["sprite_frames"] = spec.sprite_frames
+        if spec.video_model:
+            data["video_model"] = spec.video_model
+        if spec.video_resolution:
+            data["video_resolution"] = spec.video_resolution
+        if spec.video_ratio:
+            data["video_ratio"] = spec.video_ratio
+        if spec.generate_audio is not None:
+            data["generate_audio"] = spec.generate_audio
+        if spec.watermark is not None:
+            data["watermark"] = spec.watermark
     return data
 
 

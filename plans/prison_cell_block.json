@@ -1,0 +1,53 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Prison Break Arena",
+      "description": "Top-down action game set in a brutal maximum-security prison.",
+      "art_direction": "gritty stylized 2D game art, desaturated gray-blue palette with orange accents, thick readable silhouettes",
+      "dimension": "2d"
+    },
+    "asset": {
+      "name": "prison_cell_block",
+      "type": "background",
+      "description": "interior of a maximum-security prison cell block corridor, barred cells on both sides, flickering ceiling lights, cracked concrete floor, steam and dust in the air, oppressive atmosphere",
+      "display_size": "1920x1080",
+      "aspect_ratio": "16:9"
+    }
+  },
+  "plan": {
+    "asset_name": "prison_cell_block",
+    "asset_type": "background",
+    "prompt": "Side-scrolling view of a grim, desaturated gray-blue prison cell block corridor. Barred cells on both sides, flickering ceiling lights, cracked concrete floor. Steam and dust drift through the air creating an oppressive atmosphere. Gritty stylized 2D game art with thick readable silhouettes. No character sprites, no UI, environmental background, 3D vista.",
+    "negative_hints": [
+      "Do not use a flat white studio background."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "16:9",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": true,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": false,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null
+  }
+}

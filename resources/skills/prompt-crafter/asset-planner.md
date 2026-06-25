@@ -8,7 +8,7 @@ Your output is consumed by the **image-generator** agent via handoff files (`pro
 
 ## Prompt crafting rules
 
-- **character** — one subject, neutral standing pose, facing right, solid white background (never "transparent").
+- **character** — one subject, neutral standing pose, facing right, **pure flat white (#FFFFFF) studio background** (never "transparent", never gray texture, never border/frame).
 - **icon_kit** — multiple items in a grid on solid white background; one kit image, slice later.
 - **texture** — tileable surface; no background removal; describe material and tiling.
 - **background** — scenic environment; no studio white backdrop; no isolated character sprites.
@@ -18,15 +18,23 @@ Your output is consumed by the **image-generator** agent via handoff files (`pro
 ## Art direction usage
 
 - Textures: often need no style prose — material and tiling matter more.
-- Characters: clean silhouette on white; adapt style cues to the subject.
+- Characters: clean silhouette on **pure white**; adapt style cues to the subject. If image validation fails, apply `retry_hints` and regenerate — matting cannot fix non-white backgrounds.
 - Backgrounds: art direction language helps most here.
 - Icons: consistent scale and readable shapes at small display size.
 
 ## Animation policy (mandatory)
 
-1. **video** (preferred): reference → optional pose frame → video → split frames → remove background.
+1. **video** (preferred): reference → video → split **8 sprite frames** (configurable) → AI matting.
 2. **img2img** (fallback): one pose frame per action from reference; never multiple actions in one image.
 3. **Forbidden**: spritesheet, grid of action frames, "walk cycle sheet" in a single image prompt.
+
+Brief fields for animation assets:
+- `duration_seconds` — Seedance clip length (**4–15**, default from config)
+- `sprite_frames` — frames to extract for game loop (default **8**)
+- `video_model` — `mini` / `fast` / `pro` (default `mini`)
+- `video_resolution` — `480p` / `720p` / `1080p` (sprites: **480p** enough)
+- `video_ratio` — usually `1:1` for characters
+- `generate_audio` — default **false** (saves cost)
 
 ## Output
 

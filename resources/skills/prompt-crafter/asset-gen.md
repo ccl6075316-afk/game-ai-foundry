@@ -8,23 +8,41 @@ Reference patterns only. **Craft** the final prompt for each asset; do not copy 
 - Never request a spritesheet or multiple action frames in one image.
 - For img2img: do not re-describe the whole character — only what changes.
 
+## Asset type separation (mandatory)
+
+Each asset type has **different** prompt rules and **different** post-pipeline. Never mix them.
+
+| Type | Background | Post-process | Forbidden in prompt |
+|------|------------|--------------|---------------------|
+| **character** | Pure white #FFFFFF studio | trim → remove-bg | scenes, walls, icons, grids |
+| **icon_kit** | White studio grid | slice → trim → remove-bg per tile | characters, scenery |
+| **background** | Full environment scene | none (no matting) | white studio, character sprites |
+| **texture** | Tile fills frame | none | white studio, characters |
+
 ## character (single, white background)
 
 ```
 {subject}. Single character, full body, neutral standing pose, facing right, centered.
-Solid white background. Clean silhouette. {art style cues}.
+Pure flat white background (#FFFFFF), uniform studio backdrop, no border, no frame,
+no vignette, no gradient, no texture, no cast shadow on ground. Clean silhouette.
+Not a prison scene — no walls, bars, cells, or floor environment. {art style cues}.
 ```
 
-Validation: one subject region, light background, not a horizontal frame strip.
+Validation: **pure white background** (not merely light gray), one subject region, not a horizontal frame strip.
 
-Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key). User reports 白边 → auto `--erode` / config `morph_erode`.
+If image-generator reports `require_pure_white_background` failure, append the `retry_hints`
+from validation JSON and regenerate — do not send the image to trim/remove-bg.
+
+Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
+
+## icon_kit (grid of items, white background)
 
 ```
 {item1}, {item2}, ... — {rows}x{cols} grid, each item centered in its cell.
-Game item icons, consistent scale. Solid white background. {art style cues}.
+Game item icons, consistent scale. Pure flat white background. {art style cues}.
 ```
 
-Post: grid slice → trim white borders per tile → remove background per tile.
+No characters, no scenery. Post: grid slice → trim white borders per tile → remove background per tile.
 
 ## texture (no white studio bg)
 
@@ -55,7 +73,7 @@ Solid white background.
 {action}, smooth animation, single character, solid white background throughout. Not a spritesheet.
 ```
 
-Workflow: reference image → optional pose still → video → ffmpeg frames → loop trim → rembg.
+Workflow: reference image → video → split-frames → `video matte-frames --engine ai` (not color-key remove-bg).
 
 ## Small sprite warning
 

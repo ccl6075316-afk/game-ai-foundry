@@ -51,6 +51,12 @@ class AssetSpec:
     animation_method: str = ANIMATION_METHOD_VIDEO
     reference_asset: str = ""
     duration_seconds: float = 2.0
+    sprite_frames: int = 0
+    video_model: str = ""
+    video_resolution: str = ""
+    video_ratio: str = ""
+    generate_audio: bool | None = None
+    watermark: bool | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> AssetSpec:
@@ -83,6 +89,12 @@ class AssetSpec:
             animation_method=method,
             reference_asset=str(data.get("reference_asset", "")),
             duration_seconds=float(data.get("duration_seconds", 2.0)),
+            sprite_frames=int(data.get("sprite_frames", 0)),
+            video_model=str(data.get("video_model", "")),
+            video_resolution=str(data.get("video_resolution", "")),
+            video_ratio=str(data.get("video_ratio", "")),
+            generate_audio=bool(data["generate_audio"]) if "generate_audio" in data else None,
+            watermark=bool(data["watermark"]) if "watermark" in data else None,
         )
 
 

@@ -137,3 +137,4 @@ python gamefactory.py image remove-bg -i trimmed.png -o nobg.png \
 - Do not use `image slice` for single-character trim.
 - Do not skip `validate-matting` after `remove-bg` on deliverable assets.
 - Do not re-generate art for pure matting / white-edge issues.
+- Do not use this pipeline on **video animation frames** — use **matting-video** skill (`video matte-frames`).

@@ -283,7 +283,7 @@ def image() -> None:
     type=click.Path(exists=True, path_type=Path),
     help="Reference image for img2img when plan requires it.",
 )
-@click.option("--validate/--no-validate", default=False, help="Validate output using plan rules.")
+@click.option("--validate/--no-validate", default=True, help="Validate output using plan rules (required gate before matting).")
 @click.option(
     "--output",
     required=True,
@@ -553,9 +553,16 @@ image.add_command(validate_matting_cmd)
 image.add_command(resize_cmd)
 
 # Register video subcommands
-from video_cmds import generate_cmd as video_generate_cmd, split_frames_cmd  # noqa: E402
+from video_cmds import (  # noqa: E402
+    generate_cmd as video_generate_cmd,
+    matte_frames_cmd,
+    models_cmd,
+    split_frames_cmd,
+)
 video.add_command(video_generate_cmd)
+video.add_command(models_cmd)
 video.add_command(split_frames_cmd)
+video.add_command(matte_frames_cmd)
 
 # Register godot subcommands
 from godot_cmds import init_cmd, inject_cmd, validate_cmd, open_cmd, export_cmd  # noqa: E402

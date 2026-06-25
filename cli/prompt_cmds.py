@@ -16,7 +16,7 @@ from asset_pipeline import (
     find_asset,
     load_brief,
 )
-from plan_io import build_handoff, save_handoff
+from plan_io import build_handoff, build_video_handoff, save_handoff
 from prompt_craft import PromptCraftError
 from shared_context import build_role_context
 
@@ -28,15 +28,17 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
     @click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
     @click.option("--asset", default=None, help="Single asset (default: all).")
     @click.option("--animation", is_flag=True, help="Animation pipeline metadata.")
-    def scaffold_cmd(brief_path: Path, asset: str | None, animation: bool) -> None:
+    @click.pass_context
+    def scaffold_cmd(ctx: click.Context, brief_path: Path, asset: str | None, animation: bool) -> None:
         """Pipeline/validation metadata only — no LLM, no prompt text."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
         try:
             project, assets = load_brief(brief_path)
             if asset:
                 spec = find_asset(assets, asset)
                 if animation or (spec.action and spec.type == AssetType.CHARACTER):
                     payload = build_animation_pipeline(
-                        project, spec, assets, craft=False
+                        project, spec, assets, craft=False, config=config
                     ).to_dict()
                 else:
                     payload = build_prompt_scaffold(project, spec).to_dict()
@@ -47,7 +49,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     if spec.action and spec.type == AssetType.CHARACTER:
                         payloads.append(
                             build_animation_pipeline(
-                                project, spec, assets, craft=False
+                                project, spec, assets, craft=False, config=config
                             ).to_dict()
                         )
                     else:
@@ -67,7 +69,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         "output_path",
         default=None,
         type=click.Path(path_type=Path),
-        help="Save handoff JSON for image-generator agent.",
+        help="Save handoff JSON for image-generator or video-generator agent.",
     )
     @click.option("--prompt-model", default=None)
     @click.option("--api-key", default=None)
@@ -107,6 +109,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             "api_key": prompt_api["api_key"],
             "api_base": prompt_api["api_base"],
             "proxy": prompt_api["proxy"],
+            "config": config,
         }
 
         try:
@@ -114,16 +117,25 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             spec = find_asset(assets, asset)
             context = build_role_context(project, spec)
 
-            if animation or (spec.action and spec.type == AssetType.CHARACTER):
+            is_animation = animation or (
+                spec.action and spec.type == AssetType.CHARACTER
+            )
+            if is_animation:
                 plan = build_animation_pipeline(project, spec, assets, **craft_kwargs)
             else:
                 plan = build_prompt(project, spec, **craft_kwargs)
 
-            if not plan.prompt and not plan.video_prompt:
-                click.echo("Error: LLM did not produce a prompt.", err=True)
-                sys.exit(1)
+            if is_animation:
+                if not plan.video_prompt:
+                    click.echo("Error: LLM did not produce video_prompt.", err=True)
+                    sys.exit(1)
+                handoff = build_video_handoff(plan.to_dict(), context=context)
+            else:
+                if not plan.prompt:
+                    click.echo("Error: LLM did not produce a prompt.", err=True)
+                    sys.exit(1)
+                handoff = build_handoff(plan.to_dict(), context=context)
 
-            handoff = build_handoff(plan.to_dict(), context=context)
             if output_path:
                 save_handoff(output_path, handoff)
                 click.echo(str(output_path.resolve()))

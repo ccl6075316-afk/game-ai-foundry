@@ -22,6 +22,27 @@ KEY_SCOPE_EXTERIOR = "exterior"
 KEY_SCOPE_GLOBAL = "global"
 KEY_SCOPES = (KEY_SCOPE_EXTERIOR, KEY_SCOPE_GLOBAL)
 
+ENGINE_AI = "ai"
+ENGINE_SOFT_KEY = "soft-key"
+VIDEO_FRAME_ENGINES = (ENGINE_AI, ENGINE_SOFT_KEY)
+
+DEFAULT_VIDEO_FRAME = {
+    "engine": ENGINE_AI,
+    "model": "birefnet-general",
+    "trim": {
+        "threshold": 200,
+        "padding": 2,
+    },
+    "soft_key": {
+        "threshold": 200,
+        "fuzz": 36.0,
+        "key_scope": "global",
+        "morph_erode": 1,
+        "morph_dilate": 1,
+        "despeckle": 1,
+    },
+}
+
 DEFAULT_VALIDATE_EDGES = {
     "edge_width": 2,
     "brightness_threshold": 220,
@@ -137,4 +158,75 @@ def resolve_validate_edges_settings(
             max_semi_transparent,
             DEFAULT_VALIDATE_EDGES["max_semi_transparent"],
         ),
+    }
+
+
+def resolve_video_frame_settings(
+    config: dict[str, Any],
+    *,
+    engine: str | None = None,
+    model: str | None = None,
+    threshold: int | None = None,
+    fuzz: float | None = None,
+    key_scope: str | None = None,
+    morph_erode: int | None = None,
+    morph_dilate: int | None = None,
+    despeckle: int | None = None,
+    trim_threshold: int | None = None,
+    trim_padding: int | None = None,
+) -> dict[str, Any]:
+    """Settings for video frame matting (matting.video_frames)."""
+    cfg = _section(config, "video_frames")
+    resolved_engine = engine or cfg.get("engine") or DEFAULT_VIDEO_FRAME["engine"]
+    if resolved_engine not in VIDEO_FRAME_ENGINES:
+        resolved_engine = ENGINE_AI
+
+    trim_cfg = cfg.get("trim", {}) if isinstance(cfg.get("trim"), dict) else {}
+    soft_cfg = cfg.get("soft_key", {}) if isinstance(cfg.get("soft_key"), dict) else {}
+
+    resolved_scope = key_scope or soft_cfg.get("key_scope") or DEFAULT_VIDEO_FRAME["soft_key"]["key_scope"]
+    if resolved_scope not in KEY_SCOPES:
+        resolved_scope = KEY_SCOPE_GLOBAL
+
+    return {
+        "engine": resolved_engine,
+        "model": str(model or cfg.get("model") or DEFAULT_VIDEO_FRAME["model"]),
+        "trim": {
+            "threshold": int(
+                trim_threshold
+                if trim_threshold is not None
+                else trim_cfg.get("threshold", DEFAULT_VIDEO_FRAME["trim"]["threshold"])
+            ),
+            "padding": int(
+                trim_padding
+                if trim_padding is not None
+                else trim_cfg.get("padding", DEFAULT_VIDEO_FRAME["trim"]["padding"])
+            ),
+        },
+        "soft_key": {
+            "threshold": int(
+                threshold
+                if threshold is not None
+                else soft_cfg.get("threshold", DEFAULT_VIDEO_FRAME["soft_key"]["threshold"])
+            ),
+            "fuzz": float(
+                fuzz if fuzz is not None else soft_cfg.get("fuzz", DEFAULT_VIDEO_FRAME["soft_key"]["fuzz"])
+            ),
+            "key_scope": str(resolved_scope),
+            "morph_erode": int(
+                morph_erode
+                if morph_erode is not None
+                else soft_cfg.get("morph_erode", DEFAULT_VIDEO_FRAME["soft_key"]["morph_erode"])
+            ),
+            "morph_dilate": int(
+                morph_dilate
+                if morph_dilate is not None
+                else soft_cfg.get("morph_dilate", DEFAULT_VIDEO_FRAME["soft_key"]["morph_dilate"])
+            ),
+            "despeckle": int(
+                despeckle
+                if despeckle is not None
+                else soft_cfg.get("despeckle", DEFAULT_VIDEO_FRAME["soft_key"]["despeckle"])
+            ),
+        },
     }

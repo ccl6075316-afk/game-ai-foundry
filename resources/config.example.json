@@ -11,6 +11,19 @@
     "api_base": "https://openrouter.ai/api/v1",
     "proxy": "http://127.0.0.1:7897"
   },
+  "video": {
+    "api_key": "YOUR_ARK_API_KEY",
+    "api_base": "https://ark.cn-beijing.volces.com/api/v3",
+    "model": "mini",
+    "duration": 4,
+    "resolution": "480p",
+    "ratio": "1:1",
+    "generate_audio": false,
+    "watermark": false,
+    "split_frames": {
+      "frames": 8
+    }
+  },
   "matting": {
     "trim": {
       "threshold": 240,
@@ -29,6 +42,19 @@
       "brightness_threshold": 220,
       "max_white_ratio": 0.01,
       "max_semi_transparent": 0
+    },
+    "video_frames": {
+      "engine": "ai",
+      "model": "birefnet-general",
+      "trim": { "threshold": 200, "padding": 2 },
+      "soft_key": {
+        "threshold": 200,
+        "fuzz": 36,
+        "key_scope": "global",
+        "morph_erode": 1,
+        "morph_dilate": 1,
+        "despeckle": 1
+      }
     }
   }
 }

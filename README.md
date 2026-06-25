@@ -84,9 +84,9 @@ python gamefactory.py video generate \
   --prompt "A dragon flying over mountains" \
   --output ./output/dragon.mp4
 
-# Split video into frames
+# Split video into sprite frames (default 8; walk cycles usually 4–12)
 python gamefactory.py video split-frames \
-  --input video.mp4 --output-dir ./frames/
+  --input video.mp4 --output-dir ./frames/ --frames 8
 ```
 
 ### Godot Project

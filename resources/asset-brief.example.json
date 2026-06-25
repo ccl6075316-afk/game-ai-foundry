@@ -19,7 +19,10 @@
       "action": "walking to the right, smooth walk cycle",
       "reference_asset": "knight",
       "animation_method": "video",
-      "duration_seconds": 2
+      "duration_seconds": 4,
+      "sprite_frames": 8,
+      "video_model": "mini",
+      "video_resolution": "480p"
     },
     {
       "name": "knight_attack_pose",

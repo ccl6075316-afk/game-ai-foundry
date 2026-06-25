@@ -1,0 +1,30 @@
+{
+  "project": {
+    "title": "Prison Break Arena",
+    "description": "Top-down action game set in a brutal maximum-security prison.",
+    "art_direction": "gritty stylized 2D game art, desaturated gray-blue palette with orange accents, thick readable silhouettes",
+    "dimension": "2d"
+  },
+  "assets": [
+    {
+      "name": "prison_inmate",
+      "type": "character",
+      "description": "hardened prison inmate fighter, orange jumpsuit with number patch, shaved head, scarred knuckles, heavy boots",
+      "display_size": "128x128 px"
+    },
+    {
+      "name": "prison_inmate_walk",
+      "type": "character",
+      "description": "same prison inmate character",
+      "action": "smooth walk cycle to the right, loopable stride, arms swinging naturally, side view",
+      "reference_asset": "prison_inmate",
+      "animation_method": "video",
+      "duration_seconds": 4,
+      "sprite_frames": 8,
+      "video_model": "mini",
+      "video_resolution": "480p",
+      "video_ratio": "1:1",
+      "generate_audio": false
+    }
+  ]
+}

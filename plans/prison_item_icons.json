@@ -1,0 +1,78 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Prison Break Arena",
+      "description": "Top-down action game set in a brutal maximum-security prison.",
+      "art_direction": "gritty stylized 2D game art, desaturated gray-blue palette with orange accents, thick readable silhouettes",
+      "dimension": "2d"
+    },
+    "asset": {
+      "name": "prison_item_icons",
+      "type": "icon_kit",
+      "description": "",
+      "display_size": "64x64 px per icon",
+      "aspect_ratio": "1:1",
+      "items": [
+        "rusty shiv",
+        "prison guard baton",
+        "handcuffs",
+        "contraband cigarette pack"
+      ],
+      "grid": "2x2"
+    }
+  },
+  "plan": {
+    "asset_name": "prison_item_icons",
+    "asset_type": "icon_kit",
+    "prompt": "Rusty shiv, prison guard baton, handcuffs, contraband cigarette pack, in a 2x2 grid, each item centered in its cell. Gritty stylized 2D game art, desaturated gray-blue palette with orange accents, thick readable silhouettes, consistent scale. Pure flat white background (#FFFFFF), uniform studio backdrop, no border, no frame.",
+    "negative_hints": [
+      "One kit image — slice into separate icons after generation."
+    ],
+    "validation": {
+      "asset_type": "icon_kit",
+      "grid": "2x2",
+      "item_count": 4,
+      "require_pure_white_background": true,
+      "min_subject_regions": 2
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "slice",
+        "mode": "grid",
+        "grid": "2x2"
+      },
+      {
+        "step": "trim",
+        "per_tile": true
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color",
+        "per_tile": true
+      },
+      {
+        "step": "validate_matting",
+        "per_tile": true
+      }
+    ],
+    "requires_reference_image": false,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null
+  }
+}
