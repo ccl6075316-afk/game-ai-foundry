@@ -542,6 +542,10 @@ from hermes_cmds import hermes_group  # noqa: E402
 
 cli.add_command(hermes_group)
 
+from agent_cmds import agents_group  # noqa: E402
+
+cli.add_command(agents_group)
+
 from pipeline_cmds import pipeline_group  # noqa: E402
 
 cli.add_command(pipeline_group)
@@ -574,8 +578,18 @@ video.add_command(split_frames_cmd)
 video.add_command(matte_frames_cmd)
 
 # Register godot subcommands
-from godot_cmds import init_cmd, inject_cmd, validate_cmd, open_cmd, export_cmd  # noqa: E402
+from godot_cmds import (
+    assemble_cmd,
+    export_cmd,
+    import_sprites_cmd,
+    init_cmd,
+    inject_cmd,
+    open_cmd,
+    validate_cmd,
+)  # noqa: E402
 godot.add_command(init_cmd)
+godot.add_command(import_sprites_cmd)
+godot.add_command(assemble_cmd)
 godot.add_command(inject_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)

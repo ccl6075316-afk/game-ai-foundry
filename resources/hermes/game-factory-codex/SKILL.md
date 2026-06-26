@@ -112,15 +112,15 @@ Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd E:\game-ai-foundry\cli && python gamefactory.py <subcommand> ...",
+  workdir="E:\game-ai-foundry",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
+- `GAMEFACTORY_ROOT=E:\game-ai-foundry`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 - OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
 
@@ -128,10 +128,10 @@ Environment (optional):
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd E:\game-ai-foundry\cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
+  workdir="E:\game-ai-foundry",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="E:\game-ai-foundry"`.

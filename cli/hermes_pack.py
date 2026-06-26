@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from roles import (
+    GODOT_ASSEMBLER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
@@ -25,12 +26,13 @@ DEFAULT_HERMES_SKILLS_DIR = Path.home() / ".hermes" / "skills"
 HERMES_PACKAGES: dict[str, dict[str, Any]] = {
     "game-factory-orchestrator": {
         "role": ORCHESTRATOR_ROLE,
-        "description": "Orchestrate Game AI Foundry: brief → four agents → gamefactory CLI.",
+        "description": "Orchestrate Game AI Foundry: brief → five agents → gamefactory CLI.",
         "tags": ["Game-Dev", "Assets", "Pipeline", "Orchestrator", "Godot"],
         "related": [
             "game-factory-prompt-crafter",
             "game-factory-image-generator",
             "game-factory-video-generator",
+            "game-factory-godot-assembler",
         ],
     },
     "game-factory-prompt-crafter": {
@@ -49,7 +51,13 @@ HERMES_PACKAGES: dict[str, dict[str, Any]] = {
         "role": VIDEO_GENERATOR_ROLE,
         "description": "Call Seedance video API via gamefactory (plan-file + raw reference still).",
         "tags": ["Game-Dev", "Video", "Seedance", "Animation"],
-        "related": ["game-factory-orchestrator", "game-factory-prompt-crafter"],
+        "related": ["game-factory-orchestrator", "game-factory-prompt-crafter", "game-factory-godot-assembler"],
+    },
+    "game-factory-godot-assembler": {
+        "role": GODOT_ASSEMBLER_ROLE,
+        "description": "Assemble Godot 4 .NET projects from PNG/SpriteFrames (assemble handoff).",
+        "tags": ["Game-Dev", "Godot", "CSharp", "Assembly"],
+        "related": ["game-factory-orchestrator", "game-factory-video-generator"],
     },
     "game-factory-codex": {
         "role": None,

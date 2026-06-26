@@ -59,11 +59,37 @@ python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json
 3. Parse exit code + stdout JSON → `record` in manifest
 4. Next wave until done, blocked, or `--stop-on-fail`
 
+## Phase D — Godot assembly (godot-assembler)
+
+After assets exist (especially `*_nobg` / `walk_frames_nobg`):
+
+**Automatic** — `pipeline plan` with default `--godot` appends `{brief}.godot.assemble`:
+
+```bash
+python gamefactory.py pipeline plan \
+  --brief ../resources/test-brief-prison-walk.json \
+  -o ../pipeline/prison-walk.json \
+  --output-dir ../output/prison-test \
+  --godot-project ../games/prison-demo
+
+python gamefactory.py pipeline run --manifest ../pipeline/prison-walk.json --jobs 4
+```
+
+**Manual** — when not using pipeline Godot task:
+
+```bash
+python gamefactory.py godot assemble \
+  --assemble-file ../plans/godot_prison_demo.json
+python gamefactory.py godot validate --project ../games/prison-demo
+```
+
+Delegate to **godot-assembler** skill / `agents resolve --role godot-assembler`. Do **not** use `godot inject` for player scripts (v1 = fixed C# template).
+
 ## Orchestrator role now
 
 - **Not** required to call every `terminal` step
-- Use for: brief, delegating prompt craft, failure triage, Godot assembly (future)
-- Use **`pipeline run`** for: image/video generate, trim, matte, split-frames
+- Use for: brief, delegating prompt craft, failure triage, optional manual Godot assemble
+- Use **`pipeline run`** for: image/video generate, trim, matte, split-frames, **godot assemble (Pass 3)**
 
 ## Worker agents
 

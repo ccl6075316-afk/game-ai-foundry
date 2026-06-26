@@ -5,8 +5,12 @@ __pycache__/
 .venv/
 venv/
 output/
+games/
 *.mp4
 *.png
 *.jpg
 *.jpeg
 config.local.json
+.godot/
+*.import
+**/mono/temp/

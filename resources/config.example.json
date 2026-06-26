@@ -22,7 +22,11 @@
     "watermark": false,
     "ratio_from_reference": "adaptive",
     "split_frames": {
-      "frames": 8
+      "frames": 8,
+      "trim_lead": true,
+      "trim_trail": true,
+      "skip_lead_ratio": 0.25,
+      "skip_trail_ratio": 0.05
     }
   },
   "matting": {
@@ -57,5 +61,19 @@
         "despeckle": 1
       }
     }
+  },
+  "godot": {
+    "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe",
+    "import_trim_lead": true,
+    "import_trim_trail": true,
+    "import_skip_lead_ratio": 0.25,
+    "import_skip_trail_ratio": 0.05
+  },
+  "agents": {
+    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator" },
+    "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
+    "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
+    "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },
+    "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" }
   }
 }

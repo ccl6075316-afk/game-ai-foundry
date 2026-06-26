@@ -20,11 +20,13 @@ from brief import (
     load_brief,
 )
 from roles import (
+    GODOT_ASSEMBLER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
     VIDEO_GENERATOR_ROLE,
 )
+from plan_io import build_godot_handoff, save_handoff
 
 MANIFEST_VERSION = 1
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -412,12 +414,113 @@ def _video_animation_tasks(
     )
 
 
+def _artifact_path_to_repo_rel(artifact_path: str) -> str:
+    """Convert cli-relative artifact path to repo-relative (for godot handoff)."""
+    resolved = (_CLI_DIR / artifact_path).resolve()
+    return rel_to_repo(resolved)
+
+
+def _collect_godot_plan(
+    *,
+    brief_stem: str,
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    output_dir: Path,
+    tasks_by_id: dict[str, PipelineTask],
+    godot_project: Path,
+    sprite_frames_default: int = 8,
+) -> dict[str, Any]:
+    animations: list[dict[str, Any]] = []
+    backgrounds: list[dict[str, Any]] = []
+
+    for spec in assets:
+        kind = classify_asset(spec)
+        if kind == AssetKind.VIDEO_ANIMATION:
+            matte_id = f"{spec.name}.video.matte-frames"
+            if matte_id in tasks_by_id:
+                frames_dir = _artifact_path_to_repo_rel(
+                    tasks_by_id[matte_id].artifacts.get("output_dir", "")
+                )
+            else:
+                frames_dir = rel_to_repo(output_dir / f"{spec.name}_nobg")
+            sprite_count = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
+            animations.append(
+                {
+                    "asset": spec.name,
+                    "frames_dir": frames_dir,
+                    "fps": 12,
+                    "animation_name": "walk" if "walk" in spec.name else spec.name,
+                    "sprite_frames": sprite_count,
+                    "pre_trimmed": True,
+                    "pre_sampled": True,
+                }
+            )
+        elif spec.type == AssetType.BACKGROUND:
+            raw = rel_to_repo(output_dir / f"{spec.name}_raw.png")
+            backgrounds.append({"asset": spec.name, "image": raw})
+
+    idle_still_path: str | None = None
+    for spec in assets:
+        if classify_asset(spec) == AssetKind.VIDEO_ANIMATION and spec.reference_asset.strip():
+            ref = spec.reference_asset.strip()
+            idle_still_path = rel_to_repo(output_dir / f"{ref}_nobg.png")
+            break
+
+    plan: dict[str, Any] = {
+        "project_path": rel_to_repo(godot_project.resolve()),
+        "project_name": project.title or brief_stem.replace("_", " ").title(),
+        "template": "dotnet",
+        "main_scene": "scenes/main.tscn",
+        "animations": animations,
+        "backgrounds": backgrounds,
+    }
+    if idle_still_path:
+        plan["idle_still"] = idle_still_path
+    return plan
+
+
+def _add_godot_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    brief_stem: str,
+    godot_plan: dict[str, Any],
+    assemble_handoff_cli: str,
+    all_asset_task_ids: list[str],
+) -> None:
+    if not godot_plan.get("animations") and not godot_plan.get("backgrounds"):
+        return
+
+    deps = list(all_asset_task_ids)
+    layer = _layer_from_deps(deps, tasks_by_id) if deps else 0
+    assemble_id = f"{brief_stem}.godot.assemble"
+    _add_task(
+        tasks,
+        asset=brief_stem,
+        step="godot.assemble",
+        role=GODOT_ASSEMBLER_ROLE,
+        depends_on=deps,
+        layer=layer,
+        command=(
+            f"python gamefactory.py godot assemble "
+            f"--assemble-file {assemble_handoff_cli} --validate"
+        ),
+        artifacts={
+            "assemble_file": assemble_handoff_cli,
+            "project_path": godot_plan.get("project_path", ""),
+        },
+    )
+    tasks_by_id[assemble_id] = tasks[-1]
+
+
 def build_manifest(
     brief_path: Path,
     *,
     output_dir: Path | None = None,
     plans_dir: Path | None = None,
     sprite_frames_default: int = 8,
+    godot_project: Path | None = None,
+    include_godot: bool = True,
 ) -> dict[str, Any]:
     """Expand brief into a task DAG manifest."""
     brief_path = brief_path.resolve()
@@ -465,7 +568,34 @@ def build_manifest(
             sprite_frames=frames,
         )
 
-    return {
+    asset_task_ids = [t.id for t in tasks]
+
+    godot_handoff_cli = ""
+    if include_godot:
+        if godot_project is None:
+            godot_project = _REPO_ROOT / "games" / brief_path.stem
+        godot_plan = _collect_godot_plan(
+            brief_stem=brief_path.stem,
+            project=project,
+            assets=assets,
+            output_dir=output_dir,
+            tasks_by_id=tasks_by_id,
+            godot_project=godot_project,
+            sprite_frames_default=sprite_frames_default,
+        )
+        handoff_path = plans_dir / f"godot_{brief_path.stem}.json"
+        save_handoff(handoff_path, build_godot_handoff(godot_plan))
+        godot_handoff_cli = cli_relative(handoff_path)
+        _add_godot_tasks(
+            tasks,
+            tasks_by_id,
+            brief_stem=brief_path.stem,
+            godot_plan=godot_plan,
+            assemble_handoff_cli=godot_handoff_cli,
+            all_asset_task_ids=asset_task_ids,
+        )
+
+    manifest: dict[str, Any] = {
         "manifest_version": MANIFEST_VERSION,
         "created_at": _utc_now(),
         "updated_at": _utc_now(),
@@ -483,6 +613,10 @@ def build_manifest(
         },
         "tasks": [t.to_dict() for t in tasks],
     }
+    if include_godot and godot_handoff_cli:
+        manifest["godot_project"] = rel_to_repo(godot_project.resolve())
+        manifest["godot_assemble_file"] = godot_handoff_cli
+    return manifest
 
 
 def load_manifest(path: Path) -> dict[str, Any]:

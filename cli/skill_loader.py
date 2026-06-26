@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from roles import (
+    GODOT_ASSEMBLER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
@@ -18,6 +19,7 @@ ROLE_SKILLS: dict[str, tuple[str, ...]] = {
     PROMPT_CRAFTER_ROLE: ("asset-planner", "asset-gen"),
     IMAGE_GENERATOR_ROLE: ("generate",),
     VIDEO_GENERATOR_ROLE: ("generate",),
+    GODOT_ASSEMBLER_ROLE: ("assemble", "import-sprites"),
 }
 
 

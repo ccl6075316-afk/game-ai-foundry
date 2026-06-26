@@ -10,8 +10,13 @@ from pathlib import Path
 
 import click
 
-# Godot engine path — configurable, falls back to auto-detect
-TEMPLATE_DIR = Path(__file__).resolve().parent.parent / "resources" / "godot-templates" / "default"
+from godot_assemble import GodotAssembleError, assemble_from_plan, init_project_from_template
+from godot_import import GodotImportError, import_sprite_frames
+from plan_io import load_godot_handoff
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+TEMPLATE_DEFAULT = _REPO_ROOT / "resources" / "godot-templates" / "default"
+TEMPLATE_DOTNET = _REPO_ROOT / "resources" / "godot-templates" / "dotnet"
 
 
 def _load_config() -> dict:
@@ -30,7 +35,6 @@ def _get_godot_exe() -> str:
     path = config.get("engine_path")
     if path and Path(path).exists():
         return path
-    # Auto-detect
     candidates = [
         r"E:\Godot_v4.6.1-stable_mono_win64\Godot_v4.6.1-stable_mono_win64_console.exe",
         r"E:\Godot_v4.6.1-stable_mono_win64\Godot_v4.6.1-stable_mono_win64.exe",
@@ -38,28 +42,193 @@ def _get_godot_exe() -> str:
     for c in candidates:
         if Path(c).exists():
             return c
-    return "godot"  # fall back to PATH
+    return "godot"
+
+
+def _template_dir(template: str) -> Path:
+    if template == "dotnet":
+        return TEMPLATE_DOTNET
+    return TEMPLATE_DEFAULT
 
 
 @click.command("init")
 @click.option("--name", required=True, help="Project name.")
 @click.option("--path", "project_path", required=True, type=click.Path(path_type=Path),
               help="Project directory (will be created).")
-def init_cmd(name: str, project_path: Path) -> None:
+@click.option(
+    "--template",
+    type=click.Choice(["dotnet", "default"]),
+    default="dotnet",
+    show_default=True,
+    help="Project template (dotnet = Godot 4 C# / .NET).",
+)
+def init_cmd(name: str, project_path: Path, template: str) -> None:
     """Initialize a new Godot project from template."""
-    if project_path.exists():
-        click.echo(f"Error: {project_path} already exists", err=True)
+    if project_path.exists() and any(project_path.iterdir()):
+        click.echo(f"Error: {project_path} already exists and is not empty", err=True)
         sys.exit(1)
 
-    shutil.copytree(TEMPLATE_DIR, project_path)
-
-    # Update project name in project.godot
-    godot_file = project_path / "project.godot"
-    content = godot_file.read_text()
-    content = content.replace('config/name="Game"', f'config/name="{name}"')
-    godot_file.write_text(content)
+    try:
+        init_project_from_template(project_path, project_name=name, template=template)
+    except GodotAssembleError as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
 
     click.echo(str(project_path.resolve()))
+
+
+@click.command("import-sprites")
+@click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
+              help="Godot project directory.")
+@click.option("--asset", required=True, help="Asset / animation id (folder name under assets/sprites/).")
+@click.option("--input-dir", required=True, type=click.Path(exists=True, file_okay=False, path_type=Path),
+              help="Directory of frame PNGs.")
+@click.option("--pattern", default="frame_*.png", show_default=True)
+@click.option("--fps", type=float, default=12.0, show_default=True)
+@click.option("--animation-name", default=None, help="SpriteFrames animation name (default: asset id).")
+@click.option("--loop/--no-loop", default=True)
+@click.option(
+    "--skip-lead-frames",
+    type=int,
+    default=0,
+    show_default=True,
+    help="Drop first N frames (i2v morph from reference still).",
+)
+@click.option(
+    "--skip-lead-ratio",
+    type=float,
+    default=None,
+    help="Drop this fraction of leading frames before sampling (default 0.25).",
+)
+@click.option(
+    "--skip-trail-ratio",
+    type=float,
+    default=None,
+    help="Drop this fraction of trailing frames after trim (default from config).",
+)
+@click.option(
+    "--sample-frames",
+    "sample_frames",
+    type=int,
+    default=None,
+    help="After trim, evenly sample to this many frames (brief sprite_frames / config).",
+)
+@click.option(
+    "--pre-trimmed/--no-pre-trimmed",
+    default=False,
+    help="Input already time-trimmed by split-frames (skip lead/trail drop).",
+)
+@click.option(
+    "--pre-sampled/--no-pre-sampled",
+    default=False,
+    help="Input already sampled to sprite frame count (skip resample).",
+)
+@click.option(
+    "--trim-lead/--no-trim-lead",
+    default=None,
+    help="Trim i2v head before sampling (default from config).",
+)
+@click.option(
+    "--trim-trail/--no-trim-trail",
+    default=None,
+    help="Trim clip tail before sampling (default from config).",
+)
+def import_sprites_cmd(
+    project_path: Path,
+    asset: str,
+    input_dir: Path,
+    pattern: str,
+    fps: float,
+    animation_name: str | None,
+    loop: bool,
+    skip_lead_frames: int,
+    skip_lead_ratio: float | None,
+    skip_trail_ratio: float | None,
+    sample_frames: int | None,
+    pre_trimmed: bool,
+    pre_sampled: bool,
+    trim_lead: bool | None,
+    trim_trail: bool | None,
+) -> None:
+    """Copy PNG frames into project and generate SpriteFrames .tres."""
+    config_path = Path.home() / ".gamefactory" / "config.json"
+    config: dict = {}
+    if config_path.is_file():
+        try:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            config = {}
+
+    try:
+        result = import_sprite_frames(
+            project_path,
+            asset=asset,
+            input_dir=input_dir,
+            pattern=pattern,
+            fps=fps,
+            animation_name=animation_name,
+            loop=loop,
+            skip_lead_frames=skip_lead_frames,
+            skip_trail_ratio=skip_trail_ratio,
+            skip_lead_ratio=skip_lead_ratio,
+            sample_frames=sample_frames,
+            pre_trimmed=pre_trimmed,
+            pre_sampled=pre_sampled,
+            trim_lead=trim_lead,
+            trim_trail=trim_trail,
+            config=config if isinstance(config, dict) else {},
+        )
+    except GodotImportError as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    click.echo(json.dumps(result, ensure_ascii=False))
+
+
+def _run_validate(project_path: Path) -> None:
+    godot = _get_godot_exe()
+    result = subprocess.run(
+        [godot, "--headless", "--path", str(project_path), "--check-only", "--quit"],
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"Validation failed:\n{result.stderr}\n{result.stdout}")
+
+
+@click.command("assemble")
+@click.option(
+    "--assemble-file",
+    "assemble_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Godot-assembler handoff JSON (consumer_role: godot-assembler).",
+)
+@click.option(
+    "--validate/--no-validate",
+    default=True,
+    help="Run godot validate after assembly.",
+)
+def assemble_cmd(assemble_path: Path, validate: bool) -> None:
+    """godot-assembler agent: build .NET project from handoff plan."""
+    try:
+        handoff = load_godot_handoff(assemble_path)
+        result = assemble_from_plan(handoff["plan"])
+    except (ValueError, json.JSONDecodeError, OSError, GodotAssembleError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    project_path = Path(result["project_path"])
+    click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+
+    if validate:
+        try:
+            _run_validate(project_path)
+            click.echo("OK")
+        except (RuntimeError, subprocess.TimeoutExpired, FileNotFoundError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(2)
 
 
 @click.command("inject")
@@ -84,22 +253,19 @@ def inject_cmd(project_path: Path, file_path: Path, content: str | None) -> None
               help="Godot project directory.")
 def validate_cmd(project_path: Path) -> None:
     """Validate a Godot project using headless syntax check."""
-    godot = _get_godot_exe()
     try:
-        result = subprocess.run(
-            [godot, "--headless", "--path", str(project_path), "--check-only", "--quit"],
-            capture_output=True, text=True, timeout=60
-        )
-        if result.returncode != 0:
-            click.echo(f"Validation failed:\n{result.stderr}", err=True)
-            sys.exit(1)
+        _run_validate(project_path)
         click.echo("OK")
     except subprocess.TimeoutExpired:
         click.echo("Error: validation timed out", err=True)
         sys.exit(1)
     except FileNotFoundError:
+        godot = _get_godot_exe()
         click.echo(f"Error: Godot not found at '{godot}'. Set engine_path in config.", err=True)
         sys.exit(1)
+    except RuntimeError as exc:
+        click.echo(str(exc), err=True)
+        sys.exit(2)
 
 
 @click.command("open")
@@ -107,7 +273,7 @@ def validate_cmd(project_path: Path) -> None:
               help="Godot project directory.")
 def open_cmd(project_path: Path) -> None:
     """Open a Godot project in the editor."""
-    godot = _get_godot_exe().replace("_console.exe", ".exe")  # use GUI version for editor
+    godot = _get_godot_exe().replace("_console.exe", ".exe")
     try:
         subprocess.Popen([godot, "--path", str(project_path), "--editor"])
         click.echo(f"Opening {project_path} in Godot...")
@@ -138,7 +304,9 @@ def export_cmd(project_path: Path, target: str, output_path: Path) -> None:
         result = subprocess.run(
             [godot, "--headless", "--path", str(project_path),
              "--export-release", export_name, str(output_path)],
-            capture_output=True, text=True, timeout=300
+            capture_output=True,
+            text=True,
+            timeout=300,
         )
         if result.returncode != 0:
             click.echo(f"Export failed:\n{result.stderr}", err=True)

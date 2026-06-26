@@ -12,10 +12,11 @@ Game AI Foundry 的编排层是 **[Hermes Agent](https://github.com/NousResearch
   ▼
 Hermes（会话 / 记忆 / skills / gateway）
   │
-  ├─ skill: game-factory-orchestrator  ── 编排、后处理
+  ├─ skill: game-factory-orchestrator  ── 编排、委派
   ├─ skill: game-factory-prompt-crafter ─ terminal → prompt craft
   ├─ skill: game-factory-image-generator ─ terminal → image generate
-  └─ skill: game-factory-video-generator ─ terminal → video generate
+  ├─ skill: game-factory-video-generator ─ terminal → video generate
+  └─ skill: game-factory-godot-assembler ─ terminal → godot assemble
           │
           ▼
      gamefactory CLI（本仓库 cli/）
@@ -24,7 +25,9 @@ Hermes（会话 / 记忆 / skills / gateway）
      output/  plans/  games/
 ```
 
-**一个 Hermes 会话只加载一个 skill**（一个 agent 角色），与仓库内四 Agent 设计一致。
+**一个 Hermes 会话只加载一个 skill**（一个 agent 角色），与仓库内五 Agent 设计一致。
+
+混排说明见 [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md)。
 
 ---
 
@@ -61,6 +64,7 @@ python gamefactory.py hermes install --target ~/my-hermes-skills
 | `game-factory-prompt-crafter` | prompt-crafter | 写 prompt / plan JSON |
 | `game-factory-image-generator` | image-generator | OpenRouter 生图 |
 | `game-factory-video-generator` | video-generator | Seedance 图生视频 |
+| `game-factory-godot-assembler` | godot-assembler | Godot 4 .NET 组装（无 GDScript） |
 | `game-factory-codex` | — | Hermes/Codex 调 terminal 约定 |
 
 查看路径：
@@ -97,6 +101,7 @@ terminal(
 | 写 prompt | `game-factory-prompt-crafter` | `prompt craft -o plans/x.json` |
 | 生图 | `game-factory-image-generator` | `image generate --plan-file ... --validate` |
 | 生视频 | `game-factory-video-generator` | `video generate --plan-file ... --reference-image <raw>` |
+| Godot 组装 | `game-factory-godot-assembler` | `godot assemble --assemble-file ...` |
 | 后处理 | `game-factory-orchestrator` | trim / remove-bg / split-frames / matte-frames |
 
 ---
@@ -125,7 +130,7 @@ Hermes `/codex-runtime codex_app_server` 时，文件编辑走 Codex 沙箱，**
 
 ### 3.3 本仓库 Codex 直接开发
 
-根目录 **`AGENTS.md`** 给 Codex 读：目录结构、四 agent、校验闸门。
+根目录 **`AGENTS.md`** 给 Codex 读：目录结构、五 agent、校验闸门、agent routing。
 
 ---
 
@@ -188,5 +193,6 @@ python gamefactory.py pipeline run --manifest ../pipeline/foo.json --jobs 4
 ## 7. 相关文档
 
 - [`docs/AI-HANDOFF.md`](AI-HANDOFF.md) — 流水线细节、配置、抠图
+- [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md) — pipeline / hermes / cursor / codex 混排
 - [`AGENTS.md`](../AGENTS.md) — Codex 速查
 - [`resources/skills/`](../resources/skills/) — skill 源文件（`hermes sync` 会合并进 SKILL.md）

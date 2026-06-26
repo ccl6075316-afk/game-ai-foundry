@@ -8,13 +8,16 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ---
 
-## Current Status (2026-06-26)
+## Current Status (2026-06-25)
+
+> **Git**：`main` 上 **Godot Assembler 整块尚未 commit**（见下方「进行中」）。上次已推送：`33321d2` pipeline run + wasteland boar idle。
 
 ### ✅ Done
 
-**Four-agent pipeline**
-- orchestrator / prompt-crafter / image-generator / **video-generator**
+**Four-agent pipeline** → **Five-agent pipeline**
+- orchestrator / prompt-crafter / image-generator / video-generator / **godot-assembler**
 - Handoff JSON (`plan_io.py`) + skills in `resources/skills/`
+- Agent routing: `agents show` / `agents resolve` — see `docs/AGENT-ROUTING.md`
 
 **Image**
 - `image generate --plan-file` via OpenRouter
@@ -27,30 +30,43 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 - `seedance_api.py` — correct async task API
 - `video generate` — image-to-video / text-to-video (pro/fast/mini)
 - Cost controls: model, duration, resolution, ratio, audio (brief + config + CLI)
-- `video split-frames --frames N` — default 8 sprite frames, evenly spaced
+- `video split-frames --frames N` — **先裁 i2v 头尾（可关）→ 再均匀采样**
+- `cli/frame_sequence.py` — 共享 trim-then-sample；`trim_lead` / `trim_trail` 配置项
 - `video matte-frames --engine ai` — rembg BiRefNet for video frames (separate from static color-key)
 
-**Godot (scaffold only)**
-- `godot init` / `inject` / `validate` / `open` / `export`
+**Godot (.NET assembly)**
+- `godot init --template dotnet` — Godot 4 .NET C# 模板
+- `godot import-sprites` — trim/sample → PNG → `res://` + SpriteFrames `.tres`
+- `godot assemble --assemble-file` — handoff → 工程 + `idle_still` + validate
+- `games/` — assemble 产出目录（**gitignored**，默认 `games/<brief-stem>/`）
+- Pipeline Pass 3: `{brief}.godot.assemble`（role=`godot-assembler`）
 
 **Hermes / Codex**
 - `hermes sync` / `install` / `paths` / `list` / `show` — SKILL.md packages → `~/.hermes/skills`
-- 5 skills: orchestrator, prompt-crafter, image-generator, video-generator, codex-delegate
-- Docs: `docs/HERMES-CODEX.md`, `AGENTS.md`
+- 6 skills: orchestrator, prompt-crafter, image-generator, video-generator, **godot-assembler**, codex-delegate
+- Docs: `docs/HERMES-CODEX.md`, `docs/AGENT-ROUTING.md`, `AGENTS.md`
 
 **Pipeline 程序 runner**
 - `pipeline plan` / `run` / `reset` / `status` — subprocess 自动执行 manifest DAG，`--jobs` 并行
 - 默认跳过 `prompt.craft`（需先有 `plans/`）；`--run-prompts` 可含 LLM
 - `resources/skills/orchestrator/pipeline-schedule.md`
 
-**Verified demo**: prison walk; dino idle; **wasteland mutant_boar idle** (`pipeline run` E2E)
+**Verified demo**: prison walk + **Godot assemble** (`games/prison-demo`)；dino idle；wasteland mutant_boar idle
+
+### 🔄 进行中（本地已写，未 commit）
+
+- 五 Agent + `godot-assembler` CLI / skills / Hermes 包
+- `agent_routing` + `agents show/resolve`
+- i2v **trim-then-sample** + `trim_lead`/`trim_trail` 用户配置
+- `games/prison-demo`、`plans/godot_prison_demo.json`（demo 在本地，不进 git）
+- 单元测试：`test_frame_sequence.py`、`test_video_frames.py`
 
 ### 🔜 Next (P0)
 
-- [ ] `godot import-sprites` — PNG frames → `res://` + SpriteFrames
-- [ ] Godot scene templates (AnimatedSprite2D, player)
-- [ ] orchestrator `godot-assemble` skill
-- [ ] E2E: brief → assets → Godot playable walk animation
+- [ ] **Git commit** — 上述 Godot Assembler 变更合入 `main`
+- [ ] **Pipeline 全链 E2E** — brief → `pipeline run`（含 Pass 3 godot.assemble）→ 可玩工程
+- [ ] Frame resize 128×128 post-matte
+- [ ] One-shot brief → playable export（编排层，非新 CLI）
 
 ### ⬜ Not Started
 
@@ -76,10 +92,10 @@ User (Cursor / Hermes / future GUI)
                      ├── video generate   → Volcengine Seedance
                      ├── video split/matte → ffmpeg + rembg
                      ├── image trim/remove-bg → OpenCV color key
-                     └── godot *          → Godot headless CLI
+                     └── godot assemble/import → Godot 4 .NET (C#)
         │
         ▼
-   output/  →  Godot project (assembly TBD)
+   output/  →  games/  (Godot 组装产物，gitignored)
 ```
 
 ---
@@ -88,17 +104,18 @@ User (Cursor / Hermes / future GUI)
 
 | Milestone | Progress | Notes |
 |-----------|----------|-------|
-| M1 Video pipeline | ~95% | Missing Godot import + playable loop |
-| M2 Hermes + pipeline | ~85% | skills + program runner; Kanban optional |
+| M1 Video + Godot pipeline | ~100% | 拆帧 trim/sample + assemble + prison E2E |
+| M2 Hermes + pipeline | ~90% | 五 Agent + routing；Kanban 可选 |
 | M3 GUI skeleton | 0% | |
-| M4 Full playable demo | ~20% | Assets work; no auto Godot assembly |
+| M4 Full playable demo | ~50% | Godot walk 可玩；缺 pipeline 一键 Godot + 一句话编排 |
 
 ---
 
 ## Quick Start for AI Agents
 
 1. **Read first**: `docs/AI-HANDOFF.md` (detailed status, commands, config)
-2. **Hermes/Codex**: `docs/HERMES-CODEX.md` — `python gamefactory.py hermes install`
+2. **Agent routing**: `docs/AGENT-ROUTING.md` — executor mix (pipeline / hermes / cursor / codex)
+3. **Hermes/Codex**: `docs/HERMES-CODEX.md` — `python gamefactory.py hermes install`
 3. **CLI**: `cd cli && python gamefactory.py --help`
 3. **Config**: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 4. **Output**: `output/` (gitignored)

@@ -35,14 +35,15 @@ python gamefactory.py pipeline run --manifest ../pipeline/<run>.json
 | prompt-crafter | `prompt craft` only |
 | image-generator | `image generate --plan-file` |
 | video-generator | `video generate --plan-file` + raw reference |
-| orchestrator | `pipeline run` / trim / matte — **prefer `pipeline run` over manual terminal** |
+| godot-assembler | `godot assemble --assemble-file` / `import-sprites` — **C# .NET only, no GDScript** |
+| orchestrator | brief, delegate, failure triage — **prefer `pipeline run` over manual terminal** |
 
-Read `docs/AI-HANDOFF.md` and `resources/skills/orchestrator/pipeline-schedule.md`.
+Read `docs/AI-HANDOFF.md`, `docs/AGENT-ROUTING.md`, and `resources/skills/orchestrator/pipeline-schedule.md`.
 
 ## Critical rules
 
 1. **Validate before matting** — `exit 2` → regenerate prompt, not matting.
-2. **Animation** — raw still to Seedance; adaptive ratio; no trim before i2v.
+2. **Animation** — raw still to Seedance only; split-frames skips lead-in (~15%); idle = separate `*_nobg.png`, not reference still or anim frame 0.
 3. **Video frames** — `video matte-frames --engine ai`, not `image remove-bg`.
 4. **Image post** — `image trim/remove-bg` use `--input` / `--output` (not `-i`/`-o`).
 

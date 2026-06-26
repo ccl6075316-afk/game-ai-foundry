@@ -1,6 +1,6 @@
 ---
 name: game-factory-orchestrator
-description: "Orchestrate Game AI Foundry: brief → four agents → gamefactory CLI."
+description: "Orchestrate Game AI Foundry: brief → five agents → gamefactory CLI."
 version: 1.0.0
 author: Game AI Foundry
 license: MIT
@@ -8,13 +8,13 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Game-Dev, Assets, Pipeline, Orchestrator, Godot]
-    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator]
+    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator, game-factory-godot-assembler]
 ---
 # Game Factory Orchestrator
 
 # Orchestrator
 
-You are the **orchestrator** agent. You coordinate **four** separate agents.
+You are the **orchestrator** agent. You coordinate **five** separate agents.
 You are none of them.
 
 | Agent | Role | CLI |
@@ -23,13 +23,18 @@ You are none of them.
 | **prompt-crafter** | writes prompts | `prompt craft` |
 | **image-generator** | calls image API | `image generate --plan-file` |
 | **video-generator** | calls Seedance API | `video generate --plan-file` |
+| **godot-assembler** | Godot .NET assembly | `godot assemble --assemble-file` |
+
+Resolve routing: `python gamefactory.py agents show` (see **AGENT-ROUTING** in `docs/`).
 
 ## Your job
 
 - Read `brief.json` and shared context.
 - Delegate prompt writing to the **prompt-crafter** agent (separate session/skill).
 - Delegate image API calls to the **image-generator** agent (separate session/skill).
-- Run post-process CLI (`trim`, `remove-bg`, `slice`, `video`, `godot`) **only after** image-generator `--validate` passes. See **matting** skill for 切图/抠图与用户反馈处理（白边→腐蚀等）.
+- Delegate Godot assembly to the **godot-assembler** agent — **`godot assemble --assemble-file`**, not `godot inject` / GDScript.
+- Prefer **`pipeline run`** for trim, matte, split-frames, and Godot Pass 3 (default executor=`pipeline` for workers).
+- Run post-process CLI (`trim`, `remove-bg`, `slice`, `video`) **only after** image-generator `--validate` passes. See **matting** skill.
 - If image validate fails with `next_action: prompt_crafter_regenerate`, delegate prompt revision — never matting on a bad background.
 - Retry or escalate on validation failure.
 
@@ -37,9 +42,10 @@ You are none of them.
 
 - Do not craft prompts (no `prompt craft` in your session).
 - Do not call image APIs directly (no `image generate --prompt` in your session).
-- Do not load `prompt-crafter/` or `image-generator/` skills.
+- Do not write GDScript or C# game code (godot-assembler uses fixed .NET templates).
+- Do not load `prompt-crafter/`, `image-generator/`, or `godot-assembler/` skills in your session.
 
-## Shared context (all three agents)
+## Shared context (all agents)
 
 ```bash
 python gamefactory.py context --brief brief.json --asset knight
@@ -47,9 +53,11 @@ python gamefactory.py context --brief brief.json --asset knight
 
 Same `{ project, asset }` JSON — each agent loads **its own** skills only.
 
-## Three-agent pipeline
+## Multi-asset pipeline
 
 For **multiple assets** after brief sign-off, use **pipeline manifest** (parallel by layer). See **pipeline-schedule** skill.
+
+Pass 3 (when `--godot` default): `{brief}.godot.assemble` runs `godot assemble --assemble-file … --validate`.
 
 Serial single-asset example:
 
@@ -63,15 +71,13 @@ python gamefactory.py image generate \
   --plan-file plans/knight.json \
   --output output/knight.png --validate
 # If exit 2 + next_action=prompt_crafter_regenerate → DO NOT trim/remove-bg.
-# Send retry_hints back to prompt-crafter, regenerate plan, retry image generate.
 
-# Step 3 — orchestrator: post-process ONLY after image validate passed
+# Step 3 — orchestrator or pipeline: post-process ONLY after image validate passed
 python gamefactory.py image trim \
   --input output/knight.png --output output/knight_trimmed.png
 
 python gamefactory.py image remove-bg \
   --input output/knight_trimmed.png --output output/knight_nobg.png
-# remove-bg 默认跑 validate-matting；失败则按 matting skill 调 erode/fuzz 重试
 ```
 
 ## Animation (Seedance — video-generator agent)
@@ -80,8 +86,9 @@ python gamefactory.py image remove-bg \
 2. image-generator: reference still must pass `--validate` (pure white bg)
 3. **video-generator**: `video generate --plan-file plans/knight_walk.json --reference-image output/knight_raw.png --model mini`
    - Use **raw** still from step 2 — **do not trim** before Seedance
-4. orchestrator: `video split-frames --frames 8` → `video matte-frames --engine ai` (not `image remove-bg`)
-5. Never one image with multiple action frames.
+4. pipeline or orchestrator: `video split-frames --frames 8` → `video matte-frames --engine ai` (not `image remove-bg`)
+5. **godot-assembler**: `godot assemble --assemble-file plans/godot_knight.json` (or pipeline Pass 3)
+6. Never one image with multiple action frames.
 
 Video frame matting details: see **matting-video** skill.
 
@@ -149,11 +156,37 @@ python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json
 3. Parse exit code + stdout JSON → `record` in manifest
 4. Next wave until done, blocked, or `--stop-on-fail`
 
+## Phase D — Godot assembly (godot-assembler)
+
+After assets exist (especially `*_nobg` / `walk_frames_nobg`):
+
+**Automatic** — `pipeline plan` with default `--godot` appends `{brief}.godot.assemble`:
+
+```bash
+python gamefactory.py pipeline plan \
+  --brief ../resources/test-brief-prison-walk.json \
+  -o ../pipeline/prison-walk.json \
+  --output-dir ../output/prison-test \
+  --godot-project ../games/prison-demo
+
+python gamefactory.py pipeline run --manifest ../pipeline/prison-walk.json --jobs 4
+```
+
+**Manual** — when not using pipeline Godot task:
+
+```bash
+python gamefactory.py godot assemble \
+  --assemble-file ../plans/godot_prison_demo.json
+python gamefactory.py godot validate --project ../games/prison-demo
+```
+
+Delegate to **godot-assembler** skill / `agents resolve --role godot-assembler`. Do **not** use `godot inject` for player scripts (v1 = fixed C# template).
+
 ## Orchestrator role now
 
 - **Not** required to call every `terminal` step
-- Use for: brief, delegating prompt craft, failure triage, Godot assembly (future)
-- Use **`pipeline run`** for: image/video generate, trim, matte, split-frames
+- Use for: brief, delegating prompt craft, failure triage, optional manual Godot assemble
+- Use **`pipeline run`** for: image/video generate, trim, matte, split-frames, **godot assemble (Pass 3)**
 
 ## Worker agents
 
@@ -442,15 +475,15 @@ Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd E:\game-ai-foundry\cli && python gamefactory.py <subcommand> ...",
+  workdir="E:\game-ai-foundry",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
+- `GAMEFACTORY_ROOT=E:\game-ai-foundry`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 - OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
 
@@ -458,10 +491,10 @@ Environment (optional):
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd E:\game-ai-foundry\cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
+  workdir="E:\game-ai-foundry",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="E:\game-ai-foundry"`.

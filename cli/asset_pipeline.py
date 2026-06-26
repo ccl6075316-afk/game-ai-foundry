@@ -330,7 +330,7 @@ def build_animation_pipeline(
                     "reference_use_raw": True,
                     "note": "Pass image-generate raw PNG to Seedance — never trim/crop before i2v",
                 },
-                {"step": "video_split_frames", "frames": sprite_frames},
+                {"step": "video_split_frames", "frames": sprite_frames, "skip_lead_ratio": 0.25},
                 {"step": "video_matte_frames", "engine": "ai", "trim": False, "batch": True},
             ],
             requires_reference_image=True,

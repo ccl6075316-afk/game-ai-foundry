@@ -1,7 +1,7 @@
 # Game AI Foundry — AI Agent Handoff
 
 > **读者**：后续接手的 AI Agent / 自动化编排器。  
-> **最后更新**：2026-06-26  
+> **最后更新**：2026-06-25  
 > 无需翻阅完整对话历史即可继续工作。
 
 ---
@@ -11,6 +11,15 @@
 **自然语言描述游戏 → AI 生成资产（图、动画、音频、代码）→ 组装 Godot 工程 → 可玩**
 
 编排模式：**brief 定稿 → AI 写 prompt → `pipeline run` 程序执行 CLI**；Hermes/Cursor 仅用于沟通与异常，**不必逐步 terminal 盯流水线**。
+
+### 0.1 开发期 vs 运行期（谁在干活）
+
+| 模式 | 实际执行者 | 说明 |
+|------|------------|------|
+| **开发期（当前）** | Cursor Agent 单会话 | 编排 + 写 CLI + 跑命令 + 调试（如 Godot Assembler 实现） |
+| **运行期（目标）** | 主 Agent 编排 + **`pipeline run`** | 资产/Godot 由 subprocess 自动跑；AI 只管 brief、prompt、失败 |
+
+代码已按五 Agent 拆分；**生产时应收缩 Cursor 职责**，不要长期「一个对话包打天下」。
 
 ---
 
@@ -32,10 +41,15 @@ game-ai-foundry/
 │   ├── seedance_api.py         # Volcengine Seedance 异步 API
 │   ├── video_cmds.py           # video generate / split-frames / matte-frames
 │   ├── video_config.py         # 视频生成参数解析（成本可控）
-│   ├── video_frames.py         # 拆帧（--frames 均匀采样）
+│   ├── video_frames.py         # 拆帧（trim 头尾 → 均匀采样）
+│   ├── frame_sequence.py       # 共享 trim-then-sample + trim_lead/trim_trail 解析
 │   ├── video_matting.py        # 视频帧 AI 抠图（rembg）
 │   ├── image_cmds.py           # trim / remove-bg / slice / resize / validate-matting
-│   ├── godot_cmds.py           # init / inject / validate / open / export
+│   ├── godot_cmds.py           # init / import-sprites / assemble / validate / open
+│   ├── godot_assemble.py       # handoff → .NET 工程组装
+│   ├── godot_import.py         # PNG → SpriteFrames .tres
+│   ├── agent_routing.py        # config.agents 解析
+│   ├── agent_cmds.py           # agents show / resolve
 │   ├── matting_config.py
 │   ├── plan_io.py              # handoff JSON
 │   ├── pipeline_manifest.py    # brief → DAG manifest
@@ -47,11 +61,13 @@ game-ai-foundry/
 ├── pipeline/                   # manifest JSON（调度状态）
 ├── resources/
 │   ├── config.example.json
-│   ├── skills/                 # 四 Agent skill 文档
+│   ├── skills/                 # 五 Agent skill 文档
 │   ├── hermes/                 # 生成的 Hermes SKILL 包
-│   ├── godot-templates/default/
+│   ├── godot-templates/dotnet/ # Godot 4 .NET 模板（C#）
+│   ├── agents.example.json     # 默认 agent 路由
 │   ├── test-brief-prison*.json # 监狱 demo brief
 │   └── asset-brief.example.json
+├── games/                      # Godot 组装产物（gitignored，同 output/）
 ├── plans/                      # 示例 handoff plan
 ├── docs/AI-HANDOFF.md          # 本文件
 └── output/                     # 生成产物（gitignored）
@@ -61,20 +77,25 @@ game-ai-foundry/
 
 ---
 
-## 2. 四 Agent 架构
+## 2. 五 Agent 架构
 
 | Agent | Role ID | Skills | CLI | 职责 |
 |-------|---------|--------|-----|------|
-| Orchestrator | `orchestrator` | `pipeline`, `matting`, `matting-video` | 编排后处理 | brief → 委派；trim/remove-bg/video/godot |
+| Orchestrator | `orchestrator` | `pipeline`, `matting`, `matting-video` | 编排、委派 | brief → 委派；失败 triage |
 | Prompt Crafter | `prompt-crafter` | `asset-planner`, `asset-gen` | `prompt craft` | LLM 写 prompt / video_prompt → plan JSON |
 | Image Generator | `image-generator` | `generate` | `image generate` | 只调 OpenRouter 生图 |
 | Video Generator | `video-generator` | `generate` | `video generate` | 只调 Seedance 图生/文生视频 |
+| Godot Assembler | `godot-assembler` | `assemble`, `import-sprites` | `godot assemble` | PNG → Godot 4 .NET 工程（**无 GDScript**） |
 
-**Handoff**：`prompt craft -o plans/x.json` → image/video generator 读 `--plan-file`。
+**Handoff**：`prompt craft -o plans/x.json` → image/video generator 读 `--plan-file`；Godot 读 `godot assemble --assemble-file plans/godot_*.json`。
+
+**Agent 路由**：`python gamefactory.py agents show`；详见 `docs/AGENT-ROUTING.md`。
 
 ---
 
 ## 3. 进度总表（2026-06-25）
+
+> **Git 状态**：`main` 相对 `origin/main` 有大量 **未 commit** 改动（Godot Assembler 全栈）。已推送最新：`33321d2`（pipeline run + wasteland boar idle）。
 
 ### ✅ 已完成
 
@@ -83,11 +104,16 @@ game-ai-foundry/
 | **静图 pipeline** | generate → 纯白 validate → trim → color-key remove-bg → validate-matting |
 | **三类资产规则** | character（白底+抠图）/ background（场景不抠）/ icon_kit（网格 slice+抠图） |
 | **Seedance 视频** | 正确 API、`video generate`、pro/fast/mini、本地参考图 base64 |
-| **视频拆帧** | `video split-frames --frames N`（默认 8，均匀采样） |
+| **视频拆帧** | `video split-frames`：**先裁 i2v 头尾（可配置）→ 再按 `sprite_frames` 采样** |
+| **帧序列工具** | `cli/frame_sequence.py`；`trim_lead` / `trim_trail` 开关 + ratio |
 | **视频抠图** | `video matte-frames --engine ai`（rembg BiRefNet），与静图色键分开 |
 | **成本参数** | brief / config / CLI 三级：`model`, `duration`, `resolution`, `ratio`, `generate_audio`, `sprite_frames` |
-| **Godot 基础** | `init` / `inject` / `validate` / `open` / `export` |
-| **Skills** | 7 个 skill 文件，pipeline 元数据已更新 |
+| **Godot 组装** | init / import-sprites / assemble / validate；Pass 3；`idle_still` 独立静图 |
+| **Godot .NET 模板** | C# Player（WASD+方向键）+ AnimatedSprite2D；静止显 IdleStill |
+| **godot-assembler Agent** | 第五 Worker；`agents show`；默认 executor=`pipeline` |
+| **Agent 路由文档** | `docs/AGENT-ROUTING.md`、`resources/agents.example.json` |
+| **Skills / Hermes** | godot-assembler 包；orchestrator 改为委派 assemble |
+| **单元测试** | `test_frame_sequence.py`、`test_video_frames.py` |
 
 ### 监狱 demo 已跑通（`output/prison-test/`，gitignored）
 
@@ -96,40 +122,45 @@ game-ai-foundry/
 | 囚犯角色 v2 | 白底 → trim → 色键 nobg |
 | 监狱场景 | background raw |
 | 4 件 icon | slice → trim → nobg |
-| 走路动画 | 图生视频 mini → 61 帧拆帧 → AI 抠图；8 帧采样已验证 |
+| 走路动画 | 图生视频 → 抠图 → assemble（61→裁→采 8 帧）→ **Godot 可播 walk** |
+| Godot 工程 | `games/prison-demo`（本地 assemble 产出，`games/` 已 gitignore） |
 | 参考 brief | `resources/test-brief-prison.json`, `-walk.json`, `-scene-icons.json` |
 
 ### 🔜 下一步（优先级）
 
 | P | 任务 | 说明 |
 |---|------|------|
-| **P0** | `godot import-sprites` | 把 `walk_frames_nobg/` → 拷入 `res://` + 生成 `SpriteFrames` |
-| **P0** | Godot 场景模板 | 扩展 `godot-templates/`（AnimatedSprite2D + Player） |
-| **P0** | `godot-assemble` skill | orchestrator 串 init → import → inject → validate |
-| **P1** | 动画 E2E 闭环 | brief → 视频 → 8 帧 → 抠图 → **Godot 可播放 walk** |
-| **P1** | 帧 resize 128×128 | 抠图后统一缩放（目前需手动或 loop） |
-| **P2** | 文档 | `ROADMAP.md` 仍过时（写 Seedance stub），需同步 |
+| **P0** | Git commit | 合入 Godot Assembler + trim/sample + 文档 |
+| **P0** | Pipeline 全链 E2E | brief → `pipeline run` 含 `{brief}.godot.assemble` → 打开可玩 |
+| **P1** | 帧 resize 128×128 | 抠图后统一缩放 |
+| **P2** | script-crafter（可选） | LLM 写 C#；v1 仍用固定模板 |
 
 ### ⬜ 未完成
 
 | 模块 | 说明 |
 |------|------|
-| Godot 全自动组装 | 不能从 brief 一键到可玩场景 |
 | 音频 BGM/SFX | 未规划实现 |
-| Hermes ↔ gamefactory | ✅ `hermes sync/install` + `docs/HERMES-CODEX.md`；Kanban 多会话待做 |
-| Pipeline 程序 runner | ✅ `pipeline plan/run/reset`；默认跳过 prompt.craft（plans 已存在时） |
-| Electron GUI + MCP IPC | 未来 GUI 层，非 Godot 必需 |
+| Hermes Kanban 多会话 | ✅ `hermes sync/install`；Kanban 待做 |
+| Electron GUI + MCP IPC | 未来 GUI 层 |
 | CI / golden 回归测试 | 未做 |
-| 一句话端到端 demo | 「做一个 xxx 游戏」→ 可玩工程 |
+| 一句话端到端 demo | brief → 可玩（资产+Godot 分步已通；编排未自动化） |
+| pipeline plan 写 godot handoff | manifest 含 assemble 任务；`plans/godot_*.json` 生成待验证 |
 
 ---
 
-## 4. 两套抠图（必读）
+## 4. 两套抠图 + 动画帧选取（必读）
 
 | 来源 | 工具 | 技术 |
 |------|------|------|
 | 静图（character / icon） | `image remove-bg --mode color` | 白底色键，~0.1s，需纯白底 |
 | 视频拆帧 | `video matte-frames --engine ai` | rembg BiRefNet，~5–8s/帧，灰底也行 |
+
+**图生视频过渡帧**：Seedance 从参考静图「渐入」动作，片头几帧颜色/形态与正式动作不一致。
+
+- **禁止**把拆帧结果的前几帧当 idle 或 SpriteFrames 首帧
+- **禁止**把送给 Seedance 的 `*_raw.png` 当作游戏内站立图（与 walk 帧违和）
+- `video split-frames` 默认 **trim_lead/trim_trail=true**，再按 `sprite_frames` 采样；可配置关闭
+- Godot 静止态用 **独立** 角色 `*_nobg.png`（handoff `idle_still`），不用动画第 0 帧
 
 **禁止**对视频帧用静图色键（Seedance 背景会从 ~253 漂到 ~225）。
 
@@ -161,10 +192,14 @@ python gamefactory.py video matte-frames \
   --output-dir ../output/prison-test/walk_frames_nobg \
   --engine ai
 
-# ── Godot（当前仅脚手架）──
-python gamefactory.py godot init --path ../games/prison-demo --name "Prison Demo"
-python gamefactory.py godot inject --project ../games/prison-demo --file scripts/player.gd --content "extends Node2D"
+# ── Godot（godot-assembler agent）──
+python gamefactory.py godot assemble --assemble-file ../plans/godot_prison_demo.json
 python gamefactory.py godot validate --project ../games/prison-demo
+python gamefactory.py godot open --project ../games/prison-demo
+
+# ── Agent 路由 ──
+python gamefactory.py agents show
+python gamefactory.py agents resolve --role godot-assembler
 
 # ── Pipeline（brief 定稿后程序 runner）──
 python gamefactory.py pipeline plan \
@@ -210,10 +245,22 @@ python gamefactory.py hermes paths     # 输出 repo_root / cli_dir（Hermes ter
     "resolution": "480p",
     "ratio": "1:1",
     "generate_audio": false,
-    "split_frames": { "frames": 8 }
+    "split_frames": {
+      "frames": 8,
+      "trim_lead": true,
+      "trim_trail": true,
+      "skip_lead_ratio": 0.25,
+      "skip_trail_ratio": 0.05
+    }
   },
   "godot": {
-    "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe"
+    "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe",
+    "import_trim_lead": true,
+    "import_trim_trail": true
+  },
+  "agents": {
+    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator" },
+    "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" }
   },
   "matting": {
     "trim": { "threshold": 240, "padding": 2 },
@@ -237,8 +284,9 @@ python gamefactory.py hermes paths     # 输出 repo_root / cli_dir（Hermes ter
 2. **静图白边** → 调色键参数（erode/fuzz），不要重生成图  
 3. **视频帧** → 只用 `video matte-frames`，不用 `image remove-bg`  
 4. **切图** = `trim`；**拆 kit** = `slice --mode grid`  
-5. **Godot** → 走 CLI，不需要配 MCP；下一步做 import-sprites  
-6. **省钱默认值**：mini + 480p + 4s + 8 帧 + no audio  
+5. **Godot** → 委派 **godot-assembler**：`godot assemble --assemble-file`；pipeline Pass 3 可自动跑  
+6. **Agent 路由** → `docs/AGENT-ROUTING.md` + `agents show`  
+7. **省钱默认值**：mini + 480p + 4s + 8 帧 + no audio  
 
 ---
 
@@ -249,13 +297,16 @@ python gamefactory.py hermes paths     # 输出 repo_root / cli_dir（Hermes ter
 | 动画 pipeline 元数据 | `cli/asset_pipeline.py` → `build_animation_pipeline()` |
 | Seedance API | `cli/seedance_api.py` |
 | 视频参数解析 | `cli/video_config.py` |
-| 拆帧逻辑 | `cli/video_frames.py` |
+| 拆帧 + trim/sample | `cli/video_frames.py`, `cli/frame_sequence.py` |
 | 视频抠图 | `cli/video_matting.py` |
 | 静图抠图 | `cli/image_cmds.py` |
 | Orchestrator skills | `resources/skills/orchestrator/` |
 | Video generator skill | `resources/skills/video-generator/generate.md` |
 | 监狱 walk brief | `resources/test-brief-prison-walk.json` |
-| 示例 plan | `plans/prison_inmate_walk.json` |
+| Godot assemble | `cli/godot_assemble.py`, `cli/godot_import.py` |
+| Godot handoff | `plans/godot_prison_demo.json` |
+| Agent routing | `cli/agent_routing.py`, `docs/AGENT-ROUTING.md` |
+| Godot assembler skill | `resources/skills/godot-assembler/` |
 
 ---
 
@@ -263,16 +314,19 @@ python gamefactory.py hermes paths     # 输出 repo_root / cli_dir（Hermes ter
 
 | Commit | 内容 |
 |--------|------|
+| `33321d2` | pipeline run 程序执行器 + wasteland boar idle demo |
+| `a1a2ee4` | Hermes 集成 + pipeline DAG |
+| `c1ac879` | Seedance 视频 + 视频帧 AI 抠图 |
 | `a0fe3b4` | 三 Agent + proxy |
-| `ef77f0b` | 静图 matting 色键 + 边缘校验 |
-| `c1ac879` | Seedance 视频 + 视频帧 AI 抠图 + 拆帧/成本参数 |
+
+**Commit `1a34bd7+`**：godot-assembler 全栈（`games/` 不纳入版本库，与 `output/` 同级忽略）。
 
 **里程碑进度**：
-- M1 视频流水线 ~95%（缺 Godot 闭环）
-- M2 Hermes ~70%（skills install 完成；Kanban/GUI IPC 待做）
+- M1 视频 + Godot 组装 ~100%
+- M2 Hermes + pipeline ~90%
 - M3 GUI 0%
-- M4 完整可玩 demo ~20%
+- M4 完整可玩 demo ~50%（缺 pipeline 一键 Godot + 一句话编排）
 
 ---
 
-*文档版本：2026-06-25 · 与 `main` 同步*
+*文档版本：2026-06-25 · 工作区含未推送 Godot Assembler 变更*

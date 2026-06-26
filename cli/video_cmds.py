@@ -260,6 +260,34 @@ def generate_cmd(
     help="Override video duration for --frames (seconds); auto-detected if omitted.",
 )
 @click.option("--format", "fmt", default="png", help="Output image format (png, jpg).")
+@click.option(
+    "--skip-lead-seconds",
+    type=float,
+    default=None,
+    help="Skip this many seconds at clip start (i2v morph from reference still).",
+)
+@click.option(
+    "--skip-lead-ratio",
+    type=float,
+    default=None,
+    help="Skip this fraction of clip at start (default from config, usually 0.15).",
+)
+@click.option(
+    "--skip-trail-ratio",
+    type=float,
+    default=None,
+    help="Skip this fraction at clip end (default from config, usually 0.05).",
+)
+@click.option(
+    "--trim-lead/--no-trim-lead",
+    default=None,
+    help="Trim i2v lead-in before sampling (default from config video.split_frames.trim_lead).",
+)
+@click.option(
+    "--trim-trail/--no-trim-trail",
+    default=None,
+    help="Trim clip tail before sampling (default from config video.split_frames.trim_trail).",
+)
 def split_frames_cmd(
     input_path: Path,
     output_dir: Path,
@@ -267,8 +295,13 @@ def split_frames_cmd(
     fps: float | None,
     duration_seconds: float | None,
     fmt: str,
+    skip_lead_seconds: float | None,
+    skip_lead_ratio: float | None,
+    skip_trail_ratio: float | None,
+    trim_lead: bool | None,
+    trim_trail: bool | None,
 ) -> None:
-    """Extract sprite frames from video (default: config video.split_frames.frames, usually 8)."""
+    """Extract sprite frames; optional head/tail trim, then sample to --frames."""
     from video_frames import SplitFramesError, split_video_to_frames
 
     config = _load_config()
@@ -281,6 +314,11 @@ def split_frames_cmd(
             frames=frames,
             duration_seconds=duration_seconds,
             fmt=fmt,
+            skip_lead_seconds=skip_lead_seconds,
+            skip_lead_ratio=skip_lead_ratio,
+            skip_trail_ratio=skip_trail_ratio,
+            trim_lead=trim_lead,
+            trim_trail=trim_trail,
         )
     except SplitFramesError as exc:
         click.echo(f"Error: {exc}", err=True)

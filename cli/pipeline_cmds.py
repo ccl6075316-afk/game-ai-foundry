@@ -65,6 +65,17 @@ def pipeline_group() -> None:
     help="Default sprite frame count for video animations.",
 )
 @click.option(
+    "--godot/--no-godot",
+    default=True,
+    help="Append godot-assembler assemble task after assets.",
+)
+@click.option(
+    "--godot-project",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Godot project path (default: games/<brief-stem>).",
+)
+@click.option(
     "--merge",
     "merge_path",
     default=None,
@@ -77,6 +88,8 @@ def plan_cmd(
     output_dir: Path | None,
     plans_dir: Path | None,
     sprite_frames: int,
+    godot: bool,
+    godot_project: Path | None,
     merge_path: Path | None,
 ) -> None:
     """Build task DAG from brief (what to generate, animation deps, layers)."""
@@ -86,6 +99,8 @@ def plan_cmd(
             output_dir=output_dir,
             plans_dir=plans_dir,
             sprite_frames_default=sprite_frames,
+            godot_project=godot_project,
+            include_godot=godot,
         )
         if merge_path is not None:
             merge_manifest_status(manifest, load_manifest(merge_path))
