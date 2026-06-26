@@ -129,45 +129,32 @@ Hermes `/codex-runtime codex_app_server` 时，文件编辑走 Codex 沙箱，**
 
 ---
 
-## 4. 示例：恐龙待机（端到端）
+## 4. 示例：动画（推荐 `pipeline run`）
 
 ```bash
 cd cli
 
-# orchestrator 准备 brief / 路径
-python gamefactory.py hermes paths
-
-# --- prompt-crafter 会话 ---
+# A. AI：brief + plans（可 Hermes prompt-crafter 会话）
 python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-dino-idle.json \
-  --asset raptor_scavenger -o ../plans/raptor_scavenger_v3.json
+  --brief ../resources/test-brief-wasteland-boar-idle.json \
+  --asset mutant_boar -o ../plans/mutant_boar.json
+python gamefactory.py prompt craft --animation \
+  --brief ../resources/test-brief-wasteland-boar-idle.json \
+  --asset mutant_boar_idle -o ../plans/mutant_boar_idle.json
 
-python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-dino-idle.json \
-  --asset raptor_scavenger_idle --animation \
-  -o ../plans/raptor_scavenger_idle.json
-
-# --- image-generator 会话 ---
-python gamefactory.py image generate \
-  --plan-file ../plans/raptor_scavenger_v3.json \
-  --output ../output/dino-idle/raptor_scavenger_raw.png --validate
-
-# --- video-generator 会话（原图，不 trim）---
-python gamefactory.py video generate \
-  --plan-file ../plans/raptor_scavenger_idle.json \
-  --reference-image ../output/dino-idle/raptor_scavenger_raw.png \
-  --output ../output/dino-idle/raptor_idle.mp4
-
-# --- orchestrator 会话 ---
-python gamefactory.py video split-frames \
-  --input ../output/dino-idle/raptor_idle.mp4 \
-  --output-dir ../output/dino-idle/idle_frames --frames 8
-
-python gamefactory.py video matte-frames \
-  --input-dir ../output/dino-idle/idle_frames \
-  --output-dir ../output/dino-idle/idle_nobg \
-  --engine ai --no-trim
+# B. 程序 runner（无需 Hermes 逐步 terminal）
+python gamefactory.py pipeline plan \
+  --brief ../resources/test-brief-wasteland-boar-idle.json \
+  -o ../pipeline/wasteland-boar-idle.json \
+  --output-dir ../output/wasteland5-boar-idle
+python gamefactory.py pipeline run --manifest ../pipeline/wasteland-boar-idle.json --jobs 4
 ```
+
+产物：`output/wasteland5-boar-idle/mutant_boar_idle.mp4`、`mutant_boar_idle_nobg/frame_*.png`。
+
+### 4.1 手动分步（旧方式，仍可用）
+
+见 `docs/AI-HANDOFF.md` §5 单条命令速查；多资产优先 `pipeline run`。
 
 ---
 
@@ -179,7 +166,7 @@ python gamefactory.py hermes install   # 安装到 ~/.hermes/skills
 python gamefactory.py hermes install --copy  # 复制而非 symlink
 python gamefactory.py hermes paths
 python gamefactory.py hermes list
-python gamefactory.py hermes show game-factory-orchestrator
+python gamefactory.py pipeline run --manifest ../pipeline/foo.json --jobs 4
 ```
 
 ---
@@ -192,7 +179,8 @@ python gamefactory.py hermes show game-factory-orchestrator
 | `hermes sync` / `install` | ✅ |
 | `AGENTS.md`（Codex） | ✅ |
 | 本文档 | ✅ |
-| Hermes Kanban / 自动多会话 | ⬜ 待做 |
+| `pipeline run` 程序 runner | ✅ |
+| Hermes Kanban / 自动多会话 | ⬜ 可选 |
 | Electron GUI ↔ Hermes IPC | ⬜ 未来 |
 
 ---

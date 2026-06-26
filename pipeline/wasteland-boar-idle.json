@@ -1,0 +1,339 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-06-26T09:33:26+00:00",
+  "updated_at": "2026-06-26T09:38:07+00:00",
+  "brief": "resources/test-brief-wasteland-boar-idle.json",
+  "project": {
+    "title": "Wasteland Survivors",
+    "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "output/wasteland5-boar-idle",
+    "plans_dir": "plans",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "mutant_boar.prompt.craft",
+      "asset": "mutant_boar",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../resources/test-brief-wasteland-boar-idle.json --asset mutant_boar -o ../plans/mutant_boar.json",
+      "artifacts": {
+        "plan": "../plans/mutant_boar.json"
+      },
+      "result": {
+        "source": "auto_skip",
+        "reason": "plan artifact exists"
+      },
+      "started_at": null,
+      "finished_at": "2026-06-26T09:33:45+00:00"
+    },
+    {
+      "id": "mutant_boar.image.generate",
+      "asset": "mutant_boar",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "mutant_boar.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../plans/mutant_boar.json --output ../output/wasteland5-boar-idle/mutant_boar_raw.png --validate",
+      "artifacts": {
+        "plan": "../plans/mutant_boar.json",
+        "output": "../output/wasteland5-boar-idle/mutant_boar_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.67708333333334
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.67708333333334,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.4050252337817978,
+              "max": 18.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.9994117647058823,
+              "min": 0.92
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.0005147058823529412,
+              "max": 0.02
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 0.9999735054750156,
+              "min": 0.95
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 254.8563233080129,
+              "min": 242.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.02
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        }
+      },
+      "started_at": "2026-06-26T09:33:45+00:00",
+      "finished_at": "2026-06-26T09:33:59+00:00"
+    },
+    {
+      "id": "mutant_boar.image.trim",
+      "asset": "mutant_boar",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "mutant_boar.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../output/wasteland5-boar-idle/mutant_boar_raw.png --output ../output/wasteland5-boar-idle/mutant_boar_trimmed.png",
+      "artifacts": {
+        "input": "../output/wasteland5-boar-idle/mutant_boar_raw.png",
+        "output": "../output/wasteland5-boar-idle/mutant_boar_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_trimmed.png"
+      },
+      "started_at": "2026-06-26T09:36:32+00:00",
+      "finished_at": "2026-06-26T09:36:33+00:00"
+    },
+    {
+      "id": "mutant_boar.image.remove-bg",
+      "asset": "mutant_boar",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "mutant_boar.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../output/wasteland5-boar-idle/mutant_boar_trimmed.png --output ../output/wasteland5-boar-idle/mutant_boar_nobg.png",
+      "artifacts": {
+        "input": "../output/wasteland5-boar-idle/mutant_boar_trimmed.png",
+        "output": "../output/wasteland5-boar-idle/mutant_boar_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_nobg.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "matting",
+          "checks": [
+            {
+              "check": "has_alpha",
+              "passed": true
+            },
+            {
+              "check": "edge_width_px",
+              "value": 2
+            },
+            {
+              "check": "edge_pixels_sampled",
+              "value": 9967
+            },
+            {
+              "check": "bright_edge_pixels",
+              "value": 21,
+              "ratio": 0.002107,
+              "max_ratio": 0.01,
+              "threshold": 220,
+              "passed": true
+            },
+            {
+              "check": "semi_transparent_bright",
+              "value": 0,
+              "max": 0,
+              "passed": true
+            },
+            {
+              "check": "outer_halo_pixels",
+              "value": 0,
+              "passed": true
+            }
+          ],
+          "message": "Matting edge validation passed (bright edge ratio 0.0021 ≤ 0.01).",
+          "next_action": null,
+          "retry_hints": []
+        }
+      },
+      "started_at": "2026-06-26T09:36:33+00:00",
+      "finished_at": "2026-06-26T09:36:34+00:00"
+    },
+    {
+      "id": "mutant_boar_idle.prompt.craft",
+      "asset": "mutant_boar_idle",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --animation --brief ../resources/test-brief-wasteland-boar-idle.json --asset mutant_boar_idle -o ../plans/mutant_boar_idle.json",
+      "artifacts": {
+        "plan": "../plans/mutant_boar_idle.json"
+      },
+      "result": {
+        "source": "auto_skip",
+        "reason": "plan artifact exists"
+      },
+      "started_at": null,
+      "finished_at": "2026-06-26T09:33:45+00:00"
+    },
+    {
+      "id": "mutant_boar_idle.video.generate",
+      "asset": "mutant_boar_idle",
+      "step": "video.generate",
+      "role": "video-generator",
+      "depends_on": [
+        "mutant_boar_idle.prompt.craft",
+        "mutant_boar.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py video generate --plan-file ../plans/mutant_boar_idle.json --reference-image ../output/wasteland5-boar-idle/mutant_boar_raw.png --output ../output/wasteland5-boar-idle/mutant_boar_idle.mp4",
+      "artifacts": {
+        "plan": "../plans/mutant_boar_idle.json",
+        "reference_image": "../output/wasteland5-boar-idle/mutant_boar_raw.png",
+        "output": "../output/wasteland5-boar-idle/mutant_boar_idle.mp4"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "{\"output\": \"/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle.mp4\", \"task_id\": \"cgt-20260626173401-bntgw\", \"model\": \"doubao-seedance-2-0-mini-260615\", \"duration\": 4, \"resolution\": \"480p\", \"ratio\": \"adaptive\", \"ratio_source\": \"reference_image\", \"reference_dimensions\": [1408, 768], \"generate_audio\": false}",
+        "parsed": {
+          "output": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle.mp4",
+          "task_id": "cgt-20260626173401-bntgw",
+          "model": "doubao-seedance-2-0-mini-260615",
+          "duration": 4,
+          "resolution": "480p",
+          "ratio": "adaptive",
+          "ratio_source": "reference_image",
+          "reference_dimensions": [
+            1408,
+            768
+          ],
+          "generate_audio": false
+        },
+        "stderr": "ratio adaptive (adaptive) from reference 1408x768 (aspect 1.8333, nearest standard 16:9)\ntask status: running\ntask status: succeeded"
+      },
+      "started_at": "2026-06-26T09:33:59+00:00",
+      "finished_at": "2026-06-26T09:35:46+00:00"
+    },
+    {
+      "id": "mutant_boar_idle.video.split-frames",
+      "asset": "mutant_boar_idle",
+      "step": "video.split-frames",
+      "role": "orchestrator",
+      "depends_on": [
+        "mutant_boar_idle.video.generate"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py video split-frames --input ../output/wasteland5-boar-idle/mutant_boar_idle.mp4 --output-dir ../output/wasteland5-boar-idle/mutant_boar_idle_frames --frames 8",
+      "artifacts": {
+        "input": "../output/wasteland5-boar-idle/mutant_boar_idle.mp4",
+        "output_dir": "../output/wasteland5-boar-idle/mutant_boar_idle_frames"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle_frames/frame_0008.png",
+        "parsed": {
+          "count": 8,
+          "mode": "frames",
+          "duration_seconds": 4.042,
+          "extract_fps": 1.9794,
+          "target_frames": 8,
+          "output_dir": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle_frames"
+        }
+      },
+      "started_at": "2026-06-26T09:36:32+00:00",
+      "finished_at": "2026-06-26T09:36:32+00:00"
+    },
+    {
+      "id": "mutant_boar_idle.video.matte-frames",
+      "asset": "mutant_boar_idle",
+      "step": "video.matte-frames",
+      "role": "orchestrator",
+      "depends_on": [
+        "mutant_boar_idle.video.split-frames"
+      ],
+      "layer": 4,
+      "status": "done",
+      "command": "python gamefactory.py video matte-frames --input-dir ../output/wasteland5-boar-idle/mutant_boar_idle_frames --output-dir ../output/wasteland5-boar-idle/mutant_boar_idle_nobg --engine ai --no-trim",
+      "artifacts": {
+        "input_dir": "../output/wasteland5-boar-idle/mutant_boar_idle_frames",
+        "output_dir": "../output/wasteland5-boar-idle/mutant_boar_idle_nobg"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle_nobg/frame_0008.png",
+        "parsed": {
+          "count": 8,
+          "engine": "ai",
+          "output_dir": "/Users/czl/projects/game-ai-foundry/output/wasteland5-boar-idle/mutant_boar_idle_nobg"
+        }
+      },
+      "started_at": "2026-06-26T09:36:33+00:00",
+      "finished_at": "2026-06-26T09:38:07+00:00"
+    }
+  ]
+}

@@ -10,9 +10,17 @@
 
 **自然语言描述游戏 → AI 生成资产（图、动画、音频、代码）→ 组装 Godot 工程 → 可玩**
 
-编排模式：**Agent + Skill + `gamefactory` CLI**（Hermes / Cursor 调 terminal，**Godot 部分不需要 MCP**）。
+编排模式：**brief 定稿 → AI 写 prompt → `pipeline run` 程序执行 CLI**；Hermes/Cursor 仅用于沟通与异常，**不必逐步 terminal 盯流水线**。
 
 ---
+
+## 1.1 两阶段生产（推荐）
+
+| 阶段 | 谁 | 做什么 |
+|------|-----|--------|
+| **A 沟通** | 人 + AI | 定 `brief.json`；`prompt craft` → `plans/*.json` |
+| **B 执行** | **`pipeline run`（无 LLM）** | 生图 / 生视频 / trim / 拆帧 / matte；`--jobs N` 并行 |
+| **C 异常** | AI | `exit 2` 校验失败 → 改 prompt → `pipeline reset` → 再 `run` |
 
 ## 1. 项目结构
 
@@ -31,7 +39,8 @@ game-ai-foundry/
 │   ├── matting_config.py
 │   ├── plan_io.py              # handoff JSON
 │   ├── pipeline_manifest.py    # brief → DAG manifest
-│   ├── pipeline_cmds.py        # pipeline plan/ready/record
+│   ├── pipeline_runner.py      # pipeline run（subprocess 自动执行）
+│   ├── pipeline_cmds.py        # pipeline plan/run/reset/…
 │   ├── hermes_pack.py          # Hermes SKILL.md 生成
 │   ├── hermes_cmds.py
 │   └── skill_loader.py
@@ -108,7 +117,7 @@ game-ai-foundry/
 | Godot 全自动组装 | 不能从 brief 一键到可玩场景 |
 | 音频 BGM/SFX | 未规划实现 |
 | Hermes ↔ gamefactory | ✅ `hermes sync/install` + `docs/HERMES-CODEX.md`；Kanban 多会话待做 |
-| Pipeline DAG 调度 | ✅ `pipeline plan/ready/record/reconcile`；orchestrator 扇出并发 |
+| Pipeline 程序 runner | ✅ `pipeline plan/run/reset`；默认跳过 prompt.craft（plans 已存在时） |
 | Electron GUI + MCP IPC | 未来 GUI 层，非 Godot 必需 |
 | CI / golden 回归测试 | 未做 |
 | 一句话端到端 demo | 「做一个 xxx 游戏」→ 可玩工程 |
@@ -134,8 +143,8 @@ cd cli
 # ── 静图 ──
 python gamefactory.py prompt craft --brief ../resources/test-brief-prison.json --asset prison_inmate -o ../plans/prison_inmate.json
 python gamefactory.py image generate --plan-file ../plans/prison_inmate.json -o ../output/prison-test/prison_inmate_raw.png --validate
-python gamefactory.py image trim -i ../output/prison-test/prison_inmate_raw.png -o ../output/prison-test/prison_inmate_trimmed.png
-python gamefactory.py image remove-bg -i ../output/prison-test/prison_inmate_trimmed.png -o ../output/prison-test/prison_inmate_nobg.png
+python gamefactory.py image trim --input ../output/prison-test/prison_inmate_raw.png --output ../output/prison-test/prison_inmate_trimmed.png
+python gamefactory.py image remove-bg --input ../output/prison-test/prison_inmate_trimmed.png --output ../output/prison-test/prison_inmate_nobg.png
 
 # ── 动画（视频路径）──
 python gamefactory.py prompt craft --brief ../resources/test-brief-prison-walk.json --asset prison_inmate_walk -o ../plans/prison_inmate_walk.json
@@ -157,11 +166,16 @@ python gamefactory.py godot init --path ../games/prison-demo --name "Prison Demo
 python gamefactory.py godot inject --project ../games/prison-demo --file scripts/player.gd --content "extends Node2D"
 python gamefactory.py godot validate --project ../games/prison-demo
 
-# ── Pipeline（brief 定稿后并发调度）──
-python gamefactory.py pipeline plan --brief ../resources/test-brief-dino-idle.json -o ../pipeline/dino-idle.json
-python gamefactory.py pipeline ready --manifest ../pipeline/dino-idle.json --json
-python gamefactory.py pipeline record --manifest ../pipeline/dino-idle.json --task-id raptor_scavenger.prompt.craft --status done --exit-code 0
-python gamefactory.py pipeline reconcile --manifest ../pipeline/dino-idle.json
+# ── Pipeline（brief 定稿后程序 runner）──
+python gamefactory.py pipeline plan \
+  --brief ../resources/test-brief-wasteland-boar-idle.json \
+  -o ../pipeline/wasteland-boar-idle.json \
+  --output-dir ../output/wasteland5-boar-idle
+python gamefactory.py prompt craft --brief ../resources/test-brief-wasteland-boar-idle.json --asset mutant_boar -o ../plans/mutant_boar.json
+python gamefactory.py prompt craft --brief ../resources/test-brief-wasteland-boar-idle.json --asset mutant_boar_idle --animation -o ../plans/mutant_boar_idle.json
+python gamefactory.py pipeline run --manifest ../pipeline/wasteland-boar-idle.json --jobs 4
+python gamefactory.py pipeline status --manifest ../pipeline/wasteland-boar-idle.json
+python gamefactory.py pipeline reset --manifest ../pipeline/wasteland-boar-idle.json --task-id mutant_boar.image.generate
 
 # ── Hermes / Codex ──
 python gamefactory.py hermes sync      # 从 resources/skills/ 生成 SKILL.md

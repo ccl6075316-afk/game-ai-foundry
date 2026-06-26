@@ -38,11 +38,12 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 - 5 skills: orchestrator, prompt-crafter, image-generator, video-generator, codex-delegate
 - Docs: `docs/HERMES-CODEX.md`, `AGENTS.md`
 
-**Pipeline DAG 调度**
-- `pipeline plan` / `ready` / `record` / `reconcile` — brief 定稿后按层并发
+**Pipeline 程序 runner**
+- `pipeline plan` / `run` / `reset` / `status` — subprocess 自动执行 manifest DAG，`--jobs` 并行
+- 默认跳过 `prompt.craft`（需先有 `plans/`）；`--run-prompts` 可含 LLM
 - `resources/skills/orchestrator/pipeline-schedule.md`
 
-**Verified demo**: prison character, scene, icons, walk animation; dino idle (img2video → split → matte)
+**Verified demo**: prison walk; dino idle; **wasteland mutant_boar idle** (`pipeline run` E2E)
 
 ### 🔜 Next (P0)
 
@@ -88,7 +89,7 @@ User (Cursor / Hermes / future GUI)
 | Milestone | Progress | Notes |
 |-----------|----------|-------|
 | M1 Video pipeline | ~95% | Missing Godot import + playable loop |
-| M2 Hermes + pipeline | ~75% | skills install + DAG scheduler; Kanban/GUI IPC pending |
+| M2 Hermes + pipeline | ~85% | skills + program runner; Kanban optional |
 | M3 GUI skeleton | 0% | |
 | M4 Full playable demo | ~20% | Assets work; no auto Godot assembly |
 

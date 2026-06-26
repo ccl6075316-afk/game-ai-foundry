@@ -188,7 +188,7 @@ def _post_image_tasks(
                 layer=layer,
                 command=(
                     f"python gamefactory.py image trim "
-                    f"-i {paths['raw_image']} -o {paths['trimmed_image']}"
+                    f"--input {paths['raw_image']} --output {paths['trimmed_image']}"
                 ),
                 artifacts={
                     "input": paths["raw_image"],
@@ -210,7 +210,7 @@ def _post_image_tasks(
                 layer=layer,
                 command=(
                     f"python gamefactory.py image remove-bg "
-                    f"-i {src} -o {paths['nobg_image']}"
+                    f"--input {src} --output {paths['nobg_image']}"
                 ),
                 artifacts={"input": src, "output": paths["nobg_image"]},
             )

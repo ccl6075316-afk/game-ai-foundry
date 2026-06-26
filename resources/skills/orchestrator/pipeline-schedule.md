@@ -1,67 +1,70 @@
 # Pipeline scheduling (concurrent production)
 
-After the **product brief is finalized**, do not run assets one-by-one from memory.
-Build a **manifest DAG**, fan out **ready** tasks in parallel, and **record** results.
+After the **product brief is finalized**, use a **program runner** for CLI work. Reserve Hermes/AI for brief, prompt craft, and failures.
 
-## Phase A — communication (serial)
+## Phase A — AI (serial / parallel sessions)
 
-User + product agent agree on `brief.json`: every static asset, every animation, `reference_asset` links.
+User + prompt-crafter → `brief.json` + `plans/*.json`
 
-## Phase B — production (parallel by layer)
+```bash
+python gamefactory.py prompt craft --brief ../resources/foo.json --asset bar -o ../plans/bar.json
+```
+
+## Phase B — Program runner (no Hermes)
 
 ```bash
 cd cli
 
-# 1. Expand brief → task DAG
+# 1. Build DAG once
 python gamefactory.py pipeline plan \
   --brief ../resources/test-brief-dino-idle.json \
-  -o ../pipeline/dino-idle.json
+  -o ../pipeline/dino-idle.json \
+  --output-dir ../output/dino-idle
 
-# 2. See what can run now (often many prompt.craft at layer 0)
-python gamefactory.py pipeline ready --manifest ../pipeline/dino-idle.json --json
-
-# 3. Fan out: one Hermes session per ready task (same role can run in parallel)
-#    prompt-crafter sessions → all layer-0 prompt.craft tasks
-#    image-generator sessions → all ready image.generate with no mutual deps
-#    video-generator sessions → video.generate when reference still exists
-
-# 4. After each terminal returns, record status (orchestrator only)
-python gamefactory.py pipeline record \
+# 2. Run (skips prompt.craft if plan files exist; parallel --jobs)
+python gamefactory.py pipeline run \
   --manifest ../pipeline/dino-idle.json \
-  --task-id raptor_scavenger.image.generate \
-  --status done --exit-code 0
+  --jobs 4
 
-# 5. Repeat ready → dispatch → record until pipeline status shows complete
+# Dry run first wave
+python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json --dry-run
 
-# Resume after crash: merge old status or reconcile disk artifacts
-python gamefactory.py pipeline plan ... -o ../pipeline/dino-idle.json \
-  --merge ../pipeline/dino-idle.json
-python gamefactory.py pipeline reconcile --manifest ../pipeline/dino-idle.json
+# Status anytime
+python gamefactory.py pipeline status --manifest ../pipeline/dino-idle.json
 ```
 
-## Dependency rules (automatic from brief)
+Default: **`pipeline run` skips `prompt-crafter`** (expects `plans/`). Use `--run-prompts` to call LLM from the runner.
 
-| Asset kind | Tasks |
-|------------|-------|
-| Static (character, bg, icon_kit, texture) | `prompt.craft` → `image.generate` → orchestrator post (trim/remove-bg/slice per type) |
-| Video animation (`action` + `reference_asset`) | `prompt.craft` ∥ ref still; then `video.generate` → `split-frames` → `matte-frames` |
-| `character_pose` | waits for `reference_asset` still, then img2img `image.generate` + post |
+## Phase C — AI on failure only
 
-**Animation uses reference raw still** — `video.generate` depends on `{reference}.image.generate`, not trim/nobg.
+When `pipeline run` exits **2** (validation / pause):
 
-## Orchestrator rules
+1. Read JSON in manifest task `result.parsed`
+2. prompt-crafter fixes plan
+3. Reset and retry:
 
-1. **Never generate** — only `pipeline ready`, delegate, `pipeline record`.
-2. **Parallelize** all tasks in `pipeline ready` with the **same role** across separate sessions.
-3. On `image.generate` **exit 2** → `record --status failed`, re-delegate `prompt.craft` for that asset only.
-4. Do not start `video.generate` until manifest shows `{ref}.image.generate` **done**.
-5. Prefer `pipeline record --exit-code N` over guessing from log text.
+```bash
+python gamefactory.py pipeline reset \
+  --manifest ../pipeline/dino-idle.json \
+  --task-id raptor_scavenger.image.generate \
+  --cascade
+
+python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json
+```
+
+## What the runner does
+
+1. `pipeline ready` — tasks with deps done
+2. Up to `--jobs` parallel **subprocess** (not Hermes terminal)
+3. Parse exit code + stdout JSON → `record` in manifest
+4. Next wave until done, blocked, or `--stop-on-fail`
+
+## Orchestrator role now
+
+- **Not** required to call every `terminal` step
+- Use for: brief, delegating prompt craft, failure triage, Godot assembly (future)
+- Use **`pipeline run`** for: image/video generate, trim, matte, split-frames
 
 ## Worker agents
 
-Workers run **only** the `command` field from their task (from `pipeline show` or `ready --json`).
-They do **not** update the manifest — orchestrator records.
-
-## JSON supervision
-
-After each command, capture stdout. Pass validation JSON to `pipeline record --result-json '...'` when present.
+Still valid as **documentation boundaries**. The runner enforces the same commands without separate Hermes sessions.

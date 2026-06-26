@@ -21,6 +21,7 @@ from pipeline_manifest import (
     save_manifest,
     status_summary,
 )
+from pipeline_runner import reset_task_cascade, run_pipeline
 
 
 @click.group("pipeline")
@@ -257,6 +258,130 @@ def show_cmd(manifest_path: Path, task_id: str) -> None:
         from pipeline_manifest import task_by_id
 
         click.echo(json.dumps(task_by_id(manifest, task_id), ensure_ascii=False, indent=2))
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
+@pipeline_group.command("run")
+@click.option(
+    "--manifest",
+    "manifest_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+)
+@click.option(
+    "--jobs",
+    default=4,
+    show_default=True,
+    type=int,
+    help="Max parallel subprocesses per wave.",
+)
+@click.option(
+    "--run-prompts",
+    is_flag=True,
+    help="Include prompt.craft (LLM). Default: skip if plan file exists.",
+)
+@click.option(
+    "--skip-roles",
+    default=None,
+    help="Comma-separated roles to skip (default: prompt-crafter when not --run-prompts).",
+)
+@click.option(
+    "--stop-on-fail/--no-stop-on-fail",
+    default=True,
+    help="Pause when a task exits non-zero (exit 2 = validation).",
+)
+@click.option(
+    "--timeout",
+    "task_timeout",
+    default=1800.0,
+    show_default=True,
+    type=float,
+    help="Per-task subprocess timeout in seconds.",
+)
+@click.option("--dry-run", is_flag=True, help="Print wave without executing commands.")
+def run_cmd(
+    manifest_path: Path,
+    jobs: int,
+    run_prompts: bool,
+    skip_roles: str | None,
+    stop_on_fail: bool,
+    task_timeout: float,
+    dry_run: bool,
+) -> None:
+    """Run ready manifest tasks via subprocess (no Hermes). Default skips prompt.craft."""
+    skip: set[str] | None = None
+    if skip_roles:
+        skip = {r.strip() for r in skip_roles.split(",") if r.strip()}
+
+    def _on_start(task: dict) -> None:
+        click.echo(f"→ {task['id']}", err=True)
+
+    def _on_finish(outcome) -> None:
+        click.echo(
+            f"  {outcome.task_id}: exit {outcome.exit_code} → {outcome.status}",
+            err=True,
+        )
+
+    try:
+        result = run_pipeline(
+            manifest_path,
+            jobs=jobs,
+            skip_roles=skip,
+            run_prompts=run_prompts,
+            stop_on_fail=stop_on_fail,
+            task_timeout=task_timeout,
+            dry_run=dry_run,
+            on_task_start=_on_start,
+            on_task_finish=_on_finish,
+        )
+        payload = {
+            "complete": result.complete,
+            "paused": result.paused,
+            "blocked": result.blocked,
+            "message": result.message,
+            "summary": result.summary,
+        }
+        if result.last_outcome:
+            payload["last_task"] = result.last_outcome.task_id
+            payload["last_exit_code"] = result.last_outcome.exit_code
+        click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        if result.blocked or result.paused:
+            sys.exit(2 if result.paused else 1)
+        if not result.complete and not dry_run:
+            sys.exit(1)
+    except (ValueError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
+@pipeline_group.command("reset")
+@click.option(
+    "--manifest",
+    "manifest_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+)
+@click.option("--task-id", required=True, help="Task to reset to pending.")
+@click.option(
+    "--cascade/--no-cascade",
+    default=True,
+    help="Also reset downstream dependents.",
+)
+def reset_cmd(manifest_path: Path, task_id: str, cascade: bool) -> None:
+    """Reset task(s) to pending after prompt fix or manual retry."""
+    try:
+        manifest = load_manifest(manifest_path)
+        if cascade:
+            reset_ids = reset_task_cascade(manifest, task_id)
+        else:
+            from pipeline_runner import reset_task
+
+            reset_task(manifest, task_id)
+            reset_ids = [task_id]
+        save_manifest(manifest_path, manifest)
+        click.echo(json.dumps({"reset": reset_ids}, ensure_ascii=False, indent=2))
     except (ValueError, json.JSONDecodeError, OSError) as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)

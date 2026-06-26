@@ -1,0 +1,73 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Wasteland Survivors",
+      "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife.",
+      "art_direction": "gritty stylized 2D game art, muted desaturated palette with rust and toxic green accents, thick readable silhouettes",
+      "dimension": "2d"
+    },
+    "asset": {
+      "name": "mutant_boar",
+      "type": "character",
+      "description": "mutated war boar with armored skull plate, glowing green tusks, rusted chain collar, scarred hide. FULL BODY including hooves and tail, centered with generous white margin, side view facing right, neutral standing pose, non-aggressive",
+      "display_size": "128x128 px",
+      "aspect_ratio": "16:9"
+    }
+  },
+  "plan": {
+    "asset_name": "mutant_boar",
+    "asset_type": "character",
+    "prompt": "Mutated war boar with armored skull plate, glowing green tusks, rusted chain collar, and scarred hide. Full body side view facing right, neutral standing pose showing hooves and tail. Pure flat white background (#FFFFFF), uniform studio backdrop, no shadows or environment. Gritty stylized 2D art with thick readable silhouettes, muted desaturated colors with rust and toxic green accents.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": false,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null
+  }
+}

@@ -125,10 +125,10 @@ See `resources/config.example.json`.
 ## CLI reference
 
 ```bash
-python gamefactory.py image trim -i raw.png -o trimmed.png
-python gamefactory.py image remove-bg -i trimmed.png -o nobg.png
-python gamefactory.py image validate-matting -i nobg.png
-python gamefactory.py image remove-bg -i trimmed.png -o nobg.png \
+python gamefactory.py image trim --input raw.png --output trimmed.png
+python gamefactory.py image remove-bg --input trimmed.png --output nobg.png
+python gamefactory.py image validate-matting --input nobg.png
+python gamefactory.py image remove-bg --input trimmed.png --output nobg.png \
   --erode 2 --dilate 1 --despeckle 1 --fuzz 24 --no-validate-edges
 ```
 
