@@ -1,0 +1,167 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-06-26T09:05:47+00:00",
+  "updated_at": "2026-06-26T09:05:47+00:00",
+  "brief": "resources/test-brief-dino-idle.json",
+  "project": {
+    "title": "Wasteland Survivors",
+    "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "output/test-brief-dino-idle",
+    "plans_dir": "plans",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "raptor_scavenger.prompt.craft",
+      "asset": "raptor_scavenger",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "pending",
+      "command": "python gamefactory.py prompt craft --brief ../resources/test-brief-dino-idle.json --asset raptor_scavenger -o ../plans/raptor_scavenger.json",
+      "artifacts": {
+        "plan": "../plans/raptor_scavenger.json"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger.image.generate",
+      "asset": "raptor_scavenger",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "raptor_scavenger.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "pending",
+      "command": "python gamefactory.py image generate --plan-file ../plans/raptor_scavenger.json --output ../output/test-brief-dino-idle/raptor_scavenger_raw.png --validate",
+      "artifacts": {
+        "plan": "../plans/raptor_scavenger.json",
+        "output": "../output/test-brief-dino-idle/raptor_scavenger_raw.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger.image.trim",
+      "asset": "raptor_scavenger",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "raptor_scavenger.image.generate"
+      ],
+      "layer": 2,
+      "status": "pending",
+      "command": "python gamefactory.py image trim -i ../output/test-brief-dino-idle/raptor_scavenger_raw.png -o ../output/test-brief-dino-idle/raptor_scavenger_trimmed.png",
+      "artifacts": {
+        "input": "../output/test-brief-dino-idle/raptor_scavenger_raw.png",
+        "output": "../output/test-brief-dino-idle/raptor_scavenger_trimmed.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger.image.remove-bg",
+      "asset": "raptor_scavenger",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "raptor_scavenger.image.trim"
+      ],
+      "layer": 3,
+      "status": "pending",
+      "command": "python gamefactory.py image remove-bg -i ../output/test-brief-dino-idle/raptor_scavenger_trimmed.png -o ../output/test-brief-dino-idle/raptor_scavenger_nobg.png",
+      "artifacts": {
+        "input": "../output/test-brief-dino-idle/raptor_scavenger_trimmed.png",
+        "output": "../output/test-brief-dino-idle/raptor_scavenger_nobg.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger_idle.prompt.craft",
+      "asset": "raptor_scavenger_idle",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "pending",
+      "command": "python gamefactory.py prompt craft --animation --brief ../resources/test-brief-dino-idle.json --asset raptor_scavenger_idle -o ../plans/raptor_scavenger_idle.json",
+      "artifacts": {
+        "plan": "../plans/raptor_scavenger_idle.json"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger_idle.video.generate",
+      "asset": "raptor_scavenger_idle",
+      "step": "video.generate",
+      "role": "video-generator",
+      "depends_on": [
+        "raptor_scavenger_idle.prompt.craft",
+        "raptor_scavenger.image.generate"
+      ],
+      "layer": 2,
+      "status": "pending",
+      "command": "python gamefactory.py video generate --plan-file ../plans/raptor_scavenger_idle.json --reference-image ../output/test-brief-dino-idle/raptor_scavenger_raw.png --output ../output/test-brief-dino-idle/raptor_scavenger_idle.mp4",
+      "artifacts": {
+        "plan": "../plans/raptor_scavenger_idle.json",
+        "reference_image": "../output/test-brief-dino-idle/raptor_scavenger_raw.png",
+        "output": "../output/test-brief-dino-idle/raptor_scavenger_idle.mp4"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger_idle.video.split-frames",
+      "asset": "raptor_scavenger_idle",
+      "step": "video.split-frames",
+      "role": "orchestrator",
+      "depends_on": [
+        "raptor_scavenger_idle.video.generate"
+      ],
+      "layer": 3,
+      "status": "pending",
+      "command": "python gamefactory.py video split-frames --input ../output/test-brief-dino-idle/raptor_scavenger_idle.mp4 --output-dir ../output/test-brief-dino-idle/raptor_scavenger_idle_frames --frames 8",
+      "artifacts": {
+        "input": "../output/test-brief-dino-idle/raptor_scavenger_idle.mp4",
+        "output_dir": "../output/test-brief-dino-idle/raptor_scavenger_idle_frames"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": "raptor_scavenger_idle.video.matte-frames",
+      "asset": "raptor_scavenger_idle",
+      "step": "video.matte-frames",
+      "role": "orchestrator",
+      "depends_on": [
+        "raptor_scavenger_idle.video.split-frames"
+      ],
+      "layer": 4,
+      "status": "pending",
+      "command": "python gamefactory.py video matte-frames --input-dir ../output/test-brief-dino-idle/raptor_scavenger_idle_frames --output-dir ../output/test-brief-dino-idle/raptor_scavenger_idle_nobg --engine ai --no-trim",
+      "artifacts": {
+        "input_dir": "../output/test-brief-dino-idle/raptor_scavenger_idle_frames",
+        "output_dir": "../output/test-brief-dino-idle/raptor_scavenger_idle_nobg"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null
+    }
+  ]
+}

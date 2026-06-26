@@ -33,7 +33,7 @@ Brief fields for animation assets:
 - `sprite_frames` — frames to extract for game loop (default **8**)
 - `video_model` — `mini` / `fast` / `pro` (default `mini`)
 - `video_resolution` — `480p` / `720p` / `1080p` (sprites: **480p** enough)
-- `video_ratio` — usually `1:1` for characters
+- `video_ratio` — omit or `"auto"` for image-to-video (**inferred from reference still**); set `16:9` / `1:1` only to force override
 - `generate_audio` — default **false** (saves cost)
 
 ## Output

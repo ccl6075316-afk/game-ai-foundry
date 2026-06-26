@@ -1,7 +1,7 @@
 # Game AI Foundry — AI Agent Handoff
 
 > **读者**：后续接手的 AI Agent / 自动化编排器。  
-> **最后更新**：2026-06-25（Windows 开发机，`E:\game-ai-foundry`）  
+> **最后更新**：2026-06-26  
 > 无需翻阅完整对话历史即可继续工作。
 
 ---
@@ -30,10 +30,16 @@ game-ai-foundry/
 │   ├── godot_cmds.py           # init / inject / validate / open / export
 │   ├── matting_config.py
 │   ├── plan_io.py              # handoff JSON
+│   ├── pipeline_manifest.py    # brief → DAG manifest
+│   ├── pipeline_cmds.py        # pipeline plan/ready/record
+│   ├── hermes_pack.py          # Hermes SKILL.md 生成
+│   ├── hermes_cmds.py
 │   └── skill_loader.py
+├── pipeline/                   # manifest JSON（调度状态）
 ├── resources/
 │   ├── config.example.json
 │   ├── skills/                 # 四 Agent skill 文档
+│   ├── hermes/                 # 生成的 Hermes SKILL 包
 │   ├── godot-templates/default/
 │   ├── test-brief-prison*.json # 监狱 demo brief
 │   └── asset-brief.example.json
@@ -101,7 +107,8 @@ game-ai-foundry/
 |------|------|
 | Godot 全自动组装 | 不能从 brief 一键到可玩场景 |
 | 音频 BGM/SFX | 未规划实现 |
-| Hermes ↔ gamefactory | 文档有架构，未正式集成 |
+| Hermes ↔ gamefactory | ✅ `hermes sync/install` + `docs/HERMES-CODEX.md`；Kanban 多会话待做 |
+| Pipeline DAG 调度 | ✅ `pipeline plan/ready/record/reconcile`；orchestrator 扇出并发 |
 | Electron GUI + MCP IPC | 未来 GUI 层，非 Godot 必需 |
 | CI / golden 回归测试 | 未做 |
 | 一句话端到端 demo | 「做一个 xxx 游戏」→ 可玩工程 |
@@ -149,6 +156,17 @@ python gamefactory.py video matte-frames \
 python gamefactory.py godot init --path ../games/prison-demo --name "Prison Demo"
 python gamefactory.py godot inject --project ../games/prison-demo --file scripts/player.gd --content "extends Node2D"
 python gamefactory.py godot validate --project ../games/prison-demo
+
+# ── Pipeline（brief 定稿后并发调度）──
+python gamefactory.py pipeline plan --brief ../resources/test-brief-dino-idle.json -o ../pipeline/dino-idle.json
+python gamefactory.py pipeline ready --manifest ../pipeline/dino-idle.json --json
+python gamefactory.py pipeline record --manifest ../pipeline/dino-idle.json --task-id raptor_scavenger.prompt.craft --status done --exit-code 0
+python gamefactory.py pipeline reconcile --manifest ../pipeline/dino-idle.json
+
+# ── Hermes / Codex ──
+python gamefactory.py hermes sync      # 从 resources/skills/ 生成 SKILL.md
+python gamefactory.py hermes install   # 安装到 ~/.hermes/skills
+python gamefactory.py hermes paths     # 输出 repo_root / cli_dir（Hermes terminal workdir）
 ```
 
 ---
@@ -237,7 +255,7 @@ python gamefactory.py godot validate --project ../games/prison-demo
 
 **里程碑进度**：
 - M1 视频流水线 ~95%（缺 Godot 闭环）
-- M2 Hermes 0%
+- M2 Hermes ~70%（skills install 完成；Kanban/GUI IPC 待做）
 - M3 GUI 0%
 - M4 完整可玩 demo ~20%
 

@@ -20,6 +20,7 @@
     "ratio": "1:1",
     "generate_audio": false,
     "watermark": false,
+    "ratio_from_reference": "adaptive",
     "split_frames": {
       "frames": 8
     }

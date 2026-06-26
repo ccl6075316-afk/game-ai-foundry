@@ -89,7 +89,7 @@ def models_cmd() -> None:
 @click.option(
     "--ratio",
     default=None,
-    help="Aspect ratio: 16:9, 9:16, 1:1, adaptive, etc. (default 1:1 for sprites).",
+    help="Aspect ratio: 16:9, 9:16, 1:1, auto (infer from --reference-image), etc.",
 )
 @click.option("--generate-audio/--no-generate-audio", default=None, help="Sync audio (default from config/plan).")
 @click.option("--watermark/--no-watermark", default=None, help="AI watermark (default from config/plan).")
@@ -148,7 +148,7 @@ def generate_cmd(
             model=model or plan_overrides.get("model"),
             duration=duration if duration is not None else plan_overrides.get("duration"),
             resolution=resolution or plan_overrides.get("resolution"),
-            ratio=ratio or plan_overrides.get("ratio"),
+            ratio=ratio if ratio is not None else plan_overrides.get("ratio"),
             generate_audio=(
                 generate_audio
                 if generate_audio is not None
@@ -157,10 +157,28 @@ def generate_cmd(
             watermark=(
                 watermark if watermark is not None else plan_overrides.get("watermark")
             ),
+            reference_image=ref_image,
+            cli_ratio=ratio is not None,
         )
     except ValueError as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
+
+    if ref_image is None and video.get("ratio_source") != "cli":
+        click.echo(
+            "Warning: no --reference-image; ratio from plan/config, not still dimensions.",
+            err=True,
+        )
+    elif video.get("ratio_source") == "reference_image":
+        dims = video.get("reference_dimensions", [])
+        mode = video.get("ratio_mode", video["ratio"])
+        nearest = video.get("nearest_standard_ratio")
+        extra = f", nearest standard {nearest}" if nearest else ""
+        click.echo(
+            f"ratio {video['ratio']} ({mode}) from reference {dims[0]}x{dims[1]} "
+            f"(aspect {video.get('reference_aspect')}{extra})",
+            err=True,
+        )
 
     if not resolved_prompt:
         click.echo(
@@ -208,6 +226,8 @@ def generate_cmd(
                 "duration": video["duration"],
                 "resolution": video["resolution"],
                 "ratio": video["ratio"],
+                "ratio_source": video.get("ratio_source"),
+                "reference_dimensions": video.get("reference_dimensions"),
                 "generate_audio": video["generate_audio"],
             },
             ensure_ascii=False,
@@ -303,7 +323,7 @@ def _load_config_for_matting() -> dict:
 )
 @click.option("--model", default=None, help="rembg model (default birefnet-general).")
 @click.option("--pattern", default="frame_*.png", show_default=True)
-@click.option("--trim/--no-trim", default=True, help="Trim gray/white margins before matting.")
+@click.option("--trim/--no-trim", default=False, help="Trim margins before matting (default: off — keep full frame).")
 @click.option("--validate/--no-validate", default=True, help="Relaxed RGBA QA after each frame.")
 @click.option("--threshold", type=int, default=None, help="soft-key brightness threshold.")
 @click.option("--fuzz", type=float, default=None, help="soft-key color tolerance.")

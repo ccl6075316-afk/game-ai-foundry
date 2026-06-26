@@ -9,8 +9,9 @@
     {
       "name": "raptor_scavenger",
       "type": "character",
-      "description": "mutated velociraptor scavenger with scarred scales, torn harness made of scrap metal, one cybernetic glowing green eye, sharp claws",
-      "display_size": "128x128 px"
+      "description": "friendly mutated velociraptor scavenger game character, scarred scales, light scrap harness with small green indicator lights (no weapons), one soft green cyber eye, sharp claws. FULL BODY including entire curved tail tip visible, centered with generous white margin on all sides, side view facing right, non-violent neutral pose",
+      "display_size": "128x128 px",
+      "aspect_ratio": "16:9"
     }
   ]
 }

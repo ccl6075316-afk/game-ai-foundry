@@ -35,8 +35,11 @@ Same `{ project, asset }` JSON — each agent loads **its own** skills only.
 
 ## Three-agent pipeline
 
+For **multiple assets** after brief sign-off, use **pipeline manifest** (parallel by layer). See **pipeline-schedule** skill.
+
+Serial single-asset example:
+
 ```bash
-# Step 1 — prompt-crafter agent (different Hermes skill set)
 python gamefactory.py prompt craft \
   --brief brief.json --asset knight \
   -o plans/knight.json
@@ -61,7 +64,8 @@ python gamefactory.py image remove-bg \
 
 1. prompt-crafter: `prompt craft --animation --asset knight_walk -o plans/knight_walk.json`
 2. image-generator: reference still must pass `--validate` (pure white bg)
-3. **video-generator**: `video generate --plan-file plans/knight_walk.json --reference-image output/knight.png --model mini`
+3. **video-generator**: `video generate --plan-file plans/knight_walk.json --reference-image output/knight_raw.png --model mini`
+   - Use **raw** still from step 2 — **do not trim** before Seedance
 4. orchestrator: `video split-frames --frames 8` → `video matte-frames --engine ai` (not `image remove-bg`)
 5. Never one image with multiple action frames.
 

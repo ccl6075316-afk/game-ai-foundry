@@ -314,7 +314,8 @@ def build_animation_pipeline(
                 {
                     "step": "generate_image",
                     "asset": ref_name,
-                    "note": "character reference still (must pass pure-white validate)",
+                    "note": "character reference still (must pass pure-white validate); save as raw — do NOT trim",
+                    "output_suffix": "_raw",
                 },
                 {
                     "step": "video_generate",
@@ -326,9 +327,11 @@ def build_animation_pipeline(
                     "generate_audio": video["generate_audio"],
                     "watermark": video["watermark"],
                     "reference_asset": ref_name,
+                    "reference_use_raw": True,
+                    "note": "Pass image-generate raw PNG to Seedance — never trim/crop before i2v",
                 },
                 {"step": "video_split_frames", "frames": sprite_frames},
-                {"step": "video_matte_frames", "engine": "ai", "trim": True, "batch": True},
+                {"step": "video_matte_frames", "engine": "ai", "trim": False, "batch": True},
             ],
             requires_reference_image=True,
             requires_background_removal=True,

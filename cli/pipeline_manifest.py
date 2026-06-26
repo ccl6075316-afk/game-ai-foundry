@@ -1,0 +1,629 @@
+"""Pipeline manifest — brief → DAG tasks for concurrent asset production."""
+
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from enum import Enum
+from pathlib import Path
+from typing import Any
+
+from asset_pipeline import _plan_metadata
+from brief import (
+    ANIMATION_METHOD_IMG2IMG,
+    ANIMATION_METHOD_VIDEO,
+    AssetSpec,
+    AssetType,
+    ProjectContext,
+    find_asset,
+    load_brief,
+)
+from roles import (
+    IMAGE_GENERATOR_ROLE,
+    ORCHESTRATOR_ROLE,
+    PROMPT_CRAFTER_ROLE,
+    VIDEO_GENERATOR_ROLE,
+)
+
+MANIFEST_VERSION = 1
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_CLI_DIR = _REPO_ROOT / "cli"
+
+TASK_PENDING = "pending"
+TASK_RUNNING = "running"
+TASK_DONE = "done"
+TASK_FAILED = "failed"
+TASK_SKIPPED = "skipped"
+
+
+class AssetKind(str, Enum):
+    STATIC = "static"
+    VIDEO_ANIMATION = "video_animation"
+    CHARACTER_POSE = "character_pose"
+
+
+@dataclass
+class PipelineTask:
+    id: str
+    asset: str
+    step: str
+    role: str
+    depends_on: list[str] = field(default_factory=list)
+    layer: int = 0
+    status: str = TASK_PENDING
+    command: str = ""
+    artifacts: dict[str, str] = field(default_factory=dict)
+    result: dict[str, Any] | None = None
+    started_at: str | None = None
+    finished_at: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def repo_root() -> Path:
+    return _REPO_ROOT
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def rel_to_repo(path: Path, *, base: Path | None = None) -> str:
+    root = base or _REPO_ROOT
+    path = path.resolve()
+    try:
+        return str(path.relative_to(root.resolve()))
+    except ValueError:
+        return str(path)
+
+
+def cli_relative(path: Path) -> str:
+    """Path as used in commands run from cli/ (gamefactory working directory)."""
+    path = path.resolve()
+    cli = _CLI_DIR.resolve()
+    try:
+        return str(path.relative_to(cli))
+    except ValueError:
+        pass
+    root = _REPO_ROOT.resolve()
+    try:
+        return "../" + str(path.relative_to(root))
+    except ValueError:
+        return str(path)
+
+
+def classify_asset(spec: AssetSpec) -> AssetKind:
+    if spec.type == AssetType.CHARACTER_POSE:
+        return AssetKind.CHARACTER_POSE
+    if spec.type == AssetType.CHARACTER and spec.action.strip():
+        if spec.animation_method == ANIMATION_METHOD_VIDEO:
+            return AssetKind.VIDEO_ANIMATION
+        if spec.animation_method == ANIMATION_METHOD_IMG2IMG:
+            return AssetKind.CHARACTER_POSE
+    return AssetKind.STATIC
+
+
+def _asset_artifacts(output_dir: Path, plans_dir: Path, name: str) -> dict[str, str]:
+    return {
+        "plan": cli_relative(plans_dir / f"{name}.json"),
+        "raw_image": cli_relative(output_dir / f"{name}_raw.png"),
+        "trimmed_image": cli_relative(output_dir / f"{name}_trimmed.png"),
+        "nobg_image": cli_relative(output_dir / f"{name}_nobg.png"),
+        "video": cli_relative(output_dir / f"{name}.mp4"),
+        "frames_dir": cli_relative(output_dir / f"{name}_frames"),
+        "frames_nobg_dir": cli_relative(output_dir / f"{name}_nobg"),
+        "slice_dir": cli_relative(output_dir / f"{name}_tiles"),
+    }
+
+
+def _brief_cli_path(brief_path: Path) -> str:
+    return cli_relative(brief_path)
+
+
+def _add_task(
+    tasks: list[PipelineTask],
+    *,
+    asset: str,
+    step: str,
+    role: str,
+    depends_on: list[str],
+    command: str,
+    artifacts: dict[str, str],
+    layer: int,
+) -> str:
+    task_id = f"{asset}.{step}"
+    tasks.append(
+        PipelineTask(
+            id=task_id,
+            asset=asset,
+            step=step,
+            role=role,
+            depends_on=depends_on,
+            layer=layer,
+            command=command,
+            artifacts=artifacts,
+        )
+    )
+    return task_id
+
+
+def _layer_from_deps(dep_ids: list[str], tasks_by_id: dict[str, PipelineTask]) -> int:
+    if not dep_ids:
+        return 0
+    return max(tasks_by_id[did].layer for did in dep_ids) + 1
+
+
+def _post_image_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    project: ProjectContext,
+    spec: AssetSpec,
+    paths: dict[str, str],
+    brief_cli: str,
+    image_task_id: str,
+) -> None:
+    meta = _plan_metadata(project, spec)
+    pipeline = meta.get("pipeline") or []
+    prev_id = image_task_id
+    name = spec.name
+
+    for step_def in pipeline:
+        if not isinstance(step_def, dict):
+            continue
+        step_name = step_def.get("step")
+        if step_name in ("generate_image", "validate"):
+            continue
+        if step_name == "trim":
+            dep = [prev_id]
+            layer = _layer_from_deps(dep, tasks_by_id)
+            tid = _add_task(
+                tasks,
+                asset=name,
+                step="image.trim",
+                role=ORCHESTRATOR_ROLE,
+                depends_on=dep,
+                layer=layer,
+                command=(
+                    f"python gamefactory.py image trim "
+                    f"-i {paths['raw_image']} -o {paths['trimmed_image']}"
+                ),
+                artifacts={
+                    "input": paths["raw_image"],
+                    "output": paths["trimmed_image"],
+                },
+            )
+            tasks_by_id[tid] = tasks[-1]
+            prev_id = tid
+        elif step_name == "remove_bg":
+            src = paths.get("trimmed_image", paths["raw_image"])
+            dep = [prev_id]
+            layer = _layer_from_deps(dep, tasks_by_id)
+            tid = _add_task(
+                tasks,
+                asset=name,
+                step="image.remove-bg",
+                role=ORCHESTRATOR_ROLE,
+                depends_on=dep,
+                layer=layer,
+                command=(
+                    f"python gamefactory.py image remove-bg "
+                    f"-i {src} -o {paths['nobg_image']}"
+                ),
+                artifacts={"input": src, "output": paths["nobg_image"]},
+            )
+            tasks_by_id[tid] = tasks[-1]
+            prev_id = tid
+        elif step_name == "slice":
+            grid = step_def.get("grid", spec.grid)
+            dep = [prev_id]
+            layer = _layer_from_deps(dep, tasks_by_id)
+            tid = _add_task(
+                tasks,
+                asset=name,
+                step="image.slice",
+                role=ORCHESTRATOR_ROLE,
+                depends_on=dep,
+                layer=layer,
+                command=(
+                    f"python gamefactory.py image slice "
+                    f"--input {paths['raw_image']} --mode grid "
+                    f"--rows {grid.split('x')[0]} --cols {grid.split('x')[1]} "
+                    f"--output-dir {paths['slice_dir']}"
+                ),
+                artifacts={"input": paths["raw_image"], "output_dir": paths["slice_dir"]},
+            )
+            tasks_by_id[tid] = tasks[-1]
+            prev_id = tid
+
+
+def _static_asset_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    project: ProjectContext,
+    spec: AssetSpec,
+    brief_cli: str,
+    paths: dict[str, str],
+) -> None:
+    name = spec.name
+    prompt_id = _add_task(
+        tasks,
+        asset=name,
+        step="prompt.craft",
+        role=PROMPT_CRAFTER_ROLE,
+        depends_on=[],
+        layer=0,
+        command=(
+            f"python gamefactory.py prompt craft "
+            f"--brief {brief_cli} --asset {name} -o {paths['plan']}"
+        ),
+        artifacts={"plan": paths["plan"]},
+    )
+    tasks_by_id[prompt_id] = tasks[-1]
+
+    image_deps = [prompt_id]
+    ref_flag = ""
+    ref_name = spec.reference_asset.strip() if spec.type == AssetType.CHARACTER_POSE else ""
+    if ref_name:
+        ref_image_task = f"{ref_name}.image.generate"
+        if ref_image_task not in tasks_by_id:
+            raise ValueError(
+                f"Asset '{name}' references '{ref_name}' but {ref_image_task} is missing."
+            )
+        image_deps.append(ref_image_task)
+        ref_raw = _find_artifacts_for_asset(tasks, ref_name)["output"]
+        ref_flag = f" --reference-image {ref_raw}"
+
+    image_layer = _layer_from_deps(image_deps, tasks_by_id)
+    image_id = _add_task(
+        tasks,
+        asset=name,
+        step="image.generate",
+        role=IMAGE_GENERATOR_ROLE,
+        depends_on=image_deps,
+        layer=image_layer,
+        command=(
+            f"python gamefactory.py image generate "
+            f"--plan-file {paths['plan']} --output {paths['raw_image']} "
+            f"--validate{ref_flag}"
+        ),
+        artifacts={"plan": paths["plan"], "output": paths["raw_image"]},
+    )
+    tasks_by_id[image_id] = tasks[-1]
+
+    if spec.type != AssetType.CHARACTER_POSE or spec.reference_asset:
+        _post_image_tasks(
+            tasks,
+            tasks_by_id,
+            project=project,
+            spec=spec,
+            paths=paths,
+            brief_cli=brief_cli,
+            image_task_id=image_id,
+        )
+
+
+def _find_artifacts_for_asset(tasks: list[PipelineTask], asset_name: str) -> dict[str, str]:
+    for task in tasks:
+        if task.asset == asset_name and task.step == "image.generate":
+            return dict(task.artifacts)
+    raise ValueError(f"No image.generate artifacts for asset '{asset_name}'")
+
+
+def _video_animation_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    spec: AssetSpec,
+    brief_cli: str,
+    paths: dict[str, str],
+    sprite_frames: int,
+) -> None:
+    name = spec.name
+    ref_name = spec.reference_asset.strip()
+    if not ref_name:
+        raise ValueError(f"Video animation '{name}' requires reference_asset.")
+
+    prompt_id = _add_task(
+        tasks,
+        asset=name,
+        step="prompt.craft",
+        role=PROMPT_CRAFTER_ROLE,
+        depends_on=[],
+        layer=0,
+        command=(
+            f"python gamefactory.py prompt craft --animation "
+            f"--brief {brief_cli} --asset {name} -o {paths['plan']}"
+        ),
+        artifacts={"plan": paths["plan"]},
+    )
+    tasks_by_id[prompt_id] = tasks[-1]
+
+    ref_image_task = f"{ref_name}.image.generate"
+    if ref_image_task not in tasks_by_id:
+        raise ValueError(
+            f"Animation '{name}' references '{ref_name}' but {ref_image_task} is missing."
+        )
+    ref_raw = _find_artifacts_for_asset(tasks, ref_name)["output"]
+
+    video_deps = [prompt_id, ref_image_task]
+    video_layer = _layer_from_deps(video_deps, tasks_by_id)
+    video_id = _add_task(
+        tasks,
+        asset=name,
+        step="video.generate",
+        role=VIDEO_GENERATOR_ROLE,
+        depends_on=video_deps,
+        layer=video_layer,
+        command=(
+            f"python gamefactory.py video generate "
+            f"--plan-file {paths['plan']} "
+            f"--reference-image {ref_raw} "
+            f"--output {paths['video']}"
+        ),
+        artifacts={
+            "plan": paths["plan"],
+            "reference_image": ref_raw,
+            "output": paths["video"],
+        },
+    )
+    tasks_by_id[video_id] = tasks[-1]
+
+    split_deps = [video_id]
+    split_layer = _layer_from_deps(split_deps, tasks_by_id)
+    split_id = _add_task(
+        tasks,
+        asset=name,
+        step="video.split-frames",
+        role=ORCHESTRATOR_ROLE,
+        depends_on=split_deps,
+        layer=split_layer,
+        command=(
+            f"python gamefactory.py video split-frames "
+            f"--input {paths['video']} --output-dir {paths['frames_dir']} "
+            f"--frames {sprite_frames}"
+        ),
+        artifacts={"input": paths["video"], "output_dir": paths["frames_dir"]},
+    )
+    tasks_by_id[split_id] = tasks[-1]
+
+    matte_deps = [split_id]
+    matte_layer = _layer_from_deps(matte_deps, tasks_by_id)
+    _add_task(
+        tasks,
+        asset=name,
+        step="video.matte-frames",
+        role=ORCHESTRATOR_ROLE,
+        depends_on=matte_deps,
+        layer=matte_layer,
+        command=(
+            f"python gamefactory.py video matte-frames "
+            f"--input-dir {paths['frames_dir']} "
+            f"--output-dir {paths['frames_nobg_dir']} "
+            f"--engine ai --no-trim"
+        ),
+        artifacts={
+            "input_dir": paths["frames_dir"],
+            "output_dir": paths["frames_nobg_dir"],
+        },
+    )
+
+
+def build_manifest(
+    brief_path: Path,
+    *,
+    output_dir: Path | None = None,
+    plans_dir: Path | None = None,
+    sprite_frames_default: int = 8,
+) -> dict[str, Any]:
+    """Expand brief into a task DAG manifest."""
+    brief_path = brief_path.resolve()
+    project, assets = load_brief(brief_path)
+
+    if output_dir is None:
+        output_dir = _REPO_ROOT / "output" / brief_path.stem
+    if plans_dir is None:
+        plans_dir = _REPO_ROOT / "plans"
+
+    output_dir = output_dir.resolve()
+    plans_dir = plans_dir.resolve()
+    brief_cli = _brief_cli_path(brief_path)
+
+    tasks: list[PipelineTask] = []
+    tasks_by_id: dict[str, PipelineTask] = {}
+
+    # Pass 1: static + pose assets (produce reference stills).
+    for spec in assets:
+        kind = classify_asset(spec)
+        if kind == AssetKind.VIDEO_ANIMATION:
+            continue
+        paths = _asset_artifacts(output_dir, plans_dir, spec.name)
+        _static_asset_tasks(
+            tasks,
+            tasks_by_id,
+            project=project,
+            spec=spec,
+            brief_cli=brief_cli,
+            paths=paths,
+        )
+
+    # Pass 2: video animations (depend on reference stills).
+    for spec in assets:
+        if classify_asset(spec) != AssetKind.VIDEO_ANIMATION:
+            continue
+        frames = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
+        paths = _asset_artifacts(output_dir, plans_dir, spec.name)
+        _video_animation_tasks(
+            tasks,
+            tasks_by_id,
+            spec=spec,
+            brief_cli=brief_cli,
+            paths=paths,
+            sprite_frames=frames,
+        )
+
+    return {
+        "manifest_version": MANIFEST_VERSION,
+        "created_at": _utc_now(),
+        "updated_at": _utc_now(),
+        "brief": rel_to_repo(brief_path),
+        "project": {
+            "title": project.title,
+            "description": project.description,
+        },
+        "paths": {
+            "repo_root": ".",
+            "cli_dir": rel_to_repo(_CLI_DIR),
+            "output_dir": rel_to_repo(output_dir),
+            "plans_dir": rel_to_repo(plans_dir),
+            "workdir": "cli",
+        },
+        "tasks": [t.to_dict() for t in tasks],
+    }
+
+
+def load_manifest(path: Path) -> dict[str, Any]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("manifest_version") != MANIFEST_VERSION:
+        raise ValueError(f"Unsupported manifest version in {path}")
+    return data
+
+
+def save_manifest(path: Path, manifest: dict[str, Any]) -> None:
+    manifest["updated_at"] = _utc_now()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def tasks_list(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    raw = manifest.get("tasks", [])
+    if not isinstance(raw, list):
+        raise ValueError("manifest.tasks must be a list")
+    return raw
+
+
+def task_by_id(manifest: dict[str, Any], task_id: str) -> dict[str, Any]:
+    for task in tasks_list(manifest):
+        if task.get("id") == task_id:
+            return task
+    known = ", ".join(t["id"] for t in tasks_list(manifest))
+    raise ValueError(f"Unknown task id '{task_id}'. Known: {known}")
+
+
+def _deps_satisfied(task: dict[str, Any], tasks_by_id: dict[str, dict[str, Any]]) -> bool:
+    for dep in task.get("depends_on") or []:
+        dep_task = tasks_by_id.get(dep)
+        if dep_task is None or dep_task.get("status") != TASK_DONE:
+            return False
+    return True
+
+
+def ready_tasks(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    """Tasks whose dependencies are done and status is pending."""
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+    ready = [
+        t
+        for t in tasks_list(manifest)
+        if t.get("status") == TASK_PENDING and _deps_satisfied(t, by_id)
+    ]
+    ready.sort(key=lambda t: (t.get("layer", 0), t.get("id", "")))
+    return ready
+
+
+def status_summary(manifest: dict[str, Any]) -> dict[str, Any]:
+    counts: dict[str, int] = {}
+    for task in tasks_list(manifest):
+        status = str(task.get("status", TASK_PENDING))
+        counts[status] = counts.get(status, 0) + 1
+    ready = ready_tasks(manifest)
+    return {
+        "brief": manifest.get("brief"),
+        "total": len(tasks_list(manifest)),
+        "counts": counts,
+        "ready_count": len(ready),
+        "ready_ids": [t["id"] for t in ready],
+        "failed_ids": [t["id"] for t in tasks_list(manifest) if t.get("status") == TASK_FAILED],
+        "done": counts.get(TASK_DONE, 0) == len(tasks_list(manifest)),
+    }
+
+
+def record_task(
+    manifest: dict[str, Any],
+    task_id: str,
+    *,
+    status: str,
+    result: dict[str, Any] | None = None,
+    merge_result: bool = True,
+) -> dict[str, Any]:
+    task = task_by_id(manifest, task_id)
+    now = _utc_now()
+    if status == TASK_RUNNING:
+        task["status"] = TASK_RUNNING
+        task["started_at"] = task.get("started_at") or now
+    else:
+        task["status"] = status
+        task["finished_at"] = now
+    if result is not None:
+        if merge_result and isinstance(task.get("result"), dict):
+            merged = dict(task["result"])
+            merged.update(result)
+            task["result"] = merged
+        else:
+            task["result"] = result
+    return task
+
+
+def _artifact_exists(repo_root: Path, cli_rel: str) -> bool:
+    path = (_CLI_DIR / cli_rel).resolve()
+    if path.is_file():
+        return True
+    if path.is_dir() and any(path.iterdir()):
+        return True
+    return False
+
+
+def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = None) -> int:
+    """Mark pending tasks done when expected artifact paths already exist."""
+    _ = repo_root
+    updated = 0
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+
+    for task in tasks_list(manifest):
+        if task.get("status") != TASK_PENDING:
+            continue
+        if not _deps_satisfied(task, by_id):
+            continue
+        artifacts = task.get("artifacts") or {}
+        check_keys = ("output", "output_dir", "plan", "nobg_image", "video")
+        found = False
+        for key in check_keys:
+            rel = artifacts.get(key)
+            if rel and _artifact_exists(_REPO_ROOT, rel):
+                found = True
+                break
+        if not found:
+            continue
+        record_task(
+            manifest,
+            task["id"],
+            status=TASK_DONE,
+            result={"source": "reconcile", "reconciled_at": _utc_now()},
+        )
+        by_id[task["id"]] = task_by_id(manifest, task["id"])
+        updated += 1
+    return updated
+
+
+def merge_manifest_status(new_manifest: dict[str, Any], old_manifest: dict[str, Any]) -> None:
+    """Preserve task status/result from a previous manifest when replanning."""
+    old_by_id = {t["id"]: t for t in tasks_list(old_manifest)}
+    for task in tasks_list(new_manifest):
+        old = old_by_id.get(task["id"])
+        if not old:
+            continue
+        for key in ("status", "result", "started_at", "finished_at"):
+            if old.get(key) is not None:
+                task[key] = old[key]

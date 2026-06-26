@@ -14,7 +14,7 @@ from roles import (
 _SKILLS_ROOT = Path(__file__).resolve().parent.parent / "resources" / "skills"
 
 ROLE_SKILLS: dict[str, tuple[str, ...]] = {
-    ORCHESTRATOR_ROLE: ("pipeline", "matting", "matting-video"),
+    ORCHESTRATOR_ROLE: ("pipeline", "pipeline-schedule", "matting", "matting-video"),
     PROMPT_CRAFTER_ROLE: ("asset-planner", "asset-gen"),
     IMAGE_GENERATOR_ROLE: ("generate",),
     VIDEO_GENERATOR_ROLE: ("generate",),

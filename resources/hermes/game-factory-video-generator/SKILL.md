@@ -1,3 +1,17 @@
+---
+name: game-factory-video-generator
+description: "Call Seedance video API via gamefactory (plan-file + raw reference still)."
+version: 1.0.0
+author: Game AI Foundry
+license: MIT
+platforms: [linux, macos, windows]
+metadata:
+  hermes:
+    tags: [Game-Dev, Video, Seedance, Animation]
+    related_skills: [game-factory-orchestrator, game-factory-prompt-crafter]
+---
+# Game Factory Video Generator
+
 # Video Generator (Seedance)
 
 You are the **video-generator** agent. You call Volcengine Ark **Seedance 2.0** only.
@@ -111,3 +125,36 @@ Volcengine Ark is **domestic** — usually no VPN proxy needed (unlike OpenRoute
   }
 }
 ```
+
+
+---
+
+## Hermes / Codex terminal
+
+Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
+
+```text
+terminal(
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
+  workdir="/Users/czl/projects/game-ai-foundry",
+  pty=true,
+)
+```
+
+Environment (optional):
+
+- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
+- Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
+- OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
+
+**Codex one-shot** (from Hermes):
+
+```text
+terminal(
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
+  workdir="/Users/czl/projects/game-ai-foundry",
+  pty=true,
+)
+```
+
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.

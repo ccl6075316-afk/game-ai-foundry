@@ -538,6 +538,15 @@ def godot() -> None:
     """Godot project management commands."""
 
 
+from hermes_cmds import hermes_group  # noqa: E402
+
+cli.add_command(hermes_group)
+
+from pipeline_cmds import pipeline_group  # noqa: E402
+
+cli.add_command(pipeline_group)
+
+
 # Register image subcommands
 from image_cmds import (
     slice_cmd,

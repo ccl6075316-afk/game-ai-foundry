@@ -123,7 +123,15 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             if is_animation:
                 plan = build_animation_pipeline(project, spec, assets, **craft_kwargs)
             else:
-                plan = build_prompt(project, spec, **craft_kwargs)
+                plan = build_prompt(
+                    project,
+                    spec,
+                    craft=craft_kwargs["craft"],
+                    prompt_model=craft_kwargs["prompt_model"],
+                    api_key=craft_kwargs["api_key"],
+                    api_base=craft_kwargs["api_base"],
+                    proxy=craft_kwargs["proxy"],
+                )
 
             if is_animation:
                 if not plan.video_prompt:

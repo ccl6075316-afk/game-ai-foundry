@@ -8,7 +8,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ---
 
-## Current Status (2026-06-25)
+## Current Status (2026-06-26)
 
 ### ✅ Done
 
@@ -33,7 +33,16 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 **Godot (scaffold only)**
 - `godot init` / `inject` / `validate` / `open` / `export`
 
-**Verified demo**: prison character, scene, icons, walk animation (img2video → split → matte)
+**Hermes / Codex**
+- `hermes sync` / `install` / `paths` / `list` / `show` — SKILL.md packages → `~/.hermes/skills`
+- 5 skills: orchestrator, prompt-crafter, image-generator, video-generator, codex-delegate
+- Docs: `docs/HERMES-CODEX.md`, `AGENTS.md`
+
+**Pipeline DAG 调度**
+- `pipeline plan` / `ready` / `record` / `reconcile` — brief 定稿后按层并发
+- `resources/skills/orchestrator/pipeline-schedule.md`
+
+**Verified demo**: prison character, scene, icons, walk animation; dino idle (img2video → split → matte)
 
 ### 🔜 Next (P0)
 
@@ -44,7 +53,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ### ⬜ Not Started
 
-- [ ] Hermes ↔ gamefactory terminal integration
+- [ ] Hermes Kanban / auto multi-session orchestration
 - [ ] Electron + React GUI
 - [ ] GUI ↔ Hermes IPC (MCP/JSON-RPC) — **not required for Godot CLI work**
 - [ ] Audio generation (BGM/SFX)
@@ -79,7 +88,7 @@ User (Cursor / Hermes / future GUI)
 | Milestone | Progress | Notes |
 |-----------|----------|-------|
 | M1 Video pipeline | ~95% | Missing Godot import + playable loop |
-| M2 Hermes integration | 0% | |
+| M2 Hermes + pipeline | ~75% | skills install + DAG scheduler; Kanban/GUI IPC pending |
 | M3 GUI skeleton | 0% | |
 | M4 Full playable demo | ~20% | Assets work; no auto Godot assembly |
 
@@ -88,7 +97,8 @@ User (Cursor / Hermes / future GUI)
 ## Quick Start for AI Agents
 
 1. **Read first**: `docs/AI-HANDOFF.md` (detailed status, commands, config)
-2. **CLI**: `cd cli && python gamefactory.py --help`
+2. **Hermes/Codex**: `docs/HERMES-CODEX.md` — `python gamefactory.py hermes install`
+3. **CLI**: `cd cli && python gamefactory.py --help`
 3. **Config**: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 4. **Output**: `output/` (gitignored)
 5. **Godot**: `E:\Godot_v4.6.1-stable_mono_win64\` — set `godot.engine_path` in config

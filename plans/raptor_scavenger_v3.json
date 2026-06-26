@@ -1,0 +1,73 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Wasteland Survivors",
+      "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife.",
+      "art_direction": "gritty stylized 2D game art, muted desaturated palette with rust and toxic green accents, thick readable silhouettes",
+      "dimension": "2d"
+    },
+    "asset": {
+      "name": "raptor_scavenger",
+      "type": "character",
+      "description": "friendly mutated velociraptor scavenger game character, scarred scales, light scrap harness with small green indicator lights (no weapons), one soft green cyber eye, sharp claws. FULL BODY including entire curved tail tip visible, centered with generous white margin on all sides, side view facing right, non-violent neutral pose",
+      "display_size": "128x128 px",
+      "aspect_ratio": "16:9"
+    }
+  },
+  "plan": {
+    "asset_name": "raptor_scavenger",
+    "asset_type": "character",
+    "prompt": "Mutated velociraptor scavenger, full body including curved tail tip visible, side view facing right, neutral standing pose. Scarred scales, light scrap harness with small green indicator lights, one soft green cyber eye, sharp claws. Pure flat white background (#FFFFFF), uniform studio backdrop, no border, no frame, no shadow. Clean silhouette. Gritty stylized 2D art, muted desaturated palette with rust and toxic green accents, thick readable outlines for small display size.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": false,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project": {
+    "title": "Wasteland Survivors",
+    "description": "Post-apocalyptic survival game set in ruined cities overtaken by mutated wildlife.",
+    "art_direction": "gritty stylized 2D game art, muted desaturated palette with rust and toxic green accents, thick readable silhouettes",
+    "dimension": "2d"
+  },
+  "assets": [
+    {
+      "name": "raptor_scavenger",
+      "type": "character",
+      "description": "mutated velociraptor scavenger with scarred scales, torn harness made of scrap metal, one cybernetic glowing green eye, sharp claws",
+      "display_size": "128x128 px"
+    },
+    {
+      "name": "raptor_scavenger_idle",
+      "type": "character",
+      "description": "same mutated velociraptor scavenger character",
+      "action": "subtle idle breathing animation, slight chest rise and fall, tail sway, head micro-movements, standing in place, loopable, side view facing right",
+      "reference_asset": "raptor_scavenger",
+      "animation_method": "video",
+      "duration_seconds": 4,
+      "sprite_frames": 8,
+      "video_model": "mini",
+      "video_resolution": "480p",
+      "generate_audio": false
+    }
+  ]
+}

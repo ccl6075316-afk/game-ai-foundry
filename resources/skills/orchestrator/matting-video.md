@@ -23,7 +23,23 @@ python gamefactory.py video matte-frames \
   --input-dir output/walk_frames \
   --output-dir output/walk_frames_nobg \
   --engine ai
+# default --no-trim: keep full frame after video (do not crop before matting)
 ```
+
+## Before video (reference still)
+
+| Step | Trim? |
+|------|-------|
+| `image generate` → raw PNG | No |
+| `video generate --reference-image <raw>` | **Never trim** — pass original canvas to Seedance |
+| `image trim` / `remove-bg` | Only for **static** sprite delivery, not i2v input |
+
+## After video (frames)
+
+| Step | Trim? |
+|------|-------|
+| `video split-frames` | No |
+| `video matte-frames` | Default **no trim** (`--trim` only if you want tight bbox) |
 
 Optional resize per frame after matting: `image resize` (batch script or loop).
 
