@@ -10,7 +10,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ## Current Status (2026-06-25)
 
-> **Git**：`main` 上 **Godot Assembler 整块尚未 commit**（见下方「进行中」）。上次已推送：`33321d2` pipeline run + wasteland boar idle。
+> **Git**：`main` 超前 origin 1 commit（`53d45d1` godot-assembler）；`games/` 已 gitignore，不纳入版本库。
 
 ### ✅ Done
 
@@ -53,17 +53,12 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 **Verified demo**: prison walk + **Godot assemble** (`games/prison-demo`)；dino idle；wasteland mutant_boar idle
 
-### 🔄 进行中（本地已写，未 commit）
+### 🔄 进行中（本地）
 
-- 五 Agent + `godot-assembler` CLI / skills / Hermes 包
-- `agent_routing` + `agents show/resolve`
-- i2v **trim-then-sample** + `trim_lead`/`trim_trail` 用户配置
-- `games/prison-demo`、`plans/godot_prison_demo.json`（demo 在本地，不进 git）
-- 单元测试：`test_frame_sequence.py`、`test_video_frames.py`
+- Pipeline 全链 E2E：`pipeline plan` → `pipeline run` 含 Pass 3 godot.assemble（待跑）
 
 ### 🔜 Next (P0)
 
-- [ ] **Git commit** — 上述 Godot Assembler 变更合入 `main`
 - [ ] **Pipeline 全链 E2E** — brief → `pipeline run`（含 Pass 3 godot.assemble）→ 可玩工程
 - [ ] Frame resize 128×128 post-matte
 - [ ] One-shot brief → playable export（编排层，非新 CLI）
