@@ -24,10 +24,10 @@ npm run dev
 
 | 区域 | 能力 |
 |------|------|
-| **对话（主）** | 自然语言 + 快捷指令 `/doctor` `/plan` `/run` `/board` `/godot` |
+| **对话（主）** | 自然语言 + 快捷指令 `/brief` `/doctor` `/plan` `/run` `/board` `/godot` |
 | **看板（可选）** | 右上角「看板」→ pipeline 任务 DAG、状态、日志 |
 
-LLM 编排接口待接；当前指令驱动 CLI。
+LLM 编排：`/brief` 走 brief brainstorm → 导出 `resources/{slug}-brief.json` → `/plan` → `/run --run-prompts`。导出后 **brief JSON 为唯一契约**。
 
 ## 架构
 
