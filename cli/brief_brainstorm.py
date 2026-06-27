@@ -9,7 +9,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from brief import AssetSpec, ProjectContext
+from brief import (
+    AssetSpec,
+    ProjectContext,
+    animation_graph_to_dict,
+    audit_brief_for_export,
+    finalize_brief_export,
+    parse_animation_graphs,
+    validate_brief_for_export,
+)
 from llm_config import resolve_host_api_settings
 from prompt_craft import PromptCraftError, chat_text_completion
 from shared_context import asset_to_dict, project_to_dict
@@ -116,10 +124,15 @@ def validate_brief_dict(data: dict[str, Any]) -> dict[str, Any]:
     if not assets_raw:
         raise BriefBrainstormError("Brief must contain at least one asset.")
     assets = [AssetSpec.from_dict(item) for item in assets_raw]
-    return {
+    graphs = parse_animation_graphs(data)
+    validate_brief_for_export(project, assets, animation_graphs=graphs)
+    out: dict[str, Any] = {
         "project": project_to_dict(project),
         "assets": [asset_to_dict(a) for a in assets],
     }
+    if graphs:
+        out["animation_graphs"] = [animation_graph_to_dict(g) for g in graphs]
+    return out
 
 
 def _system_prompt() -> str:
@@ -213,18 +226,29 @@ def run_turn(
 
 def export_brief(session: dict[str, Any]) -> dict[str, Any]:
     draft = session.get("draft_brief") or {}
-    return validate_brief_dict(draft)
+    return finalize_brief_export(draft, source="brainstorm")
 
 
 def session_status(session: dict[str, Any]) -> dict[str, Any]:
     draft = session.get("draft_brief") or {}
-    assets = draft.get("assets") or []
-    project = draft.get("project") or {}
+    assets_raw = draft.get("assets") or []
+    project_raw = draft.get("project") or {}
+    gaps: list[str] = []
+    try:
+        project = ProjectContext.from_dict(project_raw)
+        assets = [AssetSpec.from_dict(item) for item in assets_raw if isinstance(item, dict)]
+        graphs = parse_animation_graphs(draft if isinstance(draft, dict) else {})
+        gaps = audit_brief_for_export(project, assets, animation_graphs=graphs)
+    except (ValueError, KeyError) as exc:
+        gaps = [str(exc)]
+
     return {
         "id": session.get("id"),
         "ready_to_export": bool(session.get("ready_to_export")),
         "message_count": len(session.get("messages") or []),
-        "title": project.get("title") or "",
-        "asset_count": len(assets) if isinstance(assets, list) else 0,
+        "title": project_raw.get("title") or "",
+        "asset_count": len(assets_raw) if isinstance(assets_raw, list) else 0,
         "last_choices": session.get("last_choices") or [],
+        "gaps": gaps,
+        "contract_complete": not gaps,
     }

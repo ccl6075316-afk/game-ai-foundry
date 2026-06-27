@@ -112,6 +112,9 @@ def plan_cmd(
         if merge_path is not None:
             merge_manifest_status(manifest, load_manifest(merge_path))
         save_manifest(manifest_path, manifest)
+        from assets_manifest import refresh_assets_manifest_from_pipeline
+
+        refresh_assets_manifest_from_pipeline(manifest)
         summary = status_summary(manifest)
         click.echo(str(manifest_path.resolve()))
         click.echo(
@@ -233,6 +236,9 @@ def record_cmd(
             result = payload
         record_task(manifest, task_id, status=status, result=result)
         save_manifest(manifest_path, manifest)
+        from assets_manifest import refresh_assets_manifest_from_pipeline
+
+        refresh_assets_manifest_from_pipeline(manifest)
         click.echo(json.dumps(status_summary(manifest), ensure_ascii=False))
     except (ValueError, json.JSONDecodeError, OSError) as exc:
         click.echo(f"Error: {exc}", err=True)
@@ -252,6 +258,9 @@ def reconcile_cmd(manifest_path: Path) -> None:
         manifest = load_manifest(manifest_path)
         updated = reconcile_manifest(manifest)
         save_manifest(manifest_path, manifest)
+        from assets_manifest import refresh_assets_manifest_from_pipeline
+
+        refresh_assets_manifest_from_pipeline(manifest)
         summary = status_summary(manifest)
         click.echo(
             json.dumps(
@@ -410,6 +419,10 @@ def reset_cmd(manifest_path: Path, task_id: str, cascade: bool) -> None:
             reset_task(manifest, task_id)
             reset_ids = [task_id]
         save_manifest(manifest_path, manifest)
+        if not cascade:
+            from assets_manifest import refresh_assets_manifest_from_pipeline
+
+            refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset_ids)
         click.echo(json.dumps({"reset": reset_ids}, ensure_ascii=False, indent=2))
     except (ValueError, json.JSONDecodeError, OSError) as exc:
         click.echo(f"Error: {exc}", err=True)

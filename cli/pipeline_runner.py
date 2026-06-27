@@ -12,6 +12,7 @@ from typing import Any
 
 from roles import PROMPT_CRAFTER_ROLE, GODOT_DEVELOPER_ROLE
 
+from assets_manifest import refresh_assets_manifest_from_pipeline
 from pipeline_manifest import (
     TASK_DONE,
     TASK_FAILED,
@@ -286,8 +287,10 @@ def run_pipeline(
     manifest_path = manifest_path.resolve()
     lock = threading.Lock()
 
-    def persist() -> None:
+    def persist(*, sync_assets: bool = True) -> None:
         save_manifest(manifest_path, manifest)
+        if sync_assets:
+            refresh_assets_manifest_from_pipeline(manifest)
 
     manifest = load_manifest(manifest_path)
 
@@ -423,4 +426,5 @@ def reset_task_cascade(manifest: dict[str, Any], task_id: str) -> list[str]:
             reset.append(tid)
         for dep in dependents_of(tid):
             stack.append(dep)
+    refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset)
     return reset

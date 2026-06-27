@@ -63,12 +63,30 @@ class BriefBrainstormTests(unittest.TestCase):
             "assistant_message": "你想做什么视角的游戏？",
             "choices": ["俯视角", "横版"],
             "draft_brief": {
-                "project": {"title": "Demo", "dimension": "2d"},
+                "project": {
+                    "title": "Demo",
+                    "description": "2D platformer demo",
+                    "art_direction": "flat pixel art",
+                    "dimension": "2d",
+                    "genre": "2d_platformer",
+                    "gameplay_loop": "Run and jump through a demo level.",
+                    "session_goal": "Demo: move and jump only.",
+                    "player_asset": "hero",
+                    "controls": {
+                        "move_left": ["A"],
+                        "move_right": ["D"],
+                    },
+                    "viewport": {"width": 1280, "height": 720},
+                    "camera": {"mode": "follow_player"},
+                },
                 "assets": [
                     {
                         "name": "hero",
                         "type": "character",
+                        "usage": "player_idle",
+                        "usage_description": "Main hero",
                         "description": "A hero",
+                        "display_size": "128x128 px",
                         "animation_method": "video",
                     }
                 ],
@@ -89,12 +107,29 @@ class BriefBrainstormTests(unittest.TestCase):
     def test_export_brief_from_session(self) -> None:
         session = new_session()
         session["draft_brief"] = {
-            "project": {"title": "Prison", "dimension": "2d"},
+            "project": {
+                "title": "Prison",
+                "description": "Top-down prison escape",
+                "art_direction": "flat 2D sprites",
+                "dimension": "2d",
+                "genre": "top_down",
+                "gameplay_loop": "Sneak through prison, avoid guards, reach exit.",
+                "session_goal": "Prototype: walk cycle and top-down movement.",
+                "player_asset": "inmate",
+                "controls": {
+                    "move_left": ["A", "Left"],
+                    "move_right": ["D", "Right"],
+                },
+                "viewport": {"width": 1280, "height": 720},
+            },
             "assets": [
                 {
                     "name": "inmate",
                     "type": "character",
+                    "usage": "player_locomotion",
+                    "usage_description": "Walk cycle for inmate",
                     "description": "Prison inmate walk cycle",
+                    "display_size": "128x128 px",
                     "animation_method": "video",
                 }
             ],

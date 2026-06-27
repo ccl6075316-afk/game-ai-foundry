@@ -186,15 +186,52 @@ def import_sprites_cmd(
 
 
 def _run_validate(project_path: Path) -> None:
+    """Import assets, build C#, and boot the main scene headless."""
     godot = _get_godot_exe()
-    result = subprocess.run(
-        [godot, "--headless", "--path", str(project_path), "--check-only", "--quit"],
+    project_path = project_path.resolve()
+
+    import_result = subprocess.run(
+        [godot, "--headless", "--path", str(project_path), "--import", "--quit"],
         capture_output=True,
         text=True,
-        timeout=120,
+        encoding="utf-8",
+        errors="replace",
+        timeout=180,
     )
-    if result.returncode != 0:
-        raise RuntimeError(f"Validation failed:\n{result.stderr}\n{result.stdout}")
+    combined = (import_result.stdout or "") + (import_result.stderr or "")
+    import_errors = [ln for ln in combined.splitlines() if "ERROR:" in ln]
+    if import_result.returncode != 0 or import_errors:
+        raise RuntimeError(
+            "Godot import failed:\n" + "\n".join(import_errors or combined.splitlines()[-20:])
+        )
+
+    csproj_files = list(project_path.glob("*.csproj"))
+    if csproj_files:
+        build = subprocess.run(
+            ["dotnet", "build", str(csproj_files[0])],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=180,
+        )
+        if build.returncode != 0:
+            raise RuntimeError(f"dotnet build failed:\n{build.stderr}\n{build.stdout}")
+
+    run_result = subprocess.run(
+        [godot, "--headless", "--path", str(project_path), "--quit-after", "3"],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=180,
+    )
+    combined = (run_result.stdout or "") + (run_result.stderr or "")
+    run_errors = [ln for ln in combined.splitlines() if "ERROR:" in ln]
+    if run_result.returncode != 0 or run_errors:
+        raise RuntimeError(
+            "Godot run failed:\n" + "\n".join(run_errors or combined.splitlines()[-20:])
+        )
 
 
 @click.command("assemble")
@@ -221,6 +258,15 @@ def assemble_cmd(assemble_path: Path, validate: bool) -> None:
 
     project_path = Path(result["project_path"])
     click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+
+    try:
+        from assets_manifest import update_assets_manifest_after_assemble
+
+        am_path = update_assets_manifest_after_assemble(assemble_path, result, handoff=handoff)
+        if am_path is not None:
+            click.echo(f"assets-manifest: {am_path}", err=True)
+    except (ValueError, json.JSONDecodeError, OSError):
+        pass
 
     if validate:
         try:
@@ -277,7 +323,13 @@ def dev_context_cmd(
             project_path=project_path,
             assemble_handoff_path=assemble_path,
         )
-        handoff = build_godot_dev_handoff(plan, context={"brief": str(brief_path.resolve())})
+        handoff = build_godot_dev_handoff(
+            plan,
+            context={
+                "authoritative_sources": plan.get("authoritative_sources"),
+                "contract_rules": plan.get("contract_rules"),
+            },
+        )
         payload = json.dumps(handoff, ensure_ascii=False, indent=2)
         if output_path is not None:
             save_handoff(output_path, handoff)
@@ -321,7 +373,7 @@ def inject_cmd(project_path: Path, file_path: Path, content: str | None) -> None
 @click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
               help="Godot project directory.")
 def validate_cmd(project_path: Path) -> None:
-    """Validate a Godot project using headless syntax check."""
+    """Validate project: import assets, build C#, boot main scene headless."""
     try:
         _run_validate(project_path)
         click.echo("OK")

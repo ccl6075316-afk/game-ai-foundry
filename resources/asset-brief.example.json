@@ -3,21 +3,41 @@
     "title": "Forest Platformer",
     "description": "2D side-scrolling platformer with a knight hero and collectible items.",
     "art_direction": "flat colored sprite illustrations, cartoony, warm palette",
-    "dimension": "2d"
+    "dimension": "2d",
+    "genre": "2d_platformer",
+    "gameplay_loop": "Move through forest levels, collect item icons, fight with sword attack pose, reach the exit.",
+    "session_goal": "Prototype: one forest level with walk, attack, and collectible pickups.",
+    "player_asset": "knight",
+    "controls": {
+      "move_left": ["A", "Left"],
+      "move_right": ["D", "Right"],
+      "attack": ["J", "Space"]
+    },
+    "viewport": { "width": 1280, "height": 720 },
+    "camera": { "mode": "follow_player", "deadzone_x": 64 },
+    "visual_reference": "resources/forest-platformer-reference.png"
   },
   "assets": [
     {
       "name": "knight",
       "type": "character",
+      "usage": "reference_still",
+      "usage_description": "Hero reference still for i2v and idle pose",
+      "generate_method": "image",
       "description": "armored knight with red plume",
       "display_size": "128x128 px"
     },
     {
       "name": "knight_walk",
       "type": "character",
+      "usage": "player_locomotion",
+      "usage_description": "Walk cycle for horizontal movement",
+      "generate_method": "video",
       "description": "armored knight",
+      "display_size": "128x128 px",
       "action": "walking to the right, smooth walk cycle",
       "reference_asset": "knight",
+      "animation_name": "walk",
       "animation_method": "video",
       "duration_seconds": 4,
       "sprite_frames": 8,
@@ -27,12 +47,19 @@
     {
       "name": "knight_attack_pose",
       "type": "character_pose",
+      "usage": "player_attack",
+      "usage_description": "Static attack pose via img2img from reference",
+      "generate_method": "image",
+      "display_size": "128x128 px",
       "action": "sword slash attack pose, mid-swing",
       "reference_asset": "knight"
     },
     {
       "name": "item_icons",
       "type": "icon_kit",
+      "usage": "item_icon",
+      "usage_description": "Inventory UI icon grid",
+      "generate_method": "image",
       "items": ["sword", "shield", "potion", "gold coin"],
       "grid": "2x2",
       "display_size": "64x64 px per icon"
@@ -40,14 +67,39 @@
     {
       "name": "grass_tile",
       "type": "texture",
+      "usage": "tile_texture",
+      "usage_description": "Ground tile for level terrain",
+      "generate_method": "image",
       "description": "green meadow grass"
     },
     {
       "name": "forest_bg",
       "type": "background",
+      "usage": "world_background",
+      "usage_description": "Main level backdrop with parallax layers",
+      "generate_method": "image",
       "description": "dense forest with layered parallax trees and soft sky",
       "aspect_ratio": "16:9",
       "display_size": "1920x1080"
+    },
+    {
+      "name": "forest_bgm",
+      "type": "audio",
+      "usage": "music",
+      "usage_description": "Looping forest level background music",
+      "generate_method": "procedural",
+      "audio_loop": true,
+      "description": "gentle acoustic forest ambience with light percussion"
+    }
+  ],
+  "animation_graphs": [
+    {
+      "character_asset": "knight",
+      "default_clip": "idle",
+      "summary": "Idle when still; walk loop while moving",
+      "transitions": [
+        {"from": "idle", "to": "walk", "bidirectional": true}
+      ]
     }
   ]
 }

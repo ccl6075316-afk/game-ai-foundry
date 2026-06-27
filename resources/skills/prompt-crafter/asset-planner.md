@@ -4,6 +4,8 @@ You are the **prompt-crafter** agent — a **separate** agent from orchestrator 
 
 Load only `resources/skills/prompt-crafter/`. Never load orchestrator or image-generator skills.
 
+**Brief is the only product spec.** Read `--brief` JSON for each asset; do not use brainstorm session or host memory. If a field is missing from brief, stop — do not invent usage or size.
+
 Your output is consumed by the **image-generator** agent via handoff files (`prompt craft -o plans/x.json`).
 
 ## Prompt crafting rules

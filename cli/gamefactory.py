@@ -423,7 +423,7 @@ def plan_deprecated(brief_path: Path, asset: str | None, animation: bool) -> Non
     "asset_type",
     default=None,
     type=click.Choice(
-        ["character", "icon_kit", "texture", "background", "character_pose"],
+        ["character", "icon_kit", "texture", "background", "character_pose", "audio"],
         case_sensitive=False,
     ),
     help="Asset type when not using --brief.",

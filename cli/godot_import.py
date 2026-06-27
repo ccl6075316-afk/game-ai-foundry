@@ -154,6 +154,111 @@ def _build_sprite_frames_tres(
     return "\n".join(lines) + "\n"
 
 
+def _extract_animation_blocks(text: str) -> list[str]:
+    """Pull each animation dict from a SpriteFrames .tres file."""
+    marker = "animations = [{"
+    start = text.find(marker)
+    if start < 0:
+        return []
+
+    pos = start + len("animations = [")
+    blocks: list[str] = []
+    depth = 0
+    block_start: int | None = None
+    for i in range(pos, len(text)):
+        ch = text[i]
+        if ch == "{":
+            if depth == 0:
+                block_start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and block_start is not None:
+                blocks.append(text[block_start : i + 1])
+                block_start = None
+    return blocks
+
+
+def merge_sprite_frames_tres(
+    project_path: Path,
+    imports: list[dict[str, str]],
+    *,
+    output_asset: str,
+) -> dict[str, str]:
+    """Merge multiple single-animation SpriteFrames .tres into one resource."""
+    if not imports:
+        raise GodotImportError("merge_sprite_frames_tres requires at least one import")
+    if len(imports) == 1:
+        return imports[0]
+
+    project_path = project_path.resolve()
+    all_ext: list[str] = []
+    all_anims: list[str] = []
+    next_idx = 1
+
+    for imp in imports:
+        tres_rel = imp.get("sprite_frames", "")
+        if not tres_rel:
+            continue
+        tres_path = project_path / tres_rel
+        if not tres_path.is_file():
+            raise GodotImportError(f"SpriteFrames not found: {tres_path}")
+        text = tres_path.read_text(encoding="utf-8")
+
+        local_id_map: dict[str, str] = {}
+        for line in text.splitlines():
+            if not line.startswith("[ext_resource"):
+                continue
+            old_id_match = re.search(r'id="([^"]+)"', line)
+            if not old_id_match:
+                continue
+            old_id = old_id_match.group(1)
+            new_id = f"{next_idx}_{_sanitize_id(old_id)}"
+            local_id_map[old_id] = new_id
+            new_line = re.sub(r'id="[^"]+"', f'id="{new_id}"', line)
+            all_ext.append(new_line)
+            next_idx += 1
+
+        for anim_block in _extract_animation_blocks(text):
+            remapped = anim_block
+            for old_id, new_id in local_id_map.items():
+                remapped = remapped.replace(f'ExtResource("{old_id}")', f'ExtResource("{new_id}")')
+            all_anims.append(remapped)
+
+    if not all_anims:
+        raise GodotImportError("No animations found to merge")
+
+    load_steps = len(all_ext) + 1
+    lines: list[str] = [
+        f'[gd_resource type="SpriteFrames" load_steps={load_steps} format=3]',
+        "",
+    ]
+    for ext_line in all_ext:
+        lines.append(ext_line)
+        lines.append("")
+
+    lines.extend(
+        [
+            "[resource]",
+            "animations = [" + ", ".join(all_anims) + "]",
+        ]
+    )
+
+    tres_path = project_path / "assets" / "sprites" / f"{output_asset}_frames.tres"
+    tres_path.parent.mkdir(parents=True, exist_ok=True)
+    tres_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    tres_rel = tres_path.relative_to(project_path).as_posix()
+
+    anim_names = [imp.get("animation_name", imp.get("asset", "")) for imp in imports]
+    return {
+        "asset": output_asset,
+        "animation_name": ",".join(anim_names),
+        "frame_count": str(sum(int(imp.get("frame_count", "0") or 0) for imp in imports)),
+        "sprite_frames": tres_rel,
+        "merged_from": ",".join(imp.get("asset", "") for imp in imports),
+    }
+
+
 def import_still_as_animation(
     project_path: Path,
     *,
@@ -195,7 +300,7 @@ def copy_background_image(
     asset: str,
     image_path: Path,
 ) -> str:
-    """Copy a background PNG into assets/backgrounds/."""
+    """Copy a background image into assets/backgrounds/ (always as PNG for Godot)."""
     project_path = project_path.resolve()
     image_path = image_path.resolve()
     if not image_path.is_file():
@@ -203,9 +308,20 @@ def copy_background_image(
 
     dest_dir = project_path / "assets" / "backgrounds"
     dest_dir.mkdir(parents=True, exist_ok=True)
-    ext = image_path.suffix or ".png"
-    dest = dest_dir / f"{asset}{ext}"
-    shutil.copy2(image_path, dest)
+    dest = dest_dir / f"{asset}.png"
+
+    header = image_path.read_bytes()[:8]
+    if header.startswith(b"\x89PNG\r\n\x1a\n"):
+        shutil.copy2(image_path, dest)
+    else:
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise GodotImportError(
+                f"Background is not PNG ({image_path}); install Pillow to convert."
+            ) from exc
+        Image.open(image_path).save(dest, format="PNG")
+
     return dest.relative_to(project_path).as_posix()
 
 

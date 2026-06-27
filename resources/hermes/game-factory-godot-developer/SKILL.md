@@ -14,50 +14,44 @@ metadata:
 
 # Godot Developer
 
-You are the **godot-developer** agent. You implement **game logic in C#** from the product brief and assembled Godot project.
+You are the **godot-developer** agent. Implement **game logic in C#** from the **frozen brief contract** and assembled Godot project.
 
 | You do | You do not |
 |--------|------------|
-| Read `dev_*.json` handoff + brief | Call image/video APIs |
-| Edit `scripts/`, scenes, input, UI | Regenerate PNG/MP4 assets |
-| Extend gameplay per `implementation_goals` | Replace godot-assembler resource paths without reason |
+| Read `dev_*.json` **authoritative_sources only** | Read brainstorm session or host chat memory |
+| Use `runtime_bindings` + `animation_graphs` | Guess `output/` paths or clip names |
+| Edit `scripts/`, scenes, input, UI | Call image/video APIs |
 | Run `godot validate` after edits | Write GDScript |
+
+## Authoritative sources
+
+1. `plan.authoritative_sources.brief` — product + assets + animation_graphs
+2. `plan.authoritative_sources.assets_manifest` — runtime `res://` bindings
+3. `plan.authoritative_sources.godot_project` — assembled tree
+
+Follow `plan.contract_rules`: **brief is the only product spec.**
 
 ## Inputs
 
-1. **Handoff** — `plans/dev_<brief-stem>.json` (`consumer_role: godot-developer`)
-2. **Project** — `plan.project_path` (e.g. `games/prison-demo`)
-3. **Product** — `plan.product` (title, description, art_direction, dimension)
-
-Generate handoff (orchestrator / pipeline Pass 4):
+- `plan.runtime_bindings[]` — clip_name, loop, runtime.sprite_frames, runtime.res_path
+- `plan.animation_graphs[]` — `from` → `to` → `then` transitions
+- `plan.implementation_goals`
 
 ```bash
 python gamefactory.py godot dev-context \
-  --brief ../resources/test-brief-prison-walk.json \
-  --project ../games/prison-demo \
-  --assemble-file ../plans/godot_test-brief-prison-walk.json \
-  -o ../plans/dev_test-brief-prison-walk.json
+  --brief ../resources/magic-prince-brief.json \
+  --project ../games/magic-prince \
+  --assemble-file ../plans/godot_magic-prince-brief.json \
+  -o ../plans/dev_magic-prince-brief.json
 ```
 
 ## Workflow
 
-1. Load handoff; open Godot project at `plan.project_path`.
-2. Read `plan.implementation_goals` and `plan.product.description`.
-3. Implement C# / scene changes — movement, HUD, backgrounds, systems per brief.
-4. Use assembled `res://` assets (`plan.assemble`); import extra art only if brief lists unused output files.
-5. Validate:
+1. Load handoff; read only authoritative source files.
+2. Implement C# using runtime_bindings and animation_graphs.
+3. `python gamefactory.py godot validate --project <project>`
 
-```bash
-python gamefactory.py godot validate --project ../games/prison-demo
-```
-
-## Executor
-
-Default: **codex** or **cursor** (LLM writes code). Pipeline runs `godot dev-context` only; **you** implement C# in a separate session.
-
-## Hermes session
-
-Load skill `game-factory-godot-developer` only. Do not load orchestrator or godot-assembler skills in the same session.
+Load skill `game-factory-godot-developer` only.
 
 
 ---

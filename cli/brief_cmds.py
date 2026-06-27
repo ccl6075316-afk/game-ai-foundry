@@ -8,6 +8,7 @@ from pathlib import Path
 
 import click
 
+from brief import load_brief, load_brief_document, parse_animation_graphs, validate_brief_for_export
 from brief_brainstorm import (
     BriefBrainstormError,
     export_brief,
@@ -30,6 +31,46 @@ def register_brief_commands(cli_group: click.Group) -> None:
     @brief_group.group("brainstorm")
     def brainstorm_group() -> None:
         """Multi-turn requirement refinement (orchestrator-style)."""
+
+    @brief_group.command("validate")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON to validate (export/plan gate).",
+    )
+    @click.option("--json", "as_json", is_flag=True, help="Print audit result as JSON.")
+    def validate_cmd(brief_path: Path, as_json: bool) -> None:
+        """Check that a brief is complete — the frozen contract for all downstream steps."""
+        from brief import audit_brief_for_export
+
+        try:
+            project, assets = load_brief(brief_path)
+            data = load_brief_document(brief_path)
+            graphs = parse_animation_graphs(data)
+            gaps = audit_brief_for_export(project, assets, animation_graphs=graphs)
+            if gaps:
+                if as_json:
+                    click.echo(json.dumps({"ok": False, "gaps": gaps}, ensure_ascii=False, indent=2))
+                else:
+                    click.echo("Brief incomplete:", err=True)
+                    for gap in gaps:
+                        click.echo(f"  - {gap}", err=True)
+                sys.exit(1)
+            validate_brief_for_export(project, assets, animation_graphs=graphs)
+            data = json.loads(brief_path.read_text(encoding="utf-8"))
+            meta = data.get("brief_meta") if isinstance(data.get("brief_meta"), dict) else None
+            payload = {"ok": True, "brief": str(brief_path.resolve()), "brief_meta": meta}
+            if as_json:
+                click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+            else:
+                click.echo(f"OK — {brief_path.resolve()}")
+                if meta:
+                    click.echo(f"  frozen_at: {meta.get('frozen_at', '?')}")
+        except (ValueError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
 
     @brainstorm_group.command("start")
     @click.option("--seed", default=None, help="Optional initial idea in one sentence.")

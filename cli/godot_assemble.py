@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from godot_import import GodotImportError, copy_background_image, copy_idle_still, import_sprite_frames, import_still_as_animation
+from godot_import import GodotImportError, copy_background_image, copy_idle_still, import_sprite_frames, import_still_as_animation, merge_sprite_frames_tres
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _TEMPLATE_DOTNET = _REPO_ROOT / "resources" / "godot-templates" / "dotnet"
@@ -72,6 +72,45 @@ def _resolve_repo_path(path_str: str) -> Path:
     if p.is_absolute():
         return p.resolve()
     return (_REPO_ROOT / path_str).resolve()
+
+
+def _character_stem_from_idle_still(idle_still: str) -> str:
+    stem = Path(idle_still).stem
+    for suffix in ("_nobg", "_trimmed", "_raw"):
+        if stem.endswith(suffix):
+            return stem[: -len(suffix)]
+    return stem
+
+
+def _resolve_character_asset(
+    plan: dict[str, Any],
+    *,
+    idle_still: Any,
+    animations: list[Any],
+) -> str:
+    """Base character id for merged SpriteFrames — must come from handoff plan, never a code preset."""
+    explicit = str(plan.get("character_asset", "")).strip()
+    if explicit:
+        return explicit
+
+    if isinstance(idle_still, str) and idle_still.strip():
+        stem = _character_stem_from_idle_still(idle_still.strip())
+        if stem:
+            return stem
+
+    if isinstance(animations, list):
+        for item in animations:
+            if not isinstance(item, dict):
+                continue
+            ref = str(item.get("reference_asset", "")).strip()
+            if ref:
+                return ref
+
+    raise GodotAssembleError(
+        "godot assemble plan missing character_asset. "
+        "Pipeline should set it from the brief reference still; "
+        "manual handoffs must include character_asset or idle_still."
+    )
 
 
 def wire_main_scene(
@@ -159,6 +198,8 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
 
     init_project_from_template(project_path, project_name=project_name, template=template)
 
+    idle_still = plan.get("idle_still")
+
     results: dict[str, Any] = {
         "project_path": str(project_path),
         "animations": [],
@@ -166,6 +207,7 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
     }
 
     primary_sf: str | None = None
+    sprite_imports: list[dict[str, str]] = []
     animations = plan.get("animations") or []
     if not isinstance(animations, list):
         raise GodotAssembleError("plan.animations must be a list")
@@ -177,6 +219,7 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
         frames_dir = _resolve_repo_path(str(item["frames_dir"]))
         fps = float(item.get("fps", 12))
         anim_name = str(item.get("animation_name", asset))
+        loop = bool(item.get("loop", True))
         skip_frames = int(item.get("skip_lead_frames", 0))
         trail_frames = int(item.get("skip_trail_frames", 0))
         sample = item.get("sprite_frames", item.get("sample_frames", default_sample_frames))
@@ -201,12 +244,31 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
                 trim_trail=trim_trail if trim_trail is not None else None,
                 config=config,
                 handoff=item,
+                loop=loop,
             )
         except GodotImportError as exc:
             raise GodotAssembleError(str(exc)) from exc
         results["animations"].append(imp)
-        if primary_sf is None:
-            primary_sf = imp["sprite_frames"]
+        sprite_imports.append(imp)
+
+    if len(sprite_imports) > 1:
+        merge_asset = _resolve_character_asset(
+            plan,
+            idle_still=idle_still,
+            animations=animations,
+        )
+        try:
+            merged = merge_sprite_frames_tres(
+                project_path,
+                sprite_imports,
+                output_asset=merge_asset,
+            )
+        except GodotImportError as exc:
+            raise GodotAssembleError(str(exc)) from exc
+        results["animations"].append(merged)
+        primary_sf = merged["sprite_frames"]
+    elif sprite_imports:
+        primary_sf = sprite_imports[0]["sprite_frames"]
 
     backgrounds = plan.get("backgrounds") or []
     primary_bg: str | None = None
@@ -226,7 +288,6 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
 
     idle_still_res: str | None = None
     idle_still_src: Path | None = None
-    idle_still = plan.get("idle_still")
     if isinstance(idle_still, str) and idle_still.strip():
         idle_still_src = _resolve_repo_path(idle_still)
         try:
@@ -239,22 +300,18 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
         results["idle_still"] = idle_still_res
 
     if primary_sf is None and idle_still_src is not None and idle_still_src.is_file():
-        static_asset = "hero"
-        animations_list = plan.get("animations") or []
-        if isinstance(animations_list, list) and animations_list:
-            first = animations_list[0]
-            if isinstance(first, dict) and first.get("asset"):
-                static_asset = str(first["asset"])
-        elif isinstance(idle_still, str):
-            stem = Path(idle_still).stem.replace("_nobg", "")
-            if stem:
-                static_asset = stem
+        static_asset = _resolve_character_asset(
+            plan,
+            idle_still=idle_still,
+            animations=animations,
+        )
+        idle_anim = str(plan.get("idle_animation_name", "idle"))
         try:
             imp = import_still_as_animation(
                 project_path,
                 asset=static_asset,
                 image_path=idle_still_src,
-                animation_name="walk",
+                animation_name=idle_anim,
             )
         except GodotImportError as exc:
             raise GodotAssembleError(str(exc)) from exc

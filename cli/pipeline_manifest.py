@@ -17,7 +17,12 @@ from brief import (
     AssetType,
     ProjectContext,
     find_asset,
+    is_runtime_only_asset,
     load_brief,
+    load_brief_full,
+    resolve_animation_loop,
+    resolve_animation_name,
+    validate_brief_for_export,
 )
 from roles import (
     GODOT_ASSEMBLER_ROLE,
@@ -434,6 +439,7 @@ def _collect_godot_plan(
 ) -> dict[str, Any]:
     animations: list[dict[str, Any]] = []
     backgrounds: list[dict[str, Any]] = []
+    character_asset: str | None = None
 
     for spec in assets:
         kind = classify_asset(spec)
@@ -451,7 +457,9 @@ def _collect_godot_plan(
                     "asset": spec.name,
                     "frames_dir": frames_dir,
                     "fps": 12,
-                    "animation_name": "walk" if "walk" in spec.name else spec.name,
+                    "animation_name": resolve_animation_name(spec),
+                    "loop": resolve_animation_loop(spec),
+                    "reference_asset": spec.reference_asset.strip(),
                     "sprite_frames": sprite_count,
                     "pre_trimmed": True,
                     "pre_sampled": True,
@@ -465,6 +473,7 @@ def _collect_godot_plan(
     for spec in assets:
         if classify_asset(spec) == AssetKind.VIDEO_ANIMATION and spec.reference_asset.strip():
             ref = spec.reference_asset.strip()
+            character_asset = ref
             idle_still_path = rel_to_repo(output_dir / f"{ref}_nobg.png")
             break
 
@@ -474,6 +483,7 @@ def _collect_godot_plan(
                 continue
             if classify_asset(spec) == AssetKind.VIDEO_ANIMATION:
                 continue
+            character_asset = spec.name
             nobg_id = f"{spec.name}.image.remove-bg"
             if nobg_id in tasks_by_id:
                 out_art = tasks_by_id[nobg_id].artifacts.get("output", "")
@@ -493,6 +503,8 @@ def _collect_godot_plan(
     }
     if idle_still_path:
         plan["idle_still"] = idle_still_path
+    if character_asset:
+        plan["character_asset"] = character_asset
     return plan
 
 
@@ -585,7 +597,8 @@ def build_manifest(
 ) -> dict[str, Any]:
     """Expand brief into a task DAG manifest."""
     brief_path = brief_path.resolve()
-    project, assets = load_brief(brief_path)
+    project, assets, graphs = load_brief_full(brief_path)
+    validate_brief_for_export(project, assets, animation_graphs=graphs)
 
     if output_dir is None:
         output_dir = _REPO_ROOT / "output" / brief_path.stem
@@ -601,6 +614,8 @@ def build_manifest(
 
     # Pass 1: static + pose assets (produce reference stills).
     for spec in assets:
+        if is_runtime_only_asset(spec):
+            continue
         kind = classify_asset(spec)
         if kind == AssetKind.VIDEO_ANIMATION:
             continue
@@ -665,6 +680,16 @@ def build_manifest(
                 assemble_handoff_cli=godot_handoff_cli,
             )
 
+    from assets_manifest import (
+        assets_manifest_path_for_output,
+        build_assets_manifest,
+        save_assets_manifest,
+    )
+
+    assets_manifest_data = build_assets_manifest(brief_path, output_dir=output_dir)
+    assets_manifest_file = assets_manifest_path_for_output(output_dir)
+    save_assets_manifest(assets_manifest_file, assets_manifest_data)
+
     manifest: dict[str, Any] = {
         "manifest_version": MANIFEST_VERSION,
         "created_at": _utc_now(),
@@ -679,6 +704,7 @@ def build_manifest(
             "cli_dir": rel_to_repo(_CLI_DIR),
             "output_dir": rel_to_repo(output_dir),
             "plans_dir": rel_to_repo(plans_dir),
+            "assets_manifest": rel_to_repo(assets_manifest_file),
             "workdir": "cli",
         },
         "tasks": [t.to_dict() for t in tasks],
