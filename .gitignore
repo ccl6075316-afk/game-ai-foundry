@@ -17,9 +17,13 @@ config.local.json
 gui/node_modules/
 gui/dist/
 
-# Local dev pipeline runs (not fixtures)
-pipeline/e2e-smoke.json
-pipeline/prison-walk.json
-output/e2e-smoke/
-plans/slime_hero.json
-plans/godot_e2e-smoke-brief.json
+# Local dev scripts (not part of the product)
+cli/_test_img.py
+
+# Local test projects & pipeline artifacts — never commit
+resources/test-brief-*.json
+resources/*-brief.json
+!resources/asset-brief.example.json
+pipeline/
+plans/
+tests/fixtures/

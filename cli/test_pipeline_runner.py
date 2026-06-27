@@ -16,7 +16,6 @@ from pipeline_manifest import (
     load_manifest,
     record_task,
     save_manifest,
-    status_summary,
 )
 from pipeline_runner import (
     extract_json_from_stdout,
@@ -24,10 +23,7 @@ from pipeline_runner import (
     reset_task_cascade,
     run_pipeline,
 )
-
-
-_REPO = Path(__file__).resolve().parent.parent
-_BRIEF = _REPO / "resources" / "test-brief-dino-idle.json"
+from test_fixtures import EXAMPLE_BRIEF, MINIMAL_VIDEO_BRIEF, write_brief
 
 
 class PipelineRunnerTest(unittest.TestCase):
@@ -45,18 +41,17 @@ class PipelineRunnerTest(unittest.TestCase):
         self.assertTrue(outcome.should_pause)
 
     def test_reset_cascade(self) -> None:
-        manifest = build_manifest(_BRIEF)
-        record_task(manifest, "raptor_scavenger.prompt.craft", status=TASK_DONE)
-        reset_ids = reset_task_cascade(manifest, "raptor_scavenger.prompt.craft")
-        self.assertIn("raptor_scavenger.image.generate", reset_ids)
-        task = next(t for t in manifest["tasks"] if t["id"] == "raptor_scavenger.image.generate")
+        manifest = build_manifest(EXAMPLE_BRIEF)
+        record_task(manifest, "knight.prompt.craft", status=TASK_DONE)
+        reset_ids = reset_task_cascade(manifest, "knight.prompt.craft")
+        self.assertIn("knight.image.generate", reset_ids)
+        task = next(t for t in manifest["tasks"] if t["id"] == "knight.image.generate")
         self.assertEqual(task["status"], TASK_PENDING)
 
     def test_run_dry_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "m.json"
-            manifest = build_manifest(_BRIEF)
-            # Mark prompts done so runner can proceed past skip check
+            manifest = build_manifest(EXAMPLE_BRIEF)
             for task in manifest["tasks"]:
                 if task["step"] == "prompt.craft":
                     task["status"] = TASK_DONE
@@ -68,36 +63,38 @@ class PipelineRunnerTest(unittest.TestCase):
     def test_run_blocked_without_plans(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "m.json"
-            manifest = build_manifest(_BRIEF)
+            manifest = build_manifest(EXAMPLE_BRIEF)
             save_manifest(manifest_path, manifest)
             result = run_pipeline(manifest_path, dry_run=False, jobs=1)
             self.assertTrue(result.blocked)
             self.assertIn("Missing plan", result.message)
 
     def test_auto_skip_prompt_when_plan_exists(self) -> None:
+        brief_path = write_brief(MINIMAL_VIDEO_BRIEF, prefix="runner-brief-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "m.json"
             plans = Path(tmp) / "plans"
             plans.mkdir()
-            (plans / "raptor_scavenger.json").write_text("{}", encoding="utf-8")
-            (plans / "raptor_scavenger_idle.json").write_text("{}", encoding="utf-8")
+            (plans / "knight.json").write_text("{}", encoding="utf-8")
+            (plans / "knight_walk.json").write_text("{}", encoding="utf-8")
 
-            manifest = build_manifest(_BRIEF, plans_dir=plans, output_dir=Path(tmp) / "out")
+            manifest = build_manifest(brief_path, plans_dir=plans, output_dir=Path(tmp) / "out")
             save_manifest(manifest_path, manifest)
 
             with mock.patch("pipeline_runner.run_task_subprocess") as run_mock:
                 run_mock.return_value = outcome_from_process(
-                    "raptor_scavenger.image.generate",
+                    "knight.image.generate",
                     exit_code=0,
                     stdout="/tmp/x.png",
                     stderr="",
                 )
                 run_pipeline(manifest_path, jobs=1)
                 called_ids = [call.args[0]["id"] for call in run_mock.call_args_list]
-                self.assertNotIn("raptor_scavenger.prompt.craft", called_ids)
+                self.assertNotIn("knight.prompt.craft", called_ids)
 
             loaded = load_manifest(manifest_path)
-            prompt = next(t for t in loaded["tasks"] if t["id"] == "raptor_scavenger.prompt.craft")
+            prompt = next(t for t in loaded["tasks"] if t["id"] == "knight.prompt.craft")
             self.assertEqual(prompt["status"], TASK_DONE)
 
 

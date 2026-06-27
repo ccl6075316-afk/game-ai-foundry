@@ -97,4 +97,5 @@ User (GUI / Cursor / Hermes)
 1. **GUI**: `start-gui.bat` → configure **设置 → 项目经理** API key → `/brief`
 2. **CLI**: `cd cli && python gamefactory.py --help`
 3. **Config**: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-4. **Output**: `output/`, `games/` (gitignored)
+4. **Output**: `output/`, `games/`, `pipeline/`, `plans/` (gitignored — local test runs)
+5. **Example brief only in git**: `resources/asset-brief.example.json`

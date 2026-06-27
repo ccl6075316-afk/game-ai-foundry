@@ -10,18 +10,17 @@ from pathlib import Path
 
 from pipeline_manifest import build_manifest, tasks_list
 from pipeline_runner import run_pipeline
-
-_REPO = Path(__file__).resolve().parent.parent
-_SMOKE_BRIEF = _REPO / "tests" / "fixtures" / "briefs" / "e2e-smoke-brief.json"
-_PLANNED_MANIFEST = _REPO / "tests" / "fixtures" / "manifests" / "e2e-smoke-planned.json"
+from test_fixtures import SMOKE_BRIEF, write_brief
 
 
 class E2eSmokeTests(unittest.TestCase):
     def test_smoke_brief_builds_minimal_dag(self) -> None:
+        brief_path = write_brief(SMOKE_BRIEF, prefix="smoke-brief-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
         manifest = build_manifest(
-            _SMOKE_BRIEF,
-            output_dir=_REPO / "output" / "e2e-smoke",
-            godot_project=_REPO / "games" / "e2e-smoke",
+            brief_path,
+            output_dir=Path(tempfile.gettempdir()) / "gf-e2e-smoke-out",
+            godot_project=Path(tempfile.gettempdir()) / "gf-e2e-smoke-game",
             include_game_dev=False,
         )
         ids = {t["id"] for t in tasks_list(manifest)}
@@ -30,17 +29,13 @@ class E2eSmokeTests(unittest.TestCase):
         self.assertIn("slime_hero.image.remove-bg", ids)
         self.assertEqual(len(ids), 4)
 
-    def test_planned_manifest_fixture_matches_shape(self) -> None:
-        self.assertTrue(_PLANNED_MANIFEST.is_file())
-        data = json.loads(_PLANNED_MANIFEST.read_text(encoding="utf-8"))
-        ids = {t["id"] for t in data.get("tasks", [])}
-        self.assertIn("slime_hero.prompt.craft", ids)
-
     def test_dry_run_single_wave(self) -> None:
+        brief_path = write_brief(SMOKE_BRIEF, prefix="smoke-brief-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "e2e-smoke.json"
             manifest = build_manifest(
-                _SMOKE_BRIEF,
+                brief_path,
                 output_dir=Path(tmp) / "output",
                 include_godot=False,
                 include_game_dev=False,
@@ -59,11 +54,13 @@ class E2eSmokeTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get("GAMEFACTORY_E2E_LIVE") == "1", "Set GAMEFACTORY_E2E_LIVE=1 for API run")
 class E2eLiveTests(unittest.TestCase):
     def test_live_smoke_run(self) -> None:
+        brief_path = write_brief(SMOKE_BRIEF, prefix="smoke-brief-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "output"
             manifest_path = Path(tmp) / "manifest.json"
             manifest = build_manifest(
-                _SMOKE_BRIEF,
+                brief_path,
                 output_dir=out,
                 include_godot=False,
                 include_game_dev=False,
