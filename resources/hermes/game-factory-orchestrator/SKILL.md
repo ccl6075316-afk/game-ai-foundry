@@ -1,6 +1,6 @@
 ---
 name: game-factory-orchestrator
-description: "Orchestrate Game AI Foundry: brief → five agents → gamefactory CLI."
+description: "Orchestrate Game AI Foundry: brief → six agents → gamefactory CLI."
 version: 1.0.0
 author: Game AI Foundry
 license: MIT
@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Game-Dev, Assets, Pipeline, Orchestrator, Godot]
-    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator, game-factory-godot-assembler]
+    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator, game-factory-godot-assembler, game-factory-godot-developer]
 ---
 # Game Factory Orchestrator
 
@@ -180,13 +180,36 @@ python gamefactory.py godot assemble \
 python gamefactory.py godot validate --project ../games/prison-demo
 ```
 
-Delegate to **godot-assembler** skill / `agents resolve --role godot-assembler`. Do **not** use `godot inject` for player scripts (v1 = fixed C# template).
+Delegate to **godot-assembler** skill. Assembler imports assets only — **game logic is godot-developer (Phase E)**.
+
+## Phase E — Game logic (godot-developer, Pass 4)
+
+After **godot.assemble** completes, delegate to **godot-developer** (Codex / Cursor — not `pipeline run` by default):
+
+```bash
+# Optional: pipeline writes dev handoff only
+python gamefactory.py pipeline run \
+  --manifest ../pipeline/prison-walk.json \
+  --run-game-dev
+
+# Or manual handoff
+python gamefactory.py godot dev-context \
+  --brief ../resources/test-brief-prison-walk.json \
+  --project ../games/prison-demo \
+  --assemble-file ../plans/godot_test-brief-prison-walk.json \
+  -o ../plans/dev_test-brief-prison-walk.json
+```
+
+Then open a **godot-developer** session (skill `game-factory-godot-developer`), read `plans/dev_*.json`, implement C#, run `godot validate`.
+
+Default `pipeline run` **skips** godot-developer (marks Pass 4 skipped — same as prompt.craft without `--run-prompts`).
 
 ## Orchestrator role now
 
 - **Not** required to call every `terminal` step
 - Use for: brief, delegating prompt craft, failure triage, optional manual Godot assemble
 - Use **`pipeline run`** for: image/video generate, trim, matte, split-frames, **godot assemble (Pass 3)**
+- Use **godot-developer** (Codex/Cursor) for: C# gameplay after Pass 3
 
 ## Worker agents
 

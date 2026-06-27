@@ -1,0 +1,25 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "games\\prison-demo",
+    "project_name": "Prison Break Arena",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [
+      {
+        "asset": "prison_inmate_walk",
+        "frames_dir": "output\\prison-test\\walk_frames_nobg",
+        "fps": 12,
+        "animation_name": "walk",
+        "sprite_frames": 8,
+        "pre_trimmed": true,
+        "pre_sampled": true
+      }
+    ],
+    "backgrounds": [],
+    "idle_still": "output\\prison-test\\prison_inmate_nobg.png"
+  }
+}

@@ -74,6 +74,7 @@
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
     "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },
-    "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" }
+    "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" },
+    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer" }
   }
 }

@@ -19,6 +19,7 @@ ROLE_TO_HERMES_PACKAGE: dict[str, str] = {
     "image-generator": "game-factory-image-generator",
     "video-generator": "game-factory-video-generator",
     "godot-assembler": "game-factory-godot-assembler",
+    "godot-developer": "game-factory-godot-developer",
 }
 
 DEFAULT_AGENTS: dict[str, dict[str, str]] = {
@@ -27,6 +28,7 @@ DEFAULT_AGENTS: dict[str, dict[str, str]] = {
     "image-generator": {"executor": "pipeline", "skill": "game-factory-image-generator"},
     "video-generator": {"executor": "pipeline", "skill": "game-factory-video-generator"},
     "godot-assembler": {"executor": "pipeline", "skill": "game-factory-godot-assembler"},
+    "godot-developer": {"executor": "codex", "skill": "game-factory-godot-developer"},
 }
 
 

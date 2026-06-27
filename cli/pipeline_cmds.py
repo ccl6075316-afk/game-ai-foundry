@@ -82,6 +82,11 @@ def pipeline_group() -> None:
     type=click.Path(exists=True, path_type=Path),
     help="Preserve task status from an existing manifest.",
 )
+@click.option(
+    "--game-dev/--no-game-dev",
+    default=True,
+    help="Append Pass 4 godot-developer dev-context task after assemble.",
+)
 def plan_cmd(
     brief_path: Path,
     manifest_path: Path,
@@ -91,6 +96,7 @@ def plan_cmd(
     godot: bool,
     godot_project: Path | None,
     merge_path: Path | None,
+    game_dev: bool,
 ) -> None:
     """Build task DAG from brief (what to generate, animation deps, layers)."""
     try:
@@ -101,6 +107,7 @@ def plan_cmd(
             sprite_frames_default=sprite_frames,
             godot_project=godot_project,
             include_godot=godot,
+            include_game_dev=game_dev and godot,
         )
         if merge_path is not None:
             merge_manifest_status(manifest, load_manifest(merge_path))
@@ -298,6 +305,11 @@ def show_cmd(manifest_path: Path, task_id: str) -> None:
     help="Include prompt.craft (LLM). Default: skip if plan file exists.",
 )
 @click.option(
+    "--run-game-dev",
+    is_flag=True,
+    help="Run Pass 4 godot.dev-context (writes dev handoff). Default: skip (delegate to codex/cursor).",
+)
+@click.option(
     "--skip-roles",
     default=None,
     help="Comma-separated roles to skip (default: prompt-crafter when not --run-prompts).",
@@ -320,6 +332,7 @@ def run_cmd(
     manifest_path: Path,
     jobs: int,
     run_prompts: bool,
+    run_game_dev: bool,
     skip_roles: str | None,
     stop_on_fail: bool,
     task_timeout: float,
@@ -345,6 +358,7 @@ def run_cmd(
             jobs=jobs,
             skip_roles=skip,
             run_prompts=run_prompts,
+            run_game_dev=run_game_dev,
             stop_on_fail=stop_on_fail,
             task_timeout=task_timeout,
             dry_run=dry_run,

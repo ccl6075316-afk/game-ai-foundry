@@ -4,7 +4,7 @@
 
 ---
 
-## 五 Agent 角色
+## 六 Agent 角色
 
 | Role ID | 默认 executor | Hermes skill | 职责 |
 |---------|---------------|--------------|------|
@@ -12,7 +12,8 @@
 | `prompt-crafter` | `hermes` | `game-factory-prompt-crafter` | `prompt craft` → plan JSON |
 | `image-generator` | `pipeline` | `game-factory-image-generator` | `image generate --plan-file` |
 | `video-generator` | `pipeline` | `game-factory-video-generator` | `video generate` + 拆帧/抠图链 |
-| `godot-assembler` | `pipeline` | `game-factory-godot-assembler` | `godot assemble` / `import-sprites`（**不写 GDScript**） |
+| `godot-assembler` | `pipeline` | `game-factory-godot-assembler` | `godot assemble` / `import-sprites`（资产导入，不写玩法） |
+| `godot-developer` | `codex` | `game-factory-godot-developer` | 读 `dev_*.json` + brief → 写 C# 游戏逻辑 |
 
 ---
 
@@ -89,12 +90,18 @@ python gamefactory.py godot validate --project ../games/prison-demo
 
 ## godot-assembler 边界
 
-- **做**：从 handoff 复制 PNG → `res://`，生成 `SpriteFrames` `.tres`，挂载 C# `Player.cs`（Godot 4 .NET 模板）
-- **不做**：GDScript、LLM 写 C#、Godot MCP
+- **做**：从 handoff 复制 PNG → `res://`，生成 `SpriteFrames` `.tres`，init .NET 工程骨架
+- **不做**：玩法逻辑、UI 系统、关卡设计 — 交给 **godot-developer**
 - **入口**：`godot assemble --assemble-file`（`consumer_role: godot-assembler`）
-- **子命令**：`godot import-sprites`（单资产调试）
 
-Handoff 示例：`plans/godot_prison_demo.json`
+## godot-developer 边界
+
+- **做**：读 `plans/dev_*.json` + brief，写/改 C# 与场景，实现产品文档中的玩法
+- **不做**：生图、生视频、assemble 导入
+- **入口**：`godot dev-context` 生成 handoff → Codex/Cursor 会话（skill `game-factory-godot-developer`）
+- **默认 executor**：`codex`（见 `resources/agents.example.json`）
+
+Handoff 示例：`plans/dev_test-brief-prison-walk.json`
 
 ---
 

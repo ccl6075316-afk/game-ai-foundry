@@ -6,6 +6,7 @@ from pathlib import Path
 
 from roles import (
     GODOT_ASSEMBLER_ROLE,
+    GODOT_DEVELOPER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
@@ -20,6 +21,7 @@ ROLE_SKILLS: dict[str, tuple[str, ...]] = {
     IMAGE_GENERATOR_ROLE: ("generate",),
     VIDEO_GENERATOR_ROLE: ("generate",),
     GODOT_ASSEMBLER_ROLE: ("assemble", "import-sprites"),
+    GODOT_DEVELOPER_ROLE: ("implement",),
 }
 
 

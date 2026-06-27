@@ -10,6 +10,7 @@ from typing import Any
 
 from roles import (
     GODOT_ASSEMBLER_ROLE,
+    GODOT_DEVELOPER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
@@ -26,13 +27,14 @@ DEFAULT_HERMES_SKILLS_DIR = Path.home() / ".hermes" / "skills"
 HERMES_PACKAGES: dict[str, dict[str, Any]] = {
     "game-factory-orchestrator": {
         "role": ORCHESTRATOR_ROLE,
-        "description": "Orchestrate Game AI Foundry: brief → five agents → gamefactory CLI.",
+        "description": "Orchestrate Game AI Foundry: brief → six agents → gamefactory CLI.",
         "tags": ["Game-Dev", "Assets", "Pipeline", "Orchestrator", "Godot"],
         "related": [
             "game-factory-prompt-crafter",
             "game-factory-image-generator",
             "game-factory-video-generator",
             "game-factory-godot-assembler",
+            "game-factory-godot-developer",
         ],
     },
     "game-factory-prompt-crafter": {
@@ -57,7 +59,13 @@ HERMES_PACKAGES: dict[str, dict[str, Any]] = {
         "role": GODOT_ASSEMBLER_ROLE,
         "description": "Assemble Godot 4 .NET projects from PNG/SpriteFrames (assemble handoff).",
         "tags": ["Game-Dev", "Godot", "CSharp", "Assembly"],
-        "related": ["game-factory-orchestrator", "game-factory-video-generator"],
+        "related": ["game-factory-orchestrator", "game-factory-video-generator", "game-factory-godot-developer"],
+    },
+    "game-factory-godot-developer": {
+        "role": GODOT_DEVELOPER_ROLE,
+        "description": "Implement Godot 4 C# game logic from product brief + dev handoff.",
+        "tags": ["Game-Dev", "Godot", "CSharp", "Codex"],
+        "related": ["game-factory-orchestrator", "game-factory-godot-assembler", "game-factory-codex"],
     },
     "game-factory-codex": {
         "role": None,

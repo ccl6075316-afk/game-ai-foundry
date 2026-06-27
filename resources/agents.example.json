@@ -19,6 +19,10 @@
     "godot-assembler": {
       "executor": "pipeline",
       "skill": "game-factory-godot-assembler"
+    },
+    "godot-developer": {
+      "executor": "codex",
+      "skill": "game-factory-godot-developer"
     }
   }
 }

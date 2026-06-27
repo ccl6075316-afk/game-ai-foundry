@@ -231,6 +231,75 @@ def assemble_cmd(assemble_path: Path, validate: bool) -> None:
             sys.exit(2)
 
 
+@click.command("dev-context")
+@click.option(
+    "--brief",
+    "brief_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Product brief JSON.",
+)
+@click.option(
+    "--project",
+    "project_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Godot project directory (assemble output).",
+)
+@click.option(
+    "--assemble-file",
+    "assemble_path",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Optional godot-assembler handoff for assemble metadata.",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_path",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Write godot-developer handoff JSON (consumer_role: godot-developer).",
+)
+def dev_context_cmd(
+    brief_path: Path,
+    project_path: Path,
+    assemble_path: Path | None,
+    output_path: Path | None,
+) -> None:
+    """Build godot-developer handoff from brief + assembled project (Pass 4)."""
+    from godot_dev import build_godot_dev_plan
+    from plan_io import build_godot_dev_handoff, save_handoff
+
+    try:
+        plan = build_godot_dev_plan(
+            brief_path,
+            project_path=project_path,
+            assemble_handoff_path=assemble_path,
+        )
+        handoff = build_godot_dev_handoff(plan, context={"brief": str(brief_path.resolve())})
+        payload = json.dumps(handoff, ensure_ascii=False, indent=2)
+        if output_path is not None:
+            save_handoff(output_path, handoff)
+            click.echo(str(output_path.resolve()))
+        else:
+            click.echo(payload)
+        click.echo(
+            json.dumps(
+                {
+                    "consumer_role": "godot-developer",
+                    "project_path": plan["project_path"],
+                    "delegate": "codex or cursor — implement C# per plan.implementation_goals",
+                },
+                ensure_ascii=False,
+            ),
+            err=True,
+        )
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
 @click.command("inject")
 @click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
               help="Godot project directory.")

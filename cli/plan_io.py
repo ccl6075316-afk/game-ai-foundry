@@ -8,7 +8,9 @@ from typing import Any
 
 from roles import (
     GODOT_ASSEMBLER_ROLE,
+    GODOT_DEVELOPER_ROLE,
     IMAGE_GENERATOR_ROLE,
+    ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
     VIDEO_GENERATOR_ROLE,
 )
@@ -38,6 +40,28 @@ def build_video_handoff(plan: dict[str, Any], *, context: dict[str, Any] | None 
 
 def build_godot_handoff(plan: dict[str, Any], *, context: dict[str, Any] | None = None) -> dict[str, Any]:
     return build_handoff(plan, context=context or {}, consumer_role=GODOT_ASSEMBLER_ROLE)
+
+
+def build_godot_dev_handoff(plan: dict[str, Any], *, context: dict[str, Any] | None = None) -> dict[str, Any]:
+    return {
+        "handoff_version": HANDOFF_VERSION,
+        "producer_role": ORCHESTRATOR_ROLE,
+        "consumer_role": GODOT_DEVELOPER_ROLE,
+        "context": context or {},
+        "plan": plan,
+    }
+
+
+def load_godot_dev_handoff(path: Path) -> dict[str, Any]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("handoff_version") != HANDOFF_VERSION:
+        raise ValueError(f"Unsupported handoff version in {path}")
+    if data.get("consumer_role") != GODOT_DEVELOPER_ROLE:
+        raise ValueError(f"Plan file {path} is not for godot-developer")
+    plan = data.get("plan")
+    if not isinstance(plan, dict) or not plan.get("project_path"):
+        raise ValueError(f"Plan file {path} missing plan.project_path")
+    return data
 
 
 def save_handoff(path: Path, handoff: dict[str, Any]) -> None:

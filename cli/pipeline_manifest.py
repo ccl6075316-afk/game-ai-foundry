@@ -21,6 +21,7 @@ from brief import (
 )
 from roles import (
     GODOT_ASSEMBLER_ROLE,
+    GODOT_DEVELOPER_ROLE,
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
@@ -394,7 +395,7 @@ def _video_animation_tasks(
 
     matte_deps = [split_id]
     matte_layer = _layer_from_deps(matte_deps, tasks_by_id)
-    _add_task(
+    matte_id = _add_task(
         tasks,
         asset=name,
         step="video.matte-frames",
@@ -412,6 +413,7 @@ def _video_animation_tasks(
             "output_dir": paths["frames_nobg_dir"],
         },
     )
+    tasks_by_id[matte_id] = tasks[-1]
 
 
 def _artifact_path_to_repo_rel(artifact_path: str) -> str:
@@ -513,6 +515,45 @@ def _add_godot_tasks(
     tasks_by_id[assemble_id] = tasks[-1]
 
 
+def _add_godot_dev_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    brief_stem: str,
+    brief_cli: str,
+    project_path: Path,
+    assemble_handoff_cli: str,
+) -> None:
+    assemble_id = f"{brief_stem}.godot.assemble"
+    if assemble_id not in tasks_by_id:
+        return
+
+    dev_handoff_cli = cli_relative(_REPO_ROOT / "plans" / f"dev_{brief_stem}.json")
+    deps = [assemble_id]
+    layer = _layer_from_deps(deps, tasks_by_id)
+    dev_id = f"{brief_stem}.godot.dev-context"
+    _add_task(
+        tasks,
+        asset=brief_stem,
+        step="godot.dev-context",
+        role=GODOT_DEVELOPER_ROLE,
+        depends_on=deps,
+        layer=layer,
+        command=(
+            f"python gamefactory.py godot dev-context "
+            f"--brief {brief_cli} "
+            f"--project {cli_relative(project_path)} "
+            f"--assemble-file {assemble_handoff_cli} "
+            f"-o {dev_handoff_cli}"
+        ),
+        artifacts={
+            "dev_handoff": dev_handoff_cli,
+            "project_path": rel_to_repo(project_path.resolve()),
+        },
+    )
+    tasks_by_id[dev_id] = tasks[-1]
+
+
 def build_manifest(
     brief_path: Path,
     *,
@@ -521,6 +562,7 @@ def build_manifest(
     sprite_frames_default: int = 8,
     godot_project: Path | None = None,
     include_godot: bool = True,
+    include_game_dev: bool = True,
 ) -> dict[str, Any]:
     """Expand brief into a task DAG manifest."""
     brief_path = brief_path.resolve()
@@ -594,6 +636,15 @@ def build_manifest(
             assemble_handoff_cli=godot_handoff_cli,
             all_asset_task_ids=asset_task_ids,
         )
+        if include_game_dev:
+            _add_godot_dev_tasks(
+                tasks,
+                tasks_by_id,
+                brief_stem=brief_path.stem,
+                brief_cli=brief_cli,
+                project_path=godot_project,
+                assemble_handoff_cli=godot_handoff_cli,
+            )
 
     manifest: dict[str, Any] = {
         "manifest_version": MANIFEST_VERSION,
@@ -680,7 +731,10 @@ def status_summary(manifest: dict[str, Any]) -> dict[str, Any]:
         "ready_count": len(ready),
         "ready_ids": [t["id"] for t in ready],
         "failed_ids": [t["id"] for t in tasks_list(manifest) if t.get("status") == TASK_FAILED],
-        "done": counts.get(TASK_DONE, 0) == len(tasks_list(manifest)),
+        "done": (
+            counts.get(TASK_DONE, 0) + counts.get(TASK_SKIPPED, 0)
+            == len(tasks_list(manifest))
+        ),
     }
 
 
@@ -731,7 +785,7 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
         if not _deps_satisfied(task, by_id):
             continue
         artifacts = task.get("artifacts") or {}
-        check_keys = ("output", "output_dir", "plan", "nobg_image", "video")
+        check_keys = ("output", "output_dir", "plan", "nobg_image", "video", "dev_handoff")
         found = False
         for key in check_keys:
             rel = artifacts.get(key)

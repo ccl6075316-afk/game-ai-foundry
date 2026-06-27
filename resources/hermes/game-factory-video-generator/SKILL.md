@@ -26,6 +26,15 @@ You do **not** rewrite prompts.
 - Call `gamefactory video generate --plan-file <handoff> --reference-image <still> --output <mp4>`.
 - After MP4 succeeds, orchestrator runs `video split-frames` → `video matte-frames --engine ai`.
 
+## i2v transition frames (critical)
+
+Seedance clips **morph from the reference still into motion**. Early frames differ in color and silhouette from mid-clip motion frames.
+
+- **Do not** use clip start frames as game sprites or idle poses.
+- **Do not** reuse the **reference still** (`*_raw.png` sent to Seedance) as an in-game idle sprite next to walk frames.
+- `video split-frames` skips lead-in by default (`video.split_frames.skip_lead_ratio`, usually **25%**), then samples `--frames` / config count.
+- Godot idle uses a **separate** character `*_nobg.png` via handoff `idle_still`.
+
 ## Seedance models (pick one via `--model` or config)
 
 | Alias | Model ID | Notes |
@@ -86,7 +95,7 @@ python gamefactory.py video generate \
   --reference-image output/prison-test/prison_inmate_v2_raw.png \
   --model mini --duration 4 --resolution 480p --no-generate-audio \
   --output output/prison-test/prison_inmate_walk.mp4
-# Split to sprite frames (orchestrator / next step)
+# Split to sprite frames (skips ~15% lead-in by default)
 python gamefactory.py video split-frames \
   --input output/prison-test/prison_inmate_walk.mp4 \
   --output-dir output/prison-test/walk_frames/ \

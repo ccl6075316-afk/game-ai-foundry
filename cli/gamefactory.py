@@ -580,6 +580,7 @@ video.add_command(matte_frames_cmd)
 # Register godot subcommands
 from godot_cmds import (
     assemble_cmd,
+    dev_context_cmd,
     export_cmd,
     import_sprites_cmd,
     init_cmd,
@@ -590,6 +591,7 @@ from godot_cmds import (
 godot.add_command(init_cmd)
 godot.add_command(import_sprites_cmd)
 godot.add_command(assemble_cmd)
+godot.add_command(dev_context_cmd)
 godot.add_command(inject_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)

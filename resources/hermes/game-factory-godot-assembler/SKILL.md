@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Game-Dev, Godot, CSharp, Assembly]
-    related_skills: [game-factory-orchestrator, game-factory-video-generator]
+    related_skills: [game-factory-orchestrator, game-factory-video-generator, game-factory-godot-developer]
 ---
 # Game Factory Godot Assembler
 
@@ -29,7 +29,10 @@ You do **not** craft prompts, call image/video APIs, or write GDScript.
 1. **C# only** — use the dotnet template; never inject `.gd` files.
 2. **No LLM code generation** in v1 — Player/Main `.cs` come from template.
 3. **Animations** — input is `frames_dir` of RGBA PNGs (from `video matte-frames`).
-4. **Backgrounds** — copy static PNGs into `assets/backgrounds/`.
+4. **Skip i2v lead-in** — never use the first frames of a generated clip or the Seedance reference still as idle. Those frames morph from still → motion (color/shape mismatch).
+5. **Trim then sample** — drop lead/trail transition frames first, **then** sample to `sprite_frames` (brief/config, usually 8). Pipeline split-frames sets `pre_trimmed`/`pre_sampled`; full extracts rely on godot import.
+6. **Idle display** — use `idle_still`: separate character `*_nobg.png`, not reference still or anim frames.
+7. **Backgrounds** — copy static PNGs into `assets/backgrounds/`.
 
 ## CLI
 
@@ -57,9 +60,15 @@ python gamefactory.py godot open --project ../games/prison-demo
         "asset": "prison_inmate_walk",
         "frames_dir": "output/prison-test/walk_frames_nobg",
         "fps": 12,
-        "animation_name": "walk"
+        "animation_name": "walk",
+        "sprite_frames": 8,
+        "skip_lead_ratio": 0.25,
+        "skip_trail_ratio": 0.05,
+        "pre_trimmed": false,
+        "pre_sampled": false
       }
     ],
+    "idle_still": "output/prison-test/prison_inmate_nobg.png",
     "backgrounds": [
       {
         "asset": "prison_cell_block",
@@ -83,6 +92,8 @@ python gamefactory.py godot open --project ../games/prison-demo
 # Godot Assembler — import sprites
 
 Import extracted animation frames into a Godot project as `SpriteFrames` resources.
+
+**Skip i2v lead-in**: use `--skip-lead-ratio 0.15` (or config) to drop early morph frames. Never import clip start as idle.
 
 ## Command
 
@@ -115,6 +126,8 @@ Paths are **res://** relative to project root.
 | `--fps` | 12 | Animation speed in SpriteFrames |
 | `--animation-name` | asset name | e.g. `walk`, `idle` |
 | `--loop` | true | Loop animation |
+| `--skip-lead-ratio` | config (0.15) | Drop leading morph frames from i2v clip |
+| `--skip-lead-frames` | 0 | Drop exact N leading frames |
 
 ## When to use
 

@@ -10,13 +10,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from roles import PROMPT_CRAFTER_ROLE
+from roles import PROMPT_CRAFTER_ROLE, GODOT_DEVELOPER_ROLE
 
 from pipeline_manifest import (
     TASK_DONE,
     TASK_FAILED,
     TASK_PENDING,
     TASK_RUNNING,
+    TASK_SKIPPED,
     _CLI_DIR,
     _artifact_exists,
     load_manifest,
@@ -198,37 +199,65 @@ def run_task_subprocess(
     )
 
 
-def _auto_skip_prompt_tasks(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
-    """Mark skipped-role tasks done when plan artifact already exists."""
+def _auto_skip_role_tasks(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
+    """Mark skipped-role tasks done/skipped when artifacts exist or role is AI-only."""
     skipped: list[str] = []
     for task in tasks_list(manifest):
         if task.get("status") != TASK_PENDING:
             continue
-        if task.get("role") not in skip_roles:
+        role = task.get("role")
+        if role not in skip_roles:
             continue
-        plan_rel = (task.get("artifacts") or {}).get("plan")
+
+        artifacts = task.get("artifacts") or {}
+        plan_rel = artifacts.get("plan") or artifacts.get("dev_handoff")
         if plan_rel and _artifact_exists(_CLI_DIR, plan_rel):
             record_task(
                 manifest,
                 task["id"],
                 status=TASK_DONE,
-                result={"source": "auto_skip", "reason": "plan artifact exists"},
+                result={"source": "auto_skip", "reason": "handoff artifact exists"},
+            )
+            skipped.append(task["id"])
+            continue
+
+        if role == GODOT_DEVELOPER_ROLE:
+            record_task(
+                manifest,
+                task["id"],
+                status=TASK_SKIPPED,
+                result={
+                    "source": "skip_role",
+                    "reason": "Pass 4 — delegate to codex/cursor (use --run-game-dev for dev-context only)",
+                },
             )
             skipped.append(task["id"])
     return skipped
 
 
-def _missing_plans_for_skipped_roles(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
+def _missing_handoffs_for_skipped_roles(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
     missing: list[str] = []
     for task in tasks_list(manifest):
         if task.get("status") != TASK_PENDING:
             continue
-        if task.get("role") not in skip_roles:
+        role = task.get("role")
+        if role not in skip_roles:
+            continue
+        if role == GODOT_DEVELOPER_ROLE:
             continue
         plan_rel = (task.get("artifacts") or {}).get("plan")
         if plan_rel and not _artifact_exists(_CLI_DIR, plan_rel):
             missing.append(task["id"])
     return missing
+
+
+def _auto_skip_prompt_tasks(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
+    """Backward-compatible alias."""
+    return _auto_skip_role_tasks(manifest, skip_roles)
+
+
+def _missing_plans_for_skipped_roles(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
+    return _missing_handoffs_for_skipped_roles(manifest, skip_roles)
 
 
 def run_pipeline(
@@ -237,6 +266,7 @@ def run_pipeline(
     jobs: int = 4,
     skip_roles: set[str] | None = None,
     run_prompts: bool = False,
+    run_game_dev: bool = False,
     stop_on_fail: bool = True,
     task_timeout: float | None = 1800.0,
     dry_run: bool = False,
@@ -250,6 +280,8 @@ def run_pipeline(
     skip = set(skip_roles or [])
     if not run_prompts and PROMPT_CRAFTER_ROLE not in skip:
         skip.add(PROMPT_CRAFTER_ROLE)
+    if not run_game_dev and GODOT_DEVELOPER_ROLE not in skip:
+        skip.add(GODOT_DEVELOPER_ROLE)
 
     manifest_path = manifest_path.resolve()
     lock = threading.Lock()
@@ -260,8 +292,8 @@ def run_pipeline(
     manifest = load_manifest(manifest_path)
 
     if skip:
-        _auto_skip_prompt_tasks(manifest, skip)
-        missing = _missing_plans_for_skipped_roles(manifest, skip)
+        _auto_skip_role_tasks(manifest, skip)
+        missing = _missing_handoffs_for_skipped_roles(manifest, skip)
         if missing:
             return PipelineRunResult(
                 blocked=True,
