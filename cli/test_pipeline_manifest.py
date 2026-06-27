@@ -78,28 +78,28 @@ class PipelineManifestTest(unittest.TestCase):
             task = next(t for t in tasks_list(manifest) if t["id"] == "raptor_scavenger.prompt.craft")
             self.assertEqual(task["status"], "done")
 
-    def test_prison_walk_manifest_includes_godot_task(self) -> None:
-        brief = _REPO / "resources" / "test-brief-prison-walk.json"
+    def test_dino_idle_manifest_includes_godot_task(self) -> None:
+        brief = _BRIEF
         manifest = build_manifest(
             brief,
-            output_dir=_REPO / "output" / "prison-test",
-            godot_project=_REPO / "games" / "prison-demo",
+            output_dir=_REPO / "output" / "dino-test",
+            godot_project=_REPO / "games" / "dino-test",
         )
         ids = {t["id"] for t in tasks_list(manifest)}
-        self.assertIn("prison_inmate_walk.video.matte-frames", ids)
-        self.assertIn("test-brief-prison-walk.godot.assemble", ids)
-        self.assertIn("test-brief-prison-walk.godot.dev-context", ids)
+        self.assertIn("raptor_scavenger_idle.video.matte-frames", ids)
+        self.assertIn("test-brief-dino-idle.godot.assemble", ids)
+        self.assertIn("test-brief-dino-idle.godot.dev-context", ids)
 
-        matte = next(t for t in tasks_list(manifest) if t["id"] == "prison_inmate_walk.video.matte-frames")
+        matte = next(t for t in tasks_list(manifest) if t["id"] == "raptor_scavenger_idle.video.matte-frames")
         self.assertEqual(matte["status"], "pending")
 
-        assemble = next(t for t in tasks_list(manifest) if t["id"] == "test-brief-prison-walk.godot.assemble")
-        self.assertIn("prison_inmate_walk.video.matte-frames", assemble["depends_on"])
+        assemble = next(t for t in tasks_list(manifest) if t["id"] == "test-brief-dino-idle.godot.assemble")
+        self.assertIn("raptor_scavenger_idle.video.matte-frames", assemble["depends_on"])
         self.assertEqual(assemble["layer"], matte["layer"] + 1)
 
-        dev = next(t for t in tasks_list(manifest) if t["id"] == "test-brief-prison-walk.godot.dev-context")
+        dev = next(t for t in tasks_list(manifest) if t["id"] == "test-brief-dino-idle.godot.dev-context")
         self.assertEqual(dev["role"], "godot-developer")
-        self.assertIn("test-brief-prison-walk.godot.assemble", dev["depends_on"])
+        self.assertIn("test-brief-dino-idle.godot.assemble", dev["depends_on"])
         self.assertEqual(dev["layer"], assemble["layer"] + 1)
 
     def test_asset_brief_example_layers(self) -> None:

@@ -151,7 +151,7 @@ declare global {
         status: PipelineStatus;
         tasks: PipelineTask[];
       }>;
-      pipelineRun: (manifestRel: string, jobs: number) => Promise<CliResult>;
+      pipelineRun: (manifestRel: string, jobs: number, runPrompts?: boolean) => Promise<CliResult>;
       openGodot: (projectRel: string) => Promise<CliResult>;
       getConfig: () => Promise<ConfigInfo>;
       saveConfig: (patch: ConfigPatch) => Promise<SaveConfigResult>;

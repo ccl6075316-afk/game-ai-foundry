@@ -51,11 +51,15 @@ export interface BriefBrainstormStatus {
   last_choices?: string[];
 }
 
+export function parseRunFlags(text: string): { runPrompts: boolean } {
+  return { runPrompts: /\s--run-prompts\b/i.test(text.trim()) };
+}
+
 export const SUGGESTIONS = [
   { label: "策划 Brief", desc: "多轮对话澄清需求，生成 brief", cmd: "/brief" },
   { label: "检测环境", desc: "doctor 探测 Python / Godot / API", cmd: "/doctor" },
   { label: "生成流水线", desc: "基于当前 brief 生成 manifest", cmd: "/plan" },
-  { label: "运行 Pipeline", desc: "执行资产生成与 Godot 组装", cmd: "/run" },
+  { label: "运行 Pipeline", desc: "执行资产生成；可加 --run-prompts", cmd: "/run" },
 ] as const;
 
 export function parseChatCommand(text: string): string | null {

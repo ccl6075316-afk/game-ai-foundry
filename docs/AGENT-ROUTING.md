@@ -104,7 +104,7 @@ python gamefactory.py godot validate --project ../games/prison-demo
 - **入口**：`godot dev-context` 生成 handoff → Codex/Cursor 会话（skill `game-factory-godot-developer`）
 - **默认 executor**：`codex`（见 `resources/agents.example.json`）
 
-Handoff 示例：`plans/dev_test-brief-prison-walk.json`
+Handoff 示例：`plans/dev_test-brief-dino-idle.json`（或 `tests/fixtures/plans/` 下归档样例）
 
 ---
 

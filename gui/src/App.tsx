@@ -4,7 +4,7 @@ import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
 import { BoardPanel } from "./components/BoardPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
-import { newMessageId, parseChatCommand, type ChatAttachment, type ChatMessage } from "./chat/types";
+import { newMessageId, parseChatCommand, parseRunFlags, type ChatAttachment, type ChatMessage } from "./chat/types";
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
   loadActiveBriefRel,
@@ -265,7 +265,7 @@ export default function App() {
     return off;
   }, [loadInitial, append, refreshBrainstormStatus]);
 
-  const handleRun = async () => {
+  const handleRun = async (runPrompts = false) => {
     if (!selectedManifest) {
       append("assistant", "还没有 pipeline manifest。请先完成 Brief 策划并发送 `/plan`。");
       return;
@@ -273,8 +273,13 @@ export default function App() {
     setBusy(true);
     setLogs([]);
     try {
-      append("assistant", "正在执行 `pipeline run` …");
-      const res = await window.gameFactory.pipelineRun(selectedManifest, 4);
+      append(
+        "assistant",
+        runPrompts
+          ? "正在执行 `pipeline run --run-prompts`（含 prompt craft）…"
+          : "正在执行 `pipeline run` …",
+      );
+      const res = await window.gameFactory.pipelineRun(selectedManifest, 4, runPrompts);
       if (res.exitCode !== 0) {
         append("assistant", `Pipeline 结束，exit ${res.exitCode}。\n${res.stderr || res.stdout}`);
       } else {
@@ -428,7 +433,7 @@ export default function App() {
       return;
     }
     if (cmd === "/run") {
-      await handleRun();
+      await handleRun(parseRunFlags(text).runPrompts);
       return;
     }
     if (cmd === "/board") {

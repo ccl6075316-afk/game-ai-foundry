@@ -420,7 +420,7 @@ app.whenReady().then(() => {
     return { ...result, status, tasks };
   });
 
-  ipcMain.handle("pipeline-run", async (event, manifestRel, jobs) => {
+  ipcMain.handle("pipeline-run", async (event, manifestRel, jobs, runPrompts) => {
     const sender = event.sender;
     const args = [
       "pipeline",
@@ -430,6 +430,7 @@ app.whenReady().then(() => {
       "--jobs",
       String(jobs || 4),
     ];
+    if (runPrompts) args.push("--run-prompts");
     const result = await runCli(args, {
       onLine: (line, stream) => {
         sender.send("pipeline-log", { line, stream });

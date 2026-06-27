@@ -96,7 +96,7 @@ export function ChatInput({
           </svg>
         </button>
       </form>
-      <p className="composer__hint">Enter 发送 · Shift+Enter 换行 · `/brief save 名称` 导出 JSON</p>
+      <p className="composer__hint">Enter 发送 · `/run --run-prompts` 含文案生成 · `/brief save 名称` 导出</p>
     </div>
   );
 }

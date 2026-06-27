@@ -43,14 +43,14 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ### 🔄 In Progress
 
-- [ ] Full E2E from **new brief** → `pipeline run` → playable Godot project (API + assemble)
-- [ ] GUI `/run` option for `--run-prompts`
+- [ ] Full E2E from **new brief** → playable Godot (matting validation edge cases on smoke brief)
 - [ ] Frame resize 128×128 post-matte
 
 ### 🔜 Next (P0)
 
 - [ ] One-shot brief → plan → run from GUI without manual path juggling
-- [ ] Clean up local test manifests (`pipeline/prison-walk.json` etc.) — keep as dev-only, not release defaults
+- [x] GUI `/run --run-prompts`
+- [x] Prison test assets relocated to `tests/fixtures/` (not release defaults)
 
 ### ⬜ Not Started
 

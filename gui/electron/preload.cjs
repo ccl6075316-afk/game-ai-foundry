@@ -8,7 +8,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   getManifestMeta: (manifestRel) => ipcRenderer.invoke("manifest-meta", manifestRel),
   pipelinePlan: (opts) => ipcRenderer.invoke("pipeline-plan", opts),
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
-  pipelineRun: (manifestRel, jobs) => ipcRenderer.invoke("pipeline-run", manifestRel, jobs),
+  pipelineRun: (manifestRel, jobs, runPrompts) =>
+    ipcRenderer.invoke("pipeline-run", manifestRel, jobs, runPrompts),
   openGodot: (projectRel) => ipcRenderer.invoke("open-godot", projectRel),
   getConfig: () => ipcRenderer.invoke("get-config"),
   saveConfig: (patch) => ipcRenderer.invoke("save-config", patch),

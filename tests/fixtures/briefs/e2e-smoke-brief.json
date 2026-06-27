@@ -1,0 +1,16 @@
+{
+  "project": {
+    "title": "E2E Smoke",
+    "description": "Minimal single-character smoke test for pipeline plan and run.",
+    "art_direction": "flat 2D game sprite, simple shapes, clean silhouette",
+    "dimension": "2d"
+  },
+  "assets": [
+    {
+      "name": "slime_hero",
+      "type": "character",
+      "description": "cute blue slime blob hero, single neutral standing pose, full body, facing right",
+      "display_size": "128x128 px"
+    }
+  ]
+}
