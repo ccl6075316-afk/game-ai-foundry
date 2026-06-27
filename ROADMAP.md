@@ -39,12 +39,12 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 **Doctor & env**
 - `gamefactory doctor --json` — Python, Godot, API keys, executor availability
 
-**Tests**: 38+ CLI unit tests (incl. brief brainstorm, llm_config, env_discover)
+**Tests**: 44 CLI unit tests (incl. E2E smoke manifest, brief brainstorm, matting validate)
 
 ### 🔄 In Progress
 
-- [x] Full E2E smoke (`e2e-smoke-brief` → plan → run --run-prompts) — 4/4 tasks
-- [ ] Full E2E with Godot assemble on smoke brief
+- [x] Full E2E smoke (`e2e-smoke-brief` → plan → run --run-prompts) — 4/4 asset tasks
+- [x] Full E2E with Godot assemble on smoke brief — 5/5 tasks + `godot validate`
 - [ ] Frame resize 128×128 post-matte
 
 ### 🔜 Next (P0)

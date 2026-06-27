@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from godot_import import GodotImportError, copy_background_image, copy_idle_still, import_sprite_frames
+from godot_import import GodotImportError, copy_background_image, copy_idle_still, import_sprite_frames, import_still_as_animation
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _TEMPLATE_DOTNET = _REPO_ROOT / "resources" / "godot-templates" / "dotnet"
@@ -21,9 +21,9 @@ class GodotAssembleError(RuntimeError):
 
 def resolve_template_dir(template: str) -> Path:
     if template == "dotnet":
-        return TEMPLATE_DOTNET
+        return _TEMPLATE_DOTNET
     if template in ("default", "empty"):
-        return TEMPLATE_DEFAULT
+        return _TEMPLATE_DEFAULT
     raise GodotAssembleError(f"Unknown template '{template}'. Use: dotnet, default")
 
 
@@ -77,7 +77,7 @@ def _resolve_repo_path(path_str: str) -> Path:
 def wire_main_scene(
     project_path: Path,
     *,
-    sprite_frames_res: str,
+    sprite_frames_res: str | None = None,
     background_res: str | None = None,
     idle_still_res: str | None = None,
     main_scene: str = "scenes/main.tscn",
@@ -86,7 +86,9 @@ def wire_main_scene(
     scene_path = project_path / main_scene
     scene_path.parent.mkdir(parents=True, exist_ok=True)
 
-    load_steps = 3
+    load_steps = 2
+    if sprite_frames_res:
+        load_steps += 1
     if background_res:
         load_steps += 1
     if idle_still_res:
@@ -97,9 +99,13 @@ def wire_main_scene(
         "",
         '[ext_resource type="Script" path="res://scripts/Main.cs" id="1_main"]',
         '[ext_resource type="Script" path="res://scripts/Player.cs" id="2_player"]',
-        f'[ext_resource type="SpriteFrames" path="res://{sprite_frames_res}" id="3_frames"]',
     ]
-    next_id = 4
+    next_id = 3
+    frames_ext = ""
+    if sprite_frames_res:
+        lines.append(f'[ext_resource type="SpriteFrames" path="res://{sprite_frames_res}" id="3_frames"]')
+        frames_ext = 'sprite_frames = ExtResource("3_frames")'
+        next_id = 4
     bg_ext = ""
     if background_res:
         lines.append(f'[ext_resource type="Texture2D" path="res://{background_res}" id="{next_id}_bg"]')
@@ -128,7 +134,7 @@ def wire_main_scene(
             "",
             '[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]',
             "visible = false",
-            'sprite_frames = ExtResource("3_frames")',
+            frames_ext,
             "",
             '[node name="Camera2D" type="Camera2D" parent="Player"]',
             "",
@@ -219,18 +225,43 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
                 primary_bg = rel
 
     idle_still_res: str | None = None
+    idle_still_src: Path | None = None
     idle_still = plan.get("idle_still")
     if isinstance(idle_still, str) and idle_still.strip():
+        idle_still_src = _resolve_repo_path(idle_still)
         try:
             idle_still_res = copy_idle_still(
                 project_path,
-                image_path=_resolve_repo_path(idle_still),
+                image_path=idle_still_src,
             )
         except GodotImportError as exc:
             raise GodotAssembleError(str(exc)) from exc
         results["idle_still"] = idle_still_res
 
-    if primary_sf:
+    if primary_sf is None and idle_still_src is not None and idle_still_src.is_file():
+        static_asset = "hero"
+        animations_list = plan.get("animations") or []
+        if isinstance(animations_list, list) and animations_list:
+            first = animations_list[0]
+            if isinstance(first, dict) and first.get("asset"):
+                static_asset = str(first["asset"])
+        elif isinstance(idle_still, str):
+            stem = Path(idle_still).stem.replace("_nobg", "")
+            if stem:
+                static_asset = stem
+        try:
+            imp = import_still_as_animation(
+                project_path,
+                asset=static_asset,
+                image_path=idle_still_src,
+                animation_name="walk",
+            )
+        except GodotImportError as exc:
+            raise GodotAssembleError(str(exc)) from exc
+        results["animations"].append(imp)
+        primary_sf = imp["sprite_frames"]
+
+    if primary_sf or idle_still_res:
         wire_main_scene(
             project_path,
             sprite_frames_res=primary_sf,

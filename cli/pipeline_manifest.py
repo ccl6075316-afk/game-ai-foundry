@@ -468,6 +468,21 @@ def _collect_godot_plan(
             idle_still_path = rel_to_repo(output_dir / f"{ref}_nobg.png")
             break
 
+    if not idle_still_path:
+        for spec in assets:
+            if spec.type.value != "character":
+                continue
+            if classify_asset(spec) == AssetKind.VIDEO_ANIMATION:
+                continue
+            nobg_id = f"{spec.name}.image.remove-bg"
+            if nobg_id in tasks_by_id:
+                out_art = tasks_by_id[nobg_id].artifacts.get("output", "")
+                if out_art:
+                    idle_still_path = _artifact_path_to_repo_rel(out_art)
+                    break
+            idle_still_path = rel_to_repo(output_dir / f"{spec.name}_nobg.png")
+            break
+
     plan: dict[str, Any] = {
         "project_path": rel_to_repo(godot_project.resolve()),
         "project_name": project.title or brief_stem.replace("_", " ").title(),
@@ -490,7 +505,11 @@ def _add_godot_tasks(
     assemble_handoff_cli: str,
     all_asset_task_ids: list[str],
 ) -> None:
-    if not godot_plan.get("animations") and not godot_plan.get("backgrounds"):
+    if (
+        not godot_plan.get("animations")
+        and not godot_plan.get("backgrounds")
+        and not godot_plan.get("idle_still")
+    ):
         return
 
     deps = list(all_asset_task_ids)

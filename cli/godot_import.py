@@ -154,6 +154,41 @@ def _build_sprite_frames_tres(
     return "\n".join(lines) + "\n"
 
 
+def import_still_as_animation(
+    project_path: Path,
+    *,
+    asset: str,
+    image_path: Path,
+    animation_name: str = "walk",
+    fps: float = 12.0,
+) -> dict[str, str]:
+    """Build a one-frame SpriteFrames resource from a static character still."""
+    project_path = project_path.resolve()
+    image_path = image_path.resolve()
+    if not image_path.is_file():
+        raise GodotImportError(f"Still image not found: {image_path}")
+
+    dest_dir = project_path / "assets" / "sprites" / asset
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest = dest_dir / f"frame_0001{image_path.suffix or '.png'}"
+    shutil.copy2(image_path, dest)
+    rel = dest.relative_to(project_path).as_posix()
+
+    tres_path = project_path / "assets" / "sprites" / f"{asset}_frames.tres"
+    tres_rel = tres_path.relative_to(project_path).as_posix()
+    tres_path.write_text(
+        _build_sprite_frames_tres([(rel, dest)], animation_name=animation_name, fps=fps, loop=True),
+        encoding="utf-8",
+    )
+    return {
+        "asset": asset,
+        "animation_name": animation_name,
+        "frame_count": "1",
+        "sprite_frames": tres_rel,
+        "frames_dir": dest_dir.relative_to(project_path).as_posix(),
+    }
+
+
 def copy_background_image(
     project_path: Path,
     *,
