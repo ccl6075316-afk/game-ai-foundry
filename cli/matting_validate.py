@@ -11,6 +11,12 @@ import numpy as np
 from asset_pipeline import ValidationResult
 
 
+def _near_white_mask(bgr: np.ndarray, threshold: int) -> np.ndarray:
+    """True where all BGR channels are bright (actual white/near-white, not saturated colors)."""
+    floor = max(0, threshold - 20)
+    return np.min(bgr, axis=2) >= floor
+
+
 def validate_matting_edges(
     image_path: Path,
     *,
@@ -44,6 +50,7 @@ def validate_matting_edges(
     bgr = img[:, :, :3]
     alpha = img[:, :, 3]
     gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+    near_white = _near_white_mask(bgr, brightness_threshold)
 
     fg = (alpha >= 128).astype(np.uint8)
     if fg.sum() == 0:
@@ -62,16 +69,16 @@ def validate_matting_edges(
     edge_band = (fg > 0) & (eroded == 0)
     edge_count = int(edge_band.sum())
 
-    bright_on_edge = edge_band & (gray >= brightness_threshold)
+    bright_on_edge = edge_band & near_white
     bright_count = int(bright_on_edge.sum())
     white_ratio = bright_count / edge_count if edge_count else 0.0
 
-    semi = (alpha > 0) & (alpha < 128) & (gray >= brightness_threshold - 20)
+    semi = (alpha > 0) & (alpha < 128) & near_white
     semi_count = int(semi.sum())
 
     dilated = cv2.dilate(fg, kernel, iterations=1)
     outer_ring = (dilated > 0) & (fg == 0)
-    halo = outer_ring & (alpha > 0) & (gray >= brightness_threshold)
+    halo = outer_ring & (alpha > 0) & near_white
     halo_count = int(halo.sum())
 
     checks: list[dict[str, Any]] = [

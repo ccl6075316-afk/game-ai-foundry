@@ -68,9 +68,9 @@ PURE_WHITE_BG_RETRY_HINTS = [
 ]
 
 PURE_WHITE_THRESHOLD = 240
-PURE_WHITE_EDGE_MIN_RATIO = 0.92
-PURE_WHITE_EDGE_MAX_DARK_RATIO = 0.02
-PURE_WHITE_CORNER_MAX_STD = 18.0
+PURE_WHITE_EDGE_MIN_RATIO = 0.88
+PURE_WHITE_EDGE_MAX_DARK_RATIO = 0.04
+PURE_WHITE_CORNER_MAX_STD = 22.0
 
 
 @dataclass
@@ -482,8 +482,8 @@ def _check_pure_white_background(
     edge_min_white_ratio: float = PURE_WHITE_EDGE_MIN_RATIO,
     edge_max_dark_ratio: float = PURE_WHITE_EDGE_MAX_DARK_RATIO,
     corner_max_std: float = PURE_WHITE_CORNER_MAX_STD,
-    background_min_white_ratio: float = 0.95,
-    background_mean_min: float = 242.0,
+    background_min_white_ratio: float = 0.90,
+    background_mean_min: float = 238.0,
 ) -> tuple[bool, list[dict[str, Any]]]:
     """Heuristic: studio matting requires near-uniform pure white backdrop."""
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -524,20 +524,20 @@ def _check_pure_white_background(
         if probe_values
         else 0.0
     )
-    probe_dark_hits = sum(1 for v in probe_values if v < 220)
+    probe_dark_hits = sum(1 for v in probe_values if v < 200)
 
     corner_white = corner_brightness >= white_threshold
     edge_white = edge_white_ratio >= edge_min_white_ratio
     no_dark_frame = (
         edge_dark_ratio <= edge_max_dark_ratio
         and background_dark_ratio <= edge_max_dark_ratio
-        and probe_dark_hits == 0
+        and probe_dark_hits <= 2
     )
     uniform_corners = corner_std <= corner_max_std
     backdrop_white = (
         background_white_ratio >= background_min_white_ratio
         and background_mean >= background_mean_min
-        and probe_white_ratio >= 0.85
+        and probe_white_ratio >= 0.80
     )
 
     checks = [

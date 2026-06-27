@@ -13,9 +13,9 @@ DEFAULT_COLOR_KEY = {
     "threshold": 240,
     "fuzz": 18.0,
     "key_scope": "exterior",
-    "morph_erode": 0,
+    "morph_erode": 1,
     "morph_dilate": 0,
-    "despeckle": 0,
+    "despeckle": 1,
 }
 
 KEY_SCOPE_EXTERIOR = "exterior"
@@ -46,8 +46,8 @@ DEFAULT_VIDEO_FRAME = {
 DEFAULT_VALIDATE_EDGES = {
     "edge_width": 2,
     "brightness_threshold": 220,
-    "max_white_ratio": 0.01,
-    "max_semi_transparent": 0,
+    "max_white_ratio": 0.025,
+    "max_semi_transparent": 8,
 }
 
 

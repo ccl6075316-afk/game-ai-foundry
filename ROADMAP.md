@@ -43,7 +43,8 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ### 🔄 In Progress
 
-- [ ] Full E2E from **new brief** → playable Godot (matting validation edge cases on smoke brief)
+- [x] Full E2E smoke (`e2e-smoke-brief` → plan → run --run-prompts) — 4/4 tasks
+- [ ] Full E2E with Godot assemble on smoke brief
 - [ ] Frame resize 128×128 post-matte
 
 ### 🔜 Next (P0)

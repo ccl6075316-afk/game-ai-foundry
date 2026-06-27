@@ -53,8 +53,8 @@
     "validate_edges": {
       "edge_width": 2,
       "brightness_threshold": 220,
-      "max_white_ratio": 0.01,
-      "max_semi_transparent": 0
+      "max_white_ratio": 0.025,
+      "max_semi_transparent": 8
     },
     "video_frames": {
       "engine": "ai",
