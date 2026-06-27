@@ -29,6 +29,14 @@ Hermes（会话 / 记忆 / skills / gateway）
 
 混排说明见 [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md)。
 
+**配置前先探测**（Hermes/Codex/Cursor 不随仓库分发）：
+
+```bash
+cd cli
+python gamefactory.py doctor
+python gamefactory.py agents show --discover
+```
+
 ---
 
 ## 1. 安装

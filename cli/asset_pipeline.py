@@ -203,7 +203,7 @@ def build_prompt(
 
     if not api_key or not api_base:
         raise PromptCraftError(
-            "Prompt crafting requires an API key (config.prompt or config.image). "
+            "Prompt crafting requires an API key (config.host, config.prompt, or config.image). "
             "Godogen uses its orchestrator LLM the same way — there is no hardcoded prompt."
         )
 

@@ -1,4 +1,10 @@
 {
+  "host": {
+    "model": "deepseek/deepseek-chat",
+    "api_key": "YOUR_OPENROUTER_KEY",
+    "api_base": "https://openrouter.ai/api/v1",
+    "proxy": "http://127.0.0.1:7897"
+  },
   "image": {
     "model": "google/gemini-3.1-flash-image",
     "api_key": "YOUR_OPENROUTER_KEY",
@@ -7,9 +13,11 @@
   },
   "prompt": {
     "model": "deepseek/deepseek-chat",
-    "api_key": "YOUR_OPENROUTER_KEY",
     "api_base": "https://openrouter.ai/api/v1",
     "proxy": "http://127.0.0.1:7897"
+  },
+  "code": {
+    "model": "deepseek/deepseek-chat"
   },
   "video": {
     "api_key": "YOUR_ARK_API_KEY",

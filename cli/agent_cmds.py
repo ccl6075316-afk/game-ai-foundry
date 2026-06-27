@@ -17,11 +17,22 @@ def agents_group() -> None:
 
 
 @agents_group.command("show")
+@click.option(
+    "--discover",
+    is_flag=True,
+    help="Merge local executor availability (same probes as `doctor`).",
+)
 @click.pass_context
-def show_cmd(ctx: click.Context) -> None:
+def show_cmd(ctx: click.Context, discover: bool) -> None:
     """List all agent roles with resolved executor and skill package."""
     config = ctx.obj.get("config", {}) if ctx.obj else {}
-    click.echo(json.dumps(all_agents(config), indent=2, ensure_ascii=False))
+    agents = all_agents(config)
+    if discover:
+        from env_discover import discover_agents, discover_executors
+
+        executors = discover_executors()
+        agents = discover_agents(config, executors)
+    click.echo(json.dumps(agents, indent=2, ensure_ascii=False))
 
 
 @agents_group.command("resolve")

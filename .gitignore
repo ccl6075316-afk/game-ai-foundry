@@ -14,3 +14,5 @@ config.local.json
 .godot/
 *.import
 **/mono/temp/
+gui/node_modules/
+gui/dist/

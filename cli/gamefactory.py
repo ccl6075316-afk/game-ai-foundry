@@ -31,47 +31,7 @@ DEFAULT_SIZE = "1024x1024"
 CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
 
-def resolve_prompt_api_settings(
-    config: dict[str, Any],
-    *,
-    prompt_model: str | None = None,
-    api_key: str | None = None,
-    api_base: str | None = None,
-    proxy: str | None = None,
-) -> dict[str, str | None]:
-    """Resolve LLM settings for prompt crafting (falls back to image config)."""
-    from prompt_craft import DEFAULT_PROMPT_MODEL
-
-    prompt_cfg = config.get("prompt", {})
-    image_cfg = config.get("image", {}) if isinstance(config.get("image"), dict) else {}
-
-    resolved_model = (
-        prompt_model
-        or (prompt_cfg.get("model") if isinstance(prompt_cfg, dict) else None)
-        or os.environ.get("GAMEFACTORY_PROMPT_MODEL")
-        or DEFAULT_PROMPT_MODEL
-    )
-    resolved_key = (
-        api_key
-        or (prompt_cfg.get("api_key") if isinstance(prompt_cfg, dict) else None)
-        or image_cfg.get("api_key")
-        or os.environ.get("GAMEFACTORY_API_KEY")
-        or os.environ.get("OPENROUTER_API_KEY")
-    )
-    resolved_base = (
-        api_base
-        or (prompt_cfg.get("api_base") if isinstance(prompt_cfg, dict) else None)
-        or image_cfg.get("api_base")
-        or os.environ.get("GAMEFACTORY_API_BASE")
-        or DEFAULT_API_BASE
-    )
-    resolved_proxy = resolve_config_proxy(config, proxy)
-    return {
-        "prompt_model": str(resolved_model),
-        "api_key": str(resolved_key) if resolved_key else None,
-        "api_base": str(resolved_base),
-        "proxy": str(resolved_proxy) if resolved_proxy else None,
-    }
+from llm_config import resolve_prompt_api_settings
 
 
 def load_config() -> dict[str, Any]:
@@ -546,6 +506,10 @@ from agent_cmds import agents_group  # noqa: E402
 
 cli.add_command(agents_group)
 
+from doctor_cmds import doctor_cmd  # noqa: E402
+
+cli.add_command(doctor_cmd)
+
 from pipeline_cmds import pipeline_group  # noqa: E402
 
 cli.add_command(pipeline_group)
@@ -596,6 +560,10 @@ godot.add_command(inject_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)
 godot.add_command(export_cmd)
+
+from brief_cmds import register_brief_commands  # noqa: E402
+
+register_brief_commands(cli)
 
 if __name__ == "__main__":
     cli()

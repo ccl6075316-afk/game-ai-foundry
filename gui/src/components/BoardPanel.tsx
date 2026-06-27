@@ -1,0 +1,66 @@
+import type { PipelineStatus, PipelineTask } from "../vite-env.d";
+import { TaskList } from "./TaskList";
+
+interface Props {
+  manifest: string;
+  status: PipelineStatus | null;
+  tasks: PipelineTask[];
+  logs: string[];
+  onRefresh: () => void;
+  onRun: () => void;
+  busy: boolean;
+}
+
+export function BoardPanel({
+  manifest,
+  status,
+  tasks,
+  logs,
+  onRefresh,
+  onRun,
+  busy,
+}: Props) {
+  const counts = status?.counts || {};
+
+  return (
+    <aside className="side-panel board-panel">
+      <div className="side-panel__head board-head">
+        <h2>看板</h2>
+        <p className="hint">Pipeline 任务状态 — 被动查看，主操作在对话里进行。</p>
+      </div>
+
+      <div className="board-meta mono">{manifest}</div>
+
+      <div className="stats compact">
+        <div className={`stat ${status?.done ? "ok" : ""}`}>
+          <span className="stat-label">状态</span>
+          <span>{status?.done ? "完成" : "进行中"}</span>
+        </div>
+        {Object.entries(counts).map(([k, v]) => (
+          <div key={k} className="stat">
+            <span className="stat-label">{k}</span>
+            <span>{v}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="board-actions">
+        <button type="button" className="btn btn--secondary" onClick={onRefresh} disabled={busy}>
+          刷新
+        </button>
+        <button type="button" className="btn btn--primary" onClick={onRun} disabled={busy}>
+          运行
+        </button>
+      </div>
+
+      <TaskList tasks={tasks} compact />
+
+      {logs.length > 0 && (
+        <div className="board-logs">
+          <h3>最近日志</h3>
+          <pre>{logs.slice(-30).join("\n")}</pre>
+        </div>
+      )}
+    </aside>
+  );
+}

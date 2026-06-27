@@ -45,10 +45,13 @@
 ```bash
 cd cli
 python gamefactory.py agents show
+python gamefactory.py agents show --discover   # 含本机 executor 是否可用
 python gamefactory.py agents resolve --role godot-assembler
+python gamefactory.py doctor                   # Hermes/Codex/Cursor/Godot 探测
 ```
 
-输出包含 `executor`、`skill`（Hermes 包名）、`skills_dir`（Cursor 可读 skill 源）。
+输出包含 `executor`、`skill`（Hermes 包名）、`skills_dir`（Cursor 可读 skill 源）。  
+`doctor` / `--discover` 在改 `config.agents` 前应跑一次 — **执行器不随仓库打包**。
 
 ---
 

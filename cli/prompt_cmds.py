@@ -98,7 +98,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         )
         if not prompt_api["api_key"]:
             click.echo(
-                "Error: prompt-crafter requires API key (config.prompt or config.image).",
+                "Error: prompt-crafter requires API key (config.host, config.prompt, or config.image).",
                 err=True,
             )
             sys.exit(1)

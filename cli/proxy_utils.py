@@ -59,7 +59,7 @@ def config_proxy_value(config: dict[str, Any]) -> str | None:
     """Pick proxy from config top-level or image/prompt/video sections."""
     if isinstance(config.get("proxy"), str) and config["proxy"].strip():
         return config["proxy"].strip()
-    for section in ("image", "prompt", "video"):
+    for section in ("host", "image", "prompt", "code", "video"):
         block = config.get(section)
         if isinstance(block, dict):
             value = block.get("proxy")
