@@ -279,7 +279,12 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
             asset = str(item.get("asset", "bg"))
             img = _resolve_repo_path(str(item["image"]))
             try:
-                rel = copy_background_image(project_path, asset=asset, image_path=img)
+                rel = copy_background_image(
+                    project_path,
+                    asset=asset,
+                    image_path=img,
+                    display_size=item.get("display_size"),
+                )
             except GodotImportError as exc:
                 raise GodotAssembleError(str(exc)) from exc
             results["backgrounds"].append({"asset": asset, "path": rel})
@@ -294,6 +299,7 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
             idle_still_res = copy_idle_still(
                 project_path,
                 image_path=idle_still_src,
+                display_size=plan.get("character_display_size"),
             )
         except GodotImportError as exc:
             raise GodotAssembleError(str(exc)) from exc

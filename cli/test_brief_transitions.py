@@ -15,6 +15,7 @@ from brief import (
     load_brief_full,
     validate_brief_for_export,
 )
+from display_size import DisplaySize
 from test_fixtures import EXAMPLE_BRIEF, MINIMAL_VIDEO_BRIEF, write_brief
 
 
@@ -45,7 +46,7 @@ class BriefTransitionsTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="reference_still",
             usage_description="ref",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="hero",
         )
         walk = AssetSpec(
@@ -53,7 +54,7 @@ class BriefTransitionsTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="player_locomotion",
             usage_description="walk",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="walk",
             reference_asset="hero",
             action="walking",
@@ -64,7 +65,7 @@ class BriefTransitionsTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="player_attack",
             usage_description="atk",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="atk",
             reference_asset="hero",
             action="attack",

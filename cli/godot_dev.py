@@ -59,7 +59,11 @@ def _runtime_bindings(
             "type": spec.type.value,
             "usage": spec.usage or (brief_snap or {}).get("usage", ""),
             "usage_description": spec.usage_description or (brief_snap or {}).get("usage_description", ""),
-            "display_size": spec.display_size or (brief_snap or {}).get("display_size", ""),
+            "display_size": (
+                spec.display_size.to_dict()
+                if not spec.display_size.is_empty()
+                else (brief_snap or {}).get("display_size", "")
+            ),
             "clip_name": clip,
             "loop": resolve_animation_loop(spec) if spec.action.strip() else None,
             "generate_method": (brief_snap or {}).get("generate_method"),

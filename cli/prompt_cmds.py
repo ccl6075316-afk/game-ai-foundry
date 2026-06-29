@@ -152,3 +152,63 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         except (ValueError, json.JSONDecodeError, OSError, PromptCraftError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
+
+    @prompt_group.command("craft-visual-target")
+    @click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
+    @click.option(
+        "--variant",
+        required=True,
+        type=click.Choice(["a", "b", "c", "d"]),
+        help="Composition variant id.",
+    )
+    @click.option(
+        "-o",
+        "--output",
+        "output_path",
+        default=None,
+        type=click.Path(path_type=Path),
+        help="Save handoff JSON for image-generator.",
+    )
+    @click.option("--no-craft", is_flag=True, help="Rule-based scaffold only (no LLM).")
+    @click.option("--prompt-model", default=None)
+    @click.option("--api-key", default=None)
+    @click.option("--api-base", default=None)
+    @click.option("--proxy", default=None)
+    @click.pass_context
+    def craft_visual_target_cmd(
+        ctx: click.Context,
+        brief_path: Path,
+        variant: str,
+        output_path: Path | None,
+        no_craft: bool,
+        prompt_model: str | None,
+        api_key: str | None,
+        api_base: str | None,
+        proxy: str | None,
+    ) -> None:
+        """prompt-crafter: craft one Visual Target handoff for image-generator."""
+        from visual_target import VisualTargetError, _load_project, build_visual_target_plan, get_variant
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            var = get_variant(variant)
+            plan = build_visual_target_plan(
+                brief_path,
+                var,
+                craft=not no_craft,
+                config=config,
+                proxy=proxy or (ctx.obj.get("proxy") if ctx.obj else None),
+            )
+            from shared_context import build_visual_target_context
+
+            context = build_visual_target_context(_load_project(brief_path), var)
+            handoff = build_handoff(plan, context=context)
+        except (VisualTargetError, PromptCraftError, ValueError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        if output_path:
+            save_handoff(output_path, handoff)
+            click.echo(str(output_path.resolve()))
+        else:
+            click.echo(json.dumps(handoff, ensure_ascii=False, indent=2))

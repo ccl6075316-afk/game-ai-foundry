@@ -16,6 +16,7 @@ from typing import Any
 import cv2
 import numpy as np
 
+from asset_sizing import resolve_generation_image_size
 from brief import (
     ANIMATION_METHOD_IMG2IMG,
     ANIMATION_METHOD_VIDEO,
@@ -55,6 +56,9 @@ class PromptPlan:
     video_generate_audio: bool | None = None
     video_watermark: bool | None = None
     reference_image: str | None = None
+    image_size: str | None = None
+    display_size: dict[str, int] | None = None
+    anchor: str = "bottom_center"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -172,15 +176,30 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
     raise ValueError(f"Unhandled asset type: {spec.type}")
 
 
+def _anchor_for_usage(spec: AssetSpec) -> str:
+    usage = (spec.usage or "").strip()
+    if usage in ("item_icon", "ui_element", "vfx") or spec.type == AssetType.ICON_KIT:
+        return "center"
+    if spec.type in (AssetType.CHARACTER, AssetType.CHARACTER_POSE):
+        return "bottom_center"
+    if spec.type == AssetType.BACKGROUND:
+        return "top_left"
+    return "center"
+
+
 def build_prompt_scaffold(project: ProjectContext, spec: AssetSpec) -> PromptPlan:
     """Pipeline + validation metadata only. Prompt is null until LLM crafts it."""
     meta = _plan_metadata(project, spec)
+    ds = None if spec.display_size.is_empty() else spec.display_size.to_dict()
     return PromptPlan(
         asset_name=spec.name,
         asset_type=spec.type.value,
         prompt=None,
         prompt_source="scaffold_only",
         skill_refs=list(ROLE_SKILLS[PROMPT_CRAFTER_ROLE]),
+        image_size=resolve_generation_image_size(spec, project),
+        display_size=ds,
+        anchor=_anchor_for_usage(spec),
         **meta,
     )
 

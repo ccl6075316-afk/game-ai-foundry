@@ -18,6 +18,7 @@ from brief import (
     load_brief,
     resolve_generate_method,
 )
+from display_size import display_size_from_viewport
 
 
 def project_to_dict(project: ProjectContext) -> dict[str, Any]:
@@ -37,6 +38,15 @@ def project_to_dict(project: ProjectContext) -> dict[str, Any]:
         data["camera"] = project.camera
     if project.visual_reference:
         data["visual_reference"] = project.visual_reference
+        vp = project.viewport or {}
+        w, h = vp.get("width"), vp.get("height")
+        size_hint = f"{w}x{h}" if w and h else "viewport"
+        data["visual_reference_usage"] = (
+            "North-star full-screen mock at project viewport resolution "
+            f"({size_hint}). Align palette, line weight, and mood with "
+            "art_direction — not pixel-perfect. Do NOT use as img2img input "
+            "for character/icon sprites; those use assets[].display_size on white studio."
+        )
     if project.hud:
         data["hud"] = project.hud
     return data
@@ -47,7 +57,7 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         "name": spec.name,
         "type": spec.type.value,
         "description": spec.description,
-        "display_size": spec.display_size,
+        "display_size": spec.display_size.to_dict() if not spec.display_size.is_empty() else None,
         "aspect_ratio": spec.aspect_ratio,
     }
     if spec.items:
@@ -98,6 +108,24 @@ def build_role_context(project: ProjectContext, spec: AssetSpec) -> dict[str, An
     return {
         "project": project_to_dict(project),
         "asset": asset_to_dict(spec),
+    }
+
+
+def build_visual_target_context(project: ProjectContext, variant: dict[str, str]) -> dict[str, Any]:
+    """Context for visual_target craft (project-level, no asset row)."""
+    size = display_size_from_viewport(project.viewport).to_api_string()
+    return {
+        "project": project_to_dict(project),
+        "visual_target": {
+            "variant_id": variant["id"],
+            "variant_label": variant["label"],
+            "variant_focus": variant["focus"],
+            "target_image_size": size,
+            "usage": (
+                "Full viewport gameplay mock; becomes project.visual_reference after user pick. "
+                "Not a sprite sheet or character isolate."
+            ),
+        },
     }
 
 

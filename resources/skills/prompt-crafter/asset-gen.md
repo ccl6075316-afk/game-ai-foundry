@@ -2,7 +2,11 @@
 
 Reference patterns only. **Craft** the final prompt for each asset; do not copy blindly.
 
-## Global prohibitions
+## Global sizing (godogen)
+
+- **`display_size`** in brief = in-game pixels on `project.viewport` (how big it **looks**).
+- **`image_size`** in handoff = generation API size (derived; do not shrink 1K art to tiny tiles in prompt).
+- Same character family (`reference_asset` / animation graph) **must share** `display_size`.
 
 - Never prompt for "transparent background" or checkerboard — generators draw fake transparency.
 - Never request a spritesheet or multiple action frames in one image.
@@ -18,6 +22,18 @@ Each asset type has **different** prompt rules and **different** post-pipeline. 
 | **icon_kit** | White studio grid | slice → trim → remove-bg per tile | characters, scenery |
 | **background** | Full environment scene | none (no matting) | white studio, character sprites |
 | **texture** | Tile fills frame | none | white studio, characters |
+
+## `project.visual_reference` (Visual Target)
+
+When `project.visual_reference` is set (after `brief visual-target pick`):
+
+| Role | How to use |
+|------|------------|
+| **prompt-crafter** | Read `visual_reference_usage` in context. Match **palette, line weight, mood** from art_direction + north star. Characters/icons still use **white studio** and `assets[].display_size` — never paste the full screenshot into a character prompt. |
+| **image-generator** | **Do not** pass visual_reference as `--reference-image` for character/img2img unless a plan explicitly sets `requires_reference_image` (pose variants from `reference_asset` only). |
+| **tester** | Compare headless **viewport screenshot** (same size as `project.viewport`) against visual_reference for mood/composition QA. |
+
+**Pipeline order:** `brief export` → `brief visual-target generate` → `pick` → then `pipeline run` so craft sees `visual_reference`.
 
 ## character (single, white background)
 

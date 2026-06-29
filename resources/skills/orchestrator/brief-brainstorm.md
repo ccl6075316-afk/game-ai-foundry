@@ -48,7 +48,7 @@
 | `type` | 六种之一（含 `audio`） |
 | `usage` | 用途标签（见下） |
 | `usage_description` | 谁用、怎么用（可与 `description` 二选一，但至少要有一个） |
-| `display_size` | character / character_pose / background / icon_kit **必填** |
+| `display_size` | `{ width, height }` 游戏内像素（看起来多大）；兼容 `"128x128 px"` 字符串 |
 | `generate_method` | 可选；`image` / `video` / `procedural` / `file`，缺省按 type 推断 |
 | `description` | 英文 prompt 素材描述 |
 

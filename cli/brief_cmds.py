@@ -242,7 +242,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
         type=click.Path(path_type=Path),
         help="Output folder (default: ../output/<slug>/visual-target).",
     )
-    @click.option("--dry-run", is_flag=True, help="Build prompts + manifest only; no image API.")
+    @click.option("--dry-run", is_flag=True, help="Write handoffs + manifest only; no image API.")
+    @click.option(
+        "--no-craft",
+        is_flag=True,
+        help="Rule-based prompts only (skip prompt-crafter LLM).",
+    )
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def visual_target_generate_cmd(
@@ -251,9 +256,10 @@ def register_brief_commands(cli_group: click.Group) -> None:
         candidates: int,
         output_dir: Path | None,
         dry_run: bool,
+        no_craft: bool,
         as_json: bool,
     ) -> None:
-        """Generate 1–4 predicted gameplay screenshots from brief."""
+        """Generate 1–4 predicted gameplay screenshots (prompt-crafter → image-generator)."""
         from visual_target import VisualTargetError, default_output_dir, generate_visual_targets
 
         config = ctx.obj.get("config", {}) if ctx.obj else {}
@@ -267,6 +273,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 config=config,
                 proxy=proxy,
                 dry_run=dry_run,
+                craft=not no_craft,
             )
         except (VisualTargetError, RuntimeError, ValueError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
@@ -279,7 +286,9 @@ def register_brief_commands(cli_group: click.Group) -> None:
             for c in manifest["candidates"]:
                 click.echo(f"  [{c['id']}] {c['label']} → {c['path']}")
             if dry_run:
-                click.echo("(dry-run — no images generated)")
+                click.echo("(dry-run — handoffs written, no images generated)")
+            elif no_craft:
+                click.echo("(no-craft — rule-based prompts)")
 
     @visual_target_group.command("list")
     @click.option(

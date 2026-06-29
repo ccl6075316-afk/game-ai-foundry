@@ -12,6 +12,7 @@ from brief import (
     finalize_brief_export,
     validate_brief_for_export,
 )
+from display_size import DisplaySize
 from test_fixtures import EXAMPLE_BRIEF, SMOKE_BRIEF, write_brief
 
 
@@ -34,7 +35,7 @@ class BriefContractTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="player_idle",
             usage_description="idle",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="hero",
         )
         gaps = audit_brief_for_export(project, [asset])
@@ -56,7 +57,7 @@ class BriefContractTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="vfx",
             usage_description="walk without player tag",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="walk",
             reference_asset="hero_ref",
             action="walking",
@@ -67,7 +68,7 @@ class BriefContractTests(unittest.TestCase):
             type=AssetType.CHARACTER,
             usage="vfx",
             usage_description="ref",
-            display_size="128x128 px",
+            display_size=DisplaySize(128, 128),
             description="ref",
         )
         gaps = audit_brief_for_export(project, [ref, walk])
@@ -108,7 +109,7 @@ class BriefContractTests(unittest.TestCase):
             type=AssetType.BACKGROUND,
             usage="parallax_layer",
             usage_description="far sky",
-            display_size="1920x1080",
+            display_size=DisplaySize(1920, 1080),
             description="sky",
         )
         gaps = audit_brief_for_export(project, [layer])
@@ -154,7 +155,7 @@ class BriefContractTests(unittest.TestCase):
             type=AssetType.ICON_KIT,
             usage="ui_element",
             usage_description="HP bar icon",
-            display_size="32x32 px",
+            display_size=DisplaySize(32, 32),
             description="heart",
             items=["heart"],
             grid="1x1",

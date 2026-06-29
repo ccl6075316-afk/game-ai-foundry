@@ -10,7 +10,9 @@ import pytest
 from visual_target import (
     apply_visual_target_pick,
     build_candidate_prompts,
+    build_visual_target_plan,
     default_output_dir,
+    generate_visual_targets,
     load_visual_target_manifest,
 )
 
@@ -55,6 +57,48 @@ def test_default_output_dir(example_brief: Path) -> None:
     assert out.name == "visual-target"
 
 
+def test_build_visual_target_plan_scaffold(example_brief: Path) -> None:
+    plan = build_visual_target_plan(
+        example_brief,
+        {"id": "a", "label": "opening_moment", "focus": "Opening scene."},
+        craft=False,
+        config={},
+    )
+    assert plan["kind"] == "visual_target"
+    assert plan["prompt_source"] == "scaffold"
+    assert plan["validation"]["skip_validate"] is True
+    assert "in-game screenshot" in plan["prompt"].lower()
+
+
+def test_generate_dry_run_writes_handoffs(example_brief: Path, tmp_path: Path) -> None:
+    out = tmp_path / "visual-target"
+    plans = tmp_path / "plans"
+    manifest = generate_visual_targets(
+        example_brief,
+        out,
+        count=2,
+        config={},
+        dry_run=True,
+        craft=False,
+        plans_dir=plans,
+    )
+    assert len(manifest["candidates"]) == 2
+    assert manifest["craft"] is False
+    for c in manifest["candidates"]:
+        assert Path(c["handoff_path"]).is_file()
+        handoff = json.loads(Path(c["handoff_path"]).read_text(encoding="utf-8"))
+        assert handoff["consumer_role"] == "image-generator"
+        assert handoff["plan"]["kind"] == "visual_target"
+
+
+def test_image_size_from_handoff() -> None:
+    from plan_io import image_size_from_handoff
+
+    handoff = {"plan": {"image_size": "1280x720", "asset_type": "visual_target"}}
+    assert image_size_from_handoff(handoff) == "1280x720"
+    assert image_size_from_handoff({"plan": {}}) is None
+
+
 def test_apply_pick_updates_brief(example_brief: Path, tmp_path: Path) -> None:
     out_dir = tmp_path / "visual-target"
     out_dir.mkdir()
@@ -62,6 +106,7 @@ def test_apply_pick_updates_brief(example_brief: Path, tmp_path: Path) -> None:
     fake_png.write_bytes(b"\x89PNG\r\n")
 
     manifest = {
+        "viewport_size": "1280x720",
         "candidates": [
             {"id": "a", "label": "opening", "path": str(out_dir / "candidate_a.png")},
             {"id": "b", "label": "action", "path": str(fake_png), "prompt_summary": "action"},
@@ -76,6 +121,8 @@ def test_apply_pick_updates_brief(example_brief: Path, tmp_path: Path) -> None:
     data = json.loads(example_brief.read_text(encoding="utf-8"))
     assert data["project"]["visual_reference"]
     assert data["project"]["visual_target"]["selected_id"] == "b"
+    assert data["project"]["visual_target"]["image_size"] == "1280x720"
+
     assert len(data["project"]["visual_target"]["candidates"]) == 2
 
     updated = load_visual_target_manifest(manifest_path)

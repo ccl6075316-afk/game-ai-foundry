@@ -25,7 +25,7 @@
       "usage_description": "Hero reference still for i2v and idle pose",
       "generate_method": "image",
       "description": "armored knight with red plume",
-      "display_size": "128x128 px"
+      "display_size": { "width": 128, "height": 128 }
     },
     {
       "name": "knight_walk",
@@ -34,7 +34,7 @@
       "usage_description": "Walk cycle for horizontal movement",
       "generate_method": "video",
       "description": "armored knight",
-      "display_size": "128x128 px",
+      "display_size": { "width": 128, "height": 128 },
       "action": "walking to the right, smooth walk cycle",
       "reference_asset": "knight",
       "animation_name": "walk",
@@ -50,7 +50,7 @@
       "usage": "player_attack",
       "usage_description": "Static attack pose via img2img from reference",
       "generate_method": "image",
-      "display_size": "128x128 px",
+      "display_size": { "width": 128, "height": 128 },
       "action": "sword slash attack pose, mid-swing",
       "reference_asset": "knight"
     },
@@ -62,7 +62,7 @@
       "generate_method": "image",
       "items": ["sword", "shield", "potion", "gold coin"],
       "grid": "2x2",
-      "display_size": "64x64 px per icon"
+      "display_size": { "width": 64, "height": 64 }
     },
     {
       "name": "grass_tile",
@@ -70,7 +70,8 @@
       "usage": "tile_texture",
       "usage_description": "Ground tile for level terrain",
       "generate_method": "image",
-      "description": "green meadow grass"
+      "description": "green meadow grass",
+      "display_size": { "width": 64, "height": 64 }
     },
     {
       "name": "forest_bg",
@@ -80,7 +81,7 @@
       "generate_method": "image",
       "description": "dense forest with layered parallax trees and soft sky",
       "aspect_ratio": "16:9",
-      "display_size": "1920x1080"
+      "display_size": { "width": 1280, "height": 720 }
     },
     {
       "name": "forest_bgm",
@@ -98,7 +99,7 @@
       "default_clip": "idle",
       "summary": "Idle when still; walk loop while moving",
       "transitions": [
-        {"from": "idle", "to": "walk", "bidirectional": true}
+        { "from": "idle", "to": "walk", "bidirectional": true }
       ]
     }
   ]

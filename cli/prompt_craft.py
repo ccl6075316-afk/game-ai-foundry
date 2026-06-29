@@ -14,7 +14,7 @@ import requests
 
 from proxy_utils import http_post
 from roles import PROMPT_CRAFTER_ROLE
-from skill_loader import load_role_skills
+from skill_loader import load_role_skill, load_role_skills
 
 DEFAULT_PROMPT_MODEL = "google/gemini-2.5-flash"
 
@@ -145,3 +145,47 @@ def craft_asset_prompt(
             )
         result["video_prompt"] = video_prompt
     return result
+
+
+def _system_prompt_visual_target() -> str:
+    base = load_role_skills(PROMPT_CRAFTER_ROLE)
+    vt = load_role_skill(PROMPT_CRAFTER_ROLE, "visual-target")
+    return (
+        f"You are the **{PROMPT_CRAFTER_ROLE}** in Game AI Foundry. "
+        "Craft a full-screen predicted gameplay screenshot prompt (Visual Target / north star).\n\n"
+        f"{base}\n\n---\n\n{vt}\n\n"
+        'Respond with ONLY valid JSON, no markdown fences:\n'
+        '{"prompt": "<generation prompt>"}\n\n'
+        "Craft visually specific English prompts under 120 words."
+    )
+
+
+def craft_visual_target_prompt(
+    *,
+    context: dict[str, Any],
+    model: str,
+    api_key: str,
+    api_base: str,
+    proxy: str | None = None,
+) -> dict[str, str]:
+    """prompt-crafter: LLM writes a Visual Target (full-screen mock) prompt."""
+    user = {
+        "role": PROMPT_CRAFTER_ROLE,
+        "task": "Craft a visual_target full-screen gameplay screenshot prompt.",
+        "context": context,
+    }
+    raw = chat_text_completion(
+        model=model,
+        messages=[
+            {"role": "system", "content": _system_prompt_visual_target()},
+            {"role": "user", "content": json.dumps(user, ensure_ascii=False, indent=2)},
+        ],
+        api_key=api_key,
+        api_base=api_base,
+        proxy=proxy,
+    )
+    parsed = _parse_json_object(raw)
+    prompt = str(parsed.get("prompt", "")).strip()
+    if not prompt:
+        raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
+    return {"prompt": prompt}

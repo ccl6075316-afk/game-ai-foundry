@@ -7,6 +7,36 @@ import shutil
 from pathlib import Path
 
 from frame_sequence import process_frame_sequence, resolve_transition_trim
+from display_size import DisplaySize, parse_display_size
+
+
+def _parse_display_arg(raw: Any) -> DisplaySize | None:
+    if isinstance(raw, dict):
+        return parse_display_size(raw)
+    if isinstance(raw, DisplaySize):
+        return raw if not raw.is_empty() else None
+    return parse_display_size(raw)
+
+
+def save_texture_at_display_size(
+    src: Path,
+    dest: Path,
+    display: DisplaySize | None,
+) -> None:
+    """Resize to in-game display pixels (godogen Size column); Godot scale stays 1."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if display is None or display.is_empty():
+        shutil.copy2(src, dest)
+        return
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise GodotImportError("Pillow required to resize assets to display_size") from exc
+    img = Image.open(src)
+    if img.mode not in ("RGB", "RGBA"):
+        img = img.convert("RGBA")
+    resized = img.resize((display.width, display.height), Image.Resampling.LANCZOS)
+    resized.save(dest, format="PNG")
 
 
 class GodotImportError(RuntimeError):
@@ -38,6 +68,7 @@ def import_sprite_frames(
     trim_trail: bool | None = None,
     config: dict | None = None,
     handoff: dict | None = None,
+    display_size: Any = None,
 ) -> dict[str, str]:
     """Trim i2v transition frames (optional), sample, then copy into project."""
     project_path = project_path.resolve()
@@ -83,10 +114,14 @@ def import_sprite_frames(
     dest_dir = project_path / "assets" / "sprites" / asset
     dest_dir.mkdir(parents=True, exist_ok=True)
 
+    display = _parse_display_arg(display_size)
+    if display is None and isinstance(handoff, dict):
+        display = _parse_display_arg(handoff.get("display_size"))
+
     copied: list[tuple[str, Path]] = []
     for idx, src in enumerate(frames, start=1):
         dest = dest_dir / f"frame_{idx:04d}{src.suffix}"
-        shutil.copy2(src, dest)
+        save_texture_at_display_size(src, dest, display)
         rel = dest.relative_to(project_path).as_posix()
         copied.append((rel, dest))
 
@@ -266,6 +301,7 @@ def import_still_as_animation(
     image_path: Path,
     animation_name: str = "walk",
     fps: float = 12.0,
+    display_size: Any = None,
 ) -> dict[str, str]:
     """Build a one-frame SpriteFrames resource from a static character still."""
     project_path = project_path.resolve()
@@ -276,7 +312,7 @@ def import_still_as_animation(
     dest_dir = project_path / "assets" / "sprites" / asset
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / f"frame_0001{image_path.suffix or '.png'}"
-    shutil.copy2(image_path, dest)
+    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
     rel = dest.relative_to(project_path).as_posix()
 
     tres_path = project_path / "assets" / "sprites" / f"{asset}_frames.tres"
@@ -299,6 +335,7 @@ def copy_background_image(
     *,
     asset: str,
     image_path: Path,
+    display_size: Any = None,
 ) -> str:
     """Copy a background image into assets/backgrounds/ (always as PNG for Godot)."""
     project_path = project_path.resolve()
@@ -309,18 +346,21 @@ def copy_background_image(
     dest_dir = project_path / "assets" / "backgrounds"
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / f"{asset}.png"
-
-    header = image_path.read_bytes()[:8]
-    if header.startswith(b"\x89PNG\r\n\x1a\n"):
-        shutil.copy2(image_path, dest)
+    display = _parse_display_arg(display_size)
+    if display is None:
+        header = image_path.read_bytes()[:8]
+        if header.startswith(b"\x89PNG\r\n\x1a\n"):
+            shutil.copy2(image_path, dest)
+        else:
+            try:
+                from PIL import Image
+            except ImportError as exc:
+                raise GodotImportError(
+                    f"Background is not PNG ({image_path}); install Pillow to convert."
+                ) from exc
+            Image.open(image_path).save(dest, format="PNG")
     else:
-        try:
-            from PIL import Image
-        except ImportError as exc:
-            raise GodotImportError(
-                f"Background is not PNG ({image_path}); install Pillow to convert."
-            ) from exc
-        Image.open(image_path).save(dest, format="PNG")
+        save_texture_at_display_size(image_path, dest, display)
 
     return dest.relative_to(project_path).as_posix()
 
@@ -330,6 +370,7 @@ def copy_idle_still(
     *,
     image_path: Path,
     asset: str = "idle_still",
+    display_size: Any = None,
 ) -> str:
     """Copy a separate character still for idle display (NOT the i2v reference or anim frame 0)."""
     project_path = project_path.resolve()
@@ -341,5 +382,5 @@ def copy_idle_still(
     dest_dir.mkdir(parents=True, exist_ok=True)
     ext = image_path.suffix or ".png"
     dest = dest_dir / f"{asset}{ext}"
-    shutil.copy2(image_path, dest)
+    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
     return dest.relative_to(project_path).as_posix()

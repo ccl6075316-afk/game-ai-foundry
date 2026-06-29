@@ -121,6 +121,18 @@ def asset_type_from_handoff(handoff: dict[str, Any]) -> str:
     return str(handoff["plan"].get("asset_type", "character"))
 
 
+def image_size_from_handoff(handoff: dict[str, Any]) -> str | None:
+    """Generation size from plan (e.g. visual_target uses project.viewport)."""
+    plan = handoff.get("plan", {})
+    if not isinstance(plan, dict):
+        return None
+    raw = plan.get("image_size")
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text or None
+
+
 def video_params_from_handoff(handoff: dict[str, Any]) -> dict[str, Any]:
     """Extract Seedance params for video-generator CLI."""
     plan = handoff["plan"]

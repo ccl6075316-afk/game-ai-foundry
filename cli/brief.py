@@ -9,6 +9,8 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
+from display_size import DisplaySize, parse_display_size
+
 ANIMATION_METHOD_VIDEO = "video"
 ANIMATION_METHOD_IMG2IMG = "img2img"
 FORBIDDEN_ANIMATION_METHODS = frozenset({"spritesheet", "sheet", "grid_actions"})
@@ -164,7 +166,7 @@ class AssetSpec:
     items: list[str] = field(default_factory=list)
     grid: str = "2x2"
     aspect_ratio: str = "1:1"
-    display_size: str = ""
+    display_size: DisplaySize = field(default_factory=DisplaySize.empty)
     action: str = ""
     animation_method: str = ANIMATION_METHOD_VIDEO
     reference_asset: str = ""
@@ -210,7 +212,7 @@ class AssetSpec:
             items=[str(x) for x in data.get("items", [])],
             grid=str(data.get("grid", "2x2")),
             aspect_ratio=str(data.get("aspect_ratio", "1:1")),
-            display_size=str(data.get("display_size", "")),
+            display_size=parse_display_size(data.get("display_size")) or DisplaySize.empty(),
             action=str(data.get("action", "")),
             animation_method=method,
             reference_asset=str(data.get("reference_asset", "")),
@@ -414,9 +416,14 @@ def audit_asset_extensions(
                 )
             elif not (0.0 < spec.scroll_factor <= 1.0):
                 errors.append(f"Asset '{spec.name}' scroll_factor must be > 0 and <= 1")
+        if spec.type == AssetType.TEXTURE and spec.usage.strip() == "tile_texture":
+            if spec.display_size.is_empty():
+                errors.append(
+                    f"Asset '{spec.name}' usage tile_texture requires display_size (single tile in-game pixels)"
+                )
         if usage == "ui_element":
             ui_assets.append(spec.name)
-            if not spec.display_size.strip():
+            if spec.display_size.is_empty():
                 errors.append(f"Asset '{spec.name}' usage ui_element requires 'display_size'")
         if spec.type == AssetType.AUDIO:
             if usage not in AUDIO_USAGES:
@@ -553,7 +560,7 @@ def audit_brief_for_export(
             errors.append(f"Asset '{spec.name}' missing required field 'usage'")
         elif spec.usage.strip() in PLAYER_USAGES:
             has_player_facing = True
-        if not spec.display_size.strip() and spec.type in (
+        if spec.display_size.is_empty() and spec.type in (
             AssetType.CHARACTER,
             AssetType.CHARACTER_POSE,
             AssetType.BACKGROUND,
@@ -597,6 +604,15 @@ def audit_brief_for_export(
     )
     errors.extend(audit_animation_graphs(assets, animation_graphs or []))
     errors.extend(audit_asset_extensions(project, assets))
+    from asset_sizing import audit_display_size_consistency
+
+    errors.extend(
+        audit_display_size_consistency(
+            assets,
+            animation_graphs=animation_graphs,
+            viewport=project.viewport,
+        )
+    )
 
     return errors
 

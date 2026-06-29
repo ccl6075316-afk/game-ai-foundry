@@ -463,11 +463,22 @@ def _collect_godot_plan(
                     "sprite_frames": sprite_count,
                     "pre_trimmed": True,
                     "pre_sampled": True,
+                    "display_size": (
+                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
+                    ),
                 }
             )
         elif spec.type == AssetType.BACKGROUND:
             raw = rel_to_repo(output_dir / f"{spec.name}_raw.png")
-            backgrounds.append({"asset": spec.name, "image": raw})
+            backgrounds.append(
+                {
+                    "asset": spec.name,
+                    "image": raw,
+                    "display_size": (
+                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
+                    ),
+                }
+            )
 
     idle_still_path: str | None = None
     for spec in assets:
@@ -505,6 +516,10 @@ def _collect_godot_plan(
         plan["idle_still"] = idle_still_path
     if character_asset:
         plan["character_asset"] = character_asset
+        for spec in assets:
+            if spec.name == character_asset and not spec.display_size.is_empty():
+                plan["character_display_size"] = spec.display_size.to_dict()
+                break
     return plan
 
 

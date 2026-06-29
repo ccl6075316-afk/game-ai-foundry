@@ -114,7 +114,9 @@ def _brief_asset_entry(spec: AssetSpec) -> dict[str, Any]:
         "usage": spec.usage,
         "usage_description": spec.usage_description,
         "generate_method": resolve_generate_method(spec),
-        "display_size": spec.display_size,
+        "display_size": (
+            spec.display_size.to_dict() if not spec.display_size.is_empty() else None
+        ),
         "description": spec.description,
         "reference_asset": spec.reference_asset,
         "animation_method": spec.animation_method if spec.action else "",

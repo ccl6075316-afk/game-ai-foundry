@@ -272,6 +272,7 @@ def generate(
     from asset_pipeline import AssetType, validate_image
     from plan_io import (
         asset_type_from_handoff,
+        image_size_from_handoff,
         load_handoff,
         prompt_from_handoff,
         validation_from_handoff,
@@ -293,6 +294,9 @@ def generate(
             resolved_prompt = prompt_from_handoff(handoff)
             validation_rules = validation_from_handoff(handoff)
             asset_type_name = asset_type_from_handoff(handoff)
+            plan_size = image_size_from_handoff(handoff)
+            if plan_size and not size:
+                size = plan_size
             if plan.get("requires_reference_image") and ref_image is None:
                 click.echo(
                     "Error: plan requires --reference-image for img2img.",
@@ -366,7 +370,13 @@ def generate(
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
 
-    if validate and validation_rules is not None and asset_type_name:
+    if (
+        validate
+        and validation_rules is not None
+        and asset_type_name
+        and not validation_rules.get("skip_validate")
+        and asset_type_name != "visual_target"
+    ):
         try:
             atype = AssetType(asset_type_name)
         except ValueError:

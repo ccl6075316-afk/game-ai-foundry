@@ -9,6 +9,9 @@ from pathlib import Path
 from typing import Any
 
 from brief import ProjectContext, load_brief_document
+from plan_io import build_handoff, prompt_from_handoff, save_handoff
+from roles import IMAGE_GENERATOR_ROLE, PROMPT_CRAFTER_ROLE
+from shared_context import build_visual_target_context
 
 VISUAL_TARGET_MANIFEST = "manifest.json"
 
@@ -94,9 +97,19 @@ def resolve_visual_reference_path(brief_path: Path) -> Path | None:
     return candidate if candidate.is_file() else None
 
 
-def build_candidate_prompts(brief_path: Path, *, count: int = 3) -> list[dict[str, str]]:
-    """Rule-based full-screen mock prompts from brief (no LLM)."""
-    project = _load_project(brief_path)
+def get_variant(variant_id: str) -> dict[str, str]:
+    for v in _VARIANTS:
+        if v["id"] == variant_id:
+            return dict(v)
+    raise VisualTargetError(f"Unknown variant '{variant_id}'")
+
+
+def variant_specs(*, count: int = 3) -> list[dict[str, str]]:
+    n = max(1, min(count, len(_VARIANTS)))
+    return [dict(v) for v in _VARIANTS[:n]]
+
+
+def _scaffold_prompt(project: ProjectContext, variant: dict[str, str]) -> str:
     base = _base_scene_description(project)
     dim = (project.dimension or "2d").lower()
     style = (
@@ -105,20 +118,101 @@ def build_candidate_prompts(brief_path: Path, *, count: int = 3) -> list[dict[st
         "No UI chrome outside the game frame, no watermark, no text labels. "
         "Flat readable composition suitable as visual north star for asset generation."
     )
-    n = max(1, min(count, len(_VARIANTS)))
+    return (
+        f"{style} {variant['focus']} "
+        f"{base} "
+        "Warm cohesive palette matching art direction."
+    ).strip()
+
+
+def build_visual_target_plan(
+    brief_path: Path,
+    variant: dict[str, str],
+    *,
+    craft: bool,
+    config: dict[str, Any],
+    proxy: str | None = None,
+) -> dict[str, Any]:
+    """Build image-generator plan dict (scaffold or prompt-crafter LLM)."""
+    project = _load_project(brief_path)
+    size = _viewport_size(project)
+    context = build_visual_target_context(project, variant)
+
+    if craft:
+        from llm_config import resolve_prompt_api_settings
+        from prompt_craft import PromptCraftError, craft_visual_target_prompt
+
+        api = resolve_prompt_api_settings(config, proxy=proxy)
+        if not api.get("api_key"):
+            raise VisualTargetError(
+                "prompt-crafter requires API key (config.host/prompt or OPENROUTER_API_KEY). "
+                "Use --no-craft for rule-based prompts."
+            )
+        try:
+            crafted = craft_visual_target_prompt(
+                context=context,
+                model=str(api["prompt_model"]),
+                api_key=str(api["api_key"]),
+                api_base=str(api["api_base"]),
+                proxy=api.get("proxy"),
+            )
+        except PromptCraftError as exc:
+            raise VisualTargetError(str(exc)) from exc
+        prompt = crafted["prompt"]
+        prompt_source = "llm"
+    else:
+        prompt = _scaffold_prompt(project, variant)
+        prompt_source = "scaffold"
+
+    return {
+        "kind": "visual_target",
+        "asset_name": f"visual_target_{variant['id']}",
+        "asset_type": "visual_target",
+        "variant": {
+            "id": variant["id"],
+            "label": variant["label"],
+            "focus": variant["focus"],
+        },
+        "prompt": prompt,
+        "image_size": size,
+        "prompt_source": prompt_source,
+        "role": PROMPT_CRAFTER_ROLE,
+        "consumer_role": IMAGE_GENERATOR_ROLE,
+        "negative_hints": [
+            "No pure white studio background.",
+            "No character-only sprite on white.",
+            "No poster borders or watermarks.",
+        ],
+        "validation": {
+            "require_pure_white_background": False,
+            "skip_validate": True,
+        },
+        "pipeline": [{"step": "generate_image"}],
+        "requires_background_removal": False,
+        "requires_reference_image": False,
+    }
+
+
+def default_plans_dir(brief_path: Path) -> Path:
+    slug = _slug_from_brief(brief_path, _load_project(brief_path).title)
+    return Path("..") / "plans" / f"visual_target_{slug}"
+
+
+def handoff_path_for_variant(plans_dir: Path, variant_id: str) -> Path:
+    return plans_dir / f"candidate_{variant_id}.json"
+
+
+def build_candidate_prompts(brief_path: Path, *, count: int = 3) -> list[dict[str, str]]:
+    """Rule-based prompts (scaffold only) — used by tests and --no-craft."""
+    project = _load_project(brief_path)
     out: list[dict[str, str]] = []
-    for variant in _VARIANTS[:n]:
-        prompt = (
-            f"{style} {variant['focus']} "
-            f"{base} "
-            "Warm cohesive palette matching art direction."
-        ).strip()
+    for variant in variant_specs(count=count):
         out.append(
             {
                 "id": variant["id"],
                 "label": variant["label"],
                 "prompt_summary": variant["focus"],
-                "prompt": prompt,
+                "prompt": _scaffold_prompt(project, variant),
             }
         )
     return out
@@ -138,11 +232,12 @@ def generate_visual_targets(
     config: dict[str, Any],
     proxy: str | None = None,
     dry_run: bool = False,
+    craft: bool = True,
+    plans_dir: Path | None = None,
 ) -> dict[str, Any]:
-    """Generate candidate PNGs + manifest."""
+    """prompt-crafter → image-generator: craft handoffs, generate candidate PNGs + manifest."""
     from gamefactory import (
         DEFAULT_API_BASE,
-        DEFAULT_SIZE,
         generate_image,
         resolve_image_proxy,
         resolve_image_setting,
@@ -151,10 +246,13 @@ def generate_visual_targets(
 
     brief_path = brief_path.resolve()
     project = _load_project(brief_path)
+    slug = _slug_from_brief(brief_path, project.title)
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
+    plans_root = (plans_dir or default_plans_dir(brief_path)).resolve()
+    plans_root.mkdir(parents=True, exist_ok=True)
 
-    candidates_spec = build_candidate_prompts(brief_path, count=count)
+    variants = variant_specs(count=count)
     size = _viewport_size(project)
 
     model = resolve_image_setting(config, None, "model", "GAMEFACTORY_IMAGE_MODEL")
@@ -167,19 +265,33 @@ def generate_visual_targets(
     )
     resolved_proxy = resolve_image_proxy(config, proxy)
 
-    if not dry_run:
-        if not model or not api_key:
-            raise VisualTargetError(
-                "Image API not configured (config image.api_key or OPENROUTER_API_KEY)"
-            )
+    if not dry_run and (not model or not api_key):
+        raise VisualTargetError(
+            "Image API not configured (config image.api_key or OPENROUTER_API_KEY)"
+        )
 
     generated: list[dict[str, Any]] = []
-    for spec in candidates_spec:
-        out_path = output_dir / f"candidate_{spec['id']}.png"
+    for variant in variants:
+        vid = variant["id"]
+        plan = build_visual_target_plan(
+            brief_path, variant, craft=craft, config=config, proxy=proxy
+        )
+        context = build_visual_target_context(project, variant)
+        handoff = build_handoff(plan, context=context)
+        handoff_path = handoff_path_for_variant(plans_root, vid)
+        save_handoff(handoff_path, handoff)
+
+        out_path = output_dir / f"candidate_{vid}.png"
+        prompt = prompt_from_handoff(handoff)
         entry: dict[str, Any] = {
-            **spec,
+            "id": vid,
+            "label": variant["label"],
+            "prompt_summary": variant["focus"],
+            "prompt": prompt,
+            "prompt_source": plan.get("prompt_source", "scaffold"),
+            "handoff_path": str(handoff_path),
             "path": str(out_path),
-            "size": size,
+            "size": plan.get("image_size", size),
         }
         if dry_run:
             entry["status"] = "dry_run"
@@ -187,9 +299,9 @@ def generate_visual_targets(
             assert model and api_key and api_base
             generate_image(
                 model=model,
-                prompt=spec["prompt"],
+                prompt=prompt,
                 output=out_path,
-                size=size,
+                size=str(plan.get("image_size", size)),
                 api_key=api_key,
                 api_base=api_base,
                 proxy=resolved_proxy,
@@ -199,14 +311,16 @@ def generate_visual_targets(
 
     manifest: dict[str, Any] = {
         "brief_path": str(brief_path),
-        "slug": _slug_from_brief(brief_path, project.title),
+        "slug": slug,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "viewport_size": size,
+        "craft": craft,
+        "plans_dir": str(plans_root),
         "candidates": generated,
         "selected_id": None,
         "notes": (
-            "Visual Target candidates (godogen-style). "
-            "User picks one → brief visual-target pick → sets project.visual_reference."
+            "Visual Target: prompt-crafter handoff → image-generator. "
+            "Pick one → brief visual-target pick → project.visual_reference."
         ),
     }
     manifest_path = output_dir / VISUAL_TARGET_MANIFEST
@@ -278,6 +392,7 @@ def apply_visual_target_pick(
     project["visual_target"] = {
         "selected_id": cid,
         "selected_path": ref_str,
+        "image_size": manifest.get("viewport_size"),
         "confirmed_at": datetime.now(timezone.utc).isoformat(),
         "candidates": [
             {

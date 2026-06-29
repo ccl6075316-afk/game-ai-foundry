@@ -73,7 +73,21 @@ game-ai-foundry/
 
 ### `project` 可选（P1）
 
-`visual_reference`、`hud[]`（有 `ui_element` 素材时必填）
+`visual_reference`、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
+
+#### 尺寸契约（godogen ASSETS.md Size 列）
+
+**权威字段**：`assets[].display_size: { width, height }` = 在 `project.viewport` 里**看起来多大**（游戏内像素）。
+
+| 层级 | 字段 | 含义 |
+|------|------|------|
+| 北极星 | `visual_reference` | 整屏构图 + 物体屏上比例（不写进 display_size） |
+| 游戏内 | `display_size` | 玩家眼里多大 → assemble **缩放到此**，Godot scale=1 |
+| 生成 | handoff `image_size` | API 出图分辨率（按 display 推导，勿手填） |
+
+兼容旧 brief：`"128x128 px"` 字符串仍可 parse。
+
+**校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → `display_size` 必须一致。
 
 ### `assets[]` 每项
 
@@ -110,7 +124,9 @@ cd cli
 python gamefactory.py brief validate --brief ../resources/asset-brief.example.json
 python gamefactory.py brief export --brief ../resources/my-game-brief.json
 
-# Visual Target（brief 定稿后，生成预测实机画面候选 → 选一张写入 visual_reference）
+# Visual Target（brief 定稿后：prompt craft → image generate → pick）
+python gamefactory.py prompt craft-visual-target --brief ../resources/my-game-brief.json --variant a -o ../plans/visual_target_a.json
+python gamefactory.py image generate --plan-file ../plans/visual_target_a.json -o ../output/my-game/visual-target/candidate_a.png --no-validate
 python gamefactory.py brief visual-target generate --brief ../resources/my-game-brief.json --candidates 3
 python gamefactory.py brief visual-target list --brief ../resources/my-game-brief.json
 python gamefactory.py brief visual-target pick --brief ../resources/my-game-brief.json --id b
