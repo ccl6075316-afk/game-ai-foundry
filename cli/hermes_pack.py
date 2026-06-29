@@ -14,6 +14,7 @@ from roles import (
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
+    TESTER_ROLE,
     VIDEO_GENERATOR_ROLE,
 )
 from skill_loader import ROLE_SKILLS, load_role_skill, skills_root
@@ -27,7 +28,7 @@ DEFAULT_HERMES_SKILLS_DIR = Path.home() / ".hermes" / "skills"
 HERMES_PACKAGES: dict[str, dict[str, Any]] = {
     "game-factory-orchestrator": {
         "role": ORCHESTRATOR_ROLE,
-        "description": "Orchestrate Game AI Foundry: brief → six agents → gamefactory CLI.",
+        "description": "Orchestrate Game AI Foundry: brief → seven agents → gamefactory CLI.",
         "tags": ["Game-Dev", "Assets", "Pipeline", "Orchestrator", "Godot"],
         "related": [
             "game-factory-prompt-crafter",
@@ -35,6 +36,7 @@ HERMES_PACKAGES: dict[str, dict[str, Any]] = {
             "game-factory-video-generator",
             "game-factory-godot-assembler",
             "game-factory-godot-developer",
+            "game-factory-tester",
         ],
     },
     "game-factory-prompt-crafter": {
@@ -66,6 +68,12 @@ HERMES_PACKAGES: dict[str, dict[str, Any]] = {
         "description": "Implement Godot 4 C# game logic from product brief + dev handoff.",
         "tags": ["Game-Dev", "Godot", "CSharp", "Codex"],
         "related": ["game-factory-orchestrator", "game-factory-godot-assembler", "game-factory-codex"],
+    },
+    "game-factory-tester": {
+        "role": TESTER_ROLE,
+        "description": "Autonomous playtest: godot validate, headless screenshot, vision QA report.",
+        "tags": ["Game-Dev", "QA", "Testing", "Vision"],
+        "related": ["game-factory-orchestrator", "game-factory-godot-developer"],
     },
     "game-factory-codex": {
         "role": None,
@@ -148,7 +156,7 @@ Environment (optional):
 
 ```text
 terminal(
-  command="cd {cli} && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
+  command="cd {cli} && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
   workdir="{root}",
   pty=true,
 )

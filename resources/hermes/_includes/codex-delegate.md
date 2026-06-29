@@ -6,15 +6,16 @@ Use this skill when **Hermes orchestrates** and **Codex** (or terminal) runs `ga
 
 ```
 User → Hermes (orchestrator skill: game-factory-orchestrator)
-         ├─ terminal → gamefactory prompt craft     (prompt-crafter skill session)
-         ├─ terminal → gamefactory image generate   (image-generator skill session)
-         ├─ terminal → gamefactory video generate   (video-generator skill session)
-         └─ terminal → trim / matte / godot         (orchestrator post-process)
+         ├─ terminal → prompt craft / brief export   (prompt-crafter session)
+         ├─ terminal → pipeline run --jobs N         (image / video / matte / assemble)
+         └─ terminal → godot dev-context + C#        (godot-developer via Codex)
 ```
 
-Each agent = **separate Hermes session** with **one skill loaded**. Never merge roles in one session.
+Each agent = **separate Hermes session** with **one skill loaded** for AI work. **Batch assets use `pipeline run`**, not one terminal per image step.
 
-## Quick start (character + idle animation)
+Canonical brief in git: `resources/asset-brief.example.json`.
+
+## Quick start (recommended: pipeline run)
 
 ```bash
 # 0. Install skills once
@@ -22,39 +23,27 @@ cd <repo>/cli && python gamefactory.py hermes install
 
 # 1. prompt-crafter session — load skill game-factory-prompt-crafter
 python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-dino-idle.json \
-  --asset raptor_scavenger \
-  -o ../plans/raptor_scavenger.json
+  --brief ../resources/asset-brief.example.json \
+  --asset knight \
+  -o ../plans/knight.json
 
 python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-dino-idle.json \
-  --asset raptor_scavenger_idle \
+  --brief ../resources/asset-brief.example.json \
+  --asset knight_walk \
   --animation \
-  -o ../plans/raptor_scavenger_idle.json
+  -o ../plans/knight_walk.json
 
-# 2. image-generator session — load skill game-factory-image-generator
-python gamefactory.py image generate \
-  --plan-file ../plans/raptor_scavenger.json \
-  --output ../output/dino-idle/raptor_scavenger_raw.png \
-  --validate
+# 2. Program runner (no per-step Hermes sessions)
+python gamefactory.py pipeline plan \
+  --brief ../resources/asset-brief.example.json \
+  --output-dir ../output/asset-brief.example
 
-# 3. video-generator session — raw still, NO trim before Seedance
-python gamefactory.py video generate \
-  --plan-file ../plans/raptor_scavenger_idle.json \
-  --reference-image ../output/dino-idle/raptor_scavenger_raw.png \
-  --output ../output/dino-idle/raptor_idle.mp4
-
-# 4. orchestrator session — matting-video skill
-python gamefactory.py video split-frames \
-  --input ../output/dino-idle/raptor_idle.mp4 \
-  --output-dir ../output/dino-idle/idle_frames \
-  --frames 8
-
-python gamefactory.py video matte-frames \
-  --input-dir ../output/dino-idle/idle_frames \
-  --output-dir ../output/dino-idle/idle_nobg \
-  --engine ai --no-trim
+python gamefactory.py pipeline run \
+  --manifest ../pipeline/asset-brief.example.json \
+  --jobs 4
 ```
+
+See `docs/AI-HANDOFF.md` §5 for manual single-step commands (debug only).
 
 ## Hermes terminal rules
 
@@ -88,3 +77,5 @@ to generate game assets.
 | `remove-bg` (static) | `validate-matting` |
 | Animation reference | **Raw** PNG to Seedance — never trim first |
 | Video frames | `video matte-frames` — not `image remove-bg` |
+
+Iteration / Change Request: `docs/ITERATIVE-PRODUCTION.md`.

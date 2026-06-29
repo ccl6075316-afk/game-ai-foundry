@@ -369,6 +369,35 @@ def inject_cmd(project_path: Path, file_path: Path, content: str | None) -> None
     click.echo(str(target.resolve()))
 
 
+@click.command("screenshot")
+@click.option(
+    "--project",
+    "project_path",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="Godot project directory.",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_path",
+    required=True,
+    type=click.Path(path_type=Path),
+    help="PNG output path.",
+)
+@click.option("--wait-frames", default=8, show_default=True, help="Frames before capture.")
+def screenshot_cmd(project_path: Path, output_path: Path, wait_frames: int) -> None:
+    """Capture headless viewport screenshot of main scene."""
+    from godot_screenshot import capture_screenshot
+
+    try:
+        result = capture_screenshot(project_path, output_path, wait_frames=wait_frames)
+    except (RuntimeError, subprocess.TimeoutExpired, FileNotFoundError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+
+
 @click.command("validate")
 @click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
               help="Godot project directory.")

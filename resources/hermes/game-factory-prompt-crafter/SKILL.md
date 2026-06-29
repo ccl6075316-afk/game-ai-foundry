@@ -18,6 +18,8 @@ You are the **prompt-crafter** agent — a **separate** agent from orchestrator 
 
 Load only `resources/skills/prompt-crafter/`. Never load orchestrator or image-generator skills.
 
+**Brief is the only product spec.** Read `--brief` JSON for each asset; do not use brainstorm session or host memory. If a field is missing from brief, stop — do not invent usage or size.
+
 Your output is consumed by the **image-generator** agent via handoff files (`prompt craft -o plans/x.json`).
 
 ## Prompt crafting rules
@@ -148,15 +150,15 @@ Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
 ```text
 terminal(
-  command="cd E:\game-ai-foundry\cli && python gamefactory.py <subcommand> ...",
-  workdir="E:\game-ai-foundry",
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
+  workdir="/Users/czl/projects/game-ai-foundry",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=E:\game-ai-foundry`
+- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 - OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
 
@@ -164,10 +166,10 @@ Environment (optional):
 
 ```text
 terminal(
-  command="cd E:\game-ai-foundry\cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
-  workdir="E:\game-ai-foundry",
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
+  workdir="/Users/czl/projects/game-ai-foundry",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="E:\game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.

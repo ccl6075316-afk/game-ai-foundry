@@ -70,6 +70,12 @@
       }
     }
   },
+  "test": {
+    "vision_model": "google/gemini-2.5-flash",
+    "api_key": "YOUR_OPENROUTER_KEY",
+    "api_base": "https://openrouter.ai/api/v1",
+    "proxy": "http://127.0.0.1:7897"
+  },
   "godot": {
     "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe",
     "import_trim_lead": true,
@@ -83,6 +89,7 @@
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
     "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },
     "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" },
-    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer" }
+    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer" },
+    "tester": { "executor": "hermes", "skill": "game-factory-tester" }
   }
 }

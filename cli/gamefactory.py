@@ -550,6 +550,7 @@ from godot_cmds import (
     init_cmd,
     inject_cmd,
     open_cmd,
+    screenshot_cmd as godot_screenshot_cmd,
     validate_cmd,
 )  # noqa: E402
 godot.add_command(init_cmd)
@@ -557,9 +558,14 @@ godot.add_command(import_sprites_cmd)
 godot.add_command(assemble_cmd)
 godot.add_command(dev_context_cmd)
 godot.add_command(inject_cmd)
+godot.add_command(godot_screenshot_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)
 godot.add_command(export_cmd)
+
+from test_cmds import test_group  # noqa: E402
+
+cli.add_command(test_group)
 
 from brief_cmds import register_brief_commands  # noqa: E402
 

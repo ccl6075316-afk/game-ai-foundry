@@ -216,3 +216,147 @@ def register_brief_commands(cli_group: click.Group) -> None:
             click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
         else:
             click.echo(str(output_path.resolve()))
+
+    @brief_group.group("visual-target")
+    def visual_target_group() -> None:
+        """Predicted in-game frames (godogen Visual Target) — generate, pick, list."""
+
+    @visual_target_group.command("generate")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option(
+        "--candidates",
+        default=3,
+        show_default=True,
+        type=click.IntRange(1, 4),
+        help="Number of composition variants (max 4).",
+    )
+    @click.option(
+        "--output-dir",
+        "output_dir",
+        default=None,
+        type=click.Path(path_type=Path),
+        help="Output folder (default: ../output/<slug>/visual-target).",
+    )
+    @click.option("--dry-run", is_flag=True, help="Build prompts + manifest only; no image API.")
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def visual_target_generate_cmd(
+        ctx: click.Context,
+        brief_path: Path,
+        candidates: int,
+        output_dir: Path | None,
+        dry_run: bool,
+        as_json: bool,
+    ) -> None:
+        """Generate 1–4 predicted gameplay screenshots from brief."""
+        from visual_target import VisualTargetError, default_output_dir, generate_visual_targets
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        proxy = ctx.obj.get("proxy") if ctx.obj else None
+        out = output_dir or default_output_dir(brief_path)
+        try:
+            manifest = generate_visual_targets(
+                brief_path,
+                out,
+                count=candidates,
+                config=config,
+                proxy=proxy,
+                dry_run=dry_run,
+            )
+        except (VisualTargetError, RuntimeError, ValueError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        if as_json:
+            click.echo(json.dumps(manifest, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"Manifest: {manifest['manifest_path']}")
+            for c in manifest["candidates"]:
+                click.echo(f"  [{c['id']}] {c['label']} → {c['path']}")
+            if dry_run:
+                click.echo("(dry-run — no images generated)")
+
+    @visual_target_group.command("list")
+    @click.option(
+        "--manifest",
+        "manifest_path",
+        default=None,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option(
+        "--brief",
+        "brief_path",
+        default=None,
+        type=click.Path(exists=True, path_type=Path),
+        help="Resolve default manifest from brief slug.",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def visual_target_list_cmd(
+        manifest_path: Path | None,
+        brief_path: Path | None,
+        as_json: bool,
+    ) -> None:
+        """List visual-target candidates from manifest."""
+        from visual_target import VisualTargetError, default_output_dir, load_visual_target_manifest
+
+        if manifest_path is None:
+            if brief_path is None:
+                click.echo("Error: pass --manifest or --brief.", err=True)
+                sys.exit(1)
+            manifest_path = default_output_dir(brief_path) / "manifest.json"
+        try:
+            manifest = load_visual_target_manifest(manifest_path)
+        except (VisualTargetError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        if as_json:
+            click.echo(json.dumps(manifest, ensure_ascii=False, indent=2))
+        else:
+            sel = manifest.get("selected_id") or "(none)"
+            click.echo(f"Selected: {sel}")
+            for c in manifest.get("candidates", []):
+                if isinstance(c, dict):
+                    click.echo(f"  [{c.get('id')}] {c.get('label')} — {c.get('path')}")
+
+    @visual_target_group.command("pick")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option("--id", "candidate_id", required=True, help="Candidate id (a, b, c, d).")
+    @click.option(
+        "--manifest",
+        "manifest_path",
+        default=None,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def visual_target_pick_cmd(
+        brief_path: Path,
+        candidate_id: str,
+        manifest_path: Path | None,
+        as_json: bool,
+    ) -> None:
+        """Select a candidate and write project.visual_reference on the brief."""
+        from visual_target import VisualTargetError, apply_visual_target_pick, find_manifest_for_brief
+
+        try:
+            manifest = find_manifest_for_brief(brief_path, manifest_path)
+            result = apply_visual_target_pick(brief_path, candidate_id, manifest)
+        except (VisualTargetError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        if as_json:
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"visual_reference → {result['visual_reference']}")
+            click.echo(f"Brief updated: {result['brief_path']}")

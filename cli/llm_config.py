@@ -171,3 +171,52 @@ def resolve_code_api_settings(
         "proxy": str(resolved_proxy) if resolved_proxy else None,
         "source": source,
     }
+
+
+DEFAULT_TEST_VISION_MODEL = "google/gemini-2.5-flash"
+
+
+def resolve_test_api_settings(
+    config: dict[str, Any],
+    *,
+    vision_model: str | None = None,
+    api_key: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+) -> dict[str, str | None]:
+    """Tester vision LLM — config.test overrides, else host."""
+    test_cfg = _section(config, "test")
+    host = resolve_host_api_settings(config)
+
+    use_host_key = not _is_set(api_key) and not _is_set(test_cfg.get("api_key"))
+    use_host_base = not _is_set(api_base) and not _is_set(test_cfg.get("api_base"))
+
+    resolved_model = (
+        vision_model
+        or test_cfg.get("vision_model")
+        or os.environ.get("GAMEFACTORY_TEST_VISION_MODEL")
+        or host["model"]
+        or DEFAULT_TEST_VISION_MODEL
+    )
+    resolved_key = (
+        api_key
+        or test_cfg.get("api_key")
+        or (host["api_key"] if use_host_key else None)
+        or os.environ.get("GAMEFACTORY_API_KEY")
+        or os.environ.get("OPENROUTER_API_KEY")
+    )
+    resolved_base = (
+        api_base
+        or test_cfg.get("api_base")
+        or (host["api_base"] if use_host_base else None)
+        or DEFAULT_API_BASE
+    )
+    resolved_proxy = resolve_config_proxy(config, proxy)
+
+    return {
+        "model": str(resolved_model),
+        "api_key": str(resolved_key) if resolved_key else None,
+        "api_base": str(resolved_base),
+        "proxy": str(resolved_proxy) if resolved_proxy else None,
+        "source": "test",
+    }

@@ -10,6 +10,7 @@ from roles import (
     IMAGE_GENERATOR_ROLE,
     ORCHESTRATOR_ROLE,
     PROMPT_CRAFTER_ROLE,
+    TESTER_ROLE,
     VIDEO_GENERATOR_ROLE,
 )
 
@@ -22,6 +23,7 @@ ROLE_SKILLS: dict[str, tuple[str, ...]] = {
     VIDEO_GENERATOR_ROLE: ("generate",),
     GODOT_ASSEMBLER_ROLE: ("assemble", "import-sprites"),
     GODOT_DEVELOPER_ROLE: ("implement",),
+    TESTER_ROLE: ("playtest", "vision-analyze", "playtest-schema"),
 }
 
 

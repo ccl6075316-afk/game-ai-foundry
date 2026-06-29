@@ -1,5 +1,11 @@
 # Game AI Foundry — Roadmap
 
+| | |
+|--|--|
+| **读者** | 维护者、贡献者 |
+| **侧重** | **进度、里程碑 %、Backlog** |
+| **不写** | CLI 复制块、抠图规则、角色表 — 见 [`docs/README.md`](docs/README.md) |
+
 ## Vision
 
 **An AI-driven game factory.** Describe a game idea in natural language → AI generates all assets (sprites, animations, music, code) → assembles them into a working Godot project → you play it.
@@ -8,14 +14,16 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 **Contract rule:** after brainstorm export, **`brief.json` is the single source of truth** — pipeline, skills, and godot-developer must not rely on session memory.
 
+**Iteration rule:** post-demo changes follow Change Request → Production Delta — see [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md).
+
 ---
 
 ## Current Status (2026-06-25)
 
 ### ✅ Done
 
-**Six-agent pipeline**
-- orchestrator / prompt-crafter / image-generator / video-generator / godot-assembler / **godot-developer**
+**Seven-agent pipeline**
+- orchestrator / prompt-crafter / image-generator / video-generator / godot-assembler / **godot-developer** / **tester**
 - Handoff JSON (`plan_io.py`) + skills in `resources/skills/`
 - Agent routing: `agents show` / `agents resolve` — see `docs/AGENT-ROUTING.md`
 
@@ -71,9 +79,11 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 - [ ] One-shot brief → plan → run from GUI without manual path juggling
 - [x] GUI `/run --run-prompts`
 - [x] Prison test assets relocated to `tests/fixtures/` (not release defaults)
-- [ ] Update `ROADMAP` / `AI-HANDOFF` on each milestone (this file)
 
 ### ⬜ Not Started
+
+- [ ] **Change Request / Production Delta CLI** (contract in `docs/ITERATIVE-PRODUCTION.md`; today: manual brief edit + `plan --merge`)
+- [ ] **Validation Report JSON** + `project-state.json` (ITERATIVE §6–7) — `test run` CLI ✅; file layout 📋
 
 - [ ] Audio **generation** CLI (brief schema ready; `procedural`/`file` placeholders only)
 - [ ] Parallax layer assets in example brief + Godot ParallaxBackground wiring
@@ -113,17 +123,11 @@ User (GUI / Cursor / Hermes)
 | M1 Video + Godot pipeline | ~100% | CLI complete |
 | M2 Hermes + pipeline | ~90% | Kanban optional |
 | M3 GUI | ~75% | Chat + brief + board; polish & one-click E2E pending |
-| M4 Brief → playable | ~65% | Frozen contract + manifest; Magic Prince E2E pending |
+| M4 Brief → playable | ~65% | Frozen contract + manifest; Magic Prince E2E + Change Request CLI pending |
 | M5 Gameplay (Pass 4) | ~70% | dev-context handoff; executor on host |
 
 ---
 
 ## Quick Start
 
-1. **GUI**: `start-gui.bat` → configure **设置 → 项目经理** API key → `/brief`
-2. **CLI**: `cd cli && python gamefactory.py --help`
-3. **Validate brief**: `python gamefactory.py brief validate --brief ../resources/asset-brief.example.json`
-4. **Config**: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-5. **Output**: `output/`, `games/`, `pipeline/`, `plans/` (gitignored — local test runs)
-6. **Example brief in git**: `resources/asset-brief.example.json`
-7. **Local project briefs**: `resources/*-brief.json` (gitignored, e.g. `magic-prince-brief.json`)
+→ [`README.md`](README.md) · CLI 细节 → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md)

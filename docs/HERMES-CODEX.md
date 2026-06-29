@@ -1,6 +1,13 @@
 # Hermes + Codex 接入指南
 
-Game AI Foundry 的编排层是 **[Hermes Agent](https://github.com/NousResearch/hermes-agent)**，执行层是 **`gamefactory` CLI**。Codex 可作为 Hermes 的终端执行引擎（`codex exec`）或可选 Codex App-Server Runtime。
+| | |
+|--|--|
+| **读者** | 使用 Hermes Agent 或 Codex terminal 的人 |
+| **侧重** | **`hermes sync/install`**、skill 列表、`pty=true`、pipeline run 与多会话分工 |
+| **不写** | brief 字段、设计/施工契约、里程碑 |
+| **姊妹文档** | 索引 → [`README.md`](README.md) · CLI → [`AI-HANDOFF.md`](AI-HANDOFF.md) |
+
+编排层：[Hermes Agent](https://github.com/NousResearch/hermes-agent)。执行层：**`gamefactory` CLI**。
 
 ---
 
@@ -25,9 +32,9 @@ Hermes（会话 / 记忆 / skills / gateway）
      output/  plans/  games/
 ```
 
-**一个 Hermes 会话只加载一个 skill**（一个 agent 角色），与仓库内五 Agent 设计一致。
+**一个 Hermes 会话只加载一个 skill**（一个 agent 角色），与仓库内 **六角色** 设计一致。
 
-混排说明见 [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md)。
+混排说明见 [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md)。迭代与 Change Request 见 [`docs/ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)。
 
 **配置前先探测**（Hermes/Codex/Cursor 不随仓库分发）：
 
@@ -73,6 +80,7 @@ python gamefactory.py hermes install --target ~/my-hermes-skills
 | `game-factory-image-generator` | image-generator | OpenRouter 生图 |
 | `game-factory-video-generator` | video-generator | Seedance 图生视频 |
 | `game-factory-godot-assembler` | godot-assembler | Godot 4 .NET 组装（无 GDScript） |
+| `game-factory-godot-developer` | godot-developer | Pass 4：读 dev-context 写 C# 玩法 |
 | `game-factory-codex` | — | Hermes/Codex 调 terminal 约定 |
 
 查看路径：
@@ -94,7 +102,7 @@ python gamefactory.py hermes list
 
 ```text
 terminal(
-  command="cd /path/to/game-ai-foundry/cli && python gamefactory.py context --brief ../resources/test-brief-dino.json --asset raptor_scavenger",
+  command="cd /path/to/game-ai-foundry/cli && python gamefactory.py context --brief ../resources/asset-brief.example.json --asset knight",
   workdir="/path/to/game-ai-foundry",
   pty=true,
 )
@@ -102,15 +110,33 @@ terminal(
 
 `hermes paths` 输出的 `cli_dir` / `repo_root` 即 `workdir` 与 `cd` 目标。
 
-### 2.3 多会话委派（推荐）
+### 2.3 推荐：程序 runner（默认）
+
+批量资产与 Godot 组装 **不必逐步开 Hermes 会话**，一条 `pipeline run` 即可：
+
+```bash
+cd cli
+python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
+python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4
+```
+
+### 2.4 多会话委派（仅 AI 阶段）
 
 | 步骤 | Hermes 会话 skill | 命令 |
 |------|-------------------|------|
+| brief / 编排 | `game-factory-orchestrator` | `brief export`, `pipeline plan`, triage |
 | 写 prompt | `game-factory-prompt-crafter` | `prompt craft -o plans/x.json` |
+| Pass 4 玩法 | `game-factory-godot-developer` | 读 `plans/dev_*.json` 写 C# |
+
+生图 / 生视频 / matte / assemble 由 **`pipeline run`** 执行（executor=`pipeline`），见 [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md)。
+
+### 2.5 手动分步（调试用）
+
+| 步骤 | skill | 命令 |
+|------|-------|------|
 | 生图 | `game-factory-image-generator` | `image generate --plan-file ... --validate` |
 | 生视频 | `game-factory-video-generator` | `video generate --plan-file ... --reference-image <raw>` |
 | Godot 组装 | `game-factory-godot-assembler` | `godot assemble --assemble-file ...` |
-| 后处理 | `game-factory-orchestrator` | trim / remove-bg / split-frames / matte-frames |
 
 ---
 
@@ -138,36 +164,13 @@ Hermes `/codex-runtime codex_app_server` 时，文件编辑走 Codex 沙箱，**
 
 ### 3.3 本仓库 Codex 直接开发
 
-根目录 **`AGENTS.md`** 给 Codex 读：目录结构、五 agent、校验闸门、agent routing。
+根目录 **`AGENTS.md`** 给 Codex 读：六角色边界、校验闸门、agent routing。
 
 ---
 
-## 4. 示例：动画（推荐 `pipeline run`）
+## 4. 端到端示例
 
-```bash
-cd cli
-
-# A. AI：brief + plans（可 Hermes prompt-crafter 会话）
-python gamefactory.py prompt craft \
-  --brief ../resources/test-brief-wasteland-boar-idle.json \
-  --asset mutant_boar -o ../plans/mutant_boar.json
-python gamefactory.py prompt craft --animation \
-  --brief ../resources/test-brief-wasteland-boar-idle.json \
-  --asset mutant_boar_idle -o ../plans/mutant_boar_idle.json
-
-# B. 程序 runner（无需 Hermes 逐步 terminal）
-python gamefactory.py pipeline plan \
-  --brief ../resources/test-brief-wasteland-boar-idle.json \
-  -o ../pipeline/wasteland-boar-idle.json \
-  --output-dir ../output/wasteland5-boar-idle
-python gamefactory.py pipeline run --manifest ../pipeline/wasteland-boar-idle.json --jobs 4
-```
-
-产物：`output/wasteland5-boar-idle/mutant_boar_idle.mp4`、`mutant_boar_idle_nobg/frame_*.png`。
-
-### 4.1 手动分步（旧方式，仍可用）
-
-见 `docs/AI-HANDOFF.md` §5 单条命令速查；多资产优先 `pipeline run`。
+完整命令块 → [`AI-HANDOFF.md`](AI-HANDOFF.md) §5。原则：**AI 阶段开 Hermes 会话，资产批量用 `pipeline run`**。
 
 ---
 
@@ -184,23 +187,9 @@ python gamefactory.py pipeline run --manifest ../pipeline/foo.json --jobs 4
 
 ---
 
-## 6. 里程碑状态（M2）
+## 6. 相关文档
 
-| 项 | 状态 |
-|----|------|
-| Hermes SKILL.md 包 | ✅ `resources/hermes/` |
-| `hermes sync` / `install` | ✅ |
-| `AGENTS.md`（Codex） | ✅ |
-| 本文档 | ✅ |
-| `pipeline run` 程序 runner | ✅ |
-| Hermes Kanban / 自动多会话 | ⬜ 可选 |
-| Electron GUI ↔ Hermes IPC | ⬜ 未来 |
-
----
-
-## 7. 相关文档
-
-- [`docs/AI-HANDOFF.md`](AI-HANDOFF.md) — 流水线细节、配置、抠图
-- [`docs/AGENT-ROUTING.md`](AGENT-ROUTING.md) — pipeline / hermes / cursor / codex 混排
-- [`AGENTS.md`](../AGENTS.md) — Codex 速查
-- [`resources/skills/`](../resources/skills/) — skill 源文件（`hermes sync` 会合并进 SKILL.md）
+- [`README.md`](README.md) — 文档索引
+- [`AI-HANDOFF.md`](AI-HANDOFF.md) — CLI、抠图
+- [`AGENT-ROUTING.md`](AGENT-ROUTING.md) — 六角色 executor
+- [`ROADMAP.md`](../ROADMAP.md) — M2 进度

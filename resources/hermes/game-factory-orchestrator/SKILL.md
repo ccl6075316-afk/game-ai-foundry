@@ -1,6 +1,6 @@
 ---
 name: game-factory-orchestrator
-description: "Orchestrate Game AI Foundry: brief → six agents → gamefactory CLI."
+description: "Orchestrate Game AI Foundry: brief → seven agents → gamefactory CLI."
 version: 1.0.0
 author: Game AI Foundry
 license: MIT
@@ -8,7 +8,7 @@ platforms: [linux, macos, windows]
 metadata:
   hermes:
     tags: [Game-Dev, Assets, Pipeline, Orchestrator, Godot]
-    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator, game-factory-godot-assembler, game-factory-godot-developer]
+    related_skills: [game-factory-prompt-crafter, game-factory-image-generator, game-factory-video-generator, game-factory-godot-assembler, game-factory-godot-developer, game-factory-tester]
 ---
 # Game Factory Orchestrator
 
@@ -97,14 +97,25 @@ Video frame matting details: see **matting-video** skill.
 
 # Pipeline scheduling (concurrent production)
 
+| | |
+|--|--|
+| **读者** | orchestrator skill、`pipeline run` 实现与调试 |
+| **侧重** | Phase A–E、reset/cascade、`--run-prompts` / `--run-game-dev` |
+| **不写** | 设计/施工方法论、六角色总表 |
+| **姊妹文档** | 产品契约 → `docs/ITERATIVE-PRODUCTION.md` · CLI 大全 → `docs/AI-HANDOFF.md` |
+
 After the **product brief is finalized**, use a **program runner** for CLI work. Reserve Hermes/AI for brief, prompt craft, and failures.
+
+**Canonical example brief in git:** `resources/asset-brief.example.json`. Local demos (`resources/test-brief-*.json`, `tests/fixtures/`) are gitignored.
 
 ## Phase A — AI (serial / parallel sessions)
 
-User + prompt-crafter → `brief.json` + `plans/*.json`
+User + orchestrator + prompt-crafter → frozen `brief.json` + `plans/*.json`
 
 ```bash
-python gamefactory.py prompt craft --brief ../resources/foo.json --asset bar -o ../plans/bar.json
+python gamefactory.py brief validate --brief ../resources/asset-brief.example.json
+python gamefactory.py prompt craft \
+  --brief ../resources/asset-brief.example.json --asset knight -o ../plans/knight.json
 ```
 
 ## Phase B — Program runner (no Hermes)
@@ -114,20 +125,21 @@ cd cli
 
 # 1. Build DAG once
 python gamefactory.py pipeline plan \
-  --brief ../resources/test-brief-dino-idle.json \
-  -o ../pipeline/dino-idle.json \
-  --output-dir ../output/dino-idle
+  --brief ../resources/asset-brief.example.json \
+  --output-dir ../output/asset-brief.example
 
 # 2. Run (skips prompt.craft if plan files exist; parallel --jobs)
 python gamefactory.py pipeline run \
-  --manifest ../pipeline/dino-idle.json \
+  --manifest ../pipeline/asset-brief.example.json \
   --jobs 4
 
 # Dry run first wave
-python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json --dry-run
+python gamefactory.py pipeline run \
+  --manifest ../pipeline/asset-brief.example.json --dry-run
 
 # Status anytime
-python gamefactory.py pipeline status --manifest ../pipeline/dino-idle.json
+python gamefactory.py pipeline status \
+  --manifest ../pipeline/asset-brief.example.json
 ```
 
 Default: **`pipeline run` skips `prompt-crafter`** (expects `plans/`). Use `--run-prompts` to call LLM from the runner.
@@ -137,17 +149,19 @@ Default: **`pipeline run` skips `prompt-crafter`** (expects `plans/`). Use `--ru
 When `pipeline run` exits **2** (validation / pause):
 
 1. Read JSON in manifest task `result.parsed`
-2. prompt-crafter fixes plan
+2. prompt-crafter fixes plan (or orchestrator updates brief if scope changed)
 3. Reset and retry:
 
 ```bash
 python gamefactory.py pipeline reset \
-  --manifest ../pipeline/dino-idle.json \
-  --task-id raptor_scavenger.image.generate \
+  --manifest ../pipeline/asset-brief.example.json \
+  --task-id knight.image.generate \
   --cascade
 
-python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json
+python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json
 ```
+
+Record validation failures per `docs/ITERATIVE-PRODUCTION.md` §6 when playtest criteria fail (future: `validation/*.json`).
 
 ## What the runner does
 
@@ -160,24 +174,24 @@ python gamefactory.py pipeline run --manifest ../pipeline/dino-idle.json
 
 After assets exist (especially `*_nobg` / `walk_frames_nobg`):
 
-**Automatic** — `pipeline plan` with default `--godot` appends `{brief}.godot.assemble`:
+**Automatic** — `pipeline plan` with default `--godot` appends `{slug}.godot.assemble`:
 
 ```bash
 python gamefactory.py pipeline plan \
-  --brief ../resources/test-brief-prison-walk.json \
-  -o ../pipeline/prison-walk.json \
-  --output-dir ../output/prison-test \
-  --godot-project ../games/prison-demo
+  --brief ../resources/asset-brief.example.json \
+  --output-dir ../output/asset-brief.example \
+  --godot-project ../games/asset-brief.example
 
-python gamefactory.py pipeline run --manifest ../pipeline/prison-walk.json --jobs 4
+python gamefactory.py pipeline run \
+  --manifest ../pipeline/asset-brief.example.json --jobs 4
 ```
 
 **Manual** — when not using pipeline Godot task:
 
 ```bash
 python gamefactory.py godot assemble \
-  --assemble-file ../plans/godot_prison_demo.json
-python gamefactory.py godot validate --project ../games/prison-demo
+  --assemble-file ../plans/godot_asset-brief.example.json
+python gamefactory.py godot validate --project ../games/asset-brief.example
 ```
 
 Delegate to **godot-assembler** skill. Assembler imports assets only — **game logic is godot-developer (Phase E)**.
@@ -189,25 +203,39 @@ After **godot.assemble** completes, delegate to **godot-developer** (Codex / Cur
 ```bash
 # Optional: pipeline writes dev handoff only
 python gamefactory.py pipeline run \
-  --manifest ../pipeline/prison-walk.json \
+  --manifest ../pipeline/asset-brief.example.json \
   --run-game-dev
 
 # Or manual handoff
 python gamefactory.py godot dev-context \
-  --brief ../resources/test-brief-prison-walk.json \
-  --project ../games/prison-demo \
-  --assemble-file ../plans/godot_test-brief-prison-walk.json \
-  -o ../plans/dev_test-brief-prison-walk.json
+  --brief ../resources/asset-brief.example.json \
+  --project ../games/asset-brief.example \
+  --assemble-file ../plans/godot_asset-brief.example.json \
+  -o ../plans/dev_asset-brief.example.json
 ```
 
 Then open a **godot-developer** session (skill `game-factory-godot-developer`), read `plans/dev_*.json`, implement C#, run `godot validate`.
 
 Default `pipeline run` **skips** godot-developer (marks Pass 4 skipped — same as prompt.craft without `--run-prompts`).
 
+## Phase F — Validation (tester)
+
+After Pass 4 (or smoke after Pass 3):
+
+```bash
+python gamefactory.py test run \
+  --project ../games/asset-brief.example \
+  --brief ../resources/asset-brief.example.json
+```
+
+Loads skill `game-factory-tester`. Produces `output/<slug>/validation/report-*.json` + screenshot PNG.
+
+On **exit 2** → orchestrator triage (Change Request / brief delta) — tester does not fix code.
+
 ## Orchestrator role now
 
 - **Not** required to call every `terminal` step
-- Use for: brief, delegating prompt craft, failure triage, optional manual Godot assemble
+- Use for: brief, Change Request → brief delta, delegating prompt craft, failure triage
 - Use **`pipeline run`** for: image/video generate, trim, matte, split-frames, **godot assemble (Pass 3)**
 - Use **godot-developer** (Codex/Cursor) for: C# gameplay after Pass 3
 
@@ -498,15 +526,15 @@ Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
 ```text
 terminal(
-  command="cd E:\game-ai-foundry\cli && python gamefactory.py <subcommand> ...",
-  workdir="E:\game-ai-foundry",
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
+  workdir="/Users/czl/projects/game-ai-foundry",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=E:\game-ai-foundry`
+- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
 - OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
 
@@ -514,10 +542,10 @@ Environment (optional):
 
 ```text
 terminal(
-  command="cd E:\game-ai-foundry\cli && python gamefactory.py prompt craft --brief ../resources/test-brief-dino.json --asset raptor_scavenger -o ../plans/raptor.json",
-  workdir="E:\game-ai-foundry",
+  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
+  workdir="/Users/czl/projects/game-ai-foundry",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="E:\game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.

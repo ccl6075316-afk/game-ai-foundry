@@ -23,6 +23,10 @@
     "godot-developer": {
       "executor": "codex",
       "skill": "game-factory-godot-developer"
+    },
+    "tester": {
+      "executor": "hermes",
+      "skill": "game-factory-tester"
     }
   }
 }
