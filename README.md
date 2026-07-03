@@ -33,6 +33,7 @@ python gamefactory.py brief validate --brief ../resources/asset-brief.example.js
 python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
 python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --run-prompts --jobs 4
 python gamefactory.py doctor --json
+python gamefactory.py setup check --json
 ```
 
 Details → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · Progress → [`ROADMAP.md`](ROADMAP.md)

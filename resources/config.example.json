@@ -83,6 +83,9 @@
     "import_skip_lead_ratio": 0.25,
     "import_skip_trail_ratio": 0.05
   },
+  "toolchain": {
+    "bin_dir": "~/.gamefactory/toolchain/bin"
+  },
   "agents": {
     "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator" },
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },

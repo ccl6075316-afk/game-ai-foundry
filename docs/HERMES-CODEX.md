@@ -41,8 +41,11 @@ Hermes（会话 / 记忆 / skills / gateway）
 ```bash
 cd cli
 python gamefactory.py doctor
+python gamefactory.py setup check --json
 python gamefactory.py agents show --discover
 ```
+
+**本机工具**：FFmpeg 可 `setup install ffmpeg`；Godot 从 [官方下载页](https://godotengine.org/download) 取 .NET 便携 zip，配置 `godot.engine_path`。GUI 启动时会弹窗提示缺失项。
 
 ---
 

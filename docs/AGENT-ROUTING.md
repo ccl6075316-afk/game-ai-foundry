@@ -38,9 +38,12 @@
 cd cli
 python gamefactory.py agents show --discover
 python gamefactory.py doctor --json
+python gamefactory.py setup check --json
 ```
 
 配置：`resources/agents.example.json` → `~/.gamefactory/config.json` 的 `agents` 段。
+
+**本机工具**：`setup check` 列出 FFmpeg / Godot / .NET / rembg；FFmpeg 可 `setup install ffmpeg`（安装到 `~/.gamefactory/toolchain/bin`）。Godot 仅官方下载链接，路径填 `godot.engine_path`。
 
 ---
 

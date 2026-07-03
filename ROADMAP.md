@@ -18,7 +18,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 
 ---
 
-## Current Status (2026-06-25)
+## Current Status (2026-07-03)
 
 ### ✅ Done
 
@@ -54,16 +54,18 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 - Runtime-only assets (`audio` + `procedural`/`file`) skip image pipeline tasks
 - Paths from brief slug: `pipeline/{slug}.json`, `output/{slug}`, `games/{slug}`
 
-**GUI (Electron + React)** — `start-gui.bat`
+**GUI (Electron + React)** — `start-gui.bat` / `cd gui && npm run dev`
 - Chat-first UI, settings (岗位语言 + API keys), pipeline board
 - Media preview in chat (`gamefactory-media://`)
 - Commands: `/brief` `/doctor` `/plan` `/run` `/board` `/settings` `/godot`
 - Brief-driven workflow (no hardcoded prison-demo preset)
+- **Startup toolchain modal** — `setup check`; auto-install FFmpeg/rembg; Godot/.NET download links
 
-**Doctor & env**
+**Doctor & toolchain**
 - `gamefactory doctor --json` — Python, Godot, API keys, executor availability
+- `gamefactory setup check` / `setup install ffmpeg` — VS-style missing-deps prompt; binaries under `~/.gamefactory/toolchain/bin`
 
-**Tests**: **73** CLI unit tests (1 skipped) — brief contract, transitions, assets manifest, E2E smoke + Godot assemble
+**Tests**: **~90** CLI unit tests (2 skipped; 1 needs local `magic-prince-brief.json`) — brief contract, transitions, toolchain, E2E smoke + Godot assemble
 
 **E2E smoke**
 - [x] `e2e-smoke-brief` → plan → run --run-prompts — asset tasks
@@ -122,7 +124,7 @@ User (GUI / Cursor / Hermes)
 |-----------|----------|-------|
 | M1 Video + Godot pipeline | ~100% | CLI complete |
 | M2 Hermes + pipeline | ~90% | Kanban optional |
-| M3 GUI | ~75% | Chat + brief + board; polish & one-click E2E pending |
+| M3 GUI | ~80% | Chat + brief + board + toolchain onboarding; one-click E2E pending |
 | M4 Brief → playable | ~65% | Frozen contract + manifest; Magic Prince E2E + Change Request CLI pending |
 | M5 Gameplay (Pass 4) | ~70% | dev-context handoff; executor on host |
 

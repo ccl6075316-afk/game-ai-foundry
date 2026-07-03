@@ -172,8 +172,14 @@ python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/to
 
 模板：`resources/config.example.json` → `~/.gamefactory/config.json`
 
-- OpenRouter：常需代理 `127.0.0.1:7897`
-- 视频 AI 抠图：`pip install "rembg[cpu]"`
+| 项 | 说明 |
+|----|------|
+| `host` / `image` / `video` | API key；OpenRouter 常需代理 `127.0.0.1:7897` |
+| `godot.engine_path` | Godot 4 **.NET / Mono** 可执行文件（[便携 zip 下载](https://godotengine.org/download)，无需安装） |
+| `toolchain.bin_dir` | 可选；`setup install ffmpeg` 默认写入 `~/.gamefactory/toolchain/bin` |
+| rembg | 可选 AI 抠图：`setup install rembg` 或 `pip install "rembg[cpu]"` |
+
+启动检测：`python gamefactory.py setup check --json`（GUI 首次打开等效弹窗）。
 
 ---
 
@@ -196,8 +202,9 @@ python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/to
 | Pipeline DAG / runner | `cli/pipeline_manifest.py`, `cli/pipeline_runner.py` |
 | Godot handoff | `cli/godot_dev.py`, `cli/godot_assemble.py` |
 | Tester / screenshot | `cli/test_analysis.py`, `cli/godot_screenshot.py` |
+| 本机工具检测 / 安装 | `cli/toolchain_setup.py`, `cli/setup_cmds.py` |
 | Runner 阶段说明 | `resources/skills/orchestrator/pipeline-schedule.md` |
 
 ---
 
-*文档版本：2026-06-25*
+*文档版本：2026-07-03*

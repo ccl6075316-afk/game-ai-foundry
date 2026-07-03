@@ -10,7 +10,10 @@
 cd cli
 pip install -r requirements.txt
 cp ../resources/config.example.json ~/.gamefactory/config.json
+python gamefactory.py setup check --json   # FFmpeg / Godot / rembg 缺失项
 ```
+
+**Godot**：便携 zip → [godotengine.org/download](https://godotengine.org/download)（.NET / Mono），写入 `godot.engine_path`。GUI 启动会弹窗检测；FFmpeg 可 `setup install ffmpeg`。
 
 ## Workflow
 
