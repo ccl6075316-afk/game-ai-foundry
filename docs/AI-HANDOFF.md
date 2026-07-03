@@ -158,7 +158,11 @@ python gamefactory.py test play \
 # 环境
 python gamefactory.py agents show
 python gamefactory.py doctor --json
+python gamefactory.py setup check --json
+python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/toolchain/bin
 ```
+
+**Godot**：从 [godotengine.org/download](https://godotengine.org/download) 下载 **.NET / Mono** 便携 zip，解压后在 `config.json` 设置 `godot.engine_path`（GUI：**设置 → 本机工具**）。GUI 启动时会弹窗检测缺失项（FFmpeg 可一键安装）。
 
 本地 demo brief（`test-brief-*`、`magic-prince-brief.json`、`tests/fixtures/`）均为 **gitignored**；clone 后用 `asset-brief.example.json`。
 

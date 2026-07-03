@@ -39,7 +39,13 @@ Details → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · Progress → [`ROADMAP
 
 ## Prerequisites
 
-Python 3.11+ · ffmpeg · Godot 4 **.NET** · OpenRouter + Volcengine ARK keys
+Python 3.11+ · OpenRouter + Volcengine ARK keys
+
+**本机工具**（GUI 启动时会检测；FFmpeg 可一键自动安装）：
+
+- **FFmpeg** — 视频拆帧；`python gamefactory.py setup install ffmpeg` 或 GUI 弹窗确认
+- **Godot 4 .NET** — [下载便携 zip](https://godotengine.org/download)（无需安装），在 `~/.gamefactory/config.json` 设置 `godot.engine_path`
+- **.NET SDK** — C# 玩法开发；[官方下载](https://dotnet.microsoft.com/download)
 
 ## License
 

@@ -11,6 +11,7 @@ from typing import Any
 from agent_routing import all_agents
 from hermes_pack import HERMES_PACKAGES, resolve_hermes_install_dir
 from roles import ALL_ROLES
+from toolchain_paths import resolve_ffmpeg, resolve_ffprobe
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
@@ -167,7 +168,8 @@ def discover_tools(config: dict[str, Any] | None = None) -> dict[str, Any]:
     config = config or {}
     godot_path = _godot_path_from_config(config)
     dotnet = shutil.which("dotnet")
-    ffmpeg = shutil.which("ffmpeg")
+    ffmpeg = resolve_ffmpeg(config)
+    ffprobe = resolve_ffprobe(config)
     git = shutil.which("git")
     return {
         "python": _tool("python", sys.executable, version_args=("-V",)),
@@ -175,6 +177,7 @@ def discover_tools(config: dict[str, Any] | None = None) -> dict[str, Any]:
         "godot": _tool("godot", godot_path, version_args=("--version",)),
         "dotnet": _tool("dotnet", dotnet),
         "ffmpeg": _tool("ffmpeg", ffmpeg),
+        "ffprobe": _tool("ffprobe", ffprobe),
     }
 
 

@@ -32,6 +32,7 @@ import {
   type SettingsSectionMeta,
   type SettingsTab,
 } from "../settings/sections";
+import { GODOT_DOWNLOAD_URL } from "../settings/toolchain";
 
 interface Props {
   busy: boolean;
@@ -792,6 +793,19 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 </div>
                 <span className="field-hint">用于打开工程、导入素材、检查项目是否正常</span>
               </label>
+              <div className="field-row field-row--wrap">
+                <button
+                  type="button"
+                  className="btn btn--secondary"
+                  disabled={disabled}
+                  onClick={() => void window.gameFactory.openExternal(GODOT_DOWNLOAD_URL)}
+                >
+                  下载 Godot .NET（官方）
+                </button>
+                <span className="field-hint">
+                  选 <strong>.NET / Mono</strong> 版 zip，解压即用；Windows 填 <code>*_console.exe</code>
+                </span>
+              </div>
             </SectionCard>
           )}
 

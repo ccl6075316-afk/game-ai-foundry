@@ -3,6 +3,9 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("gameFactory", {
   getPaths: () => ipcRenderer.invoke("get-paths"),
   doctor: () => ipcRenderer.invoke("doctor"),
+  toolchainCheck: () => ipcRenderer.invoke("toolchain-check"),
+  toolchainInstall: (componentId) => ipcRenderer.invoke("toolchain-install", componentId),
+  openExternal: (url) => ipcRenderer.invoke("open-external", url),
   listBriefs: () => ipcRenderer.invoke("list-briefs"),
   listManifests: () => ipcRenderer.invoke("list-manifests"),
   getManifestMeta: (manifestRel) => ipcRenderer.invoke("manifest-meta", manifestRel),

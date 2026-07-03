@@ -7,6 +7,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from toolchain_paths import resolve_ffmpeg, resolve_ffprobe
+
 from frame_sequence import (
     DEFAULT_SKIP_LEAD_RATIO,
     DEFAULT_SKIP_TRAIL_RATIO,
@@ -22,10 +24,25 @@ class SplitFramesError(RuntimeError):
     """Invalid split-frames options or ffmpeg failure."""
 
 
-def probe_video_duration(path: Path) -> float:
+def _require_ffmpeg(config: dict[str, Any] | None = None) -> str:
+    path = resolve_ffmpeg(config)
+    if not path:
+        raise SplitFramesError("ffmpeg not found — run: python gamefactory.py setup install ffmpeg")
+    return path
+
+
+def _require_ffprobe(config: dict[str, Any] | None = None) -> str:
+    path = resolve_ffprobe(config)
+    if not path:
+        raise SplitFramesError("ffprobe not found — run: python gamefactory.py setup install ffmpeg")
+    return path
+
+
+def probe_video_duration(path: Path, config: dict[str, Any] | None = None) -> float:
     """Return video duration in seconds via ffprobe."""
+    ffprobe = _require_ffprobe(config)
     cmd = [
-        "ffprobe",
+        ffprobe,
         "-v",
         "error",
         "-show_entries",
@@ -197,7 +214,7 @@ def resolve_extract_fps(
     config = config or {}
     duration = options.get("duration_hint")
     if duration is None:
-        duration = probe_video_duration(input_path)
+        duration = probe_video_duration(input_path, config)
     duration = float(duration)
 
     t_start, t_end = resolve_skip_bounds(
@@ -220,9 +237,15 @@ def resolve_extract_fps(
     return extract_fps, duration, target, t_start, t_end
 
 
-def _extract_frame_at(input_path: Path, timestamp: float, output_path: Path) -> None:
+def _extract_frame_at(
+    input_path: Path,
+    timestamp: float,
+    output_path: Path,
+    config: dict[str, Any] | None = None,
+) -> None:
+    ffmpeg = _require_ffmpeg(config)
     cmd = [
-        "ffmpeg",
+        ffmpeg,
         "-y",
         "-ss",
         str(timestamp),
@@ -289,6 +312,7 @@ def split_video_to_frames(
     output_dir.mkdir(parents=True, exist_ok=True)
     extracted: list[Path] = []
     dense_fps = extract_fps
+    ffmpeg = _require_ffmpeg(config)
 
     if options["mode"] == "frames" and target_frames is not None:
         # Phase 1: dense extract inside trimmed window (time-trim only).
@@ -296,7 +320,7 @@ def split_video_to_frames(
         dense_fps = max(extract_fps, target_frames / usable * 3.0, 12.0)
         out_pattern = str(output_dir / f"_dense_%04d.{fmt}")
         cmd = [
-            "ffmpeg",
+            ffmpeg,
             "-ss",
             str(t_start),
             "-i",
@@ -339,7 +363,7 @@ def split_video_to_frames(
         usable = t_end - t_start
         out_pattern = str(output_dir / f"frame_%04d.{fmt}")
         cmd = [
-            "ffmpeg",
+            ffmpeg,
             "-ss",
             str(t_start),
             "-i",

@@ -26,6 +26,26 @@ export interface ManifestMeta {
   project_title?: string;
 }
 
+export interface ToolchainComponent {
+  id: string;
+  label: string;
+  description: string;
+  required: boolean;
+  action: "auto" | "download_link" | "pip";
+  download_url?: string;
+  available: boolean;
+  path?: string | null;
+}
+
+export interface ToolchainReport {
+  toolchain_root: string;
+  bin_dir: string;
+  components: ToolchainComponent[];
+  missing_required: string[];
+  missing_optional: string[];
+  needs_attention: boolean;
+}
+
 export interface DoctorReport {
   capabilities: Record<string, boolean>;
   executors: Record<
@@ -137,6 +157,9 @@ declare global {
     gameFactory: {
       getPaths: () => Promise<PathsInfo>;
       doctor: () => Promise<CliResult<DoctorReport>>;
+      toolchainCheck: () => Promise<CliResult<ToolchainReport>>;
+      toolchainInstall: (componentId: string) => Promise<CliResult<{ ok?: boolean; error?: string }>>;
+      openExternal: (url: string) => Promise<{ ok: boolean; error?: string }>;
       listBriefs: () => Promise<BriefItem[]>;
       listManifests: () => Promise<BriefItem[]>;
       getManifestMeta: (manifestRel: string) => Promise<ManifestMeta | null>;

@@ -4,6 +4,9 @@ import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
 import { BoardPanel } from "./components/BoardPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { ToolchainModal } from "./components/ToolchainModal";
+import type { ToolchainReport } from "./settings/toolchain";
+import { autoInstallable } from "./settings/toolchain";
 import { newMessageId, parseChatCommand, parseRunFlags, type ChatAttachment, type ChatMessage } from "./chat/types";
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
@@ -53,6 +56,10 @@ export default function App() {
   const [brainstormChoices, setBrainstormChoices] = useState<string[]>([]);
   const [brainstormReady, setBrainstormReady] = useState(false);
   const [draftTitle, setDraftTitle] = useState("");
+  const [toolchainReport, setToolchainReport] = useState<ToolchainReport | null>(null);
+  const [toolchainDismissed, setToolchainDismissed] = useState(false);
+  const [toolchainInstalling, setToolchainInstalling] = useState<string | null>(null);
+  const [toolchainLog, setToolchainLog] = useState<string[]>([]);
 
   const setBrief = useCallback((briefRel: string) => {
     const normalized = briefRel.replace(/\\/g, "/");
@@ -204,9 +211,18 @@ export default function App() {
     return res;
   }, []);
 
+  const refreshToolchain = useCallback(async () => {
+    if (!window.gameFactory?.toolchainCheck) return null;
+    const res = await window.gameFactory.toolchainCheck();
+    const report = res.data ?? null;
+    if (report) setToolchainReport(report);
+    return report;
+  }, []);
+
   const loadInitial = useCallback(async () => {
     if (!window.gameFactory) return;
     await Promise.all([window.gameFactory.getPaths(), window.gameFactory.doctor()]);
+    await refreshToolchain();
 
     const briefs = await window.gameFactory.listBriefs();
     const storedBrief = loadActiveBriefRel();
@@ -227,7 +243,37 @@ export default function App() {
       setSelectedManifest(manifest);
       await refreshManifest(manifest);
     }
-  }, [refreshManifest, activeBriefRel, setBrief]);
+  }, [refreshManifest, activeBriefRel, setBrief, refreshToolchain]);
+
+  const handleToolchainInstall = useCallback(
+    async (componentId: string) => {
+      if (!window.gameFactory?.toolchainInstall) return;
+      setToolchainInstalling(componentId);
+      setToolchainLog([]);
+      try {
+        const res = await window.gameFactory.toolchainInstall(componentId);
+        if (res.stderr) setToolchainLog((prev) => [...prev, res.stderr]);
+        if (res.stdout) setToolchainLog((prev) => [...prev, res.stdout]);
+        if (res.exitCode !== 0) {
+          appendAssistant(`安装 ${componentId} 失败，请查看日志或手动安装。`);
+        }
+        await refreshToolchain();
+        await window.gameFactory.doctor();
+      } catch (e) {
+        appendAssistant(`安装失败：${e instanceof Error ? e.message : String(e)}`);
+      } finally {
+        setToolchainInstalling(null);
+      }
+    },
+    [appendAssistant, refreshToolchain],
+  );
+
+  const handleToolchainInstallAll = useCallback(async () => {
+    if (!toolchainReport) return;
+    for (const item of autoInstallable(toolchainReport)) {
+      await handleToolchainInstall(item.id);
+    }
+  }, [toolchainReport, handleToolchainInstall]);
 
   useEffect(() => {
     void loadInitial()
@@ -546,6 +592,21 @@ export default function App() {
         {sidePanel === "settings" && <SettingsPanel busy={busy} />}
       </div>
 
+      {toolchainReport?.needs_attention && !toolchainDismissed && (
+        <ToolchainModal
+          report={toolchainReport}
+          installing={toolchainInstalling}
+          installLog={toolchainLog}
+          onDismiss={() => setToolchainDismissed(true)}
+          onInstall={(id) => void handleToolchainInstall(id)}
+          onInstallAll={() => void handleToolchainInstallAll()}
+          onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
+          onOpenSettings={() => {
+            setToolchainDismissed(true);
+            setSidePanel("settings");
+          }}
+        />
+      )}
     </div>
   );
 }

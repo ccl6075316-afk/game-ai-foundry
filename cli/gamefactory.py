@@ -520,6 +520,10 @@ from doctor_cmds import doctor_cmd  # noqa: E402
 
 cli.add_command(doctor_cmd)
 
+from setup_cmds import setup_group  # noqa: E402
+
+cli.add_command(setup_group)
+
 from pipeline_cmds import pipeline_group  # noqa: E402
 
 cli.add_command(pipeline_group)

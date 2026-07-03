@@ -374,6 +374,31 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
+  ipcMain.handle("toolchain-check", async () => {
+    const result = await runCli(["setup", "check", "--json"]);
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
+  ipcMain.handle("toolchain-install", async (event, componentId) => {
+    const sender = event.sender;
+    const result = await runCli(["setup", "install", String(componentId), "--json"], {
+      onLine: (line) => {
+        sender.send("toolchain-log", { line });
+      },
+    });
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
+  ipcMain.handle("open-external", async (_e, url) => {
+    if (!url || typeof url !== "string") {
+      return { ok: false, error: "invalid url" };
+    }
+    await shell.openExternal(url);
+    return { ok: true };
+  });
+
   ipcMain.handle("list-briefs", () => listBriefs());
   ipcMain.handle("list-manifests", () => listManifests());
   ipcMain.handle("manifest-meta", (_e, manifestRel) => manifestMeta(manifestRel));

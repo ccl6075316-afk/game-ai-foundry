@@ -10,6 +10,19 @@
 - Python 3.11+ 与 `cli/requirements.txt` 已安装
 - 可选：`GAMEFACTORY_ROOT` 指向仓库根目录（默认自动检测 `gui/../`）
 
+## 首次启动 · 本机工具
+
+GUI 启动时会自动运行 `setup check`（类似 VS Code 缺扩展提示）：
+
+| 组件 | 方式 |
+|------|------|
+| **FFmpeg** | 缺失时弹窗确认 → 自动下载到 `~/.gamefactory/toolchain/bin` |
+| **rembg** | 可选；确认后 `pip install rembg[cpu]` |
+| **Godot .NET** | [官方下载页](https://godotengine.org/download) 便携 zip，解压后在 **设置 → 本机工具** 指定可执行文件 |
+| **.NET SDK** | [dotnet.microsoft.com](https://dotnet.microsoft.com/download)（C# 玩法开发时需要） |
+
+CLI 手动：`python gamefactory.py setup check` · `python gamefactory.py setup install ffmpeg`
+
 ## 开发
 
 ```bash

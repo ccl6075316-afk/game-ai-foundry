@@ -36,6 +36,7 @@ export const GODOT_SECTION: SettingsSectionMeta = {
   title: "Godot 引擎",
   roleId: "godot-assembler",
   purpose: "本机 Godot 程序，用于打开工程、导入素材、检查项目",
+  note: "下载 Godot 4 .NET / Mono 便携版（zip 解压即用），无需安装；解压后在下方指定可执行文件路径。",
 };
 
 export const HOST_SECTION: SettingsSectionMeta = {
