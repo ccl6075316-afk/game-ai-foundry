@@ -57,9 +57,10 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 **GUI (Electron + React)** — `start-gui.bat` / `cd gui && npm run dev`
 - Chat-first UI, settings (岗位语言 + API keys), pipeline board
 - Media preview in chat (`gamefactory-media://`)
-- Commands: `/brief` `/doctor` `/plan` `/run` `/board` `/settings` `/godot`
+- Commands: `/brief` `/doctor` `/plan` `/run` `/board` `/settings` `/env` `/guide` `/godot`
 - Brief-driven workflow (no hardcoded prison-demo preset)
-- **Startup toolchain modal** — `setup check`; auto-install FFmpeg/rembg; Godot/.NET download links
+- **Env toolbar + side panels** — rescan, one-click install, guide (`commandGuide.ts`)
+- **Release packaging** — embedded Python + `electron-builder`; see [`docs/RELEASE.md`](docs/RELEASE.md)
 
 **Doctor & toolchain**
 - `gamefactory doctor --json` — Python, Godot, API keys, executor availability
@@ -124,7 +125,7 @@ User (GUI / Cursor / Hermes)
 |-----------|----------|-------|
 | M1 Video + Godot pipeline | ~100% | CLI complete |
 | M2 Hermes + pipeline | ~90% | Kanban optional |
-| M3 GUI | ~80% | Chat + brief + board + toolchain onboarding; one-click E2E pending |
+| M3 GUI | ~85% | Chat + brief + board + toolchain + **Release 打包**; Kanban pending |
 | M4 Brief → playable | ~65% | Frozen contract + manifest; Magic Prince E2E + Change Request CLI pending |
 | M5 Gameplay (Pass 4) | ~70% | dev-context handoff; executor on host |
 

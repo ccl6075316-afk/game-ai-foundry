@@ -5,8 +5,12 @@ import { ChatInput } from "./components/ChatInput";
 import { BoardPanel } from "./components/BoardPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { ToolchainModal } from "./components/ToolchainModal";
+import { EnvToolbar } from "./components/EnvToolbar";
+import { EnvPanel } from "./components/EnvPanel";
+import { GuidePanel } from "./components/GuidePanel";
 import type { ToolchainReport } from "./settings/toolchain";
 import { autoInstallable } from "./settings/toolchain";
+import type { DoctorReport } from "./vite-env.d";
 import { newMessageId, parseChatCommand, parseRunFlags, type ChatAttachment, type ChatMessage } from "./chat/types";
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
@@ -16,7 +20,7 @@ import {
   saveActiveBriefRel,
 } from "./chat/projectPaths";
 
-type SidePanel = "board" | "settings" | null;
+type SidePanel = "board" | "settings" | "env" | "guide" | null;
 
 function slugifyBriefName(raw: string): string {
   const t = raw.trim().toLowerCase();
@@ -60,6 +64,8 @@ export default function App() {
   const [toolchainDismissed, setToolchainDismissed] = useState(false);
   const [toolchainInstalling, setToolchainInstalling] = useState<string | null>(null);
   const [toolchainLog, setToolchainLog] = useState<string[]>([]);
+  const [doctorReport, setDoctorReport] = useState<DoctorReport | null>(null);
+  const [envScanning, setEnvScanning] = useState(false);
 
   const setBrief = useCallback((briefRel: string) => {
     const normalized = briefRel.replace(/\\/g, "/");
@@ -219,10 +225,24 @@ export default function App() {
     return report;
   }, []);
 
+  const refreshEnv = useCallback(async () => {
+    if (!window.gameFactory) return null;
+    setEnvScanning(true);
+    try {
+      const docRes = await window.gameFactory.doctor();
+      const doctor = docRes.data ?? null;
+      if (doctor) setDoctorReport(doctor);
+      const toolchain = await refreshToolchain();
+      return { doctor, toolchain };
+    } finally {
+      setEnvScanning(false);
+    }
+  }, [refreshToolchain]);
+
   const loadInitial = useCallback(async () => {
     if (!window.gameFactory) return;
-    await Promise.all([window.gameFactory.getPaths(), window.gameFactory.doctor()]);
-    await refreshToolchain();
+    await window.gameFactory.getPaths();
+    await refreshEnv();
 
     const briefs = await window.gameFactory.listBriefs();
     const storedBrief = loadActiveBriefRel();
@@ -243,7 +263,7 @@ export default function App() {
       setSelectedManifest(manifest);
       await refreshManifest(manifest);
     }
-  }, [refreshManifest, activeBriefRel, setBrief, refreshToolchain]);
+  }, [refreshManifest, activeBriefRel, setBrief, refreshEnv]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -257,15 +277,14 @@ export default function App() {
         if (res.exitCode !== 0) {
           appendAssistant(`安装 ${componentId} 失败，请查看日志或手动安装。`);
         }
-        await refreshToolchain();
-        await window.gameFactory.doctor();
+        await refreshEnv();
       } catch (e) {
         appendAssistant(`安装失败：${e instanceof Error ? e.message : String(e)}`);
       } finally {
         setToolchainInstalling(null);
       }
     },
-    [appendAssistant, refreshToolchain],
+    [appendAssistant, refreshEnv],
   );
 
   const handleToolchainInstallAll = useCallback(async () => {
@@ -355,8 +374,8 @@ export default function App() {
   const handleDoctor = async () => {
     setBusy(true);
     try {
-      const res = await window.gameFactory.doctor();
-      const d = res.data;
+      const result = await refreshEnv();
+      const d = result?.doctor;
       if (!d) {
         append("assistant", "doctor 无 JSON 输出。");
         return;
@@ -364,10 +383,15 @@ export default function App() {
       const caps = Object.entries(d.capabilities || {})
         .map(([k, ok]) => `${ok ? "✓" : "✗"} ${k}`)
         .join("\n");
+      const tc = result?.toolchain;
+      const missing = tc?.missing_required?.length
+        ? `\n\n缺少必需工具：${tc.missing_required.join(", ")}`
+        : "";
       append(
         "assistant",
-        `**环境探测**\n\n${caps}\n\nOpenRouter: ${d.config.openrouter_key}\nSeedance: ${d.config.seedance_key}\n\n（Hermes/Codex/Cursor 不随仓库分发，由本机探测）`,
+        `**环境探测**\n\n${caps}\n\nOpenRouter: ${d.config.openrouter_key}\nSeedance: ${d.config.seedance_key}${missing}\n\n顶部工具栏可一键安装；侧栏「环境」查看详情。`,
       );
+      setSidePanel("env");
     } finally {
       setBusy(false);
     }
@@ -492,13 +516,18 @@ export default function App() {
       append("assistant", "设置面板已切换 — 右侧编辑 API Key 与 Godot 路径。");
       return;
     }
+    if (cmd === "/env" || cmd === "/guide") {
+      toggleSidePanel(cmd === "/env" ? "env" : "guide");
+      append("assistant", cmd === "/env" ? "环境面板已打开 — 可检测并安装本机工具。" : "命令指南已打开 — 查看对话指令与 CLI 速查。");
+      return;
+    }
     if (cmd === "/godot") {
       await handleOpenGodot();
       return;
     }
 
     if (text.trim().startsWith("/")) {
-      append("assistant", `未知指令。可用：/brief /doctor /plan /run /board /settings /godot`);
+      append("assistant", `未知指令。可用：/brief /doctor /plan /run /board /settings /env /guide /godot`);
       return;
     }
 
@@ -534,6 +563,20 @@ export default function App() {
           )}
           <button
             type="button"
+            className={`btn btn--ghost ${sidePanel === "env" ? "btn--active" : ""}`}
+            onClick={() => toggleSidePanel("env")}
+          >
+            环境
+          </button>
+          <button
+            type="button"
+            className={`btn btn--ghost ${sidePanel === "guide" ? "btn--active" : ""}`}
+            onClick={() => toggleSidePanel("guide")}
+          >
+            指南
+          </button>
+          <button
+            type="button"
             className={`btn btn--ghost ${sidePanel === "settings" ? "btn--active" : ""}`}
             onClick={() => toggleSidePanel("settings")}
           >
@@ -564,6 +607,17 @@ export default function App() {
         </div>
       </header>
 
+      <EnvToolbar
+        toolchain={toolchainReport}
+        doctor={doctorReport}
+        scanning={envScanning}
+        installing={Boolean(toolchainInstalling)}
+        onScan={() => void refreshEnv()}
+        onInstallAll={() => void handleToolchainInstallAll()}
+        onOpenEnv={() => setSidePanel("env")}
+        onOpenGuide={() => setSidePanel("guide")}
+      />
+
       <div className={`chat-layout ${sidePanel ? "side-open" : ""}`}>
         <section className="chat-column">
           <ChatView messages={messages} busy={busy} onSuggestion={handleSend} />
@@ -590,6 +644,23 @@ export default function App() {
         )}
 
         {sidePanel === "settings" && <SettingsPanel busy={busy} />}
+
+        {sidePanel === "env" && (
+          <EnvPanel
+            toolchain={toolchainReport}
+            doctor={doctorReport}
+            scanning={envScanning}
+            installing={toolchainInstalling}
+            installLog={toolchainLog}
+            onRefresh={() => void refreshEnv()}
+            onInstall={(id) => void handleToolchainInstall(id)}
+            onInstallAll={() => void handleToolchainInstallAll()}
+            onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
+            onOpenSettings={() => setSidePanel("settings")}
+          />
+        )}
+
+        {sidePanel === "guide" && <GuidePanel />}
       </div>
 
       {toolchainReport?.needs_attention && !toolchainDismissed && (

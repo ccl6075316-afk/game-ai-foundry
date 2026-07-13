@@ -2,9 +2,18 @@
 
 **Chat-first** 桌面壳（类似 Codex）— 主界面是对话；**看板**为可选侧栏，查看 pipeline 任务状态。
 
-底层仍调用 `cli/gamefactory.py`，不内嵌 Hermes/Codex/Cursor。
+底层调用内嵌或本机 `gamefactory` CLI，不内嵌 Hermes/Codex/Cursor。
 
-## 要求
+## Release（最终用户）
+
+下载打包好的 **Game AI Foundry.exe**（或 macOS `.dmg`）→ 双击运行。
+
+- **不需要** Python、Node、`npm install`
+- 首次：设置 API Key → 环境工具栏 → `/brief` 开始
+
+打包说明 → [`../docs/RELEASE.md`](../docs/RELEASE.md)
+
+## 开发模式要求
 
 - Node.js 20+
 - Python 3.11+ 与 `cli/requirements.txt` 已安装
@@ -37,7 +46,9 @@ npm run dev
 
 | 区域 | 能力 |
 |------|------|
-| **对话（主）** | 自然语言 + 快捷指令 `/brief` `/doctor` `/plan` `/run` `/board` `/godot` |
+| **对话（主）** | 自然语言 + 快捷指令 `/brief` `/doctor` `/plan` `/run` `/board` `/settings` `/env` `/guide` `/godot` |
+| **环境工具栏** | 顶栏下方状态芯片；重新检测、一键安装 FFmpeg/rembg、打开环境详情 |
+| **指南侧栏** | GUI 对话指令 + CLI 命令速查（可复制） |
 | **看板（可选）** | 右上角「看板」→ pipeline 任务 DAG、状态、日志 |
 
 LLM 编排：`/brief` 走 brief brainstorm → 导出 `resources/{slug}-brief.json` → `/plan` → `/run --run-prompts`。导出后 **brief JSON 为唯一契约**。
@@ -51,4 +62,4 @@ Renderer (React)
   └─ preload bridge → window.gameFactory.*
 ```
 
-未来：内嵌 Python、打包 release、Kanban 视图 — 见 ROADMAP M3。
+未来：Kanban 视图 — 见 ROADMAP M3。Release 打包见 [`docs/RELEASE.md`](../docs/RELEASE.md)。

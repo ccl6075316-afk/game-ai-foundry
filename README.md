@@ -19,9 +19,15 @@ Post-demo changes: [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md
 
 ## Quick start
 
-### GUI
+### Release（最终用户）
 
-`start-gui.bat` → 设置 API key → `/brief` → export → `/plan` → `/run --run-prompts`
+下载 [Release 产物](docs/RELEASE.md) → 双击 **Game AI Foundry** → 设置 API Key → 环境工具栏确认就绪 → `/brief` → `/plan` → `/run --run-prompts`
+
+**无需**安装 Python / Node。
+
+### GUI（开发者）
+
+`start-gui.bat` 或 `cd gui && npm run dev` → 设置 API key → `/brief` → export → `/plan` → `/run --run-prompts`
 
 ### CLI
 
@@ -40,13 +46,17 @@ Details → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · Progress → [`ROADMAP
 
 ## Prerequisites
 
-Python 3.11+ · OpenRouter + Volcengine ARK keys
+### Release 用户
 
-**本机工具**（GUI 启动时会检测；FFmpeg 可一键自动安装）：
+- **OpenRouter** + **Volcengine ARK** API keys（设置里填写）
+- **Godot 4 .NET** 便携 zip（[下载](https://godotengine.org/download)）— 组装/打开工程时需要
+- FFmpeg / rembg：Release 内已含 Python；FFmpeg 可在 GUI 一键安装
 
-- **FFmpeg** — 视频拆帧；`python gamefactory.py setup install ffmpeg` 或 GUI 弹窗确认
-- **Godot 4 .NET** — [下载便携 zip](https://godotengine.org/download)（无需安装），在 `~/.gamefactory/config.json` 设置 `godot.engine_path`
-- **.NET SDK** — C# 玩法开发；[官方下载](https://dotnet.microsoft.com/download)
+详见 [`docs/RELEASE.md`](docs/RELEASE.md)
+
+### 开发者
+
+Python 3.11+ · Node 20+ · OpenRouter + Volcengine ARK keys
 
 ## License
 

@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "Game AI Foundry — desktop shell over gamefactory CLI",
+  "author": "Game AI Foundry",
   "main": "electron/main.mjs",
   "type": "module",
   "scripts": {
     "dev": "concurrently -k \"vite\" \"wait-on http://127.0.0.1:5173 && electron .\"",
     "build": "vite build",
+    "build:app": "npm run build && electron-builder",
+    "build:app:dir": "npm run build && electron-builder --dir",
+    "prepare:python": "python ../scripts/prepare_embedded_python.py --output runtime/python --with-rembg",
     "start": "electron .",
     "typecheck": "tsc --noEmit"
   },
@@ -21,8 +25,93 @@
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
     "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
     "typescript": "^5.7.2",
     "vite": "^6.0.3",
     "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.gameaifoundry.desktop",
+    "productName": "Game AI Foundry",
+    "copyright": "Copyright © 2026 Game AI Foundry",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "extraResources": [
+      {
+        "from": "../cli",
+        "to": "gamefactory/cli",
+        "filter": [
+          "**/*",
+          "!**/__pycache__/**",
+          "!**/.pytest_cache/**",
+          "!test_brief*.py",
+          "!test_pipeline*.py",
+          "!test_e2e*.py",
+          "!test_toolchain*.py",
+          "!test_fixtures.py",
+          "!test_assets*.py",
+          "!test_godot_dev.py",
+          "!test_godot_assemble.py",
+          "!test_test_*.py",
+          "!test_frame_sequence.py",
+          "!test_llm_config.py",
+          "!test_playtest_plan.py",
+          "!test_visual_target.py",
+          "!test_video_frames.py",
+          "!test_display_size.py",
+          "!test_matting_validate.py",
+          "!test_env_discover.py"
+        ]
+      },
+      {
+        "from": "../resources",
+        "to": "gamefactory/resources",
+        "filter": [
+          "**/*",
+          "!**/.gitkeep"
+        ]
+      },
+      {
+        "from": "runtime/python",
+        "to": "python",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "artifactName": "Game-AI-Foundry-${version}-${os}-${arch}.${ext}"
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg", "arch": ["arm64", "x64"] },
+        { "target": "zip", "arch": ["arm64", "x64"] }
+      ],
+      "category": "public.app-category.developer-tools",
+      "artifactName": "Game-AI-Foundry-${version}-${os}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Development",
+      "artifactName": "Game-AI-Foundry-${version}-${os}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Game-AI-Foundry-${version}-portable.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Game-AI-Foundry-${version}-setup.exe"
+    }
   }
 }

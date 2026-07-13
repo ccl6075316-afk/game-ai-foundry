@@ -3,6 +3,7 @@ export interface PathsInfo {
   cliDir: string;
   python: string;
   isDev: boolean;
+  isPackaged?: boolean;
 }
 
 export interface CliResult<T = unknown> {

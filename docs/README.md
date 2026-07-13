@@ -11,6 +11,7 @@
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | **安装 skill、terminal 约定** | 设计文档、brief schema |
 | [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 5 条铁律 | 一切细节（链到上表） |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **做了什么 / 待做什么 / 里程碑 %** | 命令复制块、抠图规则 |
+| [`RELEASE.md`](RELEASE.md) | 发布 / 用户 | **打包 Release、纯净机首次运行** | brief 字段、角色分工 |
 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner / orchestrator skill | **`pipeline run` 阶段** | 产品迭代、GUI |
 | [`../resources/skills/tester/`](../resources/skills/tester/) | Tester skill | **截图 + 视觉 QA、`test run`** | brief 字段 |
 

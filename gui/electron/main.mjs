@@ -12,9 +12,17 @@ import {
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import {
+  cliDir,
+  isPackagedApp,
+  preloadPath,
+  rendererIndexPath,
+  repoRoot,
+  resolvePython,
+} from "./paths.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const isDev = !app.isPackaged;
+const isDev = !isPackagedApp();
 
 const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif"]);
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".mkv"]);
@@ -31,25 +39,6 @@ protocol.registerSchemesAsPrivileged([
     },
   },
 ]);
-
-function repoRoot() {
-  if (process.env.GAMEFACTORY_ROOT && existsSync(process.env.GAMEFACTORY_ROOT)) {
-    return path.resolve(process.env.GAMEFACTORY_ROOT);
-  }
-  return path.resolve(__dirname, "..", "..");
-}
-
-function resolvePython(root) {
-  const winVenv = path.join(root, ".venv", "Scripts", "python.exe");
-  const unixVenv = path.join(root, ".venv", "bin", "python");
-  if (existsSync(winVenv)) return winVenv;
-  if (existsSync(unixVenv)) return unixVenv;
-  return process.env.PYTHON || "python";
-}
-
-function cliDir(root) {
-  return path.join(root, "cli");
-}
 
 function runCli(args, { cwd, onLine } = {}) {
   const root = repoRoot();
@@ -317,7 +306,7 @@ function createWindow() {
     backgroundColor: "#0f1419",
     show: false,
     webPreferences: {
-      preload: path.join(__dirname, "preload.cjs"),
+      preload: preloadPath(),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -338,7 +327,7 @@ function createWindow() {
       console.error("loadURL failed:", err);
     });
   } else {
-    mainWindow.loadFile(path.join(__dirname, "..", "dist", "index.html"));
+    mainWindow.loadFile(rendererIndexPath());
   }
 
   mainWindow.once("ready-to-show", () => {
@@ -366,6 +355,7 @@ app.whenReady().then(() => {
     cliDir: cliDir(repoRoot()),
     python: resolvePython(repoRoot()),
     isDev,
+    isPackaged: isPackagedApp(),
   }));
 
   ipcMain.handle("doctor", async () => {
