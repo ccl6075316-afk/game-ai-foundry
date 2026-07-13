@@ -8,7 +8,8 @@ if errorlevel 1 exit /b 1
 
 echo [release] Building GUI ...
 cd gui
-if not exist node_modules\ call npm install
+call npm install
+if errorlevel 1 exit /b 1
 call npm run build:app
 if errorlevel 1 exit /b 1
 

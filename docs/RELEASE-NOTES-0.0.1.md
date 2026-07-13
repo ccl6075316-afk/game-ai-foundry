@@ -1,12 +1,16 @@
 # Game AI Foundry v0.0.1
 
-首个可分发 Release（macOS Apple Silicon）。
+首个可分发 Release。
 
 ## 下载
 
-- **macOS arm64**：`Game-AI-Foundry-0.0.1-mac-arm64.zip`（解压后运行 `Game AI Foundry.app`）
+| 平台 | 文件 | 说明 |
+|------|------|------|
+| **Windows x64** | `Game-AI-Foundry-0.0.1-win-x64.zip` | 解压后运行 `Game AI Foundry.exe` |
+| **macOS arm64** | `Game-AI-Foundry-0.0.1-mac-arm64.zip` | 解压后运行 `Game AI Foundry.app` |
 
-> 未签名：首次打开请右键 → 打开。Windows 安装包将在后续 CI 中提供。
+> 未签名：Windows 可能 SmartScreen 提示；macOS 首次打开请右键 → 打开。  
+> Windows `portable.exe` / `setup.exe` 需构建机可访问 GitHub（NSIS 依赖）；zip 为当前 Windows 推荐分发格式。
 
 ## 纯净机使用步骤
 
@@ -24,8 +28,15 @@
 - gamefactory CLI 与示例 resources
 - 环境工具栏、命令指南侧栏
 
+## 构建机验证（v0.0.1 Windows zip）
+
+- [x] 内嵌 Python：`doctor --json` 可运行（pipeline executor available）
+- [x] `vite build` + `electron-builder --win zip`
+- [ ] GUI 双击 E2E（需人工：填 Key → `/brief` → `/run`）
+- [ ] 纯净 VM 全链（待 CI / 人工）
+
 ## 已知限制
 
-- 本包仅在 **macOS arm64** 构建；Windows 需在 Windows 上执行 `scripts\build-release.bat`
+- Windows zip 在 **Windows x64** 本机构建；macOS 包需在 macOS arm64 构建
 - Godot、API Key 仍需用户自行配置
-- 应用未 Apple 公证，Gatekeeper 可能拦截
+- 应用未代码签名
