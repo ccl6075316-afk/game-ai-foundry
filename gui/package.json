@@ -1,6 +1,6 @@
 {
   "name": "game-ai-foundry-gui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Game AI Foundry — desktop shell over gamefactory CLI",
   "author": "Game AI Foundry",
