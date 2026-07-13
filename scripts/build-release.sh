@@ -9,6 +9,7 @@ python3 scripts/prepare_embedded_python.py --output "$ROOT/gui/runtime/python" -
 
 echo "[release] Building GUI ..."
 cd "$ROOT/gui"
+export CSC_IDENTITY_AUTO_DISCOVERY=false
 npm install
 npm run build:app
 
