@@ -3,12 +3,8 @@ import type { ConfigInfo, ConfigPatch, DoctorReport } from "../vite-env.d";
 import {
   API_PROVIDERS,
   VIDEO_PROVIDERS,
-  detectApiProvider,
-  detectVideoProvider,
   getApiProvider,
   getVideoProvider,
-  resolveApiBase,
-  resolveVideoBase,
   type ApiProviderId,
   type VideoProviderId,
 } from "../settings/apiProviders";
@@ -17,6 +13,8 @@ import {
   DEFAULT_AGENT_SKILLS,
   HOST_EXECUTORS,
   executorAvailable,
+  executorUsesLogin,
+  EXECUTOR_LOGIN_HINTS,
   parseExecutor,
   type AgentExecutor,
 } from "../settings/executors";
@@ -25,15 +23,33 @@ import {
   GODOT_SECTION,
   HOST_SECTION,
   IMAGE_SECTION,
-  PROVIDER_SECTION,
+  IMAGE_PROVIDER_SECTION,
   ROLES_SECTION,
+  TEXT_PROVIDER_SECTION,
   PIPELINE_STEPS,
   PROMPT_SECTION,
-  VIDEO_SECTION,
+  VIDEO_PROVIDER_SECTION,
   keyConfigured,
   type SettingsSectionMeta,
   type SettingsTab,
 } from "../settings/sections";
+import {
+  getProviderAccount,
+  getVideoAccount,
+  isProviderConfigured,
+  isVideoConfigured,
+  loadProviderAccountsFromConfig,
+  resolveActiveImageSettings,
+  resolveActiveTextSettings,
+  resolveActiveVideoSettings,
+  serializeProviderAccounts,
+  serializeVideoAccounts,
+  updateProviderAccount,
+  updateVideoAccount,
+  type ProviderAccountsMap,
+  type VideoAccountsMap,
+  type ProviderAccount,
+} from "../settings/providerAccounts";
 import { GODOT_DOWNLOAD_URL } from "../settings/toolchain";
 
 interface Props {
@@ -42,83 +58,45 @@ interface Props {
 }
 
 interface FormState {
-  hostProvider: ApiProviderId;
-  hostApiBase: string;
-  hostApiKey: string;
-  hostModel: string;
+  providerAccounts: ProviderAccountsMap;
+  activeTextProvider: ApiProviderId;
+  activeImageProvider: ApiProviderId;
+  imageUseTextProvider: boolean;
+  videoAccounts: VideoAccountsMap;
+  activeVideoProvider: VideoProviderId;
   promptUseHost: boolean;
-  promptProvider: ApiProviderId;
-  promptApiBase: string;
-  promptApiKey: string;
   promptModel: string;
   codeUseHost: boolean;
-  codeProvider: ApiProviderId;
-  codeApiBase: string;
-  codeApiKey: string;
   codeModel: string;
-  imageProvider: ApiProviderId;
-  imageApiBase: string;
-  imageApiKey: string;
-  imageModel: string;
-  imageUseLlmProvider: boolean;
   proxy: string;
-  videoProvider: VideoProviderId;
-  videoApiBase: string;
-  videoApiKey: string;
   godotPath: string;
   hostExecutor: AgentExecutor;
   codeExecutor: AgentExecutor;
 }
 
 function fromConfig(data: ConfigInfo["data"]): FormState {
-  const host = data.host || {};
-  const image = data.image || {};
   const prompt = data.prompt || {};
   const code = data.code || {};
-  const video = data.video || {};
   const godot = data.godot || {};
   const agents = data.agents || {};
   const orchestrator = (agents.orchestrator || {}) as Record<string, unknown>;
   const godotDev = (agents["godot-developer"] || {}) as Record<string, unknown>;
 
-  const hostKey = String(host.api_key || image.api_key || "");
-  const hostBase = String(host.api_base || image.api_base || "");
-  const hostProvider = detectApiProvider(hostBase);
-  const promptKey = String(prompt.api_key || "");
-  const codeKey = String(code.api_key || "");
-  const promptProvider = detectApiProvider(String(prompt.api_base || hostBase));
-  const codeProvider = detectApiProvider(String(code.api_base || hostBase));
-  const imageProvider = detectApiProvider(String(image.api_base || hostBase || ""));
-
-  const imageKey = String(image.api_key || "");
-  const sameLlm =
-    !keyConfigured(imageKey) ||
-    (imageKey === hostKey && String(image.api_base || hostBase || "") === (hostBase || getApiProvider(hostProvider).apiBase));
+  const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
+  const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
 
   return {
-    hostProvider,
-    hostApiBase: hostBase || getApiProvider(hostProvider).apiBase,
-    hostApiKey: hostKey,
-    hostModel: String(host.model || getApiProvider(hostProvider).promptModelDefault),
-    promptUseHost: !keyConfigured(promptKey),
-    promptProvider,
-    promptApiBase: String(prompt.api_base || getApiProvider(promptProvider).apiBase),
-    promptApiKey: promptKey,
-    promptModel: String(prompt.model || getApiProvider(promptProvider).promptModelDefault),
-    codeUseHost: !keyConfigured(codeKey),
-    codeProvider,
-    codeApiBase: String(code.api_base || getApiProvider(codeProvider).apiBase),
-    codeApiKey: codeKey,
-    codeModel: String(code.model || getApiProvider(codeProvider).promptModelDefault),
-    imageProvider,
-    imageApiBase: String(image.api_base || getApiProvider(imageProvider).apiBase),
-    imageApiKey: String(image.api_key || ""),
-    imageModel: String(image.model || getApiProvider(imageProvider).imageModelDefault),
-    imageUseLlmProvider: sameLlm,
-    proxy: String(host.proxy || image.proxy || prompt.proxy || ""),
-    videoProvider: detectVideoProvider(String(video.api_base || "")),
-    videoApiBase: String(video.api_base || getVideoProvider("seedance").apiBase),
-    videoApiKey: String(video.api_key || ""),
+    ...loaded,
+    promptUseHost: !keyConfigured(String(prompt.api_key || "")),
+    promptModel: String(prompt.model || textAccount.textModel),
+    codeUseHost: !keyConfigured(String(code.api_key || "")),
+    codeModel: String(code.model || textAccount.textModel),
+    proxy: String(
+      (data.host as Record<string, unknown> | undefined)?.proxy ||
+        (data.image as Record<string, unknown> | undefined)?.proxy ||
+        prompt.proxy ||
+        "",
+    ),
     godotPath: String(godot.engine_path || ""),
     hostExecutor: parseExecutor(orchestrator.executor, "hermes"),
     codeExecutor: parseExecutor(godotDev.executor, "codex"),
@@ -126,8 +104,9 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
 }
 
 function toPatch(form: FormState): ConfigPatch {
-  const hostBase = resolveApiBase(form.hostProvider, form.hostApiBase);
-  const imageBase = resolveApiBase(form.imageProvider, form.imageApiBase);
+  const text = resolveActiveTextSettings(form);
+  const image = resolveActiveImageSettings(form);
+  const video = resolveActiveVideoSettings(form);
 
   const promptPatch: ConfigPatch["prompt"] = {
     model: form.promptModel || undefined,
@@ -135,9 +114,6 @@ function toPatch(form: FormState): ConfigPatch {
   if (form.promptUseHost) {
     promptPatch.api_key = null;
     promptPatch.api_base = null;
-  } else {
-    promptPatch.api_key = form.promptApiKey || undefined;
-    promptPatch.api_base = resolveApiBase(form.promptProvider, form.promptApiBase) || undefined;
   }
 
   const codePatch: ConfigPatch["code"] = {
@@ -146,31 +122,32 @@ function toPatch(form: FormState): ConfigPatch {
   if (form.codeUseHost) {
     codePatch.api_key = null;
     codePatch.api_base = null;
-  } else {
-    codePatch.api_key = form.codeApiKey || undefined;
-    codePatch.api_base = resolveApiBase(form.codeProvider, form.codeApiBase) || undefined;
   }
 
   return {
+    provider_accounts: serializeProviderAccounts(form.providerAccounts),
+    video_accounts: serializeVideoAccounts(form.videoAccounts),
     host: {
-      api_key: form.hostApiKey || undefined,
-      model: form.hostModel || undefined,
-      api_base: hostBase || undefined,
-      proxy: form.proxy || undefined,
+      provider: text.provider,
+      api_key: text.api_key,
+      model: text.model,
+      api_base: text.api_base,
+      proxy: text.proxy,
     },
     prompt: promptPatch,
     code: codePatch,
     image: {
-      api_key: form.imageUseLlmProvider ? form.hostApiKey || undefined : form.imageApiKey || undefined,
-      model: form.imageModel || undefined,
-      api_base: form.imageUseLlmProvider
-        ? hostBase || undefined
-        : imageBase || undefined,
-      proxy: form.proxy || undefined,
+      provider: image.provider,
+      use_text_provider: image.use_text_provider,
+      api_key: image.api_key,
+      model: image.model,
+      api_base: image.api_base,
+      proxy: image.proxy,
     },
     video: {
-      api_key: form.videoApiKey || undefined,
-      api_base: resolveVideoBase(form.videoProvider, form.videoApiBase) || undefined,
+      provider: video.provider,
+      api_key: video.api_key,
+      api_base: video.api_base,
     },
     godot: {
       engine_path: form.godotPath || undefined,
@@ -275,6 +252,79 @@ function SectionCard({
   );
 }
 
+function ProviderAccountChips({
+  accounts,
+  activeId,
+  onSelect,
+  disabled,
+}: {
+  accounts: ProviderAccountsMap;
+  activeId: ApiProviderId;
+  onSelect: (id: ApiProviderId) => void;
+  disabled: boolean;
+}) {
+  return (
+    <div className="provider-account-chips" aria-label="Provider 账号库">
+      <span className="provider-account-chips__label">可配置多家，已配显示 ✓；点击切换编辑</span>
+      <div className="provider-account-chips__row">
+        {API_PROVIDERS.map((p) => {
+          const configured = isProviderConfigured(accounts, p.id);
+          const active = p.id === activeId;
+          return (
+            <button
+              key={p.id}
+              type="button"
+              className={`provider-chip ${active ? "active" : ""} ${configured ? "configured" : "empty"}`}
+              onClick={() => onSelect(p.id)}
+              disabled={disabled}
+              title={configured ? `${p.label} 已配置` : `${p.label} 未配置`}
+            >
+              {p.label}
+              <span className="provider-chip__status">{configured ? "✓" : "—"}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function VideoAccountChips({
+  accounts,
+  activeId,
+  onSelect,
+  disabled,
+}: {
+  accounts: VideoAccountsMap;
+  activeId: VideoProviderId;
+  onSelect: (id: VideoProviderId) => void;
+  disabled: boolean;
+}) {
+  return (
+    <div className="provider-account-chips" aria-label="视频 Provider 账号库">
+      <span className="provider-account-chips__label">视频平台（可选多家）</span>
+      <div className="provider-account-chips__row">
+        {VIDEO_PROVIDERS.map((p) => {
+          const configured = isVideoConfigured(accounts, p.id);
+          const active = p.id === activeId;
+          return (
+            <button
+              key={p.id}
+              type="button"
+              className={`provider-chip ${active ? "active" : ""} ${configured ? "configured" : "empty"}`}
+              onClick={() => onSelect(p.id)}
+              disabled={disabled}
+            >
+              {p.label}
+              <span className="provider-chip__status">{configured ? "✓" : "—"}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function ProviderSelect({
   value,
   onChange,
@@ -340,45 +390,44 @@ export function SettingsPanel({ busy, onSaved }: Props) {
     setMessage(null);
   };
 
-  const applyHostProvider = (id: ApiProviderId) => {
-    const preset = getApiProvider(id);
+  const setActiveTextProvider = (id: ApiProviderId) => {
+    setForm((prev) => ({ ...prev, activeTextProvider: id }));
+    setMessage(null);
+  };
+
+  const updateTextAccount = (patch: Partial<ProviderAccount>) => {
     setForm((prev) => ({
       ...prev,
-      hostProvider: id,
-      hostApiBase: id === "custom" ? prev.hostApiBase : preset.apiBase,
-      hostModel: prev.hostModel || preset.promptModelDefault,
+      providerAccounts: updateProviderAccount(prev.providerAccounts, prev.activeTextProvider, patch),
     }));
     setMessage(null);
   };
 
-  const applyImageProvider = (id: ApiProviderId) => {
-    const preset = getApiProvider(id);
-    setForm((prev) => ({
-      ...prev,
-      imageProvider: id,
-      imageApiBase: id === "custom" ? prev.imageApiBase : preset.apiBase,
-      imageModel: prev.imageModel || preset.imageModelDefault,
-    }));
+  const setActiveImageProvider = (id: ApiProviderId) => {
+    setForm((prev) => ({ ...prev, activeImageProvider: id, imageUseTextProvider: false }));
     setMessage(null);
   };
 
-  const applyPromptProvider = (id: ApiProviderId) => {
-    const preset = getApiProvider(id);
-    setForm((prev) => ({
-      ...prev,
-      promptProvider: id,
-      promptApiBase: id === "custom" ? prev.promptApiBase : preset.apiBase,
-      promptModel: prev.promptModel || preset.promptModelDefault,
-    }));
+  const updateImageAccount = (patch: Partial<ProviderAccount>) => {
+    setForm((prev) => {
+      const providerId = prev.imageUseTextProvider ? prev.activeTextProvider : prev.activeImageProvider;
+      return {
+        ...prev,
+        providerAccounts: updateProviderAccount(prev.providerAccounts, providerId, patch),
+      };
+    });
     setMessage(null);
   };
 
-  const applyVideoProvider = (id: VideoProviderId) => {
-    const preset = getVideoProvider(id);
+  const setActiveVideoProvider = (id: VideoProviderId) => {
+    setForm((prev) => ({ ...prev, activeVideoProvider: id }));
+    setMessage(null);
+  };
+
+  const updateVideoAccount = (patch: Partial<{ apiKey: string; apiBase: string }>) => {
     setForm((prev) => ({
       ...prev,
-      videoProvider: id,
-      videoApiBase: id === "custom" ? prev.videoApiBase : preset.apiBase,
+      videoAccounts: updateVideoAccount(prev.videoAccounts, prev.activeVideoProvider, patch),
     }));
     setMessage(null);
   };
@@ -423,12 +472,19 @@ export function SettingsPanel({ busy, onSaved }: Props) {
   };
 
   const disabled = busy || loading || saving;
-  const videoPreset = getVideoProvider(form.videoProvider);
-  const hostProviderPreset = getApiProvider(form.hostProvider);
+  const textAccount = getProviderAccount(form.providerAccounts, form.activeTextProvider);
+  const textPreset = getApiProvider(form.activeTextProvider);
+  const imageProviderId = form.imageUseTextProvider ? form.activeTextProvider : form.activeImageProvider;
+  const imageAccount = getProviderAccount(form.providerAccounts, imageProviderId);
+  const imagePreset = getApiProvider(imageProviderId);
+  const videoAccount = getVideoAccount(form.videoAccounts, form.activeVideoProvider);
+  const videoPreset = getVideoProvider(form.activeVideoProvider);
 
-  const hostKeyOk = keyConfigured(form.hostApiKey);
-  const promptKeyOk = form.promptUseHost ? hostKeyOk : keyConfigured(form.promptApiKey);
-  const codeKeyOk = form.codeUseHost ? hostKeyOk : keyConfigured(form.codeApiKey);
+  const hostKeyOk = isProviderConfigured(form.providerAccounts, form.activeTextProvider);
+  const promptKeyOk = form.promptUseHost ? hostKeyOk : false;
+  const hostExecutorLogin = executorUsesLogin(form.hostExecutor);
+  const hostExecutorOk = executorAvailable(doctor?.executors, form.hostExecutor);
+  const codeExecutorOk = executorAvailable(doctor?.executors, form.codeExecutor);
 
   return (
     <aside className="side-panel settings-panel">
@@ -498,86 +554,63 @@ export function SettingsPanel({ busy, onSaved }: Props) {
         >
           {tab === "providers" && (
             <>
-              <SectionCard meta={PROVIDER_SECTION} configured={hostKeyOk}>
-                <ProviderSelect
-                  value={form.hostProvider}
-                  onChange={applyHostProvider}
+              <SectionCard meta={TEXT_PROVIDER_SECTION} configured={hostKeyOk}>
+                <ProviderAccountChips
+                  accounts={form.providerAccounts}
+                  activeId={form.activeTextProvider}
+                  onSelect={setActiveTextProvider}
                   disabled={disabled}
                 />
-                {form.hostProvider === "custom" && (
+                <ProviderSelect
+                  value={form.activeTextProvider}
+                  onChange={setActiveTextProvider}
+                  disabled={disabled}
+                />
+                {form.activeTextProvider === "custom" && (
                   <label className="field">
-                    <span>LLM / 生图平台地址</span>
+                    <span>API 地址</span>
                     <input
                       type="text"
-                      value={form.hostApiBase}
-                      onChange={(e) => setField("hostApiBase", e.target.value)}
+                      value={textAccount.apiBase}
+                      onChange={(e) => updateTextAccount({ apiBase: e.target.value })}
                       placeholder="https://your-api.example.com/v1"
                       disabled={disabled}
                     />
                   </label>
                 )}
                 <label className="field">
-                  <span>账号密钥</span>
+                  <span>
+                    {textPreset.label} API Key
+                    {hostKeyOk ? "（已配置）" : "（未配置）"}
+                  </span>
                   <input
                     type="password"
-                    value={form.hostApiKey}
-                    onChange={(e) => setField("hostApiKey", e.target.value)}
-                    placeholder={hostProviderPreset.keyPlaceholder}
+                    value={textAccount.apiKey}
+                    onChange={(e) => updateTextAccount({ apiKey: e.target.value })}
+                    placeholder={hostKeyOk ? "••••••••" : textPreset.keyPlaceholder}
                     autoComplete="off"
                     disabled={disabled}
                   />
                 </label>
+                <p className="field-hint">
+                  每家平台独立保存；切换到未配置的平台时密钥框为空，填好后点保存即可。
+                </p>
                 <label className="field">
-                  <span>对话模型（/brief、策划）</span>
+                  <span>生文 model（当前启用：{textPreset.label}）</span>
                   <input
                     type="text"
-                    value={form.hostModel}
-                    onChange={(e) => setField("hostModel", e.target.value)}
-                    placeholder={hostProviderPreset.promptModelDefault}
+                    value={textAccount.textModel}
+                    onChange={(e) => updateTextAccount({ textModel: e.target.value })}
+                    placeholder={textPreset.promptModelDefault}
                     disabled={disabled}
                   />
                 </label>
+                <p className="field-hint">
+                  OpenRouter 靠 <code>model</code> 路由（如 <code>deepseek/deepseek-chat</code>）；官方 API 用
+                  平台自己的模型名（如 <code>deepseek-chat</code>）。
+                </p>
                 <label className="field">
-                  <span>生图模型</span>
-                  <input
-                    type="text"
-                    value={form.imageModel}
-                    onChange={(e) => setField("imageModel", e.target.value)}
-                    placeholder={hostProviderPreset.imageModelDefault}
-                    disabled={disabled}
-                  />
-                </label>
-                <label className="field field--checkbox">
-                  <input
-                    type="checkbox"
-                    checked={form.imageUseLlmProvider}
-                    onChange={(e) => setField("imageUseLlmProvider", e.target.checked)}
-                    disabled={disabled}
-                  />
-                  <span>生图沿用同一 Provider 账号（推荐）</span>
-                </label>
-                {!form.imageUseLlmProvider && (
-                  <>
-                    <ProviderSelect
-                      value={form.imageProvider}
-                      onChange={applyImageProvider}
-                      disabled={disabled}
-                    />
-                    <label className="field">
-                      <span>生图专用密钥</span>
-                      <input
-                        type="password"
-                        value={form.imageApiKey}
-                        onChange={(e) => setField("imageApiKey", e.target.value)}
-                        placeholder={getApiProvider(form.imageProvider).keyPlaceholder}
-                        autoComplete="off"
-                        disabled={disabled}
-                      />
-                    </label>
-                  </>
-                )}
-                <label className="field">
-                  <span>代理（可选）</span>
+                  <span>代理（可选，生文/生图共用）</span>
                   <input
                     type="text"
                     value={form.proxy}
@@ -588,42 +621,120 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 </label>
               </SectionCard>
 
-              <SectionCard meta={VIDEO_SECTION} configured={keyConfigured(form.videoApiKey)}>
+              <SectionCard
+                meta={IMAGE_PROVIDER_SECTION}
+                configured={
+                  form.imageUseTextProvider
+                    ? hostKeyOk && Boolean(imageAccount.imageModel.trim())
+                    : isProviderConfigured(form.providerAccounts, form.activeImageProvider)
+                }
+              >
+                <label className="field field--checkbox">
+                  <input
+                    type="checkbox"
+                    checked={form.imageUseTextProvider}
+                    onChange={(e) => setField("imageUseTextProvider", e.target.checked)}
+                    disabled={disabled}
+                  />
+                  <span>沿用当前生文平台（{textPreset.label}）</span>
+                </label>
+                {!form.imageUseTextProvider && (
+                  <>
+                    <ProviderAccountChips
+                      accounts={form.providerAccounts}
+                      activeId={form.activeImageProvider}
+                      onSelect={setActiveImageProvider}
+                      disabled={disabled}
+                    />
+                    <ProviderSelect
+                      value={form.activeImageProvider}
+                      onChange={setActiveImageProvider}
+                      disabled={disabled}
+                    />
+                    <label className="field">
+                      <span>
+                        {imagePreset.label} 生图 Key
+                        {isProviderConfigured(form.providerAccounts, form.activeImageProvider)
+                          ? "（已配置）"
+                          : "（未配置）"}
+                      </span>
+                      <input
+                        type="password"
+                        value={imageAccount.apiKey}
+                        onChange={(e) => updateImageAccount({ apiKey: e.target.value })}
+                        placeholder={imagePreset.keyPlaceholder}
+                        autoComplete="off"
+                        disabled={disabled}
+                      />
+                    </label>
+                  </>
+                )}
                 <label className="field">
-                  <span>视频 Provider</span>
+                  <span>生图 model</span>
+                  <input
+                    type="text"
+                    value={imageAccount.imageModel}
+                    onChange={(e) => updateImageAccount({ imageModel: e.target.value })}
+                    placeholder={imagePreset.imageModelDefault}
+                    disabled={disabled}
+                  />
+                </label>
+                <p className="field-hint">
+                  可与生文用不同平台（例如生文 DeepSeek、生图 OpenRouter + Gemini image model）。
+                </p>
+              </SectionCard>
+
+              <SectionCard
+                meta={VIDEO_PROVIDER_SECTION}
+                configured={isVideoConfigured(form.videoAccounts, form.activeVideoProvider)}
+              >
+                <VideoAccountChips
+                  accounts={form.videoAccounts}
+                  activeId={form.activeVideoProvider}
+                  onSelect={setActiveVideoProvider}
+                  disabled={disabled}
+                />
+                <label className="field">
+                  <span>当前启用的视频平台</span>
                   <select
-                    value={form.videoProvider}
-                    onChange={(e) => applyVideoProvider(e.target.value as VideoProviderId)}
+                    value={form.activeVideoProvider}
+                    onChange={(e) => setActiveVideoProvider(e.target.value as VideoProviderId)}
                     disabled={disabled}
                   >
                     {VIDEO_PROVIDERS.map((p) => (
                       <option key={p.id} value={p.id}>
                         {p.label}
+                        {isVideoConfigured(form.videoAccounts, p.id) ? " ✓" : ""}
                       </option>
                     ))}
                   </select>
-                  {form.videoProvider !== "custom" && (
+                  {form.activeVideoProvider !== "custom" && (
                     <span className="field-endpoint mono">{videoPreset.apiBase}</span>
                   )}
                 </label>
-                {form.videoProvider === "custom" && (
+                {form.activeVideoProvider === "custom" && (
                   <label className="field">
                     <span>自定义平台地址</span>
                     <input
                       type="text"
-                      value={form.videoApiBase}
-                      onChange={(e) => setField("videoApiBase", e.target.value)}
+                      value={videoAccount.apiBase}
+                      onChange={(e) => updateVideoAccount({ apiBase: e.target.value })}
                       placeholder="https://…"
                       disabled={disabled}
                     />
                   </label>
                 )}
                 <label className="field">
-                  <span>视频 API Key</span>
+                  <span>
+                    {videoPreset.label} API Key
+                    {isVideoConfigured(form.videoAccounts, form.activeVideoProvider)
+                      ? "（已配置）"
+                      : "（未配置）"}
+                  </span>
                   <input
                     type="password"
-                    value={form.videoApiKey}
-                    onChange={(e) => setField("videoApiKey", e.target.value)}
+                    value={videoAccount.apiKey}
+                    onChange={(e) => updateVideoAccount({ apiKey: e.target.value })}
                     placeholder={videoPreset.keyPlaceholder}
                     autoComplete="off"
                     disabled={disabled}
@@ -637,11 +748,18 @@ export function SettingsPanel({ busy, onSaved }: Props) {
             <>
               <SectionCard meta={ROLES_SECTION}>
                 <p className="settings-linked">
-                  GUI 主对话（/brief）始终使用 Provider 页的 LLM 账号。下方执行器用于<strong>外部</strong>派活（Hermes / Codex / Cursor），各自登录，不会自动读取 Provider Key。
+                  <strong>Provider 页</strong>：GUI 对话（/brief）、文案 LLM、生图 — 填 API Key。
+                  <br />
+                  <strong>执行器</strong>（Hermes / Codex / Cursor）：本机登录，<strong>不在此填 Key</strong>。
                 </p>
               </SectionCard>
 
-              <SectionCard meta={HOST_SECTION} configured={hostKeyOk}>
+              <SectionCard
+                meta={HOST_SECTION}
+                configured={hostExecutorLogin ? hostExecutorOk : hostKeyOk}
+                statusOk={hostExecutorLogin ? "本机可用" : "已填写"}
+                statusWarn={hostExecutorLogin ? "未检测到" : "未填写"}
+              >
                 <ExecutorPicker
                   name="host-executor"
                   options={HOST_EXECUTORS}
@@ -650,7 +768,18 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   disabled={disabled}
                   onChange={(id) => setField("hostExecutor", id)}
                 />
-                <p className="settings-linked">策划对话模型在 Provider 页配置（当前：{form.hostModel || "默认"}）</p>
+                {hostExecutorLogin ? (
+                  <>
+                    <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.hostExecutor]}</p>
+                    <p className="settings-linked">
+                      GUI /brief 策划对话仍走 Provider 页的生文 Key（与执行器无关）· 当前：{textPreset.label} / {textAccount.textModel || "默认"}
+                    </p>
+                  </>
+                ) : (
+                  <p className="settings-linked">
+                    策划对话模型在 Provider 页配置（当前：{textPreset.label} / {textAccount.textModel || "默认"}）
+                  </p>
+                )}
               </SectionCard>
 
               <SectionCard meta={PROMPT_SECTION} configured={promptKeyOk}>
@@ -669,19 +798,31 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     type="text"
                     value={form.promptModel}
                     onChange={(e) => setField("promptModel", e.target.value)}
-                    placeholder={hostProviderPreset.promptModelDefault}
+                    placeholder={textPreset.promptModelDefault}
                     disabled={disabled}
                   />
                 </label>
               </SectionCard>
 
-              <SectionCard meta={IMAGE_SECTION} configured={hostKeyOk && form.imageUseLlmProvider ? hostKeyOk : keyConfigured(form.imageApiKey)}>
+              <SectionCard
+                meta={IMAGE_SECTION}
+                configured={
+                  form.imageUseTextProvider
+                    ? hostKeyOk
+                    : isProviderConfigured(form.providerAccounts, form.activeImageProvider)
+                }
+              >
                 <p className="settings-linked">
-                  生图 Provider：{form.imageUseLlmProvider ? "沿用 LLM Provider" : "独立配置"} · 模型 {form.imageModel || "默认"}
+                  生图：{form.imageUseTextProvider ? `沿用生文（${textPreset.label}）` : getApiProvider(form.activeImageProvider).label} · 模型 {imageAccount.imageModel || "默认"}
                 </p>
               </SectionCard>
 
-              <SectionCard meta={CODE_SECTION} configured={codeKeyOk}>
+              <SectionCard
+                meta={CODE_SECTION}
+                configured={codeExecutorOk}
+                statusOk="本机可用"
+                statusWarn="未检测到"
+              >
                 <ExecutorPicker
                   name="code-executor"
                   options={CODE_EXECUTORS}
@@ -690,25 +831,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   disabled={disabled}
                   onChange={(id) => setField("codeExecutor", id)}
                 />
-                <label className="field field--checkbox">
-                  <input
-                    type="checkbox"
-                    checked={form.codeUseHost}
-                    onChange={(e) => setField("codeUseHost", e.target.checked)}
-                    disabled={disabled}
-                  />
-                  <span>LLM 回退到 Provider（Codex/Cursor 写代码时不消耗此项）</span>
-                </label>
-                <label className="field">
-                  <span>编程模型（仅 LLM 回退时用）</span>
-                  <input
-                    type="text"
-                    value={form.codeModel}
-                    onChange={(e) => setField("codeModel", e.target.value)}
-                    placeholder={hostProviderPreset.promptModelDefault}
-                    disabled={disabled}
-                  />
-                </label>
+                <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.codeExecutor]}</p>
               </SectionCard>
             </>
           )}

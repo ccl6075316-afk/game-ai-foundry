@@ -11,7 +11,7 @@ from typing import Any
 from agent_routing import all_agents
 from hermes_pack import HERMES_PACKAGES, resolve_hermes_install_dir
 from roles import ALL_ROLES
-from toolchain_paths import resolve_ffmpeg, resolve_ffprobe
+from toolchain_paths import resolve_dotnet, resolve_ffmpeg, resolve_ffprobe, resolve_godot
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
@@ -151,23 +151,13 @@ def discover_executors() -> dict[str, dict[str, Any]]:
 
 
 def _godot_path_from_config(config: dict[str, Any]) -> str | None:
-    godot_cfg = config.get("godot", {}) if isinstance(config.get("godot"), dict) else {}
-    path = godot_cfg.get("engine_path")
-    if path and Path(path).exists():
-        return str(path)
-    for candidate in (
-        r"E:\Godot_v4.6.1-stable_mono_win64\Godot_v4.6.1-stable_mono_win64_console.exe",
-        "godot",
-    ):
-        if Path(candidate).exists() or shutil.which(candidate):
-            return candidate if Path(candidate).exists() else shutil.which(candidate)
-    return None
+    return resolve_godot(config)
 
 
 def discover_tools(config: dict[str, Any] | None = None) -> dict[str, Any]:
     config = config or {}
     godot_path = _godot_path_from_config(config)
-    dotnet = shutil.which("dotnet")
+    dotnet = resolve_dotnet(config)
     ffmpeg = resolve_ffmpeg(config)
     ffprobe = resolve_ffprobe(config)
     git = shutil.which("git")

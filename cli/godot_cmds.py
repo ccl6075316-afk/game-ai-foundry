@@ -11,6 +11,7 @@ from pathlib import Path
 import click
 
 from godot_assemble import GodotAssembleError, assemble_from_plan, init_project_from_template
+from toolchain_paths import resolve_dotnet, resolve_godot
 from godot_import import GodotImportError, import_sprite_frames
 from plan_io import load_godot_handoff
 
@@ -31,17 +32,10 @@ def _load_config() -> dict:
 
 def _get_godot_exe() -> str:
     """Resolve Godot executable path."""
-    config = _load_config().get("godot", {})
-    path = config.get("engine_path")
-    if path and Path(path).exists():
-        return path
-    candidates = [
-        r"E:\Godot_v4.6.1-stable_mono_win64\Godot_v4.6.1-stable_mono_win64_console.exe",
-        r"E:\Godot_v4.6.1-stable_mono_win64\Godot_v4.6.1-stable_mono_win64.exe",
-    ]
-    for c in candidates:
-        if Path(c).exists():
-            return c
+    config = _load_config()
+    resolved = resolve_godot(config)
+    if resolved:
+        return resolved
     return "godot"
 
 
@@ -207,8 +201,9 @@ def _run_validate(project_path: Path) -> None:
 
     csproj_files = list(project_path.glob("*.csproj"))
     if csproj_files:
+        dotnet = resolve_dotnet(_load_config()) or "dotnet"
         build = subprocess.run(
-            ["dotnet", "build", str(csproj_files[0])],
+            [dotnet, "build", str(csproj_files[0])],
             capture_output=True,
             text=True,
             encoding="utf-8",

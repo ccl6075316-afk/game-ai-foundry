@@ -61,3 +61,14 @@ export function executorAvailable(
 ): boolean {
   return Boolean(executors?.[id]?.available);
 }
+
+/** Codex / Cursor / Hermes 走本机登录，不用 Provider 页的 API Key */
+export function executorUsesLogin(id: AgentExecutor): boolean {
+  return id === "codex" || id === "cursor" || id === "hermes";
+}
+
+export const EXECUTOR_LOGIN_HINTS: Record<AgentExecutor, string> = {
+  codex: "在环境面板点击「安装」与「浏览器登录」即可完成 Codex 配置，无需填 API Key。",
+  cursor: "在环境面板打开 Cursor 下载页并检测 CLI；IDE 内登录订阅账号即可。",
+  hermes: "在环境面板分步安装 Hermes、Skills，并一键同步 OpenRouter API。",
+};

@@ -2,35 +2,49 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
+## 当前版本要点（2026-07-15）
+
+- **最低开工**：OpenRouter（或 LLM Provider）Key → `/brief` → `/run`
+- **推荐**：再配 Hermes / Cursor 执行器（环境面板分步安装）
+- **工具链**：FFmpeg、Godot、.NET 启动自动安装；rembg 打包自带
+- **设置**：生文/生图/生视频分块 + 多 Provider 账号库
+- **外部 AI**：读 [`TOOLS.md`](TOOLS.md) 代操 Foundry
+
+---
+
 | 文档 | 读者 | 侧重 | 不写什么 |
 |------|------|------|----------|
-| [`../README.md`](../README.md) | 新人 / GitHub | 30 秒是什么、Quick Start、前置依赖 | 字段 schema、角色边界、迭代契约 |
-| [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host / 全角色 | **设计 vs 施工**、Change Request、切片、验收哲学 | CLI 命令、Hermes 安装、里程碑百分比 |
-| [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律、配置与本机工具 | 产品方法论、六角色表、进度表 |
-| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段、Change Request 全文 |
-| [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | **安装 skill、terminal 约定** | 设计文档、brief schema |
-| [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 5 条铁律 | 一切细节（链到上表） |
-| [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **做了什么 / 待做什么 / 里程碑 %** | 命令复制块、抠图规则 |
-| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider 优先、执行器边界** | CLI 命令大全 |
-| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | **打包 Release、纯净机首次运行** | brief 字段 |
-| [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner / orchestrator skill | **`pipeline run` 阶段** | 产品迭代、GUI |
-| [`../resources/skills/tester/`](../resources/skills/tester/) | Tester skill | **截图 + 视觉 QA、`test run`** | brief 字段 |
+| [`../README.md`](../README.md) | 新人 / GitHub | 功能一览、Quick Start、前置依赖 | 字段 schema、角色边界 |
+| [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host / 全角色 | **设计 vs 施工**、Change Request | CLI 命令、里程碑 |
+| [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律 | 产品方法论、进度表 |
+| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段全文 |
+| [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
+| [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
+| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、执行器、最低 vs 推荐** | CLI 大全 |
+| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
+| [`RELEASE-NOTES-0.0.2.md`](RELEASE-NOTES-0.0.2.md) | 用户 | v0.0.2 新功能与变更 | — |
+| [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 铁律 | 细节 |
+| [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **进度、里程碑 %** | 命令复制块 |
+| [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | **`pipeline run` 阶段** | GUI |
+| [`../resources/skills/tester/`](../resources/skills/tester/) | Tester | **截图 + 视觉 QA** | brief 字段 |
 
 ## 读法建议
 
 ```text
-要跑通一条线     → README Quick Start → AI-HANDOFF §5–§6
-要配 GUI / Provider → GUI-CONFIG
-要配本机工具       → `setup check` / GUI 环境栏 → RELEASE
-要理解分工       → AGENT-ROUTING
-要定需求/改需求   → ITERATIVE-PRODUCTION
-要用 Hermes      → HERMES-CODEX
-Codex 会话       → AGENTS.md（再按需打开上表）
-看进度           → ROADMAP
+新人 30 秒        → README（功能表 + Quick Start）
+要跑通一条线       → AI-HANDOFF §5–§6
+要配 GUI          → GUI-CONFIG
+要配工具 / 排错    → TOOLS.md
+外部 AI 代操       → TOOLS.md §2、§8
+要理解分工         → AGENT-ROUTING
+要用 Hermes        → HERMES-CODEX
+Codex 会话         → AGENTS.md
+看进度             → ROADMAP
+发 Release         → RELEASE + RELEASE-NOTES-0.0.2
 ```
 
 ## 设计 vs 施工（一句话）
 
-- **设计（Design）**：玩家体验、胜负、验收标准 → 详见 **ITERATIVE §1.1**；今天嵌在 `brief.project`
-- **施工（Production）**：资产表、尺寸、Godot 任务 → 详见 **ITERATIVE §1.2**；今天 = 整份 `brief.json`（`brief export`）
-- **怎么敲命令**：**AI-HANDOFF**，不是 ITERATIVE
+- **设计（Design）**：玩家体验、胜负、验收标准 → **ITERATIVE §1.1**；今天嵌在 `brief.project`
+- **施工（Production）**：资产表、尺寸、Godot 任务 → **ITERATIVE §1.2**；今天 = `brief.json`（`brief export`）
+- **怎么敲命令**：**AI-HANDOFF** + **TOOLS**，不是 ITERATIVE

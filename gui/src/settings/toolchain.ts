@@ -29,6 +29,6 @@ export function missingComponents(report: ToolchainReport): ToolchainComponent[]
 
 export function autoInstallable(report: ToolchainReport): ToolchainComponent[] {
   return missingComponents(report).filter(
-    (c) => c.action === "auto" || c.action === "pip" || c.id === "hermes",
+    (c) => c.action === "auto" || c.action === "pip",
   );
 }

@@ -35,10 +35,12 @@ def resolve_host_api_settings(
 
     host_cfg = _section(config, "host")
     image_cfg = _section(config, "image")
+    prompt_cfg = _section(config, "prompt")
 
     resolved_model = (
         model
         or host_cfg.get("model")
+        or prompt_cfg.get("model")
         or os.environ.get("GAMEFACTORY_HOST_MODEL")
         or os.environ.get("GAMEFACTORY_PROMPT_MODEL")
         or DEFAULT_PROMPT_MODEL
@@ -46,6 +48,7 @@ def resolve_host_api_settings(
     resolved_key = (
         api_key
         or host_cfg.get("api_key")
+        or prompt_cfg.get("api_key")
         or image_cfg.get("api_key")
         or os.environ.get("GAMEFACTORY_HOST_API_KEY")
         or os.environ.get("GAMEFACTORY_API_KEY")

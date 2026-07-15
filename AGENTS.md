@@ -10,10 +10,13 @@
 cd cli
 pip install -r requirements.txt
 cp ../resources/config.example.json ~/.gamefactory/config.json
-python gamefactory.py setup check --json   # FFmpeg / Godot / rembg 缺失项
+python gamefactory.py setup check --json   # FFmpeg / Godot / .NET
+python gamefactory.py doctor --json        # API keys、executors、capabilities
 ```
 
-**Godot**：便携 zip → [godotengine.org/download](https://godotengine.org/download)（.NET / Mono），写入 `godot.engine_path`。GUI 启动会弹窗检测；FFmpeg 可 `setup install ffmpeg`。
+**本机工具**：FFmpeg / Godot / .NET 可 `setup install` 或 GUI 启动自动装；**rembg** 在 Release 内嵌 Python 中自带。详见 [`docs/TOOLS.md`](docs/TOOLS.md)。
+
+**执行器**（推荐）：`setup executor status --json`；GUI **环境 → 执行器** 或 `setup executor step …`。
 
 ## Workflow
 
@@ -27,6 +30,7 @@ python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.js
 
 | Need | Doc |
 |------|-----|
+| **Tools, config, troubleshooting** | [`docs/TOOLS.md`](docs/TOOLS.md) |
 | CLI + brief fields + matting | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
 | Six roles + tester | [`docs/AGENT-ROUTING.md`](docs/AGENT-ROUTING.md) |
 | Design vs production, iteration | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |

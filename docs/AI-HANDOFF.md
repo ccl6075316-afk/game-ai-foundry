@@ -2,6 +2,7 @@
 
 > **读者**：后续接手的 AI Agent / 自动化编排器（中文操作手册）。  
 > **侧重**：仓库结构、**brief 字段**、CLI 速查、抠图/动画铁律、配置。  
+> **工具与纠错**：[`TOOLS.md`](TOOLS.md)（本机工具、执行器、外部 Agent 探测命令）。  
 > **不写**：设计 vs 施工方法论、六角色边界、里程碑进度 — 分别见 [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)、[`AGENT-ROUTING.md`](AGENT-ROUTING.md)、[`ROADMAP.md`](../ROADMAP.md)。  
 > **索引**：[`docs/README.md`](README.md)
 
@@ -155,14 +156,15 @@ python gamefactory.py test play \
   --plan ../plans/playtest_asset-brief.example.json \
   --brief ../resources/asset-brief.example.json
 
-# 环境
-python gamefactory.py agents show
 python gamefactory.py doctor --json
 python gamefactory.py setup check --json
-python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/toolchain/bin
+python gamefactory.py setup executor status --json
+python gamefactory.py setup install ffmpeg
+python gamefactory.py setup install godot
+python gamefactory.py setup install dotnet
 ```
 
-**Godot**：从 [godotengine.org/download](https://godotengine.org/download) 下载 **.NET / Mono** 便携 zip，解压后在 `config.json` 设置 `godot.engine_path`（GUI：**设置 → 本机工具**）。GUI 启动时会弹窗检测缺失项（FFmpeg 可一键安装）。
+**本机工具**：FFmpeg / Godot .NET / .NET SDK 为必需项；`setup install` 或 GUI 启动自动装。Godot 自动安装后写入 `godot.engine_path`。**rembg**：Release 内嵌 Python 自带；开发机可 `npm run prepare:python`（gui）。详见 [`TOOLS.md`](TOOLS.md)。
 
 本地 demo brief（`test-brief-*`、`magic-prince-brief.json`、`tests/fixtures/`）均为 **gitignored**；clone 后用 `asset-brief.example.json`。
 
@@ -174,12 +176,17 @@ python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/to
 
 | 项 | 说明 |
 |----|------|
-| `host` / `image` / `video` | API key；OpenRouter 常需代理 `127.0.0.1:7897` |
-| `godot.engine_path` | Godot 4 **.NET / Mono** 可执行文件（[便携 zip 下载](https://godotengine.org/download)，无需安装） |
-| `toolchain.bin_dir` | 可选；`setup install ffmpeg` 默认写入 `~/.gamefactory/toolchain/bin` |
-| rembg | 可选 AI 抠图：`setup install rembg` 或 `pip install "rembg[cpu]"` |
+| `provider_accounts` | 多 Provider 账号库（OpenRouter、DeepSeek、Kimi、GLM 等） |
+| `host` / `image` / `video` | 活跃 Provider 与 API key；生图可 `use_text_provider` |
+| `godot.engine_path` | Godot 4 **.NET / Mono**；`setup install godot` 可自动写入 |
+| `toolchain.bin_dir` | FFmpeg 目录（默认 `~/.gamefactory/toolchain/bin`） |
+| `toolchain.godot_dir` / `dotnet_dir` | 自动安装目录 |
+| `agents` | 七角色 executor 路由（见 AGENT-ROUTING） |
+| rembg | **Release 内嵌**；开发 venv 用 `prepare:python --with-rembg` |
 
-启动检测：`python gamefactory.py setup check --json`（GUI 首次打开等效弹窗）。
+**执行器配置**（Hermes / Codex / Cursor）：GUI 环境面板或 `setup executor step` — 见 [`TOOLS.md`](TOOLS.md) §5。
+
+启动检测：`setup check --json` + `doctor --json` + `setup executor status --json`。
 
 ---
 
@@ -203,8 +210,10 @@ python gamefactory.py setup install ffmpeg   # 自动下载到 ~/.gamefactory/to
 | Godot handoff | `cli/godot_dev.py`, `cli/godot_assemble.py` |
 | Tester / screenshot | `cli/test_analysis.py`, `cli/godot_screenshot.py` |
 | 本机工具检测 / 安装 | `cli/toolchain_setup.py`, `cli/setup_cmds.py` |
+| 执行器向导 | `cli/executor_setup.py`, `setup executor` |
 | Runner 阶段说明 | `resources/skills/orchestrator/pipeline-schedule.md` |
+| 工具与外部 Agent 手册 | `docs/TOOLS.md` |
 
 ---
 
-*文档版本：2026-07-03*
+*文档版本：2026-07-15*

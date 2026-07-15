@@ -25,22 +25,83 @@ export const COMMAND_GUIDE: GuideSection[] = [
         description: "portable 版工作区在 exe 旁 data/；安装版在系统 AppData",
       },
       {
-        title: "创建配置",
-        command: "设置 → 从示例创建 → 填写 API Key",
-        description: "或手动复制 resources/config.example.json 到 ~/.gamefactory/config.json",
+        title: "① 配置 API（最低开工）",
+        command: "设置 → 从示例创建 → 填写 OpenRouter Key → 保存",
+        description: "即可 /brief、/plan、/run；视频需另配 Seedance",
       },
       {
-        title: "环境检测",
-        command: "顶部工具栏 → 重新检测 → 安装缺失",
-        description: "FFmpeg 可一键安装；Godot 需官方 zip 后在设置指定路径",
+        title: "② 等本机工具自动装好",
+        command: "（启动后台自动执行）",
+        description: "FFmpeg、Godot .NET、.NET SDK 缺失时会自动下载；rembg 已内嵌于打包 Python",
+      },
+      {
+        title: "③ 推荐：配置执行器 Agent",
+        command: "环境 → 执行器 → 按步骤安装 Hermes / Codex / Cursor",
+        description:
+          "仅 API 只能聊天+跑 pipeline；Agent 可排错、改配置、写玩法。详见 docs/TOOLS.md",
+        note: "Hermes 可一键同步 OpenRouter；Codex 用于 C# 玩法开发",
+      },
+    ],
+  },
+  {
+    id: "agents",
+    title: "执行器 Agent（推荐）",
+    intro:
+      "GUI 主聊天 = LLM API + 固定斜杠命令；完整「带队、排错、写代码」需 Hermes / Cursor / Codex。外部 AI 代操请读 docs/TOOLS.md。",
+    commands: [
+      {
+        title: "为什么需要 Agent",
+        command: "（概念）",
+        description:
+          "无 Agent：可 Brief + pipeline 出资产，但不能根据自然语言自由跑 doctor、改 config、委派角色",
+      },
+      {
+        title: "Hermes（推荐独立使用）",
+        command: "环境 → Hermes：安装 CLI → Skills → 同步 API",
+        description: "项目经理 / prompt-crafter / tester；装 game-factory-orchestrator skill",
+      },
+      {
+        title: "Codex（写 C# 玩法）",
+        command: "环境 → Codex：安装 CLI → 浏览器登录",
+        description: "程序员角色 godot-developer；OpenAI 登录式，不用 OpenRouter Key",
+      },
+      {
+        title: "Cursor（IDE 内带队）",
+        command: "环境 → Cursor：下载 IDE → 检测 CLI",
+        description: "在 Cursor 里读 resources/skills/ 改 games/ 代码",
+      },
+      {
+        title: "CLI 检测执行器状态",
+        command: "python gamefactory.py setup executor status --json",
+        description: "分步安装进度；GUI 环境面板等效",
+      },
+      {
+        title: "安装 Hermes Skills",
+        command: "cd cli && python gamefactory.py hermes install",
+        description: "写入 ~/.hermes/skills/；外部 Agent 应加载 orchestrator skill",
+      },
+      {
+        title: "外部 Agent 操作手册",
+        command: "docs/TOOLS.md",
+        description: "配置、本机工具、纠错、JSON 探测命令 — 给其他 AI Agent 用",
       },
     ],
   },
   {
     id: "workflow",
     title: "推荐流程",
-    intro: "从零到可玩：策划 → 规划 → 生成 → 组装 → 开发玩法。",
+    intro: "从零到可玩：配 API →（推荐配 Agent）→ 策划 → 规划 → 生成 → 组装 → 开发玩法。",
     commands: [
+      {
+        title: "0. 配置 API",
+        command: "设置 → Provider → 保存 OpenRouter Key",
+        description: "最低门槛；生视频另配 Seedance",
+      },
+      {
+        title: "0b. 配置 Agent（推荐）",
+        command: "环境 → 执行器",
+        description: "Hermes 带队排错；Codex/Cursor 写玩法 — 见「执行器 Agent」章节",
+      },
       {
         title: "1. 策划 Brief",
         command: "/brief",
@@ -78,12 +139,17 @@ export const COMMAND_GUIDE: GuideSection[] = [
   {
     id: "env",
     title: "本机工具与环境",
-    intro: "在仓库 cli/ 目录执行；GUI 工具栏可一键检测与安装。",
+    intro: "在仓库 cli/ 目录执行；GUI 工具栏可一键检测与安装。FFmpeg/Godot/.NET 缺失时启动自动安装。",
     commands: [
       {
         title: "检测全部准备项",
         command: "python gamefactory.py setup check --json",
-        description: "FFmpeg、Godot、.NET、rembg 缺失项与安装方式",
+        description: "FFmpeg、Godot、.NET 三项必需工具",
+      },
+      {
+        title: "自动安装 Godot .NET",
+        command: "python gamefactory.py setup install godot",
+        description: "下载到 ~/.gamefactory/toolchain/godot 并写入 engine_path",
       },
       {
         title: "自动安装 FFmpeg",
@@ -91,9 +157,9 @@ export const COMMAND_GUIDE: GuideSection[] = [
         description: "下载到 ~/.gamefactory/toolchain/bin",
       },
       {
-        title: "安装 rembg（可选）",
-        command: "python gamefactory.py setup install rembg",
-        description: "视频 AI 抠图；静态图仍可用色键",
+        title: "自动安装 .NET SDK",
+        command: "python gamefactory.py setup install dotnet",
+        description: "下载到 ~/.gamefactory/toolchain/dotnet",
       },
       {
         title: "完整环境探测",

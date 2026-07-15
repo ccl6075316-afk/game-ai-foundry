@@ -40,12 +40,23 @@ Hermes（会话 / 记忆 / skills / gateway）
 
 ```bash
 cd cli
-python gamefactory.py doctor
+python gamefactory.py doctor --json
 python gamefactory.py setup check --json
+python gamefactory.py setup executor status --json
 python gamefactory.py agents show --discover
 ```
 
-**本机工具**：FFmpeg 可 `setup install ffmpeg`；Godot 从 [官方下载页](https://godotengine.org/download) 取 .NET 便携 zip，配置 `godot.engine_path`。GUI 启动时会弹窗提示缺失项。
+**本机工具**：FFmpeg / Godot .NET / .NET SDK — GUI 启动可**自动安装**；或 `setup install ffmpeg|godot|dotnet`。**rembg**：Release 内嵌 Python 自带。
+
+**GUI 执行器向导**（环境 → 执行器）：
+
+| 执行器 | 步骤 |
+|--------|------|
+| Hermes | 安装 CLI → 安装 Skills → **同步 OpenRouter API** |
+| Codex | 安装 CLI → **浏览器登录** |
+| Cursor | 打开下载页 → 检测 CLI |
+
+CLI 等价：`setup executor step hermes configure_api` 等 — 见 [`TOOLS.md`](TOOLS.md)。
 
 ---
 
@@ -66,6 +77,16 @@ cd cli
 python gamefactory.py hermes sync      # 从 resources/skills/ 生成 SKILL.md
 python gamefactory.py hermes install   # 链到 ~/.hermes/skills/
 ```
+
+GUI：**环境 → 执行器 → Hermes → 安装 Skills**（等效上述 install）。
+
+**同步 OpenRouter API**（从 Foundry 设置页 Key 写入 `~/.hermes/.env`）：
+
+```bash
+python gamefactory.py setup executor step hermes configure_api
+```
+
+或 GUI：**环境 → Hermes → 同步 API**。
 
 自定义目录：
 
@@ -193,6 +214,8 @@ python gamefactory.py pipeline run --manifest ../pipeline/foo.json --jobs 4
 ## 6. 相关文档
 
 - [`README.md`](README.md) — 文档索引
+- [`TOOLS.md`](TOOLS.md) — 工具配置、纠错、外部 Agent
+- [`GUI-CONFIG.md`](GUI-CONFIG.md) — Provider vs 执行器
 - [`AI-HANDOFF.md`](AI-HANDOFF.md) — CLI、抠图
-- [`AGENT-ROUTING.md`](AGENT-ROUTING.md) — 六角色 executor
-- [`ROADMAP.md`](../ROADMAP.md) — M2 进度
+- [`AGENT-ROUTING.md`](AGENT-ROUTING.md) — 七角色 executor
+- [`ROADMAP.md`](../ROADMAP.md) — 进度

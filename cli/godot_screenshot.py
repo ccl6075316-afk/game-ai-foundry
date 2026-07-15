@@ -20,13 +20,13 @@ def _load_config() -> dict:
         return {}
 
 
+from toolchain_paths import resolve_godot
+
+
 def get_godot_exe() -> str:
     """Resolve Godot executable (shared with godot_cmds)."""
-    config = _load_config().get("godot", {})
-    path = config.get("engine_path")
-    if path and Path(path).exists():
-        return str(path)
-    return "godot"
+    resolved = resolve_godot(_load_config())
+    return resolved or "godot"
 
 
 def capture_screenshot(

@@ -14,9 +14,7 @@ function actionLabel(item: ToolchainComponent, installing: boolean): string {
   if (installing) return "安装中…";
   if (item.available) return "已就绪";
   if (item.action === "auto" || item.action === "pip") return "下载安装";
-  if (item.action === "install_guide" && item.id === "hermes") return "安装 Skills";
   if (item.action === "install_guide") return "安装说明";
-  if (item.id === "godot") return "前往下载";
   return "打开下载页";
 }
 
@@ -37,10 +35,6 @@ export function EnvComponentList({
       onInstall(item.id);
       return;
     }
-    if (item.id === "hermes" && item.action === "install_guide") {
-      onInstall("hermes");
-      return;
-    }
     if (item.install_cmd) {
       try {
         await navigator.clipboard.writeText(item.install_cmd);
@@ -49,7 +43,6 @@ export function EnvComponentList({
       }
     }
     if (item.download_url) onOpenExternal(item.download_url);
-    if (item.id === "godot") onOpenSettings?.();
   };
 
   return (
@@ -73,9 +66,6 @@ export function EnvComponentList({
                 <code className="toolchain-item__path mono">{item.install_cmd}</code>
               )}
               {item.path && <p className="toolchain-item__path mono">{item.path}</p>}
-              {item.id === "godot" && !item.available && (
-                <p className="toolchain-item__hint">解压后在「设置 → 本机工具」指定可执行文件。</p>
-              )}
             </div>
             <div className="toolchain-item__actions">
               <button

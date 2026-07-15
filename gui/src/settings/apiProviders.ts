@@ -1,4 +1,11 @@
-export type ApiProviderId = "openrouter" | "openai" | "gemini" | "custom";
+export type ApiProviderId =
+  | "openrouter"
+  | "deepseek"
+  | "kimi"
+  | "glm"
+  | "openai"
+  | "gemini"
+  | "custom";
 
 export interface ApiProviderPreset {
   id: ApiProviderId;
@@ -19,6 +26,33 @@ export const API_PROVIDERS: ApiProviderPreset[] = [
     imageModelDefault: "google/gemini-3.1-flash-image",
     promptModelDefault: "deepseek/deepseek-chat",
     keyPlaceholder: "sk-or-…",
+  },
+  {
+    id: "deepseek",
+    label: "DeepSeek",
+    description: "DeepSeek 官方 API（OpenAI 兼容）",
+    apiBase: "https://api.deepseek.com/v1",
+    imageModelDefault: "",
+    promptModelDefault: "deepseek-chat",
+    keyPlaceholder: "sk-…",
+  },
+  {
+    id: "kimi",
+    label: "Kimi / 月之暗面",
+    description: "Moonshot 官方 API；海外可用 api.moonshot.ai/v1",
+    apiBase: "https://api.moonshot.cn/v1",
+    imageModelDefault: "",
+    promptModelDefault: "kimi-k2.5",
+    keyPlaceholder: "sk-…",
+  },
+  {
+    id: "glm",
+    label: "智谱 GLM",
+    description: "智谱 AI 官方 API（OpenAI 兼容）",
+    apiBase: "https://open.bigmodel.cn/api/paas/v4",
+    imageModelDefault: "",
+    promptModelDefault: "glm-4-flash",
+    keyPlaceholder: "…",
   },
   {
     id: "openai",
@@ -88,6 +122,9 @@ function normalizeBase(url: string): string {
 export function detectApiProvider(apiBase: string | undefined): ApiProviderId {
   const normalized = normalizeBase(apiBase || "");
   if (!normalized) return "openrouter";
+  if (normalized.includes("deepseek.com")) return "deepseek";
+  if (normalized.includes("moonshot.cn") || normalized.includes("moonshot.ai")) return "kimi";
+  if (normalized.includes("bigmodel.cn")) return "glm";
   for (const preset of API_PROVIDERS) {
     if (preset.id === "custom") continue;
     if (normalized === normalizeBase(preset.apiBase)) return preset.id;

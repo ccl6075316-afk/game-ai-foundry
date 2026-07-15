@@ -39,11 +39,14 @@ cd cli
 python gamefactory.py agents show --discover
 python gamefactory.py doctor --json
 python gamefactory.py setup check --json
+python gamefactory.py setup executor status --json
 ```
 
 配置：`resources/agents.example.json` → `~/.gamefactory/config.json` 的 `agents` 段。
 
-**本机工具**：`setup check` 列出 FFmpeg / Godot / .NET / rembg；FFmpeg 可 `setup install ffmpeg`（安装到 `~/.gamefactory/toolchain/bin`）。Godot 仅官方下载链接，路径填 `godot.engine_path`。
+**本机工具**（`setup check`）：FFmpeg、Godot .NET、.NET SDK — 三项**必需**，可 `setup install` 或 GUI **启动自动安装**。rembg 不在列表中（Release 内嵌 Python 自带）。
+
+**执行器安装**：GUI **环境 → 执行器** 或 `setup executor step <id> <step>` — 见 [`TOOLS.md`](TOOLS.md)。
 
 ---
 
@@ -84,4 +87,6 @@ Runner 细节 → [`pipeline-schedule.md`](../resources/skills/orchestrator/pipe
 - [`AI-HANDOFF.md`](AI-HANDOFF.md) — CLI 速查
 - [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) — 设计/施工、迭代
 - [`HERMES-CODEX.md`](HERMES-CODEX.md) — Hermes 安装
+- [`TOOLS.md`](TOOLS.md) — 工具配置、纠错、外部 Agent
+- [`GUI-CONFIG.md`](GUI-CONFIG.md) — GUI Provider 与执行器
 - [`AGENTS.md`](../AGENTS.md) — Codex 入口

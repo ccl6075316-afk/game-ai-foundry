@@ -5,6 +5,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   doctor: () => ipcRenderer.invoke("doctor"),
   toolchainCheck: () => ipcRenderer.invoke("toolchain-check"),
   toolchainInstall: (componentId) => ipcRenderer.invoke("toolchain-install", componentId),
+  executorStatus: () => ipcRenderer.invoke("executor-status"),
+  executorStep: (executorId, stepId) => ipcRenderer.invoke("executor-step", executorId, stepId),
   openExternal: (url) => ipcRenderer.invoke("open-external", url),
   listBriefs: () => ipcRenderer.invoke("list-briefs"),
   listManifests: () => ipcRenderer.invoke("list-manifests"),
@@ -27,6 +29,11 @@ contextBridge.exposeInMainWorld("gameFactory", {
   briefBrainstormReset: (seed) => ipcRenderer.invoke("brief-brainstorm-reset", seed),
   briefBrainstormExport: (outputRel) => ipcRenderer.invoke("brief-brainstorm-export", outputRel),
   briefBrainstormStatus: () => ipcRenderer.invoke("brief-brainstorm-status"),
+  onToolchainLog: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on("toolchain-log", listener);
+    return () => ipcRenderer.removeListener("toolchain-log", listener);
+  },
   onPipelineLog: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on("pipeline-log", listener);

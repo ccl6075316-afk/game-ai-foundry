@@ -177,6 +177,10 @@ function deepMerge(target, source) {
       delete out[key];
       continue;
     }
+    if (key === "provider_accounts" || key === "video_accounts") {
+      out[key] = value && typeof value === "object" ? { ...value } : value;
+      continue;
+    }
     if (value && typeof value === "object" && !Array.isArray(value)) {
       out[key] = deepMerge(out[key] && typeof out[key] === "object" ? out[key] : {}, value);
     } else if (value !== undefined && value !== "") {
@@ -377,6 +381,26 @@ app.whenReady().then(() => {
         sender.send("toolchain-log", { line });
       },
     });
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
+  ipcMain.handle("executor-status", async () => {
+    const result = await runCli(["setup", "executor", "status", "--json"]);
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
+  ipcMain.handle("executor-step", async (event, executorId, stepId) => {
+    const sender = event.sender;
+    const result = await runCli(
+      ["setup", "executor", "step", String(executorId), String(stepId), "--json"],
+      {
+        onLine: (line) => {
+          sender.send("toolchain-log", { line });
+        },
+      },
+    );
     const data = parseJsonFromOutput(result.stdout);
     return { ...result, data };
   });

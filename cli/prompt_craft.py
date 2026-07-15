@@ -16,7 +16,7 @@ from proxy_utils import http_post
 from roles import PROMPT_CRAFTER_ROLE
 from skill_loader import load_role_skill, load_role_skills
 
-DEFAULT_PROMPT_MODEL = "google/gemini-2.5-flash"
+DEFAULT_PROMPT_MODEL = "deepseek/deepseek-chat"
 
 
 class PromptCraftError(RuntimeError):

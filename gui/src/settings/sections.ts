@@ -43,16 +43,16 @@ export const HOST_SECTION: SettingsSectionMeta = {
   step: "带队",
   title: "项目经理",
   roleId: "orchestrator",
-  purpose: "统筹游戏想法，协调文案、美术、动画、程序；其在线账号供文案/程序在未单独配置时共用",
-  note: "下方选「谁来对话」；在线账号是文案与程序的默认回退",
+  purpose: "选择外部派活工具（Hermes / Codex / Cursor）；均为本机登录，不用 Provider Key",
+  note: "GUI /brief 对话仍走 Provider 页的生文账号，与此处执行器无关",
 };
 
 export const CODE_SECTION: SettingsSectionMeta = {
   step: "开发",
   title: "程序员",
   roleId: "godot-developer",
-  purpose: "在 Godot 工程里写玩法、操作和界面逻辑（C#）",
-  note: "未单独填账号时，自动使用项目经理的在线账号；素材导入完成后才轮到这一步",
+  purpose: "选择写 Godot C# 的工具（Codex / Cursor / Hermes）；本机登录，不用 Provider Key",
+  note: "Codex：codex login；Cursor：IDE 订阅；Hermes：自有配置",
 };
 
 export const PIPELINE_STEPS = [
@@ -66,13 +66,31 @@ export const PIPELINE_STEPS = [
 
 export type SettingsTab = "providers" | "roles" | "local";
 
-export const PROVIDER_SECTION = {
+export const TEXT_PROVIDER_SECTION: SettingsSectionMeta = {
   step: "①",
-  title: "在线 Provider",
-  roleId: "providers",
-  purpose: "先配置 API 账号；下方角色从此处选用，无需重复填 Key",
-  note: "GUI 对话（/brief）始终使用 LLM Provider，与 Hermes/Codex/Cursor 执行器无关",
+  title: "生文",
+  roleId: "llm-api",
+  purpose: "策划对话、文案（/brief、prompt-crafter）；走 OpenRouter 等 chat/completions",
+  note: "路由靠 model 字段：OpenRouter 用 厂商/模型名；官方 API 用 deepseek-chat、kimi-k2.5、glm-4-flash 等",
 };
+
+export const IMAGE_PROVIDER_SECTION: SettingsSectionMeta = {
+  step: "②",
+  title: "生图",
+  roleId: "image-api",
+  purpose: "原画出图（image-generator）；同一平台通常与生文共用账号，仅 model 不同",
+  note: "OpenRouter 生图示例：google/gemini-3.1-flash-image；请求同样发到 chat/completions，并带 modalities",
+};
+
+export const VIDEO_PROVIDER_SECTION: SettingsSectionMeta = {
+  step: "③",
+  title: "生视频",
+  roleId: "video-api",
+  purpose: "图生视频（Seedance / 火山方舟 ARK）；独立 API，与 OpenRouter 不是一家",
+};
+
+/** @deprecated 使用 TEXT_PROVIDER_SECTION + IMAGE_PROVIDER_SECTION */
+export const PROVIDER_SECTION = TEXT_PROVIDER_SECTION;
 
 export const ROLES_SECTION = {
   step: "②",

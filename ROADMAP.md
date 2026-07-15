@@ -10,87 +10,75 @@
 
 **An AI-driven game factory.** Describe a game idea in natural language → AI generates all assets (sprites, animations, music, code) → assembles them into a working Godot project → you play it.
 
-Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via terminal). **Electron GUI** is the primary local interface; Hermes/Codex are dev-time executors, not shipped with the repo.
+Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex via terminal). **Electron GUI** is the primary local interface; Hermes/Codex/Cursor are **not bundled** — user installs via GUI wizard or CLI.
 
-**Contract rule:** after brainstorm export, **`brief.json` is the single source of truth** — pipeline, skills, and godot-developer must not rely on session memory.
+**Contract rule:** after brainstorm export, **`brief.json` is the single source of truth**.
 
-**Iteration rule:** post-demo changes follow Change Request → Production Delta — see [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md).
+**Iteration rule:** post-demo changes → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md).
 
 ---
 
-## Current Status (2026-07-03)
+## Current Status (2026-07-15)
 
 ### ✅ Done
 
 **Seven-agent pipeline**
-- orchestrator / prompt-crafter / image-generator / video-generator / godot-assembler / **godot-developer** / **tester**
-- Handoff JSON (`plan_io.py`) + skills in `resources/skills/`
-- Agent routing: `agents show` / `agents resolve` — see `docs/AGENT-ROUTING.md`
+- orchestrator / prompt-crafter / image-generator / video-generator / godot-assembler / godot-developer / tester
+- Handoff JSON + skills in `resources/skills/`
+- Agent routing: `agents show` / `agents resolve` — [`docs/AGENT-ROUTING.md`](docs/AGENT-ROUTING.md)
 
 **Brief frozen contract**
-- `brief validate` / `brief brainstorm export` with `brief_meta` (`contract_version`, `frozen_at`)
-- Asset table: `usage`, `usage_description`, `display_size`, `generate_method`
-- **P0 gameplay:** `genre`, `gameplay_loop`, `session_goal`, `player_asset`, `controls`, `viewport`, `camera`
-- **P1 extensions:** `visual_reference`, `type: audio` (`music`/`sfx`), parallax fields, `project.hud[]` + `ui_element`
-- **`animation_graphs[]`:** clip transitions (`from`/`to`/`then`/`bidirectional`) — godogen-style state machine in JSON
-- Skill: `resources/skills/orchestrator/brief-brainstorm.md`
-
-**Assets manifest**
-- `output/{slug}/assets-manifest.json` — pipeline stage + Godot runtime bindings
-- Wired through `pipeline plan/run/record/reconcile` and post-`godot assemble`
-
-**Brief & orchestration**
-- **Brief brainstorm** — multi-turn refinement (`brief brainstorm start|turn|export`)
-- GUI: natural language → brainstorm → export `resources/{slug}-brief.json` → `/plan` → `/run`
-- LLM config: `config.host` (项目经理), fallbacks for `prompt` / `code` (`cli/llm_config.py`)
-
-**Image / Video / Godot CLI**
-- OpenRouter image gen, Seedance i2v, trim/split/matte, Godot .NET assemble
-- `godot dev-context` — Pass 4 handoff for godot-developer (brief + assets-manifest + runtime bindings)
+- `brief validate` / `brief brainstorm export` with `brief_meta`
+- P0 gameplay fields + `animation_graphs[]`
+- GUI `/brief` multi-turn brainstorm
 
 **Pipeline program runner**
 - `pipeline plan` / `run` / `status` / `reconcile` — manifest DAG, `--jobs` parallel
-- Default skips `prompt.craft` unless `--run-prompts`
-- Runtime-only assets (`audio` + `procedural`/`file`) skip image pipeline tasks
-- Paths from brief slug: `pipeline/{slug}.json`, `output/{slug}`, `games/{slug}`
+- GUI `/plan` `/run --run-prompts` + board panel
 
-**GUI (Electron + React)** — `start-gui.bat` / `cd gui && npm run dev`
-- Chat-first UI, settings (岗位语言 + API keys), pipeline board
-- Media preview in chat (`gamefactory-media://`)
-- Commands: `/brief` `/doctor` `/plan` `/run` `/board` `/settings` `/env` `/guide` `/godot`
-- Brief-driven workflow (no hardcoded prison-demo preset)
-- **Env toolbar + side panels** — rescan, one-click install, guide (`commandGuide.ts`)
-- **Release packaging** — embedded Python + `electron-builder`; see [`docs/RELEASE.md`](docs/RELEASE.md)
+**GUI (Electron + React)**
+- Chat-first UI, media preview, command guide (`/guide`)
+- **Provider 设置重构**：生文 / 生图 / 生视频；`provider_accounts` 多账号；DeepSeek / Kimi / GLM 预设
+- **环境面板**：本机工具列表 + **执行器分步向导**（Hermes / Codex / Cursor）
+- **环境工具栏**：工具链 + 执行器状态芯片
+- Codex/Cursor 角色页：登录说明，隐藏 API Key 项
+- **Release**：embedded Python + rembg + electron-builder
 
 **Doctor & toolchain**
-- `gamefactory doctor --json` — Python, Godot, API keys, executor availability
-- `gamefactory setup check` / `setup install ffmpeg` — VS-style missing-deps prompt; binaries under `~/.gamefactory/toolchain/bin`
+- `doctor --json` — API keys, executors, capabilities
+- **自动安装**：FFmpeg、Godot .NET、.NET SDK（必需，启动时后台安装）
+- `setup executor status|step` — 执行器 CLI 安装、Codex 登录、Hermes API 同步
+- rembg：**Release 内嵌**，不再出现在 `setup check` 列表
+- FFmpeg 多源 fallback；Godot zip 自动 chmod
 
-**Tests**: **~90** CLI unit tests (2 skipped; 1 needs local `magic-prince-brief.json`) — brief contract, transitions, toolchain, E2E smoke + Godot assemble
+**Documentation**
+- [`docs/TOOLS.md`](docs/TOOLS.md) — 本机工具配置、纠错、外部 Agent 操作手册
+- [`docs/GUI-CONFIG.md`](docs/GUI-CONFIG.md) — Provider vs 执行器边界
+- GUI 指南推荐配置 Agent
+
+**Tests**: **~105** CLI unit tests — toolchain, executor_setup, env_discover, llm_config, godot_sources, etc.
 
 **E2E smoke**
-- [x] `e2e-smoke-brief` → plan → run --run-prompts — asset tasks
-- [x] Full smoke with Godot assemble — 5/5 tasks + `godot validate`
+- [x] e2e-smoke-brief → plan → run
+- [x] Godot + .NET real install verified (macOS)
 
 ### 🔄 In Progress
 
-- [ ] Frame resize 128×128 post-matte
-- [ ] Magic Prince full chain re-run under new brief contract (`pipeline plan --merge` → run → dev-context)
+- [ ] GUI 主聊天路由到配置的 host executor（当前 Brief 仍直连 LLM API）
+- [ ] 首次启动引导流（工具链 → API → 执行器 → `/brief`）
+- [ ] Magic Prince full chain re-run under new brief contract
 
 ### 🔜 Next (P0)
 
 - [ ] One-shot brief → plan → run from GUI without manual path juggling
-- [x] GUI `/run --run-prompts`
-- [x] Prison test assets relocated to `tests/fixtures/` (not release defaults)
+- [ ] Frame resize 128×128 post-matte
+- [ ] Windows Release E2E on clean VM
 
 ### ⬜ Not Started
 
-- [ ] **Change Request / Production Delta CLI** (contract in `docs/ITERATIVE-PRODUCTION.md`; today: manual brief edit + `plan --merge`)
-- [ ] **Validation Report JSON** + `project-state.json` (ITERATIVE §6–7) — `test run` CLI ✅; file layout 📋
-
-- [ ] Audio **generation** CLI (brief schema ready; `procedural`/`file` placeholders only)
-- [ ] Parallax layer assets in example brief + Godot ParallaxBackground wiring
-- [ ] `video_start_from` chained i2v (godogen Start From)
+- [ ] Change Request / Production Delta CLI
+- [ ] Validation Report JSON + `project-state.json`
+- [ ] Audio generation CLI
 - [ ] Hermes Kanban / auto multi-session orchestration
 - [ ] CI / matting regression tests with real assets
 
@@ -99,22 +87,17 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor via termi
 ## Architecture
 
 ```
-User (GUI / Cursor / Hermes)
+User (GUI / Cursor / Hermes / Codex)
+        │
+        ├─ GUI chat: LLM API (/brief) + slash commands (/plan, /run, …)
+        ├─ GUI env: toolchain auto-install + executor wizard
+        └─ External agent: docs/TOOLS.md → terminal → gamefactory CLI
         │
         ▼
-   orchestrator (+ brief brainstorm)
+   brief.json (frozen) ──► pipeline run ──► output/ ──► games/
         │
         ▼
-   brief.json (frozen) ──► assets-manifest.json
-        │
-        ▼
-   gamefactory CLI ──┬── pipeline plan/run → output/
-                     ├── image / video generation
-                     ├── godot assemble → games/  (gitignored)
-                     └── godot dev-context → plans/dev_*.json
-        │
-        ▼
-   godot-developer (Codex/Cursor) — gameplay C# from dev-context
+   godot-developer (Codex/Cursor) — Pass 4 C#
 ```
 
 ---
@@ -124,13 +107,13 @@ User (GUI / Cursor / Hermes)
 | Milestone | Progress | Notes |
 |-----------|----------|-------|
 | M1 Video + Godot pipeline | ~100% | CLI complete |
-| M2 Hermes + pipeline | ~90% | Kanban optional |
-| M3 GUI | ~85% | Chat + brief + board + toolchain + **Release 打包**; Kanban pending |
-| M4 Brief → playable | ~65% | Frozen contract + manifest; Magic Prince E2E + Change Request CLI pending |
-| M5 Gameplay (Pass 4) | ~70% | dev-context handoff; executor on host |
+| M2 Hermes + pipeline | ~92% | Executor wizard + Hermes API sync |
+| M3 GUI | ~90% | Provider 多账号、工具链自动装、执行器向导、TOOLS.md |
+| M4 Brief → playable | ~65% | Magic Prince E2E + Change Request CLI pending |
+| M5 Gameplay (Pass 4) | ~70% | dev-context; Codex wizard in GUI |
 
 ---
 
 ## Quick Start
 
-→ [`README.md`](README.md) · CLI 细节 → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md)
+→ [`README.md`](README.md) · CLI → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · 工具与 Agent → [`docs/TOOLS.md`](docs/TOOLS.md)

@@ -1,32 +1,41 @@
 import type { DoctorReport } from "../vite-env.d";
 import type { ToolchainReport } from "../settings/toolchain";
+import type { ExecutorSetupReport } from "../settings/executorsSetup";
 import { autoInstallable } from "../settings/toolchain";
 import { EnvComponentList } from "./EnvComponentList";
+import { ExecutorSetupPanel } from "./ExecutorSetupPanel";
+import type { ExecutorId } from "../settings/executorsSetup";
 
 type Tab = "tools" | "doctor";
 
 interface Props {
   toolchain: ToolchainReport | null;
+  executorSetup: ExecutorSetupReport | null;
   doctor: DoctorReport | null;
   scanning: boolean;
   installing: string | null;
+  executorBusy: string | null;
   installLog: string[];
   onRefresh: () => void;
   onInstall: (id: string) => void;
   onInstallAll: () => void;
+  onExecutorStep: (executorId: ExecutorId, stepId: string) => void;
   onOpenExternal: (url: string) => void;
   onOpenSettings: () => void;
 }
 
 export function EnvPanel({
   toolchain,
+  executorSetup,
   doctor,
   scanning,
   installing,
+  executorBusy,
   installLog,
   onRefresh,
   onInstall,
   onInstallAll,
+  onExecutorStep,
   onOpenExternal,
   onOpenSettings,
 }: Props) {
@@ -57,7 +66,7 @@ export function EnvPanel({
 
       <section className="env-panel__section">
         <h3>本机工具</h3>
-        <p className="hint">Godot 为便携 zip 手动下载；FFmpeg / rembg 可点击安装。</p>
+        <p className="hint">FFmpeg / Godot / .NET 为必需项，缺失时启动会自动安装；rembg 已随内嵌 Python 自带。</p>
         {toolchain ? (
           <EnvComponentList
             components={toolchain.components}
@@ -72,6 +81,15 @@ export function EnvPanel({
           <p className="hint">尚未扫描，请点击「重新检测」。</p>
         )}
       </section>
+
+      <ExecutorSetupPanel
+        report={executorSetup}
+        busyKey={executorBusy}
+        log={installLog}
+        onRefresh={onRefresh}
+        onRunStep={onExecutorStep}
+        onOpenSettings={onOpenSettings}
+      />
 
       {doctor && (
         <section className="env-panel__section">
@@ -96,6 +114,7 @@ export function EnvPanel({
           </ul>
 
           <h3>执行器</h3>
+          <p className="hint">详细安装步骤见上方「执行器」卡片。</p>
           <table className="table">
             <thead>
               <tr>

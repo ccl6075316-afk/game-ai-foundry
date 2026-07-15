@@ -15,18 +15,20 @@
 ## 纯净机使用步骤
 
 1. 解压 zip，双击 **Game AI Foundry**
-2. **设置** → 从示例创建 → 填写 OpenRouter / 视频 API Key
-3. 顶部**环境工具栏** → 重新检测 → 一键安装 FFmpeg（如缺）
-4. （可选）[下载 Godot .NET 便携版](https://godotengine.org/download) → 设置里指定路径
+2. **设置** → 从示例创建 → 填写 **OpenRouter** Key
+3. 等待 **FFmpeg / Godot / .NET** 自动安装（顶部芯片变绿）
+4. **（推荐）环境 → 执行器** → 配 Hermes / Codex
 5. `/brief` → `/plan` → `/run --run-prompts`
 
 **无需**安装 Python、Node 或 npm。
 
 ## 包含
 
-- Electron GUI + 内嵌 Python（含 OpenCV、rembg）
+- Electron GUI + 内嵌 Python（含 OpenCV、**rembg**）
 - gamefactory CLI 与示例 resources
-- 环境工具栏、命令指南侧栏
+- 环境工具栏、执行器向导、命令指南
+
+> v0.0.2 变更见 [`RELEASE-NOTES-0.0.2.md`](RELEASE-NOTES-0.0.2.md)
 
 ## 构建机验证（v0.0.1 Windows zip）
 

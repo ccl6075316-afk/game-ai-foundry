@@ -1,13 +1,21 @@
 {
+  "provider_accounts": {
+    "openrouter": {
+      "api_key": "YOUR_OPENROUTER_KEY",
+      "text_model": "deepseek/deepseek-chat",
+      "image_model": "google/gemini-3.1-flash-image"
+    }
+  },
   "host": {
+    "provider": "openrouter",
     "model": "deepseek/deepseek-chat",
-    "api_key": "YOUR_OPENROUTER_KEY",
     "api_base": "https://openrouter.ai/api/v1",
     "proxy": "http://127.0.0.1:7897"
   },
   "image": {
+    "provider": "openrouter",
+    "use_text_provider": true,
     "model": "google/gemini-3.1-flash-image",
-    "api_key": "YOUR_OPENROUTER_KEY",
     "api_base": "https://openrouter.ai/api/v1",
     "proxy": "http://127.0.0.1:7897"
   },
@@ -20,6 +28,7 @@
     "model": "deepseek/deepseek-chat"
   },
   "video": {
+    "provider": "seedance",
     "api_key": "YOUR_ARK_API_KEY",
     "api_base": "https://ark.cn-beijing.volces.com/api/v3",
     "model": "mini",

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { PipelineStatus, PipelineTask } from "./vite-env.d";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
@@ -9,6 +9,7 @@ import { EnvToolbar } from "./components/EnvToolbar";
 import { EnvPanel } from "./components/EnvPanel";
 import { GuidePanel } from "./components/GuidePanel";
 import type { ToolchainReport } from "./settings/toolchain";
+import type { ExecutorSetupReport, ExecutorId } from "./settings/executorsSetup";
 import { autoInstallable } from "./settings/toolchain";
 import type { DoctorReport } from "./vite-env.d";
 import { newMessageId, parseChatCommand, parseRunFlags, type ChatAttachment, type ChatMessage } from "./chat/types";
@@ -64,6 +65,9 @@ export default function App() {
   const [toolchainDismissed, setToolchainDismissed] = useState(false);
   const [toolchainInstalling, setToolchainInstalling] = useState<string | null>(null);
   const [toolchainLog, setToolchainLog] = useState<string[]>([]);
+  const autoEnsureDone = useRef(false);
+  const [executorSetup, setExecutorSetup] = useState<ExecutorSetupReport | null>(null);
+  const [executorBusy, setExecutorBusy] = useState<string | null>(null);
   const [doctorReport, setDoctorReport] = useState<DoctorReport | null>(null);
   const [envScanning, setEnvScanning] = useState(false);
 
@@ -225,6 +229,14 @@ export default function App() {
     return report;
   }, []);
 
+  const refreshExecutorSetup = useCallback(async () => {
+    if (!window.gameFactory?.executorStatus) return null;
+    const res = await window.gameFactory.executorStatus();
+    const report = res.data ?? null;
+    if (report) setExecutorSetup(report);
+    return report;
+  }, []);
+
   const refreshEnv = useCallback(async () => {
     if (!window.gameFactory) return null;
     setEnvScanning(true);
@@ -233,11 +245,12 @@ export default function App() {
       const doctor = docRes.data ?? null;
       if (doctor) setDoctorReport(doctor);
       const toolchain = await refreshToolchain();
-      return { doctor, toolchain };
+      const executors = await refreshExecutorSetup();
+      return { doctor, toolchain, executors };
     } finally {
       setEnvScanning(false);
     }
-  }, [refreshToolchain]);
+  }, [refreshToolchain, refreshExecutorSetup]);
 
   const loadInitial = useCallback(async () => {
     if (!window.gameFactory) return;
@@ -287,6 +300,48 @@ export default function App() {
     [appendAssistant, refreshEnv],
   );
 
+  const handleExecutorStep = useCallback(
+    async (executorId: ExecutorId, stepId: string) => {
+      if (!window.gameFactory?.executorStep) return;
+      const busyKey = `${executorId}:${stepId}`;
+      setExecutorBusy(busyKey);
+      setToolchainLog([]);
+      try {
+        const res = await window.gameFactory.executorStep(executorId, stepId);
+        if (res.stderr) setToolchainLog((prev) => [...prev, res.stderr]);
+        if (res.stdout) setToolchainLog((prev) => [...prev, res.stdout]);
+        const data = res.data as { message?: string; error?: string; status?: unknown } | undefined;
+        if (data?.message) appendAssistant(data.message);
+        if (res.exitCode !== 0) {
+          appendAssistant(
+            data?.error || `执行 ${executorId}/${stepId} 失败，请查看下方日志。`,
+          );
+        } else if (stepId === "login") {
+          appendAssistant("已启动浏览器登录流程，完成后请点击「重新检测」确认状态。");
+        }
+        if (data?.status) {
+          setExecutorSetup((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  executors: {
+                    ...prev.executors,
+                    [executorId]: data.status as ExecutorSetupReport["executors"][ExecutorId],
+                  },
+                }
+              : prev,
+          );
+        }
+        await refreshEnv();
+      } catch (e) {
+        appendAssistant(`执行失败：${e instanceof Error ? e.message : String(e)}`);
+      } finally {
+        setExecutorBusy(null);
+      }
+    },
+    [appendAssistant, refreshEnv],
+  );
+
   const handleToolchainInstallAll = useCallback(async () => {
     if (!toolchainReport) return;
     for (const item of autoInstallable(toolchainReport)) {
@@ -295,11 +350,28 @@ export default function App() {
   }, [toolchainReport, handleToolchainInstall]);
 
   useEffect(() => {
+    if (!toolchainReport || autoEnsureDone.current || toolchainInstalling) return;
+    const requiredAuto = toolchainReport.components.filter(
+      (c) => !c.available && c.required && (c.action === "auto" || c.action === "pip"),
+    );
+    if (!requiredAuto.length) return;
+    autoEnsureDone.current = true;
+    void (async () => {
+      for (const item of requiredAuto) {
+        await handleToolchainInstall(item.id);
+      }
+    })();
+  }, [toolchainReport, toolchainInstalling, handleToolchainInstall]);
+
+  useEffect(() => {
     void loadInitial()
       .then(() => refreshBrainstormStatus())
       .catch((e) =>
         append("system", `初始化失败：${e instanceof Error ? e.message : String(e)}`),
       );
+    const offToolchain = window.gameFactory?.onToolchainLog?.(({ line }) => {
+      setToolchainLog((prev) => [...prev.slice(-200), line]);
+    });
     const off = window.gameFactory?.onPipelineLog(({ line }) => {
       setLogs((prev) => [...prev.slice(-200), line]);
       const found = extractMediaPaths(line);
@@ -327,7 +399,10 @@ export default function App() {
         ];
       });
     });
-    return off;
+    return () => {
+      off?.();
+      offToolchain?.();
+    };
   }, [loadInitial, append, refreshBrainstormStatus]);
 
   const handleRun = async (runPrompts = false) => {
@@ -609,6 +684,7 @@ export default function App() {
 
       <EnvToolbar
         toolchain={toolchainReport}
+        executorSetup={executorSetup}
         doctor={doctorReport}
         scanning={envScanning}
         installing={Boolean(toolchainInstalling)}
@@ -648,13 +724,16 @@ export default function App() {
         {sidePanel === "env" && (
           <EnvPanel
             toolchain={toolchainReport}
+            executorSetup={executorSetup}
             doctor={doctorReport}
             scanning={envScanning}
             installing={toolchainInstalling}
+            executorBusy={executorBusy}
             installLog={toolchainLog}
             onRefresh={() => void refreshEnv()}
             onInstall={(id) => void handleToolchainInstall(id)}
             onInstallAll={() => void handleToolchainInstallAll()}
+            onExecutorStep={(id, step) => void handleExecutorStep(id, step)}
             onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
             onOpenSettings={() => setSidePanel("settings")}
           />

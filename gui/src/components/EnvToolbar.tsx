@@ -1,9 +1,12 @@
 import type { DoctorReport } from "../vite-env.d";
 import type { ToolchainReport } from "../settings/toolchain";
+import type { ExecutorSetupReport } from "../settings/executorsSetup";
+import { EXECUTOR_ORDER } from "../settings/executorsSetup";
 import { autoInstallable } from "../settings/toolchain";
 
 interface Props {
   toolchain: ToolchainReport | null;
+  executorSetup: ExecutorSetupReport | null;
   doctor: DoctorReport | null;
   scanning: boolean;
   installing: boolean;
@@ -17,7 +20,6 @@ const CHIP_LABELS: Record<string, string> = {
   ffmpeg: "FFmpeg",
   godot: "Godot",
   dotnet: ".NET",
-  rembg: "rembg",
   hermes: "Hermes",
   codex: "Codex",
   cursor: "Cursor",
@@ -25,6 +27,7 @@ const CHIP_LABELS: Record<string, string> = {
 
 export function EnvToolbar({
   toolchain,
+  executorSetup,
   doctor,
   scanning,
   installing,
@@ -34,6 +37,7 @@ export function EnvToolbar({
   onOpenGuide,
 }: Props) {
   const chips = toolchain?.components ?? [];
+  const executorChips = EXECUTOR_ORDER.map((id) => executorSetup?.executors[id]).filter(Boolean);
   const missingRequired = toolchain?.missing_required.length ?? 0;
   const autoCount = toolchain ? autoInstallable(toolchain).length : 0;
   const apiOk = doctor?.capabilities?.image_api;
@@ -47,6 +51,18 @@ export function EnvToolbar({
             key={item.id}
             type="button"
             className={`env-chip ${item.available ? "ok" : item.required ? "warn" : "muted"}`}
+            title={item.path || item.description}
+            onClick={onOpenEnv}
+          >
+            <span className="env-chip__dot" />
+            {CHIP_LABELS[item.id] || item.label}
+          </button>
+        ))}
+        {executorChips.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className={`env-chip ${item.ready ? "ok" : "muted"}`}
             title={item.path || item.description}
             onClick={onOpenEnv}
           >

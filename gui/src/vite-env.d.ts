@@ -94,14 +94,19 @@ export interface PipelineStatus {
 }
 
 export interface ConfigPatch {
+  provider_accounts?: Record<string, unknown>;
+  video_accounts?: Record<string, unknown>;
   host?: {
+    provider?: string;
     api_key?: string | null;
     model?: string;
     api_base?: string;
     proxy?: string;
   };
   image?: {
-    api_key?: string;
+    provider?: string;
+    use_text_provider?: boolean;
+    api_key?: string | null;
     model?: string;
     proxy?: string;
     api_base?: string;
@@ -119,7 +124,8 @@ export interface ConfigPatch {
     proxy?: string;
   };
   video?: {
-    api_key?: string;
+    provider?: string;
+    api_key?: string | null;
     model?: string;
     api_base?: string;
   };
@@ -137,6 +143,8 @@ export interface ConfigInfo {
   path: string;
   exists: boolean;
   data: {
+    provider_accounts?: Record<string, unknown>;
+    video_accounts?: Record<string, unknown>;
     host?: Record<string, unknown>;
     image?: Record<string, unknown>;
     prompt?: Record<string, unknown>;
@@ -161,6 +169,11 @@ declare global {
       doctor: () => Promise<CliResult<DoctorReport>>;
       toolchainCheck: () => Promise<CliResult<ToolchainReport>>;
       toolchainInstall: (componentId: string) => Promise<CliResult<{ ok?: boolean; error?: string }>>;
+      executorStatus: () => Promise<CliResult<import("./settings/executorsSetup").ExecutorSetupReport>>;
+      executorStep: (
+        executorId: import("./settings/executorsSetup").ExecutorId,
+        stepId: string,
+      ) => Promise<CliResult<{ ok?: boolean; error?: string; message?: string; status?: import("./settings/executorsSetup").ExecutorSetupInfo }>>;
       openExternal: (url: string) => Promise<{ ok: boolean; error?: string }>;
       listBriefs: () => Promise<BriefItem[]>;
       listManifests: () => Promise<BriefItem[]>;
@@ -216,6 +229,7 @@ declare global {
       >;
       briefBrainstormStatus: () => Promise<CliResult<import("./chat/types").BriefBrainstormStatus>>;
       onPipelineLog: (cb: (payload: { line: string; stream: string }) => void) => () => void;
+      onToolchainLog?: (cb: (payload: { line: string }) => void) => () => void;
     };
   }
 }

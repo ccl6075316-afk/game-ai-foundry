@@ -1,4 +1,4 @@
-"""Startup toolchain checks and optional auto-install (ffmpeg, rembg)."""
+"""Startup toolchain checks and auto-install (ffmpeg, godot, dotnet). rembg ships with embedded Python."""
 
 from __future__ import annotations
 
@@ -15,8 +15,19 @@ import zipfile
 from pathlib import Path
 from typing import Any, Callable
 
-from toolchain_paths import BIN_DIR, TOOLCHAIN_ROOT, resolve_binary, resolve_ffmpeg
+from toolchain_paths import (
+    BIN_DIR,
+    DOTNET_DIR,
+    GODOT_DIR,
+    TOOLCHAIN_ROOT,
+    resolve_dotnet,
+    resolve_ffmpeg,
+    resolve_godot,
+    _find_godot_binary,
+)
 from ffmpeg_sources import ffmpeg_download_sources, platform_key
+from godot_sources import godot_download_source
+from dotnet_install import install_dotnet_sdk
 
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
@@ -25,15 +36,10 @@ ProgressCb = Callable[[str], None] | None
 # Godot: portable zip — user downloads manually, then points engine_path in settings.
 GODOT_DOWNLOAD_URL = "https://godotengine.org/download"
 GODOT_DOWNLOAD_HINT = (
-    "下载 Godot 4 **.NET / Mono** 版（zip 解压即用，无需安装）。"
-    " macOS 选 .app 内可执行文件或 *_console 二进制；Windows 选 *_console.exe。"
+    "Godot 4 **.NET / Mono** 便携版；缺失时可自动下载到 ~/.gamefactory/toolchain/godot。"
 )
 
 DOTNET_DOWNLOAD_URL = "https://dotnet.microsoft.com/download"
-
-HERMES_INSTALL_URL = "https://github.com/NousResearch/hermes-agent"
-CODEX_INSTALL_URL = "https://github.com/openai/codex"
-CURSOR_INSTALL_URL = "https://cursor.com"
 
 
 def _load_config() -> dict[str, Any]:
@@ -57,36 +63,11 @@ def _save_config(patch: dict[str, Any]) -> None:
 
 
 def _godot_path_from_config(config: dict[str, Any]) -> str | None:
-    godot_cfg = config.get("godot", {}) if isinstance(config.get("godot"), dict) else {}
-    path = godot_cfg.get("engine_path")
-    if path and Path(path).exists():
-        return str(path)
-    return None
+    return resolve_godot(config)
 
 
-def _rembg_available() -> bool:
-    try:
-        import importlib.util
-
-        return importlib.util.find_spec("rembg") is not None
-    except (ImportError, ValueError):
-        return False
-
-
-def _executor_cli(name: str) -> bool:
-    return bool(shutil.which(name))
-
-
-def _hermes_skills_installed() -> bool:
-    from hermes_pack import resolve_hermes_install_dir, HERMES_PACKAGES
-
-    install_dir = resolve_hermes_install_dir()
-    for pkg, meta in HERMES_PACKAGES.items():
-        if not meta.get("role"):
-            continue
-        if not (install_dir / pkg / "SKILL.md").is_file() and not (install_dir / pkg).exists():
-            return False
-    return True
+def _dotnet_path(config: dict[str, Any]) -> str | None:
+    return resolve_dotnet(config)
 
 
 def _component_specs() -> list[dict[str, Any]]:
@@ -103,49 +84,14 @@ def _component_specs() -> list[dict[str, Any]]:
             "label": "Godot .NET",
             "description": GODOT_DOWNLOAD_HINT,
             "required": True,
-            "action": "download_link",
-            "download_url": GODOT_DOWNLOAD_URL,
+            "action": "auto",
         },
         {
             "id": "dotnet",
             "label": ".NET SDK",
-            "description": "Godot C# 玩法开发需要本机 .NET SDK",
-            "required": False,
-            "action": "download_link",
-            "download_url": DOTNET_DOWNLOAD_URL,
-        },
-        {
-            "id": "rembg",
-            "label": "rembg（AI 抠图）",
-            "description": "可选：视频 AI 抠图引擎；静态图仍可用色键",
-            "required": False,
-            "action": "pip",
-        },
-        {
-            "id": "hermes",
-            "label": "Hermes CLI + Skills",
-            "description": "独立 AI 助手执行器；LLM 需在 Hermes 自身配置，不会自动读取本应用 API Key",
-            "required": False,
-            "action": "install_guide",
-            "download_url": HERMES_INSTALL_URL,
-            "install_cmd": "pip install hermes-agent && cd cli && python gamefactory.py hermes install",
-        },
-        {
-            "id": "codex",
-            "label": "Codex CLI",
-            "description": "OpenAI 登录式代码执行器；写玩法时用，无需 OpenRouter Key",
-            "required": False,
-            "action": "install_guide",
-            "download_url": CODEX_INSTALL_URL,
-            "install_cmd": "npm install -g @openai/codex && codex login",
-        },
-        {
-            "id": "cursor",
-            "label": "Cursor CLI",
-            "description": "随 Cursor IDE 安装；登录式，GUI 对话仍走上方 LLM Provider",
-            "required": False,
-            "action": "download_link",
-            "download_url": CURSOR_INSTALL_URL,
+            "description": "Godot C# 玩法开发需要 .NET SDK；缺失时可自动安装到 ~/.gamefactory/toolchain/dotnet",
+            "required": True,
+            "action": "auto",
         },
     ]
 
@@ -156,15 +102,7 @@ def _is_available(component_id: str, config: dict[str, Any]) -> bool:
     if component_id == "godot":
         return bool(_godot_path_from_config(config))
     if component_id == "dotnet":
-        return bool(shutil.which("dotnet"))
-    if component_id == "rembg":
-        return _rembg_available()
-    if component_id == "hermes":
-        return _executor_cli("hermes") and _hermes_skills_installed()
-    if component_id == "codex":
-        return _executor_cli("codex")
-    if component_id == "cursor":
-        return _executor_cli("cursor")
+        return bool(_dotnet_path(config))
     return False
 
 
@@ -186,10 +124,7 @@ def check_toolchain(config: dict[str, Any] | None = None) -> dict[str, Any]:
         elif spec["id"] == "godot" and available:
             entry["path"] = _godot_path_from_config(config)
         elif spec["id"] == "dotnet" and available:
-            entry["path"] = shutil.which("dotnet")
-        elif spec["id"] in ("hermes", "codex", "cursor") and available:
-            entry["path"] = shutil.which(spec["id"])
-
+            entry["path"] = _dotnet_path(config)
         components.append(entry)
         if not available:
             bucket = missing_required if spec["required"] else missing_optional
@@ -355,38 +290,128 @@ def _install_ffmpeg(progress: ProgressCb = None) -> dict[str, Any]:
     raise RuntimeError(f"FFmpeg 自动安装失败（已尝试 {len(sources)} 个源）: {detail}")
 
 
-def _install_rembg(progress: ProgressCb = None) -> dict[str, Any]:
-    _emit(progress, "pip install rembg[cpu]…")
-    proc = subprocess.run(
-        [sys.executable, "-m", "pip", "install", "rembg[cpu]"],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
+def _clear_macos_quarantine(path: Path) -> None:
+    if sys.platform != "darwin" or not path.exists():
+        return
+    subprocess.run(["xattr", "-cr", str(path)], check=False, capture_output=True)
+
+
+def _install_godot(progress: ProgressCb = None) -> dict[str, Any]:
+    key = platform_key()
+    if key not in ("macos_arm64", "macos_x64", "win64"):
+        raise RuntimeError(f"当前平台暂不支持自动安装 Godot: {sys.platform}/{platform.machine()}")
+
+    source = godot_download_source(key)
+    if not source:
+        raise RuntimeError("无法解析 Godot .NET 下载地址（GitHub API）")
+
+    GODOT_DIR.mkdir(parents=True, exist_ok=True)
+    if GODOT_DIR.exists():
+        for child in GODOT_DIR.iterdir():
+            if child.is_dir():
+                shutil.rmtree(child, ignore_errors=True)
+            else:
+                child.unlink(missing_ok=True)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        archive = tmp_path / "godot.zip"
+        _emit(progress, f"下载 {source['label']}…")
+        _download(source["url"], archive, progress)
+
+        extract_dir = tmp_path / "extract"
+        extract_dir.mkdir()
+        _emit(progress, "解压 Godot…")
+        _extract_archive(archive, extract_dir, "zip")
+
+        _emit(progress, "安装到工具链目录…")
+        for item in extract_dir.iterdir():
+            dest = GODOT_DIR / item.name
+            if item.is_dir():
+                shutil.copytree(item, dest, dirs_exist_ok=True)
+            else:
+                shutil.copy2(item, dest)
+
+    godot_bin = _find_godot_binary(GODOT_DIR)
+    if not godot_bin:
+        raise RuntimeError("Godot 解压完成但未找到可执行文件")
+
+    if sys.platform == "darwin":
+        app_root = godot_bin
+        while app_root.suffix != ".app" and app_root.parent != app_root:
+            if app_root.suffix == ".app":
+                break
+            app_root = app_root.parent
+        if app_root.suffix == ".app":
+            _clear_macos_quarantine(app_root)
+        _clear_macos_quarantine(godot_bin)
+    elif sys.platform == "win32":
+        godot_bin.chmod(0o755)
+
+    engine_path = str(godot_bin.resolve())
+    _save_config(
+        {
+            "godot": {"engine_path": engine_path},
+            "toolchain": {"godot_dir": str(GODOT_DIR), "godot_version": source.get("tag")},
+        }
     )
-    if proc.returncode != 0:
-        tail = (proc.stderr or proc.stdout or "").strip()[-500:]
-        raise RuntimeError(f"pip install rembg 失败: {tail}")
-    return {"ok": True, "id": "rembg"}
+    return {
+        "ok": True,
+        "id": "godot",
+        "source": source["label"],
+        "engine_path": engine_path,
+        "godot_dir": str(GODOT_DIR),
+    }
 
 
-def _install_hermes_skills(progress: ProgressCb = None) -> dict[str, Any]:
-    _emit(progress, "安装 Hermes skills…")
-    from hermes_pack import install_hermes_skills
+def _install_dotnet(progress: ProgressCb = None) -> dict[str, Any]:
+    if platform_key() not in ("macos_arm64", "macos_x64", "win64"):
+        raise RuntimeError(f"当前平台暂不支持自动安装 .NET SDK: {sys.platform}/{platform.machine()}")
 
-    written = install_hermes_skills()
-    return {"ok": True, "id": "hermes", "skills_installed": len(written)}
+    dotnet_bin = install_dotnet_sdk(DOTNET_DIR, progress=progress)
+    _save_config({"toolchain": {"dotnet_dir": str(DOTNET_DIR)}})
+    return {
+        "ok": True,
+        "id": "dotnet",
+        "dotnet": str(dotnet_bin),
+        "dotnet_dir": str(DOTNET_DIR),
+    }
+
+
+def ensure_components(component_ids: list[str] | None = None, progress: ProgressCb = None) -> dict[str, Any]:
+    """Detect missing toolchain pieces and auto-install those with action=auto."""
+    config = _load_config()
+    report = check_toolchain(config)
+    auto_ids = {c["id"] for c in report["components"] if c["action"] == "auto"}
+    wanted = [cid for cid in (component_ids or sorted(auto_ids)) if cid in auto_ids]
+    installed: list[str] = []
+    skipped: list[str] = []
+    errors: dict[str, str] = {}
+
+    for cid in wanted:
+        if _is_available(cid, _load_config()):
+            skipped.append(cid)
+            continue
+        try:
+            install_component(cid, progress=progress)
+            installed.append(cid)
+        except Exception as exc:
+            errors[cid] = str(exc)
+
+    return {
+        "ok": not errors,
+        "installed": installed,
+        "skipped": skipped,
+        "errors": errors,
+        "report": check_toolchain(_load_config()),
+    }
 
 
 def install_component(component_id: str, progress: ProgressCb = None) -> dict[str, Any]:
     if component_id == "ffmpeg":
         return _install_ffmpeg(progress)
-    if component_id == "rembg":
-        return _install_rembg(progress)
-    if component_id == "hermes":
-        return _install_hermes_skills(progress)
-    if component_id in ("godot", "dotnet", "codex", "cursor"):
-        spec = next(s for s in _component_specs() if s["id"] == component_id)
-        cmd = spec.get("install_cmd") or spec.get("download_url") or ""
-        raise RuntimeError(f"{spec['label']} 需手动安装。{cmd}")
+    if component_id == "godot":
+        return _install_godot(progress)
+    if component_id == "dotnet":
+        return _install_dotnet(progress)
     raise RuntimeError(f"未知组件: {component_id}")
