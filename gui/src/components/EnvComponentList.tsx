@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { ToolchainComponent } from "../settings/toolchain";
 
 interface Props {
@@ -15,6 +14,8 @@ function actionLabel(item: ToolchainComponent, installing: boolean): string {
   if (installing) return "安装中…";
   if (item.available) return "已就绪";
   if (item.action === "auto" || item.action === "pip") return "下载安装";
+  if (item.action === "install_guide" && item.id === "hermes") return "安装 Skills";
+  if (item.action === "install_guide") return "安装说明";
   if (item.id === "godot") return "前往下载";
   return "打开下载页";
 }
@@ -28,14 +29,24 @@ export function EnvComponentList({
   onOpenSettings,
   showAll = true,
 }: Props) {
-  const [expanded, setExpanded] = useState<string | null>(null);
   const visible = showAll ? components : components.filter((c) => !c.available);
 
-  const handleAction = (item: ToolchainComponent) => {
+  const handleAction = async (item: ToolchainComponent) => {
     if (item.available || installing) return;
     if (item.action === "auto" || item.action === "pip") {
       onInstall(item.id);
       return;
+    }
+    if (item.id === "hermes" && item.action === "install_guide") {
+      onInstall("hermes");
+      return;
+    }
+    if (item.install_cmd) {
+      try {
+        await navigator.clipboard.writeText(item.install_cmd);
+      } catch {
+        /* ignore */
+      }
     }
     if (item.download_url) onOpenExternal(item.download_url);
     if (item.id === "godot") onOpenSettings?.();
@@ -58,6 +69,9 @@ export function EnvComponentList({
                 <span className="toolchain-badge">{item.required ? "必需" : "可选"}</span>
               </div>
               <p className="toolchain-item__desc">{item.description}</p>
+              {item.install_cmd && !item.available && (
+                <code className="toolchain-item__path mono">{item.install_cmd}</code>
+              )}
               {item.path && <p className="toolchain-item__path mono">{item.path}</p>}
               {item.id === "godot" && !item.available && (
                 <p className="toolchain-item__hint">解压后在「设置 → 本机工具」指定可执行文件。</p>
@@ -68,23 +82,11 @@ export function EnvComponentList({
                 type="button"
                 className={`btn btn--sm ${item.available ? "btn--ghost" : "btn--secondary"}`}
                 disabled={!canAct && !item.available}
-                onClick={() => handleAction(item)}
+                onClick={() => void handleAction(item)}
               >
                 {actionLabel(item, busy)}
               </button>
-              {(item.action === "auto" || item.action === "pip") && installLog.length > 0 && (
-                <button
-                  type="button"
-                  className="btn btn--ghost btn--sm"
-                  onClick={() => setExpanded(expanded === item.id ? null : item.id)}
-                >
-                  日志
-                </button>
-              )}
             </div>
-            {expanded === item.id && installLog.length > 0 && (
-              <pre className="toolchain-log">{installLog.slice(-16).join("\n")}</pre>
-            )}
           </li>
         );
       })}

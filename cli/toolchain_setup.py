@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from toolchain_paths import BIN_DIR, TOOLCHAIN_ROOT, resolve_binary, resolve_ffmpeg
+from ffmpeg_sources import ffmpeg_download_sources, platform_key
 
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
@@ -30,26 +31,9 @@ GODOT_DOWNLOAD_HINT = (
 
 DOTNET_DOWNLOAD_URL = "https://dotnet.microsoft.com/download"
 
-_FFMPEG_RELEASE = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest"
-
-
-def _platform_key() -> str:
-    machine = platform.machine().lower()
-    if sys.platform == "darwin":
-        if machine in ("arm64", "aarch64"):
-            return "macos_arm64"
-        return "macos_x64"
-    if sys.platform == "win32":
-        return "win64"
-    return "linux64"
-
-
-_FFMPEG_ARTIFACTS: dict[str, tuple[str, str]] = {
-    "macos_arm64": (f"{_FFMPEG_RELEASE}/ffmpeg-master-latest-macosaarch64-gpl.zip", "zip"),
-    "macos_x64": (f"{_FFMPEG_RELEASE}/ffmpeg-master-latest-macos64-gpl.zip", "zip"),
-    "win64": (f"{_FFMPEG_RELEASE}/ffmpeg-master-latest-win64-gpl.zip", "zip"),
-    "linux64": (f"{_FFMPEG_RELEASE}/ffmpeg-master-latest-linux64-gpl.tar.xz", "tar.xz"),
-}
+HERMES_INSTALL_URL = "https://github.com/NousResearch/hermes-agent"
+CODEX_INSTALL_URL = "https://github.com/openai/codex"
+CURSOR_INSTALL_URL = "https://cursor.com"
 
 
 def _load_config() -> dict[str, Any]:
@@ -89,6 +73,22 @@ def _rembg_available() -> bool:
         return False
 
 
+def _executor_cli(name: str) -> bool:
+    return bool(shutil.which(name))
+
+
+def _hermes_skills_installed() -> bool:
+    from hermes_pack import resolve_hermes_install_dir, HERMES_PACKAGES
+
+    install_dir = resolve_hermes_install_dir()
+    for pkg, meta in HERMES_PACKAGES.items():
+        if not meta.get("role"):
+            continue
+        if not (install_dir / pkg / "SKILL.md").is_file() and not (install_dir / pkg).exists():
+            return False
+    return True
+
+
 def _component_specs() -> list[dict[str, Any]]:
     return [
         {
@@ -121,6 +121,32 @@ def _component_specs() -> list[dict[str, Any]]:
             "required": False,
             "action": "pip",
         },
+        {
+            "id": "hermes",
+            "label": "Hermes CLI + Skills",
+            "description": "独立 AI 助手执行器；LLM 需在 Hermes 自身配置，不会自动读取本应用 API Key",
+            "required": False,
+            "action": "install_guide",
+            "download_url": HERMES_INSTALL_URL,
+            "install_cmd": "pip install hermes-agent && cd cli && python gamefactory.py hermes install",
+        },
+        {
+            "id": "codex",
+            "label": "Codex CLI",
+            "description": "OpenAI 登录式代码执行器；写玩法时用，无需 OpenRouter Key",
+            "required": False,
+            "action": "install_guide",
+            "download_url": CODEX_INSTALL_URL,
+            "install_cmd": "npm install -g @openai/codex && codex login",
+        },
+        {
+            "id": "cursor",
+            "label": "Cursor CLI",
+            "description": "随 Cursor IDE 安装；登录式，GUI 对话仍走上方 LLM Provider",
+            "required": False,
+            "action": "download_link",
+            "download_url": CURSOR_INSTALL_URL,
+        },
     ]
 
 
@@ -133,6 +159,12 @@ def _is_available(component_id: str, config: dict[str, Any]) -> bool:
         return bool(shutil.which("dotnet"))
     if component_id == "rembg":
         return _rembg_available()
+    if component_id == "hermes":
+        return _executor_cli("hermes") and _hermes_skills_installed()
+    if component_id == "codex":
+        return _executor_cli("codex")
+    if component_id == "cursor":
+        return _executor_cli("cursor")
     return False
 
 
@@ -155,6 +187,8 @@ def check_toolchain(config: dict[str, Any] | None = None) -> dict[str, Any]:
             entry["path"] = _godot_path_from_config(config)
         elif spec["id"] == "dotnet" and available:
             entry["path"] = shutil.which("dotnet")
+        elif spec["id"] in ("hermes", "codex", "cursor") and available:
+            entry["path"] = shutil.which(spec["id"])
 
         components.append(entry)
         if not available:
@@ -207,54 +241,118 @@ def _find_ffmpeg_bins(root: Path) -> tuple[Path | None, Path | None]:
     return ffmpeg_bin, ffprobe_bin
 
 
+def _extract_archive(archive: Path, extract_dir: Path, kind: str) -> None:
+    if kind == "zip":
+        with zipfile.ZipFile(archive) as zf:
+            zf.extractall(extract_dir)
+    else:
+        with tarfile.open(archive, "r:xz") as tf:
+            tf.extractall(extract_dir)
+
+
+def _copy_bin(src: Path, dest: Path) -> None:
+    shutil.copy2(src, dest)
+    if sys.platform != "win32":
+        dest.chmod(0o755)
+
+
 def _install_ffmpeg(progress: ProgressCb = None) -> dict[str, Any]:
-    key = _platform_key()
-    artifact = _FFMPEG_ARTIFACTS.get(key)
-    if not artifact:
+    key = platform_key()
+    sources = ffmpeg_download_sources(key)
+    if not sources:
         raise RuntimeError(f"当前平台暂不支持自动安装 FFmpeg: {sys.platform}/{platform.machine()}")
 
-    url, kind = artifact
     BIN_DIR.mkdir(parents=True, exist_ok=True)
+    errors: list[str] = []
 
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp_path = Path(tmp)
-        archive = tmp_path / f"ffmpeg.{kind}"
-        _download(url, archive, progress)
+    bundle_sources = [s for s in sources if not s.get("label", "").startswith("evermeet")]
+    for src in bundle_sources:
+        url = src["url"]
+        kind = src["kind"]
+        label = src.get("label", url)
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                tmp_path = Path(tmp)
+                archive = tmp_path / f"bundle.{kind.replace('.', '_')}"
+                _emit(progress, f"尝试 {label}…")
+                _download(url, archive, progress)
 
-        extract_dir = tmp_path / "extract"
-        extract_dir.mkdir()
-        _emit(progress, "解压 FFmpeg…")
-        if kind == "zip":
-            with zipfile.ZipFile(archive) as zf:
-                zf.extractall(extract_dir)
-        else:
-            with tarfile.open(archive, "r:xz") as tf:
-                tf.extractall(extract_dir)
+                extract_dir = tmp_path / "extract"
+                extract_dir.mkdir()
+                _emit(progress, "解压 FFmpeg…")
+                _extract_archive(archive, extract_dir, kind)
 
-        ffmpeg_src, ffprobe_src = _find_ffmpeg_bins(extract_dir)
-        if not ffmpeg_src:
-            raise RuntimeError("解压包中未找到 ffmpeg 可执行文件")
+                ffmpeg_src, ffprobe_src = _find_ffmpeg_bins(extract_dir)
+                if not ffmpeg_src:
+                    errors.append(f"{label}: 未找到 ffmpeg")
+                    continue
 
-        ffmpeg_dst = BIN_DIR / ffmpeg_src.name
-        shutil.copy2(ffmpeg_src, ffmpeg_dst)
-        if sys.platform != "win32":
-            ffmpeg_dst.chmod(0o755)
+                ffmpeg_dst = BIN_DIR / ffmpeg_src.name
+                _copy_bin(ffmpeg_src, ffmpeg_dst)
 
-        ffprobe_dst: Path | None = None
-        if ffprobe_src:
-            ffprobe_dst = BIN_DIR / ffprobe_src.name
-            shutil.copy2(ffprobe_src, ffprobe_dst)
-            if sys.platform != "win32":
-                ffprobe_dst.chmod(0o755)
+                ffprobe_dst: Path | None = None
+                if ffprobe_src:
+                    ffprobe_dst = BIN_DIR / ffprobe_src.name
+                    _copy_bin(ffprobe_src, ffprobe_dst)
 
-    _save_config({"toolchain": {"bin_dir": str(BIN_DIR)}})
-    return {
-        "ok": True,
-        "id": "ffmpeg",
-        "ffmpeg": str(ffmpeg_dst),
-        "ffprobe": str(ffprobe_dst) if ffprobe_dst else None,
-        "bin_dir": str(BIN_DIR),
-    }
+                _save_config({"toolchain": {"bin_dir": str(BIN_DIR)}})
+                return {
+                    "ok": True,
+                    "id": "ffmpeg",
+                    "source": label,
+                    "ffmpeg": str(ffmpeg_dst),
+                    "ffprobe": str(ffprobe_dst) if ffprobe_dst else None,
+                    "bin_dir": str(BIN_DIR),
+                }
+        except Exception as exc:
+            errors.append(f"{label}: {exc}")
+            _emit(progress, f"{label} 失败，尝试下一源…")
+
+    if key.startswith("macos"):
+        try:
+            _emit(progress, "尝试 evermeet 单文件包…")
+            ffmpeg_dst: Path | None = None
+            ffprobe_dst: Path | None = None
+            for tool in ("ffmpeg", "ffprobe"):
+                url = f"https://evermeet.cx/{tool}/getrelease/zip"
+                with tempfile.TemporaryDirectory() as tmp:
+                    tmp_path = Path(tmp)
+                    archive = tmp_path / f"{tool}.zip"
+                    _download(url, archive, progress)
+                    extract_dir = tmp_path / "extract"
+                    extract_dir.mkdir()
+                    _extract_archive(archive, extract_dir, "zip")
+                    found, probe = _find_ffmpeg_bins(extract_dir)
+                    bin_path = found or probe
+                    if not bin_path:
+                        single = extract_dir / tool
+                        if single.is_file():
+                            bin_path = single
+                    if not bin_path:
+                        errors.append(f"evermeet-{tool}: 未找到二进制")
+                        continue
+                    dest = BIN_DIR / bin_path.name
+                    _copy_bin(bin_path, dest)
+                    if tool == "ffmpeg":
+                        ffmpeg_dst = dest
+                    else:
+                        ffprobe_dst = dest
+
+            if ffmpeg_dst:
+                _save_config({"toolchain": {"bin_dir": str(BIN_DIR)}})
+                return {
+                    "ok": True,
+                    "id": "ffmpeg",
+                    "source": "evermeet",
+                    "ffmpeg": str(ffmpeg_dst),
+                    "ffprobe": str(ffprobe_dst) if ffprobe_dst else None,
+                    "bin_dir": str(BIN_DIR),
+                }
+        except Exception as exc:
+            errors.append(f"evermeet: {exc}")
+
+    detail = "; ".join(errors[-5:]) if errors else "无可用下载源"
+    raise RuntimeError(f"FFmpeg 自动安装失败（已尝试 {len(sources)} 个源）: {detail}")
 
 
 def _install_rembg(progress: ProgressCb = None) -> dict[str, Any]:
@@ -272,14 +370,23 @@ def _install_rembg(progress: ProgressCb = None) -> dict[str, Any]:
     return {"ok": True, "id": "rembg"}
 
 
+def _install_hermes_skills(progress: ProgressCb = None) -> dict[str, Any]:
+    _emit(progress, "安装 Hermes skills…")
+    from hermes_pack import install_hermes_skills
+
+    written = install_hermes_skills()
+    return {"ok": True, "id": "hermes", "skills_installed": len(written)}
+
+
 def install_component(component_id: str, progress: ProgressCb = None) -> dict[str, Any]:
     if component_id == "ffmpeg":
         return _install_ffmpeg(progress)
     if component_id == "rembg":
         return _install_rembg(progress)
-    if component_id in ("godot", "dotnet"):
+    if component_id == "hermes":
+        return _install_hermes_skills(progress)
+    if component_id in ("godot", "dotnet", "codex", "cursor"):
         spec = next(s for s in _component_specs() if s["id"] == component_id)
-        raise RuntimeError(
-            f"{spec['label']} 需手动下载安装，请打开 {spec.get('download_url', '')}"
-        )
+        cmd = spec.get("install_cmd") or spec.get("download_url") or ""
+        raise RuntimeError(f"{spec['label']} 需手动安装。{cmd}")
     raise RuntimeError(f"未知组件: {component_id}")

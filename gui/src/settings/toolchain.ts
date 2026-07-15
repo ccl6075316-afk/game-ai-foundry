@@ -4,8 +4,9 @@ export interface ToolchainComponent {
   label: string;
   description: string;
   required: boolean;
-  action: "auto" | "download_link" | "pip";
+  action: "auto" | "download_link" | "pip" | "install_guide";
   download_url?: string;
+  install_cmd?: string;
   available: boolean;
   path?: string | null;
 }
@@ -27,5 +28,7 @@ export function missingComponents(report: ToolchainReport): ToolchainComponent[]
 }
 
 export function autoInstallable(report: ToolchainReport): ToolchainComponent[] {
-  return missingComponents(report).filter((c) => c.action === "auto" || c.action === "pip");
+  return missingComponents(report).filter(
+    (c) => c.action === "auto" || c.action === "pip" || c.id === "hermes",
+  );
 }

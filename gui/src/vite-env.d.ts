@@ -32,8 +32,9 @@ export interface ToolchainComponent {
   label: string;
   description: string;
   required: boolean;
-  action: "auto" | "download_link" | "pip";
+  action: "auto" | "download_link" | "pip" | "install_guide";
   download_url?: string;
+  install_cmd?: string;
   available: boolean;
   path?: string | null;
 }

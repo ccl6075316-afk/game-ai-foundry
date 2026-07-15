@@ -18,6 +18,9 @@ const CHIP_LABELS: Record<string, string> = {
   godot: "Godot",
   dotnet: ".NET",
   rembg: "rembg",
+  hermes: "Hermes",
+  codex: "Codex",
+  cursor: "Cursor",
 };
 
 export function EnvToolbar({

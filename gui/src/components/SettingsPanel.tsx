@@ -25,6 +25,8 @@ import {
   GODOT_SECTION,
   HOST_SECTION,
   IMAGE_SECTION,
+  PROVIDER_SECTION,
+  ROLES_SECTION,
   PIPELINE_STEPS,
   PROMPT_SECTION,
   VIDEO_SECTION,
@@ -58,6 +60,7 @@ interface FormState {
   imageApiBase: string;
   imageApiKey: string;
   imageModel: string;
+  imageUseLlmProvider: boolean;
   proxy: string;
   videoProvider: VideoProviderId;
   videoApiBase: string;
@@ -85,7 +88,12 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
   const codeKey = String(code.api_key || "");
   const promptProvider = detectApiProvider(String(prompt.api_base || hostBase));
   const codeProvider = detectApiProvider(String(code.api_base || hostBase));
-  const imageProvider = detectApiProvider(String(image.api_base || ""));
+  const imageProvider = detectApiProvider(String(image.api_base || hostBase || ""));
+
+  const imageKey = String(image.api_key || "");
+  const sameLlm =
+    !keyConfigured(imageKey) ||
+    (imageKey === hostKey && String(image.api_base || hostBase || "") === (hostBase || getApiProvider(hostProvider).apiBase));
 
   return {
     hostProvider,
@@ -106,6 +114,7 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
     imageApiBase: String(image.api_base || getApiProvider(imageProvider).apiBase),
     imageApiKey: String(image.api_key || ""),
     imageModel: String(image.model || getApiProvider(imageProvider).imageModelDefault),
+    imageUseLlmProvider: sameLlm,
     proxy: String(host.proxy || image.proxy || prompt.proxy || ""),
     videoProvider: detectVideoProvider(String(video.api_base || "")),
     videoApiBase: String(video.api_base || getVideoProvider("seedance").apiBase),
@@ -152,9 +161,11 @@ function toPatch(form: FormState): ConfigPatch {
     prompt: promptPatch,
     code: codePatch,
     image: {
-      api_key: form.imageApiKey || undefined,
+      api_key: form.imageUseLlmProvider ? form.hostApiKey || undefined : form.imageApiKey || undefined,
       model: form.imageModel || undefined,
-      api_base: imageBase || undefined,
+      api_base: form.imageUseLlmProvider
+        ? hostBase || undefined
+        : imageBase || undefined,
       proxy: form.proxy || undefined,
     },
     video: {
@@ -293,7 +304,7 @@ function ProviderSelect({
 }
 
 export function SettingsPanel({ busy, onSaved }: Props) {
-  const [tab, setTab] = useState<SettingsTab>("ai");
+  const [tab, setTab] = useState<SettingsTab>("providers");
   const [configInfo, setConfigInfo] = useState<ConfigInfo | null>(null);
   const [doctor, setDoctor] = useState<DoctorReport | null>(null);
   const [form, setForm] = useState<FormState>(() => fromConfig({}));
@@ -454,10 +465,17 @@ export function SettingsPanel({ busy, onSaved }: Props) {
       <div className="settings-tabs">
         <button
           type="button"
-          className={`settings-tab ${tab === "ai" ? "active" : ""}`}
-          onClick={() => setTab("ai")}
+          className={`settings-tab ${tab === "providers" ? "active" : ""}`}
+          onClick={() => setTab("providers")}
         >
-          在线服务
+          Provider
+        </button>
+        <button
+          type="button"
+          className={`settings-tab ${tab === "roles" ? "active" : ""}`}
+          onClick={() => setTab("roles")}
+        >
+          角色
         </button>
         <button
           type="button"
@@ -478,19 +496,9 @@ export function SettingsPanel({ busy, onSaved }: Props) {
             void handleSave();
           }}
         >
-          {tab === "ai" && (
+          {tab === "providers" && (
             <>
-              <SectionCard meta={HOST_SECTION} configured={hostKeyOk}>
-                <p className="settings-linked">谁来对话（本机工具）</p>
-                <ExecutorPicker
-                  name="host-executor"
-                  options={HOST_EXECUTORS}
-                  value={form.hostExecutor}
-                  executors={doctor?.executors}
-                  disabled={disabled}
-                  onChange={(id) => setField("hostExecutor", id)}
-                />
-                <p className="settings-linked">在线账号（文案 / 程序未单独配置时共用）</p>
+              <SectionCard meta={PROVIDER_SECTION} configured={hostKeyOk}>
                 <ProviderSelect
                   value={form.hostProvider}
                   onChange={applyHostProvider}
@@ -498,7 +506,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 />
                 {form.hostProvider === "custom" && (
                   <label className="field">
-                    <span>自定义平台地址</span>
+                    <span>LLM / 生图平台地址</span>
                     <input
                       type="text"
                       value={form.hostApiBase}
@@ -520,7 +528,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   />
                 </label>
                 <label className="field">
-                  <span>对话模型</span>
+                  <span>对话模型（/brief、策划）</span>
                   <input
                     type="text"
                     value={form.hostModel}
@@ -528,114 +536,61 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     placeholder={hostProviderPreset.promptModelDefault}
                     disabled={disabled}
                   />
-                  <span className="field-hint">项目经理自己对话、以及回退给文案/程序时使用</span>
                 </label>
-              </SectionCard>
-
-              <p className="settings-subheading">创作团队 · 在线账号与模型</p>
-
-              <SectionCard meta={PROMPT_SECTION} configured={promptKeyOk}>
+                <label className="field">
+                  <span>生图模型</span>
+                  <input
+                    type="text"
+                    value={form.imageModel}
+                    onChange={(e) => setField("imageModel", e.target.value)}
+                    placeholder={hostProviderPreset.imageModelDefault}
+                    disabled={disabled}
+                  />
+                </label>
                 <label className="field field--checkbox">
                   <input
                     type="checkbox"
-                    checked={form.promptUseHost}
-                    onChange={(e) => setField("promptUseHost", e.target.checked)}
+                    checked={form.imageUseLlmProvider}
+                    onChange={(e) => setField("imageUseLlmProvider", e.target.checked)}
                     disabled={disabled}
                   />
-                  <span>沿用项目经理的在线账号（推荐）</span>
+                  <span>生图沿用同一 Provider 账号（推荐）</span>
                 </label>
-                {!form.promptUseHost && (
+                {!form.imageUseLlmProvider && (
                   <>
                     <ProviderSelect
-                      value={form.promptProvider}
-                      onChange={applyPromptProvider}
+                      value={form.imageProvider}
+                      onChange={applyImageProvider}
                       disabled={disabled}
                     />
-                    {form.promptProvider === "custom" && (
-                      <label className="field">
-                        <span>自定义平台地址</span>
-                        <input
-                          type="text"
-                          value={form.promptApiBase}
-                          onChange={(e) => setField("promptApiBase", e.target.value)}
-                          placeholder="https://your-api.example.com/v1"
-                          disabled={disabled}
-                        />
-                      </label>
-                    )}
                     <label className="field">
-                      <span>账号密钥</span>
+                      <span>生图专用密钥</span>
                       <input
                         type="password"
-                        value={form.promptApiKey}
-                        onChange={(e) => setField("promptApiKey", e.target.value)}
-                        placeholder={getApiProvider(form.promptProvider).keyPlaceholder}
+                        value={form.imageApiKey}
+                        onChange={(e) => setField("imageApiKey", e.target.value)}
+                        placeholder={getApiProvider(form.imageProvider).keyPlaceholder}
                         autoComplete="off"
                         disabled={disabled}
                       />
                     </label>
                   </>
                 )}
-                {form.promptUseHost && (
-                  <p className="settings-linked">未单独配置时，运行时会自动使用项目经理（host）的账号与平台。</p>
-                )}
                 <label className="field">
-                  <span>文案模型</span>
+                  <span>代理（可选）</span>
                   <input
                     type="text"
-                    value={form.promptModel}
-                    onChange={(e) => setField("promptModel", e.target.value)}
-                    placeholder={getApiProvider(form.promptProvider).promptModelDefault}
+                    value={form.proxy}
+                    onChange={(e) => setField("proxy", e.target.value)}
+                    placeholder="http://127.0.0.1:7897"
                     disabled={disabled}
                   />
-                </label>
-              </SectionCard>
-
-              <SectionCard meta={IMAGE_SECTION} configured={keyConfigured(form.imageApiKey)}>
-                <ProviderSelect
-                  value={form.imageProvider}
-                  onChange={applyImageProvider}
-                  disabled={disabled}
-                />
-                {form.imageProvider === "custom" && (
-                  <label className="field">
-                    <span>自定义平台地址</span>
-                    <input
-                      type="text"
-                      value={form.imageApiBase}
-                      onChange={(e) => setField("imageApiBase", e.target.value)}
-                      placeholder="https://your-api.example.com/v1"
-                      disabled={disabled}
-                    />
-                  </label>
-                )}
-                <label className="field">
-                  <span>账号密钥</span>
-                  <input
-                    type="password"
-                    value={form.imageApiKey}
-                    onChange={(e) => setField("imageApiKey", e.target.value)}
-                    placeholder={getApiProvider(form.imageProvider).keyPlaceholder}
-                    autoComplete="off"
-                    disabled={disabled}
-                  />
-                </label>
-                <label className="field">
-                  <span>绘画模型</span>
-                  <input
-                    type="text"
-                    value={form.imageModel}
-                    onChange={(e) => setField("imageModel", e.target.value)}
-                    placeholder={getApiProvider(form.imageProvider).imageModelDefault}
-                    disabled={disabled}
-                  />
-                  <span className="field-hint">需支持「对话式出图」的模型</span>
                 </label>
               </SectionCard>
 
               <SectionCard meta={VIDEO_SECTION} configured={keyConfigured(form.videoApiKey)}>
                 <label className="field">
-                  <span>在线平台</span>
+                  <span>视频 Provider</span>
                   <select
                     value={form.videoProvider}
                     onChange={(e) => applyVideoProvider(e.target.value as VideoProviderId)}
@@ -664,7 +619,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   </label>
                 )}
                 <label className="field">
-                  <span>账号密钥</span>
+                  <span>视频 API Key</span>
                   <input
                     type="password"
                     value={form.videoApiKey}
@@ -675,9 +630,58 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   />
                 </label>
               </SectionCard>
+            </>
+          )}
+
+          {tab === "roles" && (
+            <>
+              <SectionCard meta={ROLES_SECTION}>
+                <p className="settings-linked">
+                  GUI 主对话（/brief）始终使用 Provider 页的 LLM 账号。下方执行器用于<strong>外部</strong>派活（Hermes / Codex / Cursor），各自登录，不会自动读取 Provider Key。
+                </p>
+              </SectionCard>
+
+              <SectionCard meta={HOST_SECTION} configured={hostKeyOk}>
+                <ExecutorPicker
+                  name="host-executor"
+                  options={HOST_EXECUTORS}
+                  value={form.hostExecutor}
+                  executors={doctor?.executors}
+                  disabled={disabled}
+                  onChange={(id) => setField("hostExecutor", id)}
+                />
+                <p className="settings-linked">策划对话模型在 Provider 页配置（当前：{form.hostModel || "默认"}）</p>
+              </SectionCard>
+
+              <SectionCard meta={PROMPT_SECTION} configured={promptKeyOk}>
+                <label className="field field--checkbox">
+                  <input
+                    type="checkbox"
+                    checked={form.promptUseHost}
+                    onChange={(e) => setField("promptUseHost", e.target.checked)}
+                    disabled={disabled}
+                  />
+                  <span>使用 LLM Provider（推荐）</span>
+                </label>
+                <label className="field">
+                  <span>文案模型</span>
+                  <input
+                    type="text"
+                    value={form.promptModel}
+                    onChange={(e) => setField("promptModel", e.target.value)}
+                    placeholder={hostProviderPreset.promptModelDefault}
+                    disabled={disabled}
+                  />
+                </label>
+              </SectionCard>
+
+              <SectionCard meta={IMAGE_SECTION} configured={hostKeyOk && form.imageUseLlmProvider ? hostKeyOk : keyConfigured(form.imageApiKey)}>
+                <p className="settings-linked">
+                  生图 Provider：{form.imageUseLlmProvider ? "沿用 LLM Provider" : "独立配置"} · 模型 {form.imageModel || "默认"}
+                </p>
+              </SectionCard>
 
               <SectionCard meta={CODE_SECTION} configured={codeKeyOk}>
-                <p className="settings-linked">谁来写代码（本机工具）</p>
                 <ExecutorPicker
                   name="code-executor"
                   options={CODE_EXECUTORS}
@@ -693,80 +697,19 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     onChange={(e) => setField("codeUseHost", e.target.checked)}
                     disabled={disabled}
                   />
-                  <span>沿用项目经理的在线账号（推荐）</span>
+                  <span>LLM 回退到 Provider（Codex/Cursor 写代码时不消耗此项）</span>
                 </label>
-                {!form.codeUseHost && (
-                  <>
-                    <ProviderSelect
-                      value={form.codeProvider}
-                      onChange={(id) => {
-                        const preset = getApiProvider(id);
-                        setForm((prev) => ({
-                          ...prev,
-                          codeProvider: id,
-                          codeApiBase: id === "custom" ? prev.codeApiBase : preset.apiBase,
-                        }));
-                      }}
-                      disabled={disabled}
-                    />
-                    {form.codeProvider === "custom" && (
-                      <label className="field">
-                        <span>自定义平台地址</span>
-                        <input
-                          type="text"
-                          value={form.codeApiBase}
-                          onChange={(e) => setField("codeApiBase", e.target.value)}
-                          placeholder="https://your-api.example.com/v1"
-                          disabled={disabled}
-                        />
-                      </label>
-                    )}
-                    <label className="field">
-                      <span>账号密钥</span>
-                      <input
-                        type="password"
-                        value={form.codeApiKey}
-                        onChange={(e) => setField("codeApiKey", e.target.value)}
-                        placeholder={getApiProvider(form.codeProvider).keyPlaceholder}
-                        autoComplete="off"
-                        disabled={disabled}
-                      />
-                    </label>
-                  </>
-                )}
-                {form.codeUseHost && (
-                  <p className="settings-linked">未单独配置时，写代码相关 LLM 调用会回退到项目经理（host）账号。</p>
-                )}
                 <label className="field">
-                  <span>编程模型</span>
+                  <span>编程模型（仅 LLM 回退时用）</span>
                   <input
                     type="text"
                     value={form.codeModel}
                     onChange={(e) => setField("codeModel", e.target.value)}
-                    placeholder={getApiProvider(form.codeProvider).promptModelDefault}
+                    placeholder={hostProviderPreset.promptModelDefault}
                     disabled={disabled}
                   />
                 </label>
               </SectionCard>
-
-              <section className="settings-card settings-card--compact">
-                <header className="settings-card__head">
-                  <h3 className="settings-card__title">网络代理</h3>
-                  <p className="settings-card__purpose">访问国外平台时可填；国内视频平台通常不需要。</p>
-                </header>
-                <div className="settings-card__body">
-                  <label className="field">
-                    <span>代理地址（可选）</span>
-                    <input
-                      type="text"
-                      value={form.proxy}
-                      onChange={(e) => setField("proxy", e.target.value)}
-                      placeholder="http://127.0.0.1:7897"
-                      disabled={disabled}
-                    />
-                  </label>
-                </div>
-              </section>
             </>
           )}
 

@@ -11,7 +11,8 @@
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | **安装 skill、terminal 约定** | 设计文档、brief schema |
 | [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 5 条铁律 | 一切细节（链到上表） |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **做了什么 / 待做什么 / 里程碑 %** | 命令复制块、抠图规则 |
-| [`RELEASE.md`](RELEASE.md) | 发布 / 用户 | **打包 Release、纯净机首次运行** | brief 字段、角色分工 |
+| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider 优先、执行器边界** | CLI 命令大全 |
+| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | **打包 Release、纯净机首次运行** | brief 字段 |
 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner / orchestrator skill | **`pipeline run` 阶段** | 产品迭代、GUI |
 | [`../resources/skills/tester/`](../resources/skills/tester/) | Tester skill | **截图 + 视觉 QA、`test run`** | brief 字段 |
 
@@ -19,7 +20,8 @@
 
 ```text
 要跑通一条线     → README Quick Start → AI-HANDOFF §5–§6
-要配本机工具       → `setup check` / GUI 启动弹窗 → README Prerequisites
+要配 GUI / Provider → GUI-CONFIG
+要配本机工具       → `setup check` / GUI 环境栏 → RELEASE
 要理解分工       → AGENT-ROUTING
 要定需求/改需求   → ITERATIVE-PRODUCTION
 要用 Hermes      → HERMES-CODEX

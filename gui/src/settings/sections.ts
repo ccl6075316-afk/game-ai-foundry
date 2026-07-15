@@ -64,7 +64,22 @@ export const PIPELINE_STEPS = [
   { label: "程序", desc: "写玩法" },
 ];
 
-export type SettingsTab = "ai" | "local";
+export type SettingsTab = "providers" | "roles" | "local";
+
+export const PROVIDER_SECTION = {
+  step: "①",
+  title: "在线 Provider",
+  roleId: "providers",
+  purpose: "先配置 API 账号；下方角色从此处选用，无需重复填 Key",
+  note: "GUI 对话（/brief）始终使用 LLM Provider，与 Hermes/Codex/Cursor 执行器无关",
+};
+
+export const ROLES_SECTION = {
+  step: "②",
+  title: "角色与执行器",
+  roleId: "agents",
+  purpose: "各岗位用哪个模型、由谁执行（内置 / Hermes / Codex / Cursor）",
+};
 
 export function keyConfigured(value: string): boolean {
   const v = value.trim();
