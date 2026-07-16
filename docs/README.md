@@ -21,6 +21,7 @@
 | [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段全文 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
+| [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 跨机器续写 / 产品 | **主对话目标**：Chat App 式商量 → 显式落实 brief；Skill 与会话取舍 | pipeline 命令、施工验收 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、执行器、最低 vs 推荐** | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
 | [`RELEASE-NOTES-0.0.2.md`](RELEASE-NOTES-0.0.2.md) | 用户 | v0.0.2 新功能与变更 | — |
@@ -39,6 +40,7 @@
 外部 AI 代操       → TOOLS.md §2、§8
 要理解分工         → AGENT-ROUTING
 要定施工架构       → CONSTRUCTION-SYSTEM
+主对话 / 落实 brief  → HOST-CHAT-PRODUCT（跨机器续写入口）
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
