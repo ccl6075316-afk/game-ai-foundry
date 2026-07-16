@@ -25,10 +25,14 @@ brief export（冻结）→ prompt craft → pipeline plan/run → godot assembl
 | 步 | 执行者 | 命令 / 产物 |
 |----|--------|-------------|
 | 1 | orchestrator | `brief brainstorm` → `brief export` → `brief_meta` |
+| 1b | orchestrator | **`production derive`** → `plans/production_<brief>.json`（工程蓝图） |
+| 1c | orchestrator | **`project progress init`** → `plans/progress_<slug>.json` |
 | 2 | prompt-crafter | `prompt craft` → `plans/*.json`（runner 默认跳过，加 `--run-prompts`） |
 | 3 | **`pipeline run`** | `pipeline plan` → manifest；`run --jobs N` → `output/` + `assets-manifest.json` |
 | 4 | godot-assembler | manifest 内 `godot.assemble` 或 `godot assemble` |
-| 5 | godot-developer | `godot dev-context` → `plans/dev_*.json` → 写 C# |
+| 4b | orchestrator | **`godot scaffold`**（production → 可编译壳；可在 assemble 前或后） |
+| 5 | godot-developer | `production derive` → `godot dev-context` → `plans/dev_*.json` → 写 C# |
+| 6 | tester | `test unit` · `test plan` / `test play`（`--task` + `assert_*`；`--progress`）· `test regression` |
 | 异常 | orchestrator | `exit 2` → 改 plan/brief → `pipeline reset` → 再 `run` |
 
 角色分工表 → [`AGENT-ROUTING.md`](AGENT-ROUTING.md)。

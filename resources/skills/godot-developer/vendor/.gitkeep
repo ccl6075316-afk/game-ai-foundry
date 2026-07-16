@@ -1,0 +1,5 @@
+# Vendored third-party Godot skills — not committed until you run:
+#
+#   bash scripts/vendor-godot-skills.sh
+#
+# See vendor-godot.md for usage.

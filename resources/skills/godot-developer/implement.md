@@ -13,22 +13,29 @@ You are the **godot-developer** agent. You implement **game logic in C#** from t
 ## Authoritative sources (only these)
 
 1. **`plan.authoritative_sources.brief`** — product + assets + animation_graphs (frozen at export)
-2. **`plan.authoritative_sources.assets_manifest`** — pipeline stages + `runtime.res://` bindings (if present)
-3. **`plan.authoritative_sources.godot_project`** — assembled Godot tree
+2. **`plan.authoritative_sources.production`** — engineering blueprint (`godot_tasks`, scenes, validation) when present
+3. **`plan.authoritative_sources.assets_manifest`** — pipeline stages + `runtime.res://` bindings (if present)
+4. **`plan.authoritative_sources.godot_project`** — assembled Godot tree
 
-`plan.contract_rules` repeats: **brief is the only product spec.** If something is not in brief or assets-manifest, it does not exist.
+`plan.contract_rules` repeats: **brief is the only product spec.** Engineering details live in **production.json** when derived. If something is not in brief, production, or assets-manifest, it does not exist.
+
+## Godot C# skills (vendored)
+
+Read **`vendor-godot.md`** in this role's skill folder. Run `bash scripts/vendor-godot-skills.sh` once to fetch [fetasty/godot-skills](https://github.com/fetasty/godot-skills) (`godot` + `godot-csharp`).
 
 ## Inputs
 
 Handoff — `plans/dev_<brief-stem>.json` (`consumer_role: godot-developer`):
 
+- `plan.production` — scenes, systems, `godot_tasks[]`, `validation` (when `production derive` was run)
 - `plan.runtime_bindings[]` — per asset: `usage`, `clip_name`, `loop`, `runtime.sprite_frames`, `runtime.res_path`
 - `plan.animation_graphs[]` — state transitions (`from` → `to` → `then`)
-- `plan.implementation_goals` — derived from brief only
+- `plan.implementation_goals` — derived from brief + production tasks
 
-Generate handoff:
+Generate handoff (run **`production derive`** first when starting Pass 4):
 
 ```bash
+python gamefactory.py production derive --brief ../resources/magic-prince-brief.json
 python gamefactory.py godot dev-context \
   --brief ../resources/magic-prince-brief.json \
   --project ../games/magic-prince \

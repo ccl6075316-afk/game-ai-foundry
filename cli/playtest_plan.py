@@ -54,11 +54,13 @@ def _ordered_control_actions(controls: dict[str, list[str]]) -> list[str]:
     return sorted(names, key=lambda a: (priority.get(a, 50), a))
 
 
-def build_playtest_from_brief(brief_path: Path) -> dict[str, Any]:
+def build_playtest_from_brief(brief_path: Path, *, production_path: Path | None = None) -> dict[str, Any]:
     """
     Derive a minimal playtest script from frozen brief (Design + Production embedded).
 
     Mirrors godogen per-task harness: load scene → exercise controls → capture frames.
+    When production_path is set (or default plans/production_<brief>.json exists),
+    acceptance_criteria come from production.validation.
     """
     project, assets, _graphs = load_brief_full(brief_path)
     controls = dict(project.controls or {})
@@ -82,6 +84,22 @@ def build_playtest_from_brief(brief_path: Path) -> dict[str, Any]:
             "criterion": f"Game scene visible matching: {project.description or project.title}",
         },
     ]
+    acceptance = _acceptance_from_brief(project)
+    production_file: Path | None = None
+    if production_path is None:
+        candidate = brief_path.resolve().parent.parent / "plans" / f"production_{brief_path.stem}.json"
+        if candidate.is_file():
+            production_path = candidate
+    if production_path and production_path.is_file():
+        from production import load_production
+
+        prod = load_production(production_path)
+        doc = prod.get("production_doc") if isinstance(prod.get("production_doc"), dict) else {}
+        val = doc.get("validation") if isinstance(doc.get("validation"), dict) else {}
+        prod_ac = val.get("acceptance_criteria")
+        if isinstance(prod_ac, list) and prod_ac:
+            acceptance = [{"source": "production.validation", "criterion": str(c)} for c in prod_ac if str(c).strip()]
+        production_file = production_path.resolve()
     if "move_right" in actions:
         visual_checks.append(
             {
@@ -103,13 +121,14 @@ def build_playtest_from_brief(brief_path: Path) -> dict[str, Any]:
         "schema_version": PLAYTEST_SCHEMA_VERSION,
         "playtest_id": f"{_slug_from_brief(brief_path, project)}-smoke",
         "brief_path": str(brief_path.resolve()),
+        "production_path": str(production_file) if production_file else None,
         "design_sources": {
             "title": project.title,
             "gameplay_loop": project.gameplay_loop,
             "session_goal": project.session_goal,
             "genre": project.genre,
         },
-        "acceptance_criteria": _acceptance_from_brief(project),
+        "acceptance_criteria": acceptance,
         "input_actions": actions,
         "steps": steps,
         "visual_checks": visual_checks,

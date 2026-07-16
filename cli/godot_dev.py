@@ -25,6 +25,7 @@ BRIEF_CONTRACT_RULES = [
     "Read ONLY authoritative_sources files listed in this handoff.",
     "Do NOT use brainstorm session, host conversation memory, or unstated assumptions.",
     "If gameplay or asset usage is unclear, read brief.json — never invent requirements.",
+    "When production.json is present, implement godot_tasks in order; use scenes/systems as scaffold blueprint.",
     "Use runtime_bindings for res:// paths and clip names; do not guess output/ filenames.",
     "To change scope, edit brief.json and re-run pipeline plan — do not patch handoff alone.",
 ]
@@ -137,12 +138,32 @@ def _implementation_goals(
     return goals
 
 
+def _default_production_path(brief_path: Path) -> Path:
+    return (_REPO_ROOT / "plans" / f"production_{brief_path.stem}.json").resolve()
+
+
+def _load_production_doc(production_path: Path | None, brief_path: Path) -> tuple[dict[str, Any] | None, Path | None]:
+    candidates: list[Path] = []
+    if production_path is not None:
+        candidates.append(production_path.resolve())
+    candidates.append(_default_production_path(brief_path))
+    for path in candidates:
+        if path.is_file():
+            from production import load_production
+
+            data = load_production(path)
+            doc = data.get("production_doc") if isinstance(data.get("production_doc"), dict) else data
+            return doc, path
+    return None, None
+
+
 def build_godot_dev_plan(
     brief_path: Path,
     *,
     project_path: Path,
     assemble_handoff_path: Path | None = None,
     assets_manifest_path: Path | None = None,
+    production_path: Path | None = None,
 ) -> dict[str, Any]:
     """Build implementation plan for godot-developer agent."""
     brief_path = brief_path.resolve()
@@ -168,23 +189,39 @@ def build_godot_dev_plan(
     brief_data = json.loads(brief_path.read_text(encoding="utf-8"))
     brief_meta = brief_data.get("brief_meta") if isinstance(brief_data.get("brief_meta"), dict) else None
 
+    production_doc, production_file = _load_production_doc(production_path, brief_path)
+
     authoritative: dict[str, str | None] = {
         "brief": rel_to_repo(brief_path),
+        "production": rel_to_repo(production_file) if production_file else None,
         "assets_manifest": rel_to_repo(manifest_file) if manifest_file else None,
         "godot_project": rel_to_repo(project_path),
     }
 
+    goals = _implementation_goals(project, assets, graphs)
+    if production_doc:
+        for task in production_doc.get("godot_tasks") or []:
+            if isinstance(task, dict) and task.get("title"):
+                goals.append(f"Task {task.get('id')}: {task['title']}")
+
+    main_scene = str(assemble_plan.get("main_scene", "scenes/main.tscn"))
+    if production_doc:
+        scaffold = production_doc.get("scaffold") if isinstance(production_doc.get("scaffold"), dict) else {}
+        main_scene = str(scaffold.get("main_scene") or main_scene)
+
     return {
         "project_path": rel_to_repo(project_path),
         "brief_path": rel_to_repo(brief_path),
+        "production_path": rel_to_repo(production_file) if production_file else None,
         "language": "csharp",
         "engine": "godot4-dotnet",
-        "main_scene": str(assemble_plan.get("main_scene", "scenes/main.tscn")),
+        "main_scene": main_scene,
         "scripts_dir": "scripts",
         "authoritative_sources": authoritative,
         "contract_rules": list(BRIEF_CONTRACT_RULES),
         "brief_meta": brief_meta,
         "product": project_to_dict(project),
+        "production": production_doc,
         "assets": [_asset_to_dict(a) for a in assets],
         "animation_graphs": [animation_graph_to_dict(g) for g in graphs],
         "runtime_bindings": _runtime_bindings(assets, manifest),
@@ -194,7 +231,7 @@ def build_godot_dev_plan(
             "backgrounds": assemble_plan.get("backgrounds") or [],
             "idle_still": assemble_plan.get("idle_still"),
         },
-        "implementation_goals": _implementation_goals(project, assets, graphs),
+        "implementation_goals": goals,
         "constraints": [
             "C# only — no GDScript",
             "Edit files under the Godot project; do not regenerate PNG/MP4",

@@ -6,5 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Keep unit tests out of the Godot game assembly -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);tests\**;tests/**</DefaultItemExcludes>
   </PropertyGroup>
 </Project>

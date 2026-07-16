@@ -16,6 +16,7 @@
 |------|------|------|----------|
 | [`../README.md`](../README.md) | 新人 / GitHub | 功能一览、Quick Start、前置依赖 | 字段 schema、角色边界 |
 | [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host / 全角色 | **设计 vs 施工**、Change Request | CLI 命令、里程碑 |
+| [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | Host / 维护者 | **施工体系**：production、壳、验收、进度 | brief 字段全文 |
 | [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律 | 产品方法论、进度表 |
 | [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段全文 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
@@ -37,6 +38,7 @@
 要配工具 / 排错    → TOOLS.md
 外部 AI 代操       → TOOLS.md §2、§8
 要理解分工         → AGENT-ROUTING
+要定施工架构       → CONSTRUCTION-SYSTEM
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP

@@ -22,7 +22,7 @@ ROLE_SKILLS: dict[str, tuple[str, ...]] = {
     IMAGE_GENERATOR_ROLE: ("generate",),
     VIDEO_GENERATOR_ROLE: ("generate",),
     GODOT_ASSEMBLER_ROLE: ("assemble", "import-sprites"),
-    GODOT_DEVELOPER_ROLE: ("implement",),
+    GODOT_DEVELOPER_ROLE: ("implement", "vendor-godot"),
     TESTER_ROLE: ("playtest", "vision-analyze", "playtest-schema"),
 }
 

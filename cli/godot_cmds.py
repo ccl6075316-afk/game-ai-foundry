@@ -11,7 +11,7 @@ from pathlib import Path
 import click
 
 from godot_assemble import GodotAssembleError, assemble_from_plan, init_project_from_template
-from toolchain_paths import resolve_dotnet, resolve_godot
+from toolchain_paths import resolve_dotnet, resolve_godot, toolchain_env
 from godot_import import GodotImportError, import_sprite_frames
 from plan_io import load_godot_handoff
 
@@ -183,6 +183,23 @@ def _run_validate(project_path: Path) -> None:
     """Import assets, build C#, and boot the main scene headless."""
     godot = _get_godot_exe()
     project_path = project_path.resolve()
+    config = _load_config()
+    env = toolchain_env(config)
+
+    csproj_files = list(project_path.glob("*.csproj"))
+    if csproj_files:
+        dotnet = resolve_dotnet(config) or "dotnet"
+        build = subprocess.run(
+            [dotnet, "build", str(csproj_files[0])],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=180,
+            env=env,
+        )
+        if build.returncode != 0:
+            raise RuntimeError(f"dotnet build failed:\n{build.stderr}\n{build.stdout}")
 
     import_result = subprocess.run(
         [godot, "--headless", "--path", str(project_path), "--import", "--quit"],
@@ -191,6 +208,7 @@ def _run_validate(project_path: Path) -> None:
         encoding="utf-8",
         errors="replace",
         timeout=180,
+        env=env,
     )
     combined = (import_result.stdout or "") + (import_result.stderr or "")
     import_errors = [ln for ln in combined.splitlines() if "ERROR:" in ln]
@@ -199,20 +217,6 @@ def _run_validate(project_path: Path) -> None:
             "Godot import failed:\n" + "\n".join(import_errors or combined.splitlines()[-20:])
         )
 
-    csproj_files = list(project_path.glob("*.csproj"))
-    if csproj_files:
-        dotnet = resolve_dotnet(_load_config()) or "dotnet"
-        build = subprocess.run(
-            [dotnet, "build", str(csproj_files[0])],
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=180,
-        )
-        if build.returncode != 0:
-            raise RuntimeError(f"dotnet build failed:\n{build.stderr}\n{build.stdout}")
-
     run_result = subprocess.run(
         [godot, "--headless", "--path", str(project_path), "--quit-after", "3"],
         capture_output=True,
@@ -220,6 +224,7 @@ def _run_validate(project_path: Path) -> None:
         encoding="utf-8",
         errors="replace",
         timeout=180,
+        env=env,
     )
     combined = (run_result.stdout or "") + (run_result.stderr or "")
     run_errors = [ln for ln in combined.splitlines() if "ERROR:" in ln]
@@ -272,6 +277,86 @@ def assemble_cmd(assemble_path: Path, validate: bool) -> None:
             sys.exit(2)
 
 
+@click.command("scaffold")
+@click.option(
+    "--production",
+    "production_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="production.json from `production derive`.",
+)
+@click.option(
+    "--project",
+    "project_path",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Godot project dir (default: games/<slug> from production).",
+)
+@click.option(
+    "--progress",
+    "progress_path",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Update progress.json scaffold phase on success.",
+)
+@click.option("--validate/--no-validate", default=True, help="Run godot validate after scaffold.")
+def scaffold_cmd(
+    production_path: Path,
+    project_path: Path | None,
+    progress_path: Path | None,
+    validate: bool,
+) -> None:
+    """Build compilable Godot shell from production.json (scenes, stubs, InputMap)."""
+    from godot_scaffold import GodotScaffoldError, scaffold_from_production
+
+    try:
+        result = scaffold_from_production(production_path, project_path=project_path)
+    except (GodotScaffoldError, ValueError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    if validate:
+        try:
+            _run_validate(Path(result["project_path"]))
+            result["validate"] = "pass"
+        except (RuntimeError, subprocess.TimeoutExpired, FileNotFoundError) as exc:
+            result["validate"] = "fail"
+            result["validate_error"] = str(exc)
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+            click.echo(f"Scaffold wrote files but validate failed: {exc}", err=True)
+            sys.exit(2)
+
+    if progress_path or result.get("brief_path"):
+        try:
+            from progress import (
+                append_memory,
+                default_progress_path,
+                load_progress,
+                save_progress,
+                update_phase,
+                init_progress,
+            )
+
+            prog_path = progress_path or default_progress_path(production_path=production_path)
+            if prog_path.is_file():
+                progress = load_progress(prog_path)
+            else:
+                brief = Path(result["brief_path"]) if result.get("brief_path") else None
+                progress = init_progress(
+                    brief_path=brief,
+                    production_path=production_path,
+                    project_path=Path(result["project_path"]),
+                )
+            update_phase(progress, "scaffold", status="done")
+            append_memory(progress, "godot scaffold completed")
+            save_progress(progress, prog_path)
+            result["progress_path"] = str(prog_path.resolve())
+        except (ValueError, OSError) as exc:
+            result["progress_warning"] = str(exc)
+
+    click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+
+
 @click.command("dev-context")
 @click.option(
     "--brief",
@@ -295,6 +380,13 @@ def assemble_cmd(assemble_path: Path, validate: bool) -> None:
     help="Optional godot-assembler handoff for assemble metadata.",
 )
 @click.option(
+    "--production",
+    "production_path",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Optional production.json (default: plans/production_<brief>.json if present).",
+)
+@click.option(
     "-o",
     "--output",
     "output_path",
@@ -306,6 +398,7 @@ def dev_context_cmd(
     brief_path: Path,
     project_path: Path,
     assemble_path: Path | None,
+    production_path: Path | None,
     output_path: Path | None,
 ) -> None:
     """Build godot-developer handoff from brief + assembled project (Pass 4)."""
@@ -317,6 +410,7 @@ def dev_context_cmd(
             brief_path,
             project_path=project_path,
             assemble_handoff_path=assemble_path,
+            production_path=production_path,
         )
         handoff = build_godot_dev_handoff(
             plan,

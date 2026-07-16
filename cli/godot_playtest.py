@@ -38,6 +38,10 @@ def run_playtest_plan(
     manifest_out = manifest_out.resolve()
 
     godot = _get_godot_exe()
+    from godot_screenshot import _load_config
+    from toolchain_paths import toolchain_env
+
+    env = toolchain_env(_load_config())
     cmd = [
         godot,
         "--headless",
@@ -45,6 +49,7 @@ def run_playtest_plan(
         str(project_path),
         "-s",
         str(_PLAYTEST_SCRIPT.resolve()),
+        "--",
         f"--gf-playtest-plan={plan_path}",
         f"--gf-screenshot-dir={screenshot_dir}",
         f"--gf-manifest-out={manifest_out}",
@@ -57,6 +62,7 @@ def run_playtest_plan(
         encoding="utf-8",
         errors="replace",
         timeout=timeout,
+        env=env,
     )
     combined = (result.stdout or "") + (result.stderr or "")
 
@@ -76,6 +82,11 @@ def run_playtest_plan(
     if result.returncode == 2:
         raise RuntimeError(
             "Playtest failed: InputMap actions missing — godot-developer must bind brief.controls.\n"
+            + combined[-1500:]
+        )
+    if result.returncode == 3:
+        raise RuntimeError(
+            "Playtest failed: hard assertion failed (assert_node / assert_property / assert_action).\n"
             + combined[-1500:]
         )
     if result.returncode != 0 or not manifest:

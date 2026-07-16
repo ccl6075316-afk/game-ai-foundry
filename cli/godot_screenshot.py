@@ -20,7 +20,7 @@ def _load_config() -> dict:
         return {}
 
 
-from toolchain_paths import resolve_godot
+from toolchain_paths import resolve_godot, toolchain_env
 
 
 def get_godot_exe() -> str:
@@ -52,6 +52,7 @@ def capture_screenshot(
         str(project_path),
         "-s",
         str(_CAPTURE_SCRIPT.resolve()),
+        "--",
         f"--gf-screenshot-out={output_path}",
         f"--gf-wait-frames={max(1, wait_frames)}",
     ]
@@ -63,6 +64,7 @@ def capture_screenshot(
         encoding="utf-8",
         errors="replace",
         timeout=timeout,
+        env=toolchain_env(_load_config()),
     )
     combined = (result.stdout or "") + (result.stderr or "")
     errors = [ln for ln in combined.splitlines() if "ERROR:" in ln or "printerr" in ln.lower()]

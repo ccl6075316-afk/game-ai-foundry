@@ -18,7 +18,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ---
 
-## Current Status (2026-07-15)
+## Current Status (2026-07-16)
 
 ### ✅ Done
 
@@ -32,6 +32,15 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 - P0 gameplay fields + `animation_graphs[]`
 - GUI `/brief` multi-turn brainstorm
 
+**Construction system（施工体系）** — 多轮迭代，非「一句话一次完美」
+- `production derive|validate|show` — brief → 工程蓝图 `production.json`
+- `godot scaffold` — 可编译 Godot C# 壳（场景 / InputMap / 占位脚本 / 单测工程）
+- `project progress` — `progress.json` 任务与验收续作账本
+- 验收金字塔：`godot validate` · `test unit` · `test play`（`assert_*` + `--task`）· `test regression`
+- Godot 子进程注入 toolchain `PATH` / `DOTNET_ROOT`（修复「检测成功但 import 找不到 dotnet」）
+- Vendored Godot skills：`resources/skills/godot-developer/vendor/fetasty-godot-skills/`
+- 文档：[`docs/CONSTRUCTION-SYSTEM.md`](docs/CONSTRUCTION-SYSTEM.md)
+
 **Pipeline program runner**
 - `pipeline plan` / `run` / `status` / `reconcile` — manifest DAG, `--jobs` parallel
 - GUI `/plan` `/run --run-prompts` + board panel
@@ -39,7 +48,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 **GUI (Electron + React)**
 - Chat-first UI, media preview, command guide (`/guide`)
 - **Provider 设置重构**：生文 / 生图 / 生视频；`provider_accounts` 多账号；DeepSeek / Kimi / GLM 预设
-- **环境面板**：本机工具列表 + **执行器分步向导**（Hermes / Codex / Cursor）
+- **环境面板**：本机工具列表 + **执行器分步向导**（Hermes / Cursor / Codex）
 - **环境工具栏**：工具链 + 执行器状态芯片
 - Codex/Cursor 角色页：登录说明，隐藏 API Key 项
 - **Release**：embedded Python + rembg + electron-builder
@@ -54,33 +63,41 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 **Documentation**
 - [`docs/TOOLS.md`](docs/TOOLS.md) — 本机工具配置、纠错、外部 Agent 操作手册
 - [`docs/GUI-CONFIG.md`](docs/GUI-CONFIG.md) — Provider vs 执行器边界
+- [`docs/CONSTRUCTION-SYSTEM.md`](docs/CONSTRUCTION-SYSTEM.md) — 施工体系
 - GUI 指南推荐配置 Agent
 
-**Tests**: **~105** CLI unit tests — toolchain, executor_setup, env_discover, llm_config, godot_sources, etc.
+**Tests**: CLI unit tests cover production / progress / scaffold / unit / regression / task playtest + toolchain
 
 **E2E smoke**
 - [x] e2e-smoke-brief → plan → run
 - [x] Godot + .NET real install verified (macOS)
+- [x] construction smoke：`scaffold` → `validate` → `test unit` → `test play --skip-analyze` → `test regression`（macOS）
 
 ### 🔄 In Progress
 
 - [ ] GUI 主聊天路由到配置的 host executor（当前 Brief 仍直连 LLM API）
 - [ ] 首次启动引导流（工具链 → API → 执行器 → `/brief`）
 - [ ] Magic Prince full chain re-run under new brief contract
+- [ ] Orchestrator skill 默认串：progress → 本轮 task → 验收 → 写回
 
 ### 🔜 Next (P0)
 
+- [ ] **Production Delta / Change Request CLI**（想法变更 → 增量改蓝图 → 指定重跑验收）
+- [ ] 按轮次编排（读 progress 只推进当前 godot_task）
+- [ ] 视觉 QA 硬门禁（`test analyze` 失败可卡本轮）
 - [ ] One-shot brief → plan → run from GUI without manual path juggling
-- [ ] Frame resize 128×128 post-matte
 - [ ] Windows Release E2E on clean VM
 
-### ⬜ Not Started
+### ⬜ Not Started / Backlog
 
-- [ ] Change Request / Production Delta CLI
-- [ ] Validation Report JSON + `project-state.json`
+- [ ] 子场景 / 模块隔离 harness（L3）
+- [ ] GdUnit4 场景树单测（可选；现有 L1 为 `dotnet test` + PlayerStats）
+- [ ] playtest `change_scene` / `--craft` 长剧本
+- [ ] Validation Report 与 `project-state.json` 统一
 - [ ] Audio generation CLI
 - [ ] Hermes Kanban / auto multi-session orchestration
 - [ ] CI / matting regression tests with real assets
+- [ ] Frame resize 128×128 post-matte
 
 ---
 
@@ -94,10 +111,15 @@ User (GUI / Cursor / Hermes / Codex)
         └─ External agent: docs/TOOLS.md → terminal → gamefactory CLI
         │
         ▼
-   brief.json (frozen) ──► pipeline run ──► output/ ──► games/
+   brief.json (Design) ──► production.json (工程蓝图) ──► scaffold 壳
+        │                         │
+        │                         ▼
+        │                  progress.json（续作）
+        ▼
+   pipeline run ──► assemble / inject ──► games/
         │
         ▼
-   godot-developer (Codex/Cursor) — Pass 4 C#
+   godot-developer（Pass 4）──► validate / unit / play / regression
 ```
 
 ---
@@ -109,11 +131,11 @@ User (GUI / Cursor / Hermes / Codex)
 | M1 Video + Godot pipeline | ~100% | CLI complete |
 | M2 Hermes + pipeline | ~92% | Executor wizard + Hermes API sync |
 | M3 GUI | ~90% | Provider 多账号、工具链自动装、执行器向导、TOOLS.md |
-| M4 Brief → playable | ~65% | Magic Prince E2E + Change Request CLI pending |
-| M5 Gameplay (Pass 4) | ~70% | dev-context; Codex wizard in GUI |
+| M4 Brief → playable（迭代施工） | ~78% | production / scaffold / progress / 验收金字塔已通；Delta + 编排待补 |
+| M5 Gameplay (Pass 4) | ~75% | scaffold 壳 + unit/play 门禁；玩法填满靠多轮 Agent |
 
 ---
 
 ## Quick Start
 
-→ [`README.md`](README.md) · CLI → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · 工具与 Agent → [`docs/TOOLS.md`](docs/TOOLS.md)
+→ [`README.md`](README.md) · CLI → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · 工具与 Agent → [`docs/TOOLS.md`](docs/TOOLS.md) · 施工 → [`docs/CONSTRUCTION-SYSTEM.md`](docs/CONSTRUCTION-SYSTEM.md)

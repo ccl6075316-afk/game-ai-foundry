@@ -13,7 +13,10 @@ var _captured := false
 
 
 func _initialize() -> void:
-	for arg in OS.get_cmdline_user_args():
+	var args: PackedStringArray = OS.get_cmdline_user_args()
+	if args.is_empty():
+		args = OS.get_cmdline_args()
+	for arg in args:
 		if arg.begins_with("--gf-screenshot-out="):
 			_output_path = arg.trim_prefix("--gf-screenshot-out=")
 		elif arg.begins_with("--gf-wait-frames="):
@@ -36,37 +39,38 @@ func _initialize() -> void:
 		quit(1)
 
 
-func _idle(_delta: float) -> void:
+func _process(_delta: float) -> bool:
 	if _captured:
-		return
+		return false
 	_frame_count += 1
 	if _frame_count < _wait_frames:
-		return
+		return false
 	_captured = true
 
 	var viewport := root.get_viewport()
 	if viewport == null:
 		printerr("No root viewport")
 		quit(1)
-		return
+		return true
 
 	var tex := viewport.get_texture()
 	if tex == null:
 		printerr("No viewport texture (headless driver issue?)")
 		quit(1)
-		return
+		return true
 
 	var img := tex.get_image()
 	if img == null or img.is_empty():
 		printerr("Empty framebuffer image")
 		quit(1)
-		return
+		return true
 
 	var save_err := img.save_png(_output_path)
 	if save_err != OK:
 		printerr("save_png failed: ", save_err)
 		quit(1)
-		return
+		return true
 
 	print("screenshot:", _output_path)
 	quit(0)
+	return true

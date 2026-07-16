@@ -47,7 +47,24 @@ python gamefactory.py test run \
 }
 ```
 
-**Ops:** `wait_frames` · `press` (uses Godot `InputMap` action names from `brief.controls`) · `screenshot`
+**Ops:** `wait_frames` · `press` · `screenshot` · `assert_action` · `assert_node` · `assert_property`
+
+Per-task harness (production-driven):
+
+```bash
+python gamefactory.py test plan --brief ../resources/asset-brief.example.json --task player_controller
+python gamefactory.py test play \
+  --project ../games/forest-platformer \
+  --plan ../plans/playtest_asset-brief.example_player_controller.json \
+  --progress ../plans/progress_forest-platformer.json \
+  --skip-analyze
+```
+
+Passing `test play --progress` snapshots the plan for L4 regression:
+
+```bash
+python gamefactory.py test regression --progress ../plans/progress_forest-platformer.json
+```
 
 Edit plans manually for longer scenarios (collect item → reach exit). Do not invent actions not in `brief.controls`.
 

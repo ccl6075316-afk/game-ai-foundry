@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-import os
 import shutil
 import sys
 from pathlib import Path
@@ -109,3 +108,21 @@ def resolve_dotnet(config: dict[str, Any] | None = None) -> str | None:
         if candidate.is_file():
             return str(candidate)
     return shutil.which("dotnet")
+
+
+def toolchain_env(config: dict[str, Any] | None = None) -> dict[str, str]:
+    """Copy of os.environ with toolchain dotnet/bin prepended to PATH for Godot child processes."""
+    env = os.environ.copy()
+    prepend: list[str] = []
+    dotnet = resolve_dotnet(config)
+    if dotnet:
+        prepend.append(str(Path(dotnet).resolve().parent))
+    root = dotnet_root(config)
+    if root.is_dir():
+        env.setdefault("DOTNET_ROOT", str(root.resolve()))
+    bin_dir = toolchain_bin_dir(config)
+    if bin_dir.is_dir():
+        prepend.append(str(bin_dir.resolve()))
+    if prepend:
+        env["PATH"] = os.pathsep.join(prepend) + os.pathsep + env.get("PATH", "")
+    return env

@@ -564,12 +564,14 @@ from godot_cmds import (
     init_cmd,
     inject_cmd,
     open_cmd,
+    scaffold_cmd,
     screenshot_cmd as godot_screenshot_cmd,
     validate_cmd,
 )  # noqa: E402
 godot.add_command(init_cmd)
 godot.add_command(import_sprites_cmd)
 godot.add_command(assemble_cmd)
+godot.add_command(scaffold_cmd)
 godot.add_command(dev_context_cmd)
 godot.add_command(inject_cmd)
 godot.add_command(godot_screenshot_cmd)
@@ -584,6 +586,14 @@ cli.add_command(test_group)
 from brief_cmds import register_brief_commands  # noqa: E402
 
 register_brief_commands(cli)
+
+from production_cmds import register_production_commands  # noqa: E402
+
+register_production_commands(cli)
+
+from project_cmds import register_project_commands  # noqa: E402
+
+register_project_commands(cli)
 
 if __name__ == "__main__":
     cli()
