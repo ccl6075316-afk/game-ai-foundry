@@ -8,8 +8,8 @@
 
 | 平台 | 文件 | 说明 |
 |------|------|------|
+| **Windows x64** | `Game-AI-Foundry-0.0.4-win-x64.zip` | 解压后运行 `Game AI Foundry.exe` |
 | **macOS arm64** | `Game-AI-Foundry-0.0.4-mac-arm64.zip` | 解压后运行 **Game AI Foundry.app** |
-| **Windows x64** | （需在 Windows 构建机跑 `scripts\build-release.bat` 后补传） | 解压后运行 `Game AI Foundry.exe` |
 
 > 未签名：macOS 可能需右键打开 / 系统设置放行；Windows 可能 SmartScreen 提示。
 
