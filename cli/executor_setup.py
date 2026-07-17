@@ -12,11 +12,18 @@ from pathlib import Path
 from typing import Any, Callable
 
 from llm_config import resolve_host_api_settings
+from hermes_pack import hermes_home
 
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 _CODEX_AUTH = Path.home() / ".codex" / "auth.json"
-_HERMES_ENV = Path.home() / ".hermes" / ".env"
-_HERMES_CONFIG = Path.home() / ".hermes" / "config.yaml"
+
+
+def _hermes_env_path() -> Path:
+    return hermes_home() / ".env"
+
+
+def _hermes_config_path() -> Path:
+    return hermes_home() / "config.yaml"
 
 ProgressCb = Callable[[str], None] | None
 
@@ -49,24 +56,112 @@ def _key_usable(value: Any) -> bool:
 
 
 def resolve_openrouter_api_key(config: dict[str, Any] | None = None) -> str | None:
-    """Read OpenRouter key from provider_accounts or host/prompt fallbacks."""
+    """Backward-compatible helper: OpenRouter key from provider_accounts / host."""
     config = config or _load_config()
     accounts = config.get("provider_accounts")
     if isinstance(accounts, dict):
         or_acc = accounts.get("openrouter")
         if isinstance(or_acc, dict) and _key_usable(or_acc.get("api_key")):
             return str(or_acc["api_key"]).strip()
-
-    host = config.get("host")
-    if isinstance(host, dict) and host.get("provider") == "openrouter":
-        if _key_usable(host.get("api_key")):
-            return str(host["api_key"]).strip()
-
-    settings = resolve_host_api_settings(config)
-    key = settings.get("api_key")
-    if _key_usable(key):
-        return str(key).strip()
+    host = config.get("host") if isinstance(config.get("host"), dict) else {}
+    if str(host.get("provider") or "openrouter").lower() == "openrouter" and _key_usable(host.get("api_key")):
+        return str(host["api_key"]).strip()
     return None
+
+
+# Foundry provider_accounts id → Hermes model.provider + env key name
+_HERMES_PROVIDER_MAP: dict[str, tuple[str, str]] = {
+    "openrouter": ("openrouter", "OPENROUTER_API_KEY"),
+    "openai": ("openai-api", "OPENAI_API_KEY"),
+    # OpenAI-compatible → Hermes custom + base_url
+    "deepseek": ("custom", "OPENAI_API_KEY"),
+    "kimi": ("custom", "OPENAI_API_KEY"),
+    "glm": ("custom", "OPENAI_API_KEY"),
+    "gemini": ("custom", "OPENAI_API_KEY"),
+    "custom": ("custom", "OPENAI_API_KEY"),
+}
+
+
+def _configured_hermes_provider_id(config: dict[str, Any]) -> str | None:
+    """Dedicated Hermes provider pick (independent of GUI 生文 active provider)."""
+    agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
+    # Prefer top-level agents.hermes_provider
+    raw = agents.get("hermes_provider") if isinstance(agents, dict) else None
+    if not raw:
+        orch = agents.get("orchestrator") if isinstance(agents.get("orchestrator"), dict) else {}
+        raw = orch.get("provider") if isinstance(orch, dict) else None
+    if not raw:
+        return None
+    pid = str(raw).strip().lower()
+    return pid or None
+
+
+def resolve_hermes_sync_settings(
+    config: dict[str, Any] | None = None,
+    *,
+    provider_id: str | None = None,
+) -> dict[str, Any]:
+    """Resolve which Foundry text provider to sync into Hermes.
+
+    Preference:
+      1. explicit provider_id (CLI --provider)
+      2. config.agents.hermes_provider (GUI Hermes 专用选择)
+      3. config.host.provider (生文当前选中，兼容旧配置)
+      4. openrouter
+    Credentials always from provider_accounts[id] (多家账号库), else host block.
+    """
+    config = config or _load_config()
+    host = config.get("host") if isinstance(config.get("host"), dict) else {}
+    accounts = (
+        config.get("provider_accounts")
+        if isinstance(config.get("provider_accounts"), dict)
+        else {}
+    )
+
+    foundry_id = str(
+        provider_id
+        or _configured_hermes_provider_id(config)
+        or host.get("provider")
+        or "openrouter"
+    ).strip().lower()
+    if not foundry_id:
+        foundry_id = "openrouter"
+    if foundry_id not in _HERMES_PROVIDER_MAP:
+        foundry_id = "custom"
+
+    hermes_provider, env_key = _HERMES_PROVIDER_MAP[foundry_id]
+    acc = accounts.get(foundry_id) if isinstance(accounts.get(foundry_id), dict) else {}
+    host_provider = str(host.get("provider") or "").strip().lower()
+    host_is_this = host_provider == foundry_id
+
+    api_key = None
+    if _key_usable(acc.get("api_key")):
+        api_key = str(acc["api_key"]).strip()
+    elif host_is_this and _key_usable(host.get("api_key")):
+        api_key = str(host["api_key"]).strip()
+
+    api_base = None
+    if isinstance(acc.get("api_base"), str) and acc["api_base"].strip():
+        api_base = acc["api_base"].strip()
+    elif host_is_this and isinstance(host.get("api_base"), str) and str(host["api_base"]).strip():
+        api_base = str(host["api_base"]).strip()
+
+    model = None
+    if isinstance(acc.get("text_model"), str) and acc["text_model"].strip():
+        model = acc["text_model"].strip()
+    elif isinstance(acc.get("model"), str) and acc["model"].strip():
+        model = acc["model"].strip()
+    elif host_is_this and isinstance(host.get("model"), str) and str(host["model"]).strip():
+        model = str(host["model"]).strip()
+
+    return {
+        "foundry_provider": foundry_id,
+        "hermes_provider": hermes_provider,
+        "env_key": env_key,
+        "api_key": api_key,
+        "api_base": api_base,
+        "model": model,
+    }
 
 
 def _codex_logged_in() -> bool:
@@ -89,9 +184,9 @@ def _hermes_skills_installed() -> bool:
     for pkg, meta in HERMES_PACKAGES.items():
         if not meta.get("role"):
             continue
-        if not (install_dir / pkg / "SKILL.md").is_file() and not (install_dir / pkg).exists():
+        if not (install_dir / pkg / "SKILL.md").is_file():
             return False
-    return True
+    return bool(HERMES_PACKAGES)
 
 
 def _read_env_value(env_path: Path, key: str) -> str | None:
@@ -111,20 +206,37 @@ def _read_env_value(env_path: Path, key: str) -> str | None:
     return None
 
 
-def _hermes_openrouter_configured() -> bool:
-    key = _read_env_value(_HERMES_ENV, "OPENROUTER_API_KEY")
-    if _key_usable(key):
+def _hermes_api_configured() -> bool:
+    """True if Hermes has a usable API key for any supported provider."""
+    env_path = _hermes_env_path()
+    config_path = _hermes_config_path()
+    if _key_usable(_read_env_value(env_path, "OPENROUTER_API_KEY")):
         return True
-    if not _HERMES_CONFIG.is_file():
+    if _key_usable(_read_env_value(env_path, "OPENAI_API_KEY")):
+        return True
+    if not config_path.is_file():
         return False
     try:
-        text = _HERMES_CONFIG.read_text(encoding="utf-8")
+        text = config_path.read_text(encoding="utf-8")
     except OSError:
         return False
+    # model.api_key inline or provider set with matching env
+    if re.search(r"(?m)^\s*api_key:\s*\S+", text):
+        return True
     provider_match = re.search(r"(?m)^\s*provider:\s*(\S+)\s*$", text)
-    if provider_match and provider_match.group(1).strip().lower() == "openrouter":
-        return _key_usable(_read_env_value(_HERMES_ENV, "OPENROUTER_API_KEY"))
+    if not provider_match:
+        return False
+    provider = provider_match.group(1).strip().lower().strip("\"'")
+    if provider == "openrouter":
+        return _key_usable(_read_env_value(env_path, "OPENROUTER_API_KEY"))
+    if provider in ("openai-api", "custom", "openai"):
+        return _key_usable(_read_env_value(env_path, "OPENAI_API_KEY"))
     return False
+
+
+def _hermes_openrouter_configured() -> bool:
+    """Deprecated alias."""
+    return _hermes_api_configured()
 
 
 def _step_specs(executor_id: str) -> list[dict[str, Any]]:
@@ -136,11 +248,11 @@ def _step_specs(executor_id: str) -> list[dict[str, Any]]:
     if executor_id == "hermes":
         return [
             {"id": "install_cli", "label": "安装 Hermes CLI", "hint": "pip install hermes-agent"},
-            {"id": "install_skills", "label": "安装本项目 Skills", "hint": "写入 ~/.hermes/skills"},
+            {"id": "install_skills", "label": "安装本项目 Skills", "hint": "写入 $HERMES_HOME/skills（或 ~/.hermes/skills）"},
             {
                 "id": "configure_api",
-                "label": "同步 OpenRouter API",
-                "hint": "从设置页 OpenRouter Key 写入 ~/.hermes/.env",
+                "label": "同步 Provider API",
+                "hint": "把设置里当前生文 Provider（Key / base / 模型）写入 Hermes",
             },
         ]
     if executor_id == "cursor":
@@ -157,7 +269,10 @@ def _step_specs(executor_id: str) -> list[dict[str, Any]]:
 
 
 def _step_done(executor_id: str, step_id: str) -> bool:
-    cli = shutil.which({"codex": "codex", "hermes": "hermes", "cursor": "cursor"}[executor_id])
+    if executor_id == "cursor":
+        cli = shutil.which("agent") or shutil.which("cursor-agent") or shutil.which("cursor")
+    else:
+        cli = shutil.which({"codex": "codex", "hermes": "hermes"}[executor_id])
     if executor_id == "codex":
         if step_id == "install_cli":
             return bool(cli)
@@ -169,12 +284,12 @@ def _step_done(executor_id: str, step_id: str) -> bool:
         if step_id == "install_skills":
             return _hermes_skills_installed()
         if step_id == "configure_api":
-            return _hermes_openrouter_configured()
+            return _hermes_api_configured()
     if executor_id == "cursor":
         if step_id == "open_download":
             return False
         if step_id == "verify_cli":
-            return bool(cli)
+            return bool(shutil.which("agent") or shutil.which("cursor-agent") or bool(cli))
     return False
 
 
@@ -187,7 +302,7 @@ def _executor_meta(executor_id: str) -> dict[str, str]:
         },
         "hermes": {
             "label": "Hermes 助手",
-            "description": "独立 AI 助手；可自动同步 OpenRouter Key 与 Skills",
+            "description": "独立 AI 助手；可同步设置页当前生文 Provider 与 Skills",
             "download_url": HERMES_INSTALL_URL,
         },
         "cursor": {
@@ -216,19 +331,37 @@ def executor_status(executor_id: str) -> dict[str, Any]:
         raise ValueError(f"未知执行器: {executor_id}")
     meta = _executor_meta(executor_id)
     steps = _build_steps(executor_id)
-    cli_name = executor_id
-    path = shutil.which(cli_name)
+    if executor_id == "cursor":
+        path = shutil.which("agent") or shutil.which("cursor-agent") or shutil.which("cursor")
+    else:
+        path = shutil.which(executor_id)
     required_steps = [s for s in steps if not s.get("optional")]
     ready = all(s["done"] for s in required_steps)
-    return {
+    payload: dict[str, Any] = {
         "id": executor_id,
         "label": meta["label"],
         "description": meta["description"],
         "download_url": meta["download_url"],
-        "ready": ready,
+        "cli_path": path,
         "path": path,
         "steps": steps,
+        "ready": ready,
     }
+    if executor_id == "hermes":
+        sync = resolve_hermes_sync_settings()
+        payload["sync_provider"] = sync["foundry_provider"]
+        payload["sync_hermes_provider"] = sync["hermes_provider"]
+        payload["sync_has_key"] = bool(sync.get("api_key"))
+        payload["sync_model"] = sync.get("model")
+        for step in steps:
+            if step["id"] == "configure_api":
+                key_note = "已有 Key" if sync.get("api_key") else "尚未填 Key"
+                step["hint"] = (
+                    f"同步设置中的生文 Provider「{sync['foundry_provider']}」"
+                    f"（{key_note}）→ Hermes {sync['hermes_provider']}"
+                )
+                break
+    return payload
 
 
 def all_executor_status() -> dict[str, Any]:
@@ -326,32 +459,79 @@ def _install_hermes_skills(progress: ProgressCb = None) -> dict[str, Any]:
     from hermes_pack import install_hermes_skills
 
     written = install_hermes_skills()
-    return {"ok": True, "skills_installed": len(written)}
+    n = len(written.get("packages") or [])
+    mode = "符号链接" if written.get("symlink") else "复制"
+    return {
+        "ok": True,
+        "skills_installed": n,
+        "install_dir": written.get("install_dir"),
+        "message": f"已安装 {n} 个 Hermes Skills（{mode}）→ {written.get('install_dir')}",
+    }
 
 
-def _configure_hermes_api(progress: ProgressCb = None) -> dict[str, Any]:
+def _configure_hermes_api(
+    progress: ProgressCb = None,
+    *,
+    provider_id: str | None = None,
+) -> dict[str, Any]:
     if not shutil.which("hermes"):
         raise RuntimeError("Hermes CLI 未安装，请先完成「安装 Hermes CLI」")
     config = _load_config()
-    api_key = resolve_openrouter_api_key(config)
+    sync = resolve_hermes_sync_settings(config, provider_id=provider_id)
+    api_key = sync.get("api_key")
+    foundry = sync["foundry_provider"]
     if not api_key:
         raise RuntimeError(
-            "未找到 OpenRouter API Key。请先在「设置 → 生文 Provider」配置 OpenRouter 后再试。"
+            f"未找到 Provider「{foundry}」的 API Key。"
+            "请先在「设置 → Provider」选好生文平台并填写 Key，保存后再同步。"
         )
-    _emit(progress, "写入 ~/.hermes/.env …")
-    _write_env_key(_HERMES_ENV, "OPENROUTER_API_KEY", api_key)
-    _emit(progress, "设置 Hermes model.provider = openrouter …")
-    _run(["hermes", "config", "set", "model.provider", "openrouter"], progress)
 
-    host_model = None
-    host = config.get("host")
-    if isinstance(host, dict) and host.get("model"):
-        host_model = str(host["model"]).strip()
-    if host_model:
-        _emit(progress, f"设置默认模型 {host_model} …")
-        _run(["hermes", "config", "set", "model.default", host_model], progress)
+    hermes_provider = sync["hermes_provider"]
+    env_key = sync["env_key"]
+    api_base = sync.get("api_base")
+    model = sync.get("model")
 
-    return {"ok": True, "env_path": str(_HERMES_ENV)}
+    env_path = _hermes_env_path()
+    _emit(progress, f"同步 Foundry Provider「{foundry}」→ Hermes「{hermes_provider}」…")
+    _emit(progress, f"写入 {env_path} ({env_key}) …")
+    _write_env_key(env_path, env_key, str(api_key))
+
+    _emit(progress, f"设置 Hermes model.provider = {hermes_provider} …")
+    _run(["hermes", "config", "set", "model.provider", hermes_provider], progress)
+
+    if hermes_provider == "custom":
+        if not api_base:
+            raise RuntimeError(
+                f"Provider「{foundry}」需要 api_base。"
+                "请在设置里填写 API Base（或换用 OpenRouter / OpenAI）。"
+            )
+        _emit(progress, f"设置 model.base_url = {api_base} …")
+        _run(["hermes", "config", "set", "model.base_url", str(api_base)], progress)
+    elif hermes_provider == "openai-api" and api_base:
+        _emit(progress, f"设置 model.base_url = {api_base} …")
+        _run(["hermes", "config", "set", "model.base_url", str(api_base)], progress)
+    elif hermes_provider == "openrouter":
+        # Clear stale custom base_url from a previous sync
+        try:
+            _run(["hermes", "config", "set", "model.base_url", ""], progress)
+        except RuntimeError:
+            pass
+
+    if model:
+        _emit(progress, f"设置默认模型 {model} …")
+        _run(["hermes", "config", "set", "model.default", str(model)], progress)
+
+    return {
+        "ok": True,
+        "env_path": str(env_path),
+        "hermes_home": str(hermes_home()),
+        "foundry_provider": foundry,
+        "hermes_provider": hermes_provider,
+        "model": model,
+        "api_base": api_base,
+        "message": f"已同步 {foundry} → Hermes ({hermes_provider})"
+        + (f" · 模型 {model}" if model else ""),
+    }
 
 
 def _open_cursor_download(progress: ProgressCb = None) -> dict[str, Any]:
@@ -363,12 +543,17 @@ def _open_cursor_download(progress: ProgressCb = None) -> dict[str, Any]:
 
 
 def _verify_cursor_cli(progress: ProgressCb = None) -> dict[str, Any]:
-    path = shutil.which("cursor")
-    if path:
+    path = shutil.which("agent") or shutil.which("cursor-agent") or shutil.which("cursor")
+    if path and (shutil.which("agent") or shutil.which("cursor-agent")):
         return {"ok": True, "path": path}
+    if path:
+        raise RuntimeError(
+            f"检测到编辑器命令 `{path}`，但未找到 Cursor Agent CLI（`agent` / `cursor-agent`）。"
+            "请安装 Cursor Agent，或把程序员执行器改为 Hermes / Codex。"
+        )
     raise RuntimeError(
-        "未检测到 cursor 命令。请在 Cursor IDE 中打开命令面板，搜索 "
-        "「Shell Command: Install 'cursor' command in PATH」并执行。"
+        "未检测到 Cursor Agent CLI（`agent` / `cursor-agent`）。"
+        "请安装 Cursor Agent shell 命令后再试。"
     )
 
 
@@ -376,6 +561,8 @@ def run_executor_step(
     executor_id: str,
     step_id: str,
     progress: ProgressCb = None,
+    *,
+    provider_id: str | None = None,
 ) -> dict[str, Any]:
     if executor_id not in EXECUTOR_IDS:
         raise ValueError(f"未知执行器: {executor_id}")
@@ -388,15 +575,18 @@ def run_executor_step(
         ("codex", "login"): _login_codex,
         ("hermes", "install_cli"): _install_hermes_cli,
         ("hermes", "install_skills"): _install_hermes_skills,
-        ("hermes", "configure_api"): _configure_hermes_api,
         ("cursor", "open_download"): _open_cursor_download,
         ("cursor", "verify_cli"): _verify_cursor_cli,
     }
-    handler = handlers.get((executor_id, step_id))
-    if not handler:
-        raise RuntimeError(f"未实现: {executor_id}/{step_id}")
 
-    result = handler(progress)
+    if executor_id == "hermes" and step_id == "configure_api":
+        result = _configure_hermes_api(progress, provider_id=provider_id)
+    else:
+        handler = handlers.get((executor_id, step_id))
+        if not handler:
+            raise RuntimeError(f"未实现: {executor_id}/{step_id}")
+        result = handler(progress)
+
     result["executor"] = executor_id
     result["step"] = step_id
     result["status"] = executor_status(executor_id)

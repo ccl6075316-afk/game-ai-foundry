@@ -20,7 +20,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ## Current Status (2026-07-17)
 
-> **v0.0.4 可用边界** → [`docs/RELEASE-NOTES-0.0.4.md`](docs/RELEASE-NOTES-0.0.4.md)  
+> **v0.0.5 可用边界** → [`docs/RELEASE-NOTES-0.0.5.md`](docs/RELEASE-NOTES-0.0.5.md)  
 > 收：AI 公司前台 + 分诊一键执行 + 流式日志 + Delta。不收：首次引导完整版、视觉硬门禁、Windows E2E 签字。
 
 ### ✅ Done

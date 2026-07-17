@@ -11,6 +11,13 @@ export const CHAT_AGENT_LABELS: Record<ChatAgentRole, string> = {
   programmer: "程序员",
 };
 
+/** 消息气泡头像字母（区别于菱形 Logo） */
+export const CHAT_AGENT_AVATAR: Record<ChatAgentRole, string> = {
+  brief: "策",
+  product_host: "经",
+  programmer: "程",
+};
+
 export const CHAT_AGENT_HINTS: Record<ChatAgentRole, string> = {
   brief: "主对话：商量需求，明确说「落实 brief」后再定稿",
   product_host: "Agent：试玩反馈、分诊派工、推进任务（修改主入口）",

@@ -133,9 +133,11 @@ export interface ConfigPatch {
     engine_path?: string;
   };
   agents?: {
-    orchestrator?: { executor?: string; skill?: string };
-    "godot-developer"?: { executor?: string; skill?: string };
+    orchestrator?: { executor?: string; skill?: string; provider?: string };
+    "godot-developer"?: { executor?: string; skill?: string; provider?: string };
     "prompt-crafter"?: { executor?: string; skill?: string };
+    /** Foundry provider_accounts id synced into Hermes (~/.hermes) */
+    hermes_provider?: string;
   };
 }
 

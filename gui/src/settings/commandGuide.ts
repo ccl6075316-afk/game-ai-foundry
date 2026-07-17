@@ -39,7 +39,7 @@ export const COMMAND_GUIDE: GuideSection[] = [
         command: "环境 → 执行器 → 按步骤安装 Hermes / Codex / Cursor",
         description:
           "仅 API 只能聊天+跑 pipeline；Agent 可排错、改配置、写玩法。详见 docs/TOOLS.md",
-        note: "Hermes 可一键同步 OpenRouter；Codex 用于 C# 玩法开发",
+        note: "Hermes 同步当前生文 Provider；Codex 用于 C# 玩法开发",
       },
     ],
   },

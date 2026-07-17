@@ -316,14 +316,14 @@ export function removeColleague(store: ChatSessionStore, instanceId: string): Ch
   return { version: 2, roster, sessions, activeByInstance, activeInstanceId };
 }
 
-export function updateActiveMessages(
+export function updateSessionMessages(
   store: ChatSessionStore,
+  instanceId: string,
+  sessionId: string,
   updater: (messages: ChatMessage[]) => ChatMessage[],
 ): ChatSessionStore {
-  const instanceId = store.activeInstanceId;
-  const sid = store.activeByInstance[instanceId];
   const sessions = store.sessions.map((s) => {
-    if (s.id !== sid || s.instanceId !== instanceId) return s;
+    if (s.id !== sessionId || s.instanceId !== instanceId) return s;
     const messages = updater(s.messages);
     const titleFromUser = messages.find((m) => m.role === "user")?.content?.slice(0, 36);
     return {
@@ -336,9 +336,20 @@ export function updateActiveMessages(
   return { ...store, sessions };
 }
 
+export function updateActiveMessages(
+  store: ChatSessionStore,
+  updater: (messages: ChatMessage[]) => ChatMessage[],
+): ChatSessionStore {
+  const instanceId = store.activeInstanceId;
+  const sid = store.activeByInstance[instanceId];
+  if (!sid) return store;
+  return updateSessionMessages(store, instanceId, sid, updater);
+}
+
 export function appendMessage(
   store: ChatSessionStore,
   message: Omit<ChatMessage, "id" | "timestamp"> & Partial<Pick<ChatMessage, "id" | "timestamp">>,
+  target?: { instanceId?: string; sessionId?: string },
 ): ChatSessionStore {
   const full: ChatMessage = {
     id: message.id || newMessageId(),
@@ -348,5 +359,8 @@ export function appendMessage(
     attachments: message.attachments,
     choices: message.choices,
   };
-  return updateActiveMessages(store, (msgs) => [...msgs, full]);
+  const iid = target?.instanceId || store.activeInstanceId;
+  const sid = target?.sessionId || store.activeByInstance[iid];
+  if (!sid) return store;
+  return updateSessionMessages(store, iid, sid, (msgs) => [...msgs, full]);
 }

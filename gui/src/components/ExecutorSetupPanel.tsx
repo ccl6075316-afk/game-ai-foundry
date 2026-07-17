@@ -59,14 +59,16 @@ function ExecutorCard({
                   {step.hint && <p className="executor-step__hint">{step.hint}</p>}
                 </div>
               </div>
-              {!step.done || step.optional ? (
+              {!step.done || step.optional || step.id === "configure_api" ? (
                 <button
                   type="button"
                   className="btn btn--sm btn--secondary"
-                  disabled={busy || (step.done && !step.optional)}
+                  disabled={busy || (step.done && !step.optional && step.id !== "configure_api")}
                   onClick={() => onRunStep(info.id, step.id)}
                 >
-                  {stepButtonLabel(step.id, step.done && !step.optional, busy)}
+                  {step.id === "configure_api" && step.done && !busy
+                    ? "重新同步"
+                    : stepButtonLabel(step.id, step.done && !step.optional, busy)}
                 </button>
               ) : null}
             </li>
@@ -76,15 +78,17 @@ function ExecutorCard({
 
       {info.id === "hermes" && !info.ready && (
         <p className="hint executor-card__foot">
-          同步 API 需要先在
+          同步 API 使用
           {onOpenSettings ? (
             <button type="button" className="link-btn" onClick={onOpenSettings}>
-              设置页
+              设置 → Provider
             </button>
           ) : (
-            "设置页"
+            "设置 → Provider"
           )}
-          配置 OpenRouter Key。
+          里<strong>当前生文平台</strong>
+          {info.sync_provider ? `（${info.sync_provider}）` : ""}
+          的 Key；换平台后请重新点「同步 API」。
         </p>
       )}
     </li>
@@ -111,7 +115,7 @@ export function ExecutorSetupPanel({
           刷新状态
         </button>
       </div>
-      <p className="hint">点击各步骤按钮完成安装；Codex 会触发浏览器登录，Hermes 可自动同步 OpenRouter API。</p>
+      <p className="hint">点击各步骤按钮完成安装；Codex 走浏览器登录，Hermes 同步「设置 → Provider」当前生文平台的 Key。</p>
 
       {!report ? (
         <p className="hint">尚未加载执行器状态。</p>

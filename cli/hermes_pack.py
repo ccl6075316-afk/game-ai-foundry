@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -23,7 +24,16 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 _CLI_DIR = _REPO_ROOT / "cli"
 _HERMES_SOURCE = _REPO_ROOT / "resources" / "hermes"
 
-DEFAULT_HERMES_SKILLS_DIR = Path.home() / ".hermes" / "skills"
+
+def hermes_home() -> Path:
+    """Directory Hermes actually uses ($HERMES_HOME, else ~/.hermes)."""
+    env = os.environ.get("HERMES_HOME") or os.environ.get("HERMES_AGENT_HOME")
+    if env and str(env).strip():
+        return Path(env).expanduser().resolve()
+    return (Path.home() / ".hermes").resolve()
+
+
+DEFAULT_HERMES_SKILLS_DIR = hermes_home() / "skills"
 
 HERMES_PACKAGES: dict[str, dict[str, Any]] = {
     "game-factory-orchestrator": {
@@ -88,6 +98,12 @@ HERMES_PACKAGES: dict[str, dict[str, Any]] = {
 }
 
 
+# Portable tokens written into resources/hermes (safe to ship in Release).
+# `hermes install` rewrites them to this machine's absolute paths under ~/.hermes only.
+_PLACEHOLDER_ROOT = "<GAMEFACTORY_ROOT>"
+_PLACEHOLDER_CLI = "<GAMEFACTORY_ROOT>/cli"
+
+
 def repo_root() -> Path:
     return _REPO_ROOT
 
@@ -106,7 +122,7 @@ def resolve_hermes_install_dir(target: Path | None = None) -> Path:
     env = os.environ.get("HERMES_SKILLS_DIR")
     if env:
         return Path(env).expanduser().resolve()
-    return DEFAULT_HERMES_SKILLS_DIR
+    return hermes_home() / "skills"
 
 
 def _frontmatter(pkg_name: str, meta: dict[str, Any]) -> str:
@@ -132,11 +148,21 @@ def _frontmatter(pkg_name: str, meta: dict[str, Any]) -> str:
 
 
 def _terminal_section() -> str:
-    root = _REPO_ROOT
-    cli = _CLI_DIR
+    """Portable terminal instructions — no machine-specific absolute paths."""
+    root = _PLACEHOLDER_ROOT
+    cli = _PLACEHOLDER_CLI
     return f"""## Hermes / Codex terminal
 
 Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
+
+Resolve `<GAMEFACTORY_ROOT>` on this machine with:
+
+```bash
+cd cli && python gamefactory.py hermes paths
+```
+
+(`repo_root` / `cli_dir` in that JSON). Or set env `GAMEFACTORY_ROOT` to the Foundry repo/app root.
+`hermes install` stamps the real paths into `~/.hermes/skills` for local use; **Release / git sources stay portable.**
 
 ```text
 terminal(
@@ -150,7 +176,7 @@ Environment (optional):
 
 - `GAMEFACTORY_ROOT={root}`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-- OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
+- OpenRouter proxy (if needed): set `image.proxy` / `prompt.proxy` (e.g. local Clash `http://127.0.0.1:7897`)
 
 **Codex one-shot** (from Hermes):
 
@@ -164,6 +190,26 @@ terminal(
 
 Or delegate long work: `codex exec --full-auto '...'` with `workdir="{root}"`.
 """
+
+
+def stamp_local_paths(text: str, *, root: Path | None = None, cli: Path | None = None) -> str:
+    """Replace portable placeholders with absolute paths for a local Hermes install."""
+    root_s = str((root or _REPO_ROOT).resolve())
+    cli_s = str((cli or _CLI_DIR).resolve())
+    # Order matters: longer token first
+    out = text.replace(_PLACEHOLDER_CLI, cli_s)
+    out = out.replace(f"{_PLACEHOLDER_ROOT}\\cli", cli_s)
+    out = out.replace(_PLACEHOLDER_ROOT, root_s)
+    return out
+
+
+def _stamp_skill_file(skill_path: Path) -> None:
+    if not skill_path.is_file():
+        return
+    original = skill_path.read_text(encoding="utf-8")
+    stamped = stamp_local_paths(original)
+    if stamped != original:
+        skill_path.write_text(stamped, encoding="utf-8")
 
 
 def _role_body(role: str) -> str:
@@ -196,7 +242,7 @@ def build_skill_markdown(pkg_name: str, meta: dict[str, Any]) -> str:
 
 
 def sync_hermes_skills(target_dir: Path | None = None) -> list[Path]:
-    """Generate SKILL.md packages under resources/hermes/ (source of truth)."""
+    """Generate SKILL.md packages under resources/hermes/ (source of truth, portable)."""
     out_root = target_dir or _HERMES_SOURCE
     out_root.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
@@ -218,18 +264,39 @@ def install_hermes_skills(
     install_dir: Path | None = None,
     *,
     sync_first: bool = True,
-    use_symlink: bool = True,
+    use_symlink: bool | None = None,
+    stamp_paths: bool = True,
 ) -> dict[str, Any]:
-    """Install generated skills into Hermes skills directory."""
+    """Install generated skills into Hermes skills directory.
+
+    Prefer symlink when requested; on Windows (or any OSError such as
+    privilege WinError 1314) fall back to copytree so GUI install always works.
+
+    When copying (or when stamp_paths and symlink would point at portable
+    source), write machine-local absolute paths into the install copy only —
+    never into resources/hermes shipped in Release.
+    """
     if sync_first:
         sync_hermes_skills()
 
     dest_root = resolve_hermes_install_dir(install_dir)
     dest_root.mkdir(parents=True, exist_ok=True)
     installed: list[str] = []
+    used_symlink = False
+    # Default: try symlink on non-Windows; Windows often lacks SeCreateSymbolicLinkPrivilege.
+    prefer_symlink = (use_symlink is True) or (
+        use_symlink is None and sys.platform != "win32"
+    )
+    # Stamping needs a real copy; writing through a symlink would mutate portable repo source.
+    if stamp_paths:
+        prefer_symlink = False
 
     for pkg_name in HERMES_PACKAGES:
         src = _HERMES_SOURCE / pkg_name
+        if not src.is_dir():
+            raise FileNotFoundError(
+                f"Hermes skill package missing: {src}. Run `hermes sync` first."
+            )
         dest = dest_root / pkg_name
         if dest.exists() or dest.is_symlink():
             if dest.is_symlink() or dest.is_file():
@@ -237,28 +304,42 @@ def install_hermes_skills(
             else:
                 shutil.rmtree(dest)
 
-        if use_symlink:
-            dest.symlink_to(src.resolve(), target_is_directory=True)
-        else:
+        linked = False
+        if prefer_symlink:
+            try:
+                dest.symlink_to(src.resolve(), target_is_directory=True)
+                linked = True
+                used_symlink = True
+            except OSError:
+                linked = False
+        if not linked:
             shutil.copytree(src, dest)
+            if stamp_paths:
+                _stamp_skill_file(dest / "SKILL.md")
 
         installed.append(str(dest))
 
     return {
         "install_dir": str(dest_root),
         "packages": installed,
-        "symlink": use_symlink,
+        "symlink": used_symlink,
+        "stamped_paths": stamp_paths and not used_symlink,
         "source": str(_HERMES_SOURCE),
+        "repo_root": str(_REPO_ROOT),
     }
 
 
 def hermes_paths_info() -> dict[str, str]:
+    home = hermes_home()
     return {
         "repo_root": str(_REPO_ROOT),
         "cli_dir": str(_CLI_DIR),
+        "hermes_home": str(home),
         "skills_source": str(_HERMES_SOURCE),
-        "skills_install_default": str(DEFAULT_HERMES_SKILLS_DIR),
+        "skills_install_default": str(home / "skills"),
         "config_path": str(Path.home() / ".gamefactory" / "config.json"),
+        "hermes_env": str(home / ".env"),
+        "hermes_config": str(home / "config.yaml"),
     }
 
 

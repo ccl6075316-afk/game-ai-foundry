@@ -2,13 +2,13 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-07-17）
+## 当前版本要点（2026-07-18）
 
-- **v0.0.4 可用边界**：[`RELEASE-NOTES-0.0.4.md`](RELEASE-NOTES-0.0.4.md) — AI 公司前台 + 分诊一键执行 + Delta
+- **v0.0.5 可用边界**：[`RELEASE-NOTES-0.0.5.md`](RELEASE-NOTES-0.0.5.md) — 同事隔离 / Hermes Provider / Windows Agent 编码
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员，可多实例）
 - **Brief**：策划岗 `brief chat`（落实才写盘）；CLI `brainstorm` 仅兼容
-- **最低开工**：OpenRouter（或 LLM Provider）Key → 策划对话落实 brief → `/run`
-- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）
+- **最低开工**：LLM Provider Key → 策划对话落实 brief → `/run`
+- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；Hermes 可单独选 Provider
 - **工具链**：FFmpeg、Godot、.NET 启动自动安装；rembg 打包自带
 - **外部 AI**：读 [`TOOLS.md`](TOOLS.md) 代操 Foundry
 
@@ -26,7 +26,7 @@
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、执行器、最低 vs 推荐** | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
-| [`RELEASE-NOTES-0.0.4.md`](RELEASE-NOTES-0.0.4.md) | 用户 | **v0.0.4** 新功能与下载 | — |
+| [`RELEASE-NOTES-0.0.5.md`](RELEASE-NOTES-0.0.5.md) | 用户 | **v0.0.5** Bugfix 与下载 | — |
 | [`RELEASE-NOTES-0.0.3.md`](RELEASE-NOTES-0.0.3.md) | 用户 | v0.0.3 construction harness | — |
 | [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 铁律 | 细节 |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **进度、里程碑 %** | 命令复制块 |
@@ -47,7 +47,7 @@
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.0.4
+发 Release         → RELEASE + RELEASE-NOTES-0.0.5
 ```
 
 ## 设计 vs 施工（一句话）

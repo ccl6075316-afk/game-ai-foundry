@@ -61,7 +61,24 @@ python gamefactory.py test run \
 }
 ```
 
-**Ops:** `wait_frames` · `press` (uses Godot `InputMap` action names from `brief.controls`) · `screenshot`
+**Ops:** `wait_frames` · `press` · `screenshot` · `assert_action` · `assert_node` · `assert_property`
+
+Per-task harness (production-driven):
+
+```bash
+python gamefactory.py test plan --brief ../resources/asset-brief.example.json --task player_controller
+python gamefactory.py test play \
+  --project ../games/forest-platformer \
+  --plan ../plans/playtest_asset-brief.example_player_controller.json \
+  --progress ../plans/progress_forest-platformer.json \
+  --skip-analyze
+```
+
+Passing `test play --progress` snapshots the plan for L4 regression:
+
+```bash
+python gamefactory.py test regression --progress ../plans/progress_forest-platformer.json
+```
 
 Edit plans manually for longer scenarios (collect item → reach exit). Do not invent actions not in `brief.controls`.
 
@@ -144,10 +161,20 @@ Steps use Godot **InputMap** action names from `brief.project.controls`.
 | `wait_frames` | `frames` (int) | Let physics/animations settle |
 | `press` | `action`, `duration_ms` | `Input.action_press` for duration |
 | `screenshot` | `name` | Saves `<name>.png` under run directory |
+| `assert_action` | `action` | InputMap must contain action (exit 2/3) |
+| `assert_node` | `path` | SceneTree node must exist (e.g. `/root/Main/Player`) |
+| `assert_property` | `path`, `property`, one of `equals` / `neq` / `gte` / `lte` | Hard assert on node property |
 
 `visual_checks[]` tie each screenshot name to a criterion string for vision QA.
 
-Generate with `python gamefactory.py test plan --brief <brief.json>`.
+Generate with:
+
+```bash
+python gamefactory.py test plan --brief <brief.json>
+python gamefactory.py test plan --brief <brief.json> --task player_controller
+```
+
+Runner exit codes: `0` ok · `1` error · `2` InputMap missing · `3` assertion failed.
 
 
 ---
@@ -156,28 +183,37 @@ Generate with `python gamefactory.py test plan --brief <brief.json>`.
 
 Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
+Resolve `<GAMEFACTORY_ROOT>` on this machine with:
+
+```bash
+cd cli && python gamefactory.py hermes paths
+```
+
+(`repo_root` / `cli_dir` in that JSON). Or set env `GAMEFACTORY_ROOT` to the Foundry repo/app root.
+`hermes install` stamps the real paths into `~/.hermes/skills` for local use; **Release / git sources stay portable.**
+
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd <GAMEFACTORY_ROOT>/cli && python gamefactory.py <subcommand> ...",
+  workdir="<GAMEFACTORY_ROOT>",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
+- `GAMEFACTORY_ROOT=<GAMEFACTORY_ROOT>`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-- OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
+- OpenRouter proxy (if needed): set `image.proxy` / `prompt.proxy` (e.g. local Clash `http://127.0.0.1:7897`)
 
 **Codex one-shot** (from Hermes):
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd <GAMEFACTORY_ROOT>/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
+  workdir="<GAMEFACTORY_ROOT>",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="<GAMEFACTORY_ROOT>"`.

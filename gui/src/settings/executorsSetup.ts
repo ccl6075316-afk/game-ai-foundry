@@ -17,6 +17,11 @@ export interface ExecutorSetupInfo {
   ready: boolean;
   path?: string | null;
   steps: ExecutorStep[];
+  /** Hermes: Foundry text provider that configure_api will sync */
+  sync_provider?: string;
+  sync_hermes_provider?: string;
+  sync_has_key?: boolean;
+  sync_model?: string | null;
 }
 
 export interface ExecutorSetupReport {

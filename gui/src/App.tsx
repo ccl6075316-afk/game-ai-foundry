@@ -28,16 +28,17 @@ import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import {
   getActiveColleague,
   getActiveSession,
-  hireColleague,
   listSessionsForInstance,
   loadSessionStore,
-  removeColleague,
-  renameColleague,
   saveSessionStore,
   setActiveInstance,
   setActiveSessionId,
   startNewSession,
   updateActiveMessages,
+  updateSessionMessages,
+  hireColleague,
+  renameColleague,
+  removeColleague,
   type ChatSessionStore,
 } from "./chat/sessions";
 type SidePanel = "board" | "settings" | "env" | "guide" | null;
@@ -75,7 +76,15 @@ export default function App() {
   const [logs, setLogs] = useState<string[]>([]);
   const [chatStore, setChatStore] = useState<ChatSessionStore>(() => loadSessionStore());
   const [sidePanel, setSidePanel] = useState<SidePanel>(null);
-  const [busy, setBusy] = useState(false);
+  /** 正在等待回复的同事 instanceId（可并行；避免一人转圈三人一起 loading） */
+  const [busyInstanceIds, setBusyInstanceIds] = useState<string[]>([]);
+  const markBusy = useCallback((instanceId: string) => {
+    setBusyInstanceIds((prev) => (prev.includes(instanceId) ? prev : [...prev, instanceId]));
+  }, []);
+  const clearBusy = useCallback((instanceId: string) => {
+    setBusyInstanceIds((prev) => prev.filter((id) => id !== instanceId));
+  }, []);
+  const anyBusy = busyInstanceIds.length > 0;
   const [brainstormActive, setBrainstormActive] = useState(false);
   const [brainstormChoices, setBrainstormChoices] = useState<string[]>([]);
   const [brainstormReady, setBrainstormReady] = useState(false);
@@ -108,6 +117,7 @@ export default function App() {
   const agentRole = activeColleague.roleKind;
   const activeSession = getActiveSession(chatStore);
   const messages = activeSession.messages;
+  const chatBusy = busyInstanceIds.includes(activeColleague.id);
   const instanceSessions = listSessionsForInstance(chatStore, activeColleague.id);
   const heroBase = roleHero(agentRole);
   const hero = {
@@ -148,35 +158,49 @@ export default function App() {
   };
 
   const appendAssistant = useCallback(
-    (content: string, choices?: string[], attachments?: ChatAttachment[]) => {
-      patchChatStore((prev) =>
-        updateActiveMessages(prev, (msgs) => [
-          ...msgs,
-          {
-            id: newMessageId(),
-            role: "assistant",
-            content,
-            timestamp: Date.now(),
-            choices: choices?.length ? choices : undefined,
-            attachments: attachments?.length ? attachments : undefined,
-          },
-        ]),
-      );
-      setBrainstormChoices(choices || []);
+    (
+      content: string,
+      choices?: string[],
+      attachments?: ChatAttachment[],
+      target?: { instanceId: string; sessionId: string },
+    ) => {
+      patchChatStore((prev) => {
+        const msg = {
+          id: newMessageId(),
+          role: "assistant" as const,
+          content,
+          timestamp: Date.now(),
+          choices: choices?.length ? choices : undefined,
+          attachments: attachments?.length ? attachments : undefined,
+        };
+        if (target) {
+          return updateSessionMessages(prev, target.instanceId, target.sessionId, (msgs) => [
+            ...msgs,
+            msg,
+          ]);
+        }
+        return updateActiveMessages(prev, (msgs) => [...msgs, msg]);
+      });
+      if (!target || target.instanceId === getActiveColleague(loadSessionStore()).id) {
+        setBrainstormChoices(choices || []);
+      }
     },
     [patchChatStore],
   );
 
   const applyBrainstormResult = useCallback(
-    (data: {
-      assistant_message?: string;
-      choices?: string[];
-      ready_to_export?: boolean;
-      draft_brief?: { project?: { title?: string } };
-    }) => {
+    (
+      data: {
+        assistant_message?: string;
+        choices?: string[];
+        ready_to_export?: boolean;
+        draft_brief?: { project?: { title?: string } };
+      },
+      target?: { instanceId: string; sessionId: string },
+    ) => {
       if (!data.assistant_message) return;
       setBrainstormActive(true);
-      appendAssistant(data.assistant_message, data.choices);
+      appendAssistant(data.assistant_message, data.choices, undefined, target);
       setBrainstormReady(Boolean(data.ready_to_export));
       const title = data.draft_brief?.project?.title;
       if (title) setDraftTitle(String(title));
@@ -198,19 +222,28 @@ export default function App() {
   }, []);
 
   const append = useCallback(
-    (role: ChatMessage["role"], content: string, attachments?: ChatAttachment[]) => {
-      patchChatStore((prev) =>
-        updateActiveMessages(prev, (msgs) => [
-          ...msgs,
-          {
-            id: newMessageId(),
-            role,
-            content,
-            timestamp: Date.now(),
-            attachments: attachments?.length ? attachments : undefined,
-          },
-        ]),
-      );
+    (
+      role: ChatMessage["role"],
+      content: string,
+      attachments?: ChatAttachment[],
+      target?: { instanceId: string; sessionId: string },
+    ) => {
+      patchChatStore((prev) => {
+        const msg = {
+          id: newMessageId(),
+          role,
+          content,
+          timestamp: Date.now(),
+          attachments: attachments?.length ? attachments : undefined,
+        };
+        if (target) {
+          return updateSessionMessages(prev, target.instanceId, target.sessionId, (msgs) => [
+            ...msgs,
+            msg,
+          ]);
+        }
+        return updateActiveMessages(prev, (msgs) => [...msgs, msg]);
+      });
     },
     [patchChatStore],
   );
@@ -318,51 +351,57 @@ export default function App() {
   );
 
   const handleBrainstormStart = async (seed?: string) => {
-    setBusy(true);
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
     setBrainstormChoices([]);
-    const sessionId = getActiveSession(chatStore).id;
     try {
-      const res = await window.gameFactory.hostChatStart(sessionId, seed);
+      const res = await window.gameFactory.hostChatStart(sessionTarget.sessionId, seed);
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
         throw new Error(res.stderr || res.stdout || "host-chat start failed");
       }
-      applyBrainstormResult(res.data);
+      applyBrainstormResult(res.data, sessionTarget);
     } catch (e) {
       appendAssistant(
         `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请先在 **设置 → 在线服务 → 项目经理** 配置 API Key。`,
+        undefined,
+        undefined,
+        sessionTarget,
       );
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
   const handleBrainstormTurn = async (message: string) => {
-    setBusy(true);
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
     setBrainstormChoices([]);
-    const sessionId = getActiveSession(chatStore).id;
     try {
-      let res = await window.gameFactory.hostChatTurn(sessionId, message);
+      let res = await window.gameFactory.hostChatTurn(sessionTarget.sessionId, message);
       if (res.exitCode !== 0 && /Session not found/i.test(res.stderr || res.stdout || "")) {
-        res = await window.gameFactory.hostChatStart(sessionId, message);
+        res = await window.gameFactory.hostChatStart(sessionTarget.sessionId, message);
       }
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
         throw new Error(res.stderr || res.stdout || "host-chat turn failed");
       }
-      applyBrainstormResult(res.data);
+      applyBrainstormResult(res.data, sessionTarget);
     } catch (e) {
-      appendAssistant(`回复失败：${e instanceof Error ? e.message : String(e)}`);
+      appendAssistant(`回复失败：${e instanceof Error ? e.message : String(e)}`, undefined, undefined, sessionTarget);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
   const handleBriefExport = async (nameHint?: string) => {
-    setBusy(true);
-    const sessionId = getActiveSession(chatStore).id;
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
     try {
       const slug = slugifyBriefName(nameHint || draftTitle || "my-game");
       const outputRel = `resources/${slug}-brief.json`;
-      const res = await window.gameFactory.hostChatExport(sessionId, outputRel);
+      const res = await window.gameFactory.hostChatExport(sessionTarget.sessionId, outputRel);
       if (res.exitCode !== 0) {
         throw new Error(res.stderr || res.stdout || "export failed");
       }
@@ -370,36 +409,44 @@ export default function App() {
       setBrief(outputRel);
       appendAssistant(
         `**Brief 已保存**\n\n\`${path}\`\n\n发送 \`/plan\` 生成流水线 manifest，再 \`/run\` 执行。`,
+        undefined,
+        undefined,
+        sessionTarget,
       );
     } catch (e) {
-      appendAssistant(`导出失败：${e instanceof Error ? e.message : String(e)}`);
+      appendAssistant(`导出失败：${e instanceof Error ? e.message : String(e)}`, undefined, undefined, sessionTarget);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
   const handleAgentTurn = async (message: string) => {
     if (agentRole !== "product_host" && agentRole !== "programmer") return;
-    setBusy(true);
+    const target = {
+      instanceId: activeColleague.id,
+      sessionId: activeSession.id,
+      role: agentRole,
+      displayName: activeColleague.displayName,
+    };
+    markBusy(target.instanceId);
     setAgentActionChoices([]);
-    const sessionId = activeSession.id;
     const programmers = chatStore.roster.filter((c) => c.roleKind === "programmer");
     const defaultTarget =
-      programmers.find((c) => c.id === chatStore.activeInstanceId)?.id || programmers[0]?.id;
-    append("log", "执行器运行中…");
+      programmers.find((c) => c.id === target.instanceId)?.id || programmers[0]?.id;
+    append("log", `「${target.displayName}」执行器运行中…`, undefined, target);
     try {
       if (!window.gameFactory?.agentTurn) {
         throw new Error("agentTurn IPC 不可用，请重启 GUI。");
       }
       const res = await window.gameFactory.agentTurn({
-        role: agentRole,
-        sessionId,
+        role: target.role,
+        sessionId: target.sessionId,
         message,
         brief: activeBriefRel || undefined,
-        instanceId: activeColleague.id,
-        targetInstanceId: agentRole === "product_host" ? defaultTarget : undefined,
+        instanceId: target.instanceId,
+        targetInstanceId: target.role === "product_host" ? defaultTarget : undefined,
         rosterJson:
-          agentRole === "product_host"
+          target.role === "product_host"
             ? JSON.stringify(
                 programmers.map((c) => ({ id: c.id, display_name: c.displayName })),
               )
@@ -434,7 +481,7 @@ export default function App() {
           choices.push(label);
         }
       };
-      if (agentRole === "product_host" && dispatch?.handoff_path) {
+      if (target.role === "product_host" && dispatch?.handoff_path) {
         const tid = dispatch.target_instance_id;
         const targetName = tid
           ? chatStore.roster.find((c) => c.id === tid)?.displayName
@@ -448,14 +495,14 @@ export default function App() {
           pendingTargetProgrammer.current = tid;
         }
         queueActions(dispatch.next_actions);
-      } else if (agentRole === "product_host" && dispatch?.dispatch_to === "pipeline") {
+      } else if (target.role === "product_host" && dispatch?.dispatch_to === "pipeline") {
         const actions = dispatch.next_actions || [];
         extra =
           `\n\n**资产/pipeline 分诊**` +
           (actions.length ? `\n建议命令：\n${actions.map((a) => `- \`${a}\``).join("\n")}` : "") +
           `\n\n可点下方「执行 · …」一键跑白名单命令。`;
         queueActions(actions);
-      } else if (agentRole === "programmer" && dispatch?.handoff_done) {
+      } else if (target.role === "programmer" && dispatch?.handoff_done) {
         extra =
           `\n\n**已关单** handoff \`${dispatch.handoff_done}\` → done` +
           (dispatch.task_done ? ` · task \`${dispatch.task_done}\` → done` : "");
@@ -467,19 +514,29 @@ export default function App() {
           pendingSafeActions.current.set(label, validateCmd);
           choices.push(label);
         }
-      } else if (agentRole === "product_host") {
+      } else if (target.role === "product_host") {
         queueActions(dispatch?.next_actions);
       }
-      setAgentActionChoices(choices);
-      append("assistant", `${reply}${via}${extra}`);
+      // Only surface action chips if user is still on this colleague
+      if (getActiveColleague(loadSessionStore()).id === target.instanceId) {
+        setAgentActionChoices(choices);
+      }
+      append(
+        "assistant",
+        `**${target.displayName}**\n\n${reply}${via}${extra}`,
+        undefined,
+        target,
+      );
       await refreshHandoffs();
     } catch (e) {
       append(
         "assistant",
-        `「${activeColleague.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在设置里为项目经理/程序员选择执行器。`,
+        `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在设置里为项目经理/程序员选择执行器。`,
+        undefined,
+        target,
       );
     } finally {
-      setBusy(false);
+      clearBusy(target.instanceId);
     }
   };
 
@@ -572,7 +629,10 @@ export default function App() {
 
   const handleExecutorStep = useCallback(
     async (executorId: ExecutorId, stepId: string) => {
-      if (!window.gameFactory?.executorStep) return;
+      if (!window.gameFactory?.executorStep) {
+        appendAssistant("当前环境不支持执行器安装（executorStep 不可用），请用开发模式或完整 Release 包。");
+        return;
+      }
       const busyKey = `${executorId}:${stepId}`;
       setExecutorBusy(busyKey);
       setToolchainLog([]);
@@ -580,14 +640,21 @@ export default function App() {
         const res = await window.gameFactory.executorStep(executorId, stepId);
         if (res.stderr) setToolchainLog((prev) => [...prev, res.stderr]);
         if (res.stdout) setToolchainLog((prev) => [...prev, res.stdout]);
-        const data = res.data as { message?: string; error?: string; status?: unknown } | undefined;
+        const data = res.data as
+          | { ok?: boolean; message?: string; error?: string; status?: unknown }
+          | undefined;
         if (data?.message) appendAssistant(data.message);
-        if (res.exitCode !== 0) {
-          appendAssistant(
-            data?.error || `执行 ${executorId}/${stepId} 失败，请查看下方日志。`,
-          );
+        if (res.exitCode !== 0 || data?.ok === false) {
+          const err =
+            data?.error ||
+            res.stderr?.trim() ||
+            `执行 ${executorId}/${stepId} 失败，请查看环境面板下方日志。`;
+          appendAssistant(`❌ ${err}`);
+          setToolchainLog((prev) => [...prev, err]);
         } else if (stepId === "login") {
           appendAssistant("已启动浏览器登录流程，完成后请点击「重新检测」确认状态。");
+        } else if (!data?.message) {
+          appendAssistant(`✅ ${executorId}/${stepId} 完成`);
         }
         if (data?.status) {
           setExecutorSetup((prev) =>
@@ -604,7 +671,9 @@ export default function App() {
         }
         await refreshEnv();
       } catch (e) {
-        appendAssistant(`执行失败：${e instanceof Error ? e.message : String(e)}`);
+        const msg = e instanceof Error ? e.message : String(e);
+        appendAssistant(`❌ 执行失败：${msg}`);
+        setToolchainLog((prev) => [...prev, msg]);
       } finally {
         setExecutorBusy(null);
       }
@@ -682,7 +751,8 @@ export default function App() {
       append("assistant", "还没有 pipeline manifest。请先完成 Brief 策划并发送 `/plan`。");
       return;
     }
-    setBusy(true);
+    const busyId = activeColleague.id;
+    markBusy(busyId);
     setLogs([]);
     try {
       append(
@@ -714,12 +784,13 @@ export default function App() {
     } catch (e) {
       append("assistant", `运行失败：${e instanceof Error ? e.message : String(e)}`);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
   const handleDoctor = async () => {
-    setBusy(true);
+    const busyId = activeColleague.id;
+    markBusy(busyId);
     try {
       const result = await refreshEnv();
       const d = result?.doctor;
@@ -740,12 +811,13 @@ export default function App() {
       );
       setSidePanel("env");
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
   const handlePlan = async (explicitBrief?: string | null) => {
-    setBusy(true);
+    const busyId = activeColleague.id;
+    markBusy(busyId);
     try {
       const briefRel = await resolveBriefForPlan(explicitBrief);
       if (!briefRel) {
@@ -773,7 +845,7 @@ export default function App() {
     } catch (e) {
       append("assistant", `Plan 失败：${e instanceof Error ? e.message : String(e)}`);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
@@ -797,7 +869,8 @@ export default function App() {
       append("assistant", `找不到命令：${label}`);
       return;
     }
-    setBusy(true);
+    const busyId = activeColleague.id;
+    markBusy(busyId);
     append("user", label);
     append(
       "assistant",
@@ -825,7 +898,7 @@ export default function App() {
     } catch (e) {
       append("assistant", `执行失败：${e instanceof Error ? e.message : String(e)}`);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
@@ -834,7 +907,8 @@ export default function App() {
       append("assistant", "请先落实并导出 brief，再使用 `/delta`。");
       return;
     }
-    setBusy(true);
+    const busyId = activeColleague.id;
+    markBusy(busyId);
     try {
       if (!window.gameFactory?.productionDelta || !window.gameFactory?.productionApplyDelta) {
         throw new Error("production delta IPC 不可用，请重启 GUI。");
@@ -875,7 +949,7 @@ export default function App() {
     } catch (e) {
       append("assistant", `Delta 失败：${e instanceof Error ? e.message : String(e)}`);
     } finally {
-      setBusy(false);
+      clearBusy(busyId);
     }
   };
 
@@ -890,7 +964,11 @@ export default function App() {
       await handleSafeAction(text.trim());
       return;
     }
-    append("user", text);
+    const sendTarget = {
+      instanceId: activeColleague.id,
+      sessionId: activeSession.id,
+    };
+    append("user", text, undefined, sendTarget);
 
     const briefCmd = parseBriefSubcommand(text);
     if (briefCmd || text.trim().toLowerCase() === "/brief") {
@@ -905,7 +983,8 @@ export default function App() {
       if (cmd.action === "reset") {
         setBrainstormActive(false);
         setBrainstormReady(false);
-        setBusy(true);
+        const busyId = activeColleague.id;
+        markBusy(busyId);
         setBrainstormChoices([]);
         try {
           const sessionId = activeSession.id;
@@ -917,7 +996,7 @@ export default function App() {
         } catch (e) {
           appendAssistant(`重置失败：${e instanceof Error ? e.message : String(e)}`);
         } finally {
-          setBusy(false);
+          clearBusy(busyId);
         }
         return;
       }
@@ -1096,6 +1175,7 @@ export default function App() {
           sessions={instanceSessions}
           activeSessionId={activeSession.id}
           openHandoffs={handoffsForRoster}
+          busyInstanceIds={busyInstanceIds}
           onSelectColleague={handleSelectColleague}
           onHire={handleHire}
           onRename={handleRenameColleague}
@@ -1107,14 +1187,16 @@ export default function App() {
         <section className="chat-column">
           <ChatView
             messages={messages}
-            busy={busy}
+            busy={chatBusy}
+            agentRole={agentRole}
+            agentLabel={activeColleague.displayName}
             onSuggestion={handleSend}
             heroTitle={hero.title}
             heroSubtitle={hero.subtitle}
             suggestions={suggestions}
           />
           <ChatInput
-            disabled={busy}
+            disabled={chatBusy}
             choices={
               agentRole === "brief"
                 ? brainstormChoices
@@ -1145,13 +1227,13 @@ export default function App() {
             status={status}
             tasks={tasks}
             logs={logs}
-            busy={busy}
+            busy={anyBusy}
             onRefresh={() => refreshManifest(selectedManifest)}
             onRun={handleRun}
           />
         )}
 
-        {sidePanel === "settings" && <SettingsPanel busy={busy} />}
+        {sidePanel === "settings" && <SettingsPanel busy={anyBusy} />}
 
         {sidePanel === "env" && (
           <EnvPanel

@@ -308,12 +308,17 @@ def _run_cmd(
     stdin_text: str | None = None,
 ) -> subprocess.CompletedProcess[str]:
     run_env = {**os.environ, **(env or {})}
+    # Force UTF-8: Windows default (GBK) breaks Cursor/Hermes agent stdout.
+    run_env.setdefault("PYTHONIOENCODING", "utf-8")
+    run_env.setdefault("PYTHONUTF8", "1")
     return subprocess.run(
         argv,
         cwd=str(cwd),
         input=stdin_text,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         timeout=timeout,
         env=run_env,
         check=False,
@@ -334,6 +339,30 @@ def _clean_assistant_text(text: str) -> str:
     # Drop common CLI noise tails
     t = re.sub(r"\n+Session ID:.*$", "", t, flags=re.I | re.S)
     return t.strip()
+
+
+def _looks_like_executor_error(text: str) -> bool:
+    """Hermes/Codex sometimes exit 0 but print a fatal one-liner."""
+    t = (text or "").strip()
+    if not t:
+        return False
+    low = t.lower()
+    patterns = (
+        "unknown skill",
+        "error: unknown",
+        "skill not found",
+        "no such skill",
+        "authentication failed",
+        "unauthorized",
+        "invalid api key",
+        "api key not found",
+    )
+    if any(p in low for p in patterns):
+        return True
+    # Short Error: ... one-liners
+    if re.match(r"(?is)^error:\s*\S+", t) and len(t) < 400:
+        return True
+    return False
 
 
 def run_hermes_turn(
@@ -365,8 +394,17 @@ def run_hermes_turn(
     proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout)
     out = _clean_assistant_text(proc.stdout or "")
     err = (proc.stderr or "").strip()
+    combined = out or err
     if proc.returncode != 0 and not out:
         raise AgentTurnError(f"hermes 退出码 {proc.returncode}: {err or '(no stderr)'}")
+    if _looks_like_executor_error(combined):
+        hint = ""
+        if "unknown skill" in combined.lower() or "skill" in combined.lower():
+            hint = (
+                "\n\n请到「环境 → Hermes」重新执行「安装本项目 Skills」"
+                "（会装到 $HERMES_HOME/skills，当前机可能不是 ~/.hermes）。"
+            )
+        raise AgentTurnError(f"{combined}{hint}")
     if not out:
         out = err or "（Hermes 无输出）"
     sid = _extract_hermes_session_id(proc.stdout or "", proc.stderr or "") or executor_session_id
@@ -461,6 +499,16 @@ def run_cursor_turn(
                 out = raw
         else:
             out = err or "（Cursor Agent 无输出）"
+    if _looks_like_executor_error(out) or out.strip() in (
+        "（Cursor Agent 无输出）",
+        "(Cursor Agent 无输出)",
+    ):
+        detail = err or out
+        raise AgentTurnError(
+            f"Cursor Agent 无有效回复：{detail}\n\n"
+            "请确认已安装 Cursor Agent CLI（`agent` / `cursor-agent`，不是 `cursor` 编辑器命令），"
+            "并已登录；或把程序员执行器改为 Hermes / Codex。"
+        )
     sid = executor_session_id
     m = re.search(r"chatId[\"'\s:]+([a-zA-Z0-9_-]+)", f"{proc.stdout}\n{err}")
     if m:

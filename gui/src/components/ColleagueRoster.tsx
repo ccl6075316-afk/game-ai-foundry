@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { ChatAgentRole } from "../chat/roles";
-import { CHAT_AGENT_LABELS } from "../chat/roles";
+import { CHAT_AGENT_AVATAR, CHAT_AGENT_LABELS } from "../chat/roles";
 import type { ColleagueInstance } from "../chat/roster";
 import type { ChatSession } from "../chat/sessions";
 
@@ -20,6 +20,7 @@ interface Props {
   sessions: ChatSession[];
   activeSessionId: string;
   openHandoffs: HandoffSummary[];
+  busyInstanceIds?: string[];
   onSelectColleague: (instanceId: string) => void;
   onHire: (roleKind: ChatAgentRole) => void;
   onRename: (instanceId: string, displayName: string) => void;
@@ -48,22 +49,13 @@ function writeCollapsed(value: boolean) {
   }
 }
 
-function initials(name: string): string {
-  const t = name.trim();
-  if (!t) return "?";
-  const parts = t.split(/[\s·・]+/).filter(Boolean);
-  if (parts.length >= 2) {
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-  return t.slice(0, 2).toUpperCase();
-}
-
 export function ColleagueRoster({
   roster,
   activeInstanceId,
   sessions,
   activeSessionId,
   openHandoffs,
+  busyInstanceIds = [],
   onSelectColleague,
   onHire,
   onRename,
@@ -187,6 +179,7 @@ export function ColleagueRoster({
           const mine = handoffsFor(c.id).length;
           const showBadge = c.roleKind === "programmer" && mine > 0;
           const selected = c.id === activeInstanceId;
+          const waiting = busyInstanceIds.includes(c.id);
           return (
             <button
               key={c.id}
@@ -194,13 +187,17 @@ export function ColleagueRoster({
               role="listitem"
               className={`colleague-person colleague-person--${c.roleKind} ${
                 selected ? "colleague-person--active" : ""
-              }`}
-              title={`${c.displayName} · ${CHAT_AGENT_LABELS[c.roleKind]}`}
+              } ${waiting ? "colleague-person--busy" : ""}`}
+              title={`${c.displayName} · ${CHAT_AGENT_LABELS[c.roleKind]}${waiting ? " · 回复中" : ""}`}
               aria-current={selected ? "true" : undefined}
               onClick={() => onSelectColleague(c.id)}
             >
               <span className="colleague-person__avatar" aria-hidden>
-                {initials(c.displayName)}
+                {waiting ? (
+                  <span className="colleague-person__spinner" />
+                ) : (
+                  CHAT_AGENT_AVATAR[c.roleKind]
+                )}
                 {showBadge && collapsed && (
                   <span className="colleague-person__badge colleague-person__badge--dot">{mine}</span>
                 )}
@@ -211,7 +208,10 @@ export function ColleagueRoster({
                     {c.displayName}
                     {showBadge && <span className="colleague-person__badge">{mine}</span>}
                   </span>
-                  <span className="colleague-person__role">{CHAT_AGENT_LABELS[c.roleKind]}</span>
+                  <span className="colleague-person__role">
+                    {CHAT_AGENT_LABELS[c.roleKind]}
+                    {waiting ? " · 回复中" : ""}
+                  </span>
                 </span>
               )}
             </button>

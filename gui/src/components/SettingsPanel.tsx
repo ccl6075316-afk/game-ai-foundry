@@ -72,6 +72,8 @@ interface FormState {
   godotPath: string;
   hostExecutor: AgentExecutor;
   codeExecutor: AgentExecutor;
+  /** Hermes 同步用的 Foundry provider（与生文 active 独立） */
+  hermesProvider: ApiProviderId;
 }
 
 function fromConfig(data: ConfigInfo["data"]): FormState {
@@ -84,6 +86,16 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
 
   const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
   const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
+
+  const agentsHermes = String(
+    (agents as Record<string, unknown>).hermes_provider
+      || orchestrator.provider
+      || loaded.activeTextProvider
+      || "openrouter",
+  );
+  const hermesProvider = (API_PROVIDERS.some((p) => p.id === agentsHermes)
+    ? agentsHermes
+    : loaded.activeTextProvider) as ApiProviderId;
 
   return {
     ...loaded,
@@ -100,6 +112,7 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
     godotPath: String(godot.engine_path || ""),
     hostExecutor: parseExecutor(orchestrator.executor, "hermes"),
     codeExecutor: parseExecutor(godotDev.executor, "codex"),
+    hermesProvider,
   };
 }
 
@@ -153,9 +166,11 @@ function toPatch(form: FormState): ConfigPatch {
       engine_path: form.godotPath || undefined,
     },
     agents: {
+      hermes_provider: form.hermesProvider,
       orchestrator: {
         executor: form.hostExecutor,
         skill: DEFAULT_AGENT_SKILLS.orchestrator,
+        provider: form.hermesProvider,
       },
       "godot-developer": {
         executor: form.codeExecutor,
@@ -748,9 +763,11 @@ export function SettingsPanel({ busy, onSaved }: Props) {
             <>
               <SectionCard meta={ROLES_SECTION}>
                 <p className="settings-linked">
-                  <strong>Provider 页</strong>：GUI 对话（/brief）、文案 LLM、生图 — 填 API Key。
+                  <strong>Provider 页</strong>：可同时配置多家（OpenRouter / DeepSeek / Kimi…）；生文、生图各自选当前用哪家。
                   <br />
-                  <strong>执行器</strong>（Hermes / Codex / Cursor）：本机登录，<strong>不在此填 Key</strong>。
+                  <strong>Hermes</strong>：在下方单独选要用哪家账号，再去环境面板「同步 API」；与生文当前选中可以不同。
+                  <br />
+                  <strong>Codex / Cursor</strong>：本机登录，不在此填 Key。
                 </p>
               </SectionCard>
 
@@ -768,11 +785,42 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   disabled={disabled}
                   onChange={(id) => setField("hostExecutor", id)}
                 />
+                {form.hostExecutor === "hermes" && (
+                  <>
+                    <label className="field">
+                      <span>Hermes 使用的 Provider</span>
+                      <select
+                        value={form.hermesProvider}
+                        disabled={disabled}
+                        onChange={(e) =>
+                          setField("hermesProvider", e.target.value as ApiProviderId)
+                        }
+                      >
+                        {API_PROVIDERS.map((p) => {
+                          const ok = isProviderConfigured(form.providerAccounts, p.id);
+                          return (
+                            <option key={p.id} value={p.id}>
+                              {p.label}
+                              {ok ? " ✓" : "（未填 Key）"}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </label>
+                    <p className="settings-card__note">
+                      与「Provider 页 · 生文」当前选中可不同：先在 Provider 页给多家填好 Key，这里专选 Hermes 用哪家；保存后到「环境 → Hermes → 同步 API」。
+                      当前将同步：{getApiProvider(form.hermesProvider).label}
+                      {isProviderConfigured(form.providerAccounts, form.hermesProvider)
+                        ? ` / ${getProviderAccount(form.providerAccounts, form.hermesProvider).textModel || "默认模型"}`
+                        : "（请先填 Key）"}
+                    </p>
+                  </>
+                )}
                 {hostExecutorLogin ? (
                   <>
                     <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.hostExecutor]}</p>
                     <p className="settings-linked">
-                      GUI /brief 策划对话仍走 Provider 页的生文 Key（与执行器无关）· 当前：{textPreset.label} / {textAccount.textModel || "默认"}
+                      GUI /brief 策划对话仍走 Provider 页的生文 Key（与 Hermes 选择无关）· 当前生文：{textPreset.label} / {textAccount.textModel || "默认"}
                     </p>
                   </>
                 ) : (
@@ -831,6 +879,28 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   disabled={disabled}
                   onChange={(id) => setField("codeExecutor", id)}
                 />
+                {form.codeExecutor === "hermes" && form.hostExecutor !== "hermes" && (
+                  <label className="field">
+                    <span>Hermes 使用的 Provider</span>
+                    <select
+                      value={form.hermesProvider}
+                      disabled={disabled}
+                      onChange={(e) =>
+                        setField("hermesProvider", e.target.value as ApiProviderId)
+                      }
+                    >
+                      {API_PROVIDERS.map((p) => {
+                        const ok = isProviderConfigured(form.providerAccounts, p.id);
+                        return (
+                          <option key={p.id} value={p.id}>
+                            {p.label}
+                            {ok ? " ✓" : "（未填 Key）"}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </label>
+                )}
                 <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.codeExecutor]}</p>
               </SectionCard>
             </>

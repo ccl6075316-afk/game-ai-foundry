@@ -86,7 +86,7 @@
     "proxy": "http://127.0.0.1:7897"
   },
   "godot": {
-    "engine_path": "E:\\Godot_v4.6.1-stable_mono_win64\\Godot_v4.6.1-stable_mono_win64_console.exe",
+    "engine_path": "",
     "import_trim_lead": true,
     "import_trim_trail": true,
     "import_skip_lead_ratio": 0.25,
@@ -96,7 +96,8 @@
     "bin_dir": "~/.gamefactory/toolchain/bin"
   },
   "agents": {
-    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator" },
+    "hermes_provider": "openrouter",
+    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter" },
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
     "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },

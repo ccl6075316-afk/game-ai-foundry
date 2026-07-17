@@ -524,28 +524,37 @@ Do **not** run `require_pure_white_background` on video frames.
 
 Run **all** `gamefactory` commands from the CLI directory. Use `pty=true`.
 
+Resolve `<GAMEFACTORY_ROOT>` on this machine with:
+
+```bash
+cd cli && python gamefactory.py hermes paths
+```
+
+(`repo_root` / `cli_dir` in that JSON). Or set env `GAMEFACTORY_ROOT` to the Foundry repo/app root.
+`hermes install` stamps the real paths into `~/.hermes/skills` for local use; **Release / git sources stay portable.**
+
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py <subcommand> ...",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd <GAMEFACTORY_ROOT>/cli && python gamefactory.py <subcommand> ...",
+  workdir="<GAMEFACTORY_ROOT>",
   pty=true,
 )
 ```
 
 Environment (optional):
 
-- `GAMEFACTORY_ROOT=/Users/czl/projects/game-ai-foundry`
+- `GAMEFACTORY_ROOT=<GAMEFACTORY_ROOT>`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-- OpenRouter proxy (macOS Clash): `http://127.0.0.1:7897` in config `image.proxy` / `prompt.proxy`
+- OpenRouter proxy (if needed): set `image.proxy` / `prompt.proxy` (e.g. local Clash `http://127.0.0.1:7897`)
 
 **Codex one-shot** (from Hermes):
 
 ```text
 terminal(
-  command="cd /Users/czl/projects/game-ai-foundry/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
-  workdir="/Users/czl/projects/game-ai-foundry",
+  command="cd <GAMEFACTORY_ROOT>/cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4",
+  workdir="<GAMEFACTORY_ROOT>",
   pty=true,
 )
 ```
 
-Or delegate long work: `codex exec --full-auto '...'` with `workdir="/Users/czl/projects/game-ai-foundry"`.
+Or delegate long work: `codex exec --full-auto '...'` with `workdir="<GAMEFACTORY_ROOT>"`.

@@ -2,12 +2,12 @@
 
 **AI-driven game factory** — describe a game → freeze **brief JSON** → generate assets → Godot project → iterate with AI colleagues.
 
-**Latest:** [**v0.0.4**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.4) — **AI 公司对话前台**（策划 / 项目经理 / 程序员）
+**Latest:** [**v0.0.5**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.5) — 协作稳定性修复（同事隔离 / Hermes Provider / Windows Agent 编码）
 
 **GUI**（`start-gui.bat` / `start-gui.sh`）或 **CLI**（`cd cli && python gamefactory.py`）。七角色 skills + Hermes / Codex / Cursor 执行器。
 
 文档索引 → [`docs/README.md`](docs/README.md)
-
+    10|
 ## How it works
 
 ```
@@ -17,14 +17,14 @@
   └─ 程序员同事   → 接 handoff → 改 Godot C# → validate
          │
 brief.json → production.json → scaffold
-         → pipeline run → assemble → games/
+    20|         → pipeline run → assemble → games/
          → validate / test unit / play / regression
 ```
 
 产品心智 → [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)  
 改需求 / Delta → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 
-## Features (v0.0.4)
+## Features (v0.0.5)
 
 ### GUI — AI 公司前台
 
@@ -66,14 +66,14 @@ brief.json → production.json → scaffold
 
 ### Release（最终用户）
 
-1. 下载 [**v0.0.4 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.4)（macOS arm64 zip；Windows 待补传）
+1. 下载 [**v0.0.5 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.5)
 2. 解压 / 打开 **Game AI Foundry**
 3. **设置** → 填 LLM API Key；等待顶部芯片变绿（FFmpeg / Godot / .NET）
-4. **（推荐）环境 → 执行器** → Hermes / Codex / Cursor Agent
+4. **（推荐）环境 → 执行器** → Hermes / Codex / Cursor Agent（Hermes 在角色页可选 Provider 后同步）
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts`
 6. 试玩问题找**项目经理**；改需求用 `/delta 00x-name | 描述`
 
-说明 → [`docs/RELEASE-NOTES-0.0.4.md`](docs/RELEASE-NOTES-0.0.4.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
+说明 → [`docs/RELEASE-NOTES-0.0.5.md`](docs/RELEASE-NOTES-0.0.5.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
 
 **无需**安装 Python / Node。
 

@@ -124,7 +124,18 @@ def setup_executor_status_cmd(as_json: bool) -> None:
 @click.argument("executor_id")
 @click.argument("step_id")
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
-def setup_executor_step_cmd(executor_id: str, step_id: str, as_json: bool) -> None:
+@click.option(
+    "--provider",
+    "provider_id",
+    default=None,
+    help="Hermes configure_api: Foundry provider id (openrouter/deepseek/kimi/…); default=host.provider.",
+)
+def setup_executor_step_cmd(
+    executor_id: str,
+    step_id: str,
+    as_json: bool,
+    provider_id: str | None,
+) -> None:
     """Run one executor setup step (install_cli, login, configure_api, …)."""
     try:
 
@@ -134,11 +145,18 @@ def setup_executor_step_cmd(executor_id: str, step_id: str, as_json: bool) -> No
             else:
                 click.echo(json.dumps({"progress": msg}, ensure_ascii=False), err=True)
 
-        result = run_executor_step(executor_id, step_id, progress=_progress)
+        result = run_executor_step(
+            executor_id,
+            step_id,
+            progress=_progress,
+            provider_id=provider_id,
+        )
         if as_json:
             click.echo(json.dumps(result, ensure_ascii=False, indent=2))
         else:
             click.echo(f"完成 {executor_id}/{step_id}")
+            if result.get("message"):
+                click.echo(result["message"])
     except Exception as exc:
         if as_json:
             click.echo(json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False))
