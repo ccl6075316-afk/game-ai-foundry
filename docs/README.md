@@ -26,7 +26,8 @@
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、执行器、最低 vs 推荐** | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
-| [`RELEASE-NOTES-0.0.2.md`](RELEASE-NOTES-0.0.2.md) | 用户 | v0.0.2 新功能与变更 | — |
+| [`RELEASE-NOTES-0.0.4.md`](RELEASE-NOTES-0.0.4.md) | 用户 | **v0.0.4** 新功能与下载 | — |
+| [`RELEASE-NOTES-0.0.3.md`](RELEASE-NOTES-0.0.3.md) | 用户 | v0.0.3 construction harness | — |
 | [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 铁律 | 细节 |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **进度、里程碑 %** | 命令复制块 |
 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | **`pipeline run` 阶段** | GUI |
