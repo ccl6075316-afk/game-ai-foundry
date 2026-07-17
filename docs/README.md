@@ -47,7 +47,7 @@
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.0.2
+发 Release         → RELEASE + RELEASE-NOTES-0.0.4
 ```
 
 ## 设计 vs 施工（一句话）
