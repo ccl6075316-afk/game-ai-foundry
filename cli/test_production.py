@@ -17,7 +17,30 @@ from test_fixtures import EXAMPLE_BRIEF, write_brief
 
 
 class ProductionDeriveTest(unittest.TestCase):
-    def test_derive_from_example_brief(self) -> None:
+    def test_apply_delta_appends_tasks(self) -> None:
+        from production import apply_production_delta, create_production_delta, derive_production
+
+        data = derive_production(EXAMPLE_BRIEF)
+        before = len(data["production_doc"]["godot_tasks"])
+        delta = create_production_delta(
+            change_id="002-double-jump",
+            user_intent="Add double jump after forest",
+            godot_tasks=["Add double jump ability", "Gate by forest reward"],
+            acceptance_criteria=["Double jump works after forest"],
+        )
+        merged = apply_production_delta(data, delta)
+        after = len(merged["production_doc"]["godot_tasks"])
+        self.assertEqual(after, before + 2)
+        self.assertTrue(
+            any(t.get("source_change_id") == "002-double-jump" for t in merged["production_doc"]["godot_tasks"])
+        )
+        self.assertIn(
+            "Double jump works after forest",
+            merged["production_doc"]["validation"]["acceptance_criteria"],
+        )
+        errors = validate_production(merged, brief_path=EXAMPLE_BRIEF)
+        self.assertEqual(errors, [])
+
         data = derive_production(EXAMPLE_BRIEF)
         self.assertEqual(
             data["production_meta"]["schema_version"],

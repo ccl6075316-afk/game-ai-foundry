@@ -32,16 +32,19 @@ export function newMessageId(): string {
   return `msg-${Date.now()}-${seq}`;
 }
 
-export interface BriefBrainstormResult {
+export interface HostChatResult {
   session_path?: string;
+  session_id?: string;
   assistant_message: string;
   choices?: string[];
   draft_brief?: { project?: Record<string, unknown>; assets?: unknown[] };
   ready_to_export?: boolean;
   message_count?: number;
+  mode?: string;
+  intent_hint?: string;
 }
 
-export interface BriefBrainstormStatus {
+export interface HostChatStatus {
   exists: boolean;
   id?: string;
   ready_to_export?: boolean;
@@ -49,19 +52,13 @@ export interface BriefBrainstormStatus {
   title?: string;
   asset_count?: number;
   last_choices?: string[];
+  mode?: string;
+  has_summary?: boolean;
 }
 
 export function parseRunFlags(text: string): { runPrompts: boolean } {
   return { runPrompts: /\s--run-prompts\b/i.test(text.trim()) };
 }
-
-export const SUGGESTIONS = [
-  { label: "策划 Brief", desc: "多轮对话澄清需求，生成 brief", cmd: "/brief" },
-  { label: "检测环境", desc: "doctor 探测 + 工具栏安装", cmd: "/doctor" },
-  { label: "命令指南", desc: "GUI 指令与 CLI 速查", cmd: "/guide" },
-  { label: "生成流水线", desc: "基于当前 brief 生成 manifest", cmd: "/plan" },
-  { label: "运行 Pipeline", desc: "执行资产生成；可加 --run-prompts", cmd: "/run" },
-] as const;
 
 export function parseChatCommand(text: string): string | null {
   const t = text.trim();

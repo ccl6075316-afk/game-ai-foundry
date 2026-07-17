@@ -441,23 +441,6 @@ def dev_context_cmd(
         sys.exit(1)
 
 
-@click.command("inject")
-@click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
-              help="Godot project directory.")
-@click.option("--file", "file_path", required=True, type=click.Path(path_type=Path),
-              help="Target file path relative to project root.")
-@click.option("--content", default=None, help="File content. If not provided, reads from stdin.")
-def inject_cmd(project_path: Path, file_path: Path, content: str | None) -> None:
-    """Write a file into a Godot project."""
-    if content is None:
-        content = sys.stdin.read()
-
-    target = project_path / file_path
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(content, encoding="utf-8")
-    click.echo(str(target.resolve()))
-
-
 @click.command("screenshot")
 @click.option(
     "--project",

@@ -1,15 +1,25 @@
 import { useEffect, useRef } from "react";
 import type { ChatMessage } from "../chat/types";
-import { SUGGESTIONS } from "../chat/types";
+import type { RoleSuggestion } from "../chat/roles";
 import { MessageMedia } from "./MessageMedia";
 
 interface Props {
   messages: ChatMessage[];
   busy: boolean;
   onSuggestion: (cmd: string) => void;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  suggestions?: RoleSuggestion[];
 }
 
-export function ChatView({ messages, busy, onSuggestion }: Props) {
+export function ChatView({
+  messages,
+  busy,
+  onSuggestion,
+  heroTitle = "今天想做什么游戏？",
+  heroSubtitle = "从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。",
+  suggestions = [],
+}: Props) {
   const endRef = useRef<HTMLDivElement>(null);
   const hasConversation = messages.some((m) => m.role === "user" || m.role === "log");
   const showHero = !hasConversation && !busy;
@@ -32,24 +42,24 @@ export function ChatView({ messages, busy, onSuggestion }: Props) {
               />
             </svg>
           </div>
-          <h1 className="chat-hero__title">今天想做什么游戏？</h1>
-          <p className="chat-hero__subtitle">
-            从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。
-          </p>
-          <div className="chat-hero__suggestions">
-            {SUGGESTIONS.map(({ label, desc, cmd }) => (
-              <button
-                key={cmd}
-                type="button"
-                className="suggestion"
-                disabled={busy}
-                onClick={() => onSuggestion(cmd)}
-              >
-                <span className="suggestion__label">{label}</span>
-                <span className="suggestion__desc">{desc}</span>
-              </button>
-            ))}
-          </div>
+          <h1 className="chat-hero__title">{heroTitle}</h1>
+          <p className="chat-hero__subtitle">{heroSubtitle}</p>
+          {suggestions.length > 0 && (
+            <div className="chat-hero__suggestions">
+              {suggestions.map(({ label, desc, cmd }) => (
+                <button
+                  key={cmd}
+                  type="button"
+                  className="suggestion"
+                  disabled={busy}
+                  onClick={() => onSuggestion(cmd)}
+                >
+                  <span className="suggestion__label">{label}</span>
+                  <span className="suggestion__desc">{desc}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <>

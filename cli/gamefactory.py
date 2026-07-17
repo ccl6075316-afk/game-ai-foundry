@@ -399,19 +399,6 @@ from prompt_cmds import register_prompt_commands  # noqa: E402
 register_prompt_commands(prompt, resolve_prompt_api_settings)
 
 
-@image.command("plan")
-@click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
-@click.option("--asset", default=None)
-@click.option("--animation", is_flag=True)
-def plan_deprecated(brief_path: Path, asset: str | None, animation: bool) -> None:
-    """Deprecated — use `prompt craft` or `prompt scaffold`."""
-    click.echo(
-        "Deprecated: use `prompt craft` (prompt-crafter) or `prompt scaffold`.",
-        err=True,
-    )
-    sys.exit(1)
-
-
 @image.command("validate")
 @click.option(
     "--input",
@@ -562,7 +549,6 @@ from godot_cmds import (
     export_cmd,
     import_sprites_cmd,
     init_cmd,
-    inject_cmd,
     open_cmd,
     scaffold_cmd,
     screenshot_cmd as godot_screenshot_cmd,
@@ -573,7 +559,6 @@ godot.add_command(import_sprites_cmd)
 godot.add_command(assemble_cmd)
 godot.add_command(scaffold_cmd)
 godot.add_command(dev_context_cmd)
-godot.add_command(inject_cmd)
 godot.add_command(godot_screenshot_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)
@@ -586,6 +571,10 @@ cli.add_command(test_group)
 from brief_cmds import register_brief_commands  # noqa: E402
 
 register_brief_commands(cli)
+
+from agent_cmds import register_agent_commands  # noqa: E402
+
+register_agent_commands(cli)
 
 from production_cmds import register_production_commands  # noqa: E402
 

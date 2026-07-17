@@ -458,3 +458,121 @@ def save_production(data: dict[str, Any], output_path: Path) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return output_path.resolve()
+
+
+def default_delta_path(change_id: str) -> Path:
+    safe = re.sub(r"[^a-zA-Z0-9._-]+", "-", (change_id or "change").strip()).strip("-") or "change"
+    return Path("..") / "plans" / "changes" / f"{safe}.production-delta.json"
+
+
+def create_production_delta(
+    *,
+    change_id: str,
+    user_intent: str,
+    asset_tasks: list[str] | None = None,
+    godot_tasks: list[str] | None = None,
+    preserve: list[str] | None = None,
+    do_not_touch: list[str] | None = None,
+    acceptance_criteria: list[str] | None = None,
+) -> dict[str, Any]:
+    """Build a Production Delta document (construction plan for one Change Request)."""
+    cid = (change_id or "").strip()
+    if not cid:
+        raise ValueError("change_id is required")
+    intent = (user_intent or "").strip()
+    if not intent:
+        raise ValueError("user_intent is required")
+    gtasks = [str(t).strip() for t in (godot_tasks or []) if str(t).strip()]
+    if not gtasks:
+        # One placeholder task from intent so apply can create a progress-facing id
+        gtasks = [f"Implement: {intent[:80]}"]
+    return {
+        "change_request": {
+            "source": "user_feedback",
+            "user_intent": intent,
+            "design_delta": {},
+        },
+        "production_delta": {
+            "change_id": cid,
+            "created_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+            "asset_tasks": [str(a).strip() for a in (asset_tasks or []) if str(a).strip()],
+            "godot_tasks": gtasks,
+            "preserve": list(preserve or ["existing accepted gameplay unless explicitly changed"]),
+            "do_not_touch": list(do_not_touch or ["unrelated input mappings", "unrelated asset paths"]),
+            "acceptance_criteria": [
+                str(c).strip()
+                for c in (acceptance_criteria or [f"User intent satisfied: {intent[:100]}"])
+                if str(c).strip()
+            ],
+        },
+    }
+
+
+def apply_production_delta(production: dict[str, Any], delta: dict[str, Any]) -> dict[str, Any]:
+    """Merge Production Delta into production_doc (append godot_tasks + acceptance).
+
+    Returns a new production dict (does not mutate input).
+    """
+    import copy
+
+    out = copy.deepcopy(production)
+    doc = out.setdefault("production_doc", {})
+    if not isinstance(doc, dict):
+        raise ValueError("production_doc must be an object")
+    pd = delta.get("production_delta") if isinstance(delta.get("production_delta"), dict) else {}
+    if not pd:
+        raise ValueError("missing production_delta object")
+    change_id = str(pd.get("change_id") or "change").strip()
+    safe = re.sub(r"[^a-zA-Z0-9_]+", "_", change_id).strip("_")[:40] or "change"
+
+    existing = doc.get("godot_tasks") if isinstance(doc.get("godot_tasks"), list) else []
+    existing_ids = {
+        str(t.get("id")) for t in existing if isinstance(t, dict) and t.get("id")
+    }
+    new_tasks: list[dict[str, Any]] = []
+    for i, title in enumerate(pd.get("godot_tasks") or []):
+        title_s = str(title).strip()
+        if not title_s:
+            continue
+        tid = f"delta_{safe}_{i + 1}"
+        n = 1
+        while tid in existing_ids:
+            n += 1
+            tid = f"delta_{safe}_{i + 1}_{n}"
+        existing_ids.add(tid)
+        new_tasks.append(
+            {
+                "id": tid,
+                "title": title_s,
+                "status": "pending",
+                "depends_on": [],
+                "verify": list(pd.get("acceptance_criteria") or [])[:3] or [title_s],
+                "source_change_id": change_id,
+            }
+        )
+    doc["godot_tasks"] = list(existing) + new_tasks
+
+    val = doc.setdefault("validation", {})
+    if not isinstance(val, dict):
+        val = {}
+        doc["validation"] = val
+    criteria = val.get("acceptance_criteria") if isinstance(val.get("acceptance_criteria"), list) else []
+    for c in pd.get("acceptance_criteria") or []:
+        cs = str(c).strip()
+        if cs and cs not in criteria:
+            criteria.append(cs)
+    val["acceptance_criteria"] = criteria
+
+    meta = out.setdefault("production_meta", {})
+    if isinstance(meta, dict):
+        applied = meta.setdefault("applied_deltas", [])
+        if isinstance(applied, list):
+            applied.append(
+                {
+                    "change_id": change_id,
+                    "applied_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+                    "tasks_added": [t["id"] for t in new_tasks],
+                    "asset_tasks": list(pd.get("asset_tasks") or []),
+                }
+            )
+    return out

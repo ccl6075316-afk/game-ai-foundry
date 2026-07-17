@@ -1,0 +1,643 @@
+"""GUI Agent turn — spawn executor CLI (hermes/codex/cursor-agent), not desktop apps.
+
+Sessions: plans/conversations/{product_host|programmer}/<session_id>.json
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import re
+import shutil
+import subprocess
+import tempfile
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+from agent_routing import resolve_agent
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_CONV_ROOT = _REPO_ROOT / "plans" / "conversations"
+_PRODUCT_HOST_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "product-host.md"
+_PROGRAMMER_SKILL = _REPO_ROOT / "resources" / "skills" / "godot-developer" / "implement.md"
+
+ROLE_KINDS = frozenset({"product_host", "programmer"})
+
+# Map GUI colleague role → config.agents role key
+_ROLE_TO_AGENT: dict[str, str] = {
+    "product_host": "orchestrator",
+    "programmer": "godot-developer",
+}
+
+_HERMES_SKILL: dict[str, str] = {
+    "product_host": "game-factory-orchestrator",
+    "programmer": "game-factory-godot-developer",
+}
+
+_DEFAULT_TIMEOUT = 600
+
+
+class AgentTurnError(RuntimeError):
+    """Raised when executor CLI is missing or the turn fails."""
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def sanitize_session_id(raw: str) -> str:
+    s = (raw or "").strip()
+    if not s:
+        raise AgentTurnError("session_id is required.")
+    cleaned = re.sub(r"[^a-zA-Z0-9._-]+", "-", s).strip("-")
+    if not cleaned or cleaned in {".", ".."}:
+        raise AgentTurnError(f"Invalid session_id: {raw!r}")
+    return cleaned[:80]
+
+
+def conversations_dir(role_kind: str) -> Path:
+    if role_kind not in ROLE_KINDS:
+        raise AgentTurnError(f"Unsupported role_kind: {role_kind}")
+    return _CONV_ROOT / role_kind
+
+
+def session_path_for(role_kind: str, session_id: str) -> Path:
+    return conversations_dir(role_kind) / f"{sanitize_session_id(session_id)}.json"
+
+
+def new_session(role_kind: str, session_id: str | None = None, *, executor: str | None = None) -> dict[str, Any]:
+    if role_kind not in ROLE_KINDS:
+        raise AgentTurnError(f"Unsupported role_kind: {role_kind}")
+    sid = sanitize_session_id(session_id) if session_id else uuid.uuid4().hex[:12]
+    now = _utc_now()
+    return {
+        "id": sid,
+        "role": role_kind,
+        "executor": executor,
+        "executor_session_id": None,
+        "created_at": now,
+        "updated_at": now,
+        "messages": [],
+        "summary": "",
+    }
+
+
+def load_session(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        raise AgentTurnError(f"Session not found: {path}")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise AgentTurnError("Session file must be a JSON object.")
+    return data
+
+
+def save_session(path: Path, session: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    session["updated_at"] = _utc_now()
+    path.write_text(json.dumps(session, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def resolve_executor_for_role(role_kind: str, config: dict[str, Any], override: str | None = None) -> str:
+    if override in ("hermes", "codex", "cursor"):
+        return override
+    agent_role = _ROLE_TO_AGENT.get(role_kind, "orchestrator")
+    resolved = resolve_agent(agent_role, config)
+    executor = str(resolved.get("executor") or "hermes")
+    if executor == "pipeline":
+        executor = "hermes"
+    if executor not in ("hermes", "codex", "cursor"):
+        executor = "hermes"
+    return executor
+
+
+def _load_skill_text(role_kind: str, limit: int = 12_000) -> str:
+    path = _PRODUCT_HOST_SKILL if role_kind == "product_host" else _PROGRAMMER_SKILL
+    if path.is_file():
+        return path.read_text(encoding="utf-8")[:limit]
+    return "Follow Foundry project conventions. Reply in Chinese."
+
+
+def _snippet(path: Path | None, limit: int = 4000) -> str:
+    if not path or not path.is_file():
+        return ""
+    try:
+        return path.read_text(encoding="utf-8")[:limit]
+    except OSError:
+        return ""
+
+
+def _find_default_progress() -> Path | None:
+    plans = _REPO_ROOT / "plans"
+    if not plans.is_dir():
+        return None
+    candidates = sorted(plans.glob("progress*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return candidates[0] if candidates else None
+
+
+def _find_default_brief() -> Path | None:
+    resources = _REPO_ROOT / "resources"
+    if not resources.is_dir():
+        return None
+    briefs = [
+        p
+        for p in resources.glob("*-brief.json")
+        if p.is_file() and "example" not in p.name.lower()
+    ]
+    if not briefs:
+        briefs = list(resources.glob("*brief*.json"))
+    briefs = sorted(briefs, key=lambda p: p.stat().st_mtime, reverse=True)
+    return briefs[0] if briefs else None
+
+
+def build_prompt(
+    *,
+    role_kind: str,
+    user_message: str,
+    session: dict[str, Any],
+    brief_path: Path | None = None,
+    progress_path: Path | None = None,
+    programmer_roster: list[dict[str, str]] | None = None,
+    default_target_instance_id: str | None = None,
+    instance_id: str | None = None,
+) -> str:
+    title = "项目经理" if role_kind == "product_host" else "程序员"
+    skill = _load_skill_text(role_kind)
+    brief = brief_path or _find_default_brief()
+    progress = progress_path or _find_default_progress()
+
+    recent = list(session.get("messages") or [])[-12:]
+    history_lines: list[str] = []
+    for m in recent:
+        if not isinstance(m, dict):
+            continue
+        role = str(m.get("role") or "")
+        content = str(m.get("content") or "").strip()
+        if content:
+            history_lines.append(f"{role}: {content}")
+
+    parts = [
+        f"你是 Game AI Foundry GUI 里的「{title}」同事（role={role_kind}）。",
+        "用中文回复用户。权威信息以仓库本地文件为准，不要编造已写入磁盘的状态。",
+        f"仓库根目录：{_REPO_ROOT}",
+        "",
+        "## 角色规范",
+        skill,
+        "",
+        "## 项目文件（可读；需要细节请用工具打开完整文件）",
+    ]
+    if brief:
+        parts.append(f"- brief: {brief}")
+        snip = _snippet(brief, 2500)
+        if snip:
+            parts.append("```json")
+            parts.append(snip)
+            parts.append("```")
+    else:
+        parts.append("- brief: （未找到）")
+    if progress:
+        parts.append(f"- progress: {progress}")
+        snip = _snippet(progress, 2500)
+        if snip:
+            parts.append("```json")
+            parts.append(snip)
+            parts.append("```")
+    else:
+        parts.append("- progress: （未找到；可用 `python gamefactory.py project progress show`）")
+
+    summary = str(session.get("summary") or "").strip()
+    if summary:
+        parts.extend(["", "## 较早对话摘要", summary])
+
+    if history_lines:
+        parts.extend(["", "## 近部对话", *history_lines])
+
+    parts.extend(["", "## 用户本轮消息", user_message.strip(), ""])
+    if role_kind == "product_host":
+        roster = programmer_roster or []
+        if roster:
+            parts.append("## 可派工的程序员实例（必须从下列 id 中选 target_instance_id）")
+            for row in roster:
+                rid = str(row.get("id") or "").strip()
+                name = str(row.get("display_name") or rid).strip()
+                if rid:
+                    parts.append(f"- `{rid}` — {name}")
+            if default_target_instance_id:
+                parts.append(f"默认优先派给：`{default_target_instance_id}`（用户未指定时用此 id）")
+            parts.append("")
+        open_hos = []
+        try:
+            from handoff import list_handoffs
+
+            open_hos = list_handoffs(status="open", target_role="programmer")[:5]
+        except Exception:
+            open_hos = []
+        if open_hos:
+            parts.append("## 当前未完成 handoff（勿重复开同题单，除非用户要求）")
+            for h in open_hos:
+                tid = h.get("target_instance_id") or "（未指定/广播）"
+                parts.append(
+                    f"- [{h.get('id')}] {h.get('title')} triage={h.get('triage')} → {tid}"
+                )
+            parts.append("")
+        parts.append(
+            "请分诊（bug / 资产 / 不符 brief / 改需求），给出下一步与建议 CLI。"
+            "回复末尾必须附加一个 JSON 代码块（便于宿主落盘），格式：\n"
+            "```json\n"
+            '{"triage":"bug|asset|brief_mismatch|design_change|unknown",'
+            '"dispatch":{"to":"programmer|pipeline|brief_tab|none","task_id":null,'
+            '"target_instance_id":null,"asset_names":[],"cli_hints":[]},'
+            '"progress_note":"一句话写入 progress.memory"}\n'
+            "```\n"
+            "派给程序员时 dispatch.to 必须为 programmer，并填写 target_instance_id（上表 id）。\n"
+            "资产问题用 dispatch.to=pipeline，并在 cli_hints 写定点 pipeline 命令。"
+        )
+    else:
+        try:
+            from handoff import open_handoffs_for_prompt
+
+            hos = open_handoffs_for_prompt(limit=5, target_instance_id=instance_id)
+        except Exception:
+            hos = []
+        if hos:
+            parts.append("## 待处理 handoff（文件总线；优先处理；仅本实例或未指定目标）")
+            for doc in hos:
+                meta = doc.get("handoff_meta") if isinstance(doc.get("handoff_meta"), dict) else {}
+                parts.append(
+                    json.dumps(
+                        {
+                            "path": doc.get("_path"),
+                            "id": meta.get("id"),
+                            "target_instance_id": meta.get("target_instance_id"),
+                            "triage": doc.get("triage"),
+                            "title": doc.get("title"),
+                            "summary": doc.get("summary"),
+                            "task_id": doc.get("task_id"),
+                            "cli_hints": doc.get("cli_hints"),
+                        },
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+                )
+            parts.append("")
+        parts.append(
+            "按任务改 Godot C# / 验收；改完说明改了什么，并建议 validate/test 命令。"
+            "若完成某个 handoff，在回复末尾附加：\n"
+            '```json\n{"handoff_done":"<handoff_id>","progress_note":"可选"}\n```'
+        )
+    return "\n".join(parts)
+
+
+def _which_executor_bin(executor: str) -> str | None:
+    if executor == "hermes":
+        return shutil.which("hermes")
+    if executor == "codex":
+        return shutil.which("codex")
+    if executor == "cursor":
+        return shutil.which("agent") or shutil.which("cursor-agent")
+    return None
+
+
+def _run_cmd(
+    argv: list[str],
+    *,
+    cwd: Path,
+    timeout: int,
+    env: dict[str, str] | None = None,
+    stdin_text: str | None = None,
+) -> subprocess.CompletedProcess[str]:
+    run_env = {**os.environ, **(env or {})}
+    return subprocess.run(
+        argv,
+        cwd=str(cwd),
+        input=stdin_text,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        env=run_env,
+        check=False,
+    )
+
+
+def _extract_hermes_session_id(stdout: str, stderr: str) -> str | None:
+    blob = f"{stdout}\n{stderr}"
+    m = re.search(r"session[_ ]?id[:\s]+([a-zA-Z0-9_-]{6,})", blob, re.I)
+    if m:
+        return m.group(1)
+    m = re.search(r"\b([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\b", blob, re.I)
+    return m.group(1) if m else None
+
+
+def _clean_assistant_text(text: str) -> str:
+    t = (text or "").strip()
+    # Drop common CLI noise tails
+    t = re.sub(r"\n+Session ID:.*$", "", t, flags=re.I | re.S)
+    return t.strip()
+
+
+def run_hermes_turn(
+    prompt: str,
+    *,
+    role_kind: str,
+    executor_session_id: str | None,
+    timeout: int,
+) -> tuple[str, str | None, str]:
+    hermes = _which_executor_bin("hermes")
+    if not hermes:
+        raise AgentTurnError("未找到 hermes CLI。请在环境面板安装 Hermes，或改选其他执行器。")
+    skill = _HERMES_SKILL.get(role_kind, "game-factory-orchestrator")
+    argv = [
+        hermes,
+        "chat",
+        "-q",
+        prompt,
+        "-Q",
+        "-s",
+        skill,
+        "--yolo",
+        "--source",
+        "tool",
+        "--accept-hooks",
+    ]
+    if executor_session_id:
+        argv.extend(["--resume", executor_session_id])
+    proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout)
+    out = _clean_assistant_text(proc.stdout or "")
+    err = (proc.stderr or "").strip()
+    if proc.returncode != 0 and not out:
+        raise AgentTurnError(f"hermes 退出码 {proc.returncode}: {err or '(no stderr)'}")
+    if not out:
+        out = err or "（Hermes 无输出）"
+    sid = _extract_hermes_session_id(proc.stdout or "", proc.stderr or "") or executor_session_id
+    return out, sid, err
+
+
+def run_codex_turn(
+    prompt: str,
+    *,
+    executor_session_id: str | None,
+    timeout: int,
+    sandbox: str = "workspace-write",
+) -> tuple[str, str | None, str]:
+    codex = _which_executor_bin("codex")
+    if not codex:
+        raise AgentTurnError("未找到 codex CLI。请在环境面板安装 Codex 并完成登录。")
+
+    with tempfile.TemporaryDirectory(prefix="gaf-codex-") as tmp:
+        out_file = Path(tmp) / "last_message.txt"
+        if executor_session_id:
+            argv = [
+                codex,
+                "exec",
+                "resume",
+                executor_session_id,
+                "--sandbox",
+                sandbox,
+                "-o",
+                str(out_file),
+                "-",
+            ]
+        else:
+            argv = [
+                codex,
+                "exec",
+                "--sandbox",
+                sandbox,
+                "-C",
+                str(_REPO_ROOT),
+                "-o",
+                str(out_file),
+                "-",
+            ]
+        proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout, stdin_text=prompt)
+        err = (proc.stderr or "").strip()
+        out = ""
+        if out_file.is_file():
+            out = out_file.read_text(encoding="utf-8").strip()
+        if not out:
+            out = _clean_assistant_text(proc.stdout or "")
+        if proc.returncode != 0 and not out:
+            raise AgentTurnError(f"codex 退出码 {proc.returncode}: {err or '(no stderr)'}")
+        if not out:
+            out = err or "（Codex 无输出）"
+        # Codex may print session id in stderr; best-effort keep previous
+        sid = executor_session_id
+        m = re.search(r"session[_ ]?id[:\s]+([a-zA-Z0-9_-]{6,})", err, re.I)
+        if m:
+            sid = m.group(1)
+        return out, sid, err
+
+
+def run_cursor_turn(
+    prompt: str,
+    *,
+    executor_session_id: str | None,
+    timeout: int,
+) -> tuple[str, str | None, str]:
+    agent = _which_executor_bin("cursor")
+    if not agent:
+        raise AgentTurnError(
+            "未找到 Cursor Agent CLI（`agent` / `cursor-agent`）。"
+            "请安装 Cursor Agent shell 命令，或改用 Hermes / Codex。"
+        )
+    argv = [agent, "-p", "--output-format", "text", "--force", "--workspace", str(_REPO_ROOT)]
+    if executor_session_id:
+        argv.extend(["--resume", executor_session_id])
+    argv.append(prompt)
+    proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout)
+    out = _clean_assistant_text(proc.stdout or "")
+    err = (proc.stderr or "").strip()
+    if proc.returncode != 0 and not out:
+        raise AgentTurnError(f"cursor agent 退出码 {proc.returncode}: {err or '(no stderr)'}")
+    if not out:
+        # json format fallback parse
+        raw = (proc.stdout or "").strip()
+        if raw.startswith("{"):
+            try:
+                data = json.loads(raw)
+                out = str(data.get("result") or data.get("message") or data.get("text") or raw)
+            except json.JSONDecodeError:
+                out = raw
+        else:
+            out = err or "（Cursor Agent 无输出）"
+    sid = executor_session_id
+    m = re.search(r"chatId[\"'\s:]+([a-zA-Z0-9_-]+)", f"{proc.stdout}\n{err}")
+    if m:
+        sid = m.group(1)
+    return out, sid, err
+
+
+def run_executor_turn(
+    executor: str,
+    prompt: str,
+    *,
+    role_kind: str,
+    executor_session_id: str | None,
+    timeout: int = _DEFAULT_TIMEOUT,
+) -> tuple[str, str | None, str]:
+    if executor == "hermes":
+        return run_hermes_turn(
+            prompt, role_kind=role_kind, executor_session_id=executor_session_id, timeout=timeout
+        )
+    if executor == "codex":
+        return run_codex_turn(prompt, executor_session_id=executor_session_id, timeout=timeout)
+    if executor == "cursor":
+        return run_cursor_turn(prompt, executor_session_id=executor_session_id, timeout=timeout)
+    raise AgentTurnError(f"Unsupported executor: {executor}")
+
+
+def run_turn(
+    *,
+    role_kind: str,
+    session_id: str,
+    message: str,
+    config: dict[str, Any],
+    executor: str | None = None,
+    brief_path: Path | None = None,
+    progress_path: Path | None = None,
+    timeout: int = _DEFAULT_TIMEOUT,
+    instance_id: str | None = None,
+    programmer_roster: list[dict[str, str]] | None = None,
+    default_target_instance_id: str | None = None,
+) -> dict[str, Any]:
+    """Append user message, call executor CLI, persist, return GUI payload."""
+    if role_kind not in ROLE_KINDS:
+        raise AgentTurnError(f"Unsupported role_kind: {role_kind}")
+    if not message or not str(message).strip():
+        raise AgentTurnError("message is required.")
+
+    path = session_path_for(role_kind, session_id)
+    if path.is_file():
+        session = load_session(path)
+    else:
+        session = new_session(role_kind, session_id)
+
+    chosen = resolve_executor_for_role(role_kind, config, executor)
+    session["executor"] = chosen
+
+    user_text = message.strip()
+    messages = list(session.get("messages") or [])
+    messages.append({"role": "user", "content": user_text, "ts": _utc_now()})
+    session["messages"] = messages
+
+    prompt = build_prompt(
+        role_kind=role_kind,
+        user_message=user_text,
+        session=session,
+        brief_path=brief_path,
+        progress_path=progress_path,
+        programmer_roster=programmer_roster,
+        default_target_instance_id=default_target_instance_id,
+        instance_id=instance_id,
+    )
+
+    assistant, exec_sid, stderr_tail = run_executor_turn(
+        chosen,
+        prompt,
+        role_kind=role_kind,
+        executor_session_id=session.get("executor_session_id"),
+        timeout=timeout,
+    )
+    if exec_sid:
+        session["executor_session_id"] = exec_sid
+
+    brief = brief_path or _find_default_brief()
+    progress = progress_path or _find_default_progress()
+    dispatch_result: dict[str, Any] | None = None
+    display_message = assistant
+
+    try:
+        from handoff import (
+            apply_product_host_dispatch,
+            apply_programmer_done,
+            extract_dispatch_payload,
+            strip_dispatch_fence,
+        )
+
+        payload = extract_dispatch_payload(assistant)
+        if role_kind == "product_host" and payload:
+            display_message = strip_dispatch_fence(assistant)
+            dispatch_result = apply_product_host_dispatch(
+                payload,
+                assistant_message=display_message,
+                progress_path=progress,
+                brief_path=brief,
+                from_session_id=str(session.get("id") or session_id),
+                default_target_instance_id=default_target_instance_id,
+            )
+            bits: list[str] = []
+            if dispatch_result.get("handoff_path"):
+                tid = dispatch_result.get("target_instance_id")
+                bits.append(
+                    f"已写 handoff：`{dispatch_result['handoff_path']}`"
+                    + (f"（目标实例 `{tid}`）" if tid else "")
+                )
+            if dispatch_result.get("progress_note_written") and progress and progress.is_file():
+                bits.append(f"已记 progress：`{progress}`")
+            if dispatch_result.get("task_updated"):
+                bits.append(f"task `{dispatch_result['task_updated']}` → in_progress")
+            if dispatch_result.get("dispatch_to") == "pipeline":
+                bits.append("分诊为资产/pipeline：请按下方建议命令定点重跑")
+            actions = dispatch_result.get("next_actions") or []
+            if actions:
+                bits.append("建议命令：\n- " + "\n- ".join(str(a) for a in actions[:6]))
+            if bits:
+                display_message = display_message + "\n\n—— " + "；".join(bits)
+        elif role_kind == "programmer" and payload:
+            display_message = strip_dispatch_fence(assistant)
+            done_id = payload.get("handoff_done")
+            if done_id:
+                try:
+                    done = apply_programmer_done(
+                        str(done_id),
+                        progress_path=progress,
+                        progress_note=str(payload.get("progress_note") or "").strip() or None,
+                    )
+                    dispatch_result = done
+                    display_message += f"\n\n—— handoff `{done_id}` 已标为 done"
+                    if done.get("task_done"):
+                        display_message += f"；task `{done['task_done']}` → done"
+                except Exception as exc:  # noqa: BLE001
+                    dispatch_result = {"handoff_done": done_id, "error": str(exc)}
+                    display_message += f"\n\n—— 关单失败：{exc}"
+            else:
+                dispatch_result = {"payload": payload}
+    except Exception as exc:  # noqa: BLE001 — never fail the chat on handoff IO
+        dispatch_result = {"error": str(exc)}
+
+    messages.append({"role": "assistant", "content": display_message, "ts": _utc_now()})
+    session["messages"] = messages
+    save_session(path, session)
+
+    out: dict[str, Any] = {
+        "ok": True,
+        "status": "ok",
+        "role_kind": role_kind,
+        "session_id": session.get("id"),
+        "session_path": str(path.resolve()),
+        "executor": chosen,
+        "executor_session_id": session.get("executor_session_id"),
+        "assistant_message": display_message,
+        "message_count": len(messages),
+        "stderr_tail": (stderr_tail or "")[-2000:],
+    }
+    if dispatch_result:
+        out["dispatch"] = dispatch_result
+    return out
+
+
+def session_status(role_kind: str, session_id: str) -> dict[str, Any]:
+    path = session_path_for(role_kind, session_id)
+    if not path.is_file():
+        return {"exists": False, "session_id": sanitize_session_id(session_id), "role_kind": role_kind}
+    session = load_session(path)
+    return {
+        "exists": True,
+        "session_id": session.get("id"),
+        "role_kind": session.get("role") or role_kind,
+        "executor": session.get("executor"),
+        "executor_session_id": session.get("executor_session_id"),
+        "message_count": len(session.get("messages") or []),
+        "session_path": str(path.resolve()),
+    }

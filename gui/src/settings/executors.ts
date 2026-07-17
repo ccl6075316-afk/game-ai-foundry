@@ -68,7 +68,7 @@ export function executorUsesLogin(id: AgentExecutor): boolean {
 }
 
 export const EXECUTOR_LOGIN_HINTS: Record<AgentExecutor, string> = {
-  codex: "在环境面板点击「安装」与「浏览器登录」即可完成 Codex 配置，无需填 API Key。",
-  cursor: "在环境面板打开 Cursor 下载页并检测 CLI；IDE 内登录订阅账号即可。",
-  hermes: "在环境面板分步安装 Hermes、Skills，并一键同步 OpenRouter API。",
+  codex: "在环境面板安装 Codex CLI 并浏览器登录。GUI 聊天走 `codex exec`，不开桌面 App。",
+  cursor: "安装 Cursor Agent shell 命令（`agent` / `cursor-agent`）。GUI 走 Agent CLI，不是打开 IDE 窗口回信。",
+  hermes: "在环境面板安装 Hermes CLI、Skills，并同步 API。GUI 走 `hermes chat -q`。",
 };

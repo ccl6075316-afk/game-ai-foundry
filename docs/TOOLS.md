@@ -201,15 +201,15 @@ python gamefactory.py setup executor step cursor verify_cli
 | **安装** | 安装 Cursor IDE；命令面板安装 `cursor` shell 命令 |
 | **登录** | Cursor 订阅账号 |
 
-### 5.4 执行器 vs GUI 聊天
+### 5.4 执行器 vs GUI 同事对话
 
-| 能力 | GUI 主聊天 | 执行器 Agent |
-|------|------------|--------------|
-| Brief 多轮 | ✅ 直连 LLM API | ✅ orchestrator skill |
-| `/doctor` `/plan` `/run` | ✅ 固定斜杠命令 | ✅ 任意 terminal 命令 |
-| 读日志改 config 排错 | ❌ | ✅ |
-| 委派 prompt-crafter / tester | ❌ | ✅ |
-| 写 Godot C# | ❌ | ✅ Codex/Cursor |
+| 能力 | GUI ① 策划（薄 Chat） | GUI ②③（executor） | 外置 Agent |
+|------|----------------------|---------------------|------------|
+| Brief 多轮 / 落实 | ✅ `brief chat` | ❌（找策划岗） | ✅ orchestrator skill / brainstorm 兼容 |
+| 分诊派工 / 写 handoff | ❌ | ✅ `agent turn` | ✅ 可读 `plans/handoffs/` |
+| 写 Godot C# | ❌ | ✅ 程序员实例 | ✅ Codex/Cursor |
+| `/doctor` `/plan` `/run` | ✅ 斜杠命令 | 可经 Agent 调 CLI | ✅ 任意 terminal |
+| 读日志改 config 排错 | ❌ | 部分 | ✅ |
 
 ---
 
@@ -219,10 +219,19 @@ python gamefactory.py setup executor step cursor verify_cli
 # 配置
 python gamefactory.py doctor --json
 
-# Brief
+# Brief（GUI / 主路径）
+python gamefactory.py brief chat start --json
+python gamefactory.py brief chat turn --message "..." --json
+python gamefactory.py brief chat export -o ../resources/my-game-brief.json
+
+# Brief（CLI 兼容，问卷式）
 python gamefactory.py brief brainstorm start --json
 python gamefactory.py brief brainstorm turn --message "..." --json
 python gamefactory.py brief brainstorm export -o ../resources/my-game-brief.json
+
+# Agent 同事 turn（项目经理 / 程序员）
+python gamefactory.py agent turn --role product_host --session-id demo --message "..." --json
+python gamefactory.py project handoff list --json
 
 # Pipeline
 python gamefactory.py pipeline plan --brief ../resources/my-game-brief.json
@@ -286,7 +295,8 @@ python gamefactory.py test run --project ../games/my-game-brief --brief ../resou
 □ （推荐）安装 Hermes + gamefactory hermes install，configure_api
 □ （可选）安装 Codex + login，用于 godot-developer
 □ 加载 resources/skills/orchestrator/ 或 Hermes skill game-factory-orchestrator
-□ 从 brief brainstorm export 开始，禁止跳过 frozen brief 门禁
+□ 从 brief chat export（或兼容 brainstorm export）开始，禁止跳过 frozen brief 门禁
+□ GUI 修改场景：找项目经理同事 → 分诊落盘 handoff → 程序员接单（见 HOST-CHAT-PRODUCT）
 ```
 
 ---
@@ -295,6 +305,7 @@ python gamefactory.py test run --project ../games/my-game-brief --brief ../resou
 
 | 文档 | 何时读 |
 |------|--------|
+| [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | GUI AI 公司前台、工种与文件总线 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI 用户配 Provider / 执行器 |
 | [`AI-HANDOFF.md`](AI-HANDOFF.md) | brief 字段、pipeline 铁律 |
 | [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 七角色与 executor 表 |

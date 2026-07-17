@@ -4,6 +4,8 @@ interface Props {
   disabled: boolean;
   choices?: string[];
   readyToExport?: boolean;
+  placeholder?: string;
+  hint?: string;
   onSend: (text: string) => void;
   onChoice?: (text: string) => void;
   onExportBrief?: () => void;
@@ -13,6 +15,8 @@ export function ChatInput({
   disabled,
   choices = [],
   readyToExport,
+  placeholder = "描述游戏想法，或输入 /brief /doctor /plan …",
+  hint = "Enter 发送 · `/run --run-prompts` 含文案生成 · `/brief save 名称` 导出",
   onSend,
   onChoice,
   onExportBrief,
@@ -75,7 +79,7 @@ export function ChatInput({
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="描述游戏想法，或输入 /brief /doctor /plan …"
+          placeholder={placeholder}
           rows={1}
           disabled={disabled}
         />
@@ -96,7 +100,7 @@ export function ChatInput({
           </svg>
         </button>
       </form>
-      <p className="composer__hint">Enter 发送 · `/run --run-prompts` 含文案生成 · `/brief save 名称` 导出</p>
+      <p className="composer__hint">{hint}</p>
     </div>
   );
 }

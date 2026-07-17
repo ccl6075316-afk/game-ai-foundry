@@ -540,8 +540,8 @@ app.whenReady().then(() => {
     return { ok: true, path: relToRepo(abs) };
   });
 
-  ipcMain.handle("brief-brainstorm-start", async (_e, seed) => {
-    const args = ["brief", "brainstorm", "start", "--json"];
+  ipcMain.handle("host-chat-start", async (_e, sessionId, seed) => {
+    const args = ["brief", "chat", "start", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
     }
@@ -549,11 +549,13 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("brief-brainstorm-turn", async (_e, message) => {
+  ipcMain.handle("host-chat-turn", async (_e, sessionId, message) => {
     const result = await runCli([
       "brief",
-      "brainstorm",
+      "chat",
       "turn",
+      "--session-id",
+      String(sessionId || "").trim(),
       "--message",
       String(message),
       "--json",
@@ -561,8 +563,8 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("brief-brainstorm-reset", async (_e, seed) => {
-    const args = ["brief", "brainstorm", "reset", "--json"];
+  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed) => {
+    const args = ["brief", "chat", "reset", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
     }
@@ -570,11 +572,13 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("brief-brainstorm-export", async (_e, outputRel) => {
+  ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel) => {
     const result = await runCli([
       "brief",
-      "brainstorm",
+      "chat",
       "export",
+      "--session-id",
+      String(sessionId || "").trim(),
       "-o",
       outputRel,
       "--json",
@@ -582,14 +586,152 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("brief-brainstorm-status", async () => {
-    const sessionAbs = path.join(repoRoot(), "plans", "brainstorm-session.json");
-    if (!existsSync(sessionAbs)) {
+  ipcMain.handle("host-chat-status", async (_e, sessionId) => {
+    const sid = String(sessionId || "").trim();
+    if (!sid) {
       return { exitCode: 0, data: { exists: false } };
     }
-    const result = await runCli(["brief", "brainstorm", "status", "--json"]);
+    const result = await runCli(["brief", "chat", "status", "--session-id", sid, "--json"]);
     const data = parseJsonFromOutput(result.stdout);
-    return { ...result, data: data ? { exists: true, ...data } : { exists: false } };
+    if (!data) {
+      return { ...result, data: { exists: false, id: sid } };
+    }
+    return { ...result, data: { exists: data.exists !== false, ...data } };
+  });
+
+  ipcMain.handle("agent-turn", async (event, opts = {}) => {
+    const role = String(opts.role || "").trim();
+    const sessionId = String(opts.sessionId || "").trim();
+    const message = String(opts.message || "");
+    const args = [
+      "agent",
+      "turn",
+      "--role",
+      role,
+      "--session-id",
+      sessionId,
+      "--message",
+      message,
+      "--json",
+    ];
+    if (opts.executor) {
+      args.push("--executor", String(opts.executor));
+    }
+    if (opts.brief) {
+      args.push("--brief", String(opts.brief));
+    }
+    if (opts.progress) {
+      args.push("--progress", String(opts.progress));
+    }
+    if (opts.instanceId) {
+      args.push("--instance-id", String(opts.instanceId));
+    }
+    if (opts.targetInstanceId) {
+      args.push("--target-instance-id", String(opts.targetInstanceId));
+    }
+    if (opts.rosterJson) {
+      args.push("--roster-json", String(opts.rosterJson));
+    }
+    if (opts.timeout) {
+      args.push("--timeout", String(opts.timeout));
+    }
+    const sender = event.sender;
+    const result = await runCli(args, {
+      onLine: (line, stream) => {
+        sender.send("pipeline-log", { line, stream, source: "agent" });
+      },
+    });
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("agent-status", async (_e, role, sessionId) => {
+    const result = await runCli([
+      "agent",
+      "status",
+      "--role",
+      String(role || "").trim(),
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--json",
+    ]);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("handoff-list", async (_e, status = "open", targetInstanceId = null) => {
+    const st = String(status || "open");
+    const args = ["project", "handoff", "list", "--json"];
+    if (st && st !== "open") {
+      args.push("--status", st);
+    } else {
+      args.push("--status", "open");
+    }
+    if (targetInstanceId) {
+      args.push("--target-instance-id", String(targetInstanceId));
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("production-delta", async (_e, opts = {}) => {
+    const changeId = String(opts.changeId || "").trim();
+    const intent = String(opts.intent || "").trim();
+    const args = [
+      "production",
+      "delta",
+      "--change-id",
+      changeId,
+      "--intent",
+      intent,
+      "--json",
+    ];
+    for (const t of opts.tasks || []) {
+      args.push("--task", String(t));
+    }
+    if (opts.output) {
+      args.push("--output", path.join("..", String(opts.output)));
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("production-apply-delta", async (_e, opts = {}) => {
+    const args = [
+      "production",
+      "apply-delta",
+      "--delta",
+      path.join("..", String(opts.delta || "")),
+      "--production",
+      path.join("..", String(opts.production || "")),
+      "--json",
+    ];
+    if (opts.progress) {
+      args.push("--progress", path.join("..", String(opts.progress)));
+    }
+    if (opts.dryRun) {
+      args.push("--dry-run");
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("run-safe-action", async (event, command) => {
+    const cmd = String(command || "").trim();
+    const sender = event.sender;
+    const result = await runCli(
+      [
+        "project",
+        "action",
+        "--cmd",
+        cmd,
+        "--json",
+      ],
+      {
+        onLine: (line, stream) => {
+          sender.send("pipeline-log", { line, stream, source: "action" });
+        },
+      },
+    );
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
   ipcMain.handle("list-output-media", (_e, dirRel, limit = 24) => {

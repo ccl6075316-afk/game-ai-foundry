@@ -24,7 +24,7 @@ brief export（冻结）→ prompt craft → pipeline plan/run → godot assembl
 
 | 步 | 执行者 | 命令 / 产物 |
 |----|--------|-------------|
-| 1 | orchestrator | `brief brainstorm` → `brief export` → `brief_meta` |
+| 1 | orchestrator / GUI 策划 | **`brief chat`**（host-chat → 落实）→ `brief chat export` → `brief_meta`；兼容 CLI `brief brainstorm` |
 | 1b | orchestrator | **`production derive`** → `plans/production_<brief>.json`（工程蓝图） |
 | 1c | orchestrator | **`project progress init`** → `plans/progress_<slug>.json` |
 | 2 | prompt-crafter | `prompt craft` → `plans/*.json`（runner 默认跳过，加 `--run-prompts`） |
@@ -39,8 +39,10 @@ brief export（冻结）→ prompt craft → pipeline plan/run → godot assembl
 
 ### 1.1 Brief 门禁
 
-- 多轮对话 **仅** brainstorm；export 后下游只读文件。
+- **GUI 主路径**：策划岗多轮用 `brief chat`（host-chat）；用户明确「落实」才写盘；`brief chat export` 后下游只读文件。
+- **CLI 兼容**：`brief brainstorm` 仍可用（问卷式每轮 merge）；**勿**作为 GUI 默认。
 - 改素材/玩法 → 改 brief → `pipeline plan`（必要时 `--merge`），不能靠会话记忆。
+- 产品心智与工种 → [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md)。
 
 ---
 

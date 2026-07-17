@@ -427,3 +427,36 @@ def reset_cmd(manifest_path: Path, task_id: str, cascade: bool) -> None:
     except (ValueError, json.JSONDecodeError, OSError) as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
+
+
+@pipeline_group.command("suggest-retry")
+@click.option(
+    "--manifest",
+    "manifest_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+)
+@click.option("--asset", "assets", multiple=True, help="Asset name to reset (repeatable)")
+@click.option("--jobs", default=2, show_default=True, type=int)
+@click.option("--json", "as_json", is_flag=True)
+def suggest_retry_cmd(manifest_path: Path, assets: tuple[str, ...], jobs: int, as_json: bool) -> None:
+    """Print whitelisted reset+run commands for named assets (GUI next_actions)."""
+    from pipeline_retry import suggest_retry_commands
+
+    # Prefer path relative to cli cwd for copy-paste
+    try:
+        rel = Path("..") / "pipeline" / manifest_path.name
+        if not rel.is_file():
+            rel = manifest_path
+    except Exception:
+        rel = manifest_path
+    cmds = suggest_retry_commands(
+        manifest_rel=str(rel),
+        asset_names=list(assets),
+        jobs=jobs,
+    )
+    if as_json:
+        click.echo(json.dumps({"commands": cmds, "manifest": str(manifest_path.resolve())}, ensure_ascii=False, indent=2))
+        return
+    for c in cmds:
+        click.echo(c)

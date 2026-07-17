@@ -30,7 +30,7 @@
 | Executor | 何时用 |
 |----------|--------|
 | **`pipeline`** | `pipeline run` — 生图/视频/matte/assemble，无 LLM |
-| **`hermes`** | brief brainstorm、prompt craft、多会话 |
+| **`hermes`** | brief chat / brainstorm、prompt craft、多会话、GUI ②③ executor |
 | **`cursor`** | 读本仓库 `resources/skills/<role>/` |
 | **`codex`** | Pass 4 玩法、`codex exec` |
 

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { PipelineStatus, PipelineTask } from "./vite-env.d";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
+import { ColleagueRoster } from "./components/ColleagueRoster";
 import { BoardPanel } from "./components/BoardPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { ToolchainModal } from "./components/ToolchainModal";
@@ -16,11 +17,29 @@ import { newMessageId, parseChatCommand, parseRunFlags, type ChatAttachment, typ
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
   loadActiveBriefRel,
+  parseDeltaCommand,
   parsePlanSubcommand,
   planTargetsFromBrief,
+  productionPathFromBrief,
+  progressPathFromBrief,
   saveActiveBriefRel,
 } from "./chat/projectPaths";
-
+import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
+import {
+  getActiveColleague,
+  getActiveSession,
+  hireColleague,
+  listSessionsForInstance,
+  loadSessionStore,
+  removeColleague,
+  renameColleague,
+  saveSessionStore,
+  setActiveInstance,
+  setActiveSessionId,
+  startNewSession,
+  updateActiveMessages,
+  type ChatSessionStore,
+} from "./chat/sessions";
 type SidePanel = "board" | "settings" | "env" | "guide" | null;
 
 function slugifyBriefName(raw: string): string {
@@ -54,7 +73,7 @@ export default function App() {
   const [tasks, setTasks] = useState<PipelineTask[]>([]);
   const [status, setStatus] = useState<PipelineStatus | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [chatStore, setChatStore] = useState<ChatSessionStore>(() => loadSessionStore());
   const [sidePanel, setSidePanel] = useState<SidePanel>(null);
   const [busy, setBusy] = useState(false);
   const [brainstormActive, setBrainstormActive] = useState(false);
@@ -70,6 +89,41 @@ export default function App() {
   const [executorBusy, setExecutorBusy] = useState<string | null>(null);
   const [doctorReport, setDoctorReport] = useState<DoctorReport | null>(null);
   const [envScanning, setEnvScanning] = useState(false);
+  const [openHandoffs, setOpenHandoffs] = useState<
+    Array<{
+      id?: string;
+      path?: string;
+      status?: string;
+      triage?: string;
+      title?: string;
+      task_id?: string;
+      target_instance_id?: string | null;
+    }>
+  >([]);
+  const [agentActionChoices, setAgentActionChoices] = useState<string[]>([]);
+  const pendingTargetProgrammer = useRef<string | null>(null);
+  const pendingSafeActions = useRef<Map<string, string>>(new Map());
+
+  const activeColleague = getActiveColleague(chatStore);
+  const agentRole = activeColleague.roleKind;
+  const activeSession = getActiveSession(chatStore);
+  const messages = activeSession.messages;
+  const instanceSessions = listSessionsForInstance(chatStore, activeColleague.id);
+  const heroBase = roleHero(agentRole);
+  const hero = {
+    title: heroBase.title,
+    subtitle: `${activeColleague.displayName} — ${heroBase.subtitle}`,
+  };
+  const suggestions = roleSuggestions(agentRole);
+  const handoffsForRoster = openHandoffs;
+
+  const patchChatStore = useCallback((updater: (prev: ChatSessionStore) => ChatSessionStore) => {
+    setChatStore((prev) => {
+      const next = updater(prev);
+      saveSessionStore(next);
+      return next;
+    });
+  }, []);
 
   const setBrief = useCallback((briefRel: string) => {
     const normalized = briefRel.replace(/\\/g, "/");
@@ -95,20 +149,22 @@ export default function App() {
 
   const appendAssistant = useCallback(
     (content: string, choices?: string[], attachments?: ChatAttachment[]) => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: newMessageId(),
-          role: "assistant",
-          content,
-          timestamp: Date.now(),
-          choices: choices?.length ? choices : undefined,
-          attachments: attachments?.length ? attachments : undefined,
-        },
-      ]);
+      patchChatStore((prev) =>
+        updateActiveMessages(prev, (msgs) => [
+          ...msgs,
+          {
+            id: newMessageId(),
+            role: "assistant",
+            content,
+            timestamp: Date.now(),
+            choices: choices?.length ? choices : undefined,
+            attachments: attachments?.length ? attachments : undefined,
+          },
+        ]),
+      );
       setBrainstormChoices(choices || []);
     },
-    [],
+    [patchChatStore],
   );
 
   const applyBrainstormResult = useCallback(
@@ -129,8 +185,9 @@ export default function App() {
   );
 
   const refreshBrainstormStatus = useCallback(async () => {
-    if (!window.gameFactory?.briefBrainstormStatus) return;
-    const res = await window.gameFactory.briefBrainstormStatus();
+    if (!window.gameFactory?.hostChatStatus) return;
+    const sid = getActiveSession(loadSessionStore()).id;
+    const res = await window.gameFactory.hostChatStatus(sid);
     const data = res.data;
     if (data?.exists && (data.message_count || 0) > 0) {
       setBrainstormActive(true);
@@ -142,32 +199,137 @@ export default function App() {
 
   const append = useCallback(
     (role: ChatMessage["role"], content: string, attachments?: ChatAttachment[]) => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: newMessageId(),
-          role,
-          content,
-          timestamp: Date.now(),
-          attachments: attachments?.length ? attachments : undefined,
-        },
-      ]);
+      patchChatStore((prev) =>
+        updateActiveMessages(prev, (msgs) => [
+          ...msgs,
+          {
+            id: newMessageId(),
+            role,
+            content,
+            timestamp: Date.now(),
+            attachments: attachments?.length ? attachments : undefined,
+          },
+        ]),
+      );
     },
-    [],
+    [patchChatStore],
+  );
+
+  const handleSelectColleague = useCallback(
+    (instanceId: string) => {
+      patchChatStore((prev) => setActiveInstance(prev, instanceId));
+      setBrainstormChoices([]);
+      setBrainstormReady(false);
+      setAgentActionChoices([]);
+    },
+    [patchChatStore],
+  );
+
+  const refreshHandoffs = useCallback(async () => {
+    if (!window.gameFactory?.handoffList) {
+      setOpenHandoffs([]);
+      return;
+    }
+    try {
+      const res = await window.gameFactory.handoffList("open");
+      const items = res.data?.handoffs || [];
+      setOpenHandoffs(items);
+    } catch {
+      setOpenHandoffs([]);
+    }
+  }, []);
+
+  const handleSwitchToProgrammer = useCallback(
+    (instanceId?: string) => {
+      const prog =
+        (instanceId &&
+          chatStore.roster.find((c) => c.id === instanceId && c.roleKind === "programmer")) ||
+        chatStore.roster.find((c) => c.roleKind === "programmer");
+      if (!prog) {
+        append("assistant", "还没有程序员同事。请用「+ 雇佣」添加一位程序员。");
+        return;
+      }
+      patchChatStore((prev) => setActiveInstance(prev, prog.id));
+      setAgentActionChoices([]);
+      setBrainstormChoices([]);
+      void refreshHandoffs();
+    },
+    [chatStore.roster, patchChatStore, append, refreshHandoffs],
+  );
+
+  const handleHire = useCallback(
+    (roleKind: ChatAgentRole) => {
+      // Electron 无 window.prompt；先用默认名，再「改名」
+      patchChatStore((prev) => hireColleague(prev, roleKind));
+      setBrainstormActive(false);
+      setBrainstormReady(false);
+      setBrainstormChoices([]);
+      setDraftTitle("");
+    },
+    [patchChatStore],
+  );
+
+  const handleRenameColleague = useCallback(
+    (instanceId: string, displayName: string) => {
+      patchChatStore((prev) => renameColleague(prev, instanceId, displayName));
+    },
+    [patchChatStore],
+  );
+
+  const handleRemoveColleague = useCallback(
+    (instanceId: string) => {
+      patchChatStore((prev) => removeColleague(prev, instanceId));
+      setBrainstormActive(false);
+      setBrainstormReady(false);
+      setBrainstormChoices([]);
+    },
+    [patchChatStore],
+  );
+
+  const handleNewChat = useCallback(() => {
+    patchChatStore((prev) => startNewSession(prev, prev.activeInstanceId));
+    setBrainstormActive(false);
+    setBrainstormReady(false);
+    setBrainstormChoices([]);
+    setDraftTitle("");
+  }, [patchChatStore]);
+
+  const handleSelectSession = useCallback(
+    (sessionId: string) => {
+      patchChatStore((prev) => setActiveSessionId(prev, prev.activeInstanceId, sessionId));
+      setBrainstormChoices([]);
+      setBrainstormReady(false);
+      void (async () => {
+        if (!window.gameFactory?.hostChatStatus) return;
+        const res = await window.gameFactory.hostChatStatus(sessionId);
+        const data = res.data;
+        if (data?.exists && (data.message_count || 0) > 0) {
+          setBrainstormActive(true);
+          setBrainstormReady(Boolean(data.ready_to_export));
+          setBrainstormChoices(data.last_choices || []);
+          if (data.title) setDraftTitle(data.title);
+        } else {
+          setBrainstormActive(false);
+          setDraftTitle("");
+        }
+      })();
+    },
+    [patchChatStore],
   );
 
   const handleBrainstormStart = async (seed?: string) => {
     setBusy(true);
     setBrainstormChoices([]);
+    const sessionId = getActiveSession(chatStore).id;
     try {
-      const res = await window.gameFactory.briefBrainstormStart(seed);
+      const res = await window.gameFactory.hostChatStart(sessionId, seed);
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
-        throw new Error(res.stderr || res.stdout || "brainstorm start failed");
+        throw new Error(res.stderr || res.stdout || "host-chat start failed");
       }
       applyBrainstormResult(res.data);
     } catch (e) {
       appendAssistant(
-        `Brief 策划启动失败：${e instanceof Error ? e.message : String(e)}\n\n请先在 **设置 → 在线服务 → 项目经理** 配置 API Key。`,
+        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请先在 **设置 → 在线服务 → 项目经理** 配置 API Key。`,
       );
     } finally {
       setBusy(false);
@@ -177,13 +339,14 @@ export default function App() {
   const handleBrainstormTurn = async (message: string) => {
     setBusy(true);
     setBrainstormChoices([]);
+    const sessionId = getActiveSession(chatStore).id;
     try {
-      let res = await window.gameFactory.briefBrainstormTurn(message);
+      let res = await window.gameFactory.hostChatTurn(sessionId, message);
       if (res.exitCode !== 0 && /Session not found/i.test(res.stderr || res.stdout || "")) {
-        res = await window.gameFactory.briefBrainstormStart(message);
+        res = await window.gameFactory.hostChatStart(sessionId, message);
       }
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
-        throw new Error(res.stderr || res.stdout || "brainstorm turn failed");
+        throw new Error(res.stderr || res.stdout || "host-chat turn failed");
       }
       applyBrainstormResult(res.data);
     } catch (e) {
@@ -195,10 +358,11 @@ export default function App() {
 
   const handleBriefExport = async (nameHint?: string) => {
     setBusy(true);
+    const sessionId = getActiveSession(chatStore).id;
     try {
       const slug = slugifyBriefName(nameHint || draftTitle || "my-game");
       const outputRel = `resources/${slug}-brief.json`;
-      const res = await window.gameFactory.briefBrainstormExport(outputRel);
+      const res = await window.gameFactory.hostChatExport(sessionId, outputRel);
       if (res.exitCode !== 0) {
         throw new Error(res.stderr || res.stdout || "export failed");
       }
@@ -209,6 +373,111 @@ export default function App() {
       );
     } catch (e) {
       appendAssistant(`导出失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleAgentTurn = async (message: string) => {
+    if (agentRole !== "product_host" && agentRole !== "programmer") return;
+    setBusy(true);
+    setAgentActionChoices([]);
+    const sessionId = activeSession.id;
+    const programmers = chatStore.roster.filter((c) => c.roleKind === "programmer");
+    const defaultTarget =
+      programmers.find((c) => c.id === chatStore.activeInstanceId)?.id || programmers[0]?.id;
+    append("log", "执行器运行中…");
+    try {
+      if (!window.gameFactory?.agentTurn) {
+        throw new Error("agentTurn IPC 不可用，请重启 GUI。");
+      }
+      const res = await window.gameFactory.agentTurn({
+        role: agentRole,
+        sessionId,
+        message,
+        brief: activeBriefRel || undefined,
+        instanceId: activeColleague.id,
+        targetInstanceId: agentRole === "product_host" ? defaultTarget : undefined,
+        rosterJson:
+          agentRole === "product_host"
+            ? JSON.stringify(
+                programmers.map((c) => ({ id: c.id, display_name: c.displayName })),
+              )
+            : undefined,
+      });
+      const data = res.data;
+      if (res.exitCode !== 0 || data?.ok === false) {
+        const err =
+          data?.error ||
+          res.stderr ||
+          res.stdout ||
+          `agent turn failed (exit ${res.exitCode})`;
+        throw new Error(err);
+      }
+      const reply = data?.assistant_message;
+      if (!reply) {
+        throw new Error(res.stderr || res.stdout || "executor 无回复");
+      }
+      const via = data.executor ? `\n\n—— via ${data.executor} CLI` : "";
+      const dispatch = data.dispatch;
+      let extra = "";
+      const choices: string[] = [];
+      pendingSafeActions.current = new Map();
+      const queueActions = (actions: string[] | undefined) => {
+        for (const raw of actions || []) {
+          const line = String(raw || "").trim();
+          if (!line || line.startsWith("#")) continue;
+          const cmd = /^python\b/i.test(line) ? line : `python gamefactory.py ${line}`;
+          const short = cmd.replace(/^python\s+gamefactory\.py\s+/i, "").slice(0, 48);
+          const label = `执行 · ${short}`;
+          pendingSafeActions.current.set(label, cmd);
+          choices.push(label);
+        }
+      };
+      if (agentRole === "product_host" && dispatch?.handoff_path) {
+        const tid = dispatch.target_instance_id;
+        const targetName = tid
+          ? chatStore.roster.find((c) => c.id === tid)?.displayName
+          : undefined;
+        extra =
+          `\n\n**已派工**（文件总线）\n- handoff：\`${dispatch.handoff_id || dispatch.handoff_path}\`` +
+          (tid ? `\n- 目标程序员：${targetName || tid}` : "") +
+          `\n- 可点下方「切换到程序员」继续施工。`;
+        choices.push("切换到程序员");
+        if (tid) {
+          pendingTargetProgrammer.current = tid;
+        }
+        queueActions(dispatch.next_actions);
+      } else if (agentRole === "product_host" && dispatch?.dispatch_to === "pipeline") {
+        const actions = dispatch.next_actions || [];
+        extra =
+          `\n\n**资产/pipeline 分诊**` +
+          (actions.length ? `\n建议命令：\n${actions.map((a) => `- \`${a}\``).join("\n")}` : "") +
+          `\n\n可点下方「执行 · …」一键跑白名单命令。`;
+        queueActions(actions);
+      } else if (agentRole === "programmer" && dispatch?.handoff_done) {
+        extra =
+          `\n\n**已关单** handoff \`${dispatch.handoff_done}\` → done` +
+          (dispatch.task_done ? ` · task \`${dispatch.task_done}\` → done` : "");
+        queueActions(dispatch.next_actions);
+        if (activeBriefRel) {
+          const proj = planTargetsFromBrief(activeBriefRel).godotProjectRel;
+          const validateCmd = `python gamefactory.py godot validate --project ../${proj}`;
+          const label = "执行 · godot validate";
+          pendingSafeActions.current.set(label, validateCmd);
+          choices.push(label);
+        }
+      } else if (agentRole === "product_host") {
+        queueActions(dispatch?.next_actions);
+      }
+      setAgentActionChoices(choices);
+      append("assistant", `${reply}${via}${extra}`);
+      await refreshHandoffs();
+    } catch (e) {
+      append(
+        "assistant",
+        `「${activeColleague.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在设置里为项目经理/程序员选择执行器。`,
+      );
     } finally {
       setBusy(false);
     }
@@ -256,6 +525,7 @@ export default function App() {
     if (!window.gameFactory) return;
     await window.gameFactory.getPaths();
     await refreshEnv();
+    await refreshHandoffs();
 
     const briefs = await window.gameFactory.listBriefs();
     const storedBrief = loadActiveBriefRel();
@@ -276,7 +546,7 @@ export default function App() {
       setSelectedManifest(manifest);
       await refreshManifest(manifest);
     }
-  }, [refreshManifest, activeBriefRel, setBrief, refreshEnv]);
+  }, [refreshManifest, activeBriefRel, setBrief, refreshEnv, refreshHandoffs]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -375,29 +645,31 @@ export default function App() {
     const off = window.gameFactory?.onPipelineLog(({ line }) => {
       setLogs((prev) => [...prev.slice(-200), line]);
       const found = extractMediaPaths(line);
-      setMessages((prev) => {
-        const last = prev[prev.length - 1];
-        if (last?.role === "log") {
+      patchChatStore((store) =>
+        updateActiveMessages(store, (prev) => {
+          const last = prev[prev.length - 1];
+          if (last?.role === "log") {
+            return [
+              ...prev.slice(0, -1),
+              {
+                ...last,
+                content: `${last.content}\n${line}`.slice(-4000),
+                attachments: mergeAttachments(last.attachments, found),
+              },
+            ];
+          }
           return [
-            ...prev.slice(0, -1),
+            ...prev,
             {
-              ...last,
-              content: `${last.content}\n${line}`.slice(-4000),
-              attachments: mergeAttachments(last.attachments, found),
+              id: newMessageId(),
+              role: "log",
+              content: line,
+              timestamp: Date.now(),
+              attachments: found.length ? found : undefined,
             },
           ];
-        }
-        return [
-          ...prev,
-          {
-            id: newMessageId(),
-            role: "log",
-            content: line,
-            timestamp: Date.now(),
-            attachments: found.length ? found : undefined,
-          },
-        ];
-      });
+        }),
+      );
     });
     return () => {
       off?.();
@@ -519,11 +791,116 @@ export default function App() {
     append("assistant", `已尝试打开 \`${projectRel}\`。`);
   };
 
+  const handleSafeAction = async (label: string) => {
+    const cmd = pendingSafeActions.current.get(label);
+    if (!cmd) {
+      append("assistant", `找不到命令：${label}`);
+      return;
+    }
+    setBusy(true);
+    append("user", label);
+    append(
+      "assistant",
+      `正在执行白名单命令（日志会实时刷在下方）…\n\n\`${cmd}\``,
+    );
+    // Seed a log bubble so streaming lines attach
+    append("log", "…");
+    try {
+      if (!window.gameFactory?.runSafeAction) {
+        throw new Error("runSafeAction IPC 不可用，请重启 GUI。");
+      }
+      const res = await window.gameFactory.runSafeAction(cmd);
+      const data = res.data;
+      if (res.exitCode !== 0 || data?.ok === false) {
+        throw new Error(data?.error || data?.stderr || res.stderr || `exit ${res.exitCode}`);
+      }
+      const out = (data?.stdout || res.stdout || "").trim();
+      const err = (data?.stderr || "").trim();
+      append(
+        "assistant",
+        `**已执行** \`${(data?.argv || []).join(" ") || cmd}\`\n\n` +
+          (out ? `\`\`\`\n${out.slice(0, 4000)}\n\`\`\`` : "（无 stdout）") +
+          (err ? `\n\nstderr:\n\`\`\`\n${err.slice(0, 1500)}\n\`\`\`` : ""),
+      );
+    } catch (e) {
+      append("assistant", `执行失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDelta = async (changeId: string, intent: string) => {
+    if (!activeBriefRel) {
+      append("assistant", "请先落实并导出 brief，再使用 `/delta`。");
+      return;
+    }
+    setBusy(true);
+    try {
+      if (!window.gameFactory?.productionDelta || !window.gameFactory?.productionApplyDelta) {
+        throw new Error("production delta IPC 不可用，请重启 GUI。");
+      }
+      const productionRel = productionPathFromBrief(activeBriefRel);
+      const progressRel = progressPathFromBrief(activeBriefRel);
+      const deltaRel = `plans/changes/${changeId}.production-delta.json`;
+      append(
+        "assistant",
+        `正在创建 Production Delta…\n\n- change: \`${changeId}\`\n- intent: ${intent}`,
+      );
+      const created = await window.gameFactory.productionDelta({
+        changeId,
+        intent,
+        output: deltaRel,
+      });
+      if (created.exitCode !== 0) {
+        throw new Error(created.stderr || created.stdout || "delta create failed");
+      }
+      const applied = await window.gameFactory.productionApplyDelta({
+        delta: deltaRel,
+        production: productionRel,
+        progress: progressRel,
+      });
+      if (applied.exitCode !== 0) {
+        throw new Error(
+          applied.stderr ||
+            applied.stdout ||
+            `apply-delta failed — 若尚无 production，请先：python gamefactory.py production derive --brief ${activeBriefRel}`,
+        );
+      }
+      const d = applied.data;
+      append(
+        "assistant",
+        `**Delta 已合并**\n\n- delta：\`${deltaRel}\`\n- production：\`${productionRel}\`\n- 新增任务：\`${(d?.tasks_added || []).join(", ") || "—"}\`\n- progress 同步：\`${(d?.progress_tasks_added || []).join(", ") || "—"}\`\n\n可找项目经理派工，或让程序员按新 task 施工。`,
+      );
+      setAgentActionChoices(["切换到程序员"]);
+    } catch (e) {
+      append("assistant", `Delta 失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const handleSend = async (text: string) => {
+    if (text.trim() === "切换到程序员") {
+      const tid = pendingTargetProgrammer.current || undefined;
+      pendingTargetProgrammer.current = null;
+      handleSwitchToProgrammer(tid);
+      return;
+    }
+    if (pendingSafeActions.current.has(text.trim())) {
+      await handleSafeAction(text.trim());
+      return;
+    }
     append("user", text);
 
     const briefCmd = parseBriefSubcommand(text);
     if (briefCmd || text.trim().toLowerCase() === "/brief") {
+      if (agentRole !== "brief") {
+        append(
+          "assistant",
+          "Brief 策划请切换到 **策划** 同事。项目经理负责分诊派工；程序员负责写码验收。",
+        );
+        return;
+      }
       const cmd = briefCmd || { action: "start" as const };
       if (cmd.action === "reset") {
         setBrainstormActive(false);
@@ -531,9 +908,10 @@ export default function App() {
         setBusy(true);
         setBrainstormChoices([]);
         try {
-          const res = await window.gameFactory.briefBrainstormReset(cmd.name);
+          const sessionId = activeSession.id;
+          const res = await window.gameFactory.hostChatReset(sessionId, cmd.name);
           if (res.exitCode !== 0 || !res.data?.assistant_message) {
-            throw new Error(res.stderr || res.stdout || "brainstorm reset failed");
+            throw new Error(res.stderr || res.stdout || "host-chat reset failed");
           }
           applyBrainstormResult(res.data);
         } catch (e) {
@@ -548,14 +926,14 @@ export default function App() {
         return;
       }
       if (cmd.action === "status") {
-        const res = await window.gameFactory.briefBrainstormStatus();
+        const res = await window.gameFactory.hostChatStatus(activeSession.id);
         const d = res.data;
         if (!d?.exists) {
-          appendAssistant("当前没有进行中的 Brief 策划会话。发送 `/brief` 或描述游戏想法开始。");
+          appendAssistant("当前没有进行中的 Brief 会话。发送 `/brief` 或描述游戏想法开始。");
           return;
         }
         appendAssistant(
-          `**Brief 会话**\n\n标题：${d.title || "（未定）"}\n资产数：${d.asset_count ?? 0}\n轮次：${d.message_count ?? 0}\n可导出：${d.ready_to_export ? "是" : "否"}`,
+          `**Brief 会话**\n\n标题：${d.title || "（未定）"}\n资产数：${d.asset_count ?? 0}\n轮次：${d.message_count ?? 0}\n模式：${d.mode || "chat"}\n可导出：${d.ready_to_export ? "是" : "否"}`,
           d.last_choices,
         );
         setBrainstormActive(true);
@@ -600,9 +978,26 @@ export default function App() {
       await handleOpenGodot();
       return;
     }
+    const delta = parseDeltaCommand(text);
+    if (delta) {
+      if (agentRole !== "product_host" && agentRole !== "brief") {
+        append("assistant", "改需求请用 **项目经理** 或 **策划** 同事执行 `/delta`。");
+        return;
+      }
+      await handleDelta(delta.changeId, delta.intent);
+      return;
+    }
 
     if (text.trim().startsWith("/")) {
-      append("assistant", `未知指令。可用：/brief /doctor /plan /run /board /settings /env /guide /godot`);
+      append(
+        "assistant",
+        `未知指令。可用：/brief /doctor /plan /run /board /settings /env /guide /godot /delta`,
+      );
+      return;
+    }
+
+    if (agentRole === "product_host" || agentRole === "programmer") {
+      await handleAgentTurn(text);
       return;
     }
 
@@ -695,15 +1090,52 @@ export default function App() {
       />
 
       <div className={`chat-layout ${sidePanel ? "side-open" : ""}`}>
+        <ColleagueRoster
+          roster={chatStore.roster}
+          activeInstanceId={activeColleague.id}
+          sessions={instanceSessions}
+          activeSessionId={activeSession.id}
+          openHandoffs={handoffsForRoster}
+          onSelectColleague={handleSelectColleague}
+          onHire={handleHire}
+          onRename={handleRenameColleague}
+          onRemove={handleRemoveColleague}
+          onNewChat={handleNewChat}
+          onSelectSession={handleSelectSession}
+          onSwitchToProgrammer={handleSwitchToProgrammer}
+        />
         <section className="chat-column">
-          <ChatView messages={messages} busy={busy} onSuggestion={handleSend} />
+          <ChatView
+            messages={messages}
+            busy={busy}
+            onSuggestion={handleSend}
+            heroTitle={hero.title}
+            heroSubtitle={hero.subtitle}
+            suggestions={suggestions}
+          />
           <ChatInput
             disabled={busy}
-            choices={brainstormChoices}
-            readyToExport={brainstormReady}
+            choices={
+              agentRole === "brief"
+                ? brainstormChoices
+                : agentActionChoices
+            }
+            readyToExport={agentRole === "brief" && brainstormReady}
+            placeholder={
+              agentRole === "brief"
+                ? "描述游戏想法，或输入 /brief /doctor /plan …"
+                : agentRole === "product_host"
+                  ? "描述试玩问题或要推进的事（将发给项目经理执行器 CLI）…"
+                  : "描述要改的代码/任务（将发给程序员执行器 CLI）…"
+            }
+            hint={
+              agentRole === "brief"
+                ? "Enter 发送 · 默认只聊天；说「落实成 brief」后才可导出 · `/brief save 名称`"
+                : "Enter 发送 · 经 Hermes/Codex/Cursor Agent CLI 回信 · 会话按同事隔离"
+            }
             onSend={handleSend}
             onChoice={handleSend}
-            onExportBrief={() => void handleBriefExport()}
+            onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         </section>
 

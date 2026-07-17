@@ -178,14 +178,57 @@ export const COMMAND_GUIDE: GuideSection[] = [
     title: "Brief 与策划",
     commands: [
       {
+        title: "策划对话（主路径）",
+        command: "python gamefactory.py brief chat start --json",
+        description: "host-chat 多轮；落实后 brief chat export",
+      },
+      {
+        title: "Brainstorm 导出（CLI 兼容）",
+        command: "python gamefactory.py brief brainstorm export -o ../resources/my-game-brief.json",
+        description: "问卷式 merge；GUI 默认已改用 brief chat",
+      },
+      {
+        title: "Agent 同事 turn",
+        command: "python gamefactory.py agent turn --role product_host --session-id demo --message \"试玩反馈...\" --json",
+        description: "项目经理 / 程序员 → executor CLI；可写 handoff",
+      },
+      {
+        title: "列出派工",
+        command: "python gamefactory.py project handoff list --json",
+        description: "plans/handoffs/ 未读与状态",
+      },
+      {
+        title: "GUI 改需求",
+        command: "/delta 002-double-jump | 增加二段跳",
+        description: "项目经理/策划：创建 Delta 并合并进 production + progress",
+      },
+      {
+        title: "创建 Production Delta",
+        command:
+          'python gamefactory.py production delta --change-id 002-double-jump --intent "增加二段跳" --task "实现二段跳"',
+        description: "改需求施工切片；再 production apply-delta 合并进蓝图",
+      },
+      {
+        title: "合并 Delta 到 production",
+        command:
+          "python gamefactory.py production apply-delta --delta ../plans/changes/002-double-jump.production-delta.json --production ../plans/production_my-game.json --progress ../plans/progress_my-game.json",
+        description: "追加 godot_tasks 与验收标准；可加 --progress 同步任务账本",
+      },
+      {
+        title: "同步 progress 任务",
+        command:
+          "python gamefactory.py project progress sync --progress ../plans/progress_my-game.json --production ../plans/production_my-game.json",
+        description: "把 production 新增任务拉进 progress（跳过已有 id）",
+      },
+      {
+        title: "执行白名单建议命令",
+        command: 'python gamefactory.py project action --cmd "python gamefactory.py pipeline status --json"',
+        description: "GUI「执行 · …」按钮同源；仅允许 pipeline/godot/test 等",
+      },
+      {
         title: "校验 brief",
         command: "python gamefactory.py brief validate --brief ../resources/my-game-brief.json",
         description: "检查 JSON 契约与必填字段",
-      },
-      {
-        title: "Brainstorm 导出",
-        command: "python gamefactory.py brief brainstorm export -o ../resources/my-game-brief.json",
-        description: "CLI 多轮策划后导出 frozen brief",
       },
       {
         title: "Visual Target",

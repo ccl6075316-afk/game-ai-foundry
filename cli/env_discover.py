@@ -116,7 +116,8 @@ def discover_codex() -> dict[str, Any]:
 
 
 def discover_cursor() -> dict[str, Any]:
-    cli = shutil.which("cursor")
+    editor = shutil.which("cursor")
+    agent = shutil.which("agent") or shutil.which("cursor-agent")
     in_cursor = any(
         os.environ.get(k)
         for k in (
@@ -127,17 +128,21 @@ def discover_cursor() -> dict[str, Any]:
         )
     )
     hints: list[str] = []
-    if not cli and not in_cursor:
+    if not agent:
         hints.append(
-            "No Cursor CLI or IDE session detected — use Cursor chat manually, "
-            "or set agents.*.executor to hermes/codex/pipeline."
+            "Cursor Agent CLI (`agent` / `cursor-agent`) not on PATH — "
+            "install shell command from Cursor, or set executor to hermes/codex."
         )
+    if not editor and not agent and not in_cursor:
+        hints.append("No Cursor editor CLI either.")
     return {
-        "available": bool(cli) or in_cursor,
-        "cli": cli,
+        "available": bool(agent) or bool(editor) or in_cursor,
+        "cli": editor,
+        "agent_cli": agent,
+        "headless_ready": bool(agent),
         "in_ide_session": in_cursor,
         "hints": hints,
-        "note": "Cursor Agent is not a headless package; discovery means CLI or active IDE terminal.",
+        "note": "GUI agent turns use `agent`/`cursor-agent` CLI, not the desktop app.",
     }
 
 

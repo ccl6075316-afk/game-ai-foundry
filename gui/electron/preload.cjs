@@ -24,11 +24,18 @@ contextBridge.exposeInMainWorld("gameFactory", {
   getMediaPreview: (relPath, posterRel) => ipcRenderer.invoke("get-media-preview", relPath, posterRel),
   openMedia: (relPath) => ipcRenderer.invoke("open-media", relPath),
   listOutputMedia: (dirRel, limit) => ipcRenderer.invoke("list-output-media", dirRel, limit),
-  briefBrainstormStart: (seed) => ipcRenderer.invoke("brief-brainstorm-start", seed),
-  briefBrainstormTurn: (message) => ipcRenderer.invoke("brief-brainstorm-turn", message),
-  briefBrainstormReset: (seed) => ipcRenderer.invoke("brief-brainstorm-reset", seed),
-  briefBrainstormExport: (outputRel) => ipcRenderer.invoke("brief-brainstorm-export", outputRel),
-  briefBrainstormStatus: () => ipcRenderer.invoke("brief-brainstorm-status"),
+  hostChatStart: (sessionId, seed) => ipcRenderer.invoke("host-chat-start", sessionId, seed),
+  hostChatTurn: (sessionId, message) => ipcRenderer.invoke("host-chat-turn", sessionId, message),
+  hostChatReset: (sessionId, seed) => ipcRenderer.invoke("host-chat-reset", sessionId, seed),
+  hostChatExport: (sessionId, outputRel) => ipcRenderer.invoke("host-chat-export", sessionId, outputRel),
+  hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
+  agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
+  agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),
+  handoffList: (status, targetInstanceId) =>
+    ipcRenderer.invoke("handoff-list", status, targetInstanceId),
+  runSafeAction: (command) => ipcRenderer.invoke("run-safe-action", command),
+  productionDelta: (opts) => ipcRenderer.invoke("production-delta", opts),
+  productionApplyDelta: (opts) => ipcRenderer.invoke("production-apply-delta", opts),
   onToolchainLog: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on("toolchain-log", listener);

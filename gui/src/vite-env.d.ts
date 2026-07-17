@@ -221,13 +221,112 @@ declare global {
           posterPath?: string;
         }>
       >;
-      briefBrainstormStart: (seed?: string) => Promise<CliResult<import("./chat/types").BriefBrainstormResult>>;
-      briefBrainstormTurn: (message: string) => Promise<CliResult<import("./chat/types").BriefBrainstormResult>>;
-      briefBrainstormReset: (seed?: string) => Promise<CliResult<import("./chat/types").BriefBrainstormResult>>;
-      briefBrainstormExport: (outputRel: string) => Promise<
-        CliResult<{ brief_path?: string; brief?: Record<string, unknown> }>
+      hostChatStart: (
+        sessionId: string,
+        seed?: string,
+      ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
+      hostChatTurn: (
+        sessionId: string,
+        message: string,
+      ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
+      hostChatReset: (
+        sessionId: string,
+        seed?: string,
+      ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
+      hostChatExport: (
+        sessionId: string,
+        outputRel: string,
+      ) => Promise<CliResult<{ brief_path?: string; brief?: Record<string, unknown>; session_id?: string }>>;
+      hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
+      agentTurn: (opts: {
+        role: "product_host" | "programmer";
+        sessionId: string;
+        message: string;
+        executor?: "hermes" | "codex" | "cursor";
+        brief?: string;
+        progress?: string;
+        instanceId?: string;
+        targetInstanceId?: string;
+        rosterJson?: string;
+        timeout?: number;
+      }) => Promise<
+        CliResult<{
+          ok?: boolean;
+          status?: string;
+          error?: string;
+          assistant_message?: string;
+          executor?: string;
+          session_id?: string;
+          message_count?: number;
+          dispatch?: {
+            applied?: boolean;
+            triage?: string;
+            handoff_path?: string;
+            handoff_id?: string;
+            handoff_done?: string;
+            progress_note_written?: boolean;
+            task_updated?: string;
+            task_done?: string;
+            dispatch_to?: string;
+            target_instance_id?: string;
+            next_actions?: string[];
+          };
+        }>
       >;
-      briefBrainstormStatus: () => Promise<CliResult<import("./chat/types").BriefBrainstormStatus>>;
+      agentStatus: (
+        role: "product_host" | "programmer",
+        sessionId: string,
+      ) => Promise<CliResult<{ exists?: boolean; message_count?: number; executor?: string }>>;
+      handoffList: (
+        status?: string,
+        targetInstanceId?: string | null,
+      ) => Promise<
+        CliResult<{
+          handoffs?: Array<{
+            id?: string;
+            path?: string;
+            status?: string;
+            triage?: string;
+            title?: string;
+            task_id?: string;
+            target_instance_id?: string | null;
+            cli_hints?: string[];
+          }>;
+          count?: number;
+        }>
+      >;
+      runSafeAction: (command: string) => Promise<
+        CliResult<{
+          ok?: boolean;
+          error?: string;
+          argv?: string[];
+          label?: string;
+          exit_code?: number;
+          stdout?: string;
+          stderr?: string;
+        }>
+      >;
+      productionDelta: (opts: {
+        changeId: string;
+        intent: string;
+        tasks?: string[];
+        output?: string;
+      }) => Promise<
+        CliResult<{ ok?: boolean; path?: string; delta?: Record<string, unknown> }>
+      >;
+      productionApplyDelta: (opts: {
+        delta: string;
+        production: string;
+        progress?: string;
+        dryRun?: boolean;
+      }) => Promise<
+        CliResult<{
+          ok?: boolean;
+          change_id?: string;
+          tasks_added?: string[];
+          progress_tasks_added?: string[];
+        }>
+      >;
       onPipelineLog: (cb: (payload: { line: string; stream: string }) => void) => () => void;
       onToolchainLog?: (cb: (payload: { line: string }) => void) => () => void;
     };

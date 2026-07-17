@@ -256,7 +256,7 @@ Coder rule:
 
 ```text
 1. Host asks user about play experience, not construction details.
-2. Host drafts Design Doc (today: brief brainstorm).
+2. Host drafts Design Doc (today: GUI `brief chat` / host-chat；CLI 兼容 brainstorm).
 3. User confirms → brief export (`brief_meta` frozen).
 4. prompt-crafter: prompt craft → plans/*.json
 5. pipeline plan → pipeline/{slug}.json

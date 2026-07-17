@@ -148,3 +148,50 @@ def append_memory(progress: dict[str, Any], note: str) -> None:
         progress["memory"] = memory = []
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     memory.append(f"[{stamp}] {note.strip()}")
+
+
+def sync_progress_from_production(
+    progress: dict[str, Any],
+    production: dict[str, Any],
+) -> dict[str, Any]:
+    """Append new production.godot_tasks into progress (do not overwrite existing ids).
+
+    Returns {"added": [task_ids], "skipped": [task_ids]}.
+    """
+    doc = production.get("production_doc") if isinstance(production.get("production_doc"), dict) else {}
+    prod_tasks = doc.get("godot_tasks") if isinstance(doc.get("godot_tasks"), list) else []
+    phases = progress.setdefault("phases", {})
+    if not isinstance(phases, dict):
+        phases = {}
+        progress["phases"] = phases
+    existing = phases.get("godot_tasks")
+    if not isinstance(existing, list):
+        existing = []
+        phases["godot_tasks"] = existing
+    have = {str(t.get("id")) for t in existing if isinstance(t, dict) and t.get("id")}
+    added: list[str] = []
+    skipped: list[str] = []
+    for task in prod_tasks:
+        if not isinstance(task, dict) or not task.get("id"):
+            continue
+        tid = str(task["id"])
+        if tid in have:
+            skipped.append(tid)
+            continue
+        existing.append(
+            {
+                "id": tid,
+                "title": task.get("title"),
+                "status": str(task.get("status") or "pending"),
+                "depends_on": list(task.get("depends_on") or []),
+                "verify": list(task.get("verify") or []),
+                "last_error": None,
+                "updated_at": None,
+                "source_change_id": task.get("source_change_id"),
+            }
+        )
+        have.add(tid)
+        added.append(tid)
+    if added:
+        append_memory(progress, f"从 production 同步新任务：{', '.join(added)}")
+    return {"added": added, "skipped": skipped}
