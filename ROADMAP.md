@@ -75,15 +75,19 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ### 🔄 In Progress
 
-- [ ] GUI 主聊天路由到配置的 host executor（当前 Brief 仍直连 LLM API）
-- [ ] 首次启动引导流（工具链 → API → 执行器 → `/brief`）
+- [ ] GUI **三对话 Tab**：Brief 创建 / 产品 Host / 程序员（见 [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)）
+- [ ] GUI 会话管理 + 上下文（抄开源壳；按 role 持久化）
+- [ ] Brief Tab：`host-chat` → `commit-brief` 接线（替换默认 brainstorm merge）
+- [ ] 产品 Host：分诊（bug / 图 / 不符 brief / 改需求）+ 派工
+- [ ] 程序员 Tab：接 executor 或内嵌工具环
+- [ ] 首次启动引导流（工具链 → API → 执行器 → Brief Tab）
 - [ ] Magic Prince full chain re-run under new brief contract
-- [ ] Orchestrator skill 默认串：progress → 本轮 task → 验收 → 写回
+- [ ] Orchestrator / Host 默认串：progress → 本轮 task → 验收 → 写回
 
 ### 🔜 Next (P0)
 
-- [ ] **Production Delta / Change Request CLI**（想法变更 → 增量改蓝图 → 指定重跑验收）
-- [ ] 按轮次编排（读 progress 只推进当前 godot_task）
+- [ ] **修改闭环**（最大场景）：Host 反馈入口 → 分诊 → pipeline 定点重跑 / 程序员施工 → 验收 → progress
+- [ ] **Production Delta / Change Request CLI**（想法变更 → 增量改蓝图）
 - [ ] 视觉 QA 硬门禁（`test analyze` 失败可卡本轮）
 - [ ] One-shot brief → plan → run from GUI without manual path juggling
 - [ ] Windows Release E2E on clean VM
