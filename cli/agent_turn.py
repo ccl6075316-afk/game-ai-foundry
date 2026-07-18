@@ -128,27 +128,16 @@ def _snippet(path: Path | None, limit: int = 4000) -> str:
         return ""
 
 
-def _find_default_progress() -> Path | None:
-    plans = _REPO_ROOT / "plans"
-    if not plans.is_dir():
-        return None
-    candidates = sorted(plans.glob("progress*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
-    return candidates[0] if candidates else None
+def _find_default_progress(brief_path: Path | None = None) -> Path | None:
+    from project_paths import find_default_progress
+
+    return find_default_progress(brief_path=brief_path)
 
 
 def _find_default_brief() -> Path | None:
-    resources = _REPO_ROOT / "resources"
-    if not resources.is_dir():
-        return None
-    briefs = [
-        p
-        for p in resources.glob("*-brief.json")
-        if p.is_file() and "example" not in p.name.lower()
-    ]
-    if not briefs:
-        briefs = list(resources.glob("*brief*.json"))
-    briefs = sorted(briefs, key=lambda p: p.stat().st_mtime, reverse=True)
-    return briefs[0] if briefs else None
+    from project_paths import find_default_brief
+
+    return find_default_brief()
 
 
 def build_prompt(
@@ -165,7 +154,7 @@ def build_prompt(
     title = "项目经理" if role_kind == "product_host" else "程序员"
     skill = _load_skill_text(role_kind)
     brief = brief_path or _find_default_brief()
-    progress = progress_path or _find_default_progress()
+    progress = progress_path or _find_default_progress(brief_path=brief)
 
     recent = list(session.get("messages") or [])[-12:]
     history_lines: list[str] = []
@@ -242,16 +231,25 @@ def build_prompt(
                 )
             parts.append("")
         parts.append(
-            "请分诊（bug / 资产 / 不符 brief / 改需求），给出下一步与建议 CLI。"
+            "## GUI 与首跑硬约束（必读）\n"
+            "- 本机 config.json / API Key / proxy：默认不要动；"
+            "**仅当用户明确要求改配置时**才可改；勿在「下一步」里自行改配置或刷 review diff。\n"
+            "- 用户说「下一步/按你的推荐/开干」且 brief 已冻结：默认先跑资产流水线，"
+            "引导用户点 GUI 按钮「生成流水线」→「运行资产生成（含文案）」，不要只丢 bash 墙。\n"
+            "- 已有 progress 但未 pipeline plan/run：triage=asset，dispatch.to=pipeline，"
+            "gui_hints 含上述两个按钮文案。\n"
+            "- 不要再空问 A/B/C；短结论 + 点按钮。\n\n"
+            "请分诊（bug / 资产 / 不符 brief / 改需求），给出下一步。"
             "回复末尾必须附加一个 JSON 代码块（便于宿主落盘），格式：\n"
             "```json\n"
             '{"triage":"bug|asset|brief_mismatch|design_change|unknown",'
             '"dispatch":{"to":"programmer|pipeline|brief_tab|none","task_id":null,'
             '"target_instance_id":null,"asset_names":[],"cli_hints":[]},'
-            '"progress_note":"一句话写入 progress.memory"}\n'
+            '"progress_note":"一句话写入 progress.memory",'
+            '"gui_hints":["生成流水线","运行资产生成（含文案）"]}\n'
             "```\n"
             "派给程序员时 dispatch.to 必须为 programmer，并填写 target_instance_id（上表 id）。\n"
-            "资产问题用 dispatch.to=pipeline，并在 cli_hints 写定点 pipeline 命令。"
+            "资产/首跑用 dispatch.to=pipeline，并填写 gui_hints。"
         )
     else:
         try:

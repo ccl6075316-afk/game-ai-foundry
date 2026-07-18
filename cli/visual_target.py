@@ -84,7 +84,9 @@ def _base_scene_description(project) -> str:
 
 
 def resolve_visual_reference_path(brief_path: Path) -> Path | None:
-    """Resolve project.visual_reference relative to repo root (parent of resources/)."""
+    """Resolve project.visual_reference relative to Foundry repo root."""
+    from project_paths import repo_root as foundry_root
+
     project = _load_project(brief_path)
     ref = (project.visual_reference or "").strip()
     if not ref:
@@ -92,9 +94,16 @@ def resolve_visual_reference_path(brief_path: Path) -> Path | None:
     p = Path(ref)
     if p.is_file():
         return p.resolve()
-    repo_root = brief_path.resolve().parent.parent
-    candidate = (repo_root / ref).resolve()
-    return candidate if candidate.is_file() else None
+    root = foundry_root()
+    candidate = (root / ref).resolve()
+    if candidate.is_file():
+        return candidate
+    # Legacy: brief under resources/ or cli/resources/ — try brief-relative
+    for base in (brief_path.resolve().parent, brief_path.resolve().parent.parent):
+        alt = (base / ref).resolve()
+        if alt.is_file():
+            return alt
+    return None
 
 
 def get_variant(variant_id: str) -> dict[str, str]:
@@ -193,11 +202,6 @@ def build_visual_target_plan(
     }
 
 
-def default_plans_dir(brief_path: Path) -> Path:
-    slug = _slug_from_brief(brief_path, _load_project(brief_path).title)
-    return Path("..") / "plans" / f"visual_target_{slug}"
-
-
 def handoff_path_for_variant(plans_dir: Path, variant_id: str) -> Path:
     return plans_dir / f"candidate_{variant_id}.json"
 
@@ -219,9 +223,22 @@ def build_candidate_prompts(brief_path: Path, *, count: int = 3) -> list[dict[st
 
 
 def default_output_dir(brief_path: Path) -> Path:
+    from project_paths import default_paths_for_brief, is_isolated_brief
+
+    if is_isolated_brief(brief_path):
+        return default_paths_for_brief(brief_path)["output_dir"] / "visual-target"
     project = _load_project(brief_path)
     slug = _slug_from_brief(brief_path, project.title)
     return Path("..") / "output" / slug / "visual-target"
+
+
+def default_plans_dir(brief_path: Path) -> Path:
+    from project_paths import default_paths_for_brief, is_isolated_brief
+
+    if is_isolated_brief(brief_path):
+        return default_paths_for_brief(brief_path)["plans_dir"] / "visual_target"
+    slug = _slug_from_brief(brief_path, _load_project(brief_path).title)
+    return Path("..") / "plans" / f"visual_target_{slug}"
 
 
 def generate_visual_targets(
@@ -376,10 +393,12 @@ def apply_visual_target_pick(
     selected_path = output_dir / "selected.png"
     selected_path.write_bytes(src.read_bytes())
 
-    repo_root = brief_path.resolve().parent.parent
+    from project_paths import repo_root as foundry_root
+
+    root = foundry_root()
     try:
-        rel_ref = selected_path.relative_to(repo_root)
-        ref_str = str(rel_ref)
+        rel_ref = selected_path.relative_to(root)
+        ref_str = str(rel_ref).replace("\\", "/")
     except ValueError:
         ref_str = str(selected_path)
 

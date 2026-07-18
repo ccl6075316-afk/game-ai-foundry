@@ -29,12 +29,13 @@ export function roleHero(role: ChatAgentRole): { title: string; subtitle: string
     case "brief":
       return {
         title: "今天想做什么游戏？",
-        subtitle: "在这里商量设计。默认只聊天；明确说「落实成 brief」后再定稿导出。",
+        subtitle:
+          "和策划商量设计 → 保存 Brief → 生成北极星图定视觉锚 → 再找项目经理开流水线。气泡里的选项可以直接点。",
       };
     case "product_host":
       return {
         title: "有什么要改或推进？",
-        subtitle: "你是决策人；消息会发给项目经理执行器 CLI（Hermes/Codex/Cursor Agent）做分诊派工。",
+        subtitle: "Brief（含北极星）定好后，点「生成流水线」再「运行资产生成」；也可以直接说试玩问题和改动。",
       };
     case "programmer":
       return {
@@ -56,10 +57,10 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
   }
   if (role === "product_host") {
     return [
-      { label: "生成流水线", desc: "brief → manifest", cmd: "/plan" },
-      { label: "运行 Pipeline", desc: "资产生成", cmd: "/run" },
+      { label: "生成流水线", desc: "用已导出的 Brief 排任务", cmd: "生成流水线" },
+      { label: "运行资产生成", desc: "含文案生成并出图", cmd: "运行资产生成（含文案）" },
       { label: "改需求 Delta", desc: "增量改蓝图", cmd: "/delta 003-feature | 描述改动" },
-      { label: "打开看板", desc: "任务 DAG", cmd: "/board" },
+      { label: "打开看板", desc: "看右侧任务列表", cmd: "打开看板" },
       { label: "打开 Godot", desc: "编辑器", cmd: "/godot" },
     ];
   }

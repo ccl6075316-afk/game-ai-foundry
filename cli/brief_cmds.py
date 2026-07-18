@@ -19,11 +19,13 @@ from brief_brainstorm import (
     session_status,
 )
 from host_chat import (
+    DEFAULT_AUTOFIX_MAX_ROUNDS,
     HostChatError,
     export_brief as host_export_brief,
     list_sessions as host_list_sessions,
     load_session as host_load_session,
     new_session as host_new_session,
+    run_autofix as host_run_autofix,
     run_turn as host_run_turn,
     save_session as host_save_session,
     session_path_for_id,
@@ -229,6 +231,52 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 return
             for item in items:
                 click.echo(f"{item['id']}\t{item['message_count']} msgs\t{item['title']}")
+
+    @chat_group.command("autofix")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option(
+        "--max-rounds",
+        default=DEFAULT_AUTOFIX_MAX_ROUNDS,
+        show_default=True,
+        type=int,
+        help="Stop after this many LLM fix turns (or sooner if clean / stuck).",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_autofix_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        max_rounds: int,
+        as_json: bool,
+    ) -> None:
+        """Read validator gaps and ask the host LLM to fix the draft until clean."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = host_run_autofix(session, config=config, max_rounds=max_rounds)
+            host_save_session(path, session)
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+            **{k: v for k, v in host_session_status(session).items() if k not in result},
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or result.get("reason"))
+            click.echo(f"ok={result.get('ok')} rounds={result.get('rounds_run')} gaps={len(result.get('gaps') or [])}")
+            for g in result.get("gaps") or []:
+                click.echo(f"  - {g}")
+        if not result.get("ok"):
+            sys.exit(2)
 
     @chat_group.command("export")
     @click.option("--session-id", default=None)

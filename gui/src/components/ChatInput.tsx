@@ -4,22 +4,26 @@ interface Props {
   disabled: boolean;
   choices?: string[];
   readyToExport?: boolean;
+  showAutofix?: boolean;
   placeholder?: string;
   hint?: string;
   onSend: (text: string) => void;
   onChoice?: (text: string) => void;
   onExportBrief?: () => void;
+  onAutofix?: () => void;
 }
 
 export function ChatInput({
   disabled,
   choices = [],
   readyToExport,
-  placeholder = "描述游戏想法，或输入 /brief /doctor /plan …",
-  hint = "Enter 发送 · `/run --run-prompts` 含文案生成 · `/brief save 名称` 导出",
+  showAutofix,
+  placeholder = "描述想法，或点下方快捷按钮…",
+  hint = "Enter 发送 · 左侧切换同事 · 快捷按钮推进流水线",
   onSend,
   onChoice,
   onExportBrief,
+  onAutofix,
 }: Props) {
   const [text, setText] = useState("");
 
@@ -49,7 +53,7 @@ export function ChatInput({
 
   return (
     <div className="composer">
-      {(choices.length > 0 || readyToExport) && (
+      {(choices.length > 0 || readyToExport || showAutofix) && (
         <div className="composer__chips">
           {choices.map((c) => (
             <button
@@ -62,6 +66,17 @@ export function ChatInput({
               {c}
             </button>
           ))}
+          {showAutofix && (
+            <button
+              type="button"
+              className="composer__chip"
+              disabled={disabled}
+              onClick={() => onAutofix?.()}
+              title="自动读取校验错误并循环修复草稿"
+            >
+              自动修 brief
+            </button>
+          )}
           {readyToExport && (
             <button
               type="button"

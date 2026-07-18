@@ -2,39 +2,41 @@
 
 **AI-driven game factory** — describe a game → freeze **brief JSON** → generate assets → Godot project → iterate with AI colleagues.
 
-**Latest:** [**v0.0.5**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.5) — 协作稳定性修复（同事隔离 / Hermes Provider / Windows Agent 编码）
+**Latest:** [**v0.0.6**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.6) — 工程隔离 / 北极星定稿 / 环境错误可读
 
 **GUI**（`start-gui.bat` / `start-gui.sh`）或 **CLI**（`cd cli && python gamefactory.py`）。七角色 skills + Hermes / Codex / Cursor 执行器。
 
 文档索引 → [`docs/README.md`](docs/README.md)
-    10|
+
 ## How it works
 
 ```
 用户（决策人）
-  ├─ 策划同事     → brief chat → brief.json（落实才写盘）
+  ├─ 策划同事     → brief chat → projects/<slug>/brief.json + 北极星图
   ├─ 项目经理同事 → 分诊 → handoffs / progress / 定点 pipeline
   └─ 程序员同事   → 接 handoff → 改 Godot C# → validate
          │
 brief.json → production.json → scaffold
-    20|         → pipeline run → assemble → games/
+         → pipeline run → assemble → projects/<slug>/game/
          → validate / test unit / play / regression
 ```
 
 产品心智 → [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)  
 改需求 / Delta → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 
-## Features (v0.0.5)
+## Features (v0.0.6)
 
 ### GUI — AI 公司前台
 
 | 能力 | 说明 |
 |------|------|
 | **同事列表** | 策划 / 项目经理 / 程序员；可多实例、改名、解雇、侧栏收起 |
-| **策划** | `brief chat`：商量设计，明确「落实」才导出 brief |
-| **项目经理** | `agent turn` → 执行器 CLI；分诊写 `plans/handoffs/` + progress |
+| **策划** | `brief chat`：商量设计；保存 Brief；**生成/选用北极星图** |
+| **项目经理** | 生成流水线 → 运行资产生成；分诊写 handoff + progress |
+| **工程隔离** | 新游戏产物在 `projects/<slug>/` |
+| **环境检测** | 失败时对话 + 弹窗写清原因，可复制发给支持 |
 | **程序员** | 按实例接 handoff；关单写回 progress |
-| **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等；流式日志 |
+| **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等 |
 | **`/delta`** | Production Delta → 合并蓝图并同步 progress |
 | **斜杠命令** | `/plan` `/run` `/board` `/doctor` `/guide` … |
 | **Provider / 环境** | 多账号；FFmpeg / Godot / .NET 自动装；执行器向导 |
@@ -66,14 +68,14 @@ brief.json → production.json → scaffold
 
 ### Release（最终用户）
 
-1. 下载 [**v0.0.5 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.5)
+1. 下载 [**v0.0.6 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.6)
 2. 解压 / 打开 **Game AI Foundry**
 3. **设置** → 填 LLM API Key；等待顶部芯片变绿（FFmpeg / Godot / .NET）
 4. **（推荐）环境 → 执行器** → Hermes / Codex / Cursor Agent（Hermes 在角色页可选 Provider 后同步）
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts`
 6. 试玩问题找**项目经理**；改需求用 `/delta 00x-name | 描述`
 
-说明 → [`docs/RELEASE-NOTES-0.0.5.md`](docs/RELEASE-NOTES-0.0.5.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
+说明 → [`docs/RELEASE-NOTES-0.0.6.md`](docs/RELEASE-NOTES-0.0.6.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
 
 **无需**安装 Python / Node。
 

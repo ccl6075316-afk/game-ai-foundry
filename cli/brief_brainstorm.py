@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import re
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +18,7 @@ from brief import (
     validate_brief_for_export,
 )
 from llm_config import resolve_host_api_settings
+from llm_json import LlmJsonError, parse_llm_json_object
 from prompt_craft import PromptCraftError, chat_text_completion
 from shared_context import asset_to_dict, project_to_dict
 
@@ -77,22 +77,10 @@ def save_session(path: Path, session: dict[str, Any]) -> None:
 
 
 def _parse_llm_json(text: str) -> dict[str, Any]:
-    text = text.strip()
-    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-    if fence:
-        text = fence.group(1)
-    else:
-        start = text.find("{")
-        end = text.rfind("}")
-        if start >= 0 and end > start:
-            text = text[start : end + 1]
     try:
-        parsed = json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise BriefBrainstormError(f"Could not parse LLM JSON: {exc}\nRaw: {text[:500]}") from exc
-    if not isinstance(parsed, dict):
-        raise BriefBrainstormError("LLM JSON root must be an object.")
-    return parsed
+        return parse_llm_json_object(text, soft_prose_fallback=True)
+    except LlmJsonError as exc:
+        raise BriefBrainstormError(str(exc)) from exc
 
 
 def _merge_draft(existing: dict[str, Any], incoming: dict[str, Any] | None) -> dict[str, Any]:

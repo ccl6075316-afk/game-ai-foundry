@@ -16,6 +16,8 @@
 
 1. **每次只问一个问题**，不要一次抛多个问题。
 2. 优先给 **2–4 个选项**（`choices`），降低用户回答成本；开放题也可以。
+   - **`choices` 必须是 JSON 数组**（短句），GUI 会渲染成可点按钮；不要只把选项写在正文列表里却留空 `choices`。
+   - 保存 Brief 后：风格不满意 → 用户改 `art_direction` → 再生成北极星图（不要让用户去找项目经理改画风）。
 3. 用中文对话，brief 内的 `description` / `art_direction` 等用英文（便于后续 prompt-crafter）。
 4. 逐步补全下方 **冻结清单** 中的每一项；缺任一项不得设 `ready_to_export: true`。
 5. 资产类型允许：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`。
@@ -40,7 +42,7 @@
 | `controls` | 非空，动作名 → 按键列表；usage 含 locomotion 时需 `move_left`/`move_right`；含 jump/attack 时需对应 action |
 | `viewport` | `{ width, height }` 正整数，逻辑分辨率 |
 | `camera` | `2d_platformer` 等平台类 genre 必填，如 `{ "mode": "follow_player" }` |
-| `visual_reference` | 可选，视觉锚图路径（对标 godogen `reference.png`），供 prompt/美术对齐 |
+| `visual_reference` | **导出时必须留空**。保存 Brief 后由策划在 GUI 点「生成北极星图」→「选用北极星 a/b/c」写入**图片路径**。**禁止**把风格散文、参考游戏名写进此字段——风格只写 `art_direction` |
 | `hud` | 有 `usage: ui_element` 素材时必填；每项 `{ "asset", "anchor", "description" }` |
 
 ### `assets[]`（每个素材一行）
@@ -69,7 +71,7 @@
 
 ### `animation_graphs[]`（角色有 2+ 动画 clip 时必填）
 
-与 godogen 的 `Transitions` 等价，但写入 brief JSON，供 godot-developer 实现状态机：
+完整契约：[`brief-animation-graphs.md`](brief-animation-graphs.md)。
 
 ```json
 "animation_graphs": [
@@ -85,9 +87,9 @@
 ]
 ```
 
-- `from` / `to` / `then` 使用 Godot clip 名（与 `animation_name` 或 `{ref}_{action}` 一致，如 `walk`、`attack`）。
-- `animation_loop: false` 的 one-shot 作为 `to` 时 **必须** 写 `then`（播完回到哪个 clip）。
-- 双向切换（如 idle ↔ walk）用 `"bidirectional": true`。
+- `from` / `to` / `then` = Godot clip 名（`animation_name`，或 `{character_asset}_后缀` 的**后缀**；静图默认 `idle`）。**不要**写资产全名；**不要**写 `states[]`。
+- `animation_loop: false` 的 one-shot 作为 `to` 时 **必须** 写 `then`。
+- 双向切换用 `"bidirectional": true`。
 
 ### 推荐 `usage` 标签
 

@@ -75,59 +75,252 @@ function runCli(args, { cwd, onLine } = {}) {
   });
 }
 
+function extractBalancedJsonObject(text) {
+  const start = text.indexOf("{");
+  if (start < 0) return null;
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < text.length; i += 1) {
+    const ch = text[i];
+    if (inString) {
+      if (escape) escape = false;
+      else if (ch === "\\") escape = true;
+      else if (ch === '"') inString = false;
+      continue;
+    }
+    if (ch === '"') inString = true;
+    else if (ch === "{") depth += 1;
+    else if (ch === "}") {
+      depth -= 1;
+      if (depth === 0) return text.slice(start, i + 1);
+    }
+  }
+  return null;
+}
+
 function parseJsonFromOutput(text) {
-  const trimmed = text.trim();
+  const trimmed = String(text || "")
+    .replace(/^\uFEFF/, "")
+    .trim();
   if (!trimmed) return null;
   try {
-    return JSON.parse(trimmed);
+    const parsed = JSON.parse(trimmed);
+    if (parsed && typeof parsed === "object") return parsed;
   } catch {
-    const start = trimmed.indexOf("{");
-    const arrStart = trimmed.indexOf("[");
-    const idx =
-      start >= 0 && arrStart >= 0 ? Math.min(start, arrStart) : Math.max(start, arrStart);
-    if (idx < 0) return null;
+    /* fall through */
+  }
+  const balanced = extractBalancedJsonObject(trimmed);
+  if (balanced) {
     try {
-      return JSON.parse(trimmed.slice(idx));
+      return JSON.parse(balanced);
+    } catch {
+      /* fall through */
+    }
+  }
+  // Last resort: from first { to last }
+  const start = trimmed.indexOf("{");
+  const end = trimmed.lastIndexOf("}");
+  if (start >= 0 && end > start) {
+    try {
+      return JSON.parse(trimmed.slice(start, end + 1));
     } catch {
       return null;
     }
   }
+  return null;
 }
 
 function listBriefs() {
-  const dir = path.join(repoRoot(), "resources");
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((f) => f.endsWith(".json") && f.includes("brief"))
-    .map((f) => {
-      const full = path.join(dir, f);
-      const stat = statSync(full);
-      return {
-        id: f.replace(/\.json$/, ""),
-        path: path.join("resources", f).replace(/\\/g, "/"),
-        label: f,
-        mtime: stat.mtimeMs,
-      };
-    })
-    .sort((a, b) => b.mtime - a.mtime);
+  const root = repoRoot();
+  const out = [];
+  const seen = new Set();
+  const pushFile = (abs, rel, label) => {
+    if (!existsSync(abs) || !statSync(abs).isFile()) return;
+    const normRel = String(rel).replace(/\\/g, "/");
+    try {
+      const data = JSON.parse(readFileSync(abs, "utf-8"));
+      // Skip legacy redirect stubs (migrated games) — follow to projects/
+      if (data?.brief_meta?.redirect_to || data?.brief_meta?.migrated) {
+        const target = String(data.brief_meta.redirect_to || "").replace(/\\/g, "/");
+        if (target) {
+          const tAbs = path.join(root, target);
+          if (existsSync(tAbs)) {
+            pushFile(tAbs, target, path.basename(path.dirname(target)) + "/brief.json");
+          }
+        }
+        return;
+      }
+    } catch {
+      /* list anyway if not JSON-parseable */
+    }
+    if (seen.has(normRel)) return;
+    seen.add(normRel);
+    const stat = statSync(abs);
+    out.push({
+      id: normRel.replace(/\.json$/i, "").replace(/[\\/]/g, "__"),
+      path: normRel,
+      label: label || path.basename(rel),
+      mtime: stat.mtimeMs,
+    });
+  };
+
+  const projectsDir = path.join(root, "projects");
+  if (existsSync(projectsDir)) {
+    for (const name of readdirSync(projectsDir)) {
+      const dir = path.join(projectsDir, name);
+      if (!statSync(dir).isDirectory()) continue;
+      const brief = path.join(dir, "brief.json");
+      const alt = path.join(dir, `${name}-brief.json`);
+      if (existsSync(brief)) {
+        pushFile(brief, path.join("projects", name, "brief.json"), `${name}/brief.json`);
+      } else if (existsSync(alt)) {
+        pushFile(alt, path.join("projects", name, `${name}-brief.json`), `${name}/${name}-brief.json`);
+      }
+    }
+  }
+
+  for (const folder of ["resources", path.join("cli", "resources")]) {
+    const dir = path.join(root, folder);
+    if (!existsSync(dir)) continue;
+    for (const f of readdirSync(dir)) {
+      if (!f.endsWith(".json") || !f.includes("brief")) continue;
+      if (f.toLowerCase().includes("example")) continue;
+      pushFile(path.join(dir, f), path.join(folder, f), f);
+    }
+  }
+
+  return out.sort((a, b) => b.mtime - a.mtime);
+}
+
+function resolveRepoRel(relPath) {
+  if (!relPath || typeof relPath !== "string") return null;
+  const root = path.resolve(repoRoot());
+  const normalized = relPath.replace(/\\/g, "/").replace(/^\/+/, "");
+  if (!normalized || normalized.includes("..")) return null;
+  const full = path.resolve(root, normalized);
+  if (full !== root && !full.startsWith(root + path.sep)) return null;
+  return { full, rel: normalized };
+}
+
+function readRepoText(relPath) {
+  const resolved = resolveRepoRel(relPath);
+  if (!resolved) return { ok: false, error: "invalid path" };
+  if (!existsSync(resolved.full) || !statSync(resolved.full).isFile()) {
+    return { ok: false, error: "file not found", path: resolved.rel };
+  }
+  try {
+    const text = readFileSync(resolved.full, "utf-8");
+    // Cap oversized files for GUI preview.
+    const max = 400_000;
+    return {
+      ok: true,
+      path: resolved.rel,
+      text: text.length > max ? `${text.slice(0, max)}\n\n…(truncated)` : text,
+    };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e), path: resolved.rel };
+  }
+}
+
+function listProjectDocs(briefRel) {
+  const out = [];
+  const pushIfExists = (rel, label, kind) => {
+    const resolved = resolveRepoRel(rel);
+    if (!resolved || !existsSync(resolved.full) || !statSync(resolved.full).isFile()) return;
+    out.push({ path: resolved.rel, label, kind });
+  };
+
+  if (briefRel) {
+    const norm = briefRel.replace(/\\/g, "/");
+    const projMatch = norm.match(/^(projects\/[^/]+)\//i);
+    pushIfExists(norm, `已导出 Brief · ${path.basename(norm)}`, "json");
+    if (projMatch) {
+      const root = projMatch[1];
+      pushIfExists(`${root}/production.json`, `Production · ${root}`, "json");
+      pushIfExists(`${root}/progress.json`, `Progress · ${root}`, "json");
+      pushIfExists(`${root}/pipeline/manifest.json`, `Pipeline · ${root}`, "json");
+    } else {
+      const slugBase =
+        path.basename(norm).replace(/\.json$/i, "").replace(/-brief$/i, "") || "game";
+      pushIfExists(`plans/production_${slugBase}.json`, `Production · ${slugBase}`, "json");
+      pushIfExists(`plans/progress_${slugBase}.json`, `Progress · ${slugBase}`, "json");
+      pushIfExists(`pipeline/${slugBase}.json`, `Pipeline · ${slugBase}`, "json");
+    }
+  }
+
+  // Recent exported briefs (cap) for browsing without active brief.
+  for (const b of listBriefs().slice(0, 8)) {
+    if (out.some((d) => d.path === b.path)) continue;
+    pushIfExists(b.path, `Brief · ${b.label}`, "json");
+  }
+
+  const docsDir = path.join(repoRoot(), "docs");
+  if (existsSync(docsDir)) {
+    for (const f of readdirSync(docsDir)) {
+      if (!/\.(md|txt)$/i.test(f)) continue;
+      pushIfExists(path.join("docs", f).replace(/\\/g, "/"), `Docs · ${f}`, "markdown");
+    }
+  }
+  return out;
 }
 
 function listManifests() {
-  const dir = path.join(repoRoot(), "pipeline");
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => {
-      const full = path.join(dir, f);
-      const stat = statSync(full);
-      return {
-        id: f.replace(/\.json$/, ""),
-        path: path.join("pipeline", f).replace(/\\/g, "/"),
-        label: f,
-        mtime: stat.mtimeMs,
-      };
-    })
-    .sort((a, b) => b.mtime - a.mtime);
+  const root = repoRoot();
+  const out = [];
+  const seen = new Set();
+  const pushManifest = (abs, rel) => {
+    if (!existsSync(abs) || !statSync(abs).isFile()) return;
+    let norm = rel.replace(/\\/g, "/");
+    try {
+      const data = JSON.parse(readFileSync(abs, "utf-8"));
+      if (data?.migrated_to && !data?.tasks) {
+        const target = String(data.migrated_to).replace(/\\/g, "/");
+        const tAbs = path.join(root, target);
+        if (existsSync(tAbs)) {
+          pushManifest(tAbs, target);
+        }
+        return;
+      }
+    } catch {
+      /* ignore */
+    }
+    if (seen.has(norm)) return;
+    seen.add(norm);
+    const stat = statSync(abs);
+    out.push({
+      id: norm.replace(/\.json$/i, "").replace(/[\\/]/g, "__"),
+      path: norm,
+      label: path.basename(norm),
+      mtime: stat.mtimeMs,
+    });
+  };
+
+  // Prefer isolated projects/*/pipeline first
+  const projectsDir = path.join(root, "projects");
+  if (existsSync(projectsDir)) {
+    for (const name of readdirSync(projectsDir)) {
+      const pipe = path.join(projectsDir, name, "pipeline");
+      if (!existsSync(pipe) || !statSync(pipe).isDirectory()) continue;
+      for (const f of readdirSync(pipe)) {
+        if (!f.endsWith(".json")) continue;
+        pushManifest(
+          path.join(pipe, f),
+          path.join("projects", name, "pipeline", f),
+        );
+      }
+    }
+  }
+
+  const flat = path.join(root, "pipeline");
+  if (existsSync(flat)) {
+    for (const f of readdirSync(flat)) {
+      if (!f.endsWith(".json")) continue;
+      pushManifest(path.join(flat, f), path.join("pipeline", f));
+    }
+  }
+
+  return out.sort((a, b) => b.mtime - a.mtime);
 }
 
 function manifestMeta(relPath) {
@@ -136,20 +329,153 @@ function manifestMeta(relPath) {
     const outputDir = manifest.paths?.output_dir || "";
     const godotProject = manifest.godot_project || "";
     const brief = manifest.brief || "";
+    const tasks = Array.isArray(manifest.tasks) ? manifest.tasks : [];
+    const counts = {};
+    for (const t of tasks) {
+      const st = String(t?.status || "pending");
+      counts[st] = (counts[st] || 0) + 1;
+    }
     return {
       brief: String(brief).replace(/\\/g, "/"),
       output_dir: String(outputDir).replace(/\\/g, "/"),
       godot_project: String(godotProject).replace(/\\/g, "/"),
       project_title: manifest.project?.title || "",
+      task_count: tasks.length,
+      counts,
     };
   } catch {
     return null;
   }
 }
 
+function normalizeBriefKey(p) {
+  return String(p || "")
+    .replace(/\\/g, "/")
+    .replace(/^\.\.\//, "")
+    .toLowerCase();
+}
+
+/** Map stored/legacy brief paths (resources/ vs cli/resources/) to an existing file.
+ * Prefer projects/<slug>/ after migrate; follow redirect stubs. */
+function resolveBriefRel(briefRel) {
+  const root = repoRoot();
+  const raw = String(briefRel || "")
+    .replace(/\\/g, "/")
+    .replace(/^\.\.\//, "")
+    .replace(/^\.\//, "");
+  if (!raw) return "";
+  const base = path.basename(raw);
+  const candidates = [];
+  const push = (c) => {
+    const n = String(c || "").replace(/\\/g, "/");
+    if (n && !candidates.includes(n)) candidates.push(n);
+  };
+
+  // 1) Prefer isolated projects/ first (by slug / stem)
+  const stem = base.replace(/\.json$/i, "").replace(/-brief$/i, "");
+  if (stem) {
+    push(`projects/${stem}/brief.json`);
+    push(`projects/${stem}/${stem}-brief.json`);
+  }
+  // Known game aliases
+  if (/mrqbshf2|black.?whistle/i.test(raw + base)) {
+    push("projects/black-whistle/brief.json");
+  }
+
+  push(raw);
+  if (raw.startsWith("resources/") && !raw.startsWith("cli/")) {
+    push(`cli/${raw}`);
+  }
+  if (raw.startsWith("cli/resources/")) {
+    push(raw.slice("cli/".length));
+  }
+  push(`resources/${base}`);
+  push(`cli/resources/${base}`);
+
+  // Scan projects/*/brief.json for migrated_from / legacy_names
+  const projectsDir = path.join(root, "projects");
+  if (existsSync(projectsDir)) {
+    try {
+      for (const name of readdirSync(projectsDir)) {
+        const briefAbs = path.join(projectsDir, name, "brief.json");
+        if (!existsSync(briefAbs)) continue;
+        try {
+          const data = JSON.parse(readFileSync(briefAbs, "utf-8"));
+          const meta = data?.brief_meta || {};
+          const migrated = String(meta.migrated_from || "").replace(/\\/g, "/");
+          const names = Array.isArray(meta.legacy_names) ? meta.legacy_names : [];
+          if (
+            migrated.endsWith(base) ||
+            migrated === raw ||
+            names.includes(base) ||
+            names.includes(stem) ||
+            names.includes(raw)
+          ) {
+            push(`projects/${name}/brief.json`);
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
+  for (const c of candidates) {
+    const abs = path.join(root, c);
+    if (!existsSync(abs)) continue;
+    try {
+      const data = JSON.parse(readFileSync(abs, "utf-8"));
+      const redirect = String(data?.brief_meta?.redirect_to || "").replace(/\\/g, "/");
+      if (redirect && existsSync(path.join(root, redirect))) {
+        return redirect;
+      }
+      // Skip empty redirect stubs without target
+      if (data?.brief_meta?.migrated && redirect) continue;
+    } catch {
+      /* use path as-is */
+    }
+    return c;
+  }
+  return raw;
+}
+
+function briefCliArg(briefRel) {
+  return path.join("..", resolveBriefRel(briefRel));
+}
+
+function looksLikeImagePath(ref) {
+  const s = String(ref || "").trim().replace(/\\/g, "/");
+  if (!s || s.length > 400 || s.includes("://")) return false;
+  return /\.(png|jpe?g|webp|gif)$/i.test(s);
+}
+
+/** Find newest pipeline manifest whose brief matches (path or basename). */
+function findManifestForBrief(briefRel) {
+  const key = normalizeBriefKey(briefRel);
+  if (!key) return null;
+  const base = path.basename(key);
+  for (const item of listManifests()) {
+    const meta = manifestMeta(item.path);
+    if (!meta?.brief) continue;
+    const mb = normalizeBriefKey(meta.brief);
+    if (mb === key || mb.endsWith("/" + base) || path.basename(mb) === base) {
+      return { path: item.path, label: item.label, mtime: item.mtime, meta };
+    }
+  }
+  return null;
+}
+
 function loadManifest(relPath) {
   const full = path.join(repoRoot(), relPath);
-  return JSON.parse(readFileSync(full, "utf-8"));
+  const data = JSON.parse(readFileSync(full, "utf-8"));
+  // Follow migrate pointer
+  if (data?.migrated_to && !data?.tasks) {
+    const next = String(data.migrated_to).replace(/\\/g, "/");
+    return JSON.parse(readFileSync(path.join(repoRoot(), next), "utf-8"));
+  }
+  return data;
 }
 
 function configPath() {
@@ -205,15 +531,46 @@ function relToRepo(absPath) {
   return rel.split(path.sep).join("/");
 }
 
+/** Resolve image/video path for preview/open. Accepts repo-relative or absolute. */
 function resolveMediaAbs(relOrAbs) {
-  const root = repoRoot();
-  let candidate = relOrAbs;
-  if (!path.isAbsolute(candidate)) {
-    candidate = path.join(root, candidate.split("/").join(path.sep));
+  const root = path.resolve(repoRoot());
+  const raw = String(relOrAbs || "").trim();
+  if (!raw) return null;
+
+  const candidates = [];
+  const push = (p) => {
+    if (!p) return;
+    const n = path.normalize(p);
+    if (!candidates.includes(n)) candidates.push(n);
+  };
+
+  if (path.isAbsolute(raw)) {
+    push(raw);
+  } else {
+    const rel = raw.replace(/\\/g, "/");
+    push(path.join(root, rel));
+    // Gallery sometimes truncated projects/<slug>/output/... → output/...
+    if (rel.startsWith("output/") || rel.startsWith("plans/") || rel.startsWith("games/")) {
+      const projectsDir = path.join(root, "projects");
+      if (existsSync(projectsDir)) {
+        try {
+          for (const name of readdirSync(projectsDir)) {
+            push(path.join(projectsDir, name, rel));
+          }
+        } catch {
+          /* ignore */
+        }
+      }
+    }
   }
-  candidate = path.normalize(candidate);
-  if (!candidate.startsWith(root) || !existsSync(candidate)) return null;
-  return candidate;
+
+  for (const candidate of candidates) {
+    if (!existsSync(candidate) || !statSync(candidate).isFile()) continue;
+    const rel = path.relative(root, candidate);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) continue;
+    return candidate;
+  }
+  return null;
 }
 
 function mediaKind(ext) {
@@ -416,6 +773,9 @@ app.whenReady().then(() => {
   ipcMain.handle("list-briefs", () => listBriefs());
   ipcMain.handle("list-manifests", () => listManifests());
   ipcMain.handle("manifest-meta", (_e, manifestRel) => manifestMeta(manifestRel));
+  ipcMain.handle("find-manifest-for-brief", (_e, briefRel) => findManifestForBrief(briefRel));
+  ipcMain.handle("read-repo-text", (_e, relPath) => readRepoText(relPath));
+  ipcMain.handle("list-project-docs", (_e, briefRel) => listProjectDocs(briefRel));
 
   ipcMain.handle("pipeline-plan", async (_e, opts) => {
     const {
@@ -423,12 +783,14 @@ app.whenReady().then(() => {
       manifestRel,
       outputDirRel,
       godotProjectRel,
+      plansDirRel,
     } = opts;
+    const briefResolved = resolveBriefRel(briefRel);
     const args = [
       "pipeline",
       "plan",
       "--brief",
-      path.join("..", briefRel),
+      path.join("..", briefResolved),
       "-o",
       path.join("..", manifestRel),
       "--output-dir",
@@ -436,6 +798,16 @@ app.whenReady().then(() => {
       "--godot-project",
       path.join("..", godotProjectRel),
     ];
+    if (plansDirRel) {
+      args.push("--plans-dir", path.join("..", plansDirRel));
+    }
+    // Ensure parent dirs exist for isolated projects
+    for (const rel of [manifestRel, outputDirRel, godotProjectRel, plansDirRel]) {
+      if (!rel) continue;
+      const abs = path.join(repoRoot(), rel);
+      const dir = path.extname(abs) ? path.dirname(abs) : abs;
+      mkdirSync(dir, { recursive: true });
+    }
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
@@ -476,6 +848,167 @@ app.whenReady().then(() => {
       },
     });
     return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("resolve-brief-rel", (_e, briefRel) => {
+    const resolved = resolveBriefRel(briefRel);
+    const abs = resolved ? path.join(repoRoot(), resolved) : "";
+    return {
+      input: String(briefRel || "").replace(/\\/g, "/"),
+      path: resolved,
+      exists: Boolean(resolved && existsSync(abs)),
+    };
+  });
+
+  ipcMain.handle("visual-target-generate", async (event, briefRel, candidates) => {
+    const sender = event.sender;
+    const n = Math.max(1, Math.min(4, Number(candidates) || 3));
+    const result = await runCli(
+      [
+        "brief",
+        "visual-target",
+        "generate",
+        "--brief",
+        briefCliArg(briefRel),
+        "--candidates",
+        String(n),
+        "--json",
+      ],
+      {
+        onLine: (line, stream) => {
+          sender.send("pipeline-log", { line, stream });
+        },
+      },
+    );
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("visual-target-list", async (_e, briefRel) => {
+    const result = await runCli([
+      "brief",
+      "visual-target",
+      "list",
+      "--brief",
+      briefCliArg(briefRel),
+      "--json",
+    ]);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("visual-target-pick", async (_e, briefRel, candidateId) => {
+    const result = await runCli([
+      "brief",
+      "visual-target",
+      "pick",
+      "--brief",
+      briefCliArg(briefRel),
+      "--id",
+      String(candidateId || "").trim(),
+      "--json",
+    ]);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("visual-target-status", (_e, briefRel) => {
+    const root = repoRoot();
+    const rel = resolveBriefRel(briefRel);
+    if (!rel) {
+      return { ok: false, ready: false, visual_reference: "", candidates: [] };
+    }
+    const briefAbs = path.join(root, rel);
+    if (!existsSync(briefAbs)) {
+      return {
+        ok: false,
+        ready: false,
+        visual_reference: "",
+        candidates: [],
+        error: `brief not found: ${rel}`,
+        brief_rel: rel,
+      };
+    }
+    let visualReference = "";
+    try {
+      const data = JSON.parse(readFileSync(briefAbs, "utf-8"));
+      visualReference = String(data?.project?.visual_reference || "").trim();
+    } catch {
+      return {
+        ok: false,
+        ready: false,
+        visual_reference: "",
+        candidates: [],
+        error: "brief unreadable",
+        brief_rel: rel,
+      };
+    }
+    const pathOk = looksLikeImagePath(visualReference);
+    let fileOk = false;
+    if (pathOk) {
+      const abs = path.isAbsolute(visualReference)
+        ? visualReference
+        : path.join(root, visualReference);
+      fileOk = existsSync(abs) && statSync(abs).isFile();
+    }
+    const candidates = [];
+    // Prefer manifest next to selected.png under common VT output dirs
+    const tryManifests = [];
+    if (rel.startsWith("projects/")) {
+      const slug = rel.split("/")[1];
+      tryManifests.push(path.join(root, "projects", slug, "output", "visual-target", "manifest.json"));
+    }
+    const stem = path.basename(rel).replace(/\.json$/i, "");
+    tryManifests.push(path.join(root, "output", stem, "visual-target", "manifest.json"));
+    // Title-slug folders are unknown here; also scan output/*/visual-target/manifest.json lightly
+    const outputRoot = path.join(root, "output");
+    if (existsSync(outputRoot)) {
+      try {
+        for (const name of readdirSync(outputRoot)) {
+          const m = path.join(outputRoot, name, "visual-target", "manifest.json");
+          if (existsSync(m)) tryManifests.push(m);
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+    let selectedId = null;
+    const seen = new Set();
+    for (const mPath of tryManifests) {
+      if (!existsSync(mPath) || seen.has(mPath)) continue;
+      seen.add(mPath);
+      try {
+        const man = JSON.parse(readFileSync(mPath, "utf-8"));
+        const briefInMan = String(man.brief_path || "").replace(/\\/g, "/");
+        const briefNorm = briefAbs.replace(/\\/g, "/");
+        if (briefInMan && !briefInMan.includes(path.basename(briefAbs)) && briefInMan !== briefNorm) {
+          // keep scanning; weak match on basename below
+        }
+        selectedId = man.selected_id || selectedId;
+        for (const c of man.candidates || []) {
+          if (!c || !c.id) continue;
+          const cAbs = String(c.path || "");
+          const cRel = cAbs
+            ? path.relative(root, path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs)).replace(/\\/g, "/")
+            : "";
+          candidates.push({
+            id: String(c.id),
+            label: c.label || c.id,
+            path: cRel || cAbs,
+            status: c.status,
+          });
+        }
+        if (candidates.length) break;
+      } catch {
+        /* ignore */
+      }
+    }
+    return {
+      ok: true,
+      ready: Boolean(pathOk && fileOk),
+      visual_reference: visualReference,
+      path_shaped: pathOk,
+      file_ok: fileOk,
+      selected_id: selectedId,
+      candidates,
+    };
   });
 
   ipcMain.handle("open-godot", async (_e, projectRel) => {
@@ -573,6 +1106,10 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel) => {
+    // CLI cwd is cli/ — write into repo via ../projects/... (not cli/resources/)
+    const rel = String(outputRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
+    const abs = path.join(repoRoot(), rel);
+    mkdirSync(path.dirname(abs), { recursive: true });
     const result = await runCli([
       "brief",
       "chat",
@@ -580,7 +1117,25 @@ app.whenReady().then(() => {
       "--session-id",
       String(sessionId || "").trim(),
       "-o",
-      outputRel,
+      path.join("..", rel),
+      "--json",
+    ]);
+    const data = parseJsonFromOutput(result.stdout) || {};
+    if (!data.brief_path) data.brief_path = abs;
+    data.brief_rel = rel;
+    return { ...result, data };
+  });
+
+  ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5) => {
+    const rounds = Math.max(1, Math.min(12, Number(maxRounds) || 5));
+    const result = await runCli([
+      "brief",
+      "chat",
+      "autofix",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--max-rounds",
+      String(rounds),
       "--json",
     ]);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
@@ -618,10 +1173,12 @@ app.whenReady().then(() => {
       args.push("--executor", String(opts.executor));
     }
     if (opts.brief) {
-      args.push("--brief", String(opts.brief));
+      const b = String(opts.brief).replace(/\\/g, "/").replace(/^\.\.\//, "");
+      args.push("--brief", path.join("..", b));
     }
     if (opts.progress) {
-      args.push("--progress", String(opts.progress));
+      const p = String(opts.progress).replace(/\\/g, "/").replace(/^\.\.\//, "");
+      args.push("--progress", path.join("..", p));
     }
     if (opts.instanceId) {
       args.push("--instance-id", String(opts.instanceId));

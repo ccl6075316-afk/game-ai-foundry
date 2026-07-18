@@ -49,13 +49,13 @@ def pipeline_group() -> None:
     "--output-dir",
     default=None,
     type=click.Path(path_type=Path),
-    help="Asset output directory (default: output/<brief-stem>).",
+    help="Asset output directory (default: projects/<slug>/output or output/<brief-stem>).",
 )
 @click.option(
     "--plans-dir",
     default=None,
     type=click.Path(path_type=Path),
-    help="Plan handoff directory (default: plans/).",
+    help="Plan handoff directory (default: projects/<slug>/plans or plans/).",
 )
 @click.option(
     "--sprite-frames",
@@ -73,7 +73,7 @@ def pipeline_group() -> None:
     "--godot-project",
     default=None,
     type=click.Path(path_type=Path),
-    help="Godot project path (default: games/<brief-stem>).",
+    help="Godot project path (default: projects/<slug>/game or games/<brief-stem>).",
 )
 @click.option(
     "--merge",
@@ -111,6 +111,13 @@ def plan_cmd(
         )
         if merge_path is not None:
             merge_manifest_status(manifest, load_manifest(merge_path))
+        from project_paths import default_paths_for_brief
+
+        _defs = default_paths_for_brief(brief_path)
+        Path(_defs["plans_dir"]).mkdir(parents=True, exist_ok=True)
+        Path(_defs["output_dir"]).mkdir(parents=True, exist_ok=True)
+        manifest_path = Path(manifest_path)
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
         save_manifest(manifest_path, manifest)
         from assets_manifest import refresh_assets_manifest_from_pipeline
 

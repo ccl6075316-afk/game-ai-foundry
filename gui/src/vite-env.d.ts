@@ -25,6 +25,15 @@ export interface ManifestMeta {
   output_dir?: string;
   godot_project?: string;
   project_title?: string;
+  task_count?: number;
+  counts?: Record<string, number>;
+}
+
+export interface ManifestMatch {
+  path: string;
+  label?: string;
+  mtime?: number;
+  meta?: ManifestMeta | null;
 }
 
 export interface ToolchainComponent {
@@ -180,6 +189,20 @@ declare global {
       listBriefs: () => Promise<BriefItem[]>;
       listManifests: () => Promise<BriefItem[]>;
       getManifestMeta: (manifestRel: string) => Promise<ManifestMeta | null>;
+      findManifestForBrief: (briefRel: string) => Promise<ManifestMatch | null>;
+      readRepoText: (relPath: string) => Promise<{
+        ok: boolean;
+        path?: string;
+        text?: string;
+        error?: string;
+      }>;
+      listProjectDocs: (briefRel?: string | null) => Promise<
+        Array<{
+          path: string;
+          label: string;
+          kind: "brief" | "markdown" | "json";
+        }>
+      >;
       pipelinePlan: (opts: {
         briefRel: string;
         manifestRel: string;
@@ -192,6 +215,40 @@ declare global {
         tasks: PipelineTask[];
       }>;
       pipelineRun: (manifestRel: string, jobs: number, runPrompts?: boolean) => Promise<CliResult>;
+      resolveBriefRel: (briefRel: string) => Promise<{
+        input: string;
+        path: string;
+        exists: boolean;
+      }>;
+      visualTargetGenerate: (
+        briefRel: string,
+        candidates?: number,
+      ) => Promise<
+        CliResult<{
+          manifest_path?: string;
+          candidates?: Array<{
+            id?: string;
+            label?: string;
+            path?: string;
+            status?: string;
+          }>;
+        }>
+      >;
+      visualTargetList: (briefRel: string) => Promise<CliResult>;
+      visualTargetPick: (
+        briefRel: string,
+        candidateId: string,
+      ) => Promise<CliResult<{ visual_reference?: string; selected_id?: string }>>;
+      visualTargetStatus: (briefRel: string) => Promise<{
+        ok: boolean;
+        ready: boolean;
+        visual_reference?: string;
+        path_shaped?: boolean;
+        file_ok?: boolean;
+        selected_id?: string | null;
+        candidates?: Array<{ id: string; label?: string; path?: string; status?: string }>;
+        error?: string;
+      }>;
       openGodot: (projectRel: string) => Promise<CliResult>;
       getConfig: () => Promise<ConfigInfo>;
       saveConfig: (patch: ConfigPatch) => Promise<SaveConfigResult>;
@@ -238,7 +295,38 @@ declare global {
       hostChatExport: (
         sessionId: string,
         outputRel: string,
-      ) => Promise<CliResult<{ brief_path?: string; brief?: Record<string, unknown>; session_id?: string }>>;
+      ) => Promise<
+        CliResult<{
+          brief_path?: string;
+          brief_rel?: string;
+          brief?: Record<string, unknown>;
+          session_id?: string;
+        }>
+      >;
+      hostChatAutofix: (
+        sessionId: string,
+        maxRounds?: number,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          reason?: string;
+          rounds_run?: number;
+          max_rounds?: number;
+          gaps?: string[];
+          rounds?: Array<{
+            round?: number;
+            gaps_before?: string[];
+            gaps_after?: string[];
+            assistant_message?: string;
+            gap_count_before?: number;
+            gap_count_after?: number;
+          }>;
+          draft_brief?: import("./chat/types").HostChatDraftBrief | null;
+          ready_to_export?: boolean;
+          assistant_message?: string;
+          session_id?: string;
+        } & import("./chat/types").HostChatStatus>
+      >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
       agentTurn: (opts: {
         role: "product_host" | "programmer";

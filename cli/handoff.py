@@ -202,25 +202,23 @@ def extract_dispatch_payload(text: str) -> dict[str, Any] | None:
     """Parse trailing/fenced JSON dispatch block from assistant text."""
     if not text or not text.strip():
         return None
-    # Prefer ```json ... ```
-    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL | re.IGNORECASE)
-    candidates: list[str] = []
-    if fence:
-        candidates.append(fence.group(1))
-    # Also try last {...} that looks like triage
+    from llm_json import try_parse_llm_json_object
+
+    parsed = try_parse_llm_json_object(text)
+    if isinstance(parsed, dict) and (
+        "triage" in parsed or "dispatch" in parsed or "progress_note" in parsed
+    ):
+        return parsed
+    # Fallback: scan for nested-looking chunks that mention triage fields
     for m in re.finditer(r"\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}", text, re.DOTALL):
         chunk = m.group(0)
-        if "triage" in chunk or "dispatch" in chunk or "progress_note" in chunk:
-            candidates.append(chunk)
-    for raw in reversed(candidates):
-        try:
-            parsed = json.loads(raw)
-        except json.JSONDecodeError:
+        if "triage" not in chunk and "dispatch" not in chunk and "progress_note" not in chunk:
             continue
-        if isinstance(parsed, dict) and (
-            "triage" in parsed or "dispatch" in parsed or "progress_note" in parsed
+        obj = try_parse_llm_json_object(chunk)
+        if isinstance(obj, dict) and (
+            "triage" in obj or "dispatch" in obj or "progress_note" in obj
         ):
-            return parsed
+            return obj
     return None
 
 
@@ -253,6 +251,7 @@ def apply_product_host_dispatch(
         "dispatch_to": None,
         "target_instance_id": None,
         "next_actions": [],
+        "gui_hints": [],
     }
 
     triage = str(payload.get("triage") or "unknown").strip().lower()
@@ -303,6 +302,14 @@ def apply_product_host_dispatch(
     elif to == "programmer" and not cli_hints:
         cli_hints = ["python gamefactory.py godot validate --project ../games"]
     result["next_actions"] = list(cli_hints)
+
+    gui_hints_raw = payload.get("gui_hints")
+    if not isinstance(gui_hints_raw, list):
+        gui_hints_raw = []
+    gui_hints = [str(g).strip() for g in gui_hints_raw if str(g).strip()]
+    if to == "pipeline" and not gui_hints:
+        gui_hints = ["生成流水线", "运行资产生成（含文案）", "打开看板"]
+    result["gui_hints"] = gui_hints
 
     progress_file = progress_path
     if progress_file and progress_file.is_file():

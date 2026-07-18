@@ -615,10 +615,13 @@ def build_manifest(
     project, assets, graphs = load_brief_full(brief_path)
     validate_brief_for_export(project, assets, animation_graphs=graphs)
 
+    from project_paths import default_paths_for_brief
+
+    defaults = default_paths_for_brief(brief_path)
     if output_dir is None:
-        output_dir = _REPO_ROOT / "output" / brief_path.stem
+        output_dir = Path(defaults["output_dir"])
     if plans_dir is None:
-        plans_dir = _REPO_ROOT / "plans"
+        plans_dir = Path(defaults["plans_dir"])
 
     output_dir = output_dir.resolve()
     plans_dir = plans_dir.resolve()
@@ -664,7 +667,7 @@ def build_manifest(
     godot_handoff_cli = ""
     if include_godot:
         if godot_project is None:
-            godot_project = _REPO_ROOT / "games" / brief_path.stem
+            godot_project = Path(defaults["godot_project"])
         godot_plan = _collect_godot_plan(
             brief_stem=brief_path.stem,
             project=project,

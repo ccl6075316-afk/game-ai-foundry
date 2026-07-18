@@ -11,10 +11,20 @@ contextBridge.exposeInMainWorld("gameFactory", {
   listBriefs: () => ipcRenderer.invoke("list-briefs"),
   listManifests: () => ipcRenderer.invoke("list-manifests"),
   getManifestMeta: (manifestRel) => ipcRenderer.invoke("manifest-meta", manifestRel),
+  findManifestForBrief: (briefRel) => ipcRenderer.invoke("find-manifest-for-brief", briefRel),
+  readRepoText: (relPath) => ipcRenderer.invoke("read-repo-text", relPath),
+  listProjectDocs: (briefRel) => ipcRenderer.invoke("list-project-docs", briefRel),
   pipelinePlan: (opts) => ipcRenderer.invoke("pipeline-plan", opts),
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
   pipelineRun: (manifestRel, jobs, runPrompts) =>
     ipcRenderer.invoke("pipeline-run", manifestRel, jobs, runPrompts),
+  resolveBriefRel: (briefRel) => ipcRenderer.invoke("resolve-brief-rel", briefRel),
+  visualTargetGenerate: (briefRel, candidates) =>
+    ipcRenderer.invoke("visual-target-generate", briefRel, candidates),
+  visualTargetList: (briefRel) => ipcRenderer.invoke("visual-target-list", briefRel),
+  visualTargetPick: (briefRel, candidateId) =>
+    ipcRenderer.invoke("visual-target-pick", briefRel, candidateId),
+  visualTargetStatus: (briefRel) => ipcRenderer.invoke("visual-target-status", briefRel),
   openGodot: (projectRel) => ipcRenderer.invoke("open-godot", projectRel),
   getConfig: () => ipcRenderer.invoke("get-config"),
   saveConfig: (patch) => ipcRenderer.invoke("save-config", patch),
@@ -28,6 +38,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   hostChatTurn: (sessionId, message) => ipcRenderer.invoke("host-chat-turn", sessionId, message),
   hostChatReset: (sessionId, seed) => ipcRenderer.invoke("host-chat-reset", sessionId, seed),
   hostChatExport: (sessionId, outputRel) => ipcRenderer.invoke("host-chat-export", sessionId, outputRel),
+  hostChatAutofix: (sessionId, maxRounds) =>
+    ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds),
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),

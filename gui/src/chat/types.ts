@@ -32,13 +32,46 @@ export function newMessageId(): string {
   return `msg-${Date.now()}-${seq}`;
 }
 
+export interface HostChatDraftBrief {
+  project?: {
+    title?: string;
+    genre?: string;
+    gameplay_loop?: string;
+    description?: string;
+    [key: string]: unknown;
+  };
+  assets?: Array<{
+    name?: string;
+    type?: string;
+    usage?: string;
+    description?: string;
+    [key: string]: unknown;
+  }>;
+  animation_graphs?: unknown[];
+  [key: string]: unknown;
+}
+
+export interface HostChatDraftDocument {
+  title?: string;
+  format?: string;
+  body?: string;
+}
+
+export interface HostChatAssetSummary {
+  name: string;
+  type?: string;
+  usage?: string;
+}
+
 export interface HostChatResult {
   session_path?: string;
   session_id?: string;
   assistant_message: string;
   choices?: string[];
-  draft_brief?: { project?: Record<string, unknown>; assets?: unknown[] };
+  draft_brief?: HostChatDraftBrief | null;
+  draft_document?: HostChatDraftDocument | null;
   ready_to_export?: boolean;
+  gaps?: string[];
   message_count?: number;
   mode?: string;
   intent_hint?: string;
@@ -50,10 +83,25 @@ export interface HostChatStatus {
   ready_to_export?: boolean;
   message_count?: number;
   title?: string;
+  genre?: string;
+  gameplay_loop?: string;
   asset_count?: number;
+  assets?: HostChatAssetSummary[];
+  draft_brief?: HostChatDraftBrief | null;
+  draft_document?: HostChatDraftDocument | null;
+  document_title?: string;
+  has_document?: boolean;
   last_choices?: string[];
   mode?: string;
+  gaps?: string[];
+  contract_complete?: boolean;
   has_summary?: boolean;
+}
+
+export interface ProjectDocItem {
+  path: string;
+  label: string;
+  kind: "brief" | "markdown" | "json";
 }
 
 export function parseRunFlags(text: string): { runPrompts: boolean } {

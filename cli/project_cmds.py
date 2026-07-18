@@ -375,3 +375,44 @@ def register_project_commands(cli_group: click.Group) -> None:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
         click.echo(f"OK {handoff_id} -> {new_status}")
+
+    @project_group.command("migrate-layout")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option("--slug", default=None, help="projects/<slug>/ (default: from title or stem)")
+    @click.option(
+        "--manifest",
+        "manifest_path",
+        default=None,
+        type=click.Path(exists=True, path_type=Path),
+        help="Legacy pipeline manifest to rewrite into projects/<slug>/pipeline/",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def migrate_layout_cmd(
+        brief_path: Path,
+        slug: str | None,
+        manifest_path: Path | None,
+        as_json: bool,
+    ) -> None:
+        """Move a flat/cli-resources brief into projects/<slug>/ (isolated layout)."""
+        from project_paths import migrate_legacy_brief_to_project
+
+        try:
+            result = migrate_legacy_brief_to_project(
+                brief_path,
+                slug=slug,
+                manifest_path=manifest_path,
+            )
+        except (OSError, ValueError, FileExistsError, FileNotFoundError, json.JSONDecodeError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"OK → {result['brief']}")
+            for k, v in (result.get("moved") or {}).items():
+                click.echo(f"  {k}: {v}")

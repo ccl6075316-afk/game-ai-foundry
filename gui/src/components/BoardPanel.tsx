@@ -25,16 +25,26 @@ export function BoardPanel({
   return (
     <aside className="side-panel board-panel">
       <div className="side-panel__head board-head">
-        <h2>看板</h2>
-        <p className="hint">Pipeline 任务状态 — 被动查看，主操作在对话里进行。</p>
+        <h2>看板 {tasks.length > 0 ? "✓" : ""}</h2>
+        <p className="hint">
+          {tasks.length > 0
+            ? `任务清单已加载（${tasks.length} 项）— 主操作在对话上方按钮`
+            : "尚无任务 — 先点「① 生成流水线」"}
+        </p>
       </div>
 
-      <div className="board-meta mono">{manifest}</div>
+      <div className={`board-meta mono ${tasks.length > 0 ? "board-meta--ready" : ""}`}>
+        {manifest || "（未选择 manifest）"}
+      </div>
 
       <div className="stats compact">
+        <div className={`stat ${tasks.length > 0 ? "ok" : ""} ${status?.done ? "ok" : ""}`}>
+          <span className="stat-label">清单</span>
+          <span>{tasks.length > 0 ? "已生成" : "未生成"}</span>
+        </div>
         <div className={`stat ${status?.done ? "ok" : ""}`}>
-          <span className="stat-label">状态</span>
-          <span>{status?.done ? "完成" : "进行中"}</span>
+          <span className="stat-label">跑完</span>
+          <span>{status?.done ? "是" : "否"}</span>
         </div>
         {Object.entries(counts).map(([k, v]) => (
           <div key={k} className="stat">

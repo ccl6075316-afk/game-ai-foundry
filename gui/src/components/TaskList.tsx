@@ -17,7 +17,7 @@ export function TaskList({ tasks, compact = false }: Props) {
   if (!tasks.length) {
     return (
       <section className={`panel muted ${compact ? "compact" : ""}`}>
-        <p>无任务 — 对话里发送 /plan 生成 manifest。</p>
+        <p>无任务 — 切到「项目经理」同事，点「生成流水线」。</p>
       </section>
     );
   }

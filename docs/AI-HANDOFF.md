@@ -54,7 +54,12 @@ game-ai-foundry/
 ├── resources/
 │   ├── asset-brief.example.json   # git 内唯一示例 brief
 │   └── skills/                    # 六角色 skill 源（hermes sync 生成包）
-├── pipeline/ plans/ output/ games/   # 本地运行产物（gitignored）
+├── projects/<slug>/        # 新游戏工程根（隔离；gitignored）
+│   ├── brief.json
+│   ├── progress.json / production.json
+│   ├── pipeline/manifest.json
+│   ├── plans/  output/  game/
+├── pipeline/ plans/ output/ games/   # 旧扁平产物（兼容；gitignored）
 └── docs/                   # 文档索引 → docs/README.md
 ```
 
@@ -80,7 +85,7 @@ game-ai-foundry/
 
 ### `project` 可选（P1）
 
-`visual_reference`、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
+`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
 
 #### 尺寸契约（godogen ASSETS.md Size 列）
 
@@ -88,7 +93,7 @@ game-ai-foundry/
 
 | 层级 | 字段 | 含义 |
 |------|------|------|
-| 北极星 | `visual_reference` | 整屏构图 + 物体屏上比例（不写进 display_size） |
+| 北极星 | `visual_reference` | 整屏参考**图路径**（构图 + 物体屏上比例；风格文案写 `art_direction`） |
 | 游戏内 | `display_size` | 玩家眼里多大 → assemble **缩放到此**，Godot scale=1 |
 | 生成 | handoff `image_size` | API 出图分辨率（按 display 推导，勿手填） |
 

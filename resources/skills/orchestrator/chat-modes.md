@@ -7,8 +7,8 @@
 
 | 工种 | 用户称呼 | Skill / 规范 | 运行时 | 何时用 |
 |------|----------|--------------|--------|--------|
-| **① 策划** | Brief、主对话 | [`host-chat.md`](host-chat.md) 默认；落实 [`commit-brief.md`](commit-brief.md) / [`commit-doc.md`](commit-doc.md) | **薄 Chat**（直连 LLM，无 Agent 环） | 商量需求；明确「落实」才写 `brief.json` |
-| **② 项目经理** | 产品、Host | [`product-host.md`](product-host.md) | **Agent**（Hermes / Cursor / Codex executor） | **修改主入口**；分诊、派工、推进 progress |
+| **① 策划** | Brief、主对话 | [`host-chat.md`](host-chat.md) 默认；落实 [`commit-brief.md`](commit-brief.md) / [`commit-doc.md`](commit-doc.md)；图契约 [`brief-animation-graphs.md`](brief-animation-graphs.md)（chat/commit 注入） | **薄 Chat**（直连 LLM，无 Agent 环） | 商量需求；明确「落实」才写 `brief.json` |
+| **② 项目经理** | 产品、Host | [`product-host.md`](product-host.md)（config 仅用户明确要求时可改；首跑引导 GUI 按钮） | **Agent**（Hermes / Cursor / Codex executor） | **修改主入口**；GUI 常驻「生成流水线 / 运行资产生成」 |
 | **③ 程序员** | 程序员 | `resources/skills/godot-developer/` | **Agent**（同上） | 接 task / handoff；改 C#、validate |
 
 兼容旧路径：[`brief-brainstorm.md`](brief-brainstorm.md) 仅 CLI；GUI ① 用 `brief chat`（host-chat → commit-*）。
@@ -26,11 +26,13 @@
 ## ① 策划 — 宿主应做的事
 
 ```text
-1. 默认 system = host-chat.md
+1. 默认 system = host-chat.md + brief-animation-graphs.md
 2. 维护本实例的 messages[]（仅本策划会话）
-3. intent_hint == commit_brief|commit_doc → 切换落实 skill
+3. intent_hint == commit_brief|commit_doc → 切换落实 skill（commit_brief 同样注入 animation_graphs skill）
 4. 仅 ready_to_export && artifact → brief validate/export
 5. 超长 → summary + 近 N 轮（见 cli/host_chat.py）
+6. autofix：代码先 remap clip，再 LLM；LLM 仍受 brief-animation-graphs 约束
+7. 新 brief 导出到 `projects/<slug>/brief.json`；流水线产物同目录隔离（兼容旧 resources/ 扁平路径）
 ```
 
 原则：商量 ≠ 契约；**无终端工具环**。

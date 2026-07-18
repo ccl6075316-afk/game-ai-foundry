@@ -1,39 +1,93 @@
-/** Derive pipeline / output / Godot paths from a brief file path. */
+/** Derive pipeline / output / Godot paths from a brief file path.
+
+ * Isolated (new): projects/<slug>/brief.json → all artifacts under projects/<slug>/
+ * Legacy flat: resources/*-brief.json → pipeline/, output/, games/, plans/
+ */
 
 export interface PlanTargets {
   briefRel: string;
   manifestRel: string;
   outputDirRel: string;
   godotProjectRel: string;
+  plansDirRel: string;
+  progressRel: string;
+  productionRel: string;
+  projectRootRel: string | null;
   slug: string;
+  isolated: boolean;
 }
 
+function norm(rel: string): string {
+  return rel.replace(/\\/g, "/").replace(/^\.?\//, "");
+}
+
+/** projects/<slug>/... → slug; else stem without -brief */
 export function slugFromBriefRel(briefRel: string): string {
-  const base = briefRel.split(/[/\\]/).pop() || "game";
+  const n = norm(briefRel);
+  const m = n.match(/^projects\/([^/]+)\//i);
+  if (m?.[1]) return m[1];
+  const base = n.split("/").pop() || "game";
   const stem = base.replace(/\.json$/i, "");
   const slug = stem.replace(/-brief$/i, "").trim();
   return slug || "game";
 }
 
+export function projectRootFromBriefRel(briefRel: string): string | null {
+  const n = norm(briefRel);
+  const m = n.match(/^(projects\/[^/]+)\//i);
+  return m?.[1] ?? null;
+}
+
+export function isIsolatedBriefRel(briefRel: string): boolean {
+  return projectRootFromBriefRel(briefRel) != null;
+}
+
 export function planTargetsFromBrief(briefRel: string): PlanTargets {
-  const slug = slugFromBriefRel(briefRel);
+  const brief = norm(briefRel);
+  const root = projectRootFromBriefRel(brief);
+  const slug = slugFromBriefRel(brief);
+  if (root) {
+    return {
+      briefRel: brief,
+      slug,
+      isolated: true,
+      projectRootRel: root,
+      manifestRel: `${root}/pipeline/manifest.json`,
+      outputDirRel: `${root}/output`,
+      godotProjectRel: `${root}/game`,
+      plansDirRel: `${root}/plans`,
+      progressRel: `${root}/progress.json`,
+      productionRel: `${root}/production.json`,
+    };
+  }
+  const base = brief.split("/").pop() || "game.json";
+  const stem = base.replace(/\.json$/i, "");
   return {
-    briefRel,
+    briefRel: brief,
     slug,
+    isolated: false,
+    projectRootRel: null,
     manifestRel: `pipeline/${slug}.json`,
-    outputDirRel: `output/${slug}`,
-    godotProjectRel: `games/${slug}`,
+    outputDirRel: `output/${stem}`,
+    godotProjectRel: `games/${stem}`,
+    plansDirRel: "plans",
+    progressRel: `plans/progress_${slug}.json`,
+    productionRel: `plans/production_${slug}.json`,
   };
 }
 
 export function productionPathFromBrief(briefRel: string): string {
-  const slug = slugFromBriefRel(briefRel);
-  return `plans/production_${slug}.json`;
+  return planTargetsFromBrief(briefRel).productionRel;
 }
 
 export function progressPathFromBrief(briefRel: string): string {
-  const slug = slugFromBriefRel(briefRel);
-  return `plans/progress_${slug}.json`;
+  return planTargetsFromBrief(briefRel).progressRel;
+}
+
+/** Export path for a new game — always isolated. */
+export function briefExportRel(slug: string): string {
+  const s = (slug || "my-game").replace(/[/\\]/g, "-").trim() || "my-game";
+  return `projects/${s}/brief.json`;
 }
 
 /** `/delta <change-id> | <intent>` or `/delta <change-id> <intent…>` */

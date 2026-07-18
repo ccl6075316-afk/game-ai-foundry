@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import base64
 import json
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -51,20 +50,12 @@ def _encode_image_b64(image_path: Path) -> str:
 
 
 def _extract_json_object(text: str) -> dict[str, Any]:
-    text = text.strip()
-    try:
-        parsed = json.loads(text)
-        if isinstance(parsed, dict):
-            return parsed
-    except json.JSONDecodeError:
-        pass
+    from llm_json import LlmJsonError, parse_llm_json_object
 
-    match = re.search(r"\{[\s\S]*\}", text)
-    if match:
-        parsed = json.loads(match.group(0))
-        if isinstance(parsed, dict):
-            return parsed
-    raise TestAnalysisError("Vision model did not return JSON object")
+    try:
+        return parse_llm_json_object(text)
+    except LlmJsonError as exc:
+        raise TestAnalysisError(f"Vision model did not return JSON object: {exc}") from exc
 
 
 def analyze_screenshot(

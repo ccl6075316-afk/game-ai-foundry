@@ -28,4 +28,7 @@ resources/*-brief.json
 !resources/asset-brief.example.json
 pipeline/
 plans/
+projects/*/
+!projects/.gitkeep
 tests/fixtures/
+progress.json

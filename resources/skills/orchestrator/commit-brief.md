@@ -54,7 +54,7 @@
 - `player_asset`（有玩家向资产时）
 - `controls`, `viewport` `{width,height}`
 - `camera`（平台类 genre 必填）
-- 可选：`visual_reference`, `hud`
+- 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）
 
 ### `assets[]`
 
@@ -68,7 +68,11 @@
 
 ### `animation_graphs[]`
 
-- 多 clip 角色必填；one-shot 作 `to` 时必须有 `then`
+完整契约见 [`brief-animation-graphs.md`](brief-animation-graphs.md)（宿主会注入 system）。
+
+- 多 clip 角色必填；`from`/`to`/`then`/`default_clip` = **Godot clip 名**（资产名后缀，不是全名）
+- **禁止** `states[]`
+- one-shot 作 `to` 时必须有 `then`
 
 推荐 usage：`reference_still`, `player_idle`, `player_locomotion`, `player_attack`, `player_jump`, `player_action`, `world_background`, `parallax_layer`, `ui_element`, `tile_texture`, `item_icon`, `vfx`, `music`, `sfx`
 

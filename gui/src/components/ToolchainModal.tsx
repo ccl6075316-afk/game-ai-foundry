@@ -1,9 +1,11 @@
 import type { ToolchainReport } from "../settings/toolchain";
 import { autoInstallable } from "../settings/toolchain";
 import { EnvComponentList } from "./EnvComponentList";
+import type { EnvIssue } from "../settings/envHealth";
 
 interface Props {
   report: ToolchainReport;
+  extraIssues?: EnvIssue[];
   installing: string | null;
   installLog: string[];
   onDismiss: () => void;
@@ -15,6 +17,7 @@ interface Props {
 
 export function ToolchainModal({
   report,
+  extraIssues = [],
   installing,
   installLog,
   onDismiss,
@@ -25,28 +28,43 @@ export function ToolchainModal({
 }: Props) {
   const missing = report.components.filter((c) => !c.available);
   const autoItems = autoInstallable(report);
+  const apiIssues = extraIssues.filter((i) => i.severity === "error");
 
-  if (!missing.length) return null;
+  if (!missing.length && !apiIssues.length) return null;
 
   return (
     <div className="toolchain-overlay" role="dialog" aria-modal="true" aria-labelledby="toolchain-title">
       <div className="toolchain-modal">
         <header className="toolchain-modal__head">
-          <h2 id="toolchain-title">首次运行 · 环境检查</h2>
+          <h2 id="toolchain-title">环境检查未通过</h2>
           <p className="toolchain-modal__lead">
-            检测到本机缺少运行管线所需的工具。之后可在顶部工具栏「环境详情」随时复查与安装。
+            发给别人用时请先看清下列错误。修完后点「重新检测」。可把本页文字复制给支持。
           </p>
         </header>
 
-        <EnvComponentList
-          components={report.components}
-          installing={installing}
-          installLog={installLog}
-          onInstall={onInstall}
-          onOpenExternal={onOpenExternal}
-          onOpenSettings={onOpenSettings}
-          showAll={false}
-        />
+        {apiIssues.length > 0 && (
+          <ul className="toolchain-modal__issues">
+            {apiIssues.map((issue) => (
+              <li key={issue.id}>
+                <strong>{issue.title}</strong>
+                <div className="toolchain-modal__issue-detail">{issue.detail}</div>
+                <div className="toolchain-modal__issue-fix">→ {issue.fixHint}</div>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {missing.length > 0 && (
+          <EnvComponentList
+            components={report.components}
+            installing={installing}
+            installLog={installLog}
+            onInstall={onInstall}
+            onOpenExternal={onOpenExternal}
+            onOpenSettings={onOpenSettings}
+            showAll={false}
+          />
+        )}
 
         <footer className="toolchain-modal__foot">
           {autoItems.length > 0 && (

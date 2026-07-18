@@ -7,7 +7,6 @@ orchestrator (project + asset), not orchestrator skills.
 from __future__ import annotations
 
 import json
-import re
 from typing import Any
 
 import requests
@@ -62,29 +61,47 @@ def chat_text_completion(
     except json.JSONDecodeError as exc:
         raise PromptCraftError(f"Invalid JSON from prompt LLM: {exc}") from exc
 
-    content = data.get("choices", [{}])[0].get("message", {}).get("content")
+    content = _extract_message_content(data)
     if not content or not str(content).strip():
         raise PromptCraftError("Prompt LLM returned empty content")
     return str(content).strip()
 
 
+def _extract_message_content(data: dict[str, Any]) -> str:
+    """Normalize OpenAI-style content (string or multipart list)."""
+    choices = data.get("choices") or []
+    if not choices or not isinstance(choices, list):
+        return ""
+    message = choices[0].get("message") if isinstance(choices[0], dict) else None
+    if not isinstance(message, dict):
+        return ""
+    content = message.get("content")
+    if isinstance(content, list):
+        parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif isinstance(item, dict):
+                text = item.get("text") or item.get("content")
+                if text:
+                    parts.append(str(text))
+        content = "".join(parts)
+    if content is None or content == "":
+        # Some reasoner models put visible text elsewhere
+        for key in ("reasoning_content", "reasoning"):
+            alt = message.get(key)
+            if isinstance(alt, str) and alt.strip():
+                return alt.strip()
+    return str(content).strip() if content is not None else ""
+
+
 def _parse_json_object(text: str) -> dict[str, Any]:
-    text = text.strip()
-    fence = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
-    if fence:
-        text = fence.group(1)
-    else:
-        start = text.find("{")
-        end = text.rfind("}")
-        if start >= 0 and end > start:
-            text = text[start : end + 1]
+    from llm_json import LlmJsonError, parse_llm_json_object
+
     try:
-        parsed = json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise PromptCraftError(f"Could not parse LLM JSON: {exc}\nRaw: {text[:500]}") from exc
-    if not isinstance(parsed, dict):
-        raise PromptCraftError("LLM JSON root must be an object")
-    return parsed
+        return parse_llm_json_object(text)
+    except LlmJsonError as exc:
+        raise PromptCraftError(str(exc)) from exc
 
 
 def _system_prompt(kind: str) -> str:

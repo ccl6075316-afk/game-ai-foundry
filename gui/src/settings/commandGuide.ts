@@ -113,12 +113,17 @@ export const COMMAND_GUIDE: GuideSection[] = [
         description: "根据当前 brief 生成 pipeline manifest",
       },
       {
-        title: "3. 运行资产生成",
+        title: "3. 北极星图（策划）",
+        command: "（GUI·策划）生成北极星图 → 选用北极星 a/b/c",
+        description: "保存 Brief 后在策划侧定整屏风格锚，写入 visual_reference",
+      },
+      {
+        title: "4. 运行资产生成",
         command: "/run --run-prompts",
         description: "并行执行生图、视频、抠图、Godot 组装等任务",
       },
       {
-        title: "4. 打开 Godot",
+        title: "5. 打开 Godot",
         command: "/godot",
         description: "用本机 Godot 打开 games/{slug} 工程",
       },

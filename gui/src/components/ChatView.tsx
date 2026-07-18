@@ -3,10 +3,13 @@ import type { ChatMessage } from "../chat/types";
 import type { ChatAgentRole, RoleSuggestion } from "../chat/roles";
 import { CHAT_AGENT_AVATAR, CHAT_AGENT_LABELS } from "../chat/roles";
 import { MessageMedia } from "./MessageMedia";
+import { mergeMessageChoices } from "../chat/inferChoices";
 
 interface Props {
   messages: ChatMessage[];
   busy: boolean;
+  /** Shown under typing dots while waiting (e.g. elapsed seconds). */
+  busyHint?: string;
   onSuggestion: (cmd: string) => void;
   heroTitle?: string;
   heroSubtitle?: string;
@@ -32,6 +35,7 @@ function RoleAvatar({ role, label }: { role?: ChatAgentRole; label?: string }) {
 export function ChatView({
   messages,
   busy,
+  busyHint,
   onSuggestion,
   heroTitle = "今天想做什么游戏？",
   heroSubtitle = "从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。",
@@ -76,7 +80,12 @@ export function ChatView({
       ) : (
         <>
           <div className="chat-messages">
-            {messages.map((m) => (
+            {messages.map((m) => {
+              const clickChoices =
+                m.role === "assistant"
+                  ? mergeMessageChoices(m.choices, m.content)
+                  : undefined;
+              return (
               <article key={m.id} className={`message message--${m.role}`}>
                 {m.role === "assistant" && <RoleAvatar role={agentRole} label={agentLabel} />}
                 {m.role === "user" && (
@@ -95,9 +104,25 @@ export function ChatView({
                   {m.content ? (
                     <div className="message__text">{renderContent(m.content)}</div>
                   ) : null}
+                  {clickChoices && clickChoices.length > 0 && (
+                    <div className="message__choices">
+                      {clickChoices.map((c) => (
+                        <button
+                          key={c}
+                          type="button"
+                          className="message__choice"
+                          disabled={busy}
+                          onClick={() => onSuggestion(c)}
+                        >
+                          {c}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </article>
-            ))}
+              );
+            })}
             {busy && (
               <article className="message message--assistant message--typing">
                 <RoleAvatar role={agentRole} label={agentLabel} />
@@ -107,6 +132,9 @@ export function ChatView({
                     <span />
                     <span />
                   </span>
+                  {busyHint ? (
+                    <div className="message__busy-hint">{busyHint}</div>
+                  ) : null}
                 </div>
               </article>
             )}
