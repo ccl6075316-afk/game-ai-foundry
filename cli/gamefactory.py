@@ -28,8 +28,54 @@ from proxy_utils import (
 
 DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
 DEFAULT_SIZE = "1024x1024"
-CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
+# Dedicated image models (OpenRouter Images API / OpenAI images.generations).
+# NOT multimodal chat hybrids like openai/gpt-5.4-image-2.
+_DEDICATED_IMAGE_MODEL_RE = re.compile(
+    r"(^|/)gpt-image(?:-1(?:-mini)?|-2)?(?:$|/)",
+    re.IGNORECASE,
+)
+
+_OPENROUTER_IMAGE_ALIASES = {
+    "gptimage 2": "openai/gpt-image-2",
+    "gptimage2": "openai/gpt-image-2",
+    "gpt-image-2": "openai/gpt-image-2",
+    "gpt image 2": "openai/gpt-image-2",
+    "gpt-image-1": "openai/gpt-image-1",
+    "gpt-image-1-mini": "openai/gpt-image-1-mini",
+}
+
+
+def normalize_image_model(model: str, api_base: str | None = None) -> str:
+    """Map common nicknames to OpenRouter/OpenAI slugs."""
+    raw = (model or "").strip()
+    if not raw:
+        return raw
+    # Repair accidental "images/" prefix (endpoint path pasted into model field).
+    raw = re.sub(r"^images/", "", raw, flags=re.IGNORECASE)
+    key = re.sub(r"\s+", " ", raw.lower())
+    aliased = _OPENROUTER_IMAGE_ALIASES.get(key)
+    if aliased:
+        base = (api_base or "").lower()
+        if "openai.com" in base and aliased.startswith("openai/"):
+            return aliased.split("/", 1)[1]
+        return aliased
+    return raw
+
+
+def uses_dedicated_images_api(model: str) -> bool:
+    """True for models that must use /images (not chat/completions + modalities)."""
+    return bool(_DEDICATED_IMAGE_MODEL_RE.search((model or "").strip()))
+
+
+def images_api_endpoint(api_base: str) -> str:
+    base = api_base.rstrip("/") + "/"
+    if "openrouter.ai" in api_base.lower():
+        return urljoin(base, "images")
+    return urljoin(base, "images/generations")
+
+
+CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
 from llm_config import resolve_prompt_api_settings
 
@@ -94,7 +140,6 @@ def extract_image_url(response_data: dict[str, Any]) -> str:
                         return url
 
     if isinstance(content, str) and content.strip():
-        import re
         markdown_match = re.search(r"!\[[^\]]*\]\((https?://[^)]+)\)", content)
         if markdown_match:
             return markdown_match.group(1)
@@ -103,6 +148,30 @@ def extract_image_url(response_data: dict[str, Any]) -> str:
             return url_match.group(0)
 
     raise ValueError(f"Could not extract image from response")
+
+
+def extract_images_api_payload(response_data: dict[str, Any]) -> str:
+    """Extract image URL/data-URL from OpenAI/OpenRouter Images API response."""
+    data = response_data.get("data")
+    if isinstance(data, list) and data:
+        first = data[0] if isinstance(data[0], dict) else {}
+        b64 = first.get("b64_json")
+        if isinstance(b64, str) and b64.strip():
+            return f"data:image/png;base64,{b64.strip()}"
+        url = first.get("url")
+        if isinstance(url, str) and url.strip():
+            return url.strip()
+    # Some gateways nest under output / images
+    images = response_data.get("images")
+    if isinstance(images, list) and images:
+        first = images[0]
+        if isinstance(first, str) and first.startswith("data:"):
+            return first
+        if isinstance(first, dict):
+            url = first.get("url") or first.get("image_url", {}).get("url")
+            if url:
+                return str(url)
+    raise ValueError("Could not extract image from Images API response")
 
 
 def download_image(
@@ -135,6 +204,132 @@ def download_image(
         raise RuntimeError(f"Failed to write image to {output_path}: {exc}") from exc
 
 
+def _api_error_detail(response: requests.Response) -> str:
+    detail = response.text.strip()
+    try:
+        error_body = response.json()
+        err = error_body.get("error", {})
+        if isinstance(err, dict):
+            detail = str(err.get("message") or err.get("code") or detail)
+        elif err:
+            detail = str(err)
+    except (json.JSONDecodeError, AttributeError, TypeError):
+        pass
+    if response.status_code == 403 and "region" in detail.lower():
+        detail = f"{detail}\n{region_error_hint()}"
+    return detail
+
+
+def generate_image_via_images_api(
+    *,
+    model: str,
+    prompt: str,
+    output: Path,
+    size: str,
+    api_key: str,
+    api_base: str,
+    proxy: str | None = None,
+    reference_image: Path | None = None,
+) -> None:
+    """Call OpenRouter /images or OpenAI /images/generations and save the file."""
+    import base64
+
+    endpoint = images_api_endpoint(api_base)
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    payload: dict[str, Any] = {
+        "model": model,
+        "prompt": prompt,
+    }
+    size_s = (size or "").strip()
+    if size_s:
+        payload["size"] = size_s
+
+    if reference_image is not None:
+        suffix = reference_image.suffix.lower()
+        mime = {
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".webp": "image/webp",
+        }.get(suffix, "image/png")
+        encoded = base64.b64encode(reference_image.read_bytes()).decode("ascii")
+        data_url = f"data:{mime};base64,{encoded}"
+        if "openrouter.ai" in api_base.lower():
+            payload["input_references"] = [data_url]
+        else:
+            # OpenAI images edits use a different endpoint; keep generation + note.
+            payload["image"] = data_url
+
+    try:
+        response = http_post(
+            proxy,
+            endpoint,
+            headers=headers,
+            json=payload,
+            timeout=300,
+        )
+    except requests.RequestException as exc:
+        hint = ""
+        exc_s = str(exc).lower()
+        if proxy and ("proxy" in exc_s or "proxyerror" in type(exc).__name__.lower()):
+            hint = (
+                f"\n当前走代理 {proxy}，代理拒绝或断开了连接。"
+                "请确认 Clash/系统代理已开，或在设置里清空 Proxy 后直连重试。"
+            )
+        raise RuntimeError(f"Images API request failed: {exc}{hint}") from exc
+
+    if response.status_code != 200:
+        detail = _api_error_detail(response)
+        # Unknown API size rules: if error names a multiple, snap once and retry.
+        from asset_sizing import parse_size_multiple_from_error, snap_api_image_size
+
+        multiple = parse_size_multiple_from_error(detail)
+        size_now = str(payload.get("size") or "")
+        if (
+            response.status_code == 400
+            and size_now
+            and ("divisible" in detail.lower() or "invalid size" in detail.lower() or multiple)
+        ):
+            snapped = snap_api_image_size(size_now, multiple=multiple or 16)
+            if snapped != size_now:
+                payload["size"] = snapped
+                retry = http_post(
+                    proxy,
+                    endpoint,
+                    headers=headers,
+                    json=payload,
+                    timeout=300,
+                )
+                if retry.status_code == 200:
+                    response = retry
+                else:
+                    raise RuntimeError(
+                        f"Images API error (HTTP {retry.status_code}): {_api_error_detail(retry)}\n"
+                        f"endpoint={endpoint} model={model} (retried size {size_now} → {snapped})"
+                    )
+            else:
+                raise RuntimeError(
+                    f"Images API error (HTTP {response.status_code}): {detail}\n"
+                    f"endpoint={endpoint} model={model}"
+                )
+        else:
+            raise RuntimeError(
+                f"Images API error (HTTP {response.status_code}): {detail}\n"
+                f"endpoint={endpoint} model={model}"
+            )
+
+    try:
+        data = response.json()
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"Invalid JSON in Images API response: {exc}") from exc
+
+    image_url = extract_images_api_payload(data)
+    download_image(image_url, output, proxy=proxy)
+
+
 def generate_image(
     *,
     model: str,
@@ -146,7 +341,21 @@ def generate_image(
     proxy: str | None = None,
     reference_image: Path | None = None,
 ) -> None:
-    """Call the chat completions API, extract the image URL, and save the file."""
+    """Generate an image via chat modalities or dedicated Images API."""
+    model = normalize_image_model(model, api_base)
+    if uses_dedicated_images_api(model):
+        generate_image_via_images_api(
+            model=model,
+            prompt=prompt,
+            output=output,
+            size=size,
+            api_key=api_key,
+            api_base=api_base,
+            proxy=proxy,
+            reference_image=reference_image,
+        )
+        return
+
     endpoint = urljoin(api_base.rstrip("/") + "/", "chat/completions")
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -183,21 +392,22 @@ def generate_image(
             endpoint,
             headers=headers,
             json=payload,
-            timeout=120,
+            timeout=180,
         )
     except requests.RequestException as exc:
         raise RuntimeError(f"API request failed: {exc}") from exc
 
     if response.status_code != 200:
-        detail = response.text.strip()
-        try:
-            error_body = response.json()
-            detail = error_body.get("error", {}).get("message", detail)
-        except (json.JSONDecodeError, AttributeError, TypeError):
-            pass
-        if response.status_code == 403 and "region" in detail.lower():
-            detail = f"{detail}\n{region_error_hint()}"
-        raise RuntimeError(f"API error (HTTP {response.status_code}): {detail}")
+        detail = _api_error_detail(response)
+        hint = ""
+        low = detail.lower()
+        if "model" in low and ("not" in low or "invalid" in low or "no endpoints" in low):
+            hint = (
+                "\n提示：OpenRouter 的 GPT Image 2 请填 `openai/gpt-image-2`"
+                "（会走 /images，不是 chat）。"
+                "若要 chat 多模态可试 `openai/gpt-5.4-image-2`。"
+            )
+        raise RuntimeError(f"API error (HTTP {response.status_code}): {detail}{hint}")
 
     try:
         data = response.json()
@@ -334,6 +544,12 @@ def generate(
     resolved_size = resolve_image_setting(
         config, size, "size", "GAMEFACTORY_IMAGE_SIZE", DEFAULT_SIZE
     )
+    from asset_sizing import size_multiple_for_model, snap_api_image_size
+
+    # Only pre-snap when model/config declares a constraint (not all APIs).
+    mult = size_multiple_for_model(str(resolved_model or ""), config if isinstance(config, dict) else None)
+    if mult:
+        resolved_size = snap_api_image_size(str(resolved_size), multiple=mult)
 
     if not resolved_model:
         click.echo(
@@ -514,6 +730,10 @@ cli.add_command(setup_group)
 from pipeline_cmds import pipeline_group  # noqa: E402
 
 cli.add_command(pipeline_group)
+
+from config_cmds import config_group  # noqa: E402
+
+cli.add_command(config_group)
 
 
 # Register image subcommands

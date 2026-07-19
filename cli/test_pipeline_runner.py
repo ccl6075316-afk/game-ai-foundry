@@ -19,9 +19,11 @@ from pipeline_manifest import (
 )
 from pipeline_runner import (
     extract_json_from_stdout,
+    is_retryable_network_failure,
     outcome_from_process,
     reset_task_cascade,
     run_pipeline,
+    run_task_subprocess,
 )
 from test_fixtures import EXAMPLE_BRIEF, MINIMAL_VIDEO_BRIEF, write_brief
 
@@ -40,6 +42,53 @@ class PipelineRunnerTest(unittest.TestCase):
         self.assertEqual(outcome.status, TASK_FAILED)
         self.assertTrue(outcome.should_pause)
 
+    def test_network_failure_is_retryable(self) -> None:
+        self.assertTrue(
+            is_retryable_network_failure(
+                1, "", "requests.exceptions.ConnectionError: Failed to establish"
+            )
+        )
+        self.assertTrue(is_retryable_network_failure(124, "", "timeout"))
+        self.assertTrue(is_retryable_network_failure(1, "", "HTTP 503 Service Unavailable"))
+        self.assertFalse(
+            is_retryable_network_failure(
+                2, json.dumps({"next_action": "prompt_crafter_regenerate"}), ""
+            )
+        )
+        self.assertFalse(is_retryable_network_failure(1, "", "Asset 'x' not found in brief"))
+
+    def test_run_task_retries_network_then_succeeds(self) -> None:
+        task = {"id": "x.image.generate", "command": "echo ok"}
+        fail = outcome_from_process(
+            "x.image.generate",
+            exit_code=1,
+            stdout="",
+            stderr="ProxyError: Cannot connect to proxy",
+        )
+        ok = outcome_from_process("x.image.generate", exit_code=0, stdout="/tmp/a.png", stderr="")
+        with mock.patch("pipeline_runner._run_task_once", side_effect=[fail, ok]) as once:
+            with mock.patch("pipeline_runner.time.sleep") as sleep:
+                outcome = run_task_subprocess(task, retries=3, retry_backoff=0.1)
+        self.assertEqual(outcome.status, TASK_DONE)
+        self.assertEqual(once.call_count, 2)
+        sleep.assert_called_once()
+        self.assertEqual(len(outcome.result.get("network_retries") or []), 1)
+
+    def test_run_task_does_not_retry_validation(self) -> None:
+        task = {"id": "x.image.generate", "command": "echo fail"}
+        fail = outcome_from_process(
+            "x.image.generate",
+            exit_code=2,
+            stdout=json.dumps({"ok": False, "next_action": "prompt_crafter_regenerate"}),
+            stderr="",
+        )
+        with mock.patch("pipeline_runner._run_task_once", return_value=fail) as once:
+            with mock.patch("pipeline_runner.time.sleep") as sleep:
+                outcome = run_task_subprocess(task, retries=3, retry_backoff=0.1)
+        self.assertEqual(outcome.status, TASK_FAILED)
+        self.assertEqual(once.call_count, 1)
+        sleep.assert_not_called()
+
     def test_reset_cascade(self) -> None:
         manifest = build_manifest(EXAMPLE_BRIEF)
         record_task(manifest, "knight.prompt.craft", status=TASK_DONE)
@@ -51,9 +100,25 @@ class PipelineRunnerTest(unittest.TestCase):
     def test_run_dry_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "m.json"
-            manifest = build_manifest(EXAMPLE_BRIEF)
+            plans = Path(tmp) / "plans"
+            plans.mkdir()
+            out = Path(tmp) / "out"
+            out.mkdir()
+            manifest = build_manifest(
+                EXAMPLE_BRIEF,
+                plans_dir=plans,
+                output_dir=out,
+            )
+            from pipeline_manifest import _CLI_DIR
+
             for task in manifest["tasks"]:
                 if task["step"] == "prompt.craft":
+                    plan_rel = (task.get("artifacts") or {}).get("plan")
+                    if plan_rel:
+                        plan_path = (_CLI_DIR / plan_rel).resolve()
+                        plan_path.parent.mkdir(parents=True, exist_ok=True)
+                        plan_path.write_text("{}", encoding="utf-8")
+                        self.addCleanup(lambda p=plan_path: p.unlink(missing_ok=True))
                     task["status"] = TASK_DONE
             save_manifest(manifest_path, manifest)
 

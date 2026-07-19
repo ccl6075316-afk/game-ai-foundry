@@ -196,6 +196,16 @@ declare global {
         text?: string;
         error?: string;
       }>;
+      patchBriefProject: (
+        relPath: string,
+        projectPatch: Record<string, unknown>,
+      ) => Promise<{
+        ok: boolean;
+        path?: string;
+        changed?: string[];
+        skipped?: boolean;
+        error?: string;
+      }>;
       listProjectDocs: (briefRel?: string | null) => Promise<
         Array<{
           path: string;
@@ -215,6 +225,8 @@ declare global {
         tasks: PipelineTask[];
       }>;
       pipelineRun: (manifestRel: string, jobs: number, runPrompts?: boolean) => Promise<CliResult>;
+      pipelineDiagnose: (manifestRel: string) => Promise<CliResult & { data?: any }>;
+      pipelineHeal: (manifestRel: string, apply?: boolean) => Promise<CliResult & { data?: any }>;
       resolveBriefRel: (briefRel: string) => Promise<{
         input: string;
         path: string;

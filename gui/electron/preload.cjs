@@ -13,11 +13,15 @@ contextBridge.exposeInMainWorld("gameFactory", {
   getManifestMeta: (manifestRel) => ipcRenderer.invoke("manifest-meta", manifestRel),
   findManifestForBrief: (briefRel) => ipcRenderer.invoke("find-manifest-for-brief", briefRel),
   readRepoText: (relPath) => ipcRenderer.invoke("read-repo-text", relPath),
+  patchBriefProject: (relPath, projectPatch) =>
+    ipcRenderer.invoke("patch-brief-project", relPath, projectPatch),
   listProjectDocs: (briefRel) => ipcRenderer.invoke("list-project-docs", briefRel),
   pipelinePlan: (opts) => ipcRenderer.invoke("pipeline-plan", opts),
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
   pipelineRun: (manifestRel, jobs, runPrompts) =>
     ipcRenderer.invoke("pipeline-run", manifestRel, jobs, runPrompts),
+  pipelineDiagnose: (manifestRel) => ipcRenderer.invoke("pipeline-diagnose", manifestRel),
+  pipelineHeal: (manifestRel, apply) => ipcRenderer.invoke("pipeline-heal", manifestRel, apply),
   resolveBriefRel: (briefRel) => ipcRenderer.invoke("resolve-brief-rel", briefRel),
   visualTargetGenerate: (briefRel, candidates) =>
     ipcRenderer.invoke("visual-target-generate", briefRel, candidates),

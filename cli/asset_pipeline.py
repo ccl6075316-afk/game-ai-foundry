@@ -359,6 +359,7 @@ def build_animation_pipeline(
 
     pose_spec = AssetSpec(
         name=spec.name,
+        id=spec.id or "",
         type=AssetType.CHARACTER_POSE,
         action=action,
         reference_asset=ref_name,

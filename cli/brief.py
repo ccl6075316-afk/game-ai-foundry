@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
@@ -10,6 +11,9 @@ from pathlib import Path
 from typing import Any
 
 from display_size import DisplaySize, parse_display_size
+
+# English file/task key — required on every asset (paths must stay ASCII).
+ASSET_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
 
 ANIMATION_METHOD_VIDEO = "video"
 ANIMATION_METHOD_IMG2IMG = "img2img"
@@ -162,6 +166,7 @@ class CharacterAnimationGraph:
 class AssetSpec:
     name: str
     type: AssetType
+    id: str = ""
     description: str = ""
     items: list[str] = field(default_factory=list)
     grid: str = "2x2"
@@ -208,6 +213,7 @@ class AssetSpec:
         return cls(
             name=str(data["name"]),
             type=asset_type,
+            id=str(data.get("id", "")).strip(),
             description=str(data.get("description", "")),
             items=[str(x) for x in data.get("items", [])],
             grid=str(data.get("grid", "2x2")),
@@ -232,6 +238,21 @@ class AssetSpec:
             scroll_factor=float(data["scroll_factor"]) if "scroll_factor" in data else None,
             audio_loop=bool(data["audio_loop"]) if "audio_loop" in data else None,
         )
+
+
+def resolve_asset_file_key(spec: AssetSpec) -> str:
+    """English slug used for disk paths and pipeline task id prefixes."""
+    key = (spec.id or "").strip()
+    if not key:
+        raise ValueError(
+            f"Asset '{spec.name}' missing required field 'id' "
+            "(English slug matching ^[a-z][a-z0-9_]*$, e.g. referee_run)"
+        )
+    if not ASSET_ID_PATTERN.match(key):
+        raise ValueError(
+            f"Asset '{spec.name}' id '{key}' must match ^[a-z][a-z0-9_]*$"
+        )
+    return key
 
 
 def is_video_animation(spec: AssetSpec) -> bool:
@@ -876,6 +897,7 @@ def audit_brief_for_export(
         return errors
 
     names: list[str] = []
+    ids: list[str] = []
     for spec in assets:
         if not spec.name.strip():
             errors.append("Every asset needs a non-empty 'name'")
@@ -883,6 +905,21 @@ def audit_brief_for_export(
         if spec.name in names:
             errors.append(f"Duplicate asset name '{spec.name}'")
         names.append(spec.name)
+
+        aid = (spec.id or "").strip()
+        if not aid:
+            errors.append(
+                f"Asset '{spec.name}' missing required field 'id' "
+                "(English file slug, e.g. referee_run)"
+            )
+        elif not ASSET_ID_PATTERN.match(aid):
+            errors.append(
+                f"Asset '{spec.name}' id '{aid}' must match ^[a-z][a-z0-9_]*$"
+            )
+        elif aid in ids:
+            errors.append(f"Duplicate asset id '{aid}'")
+        else:
+            ids.append(aid)
 
     name_set = set(names)
     has_player_facing = False
@@ -1037,8 +1074,10 @@ def load_brief(path: Path) -> tuple[ProjectContext, list[AssetSpec]]:
 
 
 def find_asset(assets: list[AssetSpec], name: str) -> AssetSpec:
+    """Look up by display ``name`` or English ``id`` (CLI --asset accepts either)."""
+    key = name.strip()
     for asset in assets:
-        if asset.name == name:
+        if asset.name == key or (asset.id and asset.id == key):
             return asset
-    known = ", ".join(a.name for a in assets)
+    known = ", ".join(f"{a.name}({a.id})" if a.id else a.name for a in assets)
     raise ValueError(f"Asset '{name}' not found in brief. Known: {known}")

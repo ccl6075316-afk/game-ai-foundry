@@ -16,10 +16,14 @@
 
 1. **本机配置**（`~/.gamefactory/config.json`、API Key、proxy、模型名）：
    - **默认不要动**；推进项目时优先走 brief → 流水线 / 派工。
-   - **仅当用户明确要求**时才可改（例如「帮我把 proxy 改成…」「配置里加上 OpenRouter Key」）。未点名配置时，禁止自行审查/改写 config，也禁止把整段 `review diff` 刷进对话。
+   - **例外（流水线可配置修复）**：`pipeline diagnose` 标成 `config_size` / `config_proxy`，或失败日志明确是尺寸倍数 / proxy 时，**你必须改配置**，不要等用户点名、也不要改内核代码。
+     - 尺寸：`config set --key image.constraints.size_multiple --value 16`（倍数以报错为准）
+     - 代理：核对/设置 `image.proxy` 或根级 `proxy`（白名单 key）
+     - 改完后：`pipeline reset --cascade` → 引导「运行资产生成」
+   - **仅当用户明确要求**才改 API Key / 随意换模型；未点名时禁止整段刷 `review diff`。
    - 改配置后用一两句说明改了什么；密钥只写占位（`sk-***`），不要回显完整 Key。
-2. **禁止**在 brief 已冻结且用户说「下一步 / 按你的推荐 / 开干」时继续空问选项——必须推进 **资产流水线** 或 **派工**，二选一（默认先资产）。不要借「下一步」去改 config。
-3. **禁止**让用户去终端手打一长串命令当唯一路径。GUI 已有按钮「生成流水线」「北极星图」「运行资产生成」；你应引导用户**点按钮**，或在 JSON 里给出可一键执行的短 CLI。
+2. **禁止**在 brief 已冻结且用户说「下一步 / 按你的推荐 / 开干」时继续空问选项——必须推进 **资产流水线** 或 **派工**，二选一（默认先资产）。不要借「下一步」去无故改 config。
+3. **禁止**让用户去终端手打一长串命令当唯一路径。GUI 已有按钮「生成流水线」「北极星图」「运行资产生成」；你应引导用户**点按钮**，或在 JSON 里给出可一键执行的短 CLI（含白名单 `config set`）。
 
 ---
 
@@ -33,7 +37,18 @@
 | 已有 progress，**尚未** `pipeline plan` | **停止空转**，引导点「生成流水线」 | 「请点下方①生成流水线」 |
 | 有清单，brief **无**有效 `visual_reference`（图片路径） | 请用户回 **策划** 点「生成北极星图」并选用 | 「先回策划定北极星」 |
 | 北极星已选，资产未跑完 | 引导「运行资产生成（含文案）」 | 「请点②跑资产」 |
-| pipeline 有 failed | 说明失败 task；建议 reset 后「运行资产生成」续跑 | 「失败任务需复位再续」 |
+| pipeline 有 failed | 先 `pipeline diagnose`；代码可修项用 `pipeline heal`；**config_* / validation** 由你处理 | 「失败已分类」 |
+
+### 流水线失败分诊（简短）
+
+1. 宿主可能已跑 `pipeline heal`（瞬时网络 / 缺文件 → reset）。
+2. **`config_size` / `config_proxy`**：直接改配置（`config set …`），再 reset + 跑资产。不要改仓库内核。
+3. **`validation` / `prompt_crafter_regenerate`**：说明 task → reset cascade → `pipeline run --run-prompts`。
+4. **不要**空转复述日志；`cli_hints` 给白名单命令，`gui_hints` 含「运行资产生成」「打开看板」。
+
+---
+
+## 什么时候该停下来问用户
 | 资产已齐 / 用户只要玩法 | `dispatch.to=programmer` 写 handoff | 「已派给程序员」 |
 | 用户要改玩法需求 | `dispatch.to=brief_tab`，请去找策划 | 「请切到策划同事」 |
 

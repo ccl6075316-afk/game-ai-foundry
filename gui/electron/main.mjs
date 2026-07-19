@@ -223,44 +223,94 @@ function readRepoText(relPath) {
   }
 }
 
+/** Merge fields into brief.project and rewrite the file (keeps rest of brief). */
+function patchBriefProject(relPath, projectPatch) {
+  const resolved = resolveRepoRel(relPath);
+  if (!resolved) return { ok: false, error: "invalid path" };
+  if (!existsSync(resolved.full) || !statSync(resolved.full).isFile()) {
+    return { ok: false, error: "file not found", path: resolved.rel };
+  }
+  if (!projectPatch || typeof projectPatch !== "object" || Array.isArray(projectPatch)) {
+    return { ok: false, error: "projectPatch must be an object" };
+  }
+  try {
+    const data = JSON.parse(readFileSync(resolved.full, "utf-8"));
+    if (!data || typeof data !== "object") {
+      return { ok: false, error: "brief is not a JSON object" };
+    }
+    const project =
+      data.project && typeof data.project === "object" && !Array.isArray(data.project)
+        ? { ...data.project }
+        : {};
+    const changed = [];
+    for (const [key, value] of Object.entries(projectPatch)) {
+      if (value === undefined) continue;
+      const prev = project[key];
+      const nextStr = typeof value === "string" ? value : JSON.stringify(value);
+      const prevStr = typeof prev === "string" ? prev : JSON.stringify(prev ?? null);
+      if (prevStr === nextStr) continue;
+      project[key] = value;
+      changed.push(key);
+    }
+    if (!changed.length) {
+      return { ok: true, path: resolved.rel, changed: [], skipped: true };
+    }
+    data.project = project;
+    writeFileSync(resolved.full, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+    return { ok: true, path: resolved.rel, changed, skipped: false };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e), path: resolved.rel };
+  }
+}
+
 function listProjectDocs(briefRel) {
   const out = [];
   const pushIfExists = (rel, label, kind) => {
     const resolved = resolveRepoRel(rel);
     if (!resolved || !existsSync(resolved.full) || !statSync(resolved.full).isFile()) return;
+    if (out.some((d) => d.path === resolved.rel)) return;
     out.push({ path: resolved.rel, label, kind });
   };
 
   if (briefRel) {
-    const norm = briefRel.replace(/\\/g, "/");
+    const norm = String(briefRel).replace(/\\/g, "/");
     const projMatch = norm.match(/^(projects\/[^/]+)\//i);
-    pushIfExists(norm, `已导出 Brief · ${path.basename(norm)}`, "json");
+    const slug = projMatch
+      ? projMatch[1].split("/")[1]
+      : path.basename(norm).replace(/\.json$/i, "").replace(/-brief$/i, "") || "game";
+
+    pushIfExists(norm, `Brief · ${slug}`, "json");
     if (projMatch) {
       const root = projMatch[1];
-      pushIfExists(`${root}/production.json`, `Production · ${root}`, "json");
-      pushIfExists(`${root}/progress.json`, `Progress · ${root}`, "json");
-      pushIfExists(`${root}/pipeline/manifest.json`, `Pipeline · ${root}`, "json");
+      pushIfExists(`${root}/production.json`, "Production", "json");
+      pushIfExists(`${root}/progress.json`, "Progress", "json");
+      pushIfExists(`${root}/pipeline/manifest.json`, "Pipeline manifest", "json");
+      // Project-local notes / GDD sitting next to brief (not under output/)
+      const rootAbs = path.join(repoRoot(), root);
+      if (existsSync(rootAbs) && statSync(rootAbs).isDirectory()) {
+        for (const f of readdirSync(rootAbs)) {
+          if (!/\.(md|txt)$/i.test(f)) continue;
+          pushIfExists(`${root}/${f}`, f, "markdown");
+        }
+        const docsSub = path.join(rootAbs, "docs");
+        if (existsSync(docsSub) && statSync(docsSub).isDirectory()) {
+          for (const f of readdirSync(docsSub)) {
+            if (!/\.(md|txt)$/i.test(f)) continue;
+            pushIfExists(`${root}/docs/${f}`, `docs/${f}`, "markdown");
+          }
+        }
+      }
     } else {
-      const slugBase =
-        path.basename(norm).replace(/\.json$/i, "").replace(/-brief$/i, "") || "game";
-      pushIfExists(`plans/production_${slugBase}.json`, `Production · ${slugBase}`, "json");
-      pushIfExists(`plans/progress_${slugBase}.json`, `Progress · ${slugBase}`, "json");
-      pushIfExists(`pipeline/${slugBase}.json`, `Pipeline · ${slugBase}`, "json");
+      pushIfExists(`plans/production_${slug}.json`, "Production", "json");
+      pushIfExists(`plans/progress_${slug}.json`, "Progress", "json");
+      pushIfExists(`pipeline/${slug}.json`, "Pipeline manifest", "json");
     }
+    return out;
   }
 
-  // Recent exported briefs (cap) for browsing without active brief.
-  for (const b of listBriefs().slice(0, 8)) {
-    if (out.some((d) => d.path === b.path)) continue;
+  // No active project — only list recent briefs so the user can pick one.
+  for (const b of listBriefs().slice(0, 12)) {
     pushIfExists(b.path, `Brief · ${b.label}`, "json");
-  }
-
-  const docsDir = path.join(repoRoot(), "docs");
-  if (existsSync(docsDir)) {
-    for (const f of readdirSync(docsDir)) {
-      if (!/\.(md|txt)$/i.test(f)) continue;
-      pushIfExists(path.join("docs", f).replace(/\\/g, "/"), `Docs · ${f}`, "markdown");
-    }
   }
   return out;
 }
@@ -581,7 +631,16 @@ function mediaKind(ext) {
 }
 
 function toMediaUrl(absPath) {
-  return `gamefactory-media://local/?p=${encodeURIComponent(absPath)}`;
+  // Bust Chromium cache when the same path is overwritten (e.g. regenerating
+  // visual-target candidate_a.png) — otherwise thumbnails show stale bytes
+  // while shell.openPath shows the new file on disk.
+  let version = 0;
+  try {
+    version = Math.trunc(statSync(absPath).mtimeMs);
+  } catch {
+    version = Date.now();
+  }
+  return `gamefactory-media://local/?p=${encodeURIComponent(absPath)}&v=${version}`;
 }
 
 function findVideoPosterAbs(videoAbs) {
@@ -700,12 +759,17 @@ app.whenReady().then(() => {
   protocol.handle("gamefactory-media", (request) => {
     try {
       const url = new URL(request.url);
-      const abs = decodeURIComponent(url.searchParams.get("p") || "");
+      // searchParams.get already percent-decodes; do not decodeURIComponent again.
+      const abs = url.searchParams.get("p") || "";
       const resolved = resolveMediaAbs(abs);
       if (!resolved) {
         return new Response("Not found", { status: 404 });
       }
-      return net.fetch(pathToFileURL(resolved).href);
+      return net.fetch(pathToFileURL(resolved).href).then((res) => {
+        const headers = new Headers(res.headers);
+        headers.set("Cache-Control", "no-store, max-age=0");
+        return new Response(res.body, { status: res.status, headers });
+      });
     } catch {
       return new Response("Error", { status: 500 });
     }
@@ -775,6 +839,9 @@ app.whenReady().then(() => {
   ipcMain.handle("manifest-meta", (_e, manifestRel) => manifestMeta(manifestRel));
   ipcMain.handle("find-manifest-for-brief", (_e, briefRel) => findManifestForBrief(briefRel));
   ipcMain.handle("read-repo-text", (_e, relPath) => readRepoText(relPath));
+  ipcMain.handle("patch-brief-project", (_e, relPath, projectPatch) =>
+    patchBriefProject(relPath, projectPatch),
+  );
   ipcMain.handle("list-project-docs", (_e, briefRel) => listProjectDocs(briefRel));
 
   ipcMain.handle("pipeline-plan", async (_e, opts) => {
@@ -847,6 +914,28 @@ app.whenReady().then(() => {
         sender.send("pipeline-log", { line, stream });
       },
     });
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("pipeline-diagnose", async (_e, manifestRel) => {
+    const result = await runCli([
+      "pipeline",
+      "diagnose",
+      "--manifest",
+      path.join("..", manifestRel),
+    ]);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("pipeline-heal", async (_e, manifestRel, apply = true) => {
+    const args = [
+      "pipeline",
+      "heal",
+      "--manifest",
+      path.join("..", manifestRel),
+      apply ? "--apply" : "--dry-run",
+    ];
+    const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 

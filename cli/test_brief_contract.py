@@ -32,6 +32,7 @@ class BriefContractTests(unittest.TestCase):
         )
         asset = AssetSpec(
             name="hero",
+            id="hero",
             type=AssetType.CHARACTER,
             usage="player_idle",
             usage_description="idle",
@@ -54,6 +55,7 @@ class BriefContractTests(unittest.TestCase):
         )
         walk = AssetSpec(
             name="hero_walk",
+            id="hero_walk",
             type=AssetType.CHARACTER,
             usage="vfx",
             usage_description="walk without player tag",
@@ -65,6 +67,7 @@ class BriefContractTests(unittest.TestCase):
         )
         ref = AssetSpec(
             name="hero_ref",
+            id="hero_ref",
             type=AssetType.CHARACTER,
             usage="vfx",
             usage_description="ref",
@@ -106,6 +109,7 @@ class BriefContractTests(unittest.TestCase):
         )
         layer = AssetSpec(
             name="sky_layer",
+            id="sky_layer",
             type=AssetType.BACKGROUND,
             usage="parallax_layer",
             usage_description="far sky",
@@ -130,6 +134,7 @@ class BriefContractTests(unittest.TestCase):
         )
         bgm = AssetSpec(
             name="bgm",
+            id="bgm",
             type=AssetType.AUDIO,
             usage="music",
             usage_description="loop",
@@ -163,7 +168,75 @@ class BriefContractTests(unittest.TestCase):
         gaps = audit_brief_for_export(project, [icon])
         self.assertTrue(any("project.hud" in g for g in gaps))
 
-    def test_runtime_only_audio_skipped_in_pipeline(self) -> None:
+    def test_asset_id_required_and_paths_use_id(self) -> None:
+        from brief import AssetSpec, AssetType, ProjectContext, audit_brief_for_export
+        from display_size import DisplaySize
+        from pipeline_manifest import build_manifest, tasks_list
+
+        project = ProjectContext(
+            title="T",
+            description="platformer",
+            art_direction="flat",
+            dimension="2d",
+            genre="2d_platformer",
+            gameplay_loop="run",
+            session_goal="demo",
+            player_asset="英雄",
+            controls={"move_left": ["A"], "move_right": ["D"]},
+            viewport={"width": 640, "height": 360},
+            camera={"mode": "follow_player"},
+        )
+        no_id = AssetSpec(
+            name="英雄",
+            type=AssetType.CHARACTER,
+            usage="player_idle",
+            usage_description="hero",
+            display_size=DisplaySize(64, 64),
+            description="hero",
+        )
+        gaps = audit_brief_for_export(project, [no_id])
+        self.assertTrue(any("missing required field 'id'" in g for g in gaps))
+
+        brief = {
+            "project": {
+                "title": "T",
+                "description": "platformer",
+                "art_direction": "flat",
+                "dimension": "2d",
+                "genre": "2d_platformer",
+                "gameplay_loop": "run",
+                "session_goal": "demo",
+                "player_asset": "英雄",
+                "controls": {"move_left": ["A"], "move_right": ["D"]},
+                "viewport": {"width": 640, "height": 360},
+                "camera": {"mode": "follow_player"},
+            },
+            "assets": [
+                {
+                    "name": "英雄",
+                    "id": "hero",
+                    "type": "character",
+                    "usage": "player_idle",
+                    "usage_description": "hero",
+                    "generate_method": "image",
+                    "description": "hero",
+                    "display_size": {"width": 64, "height": 64},
+                }
+            ],
+        }
+        path = write_brief(brief)
+        try:
+            manifest = build_manifest(path, include_godot=False)
+            ids = {t["id"] for t in tasks_list(manifest)}
+            self.assertIn("hero.image.generate", ids)
+            self.assertNotIn("英雄.image.generate", ids)
+            gen = next(t for t in tasks_list(manifest) if t["id"] == "hero.image.generate")
+            self.assertEqual(gen["asset"], "英雄")
+            self.assertEqual(gen["asset_id"], "hero")
+            self.assertIn("hero_raw.png", gen["artifacts"]["output"].replace("\\", "/"))
+        finally:
+            path.unlink(missing_ok=True)
+
         from pipeline_manifest import build_manifest, tasks_list
 
         brief = {
@@ -181,6 +254,7 @@ class BriefContractTests(unittest.TestCase):
             "assets": [
                 {
                     "name": "bgm",
+                    "id": "bgm",
                     "type": "audio",
                     "usage": "music",
                     "usage_description": "loop",

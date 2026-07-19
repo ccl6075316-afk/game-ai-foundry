@@ -77,4 +77,31 @@ if (rel !== "projects/black-whistle/output/visual-target/candidate_a.png") {
   console.log("OK  toRepoMediaRel prefers projects/ over bare output/");
 }
 
+function toMediaUrl(absPath) {
+  let version = 0;
+  try {
+    version = Math.trunc(statSync(absPath).mtimeMs);
+  } catch {
+    version = Date.now();
+  }
+  return `gamefactory-media://local/?p=${encodeURIComponent(absPath)}&v=${version}`;
+}
+
+const url1 = toMediaUrl(abs);
+const url2 = toMediaUrl(abs);
+if (!url1.includes("&v=") || url1 !== url2) {
+  console.log("FAIL  toMediaUrl cache-bust unstable", url1, url2);
+  failed += 1;
+} else {
+  console.log("OK  toMediaUrl includes stable mtime bust");
+}
+const parsed = new URL(url1);
+const pParam = parsed.searchParams.get("p");
+if (path.normalize(pParam) !== path.normalize(abs)) {
+  console.log("FAIL  URL round-trip path", pParam);
+  failed += 1;
+} else {
+  console.log("OK  media URL path round-trips without double-decode");
+}
+
 process.exit(failed ? 1 : 0);

@@ -5,6 +5,7 @@ import { ChatInput } from "./components/ChatInput";
 import { ColleagueRoster } from "./components/ColleagueRoster";
 import { BoardPanel } from "./components/BoardPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
+import { ProjectSwitcher } from "./components/ProjectSwitcher";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { ToolchainModal } from "./components/ToolchainModal";
 import { EnvToolbar } from "./components/EnvToolbar";
@@ -39,6 +40,7 @@ import {
   productionPathFromBrief,
   progressPathFromBrief,
   saveActiveBriefRel,
+  slugFromBriefRel,
 } from "./chat/projectPaths";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import { prepareAgentDisplay } from "./chat/agentReply";
@@ -69,6 +71,156 @@ function slugifyBriefName(raw: string): string {
   }
   const slug = t.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return slug || `game-${Date.now().toString(36)}`;
+}
+
+type DiagnoseItem = {
+  task_id?: string;
+  kind?: string;
+  summary?: string;
+  pm_fit?: string;
+  pm_tip?: string;
+};
+
+/** Format diagnose JSON into a clear「适不适合项目经理」tip for chat. */
+function formatPmFitAdvice(data: {
+  pm_fit?: string;
+  pm_suitable?: boolean;
+  pm_advice?: string;
+  pm_advice_short?: string;
+  items?: DiagnoseItem[];
+  needs_hermes?: DiagnoseItem[];
+} | null | undefined): { suitable: boolean; headline: string; detail: string } {
+  if (!data) {
+    return {
+      suitable: false,
+      headline: "未能诊断失败原因",
+      detail: "可打开看板查看 failed 任务，或重试「项目经理处理失败」。",
+    };
+  }
+  const items = (data.items?.length ? data.items : data.needs_hermes) || [];
+  const lines = items.slice(0, 6).map((n) => {
+    const fit =
+      n.pm_fit === "yes" ? "适合" : n.pm_fit === "no" ? "不必" : n.pm_fit === "maybe" ? "可分诊" : "?";
+    const tip = n.pm_tip || n.summary || "";
+    return `- \`${n.task_id || "?"}\`（${n.kind || "?"}）· **${fit}**${tip ? ` — ${tip}` : ""}`;
+  });
+  const headline =
+    data.pm_advice_short ||
+    (data.pm_suitable ? "适合项目经理直接处理" : "不必找项目经理");
+  const detail =
+    (data.pm_advice ? `${data.pm_advice}\n\n` : "") +
+    (lines.length ? `逐项：\n${lines.join("\n")}` : "");
+  return { suitable: Boolean(data.pm_suitable), headline, detail };
+}
+
+type PipelineRunPayload = {
+  complete?: boolean;
+  paused?: boolean;
+  blocked?: boolean;
+  message?: string;
+  last_task?: string;
+  last_exit_code?: number;
+  summary?: {
+    counts?: Record<string, number>;
+    failed_ids?: string[];
+    ready_ids?: string[];
+    ready_count?: number;
+    done?: boolean;
+  };
+};
+
+/** Clear stop notice + recommended next action for pipeline pause / incomplete run. */
+function planPipelineStop(opts: {
+  exitCode: number;
+  runData?: PipelineRunPayload | null;
+  advice: ReturnType<typeof formatPmFitAdvice>;
+  healed: string[];
+  status?: PipelineStatus | null;
+}): { title: string; body: string; choices: string[] } {
+  const summary = opts.status || opts.runData?.summary;
+  const counts = summary?.counts || {};
+  const done = Number(counts.done ?? 0);
+  const pending = Number(counts.pending ?? 0);
+  const failedN = Number(
+    counts.failed ?? opts.status?.failed_ids?.length ?? opts.runData?.summary?.failed_ids?.length ?? 0,
+  );
+  const ready =
+    opts.status?.ready_ids?.length ??
+    opts.runData?.summary?.ready_ids?.length ??
+    opts.runData?.summary?.ready_count ??
+    0;
+  const progress = `进度：完成 ${done} · 待跑 ${pending}` + (failedN ? ` · 失败 ${failedN}` : "");
+  const last = opts.runData?.last_task
+    ? `\n停在：\`${opts.runData.last_task}\`` +
+      (opts.runData.last_exit_code != null ? `（exit ${opts.runData.last_exit_code}）` : "")
+    : "";
+  const paused = Boolean(opts.runData?.paused) || opts.exitCode === 2 || failedN > 0;
+  const blocked = Boolean(opts.runData?.blocked);
+
+  if (paused && failedN > 0) {
+    if (opts.advice.suitable) {
+      return {
+        title: "流水线已暂停",
+        body:
+          `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
+          `**推荐下一步 → 项目经理处理失败**\n` +
+          `（${opts.advice.headline}）\n\n${opts.advice.detail}` +
+          (opts.healed.length
+            ? `\n\n另已自动复位 ${opts.healed.length} 项（网络/缺文件），处理后可一并续跑。`
+            : ""),
+        choices: ["项目经理处理失败", "运行资产生成", "打开看板"],
+      };
+    }
+    if (opts.healed.length) {
+      return {
+        title: "流水线已暂停（可修项已复位）",
+        body:
+          `${progress}${last}\n\n` +
+          `已自动复位：${opts.healed.slice(0, 6).join(", ")}${opts.healed.length > 6 ? "…" : ""}\n` +
+          `（${opts.advice.headline}）\n\n` +
+          `**推荐下一步 → 运行资产生成**（续跑）`,
+        choices: ["运行资产生成", "打开看板"],
+      };
+    }
+    return {
+      title: "流水线已暂停",
+      body:
+        `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
+        `**推荐下一步 → 运行资产生成**\n` +
+        `（${opts.advice.headline}）\n\n${opts.advice.detail}`,
+      choices: ["运行资产生成", "运行资产生成（含文案）", "打开看板"],
+    };
+  }
+
+  if (blocked) {
+    return {
+      title: "流水线卡住了",
+      body:
+        `${progress}\n` +
+        (opts.runData?.message ? `${opts.runData.message}\n` : "") +
+        `\n常见原因：上游失败未清、缺文案 plan、或缺依赖产物。\n\n` +
+        `**推荐下一步 → 打开看板** 看哪条红了；若有失败再点「项目经理处理失败」。`,
+      choices: ["打开看板", "项目经理处理失败", "运行资产生成（含文案）"],
+    };
+  }
+
+  if (ready > 0 || pending > 0) {
+    return {
+      title: "本轮已停下，还有任务未跑完",
+      body:
+        `${progress}` +
+        (ready > 0 ? `（其中 ${ready} 个已就绪）` : "") +
+        `${last}\n\n` +
+        `**推荐下一步 → 运行资产生成**（续跑，已完成的会跳过）`,
+      choices: ["运行资产生成", "运行资产生成（含文案）", "打开看板"],
+    };
+  }
+
+  return {
+    title: "流水线已结束",
+    body: `${progress}${last}\n\n可打开看板确认，或继续派工给程序员。`,
+    choices: ["打开看板"],
+  };
 }
 
 function parseBriefSubcommand(
@@ -733,13 +885,30 @@ export default function App() {
     }
   };
 
-  const handleAgentTurn = async (message: string) => {
-    if (agentRole !== "product_host" && agentRole !== "programmer") return;
+  const handleAgentTurn = async (
+    message: string,
+    opts?: { instanceId?: string },
+  ) => {
+    const colleague =
+      (opts?.instanceId
+        ? chatStore.roster.find((c) => c.id === opts.instanceId)
+        : null) || activeColleague;
+    const role = colleague.roleKind;
+    if (role !== "product_host" && role !== "programmer") return;
+    const sessionId =
+      (opts?.instanceId
+        ? chatStore.activeByInstance[colleague.id] ||
+          chatStore.sessions.find((s) => s.instanceId === colleague.id)?.id
+        : null) || activeSession.id;
+    if (!sessionId) return;
+    if (opts?.instanceId && opts.instanceId !== activeColleague.id) {
+      patchChatStore((prev) => setActiveInstance(prev, opts.instanceId!));
+    }
     const target = {
-      instanceId: activeColleague.id,
-      sessionId: activeSession.id,
-      role: agentRole,
-      displayName: activeColleague.displayName,
+      instanceId: colleague.id,
+      sessionId,
+      role,
+      displayName: colleague.displayName,
     };
     markBusy(target.instanceId);
     setAgentActionChoices([]);
@@ -904,6 +1073,41 @@ export default function App() {
     return res;
   }, []);
 
+  const switchProject = useCallback(
+    async (briefRel: string) => {
+      const normalized = briefRel.replace(/\\/g, "/");
+      setBrief(normalized);
+      const slug = slugFromBriefRel(normalized);
+      const preferred = planTargetsFromBrief(normalized).manifestRel;
+      let manifest =
+        (window.gameFactory.findManifestForBrief
+          ? (await window.gameFactory.findManifestForBrief(normalized))?.path
+          : null) || preferred;
+      const manifests = await window.gameFactory.listManifests();
+      if (!manifests.some((m) => m.path === manifest)) {
+        manifest = preferred;
+      }
+      if (manifest && manifests.some((m) => m.path === manifest)) {
+        setSelectedManifest(manifest);
+        await refreshManifest(manifest);
+      } else {
+        setSelectedManifest("");
+        setTasks([]);
+        setStatus(null);
+      }
+      append(
+        "assistant",
+        `已切换到工程 **${slug}**\n\nBrief：\`${normalized}\`${
+          manifest ? `\n看板：\`${manifest}\`` : "\n（尚无 pipeline manifest，可让项目经理生成流水线）"
+        }`,
+        undefined,
+        undefined,
+        ["打开文档", "生成流水线"],
+      );
+    },
+    [setBrief, refreshManifest, append],
+  );
+
   const refreshToolchain = useCallback(async () => {
     if (!window.gameFactory?.toolchainCheck) return null;
     const res = await window.gameFactory.toolchainCheck();
@@ -1002,11 +1206,15 @@ export default function App() {
     const manifest =
       byBrief?.path ||
       (preferredManifest && manifests.find((x) => x.path === preferredManifest)?.path) ||
-      manifests[0]?.path ||
+      (!brief ? manifests[0]?.path : "") ||
       "";
     if (manifest) {
       setSelectedManifest(manifest);
       await refreshManifest(manifest);
+    } else {
+      setSelectedManifest("");
+      setTasks([]);
+      setStatus(null);
     }
     if (brief) await refreshVisualTarget(brief);
 
@@ -1170,6 +1378,91 @@ export default function App() {
     };
   }, [loadInitial, append, refreshBrainstormStatus]);
 
+  const handlePipelinePmHeal = async () => {
+    if (!selectedManifest) {
+      append("assistant", "没有流水线 manifest，无法处理失败任务。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    markBusy(busyId);
+    try {
+      const diag = window.gameFactory.pipelineDiagnose
+        ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+        : null;
+      const advice = formatPmFitAdvice(diag?.data);
+      const heal = window.gameFactory.pipelineHeal
+        ? await window.gameFactory.pipelineHeal(selectedManifest, true)
+        : null;
+      const healed = (heal?.data?.healed as string[] | undefined) || [];
+      const needs = (diag?.data?.needs_hermes as DiagnoseItem[] | undefined) || [];
+      await refreshManifest(selectedManifest);
+
+      append(
+        "assistant",
+        `**是否适合项目经理处理：${advice.headline}**\n\n${advice.detail}`,
+        undefined,
+        undefined,
+        advice.suitable
+          ? undefined
+          : ["运行资产生成", "打开看板"],
+      );
+
+      if (healed.length) {
+        append(
+          "assistant",
+          `已自动复位代码可修任务（${healed.length}）：${healed.join(", ")}。可再点「运行资产生成」。`,
+          undefined,
+          undefined,
+          ["运行资产生成", "打开看板"],
+        );
+      }
+      if (!advice.suitable || !needs.length) {
+        if (!healed.length && !needs.length) {
+          append("assistant", "当前没有需要项目经理处理的 failed 任务。");
+        } else if (!advice.suitable) {
+          append("assistant", "按诊断结果：不必调用项目经理 Agent，直接重跑即可。");
+        }
+        return;
+      }
+      const payload = needs
+        .map(
+          (n, i) =>
+            `${i + 1}. task=${n.task_id} kind=${n.kind} pm_fit=${n.pm_fit}\n   ${String(n.pm_tip || n.summary || "").slice(0, 200)}`,
+        )
+        .join("\n");
+      const pm = chatStore.roster.find((c) => c.roleKind === "product_host");
+      if (!pm) {
+        append(
+          "assistant",
+          `适合项目经理处理，但还没有项目经理同事。请先「+ 雇佣」一位。\n\n${payload}`,
+          undefined,
+          undefined,
+          ["打开看板"],
+        );
+        return;
+      }
+      append(
+        "assistant",
+        `结论：**适合**交给 **${pm.displayName}**（${needs.length} 项）。正在调用…`,
+        undefined,
+        undefined,
+        ["打开看板"],
+      );
+      const msg =
+        `流水线失败需要你分诊（已判定适合项目经理处理）：\n${payload}\n\n` +
+        `config_size / config_proxy → 用白名单命令改配置，再 pipeline reset --cascade；不要改内核代码。\n` +
+        `validation → reset 后 pipeline run --run-prompts。\n` +
+        `在 cli_hints / gui_hints 给出可执行下一步。不要空话。`;
+      clearBusy(busyId);
+      await handleAgentTurn(msg, { instanceId: pm.id });
+      return;
+    } catch (e) {
+      append("assistant", `处理失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
   const handleRun = async (runPrompts = false) => {
     if (!selectedManifest) {
       append(
@@ -1209,18 +1502,76 @@ export default function App() {
       );
       append("log", "pipeline run 开始…");
       const res = await window.gameFactory.pipelineRun(selectedManifest, 4, runPrompts);
-      if (res.exitCode !== 0) {
+      const runData = (res.data || null) as PipelineRunPayload | null;
+      const statusAfter = await refreshManifest(selectedManifest);
+
+      if (
+        res.exitCode !== 0 ||
+        Boolean(runData?.paused) ||
+        Boolean(runData?.blocked) ||
+        runData?.complete === false
+      ) {
+        let advice = formatPmFitAdvice(null);
+        let healed: string[] = [];
+        try {
+          const diag = window.gameFactory.pipelineDiagnose
+            ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+            : null;
+          advice = formatPmFitAdvice(diag?.data);
+          if (window.gameFactory.pipelineHeal) {
+            const heal = await window.gameFactory.pipelineHeal(selectedManifest, true);
+            healed = (heal.data?.healed as string[] | undefined) || [];
+            if (healed.length) {
+              await refreshManifest(selectedManifest);
+            }
+          }
+        } catch {
+          /* diagnose/heal best-effort */
+        }
+        // Re-read status after heal so progress/next-step match reality
+        const statusNow =
+          healed.length > 0 ? await refreshManifest(selectedManifest) : statusAfter;
+        const plan = planPipelineStop({
+          exitCode: res.exitCode,
+          runData,
+          advice,
+          healed,
+          status: statusNow?.status || status,
+        });
+        const rawTail = (res.stderr || "").trim()
+          ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
+          : "";
         append(
           "assistant",
-          `Pipeline 暂停/结束（exit ${res.exitCode}）。\n` +
-            `已完成的任务会保留；修好后点「运行资产生成」会继续跑还差的 pending。\n` +
-            `若某任务 failed，需先 reset 该 task 再跑。\n\n${(res.stderr || res.stdout || "").slice(0, 1500)}`,
+          `**${plan.title}**\n\n${plan.body}${rawTail}`,
           undefined,
           undefined,
-          ["运行资产生成（含文案）", "运行资产生成", "打开看板"],
+          plan.choices,
         );
       } else {
-        append("assistant", "Pipeline 运行完成。可在看板查看任务状态。");
+        const counts = statusAfter?.status?.counts || status?.counts || {};
+        const pending = Number(counts.pending ?? 0);
+        const ready = statusAfter?.status?.ready_ids?.length ?? status?.ready_ids?.length ?? 0;
+        if (pending > 0 || ready > 0) {
+          append(
+            "assistant",
+            `**本轮跑完，流水线未全部完成**\n\n` +
+              `进度：完成 ${counts.done ?? "?"} · 待跑 ${pending}` +
+              (ready ? `（${ready} 个已就绪）` : "") +
+              `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
+            undefined,
+            undefined,
+            ["运行资产生成", "打开看板"],
+          );
+        } else {
+          append(
+            "assistant",
+            "**流水线已全部完成。** 可在看板查看，或继续派工给程序员。",
+            undefined,
+            undefined,
+            ["打开看板"],
+          );
+        }
         try {
           const meta = await window.gameFactory.getManifestMeta(selectedManifest);
           const outputDir = meta?.output_dir;
@@ -1234,7 +1585,6 @@ export default function App() {
           /* ignore gallery errors */
         }
       }
-      await refreshManifest(selectedManifest);
       setSidePanel("board");
     } catch (e) {
       append("assistant", `运行失败：${e instanceof Error ? e.message : String(e)}`);
@@ -1355,6 +1705,37 @@ export default function App() {
         "assistant",
         "正在生成北极星候选图（整屏玩法预览）…\n完成后点「选用北极星 a/b/c」。",
       );
+      // Session draft art_direction does NOT auto-export — sync into disk brief first
+      // so "大改风格" chats actually affect visual-target generate.
+      if (briefDraft?.project && window.gameFactory.patchBriefProject) {
+        const draftProj = briefDraft.project as Record<string, unknown>;
+        const patch: Record<string, unknown> = {};
+        for (const key of ["art_direction", "description", "player_asset", "camera", "hud"] as const) {
+          if (draftProj[key] !== undefined && draftProj[key] !== null && draftProj[key] !== "") {
+            patch[key] = draftProj[key];
+          }
+        }
+        if (Object.keys(patch).length > 0) {
+          const synced = await window.gameFactory.patchBriefProject(brief, patch);
+          if (synced.ok && synced.changed && synced.changed.length > 0) {
+            append(
+              "assistant",
+              `已把会话草稿写入 Brief 再生成：\`${synced.changed.join("`, `")}\`\n（以前只改对话、不导出时，北极星一直读旧磁盘 Brief，所以看起来「怎么改都差不多」。）`,
+            );
+            append("log", `brief patch: ${synced.changed.join(", ")}`);
+          } else if (!synced.ok) {
+            append(
+              "assistant",
+              `警告：未能把草稿写入 Brief（${synced.error || "unknown"}）。将继续用磁盘上的旧 Brief 生成。`,
+            );
+          }
+        }
+      } else if (!briefDraft?.project) {
+        append(
+          "log",
+          "无会话草稿可同步 — 使用磁盘 Brief。若刚在策划里改了风格，请确认草稿里已有 art_direction，或先导出 Brief。",
+        );
+      }
       append("log", "visual-target generate 开始…");
       const res = await window.gameFactory.visualTargetGenerate(brief, 3);
       if (res.exitCode !== 0) {
@@ -1713,7 +2094,7 @@ export default function App() {
       }
       append(
         "assistant",
-        "好。北极星候选作废，我们先改风格再重生成。\n\n请用一两句话描述新方向（会写入 `art_direction`），例如：\n- 「更暗黑、高对比、粗描边 Q 版」\n- 「改成像素风，参考星露谷物语」\n- 「去掉厨房乱炖感，改成干净日系体育漫画」\n\n说完后我会更新草案；你再点「生成北极星图」。",
+        "好。北极星候选作废，我们先改风格再重生成。\n\n请用一两句话描述新方向（会写入会话草稿的 `art_direction`），例如：\n- 「更暗黑、高对比、粗描边 Q 版」\n- 「改成像素风，参考星露谷物语」\n- 「去掉厨房乱炖感，改成干净日系体育漫画」\n\n说完后直接点「生成北极星图」——会自动把草稿里的风格写入 Brief 再出图（不必先手动导出）。",
         undefined,
         undefined,
         ["生成北极星图"],
@@ -1741,9 +2122,24 @@ export default function App() {
       await handleRun(false);
       return;
     }
+    if (trimmed === "项目经理处理失败") {
+      await handlePipelinePmHeal();
+      return;
+    }
     if (trimmed === "打开看板") {
       toggleSidePanel("board");
       append("assistant", "已打开右侧任务看板。");
+      return;
+    }
+    if (trimmed === "打开文档") {
+      setSidePanel("docs");
+      if (agentRole === "brief") void refreshBrainstormStatus();
+      append(
+        "assistant",
+        activeBriefRel
+          ? `已打开文档面板（工程 **${slugFromBriefRel(activeBriefRel)}**）。`
+          : "已打开文档面板。请先选择或导出工程。",
+      );
       return;
     }
     if (pendingSafeActions.current.has(trimmed)) {
@@ -1897,6 +2293,11 @@ export default function App() {
             </svg>
           </div>
           <span className="topbar__title">Game AI Foundry</span>
+          <ProjectSwitcher
+            variant="chip"
+            activeBriefRel={activeBriefRel}
+            onSelect={(rel) => void switchProject(rel)}
+          />
         </div>
         <div className="topbar__actions">
           {status && (
@@ -2165,6 +2566,7 @@ export default function App() {
             activeBriefRel={activeBriefRel}
             readyToExport={brainstormReady}
             busy={chatBusy}
+            onSelectProject={(rel) => void switchProject(rel)}
             onRefresh={() => {
               if (agentRole === "brief") void refreshBrainstormStatus();
             }}

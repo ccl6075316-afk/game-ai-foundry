@@ -49,6 +49,7 @@ class BriefTransitionsTests(unittest.TestCase):
         )
         ref = AssetSpec(
             name="hero",
+            id="hero",
             type=AssetType.CHARACTER,
             usage="reference_still",
             usage_description="ref",
@@ -57,6 +58,7 @@ class BriefTransitionsTests(unittest.TestCase):
         )
         walk = AssetSpec(
             name="hero_walk",
+            id="hero_walk",
             type=AssetType.CHARACTER,
             usage="player_locomotion",
             usage_description="walk",
@@ -68,6 +70,7 @@ class BriefTransitionsTests(unittest.TestCase):
         )
         attack = AssetSpec(
             name="hero_attack",
+            id="hero_attack",
             type=AssetType.CHARACTER,
             usage="player_attack",
             usage_description="atk",

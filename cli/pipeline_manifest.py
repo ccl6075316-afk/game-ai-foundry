@@ -22,6 +22,7 @@ from brief import (
     load_brief_full,
     resolve_animation_loop,
     resolve_animation_name,
+    resolve_asset_file_key,
     validate_brief_for_export,
 )
 from roles import (
@@ -65,6 +66,7 @@ class PipelineTask:
     result: dict[str, Any] | None = None
     started_at: str | None = None
     finished_at: str | None = None
+    asset_id: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -113,16 +115,16 @@ def classify_asset(spec: AssetSpec) -> AssetKind:
     return AssetKind.STATIC
 
 
-def _asset_artifacts(output_dir: Path, plans_dir: Path, name: str) -> dict[str, str]:
+def _asset_artifacts(output_dir: Path, plans_dir: Path, file_key: str) -> dict[str, str]:
     return {
-        "plan": cli_relative(plans_dir / f"{name}.json"),
-        "raw_image": cli_relative(output_dir / f"{name}_raw.png"),
-        "trimmed_image": cli_relative(output_dir / f"{name}_trimmed.png"),
-        "nobg_image": cli_relative(output_dir / f"{name}_nobg.png"),
-        "video": cli_relative(output_dir / f"{name}.mp4"),
-        "frames_dir": cli_relative(output_dir / f"{name}_frames"),
-        "frames_nobg_dir": cli_relative(output_dir / f"{name}_nobg"),
-        "slice_dir": cli_relative(output_dir / f"{name}_tiles"),
+        "plan": cli_relative(plans_dir / f"{file_key}.json"),
+        "raw_image": cli_relative(output_dir / f"{file_key}_raw.png"),
+        "trimmed_image": cli_relative(output_dir / f"{file_key}_trimmed.png"),
+        "nobg_image": cli_relative(output_dir / f"{file_key}_nobg.png"),
+        "video": cli_relative(output_dir / f"{file_key}.mp4"),
+        "frames_dir": cli_relative(output_dir / f"{file_key}_frames"),
+        "frames_nobg_dir": cli_relative(output_dir / f"{file_key}_nobg"),
+        "slice_dir": cli_relative(output_dir / f"{file_key}_tiles"),
     }
 
 
@@ -134,6 +136,7 @@ def _add_task(
     tasks: list[PipelineTask],
     *,
     asset: str,
+    asset_id: str,
     step: str,
     role: str,
     depends_on: list[str],
@@ -141,11 +144,12 @@ def _add_task(
     artifacts: dict[str, str],
     layer: int,
 ) -> str:
-    task_id = f"{asset}.{step}"
+    task_id = f"{asset_id}.{step}"
     tasks.append(
         PipelineTask(
             id=task_id,
             asset=asset,
+            asset_id=asset_id,
             step=step,
             role=role,
             depends_on=depends_on,
@@ -155,6 +159,13 @@ def _add_task(
         )
     )
     return task_id
+
+
+def _image_generate_task_id(asset_ids: dict[str, str], asset_name: str) -> str:
+    aid = asset_ids.get(asset_name)
+    if not aid:
+        raise ValueError(f"Unknown asset name '{asset_name}' (no id mapping)")
+    return f"{aid}.image.generate"
 
 
 def _layer_from_deps(dep_ids: list[str], tasks_by_id: dict[str, PipelineTask]) -> int:
@@ -177,6 +188,7 @@ def _post_image_tasks(
     pipeline = meta.get("pipeline") or []
     prev_id = image_task_id
     name = spec.name
+    file_key = resolve_asset_file_key(spec)
 
     for step_def in pipeline:
         if not isinstance(step_def, dict):
@@ -190,6 +202,7 @@ def _post_image_tasks(
             tid = _add_task(
                 tasks,
                 asset=name,
+                asset_id=file_key,
                 step="image.trim",
                 role=ORCHESTRATOR_ROLE,
                 depends_on=dep,
@@ -212,6 +225,7 @@ def _post_image_tasks(
             tid = _add_task(
                 tasks,
                 asset=name,
+                asset_id=file_key,
                 step="image.remove-bg",
                 role=ORCHESTRATOR_ROLE,
                 depends_on=dep,
@@ -231,6 +245,7 @@ def _post_image_tasks(
             tid = _add_task(
                 tasks,
                 asset=name,
+                asset_id=file_key,
                 step="image.slice",
                 role=ORCHESTRATOR_ROLE,
                 depends_on=dep,
@@ -255,18 +270,21 @@ def _static_asset_tasks(
     spec: AssetSpec,
     brief_cli: str,
     paths: dict[str, str],
+    asset_ids: dict[str, str],
 ) -> None:
     name = spec.name
+    file_key = resolve_asset_file_key(spec)
     prompt_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="prompt.craft",
         role=PROMPT_CRAFTER_ROLE,
         depends_on=[],
         layer=0,
         command=(
             f"python gamefactory.py prompt craft "
-            f"--brief {brief_cli} --asset {name} -o {paths['plan']}"
+            f"--brief {brief_cli} --asset {file_key} -o {paths['plan']}"
         ),
         artifacts={"plan": paths["plan"]},
     )
@@ -276,7 +294,7 @@ def _static_asset_tasks(
     ref_flag = ""
     ref_name = spec.reference_asset.strip() if spec.type == AssetType.CHARACTER_POSE else ""
     if ref_name:
-        ref_image_task = f"{ref_name}.image.generate"
+        ref_image_task = _image_generate_task_id(asset_ids, ref_name)
         if ref_image_task not in tasks_by_id:
             raise ValueError(
                 f"Asset '{name}' references '{ref_name}' but {ref_image_task} is missing."
@@ -289,6 +307,7 @@ def _static_asset_tasks(
     image_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="image.generate",
         role=IMAGE_GENERATOR_ROLE,
         depends_on=image_deps,
@@ -329,8 +348,10 @@ def _video_animation_tasks(
     brief_cli: str,
     paths: dict[str, str],
     sprite_frames: int,
+    asset_ids: dict[str, str],
 ) -> None:
     name = spec.name
+    file_key = resolve_asset_file_key(spec)
     ref_name = spec.reference_asset.strip()
     if not ref_name:
         raise ValueError(f"Video animation '{name}' requires reference_asset.")
@@ -338,19 +359,20 @@ def _video_animation_tasks(
     prompt_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="prompt.craft",
         role=PROMPT_CRAFTER_ROLE,
         depends_on=[],
         layer=0,
         command=(
             f"python gamefactory.py prompt craft --animation "
-            f"--brief {brief_cli} --asset {name} -o {paths['plan']}"
+            f"--brief {brief_cli} --asset {file_key} -o {paths['plan']}"
         ),
         artifacts={"plan": paths["plan"]},
     )
     tasks_by_id[prompt_id] = tasks[-1]
 
-    ref_image_task = f"{ref_name}.image.generate"
+    ref_image_task = _image_generate_task_id(asset_ids, ref_name)
     if ref_image_task not in tasks_by_id:
         raise ValueError(
             f"Animation '{name}' references '{ref_name}' but {ref_image_task} is missing."
@@ -362,6 +384,7 @@ def _video_animation_tasks(
     video_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="video.generate",
         role=VIDEO_GENERATOR_ROLE,
         depends_on=video_deps,
@@ -385,6 +408,7 @@ def _video_animation_tasks(
     split_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="video.split-frames",
         role=ORCHESTRATOR_ROLE,
         depends_on=split_deps,
@@ -403,6 +427,7 @@ def _video_animation_tasks(
     matte_id = _add_task(
         tasks,
         asset=name,
+        asset_id=file_key,
         step="video.matte-frames",
         role=ORCHESTRATOR_ROLE,
         depends_on=matte_deps,
@@ -444,13 +469,14 @@ def _collect_godot_plan(
     for spec in assets:
         kind = classify_asset(spec)
         if kind == AssetKind.VIDEO_ANIMATION:
-            matte_id = f"{spec.name}.video.matte-frames"
+            file_key = resolve_asset_file_key(spec)
+            matte_id = f"{file_key}.video.matte-frames"
             if matte_id in tasks_by_id:
                 frames_dir = _artifact_path_to_repo_rel(
                     tasks_by_id[matte_id].artifacts.get("output_dir", "")
                 )
             else:
-                frames_dir = rel_to_repo(output_dir / f"{spec.name}_nobg")
+                frames_dir = rel_to_repo(output_dir / f"{file_key}_nobg")
             sprite_count = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
             animations.append(
                 {
@@ -469,7 +495,7 @@ def _collect_godot_plan(
                 }
             )
         elif spec.type == AssetType.BACKGROUND:
-            raw = rel_to_repo(output_dir / f"{spec.name}_raw.png")
+            raw = rel_to_repo(output_dir / f"{resolve_asset_file_key(spec)}_raw.png")
             backgrounds.append(
                 {
                     "asset": spec.name,
@@ -481,11 +507,13 @@ def _collect_godot_plan(
             )
 
     idle_still_path: str | None = None
+    name_to_id = {s.name: resolve_asset_file_key(s) for s in assets}
     for spec in assets:
         if classify_asset(spec) == AssetKind.VIDEO_ANIMATION and spec.reference_asset.strip():
             ref = spec.reference_asset.strip()
             character_asset = ref
-            idle_still_path = rel_to_repo(output_dir / f"{ref}_nobg.png")
+            ref_key = name_to_id.get(ref, ref)
+            idle_still_path = rel_to_repo(output_dir / f"{ref_key}_nobg.png")
             break
 
     if not idle_still_path:
@@ -495,13 +523,14 @@ def _collect_godot_plan(
             if classify_asset(spec) == AssetKind.VIDEO_ANIMATION:
                 continue
             character_asset = spec.name
-            nobg_id = f"{spec.name}.image.remove-bg"
+            file_key = resolve_asset_file_key(spec)
+            nobg_id = f"{file_key}.image.remove-bg"
             if nobg_id in tasks_by_id:
                 out_art = tasks_by_id[nobg_id].artifacts.get("output", "")
                 if out_art:
                     idle_still_path = _artifact_path_to_repo_rel(out_art)
                     break
-            idle_still_path = rel_to_repo(output_dir / f"{spec.name}_nobg.png")
+            idle_still_path = rel_to_repo(output_dir / f"{file_key}_nobg.png")
             break
 
     plan: dict[str, Any] = {
@@ -545,6 +574,7 @@ def _add_godot_tasks(
     _add_task(
         tasks,
         asset=brief_stem,
+        asset_id=brief_stem,
         step="godot.assemble",
         role=GODOT_ASSEMBLER_ROLE,
         depends_on=deps,
@@ -581,6 +611,7 @@ def _add_godot_dev_tasks(
     _add_task(
         tasks,
         asset=brief_stem,
+        asset_id=brief_stem,
         step="godot.dev-context",
         role=GODOT_DEVELOPER_ROLE,
         depends_on=deps,
@@ -629,6 +660,7 @@ def build_manifest(
 
     tasks: list[PipelineTask] = []
     tasks_by_id: dict[str, PipelineTask] = {}
+    asset_ids = {spec.name: resolve_asset_file_key(spec) for spec in assets}
 
     # Pass 1: static + pose assets (produce reference stills).
     for spec in assets:
@@ -637,7 +669,7 @@ def build_manifest(
         kind = classify_asset(spec)
         if kind == AssetKind.VIDEO_ANIMATION:
             continue
-        paths = _asset_artifacts(output_dir, plans_dir, spec.name)
+        paths = _asset_artifacts(output_dir, plans_dir, asset_ids[spec.name])
         _static_asset_tasks(
             tasks,
             tasks_by_id,
@@ -645,6 +677,7 @@ def build_manifest(
             spec=spec,
             brief_cli=brief_cli,
             paths=paths,
+            asset_ids=asset_ids,
         )
 
     # Pass 2: video animations (depend on reference stills).
@@ -652,7 +685,7 @@ def build_manifest(
         if classify_asset(spec) != AssetKind.VIDEO_ANIMATION:
             continue
         frames = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
-        paths = _asset_artifacts(output_dir, plans_dir, spec.name)
+        paths = _asset_artifacts(output_dir, plans_dir, asset_ids[spec.name])
         _video_animation_tasks(
             tasks,
             tasks_by_id,
@@ -660,6 +693,7 @@ def build_manifest(
             brief_cli=brief_cli,
             paths=paths,
             sprite_frames=frames,
+            asset_ids=asset_ids,
         )
 
     asset_task_ids = [t.id for t in tasks]
@@ -828,6 +862,7 @@ def record_task(
 
 
 def _artifact_exists(repo_root: Path, cli_rel: str) -> bool:
+    _ = repo_root
     path = (_CLI_DIR / cli_rel).resolve()
     if path.is_file():
         return True
@@ -836,10 +871,92 @@ def _artifact_exists(repo_root: Path, cli_rel: str) -> bool:
     return False
 
 
-def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = None) -> int:
-    """Mark pending tasks done when expected artifact paths already exist."""
+def _primary_artifact_rel(task: dict[str, Any]) -> str | None:
+    """Cli-relative path that must exist for a task to stay done.
+
+    Prefer the produced media/output over plan text so deleting an unsatisfactory
+    PNG/video marks generate (and dependents) for regeneration.
+    """
+    arts = task.get("artifacts") or {}
+    if not isinstance(arts, dict):
+        return None
+    step = str(task.get("step") or "")
+    if step == "prompt.craft" or step.endswith(".prompt.craft"):
+        rel = arts.get("plan")
+        return str(rel) if rel else None
+    for key in (
+        "output",
+        "output_dir",
+        "nobg_image",
+        "video",
+        "dev_handoff",
+        "assemble_file",
+        "plan",
+    ):
+        rel = arts.get(key)
+        if rel:
+            return str(rel)
+    return None
+
+
+def _reset_task_to_pending(task: dict[str, Any]) -> None:
+    task["status"] = TASK_PENDING
+    task["result"] = None
+    task["started_at"] = None
+    task["finished_at"] = None
+
+
+def invalidate_missing_artifacts(manifest: dict[str, Any]) -> list[str]:
+    """Reset done/skipped tasks whose primary artifact is gone (e.g. user deleted), plus dependents.
+
+    Supports the workflow where producers delete unsatisfactory outputs and expect
+    the next status/reconcile/run pass to regenerate them.
+    """
+    missing_roots: list[str] = []
+    for task in tasks_list(manifest):
+        if task.get("status") not in (TASK_DONE, TASK_SKIPPED):
+            continue
+        rel = _primary_artifact_rel(task)
+        if not rel:
+            continue
+        if not _artifact_exists(_REPO_ROOT, rel):
+            missing_roots.append(str(task["id"]))
+
+    if not missing_roots:
+        return []
+
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+    reset_ids: list[str] = []
+    seen: set[str] = set()
+    stack = list(missing_roots)
+    while stack:
+        tid = stack.pop()
+        if tid in seen:
+            continue
+        seen.add(tid)
+        task = by_id.get(tid)
+        if task is None:
+            continue
+        _reset_task_to_pending(task)
+        reset_ids.append(tid)
+        for other in tasks_list(manifest):
+            if tid in (other.get("depends_on") or []):
+                stack.append(str(other["id"]))
+
+    from assets_manifest import refresh_assets_manifest_from_pipeline
+
+    refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset_ids)
+    return reset_ids
+
+
+def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = None) -> dict[str, Any]:
+    """Sync task status with disk: missing outputs → pending; existing outputs → done.
+
+    Returns ``{"invalidated": n, "promoted": m, "invalidated_ids": [...], "total": n+m}``.
+    """
     _ = repo_root
-    updated = 0
+    invalidated_ids = invalidate_missing_artifacts(manifest)
+    promoted = 0
     by_id = {t["id"]: t for t in tasks_list(manifest)}
 
     for task in tasks_list(manifest):
@@ -847,15 +964,9 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
             continue
         if not _deps_satisfied(task, by_id):
             continue
-        artifacts = task.get("artifacts") or {}
-        check_keys = ("output", "output_dir", "plan", "nobg_image", "video", "dev_handoff")
-        found = False
-        for key in check_keys:
-            rel = artifacts.get(key)
-            if rel and _artifact_exists(_REPO_ROOT, rel):
-                found = True
-                break
-        if not found:
+        # Must match invalidate: only the primary deliverable counts (not plan alone).
+        rel = _primary_artifact_rel(task)
+        if not rel or not _artifact_exists(_REPO_ROOT, rel):
             continue
         record_task(
             manifest,
@@ -864,8 +975,14 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
             result={"source": "reconcile", "reconciled_at": _utc_now()},
         )
         by_id[task["id"]] = task_by_id(manifest, task["id"])
-        updated += 1
-    return updated
+        promoted += 1
+
+    return {
+        "invalidated": len(invalidated_ids),
+        "promoted": promoted,
+        "invalidated_ids": invalidated_ids,
+        "total": len(invalidated_ids) + promoted,
+    }
 
 
 def merge_manifest_status(new_manifest: dict[str, Any], old_manifest: dict[str, Any]) -> None:

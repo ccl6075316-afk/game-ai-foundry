@@ -49,7 +49,8 @@
 
 | 字段 | 要求 |
 |------|------|
-| `name` | 唯一、snake_case |
+| `name` | 唯一；可中文（对话 / HUD / `reference_asset` 仍用 name） |
+| `id` | **必填**英文 slug：`^[a-z][a-z0-9_]*$`；磁盘路径与 pipeline task 前缀只用 id |
 | `type` | 六种之一（含 `audio`） |
 | `usage` | 用途标签（见下） |
 | `usage_description` | 谁用、怎么用（可与 `description` 二选一，但至少要有一个） |

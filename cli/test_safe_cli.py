@@ -28,7 +28,13 @@ class SafeCliTests(unittest.TestCase):
             normalize_action("python gamefactory.py godot validate --project ../games/x")["ok"]
         )
         self.assertFalse(normalize_action("rm -rf /")["ok"])
-        self.assertFalse(normalize_action("python gamefactory.py config set --key x")["ok"])
+        self.assertTrue(
+            normalize_action(
+                "python gamefactory.py config set --key image.constraints.size_multiple --value 16"
+            )["ok"]
+        )
+        self.assertFalse(normalize_action("python gamefactory.py config set --key secrets.api_key --value x")["ok"])
+        self.assertTrue(normalize_action("python gamefactory.py config get --key image.model")["ok"])
 
     def test_filter_skips_comments(self) -> None:
         items = filter_runnable_actions(

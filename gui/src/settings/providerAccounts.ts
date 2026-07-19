@@ -216,7 +216,9 @@ export function serializeProviderAccounts(map: ProviderAccountsMap): Record<stri
     if (acc.apiKey) entry.api_key = acc.apiKey;
     if (preset.id === "custom" && acc.apiBase) entry.api_base = acc.apiBase;
     if (acc.textModel && acc.textModel !== preset.promptModelDefault) entry.text_model = acc.textModel;
-    if (acc.imageModel && acc.imageModel !== preset.imageModelDefault) entry.image_model = acc.imageModel;
+    if (acc.imageModel && acc.imageModel !== preset.imageModelDefault) {
+      entry.image_model = normalizeImageModelId(acc.imageModel);
+    }
     if (Object.keys(entry).length > 0) out[preset.id] = entry;
   }
   return out;
@@ -249,6 +251,12 @@ export function resolveActiveTextSettings(form: {
   };
 }
 
+export function normalizeImageModelId(model: string): string {
+  return String(model || "")
+    .trim()
+    .replace(/^images\//i, "");
+}
+
 export function resolveActiveImageSettings(form: {
   providerAccounts: ProviderAccountsMap;
   activeTextProvider: ApiProviderId;
@@ -263,7 +271,7 @@ export function resolveActiveImageSettings(form: {
     use_text_provider: form.imageUseTextProvider,
     api_key: acc.apiKey.trim() || null,
     api_base: resolveApiBase(providerId, acc.apiBase),
-    model: acc.imageModel,
+    model: normalizeImageModelId(acc.imageModel),
     proxy: form.proxy || undefined,
   };
 }

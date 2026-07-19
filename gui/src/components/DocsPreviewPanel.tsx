@@ -4,7 +4,9 @@ import {
   planTargetsFromBrief,
   productionPathFromBrief,
   progressPathFromBrief,
+  slugFromBriefRel,
 } from "../chat/projectPaths";
+import { ProjectSwitcher } from "./ProjectSwitcher";
 
 export type DocListItem = {
   id: string;
@@ -24,6 +26,7 @@ interface Props {
   onExportBrief?: () => void;
   onAutofix?: () => void;
   onRefresh?: () => void;
+  onSelectProject?: (briefRel: string) => void;
   busy?: boolean;
 }
 
@@ -83,8 +86,10 @@ export function DocsPreviewPanel({
   onExportBrief,
   onAutofix,
   onRefresh,
+  onSelectProject,
   busy,
 }: Props) {
+  const projectSlug = activeBriefRel ? slugFromBriefRel(activeBriefRel) : null;
   const [selectedId, setSelectedId] = useState("session-brief");
   const [diskBody, setDiskBody] = useState("");
   const [diskError, setDiskError] = useState("");
@@ -125,14 +130,28 @@ export function DocsPreviewPanel({
         const items = await window.gameFactory.listProjectDocs(activeBriefRel || undefined);
         if (cancelled) return;
         setDiskDocs(
-          (items || []).map((d) => ({
-            id: `disk:${d.path}`,
-            label: d.label,
-            source: "disk" as const,
-            kind: d.kind,
-            path: d.path,
-            hint: d.path,
-          })),
+          (items || []).map((d) => {
+            const full = d.path;
+            let hint = full;
+            if (activeBriefRel) {
+              try {
+                const root = planTargetsFromBrief(activeBriefRel).projectRootRel;
+                if (root && full.startsWith(`${root}/`)) {
+                  hint = full.slice(root.length + 1);
+                }
+              } catch {
+                /* keep full */
+              }
+            }
+            return {
+              id: `disk:${d.path}`,
+              label: d.label,
+              source: "disk" as const,
+              kind: d.kind,
+              path: d.path,
+              hint,
+            };
+          }),
         );
       } catch {
         if (!cancelled) setDiskDocs([]);
@@ -214,8 +233,19 @@ export function DocsPreviewPanel({
   return (
     <aside className="side-panel docs-preview-panel">
       <div className="side-panel__head">
-        <h2>文档</h2>
-        <p className="hint">会话草稿实时刷新；落盘文件可随时切换查看。</p>
+        <h2>{projectSlug ? `文档 · ${projectSlug}` : "文档"}</h2>
+        <p className="hint">
+          {projectSlug
+            ? "仅显示当前工程落盘文件；上方可切换工程。"
+            : "尚未绑定工程。导出 Brief 或从列表选择后，这里只显示该工程文档。"}
+        </p>
+        {onSelectProject ? (
+          <ProjectSwitcher
+            variant="panel"
+            activeBriefRel={activeBriefRel}
+            onSelect={onSelectProject}
+          />
+        ) : null}
       </div>
 
       <div className="docs-preview-list">
@@ -230,6 +260,9 @@ export function DocsPreviewPanel({
             {doc.hint ? <span className="docs-preview-item__hint">{doc.hint}</span> : null}
           </button>
         ))}
+        {activeBriefRel && diskDocs.length === 0 ? (
+          <p className="docs-preview-empty hint">当前工程还没有落盘文件（先导出 Brief）。</p>
+        ) : null}
       </div>
 
       <div className="docs-preview-body">
@@ -293,7 +326,7 @@ export function DocsPreviewPanel({
             className="btn btn--primary"
             onClick={onExportBrief}
             disabled={busy || !readyToExport}
-            title={readyToExport ? "导出到 resources/" : "校验通过后可导出，或先点「自动修」"}
+            title={readyToExport ? "导出到 projects/<slug>/" : "校验通过后可导出，或先点「自动修」"}
           >
             导出 Brief
           </button>
@@ -302,17 +335,27 @@ export function DocsPreviewPanel({
 
       {activeBriefRel ? (
         <p className="docs-preview-footer hint">
-          当前项目：{activeBriefRel}
+          当前工程：{projectSlug}
+          <br />
+          {activeBriefRel}
           {(() => {
             try {
               const t = planTargetsFromBrief(activeBriefRel);
-              return ` · ${productionPathFromBrief(activeBriefRel)} / ${progressPathFromBrief(activeBriefRel)} / ${t.manifestRel}`;
+              return (
+                <>
+                  <br />
+                  {productionPathFromBrief(activeBriefRel)} · {progressPathFromBrief(activeBriefRel)} ·{" "}
+                  {t.manifestRel}
+                </>
+              );
             } catch {
-              return "";
+              return null;
             }
           })()}
         </p>
-      ) : null}
+      ) : (
+        <p className="docs-preview-footer hint">未选择工程 — 文档列表不会混入其它游戏。</p>
+      )}
     </aside>
   );
 }

@@ -16,6 +16,10 @@ _ALLOWED: tuple[tuple[str, ...], ...] = (
     ("pipeline", "run"),
     ("pipeline", "reset"),
     ("pipeline", "suggest-retry"),
+    ("pipeline", "diagnose"),
+    ("pipeline", "heal"),
+    ("config", "set"),
+    ("config", "get"),
     ("godot", "validate"),
     ("godot", "scaffold"),
     ("test", "unit"),
@@ -81,6 +85,20 @@ def is_allowed_argv(argv: list[str]) -> bool:
         return False
     for prefix in _ALLOWED:
         if len(argv) >= len(prefix) and tuple(argv[: len(prefix)]) == prefix:
+            # Extra guard: config set only allowlisted keys
+            if prefix == ("config", "set"):
+                try:
+                    from config_cmds import ALLOWED_SET_KEYS
+
+                    key = None
+                    for i, tok in enumerate(argv):
+                        if tok == "--key" and i + 1 < len(argv):
+                            key = argv[i + 1]
+                            break
+                    if key is None or key not in ALLOWED_SET_KEYS:
+                        return False
+                except ImportError:
+                    return False
             return True
     return False
 

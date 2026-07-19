@@ -119,19 +119,13 @@ def variant_specs(*, count: int = 3) -> list[dict[str, str]]:
 
 
 def _scaffold_prompt(project: ProjectContext, variant: dict[str, str]) -> str:
-    base = _base_scene_description(project)
-    dim = (project.dimension or "2d").lower()
-    style = (
-        f"Full-screen in-game screenshot of a {dim} video game. "
-        "Looks like real gameplay capture, not a poster or concept sheet. "
-        "No UI chrome outside the game frame, no watermark, no text labels. "
-        "Flat readable composition suitable as visual north star for asset generation."
+    from prompt_craft import (
+        assemble_visual_target_prompt,
+        structured_fields_from_project_scaffold,
     )
-    return (
-        f"{style} {variant['focus']} "
-        f"{base} "
-        "Warm cohesive palette matching art direction."
-    ).strip()
+
+    fields = structured_fields_from_project_scaffold(project, variant)
+    return assemble_visual_target_prompt(fields)
 
 
 def build_visual_target_plan(
@@ -146,6 +140,12 @@ def build_visual_target_plan(
     project = _load_project(brief_path)
     size = _viewport_size(project)
     context = build_visual_target_context(project, variant)
+    negative_hints = [
+        "No pure white studio background.",
+        "No character-only sprite on white.",
+        "No poster borders, letterbox bars, or watermarks.",
+        "No outer app chrome or title cards.",
+    ]
 
     if craft:
         from llm_config import resolve_prompt_api_settings
@@ -167,10 +167,30 @@ def build_visual_target_plan(
             )
         except PromptCraftError as exc:
             raise VisualTargetError(str(exc)) from exc
-        prompt = crafted["prompt"]
-        prompt_source = "llm"
+        from prompt_craft import assemble_visual_target_prompt
+
+        # Re-assemble with plan negatives when structured (prose path keeps as-is).
+        if crafted.get("fields"):
+            prompt = assemble_visual_target_prompt(
+                crafted["fields"],
+                extra_constraints=negative_hints,
+            )
+            prompt_source = str(crafted.get("prompt_source") or "llm_structured")
+        else:
+            prompt = str(crafted["prompt"])
+            # Still append screenshot constraints for prose fallback
+            prompt = (
+                f"{prompt.rstrip()} Constraints: {'; '.join(negative_hints)}"
+            )
+            prompt_source = str(crafted.get("prompt_source") or "llm")
     else:
-        prompt = _scaffold_prompt(project, variant)
+        from prompt_craft import (
+            assemble_visual_target_prompt,
+            structured_fields_from_project_scaffold,
+        )
+
+        fields = structured_fields_from_project_scaffold(project, variant)
+        prompt = assemble_visual_target_prompt(fields, extra_constraints=negative_hints)
         prompt_source = "scaffold"
 
     return {
@@ -187,11 +207,7 @@ def build_visual_target_plan(
         "prompt_source": prompt_source,
         "role": PROMPT_CRAFTER_ROLE,
         "consumer_role": IMAGE_GENERATOR_ROLE,
-        "negative_hints": [
-            "No pure white studio background.",
-            "No character-only sprite on white.",
-            "No poster borders or watermarks.",
-        ],
+        "negative_hints": negative_hints,
         "validation": {
             "require_pure_white_background": False,
             "skip_validate": True,

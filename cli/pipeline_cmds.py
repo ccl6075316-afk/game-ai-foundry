@@ -148,10 +148,22 @@ def plan_cmd(
 )
 @click.option("--json", "as_json", is_flag=True, help="Print full JSON summary.")
 def status_cmd(manifest_path: Path, as_json: bool) -> None:
-    """Summarize manifest progress and list ready tasks."""
+    """Summarize manifest progress and list ready tasks.
+
+    Also reconciles disk: missing outputs (e.g. user-deleted) are reset to pending.
+    """
     try:
         manifest = load_manifest(manifest_path)
+        synced = reconcile_manifest(manifest)
+        if synced["total"]:
+            save_manifest(manifest_path, manifest)
+            from assets_manifest import refresh_assets_manifest_from_pipeline
+
+            refresh_assets_manifest_from_pipeline(manifest)
         summary = status_summary(manifest)
+        if synced["invalidated"]:
+            summary["invalidated"] = synced["invalidated"]
+            summary["invalidated_ids"] = synced["invalidated_ids"]
         if as_json:
             summary["ready_tasks"] = ready_tasks(manifest)
             click.echo(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -159,6 +171,11 @@ def status_cmd(manifest_path: Path, as_json: bool) -> None:
         click.echo(f"brief: {summary['brief']}")
         click.echo(f"tasks: {summary['total']}  counts: {summary['counts']}")
         click.echo(f"ready ({summary['ready_count']}): {', '.join(summary['ready_ids']) or '-'}")
+        if synced["invalidated"]:
+            click.echo(
+                f"invalidated missing artifacts ({synced['invalidated']}): "
+                f"{', '.join(synced['invalidated_ids'])}"
+            )
         if summary["failed_ids"]:
             click.echo(f"failed: {', '.join(summary['failed_ids'])}")
         if summary["done"]:
@@ -260,10 +277,10 @@ def record_cmd(
     type=click.Path(exists=True, path_type=Path),
 )
 def reconcile_cmd(manifest_path: Path) -> None:
-    """Mark pending tasks done when artifact files already exist on disk."""
+    """Sync tasks with disk: missing outputs → pending; existing outputs → done."""
     try:
         manifest = load_manifest(manifest_path)
-        updated = reconcile_manifest(manifest)
+        synced = reconcile_manifest(manifest)
         save_manifest(manifest_path, manifest)
         from assets_manifest import refresh_assets_manifest_from_pipeline
 
@@ -271,7 +288,13 @@ def reconcile_cmd(manifest_path: Path) -> None:
         summary = status_summary(manifest)
         click.echo(
             json.dumps(
-                {"reconciled": updated, **summary},
+                {
+                    "invalidated": synced["invalidated"],
+                    "promoted": synced["promoted"],
+                    "invalidated_ids": synced["invalidated_ids"],
+                    "reconciled": synced["total"],
+                    **summary,
+                },
                 ensure_ascii=False,
                 indent=2,
             )
@@ -343,6 +366,21 @@ def show_cmd(manifest_path: Path, task_id: str) -> None:
     type=float,
     help="Per-task subprocess timeout in seconds.",
 )
+@click.option(
+    "--retries",
+    "network_retries",
+    default=3,
+    show_default=True,
+    type=int,
+    help="Extra attempts after network/timeout failures (0 = no retry).",
+)
+@click.option(
+    "--retry-backoff",
+    default=2.0,
+    show_default=True,
+    type=float,
+    help="Base seconds between network retries (doubles each attempt).",
+)
 @click.option("--dry-run", is_flag=True, help="Print wave without executing commands.")
 def run_cmd(
     manifest_path: Path,
@@ -352,6 +390,8 @@ def run_cmd(
     skip_roles: str | None,
     stop_on_fail: bool,
     task_timeout: float,
+    network_retries: int,
+    retry_backoff: float,
     dry_run: bool,
 ) -> None:
     """Run ready manifest tasks via subprocess (no Hermes). Default skips prompt.craft."""
@@ -363,8 +403,18 @@ def run_cmd(
         click.echo(f"→ {task['id']}", err=True)
 
     def _on_finish(outcome) -> None:
+        extra = ""
+        attempts = (outcome.result or {}).get("attempts")
+        if attempts and attempts > 1:
+            extra = f" (after {attempts} attempts)"
         click.echo(
-            f"  {outcome.task_id}: exit {outcome.exit_code} → {outcome.status}",
+            f"  {outcome.task_id}: exit {outcome.exit_code} → {outcome.status}{extra}",
+            err=True,
+        )
+
+    def _on_retry(task_id: str, attempt: int, max_retries: int, wait_s: float, _outcome) -> None:
+        click.echo(
+            f"  ↻ {task_id}: network/timeout error — retry {attempt}/{max_retries} in {wait_s:.0f}s",
             err=True,
         )
 
@@ -378,8 +428,11 @@ def run_cmd(
             stop_on_fail=stop_on_fail,
             task_timeout=task_timeout,
             dry_run=dry_run,
+            network_retries=network_retries,
+            retry_backoff=retry_backoff,
             on_task_start=_on_start,
             on_task_finish=_on_finish,
+            on_task_retry=_on_retry,
         )
         payload = {
             "complete": result.complete,
@@ -431,6 +484,54 @@ def reset_cmd(manifest_path: Path, task_id: str, cascade: bool) -> None:
 
             refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset_ids)
         click.echo(json.dumps({"reset": reset_ids}, ensure_ascii=False, indent=2))
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
+@pipeline_group.command("diagnose")
+@click.option(
+    "--manifest",
+    "manifest_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+)
+def diagnose_cmd(manifest_path: Path) -> None:
+    """Classify failed tasks: code-healable vs needs Hermes project manager."""
+    try:
+        from pipeline_heal import diagnose_and_heal_file
+
+        report = diagnose_and_heal_file(manifest_path, apply=False)
+        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+    except (ValueError, json.JSONDecodeError, OSError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+
+@pipeline_group.command("heal")
+@click.option(
+    "--manifest",
+    "manifest_path",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+)
+@click.option(
+    "--apply/--dry-run",
+    default=True,
+    help="Reset code-healable failed tasks (default: apply).",
+)
+def heal_cmd(manifest_path: Path, apply: bool) -> None:
+    """Reset simple failed tasks (API size / network / missing file). Hermes handles the rest."""
+    try:
+        from pipeline_heal import diagnose_and_heal_file
+
+        report = diagnose_and_heal_file(manifest_path, apply=apply)
+        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+        if apply and report.get("healed"):
+            from assets_manifest import refresh_assets_manifest_from_pipeline
+            from pipeline_manifest import load_manifest
+
+            refresh_assets_manifest_from_pipeline(load_manifest(manifest_path))
     except (ValueError, json.JSONDecodeError, OSError) as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)

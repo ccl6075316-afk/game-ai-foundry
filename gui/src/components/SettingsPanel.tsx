@@ -695,7 +695,11 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   />
                 </label>
                 <p className="field-hint">
-                  可与生文用不同平台（例如生文 DeepSeek、生图 OpenRouter + Gemini image model）。
+                  OpenRouter 生图请填完整 slug。GPT Image 2：
+                  <code>openai/gpt-image-2</code>（专用 Images API）。
+                  Gemini 图模：
+                  <code>google/gemini-3.1-flash-image</code>。
+                  可与生文用不同平台。
                 </p>
               </SectionCard>
 

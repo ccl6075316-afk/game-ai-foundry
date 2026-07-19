@@ -58,13 +58,14 @@
 
 ### `assets[]`
 
-- `name`, `type`, `usage`, `usage_description` 或 `description`
+- `name`, `id`（英文 slug，必填）, `type`, `usage`, `usage_description` 或 `description`
 - `display_size`（character / pose / background / icon_kit / ui_element）
 - `generate_method`：`image` | `video` | `procedural` | `file`
 - 类型：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`
 - 视频动画：`reference_asset` + `action`；one-shot → `animation_loop: false`
 - `parallax_layer` → `parallax_order`, `scroll_factor`
 - `audio` → `usage` music|sfx；music 要 `audio_loop`
+- **产物路径只用 `id`**（如 `plans/referee.json`、`referee_raw.png`）；`name` 可中文
 
 ### `animation_graphs[]`
 

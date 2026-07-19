@@ -164,16 +164,145 @@ def craft_asset_prompt(
     return result
 
 
+VT_DEFAULT_USE_CASE = (
+    "in-engine 16:9 gameplay screenshot / framebuffer capture, "
+    "looks like a real game runtime frame not concept art or store key art"
+)
+
+VT_DEFAULT_CONSTRAINTS = (
+    "no poster borders, no letterbox bars, no watermark, no pure-white studio background, "
+    "no character isolate on white, no outer app chrome, no title card typography"
+)
+
+VT_STRUCTURED_KEYS = (
+    "use_case",
+    "scene",
+    "hero",
+    "gameplay_beat",
+    "details",
+    "hud",
+    "style_lock",
+    "constraints",
+)
+
+
+def assemble_visual_target_prompt(
+    fields: dict[str, Any],
+    *,
+    extra_constraints: list[str] | None = None,
+) -> str:
+    """Assemble GPT-Image-style wide→narrow labeled prompt from structured fields."""
+    cleaned: dict[str, str] = {}
+    for key in VT_STRUCTURED_KEYS:
+        val = fields.get(key)
+        if val is None:
+            continue
+        text = str(val).strip()
+        if text:
+            cleaned[key] = text
+
+    if not cleaned.get("use_case"):
+        cleaned["use_case"] = VT_DEFAULT_USE_CASE
+    if not cleaned.get("constraints"):
+        cleaned["constraints"] = VT_DEFAULT_CONSTRAINTS
+    elif VT_DEFAULT_CONSTRAINTS.split(",")[0] not in cleaned["constraints"].lower():
+        cleaned["constraints"] = f"{cleaned['constraints']}; {VT_DEFAULT_CONSTRAINTS}"
+
+    if extra_constraints:
+        extras = "; ".join(c.strip() for c in extra_constraints if c and str(c).strip())
+        if extras:
+            cleaned["constraints"] = f"{cleaned['constraints']}; {extras}"
+
+    # Prefer hero+beat presence for quality; allow scaffold with fewer keys.
+    if not cleaned.get("scene") and not cleaned.get("hero"):
+        raise PromptCraftError(
+            "Visual target assemble needs at least 'scene' or 'hero' field"
+        )
+
+    labels = [
+        ("Use case", "use_case"),
+        ("Scene", "scene"),
+        ("Subject", "hero"),
+        ("Gameplay beat", "gameplay_beat"),
+        ("Important details", "details"),
+        ("HUD", "hud"),
+        ("Style lock", "style_lock"),
+        ("Constraints", "constraints"),
+    ]
+    parts: list[str] = []
+    for label, key in labels:
+        text = cleaned.get(key)
+        if not text:
+            continue
+        parts.append(f"{label}: {text}")
+    return "\n".join(parts)
+
+
+def structured_fields_from_project_scaffold(
+    project: Any,
+    variant: dict[str, str],
+) -> dict[str, str]:
+    """Rule-based structured fields when LLM craft is off."""
+    dim = str(getattr(project, "dimension", None) or "2d").lower()
+    player = str(getattr(project, "player_asset", None) or "player character").strip()
+    art = str(getattr(project, "art_direction", None) or "").strip()
+    genre = str(getattr(project, "genre", None) or "").strip()
+    loop = str(getattr(project, "gameplay_loop", None) or "").strip()
+    goal = str(getattr(project, "session_goal", None) or "").strip()
+    desc = str(getattr(project, "description", None) or "").strip()
+    title = str(getattr(project, "title", None) or "").strip()
+    camera = getattr(project, "camera", None)
+    cam_bits = ""
+    if isinstance(camera, dict) and camera:
+        mode = camera.get("mode") or camera.get("type")
+        scope = camera.get("scope")
+        cam_bits = ", ".join(
+            str(x) for x in (mode, scope) if x
+        )
+
+    scene_bits = [
+        f"{dim} game world for {title}" if title else f"{dim} game world",
+        f"genre {genre}" if genre else "",
+        desc[:220] if desc else "",
+    ]
+    details_bits = [
+        cam_bits or "readable gameplay camera matching the genre",
+        "clear silhouettes, cohesive lighting",
+        f"variant focus: {variant.get('focus', '')}",
+    ]
+    beat = variant.get("focus") or loop or goal or "core gameplay action in progress"
+    return {
+        "use_case": VT_DEFAULT_USE_CASE,
+        "scene": ". ".join(b for b in scene_bits if b),
+        "hero": f"{player}, clearly readable focal character, about 15-20% of screen height",
+        "gameplay_beat": str(beat),
+        "details": ". ".join(b for b in details_bits if b),
+        "hud": "",
+        "style_lock": art or "cohesive game art style matching the brief",
+        "constraints": VT_DEFAULT_CONSTRAINTS,
+    }
+
+
 def _system_prompt_visual_target() -> str:
-    base = load_role_skills(PROMPT_CRAFTER_ROLE)
+    # VT-only: do NOT load asset-planner / asset-gen (white-studio rules pollute screenshots).
     vt = load_role_skill(PROMPT_CRAFTER_ROLE, "visual-target")
+    schema = {
+        "use_case": "in-engine 16:9 gameplay screenshot / framebuffer capture",
+        "scene": "...",
+        "hero": "...",
+        "gameplay_beat": "...",
+        "details": "...",
+        "hud": "...",
+        "style_lock": "...",
+        "constraints": "...",
+    }
     return (
         f"You are the **{PROMPT_CRAFTER_ROLE}** in Game AI Foundry. "
-        "Craft a full-screen predicted gameplay screenshot prompt (Visual Target / north star).\n\n"
-        f"{base}\n\n---\n\n{vt}\n\n"
-        'Respond with ONLY valid JSON, no markdown fences:\n'
-        '{"prompt": "<generation prompt>"}\n\n'
-        "Craft visually specific English prompts under 120 words."
+        "Fill structured fields for a Visual Target (north-star gameplay screenshot). "
+        "Python will assemble the final image prompt — do not output a free-form `prompt` field.\n\n"
+        f"{vt}\n\n"
+        "Respond with ONLY valid JSON, no markdown fences, using exactly these keys:\n"
+        f"{json.dumps(schema, ensure_ascii=False, indent=2)}\n"
     )
 
 
@@ -184,11 +313,14 @@ def craft_visual_target_prompt(
     api_key: str,
     api_base: str,
     proxy: str | None = None,
-) -> dict[str, str]:
-    """prompt-crafter: LLM writes a Visual Target (full-screen mock) prompt."""
+) -> dict[str, Any]:
+    """prompt-crafter: structured VT fields → assembled image prompt."""
     user = {
         "role": PROMPT_CRAFTER_ROLE,
-        "task": "Craft a visual_target full-screen gameplay screenshot prompt.",
+        "task": (
+            "Fill visual_target structured fields for a full-screen gameplay screenshot. "
+            "Do not return a single prose prompt field."
+        ),
         "context": context,
     }
     raw = chat_text_completion(
@@ -200,9 +332,29 @@ def craft_visual_target_prompt(
         api_key=api_key,
         api_base=api_base,
         proxy=proxy,
+        timeout=120,
     )
     parsed = _parse_json_object(raw)
-    prompt = str(parsed.get("prompt", "")).strip()
-    if not prompt:
-        raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
-    return {"prompt": prompt}
+
+    # Backward compat: if model still returns only {"prompt": "..."} use it.
+    if parsed.get("prompt") and not any(
+        parsed.get(k) for k in ("scene", "hero", "gameplay_beat")
+    ):
+        prompt = str(parsed.get("prompt", "")).strip()
+        if not prompt:
+            raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
+        return {"prompt": prompt, "prompt_source": "llm_prose"}
+
+    fields = {k: parsed.get(k) for k in VT_STRUCTURED_KEYS}
+    # Soft fill from nested project if LLM omitted hero
+    project = context.get("project") if isinstance(context.get("project"), dict) else {}
+    if not fields.get("hero") and project.get("player_asset"):
+        fields["hero"] = (
+            f"{project['player_asset']}, focal player character, "
+            "about 15-20% of screen height"
+        )
+    if not fields.get("style_lock") and project.get("art_direction"):
+        fields["style_lock"] = str(project["art_direction"])
+
+    prompt = assemble_visual_target_prompt(fields)
+    return {"prompt": prompt, "prompt_source": "llm_structured", "fields": fields}

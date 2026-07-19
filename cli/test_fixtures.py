@@ -34,6 +34,7 @@ SMOKE_BRIEF: dict[str, Any] = {
     "assets": [
         {
             "name": "slime_hero",
+            "id": "slime_hero",
             "type": "character",
             "usage": "player_idle",
             "usage_description": "Single hero for smoke E2E",
@@ -63,6 +64,7 @@ MINIMAL_VIDEO_BRIEF: dict[str, Any] = {
     "assets": [
         {
             "name": "knight",
+            "id": "knight",
             "type": "character",
             "usage": "reference_still",
             "usage_description": "Reference still for walk i2v",
@@ -72,6 +74,7 @@ MINIMAL_VIDEO_BRIEF: dict[str, Any] = {
         },
         {
             "name": "knight_walk",
+            "id": "knight_walk",
             "type": "character",
             "usage": "player_locomotion",
             "usage_description": "Walk animation for runner tests",

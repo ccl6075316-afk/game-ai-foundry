@@ -47,8 +47,10 @@ def test_build_candidate_prompts_count(example_brief: Path) -> None:
     prompts = build_candidate_prompts(example_brief, count=3)
     assert len(prompts) == 3
     assert prompts[0]["id"] == "a"
-    assert "art direction" in prompts[0]["prompt"].lower() or "Art direction" in prompts[0]["prompt"]
-    assert "in-game screenshot" in prompts[0]["prompt"].lower()
+    text = prompts[0]["prompt"].lower()
+    assert "screenshot" in text or "framebuffer" in text
+    assert "use case:" in text
+    assert "art direction" in text or "style lock" in text or "pixel" in text
 
 
 def test_default_output_dir(example_brief: Path) -> None:
@@ -67,7 +69,8 @@ def test_build_visual_target_plan_scaffold(example_brief: Path) -> None:
     assert plan["kind"] == "visual_target"
     assert plan["prompt_source"] == "scaffold"
     assert plan["validation"]["skip_validate"] is True
-    assert "in-game screenshot" in plan["prompt"].lower()
+    assert "screenshot" in plan["prompt"].lower()
+    assert "Use case:" in plan["prompt"]
 
 
 def test_generate_dry_run_writes_handoffs(example_brief: Path, tmp_path: Path) -> None:
