@@ -414,10 +414,9 @@ def _validation_spec(asset_type: AssetType, **extra: Any) -> dict[str, Any]:
 
 
 def _parse_grid(grid: str) -> tuple[int, int]:
-    parts = grid.lower().split("x")
-    if len(parts) != 2:
-        raise ValueError(f"Invalid grid '{grid}', expected ROWxCOL e.g. 2x2")
-    return int(parts[0]), int(parts[1])
+    from brief import parse_icon_grid
+
+    return parse_icon_grid(grid)
 
 
 def _corner_mean_rgb(img: np.ndarray, margin: int = 8) -> np.ndarray:

@@ -29,7 +29,8 @@
 | [`RELEASE-NOTES-0.0.6.md`](RELEASE-NOTES-0.0.6.md) | 用户 | **v0.0.6** 工程隔离与北极星 | — |
 | [`RELEASE-NOTES-0.0.5.md`](RELEASE-NOTES-0.0.5.md) | 用户 | v0.0.5 Bugfix | — |
 | [`RELEASE-NOTES-0.0.3.md`](RELEASE-NOTES-0.0.3.md) | 用户 | v0.0.3 construction harness | — |
-| [`../AGENTS.md`](../AGENTS.md) | Codex 单文件入口 | 最短 workflow + 铁律 | 细节 |
+| [`superpowers/specs/2026-07-19-asset-english-id-design.md`](superpowers/specs/2026-07-19-asset-english-id-design.md) | 维护者 | 资产英文 `id`（路径） | — |
+| [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md) | 维护者 | **同族风格对齐**（草案） | 实现细节 |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **进度、里程碑 %** | 命令复制块 |
 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | **`pipeline run` 阶段** | GUI |
 | [`../resources/skills/tester/`](../resources/skills/tester/) | Tester | **截图 + 视觉 QA** | brief 字段 |

@@ -53,6 +53,9 @@ Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
 
 ## icon_kit (grid of items, white background)
 
+`grid` cells (rows×cols) must be **≥ item count** (e.g. 12→`3x4`, 6→`2x3`, 8→`2x4`).
+Prompt grid wording must match brief `grid` exactly — never invent a denser layout.
+
 ```
 {item1}, {item2}, ... — {rows}x{cols} grid, each item centered in its cell.
 Game item icons, consistent scale. Pure flat white background. {art style cues}.

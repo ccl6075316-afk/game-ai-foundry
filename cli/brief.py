@@ -162,6 +162,41 @@ class CharacterAnimationGraph:
         )
 
 
+def parse_icon_grid(grid: str) -> tuple[int, int]:
+    """Parse ``ROWxCOL`` (e.g. ``2x3`` → rows=2, cols=3)."""
+    parts = (grid or "").strip().lower().replace(" ", "").split("x")
+    if len(parts) != 2:
+        raise ValueError(f"Invalid grid '{grid}', expected ROWxCOL e.g. 2x2")
+    rows, cols = int(parts[0]), int(parts[1])
+    if rows < 1 or cols < 1:
+        raise ValueError(f"Invalid grid '{grid}', rows/cols must be >= 1")
+    return rows, cols
+
+
+def suggest_icon_grid(item_count: int) -> str:
+    """Near-square grid that fits ``item_count`` cells (rows x cols)."""
+    import math
+
+    n = max(1, int(item_count))
+    cols = max(1, math.ceil(math.sqrt(n)))
+    rows = max(1, math.ceil(n / cols))
+    return f"{rows}x{cols}"
+
+
+def resolve_icon_grid(grid: str, item_count: int) -> str:
+    """Return grid with enough cells for items; upgrade when too small."""
+    n = max(0, int(item_count))
+    if n <= 0:
+        return (grid or "2x2").strip() or "2x2"
+    try:
+        rows, cols = parse_icon_grid(grid or "2x2")
+    except ValueError:
+        return suggest_icon_grid(n)
+    if rows * cols < n:
+        return suggest_icon_grid(n)
+    return f"{rows}x{cols}"
+
+
 @dataclass
 class AssetSpec:
     name: str
@@ -210,13 +245,18 @@ class AssetSpec:
                 f"Use '{ANIMATION_METHOD_VIDEO}' or '{ANIMATION_METHOD_IMG2IMG}'."
             )
 
+        items = [str(x) for x in data.get("items", [])]
+        grid = str(data.get("grid", "2x2"))
+        if asset_type == AssetType.ICON_KIT and items:
+            grid = resolve_icon_grid(grid, len(items))
+
         return cls(
             name=str(data["name"]),
             type=asset_type,
             id=str(data.get("id", "")).strip(),
             description=str(data.get("description", "")),
-            items=[str(x) for x in data.get("items", [])],
-            grid=str(data.get("grid", "2x2")),
+            items=items,
+            grid=grid,
             aspect_ratio=str(data.get("aspect_ratio", "1:1")),
             display_size=parse_display_size(data.get("display_size")) or DisplaySize.empty(),
             action=str(data.get("action", "")),
@@ -939,6 +979,20 @@ def audit_brief_for_export(
             errors.append(f"Asset '{spec.name}' needs 'usage_description' or 'description'")
         if spec.type == AssetType.ICON_KIT and not spec.items:
             errors.append(f"Asset '{spec.name}' icon_kit requires non-empty 'items' list")
+        if spec.type == AssetType.ICON_KIT and spec.items:
+            try:
+                rows, cols = parse_icon_grid(spec.grid)
+            except ValueError as exc:
+                errors.append(f"Asset '{spec.name}' invalid grid: {exc}")
+            else:
+                cells = rows * cols
+                n = len(spec.items)
+                if cells < n:
+                    sug = suggest_icon_grid(n)
+                    errors.append(
+                        f"Asset '{spec.name}' grid '{spec.grid}' has {cells} cells "
+                        f"but {n} items — use '{sug}' (or larger)"
+                    )
 
         method = resolve_generate_method(spec)
         if method == "video":

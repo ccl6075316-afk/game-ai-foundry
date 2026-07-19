@@ -101,6 +101,8 @@ game-ai-foundry/
 
 **校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → `display_size` 必须一致。
 
+**风格对齐（草案）**：同屏多角色等「同族 / 从属」目前**没有**硬风格锚（北极星只软对齐氛围）。设计见 [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md)。
+
 ### `assets[]` 每项
 
 `name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。

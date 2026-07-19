@@ -239,7 +239,12 @@ def _post_image_tasks(
             tasks_by_id[tid] = tasks[-1]
             prev_id = tid
         elif step_name == "slice":
-            grid = step_def.get("grid", spec.grid)
+            from brief import resolve_icon_grid
+
+            grid = resolve_icon_grid(
+                str(step_def.get("grid") or spec.grid or "2x2"),
+                len(spec.items or []),
+            )
             dep = [prev_id]
             layer = _layer_from_deps(dep, tasks_by_id)
             tid = _add_task(
