@@ -443,6 +443,8 @@ export default function App() {
         exists?: boolean;
         document_title?: string;
         has_document?: boolean;
+        llm_backend?: string | null;
+        llm_pi_error?: string | null;
       },
       opts?: { replace?: boolean },
     ) => {
@@ -502,6 +504,8 @@ export default function App() {
           last_choices: data.last_choices ?? (replace ? [] : prev?.last_choices),
           mode: data.mode ?? (replace ? "chat" : prev?.mode),
           message_count: data.message_count ?? (replace ? 0 : prev?.message_count),
+          llm_backend: data.llm_backend ?? (replace ? null : prev?.llm_backend),
+          llm_pi_error: data.llm_pi_error ?? (replace ? null : prev?.llm_pi_error),
         };
       });
     },
@@ -517,12 +521,24 @@ export default function App() {
         draft_brief?: HostChatDraftBrief | null;
         draft_document?: HostChatDraftDocument | null;
         gaps?: string[];
+        llm_backend?: string | null;
+        llm_pi_error?: string | null;
       },
       target?: { instanceId: string; sessionId: string },
     ) => {
       if (!data.assistant_message) return;
       setBrainstormActive(true);
-      appendAssistant(data.assistant_message, data.choices, undefined, target);
+      let content = data.assistant_message;
+      const backend = (data.llm_backend || "").trim();
+      if (backend === "host" && data.llm_pi_error) {
+        const err = String(data.llm_pi_error).replace(/\s+/g, " ").slice(0, 160);
+        content += `\n\n—— via Host（内置 Pi 不可用：${err}）`;
+      } else if (backend === "pi") {
+        content += "\n\n—— via 内置 Pi";
+      } else if (backend === "host") {
+        content += "\n\n—— via Host";
+      }
+      appendAssistant(content, data.choices, undefined, target);
       applyDraftFromPayload(data);
     },
     [appendAssistant, applyDraftFromPayload],
@@ -894,7 +910,7 @@ export default function App() {
         ? chatStore.roster.find((c) => c.id === opts.instanceId)
         : null) || activeColleague;
     const role = colleague.roleKind;
-    if (role !== "product_host" && role !== "programmer") return;
+    if (role !== "product_host" && role !== "programmer" && role !== "it") return;
     const sessionId =
       (opts?.instanceId
         ? chatStore.activeByInstance[colleague.id] ||
@@ -948,6 +964,7 @@ export default function App() {
         role: target.role,
         sessionId: target.sessionId,
         message,
+        executor: colleague.executor || undefined,
         brief: activeBriefRel || undefined,
         progress: activeBriefRel ? progressPathFromBrief(activeBriefRel) : undefined,
         instanceId: target.instanceId,
@@ -2265,7 +2282,7 @@ export default function App() {
       return;
     }
 
-    if (agentRole === "product_host" || agentRole === "programmer") {
+    if (agentRole === "product_host" || agentRole === "programmer" || agentRole === "it") {
       await handleAgentTurn(text);
       return;
     }

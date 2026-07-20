@@ -214,6 +214,12 @@ def run_turn(
 
 def export_brief(session: dict[str, Any]) -> dict[str, Any]:
     draft = session.get("draft_brief") or {}
+    if not isinstance(draft, dict) or not draft:
+        raise BriefBrainstormError("No draft_brief in session. Brainstorm first, then export.")
+    if not session.get("ready_to_export"):
+        raise BriefBrainstormError(
+            "Brief 尚未 ready_to_export。请先完成 brainstorm 契约后再导出。"
+        )
     return finalize_brief_export(draft, source="brainstorm")
 
 

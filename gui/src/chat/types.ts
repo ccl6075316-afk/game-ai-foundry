@@ -96,6 +96,10 @@ export interface HostChatStatus {
   gaps?: string[];
   contract_complete?: boolean;
   has_summary?: boolean;
+  /** brief chat LLM backend: pi | host */
+  llm_backend?: string | null;
+  /** last Pi error when fallen back to host */
+  llm_pi_error?: string | null;
 }
 
 export interface ProjectDocItem {

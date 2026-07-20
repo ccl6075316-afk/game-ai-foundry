@@ -100,6 +100,8 @@
   },
   "agents": {
     "hermes_provider": "openrouter",
+    "brief": { "executor": "pi", "skill": "host-chat" },
+    "it": { "executor": "pi", "skill": "diagnose" },
     "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter" },
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },

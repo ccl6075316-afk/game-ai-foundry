@@ -1,8 +1,9 @@
 # 同族 / 从属资产的风格对齐
 
 **日期：** 2026-07-20  
-**状态：** 设计草案（未实现硬约束）  
-**背景问题：** black-whistle 裁判与球员各自 text-to-image，同屏风格不一致；北极星无法单独解决。
+**状态：** 设计草案（字段/门禁未实现；**不阻塞** Pi 内置首期）  
+**背景问题：** black-whistle 裁判与球员各自 text-to-image，同屏风格不一致；北极星无法单独解决。  
+**存储结论：** 不上小型数据库，仍 brief JSON — 见 [executor-storage-it 决策](2026-07-20-executor-storage-it-design.md)。
 
 ## 问题本质
 

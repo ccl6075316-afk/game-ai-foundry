@@ -7,6 +7,9 @@ cd "$ROOT"
 echo "[release] Preparing embedded Python ..."
 python3 scripts/prepare_embedded_python.py --output "$ROOT/gui/runtime/python" --with-rembg
 
+echo "[release] Preparing embedded Pi ..."
+node scripts/prepare_embedded_pi.mjs --output "$ROOT/gui/runtime/pi"
+
 echo "[release] Building GUI ..."
 cd "$ROOT/gui"
 export CSC_IDENTITY_AUTO_DISCOVERY=false

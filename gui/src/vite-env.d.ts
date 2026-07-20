@@ -341,10 +341,10 @@ declare global {
       >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
       agentTurn: (opts: {
-        role: "product_host" | "programmer";
+        role: "product_host" | "programmer" | "it";
         sessionId: string;
         message: string;
-        executor?: "hermes" | "codex" | "cursor";
+        executor?: "hermes" | "codex" | "cursor" | "pi";
         brief?: string;
         progress?: string;
         instanceId?: string;
@@ -372,6 +372,8 @@ declare global {
             dispatch_to?: string;
             target_instance_id?: string;
             next_actions?: string[];
+            gui_hints?: string[];
+            cli_hints?: string[];
           };
         }>
       >;

@@ -81,6 +81,7 @@ class BriefBrainstormTests(unittest.TestCase):
                 },
                 "assets": [
                     {
+                        "id": "hero",
                         "name": "hero",
                         "type": "character",
                         "usage": "player_idle",
@@ -124,6 +125,7 @@ class BriefBrainstormTests(unittest.TestCase):
             },
             "assets": [
                 {
+                    "id": "inmate",
                     "name": "inmate",
                     "type": "character",
                     "usage": "player_locomotion",
@@ -134,9 +136,20 @@ class BriefBrainstormTests(unittest.TestCase):
                 }
             ],
         }
+        session["ready_to_export"] = True
         brief = export_brief(session)
         self.assertEqual(brief["project"]["title"], "Prison")
         self.assertEqual(brief["assets"][0]["name"], "inmate")
+
+    def test_export_requires_ready(self) -> None:
+        from brief_brainstorm import BriefBrainstormError
+
+        session = new_session()
+        session["draft_brief"] = {"project": {"title": "X"}, "assets": []}
+        session["ready_to_export"] = False
+        with self.assertRaises(BriefBrainstormError) as ctx:
+            export_brief(session)
+        self.assertIn("ready_to_export", str(ctx.exception))
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ import sys
 import click
 
 from executor_setup import all_executor_status, run_executor_step
+from pi_runtime import pi_status, run_pi_smoke
 from toolchain_setup import check_toolchain, ensure_components, install_component
 
 
@@ -162,3 +163,62 @@ def setup_executor_step_cmd(
             click.echo(json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False))
             sys.exit(1)
         raise click.ClickException(str(exc)) from exc
+
+
+@setup_group.group("pi")
+def setup_pi_group() -> None:
+    """Embedded Pi coding-agent (Release runtime / Spike 0)."""
+
+
+@setup_pi_group.command("status")
+@click.option("--json", "as_json", is_flag=True, help="Print JSON report.")
+def setup_pi_status_cmd(as_json: bool) -> None:
+    """Show whether embedded Pi + Node + API key are ready."""
+    report = pi_status()
+    if as_json:
+        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+        if not report.get("ready"):
+            sys.exit(1)
+        return
+
+    mark = "就绪" if report.get("ready") else "未就绪"
+    click.echo(f"Game AI Foundry — embedded Pi [{mark}]")
+    click.echo(f"  package: {report.get('package')}@{report.get('pin_version')}")
+    click.echo(f"  runtime: {report.get('runtime_root') or '(missing)'}")
+    click.echo(f"  node:    {report.get('node') or '(missing)'}")
+    auth = report.get("auth") or {}
+    click.echo(
+        f"  auth:    provider={auth.get('provider') or '-'} "
+        f"key={'yes' if auth.get('has_api_key') else 'no'}"
+    )
+    if report.get("size_mb") is not None:
+        click.echo(f"  size:    {report['size_mb']} MB")
+    if report.get("hint"):
+        click.echo(f"  hint:    {report['hint']}", err=True)
+    if not report.get("ready"):
+        sys.exit(1)
+
+
+@setup_pi_group.command("smoke")
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
+@click.option("--timeout", default=90.0, show_default=True, help="Seconds before abort.")
+def setup_pi_smoke_cmd(as_json: bool, timeout: float) -> None:
+    """One no-tool Pi turn using config API key (Spike 0)."""
+    result = run_pi_smoke(timeout_sec=timeout)
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        if not result.get("ok"):
+            sys.exit(1)
+        return
+
+    if result.get("ok"):
+        click.echo(f"Pi smoke OK ({result.get('provider')}/{result.get('model')})")
+        out = (result.get("stdout") or "").strip()
+        if out:
+            click.echo(out[:500])
+        return
+
+    click.echo(f"Pi smoke FAILED: {result.get('error')}", err=True)
+    if result.get("stderr"):
+        click.echo(result["stderr"][-800:], err=True)
+    sys.exit(1)

@@ -12,6 +12,7 @@
     "build:app": "npm run build && electron-builder",
     "build:app:dir": "npm run build && electron-builder --dir",
     "prepare:python": "python ../scripts/prepare_embedded_python.py --output runtime/python --with-rembg",
+    "prepare:pi": "node ../scripts/prepare_embedded_pi.mjs --output runtime/pi",
     "start": "electron .",
     "typecheck": "tsc --noEmit"
   },
@@ -83,6 +84,16 @@
         "from": "runtime/python",
         "to": "python",
         "filter": ["**/*"]
+      },
+      {
+        "from": "runtime/pi",
+        "to": "pi",
+        "filter": [
+          "**/*",
+          "!**/*.map",
+          "!**/docs/**",
+          "!**/*.md"
+        ]
       }
     ],
     "win": {

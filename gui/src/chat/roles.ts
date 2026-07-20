@@ -1,14 +1,15 @@
-/** GUI 三种工种 — 见 docs/HOST-CHAT-PRODUCT.md（AI 公司前台；可多实例） */
+/** GUI 工种 — 见 docs/HOST-CHAT-PRODUCT.md（AI 公司前台；可多实例） */
 
-export type ChatAgentRole = "brief" | "product_host" | "programmer";
+export type ChatAgentRole = "brief" | "product_host" | "programmer" | "it";
 
-export const CHAT_AGENT_ROLES: ChatAgentRole[] = ["brief", "product_host", "programmer"];
+export const CHAT_AGENT_ROLES: ChatAgentRole[] = ["brief", "product_host", "programmer", "it"];
 
 /** 工种展示名 — docs/HOST-CHAT-PRODUCT.md */
 export const CHAT_AGENT_LABELS: Record<ChatAgentRole, string> = {
   brief: "策划",
   product_host: "项目经理",
   programmer: "程序员",
+  it: "IT",
 };
 
 /** 消息气泡头像字母（区别于菱形 Logo） */
@@ -16,12 +17,14 @@ export const CHAT_AGENT_AVATAR: Record<ChatAgentRole, string> = {
   brief: "策",
   product_host: "经",
   programmer: "程",
+  it: "运",
 };
 
 export const CHAT_AGENT_HINTS: Record<ChatAgentRole, string> = {
   brief: "主对话：商量需求，明确说「落实 brief」后再定稿",
   product_host: "Agent：试玩反馈、分诊派工、推进任务（修改主入口）",
   programmer: "Agent：按任务改 Godot C#、跑 validate",
+  it: "内置 Pi：doctor / pipeline diagnose，只配 API 即可用",
 };
 
 export function roleHero(role: ChatAgentRole): { title: string; subtitle: string } {
@@ -41,6 +44,11 @@ export function roleHero(role: ChatAgentRole): { title: string; subtitle: string
       return {
         title: "施工对话",
         subtitle: "消息会发给程序员执行器 CLI；按任务改代码与验收，协作靠本地文件。",
+      };
+    case "it":
+      return {
+        title: "机器侧查什么？",
+        subtitle: "内置 Pi：doctor、pipeline diagnose、环境与配置问题。不改 brief、不写玩法。",
       };
   }
 }
@@ -62,6 +70,14 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
       { label: "改需求 Delta", desc: "增量改蓝图", cmd: "/delta 003-feature | 描述改动" },
       { label: "打开看板", desc: "看右侧任务列表", cmd: "打开看板" },
       { label: "打开 Godot", desc: "编辑器", cmd: "/godot" },
+    ];
+  }
+  if (role === "it") {
+    return [
+      { label: "跑 doctor", desc: "环境与密钥", cmd: "帮我跑 doctor，用 JSON 看缺什么" },
+      { label: "流水线诊断", desc: "pipeline diagnose", cmd: "对当前工程跑 pipeline diagnose" },
+      { label: "Pi 状态", desc: "内置执行器", cmd: "检查内置 Pi 是否就绪" },
+      { label: "命令指南", desc: "CLI 速查", cmd: "/guide" },
     ];
   }
   return [

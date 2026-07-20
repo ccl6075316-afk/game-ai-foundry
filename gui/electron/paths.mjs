@@ -24,6 +24,33 @@ function embeddedPythonCandidates() {
   return [path.join(base, "bin", "python3"), path.join(base, "bin", "python")];
 }
 
+function embeddedPiRootCandidates() {
+  return [
+    path.join(process.resourcesPath, "pi"),
+    path.join(__dirname, "..", "runtime", "pi"),
+  ];
+}
+
+export function resolvePiRuntimeRoot() {
+  const env = process.env.GAMEFACTORY_PI_ROOT;
+  if (env && existsSync(path.join(env, "node_modules", "@earendil-works", "pi-coding-agent", "dist", "cli.js"))) {
+    return path.resolve(env);
+  }
+  for (const base of embeddedPiRootCandidates()) {
+    const entry = path.join(base, "node_modules", "@earendil-works", "pi-coding-agent", "dist", "cli.js");
+    if (existsSync(entry)) return path.resolve(base);
+  }
+  return null;
+}
+
+/** Path to Pi CLI entry (cli.js). Caller runs via Node or ELECTRON_RUN_AS_NODE. */
+export function resolvePiCliJs() {
+  const root = resolvePiRuntimeRoot();
+  if (!root) return null;
+  const entry = path.join(root, "node_modules", "@earendil-works", "pi-coding-agent", "dist", "cli.js");
+  return existsSync(entry) ? entry : null;
+}
+
 function workspaceCandidates() {
   if (process.env.PORTABLE_EXECUTABLE_DIR) {
     return [path.join(process.env.PORTABLE_EXECUTABLE_DIR, "data")];

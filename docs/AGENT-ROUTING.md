@@ -5,13 +5,18 @@
 | **读者** | 主 Agent（Hermes / Cursor / Codex）做委派时 |
 | **侧重** | **六角色边界**、默认 executor、混排流程图 |
 | **不写** | brief 字段表、CLI 大全、Change Request 方法论 |
-| **姊妹文档** | 契约 → [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) · 命令 → [`AI-HANDOFF.md`](AI-HANDOFF.md) · 索引 → [`README.md`](README.md) |
+| **姊妹文档** | 契约 → [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) · 命令 → [`AI-HANDOFF.md`](AI-HANDOFF.md) · 索引 → [`README.md`](README.md) · Pi/IT/存储 → [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md) |
 
 主 Agent **只编排与异常**；批量资产由 `pipeline run` subprocess 执行。
 
+**已定（施工中 / 可测）**：
+- **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端默认 Pi；**IT** 默认 Pi + 工具白名单。
+- **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**。
+- 详见 [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md)。
+
 ---
 
-## 六角色
+## 六角色 + GUI 工种
 
 | Role ID | 一句话 | 默认 executor | Hermes skill |
 |---------|--------|---------------|--------------|
@@ -23,6 +28,15 @@
 | `godot-developer` | Pass 4：读 dev-context 写 C# | `codex` | `game-factory-godot-developer` |
 | `tester` | validate + 截图 + 视觉分析 → Validation Report | `hermes` | `game-factory-tester` |
 
+**GUI 前台工种**（与上表不完全一一对应）：
+
+| GUI | 后端 | 默认 |
+|-----|------|------|
+| 策划 `brief` | `brief chat` → 内置 Pi（JSON draft） | 只配 API |
+| 项目经理 `product_host` | `agent turn` → Hermes/… | 引导装 |
+| 程序员 `programmer` | `agent turn` → Codex/Hermes | 引导装 |
+| **IT `it`** | `agent turn` → **内置 Pi** + `resources/skills/it/diagnose.md` | 只配 API |
+
 ---
 
 ## 执行器
@@ -30,7 +44,8 @@
 | Executor | 何时用 |
 |----------|--------|
 | **`pipeline`** | `pipeline run` — 生图/视频/matte/assemble，无 LLM |
-| **`hermes`** | brief chat / brainstorm、prompt craft、多会话、GUI ②③ executor |
+| **`pi`** | Release 内置；策划 LLM + IT（工具白名单 → `doctor` / `pipeline diagnose`…） |
+| **`hermes`** | 项目经理 / 可选其它 Agent、多会话 |
 | **`cursor`** | 读本仓库 `resources/skills/<role>/` |
 | **`codex`** | Pass 4 玩法、`codex exec` |
 

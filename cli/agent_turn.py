@@ -22,18 +22,21 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 _CONV_ROOT = _REPO_ROOT / "plans" / "conversations"
 _PRODUCT_HOST_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "product-host.md"
 _PROGRAMMER_SKILL = _REPO_ROOT / "resources" / "skills" / "godot-developer" / "implement.md"
+_IT_SKILL = _REPO_ROOT / "resources" / "skills" / "it" / "diagnose.md"
 
-ROLE_KINDS = frozenset({"product_host", "programmer"})
+ROLE_KINDS = frozenset({"product_host", "programmer", "it"})
 
 # Map GUI colleague role → config.agents role key
 _ROLE_TO_AGENT: dict[str, str] = {
     "product_host": "orchestrator",
     "programmer": "godot-developer",
+    "it": "it",
 }
 
 _HERMES_SKILL: dict[str, str] = {
     "product_host": "game-factory-orchestrator",
     "programmer": "game-factory-godot-developer",
+    # IT defaults to Pi; Hermes fallback has no dedicated package yet.
 }
 
 _DEFAULT_TIMEOUT = 600
@@ -100,20 +103,31 @@ def save_session(path: Path, session: dict[str, Any]) -> None:
 
 
 def resolve_executor_for_role(role_kind: str, config: dict[str, Any], override: str | None = None) -> str:
-    if override in ("hermes", "codex", "cursor"):
+    if override in ("hermes", "codex", "cursor", "pi"):
         return override
+    if role_kind == "it":
+        agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
+        it_cfg = agents.get("it") if isinstance(agents.get("it"), dict) else {}
+        ex = str(it_cfg.get("executor") or "pi").strip().lower()
+        return ex if ex in ("pi", "hermes", "codex", "cursor") else "pi"
+
     agent_role = _ROLE_TO_AGENT.get(role_kind, "orchestrator")
     resolved = resolve_agent(agent_role, config)
     executor = str(resolved.get("executor") or "hermes")
     if executor == "pipeline":
         executor = "hermes"
-    if executor not in ("hermes", "codex", "cursor"):
+    if executor not in ("hermes", "codex", "cursor", "pi"):
         executor = "hermes"
     return executor
 
 
 def _load_skill_text(role_kind: str, limit: int = 12_000) -> str:
-    path = _PRODUCT_HOST_SKILL if role_kind == "product_host" else _PROGRAMMER_SKILL
+    if role_kind == "it":
+        path = _IT_SKILL
+    elif role_kind == "product_host":
+        path = _PRODUCT_HOST_SKILL
+    else:
+        path = _PROGRAMMER_SKILL
     if path.is_file():
         return path.read_text(encoding="utf-8")[:limit]
     return "Follow Foundry project conventions. Reply in Chinese."
@@ -151,7 +165,12 @@ def build_prompt(
     default_target_instance_id: str | None = None,
     instance_id: str | None = None,
 ) -> str:
-    title = "项目经理" if role_kind == "product_host" else "程序员"
+    if role_kind == "it":
+        title = "IT / 运维"
+    elif role_kind == "product_host":
+        title = "项目经理"
+    else:
+        title = "程序员"
     skill = _load_skill_text(role_kind)
     brief = brief_path or _find_default_brief()
     progress = progress_path or _find_default_progress(brief_path=brief)
@@ -373,7 +392,11 @@ def run_hermes_turn(
     hermes = _which_executor_bin("hermes")
     if not hermes:
         raise AgentTurnError("未找到 hermes CLI。请在环境面板安装 Hermes，或改选其他执行器。")
-    skill = _HERMES_SKILL.get(role_kind, "game-factory-orchestrator")
+    if role_kind not in _HERMES_SKILL:
+        raise AgentTurnError(
+            f"角色 {role_kind} 未配置 Hermes skill（IT 请用内置 Pi：executor=pi）。"
+        )
+    skill = _HERMES_SKILL[role_kind]
     argv = [
         hermes,
         "chat",
@@ -514,6 +537,43 @@ def run_cursor_turn(
     return out, sid, err
 
 
+def run_pi_executor_turn(
+    prompt: str,
+    *,
+    role_kind: str,
+    timeout: int = _DEFAULT_TIMEOUT,
+    config: dict[str, Any] | None = None,
+) -> tuple[str, str | None, str]:
+    from pi_runtime import PiRuntimeError, run_pi_agent_turn
+
+    system = _load_skill_text(role_kind)
+    try:
+        result = run_pi_agent_turn(
+            system_prompt=system,
+            user_text=prompt,
+            config=config,
+            max_tool_rounds=4 if role_kind == "it" else 2,
+            timeout_sec=float(min(timeout, 240)),
+            tool_profile="it",
+            allow_export=False,
+        )
+    except PiRuntimeError as exc:
+        raise AgentTurnError(f"内置 Pi 失败：{exc}") from exc
+
+    text = str(result.get("assistant_message") or "").strip()
+    if not text:
+        raise AgentTurnError("内置 Pi 无输出")
+    trace = result.get("tool_trace") or []
+    if trace:
+        bits = []
+        for item in trace[:6]:
+            argv = " ".join(str(x) for x in (item.get("argv") or []))
+            mark = "ok" if item.get("ok") else "fail"
+            bits.append(f"`{argv}` → {mark}")
+        text = text + "\n\n—— 工具：" + "；".join(bits)
+    return text, None, ""
+
+
 def run_executor_turn(
     executor: str,
     prompt: str,
@@ -521,7 +581,10 @@ def run_executor_turn(
     role_kind: str,
     executor_session_id: str | None,
     timeout: int = _DEFAULT_TIMEOUT,
+    config: dict[str, Any] | None = None,
 ) -> tuple[str, str | None, str]:
+    if executor == "pi":
+        return run_pi_executor_turn(prompt, role_kind=role_kind, timeout=timeout, config=config)
     if executor == "hermes":
         return run_hermes_turn(
             prompt, role_kind=role_kind, executor_session_id=executor_session_id, timeout=timeout
@@ -584,6 +647,7 @@ def run_turn(
         role_kind=role_kind,
         executor_session_id=session.get("executor_session_id"),
         timeout=timeout,
+        config=config,
     )
     if exec_sid:
         session["executor_session_id"] = exec_sid

@@ -3,13 +3,13 @@
 import type { ChatAgentRole } from "./roles";
 import { CHAT_AGENT_LABELS } from "./roles";
 
-export type ExecutorKind = "hermes" | "cursor" | "codex" | null;
+export type ExecutorKind = "hermes" | "cursor" | "codex" | "pi" | null;
 
 export interface ColleagueInstance {
   id: string;
   roleKind: ChatAgentRole;
   displayName: string;
-  /** ②③ Agent 执行器；① 策划岗为 null */
+  /** ②③ Agent 执行器；① 策划为 null；IT 默认 pi */
   executor: ExecutorKind;
   createdAt: number;
 }
@@ -18,6 +18,7 @@ export const DEFAULT_INSTANCE_NAMES: Record<ChatAgentRole, string> = {
   brief: "策划 · 默认",
   product_host: "项目经理 · 主线",
   programmer: "程序员 · 玩法",
+  it: "IT · 运维",
 };
 
 function newInstanceId(roleKind: ChatAgentRole): string {
@@ -27,13 +28,13 @@ function newInstanceId(roleKind: ChatAgentRole): string {
 export function createColleague(
   roleKind: ChatAgentRole,
   displayName?: string,
-  executor: ExecutorKind = roleKind === "brief" ? null : null,
+  executor: ExecutorKind = null,
 ): ColleagueInstance {
   return {
     id: newInstanceId(roleKind),
     roleKind,
     displayName: displayName?.trim() || DEFAULT_INSTANCE_NAMES[roleKind],
-    executor: roleKind === "brief" ? null : executor,
+    executor: roleKind === "brief" ? null : roleKind === "it" ? "pi" : executor,
     createdAt: Date.now(),
   };
 }
@@ -43,6 +44,7 @@ export function createDefaultRoster(): ColleagueInstance[] {
     createColleague("brief", DEFAULT_INSTANCE_NAMES.brief),
     createColleague("product_host", DEFAULT_INSTANCE_NAMES.product_host),
     createColleague("programmer", DEFAULT_INSTANCE_NAMES.programmer),
+    createColleague("it", DEFAULT_INSTANCE_NAMES.it, "pi"),
   ];
 }
 
@@ -51,6 +53,7 @@ export function nextHireName(roster: ColleagueInstance[], roleKind: ChatAgentRol
   const base = CHAT_AGENT_LABELS[roleKind];
   if (roleKind === "brief") return `${base} · ${n}`;
   if (roleKind === "product_host") return `项目经理 · ${n}`;
+  if (roleKind === "it") return `IT · ${n}`;
   return `程序员 · ${n}`;
 }
 

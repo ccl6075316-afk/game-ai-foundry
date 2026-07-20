@@ -32,6 +32,7 @@
 | Godot .NET | **自动安装** → 写入 `godot.engine_path` |
 | .NET SDK | **自动安装** → `~/.gamefactory/toolchain/dotnet` |
 | rembg | **内嵌 Python 自带**，无需操作 |
+| **Pi（策划/IT 会话）** | **Release 内置**；只需配置 API Key |
 | Hermes / Codex / Cursor | **环境面板分步安装**（推荐，非必需起步） |
 
 详见 [`TOOLS.md`](TOOLS.md) · [`GUI-CONFIG.md`](GUI-CONFIG.md)
@@ -55,8 +56,9 @@ scripts\build-release.bat
 ### 步骤说明
 
 1. `scripts/prepare_embedded_python.py --with-rembg` — 内嵌 venv（含 rembg）
-2. `vite build` → `gui/dist/`
-3. `electron-builder` — Electron + 内嵌 Python + `cli/` + `resources/`
+2. `scripts/prepare_embedded_pi.mjs` — 内嵌 pinned `@earendil-works/pi-coding-agent`（策划/IT 会话）
+3. `vite build` → `gui/dist/`
+4. `electron-builder` — Electron + 内嵌 Python + 内嵌 Pi + `cli/` + `resources/`
 
 产物目录：`gui/release/`
 
@@ -66,13 +68,15 @@ scripts\build-release.bat
 | macOS | `Game-AI-Foundry-*-mac-arm64.dmg` |
 | Linux | `Game-AI-Foundry-*-linux-x86_64.AppImage` |
 
-> 内嵌 Python 与原生 wheel 需在**目标系统**上构建。
+> 内嵌 Python 与原生 wheel 需在**目标系统**上构建。  
+> 内嵌 Pi 在构建机 `npm install` 到 `gui/runtime/pi`（已 gitignore）；冒烟：`python gamefactory.py setup pi smoke --json`。
 
 ### 仅本地验证（不打包安装程序）
 
 ```bash
 cd gui
 npm run prepare:python
+npm run prepare:pi
 npm run build:app:dir
 ```
 

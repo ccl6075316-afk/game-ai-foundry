@@ -94,6 +94,26 @@ class AgentTurnTests(unittest.TestCase):
                         timeout=10,
                     )
 
+    def test_it_defaults_to_pi(self) -> None:
+        self.assertEqual(resolve_executor_for_role("it", {}), "pi")
+        self.assertEqual(
+            resolve_executor_for_role("it", {"agents": {"it": {"executor": "hermes"}}}),
+            "hermes",
+        )
+
+    def test_it_hermes_rejected(self) -> None:
+        from agent_turn import run_hermes_turn
+
+        with patch("agent_turn._which_executor_bin", return_value="/bin/hermes"):
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_hermes_turn(
+                    "查一下环境",
+                    role_kind="it",
+                    executor_session_id=None,
+                    timeout=5,
+                )
+        self.assertIn("Pi", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

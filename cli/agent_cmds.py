@@ -68,13 +68,13 @@ def register_agent_commands(cli_group: click.Group) -> None:
         "role_kind",
         type=click.Choice(sorted(ROLE_KINDS)),
         required=True,
-        help="GUI colleague role: product_host | programmer",
+        help="GUI colleague role: product_host | programmer | it",
     )
     @click.option("--session-id", required=True, help="GUI session / conversation id")
     @click.option("--message", "-m", required=True, help="User message")
     @click.option(
         "--executor",
-        type=click.Choice(["hermes", "codex", "cursor"]),
+        type=click.Choice(["hermes", "codex", "cursor", "pi"]),
         default=None,
         help="Override config.agents.*.executor",
     )

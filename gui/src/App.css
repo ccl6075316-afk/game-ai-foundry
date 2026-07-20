@@ -815,6 +815,10 @@ code {
   background: linear-gradient(145deg, #d4a35a, #b07d35);
 }
 
+.colleague-person--it .colleague-person__avatar {
+  background: linear-gradient(145deg, #8a9bb5, #5c6d86);
+}
+
 .colleague-person--busy .colleague-person__avatar {
   opacity: 0.95;
 }
@@ -1076,6 +1080,11 @@ code {
   box-shadow: 0 8px 24px rgba(176, 125, 53, 0.35);
 }
 
+.chat-hero__icon--it {
+  background: linear-gradient(145deg, #8a9bb5, #5c6d86);
+  box-shadow: 0 8px 24px rgba(92, 109, 134, 0.35);
+}
+
 .chat-hero__title {
   margin: 0;
   font-size: 22px;
@@ -1224,6 +1233,10 @@ code {
 
 .message__avatar--programmer {
   background: linear-gradient(145deg, #d4a35a, #b07d35);
+}
+
+.message__avatar--it {
+  background: linear-gradient(145deg, #8a9bb5, #5c6d86);
 }
 
 .message__tag--role {

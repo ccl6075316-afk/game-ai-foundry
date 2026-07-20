@@ -30,7 +30,7 @@ interface Props {
   onSwitchToProgrammer: (instanceId?: string) => void;
 }
 
-const HIRE_KINDS: ChatAgentRole[] = ["brief", "product_host", "programmer"];
+const HIRE_KINDS: ChatAgentRole[] = ["brief", "product_host", "programmer", "it"];
 const COLLAPSED_KEY = "gamefactory.colleagueSidebarCollapsed";
 
 function readCollapsed(): boolean {

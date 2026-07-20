@@ -45,7 +45,7 @@ import {
   serializeProviderAccounts,
   serializeVideoAccounts,
   updateProviderAccount,
-  updateVideoAccount,
+  updateVideoAccount as applyVideoAccountPatch,
   type ProviderAccountsMap,
   type VideoAccountsMap,
   type ProviderAccount,
@@ -439,10 +439,10 @@ export function SettingsPanel({ busy, onSaved }: Props) {
     setMessage(null);
   };
 
-  const updateVideoAccount = (patch: Partial<{ apiKey: string; apiBase: string }>) => {
+  const patchActiveVideoAccount = (patch: Partial<{ apiKey: string; apiBase: string }>) => {
     setForm((prev) => ({
       ...prev,
-      videoAccounts: updateVideoAccount(prev.videoAccounts, prev.activeVideoProvider, patch),
+      videoAccounts: applyVideoAccountPatch(prev.videoAccounts, prev.activeVideoProvider, patch),
     }));
     setMessage(null);
   };
@@ -737,7 +737,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     <input
                       type="text"
                       value={videoAccount.apiBase}
-                      onChange={(e) => updateVideoAccount({ apiBase: e.target.value })}
+                      onChange={(e) => patchActiveVideoAccount({ apiBase: e.target.value })}
                       placeholder="https://…"
                       disabled={disabled}
                     />
@@ -753,7 +753,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   <input
                     type="password"
                     value={videoAccount.apiKey}
-                    onChange={(e) => updateVideoAccount({ apiKey: e.target.value })}
+                    onChange={(e) => patchActiveVideoAccount({ apiKey: e.target.value })}
                     placeholder={videoPreset.keyPlaceholder}
                     autoComplete="off"
                     disabled={disabled}

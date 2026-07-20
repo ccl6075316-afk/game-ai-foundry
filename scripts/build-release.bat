@@ -6,6 +6,10 @@ echo [release] Preparing embedded Python ...
 python scripts\prepare_embedded_python.py --output gui\runtime\python --with-rembg
 if errorlevel 1 exit /b 1
 
+echo [release] Preparing embedded Pi ...
+node scripts\prepare_embedded_pi.mjs --output gui\runtime\pi
+if errorlevel 1 exit /b 1
+
 echo [release] Building GUI ...
 cd gui
 call npm install

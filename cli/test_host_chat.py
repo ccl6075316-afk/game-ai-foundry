@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -34,6 +35,11 @@ from host_chat import (
 
 
 class HostChatTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        # Keep unit tests on Host LLM mocks; avoid hitting embedded Pi.
+        os.environ["GAMEFACTORY_BRIEF_EXECUTOR"] = "host"
+
     def test_parse_llm_json_fenced(self) -> None:
         raw = 'Here:\n```json\n{"assistant_message": "hi", "choices": ["A"]}\n```'
         parsed = _parse_llm_json(raw)
@@ -177,6 +183,7 @@ class HostChatTests(unittest.TestCase):
                     },
                     "assets": [
                         {
+                            "id": "hero",
                             "name": "hero",
                             "type": "character",
                             "usage": "player_idle",
@@ -240,6 +247,7 @@ class HostChatTests(unittest.TestCase):
                     },
                     "assets": [
                         {
+                            "id": "hero",
                             "name": "hero",
                             "type": "character",
                             "usage": "player_idle",
@@ -292,6 +300,17 @@ class HostChatTests(unittest.TestCase):
         session = new_session("e1")
         with self.assertRaises(HostChatError):
             export_brief(session)
+
+    def test_export_requires_ready_flag(self) -> None:
+        session = new_session("e2")
+        session["draft_brief"] = {
+            "project": {"title": "T", "genre": "2d_platformer"},
+            "assets": [{"id": "hero", "name": "hero", "type": "character"}],
+        }
+        session["ready_to_export"] = False
+        with self.assertRaises(HostChatError) as ctx:
+            export_brief(session)
+        self.assertIn("ready_to_export", str(ctx.exception))
 
     def test_status_chat_session(self) -> None:
         session = new_session("s1")
@@ -390,6 +409,7 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [
                 {
+                    "id": "hero",
                     "name": "hero",
                     "type": "character",
                     "usage": "reference_still",
@@ -399,6 +419,7 @@ class HostChatTests(unittest.TestCase):
                     "generate_method": "image",
                 },
                 {
+                    "id": "hero_walk",
                     "name": "hero_walk",
                     "type": "character",
                     "usage": "player_locomotion",
@@ -451,6 +472,7 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [
                 {
+                    "id": "hero",
                     "name": "hero",
                     "type": "character",
                     "usage": "player_idle",
@@ -576,6 +598,93 @@ class HostChatTests(unittest.TestCase):
         self.assertIn("Commit Doc", msgs[0]["content"])
         self.assertTrue(result["ready_to_export"])
         self.assertIn("三段斩", session["draft_document"]["body"])
+
+
+from pi_runtime import resolve_brief_executor
+
+
+class BriefExecutorRoutingTest(unittest.TestCase):
+    def test_env_forces_host(self) -> None:
+        with patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "host"}):
+            self.assertEqual(resolve_brief_executor({"agents": {"brief": {"executor": "pi"}}}), "host")
+
+    def test_env_pi_falls_back_when_not_ready(self) -> None:
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "pi"}),
+            patch("pi_runtime.pi_status", return_value={"ready": False}),
+        ):
+            self.assertEqual(resolve_brief_executor({}), "host")
+
+    def test_config_pi_falls_back_when_not_ready(self) -> None:
+        with patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": ""}, clear=False):
+            os.environ.pop("GAMEFACTORY_BRIEF_EXECUTOR", None)
+            with patch("pi_runtime.pi_status", return_value={"ready": False}):
+                self.assertEqual(
+                    resolve_brief_executor({"agents": {"brief": {"executor": "pi"}}}),
+                    "host",
+                )
+
+    def test_call_llm_uses_pi_when_forced(self) -> None:
+        session = new_session("pi-route")
+        payload = {
+            "assistant_message": "来自 Pi",
+            "choices": ["A"],
+            "mode": "chat",
+            "intent_hint": "none",
+            "ready_to_export": False,
+        }
+        config = {
+            "agents": {"brief": {"executor": "pi"}},
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"},
+        }
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "pi"}),
+            patch("pi_runtime.pi_status", return_value={"ready": True}),
+            patch(
+                "pi_runtime.run_pi_brief_turn_with_tools",
+                return_value=json.dumps(payload),
+            ) as mock_pi,
+            patch("host_chat.chat_text_completion") as mock_host,
+        ):
+            result = run_turn(session, user_message="你好", config=config)
+        mock_pi.assert_called_once()
+        mock_host.assert_not_called()
+        self.assertEqual(result["assistant_message"], "来自 Pi")
+        self.assertEqual(session.get("_brief_llm_backend"), "pi")
+
+    def test_pi_failure_falls_back_to_host_once(self) -> None:
+        from pi_runtime import PiRuntimeError
+
+        session = new_session("pi-fail")
+        host_payload = {
+            "assistant_message": "来自 Host",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "ready_to_export": False,
+        }
+        config = {
+            "agents": {"brief": {"executor": "pi"}},
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"},
+        }
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "pi"}),
+            patch("pi_runtime.pi_status", return_value={"ready": True}),
+            patch(
+                "pi_runtime.run_pi_brief_turn_with_tools",
+                side_effect=PiRuntimeError("boom"),
+            ) as mock_pi,
+            patch(
+                "host_chat.chat_text_completion",
+                return_value=json.dumps(host_payload),
+            ) as mock_host,
+        ):
+            result = run_turn(session, user_message="你好", config=config)
+        mock_pi.assert_called_once()
+        mock_host.assert_called_once()
+        self.assertEqual(result["assistant_message"], "来自 Host")
+        self.assertEqual(session.get("_brief_llm_backend"), "host")
+        self.assertIn("boom", session.get("_brief_llm_pi_error") or "")
 
 
 if __name__ == "__main__":

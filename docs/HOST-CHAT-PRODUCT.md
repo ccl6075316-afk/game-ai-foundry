@@ -3,9 +3,13 @@
 | | |
 |--|--|
 | **读者** | 产品 / GUI / 接手 Agent |
-| **日期** | 2026-07-17 |
-| **状态** | **心智已拍板**；① `brief chat`；②③ `agent turn`→CLI；分诊可写 `plans/handoffs/` + progress；GUI 同事多实例已有 |
+| **日期** | 2026-07-17（① 后端勘误：2026-07-20） |
+| **状态** | **心智已拍板**；① 原为 `brief chat` / host-chat；**决策变更为内置 Pi 会话**（见下）；②③ `agent turn`→CLI；分诊可写 `plans/handoffs/` + progress；GUI 同事多实例已有 |
 | **不写** | pipeline 命令细节 → `AI-HANDOFF`；施工验收细节 → `CONSTRUCTION-SYSTEM` |
+
+> **① 后端勘误（2026-07-20）**  
+> 下表「薄 Chat / host-chat」描述的是 **v0.0.6 实现**。已定产品方向：① 改用 **Release 内置 Pi** 做会话与工具环，brief **落实/导出** 契约不变。权威决策：[`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md)。  
+> **施工进度：** `brief chat` IPC/会话文件仍由 Foundry 持有；LLM 后端默认内置 Pi（可工具白名单：`status` / `validate` / **门闩 export**）。落实/导出权威 brief 仍须用户意图 + session ready；GUI 导出按钮仍可用。
 
 ---
 

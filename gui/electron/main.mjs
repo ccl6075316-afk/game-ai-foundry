@@ -18,6 +18,7 @@ import {
   preloadPath,
   rendererIndexPath,
   repoRoot,
+  resolvePiRuntimeRoot,
   resolvePython,
 } from "./paths.mjs";
 
@@ -48,7 +49,16 @@ function runCli(args, { cwd, onLine } = {}) {
   return new Promise((resolve, reject) => {
     const proc = spawn(python, ["gamefactory.py", ...args], {
       cwd: workdir,
-      env: { ...process.env, GAMEFACTORY_ROOT: root, PYTHONIOENCODING: "utf-8" },
+      env: {
+        ...process.env,
+        GAMEFACTORY_ROOT: root,
+        PYTHONIOENCODING: "utf-8",
+        // Let embedded Pi reuse this Electron binary as Node (no system Node required).
+        GAMEFACTORY_ELECTRON_EXECUTABLE: process.execPath,
+        ...(resolvePiRuntimeRoot()
+          ? { GAMEFACTORY_PI_ROOT: resolvePiRuntimeRoot() }
+          : {}),
+      },
       shell: false,
     });
 

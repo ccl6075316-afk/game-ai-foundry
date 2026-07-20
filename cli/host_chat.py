@@ -478,30 +478,73 @@ def _extract_gaps(parsed: dict[str, Any]) -> list[str]:
 
 
 def _call_llm(session: dict[str, Any], mode: str, config: dict[str, Any]) -> dict[str, Any]:
-    api = resolve_host_api_settings(config)
-    if not api.get("api_key"):
-        raise HostChatError(
-            "Host LLM API key missing. Configure config.host in ~/.gamefactory/config.json."
+    system = _system_prompt(mode)
+    user_text = json.dumps(_build_user_payload(session, mode), ensure_ascii=False, indent=2)
+
+    raw: str | None = None
+    backend = "host"
+    try:
+        from pi_runtime import (
+            PiRuntimeError,
+            resolve_brief_executor,
+            run_pi_brief_turn_with_tools,
         )
 
-    llm_messages: list[dict[str, Any]] = [
-        {"role": "system", "content": _system_prompt(mode)},
-        {
-            "role": "user",
-            "content": json.dumps(_build_user_payload(session, mode), ensure_ascii=False, indent=2),
-        },
-    ]
-    raw = chat_text_completion(
-        model=str(api["model"]),
-        messages=llm_messages,
-        api_key=str(api["api_key"]),
-        api_base=str(api["api_base"]),
-        proxy=api.get("proxy"),
-        timeout=180,
-    )
+        if resolve_brief_executor(config) == "pi":
+            allow_export = mode == "commit_brief" and bool(session.get("ready_to_export"))
+            try:
+                sid = str(session.get("id") or "brief")
+                # Persist mid-turn so export/status tools can read the session file.
+                try:
+                    save_session(session_path_for_id(sid), session)
+                except (HostChatError, OSError):
+                    pass
+                raw = run_pi_brief_turn_with_tools(
+                    system_prompt=system,
+                    user_text=user_text,
+                    session_id=sid,
+                    config=config,
+                    allow_export=allow_export,
+                    timeout_sec=240.0,
+                )
+                backend = "pi"
+                session.pop("_brief_llm_pi_error", None)
+            except PiRuntimeError as exc:
+                # One Pi attempt only — fall back to Host (avoid double paid calls).
+                session["_brief_llm_pi_error"] = str(exc)[:500]
+                raw = None
+                backend = "host"
+    except ImportError:
+        raw = None
+        backend = "host"
+
+    if raw is None:
+        api = resolve_host_api_settings(config)
+        if not api.get("api_key"):
+            raise HostChatError(
+                "Brief LLM unavailable: configure API key (OpenRouter/host) "
+                "or embed Pi (`node scripts/prepare_embedded_pi.mjs`)."
+            )
+        try:
+            raw = chat_text_completion(
+                model=str(api["model"]),
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user_text},
+                ],
+                api_key=str(api["api_key"]),
+                api_base=str(api["api_base"]),
+                proxy=api.get("proxy"),
+                timeout=180,
+            )
+            backend = "host"
+        except PromptCraftError as exc:
+            raise HostChatError(str(exc)) from exc
+
+    session["_brief_llm_backend"] = backend
     parsed = _parse_llm_json(raw)
     note = str(parsed.get("notes_for_host") or "")
-    if note.startswith("recovered"):
+    if note.startswith("recovered") and isinstance(raw, str):
         try:
             dump = _CONV_DIR / "_last_llm_raw.txt"
             dump.parent.mkdir(parents=True, exist_ok=True)
@@ -637,6 +680,8 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
         "message_count": len(messages),
         "session_id": session.get("id"),
         "compressed_count": int(session.get("compressed_count") or 0),
+        "llm_backend": session.get("_brief_llm_backend"),
+        "llm_pi_error": session.get("_brief_llm_pi_error"),
     }
 
 
@@ -695,7 +740,9 @@ def export_brief(session: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(draft, dict) or not draft:
         raise HostChatError("No draft_brief in session. Chat about the game first, then 落实成 brief.")
     if not session.get("ready_to_export"):
-        pass
+        raise HostChatError(
+            "Brief 尚未 ready_to_export。请先落实（契约完整）后再导出，或在 GUI 等「保存 Brief」可点时导出。"
+        )
     return finalize_brief_export(draft, source="host-chat")
 
 
@@ -1023,6 +1070,7 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
         "mode": session.get("mode") or "chat",
         "intent_hint": session.get("intent_hint") or "none",
         "ready_to_export": bool(session.get("ready_to_export")),
+        "llm_backend": session.get("_brief_llm_backend") or None,
         "message_count": len(session.get("messages") or []),
         "title": (project_raw.get("title") if isinstance(project_raw, dict) else None) or "",
         "genre": genre or "",
