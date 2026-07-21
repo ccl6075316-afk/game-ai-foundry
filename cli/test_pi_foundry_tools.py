@@ -33,6 +33,7 @@ class PiFoundryToolsTest(unittest.TestCase):
     def test_allowlist(self) -> None:
         self.assertTrue(is_allowed_argv(["doctor", "--json"]))
         self.assertTrue(is_allowed_argv(["pipeline", "diagnose", "--json"]))
+        self.assertTrue(is_allowed_argv(["setup", "executor", "status", "--json"]))
         self.assertTrue(
             is_allowed_argv(
                 [
@@ -48,8 +49,92 @@ class PiFoundryToolsTest(unittest.TestCase):
                 ]
             )
         )
+        self.assertTrue(
+            is_allowed_argv(["setup", "install", "ffmpeg", "--json", "--i-confirm"])
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "setup",
+                    "agents",
+                    "executors",
+                    "upsert",
+                    "--executor",
+                    "pi",
+                    "--provider",
+                    "deepseek",
+                    "--i-confirm",
+                    "--json",
+                ]
+            )
+        )
         self.assertFalse(is_allowed_argv(["pipeline", "run", "--jobs", "4"]))
         self.assertFalse(is_allowed_argv(["doctor", "--json", ";", "rm", "-rf", "/"]))
+
+    def test_mutate_requires_i_confirm(self) -> None:
+        self.assertFalse(is_allowed_argv(["setup", "install", "ffmpeg", "--json"]))
+        self.assertFalse(is_allowed_argv(["setup", "ensure", "--json"]))
+        self.assertFalse(
+            is_allowed_argv(
+                ["setup", "executor", "step", "hermes", "configure_api", "--json"]
+            )
+        )
+        self.assertFalse(is_allowed_argv(["pipeline", "heal", "--json"]))
+        self.assertFalse(
+            is_allowed_argv(["pipeline", "reset", "--task-id", "t1", "--json"])
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "setup",
+                    "provider",
+                    "upsert",
+                    "--provider",
+                    "deepseek",
+                    "--api-key",
+                    "sk",
+                    "--json",
+                ]
+            )
+        )
+
+    def test_brief_profile_rejects_it_mutate(self) -> None:
+        argv = ["setup", "install", "ffmpeg", "--json", "--i-confirm"]
+        self.assertTrue(is_allowed_argv(argv, profile="it"))
+        self.assertFalse(is_allowed_argv(argv, profile="brief"))
+        self.assertFalse(
+            is_allowed_argv(["doctor", "--json"], profile="brief")
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                ["brief", "chat", "status", "--session-id", "s1", "--json"],
+                profile="brief",
+            )
+        )
+
+    def test_install_strips_i_confirm_before_cli(self) -> None:
+        captured: dict[str, object] = {}
+
+        class FakeProc:
+            returncode = 0
+            stdout = '{"ok": true}'
+            stderr = ""
+
+        def fake_run(cmd, **kwargs):  # type: ignore[no-untyped-def]
+            captured["cmd"] = cmd
+            return FakeProc()
+
+        with patch("pi_foundry_tools.subprocess.run", side_effect=fake_run):
+            with patch("pi_foundry_tools.Path.is_file", return_value=True):
+                result = run_allowed_gamefactory(
+                    ["setup", "install", "ffmpeg", "--json", "--i-confirm"]
+                )
+        self.assertTrue(result["ok"])
+        cmd = captured["cmd"]
+        assert isinstance(cmd, list)
+        self.assertNotIn("--i-confirm", cmd)
+        self.assertIn("install", cmd)
+        self.assertIn("ffmpeg", cmd)
 
     def test_export_gated_without_flag(self) -> None:
         argv = [

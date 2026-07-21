@@ -597,7 +597,9 @@ def run_pi_agent_turn(
             timeout_sec=timeout_sec,
             response_mode="text" if tool_profile != "brief" else "json",
         )
-        results, visible = run_tool_round(raw, allow_export=allow_export)
+        results, visible = run_tool_round(
+            raw, allow_export=allow_export, profile=tool_profile
+        )
         final_text = visible or raw
         if not results:
             break

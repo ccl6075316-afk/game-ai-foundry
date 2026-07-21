@@ -30,17 +30,57 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("setup", "check"),
     ("setup", "pi", "status"),
     ("setup", "provider", "upsert"),
+    ("setup", "install"),
+    ("setup", "ensure"),
+    ("setup", "executor", "status"),
+    ("setup", "executor", "step"),
+    ("setup", "agents", "executors", "upsert"),
     ("pipeline", "diagnose"),
     ("pipeline", "status"),
     ("pipeline", "heal"),
+    ("pipeline", "reset"),
     ("brief", "chat", "status"),
     ("brief", "validate"),
     ("brief", "chat", "export"),  # gated separately via allow_export
 )
 
+# Mutating ops: FOUNDRY_TOOL argv must include --i-confirm (stripped before CLI
+# except for commands that consume the flag themselves).
+_MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
+    {
+        ("setup", "provider", "upsert"),
+        ("setup", "install"),
+        ("setup", "ensure"),
+        ("setup", "executor", "step"),
+        ("setup", "agents", "executors", "upsert"),
+        ("pipeline", "heal"),
+        ("pipeline", "reset"),
+    }
+)
+
+# These Click commands declare --i-confirm; keep the flag in subprocess argv.
+_KEEP_I_CONFIRM_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
+    {
+        ("setup", "provider", "upsert"),
+        ("setup", "agents", "executors", "upsert"),
+    }
+)
+
 _WRITE_PREFIXES = frozenset({("brief", "chat", "export")})
 
+# Brief Pi may only touch brief tools — never IT mutate/readonly ops.
+_BRIEF_ALLOWED_PREFIXES = frozenset(
+    {
+        ("brief", "chat", "status"),
+        ("brief", "validate"),
+        ("brief", "chat", "export"),
+    }
+)
+
 _EXPORT_ROOT_ALLOW = ("projects", "output", "plans")
+
+_INSTALL_TIMEOUT_SEC = 900.0
+_DEFAULT_TOOL_TIMEOUT_SEC = 120.0
 
 
 def tool_protocol_instructions(*, profile: str = "it") -> str:
@@ -92,15 +132,18 @@ Rules:
 - Prefer `--json` when available.
 - Never invent tool output; wait for the host to paste results.
 - After tools, answer the user in Chinese. Do **not** claim you changed config unless a tool did.
-- Do **not** run `pipeline run` or any generate/install that spends money or mutates projects
-  unless the user explicitly asked and the command is on the allow-list (it is not).
-- **Provider Key write** (`setup provider upsert`): only after the user clearly confirms
-  in this chat. Rephrase the target provider (mask the key), ask for 确认/取消, then emit
-  a FOUNDRY_TOOL with `--i-confirm` and `--json`. Prefer putting the key in the tool argv
-  as `--api-key` only in that confirmed turn; never echo the full key back in your reply.
-  Example after confirm:
+- Do **not** run `pipeline run` (not allow-listed). Do **not** edit Foundry/Electron/Pi source or `games/`.
+- **Mutating ops** require user「确认」in this chat, then include `--i-confirm` in FOUNDRY_TOOL argv:
+  `setup provider upsert`, `setup install`, `setup ensure`, `setup executor step`,
+  `setup agents executors upsert`, `pipeline heal`, `pipeline reset`.
+  Rephrase the action (mask any Key), ask 确认/取消; never echo a full API Key in replies.
+  Example after confirm (Key write):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example after confirm (toolchain):
+  <<<FOUNDRY_TOOL
+  ["setup", "install", "ffmpeg", "--json", "--i-confirm"]
   FOUNDRY_TOOL>>>
 """.strip()
 
@@ -135,7 +178,12 @@ def _prefix_of(argv: list[str]) -> tuple[str, ...] | None:
     return None
 
 
-def is_allowed_argv(argv: list[str], *, allow_export: bool = False) -> bool:
+def is_allowed_argv(
+    argv: list[str],
+    *,
+    allow_export: bool = False,
+    profile: str = "it",
+) -> bool:
     if not argv:
         return False
     joined = " ".join(argv)
@@ -144,7 +192,11 @@ def is_allowed_argv(argv: list[str], *, allow_export: bool = False) -> bool:
     prefix = _prefix_of(argv)
     if prefix is None:
         return False
+    if profile == "brief" and prefix not in _BRIEF_ALLOWED_PREFIXES:
+        return False
     if prefix in _WRITE_PREFIXES and not allow_export:
+        return False
+    if prefix in _MUTATE_PREFIXES and "--i-confirm" not in argv:
         return False
     rest = argv[len(prefix) :]
     for tok in rest:
@@ -155,6 +207,18 @@ def is_allowed_argv(argv: list[str], *, allow_export: bool = False) -> bool:
     if prefix == ("brief", "chat", "export"):
         return _export_argv_ok(argv)
     return True
+
+
+def _argv_for_subprocess(argv: list[str], prefix: tuple[str, ...] | None) -> list[str]:
+    if prefix in _KEEP_I_CONFIRM_PREFIXES:
+        return list(argv)
+    return [t for t in argv if t != "--i-confirm"]
+
+
+def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
+    if prefix in {("setup", "install"), ("setup", "ensure")}:
+        return _INSTALL_TIMEOUT_SEC
+    return _DEFAULT_TOOL_TIMEOUT_SEC
 
 
 def _flag_value(argv: list[str], *names: str) -> str | None:
@@ -220,15 +284,16 @@ def run_allowed_gamefactory(
     argv: list[str],
     *,
     cwd: Path | None = None,
-    timeout_sec: float = 120.0,
+    timeout_sec: float | None = None,
     allow_export: bool = False,
+    profile: str = "it",
 ) -> dict[str, Any]:
     """Run ``python gamefactory.py <argv>`` if allow-listed."""
-    if not is_allowed_argv(argv, allow_export=allow_export):
+    if not is_allowed_argv(argv, allow_export=allow_export, profile=profile):
         return {
             "ok": False,
             "argv": argv,
-            "error": f"command not on Pi whitelist (or export gated): {argv!r}",
+            "error": f"command not on Pi whitelist (or export/confirm gated): {argv!r}",
             "stdout": "",
             "stderr": "",
             "exit_code": None,
@@ -259,7 +324,9 @@ def run_allowed_gamefactory(
             "exit_code": None,
         }
 
-    cmd = [_gamefactory_python(), str(cli), *argv]
+    run_argv = _argv_for_subprocess(argv, prefix)
+    limit = timeout_sec if timeout_sec is not None else _timeout_for_prefix(prefix)
+    cmd = [_gamefactory_python(), str(cli), *run_argv]
     work = cwd or _REPO_ROOT
     try:
         proc = subprocess.run(
@@ -268,7 +335,7 @@ def run_allowed_gamefactory(
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=timeout_sec,
+            timeout=limit,
             cwd=str(work),
             stdin=subprocess.DEVNULL,
         )
@@ -276,7 +343,7 @@ def run_allowed_gamefactory(
         return {
             "ok": False,
             "argv": argv,
-            "error": f"timeout after {timeout_sec}s",
+            "error": f"timeout after {limit}s",
             "stdout": "",
             "stderr": "",
             "exit_code": None,
@@ -308,10 +375,14 @@ def run_tool_round(
     *,
     cwd: Path | None = None,
     allow_export: bool = False,
+    profile: str = "it",
 ) -> tuple[list[dict[str, Any]], str]:
     """Execute all tools found in ``text``; return (results, text_without_fences)."""
     tools = extract_foundry_tools(text)
     results = [
-        run_allowed_gamefactory(argv, cwd=cwd, allow_export=allow_export) for argv in tools
+        run_allowed_gamefactory(
+            argv, cwd=cwd, allow_export=allow_export, profile=profile
+        )
+        for argv in tools
     ]
     return results, strip_foundry_tools(text)

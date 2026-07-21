@@ -293,3 +293,67 @@ def setup_provider_upsert_cmd(
         click.echo(f"失败: {result.get('error')}", err=True)
     if not result.get("ok"):
         sys.exit(1)
+
+
+@setup_group.group("agents")
+def setup_agents_group() -> None:
+    """Manage agents.* presets (IT toolbox)."""
+
+
+@setup_agents_group.group("executors")
+def setup_agents_executors_group() -> None:
+    """Manage agents.executors tool presets."""
+
+
+@setup_agents_executors_group.command("upsert")
+@click.option(
+    "--executor",
+    "executor_id",
+    required=True,
+    type=click.Choice(["pi", "hermes", "codex", "cursor"], case_sensitive=False),
+    help="Tool preset id: pi / hermes / codex / cursor.",
+)
+@click.option("--provider", "provider_id", default=None, help="Default provider id for this tool.")
+@click.option("--model", "model", default=None, help="Default model id (empty clears).")
+@click.option(
+    "--use-third-party/--no-use-third-party",
+    "use_third_party",
+    default=None,
+    help="Codex only: use Foundry third-party auth sync.",
+)
+@click.option(
+    "--i-confirm",
+    "i_confirm",
+    is_flag=True,
+    help="Required: user confirmed write in IT chat (or equivalent).",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
+def setup_agents_executors_upsert_cmd(
+    executor_id: str,
+    provider_id: str | None,
+    model: str | None,
+    use_third_party: bool | None,
+    i_confirm: bool,
+    as_json: bool,
+) -> None:
+    """Upsert agents.executors[executor] after user confirmation."""
+    from agents_executors_upsert import upsert_agent_executor
+
+    result = upsert_agent_executor(
+        executor=executor_id,
+        provider=provider_id,
+        model=model,
+        use_third_party=use_third_party,
+        i_confirm=i_confirm,
+    )
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        click.echo(
+            f"已写入 agents.executors.{result.get('executor')}"
+            f"（provider={result.get('provider') or '-'}, model={result.get('model') or '-'}）"
+        )
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
