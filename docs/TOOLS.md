@@ -102,6 +102,19 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 
 改路由后无需重启 GUI；外部 Agent 用 `agents show --discover` 确认。
 
+### 3.4 按实例 Provider / 模型（`agents.instances`）
+
+| 入口 | 说明 |
+|------|------|
+| GUI **设置 → 角色** | 选同事实例，配置执行器、Provider（`provider_accounts` 账号 id）、模型；程序员选 Codex 时可开「用第三方」 |
+| 策划 / IT 聊天顶栏 | 内置 Pi 同事在聊天顶栏快选 Provider + 模型，**立即持久化**到 `agents.instances.<id>`，下一条消息生效 |
+| CLI | `agent turn --instance-id <id>` 与 Pi 回合共用同一解析链 |
+
+- **Key 只在 `provider_accounts`**；实例只引用 provider id，不复制 API Key。
+- 无 `agents.instances.<id>` 时：继承工种默认（`agents.brief` / `it` / …）→ 回退 Provider 页当前生文账号。
+- **Cursor v1 无第三方同步**；仅 IDE 登录/订阅。
+- 示例见 `resources/config.example.json` 的 `agents.instances`。
+
 ---
 
 ## 4. 本机工具链
@@ -169,6 +182,8 @@ python gamefactory.py setup executor step hermes install_skills
 python gamefactory.py setup executor step hermes configure_api   # 需 Foundry 已配 OpenRouter
 python gamefactory.py setup executor step codex install_cli
 python gamefactory.py setup executor step codex login
+python gamefactory.py setup executor step codex sync_api              # use_third_party=true 时同步到 ~/.codex/
+python gamefactory.py setup executor step codex sync_api --instance-id <id>  # 按实例覆盖解析
 python gamefactory.py setup executor step cursor verify_cli
 ```
 
@@ -190,7 +205,8 @@ python gamefactory.py setup executor step cursor verify_cli
 |--|--|
 | **适合** | Pass 4 `godot-developer` 写 C# |
 | **安装** | `npm install -g @openai/codex` |
-| **登录** | `codex login` → `~/.codex/auth.json` |
+| **登录** | `codex login` → `~/.codex/auth.json`（`use_third_party=false` 时走订阅，不覆盖） |
+| **第三方** | 实例或工种开「用第三方」→ 保存后 GUI 自动调 `sync_api`，或 CLI `setup executor step codex sync_api`；写入 `~/.codex/config.toml` + `~/.codex/.env` |
 | **要求** | git 仓库（本项目满足） |
 
 ### 5.3 Cursor
@@ -200,6 +216,7 @@ python gamefactory.py setup executor step cursor verify_cli
 | **适合** | 在 IDE 内带队 + 改 `games/` 代码 |
 | **安装** | 安装 Cursor IDE；命令面板安装 `cursor` shell 命令 |
 | **登录** | Cursor 订阅账号 |
+| **第三方** | **v1 不支持** Foundry → Cursor 的 API Key 同步；实例 `use_third_party` 对 Cursor 无效 |
 
 ### 5.4 执行器 vs GUI 同事对话
 

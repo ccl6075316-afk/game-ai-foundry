@@ -1481,6 +1481,92 @@ code {
   font-weight: 600;
 }
 
+.pi-model-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px 4px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.chat-layout.board-open .pi-model-chip,
+.chat-layout.side-open .pi-model-chip {
+  max-width: none;
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+.pi-model-chip.is-disabled {
+  opacity: 0.5;
+}
+
+.pi-model-chip select,
+.pi-model-chip input {
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  min-width: 0;
+}
+
+.pi-model-chip select {
+  max-width: 9.5em;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23666' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1px center;
+  padding-right: 12px;
+}
+
+.pi-model-chip select:hover:not(:disabled),
+.pi-model-chip input:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.pi-model-chip input {
+  flex: 0 1 220px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.pi-model-chip input::placeholder {
+  color: var(--text-muted);
+  font-family: var(--font);
+}
+
+.pi-model-chip select:disabled,
+.pi-model-chip input:disabled {
+  cursor: not-allowed;
+}
+
+.pi-model-chip__dot {
+  opacity: 0.45;
+  user-select: none;
+}
+
+.pi-model-chip__hint {
+  margin-left: 4px;
+  font-size: 11px;
+  color: #f0b429;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 12em;
+}
+
 .pm-sticky-actions__btn--done {
   border-color: rgba(34, 197, 94, 0.55);
   background: rgba(34, 197, 94, 0.12);

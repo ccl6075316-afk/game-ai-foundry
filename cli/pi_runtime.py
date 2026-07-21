@@ -10,11 +10,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from executor_setup import resolve_openrouter_api_key
-
 # Pinned by scripts/prepare_embedded_pi.mjs — keep in sync.
 PI_PACKAGE = "@earendil-works/pi-coding-agent"
 PI_PIN_VERSION = "0.80.10"
+# Match @earendil-works/pi-coding-agent engines.node (undici needs modern Node).
+PI_MIN_NODE = (22, 19, 0)
+PI_MIN_NODE_LABEL = "22.19.0"
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _DEFAULT_RUNTIME = _REPO_ROOT / "gui" / "runtime" / "pi"
@@ -26,6 +27,56 @@ def _key_usable(value: Any) -> bool:
         return False
     text = str(value).strip()
     return bool(text) and "YOUR_" not in text.upper()
+
+
+def parse_node_version(text: str) -> tuple[int, int, int] | None:
+    """Parse ``v22.19.0`` / ``22.19.0`` into a version tuple."""
+    raw = (text or "").strip().lstrip("vV")
+    if not raw:
+        return None
+    parts = raw.split(".")
+    try:
+        major = int(parts[0])
+        minor = int(parts[1]) if len(parts) > 1 else 0
+        patch = int("".join(ch for ch in (parts[2] if len(parts) > 2 else "0") if ch.isdigit()) or "0")
+    except (TypeError, ValueError):
+        return None
+    return major, minor, patch
+
+
+def probe_node_version(exe: str, extra_env: dict[str, str] | None = None) -> tuple[int, int, int] | None:
+    """Return Node version for ``exe``, or None if unusable."""
+    if not exe or not Path(exe).exists():
+        return None
+    env = os.environ.copy()
+    if extra_env:
+        env.update(extra_env)
+    try:
+        proc = subprocess.run(
+            [exe, "-p", "process.versions.node"],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=8,
+            env=env,
+            stdin=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    return parse_node_version((proc.stdout or "").strip().splitlines()[0] if proc.stdout else "")
+
+
+def format_node_version(ver: tuple[int, int, int] | None) -> str | None:
+    if not ver:
+        return None
+    return f"{ver[0]}.{ver[1]}.{ver[2]}"
+
+
+def node_meets_pi_min(ver: tuple[int, int, int] | None) -> bool:
+    return bool(ver and ver >= PI_MIN_NODE)
 
 
 def resolve_pi_runtime_root() -> Path | None:
@@ -57,24 +108,83 @@ def resolve_pi_cli_js(root: Path | None = None) -> Path | None:
     return entry if entry.is_file() else None
 
 
+def _discover_extra_node_bins() -> list[str]:
+    """Find Node installs Electron GUI PATH often misses (nvm / Homebrew)."""
+    found: list[str] = []
+    home = Path.home()
+    nvm_root = Path(os.environ.get("NVM_DIR") or (home / ".nvm")).expanduser()
+    versions_dir = nvm_root / "versions" / "node"
+    if versions_dir.is_dir():
+        try:
+            # Prefer newest version directory name (v22.19.0 > v20…).
+            names = sorted(
+                (p.name for p in versions_dir.iterdir() if p.is_dir()),
+                key=lambda n: parse_node_version(n) or (0, 0, 0),
+                reverse=True,
+            )
+        except OSError:
+            names = []
+        for name in names:
+            cand = versions_dir / name / "bin" / "node"
+            if cand.is_file():
+                found.append(str(cand))
+                break  # newest is enough; version gate decides later
+    for cand in (
+        "/opt/homebrew/opt/node@22/bin/node",
+        "/usr/local/opt/node@22/bin/node",
+        "/opt/homebrew/bin/node",
+        "/usr/local/bin/node",
+    ):
+        if Path(cand).is_file():
+            found.append(cand)
+    return found
+
+
+def _node_candidates() -> list[tuple[str, dict[str, str], str]]:
+    """Ordered Node launch candidates: ``(exe, extra_env, source)``."""
+    out: list[tuple[str, dict[str, str], str]] = []
+    seen: set[str] = set()
+
+    def add(exe: str | None, extra: dict[str, str], source: str) -> None:
+        if not exe:
+            return
+        try:
+            key = str(Path(exe).resolve())
+        except OSError:
+            key = exe
+        if key in seen or not Path(exe).exists():
+            return
+        seen.add(key)
+        out.append((exe, dict(extra), source))
+
+    # Explicit override first, then PATH node, then nvm/brew, then Electron-as-Node.
+    # Electron 33 ships Node 20 — too old for Pi 0.80 — so PATH/nvm Node 22+ must win.
+    add((os.environ.get("GAMEFACTORY_NODE") or "").strip() or None, {}, "GAMEFACTORY_NODE")
+    add(shutil.which("node"), {}, "PATH")
+    for extra_bin in _discover_extra_node_bins():
+        add(extra_bin, {}, "discover")
+    electron = (os.environ.get("GAMEFACTORY_ELECTRON_EXECUTABLE") or "").strip()
+    if electron:
+        add(electron, {"ELECTRON_RUN_AS_NODE": "1"}, "electron")
+    return out
+
+
 def resolve_node_launch() -> tuple[str | None, dict[str, str]]:
     """Return ``(executable, extra_env)`` for running Pi's cli.js.
 
-    Prefer ``GAMEFACTORY_NODE``, then Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE``
-    with ``ELECTRON_RUN_AS_NODE=1``, then PATH ``node``.
+    Prefer a Node that satisfies ``PI_MIN_NODE`` (``GAMEFACTORY_NODE`` → PATH
+    ``node`` → Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE``). If none qualify,
+    return the first existing candidate so status can report the too-old version.
     """
-    extra: dict[str, str] = {}
-    env_node = (os.environ.get("GAMEFACTORY_NODE") or "").strip()
-    if env_node and Path(env_node).exists():
-        return env_node, extra
-
-    electron = (os.environ.get("GAMEFACTORY_ELECTRON_EXECUTABLE") or "").strip()
-    if electron and Path(electron).exists():
-        extra["ELECTRON_RUN_AS_NODE"] = "1"
-        return electron, extra
-
-    which = shutil.which("node")
-    return which, extra
+    fallback: tuple[str, dict[str, str]] | None = None
+    for exe, extra, _source in _node_candidates():
+        if fallback is None:
+            fallback = (exe, extra)
+        if node_meets_pi_min(probe_node_version(exe, extra)):
+            return exe, extra
+    if fallback:
+        return fallback
+    return None, {}
 
 
 def resolve_node_bin() -> str | None:
@@ -96,86 +206,73 @@ def load_embed_manifest(root: Path | None = None) -> dict[str, Any] | None:
     return data if isinstance(data, dict) else None
 
 
-def resolve_pi_api_auth(config: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Pick provider + api key for a no-tool smoke turn.
-
-    Preference: OpenRouter (product default for '只配 API') → DeepSeek account → host.
-    """
+def resolve_pi_api_auth(
+    config: dict[str, Any] | None = None,
+    *,
+    role_kind: str = "brief",
+    instance_id: str | None = None,
+) -> dict[str, Any]:
+    """Pick provider + api key for Pi via instance → role → host chain."""
+    from agent_auth_resolve import resolve_agent_auth
     from gamefactory import load_config  # local import avoids cycles at module load
 
     cfg = config if config is not None else load_config()
-    accounts = cfg.get("provider_accounts") if isinstance(cfg.get("provider_accounts"), dict) else {}
-
-    or_key = resolve_openrouter_api_key(cfg)
-    if or_key:
-        return {
-            "provider": "openrouter",
-            "model": "openai/gpt-4o-mini",
-            "api_key": or_key,
-            "env_key": "OPENROUTER_API_KEY",
-            "source": "provider_accounts.openrouter|host",
-        }
-
-    ds = accounts.get("deepseek") if isinstance(accounts.get("deepseek"), dict) else {}
-    if _key_usable(ds.get("api_key")):
-        return {
-            "provider": "deepseek",
-            "model": "deepseek-chat",
-            "api_key": str(ds["api_key"]).strip(),
-            "env_key": "DEEPSEEK_API_KEY",
-            "source": "provider_accounts.deepseek",
-        }
-
-    host = cfg.get("host") if isinstance(cfg.get("host"), dict) else {}
-    host_provider = str(host.get("provider") or "").strip().lower()
-    if host_provider in ("openrouter", "deepseek", "openai") and _key_usable(host.get("api_key")):
-        env_map = {
-            "openrouter": "OPENROUTER_API_KEY",
-            "deepseek": "DEEPSEEK_API_KEY",
-            "openai": "OPENAI_API_KEY",
-        }
-        model_map = {
-            "openrouter": "openai/gpt-4o-mini",
-            "deepseek": "deepseek-chat",
-            "openai": "gpt-4o-mini",
-        }
-        return {
-            "provider": host_provider,
-            "model": model_map[host_provider],
-            "api_key": str(host["api_key"]).strip(),
-            "env_key": env_map[host_provider],
-            "source": "host",
-        }
-
+    resolved = resolve_agent_auth(cfg, role_kind=role_kind, instance_id=instance_id)
     return {
-        "provider": None,
-        "model": None,
-        "api_key": None,
-        "env_key": None,
-        "source": None,
-        "error": "未找到可用 API Key（provider_accounts.openrouter / deepseek 或 host）",
+        "provider": resolved.get("provider"),
+        "model": resolved.get("model"),
+        "api_key": resolved.get("api_key"),
+        "env_key": resolved.get("env_key"),
+        "api_base": resolved.get("api_base"),
+        "source": resolved.get("source"),
+        "error": resolved.get("error"),
     }
 
 
-def pi_status(*, config: dict[str, Any] | None = None) -> dict[str, Any]:
+def pi_status(
+    *,
+    config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
+) -> dict[str, Any]:
     root = resolve_pi_runtime_root()
     entry = resolve_pi_cli_js(root) if root else None
-    node = resolve_node_bin()
+    node_exe, node_extra = resolve_node_launch()
+    node_ver = probe_node_version(node_exe, node_extra) if node_exe else None
+    node_ok = node_meets_pi_min(node_ver)
     manifest = load_embed_manifest(root)
-    auth = resolve_pi_api_auth(config)
+    auth = resolve_pi_api_auth(config, instance_id=instance_id)
     size_mb = None
     if manifest and isinstance(manifest.get("size_bytes"), int):
         size_mb = round(manifest["size_bytes"] / (1024 * 1024), 1)
 
-    ready = bool(entry and node and auth.get("api_key"))
+    ready = bool(entry and node_exe and node_ok and auth.get("api_key"))
+    if ready:
+        hint = None
+    elif not entry:
+        hint = "运行: node scripts/prepare_embedded_pi.mjs"
+    elif not node_exe:
+        hint = f"需要 Node >={PI_MIN_NODE_LABEL}（PATH 中的 node，或设置 GAMEFACTORY_NODE）"
+    elif not node_ok:
+        got = format_node_version(node_ver) or "?"
+        hint = (
+            f"Node {got} 过旧：内置 Pi {PI_PIN_VERSION} 需要 >={PI_MIN_NODE_LABEL}。"
+            f"请安装 Node {PI_MIN_NODE_LABEL}+，或设置 GAMEFACTORY_NODE 指向该版本"
+            "（勿仅依赖 Electron 自带的 Node 20）"
+        )
+    else:
+        hint = auth.get("error")
+
     return {
         "ok": ready,
         "ready": ready,
         "package": PI_PACKAGE,
         "pin_version": PI_PIN_VERSION,
+        "min_node": PI_MIN_NODE_LABEL,
         "runtime_root": str(root) if root else None,
         "cli_js": str(entry) if entry else None,
-        "node": node,
+        "node": node_exe,
+        "node_version": format_node_version(node_ver),
+        "node_ok": node_ok,
         "manifest": manifest,
         "size_mb": size_mb,
         "auth": {
@@ -185,13 +282,7 @@ def pi_status(*, config: dict[str, Any] | None = None) -> dict[str, Any]:
             "source": auth.get("source"),
             "error": auth.get("error"),
         },
-        "hint": None
-        if ready
-        else (
-            "运行: node scripts/prepare_embedded_pi.mjs"
-            if not entry
-            else ("需要系统 Node（PATH 中的 node）" if not node else auth.get("error"))
-        ),
+        "hint": hint,
     }
 
 
@@ -200,15 +291,18 @@ def run_pi_smoke(
     prompt: str = "Reply with exactly the three characters: PONG",
     timeout_sec: float = 90.0,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
 ) -> dict[str, Any]:
     """One non-interactive, no-tool, no-session Pi turn (Spike 0)."""
-    status = pi_status(config=config)
+    status = pi_status(config=config, instance_id=instance_id)
     if not status.get("cli_js"):
         return {"ok": False, "error": status.get("hint") or "embedded Pi not found", "status": status}
     if not status.get("node"):
         return {"ok": False, "error": "node binary not found on PATH", "status": status}
+    if not status.get("node_ok"):
+        return {"ok": False, "error": status.get("hint") or "Node too old for Pi", "status": status}
 
-    auth = resolve_pi_api_auth(config)
+    auth = resolve_pi_api_auth(config, instance_id=instance_id)
     if not auth.get("api_key"):
         return {"ok": False, "error": auth.get("error") or "missing api key", "status": status}
 
@@ -311,16 +405,20 @@ def resolve_brief_executor(config: dict[str, Any] | None = None) -> str:
     return "host"
 
 
-def resolve_pi_auth_for_brief(config: dict[str, Any] | None = None) -> dict[str, Any]:
+def resolve_pi_auth_for_brief(
+    config: dict[str, Any] | None = None,
+    *,
+    instance_id: str | None = None,
+) -> dict[str, Any]:
     """Auth for brief turns: Pi providers + prefer host.model when set."""
     from gamefactory import load_config
     from llm_config import resolve_host_api_settings
 
     cfg = config if config is not None else load_config()
-    auth = resolve_pi_api_auth(cfg)
+    auth = resolve_pi_api_auth(cfg, role_kind="brief", instance_id=instance_id)
     host_cfg = cfg.get("host") if isinstance(cfg.get("host"), dict) else {}
     host_model = str(host_cfg.get("model") or "").strip()
-    if auth.get("api_key") and host_model:
+    if auth.get("api_key") and host_model and auth.get("source") not in ("instance", "role"):
         auth = {**auth, "model": host_model}
         return auth
 
@@ -376,6 +474,7 @@ def run_pi_text_completion(
     system_prompt: str,
     user_text: str,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
     timeout_sec: float = 180.0,
     response_mode: str = "json",
 ) -> str:
@@ -386,11 +485,11 @@ def run_pi_text_completion(
     """
     import tempfile
 
-    status = pi_status(config=config)
-    if not status.get("cli_js") or not status.get("node"):
+    status = pi_status(config=config, instance_id=instance_id)
+    if not status.get("cli_js") or not status.get("node") or not status.get("node_ok"):
         raise PiRuntimeError(status.get("hint") or "embedded Pi not ready")
 
-    auth = resolve_pi_auth_for_brief(config)
+    auth = resolve_pi_auth_for_brief(config, instance_id=instance_id)
     if not auth.get("api_key"):
         raise PiRuntimeError(auth.get("error") or "missing API key for Pi brief turn")
 
@@ -475,6 +574,7 @@ def run_pi_agent_turn(
     system_prompt: str,
     user_text: str,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
     max_tool_rounds: int = 4,
     timeout_sec: float = 180.0,
     tool_profile: str = "it",
@@ -493,6 +593,7 @@ def run_pi_agent_turn(
             system_prompt=system,
             user_text=conversation,
             config=config,
+            instance_id=instance_id,
             timeout_sec=timeout_sec,
             response_mode="text" if tool_profile != "brief" else "json",
         )
@@ -530,6 +631,7 @@ def run_pi_brief_turn_with_tools(
     user_text: str,
     session_id: str,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
     allow_export: bool = False,
     max_tool_rounds: int = 3,
     timeout_sec: float = 240.0,
@@ -548,6 +650,7 @@ def run_pi_brief_turn_with_tools(
         system_prompt=system_prompt + hint,
         user_text=user_text,
         config=config,
+        instance_id=instance_id,
         max_tool_rounds=max_tool_rounds,
         timeout_sec=timeout_sec,
         tool_profile="brief",

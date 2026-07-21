@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
+import { PiProviderQuickSwitch } from "./components/PiProviderQuickSwitch";
 import { ColleagueRoster } from "./components/ColleagueRoster";
 import { BoardPanel } from "./components/BoardPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
@@ -695,6 +696,18 @@ export default function App() {
       setBrainstormActive(false);
       setBrainstormReady(false);
       setBrainstormChoices([]);
+      void (async () => {
+        if (!window.gameFactory?.saveConfig) return;
+        try {
+          await window.gameFactory.saveConfig({
+            agents: {
+              instances: { [instanceId]: null },
+            },
+          });
+        } catch {
+          /* config cleanup best-effort */
+        }
+      })();
     },
     [patchChatStore],
   );
@@ -743,14 +756,18 @@ export default function App() {
     markBusy(busyId);
     setBrainstormChoices([]);
     try {
-      const res = await window.gameFactory.hostChatStart(sessionTarget.sessionId, seed);
+      const res = await window.gameFactory.hostChatStart(
+        sessionTarget.sessionId,
+        seed,
+        sessionTarget.instanceId,
+      );
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
         throw new Error(res.stderr || res.stdout || "host-chat start failed");
       }
       applyBrainstormResult(res.data, sessionTarget);
     } catch (e) {
       appendAssistant(
-        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请先在 **设置 → 在线服务 → 项目经理** 配置 API Key。`,
+        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **设置 → 角色** 为当前策划实例选择 Provider 并填写 Key（Provider 页账号库），或确认 Pi 就绪（\`setup pi status --json\`）。`,
         undefined,
         undefined,
         sessionTarget,
@@ -766,9 +783,17 @@ export default function App() {
     markBusy(busyId);
     setBrainstormChoices([]);
     try {
-      let res = await window.gameFactory.hostChatTurn(sessionTarget.sessionId, message);
+      let res = await window.gameFactory.hostChatTurn(
+        sessionTarget.sessionId,
+        message,
+        sessionTarget.instanceId,
+      );
       if (res.exitCode !== 0 && /Session not found/i.test(res.stderr || res.stdout || "")) {
-        res = await window.gameFactory.hostChatStart(sessionTarget.sessionId, message);
+        res = await window.gameFactory.hostChatStart(
+          sessionTarget.sessionId,
+          message,
+          sessionTarget.instanceId,
+        );
       }
       const data = res.data;
       if (res.exitCode !== 0 || !data?.assistant_message) {
@@ -793,7 +818,11 @@ export default function App() {
     try {
       const slug = slugifyBriefName(nameHint || draftTitle || "my-game");
       const outputRel = briefExportRel(slug);
-      const res = await window.gameFactory.hostChatExport(sessionTarget.sessionId, outputRel);
+      const res = await window.gameFactory.hostChatExport(
+        sessionTarget.sessionId,
+        outputRel,
+        sessionTarget.instanceId,
+      );
       if (res.exitCode !== 0) {
         throw new Error(res.stderr || res.stdout || "export failed");
       }
@@ -830,7 +859,11 @@ export default function App() {
       sessionTarget,
     );
     try {
-      const res = await window.gameFactory.hostChatAutofix(sessionTarget.sessionId, maxRounds);
+      const res = await window.gameFactory.hostChatAutofix(
+        sessionTarget.sessionId,
+        maxRounds,
+        sessionTarget.instanceId,
+      );
       const data = res.data;
       if (!data) {
         throw new Error(res.stderr || res.stdout || "autofix failed");
@@ -1070,7 +1103,10 @@ export default function App() {
     } catch (e) {
       append(
         "assistant",
-        `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在设置里为项目经理/程序员选择执行器。`,
+        `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
+          (target.role === "it"
+            ? "IT 使用**内置 Pi**（无需 Hermes/Codex）。请到 **设置 → 角色** 为当前实例选择 Provider 并填写 Key（Provider 页账号库）；并确认 Pi 就绪（`setup pi status --json`）。"
+            : "请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → 角色** 为当前实例选择执行器。"),
         undefined,
         target,
         target.role === "product_host"
@@ -2190,7 +2226,11 @@ export default function App() {
         setBrainstormChoices([]);
         try {
           const sessionId = activeSession.id;
-          const res = await window.gameFactory.hostChatReset(sessionId, cmd.name);
+          const res = await window.gameFactory.hostChatReset(
+            sessionId,
+            cmd.name,
+            activeColleague.id,
+          );
           if (res.exitCode !== 0 || !res.data?.assistant_message) {
             throw new Error(res.stderr || res.stdout || "host-chat reset failed");
           }
@@ -2283,7 +2323,7 @@ export default function App() {
     }
 
     if (agentRole === "product_host" || agentRole === "programmer" || agentRole === "it") {
-      await handleAgentTurn(text);
+      await handleAgentTurn(text, { instanceId: activeColleague.id });
       return;
     }
 
@@ -2509,6 +2549,9 @@ export default function App() {
               </button>
             </div>
           )}
+          {(agentRole === "brief" || agentRole === "it") && (
+            <PiProviderQuickSwitch colleague={activeColleague} disabled={chatBusy} />
+          )}
           <ChatInput
             disabled={chatBusy}
             choices={
@@ -2592,7 +2635,7 @@ export default function App() {
           />
         )}
 
-        {sidePanel === "settings" && <SettingsPanel busy={anyBusy} />}
+        {sidePanel === "settings" && <SettingsPanel busy={anyBusy} roster={chatStore.roster} />}
 
         {sidePanel === "env" && (
           <EnvPanel

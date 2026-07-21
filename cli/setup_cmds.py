@@ -129,13 +129,20 @@ def setup_executor_status_cmd(as_json: bool) -> None:
     "--provider",
     "provider_id",
     default=None,
-    help="Hermes configure_api: Foundry provider id (openrouter/deepseek/kimi/…); default=host.provider.",
+    help="Hermes configure_api / Codex sync_api: Foundry provider id (openrouter/deepseek/kimi/…).",
+)
+@click.option(
+    "--instance-id",
+    "instance_id",
+    default=None,
+    help="Codex sync_api: roster instance id for agents.instances overlay.",
 )
 def setup_executor_step_cmd(
     executor_id: str,
     step_id: str,
     as_json: bool,
     provider_id: str | None,
+    instance_id: str | None,
 ) -> None:
     """Run one executor setup step (install_cli, login, configure_api, …)."""
     try:
@@ -151,6 +158,7 @@ def setup_executor_step_cmd(
             step_id,
             progress=_progress,
             provider_id=provider_id,
+            instance_id=instance_id,
         )
         if as_json:
             click.echo(json.dumps(result, ensure_ascii=False, indent=2))

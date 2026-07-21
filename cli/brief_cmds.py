@@ -160,6 +160,11 @@ def register_brief_commands(cli_group: click.Group) -> None:
         type=click.Path(path_type=Path),
     )
     @click.option("--json", "as_json", is_flag=True)
+    @click.option(
+        "--instance-id",
+        default=None,
+        help="GUI colleague instance id (per-instance Provider/model for Pi).",
+    )
     @click.pass_context
     def chat_turn_cmd(
         ctx: click.Context,
@@ -167,13 +172,19 @@ def register_brief_commands(cli_group: click.Group) -> None:
         session_id: str | None,
         session_path: Path | None,
         as_json: bool,
+        instance_id: str | None,
     ) -> None:
         """Send one user message in host-chat."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         path = _chat_session_path(session_id, session_path)
         try:
             session = host_load_session(path)
-            result = host_run_turn(session, user_message=message, config=config)
+            result = host_run_turn(
+                session,
+                user_message=message,
+                config=config,
+                instance_id=instance_id,
+            )
             host_save_session(path, session)
         except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)

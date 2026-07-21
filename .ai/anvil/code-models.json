@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "platforms": {
+    "cursor": {
+      "lead": {
+        "model": "composer-2.5-fast",
+        "reasoning_effort": "n/a"
+      },
+      "doer": {
+        "model": "composer-2.5-fast",
+        "reasoning_effort": "n/a"
+      }
+    }
+  }
+}

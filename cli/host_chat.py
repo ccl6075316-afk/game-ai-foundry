@@ -477,7 +477,13 @@ def _extract_gaps(parsed: dict[str, Any]) -> list[str]:
     return [str(g).strip() for g in raw if str(g).strip()][:20]
 
 
-def _call_llm(session: dict[str, Any], mode: str, config: dict[str, Any]) -> dict[str, Any]:
+def _call_llm(
+    session: dict[str, Any],
+    mode: str,
+    config: dict[str, Any],
+    *,
+    instance_id: str | None = None,
+) -> dict[str, Any]:
     system = _system_prompt(mode)
     user_text = json.dumps(_build_user_payload(session, mode), ensure_ascii=False, indent=2)
 
@@ -506,6 +512,7 @@ def _call_llm(session: dict[str, Any], mode: str, config: dict[str, Any]) -> dic
                     config=config,
                     allow_export=allow_export,
                     timeout_sec=240.0,
+                    instance_id=instance_id,
                 )
                 backend = "pi"
                 session.pop("_brief_llm_pi_error", None)
@@ -690,6 +697,7 @@ def run_turn(
     *,
     user_message: str | None,
     config: dict[str, Any],
+    instance_id: str | None = None,
 ) -> dict[str, Any]:
     """Append user message, optionally compress, call host LLM (chat or commit)."""
     messages: list[dict[str, Any]] = list(session.get("messages") or [])
@@ -703,13 +711,13 @@ def run_turn(
 
     mode = resolve_mode(session, user_message)
     if mode == "commit_brief":
-        parsed = _call_llm(session, "commit_brief", config)
+        parsed = _call_llm(session, "commit_brief", config, instance_id=instance_id)
         return _apply_parsed(session, parsed, "commit_brief")
     if mode == "commit_doc":
-        parsed = _call_llm(session, "commit_doc", config)
+        parsed = _call_llm(session, "commit_doc", config, instance_id=instance_id)
         return _apply_parsed(session, parsed, "commit_doc")
 
-    parsed = _call_llm(session, "chat", config)
+    parsed = _call_llm(session, "chat", config, instance_id=instance_id)
     intent = str(parsed.get("intent_hint") or "none").strip()
     if intent in ("commit_brief", "commit_doc"):
         ack = str(parsed.get("assistant_message", "")).strip()
@@ -729,7 +737,7 @@ def run_turn(
         session["pending_mode"] = intent
         session["intent_hint"] = intent
         follow = "commit_brief" if intent == "commit_brief" else "commit_doc"
-        parsed = _call_llm(session, follow, config)
+        parsed = _call_llm(session, follow, config, instance_id=instance_id)
         return _apply_parsed(session, parsed, follow)
 
     return _apply_parsed(session, parsed, "chat")

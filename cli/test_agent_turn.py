@@ -114,6 +114,180 @@ class AgentTurnTests(unittest.TestCase):
                 )
         self.assertIn("Pi", str(ctx.exception))
 
+    def test_instance_overlay_executor(self) -> None:
+        config = {
+            "agents": {
+                "it": {"executor": "pi"},
+                "instances": {
+                    "ops-deepseek": {
+                        "role_kind": "it",
+                        "executor": "hermes",
+                        "provider": "deepseek",
+                        "model": "deepseek-chat",
+                    },
+                },
+            },
+            "provider_accounts": {
+                "deepseek": {"api_key": "sk-test"},
+            },
+        }
+        self.assertEqual(
+            resolve_executor_for_role("it", config, instance_id="ops-deepseek"),
+            "hermes",
+        )
+
+    def test_cli_executor_override_wins_over_instance(self) -> None:
+        config = {
+            "agents": {
+                "instances": {
+                    "ops-1": {"role_kind": "it", "executor": "hermes"},
+                },
+            },
+        }
+        self.assertEqual(
+            resolve_executor_for_role("it", config, override="codex", instance_id="ops-1"),
+            "codex",
+        )
+
+    def test_different_instance_ids_resolve_different_providers(self) -> None:
+        from agent_auth_resolve import resolve_agent_auth
+
+        config = {
+            "agents": {
+                "it": {"executor": "pi", "provider": "openrouter"},
+                "instances": {
+                    "ops-or": {"role_kind": "it", "provider": "openrouter", "model": "openai/gpt-4o-mini"},
+                    "ops-ds": {"role_kind": "it", "provider": "deepseek", "model": "deepseek-chat"},
+                },
+            },
+            "provider_accounts": {
+                "openrouter": {"api_key": "sk-or"},
+                "deepseek": {"api_key": "sk-ds"},
+            },
+        }
+        or_auth = resolve_agent_auth(config, role_kind="it", instance_id="ops-or")
+        ds_auth = resolve_agent_auth(config, role_kind="it", instance_id="ops-ds")
+        self.assertEqual(or_auth["provider"], "openrouter")
+        self.assertEqual(ds_auth["provider"], "deepseek")
+        self.assertNotEqual(or_auth["provider"], ds_auth["provider"])
+
+    def test_run_turn_pi_passes_instance_id(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conv = Path(tmp) / "it"
+            conv.mkdir()
+            captured: dict[str, object] = {}
+
+            def fake_pi_turn(*args: object, **kwargs: object) -> tuple[str, None, str]:
+                captured.update(kwargs)
+                return "环境正常", None, ""
+
+            config = {
+                "agents": {
+                    "it": {"executor": "pi", "provider": "deepseek"},
+                    "instances": {
+                        "it-1": {
+                            "role_kind": "it",
+                            "provider": "deepseek",
+                            "model": "deepseek-chat",
+                        },
+                    },
+                },
+                "provider_accounts": {"deepseek": {"api_key": "sk-ds"}},
+            }
+            with (
+                patch("agent_turn.conversations_dir", return_value=conv),
+                patch("agent_turn._CONV_ROOT", Path(tmp)),
+                patch("agent_turn.run_pi_executor_turn", side_effect=fake_pi_turn),
+            ):
+                result = run_turn(
+                    role_kind="it",
+                    session_id="it-s1",
+                    message="查一下 doctor",
+                    config=config,
+                    instance_id="it-1",
+                    timeout=30,
+                )
+            self.assertTrue(result["ok"])
+            self.assertEqual(captured.get("instance_id"), "it-1")
+
+    def test_run_turn_hermes_passes_model_flag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conv = Path(tmp) / "product_host"
+            conv.mkdir()
+            argv_seen: list[list[str]] = []
+
+            def fake_run_cmd(argv: list[str], **kwargs: object) -> object:
+                argv_seen.append(list(argv))
+                return type(
+                    "P",
+                    (),
+                    {
+                        "returncode": 0,
+                        "stdout": "好的，已分诊。\nSession ID: sess-99\n",
+                        "stderr": "",
+                    },
+                )()
+
+            config = {
+                "agents": {
+                    "orchestrator": {"executor": "hermes", "provider": "deepseek", "model": "deepseek-chat"},
+                    "instances": {
+                        "pm-1": {
+                            "role_kind": "product_host",
+                            "executor": "hermes",
+                            "provider": "deepseek",
+                            "model": "deepseek-chat",
+                        },
+                    },
+                },
+                "provider_accounts": {"deepseek": {"api_key": "sk-ds", "api_base": "https://api.deepseek.com/v1"}},
+            }
+            with (
+                patch("agent_turn.conversations_dir", return_value=conv),
+                patch("agent_turn._CONV_ROOT", Path(tmp)),
+                patch("agent_turn._which_executor_bin", return_value="/bin/hermes"),
+                patch("agent_turn._run_cmd", side_effect=fake_run_cmd),
+            ):
+                run_turn(
+                    role_kind="product_host",
+                    session_id="pm-s1",
+                    message="下一步",
+                    config=config,
+                    instance_id="pm-1",
+                    timeout=30,
+                )
+            self.assertTrue(argv_seen)
+            flat = " ".join(argv_seen[0])
+            self.assertIn("-m", argv_seen[0])
+            self.assertIn("deepseek-chat", flat)
+
+    def test_run_turn_pi_auth_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conv = Path(tmp) / "it"
+            conv.mkdir()
+            config = {
+                "agents": {
+                    "it": {"executor": "pi", "provider": "deepseek"},
+                    "instances": {
+                        "it-bad": {"role_kind": "it", "provider": "deepseek"},
+                    },
+                },
+            }
+            with (
+                patch("agent_turn.conversations_dir", return_value=conv),
+                patch("agent_turn._CONV_ROOT", Path(tmp)),
+            ):
+                with self.assertRaises(AgentTurnError) as ctx:
+                    run_turn(
+                        role_kind="it",
+                        session_id="it-err",
+                        message="查环境",
+                        config=config,
+                        instance_id="it-bad",
+                        timeout=10,
+                    )
+            self.assertIn("API Key", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

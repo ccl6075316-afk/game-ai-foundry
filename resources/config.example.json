@@ -100,14 +100,23 @@
   },
   "agents": {
     "hermes_provider": "openrouter",
-    "brief": { "executor": "pi", "skill": "host-chat" },
-    "it": { "executor": "pi", "skill": "diagnose" },
-    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter" },
+    "brief": { "executor": "pi", "skill": "host-chat", "provider": "openrouter", "model": null },
+    "it": { "executor": "pi", "skill": "diagnose", "provider": "openrouter", "model": null },
+    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter", "model": null },
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
     "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },
     "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" },
-    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer" },
-    "tester": { "executor": "hermes", "skill": "game-factory-tester" }
+    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer", "provider": null, "model": null, "use_third_party": false },
+    "tester": { "executor": "hermes", "skill": "game-factory-tester" },
+    "instances": {
+      "example-it-instance": {
+        "role_kind": "it",
+        "executor": "pi",
+        "provider": "deepseek",
+        "model": "deepseek-chat",
+        "use_third_party": false
+      }
+    }
   }
 }

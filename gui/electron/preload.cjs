@@ -6,7 +6,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   toolchainCheck: () => ipcRenderer.invoke("toolchain-check"),
   toolchainInstall: (componentId) => ipcRenderer.invoke("toolchain-install", componentId),
   executorStatus: () => ipcRenderer.invoke("executor-status"),
-  executorStep: (executorId, stepId) => ipcRenderer.invoke("executor-step", executorId, stepId),
+  executorStep: (executorId, stepId, opts) =>
+    ipcRenderer.invoke("executor-step", executorId, stepId, opts),
   openExternal: (url) => ipcRenderer.invoke("open-external", url),
   listBriefs: () => ipcRenderer.invoke("list-briefs"),
   listManifests: () => ipcRenderer.invoke("list-manifests"),
@@ -38,12 +39,16 @@ contextBridge.exposeInMainWorld("gameFactory", {
   getMediaPreview: (relPath, posterRel) => ipcRenderer.invoke("get-media-preview", relPath, posterRel),
   openMedia: (relPath) => ipcRenderer.invoke("open-media", relPath),
   listOutputMedia: (dirRel, limit) => ipcRenderer.invoke("list-output-media", dirRel, limit),
-  hostChatStart: (sessionId, seed) => ipcRenderer.invoke("host-chat-start", sessionId, seed),
-  hostChatTurn: (sessionId, message) => ipcRenderer.invoke("host-chat-turn", sessionId, message),
-  hostChatReset: (sessionId, seed) => ipcRenderer.invoke("host-chat-reset", sessionId, seed),
-  hostChatExport: (sessionId, outputRel) => ipcRenderer.invoke("host-chat-export", sessionId, outputRel),
-  hostChatAutofix: (sessionId, maxRounds) =>
-    ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds),
+  hostChatStart: (sessionId, seed, instanceId) =>
+    ipcRenderer.invoke("host-chat-start", sessionId, seed, instanceId),
+  hostChatTurn: (sessionId, message, instanceId) =>
+    ipcRenderer.invoke("host-chat-turn", sessionId, message, instanceId),
+  hostChatReset: (sessionId, seed, instanceId) =>
+    ipcRenderer.invoke("host-chat-reset", sessionId, seed, instanceId),
+  hostChatExport: (sessionId, outputRel, instanceId) =>
+    ipcRenderer.invoke("host-chat-export", sessionId, outputRel, instanceId),
+  hostChatAutofix: (sessionId, maxRounds, instanceId) =>
+    ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds, instanceId),
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),

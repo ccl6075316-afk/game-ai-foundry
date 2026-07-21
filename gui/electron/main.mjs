@@ -822,16 +822,21 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
-  ipcMain.handle("executor-step", async (event, executorId, stepId) => {
+  ipcMain.handle("executor-step", async (event, executorId, stepId, opts = {}) => {
     const sender = event.sender;
-    const result = await runCli(
-      ["setup", "executor", "step", String(executorId), String(stepId), "--json"],
-      {
-        onLine: (line) => {
-          sender.send("toolchain-log", { line });
-        },
+    const args = ["setup", "executor", "step", String(executorId), String(stepId)];
+    if (opts?.provider) {
+      args.push("--provider", String(opts.provider));
+    }
+    if (opts?.instanceId) {
+      args.push("--instance-id", String(opts.instanceId));
+    }
+    args.push("--json");
+    const result = await runCli(args, {
+      onLine: (line) => {
+        sender.send("toolchain-log", { line });
       },
-    );
+    });
     const data = parseJsonFromOutput(result.stdout);
     return { ...result, data };
   });
@@ -1172,7 +1177,7 @@ app.whenReady().then(() => {
     return { ok: true, path: relToRepo(abs) };
   });
 
-  ipcMain.handle("host-chat-start", async (_e, sessionId, seed) => {
+  ipcMain.handle("host-chat-start", async (_e, sessionId, seed, _instanceId) => {
     const args = ["brief", "chat", "start", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
@@ -1181,8 +1186,8 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-turn", async (_e, sessionId, message) => {
-    const result = await runCli([
+  ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId) => {
+    const args = [
       "brief",
       "chat",
       "turn",
@@ -1191,11 +1196,15 @@ app.whenReady().then(() => {
       "--message",
       String(message),
       "--json",
-    ]);
+    ];
+    if (instanceId) {
+      args.push("--instance-id", String(instanceId));
+    }
+    const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed) => {
+  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, _instanceId) => {
     const args = ["brief", "chat", "reset", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
@@ -1204,12 +1213,12 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel) => {
+  ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel, _instanceId) => {
     // CLI cwd is cli/ — write into repo via ../projects/... (not cli/resources/)
     const rel = String(outputRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
     const abs = path.join(repoRoot(), rel);
     mkdirSync(path.dirname(abs), { recursive: true });
-    const result = await runCli([
+    const args = [
       "brief",
       "chat",
       "export",
@@ -1218,16 +1227,17 @@ app.whenReady().then(() => {
       "-o",
       path.join("..", rel),
       "--json",
-    ]);
+    ];
+    const result = await runCli(args);
     const data = parseJsonFromOutput(result.stdout) || {};
     if (!data.brief_path) data.brief_path = abs;
     data.brief_rel = rel;
     return { ...result, data };
   });
 
-  ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5) => {
+  ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5, _instanceId) => {
     const rounds = Math.max(1, Math.min(12, Number(maxRounds) || 5));
-    const result = await runCli([
+    const args = [
       "brief",
       "chat",
       "autofix",
@@ -1236,7 +1246,8 @@ app.whenReady().then(() => {
       "--max-rounds",
       String(rounds),
       "--json",
-    ]);
+    ];
+    const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 

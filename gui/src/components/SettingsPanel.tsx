@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { ColleagueInstance } from "../chat/roster";
+import { CHAT_AGENT_LABELS } from "../chat/roles";
 import type { ConfigInfo, ConfigPatch, DoctorReport } from "../vite-env.d";
 import {
   API_PROVIDERS,
@@ -22,17 +24,28 @@ import {
   CODE_SECTION,
   GODOT_SECTION,
   HOST_SECTION,
-  IMAGE_SECTION,
   IMAGE_PROVIDER_SECTION,
+  INSTANCE_SECTION,
   ROLES_SECTION,
   TEXT_PROVIDER_SECTION,
   PIPELINE_STEPS,
-  PROMPT_SECTION,
   VIDEO_PROVIDER_SECTION,
   keyConfigured,
   type SettingsSectionMeta,
   type SettingsTab,
 } from "../settings/sections";
+import {
+  loadAgentInstancesFromConfig,
+  mergeDirtyInstances,
+  resolveInstanceRecord,
+  rosterChatInstances,
+  serializeAgentInstances,
+  shouldSyncCodexThirdParty,
+  upsertInstanceRecord,
+  type AgentInstanceRecord,
+  type AgentInstancesMap,
+  type InstanceExecutor,
+} from "../settings/agentInstances";
 import {
   getProviderAccount,
   getVideoAccount,
@@ -54,6 +67,7 @@ import { GODOT_DOWNLOAD_URL } from "../settings/toolchain";
 
 interface Props {
   busy: boolean;
+  roster?: ColleagueInstance[];
   onSaved?: () => void;
 }
 
@@ -74,6 +88,9 @@ interface FormState {
   codeExecutor: AgentExecutor;
   /** Hermes 同步用的 Foundry provider（与生文 active 独立） */
   hermesProvider: ApiProviderId;
+  agentInstances: AgentInstancesMap;
+  /** Settings 会话内改过的实例；保存时只叠这些，避免盖掉聊天快选 */
+  dirtyInstanceIds: string[];
 }
 
 function fromConfig(data: ConfigInfo["data"]): FormState {
@@ -113,10 +130,12 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
     hostExecutor: parseExecutor(orchestrator.executor, "hermes"),
     codeExecutor: parseExecutor(godotDev.executor, "codex"),
     hermesProvider,
+    agentInstances: loadAgentInstancesFromConfig(data as Record<string, unknown>),
+    dirtyInstanceIds: [],
   };
 }
 
-function toPatch(form: FormState): ConfigPatch {
+function toPatch(form: FormState, instancesForSave: AgentInstancesMap | null): ConfigPatch {
   const text = resolveActiveTextSettings(form);
   const image = resolveActiveImageSettings(form);
   const video = resolveActiveVideoSettings(form);
@@ -135,6 +154,28 @@ function toPatch(form: FormState): ConfigPatch {
   if (form.codeUseHost) {
     codePatch.api_key = null;
     codePatch.api_base = null;
+  }
+
+  const agents: NonNullable<ConfigPatch["agents"]> = {
+    hermes_provider: form.hermesProvider,
+    brief: {
+      executor: "pi",
+    },
+    it: {
+      executor: "pi",
+    },
+    orchestrator: {
+      executor: form.hostExecutor,
+      skill: DEFAULT_AGENT_SKILLS.orchestrator,
+      provider: form.hermesProvider,
+    },
+    "godot-developer": {
+      executor: form.codeExecutor,
+      skill: DEFAULT_AGENT_SKILLS["godot-developer"],
+    },
+  };
+  if (instancesForSave) {
+    agents.instances = serializeAgentInstances(instancesForSave);
   }
 
   return {
@@ -165,18 +206,7 @@ function toPatch(form: FormState): ConfigPatch {
     godot: {
       engine_path: form.godotPath || undefined,
     },
-    agents: {
-      hermes_provider: form.hermesProvider,
-      orchestrator: {
-        executor: form.hostExecutor,
-        skill: DEFAULT_AGENT_SKILLS.orchestrator,
-        provider: form.hermesProvider,
-      },
-      "godot-developer": {
-        executor: form.codeExecutor,
-        skill: DEFAULT_AGENT_SKILLS["godot-developer"],
-      },
-    },
+    agents,
   };
 }
 
@@ -368,15 +398,18 @@ function ProviderSelect({
   );
 }
 
-export function SettingsPanel({ busy, onSaved }: Props) {
+export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
   const [tab, setTab] = useState<SettingsTab>("providers");
   const [configInfo, setConfigInfo] = useState<ConfigInfo | null>(null);
   const [doctor, setDoctor] = useState<DoctorReport | null>(null);
   const [form, setForm] = useState<FormState>(() => fromConfig({}));
+  const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const chatInstances = useMemo(() => rosterChatInstances(roster), [roster]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -399,6 +432,37 @@ export function SettingsPanel({ busy, onSaved }: Props) {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (chatInstances.length === 0) {
+      setSelectedInstanceId(null);
+      return;
+    }
+    setSelectedInstanceId((prev) =>
+      prev && chatInstances.some((c) => c.id === prev) ? prev : chatInstances[0].id,
+    );
+  }, [chatInstances]);
+
+  const selectedColleague = useMemo(
+    () => chatInstances.find((c) => c.id === selectedInstanceId),
+    [chatInstances, selectedInstanceId],
+  );
+
+  const selectedInstanceRecord = useMemo(() => {
+    if (!selectedColleague) return null;
+    const agents = (configInfo?.data.agents || {}) as Record<string, unknown>;
+    const textAccount = getProviderAccount(form.providerAccounts, form.activeTextProvider);
+    return (
+      form.agentInstances[selectedColleague.id] ??
+      resolveInstanceRecord(
+        selectedColleague,
+        form.agentInstances,
+        agents,
+        form.activeTextProvider,
+        textAccount.textModel,
+      )
+    );
+  }, [selectedColleague, form.agentInstances, form.providerAccounts, form.activeTextProvider, configInfo]);
 
   const setField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -447,14 +511,65 @@ export function SettingsPanel({ busy, onSaved }: Props) {
     setMessage(null);
   };
 
+  const updateSelectedInstance = (patch: Partial<AgentInstanceRecord>) => {
+    if (!selectedColleague || !selectedInstanceRecord) return;
+    const next: AgentInstanceRecord = {
+      ...selectedInstanceRecord,
+      ...patch,
+      role_kind: selectedColleague.roleKind,
+    };
+    if (selectedColleague.roleKind === "brief" || selectedColleague.roleKind === "it") {
+      next.executor = "pi";
+      next.use_third_party = false;
+    }
+    if (next.executor === "cursor" || next.executor === "pi") {
+      next.use_third_party = false;
+    }
+    setForm((prev) => ({
+      ...prev,
+      agentInstances: upsertInstanceRecord(prev.agentInstances, selectedColleague.id, next),
+      dirtyInstanceIds: prev.dirtyInstanceIds.includes(selectedColleague.id)
+        ? prev.dirtyInstanceIds
+        : [...prev.dirtyInstanceIds, selectedColleague.id],
+    }));
+    setMessage(null);
+  };
+
   const handleSave = async () => {
     setSaving(true);
     setError(null);
     setMessage(null);
+    const syncTarget =
+      selectedColleague && selectedInstanceRecord && shouldSyncCodexThirdParty(selectedInstanceRecord)
+        ? selectedColleague.id
+        : null;
     try {
-      const res = await window.gameFactory.saveConfig(toPatch(form));
+      let instancesForSave: AgentInstancesMap | null = null;
+      if (form.dirtyInstanceIds.length > 0 && window.gameFactory.getConfig) {
+        const latestInfo = await window.gameFactory.getConfig();
+        const latest = loadAgentInstancesFromConfig(latestInfo.data as Record<string, unknown>);
+        instancesForSave = mergeDirtyInstances(
+          latest,
+          form.agentInstances,
+          form.dirtyInstanceIds,
+        );
+      }
+      const res = await window.gameFactory.saveConfig(toPatch(form, instancesForSave));
       if (!res.ok) throw new Error(res.error || "保存失败");
-      setMessage("已保存");
+
+      let syncNote = "";
+      if (syncTarget && window.gameFactory.executorStep) {
+        const syncRes = await window.gameFactory.executorStep("codex", "sync_api", {
+          instanceId: syncTarget,
+        });
+        if (!syncRes.data?.ok) {
+          syncNote = `；Codex 第三方同步失败：${syncRes.data?.error || syncRes.stderr || "未知错误"}`;
+        } else {
+          syncNote = "；已同步 Codex 第三方 API";
+        }
+      }
+
+      setMessage(`已保存${syncNote}`);
       await load();
       onSaved?.();
     } catch (e) {
@@ -496,7 +611,6 @@ export function SettingsPanel({ busy, onSaved }: Props) {
   const videoPreset = getVideoProvider(form.activeVideoProvider);
 
   const hostKeyOk = isProviderConfigured(form.providerAccounts, form.activeTextProvider);
-  const promptKeyOk = form.promptUseHost ? hostKeyOk : false;
   const hostExecutorLogin = executorUsesLogin(form.hostExecutor);
   const hostExecutorOk = executorAvailable(doctor?.executors, form.hostExecutor);
   const codeExecutorOk = executorAvailable(doctor?.executors, form.codeExecutor);
@@ -767,12 +881,144 @@ export function SettingsPanel({ busy, onSaved }: Props) {
             <>
               <SectionCard meta={ROLES_SECTION}>
                 <p className="settings-linked">
-                  <strong>Provider 页</strong>：可同时配置多家（OpenRouter / DeepSeek / Kimi…）；生文、生图各自选当前用哪家。
+                  <strong>Provider 页</strong>：填各平台 API Key；此处仅为每个同事实例选择用哪家、什么模型。
                   <br />
-                  <strong>Hermes</strong>：在下方单独选要用哪家账号，再去环境面板「同步 API」；与生文当前选中可以不同。
+                  <strong>策划 / IT</strong>：固定<strong>内置 Pi</strong>，不在此选执行器；需 Node ≥22.19 与 Provider Key。
                   <br />
-                  <strong>Codex / Cursor</strong>：本机登录，不在此填 Key。
+                  <strong>Hermes</strong>：选 Provider 后保存，再到「环境 → Hermes → 同步 API」。
+                  <br />
+                  <strong>Codex</strong>：可开「用第三方」并在保存时同步账号库；关则走 <code>codex login</code> 订阅。
+                  <br />
+                  <strong>Cursor</strong>：仅本机登录/订阅，<strong>第三方不可用</strong>。
                 </p>
+              </SectionCard>
+
+              <SectionCard meta={INSTANCE_SECTION}>
+                {chatInstances.length === 0 ? (
+                  <p className="settings-card__note">花名册暂无同事实例；请先在左侧聊天栏「雇人」后再配置。</p>
+                ) : (
+                  <>
+                    <label className="field">
+                      <span>选择同事实例</span>
+                      <select
+                        value={selectedInstanceId || ""}
+                        disabled={disabled}
+                        onChange={(e) => setSelectedInstanceId(e.target.value)}
+                      >
+                        {(["brief", "product_host", "programmer", "it"] as const).map((roleKind) => {
+                          const group = chatInstances.filter((c) => c.roleKind === roleKind);
+                          if (group.length === 0) return null;
+                          return (
+                            <optgroup key={roleKind} label={CHAT_AGENT_LABELS[roleKind]}>
+                              {group.map((c) => (
+                                <option key={c.id} value={c.id}>
+                                  {c.displayName}
+                                </option>
+                              ))}
+                            </optgroup>
+                          );
+                        })}
+                      </select>
+                    </label>
+
+                    {selectedColleague && selectedInstanceRecord && (
+                      <>
+                        <p className="field-hint">
+                          工种：{CHAT_AGENT_LABELS[selectedColleague.roleKind]} · ID{" "}
+                          <code className="mono">{selectedColleague.id}</code>
+                        </p>
+
+                        {selectedColleague.roleKind === "brief" || selectedColleague.roleKind === "it" ? (
+                          <p className="settings-card__note">
+                            {CHAT_AGENT_LABELS[selectedColleague.roleKind]} 使用<strong>内置 Pi</strong>
+                            执行；只需选择 Provider 与模型（Key 在 Provider 页填写）。
+                          </p>
+                        ) : (
+                          <ExecutorPicker
+                            name={`instance-executor-${selectedColleague.id}`}
+                            options={
+                              selectedColleague.roleKind === "product_host"
+                                ? HOST_EXECUTORS
+                                : CODE_EXECUTORS
+                            }
+                            value={selectedInstanceRecord.executor as AgentExecutor}
+                            executors={doctor?.executors}
+                            disabled={disabled}
+                            onChange={(id) => updateSelectedInstance({ executor: id as InstanceExecutor })}
+                          />
+                        )}
+
+                        <label className="field">
+                          <span>Provider（账号库 id）</span>
+                          <select
+                            value={selectedInstanceRecord.provider}
+                            disabled={disabled}
+                            onChange={(e) =>
+                              updateSelectedInstance({
+                                provider: e.target.value as ApiProviderId,
+                              })
+                            }
+                          >
+                            {API_PROVIDERS.map((p) => {
+                              const ok = isProviderConfigured(form.providerAccounts, p.id);
+                              return (
+                                <option key={p.id} value={p.id}>
+                                  {p.label}
+                                  {ok ? " ✓" : "（未填 Key）"}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          {!isProviderConfigured(form.providerAccounts, selectedInstanceRecord.provider) && (
+                            <span className="settings-card__note">
+                              所选 Provider 尚未填 Key，回合可能失败；请先到 Provider 页补全。
+                            </span>
+                          )}
+                        </label>
+
+                        <label className="field">
+                          <span>模型（可选覆盖）</span>
+                          <input
+                            type="text"
+                            value={selectedInstanceRecord.model}
+                            disabled={disabled}
+                            placeholder={
+                              getProviderAccount(form.providerAccounts, selectedInstanceRecord.provider)
+                                .textModel || "留空则用工种默认 / 账号默认"
+                            }
+                            onChange={(e) => updateSelectedInstance({ model: e.target.value })}
+                          />
+                        </label>
+
+                        {selectedInstanceRecord.executor === "codex" && (
+                          <label className="field field--checkbox">
+                            <input
+                              type="checkbox"
+                              checked={selectedInstanceRecord.use_third_party}
+                              disabled={disabled}
+                              onChange={(e) =>
+                                updateSelectedInstance({ use_third_party: e.target.checked })
+                              }
+                            />
+                            <span>用第三方（账号库 Key，保存时同步到 Codex）</span>
+                          </label>
+                        )}
+
+                        {selectedInstanceRecord.executor === "cursor" && (
+                          <p className="settings-card__note">
+                            Cursor 仅支持本机登录/订阅，<strong>第三方不可用</strong>。
+                          </p>
+                        )}
+
+                        {selectedInstanceRecord.executor === "hermes" && (
+                          <p className="settings-card__note">
+                            Hermes 使用上方所选 Provider；保存后到「环境 → Hermes → 同步 API」。
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
               </SectionCard>
 
               <SectionCard
@@ -781,6 +1027,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 statusOk={hostExecutorLogin ? "本机可用" : "已填写"}
                 statusWarn={hostExecutorLogin ? "未检测到" : "未填写"}
               >
+                <p className="field-hint">工种默认：新雇的项目经理实例在未单独保存前继承以下设置。</p>
                 <ExecutorPicker
                   name="host-executor"
                   options={HOST_EXECUTORS}
@@ -792,7 +1039,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 {form.hostExecutor === "hermes" && (
                   <>
                     <label className="field">
-                      <span>Hermes 使用的 Provider</span>
+                      <span>Hermes 使用的 Provider（工种默认）</span>
                       <select
                         value={form.hermesProvider}
                         disabled={disabled}
@@ -812,61 +1059,13 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                       </select>
                     </label>
                     <p className="settings-card__note">
-                      与「Provider 页 · 生文」当前选中可不同：先在 Provider 页给多家填好 Key，这里专选 Hermes 用哪家；保存后到「环境 → Hermes → 同步 API」。
-                      当前将同步：{getApiProvider(form.hermesProvider).label}
-                      {isProviderConfigured(form.providerAccounts, form.hermesProvider)
-                        ? ` / ${getProviderAccount(form.providerAccounts, form.hermesProvider).textModel || "默认模型"}`
-                        : "（请先填 Key）"}
+                      与「Provider 页 · 生文」当前选中可不同；保存后到「环境 → Hermes → 同步 API」。
                     </p>
                   </>
                 )}
                 {hostExecutorLogin ? (
-                  <>
-                    <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.hostExecutor]}</p>
-                    <p className="settings-linked">
-                      GUI /brief 策划对话仍走 Provider 页的生文 Key（与 Hermes 选择无关）· 当前生文：{textPreset.label} / {textAccount.textModel || "默认"}
-                    </p>
-                  </>
-                ) : (
-                  <p className="settings-linked">
-                    策划对话模型在 Provider 页配置（当前：{textPreset.label} / {textAccount.textModel || "默认"}）
-                  </p>
-                )}
-              </SectionCard>
-
-              <SectionCard meta={PROMPT_SECTION} configured={promptKeyOk}>
-                <label className="field field--checkbox">
-                  <input
-                    type="checkbox"
-                    checked={form.promptUseHost}
-                    onChange={(e) => setField("promptUseHost", e.target.checked)}
-                    disabled={disabled}
-                  />
-                  <span>使用 LLM Provider（推荐）</span>
-                </label>
-                <label className="field">
-                  <span>文案模型</span>
-                  <input
-                    type="text"
-                    value={form.promptModel}
-                    onChange={(e) => setField("promptModel", e.target.value)}
-                    placeholder={textPreset.promptModelDefault}
-                    disabled={disabled}
-                  />
-                </label>
-              </SectionCard>
-
-              <SectionCard
-                meta={IMAGE_SECTION}
-                configured={
-                  form.imageUseTextProvider
-                    ? hostKeyOk
-                    : isProviderConfigured(form.providerAccounts, form.activeImageProvider)
-                }
-              >
-                <p className="settings-linked">
-                  生图：{form.imageUseTextProvider ? `沿用生文（${textPreset.label}）` : getApiProvider(form.activeImageProvider).label} · 模型 {imageAccount.imageModel || "默认"}
-                </p>
+                  <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.hostExecutor]}</p>
+                ) : null}
               </SectionCard>
 
               <SectionCard
@@ -875,6 +1074,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 statusOk="本机可用"
                 statusWarn="未检测到"
               >
+                <p className="field-hint">工种默认：新雇的程序员实例在未单独保存前继承以下设置。</p>
                 <ExecutorPicker
                   name="code-executor"
                   options={CODE_EXECUTORS}
@@ -885,7 +1085,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 />
                 {form.codeExecutor === "hermes" && form.hostExecutor !== "hermes" && (
                   <label className="field">
-                    <span>Hermes 使用的 Provider</span>
+                    <span>Hermes 使用的 Provider（工种默认）</span>
                     <select
                       value={form.hermesProvider}
                       disabled={disabled}

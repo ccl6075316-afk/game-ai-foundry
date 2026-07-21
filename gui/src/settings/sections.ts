@@ -96,7 +96,15 @@ export const ROLES_SECTION = {
   step: "②",
   title: "角色与执行器",
   roleId: "agents",
-  purpose: "各岗位用哪个模型、由谁执行（内置 / Hermes / Codex / Cursor）",
+  purpose: "按花名册中的每个同事实例配置执行器、Provider 与模型；未单独保存的实例继承工种默认",
+  note: "策划 / IT 固定内置 Pi；Cursor 仅本机登录，第三方不可用。Key 仍在 Provider 页填写。",
+};
+
+export const INSTANCE_SECTION: SettingsSectionMeta = {
+  step: "实例",
+  title: "同事实例",
+  roleId: "agents.instances",
+  purpose: "选择一名同事，为其单独指定 Provider、模型与（Codex）第三方开关",
 };
 
 export function keyConfigured(value: string): boolean {

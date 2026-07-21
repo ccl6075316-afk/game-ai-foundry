@@ -45,6 +45,11 @@ python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.js
 4. **Image post** — `--input` / `--output` (not `-i`/`-o`).
 5. **No scope creep** — godot-developer implements brief / Production Delta only.
 
+## Anvil（可选工作流）
+
+全流程改动走 Anvil：`req` → `plan` → `code` → `review` → `compound`。  
+已确认需求与可执行计划见 `docs/anvil/brainstorms/`、`docs/anvil/plans/`。简单单点修复可不走完整流程。
+
 ## Hermes (optional)
 
 Brief + prompt craft via Hermes; batch assets via **`pipeline run`**:

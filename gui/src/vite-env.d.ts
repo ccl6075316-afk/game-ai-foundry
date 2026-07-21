@@ -142,11 +142,35 @@ export interface ConfigPatch {
     engine_path?: string;
   };
   agents?: {
-    orchestrator?: { executor?: string; skill?: string; provider?: string };
-    "godot-developer"?: { executor?: string; skill?: string; provider?: string };
+    brief?: { executor?: string; skill?: string; provider?: string; model?: string | null };
+    it?: { executor?: string; skill?: string; provider?: string; model?: string | null };
+    orchestrator?: {
+      executor?: string;
+      skill?: string;
+      provider?: string;
+      model?: string | null;
+      use_third_party?: boolean;
+    };
+    "godot-developer"?: {
+      executor?: string;
+      skill?: string;
+      provider?: string;
+      model?: string | null;
+      use_third_party?: boolean;
+    };
     "prompt-crafter"?: { executor?: string; skill?: string };
     /** Foundry provider_accounts id synced into Hermes (~/.hermes) */
     hermes_provider?: string;
+    instances?: Record<
+      string,
+      {
+        role_kind?: string;
+        executor?: string;
+        provider?: string | null;
+        model?: string | null;
+        use_third_party?: boolean;
+      } | null
+    >;
   };
 }
 
@@ -184,6 +208,7 @@ declare global {
       executorStep: (
         executorId: import("./settings/executorsSetup").ExecutorId,
         stepId: string,
+        opts?: { instanceId?: string; provider?: string },
       ) => Promise<CliResult<{ ok?: boolean; error?: string; message?: string; status?: import("./settings/executorsSetup").ExecutorSetupInfo }>>;
       openExternal: (url: string) => Promise<{ ok: boolean; error?: string }>;
       listBriefs: () => Promise<BriefItem[]>;
@@ -295,18 +320,22 @@ declare global {
       hostChatStart: (
         sessionId: string,
         seed?: string,
+        instanceId?: string,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
       hostChatTurn: (
         sessionId: string,
         message: string,
+        instanceId?: string,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
       hostChatReset: (
         sessionId: string,
         seed?: string,
+        instanceId?: string,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
       hostChatExport: (
         sessionId: string,
         outputRel: string,
+        instanceId?: string,
       ) => Promise<
         CliResult<{
           brief_path?: string;
@@ -318,6 +347,7 @@ declare global {
       hostChatAutofix: (
         sessionId: string,
         maxRounds?: number,
+        instanceId?: string,
       ) => Promise<
         CliResult<{
           ok?: boolean;

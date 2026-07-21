@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from agent_auth_resolve import resolve_agent_auth
 from agent_routing import resolve_agent
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ _HERMES_SKILL: dict[str, str] = {
 }
 
 _DEFAULT_TIMEOUT = 600
+_VALID_EXECUTORS = frozenset({"hermes", "codex", "cursor", "pi"})
 
 
 class AgentTurnError(RuntimeError):
@@ -102,9 +104,61 @@ def save_session(path: Path, session: dict[str, Any]) -> None:
     path.write_text(json.dumps(session, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def resolve_executor_for_role(role_kind: str, config: dict[str, Any], override: str | None = None) -> str:
-    if override in ("hermes", "codex", "cursor", "pi"):
-        return override
+def _normalize_executor(value: Any) -> str | None:
+    if value is None:
+        return None
+    ex = str(value).strip().lower()
+    return ex if ex in _VALID_EXECUTORS else None
+
+
+def _auth_failure_hint(auth: dict[str, Any]) -> str:
+    err = str(auth.get("error") or "鉴权失败").strip()
+    provider = auth.get("provider")
+    source = auth.get("source")
+    bits = [err]
+    if provider:
+        bits.append(f"provider={provider}")
+    if source:
+        bits.append(f"source={source}")
+    bits.append("请在「设置 → 角色页」为当前实例配置 Provider 并填写 Key。")
+    return " · ".join(bits)
+
+
+def _hermes_invoke_env(resolved_auth: dict[str, Any] | None) -> dict[str, str] | None:
+    if not resolved_auth:
+        return None
+    api_key = resolved_auth.get("api_key")
+    env_key = resolved_auth.get("env_key")
+    if not api_key or not env_key:
+        return None
+    return {str(env_key): str(api_key)}
+
+
+def _hermes_cli_provider(config: dict[str, Any], foundry_provider: str | None) -> str | None:
+    if not foundry_provider:
+        return None
+    from executor_setup import resolve_hermes_sync_settings
+
+    sync = resolve_hermes_sync_settings(config, provider_id=str(foundry_provider).strip().lower())
+    return sync.get("hermes_provider")
+
+
+def resolve_executor_for_role(
+    role_kind: str,
+    config: dict[str, Any],
+    override: str | None = None,
+    *,
+    instance_id: str | None = None,
+) -> str:
+    normalized = _normalize_executor(override)
+    if normalized:
+        return normalized
+
+    auth = resolve_agent_auth(config, role_kind=role_kind, instance_id=instance_id)
+    from_auth = _normalize_executor(auth.get("executor"))
+    if from_auth:
+        return from_auth
+
     if role_kind == "it":
         agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
         it_cfg = agents.get("it") if isinstance(agents.get("it"), dict) else {}
@@ -388,6 +442,8 @@ def run_hermes_turn(
     role_kind: str,
     executor_session_id: str | None,
     timeout: int,
+    config: dict[str, Any] | None = None,
+    resolved_auth: dict[str, Any] | None = None,
 ) -> tuple[str, str | None, str]:
     hermes = _which_executor_bin("hermes")
     if not hermes:
@@ -412,7 +468,17 @@ def run_hermes_turn(
     ]
     if executor_session_id:
         argv.extend(["--resume", executor_session_id])
-    proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout)
+    if resolved_auth:
+        model = resolved_auth.get("model")
+        if model:
+            argv.extend(["-m", str(model)])
+        provider = resolved_auth.get("provider")
+        if provider and config is not None:
+            hermes_provider = _hermes_cli_provider(config, str(provider))
+            if hermes_provider:
+                argv.extend(["--provider", str(hermes_provider)])
+    hermes_env = _hermes_invoke_env(resolved_auth)
+    proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout, env=hermes_env)
     out = _clean_assistant_text(proc.stdout or "")
     err = (proc.stderr or "").strip()
     combined = out or err
@@ -543,6 +609,7 @@ def run_pi_executor_turn(
     role_kind: str,
     timeout: int = _DEFAULT_TIMEOUT,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
 ) -> tuple[str, str | None, str]:
     from pi_runtime import PiRuntimeError, run_pi_agent_turn
 
@@ -552,6 +619,7 @@ def run_pi_executor_turn(
             system_prompt=system,
             user_text=prompt,
             config=config,
+            instance_id=instance_id,
             max_tool_rounds=4 if role_kind == "it" else 2,
             timeout_sec=float(min(timeout, 240)),
             tool_profile="it",
@@ -582,12 +650,25 @@ def run_executor_turn(
     executor_session_id: str | None,
     timeout: int = _DEFAULT_TIMEOUT,
     config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
+    resolved_auth: dict[str, Any] | None = None,
 ) -> tuple[str, str | None, str]:
     if executor == "pi":
-        return run_pi_executor_turn(prompt, role_kind=role_kind, timeout=timeout, config=config)
+        return run_pi_executor_turn(
+            prompt,
+            role_kind=role_kind,
+            timeout=timeout,
+            config=config,
+            instance_id=instance_id,
+        )
     if executor == "hermes":
         return run_hermes_turn(
-            prompt, role_kind=role_kind, executor_session_id=executor_session_id, timeout=timeout
+            prompt,
+            role_kind=role_kind,
+            executor_session_id=executor_session_id,
+            timeout=timeout,
+            config=config,
+            resolved_auth=resolved_auth,
         )
     if executor == "codex":
         return run_codex_turn(prompt, executor_session_id=executor_session_id, timeout=timeout)
@@ -622,8 +703,12 @@ def run_turn(
     else:
         session = new_session(role_kind, session_id)
 
-    chosen = resolve_executor_for_role(role_kind, config, executor)
+    resolved_auth = resolve_agent_auth(config, role_kind=role_kind, instance_id=instance_id)
+    chosen = resolve_executor_for_role(role_kind, config, executor, instance_id=instance_id)
     session["executor"] = chosen
+
+    if chosen == "pi" and resolved_auth.get("error"):
+        raise AgentTurnError(_auth_failure_hint(resolved_auth))
 
     user_text = message.strip()
     messages = list(session.get("messages") or [])
@@ -648,6 +733,8 @@ def run_turn(
         executor_session_id=session.get("executor_session_id"),
         timeout=timeout,
         config=config,
+        instance_id=instance_id,
+        resolved_auth=resolved_auth,
     )
     if exec_sid:
         session["executor_session_id"] = exec_sid
