@@ -498,6 +498,22 @@ def run_hermes_turn(
     return out, sid, err
 
 
+# Must stay in sync with gui/src/settings/executorModels.ts tiers.mid
+_CODEX_MID_TIER_MODEL = "gpt-5.3"
+_CURSOR_MID_TIER_MODEL = "auto"
+
+
+def _resolve_native_model(executor: str, model: str | None) -> str:
+    model_id = (model or "").strip()
+    if model_id:
+        return model_id
+    if executor == "codex":
+        return _CODEX_MID_TIER_MODEL
+    if executor == "cursor":
+        return _CURSOR_MID_TIER_MODEL
+    return model_id
+
+
 def run_codex_turn(
     prompt: str,
     *,
@@ -510,7 +526,7 @@ def run_codex_turn(
     if not codex:
         raise AgentTurnError("未找到 codex CLI。请在环境面板安装 Codex 并完成登录。")
 
-    model_id = (model or "").strip()
+    model_id = _resolve_native_model("codex", model)
 
     with tempfile.TemporaryDirectory(prefix="gaf-codex-") as tmp:
         out_file = Path(tmp) / "last_message.txt"
@@ -521,8 +537,7 @@ def run_codex_turn(
                 "resume",
                 executor_session_id,
             ]
-            if model_id:
-                argv.extend(["-m", model_id])
+            argv.extend(["-m", model_id])
             argv.extend([
                 "--sandbox",
                 sandbox,
@@ -535,8 +550,7 @@ def run_codex_turn(
                 codex,
                 "exec",
             ]
-            if model_id:
-                argv.extend(["-m", model_id])
+            argv.extend(["-m", model_id])
             argv.extend([
                 "--sandbox",
                 sandbox,
@@ -579,9 +593,8 @@ def run_cursor_turn(
             "请安装 Cursor Agent shell 命令，或改用 Hermes / Codex。"
         )
     argv = [agent, "-p", "--output-format", "text", "--force", "--workspace", str(_REPO_ROOT)]
-    model_id = (model or "").strip()
-    if model_id:
-        argv.extend(["--model", model_id])
+    model_id = _resolve_native_model("cursor", model)
+    argv.extend(["--model", model_id])
     if executor_session_id:
         argv.extend(["--resume", executor_session_id])
     argv.append(prompt)

@@ -291,6 +291,28 @@ class AgentTurnTests(unittest.TestCase):
 
 
 class TestCodexModel(unittest.TestCase):
+    def test_codex_empty_model_uses_mid_default(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_codex_turn
+
+            run_codex_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                model="",
+            )
+        self.assertIn("-m", captured["argv"])
+        self.assertIn("gpt-5.3", captured["argv"])
+
     def test_codex_passes_model_flag(self) -> None:
         captured: dict[str, list[str]] = {}
 
