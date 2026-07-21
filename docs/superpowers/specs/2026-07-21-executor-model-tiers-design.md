@@ -11,7 +11,7 @@
 - **Change Log**：初稿 — 方案 A（档位 + 执行器模型目录；Codex/Cursor 登录态隐藏 Provider）
 - **Requirements Source**：用户选择「先 A 后 B」；Codex/Cursor 需切换具体型号（如 5.5 / auto / opus）；UI 选项 1（隐藏厂商）
 - **Background Inputs**：现有 `ColleagueConfigBar`、`agents.instances`、Hermes 已传 `-m`；Codex/Cursor 几乎不传 Foundry model
-- **Deferred**：**B** Agent 权限批准 UI（另轨）
+- **Deferred**：**B** Agent 权限批准 UI → 见 [`2026-07-21-pi-tool-permission-ui-design.md`](./2026-07-21-pi-tool-permission-ui-design.md)（Pi 变更工具 GUI 批准，v1）
 
 ## 背景
 
