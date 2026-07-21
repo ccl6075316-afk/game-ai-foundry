@@ -32,3 +32,6 @@ projects/*/
 !projects/.gitkeep
 tests/fixtures/
 progress.json
+
+# Cursor Superpowers SDD scratch (not product docs; those live under docs/superpowers/)
+.superpowers/
