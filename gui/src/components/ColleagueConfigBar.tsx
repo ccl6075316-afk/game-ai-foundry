@@ -358,9 +358,18 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
       : null;
   const activeTier = nativeCatalog ? tierForModel(nativeCatalog, model) : null;
   const selectModel = nativeCatalog ? resolveNativeModel(nativeCatalog, model) : model;
+  const trimmedModel = String(model || "").trim();
+  const inCatalog = Boolean(
+    nativeCatalog?.options.some((o) => o.id === trimmedModel),
+  );
   const showNativeCustomInput =
-    Boolean(nativeCatalog) && (activeTier === "custom" || nativeCustomOpen);
-  const nativeSelectValue = showNativeCustomInput ? "__custom__" : selectModel;
+    Boolean(nativeCatalog) &&
+    (nativeCustomOpen || (!inCatalog && trimmedModel !== ""));
+  const nativeSelectValue = showNativeCustomInput
+    ? "__custom__"
+    : inCatalog
+      ? trimmedModel
+      : selectModel;
 
   return (
     <div
