@@ -33,6 +33,21 @@ class PiFoundryToolsTest(unittest.TestCase):
     def test_allowlist(self) -> None:
         self.assertTrue(is_allowed_argv(["doctor", "--json"]))
         self.assertTrue(is_allowed_argv(["pipeline", "diagnose", "--json"]))
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "setup",
+                    "provider",
+                    "upsert",
+                    "--provider",
+                    "deepseek",
+                    "--api-key",
+                    "sk-test",
+                    "--i-confirm",
+                    "--json",
+                ]
+            )
+        )
         self.assertFalse(is_allowed_argv(["pipeline", "run", "--jobs", "4"]))
         self.assertFalse(is_allowed_argv(["doctor", "--json", ";", "rm", "-rf", "/"]))
 

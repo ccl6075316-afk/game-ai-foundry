@@ -29,6 +29,7 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("doctor",),
     ("setup", "check"),
     ("setup", "pi", "status"),
+    ("setup", "provider", "upsert"),
     ("pipeline", "diagnose"),
     ("pipeline", "status"),
     ("pipeline", "heal"),
@@ -93,6 +94,14 @@ Rules:
 - After tools, answer the user in Chinese. Do **not** claim you changed config unless a tool did.
 - Do **not** run `pipeline run` or any generate/install that spends money or mutates projects
   unless the user explicitly asked and the command is on the allow-list (it is not).
+- **Provider Key write** (`setup provider upsert`): only after the user clearly confirms
+  in this chat. Rephrase the target provider (mask the key), ask for 确认/取消, then emit
+  a FOUNDRY_TOOL with `--i-confirm` and `--json`. Prefer putting the key in the tool argv
+  as `--api-key` only in that confirmed turn; never echo the full key back in your reply.
+  Example after confirm:
+  <<<FOUNDRY_TOOL
+  ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
 """.strip()
 
 

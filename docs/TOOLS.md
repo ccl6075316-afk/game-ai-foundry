@@ -45,6 +45,7 @@ python gamefactory.py hermes paths    # 输出 repo_root、cli_dir、config_path
 |------|------|
 | `doctor --json` | API Key 是否 set、Godot 路径、各 executor 是否 available、capabilities |
 | `setup check --json` | FFmpeg / Godot / .NET 是否就绪 |
+| `setup provider upsert --provider <id> --api-key … --i-confirm --json` | **IT 工具箱**：经用户确认写入 `provider_accounts`（可切当前生文）；输出无完整 Key |
 | `setup executor status --json` | Codex / Hermes / Cursor 分步安装状态 |
 | `agents show --discover` | 七角色当前配置的 executor 与本机是否可用 |
 

@@ -24,7 +24,7 @@ export const CHAT_AGENT_HINTS: Record<ChatAgentRole, string> = {
   brief: "主对话：商量需求，明确说「落实 brief」后再定稿",
   product_host: "Agent：试玩反馈、分诊派工、推进任务（修改主入口）",
   programmer: "Agent：按任务改 Godot C#、跑 validate",
-  it: "内置 Pi：doctor / pipeline diagnose，只配 API 即可用",
+  it: "内置 Pi：doctor / 配 Provider Key（确认后写入）/ pipeline diagnose",
 };
 
 export function roleHero(role: ChatAgentRole): { title: string; subtitle: string } {
@@ -48,7 +48,7 @@ export function roleHero(role: ChatAgentRole): { title: string; subtitle: string
     case "it":
       return {
         title: "机器侧查什么？",
-        subtitle: "内置 Pi：doctor、pipeline diagnose、环境与配置问题。不改 brief、不写玩法。",
+        subtitle: "内置 Pi：doctor、经确认写入 Provider Key、pipeline diagnose。不改 brief、不写玩法。",
       };
   }
 }

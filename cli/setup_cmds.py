@@ -230,3 +230,66 @@ def setup_pi_smoke_cmd(as_json: bool, timeout: float) -> None:
     if result.get("stderr"):
         click.echo(result["stderr"][-800:], err=True)
     sys.exit(1)
+
+@setup_group.group("provider")
+def setup_provider_group() -> None:
+    """Manage provider_accounts (IT toolbox write path)."""
+
+
+@setup_provider_group.command("upsert")
+@click.option("--provider", "provider_id", required=True, help="Account id: openrouter/deepseek/kimi/…")
+@click.option("--api-key", "api_key", default=None, help="API key (prefer env GAMEFACTORY_PROVIDER_API_KEY).")
+@click.option(
+    "--api-key-env",
+    "api_key_env",
+    default=None,
+    help="Env var name holding the key (default GAMEFACTORY_PROVIDER_API_KEY).",
+)
+@click.option("--api-base", "api_base", default=None, help="Optional API base URL.")
+@click.option("--text-model", "text_model", default=None, help="Optional default text model.")
+@click.option(
+    "--set-active-text/--no-set-active-text",
+    default=True,
+    show_default=True,
+    help="Also switch host / current text provider to this account.",
+)
+@click.option(
+    "--i-confirm",
+    "i_confirm",
+    is_flag=True,
+    help="Required: user confirmed write in IT chat (or equivalent).",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
+def setup_provider_upsert_cmd(
+    provider_id: str,
+    api_key: str | None,
+    api_key_env: str | None,
+    api_base: str | None,
+    text_model: str | None,
+    set_active_text: bool,
+    i_confirm: bool,
+    as_json: bool,
+) -> None:
+    """Upsert provider_accounts entry after user confirmation."""
+    from provider_upsert import upsert_provider_account
+
+    result = upsert_provider_account(
+        provider=provider_id,
+        api_key=api_key,
+        api_key_env=api_key_env,
+        api_base=api_base,
+        text_model=text_model,
+        set_active_text=set_active_text,
+        i_confirm=i_confirm,
+    )
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        click.echo(
+            f"已写入 {result.get('provider')}（has_api_key=yes"
+            f", set_active_text={bool(result.get('set_active_text'))}）"
+        )
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)

@@ -35,7 +35,7 @@
 | 策划 `brief` | `brief chat` → 内置 Pi（JSON draft） | 只配 API |
 | 项目经理 `product_host` | `agent turn` → Hermes/… | 引导装 |
 | 程序员 `programmer` | `agent turn` → Codex/Hermes | 引导装 |
-| **IT `it`** | `agent turn` → **内置 Pi** + `resources/skills/it/diagnose.md` | 只配 API |
+| **IT `it`** | `agent turn` → **内置 Pi** + `resources/skills/it/diagnose.md`（探测 + **经确认** `setup provider upsert`） | 只配 API |
 
 ---
 
