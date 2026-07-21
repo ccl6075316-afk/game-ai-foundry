@@ -37,6 +37,11 @@ import {
   type AgentExecutorsMap,
 } from "../settings/agentExecutors";
 import {
+  loadAgentInstancesFromConfig,
+  serializeAgentInstances,
+  syncPiLockedInstancesToPreset,
+} from "../settings/agentInstances";
+import {
   getProviderAccount,
   getVideoAccount,
   isProviderConfigured,
@@ -442,7 +447,20 @@ export function SettingsPanel({ busy, onSaved }: Props) {
     setMessage(null);
     const codexPreset = getExecutorPreset(form.agentExecutors, "codex");
     try {
-      const res = await window.gameFactory.saveConfig(toPatch(form));
+      const info = await window.gameFactory.getConfig();
+      const data = (info.data || {}) as Record<string, unknown>;
+      const previousPi = loadAgentExecutorsFromConfig(data).pi;
+      const syncedInstances = syncPiLockedInstancesToPreset(
+        loadAgentInstancesFromConfig(data),
+        previousPi,
+        form.agentExecutors.pi,
+      );
+      const patch = toPatch(form);
+      patch.agents = {
+        ...patch.agents,
+        instances: serializeAgentInstances(syncedInstances),
+      };
+      const res = await window.gameFactory.saveConfig(patch);
       if (!res.ok) throw new Error(res.error || "保存失败");
 
       let syncNote = "";
@@ -774,7 +792,8 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                 <p className="settings-linked">
                   <strong>Provider 页</strong>：填各平台 API Key；此处仅为各 Agent 工具选择默认账号库 id 与模型。
                   <br />
-                  <strong>雇人 / 对话</strong>：同事实例可单独覆盖；保存实例不会回写此处预设。
+                  <strong>雇人 / 对话</strong>：同事实例可单独覆盖。保存时，仍等于「旧 Pi 默认」的策划/IT
+                  实例会跟随新的 Agent · Pi Provider/模型。
                 </p>
               </SectionCard>
 

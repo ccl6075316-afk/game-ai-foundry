@@ -41,6 +41,31 @@ protocol.registerSchemesAsPrivileged([
   },
 ]);
 
+/** Prepend common Node install dirs so CLI can find Node 22+ (Electron PATH often omits them). */
+function pathWithCommonNodeBins(basePath) {
+  const home = os.homedir();
+  const extras = [
+    path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
+    path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
+    path.join(home, "scoop", "apps", "nodejs", "current"),
+    "/opt/homebrew/bin",
+    "/usr/local/bin",
+  ];
+  const parts = String(basePath || "")
+    .split(path.delimiter)
+    .filter(Boolean);
+  const seen = new Set(parts.map((p) => p.toLowerCase()));
+  for (const dir of extras) {
+    const key = dir.toLowerCase();
+    if (!seen.has(key) && existsSync(dir)) {
+      parts.unshift(dir);
+      seen.add(key);
+    }
+  }
+  return parts.join(path.delimiter);
+}
+
 function runCli(args, { cwd, onLine } = {}) {
   const root = repoRoot();
   const python = resolvePython(root);
@@ -51,9 +76,10 @@ function runCli(args, { cwd, onLine } = {}) {
       cwd: workdir,
       env: {
         ...process.env,
+        PATH: pathWithCommonNodeBins(process.env.PATH),
         GAMEFACTORY_ROOT: root,
         PYTHONIOENCODING: "utf-8",
-        // Let embedded Pi reuse this Electron binary as Node (no system Node required).
+        // Electron 39+ ships Node 22.19+ — same runtime as Pi (ELECTRON_RUN_AS_NODE).
         GAMEFACTORY_ELECTRON_EXECUTABLE: process.execPath,
         ...(resolvePiRuntimeRoot()
           ? { GAMEFACTORY_PI_ROOT: resolvePiRuntimeRoot() }

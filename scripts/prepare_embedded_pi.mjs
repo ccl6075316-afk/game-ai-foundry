@@ -168,13 +168,7 @@ function main() {
   };
   writeFileSync(path.join(output, "package.json"), JSON.stringify(pkg, null, 2) + "\n", "utf8");
 
-  const npmCmd =
-    process.platform === "win32"
-      ? (spawnSync("where.exe", ["npm.cmd"], { encoding: "utf8" }).stdout || "")
-          .split(/\r?\n/)
-          .map((s) => s.trim())
-          .find(Boolean) || "npm.cmd"
-      : "npm";
+  const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
   const install = spawnSync(
     npmCmd,
     ["install", spec, "--omit=dev", "--no-fund", "--no-audit", "--ignore-scripts"],
@@ -182,6 +176,8 @@ function main() {
       cwd: output,
       stdio: "inherit",
       env: { ...process.env, npm_config_fund: "false" },
+      // Windows: npm.cmd is a batch file; without shell, status can be null.
+      shell: process.platform === "win32",
     },
   );
   if (install.status !== 0) {
