@@ -638,6 +638,7 @@ def run_pi_executor_turn(
     timeout: int = _DEFAULT_TIMEOUT,
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
+    session_id: str | None = None,
 ) -> tuple[str, str | None, str]:
     from pi_runtime import PiRuntimeError, run_pi_agent_turn
 
@@ -648,6 +649,8 @@ def run_pi_executor_turn(
             user_text=prompt,
             config=config,
             instance_id=instance_id,
+            role_kind=role_kind,
+            session_id=session_id,
             max_tool_rounds=4 if role_kind == "it" else 2,
             timeout_sec=float(min(timeout, 240)),
             tool_profile="it",
@@ -680,6 +683,7 @@ def run_executor_turn(
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
     resolved_auth: dict[str, Any] | None = None,
+    session_id: str | None = None,
 ) -> tuple[str, str | None, str]:
     if executor == "pi":
         return run_pi_executor_turn(
@@ -688,6 +692,7 @@ def run_executor_turn(
             timeout=timeout,
             config=config,
             instance_id=instance_id,
+            session_id=session_id,
         )
     if executor == "hermes":
         return run_hermes_turn(
@@ -773,6 +778,7 @@ def run_turn(
         config=config,
         instance_id=instance_id,
         resolved_auth=resolved_auth,
+        session_id=session_id,
     )
     if exec_sid:
         session["executor_session_id"] = exec_sid

@@ -623,6 +623,7 @@ def run_pi_agent_turn(
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
     role_kind: str | None = None,
+    session_id: str | None = None,
     max_tool_rounds: int = 4,
     timeout_sec: float = 180.0,
     tool_profile: str = "it",
@@ -630,12 +631,15 @@ def run_pi_agent_turn(
 ) -> dict[str, Any]:
     """Pi turn with Foundry tool-fence loop (for IT / optional agent roles)."""
     from pi_foundry_tools import run_tool_round, tool_protocol_instructions
+    from tool_permission import PermissionTurnState
 
     auth_role = role_kind or ("brief" if tool_profile == "brief" else "it")
     system = f"{system_prompt.rstrip()}\n\n{tool_protocol_instructions(profile=tool_profile)}"
     conversation = user_text
     tool_trace: list[dict[str, Any]] = []
     final_text = ""
+    permission_turn = PermissionTurnState()
+    perm_session = (session_id or "").strip()
 
     for _ in range(max(1, max_tool_rounds + 1)):
         raw = run_pi_text_completion(
@@ -648,7 +652,11 @@ def run_pi_agent_turn(
             response_mode="text" if tool_profile != "brief" else "json",
         )
         results, visible = run_tool_round(
-            raw, allow_export=allow_export, profile=tool_profile
+            raw,
+            allow_export=allow_export,
+            profile=tool_profile,
+            permission_session_id=perm_session,
+            permission_turn_state=permission_turn,
         )
         final_text = visible or raw
         if not results:
@@ -704,6 +712,7 @@ def run_pi_brief_turn_with_tools(
         config=config,
         instance_id=instance_id,
         role_kind="brief",
+        session_id=session_id,
         max_tool_rounds=max_tool_rounds,
         timeout_sec=timeout_sec,
         tool_profile="brief",

@@ -419,6 +419,19 @@ declare global {
           };
         }>
       >;
+      decideToolPermission: (
+        permissionId: string,
+        decision: "once" | "turn" | "session" | "deny",
+      ) => Promise<{ ok?: boolean }>;
+      onToolPermission: (
+        callback: (payload: {
+          permissionId: string;
+          sessionId: string;
+          turnId?: string;
+          argvSummary: string;
+          argv?: string[];
+        }) => void,
+      ) => () => void;
       agentStatus: (
         role: "product_host" | "programmer",
         sessionId: string,

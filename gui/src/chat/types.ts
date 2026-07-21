@@ -17,6 +17,14 @@ export interface MediaPreview {
   posterUrl?: string;
 }
 
+export interface ToolPermissionCard {
+  permissionId: string;
+  sessionId: string;
+  turnId?: string;
+  argvSummary: string;
+  status: "pending" | "allowed_once" | "allowed_turn" | "allowed_session" | "denied";
+}
+
 export interface ChatMessage {
   id: string;
   role: ChatRole;
@@ -24,6 +32,7 @@ export interface ChatMessage {
   timestamp: number;
   attachments?: ChatAttachment[];
   choices?: string[];
+  toolPermission?: ToolPermissionCard;
 }
 
 let seq = 0;

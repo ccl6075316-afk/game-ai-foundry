@@ -21,9 +21,13 @@ import {
   resolvePiRuntimeRoot,
   resolvePython,
 } from "./paths.mjs";
+import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = !isPackagedApp();
+
+/** @type {ReturnType<typeof createToolPermissionBridge> | null} */
+let toolPermissionBridge = null;
 
 const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif"]);
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".mkv"]);
@@ -70,6 +74,7 @@ function runCli(args, { cwd, onLine } = {}) {
   const root = repoRoot();
   const python = resolvePython(root);
   const workdir = cwd || cliDir(root);
+  const permissionEnv = toolPermissionBridge ? toolPermissionBridge.env() : {};
 
   return new Promise((resolve, reject) => {
     const proc = spawn(python, ["gamefactory.py", ...args], {
@@ -84,6 +89,7 @@ function runCli(args, { cwd, onLine } = {}) {
         ...(resolvePiRuntimeRoot()
           ? { GAMEFACTORY_PI_ROOT: resolvePiRuntimeRoot() }
           : {}),
+        ...permissionEnv,
       },
       shell: false,
     });
@@ -792,6 +798,10 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  toolPermissionBridge = createToolPermissionBridge({
+    getSender: () => (mainWindow && !mainWindow.isDestroyed() ? mainWindow.webContents : null),
+  });
+
   protocol.handle("gamefactory-media", (request) => {
     try {
       const url = new URL(request.url);
@@ -1337,6 +1347,12 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
+  ipcMain.handle("agent-tool-permission-decision", async (_e, permissionId, decision) => {
+    if (!toolPermissionBridge) return { ok: false };
+    const ok = toolPermissionBridge.decide(permissionId, decision);
+    return { ok };
+  });
+
   ipcMain.handle("agent-status", async (_e, role, sessionId) => {
     const result = await runCli([
       "agent",
@@ -1464,5 +1480,7 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
+  toolPermissionBridge?.close();
+  toolPermissionBridge = null;
   if (process.platform !== "darwin") app.quit();
 });

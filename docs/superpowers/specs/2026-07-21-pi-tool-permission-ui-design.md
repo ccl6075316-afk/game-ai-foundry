@@ -3,12 +3,12 @@
 ## 执行元数据
 
 - **Status**：confirmed
-- **Workflow Stage**：plan
+- **Workflow Stage**：implement
 - **Created**：2026-07-21
-- **Updated**：2026-07-21（用户书面设计「确认」）
-- **Source Of Truth Until**：实现以后续 `docs/superpowers/plans/2026-07-21-pi-tool-permission-ui.md` 为准（plan 落地后更新本行）
-- **Confirmed By**：用户「确认」（2026-07-21）
-- **Change Log**：初稿 — 方案 A（Electron 分步驱动 Pi 工具环 + 聊天内联批准卡片）
+- **Updated**：2026-07-21（用户「实现吧」）
+- **Source Of Truth Until**：实现以 [`docs/superpowers/plans/2026-07-21-pi-tool-permission-ui.md`](../plans/2026-07-21-pi-tool-permission-ui.md) 为准
+- **Confirmed By**：用户「确认」（2026-07-21）；用户「实现吧」（2026-07-21）
+- **Change Log**：初稿 — 方案 A；实现：loopback HTTP bridge + CLI gate + 内联卡片
 - **Requirements Source**：模型档位 Spec 延后的 B；用户选型：变更类 only / 全部 Pi 角色 / 内联卡片 / 范围可选（一次·本回合·本会话）/ 架构 A
 - **Background Inputs**：`cli/pi_foundry_tools.py`（`_MUTATE_PREFIXES`、`--i-confirm`）、`run_pi_agent_turn`、GUI one-shot `agent-turn` IPC；探查结论：Hermes/Cursor YOLO·force，Codex 仅静态沙箱
 - **Deferred**：Hermes / Codex / Cursor 工具级审批；永久放权；只读工具弹窗；通用流式 Agent 协议

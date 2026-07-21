@@ -17,6 +17,13 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from tool_permission import (
+    PermissionTurnState,
+    ensure_i_confirm,
+    permission_bridge_configured,
+    request_mutate_permission,
+)
+
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 
 _TOOL_FENCE = re.compile(
@@ -133,15 +140,16 @@ Rules:
 - Never invent tool output; wait for the host to paste results.
 - After tools, answer the user in Chinese. Do **not** claim you changed config unless a tool did.
 - Do **not** run `pipeline run` (not allow-listed). Do **not** edit Foundry/Electron/Pi source or `games/`.
-- **Mutating ops** require user「确认」in this chat, then include `--i-confirm` in FOUNDRY_TOOL argv:
+- **Mutating ops** will pause for a **GUI approval card** (允许一次 / 本回合 / 本会话). Still include
+  `--i-confirm` in FOUNDRY_TOOL argv for mutating prefixes:
   `setup provider upsert`, `setup install`, `setup ensure`, `setup executor step`,
   `setup agents executors upsert`, `pipeline heal`, `pipeline reset`.
-  Rephrase the action (mask any Key), ask 确认/取消; never echo a full API Key in replies.
-  Example after confirm (Key write):
+  Mask any Key in chat; never echo a full API Key in replies.
+  Example (Key write):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
-  Example after confirm (toolchain):
+  Example (toolchain):
   <<<FOUNDRY_TOOL
   ["setup", "install", "ffmpeg", "--json", "--i-confirm"]
   FOUNDRY_TOOL>>>
@@ -280,6 +288,11 @@ def _gamefactory_python() -> str:
     return sys.executable
 
 
+def is_mutating_argv(argv: list[str]) -> bool:
+    prefix = _prefix_of(argv)
+    return prefix is not None and prefix in _MUTATE_PREFIXES
+
+
 def run_allowed_gamefactory(
     argv: list[str],
     *,
@@ -287,18 +300,40 @@ def run_allowed_gamefactory(
     timeout_sec: float | None = None,
     allow_export: bool = False,
     profile: str = "it",
+    permission_session_id: str = "",
+    permission_turn_state: PermissionTurnState | None = None,
 ) -> dict[str, Any]:
     """Run ``python gamefactory.py <argv>`` if allow-listed."""
-    if not is_allowed_argv(argv, allow_export=allow_export, profile=profile):
+    run_argv_in = list(argv)
+    if is_mutating_argv(run_argv_in) and permission_bridge_configured():
+        decision = request_mutate_permission(
+            run_argv_in,
+            session_id=permission_session_id,
+            turn_state=permission_turn_state,
+        )
+        if decision == "deny":
+            return {
+                "ok": False,
+                "argv": run_argv_in,
+                "error": "user denied tool permission (or timed out)",
+                "stdout": "",
+                "stderr": "",
+                "exit_code": None,
+                "permission": "deny",
+            }
+        run_argv_in = ensure_i_confirm(run_argv_in)
+
+    if not is_allowed_argv(run_argv_in, allow_export=allow_export, profile=profile):
         return {
             "ok": False,
-            "argv": argv,
-            "error": f"command not on Pi whitelist (or export/confirm gated): {argv!r}",
+            "argv": run_argv_in,
+            "error": f"command not on Pi whitelist (or export/confirm gated): {run_argv_in!r}",
             "stdout": "",
             "stderr": "",
             "exit_code": None,
         }
 
+    argv = run_argv_in
     prefix = _prefix_of(argv)
     if prefix == ("brief", "chat", "export"):
         sid = _flag_value(argv, "--session-id") or ""
@@ -376,12 +411,22 @@ def run_tool_round(
     cwd: Path | None = None,
     allow_export: bool = False,
     profile: str = "it",
+    permission_session_id: str = "",
+    permission_turn_state: PermissionTurnState | None = None,
 ) -> tuple[list[dict[str, Any]], str]:
     """Execute all tools found in ``text``; return (results, text_without_fences)."""
     tools = extract_foundry_tools(text)
+    state = permission_turn_state
+    if state is None and any(is_mutating_argv(a) for a in tools):
+        state = PermissionTurnState()
     results = [
         run_allowed_gamefactory(
-            argv, cwd=cwd, allow_export=allow_export, profile=profile
+            argv,
+            cwd=cwd,
+            allow_export=allow_export,
+            profile=profile,
+            permission_session_id=permission_session_id,
+            permission_turn_state=state,
         )
         for argv in tools
     ]
