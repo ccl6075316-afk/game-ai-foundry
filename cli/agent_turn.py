@@ -498,16 +498,35 @@ def run_hermes_turn(
     return out, sid, err
 
 
+# Must stay in sync with gui/src/settings/executorModels.ts tiers.mid
+_CODEX_MID_TIER_MODEL = "gpt-5.3"
+_CURSOR_MID_TIER_MODEL = "auto"
+
+
+def _resolve_native_model(executor: str, model: str | None) -> str:
+    model_id = (model or "").strip()
+    if model_id:
+        return model_id
+    if executor == "codex":
+        return _CODEX_MID_TIER_MODEL
+    if executor == "cursor":
+        return _CURSOR_MID_TIER_MODEL
+    return model_id
+
+
 def run_codex_turn(
     prompt: str,
     *,
     executor_session_id: str | None,
     timeout: int,
     sandbox: str = "workspace-write",
+    model: str | None = None,
 ) -> tuple[str, str | None, str]:
     codex = _which_executor_bin("codex")
     if not codex:
         raise AgentTurnError("未找到 codex CLI。请在环境面板安装 Codex 并完成登录。")
+
+    model_id = _resolve_native_model("codex", model)
 
     with tempfile.TemporaryDirectory(prefix="gaf-codex-") as tmp:
         out_file = Path(tmp) / "last_message.txt"
@@ -517,16 +536,22 @@ def run_codex_turn(
                 "exec",
                 "resume",
                 executor_session_id,
+            ]
+            argv.extend(["-m", model_id])
+            argv.extend([
                 "--sandbox",
                 sandbox,
                 "-o",
                 str(out_file),
                 "-",
-            ]
+            ])
         else:
             argv = [
                 codex,
                 "exec",
+            ]
+            argv.extend(["-m", model_id])
+            argv.extend([
                 "--sandbox",
                 sandbox,
                 "-C",
@@ -534,7 +559,7 @@ def run_codex_turn(
                 "-o",
                 str(out_file),
                 "-",
-            ]
+            ])
         proc = _run_cmd(argv, cwd=_REPO_ROOT, timeout=timeout, stdin_text=prompt)
         err = (proc.stderr or "").strip()
         out = ""
@@ -559,6 +584,7 @@ def run_cursor_turn(
     *,
     executor_session_id: str | None,
     timeout: int,
+    model: str | None = None,
 ) -> tuple[str, str | None, str]:
     agent = _which_executor_bin("cursor")
     if not agent:
@@ -567,6 +593,8 @@ def run_cursor_turn(
             "请安装 Cursor Agent shell 命令，或改用 Hermes / Codex。"
         )
     argv = [agent, "-p", "--output-format", "text", "--force", "--workspace", str(_REPO_ROOT)]
+    model_id = _resolve_native_model("cursor", model)
+    argv.extend(["--model", model_id])
     if executor_session_id:
         argv.extend(["--resume", executor_session_id])
     argv.append(prompt)
@@ -671,9 +699,19 @@ def run_executor_turn(
             resolved_auth=resolved_auth,
         )
     if executor == "codex":
-        return run_codex_turn(prompt, executor_session_id=executor_session_id, timeout=timeout)
+        return run_codex_turn(
+            prompt,
+            executor_session_id=executor_session_id,
+            timeout=timeout,
+            model=(resolved_auth or {}).get("model"),
+        )
     if executor == "cursor":
-        return run_cursor_turn(prompt, executor_session_id=executor_session_id, timeout=timeout)
+        return run_cursor_turn(
+            prompt,
+            executor_session_id=executor_session_id,
+            timeout=timeout,
+            model=(resolved_auth or {}).get("model"),
+        )
     raise AgentTurnError(f"Unsupported executor: {executor}")
 
 

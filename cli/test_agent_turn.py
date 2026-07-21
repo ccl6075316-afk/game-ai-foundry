@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -287,6 +288,78 @@ class AgentTurnTests(unittest.TestCase):
                         timeout=10,
                     )
             self.assertIn("API Key", str(ctx.exception))
+
+
+class TestCodexModel(unittest.TestCase):
+    def test_codex_empty_model_uses_mid_default(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_codex_turn
+
+            run_codex_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                model="",
+            )
+        self.assertIn("-m", captured["argv"])
+        self.assertIn("gpt-5.3", captured["argv"])
+
+    def test_codex_passes_model_flag(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_codex_turn
+
+            run_codex_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                model="gpt-5.5",
+            )
+        self.assertIn("-m", captured["argv"])
+        self.assertIn("gpt-5.5", captured["argv"])
+
+
+class TestCursorModel(unittest.TestCase):
+    def test_cursor_passes_model_flag(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_cursor_turn
+
+            run_cursor_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                model="opus-4.5",
+            )
+        self.assertTrue(
+            "--model" in captured["argv"] or "-m" in captured["argv"]
+        )
+        self.assertIn("opus-4.5", captured["argv"])
 
 
 if __name__ == "__main__":
