@@ -1,5 +1,6 @@
 import type { ExecutorId, ExecutorSetupInfo, ExecutorSetupReport } from "../settings/executorsSetup";
 import { EXECUTOR_ORDER } from "../settings/executorsSetup";
+import { ExecutorIcon } from "../settings/ExecutorIcon";
 
 interface Props {
   report: ExecutorSetupReport | null;
@@ -36,6 +37,7 @@ function ExecutorCard({
     <li className={`executor-card ${info.ready ? "ready" : ""}`}>
       <div className="executor-card__head">
         <span className={`toolchain-dot ${info.ready ? "ok" : "no"}`} />
+        <ExecutorIcon id={info.id} className="executor-icon executor-icon--md" />
         <div>
           <strong>{info.label}</strong>
           <p className="executor-card__desc">{info.description}</p>

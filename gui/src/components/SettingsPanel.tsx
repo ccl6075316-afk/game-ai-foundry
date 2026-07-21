@@ -27,6 +27,7 @@ import {
   type SettingsSectionMeta,
   type SettingsTab,
 } from "../settings/sections";
+import { ExecutorIcon } from "../settings/ExecutorIcon";
 import {
   getExecutorPreset,
   loadAgentExecutorsFromConfig,
@@ -187,7 +188,13 @@ function SectionCard({
     <section className="settings-card">
       <header className="settings-card__head">
         <div className="settings-card__title-row">
-          <span className="settings-card__step">{meta.step}</span>
+          {meta.icon ? (
+            <span className="settings-card__step settings-card__step--icon">
+              <ExecutorIcon id={meta.icon} className="executor-icon executor-icon--badge" />
+            </span>
+          ) : (
+            <span className="settings-card__step">{meta.step}</span>
+          )}
           <div>
             <h3 className="settings-card__title">{meta.title}</h3>
             <span className="settings-card__role-id">（{meta.roleId}）</span>

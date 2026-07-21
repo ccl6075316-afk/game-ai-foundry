@@ -21,6 +21,7 @@ import {
   HOST_EXECUTORS,
   type AgentExecutor,
 } from "../settings/executors";
+import { ExecutorIcon } from "../settings/ExecutorIcon";
 import {
   getProviderAccount,
   isProviderConfigured,
@@ -207,6 +208,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
                           disabled={loading}
                           onChange={() => handleExecutorChange(opt.id)}
                         />
+                        <ExecutorIcon id={opt.id} className="executor-icon executor-icon--md" />
                         <span className="executor-option__label">{opt.label}</span>
                       </label>
                     ))}

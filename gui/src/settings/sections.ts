@@ -1,7 +1,11 @@
 import type { ApiProviderId, VideoProviderId } from "./apiProviders";
+import type { ExecutorIconId } from "./ExecutorIcon";
 
 export interface SettingsSectionMeta {
+  /** Short text badge when `icon` is unset (keep ≤2 chars so 22px box fits). */
   step: string;
+  /** Brand mark for Agent tool cards (Pi / Hermes / Codex / Cursor). */
+  icon?: ExecutorIconId;
   title: string;
   /** 括号里展示的技术角色名 */
   roleId: string;
@@ -101,28 +105,32 @@ export const AGENT_SECTION: SettingsSectionMeta = {
 };
 
 export const PI_AGENT_SECTION: SettingsSectionMeta = {
-  step: "Pi",
+  step: "π",
+  icon: "pi",
   title: "内置 Pi",
   roleId: "executors.pi",
   purpose: "策划 / IT 默认 Provider 与模型",
 };
 
 export const HERMES_AGENT_SECTION: SettingsSectionMeta = {
-  step: "Hermes",
+  step: "H",
+  icon: "hermes",
   title: "Hermes 助手",
   roleId: "executors.hermes",
   purpose: "Hermes 默认 Provider；保存后可到环境面板同步 API",
 };
 
 export const CODEX_AGENT_SECTION: SettingsSectionMeta = {
-  step: "Codex",
+  step: "C",
+  icon: "codex",
   title: "Codex 命令行",
   roleId: "executors.codex",
   purpose: "第三方开关与账号库 Provider；未勾选用订阅登录",
 };
 
 export const CURSOR_AGENT_SECTION: SettingsSectionMeta = {
-  step: "Cursor",
+  step: "Cu",
+  icon: "cursor",
   title: "Cursor 对话",
   roleId: "executors.cursor",
   purpose: "本机登录 / 订阅，无第三方 Key",
