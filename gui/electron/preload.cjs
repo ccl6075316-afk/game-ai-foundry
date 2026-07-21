@@ -52,6 +52,13 @@ contextBridge.exposeInMainWorld("gameFactory", {
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),
+  decideToolPermission: (permissionId, decision) =>
+    ipcRenderer.invoke("agent-tool-permission-decision", permissionId, decision),
+  onToolPermission: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on("agent-tool-permission", listener);
+    return () => ipcRenderer.removeListener("agent-tool-permission", listener);
+  },
   handoffList: (status, targetInstanceId) =>
     ipcRenderer.invoke("handoff-list", status, targetInstanceId),
   runSafeAction: (command) => ipcRenderer.invoke("run-safe-action", command),

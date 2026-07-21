@@ -626,6 +626,41 @@ export default function App() {
     [patchChatStore],
   );
 
+  const handleToolPermissionDecision = useCallback(
+    async (permissionId: string, decision: "once" | "turn" | "session" | "deny") => {
+      const statusMap = {
+        once: "allowed_once",
+        turn: "allowed_turn",
+        session: "allowed_session",
+        deny: "denied",
+      } as const;
+      patchChatStore((store) => ({
+        ...store,
+        sessions: store.sessions.map((s) => ({
+          ...s,
+          messages: s.messages.map((m) =>
+            m.toolPermission?.permissionId === permissionId &&
+            m.toolPermission.status === "pending"
+              ? {
+                  ...m,
+                  toolPermission: {
+                    ...m.toolPermission,
+                    status: statusMap[decision],
+                  },
+                }
+              : m,
+          ),
+        })),
+      }));
+      try {
+        await window.gameFactory?.decideToolPermission?.(permissionId, decision);
+      } catch {
+        /* bridge may have timed out */
+      }
+    },
+    [patchChatStore],
+  );
+
   const handleSelectColleague = useCallback(
     (instanceId: string) => {
       patchChatStore((prev) => setActiveInstance(prev, instanceId));
@@ -1475,11 +1510,42 @@ export default function App() {
         }),
       );
     });
+    const offPermission = window.gameFactory?.onToolPermission?.((payload) => {
+      const sid = String(payload.sessionId || "").trim();
+      patchChatStore((store) => {
+        const hit = sid ? store.sessions.find((s) => s.id === sid) : undefined;
+        const target = hit
+          ? { instanceId: hit.instanceId, sessionId: hit.id }
+          : {
+              instanceId: store.activeInstanceId,
+              sessionId: store.activeByInstance[store.activeInstanceId] || "",
+            };
+        if (!target.sessionId) return store;
+        const msg: ChatMessage = {
+          id: newMessageId(),
+          role: "system",
+          content: "需要批准的变更",
+          timestamp: Date.now(),
+          toolPermission: {
+            permissionId: String(payload.permissionId || ""),
+            sessionId: sid || target.sessionId,
+            turnId: payload.turnId,
+            argvSummary: String(payload.argvSummary || ""),
+            status: "pending",
+          },
+        };
+        return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => [
+          ...msgs,
+          msg,
+        ]);
+      });
+    });
     return () => {
       off?.();
       offToolchain?.();
+      offPermission?.();
     };
-  }, [loadInitial, append, refreshBrainstormStatus]);
+  }, [loadInitial, append, refreshBrainstormStatus, patchChatStore]);
 
   const handlePipelinePmHeal = async () => {
     if (!selectedManifest) {
@@ -2514,6 +2580,7 @@ export default function App() {
             agentRole={agentRole}
             agentLabel={activeColleague.displayName}
             onSuggestion={handleSend}
+            onToolPermissionDecision={handleToolPermissionDecision}
             heroTitle={hero.title}
             heroSubtitle={hero.subtitle}
             suggestions={suggestions}

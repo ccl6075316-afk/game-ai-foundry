@@ -11,6 +11,10 @@ interface Props {
   /** Shown under typing dots while waiting (e.g. elapsed seconds). */
   busyHint?: string;
   onSuggestion: (cmd: string) => void;
+  onToolPermissionDecision?: (
+    permissionId: string,
+    decision: "once" | "turn" | "session" | "deny",
+  ) => void;
   heroTitle?: string;
   heroSubtitle?: string;
   suggestions?: RoleSuggestion[];
@@ -37,6 +41,7 @@ export function ChatView({
   busy,
   busyHint,
   onSuggestion,
+  onToolPermissionDecision,
   heroTitle = "今天想做什么游戏？",
   heroSubtitle = "从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。",
   suggestions = [],
@@ -104,6 +109,58 @@ export function ChatView({
                   {m.content ? (
                     <div className="message__text">{renderContent(m.content)}</div>
                   ) : null}
+                  {m.toolPermission ? (
+                    <div className="tool-permission-card">
+                      <div className="tool-permission-card__title">需要批准的变更</div>
+                      <code className="tool-permission-card__cmd">
+                        {m.toolPermission.argvSummary || "gamefactory …"}
+                      </code>
+                      {m.toolPermission.status === "pending" ? (
+                        <div className="tool-permission-card__actions">
+                          <button
+                            type="button"
+                            className="tool-permission-card__btn"
+                            onClick={() =>
+                              onToolPermissionDecision?.(m.toolPermission!.permissionId, "once")
+                            }
+                          >
+                            允许一次
+                          </button>
+                          <button
+                            type="button"
+                            className="tool-permission-card__btn"
+                            onClick={() =>
+                              onToolPermissionDecision?.(m.toolPermission!.permissionId, "turn")
+                            }
+                          >
+                            本回合允许
+                          </button>
+                          <button
+                            type="button"
+                            className="tool-permission-card__btn"
+                            onClick={() =>
+                              onToolPermissionDecision?.(m.toolPermission!.permissionId, "session")
+                            }
+                          >
+                            本会话允许
+                          </button>
+                          <button
+                            type="button"
+                            className="tool-permission-card__btn tool-permission-card__btn--deny"
+                            onClick={() =>
+                              onToolPermissionDecision?.(m.toolPermission!.permissionId, "deny")
+                            }
+                          >
+                            拒绝
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="tool-permission-card__status">
+                          {statusLabel(m.toolPermission.status)}
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
                   {clickChoices && clickChoices.length > 0 && (
                     <div className="message__choices">
                       {clickChoices.map((c) => (
@@ -145,6 +202,23 @@ export function ChatView({
       )}
     </div>
   );
+}
+
+function statusLabel(
+  status: NonNullable<ChatMessage["toolPermission"]>["status"],
+): string {
+  switch (status) {
+    case "allowed_once":
+      return "已允许（一次）";
+    case "allowed_turn":
+      return "已允许（本回合）";
+    case "allowed_session":
+      return "已允许（本会话）";
+    case "denied":
+      return "已拒绝 / 超时";
+    default:
+      return status;
+  }
 }
 
 function renderContent(text: string) {
