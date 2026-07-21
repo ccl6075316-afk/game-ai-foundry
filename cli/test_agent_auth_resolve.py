@@ -179,6 +179,75 @@ class ResolveAgentAuthTests(unittest.TestCase):
         self.assertEqual(auth["api_key"], "sk-host-ds")
         self.assertEqual(auth["source"], "role")
 
+    def test_instance_provider_overrides_executors_preset(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "pi": {"provider": "openrouter", "model": "openai/gpt-4o-mini"},
+        }
+        config["agents"]["brief"]["provider"] = None
+        config["agents"]["instances"]["brief-1"] = {
+            "role_kind": "brief",
+            "executor": "pi",
+            "provider": "deepseek",
+            "model": "deepseek-chat",
+        }
+        auth = resolve_agent_auth(config, role_kind="brief", instance_id="brief-1")
+        self.assertEqual(auth["source"], "instance")
+        self.assertEqual(auth["provider"], "deepseek")
+        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["api_key"], "sk-ds-test")
+
+    def test_no_instance_provider_uses_executors_preset(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "pi": {"provider": "deepseek", "model": "deepseek-chat"},
+        }
+        config["agents"]["it"]["provider"] = "openrouter"
+        auth = resolve_agent_auth(config, role_kind="it")
+        self.assertEqual(auth["source"], "executor_preset")
+        self.assertEqual(auth["provider"], "deepseek")
+        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["api_key"], "sk-ds-test")
+
+    def test_no_executors_key_falls_back_to_role_then_host(self) -> None:
+        config = _base_config()
+        config["agents"]["it"]["provider"] = "deepseek"
+        auth = resolve_agent_auth(config, role_kind="it")
+        self.assertEqual(auth["source"], "role")
+        self.assertEqual(auth["provider"], "deepseek")
+
+        config["agents"]["brief"] = {"executor": "pi"}
+        auth = resolve_agent_auth(config, role_kind="brief")
+        self.assertEqual(auth["source"], "host")
+        self.assertEqual(auth["provider"], "openrouter")
+
+    def test_executors_codex_preset_without_instance(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "codex": {
+                "use_third_party": True,
+                "provider": "deepseek",
+                "model": "deepseek-chat",
+            },
+        }
+        config["agents"]["godot-developer"]["provider"] = "openrouter"
+        auth = resolve_agent_auth(config, role_kind="programmer")
+        self.assertEqual(auth["source"], "executor_preset")
+        self.assertEqual(auth["provider"], "deepseek")
+        self.assertTrue(auth["use_third_party"])
+        self.assertEqual(auth["executor"], "codex")
+
+    def test_executors_hermes_preset_for_product_host(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "hermes": {"provider": "deepseek"},
+        }
+        config["agents"]["orchestrator"]["provider"] = "openrouter"
+        auth = resolve_agent_auth(config, role_kind="product_host")
+        self.assertEqual(auth["source"], "executor_preset")
+        self.assertEqual(auth["provider"], "deepseek")
+        self.assertEqual(auth["executor"], "hermes")
+
 
 if __name__ == "__main__":
     unittest.main()

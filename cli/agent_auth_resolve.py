@@ -4,6 +4,14 @@ from __future__ import annotations
 
 from typing import Any
 
+# role_kind → default executor when not specified elsewhere
+ROLE_KIND_DEFAULT_EXECUTOR: dict[str, str] = {
+    "brief": "pi",
+    "it": "pi",
+    "product_host": "hermes",
+    "programmer": "codex",
+}
+
 # GUI role_kind → agents config block key
 ROLE_KIND_TO_AGENT_KEY: dict[str, str] = {
     "brief": "brief",
@@ -51,13 +59,53 @@ def _account_model(acc: dict[str, Any]) -> str | None:
 
 def merge_instance_overlay(role_block: dict[str, Any], instance: dict[str, Any] | None) -> dict[str, Any]:
     """Merge instance fields onto role defaults (instance wins when key present)."""
+    return merge_auth_layers(role_block, {}, instance)
+
+
+def merge_auth_layers(
+    role_block: dict[str, Any],
+    executor_preset: dict[str, Any],
+    instance: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Merge role → executor preset → instance (later layers win)."""
     merged = dict(role_block)
-    if not instance:
-        return merged
     for key in _OVERLAY_FIELDS:
-        if key in instance and instance[key] is not None:
-            merged[key] = instance[key]
+        if key in executor_preset and executor_preset[key] is not None:
+            merged[key] = executor_preset[key]
+    if instance:
+        for key in _OVERLAY_FIELDS:
+            if key in instance and instance[key] is not None:
+                merged[key] = instance[key]
     return merged
+
+
+def _resolve_executor(
+    role_kind: str,
+    role_block: dict[str, Any],
+    instance: dict[str, Any] | None,
+) -> str | None:
+    if instance:
+        executor = _normalize_str(instance.get("executor"))
+        if executor:
+            return executor
+    executor = _normalize_str(role_block.get("executor"))
+    if executor:
+        return executor
+    return ROLE_KIND_DEFAULT_EXECUTOR.get(role_kind)
+
+
+def _executor_preset(
+    agents: dict[str, Any],
+    executor: str | None,
+) -> tuple[dict[str, Any], bool]:
+    """Return (preset dict, has_explicit_executors_key)."""
+    executors = agents.get("executors")
+    if not isinstance(executors, dict) or not executor:
+        return {}, False
+    raw = executors.get(executor)
+    if isinstance(raw, dict):
+        return raw, True
+    return {}, True
 
 
 def _provider_env_key(provider_id: str) -> str:
@@ -101,11 +149,15 @@ def _lookup_credentials(
 def _resolve_provider_source(
     *,
     instance: dict[str, Any] | None,
+    executor_preset: dict[str, Any],
     role_block: dict[str, Any],
     used_host: bool,
+    has_executors: bool,
 ) -> str | None:
     if instance and _normalize_str(instance.get("provider")):
         return "instance"
+    if has_executors and _normalize_str(executor_preset.get("provider")):
+        return "executor_preset"
     if _normalize_str(role_block.get("provider")):
         return "role"
     if used_host:
@@ -121,7 +173,7 @@ def resolve_agent_auth(
 ) -> dict[str, Any]:
     """Resolve executor / provider / model / credentials for a role instance.
 
-    Priority: ``agents.instances[id]`` → role block → ``host`` text fallback.
+    Priority: ``agents.instances[id]`` → ``agents.executors[executor]`` → role block → ``host``.
     """
     agent_key = ROLE_KIND_TO_AGENT_KEY.get(role_kind)
     if not agent_key:
@@ -149,9 +201,10 @@ def resolve_agent_auth(
         if isinstance(raw, dict):
             instance = raw
 
-    merged = merge_instance_overlay(role_block, instance)
+    executor = _resolve_executor(role_kind, role_block, instance)
+    executor_preset, has_executors = _executor_preset(agents, executor)
+    merged = merge_auth_layers(role_block, executor_preset if has_executors else {}, instance)
 
-    executor = _normalize_str(merged.get("executor"))
     use_third_party = bool(merged.get("use_third_party", False))
 
     provider = _normalize_str(merged.get("provider"))
@@ -170,7 +223,13 @@ def resolve_agent_auth(
         if not model:
             model = _normalize_str(host.get("model"))
 
-    source = _resolve_provider_source(instance=instance, role_block=role_block, used_host=used_host)
+    source = _resolve_provider_source(
+        instance=instance,
+        executor_preset=executor_preset,
+        role_block=role_block,
+        used_host=used_host,
+        has_executors=has_executors,
+    )
 
     api_key: str | None = None
     api_base: str | None = None
@@ -194,7 +253,7 @@ def resolve_agent_auth(
         "api_key": api_key,
         "env_key": env_key,
         "api_base": api_base,
-        "executor": executor,
+        "executor": executor or _normalize_str(merged.get("executor")),
         "use_third_party": use_third_party,
         "source": source,
         "role_kind": role_kind,

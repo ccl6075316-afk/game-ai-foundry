@@ -102,18 +102,20 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 
 改路由后无需重启 GUI；外部 Agent 用 `agents show --discover` 确认。
 
-### 3.4 按实例 Provider / 模型（`agents.instances`）
+### 3.4 Agent 预设与实例（`agents.executors` / `agents.instances`）
 
 | 入口 | 说明 |
 |------|------|
-| GUI **设置 → 角色** | 选同事实例，配置执行器、Provider（`provider_accounts` 账号 id）、模型；程序员选 Codex 时可开「用第三方」 |
-| 策划 / IT 聊天顶栏 | 内置 Pi 同事在聊天顶栏快选 Provider + 模型，**立即持久化**到 `agents.instances.<id>`，下一条消息生效 |
-| CLI | `agent turn --instance-id <id>` 与 Pi 回合共用同一解析链 |
+| GUI **设置 → Agent** | 按工具（Pi/Hermes/Codex/Cursor）配置全局预设 → `agents.executors` |
+| **雇人弹窗** | 创建同事前配置实例字段；预填来自 Agent 预设 → `agents.instances.<id>` |
+| **对话内配置** | 各同事可改本实例 Provider / 模型 / 执行器 / Codex 第三方；**只写 instances，不回写 executors** |
+| CLI | `agent turn --instance-id <id>` 与 GUI 共用同一解析链 |
 
-- **Key 只在 `provider_accounts`**；实例只引用 provider id，不复制 API Key。
-- 无 `agents.instances.<id>` 时：继承工种默认（`agents.brief` / `it` / …）→ 回退 Provider 页当前生文账号。
+- **Key 只在 `provider_accounts`**；executors 与 instances 只引用 provider id，不复制 API Key。
+- **解析链**：`agents.instances[id]` 字段 → `agents.executors[<executor>]` → 生文/host 账号回退。
+- 兼容旧配置：无 `executors` 时可读工种块（`brief`/`it`→pi 等）再回退 host。
 - **Cursor v1 无第三方同步**；仅 IDE 登录/订阅。
-- 示例见 `resources/config.example.json` 的 `agents.instances`。
+- 示例见 `resources/config.example.json` 的 `agents.executors` 与 `agents.instances`。
 
 ---
 
@@ -206,7 +208,7 @@ python gamefactory.py setup executor step cursor verify_cli
 | **适合** | Pass 4 `godot-developer` 写 C# |
 | **安装** | `npm install -g @openai/codex` |
 | **登录** | `codex login` → `~/.codex/auth.json`（`use_third_party=false` 时走订阅，不覆盖） |
-| **第三方** | 实例或工种开「用第三方」→ 保存后 GUI 自动调 `sync_api`，或 CLI `setup executor step codex sync_api`；写入 `~/.codex/config.toml` + `~/.codex/.env` |
+| **第三方** | 实例或 **Agent 预设**（Codex 勾选「用第三方」）→ 保存后 GUI 自动调 `sync_api`，或 CLI `setup executor step codex sync_api`；写入 `~/.codex/config.toml` + `~/.codex/.env` |
 | **要求** | git 仓库（本项目满足） |
 
 ### 5.3 Cursor

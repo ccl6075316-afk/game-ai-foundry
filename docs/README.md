@@ -8,7 +8,7 @@
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员，可多实例）
 - **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`；北极星图在策划侧定稿
 - **最低开工**：LLM Provider Key → 策划保存 Brief + 北极星 → 项目经理 `/plan` `/run`
-- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；Hermes 可单独选 Provider
+- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；Agent 页可配各工具默认 Provider，雇人/对话配实例
 - **工具链**：FFmpeg、Godot、.NET 启动自动安装；rembg 打包自带；检测失败可复制给支持
 - **外部 AI**：读 [`TOOLS.md`](TOOLS.md) 代操 Foundry
 
@@ -24,7 +24,7 @@
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
-| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、执行器、最低 vs 推荐** | CLI 大全 |
+| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider、Agent 预设、雇人/对话实例、最低 vs 推荐** | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
 | [`RELEASE-NOTES-0.0.6.md`](RELEASE-NOTES-0.0.6.md) | 用户 | **v0.0.6** 工程隔离与北极星 | — |
 | [`RELEASE-NOTES-0.0.5.md`](RELEASE-NOTES-0.0.5.md) | 用户 | v0.0.5 Bugfix | — |

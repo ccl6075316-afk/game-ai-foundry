@@ -51,8 +51,8 @@ export const CODE_SECTION: SettingsSectionMeta = {
   step: "开发",
   title: "程序员",
   roleId: "godot-developer",
-  purpose: "选择写 Godot C# 的工具（Codex / Cursor / Hermes）；本机登录，不用 Provider Key",
-  note: "Codex：codex login；Cursor：IDE 订阅；Hermes：自有配置",
+  purpose: "选择写 Godot C# 的工具（Codex / Cursor / Hermes）",
+  note: "Codex 默认可订阅登录；勾「用第三方」则用 Provider 页账号库 Key（保存时同步）",
 };
 
 export const PIPELINE_STEPS = [
@@ -64,7 +64,7 @@ export const PIPELINE_STEPS = [
   { label: "程序", desc: "写玩法" },
 ];
 
-export type SettingsTab = "providers" | "roles" | "local";
+export type SettingsTab = "providers" | "agents" | "local";
 
 export const TEXT_PROVIDER_SECTION: SettingsSectionMeta = {
   step: "①",
@@ -92,6 +92,44 @@ export const VIDEO_PROVIDER_SECTION: SettingsSectionMeta = {
 /** @deprecated 使用 TEXT_PROVIDER_SECTION + IMAGE_PROVIDER_SECTION */
 export const PROVIDER_SECTION = TEXT_PROVIDER_SECTION;
 
+export const AGENT_SECTION: SettingsSectionMeta = {
+  step: "工具",
+  title: "Agent 工具预设",
+  roleId: "agents.executors",
+  purpose: "Pi / Hermes / Codex / Cursor 各工具的默认连法；雇人时沿用，Key 仍在 Provider 页",
+  note: "同事实例在雇人弹窗或对话里单独配置，不会回写此处预设。",
+};
+
+export const PI_AGENT_SECTION: SettingsSectionMeta = {
+  step: "Pi",
+  title: "内置 Pi",
+  roleId: "executors.pi",
+  purpose: "策划 / IT 默认 Provider 与模型",
+};
+
+export const HERMES_AGENT_SECTION: SettingsSectionMeta = {
+  step: "Hermes",
+  title: "Hermes 助手",
+  roleId: "executors.hermes",
+  purpose: "Hermes 默认 Provider；保存后可到环境面板同步 API",
+};
+
+export const CODEX_AGENT_SECTION: SettingsSectionMeta = {
+  step: "Codex",
+  title: "Codex 命令行",
+  roleId: "executors.codex",
+  purpose: "第三方开关与账号库 Provider；未勾选用订阅登录",
+};
+
+export const CURSOR_AGENT_SECTION: SettingsSectionMeta = {
+  step: "Cursor",
+  title: "Cursor 对话",
+  roleId: "executors.cursor",
+  purpose: "本机登录 / 订阅，无第三方 Key",
+  note: "安装 Cursor Agent shell 命令（agent / cursor-agent）。",
+};
+
+/** @deprecated 角色 Tab 已移除；实例配置见雇人弹窗与对话 */
 export const ROLES_SECTION = {
   step: "②",
   title: "角色与执行器",
@@ -100,6 +138,7 @@ export const ROLES_SECTION = {
   note: "策划 / IT 固定内置 Pi；Cursor 仅本机登录，第三方不可用。Key 仍在 Provider 页填写。",
 };
 
+/** @deprecated 角色 Tab 已移除 */
 export const INSTANCE_SECTION: SettingsSectionMeta = {
   step: "实例",
   title: "同事实例",

@@ -172,6 +172,27 @@ class ExecutorSetupTests(unittest.TestCase):
         json.dumps(payload, ensure_ascii=False)
         self.assertIn("sync_provider", payload)
 
+    def test_resolve_codex_sync_from_executors_preset(self) -> None:
+        config = {
+            "agents": {
+                "godot-developer": {"provider": "openrouter", "use_third_party": False},
+                "executors": {
+                    "codex": {
+                        "provider": "deepseek",
+                        "model": "deepseek-chat",
+                        "use_third_party": True,
+                    }
+                },
+            },
+            "provider_accounts": {
+                "deepseek": {"api_key": "sk-deepseek", "text_model": "deepseek-chat"},
+            },
+        }
+        sync = resolve_codex_sync_settings(config)
+        self.assertTrue(sync["use_third_party"])
+        self.assertEqual(sync["foundry_provider"], "deepseek")
+        self.assertEqual(sync["api_key"], "sk-deepseek")
+
     def test_resolve_codex_sync_from_godot_developer(self) -> None:
         config = {
             "agents": {

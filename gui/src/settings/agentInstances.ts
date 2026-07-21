@@ -1,6 +1,10 @@
 import type { ColleagueInstance } from "../chat/roster";
 import type { ChatAgentRole } from "../chat/roles";
 import { CHAT_AGENT_ROLES } from "../chat/roles";
+import {
+  defaultsFromExecutorPreset,
+  type AgentExecutorsMap,
+} from "./agentExecutors";
 import { API_PROVIDERS, type ApiProviderId } from "./apiProviders";
 import { parseExecutor, type AgentExecutor } from "./executors";
 
@@ -88,6 +92,7 @@ export function resolveInstanceRecord(
   agents: Record<string, unknown>,
   fallbackProvider: ApiProviderId,
   fallbackModel: string,
+  executorsMap?: AgentExecutorsMap,
 ): AgentInstanceRecord {
   const saved = instances[instance.id];
   if (saved) return { ...saved, role_kind: instance.roleKind };
@@ -102,12 +107,30 @@ export function resolveInstanceRecord(
     executor = instance.executor;
   }
 
-  return {
+  const fromRole: AgentInstanceRecord = {
     role_kind: instance.roleKind,
     executor,
     provider: coerceProvider(roleBlock.provider, fallbackProvider),
     model: roleBlock.model != null ? String(roleBlock.model) : fallbackModel,
     use_third_party: Boolean(roleBlock.use_third_party ?? false),
+  };
+
+  if (!executorsMap) return fromRole;
+
+  const execId =
+    executor === "pi" || executor === "hermes" || executor === "codex" || executor === "cursor"
+      ? executor
+      : "pi";
+  const preset = defaultsFromExecutorPreset(executorsMap, execId);
+  // Align GUI display with CLI: executors preset before legacy role block
+  return {
+    ...fromRole,
+    provider: coerceProvider(preset.provider ?? roleBlock.provider, fallbackProvider),
+    model: preset.model || fromRole.model,
+    use_third_party:
+      executor === "codex"
+        ? Boolean(preset.use_third_party || roleBlock.use_third_party)
+        : false,
   };
 }
 

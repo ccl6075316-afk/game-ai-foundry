@@ -204,31 +204,46 @@ def resolve_hermes_sync_settings(
 
 
 def _configured_codex_provider_id(config: dict[str, Any]) -> str | None:
-    """Programmer (godot-developer) provider pick from role block."""
+    """Codex provider from agents.executors.codex, else godot-developer role block."""
     agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
-    dev = agents.get("godot-developer") if isinstance(agents.get("godot-developer"), dict) else {}
-    raw = dev.get("provider") if isinstance(dev, dict) else None
+    executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
+    codex_preset = executors.get("codex") if isinstance(executors.get("codex"), dict) else {}
+    raw = codex_preset.get("provider")
+    if not raw:
+        dev = agents.get("godot-developer") if isinstance(agents.get("godot-developer"), dict) else {}
+        raw = dev.get("provider") if isinstance(dev, dict) else None
     if not raw:
         return None
     pid = str(raw).strip().lower()
     return pid or None
 
 
-def _codex_use_third_party(config: dict[str, Any], instance_id: str | None = None) -> bool:
+def _merge_codex_auth_layers(
+    config: dict[str, Any],
+    *,
+    instance_id: str | None = None,
+) -> dict[str, Any]:
+    """Merge godot-developer → agents.executors.codex → instance (later wins)."""
     agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
     role_block = agents.get("godot-developer") if isinstance(agents.get("godot-developer"), dict) else {}
-    instance: dict[str, Any] | None = None
+    merged = dict(role_block)
+    executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
+    codex_preset = executors.get("codex") if isinstance(executors.get("codex"), dict) else {}
+    for key in ("provider", "model", "use_third_party"):
+        if key in codex_preset and codex_preset[key] is not None:
+            merged[key] = codex_preset[key]
     if instance_id:
         instances = agents.get("instances") if isinstance(agents.get("instances"), dict) else {}
         raw = instances.get(instance_id)
         if isinstance(raw, dict):
-            instance = raw
-    merged = dict(role_block)
-    if instance:
-        for key in ("provider", "model", "use_third_party"):
-            if key in instance and instance[key] is not None:
-                merged[key] = instance[key]
-    return bool(merged.get("use_third_party", False))
+            for key in ("provider", "model", "use_third_party"):
+                if key in raw and raw[key] is not None:
+                    merged[key] = raw[key]
+    return merged
+
+
+def _codex_use_third_party(config: dict[str, Any], instance_id: str | None = None) -> bool:
+    return bool(_merge_codex_auth_layers(config, instance_id=instance_id).get("use_third_party", False))
 
 
 def _codex_model_provider_id(foundry_id: str) -> str:
@@ -250,13 +265,14 @@ def resolve_codex_sync_settings(
 
     Preference:
       1. explicit provider_id (CLI --provider)
-      2. agents.instances[instance_id] overlay on godot-developer (when instance_id set)
-      3. agents.godot-developer.provider
-      4. config.host.provider
-      5. openrouter
+      2. agents.instances[instance_id] overlay
+      3. agents.executors.codex
+      4. agents.godot-developer (legacy)
+      5. config.host.provider
+      6. openrouter
 
-    ``use_third_party`` comes from instance overlay or godot-developer role block.
-    When false, callers must not write Codex config (subscription mode).
+    ``use_third_party`` follows the same merge. When false, callers must not write
+    Codex config (subscription mode).
     """
     config = config or _load_config()
     host = config.get("host") if isinstance(config.get("host"), dict) else {}
@@ -265,22 +281,8 @@ def resolve_codex_sync_settings(
         if isinstance(config.get("provider_accounts"), dict)
         else {}
     )
-    agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
-    role_block = agents.get("godot-developer") if isinstance(agents.get("godot-developer"), dict) else {}
 
-    instance: dict[str, Any] | None = None
-    if instance_id:
-        instances = agents.get("instances") if isinstance(agents.get("instances"), dict) else {}
-        raw = instances.get(instance_id)
-        if isinstance(raw, dict):
-            instance = raw
-
-    merged = dict(role_block)
-    if instance:
-        for key in ("provider", "model", "use_third_party"):
-            if key in instance and instance[key] is not None:
-                merged[key] = instance[key]
-
+    merged = _merge_codex_auth_layers(config, instance_id=instance_id)
     use_third_party = bool(merged.get("use_third_party", False))
 
     foundry_id = str(

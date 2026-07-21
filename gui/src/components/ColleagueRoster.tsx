@@ -22,7 +22,7 @@ interface Props {
   openHandoffs: HandoffSummary[];
   busyInstanceIds?: string[];
   onSelectColleague: (instanceId: string) => void;
-  onHire: (roleKind: ChatAgentRole) => void;
+  onRequestHire: (roleKind: ChatAgentRole) => void;
   onRename: (instanceId: string, displayName: string) => void;
   onRemove: (instanceId: string) => void;
   onNewChat: () => void;
@@ -57,7 +57,7 @@ export function ColleagueRoster({
   openHandoffs,
   busyInstanceIds = [],
   onSelectColleague,
-  onHire,
+  onRequestHire,
   onRename,
   onRemove,
   onNewChat,
@@ -148,7 +148,7 @@ export function ColleagueRoster({
               onChange={(e) => {
                 const v = e.target.value as ChatAgentRole | "";
                 e.target.value = "";
-                if (v) onHire(v);
+                if (v) onRequestHire(v);
               }}
             >
               <option value="" disabled>

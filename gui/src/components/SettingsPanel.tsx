@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { ColleagueInstance } from "../chat/roster";
-import { CHAT_AGENT_LABELS } from "../chat/roles";
-import type { ConfigInfo, ConfigPatch, DoctorReport } from "../vite-env.d";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import type { ConfigInfo, ConfigPatch } from "../vite-env.d";
 import {
   API_PROVIDERS,
   VIDEO_PROVIDERS,
@@ -11,22 +9,17 @@ import {
   type VideoProviderId,
 } from "../settings/apiProviders";
 import {
-  CODE_EXECUTORS,
   DEFAULT_AGENT_SKILLS,
-  HOST_EXECUTORS,
-  executorAvailable,
-  executorUsesLogin,
   EXECUTOR_LOGIN_HINTS,
-  parseExecutor,
-  type AgentExecutor,
 } from "../settings/executors";
 import {
-  CODE_SECTION,
+  AGENT_SECTION,
+  CODEX_AGENT_SECTION,
+  CURSOR_AGENT_SECTION,
   GODOT_SECTION,
-  HOST_SECTION,
+  HERMES_AGENT_SECTION,
   IMAGE_PROVIDER_SECTION,
-  INSTANCE_SECTION,
-  ROLES_SECTION,
+  PI_AGENT_SECTION,
   TEXT_PROVIDER_SECTION,
   PIPELINE_STEPS,
   VIDEO_PROVIDER_SECTION,
@@ -35,17 +28,13 @@ import {
   type SettingsTab,
 } from "../settings/sections";
 import {
-  loadAgentInstancesFromConfig,
-  mergeDirtyInstances,
-  resolveInstanceRecord,
-  rosterChatInstances,
-  serializeAgentInstances,
-  shouldSyncCodexThirdParty,
-  upsertInstanceRecord,
-  type AgentInstanceRecord,
-  type AgentInstancesMap,
-  type InstanceExecutor,
-} from "../settings/agentInstances";
+  getExecutorPreset,
+  loadAgentExecutorsFromConfig,
+  serializeAgentExecutors,
+  type AgentExecutorId,
+  type AgentExecutorPreset,
+  type AgentExecutorsMap,
+} from "../settings/agentExecutors";
 import {
   getProviderAccount,
   getVideoAccount,
@@ -67,7 +56,7 @@ import { GODOT_DOWNLOAD_URL } from "../settings/toolchain";
 
 interface Props {
   busy: boolean;
-  roster?: ColleagueInstance[];
+  roster?: import("../chat/roster").ColleagueInstance[];
   onSaved?: () => void;
 }
 
@@ -84,35 +73,16 @@ interface FormState {
   codeModel: string;
   proxy: string;
   godotPath: string;
-  hostExecutor: AgentExecutor;
-  codeExecutor: AgentExecutor;
-  /** Hermes 同步用的 Foundry provider（与生文 active 独立） */
-  hermesProvider: ApiProviderId;
-  agentInstances: AgentInstancesMap;
-  /** Settings 会话内改过的实例；保存时只叠这些，避免盖掉聊天快选 */
-  dirtyInstanceIds: string[];
+  agentExecutors: AgentExecutorsMap;
 }
 
 function fromConfig(data: ConfigInfo["data"]): FormState {
   const prompt = data.prompt || {};
   const code = data.code || {};
   const godot = data.godot || {};
-  const agents = data.agents || {};
-  const orchestrator = (agents.orchestrator || {}) as Record<string, unknown>;
-  const godotDev = (agents["godot-developer"] || {}) as Record<string, unknown>;
 
   const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
   const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
-
-  const agentsHermes = String(
-    (agents as Record<string, unknown>).hermes_provider
-      || orchestrator.provider
-      || loaded.activeTextProvider
-      || "openrouter",
-  );
-  const hermesProvider = (API_PROVIDERS.some((p) => p.id === agentsHermes)
-    ? agentsHermes
-    : loaded.activeTextProvider) as ApiProviderId;
 
   return {
     ...loaded,
@@ -127,15 +97,11 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
         "",
     ),
     godotPath: String(godot.engine_path || ""),
-    hostExecutor: parseExecutor(orchestrator.executor, "hermes"),
-    codeExecutor: parseExecutor(godotDev.executor, "codex"),
-    hermesProvider,
-    agentInstances: loadAgentInstancesFromConfig(data as Record<string, unknown>),
-    dirtyInstanceIds: [],
+    agentExecutors: loadAgentExecutorsFromConfig(data as Record<string, unknown>),
   };
 }
 
-function toPatch(form: FormState, instancesForSave: AgentInstancesMap | null): ConfigPatch {
+function toPatch(form: FormState): ConfigPatch {
   const text = resolveActiveTextSettings(form);
   const image = resolveActiveImageSettings(form);
   const video = resolveActiveVideoSettings(form);
@@ -157,7 +123,7 @@ function toPatch(form: FormState, instancesForSave: AgentInstancesMap | null): C
   }
 
   const agents: NonNullable<ConfigPatch["agents"]> = {
-    hermes_provider: form.hermesProvider,
+    executors: serializeAgentExecutors(form.agentExecutors),
     brief: {
       executor: "pi",
     },
@@ -165,18 +131,12 @@ function toPatch(form: FormState, instancesForSave: AgentInstancesMap | null): C
       executor: "pi",
     },
     orchestrator: {
-      executor: form.hostExecutor,
       skill: DEFAULT_AGENT_SKILLS.orchestrator,
-      provider: form.hermesProvider,
     },
     "godot-developer": {
-      executor: form.codeExecutor,
       skill: DEFAULT_AGENT_SKILLS["godot-developer"],
     },
   };
-  if (instancesForSave) {
-    agents.instances = serializeAgentInstances(instancesForSave);
-  }
 
   return {
     provider_accounts: serializeProviderAccounts(form.providerAccounts),
@@ -208,57 +168,6 @@ function toPatch(form: FormState, instancesForSave: AgentInstancesMap | null): C
     },
     agents,
   };
-}
-
-function ExecutorPicker({
-  name,
-  options,
-  value,
-  executors,
-  disabled,
-  onChange,
-}: {
-  name: string;
-  options: typeof HOST_EXECUTORS;
-  value: AgentExecutor;
-  executors: DoctorReport["executors"] | undefined;
-  disabled: boolean;
-  onChange: (id: AgentExecutor) => void;
-}) {
-  const selected = options.find((o) => o.id === value);
-  const selectedOk = executorAvailable(executors, value);
-  const selectedInfo = executors?.[value];
-
-  return (
-    <div className="executor-picker">
-      <div className="executor-picker__options">
-        {options.map((opt) => {
-          const ok = executorAvailable(executors, opt.id);
-          return (
-            <label
-              key={opt.id}
-              className={`executor-option ${value === opt.id ? "active" : ""} ${ok ? "" : "unavailable"}`}
-            >
-              <input
-                type="radio"
-                name={name}
-                value={opt.id}
-                checked={value === opt.id}
-                onChange={() => onChange(opt.id)}
-                disabled={disabled}
-              />
-              <span className="executor-option__label">{opt.label}</span>
-              <span className={`executor-option__dot ${ok ? "ok" : "no"}`} title={ok ? "本机可用" : "本机未检测到"} />
-            </label>
-          );
-        })}
-      </div>
-      {selected && <p className="field-hint">{selected.description}</p>}
-      {selected && !selectedOk && selectedInfo?.hints?.[0] && (
-        <p className="settings-card__note">{selectedInfo.hints[0]}</p>
-      )}
-    </div>
-  );
 }
 
 function SectionCard({
@@ -398,29 +307,55 @@ function ProviderSelect({
   );
 }
 
-export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
+function AgentProviderSelect({
+  value,
+  accounts,
+  onChange,
+  disabled,
+}: {
+  value: ApiProviderId;
+  accounts: ProviderAccountsMap;
+  onChange: (id: ApiProviderId) => void;
+  disabled: boolean;
+}) {
+  return (
+    <label className="field">
+      <span>Provider（账号库 id）</span>
+      <select value={value} onChange={(e) => onChange(e.target.value as ApiProviderId)} disabled={disabled}>
+        {API_PROVIDERS.map((p) => {
+          const ok = isProviderConfigured(accounts, p.id);
+          return (
+            <option key={p.id} value={p.id}>
+              {p.label}
+              {ok ? " ✓" : "（未填 Key）"}
+            </option>
+          );
+        })}
+      </select>
+      {!isProviderConfigured(accounts, value) && (
+        <span className="settings-card__note">
+          所选 Provider 尚未填 Key，回合可能失败；请先到 Provider 页补全。
+        </span>
+      )}
+    </label>
+  );
+}
+
+export function SettingsPanel({ busy, onSaved }: Props) {
   const [tab, setTab] = useState<SettingsTab>("providers");
   const [configInfo, setConfigInfo] = useState<ConfigInfo | null>(null);
-  const [doctor, setDoctor] = useState<DoctorReport | null>(null);
   const [form, setForm] = useState<FormState>(() => fromConfig({}));
-  const [selectedInstanceId, setSelectedInstanceId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const chatInstances = useMemo(() => rosterChatInstances(roster), [roster]);
-
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const [info, docRes] = await Promise.all([
-        window.gameFactory.getConfig(),
-        window.gameFactory.doctor(),
-      ]);
+      const info = await window.gameFactory.getConfig();
       setConfigInfo(info);
-      setDoctor(docRes.data ?? null);
       setForm(fromConfig(info.data));
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -432,37 +367,6 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
   useEffect(() => {
     void load();
   }, [load]);
-
-  useEffect(() => {
-    if (chatInstances.length === 0) {
-      setSelectedInstanceId(null);
-      return;
-    }
-    setSelectedInstanceId((prev) =>
-      prev && chatInstances.some((c) => c.id === prev) ? prev : chatInstances[0].id,
-    );
-  }, [chatInstances]);
-
-  const selectedColleague = useMemo(
-    () => chatInstances.find((c) => c.id === selectedInstanceId),
-    [chatInstances, selectedInstanceId],
-  );
-
-  const selectedInstanceRecord = useMemo(() => {
-    if (!selectedColleague) return null;
-    const agents = (configInfo?.data.agents || {}) as Record<string, unknown>;
-    const textAccount = getProviderAccount(form.providerAccounts, form.activeTextProvider);
-    return (
-      form.agentInstances[selectedColleague.id] ??
-      resolveInstanceRecord(
-        selectedColleague,
-        form.agentInstances,
-        agents,
-        form.activeTextProvider,
-        textAccount.textModel,
-      )
-    );
-  }, [selectedColleague, form.agentInstances, form.providerAccounts, form.activeTextProvider, configInfo]);
 
   const setField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -511,26 +415,16 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
     setMessage(null);
   };
 
-  const updateSelectedInstance = (patch: Partial<AgentInstanceRecord>) => {
-    if (!selectedColleague || !selectedInstanceRecord) return;
-    const next: AgentInstanceRecord = {
-      ...selectedInstanceRecord,
-      ...patch,
-      role_kind: selectedColleague.roleKind,
-    };
-    if (selectedColleague.roleKind === "brief" || selectedColleague.roleKind === "it") {
-      next.executor = "pi";
-      next.use_third_party = false;
-    }
-    if (next.executor === "cursor" || next.executor === "pi") {
-      next.use_third_party = false;
-    }
+  const updateAgentExecutor = (executorId: AgentExecutorId, patch: Partial<AgentExecutorPreset>) => {
     setForm((prev) => ({
       ...prev,
-      agentInstances: upsertInstanceRecord(prev.agentInstances, selectedColleague.id, next),
-      dirtyInstanceIds: prev.dirtyInstanceIds.includes(selectedColleague.id)
-        ? prev.dirtyInstanceIds
-        : [...prev.dirtyInstanceIds, selectedColleague.id],
+      agentExecutors: {
+        ...prev.agentExecutors,
+        [executorId]: {
+          ...getExecutorPreset(prev.agentExecutors, executorId),
+          ...patch,
+        },
+      },
     }));
     setMessage(null);
   };
@@ -539,31 +433,18 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
     setSaving(true);
     setError(null);
     setMessage(null);
-    const syncTarget =
-      selectedColleague && selectedInstanceRecord && shouldSyncCodexThirdParty(selectedInstanceRecord)
-        ? selectedColleague.id
-        : null;
+    const codexPreset = getExecutorPreset(form.agentExecutors, "codex");
     try {
-      let instancesForSave: AgentInstancesMap | null = null;
-      if (form.dirtyInstanceIds.length > 0 && window.gameFactory.getConfig) {
-        const latestInfo = await window.gameFactory.getConfig();
-        const latest = loadAgentInstancesFromConfig(latestInfo.data as Record<string, unknown>);
-        instancesForSave = mergeDirtyInstances(
-          latest,
-          form.agentInstances,
-          form.dirtyInstanceIds,
-        );
-      }
-      const res = await window.gameFactory.saveConfig(toPatch(form, instancesForSave));
+      const res = await window.gameFactory.saveConfig(toPatch(form));
       if (!res.ok) throw new Error(res.error || "保存失败");
 
       let syncNote = "";
-      if (syncTarget && window.gameFactory.executorStep) {
-        const syncRes = await window.gameFactory.executorStep("codex", "sync_api", {
-          instanceId: syncTarget,
-        });
+      if (window.gameFactory.executorStep && codexPreset.use_third_party) {
+        const syncRes = await window.gameFactory.executorStep("codex", "sync_api");
         if (!syncRes.data?.ok) {
           syncNote = `；Codex 第三方同步失败：${syncRes.data?.error || syncRes.stderr || "未知错误"}`;
+        } else if (syncRes.data?.skipped) {
+          syncNote = "";
         } else {
           syncNote = "；已同步 Codex 第三方 API";
         }
@@ -611,9 +492,12 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
   const videoPreset = getVideoProvider(form.activeVideoProvider);
 
   const hostKeyOk = isProviderConfigured(form.providerAccounts, form.activeTextProvider);
-  const hostExecutorLogin = executorUsesLogin(form.hostExecutor);
-  const hostExecutorOk = executorAvailable(doctor?.executors, form.hostExecutor);
-  const codeExecutorOk = executorAvailable(doctor?.executors, form.codeExecutor);
+  const piPreset = getExecutorPreset(form.agentExecutors, "pi");
+  const hermesPreset = getExecutorPreset(form.agentExecutors, "hermes");
+  const codexPreset = getExecutorPreset(form.agentExecutors, "codex");
+  const piProvider = (piPreset.provider || "openrouter") as ApiProviderId;
+  const hermesProvider = (hermesPreset.provider || "openrouter") as ApiProviderId;
+  const codexProvider = (codexPreset.provider || "openrouter") as ApiProviderId;
 
   return (
     <aside className="side-panel settings-panel">
@@ -657,10 +541,10 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
         </button>
         <button
           type="button"
-          className={`settings-tab ${tab === "roles" ? "active" : ""}`}
-          onClick={() => setTab("roles")}
+          className={`settings-tab ${tab === "agents" ? "active" : ""}`}
+          onClick={() => setTab("agents")}
         >
-          角色
+          Agent
         </button>
         <button
           type="button"
@@ -877,235 +761,102 @@ export function SettingsPanel({ busy, roster = [], onSaved }: Props) {
             </>
           )}
 
-          {tab === "roles" && (
+          {tab === "agents" && (
             <>
-              <SectionCard meta={ROLES_SECTION}>
+              <SectionCard meta={AGENT_SECTION}>
                 <p className="settings-linked">
-                  <strong>Provider 页</strong>：填各平台 API Key；此处仅为每个同事实例选择用哪家、什么模型。
+                  <strong>Provider 页</strong>：填各平台 API Key；此处仅为各 Agent 工具选择默认账号库 id 与模型。
                   <br />
-                  <strong>策划 / IT</strong>：固定<strong>内置 Pi</strong>，不在此选执行器；需 Node ≥22.19 与 Provider Key。
-                  <br />
-                  <strong>Hermes</strong>：选 Provider 后保存，再到「环境 → Hermes → 同步 API」。
-                  <br />
-                  <strong>Codex</strong>：可开「用第三方」并在保存时同步账号库；关则走 <code>codex login</code> 订阅。
-                  <br />
-                  <strong>Cursor</strong>：仅本机登录/订阅，<strong>第三方不可用</strong>。
+                  <strong>雇人 / 对话</strong>：同事实例可单独覆盖；保存实例不会回写此处预设。
                 </p>
               </SectionCard>
 
-              <SectionCard meta={INSTANCE_SECTION}>
-                {chatInstances.length === 0 ? (
-                  <p className="settings-card__note">花名册暂无同事实例；请先在左侧聊天栏「雇人」后再配置。</p>
-                ) : (
-                  <>
-                    <label className="field">
-                      <span>选择同事实例</span>
-                      <select
-                        value={selectedInstanceId || ""}
-                        disabled={disabled}
-                        onChange={(e) => setSelectedInstanceId(e.target.value)}
-                      >
-                        {(["brief", "product_host", "programmer", "it"] as const).map((roleKind) => {
-                          const group = chatInstances.filter((c) => c.roleKind === roleKind);
-                          if (group.length === 0) return null;
-                          return (
-                            <optgroup key={roleKind} label={CHAT_AGENT_LABELS[roleKind]}>
-                              {group.map((c) => (
-                                <option key={c.id} value={c.id}>
-                                  {c.displayName}
-                                </option>
-                              ))}
-                            </optgroup>
-                          );
-                        })}
-                      </select>
-                    </label>
-
-                    {selectedColleague && selectedInstanceRecord && (
-                      <>
-                        <p className="field-hint">
-                          工种：{CHAT_AGENT_LABELS[selectedColleague.roleKind]} · ID{" "}
-                          <code className="mono">{selectedColleague.id}</code>
-                        </p>
-
-                        {selectedColleague.roleKind === "brief" || selectedColleague.roleKind === "it" ? (
-                          <p className="settings-card__note">
-                            {CHAT_AGENT_LABELS[selectedColleague.roleKind]} 使用<strong>内置 Pi</strong>
-                            执行；只需选择 Provider 与模型（Key 在 Provider 页填写）。
-                          </p>
-                        ) : (
-                          <ExecutorPicker
-                            name={`instance-executor-${selectedColleague.id}`}
-                            options={
-                              selectedColleague.roleKind === "product_host"
-                                ? HOST_EXECUTORS
-                                : CODE_EXECUTORS
-                            }
-                            value={selectedInstanceRecord.executor as AgentExecutor}
-                            executors={doctor?.executors}
-                            disabled={disabled}
-                            onChange={(id) => updateSelectedInstance({ executor: id as InstanceExecutor })}
-                          />
-                        )}
-
-                        <label className="field">
-                          <span>Provider（账号库 id）</span>
-                          <select
-                            value={selectedInstanceRecord.provider}
-                            disabled={disabled}
-                            onChange={(e) =>
-                              updateSelectedInstance({
-                                provider: e.target.value as ApiProviderId,
-                              })
-                            }
-                          >
-                            {API_PROVIDERS.map((p) => {
-                              const ok = isProviderConfigured(form.providerAccounts, p.id);
-                              return (
-                                <option key={p.id} value={p.id}>
-                                  {p.label}
-                                  {ok ? " ✓" : "（未填 Key）"}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          {!isProviderConfigured(form.providerAccounts, selectedInstanceRecord.provider) && (
-                            <span className="settings-card__note">
-                              所选 Provider 尚未填 Key，回合可能失败；请先到 Provider 页补全。
-                            </span>
-                          )}
-                        </label>
-
-                        <label className="field">
-                          <span>模型（可选覆盖）</span>
-                          <input
-                            type="text"
-                            value={selectedInstanceRecord.model}
-                            disabled={disabled}
-                            placeholder={
-                              getProviderAccount(form.providerAccounts, selectedInstanceRecord.provider)
-                                .textModel || "留空则用工种默认 / 账号默认"
-                            }
-                            onChange={(e) => updateSelectedInstance({ model: e.target.value })}
-                          />
-                        </label>
-
-                        {selectedInstanceRecord.executor === "codex" && (
-                          <label className="field field--checkbox">
-                            <input
-                              type="checkbox"
-                              checked={selectedInstanceRecord.use_third_party}
-                              disabled={disabled}
-                              onChange={(e) =>
-                                updateSelectedInstance({ use_third_party: e.target.checked })
-                              }
-                            />
-                            <span>用第三方（账号库 Key，保存时同步到 Codex）</span>
-                          </label>
-                        )}
-
-                        {selectedInstanceRecord.executor === "cursor" && (
-                          <p className="settings-card__note">
-                            Cursor 仅支持本机登录/订阅，<strong>第三方不可用</strong>。
-                          </p>
-                        )}
-
-                        {selectedInstanceRecord.executor === "hermes" && (
-                          <p className="settings-card__note">
-                            Hermes 使用上方所选 Provider；保存后到「环境 → Hermes → 同步 API」。
-                          </p>
-                        )}
-                      </>
-                    )}
-                  </>
-                )}
+              <SectionCard
+                meta={PI_AGENT_SECTION}
+                configured={isProviderConfigured(form.providerAccounts, piProvider)}
+              >
+                <AgentProviderSelect
+                  value={piProvider}
+                  accounts={form.providerAccounts}
+                  disabled={disabled}
+                  onChange={(id) => updateAgentExecutor("pi", { provider: id })}
+                />
+                <label className="field">
+                  <span>默认模型（可选）</span>
+                  <input
+                    type="text"
+                    value={piPreset.model ?? ""}
+                    disabled={disabled}
+                    placeholder={
+                      getProviderAccount(form.providerAccounts, piProvider).textModel || "留空则用账号默认"
+                    }
+                    onChange={(e) => updateAgentExecutor("pi", { model: e.target.value })}
+                  />
+                </label>
+                <p className="settings-card__note">
+                  策划 / IT 固定使用内置 Pi；需 Node ≥22.19 与 Provider Key。
+                </p>
               </SectionCard>
 
               <SectionCard
-                meta={HOST_SECTION}
-                configured={hostExecutorLogin ? hostExecutorOk : hostKeyOk}
-                statusOk={hostExecutorLogin ? "本机可用" : "已填写"}
-                statusWarn={hostExecutorLogin ? "未检测到" : "未填写"}
+                meta={HERMES_AGENT_SECTION}
+                configured={isProviderConfigured(form.providerAccounts, hermesProvider)}
               >
-                <p className="field-hint">工种默认：新雇的项目经理实例在未单独保存前继承以下设置。</p>
-                <ExecutorPicker
-                  name="host-executor"
-                  options={HOST_EXECUTORS}
-                  value={form.hostExecutor}
-                  executors={doctor?.executors}
+                <AgentProviderSelect
+                  value={hermesProvider}
+                  accounts={form.providerAccounts}
                   disabled={disabled}
-                  onChange={(id) => setField("hostExecutor", id)}
+                  onChange={(id) => updateAgentExecutor("hermes", { provider: id })}
                 />
-                {form.hostExecutor === "hermes" && (
-                  <>
-                    <label className="field">
-                      <span>Hermes 使用的 Provider（工种默认）</span>
-                      <select
-                        value={form.hermesProvider}
-                        disabled={disabled}
-                        onChange={(e) =>
-                          setField("hermesProvider", e.target.value as ApiProviderId)
-                        }
-                      >
-                        {API_PROVIDERS.map((p) => {
-                          const ok = isProviderConfigured(form.providerAccounts, p.id);
-                          return (
-                            <option key={p.id} value={p.id}>
-                              {p.label}
-                              {ok ? " ✓" : "（未填 Key）"}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </label>
-                    <p className="settings-card__note">
-                      与「Provider 页 · 生文」当前选中可不同；保存后到「环境 → Hermes → 同步 API」。
-                    </p>
-                  </>
-                )}
-                {hostExecutorLogin ? (
-                  <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.hostExecutor]}</p>
-                ) : null}
+                <p className="settings-card__note">
+                  保存后到「环境 → Hermes → 同步 API」将所选 Provider 写入 Hermes。
+                </p>
               </SectionCard>
 
-              <SectionCard
-                meta={CODE_SECTION}
-                configured={codeExecutorOk}
-                statusOk="本机可用"
-                statusWarn="未检测到"
-              >
-                <p className="field-hint">工种默认：新雇的程序员实例在未单独保存前继承以下设置。</p>
-                <ExecutorPicker
-                  name="code-executor"
-                  options={CODE_EXECUTORS}
-                  value={form.codeExecutor}
-                  executors={doctor?.executors}
-                  disabled={disabled}
-                  onChange={(id) => setField("codeExecutor", id)}
-                />
-                {form.codeExecutor === "hermes" && form.hostExecutor !== "hermes" && (
-                  <label className="field">
-                    <span>Hermes 使用的 Provider（工种默认）</span>
-                    <select
-                      value={form.hermesProvider}
+              <SectionCard meta={CODEX_AGENT_SECTION}>
+                <label className="field field--checkbox">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(codexPreset.use_third_party)}
+                    disabled={disabled}
+                    onChange={(e) =>
+                      updateAgentExecutor("codex", { use_third_party: e.target.checked })
+                    }
+                  />
+                  <span>用第三方（账号库 Key，保存时同步到 Codex）</span>
+                </label>
+                {codexPreset.use_third_party ? (
+                  <>
+                    <AgentProviderSelect
+                      value={codexProvider}
+                      accounts={form.providerAccounts}
                       disabled={disabled}
-                      onChange={(e) =>
-                        setField("hermesProvider", e.target.value as ApiProviderId)
-                      }
-                    >
-                      {API_PROVIDERS.map((p) => {
-                        const ok = isProviderConfigured(form.providerAccounts, p.id);
-                        return (
-                          <option key={p.id} value={p.id}>
-                            {p.label}
-                            {ok ? " ✓" : "（未填 Key）"}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </label>
+                      onChange={(id) => updateAgentExecutor("codex", { provider: id })}
+                    />
+                    <label className="field">
+                      <span>模型（可选）</span>
+                      <input
+                        type="text"
+                        value={codexPreset.model ?? ""}
+                        disabled={disabled}
+                        placeholder={
+                          getProviderAccount(form.providerAccounts, codexProvider).textModel ||
+                          "账号默认模型"
+                        }
+                        onChange={(e) => updateAgentExecutor("codex", { model: e.target.value })}
+                      />
+                    </label>
+                  </>
+                ) : (
+                  <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS.codex}</p>
                 )}
-                <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS[form.codeExecutor]}</p>
+              </SectionCard>
+
+              <SectionCard meta={CURSOR_AGENT_SECTION}>
+                <p className="settings-card__note">
+                  Cursor 仅支持本机登录/订阅，<strong>第三方不可用</strong>。
+                </p>
+                <p className="settings-card__note">{EXECUTOR_LOGIN_HINTS.cursor}</p>
               </SectionCard>
             </>
           )}

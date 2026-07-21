@@ -161,6 +161,16 @@ export interface ConfigPatch {
     "prompt-crafter"?: { executor?: string; skill?: string };
     /** Foundry provider_accounts id synced into Hermes (~/.hermes) */
     hermes_provider?: string;
+    executors?: {
+      pi?: { provider?: string; model?: string | null };
+      hermes?: { provider?: string; model?: string | null };
+      codex?: {
+        provider?: string;
+        model?: string | null;
+        use_third_party?: boolean;
+      };
+      cursor?: Record<string, never>;
+    };
     instances?: Record<
       string,
       {
@@ -209,7 +219,7 @@ declare global {
         executorId: import("./settings/executorsSetup").ExecutorId,
         stepId: string,
         opts?: { instanceId?: string; provider?: string },
-      ) => Promise<CliResult<{ ok?: boolean; error?: string; message?: string; status?: import("./settings/executorsSetup").ExecutorSetupInfo }>>;
+      ) => Promise<CliResult<{ ok?: boolean; error?: string; message?: string; skipped?: boolean; status?: import("./settings/executorsSetup").ExecutorSetupInfo }>>;
       openExternal: (url: string) => Promise<{ ok: boolean; error?: string }>;
       listBriefs: () => Promise<BriefItem[]>;
       listManifests: () => Promise<BriefItem[]>;

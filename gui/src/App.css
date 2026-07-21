@@ -1567,6 +1567,27 @@ code {
   max-width: 12em;
 }
 
+.pi-model-chip__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pi-model-chip__check input {
+  margin: 0;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+}
+
+.pi-model-chip__check input:disabled {
+  cursor: not-allowed;
+}
+
 .pm-sticky-actions__btn--done {
   border-color: rgba(34, 197, 94, 0.55);
   background: rgba(34, 197, 94, 0.12);

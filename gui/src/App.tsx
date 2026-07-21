@@ -2,8 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
-import { PiProviderQuickSwitch } from "./components/PiProviderQuickSwitch";
+import { ColleagueConfigBar } from "./components/ColleagueConfigBar";
 import { ColleagueRoster } from "./components/ColleagueRoster";
+import { HireColleagueModal } from "./components/HireColleagueModal";
 import { BoardPanel } from "./components/BoardPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
@@ -63,6 +64,13 @@ import {
   removeColleague,
   type ChatSessionStore,
 } from "./chat/sessions";
+import {
+  loadAgentInstancesFromConfig,
+  serializeAgentInstances,
+  upsertInstanceRecord,
+  shouldSyncCodexThirdParty,
+} from "./settings/agentInstances";
+import { executorKindForHire, type HireColleagueConfirmPayload } from "./settings/hireColleague";
 type SidePanel = "board" | "docs" | "settings" | "env" | "guide" | null;
 
 function slugifyBriefName(raw: string): string {
@@ -277,6 +285,7 @@ export default function App() {
   const [toolchainDismissed, setToolchainDismissed] = useState(false);
   const [toolchainInstalling, setToolchainInstalling] = useState<string | null>(null);
   const [toolchainLog, setToolchainLog] = useState<string[]>([]);
+  const [hireRoleKind, setHireRoleKind] = useState<ChatAgentRole | null>(null);
   const autoEnsureDone = useRef(false);
   /** Soft-gate: warn once before pipeline run without visual_reference */
   const runWithoutVtWarned = useRef(false);
@@ -671,17 +680,54 @@ export default function App() {
     [chatStore.roster, patchChatStore, append, refreshHandoffs],
   );
 
-  const handleHire = useCallback(
-    (roleKind: ChatAgentRole) => {
-      // Electron 无 window.prompt；先用默认名，再「改名」
-      patchChatStore((prev) => hireColleague(prev, roleKind));
+  const handleRequestHire = useCallback((roleKind: ChatAgentRole) => {
+    setHireRoleKind(roleKind);
+  }, []);
+
+  const handleHireConfirm = useCallback(
+    (payload: HireColleagueConfirmPayload) => {
+      let hiredId = "";
+      const exec = executorKindForHire(payload.record);
+      patchChatStore((prev) => {
+        const next = hireColleague(prev, payload.roleKind, payload.displayName, exec);
+        hiredId = next.activeInstanceId;
+        return next;
+      });
+      setHireRoleKind(null);
       setBrainstormActive(false);
       setBrainstormReady(false);
       setBrainstormChoices([]);
       setDraftTitle("");
+      void (async () => {
+        if (!hiredId || !window.gameFactory?.saveConfig) return;
+        try {
+          const info = await window.gameFactory.getConfig();
+          const instances = loadAgentInstancesFromConfig(info.data as Record<string, unknown>);
+          const nextMap = upsertInstanceRecord(instances, hiredId, payload.record);
+          await window.gameFactory.saveConfig({
+            agents: {
+              instances: serializeAgentInstances(nextMap),
+            },
+          });
+          if (
+            shouldSyncCodexThirdParty(payload.record) &&
+            window.gameFactory.executorStep
+          ) {
+            await window.gameFactory.executorStep("codex", "sync_api", {
+              instanceId: hiredId,
+            });
+          }
+        } catch {
+          /* config persist best-effort */
+        }
+      })();
     },
     [patchChatStore],
   );
+
+  const handleHireCancel = useCallback(() => {
+    setHireRoleKind(null);
+  }, []);
 
   const handleRenameColleague = useCallback(
     (instanceId: string, displayName: string) => {
@@ -2449,7 +2495,7 @@ export default function App() {
           openHandoffs={handoffsForRoster}
           busyInstanceIds={busyInstanceIds}
           onSelectColleague={handleSelectColleague}
-          onHire={handleHire}
+          onRequestHire={handleRequestHire}
           onRename={handleRenameColleague}
           onRemove={handleRemoveColleague}
           onNewChat={handleNewChat}
@@ -2549,9 +2595,7 @@ export default function App() {
               </button>
             </div>
           )}
-          {(agentRole === "brief" || agentRole === "it") && (
-            <PiProviderQuickSwitch colleague={activeColleague} disabled={chatBusy} />
-          )}
+          <ColleagueConfigBar colleague={activeColleague} disabled={chatBusy} />
           <ChatInput
             disabled={chatBusy}
             choices={
@@ -2657,6 +2701,15 @@ export default function App() {
 
         {sidePanel === "guide" && <GuidePanel />}
       </div>
+
+      {hireRoleKind && (
+        <HireColleagueModal
+          roleKind={hireRoleKind}
+          roster={chatStore.roster}
+          onCancel={handleHireCancel}
+          onConfirm={handleHireConfirm}
+        />
+      )}
 
       {((toolchainReport?.needs_attention && !toolchainDismissed) ||
         (envHealth && !envHealth.ok && !toolchainDismissed)) &&
