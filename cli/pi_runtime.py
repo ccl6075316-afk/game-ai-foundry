@@ -109,7 +109,7 @@ def resolve_pi_cli_js(root: Path | None = None) -> Path | None:
 
 
 def _discover_extra_node_bins() -> list[str]:
-    """Find Node installs Electron GUI PATH often misses (nvm / Homebrew)."""
+    """Find Node installs Electron GUI PATH often misses (nvm / Homebrew / Windows)."""
     found: list[str] = []
     home = Path.home()
     nvm_root = Path(os.environ.get("NVM_DIR") or (home / ".nvm")).expanduser()
@@ -129,7 +129,34 @@ def _discover_extra_node_bins() -> list[str]:
             if cand.is_file():
                 found.append(str(cand))
                 break  # newest is enough; version gate decides later
+
+    # nvm-windows: %NVM_HOME%\v22.x.x\node.exe
+    nvm_home = (os.environ.get("NVM_HOME") or "").strip()
+    if nvm_home:
+        nvm_home_path = Path(nvm_home).expanduser()
+        if nvm_home_path.is_dir():
+            try:
+                names = sorted(
+                    (p.name for p in nvm_home_path.iterdir() if p.is_dir()),
+                    key=lambda n: parse_node_version(n) or (0, 0, 0),
+                    reverse=True,
+                )
+            except OSError:
+                names = []
+            for name in names:
+                cand = nvm_home_path / name / "node.exe"
+                if cand.is_file():
+                    found.append(str(cand))
+                    break
+
+    pf = os.environ.get("ProgramFiles") or r"C:\Program Files"
+    pf86 = os.environ.get("ProgramFiles(x86)") or r"C:\Program Files (x86)"
+    local = os.environ.get("LOCALAPPDATA") or str(home / "AppData" / "Local")
     for cand in (
+        str(Path(pf) / "nodejs" / "node.exe"),
+        str(Path(pf86) / "nodejs" / "node.exe"),
+        str(Path(local) / "Programs" / "node" / "node.exe"),
+        str(home / "scoop" / "apps" / "nodejs" / "current" / "node.exe"),
         "/opt/homebrew/opt/node@22/bin/node",
         "/usr/local/opt/node@22/bin/node",
         "/opt/homebrew/bin/node",
@@ -157,24 +184,24 @@ def _node_candidates() -> list[tuple[str, dict[str, str], str]]:
         seen.add(key)
         out.append((exe, dict(extra), source))
 
-    # Explicit override first, then PATH node, then nvm/brew, then Electron-as-Node.
-    # Electron 33 ships Node 20 — too old for Pi 0.80 — so PATH/nvm Node 22+ must win.
+    # One runtime in Release: Electron (Node >=22.19 from Electron 36.9+/37.5+/39+).
+    # Override → Electron-as-Node → PATH → nvm/brew/Windows Program Files.
     add((os.environ.get("GAMEFACTORY_NODE") or "").strip() or None, {}, "GAMEFACTORY_NODE")
-    add(shutil.which("node"), {}, "PATH")
-    for extra_bin in _discover_extra_node_bins():
-        add(extra_bin, {}, "discover")
     electron = (os.environ.get("GAMEFACTORY_ELECTRON_EXECUTABLE") or "").strip()
     if electron:
         add(electron, {"ELECTRON_RUN_AS_NODE": "1"}, "electron")
+    add(shutil.which("node"), {}, "PATH")
+    for extra_bin in _discover_extra_node_bins():
+        add(extra_bin, {}, "discover")
     return out
 
 
 def resolve_node_launch() -> tuple[str | None, dict[str, str]]:
     """Return ``(executable, extra_env)`` for running Pi's cli.js.
 
-    Prefer a Node that satisfies ``PI_MIN_NODE`` (``GAMEFACTORY_NODE`` → PATH
-    ``node`` → Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE``). If none qualify,
-    return the first existing candidate so status can report the too-old version.
+    Prefer a Node that satisfies ``PI_MIN_NODE`` (``GAMEFACTORY_NODE`` →
+    Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE`` → PATH / discovered installs).
+    Electron must be >=36.9 / 37.5 / 39 (Node 22.19+); older Electron 33 (Node 20) fails the gate.
     """
     fallback: tuple[str, dict[str, str]] | None = None
     for exe, extra, _source in _node_candidates():
@@ -251,13 +278,16 @@ def pi_status(
     elif not entry:
         hint = "运行: node scripts/prepare_embedded_pi.mjs"
     elif not node_exe:
-        hint = f"需要 Node >={PI_MIN_NODE_LABEL}（PATH 中的 node，或设置 GAMEFACTORY_NODE）"
+        hint = (
+            f"需要 Node >={PI_MIN_NODE_LABEL}（GUI 请用 Electron 39+；"
+            "或 PATH 中的 node / GAMEFACTORY_NODE）"
+        )
     elif not node_ok:
         got = format_node_version(node_ver) or "?"
         hint = (
             f"Node {got} 过旧：内置 Pi {PI_PIN_VERSION} 需要 >={PI_MIN_NODE_LABEL}。"
-            f"请安装 Node {PI_MIN_NODE_LABEL}+，或设置 GAMEFACTORY_NODE 指向该版本"
-            "（勿仅依赖 Electron 自带的 Node 20）"
+            f"请升级 GUI 依赖 Electron（≥39，自带 Node 22.19+），"
+            f"或设置 GAMEFACTORY_NODE 指向该版本"
         )
     else:
         hint = auth.get("error")
@@ -405,20 +435,27 @@ def resolve_brief_executor(config: dict[str, Any] | None = None) -> str:
     return "host"
 
 
-def resolve_pi_auth_for_brief(
+def resolve_pi_auth_for_turn(
     config: dict[str, Any] | None = None,
     *,
+    role_kind: str = "brief",
     instance_id: str | None = None,
 ) -> dict[str, Any]:
-    """Auth for brief turns: Pi providers + prefer host.model when set."""
+    """Auth for Pi turns: instance → executors → role → host (brief may prefer host.model)."""
     from gamefactory import load_config
     from llm_config import resolve_host_api_settings
 
     cfg = config if config is not None else load_config()
-    auth = resolve_pi_api_auth(cfg, role_kind="brief", instance_id=instance_id)
+    auth = resolve_pi_api_auth(cfg, role_kind=role_kind, instance_id=instance_id)
     host_cfg = cfg.get("host") if isinstance(cfg.get("host"), dict) else {}
     host_model = str(host_cfg.get("model") or "").strip()
-    if auth.get("api_key") and host_model and auth.get("source") not in ("instance", "role"):
+    # Only brief inherits host.model when provider came from a shared fallback.
+    if (
+        role_kind == "brief"
+        and auth.get("api_key")
+        and host_model
+        and auth.get("source") not in ("instance", "role")
+    ):
         auth = {**auth, "model": host_model}
         return auth
 
@@ -444,6 +481,15 @@ def resolve_pi_auth_for_brief(
         "env_key": env_map[provider],
         "source": "host.fallback",
     }
+
+
+def resolve_pi_auth_for_brief(
+    config: dict[str, Any] | None = None,
+    *,
+    instance_id: str | None = None,
+) -> dict[str, Any]:
+    """Compat wrapper: brief-role Pi auth."""
+    return resolve_pi_auth_for_turn(config, role_kind="brief", instance_id=instance_id)
 
 
 def _pi_subprocess_env(auth: dict[str, Any], config: dict[str, Any] | None) -> dict[str, str]:
@@ -475,6 +521,7 @@ def run_pi_text_completion(
     user_text: str,
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
+    role_kind: str = "brief",
     timeout_sec: float = 180.0,
     response_mode: str = "json",
 ) -> str:
@@ -489,9 +536,9 @@ def run_pi_text_completion(
     if not status.get("cli_js") or not status.get("node") or not status.get("node_ok"):
         raise PiRuntimeError(status.get("hint") or "embedded Pi not ready")
 
-    auth = resolve_pi_auth_for_brief(config, instance_id=instance_id)
+    auth = resolve_pi_auth_for_turn(config, role_kind=role_kind, instance_id=instance_id)
     if not auth.get("api_key"):
-        raise PiRuntimeError(auth.get("error") or "missing API key for Pi brief turn")
+        raise PiRuntimeError(auth.get("error") or "missing API key for Pi turn")
 
     env = _pi_subprocess_env(auth, config)
     runtime = Path(str(status["runtime_root"]))
@@ -575,6 +622,7 @@ def run_pi_agent_turn(
     user_text: str,
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
+    role_kind: str | None = None,
     max_tool_rounds: int = 4,
     timeout_sec: float = 180.0,
     tool_profile: str = "it",
@@ -583,6 +631,7 @@ def run_pi_agent_turn(
     """Pi turn with Foundry tool-fence loop (for IT / optional agent roles)."""
     from pi_foundry_tools import run_tool_round, tool_protocol_instructions
 
+    auth_role = role_kind or ("brief" if tool_profile == "brief" else "it")
     system = f"{system_prompt.rstrip()}\n\n{tool_protocol_instructions(profile=tool_profile)}"
     conversation = user_text
     tool_trace: list[dict[str, Any]] = []
@@ -594,6 +643,7 @@ def run_pi_agent_turn(
             user_text=conversation,
             config=config,
             instance_id=instance_id,
+            role_kind=auth_role,
             timeout_sec=timeout_sec,
             response_mode="text" if tool_profile != "brief" else "json",
         )
@@ -653,6 +703,7 @@ def run_pi_brief_turn_with_tools(
         user_text=user_text,
         config=config,
         instance_id=instance_id,
+        role_kind="brief",
         max_tool_rounds=max_tool_rounds,
         timeout_sec=timeout_sec,
         tool_profile="brief",

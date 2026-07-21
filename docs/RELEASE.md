@@ -32,7 +32,7 @@
 | Godot .NET | **自动安装** → 写入 `godot.engine_path` |
 | .NET SDK | **自动安装** → `~/.gamefactory/toolchain/dotnet` |
 | rembg | **内嵌 Python 自带**，无需操作 |
-| **Pi（策划/IT 会话）** | **Release 内置**；只需配置 API Key |
+| **Pi（策划/IT 会话）** | **Release 内置**（复用 Electron Node ≥22.19）；只需配置 API Key |
 | Hermes / Codex / Cursor | **环境面板分步安装**（推荐，非必需起步） |
 
 详见 [`TOOLS.md`](TOOLS.md) · [`GUI-CONFIG.md`](GUI-CONFIG.md)
@@ -56,9 +56,9 @@ scripts\build-release.bat
 ### 步骤说明
 
 1. `scripts/prepare_embedded_python.py --with-rembg` — 内嵌 venv（含 rembg）
-2. `scripts/prepare_embedded_pi.mjs` — 内嵌 pinned `@earendil-works/pi-coding-agent`（策划/IT 会话）
+2. `scripts/prepare_embedded_pi.mjs` — 内嵌 pinned `@earendil-works/pi-coding-agent`（策划/IT 会话；**与 Electron 共用 Node**，不另打一份 Node）
 3. `vite build` → `gui/dist/`
-4. `electron-builder` — Electron + 内嵌 Python + 内嵌 Pi + `cli/` + `resources/`
+4. `electron-builder` — Electron **39+**（自带 Node ≥22.19，满足 Pi undici）+ 内嵌 Python + 内嵌 Pi + `cli/` + `resources/`
 
 产物目录：`gui/release/`
 
@@ -69,7 +69,8 @@ scripts\build-release.bat
 | Linux | `Game-AI-Foundry-*-linux-x86_64.AppImage` |
 
 > 内嵌 Python 与原生 wheel 需在**目标系统**上构建。  
-> 内嵌 Pi 在构建机 `npm install` 到 `gui/runtime/pi`（已 gitignore）；冒烟：`python gamefactory.py setup pi smoke --json`。
+> 内嵌 Pi 在构建机 `npm install` 到 `gui/runtime/pi`（已 gitignore）；冒烟：`python gamefactory.py setup pi smoke --json`。  
+> Pi 通过 `ELECTRON_RUN_AS_NODE` 复用 GUI 的 Electron Node（需 ≥22.19；Electron 33 的 Node 20 不够）。
 
 ### 仅本地验证（不打包安装程序）
 

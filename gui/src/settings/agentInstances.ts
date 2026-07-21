@@ -186,3 +186,33 @@ export function rosterChatInstances(roster: ColleagueInstance[]): ColleagueInsta
 export function shouldSyncCodexThirdParty(record: AgentInstanceRecord): boolean {
   return record.executor === "codex" && record.use_third_party;
 }
+
+/**
+ * When Agent → Pi default Provider/model changes, update 策划/IT instances that
+ * still match the previous default (so Settings change is visible in the chat bar).
+ */
+export function syncPiLockedInstancesToPreset(
+  instances: AgentInstancesMap,
+  previousPi: { provider?: ApiProviderId; model?: string },
+  nextPi: { provider?: ApiProviderId; model?: string },
+): AgentInstancesMap {
+  const prevProvider = coerceProvider(previousPi.provider, "openrouter");
+  const prevModel = String(previousPi.model ?? "").trim();
+  const nextProvider = coerceProvider(nextPi.provider, "openrouter");
+  const nextModel = String(nextPi.model ?? "").trim();
+  if (prevProvider === nextProvider && prevModel === nextModel) {
+    return instances;
+  }
+
+  let changed = false;
+  const out: AgentInstancesMap = { ...instances };
+  for (const [id, rec] of Object.entries(instances)) {
+    if (rec.role_kind !== "brief" && rec.role_kind !== "it") continue;
+    if (rec.executor !== "pi") continue;
+    if (rec.provider !== prevProvider) continue;
+    if (String(rec.model ?? "").trim() !== prevModel) continue;
+    out[id] = { ...rec, provider: nextProvider, model: nextModel };
+    changed = true;
+  }
+  return changed ? out : instances;
+}

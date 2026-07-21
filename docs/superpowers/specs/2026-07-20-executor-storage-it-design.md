@@ -164,7 +164,8 @@ flowchart LR
 | `scripts/prepare_embedded_pi.mjs` → `gui/runtime/pi` | **已落地**（pin `0.80.10`） |
 | `extraResources` / `build-release.*` 编入 Pi | **已接线** |
 | `setup pi status` / `setup pi smoke` | **已落地并通过**（`stdin=DEVNULL` + proxy + offline） |
-| Electron `ELECTRON_RUN_AS_NODE` 跑 Pi（免系统 Node） | **已接线**：GUI `runCli` 注入 `GAMEFACTORY_ELECTRON_EXECUTABLE`；CLI `resolve_node_launch` |
+| Electron `ELECTRON_RUN_AS_NODE` 跑 Pi | **已接线**：GUI Electron **39+**（Node ≥22.19）与 Pi 共用一套运行时；勿用 Electron 33（Node 20） |
+| 另打官方 Node 二进制 | **不做**（避免两套 Node；升 Electron 对齐即可） |
 | 策划旁路 host-chat | **步骤 2 已通**：`brief chat` → Pi + **工具白名单**（status/validate/export 门闩）+ JSON draft；失败回退 Host |
 | IT 角色 + 工具白名单 | **已通**：GUI `it` → `agent turn --role it` → Pi + `FOUNDRY_TOOL` |
 | 策划工具白名单写盘 | **已通**：`brief chat export` 仅 `allow_export` + session ready/commit；路径限 `projects|output|plans` |

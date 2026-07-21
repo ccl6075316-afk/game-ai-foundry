@@ -1010,9 +1010,13 @@ export default function App() {
     const programmers = chatStore.roster.filter((c) => c.roleKind === "programmer");
     const defaultTarget =
       programmers.find((c) => c.id === target.instanceId)?.id || programmers[0]?.id;
+    const waitHint =
+      role === "it"
+        ? "Pi 首轮可能较慢（约 1–2 分钟属正常）。"
+        : "Hermes / Codex 常需 1–3 分钟才回完整答复。";
     append(
       "log",
-      `「${target.displayName}」执行器运行中…\n（右侧可开「看板」；下方会显示等待秒数。Hermes 常需 1–3 分钟才回完整答复。）`,
+      `「${target.displayName}」执行器运行中…\n（右侧可开「看板」；下方会显示等待秒数。${waitHint}）`,
       undefined,
       target,
     );
@@ -1029,7 +1033,7 @@ export default function App() {
             ...prev.slice(0, -1),
             {
               ...last,
-              content: `${base}\n…仍在运行 ${secs}s（计时跳动即正常；Hermes 常需 1–3 分钟）`,
+              content: `${base}\n…仍在运行 ${secs}s（计时跳动即正常；${waitHint}）`,
             },
           ];
         }),
@@ -1151,7 +1155,7 @@ export default function App() {
         "assistant",
         `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
           (target.role === "it"
-            ? "IT 使用**内置 Pi**（无需 Hermes/Codex）。请到 **设置 → 角色** 为当前实例选择 Provider 并填写 Key（Provider 页账号库）；并确认 Pi 就绪（`setup pi status --json`）。"
+            ? "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
             : "请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → 角色** 为当前实例选择执行器。"),
         undefined,
         target,

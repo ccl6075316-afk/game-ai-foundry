@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -95,7 +96,29 @@ class PiNodeVersionTest(unittest.TestCase):
         self.assertFalse(node_meets_pi_min((20, 18, 3)))
         self.assertFalse(node_meets_pi_min((22, 18, 0)))
 
-    def test_prefers_path_node_over_old_electron(self) -> None:
+    def test_prefers_electron_when_new_enough(self) -> None:
+        def fake_probe(exe: str, extra_env=None):
+            if "Electron" in exe or "electron" in exe.lower():
+                return (22, 19, 0)
+            return (20, 18, 0)
+
+        with (
+            patch("pi_runtime._node_candidates") as cand,
+            patch("pi_runtime.probe_node_version", side_effect=fake_probe),
+        ):
+            cand.return_value = [
+                (
+                    "/Apps/Electron.app/Contents/MacOS/Electron",
+                    {"ELECTRON_RUN_AS_NODE": "1"},
+                    "electron",
+                ),
+                ("/usr/local/bin/node20", {}, "PATH"),
+            ]
+            exe, extra = resolve_node_launch()
+        self.assertIn("Electron", exe)
+        self.assertEqual(extra.get("ELECTRON_RUN_AS_NODE"), "1")
+
+    def test_skips_old_electron_for_path_node(self) -> None:
         def fake_probe(exe: str, extra_env=None):
             if "Electron" in exe or "electron" in exe.lower():
                 return (20, 18, 3)
@@ -108,16 +131,44 @@ class PiNodeVersionTest(unittest.TestCase):
             patch("pi_runtime.probe_node_version", side_effect=fake_probe),
         ):
             cand.return_value = [
-                ("/usr/local/bin/node22", {}, "PATH"),
                 (
                     "/Apps/Electron.app/Contents/MacOS/Electron",
                     {"ELECTRON_RUN_AS_NODE": "1"},
                     "electron",
                 ),
+                ("/usr/local/bin/node22", {}, "PATH"),
             ]
             exe, extra = resolve_node_launch()
         self.assertEqual(exe, "/usr/local/bin/node22")
         self.assertEqual(extra, {})
+
+    def test_discover_includes_windows_program_files(self) -> None:
+        from pi_runtime import _discover_extra_node_bins
+
+        def fake_is_file(self: Path) -> bool:
+            text = str(self).replace("\\", "/")
+            return text.endswith("Program Files/nodejs/node.exe")
+
+        with (
+            patch.dict(
+                os.environ,
+                {
+                    "ProgramFiles": "C:\\Program Files",
+                    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+                    "LOCALAPPDATA": "C:\\Users\\x\\AppData\\Local",
+                    "NVM_HOME": "",
+                    "NVM_DIR": "",
+                },
+                clear=False,
+            ),
+            patch.object(Path, "is_file", fake_is_file),
+            patch.object(Path, "is_dir", lambda self: False),
+        ):
+            found = _discover_extra_node_bins()
+        self.assertTrue(
+            any(f.replace("\\", "/").endswith("Program Files/nodejs/node.exe") for f in found),
+            found,
+        )
 
 
 class PiRuntimeStatusTest(unittest.TestCase):
