@@ -216,7 +216,13 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
         setExecutorsMap(execMap);
         setExecutor(record.executor);
         setProvider(record.provider);
-        setModel(saved ? String(saved.model ?? "") : record.model ? String(record.model) : "");
+        // Native Codex/Cursor: keep empty model as "" — display tiers.mid via resolveNativeModel (no write on load).
+        const savedModel = saved
+          ? String(saved.model ?? "")
+          : record.model
+            ? String(record.model)
+            : "";
+        setModel(savedModel);
         setUseThirdParty(record.use_third_party);
         setError(null);
       } catch (e) {
@@ -356,11 +362,16 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     useNativeModelUi && (executor === "codex" || executor === "cursor")
       ? catalogForNativeExecutor(executor)
       : null;
-  const activeTier = nativeCatalog ? tierForModel(nativeCatalog, model) : null;
-  const selectModel = nativeCatalog ? resolveNativeModel(nativeCatalog, model) : model;
+  const displayModel = nativeCatalog
+    ? resolveNativeModel(nativeCatalog, model)
+    : model;
+  const activeTier = nativeCatalog
+    ? tierForModel(nativeCatalog, displayModel)
+    : null;
   const trimmedModel = String(model || "").trim();
+  const trimmedDisplay = String(displayModel || "").trim();
   const inCatalog = Boolean(
-    nativeCatalog?.options.some((o) => o.id === trimmedModel),
+    nativeCatalog?.options.some((o) => o.id === trimmedDisplay),
   );
   const showNativeCustomInput =
     Boolean(nativeCatalog) &&
@@ -368,8 +379,8 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const nativeSelectValue = showNativeCustomInput
     ? "__custom__"
     : inCatalog
-      ? trimmedModel
-      : selectModel;
+      ? trimmedDisplay
+      : displayModel;
 
   return (
     <div
