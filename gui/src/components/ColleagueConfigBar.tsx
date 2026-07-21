@@ -28,6 +28,12 @@ import {
   loadProviderAccountsFromConfig,
   type ProviderAccountsMap,
 } from "../settings/providerAccounts";
+import {
+  catalogForNativeExecutor,
+  modelForTier,
+  resolveNativeModel,
+  tierForModel,
+} from "../settings/executorModels";
 
 interface Props {
   colleague: ColleagueInstance;
@@ -79,6 +85,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [nativeCustomOpen, setNativeCustomOpen] = useState(false);
   const modelSaveTimer = useRef<number | null>(null);
   const pendingModel = useRef<{
     instanceId: string;
@@ -230,6 +237,10 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     [flushPendingModel],
   );
 
+  useEffect(() => {
+    setNativeCustomOpen(false);
+  }, [colleague.id, executor, useThirdParty]);
+
   const applyExecutorPreset = useCallback(
     (nextExecutor: InstanceExecutor) => {
       if (piLocked || !executorsMap) return;
@@ -283,8 +294,29 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
 
   const handleThirdPartyChange = (checked: boolean) => {
     flushPendingModel();
+    setNativeCustomOpen(false);
     setUseThirdParty(checked);
     void persist(colleague.id, colleague.roleKind, { use_third_party: checked });
+  };
+
+  const handleNativeTierClick = (tier: "high" | "mid" | "low") => {
+    if (!nativeCatalog) return;
+    flushPendingModel();
+    setNativeCustomOpen(false);
+    const next = modelForTier(nativeCatalog, tier);
+    setModel(next);
+    void persist(colleague.id, colleague.roleKind, { model: next });
+  };
+
+  const handleNativeModelSelect = (value: string) => {
+    flushPendingModel();
+    if (value === "__custom__") {
+      setNativeCustomOpen(true);
+      return;
+    }
+    setNativeCustomOpen(false);
+    setModel(value);
+    void persist(colleague.id, colleague.roleKind, { model: value });
   };
 
   const providerOk = isProviderConfigured(providerAccounts, provider);
@@ -317,6 +349,19 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
 
   const showThirdParty = !piLocked && executor === "codex";
 
+  const useNativeModelUi =
+    !piLocked &&
+    (executor === "cursor" || (executor === "codex" && !useThirdParty));
+  const nativeCatalog =
+    useNativeModelUi && (executor === "codex" || executor === "cursor")
+      ? catalogForNativeExecutor(executor)
+      : null;
+  const activeTier = nativeCatalog ? tierForModel(nativeCatalog, model) : null;
+  const selectModel = nativeCatalog ? resolveNativeModel(nativeCatalog, model) : model;
+  const showNativeCustomInput =
+    Boolean(nativeCatalog) && (activeTier === "custom" || nativeCustomOpen);
+  const nativeSelectValue = showNativeCustomInput ? "__custom__" : selectModel;
+
   return (
     <div
       className={"pi-model-chip" + (disabled || loading ? " is-disabled" : "")}
@@ -343,36 +388,99 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
           </span>
         </>
       ) : null}
-      <select
-        value={provider}
-        disabled={disabled || loading || saving}
-        aria-label="厂商"
-        onChange={(e) => handleProviderChange(e.target.value as ApiProviderId)}
-      >
-        {API_PROVIDERS.map((p) => {
-          const ok = isProviderConfigured(providerAccounts, p.id);
-          return (
-            <option key={p.id} value={p.id}>
-              {p.label}
-              {ok ? "" : " · 无 Key"}
-            </option>
-          );
-        })}
-      </select>
-      <span className="pi-model-chip__dot" aria-hidden>
-        ·
-      </span>
-      <input
-        type="text"
-        value={model}
-        disabled={disabled || loading || saving}
-        placeholder={modelPlaceholder}
-        spellCheck={false}
-        autoComplete="off"
-        aria-label="模型"
-        onChange={(e) => handleModelChange(e.target.value)}
-        onBlur={() => flushPendingModel()}
-      />
+      {useNativeModelUi && nativeCatalog ? (
+        <>
+          <span className="pi-model-chip__tier-group" role="group" aria-label="模型档位">
+            {(
+              [
+                ["high", "高"],
+                ["mid", "中"],
+                ["low", "低"],
+              ] as const
+            ).map(([tier, label]) => (
+              <button
+                key={tier}
+                type="button"
+                className={
+                  "pi-model-chip__tier" + (activeTier === tier ? " is-active" : "")
+                }
+                disabled={disabled || loading || saving}
+                aria-pressed={activeTier === tier}
+                onClick={() => handleNativeTierClick(tier)}
+              >
+                {label}
+              </button>
+            ))}
+          </span>
+          <span className="pi-model-chip__dot" aria-hidden>
+            ·
+          </span>
+          <select
+            value={nativeSelectValue}
+            disabled={disabled || loading || saving}
+            aria-label="模型"
+            onChange={(e) => handleNativeModelSelect(e.target.value)}
+          >
+            {nativeCatalog.options.map((opt) => (
+              <option key={opt.id} value={opt.id}>
+                {opt.label}
+              </option>
+            ))}
+            <option value="__custom__">自定义…</option>
+          </select>
+          {showNativeCustomInput ? (
+            <>
+              <span className="pi-model-chip__dot" aria-hidden>
+                ·
+              </span>
+              <input
+                type="text"
+                value={model}
+                disabled={disabled || loading || saving}
+                placeholder={modelPlaceholder}
+                spellCheck={false}
+                autoComplete="off"
+                aria-label="自定义模型"
+                onChange={(e) => handleModelChange(e.target.value)}
+                onBlur={() => flushPendingModel()}
+              />
+            </>
+          ) : null}
+        </>
+      ) : (
+        <>
+          <select
+            value={provider}
+            disabled={disabled || loading || saving}
+            aria-label="厂商"
+            onChange={(e) => handleProviderChange(e.target.value as ApiProviderId)}
+          >
+            {API_PROVIDERS.map((p) => {
+              const ok = isProviderConfigured(providerAccounts, p.id);
+              return (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                  {ok ? "" : " · 无 Key"}
+                </option>
+              );
+            })}
+          </select>
+          <span className="pi-model-chip__dot" aria-hidden>
+            ·
+          </span>
+          <input
+            type="text"
+            value={model}
+            disabled={disabled || loading || saving}
+            placeholder={modelPlaceholder}
+            spellCheck={false}
+            autoComplete="off"
+            aria-label="模型"
+            onChange={(e) => handleModelChange(e.target.value)}
+            onBlur={() => flushPendingModel()}
+          />
+        </>
+      )}
       {showThirdParty ? (
         <>
           <span className="pi-model-chip__dot" aria-hidden>
