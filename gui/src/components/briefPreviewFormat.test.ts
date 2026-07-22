@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  assetStyleChips,
   formatBriefDocument,
   isBriefShaped,
   tryFormatBriefJsonText,
@@ -53,4 +54,15 @@ test("tryFormatBriefJsonText formats valid brief JSON", () => {
 test("tryFormatBriefJsonText returns null for bad JSON", () => {
   assert.equal(tryFormatBriefJsonText("{not json", null), null);
   assert.equal(tryFormatBriefJsonText('{"foo":1}', null), null);
+});
+
+test("assetStyleChips lists declared style fields only", () => {
+  const heroB = (exampleBrief.assets as Record<string, unknown>[]).find(
+    (a) => a.name === "hero_b",
+  )!;
+  const chips = assetStyleChips(heroB);
+  assert.ok(chips.some((c) => c.includes("cast_demo")));
+  assert.ok(chips.some((c) => c.includes("hero_a")));
+  assert.ok(chips.some((c) => c.includes("img2img")));
+  assert.deepEqual(assetStyleChips({ name: "plain" }), []);
 });

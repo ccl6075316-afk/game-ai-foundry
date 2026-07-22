@@ -1204,6 +1204,18 @@ def should_use_style_img2img(
     return False
 
 
+def should_use_kit_style_img2img(spec: AssetSpec) -> bool:
+    """Kit-internal style: N≥2 items follow items[0] raw unless opted out.
+
+    Orthogonal to cross-asset ``style_group`` / ``STYLE_IMG2IMG_ALLOWED_TYPES``.
+    """
+    if spec.type != AssetType.ICON_KIT:
+        return False
+    if spec.use_style_img2img is False:
+        return False
+    return len(spec.items) >= 2
+
+
 def resolve_style_img2img_path(
     spec: AssetSpec,
     *,

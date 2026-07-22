@@ -42,6 +42,35 @@ function formatUseStyleImg2img(value: unknown): string {
   return String(value);
 }
 
+/** Short read-only chips for board (declared fields only; no resolve). */
+export function assetStyleChips(asset: Record<string, unknown>): string[] {
+  const chips: string[] = [];
+  if (asset.style_group !== undefined && asset.style_group !== null && asset.style_group !== "") {
+    chips.push(`组:${String(asset.style_group)}`);
+  }
+  if (
+    asset.style_anchor_kind !== undefined &&
+    asset.style_anchor_kind !== null &&
+    asset.style_anchor_kind !== ""
+  ) {
+    chips.push(`锚类型:${String(asset.style_anchor_kind)}`);
+  }
+  if (asset.style_anchor !== undefined && asset.style_anchor !== null && asset.style_anchor !== "") {
+    chips.push(`锚:${String(asset.style_anchor)}`);
+  }
+  if (
+    asset.identity_anchor !== undefined &&
+    asset.identity_anchor !== null &&
+    asset.identity_anchor !== ""
+  ) {
+    chips.push(`身份:${String(asset.identity_anchor)}`);
+  }
+  if (Object.prototype.hasOwnProperty.call(asset, "use_style_img2img")) {
+    chips.push(`img2img:${formatUseStyleImg2img(asset.use_style_img2img)}`);
+  }
+  return chips;
+}
+
 function formatAssetStyleLines(asset: Record<string, unknown>): string[] {
   const lines: string[] = [];
   if (asset.style_group !== undefined && asset.style_group !== null && asset.style_group !== "") {

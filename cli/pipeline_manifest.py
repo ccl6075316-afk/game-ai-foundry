@@ -283,7 +283,7 @@ def _icon_kit_item_tasks(
     config: dict[str, Any] | None,
 ) -> None:
     """Expand icon_kit into per-item single-object generate + post (no slice)."""
-    from brief import unique_kit_item_slugs
+    from brief import should_use_kit_style_img2img, unique_kit_item_slugs
     from image_model_route import effective_generate_tier, resolve_image_model_for_tier
 
     if not spec.items:
@@ -298,8 +298,11 @@ def _icon_kit_item_tasks(
     )
     model = resolve_image_model_for_tier(config, tier)
     model_flag = f" --model {model}" if model else ""
+    kit_style = should_use_kit_style_img2img(spec)
+    anchor_image_id: str | None = None
+    anchor_raw: str | None = None
 
-    for item, slug in zip(spec.items, slugs, strict=True):
+    for index, (item, slug) in enumerate(zip(spec.items, slugs, strict=True)):
         item_key = f"{file_key}__{slug}"
         paths = _asset_artifacts(output_dir, plans_dir, item_key)
         # Prefer stable id for --item so craft matches id even when label differs.
@@ -329,6 +332,15 @@ def _icon_kit_item_tasks(
         tasks_by_id[prompt_id] = tasks[-1]
 
         image_deps = [prompt_id]
+        ref_flag = ""
+        if kit_style and index > 0 and anchor_image_id and anchor_raw:
+            image_deps.append(anchor_image_id)
+            ref_flag = f" --reference-image {anchor_raw}"
+            item_meta = {
+                **item_meta,
+                "kit_style_anchor_slug": slugs[0],
+                "kit_style_reference": anchor_raw,
+            }
         image_layer = _layer_from_deps(image_deps, tasks_by_id)
         image_id = _add_task(
             tasks,
@@ -341,7 +353,7 @@ def _icon_kit_item_tasks(
             command=(
                 f"python gamefactory.py image generate "
                 f"--plan-file {paths['plan']} --output {paths['raw_image']} "
-                f"--validate{model_flag}"
+                f"--validate{ref_flag}{model_flag}"
             ),
             artifacts={
                 "plan": paths["plan"],
@@ -350,6 +362,9 @@ def _icon_kit_item_tasks(
             },
         )
         tasks_by_id[image_id] = tasks[-1]
+        if index == 0:
+            anchor_image_id = image_id
+            anchor_raw = paths["raw_image"]
 
         # Post: trim → remove-bg → validate_matting (same as character still)
         prev = image_id

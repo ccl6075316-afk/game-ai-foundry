@@ -130,11 +130,11 @@ game-ai-foundry/
 
 **参考图优先级（单槽）**：需风格 img2img 且 `identity_anchor` 有效 → identity 资产 `*_raw.png`；否则 `style_anchor` / `visual_reference` 既有规则。
 
-**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走**（与单物体展开正交；brief 校验禁止 icon_kit 挂 style_group）。
+**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走跨资产 `style_group`**（类型白名单）。套内另规则：N≥2 且未设 `use_style_img2img: false` 时，**items[0] 为锚**，其余 generate 带 `--reference-image` 指向首项 raw（仍用 `image.bulk_model`）。
 
 **软强度**：prompt-crafter 对从属资产应写「低影响、借风格/身份特征、勿整图复制构图」；Gemini 栈无可靠 API strength。可选 `image.style_img2img_strength`（默认 `0.25`）对支持 `image_config.strength` 的 Provider（如 Recraft）best-effort 透传；不支持则忽略并短日志，**不失败**。
 
-**已做**：Phase 3 GUI DocsPreview 只读标注 `art_tokens` / `style_group` / 锚点 / `use_style_img2img`。
+**已做**：Phase 3 GUI DocsPreview 只读标注；看板按资产组头只读 style chips（不写回）。
 
 **例外 / 正交**：
 

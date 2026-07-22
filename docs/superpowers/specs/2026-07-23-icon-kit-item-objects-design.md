@@ -6,7 +6,7 @@
 - **Workflow Stage**：implement
 - **Created**：2026-07-23
 - **Requirements Source**：[`2026-07-22-icon-kit-single-object-design.md`](2026-07-22-icon-kit-single-object-design.md) Deferred「items 对象级 usage」；用户优先级 1
-- **Deferred（仍不做）**：kit 内 style 锚 + bulk img2img；视觉认格
+- **Deferred（仍不做）**：视觉认格；跨资产 `style_group` 驱动 kit（套内风格见 [`2026-07-23-style-board-and-kit-img2img-design.md`](2026-07-23-style-board-and-kit-img2img-design.md)）
 
 ## 目标
 

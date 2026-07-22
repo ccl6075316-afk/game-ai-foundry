@@ -1,4 +1,5 @@
 import type { PipelineStatus, PipelineTask } from "../vite-env.d";
+import type { HostChatDraftBrief } from "../chat/types";
 import { TaskList } from "./TaskList";
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   onRefresh: () => void;
   onRun: () => void;
   busy: boolean;
+  draftBrief?: HostChatDraftBrief | null;
 }
 
 export function BoardPanel({
@@ -19,6 +21,7 @@ export function BoardPanel({
   onRefresh,
   onRun,
   busy,
+  draftBrief = null,
 }: Props) {
   const counts = status?.counts || {};
 
@@ -63,7 +66,7 @@ export function BoardPanel({
         </button>
       </div>
 
-      <TaskList tasks={tasks} compact />
+      <TaskList tasks={tasks} compact briefAssets={draftBrief?.assets} />
 
       {logs.length > 0 && (
         <div className="board-logs">

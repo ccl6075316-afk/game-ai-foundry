@@ -2745,6 +2745,7 @@ export default function App() {
             tasks={tasks}
             logs={logs}
             busy={anyBusy}
+            draftBrief={briefDraft}
             onRefresh={() => refreshManifest(selectedManifest)}
             onRun={handleRun}
           />

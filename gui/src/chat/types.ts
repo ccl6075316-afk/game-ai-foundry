@@ -51,8 +51,9 @@ export interface HostChatDraftBrief {
     art_tokens?: Record<string, unknown>;
     [key: string]: unknown;
   };
-  assets?: Array<{
+    assets?: Array<{
     name?: string;
+    id?: string;
     type?: string;
     usage?: string;
     description?: string;

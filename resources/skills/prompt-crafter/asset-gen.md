@@ -54,7 +54,7 @@ Brief fields (orthogonal to `reference_asset`):
 | Asset type | Style img2img |
 |------------|---------------|
 | `character`, `texture`, `background` | Allowed when style-group follower |
-| `icon_kit` | **Not** — per-item singles are orthogonal; style group on icon_kit is invalid |
+| `icon_kit` | **Not** via cross-asset `style_group` — kit-internal: N≥2 follow `items[0]` raw unless `use_style_img2img: false` |
 | `character_pose`, video clips | Never — use `reference_asset` only |
 
 **Soft strength (mandatory in prompt):** Gemini / default OpenRouter stack has **no reliable API strength**. For every style-group follower, append low-influence wording — match **style / identity traits** (line weight, palette, proportions), **do NOT** copy the reference composition, pose, or layout wholesale. Example tail: *"Use the reference only for art style and character identity cues; low influence; do not copy pose, framing, or background from the reference."*
@@ -69,7 +69,7 @@ Optional config `image.style_img2img_strength` (default `0.25`) is best-effort f
 
 - `character_pose` → `reference_asset` (same character still)
 - `animation_method: video` → i2v reference from `reference_asset`; style group does not replace that. The reference still may itself be a style-group img2img product first.
-- `icon_kit` → never style img2img (see recipe above)
+- `icon_kit` → kit-internal style (items[0] anchor) when N≥2; not cross-asset style_group
 
 ## `project.art_tokens` (structured style locks)
 
@@ -102,6 +102,7 @@ Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
 ## icon_kit (one object per image)
 
 Pipeline expands `items[]` into **N separate generates** (`image.bulk_model` when configured).
+With N≥2 and `use_style_img2img` not `false`, item 0 is text-only; later items get `--reference-image` from item 0 raw.
 
 `items` may be strings **or** objects `{id, label?, usage?, usage_description?}`.
 Slug / file key comes from **`id`**; prompt subject prefers **`label`** (else id).

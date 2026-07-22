@@ -10,7 +10,10 @@
 - 旧工程若依赖格子序号切图路径，需改 brief / Godot 引用到上述路径。
 - 配置：`image.bulk_model`（GUI：**批量单图 model（bulk）**）；未配则回退 `image.model`。
 
-## 增强：`items` 对象 + 玩法绑定
+## 增强：风格看板 chips + kit 套内 img2img
+
+- Pipeline 看板按资产组头只读展示 `style_group` / 锚 / `use_style_img2img`（会话 brief 草稿；不写回）。
+- `icon_kit` 在 N≥2 且未 `use_style_img2img: false` 时：首项文生图，其余 `--reference-image` 跟首项 raw（仍 bulk 模型；不走跨资产 `style_group`）。
 
 - `items` 仍可为字符串；亦可为  
   `{ "id": "health_potion", "label": "red potion", "usage": "pickup", "usage_description": "…" }`。

@@ -2215,6 +2215,36 @@ code {
   font-weight: 500;
 }
 
+.task-asset-group {
+  margin-bottom: 10px;
+}
+
+.task-asset-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.task-asset-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.task-style-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.style-chip {
+  background: rgba(59, 130, 246, 0.1);
+  color: #6b9bd1;
+  border-radius: 4px;
+}
+
 .status-done {
   background: rgba(52, 168, 90, 0.12);
   color: #5cb87a;
