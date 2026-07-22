@@ -10,7 +10,7 @@
 - **Source Of Truth Until**：replaced by confirmed `/anvil:plan` artifact [`docs/anvil/plans/2026-07-22-hermes-acp-midturn-plan.md`](../plans/2026-07-22-hermes-acp-midturn-plan.md) once that plan is user-confirmed for `/anvil:code`
 - **Requirements Source**：用户「按顺序来」→ Hermes ACP 二期；Grill Q1–Q7（A/A/A/A/A/A/B）；账本默认非目标与生命周期经用户「确认」
 - **Background Inputs**：[`docs/anvil/brainstorms/2026-07-22-cursor-acp-midturn.md`](2026-07-22-cursor-acp-midturn.md)；[`docs/superpowers/specs/2026-07-22-executor-permission-b2-spike.md`](../../superpowers/specs/2026-07-22-executor-permission-b2-spike.md)；B v2 `yolo` 旋钮；`GUI-CONFIG.md`「未接 Hermes ACP」文案
-- **Compounded Knowledge**：[`docs/solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md`](../../solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md)（JSON-RPC 先 `method` 后响应；客户端 id 命名空间）
+- **Compounded Knowledge**：[`docs/solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md`](../../solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md)；[`docs/solutions/failures/2026-07-22-hermes-acp-permission-bridge.md`](../../solutions/failures/2026-07-22-hermes-acp-permission-bridge.md)
 
 ## 背景输入
 

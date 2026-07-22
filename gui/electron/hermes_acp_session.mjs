@@ -165,7 +165,7 @@ function extractTextFromSessionUpdate(update) {
 /**
  * @param {object} opts
  * @param {() => string} [opts.getHermesPath]
- * @param {() => string | Promise<string>} [opts.getAuthMethodId] runtime provider name for authenticate()
+ * @param {(instanceId?: string) => string | Promise<string>} [opts.getAuthMethodId] Hermes auth methodId (provider)
  * @param {string} [opts.envPath]
  * @param {(req: {
  *   permissionId: string;
@@ -506,7 +506,7 @@ export function createHermesAcpSessionManager(opts) {
             protocolVersion: ACP_PROTOCOL_VERSION,
             clientCapabilities: ACP_CLIENT_CAPABILITIES,
           });
-          const methodId = await Promise.resolve(getAuthMethodId());
+          const methodId = await Promise.resolve(getAuthMethodId(state.instanceId));
           if (methodId) {
             await rpcRequest(state, ACP_METHODS.AUTHENTICATE, { methodId: String(methodId) });
           }

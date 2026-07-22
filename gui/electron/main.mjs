@@ -744,6 +744,42 @@ function resolveHermesYolo(config, instanceId) {
   return Boolean(hermesPreset.yolo);
 }
 
+/** Foundry provider id → Hermes ACP authenticate methodId / CLI --provider */
+const HERMES_AUTH_METHOD_BY_FOUNDRY = Object.freeze({
+  openrouter: "openrouter",
+  openai: "openai-api",
+  deepseek: "custom",
+  kimi: "custom",
+  glm: "custom",
+  gemini: "custom",
+  custom: "custom",
+});
+
+/**
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {string}
+ */
+function resolveHermesAuthMethodId(config, instanceId) {
+  const inst = agentInstanceRecord(config, instanceId);
+  const fromInst = String(inst.provider || "").trim().toLowerCase();
+  const agents = config?.agents && typeof config.agents === "object" ? config.agents : {};
+  const fromHermesPreset =
+    agents.hermes_provider != null
+      ? String(agents.hermes_provider).trim().toLowerCase()
+      : "";
+  const hermesExec =
+    agents.executors && typeof agents.executors === "object" ? agents.executors.hermes : null;
+  const fromExec =
+    hermesExec && typeof hermesExec === "object" && hermesExec.provider != null
+      ? String(hermesExec.provider).trim().toLowerCase()
+      : "";
+  const host = config?.host && typeof config.host === "object" ? config.host : {};
+  const fromHost = String(host.provider || "").trim().toLowerCase();
+  const foundry = fromInst || fromHermesPreset || fromExec || fromHost || "openrouter";
+  return HERMES_AUTH_METHOD_BY_FOUNDRY[foundry] || "custom";
+}
+
 /**
  * @param {Record<string, unknown>} config
  * @param {string} roleKind
@@ -989,6 +1025,10 @@ app.whenReady().then(() => {
   });
 
   hermesAcpSessionManager = createHermesAcpSessionManager({
+    getAuthMethodId: (instanceId) => {
+      const config = loadUserConfig().data || {};
+      return resolveHermesAuthMethodId(config, instanceId);
+    },
     onPermission: (req) => {
       const permissionId = String(req.permissionId || "");
       const sent = sendAgentToolPermission({
@@ -1752,6 +1792,14 @@ app.whenReady().then(() => {
     if (!toolPermissionBridge) return { ok: false };
     const ok = toolPermissionBridge.decide(id, decision);
     return { ok };
+  });
+
+  ipcMain.handle("agent-acp-stop-instance", async (_e, instanceId) => {
+    const key = String(instanceId || "").trim();
+    if (!key) return { ok: false, error: "missing instanceId" };
+    cursorAcpSessionManager?.stop(key);
+    hermesAcpSessionManager?.stop(key);
+    return { ok: true };
   });
 
   ipcMain.handle("agent-status", async (_e, role, sessionId) => {

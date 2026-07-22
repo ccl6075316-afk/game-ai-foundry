@@ -435,6 +435,7 @@ declare global {
         permissionId: string,
         decision: "once" | "turn" | "session" | "deny",
       ) => Promise<{ ok?: boolean }>;
+      stopAgentAcpInstance: (instanceId: string) => Promise<{ ok?: boolean; error?: string }>;
       onToolPermission: (
         callback: (payload: {
           permissionId: string;

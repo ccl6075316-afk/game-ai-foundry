@@ -349,6 +349,30 @@ test("pathWithCommonNodeBins prepends ~/.local/bin when present", async () => {
   }
 });
 
+test("getAuthMethodId receives instanceId", async () => {
+  /** @type {string[]} */
+  const seen = [];
+  const manager = createHermesAcpSessionManager({
+    getHermesPath: () => "/mock/hermes",
+    envPath: "/usr/bin",
+    getAuthMethodId: (instanceId) => {
+      seen.push(String(instanceId || ""));
+      return "openrouter";
+    },
+    onPermission: () => {},
+    spawnFn: () => createMockHermesAcpChild(),
+  });
+  await manager.prompt({
+    instanceId: "inst-auth",
+    sessionId: "s",
+    turnId: "t",
+    workspaceCwd: "/tmp/ws",
+    text: "hi",
+  });
+  assert.deepEqual(seen, ["inst-auth"]);
+  manager.stopAll();
+});
+
 test("module exports expected API", async () => {
   const mod = await import("./hermes_acp_session.mjs");
   assert.deepEqual(Object.keys(mod).sort(), [

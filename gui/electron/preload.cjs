@@ -55,6 +55,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),
   decideToolPermission: (permissionId, decision) =>
     ipcRenderer.invoke("agent-tool-permission-decision", permissionId, decision),
+  stopAgentAcpInstance: (instanceId) =>
+    ipcRenderer.invoke("agent-acp-stop-instance", instanceId),
   onToolPermission: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on("agent-tool-permission", listener);

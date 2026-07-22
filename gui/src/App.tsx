@@ -777,6 +777,7 @@ export default function App() {
       setBrainstormActive(false);
       setBrainstormReady(false);
       setBrainstormChoices([]);
+      void window.gameFactory?.stopAgentAcpInstance?.(instanceId)?.catch?.(() => {});
       void (async () => {
         if (!window.gameFactory?.saveConfig) return;
         try {
