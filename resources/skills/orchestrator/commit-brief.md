@@ -34,6 +34,7 @@
 | 「横版魔法王子」 | `genre`, `gameplay_loop`, `session_goal`, `viewport`, `camera`… |
 | 「能走跳砍」 | `controls` + 对应 `player_*` assets + 视频动画条目 |
 | 「梦幻一点」 | 英文 `art_direction` / 各 asset `description` |
+| 「这几个角色要同一画风」 | 保守写 `style_group` + `style_anchor`（见下）；无明确关系则不建组 |
 | 没提 UI | 可不加 `ui_element`；不要编造 HUD 除非合理且标明假设 |
 
 规则：
@@ -54,7 +55,18 @@
 - `player_asset`（有玩家向资产时）
 - `controls`, `viewport` `{width,height}`
 - `camera`（平台类 genre 必填）
-- 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）
+- 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）；`art_tokens`（结构化风格硬锁，与 `art_direction` 并存，见下）
+
+**`art_tokens`（可选）** — 仅在用户给出**具体、可执行**的风格锁（配色 hex、线宽、禁止项、剪影比例等）时**保守填写**；模糊或仅散文描述 → 只写 `art_direction`，省略本字段。键均为**英文**字符串：
+
+| 键 | 类型 | 说明 |
+|----|------|------|
+| `line` | string | 线宽 / 描边风格，如 `clean 2px outline` |
+| `palette` | string \| string[] | 主色或 hex 列表 |
+| `forbid` | string[] | 生成器必须避开的风格/效果 |
+| `silhouette` | string | 剪影 / 头身比等硬约束 |
+
+`art_direction` 仍必填，负责 mood / 氛围散文；有 `art_tokens` 时 prompt-crafter 优先把 tokens 落实为 `style_lock` 硬锁。
 
 ### `assets[]`
 
@@ -66,6 +78,22 @@
 - `parallax_layer` → `parallax_order`, `scroll_factor`
 - `audio` → `usage` music|sfx；music 要 `audio_loop`
 - **产物路径只用 `id`**（如 `plans/referee.json`、`referee_raw.png`）；`name` 可中文
+- **风格组（可选）**：`style_group`、`style_anchor_kind`（`asset`|`visual_reference`）、`style_anchor`、`use_style_img2img`（缺省 true，`false` 退回纯文生图）
+
+### 风格组 — 保守标定
+
+**仅在对话有明确同族 / 从属 / 套图关系时**写入 `style_group`；**禁止**把所有 still 默认塞进一个「项目总组」。
+
+| 字段 | 说明 |
+|------|------|
+| `style_group` | 共享组名；无关系 → 省略 |
+| `style_anchor_kind` | `asset`（默认）或 `visual_reference` |
+| `style_anchor` | kind=`asset` → 锚点 `name`/`id`；kind=`visual_reference` → 省略，用 `project.visual_reference` |
+| `use_style_img2img` | 缺省 **true**；设 `false` 对该资产 opt-out |
+
+- **正交于 `reference_asset`**：pose / 视频动作族仍用 `reference_asset`；风格组只管 still 的 img2img，二者不互替。
+- **视频优先**：video 任务 / 动画 clip 参考图规则不变（跟 `reference_asset`）；其依赖的初始 still 可先走风格 img2img。
+- **北极星作锚**：仅 `style_anchor_kind: visual_reference` 时把 `project.visual_reference` 当风格参考；否则默认 kind=`asset`，锚 = 组内主资产 raw。
 
 ### `animation_graphs[]`
 

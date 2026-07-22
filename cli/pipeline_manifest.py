@@ -16,6 +16,7 @@ from brief import (
     AssetSpec,
     AssetType,
     ProjectContext,
+    effective_style_anchor_kind,
     find_asset,
     is_runtime_only_asset,
     load_brief,
@@ -23,6 +24,8 @@ from brief import (
     resolve_animation_loop,
     resolve_animation_name,
     resolve_asset_file_key,
+    resolve_style_img2img_path,
+    should_use_style_img2img,
     validate_brief_for_export,
 )
 from roles import (
@@ -183,8 +186,9 @@ def _post_image_tasks(
     paths: dict[str, str],
     brief_cli: str,
     image_task_id: str,
+    assets: list[AssetSpec],
 ) -> None:
-    meta = _plan_metadata(project, spec)
+    meta = _plan_metadata(project, spec, assets=assets)
     pipeline = meta.get("pipeline") or []
     prev_id = image_task_id
     name = spec.name
@@ -276,6 +280,8 @@ def _static_asset_tasks(
     brief_cli: str,
     paths: dict[str, str],
     asset_ids: dict[str, str],
+    assets: list[AssetSpec],
+    brief_path: Path,
 ) -> None:
     name = spec.name
     file_key = resolve_asset_file_key(spec)
@@ -307,6 +313,55 @@ def _static_asset_tasks(
         image_deps.append(ref_image_task)
         ref_raw = _find_artifacts_for_asset(tasks, ref_name)["output"]
         ref_flag = f" --reference-image {ref_raw}"
+    elif should_use_style_img2img(spec, project=project, assets=assets):
+        style_path = resolve_style_img2img_path(
+            spec,
+            project=project,
+            assets=assets,
+            brief_path=brief_path,
+        )
+        if not style_path:
+            raise ValueError(
+                f"Asset '{name}' requires style img2img --reference-image "
+                "but the anchor path could not be resolved."
+            )
+        identity_ref = (spec.identity_anchor or "").strip()
+        source_asset: AssetSpec | None = None
+        if identity_ref:
+            try:
+                source_asset = find_asset(assets, identity_ref)
+            except ValueError as exc:
+                raise ValueError(
+                    f"Asset '{name}' identity_anchor '{identity_ref}' not found in assets[]"
+                ) from exc
+        if source_asset is None:
+            kind = effective_style_anchor_kind(spec)
+            if kind == "asset":
+                anchor_ref = (spec.style_anchor or "").strip()
+                try:
+                    source_asset = find_asset(assets, anchor_ref)
+                except ValueError as exc:
+                    raise ValueError(
+                        f"Asset '{name}' style_anchor '{anchor_ref}' not found in assets[]"
+                    ) from exc
+            elif kind == "visual_reference":
+                ref_flag = f" --reference-image {style_path}"
+            else:
+                raise ValueError(
+                    f"Asset '{name}' style img2img enabled but style_anchor_kind is invalid."
+                )
+        if source_asset is not None:
+            anchor_name = source_asset.name
+            ref_image_task = _image_generate_task_id(asset_ids, anchor_name)
+            if ref_image_task not in tasks_by_id:
+                anchor_label = identity_ref if identity_ref else (spec.style_anchor or "").strip()
+                raise ValueError(
+                    f"Asset '{name}' style img2img references '{anchor_label}' "
+                    f"but {ref_image_task} is missing."
+                )
+            image_deps.append(ref_image_task)
+            ref_raw = _find_artifacts_for_asset(tasks, anchor_name)["output"]
+            ref_flag = f" --reference-image {ref_raw}"
 
     image_layer = _layer_from_deps(image_deps, tasks_by_id)
     image_id = _add_task(
@@ -335,6 +390,7 @@ def _static_asset_tasks(
             paths=paths,
             brief_cli=brief_cli,
             image_task_id=image_id,
+            assets=assets,
         )
 
 
@@ -683,6 +739,8 @@ def build_manifest(
             brief_cli=brief_cli,
             paths=paths,
             asset_ids=asset_ids,
+            assets=assets,
+            brief_path=brief_path,
         )
 
     # Pass 2: video animations (depend on reference stills).

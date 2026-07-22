@@ -18,6 +18,9 @@ ASSET_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
 ANIMATION_METHOD_VIDEO = "video"
 ANIMATION_METHOD_IMG2IMG = "img2img"
 FORBIDDEN_ANIMATION_METHODS = frozenset({"spritesheet", "sheet", "grid_actions"})
+STYLE_ANCHOR_KINDS = frozenset({"asset", "visual_reference"})
+_CLI_DIR = Path(__file__).resolve().parent
+_REPO_ROOT = _CLI_DIR.parent
 
 # Brief export — usage tags (extensible; validate non-empty + recommended set warning in strict mode).
 RECOMMENDED_USAGES = frozenset(
@@ -77,6 +80,15 @@ class AssetType(str, Enum):
     AUDIO = "audio"
 
 
+STYLE_IMG2IMG_ALLOWED_TYPES = frozenset(
+    {
+        AssetType.CHARACTER,
+        AssetType.TEXTURE,
+        AssetType.BACKGROUND,
+    }
+)
+
+
 @dataclass
 class ProjectContext:
     title: str = ""
@@ -92,6 +104,8 @@ class ProjectContext:
     camera: dict[str, Any] = field(default_factory=dict)
     visual_reference: str = ""
     hud: list[dict[str, Any]] = field(default_factory=list)
+    art_tokens: dict[str, Any] | None = None
+    _art_tokens_errors: list[str] = field(default_factory=list, repr=False, compare=False)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ProjectContext:
@@ -105,6 +119,7 @@ class ProjectContext:
                     controls[str(action)] = [str(keys)]
         viewport = data.get("viewport") if isinstance(data.get("viewport"), dict) else {}
         camera = data.get("camera") if isinstance(data.get("camera"), dict) else {}
+        art_tokens, art_tokens_errors = normalize_art_tokens(data.get("art_tokens"))
         return cls(
             title=str(data.get("title", "")),
             description=str(data.get("description", "")),
@@ -119,6 +134,8 @@ class ProjectContext:
             camera=dict(camera),
             visual_reference=str(data.get("visual_reference", "")).strip(),
             hud=[item for item in (data.get("hud") or []) if isinstance(item, dict)],
+            art_tokens=art_tokens,
+            _art_tokens_errors=art_tokens_errors,
         )
 
 
@@ -225,6 +242,11 @@ class AssetSpec:
     parallax_order: int | None = None
     scroll_factor: float | None = None
     audio_loop: bool | None = None
+    style_group: str = ""
+    style_anchor_kind: str = ""
+    style_anchor: str = ""
+    identity_anchor: str = ""
+    use_style_img2img: bool | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> AssetSpec:
@@ -277,6 +299,13 @@ class AssetSpec:
             parallax_order=int(data["parallax_order"]) if "parallax_order" in data else None,
             scroll_factor=float(data["scroll_factor"]) if "scroll_factor" in data else None,
             audio_loop=bool(data["audio_loop"]) if "audio_loop" in data else None,
+            style_group=str(data.get("style_group", "")).strip(),
+            style_anchor_kind=str(data.get("style_anchor_kind", "")).strip().lower(),
+            style_anchor=str(data.get("style_anchor", "")).strip(),
+            identity_anchor=str(data.get("identity_anchor", "")).strip(),
+            use_style_img2img=(
+                bool(data["use_style_img2img"]) if "use_style_img2img" in data else None
+            ),
         )
 
 
@@ -912,11 +941,294 @@ def audit_animation_graphs(
     return errors
 
 
+def _cli_relative(path: Path) -> str:
+    """Path as used in commands run from cli/ (gamefactory working directory)."""
+    path = path.resolve()
+    try:
+        return str(path.relative_to(_CLI_DIR.resolve()))
+    except ValueError:
+        pass
+    try:
+        return "../" + str(path.relative_to(_REPO_ROOT.resolve()))
+    except ValueError:
+        return str(path)
+
+
+def _asset_lookup(assets: list[AssetSpec], ref: str) -> AssetSpec | None:
+    key = (ref or "").strip()
+    if not key:
+        return None
+    for asset in assets:
+        if asset.name == key or (asset.id and asset.id == key):
+            return asset
+    return None
+
+
+def effective_style_anchor_kind(spec: AssetSpec) -> str:
+    """Return normalized kind: asset, visual_reference, or empty (anchor candidate)."""
+    kind = (spec.style_anchor_kind or "").strip().lower()
+    if kind:
+        return kind
+    if (spec.style_anchor or "").strip():
+        return "asset"
+    return ""
+
+
+def is_style_group_anchor(spec: AssetSpec, assets: list[AssetSpec]) -> bool:
+    """True when this asset is the style anchor for its group (does not img2img from itself).
+
+    v1 rules:
+    - Followers set ``style_anchor`` to another asset name/id, or ``style_anchor_kind:
+      visual_reference`` (external north-star — not an in-brief anchor asset).
+    - Anchor candidates have empty ``style_anchor`` and kind asset/empty; default anchor
+      when no member points elsewhere. Multiple empty-anchor members in one group are all
+      treated as anchors (none receive style img2img until followers declare ``style_anchor``).
+    """
+    group = (spec.style_group or "").strip()
+    if not group:
+        return False
+    kind = effective_style_anchor_kind(spec)
+    if kind == "visual_reference":
+        return False
+    anchor_ref = (spec.style_anchor or "").strip()
+    if anchor_ref:
+        target = _asset_lookup(assets, anchor_ref)
+        if target and (target.name == spec.name or (target.id and target.id == spec.id)):
+            return True
+        return False
+    group_members = [a for a in assets if (a.style_group or "").strip() == group]
+    for member in group_members:
+        if member.name == spec.name:
+            continue
+        ref = (member.style_anchor or "").strip()
+        if not ref or effective_style_anchor_kind(member) == "visual_reference":
+            continue
+        target = _asset_lookup(assets, ref)
+        if target and (target.name == spec.name or (target.id and target.id == spec.id)):
+            return True
+    return True
+
+
+def _resolve_asset_raw_path(target: AssetSpec, brief_path: Path | None) -> str | None:
+    """CLI-relative path to an asset's ``_raw.png`` for img2img reference."""
+    try:
+        file_key = resolve_asset_file_key(target)
+    except ValueError:
+        return None
+    if brief_path is None:
+        return None
+    from project_paths import default_paths_for_brief
+
+    paths = default_paths_for_brief(brief_path)
+    raw = (paths["output_dir"] / f"{file_key}_raw.png").resolve()
+    return _cli_relative(raw)
+
+
+def should_use_style_img2img(
+    spec: AssetSpec,
+    *,
+    project: ProjectContext,
+    assets: list[AssetSpec],
+) -> bool:
+    """Whether still ``image.generate`` should use style-group ``--reference-image``.
+
+    False for ``character_pose``, video animation clips, explicit opt-out, assets outside
+    a style group, and the group's anchor asset itself.
+    """
+    if spec.type == AssetType.CHARACTER_POSE:
+        return False
+    if is_video_animation(spec):
+        return False
+    if spec.type not in STYLE_IMG2IMG_ALLOWED_TYPES:
+        return False
+    if spec.use_style_img2img is False:
+        return False
+    if not (spec.style_group or "").strip():
+        return False
+    if is_style_group_anchor(spec, assets):
+        return False
+    kind = effective_style_anchor_kind(spec)
+    if kind == "visual_reference":
+        return bool((project.visual_reference or "").strip())
+    if kind == "asset":
+        return _asset_lookup(assets, spec.style_anchor) is not None
+    return False
+
+
+def resolve_style_img2img_path(
+    spec: AssetSpec,
+    *,
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    brief_path: Path | None = None,
+) -> str | None:
+    """Resolved ``--reference-image`` path for style img2img, or None when disabled."""
+    if not should_use_style_img2img(spec, project=project, assets=assets):
+        return None
+    identity_ref = (spec.identity_anchor or "").strip()
+    if identity_ref:
+        identity_target = _asset_lookup(assets, identity_ref)
+        if identity_target is not None:
+            path = _resolve_asset_raw_path(identity_target, brief_path)
+            if path is not None:
+                return path
+    kind = effective_style_anchor_kind(spec)
+    if kind == "visual_reference":
+        ref = (project.visual_reference or "").strip()
+        if not ref:
+            return None
+        if brief_path is not None:
+            from visual_target import resolve_visual_reference_path
+
+            resolved = resolve_visual_reference_path(brief_path)
+            if resolved is not None:
+                return _cli_relative(resolved)
+        return ref
+    target = _asset_lookup(assets, spec.style_anchor)
+    if target is None:
+        return None
+    return _resolve_asset_raw_path(target, brief_path)
+
+
+def normalize_art_tokens(raw: Any) -> tuple[dict[str, Any] | None, list[str]]:
+    """Parse project.art_tokens — known keys type-checked; unknown keys passthrough."""
+    errors: list[str] = []
+    if raw is None:
+        return None, errors
+    if not isinstance(raw, dict):
+        errors.append("project.art_tokens must be an object")
+        return None, errors
+    if not raw:
+        return None, errors
+
+    result: dict[str, Any] = {}
+    known = frozenset({"line", "palette", "forbid", "silhouette"})
+
+    for key in ("line", "silhouette"):
+        if key not in raw:
+            continue
+        val = raw[key]
+        if not isinstance(val, str):
+            errors.append(f"project.art_tokens.{key} must be a string")
+            continue
+        stripped = val.strip()
+        if stripped:
+            result[key] = stripped
+
+    if "palette" in raw:
+        val = raw["palette"]
+        if isinstance(val, str):
+            stripped = val.strip()
+            if stripped:
+                result["palette"] = stripped
+        elif isinstance(val, list):
+            items = [str(item).strip() for item in val if str(item).strip()]
+            if items:
+                result["palette"] = items
+        else:
+            errors.append("project.art_tokens.palette must be a string or list of strings")
+
+    if "forbid" in raw:
+        val = raw["forbid"]
+        if not isinstance(val, list):
+            errors.append("project.art_tokens.forbid must be a list of strings")
+        else:
+            items = [str(item).strip() for item in val if str(item).strip()]
+            if items:
+                result["forbid"] = items
+
+    for key, val in raw.items():
+        if key not in known:
+            result[key] = val
+
+    if not result:
+        return None, errors
+    return result, errors
+
+
+def audit_art_tokens(project: ProjectContext) -> list[str]:
+    """Validate project.art_tokens types (optional field)."""
+    return list(project._art_tokens_errors)
+
+
+def audit_style_groups(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    *,
+    brief_path: Path | None = None,
+) -> list[str]:
+    """Validate style_group / style_anchor fields (v1).
+
+    Old briefs with no ``style_*`` fields on any asset produce no errors from this helper.
+    """
+    has_any_style = any(
+        (a.style_group or "").strip()
+        or (a.style_anchor_kind or "").strip()
+        or (a.style_anchor or "").strip()
+        or (a.identity_anchor or "").strip()
+        or a.use_style_img2img is not None
+        for a in assets
+    )
+
+    errors: list[str] = []
+    for spec in assets:
+        identity_ref = (spec.identity_anchor or "").strip()
+        if identity_ref and _asset_lookup(assets, identity_ref) is None:
+            errors.append(
+                f"Asset '{spec.name}' identity_anchor '{identity_ref}' not found in assets[]"
+            )
+
+    if not has_any_style:
+        return errors
+
+    for spec in assets:
+        kind_raw = (spec.style_anchor_kind or "").strip().lower()
+        if kind_raw and kind_raw not in STYLE_ANCHOR_KINDS:
+            errors.append(
+                f"Asset '{spec.name}' style_anchor_kind must be 'asset' or 'visual_reference' "
+                f"(got '{spec.style_anchor_kind}')"
+            )
+            continue
+
+        kind = effective_style_anchor_kind(spec)
+        anchor_ref = (spec.style_anchor or "").strip()
+
+        if kind == "asset" and anchor_ref:
+            if _asset_lookup(assets, anchor_ref) is None:
+                errors.append(
+                    f"Asset '{spec.name}' style_anchor '{anchor_ref}' not found in assets[]"
+                )
+
+        if kind == "visual_reference":
+            ref = (project.visual_reference or "").strip()
+            if not ref:
+                errors.append(
+                    f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
+                    "project.visual_reference"
+                )
+            elif brief_path is not None:
+                from visual_target import resolve_visual_reference_path
+
+                if resolve_visual_reference_path(brief_path) is None:
+                    errors.append(
+                        f"Asset '{spec.name}' style group uses visual_reference anchor but "
+                        f"project.visual_reference file not found: {ref}"
+                    )
+            elif not looks_like_visual_reference_path(ref):
+                errors.append(
+                    f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
+                    "project.visual_reference as an image file path"
+                )
+
+    return errors
+
+
 def audit_brief_for_export(
     project: ProjectContext,
     assets: list[AssetSpec],
     *,
     animation_graphs: list[CharacterAnimationGraph] | None = None,
+    brief_path: Path | None = None,
 ) -> list[str]:
     """Return missing required fields. Empty list means brief is complete enough to freeze."""
     errors: list[str] = []
@@ -1035,7 +1347,9 @@ def audit_brief_for_export(
             viewport=project.viewport,
         )
     )
-    errors.extend(audit_visual_reference(project))
+    errors.extend(audit_visual_reference(project, brief_path=brief_path))
+    errors.extend(audit_style_groups(project, assets, brief_path=brief_path))
+    errors.extend(audit_art_tokens(project))
 
     return errors
 

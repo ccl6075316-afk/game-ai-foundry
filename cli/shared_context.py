@@ -49,7 +49,33 @@ def project_to_dict(project: ProjectContext) -> dict[str, Any]:
         )
     if project.hud:
         data["hud"] = project.hud
+    if project.art_tokens:
+        data["art_tokens"] = project.art_tokens
     return data
+
+
+def format_art_tokens_for_prompt(tokens: dict[str, Any]) -> str:
+    """Compact one-line summary of known art_tokens keys for skill prompts."""
+    parts: list[str] = []
+    line = tokens.get("line")
+    if isinstance(line, str) and line.strip():
+        parts.append(f"line: {line.strip()}")
+    palette = tokens.get("palette")
+    if isinstance(palette, str) and palette.strip():
+        parts.append(f"palette: {palette.strip()}")
+    elif isinstance(palette, list):
+        items = [str(item).strip() for item in palette if str(item).strip()]
+        if items:
+            parts.append("palette: " + ", ".join(items))
+    forbid = tokens.get("forbid")
+    if isinstance(forbid, list):
+        items = [str(item).strip() for item in forbid if str(item).strip()]
+        if items:
+            parts.append("forbid: " + "; ".join(items))
+    silhouette = tokens.get("silhouette")
+    if isinstance(silhouette, str) and silhouette.strip():
+        parts.append(f"silhouette: {silhouette.strip()}")
+    return "; ".join(parts)
 
 
 def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
@@ -102,6 +128,16 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["generate_audio"] = spec.generate_audio
     if spec.watermark is not None:
         data["watermark"] = spec.watermark
+    if spec.style_group:
+        data["style_group"] = spec.style_group
+    if spec.style_anchor_kind:
+        data["style_anchor_kind"] = spec.style_anchor_kind
+    if spec.style_anchor:
+        data["style_anchor"] = spec.style_anchor
+    if spec.identity_anchor:
+        data["identity_anchor"] = spec.identity_anchor
+    if spec.use_style_img2img is not None:
+        data["use_style_img2img"] = spec.use_style_img2img
     return data
 
 

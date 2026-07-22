@@ -9,8 +9,26 @@ You do **not** write or rewrite generation prompts.
 
 - Read `plan.prompt` from the handoff file.
 - Call `gamefactory image generate --plan-file <handoff> --output <path> --validate`.
-- Pass `--reference-image` when the plan requires img2img.
+- Pass `--reference-image` when the plan sets `requires_reference_image: true` (see below).
 - **Always run `--validate`** — it is the gate before any matting step.
+
+## Reference image (`--reference-image`)
+
+Pass `--reference-image <path>` when the handoff has `"requires_reference_image": true`.
+
+| Source | Who supplies the path |
+|--------|------------------------|
+| **`character_pose`** | Pipeline from `reference_asset` still raw (same character body) |
+| **Style-group follower** | Pipeline — **single slot**, priority: `identity_anchor` asset raw if set and valid → else `style_anchor` asset raw → else `project.visual_reference` when `style_anchor_kind: visual_reference` |
+| **Manual / debug** | You, only when the handoff explicitly requires it |
+
+**Pipeline default:** `character`, `texture`, and `background` followers in a `style_group` with style img2img enabled (default on; brief may set `use_style_img2img: false` to opt out) get `--reference-image` on still `image.generate` automatically — do not omit it when `requires_reference_image` is true. **`icon_kit` never** gets style img2img (orthogonal to grid slice).
+
+**Do not** pass `project.visual_reference` as `--reference-image` unless the plan requires it via style-group `visual_reference` anchor — soft north-star mood stays in prompt text only.
+
+Video (`animation_method: video`) and pose tasks keep using `reference_asset`, not `style_anchor` / `identity_anchor`.
+
+**Strength:** `~/.gamefactory/config.json` → `image.style_img2img_strength` (default `0.25`, range 0–1) is applied best-effort as `image_config.strength` when the provider supports it (e.g. Recraft). **Gemini may ignore it** — rely on prompt-crafter's soft low-influence wording, not API strength alone.
 
 ## Pure white background gate (critical)
 
@@ -62,6 +80,16 @@ python gamefactory.py image generate \
   --validate
 ```
 
+With reference image (pose or style-group follower — path from pipeline, not invented):
+
+```bash
+python gamefactory.py image generate \
+  --plan-file plans/referee.json \
+  --output output/referee_raw.png \
+  --reference-image output/hero_a_raw.png \
+  --validate
+```
+
 On pure-white failure, stdout includes JSON like:
 
 ```json
@@ -79,3 +107,7 @@ On pure-white failure, stdout includes JSON like:
 
 Image model and API key come from `~/.gamefactory/config.json` → `image` section
 (or env `GAMEFACTORY_IMAGE_MODEL`, `OPENROUTER_API_KEY`).
+
+Optional `image.style_img2img_strength` (default `0.25`) — best-effort img2img strength when `--reference-image` is used and the provider honors `image_config.strength`. Unsupported models log and continue; generation does not fail.
+
+**Phase 3 not shipped:** GUI anchor/group toggles are future work. Phase 2 `project.art_tokens` is in brief/context for prompt-crafter — image-generator still follows handoff + pipeline `--reference-image` only.

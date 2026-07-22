@@ -28,6 +28,7 @@ from proxy_utils import (
 
 DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
 DEFAULT_SIZE = "1024x1024"
+DEFAULT_STYLE_IMG2IMG_STRENGTH = 0.25
 
 # Dedicated image models (OpenRouter Images API / OpenAI images.generations).
 # NOT multimodal chat hybrids like openai/gpt-5.4-image-2.
@@ -116,6 +117,46 @@ def resolve_image_proxy(
 ) -> str | None:
     """Resolve image API proxy: CLI > config > shell env > macOS system proxy."""
     return resolve_config_proxy(config, cli_value)
+
+
+def resolve_style_img2img_strength(config: dict[str, Any] | None) -> float | None:
+    """Resolve image.style_img2img_strength; default 0.25 when key is missing."""
+    image_cfg = (config or {}).get("image")
+    if not isinstance(image_cfg, dict):
+        return DEFAULT_STYLE_IMG2IMG_STRENGTH
+    if "style_img2img_strength" not in image_cfg:
+        return DEFAULT_STYLE_IMG2IMG_STRENGTH
+    raw = image_cfg.get("style_img2img_strength")
+    if raw is None:
+        return None
+    try:
+        value = float(raw)
+    except (TypeError, ValueError):
+        return None
+    return max(0.0, min(1.0, value))
+
+
+def apply_style_img2img_strength(
+    payload: dict[str, Any],
+    config: dict[str, Any] | None,
+    *,
+    has_reference: bool,
+) -> float | None:
+    """Best-effort merge image_config.strength when a reference image is used."""
+    if not has_reference:
+        return None
+    strength = resolve_style_img2img_strength(config)
+    if strength is None:
+        return None
+    image_config = payload.get("image_config")
+    if not isinstance(image_config, dict):
+        image_config = {}
+    else:
+        image_config = dict(image_config)
+    image_config["strength"] = strength
+    payload["image_config"] = image_config
+    print(f"style img2img strength={strength}", file=sys.stderr)
+    return strength
 
 
 def extract_image_url(response_data: dict[str, Any]) -> str:
@@ -230,6 +271,7 @@ def generate_image_via_images_api(
     api_base: str,
     proxy: str | None = None,
     reference_image: Path | None = None,
+    config: dict[str, Any] | None = None,
 ) -> None:
     """Call OpenRouter /images or OpenAI /images/generations and save the file."""
     import base64
@@ -262,6 +304,11 @@ def generate_image_via_images_api(
         else:
             # OpenAI images edits use a different endpoint; keep generation + note.
             payload["image"] = data_url
+        apply_style_img2img_strength(
+            payload,
+            config if config is not None else load_config(),
+            has_reference=True,
+        )
 
     try:
         response = http_post(
@@ -340,6 +387,7 @@ def generate_image(
     api_base: str,
     proxy: str | None = None,
     reference_image: Path | None = None,
+    config: dict[str, Any] | None = None,
 ) -> None:
     """Generate an image via chat modalities or dedicated Images API."""
     model = normalize_image_model(model, api_base)
@@ -353,6 +401,7 @@ def generate_image(
             api_base=api_base,
             proxy=proxy,
             reference_image=reference_image,
+            config=config,
         )
         return
 
@@ -385,6 +434,12 @@ def generate_image(
         "messages": [{"role": "user", "content": content}],
         "modalities": ["image", "text"],
     }
+    if reference_image is not None:
+        apply_style_img2img_strength(
+            payload,
+            config if config is not None else load_config(),
+            has_reference=True,
+        )
 
     try:
         response = http_post(
@@ -581,6 +636,7 @@ def generate(
             api_base=resolved_api_base,
             proxy=resolved_proxy,
             reference_image=ref_image,
+            config=config,
         )
     except (RuntimeError, ValueError) as exc:
         click.echo(f"Error: {exc}", err=True)

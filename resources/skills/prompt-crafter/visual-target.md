@@ -36,7 +36,7 @@ Match:
   "gameplay_beat": "what the player is doing THIS frame (core loop readable)",
   "details": "camera/lens feel, lighting, materials; lock art_direction traits",
   "hud": "only brief.hud elements, or empty string if none should show",
-  "style_lock": "short hard locks from art_direction (silhouette, outline, palette mood)",
+  "style_lock": "short hard locks — prefer project.art_tokens when present, else art_direction",
   "constraints": "comma-separated must-nots"
 }
 ```
@@ -51,7 +51,7 @@ Field rules:
 | `gameplay_beat` | One beat from the loop (e.g. foul decision QTE), not a generic "exciting match" |
 | `details` | Camera from `project.camera` when set; concrete light; no vague "cinematic" alone |
 | `hud` | Only listed HUD; empty if this variant should hide HUD |
-| `style_lock` | Rephrase `art_direction` into enforceable locks (chibi scale, outline, palette) |
+| `style_lock` | When `project.art_tokens` is in context, encode `line` / `palette` / `silhouette` / `forbid` as hard locks **first**; use `art_direction` only for mood gaps tokens do not cover. Without tokens, rephrase `art_direction` into enforceable locks (chibi scale, outline, palette) |
 | `constraints` | Always include: no poster borders, no letterbox bars, no watermark, no pure-white studio |
 
 ## Must NOT (also put into `constraints`)

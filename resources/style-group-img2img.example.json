@@ -1,0 +1,120 @@
+{
+  "project": {
+    "title": "Style Group Demo",
+    "description": "Minimal brief demonstrating style_group img2img: anchor, follower, opt-out, and video-first reference.",
+    "art_direction": "flat 2D colored sprites, warm palette, consistent line weight",
+    "art_tokens": {
+      "line": "clean 2px outline",
+      "palette": ["#2B2B2B", "#F4E8C1", "#C45C26"],
+      "forbid": ["photorealistic", "heavy bloom"],
+      "silhouette": "chibi, large head"
+    },
+    "dimension": "2d",
+    "genre": "2d_platformer",
+    "gameplay_loop": "Move through a short level with two companion characters.",
+    "session_goal": "Demo: style_group cast with img2img followers and one walk clip.",
+    "player_asset": "hero_a",
+    "controls": {
+      "move_left": ["A", "Left"],
+      "move_right": ["D", "Right"]
+    },
+    "viewport": {
+      "width": 640,
+      "height": 360
+    },
+    "camera": {
+      "mode": "follow_player"
+    },
+    "visual_reference": "resources/style-group-demo-reference.png"
+  },
+  "assets": [
+    {
+      "name": "hero_a",
+      "id": "hero_a",
+      "type": "character",
+      "usage": "player_idle",
+      "usage_description": "Style group anchor — first cast member, no style_anchor",
+      "description": "lead hero, standing pose, facing right",
+      "display_size": {
+        "width": 128,
+        "height": 128
+      },
+      "style_group": "cast_demo"
+    },
+    {
+      "name": "hero_b",
+      "id": "hero_b",
+      "type": "character",
+      "usage": "prop",
+      "usage_description": "Follower in cast_demo — default style img2img from hero_a",
+      "description": "companion character, same art style as hero_a",
+      "display_size": {
+        "width": 128,
+        "height": 128
+      },
+      "style_group": "cast_demo",
+      "style_anchor": "hero_a"
+    },
+    {
+      "name": "hero_b_alt",
+      "id": "hero_b_alt",
+      "type": "character",
+      "usage": "prop",
+      "usage_description": "Follower with identity_anchor — img2img from hero_a identity, not style anchor",
+      "description": "same character variant, identity locked to hero_a",
+      "display_size": {
+        "width": 128,
+        "height": 128
+      },
+      "style_group": "cast_demo",
+      "style_anchor": "hero_a",
+      "identity_anchor": "hero_a"
+    },
+    {
+      "name": "hero_c",
+      "id": "hero_c",
+      "type": "character",
+      "usage": "prop",
+      "usage_description": "Follower with use_style_img2img false — pure text-to-image",
+      "description": "third cast member, style group declared but img2img disabled",
+      "display_size": {
+        "width": 128,
+        "height": 128
+      },
+      "style_group": "cast_demo",
+      "style_anchor": "hero_a",
+      "use_style_img2img": false
+    },
+    {
+      "name": "hero_a_walk",
+      "id": "hero_a_walk",
+      "type": "character",
+      "usage": "player_locomotion",
+      "usage_description": "Walk cycle — video still uses reference_asset, not style_anchor",
+      "generate_method": "video",
+      "description": "hero_a walking right",
+      "display_size": {
+        "width": 128,
+        "height": 128
+      },
+      "reference_asset": "hero_a",
+      "animation_method": "video",
+      "action": "walking to the right, smooth walk cycle",
+      "duration_seconds": 4,
+      "sprite_frames": 8
+    }
+  ],
+  "animation_graphs": [
+    {
+      "character_asset": "hero_a",
+      "default_clip": "idle",
+      "transitions": [
+        {
+          "from": "idle",
+          "to": "walk",
+          "bidirectional": true
+        }
+      ]
+    }
+  ]
+}

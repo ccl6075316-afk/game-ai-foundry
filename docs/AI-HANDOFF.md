@@ -85,7 +85,20 @@ game-ai-foundry/
 
 ### `project` 可选（P1）
 
-`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
+`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文；默认 prompt 软对齐 — 作 still `--reference-image` 需从属资产设 `style_anchor_kind: visual_reference`）、`art_tokens`（可选结构化风格硬锁，见下）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
+
+#### `art_tokens`（可选，Phase 2）
+
+与必填 `art_direction` **并存**；`brief validate` **不要求**本字段。非空时 `build_role_context` / visual-target context 注入整对象，prompt-crafter 优先把 tokens 写成 `style_lock` 硬锁，`art_direction` 仍负责 mood 散文。
+
+| 键 | 类型 | 说明 |
+|----|------|------|
+| `line` | string | 线宽 / 描边 |
+| `palette` | string \| string[] | 主色或 hex 列表 |
+| `forbid` | string[] | 禁止风格 / 效果 |
+| `silhouette` | string | 剪影 / 头身比 |
+
+旧 brief 无此字段 → 行为与改前相同。示例见 [`resources/style-group-img2img.example.json`](../resources/style-group-img2img.example.json)。
 
 #### 尺寸契约（godogen ASSETS.md Size 列）
 
@@ -101,11 +114,42 @@ game-ai-foundry/
 
 **校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → `display_size` 必须一致。
 
-**风格对齐（草案）**：同屏多角色等「同族 / 从属」目前**没有**硬风格锚（北极星只软对齐氛围）。设计见 [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md)。
+#### 风格组（`style_group` img2img）
+
+同屏多角色、套图等同族 / 从属关系，用 **风格组** 锁 still 画风（与动作族 `reference_asset` **正交**）：
+
+| 字段 | 说明 |
+|------|------|
+| `style_group` | 组名；同组 still 共享风格锚 |
+| `style_anchor_kind` | `asset`（默认）或 `visual_reference` |
+| `style_anchor` | kind=`asset` 时为锚点资产的 `name` / `id`；kind=`visual_reference` 时可省略（读 `project.visual_reference`） |
+| `use_style_img2img` | 缺省 **true**；设 `false` 退回纯文生图 |
+| `identity_anchor` | 可选；同角色/变体身份锚（`name` / `id`）。从属 + 风格 img2img 时 **优先**于 `style_anchor` 作 `--reference-image`（单槽） |
+
+**默认行为**：资产在组内且为从属（非锚点）→ `pipeline plan` 对该 still 的 `image.generate` **自动**带 `--reference-image`，并 `depends_on` 锚点 raw（或已解析的北极星路径）。handoff 中 `requires_reference_image: true`。
+
+**参考图优先级（单槽）**：需风格 img2img 且 `identity_anchor` 有效 → identity 资产 `*_raw.png`；否则 `style_anchor` / `visual_reference` 既有规则。
+
+**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走**（与 grid 切片正交；brief 校验禁止 icon_kit 挂 style_group）。
+
+**软强度**：prompt-crafter 对从属资产应写「低影响、借风格/身份特征、勿整图复制构图」；Gemini 栈无可靠 API strength。可选 `image.style_img2img_strength`（默认 `0.25`）对支持 `image_config.strength` 的 Provider（如 Recraft）best-effort 透传；不支持则忽略并短日志，**不失败**。
+
+**未做**：Phase 3 GUI 锚点/组/开关展示（Phase 2 `project.art_tokens` 已落地）。
+
+**例外 / 正交**：
+
+- **视频优先**：`animation_method: video` 仍跟 `reference_asset` 静帧作 i2v 参考；风格组**不**覆盖视频参考图选择。视频所依赖的**初始静帧**本身可先经风格组 img2img 产出。
+- **`character_pose`**：仍跟本角色 `reference_asset`（角色本体 still）；风格经本体传递，不走 `style_anchor`。
+- **北极星作硬参考**：默认**禁止**把 `project.visual_reference` 当 `--reference-image`；**仅当** brief 对该从属资产设 `style_anchor_kind: visual_reference` 时允许（pipeline 自动传该路径）。
+- 无 `style_group` 的旧 brief：行为与改前相同（纯文生图；pose / 视频仍可有各自参考图）。
+
+设计背景 → [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md)。
 
 ### `assets[]` 每项
 
 `name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
+
+可选（风格组）：`style_group`, `style_anchor_kind`, `style_anchor`, `identity_anchor`, `use_style_img2img`（见上表）。动作 / 视频族仍用 `reference_asset`。
 
 中文可用在 `name`（对话 / HUD / `reference_asset`）；**产物文件名只用 `id`**（如 `referee_raw.png`）。
 
@@ -193,6 +237,7 @@ python gamefactory.py setup install dotnet
 |----|------|
 | `provider_accounts` | 多 Provider 账号库（OpenRouter、DeepSeek、Kimi、GLM 等） |
 | `host` / `image` / `video` | 活跃 Provider 与 API key；生图可 `use_text_provider` |
+| `image.style_img2img_strength` | 可选，默认 `0.25`；风格 img2img 时 best-effort 透传 `image_config.strength`（Recraft 等）；Gemini 可忽略 |
 | `godot.engine_path` | Godot 4 **.NET / Mono**；`setup install godot` 可自动写入 |
 | `toolchain.bin_dir` | FFmpeg 目录（默认 `~/.gamefactory/toolchain/bin`） |
 | `toolchain.godot_dir` / `dotnet_dir` | 自动安装目录 |
@@ -231,4 +276,4 @@ python gamefactory.py setup install dotnet
 
 ---
 
-*文档版本：2026-07-15*
+*文档版本：2026-07-22*

@@ -25,6 +25,7 @@ from brief import (
     ProjectContext,
     find_asset,
     load_brief,
+    should_use_style_img2img,
 )
 from prompt_craft import DEFAULT_PROMPT_MODEL, PromptCraftError, craft_asset_prompt
 from roles import PROMPT_CRAFTER_ROLE
@@ -90,10 +91,32 @@ class ValidationResult:
         return asdict(self)
 
 
-def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
+def _apply_style_img2img_to_meta(
+    meta: dict[str, Any],
+    project: ProjectContext,
+    spec: AssetSpec,
+    assets: list[AssetSpec] | None,
+) -> dict[str, Any]:
+    """Mark still plans that require style-group ``--reference-image`` (not pose/video)."""
+    if not assets or spec.type == AssetType.CHARACTER_POSE:
+        return meta
+    if not should_use_style_img2img(spec, project=project, assets=assets):
+        return meta
+    out = dict(meta)
+    out["requires_reference_image"] = True
+    return out
+
+
+def _plan_metadata(
+    project: ProjectContext,
+    spec: AssetSpec,
+    *,
+    assets: list[AssetSpec] | None = None,
+) -> dict[str, Any]:
     """Pipeline, validation, and flags — always deterministic."""
     if spec.type == AssetType.CHARACTER:
-        return {
+        return _apply_style_img2img_to_meta(
+            {
             "negative_hints": [
                 "Do not prompt for transparent background or checkerboard.",
                 "Do not include multiple characters or action frames.",
@@ -112,11 +135,16 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
             "requires_background_removal": True,
             "requires_reference_image": False,
             "animation_method": None,
-        }
+            },
+            project,
+            spec,
+            assets,
+        )
     if spec.type == AssetType.ICON_KIT:
         if not spec.items:
             raise ValueError(f"icon_kit '{spec.name}' requires an 'items' list.")
-        return {
+        return _apply_style_img2img_to_meta(
+            {
             "negative_hints": ["One kit image — slice into separate icons after generation."],
             "validation": _validation_spec(spec.type, grid=spec.grid, item_count=len(spec.items)),
             "pipeline": [
@@ -130,25 +158,39 @@ def _plan_metadata(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
             "requires_background_removal": True,
             "requires_reference_image": False,
             "animation_method": None,
-        }
+            },
+            project,
+            spec,
+            assets,
+        )
     if spec.type == AssetType.TEXTURE:
-        return {
+        return _apply_style_img2img_to_meta(
+            {
             "negative_hints": ["Do not remove background — the full image is the texture."],
             "validation": _validation_spec(spec.type),
             "pipeline": [{"step": "generate_image"}, {"step": "validate"}],
             "requires_background_removal": False,
             "requires_reference_image": False,
             "animation_method": None,
-        }
+            },
+            project,
+            spec,
+            assets,
+        )
     if spec.type == AssetType.BACKGROUND:
-        return {
+        return _apply_style_img2img_to_meta(
+            {
             "negative_hints": ["Do not use a flat white studio background."],
             "validation": _validation_spec(spec.type, aspect_ratio=spec.aspect_ratio),
             "pipeline": [{"step": "generate_image"}, {"step": "validate"}],
             "requires_background_removal": False,
             "requires_reference_image": False,
             "animation_method": None,
-        }
+            },
+            project,
+            spec,
+            assets,
+        )
     if spec.type == AssetType.CHARACTER_POSE:
         if not spec.action.strip():
             raise ValueError(f"character_pose '{spec.name}' requires an 'action' field.")
@@ -187,9 +229,14 @@ def _anchor_for_usage(spec: AssetSpec) -> str:
     return "center"
 
 
-def build_prompt_scaffold(project: ProjectContext, spec: AssetSpec) -> PromptPlan:
+def build_prompt_scaffold(
+    project: ProjectContext,
+    spec: AssetSpec,
+    *,
+    assets: list[AssetSpec] | None = None,
+) -> PromptPlan:
     """Pipeline + validation metadata only. Prompt is null until LLM crafts it."""
-    meta = _plan_metadata(project, spec)
+    meta = _plan_metadata(project, spec, assets=assets)
     ds = None if spec.display_size.is_empty() else spec.display_size.to_dict()
     return PromptPlan(
         asset_name=spec.name,
@@ -213,9 +260,10 @@ def build_prompt(
     api_key: str | None = None,
     api_base: str | None = None,
     proxy: str | None = None,
+    assets: list[AssetSpec] | None = None,
 ) -> PromptPlan:
     """Craft generation prompt via LLM reading skill docs (Godogen model)."""
-    plan = build_prompt_scaffold(project, spec)
+    plan = build_prompt_scaffold(project, spec, assets=assets)
 
     if not craft:
         return plan

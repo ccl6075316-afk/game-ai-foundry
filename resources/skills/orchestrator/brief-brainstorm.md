@@ -22,8 +22,9 @@
 4. 逐步补全下方 **冻结清单** 中的每一项；缺任一项不得设 `ready_to_export: true`。
 5. 资产类型允许：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`。
 6. 角色动画用 `animation_method: "video"` + `reference_asset`，禁止 spritesheet 多动作单图。
-7. 当信息足够产出 pipeline 时，设 `ready_to_export: true`，并在 `draft_brief` 给出完整 JSON。
-8. 若用户说「可以了 / 导出 / 够了」，进入汇总并 `ready_to_export: true`（仅当冻结清单已全部满足）。
+7. **风格组（`style_group`）保守标定**：仅在对话里**明确**同族 / 从属 / 套图关系时建组；**禁止**把所有 still 默认塞进一个组。无关系 → 不写 `style_group`（行为同纯文生图）。
+8. 当信息足够产出 pipeline 时，设 `ready_to_export: true`，并在 `draft_brief` 给出完整 JSON。
+9. 若用户说「可以了 / 导出 / 够了」，进入汇总并 `ready_to_export: true`（仅当冻结清单已全部满足）。
 
 ## 冻结清单（export 前必须全部存在）
 
@@ -43,6 +44,7 @@
 | `viewport` | `{ width, height }` 正整数，逻辑分辨率 |
 | `camera` | `2d_platformer` 等平台类 genre 必填，如 `{ "mode": "follow_player" }` |
 | `visual_reference` | **导出时必须留空**。保存 Brief 后由策划在 GUI 点「生成北极星图」→「选用北极星 a/b/c」写入**图片路径**。**禁止**把风格散文、参考游戏名写进此字段——风格只写 `art_direction` |
+| `art_tokens` | **可选**。与 `art_direction` 并存的结构化风格硬锁（`line`, `palette`, `forbid`, `silhouette`）；有具体配色/线宽/禁止项时保守填写，否则省略 |
 | `hud` | 有 `usage: ui_element` 素材时必填；每项 `{ "asset", "anchor", "description" }` |
 
 ### `assets[]`（每个素材一行）
@@ -69,6 +71,28 @@
 **icon_kit 额外必填：** `items` 列表。
 
 **有 video 动画时：** 至少一个 `usage` 为 `reference_still` 或 `player_*` 的角色素材。
+
+**风格组（可选，保守写入）：**
+
+| 字段 | 要求 |
+|------|------|
+| `style_group` | 同族 / 从属 / 套图共享的组名（英文 slug）；**仅**在关系明确时填写 |
+| `style_anchor_kind` | `asset`（默认）或 `visual_reference` |
+| `style_anchor` | kind=`asset` → 锚点资产的 `name`/`id`；kind=`visual_reference` → 省略（用 `project.visual_reference` 路径） |
+| `use_style_img2img` | 缺省视为 **true**；设 `false` 可对该资产退回纯文生图 |
+
+- **何时建组**：多角色同属一 cast、icon_kit 从属某角色/UI 主图、用户点名「这几张要同一画风」等——**有证据才写**。
+- **何时不建组**：背景 / 主角 / UI 只是同屏出现、仅共享 `art_direction`、或「整个项目一个画风」——**不要**用一个大组包住全部 still。
+- **与 `reference_asset` 正交**：`reference_asset` 管 pose / 视频动作族；`style_*` 管 still 风格 img2img。二者可同时存在，互不替代。
+- **视频优先**：`generate_method: video` / 动画 clip 仍跟 `reference_asset` 选参考静帧；风格组**不覆盖**视频参考图规则。视频所依赖的**初始 still**（如 `reference_still`）可先经风格组 img2img 产出，再被视频引用。
+- **北极星作锚**：仅当 `style_anchor_kind: visual_reference` 时，`project.visual_reference` 才作为风格参考图；默认 kind=`asset`，不要把风格散文写进 `visual_reference`。
+
+示例（两角色同 cast，B 跟 A 画风）：
+
+```json
+{ "name": "hero_a", "id": "hero_a", "type": "character", "style_group": "cast_main" },
+{ "name": "hero_b", "id": "hero_b", "type": "character", "style_group": "cast_main", "style_anchor": "hero_a" }
+```
 
 ### `animation_graphs[]`（角色有 2+ 动画 clip 时必填）
 
