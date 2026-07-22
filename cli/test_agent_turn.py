@@ -480,8 +480,9 @@ class TestExecutorSafetyConfig(unittest.TestCase):
                     timeout=30,
                     config={"agents": {"executors": {"hermes": {"yolo": False}}}},
                 )
-            self.assertIn("yolo", str(ctx.exception).lower())
-            self.assertIn("ACP", str(ctx.exception))
+            msg = str(ctx.exception)
+            self.assertIn("GUI", msg)
+            self.assertIn("yolo", msg.lower())
             run_cmd.assert_not_called()
 
     def test_run_executor_turn_passes_sandbox(self) -> None:
@@ -662,9 +663,9 @@ class TestInstanceExecutorSafety(unittest.TestCase):
                     config=cfg,
                     instance_id="pm-1",
                 )
-            self.assertIn("yolo", str(ctx.exception).lower())
-            self.assertIn("instances", str(ctx.exception).lower())
-            self.assertIn("ACP", str(ctx.exception))
+            msg = str(ctx.exception)
+            self.assertIn("GUI", msg)
+            self.assertIn("yolo", msg.lower())
             run_cmd.assert_not_called()
 
     def test_instance_sandbox_ignored_for_cursor(self) -> None:

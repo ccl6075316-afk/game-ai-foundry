@@ -1522,10 +1522,15 @@ export default function App() {
             };
         if (!target.sessionId) return store;
         const isCursorAcp = payload.source === "cursor_acp";
+        const isHermesAcp = payload.source === "hermes_acp";
         const msg: ChatMessage = {
           id: newMessageId(),
           role: "system",
-          content: isCursorAcp ? "Cursor 需要批准" : "需要批准的变更",
+          content: isCursorAcp
+            ? "Cursor 需要批准"
+            : isHermesAcp
+              ? "Hermes 需要批准"
+              : "需要批准的变更",
           timestamp: Date.now(),
           toolPermission: {
             permissionId: String(payload.permissionId || ""),
@@ -1533,7 +1538,11 @@ export default function App() {
             turnId: payload.turnId,
             argvSummary: String(payload.argvSummary || ""),
             status: "pending",
-            ...(isCursorAcp ? { source: "cursor_acp" as const } : {}),
+            ...(isCursorAcp
+              ? { source: "cursor_acp" as const }
+              : isHermesAcp
+                ? { source: "hermes_acp" as const }
+                : {}),
           },
         };
         return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => [

@@ -23,7 +23,7 @@ export interface ToolPermissionCard {
   turnId?: string;
   argvSummary: string;
   status: "pending" | "allowed_once" | "allowed_turn" | "allowed_session" | "denied";
-  source?: "pi" | "cursor_acp";
+  source?: "pi" | "cursor_acp" | "hermes_acp";
 }
 
 export interface ChatMessage {

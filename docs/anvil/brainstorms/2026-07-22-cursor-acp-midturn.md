@@ -10,8 +10,7 @@
 - **Source Of Truth Until**：replaced by confirmed `/anvil:plan` artifact [`docs/anvil/plans/2026-07-22-cursor-acp-midturn-plan.md`](../plans/2026-07-22-cursor-acp-midturn-plan.md) once that plan is user-confirmed for `/anvil:code`
 - **Requirements Source**：用户「做 acp」；Grill：先 Cursor、非 force→ACP、按实例常驻、仅 GUI、Pi 四键 always→本会话；用户确认 Spec
 - **Background Inputs**：[`docs/superpowers/specs/2026-07-22-executor-permission-b2-spike.md`](../../superpowers/specs/2026-07-22-executor-permission-b2-spike.md)；B v1 Pi 审批卡 Spec；B v2 安全旋钮 + 实例覆盖（已落地）；聊天确认选项 4
-- **Compounded Knowledge**：not yet compounded
-- **Resume Point**：Spec 已确认；plan 写出后用户确认 plan 或「开始实现」→ `/anvil:code`
+- **Compounded Knowledge**：[`docs/solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md`](../../solutions/failures/2026-07-22-acp-jsonrpc-id-collision.md)
 
 ## 背景输入
 

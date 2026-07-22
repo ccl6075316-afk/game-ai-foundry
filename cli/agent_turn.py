@@ -454,11 +454,7 @@ def run_hermes_turn(
             f"角色 {role_kind} 未配置 Hermes skill（IT 请用内置 Pi：executor=pi）。"
         )
     if not resolve_hermes_yolo(config, instance_id=instance_id):
-        raise AgentTurnError(
-            "当前 Hermes YOLO 已关闭（agents.executors.hermes.yolo 或该实例 instances.<id>.yolo 设为 false）。"
-            "未接入 Hermes ACP 前，GUI/CLI 不可关闭 YOLO（去掉 --yolo 会在无 TTY 下挂起）。"
-            "请在「设置 → Agent → Hermes」打开 YOLO，或在实例配置中打开 YOLO，或等待 ACP 集成后再关。"
-        )
+        raise AgentTurnError(_hermes_cli_yolo_off_error())
     skill = _HERMES_SKILL[role_kind]
     argv = [
         hermes,
@@ -572,6 +568,13 @@ def _cursor_cli_non_force_error() -> str:
     return (
         "Cursor 执行器在非 force 权限模式下需通过 Foundry GUI 进行 ACP 中途审批。"
         "请使用 GUI 对话，或在「设置 → Agent → Cursor」/实例配置中将 permission_mode 设为 force。"
+    )
+
+
+def _hermes_cli_yolo_off_error() -> str:
+    return (
+        "Hermes 执行器在 YOLO 关闭时需通过 Foundry GUI 进行 ACP 中途审批（GUI 已接入 Hermes ACP）。"
+        "请使用 GUI 对话，或在「设置 → Agent → Hermes」/实例配置中将 yolo 设为 true。"
     )
 
 

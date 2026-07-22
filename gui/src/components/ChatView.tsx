@@ -114,7 +114,9 @@ export function ChatView({
                       <div className="tool-permission-card__title">
                         {m.toolPermission.source === "cursor_acp"
                           ? "Cursor 需要批准"
-                          : "需要批准的变更"}
+                          : m.toolPermission.source === "hermes_acp"
+                            ? "Hermes 需要批准"
+                            : "需要批准的变更"}
                       </div>
                       <code className="tool-permission-card__cmd">
                         {m.toolPermission.argvSummary || "gamefactory …"}

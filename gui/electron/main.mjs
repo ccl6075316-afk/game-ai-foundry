@@ -24,6 +24,7 @@ import {
 } from "./paths.mjs";
 import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
+import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = !isPackagedApp();
@@ -36,12 +37,20 @@ let toolPermissionBridge = null;
 /** @type {ReturnType<typeof createCursorAcpSessionManager> | null} */
 let cursorAcpSessionManager = null;
 
+/** @type {ReturnType<typeof createHermesAcpSessionManager> | null} */
+let hermesAcpSessionManager = null;
+
 /** @type {Map<string, NodeJS.Timeout>} */
 const acpPermissionTimers = new Map();
 
 /** @returns {ReturnType<typeof createCursorAcpSessionManager> | null} */
 export function getCursorAcpSessionManager() {
   return cursorAcpSessionManager;
+}
+
+/** @returns {ReturnType<typeof createHermesAcpSessionManager> | null} */
+export function getHermesAcpSessionManager() {
+  return hermesAcpSessionManager;
 }
 
 /** @param {string} permissionId */
@@ -59,7 +68,7 @@ function clearAcpPermissionTimer(permissionId) {
  * @param {string} payload.sessionId
  * @param {string} [payload.turnId]
  * @param {string} payload.argvSummary
- * @param {"cursor_acp"} [payload.source]
+ * @param {"cursor_acp" | "hermes_acp"} [payload.source]
  * @returns {boolean}
  */
 function sendAgentToolPermission(payload) {
@@ -720,6 +729,23 @@ function resolveCursorPermissionMode(config, instanceId) {
 
 /**
  * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {boolean}
+ */
+function resolveHermesYolo(config, instanceId) {
+  const inst = agentInstanceRecord(config, instanceId);
+  if ("yolo" in inst) {
+    return Boolean(inst.yolo);
+  }
+  const hermesPreset = config?.agents?.executors?.hermes;
+  if (!hermesPreset || typeof hermesPreset !== "object" || !("yolo" in hermesPreset)) {
+    return true;
+  }
+  return Boolean(hermesPreset.yolo);
+}
+
+/**
+ * @param {Record<string, unknown>} config
  * @param {string} roleKind
  * @param {Record<string, unknown>} opts
  * @returns {string}
@@ -959,6 +985,32 @@ app.whenReady().then(() => {
     },
     onLog: (msg, ctx) => {
       console.log(`[cursor-acp] ${msg}`, ctx ?? "");
+    },
+  });
+
+  hermesAcpSessionManager = createHermesAcpSessionManager({
+    onPermission: (req) => {
+      const permissionId = String(req.permissionId || "");
+      const sent = sendAgentToolPermission({
+        permissionId,
+        sessionId: String(req.sessionId || ""),
+        turnId: String(req.turnId || ""),
+        argvSummary: String(req.summary || "").slice(0, 500),
+        source: "hermes_acp",
+      });
+      if (!sent) {
+        hermesAcpSessionManager?.decidePermission(permissionId, "deny");
+        return;
+      }
+      clearAcpPermissionTimer(permissionId);
+      const timer = setTimeout(() => {
+        acpPermissionTimers.delete(permissionId);
+        hermesAcpSessionManager?.decidePermission(permissionId, "deny");
+      }, ACP_PERMISSION_TIMEOUT_MS);
+      acpPermissionTimers.set(permissionId, timer);
+    },
+    onLog: (msg, ctx) => {
+      console.log(`[hermes-acp] ${msg}`, ctx ?? "");
     },
   });
 
@@ -1480,6 +1532,7 @@ app.whenReady().then(() => {
     const config = loadUserConfig().data || {};
     const effectiveExecutor = resolveExecutorForAgentTurn(config, role, opts);
     const permissionMode = resolveCursorPermissionMode(config, opts.instanceId);
+    const hermesYolo = resolveHermesYolo(config, opts.instanceId);
     const instanceKey = String(opts.instanceId || sessionId).trim();
 
     if (effectiveExecutor === "cursor" && permissionMode !== "force") {
@@ -1559,8 +1612,88 @@ app.whenReady().then(() => {
       }
     }
 
+    if (effectiveExecutor === "hermes" && !hermesYolo) {
+      if (!hermesAcpSessionManager) {
+        const errMsg = "Hermes ACP 会话管理器未初始化，请重启 GUI。";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      const turnId = randomUUID();
+      try {
+        const out = await hermesAcpSessionManager.prompt({
+          instanceId: instanceKey,
+          sessionId,
+          turnId,
+          workspaceCwd: repoRoot(),
+          text: message,
+        });
+
+        const recordArgs = [
+          "agent",
+          "record-turn",
+          "--role",
+          role,
+          "--session-id",
+          sessionId,
+          "--message",
+          message,
+          "--assistant-message",
+          out.text,
+          "--executor",
+          "hermes",
+          "--json",
+        ];
+        const recordResult = await runCli(recordArgs);
+        const recordData = parseJsonFromOutput(recordResult.stdout) || {};
+        if (recordResult.exitCode !== 0 || recordData.ok === false) {
+          const errMsg =
+            String(recordData.error || "").trim() ||
+            recordResult.stderr.trim() ||
+            "无法持久化 ACP 对话回合";
+          return {
+            exitCode: 1,
+            stdout: recordResult.stdout,
+            stderr: recordResult.stderr || errMsg,
+            data: { ok: false, error: errMsg },
+          };
+        }
+
+        const payload = {
+          ...recordData,
+          ok: true,
+          assistant_message: out.text,
+          executor: "hermes",
+          stderr_tail: out.stderrTail || "",
+        };
+        const stdout = JSON.stringify(payload, null, 2);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr: out.stderrTail || "",
+          data: payload,
+        };
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : "Hermes ACP 回合失败";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+    }
+
     if (effectiveExecutor === "cursor" && permissionMode === "force") {
       cursorAcpSessionManager?.stop(instanceKey);
+    }
+
+    if (effectiveExecutor === "hermes" && hermesYolo) {
+      hermesAcpSessionManager?.stop(instanceKey);
     }
 
     const args = [
@@ -1609,6 +1742,10 @@ app.whenReady().then(() => {
   ipcMain.handle("agent-tool-permission-decision", async (_e, permissionId, decision) => {
     const id = String(permissionId || "");
     if (cursorAcpSessionManager?.decidePermission(id, decision)) {
+      clearAcpPermissionTimer(id);
+      return { ok: true };
+    }
+    if (hermesAcpSessionManager?.decidePermission(id, decision)) {
       clearAcpPermissionTimer(id);
       return { ok: true };
     }
@@ -1750,6 +1887,8 @@ app.on("before-quit", () => {
   acpPermissionTimers.clear();
   cursorAcpSessionManager?.disposeAll();
   cursorAcpSessionManager = null;
+  hermesAcpSessionManager?.disposeAll();
+  hermesAcpSessionManager = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;
 });
