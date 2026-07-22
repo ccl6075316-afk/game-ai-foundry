@@ -119,6 +119,8 @@ export interface ConfigPatch {
     use_text_provider?: boolean;
     api_key?: string | null;
     model?: string;
+    /** Cheaper model for icon_kit items / generate_tier=bulk; null clears */
+    bulk_model?: string | null;
     proxy?: string;
     api_base?: string;
   };
