@@ -9,7 +9,7 @@ Orchestrator post-process skill. **切图** here means **trim white borders** (t
 | 切图、裁边、去白边（画布） | `image trim` | 按内容外接矩形裁掉四周白边 |
 | 抠图、透明底、去背景 | `image remove-bg` | 白底 → 透明 PNG |
 | 边缘校验、检查白边 | `image validate-matting` | 1–2px 轮廓带检测白晕 |
-| 拆 kit、网格切 | `image slice --mode grid` | icon_kit 2×2 等分（与切图不同） |
+| 拆 kit（旧） | ~~`image slice`~~ | **废弃**：icon_kit 改为每 item 单图生成 |
 
 ## Standard pipeline（必须按顺序）
 

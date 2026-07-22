@@ -5,8 +5,9 @@
 - **Status**：confirmed
 - **Workflow Stage**：plan
 - **Created**：2026-07-22
-- **Updated**：2026-07-22（用户书面设计「确认」）
-- **Source Of Truth Until**：实现以后续 `docs/superpowers/plans/2026-07-22-icon-kit-single-object.md` 为准（plan 落地后更新本行）
+- **Updated**：2026-07-23（用户 Spec「确认」后开工）
+- **Source Of Truth Until**：实现以 [`docs/superpowers/plans/2026-07-22-icon-kit-single-object.md`](../plans/2026-07-22-icon-kit-single-object.md) 为准
+- **Workflow Stage**：implement
 - **Confirmed By**：用户「确认」（2026-07-22）
 - **Change Log**：初稿 — 方案 A（pipeline 展开 kit；废弃网格切片；`image.model` + `image.bulk_model`）
 - **Requirements Source**：用户发现 sheet 切片无法绑定「是哪个 / 用在哪」；要求每张图强制单物体，icon 等批量走便宜模型；选型：保留 kit 壳 / 废切片 / 配置两档 / kit+`generate_tier:bulk`

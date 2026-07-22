@@ -271,6 +271,128 @@ def _post_image_tasks(
             prev_id = tid
 
 
+def _icon_kit_item_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    project: ProjectContext,
+    spec: AssetSpec,
+    brief_cli: str,
+    output_dir: Path,
+    plans_dir: Path,
+    config: dict[str, Any] | None,
+) -> None:
+    """Expand icon_kit into per-item single-object generate + post (no slice)."""
+    from brief import unique_item_slugs
+    from image_model_route import effective_generate_tier, resolve_image_model_for_tier
+
+    if not spec.items:
+        raise ValueError(f"icon_kit '{spec.name}' requires an 'items' list.")
+
+    name = spec.name
+    file_key = resolve_asset_file_key(spec)
+    slugs = unique_item_slugs([str(x) for x in spec.items])
+    tier = effective_generate_tier(
+        generate_tier=spec.generate_tier or None,
+        for_icon_kit_item=True,
+    )
+    model = resolve_image_model_for_tier(config, tier)
+    model_flag = f" --model {model}" if model else ""
+
+    for label, slug in zip([str(x) for x in spec.items], slugs, strict=True):
+        item_key = f"{file_key}__{slug}"
+        paths = _asset_artifacts(output_dir, plans_dir, item_key)
+        # Escape item for CLI: use simple quoting via json
+        item_arg = json.dumps(label, ensure_ascii=False)
+        prompt_id = _add_task(
+            tasks,
+            asset=name,
+            asset_id=item_key,
+            step="prompt.craft",
+            role=PROMPT_CRAFTER_ROLE,
+            depends_on=[],
+            layer=0,
+            command=(
+                f"python gamefactory.py prompt craft "
+                f"--brief {brief_cli} --asset {file_key} --item {item_arg} "
+                f"-o {paths['plan']}"
+            ),
+            artifacts={"plan": paths["plan"], "kit_item": label, "kit_item_slug": slug},
+        )
+        tasks_by_id[prompt_id] = tasks[-1]
+
+        image_deps = [prompt_id]
+        image_layer = _layer_from_deps(image_deps, tasks_by_id)
+        image_id = _add_task(
+            tasks,
+            asset=name,
+            asset_id=item_key,
+            step="image.generate",
+            role=IMAGE_GENERATOR_ROLE,
+            depends_on=image_deps,
+            layer=image_layer,
+            command=(
+                f"python gamefactory.py image generate "
+                f"--plan-file {paths['plan']} --output {paths['raw_image']} "
+                f"--validate{model_flag}"
+            ),
+            artifacts={
+                "plan": paths["plan"],
+                "output": paths["raw_image"],
+                "kit_item": label,
+                "kit_item_slug": slug,
+            },
+        )
+        tasks_by_id[image_id] = tasks[-1]
+
+        # Post: trim → remove-bg → validate_matting (same as character still)
+        prev = image_id
+        for step_name, step_id, cmd, arts in (
+            (
+                "image.trim",
+                "image.trim",
+                (
+                    f"python gamefactory.py image trim "
+                    f"--input {paths['raw_image']} --output {paths['trimmed_image']}"
+                ),
+                {"input": paths["raw_image"], "output": paths["trimmed_image"]},
+            ),
+            (
+                "image.remove-bg",
+                "image.remove-bg",
+                (
+                    f"python gamefactory.py image remove-bg --mode color "
+                    f"--input {paths['trimmed_image']} --output {paths['nobg_image']}"
+                ),
+                {"input": paths["trimmed_image"], "output": paths["nobg_image"]},
+            ),
+            (
+                "image.validate-matting",
+                "image.validate-matting",
+                (
+                    f"python gamefactory.py image validate-matting "
+                    f"--input {paths['nobg_image']}"
+                ),
+                {"input": paths["nobg_image"]},
+            ),
+        ):
+            dep = [prev]
+            layer = _layer_from_deps(dep, tasks_by_id)
+            tid = _add_task(
+                tasks,
+                asset=name,
+                asset_id=item_key,
+                step=step_id,
+                role=ORCHESTRATOR_ROLE,
+                depends_on=dep,
+                layer=layer,
+                command=cmd,
+                artifacts=arts,
+            )
+            tasks_by_id[tid] = tasks[-1]
+            prev = tid
+
+
 def _static_asset_tasks(
     tasks: list[PipelineTask],
     tasks_by_id: dict[str, PipelineTask],
@@ -282,7 +404,10 @@ def _static_asset_tasks(
     asset_ids: dict[str, str],
     assets: list[AssetSpec],
     brief_path: Path,
+    config: dict[str, Any] | None = None,
 ) -> None:
+    from image_model_route import effective_generate_tier, resolve_image_model_for_tier
+
     name = spec.name
     file_key = resolve_asset_file_key(spec)
     prompt_id = _add_task(
@@ -363,6 +488,13 @@ def _static_asset_tasks(
             ref_raw = _find_artifacts_for_asset(tasks, anchor_name)["output"]
             ref_flag = f" --reference-image {ref_raw}"
 
+    tier = effective_generate_tier(
+        generate_tier=spec.generate_tier or None,
+        for_icon_kit_item=False,
+    )
+    model = resolve_image_model_for_tier(config, tier)
+    model_flag = f" --model {model}" if model else ""
+
     image_layer = _layer_from_deps(image_deps, tasks_by_id)
     image_id = _add_task(
         tasks,
@@ -375,7 +507,7 @@ def _static_asset_tasks(
         command=(
             f"python gamefactory.py image generate "
             f"--plan-file {paths['plan']} --output {paths['raw_image']} "
-            f"--validate{ref_flag}"
+            f"--validate{ref_flag}{model_flag}"
         ),
         artifacts={"plan": paths["plan"], "output": paths["raw_image"]},
     )
@@ -723,12 +855,31 @@ def build_manifest(
     tasks_by_id: dict[str, PipelineTask] = {}
     asset_ids = {spec.name: resolve_asset_file_key(spec) for spec in assets}
 
+    try:
+        from gamefactory import load_config
+
+        pipeline_config = load_config()
+    except Exception:  # noqa: BLE001
+        pipeline_config = {}
+
     # Pass 1: static + pose assets (produce reference stills).
     for spec in assets:
         if is_runtime_only_asset(spec):
             continue
         kind = classify_asset(spec)
         if kind == AssetKind.VIDEO_ANIMATION:
+            continue
+        if spec.type == AssetType.ICON_KIT:
+            _icon_kit_item_tasks(
+                tasks,
+                tasks_by_id,
+                project=project,
+                spec=spec,
+                brief_cli=brief_cli,
+                output_dir=output_dir,
+                plans_dir=plans_dir,
+                config=pipeline_config,
+            )
             continue
         paths = _asset_artifacts(output_dir, plans_dir, asset_ids[spec.name])
         _static_asset_tasks(
@@ -741,6 +892,7 @@ def build_manifest(
             asset_ids=asset_ids,
             assets=assets,
             brief_path=brief_path,
+            config=pipeline_config,
         )
 
     # Pass 2: video animations (depend on reference stills).

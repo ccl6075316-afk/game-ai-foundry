@@ -143,26 +143,24 @@ def _plan_metadata(
     if spec.type == AssetType.ICON_KIT:
         if not spec.items:
             raise ValueError(f"icon_kit '{spec.name}' requires an 'items' list.")
-        return _apply_style_img2img_to_meta(
-            {
-            "negative_hints": ["One kit image — slice into separate icons after generation."],
-            "validation": _validation_spec(spec.type, grid=spec.grid, item_count=len(spec.items)),
+        # Per-item singles are planned in pipeline_manifest; scaffold describes one item.
+        return {
+            "negative_hints": [
+                "Single object only — never a grid or multiple icons in one image.",
+            ],
+            "validation": _validation_spec(AssetType.CHARACTER),  # single subject on white
             "pipeline": [
                 {"step": "generate_image"},
                 {"step": "validate"},
-                {"step": "slice", "mode": "grid", "grid": spec.grid},
-                {"step": "trim", "per_tile": True},
-                {"step": "remove_bg", "mode": "color", "per_tile": True},
-                {"step": "validate_matting", "per_tile": True},
+                {"step": "trim"},
+                {"step": "remove_bg", "mode": "color"},
+                {"step": "validate_matting"},
             ],
             "requires_background_removal": True,
             "requires_reference_image": False,
             "animation_method": None,
-            },
-            project,
-            spec,
-            assets,
-        )
+            "expand_items": True,
+        }
     if spec.type == AssetType.TEXTURE:
         return _apply_style_img2img_to_meta(
             {
@@ -261,9 +259,17 @@ def build_prompt(
     api_base: str | None = None,
     proxy: str | None = None,
     assets: list[AssetSpec] | None = None,
+    kit_item: str | None = None,
+    kit_item_slug: str | None = None,
 ) -> PromptPlan:
     """Craft generation prompt via LLM reading skill docs (Godogen model)."""
     plan = build_prompt_scaffold(project, spec, assets=assets)
+    if kit_item is not None:
+        plan.validation = _validation_spec(AssetType.CHARACTER)
+        plan.negative_hints = [
+            "Single object only — never a grid or multiple icons in one image.",
+            *(plan.negative_hints or []),
+        ]
 
     if not craft:
         return plan
@@ -275,7 +281,12 @@ def build_prompt(
         )
 
     crafted = craft_asset_prompt(
-        context=build_role_context(project, spec),
+        context=build_role_context(
+            project,
+            spec,
+            kit_item=kit_item,
+            kit_item_slug=kit_item_slug,
+        ),
         model=prompt_model,
         api_key=api_key,
         api_base=api_base,
@@ -445,7 +456,8 @@ def _validation_spec(asset_type: AssetType, **extra: Any) -> dict[str, Any]:
         base.update(
             {
                 "require_pure_white_background": True,
-                "min_subject_regions": 2,
+                "max_subject_regions": 1,
+                "forbid_spritesheet_layout": True,
             }
         )
     elif asset_type == AssetType.BACKGROUND:

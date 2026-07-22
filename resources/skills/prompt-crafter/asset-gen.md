@@ -19,7 +19,7 @@ Each asset type has **different** prompt rules and **different** post-pipeline. 
 | Type | Background | Post-process | Forbidden in prompt |
 |------|------------|--------------|---------------------|
 | **character** | Pure white #FFFFFF studio | trim → remove-bg | scenes, walls, icons, grids |
-| **icon_kit** | White studio grid | slice → trim → remove-bg per tile | characters, scenery |
+| **icon_kit** | White studio **single item** (one generate per `items[]`) | per-item trim → remove-bg | characters, scenery, multi-item sheets |
 | **background** | Full environment scene | none (no matting) | white studio, character sprites |
 | **texture** | Tile fills frame | none | white studio, characters |
 
@@ -54,7 +54,7 @@ Brief fields (orthogonal to `reference_asset`):
 | Asset type | Style img2img |
 |------------|---------------|
 | `character`, `texture`, `background` | Allowed when style-group follower |
-| `icon_kit` | **Not** — grid slice is orthogonal; style group on icon_kit is invalid |
+| `icon_kit` | **Not** — per-item singles are orthogonal; style group on icon_kit is invalid |
 | `character_pose`, video clips | Never — use `reference_asset` only |
 
 **Soft strength (mandatory in prompt):** Gemini / default OpenRouter stack has **no reliable API strength**. For every style-group follower, append low-influence wording — match **style / identity traits** (line weight, palette, proportions), **do NOT** copy the reference composition, pose, or layout wholesale. Example tail: *"Use the reference only for art style and character identity cues; low influence; do not copy pose, framing, or background from the reference."*
@@ -99,17 +99,17 @@ from validation JSON and regenerate — do not send the image to trim/remove-bg.
 
 Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
 
-## icon_kit (grid of items, white background)
+## icon_kit (one object per image)
 
-`grid` cells (rows×cols) must be **≥ item count** (e.g. 12→`3x4`, 6→`2x3`, 8→`2x4`).
-Prompt grid wording must match brief `grid` exactly — never invent a denser layout.
+Pipeline expands `items[]` into **N separate generates** (`image.bulk_model` when configured).
+`grid` in brief is **ignored** (legacy). Do not prompt for sheets.
 
 ```
-{item1}, {item2}, ... — {rows}x{cols} grid, each item centered in its cell.
-Game item icons, consistent scale. Pure flat white background. {art style cues}.
+Single game icon: {item}. Centered. Consistent scale. Pure flat white background. {art style cues}.
+No grid, no other objects.
 ```
 
-No characters, no scenery. Post: grid slice → trim white borders per tile → remove background per tile.
+Post: trim → remove-bg **per item** (no `image slice`).
 
 ## texture (no white studio bg)
 

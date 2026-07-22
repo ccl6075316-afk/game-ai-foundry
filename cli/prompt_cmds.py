@@ -62,6 +62,12 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
     @prompt_group.command("craft")
     @click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
     @click.option("--asset", required=True, help="Asset name from brief.")
+    @click.option(
+        "--item",
+        "kit_item",
+        default=None,
+        help="icon_kit item label — craft a single-object prompt for that item.",
+    )
     @click.option("--animation", is_flag=True, help="Craft animation/video prompt plan.")
     @click.option(
         "-o",
@@ -80,6 +86,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         ctx: click.Context,
         brief_path: Path,
         asset: str,
+        kit_item: str | None,
         animation: bool,
         output_path: Path | None,
         prompt_model: str | None,
@@ -88,6 +95,8 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         proxy: str | None,
     ) -> None:
         """prompt-crafter agent: LLM writes prompt → handoff file for image-generator."""
+        from brief import slugify_item_label
+
         config = ctx.obj["config"]
         prompt_api = resolve_prompt_api_settings(
             config,
@@ -115,12 +124,27 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         try:
             project, assets = load_brief(brief_path)
             spec = find_asset(assets, asset)
-            context = build_role_context(project, spec)
+            item_label = (kit_item or "").strip() or None
+            item_slug = slugify_item_label(item_label) if item_label else None
+            if item_label and spec.type != AssetType.ICON_KIT:
+                raise ValueError("--item is only valid for icon_kit assets")
+            if item_label and item_label not in [str(x) for x in spec.items]:
+                raise ValueError(
+                    f"--item {item_label!r} not in icon_kit items for '{spec.name}'"
+                )
+            context = build_role_context(
+                project,
+                spec,
+                kit_item=item_label,
+                kit_item_slug=item_slug,
+            )
 
             is_animation = animation or (
                 spec.action and spec.type == AssetType.CHARACTER
             )
             if is_animation:
+                if item_label:
+                    raise ValueError("--item cannot be combined with animation craft")
                 plan = build_animation_pipeline(project, spec, assets, **craft_kwargs)
             else:
                 plan = build_prompt(
@@ -131,6 +155,8 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     api_key=craft_kwargs["api_key"],
                     api_base=craft_kwargs["api_base"],
                     proxy=craft_kwargs["proxy"],
+                    kit_item=item_label,
+                    kit_item_slug=item_slug,
                 )
 
             if is_animation:

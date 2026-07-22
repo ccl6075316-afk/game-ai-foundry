@@ -201,7 +201,11 @@ def suggest_icon_grid(item_count: int) -> str:
 
 
 def resolve_icon_grid(grid: str, item_count: int) -> str:
-    """Return grid with enough cells for items; upgrade when too small."""
+    """Return grid with enough cells for items; upgrade when too small.
+
+    Deprecated for pipeline authority (icon_kit no longer slices). Kept for
+    legacy helpers / tests.
+    """
     n = max(0, int(item_count))
     if n <= 0:
         return (grid or "2x2").strip() or "2x2"
@@ -212,6 +216,28 @@ def resolve_icon_grid(grid: str, item_count: int) -> str:
     if rows * cols < n:
         return suggest_icon_grid(n)
     return f"{rows}x{cols}"
+
+
+def slugify_item_label(label: str) -> str:
+    """Stable filesystem/task key from an icon_kit item label."""
+    import re
+
+    text = str(label or "").strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    text = text.strip("_")
+    return text or "item"
+
+
+def unique_item_slugs(items: list[str]) -> list[str]:
+    """Slugify labels; duplicate slugs get _2, _3, …"""
+    seen: dict[str, int] = {}
+    out: list[str] = []
+    for raw in items:
+        base = slugify_item_label(raw)
+        count = seen.get(base, 0) + 1
+        seen[base] = count
+        out.append(base if count == 1 else f"{base}_{count}")
+    return out
 
 
 @dataclass
@@ -247,6 +273,7 @@ class AssetSpec:
     style_anchor: str = ""
     identity_anchor: str = ""
     use_style_img2img: bool | None = None
+    generate_tier: str = ""
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> AssetSpec:
@@ -269,8 +296,13 @@ class AssetSpec:
 
         items = [str(x) for x in data.get("items", [])]
         grid = str(data.get("grid", "2x2"))
-        if asset_type == AssetType.ICON_KIT and items:
-            grid = resolve_icon_grid(grid, len(items))
+        # grid is legacy metadata only — icon_kit no longer slices by grid.
+
+        tier_raw = str(data.get("generate_tier", "")).strip().lower()
+        if tier_raw and tier_raw not in ("default", "bulk"):
+            raise ValueError(
+                f"generate_tier must be 'default' or 'bulk', got {data.get('generate_tier')!r}"
+            )
 
         return cls(
             name=str(data["name"]),
@@ -306,6 +338,7 @@ class AssetSpec:
             use_style_img2img=(
                 bool(data["use_style_img2img"]) if "use_style_img2img" in data else None
             ),
+            generate_tier=tier_raw,
         )
 
 
@@ -1292,19 +1325,23 @@ def audit_brief_for_export(
         if spec.type == AssetType.ICON_KIT and not spec.items:
             errors.append(f"Asset '{spec.name}' icon_kit requires non-empty 'items' list")
         if spec.type == AssetType.ICON_KIT and spec.items:
-            try:
-                rows, cols = parse_icon_grid(spec.grid)
-            except ValueError as exc:
-                errors.append(f"Asset '{spec.name}' invalid grid: {exc}")
-            else:
-                cells = rows * cols
-                n = len(spec.items)
-                if cells < n:
-                    sug = suggest_icon_grid(n)
-                    errors.append(
-                        f"Asset '{spec.name}' grid '{spec.grid}' has {cells} cells "
-                        f"but {n} items — use '{sug}' (or larger)"
-                    )
+            # grid is ignored for generation (per-item singles); invalid grid is not fatal.
+            if (spec.grid or "").strip():
+                try:
+                    parse_icon_grid(spec.grid)
+                except ValueError as exc:
+                    errors.append(f"Asset '{spec.name}' invalid grid (ignored at runtime): {exc}")
+            blank = [i for i in spec.items if not str(i).strip()]
+            if blank:
+                errors.append(f"Asset '{spec.name}' icon_kit items must be non-empty strings")
+
+        if (spec.generate_tier or "").strip() and spec.generate_tier not in (
+            "default",
+            "bulk",
+        ):
+            errors.append(
+                f"Asset '{spec.name}' generate_tier must be 'default' or 'bulk'"
+            )
 
         method = resolve_generate_method(spec)
         if method == "video":
