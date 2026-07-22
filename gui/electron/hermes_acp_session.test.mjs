@@ -98,12 +98,18 @@ function emitLine(stdout, msg) {
 test("spawn argv includes acp and --accept-hooks", async () => {
   /** @type {string[][]} */
   const spawnArgs = [];
+  /** @type {string[]} */
+  const spawnCmds = [];
+  /** @type {NodeJS.ProcessEnv[]} */
+  const spawnEnvs = [];
   const manager = createHermesAcpSessionManager({
     getHermesPath: () => "/mock/hermes",
     envPath: "/usr/bin",
     onPermission: () => {},
-    spawnFn: (_cmd, args) => {
+    spawnFn: (cmd, args, opts) => {
+      spawnCmds.push(String(cmd));
       spawnArgs.push([...args]);
+      spawnEnvs.push(opts?.env || {});
       return createMockHermesAcpChild();
     },
   });
@@ -119,7 +125,24 @@ test("spawn argv includes acp and --accept-hooks", async () => {
   assert.equal(spawnArgs.length, 1);
   assert.deepEqual(spawnArgs[0], ["acp", ...HERMES_ACP_SPAWN_ARGS]);
   assert.ok(spawnArgs[0].includes("--accept-hooks"));
+  // On machines with Hermes venv, Foundry injects permission-patch sitecustomize.
+  const { HERMES_ACP_RUNTIME_DIR } = await import("./hermes_acp_session.mjs");
+  if (String(spawnCmds[0] || "").includes(`${path.sep}venv${path.sep}bin${path.sep}hermes`)) {
+    assert.ok(String(spawnEnvs[0].PYTHONPATH || "").includes(HERMES_ACP_RUNTIME_DIR));
+  }
   manager.stopAll();
+});
+
+test("resolveHermesAcpLaunch and buildHermesAcpEnv", async () => {
+  const { resolveHermesAcpLaunch, buildHermesAcpEnv, HERMES_ACP_RUNTIME_DIR } = await import(
+    "./hermes_acp_session.mjs"
+  );
+  const launch = resolveHermesAcpLaunch("hermes");
+  assert.equal(launch.args[0], "acp");
+  assert.ok(launch.args.includes("--accept-hooks"));
+  const env = buildHermesAcpEnv({ FOO: "1" }, "/bin", true);
+  assert.equal(env.FOO, "1");
+  assert.ok(String(env.PYTHONPATH || "").startsWith(HERMES_ACP_RUNTIME_DIR));
 });
 
 test("createHermesAcpSessionManager prompt returns buffered text", async () => {
@@ -329,7 +352,10 @@ test("pathWithCommonNodeBins prepends ~/.local/bin when present", async () => {
 test("module exports expected API", async () => {
   const mod = await import("./hermes_acp_session.mjs");
   assert.deepEqual(Object.keys(mod).sort(), [
+    "HERMES_ACP_RUNTIME_DIR",
+    "buildHermesAcpEnv",
     "createHermesAcpSessionManager",
     "pathWithCommonNodeBins",
+    "resolveHermesAcpLaunch",
   ]);
 });

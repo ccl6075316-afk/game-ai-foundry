@@ -22,8 +22,10 @@
  * Transport: stdio, one JSON-RPC 2.0 object per line (newline-delimited JSON).
  * NOT Content-Length framing.
  *
- * Spawn (T3 session manager): `hermes acp --accept-hooks`
+ * Spawn (session manager): prefer Hermes venv `hermes acp --accept-hooks` with
+ *   PYTHONPATH=`hermes_acp_runtime/` (sitecustomize patches upstream permission bridge).
  *   `--accept-hooks` silences shell hooks only; tool permissions still use GUI cards.
+ *   Note: Hermes only requests permission for *dangerous* terminal commands.
  *
  * Hermes permission optionIds (acp_adapter/permissions.py):
  *   allow_once | allow_always | deny

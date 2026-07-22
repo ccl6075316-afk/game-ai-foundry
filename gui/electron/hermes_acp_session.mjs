@@ -7,7 +7,8 @@
  */
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import os from "node:os";
 import path from "node:path";
 import {
@@ -23,6 +24,10 @@ import {
   encodeRequest,
   handleInboundRpcLine,
 } from "./hermes_acp_adapter.mjs";
+
+const _HERE = path.dirname(fileURLToPath(import.meta.url));
+/** PYTHONPATH dir with sitecustomize.py — patches Hermes ACP allow_permanent TypeError. */
+export const HERMES_ACP_RUNTIME_DIR = path.join(_HERE, "hermes_acp_runtime");
 
 /** @typedef {'once' | 'turn' | 'session' | 'deny'} FoundryPermissionDecision */
 
@@ -69,6 +74,74 @@ function assertHermesBinary(hermesPath, envPath) {
   if (!envPath.includes(path.join(os.homedir(), ".local", "bin")) && hermesPath === "hermes") {
     // PATH helper should have added ~/.local/bin when present; no throw — spawn may still resolve via shell PATH.
   }
+}
+
+/**
+ * Prefer Hermes *venv* CLI so PYTHONPATH/sitecustomize survives.
+ * `~/.local/bin/hermes` is a bash wrapper that `unset PYTHONPATH`.
+ *
+ * @param {string} hermesPath
+ * @returns {{ command: string, args: string[], usePermissionPatch: boolean }}
+ */
+export function resolveHermesAcpLaunch(hermesPath) {
+  const home = os.homedir();
+  const candidates = [
+    path.join(home, ".hermes", "hermes-agent", "venv", "bin", "hermes"),
+  ];
+
+  // Parse wrapper: exec "/path/to/venv/bin/hermes"
+  try {
+    const raw = String(hermesPath || "hermes");
+    const abs =
+      path.isAbsolute(raw) && existsSync(raw)
+        ? raw
+        : existsSync(path.join(home, ".local", "bin", "hermes"))
+          ? path.join(home, ".local", "bin", "hermes")
+          : null;
+    if (abs) {
+      const text = readFileSync(abs, "utf8");
+      const m = text.match(/exec\s+"([^"]+\/venv\/bin\/hermes)"/);
+      if (m?.[1] && existsSync(m[1])) {
+        candidates.unshift(m[1]);
+      }
+    }
+  } catch {
+    // ignore parse errors
+  }
+
+  for (const cand of candidates) {
+    if (existsSync(cand)) {
+      return {
+        command: cand,
+        args: ["acp", ...HERMES_ACP_SPAWN_ARGS],
+        usePermissionPatch: true,
+      };
+    }
+  }
+
+  return {
+    command: hermesPath || "hermes",
+    args: ["acp", ...HERMES_ACP_SPAWN_ARGS],
+    usePermissionPatch: false,
+  };
+}
+
+/**
+ * @param {NodeJS.ProcessEnv} base
+ * @param {string} pathEnv
+ * @param {boolean} usePermissionPatch
+ * @returns {NodeJS.ProcessEnv}
+ */
+export function buildHermesAcpEnv(base, pathEnv, usePermissionPatch) {
+  /** @type {NodeJS.ProcessEnv} */
+  const env = { ...base, PATH: pathEnv };
+  if (usePermissionPatch && existsSync(HERMES_ACP_RUNTIME_DIR)) {
+    const prev = String(env.PYTHONPATH || "").trim();
+    env.PYTHONPATH = prev
+      ? `${HERMES_ACP_RUNTIME_DIR}${path.delimiter}${prev}`
+      : HERMES_ACP_RUNTIME_DIR;
+  }
+  return env;
 }
 
 /**
@@ -350,10 +423,17 @@ export function createHermesAcpSessionManager(opts) {
       };
 
       try {
-        state.proc = spawnFn(hermesPath, ["acp", ...HERMES_ACP_SPAWN_ARGS], {
+        const launch = resolveHermesAcpLaunch(hermesPath);
+        state.proc = spawnFn(launch.command, launch.args, {
           stdio: ["pipe", "pipe", "pipe"],
-          env: { ...process.env, PATH: envPath },
+          env: buildHermesAcpEnv(process.env, envPath, launch.usePermissionPatch),
           shell: false,
+        });
+        onLog("hermes acp spawn", {
+          instanceId: state.instanceId,
+          command: launch.command,
+          args: launch.args,
+          permissionPatch: launch.usePermissionPatch,
         });
       } catch (err) {
         fail(
