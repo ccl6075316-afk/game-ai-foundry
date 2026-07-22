@@ -44,19 +44,42 @@ class ListExecutorModelsTest(unittest.TestCase):
         self.assertEqual(res["models"], [])
         self.assertIn("未找到", res["hint"] or "")
 
-    def test_cursor_empty_account(self) -> None:
+    def test_cursor_empty_while_logged_in(self) -> None:
+        def fake_run(argv, **_kwargs):
+            if "--list-models" in argv:
+                return (0, "No models available for this account.\n", "")
+            if "status" in argv:
+                return (0, "✓ Logged in as user@example.com\n", "")
+            return (1, "", "unexpected")
+
         with (
             patch("executor_models._which_cursor_agent", return_value="/bin/agent"),
-            patch(
-                "executor_models._run",
-                return_value=(0, "No models available for this account.\n", ""),
-            ),
+            patch("executor_models._run", side_effect=fake_run),
         ):
             res = list_executor_models("cursor")
         self.assertTrue(res["ok"])
         self.assertEqual(res["models"], [])
-        self.assertIn("无可用模型", res["hint"] or "")
+        self.assertIn("已登录", res["hint"] or "")
+        self.assertIn("会话未完全生效", res["hint"] or "")
         self.assertIn("CURSOR_API_KEY", res["hint"] or "")
+
+    def test_cursor_empty_while_logged_out(self) -> None:
+        def fake_run(argv, **_kwargs):
+            if "--list-models" in argv:
+                return (0, "No models available for this account.\n", "")
+            if "status" in argv:
+                return (1, "Not logged in\n", "")
+            return (1, "", "unexpected")
+
+        with (
+            patch("executor_models._which_cursor_agent", return_value="/bin/agent"),
+            patch("executor_models._run", side_effect=fake_run),
+        ):
+            res = list_executor_models("cursor")
+        self.assertTrue(res["ok"])
+        self.assertEqual(res["models"], [])
+        self.assertIn("未登录", res["hint"] or "")
+        self.assertIn("agent login", res["hint"] or "")
 
     def test_cursor_ok(self) -> None:
         with (

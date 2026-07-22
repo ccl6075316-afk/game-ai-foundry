@@ -45,10 +45,14 @@ protocol.registerSchemesAsPrivileged([
   },
 ]);
 
-/** Prepend common Node install dirs so CLI can find Node 22+ (Electron PATH often omits them). */
+/** Prepend common install dirs so CLI can find Node / agent / brew tools.
+ * Electron.app PATH often omits ~/.local/bin (Cursor Agent) and Homebrew.
+ */
 function pathWithCommonNodeBins(basePath) {
   const home = os.homedir();
   const extras = [
+    path.join(home, ".local", "bin"),
+    path.join(home, ".local", "share", "cursor-agent", "versions"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -66,6 +70,25 @@ function pathWithCommonNodeBins(basePath) {
       parts.unshift(dir);
       seen.add(key);
     }
+  }
+  // Also prepend latest cursor-agent version dir if present (binary lives there).
+  try {
+    const versionsRoot = path.join(home, ".local", "share", "cursor-agent", "versions");
+    if (existsSync(versionsRoot)) {
+      const kids = readdirSync(versionsRoot)
+        .map((name) => path.join(versionsRoot, name))
+        .filter((p) => existsSync(path.join(p, "cursor-agent")) || existsSync(path.join(p, "agent")));
+      kids.sort();
+      for (const dir of kids.slice(-3)) {
+        const key = dir.toLowerCase();
+        if (!seen.has(key)) {
+          parts.unshift(dir);
+          seen.add(key);
+        }
+      }
+    }
+  } catch {
+    /* ignore */
   }
   return parts.join(path.delimiter);
 }

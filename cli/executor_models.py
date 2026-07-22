@@ -17,16 +17,58 @@ def _strip_ansi(text: str) -> str:
     return _ANSI_RE.sub("", text or "")
 
 
+def _home_bin_candidates(*names: str) -> list[str]:
+    """Paths GUIs often miss when PATH lacks shell profile dirs."""
+    home = os.path.expanduser("~")
+    roots = [
+        os.path.join(home, ".local", "bin"),
+        "/opt/homebrew/bin",
+        "/usr/local/bin",
+    ]
+    out: list[str] = []
+    for root in roots:
+        for name in names:
+            out.append(os.path.join(root, name))
+    # Cursor Agent versioned installs
+    versions = os.path.join(home, ".local", "share", "cursor-agent", "versions")
+    if os.path.isdir(versions):
+        try:
+            kids = sorted(os.listdir(versions))
+        except OSError:
+            kids = []
+        for kid in kids[-3:]:
+            for name in names:
+                out.append(os.path.join(versions, kid, name))
+    return out
+
+
+def _which_on_path_or_home(*names: str) -> str | None:
+    for name in names:
+        found = shutil.which(name)
+        if found:
+            return found
+    for candidate in _home_bin_candidates(*names):
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return None
+
+
 def _which_cursor_agent() -> str | None:
-    return shutil.which("agent") or shutil.which("cursor-agent")
+    return _which_on_path_or_home("agent", "cursor-agent")
 
 
 def _which_codex() -> str | None:
-    return shutil.which("codex")
+    return _which_on_path_or_home("codex")
 
 
 def _run(argv: list[str], *, timeout: float = 45.0) -> tuple[int, str, str]:
     try:
+        env = {**os.environ, "NO_COLOR": "1", "CI": "1"}
+        # Ensure ~/.local/bin stays visible even if parent stripped PATH.
+        local_bin = os.path.join(os.path.expanduser("~"), ".local", "bin")
+        path = env.get("PATH") or ""
+        if local_bin and local_bin not in path.split(os.pathsep):
+            env["PATH"] = local_bin + os.pathsep + path
         proc = subprocess.run(
             argv,
             capture_output=True,
@@ -35,7 +77,7 @@ def _run(argv: list[str], *, timeout: float = 45.0) -> tuple[int, str, str]:
             errors="replace",
             timeout=timeout,
             stdin=subprocess.DEVNULL,
-            env={**os.environ, "NO_COLOR": "1", "CI": "1"},
+            env=env,
         )
     except FileNotFoundError:
         return 127, "", "executable not found"
@@ -166,6 +208,73 @@ def parse_codex_debug_models(text: str) -> list[dict[str, str]]:
     return parse_cursor_list_models_text(raw)
 
 
+def _cursor_auth_state(bin_path: str) -> str:
+    """Return ``logged_in`` | ``logged_out`` | ``unknown`` from ``agent status``."""
+    code, out, err = _run([bin_path, "status"], timeout=30.0)
+    text = f"{out}\n{err}".lower()
+    # Check negatives first — "not logged in" contains "logged in".
+    if any(
+        s in text
+        for s in (
+            "not logged in",
+            "logged out",
+            "please log in",
+            "login required",
+            "unauthenticated",
+        )
+    ):
+        return "logged_out"
+    if any(
+        s in text
+        for s in (
+            "logged in as",
+            "logged in",
+            "login successful",
+            "authenticated as",
+            "signed in",
+        )
+    ):
+        return "logged_in"
+    if code != 0 and not (out or err).strip():
+        return "unknown"
+    return "unknown"
+
+
+def _cursor_empty_models_hint(*, auth_state: str, list_text: str) -> str:
+    """Hints distinguish not-logged-in vs logged-in-but-empty-catalog."""
+    low = (list_text or "").lower()
+    explicit_unauth = any(
+        s in low
+        for s in (
+            "not logged in",
+            "unauthenticated",
+            "please log in",
+            "login required",
+            "unauthorized",
+        )
+    )
+    if auth_state == "logged_out" or explicit_unauth:
+        return (
+            "Cursor Agent 未登录（或 GUI 读不到登录态）。"
+            "终端执行 `agent login` 后完全退出并重启 Foundry，再点刷新；"
+            "无头环境可设 CURSOR_API_KEY。"
+        )
+    if auth_state == "logged_in":
+        return (
+            "CLI 显示已登录，但 `agent --list-models` 仍为空"
+            "（常见是会话未完全生效，不一定是订阅权限）。"
+            "请在终端再跑一次 `agent login`，确认 `agent --list-models` 有输出后，"
+            "重启 Foundry 再刷新；也可改用 CURSOR_API_KEY。"
+            "若重登后仍长期为空，再查订阅/团队是否含 Agent。"
+        )
+    return (
+        "未能拿到 Cursor 模型列表。"
+        "请终端核对：`agent status` 与 `agent --list-models`；"
+        "未登录则 `agent login`；已登录仍空则重登或设 CURSOR_API_KEY，"
+        "然后重启 Foundry 再刷新（GUI 需能找到 ~/.local/bin/agent）。"
+    )
+
+
 def list_executor_models(executor_id: str) -> dict[str, Any]:
     """Return ``{ok, executor, models, hint, error, source}``."""
     eid = str(executor_id or "").strip().lower()
@@ -190,7 +299,8 @@ def list_executor_models(executor_id: str) -> dict[str, Any]:
                 "error": "cli_not_found",
                 "source": None,
             }
-        code, out, err = _run([bin_path, "--list-models"])
+        # Network + auth handshake can be slow right after login.
+        code, out, err = _run([bin_path, "--list-models"], timeout=90.0)
         combined = f"{out}\n{err}".strip()
         models = parse_cursor_list_models_text(out) or parse_cursor_list_models_text(combined)
         if models:
@@ -202,11 +312,10 @@ def list_executor_models(executor_id: str) -> dict[str, Any]:
                 "error": None,
                 "source": "agent --list-models",
             }
-        hint = (
-            "当前 Cursor 账号对 Agent CLI 无可用模型（`agent --list-models` 为空）。"
-            "请确认已 `agent login`、订阅含 Agent，或设置 CURSOR_API_KEY 后再点刷新。"
-        )
-        if "no models available" in combined.lower():
+        auth_state = _cursor_auth_state(bin_path)
+        hint = _cursor_empty_models_hint(auth_state=auth_state, list_text=combined)
+        low = combined.lower()
+        if "no models available" in low or code == 0:
             return {
                 "ok": True,
                 "executor": eid,
