@@ -29,10 +29,12 @@ import {
   type ProviderAccountsMap,
 } from "../settings/providerAccounts";
 import {
-  catalogForNativeExecutor,
+  catalogFromLiveModels,
   modelForTier,
   resolveNativeModel,
+  tierAvailable,
   tierForModel,
+  type ExecutorModelCatalog,
 } from "../settings/executorModels";
 
 interface Props {
@@ -86,6 +88,9 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [nativeCustomOpen, setNativeCustomOpen] = useState(false);
+  const [liveCatalog, setLiveCatalog] = useState<ExecutorModelCatalog | null>(null);
+  const [modelsLoading, setModelsLoading] = useState(false);
+  const [modelsHint, setModelsHint] = useState<string | null>(null);
   const modelSaveTimer = useRef<number | null>(null);
   const pendingModel = useRef<{
     instanceId: string;
@@ -247,6 +252,58 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     setNativeCustomOpen(false);
   }, [colleague.id, executor, useThirdParty]);
 
+  const useNativeModelUi =
+    !piLocked &&
+    (executor === "cursor" || (executor === "codex" && !useThirdParty));
+
+  useEffect(() => {
+    if (!useNativeModelUi || (executor !== "codex" && executor !== "cursor")) {
+      setLiveCatalog(null);
+      setModelsHint(null);
+      setModelsLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setModelsLoading(true);
+    setModelsHint(null);
+    (async () => {
+      try {
+        if (!window.gameFactory?.executorModels) {
+          if (!cancelled) {
+            setLiveCatalog(catalogFromLiveModels(executor, []));
+            setModelsHint("当前环境无法查询本机 CLI 模型列表");
+          }
+          return;
+        }
+        const res = await window.gameFactory.executorModels(executor);
+        if (cancelled) return;
+        const data = res.data;
+        const models = Array.isArray(data?.models) ? data.models : [];
+        setLiveCatalog(
+          catalogFromLiveModels(executor, models, {
+            hint: data?.hint,
+            source: data?.source,
+          }),
+        );
+        setModelsHint(
+          models.length === 0
+            ? data?.hint || data?.error || "本机 CLI 未返回可用模型"
+            : null,
+        );
+      } catch (e) {
+        if (!cancelled) {
+          setLiveCatalog(catalogFromLiveModels(executor, []));
+          setModelsHint(e instanceof Error ? e.message : String(e));
+        }
+      } finally {
+        if (!cancelled) setModelsLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [useNativeModelUi, executor, colleague.id]);
+
   const applyExecutorPreset = useCallback(
     (nextExecutor: InstanceExecutor) => {
       if (piLocked || !executorsMap) return;
@@ -347,21 +404,19 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
 
   const hint = error
     ? error
-    : configHint
-      ? configHint
-      : saving
-        ? "保存中…"
-        : null;
+    : modelsHint && useNativeModelUi
+      ? modelsHint
+      : configHint
+        ? configHint
+        : saving
+          ? "保存中…"
+          : modelsLoading
+            ? "正在从本机 CLI 读取模型…"
+            : null;
 
   const showThirdParty = !piLocked && executor === "codex";
 
-  const useNativeModelUi =
-    !piLocked &&
-    (executor === "cursor" || (executor === "codex" && !useThirdParty));
-  const nativeCatalog =
-    useNativeModelUi && (executor === "codex" || executor === "cursor")
-      ? catalogForNativeExecutor(executor)
-      : null;
+  const nativeCatalog = useNativeModelUi ? liveCatalog : null;
   const displayModel = nativeCatalog
     ? resolveNativeModel(nativeCatalog, model)
     : model;
@@ -375,12 +430,41 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   );
   const showNativeCustomInput =
     Boolean(nativeCatalog) &&
-    (nativeCustomOpen || (!inCatalog && trimmedModel !== ""));
+    (nativeCustomOpen ||
+      (!inCatalog && trimmedModel !== "") ||
+      ((nativeCatalog?.options.length ?? 0) === 0 && !modelsLoading));
   const nativeSelectValue = showNativeCustomInput
     ? "__custom__"
     : inCatalog
       ? trimmedDisplay
       : displayModel;
+
+  const refreshNativeModels = () => {
+    if (executor !== "codex" && executor !== "cursor") return;
+    setModelsLoading(true);
+    void (async () => {
+      try {
+        const res = await window.gameFactory.executorModels(executor);
+        const data = res.data;
+        const models = Array.isArray(data?.models) ? data.models : [];
+        setLiveCatalog(
+          catalogFromLiveModels(executor, models, {
+            hint: data?.hint,
+            source: data?.source,
+          }),
+        );
+        setModelsHint(
+          models.length === 0
+            ? data?.hint || data?.error || "本机 CLI 未返回可用模型"
+            : null,
+        );
+      } catch (e) {
+        setModelsHint(e instanceof Error ? e.message : String(e));
+      } finally {
+        setModelsLoading(false);
+      }
+    })();
+  };
 
   return (
     <div
@@ -410,61 +494,72 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
       ) : null}
       {useNativeModelUi && nativeCatalog ? (
         <>
-          <span className="pi-model-chip__tier-group" role="group" aria-label="模型档位">
-            {(
-              [
-                ["high", "高"],
-                ["mid", "中"],
-                ["low", "低"],
-              ] as const
-            ).map(([tier, label]) => (
-              <button
-                key={tier}
-                type="button"
-                className={
-                  "pi-model-chip__tier" + (activeTier === tier ? " is-active" : "")
-                }
-                disabled={disabled || loading || saving}
-                aria-pressed={activeTier === tier}
-                onClick={() => handleNativeTierClick(tier)}
-              >
-                {label}
-              </button>
-            ))}
-          </span>
-          <span className="pi-model-chip__dot" aria-hidden>
-            ·
-          </span>
-          <select
-            value={nativeSelectValue}
-            disabled={disabled || loading || saving}
-            aria-label="模型"
-            onChange={(e) => handleNativeModelSelect(e.target.value)}
+          {nativeCatalog.options.length > 0 ? (
+            <span className="pi-model-chip__tier-group" role="group" aria-label="模型档位">
+              {(
+                [
+                  ["high", "高"],
+                  ["mid", "中"],
+                  ["low", "低"],
+                ] as const
+              ).map(([tier, label]) => {
+                const enabled = tierAvailable(nativeCatalog, tier);
+                return (
+                  <button
+                    key={tier}
+                    type="button"
+                    className={
+                      "pi-model-chip__tier" + (activeTier === tier ? " is-active" : "")
+                    }
+                    disabled={disabled || loading || saving || modelsLoading || !enabled}
+                    aria-pressed={activeTier === tier}
+                    title={enabled ? undefined : "当前 CLI 列表无此档位偏好模型"}
+                    onClick={() => handleNativeTierClick(tier)}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </span>
+          ) : null}
+          {nativeCatalog.options.length > 0 ? (
+            <select
+              value={nativeSelectValue}
+              disabled={disabled || loading || saving || modelsLoading}
+              aria-label="模型"
+              onChange={(e) => handleNativeModelSelect(e.target.value)}
+            >
+              {nativeCatalog.options.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}
+                </option>
+              ))}
+              <option value="__custom__">自定义…</option>
+            </select>
+          ) : (
+            <span className="pi-model-chip__note">
+              {modelsLoading ? "读取模型…" : "无可用模型"}
+            </span>
+          )}
+          <button
+            type="button"
+            className="btn btn--sm btn--secondary"
+            disabled={disabled || loading || saving || modelsLoading}
+            onClick={refreshNativeModels}
+            title="从本机 CLI 重新读取模型列表"
           >
-            {nativeCatalog.options.map((opt) => (
-              <option key={opt.id} value={opt.id}>
-                {opt.label}
-              </option>
-            ))}
-            <option value="__custom__">自定义…</option>
-          </select>
+            刷新
+          </button>
           {showNativeCustomInput ? (
-            <>
-              <span className="pi-model-chip__dot" aria-hidden>
-                ·
-              </span>
-              <input
-                type="text"
-                value={model}
-                disabled={disabled || loading || saving}
-                placeholder={modelPlaceholder}
-                spellCheck={false}
-                autoComplete="off"
-                aria-label="自定义模型"
-                onChange={(e) => handleModelChange(e.target.value)}
-                onBlur={() => flushPendingModel()}
-              />
-            </>
+            <input
+              type="text"
+              value={model}
+              disabled={disabled || loading || saving}
+              placeholder="手填模型 id"
+              aria-label="自定义模型"
+              onChange={(e) => handleModelChange(e.target.value)}
+              onBlur={() => flushPendingModel()}
+            />
           ) : null}
         </>
       ) : (

@@ -217,6 +217,18 @@ declare global {
       toolchainCheck: () => Promise<CliResult<ToolchainReport>>;
       toolchainInstall: (componentId: string) => Promise<CliResult<{ ok?: boolean; error?: string }>>;
       executorStatus: () => Promise<CliResult<import("./settings/executorsSetup").ExecutorSetupReport>>;
+      executorModels: (
+        executorId: "codex" | "cursor",
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          executor?: string;
+          models?: Array<{ id: string; label?: string }>;
+          hint?: string | null;
+          error?: string | null;
+          source?: string | null;
+        }>
+      >;
       executorStep: (
         executorId: import("./settings/executorsSetup").ExecutorId,
         stepId: string,

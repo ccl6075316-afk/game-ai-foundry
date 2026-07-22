@@ -858,6 +858,19 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
+  ipcMain.handle("executor-models", async (_event, executorId) => {
+    const result = await runCli([
+      "setup",
+      "executor",
+      "models",
+      "--executor",
+      String(executorId || ""),
+      "--json",
+    ]);
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
   ipcMain.handle("executor-step", async (event, executorId, stepId, opts = {}) => {
     const sender = event.sender;
     const args = ["setup", "executor", "step", String(executorId), String(stepId)];

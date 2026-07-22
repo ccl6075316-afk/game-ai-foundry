@@ -1,46 +1,73 @@
-/** Static catalogs — update by hand when upstream renames models. */
+/**
+ * Native Codex/Cursor model UI helpers.
+ * Option lists come from CLI (`setup executor models`); tier prefs only apply
+ * when that id appears in the live list — never invent fake options.
+ */
 
 export type ModelTier = { high: string; mid: string; low: string };
 
 export type ExecutorModelCatalog = {
   tiers: ModelTier;
   options: Array<{ id: string; label: string }>;
+  /** Live discovery hint when models empty */
+  hint?: string | null;
+  source?: string | null;
 };
 
-export const CODEX_MODEL_CATALOG: ExecutorModelCatalog = {
-  tiers: {
-    high: "gpt-5.5",
-    mid: "gpt-5.3",
-    low: "gpt-5.3-codex",
-  },
-  options: [
-    { id: "gpt-5.5", label: "GPT-5.5" },
-    { id: "gpt-5.3", label: "GPT-5.3" },
-    { id: "gpt-5.3-codex", label: "GPT-5.3 Codex" },
-    { id: "gpt-5.4-mini", label: "GPT-5.4 mini" },
-    { id: "o3", label: "o3" },
-  ],
+/** Preference order for tiers — used only if id ∈ live options. */
+export const CODEX_TIER_PREFS: ModelTier = {
+  high: "gpt-5.5",
+  mid: "gpt-5.3",
+  low: "gpt-5.3-codex",
 };
 
-export const CURSOR_MODEL_CATALOG: ExecutorModelCatalog = {
-  tiers: {
-    high: "opus-4.5",
-    mid: "auto",
-    low: "composer-2",
-  },
-  options: [
-    { id: "auto", label: "Auto" },
-    { id: "opus-4.5", label: "Opus 4.5" },
-    { id: "grok-4.5", label: "Grok 4.5" },
-    { id: "composer-2", label: "Composer 2" },
-    { id: "sonnet-4.5", label: "Sonnet 4.5" },
-  ],
+export const CURSOR_TIER_PREFS: ModelTier = {
+  high: "opus-4.5",
+  mid: "auto",
+  low: "composer-2",
 };
 
+export function tierPrefsForExecutor(executor: "codex" | "cursor"): ModelTier {
+  return executor === "codex" ? CODEX_TIER_PREFS : CURSOR_TIER_PREFS;
+}
+
+/** @deprecated Use live CLI list via gameFactory.executorModels */
 export function catalogForNativeExecutor(
   executor: "codex" | "cursor",
 ): ExecutorModelCatalog {
-  return executor === "codex" ? CODEX_MODEL_CATALOG : CURSOR_MODEL_CATALOG;
+  const prefs = tierPrefsForExecutor(executor);
+  return { tiers: prefs, options: [], hint: "请刷新以从本机 CLI 加载模型列表" };
+}
+
+export function catalogFromLiveModels(
+  executor: "codex" | "cursor",
+  models: Array<{ id: string; label?: string }>,
+  meta?: { hint?: string | null; source?: string | null },
+): ExecutorModelCatalog {
+  const prefs = tierPrefsForExecutor(executor);
+  const options = models
+    .map((m) => ({
+      id: String(m.id || "").trim(),
+      label: String(m.label || m.id || "").trim() || String(m.id || "").trim(),
+    }))
+    .filter((m) => m.id);
+  const ids = new Set(options.map((o) => o.id));
+  const pick = (preferred: string, fallbackIndex: number): string => {
+    if (preferred && ids.has(preferred)) return preferred;
+    if (options.length === 0) return preferred;
+    const idx = Math.min(Math.max(fallbackIndex, 0), options.length - 1);
+    return options[idx]!.id;
+  };
+  return {
+    tiers: {
+      high: pick(prefs.high, 0),
+      mid: pick(prefs.mid, Math.min(1, Math.max(0, options.length - 1))),
+      low: pick(prefs.low, Math.max(0, options.length - 1)),
+    },
+    options,
+    hint: meta?.hint ?? null,
+    source: meta?.source ?? null,
+  };
 }
 
 export function modelForTier(
@@ -67,5 +94,15 @@ export function resolveNativeModel(
   savedModel: string,
 ): string {
   const id = String(savedModel || "").trim();
-  return id || catalog.tiers.mid;
+  if (id) return id;
+  if (catalog.options.length === 0) return "";
+  return catalog.tiers.mid || catalog.options[0]!.id;
+}
+
+export function tierAvailable(
+  catalog: ExecutorModelCatalog,
+  tier: "high" | "mid" | "low",
+): boolean {
+  const id = catalog.tiers[tier];
+  return Boolean(id && catalog.options.some((o) => o.id === id));
 }

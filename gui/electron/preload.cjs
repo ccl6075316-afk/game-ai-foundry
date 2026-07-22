@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   toolchainCheck: () => ipcRenderer.invoke("toolchain-check"),
   toolchainInstall: (componentId) => ipcRenderer.invoke("toolchain-install", componentId),
   executorStatus: () => ipcRenderer.invoke("executor-status"),
+  executorModels: (executorId) => ipcRenderer.invoke("executor-models", executorId),
   executorStep: (executorId, stepId, opts) =>
     ipcRenderer.invoke("executor-step", executorId, stepId, opts),
   openExternal: (url) => ipcRenderer.invoke("open-external", url),

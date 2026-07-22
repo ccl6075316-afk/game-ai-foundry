@@ -121,6 +121,32 @@ def setup_executor_status_cmd(as_json: bool) -> None:
             click.echo(f"      [{sm}] {step['label']}")
 
 
+@setup_executor_group.command("models")
+@click.option(
+    "--executor",
+    "executor_id",
+    required=True,
+    type=click.Choice(["cursor", "codex"], case_sensitive=False),
+    help="Native executor to query.",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
+def setup_executor_models_cmd(executor_id: str, as_json: bool) -> None:
+    """List models from local Cursor / Codex CLI (no static catalog)."""
+    from executor_models import list_executor_models
+
+    result = list_executor_models(executor_id)
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("models"):
+        click.echo(f"{executor_id} models ({result.get('source') or '-'}):")
+        for item in result["models"]:
+            click.echo(f"  - {item.get('id')}  {item.get('label') or ''}".rstrip())
+    else:
+        click.echo(result.get("hint") or result.get("error") or "无模型", err=True)
+    if not result.get("ok") and not result.get("models"):
+        sys.exit(1)
+
+
 @setup_executor_group.command("step")
 @click.argument("executor_id")
 @click.argument("step_id")
