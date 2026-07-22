@@ -10,7 +10,7 @@
 - **Source Of Truth Until**：Phase 1 plan 确认后由 plan 驱动 code；全量 C 完成前本 Spec 仍为终局事实源
 - **Requirements Source**：市面对标建议；用户「按推荐补充」；Grill：长期 C 更合适 → 账本「终局 C / 本期 A」
 - **Background Inputs**：[`2026-07-22-style-group-img2img.md`](2026-07-22-style-group-img2img.md)；OpenRouter：`image_config.strength` 主要 Recraft，Gemini 默认栈无可靠 API 强度
-- **Compounded Knowledge**：Scenario Influence 偏低；MJ style/identity 分通道；Godogen 锚点+img2img 配方
+- **Compounded Knowledge**：[`docs/solutions/architecture/style-group-img2img-and-art-tokens-20260722.md`](../../solutions/architecture/style-group-img2img-and-art-tokens-20260722.md)；H1 [`…/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md`](../../solutions/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md)
 
 ## 背景输入
 

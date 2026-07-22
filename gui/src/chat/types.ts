@@ -48,6 +48,7 @@ export interface HostChatDraftBrief {
     genre?: string;
     gameplay_loop?: string;
     description?: string;
+    art_tokens?: Record<string, unknown>;
     [key: string]: unknown;
   };
   assets?: Array<{
@@ -55,6 +56,11 @@ export interface HostChatDraftBrief {
     type?: string;
     usage?: string;
     description?: string;
+    style_group?: string;
+    style_anchor_kind?: string;
+    style_anchor?: string;
+    identity_anchor?: string;
+    use_style_img2img?: boolean;
     [key: string]: unknown;
   }>;
   animation_graphs?: unknown[];

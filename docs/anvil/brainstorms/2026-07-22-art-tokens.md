@@ -8,6 +8,7 @@
 - **Updated**：2026-07-22（T1+T2 落地；未 commit）
 - **Confirmed By**：user「a」「a」；plan「确认」
 - **Source Of Truth Until**：已实现；后续以代码 + AI-HANDOFF 为准；Phase 3 GUI 另开
+- **Compounded Knowledge**：[`docs/solutions/architecture/style-group-img2img-and-art-tokens-20260722.md`](../../solutions/architecture/style-group-img2img-and-art-tokens-20260722.md)
 - **Requirements Source**：style-ref-enhance Phase 2；Grill 字段 A、可选 A
 - **Background Inputs**：[`2026-07-22-style-ref-enhance.md`](2026-07-22-style-ref-enhance.md)
 

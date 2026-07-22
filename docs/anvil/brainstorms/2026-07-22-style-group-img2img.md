@@ -10,7 +10,7 @@
 - **Source Of Truth Until**：replaced by confirmed `/anvil:plan` artifact [`docs/anvil/plans/2026-07-22-style-group-img2img-plan.md`](../plans/2026-07-22-style-group-img2img-plan.md) once that plan is user-confirmed for `/anvil:code`
 - **Requirements Source**：用户要启用未充分使用的图生图以保障风格；Grill Q1–Q9 + 视频优先澄清
 - **Background Inputs**：[`docs/superpowers/specs/2026-07-20-style-group-alignment-design.md`](../../superpowers/specs/2026-07-20-style-group-alignment-design.md)；[`docs/AI-HANDOFF.md`](../../AI-HANDOFF.md)；现有 `image generate --reference-image` / `character_pose` pipeline；OpenRouter `input_references`
-- **Compounded Knowledge**：无直接 failures 条目；图案：契约 + pipeline 门禁优于只靠 skill 自觉
+- **Compounded Knowledge**：[`docs/solutions/architecture/style-group-img2img-and-art-tokens-20260722.md`](../../solutions/architecture/style-group-img2img-and-art-tokens-20260722.md)；接线坑 [`…/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md`](../../solutions/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md)
 
 ## 背景输入
 

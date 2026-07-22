@@ -7,6 +7,7 @@ import {
   slugFromBriefRel,
 } from "../chat/projectPaths";
 import { ProjectSwitcher } from "./ProjectSwitcher";
+import { formatBriefDocument, tryFormatBriefJsonText } from "./briefPreviewFormat";
 
 export type DocListItem = {
   id: string;
@@ -28,53 +29,6 @@ interface Props {
   onRefresh?: () => void;
   onSelectProject?: (briefRel: string) => void;
   busy?: boolean;
-}
-
-function formatBriefDocument(draft: HostChatDraftBrief | null, status: HostChatStatus | null): string {
-  if (!draft) return "";
-  const p = draft.project || {};
-  const title = String(status?.title || p.title || "未命名项目");
-  const lines: string[] = [`# ${title}`, ""];
-  const genre = status?.genre || p.genre;
-  if (genre) lines.push(`**类型：** ${genre}`, "");
-  const desc = p.description;
-  if (desc) lines.push("## 简介", "", String(desc), "");
-  const loop = status?.gameplay_loop || p.gameplay_loop;
-  if (loop) lines.push("## 玩法循环", "", String(loop), "");
-  const art = p.art_direction;
-  if (art) lines.push("## 美术方向", "", String(art), "");
-  const goal = p.session_goal;
-  if (goal) lines.push("## 本局目标", "", String(goal), "");
-  const controls = p.controls;
-  if (controls && typeof controls === "object") {
-    lines.push("## 操作", "");
-    for (const [k, v] of Object.entries(controls as Record<string, unknown>)) {
-      const keys = Array.isArray(v) ? v.join(", ") : String(v);
-      lines.push(`- **${k}：** ${keys}`);
-    }
-    lines.push("");
-  }
-  const camera = p.camera;
-  if (camera && typeof camera === "object") {
-    lines.push("## 摄像机", "", "```json", JSON.stringify(camera, null, 2), "```", "");
-  }
-  const viewport = p.viewport;
-  if (viewport && typeof viewport === "object") {
-    lines.push("## 视口", "", "```json", JSON.stringify(viewport, null, 2), "```", "");
-  }
-  const assets = draft.assets || [];
-  if (assets.length) {
-    lines.push("## 资产", "");
-    for (const a of assets) {
-      if (!a?.name) continue;
-      const meta = [a.type, a.usage].filter(Boolean).join(" · ");
-      lines.push(`- **${a.name}**${meta ? `（${meta}）` : ""}`);
-      if (a.description) lines.push(`  - ${a.description}`);
-    }
-    lines.push("");
-  }
-  lines.push("## 原始 JSON", "", "```json", JSON.stringify(draft, null, 2), "```", "");
-  return lines.join("\n");
 }
 
 export function DocsPreviewPanel({
@@ -221,8 +175,18 @@ export function DocsPreviewPanel({
     return formatBriefDocument(draftBrief, status);
   }, [selected, draftBrief, draftDocument, status]);
 
-  const previewBody =
-    selected?.source === "disk" ? (diskLoading ? "读取中…" : diskError || diskBody) : sessionBody;
+  const previewBody = useMemo(() => {
+    if (selected?.source === "disk") {
+      if (diskLoading) return "读取中…";
+      if (diskError) return diskError;
+      if (selected.kind === "brief") {
+        const formatted = tryFormatBriefJsonText(diskBody, null);
+        if (formatted) return formatted;
+      }
+      return diskBody;
+    }
+    return sessionBody;
+  }, [selected?.source, selected?.kind, diskLoading, diskError, diskBody, sessionBody]);
   const emptyHint =
     selected?.id === "session-brief" && !draftBrief
       ? "和策划聊聊玩法后，这里会实时出现 Brief 全文预览。"

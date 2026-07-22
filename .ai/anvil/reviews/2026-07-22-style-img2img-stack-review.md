@@ -192,4 +192,9 @@
 
 ### 评审备注
 
-用户确认「按 review → commit 顺序」；本批 **合并为一个 commit**（style_group + Phase1 + Phase2 + identity 修复）。未要求 MR/push。
+用户确认「按 review → commit 顺序」；本批 **合并为一个 commit**（style_group + Phase1 + Phase2 + identity 修复）。已 push `dfcbf5e`。
+
+## 知识沉淀
+
+- [`docs/solutions/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md`](../../docs/solutions/reviews/identity-anchor-resolve-vs-manifest-wire-pipeline-20260722.md)
+- [`docs/solutions/architecture/style-group-img2img-and-art-tokens-20260722.md`](../../docs/solutions/architecture/style-group-img2img-and-art-tokens-20260722.md)
