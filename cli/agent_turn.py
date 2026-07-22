@@ -452,6 +452,12 @@ def run_hermes_turn(
         raise AgentTurnError(
             f"角色 {role_kind} 未配置 Hermes skill（IT 请用内置 Pi：executor=pi）。"
         )
+    if not resolve_hermes_yolo(config):
+        raise AgentTurnError(
+            "当前 agents.executors.hermes.yolo=false。"
+            "未接入 Hermes ACP 前，GUI/CLI 不可关闭 YOLO（去掉 --yolo 会在无 TTY 下挂起）。"
+            "请在「设置 → Agent → Hermes」打开 YOLO，或等待 ACP 集成后再关。"
+        )
     skill = _HERMES_SKILL[role_kind]
     argv = [
         hermes,
@@ -501,6 +507,47 @@ def run_hermes_turn(
 # Must stay in sync with gui/src/settings/executorModels.ts tiers.mid
 _CODEX_MID_TIER_MODEL = "gpt-5.3"
 _CURSOR_MID_TIER_MODEL = "auto"
+
+_CODEX_SANDBOXES = frozenset({"read-only", "workspace-write", "danger-full-access"})
+_CURSOR_PERMISSION_MODES = frozenset({"force", "auto_review", "plan", "ask"})
+_DEFAULT_CODEX_SANDBOX = "workspace-write"
+_DEFAULT_CURSOR_PERMISSION_MODE = "force"
+
+
+def _executors_block(config: dict[str, Any] | None) -> dict[str, Any]:
+    if not isinstance(config, dict):
+        return {}
+    agents = config.get("agents")
+    if not isinstance(agents, dict):
+        return {}
+    executors = agents.get("executors")
+    return executors if isinstance(executors, dict) else {}
+
+
+def _executor_preset(config: dict[str, Any] | None, executor_id: str) -> dict[str, Any]:
+    block = _executors_block(config).get(executor_id)
+    return block if isinstance(block, dict) else {}
+
+
+def resolve_codex_sandbox(config: dict[str, Any] | None = None) -> str:
+    raw = str(_executor_preset(config, "codex").get("sandbox") or "").strip()
+    if raw in _CODEX_SANDBOXES:
+        return raw
+    return _DEFAULT_CODEX_SANDBOX
+
+
+def resolve_cursor_permission_mode(config: dict[str, Any] | None = None) -> str:
+    raw = str(_executor_preset(config, "cursor").get("permission_mode") or "").strip()
+    if raw in _CURSOR_PERMISSION_MODES:
+        return raw
+    return _DEFAULT_CURSOR_PERMISSION_MODE
+
+
+def resolve_hermes_yolo(config: dict[str, Any] | None = None) -> bool:
+    preset = _executor_preset(config, "hermes")
+    if "yolo" not in preset:
+        return True
+    return bool(preset.get("yolo"))
 
 
 def _resolve_native_model(executor: str, model: str | None) -> str:
@@ -585,6 +632,7 @@ def run_cursor_turn(
     executor_session_id: str | None,
     timeout: int,
     model: str | None = None,
+    permission_mode: str | None = None,
 ) -> tuple[str, str | None, str]:
     agent = _which_executor_bin("cursor")
     if not agent:
@@ -592,7 +640,16 @@ def run_cursor_turn(
             "未找到 Cursor Agent CLI（`agent` / `cursor-agent`）。"
             "请安装 Cursor Agent shell 命令，或改用 Hermes / Codex。"
         )
-    argv = [agent, "-p", "--output-format", "text", "--force", "--workspace", str(_REPO_ROOT)]
+    mode = (permission_mode or "").strip()
+    if mode not in _CURSOR_PERMISSION_MODES:
+        mode = _DEFAULT_CURSOR_PERMISSION_MODE
+    argv = [agent, "-p", "--output-format", "text", "--workspace", str(_REPO_ROOT)]
+    if mode == "force":
+        argv.append("--force")
+    elif mode == "auto_review":
+        argv.append("--auto-review")
+    else:
+        argv.extend(["--mode", mode])
     model_id = _resolve_native_model("cursor", model)
     argv.extend(["--model", model_id])
     if executor_session_id:
@@ -708,6 +765,7 @@ def run_executor_turn(
             prompt,
             executor_session_id=executor_session_id,
             timeout=timeout,
+            sandbox=resolve_codex_sandbox(config),
             model=(resolved_auth or {}).get("model"),
         )
     if executor == "cursor":
@@ -716,6 +774,7 @@ def run_executor_turn(
             executor_session_id=executor_session_id,
             timeout=timeout,
             model=(resolved_auth or {}).get("model"),
+            permission_mode=resolve_cursor_permission_mode(config),
         )
     raise AgentTurnError(f"Unsupported executor: {executor}")
 

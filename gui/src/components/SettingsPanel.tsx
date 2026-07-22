@@ -29,12 +29,16 @@ import {
 } from "../settings/sections";
 import { ExecutorIcon } from "../settings/ExecutorIcon";
 import {
+  CODEX_SANDBOX_OPTIONS,
+  CURSOR_PERMISSION_OPTIONS,
   getExecutorPreset,
   loadAgentExecutorsFromConfig,
   serializeAgentExecutors,
   type AgentExecutorId,
   type AgentExecutorPreset,
   type AgentExecutorsMap,
+  type CodexSandbox,
+  type CursorPermissionMode,
 } from "../settings/agentExecutors";
 import {
   loadAgentInstancesFromConfig,
@@ -520,6 +524,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
   const piPreset = getExecutorPreset(form.agentExecutors, "pi");
   const hermesPreset = getExecutorPreset(form.agentExecutors, "hermes");
   const codexPreset = getExecutorPreset(form.agentExecutors, "codex");
+  const cursorPreset = getExecutorPreset(form.agentExecutors, "cursor");
   const piProvider = (piPreset.provider || "openrouter") as ApiProviderId;
   const hermesProvider = (hermesPreset.provider || "openrouter") as ApiProviderId;
   const codexProvider = (codexPreset.provider || "openrouter") as ApiProviderId;
@@ -834,8 +839,18 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   disabled={disabled}
                   onChange={(id) => updateAgentExecutor("hermes", { provider: id })}
                 />
+                <label className="field field--checkbox">
+                  <input
+                    type="checkbox"
+                    checked={hermesPreset.yolo !== false}
+                    disabled={disabled}
+                    onChange={(e) => updateAgentExecutor("hermes", { yolo: e.target.checked })}
+                  />
+                  <span>YOLO（--yolo，默认开）</span>
+                </label>
                 <p className="settings-card__note">
                   保存后到「环境 → Hermes → 同步 API」将所选 Provider 写入 Hermes。
+                  关闭 YOLO 会在开跑时报错（未接 ACP 前不可在无 TTY 路径关 YOLO）。
                 </p>
               </SectionCard>
 
@@ -850,6 +865,24 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     }
                   />
                   <span>用第三方（账号库 Key，保存时同步到 Codex）</span>
+                </label>
+                <label className="field">
+                  <span>沙箱（--sandbox）</span>
+                  <select
+                    value={codexPreset.sandbox ?? "workspace-write"}
+                    disabled={disabled}
+                    onChange={(e) =>
+                      updateAgentExecutor("codex", {
+                        sandbox: e.target.value as CodexSandbox,
+                      })
+                    }
+                  >
+                    {CODEX_SANDBOX_OPTIONS.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
                 </label>
                 {codexPreset.use_third_party ? (
                   <>
@@ -879,6 +912,24 @@ export function SettingsPanel({ busy, onSaved }: Props) {
               </SectionCard>
 
               <SectionCard meta={CURSOR_AGENT_SECTION}>
+                <label className="field">
+                  <span>权限模式</span>
+                  <select
+                    value={cursorPreset.permission_mode ?? "force"}
+                    disabled={disabled}
+                    onChange={(e) =>
+                      updateAgentExecutor("cursor", {
+                        permission_mode: e.target.value as CursorPermissionMode,
+                      })
+                    }
+                  >
+                    {CURSOR_PERMISSION_OPTIONS.map((o) => (
+                      <option key={o.id} value={o.id}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <p className="settings-card__note">
                   Cursor 仅支持本机登录/订阅，<strong>第三方不可用</strong>。
                 </p>

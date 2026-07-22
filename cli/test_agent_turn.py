@@ -335,6 +335,29 @@ class TestCodexModel(unittest.TestCase):
         self.assertIn("-m", captured["argv"])
         self.assertIn("gpt-5.5", captured["argv"])
 
+    def test_codex_sandbox_from_arg(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_codex_turn
+
+            run_codex_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                sandbox="read-only",
+            )
+        self.assertIn("--sandbox", captured["argv"])
+        idx = captured["argv"].index("--sandbox")
+        self.assertEqual(captured["argv"][idx + 1], "read-only")
+
 
 class TestCursorModel(unittest.TestCase):
     def test_cursor_passes_model_flag(self) -> None:
@@ -360,7 +383,127 @@ class TestCursorModel(unittest.TestCase):
             "--model" in captured["argv"] or "-m" in captured["argv"]
         )
         self.assertIn("opus-4.5", captured["argv"])
+        self.assertIn("--force", captured["argv"])
+
+    def test_cursor_auto_review_mode(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_cursor_turn
+
+            run_cursor_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                permission_mode="auto_review",
+            )
+        self.assertIn("--auto-review", captured["argv"])
+        self.assertNotIn("--force", captured["argv"])
+
+    def test_cursor_plan_mode(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_cursor_turn
+
+            run_cursor_turn(
+                "hi",
+                executor_session_id=None,
+                timeout=30,
+                permission_mode="plan",
+            )
+        self.assertIn("--mode", captured["argv"])
+        idx = captured["argv"].index("--mode")
+        self.assertEqual(captured["argv"][idx + 1], "plan")
+        self.assertNotIn("--force", captured["argv"])
 
 
-if __name__ == "__main__":
-    unittest.main()
+class TestExecutorSafetyConfig(unittest.TestCase):
+    def test_resolve_defaults(self) -> None:
+        from agent_turn import (
+            resolve_codex_sandbox,
+            resolve_cursor_permission_mode,
+            resolve_hermes_yolo,
+        )
+
+        self.assertEqual(resolve_codex_sandbox({}), "workspace-write")
+        self.assertEqual(resolve_cursor_permission_mode({}), "force")
+        self.assertTrue(resolve_hermes_yolo({}))
+
+    def test_resolve_from_executors(self) -> None:
+        from agent_turn import (
+            resolve_codex_sandbox,
+            resolve_cursor_permission_mode,
+            resolve_hermes_yolo,
+        )
+
+        cfg = {
+            "agents": {
+                "executors": {
+                    "codex": {"sandbox": "danger-full-access"},
+                    "cursor": {"permission_mode": "ask"},
+                    "hermes": {"yolo": False},
+                }
+            }
+        }
+        self.assertEqual(resolve_codex_sandbox(cfg), "danger-full-access")
+        self.assertEqual(resolve_cursor_permission_mode(cfg), "ask")
+        self.assertFalse(resolve_hermes_yolo(cfg))
+
+    def test_hermes_yolo_false_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="hermes"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_hermes_turn
+
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_hermes_turn(
+                    "hi",
+                    role_kind="product_host",
+                    executor_session_id=None,
+                    timeout=30,
+                    config={"agents": {"executors": {"hermes": {"yolo": False}}}},
+                )
+            self.assertIn("yolo", str(ctx.exception).lower())
+            self.assertIn("ACP", str(ctx.exception))
+            run_cmd.assert_not_called()
+
+    def test_run_executor_turn_passes_sandbox(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        cfg = {"agents": {"executors": {"codex": {"sandbox": "read-only"}}}}
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_executor_turn
+
+            run_executor_turn(
+                "codex",
+                "hi",
+                role_kind="programmer",
+                executor_session_id=None,
+                config=cfg,
+                resolved_auth={"model": "gpt-5.3"},
+            )
+        idx = captured["argv"].index("--sandbox")
+        self.assertEqual(captured["argv"][idx + 1], "read-only")

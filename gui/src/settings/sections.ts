@@ -117,7 +117,7 @@ export const HERMES_AGENT_SECTION: SettingsSectionMeta = {
   icon: "hermes",
   title: "Hermes 助手",
   roleId: "executors.hermes",
-  purpose: "Hermes 默认 Provider；保存后可到环境面板同步 API",
+  purpose: "默认 Provider 与 YOLO；关 YOLO 在未接 ACP 前会拒绝开跑",
 };
 
 export const CODEX_AGENT_SECTION: SettingsSectionMeta = {
@@ -125,7 +125,7 @@ export const CODEX_AGENT_SECTION: SettingsSectionMeta = {
   icon: "codex",
   title: "Codex 命令行",
   roleId: "executors.codex",
-  purpose: "第三方开关与账号库 Provider；未勾选用订阅登录",
+  purpose: "沙箱、第三方开关与账号库 Provider；未勾选用订阅登录",
 };
 
 export const CURSOR_AGENT_SECTION: SettingsSectionMeta = {
@@ -133,7 +133,7 @@ export const CURSOR_AGENT_SECTION: SettingsSectionMeta = {
   icon: "cursor",
   title: "Cursor 对话",
   roleId: "executors.cursor",
-  purpose: "本机登录 / 订阅，无第三方 Key",
+  purpose: "权限模式与本机登录 / 订阅（无第三方 Key）",
   note: "安装 Cursor Agent shell 命令（agent / cursor-agent）。",
 };
 

@@ -102,9 +102,14 @@
     "hermes_provider": "openrouter",
     "executors": {
       "pi": { "provider": "openrouter", "model": null },
-      "hermes": { "provider": "openrouter" },
-      "codex": { "use_third_party": false, "provider": null, "model": null },
-      "cursor": {}
+      "hermes": { "provider": "openrouter", "yolo": true },
+      "codex": {
+        "use_third_party": false,
+        "provider": null,
+        "model": null,
+        "sandbox": "workspace-write"
+      },
+      "cursor": { "permission_mode": "force" }
     },
     "brief": { "executor": "pi", "skill": "host-chat", "provider": "openrouter", "model": null },
     "it": { "executor": "pi", "skill": "diagnose", "provider": "openrouter", "model": null },
