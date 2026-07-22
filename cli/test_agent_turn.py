@@ -507,3 +507,156 @@ class TestExecutorSafetyConfig(unittest.TestCase):
             )
         idx = captured["argv"].index("--sandbox")
         self.assertEqual(captured["argv"][idx + 1], "read-only")
+
+
+class TestInstanceExecutorSafety(unittest.TestCase):
+    def test_instance_sandbox_overrides_global(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        cfg = {
+            "agents": {
+                "executors": {"codex": {"sandbox": "danger-full-access"}},
+                "instances": {
+                    "dev-1": {
+                        "role_kind": "programmer",
+                        "executor": "codex",
+                        "sandbox": "read-only",
+                    },
+                },
+            }
+        }
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_executor_turn
+
+            run_executor_turn(
+                "codex",
+                "hi",
+                role_kind="programmer",
+                executor_session_id=None,
+                config=cfg,
+                instance_id="dev-1",
+                resolved_auth={"model": "gpt-5.3"},
+            )
+        idx = captured["argv"].index("--sandbox")
+        self.assertEqual(captured["argv"][idx + 1], "read-only")
+
+    def test_no_instance_key_same_as_global_only(self) -> None:
+        from agent_turn import resolve_codex_sandbox, resolve_cursor_permission_mode, resolve_hermes_yolo
+
+        cfg = {
+            "agents": {
+                "executors": {
+                    "codex": {"sandbox": "danger-full-access"},
+                    "cursor": {"permission_mode": "ask"},
+                    "hermes": {"yolo": False},
+                },
+                "instances": {
+                    "dev-1": {
+                        "role_kind": "programmer",
+                        "executor": "codex",
+                    },
+                },
+            }
+        }
+        self.assertEqual(resolve_codex_sandbox(cfg, instance_id="dev-1"), "danger-full-access")
+        self.assertEqual(resolve_cursor_permission_mode(cfg, instance_id="dev-1"), "ask")
+        self.assertFalse(resolve_hermes_yolo(cfg, instance_id="dev-1"))
+
+    def test_instance_yolo_false_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="hermes"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_hermes_turn
+
+            cfg = {
+                "agents": {
+                    "executors": {"hermes": {"yolo": True}},
+                    "instances": {
+                        "pm-1": {
+                            "role_kind": "product_host",
+                            "executor": "hermes",
+                            "yolo": False,
+                        },
+                    },
+                }
+            }
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_hermes_turn(
+                    "hi",
+                    role_kind="product_host",
+                    executor_session_id=None,
+                    timeout=30,
+                    config=cfg,
+                    instance_id="pm-1",
+                )
+            self.assertIn("yolo", str(ctx.exception).lower())
+            self.assertIn("instances", str(ctx.exception).lower())
+            self.assertIn("ACP", str(ctx.exception))
+            run_cmd.assert_not_called()
+
+    def test_instance_sandbox_ignored_for_cursor(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        cfg = {
+            "agents": {
+                "executors": {"cursor": {"permission_mode": "force"}},
+                "instances": {
+                    "dev-cursor": {
+                        "role_kind": "programmer",
+                        "executor": "cursor",
+                        "sandbox": "read-only",
+                    },
+                },
+            }
+        }
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_executor_turn
+
+            run_executor_turn(
+                "cursor",
+                "hi",
+                role_kind="programmer",
+                executor_session_id=None,
+                config=cfg,
+                instance_id="dev-cursor",
+                resolved_auth={"model": "auto"},
+            )
+        self.assertIn("--force", captured["argv"])
+        self.assertNotIn("--sandbox", captured["argv"])
+
+    def test_invalid_instance_value_falls_back_to_global(self) -> None:
+        from agent_turn import resolve_codex_sandbox, resolve_cursor_permission_mode
+
+        cfg = {
+            "agents": {
+                "executors": {
+                    "codex": {"sandbox": "danger-full-access"},
+                    "cursor": {"permission_mode": "ask"},
+                },
+                "instances": {
+                    "dev-1": {
+                        "role_kind": "programmer",
+                        "executor": "codex",
+                        "sandbox": "not-a-sandbox",
+                        "permission_mode": "bogus",
+                    },
+                },
+            }
+        }
+        self.assertEqual(resolve_codex_sandbox(cfg, instance_id="dev-1"), "danger-full-access")
+        self.assertEqual(resolve_cursor_permission_mode(cfg, instance_id="dev-1"), "ask")

@@ -4,7 +4,13 @@ import { CHAT_AGENT_ROLES } from "../chat/roles";
 import {
   defaultsFromExecutorPreset,
   type AgentExecutorsMap,
+  type CodexSandbox,
+  type CursorPermissionMode,
 } from "./agentExecutors";
+import {
+  omitSafetyKeysForSerialize,
+  parseInstanceSafetyFields,
+} from "./instanceSafety";
 import { API_PROVIDERS, type ApiProviderId } from "./apiProviders";
 import { parseExecutor, type AgentExecutor } from "./executors";
 
@@ -17,6 +23,12 @@ export interface AgentInstanceRecord {
   provider: ApiProviderId;
   model: string;
   use_third_party: boolean;
+  /** Codex CLI --sandbox; omit = inherit agents.executors.codex */
+  sandbox?: CodexSandbox;
+  /** Cursor permission / mode; omit = inherit agents.executors.cursor */
+  permission_mode?: CursorPermissionMode;
+  /** Hermes --yolo; omit = inherit agents.executors.hermes */
+  yolo?: boolean;
 }
 
 export type AgentInstancesMap = Record<string, AgentInstanceRecord>;
@@ -81,6 +93,7 @@ export function loadAgentInstancesFromConfig(data: Record<string, unknown>): Age
       provider: coerceProvider(rec.provider ?? roleBlock.provider, "openrouter"),
       model: rec.model != null ? String(rec.model) : String(roleBlock.model ?? ""),
       use_third_party: Boolean(rec.use_third_party ?? roleBlock.use_third_party ?? false),
+      ...parseInstanceSafetyFields(rec),
     };
   }
   return out;
@@ -174,6 +187,7 @@ export function serializeAgentInstances(
       provider: rec.provider,
       model: rec.model.trim() || null,
       use_third_party: rec.executor === "codex" ? rec.use_third_party : false,
+      ...omitSafetyKeysForSerialize(rec),
     };
   }
   return out;

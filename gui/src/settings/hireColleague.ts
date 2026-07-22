@@ -8,9 +8,17 @@ import {
   defaultsFromExecutorPreset,
   type AgentExecutorId,
   type AgentExecutorsMap,
+  type CodexSandbox,
+  type CursorPermissionMode,
 } from "./agentExecutors";
 import type { ApiProviderId } from "./apiProviders";
 import type { AgentExecutor } from "./executors";
+import {
+  INHERIT_SAFETY,
+  isInheritSafetyValue,
+  omitSafetyKeysForSerialize,
+  safetyFieldForExecutor,
+} from "./instanceSafety";
 
 export interface HireFormState {
   executor: InstanceExecutor;
@@ -18,6 +26,20 @@ export interface HireFormState {
   model: string;
   use_third_party: boolean;
   displayName: string;
+  sandbox: CodexSandbox | typeof INHERIT_SAFETY;
+  permission_mode: CursorPermissionMode | typeof INHERIT_SAFETY;
+  yolo: boolean | typeof INHERIT_SAFETY;
+}
+
+export function defaultSafetyFormFields(): Pick<
+  HireFormState,
+  "sandbox" | "permission_mode" | "yolo"
+> {
+  return {
+    sandbox: INHERIT_SAFETY,
+    permission_mode: INHERIT_SAFETY,
+    yolo: INHERIT_SAFETY,
+  };
 }
 
 export interface HireColleagueConfirmPayload {
@@ -64,13 +86,32 @@ export function validateHireForm(roleKind: ChatAgentRole, form: HireFormState): 
 
 export function buildHireRecord(roleKind: ChatAgentRole, form: HireFormState): AgentInstanceRecord {
   const executor = isPiLockedRole(roleKind) ? "pi" : form.executor;
-  return {
+  const base: AgentInstanceRecord = {
     role_kind: roleKind,
     executor,
     provider: form.provider,
     model: form.model,
     use_third_party: executor === "codex" ? form.use_third_party : false,
   };
+
+  const field = safetyFieldForExecutor(executor);
+  if (!field) return base;
+
+  const safetyInput: {
+    sandbox?: CodexSandbox;
+    permission_mode?: CursorPermissionMode;
+    yolo?: boolean;
+  } = {};
+
+  if (field === "sandbox" && !isInheritSafetyValue(form.sandbox)) {
+    safetyInput.sandbox = form.sandbox as CodexSandbox;
+  } else if (field === "permission_mode" && !isInheritSafetyValue(form.permission_mode)) {
+    safetyInput.permission_mode = form.permission_mode as CursorPermissionMode;
+  } else if (field === "yolo" && !isInheritSafetyValue(form.yolo)) {
+    safetyInput.yolo = form.yolo as boolean;
+  }
+
+  return { ...base, ...omitSafetyKeysForSerialize(safetyInput) };
 }
 
 export function executorKindForHire(record: AgentInstanceRecord): "pi" | AgentExecutor | null {

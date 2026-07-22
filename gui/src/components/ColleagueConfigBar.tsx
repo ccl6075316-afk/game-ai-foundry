@@ -5,7 +5,11 @@ import { API_PROVIDERS, getApiProvider, type ApiProviderId } from "../settings/a
 import {
   loadAgentExecutorsFromConfig,
   defaultsFromExecutorPreset,
+  CODEX_SANDBOX_OPTIONS,
+  CURSOR_PERMISSION_OPTIONS,
   type AgentExecutorsMap,
+  type CodexSandbox,
+  type CursorPermissionMode,
 } from "../settings/agentExecutors";
 import {
   loadAgentInstancesFromConfig,
@@ -22,6 +26,15 @@ import {
   type AgentExecutor,
 } from "../settings/executors";
 import { isPiLockedRole } from "../settings/hireColleague";
+import {
+  INHERIT_SAFETY,
+  isInheritSafetyValue,
+  safetyFieldForExecutor,
+  safetyFormValue,
+  stripInheritedSafety,
+  type InstanceExecutorForSafety,
+  type SafetyFormValue,
+} from "../settings/instanceSafety";
 import {
   getProviderAccount,
   isProviderConfigured,
@@ -91,6 +104,9 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const [liveCatalog, setLiveCatalog] = useState<ExecutorModelCatalog | null>(null);
   const [modelsLoading, setModelsLoading] = useState(false);
   const [modelsHint, setModelsHint] = useState<string | null>(null);
+  const [safetyFields, setSafetyFields] = useState<
+    Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">
+  >({});
   const modelSaveTimer = useRef<number | null>(null);
   const pendingModel = useRef<{
     instanceId: string;
@@ -101,12 +117,14 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const providerRef = useRef(provider);
   const modelRef = useRef(model);
   const useThirdPartyRef = useRef(useThirdParty);
+  const safetyFieldsRef = useRef(safetyFields);
   const colleagueRef = useRef(colleague);
 
   executorRef.current = executor;
   providerRef.current = provider;
   modelRef.current = model;
   useThirdPartyRef.current = useThirdParty;
+  safetyFieldsRef.current = safetyFields;
   colleagueRef.current = colleague;
 
   const syncCodexApi = useCallback(async (instanceId: string) => {
@@ -126,6 +144,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
       instanceId: string,
       roleKind: ChatAgentRole,
       patch: Partial<Pick<AgentInstanceRecord, "executor" | "provider" | "model" | "use_third_party">>,
+      safetySnapshot?: Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">,
     ) => {
       if (!window.gameFactory?.getConfig || !window.gameFactory?.saveConfig) return;
       setSaving(true);
@@ -141,7 +160,8 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
           : (patch.executor ??
             (onScreen ? executorRef.current : existing?.executor) ??
             "codex");
-        const record: AgentInstanceRecord = {
+        const safetySource = safetySnapshot ?? (onScreen ? safetyFieldsRef.current : existing);
+        const record = stripInheritedSafety({
           role_kind: roleKind,
           executor: resolvedExecutor,
           provider:
@@ -156,7 +176,10 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
                 (onScreen ? useThirdPartyRef.current : existing?.use_third_party) ??
                 false)
               : false,
-        };
+          sandbox: safetySource?.sandbox,
+          permission_mode: safetySource?.permission_mode,
+          yolo: safetySource?.yolo,
+        }) as AgentInstanceRecord;
         const nextMap = upsertInstanceRecord(instances, instanceId, record);
         const res = await window.gameFactory.saveConfig({
           agents: {
@@ -229,6 +252,11 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             : "";
         setModel(savedModel);
         setUseThirdParty(record.use_third_party);
+        setSafetyFields({
+          sandbox: saved?.sandbox,
+          permission_mode: saved?.permission_mode,
+          yolo: saved?.yolo,
+        });
         setError(null);
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -315,12 +343,17 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
       setProvider(preset.provider);
       setModel(preset.model);
       setUseThirdParty(preset.use_third_party);
-      void persist(colleague.id, colleague.roleKind, {
-        executor: nextExecutor,
-        provider: preset.provider,
-        model: preset.model,
-        use_third_party: preset.use_third_party,
-      });
+      void persist(
+        colleague.id,
+        colleague.roleKind,
+        {
+          executor: nextExecutor,
+          provider: preset.provider,
+          model: preset.model,
+          use_third_party: preset.use_third_party,
+        },
+        safetyFieldsRef.current,
+      );
     },
     [colleague.id, colleague.roleKind, executorsMap, persist, piLocked],
   );
@@ -382,6 +415,39 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     void persist(colleague.id, colleague.roleKind, { model: value });
   };
 
+  const handleSafetyChange = (raw: string) => {
+    flushPendingModel();
+    const exec = executor as InstanceExecutorForSafety;
+    const field = safetyFieldForExecutor(exec);
+    if (!field) return;
+
+    let value: SafetyFormValue;
+    if (isInheritSafetyValue(raw)) {
+      value = INHERIT_SAFETY;
+    } else if (field === "yolo") {
+      value = raw === "true";
+    } else if (field === "sandbox") {
+      value = raw as CodexSandbox;
+    } else {
+      value = raw as CursorPermissionMode;
+    }
+
+    const next: Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo"> = {
+      ...safetyFields,
+    };
+    if (isInheritSafetyValue(value)) {
+      delete next[field];
+    } else if (field === "sandbox") {
+      next.sandbox = value as CodexSandbox;
+    } else if (field === "permission_mode") {
+      next.permission_mode = value as CursorPermissionMode;
+    } else {
+      next.yolo = value as boolean;
+    }
+    setSafetyFields(next);
+    void persist(colleague.id, colleague.roleKind, {}, next);
+  };
+
   const providerOk = isProviderConfigured(providerAccounts, provider);
   const preset = getApiProvider(provider);
   const execPreset =
@@ -415,6 +481,18 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             : null;
 
   const showThirdParty = !piLocked && executor === "codex";
+
+  const safetyExecutor = !piLocked && executor !== "pi" ? (executor as InstanceExecutorForSafety) : null;
+  const activeSafetyField = safetyExecutor ? safetyFieldForExecutor(safetyExecutor) : null;
+  const safetySelectValue = safetyExecutor
+    ? safetyFormValue(safetyFields, safetyExecutor)
+    : INHERIT_SAFETY;
+  const safetySelectString =
+    safetySelectValue === INHERIT_SAFETY ? INHERIT_SAFETY : String(safetySelectValue);
+  const effectiveHermesYolo =
+    safetyFields.yolo !== undefined
+      ? safetyFields.yolo
+      : executorsMap?.hermes?.yolo !== false;
 
   const nativeCatalog = useNativeModelUi ? liveCatalog : null;
   const displayModel = nativeCatalog
@@ -610,6 +688,46 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             />
             第三方
           </label>
+        </>
+      ) : null}
+      {activeSafetyField ? (
+        <>
+          <span className="pi-model-chip__dot" aria-hidden>
+            ·
+          </span>
+          <select
+            value={safetySelectString}
+            disabled={disabled || loading || saving}
+            aria-label="安全"
+            onChange={(e) => handleSafetyChange(e.target.value)}
+          >
+            <option value={INHERIT_SAFETY}>继承全局</option>
+            {activeSafetyField === "sandbox"
+              ? CODEX_SANDBOX_OPTIONS.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.label}
+                  </option>
+                ))
+              : null}
+            {activeSafetyField === "permission_mode"
+              ? CURSOR_PERMISSION_OPTIONS.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.label}
+                  </option>
+                ))
+              : null}
+            {activeSafetyField === "yolo" ? (
+              <>
+                <option value="true">YOLO 开</option>
+                <option value="false">YOLO 关</option>
+              </>
+            ) : null}
+          </select>
+          {safetyExecutor === "hermes" && !effectiveHermesYolo ? (
+            <span className="pi-model-chip__note" title="未接 ACP 前不可在无 TTY 路径关 YOLO">
+              关 YOLO 会拒绝开跑
+            </span>
+          ) : null}
         </>
       ) : null}
       {hint ? <span className="pi-model-chip__hint">{hint}</span> : null}

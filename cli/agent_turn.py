@@ -444,6 +444,7 @@ def run_hermes_turn(
     timeout: int,
     config: dict[str, Any] | None = None,
     resolved_auth: dict[str, Any] | None = None,
+    instance_id: str | None = None,
 ) -> tuple[str, str | None, str]:
     hermes = _which_executor_bin("hermes")
     if not hermes:
@@ -452,11 +453,11 @@ def run_hermes_turn(
         raise AgentTurnError(
             f"角色 {role_kind} 未配置 Hermes skill（IT 请用内置 Pi：executor=pi）。"
         )
-    if not resolve_hermes_yolo(config):
+    if not resolve_hermes_yolo(config, instance_id=instance_id):
         raise AgentTurnError(
-            "当前 agents.executors.hermes.yolo=false。"
+            "当前 Hermes YOLO 已关闭（agents.executors.hermes.yolo 或该实例 instances.<id>.yolo 设为 false）。"
             "未接入 Hermes ACP 前，GUI/CLI 不可关闭 YOLO（去掉 --yolo 会在无 TTY 下挂起）。"
-            "请在「设置 → Agent → Hermes」打开 YOLO，或等待 ACP 集成后再关。"
+            "请在「设置 → Agent → Hermes」打开 YOLO，或在实例配置中打开 YOLO，或等待 ACP 集成后再关。"
         )
     skill = _HERMES_SKILL[role_kind]
     argv = [
@@ -529,21 +530,48 @@ def _executor_preset(config: dict[str, Any] | None, executor_id: str) -> dict[st
     return block if isinstance(block, dict) else {}
 
 
-def resolve_codex_sandbox(config: dict[str, Any] | None = None) -> str:
+def _instance_record(config: dict[str, Any] | None, instance_id: str | None) -> dict[str, Any]:
+    if not instance_id or not isinstance(config, dict):
+        return {}
+    agents = config.get("agents")
+    if not isinstance(agents, dict):
+        return {}
+    instances = agents.get("instances")
+    if not isinstance(instances, dict):
+        return {}
+    record = instances.get(instance_id)
+    return record if isinstance(record, dict) else {}
+
+
+def resolve_codex_sandbox(config: dict[str, Any] | None = None, instance_id: str | None = None) -> str:
+    inst = _instance_record(config, instance_id)
+    raw = str(inst.get("sandbox") or "").strip()
+    if raw in _CODEX_SANDBOXES:
+        return raw
     raw = str(_executor_preset(config, "codex").get("sandbox") or "").strip()
     if raw in _CODEX_SANDBOXES:
         return raw
     return _DEFAULT_CODEX_SANDBOX
 
 
-def resolve_cursor_permission_mode(config: dict[str, Any] | None = None) -> str:
+def resolve_cursor_permission_mode(
+    config: dict[str, Any] | None = None,
+    instance_id: str | None = None,
+) -> str:
+    inst = _instance_record(config, instance_id)
+    raw = str(inst.get("permission_mode") or "").strip()
+    if raw in _CURSOR_PERMISSION_MODES:
+        return raw
     raw = str(_executor_preset(config, "cursor").get("permission_mode") or "").strip()
     if raw in _CURSOR_PERMISSION_MODES:
         return raw
     return _DEFAULT_CURSOR_PERMISSION_MODE
 
 
-def resolve_hermes_yolo(config: dict[str, Any] | None = None) -> bool:
+def resolve_hermes_yolo(config: dict[str, Any] | None = None, instance_id: str | None = None) -> bool:
+    inst = _instance_record(config, instance_id)
+    if "yolo" in inst:
+        return bool(inst.get("yolo"))
     preset = _executor_preset(config, "hermes")
     if "yolo" not in preset:
         return True
@@ -759,13 +787,14 @@ def run_executor_turn(
             timeout=timeout,
             config=config,
             resolved_auth=resolved_auth,
+            instance_id=instance_id,
         )
     if executor == "codex":
         return run_codex_turn(
             prompt,
             executor_session_id=executor_session_id,
             timeout=timeout,
-            sandbox=resolve_codex_sandbox(config),
+            sandbox=resolve_codex_sandbox(config, instance_id=instance_id),
             model=(resolved_auth or {}).get("model"),
         )
     if executor == "cursor":
@@ -774,7 +803,7 @@ def run_executor_turn(
             executor_session_id=executor_session_id,
             timeout=timeout,
             model=(resolved_auth or {}).get("model"),
-            permission_mode=resolve_cursor_permission_mode(config),
+            permission_mode=resolve_cursor_permission_mode(config, instance_id=instance_id),
         )
     raise AgentTurnError(f"Unsupported executor: {executor}")
 

@@ -9,12 +9,18 @@ import type { InstanceExecutor } from "../settings/agentInstances";
 import {
   buildHireRecord,
   defaultExecutorForHire,
+  defaultSafetyFormFields,
   isPiLockedRole,
   prefillFromExecutorPreset,
   validateHireForm,
   type HireColleagueConfirmPayload,
   type HireFormState,
 } from "../settings/hireColleague";
+import {
+  CODEX_SANDBOX_OPTIONS,
+  CURSOR_PERMISSION_OPTIONS,
+} from "../settings/agentExecutors";
+import { INHERIT_SAFETY } from "../settings/instanceSafety";
 import {
   CODE_EXECUTORS,
   EXECUTOR_LOGIN_HINTS,
@@ -45,6 +51,7 @@ function emptyForm(displayName = ""): HireFormState {
     model: "",
     use_third_party: false,
     displayName,
+    ...defaultSafetyFormFields(),
   };
 }
 
@@ -84,6 +91,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
           model: preset.model,
           use_third_party: preset.use_third_party,
           displayName: suggestedName,
+          ...defaultSafetyFormFields(),
         });
       } catch {
         if (!cancelled) {
@@ -113,7 +121,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
 
   const applyExecutorPreset = (nextExecutor: InstanceExecutor) => {
     if (!window.gameFactory?.getConfig) {
-      setForm((prev) => ({ ...prev, executor: nextExecutor }));
+      setForm((prev) => ({ ...prev, executor: nextExecutor, ...defaultSafetyFormFields() }));
       return;
     }
     void (async () => {
@@ -127,9 +135,10 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
           provider: preset.provider,
           model: preset.model,
           use_third_party: preset.use_third_party,
+          ...defaultSafetyFormFields(),
         }));
       } catch {
-        setForm((prev) => ({ ...prev, executor: nextExecutor }));
+        setForm((prev) => ({ ...prev, executor: nextExecutor, ...defaultSafetyFormFields() }));
       }
     })();
   };
@@ -263,6 +272,87 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
               onChange={(e) => setForm((prev) => ({ ...prev, model: e.target.value }))}
             />
           </label>
+
+          {!piLocked && form.executor === "codex" && (
+            <label className="field">
+              <span>沙箱（--sandbox）</span>
+              <select
+                value={form.sandbox}
+                disabled={loading}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    sandbox: e.target.value as HireFormState["sandbox"],
+                  }))
+                }
+              >
+                <option value={INHERIT_SAFETY}>继承全局</option>
+                {CODEX_SANDBOX_OPTIONS.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+
+          {!piLocked && form.executor === "cursor" && (
+            <label className="field">
+              <span>权限模式</span>
+              <select
+                value={form.permission_mode}
+                disabled={loading}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    permission_mode: e.target.value as HireFormState["permission_mode"],
+                  }))
+                }
+              >
+                <option value={INHERIT_SAFETY}>继承全局</option>
+                {CURSOR_PERMISSION_OPTIONS.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+
+          {!piLocked && form.executor === "hermes" && (
+            <>
+              <label className="field">
+                <span>YOLO（--yolo）</span>
+                <select
+                  value={
+                    form.yolo === INHERIT_SAFETY
+                      ? INHERIT_SAFETY
+                      : form.yolo
+                        ? "true"
+                        : "false"
+                  }
+                  disabled={loading}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setForm((prev) => ({
+                      ...prev,
+                      yolo:
+                        v === INHERIT_SAFETY ? INHERIT_SAFETY : v === "true",
+                    }));
+                  }}
+                >
+                  <option value={INHERIT_SAFETY}>继承全局</option>
+                  <option value="true">开启（默认）</option>
+                  <option value="false">关闭</option>
+                </select>
+              </label>
+              {form.yolo === false && (
+                <p className="settings-card__note">
+                  关闭 YOLO 会在开跑时报错（未接 ACP 前不可在无 TTY 路径关 YOLO）。
+                </p>
+              )}
+            </>
+          )}
 
           {!piLocked && form.executor === "codex" && (
             <label className="field field--checkbox">
