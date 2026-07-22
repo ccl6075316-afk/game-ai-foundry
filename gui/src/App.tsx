@@ -1524,6 +1524,7 @@ export default function App() {
         if (!target.sessionId) return store;
         const isCursorAcp = payload.source === "cursor_acp";
         const isHermesAcp = payload.source === "hermes_acp";
+        const isCodexAppServer = payload.source === "codex_app_server";
         const msg: ChatMessage = {
           id: newMessageId(),
           role: "system",
@@ -1531,7 +1532,9 @@ export default function App() {
             ? "Cursor 需要批准"
             : isHermesAcp
               ? "Hermes 需要批准"
-              : "需要批准的变更",
+              : isCodexAppServer
+                ? "Codex 需要批准"
+                : "需要批准的变更",
           timestamp: Date.now(),
           toolPermission: {
             permissionId: String(payload.permissionId || ""),
@@ -1543,7 +1546,9 @@ export default function App() {
               ? { source: "cursor_acp" as const }
               : isHermesAcp
                 ? { source: "hermes_acp" as const }
-                : {}),
+                : isCodexAppServer
+                  ? { source: "codex_app_server" as const }
+                  : {}),
           },
         };
         return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => [

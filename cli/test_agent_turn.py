@@ -309,6 +309,7 @@ class TestCodexModel(unittest.TestCase):
                 "hi",
                 executor_session_id=None,
                 timeout=30,
+                sandbox="danger-full-access",
                 model="",
             )
         self.assertIn("-m", captured["argv"])
@@ -331,6 +332,7 @@ class TestCodexModel(unittest.TestCase):
                 "hi",
                 executor_session_id=None,
                 timeout=30,
+                sandbox="danger-full-access",
                 model="gpt-5.5",
             )
         self.assertIn("-m", captured["argv"])
@@ -353,11 +355,11 @@ class TestCodexModel(unittest.TestCase):
                 "hi",
                 executor_session_id=None,
                 timeout=30,
-                sandbox="read-only",
+                sandbox="danger-full-access",
             )
         self.assertIn("--sandbox", captured["argv"])
         idx = captured["argv"].index("--sandbox")
-        self.assertEqual(captured["argv"][idx + 1], "read-only")
+        self.assertEqual(captured["argv"][idx + 1], "danger-full-access")
 
 
 class TestCursorModel(unittest.TestCase):
@@ -465,6 +467,41 @@ class TestExecutorSafetyConfig(unittest.TestCase):
         self.assertEqual(resolve_cursor_permission_mode(cfg), "ask")
         self.assertFalse(resolve_hermes_yolo(cfg))
 
+    def test_codex_non_danger_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="codex"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_codex_turn, run_executor_turn
+
+            for sandbox in ("workspace-write", "read-only"):
+                with self.subTest(sandbox=sandbox):
+                    with self.assertRaises(AgentTurnError) as ctx:
+                        run_codex_turn(
+                            "hi",
+                            executor_session_id=None,
+                            timeout=30,
+                            sandbox=sandbox,
+                        )
+                    msg = str(ctx.exception)
+                    self.assertIn("GUI", msg)
+                    self.assertIn("danger-full-access", msg)
+                    run_cmd.assert_not_called()
+
+            cfg = {"agents": {"executors": {"codex": {"sandbox": "workspace-write"}}}}
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_executor_turn(
+                    "codex",
+                    "hi",
+                    role_kind="programmer",
+                    executor_session_id=None,
+                    config=cfg,
+                )
+            msg = str(ctx.exception)
+            self.assertIn("GUI", msg)
+            self.assertIn("danger-full-access", msg)
+            run_cmd.assert_not_called()
+
     def test_hermes_yolo_false_refuses_without_run(self) -> None:
         with (
             patch("agent_turn._which_executor_bin", return_value="hermes"),
@@ -492,7 +529,7 @@ class TestExecutorSafetyConfig(unittest.TestCase):
             captured["argv"] = argv
             return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
 
-        cfg = {"agents": {"executors": {"codex": {"sandbox": "read-only"}}}}
+        cfg = {"agents": {"executors": {"codex": {"sandbox": "danger-full-access"}}}}
         with (
             patch("agent_turn._which_executor_bin", return_value="codex"),
             patch("agent_turn._run_cmd", side_effect=fake_run),
@@ -508,7 +545,7 @@ class TestExecutorSafetyConfig(unittest.TestCase):
                 resolved_auth={"model": "gpt-5.3"},
             )
         idx = captured["argv"].index("--sandbox")
-        self.assertEqual(captured["argv"][idx + 1], "read-only")
+        self.assertEqual(captured["argv"][idx + 1], "danger-full-access")
 
     def test_cursor_non_force_refuses_without_run(self) -> None:
         with (
@@ -585,12 +622,12 @@ class TestInstanceExecutorSafety(unittest.TestCase):
 
         cfg = {
             "agents": {
-                "executors": {"codex": {"sandbox": "danger-full-access"}},
+                "executors": {"codex": {"sandbox": "read-only"}},
                 "instances": {
                     "dev-1": {
                         "role_kind": "programmer",
                         "executor": "codex",
-                        "sandbox": "read-only",
+                        "sandbox": "danger-full-access",
                     },
                 },
             }
@@ -611,7 +648,7 @@ class TestInstanceExecutorSafety(unittest.TestCase):
                 resolved_auth={"model": "gpt-5.3"},
             )
         idx = captured["argv"].index("--sandbox")
-        self.assertEqual(captured["argv"][idx + 1], "read-only")
+        self.assertEqual(captured["argv"][idx + 1], "danger-full-access")
 
     def test_no_instance_key_same_as_global_only(self) -> None:
         from agent_turn import resolve_codex_sandbox, resolve_cursor_permission_mode, resolve_hermes_yolo

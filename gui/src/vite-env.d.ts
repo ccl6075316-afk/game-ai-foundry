@@ -443,7 +443,7 @@ declare global {
           turnId?: string;
           argvSummary: string;
           argv?: string[];
-          source?: "pi" | "cursor_acp" | "hermes_acp";
+          source?: "pi" | "cursor_acp" | "hermes_acp" | "codex_app_server";
         }) => void,
       ) => () => void;
       agentStatus: (

@@ -25,6 +25,7 @@ import {
 import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
+import { createCodexAppServerSessionManager } from "./codex_app_server_session.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = !isPackagedApp();
@@ -39,6 +40,9 @@ let cursorAcpSessionManager = null;
 
 /** @type {ReturnType<typeof createHermesAcpSessionManager> | null} */
 let hermesAcpSessionManager = null;
+
+/** @type {ReturnType<typeof createCodexAppServerSessionManager> | null} */
+let codexAppServerSessionManager = null;
 
 /** @type {Map<string, NodeJS.Timeout>} */
 const acpPermissionTimers = new Map();
@@ -68,7 +72,7 @@ function clearAcpPermissionTimer(permissionId) {
  * @param {string} payload.sessionId
  * @param {string} [payload.turnId]
  * @param {string} payload.argvSummary
- * @param {"cursor_acp" | "hermes_acp"} [payload.source]
+ * @param {"cursor_acp" | "hermes_acp" | "codex_app_server"} [payload.source]
  * @returns {boolean}
  */
 function sendAgentToolPermission(payload) {
@@ -690,6 +694,8 @@ function saveUserConfig(patch) {
 }
 
 const CURSOR_PERMISSION_MODES = new Set(["force", "auto_review", "plan", "ask"]);
+const CODEX_SANDBOXES = new Set(["read-only", "workspace-write", "danger-full-access"]);
+const DEFAULT_CODEX_SANDBOX = "workspace-write";
 const VALID_AGENT_EXECUTORS = new Set(["hermes", "codex", "cursor", "pi"]);
 const ROLE_TO_AGENT_KEY = {
   product_host: "orchestrator",
@@ -742,6 +748,24 @@ function resolveHermesYolo(config, instanceId) {
     return true;
   }
   return Boolean(hermesPreset.yolo);
+}
+
+/**
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {string}
+ */
+function resolveCodexSandbox(config, instanceId) {
+  const inst = agentInstanceRecord(config, instanceId);
+  const fromInst = String(inst.sandbox || "").trim();
+  if (CODEX_SANDBOXES.has(fromInst)) return fromInst;
+  const codexPreset = config?.agents?.executors?.codex;
+  const fromPreset =
+    codexPreset && typeof codexPreset === "object"
+      ? String(codexPreset.sandbox || "").trim()
+      : "";
+  if (CODEX_SANDBOXES.has(fromPreset)) return fromPreset;
+  return DEFAULT_CODEX_SANDBOX;
 }
 
 /** Foundry provider id → Hermes ACP authenticate methodId / CLI --provider */
@@ -1051,6 +1075,35 @@ app.whenReady().then(() => {
     },
     onLog: (msg, ctx) => {
       console.log(`[hermes-acp] ${msg}`, ctx ?? "");
+    },
+  });
+
+  codexAppServerSessionManager = createCodexAppServerSessionManager({
+    onPermission: (req) => {
+      const permissionId = String(req.permissionId || "");
+      const summary = String(req.summary || "").slice(0, 500);
+      const kind = req.kind ? String(req.kind) : "";
+      const argvSummary = kind ? `[${kind}] ${summary}`.slice(0, 500) : summary;
+      const sent = sendAgentToolPermission({
+        permissionId,
+        sessionId: String(req.sessionId || ""),
+        turnId: String(req.turnId || ""),
+        argvSummary,
+        source: "codex_app_server",
+      });
+      if (!sent) {
+        codexAppServerSessionManager?.decidePermission({ permissionId, decision: "deny" });
+        return;
+      }
+      clearAcpPermissionTimer(permissionId);
+      const timer = setTimeout(() => {
+        acpPermissionTimers.delete(permissionId);
+        codexAppServerSessionManager?.decidePermission({ permissionId, decision: "deny" });
+      }, ACP_PERMISSION_TIMEOUT_MS);
+      acpPermissionTimers.set(permissionId, timer);
+    },
+    onLog: (msg, ctx) => {
+      console.log(`[codex-app-server] ${msg}`, ctx ?? "");
     },
   });
 
@@ -1573,6 +1626,7 @@ app.whenReady().then(() => {
     const effectiveExecutor = resolveExecutorForAgentTurn(config, role, opts);
     const permissionMode = resolveCursorPermissionMode(config, opts.instanceId);
     const hermesYolo = resolveHermesYolo(config, opts.instanceId);
+    const codexSandbox = resolveCodexSandbox(config, opts.instanceId);
     const instanceKey = String(opts.instanceId || sessionId).trim();
 
     if (effectiveExecutor === "cursor" && permissionMode !== "force") {
@@ -1728,12 +1782,105 @@ app.whenReady().then(() => {
       }
     }
 
+    if (effectiveExecutor === "codex" && codexSandbox !== "danger-full-access") {
+      if (!codexAppServerSessionManager) {
+        const errMsg = "Codex app-server 会话管理器未初始化，请重启 GUI。";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      const turnId = randomUUID();
+      const codexInst = agentInstanceRecord(config, opts.instanceId);
+      const codexPreset = config?.agents?.executors?.codex;
+      const codexModel =
+        String(codexInst.model || (codexPreset && typeof codexPreset === "object" ? codexPreset.model : "") || "")
+          .trim() || undefined;
+
+      try {
+        /** @type {Record<string, unknown>} */
+        const promptArgs = {
+          instanceId: instanceKey,
+          sessionId,
+          turnId,
+          cwd: repoRoot(),
+          message,
+          sandbox: codexSandbox,
+        };
+        if (codexModel) {
+          promptArgs.model = codexModel;
+        }
+
+        const out = await codexAppServerSessionManager.prompt(promptArgs);
+
+        const recordArgs = [
+          "agent",
+          "record-turn",
+          "--role",
+          role,
+          "--session-id",
+          sessionId,
+          "--message",
+          message,
+          "--assistant-message",
+          out.text,
+          "--executor",
+          "codex",
+          "--json",
+        ];
+        const recordResult = await runCli(recordArgs);
+        const recordData = parseJsonFromOutput(recordResult.stdout) || {};
+        if (recordResult.exitCode !== 0 || recordData.ok === false) {
+          const errMsg =
+            String(recordData.error || "").trim() ||
+            recordResult.stderr.trim() ||
+            "无法持久化 Codex app-server 对话回合";
+          return {
+            exitCode: 1,
+            stdout: recordResult.stdout,
+            stderr: recordResult.stderr || errMsg,
+            data: { ok: false, error: errMsg },
+          };
+        }
+
+        const payload = {
+          ...recordData,
+          ok: true,
+          assistant_message: out.text,
+          executor: "codex",
+          stderr_tail: out.stderrTail || "",
+        };
+        const stdout = JSON.stringify(payload, null, 2);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr: out.stderrTail || "",
+          data: payload,
+        };
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : "Codex app-server 回合失败";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+    }
+
     if (effectiveExecutor === "cursor" && permissionMode === "force") {
       cursorAcpSessionManager?.stop(instanceKey);
     }
 
     if (effectiveExecutor === "hermes" && hermesYolo) {
       hermesAcpSessionManager?.stop(instanceKey);
+    }
+
+    if (effectiveExecutor === "codex" && codexSandbox === "danger-full-access") {
+      codexAppServerSessionManager?.stop(instanceKey);
     }
 
     const args = [
@@ -1789,6 +1936,10 @@ app.whenReady().then(() => {
       clearAcpPermissionTimer(id);
       return { ok: true };
     }
+    if (codexAppServerSessionManager?.decidePermission({ permissionId: id, decision })) {
+      clearAcpPermissionTimer(id);
+      return { ok: true };
+    }
     if (!toolPermissionBridge) return { ok: false };
     const ok = toolPermissionBridge.decide(id, decision);
     return { ok };
@@ -1799,6 +1950,7 @@ app.whenReady().then(() => {
     if (!key) return { ok: false, error: "missing instanceId" };
     cursorAcpSessionManager?.stop(key);
     hermesAcpSessionManager?.stop(key);
+    codexAppServerSessionManager?.stop(key);
     return { ok: true };
   });
 
@@ -1937,6 +2089,8 @@ app.on("before-quit", () => {
   cursorAcpSessionManager = null;
   hermesAcpSessionManager?.disposeAll();
   hermesAcpSessionManager = null;
+  codexAppServerSessionManager?.disposeAll();
+  codexAppServerSessionManager = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;
 });

@@ -578,6 +578,13 @@ def _hermes_cli_yolo_off_error() -> str:
     )
 
 
+def _codex_cli_non_danger_error() -> str:
+    return (
+        "Codex 执行器在非 danger-full-access 沙箱模式下需通过 Foundry GUI 进行 app-server 中途审批。"
+        "请使用 GUI 对话，或在「设置 → Agent → Codex」/实例配置中将 sandbox 设为 danger-full-access。"
+    )
+
+
 def _require_cursor_force_for_cli(
     config: dict[str, Any] | None,
     *,
@@ -619,6 +626,8 @@ def run_codex_turn(
     codex = _which_executor_bin("codex")
     if not codex:
         raise AgentTurnError("未找到 codex CLI。请在环境面板安装 Codex 并完成登录。")
+    if sandbox != "danger-full-access":
+        raise AgentTurnError(_codex_cli_non_danger_error())
 
     model_id = _resolve_native_model("codex", model)
 
