@@ -75,6 +75,8 @@ interface FormState {
   activeTextProvider: ApiProviderId;
   activeImageProvider: ApiProviderId;
   imageUseTextProvider: boolean;
+  /** Optional cheaper model for icon_kit / generate_tier=bulk */
+  imageBulkModel: string;
   videoAccounts: VideoAccountsMap;
   activeVideoProvider: VideoProviderId;
   promptUseHost: boolean;
@@ -90,19 +92,21 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
   const prompt = data.prompt || {};
   const code = data.code || {};
   const godot = data.godot || {};
+  const imageBlock = (data.image || {}) as Record<string, unknown>;
 
   const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
   const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
 
   return {
     ...loaded,
+    imageBulkModel: String(imageBlock.bulk_model || ""),
     promptUseHost: !keyConfigured(String(prompt.api_key || "")),
     promptModel: String(prompt.model || textAccount.textModel),
     codeUseHost: !keyConfigured(String(code.api_key || "")),
     codeModel: String(code.model || textAccount.textModel),
     proxy: String(
       (data.host as Record<string, unknown> | undefined)?.proxy ||
-        (data.image as Record<string, unknown> | undefined)?.proxy ||
+        imageBlock.proxy ||
         prompt.proxy ||
         "",
     ),
@@ -165,6 +169,7 @@ function toPatch(form: FormState): ConfigPatch {
       use_text_provider: image.use_text_provider,
       api_key: image.api_key,
       model: image.model,
+      bulk_model: form.imageBulkModel.trim() || null,
       api_base: image.api_base,
       proxy: image.proxy,
     },
@@ -722,12 +727,26 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     disabled={disabled}
                   />
                 </label>
+                <label className="field">
+                  <span>批量单图 model（bulk）</span>
+                  <input
+                    type="text"
+                    value={form.imageBulkModel}
+                    onChange={(e) => setField("imageBulkModel", e.target.value)}
+                    placeholder="留空则与上方生图 model 相同"
+                    disabled={disabled}
+                  />
+                </label>
                 <p className="field-hint">
                   OpenRouter 生图请填完整 slug。GPT Image 2：
                   <code>openai/gpt-image-2</code>（专用 Images API）。
                   Gemini 图模：
                   <code>google/gemini-3.1-flash-image</code>。
                   可与生文用不同平台。
+                  <br />
+                  <strong>bulk</strong>：icon_kit 各项、以及 brief 标了{" "}
+                  <code>generate_tier: bulk</code> 的图走此模型（宜填更便宜的图模）；留空则回退主生图
+                  model。
                 </p>
               </SectionCard>
 
