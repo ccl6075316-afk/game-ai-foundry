@@ -13,6 +13,7 @@ from agent_routing import all_agents, resolve_agent
 from agent_turn import (
     AgentTurnError,
     ROLE_KINDS,
+    record_turn_exchange,
     run_turn,
     session_status,
 )
@@ -161,6 +162,54 @@ def register_agent_commands(cli_group: click.Group) -> None:
                 click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
             else:
                 click.echo(f"Error: {payload['error']}", err=True)
+            sys.exit(1)
+
+        if as_json:
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result["assistant_message"])
+
+    @agent_group.command("record-turn")
+    @click.option(
+        "--role",
+        "role_kind",
+        type=click.Choice(sorted(ROLE_KINDS)),
+        required=True,
+        help="GUI colleague role: product_host | programmer | it",
+    )
+    @click.option("--session-id", required=True, help="GUI session / conversation id")
+    @click.option("--message", "-m", required=True, help="User message")
+    @click.option("--assistant-message", required=True, help="Assistant reply to persist")
+    @click.option(
+        "--executor",
+        type=click.Choice(["hermes", "codex", "cursor", "pi"]),
+        default=None,
+        help="Executor label stored on session",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def record_turn_cmd(
+        role_kind: str,
+        session_id: str,
+        message: str,
+        assistant_message: str,
+        executor: str | None,
+        as_json: bool,
+    ) -> None:
+        """Persist one user+assistant exchange without spawning executor CLI."""
+        try:
+            result = record_turn_exchange(
+                role_kind=role_kind,
+                session_id=session_id,
+                user_message=message,
+                assistant_message=assistant_message,
+                executor=executor,
+            )
+        except AgentTurnError as exc:
+            payload = {"ok": False, "status": "error", "error": str(exc)}
+            if as_json:
+                click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+            else:
+                click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
 
         if as_json:

@@ -13,6 +13,7 @@ from agent_turn import (
     AgentTurnError,
     build_prompt,
     new_session,
+    record_turn_exchange,
     resolve_executor_for_role,
     run_turn,
     session_path_for,
@@ -508,6 +509,70 @@ class TestExecutorSafetyConfig(unittest.TestCase):
         idx = captured["argv"].index("--sandbox")
         self.assertEqual(captured["argv"][idx + 1], "read-only")
 
+    def test_cursor_non_force_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_executor_turn
+
+            cfg = {"agents": {"executors": {"cursor": {"permission_mode": "auto_review"}}}}
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_executor_turn(
+                    "cursor",
+                    "hi",
+                    role_kind="programmer",
+                    executor_session_id=None,
+                    config=cfg,
+                    resolved_auth={"model": "auto"},
+                )
+            msg = str(ctx.exception)
+            self.assertIn("GUI", msg)
+            self.assertIn("force", msg)
+            run_cmd.assert_not_called()
+
+    def test_cursor_ask_mode_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_executor_turn
+
+            cfg = {"agents": {"executors": {"cursor": {"permission_mode": "ask"}}}}
+            with self.assertRaises(AgentTurnError):
+                run_executor_turn(
+                    "cursor",
+                    "hi",
+                    role_kind="programmer",
+                    executor_session_id=None,
+                    config=cfg,
+                )
+            run_cmd.assert_not_called()
+
+    def test_cursor_force_still_runs(self) -> None:
+        captured: dict[str, list[str]] = {}
+
+        def fake_run(argv: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+            captured["argv"] = argv
+            return subprocess.CompletedProcess(argv, 0, stdout="ok", stderr="")
+
+        cfg = {"agents": {"executors": {"cursor": {"permission_mode": "force"}}}}
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd", side_effect=fake_run),
+        ):
+            from agent_turn import run_executor_turn
+
+            run_executor_turn(
+                "cursor",
+                "hi",
+                role_kind="programmer",
+                executor_session_id=None,
+                config=cfg,
+                resolved_auth={"model": "auto"},
+            )
+        self.assertIn("--force", captured["argv"])
+
 
 class TestInstanceExecutorSafety(unittest.TestCase):
     def test_instance_sandbox_overrides_global(self) -> None:
@@ -639,6 +704,37 @@ class TestInstanceExecutorSafety(unittest.TestCase):
         self.assertIn("--force", captured["argv"])
         self.assertNotIn("--sandbox", captured["argv"])
 
+    def test_instance_non_force_cursor_refuses_without_run(self) -> None:
+        with (
+            patch("agent_turn._which_executor_bin", return_value="agent"),
+            patch("agent_turn._run_cmd") as run_cmd,
+        ):
+            from agent_turn import AgentTurnError, run_executor_turn
+
+            cfg = {
+                "agents": {
+                    "executors": {"cursor": {"permission_mode": "force"}},
+                    "instances": {
+                        "dev-cursor": {
+                            "role_kind": "programmer",
+                            "executor": "cursor",
+                            "permission_mode": "plan",
+                        },
+                    },
+                }
+            }
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_executor_turn(
+                    "cursor",
+                    "hi",
+                    role_kind="programmer",
+                    executor_session_id=None,
+                    config=cfg,
+                    instance_id="dev-cursor",
+                )
+            self.assertIn("GUI", str(ctx.exception))
+            run_cmd.assert_not_called()
+
     def test_invalid_instance_value_falls_back_to_global(self) -> None:
         from agent_turn import resolve_codex_sandbox, resolve_cursor_permission_mode
 
@@ -660,3 +756,53 @@ class TestInstanceExecutorSafety(unittest.TestCase):
         }
         self.assertEqual(resolve_codex_sandbox(cfg, instance_id="dev-1"), "danger-full-access")
         self.assertEqual(resolve_cursor_permission_mode(cfg, instance_id="dev-1"), "ask")
+
+    def test_record_turn_exchange_persists_messages(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conv = Path(tmp) / "programmer"
+            conv.mkdir()
+            with (
+                patch("agent_turn.conversations_dir", return_value=conv),
+                patch("agent_turn._CONV_ROOT", Path(tmp)),
+            ):
+                result = record_turn_exchange(
+                    role_kind="programmer",
+                    session_id="acp-s1",
+                    user_message="你好",
+                    assistant_message="已收到",
+                    executor="cursor",
+                )
+            self.assertTrue(result["ok"])
+            self.assertEqual(result["assistant_message"], "已收到")
+            self.assertEqual(result["executor"], "cursor")
+            path = conv / "acp-s1.json"
+            self.assertTrue(path.is_file())
+            data = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(len(data["messages"]), 2)
+            self.assertEqual(data["messages"][0]["content"], "你好")
+            self.assertEqual(data["messages"][1]["content"], "已收到")
+
+    def test_record_turn_exchange_persists_messages(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            conv = Path(tmp) / "programmer"
+            conv.mkdir()
+            with (
+                patch("agent_turn.conversations_dir", return_value=conv),
+                patch("agent_turn._CONV_ROOT", Path(tmp)),
+            ):
+                result = record_turn_exchange(
+                    role_kind="programmer",
+                    session_id="acp-s1",
+                    user_message="你好",
+                    assistant_message="已收到",
+                    executor="cursor",
+                )
+            self.assertTrue(result["ok"])
+            self.assertEqual(result["assistant_message"], "已收到")
+            self.assertEqual(result["executor"], "cursor")
+            path = conv / "acp-s1.json"
+            self.assertTrue(path.is_file())
+            data = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(len(data["messages"]), 2)
+            self.assertEqual(data["messages"][0]["content"], "你好")
+            self.assertEqual(data["messages"][1]["content"], "已收到")

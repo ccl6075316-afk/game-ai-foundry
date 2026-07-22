@@ -1521,10 +1521,11 @@ export default function App() {
               sessionId: store.activeByInstance[store.activeInstanceId] || "",
             };
         if (!target.sessionId) return store;
+        const isCursorAcp = payload.source === "cursor_acp";
         const msg: ChatMessage = {
           id: newMessageId(),
           role: "system",
-          content: "需要批准的变更",
+          content: isCursorAcp ? "Cursor 需要批准" : "需要批准的变更",
           timestamp: Date.now(),
           toolPermission: {
             permissionId: String(payload.permissionId || ""),
@@ -1532,6 +1533,7 @@ export default function App() {
             turnId: payload.turnId,
             argvSummary: String(payload.argvSummary || ""),
             status: "pending",
+            ...(isCursorAcp ? { source: "cursor_acp" as const } : {}),
           },
         };
         return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => [

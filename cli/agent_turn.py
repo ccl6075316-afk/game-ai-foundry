@@ -568,6 +568,22 @@ def resolve_cursor_permission_mode(
     return _DEFAULT_CURSOR_PERMISSION_MODE
 
 
+def _cursor_cli_non_force_error() -> str:
+    return (
+        "Cursor 执行器在非 force 权限模式下需通过 Foundry GUI 进行 ACP 中途审批。"
+        "请使用 GUI 对话，或在「设置 → Agent → Cursor」/实例配置中将 permission_mode 设为 force。"
+    )
+
+
+def _require_cursor_force_for_cli(
+    config: dict[str, Any] | None,
+    *,
+    instance_id: str | None,
+) -> None:
+    if resolve_cursor_permission_mode(config, instance_id=instance_id) != "force":
+        raise AgentTurnError(_cursor_cli_non_force_error())
+
+
 def resolve_hermes_yolo(config: dict[str, Any] | None = None, instance_id: str | None = None) -> bool:
     inst = _instance_record(config, instance_id)
     if "yolo" in inst:
@@ -798,14 +814,61 @@ def run_executor_turn(
             model=(resolved_auth or {}).get("model"),
         )
     if executor == "cursor":
+        _require_cursor_force_for_cli(config, instance_id=instance_id)
         return run_cursor_turn(
             prompt,
             executor_session_id=executor_session_id,
             timeout=timeout,
             model=(resolved_auth or {}).get("model"),
-            permission_mode=resolve_cursor_permission_mode(config, instance_id=instance_id),
+            permission_mode="force",
         )
     raise AgentTurnError(f"Unsupported executor: {executor}")
+
+
+def record_turn_exchange(
+    *,
+    role_kind: str,
+    session_id: str,
+    user_message: str,
+    assistant_message: str,
+    executor: str | None = None,
+) -> dict[str, Any]:
+    """Append user+assistant to session without calling executor CLI (GUI ACP path)."""
+    if role_kind not in ROLE_KINDS:
+        raise AgentTurnError(f"Unsupported role_kind: {role_kind}")
+    if not user_message or not str(user_message).strip():
+        raise AgentTurnError("message is required.")
+    if not assistant_message or not str(assistant_message).strip():
+        raise AgentTurnError("assistant_message is required.")
+
+    path = session_path_for(role_kind, session_id)
+    if path.is_file():
+        session = load_session(path)
+    else:
+        session = new_session(role_kind, session_id)
+
+    chosen = _normalize_executor(executor)
+    if chosen:
+        session["executor"] = chosen
+
+    user_text = user_message.strip()
+    display_message = assistant_message.strip()
+    messages = list(session.get("messages") or [])
+    messages.append({"role": "user", "content": user_text, "ts": _utc_now()})
+    messages.append({"role": "assistant", "content": display_message, "ts": _utc_now()})
+    session["messages"] = messages
+    save_session(path, session)
+
+    return {
+        "ok": True,
+        "status": "ok",
+        "role_kind": role_kind,
+        "session_id": session.get("id"),
+        "session_path": str(path.resolve()),
+        "executor": session.get("executor") or chosen,
+        "assistant_message": display_message,
+        "message_count": len(messages),
+    }
 
 
 def run_turn(

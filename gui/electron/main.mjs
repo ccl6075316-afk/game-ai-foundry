@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, shell, protocol, net } from "electron";
 import { spawn } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import {
   cpSync,
   existsSync,
@@ -22,12 +23,51 @@ import {
   resolvePython,
 } from "./paths.mjs";
 import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
+import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = !isPackagedApp();
 
+const ACP_PERMISSION_TIMEOUT_MS = 300_000;
+
 /** @type {ReturnType<typeof createToolPermissionBridge> | null} */
 let toolPermissionBridge = null;
+
+/** @type {ReturnType<typeof createCursorAcpSessionManager> | null} */
+let cursorAcpSessionManager = null;
+
+/** @type {Map<string, NodeJS.Timeout>} */
+const acpPermissionTimers = new Map();
+
+/** @returns {ReturnType<typeof createCursorAcpSessionManager> | null} */
+export function getCursorAcpSessionManager() {
+  return cursorAcpSessionManager;
+}
+
+/** @param {string} permissionId */
+function clearAcpPermissionTimer(permissionId) {
+  const id = String(permissionId || "");
+  const timer = acpPermissionTimers.get(id);
+  if (!timer) return;
+  clearTimeout(timer);
+  acpPermissionTimers.delete(id);
+}
+
+/**
+ * @param {object} payload
+ * @param {string} payload.permissionId
+ * @param {string} payload.sessionId
+ * @param {string} [payload.turnId]
+ * @param {string} payload.argvSummary
+ * @param {"cursor_acp"} [payload.source]
+ * @returns {boolean}
+ */
+function sendAgentToolPermission(payload) {
+  const sender = mainWindow && !mainWindow.isDestroyed() ? mainWindow.webContents : null;
+  if (!sender || sender.isDestroyed()) return false;
+  sender.send("agent-tool-permission", payload);
+  return true;
+}
 
 const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif"]);
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".mkv"]);
@@ -640,6 +680,77 @@ function saveUserConfig(patch) {
   return { ok: true, path: cfgPath };
 }
 
+const CURSOR_PERMISSION_MODES = new Set(["force", "auto_review", "plan", "ask"]);
+const VALID_AGENT_EXECUTORS = new Set(["hermes", "codex", "cursor", "pi"]);
+const ROLE_TO_AGENT_KEY = {
+  product_host: "orchestrator",
+  programmer: "godot-developer",
+  it: "it",
+};
+
+/**
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {Record<string, unknown>}
+ */
+function agentInstanceRecord(config, instanceId) {
+  const instances = config?.agents?.instances;
+  if (!instanceId || typeof instances !== "object" || instances == null) return {};
+  const rec = instances[String(instanceId)];
+  return rec && typeof rec === "object" ? rec : {};
+}
+
+/**
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {string}
+ */
+function resolveCursorPermissionMode(config, instanceId) {
+  const inst = agentInstanceRecord(config, instanceId);
+  const fromInst = String(inst.permission_mode || "").trim();
+  if (CURSOR_PERMISSION_MODES.has(fromInst)) return fromInst;
+  const cursorPreset = config?.agents?.executors?.cursor;
+  const fromPreset =
+    cursorPreset && typeof cursorPreset === "object"
+      ? String(cursorPreset.permission_mode || "").trim()
+      : "";
+  if (CURSOR_PERMISSION_MODES.has(fromPreset)) return fromPreset;
+  return "force";
+}
+
+/**
+ * @param {Record<string, unknown>} config
+ * @param {string} roleKind
+ * @param {Record<string, unknown>} opts
+ * @returns {string}
+ */
+function resolveExecutorForAgentTurn(config, roleKind, opts) {
+  const override = String(opts.executor || "").trim().toLowerCase();
+  if (VALID_AGENT_EXECUTORS.has(override)) return override;
+
+  const inst = agentInstanceRecord(config, opts.instanceId);
+  const fromInst = String(inst.executor || "").trim().toLowerCase();
+  if (VALID_AGENT_EXECUTORS.has(fromInst)) return fromInst;
+
+  if (roleKind === "it") {
+    const itCfg = config?.agents?.it;
+    const ex =
+      itCfg && typeof itCfg === "object"
+        ? String(itCfg.executor || "pi").trim().toLowerCase()
+        : "pi";
+    return VALID_AGENT_EXECUTORS.has(ex) ? ex : "pi";
+  }
+
+  const agentKey = ROLE_TO_AGENT_KEY[roleKind] || "orchestrator";
+  const roleBlock = config?.agents?.[agentKey];
+  let executor =
+    roleBlock && typeof roleBlock === "object"
+      ? String(roleBlock.executor || "hermes").trim().toLowerCase()
+      : "hermes";
+  if (executor === "pipeline") executor = "hermes";
+  return VALID_AGENT_EXECUTORS.has(executor) ? executor : "hermes";
+}
+
 function relToRepo(absPath) {
   const root = repoRoot();
   const rel = path.relative(root, absPath);
@@ -823,6 +934,32 @@ function createWindow() {
 app.whenReady().then(() => {
   toolPermissionBridge = createToolPermissionBridge({
     getSender: () => (mainWindow && !mainWindow.isDestroyed() ? mainWindow.webContents : null),
+  });
+
+  cursorAcpSessionManager = createCursorAcpSessionManager({
+    onPermission: (req) => {
+      const permissionId = String(req.permissionId || "");
+      const sent = sendAgentToolPermission({
+        permissionId,
+        sessionId: String(req.sessionId || ""),
+        turnId: String(req.turnId || ""),
+        argvSummary: String(req.summary || "").slice(0, 500),
+        source: "cursor_acp",
+      });
+      if (!sent) {
+        cursorAcpSessionManager?.decidePermission(permissionId, "deny");
+        return;
+      }
+      clearAcpPermissionTimer(permissionId);
+      const timer = setTimeout(() => {
+        acpPermissionTimers.delete(permissionId);
+        cursorAcpSessionManager?.decidePermission(permissionId, "deny");
+      }, ACP_PERMISSION_TIMEOUT_MS);
+      acpPermissionTimers.set(permissionId, timer);
+    },
+    onLog: (msg, ctx) => {
+      console.log(`[cursor-acp] ${msg}`, ctx ?? "");
+    },
   });
 
   protocol.handle("gamefactory-media", (request) => {
@@ -1340,6 +1477,92 @@ app.whenReady().then(() => {
     const role = String(opts.role || "").trim();
     const sessionId = String(opts.sessionId || "").trim();
     const message = String(opts.message || "");
+    const config = loadUserConfig().data || {};
+    const effectiveExecutor = resolveExecutorForAgentTurn(config, role, opts);
+    const permissionMode = resolveCursorPermissionMode(config, opts.instanceId);
+    const instanceKey = String(opts.instanceId || sessionId).trim();
+
+    if (effectiveExecutor === "cursor" && permissionMode !== "force") {
+      if (!cursorAcpSessionManager) {
+        const errMsg = "Cursor ACP 会话管理器未初始化，请重启 GUI。";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      const turnId = randomUUID();
+      try {
+        const out = await cursorAcpSessionManager.prompt({
+          instanceId: instanceKey,
+          sessionId,
+          turnId,
+          workspaceCwd: repoRoot(),
+          text: message,
+          permissionMode,
+        });
+
+        const recordArgs = [
+          "agent",
+          "record-turn",
+          "--role",
+          role,
+          "--session-id",
+          sessionId,
+          "--message",
+          message,
+          "--assistant-message",
+          out.text,
+          "--executor",
+          "cursor",
+          "--json",
+        ];
+        const recordResult = await runCli(recordArgs);
+        const recordData = parseJsonFromOutput(recordResult.stdout) || {};
+        if (recordResult.exitCode !== 0 || recordData.ok === false) {
+          const errMsg =
+            String(recordData.error || "").trim() ||
+            recordResult.stderr.trim() ||
+            "无法持久化 ACP 对话回合";
+          return {
+            exitCode: 1,
+            stdout: recordResult.stdout,
+            stderr: recordResult.stderr || errMsg,
+            data: { ok: false, error: errMsg },
+          };
+        }
+
+        const payload = {
+          ...recordData,
+          ok: true,
+          assistant_message: out.text,
+          executor: "cursor",
+          stderr_tail: out.stderrTail || "",
+        };
+        const stdout = JSON.stringify(payload, null, 2);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr: out.stderrTail || "",
+          data: payload,
+        };
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : "Cursor ACP 回合失败";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+    }
+
+    if (effectiveExecutor === "cursor" && permissionMode === "force") {
+      cursorAcpSessionManager?.stop(instanceKey);
+    }
+
     const args = [
       "agent",
       "turn",
@@ -1384,8 +1607,13 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle("agent-tool-permission-decision", async (_e, permissionId, decision) => {
+    const id = String(permissionId || "");
+    if (cursorAcpSessionManager?.decidePermission(id, decision)) {
+      clearAcpPermissionTimer(id);
+      return { ok: true };
+    }
     if (!toolPermissionBridge) return { ok: false };
-    const ok = toolPermissionBridge.decide(permissionId, decision);
+    const ok = toolPermissionBridge.decide(id, decision);
     return { ok };
   });
 
@@ -1515,8 +1743,17 @@ app.whenReady().then(() => {
   });
 });
 
-app.on("window-all-closed", () => {
+app.on("before-quit", () => {
+  for (const [, timer] of acpPermissionTimers) {
+    clearTimeout(timer);
+  }
+  acpPermissionTimers.clear();
+  cursorAcpSessionManager?.disposeAll();
+  cursorAcpSessionManager = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;
+});
+
+app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });

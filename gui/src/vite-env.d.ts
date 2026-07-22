@@ -442,6 +442,7 @@ declare global {
           turnId?: string;
           argvSummary: string;
           argv?: string[];
+          source?: "pi" | "cursor_acp";
         }) => void,
       ) => () => void;
       agentStatus: (

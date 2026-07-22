@@ -111,7 +111,11 @@ export function ChatView({
                   ) : null}
                   {m.toolPermission ? (
                     <div className="tool-permission-card">
-                      <div className="tool-permission-card__title">需要批准的变更</div>
+                      <div className="tool-permission-card__title">
+                        {m.toolPermission.source === "cursor_acp"
+                          ? "Cursor 需要批准"
+                          : "需要批准的变更"}
+                      </div>
                       <code className="tool-permission-card__cmd">
                         {m.toolPermission.argvSummary || "gamefactory …"}
                       </code>
