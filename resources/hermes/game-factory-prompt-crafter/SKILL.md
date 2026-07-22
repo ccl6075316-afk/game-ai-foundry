@@ -81,7 +81,7 @@ Each asset type has **different** prompt rules and **different** post-pipeline. 
 | Type | Background | Post-process | Forbidden in prompt |
 |------|------------|--------------|---------------------|
 | **character** | Pure white #FFFFFF studio | trim → remove-bg | scenes, walls, icons, grids |
-| **icon_kit** | White studio grid | slice → trim → remove-bg per tile | characters, scenery |
+| **icon_kit** | White studio **single item** | per-item trim → remove-bg | characters, scenery, multi-item sheets |
 | **background** | Full environment scene | none (no matting) | white studio, character sprites |
 | **texture** | Tile fills frame | none | white studio, characters |
 
@@ -113,14 +113,16 @@ from validation JSON and regenerate — do not send the image to trim/remove-bg.
 
 Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
 
-## icon_kit (grid of items, white background)
+## icon_kit (one object per image)
 
 ```
-{item1}, {item2}, ... — {rows}x{cols} grid, each item centered in its cell.
-Game item icons, consistent scale. Pure flat white background. {art style cues}.
+Single game icon: {item}. Centered. Consistent scale with other kit icons.
+Pure flat white background. {art style cues}. No grid, no other objects.
 ```
 
-No characters, no scenery. Post: grid slice → trim white borders per tile → remove background per tile.
+Brief keeps one `icon_kit` + `items[]`; pipeline crafts/generates **each item separately**
+(using `image.bulk_model` when set). Do **not** ask for an NxM sheet.
+Post: trim → remove-bg per item (no grid slice).
 
 ## texture (no white studio bg)
 

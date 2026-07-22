@@ -138,14 +138,36 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["identity_anchor"] = spec.identity_anchor
     if spec.use_style_img2img is not None:
         data["use_style_img2img"] = spec.use_style_img2img
+    if spec.generate_tier:
+        data["generate_tier"] = spec.generate_tier
     return data
 
 
-def build_role_context(project: ProjectContext, spec: AssetSpec) -> dict[str, Any]:
+def build_role_context(
+    project: ProjectContext,
+    spec: AssetSpec,
+    *,
+    kit_item: str | None = None,
+    kit_item_slug: str | None = None,
+) -> dict[str, Any]:
     """Canonical payload every role receives."""
+    asset = asset_to_dict(spec)
+    if kit_item is not None:
+        asset = {
+            **asset,
+            "kit_item": kit_item,
+            "kit_item_slug": kit_item_slug or "",
+            "description": (
+                f"Single game icon only: {kit_item}. "
+                "Centered, solid white background, no other objects, no grid sheet."
+            ),
+            "items": [kit_item],
+        }
+        # Drop legacy grid cue so crafter does not emit multi-cell sheets.
+        asset.pop("grid", None)
     return {
         "project": project_to_dict(project),
-        "asset": asset_to_dict(spec),
+        "asset": asset,
     }
 
 

@@ -18,7 +18,7 @@ class IconGridTests(unittest.TestCase):
         self.assertEqual(resolve_icon_grid("2x2", 12), "3x4")
         self.assertEqual(resolve_icon_grid("2x3", 6), "2x3")
 
-    def test_from_dict_upgrades_grid(self) -> None:
+    def test_from_dict_keeps_authored_grid(self) -> None:
         spec = AssetSpec.from_dict(
             {
                 "name": "kit",
@@ -32,7 +32,7 @@ class IconGridTests(unittest.TestCase):
             }
         )
         self.assertEqual(spec.type, AssetType.ICON_KIT)
-        self.assertEqual(spec.grid, "2x3")
+        self.assertEqual(spec.grid, "2x2")
 
 
 if __name__ == "__main__":

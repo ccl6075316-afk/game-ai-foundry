@@ -38,6 +38,8 @@ Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
 |----------|------|------|
 | **LLM Provider**（如 OpenRouter） | `/brief` 策划对话、文案 LLM | ✅ |
 | **生图** | 可勾选「沿用 LLM Provider」 | ✅ |
+
+`image.model`：角色/场景等默认生图。`image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"` 的便宜模型（未配则回退 `image.model`）。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。
 | **视频 Provider**（Seedance） | 图生视频 | 做动画时需要 |
 
 **API Key 只在此页填写**；雇人弹窗与对话配置仅选择账号库 id，不重复填 Key。

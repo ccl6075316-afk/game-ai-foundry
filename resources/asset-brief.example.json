@@ -93,7 +93,6 @@
         "potion",
         "gold coin"
       ],
-      "grid": "2x2",
       "display_size": {
         "width": 64,
         "height": 64

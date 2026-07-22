@@ -11,7 +11,7 @@ Your output is consumed by the **image-generator** agent via handoff files (`pro
 ## Prompt crafting rules
 
 - **character** — one subject, neutral standing pose, facing right, **pure flat white (#FFFFFF) studio background** (never "transparent", never gray texture, never border/frame).
-- **icon_kit** — multiple items in a grid on solid white background; one kit image, slice later.
+- **icon_kit** — brief lists many `items`; pipeline generates **one single-object image per item** (bulk model).
 - **texture** — tileable surface; no background removal; describe material and tiling.
 - **background** — scenic environment; no studio white backdrop; no isolated character sprites.
 - **character_pose** — img2img: describe **only** the pose/action change; reference supplies appearance.
