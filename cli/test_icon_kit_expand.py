@@ -33,7 +33,15 @@ class IconKitExpandTests(unittest.TestCase):
                     "usage": "item_icon",
                     "usage_description": "Inventory icons",
                     "generate_method": "image",
-                    "items": ["sword", "potion"],
+                    "items": [
+                        "sword",
+                        {
+                            "id": "health_potion",
+                            "label": "red potion",
+                            "usage": "pickup",
+                            "usage_description": "heal pickup",
+                        },
+                    ],
                     "grid": "2x2",
                     "display_size": {"width": 64, "height": 64},
                 }
@@ -64,10 +72,14 @@ class IconKitExpandTests(unittest.TestCase):
             self.assertIn("--model cheap-m", g["command"])
         ids = {t["asset_id"] for t in gens}
         self.assertTrue(any("sword" in i for i in ids))
-        self.assertTrue(any("potion" in i for i in ids))
+        self.assertTrue(any("health_potion" in i for i in ids))
         crafts = [t for t in manifest["tasks"] if t["step"] == "prompt.craft"]
         self.assertEqual(len(crafts), 2)
         self.assertTrue(any("--item" in t["command"] for t in crafts))
+        potion = next(t for t in gens if "health_potion" in t["asset_id"])
+        self.assertEqual(potion["artifacts"].get("kit_item_id"), "health_potion")
+        self.assertEqual(potion["artifacts"].get("kit_item_usage"), "pickup")
+        self.assertEqual(potion["artifacts"].get("kit_item"), "red potion")
 
 
 if __name__ == "__main__":

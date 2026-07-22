@@ -40,7 +40,7 @@ Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
 | **生图** | 可勾选「沿用 LLM Provider」 | ✅ |
 
 `image.model`：角色/场景等默认生图（设置 → Provider → **生图 model**）。  
-`image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"`（设置里 **批量单图 model（bulk）**；留空则回退主生图 model）。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。
+`image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"`（设置里 **批量单图 model（bulk）**；留空则回退主生图 model）。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。`items` 可为字符串，或 `{id, label?, usage?, usage_description?}`（slug 跟 `id`；玩法绑定见 `production.collectible_items`）。
 | **视频 Provider**（Seedance） | 图生视频 | 做动画时需要 |
 
 **API Key 只在此页填写**；雇人弹窗与对话配置仅选择账号库 id，不重复填 Key。

@@ -12,7 +12,7 @@
 - **Change Log**：初稿 — 方案 A（pipeline 展开 kit；废弃网格切片；`image.model` + `image.bulk_model`）
 - **Requirements Source**：用户发现 sheet 切片无法绑定「是哪个 / 用在哪」；要求每张图强制单物体，icon 等批量走便宜模型；选型：保留 kit 壳 / 废切片 / 配置两档 / kit+`generate_tier:bulk`
 - **Background Inputs**：现有 `icon_kit` + `items` + `grid` + `image slice`；全局 `image.model`；风格组与 icon_kit 正交（icon 不走 style img2img 的既有约束可复查）
-- **Deferred**：按类型完整 models 表；sheet 逃生舱；视觉自动认格；items 对象级 `usage` 字段（可二期）
+- **Deferred**：按类型完整 models 表；sheet 逃生舱；视觉自动认格；~~items 对象级 `usage`~~ → [`2026-07-23-icon-kit-item-objects-design.md`](2026-07-23-icon-kit-item-objects-design.md)
 
 ## 背景
 

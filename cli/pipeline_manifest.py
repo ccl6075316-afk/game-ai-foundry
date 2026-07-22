@@ -283,7 +283,7 @@ def _icon_kit_item_tasks(
     config: dict[str, Any] | None,
 ) -> None:
     """Expand icon_kit into per-item single-object generate + post (no slice)."""
-    from brief import unique_item_slugs
+    from brief import unique_kit_item_slugs
     from image_model_route import effective_generate_tier, resolve_image_model_for_tier
 
     if not spec.items:
@@ -291,7 +291,7 @@ def _icon_kit_item_tasks(
 
     name = spec.name
     file_key = resolve_asset_file_key(spec)
-    slugs = unique_item_slugs([str(x) for x in spec.items])
+    slugs = unique_kit_item_slugs(spec.items)
     tier = effective_generate_tier(
         generate_tier=spec.generate_tier or None,
         for_icon_kit_item=True,
@@ -299,11 +299,18 @@ def _icon_kit_item_tasks(
     model = resolve_image_model_for_tier(config, tier)
     model_flag = f" --model {model}" if model else ""
 
-    for label, slug in zip([str(x) for x in spec.items], slugs, strict=True):
+    for item, slug in zip(spec.items, slugs, strict=True):
         item_key = f"{file_key}__{slug}"
         paths = _asset_artifacts(output_dir, plans_dir, item_key)
-        # Escape item for CLI: use simple quoting via json
-        item_arg = json.dumps(label, ensure_ascii=False)
+        # Prefer stable id for --item so craft matches id even when label differs.
+        item_arg = json.dumps(item.id, ensure_ascii=False)
+        item_meta = {
+            "kit_item": item.prompt_label,
+            "kit_item_id": item.id,
+            "kit_item_slug": slug,
+            "kit_item_usage": item.usage or spec.usage,
+            "kit_item_usage_description": item.usage_description or spec.usage_description,
+        }
         prompt_id = _add_task(
             tasks,
             asset=name,
@@ -317,7 +324,7 @@ def _icon_kit_item_tasks(
                 f"--brief {brief_cli} --asset {file_key} --item {item_arg} "
                 f"-o {paths['plan']}"
             ),
-            artifacts={"plan": paths["plan"], "kit_item": label, "kit_item_slug": slug},
+            artifacts={"plan": paths["plan"], **item_meta},
         )
         tasks_by_id[prompt_id] = tasks[-1]
 
@@ -339,8 +346,7 @@ def _icon_kit_item_tasks(
             artifacts={
                 "plan": paths["plan"],
                 "output": paths["raw_image"],
-                "kit_item": label,
-                "kit_item_slug": slug,
+                **item_meta,
             },
         )
         tasks_by_id[image_id] = tasks[-1]
@@ -355,7 +361,7 @@ def _icon_kit_item_tasks(
                     f"python gamefactory.py image trim "
                     f"--input {paths['raw_image']} --output {paths['trimmed_image']}"
                 ),
-                {"input": paths["raw_image"], "output": paths["trimmed_image"]},
+                {"input": paths["raw_image"], "output": paths["trimmed_image"], **item_meta},
             ),
             (
                 "image.remove-bg",
@@ -364,7 +370,7 @@ def _icon_kit_item_tasks(
                     f"python gamefactory.py image remove-bg --mode color "
                     f"--input {paths['trimmed_image']} --output {paths['nobg_image']}"
                 ),
-                {"input": paths["trimmed_image"], "output": paths["nobg_image"]},
+                {"input": paths["trimmed_image"], "output": paths["nobg_image"], **item_meta},
             ),
             (
                 "image.validate-matting",
@@ -373,7 +379,7 @@ def _icon_kit_item_tasks(
                     f"python gamefactory.py image validate-matting "
                     f"--input {paths['nobg_image']}"
                 ),
-                {"input": paths["nobg_image"]},
+                {"input": paths["nobg_image"], **item_meta},
             ),
         ):
             dep = [prev]

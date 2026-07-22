@@ -5,6 +5,7 @@
 ## 当前版本要点（2026-07-18）
 
 - **v0.0.6 可用边界**：[`RELEASE-NOTES-0.0.6.md`](RELEASE-NOTES-0.0.6.md) — 工程隔离 / 北极星 / 环境错误可读
+- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md) — icon_kit 布局 breaking 等
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员，可多实例）
 - **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`；北极星图在策划侧定稿
 - **最低开工**：LLM Provider Key → 策划保存 Brief + 北极星 → 项目经理 `/plan` `/run`

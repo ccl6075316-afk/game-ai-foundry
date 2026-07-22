@@ -8,7 +8,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from brief import AssetSpec, CharacterAnimationGraph, ProjectContext, load_brief_full
+from brief import (
+    AssetSpec,
+    AssetType,
+    CharacterAnimationGraph,
+    ProjectContext,
+    load_brief_full,
+    resolve_asset_file_key,
+    unique_kit_item_slugs,
+)
 from genre_presets import get_genre_preset
 
 PRODUCTION_SCHEMA_VERSION = 1
@@ -54,6 +62,46 @@ def _has_collectibles(assets: list[AssetSpec]) -> bool:
         or spec.type.value == "icon_kit"
         for spec in assets
     )
+
+
+def _collectible_bindings(assets: list[AssetSpec]) -> list[dict[str, Any]]:
+    """Per-item (or per-asset) bindings for Godot pickup / UI wiring."""
+    rows: list[dict[str, Any]] = []
+    for spec in assets:
+        if spec.type == AssetType.ICON_KIT and spec.items:
+            file_key = resolve_asset_file_key(spec)
+            slugs = unique_kit_item_slugs(spec.items)
+            for item, slug in zip(spec.items, slugs, strict=True):
+                rows.append(
+                    {
+                        "kit": spec.name,
+                        "kit_id": spec.id or spec.name,
+                        "item_id": item.id,
+                        "item_slug": slug,
+                        "label": item.prompt_label,
+                        "usage": item.usage or spec.usage,
+                        "usage_description": item.usage_description
+                        or spec.usage_description,
+                        "asset_id": f"{file_key}__{slug}",
+                        "nobg_path_hint": f"{file_key}__{slug}_nobg.png",
+                    }
+                )
+        elif spec.usage in {"item_icon", "icon", "pickup"}:
+            file_key = resolve_asset_file_key(spec)
+            rows.append(
+                {
+                    "kit": None,
+                    "kit_id": None,
+                    "item_id": spec.id or spec.name,
+                    "item_slug": file_key,
+                    "label": spec.name,
+                    "usage": spec.usage,
+                    "usage_description": spec.usage_description or spec.description,
+                    "asset_id": file_key,
+                    "nobg_path_hint": f"{file_key}_nobg.png",
+                }
+            )
+    return rows
 
 
 def _has_hud(project: ProjectContext) -> bool:
@@ -195,7 +243,7 @@ def _build_godot_tasks(
     if has_collectibles:
         add(
             "collectibles",
-            "Create pickup areas for item_icon / icon_kit assets",
+            "Create pickup areas bound by production.collectible_items (item_id / nobg_path_hint)",
             depends_on=["player_controller"],
             verify=["Player can collect at least one pickup and counter updates"],
         )
@@ -275,6 +323,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
     player.setdefault("collision_size", dict(player.get("hitbox") or {"width": 28, "height": 44}))
 
     has_collectibles = _has_collectibles(assets)
+    collectible_items = _collectible_bindings(assets) if has_collectibles else []
     systems = _build_systems(project, player_asset)
     if has_collectibles:
         systems.append(
@@ -282,7 +331,10 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
                 "id": "collectibles",
                 "script": "scripts/Collectible.cs",
                 "node": "scenes/main.tscn/World",
-                "responsibility": "Area2D pickups for icon_kit / item assets",
+                "responsibility": (
+                    "Area2D pickups; bind textures via production.collectible_items "
+                    "(item_id → nobg_path_hint)"
+                ),
             }
         )
 
@@ -325,6 +377,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
             "input_map": _build_input_map(project.controls),
             "scenes": _build_scenes(project, player_asset),
             "systems": systems,
+            "collectible_items": collectible_items,
             "animation_graphs": [
                 {
                     "character_asset": g.character_asset,

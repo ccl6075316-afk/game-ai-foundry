@@ -1,10 +1,19 @@
-"""Tests for item slug + image model tier routing."""
+"""Tests for item slug + image model tier routing + icon item objects."""
 
 from __future__ import annotations
 
 import unittest
 
-from brief import AssetSpec, AssetType, slugify_item_label, unique_item_slugs
+from brief import (
+    AssetSpec,
+    AssetType,
+    IconKitItem,
+    find_icon_kit_item,
+    parse_icon_kit_item,
+    slugify_item_label,
+    unique_item_slugs,
+    unique_kit_item_slugs,
+)
 from image_model_route import (
     effective_generate_tier,
     resolve_image_model_for_tier,
@@ -21,6 +30,146 @@ class ItemSlugTests(unittest.TestCase):
             unique_item_slugs(["Sword", "sword", "potion"]),
             ["sword", "sword_2", "potion"],
         )
+
+
+class IconKitItemObjectTests(unittest.TestCase):
+    def test_parse_string_and_object(self) -> None:
+        s = parse_icon_kit_item("sword")
+        self.assertEqual(s.id, "sword")
+        self.assertFalse(s.id_from_object)
+        o = parse_icon_kit_item(
+            {
+                "id": "health_potion",
+                "label": "red potion",
+                "usage": "pickup",
+                "usage_description": "restores HP",
+            }
+        )
+        self.assertEqual(o.id, "health_potion")
+        self.assertEqual(o.prompt_label, "red potion")
+        self.assertEqual(o.usage, "pickup")
+        self.assertTrue(o.id_from_object)
+
+    def test_slug_from_id_not_label(self) -> None:
+        items = [
+            IconKitItem(id="health_potion", label="Red Healing Potion", id_from_object=True),
+            parse_icon_kit_item("gold coin"),
+        ]
+        self.assertEqual(unique_kit_item_slugs(items), ["health_potion", "gold_coin"])
+
+    def test_asset_from_dict_mixed_items(self) -> None:
+        spec = AssetSpec.from_dict(
+            {
+                "name": "kit",
+                "id": "kit",
+                "type": "icon_kit",
+                "usage": "item_icon",
+                "usage_description": "icons",
+                "display_size": {"width": 32, "height": 32},
+                "items": [
+                    "sword",
+                    {"id": "potion", "usage": "pickup", "usage_description": "heal"},
+                ],
+            }
+        )
+        self.assertEqual(len(spec.items), 2)
+        self.assertIsInstance(spec.items[0], IconKitItem)
+        self.assertEqual(spec.items[1].usage, "pickup")
+        found = find_icon_kit_item(spec, "potion")
+        self.assertIsNotNone(found)
+        self.assertEqual(found.usage, "pickup")
+
+    def test_string_and_object_same_id_fails(self) -> None:
+        from brief import ProjectContext, audit_brief_for_export
+
+        project = ProjectContext(
+            title="T",
+            description="d",
+            art_direction="pixel",
+            dimension="2d",
+            genre="platformer",
+            gameplay_loop="loop",
+            session_goal="demo",
+            controls={"move": ["A", "D"]},
+            viewport={"width": 1280, "height": 720},
+        )
+        assets = [
+            AssetSpec.from_dict(
+                {
+                    "name": "kit",
+                    "id": "kit",
+                    "type": "icon_kit",
+                    "usage": "item_icon",
+                    "usage_description": "icons",
+                    "display_size": {"width": 32, "height": 32},
+                    "items": ["potion", {"id": "potion", "usage": "pickup"}],
+                }
+            )
+        ]
+        errors = audit_brief_for_export(project, assets)
+        self.assertTrue(any("duplicate item id" in e for e in errors))
+
+    def test_duplicate_explicit_id_fails_validate(self) -> None:
+        from brief import ProjectContext, audit_brief_for_export
+
+        project = ProjectContext(
+            title="T",
+            description="d",
+            art_direction="pixel",
+            dimension="2d",
+            genre="platformer",
+            gameplay_loop="loop",
+            session_goal="demo",
+            controls={"move": ["A", "D"]},
+            viewport={"width": 1280, "height": 720},
+        )
+        assets = [
+            AssetSpec.from_dict(
+                {
+                    "name": "kit",
+                    "id": "kit",
+                    "type": "icon_kit",
+                    "usage": "item_icon",
+                    "usage_description": "icons",
+                    "display_size": {"width": 32, "height": 32},
+                    "items": [
+                        {"id": "same", "label": "A"},
+                        {"id": "same", "label": "B"},
+                    ],
+                }
+            )
+        ]
+        errors = audit_brief_for_export(project, assets)
+        self.assertTrue(any("duplicate item id" in e for e in errors))
+
+    def test_find_by_label_slug_matches_pipeline(self) -> None:
+        from brief import resolve_kit_item_slug, unique_kit_item_slugs
+
+        spec = AssetSpec.from_dict(
+            {
+                "name": "kit",
+                "id": "kit",
+                "type": "icon_kit",
+                "usage": "item_icon",
+                "usage_description": "icons",
+                "display_size": {"width": 32, "height": 32},
+                "items": [
+                    {"id": "health_potion", "label": "red potion"},
+                    "Health Potion",  # slugifies to health_potion → _2
+                ],
+            }
+        )
+        # Second is string — allowed; first is object. Different authored ids.
+        # Collision on slugified form:
+        slugs = unique_kit_item_slugs(spec.items)
+        self.assertEqual(slugs[0], "health_potion")
+        self.assertEqual(slugs[1], "health_potion_2")
+        found = find_icon_kit_item(spec, "red potion")
+        self.assertIsNotNone(found)
+        self.assertEqual(found.id, "health_potion")
+        self.assertEqual(resolve_kit_item_slug(spec.items, found), "health_potion")
+        found2 = find_icon_kit_item(spec, "Health Potion")
+        self.assertEqual(resolve_kit_item_slug(spec.items, found2), "health_potion_2")
 
 
 class GenerateTierTests(unittest.TestCase):

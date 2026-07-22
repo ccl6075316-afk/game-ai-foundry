@@ -69,6 +69,7 @@
 **动画类额外必填：** `reference_asset`、`action`；one-shot 动作用 `animation_loop: false`。
 
 **icon_kit 额外必填：** `items` 列表（每项单独生成单物体图；`grid` 可省略/忽略）。
+每项可为字符串，或对象 `{id, label?, usage?, usage_description?}`（文件键跟 `id`；玩法绑定进 `production.collectible_items`）。
 可选 `generate_tier: "bulk"` 强制走 `image.bulk_model`（kit 项默认已是 bulk）。
 
 **有 video 动画时：** 至少一个 `usage` 为 `reference_still` 或 `player_*` 的角色素材。

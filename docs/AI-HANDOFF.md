@@ -130,11 +130,11 @@ game-ai-foundry/
 
 **参考图优先级（单槽）**：需风格 img2img 且 `identity_anchor` 有效 → identity 资产 `*_raw.png`；否则 `style_anchor` / `visual_reference` 既有规则。
 
-**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走**（与 grid 切片正交；brief 校验禁止 icon_kit 挂 style_group）。
+**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走**（与单物体展开正交；brief 校验禁止 icon_kit 挂 style_group）。
 
 **软强度**：prompt-crafter 对从属资产应写「低影响、借风格/身份特征、勿整图复制构图」；Gemini 栈无可靠 API strength。可选 `image.style_img2img_strength`（默认 `0.25`）对支持 `image_config.strength` 的 Provider（如 Recraft）best-effort 透传；不支持则忽略并短日志，**不失败**。
 
-**未做**：Phase 3 GUI 锚点/组/开关展示（Phase 2 `project.art_tokens` 已落地）。
+**已做**：Phase 3 GUI DocsPreview 只读标注 `art_tokens` / `style_group` / 锚点 / `use_style_img2img`。
 
 **例外 / 正交**：
 
@@ -148,6 +148,10 @@ game-ai-foundry/
 ### `assets[]` 每项
 
 `name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
+
+**`type: icon_kit`**：`items[]` 必填。每项为字符串，或  
+`{id, label?, usage?, usage_description?}`（文件键 slug 跟 `id`；item `usage` 进 `production.collectible_items`）。  
+`grid` 可省略（不再驱动切片）。批量模型见 `image.bulk_model` / `generate_tier`。
 
 可选（风格组）：`style_group`, `style_anchor_kind`, `style_anchor`, `identity_anchor`, `use_style_img2img`（见上表）。动作 / 视频族仍用 `reference_asset`。
 

@@ -95,7 +95,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         proxy: str | None,
     ) -> None:
         """prompt-crafter agent: LLM writes prompt → handoff file for image-generator."""
-        from brief import slugify_item_label
+        from brief import find_icon_kit_item, resolve_kit_item_slug
 
         config = ctx.obj["config"]
         prompt_api = resolve_prompt_api_settings(
@@ -124,26 +124,31 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         try:
             project, assets = load_brief(brief_path)
             spec = find_asset(assets, asset)
-            item_label = (kit_item or "").strip() or None
-            item_slug = slugify_item_label(item_label) if item_label else None
-            if item_label and spec.type != AssetType.ICON_KIT:
+            item_needle = (kit_item or "").strip() or None
+            kit_row = find_icon_kit_item(spec, item_needle) if item_needle else None
+            item_label = kit_row.prompt_label if kit_row else item_needle
+            item_slug = resolve_kit_item_slug(spec.items, kit_row) if kit_row else None
+            if item_needle and spec.type != AssetType.ICON_KIT:
                 raise ValueError("--item is only valid for icon_kit assets")
-            if item_label and item_label not in [str(x) for x in spec.items]:
+            if item_needle and kit_row is None:
                 raise ValueError(
-                    f"--item {item_label!r} not in icon_kit items for '{spec.name}'"
+                    f"--item {item_needle!r} not in icon_kit items for '{spec.name}'"
                 )
             context = build_role_context(
                 project,
                 spec,
                 kit_item=item_label,
                 kit_item_slug=item_slug,
+                kit_item_id=kit_row.id if kit_row else None,
+                kit_item_usage=kit_row.usage if kit_row else None,
+                kit_item_usage_description=kit_row.usage_description if kit_row else None,
             )
 
             is_animation = animation or (
                 spec.action and spec.type == AssetType.CHARACTER
             )
             if is_animation:
-                if item_label:
+                if item_needle:
                     raise ValueError("--item cannot be combined with animation craft")
                 plan = build_animation_pipeline(project, spec, assets, **craft_kwargs)
             else:
@@ -157,6 +162,9 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     proxy=craft_kwargs["proxy"],
                     kit_item=item_label,
                     kit_item_slug=item_slug,
+                    kit_item_id=kit_row.id if kit_row else None,
+                    kit_item_usage=kit_row.usage if kit_row else None,
+                    kit_item_usage_description=kit_row.usage_description if kit_row else None,
                 )
 
             if is_animation:

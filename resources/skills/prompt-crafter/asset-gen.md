@@ -81,7 +81,7 @@ When context includes non-empty `project.art_tokens` (injected via `build_role_c
 4. **`palette`** — string or string[]; list hex or color names as enforceable locks.
 5. Old briefs without `art_tokens` → unchanged behavior (derive locks from `art_direction` only).
 
-**Roadmap:** Phase 2 (`project.art_tokens`) **shipped**; Phase 3 = GUI for anchor / group / toggle visibility.
+**Roadmap:** Phase 2 (`project.art_tokens`) **shipped**; Phase 3 GUI DocsPreview style labels **shipped**.
 
 ## character (single, white background)
 
@@ -102,6 +102,10 @@ Post (orchestrator **matting** skill): `trim` → `remove-bg` (color key).
 ## icon_kit (one object per image)
 
 Pipeline expands `items[]` into **N separate generates** (`image.bulk_model` when configured).
+
+`items` may be strings **or** objects `{id, label?, usage?, usage_description?}`.
+Slug / file key comes from **`id`**; prompt subject prefers **`label`** (else id).
+Item-level `usage` is for production / Godot binding (`production.collectible_items`), not for style img2img.
 `grid` in brief is **ignored** (legacy). Do not prompt for sheets.
 
 ```

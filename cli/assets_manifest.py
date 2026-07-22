@@ -108,7 +108,7 @@ def _utc_now() -> str:
 
 def _brief_asset_entry(spec: AssetSpec) -> dict[str, Any]:
     loop = resolve_animation_loop(spec)
-    return {
+    entry: dict[str, Any] = {
         "name": spec.name,
         "type": spec.type.value,
         "usage": spec.usage,
@@ -124,6 +124,20 @@ def _brief_asset_entry(spec: AssetSpec) -> dict[str, Any]:
         "animation_loop": loop if spec.action else None,
         "action": spec.action,
     }
+    if spec.type == AssetType.ICON_KIT and spec.items:
+        from brief import unique_kit_item_slugs
+
+        slugs = unique_kit_item_slugs(spec.items)
+        entry["items"] = [
+            {
+                **it.to_dict(),
+                "slug": slug,
+                "usage": it.usage or spec.usage,
+                "usage_description": it.usage_description or spec.usage_description,
+            }
+            for it, slug in zip(spec.items, slugs, strict=True)
+        ]
+    return entry
 
 
 def build_assets_manifest(
@@ -230,9 +244,20 @@ def apply_task_to_assets_manifest(
     }
     if stage_meta.get("notes"):
         stage_record["notes"] = stage_meta["notes"]
+    for key in (
+        "kit_item",
+        "kit_item_id",
+        "kit_item_slug",
+        "kit_item_usage",
+        "kit_item_usage_description",
+    ):
+        if artifacts.get(key):
+            stage_record[key] = artifacts[key]
     if brief_assets and asset_name in brief_assets:
         spec = brief_assets[asset_name]
-        stage_record["usage"] = spec.usage
+        stage_record["usage"] = (
+            artifacts.get("kit_item_usage") or spec.usage
+        )
         if step == "video.matte-frames" or (step == "image.remove-bg" and spec.type == AssetType.CHARACTER):
             stage_record["clip_name"] = resolve_animation_name(spec) if spec.action else "idle"
             stage_record["loop"] = resolve_animation_loop(spec) if spec.action else None

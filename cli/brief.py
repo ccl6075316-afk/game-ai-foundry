@@ -219,9 +219,7 @@ def resolve_icon_grid(grid: str, item_count: int) -> str:
 
 
 def slugify_item_label(label: str) -> str:
-    """Stable filesystem/task key from an icon_kit item label."""
-    import re
-
+    """Stable filesystem/task key from an icon_kit item id/label."""
     text = str(label or "").strip().lower()
     text = re.sub(r"[^a-z0-9]+", "_", text)
     text = text.strip("_")
@@ -229,7 +227,7 @@ def slugify_item_label(label: str) -> str:
 
 
 def unique_item_slugs(items: list[str]) -> list[str]:
-    """Slugify labels; duplicate slugs get _2, _3, …"""
+    """Slugify ids/labels; duplicate slugs get _2, _3, …"""
     seen: dict[str, int] = {}
     out: list[str] = []
     for raw in items:
@@ -241,12 +239,126 @@ def unique_item_slugs(items: list[str]) -> list[str]:
 
 
 @dataclass
+class IconKitItem:
+    """One icon_kit entry: stable id + optional prompt label / usage."""
+
+    id: str
+    label: str = ""
+    usage: str = ""
+    usage_description: str = ""
+    id_from_object: bool = False
+
+    def __post_init__(self) -> None:
+        self.id = str(self.id or "").strip()
+        self.label = str(self.label or "").strip() or self.id
+        self.usage = str(self.usage or "").strip()
+        self.usage_description = str(self.usage_description or "").strip()
+
+    @property
+    def prompt_label(self) -> str:
+        return self.label or self.id
+
+    def __str__(self) -> str:
+        return self.id
+
+    def to_brief(self) -> str | dict[str, str]:
+        """Round-trip: plain string when no extras; else object."""
+        extras = bool(self.usage or self.usage_description)
+        label_differs = bool(self.label) and self.label != self.id
+        if not extras and not label_differs and not self.id_from_object:
+            return self.id
+        if not extras and not label_differs and self.id_from_object:
+            # Authored as {"id": "..."} — keep object only if caller cares; string OK.
+            return self.id
+        data: dict[str, str] = {"id": self.id}
+        if label_differs:
+            data["label"] = self.label
+        if self.usage:
+            data["usage"] = self.usage
+        if self.usage_description:
+            data["usage_description"] = self.usage_description
+        return data
+
+    def to_dict(self) -> dict[str, str]:
+        data: dict[str, str] = {"id": self.id, "label": self.prompt_label}
+        if self.usage:
+            data["usage"] = self.usage
+        if self.usage_description:
+            data["usage_description"] = self.usage_description
+        return data
+
+
+def parse_icon_kit_item(raw: Any) -> IconKitItem:
+    """Accept string or {id, label?, usage?, usage_description?}."""
+    if isinstance(raw, IconKitItem):
+        return raw
+    if isinstance(raw, str):
+        text = raw.strip()
+        if not text:
+            raise ValueError("icon_kit item string must be non-empty")
+        return IconKitItem(id=text, label=text, id_from_object=False)
+    if isinstance(raw, dict):
+        has_explicit_id = bool(str(raw.get("id") or raw.get("name") or "").strip())
+        id_raw = str(raw.get("id") or raw.get("name") or "").strip()
+        label = str(raw.get("label") or "").strip()
+        if not id_raw:
+            id_raw = label
+        if not id_raw:
+            raise ValueError("icon_kit item object needs 'id' or 'label'")
+        return IconKitItem(
+            id=id_raw,
+            label=label or id_raw,
+            usage=str(raw.get("usage") or "").strip(),
+            usage_description=str(raw.get("usage_description") or "").strip(),
+            id_from_object=has_explicit_id,
+        )
+    raise ValueError(f"icon_kit item must be string or object, got {type(raw).__name__}")
+
+
+def parse_icon_kit_items(raw_items: Any) -> list[IconKitItem]:
+    if raw_items is None:
+        return []
+    if not isinstance(raw_items, list):
+        raise ValueError("icon_kit 'items' must be a list")
+    return [parse_icon_kit_item(x) for x in raw_items]
+
+
+def find_icon_kit_item(spec: AssetSpec, needle: str) -> IconKitItem | None:
+    """Match --item against id or label."""
+    key = (needle or "").strip()
+    if not key:
+        return None
+    for item in spec.items:
+        if item.id == key or item.label == key or item.prompt_label == key:
+            return item
+    return None
+
+
+def unique_kit_item_slugs(items: list[IconKitItem]) -> list[str]:
+    """Slug from item.id (identity), with collision suffixes."""
+    return unique_item_slugs([it.id for it in items])
+
+
+def resolve_kit_item_slug(items: list[IconKitItem], item: IconKitItem) -> str:
+    """Same slug pipeline/production/craft use for this item row."""
+    slugs = unique_kit_item_slugs(items)
+    for it, slug in zip(items, slugs, strict=True):
+        if it is item:
+            return slug
+    # Fallback: first matching id (should not happen for list members).
+    for it, slug in zip(items, slugs, strict=True):
+        if it.id == item.id:
+            return slug
+    return slugify_item_label(item.id)
+
+
+@dataclass
 class AssetSpec:
     name: str
     type: AssetType
     id: str = ""
     description: str = ""
-    items: list[str] = field(default_factory=list)
+    items: list[IconKitItem] = field(default_factory=list)
     grid: str = "2x2"
     aspect_ratio: str = "1:1"
     display_size: DisplaySize = field(default_factory=DisplaySize.empty)
@@ -275,6 +387,10 @@ class AssetSpec:
     use_style_img2img: bool | None = None
     generate_tier: str = ""
 
+    def __post_init__(self) -> None:
+        if self.items and any(not isinstance(x, IconKitItem) for x in self.items):
+            self.items = [parse_icon_kit_item(x) for x in self.items]
+
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> AssetSpec:
         raw_type = str(data.get("type", "character"))
@@ -294,7 +410,7 @@ class AssetSpec:
                 f"Use '{ANIMATION_METHOD_VIDEO}' or '{ANIMATION_METHOD_IMG2IMG}'."
             )
 
-        items = [str(x) for x in data.get("items", [])]
+        items = parse_icon_kit_items(data.get("items", []))
         grid = str(data.get("grid", "2x2"))
         # grid is legacy metadata only — icon_kit no longer slices by grid.
 
@@ -1331,9 +1447,24 @@ def audit_brief_for_export(
                     parse_icon_grid(spec.grid)
                 except ValueError as exc:
                     errors.append(f"Asset '{spec.name}' invalid grid (ignored at runtime): {exc}")
-            blank = [i for i in spec.items if not str(i).strip()]
+            blank = [i for i in spec.items if not i.id.strip()]
             if blank:
-                errors.append(f"Asset '{spec.name}' icon_kit items must be non-empty strings")
+                errors.append(f"Asset '{spec.name}' icon_kit items must have non-empty id")
+            # Explicit object ids must be unique among themselves and must not
+            # collide with a string item's id. Plain string duplicates still OK
+            # (slug suffixes). Group by authored id:
+            by_id: dict[str, list[IconKitItem]] = {}
+            for item in spec.items:
+                by_id.setdefault(item.id.strip(), []).append(item)
+            dupes = [
+                key
+                for key, group in by_id.items()
+                if len(group) > 1 and any(i.id_from_object for i in group)
+            ]
+            if dupes:
+                errors.append(
+                    f"Asset '{spec.name}' icon_kit duplicate item id(s): {', '.join(sorted(dupes))}"
+                )
 
         if (spec.generate_tier or "").strip() and spec.generate_tier not in (
             "default",

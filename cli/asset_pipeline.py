@@ -261,6 +261,9 @@ def build_prompt(
     assets: list[AssetSpec] | None = None,
     kit_item: str | None = None,
     kit_item_slug: str | None = None,
+    kit_item_id: str | None = None,
+    kit_item_usage: str | None = None,
+    kit_item_usage_description: str | None = None,
 ) -> PromptPlan:
     """Craft generation prompt via LLM reading skill docs (Godogen model)."""
     plan = build_prompt_scaffold(project, spec, assets=assets)
@@ -286,6 +289,9 @@ def build_prompt(
             spec,
             kit_item=kit_item,
             kit_item_slug=kit_item_slug,
+            kit_item_id=kit_item_id,
+            kit_item_usage=kit_item_usage,
+            kit_item_usage_description=kit_item_usage_description,
         ),
         model=prompt_model,
         api_key=api_key,

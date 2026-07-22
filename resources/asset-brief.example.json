@@ -90,7 +90,12 @@
       "items": [
         "sword",
         "shield",
-        "potion",
+        {
+          "id": "health_potion",
+          "label": "red healing potion",
+          "usage": "pickup",
+          "usage_description": "World pickup that restores player HP"
+        },
         "gold coin"
       ],
       "display_size": {

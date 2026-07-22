@@ -55,6 +55,13 @@ class ProductionDeriveTest(unittest.TestCase):
         self.assertEqual(doc["scaffold"]["main_scene"], "scenes/main.tscn")
         self.assertIn("input_map", [t["id"] for t in doc["godot_tasks"]])
         self.assertIn("player_controller", [t["id"] for t in doc["godot_tasks"]])
+        # Example brief has icon_kit → collectible_items bindings by item id
+        items = doc.get("collectible_items") or []
+        self.assertTrue(items)
+        potion = next((r for r in items if r.get("item_id") == "health_potion"), None)
+        self.assertIsNotNone(potion)
+        self.assertEqual(potion["usage"], "pickup")
+        self.assertIn("health_potion", potion["nobg_path_hint"])
 
     def test_derive_validate_roundtrip(self) -> None:
         data = derive_production(EXAMPLE_BRIEF)

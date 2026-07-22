@@ -89,7 +89,7 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
     if spec.id:
         data["id"] = spec.id
     if spec.items:
-        data["items"] = spec.items
+        data["items"] = [it.to_brief() for it in spec.items]
         data["grid"] = spec.grid
     if spec.reference_asset:
         data["reference_asset"] = spec.reference_asset
@@ -149,19 +149,27 @@ def build_role_context(
     *,
     kit_item: str | None = None,
     kit_item_slug: str | None = None,
+    kit_item_id: str | None = None,
+    kit_item_usage: str | None = None,
+    kit_item_usage_description: str | None = None,
 ) -> dict[str, Any]:
     """Canonical payload every role receives."""
     asset = asset_to_dict(spec)
     if kit_item is not None:
+        usage = (kit_item_usage or "").strip() or spec.usage
+        usage_desc = (kit_item_usage_description or "").strip() or spec.usage_description
         asset = {
             **asset,
             "kit_item": kit_item,
+            "kit_item_id": kit_item_id or kit_item_slug or "",
             "kit_item_slug": kit_item_slug or "",
             "description": (
                 f"Single game icon only: {kit_item}. "
                 "Centered, solid white background, no other objects, no grid sheet."
             ),
             "items": [kit_item],
+            "usage": usage,
+            "usage_description": usage_desc,
         }
         # Drop legacy grid cue so crafter does not emit multi-cell sheets.
         asset.pop("grid", None)
