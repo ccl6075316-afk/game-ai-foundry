@@ -18,7 +18,7 @@
    - **默认不要动**；推进项目时优先走 brief → 流水线 / 派工。
    - **例外（流水线可配置修复）**：`pipeline diagnose` 标成 `config_size` / `config_proxy`，或失败日志明确是尺寸倍数 / proxy 时，**你必须改配置**，不要等用户点名、也不要改内核代码。
      - 尺寸：`config set --key image.constraints.size_multiple --value 16`（倍数以报错为准）
-     - 代理：核对/设置 `image.proxy` 或根级 `proxy`（白名单 key）
+     - 代理：核对/设置顶层 `proxy`（白名单 key；旧 `image.proxy` 仍可读）
      - 改完后：`pipeline reset --cascade` → 引导「运行资产生成」
    - **仅当用户明确要求**才改 API Key / 随意换模型；未点名时禁止整段刷 `review diff`。
    - 改配置后用一两句说明改了什么；密钥只写占位（`sk-***`），不要回显完整 Key。

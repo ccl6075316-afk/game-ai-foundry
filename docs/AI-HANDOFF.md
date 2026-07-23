@@ -1,7 +1,7 @@
 # Game AI Foundry — AI Agent Handoff
 
 > **读者**：后续接手的 AI Agent / 自动化编排器（中文操作手册）。  
-> **侧重**：仓库结构、**brief 字段**、CLI 速查、抠图/动画铁律、配置。  
+> **侧重**：仓库结构、**brief 字段**、CLI 速查、抠图/动画铁律、配置、**§1.2 资产审查表**。  
 > **工具与纠错**：[`TOOLS.md`](TOOLS.md)（本机工具、执行器、外部 Agent 探测命令）。  
 > **不写**：设计 vs 施工方法论、六角色边界、里程碑进度 — 分别见 [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)、[`AGENT-ROUTING.md`](AGENT-ROUTING.md)、[`ROADMAP.md`](../ROADMAP.md)。  
 > **索引**：[`docs/README.md`](README.md)

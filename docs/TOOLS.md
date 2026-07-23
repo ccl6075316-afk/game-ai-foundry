@@ -80,12 +80,24 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 
 | 段 | 用途 | Agent 检测 |
 |----|------|------------|
-| `provider_accounts.openrouter` | 多账号库（推荐） | `doctor` → `config.openrouter_key` |
+| `proxy`（顶层） | HTTP 代理，生文/生图/视频共用（GUI：**网络**） | — |
+| `provider_accounts.*` | 多账号库（推荐） | `doctor` → `config.openrouter_key` 等 |
 | `host` | 生文 / Brief 默认模型 | `capabilities.image_api` 等 |
-| `image` | 生图；可 `use_text_provider: true` | 同上 |
+| `image` | 生图；`provider` / `bulk_provider`；`model` / `bulk_model`；可 `use_text_provider` | 同上 |
 | `video` | Seedance 等视频 API | `config.seedance_key` |
 
+权威代理字段为顶层 `proxy`；旧 `host.proxy` / `image.proxy` 仍可读，GUI 保存时会迁到顶层。详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)。
+
 无效 Key 特征：空、`YOUR_*` 占位符 → `doctor` 报 `missing`。
+
+### 3.1b 资产审查（软标注）
+
+| 入口 | 说明 |
+|------|------|
+| GUI 侧栏 **资产** / `/assets` | 读 `assets-manifest.json`；采纳 / 重生成 / 本地替换 |
+| CLI | `assets review list\|accept\|replace\|regenerate-plan\|mark-replaced` |
+
+不阻塞 assemble。契约见 [`AI-HANDOFF.md`](AI-HANDOFF.md) §1.2。
 
 ### 3.2 本机工具
 

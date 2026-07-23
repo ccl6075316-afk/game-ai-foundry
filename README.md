@@ -38,8 +38,9 @@ brief.json → production.json → scaffold
 | **程序员** | 按实例接 handoff；关单写回 progress |
 | **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等 |
 | **`/delta`** | Production Delta → 合并蓝图并同步 progress |
-| **斜杠命令** | `/plan` `/run` `/board` `/doctor` `/guide` … |
-| **Provider / 环境** | 多账号；FFmpeg / Godot / .NET 自动装；执行器向导 |
+| **斜杠命令** | `/plan` `/run` `/board` `/assets` `/doctor` `/guide` … |
+| **看板 / 资产** | 看板管任务进度；**资产**表审图与映射（采纳 / 重生成 / 本地替换） |
+| **Provider / 环境** | 多账号；顶层代理；生图主/批量可分 Provider；FFmpeg / Godot / .NET 自动装；执行器向导 |
 | **Release** | 内嵌 Python（含 **rembg**），无需用户装 Python/Node |
 
 ### CLI / 施工底座
@@ -50,6 +51,7 @@ brief.json → production.json → scaffold
 | `production derive` / `delta` / `apply-delta` | 工程蓝图与改需求切片 |
 | `project progress` / `handoff` | 续作账本与派工文件总线 |
 | `pipeline plan` / `run` / `reset` / `suggest-retry` | 资产 DAG 与定点重跑 |
+| `assets review list` / `accept` / `replace` / … | 资产审查（软 review；GUI 侧栏「资产」） |
 | `godot scaffold` / `assemble` / `validate` | 壳、组装、校验 |
 | `test unit` / `play` / `regression` | 验收金字塔 |
 | `doctor` / `setup` | API、工具链、执行器 |
@@ -70,9 +72,9 @@ brief.json → production.json → scaffold
 
 1. 下载 [**v0.0.6 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.6)
 2. 解压 / 打开 **Game AI Foundry**
-3. **设置** → 填 LLM API Key；等待顶部芯片变绿（FFmpeg / Godot / .NET）
+3. **设置** → 填 LLM API Key；需要时填 **网络** 代理（Clash 等）；等待顶部芯片变绿（FFmpeg / Godot / .NET）
 4. **（推荐）环境 → 执行器** → Hermes / Codex / Cursor Agent（Hermes 在角色页可选 Provider 后同步）
-5. 与**策划**落实 brief → `/plan` → `/run --run-prompts`
+5. 与**策划**落实 brief → `/plan` → `/run --run-prompts` → 侧栏 **资产** 审图
 6. 试玩问题找**项目经理**；改需求用 `/delta 00x-name | 描述`
 
 说明 → [`docs/RELEASE-NOTES-0.0.6.md`](docs/RELEASE-NOTES-0.0.6.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)

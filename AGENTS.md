@@ -24,6 +24,7 @@ python gamefactory.py doctor --json        # API keys、executors、capabilities
 python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
 python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4
 # exit 2 → fix plan → pipeline reset --task-id <id> → run again
+# 审图（可选）：GUI 侧栏「资产」，或 assets review list/accept/replace
 ```
 
 ## Read next
@@ -31,7 +32,8 @@ python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.js
 | Need | Doc |
 |------|-----|
 | **Tools, config, troubleshooting** | [`docs/TOOLS.md`](docs/TOOLS.md) |
-| CLI + brief fields + matting | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
+| CLI + brief fields + matting + **资产审查** | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
+| GUI Provider（代理 / 生图双档） | [`docs/GUI-CONFIG.md`](docs/GUI-CONFIG.md) |
 | Six roles + tester | [`docs/AGENT-ROUTING.md`](docs/AGENT-ROUTING.md) |
 | Design vs production, iteration | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |
 | `pipeline run` phases | [`resources/skills/orchestrator/pipeline-schedule.md`](resources/skills/orchestrator/pipeline-schedule.md) |

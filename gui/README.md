@@ -1,6 +1,6 @@
 # Game AI Foundry — GUI
 
-**Chat-first** 桌面壳 — 主界面是对话；**看板**为可选侧栏。
+**Chat-first** 桌面壳 — 主界面是对话；**看板** / **资产** 为可选侧栏。
 
 底层调用内嵌或本机 `gamefactory` CLI。Hermes/Codex/Cursor **不内嵌**，通过环境面板向导安装。
 
@@ -8,14 +8,14 @@
 
 下载 **Game AI Foundry.exe**（或 macOS `.dmg`）→ 双击运行。
 
-1. **设置** → 从示例创建 → **OpenRouter Key**
+1. **设置** → 从示例创建 → **OpenRouter Key**；需要时填 Provider 页 **网络** 代理
 2. 等 **FFmpeg / Godot / .NET** 自动装好
 3. **（推荐）环境 → 执行器**
-4. `/brief` → `/plan` → `/run`
+4. `/brief` → `/plan` → `/run` → 侧栏 **资产** 审图（或 `/assets`）
 
 外部 AI 代操：[`docs/TOOLS.md`](../docs/TOOLS.md) · 配置说明：[`docs/GUI-CONFIG.md`](../docs/GUI-CONFIG.md)
 
-打包：[`docs/RELEASE.md`](../docs/RELEASE.md) · 变更：[`docs/RELEASE-NOTES-0.0.2.md`](../docs/RELEASE-NOTES-0.0.2.md)
+打包：[`docs/RELEASE.md`](../docs/RELEASE.md) · 变更：[`docs/RELEASE-NOTES-UNRELEASED.md`](../docs/RELEASE-NOTES-UNRELEASED.md)
 
 ## 开发
 
@@ -40,7 +40,8 @@ cd gui && npm install && npm run dev
 | `/env` | 环境侧栏 |
 | `/settings` | 设置侧栏 |
 | `/guide` | 命令指南（含 Agent 推荐） |
-| `/board` | 看板 |
+| `/board` | 看板（任务进度） |
+| `/assets` | 资产审查表（缩略图 + 采纳/重生成/本地替换） |
 | `/godot` | 打开 Godot 工程 |
 
 自然语言输入（无 `/`）→ 等同开始 Brief。
@@ -49,9 +50,16 @@ cd gui && npm install && npm run dev
 
 | 页签 | 内容 |
 |------|------|
-| **Provider** | 生文 / 生图 / 生视频；多账号库；DeepSeek/Kimi/GLM 预设 |
-| **角色** | 项目经理 / 程序员执行器；Codex/Cursor 显示登录说明（无 API 项） |
+| **Provider** | **网络**（顶层 `proxy`）；生文 / 生图（主图 + 批量可分 Provider）/ 生视频；多账号库 |
+| **Agent** | Pi / Hermes / Codex / Cursor 工具预设与安全旋钮 |
 | **本机** | Godot 路径（自动安装后通常已填） |
+
+### 侧栏
+
+| 面板 | 内容 |
+|------|------|
+| **看板** | pipeline 任务状态、失败、续跑 |
+| **资产** | `assets-manifest` 缩略图与 usage 映射；行内审图与替换 |
 
 ### 环境
 
@@ -78,7 +86,7 @@ cd gui && npm install && npm run dev
 
 ```
 Electron main (electron/main.mjs)
-  ├─ IPC: doctor, toolchain-install, executor-step, pipeline-*, config …
+  ├─ IPC: doctor, toolchain-install, executor-step, pipeline-*, assets-review-*, config …
   └─ spawn python cli/gamefactory.py
 Renderer (React)
   └─ window.gameFactory.* (preload)
@@ -86,8 +94,6 @@ Renderer (React)
 
 ## 相关文档
 
-| 文档 | 用途 |
-|------|------|
-| [`docs/GUI-CONFIG.md`](../docs/GUI-CONFIG.md) | Provider vs 执行器 |
-| [`docs/TOOLS.md`](../docs/TOOLS.md) | 工具、纠错、外部 Agent |
-| [`ROADMAP.md`](../ROADMAP.md) | 进度与 Backlog |
+- [`docs/GUI-CONFIG.md`](../docs/GUI-CONFIG.md) — Provider / 代理 / 生图双档
+- [`docs/AI-HANDOFF.md`](../docs/AI-HANDOFF.md) §1.2 — 资产审查表契约
+- [`docs/README.md`](../docs/README.md) — 文档索引

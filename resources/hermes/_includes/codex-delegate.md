@@ -66,7 +66,7 @@ to generate game assets.
 | Key | Purpose |
 |-----|---------|
 | `~/.gamefactory/config.json` | OpenRouter + Seedance + matting |
-| `image.proxy` | Clash for OpenRouter (`127.0.0.1:7897`) |
+| `proxy` (top-level) | Clash for OpenRouter (`127.0.0.1:7897`) |
 | `video.api_key` | Volcengine Ark / Seedance |
 
 ## Validation gates (do not skip)

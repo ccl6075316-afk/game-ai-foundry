@@ -80,7 +80,7 @@ to generate game assets.
 | Key | Purpose |
 |-----|---------|
 | `~/.gamefactory/config.json` | OpenRouter + Seedance + matting |
-| `image.proxy` | Clash for OpenRouter (`127.0.0.1:7897`) |
+| `proxy` (top-level) | Clash for OpenRouter (`127.0.0.1:7897`) |
 | `video.api_key` | Volcengine Ark / Seedance |
 
 ## Validation gates (do not skip)
@@ -122,7 +122,7 @@ Environment (optional):
 
 - `GAMEFACTORY_ROOT=<GAMEFACTORY_ROOT>`
 - Config: `~/.gamefactory/config.json` (see `resources/config.example.json`)
-- OpenRouter proxy (if needed): set `image.proxy` / `prompt.proxy` (e.g. local Clash `http://127.0.0.1:7897`)
+- OpenRouter proxy (if needed): set top-level `proxy` (e.g. local Clash `http://127.0.0.1:7897`); legacy `image.proxy` / `prompt.proxy` still read
 
 **Codex one-shot** (from Hermes):
 
