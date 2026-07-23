@@ -1,24 +1,29 @@
 {
+  "proxy": "http://127.0.0.1:7897",
   "provider_accounts": {
     "openrouter": {
       "api_key": "YOUR_OPENROUTER_KEY",
       "text_model": "deepseek/deepseek-chat",
       "image_model": "google/gemini-3.1-flash-image"
+    },
+    "custom": {
+      "api_key": "YOUR_BULK_IMAGE_KEY",
+      "api_base": "https://your-bulk-api.example.com/v1",
+      "image_model": "your/bulk-image-model"
     }
   },
   "host": {
     "provider": "openrouter",
     "model": "deepseek/deepseek-chat",
-    "api_base": "https://openrouter.ai/api/v1",
-    "proxy": "http://127.0.0.1:7897"
+    "api_base": "https://openrouter.ai/api/v1"
   },
   "image": {
     "provider": "openrouter",
     "use_text_provider": true,
     "model": "google/gemini-3.1-flash-image",
-    "bulk_model": "google/gemini-2.5-flash-image-preview",
+    "bulk_provider": "custom",
+    "bulk_model": "your/bulk-image-model",
     "api_base": "https://openrouter.ai/api/v1",
-    "proxy": "http://127.0.0.1:7897",
     "style_img2img_strength": 0.25,
     "constraints": {
       "size_multiple": null
@@ -26,8 +31,7 @@
   },
   "prompt": {
     "model": "deepseek/deepseek-chat",
-    "api_base": "https://openrouter.ai/api/v1",
-    "proxy": "http://127.0.0.1:7897"
+    "api_base": "https://openrouter.ai/api/v1"
   },
   "code": {
     "model": "deepseek/deepseek-chat"
@@ -87,8 +91,7 @@
   "test": {
     "vision_model": "google/gemini-2.5-flash",
     "api_key": "YOUR_OPENROUTER_KEY",
-    "api_base": "https://openrouter.ai/api/v1",
-    "proxy": "http://127.0.0.1:7897"
+    "api_base": "https://openrouter.ai/api/v1"
   },
   "godot": {
     "engine_path": "",

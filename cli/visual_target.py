@@ -269,13 +269,8 @@ def generate_visual_targets(
     plans_dir: Path | None = None,
 ) -> dict[str, Any]:
     """prompt-crafter → image-generator: craft handoffs, generate candidate PNGs + manifest."""
-    from gamefactory import (
-        DEFAULT_API_BASE,
-        generate_image,
-        resolve_image_proxy,
-        resolve_image_setting,
-    )
-    import os
+    from gamefactory import generate_image, resolve_image_proxy
+    from image_model_route import resolve_image_credentials
 
     brief_path = brief_path.resolve()
     project = _load_project(brief_path)
@@ -288,14 +283,10 @@ def generate_visual_targets(
     variants = variant_specs(count=count)
     size = _viewport_size(project)
 
-    model = resolve_image_setting(config, None, "model", "GAMEFACTORY_IMAGE_MODEL")
-    api_key = (
-        resolve_image_setting(config, None, "api_key", "GAMEFACTORY_API_KEY")
-        or os.environ.get("OPENROUTER_API_KEY")
-    )
-    api_base = resolve_image_setting(
-        config, None, "api_base", "GAMEFACTORY_API_BASE", DEFAULT_API_BASE
-    )
+    creds = resolve_image_credentials(config, "default")
+    model = creds.model
+    api_key = creds.api_key
+    api_base = creds.api_base
     resolved_proxy = resolve_image_proxy(config, proxy)
 
     if not dry_run and (not model or not api_key):

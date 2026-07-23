@@ -24,6 +24,14 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("pipeline-run", manifestRel, jobs, runPrompts),
   pipelineDiagnose: (manifestRel) => ipcRenderer.invoke("pipeline-diagnose", manifestRel),
   pipelineHeal: (manifestRel, apply) => ipcRenderer.invoke("pipeline-heal", manifestRel, apply),
+  assetsReviewList: (assetsManifestRel, pipelineManifestRel) =>
+    ipcRenderer.invoke("assets-review-list", assetsManifestRel, pipelineManifestRel),
+  assetsReviewAccept: (assetsManifestRel, assetName, itemSlug) =>
+    ipcRenderer.invoke("assets-review-accept", assetsManifestRel, assetName, itemSlug),
+  assetsReviewReplace: (assetsManifestRel, assetName, itemSlug, absFilePath) =>
+    ipcRenderer.invoke("assets-review-replace", assetsManifestRel, assetName, itemSlug, absFilePath),
+  assetsReviewRegenerate: (pipelineManifestRel, assetName, itemSlug, jobs) =>
+    ipcRenderer.invoke("assets-review-regenerate", pipelineManifestRel, assetName, itemSlug, jobs),
   resolveBriefRel: (briefRel) => ipcRenderer.invoke("resolve-brief-rel", briefRel),
   visualTargetGenerate: (briefRel, candidates) =>
     ipcRenderer.invoke("visual-target-generate", briefRel, candidates),

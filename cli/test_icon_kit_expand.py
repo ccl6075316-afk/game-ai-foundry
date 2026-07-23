@@ -77,6 +77,7 @@ class IconKitExpandTests(unittest.TestCase):
         self.assertEqual(len(gens), 2)
         for g in gens:
             self.assertIn("--model cheap-m", g["command"])
+            self.assertIn("--tier bulk", g["command"])
         ids = {t["asset_id"] for t in gens}
         self.assertTrue(any("sword" in i for i in ids))
         self.assertTrue(any("health_potion" in i for i in ids))

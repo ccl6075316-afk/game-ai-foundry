@@ -44,6 +44,29 @@ brief export（冻结）→ prompt craft → pipeline plan/run → godot assembl
 - 改素材/玩法 → 改 brief → `pipeline plan`（必要时 `--merge`），不能靠会话记忆。
 - 产品心智与工种 → [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md)。
 
+### 1.2 资产审查表（GUI）
+
+Pipeline 跑完后，GUI 右侧 **看板 | 资产** Tab 打开 **资产审查表**，读当前工程 `assets-manifest.json`：
+
+- **展示**：缩略图 + id/name + type + usage + 交付路径 + `review.status`
+- **行粒度**：brief 每项资产一行；`icon_kit` 按 `items[]` **逐项展开**（各行独立 review）
+- **三动作**（行内）：
+  - **采纳** — 只写 `review.status=accepted`，不改文件
+  - **重生成** — `pipeline reset --cascade` + `pipeline run`（需已有 pipeline manifest；无则按钮禁用）
+  - **本地替换** — 选图覆盖 canonical 路径（优先 `*_nobg`），`review.source=local_file`
+- **软标注**：`review` **不阻塞** `godot.assemble` / 程序员派工；普通资产存 `assets[<name>].review`；kit item 存 `assets[<kit>].item_reviews[<slug>]`
+
+入口：顶栏/侧栏 **「资产」**；聊天快捷 **「打开资产表」** 或 `/assets`。
+
+```bash
+python gamefactory.py assets review list --manifest ../output/.../assets-manifest.json --json
+python gamefactory.py assets review accept --manifest ... --asset knight
+python gamefactory.py assets review replace --manifest ... --asset knight --file /path/to.png
+python gamefactory.py assets review regenerate-plan --pipeline-manifest ../pipeline/manifest.json --asset knight
+```
+
+设计 → [`superpowers/specs/2026-07-24-asset-review-table-design.md`](superpowers/specs/2026-07-24-asset-review-table-design.md)。
+
 ---
 
 ## 2. 项目结构
@@ -276,8 +299,9 @@ python gamefactory.py setup install dotnet
 | 本机工具检测 / 安装 | `cli/toolchain_setup.py`, `cli/setup_cmds.py` |
 | 执行器向导 | `cli/executor_setup.py`, `setup executor` |
 | Runner 阶段说明 | `resources/skills/orchestrator/pipeline-schedule.md` |
+| 资产审查表 / review | `cli/asset_review.py`, `cli/assets_cmds.py` |
 | 工具与外部 Agent 手册 | `docs/TOOLS.md` |
 
 ---
 
-*文档版本：2026-07-22*
+*文档版本：2026-07-24*

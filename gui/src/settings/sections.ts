@@ -70,6 +70,14 @@ export const PIPELINE_STEPS = [
 
 export type SettingsTab = "providers" | "agents" | "local";
 
+export const NETWORK_SECTION: SettingsSectionMeta = {
+  step: "⓪",
+  title: "网络",
+  roleId: "proxy",
+  purpose: "HTTP 代理（生文 / 生图 / 视频 API 共用）",
+  note: "Clash 示例：http://127.0.0.1:7897；域名分流规则在 Clash 里配，不在本页",
+};
+
 export const TEXT_PROVIDER_SECTION: SettingsSectionMeta = {
   step: "①",
   title: "生文",
@@ -82,8 +90,8 @@ export const IMAGE_PROVIDER_SECTION: SettingsSectionMeta = {
   step: "②",
   title: "生图",
   roleId: "image-api",
-  purpose: "原画出图（image-generator）；同一平台通常与生文共用账号，仅 model 不同",
-  note: "OpenRouter 生图示例：google/gemini-3.1-flash-image；请求同样发到 chat/completions，并带 modalities",
+  purpose: "原画出图（image-generator）；主图与批量可各选不同 Provider 账号",
+  note: "OpenRouter 生图示例：google/gemini-3.1-flash-image；bulk 走 image.bulk_provider + bulk_model",
 };
 
 export const VIDEO_PROVIDER_SECTION: SettingsSectionMeta = {

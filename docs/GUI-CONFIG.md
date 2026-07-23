@@ -36,12 +36,15 @@ Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
 
 | Provider | 用途 | 必填 |
 |----------|------|------|
+| **网络** | 顶层 `proxy`（生文 / 生图 / 视频共用） | 可选 |
 | **LLM Provider**（如 OpenRouter） | `/brief` 策划对话、文案 LLM | ✅ |
-| **生图** | 可勾选「沿用 LLM Provider」 | ✅ |
-
-`image.model`：角色/场景等默认生图（设置 → Provider → **生图 model**）。  
-`image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"`（设置里 **批量单图 model（bulk）**；留空则回退主生图 model）。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。`items` 可为字符串，或 `{id, label?, usage?, usage_description?}`（slug 跟 `id`；玩法绑定见 `production.collectible_items`）。
+| **生图** | 可勾选「沿用 LLM Provider」；主图与批量可各选不同账号 | ✅ |
 | **视频 Provider**（Seedance） | 图生视频 | 做动画时需要 |
+
+`proxy`：设置 → Provider → **网络**（Clash 示例 `http://127.0.0.1:7897`）。权威字段为配置顶层；保存时会清掉旧的 `host.proxy` / `image.proxy`。域名分流规则在 Clash 客户端配置，不在 Foundry GUI。
+
+`image.provider` + `image.model`：角色/场景等默认生图（**主图 Provider** + **主图 model**）。  
+`image.bulk_provider` + `image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"`（**批量 Provider** + **批量 model**）。缺 `bulk_provider` 时回退 `image.provider`；缺 `bulk_model` 时回退主图 model。两档各从 `provider_accounts` 取对应 Key/Base。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。`items` 可为字符串，或 `{id, label?, usage?, usage_description?}`（slug 跟 `id`；玩法绑定见 `production.collectible_items`）。
 
 **API Key 只在此页填写**；雇人弹窗与对话配置仅选择账号库 id，不重复填 Key。
 

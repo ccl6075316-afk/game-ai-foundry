@@ -613,6 +613,36 @@ function briefCliArg(briefRel) {
   return path.join("..", resolveBriefRel(briefRel));
 }
 
+function normalizeRepoRel(relPath) {
+  return String(relPath || "")
+    .replace(/\\/g, "/")
+    .replace(/^\.\.\//, "")
+    .replace(/^\.\//, "");
+}
+
+function manifestCliArg(manifestRel) {
+  return path.join("..", normalizeRepoRel(manifestRel));
+}
+
+/** Resolve assets-manifest.json from direct rel or pipeline manifest output_dir. */
+function resolveAssetsManifestRel(assetsManifestRel, pipelineManifestRel) {
+  const direct = normalizeRepoRel(assetsManifestRel);
+  if (direct) {
+    const abs = path.join(repoRoot(), direct);
+    if (existsSync(abs)) return direct;
+  }
+  const pipeRel = normalizeRepoRel(pipelineManifestRel);
+  if (pipeRel) {
+    const meta = manifestMeta(pipeRel);
+    const outputDir = String(meta?.output_dir || "").replace(/\\/g, "/");
+    if (outputDir) {
+      const candidate = path.join(outputDir, "assets-manifest.json").replace(/\\/g, "/");
+      if (existsSync(path.join(repoRoot(), candidate))) return candidate;
+    }
+  }
+  return direct || null;
+}
+
 function looksLikeImagePath(ref) {
   const s = String(ref || "").trim().replace(/\\/g, "/");
   if (!s || s.length > 400 || s.includes("://")) return false;
@@ -1307,6 +1337,197 @@ app.whenReady().then(() => {
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
+
+  ipcMain.handle("assets-review-list", async (_e, assetsManifestRel, pipelineManifestRel) => {
+    const rel = resolveAssetsManifestRel(assetsManifestRel, pipelineManifestRel);
+    if (!rel) {
+      return {
+        exitCode: 1,
+        stdout: "",
+        stderr: "assets-manifest path not resolved",
+        data: { rows: [] },
+      };
+    }
+    const result = await runCli([
+      "assets",
+      "review",
+      "list",
+      "--manifest",
+      manifestCliArg(rel),
+      "--json",
+    ]);
+    const parsed = parseJsonFromOutput(result.stdout);
+    const rows = Array.isArray(parsed) ? parsed : [];
+    return { ...result, data: { rows } };
+  });
+
+  ipcMain.handle("assets-review-accept", async (_e, assetsManifestRel, assetName, itemSlug) => {
+    const rel = resolveAssetsManifestRel(assetsManifestRel);
+    if (!rel) {
+      return { exitCode: 1, stdout: "", stderr: "assets-manifest path not resolved" };
+    }
+    const args = [
+      "assets",
+      "review",
+      "accept",
+      "--manifest",
+      manifestCliArg(rel),
+      "--asset",
+      String(assetName || "").trim(),
+      "--json",
+    ];
+    const slug = String(itemSlug || "").trim();
+    if (slug) args.push("--item", slug);
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle(
+    "assets-review-replace",
+    async (_e, assetsManifestRel, assetName, itemSlug, absFilePath) => {
+      const rel = resolveAssetsManifestRel(assetsManifestRel);
+      if (!rel) {
+        return { exitCode: 1, stdout: "", stderr: "assets-manifest path not resolved" };
+      }
+      const args = [
+        "assets",
+        "review",
+        "replace",
+        "--manifest",
+        manifestCliArg(rel),
+        "--asset",
+        String(assetName || "").trim(),
+        "--file",
+        String(absFilePath || "").trim(),
+        "--json",
+      ];
+      const slug = String(itemSlug || "").trim();
+      if (slug) args.push("--item", slug);
+      const result = await runCli(args);
+      return { ...result, data: parseJsonFromOutput(result.stdout) };
+    },
+  );
+
+  ipcMain.handle(
+    "assets-review-regenerate",
+    async (event, pipelineManifestRel, assetName, itemSlug, jobs) => {
+      const sender = event.sender;
+      const pipeRel = normalizeRepoRel(pipelineManifestRel);
+      if (!pipeRel) {
+        return { exitCode: 1, stdout: "", stderr: "pipeline manifest path required" };
+      }
+      const jobCount = Math.max(1, Number(jobs) || 4);
+      const onLine = (line, stream) => {
+        sender.send("pipeline-log", { line, stream });
+      };
+      const planArgs = [
+        "assets",
+        "review",
+        "regenerate-plan",
+        "--pipeline-manifest",
+        manifestCliArg(pipeRel),
+        "--asset",
+        String(assetName || "").trim(),
+        "--jobs",
+        String(jobCount),
+        "--json",
+      ];
+      const slug = String(itemSlug || "").trim();
+      if (slug) planArgs.push("--item", slug);
+      const planResult = await runCli(planArgs);
+      const plan = parseJsonFromOutput(planResult.stdout);
+      if (planResult.exitCode !== 0) {
+        return { ...planResult, data: { plan } };
+      }
+
+      const resetTaskId = String(plan?.reset_task_id || "").trim();
+      if (!resetTaskId) {
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr:
+            "no reset_task_id for asset; cannot regenerate without a matching pipeline task",
+          data: { plan },
+        };
+      }
+
+      const resetResult = await runCli(
+        [
+          "pipeline",
+          "reset",
+          "--manifest",
+          manifestCliArg(pipeRel),
+          "--task-id",
+          resetTaskId,
+          "--cascade",
+        ],
+        { onLine },
+      );
+      if (resetResult.exitCode !== 0) {
+        return { ...resetResult, data: { plan, reset: resetResult } };
+      }
+
+      const runResult = await runCli(
+        [
+          "pipeline",
+          "run",
+          "--manifest",
+          manifestCliArg(pipeRel),
+          "--jobs",
+          String(jobCount),
+        ],
+        { onLine },
+      );
+      if (runResult.exitCode !== 0) {
+        return {
+          ...runResult,
+          data: {
+            plan,
+            reset: resetResult,
+            run: parseJsonFromOutput(runResult.stdout),
+          },
+        };
+      }
+
+      // Soft review only after full reset+run success
+      const assetsRel = resolveAssetsManifestRel(null, pipeRel);
+      let markResult = null;
+      if (assetsRel) {
+        const markArgs = [
+          "assets",
+          "review",
+          "mark-replaced",
+          "--manifest",
+          manifestCliArg(assetsRel),
+          "--asset",
+          String(assetName || "").trim(),
+          "--source",
+          "regenerate",
+          "--json",
+        ];
+        if (slug) markArgs.push("--item", slug);
+        markResult = await runCli(markArgs);
+      }
+
+      return {
+        ...runResult,
+        exitCode: markResult && markResult.exitCode !== 0 ? markResult.exitCode : runResult.exitCode,
+        stderr:
+          markResult && markResult.exitCode !== 0
+            ? markResult.stderr || runResult.stderr
+            : runResult.stderr,
+        data: {
+          plan,
+          reset: resetResult,
+          run: parseJsonFromOutput(runResult.stdout),
+          mark: markResult
+            ? { ...markResult, data: parseJsonFromOutput(markResult.stdout) }
+            : null,
+          assets_manifest: assetsRel,
+        },
+      };
+    },
+  );
 
   ipcMain.handle("resolve-brief-rel", (_e, briefRel) => {
     const resolved = resolveBriefRel(briefRel);

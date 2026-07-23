@@ -239,7 +239,6 @@ export function serializeVideoAccounts(map: VideoAccountsMap): Record<string, un
 export function resolveActiveTextSettings(form: {
   providerAccounts: ProviderAccountsMap;
   activeTextProvider: ApiProviderId;
-  proxy: string;
 }) {
   const acc = getProviderAccount(form.providerAccounts, form.activeTextProvider);
   return {
@@ -247,7 +246,6 @@ export function resolveActiveTextSettings(form: {
     api_key: acc.apiKey.trim() || null,
     api_base: resolveApiBase(form.activeTextProvider, acc.apiBase),
     model: acc.textModel,
-    proxy: form.proxy || undefined,
   };
 }
 
@@ -262,7 +260,6 @@ export function resolveActiveImageSettings(form: {
   activeTextProvider: ApiProviderId;
   activeImageProvider: ApiProviderId;
   imageUseTextProvider: boolean;
-  proxy: string;
 }) {
   const providerId = form.imageUseTextProvider ? form.activeTextProvider : form.activeImageProvider;
   const acc = getProviderAccount(form.providerAccounts, providerId);
@@ -272,7 +269,6 @@ export function resolveActiveImageSettings(form: {
     api_key: acc.apiKey.trim() || null,
     api_base: resolveApiBase(providerId, acc.apiBase),
     model: normalizeImageModelId(acc.imageModel),
-    proxy: form.proxy || undefined,
   };
 }
 

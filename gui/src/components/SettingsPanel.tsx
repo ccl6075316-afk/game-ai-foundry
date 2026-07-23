@@ -5,6 +5,7 @@ import {
   VIDEO_PROVIDERS,
   getApiProvider,
   getVideoProvider,
+  isApiProviderId,
   type ApiProviderId,
   type VideoProviderId,
 } from "../settings/apiProviders";
@@ -19,6 +20,7 @@ import {
   GODOT_SECTION,
   HERMES_AGENT_SECTION,
   IMAGE_PROVIDER_SECTION,
+  NETWORK_SECTION,
   PI_AGENT_SECTION,
   TEXT_PROVIDER_SECTION,
   PIPELINE_STEPS,
@@ -74,6 +76,8 @@ interface FormState {
   providerAccounts: ProviderAccountsMap;
   activeTextProvider: ApiProviderId;
   activeImageProvider: ApiProviderId;
+  /** Bulk stills provider (icon_kit / generate_tier=bulk); independent of main */
+  activeBulkImageProvider: ApiProviderId;
   imageUseTextProvider: boolean;
   /** Optional cheaper model for icon_kit / generate_tier=bulk */
   imageBulkModel: string;
@@ -97,15 +101,23 @@ function fromConfig(data: ConfigInfo["data"]): FormState {
   const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
   const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
 
+  const bulkRaw = imageBlock.bulk_provider;
+  const activeBulkImageProvider =
+    typeof bulkRaw === "string" && isApiProviderId(bulkRaw)
+      ? bulkRaw
+      : loaded.activeImageProvider;
+
   return {
     ...loaded,
+    activeBulkImageProvider,
     imageBulkModel: String(imageBlock.bulk_model || ""),
     promptUseHost: !keyConfigured(String(prompt.api_key || "")),
     promptModel: String(prompt.model || textAccount.textModel),
     codeUseHost: !keyConfigured(String(code.api_key || "")),
     codeModel: String(code.model || textAccount.textModel),
     proxy: String(
-      (data.host as Record<string, unknown> | undefined)?.proxy ||
+      data.proxy ||
+        (data.host as Record<string, unknown> | undefined)?.proxy ||
         imageBlock.proxy ||
         prompt.proxy ||
         "",
@@ -153,6 +165,7 @@ function toPatch(form: FormState): ConfigPatch {
   };
 
   return {
+    proxy: form.proxy.trim() || null,
     provider_accounts: serializeProviderAccounts(form.providerAccounts),
     video_accounts: serializeVideoAccounts(form.videoAccounts),
     host: {
@@ -160,7 +173,7 @@ function toPatch(form: FormState): ConfigPatch {
       api_key: text.api_key,
       model: text.model,
       api_base: text.api_base,
-      proxy: text.proxy,
+      proxy: null,
     },
     prompt: promptPatch,
     code: codePatch,
@@ -169,9 +182,10 @@ function toPatch(form: FormState): ConfigPatch {
       use_text_provider: image.use_text_provider,
       api_key: image.api_key,
       model: image.model,
+      bulk_provider: form.activeBulkImageProvider,
       bulk_model: form.imageBulkModel.trim() || null,
       api_base: image.api_base,
-      proxy: image.proxy,
+      proxy: null,
     },
     video: {
       provider: video.provider,
@@ -412,6 +426,11 @@ export function SettingsPanel({ busy, onSaved }: Props) {
     setMessage(null);
   };
 
+  const setActiveBulkImageProvider = (id: ApiProviderId) => {
+    setForm((prev) => ({ ...prev, activeBulkImageProvider: id }));
+    setMessage(null);
+  };
+
   const updateImageAccount = (patch: Partial<ProviderAccount>) => {
     setForm((prev) => {
       const providerId = prev.imageUseTextProvider ? prev.activeTextProvider : prev.activeImageProvider;
@@ -420,6 +439,18 @@ export function SettingsPanel({ busy, onSaved }: Props) {
         providerAccounts: updateProviderAccount(prev.providerAccounts, providerId, patch),
       };
     });
+    setMessage(null);
+  };
+
+  const updateBulkImageAccount = (patch: Partial<ProviderAccount>) => {
+    setForm((prev) => ({
+      ...prev,
+      providerAccounts: updateProviderAccount(
+        prev.providerAccounts,
+        prev.activeBulkImageProvider,
+        patch,
+      ),
+    }));
     setMessage(null);
   };
 
@@ -522,6 +553,8 @@ export function SettingsPanel({ busy, onSaved }: Props) {
   const imageProviderId = form.imageUseTextProvider ? form.activeTextProvider : form.activeImageProvider;
   const imageAccount = getProviderAccount(form.providerAccounts, imageProviderId);
   const imagePreset = getApiProvider(imageProviderId);
+  const bulkImageAccount = getProviderAccount(form.providerAccounts, form.activeBulkImageProvider);
+  const bulkImagePreset = getApiProvider(form.activeBulkImageProvider);
   const videoAccount = getVideoAccount(form.videoAccounts, form.activeVideoProvider);
   const videoPreset = getVideoProvider(form.activeVideoProvider);
 
@@ -602,6 +635,23 @@ export function SettingsPanel({ busy, onSaved }: Props) {
         >
           {tab === "providers" && (
             <>
+              <SectionCard meta={NETWORK_SECTION} configured={Boolean(form.proxy.trim())}>
+                <label className="field">
+                  <span>HTTP 代理（可选）</span>
+                  <input
+                    type="text"
+                    value={form.proxy}
+                    onChange={(e) => setField("proxy", e.target.value)}
+                    placeholder="http://127.0.0.1:7897"
+                    disabled={disabled}
+                  />
+                </label>
+                <p className="field-hint">
+                  写入配置顶层 <code>proxy</code>，生文 / 生图 / 视频共用。Clash 域名规则请在 Clash
+                  客户端配置，不在本页。
+                </p>
+              </SectionCard>
+
               <SectionCard meta={TEXT_PROVIDER_SECTION} configured={hostKeyOk}>
                 <ProviderAccountChips
                   accounts={form.providerAccounts}
@@ -657,26 +707,20 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   OpenRouter 靠 <code>model</code> 路由（如 <code>deepseek/deepseek-chat</code>）；官方 API 用
                   平台自己的模型名（如 <code>deepseek-chat</code>）。
                 </p>
-                <label className="field">
-                  <span>代理（可选，生文/生图共用）</span>
-                  <input
-                    type="text"
-                    value={form.proxy}
-                    onChange={(e) => setField("proxy", e.target.value)}
-                    placeholder="http://127.0.0.1:7897"
-                    disabled={disabled}
-                  />
-                </label>
               </SectionCard>
 
               <SectionCard
                 meta={IMAGE_PROVIDER_SECTION}
                 configured={
-                  form.imageUseTextProvider
+                  (form.imageUseTextProvider
                     ? hostKeyOk && Boolean(imageAccount.imageModel.trim())
-                    : isProviderConfigured(form.providerAccounts, form.activeImageProvider)
+                    : isProviderConfigured(form.providerAccounts, form.activeImageProvider)) &&
+                  isProviderConfigured(form.providerAccounts, form.activeBulkImageProvider)
                 }
               >
+                <p className="field-hint" style={{ marginTop: 0 }}>
+                  主图
+                </p>
                 <label className="field field--checkbox">
                   <input
                     type="checkbox"
@@ -699,6 +743,18 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                       onChange={setActiveImageProvider}
                       disabled={disabled}
                     />
+                    {form.activeImageProvider === "custom" && (
+                      <label className="field">
+                        <span>API 地址</span>
+                        <input
+                          type="text"
+                          value={imageAccount.apiBase}
+                          onChange={(e) => updateImageAccount({ apiBase: e.target.value })}
+                          placeholder="https://your-api.example.com/v1"
+                          disabled={disabled}
+                        />
+                      </label>
+                    )}
                     <label className="field">
                       <span>
                         {imagePreset.label} 生图 Key
@@ -718,7 +774,7 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   </>
                 )}
                 <label className="field">
-                  <span>生图 model</span>
+                  <span>主图 model</span>
                   <input
                     type="text"
                     value={imageAccount.imageModel}
@@ -727,26 +783,65 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                     disabled={disabled}
                   />
                 </label>
+
+                <p className="field-hint">批量（icon_kit / generate_tier: bulk）</p>
+                <ProviderAccountChips
+                  accounts={form.providerAccounts}
+                  activeId={form.activeBulkImageProvider}
+                  onSelect={setActiveBulkImageProvider}
+                  disabled={disabled}
+                />
+                <ProviderSelect
+                  value={form.activeBulkImageProvider}
+                  onChange={setActiveBulkImageProvider}
+                  disabled={disabled}
+                />
+                {form.activeBulkImageProvider === "custom" && (
+                  <label className="field">
+                    <span>批量 API 地址</span>
+                    <input
+                      type="text"
+                      value={bulkImageAccount.apiBase}
+                      onChange={(e) => updateBulkImageAccount({ apiBase: e.target.value })}
+                      placeholder="https://your-api.example.com/v1"
+                      disabled={disabled}
+                    />
+                  </label>
+                )}
                 <label className="field">
-                  <span>批量单图 model（bulk）</span>
+                  <span>
+                    {bulkImagePreset.label} 批量 Key
+                    {isProviderConfigured(form.providerAccounts, form.activeBulkImageProvider)
+                      ? "（已配置）"
+                      : "（未配置）"}
+                  </span>
+                  <input
+                    type="password"
+                    value={bulkImageAccount.apiKey}
+                    onChange={(e) => updateBulkImageAccount({ apiKey: e.target.value })}
+                    placeholder={bulkImagePreset.keyPlaceholder}
+                    autoComplete="off"
+                    disabled={disabled}
+                  />
+                </label>
+                <label className="field">
+                  <span>批量 model（bulk）</span>
                   <input
                     type="text"
                     value={form.imageBulkModel}
                     onChange={(e) => setField("imageBulkModel", e.target.value)}
-                    placeholder="留空则与上方生图 model 相同"
+                    placeholder="留空则回退主图 model"
                     disabled={disabled}
                   />
                 </label>
                 <p className="field-hint">
+                  主图与批量可各选不同 Provider（各用账号库里自己的 Key/Base）。
                   OpenRouter 生图请填完整 slug。GPT Image 2：
-                  <code>openai/gpt-image-2</code>（专用 Images API）。
-                  Gemini 图模：
+                  <code>openai/gpt-image-2</code>。Gemini：
                   <code>google/gemini-3.1-flash-image</code>。
-                  可与生文用不同平台。
                   <br />
-                  <strong>bulk</strong>：icon_kit 各项、以及 brief 标了{" "}
-                  <code>generate_tier: bulk</code> 的图走此模型（宜填更便宜的图模）；留空则回退主生图
-                  model。
+                  <strong>bulk</strong>：icon_kit 各项与 brief{" "}
+                  <code>generate_tier: bulk</code> 走批量账号与模型。
                 </p>
               </SectionCard>
 

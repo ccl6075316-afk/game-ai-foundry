@@ -298,6 +298,7 @@ def _icon_kit_item_tasks(
     )
     model = resolve_image_model_for_tier(config, tier)
     model_flag = f" --model {model}" if model else ""
+    tier_flag = f" --tier {tier}"
     kit_style = should_use_kit_style_img2img(spec)
     anchor_image_id: str | None = None
     anchor_raw: str | None = None
@@ -353,7 +354,7 @@ def _icon_kit_item_tasks(
             command=(
                 f"python gamefactory.py image generate "
                 f"--plan-file {paths['plan']} --output {paths['raw_image']} "
-                f"--validate{ref_flag}{model_flag}"
+                f"--validate{ref_flag}{model_flag}{tier_flag}"
             ),
             artifacts={
                 "plan": paths["plan"],
@@ -515,6 +516,7 @@ def _static_asset_tasks(
     )
     model = resolve_image_model_for_tier(config, tier)
     model_flag = f" --model {model}" if model else ""
+    tier_flag = f" --tier {tier}"
 
     image_layer = _layer_from_deps(image_deps, tasks_by_id)
     image_id = _add_task(
@@ -528,7 +530,7 @@ def _static_asset_tasks(
         command=(
             f"python gamefactory.py image generate "
             f"--plan-file {paths['plan']} --output {paths['raw_image']} "
-            f"--validate{ref_flag}{model_flag}"
+            f"--validate{ref_flag}{model_flag}{tier_flag}"
         ),
         artifacts={"plan": paths["plan"], "output": paths["raw_image"]},
     )

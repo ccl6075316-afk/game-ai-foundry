@@ -6,6 +6,7 @@ import { ColleagueConfigBar } from "./components/ColleagueConfigBar";
 import { ColleagueRoster } from "./components/ColleagueRoster";
 import { HireColleagueModal } from "./components/HireColleagueModal";
 import { BoardPanel } from "./components/BoardPanel";
+import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
 import { SettingsPanel } from "./components/SettingsPanel";
@@ -71,7 +72,7 @@ import {
   shouldSyncCodexThirdParty,
 } from "./settings/agentInstances";
 import { executorKindForHire, type HireColleagueConfirmPayload } from "./settings/hireColleague";
-type SidePanel = "board" | "docs" | "settings" | "env" | "guide" | null;
+type SidePanel = "board" | "assets" | "docs" | "settings" | "env" | "guide" | null;
 
 function slugifyBriefName(raw: string): string {
   const t = raw.trim().toLowerCase();
@@ -257,6 +258,7 @@ function parseBriefSubcommand(
 
 export default function App() {
   const [selectedManifest, setSelectedManifest] = useState("");
+  const [assetsManifestRel, setAssetsManifestRel] = useState<string | null>(null);
   const [activeBriefRel, setActiveBriefRel] = useState<string | null>(() => loadActiveBriefRel());
   /** brief.project.visual_reference is a real image path on disk */
   const [visualReferenceReady, setVisualReferenceReady] = useState(false);
@@ -1212,6 +1214,36 @@ export default function App() {
     return res;
   }, []);
 
+  /** Prefer pipeline meta.output_dir; else brief-derived output/<…>/assets-manifest.json */
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      if (selectedManifest) {
+        try {
+          const meta = await window.gameFactory.getManifestMeta(selectedManifest);
+          const out = String(meta?.output_dir || "")
+            .replace(/\\/g, "/")
+            .replace(/\/$/, "");
+          if (out) {
+            if (!cancelled) setAssetsManifestRel(`${out}/assets-manifest.json`);
+            return;
+          }
+        } catch {
+          /* fall through */
+        }
+      }
+      if (activeBriefRel) {
+        const out = planTargetsFromBrief(activeBriefRel).outputDirRel.replace(/\/$/, "");
+        if (!cancelled) setAssetsManifestRel(`${out}/assets-manifest.json`);
+        return;
+      }
+      if (!cancelled) setAssetsManifestRel(null);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedManifest, activeBriefRel]);
+
   const switchProject = useCallback(
     async (briefRel: string) => {
       const normalized = briefRel.replace(/\\/g, "/");
@@ -1752,10 +1784,10 @@ export default function App() {
         } else {
           append(
             "assistant",
-            "**流水线已全部完成。** 可在看板查看，或继续派工给程序员。",
+            "**流水线已全部完成。** 可在看板或资产表查看，或继续派工给程序员。",
             undefined,
             undefined,
-            ["打开看板"],
+            ["打开看板", "打开资产表"],
           );
         }
         try {
@@ -2317,6 +2349,11 @@ export default function App() {
       append("assistant", "已打开右侧任务看板。");
       return;
     }
+    if (trimmed === "打开资产表" || trimmed === "打开资产") {
+      toggleSidePanel("assets");
+      append("assistant", "已打开右侧资产审查表。");
+      return;
+    }
     if (trimmed === "打开文档") {
       setSidePanel("docs");
       if (agentRole === "brief") void refreshBrainstormStatus();
@@ -2423,6 +2460,11 @@ export default function App() {
       append("assistant", "看板显示已切换 — 右侧查看 pipeline 任务 DAG。");
       return;
     }
+    if (cmd === "/assets") {
+      toggleSidePanel("assets");
+      append("assistant", "资产表已切换 — 右侧审查缩略图与映射。");
+      return;
+    }
     if (cmd === "/settings") {
       toggleSidePanel("settings");
       append("assistant", "设置面板已切换 — 右侧编辑 API Key 与 Godot 路径。");
@@ -2450,7 +2492,7 @@ export default function App() {
     if (text.trim().startsWith("/")) {
       append(
         "assistant",
-        `未知指令。可用：/brief /doctor /plan /run /board /settings /env /guide /godot /delta`,
+        `未知指令。可用：/brief /doctor /plan /run /board /assets /settings /env /guide /godot /delta`,
       );
       return;
     }
@@ -2547,6 +2589,22 @@ export default function App() {
               <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
             </svg>
             看板
+          </button>
+          <button
+            type="button"
+            className={`btn btn--ghost ${sidePanel === "assets" ? "btn--active" : ""}`}
+            onClick={() => toggleSidePanel("assets")}
+          >
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path
+                d="M4 7.5L12 3l8 4.5v9L12 21l-8-4.5v-9z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <path d="M12 12v9M4 7.5l8 4.5 8-4.5" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+            资产
           </button>
         </div>
       </header>
@@ -2681,6 +2739,15 @@ export default function App() {
               >
                 看板
               </button>
+              <button
+                type="button"
+                className="pm-sticky-actions__btn"
+                disabled={chatBusy}
+                onClick={() => void handleSend("打开资产表")}
+                title="右侧审查资产缩略图与映射"
+              >
+                资产
+              </button>
             </div>
           )}
           <ColleagueConfigBar colleague={activeColleague} disabled={chatBusy} />
@@ -2703,6 +2770,8 @@ export default function App() {
                           "运行资产生成",
                           "运行资产生成（含文案）",
                           "打开看板",
+                          "打开资产表",
+                          "打开资产",
                         ].includes(c),
                     )
                   : agentActionChoices
@@ -2748,6 +2817,18 @@ export default function App() {
             draftBrief={briefDraft}
             onRefresh={() => refreshManifest(selectedManifest)}
             onRun={handleRun}
+          />
+        )}
+
+        {sidePanel === "assets" && (
+          <AssetReviewPanel
+            assetsManifestRel={assetsManifestRel}
+            pipelineManifestRel={selectedManifest || null}
+            busy={anyBusy}
+            onOpenBoard={() => setSidePanel("board")}
+            onAfterRegenerate={() => {
+              if (selectedManifest) void refreshManifest(selectedManifest);
+            }}
           />
         )}
 

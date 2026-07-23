@@ -111,6 +111,10 @@ export function getApiProvider(id: ApiProviderId): ApiProviderPreset {
   return API_PROVIDERS.find((p) => p.id === id) ?? API_PROVIDERS[0]!;
 }
 
+export function isApiProviderId(id: string): id is ApiProviderId {
+  return API_PROVIDERS.some((p) => p.id === id);
+}
+
 export function getVideoProvider(id: VideoProviderId): VideoProviderPreset {
   return VIDEO_PROVIDERS.find((p) => p.id === id) ?? VIDEO_PROVIDERS[0]!;
 }

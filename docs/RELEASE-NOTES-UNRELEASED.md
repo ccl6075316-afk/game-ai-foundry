@@ -8,7 +8,9 @@
 - Pipeline 对 `items[]` **逐项** `image.generate` → trim → remove-bg；产物名为  
   `{kit_id}__{item_slug}_raw.png` / `_nobg.png`（slug 来自 item **`id`**）。
 - 旧工程若依赖格子序号切图路径，需改 brief / Godot 引用到上述路径。
-- 配置：`image.bulk_model`（GUI：**批量单图 model（bulk）**）；未配则回退 `image.model`。
+- 配置：`image.bulk_model`（GUI：**批量 model**）；未配则回退 `image.model`。
+- 配置：`image.bulk_provider`（GUI：**批量 Provider**）；未配则回退 `image.provider`；与主图可各用不同 `provider_accounts` Key/Base。
+- 配置：顶层 `proxy`（GUI Provider 页 **网络**）；保存时迁出并清除旧 `host.proxy` / `image.proxy`。
 
 ## 增强：风格看板 chips + kit 套内 img2img
 
@@ -20,8 +22,14 @@
 - `production derive` 写出 `production_doc.collectible_items[]`（`item_id` / `nobg_path_hint` / `usage`），供程序员按 id 接线 pickup / UI。
 - 显式对象 `id` 重复 → brief 校验失败；纯字符串重复仍用 slug `_2` 后缀。
 
+## 增强：资产审查表
+
+- GUI 右侧 **资产** 面板：读 `assets-manifest.json` 展示缩略图与 usage 映射；行内 **采纳 / 重生成 / 本地替换**。
+- 软 `review` 标注（`pending` / `accepted` / `replaced`）写入 manifest，**不阻塞** assemble 或程序员派工。
+- `icon_kit` 按 item 分行、各行独立 review；CLI `assets review list|accept|replace|regenerate-plan`（GUI 经 Electron IPC 调用）。
+
 ## 已合入但未进 0.0.6 笔记的相关能力（摘要）
 
 - 执行器安全旋钮 + Cursor/Hermes ACP + Codex app-server 审批卡  
 - `style_group` / `art_tokens` / DocsPreview 风格只读标注  
-- GUI `image.bulk_model` 字段  
+- GUI `image.bulk_model` / `bulk_provider`；顶层 `proxy` 

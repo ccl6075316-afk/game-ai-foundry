@@ -491,6 +491,13 @@ def image() -> None:
 @image.command("generate")
 @click.option("--model", default=None, help="Image model (default from config).")
 @click.option(
+    "--tier",
+    "generate_tier",
+    type=click.Choice(["default", "bulk"], case_sensitive=False),
+    default=None,
+    help="Credential/model tier: bulk uses image.bulk_provider + bulk_model.",
+)
+@click.option(
     "--prompt",
     default=None,
     help="Generation prompt (image-generator: use --plan-file from prompt-crafter instead).",
@@ -523,6 +530,7 @@ def image() -> None:
 def generate(
     ctx: click.Context,
     model: str | None,
+    generate_tier: str | None,
     prompt: str | None,
     plan_path: Path | None,
     reference_image: Path | None,
@@ -535,6 +543,7 @@ def generate(
 ) -> None:
     """image-generator agent: call image API only. No prompt crafting."""
     from asset_pipeline import AssetType, validate_image
+    from image_model_route import effective_generate_tier, resolve_image_credentials
     from plan_io import (
         asset_type_from_handoff,
         image_size_from_handoff,
@@ -578,23 +587,20 @@ def generate(
         )
         sys.exit(1)
 
-    resolved_model = resolve_image_setting(
+    tier = effective_generate_tier(generate_tier=generate_tier, for_icon_kit_item=False)
+    creds = resolve_image_credentials(
+        config if isinstance(config, dict) else {},
+        tier,
+        explicit_model=model,
+        explicit_key=api_key,
+        explicit_base=api_base,
+    )
+    resolved_model = creds.model or resolve_image_setting(
         config, model, "model", "GAMEFACTORY_IMAGE_MODEL"
     )
-
-    resolved_api_key = resolve_image_setting(
-        config, api_key, "api_key", "GAMEFACTORY_API_KEY"
-    ) or os.environ.get("OPENROUTER_API_KEY")
-
+    resolved_api_key = creds.api_key
+    resolved_api_base = creds.api_base
     resolved_proxy = resolve_image_proxy(config, proxy)
-
-    resolved_api_base = resolve_image_setting(
-        config,
-        api_base,
-        "api_base",
-        "GAMEFACTORY_API_BASE",
-        DEFAULT_API_BASE,
-    )
 
     resolved_size = resolve_image_setting(
         config, size, "size", "GAMEFACTORY_IMAGE_SIZE", DEFAULT_SIZE
@@ -616,8 +622,9 @@ def generate(
 
     if not resolved_api_key:
         click.echo(
-            "Error: API key not found. Set it in ~/.gamefactory/config.json, "
-            "GAMEFACTORY_API_KEY, or OPENROUTER_API_KEY, or pass --api-key.",
+            "Error: API key not found. Set provider_accounts / image.api_key in "
+            "~/.gamefactory/config.json, GAMEFACTORY_API_KEY, or OPENROUTER_API_KEY, "
+            "or pass --api-key.",
             err=True,
         )
         sys.exit(1)
@@ -859,6 +866,10 @@ register_production_commands(cli)
 from project_cmds import register_project_commands  # noqa: E402
 
 register_project_commands(cli)
+
+from assets_cmds import register_assets_commands  # noqa: E402
+
+register_assets_commands(cli)
 
 if __name__ == "__main__":
     cli()

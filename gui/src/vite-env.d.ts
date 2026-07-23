@@ -104,7 +104,51 @@ export interface PipelineStatus {
   failed_ids?: string[];
 }
 
+export interface AssetReviewRow {
+  row_id: string;
+  asset_name: string;
+  kit_item_slug?: string | null;
+  label: string;
+  type: string;
+  usage: string;
+  preview_path_repo: string | null;
+  canonical_path_repo: string | null;
+  stages_summary?: string;
+  review: {
+    status: "pending" | "accepted" | "replaced";
+    source: "pipeline" | "regenerate" | "local_file";
+    updated_at: string;
+    note: string;
+  };
+}
+
+export interface AssetReviewAcceptResult {
+  ok?: boolean;
+  row_id?: string;
+  review?: AssetReviewRow["review"];
+}
+
+export interface AssetReviewReplaceResult {
+  ok?: boolean;
+  row_id?: string;
+  path_repo?: string;
+  review?: AssetReviewRow["review"];
+}
+
+export interface AssetReviewRegeneratePlan {
+  reset_task_id?: string | null;
+  commands?: string[];
+}
+
+export interface AssetReviewRegenerateResult {
+  plan?: AssetReviewRegeneratePlan;
+  reset?: CliResult;
+  run?: unknown;
+}
+
 export interface ConfigPatch {
+  /** Top-level HTTP proxy (authoritative for CLI); null clears */
+  proxy?: string | null;
   provider_accounts?: Record<string, unknown>;
   video_accounts?: Record<string, unknown>;
   host?: {
@@ -112,16 +156,20 @@ export interface ConfigPatch {
     api_key?: string | null;
     model?: string;
     api_base?: string;
-    proxy?: string;
+    /** Prefer top-level proxy; null clears legacy nested proxy */
+    proxy?: string | null;
   };
   image?: {
     provider?: string;
     use_text_provider?: boolean;
     api_key?: string | null;
     model?: string;
+    /** Provider account for bulk stills; omit/null → same as provider */
+    bulk_provider?: string | null;
     /** Cheaper model for icon_kit items / generate_tier=bulk; null clears */
     bulk_model?: string | null;
-    proxy?: string;
+    /** Prefer top-level proxy; null clears legacy nested proxy */
+    proxy?: string | null;
     api_base?: string;
   };
   prompt?: {
@@ -192,6 +240,7 @@ export interface ConfigInfo {
   path: string;
   exists: boolean;
   data: {
+    proxy?: string;
     provider_accounts?: Record<string, unknown>;
     video_accounts?: Record<string, unknown>;
     host?: Record<string, unknown>;
@@ -278,6 +327,27 @@ declare global {
       pipelineRun: (manifestRel: string, jobs: number, runPrompts?: boolean) => Promise<CliResult>;
       pipelineDiagnose: (manifestRel: string) => Promise<CliResult & { data?: any }>;
       pipelineHeal: (manifestRel: string, apply?: boolean) => Promise<CliResult & { data?: any }>;
+      assetsReviewList: (
+        assetsManifestRel: string | null,
+        pipelineManifestRel?: string | null,
+      ) => Promise<CliResult<{ rows: AssetReviewRow[] }>>;
+      assetsReviewAccept: (
+        assetsManifestRel: string,
+        assetName: string,
+        itemSlug?: string | null,
+      ) => Promise<CliResult<AssetReviewAcceptResult>>;
+      assetsReviewReplace: (
+        assetsManifestRel: string,
+        assetName: string,
+        itemSlug: string | null | undefined,
+        absFilePath: string,
+      ) => Promise<CliResult<AssetReviewReplaceResult>>;
+      assetsReviewRegenerate: (
+        pipelineManifestRel: string,
+        assetName: string,
+        itemSlug?: string | null,
+        jobs?: number,
+      ) => Promise<CliResult<AssetReviewRegenerateResult>>;
       resolveBriefRel: (briefRel: string) => Promise<{
         input: string;
         path: string;
