@@ -32,4 +32,8 @@
 
 - 执行器安全旋钮 + Cursor/Hermes ACP + Codex app-server 审批卡  
 - `style_group` / `art_tokens` / DocsPreview 风格只读标注  
-- GUI `image.bulk_model` / `bulk_provider`；顶层 `proxy` 
+- GUI `image.bulk_model` / `bulk_provider`；顶层 `proxy`
+- `content_class` / `project.view` / 结构化 prompt craft / 分 skill；`prop_stateful` 多状态 img2img
+- `production_doc.layout`：regions + placements（规则启发式，非 vision）
+
+发版待办与是否够格打 0.0.7：见 [`HANDOFF-TODO-0.0.7.md`](HANDOFF-TODO-0.0.7.md)。
