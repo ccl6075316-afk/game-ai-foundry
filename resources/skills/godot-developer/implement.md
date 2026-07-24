@@ -27,7 +27,7 @@ Read **`vendor-godot.md`** in this role's skill folder. Run `bash scripts/vendor
 
 Handoff — `plans/dev_<brief-stem>.json` (`consumer_role: godot-developer`):
 
-- `plan.production` — scenes, systems, `godot_tasks[]`, `validation` (when `production derive` was run)
+- `plan.production` — scenes, systems, `godot_tasks[]`, `validation`, optional `layout` (when `production derive` was run)
 - `plan.runtime_bindings[]` — per asset: `usage`, `clip_name`, `loop`, `runtime.sprite_frames`, `runtime.res_path`
 - `plan.animation_graphs[]` — state transitions (`from` → `to` → `then`)
 - `plan.implementation_goals` — derived from brief + production tasks
@@ -49,7 +49,8 @@ python gamefactory.py godot dev-context \
 2. Open Godot project at `plan.project_path`.
 3. Implement C# using `runtime_bindings` for SpriteFrames paths and `animation_graphs` for AnimationPlayer / state logic.
 4. Backgrounds: use `runtime.res_path` from bindings where `usage` is `world_background`.
-5. Validate:
+5. **Scene props / decor**: when `production.layout` is present, read `layout.placements[]`. Each entry has `asset` (brief id/name), `xy_norm` `[x,y]` in 0–1 viewport space, and optional `region`. Convert to pixels: `x = xy_norm[0] * viewport.width`, `y = xy_norm[1] * viewport.height`. Parent prop nodes under `scenes/main.tscn/World`. Bind textures only from brief/manifest assets — **do not invent** assets missing from the brief.
+6. Validate:
 
 ```bash
 python gamefactory.py godot validate --project ../games/magic-prince

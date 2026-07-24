@@ -189,7 +189,9 @@ game-ai-foundry/
 | `prop_*` / `weapon` / `tool` / `decor` | still 族 | 白底 mattable |
 | `backdrop_*` | `background` | 场景背景 |
 
-**场景构图**：默认 `backdrop_sparse` + 独立 props；逻辑布局 Godot 后期摆放；避免单张 busy `backdrop_full` 塞整关。
+**场景构图**：默认 `backdrop_sparse` + 独立 props；逻辑布局见 **`production.layout`**（derive 规则生成）；避免单张 busy `backdrop_full` 塞整关。
+
+**`production.layout`（可选）**：`production derive` 写入 `layout.regions`（命名区域）与 `layout.placements`（`asset` + 归一化 `xy_norm`）。程序员按 `xy_norm * viewport` 在 `World` 下摆节点；只引用 brief 已有资产。旧 production 无 `layout` 仍合法。
 
 **`prop_stateful` + `states`**：`pipeline plan` 展开为多 still（如 `{id}__closed` / `{id}__open`）；状态 0 → T2I；状态 k>0 → img2img，`--reference-image` = 状态 0 raw，`depends_on` 状态 0 generate；craft prompt 只写状态差。手写多行 + `identity_anchor` 仍合法。
 

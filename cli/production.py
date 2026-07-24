@@ -13,6 +13,7 @@ from brief import (
     AssetType,
     CharacterAnimationGraph,
     ProjectContext,
+    find_asset,
     load_brief_full,
     resolve_asset_file_key,
     unique_kit_item_slugs,
@@ -20,6 +21,19 @@ from brief import (
 from genre_presets import get_genre_preset
 
 PRODUCTION_SCHEMA_VERSION = 1
+
+LAYOUT_COORD_SPACE = "viewport_norm"
+
+_PLACABLE_CONTENT_CLASSES = frozenset(
+    {
+        "prop_static",
+        "prop_interactable",
+        "prop_stateful",
+        "weapon",
+        "tool",
+        "decor",
+    }
+)
 
 
 def default_production_path(brief_path: Path) -> Path:
@@ -271,6 +285,198 @@ def _build_godot_tasks(
     return tasks
 
 
+def _layout_asset_key(spec: AssetSpec) -> str:
+    return (spec.id or spec.name).strip()
+
+
+def _layout_sort_key(spec: AssetSpec) -> str:
+    return _layout_asset_key(spec).lower()
+
+
+def _region_center_y(region: dict[str, Any]) -> float:
+    kind = region.get("kind")
+    if kind == "rect":
+        rect = region.get("rect_norm") or []
+        if len(rect) >= 4:
+            return float(rect[1]) + float(rect[3]) / 2.0
+    if kind == "band":
+        band = region.get("band_norm") or {}
+        y0 = float(band.get("y0", 0))
+        y1 = float(band.get("y1", 1))
+        return (y0 + y1) / 2.0
+    return 0.5
+
+
+def _build_regions_for_view(view: str) -> list[dict[str, Any]]:
+    v = (view or "side").strip() or "side"
+    if v == "side":
+        return [
+            {"id": "sky", "kind": "band", "band_norm": {"y0": 0.0, "y1": 0.35}},
+            {
+                "id": "playable",
+                "kind": "rect",
+                "rect_norm": [0.05, 0.25, 0.9, 0.45],
+            },
+            {"id": "ground", "kind": "band", "band_norm": {"y0": 0.65, "y1": 1.0}},
+        ]
+    # top_down / three_quarter share a ground-first template
+    return [
+        {
+            "id": "ground",
+            "kind": "rect",
+            "rect_norm": [0.05, 0.08, 0.9, 0.84],
+        },
+        {"id": "edge", "kind": "band", "band_norm": {"y0": 0.0, "y1": 0.08}},
+    ]
+
+
+def _placement_region_id(view: str) -> str:
+    v = (view or "side").strip() or "side"
+    return "playable" if v == "side" else "ground"
+
+
+def _build_layout(project: ProjectContext, assets: list[AssetSpec]) -> dict[str, Any]:
+    view = (project.view or "side").strip() or "side"
+    regions = _build_regions_for_view(view)
+    region_by_id = {r["id"]: r for r in regions}
+    target_region_id = _placement_region_id(view)
+    target_region = region_by_id[target_region_id]
+    center_y = _region_center_y(target_region)
+
+    placables = [
+        spec
+        for spec in assets
+        if (spec.content_class or "").strip() in _PLACABLE_CONTENT_CLASSES
+    ]
+    placables.sort(key=_layout_sort_key)
+
+    placements: list[dict[str, Any]] = []
+    count = len(placables)
+    for i, spec in enumerate(placables):
+        if count == 1:
+            x_norm = 0.5
+        else:
+            x_norm = 0.2 + (0.6 * i / (count - 1))
+        placements.append(
+            {
+                "asset": _layout_asset_key(spec),
+                "xy_norm": [round(x_norm, 4), round(center_y, 4)],
+                "region": target_region_id,
+            }
+        )
+
+    return {
+        "coord_space": LAYOUT_COORD_SPACE,
+        "regions": regions,
+        "placements": placements,
+    }
+
+
+def _norm_in_unit(value: Any, *, allow_end: bool = True) -> bool:
+    try:
+        num = float(value)
+    except (TypeError, ValueError):
+        return False
+    upper = 1.0 if allow_end else 1.0
+    return 0.0 <= num <= upper
+
+
+def _validate_layout(
+    layout: dict[str, Any],
+    *,
+    assets: list[AssetSpec] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+
+    coord_space = layout.get("coord_space")
+    if coord_space is not None and coord_space != LAYOUT_COORD_SPACE:
+        errors.append(f"layout.coord_space must be '{LAYOUT_COORD_SPACE}'")
+
+    regions = layout.get("regions")
+    region_ids: set[str] = set()
+    if not isinstance(regions, list):
+        errors.append("layout.regions must be a list")
+        regions = []
+    for i, region in enumerate(regions):
+        if not isinstance(region, dict):
+            errors.append(f"layout.regions[{i}] must be an object")
+            continue
+        region_id = str(region.get("id") or "").strip()
+        if not region_id:
+            errors.append(f"layout.regions[{i}] missing id")
+            continue
+        if region_id in region_ids:
+            errors.append(f"duplicate layout region id: {region_id}")
+        else:
+            region_ids.add(region_id)
+
+        kind = region.get("kind")
+        if kind == "rect":
+            rect = region.get("rect_norm")
+            if not isinstance(rect, list) or len(rect) != 4:
+                errors.append(f"layout.regions[{i}] rect_norm must be [x,y,w,h]")
+            else:
+                x, y, w, h = rect
+                for label, val in (("x", x), ("y", y), ("w", w), ("h", h)):
+                    if not _norm_in_unit(val):
+                        errors.append(f"layout.regions[{i}].rect_norm {label} must be in [0,1]")
+                try:
+                    if float(w) <= 0 or float(h) <= 0:
+                        errors.append(f"layout.regions[{i}].rect_norm w/h must be > 0")
+                except (TypeError, ValueError):
+                    errors.append(f"layout.regions[{i}].rect_norm w/h must be numeric")
+        elif kind == "band":
+            band = region.get("band_norm")
+            if not isinstance(band, dict):
+                errors.append(f"layout.regions[{i}] band_norm must be an object")
+            else:
+                y0 = band.get("y0")
+                y1 = band.get("y1")
+                if not _norm_in_unit(y0) or not _norm_in_unit(y1):
+                    errors.append(f"layout.regions[{i}].band_norm y0/y1 must be in [0,1]")
+                try:
+                    if float(y1) <= float(y0):
+                        errors.append(f"layout.regions[{i}].band_norm y1 must be > y0")
+                except (TypeError, ValueError):
+                    errors.append(f"layout.regions[{i}].band_norm y0/y1 must be numeric")
+        else:
+            errors.append(f"layout.regions[{i}].kind must be 'rect' or 'band'")
+
+    placements = layout.get("placements")
+    if not isinstance(placements, list):
+        errors.append("layout.placements must be a list")
+        placements = []
+    for i, placement in enumerate(placements):
+        if not isinstance(placement, dict):
+            errors.append(f"layout.placements[{i}] must be an object")
+            continue
+        asset_ref = str(placement.get("asset") or "").strip()
+        if not asset_ref:
+            errors.append(f"layout.placements[{i}] missing asset")
+        xy = placement.get("xy_norm")
+        if not isinstance(xy, list) or len(xy) != 2:
+            errors.append(f"layout.placements[{i}].xy_norm must be [x,y]")
+        else:
+            if not _norm_in_unit(xy[0]) or not _norm_in_unit(xy[1]):
+                errors.append(f"layout.placements[{i}].xy_norm values must be in [0,1]")
+        region_ref = placement.get("region")
+        if region_ref is not None:
+            region_key = str(region_ref).strip()
+            if region_key and region_key not in region_ids:
+                errors.append(
+                    f"layout.placements[{i}] references unknown region '{region_key}'"
+                )
+        if asset_ref and assets is not None:
+            try:
+                find_asset(assets, asset_ref)
+            except ValueError:
+                errors.append(
+                    f"layout.placements[{i}] asset '{asset_ref}' not found in brief"
+                )
+
+    return errors
+
+
 def _build_validation(project: ProjectContext, tasks: list[dict[str, Any]]) -> dict[str, Any]:
     criteria: list[str] = [
         "main scene loads",
@@ -397,6 +603,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
             ],
             "godot_tasks": godot_tasks,
             "validation": _build_validation(project, godot_tasks),
+            "layout": _build_layout(project, assets),
             "scaffold": {
                 "main_scene": "scenes/main.tscn",
                 "scripts_dir": "scripts",
@@ -489,6 +696,20 @@ def validate_production(data: dict[str, Any], *, brief_path: Path | None = None)
     else:
         errors.append("production_doc.scaffold must be an object")
 
+    layout = doc.get("layout")
+    if layout is not None:
+        if not isinstance(layout, dict):
+            errors.append("production_doc.layout must be an object")
+        else:
+            brief_assets: list[AssetSpec] | None = None
+            if brief_path is not None and brief_path.is_file():
+                try:
+                    _project, brief_assets, _graphs = load_brief_full(brief_path)
+                except (ValueError, json.JSONDecodeError, OSError) as exc:
+                    errors.append(f"could not cross-check brief: {exc}")
+                    brief_assets = None
+            errors.extend(_validate_layout(layout, assets=brief_assets))
+
     if brief_path is not None and brief_path.is_file():
         try:
             project, _assets, _graphs = load_brief_full(brief_path)
@@ -502,7 +723,8 @@ def validate_production(data: dict[str, Any], *, brief_path: Path | None = None)
                     if dim in project.viewport and project.viewport[dim] != doc["viewport"].get(dim):
                         errors.append(f"production_doc.viewport.{dim} must match brief")
         except (ValueError, json.JSONDecodeError, OSError) as exc:
-            errors.append(f"could not cross-check brief: {exc}")
+            if not any("could not cross-check brief" in e for e in errors):
+                errors.append(f"could not cross-check brief: {exc}")
 
     return errors
 

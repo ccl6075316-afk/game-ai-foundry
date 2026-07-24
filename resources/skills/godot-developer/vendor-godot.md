@@ -23,8 +23,9 @@ If vendor files are missing, run the script above — do not guess Godot C# APIs
 2. **Authoritative sources** — `brief.json`, `production.json` (if present), `assets-manifest`, assembled project.
 3. **`production.godot_tasks`** — implement in dependency order; each task's `verify[]` is acceptance for that step.
 4. **`production.scenes` / `production.systems`** — scaffold blueprint; align new nodes/scripts with these paths.
-5. **Assets** — use `runtime_bindings` for SpriteFrames / `res://` paths; never call image/video APIs.
-6. After edits: `python gamefactory.py godot validate --project <project>`.
+5. **`production.layout`** (optional) — `regions[]` name viewport bands/rects; `placements[]` list `{ asset, xy_norm, region? }`. Place prop/decor nodes under `World` using `xy_norm * viewport` — never add assets not in the brief.
+6. **Assets** — use `runtime_bindings` for SpriteFrames / `res://` paths; never call image/video APIs.
+7. After edits: `python gamefactory.py godot validate --project <project>`.
 
 ## Genre preset hints (from production derive)
 
