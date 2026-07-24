@@ -17,6 +17,7 @@ from brief import (
     AssetType,
     ProjectContext,
     effective_style_anchor_kind,
+    expand_stateful_assets,
     find_asset,
     is_runtime_only_asset,
     load_brief,
@@ -175,6 +176,40 @@ def _layer_from_deps(dep_ids: list[str], tasks_by_id: dict[str, PipelineTask]) -
     if not dep_ids:
         return 0
     return max(tasks_by_id[did].layer for did in dep_ids) + 1
+
+
+def _stateful_base_id(spec: AssetSpec) -> str | None:
+    file_key = resolve_asset_file_key(spec)
+    if "__" not in file_key:
+        return None
+    return file_key.rsplit("__", 1)[0]
+
+
+def _stateful_siblings(spec: AssetSpec, assets: list[AssetSpec]) -> list[AssetSpec]:
+    base = _stateful_base_id(spec)
+    if not base:
+        return []
+    siblings: list[AssetSpec] = []
+    for candidate in assets:
+        if (candidate.content_class or "").strip() != "prop_stateful":
+            continue
+        if not (candidate.state or "").strip():
+            continue
+        if _stateful_base_id(candidate) == base:
+            siblings.append(candidate)
+    return siblings
+
+
+def _stateful_state0_spec(spec: AssetSpec, assets: list[AssetSpec]) -> AssetSpec | None:
+    siblings = _stateful_siblings(spec, assets)
+    return siblings[0] if siblings else None
+
+
+def _is_stateful_follow_on(spec: AssetSpec, assets: list[AssetSpec]) -> bool:
+    state0 = _stateful_state0_spec(spec, assets)
+    if state0 is None:
+        return False
+    return resolve_asset_file_key(spec) != resolve_asset_file_key(state0)
 
 
 def _post_image_tasks(
@@ -459,6 +494,22 @@ def _static_asset_tasks(
             )
         image_deps.append(ref_image_task)
         ref_raw = _find_artifacts_for_asset(tasks, ref_name)["output"]
+        ref_flag = f" --reference-image {ref_raw}"
+    elif _is_stateful_follow_on(spec, assets):
+        state0 = _stateful_state0_spec(spec, assets)
+        if state0 is None:
+            raise ValueError(
+                f"Asset '{name}' prop_stateful follow-on state could not resolve state 0 sibling."
+            )
+        state0_key = resolve_asset_file_key(state0)
+        ref_image_task = f"{state0_key}.image.generate"
+        if ref_image_task not in tasks_by_id:
+            raise ValueError(
+                f"Asset '{name}' stateful img2img requires state 0 generate "
+                f"'{ref_image_task}' but it is missing."
+            )
+        image_deps.append(ref_image_task)
+        ref_raw = tasks_by_id[ref_image_task].artifacts["output"]
         ref_flag = f" --reference-image {ref_raw}"
     elif should_use_style_img2img(spec, project=project, assets=assets):
         style_path = resolve_style_img2img_path(
@@ -861,6 +912,7 @@ def build_manifest(
     brief_path = brief_path.resolve()
     project, assets, graphs = load_brief_full(brief_path)
     validate_brief_for_export(project, assets, animation_graphs=graphs)
+    assets = expand_stateful_assets(assets)
 
     from project_paths import default_paths_for_brief
 
@@ -876,7 +928,11 @@ def build_manifest(
 
     tasks: list[PipelineTask] = []
     tasks_by_id: dict[str, PipelineTask] = {}
-    asset_ids = {spec.name: resolve_asset_file_key(spec) for spec in assets}
+    asset_ids: dict[str, str] = {}
+    for spec in assets:
+        key = resolve_asset_file_key(spec)
+        asset_ids[spec.name] = key
+        asset_ids[key] = key
 
     try:
         from gamefactory import load_config
@@ -904,7 +960,8 @@ def build_manifest(
                 config=pipeline_config,
             )
             continue
-        paths = _asset_artifacts(output_dir, plans_dir, asset_ids[spec.name])
+        file_key = resolve_asset_file_key(spec)
+        paths = _asset_artifacts(output_dir, plans_dir, file_key)
         _static_asset_tasks(
             tasks,
             tasks_by_id,

@@ -178,7 +178,9 @@ class PipelineManifestTest(unittest.TestCase):
 
         assemble = next(t for t in tasks_list(manifest) if t["id"] == "asset-brief.example.godot.assemble")
         self.assertIn("knight_walk.video.matte-frames", assemble["depends_on"])
-        self.assertEqual(assemble["layer"], matte["layer"] + 1)
+        by_id = {t["id"]: t for t in tasks_list(manifest)}
+        max_dep_layer = max(by_id[d]["layer"] for d in assemble["depends_on"])
+        self.assertEqual(assemble["layer"], max_dep_layer + 1)
 
         dev = next(t for t in tasks_list(manifest) if t["id"] == "asset-brief.example.godot.dev-context")
         self.assertEqual(dev["role"], "godot-developer")

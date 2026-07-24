@@ -104,7 +104,8 @@ game-ai-foundry/
 | `player_asset` | 有 player 向 asset 时必填 |
 | `controls` | 动作 → 按键 |
 | `viewport` | `{ width, height }` |
-| `camera` | 平台类 genre 必填 |
+| `camera` | 平台类 genre 必填（**运行时**跟随/固定，如 `follow_player`） |
+| `view` | 可选；内容视角闭集 `side` \| `top_down` \| `three_quarter`；与 `camera` **正交**；brief LLM 从 genre 推断 |
 
 ### `project` 可选（P1）
 
@@ -168,9 +169,37 @@ game-ai-foundry/
 
 设计背景 → [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md)。
 
+#### `content_class` + `project.view`（Phase 2）
+
+与玩法 **`usage`**、运行时 **`camera`** 均 **正交**；用户自然语言描述，**brief LLM 填写**；旧 brief 无字段仍兼容。
+
+| 层级 | 字段 | 说明 |
+|------|------|------|
+| `project` | `view` | `side` \| `top_down` \| `three_quarter` — 内容/出图视角；≠ `camera.mode` |
+| `assets[]` | `content_class` | 闭集类属（**非** door/cabinet 等特指物名） |
+| `assets[]` | `states[]` | 仅 `prop_stateful`；≥2 个 state slug |
+
+**`content_class` 闭集**：`floor_tile`, `wall_tile`, `prop_static`, `prop_interactable`, `prop_stateful`, `weapon`, `tool`, `decor`, `backdrop_sparse`, `backdrop_full`。
+
+**Pipeline 映射（LLM 填 class → 推断 `type`，用户不手填策略）**：
+
+| class 组 | 典型 `type` | 产物 |
+|----------|-------------|------|
+| `*_tile` | `texture` | 平铺，不去背 |
+| `prop_*` / `weapon` / `tool` / `decor` | still 族 | 白底 mattable |
+| `backdrop_*` | `background` | 场景背景 |
+
+**场景构图**：默认 `backdrop_sparse` + 独立 props；逻辑布局 Godot 后期摆放；避免单张 busy `backdrop_full` 塞整关。
+
+**`prop_stateful` + `states`**：`pipeline plan` 展开为多 still（如 `{id}__closed` / `{id}__open`）；状态 0 → T2I；状态 k>0 → img2img，`--reference-image` = 状态 0 raw，`depends_on` 状态 0 generate；craft prompt 只写状态差。手写多行 + `identity_anchor` 仍合法。
+
+**Prompt craft（结构化）**：LLM 输出 `subject` / `silhouette` / `style_lock` / `view` / `technical` / `negatives` 等；`assemble_asset_prompt()` 在 Python 合并 `art_tokens`、`project.view`、class 硬锁 → handoff `prompt`（可选保留 `prompt_fields`）。Skills：`resources/skills/prompt-crafter/class-*.md` 按 class 加载；`asset-planner.md` 路由。
+
+Spec → [`docs/anvil/brainstorms/2026-07-24-content-class-structured-craft.md`](anvil/brainstorms/2026-07-24-content-class-structured-craft.md)。
+
 ### `assets[]` 每项
 
-`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
+`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
 
 **`type: icon_kit`**：`items[]` 必填。每项为字符串，或  
 `{id, label?, usage?, usage_description?}`（文件键 slug 跟 `id`；item `usage` 进 `production.collectible_items`）。  

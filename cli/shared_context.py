@@ -51,6 +51,8 @@ def project_to_dict(project: ProjectContext) -> dict[str, Any]:
         data["hud"] = project.hud
     if project.art_tokens:
         data["art_tokens"] = project.art_tokens
+    if project.view:
+        data["view"] = project.view
     return data
 
 
@@ -140,6 +142,12 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["use_style_img2img"] = spec.use_style_img2img
     if spec.generate_tier:
         data["generate_tier"] = spec.generate_tier
+    if spec.content_class:
+        data["content_class"] = spec.content_class
+    if spec.states:
+        data["states"] = list(spec.states)
+    if spec.state:
+        data["state"] = spec.state
     return data
 
 

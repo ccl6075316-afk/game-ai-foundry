@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
@@ -69,6 +69,21 @@ PLAYER_USAGES = frozenset(
         "player_action",
     }
 )
+PROJECT_VIEWS = frozenset({"side", "top_down", "three_quarter"})
+CONTENT_CLASSES = frozenset(
+    {
+        "floor_tile",
+        "wall_tile",
+        "prop_static",
+        "prop_interactable",
+        "prop_stateful",
+        "weapon",
+        "tool",
+        "decor",
+        "backdrop_sparse",
+        "backdrop_full",
+    }
+)
 
 
 class AssetType(str, Enum):
@@ -105,6 +120,7 @@ class ProjectContext:
     visual_reference: str = ""
     hud: list[dict[str, Any]] = field(default_factory=list)
     art_tokens: dict[str, Any] | None = None
+    view: str = ""
     _art_tokens_errors: list[str] = field(default_factory=list, repr=False, compare=False)
 
     @classmethod
@@ -135,6 +151,7 @@ class ProjectContext:
             visual_reference=str(data.get("visual_reference", "")).strip(),
             hud=[item for item in (data.get("hud") or []) if isinstance(item, dict)],
             art_tokens=art_tokens,
+            view=str(data.get("view", "")).strip(),
             _art_tokens_errors=art_tokens_errors,
         )
 
@@ -386,6 +403,9 @@ class AssetSpec:
     identity_anchor: str = ""
     use_style_img2img: bool | None = None
     generate_tier: str = ""
+    content_class: str = ""
+    states: list[str] = field(default_factory=list)
+    state: str = ""
 
     def __post_init__(self) -> None:
         if self.items and any(not isinstance(x, IconKitItem) for x in self.items):
@@ -455,7 +475,90 @@ class AssetSpec:
                 bool(data["use_style_img2img"]) if "use_style_img2img" in data else None
             ),
             generate_tier=tier_raw,
+            content_class=str(data.get("content_class", "")).strip(),
+            states=normalize_asset_states(data.get("states")),
+            state=str(data.get("state", "")).strip(),
         )
+
+
+def normalize_asset_states(raw: Any) -> list[str]:
+    """Strip, drop empties, preserve order with unique entries."""
+    if raw is None:
+        return []
+    if not isinstance(raw, list):
+        return []
+    seen: set[str] = set()
+    out: list[str] = []
+    for item in raw:
+        label = str(item).strip()
+        if not label or label in seen:
+            continue
+        seen.add(label)
+        out.append(label)
+    return out
+
+
+def audit_content_class(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+) -> list[str]:
+    """Validate project.view and assets[].content_class / states."""
+    errors: list[str] = []
+    view = (project.view or "").strip()
+    if view and view not in PROJECT_VIEWS:
+        errors.append(
+            f"project.view must be one of: {', '.join(sorted(PROJECT_VIEWS))} (got '{view}')"
+        )
+
+    for spec in assets:
+        cc = (spec.content_class or "").strip()
+        states = spec.states or []
+
+        if cc and cc not in CONTENT_CLASSES:
+            errors.append(
+                f"Asset '{spec.name}' content_class must be one of: "
+                f"{', '.join(sorted(CONTENT_CLASSES))} (got '{cc}')"
+            )
+
+        if not states:
+            continue
+
+        if cc != "prop_stateful":
+            errors.append(
+                f"Asset '{spec.name}' states[] requires content_class 'prop_stateful' "
+                f"(got '{cc or 'missing'}')"
+            )
+        elif len(states) == 1:
+            errors.append(
+                f"Asset '{spec.name}' prop_stateful with states[] requires at least 2 states "
+                "(got 1)"
+            )
+
+    return errors
+
+
+def expand_stateful_assets(assets: list[AssetSpec]) -> list[AssetSpec]:
+    """Expand prop_stateful assets with states[]>=2 into one AssetSpec per state."""
+    out: list[AssetSpec] = []
+    for spec in assets:
+        cc = (spec.content_class or "").strip()
+        states = spec.states or []
+        if cc == "prop_stateful" and len(states) >= 2:
+            base_id = (spec.id or "").strip()
+            for state_label in states:
+                state_slug = slugify_item_label(state_label)
+                child_id = f"{base_id}__{state_slug}" if base_id else state_slug
+                out.append(
+                    replace(
+                        spec,
+                        id=child_id,
+                        states=[],
+                        state=state_label,
+                    )
+                )
+        else:
+            out.append(spec)
+    return out
 
 
 def resolve_asset_file_key(spec: AssetSpec) -> str:
@@ -1530,6 +1633,7 @@ def audit_brief_for_export(
     errors.extend(audit_visual_reference(project, brief_path=brief_path))
     errors.extend(audit_style_groups(project, assets, brief_path=brief_path))
     errors.extend(audit_art_tokens(project))
+    errors.extend(audit_content_class(project, assets))
 
     return errors
 

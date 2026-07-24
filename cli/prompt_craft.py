@@ -13,7 +13,11 @@ import requests
 
 from proxy_utils import http_post
 from roles import PROMPT_CRAFTER_ROLE
-from skill_loader import load_role_skill, load_role_skills
+from skill_loader import (
+    load_prompt_skills_for_asset,
+    load_role_skill,
+    load_role_skills,
+)
 
 DEFAULT_PROMPT_MODEL = "deepseek/deepseek-chat"
 
@@ -104,21 +108,294 @@ def _parse_json_object(text: str) -> dict[str, Any]:
         raise PromptCraftError(str(exc)) from exc
 
 
-def _system_prompt(kind: str) -> str:
-    skills = load_role_skills(PROMPT_CRAFTER_ROLE)
-    schema = '{"prompt": "<generation prompt>"'
-    if kind == "animation":
-        schema += ', "video_prompt": "<motion-focused video prompt>"'
-    schema += "}"
+ASSET_STRUCTURED_KEYS = (
+    "subject",
+    "silhouette",
+    "style_lock",
+    "view",
+    "technical",
+    "negatives",
+)
 
+VIEW_LOCK_PHRASES: dict[str, str] = {
+    "side": (
+        "Side view, profile facing right, readable silhouette for side-scroller gameplay"
+    ),
+    "top_down": (
+        "Top-down view, looking straight down, clear readable shapes from above"
+    ),
+    "three_quarter": (
+        "Three-quarter view, slightly angled, readable game asset perspective"
+    ),
+}
+
+GLOBAL_ASSET_NEGATIVES = (
+    "No spritesheet; no multiple action frames in one image; "
+    "never transparent background or checkerboard"
+)
+
+
+def _merge_prompt_text(existing: str, addition: str) -> str:
+    """Prepend/merge token locks so empty LLM fields cannot wipe hard locks."""
+    left = str(existing or "").strip()
+    right = str(addition or "").strip()
+    if not right:
+        return left
+    if not left:
+        return right
+    if right.lower() in left.lower():
+        return left
+    return f"{right}; {left}"
+
+
+def _art_tokens_dict(project: dict[str, Any] | Any) -> dict[str, Any]:
+    if isinstance(project, dict):
+        tokens = project.get("art_tokens")
+    else:
+        tokens = getattr(project, "art_tokens", None)
+    return tokens if isinstance(tokens, dict) else {}
+
+
+def _resolve_content_class(spec: dict[str, Any] | Any) -> str:
+    if isinstance(spec, dict):
+        cc = str(spec.get("content_class") or "").strip()
+        atype = str(spec.get("type") or "").strip().lower()
+    else:
+        cc = str(getattr(spec, "content_class", None) or "").strip()
+        atype = str(getattr(spec, "type", None).value if getattr(spec, "type", None) else "").strip().lower()
+    if cc:
+        return cc
+    if atype == "texture":
+        return "floor_tile"
+    if atype == "background":
+        return "backdrop_full"
+    if atype in ("character", "character_pose", "icon_kit"):
+        return "prop_static"
+    return ""
+
+
+def _project_view_value(project: dict[str, Any] | Any) -> str:
+    if isinstance(project, dict):
+        return str(project.get("view") or "").strip()
+    return str(getattr(project, "view", None) or "").strip()
+
+
+def _technical_defaults_for_content_class(content_class: str) -> str:
+    cc = (content_class or "").strip().lower()
+    if cc.endswith("_tile") or cc in ("floor_tile", "wall_tile"):
+        return (
+            "Seamless tileable texture filling the frame; uniform lighting; "
+            "no shadows; clean tile edges; not a white studio backdrop"
+        )
+    if cc in (
+        "prop_static",
+        "prop_interactable",
+        "prop_stateful",
+        "weapon",
+        "tool",
+        "decor",
+    ):
+        return (
+            "Pure flat white background (#FFFFFF), uniform studio backdrop; "
+            "single object centered; mattable still; no environment scenery"
+        )
+    if cc == "backdrop_sparse":
+        return (
+            "Environmental background with sparse focal elements; generous empty "
+            "space for gameplay props; no white studio; no character sprites; no UI"
+        )
+    if cc == "backdrop_full":
+        return (
+            "Full environmental background scene; rich atmosphere; "
+            "no white studio; no character sprites; no UI"
+        )
+    return ""
+
+
+def _merge_art_tokens_into_fields(
+    fields: dict[str, str],
+    art_tokens: dict[str, Any],
+) -> None:
+    if not art_tokens:
+        return
+
+    silhouette = art_tokens.get("silhouette")
+    if isinstance(silhouette, str) and silhouette.strip():
+        fields["silhouette"] = _merge_prompt_text(
+            fields.get("silhouette", ""),
+            f"Silhouette lock: {silhouette.strip()}",
+        )
+
+    style_parts: list[str] = []
+    line = art_tokens.get("line")
+    if isinstance(line, str) and line.strip():
+        style_parts.append(f"Line: {line.strip()}")
+    palette = art_tokens.get("palette")
+    if isinstance(palette, str) and palette.strip():
+        style_parts.append(f"Palette: {palette.strip()}")
+    elif isinstance(palette, list):
+        items = [str(item).strip() for item in palette if str(item).strip()]
+        if items:
+            style_parts.append("Palette: " + ", ".join(items))
+    if style_parts:
+        fields["style_lock"] = _merge_prompt_text(
+            fields.get("style_lock", ""),
+            "; ".join(style_parts),
+        )
+
+    forbid = art_tokens.get("forbid")
+    if isinstance(forbid, list):
+        items = [str(item).strip() for item in forbid if str(item).strip()]
+        if items:
+            fields["negatives"] = _merge_prompt_text(
+                fields.get("negatives", ""),
+                "; ".join(items),
+            )
+
+
+def _ensure_view_lock(fields: dict[str, str], project: dict[str, Any] | Any) -> None:
+    view_key = _project_view_value(project)
+    phrase = VIEW_LOCK_PHRASES.get(view_key, "")
+    if phrase:
+        fields["view"] = _merge_prompt_text(fields.get("view", ""), phrase)
+
+
+def _ensure_technical_lock(
+    fields: dict[str, str],
+    spec: dict[str, Any] | Any,
+) -> None:
+    defaults = _technical_defaults_for_content_class(_resolve_content_class(spec))
+    if defaults:
+        fields["technical"] = _merge_prompt_text(fields.get("technical", ""), defaults)
+
+
+def _ensure_global_negatives(fields: dict[str, str]) -> None:
+    fields["negatives"] = _merge_prompt_text(
+        fields.get("negatives", ""),
+        GLOBAL_ASSET_NEGATIVES,
+    )
+
+
+def assemble_asset_prompt(
+    fields: dict[str, Any],
+    *,
+    project: dict[str, Any] | Any,
+    spec: dict[str, Any] | Any,
+) -> str:
+    """Assemble labeled asset prompt from structured fields + forced hard locks."""
+    cleaned: dict[str, str] = {}
+    for key in ASSET_STRUCTURED_KEYS:
+        val = fields.get(key)
+        if val is None:
+            continue
+        text = str(val).strip()
+        if text:
+            cleaned[key] = text
+
+    _merge_art_tokens_into_fields(cleaned, _art_tokens_dict(project))
+    _ensure_view_lock(cleaned, project)
+    _ensure_technical_lock(cleaned, spec)
+    _ensure_global_negatives(cleaned)
+
+    if not cleaned.get("subject"):
+        if isinstance(spec, dict) and spec.get("description"):
+            cleaned["subject"] = str(spec["description"]).strip()
+        elif getattr(spec, "description", None):
+            cleaned["subject"] = str(spec.description).strip()
+
+    if not cleaned.get("subject") and not cleaned.get("technical"):
+        raise PromptCraftError(
+            "Asset assemble needs at least 'subject' or injectable technical defaults"
+        )
+
+    labels = [
+        ("Subject", "subject"),
+        ("Silhouette", "silhouette"),
+        ("Style lock", "style_lock"),
+        ("View", "view"),
+        ("Technical", "technical"),
+        ("Negatives", "negatives"),
+    ]
+    parts: list[str] = []
+    for label, key in labels:
+        text = cleaned.get(key)
+        if not text:
+            continue
+        parts.append(f"{label}: {text}")
+    return "\n".join(parts)
+
+
+def append_hard_locks(
+    prompt: str,
+    project: dict[str, Any] | Any,
+    spec: dict[str, Any] | Any,
+) -> str:
+    """Legacy prose path: append forced view/tokens/technical tails."""
+    base = str(prompt or "").strip()
+    if not base:
+        return base
+
+    tail_fields: dict[str, str] = {}
+    _merge_art_tokens_into_fields(tail_fields, _art_tokens_dict(project))
+    _ensure_view_lock(tail_fields, project)
+    _ensure_technical_lock(tail_fields, spec)
+    _ensure_global_negatives(tail_fields)
+
+    tails: list[str] = []
+    for key in ("view", "technical", "style_lock", "silhouette", "negatives"):
+        text = tail_fields.get(key, "").strip()
+        if not text:
+            continue
+        if text.lower() in base.lower():
+            continue
+        tails.append(text)
+    if not tails:
+        return base
+    return f"{base}\n\nHard locks: {'; '.join(tails)}"
+
+
+def _asset_schema(kind: str) -> dict[str, str]:
+    schema = {
+        "subject": "main asset subject and readable description",
+        "silhouette": "silhouette / shape readability cues",
+        "style_lock": "line weight, palette, art style locks",
+        "view": "camera / facing angle for this asset",
+        "technical": "background, matting, tile, or scene technical requirements",
+        "negatives": "forbidden elements and composition mistakes",
+    }
+    if kind == "animation":
+        schema["video_prompt"] = "motion-focused video prompt for i2v"
+    return schema
+
+
+def _system_prompt(kind: str, context: dict[str, Any] | None = None) -> str:
+    spec = None
+    project = None
+    if isinstance(context, dict):
+        asset = context.get("asset")
+        proj = context.get("project")
+        if asset is not None:
+            spec = asset
+        if proj is not None:
+            project = proj
+
+    if spec is not None:
+        skills = load_prompt_skills_for_asset(spec, project)
+    else:
+        skills = load_role_skills(PROMPT_CRAFTER_ROLE)
+
+    schema = _asset_schema(kind)
     return (
         f"You are the **{PROMPT_CRAFTER_ROLE}** in Game AI Foundry. "
         "You receive shared project + asset context (same facts the orchestrator sees). "
         "You do NOT run the pipeline — you only write generation prompts.\n\n"
         f"{skills}\n\n"
-        "Respond with ONLY valid JSON, no markdown fences:\n"
-        f"{schema}\n\n"
-        "Craft visually specific English prompts under 120 words."
+        "Fill structured JSON fields; Python assembles the final image prompt — "
+        "do not output a free-form `prompt` field unless legacy fallback.\n"
+        "Respect project.view, project.art_tokens, and asset.content_class when present.\n\n"
+        "Respond with ONLY valid JSON, no markdown fences, using exactly these keys:\n"
+        f"{json.dumps(schema, ensure_ascii=False, indent=2)}\n\n"
+        "Craft visually specific English under 120 words total across fields."
     )
 
 
@@ -130,8 +407,8 @@ def craft_asset_prompt(
     api_base: str,
     proxy: str | None = None,
     kind: str = "image",
-) -> dict[str, str]:
-    """prompt-crafter role: LLM writes the generation prompt from shared context."""
+) -> dict[str, Any]:
+    """prompt-crafter role: structured fields → assembled generation prompt."""
     user = {
         "role": PROMPT_CRAFTER_ROLE,
         "task": f"Craft a {kind} generation prompt.",
@@ -141,7 +418,7 @@ def craft_asset_prompt(
     raw = chat_text_completion(
         model=model,
         messages=[
-            {"role": "system", "content": _system_prompt(kind)},
+            {"role": "system", "content": _system_prompt(kind, context)},
             {"role": "user", "content": json.dumps(user, ensure_ascii=False, indent=2)},
         ],
         api_key=api_key,
@@ -149,11 +426,43 @@ def craft_asset_prompt(
         proxy=proxy,
     )
     parsed = _parse_json_object(raw)
-    prompt = str(parsed.get("prompt", "")).strip()
-    if not prompt:
-        raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
+    project = context.get("project") if isinstance(context.get("project"), dict) else {}
+    spec = context.get("asset") if isinstance(context.get("asset"), dict) else {}
 
-    result = {"prompt": prompt}
+    has_structured = any(
+        str(parsed.get(k) or "").strip() for k in ASSET_STRUCTURED_KEYS
+    )
+
+    if parsed.get("prompt") and not has_structured:
+        prompt = str(parsed.get("prompt", "")).strip()
+        if not prompt:
+            raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
+        prompt = append_hard_locks(prompt, project, spec)
+        result: dict[str, Any] = {"prompt": prompt, "prompt_source": "llm_prose"}
+        if kind == "animation":
+            video_prompt = str(parsed.get("video_prompt", "")).strip()
+            if not video_prompt:
+                raise PromptCraftError(
+                    "Animation craft requires non-empty 'video_prompt' in LLM JSON"
+                )
+            result["video_prompt"] = video_prompt
+        return result
+
+    fields = {k: parsed.get(k) for k in ASSET_STRUCTURED_KEYS}
+    if not fields.get("style_lock") and project.get("art_direction"):
+        fields["style_lock"] = str(project["art_direction"])
+
+    prompt = assemble_asset_prompt(fields, project=project, spec=spec)
+    cleaned_fields = {
+        k: str(v).strip()
+        for k, v in fields.items()
+        if v is not None and str(v).strip()
+    }
+    result = {
+        "prompt": prompt,
+        "prompt_source": "llm_structured",
+        "prompt_fields": cleaned_fields,
+    }
     if kind == "animation":
         video_prompt = str(parsed.get("video_prompt", "")).strip()
         if not video_prompt:

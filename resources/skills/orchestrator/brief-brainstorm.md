@@ -42,7 +42,8 @@
 | `player_asset` | 有 player 向 asset 时必填，对应 `assets[].name` |
 | `controls` | 非空，动作名 → 按键列表；usage 含 locomotion 时需 `move_left`/`move_right`；含 jump/attack 时需对应 action |
 | `viewport` | `{ width, height }` 正整数，逻辑分辨率 |
-| `camera` | `2d_platformer` 等平台类 genre 必填，如 `{ "mode": "follow_player" }` |
+| `camera` | `2d_platformer` 等平台类 genre 必填，如 `{ "mode": "follow_player" }`（**运行时**跟随/固定） |
+| `view` | **内容视角**，与 `camera` **正交**；闭集 `side` \| `top_down` \| `three_quarter`；从 genre / 对话推断（横版→`side`，俯视→`top_down`）；用户不手填，由 LLM 写入 |
 | `visual_reference` | **导出时必须留空**。保存 Brief 后由策划在 GUI 点「生成北极星图」→「选用北极星 a/b/c」写入**图片路径**。**禁止**把风格散文、参考游戏名写进此字段——风格只写 `art_direction` |
 | `art_tokens` | **可选**。与 `art_direction` 并存的结构化风格硬锁（`line`, `palette`, `forbid`, `silhouette`）；有具体配色/线宽/禁止项时保守填写，否则省略 |
 | `hud` | 有 `usage: ui_element` 素材时必填；每项 `{ "asset", "anchor", "description" }` |
@@ -55,10 +56,27 @@
 | `id` | **必填**英文 slug：`^[a-z][a-z0-9_]*$`；磁盘路径与 pipeline task 前缀只用 id |
 | `type` | 六种之一（含 `audio`） |
 | `usage` | 用途标签（见下） |
+| `content_class` | **类属**（闭集，与 `usage` 正交）；见下表；用户不手填 |
 | `usage_description` | 谁用、怎么用（可与 `description` 二选一，但至少要有一个） |
 | `display_size` | `{ width, height }` 游戏内像素（看起来多大）；兼容 `"128x128 px"` 字符串 |
 | `generate_method` | 可选；`image` / `video` / `procedural` / `file`，缺省按 type 推断 |
 | `description` | 英文 prompt 素材描述 |
+
+**`content_class`（类属，闭集）** — 禁止 `door` 等特指物名；与玩法 `usage` 可同时存在：
+
+| 值 | 含义 |
+|----|------|
+| `floor_tile` / `wall_tile` | 可平铺地块 → 典型 `type: texture` |
+| `prop_static` / `prop_interactable` / `prop_stateful` | 场景道具 → 典型 mattable still |
+| `weapon` / `tool` | 武器 / 工具 |
+| `decor` | 纯装饰 |
+| `backdrop_sparse` / `backdrop_full` | 稀疏留白背景 / 满幅氛围 → 典型 `type: background` |
+
+**映射提示（LLM 填，用户不填）**：tiles → texture；props/weapons/tools/decor → 白底 still；backdrops → background。
+
+**场景构图**：优先 `backdrop_sparse` + 独立 props；逻辑布局后期在 Godot 摆放；勿把整关 bake 进一张 busy 背景。
+
+**`prop_stateful` + `states[]`**（≥2 个英文 slug，如 `["closed","open"]`）：plan 自动展开多 still；状态 0 文生图，后续态 img2img 参考状态 0 raw（prompt 只写状态差）。手写多行 + `identity_anchor` 亦合法。
 
 **视差层（`usage: parallax_layer`）额外必填：** `parallax_order`（int，越小越远）、`scroll_factor`（float，0–1）。
 
@@ -121,6 +139,10 @@
 ### 推荐 `usage` 标签
 
 `reference_still`, `player_idle`, `player_locomotion`, `player_attack`, `player_jump`, `player_action`, `world_background`, `parallax_layer`, `ui_element`, `tile_texture`, `item_icon`, `vfx`, `music`, `sfx`
+
+### Prompt craft（结构化）
+
+`prompt craft`：LLM 输出结构化 JSON 字段，Python `assemble_*` 合并 `art_tokens`、`project.view`、class 硬锁后写入 handoff `prompt`。Skills 按 `content_class` 拆分加载（tiles / props / backdrops / character / ui 等）；`asset-planner` 变薄，仅路由说明。
 
 ## Brief 结构参考
 

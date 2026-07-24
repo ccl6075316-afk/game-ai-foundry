@@ -31,7 +31,7 @@
 
 | 用户往往只说 | 你应补全 |
 |--------------|----------|
-| 「横版魔法王子」 | `genre`, `gameplay_loop`, `session_goal`, `viewport`, `camera`… |
+| 「横版魔法王子」 | `genre`, `gameplay_loop`, `session_goal`, `viewport`, `camera`, `view`… |
 | 「能走跳砍」 | `controls` + 对应 `player_*` assets + 视频动画条目 |
 | 「梦幻一点」 | 英文 `art_direction` / 各 asset `description` |
 | 「这几个角色要同一画风」 | 保守写 `style_group` + `style_anchor`（见下）；无明确关系则不建组 |
@@ -54,7 +54,8 @@
 - `genre`, `gameplay_loop`, `session_goal`
 - `player_asset`（有玩家向资产时）
 - `controls`, `viewport` `{width,height}`
-- `camera`（平台类 genre 必填）
+- `camera`（平台类 genre 必填；**运行时**跟随/固定，如 `{ "mode": "follow_player" }`）
+- `view`（**内容视角**，与 `camera` **正交**）：闭集 `side` | `top_down` | `three_quarter`；从 genre / 自然语言推断（横版→`side`，俯视 RPG→`top_down`）；用户**不手填**，由你写入
 - 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）；`art_tokens`（结构化风格硬锁，与 `art_direction` 并存，见下）
 
 **`art_tokens`（可选）** — 仅在用户给出**具体、可执行**的风格锁（配色 hex、线宽、禁止项、剪影比例等）时**保守填写**；模糊或仅散文描述 → 只写 `art_direction`，省略本字段。键均为**英文**字符串：
@@ -70,7 +71,7 @@
 
 ### `assets[]`
 
-- `name`, `id`（英文 slug，必填）, `type`, `usage`, `usage_description` 或 `description`
+- `name`, `id`（英文 slug，必填）, `type`, `usage`, `content_class`, `usage_description` 或 `description`
 - `display_size`（character / pose / background / icon_kit / ui_element）
 - `generate_method`：`image` | `video` | `procedural` | `file`
 - 类型：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`
@@ -79,6 +80,37 @@
 - `audio` → `usage` music|sfx；music 要 `audio_loop`
 - **产物路径只用 `id`**（如 `plans/referee.json`、`referee_raw.png`）；`name` 可中文
 - **风格组（可选）**：`style_group`、`style_anchor_kind`（`asset`|`visual_reference`）、`style_anchor`、`use_style_img2img`（缺省 true，`false` 退回纯文生图）
+
+### `content_class` — 类属（与 `usage` 正交）
+
+用户只说「门、地板、背景」等自然语言；**由你**写入 `content_class`（闭集类属，**禁止** `door` / `cabinet` 等特指物名）：
+
+| `content_class` | 含义 |
+|-----------------|------|
+| `floor_tile` / `wall_tile` | 可平铺地块 |
+| `prop_static` / `prop_interactable` / `prop_stateful` | 场景道具（可交互 / 多状态） |
+| `weapon` / `tool` | 武器 / 工具 |
+| `decor` | 纯装饰 |
+| `backdrop_sparse` / `backdrop_full` | 稀疏留白背景 / 满幅氛围背景 |
+
+- **`usage`** 仍表玩法（`player_idle`、`tile_texture`、`ui_element` 等）；与 `content_class` **可同时存在**，二者不互替。
+- **Pipeline 映射（你只填 class，用户不填 `type` 策略）**：
+
+| class 组 | 典型 `type` | 产物形态 |
+|----------|-------------|----------|
+| `*_tile` | `texture` | 平铺纹理，不去背 |
+| `prop_*` / `weapon` / `tool` / `decor` | `character` 或近 still | 白底可抠图 still |
+| `backdrop_*` | `background` | 场景背景 |
+
+- **场景构图**：优先 `backdrop_sparse` + 独立 `prop_*`；关卡逻辑布局由 Godot 后期摆放，**不要**把整关塞进一张 busy 的 `backdrop_full`。
+- **UI / 角色**：`ui_element` / `icon_kit` / 玩家角色可省略 `content_class`（或沿用现有 `usage` + `type`）；prompt-crafter 有独立 class skill。
+
+### `prop_stateful` + `states[]`
+
+门、开关等多状态道具：`content_class: prop_stateful` + `states: ["closed", "open"]`（≥2 个英文 slug）。
+
+- export / plan **自动展开**为多 still（如 `door__closed`、`door__open`）；**状态 0** 文生图；**状态 k>0** img2img 参考状态 0 raw，prompt 只写状态差。
+- 手写多行（每态一行）+ `identity_anchor` 仍合法；与自动展开二选一即可。
 
 ### 风格组 — 保守标定
 
@@ -106,6 +138,10 @@
 推荐 usage：`reference_still`, `player_idle`, `player_locomotion`, `player_attack`, `player_jump`, `player_action`, `world_background`, `parallax_layer`, `ui_element`, `tile_texture`, `item_icon`, `vfx`, `music`, `sfx`
 
 结构参考：仓库 `resources/asset-brief.example.json`。
+
+### Prompt craft（结构化）
+
+`prompt craft` 不再只靠 LLM 吐整段 prompt：LLM 输出结构化字段（`subject`、`silhouette`、`style_lock`、`view`、`technical`、`negatives` 等），**Python 组装**最终 `prompt`（合并 `art_tokens`、`project.view`、class 硬锁）。Skills 按 `content_class` 拆分（`class-tiles`、`class-props`、`class-backdrops` 等）；`asset-planner` 负责路由说明。
 
 ---
 
