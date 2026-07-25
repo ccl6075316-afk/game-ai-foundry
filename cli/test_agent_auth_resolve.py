@@ -14,13 +14,13 @@ def _base_config(**overrides: object) -> dict:
             "deepseek": {
                 "api_key": "sk-ds-test",
                 "api_base": "https://api.deepseek.com/v1",
-                "text_model": "deepseek-chat",
+                "text_model": "deepseek-v4-flash",
             },
         },
         "host": {
             "provider": "openrouter",
             "api_key": "sk-host-or",
-            "model": "deepseek/deepseek-chat",
+            "model": "deepseek/deepseek-v4-flash",
         },
         "agents": {
             "brief": {"executor": "pi", "provider": "openrouter", "model": None},
@@ -42,11 +42,11 @@ def _base_config(**overrides: object) -> dict:
 class MergeInstanceOverlayTests(unittest.TestCase):
     def test_merge_overlays_instance_fields(self) -> None:
         role = {"executor": "pi", "provider": "openrouter", "model": None}
-        inst = {"provider": "deepseek", "model": "deepseek-chat", "role_kind": "it"}
+        inst = {"provider": "deepseek", "model": "deepseek-v4-flash", "role_kind": "it"}
         merged = merge_instance_overlay(role, inst)
         self.assertEqual(merged["executor"], "pi")
         self.assertEqual(merged["provider"], "deepseek")
-        self.assertEqual(merged["model"], "deepseek-chat")
+        self.assertEqual(merged["model"], "deepseek-v4-flash")
         self.assertEqual(merged["role_kind"], "it")
 
     def test_merge_without_instance_returns_role_copy(self) -> None:
@@ -57,18 +57,44 @@ class MergeInstanceOverlayTests(unittest.TestCase):
 
 
 class ResolveAgentAuthTests(unittest.TestCase):
+    def test_legacy_deepseek_chat_remapped(self) -> None:
+        from agent_auth_resolve import migrate_retired_llm_models, normalize_llm_model
+
+        self.assertEqual(normalize_llm_model("deepseek-chat"), "deepseek-v4-flash")
+        self.assertEqual(normalize_llm_model("deepseek/deepseek-chat"), "deepseek/deepseek-v4-flash")
+        self.assertEqual(normalize_llm_model("deepseek-v4-pro"), "deepseek-v4-pro")
+
+        config = _base_config()
+        config["agents"]["instances"]["ops-legacy"] = {
+            "role_kind": "it",
+            "executor": "pi",
+            "provider": "deepseek",
+            "model": "deepseek-chat",
+        }
+        auth = resolve_agent_auth(config, role_kind="it", instance_id="ops-legacy")
+        self.assertEqual(auth["model"], "deepseek-v4-flash")
+
+        migrated = {
+            "host": {"model": "deepseek-chat"},
+            "agents": {"instances": {"x": {"model": "deepseek/deepseek-chat"}}},
+        }
+        notes = migrate_retired_llm_models(migrated)
+        self.assertEqual(migrated["host"]["model"], "deepseek-v4-flash")
+        self.assertEqual(migrated["agents"]["instances"]["x"]["model"], "deepseek/deepseek-v4-flash")
+        self.assertEqual(len(notes), 2)
+
     def test_instance_overrides_role(self) -> None:
         config = _base_config()
         config["agents"]["instances"]["ops-1"] = {
             "role_kind": "it",
             "executor": "pi",
             "provider": "deepseek",
-            "model": "deepseek-chat",
+            "model": "deepseek-v4-flash",
         }
         auth = resolve_agent_auth(config, role_kind="it", instance_id="ops-1")
         self.assertEqual(auth["source"], "instance")
         self.assertEqual(auth["provider"], "deepseek")
-        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["model"], "deepseek-v4-flash")
         self.assertEqual(auth["api_key"], "sk-ds-test")
         self.assertEqual(auth["env_key"], "DEEPSEEK_API_KEY")
         self.assertEqual(auth["executor"], "pi")
@@ -137,7 +163,7 @@ class ResolveAgentAuthTests(unittest.TestCase):
         config["agents"]["it"]["model"] = None
         config["provider_accounts"]["deepseek"] = {"api_key": "sk-ds"}
         auth = resolve_agent_auth(config, role_kind="it")
-        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["model"], "deepseek-v4-flash")
 
     def test_model_from_account_text_model(self) -> None:
         config = _base_config()
@@ -172,7 +198,7 @@ class ResolveAgentAuthTests(unittest.TestCase):
         config["host"] = {
             "provider": "deepseek",
             "api_key": "sk-host-ds",
-            "model": "deepseek-chat",
+            "model": "deepseek-v4-flash",
         }
         config["agents"]["it"]["provider"] = "deepseek"
         auth = resolve_agent_auth(config, role_kind="it")
@@ -189,24 +215,24 @@ class ResolveAgentAuthTests(unittest.TestCase):
             "role_kind": "brief",
             "executor": "pi",
             "provider": "deepseek",
-            "model": "deepseek-chat",
+            "model": "deepseek-v4-flash",
         }
         auth = resolve_agent_auth(config, role_kind="brief", instance_id="brief-1")
         self.assertEqual(auth["source"], "instance")
         self.assertEqual(auth["provider"], "deepseek")
-        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["model"], "deepseek-v4-flash")
         self.assertEqual(auth["api_key"], "sk-ds-test")
 
     def test_no_instance_provider_uses_executors_preset(self) -> None:
         config = _base_config()
         config["agents"]["executors"] = {
-            "pi": {"provider": "deepseek", "model": "deepseek-chat"},
+            "pi": {"provider": "deepseek", "model": "deepseek-v4-flash"},
         }
         config["agents"]["it"]["provider"] = "openrouter"
         auth = resolve_agent_auth(config, role_kind="it")
         self.assertEqual(auth["source"], "executor_preset")
         self.assertEqual(auth["provider"], "deepseek")
-        self.assertEqual(auth["model"], "deepseek-chat")
+        self.assertEqual(auth["model"], "deepseek-v4-flash")
         self.assertEqual(auth["api_key"], "sk-ds-test")
 
     def test_no_executors_key_falls_back_to_role_then_host(self) -> None:
@@ -227,7 +253,7 @@ class ResolveAgentAuthTests(unittest.TestCase):
             "codex": {
                 "use_third_party": True,
                 "provider": "deepseek",
-                "model": "deepseek-chat",
+                "model": "deepseek-v4-flash",
             },
         }
         config["agents"]["godot-developer"]["provider"] = "openrouter"

@@ -34,7 +34,7 @@
 
 确认后示例：
 
-`setup agents executors upsert --executor pi --provider deepseek --model deepseek-chat --i-confirm --json`
+`setup agents executors upsert --executor pi --provider deepseek --model deepseek-v4-flash --i-confirm --json`
 
 Codex 第三方：`--executor codex --use-third-party`；需要同步时可再确认后 `setup executor step codex sync_api … --i-confirm`。
 

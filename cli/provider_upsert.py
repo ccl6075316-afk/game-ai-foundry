@@ -12,11 +12,11 @@ _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 KNOWN_PROVIDERS: dict[str, dict[str, str]] = {
     "openrouter": {
         "api_base": "https://openrouter.ai/api/v1",
-        "text_model": "deepseek/deepseek-chat",
+        "text_model": "deepseek/deepseek-v4-flash",
     },
     "deepseek": {
         "api_base": "https://api.deepseek.com/v1",
-        "text_model": "deepseek-chat",
+        "text_model": "deepseek-v4-flash",
     },
     "kimi": {
         "api_base": "https://api.moonshot.cn/v1",
@@ -133,6 +133,9 @@ def upsert_provider_account(
     defaults = KNOWN_PROVIDERS[provider_id]
     base = (api_base or "").strip() or defaults.get("api_base") or ""
     model = (text_model or "").strip() or defaults.get("text_model") or ""
+    from agent_auth_resolve import normalize_llm_model
+
+    model = normalize_llm_model(model) or ""
     if provider_id == "custom" and not base:
         return {
             "ok": False,

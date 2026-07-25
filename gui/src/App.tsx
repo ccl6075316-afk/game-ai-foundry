@@ -2654,6 +2654,7 @@ export default function App() {
             busyHint={busyHint}
             agentRole={agentRole}
             agentLabel={activeColleague.displayName}
+            scrollKey={activeSession.id}
             onSuggestion={handleSend}
             onToolPermissionDecision={handleToolPermissionDecision}
             heroTitle={hero.title}

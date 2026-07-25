@@ -125,7 +125,7 @@ class AgentTurnTests(unittest.TestCase):
                         "role_kind": "it",
                         "executor": "hermes",
                         "provider": "deepseek",
-                        "model": "deepseek-chat",
+                        "model": "deepseek-v4-flash",
                     },
                 },
             },
@@ -159,7 +159,7 @@ class AgentTurnTests(unittest.TestCase):
                 "it": {"executor": "pi", "provider": "openrouter"},
                 "instances": {
                     "ops-or": {"role_kind": "it", "provider": "openrouter", "model": "openai/gpt-4o-mini"},
-                    "ops-ds": {"role_kind": "it", "provider": "deepseek", "model": "deepseek-chat"},
+                    "ops-ds": {"role_kind": "it", "provider": "deepseek", "model": "deepseek-v4-flash"},
                 },
             },
             "provider_accounts": {
@@ -190,7 +190,7 @@ class AgentTurnTests(unittest.TestCase):
                         "it-1": {
                             "role_kind": "it",
                             "provider": "deepseek",
-                            "model": "deepseek-chat",
+                            "model": "deepseek-v4-flash",
                         },
                     },
                 },
@@ -232,13 +232,13 @@ class AgentTurnTests(unittest.TestCase):
 
             config = {
                 "agents": {
-                    "orchestrator": {"executor": "hermes", "provider": "deepseek", "model": "deepseek-chat"},
+                    "orchestrator": {"executor": "hermes", "provider": "deepseek", "model": "deepseek-v4-flash"},
                     "instances": {
                         "pm-1": {
                             "role_kind": "product_host",
                             "executor": "hermes",
                             "provider": "deepseek",
-                            "model": "deepseek-chat",
+                            "model": "deepseek-v4-flash",
                         },
                     },
                 },
@@ -261,7 +261,7 @@ class AgentTurnTests(unittest.TestCase):
             self.assertTrue(argv_seen)
             flat = " ".join(argv_seen[0])
             self.assertIn("-m", argv_seen[0])
-            self.assertIn("deepseek-chat", flat)
+            self.assertIn("deepseek-v4-flash", flat)
 
     def test_run_turn_pi_auth_error(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

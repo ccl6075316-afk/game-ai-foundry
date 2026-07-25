@@ -28,9 +28,50 @@ _PROVIDER_ENV_KEYS: dict[str, str] = {
 
 _DEFAULT_MODELS: dict[str, str] = {
     "openrouter": "openai/gpt-4o-mini",
-    "deepseek": "deepseek-chat",
+    "deepseek": "deepseek-v4-flash",
     "openai": "gpt-4o-mini",
 }
+
+# Official DeepSeek retired deepseek-chat; map old config values at resolve time.
+_LEGACY_MODEL_ALIASES: dict[str, str] = {
+    "deepseek-chat": "deepseek-v4-flash",
+    "deepseek-reasoner": "deepseek-v4-pro",
+    "deepseek/deepseek-chat": "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-reasoner": "deepseek/deepseek-v4-pro",
+}
+
+
+def normalize_llm_model(model: str | None) -> str | None:
+    """Rewrite retired DeepSeek model ids to current API names."""
+    if model is None:
+        return None
+    text = str(model).strip()
+    if not text:
+        return None
+    return _LEGACY_MODEL_ALIASES.get(text, text)
+
+
+def migrate_retired_llm_models(config: dict[str, Any]) -> list[str]:
+    """In-place rewrite of retired model ids in a config dict. Returns change notes."""
+    changes: list[str] = []
+
+    def walk(obj: Any, path: str = "") -> None:
+        if isinstance(obj, dict):
+            for key, value in list(obj.items()):
+                here = f"{path}.{key}" if path else str(key)
+                if key in ("model", "text_model", "textModel") and isinstance(value, str):
+                    new_value = normalize_llm_model(value)
+                    if new_value and new_value != value:
+                        obj[key] = new_value
+                        changes.append(f"{here}: {value} -> {new_value}")
+                else:
+                    walk(value, here)
+        elif isinstance(obj, list):
+            for i, item in enumerate(obj):
+                walk(item, f"{path}[{i}]")
+
+    walk(config)
+    return changes
 
 _OVERLAY_FIELDS = ("executor", "provider", "model", "use_third_party", "role_kind")
 
@@ -246,6 +287,8 @@ def resolve_agent_auth(
 
     if provider and not api_key:
         error = f"未找到可用 API Key（provider_accounts.{provider} 或 host）"
+
+    model = normalize_llm_model(model)
 
     return {
         "provider": provider,

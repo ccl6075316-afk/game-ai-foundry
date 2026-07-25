@@ -456,7 +456,9 @@ def resolve_pi_auth_for_turn(
         and host_model
         and auth.get("source") not in ("instance", "role")
     ):
-        auth = {**auth, "model": host_model}
+        from agent_auth_resolve import normalize_llm_model
+
+        auth = {**auth, "model": normalize_llm_model(host_model)}
         return auth
 
     if auth.get("api_key"):
@@ -474,9 +476,11 @@ def resolve_pi_auth_for_turn(
     }
     if provider not in env_map:
         provider = "openrouter"
+    from agent_auth_resolve import normalize_llm_model
+
     return {
         "provider": provider,
-        "model": host_model or str(api.get("model") or "openai/gpt-4o-mini"),
+        "model": normalize_llm_model(host_model or str(api.get("model") or "openai/gpt-4o-mini")),
         "api_key": str(api["api_key"]).strip(),
         "env_key": env_map[provider],
         "source": "host.fallback",

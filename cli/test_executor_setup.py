@@ -44,7 +44,7 @@ class ExecutorSetupTests(unittest.TestCase):
                 "deepseek": {
                     "api_key": "sk-ds-test",
                     "api_base": "https://api.deepseek.com/v1",
-                    "text_model": "deepseek-chat",
+                    "text_model": "deepseek-v4-flash",
                 },
             },
         }
@@ -54,7 +54,7 @@ class ExecutorSetupTests(unittest.TestCase):
         self.assertEqual(sync["env_key"], "OPENAI_API_KEY")
         self.assertEqual(sync["api_key"], "sk-ds-test")
         self.assertEqual(sync["api_base"], "https://api.deepseek.com/v1")
-        self.assertEqual(sync["model"], "deepseek-chat")
+        self.assertEqual(sync["model"], "deepseek-v4-flash")
 
     def test_resolve_hermes_prefers_agents_hermes_provider(self) -> None:
         config = {
@@ -65,7 +65,7 @@ class ExecutorSetupTests(unittest.TestCase):
                 "deepseek": {
                     "api_key": "sk-ds",
                     "api_base": "https://api.deepseek.com/v1",
-                    "text_model": "deepseek-chat",
+                    "text_model": "deepseek-v4-flash",
                 },
             },
         }
@@ -121,7 +121,7 @@ class ExecutorSetupTests(unittest.TestCase):
             "env_key": "OPENROUTER_API_KEY",
             "api_key": "sk-or-x",
             "api_base": "https://openrouter.ai/api/v1",
-            "model": "deepseek/deepseek-chat",
+            "model": "deepseek/deepseek-v4-flash",
         },
     )
     @patch("executor_setup.shutil.which", return_value="/usr/bin/hermes")
@@ -144,7 +144,7 @@ class ExecutorSetupTests(unittest.TestCase):
             "env_key": "OPENAI_API_KEY",
             "api_key": "sk-ds",
             "api_base": "https://api.deepseek.com/v1",
-            "model": "deepseek-chat",
+            "model": "deepseek-v4-flash",
         },
     )
     @patch("executor_setup.shutil.which", return_value="/usr/bin/hermes")
@@ -179,13 +179,13 @@ class ExecutorSetupTests(unittest.TestCase):
                 "executors": {
                     "codex": {
                         "provider": "deepseek",
-                        "model": "deepseek-chat",
+                        "model": "deepseek-v4-flash",
                         "use_third_party": True,
                     }
                 },
             },
             "provider_accounts": {
-                "deepseek": {"api_key": "sk-deepseek", "text_model": "deepseek-chat"},
+                "deepseek": {"api_key": "sk-deepseek", "text_model": "deepseek-v4-flash"},
             },
         }
         sync = resolve_codex_sync_settings(config)
@@ -225,7 +225,7 @@ class ExecutorSetupTests(unittest.TestCase):
                     "dev-1": {
                         "role_kind": "programmer",
                         "provider": "deepseek",
-                        "model": "deepseek-chat",
+                        "model": "deepseek-v4-flash",
                         "use_third_party": True,
                     },
                 },
@@ -271,7 +271,7 @@ class ExecutorSetupTests(unittest.TestCase):
             "agents": {
                 "godot-developer": {
                     "provider": "deepseek",
-                    "model": "deepseek-chat",
+                    "model": "deepseek-v4-flash",
                     "use_third_party": True,
                 },
             },
@@ -293,7 +293,7 @@ class ExecutorSetupTests(unittest.TestCase):
                     result = configure_codex_api()
             self.assertTrue(result["ok"])
             text = config_path.read_text(encoding="utf-8")
-            self.assertIn('model = "deepseek-chat"', text)
+            self.assertIn('model = "deepseek-v4-flash"', text)
             self.assertIn('model_provider = "foundry_deepseek"', text)
             self.assertIn("[model_providers.foundry_deepseek]", text)
             self.assertIn("https://api.deepseek.com/v1", text)

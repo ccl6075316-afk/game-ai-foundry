@@ -19,7 +19,7 @@ from skill_loader import (
     load_role_skills,
 )
 
-DEFAULT_PROMPT_MODEL = "deepseek/deepseek-chat"
+DEFAULT_PROMPT_MODEL = "deepseek/deepseek-v4-flash"
 
 
 class PromptCraftError(RuntimeError):

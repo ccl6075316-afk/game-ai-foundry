@@ -53,7 +53,7 @@ class ProviderUpsertTests(unittest.TestCase):
             res = upsert_provider_account(
                 provider="deepseek",
                 api_key="sk-deepseek-secret",
-                text_model="deepseek-chat",
+                text_model="deepseek-v4-flash",
                 i_confirm=True,
                 set_active_text=True,
                 config_path=path,

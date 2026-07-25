@@ -36,7 +36,7 @@ class AgentsExecutorsUpsertTests(unittest.TestCase):
             res = upsert_agent_executor(
                 executor="pi",
                 provider="deepseek",
-                model="deepseek-chat",
+                model="deepseek-v4-flash",
                 i_confirm=True,
                 config_path=path,
             )
@@ -44,7 +44,7 @@ class AgentsExecutorsUpsertTests(unittest.TestCase):
             data = json.loads(path.read_text(encoding="utf-8"))
             self.assertEqual(
                 data["agents"]["executors"]["pi"],
-                {"provider": "deepseek", "model": "deepseek-chat"},
+                {"provider": "deepseek", "model": "deepseek-v4-flash"},
             )
 
     def test_codex_use_third_party(self) -> None:

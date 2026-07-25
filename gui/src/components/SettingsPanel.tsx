@@ -704,8 +704,8 @@ export function SettingsPanel({ busy, onSaved }: Props) {
                   />
                 </label>
                 <p className="field-hint">
-                  OpenRouter 靠 <code>model</code> 路由（如 <code>deepseek/deepseek-chat</code>）；官方 API 用
-                  平台自己的模型名（如 <code>deepseek-chat</code>）。
+                  OpenRouter 靠 <code>model</code> 路由（如 <code>deepseek/deepseek-v4-flash</code>）；官方 API 用
+                  平台自己的模型名（如 <code>deepseek-v4-flash</code> / <code>deepseek-v4-pro</code>）。
                 </p>
               </SectionCard>
 

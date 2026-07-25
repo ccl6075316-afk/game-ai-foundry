@@ -82,14 +82,32 @@ from llm_config import resolve_prompt_api_settings
 
 
 def load_config() -> dict[str, Any]:
-    """Load config from ~/.gamefactory/config.json, or return empty dict."""
+    """Load config from ~/.gamefactory/config.json, or return empty dict.
+
+    Rewrites retired DeepSeek model ids (e.g. deepseek-chat → deepseek-v4-flash)
+    and persists the migration once so GUI/Pi keep working after API renames.
+    """
     if not CONFIG_PATH.exists():
         return {}
     try:
-        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        data = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError) as exc:
         click.echo(f"Warning: could not read config at {CONFIG_PATH}: {exc}", err=True)
         return {}
+    if not isinstance(data, dict):
+        return {}
+    try:
+        from agent_auth_resolve import migrate_retired_llm_models
+
+        changes = migrate_retired_llm_models(data)
+        if changes:
+            CONFIG_PATH.write_text(
+                json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+    except Exception:
+        pass
+    return data
 
 
 def resolve_image_setting(

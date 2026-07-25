@@ -24,7 +24,7 @@ export const API_PROVIDERS: ApiProviderPreset[] = [
     description: "一个平台用多家模型，适合快速切换",
     apiBase: "https://openrouter.ai/api/v1",
     imageModelDefault: "google/gemini-3.1-flash-image",
-    promptModelDefault: "deepseek/deepseek-chat",
+    promptModelDefault: "deepseek/deepseek-v4-flash",
     keyPlaceholder: "sk-or-…",
   },
   {
@@ -33,7 +33,7 @@ export const API_PROVIDERS: ApiProviderPreset[] = [
     description: "DeepSeek 官方 API（OpenAI 兼容）",
     apiBase: "https://api.deepseek.com/v1",
     imageModelDefault: "",
-    promptModelDefault: "deepseek-chat",
+    promptModelDefault: "deepseek-v4-flash",
     keyPlaceholder: "sk-…",
   },
   {

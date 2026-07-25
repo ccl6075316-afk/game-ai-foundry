@@ -83,7 +83,7 @@ export const TEXT_PROVIDER_SECTION: SettingsSectionMeta = {
   title: "生文",
   roleId: "llm-api",
   purpose: "策划对话、文案（/brief、prompt-crafter）；走 OpenRouter 等 chat/completions",
-  note: "路由靠 model 字段：OpenRouter 用 厂商/模型名；官方 API 用 deepseek-chat、kimi-k2.5、glm-4-flash 等",
+  note: "路由靠 model 字段：OpenRouter 用 厂商/模型名；官方 API 用 deepseek-v4-flash、kimi-k2.5、glm-4-flash 等",
 };
 
 export const IMAGE_PROVIDER_SECTION: SettingsSectionMeta = {

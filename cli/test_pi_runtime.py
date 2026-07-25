@@ -22,9 +22,9 @@ def _auth_config(**overrides: object) -> dict:
     cfg: dict = {
         "provider_accounts": {
             "openrouter": {"api_key": "sk-or-test", "text_model": "openai/gpt-4o-mini"},
-            "deepseek": {"api_key": "sk-ds-test", "text_model": "deepseek-chat"},
+            "deepseek": {"api_key": "sk-ds-test", "text_model": "deepseek-v4-flash"},
         },
-        "host": {"provider": "deepseek", "api_key": "sk-host", "model": "deepseek-chat"},
+        "host": {"provider": "deepseek", "api_key": "sk-host", "model": "deepseek-v4-flash"},
         "agents": {
             "brief": {"executor": "pi", "provider": "openrouter", "model": None},
             "it": {"executor": "pi", "provider": "openrouter", "model": None},
@@ -49,7 +49,7 @@ class PiRuntimeAuthTest(unittest.TestCase):
             "role_kind": "brief",
             "executor": "pi",
             "provider": "deepseek",
-            "model": "deepseek-chat",
+            "model": "deepseek-v4-flash",
         }
         auth = resolve_pi_api_auth(config, role_kind="brief", instance_id="brief-1")
         self.assertEqual(auth["source"], "instance")
@@ -82,7 +82,7 @@ class PiRuntimeAuthTest(unittest.TestCase):
 
     def test_brief_auth_keeps_role_model_over_host_model(self) -> None:
         config = _auth_config()
-        config["host"]["model"] = "deepseek/deepseek-chat"
+        config["host"]["model"] = "deepseek/deepseek-v4-flash"
         auth = resolve_pi_auth_for_brief(config)
         self.assertEqual(auth["source"], "role")
         self.assertEqual(auth["model"], "openai/gpt-4o-mini")

@@ -3,7 +3,7 @@
   "provider_accounts": {
     "openrouter": {
       "api_key": "YOUR_OPENROUTER_KEY",
-      "text_model": "deepseek/deepseek-chat",
+      "text_model": "deepseek/deepseek-v4-flash",
       "image_model": "google/gemini-3.1-flash-image"
     },
     "custom": {
@@ -14,7 +14,7 @@
   },
   "host": {
     "provider": "openrouter",
-    "model": "deepseek/deepseek-chat",
+    "model": "deepseek/deepseek-v4-flash",
     "api_base": "https://openrouter.ai/api/v1"
   },
   "image": {
@@ -30,11 +30,11 @@
     }
   },
   "prompt": {
-    "model": "deepseek/deepseek-chat",
+    "model": "deepseek/deepseek-v4-flash",
     "api_base": "https://openrouter.ai/api/v1"
   },
   "code": {
-    "model": "deepseek/deepseek-chat"
+    "model": "deepseek/deepseek-v4-flash"
   },
   "video": {
     "provider": "seedance",
@@ -130,7 +130,7 @@
         "role_kind": "it",
         "executor": "pi",
         "provider": "deepseek",
-        "model": "deepseek-chat",
+        "model": "deepseek-v4-flash",
         "use_third_party": false
       }
     }

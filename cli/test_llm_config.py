@@ -59,11 +59,11 @@ class LlmConfigTests(unittest.TestCase):
 
     def test_host_falls_back_to_prompt_model(self) -> None:
         config = {
-            "prompt": {"model": "deepseek/deepseek-chat", "api_key": "p-key"},
+            "prompt": {"model": "deepseek/deepseek-v4-flash", "api_key": "p-key"},
             "image": {"api_key": "img-key", "api_base": "https://openrouter.ai/api/v1"},
         }
         resolved = resolve_host_api_settings(config)
-        self.assertEqual(resolved["model"], "deepseek/deepseek-chat")
+        self.assertEqual(resolved["model"], "deepseek/deepseek-v4-flash")
         self.assertEqual(resolved["api_key"], "p-key")
 
 

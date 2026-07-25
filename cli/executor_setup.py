@@ -193,13 +193,15 @@ def resolve_hermes_sync_settings(
     elif host_is_this and isinstance(host.get("model"), str) and str(host["model"]).strip():
         model = str(host["model"]).strip()
 
+    from agent_auth_resolve import normalize_llm_model
+
     return {
         "foundry_provider": foundry_id,
         "hermes_provider": hermes_provider,
         "env_key": env_key,
         "api_key": api_key,
         "api_base": api_base,
-        "model": model,
+        "model": normalize_llm_model(model),
     }
 
 
@@ -326,13 +328,15 @@ def resolve_codex_sync_settings(
     codex_provider_id = _codex_model_provider_id(foundry_id)
     env_key = _codex_env_key_for(foundry_id)
 
+    from agent_auth_resolve import normalize_llm_model
+
     return {
         "foundry_provider": foundry_id,
         "codex_provider_id": codex_provider_id,
         "env_key": env_key,
         "api_key": api_key,
         "api_base": api_base,
-        "model": model,
+        "model": normalize_llm_model(model),
         "use_third_party": use_third_party,
         "instance_id": instance_id,
     }
