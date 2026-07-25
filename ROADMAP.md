@@ -20,7 +20,7 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ## Current Status (2026-07-18)
 
-> **v0.0.6 可用边界** → [`docs/RELEASE-NOTES-0.0.6.md`](docs/RELEASE-NOTES-0.0.6.md)  
+> **v0.0.7 可用边界** → [`docs/RELEASE-NOTES-0.0.7.md`](docs/RELEASE-NOTES-0.0.7.md)
 > 收：工程隔离、北极星定稿、环境错误可读、策划选项可点。不收：视觉硬门禁、macOS 官方包。
 
 ### ✅ Done
