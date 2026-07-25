@@ -23,7 +23,10 @@ class ProgressTest(unittest.TestCase):
             prod_path = Path(tmp) / "production.json"
             save_production(derive_production(EXAMPLE_BRIEF), prod_path)
             data = init_progress(brief_path=EXAMPLE_BRIEF, production_path=prod_path)
-            self.assertEqual(len(data["phases"]["godot_tasks"]), 6)
+            task_ids = {t["id"] for t in data["phases"]["godot_tasks"]}
+            self.assertIn("input_map", task_ids)
+            self.assertIn("layout_props", task_ids)
+            self.assertGreaterEqual(len(data["phases"]["godot_tasks"]), 6)
             update_task_status(data, "input_map", "done")
             update_validation_layer(data, "validate", "pass")
             out = Path(tmp) / "progress.json"

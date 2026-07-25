@@ -42,7 +42,26 @@ test("formatBriefDocument omits empty style sections for plain brief", () => {
   const out = formatBriefDocument(plain, null);
   assert.doesNotMatch(out, /风格硬锁/);
   assert.doesNotMatch(out, /style_group/);
+  assert.doesNotMatch(out, /content_class/);
+  assert.doesNotMatch(out, /\*\*视角 \(view\)：\*\*/);
   assert.match(out, /\*\*sprite_a\*\*/);
+});
+
+test("formatBriefDocument shows view and content_class when declared", () => {
+  const brief = {
+    project: { title: "Layout Demo", description: "props", view: "side" },
+    assets: [
+      {
+        name: "crate",
+        type: "texture",
+        description: "crate",
+        content_class: "prop_static",
+      },
+    ],
+  };
+  const out = formatBriefDocument(brief, null);
+  assert.match(out, /\*\*视角 \(view\)：\*\* side/);
+  assert.match(out, /\*\*内容类 \(content_class\)：\*\* prop_static/);
 });
 
 test("tryFormatBriefJsonText formats valid brief JSON", () => {
@@ -57,12 +76,15 @@ test("tryFormatBriefJsonText returns null for bad JSON", () => {
 });
 
 test("assetStyleChips lists declared style fields only", () => {
-  const heroB = (exampleBrief.assets as Record<string, unknown>[]).find(
-    (a) => a.name === "hero_b",
+  const heroC = (exampleBrief.assets as Record<string, unknown>[]).find(
+    (a) => a.name === "hero_c",
   )!;
-  const chips = assetStyleChips(heroB);
+  const chips = assetStyleChips(heroC);
   assert.ok(chips.some((c) => c.includes("cast_demo")));
   assert.ok(chips.some((c) => c.includes("hero_a")));
   assert.ok(chips.some((c) => c.includes("img2img")));
   assert.deepEqual(assetStyleChips({ name: "plain" }), []);
+  assert.deepEqual(assetStyleChips({ name: "crate", content_class: "prop_static" }), [
+    "类:prop_static",
+  ]);
 });

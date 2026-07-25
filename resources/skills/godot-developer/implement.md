@@ -49,7 +49,7 @@ python gamefactory.py godot dev-context \
 2. Open Godot project at `plan.project_path`.
 3. Implement C# using `runtime_bindings` for SpriteFrames paths and `animation_graphs` for AnimationPlayer / state logic.
 4. Backgrounds: use `runtime.res_path` from bindings where `usage` is `world_background`.
-5. **Scene props / decor**: when `production.layout` is present, read `layout.placements[]`. Each entry has `asset` (brief id/name), `xy_norm` `[x,y]` in 0–1 viewport space, and optional `region`. Convert to pixels: `x = xy_norm[0] * viewport.width`, `y = xy_norm[1] * viewport.height`. Parent prop nodes under `scenes/main.tscn/World`. Bind textures only from brief/manifest assets — **do not invent** assets missing from the brief.
+5. **Scene props / decor**: when `production.layout` is present, **scaffold/assemble already place** Sprite2D nodes under `scenes/main.tscn/World` from `layout.placements[]` (`xy_norm * viewport`). Each entry has `asset` (brief id/name), `xy_norm` `[x,y]` in 0–1 viewport space, and optional `region`. Bind/replace textures only from brief/manifest assets — **do not invent** assets missing from the brief. Task `layout_props` is verify/bind, not re-derive positions unless Production Delta says so.
 6. Validate:
 
 ```bash

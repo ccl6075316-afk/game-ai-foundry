@@ -7,7 +7,16 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from godot_import import GodotImportError, copy_background_image, copy_idle_still, import_sprite_frames, import_still_as_animation, merge_sprite_frames_tres
+from godot_import import (
+    GodotImportError,
+    copy_background_image,
+    copy_idle_still,
+    copy_prop_image,
+    import_sprite_frames,
+    import_still_as_animation,
+    merge_sprite_frames_tres,
+)
+from godot_layout import build_layout_world_fragments, layout_placements, prop_texture_res_path
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _TEMPLATE_DOTNET = _REPO_ROOT / "resources" / "godot-templates" / "dotnet"
@@ -120,10 +129,18 @@ def wire_main_scene(
     background_res: str | None = None,
     idle_still_res: str | None = None,
     main_scene: str = "scenes/main.tscn",
+    layout: dict[str, Any] | None = None,
+    viewport: dict[str, Any] | None = None,
+    texture_by_asset: dict[str, str] | None = None,
 ) -> None:
-    """Write main.tscn with Player + AnimatedSprite2D + optional idle still + background."""
+    """Write main.tscn with Player + AnimatedSprite2D + optional idle/background + layout props."""
     scene_path = project_path / main_scene
     scene_path.parent.mkdir(parents=True, exist_ok=True)
+    vp = viewport if isinstance(viewport, dict) else {}
+    w = int(vp.get("width", 1280) or 1280)
+    h = int(vp.get("height", 720) or 720)
+    spawn_x = w // 2
+    spawn_y = int(h * 0.55)
 
     load_steps = 2
     if sprite_frames_res:
@@ -132,6 +149,7 @@ def wire_main_scene(
         load_steps += 1
     if idle_still_res:
         load_steps += 1
+    load_steps += len(layout_placements(layout))
 
     lines = [
         f'[gd_scene load_steps={load_steps} format=3 uid="uid://gamefactory_main"]',
@@ -155,6 +173,21 @@ def wire_main_scene(
     if idle_still_res:
         lines.append(f'[ext_resource type="Texture2D" path="res://{idle_still_res}" id="{next_id}_idle"]')
         idle_ext = f'\ntexture = ExtResource("{next_id}_idle")'
+        next_id += 1
+
+    textures = dict(texture_by_asset or {})
+    for placement in layout_placements(layout):
+        asset = str(placement.get("asset", "")).strip()
+        if asset and asset not in textures:
+            textures[asset] = prop_texture_res_path(asset)
+
+    ext_prop_lines, world_prop_lines, _ = build_layout_world_fragments(
+        layout,
+        vp,
+        texture_by_asset=textures,
+        ext_id_start=next_id,
+    )
+    lines.extend(ext_prop_lines)
 
     lines.extend(
         [
@@ -163,10 +196,17 @@ def wire_main_scene(
             'script = ExtResource("1_main")',
             "",
             '[node name="Background" type="Sprite2D" parent="."]',
-            "position = Vector2(640, 360)" + bg_ext,
+            f"position = Vector2({spawn_x}, {h // 2})" + bg_ext,
             "",
+            '[node name="World" type="Node2D" parent="."]',
+            "",
+        ]
+    )
+    lines.extend(world_prop_lines)
+    lines.extend(
+        [
             '[node name="Player" type="CharacterBody2D" parent="."]',
-            "position = Vector2(640, 400)",
+            f"position = Vector2({spawn_x}, {spawn_y})",
             'script = ExtResource("2_player")',
             "",
             '[node name="IdleStill" type="Sprite2D" parent="Player"]' + idle_ext,
@@ -305,6 +345,38 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
             raise GodotAssembleError(str(exc)) from exc
         results["idle_still"] = idle_still_res
 
+    texture_by_asset: dict[str, str] = {}
+    props = plan.get("props") or []
+    prop_results: list[dict[str, str]] = []
+    if isinstance(props, list):
+        for item in props:
+            if not isinstance(item, dict):
+                continue
+            asset = str(item.get("asset", "")).strip()
+            image = str(item.get("image", "")).strip()
+            if not asset or not image:
+                continue
+            img = _resolve_repo_path(image)
+            if not img.is_file():
+                prop_results.append({"asset": asset, "path": "", "skipped": "missing_source"})
+                continue
+            try:
+                rel = copy_prop_image(
+                    project_path,
+                    asset=asset,
+                    image_path=img,
+                    display_size=item.get("display_size"),
+                )
+            except GodotImportError as exc:
+                raise GodotAssembleError(str(exc)) from exc
+            texture_by_asset[asset] = rel
+            prop_results.append({"asset": asset, "path": rel})
+    if prop_results:
+        results["props"] = prop_results
+        skipped = [p for p in prop_results if p.get("skipped")]
+        if skipped:
+            results["props_skipped"] = skipped
+
     if primary_sf is None and idle_still_src is not None and idle_still_src.is_file():
         static_asset = _resolve_character_asset(
             plan,
@@ -324,13 +396,18 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
         results["animations"].append(imp)
         primary_sf = imp["sprite_frames"]
 
-    if primary_sf or idle_still_res:
+    layout = plan.get("layout") if isinstance(plan.get("layout"), dict) else None
+    viewport = plan.get("viewport") if isinstance(plan.get("viewport"), dict) else {}
+    if primary_sf or idle_still_res or primary_bg or layout_placements(layout):
         wire_main_scene(
             project_path,
             sprite_frames_res=primary_sf,
             background_res=primary_bg,
             idle_still_res=idle_still_res,
             main_scene=main_scene,
+            layout=layout,
+            viewport=viewport,
+            texture_by_asset=texture_by_asset,
         )
 
     results["main_scene"] = main_scene

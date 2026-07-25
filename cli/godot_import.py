@@ -384,3 +384,25 @@ def copy_idle_still(
     dest = dest_dir / f"{asset}{ext}"
     save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
     return dest.relative_to(project_path).as_posix()
+
+
+def copy_prop_image(
+    project_path: Path,
+    *,
+    asset: str,
+    image_path: Path,
+    display_size: Any = None,
+) -> str:
+    """Copy a world prop texture into assets/props/{asset}_nobg.png."""
+    from godot_layout import prop_texture_res_path
+
+    project_path = project_path.resolve()
+    image_path = image_path.resolve()
+    if not image_path.is_file():
+        raise GodotImportError(f"Prop image not found: {image_path}")
+
+    rel = prop_texture_res_path(asset)
+    dest = project_path / rel
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
+    return dest.relative_to(project_path).as_posix()

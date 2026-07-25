@@ -38,6 +38,7 @@ from roles import (
     VIDEO_GENERATOR_ROLE,
 )
 from plan_io import build_godot_handoff, save_handoff
+from production import PLACABLE_CONTENT_CLASSES, build_layout, layout_asset_key, load_production
 
 MANIFEST_VERSION = 1
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -719,6 +720,31 @@ def _artifact_path_to_repo_rel(artifact_path: str) -> str:
     return rel_to_repo(resolved)
 
 
+def _layout_for_godot_plan(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    *,
+    brief_stem: str,
+    plans_dir: Path | None,
+) -> dict[str, Any]:
+    """Prefer hand-edited production.layout when present; else derive from brief."""
+    if plans_dir is not None:
+        prod_path = Path(plans_dir) / f"production_{brief_stem}.json"
+        if prod_path.is_file():
+            try:
+                data = load_production(prod_path)
+                doc = data.get("production_doc") if isinstance(data, dict) else None
+                layout = doc.get("layout") if isinstance(doc, dict) else None
+                if isinstance(layout, dict) and (
+                    isinstance(layout.get("placements"), list)
+                    or isinstance(layout.get("regions"), list)
+                ):
+                    return layout
+            except (OSError, ValueError, TypeError, KeyError):
+                pass
+    return build_layout(project, assets)
+
+
 def _collect_godot_plan(
     *,
     brief_stem: str,
@@ -728,9 +754,11 @@ def _collect_godot_plan(
     tasks_by_id: dict[str, PipelineTask],
     godot_project: Path,
     sprite_frames_default: int = 8,
+    plans_dir: Path | None = None,
 ) -> dict[str, Any]:
     animations: list[dict[str, Any]] = []
     backgrounds: list[dict[str, Any]] = []
+    props: list[dict[str, Any]] = []
     character_asset: str | None = None
 
     for spec in assets:
@@ -772,6 +800,26 @@ def _collect_godot_plan(
                     ),
                 }
             )
+        elif (spec.content_class or "").strip() in PLACABLE_CONTENT_CLASSES:
+            file_key = resolve_asset_file_key(spec)
+            asset_key = layout_asset_key(spec)
+            nobg_id = f"{file_key}.image.remove-bg"
+            if nobg_id in tasks_by_id:
+                out_art = tasks_by_id[nobg_id].artifacts.get("output", "")
+                image = _artifact_path_to_repo_rel(out_art) if out_art else rel_to_repo(
+                    output_dir / f"{file_key}_nobg.png"
+                )
+            else:
+                image = rel_to_repo(output_dir / f"{file_key}_nobg.png")
+            props.append(
+                {
+                    "asset": asset_key,
+                    "image": image,
+                    "display_size": (
+                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
+                    ),
+                }
+            )
 
     idle_still_path: str | None = None
     name_to_id = {s.name: resolve_asset_file_key(s) for s in assets}
@@ -800,6 +848,12 @@ def _collect_godot_plan(
             idle_still_path = rel_to_repo(output_dir / f"{file_key}_nobg.png")
             break
 
+    layout = _layout_for_godot_plan(
+        project,
+        assets,
+        brief_stem=brief_stem,
+        plans_dir=plans_dir,
+    )
     plan: dict[str, Any] = {
         "project_path": rel_to_repo(godot_project.resolve()),
         "project_name": project.title or brief_stem.replace("_", " ").title(),
@@ -807,6 +861,9 @@ def _collect_godot_plan(
         "main_scene": "scenes/main.tscn",
         "animations": animations,
         "backgrounds": backgrounds,
+        "props": props,
+        "layout": layout,
+        "viewport": dict(project.viewport) if project.viewport else {"width": 1280, "height": 720},
     }
     if idle_still_path:
         plan["idle_still"] = idle_still_path
@@ -832,6 +889,8 @@ def _add_godot_tasks(
         not godot_plan.get("animations")
         and not godot_plan.get("backgrounds")
         and not godot_plan.get("idle_still")
+        and not godot_plan.get("props")
+        and not (isinstance(godot_plan.get("layout"), dict) and godot_plan["layout"].get("placements"))
     ):
         return
 
@@ -1005,6 +1064,7 @@ def build_manifest(
             tasks_by_id=tasks_by_id,
             godot_project=godot_project,
             sprite_frames_default=sprite_frames_default,
+            plans_dir=plans_dir,
         )
         handoff_path = plans_dir / f"godot_{brief_path.stem}.json"
         save_handoff(handoff_path, build_godot_handoff(godot_plan))

@@ -22,6 +22,14 @@
 - `production derive` 写出 `production_doc.collectible_items[]`（`item_id` / `nobg_path_hint` / `usage`），供程序员按 id 接线 pickup / UI。
 - 显式对象 `id` 重复 → brief 校验失败；纯字符串重复仍用 slug `_2` 后缀。
 
+## 增强：production.layout → Godot 放置
+
+- 示例 `asset-brief.example.json`：`project.view` + prop `content_class`；`production derive` 产出非空 `placements`
+- `godot scaffold` / `godot assemble`：按 `layout.placements` 在 `World` 下写 Sprite2D（`xy_norm * viewport`）；纹理 `assets/props/{asset}_nobg.png`
+- DocsPreview / 看板 chips：只读展示 `view` / `content_class`
+- `godot_tasks` 增加 `layout_props`（校验/绑纹理，不重猜坐标）
+- assemble handoff：优先读已有 `plans/production_<brief>.json` 的 layout（手改坐标不会被 plan 时启发式覆盖）；缺源图记 `props_skipped`
+
 ## 增强：资产审查表
 
 - GUI 右侧 **资产** 面板：读 `assets-manifest.json` 展示缩略图与 usage 映射；行内 **采纳 / 重生成 / 本地替换**。

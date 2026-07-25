@@ -191,7 +191,7 @@ game-ai-foundry/
 
 **场景构图**：默认 `backdrop_sparse` + 独立 props；逻辑布局见 **`production.layout`**（derive 规则生成）；避免单张 busy `backdrop_full` 塞整关。
 
-**`production.layout`（可选）**：`production derive` 写入 `layout.regions`（命名区域）与 `layout.placements`（`asset` + 归一化 `xy_norm`）。程序员按 `xy_norm * viewport` 在 `World` 下摆节点；只引用 brief 已有资产。旧 production 无 `layout` 仍合法。
+**`production.layout`（可选）**：`production derive` 写入 `layout.regions`（命名区域）与 `layout.placements`（`asset` + 归一化 `xy_norm`）。**`godot scaffold` / `godot assemble`** 会按 `xy_norm * viewport` 在 `scenes/main.tscn/World` 下写入 Sprite2D；纹理约定路径 `assets/props/{asset}_nobg.png`（assemble 会从 pipeline 产物拷贝；源图缺失时跳过拷贝并记入 `props_skipped`，场景仍引用约定路径）。**注意**：典型流水线里 **assemble 会整文件重写 `main.tscn`**（内联 Player + Background + World），覆盖先前 scaffold 的 PackedScene 结构；施工改动应落在 assemble 之后，或只做纹理绑定。程序员仍可手写覆盖；只引用 brief 已有资产。旧 production 无 `layout` 仍合法。
 
 **`prop_stateful` + `states`**：`pipeline plan` 展开为多 still（如 `{id}__closed` / `{id}__open`）；状态 0 → T2I；状态 k>0 → img2img，`--reference-image` = 状态 0 raw，`depends_on` 状态 0 generate；craft prompt 只写状态差。手写多行 + `identity_anchor` 仍合法。
 

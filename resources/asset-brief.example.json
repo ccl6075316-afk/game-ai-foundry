@@ -8,6 +8,7 @@
     "gameplay_loop": "Move through forest levels, collect item icons, fight with sword attack pose, reach the exit.",
     "session_goal": "Prototype: one forest level with walk, attack, and collectible pickups.",
     "player_asset": "knight",
+    "view": "side",
     "controls": {
       "move_left": [
         "A",
@@ -109,6 +110,7 @@
       "type": "texture",
       "usage": "tile_texture",
       "usage_description": "Ground tile for level terrain",
+      "content_class": "floor_tile",
       "generate_method": "image",
       "description": "green meadow grass",
       "display_size": {
@@ -118,12 +120,41 @@
       "id": "grass_tile"
     },
     {
+      "name": "wooden_crate",
+      "type": "texture",
+      "usage": "world_prop",
+      "usage_description": "Breakable-looking crate prop for the playable band",
+      "content_class": "prop_static",
+      "generate_method": "image",
+      "description": "wooden crate, flat cartoony, clean outline",
+      "display_size": {
+        "width": 64,
+        "height": 64
+      },
+      "id": "wooden_crate"
+    },
+    {
+      "name": "mossy_rock",
+      "type": "texture",
+      "usage": "world_prop",
+      "usage_description": "Decor rock for the forest playable band",
+      "content_class": "decor",
+      "generate_method": "image",
+      "description": "mossy rock, flat cartoony, clean outline",
+      "display_size": {
+        "width": 64,
+        "height": 64
+      },
+      "id": "mossy_rock"
+    },
+    {
       "name": "forest_bg",
       "type": "background",
       "usage": "world_background",
-      "usage_description": "Main level backdrop with parallax layers",
+      "usage_description": "Sparse forest atmosphere backdrop; props carry detail",
+      "content_class": "backdrop_sparse",
       "generate_method": "image",
-      "description": "dense forest with layered parallax trees and soft sky",
+      "description": "sparse forest atmosphere, soft sky, empty midground for props, warm flat colors",
       "aspect_ratio": "16:9",
       "display_size": {
         "width": 1280,

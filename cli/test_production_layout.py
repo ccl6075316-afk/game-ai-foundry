@@ -93,8 +93,17 @@ class ProductionLayoutTest(unittest.TestCase):
                 self.assertTrue(0.0 <= xy[1] <= 1.0)
             errors = validate_production(data, brief_path=brief)
             self.assertEqual(errors, [])
+            task_ids = {t["id"] for t in data["production_doc"]["godot_tasks"]}
+            self.assertIn("layout_props", task_ids)
         finally:
             brief.unlink(missing_ok=True)
+
+    def test_example_brief_derive_has_placements(self) -> None:
+        data = derive_production(EXAMPLE_BRIEF)
+        layout = data["production_doc"]["layout"]
+        assets = {p["asset"] for p in layout["placements"]}
+        self.assertEqual(assets, {"mossy_rock", "wooden_crate"})
+        self.assertIn("layout_props", {t["id"] for t in data["production_doc"]["godot_tasks"]})
 
     def test_validate_rejects_unknown_placement_asset(self) -> None:
         brief = write_brief(_props_brief(view="side"))

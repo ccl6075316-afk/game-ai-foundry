@@ -45,6 +45,13 @@ function formatUseStyleImg2img(value: unknown): string {
 /** Short read-only chips for board (declared fields only; no resolve). */
 export function assetStyleChips(asset: Record<string, unknown>): string[] {
   const chips: string[] = [];
+  if (
+    asset.content_class !== undefined &&
+    asset.content_class !== null &&
+    String(asset.content_class).trim() !== ""
+  ) {
+    chips.push(`类:${String(asset.content_class)}`);
+  }
   if (asset.style_group !== undefined && asset.style_group !== null && asset.style_group !== "") {
     chips.push(`组:${String(asset.style_group)}`);
   }
@@ -73,6 +80,13 @@ export function assetStyleChips(asset: Record<string, unknown>): string[] {
 
 function formatAssetStyleLines(asset: Record<string, unknown>): string[] {
   const lines: string[] = [];
+  if (
+    asset.content_class !== undefined &&
+    asset.content_class !== null &&
+    String(asset.content_class).trim() !== ""
+  ) {
+    lines.push(`  - **内容类 (content_class)：** ${String(asset.content_class)}`);
+  }
   if (asset.style_group !== undefined && asset.style_group !== null && asset.style_group !== "") {
     lines.push(`  - **风格组 (style_group)：** ${String(asset.style_group)}`);
   }
@@ -117,6 +131,10 @@ export function formatBriefDocument(
   const lines: string[] = [`# ${title}`, ""];
   const genre = status?.genre || p.genre;
   if (genre) lines.push(`**类型：** ${genre}`, "");
+  const view = p.view;
+  if (view !== undefined && view !== null && String(view).trim() !== "") {
+    lines.push(`**视角 (view)：** ${String(view)}`, "");
+  }
   const desc = p.description;
   if (desc) lines.push("## 简介", "", String(desc), "");
   const loop = status?.gameplay_loop || p.gameplay_loop;

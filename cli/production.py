@@ -35,6 +35,18 @@ _PLACABLE_CONTENT_CLASSES = frozenset(
     }
 )
 
+# Public aliases for pipeline / assemble consumers (do not import leading-underscore names).
+PLACABLE_CONTENT_CLASSES = _PLACABLE_CONTENT_CLASSES
+
+
+def layout_asset_key(spec: AssetSpec) -> str:
+    return (spec.id or spec.name).strip()
+
+
+def build_layout(project: ProjectContext, assets: list[AssetSpec]) -> dict[str, Any]:
+    """Derive layout regions + placements from project.view and placable content_class."""
+    return _build_layout(project, assets)
+
 
 def default_production_path(brief_path: Path) -> Path:
     stem = brief_path.stem.replace(".json", "")
@@ -199,6 +211,7 @@ def _build_godot_tasks(
     graphs: list[CharacterAnimationGraph],
     *,
     has_collectibles: bool,
+    has_layout_placements: bool = False,
 ) -> list[dict[str, Any]]:
     player = project.player_asset or "player"
     tasks: list[dict[str, Any]] = []
@@ -262,6 +275,17 @@ def _build_godot_tasks(
             verify=["Player can collect at least one pickup and counter updates"],
         )
 
+    if has_layout_placements:
+        add(
+            "layout_props",
+            "Confirm World props from production.layout (scaffold/assemble place by xy_norm); bind missing textures only",
+            depends_on=["player_controller"],
+            verify=[
+                "scenes/main.tscn/World has Sprite2D nodes for each layout.placements asset",
+                "Prop positions match xy_norm * viewport (do not invent assets missing from brief)",
+            ],
+        )
+
     if _has_hud(project):
         add(
             "hud",
@@ -286,7 +310,7 @@ def _build_godot_tasks(
 
 
 def _layout_asset_key(spec: AssetSpec) -> str:
-    return (spec.id or spec.name).strip()
+    return layout_asset_key(spec)
 
 
 def _layout_sort_key(spec: AssetSpec) -> str:
@@ -544,8 +568,15 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
             }
         )
 
+    layout = _build_layout(project, assets)
+    has_layout_placements = bool(layout.get("placements"))
+
     godot_tasks = _build_godot_tasks(
-        project, assets, graphs, has_collectibles=has_collectibles
+        project,
+        assets,
+        graphs,
+        has_collectibles=has_collectibles,
+        has_layout_placements=has_layout_placements,
     )
 
     brief_data = json.loads(brief_path.read_text(encoding="utf-8"))
@@ -603,7 +634,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
             ],
             "godot_tasks": godot_tasks,
             "validation": _build_validation(project, godot_tasks),
-            "layout": _build_layout(project, assets),
+            "layout": layout,
             "scaffold": {
                 "main_scene": "scenes/main.tscn",
                 "scripts_dir": "scripts",

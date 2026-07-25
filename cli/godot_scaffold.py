@@ -227,7 +227,10 @@ def _write_main_scene(
     *,
     player_scene_rel: str,
     viewport: dict[str, Any],
+    layout: dict[str, Any] | None = None,
 ) -> None:
+    from godot_layout import build_layout_world_fragments, layout_placements
+
     rel = str(scene.get("path") or "scenes/main.tscn")
     path = project_path / rel
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -245,24 +248,41 @@ def _write_main_scene(
         for c in (scene.get("children") or [])
     )
 
+    ext_prop_lines, world_prop_lines, _ = build_layout_world_fragments(
+        layout if isinstance(layout, dict) else None,
+        viewport,
+        ext_id_start=3,
+    )
+    load_steps = 2 + len(layout_placements(layout if isinstance(layout, dict) else None))
+
     lines = [
-        '[gd_scene load_steps=3 format=3 uid="uid://gf_main"]',
+        f'[gd_scene load_steps={load_steps} format=3 uid="uid://gf_main"]',
         "",
         '[ext_resource type="Script" path="res://scripts/Main.cs" id="1_main"]',
         f'[ext_resource type="PackedScene" path="res://{player_scene_rel}" id="2_player"]',
-        "",
-        '[node name="Main" type="Node2D"]',
-        'script = ExtResource("1_main")',
-        "",
-        '[node name="World" type="Node2D" parent="."]',
-        "",
-        f'[node name="PlayerSpawn" type="Marker2D" parent="."]',
-        f"position = Vector2({spawn_x}, {spawn_y})",
-        "",
-        f'[node name="Player" parent="." instance=ExtResource("2_player")]',
-        f"position = Vector2({spawn_x}, {spawn_y})",
-        "",
     ]
+    lines.extend(ext_prop_lines)
+    lines.extend(
+        [
+            "",
+            '[node name="Main" type="Node2D"]',
+            'script = ExtResource("1_main")',
+            "",
+            '[node name="World" type="Node2D" parent="."]',
+            "",
+        ]
+    )
+    lines.extend(world_prop_lines)
+    lines.extend(
+        [
+            f'[node name="PlayerSpawn" type="Marker2D" parent="."]',
+            f"position = Vector2({spawn_x}, {spawn_y})",
+            "",
+            f'[node name="Player" parent="." instance=ExtResource("2_player")]',
+            f"position = Vector2({spawn_x}, {spawn_y})",
+            "",
+        ]
+    )
     if has_camera:
         lines.extend(
             [
@@ -593,6 +613,7 @@ def scaffold_from_production(
             main_scene,
             player_scene_rel=player_rel,
             viewport=doc.get("viewport") or {},
+            layout=doc.get("layout") if isinstance(doc.get("layout"), dict) else None,
         )
 
     write_project_godot(out_path, doc)
