@@ -2,7 +2,7 @@
   "name": "game-ai-foundry-gui",
   "version": "0.0.8",
   "private": true,
-  "description": "Game AI Foundry â€?desktop shell over gamefactory CLI",
+  "description": "Game AI Foundry â€” desktop shell over gamefactory CLI",
   "author": "Game AI Foundry",
   "main": "electron/main.mjs",
   "type": "module",
