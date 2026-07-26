@@ -599,6 +599,66 @@ class HostChatTests(unittest.TestCase):
         self.assertTrue(result["ready_to_export"])
         self.assertIn("三段斩", session["draft_document"]["body"])
 
+    def test_attach_bound_replaces_foreign_draft_from_disk(self) -> None:
+        from host_chat import attach_bound_project
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fishing-2d"
+            proj.mkdir(parents=True)
+            disk_draft = {
+                "project": {"title": "2D钓鱼模拟器", "genre": "simulation"},
+                "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+            }
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_draft, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            session = new_session("bind-test")
+            session["draft_brief"] = {
+                "project": {"title": "Black Whistle"},
+                "assets": [{"name": "ball", "type": "prop", "usage": "player"}],
+            }
+            session["bound_brief_rel"] = "projects/black-whistle/brief.json"
+            attach_bound_project(session, "projects/fishing-2d/brief.json", repo_root=root)
+            self.assertEqual(session["bound_brief_rel"], "projects/fishing-2d/brief.json")
+            self.assertEqual(
+                (session.get("draft_brief") or {}).get("project", {}).get("title"),
+                "2D钓鱼模拟器",
+            )
+            self.assertEqual(len((session.get("draft_brief") or {}).get("assets") or []), 1)
+
+    def test_attach_bound_always_copies_disk_draft(self) -> None:
+        from host_chat import attach_bound_project
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fishing-2d"
+            proj.mkdir(parents=True)
+            (proj / "brief.draft.json").write_text(
+                json.dumps(
+                    {
+                        "project": {"title": "2D钓鱼模拟器"},
+                        "assets": [{"name": "from_disk", "type": "prop", "usage": "x"}],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            session = new_session("bind-copy")
+            session["bound_brief_rel"] = "projects/fishing-2d/brief.json"
+            session["draft_brief"] = {
+                "project": {"title": "2D钓鱼模拟器"},
+                "assets": [
+                    {"name": "old", "type": "prop", "usage": "x"},
+                    {"name": "newer", "type": "prop", "usage": "y"},
+                ],
+            }
+            attach_bound_project(session, "projects/fishing-2d/brief.json", repo_root=root)
+            assets = (session.get("draft_brief") or {}).get("assets") or []
+            self.assertEqual(len(assets), 1)
+            self.assertEqual(assets[0]["name"], "from_disk")
+
 
 from pi_runtime import resolve_brief_executor
 

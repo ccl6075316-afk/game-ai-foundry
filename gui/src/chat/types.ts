@@ -117,6 +117,8 @@ export interface HostChatStatus {
   llm_backend?: string | null;
   /** last Pi error when fallen back to host */
   llm_pi_error?: string | null;
+  bound_brief_rel?: string | null;
+  project_slug?: string | null;
 }
 
 export interface ProjectDocItem {

@@ -38,6 +38,15 @@ export function projectRootFromBriefRel(briefRel: string): string | null {
   return m?.[1] ?? null;
 }
 
+/** True when both paths belong to the same isolated projects/<slug>/ tree. */
+export function sameProjectRoot(a: string | null | undefined, b: string | null | undefined): boolean {
+  if (!a || !b) return false;
+  const ra = projectRootFromBriefRel(a);
+  const rb = projectRootFromBriefRel(b);
+  if (ra && rb) return ra.toLowerCase() === rb.toLowerCase();
+  return norm(a).toLowerCase() === norm(b).toLowerCase();
+}
+
 export function isIsolatedBriefRel(briefRel: string): boolean {
   return projectRootFromBriefRel(briefRel) != null;
 }
@@ -86,8 +95,21 @@ export function progressPathFromBrief(briefRel: string): string {
 
 /** Export path for a new game — always isolated. */
 export function briefExportRel(slug: string): string {
-  const s = (slug || "my-game").replace(/[/\\]/g, "-").trim() || "my-game";
+  const s = sanitizeProjectSlug(slug) || "my-game";
   return `projects/${s}/brief.json`;
+}
+
+/** ASCII project folder name under projects/. Empty if unusable. */
+export function sanitizeProjectSlug(raw: string): string {
+  const t = (raw || "").trim().toLowerCase();
+  if (!t) return "";
+  if (/[\u4e00-\u9fff]/.test(t) && !/[a-z0-9]/.test(t)) {
+    return "";
+  }
+  return t
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 64);
 }
 
 /** `/delta <change-id> | <intent>` or `/delta <change-id> <intent…>` */
@@ -117,18 +139,44 @@ export function parsePlanSubcommand(text: string): string | null | undefined {
 }
 
 const ACTIVE_BRIEF_KEY = "gamefactory.activeBrief";
+/** Explicit “no project” — must not fall back to listBriefs()[0]. */
+const ACTIVE_BRIEF_NONE = "__none__";
+
+/** Preference for which brief the topbar binds to. */
+export type ActiveBriefPreference =
+  | { kind: "unset" }
+  | { kind: "none" }
+  | { kind: "brief"; rel: string };
+
+export function readActiveBriefPreference(): ActiveBriefPreference {
+  try {
+    const v = localStorage.getItem(ACTIVE_BRIEF_KEY);
+    if (v === null) return { kind: "unset" };
+    const n = v.replace(/\\/g, "/").trim();
+    if (!n || n === ACTIVE_BRIEF_NONE) return { kind: "none" };
+    return { kind: "brief", rel: n };
+  } catch {
+    return { kind: "unset" };
+  }
+}
 
 export function loadActiveBriefRel(): string | null {
-  try {
-    return localStorage.getItem(ACTIVE_BRIEF_KEY);
-  } catch {
-    return null;
-  }
+  const pref = readActiveBriefPreference();
+  return pref.kind === "brief" ? pref.rel : null;
 }
 
 export function saveActiveBriefRel(briefRel: string): void {
   try {
     localStorage.setItem(ACTIVE_BRIEF_KEY, briefRel.replace(/\\/g, "/"));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Drop the topbar project binding (new planner game before first export). */
+export function clearActiveBriefRel(): void {
+  try {
+    localStorage.setItem(ACTIVE_BRIEF_KEY, ACTIVE_BRIEF_NONE);
   } catch {
     /* ignore */
   }

@@ -21,6 +21,7 @@ from brief_brainstorm import (
 from host_chat import (
     DEFAULT_AUTOFIX_MAX_ROUNDS,
     HostChatError,
+    attach_bound_project as host_attach_bound_project,
     export_brief as host_export_brief,
     list_sessions as host_list_sessions,
     load_session as host_load_session,
@@ -67,6 +68,11 @@ def register_brief_commands(cli_group: click.Group) -> None:
         type=click.Path(path_type=Path),
         help="Explicit session JSON path (overrides --session-id).",
     )
+    @click.option(
+        "--brief-rel",
+        default=None,
+        help="GUI-bound project brief path (e.g. projects/fishing-2d/brief.json).",
+    )
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def chat_start_cmd(
@@ -74,6 +80,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         seed: str | None,
         session_id: str | None,
         session_path: Path | None,
+        brief_rel: str | None,
         as_json: bool,
     ) -> None:
         """Start or restart a host-chat session."""
@@ -86,6 +93,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
             sid = session_id
         else:
             session = host_new_session()
+            host_attach_bound_project(session, brief_rel)
             sid = str(session["id"])
             path = session_path_for_id(sid)
             try:
@@ -108,6 +116,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
             return
 
         session = host_new_session(sid)
+        host_attach_bound_project(session, brief_rel)
         try:
             result = host_run_turn(session, user_message=seed, config=config)
             host_save_session(path, session)
@@ -131,6 +140,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
     @click.option("--seed", default=None)
     @click.option("--session-id", default=None)
     @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--brief-rel", default=None)
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def chat_reset_cmd(
@@ -138,6 +148,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         seed: str | None,
         session_id: str | None,
         session_path: Path | None,
+        brief_rel: str | None,
         as_json: bool,
     ) -> None:
         """Discard and restart a host-chat session."""
@@ -146,6 +157,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
             seed=seed,
             session_id=session_id,
             session_path=session_path,
+            brief_rel=brief_rel,
             as_json=as_json,
         )
 
@@ -165,6 +177,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         default=None,
         help="GUI colleague instance id (per-instance Provider/model for Pi).",
     )
+    @click.option("--brief-rel", default=None)
     @click.pass_context
     def chat_turn_cmd(
         ctx: click.Context,
@@ -173,12 +186,14 @@ def register_brief_commands(cli_group: click.Group) -> None:
         session_path: Path | None,
         as_json: bool,
         instance_id: str | None,
+        brief_rel: str | None,
     ) -> None:
         """Send one user message in host-chat."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         path = _chat_session_path(session_id, session_path)
         try:
             session = host_load_session(path)
+            host_attach_bound_project(session, brief_rel)
             result = host_run_turn(
                 session,
                 user_message=message,
@@ -203,6 +218,39 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 click.echo(f"  {i}. {c}")
             if result.get("ready_to_export"):
                 click.echo("\n[ready] Brief 可导出 — 使用 brief chat export")
+
+
+    @chat_group.command("bind")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--brief-rel", required=True, help="projects/<slug>/brief.json")
+    @click.option("--json", "as_json", is_flag=True)
+    def chat_bind_cmd(
+        session_id: str | None,
+        session_path: Path | None,
+        brief_rel: str,
+        as_json: bool,
+    ) -> None:
+        """Attach GUI project binding and hydrate draft from disk if empty."""
+        path = _chat_session_path(session_id, session_path)
+        try:
+            if path.is_file():
+                session = host_load_session(path)
+            else:
+                sid = session_id or path.stem
+                session = host_new_session(sid)
+            host_attach_bound_project(session, brief_rel, hydrate_draft=True)
+            host_save_session(path, session)
+            st = host_session_status(session)
+        except (HostChatError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        payload = {"session_id": session.get("id"), "session_path": str(path.resolve()), **st}
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"bound {st.get('project_slug')} -> {st.get('bound_brief_rel')}")
+            click.echo(f"draft assets: {st.get('asset_count', 0)}")
 
     @chat_group.command("status")
     @click.option("--session-id", default=None)
@@ -301,13 +349,24 @@ def register_brief_commands(cli_group: click.Group) -> None:
         help="Write validated brief JSON.",
     )
     @click.option("--json", "as_json", is_flag=True)
+    @click.option(
+        "--skip-zh-doc",
+        is_flag=True,
+        help="Do not write brief.zh.md Chinese companion.",
+    )
+    @click.pass_context
     def chat_export_cmd(
+        ctx: click.Context,
         session_id: str | None,
         session_path: Path | None,
         output_path: Path,
         as_json: bool,
+        skip_zh_doc: bool,
     ) -> None:
         """Export draft brief from a host-chat session."""
+        from brief_zh_doc import write_brief_zh_document
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
         try:
             path = _chat_session_path(session_id, session_path)
             session = host_load_session(path)
@@ -317,6 +376,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
+            zh_info: dict = {}
+            if not skip_zh_doc:
+                try:
+                    zh_info = write_brief_zh_document(output_path, brief, config=config)
+                except OSError as exc:
+                    zh_info = {"zh_doc_error": str(exc)}
         except (HostChatError, ValueError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
@@ -325,11 +390,14 @@ def register_brief_commands(cli_group: click.Group) -> None:
             "session_id": session.get("id"),
             "brief_path": str(output_path.resolve()),
             "brief": brief,
+            **zh_info,
         }
         if as_json:
             click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
         else:
             click.echo(str(output_path.resolve()))
+            if zh_info.get("zh_doc_path"):
+                click.echo(zh_info["zh_doc_path"])
 
     @brief_group.command("validate")
     @click.option(
@@ -496,8 +564,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
         help="Write validated brief JSON.",
     )
     @click.option("--json", "as_json", is_flag=True)
-    def export_cmd(session_path: Path, output_path: Path, as_json: bool) -> None:
+    @click.pass_context
+    def export_cmd(ctx: click.Context, session_path: Path, output_path: Path, as_json: bool) -> None:
         """Export draft brief to a brief JSON file."""
+        from brief_zh_doc import write_brief_zh_document
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
         try:
             session = load_session(session_path)
             brief = export_brief(session)
@@ -506,15 +578,42 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
+            zh_info = write_brief_zh_document(output_path, brief, config=config)
         except (BriefBrainstormError, ValueError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
 
-        payload = {"brief_path": str(output_path.resolve()), "brief": brief}
+        payload = {"brief_path": str(output_path.resolve()), "brief": brief, **zh_info}
         if as_json:
             click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
         else:
             click.echo(str(output_path.resolve()))
+
+    @brief_group.command("zh-doc")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Existing brief.json to mirror as Chinese markdown.",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def zh_doc_cmd(ctx: click.Context, brief_path: Path, as_json: bool) -> None:
+        """Write or refresh brief.zh.md beside an existing brief."""
+        from brief_zh_doc import write_brief_zh_document
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            info = write_brief_zh_document(brief_path, config=config)
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(info, ensure_ascii=False, indent=2))
+        else:
+            click.echo(info["zh_doc_path"])
+            click.echo(f"mode: {info['zh_doc_mode']}")
 
     @brief_group.group("visual-target")
     def visual_target_group() -> None:

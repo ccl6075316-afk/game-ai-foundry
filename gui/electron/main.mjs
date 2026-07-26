@@ -253,7 +253,19 @@ function listBriefs() {
   const root = repoRoot();
   const out = [];
   const seen = new Set();
-  const pushFile = (abs, rel, label) => {
+  const pushEntry = (rel, label, mtime, status = "ready") => {
+    const normRel = String(rel).replace(/\\/g, "/");
+    if (seen.has(normRel)) return;
+    seen.add(normRel);
+    out.push({
+      id: normRel.replace(/\.json$/i, "").replace(/[\\/]/g, "__"),
+      path: normRel,
+      label: label || path.basename(rel),
+      mtime: mtime || 0,
+      status,
+    });
+  };
+  const pushFile = (abs, rel, label, status = "ready") => {
     if (!existsSync(abs) || !statSync(abs).isFile()) return;
     const normRel = String(rel).replace(/\\/g, "/");
     try {
@@ -272,28 +284,33 @@ function listBriefs() {
     } catch {
       /* list anyway if not JSON-parseable */
     }
-    if (seen.has(normRel)) return;
-    seen.add(normRel);
     const stat = statSync(abs);
-    out.push({
-      id: normRel.replace(/\.json$/i, "").replace(/[\\/]/g, "__"),
-      path: normRel,
-      label: label || path.basename(rel),
-      mtime: stat.mtimeMs,
-    });
+    pushEntry(normRel, label, stat.mtimeMs, status);
   };
 
   const projectsDir = path.join(root, "projects");
   if (existsSync(projectsDir)) {
     for (const name of readdirSync(projectsDir)) {
+      if (name.startsWith(".")) continue;
       const dir = path.join(projectsDir, name);
       if (!statSync(dir).isDirectory()) continue;
       const brief = path.join(dir, "brief.json");
       const alt = path.join(dir, `${name}-brief.json`);
+      const draft = path.join(dir, "brief.draft.json");
+      const meta = path.join(dir, "project.meta.json");
       if (existsSync(brief)) {
-        pushFile(brief, path.join("projects", name, "brief.json"), `${name}/brief.json`);
+        pushFile(brief, path.join("projects", name, "brief.json"), `${name}/brief.json`, "ready");
       } else if (existsSync(alt)) {
-        pushFile(alt, path.join("projects", name, `${name}-brief.json`), `${name}/${name}-brief.json`);
+        pushFile(alt, path.join("projects", name, `${name}-brief.json`), `${name}/${name}-brief.json`, "ready");
+      } else if (existsSync(draft) || existsSync(meta)) {
+        // Unfinished project: still selectable via canonical brief.json path
+        const st = existsSync(draft) ? statSync(draft) : statSync(meta);
+        pushEntry(
+          path.join("projects", name, "brief.json").replace(/\\/g, "/"),
+          `${name}（草稿）`,
+          st.mtimeMs,
+          "draft",
+        );
       }
     }
   }
@@ -400,6 +417,11 @@ function listProjectDocs(briefRel) {
     pushIfExists(norm, `Brief · ${slug}`, "json");
     if (projMatch) {
       const root = projMatch[1];
+      // Prefer a friendly label for the Chinese companion written on export.
+      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief", "markdown");
+      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（未导出）", "brief");
+      pushIfExists(`${root}/工程说明.md`, "工程说明", "markdown");
+      pushIfExists(`${root}/策划笔记.md`, "策划笔记", "markdown");
       pushIfExists(`${root}/production.json`, "Production", "json");
       pushIfExists(`${root}/progress.json`, "Progress", "json");
       pushIfExists(`${root}/pipeline/manifest.json`, "Pipeline manifest", "json");
@@ -408,6 +430,9 @@ function listProjectDocs(briefRel) {
       if (existsSync(rootAbs) && statSync(rootAbs).isDirectory()) {
         for (const f of readdirSync(rootAbs)) {
           if (!/\.(md|txt)$/i.test(f)) continue;
+          if (/^brief\.zh\.md$/i.test(f)) continue;
+          if (/^工程说明\.md$/i.test(f)) continue;
+          if (/^策划笔记\.md$/i.test(f)) continue;
           pushIfExists(`${root}/${f}`, f, "markdown");
         }
         const docsSub = path.join(rootAbs, "docs");
@@ -426,11 +451,69 @@ function listProjectDocs(briefRel) {
     return out;
   }
 
-  // No active project — only list recent briefs so the user can pick one.
-  for (const b of listBriefs().slice(0, 12)) {
-    pushIfExists(b.path, `Brief · ${b.label}`, "json");
-  }
+  // No active project: do not leak other projects' briefs into the Docs panel.
   return out;
+}
+
+function sanitizeProjectSlug(raw) {
+  const t = String(raw || "")
+    .trim()
+    .toLowerCase();
+  if (!t) return "";
+  if (/[\u4e00-\u9fff]/.test(t) && !/[a-z0-9]/.test(t)) return "";
+  return t
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 64);
+}
+
+/** Create projects/<slug>/ early so Docs can scope before brief.json exists. */
+function ensureProject(slugRaw) {
+  const slug = sanitizeProjectSlug(slugRaw);
+  if (!slug) {
+    return { ok: false, error: "工程目录名需为英文小写与短横线，例如 my-cool-game" };
+  }
+  const rootRel = `projects/${slug}`;
+  const rootAbs = path.join(repoRoot(), rootRel);
+  const briefRel = `${rootRel}/brief.json`;
+  mkdirSync(rootAbs, { recursive: true });
+  for (const sub of ["output", "game", "pipeline", "plans", "docs"]) {
+    mkdirSync(path.join(rootAbs, sub), { recursive: true });
+  }
+  const guideRel = `${rootRel}/工程说明.md`;
+  const guideAbs = path.join(repoRoot(), guideRel);
+  if (!existsSync(guideAbs)) {
+    writeFileSync(
+      guideAbs,
+      [
+        `# ${slug}`,
+        "",
+        "本工程目录已创建。顶栏会绑定到这里；右侧「文档」**只显示本工程文件**。",
+        "",
+        "## 文件约定",
+        "",
+        "| 文件 | 用途 |",
+        "|------|------|",
+        "| `brief.json` | 英文 brief，给流水线（导出后生成） |",
+        "| `brief.zh.md` | 中文说明，给人看（导出 brief 时同步生成） |",
+        "| `game/` | Godot 工程 |",
+        "| `output/` | 资产生成产物 |",
+        "| `pipeline/` | 流水线 manifest |",
+        "",
+        "先与策划把玩法聊清楚，再在文档面板点「导出 Brief」。",
+        "",
+      ].join("\n"),
+      "utf-8",
+    );
+  }
+  return {
+    ok: true,
+    slug,
+    projectRootRel: rootRel,
+    briefRel,
+    guideRel,
+    existed: existsSync(path.join(rootAbs, "brief.json")),
+  };
 }
 
 function listManifests() {
@@ -524,7 +607,8 @@ function normalizeBriefKey(p) {
 }
 
 /** Map stored/legacy brief paths (resources/ vs cli/resources/) to an existing file.
- * Prefer projects/<slug>/ after migrate; follow redirect stubs. */
+ * Prefer projects/<slug>/ after migrate; follow redirect stubs.
+ * Never remap projects/A/… to projects/B/… — empty new projects must stay bound. */
 function resolveBriefRel(briefRel) {
   const root = repoRoot();
   const raw = String(briefRel || "")
@@ -532,6 +616,36 @@ function resolveBriefRel(briefRel) {
     .replace(/^\.\.\//, "")
     .replace(/^\.\//, "");
   if (!raw) return "";
+
+  // Isolated project path: keep the slug even if brief.json is not written yet.
+  const projMatch = raw.match(/^(projects\/([^/]+))\//i);
+  if (projMatch) {
+    const projectRootRel = projMatch[1].replace(/\\/g, "/");
+    const preferred = `${projectRootRel}/brief.json`;
+    const projectAbs = path.join(root, projectRootRel);
+    if (existsSync(projectAbs) && statSync(projectAbs).isDirectory()) {
+      const preferredAbs = path.join(root, preferred);
+      if (existsSync(preferredAbs)) {
+        try {
+          const data = JSON.parse(readFileSync(preferredAbs, "utf-8"));
+          const redirect = String(data?.brief_meta?.redirect_to || "").replace(/\\/g, "/");
+          // Only follow redirects that stay inside the same project
+          if (
+            redirect &&
+            redirect.startsWith(`${projectRootRel}/`) &&
+            existsSync(path.join(root, redirect))
+          ) {
+            return redirect;
+          }
+        } catch {
+          /* use preferred */
+        }
+        return preferred;
+      }
+      return preferred;
+    }
+  }
+
   const base = path.basename(raw);
   const candidates = [];
   const push = (c) => {
@@ -539,9 +653,9 @@ function resolveBriefRel(briefRel) {
     if (n && !candidates.includes(n)) candidates.push(n);
   };
 
-  // 1) Prefer isolated projects/ first (by slug / stem)
+  // 1) Prefer isolated projects/ first (by slug / stem) — skip bare "brief"
   const stem = base.replace(/\.json$/i, "").replace(/-brief$/i, "");
-  if (stem) {
+  if (stem && stem.toLowerCase() !== "brief") {
     push(`projects/${stem}/brief.json`);
     push(`projects/${stem}/${stem}-brief.json`);
   }
@@ -557,12 +671,14 @@ function resolveBriefRel(briefRel) {
   if (raw.startsWith("cli/resources/")) {
     push(raw.slice("cli/".length));
   }
-  push(`resources/${base}`);
-  push(`cli/resources/${base}`);
+  if (base.toLowerCase() !== "brief.json") {
+    push(`resources/${base}`);
+    push(`cli/resources/${base}`);
+  }
 
   // Scan projects/*/brief.json for migrated_from / legacy_names
   const projectsDir = path.join(root, "projects");
-  if (existsSync(projectsDir)) {
+  if (existsSync(projectsDir) && stem && stem.toLowerCase() !== "brief") {
     try {
       for (const name of readdirSync(projectsDir)) {
         const briefAbs = path.join(projectsDir, name, "brief.json");
@@ -573,8 +689,8 @@ function resolveBriefRel(briefRel) {
           const migrated = String(meta.migrated_from || "").replace(/\\/g, "/");
           const names = Array.isArray(meta.legacy_names) ? meta.legacy_names : [];
           if (
-            migrated.endsWith(base) ||
             migrated === raw ||
+            migrated.endsWith(`/${base}`) ||
             names.includes(base) ||
             names.includes(stem) ||
             names.includes(raw)
@@ -649,20 +765,37 @@ function looksLikeImagePath(ref) {
   return /\.(png|jpe?g|webp|gif)$/i.test(s);
 }
 
-/** Find newest pipeline manifest whose brief matches (path or basename). */
+/** Find newest pipeline manifest for the same project (exact brief first, then same root). */
 function findManifestForBrief(briefRel) {
   const key = normalizeBriefKey(briefRel);
   if (!key) return null;
-  const base = path.basename(key);
+  const projectRoot = (() => {
+    const m = key.match(/^(projects\/[^/]+)\//i);
+    return m ? m[1].toLowerCase() : null;
+  })();
+  let exact = null;
+  let sameRootBest = null;
   for (const item of listManifests()) {
     const meta = manifestMeta(item.path);
     if (!meta?.brief) continue;
     const mb = normalizeBriefKey(meta.brief);
-    if (mb === key || mb.endsWith("/" + base) || path.basename(mb) === base) {
-      return { path: item.path, label: item.label, mtime: item.mtime, meta };
+    if (mb === key) {
+      if (!exact || (item.mtime || 0) > (exact.mtime || 0)) {
+        exact = { path: item.path, label: item.label, mtime: item.mtime, meta };
+      }
+      continue;
+    }
+    if (!projectRoot) continue;
+    const briefSameRoot =
+      mb === projectRoot || mb.startsWith(projectRoot + "/");
+    const manifestUnder = normalizeBriefKey(item.path).startsWith(projectRoot + "/");
+    if (briefSameRoot || manifestUnder) {
+      if (!sameRootBest || (item.mtime || 0) > (sameRootBest.mtime || 0)) {
+        sameRootBest = { path: item.path, label: item.label, mtime: item.mtime, meta };
+      }
     }
   }
-  return null;
+  return exact || sameRootBest;
 }
 
 function loadManifest(relPath) {
@@ -1242,6 +1375,7 @@ app.whenReady().then(() => {
     patchBriefProject(relPath, projectPatch),
   );
   ipcMain.handle("list-project-docs", (_e, briefRel) => listProjectDocs(briefRel));
+  ipcMain.handle("ensure-project", (_e, slug) => ensureProject(slug));
 
   ipcMain.handle("pipeline-plan", async (_e, opts) => {
     const {
@@ -1752,16 +1886,19 @@ app.whenReady().then(() => {
     return { ok: true, path: relToRepo(abs) };
   });
 
-  ipcMain.handle("host-chat-start", async (_e, sessionId, seed, _instanceId) => {
+  ipcMain.handle("host-chat-start", async (_e, sessionId, seed, _instanceId, briefRel) => {
     const args = ["brief", "chat", "start", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
+    }
+    if (briefRel && String(briefRel).trim()) {
+      args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
     }
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId) => {
+  ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId, briefRel) => {
     const args = [
       "brief",
       "chat",
@@ -1775,15 +1912,36 @@ app.whenReady().then(() => {
     if (instanceId) {
       args.push("--instance-id", String(instanceId));
     }
+    if (briefRel && String(briefRel).trim()) {
+      args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
+    }
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, _instanceId) => {
+  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, _instanceId, briefRel) => {
     const args = ["brief", "chat", "reset", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
     }
+    if (briefRel && String(briefRel).trim()) {
+      args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("host-chat-bind", async (_e, sessionId, briefRel) => {
+    const args = [
+      "brief",
+      "chat",
+      "bind",
+      "--json",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--brief-rel",
+      String(briefRel || "").replace(/\\/g, "/").trim(),
+    ];
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
@@ -1807,6 +1965,16 @@ app.whenReady().then(() => {
     const data = parseJsonFromOutput(result.stdout) || {};
     if (!data.brief_path) data.brief_path = abs;
     data.brief_rel = rel;
+    if (data.zh_doc_path) {
+      const zhAbs = String(data.zh_doc_path).replace(/\\/g, "/");
+      const root = repoRoot().replace(/\\/g, "/");
+      if (zhAbs.toLowerCase().startsWith(root.toLowerCase() + "/")) {
+        data.zh_doc_rel = zhAbs.slice(root.length + 1);
+      } else {
+        const parentRel = path.posix.dirname(rel);
+        data.zh_doc_rel = `${parentRel}/brief.zh.md`;
+      }
+    }
     return { ...result, data };
   });
 

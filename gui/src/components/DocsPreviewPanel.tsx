@@ -28,7 +28,13 @@ interface Props {
   onAutofix?: () => void;
   onRefresh?: () => void;
   onSelectProject?: (briefRel: string) => void;
+  /** Create+bind a new project from the docs panel switcher. */
+  onNewProject?: () => void;
   busy?: boolean;
+  /** Bump after export so disk list reloads. */
+  diskRefreshKey?: number;
+  /** Prefer selecting this repo-relative path after refresh (e.g. brief.zh.md). */
+  focusDiskRel?: string | null;
 }
 
 export function DocsPreviewPanel({
@@ -41,7 +47,10 @@ export function DocsPreviewPanel({
   onAutofix,
   onRefresh,
   onSelectProject,
+  onNewProject,
   busy,
+  diskRefreshKey = 0,
+  focusDiskRel = null,
 }: Props) {
   const projectSlug = activeBriefRel ? slugFromBriefRel(activeBriefRel) : null;
   const [selectedId, setSelectedId] = useState("session-brief");
@@ -117,13 +126,26 @@ export function DocsPreviewPanel({
     };
   }, [activeBriefRel, draftBrief, readyToExport, diskListTick]);
 
+  useEffect(() => {
+    if (diskRefreshKey > 0) {
+      setDiskListTick((n) => n + 1);
+    }
+  }, [diskRefreshKey]);
+
   const allDocs = useMemo(() => [...sessionDocs, ...diskDocs], [sessionDocs, diskDocs]);
 
   useEffect(() => {
+    if (focusDiskRel) {
+      const want = `disk:${focusDiskRel.replace(/\\/g, "/")}`;
+      if (allDocs.some((d) => d.id === want)) {
+        setSelectedId(want);
+        return;
+      }
+    }
     if (!allDocs.some((d) => d.id === selectedId)) {
       setSelectedId(allDocs[0]?.id || "session-brief");
     }
-  }, [allDocs, selectedId]);
+  }, [allDocs, selectedId, focusDiskRel]);
 
   const selected = allDocs.find((d) => d.id === selectedId) || allDocs[0];
 
@@ -179,7 +201,7 @@ export function DocsPreviewPanel({
     if (selected?.source === "disk") {
       if (diskLoading) return "读取中…";
       if (diskError) return diskError;
-      if (selected.kind === "brief") {
+      if (selected.kind === "brief" || /\.json$/i.test(selected.path || "")) {
         const formatted = tryFormatBriefJsonText(diskBody, null);
         if (formatted) return formatted;
       }
@@ -200,19 +222,25 @@ export function DocsPreviewPanel({
         <h2>{projectSlug ? `文档 · ${projectSlug}` : "文档"}</h2>
         <p className="hint">
           {projectSlug
-            ? "仅显示当前工程落盘文件；上方可切换工程。"
-            : "尚未绑定工程。导出 Brief 或从列表选择后，这里只显示该工程文档。"}
+            ? "仅显示当前工程落盘文件（不会混入其它工程）。"
+            : "尚未绑定工程。请先顶栏「新建项目」创建目录，或从列表选择已有工程。"}
         </p>
         {onSelectProject ? (
           <ProjectSwitcher
             variant="panel"
             activeBriefRel={activeBriefRel}
             onSelect={onSelectProject}
+            onNewProject={onNewProject}
           />
         ) : null}
       </div>
 
       <div className="docs-preview-list">
+        {!activeBriefRel && diskDocs.length === 0 ? (
+          <p className="docs-preview-empty hint">
+            未绑定工程时这里不会列出其它项目的文件。请先新建或选择工程。
+          </p>
+        ) : null}
         {allDocs.map((doc) => (
           <button
             key={doc.id}
@@ -225,7 +253,9 @@ export function DocsPreviewPanel({
           </button>
         ))}
         {activeBriefRel && diskDocs.length === 0 ? (
-          <p className="docs-preview-empty hint">当前工程还没有落盘文件（先导出 Brief）。</p>
+          <p className="docs-preview-empty hint">
+            当前工程还没有落盘文件。可先看上方「Brief 工作草稿」；导出后会出现 brief.json / 中文说明。
+          </p>
         ) : null}
       </div>
 

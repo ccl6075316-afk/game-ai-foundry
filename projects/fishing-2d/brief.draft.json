@@ -1,0 +1,119 @@
+{
+  "project": {
+    "title": "2D钓鱼模拟器",
+    "description": "A 2D fishing simulation game with click-based UI interactions. No controllable character. Core loop: fish → sell → upgrade equipment → explore new spots → build aquarium. Fishing line and bait are purchased separately with distinct stats: line has max length and tensile strength; bait affects fish attraction and species rarity. Fishing features a tug-of-war stamina combat: rod and reel provide attack power, fish has stamina. Line has a maximum length (increases with better equipment); exceeding it risks breakage (probabilistic). While reeling in, if fish's struggle force exceeds line's tensile strength, continuing to reel will snap the line and lose the fish. The tension system: higher line tension boosts rod attack power and reel speed; players must maintain high tension without exceeding the limit to avoid snap. After a timer expires (if fish stamina hasn't dropped enough), the fish enters a rage state: underwater side-view phase where player drags in the opposite direction of fish movement to deplete stamina, with QTE events for bonus damage. Skillful players can land fish with shorter line: a timed \"instant reel\" prompt appears when fish is exhausted; precise execution reduces the line length used at capture, yielding higher quality/sell price. Economy: same equipment, better skill → shorter line used → catch better fish → sell more → upgrade equipment → upgrade aquarium. Aquarium management: buy tanks, place fish, earn admission fees based on viewing appeal determined by fish rarity, quantity, and decorations. Use income for further upgrades.",
+    "genre": "Simulation / Fishing",
+    "gameplay_loop": "1. Select fishing spot (requires boat rental/ownership based on location). 2. Equip rod (attack power), reel (reeling speed), line (max length, tensile strength), bait (attraction, species pool). 3. Cast line. 4. When fish bites, enter tug-of-war combat:\n   - Player reels in (tap/hold) to reduce fish stamina; fish struggles and tries to escape.\n   - A tension meter shows current tension: higher tension = more attack power and reel speed, but risk of exceeding limit and snapping.\n   - Line length counter displayed; if it reaches max length, chance of snap grows each second.\n   - If reel input exceeds tensile strength (shown as a red zone on tension meter), line snaps instantly.\n   - A timer starts from when the fish first bites. If the fish's stamina has not decreased by a certain amount before the timer expires (indicating insufficient equipment or poor skill), the fish enters a rage state: the screen switches to underwater side-view.\n   - Underwater rage phase: Fish darts in random directions; player must swipe/mouse-drag in the opposite direction to deplete stamina faster. Occasional QTE prompts (e.g., tap a button or swipe a specific direction) appear; success drains large stamina and shortens line, failure restores some stamina or increases line length.\n   - During rage, line length continuously increases. Phase ends when fish stamina reaches 0 or after a set number of successful QTE events.\n5. When fish stamina reaches 0, it's exhausted. A brief \"instant reel\" button appears; precise press (within a timing window) reduces the line length used for capture, improving fish quality.\n6. Check fish size/species; keep or sell. Optional: place in aquarium.\n7. Upgrade equipment: rod (attack), reel (speed), line (max length, tensile), bait (attraction, rarity). Line and bait are separate purchases in shop.\n8. Manage aquarium:\n   - Buy tanks of various sizes and prices; each tank has a capacity (number of fish) and base appeal.\n   - Place fish into tanks; fish in same tank contribute to viewing appeal (rare fish give bonus).\n   - Buy decorations (plants, rocks, lights) to increase tank appeal.\n   - Upgrade tanks (larger capacity, higher appeal multiplier) using money.\n   - Aquarium generates daily admission income = base ticket × total appeal coefficient.\n   - Optional: feed fish (using bait or special feed) to temporarily boost their state and appeal.\n9. Occasional rare fish or weather events.",
+    "platforms": [
+      "Desktop",
+      "Mobile"
+    ],
+    "ui_style": "Cozy pixel-art or flat-illustration, nature-themed UI",
+    "hud": []
+  },
+  "assets": [
+    {
+      "name": "通用钓鱼背景_湖",
+      "type": "background",
+      "usage": "scene",
+      "description": "Lakeside fishing spot background"
+    },
+    {
+      "name": "通用钓鱼背景_海",
+      "type": "background",
+      "usage": "scene",
+      "description": "Ocean fishing spot background"
+    },
+    {
+      "name": "鱼_普通鲤鱼",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Common carp icon for inventory and aquarium display"
+    },
+    {
+      "name": "鱼_珍稀金鳞鱼",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Rare golden-scaled fish icon"
+    },
+    {
+      "name": "装备_基础钓竿",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Basic fishing rod icon for shop"
+    },
+    {
+      "name": "装备_金属轮轴",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Metal reel icon"
+    },
+    {
+      "name": "装备_编织鱼线",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Braided fishing line icon (higher tensile strength)"
+    },
+    {
+      "name": "装备_尼龙鱼线",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Nylon line icon (longer max length, lower tensile)"
+    },
+    {
+      "name": "装备_蚯蚓饵",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Earthworm bait icon (common fish attraction)"
+    },
+    {
+      "name": "装备_活虾饵",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Shrimp bait icon (attracts rarer fish)"
+    },
+    {
+      "name": "船只_小木船",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Small wooden boat icon for rental/purchase"
+    },
+    {
+      "name": "水族馆界面",
+      "type": "ui",
+      "usage": "ui_element",
+      "description": "Aquarium management screen background and tank frames"
+    },
+    {
+      "name": "商店界面背景",
+      "type": "ui",
+      "usage": "ui_element",
+      "description": "Shop UI background with shelves"
+    },
+    {
+      "name": "水族馆_鱼缸_小型",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Small aquarium tank icon for purchase and placement"
+    },
+    {
+      "name": "水族馆_鱼缸_中型",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Medium aquarium tank icon"
+    },
+    {
+      "name": "水族馆_装饰_水草",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Aquarium seaweed decoration icon"
+    },
+    {
+      "name": "水族馆_装饰_假山",
+      "type": "item",
+      "usage": "ui_icon",
+      "description": "Aquarium rock decoration icon"
+    }
+  ],
+  "animation_graphs": []
+}

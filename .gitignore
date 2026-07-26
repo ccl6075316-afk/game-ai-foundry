@@ -30,6 +30,12 @@ pipeline/
 plans/
 projects/*/
 !projects/.gitkeep
+# WIP game draft for cross-machine sync (no pipeline assets)
+!projects/fishing-2d/
+!projects/fishing-2d/**
+projects/fishing-2d/output/
+projects/fishing-2d/game/
+projects/fishing-2d/pipeline/
 tests/fixtures/
 progress.json
 

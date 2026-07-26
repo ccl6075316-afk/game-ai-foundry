@@ -209,6 +209,12 @@ code {
   color: var(--text-primary);
 }
 
+.project-switcher__item--new {
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  margin-bottom: 4px;
+  padding-bottom: 10px;
+}
+
 .project-switcher__item--active {
   background: rgba(91, 141, 239, 0.18);
   color: var(--text-primary);
@@ -3104,6 +3110,37 @@ code {
   justify-content: flex-end;
   padding: 12px 16px 16px;
   border-top: 1px solid var(--border);
+}
+
+.new-project-modal__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 16px 6px;
+}
+
+.new-project-modal__input {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+}
+
+.new-project-modal__error {
+  color: #f87171;
+  font-size: 13px;
+  margin: 8px 16px 0;
+}
+
+.new-project-modal__hint {
+  margin: 8px 16px 0;
 }
 
 .field-row--wrap {

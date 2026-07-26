@@ -20,6 +20,8 @@ export interface BriefItem {
   path: string;
   label: string;
   mtime?: number;
+  /** ready = brief.json exists; draft = project folder without exported brief yet */
+  status?: "ready" | "draft";
 }
 
 export interface ManifestMeta {
@@ -313,6 +315,15 @@ declare global {
           kind: "brief" | "markdown" | "json";
         }>
       >;
+      ensureProject: (slug: string) => Promise<{
+        ok: boolean;
+        error?: string;
+        slug?: string;
+        projectRootRel?: string;
+        briefRel?: string;
+        guideRel?: string;
+        existed?: boolean;
+      }>;
       pipelinePlan: (opts: {
         briefRel: string;
         manifestRel: string;
@@ -417,17 +428,32 @@ declare global {
         sessionId: string,
         seed?: string,
         instanceId?: string,
+        briefRel?: string | null,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
       hostChatTurn: (
         sessionId: string,
         message: string,
         instanceId?: string,
+        briefRel?: string | null,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
       hostChatReset: (
         sessionId: string,
         seed?: string,
         instanceId?: string,
+        briefRel?: string | null,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
+      hostChatBind: (
+        sessionId: string,
+        briefRel: string,
+      ) => Promise<
+        CliResult<{
+          project_slug?: string;
+          bound_brief_rel?: string;
+          asset_count?: number;
+          draft_brief?: import("./chat/types").HostChatDraftBrief | null;
+          title?: string;
+        }>
+      >;
       hostChatExport: (
         sessionId: string,
         outputRel: string,
@@ -438,6 +464,11 @@ declare global {
           brief_rel?: string;
           brief?: Record<string, unknown>;
           session_id?: string;
+          zh_doc_path?: string;
+          zh_doc_rel?: string;
+          zh_doc_name?: string;
+          zh_doc_mode?: string;
+          zh_doc_error?: string;
         }>
       >;
       hostChatAutofix: (

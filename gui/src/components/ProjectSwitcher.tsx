@@ -4,16 +4,24 @@ import { slugFromBriefRel } from "../chat/projectPaths";
 export type ProjectBriefItem = {
   path: string;
   label: string;
+  status?: "ready" | "draft";
 };
 
 interface Props {
   activeBriefRel: string | null;
   onSelect: (briefRel: string) => void;
+  /** Start a fresh planner draft unbound from the current project. */
+  onNewProject?: () => void;
   /** Compact chip for topbar vs fuller control for docs panel */
   variant?: "chip" | "panel";
 }
 
-export function ProjectSwitcher({ activeBriefRel, onSelect, variant = "chip" }: Props) {
+export function ProjectSwitcher({
+  activeBriefRel,
+  onSelect,
+  onNewProject,
+  variant = "chip",
+}: Props) {
   const [open, setOpen] = useState(false);
   const [briefs, setBriefs] = useState<ProjectBriefItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -33,6 +41,7 @@ export function ProjectSwitcher({ activeBriefRel, onSelect, variant = "chip" }: 
         (items || []).map((b) => ({
           path: String(b.path || "").replace(/\\/g, "/"),
           label: b.label || slugFromBriefRel(String(b.path || "")),
+          status: b.status === "draft" ? "draft" : "ready",
         })),
       );
     } catch {
@@ -78,14 +87,30 @@ export function ProjectSwitcher({ activeBriefRel, onSelect, variant = "chip" }: 
       </button>
       {open && (
         <div className="project-switcher__menu" role="listbox">
+          {onNewProject && (
+            <button
+              type="button"
+              className="project-switcher__item project-switcher__item--new"
+              onClick={() => {
+                onNewProject();
+                setOpen(false);
+              }}
+            >
+              <span className="project-switcher__item-slug">＋ 新建项目</span>
+              <span className="project-switcher__item-path">
+                先创建 projects/&lt;目录名&gt;/ 并绑定，文档只显示本工程
+              </span>
+            </button>
+          )}
           {loading && <div className="project-switcher__empty">加载中…</div>}
           {!loading && briefs.length === 0 && (
-            <div className="project-switcher__empty">暂无工程。先与策划导出 Brief。</div>
+            <div className="project-switcher__empty">暂无工程。点上方「新建项目」创建目录。</div>
           )}
           {!loading &&
             briefs.map((b) => {
               const s = slugFromBriefRel(b.path);
               const active = activeBriefRel?.replace(/\\/g, "/") === b.path;
+              const draft = b.status === "draft";
               return (
                 <button
                   key={b.path}
@@ -98,8 +123,11 @@ export function ProjectSwitcher({ activeBriefRel, onSelect, variant = "chip" }: 
                     setOpen(false);
                   }}
                 >
-                  <span className="project-switcher__item-slug">{s}</span>
-                  <span className="project-switcher__item-path">{b.path}</span>
+                  <span className="project-switcher__item-slug">
+                    {s}
+                    {draft ? " · 草稿" : ""}
+                  </span>
+                  <span className="project-switcher__item-path">{b.label || b.path}</span>
                 </button>
               );
             })}

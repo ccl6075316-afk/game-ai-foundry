@@ -5,6 +5,7 @@ import { ChatInput } from "./components/ChatInput";
 import { ColleagueConfigBar } from "./components/ColleagueConfigBar";
 import { ColleagueRoster } from "./components/ColleagueRoster";
 import { HireColleagueModal } from "./components/HireColleagueModal";
+import { NewProjectModal } from "./components/NewProjectModal";
 import { BoardPanel } from "./components/BoardPanel";
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
@@ -35,16 +36,22 @@ import {
 } from "./chat/types";
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
-  briefExportRel,
+  clearActiveBriefRel,
+  isIsolatedBriefRel,
   loadActiveBriefRel,
   parseDeltaCommand,
   parsePlanSubcommand,
   planTargetsFromBrief,
   productionPathFromBrief,
   progressPathFromBrief,
+  projectRootFromBriefRel,
+  readActiveBriefPreference,
+  sameProjectRoot,
+  sanitizeProjectSlug,
   saveActiveBriefRel,
   slugFromBriefRel,
 } from "./chat/projectPaths";
+import { parseNewProjectIntent } from "./chat/newProjectIntent";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import { prepareAgentDisplay } from "./chat/agentReply";
 import { mergeMessageChoices } from "./chat/inferChoices";
@@ -279,6 +286,15 @@ export default function App() {
   const [brainstormActive, setBrainstormActive] = useState(false);
   const [brainstormChoices, setBrainstormChoices] = useState<string[]>([]);
   const [brainstormReady, setBrainstormReady] = useState(false);
+  const [docsDiskRefreshKey, setDocsDiskRefreshKey] = useState(0);
+  const [docsFocusDiskRel, setDocsFocusDiskRel] = useState<string | null>(null);
+  const [newProjectOpen, setNewProjectOpen] = useState(false);
+  const [newProjectDefaultSlug, setNewProjectDefaultSlug] = useState("fishing-2d");
+  const pendingNewProjectRef = useRef<{
+    seed?: string;
+    userText?: string;
+    announcePath?: boolean;
+  } | null>(null);
   const [draftTitle, setDraftTitle] = useState("");
   const [briefDraft, setBriefDraft] = useState<HostChatDraftBrief | null>(null);
   const [draftDocument, setDraftDocument] = useState<HostChatDraftDocument | null>(null);
@@ -291,6 +307,10 @@ export default function App() {
   const autoEnsureDone = useRef(false);
   /** Soft-gate: warn once before pipeline run without visual_reference */
   const runWithoutVtWarned = useRef(false);
+  /** Stable handle so early callbacks can sync board after brief changes */
+  const syncPipelineForBriefRef = useRef<(briefRel: string | null) => Promise<string | null>>(
+    async () => null,
+  );
   const [executorSetup, setExecutorSetup] = useState<ExecutorSetupReport | null>(null);
   const [executorBusy, setExecutorBusy] = useState<string | null>(null);
   const [doctorReport, setDoctorReport] = useState<DoctorReport | null>(null);
@@ -376,17 +396,36 @@ export default function App() {
     setActiveBriefRel(normalized);
     saveActiveBriefRel(normalized);
     void refreshVisualTarget(normalized);
-    // Canonicalize legacy resources/ ↔ cli/resources/ paths in the background
+    // Canonicalize legacy resources/ ↔ cli/resources/ paths in the background.
+    // Never let resolve remap projects/A → projects/B (e.g. fishing-2d before brief.json exists).
     void (async () => {
       if (!window.gameFactory?.resolveBriefRel) return;
       const r = await window.gameFactory.resolveBriefRel(normalized);
-      if (r.exists && r.path && r.path !== normalized) {
+      if (!r.path || r.path === normalized) return;
+      const fromRoot = projectRootFromBriefRel(normalized);
+      const toRoot = projectRootFromBriefRel(r.path);
+      if (fromRoot && toRoot && fromRoot !== toRoot) return;
+      if (fromRoot && !toRoot) return;
+      if (r.exists || (fromRoot && toRoot === fromRoot)) {
         setActiveBriefRel(r.path);
         saveActiveBriefRel(r.path);
         void refreshVisualTarget(r.path);
       }
     })();
   }, [refreshVisualTarget]);
+
+  /** Unbind topbar project so a new planner draft cannot silently write to the old path. */
+  const clearBriefBinding = useCallback(() => {
+    setActiveBriefRel(null);
+    clearActiveBriefRel();
+    setSelectedManifest("");
+    setTasks([]);
+    setStatus(null);
+    setAssetsManifestRel(null);
+    setVisualReferenceReady(false);
+    setLogs([]);
+    setDocsFocusDiskRel(null);
+  }, []);
 
   const resolveBriefForPlan = useCallback(
     async (explicit?: string | null): Promise<string | null> => {
@@ -805,7 +844,163 @@ export default function App() {
     setBriefDraft(null);
     setDraftDocument(null);
     setBriefDraftStatus(null);
-  }, [patchChatStore]);
+    // Planner: new thread must not keep writing against the previous project binding.
+    if (agentRole === "brief") {
+      clearBriefBinding();
+    }
+  }, [patchChatStore, agentRole, clearBriefBinding]);
+
+  /** Create projects/<slug>/ and bind topbar before brief.json exists. */
+  const ensureAndBindProject = useCallback(
+    async (slugHint?: string): Promise<{ slug: string; briefRel: string; guideRel?: string } | null> => {
+      if (!window.gameFactory?.ensureProject) {
+        appendAssistant("当前 GUI 不支持创建工程目录，请重启 Foundry。");
+        return null;
+      }
+      const slug = sanitizeProjectSlug(slugHint || "");
+      if (!slug) {
+        // Electron often blocks window.prompt — caller must open NewProjectModal.
+        return null;
+      }
+      const res = await window.gameFactory.ensureProject(slug);
+      if (!res.ok || !res.briefRel) {
+        appendAssistant(`创建工程失败：${res.error || "unknown"}`);
+        return null;
+      }
+      setBrief(res.briefRel);
+      setSelectedManifest("");
+      setTasks([]);
+      setStatus(null);
+      setDocsFocusDiskRel(res.guideRel || `${res.projectRootRel}/工程说明.md`);
+      setDocsDiskRefreshKey((n) => n + 1);
+      return {
+        slug: res.slug || slug,
+        briefRel: res.briefRel,
+        guideRel: res.guideRel,
+      };
+    },
+    [appendAssistant, setBrief],
+  );
+
+  const openNewProjectModal = useCallback(
+    (opts?: { seed?: string; userText?: string; announcePath?: boolean; defaultSlug?: string }) => {
+      pendingNewProjectRef.current = {
+        seed: opts?.seed,
+        userText: opts?.userText,
+        announcePath: opts?.announcePath,
+      };
+      setNewProjectDefaultSlug(opts?.defaultSlug || "fishing-2d");
+      setNewProjectOpen(true);
+    },
+    [],
+  );
+
+  /** Discard host-chat draft, then create+bind a project folder. */
+  const runBriefReset = useCallback(
+    async (seed?: string, opts?: { announcePath?: boolean; userText?: string; slugHint?: string }) => {
+      const slugFromSeed = sanitizeProjectSlug(opts?.slugHint || "");
+      if (!slugFromSeed) {
+        openNewProjectModal({
+          seed,
+          userText: opts?.userText,
+          announcePath: opts?.announcePath,
+          defaultSlug: "fishing-2d",
+        });
+        return;
+      }
+
+      const busyId = activeColleague.id;
+      const nextStore = startNewSession(chatStore, busyId);
+      const newSessionId = nextStore.activeByInstance[busyId] || getActiveSession(nextStore).id;
+      const sessionTarget = { instanceId: busyId, sessionId: newSessionId };
+      patchChatStore(() => nextStore);
+      clearBriefBinding();
+      setBrainstormActive(false);
+      setBrainstormReady(false);
+      setBriefDraft(null);
+      setDraftDocument(null);
+      setBriefDraftStatus(null);
+      setDraftTitle("");
+
+      const created = await ensureAndBindProject(slugFromSeed);
+      if (!created) {
+        appendAssistant(
+          "创建工程失败。请再点顶栏「新建项目」，或发送「新建项目 fishing-2d」。",
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+        return;
+      }
+
+      if (opts?.userText?.trim()) {
+        append("user", opts.userText, undefined, sessionTarget);
+      }
+      markBusy(busyId);
+      setBrainstormChoices([]);
+      const seedTrim = (seed || "").trim();
+      const seedIsSlugOnly = Boolean(seedTrim && sanitizeProjectSlug(seedTrim) === seedTrim);
+      const hostSeed =
+        (seedTrim && !seedIsSlugOnly ? seedTrim : "") ||
+        (opts?.userText?.trim() &&
+        !/^\/brief\b/i.test(opts.userText.trim()) &&
+        !seedIsSlugOnly &&
+        sanitizeProjectSlug(opts.userText.trim()) !== opts.userText.trim()
+          ? opts.userText.trim()
+          : "我想开始一个全新的游戏项目，请从零策划，不要沿用上一款游戏的任何设定。");
+      try {
+        const res = await window.gameFactory.hostChatReset(
+          sessionTarget.sessionId,
+          hostSeed,
+          sessionTarget.instanceId,
+          created.briefRel,
+        );
+        if (res.exitCode !== 0 || !res.data?.assistant_message) {
+          throw new Error(res.stderr || res.stdout || "host-chat reset failed");
+        }
+        applyBrainstormResult(res.data, sessionTarget);
+        if (opts?.announcePath !== false) {
+          setSidePanel("docs");
+          appendAssistant(
+            [
+              `**工程已创建并绑定**：\`${created.slug}\``,
+              "",
+              `- 目录：\`projects/${created.slug}/\``,
+              `- 顶栏已指向本工程；右侧「文档」**只列出本工程文件**`,
+              `- 可先看 **工程说明**；导出 Brief 后会出现 **中文说明 · Brief**`,
+              "",
+              "接下来在本对话描述玩法；落实后点文档面板「导出 Brief」写入本目录。",
+            ].join("\n"),
+            ["描述新游戏玩法", "打开文档"],
+            undefined,
+            sessionTarget,
+          );
+        }
+      } catch (e) {
+        appendAssistant(
+          `重置失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      } finally {
+        clearBusy(busyId);
+      }
+    },
+    [
+      clearBriefBinding,
+      activeColleague.id,
+      chatStore,
+      patchChatStore,
+      append,
+      markBusy,
+      clearBusy,
+      applyBrainstormResult,
+      appendAssistant,
+      ensureAndBindProject,
+      openNewProjectModal,
+    ],
+  );
 
   const handleSelectSession = useCallback(
     (sessionId: string) => {
@@ -829,9 +1024,43 @@ export default function App() {
           setBrainstormActive(false);
           setDraftTitle("");
         }
+        // Session may be bound to another project — align topbar + board
+        const bound = String(data?.bound_brief_rel || "").replace(/\\/g, "/");
+        if (bound && !sameProjectRoot(bound, activeBriefRel)) {
+          setBrief(bound);
+          await syncPipelineForBriefRef.current(bound);
+          setDocsFocusDiskRel(null);
+          setDocsDiskRefreshKey((n) => n + 1);
+        }
       })();
     },
-    [patchChatStore, applyDraftFromPayload],
+    [patchChatStore, applyDraftFromPayload, activeBriefRel, setBrief],
+  );
+
+  const syncPlannerProject = useCallback(
+    async (briefRel: string, sessionId?: string) => {
+      if (!window.gameFactory?.hostChatBind || !briefRel) return null;
+      const sid = sessionId || getActiveSession(chatStore).id;
+      const res = await window.gameFactory.hostChatBind(sid, briefRel);
+      if (res.exitCode !== 0) {
+        appendAssistant(`策划绑定工程失败：${res.stderr || res.stdout || "bind failed"}`);
+        return null;
+      }
+      const data = res.data;
+      if (data) {
+        applyDraftFromPayload(
+          {
+            draft_brief: data.draft_brief ?? null,
+            title: data.title,
+            asset_count: data.asset_count,
+          },
+          { replace: true },
+        );
+        if (data.draft_brief) setBriefDraft(data.draft_brief);
+      }
+      return data;
+    },
+    [chatStore, appendAssistant, applyDraftFromPayload],
   );
 
   const handleBrainstormStart = async (seed?: string) => {
@@ -844,6 +1073,7 @@ export default function App() {
         sessionTarget.sessionId,
         seed,
         sessionTarget.instanceId,
+        activeBriefRel,
       );
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
         throw new Error(res.stderr || res.stdout || "host-chat start failed");
@@ -871,12 +1101,14 @@ export default function App() {
         sessionTarget.sessionId,
         message,
         sessionTarget.instanceId,
+        activeBriefRel,
       );
       if (res.exitCode !== 0 && /Session not found/i.test(res.stderr || res.stdout || "")) {
         res = await window.gameFactory.hostChatStart(
           sessionTarget.sessionId,
           message,
           sessionTarget.instanceId,
+          activeBriefRel,
         );
       }
       const data = res.data;
@@ -900,8 +1132,20 @@ export default function App() {
     const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
     markBusy(busyId);
     try {
-      const slug = slugifyBriefName(nameHint || draftTitle || "my-game");
-      const outputRel = briefExportRel(slug);
+      let outputRel: string;
+      let slug: string;
+      if (activeBriefRel && isIsolatedBriefRel(activeBriefRel)) {
+        outputRel = activeBriefRel.replace(/\\/g, "/");
+        slug = slugFromBriefRel(outputRel);
+      } else {
+        slug = sanitizeProjectSlug(nameHint || "") || slugifyBriefName(nameHint || draftTitle || "my-game");
+        const created = await ensureAndBindProject(slug);
+        if (!created) {
+          throw new Error("请先创建工程（顶栏 → 新建项目），再导出 Brief。");
+        }
+        outputRel = created.briefRel;
+        slug = created.slug;
+      }
       const res = await window.gameFactory.hostChatExport(
         sessionTarget.sessionId,
         outputRel,
@@ -912,11 +1156,20 @@ export default function App() {
       }
       const briefRel = res.data?.brief_rel || outputRel;
       setBrief(briefRel);
+      await syncPipelineForBriefRef.current(briefRel);
+      const zhRel =
+        (res.data?.zh_doc_rel || "").replace(/\\/g, "/") ||
+        `projects/${slug}/brief.zh.md`;
+      const zhMode = res.data?.zh_doc_mode || "skeleton";
+      setDocsFocusDiskRel(zhRel);
+      setDocsDiskRefreshKey((n) => n + 1);
+      setSidePanel("docs");
       appendAssistant(
-        `**Brief 已保存**（工程目录隔离）\n\n` +
+        `**Brief 已写入本工程**\n\n` +
           `- Brief：\`${briefRel}\`\n` +
-          `- 工程根：\`projects/${slug}/\`（流水线 / 资产 / Godot 都会进这个目录）\n\n` +
-          `下一步先在本对话定 **北极星图**（整屏风格锚），再交给项目经理跑流水线。`,
+          `- 中文说明：\`${zhRel}\`${zhMode === "llm" ? "（已翻译）" : "（中文目录骨架；配好 API Key 后重新导出可全文翻译）"}\n` +
+          `- 工程根：\`projects/${slug}/\`\n\n` +
+          `右侧「文档」仅显示本工程。下一步可定 **北极星图**，再交给项目经理。`,
         ["生成北极星图", "切换到项目经理", "切换到项目经理并生成流水线"],
         undefined,
         sessionTarget,
@@ -1214,19 +1467,24 @@ export default function App() {
     return res;
   }, []);
 
-  /** Prefer pipeline meta.output_dir; else brief-derived output/<…>/assets-manifest.json */
+  /** Prefer pipeline meta.output_dir only when it belongs to the active project. */
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      if (selectedManifest) {
+      if (selectedManifest && activeBriefRel) {
         try {
           const meta = await window.gameFactory.getManifestMeta(selectedManifest);
-          const out = String(meta?.output_dir || "")
-            .replace(/\\/g, "/")
-            .replace(/\/$/, "");
-          if (out) {
-            if (!cancelled) setAssetsManifestRel(`${out}/assets-manifest.json`);
-            return;
+          const metaBrief = String(meta?.brief || "").replace(/\\/g, "/");
+          if (metaBrief && !sameProjectRoot(metaBrief, activeBriefRel)) {
+            /* stale manifest from another project — fall through to brief path */
+          } else {
+            const out = String(meta?.output_dir || "")
+              .replace(/\\/g, "/")
+              .replace(/\/$/, "");
+            if (out) {
+              if (!cancelled) setAssetsManifestRel(`${out}/assets-manifest.json`);
+              return;
+            }
           }
         } catch {
           /* fall through */
@@ -1244,39 +1502,83 @@ export default function App() {
     };
   }, [selectedManifest, activeBriefRel]);
 
+  /** Clear then load pipeline/board/assets for a brief. Always prefer projects/<slug>/pipeline. */
+  const syncPipelineForBrief = useCallback(
+    async (briefRel: string | null) => {
+      setSelectedManifest("");
+      setTasks([]);
+      setStatus(null);
+      setAssetsManifestRel(null);
+      setLogs([]);
+      runWithoutVtWarned.current = false;
+      if (!briefRel) return null;
+      const normalized = briefRel.replace(/\\/g, "/");
+      const preferred = planTargetsFromBrief(normalized).manifestRel;
+      const manifests = await window.gameFactory.listManifests();
+      const byBrief =
+        window.gameFactory.findManifestForBrief
+          ? await window.gameFactory.findManifestForBrief(normalized)
+          : null;
+      let manifest = "";
+      if (manifests.some((m) => m.path === preferred)) {
+        manifest = preferred;
+      } else if (byBrief?.path && manifests.some((m) => m.path === byBrief.path)) {
+        const metaBrief = String(byBrief.meta?.brief || "").replace(/\\/g, "/");
+        if (!metaBrief || sameProjectRoot(metaBrief, normalized)) {
+          manifest = byBrief.path;
+        }
+      }
+      if (manifest) {
+        setSelectedManifest(manifest);
+        await refreshManifest(manifest);
+      }
+      return manifest || null;
+    },
+    [refreshManifest],
+  );
+  syncPipelineForBriefRef.current = syncPipelineForBrief;
+
   const switchProject = useCallback(
     async (briefRel: string) => {
       const normalized = briefRel.replace(/\\/g, "/");
       setBrief(normalized);
       const slug = slugFromBriefRel(normalized);
-      const preferred = planTargetsFromBrief(normalized).manifestRel;
-      let manifest =
-        (window.gameFactory.findManifestForBrief
-          ? (await window.gameFactory.findManifestForBrief(normalized))?.path
-          : null) || preferred;
-      const manifests = await window.gameFactory.listManifests();
-      if (!manifests.some((m) => m.path === manifest)) {
-        manifest = preferred;
-      }
-      if (manifest && manifests.some((m) => m.path === manifest)) {
-        setSelectedManifest(manifest);
-        await refreshManifest(manifest);
+      // Bind every brief colleague session so planner always knows the project
+      const briefIds = chatStore.roster
+        .filter((c) => c.roleKind === "brief")
+        .map((c) => chatStore.activeByInstance[c.id])
+        .filter(Boolean) as string[];
+      if (briefIds.length === 0 && agentRole === "brief") {
+        await syncPlannerProject(normalized);
       } else {
-        setSelectedManifest("");
-        setTasks([]);
-        setStatus(null);
+        for (const sid of briefIds) {
+          await syncPlannerProject(normalized, sid);
+        }
       }
+      const manifest = await syncPipelineForBrief(normalized);
+      setDocsFocusDiskRel(null);
+      setDocsDiskRefreshKey((n) => n + 1);
       append(
         "assistant",
         `已切换到工程 **${slug}**\n\nBrief：\`${normalized}\`${
-          manifest ? `\n看板：\`${manifest}\`` : "\n（尚无 pipeline manifest，可让项目经理生成流水线）"
+          manifest
+            ? `\n看板：\`${manifest}\``
+            : "\n（尚无 pipeline manifest — 看板已清空；可让项目经理生成流水线）"
         }`,
         undefined,
         undefined,
         ["打开文档", "生成流水线"],
       );
     },
-    [setBrief, refreshManifest, append],
+    [
+      setBrief,
+      syncPipelineForBrief,
+      syncPlannerProject,
+      append,
+      agentRole,
+      chatStore.roster,
+      chatStore.activeByInstance,
+    ],
   );
 
   const refreshToolchain = useCallback(async () => {
@@ -1360,34 +1662,33 @@ export default function App() {
     await refreshHandoffs();
 
     const briefs = await window.gameFactory.listBriefs();
-    const storedBrief = loadActiveBriefRel();
-    const brief =
-      storedBrief ||
-      activeBriefRel ||
-      briefs[0]?.path ||
-      null;
-    if (brief) setBrief(brief);
-
-    const preferredManifest = brief ? planTargetsFromBrief(brief).manifestRel : null;
-    const byBrief =
-      brief && window.gameFactory.findManifestForBrief
-        ? await window.gameFactory.findManifestForBrief(brief)
-        : null;
-    const manifests = await window.gameFactory.listManifests();
-    const manifest =
-      byBrief?.path ||
-      (preferredManifest && manifests.find((x) => x.path === preferredManifest)?.path) ||
-      (!brief ? manifests[0]?.path : "") ||
-      "";
-    if (manifest) {
-      setSelectedManifest(manifest);
-      await refreshManifest(manifest);
+    // unset → first-run fallback; none → user clicked 新建项目 (do NOT rebind 黑哨 etc.)
+    const pref = readActiveBriefPreference();
+    let brief: string | null = null;
+    if (pref.kind === "brief") {
+      brief = pref.rel;
+    } else if (pref.kind === "unset") {
+      brief = briefs[0]?.path || null;
     } else {
+      brief = null;
+    }
+    if (brief) {
+      setBrief(brief);
+    } else {
+      setActiveBriefRel(null);
       setSelectedManifest("");
       setTasks([]);
       setStatus(null);
+      setAssetsManifestRel(null);
+      setVisualReferenceReady(false);
     }
-    if (brief) await refreshVisualTarget(brief);
+
+    if (brief) {
+      await syncPipelineForBrief(brief);
+      await refreshVisualTarget(brief);
+    } else {
+      await syncPipelineForBrief(null);
+    }
 
     // Post clear health report once so end-users / supporters see failures
     if (!startupHealthPosted.current && env?.health) {
@@ -1406,7 +1707,7 @@ export default function App() {
         }
       }
     }
-  }, [refreshManifest, activeBriefRel, setBrief, refreshEnv, refreshHandoffs, refreshVisualTarget, append]);
+  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -1505,7 +1806,11 @@ export default function App() {
     })();
   }, [toolchainReport, toolchainInstalling, handleToolchainInstall]);
 
+  const didMountLoad = useRef(false);
   useEffect(() => {
+    // Mount-only: must not re-run when activeBriefRel clears, or listBriefs()[0] used to rebind 黑哨.
+    if (didMountLoad.current) return;
+    didMountLoad.current = true;
     void loadInitial()
       .then(() => refreshBrainstormStatus())
       .catch((e) =>
@@ -2067,18 +2372,29 @@ export default function App() {
       }
       setBrief(briefRel);
 
-      // Reuse existing manifest for this brief (Agent 可能写成了别的文件名)
+      const preferred = planTargetsFromBrief(briefRel).manifestRel;
+      const manifests = await window.gameFactory.listManifests();
       const existing =
         window.gameFactory.findManifestForBrief &&
         (await window.gameFactory.findManifestForBrief(briefRel));
-      if (existing?.path) {
-        setSelectedManifest(existing.path);
-        await refreshManifest(existing.path);
+      let reusePath = "";
+      if (manifests.some((m) => m.path === preferred)) {
+        reusePath = preferred;
+      } else if (existing?.path && manifests.some((m) => m.path === existing.path)) {
+        const metaBrief = String(existing.meta?.brief || "").replace(/\\/g, "/");
+        if (!metaBrief || sameProjectRoot(metaBrief, briefRel)) {
+          reusePath = existing.path;
+        }
+      }
+      if (reusePath) {
+        setSelectedManifest(reusePath);
+        await refreshManifest(reusePath);
         const meta =
-          existing.meta || (await window.gameFactory.getManifestMeta(existing.path));
+          (existing?.path === reusePath ? existing.meta : null) ||
+          (await window.gameFactory.getManifestMeta(reusePath));
         append(
           "assistant",
-          summarizeManifest(existing.path, meta) + "\n\n（已按 Brief 匹配到现有清单，未重复生成。）",
+          summarizeManifest(reusePath, meta) + "\n\n（已按 Brief 匹配到现有清单，未重复生成。）",
           undefined,
           undefined,
           ["北极星图", "运行资产生成（含文案）", "打开看板"],
@@ -2162,10 +2478,21 @@ export default function App() {
   );
 
   const handleOpenGodot = async () => {
+    // Prefer active brief's game/ — never open another project's Godot from a stale manifest
     let projectRel = activeBriefRel ? planTargetsFromBrief(activeBriefRel).godotProjectRel : null;
-    if (selectedManifest) {
-      const meta = await window.gameFactory.getManifestMeta(selectedManifest);
-      if (meta?.godot_project) projectRel = meta.godot_project;
+    if (selectedManifest && activeBriefRel) {
+      try {
+        const meta = await window.gameFactory.getManifestMeta(selectedManifest);
+        const metaBrief = String(meta?.brief || "").replace(/\\/g, "/");
+        if (
+          meta?.godot_project &&
+          (!metaBrief || sameProjectRoot(metaBrief, activeBriefRel))
+        ) {
+          projectRel = meta.godot_project;
+        }
+      } catch {
+        /* keep brief-derived path */
+      }
     }
     if (!projectRel) {
       append("assistant", "还没有 Godot 工程路径。请先找 **项目经理** 点「生成流水线」。");
@@ -2369,6 +2696,29 @@ export default function App() {
       await handleSafeAction(trimmed);
       return;
     }
+
+    // Fresh project: new GUI thread + wipe host-chat draft BEFORE appending the user turn.
+    if (agentRole === "brief") {
+      const briefCmdEarly = parseBriefSubcommand(text);
+      const newProjectEarly = parseNewProjectIntent(text);
+      if (briefCmdEarly?.action === "reset" || newProjectEarly) {
+        const seed =
+          briefCmdEarly?.action === "reset"
+            ? briefCmdEarly.name
+            : newProjectEarly?.seed;
+        const slugHint =
+          briefCmdEarly?.action === "reset"
+            ? sanitizeProjectSlug(briefCmdEarly.name || "") || undefined
+            : newProjectEarly?.slugHint;
+        await runBriefReset(seed, {
+          announcePath: true,
+          userText: text,
+          slugHint,
+        });
+        return;
+      }
+    }
+
     const sendTarget = {
       instanceId: activeColleague.id,
       sessionId: activeSession.id,
@@ -2386,30 +2736,8 @@ export default function App() {
       }
       const cmd = briefCmd || { action: "start" as const };
       if (cmd.action === "reset") {
-        setBrainstormActive(false);
-        setBrainstormReady(false);
-        setBriefDraft(null);
-        setDraftDocument(null);
-        setBriefDraftStatus(null);
-        const busyId = activeColleague.id;
-        markBusy(busyId);
-        setBrainstormChoices([]);
-        try {
-          const sessionId = activeSession.id;
-          const res = await window.gameFactory.hostChatReset(
-            sessionId,
-            cmd.name,
-            activeColleague.id,
-          );
-          if (res.exitCode !== 0 || !res.data?.assistant_message) {
-            throw new Error(res.stderr || res.stdout || "host-chat reset failed");
-          }
-          applyBrainstormResult(res.data);
-        } catch (e) {
-          appendAssistant(`重置失败：${e instanceof Error ? e.message : String(e)}`);
-        } finally {
-          clearBusy(busyId);
-        }
+        // Should have been handled before append; keep as safety net.
+        await runBriefReset(cmd.name, { announcePath: true });
         return;
       }
       if (cmd.action === "save") {
@@ -2529,6 +2857,17 @@ export default function App() {
             variant="chip"
             activeBriefRel={activeBriefRel}
             onSelect={(rel) => void switchProject(rel)}
+            onNewProject={() => {
+              if (agentRole !== "brief") {
+                append("assistant", "请先切换到 **策划** 同事，再点「新建项目」。");
+                return;
+              }
+              openNewProjectModal({
+                userText: "新建项目",
+                announcePath: true,
+                defaultSlug: "fishing-2d",
+              });
+            }}
           />
         </div>
         <div className="topbar__actions">
@@ -2841,7 +3180,20 @@ export default function App() {
             activeBriefRel={activeBriefRel}
             readyToExport={brainstormReady}
             busy={chatBusy}
+            diskRefreshKey={docsDiskRefreshKey}
+            focusDiskRel={docsFocusDiskRel}
             onSelectProject={(rel) => void switchProject(rel)}
+            onNewProject={() => {
+              if (agentRole !== "brief") {
+                append("assistant", "请先切换到 **策划** 同事，再点「新建项目」。");
+                return;
+              }
+              openNewProjectModal({
+                userText: "新建项目",
+                announcePath: true,
+                defaultSlug: "fishing-2d",
+              });
+            }}
             onRefresh={() => {
               if (agentRole === "brief") void refreshBrainstormStatus();
             }}
@@ -2872,6 +3224,56 @@ export default function App() {
 
         {sidePanel === "guide" && <GuidePanel />}
       </div>
+
+      <NewProjectModal
+        open={newProjectOpen}
+        defaultSlug={newProjectDefaultSlug}
+        onCancel={() => {
+          setNewProjectOpen(false);
+          pendingNewProjectRef.current = null;
+        }}
+        onBind={(slug) => {
+          setNewProjectOpen(false);
+          pendingNewProjectRef.current = null;
+          void (async () => {
+            const created = await ensureAndBindProject(slug);
+            if (!created) return;
+            await syncPipelineForBrief(created.briefRel);
+            const bound = await syncPlannerProject(created.briefRel);
+            setSidePanel("docs");
+            const assetN = bound?.asset_count ?? 0;
+            const title = bound?.title || created.slug;
+            append(
+              "assistant",
+              [
+                `**已绑定工程** \`${created.slug}\``,
+                "",
+                `- 目录：\`projects/${created.slug}/\``,
+                `- 策划已识别本工程${title ? `（${title}）` : ""}`,
+                assetN > 0
+                  ? `- 已从磁盘载入工作草稿（${assetN} 个资产）`
+                  : "- 尚无磁盘草稿，可在对话里继续扩写",
+                "- 右侧文档只显示本工程；看板已按本工程同步",
+                "",
+                "若要清空对话重开，再点「新建项目」→「绑定并新开对话」。",
+              ].join("\n"),
+              undefined,
+              undefined,
+              ["打开文档", "继续完善 brief"],
+            );
+          })();
+        }}
+        onBindAndReset={(slug) => {
+          setNewProjectOpen(false);
+          const pending = pendingNewProjectRef.current;
+          pendingNewProjectRef.current = null;
+          void runBriefReset(pending?.seed, {
+            announcePath: pending?.announcePath !== false,
+            userText: pending?.userText || "新建项目",
+            slugHint: slug,
+          });
+        }}
+      />
 
       {hireRoleKind && (
         <HireColleagueModal

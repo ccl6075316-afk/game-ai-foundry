@@ -106,7 +106,72 @@ def new_session(session_id: str | None = None) -> dict[str, Any]:
         "ready_to_export": False,
         "gaps": [],
         "compressed_count": 0,
+        "bound_brief_rel": None,
+        "project_slug": None,
     }
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def _slug_from_brief_rel(brief_rel: str) -> str:
+    n = brief_rel.replace("\\", "/").lstrip("./")
+    m = re.match(r"^projects/([^/]+)/", n, re.I)
+    if m:
+        return m.group(1)
+    stem = Path(n).stem.replace("-brief", "")
+    return stem or "game"
+
+
+def load_project_draft_from_disk(brief_rel: str, *, repo_root: Path | None = None) -> dict[str, Any] | None:
+    """Load working draft from brief.json or brief.draft.json beside it."""
+    root = repo_root or _repo_root()
+    rel = brief_rel.replace("\\", "/").lstrip("./")
+    parent = (root / rel).parent
+    for candidate in (root / rel, parent / "brief.draft.json"):
+        if not candidate.is_file():
+            continue
+        try:
+            data = json.loads(candidate.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(data, dict):
+            continue
+        if not (data.get("project") or data.get("assets")):
+            continue
+        out = {k: copy.deepcopy(v) for k, v in data.items() if k != "brief_meta"}
+        return out
+    return None
+
+
+def attach_bound_project(
+    session: dict[str, Any],
+    brief_rel: str | None,
+    *,
+    repo_root: Path | None = None,
+    hydrate_draft: bool = True,
+) -> None:
+    """Bind GUI project; copy disk brief (brief.json or brief.draft.json) into session draft."""
+    if not brief_rel or not str(brief_rel).strip():
+        return
+    rel = _norm_brief_rel(brief_rel)
+    session["bound_brief_rel"] = rel
+    session["project_slug"] = _slug_from_brief_rel(rel)
+    if not hydrate_draft:
+        return
+    disk = load_project_draft_from_disk(rel, repo_root=repo_root)
+    if disk:
+        session["draft_brief"] = disk
+    else:
+        # Bound to an empty project folder — don't keep another game's draft
+        session["draft_brief"] = None
+        session["draft_document"] = None
+
+
+def _norm_brief_rel(brief_rel: str | None) -> str:
+    return str(brief_rel or "").replace("\\", "/").strip().lstrip("./")
+
 
 
 def load_session(path: Path) -> dict[str, Any]:
@@ -402,6 +467,17 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
         payload["current_draft_brief"] = session.get("draft_brief")
     if session.get("draft_document"):
         payload["current_draft_document"] = session.get("draft_document")
+    bound = str(session.get("bound_brief_rel") or "").strip()
+    if bound:
+        payload["bound_project"] = {
+            "brief_rel": bound,
+            "slug": session.get("project_slug") or _slug_from_brief_rel(bound),
+            "note": (
+                "GUI 已绑定此工程。续写 current_draft_brief 时必须属于该项目；"
+                "若存在 brief.draft.json / brief.json，已载入为 current_draft_brief。"
+                "导出写入该 brief_rel。不要当成别的游戏（例如黑哨）。"
+            ),
+        }
     return payload
 
 
@@ -1094,4 +1170,6 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
         "contract_complete": bool(draft) and not gaps,
         "has_summary": bool(str(session.get("summary") or "").strip()),
         "compressed_count": int(session.get("compressed_count") or 0),
+        "bound_brief_rel": session.get("bound_brief_rel") or None,
+        "project_slug": session.get("project_slug") or None,
     }

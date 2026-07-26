@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   patchBriefProject: (relPath, projectPatch) =>
     ipcRenderer.invoke("patch-brief-project", relPath, projectPatch),
   listProjectDocs: (briefRel) => ipcRenderer.invoke("list-project-docs", briefRel),
+  ensureProject: (slug) => ipcRenderer.invoke("ensure-project", slug),
   pipelinePlan: (opts) => ipcRenderer.invoke("pipeline-plan", opts),
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
   pipelineRun: (manifestRel, jobs, runPrompts) =>
@@ -48,12 +49,14 @@ contextBridge.exposeInMainWorld("gameFactory", {
   getMediaPreview: (relPath, posterRel) => ipcRenderer.invoke("get-media-preview", relPath, posterRel),
   openMedia: (relPath) => ipcRenderer.invoke("open-media", relPath),
   listOutputMedia: (dirRel, limit) => ipcRenderer.invoke("list-output-media", dirRel, limit),
-  hostChatStart: (sessionId, seed, instanceId) =>
-    ipcRenderer.invoke("host-chat-start", sessionId, seed, instanceId),
-  hostChatTurn: (sessionId, message, instanceId) =>
-    ipcRenderer.invoke("host-chat-turn", sessionId, message, instanceId),
-  hostChatReset: (sessionId, seed, instanceId) =>
-    ipcRenderer.invoke("host-chat-reset", sessionId, seed, instanceId),
+  hostChatStart: (sessionId, seed, instanceId, briefRel) =>
+    ipcRenderer.invoke("host-chat-start", sessionId, seed, instanceId, briefRel),
+  hostChatTurn: (sessionId, message, instanceId, briefRel) =>
+    ipcRenderer.invoke("host-chat-turn", sessionId, message, instanceId, briefRel),
+  hostChatReset: (sessionId, seed, instanceId, briefRel) =>
+    ipcRenderer.invoke("host-chat-reset", sessionId, seed, instanceId, briefRel),
+  hostChatBind: (sessionId, briefRel) =>
+    ipcRenderer.invoke("host-chat-bind", sessionId, briefRel),
   hostChatExport: (sessionId, outputRel, instanceId) =>
     ipcRenderer.invoke("host-chat-export", sessionId, outputRel, instanceId),
   hostChatAutofix: (sessionId, maxRounds, instanceId) =>
