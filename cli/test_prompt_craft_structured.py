@@ -5,6 +5,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch
 
+from media_prompt_profile import GPT_IMAGE
 from prompt_craft import (
     append_hard_locks,
     assemble_asset_prompt,
@@ -52,7 +53,24 @@ class AssembleAssetPromptTests(unittest.TestCase):
         self.assertIn("Line:", prompt)
         self.assertIn("no blur", prompt)
         self.assertIn("Style lock:", prompt)
+        self.assertIn("Avoid:", prompt)
+        self.assertNotIn("Negatives:", prompt)
+
+    def test_art_tokens_with_gpt_profile_keeps_negatives_section(self) -> None:
+        prompt = assemble_asset_prompt(
+            {"subject": "iron sword on white"},
+            project=_project(
+                art_tokens={
+                    "palette": ["#112233", "#AABBCC"],
+                    "forbid": ["no blur", "no watermark"],
+                    "line": "2px black outline",
+                }
+            ),
+            spec=_spec(content_class="weapon"),
+            profile=GPT_IMAGE,
+        )
         self.assertIn("Negatives:", prompt)
+        self.assertIn("no blur", prompt)
 
     def test_view_side_injects_side_view_language(self) -> None:
         prompt = assemble_asset_prompt(

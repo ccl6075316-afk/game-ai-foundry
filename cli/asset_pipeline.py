@@ -58,6 +58,8 @@ class PromptPlan:
     video_watermark: bool | None = None
     reference_image: str | None = None
     image_size: str | None = None
+    image_model: str | None = None
+    prompt_profile_id: str | None = None
     display_size: dict[str, int] | None = None
     anchor: str = "bottom_center"
 
@@ -264,6 +266,7 @@ def build_prompt(
     kit_item_id: str | None = None,
     kit_item_usage: str | None = None,
     kit_item_usage_description: str | None = None,
+    config: dict[str, Any] | None = None,
 ) -> PromptPlan:
     """Craft generation prompt via LLM reading skill docs (Godogen model)."""
     plan = build_prompt_scaffold(project, spec, assets=assets)
@@ -298,9 +301,12 @@ def build_prompt(
         api_base=api_base,
         proxy=proxy,
         kind="image",
+        config=config,
     )
     plan.prompt = crafted["prompt"]
     plan.prompt_source = "llm"
+    plan.image_model = crafted.get("image_model")
+    plan.prompt_profile_id = crafted.get("prompt_profile_id")
     return plan
 
 
@@ -361,6 +367,7 @@ def build_animation_pipeline(
             api_base=api_base,
             proxy=proxy,
             kind="animation",
+            config=config if config is not None else _load_gamefactory_config(),
         )
         video_prompt = crafted["video_prompt"]
         prompt_source = "llm"

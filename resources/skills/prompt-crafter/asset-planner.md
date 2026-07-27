@@ -6,6 +6,8 @@ Load only `resources/skills/prompt-crafter/`. **Brief is the only product spec**
 
 Output: structured JSON fields → Python assembles handoff `prompt` for image-generator.
 
+**Model profile (auto, not configurable):** At craft time Python resolves the target image/video model id and picks a capability profile (`gpt_image`, `gemini_image`, `volc_image`, `volc_video`, `grok_image`, or `default`). Volc family ids use `volc_*` and match `seedream*` / `seedance*` aliases. You still fill the same JSON fields; only final assembly adapts. If the user changes image or video model, re-run craft — do not assume old handoff prompts match the new model.
+
 ## Class routing (loader)
 
 Skills are loaded per asset:

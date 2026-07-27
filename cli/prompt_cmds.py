@@ -160,6 +160,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     api_key=craft_kwargs["api_key"],
                     api_base=craft_kwargs["api_base"],
                     proxy=craft_kwargs["proxy"],
+                    config=craft_kwargs["config"],
                     kit_item=item_label,
                     kit_item_slug=item_slug,
                     kit_item_id=kit_row.id if kit_row else None,

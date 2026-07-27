@@ -11,6 +11,14 @@ from typing import Any
 
 import requests
 
+from image_model_route import effective_generate_tier, resolve_image_model_for_tier
+from media_prompt_profile import (
+    PromptCapabilityProfile,
+    apply_video_prompt_profile,
+    resolve_media_prompt_profile,
+)
+from seedance_api import resolve_model
+from video_config import resolve_video_generate_settings
 from proxy_utils import http_post
 from roles import PROMPT_CRAFTER_ROLE
 from skill_loader import (
@@ -132,6 +140,19 @@ VIEW_LOCK_PHRASES: dict[str, str] = {
 GLOBAL_ASSET_NEGATIVES = (
     "No spritesheet; no multiple action frames in one image; "
     "never transparent background or checkerboard"
+)
+
+SOFT_STYLE_ALIGNMENT = (
+    "Soft style alignment with art direction; prefer cohesive look over literal copy."
+)
+
+_ASSET_LABEL_ORDER: tuple[tuple[str, str], ...] = (
+    ("Subject", "subject"),
+    ("Silhouette", "silhouette"),
+    ("Style lock", "style_lock"),
+    ("View", "view"),
+    ("Technical", "technical"),
+    ("Negatives", "negatives"),
 )
 
 
@@ -276,13 +297,59 @@ def _ensure_global_negatives(fields: dict[str, str]) -> None:
     )
 
 
+def _ensure_soft_style_sentence(style_lock: str) -> str:
+    if SOFT_STYLE_ALIGNMENT.lower() in style_lock.lower():
+        return style_lock
+    return _merge_prompt_text(style_lock, SOFT_STYLE_ALIGNMENT)
+
+
+def _merge_negatives_into_style_lock(fields: dict[str, str]) -> None:
+    negatives = fields.pop("negatives", "").strip()
+    if not negatives:
+        return
+    fields["style_lock"] = _merge_prompt_text(
+        fields.get("style_lock", ""),
+        f"Avoid: {negatives}",
+    )
+
+
+def _assemble_natural_prompt(
+    cleaned: dict[str, str],
+    *,
+    include_negatives: bool,
+) -> str:
+    parts: list[str] = []
+    for label, key in _ASSET_LABEL_ORDER:
+        if key == "negatives" and not include_negatives:
+            continue
+        text = cleaned.get(key)
+        if not text:
+            continue
+        parts.append(f"{label}: {text}")
+    return "\n".join(parts)
+
+
+def _assemble_tags_prompt(cleaned: dict[str, str]) -> str:
+    fragments: list[str] = []
+    for _label, key in _ASSET_LABEL_ORDER:
+        text = cleaned.get(key)
+        if not text:
+            continue
+        fragments.append(text)
+    return ", ".join(fragments)
+
+
 def assemble_asset_prompt(
     fields: dict[str, Any],
     *,
     project: dict[str, Any] | Any,
     spec: dict[str, Any] | Any,
+    profile: PromptCapabilityProfile | None = None,
 ) -> str:
     """Assemble labeled asset prompt from structured fields + forced hard locks."""
+    if profile is None:
+        profile = resolve_media_prompt_profile("", modality="image")
+
     cleaned: dict[str, str] = {}
     for key in ASSET_STRUCTURED_KEYS:
         val = fields.get(key)
@@ -308,21 +375,18 @@ def assemble_asset_prompt(
             "Asset assemble needs at least 'subject' or injectable technical defaults"
         )
 
-    labels = [
-        ("Subject", "subject"),
-        ("Silhouette", "silhouette"),
-        ("Style lock", "style_lock"),
-        ("View", "view"),
-        ("Technical", "technical"),
-        ("Negatives", "negatives"),
-    ]
-    parts: list[str] = []
-    for label, key in labels:
-        text = cleaned.get(key)
-        if not text:
-            continue
-        parts.append(f"{label}: {text}")
-    return "\n".join(parts)
+    if not profile.negatives_effective:
+        _merge_negatives_into_style_lock(cleaned)
+
+    if profile.prefer_soft_style and cleaned.get("style_lock"):
+        cleaned["style_lock"] = _ensure_soft_style_sentence(cleaned["style_lock"])
+
+    if profile.prompt_dialect == "tags":
+        return _assemble_tags_prompt(cleaned)
+    return _assemble_natural_prompt(
+        cleaned,
+        include_negatives=profile.negatives_effective,
+    )
 
 
 def append_hard_locks(
@@ -399,6 +463,60 @@ def _system_prompt(kind: str, context: dict[str, Any] | None = None) -> str:
     )
 
 
+def _resolve_still_image_binding(
+    config: dict[str, Any] | None,
+    context: dict[str, Any],
+) -> tuple[str, PromptCapabilityProfile]:
+    asset = context.get("asset") if isinstance(context.get("asset"), dict) else {}
+    generate_tier = str(asset.get("generate_tier") or "").strip() or None
+    for_icon_kit = bool(str(asset.get("kit_item") or "").strip())
+    tier = effective_generate_tier(
+        generate_tier=generate_tier,
+        for_icon_kit_item=for_icon_kit,
+    )
+    image_model = resolve_image_model_for_tier(config, tier)
+    profile = resolve_media_prompt_profile(image_model or "", modality="image")
+    return image_model, profile
+
+
+def _attach_still_image_handoff(
+    result: dict[str, Any],
+    *,
+    image_model: str,
+    profile: PromptCapabilityProfile,
+) -> None:
+    if image_model:
+        result["image_model"] = image_model
+    result["prompt_profile_id"] = profile.profile_id
+
+
+def _resolve_video_model_binding(
+    config: dict[str, Any] | None,
+    context: dict[str, Any],
+) -> tuple[str, PromptCapabilityProfile]:
+    asset = context.get("asset") if isinstance(context.get("asset"), dict) else {}
+    overrides: dict[str, Any] = {}
+    video_model_override = str(asset.get("video_model") or "").strip()
+    if video_model_override:
+        overrides["model"] = video_model_override
+    video = resolve_video_generate_settings(config or {}, **overrides)
+    video_model = resolve_model(str(video["model"]))
+    profile = resolve_media_prompt_profile(video_model, modality="video")
+    return video_model, profile
+
+
+def _attach_animation_video_handoff(
+    result: dict[str, Any],
+    *,
+    video_prompt: str,
+    config: dict[str, Any] | None,
+    context: dict[str, Any],
+) -> None:
+    video_model, video_profile = _resolve_video_model_binding(config, context)
+    result["video_prompt"] = apply_video_prompt_profile(video_prompt, video_profile)
+    result["video_model"] = video_model
+
+
 def craft_asset_prompt(
     *,
     context: dict[str, Any],
@@ -407,6 +525,7 @@ def craft_asset_prompt(
     api_base: str,
     proxy: str | None = None,
     kind: str = "image",
+    config: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """prompt-crafter role: structured fields → assembled generation prompt."""
     user = {
@@ -432,6 +551,7 @@ def craft_asset_prompt(
     has_structured = any(
         str(parsed.get(k) or "").strip() for k in ASSET_STRUCTURED_KEYS
     )
+    image_model, image_profile = _resolve_still_image_binding(config, context)
 
     if parsed.get("prompt") and not has_structured:
         prompt = str(parsed.get("prompt", "")).strip()
@@ -439,20 +559,35 @@ def craft_asset_prompt(
             raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
         prompt = append_hard_locks(prompt, project, spec)
         result: dict[str, Any] = {"prompt": prompt, "prompt_source": "llm_prose"}
+        _attach_still_image_handoff(
+            result,
+            image_model=image_model,
+            profile=image_profile,
+        )
         if kind == "animation":
             video_prompt = str(parsed.get("video_prompt", "")).strip()
             if not video_prompt:
                 raise PromptCraftError(
                     "Animation craft requires non-empty 'video_prompt' in LLM JSON"
                 )
-            result["video_prompt"] = video_prompt
+            _attach_animation_video_handoff(
+                result,
+                video_prompt=video_prompt,
+                config=config,
+                context=context,
+            )
         return result
 
     fields = {k: parsed.get(k) for k in ASSET_STRUCTURED_KEYS}
     if not fields.get("style_lock") and project.get("art_direction"):
         fields["style_lock"] = str(project["art_direction"])
 
-    prompt = assemble_asset_prompt(fields, project=project, spec=spec)
+    prompt = assemble_asset_prompt(
+        fields,
+        project=project,
+        spec=spec,
+        profile=image_profile,
+    )
     cleaned_fields = {
         k: str(v).strip()
         for k, v in fields.items()
@@ -463,13 +598,23 @@ def craft_asset_prompt(
         "prompt_source": "llm_structured",
         "prompt_fields": cleaned_fields,
     }
+    _attach_still_image_handoff(
+        result,
+        image_model=image_model,
+        profile=image_profile,
+    )
     if kind == "animation":
         video_prompt = str(parsed.get("video_prompt", "")).strip()
         if not video_prompt:
             raise PromptCraftError(
                 "Animation craft requires non-empty 'video_prompt' in LLM JSON"
             )
-        result["video_prompt"] = video_prompt
+        _attach_animation_video_handoff(
+            result,
+            video_prompt=video_prompt,
+            config=config,
+            context=context,
+        )
     return result
 
 

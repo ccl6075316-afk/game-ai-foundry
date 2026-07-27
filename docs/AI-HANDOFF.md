@@ -208,6 +208,8 @@ game-ai-foundry/
 
 **Prompt craft（结构化）**：LLM 输出 `subject` / `silhouette` / `style_lock` / `view` / `technical` / `negatives` 等；`assemble_asset_prompt()` 在 Python 合并 `art_tokens`、`project.view`、class 硬锁 → handoff `prompt`（可选保留 `prompt_fields`）。Skills：`resources/skills/prompt-crafter/class-*.md` 按 class 加载；`asset-planner.md` 路由。
 
+**模型能力自推定（assemble）**：craft 时解析目标生图/视频模型 id（still：`image.model` / tier；animation：`video_model` / Seedance 配置）→ `resolve_media_prompt_profile()` → `prompt_profile_id`（`gpt_image` / `gemini_image` / `volc_image` / `volc_video` / `grok_image` / `default`）。火山族用 **`volc_*`** 标识（匹配 `seedream*` / `seedance*` / `doubao-seedream*` 等别名，不用独立 `seed` profile）。Profile 只调组装形态（如 negatives 是否独立成段、soft style 尾句）；结构化硬锁不变。**无 GUI/config 开关**。更换 `image.model` 或 `video_model` 后须 **重跑 `prompt craft`**，旧 handoff 不会自动重装。
+
 Spec → [`docs/anvil/brainstorms/2026-07-24-content-class-structured-craft.md`](anvil/brainstorms/2026-07-24-content-class-structured-craft.md)。
 
 ### `assets[]` 每项
