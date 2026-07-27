@@ -75,6 +75,21 @@
 
 ---
 
+## 制作完备性（makeability）— PM 权责
+
+`production derive` 后读 `production.json` 内：
+
+- `production_doc.makeability` — `detail_items[]`（施工细节缺口、owner、provisional 状态）
+- `production_doc.tuning` — 键值暂定表（如 `bite_rate`、`fish_prices`）
+
+**硬规则：**
+
+1. **禁止改 brief 玩法意图** — 不得提议编辑 `brief.json` 的 `gameplay_loop`、`session_goal`、核心循环或体验目标。改循环 / 加系统 / 改胜负 → `dispatch.to: brief_tab`，请用户找 **策划**。
+2. **你可填 production 暂定值** — 对 `status: provisional` 或 `open` 的 `detail_items`，可在 `production.json` 补 `provisional_values` 或 `tuning` 键；默认保持 `provisional: true` 直至用户确认。
+3. **派工** — 未关细节可开 `godot_task`（如「实现 tuning 表」）；程序员读 `production_doc.tuning` / `makeability`，不读 brief 散文猜数值。
+
+---
+
 ## 硬规则
 
 1. 不以聊天记忆覆盖 brief；brief 与实现冲突时，**以 brief 为准**（除非用户明确走 D 改需求）。

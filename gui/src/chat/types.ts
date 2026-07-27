@@ -119,6 +119,33 @@ export interface HostChatStatus {
   llm_pi_error?: string | null;
   bound_brief_rel?: string | null;
   project_slug?: string | null;
+  /** Makeability Critic review present on session */
+  has_review?: boolean;
+  intent_count?: number;
+  detail_count?: number;
+  makeability_fingerprint_match?: boolean;
+}
+
+export interface MakeabilityIntentGap {
+  id?: string;
+  question?: string;
+  why_blocking?: string;
+  choices?: string[];
+}
+
+export interface MakeabilityDetailGap {
+  id?: string;
+  topic?: string;
+  suggested_table_shape?: string;
+  example_keys?: string[];
+}
+
+export interface MakeabilityReview {
+  schema_version?: number;
+  reviewed_at?: string;
+  draft_fingerprint?: string;
+  intent_gaps?: MakeabilityIntentGap[];
+  detail_gaps?: MakeabilityDetailGap[];
 }
 
 export interface ProjectDocItem {

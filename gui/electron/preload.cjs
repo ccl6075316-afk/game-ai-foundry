@@ -61,6 +61,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("host-chat-export", sessionId, outputRel, instanceId),
   hostChatAutofix: (sessionId, maxRounds, instanceId) =>
     ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds, instanceId),
+  hostChatMakeability: (sessionId, instanceId) =>
+    ipcRenderer.invoke("host-chat-makeability", sessionId, instanceId),
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),

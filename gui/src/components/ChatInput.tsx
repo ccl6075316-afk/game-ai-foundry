@@ -5,12 +5,15 @@ interface Props {
   choices?: string[];
   readyToExport?: boolean;
   showAutofix?: boolean;
+  showMakeability?: boolean;
+  exportGateHint?: string;
   placeholder?: string;
   hint?: string;
   onSend: (text: string) => void;
   onChoice?: (text: string) => void;
   onExportBrief?: () => void;
   onAutofix?: () => void;
+  onMakeability?: () => void;
 }
 
 export function ChatInput({
@@ -18,12 +21,15 @@ export function ChatInput({
   choices = [],
   readyToExport,
   showAutofix,
+  showMakeability,
+  exportGateHint,
   placeholder = "描述想法，或点下方快捷按钮…",
   hint = "Enter 发送 · 左侧切换同事 · 快捷按钮推进流水线",
   onSend,
   onChoice,
   onExportBrief,
   onAutofix,
+  onMakeability,
 }: Props) {
   const [text, setText] = useState("");
 
@@ -53,7 +59,7 @@ export function ChatInput({
 
   return (
     <div className="composer">
-      {(choices.length > 0 || readyToExport || showAutofix) && (
+      {(choices.length > 0 || readyToExport || showAutofix || showMakeability) && (
         <div className="composer__chips">
           {choices.map((c) => (
             <button
@@ -66,6 +72,17 @@ export function ChatInput({
               {c}
             </button>
           ))}
+          {showMakeability && (
+            <button
+              type="button"
+              className="composer__chip"
+              disabled={disabled}
+              onClick={() => onMakeability?.()}
+              title="独立子 LLM 审查 draft brief 的制作完备性"
+            >
+              制作审查
+            </button>
+          )}
           {showAutofix && (
             <button
               type="button"
@@ -83,6 +100,7 @@ export function ChatInput({
               className="composer__chip composer__chip--primary"
               disabled={disabled}
               onClick={() => onExportBrief?.()}
+              title={exportGateHint || "导出到 projects/<slug>/"}
             >
               保存 Brief
             </button>

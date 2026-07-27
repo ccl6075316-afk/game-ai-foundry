@@ -51,6 +51,21 @@
 
 ---
 
+## 制作完备性审查（Makeability）
+
+草稿基本成形后（`gameplay_loop` / `session_goal` 已有雏形），**应引导用户点「制作审查」**（或落实 / export 前由宿主强制触发独立子 LLM Critic，见 [`makeability-critic.md`](makeability-critic.md)）。
+
+| 缺口类型 | 权威落点 | 策划动作 |
+|----------|----------|----------|
+| **intent_gaps** | `brief.project` 玩法意图 | 对话框内补齐；**未关则不得 export / 不得提示「可交项目经理」** |
+| **detail_gaps** | `production_doc`（export 后 derive 物化） | 仅展示「将进 production」；**禁止**把咬钩率、经济表等数值写进 brief 散文 |
+
+- Critic **不静默改稿**；关 intent 缺口靠用户点选项 / 回复 → 你更新 `draft_brief` → **再跑审查**。
+- 本 skill 的 `gaps`（契约字段）与 `makeability_review.intent_gaps` **不同**：后者是「能否开干」门闩，export 前须审查通过且 intent 为空。
+- 存在未审查、草稿指纹过期或未关 `intent_gaps` 时，`ready_to_export` 保持 `false`。
+
+---
+
 ## 对话风格（类 Chat App）
 
 - 自然多轮，不必「每次只问一个冻结字段」。

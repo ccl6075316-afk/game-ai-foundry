@@ -143,6 +143,22 @@
 
 `prompt craft` 不再只靠 LLM 吐整段 prompt：LLM 输出结构化字段（`subject`、`silhouette`、`style_lock`、`view`、`technical`、`negatives` 等），**Python 组装**最终 `prompt`（合并 `art_tokens`、`project.view`、class 硬锁）。Skills 按 `content_class` 拆分（`class-tiles`、`class-props`、`class-backdrops` 等）；`asset-planner` 负责路由说明。
 
+### 制作审查 vs `gaps`
+
+落实 / export 前应先有成功的 **制作完备性审查**（[`makeability-critic.md`](makeability-critic.md)）。与 `gaps`（brief 契约字段 audit）区分：
+
+| 来源 | 含义 | export |
+|------|------|--------|
+| `gaps` | 冻结清单字段仍缺 | `ready_to_export: false` |
+| `makeability_review.intent_gaps` | 玩法意图未拍板（循环 / 胜负 / 系统边界） | **阻塞 export** |
+| `makeability_review.detail_gaps` | 施工细节（数值表、冷却、概率） | **不阻塞**；export 后由 `production derive` 写入 `production_doc.makeability` |
+
+落实时：
+
+- **intent_gaps 非空** → `ready_to_export: false`，在 `assistant_message` 说明须先在策划对话关意图缺口。
+- **detail_gaps** → 可在 `assistant_message` 摘要「导出后进 production，PM 可补暂定」；**禁止**把 `suggested_defaults` 里的数值写进 `gameplay_loop` / `art_direction` 等 brief 散文。
+- 审查未跑、草稿指纹过期或 intent 未关 → 拒绝 export，提示先「制作审查」。
+
 ---
 
 ## 输出格式（仅 JSON）

@@ -7,7 +7,12 @@ import {
   slugFromBriefRel,
 } from "../chat/projectPaths";
 import { ProjectSwitcher } from "./ProjectSwitcher";
-import { formatBriefDocument, tryFormatBriefJsonText } from "./briefPreviewFormat";
+import {
+  briefMakeabilityGateHint,
+  formatBriefDocument,
+  formatMakeabilityProductionSummary,
+  tryFormatBriefJsonText,
+} from "./briefPreviewFormat";
 
 export type DocListItem = {
   id: string;
@@ -26,6 +31,7 @@ interface Props {
   readyToExport: boolean;
   onExportBrief?: () => void;
   onAutofix?: () => void;
+  onMakeability?: () => void;
   onRefresh?: () => void;
   onSelectProject?: (briefRel: string) => void;
   /** Create+bind a new project from the docs panel switcher. */
@@ -45,6 +51,7 @@ export function DocsPreviewPanel({
   readyToExport,
   onExportBrief,
   onAutofix,
+  onMakeability,
   onRefresh,
   onSelectProject,
   onNewProject,
@@ -67,7 +74,15 @@ export function DocsPreviewPanel({
         label: "Brief 工作草稿",
         source: "session",
         kind: "brief",
-        hint: readyToExport ? "可导出" : draftBrief ? "草稿中" : "尚未成形",
+        hint: readyToExport
+          ? "可导出"
+          : draftBrief
+            ? !status?.has_review
+              ? "待制作审查"
+              : (status.intent_count ?? 0) > 0
+                ? `${status.intent_count} 条意图缺口`
+                : "草稿中"
+            : "尚未成形",
       },
     ];
     if (draftDocument?.body || draftDocument?.title) {
@@ -80,7 +95,7 @@ export function DocsPreviewPanel({
       });
     }
     return items;
-  }, [draftBrief, draftDocument, readyToExport]);
+  }, [draftBrief, draftDocument, readyToExport, status?.has_review, status?.intent_count]);
 
   useEffect(() => {
     let cancelled = false;
@@ -209,6 +224,24 @@ export function DocsPreviewPanel({
     }
     return sessionBody;
   }, [selected?.source, selected?.kind, diskLoading, diskError, diskBody, sessionBody]);
+
+  const productionMakeabilityLine = useMemo(() => {
+    if (selected?.source !== "disk" || !diskBody || diskLoading || diskError) return null;
+    const pathNorm = (selected.path || "").replace(/\\/g, "/");
+    if (!pathNorm.endsWith("production.json")) return null;
+    try {
+      const parsed = JSON.parse(diskBody) as Record<string, unknown>;
+      const doc =
+        parsed.production_doc && typeof parsed.production_doc === "object"
+          ? (parsed.production_doc as Record<string, unknown>)
+          : parsed;
+      return formatMakeabilityProductionSummary(doc);
+    } catch {
+      return null;
+    }
+  }, [selected?.source, selected?.path, diskBody, diskLoading, diskError]);
+
+  const exportGateHint = briefMakeabilityGateHint(status);
   const emptyHint =
     selected?.id === "session-brief" && !draftBrief
       ? "和策划聊聊玩法后，这里会实时出现 Brief 全文预览。"
@@ -258,6 +291,10 @@ export function DocsPreviewPanel({
           </p>
         ) : null}
       </div>
+
+      {productionMakeabilityLine ? (
+        <p className="hint docs-preview-makeability">{productionMakeabilityLine}</p>
+      ) : null}
 
       <div className="docs-preview-body">
         {emptyHint && !previewBody ? (
@@ -314,13 +351,24 @@ export function DocsPreviewPanel({
             自动修
           </button>
         )}
+        {onMakeability && selected?.id === "session-brief" && draftBrief && (
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={onMakeability}
+            disabled={busy}
+            title="独立子 LLM 审查 draft brief 的制作完备性"
+          >
+            制作审查
+          </button>
+        )}
         {onExportBrief && selected?.id === "session-brief" && (
           <button
             type="button"
             className="btn btn--primary"
             onClick={onExportBrief}
             disabled={busy || !readyToExport}
-            title={readyToExport ? "导出到 projects/<slug>/" : "校验通过后可导出，或先点「自动修」"}
+            title={exportGateHint}
           >
             导出 Brief
           </button>

@@ -525,6 +525,80 @@ def _build_validation(project: ProjectContext, tasks: list[dict[str, Any]]) -> d
     }
 
 
+def load_makeability_sidecar(brief_path: Path) -> dict[str, Any] | None:
+    """Load makeability.json sidecar adjacent to brief, if present."""
+    sidecar_path = brief_path.parent / "makeability.json"
+    if not sidecar_path.is_file():
+        return None
+    try:
+        data = json.loads(sidecar_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    return data
+
+
+def _build_makeability_from_sidecar(
+    sidecar: dict[str, Any],
+    *,
+    source: str,
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    detail_gaps = sidecar.get("detail_gaps") if isinstance(sidecar.get("detail_gaps"), list) else []
+    suggested_defaults = (
+        sidecar.get("suggested_defaults") if isinstance(sidecar.get("suggested_defaults"), list) else []
+    )
+
+    defaults_by_gap: dict[str, Any] = {}
+    tuning: dict[str, Any] = {}
+    for item in suggested_defaults:
+        if not isinstance(item, dict):
+            continue
+        gap_id = str(item.get("gap_id") or "").strip()
+        value = item.get("value")
+        if gap_id and value is not None:
+            defaults_by_gap[gap_id] = value
+            tuning[gap_id] = value
+
+    detail_items: list[dict[str, Any]] = []
+    for gap in detail_gaps:
+        if not isinstance(gap, dict):
+            continue
+        gap_id = str(gap.get("id") or "").strip()
+        if not gap_id:
+            continue
+        item: dict[str, Any] = {
+            "id": gap_id,
+            "topic": str(gap.get("topic") or "").strip(),
+            "owner": "pm",
+        }
+        provisional = defaults_by_gap.get(gap_id)
+        if provisional is not None:
+            item["status"] = "provisional"
+            item["provisional_values"] = provisional
+        else:
+            item["status"] = "open"
+        detail_items.append(item)
+
+    if not detail_items:
+        status = "ready"
+    elif all(i.get("status") == "ready" for i in detail_items):
+        status = "ready"
+    elif any(i.get("status") == "open" for i in detail_items):
+        status = "pending"
+    elif all(i.get("status") == "provisional" for i in detail_items):
+        status = "partial"
+    else:
+        status = "pending"
+
+    makeability: dict[str, Any] = {
+        "status": status,
+        "source": source,
+        "detail_items": detail_items,
+    }
+    return makeability, (tuning if tuning else None)
+
+
 def derive_production(brief_path: Path) -> dict[str, Any]:
     """Derive production.json from frozen brief + genre preset."""
     brief_path = brief_path.resolve()
@@ -592,6 +666,56 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
         "brief.animation_graphs",
     ]
 
+    production_doc: dict[str, Any] = {
+        "title": project.title,
+        "slug": _slug(project.title, brief_path.stem),
+        "genre": project.genre or preset.get("genre", "generic"),
+        "dimension": project.dimension or "2d",
+        "viewport": viewport,
+        "world": world,
+        "player": player,
+        "camera": dict(project.camera) if project.camera else {},
+        "physics_layers": dict(preset.get("physics_layers") or {}),
+        "input_map": _build_input_map(project.controls),
+        "scenes": _build_scenes(project, player_asset),
+        "systems": systems,
+        "collectible_items": collectible_items,
+        "animation_graphs": [
+            {
+                "character_asset": g.character_asset,
+                "default_clip": g.default_clip,
+                "summary": g.summary,
+                "transitions": [
+                    {
+                        "from": e.from_clip,
+                        "to": e.to_clip,
+                        "then": e.then_clip or None,
+                        "bidirectional": e.bidirectional,
+                    }
+                    for e in g.transitions
+                ],
+            }
+            for g in graphs
+        ],
+        "godot_tasks": godot_tasks,
+        "validation": _build_validation(project, godot_tasks),
+        "layout": layout,
+        "scaffold": {
+            "main_scene": "scenes/main.tscn",
+            "scripts_dir": "scripts",
+            "autoloads": ["GameState"],
+            "language": "csharp",
+            "engine": "godot4-dotnet",
+        },
+    }
+
+    sidecar = load_makeability_sidecar(brief_path)
+    if sidecar is not None:
+        makeability, tuning = _build_makeability_from_sidecar(sidecar, source="makeability.json")
+        production_doc["makeability"] = makeability
+        if tuning:
+            production_doc["tuning"] = tuning
+
     return {
         "production_meta": {
             "schema_version": PRODUCTION_SCHEMA_VERSION,
@@ -601,48 +725,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
             "genre_preset": preset_id,
             "preset_trace": preset_trace,
         },
-        "production_doc": {
-            "title": project.title,
-            "slug": _slug(project.title, brief_path.stem),
-            "genre": project.genre or preset.get("genre", "generic"),
-            "dimension": project.dimension or "2d",
-            "viewport": viewport,
-            "world": world,
-            "player": player,
-            "camera": dict(project.camera) if project.camera else {},
-            "physics_layers": dict(preset.get("physics_layers") or {}),
-            "input_map": _build_input_map(project.controls),
-            "scenes": _build_scenes(project, player_asset),
-            "systems": systems,
-            "collectible_items": collectible_items,
-            "animation_graphs": [
-                {
-                    "character_asset": g.character_asset,
-                    "default_clip": g.default_clip,
-                    "summary": g.summary,
-                    "transitions": [
-                        {
-                            "from": e.from_clip,
-                            "to": e.to_clip,
-                            "then": e.then_clip or None,
-                            "bidirectional": e.bidirectional,
-                        }
-                        for e in g.transitions
-                    ],
-                }
-                for g in graphs
-            ],
-            "godot_tasks": godot_tasks,
-            "validation": _build_validation(project, godot_tasks),
-            "layout": layout,
-            "scaffold": {
-                "main_scene": "scenes/main.tscn",
-                "scripts_dir": "scripts",
-                "autoloads": ["GameState"],
-                "language": "csharp",
-                "engine": "godot4-dotnet",
-            },
-        },
+        "production_doc": production_doc,
     }
 
 
@@ -726,6 +809,32 @@ def validate_production(data: dict[str, Any], *, brief_path: Path | None = None)
             errors.append("production_doc.scaffold.main_scene required")
     else:
         errors.append("production_doc.scaffold must be an object")
+
+    makeability = doc.get("makeability")
+    if makeability is not None:
+        if not isinstance(makeability, dict):
+            errors.append("production_doc.makeability must be an object")
+        else:
+            if makeability.get("status") not in ("pending", "partial", "ready"):
+                errors.append("production_doc.makeability.status must be pending|partial|ready")
+            detail_items = makeability.get("detail_items")
+            if detail_items is not None and not isinstance(detail_items, list):
+                errors.append("production_doc.makeability.detail_items must be a list")
+            elif isinstance(detail_items, list):
+                for i, item in enumerate(detail_items):
+                    if not isinstance(item, dict):
+                        errors.append(f"production_doc.makeability.detail_items[{i}] must be an object")
+                        continue
+                    if not str(item.get("id", "")).strip():
+                        errors.append(f"production_doc.makeability.detail_items[{i}] missing id")
+                    if item.get("status") not in ("open", "provisional", "ready"):
+                        errors.append(
+                            f"production_doc.makeability.detail_items[{i}] status must be open|provisional|ready"
+                        )
+
+    tuning = doc.get("tuning")
+    if tuning is not None and not isinstance(tuning, dict):
+        errors.append("production_doc.tuning must be an object")
 
     layout = doc.get("layout")
     if layout is not None:

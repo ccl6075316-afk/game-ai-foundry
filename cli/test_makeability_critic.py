@@ -1,0 +1,169 @@
+"""Tests for Makeability Critic (host_chat.run_makeability_review)."""
+
+from __future__ import annotations
+
+import copy
+import json
+import unittest
+from unittest.mock import patch
+
+from host_chat import (
+    HostChatError,
+    draft_fingerprint,
+    new_session,
+    run_makeability_review,
+    session_status,
+)
+
+_FISHING_DRAFT = {
+    "project": {
+        "title": "River Cast",
+        "description": "Relaxing 2D fishing game on a riverside.",
+        "art_direction": "Soft watercolor riverside, gentle palette.",
+        "dimension": "2d",
+        "genre": "fishing",
+        "gameplay_loop": (
+            "Cast line into water, wait for bite signal, reel minigame, "
+            "sell fish at market, spend earnings on gear upgrades, repeat until session goal."
+        ),
+        "session_goal": "Complete the rare fish collection and unlock the golden rod.",
+        "player_asset": "player_fisher",
+        "controls": {"move": "arrow keys", "cast": "space", "reel": "hold space"},
+        "viewport": {"width": 1280, "height": 720},
+        "camera": {"mode": "follow_player"},
+        "view": "side",
+    },
+    "assets": [
+        {
+            "name": "player_fisher",
+            "id": "player_fisher",
+            "type": "character",
+            "usage": "player",
+            "content_class": "character",
+            "usage_description": "Fisher avatar on the riverbank.",
+            "display_size": {"width": 128, "height": 192},
+            "generate_method": "image",
+        },
+    ],
+}
+
+
+def _detail_gaps_mock() -> dict:
+    return {
+        "intent_gaps": [],
+        "detail_gaps": [
+            {
+                "id": "bite_rate",
+                "topic": "bite chance and wait timing",
+                "suggested_table_shape": "object",
+                "example_keys": ["base_bite_chance", "wait_sec_min", "wait_sec_max"],
+            },
+            {
+                "id": "fish_economy",
+                "topic": "fish prices and sell values",
+                "suggested_table_shape": "array",
+                "example_keys": ["species_id", "base_price", "rarity"],
+            },
+            {
+                "id": "reel_minigame",
+                "topic": "reel tension and failure thresholds",
+                "suggested_table_shape": "object",
+                "example_keys": ["tension_gain", "snap_threshold", "cooldown_sec"],
+            },
+        ],
+        "suggested_defaults": [
+            {
+                "gap_id": "bite_rate",
+                "value": {"base_bite_chance": 0.35, "wait_sec_min": 2, "wait_sec_max": 8},
+                "confidence": "low",
+                "note": "provisional placeholder",
+            },
+        ],
+    }
+
+
+class MakeabilityCriticTests(unittest.TestCase):
+    def test_draft_fingerprint_stable(self) -> None:
+        fp1 = draft_fingerprint(_FISHING_DRAFT)
+        fp2 = draft_fingerprint(copy.deepcopy(_FISHING_DRAFT))
+        self.assertEqual(fp1, fp2)
+        self.assertEqual(len(fp1), 64)
+
+    def test_fishing_draft_detail_gaps_parsed_without_mutating_draft(self) -> None:
+        session = new_session("fish-review")
+        draft = copy.deepcopy(_FISHING_DRAFT)
+        session["draft_brief"] = draft
+        session["ready_to_export"] = True
+        draft_ref_before = session["draft_brief"]
+
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(_detail_gaps_mock()),
+        ):
+            result = run_makeability_review(session, config=config)
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["intent_count"], 0)
+        self.assertGreaterEqual(result["detail_count"], 3)
+        self.assertIs(session["draft_brief"], draft_ref_before)
+        self.assertEqual(session["draft_brief"], _FISHING_DRAFT)
+
+        review = session.get("makeability_review")
+        self.assertIsInstance(review, dict)
+        self.assertEqual(review.get("schema_version"), 1)
+        self.assertEqual(review.get("draft_fingerprint"), draft_fingerprint(_FISHING_DRAFT))
+        self.assertGreaterEqual(len(review.get("detail_gaps") or []), 3)
+
+        st = session_status(session)
+        self.assertTrue(st["has_review"])
+        self.assertEqual(st["intent_count"], 0)
+        self.assertGreaterEqual(st["detail_count"], 3)
+        self.assertTrue(st["makeability_fingerprint_match"])
+
+    def test_bad_json_raises_and_preserves_old_review(self) -> None:
+        session = new_session("fish-bad-json")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        old_review = {
+            "schema_version": 1,
+            "reviewed_at": "2026-07-27T00:00:00+00:00",
+            "draft_fingerprint": "old",
+            "intent_gaps": [],
+            "detail_gaps": [{"id": "keep_me"}],
+            "suggested_defaults": [],
+        }
+        session["makeability_review"] = copy.deepcopy(old_review)
+
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch("host_chat.chat_text_completion", return_value="not json at all"):
+            with self.assertRaises(HostChatError):
+                run_makeability_review(session, config=config)
+
+        self.assertEqual(session["makeability_review"], old_review)
+
+    def test_intent_gaps_force_ready_to_export_false(self) -> None:
+        session = new_session("fish-intent")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        session["ready_to_export"] = True
+
+        payload = _detail_gaps_mock()
+        payload["intent_gaps"] = [
+            {
+                "id": "win_condition",
+                "question": "会话何时算结束？",
+                "why_blocking": "无明确胜负则无法验收",
+                "choices": ["集齐图鉴", "达到金币目标"],
+            }
+        ]
+
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch("host_chat.chat_text_completion", return_value=json.dumps(payload)):
+            result = run_makeability_review(session, config=config)
+
+        self.assertEqual(result["intent_count"], 1)
+        self.assertFalse(session["ready_to_export"])
+        self.assertFalse(result["ready_to_export"])
+
+
+if __name__ == "__main__":
+    unittest.main()

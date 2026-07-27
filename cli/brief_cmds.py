@@ -25,12 +25,15 @@ from host_chat import (
     export_brief as host_export_brief,
     list_sessions as host_list_sessions,
     load_session as host_load_session,
+    makeability_sidecar_path as host_makeability_sidecar_path,
     new_session as host_new_session,
     run_autofix as host_run_autofix,
+    run_makeability_review as host_run_makeability_review,
     run_turn as host_run_turn,
     save_session as host_save_session,
     session_path_for_id,
     session_status as host_session_status,
+    write_makeability_sidecar as host_write_makeability_sidecar,
 )
 from prompt_craft import PromptCraftError
 
@@ -337,6 +340,46 @@ def register_brief_commands(cli_group: click.Group) -> None:
         if not result.get("ok"):
             sys.exit(2)
 
+    @chat_group.command("makeability")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_makeability_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        as_json: bool,
+    ) -> None:
+        """Run Makeability Critic on draft_brief (does not modify draft)."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = host_run_makeability_review(session, config=config)
+            host_save_session(path, session)
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+            **{k: v for k, v in host_session_status(session).items() if k not in result},
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or "makeability review done")
+            click.echo(
+                f"intent={result.get('intent_count', 0)} "
+                f"detail={result.get('detail_count', 0)} "
+                f"ready_to_export={result.get('ready_to_export')}"
+            )
+        if result.get("intent_count", 0) > 0:
+            sys.exit(2)
+
     @chat_group.command("export")
     @click.option("--session-id", default=None)
     @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
@@ -376,6 +419,14 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
+            bound = str(session.get("bound_brief_rel") or "").strip()
+            if bound:
+                sidecar_path = host_makeability_sidecar_path(bound)
+            else:
+                sidecar_path = host_makeability_sidecar_path(output_path)
+            review = session.get("makeability_review")
+            if isinstance(review, dict):
+                host_write_makeability_sidecar(sidecar_path, review)
             zh_info: dict = {}
             if not skip_zh_doc:
                 try:
@@ -389,6 +440,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         payload = {
             "session_id": session.get("id"),
             "brief_path": str(output_path.resolve()),
+            "makeability_path": str(sidecar_path.resolve()),
             "brief": brief,
             **zh_info,
         }

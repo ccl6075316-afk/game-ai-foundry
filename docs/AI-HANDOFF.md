@@ -44,6 +44,17 @@ brief export（冻结）→ prompt craft → pipeline plan/run → godot assembl
 - 改素材/玩法 → 改 brief → `pipeline plan`（必要时 `--merge`），不能靠会话记忆。
 - 产品心智与工种 → [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md)。
 
+**制作完备性审查（makeability）**
+
+```bash
+python gamefactory.py brief chat makeability --session-id <id> --json
+```
+
+- 独立子 LLM（[`makeability-critic.md`](../resources/skills/orchestrator/makeability-critic.md)）；结果写入 session `makeability_review`（`intent_gaps` / `detail_gaps` / `suggested_defaults`）。
+- **Export 门闩**：无审查、草稿指纹过期、或 `intent_gaps` 非空 → `brief chat export` 拒绝；`detail_gaps` 不阻塞。
+- Export 成功时写出 sidecar：`projects/<slug>/makeability.json`（或与 brief 同目录）。
+- `production derive` 若发现 sidecar → 合并为 `production_doc.makeability` + 可选 `production_doc.tuning`。
+
 ### 1.2 资产审查表（GUI）
 
 Pipeline 跑完后，GUI 右侧 **看板 | 资产** Tab 打开 **资产审查表**，读当前工程 `assets-manifest.json`：

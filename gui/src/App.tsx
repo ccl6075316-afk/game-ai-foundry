@@ -7,6 +7,12 @@ import { ColleagueRoster } from "./components/ColleagueRoster";
 import { HireColleagueModal } from "./components/HireColleagueModal";
 import { NewProjectModal } from "./components/NewProjectModal";
 import { BoardPanel } from "./components/BoardPanel";
+import {
+  briefMakeabilityExportReady,
+  briefMakeabilityGateHint,
+  flattenIntentChoices,
+  formatMakeabilityReviewDetails,
+} from "./components/briefPreviewFormat";
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
@@ -335,6 +341,8 @@ export default function App() {
 
   const activeColleague = getActiveColleague(chatStore);
   const agentRole = activeColleague.roleKind;
+  const briefExportReady = agentRole === "brief" && briefMakeabilityExportReady(briefDraftStatus);
+  const briefExportGateHint = briefMakeabilityGateHint(briefDraftStatus);
   const activeSession = getActiveSession(chatStore);
   const messages = activeSession.messages;
   const chatBusy = busyInstanceIds.includes(activeColleague.id);
@@ -496,6 +504,10 @@ export default function App() {
         has_document?: boolean;
         llm_backend?: string | null;
         llm_pi_error?: string | null;
+        has_review?: boolean;
+        intent_count?: number;
+        detail_count?: number;
+        makeability_fingerprint_match?: boolean;
       },
       opts?: { replace?: boolean },
     ) => {
@@ -557,6 +569,12 @@ export default function App() {
           message_count: data.message_count ?? (replace ? 0 : prev?.message_count),
           llm_backend: data.llm_backend ?? (replace ? null : prev?.llm_backend),
           llm_pi_error: data.llm_pi_error ?? (replace ? null : prev?.llm_pi_error),
+          has_review: data.has_review ?? (replace ? false : prev?.has_review),
+          intent_count: data.intent_count ?? (replace ? 0 : prev?.intent_count),
+          detail_count: data.detail_count ?? (replace ? 0 : prev?.detail_count),
+          makeability_fingerprint_match:
+            data.makeability_fingerprint_match ??
+            (replace ? false : prev?.makeability_fingerprint_match),
         };
       });
     },
@@ -1262,6 +1280,64 @@ export default function App() {
     } catch (e) {
       appendAssistant(
         `自动修失败：${e instanceof Error ? e.message : String(e)}`,
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleBriefMakeability = async () => {
+    if (!window.gameFactory?.hostChatMakeability) {
+      appendAssistant("当前 GUI 不支持制作审查，请重启 Foundry。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append(
+      "log",
+      "制作审查：独立子 LLM 审查 draft brief 的制作完备性…",
+      undefined,
+      sessionTarget,
+    );
+    try {
+      const res = await window.gameFactory.hostChatMakeability(
+        sessionTarget.sessionId,
+        sessionTarget.instanceId,
+      );
+      const data = res.data;
+      if (!data) {
+        throw new Error(res.stderr || res.stdout || "makeability failed");
+      }
+      let content = data.assistant_message || "制作审查完成。";
+      const details = formatMakeabilityReviewDetails(data.review);
+      if (details) {
+        content += `\n\n${details}`;
+      }
+      const intentChoices = flattenIntentChoices(data.review?.intent_gaps);
+      appendAssistant(
+        content,
+        intentChoices.length ? intentChoices : undefined,
+        undefined,
+        sessionTarget,
+      );
+      applyDraftFromPayload(
+        {
+          ...data,
+          draft_brief: data.draft_brief ?? briefDraft,
+          gaps: Array.isArray(data.gaps) ? data.gaps : briefDraftStatus?.gaps,
+        },
+        { replace: true },
+      );
+      if (data.draft_brief) setBriefDraft(data.draft_brief);
+      setBrainstormReady(Boolean(data.ready_to_export));
+      void refreshBrainstormStatus();
+    } catch (e) {
+      appendAssistant(
+        `制作审查失败：${e instanceof Error ? e.message : String(e)}`,
         undefined,
         undefined,
         sessionTarget,
@@ -3116,10 +3192,12 @@ export default function App() {
                     )
                   : agentActionChoices
             }
-            readyToExport={agentRole === "brief" && brainstormReady}
+            readyToExport={briefExportReady}
             showAutofix={
               agentRole === "brief" && Boolean(briefDraftStatus?.gaps && briefDraftStatus.gaps.length > 0)
             }
+            showMakeability={agentRole === "brief" && Boolean(briefDraft)}
+            exportGateHint={briefExportGateHint}
             placeholder={
               agentRole === "brief"
                 ? "描述游戏想法，和策划商量设定…"
@@ -3143,6 +3221,7 @@ export default function App() {
               void handleSend(text);
             }}
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
+            onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         </section>
@@ -3178,7 +3257,7 @@ export default function App() {
             draftDocument={draftDocument}
             status={briefDraftStatus}
             activeBriefRel={activeBriefRel}
-            readyToExport={brainstormReady}
+            readyToExport={briefExportReady}
             busy={chatBusy}
             diskRefreshKey={docsDiskRefreshKey}
             focusDiskRel={docsFocusDiskRel}
@@ -3198,6 +3277,7 @@ export default function App() {
               if (agentRole === "brief") void refreshBrainstormStatus();
             }}
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
+            onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         )}

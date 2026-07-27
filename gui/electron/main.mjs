@@ -1994,6 +1994,19 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
+  ipcMain.handle("host-chat-makeability", async (_e, sessionId, _instanceId) => {
+    const args = [
+      "brief",
+      "chat",
+      "makeability",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--json",
+    ];
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
   ipcMain.handle("host-chat-status", async (_e, sessionId) => {
     const sid = String(sessionId || "").trim();
     if (!sid) {

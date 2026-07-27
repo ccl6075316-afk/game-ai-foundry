@@ -7,6 +7,7 @@ Context: summary + recent messages; compress when over character budget.
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import re
 import uuid
@@ -34,6 +35,10 @@ from shared_context import asset_to_dict, project_to_dict
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _HOST_CHAT_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "host-chat.md"
 _COMMIT_BRIEF_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "commit-brief.md"
+_MAKEABILITY_CRITIC_SKILL = (
+    _REPO_ROOT / "resources" / "skills" / "orchestrator" / "makeability-critic.md"
+)
+MAKEABILITY_SCHEMA_VERSION = 1
 _ANIM_GRAPH_SKILL = (
     _REPO_ROOT / "resources" / "skills" / "orchestrator" / "brief-animation-graphs.md"
 )
@@ -277,6 +282,177 @@ def _parse_llm_json(text: str) -> dict[str, Any]:
         return parse_llm_json_object(text, soft_prose_fallback=True)
     except LlmJsonError as exc:
         raise HostChatError(str(exc)) from exc
+
+
+def draft_fingerprint(draft: dict[str, Any]) -> str:
+    """Canonical JSON sha256 hex for makeability stale checks."""
+    canonical = json.dumps(draft, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def _makeability_critic_system() -> str:
+    return _load_skill(
+        _MAKEABILITY_CRITIC_SKILL,
+        "You are Makeability Critic. Reply with JSON only: intent_gaps, detail_gaps, suggested_defaults.",
+    )
+
+
+def _normalize_gap_list(raw: Any, *, field: str) -> list[dict[str, Any]]:
+    if not isinstance(raw, list):
+        raise HostChatError(f"Makeability critic returned invalid {field}: expected array.")
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            raise HostChatError(f"Makeability critic returned invalid {field} item: expected object.")
+        out.append(dict(item))
+    return out
+
+
+def _build_makeability_review(
+    parsed: dict[str, Any],
+    *,
+    fingerprint: str,
+) -> dict[str, Any]:
+    intent_gaps = _normalize_gap_list(parsed.get("intent_gaps"), field="intent_gaps")
+    detail_gaps = _normalize_gap_list(parsed.get("detail_gaps"), field="detail_gaps")
+    suggested_defaults = _normalize_gap_list(parsed.get("suggested_defaults"), field="suggested_defaults")
+    return {
+        "schema_version": MAKEABILITY_SCHEMA_VERSION,
+        "reviewed_at": _utc_now(),
+        "draft_fingerprint": fingerprint,
+        "intent_gaps": intent_gaps,
+        "detail_gaps": detail_gaps,
+        "suggested_defaults": suggested_defaults,
+    }
+
+
+def assert_makeability_exportable(session: dict[str, Any]) -> dict[str, Any]:
+    """Require fresh makeability review with no open intent gaps before export."""
+    review = session.get("makeability_review")
+    if not isinstance(review, dict) or not review:
+        raise HostChatError(
+            "尚未进行制作审查。请先运行「制作审查」(brief chat makeability) 后再导出。"
+        )
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("No draft_brief in session. Chat about the game first, then 落实成 brief.")
+    current_fp = draft_fingerprint(draft)
+    review_fp = str(review.get("draft_fingerprint") or "")
+    if review_fp != current_fp:
+        raise HostChatError(
+            "制作审查已过期（draft 已变更）。请重新运行「制作审查」后再导出。"
+        )
+    intent_gaps = review.get("intent_gaps")
+    if isinstance(intent_gaps, list) and intent_gaps:
+        raise HostChatError(
+            f"仍有 {len(intent_gaps)} 条意图缺口未关闭，不可导出。请在策划对话内补齐后重新审查。"
+        )
+    return review
+
+
+def makeability_sidecar_path(
+    brief_rel_or_path: str | Path,
+    repo_root: Path | None = None,
+) -> Path:
+    """Resolve makeability.json beside bound project or exported brief."""
+    root = repo_root or _repo_root()
+    raw = str(brief_rel_or_path).replace("\\", "/").strip().lstrip("./")
+    m = re.match(r"^projects/([^/]+)/", raw, re.I)
+    if m:
+        return (root / "projects" / m.group(1) / "makeability.json").resolve()
+    p = Path(brief_rel_or_path)
+    if not p.is_absolute():
+        p = (root / p).resolve()
+    else:
+        p = p.resolve()
+    return p.parent / "makeability.json"
+
+
+def write_makeability_sidecar(path: Path, review: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(review, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def run_makeability_review(
+    session: dict[str, Any],
+    *,
+    config: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Independent sub-LLM review of draft_brief; writes session['makeability_review']."""
+    cfg = config or {}
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("No draft_brief yet. Chat about the game first, then run makeability review.")
+
+    draft_before = copy.deepcopy(draft)
+    fingerprint = draft_fingerprint(draft)
+    project_raw = draft.get("project") if isinstance(draft.get("project"), dict) else {}
+    genre = str(project_raw.get("genre") or "").strip()
+
+    user_payload = {
+        "genre": genre,
+        "draft_brief": draft,
+    }
+    user_text = json.dumps(user_payload, ensure_ascii=False, indent=2)
+    system = _makeability_critic_system()
+
+    api = resolve_host_api_settings(cfg)
+    if not api.get("api_key"):
+        raise HostChatError(
+            "Makeability critic unavailable: configure API key (OpenRouter/host)."
+        )
+    try:
+        raw = chat_text_completion(
+            model=str(api["model"]),
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": user_text},
+            ],
+            api_key=str(api["api_key"]),
+            api_base=str(api["api_base"]),
+            proxy=api.get("proxy"),
+            timeout=180,
+        )
+    except PromptCraftError as exc:
+        raise HostChatError(str(exc)) from exc
+
+    try:
+        parsed = _parse_llm_json(raw or "")
+        review = _build_makeability_review(parsed, fingerprint=fingerprint)
+    except HostChatError:
+        if session.get("draft_brief") != draft_before:
+            session["draft_brief"] = draft_before
+        raise
+
+    session["makeability_review"] = review
+    intent_count = len(review["intent_gaps"])
+    detail_count = len(review["detail_gaps"])
+    if intent_count:
+        session["ready_to_export"] = False
+
+    if session.get("draft_brief") != draft_before:
+        session["draft_brief"] = draft_before
+
+    assistant_message = (
+        f"制作审查完成：{intent_count} 条意图缺口，{detail_count} 条施工细节缺口。"
+    )
+    if intent_count:
+        assistant_message += " 意图未关前不可交接项目经理。"
+    elif detail_count:
+        assistant_message += " 施工细节将进 production，PM 可补暂定值。"
+
+    return {
+        "ok": True,
+        "review": review,
+        "intent_count": intent_count,
+        "detail_count": detail_count,
+        "ready_to_export": bool(session.get("ready_to_export")),
+        "session_id": session.get("id"),
+        "assistant_message": assistant_message,
+    }
 
 
 def user_requests_commit_brief(text: str | None) -> bool:
@@ -827,6 +1003,7 @@ def export_brief(session: dict[str, Any]) -> dict[str, Any]:
         raise HostChatError(
             "Brief 尚未 ready_to_export。请先落实（契约完整）后再导出，或在 GUI 等「保存 Brief」可点时导出。"
         )
+    assert_makeability_exportable(session)
     return finalize_brief_export(draft, source="host-chat")
 
 
@@ -1148,6 +1325,21 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
     doc = session.get("draft_document") if isinstance(session.get("draft_document"), dict) else None
     doc_title = str((doc or {}).get("title") or "") if doc else ""
 
+    review = session.get("makeability_review")
+    has_review = isinstance(review, dict) and bool(review)
+    intent_count = 0
+    detail_count = 0
+    makeability_fingerprint_match = False
+    if has_review:
+        intent_raw = review.get("intent_gaps")
+        detail_raw = review.get("detail_gaps")
+        intent_count = len(intent_raw) if isinstance(intent_raw, list) else 0
+        detail_count = len(detail_raw) if isinstance(detail_raw, list) else 0
+        if draft:
+            makeability_fingerprint_match = (
+                str(review.get("draft_fingerprint") or "") == draft_fingerprint(draft)
+            )
+
     return {
         "id": session.get("id"),
         "exists": True,
@@ -1172,4 +1364,8 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
         "compressed_count": int(session.get("compressed_count") or 0),
         "bound_brief_rel": session.get("bound_brief_rel") or None,
         "project_slug": session.get("project_slug") or None,
+        "has_review": has_review,
+        "intent_count": intent_count,
+        "detail_count": detail_count,
+        "makeability_fingerprint_match": makeability_fingerprint_match,
     }

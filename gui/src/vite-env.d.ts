@@ -496,6 +496,20 @@ declare global {
           session_id?: string;
         } & import("./chat/types").HostChatStatus>
       >;
+      hostChatMakeability: (
+        sessionId: string,
+        instanceId?: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          review?: import("./chat/types").MakeabilityReview;
+          intent_count?: number;
+          detail_count?: number;
+          ready_to_export?: boolean;
+          assistant_message?: string;
+          session_id?: string;
+        } & import("./chat/types").HostChatStatus>
+      >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
       agentTurn: (opts: {
         role: "product_host" | "programmer" | "it";

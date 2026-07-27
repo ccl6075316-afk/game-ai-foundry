@@ -6,7 +6,12 @@ import test from "node:test";
 
 import {
   assetStyleChips,
+  briefMakeabilityExportReady,
+  briefMakeabilityGateHint,
+  flattenIntentChoices,
   formatBriefDocument,
+  formatMakeabilityProductionSummary,
+  formatMakeabilityReviewDetails,
   isBriefShaped,
   tryFormatBriefJsonText,
 } from "./briefPreviewFormat";
@@ -87,4 +92,61 @@ test("assetStyleChips lists declared style fields only", () => {
   assert.deepEqual(assetStyleChips({ name: "crate", content_class: "prop_static" }), [
     "类:prop_static",
   ]);
+});
+
+test("briefMakeabilityExportReady gates on review fingerprint and intent", () => {
+  const base = {
+    exists: true,
+    ready_to_export: true,
+    has_review: true,
+    makeability_fingerprint_match: true,
+    intent_count: 0,
+  };
+  assert.equal(briefMakeabilityExportReady(base), true);
+  assert.equal(briefMakeabilityExportReady({ ...base, has_review: false }), false);
+  assert.equal(briefMakeabilityExportReady({ ...base, makeability_fingerprint_match: false }), false);
+  assert.equal(briefMakeabilityExportReady({ ...base, intent_count: 2 }), false);
+});
+
+test("briefMakeabilityGateHint explains blocked export", () => {
+  assert.match(briefMakeabilityGateHint({ exists: true, has_review: false }), /制作审查/);
+  assert.match(
+    briefMakeabilityGateHint({
+      exists: true,
+      has_review: true,
+      makeability_fingerprint_match: false,
+    }),
+    /重新/,
+  );
+});
+
+test("flattenIntentChoices dedupes choices from intent gaps", () => {
+  assert.deepEqual(
+    flattenIntentChoices([
+      { choices: ["A", "B"] },
+      { choices: ["B", "C"] },
+    ]),
+    ["A", "B", "C"],
+  );
+});
+
+test("formatMakeabilityReviewDetails lists intent and detail gaps", () => {
+  const out = formatMakeabilityReviewDetails({
+    intent_gaps: [{ id: "win", question: "How to win?", why_blocking: "blocks export" }],
+    detail_gaps: [{ id: "bite", topic: "bite rate" }],
+  });
+  assert.match(out, /意图缺口/);
+  assert.match(out, /How to win/);
+  assert.match(out, /施工细节/);
+  assert.match(out, /bite rate/);
+});
+
+test("formatMakeabilityProductionSummary reads production_doc.makeability", () => {
+  assert.equal(
+    formatMakeabilityProductionSummary({
+      makeability: { status: "pending", detail_items: [{ id: "a" }, { id: "b" }] },
+    }),
+    "制作完备性：pending · 2 条施工细节",
+  );
+  assert.equal(formatMakeabilityProductionSummary({}), null);
 });

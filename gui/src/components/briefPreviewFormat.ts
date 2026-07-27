@@ -1,4 +1,9 @@
-import type { HostChatDraftBrief, HostChatStatus } from "../chat/types";
+import type {
+  HostChatDraftBrief,
+  HostChatStatus,
+  MakeabilityIntentGap,
+  MakeabilityReview,
+} from "../chat/types";
 
 const ART_TOKEN_KNOWN_KEYS = ["line", "palette", "forbid", "silhouette"] as const;
 
@@ -175,6 +180,77 @@ export function formatBriefDocument(
   }
   lines.push("## 原始 JSON", "", "```json", JSON.stringify(draft, null, 2), "```", "");
   return lines.join("\n");
+}
+
+/** Export allowed only when backend ready + fresh makeability review with no intent gaps. */
+export function briefMakeabilityExportReady(status: HostChatStatus | null): boolean {
+  if (!status?.ready_to_export) return false;
+  if (!status.has_review) return false;
+  if (!status.makeability_fingerprint_match) return false;
+  if ((status.intent_count ?? 0) > 0) return false;
+  return true;
+}
+
+export function briefMakeabilityGateHint(status: HostChatStatus | null): string {
+  if (!status?.has_review) return "请先点「制作审查」";
+  if (!status.makeability_fingerprint_match) return "草稿已改，请重新「制作审查」";
+  if ((status.intent_count ?? 0) > 0) {
+    return `还有 ${status.intent_count} 条意图缺口未关，请点选项或回复后再审查`;
+  }
+  if (status.gaps?.length) return "校验通过后可导出，或先点「自动修」";
+  if (!status.ready_to_export) return "草稿尚未通过校验";
+  return "导出到 projects/<slug>/";
+}
+
+export function flattenIntentChoices(intentGaps: MakeabilityIntentGap[] | undefined): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const gap of intentGaps || []) {
+    for (const raw of gap.choices || []) {
+      const choice = String(raw).trim();
+      if (choice && !seen.has(choice)) {
+        seen.add(choice);
+        out.push(choice);
+      }
+    }
+  }
+  return out;
+}
+
+export function formatMakeabilityReviewDetails(review: MakeabilityReview | null | undefined): string {
+  if (!review) return "";
+  const lines: string[] = [];
+  const intentGaps = review.intent_gaps || [];
+  const detailGaps = review.detail_gaps || [];
+  if (intentGaps.length) {
+    lines.push("**意图缺口**（须在本对话内拍板）：");
+    for (const gap of intentGaps) {
+      const id = gap.id ? `\`${gap.id}\` · ` : "";
+      lines.push(`- ${id}${gap.question || "（未描述）"}`);
+      if (gap.why_blocking) lines.push(`  - ${gap.why_blocking}`);
+    }
+    lines.push("");
+  }
+  if (detailGaps.length) {
+    lines.push("**施工细节**（导出后进 production，PM 可补暂定值）：");
+    for (const gap of detailGaps) {
+      const id = gap.id ? `\`${gap.id}\` · ` : "";
+      lines.push(`- ${id}${gap.topic || "（未描述）"}`);
+    }
+  }
+  return lines.join("\n");
+}
+
+export function formatMakeabilityProductionSummary(
+  productionDoc: Record<string, unknown> | null | undefined,
+): string | null {
+  const makeability = productionDoc?.makeability;
+  if (!makeability || typeof makeability !== "object" || Array.isArray(makeability)) return null;
+  const row = makeability as Record<string, unknown>;
+  const status = String(row.status || "unknown");
+  const items = row.detail_items;
+  const count = Array.isArray(items) ? items.length : 0;
+  return `制作完备性：${status} · ${count} 条施工细节`;
 }
 
 export function tryFormatBriefJsonText(
