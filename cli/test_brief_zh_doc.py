@@ -45,7 +45,30 @@ class BriefZhDocTests(unittest.TestCase):
         self.assertIn("玩法循环", md)
         self.assertIn("资产列表", md)
         self.assertIn("`knight`", md)
-        self.assertIn("brief.json", md)
+        self.assertIn("导出前", md)
+        self.assertIn("brief.draft.json", md)
+
+    def test_write_from_draft_without_brief_json(self) -> None:
+        brief = {
+            "project": {
+                "title": "Demo",
+                "description": "d",
+                "genre": "g",
+                "dimension": "2d",
+                "gameplay_loop": "loop",
+                "session_goal": "goal",
+                "art_direction": "art",
+            },
+            "assets": [{"id": "a1", "name": "a1", "type": "prop", "usage": "prop"}],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "brief.draft.json").write_text(json.dumps(brief), encoding="utf-8")
+            missing_brief = root / "brief.json"
+            info = write_brief_zh_document(missing_brief, config={}, use_llm=False)
+            self.assertTrue(Path(info["zh_doc_path"]).is_file())
+            self.assertEqual(info["zh_doc_mode"], "skeleton")
+            self.assertIn("工作草稿", Path(info["zh_doc_path"]).read_text(encoding="utf-8"))
 
     def test_write_uses_skeleton_without_api(self) -> None:
         brief = {

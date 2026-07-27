@@ -213,6 +213,35 @@ def resolve_bound_brief_output_path(
     return (root / rel).resolve()
 
 
+def persist_project_draft(
+    session: dict[str, Any],
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> Path | None:
+    """Write session draft_brief to projects/…/brief.draft.json (or external root)."""
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        return None
+    if not (draft.get("project") or draft.get("assets")):
+        return None
+    brief_path = resolve_bound_brief_output_path(
+        session, repo_root=repo_root, workspace=workspace
+    )
+    if brief_path is None:
+        return None
+    draft_path = brief_path.parent / "brief.draft.json"
+    try:
+        draft_path.parent.mkdir(parents=True, exist_ok=True)
+        out = {k: copy.deepcopy(v) for k, v in draft.items() if k != "brief_meta"}
+        draft_path.write_text(
+            json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+    except OSError:
+        return None
+    return draft_path
+
+
 def attach_bound_project(
     session: dict[str, Any],
     brief_rel: str | None,
@@ -221,12 +250,26 @@ def attach_bound_project(
     workspace: Path | None = None,
     hydrate_draft: bool = True,
 ) -> None:
-    """Bind GUI project; copy disk brief (brief.json or brief.draft.json) into session draft."""
+    """Bind GUI project; sync draft ↔ disk (flush session first, then load)."""
     if not brief_rel or not str(brief_rel).strip():
         return
     root = (repo_root or _repo_root()).resolve()
     ws = (workspace or root).resolve()
+    prev = _norm_brief_rel(session.get("bound_brief_rel"))
     rel = _norm_brief_rel(brief_rel)
+    # Flush in-session draft before hydrate so GUI edits are not discarded
+    if (
+        hydrate_draft
+        and isinstance(session.get("draft_brief"), dict)
+        and session["draft_brief"]
+    ):
+        flush_rel = prev or rel
+        if flush_rel:
+            persist_project_draft(
+                {**session, "bound_brief_rel": flush_rel},
+                repo_root=root,
+                workspace=ws,
+            )
     session["bound_brief_rel"] = rel
     session["project_slug"] = _slug_from_brief_rel(rel, workspace=ws)
     if not hydrate_draft:
@@ -244,7 +287,6 @@ def _norm_brief_rel(brief_rel: str | None) -> str:
     return str(brief_rel or "").replace("\\", "/").strip().lstrip("./")
 
 
-
 def load_session(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise HostChatError(f"Session not found: {path}")
@@ -257,6 +299,8 @@ def load_session(path: Path) -> dict[str, Any]:
 def save_session(path: Path, session: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     session["updated_at"] = _utc_now()
+    # Keep projects/<slug>/brief.draft.json in sync with GUI chat draft
+    persist_project_draft(session)
     path.write_text(json.dumps(session, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 

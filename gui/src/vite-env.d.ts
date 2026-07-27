@@ -515,6 +515,19 @@ declare global {
           zh_doc_error?: string;
         }>
       >;
+      hostChatZhDoc: (
+        sessionId: string,
+        briefRel: string,
+        skeletonOnly?: boolean,
+      ) => Promise<
+        CliResult<{
+          zh_doc_path?: string;
+          zh_doc_rel?: string;
+          zh_doc_name?: string;
+          zh_doc_mode?: string;
+          brief_rel?: string;
+        }>
+      >;
       hostChatAutofix: (
         sessionId: string,
         maxRounds?: number,

@@ -36,6 +36,8 @@ interface Props {
   activeProjectLabel?: string | null;
   readyToExport: boolean;
   onExportBrief?: () => void;
+  /** Write brief.zh.md from current draft (before export). */
+  onRefreshZhDoc?: () => void;
   onAutofix?: () => void;
   onMakeability?: () => void;
   onEnrich?: () => void;
@@ -72,6 +74,7 @@ export function DocsPreviewPanel({
   activeProjectLabel,
   readyToExport,
   onExportBrief,
+  onRefreshZhDoc,
   onAutofix,
   onMakeability,
   onEnrich,
@@ -312,7 +315,7 @@ export function DocsPreviewPanel({
         ))}
         {activeBriefRel && diskDocs.length === 0 ? (
           <p className="docs-preview-empty hint">
-            当前工程还没有落盘文件。可先看上方「Brief 工作草稿」；导出后会出现 brief.json / 中文说明。
+            当前工程还没有落盘中文说明。有草稿时点下方「生成中文说明」即可审阅，确认后再导出。
           </p>
         ) : null}
       </div>
@@ -407,6 +410,17 @@ export function DocsPreviewPanel({
             title="针对议题多视角头脑风暴"
           >
             议题头脑风暴
+          </button>
+        )}
+        {onRefreshZhDoc && selected?.id === "session-brief" && draftBrief && activeBriefRel && (
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={onRefreshZhDoc}
+            disabled={busy}
+            title="根据当前工作草稿生成 brief.zh.md，导出前用中文审阅"
+          >
+            生成中文说明
           </button>
         )}
         {onExportBrief && selected?.id === "session-brief" && (

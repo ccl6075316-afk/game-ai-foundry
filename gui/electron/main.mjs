@@ -2166,6 +2166,42 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
+  ipcMain.handle("host-chat-zh-doc", async (_e, sessionId, briefRel, skeletonOnly = false) => {
+    const rel = String(briefRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
+    const args = [
+      "brief",
+      "chat",
+      "zh-doc",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--brief-rel",
+      rel,
+      "--json",
+    ];
+    if (skeletonOnly) args.push("--skeleton-only");
+    const result = await runCli(args);
+    const data = parseJsonFromOutput(result.stdout) || {};
+    if (data.zh_doc_path) {
+      const zhAbs = String(data.zh_doc_path).replace(/\\/g, "/");
+      const root = repoRoot().replace(/\\/g, "/");
+      const external = resolveExternalRel(rel);
+      if (external) {
+        const extRoot = external.rootAbs.replace(/\\/g, "/");
+        if (zhAbs.toLowerCase().startsWith(extRoot.toLowerCase() + "/")) {
+          const sub = zhAbs.slice(extRoot.length + 1);
+          data.zh_doc_rel = `external:${external.entry.id}/${sub}`;
+        } else {
+          data.zh_doc_rel = `${path.posix.dirname(rel)}/brief.zh.md`;
+        }
+      } else if (zhAbs.toLowerCase().startsWith(root.toLowerCase() + "/")) {
+        data.zh_doc_rel = zhAbs.slice(root.length + 1);
+      } else {
+        data.zh_doc_rel = `${path.posix.dirname(rel)}/brief.zh.md`;
+      }
+    }
+    return { ...result, data };
+  });
+
   ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5, _instanceId) => {
     const rounds = Math.max(1, Math.min(12, Number(maxRounds) || 5));
     const args = [

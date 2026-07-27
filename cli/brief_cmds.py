@@ -261,6 +261,64 @@ def register_brief_commands(cli_group: click.Group) -> None:
             click.echo(f"bound {st.get('project_slug')} -> {st.get('bound_brief_rel')}")
             click.echo(f"draft assets: {st.get('asset_count', 0)}")
 
+    @chat_group.command("zh-doc")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option(
+        "--brief-rel",
+        required=True,
+        help="projects/<slug>/brief.json (file need not exist yet; draft is used).",
+    )
+    @click.option(
+        "--skeleton-only",
+        is_flag=True,
+        help="Skip LLM; write Chinese section skeleton immediately.",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_zh_doc_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        brief_rel: str,
+        skeleton_only: bool,
+        as_json: bool,
+    ) -> None:
+        """Write brief.zh.md from the session draft (before export) for human review."""
+        from brief_zh_doc import write_brief_zh_document
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        rel = str(brief_rel).replace("\\", "/").lstrip("./")
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            draft = session.get("draft_brief")
+            if not isinstance(draft, dict) or not draft:
+                raise HostChatError("Session has no draft_brief — chat or bind a project draft first.")
+            repo = Path(__file__).resolve().parents[1]
+            anchor = (repo / rel).resolve()
+            info = write_brief_zh_document(
+                anchor,
+                draft,
+                config=config,
+                use_llm=not skeleton_only,
+                persist_draft=True,
+            )
+            payload = {
+                "session_id": session.get("id"),
+                "brief_rel": rel,
+                **info,
+                **host_session_status(session),
+            }
+        except (HostChatError, json.JSONDecodeError, OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(info["zh_doc_path"])
+            click.echo(f"mode: {info['zh_doc_mode']}")
+
     @chat_group.command("status")
     @click.option("--session-id", default=None)
     @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
@@ -809,19 +867,33 @@ def register_brief_commands(cli_group: click.Group) -> None:
         "--brief",
         "brief_path",
         required=True,
-        type=click.Path(exists=True, path_type=Path),
-        help="Existing brief.json to mirror as Chinese markdown.",
+        type=click.Path(path_type=Path),
+        help="brief.json or brief.draft.json (or path to missing brief.json beside a draft).",
+    )
+    @click.option(
+        "--skeleton-only",
+        is_flag=True,
+        help="Skip LLM; Chinese section skeleton only.",
     )
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
-    def zh_doc_cmd(ctx: click.Context, brief_path: Path, as_json: bool) -> None:
-        """Write or refresh brief.zh.md beside an existing brief."""
+    def zh_doc_cmd(
+        ctx: click.Context,
+        brief_path: Path,
+        skeleton_only: bool,
+        as_json: bool,
+    ) -> None:
+        """Write or refresh brief.zh.md from brief or working draft (export not required)."""
         from brief_zh_doc import write_brief_zh_document
 
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         try:
-            info = write_brief_zh_document(brief_path, config=config)
-        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            info = write_brief_zh_document(
+                brief_path,
+                config=config,
+                use_llm=not skeleton_only,
+            )
+        except (OSError, json.JSONDecodeError, ValueError, FileNotFoundError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
         if as_json:

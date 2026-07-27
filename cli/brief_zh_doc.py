@@ -1,7 +1,8 @@
 """Chinese companion document for an English pipeline brief.
 
-``brief.json`` stays English for pipeline; ``brief.zh.md`` is human-readable Chinese
-written next to it on export (and listed in the Docs panel).
+``brief.json`` stays English for the pipeline. ``brief.zh.md`` is the human-readable
+Chinese mirror — written from the **working draft before export** (so you can decide
+whether to freeze), and refreshed again on export.
 """
 
 from __future__ import annotations
@@ -12,10 +13,11 @@ from pathlib import Path
 from typing import Any
 
 BRIEF_ZH_DOC_NAME = "brief.zh.md"
+BRIEF_DRAFT_NAME = "brief.draft.json"
 
 
 def brief_zh_doc_path_for(brief_path: Path) -> Path:
-    return brief_path.resolve().parent / BRIEF_ZH_DOC_NAME
+    return Path(brief_path).resolve().parent / BRIEF_ZH_DOC_NAME
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
@@ -34,6 +36,31 @@ def _text(value: Any) -> str:
     return str(value).strip()
 
 
+def load_brief_dict_from_path(path: Path) -> dict[str, Any]:
+    """Load brief.json, or fall back to brief.draft.json beside it / as path."""
+    p = Path(path)
+    candidates: list[Path] = []
+    if p.is_file():
+        candidates.append(p)
+        if p.name.lower() == "brief.json":
+            candidates.append(p.parent / BRIEF_DRAFT_NAME)
+    elif p.is_dir():
+        candidates.extend([p / "brief.json", p / BRIEF_DRAFT_NAME])
+    else:
+        # Missing brief.json — still try draft beside the intended path
+        candidates.append(p)
+        candidates.append(p.parent / BRIEF_DRAFT_NAME)
+        if p.name.lower() != BRIEF_DRAFT_NAME.lower():
+            candidates.append(p.parent / "brief.json")
+    for c in candidates:
+        if not c.is_file():
+            continue
+        data = json.loads(c.read_text(encoding="utf-8"))
+        if isinstance(data, dict) and (data.get("project") or data.get("assets")):
+            return data
+    raise FileNotFoundError(f"No brief or draft at {path}")
+
+
 def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
     """Deterministic Chinese-labeled mirror of the brief (no LLM).
 
@@ -49,11 +76,16 @@ def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
     lines: list[str] = [
         f"# {title}（中文说明）",
         "",
-        "> 本文档与同目录 `brief.json` 对应，供人阅读；流水线只读英文 brief。",
+        "> 供人阅读、**导出前**确认玩法与资产是否够用。流水线只读英文 `brief.json`；",
+        "> 未导出时本文档对应工作草稿 `brief.draft.json`。",
         "",
     ]
     if meta.get("frozen_at"):
-        lines.extend([f"- 冻结时间：`{meta.get('frozen_at')}`", f"- 来源：`{meta.get('source') or '—'}`", ""])
+        lines.extend(
+            [f"- 冻结时间：`{meta.get('frozen_at')}`", f"- 来源：`{meta.get('source') or '—'}`", ""]
+        )
+    else:
+        lines.extend(["- 状态：**工作草稿**（尚未导出冻结）", ""])
 
     lines.extend(
         [
@@ -125,45 +157,48 @@ def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
         lines.extend(["## 动画图", ""])
         for g in graphs:
             gd = _as_dict(g)
-            lines.append(f"- `{_text(gd.get('character') or gd.get('id') or 'graph')}`")
+            lines.append(
+                f"- `{_text(gd.get('id') or gd.get('name')) or 'graph'}`："
+                f"{_text(gd.get('description')) or '—'}"
+            )
         lines.append("")
 
     lines.extend(
         [
             "---",
             "",
-            "_若段落仍为英文，说明本次导出未完成翻译或翻译失败，可重新导出 Brief 再试。_",
+            "看完若玩法/资产仍含糊：先在策划里补全或自动修，**确认后再导出** Brief。",
             "",
         ]
     )
     return "\n".join(lines)
 
 
-_TRANSLATE_SYSTEM = """你是游戏制作文档助手。用户会给你一份英文 Game AI Foundry brief JSON。
-请输出一份**完整中文 Markdown**说明文档，要求：
-1. 标题用中文（可保留英文原名作副标题）。
-2. 用中文写：简介、玩法循环、本局目标、美术方向、操作说明、资产用途说明。
-3. 资产 id / name、usage 枚举、路径、技术字段保留英文，用反引号包裹。
-4. 结构清晰，便于在 GUI「文档」面板阅读；不要输出 JSON；不要用代码围栏包住整篇文档。
-5. 文首用一两句说明：本文对应 brief.json，流水线仍以英文 brief 为准。
-"""
+_TRANSLATE_SYSTEM = (
+    "你是游戏策划文档助手。把英文 brief JSON 写成清晰的中文 Markdown 说明，"
+    "保留资产 id / 技术字段英文原样，玩法与描述用中文。"
+    "不要编造 brief 里没有的系统。标题用中文。"
+)
 
 
-def _strip_md_fence(text: str) -> str:
-    raw = (text or "").strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```(?:markdown|md)?\s*\n", "", raw, count=1, flags=re.I)
-        raw = re.sub(r"\n```\s*$", "", raw)
-    return raw.strip()
+def _strip_md_fence(raw: str) -> str:
+    text = (raw or "").strip()
+    m = re.match(r"^```(?:markdown|md)?\s*([\s\S]*?)```\s*$", text, re.I)
+    if m:
+        return m.group(1).strip()
+    return text
 
 
 def translate_brief_to_zh_markdown(
     brief: dict[str, Any],
     *,
     config: dict[str, Any] | None = None,
+    use_llm: bool = True,
 ) -> tuple[str, str]:
     """Return (markdown, mode) where mode is ``llm`` or ``skeleton``."""
     skeleton = render_brief_zh_skeleton(brief)
+    if not use_llm:
+        return skeleton, "skeleton"
     try:
         from llm_config import resolve_host_api_settings
         from prompt_craft import PromptCraftError, chat_text_completion
@@ -175,7 +210,7 @@ def translate_brief_to_zh_markdown(
         return skeleton, "skeleton"
 
     user = (
-        "请把下面的 brief 写成中文说明文档（Markdown）：\n\n"
+        "请把下面的 brief 写成中文说明文档（Markdown），供导出前审阅：\n\n"
         + json.dumps(brief, ensure_ascii=False, indent=2)[:120_000]
     )
     try:
@@ -206,11 +241,19 @@ def write_brief_zh_document(
     brief: dict[str, Any] | None = None,
     *,
     config: dict[str, Any] | None = None,
+    use_llm: bool = True,
+    persist_draft: bool = False,
 ) -> dict[str, Any]:
-    """Write ``brief.zh.md`` beside ``brief.json``. Returns paths + mode."""
+    """Write ``brief.zh.md`` beside the brief/draft path. Returns paths + mode."""
     path = Path(brief_path)
-    data = brief if isinstance(brief, dict) else json.loads(path.read_text(encoding="utf-8"))
-    md, mode = translate_brief_to_zh_markdown(data, config=config)
+    data = brief if isinstance(brief, dict) else load_brief_dict_from_path(path)
+    if persist_draft and isinstance(data, dict):
+        draft_path = path.parent / BRIEF_DRAFT_NAME
+        draft_path.parent.mkdir(parents=True, exist_ok=True)
+        draft_path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+    md, mode = translate_brief_to_zh_markdown(data, config=config, use_llm=use_llm)
     out = brief_zh_doc_path_for(path)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(md.rstrip() + "\n", encoding="utf-8")

@@ -656,8 +656,33 @@ class HostChatTests(unittest.TestCase):
             }
             attach_bound_project(session, "projects/fishing-2d/brief.json", repo_root=root)
             assets = (session.get("draft_brief") or {}).get("assets") or []
-            self.assertEqual(len(assets), 1)
-            self.assertEqual(assets[0]["name"], "from_disk")
+            # Flush writes 2 assets to disk, then hydrate reads them back
+            self.assertEqual(len(assets), 2)
+            self.assertEqual(assets[1]["name"], "newer")
+            disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(disk.get("assets") or []), 2)
+
+    def test_save_session_persists_bound_draft(self) -> None:
+        from host_chat import persist_project_draft, save_session
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fishing-2d"
+            proj.mkdir(parents=True)
+            session = new_session("persist-draft")
+            session["bound_brief_rel"] = "projects/fishing-2d/brief.json"
+            session["draft_brief"] = {
+                "project": {"title": "同步测试"},
+                "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
+            }
+            sess_path = Path(tmp) / "sess.json"
+            # save_session uses _repo_root by default — call persist with explicit root
+            out = persist_project_draft(session, repo_root=root)
+            self.assertIsNotNone(out)
+            assert out is not None
+            disk = json.loads(out.read_text(encoding="utf-8"))
+            self.assertEqual(disk["project"]["title"], "同步测试")
+            self.assertEqual(len(disk["assets"]), 1)
 
 
 class ExternalBoundProjectTests(unittest.TestCase):
