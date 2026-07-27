@@ -95,9 +95,23 @@ game-ai-foundry/
 │   ├── plans/  output/  game/
 ├── pipeline/ plans/ output/ games/   # 旧扁平产物（兼容；gitignored）
 └── docs/                   # 文档索引 → docs/README.md
+├── external-projects.json  # 外置工程索引（workspace 根；与 projects/ 同级）
 ```
 
 **入口**：`cd cli && python gamefactory.py --help`
+
+### 外置工程根
+
+新建游戏仍默认 **`projects/<slug>/`**（隔离、gitignored）。已有独立 Godot 仓（如 fish2d）**不必拷贝进 `projects/`**，可在 GUI 顶栏工程切换器点 **「打开外置工程…」**（目录选择器）登记为当前工程。
+
+| 项 | 说明 |
+|----|------|
+| **索引** | workspace 根 `external-projects.json`；GUI 与 CLI 共用 |
+| **虚拟 brief 键** | `external:<id>/brief.json`（不把绝对路径写入 localStorage 主键） |
+| **Godot 布局** | 根目录 `project.godot` → `godot_rel=.`；否则 `game/project.godot` → `godot_rel=game`；皆无则标 `godot_missing`，可绑定但打开 Godot / validate 会报错 |
+| **产物路径** | `brief.json`、`pipeline/`、`output/`、`plans/`、`production.json`、`progress.json`、`makeability.json` 均写在 **外置根**（与 brief 同级）；无 brief 时可绑定，export / 保存 Brief 目标为该根 `brief.json` |
+| **移除** | 「从列表移除」只删索引条目，**不删**磁盘文件 |
+| **CLI** | `project external list|add|remove|detect`（`add --root <abs>` 探测布局并登记；同一归一化路径幂等） |
 
 ---
 

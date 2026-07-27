@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
@@ -43,19 +43,22 @@ import {
 import { extractMediaPaths, mergeAttachments } from "./chat/extractMediaPaths";
 import {
   clearActiveBriefRel,
+  isExternalBriefRel,
   isIsolatedBriefRel,
   loadActiveBriefRel,
   parseDeltaCommand,
+  parseExternalBriefId,
   parsePlanSubcommand,
   planTargetsFromBrief,
-  productionPathFromBrief,
-  progressPathFromBrief,
+  planTargetsFromExternalEntry,
   projectRootFromBriefRel,
   readActiveBriefPreference,
   sameProjectRoot,
   sanitizeProjectSlug,
   saveActiveBriefRel,
   slugFromBriefRel,
+  type ExternalProjectEntry,
+  type PlanTargets,
 } from "./chat/projectPaths";
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
@@ -273,6 +276,7 @@ export default function App() {
   const [selectedManifest, setSelectedManifest] = useState("");
   const [assetsManifestRel, setAssetsManifestRel] = useState<string | null>(null);
   const [activeBriefRel, setActiveBriefRel] = useState<string | null>(() => loadActiveBriefRel());
+  const [externalEntryById, setExternalEntryById] = useState<Record<string, ExternalProjectEntry>>({});
   /** brief.project.visual_reference is a real image path on disk */
   const [visualReferenceReady, setVisualReferenceReady] = useState(false);
   const [tasks, setTasks] = useState<PipelineTask[]>([]);
@@ -399,6 +403,54 @@ export default function App() {
     }
   }, [activeBriefRel]);
 
+  const refreshExternalProjects = useCallback(async (): Promise<Record<string, ExternalProjectEntry>> => {
+    if (!window.gameFactory?.externalProjectsList) return {};
+    try {
+      const res = await window.gameFactory.externalProjectsList();
+      const map: Record<string, ExternalProjectEntry> = {};
+      for (const p of res.projects || []) {
+        const id = String(p.id || "").trim();
+        if (id) map[id] = p;
+      }
+      setExternalEntryById(map);
+      return map;
+    } catch {
+      return {};
+    }
+  }, []);
+
+  const resolvePlanTargets = useCallback(
+    async (
+      briefRel: string,
+      cache?: Record<string, ExternalProjectEntry>,
+    ): Promise<PlanTargets> => {
+      const normalized = briefRel.replace(/\\/g, "/");
+      if (isExternalBriefRel(normalized)) {
+        const id = parseExternalBriefId(normalized);
+        if (id) {
+          let entry = (cache ?? externalEntryById)[id];
+          if (!entry) {
+            const map = await refreshExternalProjects();
+            entry = map[id];
+          }
+          if (entry) return planTargetsFromExternalEntry(entry);
+        }
+      }
+      return planTargetsFromBrief(normalized);
+    },
+    [externalEntryById, refreshExternalProjects],
+  );
+
+  const activeProjectLabel = useMemo(() => {
+    if (!activeBriefRel) return null;
+    if (isExternalBriefRel(activeBriefRel)) {
+      const id = parseExternalBriefId(activeBriefRel);
+      const entry = id ? externalEntryById[id] : null;
+      return entry?.display_name || slugFromBriefRel(activeBriefRel);
+    }
+    return slugFromBriefRel(activeBriefRel);
+  }, [activeBriefRel, externalEntryById]);
+
   const setBrief = useCallback((briefRel: string) => {
     const normalized = briefRel.replace(/\\/g, "/");
     setActiveBriefRel(normalized);
@@ -407,6 +459,7 @@ export default function App() {
     // Canonicalize legacy resources/ ↔ cli/resources/ paths in the background.
     // Never let resolve remap projects/A → projects/B (e.g. fishing-2d before brief.json exists).
     void (async () => {
+      if (isExternalBriefRel(normalized)) return;
       if (!window.gameFactory?.resolveBriefRel) return;
       const r = await window.gameFactory.resolveBriefRel(normalized);
       if (!r.path || r.path === normalized) return;
@@ -1154,7 +1207,8 @@ export default function App() {
       let slug: string;
       if (activeBriefRel && isIsolatedBriefRel(activeBriefRel)) {
         outputRel = activeBriefRel.replace(/\\/g, "/");
-        slug = slugFromBriefRel(outputRel);
+        const targets = await resolvePlanTargets(outputRel);
+        slug = targets.slug;
       } else {
         slug = sanitizeProjectSlug(nameHint || "") || slugifyBriefName(nameHint || draftTitle || "my-game");
         const created = await ensureAndBindProject(slug);
@@ -1175,18 +1229,23 @@ export default function App() {
       const briefRel = res.data?.brief_rel || outputRel;
       setBrief(briefRel);
       await syncPipelineForBriefRef.current(briefRel);
+      const extId = parseExternalBriefId(briefRel);
+      const extEntry = extId ? externalEntryById[extId] : null;
       const zhRel =
         (res.data?.zh_doc_rel || "").replace(/\\/g, "/") ||
-        `projects/${slug}/brief.zh.md`;
+        (extId ? `${briefRel.replace(/\/brief\.json$/i, "")}/brief.zh.md` : `projects/${slug}/brief.zh.md`);
       const zhMode = res.data?.zh_doc_mode || "skeleton";
       setDocsFocusDiskRel(zhRel);
       setDocsDiskRefreshKey((n) => n + 1);
       setSidePanel("docs");
+      const rootLine = extEntry
+        ? `- 工程根：外置 · \`${extEntry.root_abs}\``
+        : `- 工程根：\`projects/${slug}/\``;
       appendAssistant(
         `**Brief 已写入本工程**\n\n` +
           `- Brief：\`${briefRel}\`\n` +
           `- 中文说明：\`${zhRel}\`${zhMode === "llm" ? "（已翻译）" : "（中文目录骨架；配好 API Key 后重新导出可全文翻译）"}\n` +
-          `- 工程根：\`projects/${slug}/\`\n\n` +
+          `${rootLine}\n\n` +
           `右侧「文档」仅显示本工程。下一步可定 **北极星图**，再交给项目经理。`,
         ["生成北极星图", "切换到项目经理", "切换到项目经理并生成流水线"],
         undefined,
@@ -1410,13 +1469,16 @@ export default function App() {
       if (!window.gameFactory?.agentTurn) {
         throw new Error("agentTurn IPC 不可用，请重启 GUI。");
       }
+      const progressRel = activeBriefRel
+        ? (await resolvePlanTargets(activeBriefRel)).progressRel
+        : undefined;
       const res = await window.gameFactory.agentTurn({
         role: target.role,
         sessionId: target.sessionId,
         message,
         executor: colleague.executor || undefined,
         brief: activeBriefRel || undefined,
-        progress: activeBriefRel ? progressPathFromBrief(activeBriefRel) : undefined,
+        progress: progressRel,
         instanceId: target.instanceId,
         targetInstanceId: target.role === "product_host" ? defaultTarget : undefined,
         rosterJson:
@@ -1493,7 +1555,7 @@ export default function App() {
           (dispatch.task_done ? ` · task \`${dispatch.task_done}\` → done` : "");
         queueActions(dispatch.next_actions);
         if (activeBriefRel) {
-          const proj = planTargetsFromBrief(activeBriefRel).godotProjectRel;
+          const proj = (await resolvePlanTargets(activeBriefRel)).godotProjectRel;
           const validateCmd = `python gamefactory.py godot validate --project ../${proj}`;
           const label = "执行 · godot validate";
           pendingSafeActions.current.set(label, validateCmd);
@@ -1567,7 +1629,7 @@ export default function App() {
         }
       }
       if (activeBriefRel) {
-        const out = planTargetsFromBrief(activeBriefRel).outputDirRel.replace(/\/$/, "");
+        const out = (await resolvePlanTargets(activeBriefRel)).outputDirRel.replace(/\/$/, "");
         if (!cancelled) setAssetsManifestRel(`${out}/assets-manifest.json`);
         return;
       }
@@ -1576,7 +1638,7 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [selectedManifest, activeBriefRel]);
+  }, [selectedManifest, activeBriefRel, resolvePlanTargets]);
 
   /** Clear then load pipeline/board/assets for a brief. Always prefer projects/<slug>/pipeline. */
   const syncPipelineForBrief = useCallback(
@@ -1589,7 +1651,7 @@ export default function App() {
       runWithoutVtWarned.current = false;
       if (!briefRel) return null;
       const normalized = briefRel.replace(/\\/g, "/");
-      const preferred = planTargetsFromBrief(normalized).manifestRel;
+      const preferred = (await resolvePlanTargets(normalized)).manifestRel;
       const manifests = await window.gameFactory.listManifests();
       const byBrief =
         window.gameFactory.findManifestForBrief
@@ -1610,7 +1672,7 @@ export default function App() {
       }
       return manifest || null;
     },
-    [refreshManifest],
+    [refreshManifest, resolvePlanTargets],
   );
   syncPipelineForBriefRef.current = syncPipelineForBrief;
 
@@ -1618,7 +1680,8 @@ export default function App() {
     async (briefRel: string) => {
       const normalized = briefRel.replace(/\\/g, "/");
       setBrief(normalized);
-      const slug = slugFromBriefRel(normalized);
+      const targets = await resolvePlanTargets(normalized);
+      const slug = targets.slug;
       // Bind every brief colleague session so planner always knows the project
       const briefIds = chatStore.roster
         .filter((c) => c.roleKind === "brief")
@@ -1654,6 +1717,7 @@ export default function App() {
       agentRole,
       chatStore.roster,
       chatStore.activeByInstance,
+      resolvePlanTargets,
     ],
   );
 
@@ -1734,6 +1798,7 @@ export default function App() {
   const loadInitial = useCallback(async () => {
     if (!window.gameFactory) return;
     await window.gameFactory.getPaths();
+    await refreshExternalProjects();
     const env = await refreshEnv();
     await refreshHandoffs();
 
@@ -1783,7 +1848,7 @@ export default function App() {
         }
       }
     }
-  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief]);
+  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief, refreshExternalProjects]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -2448,7 +2513,7 @@ export default function App() {
       }
       setBrief(briefRel);
 
-      const preferred = planTargetsFromBrief(briefRel).manifestRel;
+      const preferred = (await resolvePlanTargets(briefRel)).manifestRel;
       const manifests = await window.gameFactory.listManifests();
       const existing =
         window.gameFactory.findManifestForBrief &&
@@ -2479,7 +2544,7 @@ export default function App() {
         return;
       }
 
-      const targets = planTargetsFromBrief(briefRel);
+      const targets = await resolvePlanTargets(briefRel);
       append(
         "assistant",
         `正在生成流水线任务清单…\n\nBrief: \`${targets.briefRel}\`\n将写入: \`${targets.manifestRel}\``,
@@ -2555,7 +2620,9 @@ export default function App() {
 
   const handleOpenGodot = async () => {
     // Prefer active brief's game/ — never open another project's Godot from a stale manifest
-    let projectRel = activeBriefRel ? planTargetsFromBrief(activeBriefRel).godotProjectRel : null;
+    let projectRel = activeBriefRel
+      ? (await resolvePlanTargets(activeBriefRel)).godotProjectRel
+      : null;
     if (selectedManifest && activeBriefRel) {
       try {
         const meta = await window.gameFactory.getManifestMeta(selectedManifest);
@@ -2628,8 +2695,9 @@ export default function App() {
       if (!window.gameFactory?.productionDelta || !window.gameFactory?.productionApplyDelta) {
         throw new Error("production delta IPC 不可用，请重启 GUI。");
       }
-      const productionRel = productionPathFromBrief(activeBriefRel);
-      const progressRel = progressPathFromBrief(activeBriefRel);
+      const planTargets = await resolvePlanTargets(activeBriefRel);
+      const productionRel = planTargets.productionRel;
+      const progressRel = planTargets.progressRel;
       const deltaRel = `plans/changes/${changeId}.production-delta.json`;
       append(
         "assistant",
@@ -2763,7 +2831,7 @@ export default function App() {
       append(
         "assistant",
         activeBriefRel
-          ? `已打开文档面板（工程 **${slugFromBriefRel(activeBriefRel)}**）。`
+          ? `已打开文档面板（工程 **${activeProjectLabel || slugFromBriefRel(activeBriefRel)}**）。`
           : "已打开文档面板。请先选择或导出工程。",
       );
       return;
@@ -2932,6 +3000,7 @@ export default function App() {
           <ProjectSwitcher
             variant="chip"
             activeBriefRel={activeBriefRel}
+            activeProjectLabel={activeProjectLabel}
             onSelect={(rel) => void switchProject(rel)}
             onNewProject={() => {
               if (agentRole !== "brief") {
@@ -3257,6 +3326,8 @@ export default function App() {
             draftDocument={draftDocument}
             status={briefDraftStatus}
             activeBriefRel={activeBriefRel}
+            externalEntryById={externalEntryById}
+            activeProjectLabel={activeProjectLabel}
             readyToExport={briefExportReady}
             busy={chatBusy}
             diskRefreshKey={docsDiskRefreshKey}

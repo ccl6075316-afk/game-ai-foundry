@@ -17,6 +17,37 @@ export interface PlanTargets {
   isolated: boolean;
 }
 
+/** Registry entry — mirrors cli/external_projects.py schema. */
+export interface ExternalProjectEntry {
+  id: string;
+  display_name: string;
+  root_abs: string;
+  godot_rel: string;
+  brief_rel: string;
+  added_at?: string;
+}
+
+const EXTERNAL_BRIEF_KEY_RE = /^external:[^/]+\/brief\.json$/i;
+
+export function isExternalBriefRel(rel: string): boolean {
+  return EXTERNAL_BRIEF_KEY_RE.test(norm(rel));
+}
+
+/** Extract ext_… id from virtual brief key; null if not external brief. */
+export function parseExternalBriefId(rel: string): string | null {
+  const n = norm(rel);
+  if (!isExternalBriefRel(n)) return null;
+  return n.split(":", 2)[1]?.split("/", 1)[0] ?? null;
+}
+
+export function externalBriefRel(id: string): string {
+  return `external:${id}/brief.json`;
+}
+
+function externalRootRel(id: string): string {
+  return `external:${id}`;
+}
+
 function norm(rel: string): string {
   return rel.replace(/\\/g, "/").replace(/^\.?\//, "");
 }
@@ -48,11 +79,40 @@ export function sameProjectRoot(a: string | null | undefined, b: string | null |
 }
 
 export function isIsolatedBriefRel(briefRel: string): boolean {
-  return projectRootFromBriefRel(briefRel) != null;
+  return projectRootFromBriefRel(briefRel) != null || isExternalBriefRel(briefRel);
+}
+
+/** Plan targets for a registered external project (virtual external:… keys). */
+export function planTargetsFromExternalEntry(entry: ExternalProjectEntry): PlanTargets {
+  const id = String(entry.id || "").trim();
+  const root = externalRootRel(id);
+  const godotRel = String(entry.godot_rel || ".").replace(/\\/g, "/");
+  const slug =
+    sanitizeProjectSlug(entry.display_name || "") ||
+    id.replace(/^ext_/, "") ||
+    "external";
+  const godotProjectRel = godotRel === "." ? root : `${root}/${godotRel}`;
+  return {
+    briefRel: externalBriefRel(id),
+    slug,
+    isolated: true,
+    projectRootRel: root,
+    manifestRel: `${root}/pipeline/manifest.json`,
+    outputDirRel: `${root}/output`,
+    godotProjectRel,
+    plansDirRel: `${root}/plans`,
+    progressRel: `${root}/progress.json`,
+    productionRel: `${root}/production.json`,
+  };
 }
 
 export function planTargetsFromBrief(briefRel: string): PlanTargets {
   const brief = norm(briefRel);
+  if (isExternalBriefRel(brief)) {
+    throw new Error(
+      "planTargetsFromBrief 不支持 external: 虚拟键；请使用 planTargetsFromExternalEntry 并传入 registry entry。",
+    );
+  }
   const root = projectRootFromBriefRel(brief);
   const slug = slugFromBriefRel(brief);
   if (root) {

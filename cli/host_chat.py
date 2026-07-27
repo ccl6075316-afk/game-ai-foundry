@@ -27,8 +27,10 @@ from brief import (
     parse_animation_graphs,
     validate_brief_for_export,
 )
+from external_projects import get_external_by_id, is_external_brief_key, parse_external_brief_key
 from llm_config import resolve_host_api_settings
 from llm_json import LlmJsonError, parse_llm_json_object
+from project_paths import paths_for_brief_key
 from prompt_craft import PromptCraftError, chat_text_completion
 from shared_context import asset_to_dict, project_to_dict
 
@@ -120,8 +122,19 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
 
-def _slug_from_brief_rel(brief_rel: str) -> str:
+def _slug_from_brief_rel(brief_rel: str, *, workspace: Path | None = None) -> str:
     n = brief_rel.replace("\\", "/").lstrip("./")
+    if is_external_brief_key(n):
+        ext_id = parse_external_brief_key(n)
+        if ext_id:
+            ws = (workspace or _repo_root()).resolve()
+            entry = get_external_by_id(ws, ext_id)
+            if entry:
+                name = str(entry.get("display_name") or "").strip()
+                if name:
+                    return name
+                return ext_id
+        return ext_id or "game"
     m = re.match(r"^projects/([^/]+)/", n, re.I)
     if m:
         return m.group(1)
@@ -129,12 +142,39 @@ def _slug_from_brief_rel(brief_rel: str) -> str:
     return stem or "game"
 
 
-def load_project_draft_from_disk(brief_rel: str, *, repo_root: Path | None = None) -> dict[str, Any] | None:
-    """Load working draft from brief.json or brief.draft.json beside it."""
-    root = repo_root or _repo_root()
+def _brief_candidates_for_rel(
+    brief_rel: str,
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> list[Path]:
+    root = (repo_root or _repo_root()).resolve()
+    ws = (workspace or root).resolve()
     rel = brief_rel.replace("\\", "/").lstrip("./")
+    if is_external_brief_key(rel):
+        paths = paths_for_brief_key(rel, ws)
+        brief_abs = Path(paths["brief"]).resolve()
+        return [brief_abs, brief_abs.parent / "brief.draft.json"]
     parent = (root / rel).parent
-    for candidate in (root / rel, parent / "brief.draft.json"):
+    return [root / rel, parent / "brief.draft.json"]
+
+
+def load_project_draft_from_disk(
+    brief_rel: str,
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> dict[str, Any] | None:
+    """Load working draft from brief.json or brief.draft.json beside it."""
+    try:
+        candidates = _brief_candidates_for_rel(
+            brief_rel,
+            repo_root=repo_root,
+            workspace=workspace,
+        )
+    except ValueError:
+        return None
+    for candidate in candidates:
         if not candidate.is_file():
             continue
         try:
@@ -150,22 +190,47 @@ def load_project_draft_from_disk(brief_rel: str, *, repo_root: Path | None = Non
     return None
 
 
+def resolve_bound_brief_output_path(
+    session: dict[str, Any],
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> Path | None:
+    """Absolute brief.json path for bound project (external or repo-relative)."""
+    bound = str(session.get("bound_brief_rel") or "").strip()
+    if not bound:
+        return None
+    root = (repo_root or _repo_root()).resolve()
+    ws = (workspace or root).resolve()
+    rel = bound.replace("\\", "/").lstrip("./")
+    if is_external_brief_key(rel):
+        try:
+            paths = paths_for_brief_key(rel, ws)
+        except ValueError:
+            return None
+        return Path(paths["brief"]).resolve()
+    return (root / rel).resolve()
+
+
 def attach_bound_project(
     session: dict[str, Any],
     brief_rel: str | None,
     *,
     repo_root: Path | None = None,
+    workspace: Path | None = None,
     hydrate_draft: bool = True,
 ) -> None:
     """Bind GUI project; copy disk brief (brief.json or brief.draft.json) into session draft."""
     if not brief_rel or not str(brief_rel).strip():
         return
+    root = (repo_root or _repo_root()).resolve()
+    ws = (workspace or root).resolve()
     rel = _norm_brief_rel(brief_rel)
     session["bound_brief_rel"] = rel
-    session["project_slug"] = _slug_from_brief_rel(rel)
+    session["project_slug"] = _slug_from_brief_rel(rel, workspace=ws)
     if not hydrate_draft:
         return
-    disk = load_project_draft_from_disk(rel, repo_root=repo_root)
+    disk = load_project_draft_from_disk(rel, repo_root=root, workspace=ws)
     if disk:
         session["draft_brief"] = disk
     else:
@@ -353,10 +418,15 @@ def assert_makeability_exportable(session: dict[str, Any]) -> dict[str, Any]:
 def makeability_sidecar_path(
     brief_rel_or_path: str | Path,
     repo_root: Path | None = None,
+    workspace: Path | None = None,
 ) -> Path:
     """Resolve makeability.json beside bound project or exported brief."""
-    root = repo_root or _repo_root()
+    root = (repo_root or _repo_root()).resolve()
+    ws = (workspace or root).resolve()
     raw = str(brief_rel_or_path).replace("\\", "/").strip().lstrip("./")
+    if is_external_brief_key(raw):
+        paths = paths_for_brief_key(raw, ws)
+        return Path(paths["brief"]).parent / "makeability.json"
     m = re.match(r"^projects/([^/]+)/", raw, re.I)
     if m:
         return (root / "projects" / m.group(1) / "makeability.json").resolve()

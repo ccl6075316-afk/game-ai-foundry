@@ -660,6 +660,114 @@ class HostChatTests(unittest.TestCase):
             self.assertEqual(assets[0]["name"], "from_disk")
 
 
+class ExternalBoundProjectTests(unittest.TestCase):
+    def test_attach_bound_external_without_brief(self) -> None:
+        from external_projects import add_external_project
+        from host_chat import attach_bound_project
+
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "fishing-ext"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+
+            session = new_session("ext-bind")
+            attach_bound_project(session, key, repo_root=workspace)
+            self.assertEqual(session["bound_brief_rel"], key)
+            self.assertEqual(session["project_slug"], "fishing-ext")
+            self.assertIsNone(session.get("draft_brief"))
+
+    def test_attach_bound_external_hydrates_from_disk(self) -> None:
+        from external_projects import add_external_project
+        from host_chat import attach_bound_project
+
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "my-game"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+            disk_draft = {
+                "project": {"title": "外置钓鱼", "genre": "simulation"},
+                "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+            }
+            (ext_root / "brief.draft.json").write_text(
+                json.dumps(disk_draft, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+
+            session = new_session("ext-hydrate")
+            attach_bound_project(session, key, repo_root=workspace)
+            self.assertEqual(
+                (session.get("draft_brief") or {}).get("project", {}).get("title"),
+                "外置钓鱼",
+            )
+
+    def test_resolve_bound_brief_output_path_external(self) -> None:
+        from external_projects import add_external_project
+        from host_chat import attach_bound_project, resolve_bound_brief_output_path
+
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "export-target"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+
+            session = new_session("ext-resolve")
+            attach_bound_project(session, key, repo_root=workspace, hydrate_draft=False)
+            out = resolve_bound_brief_output_path(session, repo_root=workspace)
+            self.assertEqual(out, (ext_root / "brief.json").resolve())
+
+    def test_export_external_bound_sidecar_at_root(self) -> None:
+        import copy
+
+        from external_projects import add_external_project
+        from host_chat import (
+            attach_bound_project,
+            draft_fingerprint,
+            export_brief,
+            makeability_sidecar_path,
+            resolve_bound_brief_output_path,
+            write_makeability_sidecar,
+        )
+        from test_fixtures import SMOKE_BRIEF
+        from test_makeability_gate import _detail_only_review
+
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "sidecar-game"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+
+            session = new_session("ext-export")
+            draft = copy.deepcopy(SMOKE_BRIEF)
+            session["draft_brief"] = draft
+            session["ready_to_export"] = True
+            session["makeability_review"] = _detail_only_review(draft)
+            attach_bound_project(session, key, repo_root=workspace, hydrate_draft=False)
+
+            brief = export_brief(session)
+            output = resolve_bound_brief_output_path(session, repo_root=workspace)
+            assert output is not None
+            output.write_text(json.dumps(brief, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            sidecar_path = makeability_sidecar_path(key, repo_root=workspace)
+            write_makeability_sidecar(sidecar_path, session["makeability_review"])
+
+            self.assertTrue(output.is_file())
+            self.assertEqual(output.parent, ext_root.resolve())
+            self.assertTrue(sidecar_path.is_file())
+            self.assertEqual(sidecar_path, (ext_root / "makeability.json").resolve())
+            sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+            self.assertEqual(sidecar.get("draft_fingerprint"), draft_fingerprint(draft))
+
+
 from pi_runtime import resolve_brief_executor
 
 

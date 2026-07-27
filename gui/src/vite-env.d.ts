@@ -24,6 +24,47 @@ export interface BriefItem {
   status?: "ready" | "draft";
 }
 
+export interface ExternalProjectEntry {
+  id: string;
+  display_name: string;
+  root_abs: string;
+  godot_rel: string;
+  brief_rel: string;
+  added_at?: string;
+}
+
+export interface ExternalProjectDetectLayout {
+  godot_rel?: string | null;
+  has_brief?: boolean;
+  godot_abs?: string | null;
+  brief_abs?: string;
+  errors?: string[];
+}
+
+export interface ExternalProjectOpenResult {
+  ok: boolean;
+  canceled?: boolean;
+  error?: string;
+  exitCode?: number;
+  entry?: ExternalProjectEntry;
+  briefRel?: string;
+  detect?: ExternalProjectDetectLayout | null;
+}
+
+export interface ExternalProjectsListResult {
+  ok: boolean;
+  exitCode?: number;
+  projects: ExternalProjectEntry[];
+  count: number;
+}
+
+export interface ExternalProjectRemoveResult {
+  ok: boolean;
+  exitCode?: number;
+  error?: string;
+  stderr?: string;
+}
+
 export interface ManifestMeta {
   brief?: string;
   output_dir?: string;
@@ -324,6 +365,9 @@ declare global {
         guideRel?: string;
         existed?: boolean;
       }>;
+      externalProjectOpen: () => Promise<ExternalProjectOpenResult>;
+      externalProjectsList: () => Promise<ExternalProjectsListResult>;
+      externalProjectRemove: (extId: string) => Promise<ExternalProjectRemoveResult>;
       pipelinePlan: (opts: {
         briefRel: string;
         manifestRel: string;

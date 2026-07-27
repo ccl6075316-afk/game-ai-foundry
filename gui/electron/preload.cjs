@@ -19,6 +19,9 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("patch-brief-project", relPath, projectPatch),
   listProjectDocs: (briefRel) => ipcRenderer.invoke("list-project-docs", briefRel),
   ensureProject: (slug) => ipcRenderer.invoke("ensure-project", slug),
+  externalProjectOpen: () => ipcRenderer.invoke("external-project-open"),
+  externalProjectsList: () => ipcRenderer.invoke("external-projects-list"),
+  externalProjectRemove: (extId) => ipcRenderer.invoke("external-project-remove", extId),
   pipelinePlan: (opts) => ipcRenderer.invoke("pipeline-plan", opts),
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
   pipelineRun: (manifestRel, jobs, runPrompts) =>

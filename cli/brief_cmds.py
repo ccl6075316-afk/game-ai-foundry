@@ -23,6 +23,7 @@ from host_chat import (
     HostChatError,
     attach_bound_project as host_attach_bound_project,
     export_brief as host_export_brief,
+    resolve_bound_brief_output_path as host_resolve_bound_brief_output_path,
     list_sessions as host_list_sessions,
     load_session as host_load_session,
     makeability_sidecar_path as host_makeability_sidecar_path,
@@ -387,9 +388,9 @@ def register_brief_commands(cli_group: click.Group) -> None:
         "-o",
         "--output",
         "output_path",
-        required=True,
+        default=None,
         type=click.Path(path_type=Path),
-        help="Write validated brief JSON.",
+        help="Write validated brief JSON (defaults to bound external brief path).",
     )
     @click.option("--json", "as_json", is_flag=True)
     @click.option(
@@ -402,7 +403,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         ctx: click.Context,
         session_id: str | None,
         session_path: Path | None,
-        output_path: Path,
+        output_path: Path | None,
         as_json: bool,
         skip_zh_doc: bool,
     ) -> None:
@@ -413,6 +414,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
         try:
             path = _chat_session_path(session_id, session_path)
             session = host_load_session(path)
+            if output_path is None:
+                output_path = host_resolve_bound_brief_output_path(session)
+                if output_path is None:
+                    raise click.UsageError(
+                        "Pass -o/--output, or bind session to an external project."
+                    )
             brief = host_export_brief(session)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(

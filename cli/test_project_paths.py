@@ -7,8 +7,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from external_projects import add_external_project
 from project_paths import (
     default_paths_for_brief,
+    paths_for_brief_key,
     project_root_for_brief,
     resolve_isolated_brief_for_legacy,
     slug_for_brief,
@@ -76,6 +78,37 @@ class ProjectPathsTests(unittest.TestCase):
                 root=root,
             )
             self.assertEqual(hit, dest.resolve())
+
+    def test_external_brief_key_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "my-external"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+            paths = paths_for_brief_key(key, workspace)
+            self.assertTrue(paths["isolated"])
+            self.assertEqual(paths["project_root"], ext_root.resolve())
+            self.assertEqual(paths["output_dir"], (ext_root / "output").resolve())
+            self.assertEqual(paths["godot_project"], ext_root.resolve())
+
+    def test_external_brief_abs_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "outside"
+            ext_root.mkdir()
+            (ext_root / "game" / "project.godot").parent.mkdir(parents=True)
+            (ext_root / "game" / "project.godot").write_text("", encoding="utf-8")
+            brief = ext_root / "brief.json"
+            brief.write_text("{}", encoding="utf-8")
+
+            add_external_project(workspace, ext_root)
+            paths = default_paths_for_brief(brief, root=workspace)
+            self.assertTrue(paths["isolated"])
+            self.assertEqual(paths["godot_project"], (ext_root / "game").resolve())
+            self.assertEqual(paths["output_dir"], (ext_root / "output").resolve())
 
 
 if __name__ == "__main__":

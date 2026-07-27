@@ -296,6 +296,92 @@ def register_project_commands(cli_group: click.Group) -> None:
         if proc.returncode != 0:
             sys.exit(proc.returncode)
 
+    @project_group.group("external")
+    def external_group() -> None:
+        """Register external project roots (outside projects/<slug>/)."""
+
+    @external_group.command("list")
+    @click.option("--json", "as_json", is_flag=True)
+    def external_list_cmd(as_json: bool) -> None:
+        """List registered external projects."""
+        from project_paths import repo_root
+        from external_projects import list_external_projects
+
+        items = list_external_projects(repo_root())
+        if as_json:
+            click.echo(json.dumps({"projects": items, "count": len(items)}, ensure_ascii=False, indent=2))
+            return
+        if not items:
+            click.echo("(no external projects)")
+            return
+        for item in items:
+            click.echo(
+                f"{item.get('id')}\t{item.get('display_name')}\t{item.get('root_abs')}\t"
+                f"godot_rel={item.get('godot_rel')}"
+            )
+
+    @external_group.command("add")
+    @click.option("--root", "root_path", required=True, type=click.Path(exists=True, file_okay=False, path_type=Path))
+    @click.option("--json", "as_json", is_flag=True)
+    def external_add_cmd(root_path: Path, as_json: bool) -> None:
+        """Detect layout and register an external project root."""
+        from project_paths import repo_root
+        from external_projects import add_external_project, detect_external_layout
+
+        workspace = repo_root()
+        try:
+            entry = add_external_project(workspace, root_path)
+            layout = detect_external_layout(root_path)
+        except (OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(
+                json.dumps(
+                    {"ok": True, "entry": entry, "layout": layout},
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return
+        click.echo(f"OK {entry.get('id')} → {entry.get('root_abs')}")
+
+    @external_group.command("remove")
+    @click.option("--id", "ext_id", required=True, help="External project id (ext_…)")
+    def external_remove_cmd(ext_id: str) -> None:
+        """Remove an external project from the registry (does not delete disk files)."""
+        from project_paths import repo_root
+        from external_projects import remove_external_project
+
+        removed = remove_external_project(repo_root(), ext_id)
+        if not removed:
+            click.echo(f"Error: not found: {ext_id}", err=True)
+            sys.exit(1)
+        click.echo(f"OK removed {ext_id}")
+
+    @external_group.command("detect")
+    @click.option("--root", "root_path", required=True, type=click.Path(exists=True, file_okay=False, path_type=Path))
+    @click.option("--json", "as_json", is_flag=True)
+    def external_detect_cmd(root_path: Path, as_json: bool) -> None:
+        """Detect Godot/brief layout under an external root."""
+        from external_projects import detect_external_layout
+
+        layout = detect_external_layout(root_path)
+        payload = {
+            "godot_rel": layout.get("godot_rel"),
+            "has_brief": layout.get("has_brief"),
+            "godot_abs": str(layout["godot_abs"]) if layout.get("godot_abs") else None,
+            "brief_abs": str(layout["brief_abs"]),
+            "errors": layout.get("errors") or [],
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+            return
+        click.echo(f"godot_rel: {payload['godot_rel']}")
+        click.echo(f"has_brief: {payload['has_brief']}")
+        if payload["errors"]:
+            click.echo(f"errors: {', '.join(payload['errors'])}")
+
     @project_group.group("handoff")
     def handoff_group() -> None:
         """Dispatch packages from 项目经理 → 程序员 (file bus)."""

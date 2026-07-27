@@ -20,6 +20,14 @@ import json
 from pathlib import Path
 from typing import Any
 
+from external_projects import (
+    external_entry_for_brief_path,
+    get_external_by_id,
+    is_external_brief_key,
+    parse_external_brief_key,
+    paths_for_external_entry,
+)
+
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -55,10 +63,33 @@ def slug_for_brief(brief_path: Path, *, root: Path | None = None) -> str:
     return stem or "game"
 
 
-def default_paths_for_brief(brief_path: Path, *, root: Path | None = None) -> dict[str, Any]:
+def paths_for_brief_key(brief_rel: str, workspace: Path | None = None) -> dict[str, Any]:
+    """Resolve brief relative key (including external:<id>/brief.json) to path dict."""
+    repo = (workspace or _REPO_ROOT).resolve()
+    key = str(brief_rel).replace("\\", "/")
+    if is_external_brief_key(key):
+        ext_id = parse_external_brief_key(key)
+        if not ext_id:
+            raise ValueError(f"invalid external brief key: {brief_rel}")
+        entry = get_external_by_id(repo, ext_id)
+        if entry is None:
+            raise ValueError(f"external project not found: {ext_id}")
+        return paths_for_external_entry(entry)
+    brief_path = (repo / key).resolve()
+    return default_paths_for_brief(brief_path, root=repo)
+
+
+def default_paths_for_brief(brief_path: Path | str, *, root: Path | None = None) -> dict[str, Any]:
     """Absolute paths for pipeline plan defaults (+ isolated: bool)."""
     repo = (root or _REPO_ROOT).resolve()
+    if isinstance(brief_path, str) and is_external_brief_key(brief_path):
+        return paths_for_brief_key(brief_path, repo)
+
     brief = Path(brief_path).resolve()
+    external = external_entry_for_brief_path(brief, repo)
+    if external is not None:
+        return paths_for_external_entry(external)
+
     proj = project_root_for_brief(brief, root=repo)
     if proj is not None:
         return {

@@ -26,6 +26,13 @@ import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
 import { createCodexAppServerSessionManager } from "./codex_app_server_session.mjs";
+import {
+  absForResolved,
+  cliArgForResolved,
+  isExternalVirtualRel,
+  normalizeRepoRel,
+  resolveExternalAbs,
+} from "./externalFs.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = !isPackagedApp();
@@ -328,18 +335,73 @@ function listBriefs() {
   return out.sort((a, b) => b.mtime - a.mtime);
 }
 
+function loadExternalRegistry() {
+  const regPath = path.join(repoRoot(), "external-projects.json");
+  if (!existsSync(regPath)) {
+    return { version: 1, projects: [] };
+  }
+  try {
+    const data = JSON.parse(readFileSync(regPath, "utf-8"));
+    const projects = Array.isArray(data?.projects) ? data.projects : [];
+    return { version: Number(data?.version) || 1, projects };
+  } catch {
+    return { version: 1, projects: [] };
+  }
+}
+
+function getExternalEntryById(extId) {
+  const id = String(extId || "").trim();
+  if (!id) return null;
+  for (const entry of loadExternalRegistry().projects) {
+    if (entry && typeof entry === "object" && entry.id === id) {
+      return entry;
+    }
+  }
+  return null;
+}
+
+/** Resolve virtual external:<id>/… keys to absolute paths under registered root_abs. */
+function resolveExternalRel(relPath) {
+  return resolveExternalAbs(relPath, getExternalEntryById);
+}
+
+/** CLI cwd is cli/ — external → absolute; repo → ../rel. */
+function cliArgForRel(rel) {
+  return cliArgForResolved(rel, {
+    resolvedExternal: resolveExternalRel(rel),
+    repoRoot: repoRoot(),
+  });
+}
+
+/** Absolute filesystem path for mkdir/read/write. */
+function absForRel(rel) {
+  return absForResolved(rel, {
+    resolvedExternal: resolveExternalRel(rel),
+    repoRoot: repoRoot(),
+  });
+}
+
+function resolveReadableRel(relPath) {
+  const external = resolveExternalRel(relPath);
+  if (external) return external;
+  const repo = resolveRepoRel(relPath);
+  if (repo) return { ...repo, entry: null, rootAbs: null };
+  return null;
+}
+
 function resolveRepoRel(relPath) {
   if (!relPath || typeof relPath !== "string") return null;
   const root = path.resolve(repoRoot());
   const normalized = relPath.replace(/\\/g, "/").replace(/^\/+/, "");
   if (!normalized || normalized.includes("..")) return null;
+  if (normalized.toLowerCase().startsWith("external:")) return null;
   const full = path.resolve(root, normalized);
   if (full !== root && !full.startsWith(root + path.sep)) return null;
   return { full, rel: normalized };
 }
 
 function readRepoText(relPath) {
-  const resolved = resolveRepoRel(relPath);
+  const resolved = resolveReadableRel(relPath);
   if (!resolved) return { ok: false, error: "invalid path" };
   if (!existsSync(resolved.full) || !statSync(resolved.full).isFile()) {
     return { ok: false, error: "file not found", path: resolved.rel };
@@ -401,7 +463,7 @@ function patchBriefProject(relPath, projectPatch) {
 function listProjectDocs(briefRel) {
   const out = [];
   const pushIfExists = (rel, label, kind) => {
-    const resolved = resolveRepoRel(rel);
+    const resolved = resolveReadableRel(rel);
     if (!resolved || !existsSync(resolved.full) || !statSync(resolved.full).isFile()) return;
     if (out.some((d) => d.path === resolved.rel)) return;
     out.push({ path: resolved.rel, label, kind });
@@ -409,6 +471,45 @@ function listProjectDocs(briefRel) {
 
   if (briefRel) {
     const norm = String(briefRel).replace(/\\/g, "/");
+    const extMatch = norm.match(/^(external:[^/]+)\//i);
+    if (extMatch) {
+      const root = extMatch[1];
+      const extId = root.slice("external:".length);
+      const entry = getExternalEntryById(extId);
+      const slug =
+        String(entry?.display_name || "").trim() ||
+        extId.replace(/^ext_/, "") ||
+        "external";
+      pushIfExists(norm, `Brief · ${slug}`, "json");
+      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief", "markdown");
+      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（未导出）", "brief");
+      pushIfExists(`${root}/工程说明.md`, "工程说明", "markdown");
+      pushIfExists(`${root}/策划笔记.md`, "策划笔记", "markdown");
+      pushIfExists(`${root}/production.json`, "Production", "json");
+      pushIfExists(`${root}/progress.json`, "Progress", "json");
+      pushIfExists(`${root}/pipeline/manifest.json`, "Pipeline manifest", "json");
+      const external = resolveExternalRel(root);
+      if (external) {
+        const rootAbs = external.full;
+        if (existsSync(rootAbs) && statSync(rootAbs).isDirectory()) {
+          for (const f of readdirSync(rootAbs)) {
+            if (!/\.(md|txt)$/i.test(f)) continue;
+            if (/^brief\.zh\.md$/i.test(f)) continue;
+            if (/^工程说明\.md$/i.test(f)) continue;
+            if (/^策划笔记\.md$/i.test(f)) continue;
+            pushIfExists(`${root}/${f}`, f, "markdown");
+          }
+          const docsSub = path.join(rootAbs, "docs");
+          if (existsSync(docsSub) && statSync(docsSub).isDirectory()) {
+            for (const f of readdirSync(docsSub)) {
+              if (!/\.(md|txt)$/i.test(f)) continue;
+              pushIfExists(`${root}/docs/${f}`, `docs/${f}`, "markdown");
+            }
+          }
+        }
+      }
+      return out;
+    }
     const projMatch = norm.match(/^(projects\/[^/]+)\//i);
     const slug = projMatch
       ? projMatch[1].split("/")[1]
@@ -527,7 +628,7 @@ function listManifests() {
       const data = JSON.parse(readFileSync(abs, "utf-8"));
       if (data?.migrated_to && !data?.tasks) {
         const target = String(data.migrated_to).replace(/\\/g, "/");
-        const tAbs = path.join(root, target);
+        const tAbs = absForRel(target);
         if (existsSync(tAbs)) {
           pushManifest(tAbs, target);
         }
@@ -568,6 +669,16 @@ function listManifests() {
     for (const f of readdirSync(flat)) {
       if (!f.endsWith(".json")) continue;
       pushManifest(path.join(flat, f), path.join("pipeline", f));
+    }
+  }
+
+  for (const entry of loadExternalRegistry().projects) {
+    if (!entry?.id || !entry?.root_abs) continue;
+    const pipe = path.join(path.resolve(String(entry.root_abs)), "pipeline");
+    if (!existsSync(pipe) || !statSync(pipe).isDirectory()) continue;
+    for (const f of readdirSync(pipe)) {
+      if (!f.endsWith(".json")) continue;
+      pushManifest(path.join(pipe, f), `external:${entry.id}/pipeline/${f}`);
     }
   }
 
@@ -726,25 +837,21 @@ function resolveBriefRel(briefRel) {
 }
 
 function briefCliArg(briefRel) {
-  return path.join("..", resolveBriefRel(briefRel));
-}
-
-function normalizeRepoRel(relPath) {
-  return String(relPath || "")
-    .replace(/\\/g, "/")
-    .replace(/^\.\.\//, "")
-    .replace(/^\.\//, "");
+  if (isExternalVirtualRel(briefRel)) {
+    return cliArgForRel(briefRel);
+  }
+  return cliArgForRel(resolveBriefRel(briefRel));
 }
 
 function manifestCliArg(manifestRel) {
-  return path.join("..", normalizeRepoRel(manifestRel));
+  return cliArgForRel(manifestRel);
 }
 
 /** Resolve assets-manifest.json from direct rel or pipeline manifest output_dir. */
 function resolveAssetsManifestRel(assetsManifestRel, pipelineManifestRel) {
   const direct = normalizeRepoRel(assetsManifestRel);
   if (direct) {
-    const abs = path.join(repoRoot(), direct);
+    const abs = absForRel(direct);
     if (existsSync(abs)) return direct;
   }
   const pipeRel = normalizeRepoRel(pipelineManifestRel);
@@ -753,7 +860,7 @@ function resolveAssetsManifestRel(assetsManifestRel, pipelineManifestRel) {
     const outputDir = String(meta?.output_dir || "").replace(/\\/g, "/");
     if (outputDir) {
       const candidate = path.join(outputDir, "assets-manifest.json").replace(/\\/g, "/");
-      if (existsSync(path.join(repoRoot(), candidate))) return candidate;
+      if (existsSync(absForRel(candidate))) return candidate;
     }
   }
   return direct || null;
@@ -771,7 +878,9 @@ function findManifestForBrief(briefRel) {
   if (!key) return null;
   const projectRoot = (() => {
     const m = key.match(/^(projects\/[^/]+)\//i);
-    return m ? m[1].toLowerCase() : null;
+    if (m) return m[1].toLowerCase();
+    const em = key.match(/^(external:[^/]+)\//i);
+    return em ? em[1].toLowerCase() : null;
   })();
   let exact = null;
   let sameRootBest = null;
@@ -799,12 +908,12 @@ function findManifestForBrief(briefRel) {
 }
 
 function loadManifest(relPath) {
-  const full = path.join(repoRoot(), relPath);
+  const full = absForRel(relPath);
   const data = JSON.parse(readFileSync(full, "utf-8"));
   // Follow migrate pointer
   if (data?.migrated_to && !data?.tasks) {
     const next = String(data.migrated_to).replace(/\\/g, "/");
-    return JSON.parse(readFileSync(path.join(repoRoot(), next), "utf-8"));
+    return JSON.parse(readFileSync(absForRel(next), "utf-8"));
   }
   return data;
 }
@@ -1377,6 +1486,66 @@ app.whenReady().then(() => {
   ipcMain.handle("list-project-docs", (_e, briefRel) => listProjectDocs(briefRel));
   ipcMain.handle("ensure-project", (_e, slug) => ensureProject(slug));
 
+  ipcMain.handle("external-project-open", async () => {
+    const { dialog } = await import("electron");
+    const result = await dialog.showOpenDialog(mainWindow, {
+      title: "打开外置工程",
+      properties: ["openDirectory"],
+    });
+    if (result.canceled || !result.filePaths[0]) {
+      return { ok: false, canceled: true };
+    }
+    const rootPath = result.filePaths[0];
+    const cliResult = await runCli([
+      "project",
+      "external",
+      "add",
+      "--root",
+      rootPath,
+      "--json",
+    ]);
+    const data = parseJsonFromOutput(cliResult.stdout);
+    if (cliResult.exitCode !== 0 || !data?.entry?.id) {
+      return {
+        ok: false,
+        error: cliResult.stderr.trim() || "external add failed",
+        exitCode: cliResult.exitCode,
+      };
+    }
+    const entry = data.entry;
+    const briefRel = `external:${entry.id}/brief.json`;
+    return {
+      ok: true,
+      entry,
+      briefRel,
+      detect: data.layout || null,
+    };
+  });
+
+  ipcMain.handle("external-projects-list", async () => {
+    const result = await runCli(["project", "external", "list", "--json"]);
+    const data = parseJsonFromOutput(result.stdout);
+    return {
+      ok: result.exitCode === 0,
+      exitCode: result.exitCode,
+      projects: Array.isArray(data?.projects) ? data.projects : [],
+      count: typeof data?.count === "number" ? data.count : 0,
+    };
+  });
+
+  ipcMain.handle("external-project-remove", async (_e, extId) => {
+    const id = String(extId || "").trim();
+    if (!id) {
+      return { ok: false, error: "missing id" };
+    }
+    const result = await runCli(["project", "external", "remove", "--id", id]);
+    return {
+      ok: result.exitCode === 0,
+      exitCode: result.exitCode,
+      stderr: result.stderr,
+    };
+  });
+
   ipcMain.handle("pipeline-plan", async (_e, opts) => {
     const {
       briefRel,
@@ -1385,26 +1554,28 @@ app.whenReady().then(() => {
       godotProjectRel,
       plansDirRel,
     } = opts;
-    const briefResolved = resolveBriefRel(briefRel);
+    const briefResolved = isExternalVirtualRel(briefRel)
+      ? normalizeRepoRel(briefRel)
+      : resolveBriefRel(briefRel);
     const args = [
       "pipeline",
       "plan",
       "--brief",
-      path.join("..", briefResolved),
+      cliArgForRel(briefResolved),
       "-o",
-      path.join("..", manifestRel),
+      cliArgForRel(manifestRel),
       "--output-dir",
-      path.join("..", outputDirRel),
+      cliArgForRel(outputDirRel),
       "--godot-project",
-      path.join("..", godotProjectRel),
+      cliArgForRel(godotProjectRel),
     ];
     if (plansDirRel) {
-      args.push("--plans-dir", path.join("..", plansDirRel));
+      args.push("--plans-dir", cliArgForRel(plansDirRel));
     }
     // Ensure parent dirs exist for isolated projects
     for (const rel of [manifestRel, outputDirRel, godotProjectRel, plansDirRel]) {
       if (!rel) continue;
-      const abs = path.join(repoRoot(), rel);
+      const abs = absForRel(rel);
       const dir = path.extname(abs) ? path.dirname(abs) : abs;
       mkdirSync(dir, { recursive: true });
     }
@@ -1417,7 +1588,7 @@ app.whenReady().then(() => {
       "pipeline",
       "status",
       "--manifest",
-      path.join("..", manifestRel),
+      cliArgForRel(manifestRel),
       "--json",
     ]);
     const status = parseJsonFromOutput(result.stdout);
@@ -1437,7 +1608,7 @@ app.whenReady().then(() => {
       "pipeline",
       "run",
       "--manifest",
-      path.join("..", manifestRel),
+      cliArgForRel(manifestRel),
       "--jobs",
       String(jobs || 4),
     ];
@@ -1455,7 +1626,7 @@ app.whenReady().then(() => {
       "pipeline",
       "diagnose",
       "--manifest",
-      path.join("..", manifestRel),
+      cliArgForRel(manifestRel),
     ]);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
@@ -1465,7 +1636,7 @@ app.whenReady().then(() => {
       "pipeline",
       "heal",
       "--manifest",
-      path.join("..", manifestRel),
+      cliArgForRel(manifestRel),
       apply ? "--apply" : "--dry-run",
     ];
     const result = await runCli(args);
@@ -1664,8 +1835,16 @@ app.whenReady().then(() => {
   );
 
   ipcMain.handle("resolve-brief-rel", (_e, briefRel) => {
+    const external = resolveExternalRel(briefRel);
+    if (external) {
+      return {
+        input: String(briefRel || "").replace(/\\/g, "/"),
+        path: external.rel,
+        exists: existsSync(external.full),
+      };
+    }
     const resolved = resolveBriefRel(briefRel);
-    const abs = resolved ? path.join(repoRoot(), resolved) : "";
+    const abs = resolved ? absForRel(resolved) : "";
     return {
       input: String(briefRel || "").replace(/\\/g, "/"),
       path: resolved,
@@ -1724,11 +1903,12 @@ app.whenReady().then(() => {
 
   ipcMain.handle("visual-target-status", (_e, briefRel) => {
     const root = repoRoot();
-    const rel = resolveBriefRel(briefRel);
+    const external = resolveExternalRel(briefRel);
+    const rel = external ? external.rel : resolveBriefRel(briefRel);
     if (!rel) {
       return { ok: false, ready: false, visual_reference: "", candidates: [] };
     }
-    const briefAbs = path.join(root, rel);
+    const briefAbs = absForRel(rel);
     if (!existsSync(briefAbs)) {
       return {
         ok: false,
@@ -1829,7 +2009,7 @@ app.whenReady().then(() => {
       "godot",
       "open",
       "--project",
-      path.join("..", projectRel),
+      cliArgForRel(projectRel),
     ]);
     return result;
   });
@@ -1947,9 +2127,8 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel, _instanceId) => {
-    // CLI cwd is cli/ — write into repo via ../projects/... (not cli/resources/)
     const rel = String(outputRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
-    const abs = path.join(repoRoot(), rel);
+    const abs = absForRel(rel);
     mkdirSync(path.dirname(abs), { recursive: true });
     const args = [
       "brief",
@@ -1958,7 +2137,7 @@ app.whenReady().then(() => {
       "--session-id",
       String(sessionId || "").trim(),
       "-o",
-      path.join("..", rel),
+      cliArgForRel(rel),
       "--json",
     ];
     const result = await runCli(args);
@@ -1968,7 +2147,16 @@ app.whenReady().then(() => {
     if (data.zh_doc_path) {
       const zhAbs = String(data.zh_doc_path).replace(/\\/g, "/");
       const root = repoRoot().replace(/\\/g, "/");
-      if (zhAbs.toLowerCase().startsWith(root.toLowerCase() + "/")) {
+      const external = resolveExternalRel(rel);
+      if (external) {
+        const extRoot = external.rootAbs.replace(/\\/g, "/");
+        if (zhAbs.toLowerCase().startsWith(extRoot.toLowerCase() + "/")) {
+          const sub = zhAbs.slice(extRoot.length + 1);
+          data.zh_doc_rel = `external:${external.entry.id}/${sub}`;
+        } else {
+          data.zh_doc_rel = `${path.posix.dirname(rel)}/brief.zh.md`;
+        }
+      } else if (zhAbs.toLowerCase().startsWith(root.toLowerCase() + "/")) {
         data.zh_doc_rel = zhAbs.slice(root.length + 1);
       } else {
         const parentRel = path.posix.dirname(rel);
@@ -2301,11 +2489,11 @@ app.whenReady().then(() => {
     }
     if (opts.brief) {
       const b = String(opts.brief).replace(/\\/g, "/").replace(/^\.\.\//, "");
-      args.push("--brief", path.join("..", b));
+      args.push("--brief", cliArgForRel(b));
     }
     if (opts.progress) {
       const p = String(opts.progress).replace(/\\/g, "/").replace(/^\.\.\//, "");
-      args.push("--progress", path.join("..", p));
+      args.push("--progress", cliArgForRel(p));
     }
     if (opts.instanceId) {
       args.push("--instance-id", String(opts.instanceId));
@@ -2400,7 +2588,7 @@ app.whenReady().then(() => {
       args.push("--task", String(t));
     }
     if (opts.output) {
-      args.push("--output", path.join("..", String(opts.output)));
+      args.push("--output", cliArgForRel(String(opts.output)));
     }
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
@@ -2411,13 +2599,13 @@ app.whenReady().then(() => {
       "production",
       "apply-delta",
       "--delta",
-      path.join("..", String(opts.delta || "")),
+      cliArgForRel(String(opts.delta || "")),
       "--production",
-      path.join("..", String(opts.production || "")),
+      cliArgForRel(String(opts.production || "")),
       "--json",
     ];
     if (opts.progress) {
-      args.push("--progress", path.join("..", String(opts.progress)));
+      args.push("--progress", cliArgForRel(String(opts.progress)));
     }
     if (opts.dryRun) {
       args.push("--dry-run");

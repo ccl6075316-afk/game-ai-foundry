@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { HostChatDraftBrief, HostChatDraftDocument, HostChatStatus } from "../chat/types";
 import {
+  isExternalBriefRel,
+  parseExternalBriefId,
   planTargetsFromBrief,
-  productionPathFromBrief,
-  progressPathFromBrief,
+  planTargetsFromExternalEntry,
   slugFromBriefRel,
+  type PlanTargets,
 } from "../chat/projectPaths";
 import { ProjectSwitcher } from "./ProjectSwitcher";
 import {
@@ -13,6 +15,7 @@ import {
   formatMakeabilityProductionSummary,
   tryFormatBriefJsonText,
 } from "./briefPreviewFormat";
+import type { ExternalProjectEntry } from "../vite-env";
 
 export type DocListItem = {
   id: string;
@@ -28,6 +31,9 @@ interface Props {
   draftDocument: HostChatDraftDocument | null;
   status: HostChatStatus | null;
   activeBriefRel: string | null;
+  /** Registry entries for external:<id>/brief.json path display. */
+  externalEntryById?: Record<string, ExternalProjectEntry>;
+  activeProjectLabel?: string | null;
   readyToExport: boolean;
   onExportBrief?: () => void;
   onAutofix?: () => void;
@@ -43,11 +49,25 @@ interface Props {
   focusDiskRel?: string | null;
 }
 
+function targetsForBrief(
+  briefRel: string,
+  externalEntryById?: Record<string, ExternalProjectEntry>,
+): PlanTargets {
+  if (isExternalBriefRel(briefRel)) {
+    const id = parseExternalBriefId(briefRel);
+    const entry = id && externalEntryById ? externalEntryById[id] : undefined;
+    if (entry) return planTargetsFromExternalEntry(entry);
+  }
+  return planTargetsFromBrief(briefRel);
+}
+
 export function DocsPreviewPanel({
   draftBrief,
   draftDocument,
   status,
   activeBriefRel,
+  externalEntryById,
+  activeProjectLabel,
   readyToExport,
   onExportBrief,
   onAutofix,
@@ -59,7 +79,8 @@ export function DocsPreviewPanel({
   diskRefreshKey = 0,
   focusDiskRel = null,
 }: Props) {
-  const projectSlug = activeBriefRel ? slugFromBriefRel(activeBriefRel) : null;
+  const projectSlug = activeProjectLabel
+    || (activeBriefRel ? slugFromBriefRel(activeBriefRel) : null);
   const [selectedId, setSelectedId] = useState("session-brief");
   const [diskBody, setDiskBody] = useState("");
   const [diskError, setDiskError] = useState("");
@@ -113,7 +134,7 @@ export function DocsPreviewPanel({
             let hint = full;
             if (activeBriefRel) {
               try {
-                const root = planTargetsFromBrief(activeBriefRel).projectRootRel;
+                const root = targetsForBrief(activeBriefRel, externalEntryById).projectRootRel;
                 if (root && full.startsWith(`${root}/`)) {
                   hint = full.slice(root.length + 1);
                 }
@@ -382,12 +403,11 @@ export function DocsPreviewPanel({
           {activeBriefRel}
           {(() => {
             try {
-              const t = planTargetsFromBrief(activeBriefRel);
+              const t = targetsForBrief(activeBriefRel, externalEntryById);
               return (
                 <>
                   <br />
-                  {productionPathFromBrief(activeBriefRel)} · {progressPathFromBrief(activeBriefRel)} ·{" "}
-                  {t.manifestRel}
+                  {t.productionRel} · {t.progressRel} · {t.manifestRel}
                 </>
               );
             } catch {

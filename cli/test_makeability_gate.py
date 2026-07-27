@@ -107,6 +107,19 @@ class MakeabilityGateTests(unittest.TestCase):
             path = makeability_sidecar_path("projects/fishing-2d/brief.json", repo_root=root)
             self.assertEqual(path, (root / "projects" / "fishing-2d" / "makeability.json").resolve())
 
+    def test_external_bound_sidecar_path(self) -> None:
+        from external_projects import add_external_project
+
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp)
+            ext_root = workspace / "ext-sidecar"
+            ext_root.mkdir()
+            (ext_root / "project.godot").write_text("", encoding="utf-8")
+            entry = add_external_project(workspace, ext_root)
+            key = f"external:{entry['id']}/brief.json"
+            path = makeability_sidecar_path(key, repo_root=workspace)
+            self.assertEqual(path, (ext_root / "makeability.json").resolve())
+
     def test_assert_makeability_exportable_returns_review(self) -> None:
         session = _ready_session(review=_detail_only_review(_EXPORT_DRAFT))
         review = assert_makeability_exportable(session)

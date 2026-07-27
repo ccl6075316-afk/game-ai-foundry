@@ -114,6 +114,12 @@ CLI 等价：`setup executor step <id> <step>` — 见 [`TOOLS.md`](TOOLS.md)。
 
 ---
 
+## 工程切换
+
+新建游戏默认 **`projects/<slug>/`**。已有独立 Godot 仓可在顶栏工程切换器点 **「打开外置工程…」**（目录选择器，不拷贝进 `projects/`）；产物与 brief 写在外置根，详见 [`AI-HANDOFF.md`](AI-HANDOFF.md) §外置工程根。
+
+---
+
 ## 推荐 Release 用户路径
 
 1. **设置** → 从示例创建 → 填 OpenRouter（+ 可选 Seedance）  
