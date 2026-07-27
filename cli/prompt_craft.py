@@ -42,13 +42,16 @@ def chat_text_completion(
     api_base: str,
     proxy: str | None = None,
     timeout: int = 90,
+    temperature: float | None = None,
 ) -> str:
     endpoint = api_base.rstrip("/") + "/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
-    payload = {"model": model, "messages": messages}
+    payload: dict[str, Any] = {"model": model, "messages": messages}
+    if temperature is not None:
+        payload["temperature"] = temperature
     try:
         response = http_post(
             proxy,

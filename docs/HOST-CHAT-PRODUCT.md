@@ -151,6 +151,8 @@ CLI 零件（scaffold、validate、test、pipeline）与 **GUI Agent 接单** �
 | 默认聊天 | `host-chat.md` + `brief-animation-graphs.md` | 商量；聊游戏时每轮输出完整 `artifact.draft_brief`（工作草稿） |
 | 落实 Brief | `commit-brief.md` + `brief-animation-graphs.md` | 在现有草稿上精修 + gaps；`ready_to_export` |
 | 制作审查 | `makeability-critic.md` | 独立子 LLM；`intent_gaps` / `detail_gaps`；export 门闩 |
+| 补全细节 | `brief-enrich.md` | 按钮触发；开放式加厚玩家可见流程/呈现/参数名 + 资产候选；可带 hint 多次 |
+| 议题头脑风暴 | `topic-brainstorm-persona.md` | 多角色并行方案 → 先拣再 `brainstorm-apply` 写回；可选 `agents.brainstorm_models` |
 | 项目经理 | `product-host.md` | 首跑引导点 GUI「生成流水线→运行资产生成」；config 仅用户明确要求时可改 |
 | 落实文档 | `commit-doc.md` | 普通 markdown |
 | 旧问卷式 | `brief-brainstorm.md` | CLI 兼容；GUI 勿默认 |
@@ -159,6 +161,7 @@ CLI 零件（scaffold、validate、test、pipeline）与 **GUI Agent 接单** �
 GUI：顶部「文档」侧栏实时预览会话内 `draft_brief` / `draft_document`，以及当前项目落盘文件（exported brief、production、progress、`docs/*.md` 等）；读 `host-chat status` / 仓库文本，不重新跑 LLM。  
 **自动修 brief**：侧栏「自动修到可导出」或 `/brief autofix [轮数]` → 宿主把当前校验 gaps + 已有 clip 名注入对话，循环让策划 LLM 改草稿，直到 `audit` 通过、卡住或达上限（默认 5 轮）。  
 **制作审查**：侧栏「制作审查」或 `brief chat makeability` → 独立 Critic 读 `draft_brief`；`intent_gaps` 须在策划对话关闭后才可 export；`detail_gaps` 导出后由 `production derive` 进 `production_doc.makeability`，**项目经理**可读 / 填暂定、**禁止改 brief 意图**。  
+**补全细节 / 议题头脑风暴**（不绑导出）：`brief chat enrich [--hint]`；`brief chat topic-brainstorm --topic …` → `brainstorm-apply --proposal-id …`。数值可进 production；**需要哪些参数**与呈现应在 brief 加厚中出现。不定死通用 screens schema。  
 CLI：`brief chat *`；`brief chat autofix --session-id … --max-rounds 5`；`brief chat makeability --session-id …`；会话 `plans/conversations/brief/<id>.json`。
 
 ### ② 项目经理（Agent）

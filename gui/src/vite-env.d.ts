@@ -554,6 +554,66 @@ declare global {
           session_id?: string;
         } & import("./chat/types").HostChatStatus>
       >;
+      hostChatEnrich: (
+        sessionId: string,
+        hint?: string | null,
+        instanceId?: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          summary?: string;
+          assistant_message?: string;
+          fingerprint?: string;
+          asset_count?: number;
+          ready_to_export?: boolean;
+          draft_brief?: import("./chat/types").HostChatDraftBrief | null;
+          session_id?: string;
+        } & import("./chat/types").HostChatStatus>
+      >;
+      hostChatTopicBrainstorm: (
+        sessionId: string,
+        topic: string,
+        constraints?: string | null,
+        multiModel?: boolean,
+        instanceId?: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          mode?: string;
+          proposal_count?: number;
+          assistant_message?: string;
+          brainstorm_result?: {
+            topic?: string;
+            mode?: string;
+            proposals?: Array<{
+              id?: string;
+              role?: string;
+              title?: string;
+              bullets?: string[];
+              model?: string | null;
+            }>;
+          };
+          session_id?: string;
+        }>
+      >;
+      hostChatBrainstormApply: (
+        sessionId: string,
+        proposalIds: string[],
+        fuse?: boolean,
+        instanceId?: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          summary?: string;
+          assistant_message?: string;
+          fingerprint?: string;
+          asset_count?: number;
+          applied_ids?: string[];
+          ready_to_export?: boolean;
+          draft_brief?: import("./chat/types").HostChatDraftBrief | null;
+          session_id?: string;
+        } & import("./chat/types").HostChatStatus>
+      >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
       agentTurn: (opts: {
         role: "product_host" | "programmer" | "it";

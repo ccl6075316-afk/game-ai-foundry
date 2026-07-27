@@ -66,6 +66,19 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds, instanceId),
   hostChatMakeability: (sessionId, instanceId) =>
     ipcRenderer.invoke("host-chat-makeability", sessionId, instanceId),
+  hostChatEnrich: (sessionId, hint, instanceId) =>
+    ipcRenderer.invoke("host-chat-enrich", sessionId, hint, instanceId),
+  hostChatTopicBrainstorm: (sessionId, topic, constraints, multiModel, instanceId) =>
+    ipcRenderer.invoke(
+      "host-chat-topic-brainstorm",
+      sessionId,
+      topic,
+      constraints,
+      multiModel,
+      instanceId,
+    ),
+  hostChatBrainstormApply: (sessionId, proposalIds, fuse, instanceId) =>
+    ipcRenderer.invoke("host-chat-brainstorm-apply", sessionId, proposalIds, fuse, instanceId),
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),

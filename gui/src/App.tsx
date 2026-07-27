@@ -1406,6 +1406,184 @@ export default function App() {
     }
   };
 
+  const handleBriefEnrich = async () => {
+    if (!window.gameFactory?.hostChatEnrich) {
+      appendAssistant("当前 GUI 不支持补全细节，请重启 Foundry。");
+      return;
+    }
+    const hint =
+      typeof window.prompt === "function"
+        ? window.prompt("补全要求（可留空=整稿加厚）", "")
+        : "";
+    if (hint === null) return;
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append(
+      "log",
+      hint.trim()
+        ? `补全细节：按要求「${hint.trim()}」加厚 draft…`
+        : "补全细节：开放式加厚 draft（玩家可见流程/呈现/参数名）…",
+      undefined,
+      sessionTarget,
+    );
+    try {
+      const res = await window.gameFactory.hostChatEnrich(
+        sessionTarget.sessionId,
+        hint.trim() || null,
+        sessionTarget.instanceId,
+      );
+      if (res.exitCode !== 0 && !res.data?.ok) {
+        throw new Error(res.stderr || res.stdout || "enrich failed");
+      }
+      const data = res.data;
+      if (!data) {
+        throw new Error(res.stderr || res.stdout || "enrich failed");
+      }
+      appendAssistant(
+        data.assistant_message || "Brief 细节已加厚。",
+        ["制作审查", "议题头脑风暴"],
+        undefined,
+        sessionTarget,
+      );
+      applyDraftFromPayload(
+        {
+          ...data,
+          draft_brief: data.draft_brief ?? briefDraft,
+          gaps: Array.isArray(data.gaps) ? data.gaps : briefDraftStatus?.gaps,
+        },
+        { replace: true },
+      );
+      if (data.draft_brief) setBriefDraft(data.draft_brief);
+      setBrainstormReady(Boolean(data.ready_to_export));
+      void refreshBrainstormStatus();
+    } catch (e) {
+      appendAssistant(
+        `补全失败：${e instanceof Error ? e.message : String(e)}`,
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleTopicBrainstorm = async () => {
+    if (!window.gameFactory?.hostChatTopicBrainstorm) {
+      appendAssistant("当前 GUI 不支持议题头脑风暴，请重启 Foundry。");
+      return;
+    }
+    const topic =
+      typeof window.prompt === "function"
+        ? window.prompt("要头脑风暴的议题（例如：拉线张力怎么呈现）", "")
+        : "";
+    if (topic === null || !String(topic).trim()) return;
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append("log", `议题头脑风暴：${String(topic).trim()}…`, undefined, sessionTarget);
+    try {
+      const res = await window.gameFactory.hostChatTopicBrainstorm(
+        sessionTarget.sessionId,
+        String(topic).trim(),
+        null,
+        false,
+        sessionTarget.instanceId,
+      );
+      if (res.exitCode !== 0 && !res.data?.ok) {
+        throw new Error(res.stderr || res.stdout || "brainstorm failed");
+      }
+      const data = res.data || {};
+      const proposals = data.brainstorm_result?.proposals || [];
+      const lines = proposals.map(
+        (p) =>
+          `- **${p.id}**（${p.role}）**${p.title}**\n  ${(p.bullets || []).map((b) => `· ${b}`).join("\n  ")}`,
+      );
+      const choices = proposals
+        .map((p) => (p.id && p.title ? `采用 ${p.id}：${p.title}` : ""))
+        .filter(Boolean);
+      if (proposals.length >= 2) {
+        choices.push("融合前两个方案");
+      }
+      appendAssistant(
+        (data.assistant_message || "头脑风暴完成。") +
+          (lines.length ? `\n\n${lines.join("\n")}` : ""),
+        choices.length ? choices : undefined,
+        undefined,
+        sessionTarget,
+      );
+    } catch (e) {
+      appendAssistant(
+        `头脑风暴失败：${e instanceof Error ? e.message : String(e)}`,
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleBrainstormApply = async (proposalIds: string[], fuse = false) => {
+    if (!window.gameFactory?.hostChatBrainstormApply) {
+      appendAssistant("当前 GUI 不支持采用头脑风暴方案，请重启 Foundry。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append(
+      "log",
+      fuse
+        ? `融合方案 ${proposalIds.join(",")} 并写回 draft…`
+        : `采用方案 ${proposalIds.join(",")} 并写回 draft…`,
+      undefined,
+      sessionTarget,
+    );
+    try {
+      const res = await window.gameFactory.hostChatBrainstormApply(
+        sessionTarget.sessionId,
+        proposalIds,
+        fuse,
+        sessionTarget.instanceId,
+      );
+      if (res.exitCode !== 0 && !res.data?.ok) {
+        throw new Error(res.stderr || res.stdout || "brainstorm-apply failed");
+      }
+      const data = res.data;
+      if (!data) {
+        throw new Error(res.stderr || res.stdout || "brainstorm-apply failed");
+      }
+      appendAssistant(
+        data.assistant_message || "方案已写回 draft。",
+        ["制作审查", "补全细节"],
+        undefined,
+        sessionTarget,
+      );
+      applyDraftFromPayload(
+        {
+          ...data,
+          draft_brief: data.draft_brief ?? briefDraft,
+          gaps: Array.isArray(data.gaps) ? data.gaps : briefDraftStatus?.gaps,
+        },
+        { replace: true },
+      );
+      if (data.draft_brief) setBriefDraft(data.draft_brief);
+      setBrainstormReady(Boolean(data.ready_to_export));
+      void refreshBrainstormStatus();
+    } catch (e) {
+      appendAssistant(
+        `采用方案失败：${e instanceof Error ? e.message : String(e)}`,
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
   const handleAgentTurn = async (
     message: string,
     opts?: { instanceId?: string },
@@ -3287,10 +3465,33 @@ export default function App() {
                 void handleBriefExport();
                 return;
               }
+              if (text === "制作审查") {
+                void handleBriefMakeability();
+                return;
+              }
+              if (text === "补全细节") {
+                void handleBriefEnrich();
+                return;
+              }
+              if (text === "议题头脑风暴") {
+                void handleTopicBrainstorm();
+                return;
+              }
+              if (text === "融合前两个方案") {
+                void handleBrainstormApply(["p1", "p2"], true);
+                return;
+              }
+              const adopt = text.match(/^采用\s+(p\d+)\s*[:：]/);
+              if (adopt) {
+                void handleBrainstormApply([adopt[1]], false);
+                return;
+              }
               void handleSend(text);
             }}
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
             onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
+            onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
+            onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         </section>
@@ -3349,6 +3550,8 @@ export default function App() {
             }}
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
             onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
+            onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
+            onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         )}

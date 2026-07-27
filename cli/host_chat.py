@@ -40,6 +40,7 @@ _COMMIT_BRIEF_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "co
 _MAKEABILITY_CRITIC_SKILL = (
     _REPO_ROOT / "resources" / "skills" / "orchestrator" / "makeability-critic.md"
 )
+_BRIEF_ENRICH_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "brief-enrich.md"
 MAKEABILITY_SCHEMA_VERSION = 1
 _ANIM_GRAPH_SKILL = (
     _REPO_ROOT / "resources" / "skills" / "orchestrator" / "brief-animation-graphs.md"
@@ -353,6 +354,233 @@ def draft_fingerprint(draft: dict[str, Any]) -> str:
     """Canonical JSON sha256 hex for makeability stale checks."""
     canonical = json.dumps(draft, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def validate_enriched_draft(candidate: Any) -> dict[str, Any]:
+    """Minimal validity for LLM enriched draft — no fixed screens/tuning schema."""
+    if not isinstance(candidate, dict):
+        raise HostChatError("Enriched draft must be a JSON object.")
+    project = candidate.get("project")
+    if not isinstance(project, dict):
+        raise HostChatError("Enriched draft must contain a project object.")
+    return candidate
+
+
+def merge_asset_proposals(draft: dict[str, Any], proposals: list[dict]) -> dict[str, Any]:
+    """Merge asset proposals into draft by name (case-insensitive); returns new copy."""
+    out = copy.deepcopy(draft)
+    if not proposals:
+        return out
+
+    assets_raw = out.get("assets")
+    assets: list[Any] = list(assets_raw) if isinstance(assets_raw, list) else []
+    name_to_idx: dict[str, int] = {}
+    for idx, item in enumerate(assets):
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "").strip()
+        if name and name.lower() not in name_to_idx:
+            name_to_idx[name.lower()] = idx
+
+    for proposal in proposals:
+        if not isinstance(proposal, dict):
+            continue
+        name = str(proposal.get("name") or "").strip()
+        if not name:
+            continue
+        key = name.lower()
+        if key in name_to_idx:
+            idx = name_to_idx[key]
+            existing = assets[idx] if isinstance(assets[idx], dict) else {}
+            merged = dict(existing)
+            merged.update(proposal)
+            assets[idx] = merged
+        else:
+            assets.append(copy.deepcopy(proposal))
+            name_to_idx[key] = len(assets) - 1
+
+    out["assets"] = assets
+    return out
+
+
+def apply_draft_replacement(
+    session: dict[str, Any],
+    candidate: dict[str, Any],
+    *,
+    asset_proposals: list[dict] | None = None,
+) -> dict[str, Any]:
+    """Apply enriched draft onto session with backup; clear export readiness.
+
+    Preserves prior assets by merging candidate/proposal assets into the old
+    draft (LLM often omits the full assets[] on thicken). Other top-level keys
+    and project fields are overlaid from the candidate.
+    """
+    validated = validate_enriched_draft(candidate)
+
+    old_draft = session.get("draft_brief")
+    previous_fingerprint: str | None = None
+    if isinstance(old_draft, dict):
+        session["draft_brief_backup"] = copy.deepcopy(old_draft)
+        previous_fingerprint = draft_fingerprint(old_draft)
+        new_draft = copy.deepcopy(old_draft)
+        for key, value in validated.items():
+            if key == "assets":
+                continue
+            if key == "project" and isinstance(value, dict) and isinstance(new_draft.get("project"), dict):
+                merged_project = dict(new_draft["project"])
+                merged_project.update(value)
+                new_draft["project"] = merged_project
+            else:
+                new_draft[key] = copy.deepcopy(value)
+        cand_assets = validated.get("assets")
+        if isinstance(cand_assets, list):
+            new_draft = merge_asset_proposals(
+                new_draft,
+                [a for a in cand_assets if isinstance(a, dict)],
+            )
+    else:
+        session["draft_brief_backup"] = None
+        new_draft = copy.deepcopy(validated)
+
+    if asset_proposals:
+        new_draft = merge_asset_proposals(new_draft, asset_proposals)
+
+    session["draft_brief"] = new_draft
+    session["ready_to_export"] = False
+
+    assets = new_draft.get("assets")
+    asset_count = len(assets) if isinstance(assets, list) else 0
+    fingerprint = draft_fingerprint(new_draft)
+    return {
+        "ok": True,
+        "fingerprint": fingerprint,
+        "previous_fingerprint": previous_fingerprint,
+        "asset_count": asset_count,
+    }
+
+
+def _brief_enrich_critique_system() -> str:
+    return (
+        "You are Brief Enrich Critic. Read draft_brief and optional user_hint. "
+        "Identify player-visible presentation gaps (UI flow, HUD, feedback, parameter names needed). "
+        "Do NOT require fixed schema keys like screens[] or tuning_needs[]. "
+        "Reply with JSON only: {\"gaps\": [{\"area\": \"...\", \"description\": \"...\", \"priority\": \"high|medium|low\"}]}"
+    )
+
+
+def _brief_enrich_system() -> str:
+    return _load_skill(
+        _BRIEF_ENRICH_SKILL,
+        "You are Brief Enricher. Reply with JSON only: draft_brief, asset_proposals, summary.",
+    )
+
+
+def _normalize_asset_proposals(raw: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if isinstance(item, dict):
+            out.append(dict(item))
+    return out
+
+
+def run_brief_enrich(
+    session: dict[str, Any],
+    *,
+    hint: str | None = None,
+    temperature: float = 0.7,
+    config: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Two-step brief thicken: critique gaps → enriched draft merge via DraftMergeGuard."""
+    cfg = config or {}
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("No draft_brief yet. Chat about the game first, then run enrich.")
+
+    draft_before = copy.deepcopy(draft)
+    user_hint = str(hint or "").strip() or None
+
+    api = resolve_host_api_settings(cfg)
+    if not api.get("api_key"):
+        raise HostChatError("Brief enrich unavailable: configure API key (OpenRouter/host).")
+
+    critique_payload: dict[str, Any] = {"draft_brief": draft}
+    if user_hint:
+        critique_payload["user_hint"] = user_hint
+    critique_user = json.dumps(critique_payload, ensure_ascii=False, indent=2)
+
+    llm_kwargs: dict[str, Any] = {
+        "model": str(api["model"]),
+        "api_key": str(api["api_key"]),
+        "api_base": str(api["api_base"]),
+        "proxy": api.get("proxy"),
+        "timeout": 180,
+        "temperature": temperature,
+    }
+
+    try:
+        gaps_raw = chat_text_completion(
+            messages=[
+                {"role": "system", "content": _brief_enrich_critique_system()},
+                {"role": "user", "content": critique_user},
+            ],
+            **llm_kwargs,
+        )
+        gaps_parsed = _parse_llm_json(gaps_raw or "")
+    except (PromptCraftError, HostChatError) as exc:
+        raise HostChatError(str(exc)) from exc
+
+    enrich_payload: dict[str, Any] = {
+        "draft_brief": draft,
+        "identified_gaps": gaps_parsed.get("gaps") if isinstance(gaps_parsed, dict) else gaps_parsed,
+    }
+    if user_hint:
+        enrich_payload["user_hint"] = user_hint
+    enrich_user = json.dumps(enrich_payload, ensure_ascii=False, indent=2)
+
+    try:
+        enrich_raw = chat_text_completion(
+            messages=[
+                {"role": "system", "content": _brief_enrich_system()},
+                {"role": "user", "content": enrich_user},
+            ],
+            **llm_kwargs,
+        )
+        enrich_parsed = _parse_llm_json(enrich_raw or "")
+    except (PromptCraftError, HostChatError) as exc:
+        session["draft_brief"] = draft_before
+        raise HostChatError(str(exc)) from exc
+
+    candidate = enrich_parsed.get("draft_brief")
+    asset_proposals = _normalize_asset_proposals(enrich_parsed.get("asset_proposals"))
+    summary = str(enrich_parsed.get("summary") or "").strip()
+
+    try:
+        merge_summary = apply_draft_replacement(
+            session,
+            candidate,
+            asset_proposals=asset_proposals or None,
+        )
+    except HostChatError:
+        session["draft_brief"] = draft_before
+        raise
+
+    session["last_enrich_at"] = _utc_now()
+
+    assistant_message = summary or "Brief 细节已加厚。"
+    assistant_message += " 建议再运行「制作审查」(brief chat makeability) 确认可导出。"
+
+    return {
+        "ok": True,
+        "summary": summary,
+        "assistant_message": assistant_message,
+        "fingerprint": merge_summary["fingerprint"],
+        "previous_fingerprint": merge_summary.get("previous_fingerprint"),
+        "asset_count": merge_summary.get("asset_count", 0),
+        "session_id": session.get("id"),
+        "ready_to_export": bool(session.get("ready_to_export")),
+    }
 
 
 def _makeability_critic_system() -> str:

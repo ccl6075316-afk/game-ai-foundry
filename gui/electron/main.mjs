@@ -2195,6 +2195,66 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
+  ipcMain.handle("host-chat-enrich", async (_e, sessionId, hint, _instanceId) => {
+    const args = [
+      "brief",
+      "chat",
+      "enrich",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--json",
+    ];
+    const h = String(hint || "").trim();
+    if (h) {
+      args.push("--hint", h);
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle(
+    "host-chat-topic-brainstorm",
+    async (_e, sessionId, topic, constraints, multiModel, _instanceId) => {
+      const args = [
+        "brief",
+        "chat",
+        "topic-brainstorm",
+        "--session-id",
+        String(sessionId || "").trim(),
+        "--topic",
+        String(topic || "").trim(),
+        "--json",
+      ];
+      const c = String(constraints || "").trim();
+      if (c) args.push("--constraints", c);
+      if (multiModel) args.push("--multi-model");
+      const result = await runCli(args);
+      return { ...result, data: parseJsonFromOutput(result.stdout) };
+    },
+  );
+
+  ipcMain.handle(
+    "host-chat-brainstorm-apply",
+    async (_e, sessionId, proposalIds, fuse, _instanceId) => {
+      const args = [
+        "brief",
+        "chat",
+        "brainstorm-apply",
+        "--session-id",
+        String(sessionId || "").trim(),
+        "--json",
+      ];
+      const ids = Array.isArray(proposalIds) ? proposalIds : [proposalIds];
+      for (const id of ids) {
+        const s = String(id || "").trim();
+        if (s) args.push("--proposal-id", s);
+      }
+      if (fuse) args.push("--fuse");
+      const result = await runCli(args);
+      return { ...result, data: parseJsonFromOutput(result.stdout) };
+    },
+  );
+
   ipcMain.handle("host-chat-status", async (_e, sessionId) => {
     const sid = String(sessionId || "").trim();
     if (!sid) {

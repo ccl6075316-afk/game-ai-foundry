@@ -14,6 +14,8 @@ interface Props {
   onExportBrief?: () => void;
   onAutofix?: () => void;
   onMakeability?: () => void;
+  onEnrich?: () => void;
+  onTopicBrainstorm?: () => void;
 }
 
 export function ChatInput({
@@ -30,6 +32,8 @@ export function ChatInput({
   onExportBrief,
   onAutofix,
   onMakeability,
+  onEnrich,
+  onTopicBrainstorm,
 }: Props) {
   const [text, setText] = useState("");
 
@@ -59,7 +63,7 @@ export function ChatInput({
 
   return (
     <div className="composer">
-      {(choices.length > 0 || readyToExport || showAutofix || showMakeability) && (
+      {(choices.length > 0 || readyToExport || showAutofix || showMakeability || onEnrich || onTopicBrainstorm) && (
         <div className="composer__chips">
           {choices.map((c) => (
             <button
@@ -81,6 +85,28 @@ export function ChatInput({
               title="独立子 LLM 审查 draft brief 的制作完备性"
             >
               制作审查
+            </button>
+          )}
+          {onEnrich && (
+            <button
+              type="button"
+              className="composer__chip"
+              disabled={disabled}
+              onClick={() => onEnrich()}
+              title="开放式加厚玩家可见细节（可带要求二次补全）"
+            >
+              补全细节
+            </button>
+          )}
+          {onTopicBrainstorm && (
+            <button
+              type="button"
+              className="composer__chip"
+              disabled={disabled}
+              onClick={() => onTopicBrainstorm()}
+              title="针对某一议题多视角头脑风暴，先拣再写回"
+            >
+              议题头脑风暴
             </button>
           )}
           {showAutofix && (

@@ -29,12 +29,17 @@ from host_chat import (
     makeability_sidecar_path as host_makeability_sidecar_path,
     new_session as host_new_session,
     run_autofix as host_run_autofix,
+    run_brief_enrich as host_run_brief_enrich,
     run_makeability_review as host_run_makeability_review,
     run_turn as host_run_turn,
     save_session as host_save_session,
     session_path_for_id,
     session_status as host_session_status,
     write_makeability_sidecar as host_write_makeability_sidecar,
+)
+from topic_brainstorm import (
+    apply_brainstorm_proposals as topic_apply_brainstorm,
+    run_topic_brainstorm as topic_run_brainstorm,
 )
 from prompt_craft import PromptCraftError
 
@@ -380,6 +385,157 @@ def register_brief_commands(cli_group: click.Group) -> None:
             )
         if result.get("intent_count", 0) > 0:
             sys.exit(2)
+
+    @chat_group.command("enrich")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--hint", default=None, help="Optional focus hint for this enrich pass.")
+    @click.option("--temperature", default=0.7, show_default=True, type=float)
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_enrich_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        hint: str | None,
+        temperature: float,
+        as_json: bool,
+    ) -> None:
+        """Thicken draft_brief with player-visible flow/UI presentation (writes draft)."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = host_run_brief_enrich(
+                session,
+                hint=hint,
+                temperature=temperature,
+                config=config,
+            )
+            host_save_session(path, session)
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+            **{k: v for k, v in host_session_status(session).items() if k not in result},
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or "brief enrich done")
+            click.echo(
+                f"fingerprint={result.get('fingerprint')} "
+                f"assets={result.get('asset_count', 0)} "
+                f"ready_to_export={result.get('ready_to_export')}"
+            )
+
+    @chat_group.command("topic-brainstorm")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--topic", required=True, help="Issue to brainstorm (e.g. tension HUD).")
+    @click.option("--constraints", default=None, help="Optional constraints for personas.")
+    @click.option("--multi-model", is_flag=True, help="Also try agents.brainstorm_models if set.")
+    @click.option("--temperature", default=0.85, show_default=True, type=float)
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_topic_brainstorm_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        topic: str,
+        constraints: str | None,
+        multi_model: bool,
+        temperature: float,
+        as_json: bool,
+    ) -> None:
+        """Multi-persona topic brainstorm (does not write draft until apply)."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = topic_run_brainstorm(
+                session,
+                topic,
+                constraints=constraints,
+                multi_model=multi_model,
+                temperature=temperature,
+                config=config,
+            )
+            host_save_session(path, session)
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or "topic brainstorm done")
+            for p in (result.get("brainstorm_result") or {}).get("proposals") or []:
+                click.echo(f"  [{p.get('id')}] ({p.get('role')}) {p.get('title')}")
+
+    @chat_group.command("brainstorm-apply")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option(
+        "--proposal-id",
+        "proposal_ids",
+        multiple=True,
+        required=True,
+        help="Proposal id from topic-brainstorm (repeatable).",
+    )
+    @click.option("--fuse", is_flag=True, help="Ask LLM to fuse multiple selected proposals.")
+    @click.option("--temperature", default=0.7, show_default=True, type=float)
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_brainstorm_apply_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        proposal_ids: tuple[str, ...],
+        fuse: bool,
+        temperature: float,
+        as_json: bool,
+    ) -> None:
+        """Apply selected topic-brainstorm proposals into draft_brief."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = topic_apply_brainstorm(
+                session,
+                list(proposal_ids),
+                fuse=fuse,
+                temperature=temperature,
+                config=config,
+            )
+            host_save_session(path, session)
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+            **{k: v for k, v in host_session_status(session).items() if k not in result},
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or "brainstorm apply done")
+            click.echo(
+                f"applied={','.join(result.get('applied_ids') or [])} "
+                f"fingerprint={result.get('fingerprint')}"
+            )
 
     @chat_group.command("export")
     @click.option("--session-id", default=None)

@@ -55,6 +55,18 @@ python gamefactory.py brief chat makeability --session-id <id> --json
 - Export 成功时写出 sidecar：`projects/<slug>/makeability.json`（或与 brief 同目录）。
 - `production derive` 若发现 sidecar → 合并为 `production_doc.makeability` + 可选 `production_doc.tuning`。
 
+**Brief 补全 / 议题头脑风暴（可选，不绑导出）**
+
+```bash
+python gamefactory.py brief chat enrich --session-id <id> [--hint "只补 HUD"] --json
+python gamefactory.py brief chat topic-brainstorm --session-id <id> --topic "张力条怎么呈现" --json
+python gamefactory.py brief chat brainstorm-apply --session-id <id> --proposal-id p1 --json
+```
+
+- GUI 策划：「补全细节」「议题头脑风暴」→ 方案卡「采用 pN」写回 draft（可含资产候选）。
+- 不定死通用 `screens` schema；具体数值可进 production，**需要哪些参数**应在 brief 中声明。
+- 写回后 makeability 指纹过期，需再「制作审查」才可 export。
+
 ### 1.2 资产审查表（GUI）
 
 Pipeline 跑完后，GUI 右侧 **看板 | 资产** Tab 打开 **资产审查表**，读当前工程 `assets-manifest.json`：

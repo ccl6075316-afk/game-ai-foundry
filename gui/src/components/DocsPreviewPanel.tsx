@@ -38,6 +38,8 @@ interface Props {
   onExportBrief?: () => void;
   onAutofix?: () => void;
   onMakeability?: () => void;
+  onEnrich?: () => void;
+  onTopicBrainstorm?: () => void;
   onRefresh?: () => void;
   onSelectProject?: (briefRel: string) => void;
   /** Create+bind a new project from the docs panel switcher. */
@@ -72,6 +74,8 @@ export function DocsPreviewPanel({
   onExportBrief,
   onAutofix,
   onMakeability,
+  onEnrich,
+  onTopicBrainstorm,
   onRefresh,
   onSelectProject,
   onNewProject,
@@ -381,6 +385,28 @@ export function DocsPreviewPanel({
             title="独立子 LLM 审查 draft brief 的制作完备性"
           >
             制作审查
+          </button>
+        )}
+        {onEnrich && selected?.id === "session-brief" && draftBrief && (
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={onEnrich}
+            disabled={busy}
+            title="开放式加厚玩家可见细节"
+          >
+            补全细节
+          </button>
+        )}
+        {onTopicBrainstorm && selected?.id === "session-brief" && draftBrief && (
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={onTopicBrainstorm}
+            disabled={busy}
+            title="针对议题多视角头脑风暴"
+          >
+            议题头脑风暴
           </button>
         )}
         {onExportBrief && selected?.id === "session-brief" && (
