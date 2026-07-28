@@ -68,8 +68,120 @@ class PiFoundryToolsTest(unittest.TestCase):
                 ]
             )
         )
-        self.assertFalse(is_allowed_argv(["pipeline", "run", "--jobs", "4"]))
+        self.assertTrue(
+            is_allowed_argv(
+                ["pipeline", "run", "--jobs", "4", "--json", "--i-confirm"],
+                profile="it",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "zh-doc",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertTrue(is_allowed_argv(["project", "external", "list", "--json"]))
+        self.assertTrue(is_allowed_argv(["assets", "review", "list", "--json"]))
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "bind",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "autofix",
+                    "--session-id",
+                    "s1",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                ["brief", "chat", "makeability", "--session-id", "s1", "--json"],
+                profile="it",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "enrich",
+                    "--session-id",
+                    "s1",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                ["pipeline", "plan", "--brief", "projects/x/brief.json", "--json", "--i-confirm"],
+                profile="it",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "zh-doc",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "gui/evil/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "export",
+                    "--session-id",
+                    "s1",
+                    "-o",
+                    "projects/x/brief.json",
+                    "--json",
+                ],
+                profile="it",
+                allow_export=True,
+            )
+        )
         self.assertFalse(is_allowed_argv(["doctor", "--json", ";", "rm", "-rf", "/"]))
+        self.assertFalse(is_allowed_argv(["git", "push", "origin", "main"]))
 
     def test_mutate_requires_i_confirm(self) -> None:
         self.assertFalse(is_allowed_argv(["setup", "install", "ffmpeg", "--json"]))
@@ -82,6 +194,35 @@ class PiFoundryToolsTest(unittest.TestCase):
         self.assertFalse(is_allowed_argv(["pipeline", "heal", "--json"]))
         self.assertFalse(
             is_allowed_argv(["pipeline", "reset", "--task-id", "t1", "--json"])
+        )
+        self.assertFalse(is_allowed_argv(["pipeline", "run", "--jobs", "2", "--json"]))
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "zh-doc",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                ]
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "bind",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                ]
+            )
         )
         self.assertFalse(
             is_allowed_argv(
@@ -104,6 +245,12 @@ class PiFoundryToolsTest(unittest.TestCase):
         self.assertFalse(is_allowed_argv(argv, profile="brief"))
         self.assertFalse(
             is_allowed_argv(["doctor", "--json"], profile="brief")
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["pipeline", "run", "--jobs", "2", "--json", "--i-confirm"],
+                profile="brief",
+            )
         )
         self.assertTrue(
             is_allowed_argv(
@@ -147,8 +294,10 @@ class PiFoundryToolsTest(unittest.TestCase):
             "projects/demo/brief.json",
             "--json",
         ]
-        self.assertFalse(is_allowed_argv(argv, allow_export=False))
-        self.assertTrue(is_allowed_argv(argv, allow_export=True))
+        self.assertFalse(is_allowed_argv(argv, allow_export=False, profile="brief"))
+        self.assertTrue(is_allowed_argv(argv, allow_export=True, profile="brief"))
+        # IT never exports even if allow_export is mis-set
+        self.assertFalse(is_allowed_argv(argv, allow_export=True, profile="it"))
 
     def test_export_rejects_bad_path(self) -> None:
         argv = [
@@ -161,7 +310,7 @@ class PiFoundryToolsTest(unittest.TestCase):
             "C:/Windows/brief.json",
             "--json",
         ]
-        self.assertFalse(is_allowed_argv(argv, allow_export=True))
+        self.assertFalse(is_allowed_argv(argv, allow_export=True, profile="brief"))
         argv2 = [
             "brief",
             "chat",
@@ -172,12 +321,14 @@ class PiFoundryToolsTest(unittest.TestCase):
             "cli/evil.json",
             "--json",
         ]
-        self.assertFalse(is_allowed_argv(argv2, allow_export=True))
+        self.assertFalse(is_allowed_argv(argv2, allow_export=True, profile="brief"))
 
     def test_reject_disallowed_run(self) -> None:
-        result = run_allowed_gamefactory(["pipeline", "run", "--jobs", "2"])
+        result = run_allowed_gamefactory(["git", "status"])
         self.assertFalse(result["ok"])
         self.assertIn("whitelist", result.get("error") or "")
+        result2 = run_allowed_gamefactory(["pipeline", "run", "--jobs", "2", "--json"])
+        self.assertFalse(result2["ok"])
 
     def test_session_allows_export_real_gate(self) -> None:
         from host_chat import new_session, save_session, session_path_for_id
@@ -220,6 +371,7 @@ class PiFoundryToolsTest(unittest.TestCase):
                     "--json",
                 ],
                 allow_export=True,
+                profile="brief",
             )
             self.assertFalse(result["ok"])
             self.assertIn("export blocked", result.get("error") or "")

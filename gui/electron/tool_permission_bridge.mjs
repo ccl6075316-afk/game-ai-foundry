@@ -122,6 +122,22 @@ export function createToolPermissionBridge(opts) {
     return true;
   }
 
+  /** Pre-approve all mutate tools for this agent session (IT home-ops trust). */
+  function trustSession(sessionId) {
+    const id = String(sessionId || "").trim();
+    if (id) sessionAllow.add(id);
+  }
+
+  function untrustSession(sessionId) {
+    const id = String(sessionId || "").trim();
+    if (id) sessionAllow.delete(id);
+  }
+
+  function isSessionTrusted(sessionId) {
+    const id = String(sessionId || "").trim();
+    return Boolean(id && sessionAllow.has(id));
+  }
+
   function close() {
     for (const [, entry] of pending) {
       clearTimeout(entry.timer);
@@ -135,7 +151,7 @@ export function createToolPermissionBridge(opts) {
     }
   }
 
-  return { env, decide, close, server };
+  return { env, decide, close, server, trustSession, untrustSession, isSessionTrusted };
 }
 
 function writeDecision(res, decision) {

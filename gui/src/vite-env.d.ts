@@ -649,6 +649,8 @@ declare global {
         targetInstanceId?: string;
         rosterJson?: string;
         timeout?: number;
+        /** IT: pre-approve FOUNDRY_TOOL mutates for this session (default true). */
+        piSessionTrust?: boolean;
       }) => Promise<
         CliResult<{
           ok?: boolean;
@@ -679,6 +681,10 @@ declare global {
         permissionId: string,
         decision: "once" | "turn" | "session" | "deny",
       ) => Promise<{ ok?: boolean }>;
+      setPiSessionTrust: (
+        sessionId: string,
+        trusted: boolean,
+      ) => Promise<{ ok?: boolean; trusted?: boolean; error?: string }>;
       stopAgentAcpInstance: (instanceId: string) => Promise<{ ok?: boolean; error?: string }>;
       onToolPermission: (
         callback: (payload: {

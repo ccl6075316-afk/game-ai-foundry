@@ -29,6 +29,11 @@ export interface AgentInstanceRecord {
   permission_mode?: CursorPermissionMode;
   /** Hermes --yolo; omit = inherit agents.executors.hermes */
   yolo?: boolean;
+  /**
+   * IT / Pi: pre-approve mutating FOUNDRY_TOOL for this chat session.
+   * Default true for role it when unset.
+   */
+  pi_session_trust?: boolean;
 }
 
 export type AgentInstancesMap = Record<string, AgentInstanceRecord>;
@@ -90,6 +95,11 @@ export function loadAgentInstancesFromConfig(data: Record<string, unknown>): Age
       model: rec.model != null ? String(rec.model) : String(roleBlock.model ?? ""),
       use_third_party: Boolean(rec.use_third_party ?? roleBlock.use_third_party ?? false),
       ...parseInstanceSafetyFields(rec),
+      ...(typeof rec.pi_session_trust === "boolean"
+        ? { pi_session_trust: rec.pi_session_trust }
+        : roleKind === "it"
+          ? { pi_session_trust: true }
+          : {}),
     };
   }
   return out;
@@ -122,6 +132,7 @@ export function resolveInstanceRecord(
     provider: coerceProvider(roleBlock.provider, fallbackProvider),
     model: roleBlock.model != null ? String(roleBlock.model) : fallbackModel,
     use_third_party: Boolean(roleBlock.use_third_party ?? false),
+    ...(instance.roleKind === "it" ? { pi_session_trust: true } : {}),
   };
 
   if (!executorsMap) return fromRole;
@@ -184,6 +195,14 @@ export function serializeAgentInstances(
       model: rec.model.trim() || null,
       use_third_party: rec.executor === "codex" ? rec.use_third_party : false,
       ...omitSafetyKeysForSerialize(rec),
+      ...(rec.role_kind === "it" || typeof rec.pi_session_trust === "boolean"
+        ? {
+            pi_session_trust:
+              typeof rec.pi_session_trust === "boolean"
+                ? rec.pi_session_trust
+                : rec.role_kind === "it",
+          }
+        : {}),
     };
   }
   return out;

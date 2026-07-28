@@ -54,7 +54,10 @@ import {
 
 interface Props {
   colleague: ColleagueInstance;
+  sessionId?: string;
   disabled?: boolean;
+  /** Prefer in-memory trust for the next agent turn (avoids disk race). */
+  onPiSessionTrustChange?: (trusted: boolean) => void;
 }
 
 const MODEL_SAVE_DEBOUNCE_MS = 400;
@@ -89,7 +92,12 @@ function missingConfigHint(
   return null;
 }
 
-export function ColleagueConfigBar({ colleague, disabled }: Props) {
+export function ColleagueConfigBar({
+  colleague,
+  sessionId,
+  disabled,
+  onPiSessionTrustChange,
+}: Props) {
   const piLocked = isPiLockedRole(colleague.roleKind);
   const executorOptions = executorOptionsForRole(colleague.roleKind);
 
@@ -109,6 +117,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const [safetyFields, setSafetyFields] = useState<
     Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">
   >({});
+  const [piSessionTrust, setPiSessionTrust] = useState(true);
   const modelSaveTimer = useRef<number | null>(null);
   const pendingModel = useRef<{
     instanceId: string;
@@ -120,6 +129,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   const modelRef = useRef(model);
   const useThirdPartyRef = useRef(useThirdParty);
   const safetyFieldsRef = useRef(safetyFields);
+  const piSessionTrustRef = useRef(piSessionTrust);
   const colleagueRef = useRef(colleague);
 
   executorRef.current = executor;
@@ -127,6 +137,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
   modelRef.current = model;
   useThirdPartyRef.current = useThirdParty;
   safetyFieldsRef.current = safetyFields;
+  piSessionTrustRef.current = piSessionTrust;
   colleagueRef.current = colleague;
 
   const syncCodexApi = useCallback(async (instanceId: string) => {
@@ -145,7 +156,12 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     async (
       instanceId: string,
       roleKind: ChatAgentRole,
-      patch: Partial<Pick<AgentInstanceRecord, "executor" | "provider" | "model" | "use_third_party">>,
+      patch: Partial<
+        Pick<
+          AgentInstanceRecord,
+          "executor" | "provider" | "model" | "use_third_party" | "pi_session_trust"
+        >
+      >,
       safetySnapshot?: Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">,
     ) => {
       if (!window.gameFactory?.getConfig || !window.gameFactory?.saveConfig) return;
@@ -163,6 +179,14 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             (onScreen ? executorRef.current : existing?.executor) ??
             "codex");
         const safetySource = safetySnapshot ?? (onScreen ? safetyFieldsRef.current : existing);
+        const trustResolved =
+          roleKind === "it"
+            ? (patch.pi_session_trust ??
+              (onScreen
+                ? piSessionTrustRef.current
+                : existing?.pi_session_trust) ??
+              true)
+            : undefined;
         const record = stripInheritedSafety({
           role_kind: roleKind,
           executor: resolvedExecutor,
@@ -181,6 +205,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
           sandbox: safetySource?.sandbox,
           permission_mode: safetySource?.permission_mode,
           yolo: safetySource?.yolo,
+          ...(trustResolved !== undefined ? { pi_session_trust: trustResolved } : {}),
         }) as AgentInstanceRecord;
         const nextMap = upsertInstanceRecord(instances, instanceId, record);
         const res = await window.gameFactory.saveConfig({
@@ -197,6 +222,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
           if (patch.provider !== undefined) setProvider(patch.provider);
           if (patch.model !== undefined) setModel(patch.model);
           if (patch.use_third_party !== undefined) setUseThirdParty(patch.use_third_party);
+          if (patch.pi_session_trust !== undefined) setPiSessionTrust(patch.pi_session_trust);
         }
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
@@ -262,6 +288,13 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
           permission_mode: saved?.permission_mode,
           yolo: saved?.yolo,
         });
+        setPiSessionTrust(
+          colleagueRef.current.roleKind === "it"
+            ? typeof record.pi_session_trust === "boolean"
+              ? record.pi_session_trust
+              : true
+            : true,
+        );
         setError(null);
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -398,6 +431,16 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
     setNativeCustomOpen(false);
     setUseThirdParty(checked);
     void persist(colleague.id, colleague.roleKind, { use_third_party: checked });
+  };
+
+  const handlePiSessionTrustChange = (checked: boolean) => {
+    flushPendingModel();
+    setPiSessionTrust(checked);
+    onPiSessionTrustChange?.(checked);
+    if (sessionId && window.gameFactory?.setPiSessionTrust) {
+      void window.gameFactory.setPiSessionTrust(sessionId, checked);
+    }
+    void persist(colleague.id, colleague.roleKind, { pi_session_trust: checked });
   };
 
   const handleNativeTierClick = (tier: "high" | "mid" | "low") => {
@@ -687,6 +730,25 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
               onChange={(e) => handleThirdPartyChange(e.target.checked)}
             />
             第三方
+          </label>
+        </>
+      ) : null}
+      {colleague.roleKind === "it" ? (
+        <>
+          <span className="pi-model-chip__dot" aria-hidden>
+            ·
+          </span>
+          <label
+            className="pi-model-chip__check"
+            title="开启后变更类工具本会话免弹确认卡（含 pipeline run）"
+          >
+            <input
+              type="checkbox"
+              checked={piSessionTrust}
+              disabled={disabled || loading || saving}
+              onChange={(e) => handlePiSessionTrustChange(e.target.checked)}
+            />
+            信任本会话
           </label>
         </>
       ) : null}

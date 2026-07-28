@@ -2328,6 +2328,16 @@ app.whenReady().then(() => {
     const codexSandbox = resolveCodexSandbox(config, opts.instanceId);
     const instanceKey = String(opts.instanceId || sessionId).trim();
 
+    // IT home-ops: default session trust (skip per-tool cards) unless explicitly off
+    if (role === "it" && sessionId && toolPermissionBridge) {
+      const trust =
+        opts.piSessionTrust === undefined || opts.piSessionTrust === null
+          ? true
+          : Boolean(opts.piSessionTrust);
+      if (trust) toolPermissionBridge.trustSession(sessionId);
+      else toolPermissionBridge.untrustSession(sessionId);
+    }
+
     if (effectiveExecutor === "cursor" && permissionMode !== "force") {
       if (!cursorAcpSessionManager) {
         const errMsg = "Cursor ACP 会话管理器未初始化，请重启 GUI。";
@@ -2642,6 +2652,15 @@ app.whenReady().then(() => {
     if (!toolPermissionBridge) return { ok: false };
     const ok = toolPermissionBridge.decide(id, decision);
     return { ok };
+  });
+
+  ipcMain.handle("pi-session-trust", async (_e, sessionId, trusted) => {
+    if (!toolPermissionBridge) return { ok: false, error: "bridge unavailable" };
+    const sid = String(sessionId || "").trim();
+    if (!sid) return { ok: false, error: "missing sessionId" };
+    if (trusted) toolPermissionBridge.trustSession(sid);
+    else toolPermissionBridge.untrustSession(sid);
+    return { ok: true, trusted: Boolean(trusted) };
   });
 
   ipcMain.handle("agent-acp-stop-instance", async (_e, instanceId) => {

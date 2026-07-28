@@ -31,24 +31,40 @@ _TOOL_FENCE = re.compile(
     re.DOTALL | re.IGNORECASE,
 )
 
-# Exact argv prefixes (after normalizing). First matching prefix wins.
+# Exact argv prefixes (after normalizing). First matching prefix wins —
+# list longer/more-specific prefixes before shorter ones that share a stem.
 _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("doctor",),
     ("setup", "check"),
     ("setup", "pi", "status"),
     ("setup", "provider", "upsert"),
+    ("setup", "provider", "models"),
     ("setup", "install"),
     ("setup", "ensure"),
     ("setup", "executor", "status"),
     ("setup", "executor", "step"),
+    ("setup", "executor", "models"),
     ("setup", "agents", "executors", "upsert"),
     ("pipeline", "diagnose"),
     ("pipeline", "status"),
     ("pipeline", "heal"),
     ("pipeline", "reset"),
+    ("pipeline", "plan"),
+    ("pipeline", "run"),
+    ("pipeline", "suggest-retry"),
     ("brief", "chat", "status"),
+    ("brief", "chat", "bind"),
+    ("brief", "chat", "zh-doc"),
+    ("brief", "chat", "autofix"),
+    ("brief", "chat", "makeability"),
+    ("brief", "chat", "enrich"),
+    ("brief", "zh-doc"),
     ("brief", "validate"),
-    ("brief", "chat", "export"),  # gated separately via allow_export
+    ("brief", "chat", "export"),  # gated separately via allow_export; brief profile only in practice
+    ("project", "external", "list"),
+    ("project", "external", "detect"),
+    ("assets", "review", "list"),
+    ("assets", "review", "regenerate-plan"),
 )
 
 # Mutating ops: FOUNDRY_TOOL argv must include --i-confirm (stripped before CLI
@@ -62,6 +78,13 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("setup", "agents", "executors", "upsert"),
         ("pipeline", "heal"),
         ("pipeline", "reset"),
+        ("pipeline", "plan"),
+        ("pipeline", "run"),
+        ("brief", "chat", "bind"),
+        ("brief", "chat", "zh-doc"),
+        ("brief", "chat", "autofix"),
+        ("brief", "chat", "enrich"),
+        ("brief", "zh-doc"),
     }
 )
 
@@ -122,36 +145,42 @@ Rules:
 
     examples = "\n".join(f"- `{' '.join(p)} …`" for p in _ALLOWED_PREFIXES if p not in _WRITE_PREFIXES)
     return f"""
-## Foundry tools (whitelist only)
+## Foundry tools (whitelist only) — IT home ops
 
-You have **no** shell/read/write tools. To inspect this machine, emit ONE OR MORE fences
-(then stop and wait for results):
+You have **no** shell. Emit FOUNDRY_TOOL fences, then wait for results:
 
 <<<FOUNDRY_TOOL
 ["doctor", "--json"]
 FOUNDRY_TOOL>>>
 
-Allowed command prefixes (arguments after the prefix must be flags/paths only; no `;` `|` `&&`):
+Allowed command prefixes (flags/paths only; no `;` `|` `&&`):
 {examples}
-- `brief chat export …` is **not** for IT (use 策划 for export).
+
+Home-ops playbooks (Chinese answers):
+1. **Environment** — doctor / setup check / install / executor step / provider upsert
+2. **Project draft** — brief chat bind / zh-doc / status (sync + Chinese doc **before** export)
+3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
+4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
+5. **Assets** — assets review list / regenerate-plan (guide user; soft annotations)
 
 Rules:
 - Prefer `--json` when available.
-- Never invent tool output; wait for the host to paste results.
-- After tools, answer the user in Chinese. Do **not** claim you changed config unless a tool did.
-- Do **not** run `pipeline run` (not allow-listed). Do **not** edit Foundry/Electron/Pi source or `games/`.
-- **Mutating ops** will pause for a **GUI approval card** (允许一次 / 本回合 / 本会话). Still include
-  `--i-confirm` in FOUNDRY_TOOL argv for mutating prefixes:
-  `setup provider upsert`, `setup install`, `setup ensure`, `setup executor step`,
-  `setup agents executors upsert`, `pipeline heal`, `pipeline reset`.
-  Mask any Key in chat; never echo a full API Key in replies.
-  Example (Key write):
+- Never invent tool output; wait for host results.
+- Answer in Chinese; do not claim config/disk changes unless a tool returned ok.
+- Do **not** edit Foundry/Electron/Pi source or `games/` C#.
+- **Mutating ops** need `--i-confirm` in argv. With **信任本会话** the GUI may auto-approve;
+  still include `--i-confirm`. Mask API Keys in chat.
+  Example (Key):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
-  Example (toolchain):
+  Example (pipeline run):
   <<<FOUNDRY_TOOL
-  ["setup", "install", "ffmpeg", "--json", "--i-confirm"]
+  ["pipeline", "run", "--manifest", "projects/<slug>/pipeline/manifest.json", "--jobs", "4", "--json", "--i-confirm"]
+  FOUNDRY_TOOL>>>
+  Example (Chinese doc before export):
+  <<<FOUNDRY_TOOL
+  ["brief", "chat", "zh-doc", "--session-id", "<SESSION_ID>", "--brief-rel", "projects/<slug>/brief.json", "--json", "--i-confirm"]
   FOUNDRY_TOOL>>>
 """.strip()
 
@@ -202,6 +231,9 @@ def is_allowed_argv(
         return False
     if profile == "brief" and prefix not in _BRIEF_ALLOWED_PREFIXES:
         return False
+    # IT never exports; defense-in-depth even if allow_export is mis-set.
+    if profile == "it" and prefix in _WRITE_PREFIXES:
+        return False
     if prefix in _WRITE_PREFIXES and not allow_export:
         return False
     if prefix in _MUTATE_PREFIXES and "--i-confirm" not in argv:
@@ -214,6 +246,12 @@ def is_allowed_argv(
             return False
     if prefix == ("brief", "chat", "export"):
         return _export_argv_ok(argv)
+    if prefix in {
+        ("brief", "chat", "zh-doc"),
+        ("brief", "chat", "bind"),
+        ("brief", "zh-doc"),
+    }:
+        return _brief_rel_argv_ok(argv)
     return True
 
 
@@ -224,7 +262,13 @@ def _argv_for_subprocess(argv: list[str], prefix: tuple[str, ...] | None) -> lis
 
 
 def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
-    if prefix in {("setup", "install"), ("setup", "ensure")}:
+    if prefix in {
+        ("setup", "install"),
+        ("setup", "ensure"),
+        ("pipeline", "run"),
+        ("brief", "chat", "autofix"),
+        ("brief", "chat", "enrich"),
+    }:
         return _INSTALL_TIMEOUT_SEC
     return _DEFAULT_TOOL_TIMEOUT_SEC
 
@@ -239,13 +283,18 @@ def _flag_value(argv: list[str], *names: str) -> str | None:
     return None
 
 
-def _export_argv_ok(argv: list[str]) -> bool:
-    out = _flag_value(argv, "-o", "--output")
-    if not out or not out.lower().endswith(".json"):
+def _repo_rel_under_allow(rel_or_path: str, *, must_end: str | None = None) -> bool:
+    """True if path is under projects|output|plans, or virtual external:<id>/…."""
+    raw = str(rel_or_path or "").replace("\\", "/").strip()
+    if not raw:
         return False
-    # Must resolve under repo projects|output|plans (no arbitrary absolute paths).
+    if must_end and not raw.lower().endswith(must_end.lower()):
+        return False
+    if raw.lower().startswith("external:"):
+        rest = raw.split(":", 1)[1]
+        return bool(rest) and ".." not in Path(rest).parts
     try:
-        target = Path(out)
+        target = Path(raw)
         if not target.is_absolute():
             target = (_REPO_ROOT / target).resolve()
         else:
@@ -256,12 +305,28 @@ def _export_argv_ok(argv: list[str]) -> bool:
         except ValueError:
             return False
         top = rel.parts[0].lower() if rel.parts else ""
-        if top not in _EXPORT_ROOT_ALLOW:
-            return False
+        return top in _EXPORT_ROOT_ALLOW
     except (OSError, RuntimeError):
+        return False
+
+
+def _export_argv_ok(argv: list[str]) -> bool:
+    out = _flag_value(argv, "-o", "--output")
+    if not out or not _repo_rel_under_allow(out, must_end=".json"):
         return False
     sid = _flag_value(argv, "--session-id")
     return bool(sid and re.fullmatch(r"[a-zA-Z0-9._-]{1,80}", sid))
+
+
+def _brief_rel_argv_ok(argv: list[str]) -> bool:
+    """zh-doc / bind: --brief-rel must stay under allowed roots (same spirit as export)."""
+    brief_rel = _flag_value(argv, "--brief-rel")
+    if not brief_rel or not _repo_rel_under_allow(brief_rel):
+        return False
+    sid = _flag_value(argv, "--session-id")
+    if sid is not None and not re.fullmatch(r"[a-zA-Z0-9._-]{1,80}", sid):
+        return False
+    return True
 
 
 def _session_allows_export(session_id: str) -> tuple[bool, str]:

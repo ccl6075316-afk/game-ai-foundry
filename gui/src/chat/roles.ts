@@ -24,7 +24,7 @@ export const CHAT_AGENT_HINTS: Record<ChatAgentRole, string> = {
   brief: "主对话：商量需求，明确说「落实 brief」后再定稿",
   product_host: "Agent：试玩反馈、分诊派工、推进任务（修改主入口）",
   programmer: "Agent：按任务改 Godot C#、跑 validate",
-  it: "内置 Pi：doctor / 配 Provider Key（确认后写入）/ pipeline diagnose",
+  it: "家庭运维：环境 / 草稿同步与中文说明 / 看板与流水线（默认可跑资产；信任本会话少弹卡）",
 };
 
 export function roleHero(role: ChatAgentRole): { title: string; subtitle: string } {
@@ -47,8 +47,9 @@ export function roleHero(role: ChatAgentRole): { title: string; subtitle: string
       };
     case "it":
       return {
-        title: "机器侧查什么？",
-        subtitle: "内置 Pi：doctor、经确认写入 Provider Key、pipeline diagnose。不改 brief、不写玩法。",
+        title: "家里哪台机器卡住了？",
+        subtitle:
+          "环境、草稿同步、中文说明、看板与流水线都能管；默认可跑资产。改 Foundry 源码或大段玩法再回 Cursor。",
       };
   }
 }
@@ -75,7 +76,10 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
   if (role === "it") {
     return [
       { label: "跑 doctor", desc: "环境与密钥", cmd: "帮我跑 doctor，用 JSON 看缺什么" },
+      { label: "同步草稿", desc: "bind + 落盘", cmd: "把当前会话草稿同步到工程目录" },
+      { label: "生成中文说明", desc: "brief.zh.md", cmd: "为当前工程生成 brief.zh.md 中文说明" },
       { label: "流水线诊断", desc: "pipeline diagnose", cmd: "对当前工程跑 pipeline diagnose" },
+      { label: "跑资产生成", desc: "pipeline run", cmd: "对当前工程跑 pipeline run，jobs 用 2" },
       { label: "Pi 状态", desc: "内置执行器", cmd: "检查内置 Pi 是否就绪" },
       { label: "命令指南", desc: "CLI 速查", cmd: "/guide" },
     ];

@@ -316,6 +316,8 @@ export default function App() {
   const [toolchainLog, setToolchainLog] = useState<string[]>([]);
   const [hireRoleKind, setHireRoleKind] = useState<ChatAgentRole | null>(null);
   const autoEnsureDone = useRef(false);
+  /** IT「信任本会话」内存覆盖，避免关信任后立刻发消息仍读到旧磁盘值 */
+  const itSessionTrustRef = useRef<Record<string, boolean>>({});
   /** Soft-gate: warn once before pipeline run without visual_reference */
   const runWithoutVtWarned = useRef(false);
   /** Stable handle so early callbacks can sync board after brief changes */
@@ -1732,6 +1734,26 @@ export default function App() {
       const progressRel = activeBriefRel
         ? (await resolvePlanTargets(activeBriefRel)).progressRel
         : undefined;
+      let piSessionTrust: boolean | undefined;
+      if (target.role === "it") {
+        const mem = itSessionTrustRef.current[target.instanceId];
+        if (typeof mem === "boolean") {
+          piSessionTrust = mem;
+        } else if (window.gameFactory?.getConfig) {
+          try {
+            const cfg = await window.gameFactory.getConfig();
+            const data = (cfg?.data || {}) as Record<string, unknown>;
+            const instances = loadAgentInstancesFromConfig(data);
+            const rec = instances[target.instanceId];
+            piSessionTrust =
+              typeof rec?.pi_session_trust === "boolean" ? rec.pi_session_trust : true;
+          } catch {
+            piSessionTrust = true;
+          }
+        } else {
+          piSessionTrust = true;
+        }
+      }
       const res = await window.gameFactory.agentTurn({
         role: target.role,
         sessionId: target.sessionId,
@@ -1747,6 +1769,7 @@ export default function App() {
                 programmers.map((c) => ({ id: c.id, display_name: c.displayName })),
               )
             : undefined,
+        piSessionTrust,
       });
       const data = res.data;
       if (res.exitCode !== 0 || data?.ok === false) {
@@ -3514,7 +3537,14 @@ export default function App() {
               </button>
             </div>
           )}
-          <ColleagueConfigBar colleague={activeColleague} disabled={chatBusy} />
+          <ColleagueConfigBar
+            colleague={activeColleague}
+            sessionId={activeSession.id}
+            disabled={chatBusy}
+            onPiSessionTrustChange={(trusted) => {
+              itSessionTrustRef.current[activeColleague.id] = trusted;
+            }}
+          />
           <ChatInput
             disabled={chatBusy}
             choices={

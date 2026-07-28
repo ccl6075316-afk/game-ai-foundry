@@ -85,6 +85,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),
+  setPiSessionTrust: (sessionId, trusted) =>
+    ipcRenderer.invoke("pi-session-trust", sessionId, trusted),
   decideToolPermission: (permissionId, decision) =>
     ipcRenderer.invoke("agent-tool-permission-decision", permissionId, decision),
   stopAgentAcpInstance: (instanceId) =>
