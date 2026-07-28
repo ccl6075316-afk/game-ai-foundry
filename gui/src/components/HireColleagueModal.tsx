@@ -269,6 +269,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
               value={form.model}
               onChange={(model) => setForm((prev) => ({ ...prev, model }))}
               role="text"
+              compact
               disabled={loading}
               placeholder={modelPlaceholder}
             />

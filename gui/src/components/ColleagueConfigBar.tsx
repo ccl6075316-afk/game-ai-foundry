@@ -668,6 +668,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             value={model}
             onChange={handleModelChange}
             role="text"
+            compact
             disabled={disabled || loading || saving}
             placeholder={modelPlaceholder}
           />
