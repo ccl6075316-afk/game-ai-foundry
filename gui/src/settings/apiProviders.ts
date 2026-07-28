@@ -7,14 +7,35 @@ export type ApiProviderId =
   | "gemini"
   | "custom";
 
+/** Any provider_accounts key (builtin preset id or user slug). */
+export type ProviderId = string;
+
+export const BUILTIN_PROVIDER_IDS = [
+  "openrouter",
+  "deepseek",
+  "kimi",
+  "glm",
+  "openai",
+  "gemini",
+] as const;
+
+export type BuiltinProviderId = (typeof BUILTIN_PROVIDER_IDS)[number];
+
 export interface ApiProviderPreset {
-  id: ApiProviderId;
+  id: string;
   label: string;
   description: string;
   apiBase: string;
   imageModelDefault: string;
   promptModelDefault: string;
   keyPlaceholder: string;
+}
+
+export interface ApiProviderHint {
+  label?: string;
+  apiBase?: string;
+  textModel?: string;
+  imageModel?: string;
 }
 
 export const API_PROVIDERS: ApiProviderPreset[] = [
@@ -107,8 +128,29 @@ export const VIDEO_PROVIDERS: VideoProviderPreset[] = [
   },
 ];
 
-export function getApiProvider(id: ApiProviderId): ApiProviderPreset {
-  return API_PROVIDERS.find((p) => p.id === id) ?? API_PROVIDERS[0]!;
+export function isBuiltinProviderId(id: string): id is BuiltinProviderId {
+  return (BUILTIN_PROVIDER_IDS as readonly string[]).includes(id);
+}
+
+export function listBuiltinProviders(): ApiProviderPreset[] {
+  return API_PROVIDERS.filter((p) => isBuiltinProviderId(p.id));
+}
+
+export function getApiProvider(id: string, hint?: ApiProviderHint): ApiProviderPreset {
+  const builtin = API_PROVIDERS.find((p) => p.id === id);
+  if (builtin) return builtin;
+  if (hint) {
+    return {
+      id,
+      label: hint.label?.trim() || id,
+      description: "用户自建 OpenAI 兼容账号",
+      apiBase: hint.apiBase?.trim() || "",
+      imageModelDefault: hint.imageModel?.trim() || "",
+      promptModelDefault: hint.textModel?.trim() || "",
+      keyPlaceholder: "API Key",
+    };
+  }
+  return API_PROVIDERS[0]!;
 }
 
 export function isApiProviderId(id: string): id is ApiProviderId {
@@ -131,7 +173,7 @@ export function detectApiProvider(apiBase: string | undefined): ApiProviderId {
   if (normalized.includes("bigmodel.cn")) return "glm";
   for (const preset of API_PROVIDERS) {
     if (preset.id === "custom") continue;
-    if (normalized === normalizeBase(preset.apiBase)) return preset.id;
+    if (normalized === normalizeBase(preset.apiBase)) return preset.id as ApiProviderId;
   }
   return "custom";
 }
@@ -146,8 +188,10 @@ export function detectVideoProvider(apiBase: string | undefined): VideoProviderI
   return "custom";
 }
 
-export function resolveApiBase(provider: ApiProviderId, customBase: string): string {
-  if (provider === "custom") return customBase.trim();
+export function resolveApiBase(provider: string, customBase: string): string {
+  if (provider === "custom" || !isBuiltinProviderId(provider)) {
+    return customBase.trim();
+  }
   return getApiProvider(provider).apiBase;
 }
 

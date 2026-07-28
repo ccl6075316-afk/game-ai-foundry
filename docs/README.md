@@ -2,21 +2,21 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-07-26）
+## 当前版本要点（2026-07-28）
 
 - **v0.0.8 可用边界**：[`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) — DeepSeek 模型名修复 / 对话滚动
 - **v0.0.7**：[`RELEASE-NOTES-0.0.7.md`](RELEASE-NOTES-0.0.7.md) — 类型化出图 / 审图 / layout→Godot
-- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)
+- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md) — 外置工程、Brief 补全、开放账号、设置全页等
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员，可多实例）
 - **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`；北极星图在策划侧定稿
+- **设置**：顶栏进**全页**（Provider / Agent / 本机 / 环境 / 指南）；右侧栏仅 **文档 | 看板 | 资产**
+- **Provider**：可自建 OpenAI 兼容账号；文/图模型可拉 `/models`；生图主档 + 批量档；详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)
 - **资产审查**：侧栏 **资产**（`/assets`）读 `assets-manifest`；行内采纳 / 重生成 / 本地替换（软 `review`）
 - **layout**：`production derive` → scaffold/assemble 写 `World` props；DocsPreview 只读 `view` / `content_class`
-- **Provider**：顶层 `proxy`（网络卡片）；生图主档 + 批量档可各绑不同 `provider_accounts`
 - **最低开工**：LLM Provider Key → 策划保存 Brief + 北极星 → 项目经理 `/plan` `/run`
-- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；Agent 页可配各工具默认 Provider，雇人/对话配实例
+- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；设置 → Agent 配工具预设，雇人/对话配实例
 - **工具链**：FFmpeg、Godot、.NET 启动自动安装；rembg 打包自带；检测失败可复制给支持
 - **外部 AI**：读 [`TOOLS.md`](TOOLS.md) 代操 Foundry
-
 ---
 
 | 文档 | 读者 | 侧重 | 不写什么 |
@@ -29,7 +29,7 @@
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
-| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **Provider（网络代理 / 生图双档）、Agent 预设、雇人/对话实例** | CLI 大全 |
+| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
 | [`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) | 用户 | **v0.0.8** DeepSeek 修复 / 滚动 | — |
 | [`RELEASE-NOTES-0.0.7.md`](RELEASE-NOTES-0.0.7.md) | 用户 | v0.0.7 类型化出图 / 审图 / layout | — |

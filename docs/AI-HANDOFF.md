@@ -332,8 +332,8 @@ python gamefactory.py setup install dotnet
 
 | 项 | 说明 |
 |----|------|
-| `provider_accounts` | 多 Provider 账号库（OpenRouter、DeepSeek、Kimi、GLM 等） |
-| `host` / `image` / `video` | 活跃 Provider 与 API key；生图可 `use_text_provider` |
+| `provider_accounts` | 多 Provider 账号库（内置厂商 + 自建 OpenAI 兼容；可 `label`/`kind`/`api_base`） |
+| `host` / `image` / `video` | 活跃 Provider 与 API key；生图可 `use_text_provider`；批量见 `bulk_provider`/`bulk_model` |
 | `image.style_img2img_strength` | 可选，默认 `0.25`；风格 img2img 时 best-effort 透传 `image_config.strength`（Recraft 等）；Gemini 可忽略 |
 | `godot.engine_path` | Godot 4 **.NET / Mono**；`setup install godot` 可自动写入 |
 | `toolchain.bin_dir` | FFmpeg 目录（默认 `~/.gamefactory/toolchain/bin`） |
@@ -341,7 +341,7 @@ python gamefactory.py setup install dotnet
 | `agents` | 七角色 executor 路由（见 AGENT-ROUTING） |
 | rembg | **Release 内嵌**；开发 venv 用 `prepare:python --with-rembg` |
 
-**执行器配置**（Hermes / Codex / Cursor）：GUI 环境面板或 `setup executor step` — 见 [`TOOLS.md`](TOOLS.md) §5。
+**执行器配置**（Hermes / Codex / Cursor）：GUI **设置 → 环境** 或 `setup executor step` — 见 [`TOOLS.md`](TOOLS.md) §5。账号与模型见 **设置 → Provider / Agent**（[`GUI-CONFIG.md`](GUI-CONFIG.md)）。
 
 启动检测：`setup check --json` + `doctor --json` + `setup executor status --json`。
 

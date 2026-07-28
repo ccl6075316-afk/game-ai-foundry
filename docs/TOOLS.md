@@ -45,7 +45,10 @@ python gamefactory.py hermes paths    # 输出 repo_root、cli_dir、config_path
 |------|------|
 | `doctor --json` | API Key 是否 set、Godot 路径、各 executor 是否 available、capabilities |
 | `setup check --json` | FFmpeg / Godot / .NET 是否就绪 |
-| `setup provider upsert --provider <id> --api-key … --i-confirm --json` | **IT 工具箱**：经用户确认写入 `provider_accounts`（可切当前生文）；输出无完整 Key |
+| `setup provider upsert --provider <id> --api-key … [--api-base …] [--label …] --i-confirm --json` | **IT 工具箱**：写入 `provider_accounts`（内置或自建 slug；自建须 `--api-base`）；可切当前生文；输出无完整 Key |
+| `setup provider list --json` | 列出账号（含 `kind`/`label`/`has_api_key`，无完整 Key） |
+| `setup provider remove --provider <id> --i-confirm --json` | 删除账号；若仍被 `host`/`image`/`bulk` 引用则失败 |
+| `setup provider models --provider <id> --json` | 拉取该账号 OpenAI 兼容 `/models` 目录（无完整 Key） |
 | `setup install <ffmpeg\|godot\|dotnet>` / `setup ensure` | 本机工具链；经 IT 对话须带 `--i-confirm`（CLI 本体可不认该标志，由白名单剥离） |
 | `setup executor status --json` | Codex / Hermes / Cursor 分步安装状态（只读） |
 | `setup executor step <id> <step>` | 执行器步进；经 IT 须 `--i-confirm` |

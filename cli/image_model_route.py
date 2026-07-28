@@ -113,9 +113,9 @@ def _provider_account(config: dict[str, Any] | None, provider_id: str) -> dict[s
 
 def _known_api_base(provider_id: str) -> str:
     try:
-        from provider_upsert import KNOWN_PROVIDERS
+        from provider_upsert import BUILTIN_PROVIDERS, KNOWN_PROVIDERS
 
-        known = KNOWN_PROVIDERS.get(provider_id) or {}
+        known = KNOWN_PROVIDERS.get(provider_id) or BUILTIN_PROVIDERS.get(provider_id) or {}
         base = str(known.get("api_base") or "").strip()
         return base
     except Exception:

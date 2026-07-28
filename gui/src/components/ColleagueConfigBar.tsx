@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ColleagueInstance } from "../chat/roster";
 import type { ChatAgentRole } from "../chat/roles";
-import { API_PROVIDERS, getApiProvider, type ApiProviderId } from "../settings/apiProviders";
+import { getApiProvider, isBuiltinProviderId, type ApiProviderId } from "../settings/apiProviders";
+import { ModelCatalogPicker } from "./ModelCatalogPicker";
 import {
   loadAgentExecutorsFromConfig,
   defaultsFromExecutorPreset,
@@ -38,6 +39,7 @@ import {
 import {
   getProviderAccount,
   isProviderConfigured,
+  listBuiltinProviders,
   loadProviderAccountsFromConfig,
   type ProviderAccountsMap,
 } from "../settings/providerAccounts";
@@ -231,12 +233,15 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
         const agents = (data.agents || {}) as Record<string, unknown>;
         const execMap = loadAgentExecutorsFromConfig(data);
         const textAccount = getProviderAccount(loaded.providerAccounts, loaded.activeTextProvider);
+        const fallbackProvider: ApiProviderId = isBuiltinProviderId(loaded.activeTextProvider)
+          ? loaded.activeTextProvider
+          : "openrouter";
         const saved = instances[colleagueRef.current.id];
         const record = resolveInstanceRecord(
           colleagueRef.current,
           instances,
           agents,
-          loaded.activeTextProvider,
+          fallbackProvider,
           textAccount.textModel,
           execMap,
         );
@@ -648,7 +653,7 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
             aria-label="厂商"
             onChange={(e) => handleProviderChange(e.target.value as ApiProviderId)}
           >
-            {API_PROVIDERS.map((p) => {
+            {listBuiltinProviders().map((p) => {
               const ok = isProviderConfigured(providerAccounts, p.id);
               return (
                 <option key={p.id} value={p.id}>
@@ -658,19 +663,13 @@ export function ColleagueConfigBar({ colleague, disabled }: Props) {
               );
             })}
           </select>
-          <span className="pi-model-chip__dot" aria-hidden>
-            ·
-          </span>
-          <input
-            type="text"
+          <ModelCatalogPicker
+            providerId={provider}
             value={model}
+            onChange={handleModelChange}
+            role="text"
             disabled={disabled || loading || saving}
             placeholder={modelPlaceholder}
-            spellCheck={false}
-            autoComplete="off"
-            aria-label="模型"
-            onChange={(e) => handleModelChange(e.target.value)}
-            onBlur={() => flushPendingModel()}
           />
         </>
       )}

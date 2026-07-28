@@ -3,7 +3,8 @@ import type { ColleagueInstance } from "../chat/roster";
 import { nextHireName } from "../chat/roster";
 import type { ChatAgentRole } from "../chat/roles";
 import { CHAT_AGENT_LABELS } from "../chat/roles";
-import { API_PROVIDERS, getApiProvider, type ApiProviderId } from "../settings/apiProviders";
+import { getApiProvider, type ApiProviderId } from "../settings/apiProviders";
+import { ModelCatalogPicker } from "./ModelCatalogPicker";
 import { loadAgentExecutorsFromConfig } from "../settings/agentExecutors";
 import type { InstanceExecutor } from "../settings/agentInstances";
 import {
@@ -31,6 +32,7 @@ import { ExecutorIcon } from "../settings/ExecutorIcon";
 import {
   getProviderAccount,
   isProviderConfigured,
+  listBuiltinProviders,
   loadProviderAccountsFromConfig,
   type ProviderAccountsMap,
 } from "../settings/providerAccounts";
@@ -243,7 +245,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
                 setForm((prev) => ({ ...prev, provider: e.target.value as ApiProviderId }))
               }
             >
-              {API_PROVIDERS.map((p) => {
+              {listBuiltinProviders().map((p) => {
                 const ok = isProviderConfigured(providerAccounts, p.id);
                 return (
                   <option key={p.id} value={p.id}>
@@ -260,18 +262,17 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
             )}
           </label>
 
-          <label className="field">
+          <div className="field">
             <span>模型（可选）</span>
-            <input
-              type="text"
+            <ModelCatalogPicker
+              providerId={form.provider}
               value={form.model}
+              onChange={(model) => setForm((prev) => ({ ...prev, model }))}
+              role="text"
               disabled={loading}
               placeholder={modelPlaceholder}
-              spellCheck={false}
-              autoComplete="off"
-              onChange={(e) => setForm((prev) => ({ ...prev, model: e.target.value }))}
             />
-          </label>
+          </div>
 
           {!piLocked && form.executor === "codex" && (
             <label className="field">

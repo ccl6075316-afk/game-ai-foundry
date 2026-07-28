@@ -22,6 +22,8 @@ interface Props {
   onExecutorStep: (executorId: ExecutorId, stepId: string) => void;
   onOpenExternal: (url: string) => void;
   onOpenSettings: () => void;
+  /** Full-page settings tab: no side-panel shell */
+  embedded?: boolean;
 }
 
 export function EnvPanel({
@@ -38,15 +40,20 @@ export function EnvPanel({
   onExecutorStep,
   onOpenExternal,
   onOpenSettings,
+  embedded = false,
 }: Props) {
   const autoCount = toolchain ? autoInstallable(toolchain).length : 0;
+  const Shell = embedded ? "div" : "aside";
+  const shellClass = embedded ? "env-panel env-panel--embedded" : "side-panel env-panel";
 
   return (
-    <aside className="side-panel env-panel">
-      <header className="side-panel__head">
-        <h2>环境准备</h2>
-        <p className="side-panel__sub">检测本机工具、API 配置与执行器可用性</p>
-      </header>
+    <Shell className={shellClass}>
+      {!embedded && (
+        <header className="side-panel__head">
+          <h2>环境准备</h2>
+          <p className="side-panel__sub">检测本机工具、API 配置与执行器可用性</p>
+        </header>
+      )}
 
       <div className="env-panel__actions">
         <button type="button" className="btn btn--secondary" disabled={scanning} onClick={onRefresh}>
@@ -133,6 +140,6 @@ export function EnvPanel({
           </table>
         </section>
       )}
-    </aside>
+    </Shell>
   );
 }

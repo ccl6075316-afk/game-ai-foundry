@@ -1,22 +1,37 @@
 import {
-  API_PROVIDERS,
   VIDEO_PROVIDERS,
   detectApiProvider,
   detectVideoProvider,
   getApiProvider,
   getVideoProvider,
+  isApiProviderId,
+  isBuiltinProviderId,
+  listBuiltinProviders,
   resolveApiBase,
   resolveVideoBase,
-  type ApiProviderId,
   type VideoProviderId,
 } from "./apiProviders";
 import { keyConfigured } from "./sections";
+
+export { isBuiltinProviderId, listBuiltinProviders };
+
+const PROVIDER_SLUG_RE = /^[a-z][a-z0-9_-]{1,31}$/;
+
+export function isValidProviderSlug(id: string): boolean {
+  return PROVIDER_SLUG_RE.test(id);
+}
+
+export function isUserProviderId(id: string): boolean {
+  return id === "custom" || !isBuiltinProviderId(id);
+}
 
 export interface ProviderAccount {
   apiKey: string;
   apiBase: string;
   textModel: string;
   imageModel: string;
+  kind?: "builtin" | "user";
+  label?: string;
 }
 
 export interface VideoAccount {
@@ -24,52 +39,82 @@ export interface VideoAccount {
   apiBase: string;
 }
 
-export type ProviderAccountsMap = Partial<Record<ApiProviderId, ProviderAccount>>;
+export type ProviderAccountsMap = Record<string, ProviderAccount>;
 export type VideoAccountsMap = Partial<Record<VideoProviderId, VideoAccount>>;
-
-function isApiProviderId(id: string): id is ApiProviderId {
-  return API_PROVIDERS.some((p) => p.id === id);
-}
 
 function isVideoProviderId(id: string): id is VideoProviderId {
   return VIDEO_PROVIDERS.some((p) => p.id === id);
 }
 
-function readAccount(raw: Record<string, unknown> | undefined, id: ApiProviderId): ProviderAccount | undefined {
-  if (!raw) return undefined;
-  const preset = getApiProvider(id);
+function isLoadableProviderId(id: string): boolean {
+  return isApiProviderId(id) || isValidProviderSlug(id);
+}
+
+function inferAccountKind(id: string, raw: Record<string, unknown>): "builtin" | "user" {
+  if (raw.kind === "user" || raw.kind === "builtin") return raw.kind;
+  if (id === "custom") return "user";
+  if (isBuiltinProviderId(id)) return "builtin";
+  return "user";
+}
+
+function readAccount(raw: Record<string, unknown>, id: string): ProviderAccount | undefined {
+  const label = raw.label != null ? String(raw.label).trim() : undefined;
+  const preset = getApiProvider(id, {
+    label,
+    apiBase: raw.api_base != null ? String(raw.api_base) : undefined,
+    textModel: raw.text_model != null ? String(raw.text_model) : undefined,
+    imageModel: raw.image_model != null ? String(raw.image_model) : undefined,
+  });
+  const kind = inferAccountKind(id, raw);
   const apiKey = String(raw.api_key || "");
   const apiBase = String(raw.api_base || preset.apiBase);
   const textModel = String(raw.text_model || raw.model || "");
   const imageModel = String(raw.image_model || "");
-  if (!keyConfigured(apiKey) && !textModel && !imageModel && id !== "custom") {
-    return undefined;
+
+  if (!keyConfigured(apiKey) && !textModel && !imageModel) {
+    if (id === "custom") {
+      // keep legacy custom slot
+    } else if (isBuiltinProviderId(id)) {
+      return undefined;
+    } else if (!apiBase.trim()) {
+      return undefined;
+    }
   }
+
   return {
     apiKey,
     apiBase,
     textModel: textModel || preset.promptModelDefault,
     imageModel: imageModel || preset.imageModelDefault,
+    kind,
+    ...(label ? { label } : kind === "user" && !isApiProviderId(id) ? { label: id } : {}),
   };
 }
 
-export function getProviderAccount(
+export function listUserAccounts(
   map: ProviderAccountsMap,
-  id: ApiProviderId,
-): ProviderAccount {
-  const preset = getApiProvider(id);
+): Array<{ id: string; account: ProviderAccount }> {
+  return Object.entries(map)
+    .filter(([id, account]) => account != null && isUserProviderId(id))
+    .map(([id, account]) => ({ id, account: account! }));
+}
+
+export function getProviderAccount(map: ProviderAccountsMap, id: string): ProviderAccount {
   const saved = map[id];
+  const preset = getApiProvider(id, saved);
   return {
     apiKey: saved?.apiKey ?? "",
     apiBase: saved?.apiBase ?? preset.apiBase,
     textModel: saved?.textModel ?? preset.promptModelDefault,
     imageModel: saved?.imageModel ?? preset.imageModelDefault,
+    kind: saved?.kind ?? (isBuiltinProviderId(id) ? "builtin" : "user"),
+    label: saved?.label,
   };
 }
 
 export function updateProviderAccount(
   map: ProviderAccountsMap,
-  id: ApiProviderId,
+  id: string,
   patch: Partial<ProviderAccount>,
 ): ProviderAccountsMap {
   const current = getProviderAccount(map, id);
@@ -94,7 +139,7 @@ export function updateVideoAccount(
   return { ...map, [id]: { ...current, ...patch } };
 }
 
-export function isProviderConfigured(map: ProviderAccountsMap, id: ApiProviderId): boolean {
+export function isProviderConfigured(map: ProviderAccountsMap, id: string): boolean {
   return keyConfigured(getProviderAccount(map, id).apiKey);
 }
 
@@ -104,7 +149,7 @@ export function isVideoConfigured(map: VideoAccountsMap, id: VideoProviderId): b
 
 function mergeLegacyAccount(
   map: ProviderAccountsMap,
-  id: ApiProviderId,
+  id: string,
   legacy: Record<string, unknown>,
   role: "text" | "image",
 ): ProviderAccountsMap {
@@ -118,10 +163,21 @@ function mergeLegacyAccount(
   return updateProviderAccount(map, id, { ...existing, ...patch });
 }
 
+function resolveActiveProviderId(
+  field: unknown,
+  base: string,
+  accounts: ProviderAccountsMap,
+  fallback: string,
+): string {
+  if (typeof field === "string" && field in accounts) return field;
+  if (typeof field === "string" && isLoadableProviderId(field)) return field;
+  return detectApiProvider(base) || fallback;
+}
+
 export function loadProviderAccountsFromConfig(data: Record<string, unknown>): {
   providerAccounts: ProviderAccountsMap;
-  activeTextProvider: ApiProviderId;
-  activeImageProvider: ApiProviderId;
+  activeTextProvider: string;
+  activeImageProvider: string;
   imageUseTextProvider: boolean;
   videoAccounts: VideoAccountsMap;
   activeVideoProvider: VideoProviderId;
@@ -134,26 +190,23 @@ export function loadProviderAccountsFromConfig(data: Record<string, unknown>): {
 
   let providerAccounts: ProviderAccountsMap = {};
   for (const [id, raw] of Object.entries(rawAccounts)) {
-    if (!isApiProviderId(id)) continue;
+    if (!isLoadableProviderId(id)) continue;
     const acc = readAccount(raw, id);
     if (acc) providerAccounts[id] = acc;
   }
 
-  const hostProviderFromField = host.provider;
   const hostBase = String(host.api_base || image.api_base || "");
-  const hostProvider =
-    (typeof hostProviderFromField === "string" && isApiProviderId(hostProviderFromField)
-      ? hostProviderFromField
-      : detectApiProvider(hostBase)) || "openrouter";
+  const hostProvider = resolveActiveProviderId(host.provider, hostBase, providerAccounts, "openrouter");
 
   providerAccounts = mergeLegacyAccount(providerAccounts, hostProvider, host, "text");
 
-  const imageProviderFromField = image.provider;
   const imageBase = String(image.api_base || "");
-  const imageProvider =
-    (typeof imageProviderFromField === "string" && isApiProviderId(imageProviderFromField)
-      ? imageProviderFromField
-      : detectApiProvider(imageBase || hostBase)) || hostProvider;
+  const imageProvider = resolveActiveProviderId(
+    image.provider,
+    imageBase || hostBase,
+    providerAccounts,
+    hostProvider,
+  );
 
   providerAccounts = mergeLegacyAccount(providerAccounts, imageProvider, image, "image");
 
@@ -206,20 +259,41 @@ export function loadProviderAccountsFromConfig(data: Record<string, unknown>): {
   };
 }
 
+function isUserAccountEntry(id: string, acc: ProviderAccount): boolean {
+  return acc.kind === "user" || isUserProviderId(id);
+}
+
 export function serializeProviderAccounts(map: ProviderAccountsMap): Record<string, unknown> {
   const out: Record<string, unknown> = {};
-  for (const preset of API_PROVIDERS) {
-    const acc = map[preset.id];
+  for (const [id, acc] of Object.entries(map)) {
     if (!acc) continue;
-    if (!keyConfigured(acc.apiKey) && preset.id !== "custom") continue;
+    const preset = getApiProvider(id, acc);
+    const userEntry = isUserAccountEntry(id, acc);
+
+    if (!userEntry && !keyConfigured(acc.apiKey) && id !== "custom") continue;
+    if (userEntry && !keyConfigured(acc.apiKey) && !acc.textModel && !acc.imageModel && !acc.apiBase.trim()) {
+      continue;
+    }
+
     const entry: Record<string, unknown> = {};
+    if (userEntry) {
+      entry.kind = "user";
+      if (acc.label?.trim()) entry.label = acc.label.trim();
+      if (acc.apiBase.trim()) entry.api_base = acc.apiBase.trim();
+    } else if (acc.kind === "builtin") {
+      entry.kind = "builtin";
+    }
     if (acc.apiKey) entry.api_key = acc.apiKey;
-    if (preset.id === "custom" && acc.apiBase) entry.api_base = acc.apiBase;
-    if (acc.textModel && acc.textModel !== preset.promptModelDefault) entry.text_model = acc.textModel;
+    if (!userEntry && id === "custom" && acc.apiBase.trim()) {
+      entry.api_base = acc.apiBase.trim();
+    }
+    if (acc.textModel && acc.textModel !== preset.promptModelDefault) {
+      entry.text_model = acc.textModel;
+    }
     if (acc.imageModel && acc.imageModel !== preset.imageModelDefault) {
       entry.image_model = normalizeImageModelId(acc.imageModel);
     }
-    if (Object.keys(entry).length > 0) out[preset.id] = entry;
+    if (Object.keys(entry).length > 0) out[id] = entry;
   }
   return out;
 }
@@ -238,7 +312,7 @@ export function serializeVideoAccounts(map: VideoAccountsMap): Record<string, un
 
 export function resolveActiveTextSettings(form: {
   providerAccounts: ProviderAccountsMap;
-  activeTextProvider: ApiProviderId;
+  activeTextProvider: string;
 }) {
   const acc = getProviderAccount(form.providerAccounts, form.activeTextProvider);
   return {
@@ -257,8 +331,8 @@ export function normalizeImageModelId(model: string): string {
 
 export function resolveActiveImageSettings(form: {
   providerAccounts: ProviderAccountsMap;
-  activeTextProvider: ApiProviderId;
-  activeImageProvider: ApiProviderId;
+  activeTextProvider: string;
+  activeImageProvider: string;
   imageUseTextProvider: boolean;
 }) {
   const providerId = form.imageUseTextProvider ? form.activeTextProvider : form.activeImageProvider;

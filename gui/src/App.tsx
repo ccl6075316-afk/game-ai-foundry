@@ -16,11 +16,9 @@ import {
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
-import { SettingsPanel } from "./components/SettingsPanel";
+import { SettingsPage, type SettingsPageTab } from "./components/SettingsPage";
 import { ToolchainModal } from "./components/ToolchainModal";
 import { EnvToolbar } from "./components/EnvToolbar";
-import { EnvPanel } from "./components/EnvPanel";
-import { GuidePanel } from "./components/GuidePanel";
 import type { ToolchainReport } from "./settings/toolchain";
 import type { ExecutorSetupReport, ExecutorId } from "./settings/executorsSetup";
 import { autoInstallable } from "./settings/toolchain";
@@ -88,7 +86,8 @@ import {
   shouldSyncCodexThirdParty,
 } from "./settings/agentInstances";
 import { executorKindForHire, type HireColleagueConfirmPayload } from "./settings/hireColleague";
-type SidePanel = "board" | "assets" | "docs" | "settings" | "env" | "guide" | null;
+type SidePanel = "board" | "assets" | "docs" | null;
+type AppView = "chat" | "settings";
 
 function slugifyBriefName(raw: string): string {
   const t = raw.trim().toLowerCase();
@@ -284,6 +283,8 @@ export default function App() {
   const [logs, setLogs] = useState<string[]>([]);
   const [chatStore, setChatStore] = useState<ChatSessionStore>(() => loadSessionStore());
   const [sidePanel, setSidePanel] = useState<SidePanel>(null);
+  const [appView, setAppView] = useState<AppView>("chat");
+  const [settingsTab, setSettingsTab] = useState<SettingsPageTab>("providers");
   /** 正在等待回复的同事 instanceId（可并行；避免一人转圈三人一起 loading） */
   const [busyInstanceIds, setBusyInstanceIds] = useState<string[]>([]);
   const markBusy = useCallback((instanceId: string) => {
@@ -503,6 +504,16 @@ export default function App() {
   const toggleSidePanel = (panel: Exclude<SidePanel, null>) => {
     setSidePanel((current) => (current === panel ? null : panel));
   };
+
+  const openSettings = useCallback((tab: SettingsPageTab = "providers") => {
+    setSidePanel(null);
+    setSettingsTab(tab);
+    setAppView("settings");
+  }, []);
+
+  const closeSettings = useCallback(() => {
+    setAppView("chat");
+  }, []);
 
   const appendAssistant = useCallback(
     (
@@ -1166,7 +1177,7 @@ export default function App() {
       applyBrainstormResult(res.data, sessionTarget);
     } catch (e) {
       appendAssistant(
-        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **设置 → 角色** 为当前策划实例选择 Provider 并填写 Key（Provider 页账号库），或确认 Pi 就绪（\`setup pi status --json\`）。`,
+        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **设置 → Provider** 配置账号与 Key，或在对话里为策划实例选择 Provider；亦可确认 Pi 就绪（\`setup pi status --json\`）。`,
         undefined,
         undefined,
         sessionTarget,
@@ -1834,7 +1845,7 @@ export default function App() {
         `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
           (target.role === "it"
             ? "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
-            : "请到 **环境** 面板确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → 角色** 为当前实例选择执行器。"),
+            : "请到 **设置 → 环境** 确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → Agent** 或对话配置里为当前实例选择执行器。"),
         undefined,
         target,
         target.role === "product_host"
@@ -2093,11 +2104,12 @@ export default function App() {
         );
         if (!env.health.ok) {
           setToolchainDismissed(false);
-          setSidePanel("env");
+          setSidePanel(null);
+          openSettings("env");
         }
       }
     }
-  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief, refreshExternalProjects]);
+  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief, refreshExternalProjects, openSettings]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -2521,7 +2533,8 @@ export default function App() {
           undefined,
           ["打开环境", "打开设置"],
         );
-        setSidePanel("env");
+        setSidePanel(null);
+        openSettings("env");
         return;
       }
       append(
@@ -2531,7 +2544,8 @@ export default function App() {
         undefined,
         health.ok ? ["打开环境"] : ["打开环境", "打开设置"],
       );
-      setSidePanel("env");
+      setSidePanel(null);
+      openSettings("env");
       if (!health.ok) setToolchainDismissed(false);
     } finally {
       clearBusy(busyId);
@@ -2581,7 +2595,8 @@ export default function App() {
           undefined,
           ["打开设置", "打开环境"],
         );
-        setSidePanel("settings");
+        setSidePanel(null);
+        openSettings("providers");
         return;
       }
     } else if (!imageOk) {
@@ -2592,7 +2607,8 @@ export default function App() {
         undefined,
         ["打开设置", "打开环境"],
       );
-      setSidePanel("settings");
+      setSidePanel(null);
+      openSettings("providers");
       return;
     }
     const busyId = activeColleague.id;
@@ -3002,12 +3018,12 @@ export default function App() {
       return;
     }
     if (trimmed === "打开环境" || trimmed === "打开环境面板") {
-      toggleSidePanel("env");
-      append("assistant", "已打开右侧「环境」面板。可点「重新检测」；有红色项把原文发给支持。");
+      openSettings("env");
+      append("assistant", "已打开设置 → **环境**。可点「重新检测」；有红色项把原文发给支持。");
       return;
     }
     if (trimmed === "打开设置") {
-      toggleSidePanel("settings");
+      openSettings("providers");
       append("assistant", "已打开设置。填入 API Key 后请点顶部「重新检测」。");
       return;
     }
@@ -3187,13 +3203,18 @@ export default function App() {
       return;
     }
     if (cmd === "/settings") {
-      toggleSidePanel("settings");
-      append("assistant", "设置面板已切换 — 右侧编辑 API Key 与 Godot 路径。");
+      openSettings("providers");
+      append("assistant", "设置页已打开 — 编辑 API Key 与 Godot 路径。");
       return;
     }
-    if (cmd === "/env" || cmd === "/guide") {
-      toggleSidePanel(cmd === "/env" ? "env" : "guide");
-      append("assistant", cmd === "/env" ? "环境面板已打开 — 可检测并安装本机工具。" : "命令指南已打开 — 查看对话指令与 CLI 速查。");
+    if (cmd === "/env") {
+      openSettings("env");
+      append("assistant", "设置 → **环境** — 可检测并安装本机工具。");
+      return;
+    }
+    if (cmd === "/guide") {
+      openSettings("guide");
+      append("assistant", "设置 → **指南** — 查看对话指令与 CLI 速查。");
       return;
     }
     if (cmd === "/godot") {
@@ -3272,22 +3293,11 @@ export default function App() {
           )}
           <button
             type="button"
-            className={`btn btn--ghost ${sidePanel === "env" ? "btn--active" : ""}`}
-            onClick={() => toggleSidePanel("env")}
-          >
-            环境
-          </button>
-          <button
-            type="button"
-            className={`btn btn--ghost ${sidePanel === "guide" ? "btn--active" : ""}`}
-            onClick={() => toggleSidePanel("guide")}
-          >
-            指南
-          </button>
-          <button
-            type="button"
-            className={`btn btn--ghost ${sidePanel === "settings" ? "btn--active" : ""}`}
-            onClick={() => toggleSidePanel("settings")}
+            className={`btn btn--ghost ${appView === "settings" ? "btn--active" : ""}`}
+            onClick={() => {
+              if (appView === "settings") closeSettings();
+              else openSettings();
+            }}
           >
             <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
               <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" />
@@ -3342,6 +3352,26 @@ export default function App() {
         </div>
       </header>
 
+      {appView === "settings" ? (
+        <SettingsPage
+          initialTab={settingsTab}
+          onClose={closeSettings}
+          busy={anyBusy}
+          toolchain={toolchainReport}
+          executorSetup={executorSetup}
+          doctor={doctorReport}
+          scanning={envScanning}
+          installing={toolchainInstalling}
+          executorBusy={executorBusy}
+          installLog={toolchainLog}
+          onRefreshEnv={() => void refreshEnv()}
+          onInstall={(id) => void handleToolchainInstall(id)}
+          onInstallAll={() => void handleToolchainInstallAll()}
+          onExecutorStep={(id, step) => void handleExecutorStep(id, step)}
+          onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
+        />
+      ) : (
+        <>
       <EnvToolbar
         toolchain={toolchainReport}
         executorSetup={executorSetup}
@@ -3360,8 +3390,8 @@ export default function App() {
           }
         })}
         onInstallAll={() => void handleToolchainInstallAll()}
-        onOpenEnv={() => setSidePanel("env")}
-        onOpenGuide={() => setSidePanel("guide")}
+        onOpenEnv={() => openSettings("env")}
+        onOpenGuide={() => openSettings("guide")}
       />
 
       <div className={`chat-layout ${sidePanel ? "side-open" : ""}`}>
@@ -3628,28 +3658,9 @@ export default function App() {
           />
         )}
 
-        {sidePanel === "settings" && <SettingsPanel busy={anyBusy} roster={chatStore.roster} />}
-
-        {sidePanel === "env" && (
-          <EnvPanel
-            toolchain={toolchainReport}
-            executorSetup={executorSetup}
-            doctor={doctorReport}
-            scanning={envScanning}
-            installing={toolchainInstalling}
-            executorBusy={executorBusy}
-            installLog={toolchainLog}
-            onRefresh={() => void refreshEnv()}
-            onInstall={(id) => void handleToolchainInstall(id)}
-            onInstallAll={() => void handleToolchainInstallAll()}
-            onExecutorStep={(id, step) => void handleExecutorStep(id, step)}
-            onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
-            onOpenSettings={() => setSidePanel("settings")}
-          />
-        )}
-
-        {sidePanel === "guide" && <GuidePanel />}
       </div>
+        </>
+      )}
 
       <NewProjectModal
         open={newProjectOpen}
@@ -3733,7 +3744,7 @@ export default function App() {
           onOpenExternal={(url) => void window.gameFactory.openExternal(url)}
           onOpenSettings={() => {
             setToolchainDismissed(true);
-            setSidePanel("settings");
+            openSettings("providers");
           }}
         />
       )}

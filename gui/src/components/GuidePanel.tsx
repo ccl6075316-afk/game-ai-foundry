@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { COMMAND_GUIDE } from "../settings/commandGuide";
 
-export function GuidePanel() {
+interface Props {
+  /** Full-page settings tab: no side-panel shell */
+  embedded?: boolean;
+}
+
+export function GuidePanel({ embedded = false }: Props) {
   const [sectionId, setSectionId] = useState(COMMAND_GUIDE[0]?.id || "workflow");
 
   const section = COMMAND_GUIDE.find((s) => s.id === sectionId) || COMMAND_GUIDE[0];
@@ -14,12 +19,17 @@ export function GuidePanel() {
     }
   };
 
+  const Shell = embedded ? "div" : "aside";
+  const shellClass = embedded ? "guide-panel guide-panel--embedded" : "side-panel guide-panel";
+
   return (
-    <aside className="side-panel guide-panel">
-      <header className="side-panel__head">
-        <h2>命令指南</h2>
-        <p className="side-panel__sub">GUI 对话指令与 CLI 命令速查（在 cli/ 目录执行）</p>
-      </header>
+    <Shell className={shellClass}>
+      {!embedded && (
+        <header className="side-panel__head">
+          <h2>命令指南</h2>
+          <p className="side-panel__sub">GUI 对话指令与 CLI 命令速查（在 cli/ 目录执行）</p>
+        </header>
+      )}
 
       <nav className="guide-nav" aria-label="指南分类">
         {COMMAND_GUIDE.map((s) => (
@@ -58,6 +68,6 @@ export function GuidePanel() {
           </ul>
         </div>
       )}
-    </aside>
+    </Shell>
   );
 }

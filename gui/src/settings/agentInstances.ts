@@ -11,7 +11,7 @@ import {
   omitSafetyKeysForSerialize,
   parseInstanceSafetyFields,
 } from "./instanceSafety";
-import { API_PROVIDERS, type ApiProviderId } from "./apiProviders";
+import { isBuiltinProviderId, type ApiProviderId } from "./apiProviders";
 import { parseExecutor, type AgentExecutor } from "./executors";
 
 export type PiExecutor = "pi";
@@ -40,13 +40,9 @@ const ROLE_AGENT_KEYS: Record<ChatAgentRole, string> = {
   programmer: "godot-developer",
 };
 
-function isApiProviderId(id: string): id is ApiProviderId {
-  return API_PROVIDERS.some((p) => p.id === id);
-}
-
 function coerceProvider(value: unknown, fallback: ApiProviderId): ApiProviderId {
   const id = String(value || fallback);
-  return isApiProviderId(id) ? id : fallback;
+  return isBuiltinProviderId(id) ? id : fallback;
 }
 
 export function defaultExecutorForRole(

@@ -8,15 +8,19 @@
 
 ---
 
-## 设置三栏
+## 设置全页
+
+顶栏 **设置** 打开完整设置页（非右侧栏），含：
 
 ```text
-Provider（API 账号）  →  各厂商 Key、生图、生视频
-Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
-本机                  →  Godot 路径等本地项
+Provider  →  账号库（左列表 / 右详情）+ 生文/生图选用；批量与视频在「高级」
+Agent     →  Pi / Hermes / Codex / Cursor（左工具 / 右预设）
+本机      →  Godot 路径等
+环境      →  本机工具链检测/安装、执行器步进（原「环境」侧栏）
+指南      →  对话指令与 CLI 速查（原「指南」侧栏）
 ```
 
-环境面板（非设置 Tab）负责 **安装/登录** 执行器 CLI，不配业务 Provider 字段。
+右侧栏只留给开发期：**文档 | 看板 | 资产**。`/settings` `/env` `/guide` 均进入设置全页对应 Tab。
 
 ---
 
@@ -28,18 +32,22 @@ Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
 | **推荐** | 上项 + **Hermes 或 Cursor** | 环境排错、改 config、orchestrator 带队 |
 | **写玩法** | 上项 + **Codex 或 Cursor**（程序员实例） | Pass 4 Godot C# 开发 |
 
-仅配 API 时，GUI 聊天 **不能** 根据自然语言自由跑终端、改配置；需点环境面板按钮或斜杠命令。完整 Agent 能力见 [`TOOLS.md`](TOOLS.md) §5。
+仅配 API 时，GUI 聊天 **不能** 根据自然语言自由跑终端、改配置；需到 **设置 → 环境** 或斜杠命令。完整 Agent 能力见 [`TOOLS.md`](TOOLS.md) §5。
 
 ---
 
 ## Provider 页（设置 → Provider）
 
-| Provider | 用途 | 必填 |
-|----------|------|------|
-| **网络** | 顶层 `proxy`（生文 / 生图 / 视频共用） | 可选 |
-| **LLM Provider**（如 OpenRouter） | `/brief` 策划对话、文案 LLM | ✅ |
-| **生图** | 可勾选「沿用 LLM Provider」；主图与批量可各选不同账号 | ✅ |
-| **视频 Provider**（Seedance） | 图生视频 | 做动画时需要 |
+ChatWise 式：**左侧账号列表**，右侧编辑当前账号（Key / Base / 默认文图模型 / 拉取 models）。页内短选「生文用谁」「生图用谁（可沿用生文）」；代理、批量生图、视频在 **高级** 折叠区。
+
+| 用途 | 说明 | 必填 |
+|------|------|------|
+| **账号库** | 内置厂商 + 自建 OpenAI 兼容端；`+` 添加 | 生文至少一个 Key |
+| **生文选用** | 决定 `host` / 策划对话走哪家 | ✅ |
+| **生图选用** | 可沿用生文账号；默认 image model 在账号详情 | ✅ |
+| **高级 · 批量** | `bulk_provider` / `bulk_model` | icon_kit 时建议 |
+| **高级 · 视频** | Seedance 等 | 做动画时需要 |
+| **高级 · 代理** | 顶层 `proxy` | 可选 |
 
 `proxy`：设置 → Provider → **网络**（Clash 示例 `http://127.0.0.1:7897`）。权威字段为配置顶层；保存时会清掉旧的 `host.proxy` / `image.proxy`。域名分流规则在 Clash 客户端配置，不在 Foundry GUI。
 
@@ -48,13 +56,19 @@ Agent（工具预设）     →  Pi / Hermes / Codex / Cursor 默认连法
 
 **API Key 只在此页填写**；雇人弹窗与对话配置仅选择账号库 id，不重复填 Key。
 
+### 自建账号与模型目录
+
+- 除内置厂商外，可 **添加** OpenAI 兼容账号（自定 id / 显示名 / `api_base` / Key）。旧唯一槽 `custom` 仍兼容，可继续再加其它账号。
+- 自建账号用于 **Foundry 直连**（生文 `host` / `prompt`、生图含批量）。**不进入** Agent 预设、雇人、对话的 Provider 下拉（Pi / Hermes / Codex / Cursor 未必认自定义 base）。
+- 文/图模型可用「刷新」拉 `GET {api_base}/models`（CLI：`setup provider models --provider <id> --json`）。界面默认只展示靠前约 30 条，其余靠搜索或手填；失败时保留当前模型值。
+
 GUI 主对话（① 策划薄 Chat）走 LLM Provider，与下方 Agent 执行器选择无关。
 
 ---
 
 ## Agent 页（设置 → Agent）
 
-按 **执行器工具** 配置全局预设，写入 `agents.executors`：
+左列选工具，右侧编辑该工具全局预设，写入 `agents.executors`：
 
 | 工具 | 预设字段 |
 |------|----------|
@@ -87,7 +101,7 @@ GUI 主对话（① 策划薄 Chat）走 LLM Provider，与下方 Agent 执行�
 - **对话内修改只更新该实例**，**不回写** Agent 页全局预设。
 - 删除同事时清理对应 `agents.instances.<id>`。
 
-**项目经理 / 程序员（Codex 登录态、Cursor）**：聊天顶栏从本机 CLI **实时读取**模型列表（`agent --list-models` / `codex debug models`），经 `setup executor models --json`。列表为空时不展示假选项；Cursor 会结合 `agent status` 区分「未登录」与「已登录但目录仍空（多半需重登刷新会话）」；可用「刷新」重拉。高/中/低档仅当偏好 id 出现在实时列表中时可点。仍写入 `agents.instances.<id>.model`。Codex 勾「第三方」时仍走 Provider + 手填。GUI 拉列表时 PATH 会补上 `~/.local/bin`（Cursor `agent` 常见安装位置）。
+**项目经理 / 程序员（Codex 登录态、Cursor）**：聊天顶栏从本机 CLI **实时读取**模型列表（`agent --list-models` / `codex debug models`），经 `setup executor models --json`。列表为空时不展示假选项；Cursor 会结合 `agent status` 区分「未登录」与「已登录但目录仍空（多半需重登刷新会话）」；可用「刷新」重拉。高/中/低档仅当偏好 id 出现在实时列表中时可点。仍写入 `agents.instances.<id>.model`。Codex 勾「第三方」时走 **内置** Provider + 账号模型目录（`setup provider models`，可搜索/手填）。Pi / Hermes 同。GUI 拉执行器列表时 PATH 会补上 `~/.local/bin`（Cursor `agent` 常见安装位置）。
 
 ---
 

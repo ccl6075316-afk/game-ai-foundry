@@ -263,7 +263,7 @@ def setup_provider_group() -> None:
 
 
 @setup_provider_group.command("upsert")
-@click.option("--provider", "provider_id", required=True, help="Account id: openrouter/deepseek/kimi/…")
+@click.option("--provider", "provider_id", required=True, help="Account id: openrouter/deepseek/kimi/… or user slug")
 @click.option("--api-key", "api_key", default=None, help="API key (prefer env GAMEFACTORY_PROVIDER_API_KEY).")
 @click.option(
     "--api-key-env",
@@ -271,8 +271,17 @@ def setup_provider_group() -> None:
     default=None,
     help="Env var name holding the key (default GAMEFACTORY_PROVIDER_API_KEY).",
 )
-@click.option("--api-base", "api_base", default=None, help="Optional API base URL.")
+@click.option("--api-base", "api_base", default=None, help="API base URL (required for user accounts).")
 @click.option("--text-model", "text_model", default=None, help="Optional default text model.")
+@click.option("--image-model", "image_model", default=None, help="Optional default image model.")
+@click.option("--label", "label", default=None, help="Display label (user accounts).")
+@click.option(
+    "--kind",
+    "kind",
+    type=click.Choice(["builtin", "user"], case_sensitive=False),
+    default=None,
+    help="Account kind override (builtin ids only for builtin).",
+)
 @click.option(
     "--set-active-text/--no-set-active-text",
     default=True,
@@ -292,6 +301,9 @@ def setup_provider_upsert_cmd(
     api_key_env: str | None,
     api_base: str | None,
     text_model: str | None,
+    image_model: str | None,
+    label: str | None,
+    kind: str | None,
     set_active_text: bool,
     i_confirm: bool,
     as_json: bool,
@@ -305,6 +317,9 @@ def setup_provider_upsert_cmd(
         api_key_env=api_key_env,
         api_base=api_base,
         text_model=text_model,
+        image_model=image_model,
+        label=label,
+        kind=kind,
         set_active_text=set_active_text,
         i_confirm=i_confirm,
     )
@@ -312,9 +327,84 @@ def setup_provider_upsert_cmd(
         click.echo(json.dumps(result, ensure_ascii=False, indent=2))
     elif result.get("ok"):
         click.echo(
-            f"已写入 {result.get('provider')}（has_api_key=yes"
+            f"已写入 {result.get('provider')}（kind={result.get('kind') or '-'}, has_api_key=yes"
             f", set_active_text={bool(result.get('set_active_text'))}）"
         )
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
+
+
+@setup_provider_group.command("list")
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
+def setup_provider_list_cmd(as_json: bool) -> None:
+    """List provider_accounts entries."""
+    from provider_upsert import list_provider_accounts
+
+    result = list_provider_accounts()
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        accounts = result.get("accounts") or []
+        if not accounts:
+            click.echo("（无 provider_accounts 条目）")
+        for item in accounts:
+            click.echo(
+                f"- {item.get('id')} kind={item.get('kind')} "
+                f"label={item.get('label') or '-'} "
+                f"has_api_key={'yes' if item.get('has_api_key') else 'no'}"
+            )
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
+
+
+@setup_provider_group.command("remove")
+@click.option("--provider", "provider_id", required=True, help="Account id to remove.")
+@click.option(
+    "--i-confirm",
+    "i_confirm",
+    is_flag=True,
+    help="Required: user confirmed delete in IT chat (or equivalent).",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
+def setup_provider_remove_cmd(
+    provider_id: str,
+    i_confirm: bool,
+    as_json: bool,
+) -> None:
+    """Remove provider_accounts entry after reference guard."""
+    from provider_upsert import remove_provider_account
+
+    result = remove_provider_account(
+        provider=provider_id,
+        i_confirm=i_confirm,
+    )
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        click.echo(f"已删除 {result.get('provider')}")
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
+
+
+@setup_provider_group.command("models")
+@click.option("--provider", "provider_id", required=True, help="Account id to fetch models for.")
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
+def setup_provider_models_cmd(provider_id: str, as_json: bool) -> None:
+    """Fetch OpenAI-compatible /models for a provider account."""
+    from provider_models import fetch_provider_models
+
+    result = fetch_provider_models(provider=provider_id)
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        models = result.get("models") or []
+        click.echo(f"{result.get('provider')}: {len(models)} 个模型")
     else:
         click.echo(f"失败: {result.get('error')}", err=True)
     if not result.get("ok"):

@@ -1,4 +1,4 @@
-import { API_PROVIDERS, type ApiProviderId } from "./apiProviders";
+import { isBuiltinProviderId, type ApiProviderId } from "./apiProviders";
 
 export type AgentExecutorId = "pi" | "hermes" | "codex" | "cursor";
 
@@ -40,13 +40,9 @@ export interface ExecutorHireDefaults {
   use_third_party: boolean;
 }
 
-function isApiProviderId(id: string): id is ApiProviderId {
-  return API_PROVIDERS.some((p) => p.id === id);
-}
-
 function coerceProvider(value: unknown, fallback: ApiProviderId): ApiProviderId {
   const id = String(value || fallback);
-  return isApiProviderId(id) ? id : fallback;
+  return isBuiltinProviderId(id) ? id : fallback;
 }
 
 function inferPiPreset(agents: Record<string, unknown>): AgentExecutorPreset {

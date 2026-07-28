@@ -1448,6 +1448,19 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
+  ipcMain.handle("provider-models", async (_event, providerId) => {
+    const result = await runCli([
+      "setup",
+      "provider",
+      "models",
+      "--provider",
+      String(providerId || ""),
+      "--json",
+    ]);
+    const data = parseJsonFromOutput(result.stdout);
+    return { ...result, data };
+  });
+
   ipcMain.handle("executor-step", async (event, executorId, stepId, opts = {}) => {
     const sender = event.sender;
     const args = ["setup", "executor", "step", String(executorId), String(stepId)];

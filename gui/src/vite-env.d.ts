@@ -323,6 +323,16 @@ declare global {
           source?: string | null;
         }>
       >;
+      providerModels: (
+        providerId: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          models?: Array<{ id: string; label?: string }>;
+          error?: string | null;
+          source?: string | null;
+        }>
+      >;
       executorStep: (
         executorId: import("./settings/executorsSetup").ExecutorId,
         stepId: string,

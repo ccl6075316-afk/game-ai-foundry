@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from provider_upsert import KNOWN_PROVIDERS, _load_config, _save_config
+from provider_upsert import BUILTIN_PROVIDERS, _load_config, _save_config
 
 KNOWN_EXECUTORS = ("pi", "hermes", "codex", "cursor")
 
@@ -36,11 +36,11 @@ def upsert_agent_executor(
         }
 
     provider_id = str(provider or "").strip().lower() or None
-    if provider_id and provider_id not in KNOWN_PROVIDERS:
+    if provider_id and provider_id not in BUILTIN_PROVIDERS:
         return {
             "ok": False,
             "executor": exec_id,
-            "error": f"未知 provider id: {provider_id}",
+            "error": f"未知 provider id: {provider_id}（仅支持内置: {', '.join(BUILTIN_PROVIDERS)}）",
         }
 
     cfg = _load_config(config_path)
