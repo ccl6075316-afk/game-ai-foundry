@@ -39,8 +39,8 @@ brief.json → production.json → scaffold
 | **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等 |
 | **`/delta`** | Production Delta → 合并蓝图并同步 progress |
 | **斜杠命令** | `/plan` `/run` `/board` `/assets` `/doctor` `/guide` … |
-| **看板 / 资产** | 看板管任务进度；**资产**表审图与映射（采纳 / 重生成 / 本地替换） |
-| **Provider / 环境** | 多账号；顶层代理；生图主/批量可分 Provider；FFmpeg / Godot / .NET 自动装；执行器向导 |
+| **看板 / 资产 / 文档** | 右侧栏：看板管任务；**资产**表审图；**文档**预览 brief |
+| **设置（全页）** | Provider 多账号（可自建 OpenAI 兼容）+ 模型目录；Agent 工具预设；本机 / 环境 / 指南 |
 | **Release** | 内嵌 Python（含 **rembg**），无需用户装 Python/Node |
 
 ### CLI / 施工底座
@@ -72,8 +72,8 @@ brief.json → production.json → scaffold
 
 1. 下载 [**v0.0.8 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.8)
 2. 解压 / 打开 **Game AI Foundry**
-3. **设置** → 填 LLM API Key；需要时填 **网络** 代理（Clash 等）；等待顶部芯片变绿（FFmpeg / Godot / .NET）
-4. **（推荐）环境 → 执行器** → Hermes / Codex / Cursor Agent（Hermes 在角色页可选 Provider 后同步）
+3. **设置** → Provider 填 LLM API Key（可自建兼容端）；高级里可配代理；等待顶部芯片变绿（FFmpeg / Godot / .NET）
+4. **（推荐）设置 → 环境** → 安装 Hermes / Codex / Cursor Agent；**设置 → Agent** 配默认连法
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts` → 侧栏 **资产** 审图
 6. 试玩问题找**项目经理**；改需求用 `/delta 00x-name | 描述`
 
@@ -115,7 +115,7 @@ Details → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · Progress → [`ROADMAP
 | **Seedance / ARK** | 做视频时 | 生视频 |
 | **FFmpeg / Godot / .NET** | ✅ | GUI **启动自动安装** |
 | **rembg** | — | **打包版内嵌** |
-| **Hermes / Codex / Cursor Agent** | 推荐 | 项目经理 / 程序员；环境面板配置 |
+| **Hermes / Codex / Cursor Agent** | 推荐 | 项目经理 / 程序员；**设置 → 环境** 配置 |
 
 ### 开发者
 
