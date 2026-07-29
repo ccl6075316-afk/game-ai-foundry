@@ -18,10 +18,10 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ---
 
-## Current Status (2026-07-18)
+## Current Status (2026-07-29)
 
-> **v0.0.8 可用边界** → [`docs/RELEASE-NOTES-0.0.8.md`](docs/RELEASE-NOTES-0.0.8.md)
-> 收：工程隔离、北极星定稿、环境错误可读、策划选项可点。不收：视觉硬门禁、macOS 官方包。
+> **v0.1.0 可用边界** → [`docs/RELEASE-NOTES-0.1.0.md`](docs/RELEASE-NOTES-0.1.0.md)
+> 收：IT 家庭运维、外置工程、设置全页、Brief 补全、开放 Provider。不收：视觉硬门禁、macOS 官方包。
 
 ### ✅ Done
 
