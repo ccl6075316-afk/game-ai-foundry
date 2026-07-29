@@ -61,7 +61,28 @@ def load_brief_dict_from_path(path: Path) -> dict[str, Any]:
     raise FileNotFoundError(f"No brief or draft at {path}")
 
 
-def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
+def _notes_path_beside(brief_path: Path) -> Path:
+    return Path(brief_path).resolve().parent / "策划笔记.md"
+
+
+def _read_planner_notes(brief_path: Path, *, max_chars: int = 12_000) -> str:
+    notes = _notes_path_beside(brief_path)
+    if not notes.is_file():
+        return ""
+    try:
+        text = notes.read_text(encoding="utf-8").strip()
+    except OSError:
+        return ""
+    if len(text) > max_chars:
+        return text[:max_chars] + "\n\n…（策划笔记已截断）"
+    return text
+
+
+def render_brief_zh_skeleton(
+    brief: dict[str, Any],
+    *,
+    planner_notes: str = "",
+) -> str:
     """Deterministic Chinese-labeled mirror of the brief (no LLM).
 
     Narrative fields may still be English; section titles are Chinese so the Docs
@@ -77,7 +98,8 @@ def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
         f"# {title}（中文说明）",
         "",
         "> 供人阅读、**导出前**确认玩法与资产是否够用。流水线只读英文 `brief.json`；",
-        "> 未导出时本文档对应工作草稿 `brief.draft.json`。",
+        "> 未导出时本文档对应工作草稿 `brief.draft.json`（机器 JSON，不是给人读的中文稿）。",
+        "> 同目录 `策划笔记.md` 是手写要点；本文件才是 **brief 全文镜像**（草稿一变应跟着刷新）。",
         "",
     ]
     if meta.get("frozen_at"):
@@ -86,6 +108,18 @@ def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
         )
     else:
         lines.extend(["- 状态：**工作草稿**（尚未导出冻结）", ""])
+
+    if planner_notes.strip():
+        lines.extend(
+            [
+                "## 策划笔记（工程内手写，已并入）",
+                "",
+                planner_notes.strip(),
+                "",
+                "---",
+                "",
+            ]
+        )
 
     lines.extend(
         [
@@ -177,7 +211,8 @@ def render_brief_zh_skeleton(brief: dict[str, Any]) -> str:
 _TRANSLATE_SYSTEM = (
     "你是游戏策划文档助手。把英文 brief JSON 写成清晰的中文 Markdown 说明，"
     "保留资产 id / 技术字段英文原样，玩法与描述用中文。"
-    "不要编造 brief 里没有的系统。标题用中文。"
+    "若提供了「策划笔记」，以其拍板方向为准，补全 brief 里仍是英文的叙事，但不要编造 brief 没有的系统。"
+    "标题用中文。不要输出 JSON。"
 )
 
 
@@ -194,9 +229,10 @@ def translate_brief_to_zh_markdown(
     *,
     config: dict[str, Any] | None = None,
     use_llm: bool = True,
+    planner_notes: str = "",
 ) -> tuple[str, str]:
     """Return (markdown, mode) where mode is ``llm`` or ``skeleton``."""
-    skeleton = render_brief_zh_skeleton(brief)
+    skeleton = render_brief_zh_skeleton(brief, planner_notes=planner_notes)
     if not use_llm:
         return skeleton, "skeleton"
     try:
@@ -209,9 +245,18 @@ def translate_brief_to_zh_markdown(
     if not api.get("api_key"):
         return skeleton, "skeleton"
 
+    notes_block = ""
+    if planner_notes.strip():
+        notes_block = (
+            "\n\n同工程策划笔记（手写中文要点，请并入正文，勿丢已拍板方向）：\n\n"
+            + planner_notes.strip()
+            + "\n"
+        )
     user = (
-        "请把下面的 brief 写成中文说明文档（Markdown），供导出前审阅：\n\n"
-        + json.dumps(brief, ensure_ascii=False, indent=2)[:120_000]
+        "请把下面的 brief 写成中文说明文档（Markdown），供导出前审阅。"
+        "输出必须是 Markdown，禁止整段 JSON。"
+        f"{notes_block}\nbrief JSON：\n\n"
+        + json.dumps(brief, ensure_ascii=False, indent=2)[:100_000]
     )
     try:
         raw = chat_text_completion(
@@ -233,6 +278,9 @@ def translate_brief_to_zh_markdown(
     md = _strip_md_fence(raw)
     if len(md) < 80 or "#" not in md:
         return skeleton, "skeleton"
+    # Guard: model sometimes dumps JSON instead of Markdown.
+    if md.lstrip().startswith("{") and '"project"' in md[:200]:
+        return skeleton, "skeleton"
     return md, "llm"
 
 
@@ -253,7 +301,10 @@ def write_brief_zh_document(
         draft_path.write_text(
             json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-    md, mode = translate_brief_to_zh_markdown(data, config=config, use_llm=use_llm)
+    notes = _read_planner_notes(path)
+    md, mode = translate_brief_to_zh_markdown(
+        data, config=config, use_llm=use_llm, planner_notes=notes
+    )
     out = brief_zh_doc_path_for(path)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(md.rstrip() + "\n", encoding="utf-8")

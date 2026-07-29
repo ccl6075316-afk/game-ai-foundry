@@ -48,6 +48,23 @@ class BriefZhDocTests(unittest.TestCase):
         self.assertIn("导出前", md)
         self.assertIn("brief.draft.json", md)
 
+    def test_skeleton_includes_planner_notes(self) -> None:
+        brief = {
+            "project": {
+                "title": "钓",
+                "description": "eng",
+                "genre": "g",
+                "dimension": "2d",
+                "gameplay_loop": "loop",
+                "session_goal": "goal",
+                "art_direction": "art",
+            },
+            "assets": [],
+        }
+        md = render_brief_zh_skeleton(brief, planner_notes="# 笔记\n\n- 已拍板：拔河收线")
+        self.assertIn("策划笔记", md)
+        self.assertIn("拔河收线", md)
+
     def test_write_from_draft_without_brief_json(self) -> None:
         brief = {
             "project": {

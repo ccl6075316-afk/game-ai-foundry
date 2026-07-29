@@ -1980,16 +1980,38 @@ export default function App() {
       const manifest = await syncPipelineForBrief(normalized);
       setDocsFocusDiskRel(null);
       setDocsDiskRefreshKey((n) => n + 1);
+      let briefStatus: "ready" | "draft" | "unknown" = "unknown";
+      try {
+        const briefs = window.gameFactory?.listBriefs
+          ? await window.gameFactory.listBriefs()
+          : [];
+        const hit = (briefs || []).find(
+          (b) => String(b.path || "").replace(/\\/g, "/") === normalized,
+        );
+        if (hit?.status === "draft" || hit?.status === "ready") briefStatus = hit.status;
+      } catch {
+        /* keep unknown */
+      }
+      const draftRel = normalized.replace(/\/brief\.json$/i, "/brief.draft.json");
+      const briefLine =
+        briefStatus === "draft"
+          ? `工作草稿：\`${draftRel}\`（**尚未导出** \`brief.json\`，列表里的路径只是工程键）`
+          : briefStatus === "ready"
+            ? `Brief：\`${normalized}\`（已导出）`
+            : `工程键：\`${normalized}\``;
+      const pipeLine = manifest
+        ? `\n看板：\`${manifest}\``
+        : briefStatus === "draft"
+          ? "\n（尚无流水线 — 先在文档里审阅/导出 Brief，再让项目经理生成流水线）"
+          : "\n（尚无 pipeline manifest — 看板已清空；可让项目经理生成流水线）";
       append(
         "assistant",
-        `已切换到工程 **${slug}**\n\nBrief：\`${normalized}\`${
-          manifest
-            ? `\n看板：\`${manifest}\``
-            : "\n（尚无 pipeline manifest — 看板已清空；可让项目经理生成流水线）"
-        }`,
+        `已切换到工程 **${slug}**\n\n${briefLine}${pipeLine}`,
         undefined,
         undefined,
-        ["打开文档", "生成流水线"],
+        briefStatus === "draft"
+          ? ["打开文档", "生成中文说明"]
+          : ["打开文档", "生成流水线"],
       );
     },
     [
@@ -3664,6 +3686,7 @@ export default function App() {
             busy={chatBusy}
             diskRefreshKey={docsDiskRefreshKey}
             focusDiskRel={docsFocusDiskRel}
+            onFocusDiskRelConsumed={() => setDocsFocusDiskRel(null)}
             onSelectProject={(rel) => void switchProject(rel)}
             onNewProject={() => {
               if (agentRole !== "brief") {

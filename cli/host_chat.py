@@ -239,6 +239,13 @@ def persist_project_draft(
         )
     except OSError:
         return None
+    # Keep Chinese companion in sync with the machine draft (no LLM on every save).
+    try:
+        from brief_zh_doc import write_brief_zh_document
+
+        write_brief_zh_document(brief_path, out, config={}, use_llm=False)
+    except Exception:
+        pass
     return draft_path
 
 
