@@ -13,6 +13,7 @@ export interface CliResult<T = unknown> {
   stdout: string;
   stderr: string;
   data?: T;
+  aborted?: boolean;
 }
 
 export interface BriefItem {
@@ -686,6 +687,9 @@ declare global {
         trusted: boolean,
       ) => Promise<{ ok?: boolean; trusted?: boolean; error?: string }>;
       stopAgentAcpInstance: (instanceId: string) => Promise<{ ok?: boolean; error?: string }>;
+      chatStop: (
+        instanceId: string,
+      ) => Promise<{ ok?: boolean; aborted?: boolean; killedCli?: boolean; stoppedAcp?: boolean; error?: string }>;
       onToolPermission: (
         callback: (payload: {
           permissionId: string;

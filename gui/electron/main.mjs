@@ -153,7 +153,132 @@ function pathWithCommonNodeBins(basePath) {
   return parts.join(path.delimiter);
 }
 
-function runCli(args, { cwd, onLine } = {}) {
+/** @type {Map<string, import('node:child_process').ChildProcess>} */
+const cliJobs = new Map();
+/** Instance ids whose in-flight chat turn was user-aborted (ACP + CLI). */
+const abortedChatInstances = new Set();
+
+function chatJobKey(instanceId) {
+  const id = String(instanceId || "").trim();
+  return id ? `chat:${id}` : "";
+}
+
+function registerCliJob(jobKey, child) {
+  if (!jobKey || !child) return;
+  const prev = cliJobs.get(jobKey);
+  if (prev && prev !== child && !prev.killed) {
+    try {
+      prev.kill("SIGTERM");
+    } catch {
+      /* ignore */
+    }
+  }
+  cliJobs.set(jobKey, child);
+  const clear = () => {
+    if (cliJobs.get(jobKey) === child) cliJobs.delete(jobKey);
+  };
+  child.once("close", clear);
+  child.once("exit", clear);
+  child.once("error", clear);
+}
+
+function abortCliJob(jobKey) {
+  if (!jobKey) return false;
+  const child = cliJobs.get(jobKey);
+  if (!child || child.killed) return false;
+  try {
+    if (process.platform === "win32" && child.pid) {
+      try {
+        spawn("taskkill", ["/pid", String(child.pid), "/T", "/F"], {
+          windowsHide: true,
+          stdio: "ignore",
+        });
+      } catch {
+        child.kill();
+      }
+    } else {
+      child.kill("SIGTERM");
+      setTimeout(() => {
+        try {
+          if (!child.killed) child.kill("SIGKILL");
+        } catch {
+          /* ignore */
+        }
+      }, 1500);
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function stopChatRuntime(instanceId) {
+  const id = String(instanceId || "").trim();
+  if (!id) return { ok: false, error: "instanceId required" };
+  abortedChatInstances.add(id);
+  const killedCli = abortCliJob(chatJobKey(id));
+  let stoppedAcp = false;
+  try {
+    if (cursorAcpSessionManager) {
+      cursorAcpSessionManager.stop(id);
+      stoppedAcp = true;
+    }
+  } catch {
+    /* ignore */
+  }
+  try {
+    if (hermesAcpSessionManager) {
+      hermesAcpSessionManager.stop(id);
+      stoppedAcp = true;
+    }
+  } catch {
+    /* ignore */
+  }
+  try {
+    if (codexAppServerSessionManager) {
+      codexAppServerSessionManager.stop(id);
+      stoppedAcp = true;
+    }
+  } catch {
+    /* ignore */
+  }
+  return { ok: true, aborted: killedCli || stoppedAcp, killedCli, stoppedAcp };
+}
+
+function takeChatAbort(instanceId) {
+  const id = String(instanceId || "").trim();
+  if (!id || !abortedChatInstances.has(id)) return false;
+  abortedChatInstances.delete(id);
+  return true;
+}
+
+function abortedChatResult(extra = {}) {
+  return {
+    exitCode: 130,
+    stdout: "",
+    stderr: "已停止",
+    aborted: true,
+    data: { ok: false, aborted: true, error: "已停止" },
+    ...extra,
+  };
+}
+
+function withAbortMeta(result, instanceId) {
+  const aborted = Boolean(result?.aborted) || takeChatAbort(instanceId);
+  if (!aborted) return { ...result, aborted: false };
+  const data =
+    result?.data && typeof result.data === "object"
+      ? { ...result.data, ok: false, aborted: true, error: result.data.error || "已停止" }
+      : { ok: false, aborted: true, error: "已停止" };
+  return {
+    ...result,
+    exitCode: 130,
+    aborted: true,
+    data,
+  };
+}
+
+function runCli(args, { cwd, onLine, jobKey } = {}) {
   const root = repoRoot();
   const python = resolvePython(root);
   const workdir = cwd || cliDir(root);
@@ -177,8 +302,11 @@ function runCli(args, { cwd, onLine } = {}) {
       shell: false,
     });
 
+    if (jobKey) registerCliJob(String(jobKey), proc);
+
     let stdout = "";
     let stderr = "";
+    let aborted = false;
 
     const emit = (chunk, stream) => {
       const text = chunk.toString("utf-8");
@@ -194,8 +322,10 @@ function runCli(args, { cwd, onLine } = {}) {
     proc.stdout.on("data", (c) => emit(c, "stdout"));
     proc.stderr.on("data", (c) => emit(c, "stderr"));
     proc.on("error", reject);
-    proc.on("close", (code) => {
-      resolve({ exitCode: code ?? 1, stdout, stderr });
+    proc.on("close", (code, signal) => {
+      if (signal === "SIGTERM" || signal === "SIGKILL") aborted = true;
+      if (code === 130 || code === 137 || code === 143) aborted = true;
+      resolve({ exitCode: code ?? 1, stdout, stderr, aborted });
     });
   });
 }
@@ -2079,7 +2209,7 @@ app.whenReady().then(() => {
     return { ok: true, path: relToRepo(abs) };
   });
 
-  ipcMain.handle("host-chat-start", async (_e, sessionId, seed, _instanceId, briefRel) => {
+  ipcMain.handle("host-chat-start", async (_e, sessionId, seed, instanceId, briefRel) => {
     const args = ["brief", "chat", "start", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
@@ -2087,8 +2217,9 @@ app.whenReady().then(() => {
     if (briefRel && String(briefRel).trim()) {
       args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
     }
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
   ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId, briefRel) => {
@@ -2108,11 +2239,12 @@ app.whenReady().then(() => {
     if (briefRel && String(briefRel).trim()) {
       args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
     }
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
-  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, _instanceId, briefRel) => {
+  ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, instanceId, briefRel) => {
     const args = ["brief", "chat", "reset", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
       args.push("--seed", String(seed).trim());
@@ -2120,8 +2252,9 @@ app.whenReady().then(() => {
     if (briefRel && String(briefRel).trim()) {
       args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
     }
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
   ipcMain.handle("host-chat-bind", async (_e, sessionId, briefRel) => {
@@ -2139,7 +2272,7 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel, _instanceId) => {
+  ipcMain.handle("host-chat-export", async (_e, sessionId, outputRel, instanceId) => {
     const rel = String(outputRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
     const abs = absForRel(rel);
     mkdirSync(path.dirname(abs), { recursive: true });
@@ -2153,7 +2286,11 @@ app.whenReady().then(() => {
       cliArgForRel(rel),
       "--json",
     ];
-    const result = await runCli(args);
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    if (result.aborted || takeChatAbort(instanceId)) {
+      return abortedChatResult({ stdout: result.stdout, stderr: result.stderr });
+    }
     const data = parseJsonFromOutput(result.stdout) || {};
     if (!data.brief_path) data.brief_path = abs;
     data.brief_rel = rel;
@@ -2215,7 +2352,7 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
-  ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5, _instanceId) => {
+  ipcMain.handle("host-chat-autofix", async (_e, sessionId, maxRounds = 5, instanceId) => {
     const rounds = Math.max(1, Math.min(12, Number(maxRounds) || 5));
     const args = [
       "brief",
@@ -2227,11 +2364,12 @@ app.whenReady().then(() => {
       String(rounds),
       "--json",
     ];
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
-  ipcMain.handle("host-chat-makeability", async (_e, sessionId, _instanceId) => {
+  ipcMain.handle("host-chat-makeability", async (_e, sessionId, instanceId) => {
     const args = [
       "brief",
       "chat",
@@ -2240,11 +2378,12 @@ app.whenReady().then(() => {
       String(sessionId || "").trim(),
       "--json",
     ];
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
-  ipcMain.handle("host-chat-enrich", async (_e, sessionId, hint, _instanceId) => {
+  ipcMain.handle("host-chat-enrich", async (_e, sessionId, hint, instanceId) => {
     const args = [
       "brief",
       "chat",
@@ -2257,13 +2396,14 @@ app.whenReady().then(() => {
     if (h) {
       args.push("--hint", h);
     }
-    const result = await runCli(args);
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
   ipcMain.handle(
     "host-chat-topic-brainstorm",
-    async (_e, sessionId, topic, constraints, multiModel, _instanceId) => {
+    async (_e, sessionId, topic, constraints, multiModel, instanceId) => {
       const args = [
         "brief",
         "chat",
@@ -2277,14 +2417,15 @@ app.whenReady().then(() => {
       const c = String(constraints || "").trim();
       if (c) args.push("--constraints", c);
       if (multiModel) args.push("--multi-model");
-      const result = await runCli(args);
-      return { ...result, data: parseJsonFromOutput(result.stdout) };
+      abortedChatInstances.delete(String(instanceId || "").trim());
+      const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+      return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
     },
   );
 
   ipcMain.handle(
     "host-chat-brainstorm-apply",
-    async (_e, sessionId, proposalIds, fuse, _instanceId) => {
+    async (_e, sessionId, proposalIds, fuse, instanceId) => {
       const args = [
         "brief",
         "chat",
@@ -2299,8 +2440,9 @@ app.whenReady().then(() => {
         if (s) args.push("--proposal-id", s);
       }
       if (fuse) args.push("--fuse");
-      const result = await runCli(args);
-      return { ...result, data: parseJsonFromOutput(result.stdout) };
+      abortedChatInstances.delete(String(instanceId || "").trim());
+      const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+      return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
     },
   );
 
@@ -2327,6 +2469,7 @@ app.whenReady().then(() => {
     const hermesYolo = resolveHermesYolo(config, opts.instanceId);
     const codexSandbox = resolveCodexSandbox(config, opts.instanceId);
     const instanceKey = String(opts.instanceId || sessionId).trim();
+    abortedChatInstances.delete(instanceKey);
 
     // IT home-ops: default session trust (skip per-tool cards) unless explicitly off
     if (role === "it" && sessionId && toolPermissionBridge) {
@@ -2360,6 +2503,10 @@ app.whenReady().then(() => {
           permissionMode,
         });
 
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+
         const recordArgs = [
           "agent",
           "record-turn",
@@ -2375,7 +2522,10 @@ app.whenReady().then(() => {
           "cursor",
           "--json",
         ];
-        const recordResult = await runCli(recordArgs);
+        const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
+        if (recordResult.aborted || takeChatAbort(instanceKey)) {
+          return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
+        }
         const recordData = parseJsonFromOutput(recordResult.stdout) || {};
         if (recordResult.exitCode !== 0 || recordData.ok === false) {
           const errMsg =
@@ -2405,6 +2555,9 @@ app.whenReady().then(() => {
           data: payload,
         };
       } catch (err) {
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
         const errMsg = err instanceof Error ? err.message : "Cursor ACP 回合失败";
         return {
           exitCode: 1,
@@ -2436,6 +2589,10 @@ app.whenReady().then(() => {
           text: message,
         });
 
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+
         const recordArgs = [
           "agent",
           "record-turn",
@@ -2451,7 +2608,10 @@ app.whenReady().then(() => {
           "hermes",
           "--json",
         ];
-        const recordResult = await runCli(recordArgs);
+        const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
+        if (recordResult.aborted || takeChatAbort(instanceKey)) {
+          return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
+        }
         const recordData = parseJsonFromOutput(recordResult.stdout) || {};
         if (recordResult.exitCode !== 0 || recordData.ok === false) {
           const errMsg =
@@ -2481,6 +2641,9 @@ app.whenReady().then(() => {
           data: payload,
         };
       } catch (err) {
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
         const errMsg = err instanceof Error ? err.message : "Hermes ACP 回合失败";
         return {
           exitCode: 1,
@@ -2525,6 +2688,10 @@ app.whenReady().then(() => {
 
         const out = await codexAppServerSessionManager.prompt(promptArgs);
 
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+
         const recordArgs = [
           "agent",
           "record-turn",
@@ -2540,7 +2707,10 @@ app.whenReady().then(() => {
           "codex",
           "--json",
         ];
-        const recordResult = await runCli(recordArgs);
+        const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
+        if (recordResult.aborted || takeChatAbort(instanceKey)) {
+          return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
+        }
         const recordData = parseJsonFromOutput(recordResult.stdout) || {};
         if (recordResult.exitCode !== 0 || recordData.ok === false) {
           const errMsg =
@@ -2570,6 +2740,9 @@ app.whenReady().then(() => {
           data: payload,
         };
       } catch (err) {
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
         const errMsg = err instanceof Error ? err.message : "Codex app-server 回合失败";
         return {
           exitCode: 1,
@@ -2628,11 +2801,12 @@ app.whenReady().then(() => {
     }
     const sender = event.sender;
     const result = await runCli(args, {
+      jobKey: chatJobKey(instanceKey),
       onLine: (line, stream) => {
         sender.send("pipeline-log", { line, stream, source: "agent" });
       },
     });
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceKey);
   });
 
   ipcMain.handle("agent-tool-permission-decision", async (_e, permissionId, decision) => {
@@ -2671,6 +2845,8 @@ app.whenReady().then(() => {
     codexAppServerSessionManager?.stop(key);
     return { ok: true };
   });
+
+  ipcMain.handle("chat-stop", async (_e, instanceId) => stopChatRuntime(instanceId));
 
   ipcMain.handle("agent-status", async (_e, role, sessionId) => {
     const result = await runCli([

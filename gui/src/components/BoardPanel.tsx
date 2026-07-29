@@ -1,3 +1,4 @@
+import type React from "react";
 import type { PipelineStatus, PipelineTask } from "../vite-env.d";
 import type { HostChatDraftBrief } from "../chat/types";
 import { TaskList } from "./TaskList";
@@ -11,6 +12,7 @@ interface Props {
   onRun: () => void;
   busy: boolean;
   draftBrief?: HostChatDraftBrief | null;
+  style?: React.CSSProperties;
 }
 
 export function BoardPanel({
@@ -22,11 +24,12 @@ export function BoardPanel({
   onRun,
   busy,
   draftBrief = null,
+  style,
 }: Props) {
   const counts = status?.counts || {};
 
   return (
-    <aside className="side-panel board-panel">
+    <aside className="side-panel board-panel" style={style}>
       <div className="side-panel__head board-head">
         <h2>看板 {tasks.length > 0 ? "✓" : ""}</h2>
         <p className="hint">

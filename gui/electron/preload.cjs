@@ -91,6 +91,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("agent-tool-permission-decision", permissionId, decision),
   stopAgentAcpInstance: (instanceId) =>
     ipcRenderer.invoke("agent-acp-stop-instance", instanceId),
+  chatStop: (instanceId) => ipcRenderer.invoke("chat-stop", instanceId),
   onToolPermission: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on("agent-tool-permission", listener);

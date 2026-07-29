@@ -1,3 +1,4 @@
+import type React from "react";
 import { useEffect, useMemo, useState } from "react";
 import type { HostChatDraftBrief, HostChatDraftDocument, HostChatStatus } from "../chat/types";
 import {
@@ -51,6 +52,9 @@ interface Props {
   diskRefreshKey?: number;
   /** Prefer selecting this repo-relative path after refresh (e.g. brief.zh.md). */
   focusDiskRel?: string | null;
+  /** Called once after focusDiskRel is applied so the parent can clear it. */
+  onFocusApplied?: () => void;
+  style?: React.CSSProperties;
 }
 
 function targetsForBrief(
@@ -85,6 +89,8 @@ export function DocsPreviewPanel({
   busy,
   diskRefreshKey = 0,
   focusDiskRel = null,
+  onFocusApplied,
+  style,
 }: Props) {
   const projectSlug = activeProjectLabel
     || (activeBriefRel ? slugFromBriefRel(activeBriefRel) : null);
@@ -182,13 +188,14 @@ export function DocsPreviewPanel({
       const want = `disk:${focusDiskRel.replace(/\\/g, "/")}`;
       if (allDocs.some((d) => d.id === want)) {
         setSelectedId(want);
+        onFocusApplied?.();
         return;
       }
     }
     if (!allDocs.some((d) => d.id === selectedId)) {
       setSelectedId(allDocs[0]?.id || "session-brief");
     }
-  }, [allDocs, selectedId, focusDiskRel]);
+  }, [allDocs, selectedId, focusDiskRel, onFocusApplied]);
 
   const selected = allDocs.find((d) => d.id === selectedId) || allDocs[0];
 
@@ -278,7 +285,7 @@ export function DocsPreviewPanel({
         : "";
 
   return (
-    <aside className="side-panel docs-preview-panel">
+    <aside className="side-panel docs-preview-panel" style={style}>
       <div className="side-panel__head">
         <h2>{projectSlug ? `文档 · ${projectSlug}` : "文档"}</h2>
         <p className="hint">

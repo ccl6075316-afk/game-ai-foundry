@@ -1054,7 +1054,7 @@ code {
 
 .chat-layout.board-open .chat-column,
 .chat-layout.side-open .chat-column {
-  border-right: 1px solid var(--border);
+  /* border is now carried by .side-panel-resize-handle */
 }
 
 .chat-view {
@@ -1856,6 +1856,15 @@ code {
   cursor: not-allowed;
 }
 
+.composer__send--stop {
+  background: var(--danger, #c44);
+  color: #fff;
+}
+
+.composer__send--stop:hover {
+  opacity: 0.92;
+}
+
 .composer__hint {
   margin: 4px 0 0;
   font-size: 11px;
@@ -1904,12 +1913,31 @@ code {
 
 /* ── Side panels ── */
 
+/* Drag handle between chat column and side panel */
+.side-panel-resize-handle {
+  flex-shrink: 0;
+  width: 6px;
+  cursor: col-resize;
+  background: transparent;
+  border-left: 1px solid var(--border);
+  transition: background 0.1s;
+  position: relative;
+  z-index: 10;
+}
+
+.side-panel-resize-handle:hover,
+.side-panel-resize-handle:active {
+  background: rgba(91, 141, 239, 0.22);
+  border-color: var(--accent);
+}
+
 .side-panel {
+  /* width is overridden inline when dragging; fall back to CSS value */
   width: min(380px, 38vw);
   flex-shrink: 0;
   overflow-y: auto;
   background: var(--bg-elevated);
-  border-left: 1px solid var(--border);
+  border-left: none;  /* border is now on the resize handle */
   padding: 16px;
   display: flex;
   flex-direction: column;

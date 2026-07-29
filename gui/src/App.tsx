@@ -154,6 +154,25 @@ type PipelineRunPayload = {
   };
 };
 
+/** User cancelled an in-flight chat/CLI turn (Stop button). */
+function isChatAborted(res: {
+  aborted?: boolean;
+  exitCode?: number;
+  data?: unknown;
+} | null | undefined): boolean {
+  if (!res) return false;
+  if (res.aborted) return true;
+  if (res.exitCode === 130) return true;
+  const data = res.data as { aborted?: boolean; error?: string } | null | undefined;
+  if (data?.aborted) return true;
+  return String(data?.error || "").trim() === "已停止";
+}
+
+function isAbortError(e: unknown): boolean {
+  const msg = e instanceof Error ? e.message : String(e || "");
+  return /已停止|aborted|cancelled|canceled/i.test(msg);
+}
+
 /** Clear stop notice + recommended next action for pipeline pause / incomplete run. */
 function planPipelineStop(opts: {
   exitCode: number;
@@ -283,6 +302,13 @@ export default function App() {
   const [logs, setLogs] = useState<string[]>([]);
   const [chatStore, setChatStore] = useState<ChatSessionStore>(() => loadSessionStore());
   const [sidePanel, setSidePanel] = useState<SidePanel>(null);
+  const [sidePanelWidth, setSidePanelWidth] = useState<number | null>(() => {
+    const v = localStorage.getItem("sidePanelWidth");
+    return v ? Number(v) : null;
+  });
+  const isResizingPanel = useRef(false);
+  const resizeStartX = useRef(0);
+  const resizeStartW = useRef(0);
   const [appView, setAppView] = useState<AppView>("chat");
   const [settingsTab, setSettingsTab] = useState<SettingsPageTab>("providers");
   /** 正在等待回复的同事 instanceId（可并行；避免一人转圈三人一起 loading） */
@@ -353,6 +379,15 @@ export default function App() {
   const activeSession = getActiveSession(chatStore);
   const messages = activeSession.messages;
   const chatBusy = busyInstanceIds.includes(activeColleague.id);
+  const handleStopChat = useCallback(async () => {
+    const id = activeColleague.id;
+    if (!id) return;
+    try {
+      await window.gameFactory?.chatStop?.(id);
+    } catch {
+      /* best-effort; turn handler will settle busy */
+    }
+  }, [activeColleague.id]);
   const [busyHint, setBusyHint] = useState("");
   const instanceSessions = listSessionsForInstance(chatStore, activeColleague.id);
 
@@ -374,6 +409,13 @@ export default function App() {
     const id = window.setInterval(tick, 1000);
     return () => window.clearInterval(id);
   }, [chatBusy]);
+  // Persist side panel width whenever it changes
+  useEffect(() => {
+    if (sidePanelWidth !== null) {
+      localStorage.setItem("sidePanelWidth", String(sidePanelWidth));
+    }
+  }, [sidePanelWidth]);
+
   const heroBase = roleHero(agentRole);
   const hero = {
     title: heroBase.title,
@@ -1040,6 +1082,10 @@ export default function App() {
           created.briefRel,
         );
         if (res.exitCode !== 0 || !res.data?.assistant_message) {
+          if (isChatAborted(res)) {
+            appendAssistant("已停止。", undefined, undefined, sessionTarget);
+            return;
+          }
           throw new Error(res.stderr || res.stdout || "host-chat reset failed");
         }
         applyBrainstormResult(res.data, sessionTarget);
@@ -1061,12 +1107,16 @@ export default function App() {
           );
         }
       } catch (e) {
-        appendAssistant(
-          `重置失败：${e instanceof Error ? e.message : String(e)}`,
-          undefined,
-          undefined,
-          sessionTarget,
-        );
+        if (isAbortError(e)) {
+          appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        } else {
+          appendAssistant(
+            `重置失败：${e instanceof Error ? e.message : String(e)}`,
+            undefined,
+            undefined,
+            sessionTarget,
+          );
+        }
       } finally {
         clearBusy(busyId);
       }
@@ -1174,16 +1224,24 @@ export default function App() {
         activeBriefRel,
       );
       if (res.exitCode !== 0 || !res.data?.assistant_message) {
+        if (isChatAborted(res)) {
+          appendAssistant("已停止。", undefined, undefined, sessionTarget);
+          return;
+        }
         throw new Error(res.stderr || res.stdout || "host-chat start failed");
       }
       applyBrainstormResult(res.data, sessionTarget);
     } catch (e) {
-      appendAssistant(
-        `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **设置 → Provider** 配置账号与 Key，或在对话里为策划实例选择 Provider；亦可确认 Pi 就绪（\`setup pi status --json\`）。`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `Brief 对话启动失败：${e instanceof Error ? e.message : String(e)}\n\n请到 **设置 → Provider** 配置账号与 Key，或在对话里为策划实例选择 Provider；亦可确认 Pi 就绪（\`setup pi status --json\`）。`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1210,6 +1268,10 @@ export default function App() {
         );
       }
       const data = res.data;
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (res.exitCode !== 0 || !data?.assistant_message) {
         const detail = (res.stderr || res.stdout || "").trim();
         const short =
@@ -1219,7 +1281,16 @@ export default function App() {
       applyBrainstormResult(data, sessionTarget);
       void refreshBrainstormStatus();
     } catch (e) {
-      appendAssistant(`回复失败：${e instanceof Error ? e.message : String(e)}`, undefined, undefined, sessionTarget);
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `回复失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1250,6 +1321,10 @@ export default function App() {
         outputRel,
         sessionTarget.instanceId,
       );
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (res.exitCode !== 0) {
         throw new Error(res.stderr || res.stdout || "export failed");
       }
@@ -1279,7 +1354,16 @@ export default function App() {
         sessionTarget,
       );
     } catch (e) {
-      appendAssistant(`导出失败：${e instanceof Error ? e.message : String(e)}`, undefined, undefined, sessionTarget);
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `导出失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1363,6 +1447,10 @@ export default function App() {
         sessionTarget.instanceId,
       );
       const data = res.data;
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (!data) {
         throw new Error(res.stderr || res.stdout || "autofix failed");
       }
@@ -1421,12 +1509,16 @@ export default function App() {
       }
       void refreshBrainstormStatus();
     } catch (e) {
-      appendAssistant(
-        `自动修失败：${e instanceof Error ? e.message : String(e)}`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `自动修失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1452,6 +1544,10 @@ export default function App() {
         sessionTarget.instanceId,
       );
       const data = res.data;
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (!data) {
         throw new Error(res.stderr || res.stdout || "makeability failed");
       }
@@ -1479,12 +1575,16 @@ export default function App() {
       setBrainstormReady(Boolean(data.ready_to_export));
       void refreshBrainstormStatus();
     } catch (e) {
-      appendAssistant(
-        `制作审查失败：${e instanceof Error ? e.message : String(e)}`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `制作审查失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1517,6 +1617,10 @@ export default function App() {
         hint.trim() || null,
         sessionTarget.instanceId,
       );
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (res.exitCode !== 0 && !res.data?.ok) {
         throw new Error(res.stderr || res.stdout || "enrich failed");
       }
@@ -1542,12 +1646,16 @@ export default function App() {
       setBrainstormReady(Boolean(data.ready_to_export));
       void refreshBrainstormStatus();
     } catch (e) {
-      appendAssistant(
-        `补全失败：${e instanceof Error ? e.message : String(e)}`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `补全失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1575,6 +1683,10 @@ export default function App() {
         false,
         sessionTarget.instanceId,
       );
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (res.exitCode !== 0 && !res.data?.ok) {
         throw new Error(res.stderr || res.stdout || "brainstorm failed");
       }
@@ -1598,12 +1710,16 @@ export default function App() {
         sessionTarget,
       );
     } catch (e) {
-      appendAssistant(
-        `头脑风暴失败：${e instanceof Error ? e.message : String(e)}`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `头脑风暴失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1632,6 +1748,10 @@ export default function App() {
         fuse,
         sessionTarget.instanceId,
       );
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
       if (res.exitCode !== 0 && !res.data?.ok) {
         throw new Error(res.stderr || res.stdout || "brainstorm-apply failed");
       }
@@ -1657,12 +1777,16 @@ export default function App() {
       setBrainstormReady(Boolean(data.ready_to_export));
       void refreshBrainstormStatus();
     } catch (e) {
-      appendAssistant(
-        `采用方案失败：${e instanceof Error ? e.message : String(e)}`,
-        undefined,
-        undefined,
-        sessionTarget,
-      );
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `采用方案失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
     } finally {
       clearBusy(busyId);
     }
@@ -1772,6 +1896,10 @@ export default function App() {
         piSessionTrust,
       });
       const data = res.data;
+      if (isChatAborted(res)) {
+        append("assistant", "已停止。", undefined, target);
+        return;
+      }
       if (res.exitCode !== 0 || data?.ok === false) {
         const err =
           data?.error ||
@@ -1863,18 +1991,22 @@ export default function App() {
       );
       await refreshHandoffs();
     } catch (e) {
-      append(
-        "assistant",
-        `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
-          (target.role === "it"
-            ? "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
-            : "请到 **设置 → 环境** 确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → Agent** 或对话配置里为当前实例选择执行器。"),
-        undefined,
-        target,
-        target.role === "product_host"
-          ? ["生成流水线", "运行资产生成（含文案）", "打开看板"]
-          : undefined,
-      );
+      if (isAbortError(e)) {
+        append("assistant", "已停止。", undefined, target);
+      } else {
+        append(
+          "assistant",
+          `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
+            (target.role === "it"
+              ? "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
+              : "请到 **设置 → 环境** 确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → Agent** 或对话配置里为当前实例选择执行器。"),
+          undefined,
+          target,
+          target.role === "product_host"
+            ? ["生成流水线", "运行资产生成（含文案）", "打开看板"]
+            : undefined,
+        );
+      }
     } finally {
       window.clearInterval(heartbeat);
       clearBusy(target.instanceId);
@@ -3417,7 +3549,27 @@ export default function App() {
         onOpenGuide={() => openSettings("guide")}
       />
 
-      <div className={`chat-layout ${sidePanel ? "side-open" : ""}`}>
+      <div
+        className={`chat-layout ${sidePanel ? "side-open" : ""}`}
+        onMouseMove={(e) => {
+          if (!isResizingPanel.current) return;
+          const dx = resizeStartX.current - e.clientX;
+          const next = Math.max(240, Math.min(900, resizeStartW.current + dx));
+          setSidePanelWidth(next);
+        }}
+        onMouseUp={() => {
+          if (!isResizingPanel.current) return;
+          isResizingPanel.current = false;
+          document.body.style.cursor = "";
+          document.body.style.userSelect = "";
+        }}
+        onMouseLeave={() => {
+          if (!isResizingPanel.current) return;
+          isResizingPanel.current = false;
+          document.body.style.cursor = "";
+          document.body.style.userSelect = "";
+        }}
+      >
         <ColleagueRoster
           roster={chatStore.roster}
           activeInstanceId={activeColleague.id}
@@ -3546,7 +3698,8 @@ export default function App() {
             }}
           />
           <ChatInput
-            disabled={chatBusy}
+            busy={chatBusy}
+            onStop={() => void handleStopChat()}
             choices={
               agentRole === "brief"
                 ? brainstormChoices.filter(
@@ -3627,8 +3780,26 @@ export default function App() {
           />
         </section>
 
+        {sidePanel !== null && (
+          /* Drag handle between chat-column and the side panel */
+          <div
+            className="side-panel-resize-handle"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              isResizingPanel.current = true;
+              resizeStartX.current = e.clientX;
+              // measure current panel width from the next sibling
+              const panel = (e.currentTarget as HTMLElement).nextElementSibling as HTMLElement | null;
+              resizeStartW.current = panel ? panel.getBoundingClientRect().width : (sidePanelWidth ?? 380);
+              document.body.style.cursor = "col-resize";
+              document.body.style.userSelect = "none";
+            }}
+          />
+        )}
+
         {sidePanel === "board" && (
           <BoardPanel
+            style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
             manifest={selectedManifest}
             status={status}
             tasks={tasks}
@@ -3642,6 +3813,7 @@ export default function App() {
 
         {sidePanel === "assets" && (
           <AssetReviewPanel
+            style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
             assetsManifestRel={assetsManifestRel}
             pipelineManifestRel={selectedManifest || null}
             busy={anyBusy}
@@ -3654,6 +3826,7 @@ export default function App() {
 
         {sidePanel === "docs" && (
           <DocsPreviewPanel
+            style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
             draftBrief={briefDraft}
             draftDocument={draftDocument}
             status={briefDraftStatus}

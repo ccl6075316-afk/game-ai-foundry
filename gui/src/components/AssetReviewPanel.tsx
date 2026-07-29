@@ -1,3 +1,4 @@
+import type React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AssetReviewRow } from "../vite-env.d";
 
@@ -9,6 +10,7 @@ interface Props {
   busy: boolean;
   onOpenBoard?: () => void;
   onAfterRegenerate?: () => void;
+  style?: React.CSSProperties;
 }
 
 const STATUS_LABEL: Record<AssetReviewRow["review"]["status"], string> = {
@@ -74,6 +76,7 @@ export function AssetReviewPanel({
   busy,
   onOpenBoard,
   onAfterRegenerate,
+  style,
 }: Props) {
   const [rows, setRows] = useState<AssetReviewRow[]>([]);
   const [loading, setLoading] = useState(false);
@@ -240,7 +243,7 @@ export function AssetReviewPanel({
   };
 
   return (
-    <aside className="side-panel board-panel asset-review-panel">
+    <aside className="side-panel board-panel asset-review-panel" style={style}>
       <div className="side-panel__head board-head">
         <h2>资产</h2>
         <p className="hint">审查缩略图与 usage 映射；采纳 / 替换 / 重生成（软标注，不挡流水线）</p>
