@@ -322,7 +322,15 @@ function runCli(args, { cwd, onLine, jobKey } = {}) {
 
     proc.stdout.on("data", (c) => emit(c, "stdout"));
     proc.stderr.on("data", (c) => emit(c, "stderr"));
-    proc.on("error", reject);
+    proc.on("error", (err) => {
+      const detail =
+        err && typeof err === "object" && "code" in err && err.code === "ENOENT"
+          ? `找不到 CLI Python：${python}（Release 应内嵌 resources/python；请重装最新安装包）`
+          : err instanceof Error
+            ? err.message
+            : String(err);
+      reject(new Error(detail));
+    });
     proc.on("close", (code, signal) => {
       if (signal === "SIGTERM" || signal === "SIGKILL") aborted = true;
       if (code === 130 || code === 137 || code === 143) aborted = true;

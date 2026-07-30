@@ -70,6 +70,22 @@ class PiFoundryToolsTest(unittest.TestCase):
         )
         self.assertTrue(
             is_allowed_argv(
+                [
+                    "setup",
+                    "agents",
+                    "instances",
+                    "upsert",
+                    "--instance-id",
+                    "it-1",
+                    "--thinking-level",
+                    "medium",
+                    "--i-confirm",
+                    "--json",
+                ]
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
                 ["pipeline", "run", "--jobs", "4", "--json", "--i-confirm"],
                 profile="it",
             )

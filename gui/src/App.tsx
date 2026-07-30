@@ -1553,9 +1553,13 @@ export default function App() {
         throw new Error(res.stderr || res.stdout || "makeability failed");
       }
       let content = data.assistant_message || "制作审查完成。";
-      const details = formatMakeabilityReviewDetails(data.review);
-      if (details) {
-        content += `\n\n${details}`;
+      // Backend already embeds gap details into assistant_message for session context.
+      // Only format client-side when the reply is still a short summary.
+      if (!/意图缺口|施工细节/.test(content)) {
+        const details = formatMakeabilityReviewDetails(data.review);
+        if (details) {
+          content += `\n\n${details}`;
+        }
       }
       const intentChoices = flattenIntentChoices(data.review?.intent_gaps);
       appendAssistant(
@@ -1999,7 +2003,9 @@ export default function App() {
           "assistant",
           `「${target.displayName}」回复失败：${e instanceof Error ? e.message : String(e)}\n\n` +
             (target.role === "it"
-              ? "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
+              ? String(e instanceof Error ? e.message : e).includes("9009")
+                ? "Windows **exit 9009** 通常是找不到内嵌 Python（CLI 起不来），与 DeepSeek Key 无关。请改用最新安装包，或确认安装目录 `resources/python/Scripts/python.exe` 存在；勿只依赖系统 PATH 上的 `python`。"
+                : "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
               : "请到 **设置 → 环境** 确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → Agent** 或对话配置里为当前实例选择执行器。"),
           undefined,
           target,

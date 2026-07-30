@@ -45,6 +45,7 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("setup", "executor", "step"),
     ("setup", "executor", "models"),
     ("setup", "agents", "executors", "upsert"),
+    ("setup", "agents", "instances", "upsert"),
     ("pipeline", "diagnose"),
     ("pipeline", "status"),
     ("pipeline", "heal"),
@@ -76,6 +77,7 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("setup", "ensure"),
         ("setup", "executor", "step"),
         ("setup", "agents", "executors", "upsert"),
+        ("setup", "agents", "instances", "upsert"),
         ("pipeline", "heal"),
         ("pipeline", "reset"),
         ("pipeline", "plan"),
@@ -93,6 +95,7 @@ _KEEP_I_CONFIRM_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
     {
         ("setup", "provider", "upsert"),
         ("setup", "agents", "executors", "upsert"),
+        ("setup", "agents", "instances", "upsert"),
     }
 )
 
@@ -157,7 +160,7 @@ Allowed command prefixes (flags/paths only; no `;` `|` `&&`):
 {examples}
 
 Home-ops playbooks (Chinese answers):
-1. **Environment** — doctor / setup check / install / executor step / provider upsert
+1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors upsert
 2. **Project draft** — brief chat bind / zh-doc / status (sync + Chinese doc **before** export)
 3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
 4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
@@ -168,11 +171,20 @@ Rules:
 - Never invent tool output; wait for host results.
 - Answer in Chinese; do not claim config/disk changes unless a tool returned ok.
 - Do **not** edit Foundry/Electron/Pi source or `games/` C#.
+- Do **not** tell users to install system Python/Node for Release — embed + toolchain auto/IT install.
 - **Mutating ops** need `--i-confirm` in argv. With **信任本会话** the GUI may auto-approve;
   still include `--i-confirm`. Mask API Keys in chat.
   Example (Key):
   <<<FOUNDRY_TOOL
-  ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--i-confirm", "--json"]
+  ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--set-active-text", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (Thinking):
+  <<<FOUNDRY_TOOL
+  ["setup", "agents", "instances", "upsert", "--instance-id", "<id>", "--thinking-level", "medium", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (Hermes for 项目经理):
+  <<<FOUNDRY_TOOL
+  ["setup", "executor", "step", "hermes", "install_cli", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
   Example (pipeline run):
   <<<FOUNDRY_TOOL

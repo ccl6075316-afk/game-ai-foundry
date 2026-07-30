@@ -160,7 +160,7 @@ CLI 零件（scaffold、validate、test、pipeline）与 **GUI Agent 接单** �
 宿主：`host-chat` 每轮 deep-merge 持久化 `draft_brief` → 落实意图切 `commit-*` → 仅 `ready_to_export` 时 export 写 `resources/*-brief.json`。  
 GUI：顶部「文档」侧栏实时预览会话内 `draft_brief` / `draft_document`，以及当前项目落盘文件（exported brief、production、progress、`docs/*.md` 等）；读 `host-chat status` / 仓库文本，不重新跑 LLM。  
 **自动修 brief**：侧栏「自动修到可导出」或 `/brief autofix [轮数]` → 宿主把当前校验 gaps + 已有 clip 名注入对话，循环让策划 LLM 改草稿，直到 `audit` 通过、卡住或达上限（默认 5 轮）。  
-**制作审查**：侧栏「制作审查」或 `brief chat makeability` → 独立 Critic 读 `draft_brief`；`intent_gaps` 须在策划对话关闭后才可 export；`detail_gaps` 导出后由 `production derive` 进 `production_doc.makeability`，**项目经理**可读 / 填暂定、**禁止改 brief 意图**。  
+**制作审查**：侧栏「制作审查」或 `brief chat makeability` → 独立 Critic 读 `draft_brief`；结果写入 `session.makeability_review` **并**注入后续策划轮的 `latest_makeability_review` + 会话消息，避免主 agent「没见过审查」；`intent_gaps` 须在策划对话关闭后才可 export；`detail_gaps` 导出后由 `production derive` 进 `production_doc.makeability`，**项目经理**可读 / 填暂定、**禁止改 brief 意图**。  
 **补全细节 / 议题头脑风暴**（不绑导出）：`brief chat enrich [--hint]`；`brief chat topic-brainstorm --topic …` → `brainstorm-apply --proposal-id …`。数值可进 production；**需要哪些参数**与呈现应在 brief 加厚中出现。不定死通用 screens schema。  
 CLI：`brief chat *`；`brief chat autofix --session-id … --max-rounds 5`；`brief chat makeability --session-id …`；会话 `plans/conversations/brief/<id>.json`。
 

@@ -79,7 +79,7 @@ scripts\build-release.bat
 
 ### 步骤说明
 
-1. `scripts/prepare_embedded_python.py --with-rembg` — 内嵌 venv（含 rembg）
+1. `scripts/prepare_embedded_python.py --with-rembg` — **可迁移**独立 CPython 拷贝（含 rembg）；**禁止**用不可迁移的 `venv`（Windows `pyvenv.cfg home=` 会指向打包机）
 2. `scripts/prepare_embedded_pi.mjs` — 内嵌 pinned `@earendil-works/pi-coding-agent`（策划/IT 会话；**与 Electron 共用 Node**，不另打一份 Node）
 3. `vite build` → `gui/dist/`
 4. `electron-builder` — Electron **39+**（自带 Node ≥22.19，满足 Pi undici）+ 内嵌 Python + 内嵌 Pi + `cli/` + `resources/`

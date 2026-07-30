@@ -283,6 +283,18 @@ def upsert_provider_account(
             "model": model or host.get("model"),
         }
         cfg["host"] = host
+        # Keep 策划/IT (Pi) usable after first Key without extra GUI clicks.
+        agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
+        executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
+        pi_entry = dict(executors.get("pi") if isinstance(executors.get("pi"), dict) else {})
+        pi_entry["provider"] = provider_id
+        if model:
+            pi_entry["model"] = model
+        executors = {**executors, "pi": pi_entry}
+        image = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
+        image = {**image, "use_text_provider": True, "provider": provider_id}
+        cfg["agents"] = {**agents, "executors": executors}
+        cfg["image"] = image
 
     _save_config(cfg, config_path)
     label_out = str(entry.get("label") or "").strip() or None

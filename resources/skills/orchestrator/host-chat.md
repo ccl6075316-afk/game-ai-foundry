@@ -66,6 +66,7 @@
 - Critic **不静默改稿**；关 intent 缺口靠用户点选项 / 回复 → 你更新 `draft_brief` → **再跑审查**。
 - 本 skill 的 `gaps`（契约字段）与 `makeability_review.intent_gaps` **不同**：后者是「能否开干」门闩，export 前须审查通过且 intent 为空。
 - 存在未审查、草稿指纹过期或未关 `intent_gaps` 时，`ready_to_export` 保持 `false`。
+- 宿主会在 user payload 注入 **`latest_makeability_review`**（`intent_gaps` / `detail_gaps` / `fingerprint_match`）。审查由子 LLM 跑完后也会写入会话消息。用户跟进审查问题时，**必须读这份对象**，不要假装没做过审查。
 
 ---
 

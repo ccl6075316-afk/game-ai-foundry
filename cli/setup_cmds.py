@@ -416,6 +416,73 @@ def setup_agents_group() -> None:
     """Manage agents.* presets (IT toolbox)."""
 
 
+@setup_agents_group.group("instances")
+def setup_agents_instances_group() -> None:
+    """Manage agents.instances colleague overlays."""
+
+
+@setup_agents_instances_group.command("upsert")
+@click.option("--instance-id", "instance_id", required=True, help="GUI colleague instance id.")
+@click.option("--provider", "provider_id", default=None, help="Provider id (deepseek / openrouter / …).")
+@click.option("--model", "model", default=None, help="Model id (empty clears).")
+@click.option(
+    "--thinking-level",
+    "thinking_level",
+    default=None,
+    type=click.Choice(["off", "low", "medium", "high"], case_sensitive=False),
+    help="Pi --thinking level.",
+)
+@click.option(
+    "--executor",
+    "executor_id",
+    default=None,
+    type=click.Choice(["pi", "hermes", "codex", "cursor"], case_sensitive=False),
+    help="Executor (brief/IT locked to pi).",
+)
+@click.option(
+    "--use-third-party/--no-use-third-party",
+    "use_third_party",
+    default=None,
+    help="Codex only.",
+)
+@click.option("--i-confirm", "i_confirm", is_flag=True, help="Required after user confirmation.")
+@click.option("--json", "as_json", is_flag=True)
+def setup_agents_instances_upsert_cmd(
+    instance_id: str,
+    provider_id: str | None,
+    model: str | None,
+    thinking_level: str | None,
+    executor_id: str | None,
+    use_third_party: bool | None,
+    i_confirm: bool,
+    as_json: bool,
+) -> None:
+    """Upsert agents.instances[id] after user confirmation (IT NL config)."""
+    from agents_instances_upsert import upsert_agent_instance
+
+    result = upsert_agent_instance(
+        instance_id=instance_id,
+        provider=provider_id,
+        model=model,
+        thinking_level=thinking_level,
+        executor=executor_id,
+        use_third_party=use_third_party,
+        i_confirm=i_confirm,
+    )
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        click.echo(
+            f"已写入 agents.instances.{result.get('instance_id')}"
+            f"（provider={result.get('provider') or '-'}, model={result.get('model') or '-'}, "
+            f"thinking={result.get('thinking_level') or '-'}）"
+        )
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
+
+
 @setup_agents_group.group("executors")
 def setup_agents_executors_group() -> None:
     """Manage agents.executors tool presets."""

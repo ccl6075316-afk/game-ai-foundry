@@ -769,6 +769,43 @@ def _build_makeability_review(
     }
 
 
+def format_makeability_review_details(review: dict[str, Any] | None) -> str:
+    """Human-readable makeability gaps for session messages / CLI."""
+    if not isinstance(review, dict) or not review:
+        return ""
+    lines: list[str] = []
+    intent_gaps = review.get("intent_gaps") if isinstance(review.get("intent_gaps"), list) else []
+    detail_gaps = review.get("detail_gaps") if isinstance(review.get("detail_gaps"), list) else []
+    if intent_gaps:
+        lines.append("意图缺口（须在本对话内拍板）：")
+        for gap in intent_gaps:
+            if not isinstance(gap, dict):
+                continue
+            gid = str(gap.get("id") or "").strip()
+            question = str(gap.get("question") or "（未描述）").strip()
+            prefix = f"`{gid}` · " if gid else ""
+            lines.append(f"- {prefix}{question}")
+            why = str(gap.get("why_blocking") or "").strip()
+            if why:
+                lines.append(f"  - {why}")
+            choices = gap.get("choices")
+            if isinstance(choices, list) and choices:
+                choice_txt = " / ".join(str(c).strip() for c in choices if str(c).strip())
+                if choice_txt:
+                    lines.append(f"  - 选项：{choice_txt}")
+        lines.append("")
+    if detail_gaps:
+        lines.append("施工细节（导出后进 production，PM 可补暂定值）：")
+        for gap in detail_gaps:
+            if not isinstance(gap, dict):
+                continue
+            gid = str(gap.get("id") or "").strip()
+            topic = str(gap.get("topic") or "（未描述）").strip()
+            prefix = f"`{gid}` · " if gid else ""
+            lines.append(f"- {prefix}{topic}")
+    return "\n".join(lines).strip()
+
+
 def assert_makeability_exportable(session: dict[str, Any]) -> dict[str, Any]:
     """Require fresh makeability review with no open intent gaps before export."""
     review = session.get("makeability_review")
@@ -891,6 +928,15 @@ def run_makeability_review(
         assistant_message += " 意图未关前不可交接项目经理。"
     elif detail_count:
         assistant_message += " 施工细节将进 production，PM 可补暂定值。"
+    details = format_makeability_review_details(review)
+    if details:
+        assistant_message = f"{assistant_message}\n\n{details}"
+
+    # Persist into conversation so the main host-chat agent sees Critic findings
+    # on the next user turn (GUI display alone does not update session.messages).
+    messages = list(session.get("messages") or [])
+    messages.append({"role": "assistant", "content": assistant_message})
+    session["messages"] = messages
 
     return {
         "ok": True,
@@ -900,6 +946,8 @@ def run_makeability_review(
         "ready_to_export": bool(session.get("ready_to_export")),
         "session_id": session.get("id"),
         "assistant_message": assistant_message,
+        "draft_brief": session.get("draft_brief"),
+        "message_count": len(messages),
     }
 
 
@@ -1077,6 +1125,9 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             "null draft_brief — do NOT return a thinned full brief. "
             "Ops: set {path,value}, upsert_asset {match,set}, add_asset {value}, "
             "upsert_graph {match,set}. "
+            "If latest_makeability_review is present and the user is answering those "
+            "questions / picking choices, close the matching intent_gaps via patches "
+            "and acknowledge remaining open gaps. "
             "Only return a FULL artifact.draft_brief for major redesigns / first draft. "
             "When drafting a design note (not Foundry brief), you may also set "
             "artifact.draft_document {title, format, body}. ready_to_export must be false. "
@@ -1095,6 +1146,30 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
         payload["current_draft_brief"] = session.get("draft_brief")
     if session.get("draft_document"):
         payload["current_draft_document"] = session.get("draft_document")
+    review = session.get("makeability_review")
+    if isinstance(review, dict) and review:
+        draft = session.get("draft_brief")
+        fingerprint_match = False
+        if isinstance(draft, dict) and draft:
+            fingerprint_match = (
+                str(review.get("draft_fingerprint") or "") == draft_fingerprint(draft)
+            )
+        payload["latest_makeability_review"] = {
+            "fingerprint_match": fingerprint_match,
+            "note": (
+                "独立制作审查（子 LLM Critic）的结果。用户按缺口提问/作答时必须对照此对象："
+                "用 brief_patches 关闭对应 intent_gaps；detail_gaps 只说明将进 production，勿写进 brief 散文。"
+                "fingerprint_match=false 表示审查已过期，更新草稿后应提示重新「制作审查」。"
+            ),
+            "intent_gaps": review.get("intent_gaps") if isinstance(review.get("intent_gaps"), list) else [],
+            "detail_gaps": review.get("detail_gaps") if isinstance(review.get("detail_gaps"), list) else [],
+            "suggested_defaults": (
+                review.get("suggested_defaults")
+                if isinstance(review.get("suggested_defaults"), list)
+                else []
+            ),
+            "reviewed_at": review.get("reviewed_at"),
+        }
     bound = str(session.get("bound_brief_rel") or "").strip()
     if bound:
         payload["bound_project"] = {

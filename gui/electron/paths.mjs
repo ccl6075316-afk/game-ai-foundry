@@ -19,9 +19,18 @@ function bundledFactoryRoot() {
 function embeddedPythonCandidates() {
   const base = path.join(process.resourcesPath, "python");
   if (process.platform === "win32") {
-    return [path.join(base, "python.exe")];
+    // Relocatable standalone copy puts python.exe at prefix root; legacy venv used Scripts/.
+    return [
+      path.join(base, "python.exe"),
+      path.join(base, "Scripts", "python.exe"),
+    ];
   }
-  return [path.join(base, "bin", "python3"), path.join(base, "bin", "python")];
+  return [
+    path.join(base, "bin", "python3"),
+    path.join(base, "bin", "python"),
+    path.join(base, "python3"),
+    path.join(base, "python"),
+  ];
 }
 
 function embeddedPiRootCandidates() {
@@ -132,17 +141,28 @@ export function resolvePython(root = repoRoot()) {
     for (const candidate of embeddedPythonCandidates()) {
       if (existsSync(candidate)) return candidate;
     }
+    // Never fall back to PATH "python" in Release — clean PCs get opaque exit 9009.
+    // Return the expected path so spawn fails with ENOENT naming the missing binary.
+    return process.platform === "win32"
+      ? path.join(process.resourcesPath, "python", "python.exe")
+      : path.join(process.resourcesPath, "python", "bin", "python3");
   }
 
   const winVenv = path.join(root, ".venv", "Scripts", "python.exe");
   const unixVenv = path.join(root, ".venv", "bin", "python");
   if (existsSync(winVenv)) return winVenv;
 
-  const devRuntime =
+  const standaloneRuntime =
     process.platform === "win32"
       ? path.join(__dirname, "..", "runtime", "python", "python.exe")
       : path.join(__dirname, "..", "runtime", "python", "bin", "python3");
-  if (existsSync(devRuntime)) return path.resolve(devRuntime);
+  if (existsSync(standaloneRuntime)) return path.resolve(standaloneRuntime);
+
+  const venvRuntime =
+    process.platform === "win32"
+      ? path.join(__dirname, "..", "runtime", "python", "Scripts", "python.exe")
+      : path.join(__dirname, "..", "runtime", "python", "bin", "python");
+  if (existsSync(venvRuntime)) return path.resolve(venvRuntime);
 
   if (existsSync(unixVenv)) return unixVenv;
   return process.env.PYTHON || "python";

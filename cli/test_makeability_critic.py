@@ -9,7 +9,9 @@ from unittest.mock import patch
 
 from host_chat import (
     HostChatError,
+    _build_user_payload,
     draft_fingerprint,
+    format_makeability_review_details,
     new_session,
     run_makeability_review,
     session_status,
@@ -163,6 +165,40 @@ class MakeabilityCriticTests(unittest.TestCase):
         self.assertEqual(result["intent_count"], 1)
         self.assertFalse(session["ready_to_export"])
         self.assertFalse(result["ready_to_export"])
+        # Review must land in conversation + next-turn payload for the main agent.
+        messages = session.get("messages") or []
+        self.assertTrue(messages)
+        self.assertEqual(messages[-1]["role"], "assistant")
+        self.assertIn("意图缺口", messages[-1]["content"])
+        self.assertIn("会话何时算结束", messages[-1]["content"])
+        self.assertIn("意图缺口", result["assistant_message"])
+
+        payload = _build_user_payload(session, "chat")
+        latest = payload.get("latest_makeability_review")
+        self.assertIsInstance(latest, dict)
+        self.assertTrue(latest.get("fingerprint_match"))
+        self.assertEqual(len(latest.get("intent_gaps") or []), 1)
+        self.assertIn("win_condition", str(latest["intent_gaps"][0].get("id")))
+
+    def test_format_makeability_review_details_lists_gaps(self) -> None:
+        text = format_makeability_review_details(
+            {
+                "intent_gaps": [
+                    {
+                        "id": "a",
+                        "question": "Q?",
+                        "why_blocking": "because",
+                        "choices": ["x", "y"],
+                    }
+                ],
+                "detail_gaps": [{"id": "b", "topic": "numbers"}],
+            }
+        )
+        self.assertIn("意图缺口", text)
+        self.assertIn("Q?", text)
+        self.assertIn("选项：x / y", text)
+        self.assertIn("施工细节", text)
+        self.assertIn("numbers", text)
 
 
 if __name__ == "__main__":
