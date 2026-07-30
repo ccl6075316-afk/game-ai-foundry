@@ -24,11 +24,14 @@
    - 不可声称「已写入 resources/…brief.json」。
 
 2. **边聊边扩写工作草稿（推荐）**  
-   - 用户在聊**具体游戏设定**时：每轮输出**当前完整** `artifact.draft_brief`（在上一版基础上扩写/修正，不要只给碎片补丁）。  
-   - 宿主会 deep-merge 兜底；你仍应尽量输出完整草稿，避免丢字段。  
+   - **定点更新（默认）**：用户刚回答审查缺口 / 只定了 1～3 个点时，用 `artifact.brief_patches` 在现有草稿上查找并改对应字段；**不要**交一份更短的整份 `draft_brief`（那不是改代码，是把 20 万行重写成 10 万行）。  
+   - 补丁示例：`{"op":"set","path":"project.session_goal","value":"..."}`；`{"op":"upsert_asset","match":{"id":"rod"},"set":{"usage":"ui_icon"}}`；`add_asset` / `upsert_graph`。  
+   - **整份 draft_brief**：仅用于首稿或大改玩法；且必须在上一版基础上扩写，禁止缩水。  
+   - 宿主：有 `brief_patches` 时只打补丁；否则对整份草稿做保守合并（资产按 id 合并不丢行；长叙事防缩水）。  
    - 用户在整理**设计说明 / 方案笔记**（非 Foundry brief）时：可同时或单独输出 `artifact.draft_document`：`{title, format:"markdown", body}`（完整正文）。  
    - 纯技术咨询、与游戏无关的闲聊：`artifact` 可为 `null`。  
-   - 工作草稿 = 可在 GUI「文档」侧栏实时预览、可纠偏；**不是**已冻结契约。对用户说明「这是草稿，落实后才定稿」。
+   - 工作草稿 = 可在 GUI「文档」侧栏实时预览、可纠偏；**不是**已冻结契约。对用户说明「这是草稿，落实后才定稿」。  
+   - **制作审查只读当前草稿**，不读聊天记录：讨论过但没写进 `draft_brief` 的点，审查会当成「未确定」。拍板后必须用补丁或整稿写入字段。
 
 3. **只有用户明确落实时才切定稿**  
    触发语示例（同义即可）：
@@ -87,15 +90,21 @@
   "mode": "chat",
   "intent_hint": "none",
   "artifact": {
-    "draft_brief": {
-      "project": {},
-      "assets": []
-    }
+    "brief_patches": [
+      {"op": "set", "path": "project.session_goal", "value": "…"},
+      {"op": "upsert_asset", "match": {"id": "rod"}, "set": {"usage": "ui_icon"}}
+    ]
   },
   "ready_to_export": false,
   "notes_for_host": "",
   "gaps": []
 }
+```
+
+大改玩法时可用整份 `draft_brief`（替代或与补丁二选一；有补丁时宿主**只打补丁**，忽略同轮缩水整稿）：
+
+```json
+"artifact": { "draft_brief": { "project": {}, "assets": [] } }
 ```
 
 | 字段 | 说明 |
@@ -104,7 +113,9 @@
 | `choices` | 可空数组 |
 | `mode` | 固定 `"chat"` |
 | `intent_hint` | `none` \| `commit_brief` \| `commit_doc` \| `clarify_commit` |
-| `artifact` | 聊游戏时带 `draft_brief`；整理说明时可带 `draft_document`；无关闲聊可为 `null` |
+| `artifact.brief_patches` | **推荐**：定点改现有草稿（审查回填、小澄清） |
+| `artifact.draft_brief` | 首稿 / 大改时用；有 patches 时不要塞瘦身整稿 |
+| `artifact.draft_document` | 整理说明时可带 |
 | `ready_to_export` | 默认 `false`；勿在未落实时标 true |
 | `gaps` | 可选；草稿还缺的关键项短列表 |
 | `notes_for_host` | 可选短提示 |
@@ -136,7 +147,10 @@
 → 一起聊；更新 `draft_brief`（title / genre / 初步 controls 等）；`ready_to_export: false`。
 
 **用户：** 再加一个野猪怪，会冲撞。  
-→ 在上一版草稿上追加 enemy 资产；输出**完整** `draft_brief`。
+→ `brief_patches`: `add_asset`（野猪）+ 如需改循环则 `set project.gameplay_loop`；**不要**重交整份瘦身 brief。
+
+**用户：** 审查说缺 session_goal 和 player_asset，我定了：本局钓一条；玩家资产用钓竿。  
+→ 仅 `brief_patches`：`set project.session_goal`、`set project.player_asset`。
 
 **用户：** 行，就按刚才说的落实成 brief 吧。  
 → 确认 + `intent_hint: commit_brief`（宿主会切落实 skill）。

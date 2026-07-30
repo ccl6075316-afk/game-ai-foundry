@@ -13,9 +13,11 @@ from unittest.mock import patch
 from host_chat import (
     HostChatError,
     _CHAR_BUDGET,
+    _apply_parsed,
     _build_user_payload,
     _parse_llm_json,
     _system_prompt,
+    apply_brief_patches,
     build_autofix_user_message,
     deep_merge_brief,
     export_brief,
@@ -154,6 +156,128 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(merged["project"]["genre"], "platformer")
         self.assertEqual(merged["project"]["controls"]["jump"], ["Space"])
 
+    def test_deep_merge_brief_preserves_omitted_assets_and_long_copy(self) -> None:
+        long_desc = "A " + ("detailed fishing loop. " * 20)
+        base = {
+            "project": {"title": "Fish", "description": long_desc, "genre": "sim"},
+            "assets": [
+                {"id": "rod", "name": "rod", "type": "icon_kit"},
+                {"id": "lake", "name": "lake", "type": "background"},
+            ],
+            "animation_graphs": [{"character_asset": "carp", "edges": []}],
+        }
+        incoming = {
+            "project": {
+                "title": "Fish",
+                "description": "Short rewrite.",
+                "session_goal": "Catch one fish.",
+            },
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit", "usage": "ui_icon"}],
+        }
+        merged = deep_merge_brief(base, incoming)
+        assert merged is not None
+        self.assertEqual(len(merged["assets"]), 2)
+        self.assertEqual(merged["assets"][0].get("usage"), "ui_icon")
+        self.assertEqual(merged["assets"][1].get("id"), "lake")
+        self.assertEqual(merged["project"]["description"], long_desc)
+        self.assertEqual(merged["project"]["session_goal"], "Catch one fish.")
+        self.assertEqual(len(merged["animation_graphs"]), 1)
+
+    def test_apply_brief_patches_sets_nested_project_fields(self) -> None:
+        draft = {
+            "project": {
+                "title": "Fish",
+                "description": "Long established description about tug-of-war.",
+                "genre": "sim",
+            },
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {"op": "set", "path": "project.session_goal", "value": "Land one fish today."},
+                {"op": "set", "path": "project.controls.cast", "value": ["Click"]},
+            ],
+        )
+        self.assertEqual(out["project"]["session_goal"], "Land one fish today.")
+        self.assertEqual(out["project"]["controls"]["cast"], ["Click"])
+        self.assertEqual(
+            out["project"]["description"],
+            "Long established description about tug-of-war.",
+        )
+        self.assertEqual(len(out["assets"]), 1)
+
+    def test_apply_brief_patches_upserts_asset_without_dropping_others(self) -> None:
+        draft = {
+            "project": {"title": "Fish"},
+            "assets": [
+                {"id": "rod", "name": "rod", "type": "icon_kit"},
+                {"id": "lake", "name": "lake", "type": "background"},
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "rod"},
+                    "set": {"usage": "ui_icon", "description": "Basic rod"},
+                },
+                {
+                    "op": "add_asset",
+                    "value": {"id": "bait", "name": "bait", "type": "icon_kit"},
+                },
+            ],
+        )
+        self.assertEqual(len(out["assets"]), 3)
+        rod = next(a for a in out["assets"] if a.get("id") == "rod")
+        self.assertEqual(rod.get("usage"), "ui_icon")
+        self.assertEqual(rod.get("description"), "Basic rod")
+        self.assertTrue(any(a.get("id") == "lake" for a in out["assets"]))
+        self.assertTrue(any(a.get("id") == "bait" for a in out["assets"]))
+
+    def test_apply_parsed_prefers_patches_over_thin_full_draft(self) -> None:
+        session = new_session("patch-chat")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "description": "A " + ("rich loop. " * 30),
+                "genre": "sim",
+            },
+            "assets": [
+                {"id": "rod", "name": "rod", "type": "icon_kit"},
+                {"id": "lake", "name": "lake", "type": "background"},
+            ],
+        }
+        long_desc = session["draft_brief"]["project"]["description"]
+        parsed = {
+            "assistant_message": "已把审查的两点写进草稿。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "draft_brief": {
+                    "project": {"title": "Fish", "description": "thin"},
+                    "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+                },
+                "brief_patches": [
+                    {"op": "set", "path": "project.session_goal", "value": "Catch fish."},
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "rod"},
+                        "set": {"usage": "ui_icon"},
+                    },
+                ],
+            },
+            "ready_to_export": False,
+        }
+        _apply_parsed(session, parsed, "chat")
+        draft = session["draft_brief"]
+        self.assertEqual(draft["project"]["description"], long_desc)
+        self.assertEqual(draft["project"]["session_goal"], "Catch fish.")
+        self.assertEqual(len(draft["assets"]), 2)
+        self.assertEqual(draft["assets"][0].get("usage"), "ui_icon")
+
     def test_commit_keyword_uses_commit_skill(self) -> None:
         session = new_session("c1")
         session["messages"] = [
@@ -276,10 +400,10 @@ class HostChatTests(unittest.TestCase):
 
     def test_compress_trims_old_messages(self) -> None:
         session = new_session("long")
-        # Build oversized history
+        # Build oversized history (over _CHAR_BUDGET, more than _RECENT_KEEP)
         session["messages"] = [
-            {"role": "user" if i % 2 == 0 else "assistant", "content": ("x" * 800)}
-            for i in range(40)
+            {"role": "user" if i % 2 == 0 else "assistant", "content": ("x" * 1200)}
+            for i in range(60)
         ]
         self.assertGreater(
             sum(len(m["content"]) for m in session["messages"]),
@@ -290,7 +414,7 @@ class HostChatTests(unittest.TestCase):
             compressed = maybe_compress_session(session, config)
         self.assertTrue(compressed)
         self.assertTrue(session["summary"])
-        self.assertLessEqual(len(session["messages"]), 20)
+        self.assertLessEqual(len(session["messages"]), 40)
         self.assertGreater(session["compressed_count"], 0)
 
         payload = _build_user_payload(session, "chat")

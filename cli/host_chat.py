@@ -49,8 +49,9 @@ _EXAMPLE_BRIEF = _REPO_ROOT / "resources" / "asset-brief.example.json"
 _CONV_DIR = _REPO_ROOT / "plans" / "conversations" / "brief"
 
 # Context budget (characters of conversation payload, not tokens).
-_CHAR_BUDGET = 14_000
-_RECENT_KEEP = 20
+# Day-long brief chats need more headroom; older turns still compress to summary.
+_CHAR_BUDGET = 48_000
+_RECENT_KEEP = 40
 
 _COMMIT_BRIEF_RE = re.compile(
     r"(落实\s*(成)?\s*brief|写成\s*brief|导出\s*brief|定稿|生成\s*brief|"
@@ -348,11 +349,99 @@ def list_sessions(*, base_dir: Path | None = None) -> list[dict[str, Any]]:
     return out
 
 
+def _asset_merge_key(item: dict[str, Any]) -> str:
+    for field in ("id", "name"):
+        raw = str(item.get(field) or "").strip()
+        if raw:
+            return raw.lower()
+    return ""
+
+
+def _graph_merge_key(item: dict[str, Any]) -> str:
+    for field in ("id", "character_asset", "name"):
+        raw = str(item.get(field) or "").strip()
+        if raw:
+            return raw.lower()
+    return ""
+
+
+def _merge_dict_list_by_key(
+    base_list: list[Any],
+    incoming_list: list[Any],
+    key_fn,
+) -> list[Any]:
+    """Upsert incoming items onto base by key; never drop base items missing from incoming."""
+    out: list[Any] = [copy.deepcopy(x) for x in base_list]
+    index: dict[str, int] = {}
+    for i, item in enumerate(out):
+        if not isinstance(item, dict):
+            continue
+        key = key_fn(item)
+        if key and key not in index:
+            index[key] = i
+    for item in incoming_list:
+        if not isinstance(item, dict):
+            continue
+        key = key_fn(item)
+        if key and key in index:
+            merged = copy.deepcopy(out[index[key]])
+            for sk, sv in item.items():
+                if sv is None:
+                    continue
+                if isinstance(sv, dict) and isinstance(merged.get(sk), dict):
+                    nested = copy.deepcopy(merged[sk])
+                    nested.update(sv)
+                    merged[sk] = nested
+                else:
+                    merged[sk] = copy.deepcopy(sv)
+            out[index[key]] = merged
+        else:
+            out.append(copy.deepcopy(item))
+            if key:
+                index[key] = len(out) - 1
+    return out
+
+
+_NARRATIVE_PROJECT_KEYS = frozenset(
+    {
+        "description",
+        "gameplay_loop",
+        "session_goal",
+        "art_direction",
+        "presentation_notes",
+    }
+)
+
+
+def _prefer_richer_string(base: Any, incoming: Any) -> Any:
+    """Keep established narrative if the model returns an empty or much thinner rewrite."""
+    if not isinstance(incoming, str):
+        return copy.deepcopy(incoming)
+    if not isinstance(base, str):
+        return incoming
+    inc = incoming.strip()
+    base_s = base.strip()
+    if not inc and base_s:
+        return base
+    if (
+        base_s
+        and len(base_s) > 100
+        and len(inc) < max(40, int(len(base_s) * 0.5))
+    ):
+        return base
+    return incoming
+
+
 def deep_merge_brief(
     base: dict[str, Any] | None,
     incoming: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
-    """Merge incoming draft onto base. Lists (assets/graphs) replaced when provided."""
+    """Merge incoming draft onto base.
+
+    - ``assets`` / ``animation_graphs``: upsert by id/name (never drop prior rows just
+      because the model omitted them this turn).
+    - Long narrative project strings: empty / much-shorter rewrites do not clobber base.
+    """
     if not incoming:
         return copy.deepcopy(base) if isinstance(base, dict) else None
     if not isinstance(base, dict) or not base:
@@ -362,8 +451,16 @@ def deep_merge_brief(
     for key, value in incoming.items():
         if value is None:
             continue
-        if key in ("assets", "animation_graphs") and isinstance(value, list):
-            out[key] = copy.deepcopy(value)
+        if key == "assets" and isinstance(value, list):
+            base_assets = out.get("assets") if isinstance(out.get("assets"), list) else []
+            out[key] = _merge_dict_list_by_key(base_assets, value, _asset_merge_key)
+        elif key == "animation_graphs" and isinstance(value, list):
+            base_graphs = (
+                out.get("animation_graphs")
+                if isinstance(out.get("animation_graphs"), list)
+                else []
+            )
+            out[key] = _merge_dict_list_by_key(base_graphs, value, _graph_merge_key)
         elif isinstance(value, dict) and isinstance(out.get(key), dict):
             merged = copy.deepcopy(out[key])
             for sk, sv in value.items():
@@ -373,6 +470,8 @@ def deep_merge_brief(
                     nested = copy.deepcopy(merged[sk])
                     nested.update(sv)
                     merged[sk] = nested
+                elif key == "project" and sk in _NARRATIVE_PROJECT_KEYS:
+                    merged[sk] = _prefer_richer_string(merged.get(sk), sv)
                 else:
                     merged[sk] = copy.deepcopy(sv)
             out[key] = merged
@@ -973,8 +1072,12 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
         )
     else:
         instruction = (
-            "Continue chatting. When the user discusses a game, output a FULL current "
-            "draft_brief in artifact (expand/correct prior draft). "
+            "Continue chatting. Prefer surgical updates: when clarifying 1–3 points "
+            "(e.g. closing makeability gaps), set artifact.brief_patches and omit or "
+            "null draft_brief — do NOT return a thinned full brief. "
+            "Ops: set {path,value}, upsert_asset {match,set}, add_asset {value}, "
+            "upsert_graph {match,set}. "
+            "Only return a FULL artifact.draft_brief for major redesigns / first draft. "
             "When drafting a design note (not Foundry brief), you may also set "
             "artifact.draft_document {title, format, body}. ready_to_export must be false. "
             "Pure tech Q&A with no game design: artifact may be null."
@@ -1021,6 +1124,135 @@ def validate_brief_dict(data: dict[str, Any]) -> dict[str, Any]:
     if graphs:
         out["animation_graphs"] = [animation_graph_to_dict(g) for g in graphs]
     return out
+
+
+def _set_path_value(root: dict[str, Any], path: str, value: Any) -> None:
+    """Set dotted path on nested dicts, creating dict parents as needed."""
+    parts = [p for p in str(path or "").split(".") if p]
+    if not parts:
+        raise HostChatError("brief patch set requires a non-empty path")
+    cur: Any = root
+    for part in parts[:-1]:
+        nxt = cur.get(part) if isinstance(cur, dict) else None
+        if not isinstance(nxt, dict):
+            nxt = {}
+            if not isinstance(cur, dict):
+                raise HostChatError(f"Cannot set path through non-object: {path}")
+            cur[part] = nxt
+        cur = nxt
+    if not isinstance(cur, dict):
+        raise HostChatError(f"Cannot set leaf on non-object: {path}")
+    cur[parts[-1]] = copy.deepcopy(value)
+
+
+def _match_record(item: dict[str, Any], match: dict[str, Any], fields: tuple[str, ...]) -> bool:
+    for field in fields:
+        want = str(match.get(field) or "").strip().lower()
+        if not want:
+            continue
+        have = str(item.get(field) or "").strip().lower()
+        if have and have == want:
+            return True
+    return False
+
+
+def apply_brief_patches(
+    draft: dict[str, Any] | None,
+    patches: list[Any] | None,
+) -> dict[str, Any]:
+    """Apply surgical patches onto a brief draft (code-edit style, not full rewrite).
+
+    Supported ops:
+    - ``set``: ``{"op":"set","path":"project.session_goal","value":"..."}``
+    - ``upsert_asset``: ``{"op":"upsert_asset","match":{"id":"rod"},"set":{...}}``
+    - ``add_asset``: ``{"op":"add_asset","value":{...}}``
+    - ``upsert_graph``: ``{"op":"upsert_graph","match":{"character_asset":"carp"},"set":{...}}``
+    """
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("brief_patches require an existing draft_brief")
+    if not isinstance(patches, list) or not patches:
+        return copy.deepcopy(draft)
+
+    out = copy.deepcopy(draft)
+    for raw in patches:
+        if not isinstance(raw, dict):
+            continue
+        op = str(raw.get("op") or "").strip().lower()
+        if op == "set":
+            _set_path_value(out, str(raw.get("path") or ""), raw.get("value"))
+        elif op == "upsert_asset":
+            match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
+            if not match or not fields:
+                continue
+            assets = out.get("assets") if isinstance(out.get("assets"), list) else []
+            assets = list(assets)
+            found = False
+            for i, item in enumerate(assets):
+                if isinstance(item, dict) and _match_record(item, match, ("id", "name")):
+                    merged = copy.deepcopy(item)
+                    merged.update(copy.deepcopy(fields))
+                    assets[i] = merged
+                    found = True
+                    break
+            if not found:
+                row = copy.deepcopy(fields)
+                for field in ("id", "name"):
+                    if match.get(field) and field not in row:
+                        row[field] = match[field]
+                assets.append(row)
+            out["assets"] = assets
+        elif op == "add_asset":
+            value = raw.get("value")
+            if not isinstance(value, dict):
+                continue
+            assets = out.get("assets") if isinstance(out.get("assets"), list) else []
+            assets = list(assets)
+            assets.append(copy.deepcopy(value))
+            out["assets"] = assets
+        elif op == "upsert_graph":
+            match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
+            if not match or not fields:
+                continue
+            graphs = (
+                out.get("animation_graphs")
+                if isinstance(out.get("animation_graphs"), list)
+                else []
+            )
+            graphs = list(graphs)
+            found = False
+            for i, item in enumerate(graphs):
+                if isinstance(item, dict) and _match_record(
+                    item, match, ("character_asset", "id", "name")
+                ):
+                    merged = copy.deepcopy(item)
+                    merged.update(copy.deepcopy(fields))
+                    graphs[i] = merged
+                    found = True
+                    break
+            if not found:
+                row = copy.deepcopy(fields)
+                for field in ("character_asset", "id", "name"):
+                    if match.get(field) and field not in row:
+                        row[field] = match[field]
+                graphs.append(row)
+            out["animation_graphs"] = graphs
+        else:
+            continue
+    return out
+
+
+def _extract_brief_patches(parsed: dict[str, Any]) -> list[Any] | None:
+    artifact = parsed.get("artifact")
+    for container in (artifact if isinstance(artifact, dict) else None, parsed):
+        if not isinstance(container, dict):
+            continue
+        for key in ("brief_patches", "draft_patches"):
+            raw = container.get(key)
+            if isinstance(raw, list) and raw:
+                return raw
+    return None
 
 
 def _extract_draft(parsed: dict[str, Any]) -> dict[str, Any] | None:
@@ -1207,11 +1439,29 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     ready = bool(parsed.get("ready_to_export"))
     gaps = _extract_gaps(parsed)
     incoming = _extract_draft(parsed)
+    patches = _extract_brief_patches(parsed)
     incoming_doc = _extract_document(parsed)
 
     if mode == "chat":
         ready = False
-        if incoming:
+        # Prefer surgical patches when answering review gaps / small clarifications.
+        # If patches are present, do NOT apply a possibly thinned full draft_brief.
+        if patches:
+            base = (
+                session.get("draft_brief")
+                if isinstance(session.get("draft_brief"), dict)
+                else None
+            )
+            if base is None and incoming:
+                base = incoming
+            if base is None:
+                assistant_message += "\n\n（收到定点补丁但还没有草稿，请先聊出一版 draft。）"
+            else:
+                try:
+                    session["draft_brief"] = apply_brief_patches(base, patches)
+                except HostChatError as exc:
+                    assistant_message += f"\n\n（草稿补丁未应用：{exc}）"
+        elif incoming:
             session["draft_brief"] = deep_merge_brief(
                 session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None,
                 incoming,
