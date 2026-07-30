@@ -29,6 +29,45 @@ def _key_usable(value: Any) -> bool:
     return bool(text) and "YOUR_" not in text.upper()
 
 
+_VALID_THINKING_LEVELS = frozenset({"off", "low", "medium", "high"})
+
+
+def normalize_thinking_level(raw: Any) -> str:
+    """Return ``off|low|medium|high``; unknown or empty → ``off``."""
+    text = str(raw or "").strip().lower()
+    if text in _VALID_THINKING_LEVELS:
+        return text
+    return "off"
+
+
+def resolve_pi_thinking_level(
+    config: dict[str, Any] | None,
+    instance_id: str | None = None,
+) -> str:
+    """Read ``agents.instances[id].thinking_level``; missing → ``off``."""
+    if not instance_id or not config:
+        return "off"
+    agents = config.get("agents")
+    if not isinstance(agents, dict):
+        return "off"
+    instances = agents.get("instances")
+    if not isinstance(instances, dict):
+        return "off"
+    inst = instances.get(instance_id)
+    if not isinstance(inst, dict):
+        return "off"
+    return normalize_thinking_level(inst.get("thinking_level"))
+
+
+def _pi_cli_model_and_thinking(
+    model: str,
+    config: dict[str, Any] | None,
+    instance_id: str | None,
+) -> list[str]:
+    level = resolve_pi_thinking_level(config, instance_id)
+    return ["--model", str(model), "--thinking", level]
+
+
 def parse_node_version(text: str) -> tuple[int, int, int] | None:
     """Parse ``v22.19.0`` / ``22.19.0`` into a version tuple."""
     raw = (text or "").strip().lstrip("vV")
@@ -352,8 +391,7 @@ def run_pi_smoke(
         "text",
         "--provider",
         str(auth["provider"]),
-        "--model",
-        str(auth["model"]),
+        *_pi_cli_model_and_thinking(str(auth["model"]), config, instance_id),
         # API key via env only — never argv (TimeoutExpired / process lists leak keys).
         prompt,
     ]
@@ -583,8 +621,7 @@ def run_pi_text_completion(
             "text",
             "--provider",
             str(auth["provider"]),
-            "--model",
-            str(auth["model"]),
+            *_pi_cli_model_and_thinking(str(auth["model"]), config, instance_id),
             "--system-prompt",
             short_system,
             "--append-system-prompt",

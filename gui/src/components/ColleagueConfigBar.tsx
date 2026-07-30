@@ -18,8 +18,10 @@ import {
   serializeAgentInstances,
   shouldSyncCodexThirdParty,
   upsertInstanceRecord,
+  normalizeThinkingLevel,
   type AgentInstanceRecord,
   type InstanceExecutor,
+  type ThinkingLevel,
 } from "../settings/agentInstances";
 import {
   CODE_EXECUTORS,
@@ -118,6 +120,7 @@ export function ColleagueConfigBar({
     Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">
   >({});
   const [piSessionTrust, setPiSessionTrust] = useState(true);
+  const [thinkingLevel, setThinkingLevel] = useState<ThinkingLevel>("off");
   const modelSaveTimer = useRef<number | null>(null);
   const pendingModel = useRef<{
     instanceId: string;
@@ -130,6 +133,7 @@ export function ColleagueConfigBar({
   const useThirdPartyRef = useRef(useThirdParty);
   const safetyFieldsRef = useRef(safetyFields);
   const piSessionTrustRef = useRef(piSessionTrust);
+  const thinkingLevelRef = useRef(thinkingLevel);
   const colleagueRef = useRef(colleague);
 
   executorRef.current = executor;
@@ -138,6 +142,7 @@ export function ColleagueConfigBar({
   useThirdPartyRef.current = useThirdParty;
   safetyFieldsRef.current = safetyFields;
   piSessionTrustRef.current = piSessionTrust;
+  thinkingLevelRef.current = thinkingLevel;
   colleagueRef.current = colleague;
 
   const syncCodexApi = useCallback(async (instanceId: string) => {
@@ -159,7 +164,12 @@ export function ColleagueConfigBar({
       patch: Partial<
         Pick<
           AgentInstanceRecord,
-          "executor" | "provider" | "model" | "use_third_party" | "pi_session_trust"
+          | "executor"
+          | "provider"
+          | "model"
+          | "use_third_party"
+          | "pi_session_trust"
+          | "thinking_level"
         >
       >,
       safetySnapshot?: Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">,
@@ -206,6 +216,16 @@ export function ColleagueConfigBar({
           permission_mode: safetySource?.permission_mode,
           yolo: safetySource?.yolo,
           ...(trustResolved !== undefined ? { pi_session_trust: trustResolved } : {}),
+          ...(resolvedExecutor === "pi"
+            ? {
+                thinking_level: normalizeThinkingLevel(
+                  patch.thinking_level ??
+                    (onScreen
+                      ? thinkingLevelRef.current
+                      : existing?.thinking_level),
+                ),
+              }
+            : {}),
         }) as AgentInstanceRecord;
         const nextMap = upsertInstanceRecord(instances, instanceId, record);
         const res = await window.gameFactory.saveConfig({
@@ -223,6 +243,9 @@ export function ColleagueConfigBar({
           if (patch.model !== undefined) setModel(patch.model);
           if (patch.use_third_party !== undefined) setUseThirdParty(patch.use_third_party);
           if (patch.pi_session_trust !== undefined) setPiSessionTrust(patch.pi_session_trust);
+          if (patch.thinking_level !== undefined) {
+            setThinkingLevel(normalizeThinkingLevel(patch.thinking_level));
+          }
         }
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
@@ -295,6 +318,7 @@ export function ColleagueConfigBar({
               : true
             : true,
         );
+        setThinkingLevel(normalizeThinkingLevel(record.thinking_level));
         setError(null);
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -433,6 +457,12 @@ export function ColleagueConfigBar({
     void persist(colleague.id, colleague.roleKind, { use_third_party: checked });
   };
 
+  const handleThinkingLevelClick = (level: ThinkingLevel) => {
+    flushPendingModel();
+    setThinkingLevel(level);
+    void persist(colleague.id, colleague.roleKind, { thinking_level: level });
+  };
+
   const handlePiSessionTrustChange = (checked: boolean) => {
     flushPendingModel();
     setPiSessionTrust(checked);
@@ -529,6 +559,7 @@ export function ColleagueConfigBar({
             : null;
 
   const showThirdParty = !piLocked && executor === "codex";
+  const showThinkingLevel = executor === "pi";
 
   const safetyExecutor = !piLocked && executor !== "pi" ? (executor as InstanceExecutorForSafety) : null;
   const activeSafetyField = safetyExecutor ? safetyFieldForExecutor(safetyExecutor) : null;
@@ -715,6 +746,37 @@ export function ColleagueConfigBar({
             disabled={disabled || loading || saving}
             placeholder={modelPlaceholder}
           />
+          {showThinkingLevel ? (
+            <>
+              <span className="pi-model-chip__dot" aria-hidden>
+                ·
+              </span>
+              <span className="pi-model-chip__tier-group" role="group" aria-label="Thinking">
+                {(
+                  [
+                    ["off", "关"],
+                    ["low", "低"],
+                    ["medium", "中"],
+                    ["high", "高"],
+                  ] as const
+                ).map(([level, label]) => (
+                  <button
+                    key={level}
+                    type="button"
+                    className={
+                      "pi-model-chip__tier" +
+                      (thinkingLevel === level ? " is-active" : "")
+                    }
+                    disabled={disabled || loading || saving}
+                    aria-pressed={thinkingLevel === level}
+                    onClick={() => handleThinkingLevelClick(level)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </span>
+            </>
+          ) : null}
         </>
       )}
       {showThirdParty ? (

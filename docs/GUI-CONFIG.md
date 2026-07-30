@@ -100,6 +100,7 @@ GUI 主对话（① 策划薄 Chat）走 LLM Provider，与下方 Agent 执行�
 
 - **对话内修改只更新该实例**，**不回写** Agent 页全局预设。
 - 删除同事时清理对应 `agents.instances.<id>`。
+- **Pi Thinking**：Pi 实例可设 `thinking_level`（关/低/中/高 → `off|low|medium|high`），对话顶栏与雇人弹窗可改；运行时传给嵌入式 Pi 的 `--thinking`。Host 直连 `chat/completions` **不读**该字段。Codex/Cursor 仍只用模型高/中/低档，无独立 Thinking 控件。
 
 **项目经理 / 程序员（Codex 登录态、Cursor）**：聊天顶栏从本机 CLI **实时读取**模型列表（`agent --list-models` / `codex debug models`），经 `setup executor models --json`。列表为空时不展示假选项；Cursor 会结合 `agent status` 区分「未登录」与「已登录但目录仍空（多半需重登刷新会话）」；可用「刷新」重拉。高/中/低档仅当偏好 id 出现在实时列表中时可点。仍写入 `agents.instances.<id>.model`。Codex 勾「第三方」时走 **内置** Provider + 账号模型目录（`setup provider models`，可搜索/手填）。Pi / Hermes 同。GUI 拉执行器列表时 PATH 会补上 `~/.local/bin`（Cursor `agent` 常见安装位置）。
 

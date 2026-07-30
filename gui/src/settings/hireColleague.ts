@@ -1,8 +1,10 @@
 import type { ChatAgentRole } from "../chat/roles";
 import {
   defaultExecutorForRole,
+  normalizeThinkingLevel,
   type AgentInstanceRecord,
   type InstanceExecutor,
+  type ThinkingLevel,
 } from "./agentInstances";
 import {
   defaultsFromExecutorPreset,
@@ -26,6 +28,7 @@ export interface HireFormState {
   model: string;
   use_third_party: boolean;
   displayName: string;
+  thinking_level: ThinkingLevel;
   sandbox: CodexSandbox | typeof INHERIT_SAFETY;
   permission_mode: CursorPermissionMode | typeof INHERIT_SAFETY;
   yolo: boolean | typeof INHERIT_SAFETY;
@@ -94,8 +97,13 @@ export function buildHireRecord(roleKind: ChatAgentRole, form: HireFormState): A
     use_third_party: executor === "codex" ? form.use_third_party : false,
   };
 
+  const withThinking =
+    executor === "pi"
+      ? { ...base, thinking_level: normalizeThinkingLevel(form.thinking_level) }
+      : base;
+
   const field = safetyFieldForExecutor(executor);
-  if (!field) return base;
+  if (!field) return withThinking;
 
   const safetyInput: {
     sandbox?: CodexSandbox;
@@ -111,7 +119,7 @@ export function buildHireRecord(roleKind: ChatAgentRole, form: HireFormState): A
     safetyInput.yolo = form.yolo as boolean;
   }
 
-  return { ...base, ...omitSafetyKeysForSerialize(safetyInput) };
+  return { ...withThinking, ...omitSafetyKeysForSerialize(safetyInput) };
 }
 
 export function executorKindForHire(record: AgentInstanceRecord): "pi" | AgentExecutor | null {

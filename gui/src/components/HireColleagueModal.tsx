@@ -6,7 +6,7 @@ import { CHAT_AGENT_LABELS } from "../chat/roles";
 import { getApiProvider, type ApiProviderId } from "../settings/apiProviders";
 import { ModelCatalogPicker } from "./ModelCatalogPicker";
 import { loadAgentExecutorsFromConfig } from "../settings/agentExecutors";
-import type { InstanceExecutor } from "../settings/agentInstances";
+import type { InstanceExecutor, ThinkingLevel } from "../settings/agentInstances";
 import {
   buildHireRecord,
   defaultExecutorForHire,
@@ -46,6 +46,13 @@ interface Props {
   onConfirm: (payload: HireColleagueConfirmPayload) => void;
 }
 
+const PI_THINKING_OPTIONS: { id: ThinkingLevel; label: string }[] = [
+  { id: "off", label: "关" },
+  { id: "low", label: "低" },
+  { id: "medium", label: "中" },
+  { id: "high", label: "高" },
+];
+
 function emptyForm(displayName = ""): HireFormState {
   return {
     executor: "codex",
@@ -53,6 +60,7 @@ function emptyForm(displayName = ""): HireFormState {
     model: "",
     use_third_party: false,
     displayName,
+    thinking_level: "off",
     ...defaultSafetyFormFields(),
   };
 }
@@ -93,6 +101,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
           model: preset.model,
           use_third_party: preset.use_third_party,
           displayName: suggestedName,
+          thinking_level: "off",
           ...defaultSafetyFormFields(),
         });
       } catch {
@@ -112,6 +121,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
   if (!roleKind) return null;
 
   const piLocked = isPiLockedRole(roleKind);
+  const showPiThinking = piLocked || form.executor === "pi";
   const executorOptions =
     roleKind === "product_host" ? HOST_EXECUTORS : roleKind === "programmer" ? CODE_EXECUTORS : [];
   const providerOk = isProviderConfigured(providerAccounts, form.provider);
@@ -274,6 +284,28 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
               placeholder={modelPlaceholder}
             />
           </div>
+
+          {showPiThinking ? (
+            <div className="field">
+              <span>Thinking</span>
+              <span className="pi-model-chip__tier-group" role="group" aria-label="Thinking 档位">
+                {PI_THINKING_OPTIONS.map(({ id, label }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={
+                      "pi-model-chip__tier" + (form.thinking_level === id ? " is-active" : "")
+                    }
+                    disabled={loading}
+                    aria-pressed={form.thinking_level === id}
+                    onClick={() => setForm((prev) => ({ ...prev, thinking_level: id }))}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </span>
+            </div>
+          ) : null}
 
           {!piLocked && form.executor === "codex" && (
             <label className="field">

@@ -17,6 +17,16 @@ import { parseExecutor, type AgentExecutor } from "./executors";
 export type PiExecutor = "pi";
 export type InstanceExecutor = AgentExecutor | PiExecutor;
 
+export type ThinkingLevel = "off" | "low" | "medium" | "high";
+
+export function normalizeThinkingLevel(value: unknown): ThinkingLevel {
+  const s = String(value ?? "")
+    .trim()
+    .toLowerCase();
+  if (s === "low" || s === "medium" || s === "high") return s;
+  return "off";
+}
+
 export interface AgentInstanceRecord {
   role_kind: ChatAgentRole;
   executor: InstanceExecutor;
@@ -34,6 +44,8 @@ export interface AgentInstanceRecord {
    * Default true for role it when unset.
    */
   pi_session_trust?: boolean;
+  /** Pi CLI --thinking; meaningful when executor === "pi" */
+  thinking_level?: ThinkingLevel;
 }
 
 export type AgentInstancesMap = Record<string, AgentInstanceRecord>;
@@ -84,13 +96,14 @@ export function loadAgentInstancesFromConfig(data: Record<string, unknown>): Age
 
     const roleKey = ROLE_AGENT_KEYS[roleKind];
     const roleBlock = (agents[roleKey] || {}) as Record<string, unknown>;
+    const executor = parseInstanceExecutor(
+      rec.executor,
+      roleKind,
+      defaultExecutorForRole(roleKind, roleBlock),
+    );
     out[id] = {
       role_kind: roleKind,
-      executor: parseInstanceExecutor(
-        rec.executor,
-        roleKind,
-        defaultExecutorForRole(roleKind, roleBlock),
-      ),
+      executor,
       provider: coerceProvider(rec.provider ?? roleBlock.provider, "openrouter"),
       model: rec.model != null ? String(rec.model) : String(roleBlock.model ?? ""),
       use_third_party: Boolean(rec.use_third_party ?? roleBlock.use_third_party ?? false),
@@ -100,6 +113,7 @@ export function loadAgentInstancesFromConfig(data: Record<string, unknown>): Age
         : roleKind === "it"
           ? { pi_session_trust: true }
           : {}),
+      ...(executor === "pi" ? { thinking_level: normalizeThinkingLevel(rec.thinking_level) } : {}),
     };
   }
   return out;
@@ -202,6 +216,9 @@ export function serializeAgentInstances(
                 ? rec.pi_session_trust
                 : rec.role_kind === "it",
           }
+        : {}),
+      ...(rec.executor === "pi"
+        ? { thinking_level: normalizeThinkingLevel(rec.thinking_level) }
         : {}),
     };
   }
