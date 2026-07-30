@@ -141,6 +141,7 @@
       ],
       "category": "public.app-category.developer-tools",
       "identity": null,
+      "executableName": "GameAIFoundry",
       "artifactName": "Game-AI-Foundry-${version}-mac-${arch}.${ext}"
     },
     "linux": {
