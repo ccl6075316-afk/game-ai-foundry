@@ -92,6 +92,14 @@ contextBridge.exposeInMainWorld("gameFactory", {
   stopAgentAcpInstance: (instanceId) =>
     ipcRenderer.invoke("agent-acp-stop-instance", instanceId),
   chatStop: (instanceId) => ipcRenderer.invoke("chat-stop", instanceId),
+  appUpdateStatus: () => ipcRenderer.invoke("app-update-status"),
+  appUpdateCheck: () => ipcRenderer.invoke("app-update-check"),
+  appUpdateInstall: () => ipcRenderer.invoke("app-update-install"),
+  onAppUpdateStatus: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on("app-update-status", listener);
+    return () => ipcRenderer.removeListener("app-update-status", listener);
+  },
   onToolPermission: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on("agent-tool-permission", listener);

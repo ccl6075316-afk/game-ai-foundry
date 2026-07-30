@@ -6,6 +6,28 @@ export interface PathsInfo {
   python: string;
   isDev: boolean;
   isPackaged?: boolean;
+  appVersion?: string;
+}
+
+export type AppUpdatePhase =
+  | "idle"
+  | "checking"
+  | "available"
+  | "not-available"
+  | "downloading"
+  | "downloaded"
+  | "error"
+  | "unsupported";
+
+export interface AppUpdateStatus {
+  phase: AppUpdatePhase;
+  currentVersion: string;
+  availableVersion?: string;
+  percent?: number;
+  message?: string;
+  releaseName?: string;
+  releaseNotes?: string;
+  error?: string;
 }
 
 export interface CliResult<T = unknown> {
@@ -690,6 +712,10 @@ declare global {
       chatStop: (
         instanceId: string,
       ) => Promise<{ ok?: boolean; aborted?: boolean; killedCli?: boolean; stoppedAcp?: boolean; error?: string }>;
+      appUpdateStatus: () => Promise<AppUpdateStatus>;
+      appUpdateCheck: () => Promise<AppUpdateStatus>;
+      appUpdateInstall: () => Promise<{ ok?: boolean; error?: string }>;
+      onAppUpdateStatus: (callback: (status: AppUpdateStatus) => void) => () => void;
       onToolPermission: (
         callback: (payload: {
           permissionId: string;

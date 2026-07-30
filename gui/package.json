@@ -1,6 +1,6 @@
 {
   "name": "game-ai-foundry-gui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Game AI Foundry — desktop shell over gamefactory CLI",
   "author": "Game AI Foundry",
@@ -17,6 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "electron-updater": "^6.8.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -35,6 +36,13 @@
     "appId": "com.gameaifoundry.desktop",
     "productName": "Game AI Foundry",
     "copyright": "Copyright © 2026 Game AI Foundry",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ccl6075316-afk",
+        "repo": "game-ai-foundry"
+      }
+    ],
     "directories": {
       "output": "release",
       "buildResources": "build"
@@ -147,7 +155,16 @@
     },
     "nsis": {
       "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
+      "selectPerMachineOrPerUser": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Game AI Foundry",
+      "uninstallDisplayName": "Game AI Foundry",
+      "runAfterFinish": true,
+      "include": "build/installer.nsh",
       "artifactName": "Game-AI-Foundry-${version}-setup.exe"
     }
   }

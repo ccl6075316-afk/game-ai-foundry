@@ -14,6 +14,13 @@ echo "[release] Building GUI ..."
 cd "$ROOT/gui"
 export CSC_IDENTITY_AUTO_DISCOVERY=false
 npm install
-npm run build:app
+# Set PUBLISH=1 and GH_TOKEN / GITHUB_TOKEN to upload artifacts + latest.yml for auto-update.
+if [[ "${PUBLISH:-}" == "1" ]]; then
+  echo "[release] Publishing to GitHub Releases (electron-builder --publish always) ..."
+  npm run build && npx electron-builder --publish always
+else
+  npm run build:app
+  echo "[release] Tip: PUBLISH=1 GH_TOKEN=… ./scripts/build-release.sh 可上传并生成自动更新元数据"
+fi
 
 echo "[release] Done. Artifacts in gui/release/"

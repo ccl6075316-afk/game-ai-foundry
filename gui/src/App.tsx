@@ -18,6 +18,7 @@ import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
 import { SettingsPage, type SettingsPageTab } from "./components/SettingsPage";
 import { ToolchainModal } from "./components/ToolchainModal";
+import { UpdateBanner } from "./components/UpdateBanner";
 import { EnvToolbar } from "./components/EnvToolbar";
 import type { ToolchainReport } from "./settings/toolchain";
 import type { ExecutorSetupReport, ExecutorId } from "./settings/executorsSetup";
@@ -3528,6 +3529,7 @@ export default function App() {
           </button>
         </div>
       </header>
+      <UpdateBanner />
 
       {appView === "settings" ? (
         <SettingsPage

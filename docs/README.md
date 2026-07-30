@@ -2,16 +2,18 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-07-29）
+## 当前版本要点（2026-07-30）
 
-- **v0.1.0 可用边界**：[`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) — IT 家庭运维 / 外置工程 / 设置全页 / Brief 补全
+- **v0.1.1 可用边界**：[`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) — Windows NSIS 自动更新 / 可选目录与干净卸载；对话停止；侧栏拖宽
+- **v0.1.0**：[`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) — IT 家庭运维 / 外置工程 / 设置全页 / Brief 补全
 - **v0.0.8**：[`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) — DeepSeek 模型名修复 / 对话滚动
 - **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员 / **IT**，可多实例）
 - **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`（或外置根）；北极星图在策划侧定稿；导出前可 `brief.zh.md`
-- **设置**：顶栏进**全页**（Provider / Agent / 本机 / 环境 / 指南）；右侧栏仅 **文档 | 看板 | 资产**
+- **设置**：顶栏进**全页**（Provider / Agent / 本机 / 环境 / 指南）；右侧栏仅 **文档 | 看板 | 资产**（可拖宽）
 - **Provider**：可自建 OpenAI 兼容账号；文/图模型可拉 `/models`；生图主档 + 批量档；详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)
 - **IT**：默认可信任本会话跑 `pipeline run`；环境 / 草稿同步 / 看板诊断
+- **Release / 更新**：Windows 推荐 `*-setup.exe`（自动更新）；macOS zip 手动换包 — [`RELEASE.md`](RELEASE.md)
 - **资产审查**：侧栏 **资产**（`/assets`）读 `assets-manifest`；行内采纳 / 重生成 / 本地替换（软 `review`）
 - **layout**：`production derive` → scaffold/assemble 写 `World` props；DocsPreview 只读 `view` / `content_class`
 - **最低开工**：LLM Provider Key → 策划保存 Brief + 北极星 → 项目经理 `/plan` `/run`
@@ -31,7 +33,8 @@
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
-| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、纯净机首次运行 | brief 字段 |
+| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、Windows 自动更新、纯净机首次运行 | brief 字段 |
+| [`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) | 用户 | **v0.1.1** Win 自动更新 / 停止对话 / 侧栏拖宽 | — |
 | [`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) | 用户 | **v0.1.0** IT / 外置工程 / 设置全页 | — |
 | [`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) | 用户 | v0.0.8 DeepSeek 修复 / 滚动 | — |
 | [`RELEASE-NOTES-0.0.7.md`](RELEASE-NOTES-0.0.7.md) | 用户 | v0.0.7 类型化出图 / 审图 / layout | — |
@@ -62,7 +65,7 @@
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.1.0 · 未发布草稿见 UNRELEASED
+发 Release         → RELEASE + RELEASE-NOTES-0.1.1 · 未发布草稿见 UNRELEASED
 ```
 
 ## 设计 vs 施工（一句话）

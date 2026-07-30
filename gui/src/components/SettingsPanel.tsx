@@ -6,6 +6,7 @@ import {
   type SettingsTab,
 } from "../settings/sections";
 import { GODOT_DOWNLOAD_URL } from "../settings/toolchain";
+import { AppUpdateCard } from "./AppUpdateCard";
 
 interface Props {
   busy: boolean;
@@ -187,7 +188,9 @@ export function SettingsPanel({ busy, onSaved, embedded = false, forcedTab }: Pr
           }}
         >
           {tab === "local" && (
-            <SectionCard meta={GODOT_SECTION} configured={Boolean(form.godotPath.trim())}>
+            <>
+              <AppUpdateCard disabled={disabled} />
+              <SectionCard meta={GODOT_SECTION} configured={Boolean(form.godotPath.trim())}>
               <label className="field">
                 <span>Godot 可执行文件</span>
                 <div className="field-row">
@@ -223,6 +226,7 @@ export function SettingsPanel({ busy, onSaved, embedded = false, forcedTab }: Pr
                 </span>
               </div>
             </SectionCard>
+            </>
           )}
 
           {error && <p className="settings-feedback settings-feedback--error">{error}</p>}

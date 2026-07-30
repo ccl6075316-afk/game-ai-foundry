@@ -22,6 +22,7 @@ import {
   resolvePiRuntimeRoot,
   resolvePython,
 } from "./paths.mjs";
+import { initAutoUpdate, registerAutoUpdateIpc } from "./autoUpdate.mjs";
 import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
@@ -1534,7 +1535,10 @@ app.whenReady().then(() => {
     python: resolvePython(repoRoot()),
     isDev,
     isPackaged: isPackagedApp(),
+    appVersion: app.getVersion(),
   }));
+
+  registerAutoUpdateIpc();
 
   ipcMain.handle("doctor", async () => {
     const result = await runCli(["doctor", "--json"]);
@@ -2968,9 +2972,13 @@ app.whenReady().then(() => {
   });
 
   createWindow();
+  initAutoUpdate(() => mainWindow);
 
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+      initAutoUpdate(() => mainWindow);
+    }
   });
 });
 

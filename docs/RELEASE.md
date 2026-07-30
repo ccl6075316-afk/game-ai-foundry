@@ -4,8 +4,11 @@
 
 ## 用户侧（纯净电脑）
 
-1. 下载 Release 产物（推荐 **portable** `.exe` 或 `.zip` / macOS `.dmg`）
-2. 解压 / 运行 **Game AI Foundry**
+1. 下载 Release 产物：
+   - **Windows（推荐）**：`*-setup.exe`（NSIS，可选安装目录、可卸载卸干净、**支持应用内自动更新**）
+   - **Windows 亦可**：zip / portable（需手动换包）
+   - **macOS**：zip（手动解压；首次可能需「仍要打开」；**暂无应用内自动更新**）
+2. 安装 / 解压并运行 **Game AI Foundry**
 3. 首次启动：
    - **设置** → 从示例创建 → 填 **OpenRouter** Key（做视频再填 Seedance）
    - 等待 **FFmpeg / Godot / .NET** 自动安装完成（顶部环境芯片变绿）
@@ -13,6 +16,27 @@
 4. `/brief` → `/plan` → `/run --run-prompts`
 
 **不需要**：`pip install`、`npm install`、安装 Python、安装 Node、单独安装 rembg。
+
+### 自动更新（仅 Windows 安装版）
+
+产品策略：**先做好 Windows**；macOS 等有 Apple 开发者账号（签名+公证）后再做应用内更新。
+
+- **支持自动更新**：Windows **NSIS `*-setup.exe`**（`electron-updater` 读 GitHub Releases 的 `latest.yml`）
+- **不支持自动更新**：Windows zip / portable、**macOS**、Linux — 请到 Releases 手动下新包替换
+- 启动约 12 秒后后台检查；有新版会下载，顶栏提示 **重启安装**。也可 **设置 → 本机 → 应用更新**
+- 自动**升级**不会清掉 `~/.gamefactory/` 与工作区；**卸载**才会卸干净（见下）
+- 发版机：`PUBLISH=1 GH_TOKEN=… ./scripts/build-release.sh`（需上传 `latest.yml`；Mac 元数据可有可无，当前客户端不会用）
+
+### Windows NSIS 安装 / 卸载
+
+- 安装向导可选：**当前用户 / 所有用户**，以及**自定义安装目录**（非一键安装）
+- 开始菜单 + 桌面快捷方式；「应用和功能」里可卸载
+- **卸载会尽量卸干净**（升级安装时不删用户数据）：
+  - 安装目录
+  - `%APPDATA%\game-ai-foundry-gui`（含 workspace）
+  - `%LOCALAPPDATA%\game-ai-foundry-gui`（缓存）
+  - `%USERPROFILE%\.gamefactory`（config、toolchain、API Key 等）
+- 外置 Godot 工程目录（用户自己选的盘符路径）**不会**随卸载删除
 
 ### 数据目录
 

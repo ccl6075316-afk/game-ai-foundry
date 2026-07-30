@@ -2,7 +2,7 @@
 
 **AI-driven game factory** — describe a game → freeze **brief JSON** → generate assets → Godot project → iterate with AI colleagues.
 
-**Latest:** [**v0.1.0**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.0) — IT 家庭运维 / 外置工程 / 设置全页
+**Latest:** [**v0.1.1**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.1) — Windows 安装版自动更新 / 对话停止 / 侧栏拖宽
 
 **GUI**（`start-gui.bat` / `start-gui.sh`）或 **CLI**（`cd cli && python gamefactory.py`）。七角色 skills + Hermes / Codex / Cursor 执行器。
 
@@ -24,7 +24,7 @@ brief.json → production.json → scaffold
 产品心智 → [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)  
 改需求 / Delta → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 
-## Features (v0.1.0)
+## Features (v0.1.1)
 
 ### GUI — AI 公司前台
 
@@ -40,9 +40,10 @@ brief.json → production.json → scaffold
 | **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等 |
 | **`/delta`** | Production Delta → 合并蓝图并同步 progress |
 | **斜杠命令** | `/plan` `/run` `/board` `/assets` `/doctor` `/guide` … |
-| **看板 / 资产 / 文档** | 右侧栏：看板管任务；**资产**表审图；**文档**预览 brief |
-| **设置（全页）** | Provider 多账号（可自建 OpenAI 兼容）+ 模型目录；Agent 工具预设；本机 / 环境 / 指南 |
-| **Release** | 内嵌 Python（含 **rembg**），无需用户装 Python/Node |
+| **看板 / 资产 / 文档** | 右侧栏可**拖宽**；看板管任务；**资产**表审图；**文档**预览 brief |
+| **对话停止** | 生成中可点停止，中断本轮 CLI / ACP |
+| **设置（全页）** | Provider 多账号（可自建 OpenAI 兼容）+ 模型目录；Agent 工具预设；本机（含**检查更新**）/ 环境 / 指南 |
+| **Release** | 内嵌 Python（含 **rembg**）；Windows **NSIS 安装版自动更新**；无需用户装 Python/Node |
 
 ### CLI / 施工底座
 
@@ -71,16 +72,16 @@ brief.json → production.json → scaffold
 
 ### Release（最终用户）
 
-1. 下载 [**v0.1.0 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.0)
-2. 解压 / 打开 **Game AI Foundry**
+1. 下载 [**v0.1.1 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.1)（Windows 推荐 **`*-setup.exe`**）
+2. 安装 / 解压并打开 **Game AI Foundry**
 3. **设置** → Provider 填 LLM API Key（可自建兼容端）；高级里可配代理；等待顶部芯片变绿（FFmpeg / Godot / .NET）
 4. **（推荐）设置 → 环境** → 安装 Hermes / Codex / Cursor Agent；**设置 → Agent** 配默认连法
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts` → 侧栏 **资产** 审图
 6. 试玩问题找**项目经理**；环境/看板找 **IT**；改需求用 `/delta 00x-name | 描述`
 
-说明 → [`docs/RELEASE-NOTES-0.1.0.md`](docs/RELEASE-NOTES-0.1.0.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
+说明 → [`docs/RELEASE-NOTES-0.1.1.md`](docs/RELEASE-NOTES-0.1.1.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
 
-**无需**安装 Python / Node。
+**无需**安装 Python / Node。Windows 安装版支持应用内更新；macOS 请手动换 zip。
 
 ### GUI（开发者）
 
