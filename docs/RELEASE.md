@@ -29,7 +29,7 @@
 
 ### Windows NSIS 安装 / 卸载
 
-- 安装向导可选：**当前用户 / 所有用户**，以及**自定义安装目录**（非一键安装）
+- 安装向导可选：**安装目录**（`allowToChangeInstallationDirectory`）；默认当前用户安装（`selectPerMachineByDefault: false`，仍可提升权限）
 - 开始菜单 + 桌面快捷方式；「应用和功能」里可卸载
 - **卸载会尽量卸干净**（升级安装时不删用户数据）：
   - 安装目录

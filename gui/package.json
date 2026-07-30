@@ -158,7 +158,7 @@
       "perMachine": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "selectPerMachineOrPerUser": true,
+      "selectPerMachineByDefault": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Game AI Foundry",
