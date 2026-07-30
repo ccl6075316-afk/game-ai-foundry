@@ -4,7 +4,8 @@
 
 ## 当前版本要点（2026-07-30）
 
-- **v0.1.2 可用边界**：[`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) — Windows 自动更新安装包 + Brief 定点补丁
+- **v0.1.3 可用边界**：[`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) — 修复安装包启动崩溃（electron-updater ESM）
+- **v0.1.2**：[`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) — Windows 自动更新安装包 + Brief 定点补丁
 - **v0.1.1**：[`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) — Win NSIS 自动更新能力 / 对话停止 / 侧栏拖宽（Mac zip）
 - **v0.1.0**：[`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) — IT 家庭运维 / 外置工程 / 设置全页 / Brief 补全
 - **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)
@@ -34,7 +35,8 @@
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、Windows 自动更新、纯净机首次运行 | brief 字段 |
-| [`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) | 用户 | **v0.1.2** Win 自动更新包 / Brief 补丁 | — |
+| [`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) | 用户 | **v0.1.3** 修复 setup 启动崩溃 | — |
+| [`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) | 用户 | v0.1.2 Win 自动更新包 / Brief 补丁 | — |
 | [`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) | 用户 | v0.1.1 Win 自动更新能力 / 停止对话 / 侧栏拖宽 | — |
 | [`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) | 用户 | **v0.1.0** IT / 外置工程 / 设置全页 | — |
 | [`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) | 用户 | v0.0.8 DeepSeek 修复 / 滚动 | — |
@@ -66,7 +68,7 @@
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.1.2 · 未发布草稿见 UNRELEASED
+发 Release         → RELEASE + RELEASE-NOTES-0.1.3 · 未发布草稿见 UNRELEASED
 ```
 
 ## 设计 vs 施工（一句话）

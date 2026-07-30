@@ -4,8 +4,10 @@
  * - Windows zip / portable, macOS, Linux: manual download only (no Apple notarization yet)
  */
 import { app, ipcMain } from "electron";
-import { autoUpdater } from "electron-updater";
+import electronUpdater from "electron-updater";
 import { isPackagedApp } from "./paths.mjs";
+
+const { autoUpdater } = electronUpdater;
 
 /** @typedef {"idle"|"checking"|"available"|"not-available"|"downloading"|"downloaded"|"error"|"unsupported"} UpdatePhase */
 
