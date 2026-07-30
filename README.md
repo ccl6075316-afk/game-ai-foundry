@@ -2,7 +2,7 @@
 
 **AI-driven game factory** — describe a game → freeze **brief JSON** → generate assets → Godot project → iterate with AI colleagues.
 
-**Latest:** [**v0.0.8**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.8) — DeepSeek 模型修复 / 对话滚动
+**Latest:** [**v0.1.0**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.0) — IT 家庭运维 / 外置工程 / 设置全页
 
 **GUI**（`start-gui.bat` / `start-gui.sh`）或 **CLI**（`cd cli && python gamefactory.py`）。七角色 skills + Hermes / Codex / Cursor 执行器。
 
@@ -24,16 +24,17 @@ brief.json → production.json → scaffold
 产品心智 → [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)  
 改需求 / Delta → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 
-## Features (v0.0.8)
+## Features (v0.1.0)
 
 ### GUI — AI 公司前台
 
 | 能力 | 说明 |
 |------|------|
-| **同事列表** | 策划 / 项目经理 / 程序员；可多实例、改名、解雇、侧栏收起 |
-| **策划** | `brief chat`：商量设计；保存 Brief；**生成/选用北极星图** |
+| **同事列表** | 策划 / 项目经理 / 程序员 / **IT**；可多实例、改名、解雇、侧栏收起 |
+| **策划** | `brief chat`：商量设计；补全细节 / 议题头脑风暴；保存 Brief；**生成/选用北极星图** |
 | **项目经理** | 生成流水线 → 运行资产生成；分诊写 handoff + progress |
-| **工程隔离** | 新游戏产物在 `projects/<slug>/` |
+| **IT** | 家庭运维：环境、草稿同步、中文说明、看板；默认信任本会话，可 `pipeline run` |
+| **工程隔离** | 新游戏在 `projects/<slug>/`；也可「打开外置工程」挂独立 Godot 仓 |
 | **环境检测** | 失败时对话 + 弹窗写清原因，可复制发给支持 |
 | **程序员** | 按实例接 handoff；关单写回 progress |
 | **一键建议命令** | 白名单执行 `pipeline reset/run`、`godot validate` 等 |
@@ -70,14 +71,14 @@ brief.json → production.json → scaffold
 
 ### Release（最终用户）
 
-1. 下载 [**v0.0.8 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.0.8)
+1. 下载 [**v0.1.0 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.0)
 2. 解压 / 打开 **Game AI Foundry**
 3. **设置** → Provider 填 LLM API Key（可自建兼容端）；高级里可配代理；等待顶部芯片变绿（FFmpeg / Godot / .NET）
 4. **（推荐）设置 → 环境** → 安装 Hermes / Codex / Cursor Agent；**设置 → Agent** 配默认连法
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts` → 侧栏 **资产** 审图
-6. 试玩问题找**项目经理**；改需求用 `/delta 00x-name | 描述`
+6. 试玩问题找**项目经理**；环境/看板找 **IT**；改需求用 `/delta 00x-name | 描述`
 
-说明 → [`docs/RELEASE-NOTES-0.0.8.md`](docs/RELEASE-NOTES-0.0.8.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
+说明 → [`docs/RELEASE-NOTES-0.1.0.md`](docs/RELEASE-NOTES-0.1.0.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
 
 **无需**安装 Python / Node。
 

@@ -1,5 +1,5 @@
-import type React from "react";
-import { useEffect, useMemo, useState } from "react";
+import type { CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { HostChatDraftBrief, HostChatDraftDocument, HostChatStatus } from "../chat/types";
 import {
   isExternalBriefRel,
@@ -52,9 +52,10 @@ interface Props {
   diskRefreshKey?: number;
   /** Prefer selecting this repo-relative path after refresh (e.g. brief.zh.md). */
   focusDiskRel?: string | null;
-  /** Called once after focusDiskRel is applied so the parent can clear it. */
-  onFocusApplied?: () => void;
-  style?: React.CSSProperties;
+  /** Clear sticky focus after user picks another doc (or after focus applied). */
+  onFocusDiskRelConsumed?: () => void;
+  /** Optional width override from chat-layout resize handle. */
+  style?: CSSProperties;
 }
 
 function targetsForBrief(
@@ -89,7 +90,7 @@ export function DocsPreviewPanel({
   busy,
   diskRefreshKey = 0,
   focusDiskRel = null,
-  onFocusApplied,
+  onFocusDiskRelConsumed,
   style,
 }: Props) {
   const projectSlug = activeProjectLabel
@@ -100,6 +101,8 @@ export function DocsPreviewPanel({
   const [diskLoading, setDiskLoading] = useState(false);
   const [diskDocs, setDiskDocs] = useState<DocListItem[]>([]);
   const [diskListTick, setDiskListTick] = useState(0);
+  /** Last focusDiskRel we already jumped to — avoid sticky re-select on every click. */
+  const appliedFocusRelRef = useRef<string | null>(null);
 
   const sessionDocs = useMemo(() => {
     const items: DocListItem[] = [
@@ -183,19 +186,31 @@ export function DocsPreviewPanel({
 
   const allDocs = useMemo(() => [...sessionDocs, ...diskDocs], [sessionDocs, diskDocs]);
 
+  // One-shot jump when parent asks to focus a disk path (e.g. after zh-doc).
+  // Must NOT re-run on selectedId — that was snapping every click back to focusDiskRel.
   useEffect(() => {
-    if (focusDiskRel) {
-      const want = `disk:${focusDiskRel.replace(/\\/g, "/")}`;
-      if (allDocs.some((d) => d.id === want)) {
-        setSelectedId(want);
-        onFocusApplied?.();
-        return;
-      }
+    if (!focusDiskRel) {
+      appliedFocusRelRef.current = null;
+      return;
     }
+    if (appliedFocusRelRef.current === focusDiskRel) return;
+    const want = `disk:${focusDiskRel.replace(/\\/g, "/")}`;
+    if (!allDocs.some((d) => d.id === want)) return;
+    setSelectedId(want);
+    appliedFocusRelRef.current = focusDiskRel;
+    onFocusDiskRelConsumed?.();
+  }, [allDocs, focusDiskRel, onFocusDiskRelConsumed]);
+
+  useEffect(() => {
     if (!allDocs.some((d) => d.id === selectedId)) {
       setSelectedId(allDocs[0]?.id || "session-brief");
     }
-  }, [allDocs, selectedId, focusDiskRel, onFocusApplied]);
+  }, [allDocs, selectedId]);
+
+  const selectDoc = (id: string) => {
+    setSelectedId(id);
+    if (focusDiskRel) onFocusDiskRelConsumed?.();
+  };
 
   const selected = allDocs.find((d) => d.id === selectedId) || allDocs[0];
 
@@ -290,7 +305,7 @@ export function DocsPreviewPanel({
         <h2>{projectSlug ? `文档 · ${projectSlug}` : "文档"}</h2>
         <p className="hint">
           {projectSlug
-            ? "仅显示当前工程落盘文件（不会混入其它工程）。"
+            ? "看「中文说明」才是 brief 全文镜像；「工作草稿」是机器 JSON；「策划笔记」是手写要点。草稿落盘时会自动刷新中文说明骨架。"
             : "尚未绑定工程。请先顶栏「新建项目」创建目录，或从列表选择已有工程。"}
         </p>
         {onSelectProject ? (
@@ -314,7 +329,7 @@ export function DocsPreviewPanel({
             key={doc.id}
             type="button"
             className={`docs-preview-item ${selected?.id === doc.id ? "docs-preview-item--active" : ""}`}
-            onClick={() => setSelectedId(doc.id)}
+            onClick={() => selectDoc(doc.id)}
           >
             <span className="docs-preview-item__label">{doc.label}</span>
             {doc.hint ? <span className="docs-preview-item__hint">{doc.hint}</span> : null}

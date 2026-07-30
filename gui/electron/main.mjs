@@ -611,10 +611,10 @@ function listProjectDocs(briefRel) {
         extId.replace(/^ext_/, "") ||
         "external";
       pushIfExists(norm, `Brief · ${slug}`, "json");
-      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief", "markdown");
-      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（未导出）", "brief");
-      pushIfExists(`${root}/工程说明.md`, "工程说明", "markdown");
-      pushIfExists(`${root}/策划笔记.md`, "策划笔记", "markdown");
+      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief（全文镜像）", "markdown");
+      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（机器 JSON）", "brief");
+      pushIfExists(`${root}/工程说明.md`, "工程说明（目录导读）", "markdown");
+      pushIfExists(`${root}/策划笔记.md`, "策划笔记（手写要点）", "markdown");
       pushIfExists(`${root}/production.json`, "Production", "json");
       pushIfExists(`${root}/progress.json`, "Progress", "json");
       pushIfExists(`${root}/pipeline/manifest.json`, "Pipeline manifest", "json");
@@ -645,14 +645,14 @@ function listProjectDocs(briefRel) {
       ? projMatch[1].split("/")[1]
       : path.basename(norm).replace(/\.json$/i, "").replace(/-brief$/i, "") || "game";
 
-    pushIfExists(norm, `Brief · ${slug}`, "json");
-    if (projMatch) {
+      pushIfExists(norm, `Brief · ${slug}`, "json");
+      if (projMatch) {
       const root = projMatch[1];
       // Prefer a friendly label for the Chinese companion written on export.
-      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief", "markdown");
-      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（未导出）", "brief");
-      pushIfExists(`${root}/工程说明.md`, "工程说明", "markdown");
-      pushIfExists(`${root}/策划笔记.md`, "策划笔记", "markdown");
+      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief（全文镜像）", "markdown");
+      pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（机器 JSON）", "brief");
+      pushIfExists(`${root}/工程说明.md`, "工程说明（目录导读）", "markdown");
+      pushIfExists(`${root}/策划笔记.md`, "策划笔记（手写要点）", "markdown");
       pushIfExists(`${root}/production.json`, "Production", "json");
       pushIfExists(`${root}/progress.json`, "Progress", "json");
       pushIfExists(`${root}/pipeline/manifest.json`, "Pipeline manifest", "json");
