@@ -119,6 +119,9 @@ class ProjectContext:
     camera: dict[str, Any] = field(default_factory=dict)
     visual_reference: str = ""
     hud: list[dict[str, Any]] = field(default_factory=list)
+    ui_panels: list[dict[str, Any]] = field(default_factory=list)
+    scenes: list[dict[str, Any]] = field(default_factory=list)
+    systems: list[dict[str, Any]] = field(default_factory=list)
     art_tokens: dict[str, Any] | None = None
     view: str = ""
     _art_tokens_errors: list[str] = field(default_factory=list, repr=False, compare=False)
@@ -150,6 +153,9 @@ class ProjectContext:
             camera=dict(camera),
             visual_reference=str(data.get("visual_reference", "")).strip(),
             hud=[item for item in (data.get("hud") or []) if isinstance(item, dict)],
+            ui_panels=normalize_ui_panels(data.get("ui_panels")),
+            scenes=normalize_scenes(data.get("scenes")),
+            systems=normalize_systems(data.get("systems")),
             art_tokens=art_tokens,
             view=str(data.get("view", "")).strip(),
             _art_tokens_errors=art_tokens_errors,
@@ -406,6 +412,8 @@ class AssetSpec:
     content_class: str = ""
     states: list[str] = field(default_factory=list)
     state: str = ""
+    scene_ids: list[str] = field(default_factory=list)
+    system_ids: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if self.items and any(not isinstance(x, IconKitItem) for x in self.items):
@@ -478,14 +486,14 @@ class AssetSpec:
             content_class=str(data.get("content_class", "")).strip(),
             states=normalize_asset_states(data.get("states")),
             state=str(data.get("state", "")).strip(),
+            scene_ids=normalize_id_list(data.get("scene_ids")),
+            system_ids=normalize_id_list(data.get("system_ids")),
         )
 
 
-def normalize_asset_states(raw: Any) -> list[str]:
-    """Strip, drop empties, preserve order with unique entries."""
-    if raw is None:
-        return []
-    if not isinstance(raw, list):
+def normalize_id_list(raw: Any) -> list[str]:
+    """Strip, drop empties, preserve order with unique string ids."""
+    if raw is None or not isinstance(raw, list):
         return []
     seen: set[str] = set()
     out: list[str] = []
@@ -495,6 +503,138 @@ def normalize_asset_states(raw: Any) -> list[str]:
             continue
         seen.add(label)
         out.append(label)
+    return out
+
+
+def normalize_ui_panels(raw: Any) -> list[dict[str, Any]]:
+    """Normalize optional project.ui_panels — drop entries without id and title."""
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        panel_id = str(item.get("id", "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not panel_id or not title:
+            continue
+        entry: dict[str, Any] = {"id": panel_id, "title": title}
+        kind = str(item.get("kind", "")).strip()
+        if kind:
+            entry["kind"] = kind
+        anchor = str(item.get("anchor", "")).strip()
+        if anchor:
+            entry["anchor"] = anchor
+        raw_slots = item.get("slots")
+        if isinstance(raw_slots, list):
+            slots = [str(s).strip() for s in raw_slots if str(s).strip()]
+            if slots:
+                entry["slots"] = slots
+        notes = str(item.get("notes", "")).strip()
+        if notes:
+            entry["notes"] = notes
+        out.append(entry)
+    return out
+
+
+def normalize_scenes(raw: Any) -> list[dict[str, Any]]:
+    """Normalize optional project.scenes — drop entries without id and title."""
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        scene_id = str(item.get("id", "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not scene_id or not title:
+            continue
+        entry: dict[str, Any] = {"id": scene_id, "title": title}
+        summary = str(item.get("summary", "")).strip()
+        if summary:
+            entry["summary"] = summary
+        panel_ids = normalize_id_list(item.get("ui_panel_ids"))
+        if panel_ids:
+            entry["ui_panel_ids"] = panel_ids
+        notes = str(item.get("notes", "")).strip()
+        if notes:
+            entry["notes"] = notes
+        out.append(entry)
+    return out
+
+
+def normalize_systems(raw: Any) -> list[dict[str, Any]]:
+    """Normalize optional project.systems — drop entries without id and title."""
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        system_id = str(item.get("id", "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not system_id or not title:
+            continue
+        entry: dict[str, Any] = {"id": system_id, "title": title}
+        summary = str(item.get("summary", "")).strip()
+        if summary:
+            entry["summary"] = summary
+        notes = str(item.get("notes", "")).strip()
+        if notes:
+            entry["notes"] = notes
+        out.append(entry)
+    return out
+
+
+def normalize_asset_states(raw: Any) -> list[str]:
+    """Strip, drop empties, preserve order with unique entries."""
+    return normalize_id_list(raw)
+
+
+def brief_structure_summaries(
+    project: ProjectContext,
+    *,
+    max_scenes: int = 8,
+    max_systems: int = 8,
+) -> list[tuple[str, str]]:
+    """Optional (source, criterion) pairs from project.scenes / systems for downstream agents."""
+    out: list[tuple[str, str]] = []
+    scenes = list(project.scenes or [])
+    for scene in scenes[:max_scenes]:
+        if not isinstance(scene, dict):
+            continue
+        sid = str(scene.get("id", "")).strip()
+        if not sid:
+            continue
+        title = str(scene.get("title", "")).strip()
+        summary = str(scene.get("summary", "")).strip()
+        criterion = summary or title or sid
+        out.append((f"brief.project.scenes[{sid}]", f"Scene '{sid}': {criterion}"))
+    if len(scenes) > max_scenes:
+        out.append(
+            (
+                "brief.project.scenes",
+                f"…(+{len(scenes) - max_scenes} more brief design scenes)",
+            )
+        )
+    systems = list(project.systems or [])
+    for system in systems[:max_systems]:
+        if not isinstance(system, dict):
+            continue
+        sid = str(system.get("id", "")).strip()
+        if not sid:
+            continue
+        title = str(system.get("title", "")).strip()
+        summary = str(system.get("summary", "")).strip()
+        criterion = summary or title or sid
+        out.append((f"brief.project.systems[{sid}]", f"System '{sid}': {criterion}"))
+    if len(systems) > max_systems:
+        out.append(
+            (
+                "brief.project.systems",
+                f"…(+{len(systems) - max_systems} more brief design systems)",
+            )
+        )
     return out
 
 

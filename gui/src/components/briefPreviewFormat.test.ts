@@ -69,6 +69,59 @@ test("formatBriefDocument shows view and content_class when declared", () => {
   assert.match(out, /\*\*内容类 \(content_class\)：\*\* prop_static/);
 });
 
+test("formatBriefDocument shows scenes systems ui_panels as readable sections", () => {
+  const brief = {
+    project: {
+      title: "钓鱼",
+      description: "短总览",
+      gameplay_loop: "抛竿卖鱼",
+      scenes: [
+        {
+          id: "dock",
+          title: "钓场",
+          summary: "抛竿搏鱼",
+          ui_panel_ids: ["sell"],
+        },
+      ],
+      systems: [{ id: "economy", title: "经济", summary: "票价与卖价" }],
+      ui_panels: [
+        {
+          id: "sell",
+          title: "出售弹层",
+          kind: "popup",
+          anchor: "center",
+          slots: ["卖出", "入库"],
+        },
+      ],
+    },
+    assets: [
+      {
+        name: "鲫鱼",
+        type: "character",
+        description: "carp",
+        scene_ids: ["dock"],
+        system_ids: ["economy"],
+      },
+    ],
+  };
+  const out = formatBriefDocument(brief, null);
+  assert.match(out, /## 场景（有进出的屏）/);
+  assert.match(out, /\*\*钓场\*\* \(`dock`\)/);
+  assert.match(out, /抛竿搏鱼/);
+  assert.match(out, /UI 面板：`sell`/);
+  assert.match(out, /## 逻辑系统（跨场景）/);
+  assert.match(out, /\*\*经济\*\* \(`economy`\)/);
+  assert.match(out, /## UI 面板/);
+  assert.match(out, /\*\*出售弹层\*\*/);
+  assert.match(out, /内容块：卖出、入库/);
+  assert.match(out, /归属场景 \(scene_ids\)/);
+  assert.match(out, /归属系统 \(system_ids\)/);
+  assert.doesNotMatch(
+    formatBriefDocument({ project: { title: "Plain" }, assets: [] }, null),
+    /场景（有进出的屏）/,
+  );
+});
+
 test("tryFormatBriefJsonText formats valid brief JSON", () => {
   const out = tryFormatBriefJsonText(exampleJson, null);
   assert.ok(out);

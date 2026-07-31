@@ -36,6 +36,9 @@
 | 「梦幻一点」 | 英文 `art_direction` / 各 asset `description` |
 | 「这几个角色要同一画风」 | 保守写 `style_group` + `style_anchor`（见下）；无明确关系则不建组 |
 | 没提 UI | 可不加 `ui_element`；不要编造 HUD 除非合理且标明假设 |
+| 聊到菜单/装备等面板 | 分条写入可选 `project.ui_panels[]`（见下）；用户未提面板则省略 |
+| 聊到有进出的屏（商店/钓场/日结…） | 分条写入可选 `project.scenes[]`；勿堆进 `description` |
+| 聊到跨屏规则（时间池/经济/图鉴…） | 分条写入可选 `project.systems[]`；勿堆进 `description` |
 
 规则：
 
@@ -56,7 +59,33 @@
 - `controls`, `viewport` `{width,height}`
 - `camera`（平台类 genre 必填；**运行时**跟随/固定，如 `{ "mode": "follow_player" }`）
 - `view`（**内容视角**，与 `camera` **正交**）：闭集 `side` | `top_down` | `three_quarter`；从 genre / 自然语言推断（横版→`side`，俯视 RPG→`top_down`）；用户**不手填**，由你写入
-- 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）；`art_tokens`（结构化风格硬锁，与 `art_direction` 并存，见下）
+- 可选：`hud`；`visual_reference` **导出时留空**（仅图片路径，由 visual-target pick 写入；禁止风格文案）；`art_tokens`（结构化风格硬锁，与 `art_direction` 并存，见下）；`ui_panels`（见下）；`scenes` / `systems`（见下）
+
+**字段分工（防 description 过载）**
+
+| 字段 | 职责 |
+|------|------|
+| `description` | **短**总览（约 2–4 句）；禁止规则全书 / 鱼种表 / 数值表 |
+| `gameplay_loop` | 场景串法或主重复活动；**允许短**（模拟类尤其如此） |
+| `session_goal` | 本构建目标；开放无终局可写明确短句（如 endless / no final goal） |
+| `scenes[]` | 可选；运行时屏（`id`+`title`，可选 `summary` / `ui_panel_ids` / `notes`） |
+| `systems[]` | 可选；跨场景逻辑（`id`+`title`，可选 `summary` / `notes`） |
+| `ui_panels[]` | 可选；屏内 UI 块（见下） |
+
+`scenes` / `systems` **非冻结必填**；缺省不挡 validate。聊到屏或跨屏规则时写入，勿堆进 `description`。
+
+**`ui_panels[]`（可选）** — 对话里识别到 UI 面板时写入；**非冻结必填**，缺省不挡 `brief validate`。
+
+| 字段 | 说明 |
+|------|------|
+| `id` | 必填；稳定英文 slug |
+| `title` | 必填；显示名 |
+| `kind` | 可选短标签：`menu` / `hud` / `inventory` / `map` / `other` 等 |
+| `anchor` | 可选；大致位置 |
+| `slots` | 可选；**短字符串列表**（主要块名），勿写长段布局散文 |
+| `notes` | 可选；一句备注 |
+
+用户从未讨论面板 → **不要**臆造整屏 UI。落实时**不要**创建 `ui-wireframe.md`（示意由用户后续点击生成）。
 
 **`art_tokens`（可选）** — 仅在用户给出**具体、可执行**的风格锁（配色 hex、线宽、禁止项、剪影比例等）时**保守填写**；模糊或仅散文描述 → 只写 `art_direction`，省略本字段。键均为**英文**字符串：
 
@@ -73,6 +102,7 @@
 
 - `name`, `id`（英文 slug，必填）, `type`, `usage`, `content_class`, `usage_description` 或 `description`
 - `display_size`（character / pose / background / icon_kit / ui_element）
+- 可选归类：`scene_ids` / `system_ids`（字符串列表，弱引用 `project.scenes` / `systems` 的 id；不强制存在性校验）
 - `generate_method`：`image` | `video` | `procedural` | `file`
 - 类型：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`
 - 视频动画：`reference_asset` + `action`；one-shot → `animation_loop: false`

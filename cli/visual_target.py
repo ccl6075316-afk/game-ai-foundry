@@ -72,14 +72,25 @@ def _viewport_size(project) -> str:
 
 
 def _base_scene_description(project) -> str:
+    desc = (project.description or "").strip()
+    structured = bool(getattr(project, "scenes", None) or getattr(project, "systems", None))
+    if structured and len(desc) > 280:
+        desc = desc[:277].rstrip() + "..."
     parts = [
         f"Game title: {project.title}".strip(),
         f"Genre: {project.genre}" if project.genre else "",
-        f"Description: {project.description}" if project.description else "",
+        (f"Overview: {desc}" if structured else f"Description: {desc}") if desc else "",
         f"Art direction: {project.art_direction}" if project.art_direction else "",
         f"Gameplay loop: {project.gameplay_loop}" if project.gameplay_loop else "",
         f"Session goal: {project.session_goal}" if project.session_goal else "",
     ]
+    try:
+        from brief import brief_structure_summaries
+
+        for _source, criterion in brief_structure_summaries(project, max_scenes=3, max_systems=2):
+            parts.append(criterion)
+    except Exception:
+        pass
     return " ".join(p for p in parts if p)
 
 

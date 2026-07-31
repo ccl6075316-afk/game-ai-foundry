@@ -33,12 +33,12 @@
 | 字段 | 要求 |
 |------|------|
 | `title` | 非空 |
-| `description` | 非空，英文：玩法、视角、核心循环（如 platformer + jump + attack） |
+| `description` | 非空，英文：**短**产品总览（类型/体验/视角，约 2–4 句）；**禁止**把系统规则全书、鱼种表、数值表堆在这里 |
 | `art_direction` | 非空，英文：画风、配色、可读性要求 |
 | `dimension` | `2d` 或 `3d` |
 | `genre` | 非空，如 `2d_platformer`, `top_down`, `endless_runner` |
-| `gameplay_loop` | 非空，英文：玩家重复做什么（探索→战斗→拾取…） |
-| `session_goal` | 非空，本版本赢/输/演示范围（写代码 Agent 的完成标准） |
+| `gameplay_loop` | 非空，英文：场景串法 / 主重复活动；**允许短**（模拟类尤其如此） |
+| `session_goal` | 非空，本版本赢/输/演示范围；开放无终局写明确短句 |
 | `player_asset` | 有 player 向 asset 时必填，对应 `assets[].name` |
 | `controls` | 非空，动作名 → 按键列表；usage 含 locomotion 时需 `move_left`/`move_right`；含 jump/attack 时需对应 action |
 | `viewport` | `{ width, height }` 正整数，逻辑分辨率 |
@@ -47,6 +47,7 @@
 | `visual_reference` | **导出时必须留空**。保存 Brief 后由策划在 GUI 点「生成北极星图」→「选用北极星 a/b/c」写入**图片路径**。**禁止**把风格散文、参考游戏名写进此字段——风格只写 `art_direction` |
 | `art_tokens` | **可选**。与 `art_direction` 并存的结构化风格硬锁（`line`, `palette`, `forbid`, `silhouette`）；有具体配色/线宽/禁止项时保守填写，否则省略 |
 | `hud` | 有 `usage: ui_element` 素材时必填；每项 `{ "asset", "anchor", "description" }` |
+| `scenes` / `systems` / `ui_panels` | **可选**（不挡冻结清单必填项）。多系统游戏：屏→`scenes[]`，跨屏规则→`systems[]`，屏内 UI→`ui_panels[]`；勿堆进 `description` |
 
 ### `assets[]`（每个素材一行）
 
@@ -60,7 +61,8 @@
 | `usage_description` | 谁用、怎么用（可与 `description` 二选一，但至少要有一个） |
 | `display_size` | `{ width, height }` 游戏内像素（看起来多大）；兼容 `"128x128 px"` 字符串 |
 | `generate_method` | 可选；`image` / `video` / `procedural` / `file`，缺省按 type 推断 |
-| `description` | 英文 prompt 素材描述 |
+| `description` | 英文 prompt 素材描述（视觉外观；勿写跨屏规则全书） |
+| `scene_ids` / `system_ids` | **可选**；弱引用 `project.scenes` / `systems` 的 id |
 
 **`content_class`（类属，闭集）** — 禁止 `door` 等特指物名；与玩法 `usage` 可同时存在：
 

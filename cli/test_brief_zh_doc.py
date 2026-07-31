@@ -48,6 +48,36 @@ class BriefZhDocTests(unittest.TestCase):
         self.assertIn("导出前", md)
         self.assertIn("brief.draft.json", md)
 
+    def test_skeleton_includes_scenes_systems_ui_panels(self) -> None:
+        brief = {
+            "project": {
+                "title": "钓",
+                "description": "short overview",
+                "genre": "sim",
+                "dimension": "2d",
+                "gameplay_loop": "cast and sell",
+                "session_goal": "endless",
+                "art_direction": "pixel",
+                "scenes": [
+                    {"id": "dock", "title": "钓场", "summary": "Cast line."},
+                ],
+                "systems": [
+                    {"id": "economy", "title": "经济", "summary": "Tickets and prices."},
+                ],
+                "ui_panels": [
+                    {"id": "sell", "title": "出售", "slots": ["卖出", "入库"]},
+                ],
+            },
+            "assets": [],
+        }
+        md = render_brief_zh_skeleton(brief)
+        self.assertIn("场景（有进出的屏）", md)
+        self.assertIn("`dock`", md)
+        self.assertIn("逻辑系统（跨场景）", md)
+        self.assertIn("`economy`", md)
+        self.assertIn("UI 面板", md)
+        self.assertIn("`sell`", md)
+
     def test_skeleton_includes_planner_notes(self) -> None:
         brief = {
             "project": {

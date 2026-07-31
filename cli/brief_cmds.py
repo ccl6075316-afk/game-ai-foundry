@@ -319,6 +319,58 @@ def register_brief_commands(cli_group: click.Group) -> None:
             click.echo(info["zh_doc_path"])
             click.echo(f"mode: {info['zh_doc_mode']}")
 
+    @chat_group.command("ui-wireframe")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option(
+        "--brief-rel",
+        required=True,
+        help="projects/<slug>/brief.json (draft ui_panels used from session).",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_ui_wireframe_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        brief_rel: str,
+        as_json: bool,
+    ) -> None:
+        """Write ui-wireframe.md from session draft ui_panels (LLM ASCII layout)."""
+        from project_paths import paths_for_brief_key, repo_root
+        from ui_wireframe import generate_ui_wireframe
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        rel = str(brief_rel).replace("\\", "/").lstrip("./")
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            draft = session.get("draft_brief")
+            if not isinstance(draft, dict) or not draft:
+                raise HostChatError("Session has no draft_brief — chat or bind a project draft first.")
+            paths = paths_for_brief_key(rel, repo_root())
+            project_dir = Path(paths["brief"]).resolve().parent
+            result = generate_ui_wireframe(session, project_dir, config=config)
+            payload = {
+                "session_id": session.get("id"),
+                "brief_rel": rel,
+                **result,
+                **host_session_status(session),
+            }
+        except (HostChatError, json.JSONDecodeError, OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            if result.get("ok"):
+                click.echo(result["path"])
+                click.echo(f"panels: {result.get('panel_count', 0)}")
+            else:
+                click.echo(result.get("error") or "ui-wireframe failed", err=True)
+        if not result.get("ok"):
+            sys.exit(1)
+
     @chat_group.command("status")
     @click.option("--session-id", default=None)
     @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
@@ -901,6 +953,54 @@ def register_brief_commands(cli_group: click.Group) -> None:
         else:
             click.echo(info["zh_doc_path"])
             click.echo(f"mode: {info['zh_doc_mode']}")
+
+    @brief_group.command("ui-wireframe")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(path_type=Path),
+        help="brief.json, brief.draft.json, or directory containing them.",
+    )
+    @click.option(
+        "--draft",
+        "prefer_draft",
+        is_flag=True,
+        help="Read brief.draft.json beside --brief (not exported brief.json).",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def ui_wireframe_cmd(
+        ctx: click.Context,
+        brief_path: Path,
+        prefer_draft: bool,
+        as_json: bool,
+    ) -> None:
+        """Write ui-wireframe.md from on-disk brief/draft ui_panels."""
+        from ui_wireframe import (
+            generate_ui_wireframe,
+            load_brief_for_wireframe,
+            project_dir_for_brief_path,
+        )
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            draft = load_brief_for_wireframe(brief_path, prefer_draft=prefer_draft)
+            project_dir = project_dir_for_brief_path(brief_path)
+            result = generate_ui_wireframe(draft, project_dir, config=config)
+        except (OSError, json.JSONDecodeError, ValueError, FileNotFoundError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            if result.get("ok"):
+                click.echo(result["path"])
+                click.echo(f"panels: {result.get('panel_count', 0)}")
+            else:
+                click.echo(result.get("error") or "ui-wireframe failed", err=True)
+        if not result.get("ok"):
+            sys.exit(1)
 
     @brief_group.group("visual-target")
     def visual_target_group() -> None:

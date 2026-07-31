@@ -208,6 +208,67 @@ def _find_default_brief() -> Path | None:
     return find_default_brief()
 
 
+def _ui_wireframe_prompt_lines(brief: Path | None) -> list[str]:
+    """Soft hint when ui-wireframe.md exists beside brief; never raises."""
+    if not brief:
+        return []
+    try:
+        from ui_wireframe import project_dir_for_brief_path, ui_wireframe_path_for
+
+        wire = ui_wireframe_path_for(project_dir_for_brief_path(brief))
+        if not wire.is_file():
+            return []
+        return [
+            "",
+            "## UI 布局示意（可选）",
+            f"若需对照布局，请阅读：`{wire}`",
+        ]
+    except OSError:
+        return []
+    except Exception:
+        return []
+
+
+def _scenes_systems_prompt_lines(brief: Path | None) -> list[str]:
+    """Soft hint summarizing optional project.scenes / systems; never raises."""
+    if not brief or not brief.is_file():
+        return []
+    try:
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        project = data.get("project") if isinstance(data, dict) else None
+        if not isinstance(project, dict):
+            return []
+        scenes = project.get("scenes") if isinstance(project.get("scenes"), list) else []
+        systems = project.get("systems") if isinstance(project.get("systems"), list) else []
+        scene_ids = [
+            str(item.get("id", "")).strip()
+            for item in scenes
+            if isinstance(item, dict) and str(item.get("id", "")).strip()
+        ]
+        system_ids = [
+            str(item.get("id", "")).strip()
+            for item in systems
+            if isinstance(item, dict) and str(item.get("id", "")).strip()
+        ]
+        if not scene_ids and not system_ids:
+            return []
+        lines = ["", "## 场景与逻辑系统（可选）"]
+        if scene_ids:
+            shown = ", ".join(scene_ids[:20])
+            extra = f" …(+{len(scene_ids) - 20})" if len(scene_ids) > 20 else ""
+            lines.append(f"- scenes ({len(scene_ids)}): {shown}{extra}")
+        if system_ids:
+            shown = ", ".join(system_ids[:20])
+            extra = f" …(+{len(system_ids) - 20})" if len(system_ids) > 20 else ""
+            lines.append(f"- systems ({len(system_ids)}): {shown}{extra}")
+        lines.append("细节以 brief 内 `project.scenes` / `project.systems` 为准；勿把规则堆进 description。")
+        return lines
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return []
+    except Exception:
+        return []
+
+
 def build_prompt(
     *,
     role_kind: str,
@@ -267,6 +328,10 @@ def build_prompt(
             parts.append("```")
     else:
         parts.append("- progress: （未找到；可用 `python gamefactory.py project progress show`）")
+
+    if role_kind in ("programmer", "product_host"):
+        parts.extend(_ui_wireframe_prompt_lines(brief))
+        parts.extend(_scenes_systems_prompt_lines(brief))
 
     summary = str(session.get("summary") or "").strip()
     if summary:

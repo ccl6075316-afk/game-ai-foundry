@@ -96,7 +96,33 @@ class PiNodeVersionTest(unittest.TestCase):
         self.assertFalse(node_meets_pi_min((20, 18, 3)))
         self.assertFalse(node_meets_pi_min((22, 18, 0)))
 
-    def test_prefers_electron_when_new_enough(self) -> None:
+    def test_prefers_path_node_over_electron_when_both_ok(self) -> None:
+        """Avoid macOS Dock flash from short-lived Electron-as-Node when real node exists."""
+
+        def fake_probe(exe: str, extra_env=None):
+            if "Electron" in exe or "electron" in exe.lower():
+                return (22, 19, 0)
+            if exe.endswith("/node22") or exe.endswith("/node"):
+                return (22, 19, 0)
+            return (20, 18, 0)
+
+        with (
+            patch("pi_runtime._node_candidates") as cand,
+            patch("pi_runtime.probe_node_version", side_effect=fake_probe),
+        ):
+            cand.return_value = [
+                ("/usr/local/bin/node22", {}, "PATH"),
+                (
+                    "/Apps/Electron.app/Contents/MacOS/Electron",
+                    {"ELECTRON_RUN_AS_NODE": "1"},
+                    "electron",
+                ),
+            ]
+            exe, extra = resolve_node_launch()
+        self.assertEqual(exe, "/usr/local/bin/node22")
+        self.assertEqual(extra, {})
+
+    def test_falls_back_to_electron_when_no_new_enough_node(self) -> None:
         def fake_probe(exe: str, extra_env=None):
             if "Electron" in exe or "electron" in exe.lower():
                 return (22, 19, 0)
@@ -107,12 +133,12 @@ class PiNodeVersionTest(unittest.TestCase):
             patch("pi_runtime.probe_node_version", side_effect=fake_probe),
         ):
             cand.return_value = [
+                ("/usr/local/bin/node20", {}, "PATH"),
                 (
                     "/Apps/Electron.app/Contents/MacOS/Electron",
                     {"ELECTRON_RUN_AS_NODE": "1"},
                     "electron",
                 ),
-                ("/usr/local/bin/node20", {}, "PATH"),
             ]
             exe, extra = resolve_node_launch()
         self.assertIn("Electron", exe)
@@ -131,12 +157,12 @@ class PiNodeVersionTest(unittest.TestCase):
             patch("pi_runtime.probe_node_version", side_effect=fake_probe),
         ):
             cand.return_value = [
+                ("/usr/local/bin/node22", {}, "PATH"),
                 (
                     "/Apps/Electron.app/Contents/MacOS/Electron",
                     {"ELECTRON_RUN_AS_NODE": "1"},
                     "electron",
                 ),
-                ("/usr/local/bin/node22", {}, "PATH"),
             ]
             exe, extra = resolve_node_launch()
         self.assertEqual(exe, "/usr/local/bin/node22")

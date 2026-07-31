@@ -94,7 +94,7 @@ scripts\build-release.bat
 
 > 内嵌 Python 与原生 wheel 需在**目标系统**上构建。  
 > 内嵌 Pi 在构建机 `npm install` 到 `gui/runtime/pi`（已 gitignore）；冒烟：`python gamefactory.py setup pi smoke --json`。  
-> Pi 通过 `ELECTRON_RUN_AS_NODE` 复用 GUI 的 Electron Node（需 ≥22.19；Electron 33 的 Node 20 不够）。
+> Pi 优先用系统 / PATH 上的 Node（≥22.19）；没有够新的 Node 时才用 `ELECTRON_RUN_AS_NODE` 复用 GUI Electron（避免 macOS 每次回答闪 Dock）。Electron 需 ≥36.9 / 37.5 / 39。
 
 ### 仅本地验证（不打包安装程序）
 

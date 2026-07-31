@@ -4,11 +4,14 @@ import test from "node:test";
 import {
   clearActiveBriefRel,
   loadActiveBriefRel,
+  loadActiveBriefRelForStartup,
+  loadLastBriefRel,
   readActiveBriefPreference,
   saveActiveBriefRel,
 } from "./projectPaths";
 
 const KEY = "gamefactory.activeBrief";
+const LAST_KEY = "gamefactory.lastBrief";
 
 function withMemoryStorage(run: () => void) {
   const mem = new Map<string, string>();
@@ -47,5 +50,18 @@ test("clearActiveBriefRel is explicit none (not unset)", () => {
     assert.equal(readActiveBriefPreference().kind, "none");
     assert.equal(loadActiveBriefRel(), null);
     assert.equal(globalThis.localStorage.getItem(KEY), "__none__");
+    assert.equal(loadLastBriefRel(), "projects/black-whistle/brief.json");
+    assert.equal(loadActiveBriefRelForStartup(), "projects/black-whistle/brief.json");
+    assert.equal(globalThis.localStorage.getItem(LAST_KEY), "projects/black-whistle/brief.json");
+  });
+});
+
+test("startup restore uses lastBrief when active is none", () => {
+  withMemoryStorage(() => {
+    globalThis.localStorage.setItem(LAST_KEY, "projects/fishing-2d/brief.json");
+    globalThis.localStorage.setItem(KEY, "__none__");
+    assert.equal(readActiveBriefPreference().kind, "none");
+    assert.equal(loadActiveBriefRel(), null);
+    assert.equal(loadActiveBriefRelForStartup(), "projects/fishing-2d/brief.json");
   });
 });

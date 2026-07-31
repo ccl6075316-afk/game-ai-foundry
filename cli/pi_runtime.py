@@ -207,7 +207,12 @@ def _discover_extra_node_bins() -> list[str]:
 
 
 def _node_candidates() -> list[tuple[str, dict[str, str], str]]:
-    """Ordered Node launch candidates: ``(exe, extra_env, source)``."""
+    """Ordered Node launch candidates: ``(exe, extra_env, source)``.
+
+    Prefer a real ``node`` binary when available so macOS does not briefly show a
+    Dock icon for ``Electron`` + ``ELECTRON_RUN_AS_NODE`` on every Pi turn.
+    Electron-as-Node remains the Release fallback when no system Node is installed.
+    """
     out: list[tuple[str, dict[str, str], str]] = []
     seen: set[str] = set()
 
@@ -223,15 +228,14 @@ def _node_candidates() -> list[tuple[str, dict[str, str], str]]:
         seen.add(key)
         out.append((exe, dict(extra), source))
 
-    # One runtime in Release: Electron (Node >=22.19 from Electron 36.9+/37.5+/39+).
-    # Override → Electron-as-Node → PATH → nvm/brew/Windows Program Files.
+    # Override → PATH / nvm/brew → Electron-as-Node (Release / no system Node).
     add((os.environ.get("GAMEFACTORY_NODE") or "").strip() or None, {}, "GAMEFACTORY_NODE")
-    electron = (os.environ.get("GAMEFACTORY_ELECTRON_EXECUTABLE") or "").strip()
-    if electron:
-        add(electron, {"ELECTRON_RUN_AS_NODE": "1"}, "electron")
     add(shutil.which("node"), {}, "PATH")
     for extra_bin in _discover_extra_node_bins():
         add(extra_bin, {}, "discover")
+    electron = (os.environ.get("GAMEFACTORY_ELECTRON_EXECUTABLE") or "").strip()
+    if electron:
+        add(electron, {"ELECTRON_RUN_AS_NODE": "1"}, "electron")
     return out
 
 
@@ -239,7 +243,7 @@ def resolve_node_launch() -> tuple[str | None, dict[str, str]]:
     """Return ``(executable, extra_env)`` for running Pi's cli.js.
 
     Prefer a Node that satisfies ``PI_MIN_NODE`` (``GAMEFACTORY_NODE`` →
-    Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE`` → PATH / discovered installs).
+    PATH / discovered installs → Electron ``GAMEFACTORY_ELECTRON_EXECUTABLE``).
     Electron must be >=36.9 / 37.5 / 39 (Node 22.19+); older Electron 33 (Node 20) fails the gate.
     """
     fallback: tuple[str, dict[str, str]] | None = None

@@ -12,8 +12,8 @@ You are the **godot-developer** agent. You implement **game logic in C#** from t
 
 ## Authoritative sources (only these)
 
-1. **`plan.authoritative_sources.brief`** — product + assets + animation_graphs (frozen at export)
-2. **`plan.authoritative_sources.production`** — engineering blueprint (`godot_tasks`, scenes, validation) when present
+1. **`plan.authoritative_sources.brief`** — product + assets + animation_graphs (frozen at export). Prefer optional `project.scenes[]` / `project.systems[]` / `project.ui_panels[]` for **what screens and cross-screen rules exist**; keep `description` as short overview only.
+2. **`plan.authoritative_sources.production`** — engineering blueprint (`godot_tasks`, scenes, validation) when present. **`production.scenes` / `production.systems` are Godot scaffold paths/nodes** — same words, different meaning from brief design lists; do not treat them as interchangeable.
 3. **`plan.authoritative_sources.assets_manifest`** — pipeline stages + `runtime.res://` bindings (if present)
 4. **`plan.authoritative_sources.godot_project`** — assembled Godot tree
 

@@ -67,6 +67,7 @@
 - 本 skill 的 `gaps`（契约字段）与 `makeability_review.intent_gaps` **不同**：后者是「能否开干」门闩，export 前须审查通过且 intent 为空。
 - 存在未审查、草稿指纹过期或未关 `intent_gaps` 时，`ready_to_export` 保持 `false`。
 - 宿主会在 user payload 注入 **`latest_makeability_review`**（`intent_gaps` / `detail_gaps` / `fingerprint_match`）。审查由子 LLM 跑完后也会写入会话消息。用户跟进审查问题时，**必须读这份对象**，不要假装没做过审查。
+- 制作审查只读 draft：有 `scenes` / `systems` 时审查会优先看它们；**不要**为了过审查把系统规则再堆回 `description`。
 
 ---
 
@@ -137,6 +138,32 @@
 - 可合理默认的（分辨率、相机等）可先写入，并在 `assistant_message` 里说明「我先写进草稿的默认」。  
 - 写 `animation_graphs` 时遵守宿主注入的 [`brief-animation-graphs.md`](brief-animation-graphs.md)：只用 Godot clip 名，**禁止** `states[]`。
 
+### `project.ui_panels[]`（可选）
+
+用户聊到**具体 UI 面板**（主菜单、装备、背包、地图、设置、HUD 区块等）且已拍板或你标注为假设时：
+
+- 用**分条**写入 `project.ui_panels[]`，不要把整页布局堆进 `project.description` 或长散文。  
+- 每项至少：`id`（英文 slug）、`title`（显示名）；可选 `kind`（如 `menu` / `hud` / `inventory`）、`anchor`（大致位置）、`slots`（**短字符串列表**，如 `["金币", "5×4 格子"]`）、`notes`（一句备注）。  
+- **可选字段**：用户从未提过 UI 面板 → **不要**编造整屏 UI；可省略 `ui_panels`。  
+- **不要**生成或提及 `ui-wireframe.md` 等字符线稿文件（仅用户后续点击「生成 UI 示意」才由宿主写入）。  
+- 小改面板：用 `brief_patches` 的 `set` 更新 `project.ui_panels` 整数组，或首稿/大改时在 `draft_brief.project` 内带上。
+
+### `project.scenes[]` / `project.systems[]`（可选）
+
+模拟经营等多系统游戏**不要**把规则全书塞进 `description`，也不要指望一条很长的 `gameplay_loop` 装下一切：
+
+| 字段 | 写什么 |
+|------|--------|
+| `description` | **短**产品总览（约 2–4 句：类型、核心体验、视角）；禁止鱼种表、数值表、全系统规则 |
+| `gameplay_loop` | 玩家在场景间如何串 / 主重复活动；**允许短** |
+| `scenes[]` | 有进出的**屏**（主界面、钓场、商店、水族馆…）；`id`+`title`，可选 `summary` / `ui_panel_ids` / `notes` |
+| `systems[]` | **跨场景**规则（时间池、经济、图鉴…）；`id`+`title`，可选 `summary` / `notes`；可无专属贴图 |
+| `ui_panels[]` | 屏**内**界面块（见上）；可被 `scenes[].ui_panel_ids` 弱引用 |
+
+- 聊到「进哪一屏做什么」→ 写入 `scenes`；聊到「钱怎么算 / 时间怎么走」→ 写入 `systems`。  
+- 资产可选 `scene_ids` / `system_ids` 归类；同一资产可挂多个 id，**不要**复制多条资产假装归类。  
+- **可选**：用户未拆屏/系统 → 可省略；**不**挡导出。
+
 ---
 
 ## 示例
@@ -149,6 +176,9 @@
 
 **用户：** 再加一个野猪怪，会冲撞。  
 → `brief_patches`: `add_asset`（野猪）+ 如需改循环则 `set project.gameplay_loop`；**不要**重交整份瘦身 brief。
+
+**用户：** 主菜单三个按钮，装备界面左边列表右边详情。  
+→ `brief_patches`: `set project.ui_panels` 为两条（`menu` / `equip_panel`），`slots` 用短列表；**不要**写 wireframe 文件。
 
 **用户：** 审查说缺 session_goal 和 player_asset，我定了：本局钓一条；玩家资产用钓竿。  
 → 仅 `brief_patches`：`set project.session_goal`、`set project.player_asset`。

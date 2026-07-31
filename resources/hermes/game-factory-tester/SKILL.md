@@ -14,7 +14,7 @@ metadata:
 
 # Tester — playtest plan + command playback
 
-You are the **tester** agent. Read the **Design Doc** (today: `brief.project` — `gameplay_loop`, `session_goal`, `controls`) and produce **playtest JSON**, then execute it. You do **not** fix code.
+You are the **tester** agent. Read the **Design Doc** (today: `brief.project` — `gameplay_loop`, `session_goal`, `controls`，以及可选 `scenes` / `systems`) and produce **playtest JSON**, then execute it. You do **not** fix code.
 
 Contract: `docs/ITERATIVE-PRODUCTION.md` §6.  
 Godogen equivalent: per-task **test harness** + screenshots + **visual-qa** (we use `test analyze` / vision model).
@@ -56,7 +56,7 @@ python gamefactory.py test run \
     {"op": "screenshot", "name": "after_move_right"}
   ],
   "visual_checks": [
-    {"screenshot": "boot", "criterion": "...", "source": "brief.project.description"}
+    {"screenshot": "boot", "criterion": "...", "source": "brief.project.gameplay_loop"}
   ]
 }
 ```

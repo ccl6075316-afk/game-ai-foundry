@@ -45,6 +45,8 @@ import {
   isExternalBriefRel,
   isIsolatedBriefRel,
   loadActiveBriefRel,
+  loadActiveBriefRelForStartup,
+  loadLastBriefRel,
   parseDeltaCommand,
   parseExternalBriefId,
   parsePlanSubcommand,
@@ -294,7 +296,9 @@ function parseBriefSubcommand(
 export default function App() {
   const [selectedManifest, setSelectedManifest] = useState("");
   const [assetsManifestRel, setAssetsManifestRel] = useState<string | null>(null);
-  const [activeBriefRel, setActiveBriefRel] = useState<string | null>(() => loadActiveBriefRel());
+  const [activeBriefRel, setActiveBriefRel] = useState<string | null>(() =>
+    loadActiveBriefRelForStartup(),
+  );
   const [externalEntryById, setExternalEntryById] = useState<Record<string, ExternalProjectEntry>>({});
   /** brief.project.visual_reference is a real image path on disk */
   const [visualReferenceReady, setVisualReferenceReady] = useState(false);
@@ -701,6 +705,7 @@ export default function App() {
         gaps?: string[];
         llm_backend?: string | null;
         llm_pi_error?: string | null;
+        bound_brief_rel?: string | null;
       },
       target?: { instanceId: string; sessionId: string },
     ) => {
@@ -718,8 +723,12 @@ export default function App() {
       }
       appendAssistant(content, data.choices, undefined, target);
       applyDraftFromPayload(data);
+      const bound = String(data.bound_brief_rel || "").replace(/\\/g, "/");
+      if (bound && (!activeBriefRel || !sameProjectRoot(bound, activeBriefRel))) {
+        setBrief(bound);
+      }
     },
-    [appendAssistant, applyDraftFromPayload],
+    [appendAssistant, applyDraftFromPayload, activeBriefRel, setBrief],
   );
 
   const refreshBrainstormStatus = useCallback(async () => {
@@ -746,12 +755,17 @@ export default function App() {
       setBriefDraft(data.draft_brief ?? null);
       setDraftDocument(data.draft_document ?? null);
       if (data.title) setDraftTitle(data.title);
+      const bound = String(data.bound_brief_rel || "").replace(/\\/g, "/");
+      // Restore topbar if session still bound but UI lost the selection (docs / 视觉定稿)
+      if (bound && (!activeBriefRel || !sameProjectRoot(bound, activeBriefRel))) {
+        setBrief(bound);
+      }
     } else {
       setBriefDraft(null);
       setDraftDocument(null);
       setBriefDraftStatus(null);
     }
-  }, [applyDraftFromPayload]);
+  }, [applyDraftFromPayload, activeBriefRel, setBrief]);
 
   const append = useCallback(
     (
@@ -963,7 +977,15 @@ export default function App() {
   );
 
   const handleNewChat = useCallback(() => {
-    patchChatStore((prev) => startNewSession(prev, prev.activeInstanceId));
+    // Keep the same project on 「新对话」— only 「新建项目」should unbind.
+    // Clearing used to leave list history but drop activeBriefRel, so docs / 视觉定稿 bar vanished.
+    const keepBrief = agentRole === "brief" ? activeBriefRel : null;
+    let newSessionId: string | null = null;
+    patchChatStore((prev) => {
+      const next = startNewSession(prev, prev.activeInstanceId);
+      newSessionId = next.activeByInstance[prev.activeInstanceId] || null;
+      return next;
+    });
     setBrainstormActive(false);
     setBrainstormReady(false);
     setBrainstormChoices([]);
@@ -971,11 +993,22 @@ export default function App() {
     setBriefDraft(null);
     setDraftDocument(null);
     setBriefDraftStatus(null);
-    // Planner: new thread must not keep writing against the previous project binding.
-    if (agentRole === "brief") {
-      clearBriefBinding();
+    if (keepBrief && newSessionId && window.gameFactory?.hostChatBind) {
+      void window.gameFactory.hostChatBind(newSessionId, keepBrief).then((res) => {
+        const data = res?.data;
+        if (!data) return;
+        applyDraftFromPayload(
+          {
+            draft_brief: data.draft_brief ?? null,
+            title: data.title,
+            asset_count: data.asset_count,
+          },
+          { replace: true },
+        );
+        if (data.draft_brief) setBriefDraft(data.draft_brief);
+      });
     }
-  }, [patchChatStore, agentRole, clearBriefBinding]);
+  }, [patchChatStore, agentRole, activeBriefRel, applyDraftFromPayload]);
 
   /** Create projects/<slug>/ and bind topbar before brief.json exists. */
   const ensureAndBindProject = useCallback(
@@ -1166,6 +1199,9 @@ export default function App() {
           await syncPipelineForBriefRef.current(bound);
           setDocsFocusDiskRel(null);
           setDocsDiskRefreshKey((n) => n + 1);
+        } else if (!bound && activeBriefRel && window.gameFactory?.hostChatBind) {
+          // Keep topbar project: re-bind this session so docs / 视觉定稿 stay available
+          await window.gameFactory.hostChatBind(sessionId, activeBriefRel);
         }
       })();
     },
@@ -1424,6 +1460,63 @@ export default function App() {
       }
     } finally {
       if (!opts?.quiet) clearBusy(busyId);
+    }
+  };
+
+  const handleBriefUiWireframe = async () => {
+    if (!window.gameFactory?.hostChatUiWireframe) {
+      appendAssistant("当前 GUI 不支持生成 UI 示意，请重启 Foundry。");
+      return;
+    }
+    if (!activeBriefRel) {
+      appendAssistant("请先绑定工程（顶栏），再生成 UI 示意。");
+      return;
+    }
+    if (!briefDraft) {
+      appendAssistant("还没有工作草稿。先和策划聊几轮，或绑定带有 brief.draft.json 的工程。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append("log", "生成 UI 示意：从 draft ui_panels 写入 ui-wireframe.md…", undefined, sessionTarget);
+    try {
+      const res = await window.gameFactory.hostChatUiWireframe(
+        sessionTarget.sessionId,
+        activeBriefRel,
+      );
+      const data = res.data;
+      if (!data?.ok) {
+        const msg =
+          data?.error ||
+          (res.exitCode !== 0 ? res.stderr || res.stdout : "") ||
+          "ui-wireframe failed";
+        throw new Error(msg.trim() || "生成 UI 示意失败");
+      }
+      const wireRel =
+        (data.ui_wireframe_rel || "").replace(/\\/g, "/") ||
+        `${activeBriefRel.replace(/\/[^/]+$/i, "")}/ui-wireframe.md`;
+      const panelCount = data.panel_count ?? 0;
+      setDocsFocusDiskRel(wireRel);
+      setDocsDiskRefreshKey((n) => n + 1);
+      setSidePanel("docs");
+      appendAssistant(
+        `**UI 示意已生成**\n\n` +
+          `- \`${wireRel}\`（${panelCount} 个面板）\n` +
+          `- 程序员侧栏文档中可查阅字符线稿。`,
+        ["打开文档"],
+        undefined,
+        sessionTarget,
+      );
+    } catch (e) {
+      appendAssistant(
+        `生成 UI 示意失败：${e instanceof Error ? e.message : String(e)}`,
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+    } finally {
+      clearBusy(busyId);
     }
   };
 
@@ -2247,7 +2340,7 @@ export default function App() {
     await refreshHandoffs();
 
     const briefs = await window.gameFactory.listBriefs();
-    // unset → first-run fallback; none → user clicked 新建项目 (do NOT rebind 黑哨 etc.)
+    // unset → first-run fallback; none → restore last real selection (never leave docs empty)
     const pref = readActiveBriefPreference();
     let brief: string | null = null;
     if (pref.kind === "brief") {
@@ -2255,10 +2348,59 @@ export default function App() {
     } else if (pref.kind === "unset") {
       brief = briefs[0]?.path || null;
     } else {
-      brief = null;
+      // pref.kind === "none": prefer lastBrief, then session bind, then newest listed brief.
+      // Avoid sticking on 「未选择工程」so docs disk list (工程说明 / brief.zh.md …) stays available.
+      brief = loadLastBriefRel();
+      if (!brief) {
+        try {
+          const store = loadSessionStore();
+          for (const c of store.roster) {
+            if (c.roleKind !== "brief") continue;
+            const sid = store.activeByInstance[c.id];
+            if (!sid || !window.gameFactory?.hostChatStatus) continue;
+            const st = await window.gameFactory.hostChatStatus(sid);
+            const bound = String(st.data?.bound_brief_rel || "").replace(/\\/g, "/");
+            if (bound) {
+              brief = bound;
+              break;
+            }
+          }
+        } catch {
+          /* stay null */
+        }
+      }
+      if (!brief) {
+        brief = briefs[0]?.path || null;
+      }
     }
     if (brief) {
       setBrief(brief);
+      setDocsDiskRefreshKey((n) => n + 1);
+      // Re-bind active planner session so draft + docs stay scoped to this project
+      try {
+        const store = loadSessionStore();
+        const colleague = getActiveColleague(store);
+        if (colleague?.roleKind === "brief") {
+          const sid = store.activeByInstance[colleague.id] || getActiveSession(store).id;
+          if (sid && window.gameFactory?.hostChatBind) {
+            const res = await window.gameFactory.hostChatBind(sid, brief);
+            const data = res?.data;
+            if (data?.draft_brief) {
+              applyDraftFromPayload(
+                {
+                  draft_brief: data.draft_brief ?? null,
+                  title: data.title,
+                  asset_count: data.asset_count,
+                },
+                { replace: true },
+              );
+              setBriefDraft(data.draft_brief);
+            }
+          }
+        }
+      } catch {
+        /* bind best-effort */
+      }
     } else {
       setActiveBriefRel(null);
       setSelectedManifest("");
@@ -2293,7 +2435,7 @@ export default function App() {
         }
       }
     }
-  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief, refreshExternalProjects, openSettings]);
+  }, [refreshEnv, refreshHandoffs, refreshVisualTarget, append, setBrief, syncPipelineForBrief, refreshExternalProjects, openSettings, applyDraftFromPayload]);
 
   const handleToolchainInstall = useCallback(
     async (componentId: string) => {
@@ -3498,6 +3640,16 @@ export default function App() {
             type="button"
             className={`btn btn--ghost ${sidePanel === "docs" ? "btn--active" : ""}`}
             onClick={() => {
+              // Opening docs with a stale unbind: soft-restore so project file chips appear
+              if (!activeBriefRel) {
+                const restored = loadActiveBriefRelForStartup();
+                if (restored) {
+                  setBrief(restored);
+                  setDocsDiskRefreshKey((n) => n + 1);
+                }
+              } else {
+                setDocsDiskRefreshKey((n) => n + 1);
+              }
               toggleSidePanel("docs");
               if (agentRole === "brief") void refreshBrainstormStatus();
             }}
@@ -3805,6 +3957,7 @@ export default function App() {
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
             onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
             onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
+            onUiWireframe={agentRole === "brief" ? () => void handleBriefUiWireframe() : undefined}
             onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
@@ -3856,6 +4009,7 @@ export default function App() {
 
         {sidePanel === "docs" && (
           <DocsPreviewPanel
+            key={activeBriefRel || "docs-unbound"}
             style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
             draftBrief={briefDraft}
             draftDocument={draftDocument}
@@ -3886,6 +4040,7 @@ export default function App() {
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
             onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
             onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
+            onUiWireframe={agentRole === "brief" ? () => void handleBriefUiWireframe() : undefined}
             onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
             onRefreshZhDoc={agentRole === "brief" ? () => void handleBriefZhDoc() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}

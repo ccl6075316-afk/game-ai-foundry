@@ -199,6 +199,8 @@ export function parsePlanSubcommand(text: string): string | null | undefined {
 }
 
 const ACTIVE_BRIEF_KEY = "gamefactory.activeBrief";
+/** Last real selection — survives `__none__` so cold start can restore after 新建项目取消. */
+const LAST_BRIEF_KEY = "gamefactory.lastBrief";
 /** Explicit “no project” — must not fall back to listBriefs()[0]. */
 const ACTIVE_BRIEF_NONE = "__none__";
 
@@ -225,15 +227,41 @@ export function loadActiveBriefRel(): string | null {
   return pref.kind === "brief" ? pref.rel : null;
 }
 
+/**
+ * Cold-start / first paint: restore last project even if preference is ``__none__``
+ * (set by 新建项目 / legacy 新对话). Do **not** use for plan/export path resolution.
+ */
+export function loadActiveBriefRelForStartup(): string | null {
+  return loadActiveBriefRel() || loadLastBriefRel();
+}
+
+/** Last explicitly selected project (not cleared by 「新建项目」unbind). */
+export function loadLastBriefRel(): string | null {
+  try {
+    const v = localStorage.getItem(LAST_BRIEF_KEY);
+    if (v === null) return null;
+    const n = v.replace(/\\/g, "/").trim();
+    if (!n || n === ACTIVE_BRIEF_NONE) return null;
+    return n;
+  } catch {
+    return null;
+  }
+}
+
 export function saveActiveBriefRel(briefRel: string): void {
   try {
-    localStorage.setItem(ACTIVE_BRIEF_KEY, briefRel.replace(/\\/g, "/"));
+    const n = briefRel.replace(/\\/g, "/");
+    localStorage.setItem(ACTIVE_BRIEF_KEY, n);
+    localStorage.setItem(LAST_BRIEF_KEY, n);
   } catch {
     /* ignore */
   }
 }
 
-/** Drop the topbar project binding (new planner game before first export). */
+/**
+ * Drop the topbar project binding (新建项目 before bind).
+ * Keeps ``lastBrief`` so app restart can restore if the user never finished creating.
+ */
 export function clearActiveBriefRel(): void {
   try {
     localStorage.setItem(ACTIVE_BRIEF_KEY, ACTIVE_BRIEF_NONE);

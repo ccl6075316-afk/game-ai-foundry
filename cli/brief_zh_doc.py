@@ -149,6 +149,42 @@ def render_brief_zh_skeleton(
         ]
     )
 
+    scenes = _as_list(project.get("scenes"))
+    if scenes:
+        lines.extend(["### 场景（有进出的屏）", ""])
+        for raw in scenes:
+            item = _as_dict(raw)
+            sid = _text(item.get("id")) or "—"
+            title = _text(item.get("title")) or sid
+            summary = _text(item.get("summary"))
+            lines.append(f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else ""))
+        lines.append("")
+
+    systems = _as_list(project.get("systems"))
+    if systems:
+        lines.extend(["### 逻辑系统（跨场景）", ""])
+        for raw in systems:
+            item = _as_dict(raw)
+            sid = _text(item.get("id")) or "—"
+            title = _text(item.get("title")) or sid
+            summary = _text(item.get("summary"))
+            lines.append(f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else ""))
+        lines.append("")
+
+    ui_panels = _as_list(project.get("ui_panels"))
+    if ui_panels:
+        lines.extend(["### UI 面板", ""])
+        for raw in ui_panels:
+            item = _as_dict(raw)
+            pid = _text(item.get("id")) or "—"
+            title = _text(item.get("title")) or pid
+            slots = item.get("slots")
+            slot_s = ""
+            if isinstance(slots, list) and slots:
+                slot_s = "；块：" + "、".join(str(s) for s in slots if str(s).strip())
+            lines.append(f"- **{title}** (`{pid}`){slot_s}")
+        lines.append("")
+
     controls = project.get("controls")
     if isinstance(controls, dict) and controls:
         lines.extend(["### 操作", ""])

@@ -96,9 +96,53 @@ def _implementation_goals(
         goals.append(f"Session goal: {project.session_goal.strip()}")
     if (project.gameplay_loop or "").strip():
         goals.append(f"Core loop: {project.gameplay_loop.strip()}")
+    if project.scenes:
+        scene_bits = []
+        for scene in project.scenes[:12]:
+            if not isinstance(scene, dict):
+                continue
+            sid = str(scene.get("id", "")).strip()
+            title = str(scene.get("title", "")).strip()
+            summary = str(scene.get("summary", "")).strip()
+            if not sid:
+                continue
+            label = f"{sid}" + (f" ({title})" if title else "")
+            if summary:
+                label += f": {summary}"
+            scene_bits.append(label)
+        if scene_bits:
+            extra = f" …(+{len(project.scenes) - len(scene_bits)})" if len(project.scenes) > len(scene_bits) else ""
+            goals.append("Brief scenes: " + "; ".join(scene_bits) + extra)
+    if project.systems:
+        system_bits = []
+        for system in project.systems[:12]:
+            if not isinstance(system, dict):
+                continue
+            sid = str(system.get("id", "")).strip()
+            title = str(system.get("title", "")).strip()
+            summary = str(system.get("summary", "")).strip()
+            if not sid:
+                continue
+            label = f"{sid}" + (f" ({title})" if title else "")
+            if summary:
+                label += f": {summary}"
+            system_bits.append(label)
+        if system_bits:
+            extra = (
+                f" …(+{len(project.systems) - len(system_bits)})"
+                if len(project.systems) > len(system_bits)
+                else ""
+            )
+            goals.append("Brief systems: " + "; ".join(system_bits) + extra)
     desc = (project.description or "").strip()
     if desc:
-        goals.append(f"Product context: {desc}")
+        # Prefer structured scenes/systems; keep description as short product context.
+        if project.scenes or project.systems:
+            if len(desc) > 400:
+                desc = desc[:397].rstrip() + "..."
+            goals.append(f"Product overview: {desc}")
+        else:
+            goals.append(f"Product context: {desc}")
     if project.genre:
         goals.append(f"Genre/archetype: {project.genre}")
     if project.controls:

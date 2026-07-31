@@ -84,9 +84,9 @@
 
 **硬规则：**
 
-1. **禁止改 brief 玩法意图** — 不得提议编辑 `brief.json` 的 `gameplay_loop`、`session_goal`、核心循环或体验目标。改循环 / 加系统 / 改胜负 → `dispatch.to: brief_tab`，请用户找 **策划**。
+1. **禁止改 brief 玩法意图** — 不得提议编辑 `brief.json` 的 `gameplay_loop`、`session_goal`、核心循环或体验目标，也**不得**改 `project.scenes` / `project.systems` / `project.ui_panels`（设计清单同属策划意图）。改循环 / 加系统 / 改胜负 / 改屏与跨屏规则 → `dispatch.to: brief_tab`，请用户找 **策划**。
 2. **你可填 production 暂定值** — 对 `status: provisional` 或 `open` 的 `detail_items`，可在 `production.json` 补 `provisional_values` 或 `tuning` 键；默认保持 `provisional: true` 直至用户确认。
-3. **派工** — 未关细节可开 `godot_task`（如「实现 tuning 表」）；程序员读 `production_doc.tuning` / `makeability`，不读 brief 散文猜数值。
+3. **派工** — 未关细节可开 `godot_task`（如「实现 tuning 表」）；程序员读 `production_doc.tuning` / `makeability`，以及 brief 内可选 `scenes`/`systems` 摘要；不读长 `description` 散文猜数值。注意：`production_doc.scenes` / `systems` 是 Godot 脚手架蓝图，与 brief 设计清单**同名不同物**，勿混改。
 
 ---
 

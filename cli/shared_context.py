@@ -49,6 +49,12 @@ def project_to_dict(project: ProjectContext) -> dict[str, Any]:
         )
     if project.hud:
         data["hud"] = project.hud
+    if project.ui_panels:
+        data["ui_panels"] = project.ui_panels
+    if project.scenes:
+        data["scenes"] = project.scenes
+    if project.systems:
+        data["systems"] = project.systems
     if project.art_tokens:
         data["art_tokens"] = project.art_tokens
     if project.view:
@@ -148,6 +154,10 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["states"] = list(spec.states)
     if spec.state:
         data["state"] = spec.state
+    if spec.scene_ids:
+        data["scene_ids"] = list(spec.scene_ids)
+    if spec.system_ids:
+        data["system_ids"] = list(spec.system_ids)
     return data
 
 

@@ -120,6 +120,77 @@ function formatAssetStyleLines(asset: Record<string, unknown>): string[] {
   return lines;
 }
 
+function asRecordList(raw: unknown): Record<string, unknown>[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((item): item is Record<string, unknown> => !!item && typeof item === "object");
+}
+
+function formatIdTitleList(
+  heading: string,
+  raw: unknown,
+  options?: { extra?: (item: Record<string, unknown>) => string[] },
+): string[] {
+  const items = asRecordList(raw);
+  if (!items.length) return [];
+  const lines: string[] = [`## ${heading}`, ""];
+  for (const item of items) {
+    const id = String(item.id || "").trim();
+    const title = String(item.title || "").trim();
+    if (!id && !title) continue;
+    const head = title ? `**${title}**` : "**（无标题）**";
+    const idBit = id ? ` (\`${id}\`)` : "";
+    lines.push(`- ${head}${idBit}`);
+    const summary = String(item.summary || "").trim();
+    if (summary) lines.push(`  - ${summary}`);
+    if (options?.extra) {
+      for (const line of options.extra(item)) lines.push(line);
+    }
+    const notes = String(item.notes || "").trim();
+    if (notes) lines.push(`  - 备注：${notes}`);
+  }
+  lines.push("");
+  return lines;
+}
+
+function formatScenesSection(project: Record<string, unknown>): string[] {
+  return formatIdTitleList("场景（有进出的屏）", project.scenes, {
+    extra: (item) => {
+      const panelIds = Array.isArray(item.ui_panel_ids)
+        ? item.ui_panel_ids.map(String).filter((s) => s.trim())
+        : [];
+      return panelIds.length ? [`  - UI 面板：${panelIds.map((id) => `\`${id}\``).join("、")}`] : [];
+    },
+  });
+}
+
+function formatSystemsSection(project: Record<string, unknown>): string[] {
+  return formatIdTitleList("逻辑系统（跨场景）", project.systems);
+}
+
+function formatUiPanelsSection(project: Record<string, unknown>): string[] {
+  return formatIdTitleList("UI 面板", project.ui_panels, {
+    extra: (item) => {
+      const bits: string[] = [];
+      const kind = String(item.kind || "").trim();
+      if (kind) bits.push(`  - 类型：${kind}`);
+      const anchor = String(item.anchor || "").trim();
+      if (anchor) bits.push(`  - 位置：${anchor}`);
+      const slots = Array.isArray(item.slots)
+        ? item.slots.map(String).filter((s) => s.trim())
+        : [];
+      if (slots.length) bits.push(`  - 内容块：${slots.join("、")}`);
+      return bits;
+    },
+  });
+}
+
+function formatIdListField(label: string, raw: unknown): string | null {
+  if (!Array.isArray(raw)) return null;
+  const ids = raw.map(String).filter((s) => s.trim());
+  if (!ids.length) return null;
+  return `  - **${label}：** ${ids.map((id) => `\`${id}\``).join("、")}`;
+}
+
 export function isBriefShaped(value: unknown): value is HostChatDraftBrief {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const obj = value as Record<string, unknown>;
@@ -149,6 +220,9 @@ export function formatBriefDocument(
   lines.push(...formatArtTokensSection(p as Record<string, unknown>));
   const goal = p.session_goal;
   if (goal) lines.push("## 本局目标", "", String(goal), "");
+  lines.push(...formatScenesSection(p as Record<string, unknown>));
+  lines.push(...formatSystemsSection(p as Record<string, unknown>));
+  lines.push(...formatUiPanelsSection(p as Record<string, unknown>));
   const controls = p.controls;
   if (controls && typeof controls === "object") {
     lines.push("## 操作", "");
@@ -175,6 +249,16 @@ export function formatBriefDocument(
       lines.push(`- **${a.name}**${meta ? `（${meta}）` : ""}`);
       if (a.description) lines.push(`  - ${a.description}`);
       lines.push(...formatAssetStyleLines(a as Record<string, unknown>));
+      const sceneLine = formatIdListField(
+        "归属场景 (scene_ids)",
+        (a as Record<string, unknown>).scene_ids,
+      );
+      if (sceneLine) lines.push(sceneLine);
+      const systemLine = formatIdListField(
+        "归属系统 (system_ids)",
+        (a as Record<string, unknown>).system_ids,
+      );
+      if (systemLine) lines.push(systemLine);
     }
     lines.push("");
   }

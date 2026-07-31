@@ -10,7 +10,7 @@ from typing import Any
 
 import requests
 
-from brief import load_brief_full
+from brief import brief_structure_summaries, load_brief_full
 from llm_config import resolve_test_api_settings
 from proxy_utils import http_post
 
@@ -29,10 +29,19 @@ def criteria_from_brief(brief_path: Path) -> list[dict[str, str]]:
             criteria.append({"source": source, "criterion": str(text).strip()})
 
     add("brief.project.title", project.title)
-    add("brief.project.description", project.description)
     add("brief.project.gameplay_loop", project.gameplay_loop)
     add("brief.project.session_goal", project.session_goal)
     add("brief.project.art_direction", project.art_direction)
+    for source, criterion in brief_structure_summaries(project):
+        add(source, criterion)
+    desc = (project.description or "").strip()
+    if desc:
+        if project.scenes or project.systems:
+            if len(desc) > 280:
+                desc = desc[:277].rstrip() + "..."
+            add("brief.project.description", f"Product overview: {desc}")
+        else:
+            add("brief.project.description", desc)
 
     if not criteria:
         criteria.append(

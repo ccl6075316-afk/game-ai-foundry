@@ -28,10 +28,42 @@ def _acceptance_from_brief(project) -> list[dict[str, str]]:
     for source, text in (
         ("brief.project.session_goal", project.session_goal),
         ("brief.project.gameplay_loop", project.gameplay_loop),
-        ("brief.project.description", project.description),
     ):
         if text and str(text).strip():
             out.append({"source": source, "criterion": str(text).strip()})
+    for scene in project.scenes or []:
+        if not isinstance(scene, dict):
+            continue
+        sid = str(scene.get("id", "")).strip()
+        title = str(scene.get("title", "")).strip()
+        summary = str(scene.get("summary", "")).strip()
+        if not sid:
+            continue
+        criterion = summary or title or sid
+        out.append(
+            {
+                "source": f"brief.project.scenes[{sid}]",
+                "criterion": f"Scene '{sid}' reachable/usable: {criterion}",
+            }
+        )
+    for system in project.systems or []:
+        if not isinstance(system, dict):
+            continue
+        sid = str(system.get("id", "")).strip()
+        title = str(system.get("title", "")).strip()
+        summary = str(system.get("summary", "")).strip()
+        if not sid:
+            continue
+        criterion = summary or title or sid
+        out.append(
+            {
+                "source": f"brief.project.systems[{sid}]",
+                "criterion": f"System '{sid}' behaves as specified: {criterion}",
+            }
+        )
+    desc = (project.description or "").strip()
+    if desc and not (project.scenes or project.systems):
+        out.append({"source": "brief.project.description", "criterion": desc})
     if not out:
         out.append(
             {
@@ -80,8 +112,11 @@ def build_playtest_from_brief(brief_path: Path, *, production_path: Path | None 
     visual_checks: list[dict[str, str]] = [
         {
             "screenshot": "boot",
-            "source": "brief.project.description",
-            "criterion": f"Game scene visible matching: {project.description or project.title}",
+            "source": "brief.project.gameplay_loop",
+            "criterion": (
+                f"Game scene visible matching core loop / overview: "
+                f"{(project.gameplay_loop or project.description or project.title or '').strip()}"
+            ),
         },
     ]
     acceptance = _acceptance_from_brief(project)
@@ -127,6 +162,16 @@ def build_playtest_from_brief(brief_path: Path, *, production_path: Path | None 
             "gameplay_loop": project.gameplay_loop,
             "session_goal": project.session_goal,
             "genre": project.genre,
+            "scenes": [
+                str(s.get("id", "")).strip()
+                for s in (project.scenes or [])
+                if isinstance(s, dict) and str(s.get("id", "")).strip()
+            ],
+            "systems": [
+                str(s.get("id", "")).strip()
+                for s in (project.systems or [])
+                if isinstance(s, dict) and str(s.get("id", "")).strip()
+            ],
         },
         "acceptance_criteria": acceptance,
         "input_actions": actions,

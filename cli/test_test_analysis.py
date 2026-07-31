@@ -25,6 +25,53 @@ class TestAnalysisTests(unittest.TestCase):
         sources = {c["source"] for c in criteria}
         self.assertIn("brief.project.gameplay_loop", sources)
 
+    def test_criteria_prefers_scenes_systems_over_long_description(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            brief = Path(tmp) / "brief.json"
+            brief.write_text(
+                json.dumps(
+                    {
+                        "project": {
+                            "title": "Fish",
+                            "description": "X" * 500,
+                            "art_direction": "pixel",
+                            "dimension": "2d",
+                            "genre": "sim",
+                            "gameplay_loop": "cast",
+                            "session_goal": "endless",
+                            "player_asset": "rod",
+                            "controls": {"cast": ["Space"]},
+                            "viewport": {"width": 1280, "height": 720},
+                            "scenes": [
+                                {"id": "dock", "title": "钓场", "summary": "Cast and fight."}
+                            ],
+                            "systems": [
+                                {"id": "economy", "title": "经济", "summary": "Tickets."}
+                            ],
+                        },
+                        "assets": [
+                            {
+                                "name": "rod",
+                                "id": "rod",
+                                "type": "character",
+                                "usage": "player_idle",
+                                "usage_description": "rod",
+                                "display_size": {"width": 64, "height": 64},
+                                "description": "rod",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            criteria = criteria_from_brief(brief)
+            sources = {c["source"] for c in criteria}
+            self.assertIn("brief.project.scenes[dock]", sources)
+            self.assertIn("brief.project.systems[economy]", sources)
+            desc = next(c for c in criteria if c["source"] == "brief.project.description")
+            self.assertTrue(desc["criterion"].startswith("Product overview:"))
+            self.assertLessEqual(len(desc["criterion"]), 320)
+
     def test_extract_json_object_from_fenced_text(self) -> None:
         text = 'Here is the result:\n```json\n{"status": "passed", "summary": "ok"}\n```'
         obj = _extract_json_object(text)

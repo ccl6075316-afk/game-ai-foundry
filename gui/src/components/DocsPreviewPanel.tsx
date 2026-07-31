@@ -39,6 +39,8 @@ interface Props {
   onExportBrief?: () => void;
   /** Write brief.zh.md from current draft (before export). */
   onRefreshZhDoc?: () => void;
+  /** Write ui-wireframe.md from draft project.ui_panels. */
+  onUiWireframe?: () => void;
   onAutofix?: () => void;
   onMakeability?: () => void;
   onEnrich?: () => void;
@@ -80,6 +82,7 @@ export function DocsPreviewPanel({
   readyToExport,
   onExportBrief,
   onRefreshZhDoc,
+  onUiWireframe,
   onAutofix,
   onMakeability,
   onEnrich,
@@ -138,12 +141,20 @@ export function DocsPreviewPanel({
     let cancelled = false;
     const load = async () => {
       if (!window.gameFactory?.listProjectDocs) {
+        console.warn("[docs] listProjectDocs API missing");
         setDiskDocs([]);
         return;
       }
       try {
         const items = await window.gameFactory.listProjectDocs(activeBriefRel || undefined);
         if (cancelled) return;
+        if (import.meta.env.DEV) {
+          console.info("[docs] listProjectDocs", {
+            activeBriefRel,
+            count: (items || []).length,
+            paths: (items || []).map((d) => d.path),
+          });
+        }
         setDiskDocs(
           (items || []).map((d) => {
             const full = d.path;
@@ -168,7 +179,8 @@ export function DocsPreviewPanel({
             };
           }),
         );
-      } catch {
+      } catch (err) {
+        console.warn("[docs] listProjectDocs failed", err);
         if (!cancelled) setDiskDocs([]);
       }
     };
@@ -176,7 +188,7 @@ export function DocsPreviewPanel({
     return () => {
       cancelled = true;
     };
-  }, [activeBriefRel, draftBrief, readyToExport, diskListTick]);
+  }, [activeBriefRel, draftBrief, readyToExport, diskListTick, externalEntryById]);
 
   useEffect(() => {
     if (diskRefreshKey > 0) {
@@ -337,7 +349,7 @@ export function DocsPreviewPanel({
         ))}
         {activeBriefRel && diskDocs.length === 0 ? (
           <p className="docs-preview-empty hint">
-            当前工程还没有落盘中文说明。有草稿时点下方「生成中文说明」即可审阅，确认后再导出。
+            当前工程还没有落盘文件。有草稿时点「生成中文说明」，或点「刷新」。
           </p>
         ) : null}
       </div>
@@ -443,6 +455,17 @@ export function DocsPreviewPanel({
             title="根据当前工作草稿生成 brief.zh.md，导出前用中文审阅"
           >
             生成中文说明
+          </button>
+        )}
+        {onUiWireframe && selected?.id === "session-brief" && draftBrief && activeBriefRel && (
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={onUiWireframe}
+            disabled={busy}
+            title="根据草稿中的 UI 面板列表生成字符线稿 ui-wireframe.md"
+          >
+            生成 UI 示意
           </button>
         )}
         {onExportBrief && selected?.id === "session-brief" && (

@@ -17,6 +17,7 @@ interface Props {
   onAutofix?: () => void;
   onMakeability?: () => void;
   onEnrich?: () => void;
+  onUiWireframe?: () => void;
   onTopicBrainstorm?: () => void;
 }
 
@@ -37,6 +38,7 @@ export function ChatInput({
   onAutofix,
   onMakeability,
   onEnrich,
+  onUiWireframe,
   onTopicBrainstorm,
 }: Props) {
   const [text, setText] = useState("");
@@ -72,7 +74,7 @@ export function ChatInput({
 
   return (
     <div className="composer">
-      {(choices.length > 0 || readyToExport || showAutofix || showMakeability || onEnrich || onTopicBrainstorm) && (
+      {(choices.length > 0 || readyToExport || showAutofix || showMakeability || onEnrich || onUiWireframe || onTopicBrainstorm) && (
         <div className="composer__chips">
           {choices.map((c) => (
             <button
@@ -105,6 +107,17 @@ export function ChatInput({
               title="开放式加厚玩家可见细节（可带要求二次补全）"
             >
               补全细节
+            </button>
+          )}
+          {onUiWireframe && (
+            <button
+              type="button"
+              className="composer__chip"
+              disabled={locked}
+              onClick={() => onUiWireframe()}
+              title="从草稿 ui_panels 生成字符线稿 ui-wireframe.md"
+            >
+              生成 UI 示意
             </button>
           )}
           {onTopicBrainstorm && (

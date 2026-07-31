@@ -135,9 +135,9 @@ game-ai-foundry/
 
 | 字段 | 说明 |
 |------|------|
-| `title`, `description`, `art_direction`, `dimension` | 基础 |
+| `title`, `description`, `art_direction`, `dimension` | 基础。`description` 宜为短产品总览，系统细则放可选 `scenes` / `systems` |
 | `genre` | 如 `2d_platformer` |
-| `gameplay_loop`, `session_goal` | 英文；godot-developer 完成标准 |
+| `gameplay_loop`, `session_goal` | 英文；godot-developer 完成标准。`gameplay_loop` 写场景串法/主重复活动，**允许短**；系统细则见可选 `scenes` / `systems` |
 | `player_asset` | 有 player 向 asset 时必填 |
 | `controls` | 动作 → 按键 |
 | `viewport` | `{ width, height }` |
@@ -146,7 +146,18 @@ game-ai-foundry/
 
 ### `project` 可选（P1）
 
-`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文；默认 prompt 软对齐 — 作 still `--reference-image` 需从属资产设 `style_anchor_kind: visual_reference`）、`art_tokens`（可选结构化风格硬锁，见下）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）
+`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文；默认 prompt 软对齐 — 作 still `--reference-image` 需从属资产设 `style_anchor_kind: visual_reference`）、`art_tokens`（可选结构化风格硬锁，见下）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）、`ui_panels[]`（**可选**：菜单/装备等面板清单 `{id,title,kind?,anchor?,slots?,notes?}`；聊到 UI 时写入；**不**挡导出；与 `hud`/`ui_element` 无强制绑定。字符布局示意见工程内 `ui-wireframe.md`，仅 GUI「生成 UI 示意」或 `brief chat ui-wireframe` / `brief ui-wireframe` 按需生成；程序员上下文在文件存在时软提示路径）、`scenes[]` / `systems[]`（见下）
+
+#### `scenes[]` / `systems[]`（可选）
+
+开发向信息架构：**场景**（有进出的屏）+ **逻辑系统**（跨场景规则）。**不**挡 `brief validate` / 导出；与 `ui_panels` 正交（panel = 屏内块；scene 可通过 `ui_panel_ids` 弱引用）。
+
+| 结构 | 字段 | 说明 |
+|------|------|------|
+| `scenes[]` | `id`, `title` 必填；`summary?`, `ui_panel_ids?`, `notes?` | 如主界面、钓场、商店 |
+| `systems[]` | `id`, `title` 必填；`summary?`, `notes?` | 如时间池、经济、图鉴；可无贴图 |
+
+`project.description` 应保持**短总览**（约 2–4 句），勿把系统规则/鱼种表堆进去。资产可选 `scene_ids` / `system_ids` 归类（弱引用，不强制校验 id 存在）。程序员/PM 上下文在 brief 含 scenes/systems 时软提示 id 列表。
 
 #### `art_tokens`（可选，Phase 2）
 
@@ -240,7 +251,7 @@ Spec → [`docs/anvil/brainstorms/2026-07-24-content-class-structured-craft.md`]
 
 ### `assets[]` 每项
 
-`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`, `generate_method`；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
+`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`, `generate_method`；可选 `scene_ids` / `system_ids`（弱引用归类）；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
 
 **`type: icon_kit`**：`items[]` 必填。每项为字符串，或  
 `{id, label?, usage?, usage_description?}`（文件键 slug 跟 `id`；item `usage` 进 `production.collectible_items`）。  

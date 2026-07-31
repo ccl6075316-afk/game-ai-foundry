@@ -13,6 +13,7 @@ from brief import (
     AssetType,
     CharacterAnimationGraph,
     ProjectContext,
+    brief_structure_summaries,
     find_asset,
     load_brief_full,
     resolve_asset_file_key,
@@ -512,6 +513,11 @@ def _build_validation(project: ProjectContext, tasks: list[dict[str, Any]]) -> d
         criteria.append(project.session_goal.strip())
     if (project.gameplay_loop or "").strip():
         criteria.append(f"core loop: {project.gameplay_loop.strip()}")
+    # Brief design lists (not production.scenes scaffold paths).
+    for _source, criterion in brief_structure_summaries(project, max_scenes=6, max_systems=6):
+        labeled = f"brief design: {criterion}"
+        if labeled not in criteria:
+            criteria.append(labeled)
 
     for task in tasks:
         for item in task.get("verify") or []:

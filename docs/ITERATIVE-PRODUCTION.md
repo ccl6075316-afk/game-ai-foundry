@@ -29,7 +29,7 @@ The repo already ships a **frozen export contract**. Until Design Doc and Produc
 
 | ITERATIVE concept | Current repo | Status |
 |-------------------|--------------|--------|
-| Design Doc | `brief.project` — `gameplay_loop`, `session_goal`, `description`, win/fail intent | Embedded in brief |
+| Design Doc | `brief.project` — 短 `description` 总览；`gameplay_loop` / `session_goal`；可选 `scenes[]` / `systems[]` / `ui_panels[]`（屏、跨屏规则、UI 块） | Embedded in brief |
 | Production Doc | Full `brief.json` after `brief export` (`brief_meta`) | ✅ `brief validate` / `export` |
 | Pipeline Manifest | `pipeline/{slug}.json` | ✅ `pipeline plan` |
 | Assets ledger | `output/{slug}/assets-manifest.json` | ✅ pipeline + assemble |

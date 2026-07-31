@@ -293,7 +293,8 @@ function runCli(args, { cwd, onLine, jobKey } = {}) {
         PATH: pathWithCommonNodeBins(process.env.PATH),
         GAMEFACTORY_ROOT: root,
         PYTHONIOENCODING: "utf-8",
-        // Electron 39+ ships Node 22.19+ — same runtime as Pi (ELECTRON_RUN_AS_NODE).
+        // Prefer system Node for Pi when present; Electron-as-Node is Release fallback
+        // (see cli/pi_runtime._node_candidates). Still pass execPath for that fallback.
         GAMEFACTORY_ELECTRON_EXECUTABLE: process.execPath,
         ...(resolvePiRuntimeRoot()
           ? { GAMEFACTORY_PI_ROOT: resolvePiRuntimeRoot() }
@@ -1638,7 +1639,18 @@ app.whenReady().then(() => {
   ipcMain.handle("patch-brief-project", (_e, relPath, projectPatch) =>
     patchBriefProject(relPath, projectPatch),
   );
-  ipcMain.handle("list-project-docs", (_e, briefRel) => listProjectDocs(briefRel));
+  ipcMain.handle("list-project-docs", (_e, briefRel) => {
+    const docs = listProjectDocs(briefRel);
+    if (!app.isPackaged) {
+      console.info("[docs] list-project-docs", {
+        briefRel: briefRel || null,
+        count: docs.length,
+        paths: docs.map((d) => d.path),
+        repoRoot: repoRoot(),
+      });
+    }
+    return docs;
+  });
   ipcMain.handle("ensure-project", (_e, slug) => ensureProject(slug));
 
   ipcMain.handle("external-project-open", async () => {
@@ -2359,6 +2371,41 @@ app.whenReady().then(() => {
         data.zh_doc_rel = zhAbs.slice(root.length + 1);
       } else {
         data.zh_doc_rel = `${path.posix.dirname(rel)}/brief.zh.md`;
+      }
+    }
+    return { ...result, data };
+  });
+
+  ipcMain.handle("host-chat-ui-wireframe", async (_e, sessionId, briefRel) => {
+    const rel = String(briefRel || "").replace(/\\/g, "/").replace(/^\.\.\//, "");
+    const args = [
+      "brief",
+      "chat",
+      "ui-wireframe",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--brief-rel",
+      rel,
+      "--json",
+    ];
+    const result = await runCli(args);
+    const data = parseJsonFromOutput(result.stdout) || {};
+    if (data.path) {
+      const wireAbs = String(data.path).replace(/\\/g, "/");
+      const root = repoRoot().replace(/\\/g, "/");
+      const external = resolveExternalRel(rel);
+      if (external) {
+        const extRoot = external.rootAbs.replace(/\\/g, "/");
+        if (wireAbs.toLowerCase().startsWith(extRoot.toLowerCase() + "/")) {
+          const sub = wireAbs.slice(extRoot.length + 1);
+          data.ui_wireframe_rel = `external:${external.entry.id}/${sub}`;
+        } else {
+          data.ui_wireframe_rel = `${path.posix.dirname(rel)}/ui-wireframe.md`;
+        }
+      } else if (wireAbs.toLowerCase().startsWith(root.toLowerCase() + "/")) {
+        data.ui_wireframe_rel = wireAbs.slice(root.length + 1);
+      } else {
+        data.ui_wireframe_rel = `${path.posix.dirname(rel)}/ui-wireframe.md`;
       }
     }
     return { ...result, data };

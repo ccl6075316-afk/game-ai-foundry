@@ -39,6 +39,33 @@ class AgentTurnTests(unittest.TestCase):
         self.assertIn("项目经理", prompt)
         self.assertIn("再确认一下", prompt)
 
+    def test_build_prompt_ui_wireframe_soft_hint(self) -> None:
+        session = new_session("programmer", "w1")
+        with tempfile.TemporaryDirectory() as tmp:
+            project = Path(tmp)
+            brief = project / "brief.json"
+            brief.write_text("{}", encoding="utf-8")
+            wire = project / "ui-wireframe.md"
+            wire.write_text("# layout\n", encoding="utf-8")
+            prompt = build_prompt(
+                role_kind="programmer",
+                user_message="做 HUD",
+                session=session,
+                brief_path=brief,
+            )
+            self.assertIn("UI 布局示意", prompt)
+            self.assertIn(str(wire.resolve()), prompt)
+        with tempfile.TemporaryDirectory() as tmp2:
+            brief_only = Path(tmp2) / "brief.json"
+            brief_only.write_text("{}", encoding="utf-8")
+            prompt_no_wire = build_prompt(
+                role_kind="programmer",
+                user_message="做 HUD",
+                session=session,
+                brief_path=brief_only,
+            )
+            self.assertNotIn("UI 布局示意", prompt_no_wire)
+
     def test_run_turn_hermes_mocked(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             conv = Path(tmp) / "product_host"

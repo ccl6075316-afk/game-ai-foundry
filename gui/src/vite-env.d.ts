@@ -561,6 +561,20 @@ declare global {
           brief_rel?: string;
         }>
       >;
+      hostChatUiWireframe: (
+        sessionId: string,
+        briefRel: string,
+      ) => Promise<
+        CliResult<{
+          ok?: boolean;
+          path?: string;
+          panel_count?: number;
+          error?: string;
+          ui_wireframe_rel?: string;
+          brief_rel?: string;
+          session_id?: string;
+        }>
+      >;
       hostChatAutofix: (
         sessionId: string,
         maxRounds?: number,
