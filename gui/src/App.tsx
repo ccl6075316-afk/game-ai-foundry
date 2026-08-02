@@ -302,6 +302,10 @@ export default function App() {
   const [externalEntryById, setExternalEntryById] = useState<Record<string, ExternalProjectEntry>>({});
   /** brief.project.visual_reference is a real image path on disk */
   const [visualReferenceReady, setVisualReferenceReady] = useState(false);
+  /** scenes from visual-target status (fallback when draft has no scenes) */
+  const [vtScenesFromStatus, setVtScenesFromStatus] = useState<
+    Array<{ id: string; title: string }>
+  >([]);
   const [tasks, setTasks] = useState<PipelineTask[]>([]);
   const [status, setStatus] = useState<PipelineStatus | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
@@ -351,6 +355,17 @@ export default function App() {
   const itSessionTrustRef = useRef<Record<string, boolean>>({});
   /** Soft-gate: warn once before pipeline run without visual_reference */
   const runWithoutVtWarned = useRef(false);
+  /** Scene id used for the latest visual-target generate (null = global) */
+  const pendingVtSceneIdRef = useRef<string | null>(null);
+  /** Latest generate target — pick only reuses manifest when scene scope matches */
+  const pendingVtGenerateRef = useRef<{
+    manifestPath: string;
+    sceneId: string | null;
+  } | null>(null);
+  /** Last pick source for 「也用于」assign (scene id or null = global) */
+  const lastVtPickSourceRef = useRef<{ kind: "global" | "scene"; sceneId?: string } | null>(
+    null,
+  );
   /** Stable handle so early callbacks can sync board after brief changes */
   const syncPipelineForBriefRef = useRef<(briefRel: string | null) => Promise<string | null>>(
     async () => null,
@@ -441,14 +456,25 @@ export default function App() {
     const rel = (briefRel || activeBriefRel || "").replace(/\\/g, "/");
     if (!rel || !window.gameFactory?.visualTargetStatus) {
       setVisualReferenceReady(false);
+      setVtScenesFromStatus([]);
       return false;
     }
     try {
       const st = await window.gameFactory.visualTargetStatus(rel);
       setVisualReferenceReady(Boolean(st.ready));
+      const scenes = Array.isArray(st.scenes)
+        ? st.scenes
+            .map((s) => ({
+              id: String(s.id || "").trim(),
+              title: String(s.title || s.id || "").trim(),
+            }))
+            .filter((s) => Boolean(s.id))
+        : [];
+      setVtScenesFromStatus(scenes);
       return Boolean(st.ready);
     } catch {
       setVisualReferenceReady(false);
+      setVtScenesFromStatus([]);
       return false;
     }
   }, [activeBriefRel]);
@@ -2726,7 +2752,7 @@ export default function App() {
       runWithoutVtWarned.current = true;
       append(
         "assistant",
-        "尚未选定 **北极星图**（`visual_reference` 图片路径）。建议先点 **② 北极星图** 生成并选用，风格才容易一致。\n\n仍要直接跑资产？再点一次「运行资产生成」。",
+        "尚未选定 **北极星图**（全局或任一场景的 `visual_reference`）。建议先点 **② 北极星图** 生成并选用，风格才容易一致。\n\n仍要直接跑资产？再点一次「运行资产生成」。",
         undefined,
         undefined,
         ["北极星图", "运行资产生成（含文案）"],
@@ -2895,7 +2921,43 @@ export default function App() {
     );
   };
 
-  const handleVisualTargetGenerate = async () => {
+  const listBriefScenesForVt = (): Array<{ id: string; title: string }> => {
+    const raw = briefDraft?.project?.scenes;
+    if (Array.isArray(raw) && raw.length) {
+      const out: Array<{ id: string; title: string }> = [];
+      for (const row of raw) {
+        if (!row || typeof row !== "object") continue;
+        const rec = row as Record<string, unknown>;
+        const id = String(rec.id || "").trim();
+        const title = String(rec.title || "").trim() || id;
+        if (id) out.push({ id, title });
+      }
+      if (out.length) return out;
+    }
+    return vtScenesFromStatus;
+  };
+
+  /** When brief has scenes, ask global vs scene; otherwise generate immediately. */
+  const promptVisualTargetScope = () => {
+    const scenes = listBriefScenesForVt();
+    if (!scenes.length) {
+      void handleVisualTargetGenerate(null);
+      return;
+    }
+    const choices = [
+      "生成北极星 · 全局",
+      ...scenes.map((s) => `生成北极星 · ${s.title}（${s.id}）`),
+    ];
+    append(
+      "assistant",
+      "这个 Brief 有多个场景。请选 **全局默认** 或某一个场景的北极星（反差大的屏建议各出一张）。",
+      undefined,
+      undefined,
+      choices,
+    );
+  };
+
+  const handleVisualTargetGenerate = async (sceneId: string | null = null) => {
     const briefRel = activeBriefRel;
     if (!briefRel) {
       append(
@@ -2940,6 +3002,13 @@ export default function App() {
     const busyId = activeColleague.id;
     markBusy(busyId);
     setLogs([]);
+    const sid = (sceneId || "").trim() || null;
+    pendingVtSceneIdRef.current = sid;
+    pendingVtGenerateRef.current = null;
+    const sceneMeta = sid
+      ? listBriefScenesForVt().find((s) => s.id === sid)
+      : null;
+    const sceneTitle = sceneMeta?.title || sid || "";
     try {
       let brief = briefRel;
       if (window.gameFactory.resolveBriefRel) {
@@ -2958,7 +3027,9 @@ export default function App() {
       }
       append(
         "assistant",
-        "正在生成北极星候选图（整屏玩法预览）…\n完成后点「选用北极星 a/b/c」。",
+        sid
+          ? `正在为场景 **${sceneTitle}**（\`${sid}\`）生成北极星候选…\n完成后点「选用北极星 a/b/c」。`
+          : "正在生成北极星候选图（整屏玩法预览）…\n完成后点「选用北极星 a/b/c」。",
       );
       // Session draft art_direction does NOT auto-export — sync into disk brief first
       // so "大改风格" chats actually affect visual-target generate.
@@ -2991,8 +3062,11 @@ export default function App() {
           "无会话草稿可同步 — 使用磁盘 Brief。若刚在策划里改了风格，请确认草稿里已有 art_direction，或先导出 Brief。",
         );
       }
-      append("log", "visual-target generate 开始…");
-      const res = await window.gameFactory.visualTargetGenerate(brief, 3);
+      append(
+        "log",
+        sid ? `visual-target generate --scene ${sid} 开始…` : "visual-target generate 开始…",
+      );
+      const res = await window.gameFactory.visualTargetGenerate(brief, 3, sid);
       if (res.exitCode !== 0) {
         append(
           "assistant",
@@ -3004,6 +3078,13 @@ export default function App() {
         return;
       }
       const data = res.data || {};
+      const manifestFromGenerate = String(data.manifest_path || "").trim();
+      if (manifestFromGenerate) {
+        pendingVtGenerateRef.current = {
+          manifestPath: manifestFromGenerate,
+          sceneId: sid,
+        };
+      }
       const cands = Array.isArray(data.candidates) ? data.candidates : [];
       const gallery = cands
         .map((c) => {
@@ -3022,13 +3103,19 @@ export default function App() {
         ...cands
           .map((c) => String(c.id || "").trim().toLowerCase())
           .filter(Boolean)
-          .map((id) => `选用北极星 ${id}`),
+          .map((id) =>
+            sid
+              ? `选用北极星 ${id}（场景：${sceneTitle || sid}｜${sid}）`
+              : `选用北极星 ${id}`,
+          ),
         "都不满意，换风格",
       ];
       append(
         "assistant",
         gallery.length
-          ? "北极星候选已生成。点缩略图可看大图；满意就「选用北极星 …」。都不满意就点「都不满意，换风格」，跟策划改 `art_direction` 后再生成。"
+          ? sid
+            ? `场景 **${sceneTitle}**（\`${sid}\`）的北极星候选已生成。满意就点带场景 id 的「选用北极星 …」。`
+            : "北极星候选已生成。点缩略图可看大图；满意就「选用北极星 …」。都不满意就点「都不满意，换风格」，跟策划改 `art_direction` 后再生成。"
           : "北极星流程已结束（可能无预览路径）。可「生成北极星图」重试，或「都不满意，换风格」。",
         gallery.length ? gallery : undefined,
         undefined,
@@ -3045,7 +3132,21 @@ export default function App() {
     }
   };
 
-  const handleVisualTargetPick = async (candidateId: string) => {
+  const shareChoicesAfterPick = (pickedSceneId: string | null): string[] => {
+    const scenes = listBriefScenesForVt();
+    if (!scenes.length) return [];
+    const others = scenes.filter((s) => s.id !== pickedSceneId);
+    if (!others.length) return [];
+    return [
+      ...others.map((s) => `也用于 · ${s.title}（${s.id}）`),
+      "也用于 · 全部场景",
+    ];
+  };
+
+  const handleVisualTargetPick = async (
+    candidateId: string,
+    sceneId?: string | string[] | null,
+  ) => {
     const briefRel = activeBriefRel;
     if (!briefRel) {
       append("assistant", "还没有 Brief，无法选用北极星。");
@@ -3055,10 +3156,37 @@ export default function App() {
       append("assistant", "当前客户端不支持选用北极星，请重启 Electron。");
       return;
     }
+    // Only trust an explicit scene from the chip/caller — never fall back to
+    // pendingVtSceneIdRef (a bare「选用北极星 a」must stay global).
+    const sids = Array.isArray(sceneId)
+      ? sceneId.map((s) => String(s || "").trim()).filter(Boolean)
+      : sceneId
+        ? [String(sceneId).trim()]
+        : [];
+    const primarySid = sids[0] || null;
+    const sceneMeta = primarySid
+      ? listBriefScenesForVt().find((s) => s.id === primarySid)
+      : null;
+    const sceneTitle = sceneMeta?.title || primarySid || "";
     const busyId = activeColleague.id;
     markBusy(busyId);
     try {
-      const res = await window.gameFactory.visualTargetPick(briefRel, candidateId);
+      const pendingGen = pendingVtGenerateRef.current;
+      const pickSid = primarySid || null;
+      // Only pin --manifest when it belongs to the same scope as this pick
+      // (avoids writing a newer combat generate into an older 「钓场」 chip).
+      const manifestPath =
+        pendingGen &&
+        (pendingGen.sceneId || null) === pickSid &&
+        pendingGen.manifestPath
+          ? pendingGen.manifestPath
+          : null;
+      const res = await window.gameFactory.visualTargetPick(
+        briefRel,
+        candidateId,
+        sids.length ? sids : null,
+        manifestPath,
+      );
       if (res.exitCode !== 0) {
         append(
           "assistant",
@@ -3070,20 +3198,151 @@ export default function App() {
         return;
       }
       const ref = res.data?.visual_reference || "";
+      // scene_ids = intentional pick scope only; auto_matched is separate.
+      const applied = res.data?.scene_ids?.length
+        ? res.data.scene_ids
+        : primarySid
+          ? [primarySid]
+          : [];
+      const autoMatched = res.data?.auto_matched_scene_ids || [];
+      const alreadyCovered = new Set([...applied, ...autoMatched]);
+      const matchMethod = res.data?.auto_match_method || "";
+      const pickedScene = primarySid || applied[0] || null;
+      lastVtPickSourceRef.current = pickedScene
+        ? { kind: "scene", sceneId: pickedScene }
+        : { kind: "global" };
       await refreshVisualTarget(briefRel);
+      const share = shareChoicesAfterPick(pickedScene).filter((c) => {
+        if (c === "也用于 · 全部场景") {
+          return listBriefScenesForVt().some((s) => !alreadyCovered.has(s.id));
+        }
+        const m = c.match(/（([a-zA-Z0-9_-]+)）$/);
+        return m ? !alreadyCovered.has(m[1]) : true;
+      });
+      const labelFor = (id: string) => {
+        const t = listBriefScenesForVt().find((s) => s.id === id)?.title || id;
+        return `${t}（${id}）`;
+      };
+      const appliedLabel = applied.length ? applied.map(labelFor).join("、") : "";
+      const autoLabel = autoMatched.length ? autoMatched.map(labelFor).join("、") : "";
       append(
         "assistant",
-        `✓ 已选定北极星 \`${candidateId}\`\n\n` +
-          `\`project.visual_reference\` → \`${ref}\`\n\n` +
-          "视觉契约已写入 Brief。可点 **去找项目经理** 开流水线。",
+        `✓ 已选定北极星 \`${candidateId}\`` +
+          (appliedLabel ? `（场景：${appliedLabel}）` : sceneTitle ? `（场景：${sceneTitle}）` : "") +
+          `\n\n` +
+          (applied.length
+            ? `\`scenes[].visual_reference\` → \`${ref}\`\n\n`
+            : `\`project.visual_reference\` → \`${ref}\`\n\n`) +
+          (autoLabel
+            ? `已按提示词×场景描述**自动匹配**到：${autoLabel}` +
+              (matchMethod ? `（${matchMethod}）` : "") +
+              "。不对就用下面的「也用于」改，或给反差大的场景单独再生成一张。\n\n"
+            : share.length
+              ? "其他空场景未自动命中（反差可能较大）。需要共用可点「也用于 …」。\n\n"
+              : "") +
+          "可点 **去找项目经理** 开流水线，或继续为其他场景单独生成北极星。",
         undefined,
         undefined,
-        ["切换到项目经理", "切换到项目经理并生成流水线", "生成北极星图"],
+        [
+          ...share,
+          "切换到项目经理",
+          "切换到项目经理并生成流水线",
+          "生成北极星图",
+        ],
       );
     } catch (e) {
       append(
         "assistant",
         `选用北极星异常：${e instanceof Error ? e.message : String(e)}`,
+      );
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleVisualTargetAssign = async (targetSceneIds: string[]) => {
+    const briefRel = activeBriefRel;
+    if (!briefRel) {
+      append("assistant", "还没有 Brief，无法分配北极星。");
+      return;
+    }
+    if (!window.gameFactory?.visualTargetAssign) {
+      append("assistant", "当前客户端不支持共享北极星，请重启 Electron。");
+      return;
+    }
+    const targets = targetSceneIds.map((s) => s.trim()).filter(Boolean);
+    if (!targets.length) return;
+    const source = lastVtPickSourceRef.current;
+    const opts =
+      source?.kind === "scene" && source.sceneId
+        ? { fromScene: source.sceneId }
+        : { fromGlobal: true as const };
+    const busyId = activeColleague.id;
+    markBusy(busyId);
+    try {
+      const res = await window.gameFactory.visualTargetAssign(briefRel, targets, opts);
+      if (res.exitCode !== 0) {
+        append(
+          "assistant",
+          `共享失败：${(res.stderr || res.stdout || "").slice(0, 800)}`,
+          undefined,
+          undefined,
+          ["生成北极星图"],
+        );
+        return;
+      }
+      const ref = res.data?.visual_reference || "";
+      const applied = Array.isArray(res.data?.scene_ids) ? res.data.scene_ids : [];
+      const skipped = Array.isArray(res.data?.skipped_scene_ids)
+        ? res.data.skipped_scene_ids
+        : [];
+      await refreshVisualTarget(briefRel);
+      const stillShare = shareChoicesAfterPick(
+        source?.kind === "scene" ? source.sceneId || null : null,
+      ).filter((c) => {
+        if (c === "也用于 · 全部场景") {
+          return listBriefScenesForVt().some(
+            (s) => !applied.includes(s.id) && !skipped.includes(s.id),
+          );
+        }
+        const m = c.match(/（([a-zA-Z0-9_-]+)）$/);
+        return m ? !applied.includes(m[1]) : true;
+      });
+      if (!applied.length) {
+        append(
+          "assistant",
+          (skipped.length
+            ? `没有写入新场景：这些场景已有不同的北极星，已跳过：${skipped.join(", ")}。\n\n` +
+              "若要强制覆盖，请用 CLI：`brief visual-target assign --force …`。\n\n"
+            : "没有写入任何场景。\n\n") +
+            "可给空场景单独生成，或先清掉该场景的 `visual_reference` 再点「也用于」。",
+          undefined,
+          undefined,
+          ["生成北极星图", "切换到项目经理"],
+        );
+        return;
+      }
+      append(
+        "assistant",
+        `✓ 已把同一北极星挂到场景：${applied.join(", ")}\n\n` +
+          `共用路径 → \`${ref}\`\n\n` +
+          (skipped.length
+            ? `已跳过（已有不同图）：${skipped.join(", ")}\n\n`
+            : "") +
+          "这些场景的资产会解析到同一张图（不必再出一遍候选）。",
+        undefined,
+        undefined,
+        [
+          ...stillShare,
+          "切换到项目经理",
+          "切换到项目经理并生成流水线",
+          "生成北极星图",
+        ],
+      );
+    } catch (e) {
+      append(
+        "assistant",
+        `共享北极星异常：${e instanceof Error ? e.message : String(e)}`,
       );
     } finally {
       clearBusy(busyId);
@@ -3384,13 +3643,46 @@ export default function App() {
       return;
     }
     if (trimmed === "北极星图" || trimmed === "生成北极星" || trimmed === "生成北极星图") {
-      await handleVisualTargetGenerate();
+      promptVisualTargetScope();
+      return;
+    }
+    if (trimmed === "生成北极星 · 全局" || trimmed === "生成北极星图 · 全局") {
+      await handleVisualTargetGenerate(null);
       return;
     }
     {
-      const pickMatch = trimmed.match(/^选用北极星\s*([a-dA-D])$/);
+      // Scene id may be CJK (e.g. 钓场) — capture full paren content, not ASCII-only.
+      const genScene = trimmed.match(
+        /^生成北极星(?:图)?\s*[·•]\s*.+?（([^）]+)）$/,
+      );
+      if (genScene) {
+        await handleVisualTargetGenerate(genScene[1].trim());
+        return;
+      }
+    }
+    {
+      // Prefer id after ｜ so refresh/old-message clicks keep the correct scene.
+      const pickMatch = trimmed.match(
+        /^选用北极星\s*([a-dA-D])(?:（场景：(?:[^｜|）]*[｜|])?([^）]+)）)?$/,
+      );
       if (pickMatch) {
-        await handleVisualTargetPick(pickMatch[1].toLowerCase());
+        const sceneFromChoice = (pickMatch[2] || "").trim() || null;
+        await handleVisualTargetPick(pickMatch[1].toLowerCase(), sceneFromChoice);
+        return;
+      }
+    }
+    if (trimmed === "也用于 · 全部场景") {
+      const source = lastVtPickSourceRef.current;
+      const all = listBriefScenesForVt()
+        .map((s) => s.id)
+        .filter((id) => !(source?.kind === "scene" && source.sceneId === id));
+      await handleVisualTargetAssign(all.length ? all : listBriefScenesForVt().map((s) => s.id));
+      return;
+    }
+    {
+      const shareMatch = trimmed.match(/^也用于\s*[·•]\s*.+?（([^）]+)）$/);
+      if (shareMatch) {
+        await handleVisualTargetAssign([shareMatch[1].trim()]);
         return;
       }
     }
@@ -3786,7 +4078,7 @@ export default function App() {
               <span className="pm-sticky-actions__label">视觉定稿</span>
               <span className="pm-sticky-actions__hint">
                 {visualReferenceReady
-                  ? "✓ 北极星已写入 brief · 可交给项目经理跑流水线"
+                  ? "✓ 已有北极星（全局或场景）· 可交给项目经理跑流水线"
                   : "Brief 已保存 · 建议先生成并选用北极星图"}
               </span>
               <button
@@ -3799,7 +4091,7 @@ export default function App() {
                 }
                 disabled={chatBusy}
                 onClick={() => void handleSend("生成北极星图")}
-                title="生成整屏玩法预览候选并选用一张写入 visual_reference"
+                title="生成整屏玩法预览候选；有多场景时可按场景选用"
               >
                 {visualReferenceReady ? "✓ 北极星图" : "生成北极星图"}
               </button>
@@ -3886,7 +4178,17 @@ export default function App() {
               agentRole === "brief"
                 ? brainstormChoices.filter(
                     (c) =>
-                      !["生成北极星图", "生成北极星", "北极星图", "都不满意，换风格"].includes(c),
+                      ![
+                        "生成北极星图",
+                        "生成北极星",
+                        "北极星图",
+                        "都不满意，换风格",
+                        "生成北极星 · 全局",
+                        "生成北极星图 · 全局",
+                      ].includes(c) &&
+                      !/^生成北极星(?:图)?\s*[·•]/.test(c) &&
+                      !/^选用北极星\s*[a-dA-D]/.test(c) &&
+                      !/^也用于\s*[·•]/.test(c),
                   )
                 : agentRole === "product_host"
                   ? agentActionChoices.filter(

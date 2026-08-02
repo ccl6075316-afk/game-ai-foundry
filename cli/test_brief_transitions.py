@@ -11,9 +11,11 @@ from brief import (
     AnimationTransitionEdge,
     ProjectContext,
     apply_deterministic_animation_graph_fixes,
+    apply_deterministic_asset_type_fixes,
     apply_deterministic_brief_fixes,
     apply_deterministic_hud_fixes,
     apply_deterministic_visual_reference_fixes,
+    parse_assets_for_audit,
     looks_like_visual_reference_path,
     audit_animation_graphs,
     audit_brief_for_export,
@@ -173,6 +175,108 @@ class BriefTransitionsTests(unittest.TestCase):
         )
         self.assertEqual(errors, [])
 
+    def test_deterministic_asset_id_and_art_direction_fill(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "ui_style": "pixel cozy",
+                "art_direction": "",
+            },
+            "assets": [
+                {
+                    "name": "鱼_鲫鱼_游动",
+                    "type": "character_pose",
+                    "usage": "animation_clip",
+                    "description": "swim",
+                    "display_size": "64x64 px",
+                    "generate_method": "video",
+                    "reference_asset": "fish",
+                    "action": "swim",
+                    "animation_method": "video",
+                },
+                {
+                    "id": "BAD ID",
+                    "name": "rod_icon",
+                    "type": "texture",
+                    "usage": "ui_icon",
+                    "description": "rod",
+                    "display_size": "32x32 px",
+                    "generate_method": "image",
+                },
+            ],
+        }
+        from brief import apply_deterministic_asset_id_fixes, apply_deterministic_project_field_fixes
+
+        fixed, notes = apply_deterministic_asset_id_fixes(draft)
+        self.assertTrue(any("filled" in n for n in notes))
+        ids = [a["id"] for a in fixed["assets"]]
+        self.assertTrue(all(isinstance(i, str) and i[:1].islower() for i in ids))
+        self.assertNotIn("BAD ID", ids)
+        self.assertTrue(ids[0].startswith("pose_"))
+        fixed2, notes2 = apply_deterministic_project_field_fixes(fixed)
+        self.assertEqual(fixed2["project"]["art_direction"], "pixel cozy")
+        self.assertTrue(any("art_direction" in n for n in notes2))
+
+    def test_deterministic_asset_type_aliases(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {
+                    "name": "fish_swim",
+                    "type": "animation",
+                    "usage": "animation_clip",
+                    "reference_asset": "fish",
+                    "animation_method": "video",
+                    "description": "swim",
+                },
+                {
+                    "name": "rod_icon",
+                    "type": "item",
+                    "usage": "ui_icon",
+                    "description": "rod",
+                },
+                {
+                    "name": "kit",
+                    "type": "item",
+                    "usage": "ui_icon",
+                    "items": ["a", "b"],
+                    "description": "kit",
+                },
+            ],
+        }
+        fixed, notes = apply_deterministic_asset_type_fixes(draft)
+        self.assertTrue(any("animation->character_pose" in n for n in notes))
+        self.assertTrue(any("item->texture" in n for n in notes))
+        self.assertTrue(any("item->icon_kit" in n for n in notes))
+        by_name = {a["name"]: a["type"] for a in fixed["assets"]}
+        self.assertEqual(by_name["fish_swim"], "character_pose")
+        self.assertEqual(by_name["rod_icon"], "texture")
+        self.assertEqual(by_name["kit"], "icon_kit")
+
+    def test_parse_assets_for_audit_collects_all_bad_types(self) -> None:
+        assets_raw = [
+            {"name": "a1", "type": "animation", "description": "x"},
+            {"name": "a2", "type": "animation", "description": "x"},
+            {"name": "i1", "type": "item", "description": "x"},
+            {
+                "id": "ok",
+                "name": "hero",
+                "type": "character",
+                "usage": "reference_still",
+                "usage_description": "ref",
+                "description": "h",
+                "display_size": "64x64 px",
+                "generate_method": "image",
+            },
+        ]
+        assets, errors = parse_assets_for_audit(assets_raw)
+        self.assertEqual(len(assets), 1)
+        self.assertEqual(assets[0].name, "hero")
+        blob = "\n".join(errors)
+        self.assertIn("illegal type 'animation'", blob)
+        self.assertIn("illegal type 'item'", blob)
+        self.assertIn("2 asset(s)", blob)
+
     def test_deterministic_hud_binds_ui_elements(self) -> None:
         draft = {
             "project": {"title": "T", "description": "d", "art_direction": "a", "dimension": "2d"},
@@ -228,6 +332,28 @@ class BriefTransitionsTests(unittest.TestCase):
         project = ProjectContext.from_dict(fixed["project"])
         gaps = audit_brief_for_export(project, [], animation_graphs=[])
         self.assertFalse(any("visual_reference" in g for g in gaps))
+
+    def test_clear_scene_visual_reference_prose(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "description": "d",
+                "art_direction": "pixel art",
+                "dimension": "2d",
+                "scenes": [
+                    {
+                        "id": "dock",
+                        "title": "钓场",
+                        "visual_reference": "warm coastal pixel mood board",
+                    }
+                ],
+            },
+            "assets": [],
+        }
+        fixed, notes = apply_deterministic_visual_reference_fixes(draft)
+        self.assertTrue(any("scenes[dock]" in n for n in notes))
+        self.assertNotIn("visual_reference", fixed["project"]["scenes"][0])
+        self.assertIn("warm coastal", fixed["project"]["art_direction"])
 
 
 if __name__ == "__main__":

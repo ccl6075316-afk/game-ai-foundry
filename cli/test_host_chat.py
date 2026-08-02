@@ -183,6 +183,91 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(merged["project"]["session_goal"], "Catch one fish.")
         self.assertEqual(len(merged["animation_graphs"]), 1)
 
+    def test_deep_merge_brief_preserves_omitted_scenes_and_systems(self) -> None:
+        base = {
+            "project": {
+                "title": "Fish",
+                "scenes": [
+                    {"id": "lake", "title": "湖面"},
+                    {"id": "shop", "title": "商店"},
+                ],
+                "systems": [
+                    {"id": "cast", "title": "抛竿"},
+                    {"id": "reel", "title": "收线"},
+                ],
+            },
+            "assets": [],
+        }
+        incoming = {
+            "project": {
+                "title": "Fish",
+                "scenes": [{"id": "lake", "title": "湖面", "summary": "主场景"}],
+                "systems": [{"id": "cast", "title": "抛竿", "summary": "力度条"}],
+            }
+        }
+        merged = deep_merge_brief(base, incoming)
+        assert merged is not None
+        scenes = merged["project"]["scenes"]
+        systems = merged["project"]["systems"]
+        self.assertEqual(len(scenes), 2)
+        self.assertEqual(scenes[0].get("summary"), "主场景")
+        self.assertEqual(scenes[1].get("id"), "shop")
+        self.assertEqual(len(systems), 2)
+        self.assertEqual(systems[0].get("summary"), "力度条")
+        self.assertEqual(systems[1].get("id"), "reel")
+
+    def test_deep_merge_brief_preserves_global_visual_reference(self) -> None:
+        base = {
+            "project": {
+                "title": "Fish",
+                "visual_reference": "output/global/selected.png",
+            },
+            "assets": [],
+        }
+        incoming = {
+            "project": {
+                "title": "Fish",
+                "visual_reference": "",
+                "description": "updated",
+            }
+        }
+        merged = deep_merge_brief(base, incoming)
+        assert merged is not None
+        self.assertEqual(
+            merged["project"]["visual_reference"],
+            "output/global/selected.png",
+        )
+        self.assertEqual(merged["project"]["description"], "updated")
+
+    def test_deep_merge_brief_preserves_scene_visual_reference(self) -> None:
+        base = {
+            "project": {
+                "title": "Fish",
+                "scenes": [
+                    {
+                        "id": "lake",
+                        "title": "湖面",
+                        "visual_reference": "output/lake/selected.png",
+                    }
+                ],
+            },
+            "assets": [],
+        }
+        incoming = {
+            "project": {
+                "scenes": [
+                    {"id": "lake", "title": "湖面", "summary": "主场景", "visual_reference": ""}
+                ]
+            }
+        }
+        merged = deep_merge_brief(base, incoming)
+        assert merged is not None
+        self.assertEqual(
+            merged["project"]["scenes"][0]["visual_reference"],
+            "output/lake/selected.png",
+        )
+        self.assertEqual(merged["project"]["scenes"][0]["summary"], "主场景")
+
     def test_apply_brief_patches_sets_nested_project_fields(self) -> None:
         draft = {
             "project": {
@@ -425,16 +510,16 @@ class HostChatTests(unittest.TestCase):
         with self.assertRaises(HostChatError):
             export_brief(session)
 
-    def test_export_requires_ready_flag(self) -> None:
+    def test_export_requires_contract_complete(self) -> None:
         session = new_session("e2")
         session["draft_brief"] = {
             "project": {"title": "T", "genre": "2d_platformer"},
             "assets": [{"id": "hero", "name": "hero", "type": "character"}],
         }
-        session["ready_to_export"] = False
+        session["ready_to_export"] = True
         with self.assertRaises(HostChatError) as ctx:
             export_brief(session)
-        self.assertIn("ready_to_export", str(ctx.exception))
+        self.assertIn("校验未通过", str(ctx.exception))
 
     def test_status_chat_session(self) -> None:
         session = new_session("s1")
@@ -510,9 +595,86 @@ class HostChatTests(unittest.TestCase):
         msg = build_autofix_user_message(["animation_graphs 'hero': unknown to clip '跑动'"], draft)
         self.assertIn("unknown to clip", msg)
         self.assertIn("states", msg)
+        self.assertIn("brief_patches", msg)
         self.assertIn("hero:", msg)
         self.assertIn("idle", msg)
         self.assertIn("资产 → Godot clip", msg)
+        type_msg = build_autofix_user_message(
+            ["2 asset(s) have illegal type 'animation' (e.g. a1, a2)."],
+            draft,
+        )
+        self.assertIn("brief_patches", type_msg)
+        self.assertIn("character_pose", type_msg)
+        self.assertNotIn("资产 → Godot clip", type_msg)
+
+    def test_autofix_deterministic_clears_illegal_asset_types(self) -> None:
+        """animation/item aliases are code-fixed; LLM must not be required for that."""
+        session = new_session("af-types")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Demo",
+                "description": "A simple demo game.",
+                "art_direction": "pixel",
+                "dimension": "2d",
+                "genre": "2d_platformer",
+                "gameplay_loop": "Jump around.",
+                "session_goal": "Move.",
+                "player_asset": "hero",
+                "controls": {"move_left": ["A"], "move_right": ["D"]},
+                "viewport": {"width": 1280, "height": 720},
+                "camera": {"mode": "follow_player"},
+            },
+            "assets": [
+                {
+                    "id": "hero",
+                    "name": "hero",
+                    "type": "character",
+                    "usage": "reference_still",
+                    "usage_description": "ref",
+                    "description": "Hero",
+                    "display_size": "64x64 px",
+                    "generate_method": "image",
+                },
+                {
+                    "id": "hero_walk",
+                    "name": "hero_walk",
+                    "type": "animation",
+                    "usage": "player_locomotion",
+                    "usage_description": "walk",
+                    "description": "Walk",
+                    "display_size": "64x64 px",
+                    "generate_method": "video",
+                    "reference_asset": "hero",
+                    "action": "walking",
+                    "animation_method": "video",
+                },
+                {
+                    "id": "coin_icon",
+                    "name": "coin_icon",
+                    "type": "item",
+                    "usage": "ui_icon",
+                    "usage_description": "coin",
+                    "description": "Coin",
+                    "display_size": "32x32 px",
+                    "generate_method": "image",
+                },
+            ],
+            "animation_graphs": [
+                {
+                    "character_asset": "hero",
+                    "default_clip": "walk",
+                    "transitions": [],
+                }
+            ],
+        }
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch("host_chat.chat_text_completion") as mock_llm:
+            result = run_autofix(session, config=config, max_rounds=3)
+        mock_llm.assert_not_called()
+        self.assertTrue(result["ok"], result)
+        types = {a["name"]: a["type"] for a in session["draft_brief"]["assets"]}
+        self.assertEqual(types["hero_walk"], "character_pose")
+        self.assertEqual(types["coin_icon"], "texture")
 
     def test_autofix_deterministic_clears_clip_mismatch(self) -> None:
         """Clip name typos are code-fixed; LLM must not be required."""
@@ -785,6 +947,88 @@ class HostChatTests(unittest.TestCase):
             self.assertEqual(assets[1]["name"], "newer")
             disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
             self.assertEqual(len(disk.get("assets") or []), 2)
+
+    def test_attach_bound_does_not_clobber_richer_disk_after_pull(self) -> None:
+        from host_chat import attach_bound_project, draft_fingerprint
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fishing-2d"
+            proj.mkdir(parents=True)
+            thin = {
+                "project": {"title": "2D钓鱼模拟器"},
+                "assets": [{"name": "old", "type": "prop", "usage": "x"}],
+            }
+            rich = {
+                "project": {
+                    "title": "2D钓鱼模拟器",
+                    "scenes": [{"id": "lake", "title": "湖面"}],
+                    "systems": [{"id": "cast", "title": "抛竿"}],
+                },
+                "assets": [
+                    {"name": "old", "type": "prop", "usage": "x"},
+                    {"name": "rod", "type": "prop", "usage": "y"},
+                    {"name": "carp", "type": "character", "usage": "z"},
+                ],
+            }
+            (proj / "brief.draft.json").write_text(
+                json.dumps(rich, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            session = new_session("bind-pull")
+            session["bound_brief_rel"] = "projects/fishing-2d/brief.json"
+            session["draft_brief"] = thin
+            # Session still thinks disk is the thin draft it last wrote.
+            session["draft_disk_fingerprint"] = draft_fingerprint(thin)
+            attach_bound_project(session, "projects/fishing-2d/brief.json", repo_root=root)
+            assets = (session.get("draft_brief") or {}).get("assets") or []
+            self.assertEqual(len(assets), 3)
+            disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(disk.get("assets") or []), 3)
+            self.assertEqual(len(disk["project"].get("scenes") or []), 1)
+
+    def test_sync_session_draft_from_disk_reloads_after_external_edit(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fishing-2d"
+            proj.mkdir(parents=True)
+            session = new_session("sync-pull")
+            session["bound_brief_rel"] = "projects/fishing-2d/brief.json"
+            session["draft_brief"] = {
+                "project": {"title": "2D钓鱼模拟器"},
+                "assets": [{"name": "old", "type": "prop", "usage": "x"}],
+            }
+            persist_project_draft(session, repo_root=root)
+            thin_fp = session["draft_disk_fingerprint"]
+            rich = {
+                "project": {
+                    "title": "2D钓鱼模拟器",
+                    "scenes": [{"id": "lake", "title": "湖面"}],
+                },
+                "assets": [
+                    {"name": "old", "type": "prop", "usage": "x"},
+                    {"name": "rod", "type": "prop", "usage": "y"},
+                ],
+            }
+            (proj / "brief.draft.json").write_text(
+                json.dumps(rich, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            self.assertNotEqual(draft_fingerprint(rich), thin_fp)
+            changed = sync_session_draft_from_disk(session, repo_root=root)
+            self.assertTrue(changed)
+            self.assertEqual(len((session.get("draft_brief") or {}).get("assets") or []), 2)
+            self.assertEqual(
+                (session.get("draft_brief") or {})
+                .get("project", {})
+                .get("scenes", [{}])[0]
+                .get("id"),
+                "lake",
+            )
+            # Second call with unchanged mtime should be a no-op.
+            self.assertFalse(sync_session_draft_from_disk(session, repo_root=root))
 
     def test_save_session_persists_bound_draft(self) -> None:
         from host_chat import persist_project_draft, save_session

@@ -75,6 +75,7 @@ class NormalizeScenesSystemsTests(unittest.TestCase):
                     "summary": "Cast and fight.",
                     "ui_panel_ids": ["sell", "", "sell", "hud"],
                     "notes": "main loop screen",
+                    "visual_reference": "output/fish/visual-target/combat/selected.png",
                 }
             ]
         )
@@ -87,9 +88,41 @@ class NormalizeScenesSystemsTests(unittest.TestCase):
                     "summary": "Cast and fight.",
                     "ui_panel_ids": ["sell", "hud"],
                     "notes": "main loop screen",
+                    "visual_reference": "output/fish/visual-target/combat/selected.png",
                 }
             ],
         )
+
+    def test_scenes_keep_prose_visual_reference_for_audit(self) -> None:
+        """Prose must survive normalize so audit/autofix can see it (like global VR)."""
+        from brief import (
+            ProjectContext,
+            apply_deterministic_visual_reference_fixes,
+            audit_visual_reference,
+        )
+
+        prose = "warm coastal pixel art mood board"
+        out = normalize_scenes(
+            [
+                {
+                    "id": "dock",
+                    "title": "钓场",
+                    "visual_reference": prose,
+                }
+            ]
+        )
+        self.assertEqual(out[0]["visual_reference"], prose)
+        project = ProjectContext.from_dict(
+            {"title": "T", "scenes": [{"id": "dock", "title": "钓场", "visual_reference": prose}]}
+        )
+        gaps = audit_visual_reference(project)
+        self.assertTrue(any("scenes[dock].visual_reference" in g for g in gaps))
+        fixed, notes = apply_deterministic_visual_reference_fixes(
+            {"project": {"title": "T", "art_direction": "pixel", "scenes": out}}
+        )
+        self.assertTrue(any("scenes[dock]" in n for n in notes))
+        self.assertNotIn("visual_reference", fixed["project"]["scenes"][0])
+        self.assertIn("warm coastal", fixed["project"]["art_direction"])
 
     def test_systems_optional_fields(self) -> None:
         out = normalize_systems(

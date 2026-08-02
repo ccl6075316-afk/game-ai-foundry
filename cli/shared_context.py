@@ -197,34 +197,63 @@ def build_role_context(
     }
 
 
-def build_visual_target_context(project: ProjectContext, variant: dict[str, str]) -> dict[str, Any]:
+def build_visual_target_context(
+    project: ProjectContext,
+    variant: dict[str, str],
+    *,
+    scene: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Context for visual_target craft (project-level, no asset row)."""
     size = display_size_from_viewport(project.viewport).to_api_string()
     player = (project.player_asset or "").strip() or "player character"
     hud = project.hud if isinstance(project.hud, list) else []
     camera = project.camera if isinstance(project.camera, dict) else {}
+    scene_id = str((scene or {}).get("id") or "").strip()
+    scene_title = str((scene or {}).get("title") or "").strip()
+    usage = (
+        "Full viewport gameplay mock; becomes project.visual_reference after user pick. "
+        "Not a sprite sheet or character isolate. "
+        "Fill structured JSON fields; Python assembles the image prompt."
+    )
+    if scene_id:
+        usage = (
+            f"Full viewport mock for scene '{scene_title or scene_id}' "
+            f"(writes project.scenes[{scene_id}].visual_reference after pick). "
+            "Match this screen's mood/layout; keep art_direction locks. "
+            "Not a sprite sheet. Fill structured JSON fields."
+        )
+    checklist = [
+        f"Viewer must instantly recognize '{player}' as the player-controlled focus",
+        "This frame must show one concrete beat from gameplay_loop / variant_focus",
+        "Environment must be readable as an in-game space, not a poster backdrop",
+        "Match art_direction locks; do not invent a new art style",
+    ]
+    if scene_id:
+        checklist.insert(
+            1,
+            f"Frame must clearly depict the '{scene_title or scene_id}' screen/scene",
+        )
+    vt: dict[str, Any] = {
+        "variant_id": variant["id"],
+        "variant_label": variant["label"],
+        "variant_focus": variant["focus"],
+        "target_image_size": size,
+        "player_focus": player,
+        "camera": camera,
+        "hud": hud,
+        "readability_checklist": checklist,
+        "usage": usage,
+    }
+    if scene:
+        vt["scene"] = {
+            "id": scene_id,
+            "title": scene_title,
+            "summary": str(scene.get("summary") or "").strip(),
+            "notes": str(scene.get("notes") or "").strip(),
+        }
     return {
         "project": project_to_dict(project),
-        "visual_target": {
-            "variant_id": variant["id"],
-            "variant_label": variant["label"],
-            "variant_focus": variant["focus"],
-            "target_image_size": size,
-            "player_focus": player,
-            "camera": camera,
-            "hud": hud,
-            "readability_checklist": [
-                f"Viewer must instantly recognize '{player}' as the player-controlled focus",
-                "This frame must show one concrete beat from gameplay_loop / variant_focus",
-                "Environment must be readable as an in-game space, not a poster backdrop",
-                "Match art_direction locks; do not invent a new art style",
-            ],
-            "usage": (
-                "Full viewport gameplay mock; becomes project.visual_reference after user pick. "
-                "Not a sprite sheet or character isolate. "
-                "Fill structured JSON fields; Python assembles the image prompt."
-            ),
-        },
+        "visual_target": vt,
     }
 
 

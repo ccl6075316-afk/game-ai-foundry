@@ -1021,11 +1021,17 @@ def register_brief_commands(cli_group: click.Group) -> None:
         help="Number of composition variants (max 4).",
     )
     @click.option(
+        "--scene",
+        "scene_id",
+        default=None,
+        help="Optional project.scenes[].id — generate a north-star for that screen.",
+    )
+    @click.option(
         "--output-dir",
         "output_dir",
         default=None,
         type=click.Path(path_type=Path),
-        help="Output folder (default: ../output/<slug>/visual-target).",
+        help="Output folder (default: ../output/<slug>/visual-target[/<scene>]).",
     )
     @click.option("--dry-run", is_flag=True, help="Write handoffs + manifest only; no image API.")
     @click.option(
@@ -1039,6 +1045,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         ctx: click.Context,
         brief_path: Path,
         candidates: int,
+        scene_id: str | None,
         output_dir: Path | None,
         dry_run: bool,
         no_craft: bool,
@@ -1049,7 +1056,8 @@ def register_brief_commands(cli_group: click.Group) -> None:
 
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         proxy = ctx.obj.get("proxy") if ctx.obj else None
-        out = output_dir or default_output_dir(brief_path)
+        sid = (scene_id or "").strip() or None
+        out = output_dir or default_output_dir(brief_path, scene_id=sid)
         try:
             manifest = generate_visual_targets(
                 brief_path,
@@ -1059,6 +1067,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 proxy=proxy,
                 dry_run=dry_run,
                 craft=not no_craft,
+                scene_id=sid,
             )
         except (VisualTargetError, RuntimeError, ValueError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
@@ -1067,6 +1076,8 @@ def register_brief_commands(cli_group: click.Group) -> None:
         if as_json:
             click.echo(json.dumps(manifest, ensure_ascii=False, indent=2))
         else:
+            if sid:
+                click.echo(f"Scene: {sid}")
             click.echo(f"Manifest: {manifest['manifest_path']}")
             for c in manifest["candidates"]:
                 click.echo(f"  [{c['id']}] {c['label']} → {c['path']}")
@@ -1089,34 +1100,86 @@ def register_brief_commands(cli_group: click.Group) -> None:
         type=click.Path(exists=True, path_type=Path),
         help="Resolve default manifest from brief slug.",
     )
+    @click.option(
+        "--scene",
+        "scene_id",
+        default=None,
+        help="Optional scene id (reads visual-target/<scene>/manifest.json).",
+    )
     @click.option("--json", "as_json", is_flag=True)
     def visual_target_list_cmd(
         manifest_path: Path | None,
         brief_path: Path | None,
+        scene_id: str | None,
         as_json: bool,
     ) -> None:
         """List visual-target candidates from manifest."""
-        from visual_target import VisualTargetError, default_output_dir, load_visual_target_manifest
+        from visual_target import (
+            VisualTargetError,
+            find_manifest_for_brief,
+            load_visual_target_manifest,
+        )
 
-        if manifest_path is None:
-            if brief_path is None:
-                click.echo("Error: pass --manifest or --brief.", err=True)
-                sys.exit(1)
-            manifest_path = default_output_dir(brief_path) / "manifest.json"
+        sid = (scene_id or "").strip() or None
         try:
+            if manifest_path is None:
+                if brief_path is None:
+                    click.echo("Error: pass --manifest or --brief.", err=True)
+                    sys.exit(1)
+                # Same resolution as pick (global when --scene omitted).
+                manifest_path = find_manifest_for_brief(
+                    brief_path, None, scene_id=sid
+                )
             manifest = load_visual_target_manifest(manifest_path)
         except (VisualTargetError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
 
         if as_json:
-            click.echo(json.dumps(manifest, ensure_ascii=False, indent=2))
+            # Surface which file was chosen so CLI/GUI can see list≡pick target.
+            payload = dict(manifest)
+            payload["manifest_path"] = str(Path(manifest_path).resolve())
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
         else:
+            click.echo(f"Manifest: {Path(manifest_path).resolve()}")
             sel = manifest.get("selected_id") or "(none)"
             click.echo(f"Selected: {sel}")
+            if manifest.get("scene_id"):
+                click.echo(f"Scene: {manifest.get('scene_id')}")
             for c in manifest.get("candidates", []):
                 if isinstance(c, dict):
                     click.echo(f"  [{c.get('id')}] {c.get('label')} — {c.get('path')}")
+
+    @visual_target_group.command("status")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def visual_target_status_cmd(brief_path: Path, as_json: bool) -> None:
+        """Show global + per-scene north-star readiness on the brief."""
+        from visual_target import VisualTargetError, visual_target_brief_status
+
+        try:
+            st = visual_target_brief_status(brief_path)
+        except (VisualTargetError, json.JSONDecodeError, OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(st, ensure_ascii=False, indent=2))
+        else:
+            click.echo(
+                f"ready={st.get('ready')} global={st.get('global_ready')} "
+                f"ref={st.get('visual_reference') or '(none)'}"
+            )
+            for sc in st.get("scenes") or []:
+                mark = "ok" if sc.get("ready") else "—"
+                click.echo(
+                    f"  [{mark}] {sc.get('id')} {sc.get('title') or ''} "
+                    f"→ {sc.get('visual_reference') or '(none)'}"
+                )
 
     @visual_target_group.command("pick")
     @click.option(
@@ -1127,24 +1190,55 @@ def register_brief_commands(cli_group: click.Group) -> None:
     )
     @click.option("--id", "candidate_id", required=True, help="Candidate id (a, b, c, d).")
     @click.option(
+        "--scene",
+        "scene_ids",
+        multiple=True,
+        help="Scene id(s) to write the same visual_reference (repeatable).",
+    )
+    @click.option(
         "--manifest",
         "manifest_path",
         default=None,
         type=click.Path(exists=True, path_type=Path),
     )
+    @click.option(
+        "--auto-match/--no-auto-match",
+        default=True,
+        show_default=True,
+        help="Also assign empty scenes whose description matches the candidate prompt.",
+    )
     @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
     def visual_target_pick_cmd(
+        ctx: click.Context,
         brief_path: Path,
         candidate_id: str,
+        scene_ids: tuple[str, ...],
         manifest_path: Path | None,
+        auto_match: bool,
         as_json: bool,
     ) -> None:
-        """Select a candidate and write project.visual_reference on the brief."""
+        """Select a candidate; optional --scene may be repeated to share one north star."""
         from visual_target import VisualTargetError, apply_visual_target_pick, find_manifest_for_brief
 
+        sids = [s.strip() for s in scene_ids if str(s).strip()]
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        proxy = ctx.obj.get("proxy") if ctx.obj else None
         try:
-            manifest = find_manifest_for_brief(brief_path, manifest_path)
-            result = apply_visual_target_pick(brief_path, candidate_id, manifest)
+            manifest = find_manifest_for_brief(
+                brief_path,
+                manifest_path,
+                scene_ids=sids or None,
+            )
+            result = apply_visual_target_pick(
+                brief_path,
+                candidate_id,
+                manifest,
+                scene_ids=sids or None,
+                auto_match_scenes=auto_match,
+                config=config,
+                proxy=proxy,
+            )
         except (VisualTargetError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
@@ -1152,5 +1246,91 @@ def register_brief_commands(cli_group: click.Group) -> None:
         if as_json:
             click.echo(json.dumps(result, ensure_ascii=False, indent=2))
         else:
-            click.echo(f"visual_reference → {result['visual_reference']}")
+            applied = result.get("scene_ids") or []
+            if applied:
+                click.echo(
+                    f"scenes[{', '.join(applied)}].visual_reference → {result['visual_reference']}"
+                )
+            else:
+                click.echo(f"visual_reference → {result['visual_reference']}")
+            auto = result.get("auto_matched_scene_ids") or []
+            if auto:
+                click.echo(
+                    f"auto-matched ({result.get('auto_match_method') or '?'}): {', '.join(auto)}"
+                )
+            click.echo(f"Brief updated: {result['brief_path']}")
+
+    @visual_target_group.command("assign")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+    )
+    @click.option(
+        "--scene",
+        "scene_ids",
+        multiple=True,
+        required=True,
+        help="Target scene id(s) that should share the north star (repeatable).",
+    )
+    @click.option(
+        "--from-scene",
+        "from_scene",
+        default=None,
+        help="Copy visual_reference path from this scene (no file copy).",
+    )
+    @click.option(
+        "--from-global",
+        is_flag=True,
+        help="Copy path from project.visual_reference.",
+    )
+    @click.option(
+        "--ref",
+        "ref_path",
+        default=None,
+        help="Explicit image path to write onto the target scenes.",
+    )
+    @click.option(
+        "--force",
+        is_flag=True,
+        help="Overwrite scenes that already have a different visual_reference.",
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    def visual_target_assign_cmd(
+        brief_path: Path,
+        scene_ids: tuple[str, ...],
+        from_scene: str | None,
+        from_global: bool,
+        ref_path: str | None,
+        force: bool,
+        as_json: bool,
+    ) -> None:
+        """Share one existing north-star path across multiple scenes."""
+        from visual_target import VisualTargetError, assign_visual_reference_to_scenes
+
+        sids = [s.strip() for s in scene_ids if str(s).strip()]
+        try:
+            result = assign_visual_reference_to_scenes(
+                brief_path,
+                scene_ids=sids,
+                from_scene=(from_scene or "").strip() or None,
+                from_global=from_global,
+                ref=(ref_path or "").strip() or None,
+                overwrite=force,
+            )
+        except (VisualTargetError, json.JSONDecodeError, OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        if as_json:
+            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            click.echo(
+                f"assigned scenes[{', '.join(result['scene_ids'])}] "
+                f"← {result['source']} → {result['visual_reference']}"
+            )
+            skipped = result.get("skipped_scene_ids") or []
+            if skipped:
+                click.echo(f"skipped (already set; use --force): {', '.join(skipped)}")
             click.echo(f"Brief updated: {result['brief_path']}")

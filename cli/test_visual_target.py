@@ -6,18 +6,27 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from visual_target import (
+    _safe_scene_dir,
     apply_visual_target_pick,
+    assign_visual_reference_to_scenes,
+    brief_has_any_visual_reference,
     build_candidate_prompts,
     build_visual_target_plan,
     default_output_dir,
+    find_manifest_for_brief,
     generate_visual_targets,
     load_visual_target_manifest,
+    match_scenes_for_north_star,
+    resolve_visual_reference_for_asset,
+    resolve_visual_reference_path,
+    visual_target_brief_status,
 )
 
 
-def _write_example_brief(dir_path: Path) -> Path:
+def _write_example_brief(dir_path: Path, *, with_scenes: bool = False) -> Path:
     brief = {
         "project": {
             "title": "Dino Scavenger",
@@ -37,6 +46,21 @@ def _write_example_brief(dir_path: Path) -> Path:
             }
         ],
     }
+    if with_scenes:
+        brief["project"]["scenes"] = [
+            {
+                "id": "dock",
+                "title": "钓场",
+                "summary": "Calm pier casting.",
+                "notes": "wide horizon",
+            },
+            {
+                "id": "combat",
+                "title": "搏鱼",
+                "summary": "Tense fight UI.",
+            },
+        ]
+        brief["assets"][0]["scene_ids"] = ["combat", "dock"]
     path = dir_path / "dino-brief.json"
     path.write_text(json.dumps(brief), encoding="utf-8")
     return path
@@ -136,6 +160,656 @@ class TestVisualTarget(unittest.TestCase):
         updated = load_visual_target_manifest(manifest_path)
         self.assertEqual(updated["selected_id"], "b")
         self.assertTrue((out_dir / "selected.png").is_file())
+
+    def test_default_output_dir_with_scene(self) -> None:
+        out = default_output_dir(self.example_brief, scene_id="combat")
+        self.assertEqual(out.name, "combat")
+        self.assertEqual(out.parent.name, "visual-target")
+
+    def test_safe_scene_dir_cjk_unique(self) -> None:
+        self.assertEqual(_safe_scene_dir("combat"), "combat")
+        a = _safe_scene_dir("钓场")
+        b = _safe_scene_dir("搏鱼")
+        self.assertTrue(a.startswith("scene_"))
+        self.assertTrue(b.startswith("scene_"))
+        self.assertNotEqual(a, b)
+        self.assertEqual(_safe_scene_dir("钓场"), a)
+        # Punctuation / separators must not collide with clean ASCII ids
+        self.assertNotEqual(_safe_scene_dir("combat!"), "combat")
+        self.assertNotEqual(_safe_scene_dir("foo/bar"), _safe_scene_dir("foo_bar"))
+        self.assertEqual(_safe_scene_dir("foo_bar"), "foo_bar")
+
+    def test_find_manifest_without_scene_prefers_global(self) -> None:
+        """No --scene → global manifest even if a newer scene manifest exists."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        base = self.tmp_path / "vt"
+        global_dir = base
+        scene_dir = base / "combat"
+        global_dir.mkdir(parents=True)
+        scene_dir.mkdir(parents=True)
+        global_m = global_dir / "manifest.json"
+        scene_m = scene_dir / "manifest.json"
+        global_m.write_text(
+            json.dumps(
+                {
+                    "brief_path": str(brief),
+                    "candidates": [{"id": "a", "path": "old.png"}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        import time
+
+        time.sleep(0.02)
+        scene_m.write_text(
+            json.dumps(
+                {
+                    "brief_path": str(brief),
+                    "scene_id": "combat",
+                    "candidates": [{"id": "b", "path": "new.png"}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch(
+            "visual_target.default_output_dir",
+            side_effect=lambda bp, scene_id=None: (
+                scene_dir if scene_id else global_dir
+            ),
+        ):
+            listed = find_manifest_for_brief(brief, None)
+            picked = find_manifest_for_brief(brief, None)
+            scene_found = find_manifest_for_brief(brief, None, scene_id="combat")
+        self.assertEqual(listed.resolve(), global_m.resolve())
+        self.assertEqual(picked.resolve(), global_m.resolve())
+        self.assertEqual(scene_found.resolve(), scene_m.resolve())
+
+    def test_find_manifest_without_global_requires_scene(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        base = self.tmp_path / "vt-only-scene"
+        scene_dir = base / "combat"
+        scene_dir.mkdir(parents=True)
+        (scene_dir / "manifest.json").write_text(
+            json.dumps(
+                {
+                    "brief_path": str(brief),
+                    "scene_id": "combat",
+                    "candidates": [{"id": "a", "path": "x.png"}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch(
+            "visual_target.default_output_dir",
+            side_effect=lambda bp, scene_id=None: (
+                scene_dir if scene_id else base
+            ),
+        ):
+            with self.assertRaises(Exception) as ctx:
+                find_manifest_for_brief(brief, None)
+        self.assertIn("--scene", str(ctx.exception))
+
+    def test_find_manifest_tries_multiple_scene_ids(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        dock_dir = self.tmp_path / "visual-target" / "dock"
+        dock_dir.mkdir(parents=True)
+        man = dock_dir / "manifest.json"
+        man.write_text(
+            json.dumps(
+                {
+                    "brief_path": str(brief),
+                    "scene_id": "dock",
+                    "candidates": [{"id": "a", "path": "x.png"}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch(
+            "visual_target.default_output_dir",
+            side_effect=lambda bp, scene_id=None: (
+                self.tmp_path / "visual-target" / str(scene_id)
+                if scene_id
+                else self.tmp_path / "visual-target"
+            ),
+        ):
+            # combat missing, dock present — second id wins
+            found = find_manifest_for_brief(
+                brief, None, scene_ids=["combat", "dock"]
+            )
+        self.assertEqual(found.resolve(), man.resolve())
+
+    def test_generate_dry_run_scene_subdir_and_manifest(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans"
+        manifest = generate_visual_targets(
+            brief,
+            out,
+            count=2,
+            config={},
+            dry_run=True,
+            craft=False,
+            plans_dir=plans,
+            scene_id="combat",
+        )
+        self.assertEqual(manifest["scene_id"], "combat")
+        self.assertTrue((out / "manifest.json").is_file())
+        prompt = manifest["candidates"][0]["prompt"].lower()
+        self.assertTrue(
+            "搏鱼" in prompt or "tense fight" in prompt or "combat" in prompt,
+            msg=prompt[:400],
+        )
+
+    def test_pick_scene_writes_scene_ref_without_seeding_global(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out_dir = self.tmp_path / "visual-target" / "combat"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest = {
+            "viewport_size": "1280x720",
+            "scene_id": "combat",
+            "candidates": [
+                {"id": "a", "label": "opening", "path": str(fake_png)},
+            ],
+        }
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = apply_visual_target_pick(
+                brief, "a", manifest_path, scene_id="combat"
+            )
+
+        self.assertEqual(result["scene_id"], "combat")
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        scenes = {s["id"]: s for s in data["project"]["scenes"]}
+        self.assertTrue(scenes["combat"]["visual_reference"])
+        # Scene pick must not seed global (avoids wrong style-img2img fallback).
+        self.assertFalse(str(data["project"].get("visual_reference") or "").strip())
+        self.assertTrue(brief_has_any_visual_reference(brief))
+        self.assertTrue((out_dir / "selected.png").is_file())
+        self.assertNotIn("visual_reference", scenes["dock"])
+
+    def test_pick_scene_does_not_overwrite_existing_global(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        data["project"]["visual_reference"] = "output/keep/global.png"
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        out_dir = self.tmp_path / "visual-target" / "dock"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_b.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "dock",
+                    "candidates": [
+                        {"id": "b", "label": "calm", "path": str(fake_png)},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            apply_visual_target_pick(brief, "b", manifest_path, scene_id="dock")
+
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        self.assertEqual(updated["project"]["visual_reference"], "output/keep/global.png")
+        dock = next(s for s in updated["project"]["scenes"] if s["id"] == "dock")
+        self.assertTrue(dock["visual_reference"])
+        self.assertNotEqual(dock["visual_reference"], "output/keep/global.png")
+
+    def test_resolve_falls_back_to_global(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        global_png = self.tmp_path / "global.png"
+        global_png.write_bytes(b"\x89PNG\r\n")
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        data["project"]["visual_reference"] = str(global_png)
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        self.assertEqual(resolve_visual_reference_path(brief), global_png.resolve())
+        self.assertIsNone(resolve_visual_reference_path(brief, scene_id="combat"))
+        self.assertEqual(
+            resolve_visual_reference_for_asset(brief, scene_ids=["combat", "dock"]),
+            global_png.resolve(),
+        )
+        self.assertTrue(brief_has_any_visual_reference(brief))
+
+    def test_resolve_prefers_matching_scene(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        global_png = self.tmp_path / "global.png"
+        scene_png = self.tmp_path / "combat.png"
+        global_png.write_bytes(b"\x89PNG\r\n")
+        scene_png.write_bytes(b"\x89PNG\r\n")
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        data["project"]["visual_reference"] = str(global_png)
+        for scene in data["project"]["scenes"]:
+            if scene["id"] == "combat":
+                scene["visual_reference"] = str(scene_png)
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        self.assertEqual(
+            resolve_visual_reference_path(brief, scene_id="combat"),
+            scene_png.resolve(),
+        )
+        self.assertEqual(
+            resolve_visual_reference_for_asset(brief, scene_ids=["combat", "dock"]),
+            scene_png.resolve(),
+        )
+        # Unknown scene id → fall through to global
+        self.assertEqual(
+            resolve_visual_reference_for_asset(brief, scene_ids=["missing"]),
+            global_png.resolve(),
+        )
+        st = visual_target_brief_status(brief)
+        self.assertTrue(st["ready"])
+        self.assertTrue(st["global_ready"])
+        combat = next(s for s in st["scenes"] if s["id"] == "combat")
+        self.assertTrue(combat["ready"])
+        dock = next(s for s in st["scenes"] if s["id"] == "dock")
+        self.assertFalse(dock["ready"])
+
+    def test_match_scenes_prompt_vs_description(self) -> None:
+        scenes = [
+            {
+                "id": "dock",
+                "title": "钓场",
+                "summary": "Calm pier casting on the harbor.",
+                "notes": "wide horizon pier",
+            },
+            {
+                "id": "combat",
+                "title": "搏鱼",
+                "summary": "Tense fight UI and struggle bar.",
+            },
+            {
+                "id": "aquarium",
+                "title": "水族馆",
+                "summary": "Indoor fish tank collection display.",
+                "visual_reference": "output/already.png",
+            },
+        ]
+        pier_prompt = (
+            "Full viewport gameplay mock of calm pier casting harbor dock, "
+            "wide horizon, fishing rod, peaceful water."
+        )
+        ranked = match_scenes_for_north_star(scenes, prompt=pier_prompt)
+        ids = [r["id"] for r in ranked]
+        self.assertIn("dock", ids)
+        self.assertNotIn("combat", ids)
+        # already has visual_reference → skipped
+        self.assertNotIn("aquarium", ids)
+
+        fight_prompt = "tense fight struggle combat UI reel battle bar"
+        fight_ids = [r["id"] for r in match_scenes_for_north_star(scenes, prompt=fight_prompt)]
+        self.assertIn("combat", fight_ids)
+        self.assertNotIn("dock", fight_ids)
+
+    def test_pick_auto_matches_similar_empty_scenes(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        # Add a second calm scene that should share dock's north star
+        data["project"]["scenes"].append(
+            {
+                "id": "harbor_shop",
+                "title": "码头商店",
+                "summary": "Calm pier shop near the harbor casting area.",
+                "notes": "same dock mood, wide horizon",
+            }
+        )
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        out_dir = self.tmp_path / "visual-target" / "dock"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "dock",
+                    "candidates": [
+                        {
+                            "id": "a",
+                            "label": "opening",
+                            "prompt_summary": "Calm pier casting harbor",
+                            "prompt": (
+                                "Calm pier casting on the harbor dock, "
+                                "wide horizon, peaceful fishing water."
+                            ),
+                            "path": str(fake_png),
+                        },
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = apply_visual_target_pick(
+                brief,
+                "a",
+                manifest_path,
+                scene_id="dock",
+                auto_match_scenes=True,
+                config={},  # force heuristic (no LLM key)
+            )
+        self.assertEqual(result.get("scene_ids"), ["dock"])
+        self.assertIn("harbor_shop", result.get("auto_matched_scene_ids") or [])
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        scenes = {s["id"]: s for s in updated["project"]["scenes"]}
+        self.assertEqual(
+            scenes["dock"]["visual_reference"],
+            scenes["harbor_shop"]["visual_reference"],
+        )
+        # Contrasting combat must stay empty
+        self.assertNotIn("visual_reference", scenes["combat"])
+        # Scene generate scope stays dock (auto_match must not rewrite scene_id).
+        remanifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(remanifest.get("scene_id"), "dock")
+        self.assertEqual(remanifest.get("scene_ids"), ["dock"])
+        self.assertIn("harbor_shop", remanifest.get("auto_matched_scene_ids") or [])
+
+    def test_global_pick_auto_match_keeps_manifest_global(self) -> None:
+        """Global generate/pick must not become scene-scoped via auto_match."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        data["project"]["scenes"].append(
+            {
+                "id": "harbor_shop",
+                "title": "码头商店",
+                "summary": "Calm pier shop near the harbor casting area.",
+                "notes": "same dock mood, wide horizon",
+            }
+        )
+        brief.write_text(json.dumps(data), encoding="utf-8")
+        out_dir = self.tmp_path / "visual-target"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "candidates": [
+                        {
+                            "id": "a",
+                            "label": "opening",
+                            "prompt": (
+                                "Calm pier casting on the harbor dock, "
+                                "wide horizon, peaceful fishing water."
+                            ),
+                            "path": str(fake_png),
+                        },
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = apply_visual_target_pick(
+                brief,
+                "a",
+                manifest_path,
+                auto_match_scenes=True,
+                config={},
+            )
+        self.assertTrue(result.get("auto_matched_scene_ids"))
+        # Return scope stays global — auto_match must not fill scene_ids.
+        self.assertEqual(result.get("scene_ids") or [], [])
+        self.assertIsNone(result.get("scene_id"))
+        remanifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertIsNone(remanifest.get("scene_id"))
+        self.assertEqual(remanifest.get("scene_ids") or [], [])
+        # Re-pick without --scene must still update global, not scene-only.
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            apply_visual_target_pick(
+                brief,
+                "a",
+                manifest_path,
+                auto_match_scenes=False,
+                config={},
+            )
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        self.assertTrue(str(updated["project"].get("visual_reference") or "").strip())
+        remanifest2 = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertNotIn("auto_matched_scene_ids", remanifest2)
+        self.assertNotIn("auto_match_method", remanifest2)
+
+    def test_pick_infers_manifest_scene_ids_list(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out_dir = self.tmp_path / "visual-target" / "combat"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "combat",
+                    "scene_ids": ["combat", "dock"],
+                    "candidates": [
+                        {"id": "a", "label": "opening", "path": str(fake_png)},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = apply_visual_target_pick(
+                brief, "a", manifest_path, auto_match_scenes=False
+            )
+        self.assertEqual(result["scene_ids"], ["combat", "dock"])
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        scenes = {s["id"]: s for s in data["project"]["scenes"]}
+        self.assertEqual(
+            scenes["combat"]["visual_reference"],
+            scenes["dock"]["visual_reference"],
+        )
+
+    def test_pick_auto_match_does_not_overwrite(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        data["project"]["scenes"].append(
+            {
+                "id": "harbor_shop",
+                "title": "码头商店",
+                "summary": "Calm pier shop near the harbor.",
+                "visual_reference": "output/keep-me.png",
+            }
+        )
+        brief.write_text(json.dumps(data), encoding="utf-8")
+        out_dir = self.tmp_path / "visual-target" / "dock"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "dock",
+                    "candidates": [
+                        {
+                            "id": "a",
+                            "label": "opening",
+                            "prompt": "Calm pier casting harbor dock wide horizon",
+                            "path": str(fake_png),
+                        },
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            apply_visual_target_pick(
+                brief,
+                "a",
+                manifest_path,
+                scene_id="dock",
+                auto_match_scenes=True,
+                config={},
+            )
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        shop = next(s for s in updated["project"]["scenes"] if s["id"] == "harbor_shop")
+        self.assertEqual(shop["visual_reference"], "output/keep-me.png")
+
+    def test_pick_multiple_scenes_share_same_path(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out_dir = self.tmp_path / "visual-target" / "combat"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "combat",
+                    "candidates": [
+                        {"id": "a", "label": "opening", "path": str(fake_png)},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = apply_visual_target_pick(
+                brief,
+                "a",
+                manifest_path,
+                scene_ids=["combat", "dock"],
+            )
+        self.assertEqual(result["scene_ids"], ["combat", "dock"])
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        scenes = {s["id"]: s for s in data["project"]["scenes"]}
+        self.assertEqual(
+            scenes["combat"]["visual_reference"],
+            scenes["dock"]["visual_reference"],
+        )
+        self.assertEqual(scenes["combat"]["visual_reference"], result["visual_reference"])
+
+    def test_assign_skips_existing_unless_overwrite(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        combat_png = self.tmp_path / "combat.png"
+        dock_png = self.tmp_path / "dock.png"
+        combat_png.write_bytes(b"\x89PNG\r\n")
+        dock_png.write_bytes(b"\x89PNG\r\n")
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        for scene in data["project"]["scenes"]:
+            if scene["id"] == "combat":
+                scene["visual_reference"] = str(combat_png)
+            if scene["id"] == "dock":
+                scene["visual_reference"] = str(dock_png)
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = assign_visual_reference_to_scenes(
+                brief, scene_ids=["dock"], from_scene="combat"
+            )
+        self.assertEqual(result["scene_ids"], [])
+        self.assertEqual(result["skipped_scene_ids"], ["dock"])
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        dock = next(s for s in updated["project"]["scenes"] if s["id"] == "dock")
+        self.assertEqual(dock["visual_reference"], str(dock_png))
+
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            forced = assign_visual_reference_to_scenes(
+                brief, scene_ids=["dock"], from_scene="combat", overwrite=True
+            )
+        self.assertEqual(forced["scene_ids"], ["dock"])
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        dock = next(s for s in updated["project"]["scenes"] if s["id"] == "dock")
+        self.assertEqual(dock["visual_reference"], str(combat_png))
+
+    def test_suggest_falls_back_when_llm_returns_empty(self) -> None:
+        from visual_target import suggest_auto_match_scene_ids
+
+        project = {
+            "scenes": [
+                {
+                    "id": "dock",
+                    "title": "钓场",
+                    "summary": "Calm pier casting harbor",
+                },
+                {
+                    "id": "combat",
+                    "title": "搏鱼",
+                    "summary": "Tense fight UI",
+                },
+            ]
+        }
+        with patch(
+            "visual_target.match_scenes_for_north_star_llm",
+            return_value=[],
+        ):
+            ids, method = suggest_auto_match_scene_ids(
+                project,
+                prompt="Calm pier casting harbor dock wide horizon",
+                primary_scene_id=None,
+                use_llm=True,
+                config={"prompt": {"api_key": "x"}},
+            )
+        self.assertEqual(method, "heuristic")
+        self.assertIn("dock", ids)
+        self.assertNotIn("combat", ids)
+
+    def test_assign_shares_path_without_copy(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        shared = self.tmp_path / "shared.png"
+        shared.write_bytes(b"\x89PNG\r\n")
+        data = json.loads(brief.read_text(encoding="utf-8"))
+        for scene in data["project"]["scenes"]:
+            if scene["id"] == "combat":
+                scene["visual_reference"] = str(shared)
+        brief.write_text(json.dumps(data), encoding="utf-8")
+
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            result = assign_visual_reference_to_scenes(
+                brief,
+                scene_ids=["dock"],
+                from_scene="combat",
+            )
+        self.assertEqual(result["scene_ids"], ["dock"])
+        updated = json.loads(brief.read_text(encoding="utf-8"))
+        scenes = {s["id"]: s for s in updated["project"]["scenes"]}
+        self.assertEqual(
+            scenes["dock"]["visual_reference"],
+            scenes["combat"]["visual_reference"],
+        )
+        # Same path string → asset resolve for dock uses combat's image
+        self.assertEqual(
+            resolve_visual_reference_for_asset(brief, scene_ids=["dock"]),
+            shared.resolve(),
+        )
+
+    def test_legacy_global_only_unchanged(self) -> None:
+        """Old briefs with only project.visual_reference keep prior behavior."""
+        global_png = self.tmp_path / "selected.png"
+        global_png.write_bytes(b"\x89PNG\r\n")
+        data = json.loads(self.example_brief.read_text(encoding="utf-8"))
+        data["project"]["visual_reference"] = str(global_png)
+        self.example_brief.write_text(json.dumps(data), encoding="utf-8")
+
+        self.assertEqual(
+            resolve_visual_reference_path(self.example_brief),
+            global_png.resolve(),
+        )
+        self.assertEqual(
+            resolve_visual_reference_for_asset(
+                self.example_brief, scene_ids=["anything"]
+            ),
+            global_png.resolve(),
+        )
+        st = visual_target_brief_status(self.example_brief)
+        self.assertTrue(st["ready"])
+        self.assertEqual(st["scenes"], [])
 
 
 if __name__ == "__main__":

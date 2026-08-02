@@ -444,9 +444,11 @@ declare global {
       visualTargetGenerate: (
         briefRel: string,
         candidates?: number,
+        sceneId?: string | null,
       ) => Promise<
         CliResult<{
           manifest_path?: string;
+          scene_id?: string | null;
           candidates?: Array<{
             id?: string;
             label?: string;
@@ -455,18 +457,56 @@ declare global {
           }>;
         }>
       >;
-      visualTargetList: (briefRel: string) => Promise<CliResult>;
+      visualTargetList: (briefRel: string, sceneId?: string | null) => Promise<CliResult>;
       visualTargetPick: (
         briefRel: string,
         candidateId: string,
-      ) => Promise<CliResult<{ visual_reference?: string; selected_id?: string }>>;
-      visualTargetStatus: (briefRel: string) => Promise<{
+        sceneId?: string | string[] | null,
+        manifestPath?: string | null,
+      ) => Promise<
+        CliResult<{
+          visual_reference?: string;
+          selected_id?: string;
+          scene_id?: string | null;
+          scene_ids?: string[];
+          auto_matched_scene_ids?: string[];
+          auto_match_method?: string | null;
+        }>
+      >;
+      visualTargetAssign: (
+        briefRel: string,
+        sceneIds: string | string[],
+        opts?: {
+          fromScene?: string;
+          fromGlobal?: boolean;
+          ref?: string;
+        },
+      ) => Promise<
+        CliResult<{
+          visual_reference?: string;
+          scene_ids?: string[];
+          skipped_scene_ids?: string[];
+          source?: string;
+        }>
+      >;
+      visualTargetStatus: (
+        briefRel: string,
+        sceneId?: string | null,
+      ) => Promise<{
         ok: boolean;
         ready: boolean;
+        global_ready?: boolean;
         visual_reference?: string;
         path_shaped?: boolean;
         file_ok?: boolean;
         selected_id?: string | null;
+        scene_id?: string | null;
+        scenes?: Array<{
+          id: string;
+          title?: string;
+          visual_reference?: string;
+          ready?: boolean;
+        }>;
         candidates?: Array<{ id: string; label?: string; path?: string; status?: string }>;
         error?: string;
       }>;

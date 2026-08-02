@@ -698,6 +698,8 @@ def assemble_visual_target_prompt(
 def structured_fields_from_project_scaffold(
     project: Any,
     variant: dict[str, str],
+    *,
+    scene: dict[str, Any] | None = None,
 ) -> dict[str, str]:
     """Rule-based structured fields when LLM craft is off."""
     dim = str(getattr(project, "dimension", None) or "2d").lower()
@@ -722,12 +724,24 @@ def structured_fields_from_project_scaffold(
         f"genre {genre}" if genre else "",
         desc[:220] if desc else "",
     ]
+    if isinstance(scene, dict) and scene:
+        sid = str(scene.get("id") or "").strip()
+        stitle = str(scene.get("title") or "").strip()
+        scene_bits.insert(0, f"in-game screen: {stitle or sid}")
+        summary = str(scene.get("summary") or "").strip()
+        if summary:
+            scene_bits.append(summary[:280])
+        notes = str(scene.get("notes") or "").strip()
+        if notes:
+            scene_bits.append(notes[:200])
     details_bits = [
         cam_bits or "readable gameplay camera matching the genre",
         "clear silhouettes, cohesive lighting",
         f"variant focus: {variant.get('focus', '')}",
     ]
     beat = variant.get("focus") or loop or goal or "core gameplay action in progress"
+    if isinstance(scene, dict) and str(scene.get("summary") or "").strip():
+        beat = f"{str(scene.get('summary')).strip()[:160]}; {beat}"
     return {
         "use_case": VT_DEFAULT_USE_CASE,
         "scene": ". ".join(b for b in scene_bits if b),

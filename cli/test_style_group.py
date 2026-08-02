@@ -169,6 +169,146 @@ class StyleGroupTests(unittest.TestCase):
             finally:
                 brief_path.unlink(missing_ok=True)
 
+    def test_audit_accepts_scene_visual_reference_without_global(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            combat_ref = root / "combat.png"
+            combat_ref.write_bytes(b"\x89PNG\r\n\x1a\n")
+            brief_path = write_brief(
+                {
+                    "project": {
+                        "title": "Fish",
+                        "description": "test",
+                        "art_direction": "flat",
+                        "dimension": "2d",
+                        "genre": "2d_platformer",
+                        "gameplay_loop": "fish",
+                        "session_goal": "demo",
+                        "player_asset": "hero_a",
+                        "controls": {"move_left": ["A"], "move_right": ["D"]},
+                        "viewport": {"width": 640, "height": 360},
+                        "camera": {"mode": "follow_player"},
+                        "scenes": [
+                            {
+                                "id": "combat",
+                                "title": "搏鱼",
+                                "visual_reference": str(combat_ref),
+                            }
+                        ],
+                    },
+                    "assets": [
+                        {
+                            "name": "hero_a",
+                            "id": "hero_a",
+                            "type": "character",
+                            "usage": "player_idle",
+                            "usage_description": "player",
+                            "description": "player",
+                            "display_size": {"width": 128, "height": 128},
+                            "style_group": "cast_main",
+                        },
+                        {
+                            "name": "hero_b",
+                            "id": "hero_b",
+                            "type": "character",
+                            "usage": "prop",
+                            "usage_description": "combat",
+                            "description": "combat",
+                            "display_size": {"width": 128, "height": 128},
+                            "style_group": "cast_main",
+                            "style_anchor_kind": "visual_reference",
+                            "scene_ids": ["combat"],
+                        },
+                    ],
+                },
+                prefix="style-scene-audit-",
+            )
+            try:
+                project, assets, _ = load_brief_full(brief_path)
+                self.assertEqual(
+                    audit_style_groups(project, assets, brief_path=brief_path), []
+                )
+                gaps = audit_brief_for_export(
+                    project, assets, brief_path=brief_path
+                )
+                self.assertFalse(any("visual_reference" in g for g in gaps))
+            finally:
+                brief_path.unlink(missing_ok=True)
+
+    def test_scene_bound_visual_reference_no_global_fallback(self) -> None:
+        """Combat asset must not use dock north-star via global fallback."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            dock_ref = root / "dock.png"
+            dock_ref.write_bytes(b"\x89PNG\r\n\x1a\n")
+            brief_path = write_brief(
+                {
+                    "project": {
+                        "title": "Fish",
+                        "description": "test",
+                        "art_direction": "flat",
+                        "dimension": "2d",
+                        "genre": "2d_platformer",
+                        "gameplay_loop": "fish",
+                        "session_goal": "demo",
+                        "player_asset": "hero_a",
+                        "controls": {"move_left": ["A"], "move_right": ["D"]},
+                        "viewport": {"width": 640, "height": 360},
+                        "camera": {"mode": "follow_player"},
+                        "visual_reference": str(dock_ref),
+                        "scenes": [
+                            {
+                                "id": "dock",
+                                "title": "钓场",
+                                "visual_reference": str(dock_ref),
+                            },
+                            {"id": "combat", "title": "搏鱼"},
+                        ],
+                    },
+                    "assets": [
+                        {
+                            "name": "hero_a",
+                            "id": "hero_a",
+                            "type": "character",
+                            "usage": "player_idle",
+                            "usage_description": "player",
+                            "description": "player",
+                            "display_size": {"width": 128, "height": 128},
+                            "style_group": "cast_main",
+                        },
+                        {
+                            "name": "hero_b",
+                            "id": "hero_b",
+                            "type": "character",
+                            "usage": "prop",
+                            "usage_description": "combat prop",
+                            "description": "combat prop",
+                            "display_size": {"width": 128, "height": 128},
+                            "style_group": "cast_main",
+                            "style_anchor_kind": "visual_reference",
+                            "scene_ids": ["combat"],
+                        },
+                    ],
+                },
+                prefix="style-scene-vt-",
+            )
+            try:
+                project, assets, _ = load_brief_full(brief_path)
+                combat = next(a for a in assets if a.id == "hero_b")
+                self.assertFalse(
+                    should_use_style_img2img(combat, project=project, assets=assets)
+                )
+                self.assertIsNone(
+                    resolve_style_img2img_path(
+                        combat,
+                        project=project,
+                        assets=assets,
+                        brief_path=brief_path,
+                    )
+                )
+            finally:
+                brief_path.unlink(missing_ok=True)
+
     def test_visual_reference_missing_project_ref(self) -> None:
         project = _valid_project()
         spec = _character(

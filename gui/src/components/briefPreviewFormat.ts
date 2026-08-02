@@ -281,8 +281,9 @@ export function briefMakeabilityGateHint(status: HostChatStatus | null): string 
   if ((status.intent_count ?? 0) > 0) {
     return `还有 ${status.intent_count} 条意图缺口未关，请点选项或回复后再审查`;
   }
-  if (status.gaps?.length) return "校验通过后可导出，或先点「自动修」";
-  if (!status.ready_to_export) return "草稿尚未通过校验";
+  if (status.gaps?.length) return "校验未通过，请先点「自动修」或补齐字段";
+  if (!status.contract_complete && !status.ready_to_export) return "草稿尚未通过校验";
+  if (!status.ready_to_export) return "校验已过，刷新状态或再点一次「制作审查」后可导出";
   return "导出到 projects/<slug>/";
 }
 

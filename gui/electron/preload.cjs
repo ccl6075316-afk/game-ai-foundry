@@ -38,12 +38,16 @@ contextBridge.exposeInMainWorld("gameFactory", {
   assetsReviewRegenerate: (pipelineManifestRel, assetName, itemSlug, jobs) =>
     ipcRenderer.invoke("assets-review-regenerate", pipelineManifestRel, assetName, itemSlug, jobs),
   resolveBriefRel: (briefRel) => ipcRenderer.invoke("resolve-brief-rel", briefRel),
-  visualTargetGenerate: (briefRel, candidates) =>
-    ipcRenderer.invoke("visual-target-generate", briefRel, candidates),
-  visualTargetList: (briefRel) => ipcRenderer.invoke("visual-target-list", briefRel),
-  visualTargetPick: (briefRel, candidateId) =>
-    ipcRenderer.invoke("visual-target-pick", briefRel, candidateId),
-  visualTargetStatus: (briefRel) => ipcRenderer.invoke("visual-target-status", briefRel),
+  visualTargetGenerate: (briefRel, candidates, sceneId) =>
+    ipcRenderer.invoke("visual-target-generate", briefRel, candidates, sceneId),
+  visualTargetList: (briefRel, sceneId) =>
+    ipcRenderer.invoke("visual-target-list", briefRel, sceneId),
+  visualTargetPick: (briefRel, candidateId, sceneId, manifestPath) =>
+    ipcRenderer.invoke("visual-target-pick", briefRel, candidateId, sceneId, manifestPath),
+  visualTargetAssign: (briefRel, sceneIds, opts) =>
+    ipcRenderer.invoke("visual-target-assign", briefRel, sceneIds, opts),
+  visualTargetStatus: (briefRel, sceneId) =>
+    ipcRenderer.invoke("visual-target-status", briefRel, sceneId),
   openGodot: (projectRel) => ipcRenderer.invoke("open-godot", projectRel),
   getConfig: () => ipcRenderer.invoke("get-config"),
   saveConfig: (patch) => ipcRenderer.invoke("save-config", patch),

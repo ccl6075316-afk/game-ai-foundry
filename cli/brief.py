@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import dataclass, field, replace
@@ -559,6 +560,12 @@ def normalize_scenes(raw: Any) -> list[dict[str, Any]]:
         notes = str(item.get("notes", "")).strip()
         if notes:
             entry["notes"] = notes
+        vr = str(item.get("visual_reference", "")).strip()
+        # Keep non-empty values (path or prose) — same as project.visual_reference.
+        # Prose is rejected by audit_visual_reference and cleared into art_direction
+        # by apply_deterministic_visual_reference_fixes; do not silently drop here.
+        if vr:
+            entry["visual_reference"] = vr
         out.append(entry)
     return out
 
@@ -821,14 +828,9 @@ def apply_deterministic_animation_graph_fixes(
         return draft, []
 
     notes: list[str] = []
-    try:
-        assets = [
-            AssetSpec.from_dict(item)
-            for item in (draft.get("assets") or [])
-            if isinstance(item, dict)
-        ]
-    except (ValueError, KeyError, TypeError) as exc:
-        return draft, [f"skip deterministic graph fix: {exc}"]
+    assets, parse_errors = parse_assets_for_audit(draft.get("assets") or [])
+    if parse_errors and not assets:
+        return draft, [f"skip deterministic graph fix: {parse_errors[0]}"]
 
     raw_graphs = draft.get("animation_graphs")
     if not isinstance(raw_graphs, list):
@@ -963,6 +965,119 @@ def _default_hud_anchor(asset_name: str) -> str:
     return "top_left"
 
 
+def remap_illegal_asset_type(item: dict[str, Any]) -> str | None:
+    """Return a legal AssetType value if ``item['type']`` is a known alias; else None."""
+    raw = str(item.get("type") or "").strip().lower()
+    if not raw:
+        return None
+    try:
+        AssetType(raw)
+        return None
+    except ValueError:
+        pass
+    if raw in {"animation", "anim", "animation_clip", "clip", "pose", "video_clip"}:
+        return AssetType.CHARACTER_POSE.value
+    if raw in {"item", "prop", "object", "pickup", "collectible"}:
+        items = item.get("items")
+        if isinstance(items, list) and items:
+            return AssetType.ICON_KIT.value
+        usage = str(item.get("usage") or "").strip().lower()
+        if "kit" in usage or usage == "icon_kit":
+            return AssetType.ICON_KIT.value
+        return AssetType.TEXTURE.value
+    return None
+
+
+def asset_type_fix_hint(raw_type: str) -> str:
+    """Short remediation hint for an illegal type string."""
+    mapped = remap_illegal_asset_type({"type": raw_type, "usage": "ui_icon"})
+    if raw_type.strip().lower() in {"animation", "anim", "animation_clip", "clip", "pose", "video_clip"}:
+        return "Video/animation clips → type='character_pose' (keep animation_method/reference_asset)."
+    if mapped:
+        return f"Common alias → type='{mapped}'."
+    allowed = ", ".join(t.value for t in AssetType)
+    return f"Use one of: {allowed}."
+
+
+def apply_deterministic_asset_type_fixes(
+    draft: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    """Remap common illegal asset types (animation/item/…) to legal AssetType values."""
+    if not isinstance(draft, dict):
+        return draft, []
+    raw_assets = draft.get("assets")
+    if not isinstance(raw_assets, list) or not raw_assets:
+        return draft, []
+
+    notes: list[str] = []
+    counts: dict[str, int] = {}
+    out_assets: list[Any] = []
+    changed = False
+    for item in raw_assets:
+        if not isinstance(item, dict):
+            out_assets.append(item)
+            continue
+        new_type = remap_illegal_asset_type(item)
+        if new_type is None:
+            out_assets.append(item)
+            continue
+        old = str(item.get("type") or "").strip()
+        row = dict(item)
+        row["type"] = new_type
+        out_assets.append(row)
+        changed = True
+        key = f"{old}->{new_type}"
+        counts[key] = counts.get(key, 0) + 1
+
+    if not changed:
+        return draft, []
+    for key, n in sorted(counts.items()):
+        notes.append(f"asset type alias: {key} ×{n}")
+    out = dict(draft)
+    out["assets"] = out_assets
+    return out, notes
+
+
+def parse_assets_for_audit(
+    assets_raw: Any,
+) -> tuple[list[AssetSpec], list[str]]:
+    """Parse assets without aborting on the first illegal type.
+
+    Returns (parsed specs, structural errors). Illegal types are grouped so the
+    UI shows the full problem set (e.g. 27×animation + 60×item), not one line.
+    """
+    if not isinstance(assets_raw, list):
+        return [], []
+    assets: list[AssetSpec] = []
+    errors: list[str] = []
+    bad_types: dict[str, list[str]] = {}
+    for item in assets_raw:
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name") or "").strip() or "(unnamed)"
+        raw_type = str(item.get("type", "character"))
+        try:
+            AssetType(raw_type)
+        except ValueError:
+            bad_types.setdefault(raw_type, []).append(name)
+            continue
+        try:
+            assets.append(AssetSpec.from_dict(item))
+        except (ValueError, KeyError, TypeError) as exc:
+            errors.append(f"Asset '{name}': {exc}")
+
+    allowed = ", ".join(t.value for t in AssetType)
+    for bad_t, names in sorted(bad_types.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        sample = ", ".join(names[:5])
+        more = f" (+{len(names) - 5} more)" if len(names) > 5 else ""
+        hint = asset_type_fix_hint(bad_t)
+        errors.append(
+            f"{len(names)} asset(s) have illegal type '{bad_t}' "
+            f"(e.g. {sample}{more}). {hint} Allowed: {allowed}."
+        )
+    return assets, errors
+
+
 def apply_deterministic_hud_fixes(
     draft: dict[str, Any],
 ) -> tuple[dict[str, Any], list[str]]:
@@ -971,14 +1086,9 @@ def apply_deterministic_hud_fixes(
         return draft, []
 
     notes: list[str] = []
-    try:
-        assets = [
-            AssetSpec.from_dict(item)
-            for item in (draft.get("assets") or [])
-            if isinstance(item, dict)
-        ]
-    except (ValueError, KeyError, TypeError) as exc:
-        return draft, [f"skip deterministic hud fix: {exc}"]
+    assets, parse_errors = parse_assets_for_audit(draft.get("assets") or [])
+    if parse_errors and not assets:
+        return draft, [f"skip deterministic hud fix: {parse_errors[0]}"]
 
     ui_names = [a.name for a in assets if a.usage.strip() == "ui_element"]
     if not ui_names:
@@ -1058,25 +1168,44 @@ def audit_visual_reference(
     brief_path: Path | None = None,
 ) -> list[str]:
     """visual_reference is optional; when set it must be an image path (not style prose)."""
+    errors: list[str] = []
     ref = (project.visual_reference or "").strip()
-    if not ref:
-        return []
-    if not looks_like_visual_reference_path(ref):
-        return [
-            "project.visual_reference must be an image file path "
-            "(e.g. output/.../visual-target/selected.png), not style prose. "
-            "Put art style in project.art_direction; leave visual_reference empty "
-            "until `brief visual-target pick` (or GUI「北极星图」)."
-        ]
-    if brief_path is not None:
-        from visual_target import resolve_visual_reference_path
+    if ref:
+        if not looks_like_visual_reference_path(ref):
+            errors.append(
+                "project.visual_reference must be an image file path "
+                "(e.g. output/.../visual-target/selected.png), not style prose. "
+                "Put art style in project.art_direction; leave visual_reference empty "
+                "until `brief visual-target pick` (or GUI「北极星图」)."
+            )
+        elif brief_path is not None:
+            from visual_target import resolve_visual_reference_path
 
-        if resolve_visual_reference_path(brief_path) is None:
-            return [
-                f"project.visual_reference file not found: {ref}. "
-                "Run `brief visual-target generate` then `pick`, or clear the field."
-            ]
-    return []
+            if resolve_visual_reference_path(brief_path) is None:
+                errors.append(
+                    f"project.visual_reference file not found: {ref}. "
+                    "Run `brief visual-target generate` then `pick`, or clear the field."
+                )
+    for scene in project.scenes or []:
+        if not isinstance(scene, dict):
+            continue
+        sid = str(scene.get("id") or "").strip() or "?"
+        sref = str(scene.get("visual_reference") or "").strip()
+        if not sref:
+            continue
+        if not looks_like_visual_reference_path(sref):
+            errors.append(
+                f"project.scenes[{sid}].visual_reference must be an image file path, "
+                "not style prose."
+            )
+        elif brief_path is not None:
+            from visual_target import resolve_visual_reference_path
+
+            if resolve_visual_reference_path(brief_path, scene_id=sid) is None:
+                errors.append(
+                    f"project.scenes[{sid}].visual_reference file not found: {sref}."
+                )
+    return errors
 
 
 def apply_deterministic_visual_reference_fixes(
@@ -1088,33 +1217,241 @@ def apply_deterministic_visual_reference_fixes(
     project = draft.get("project")
     if not isinstance(project, dict):
         return draft, []
-    ref = str(project.get("visual_reference") or "").strip()
-    if not ref or looks_like_visual_reference_path(ref):
-        return draft, []
-    notes = [
-        "cleared invalid project.visual_reference "
-        "(style prose → art_direction; use visual-target pick for the image path)"
-    ]
+    notes: list[str] = []
+    project = dict(project)
     art = str(project.get("art_direction") or "").strip()
-    if ref and ref not in art:
-        project = dict(project)
-        project["art_direction"] = f"{art}; {ref}".strip("; ").strip() if art else ref
-        notes.append("merged cleared visual_reference text into art_direction")
-    else:
-        project = dict(project)
-    project["visual_reference"] = ""
-    project.pop("visual_reference_usage", None)
+
+    ref = str(project.get("visual_reference") or "").strip()
+    if ref and not looks_like_visual_reference_path(ref):
+        notes.append(
+            "cleared invalid project.visual_reference "
+            "(style prose → art_direction; use visual-target pick for the image path)"
+        )
+        if ref not in art:
+            art = f"{art}; {ref}".strip("; ").strip() if art else ref
+            project["art_direction"] = art
+            notes.append("merged cleared visual_reference text into art_direction")
+        project["visual_reference"] = ""
+        project.pop("visual_reference_usage", None)
+
+    scenes = project.get("scenes")
+    if isinstance(scenes, list):
+        new_scenes: list[Any] = []
+        changed_scenes = False
+        for row in scenes:
+            if not isinstance(row, dict):
+                new_scenes.append(row)
+                continue
+            sref = str(row.get("visual_reference") or "").strip()
+            if not sref or looks_like_visual_reference_path(sref):
+                new_scenes.append(row)
+                continue
+            sid = str(row.get("id") or "").strip() or "?"
+            updated = dict(row)
+            updated.pop("visual_reference", None)
+            if sref not in art:
+                art = f"{art}; {sref}".strip("; ").strip() if art else sref
+                project["art_direction"] = art
+            notes.append(
+                f"cleared invalid project.scenes[{sid}].visual_reference (prose → art_direction)"
+            )
+            new_scenes.append(updated)
+            changed_scenes = True
+        if changed_scenes:
+            project["scenes"] = new_scenes
+
+    if not notes:
+        return draft, []
     out = dict(draft)
     out["project"] = project
+    return out, notes
+
+
+def suggest_asset_id(name: str, asset_type: str, used: set[str]) -> str:
+    """ASCII file slug for an asset; Chinese names get a stable typed hash id."""
+    slug = slugify_item_label(name)
+    type_key = (asset_type or "asset").strip().lower()
+    prefix = {
+        AssetType.CHARACTER.value: "char",
+        AssetType.CHARACTER_POSE.value: "pose",
+        AssetType.BACKGROUND.value: "bg",
+        AssetType.TEXTURE.value: "tex",
+        AssetType.ICON_KIT.value: "kit",
+        AssetType.AUDIO.value: "aud",
+    }.get(type_key, "asset")
+    # slugify collapses CJK to empty → "item"; treat that as non-informative.
+    if slug and slug != "item" and ASSET_ID_PATTERN.match(slug):
+        base = slug
+    else:
+        digest = hashlib.sha1(name.encode("utf-8")).hexdigest()[:10]
+        base = f"{prefix}_{digest}"
+    if not ASSET_ID_PATTERN.match(base):
+        base = f"a_{re.sub(r'[^a-z0-9_]+', '_', base).strip('_')}" or "asset"
+    candidate = base
+    n = 2
+    while candidate in used:
+        candidate = f"{base}_{n}"
+        n += 1
+    return candidate
+
+
+def apply_deterministic_asset_id_fixes(
+    draft: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    """Fill missing/invalid assets[].id with stable ASCII slugs (required for export)."""
+    if not isinstance(draft, dict):
+        return draft, []
+    raw_assets = draft.get("assets")
+    if not isinstance(raw_assets, list) or not raw_assets:
+        return draft, []
+
+    used: set[str] = set()
+    for item in raw_assets:
+        if not isinstance(item, dict):
+            continue
+        aid = str(item.get("id") or "").strip()
+        if aid and ASSET_ID_PATTERN.match(aid):
+            used.add(aid)
+
+    notes: list[str] = []
+    out_assets: list[Any] = []
+    filled = 0
+    for item in raw_assets:
+        if not isinstance(item, dict):
+            out_assets.append(item)
+            continue
+        aid = str(item.get("id") or "").strip()
+        if aid and ASSET_ID_PATTERN.match(aid):
+            out_assets.append(item)
+            continue
+        name = str(item.get("name") or "").strip() or "asset"
+        new_id = suggest_asset_id(name, str(item.get("type") or ""), used)
+        used.add(new_id)
+        row = dict(item)
+        row["id"] = new_id
+        out_assets.append(row)
+        filled += 1
+
+    if not filled:
+        return draft, []
+    notes.append(f"assets[].id: filled {filled} missing/invalid slug(s)")
+    out = dict(draft)
+    out["assets"] = out_assets
+    return out, notes
+
+
+def apply_deterministic_project_field_fixes(
+    draft: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    """Fill obvious project required fields from sibling keys (no LLM)."""
+    if not isinstance(draft, dict):
+        return draft, []
+    project = draft.get("project")
+    if not isinstance(project, dict):
+        return draft, []
+    notes: list[str] = []
+    project = dict(project)
+    if not str(project.get("art_direction") or "").strip():
+        for key in ("ui_style", "presentation_notes"):
+            alt = str(project.get(key) or "").strip()
+            if alt:
+                project["art_direction"] = alt
+                notes.append(f"project.art_direction: filled from {key}")
+                break
+    if not notes:
+        return draft, []
+    out = dict(draft)
+    out["project"] = project
+    return out, notes
+
+
+_DEFAULT_DISPLAY_SIZE = {
+    AssetType.CHARACTER.value: "128x128 px",
+    AssetType.CHARACTER_POSE.value: "128x128 px",
+    AssetType.BACKGROUND.value: "1920x1080 px",
+    AssetType.TEXTURE.value: "64x64 px",
+    AssetType.ICON_KIT.value: "64x64 px",
+}
+
+
+def _infer_pose_action(item: dict[str, Any]) -> str:
+    name = str(item.get("name") or "")
+    desc = str(item.get("description") or item.get("usage_description") or "").strip()
+    for token, action in (
+        ("游动", "swim"),
+        ("游泳", "swim"),
+        ("跃", "leap"),
+        ("idle", "idle"),
+        ("walk", "walk"),
+        ("run", "run"),
+        ("attack", "attack"),
+    ):
+        if token in name or token.lower() in desc.lower():
+            return action
+    if desc:
+        # First English word from description if present.
+        m = re.search(r"[A-Za-z]{3,}", desc)
+        if m:
+            return m.group(0).lower()
+    return "action"
+
+
+def apply_deterministic_asset_field_fixes(
+    draft: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    """Fill display_size / character_pose.action defaults required by export audit."""
+    if not isinstance(draft, dict):
+        return draft, []
+    raw_assets = draft.get("assets")
+    if not isinstance(raw_assets, list) or not raw_assets:
+        return draft, []
+
+    notes: list[str] = []
+    out_assets: list[Any] = []
+    size_n = 0
+    action_n = 0
+    for item in raw_assets:
+        if not isinstance(item, dict):
+            out_assets.append(item)
+            continue
+        row = dict(item)
+        atype = str(row.get("type") or "").strip().lower()
+        ds = row.get("display_size")
+        empty_size = ds is None or (isinstance(ds, str) and not ds.strip()) or ds == {}
+        if empty_size and atype in _DEFAULT_DISPLAY_SIZE:
+            row["display_size"] = _DEFAULT_DISPLAY_SIZE[atype]
+            size_n += 1
+        if atype == AssetType.CHARACTER_POSE.value and not str(row.get("action") or "").strip():
+            row["action"] = _infer_pose_action(row)
+            action_n += 1
+        out_assets.append(row)
+
+    if size_n:
+        notes.append(f"assets[].display_size: filled default for {size_n} asset(s)")
+    if action_n:
+        notes.append(f"character_pose.action: inferred for {action_n} asset(s)")
+    if not notes:
+        return draft, []
+    out = dict(draft)
+    out["assets"] = out_assets
     return out, notes
 
 
 def apply_deterministic_brief_fixes(
     draft: dict[str, Any],
 ) -> tuple[dict[str, Any], list[str]]:
-    """All mechanical brief repairs used by autofix (graphs + hud + visual_reference)."""
+    """All mechanical brief repairs used by autofix (types + ids + graphs + hud + …)."""
     notes: list[str] = []
-    fixed, n1 = apply_deterministic_animation_graph_fixes(draft)
+    # Type aliases first — later steps need AssetSpec.from_dict to succeed.
+    fixed, n0 = apply_deterministic_asset_type_fixes(draft)
+    notes.extend(n0)
+    fixed, n_id = apply_deterministic_asset_id_fixes(fixed)
+    notes.extend(n_id)
+    fixed, n_fields = apply_deterministic_asset_field_fixes(fixed)
+    notes.extend(n_fields)
+    fixed, n_proj = apply_deterministic_project_field_fixes(fixed)
+    notes.extend(n_proj)
+    fixed, n1 = apply_deterministic_animation_graph_fixes(fixed)
     notes.extend(n1)
     fixed, n2 = apply_deterministic_hud_fixes(fixed)
     notes.extend(n2)
@@ -1441,7 +1778,22 @@ def should_use_style_img2img(
         return False
     kind = effective_style_anchor_kind(spec)
     if kind == "visual_reference":
-        return bool((project.visual_reference or "").strip())
+        # Assets bound to scene_ids only enable when one of *those* scenes has a ref.
+        # Do not enable just because some unrelated scene (or a seeded global) has one.
+        scene_ids = [str(s).strip() for s in (spec.scene_ids or []) if str(s).strip()]
+        if scene_ids:
+            for sid in scene_ids:
+                for scene in project.scenes or []:
+                    if not isinstance(scene, dict):
+                        continue
+                    if str(scene.get("id") or "").strip() != sid:
+                        continue
+                    if str(scene.get("visual_reference") or "").strip():
+                        return True
+            return False
+        if (project.visual_reference or "").strip():
+            return True
+        return False
     if kind == "asset":
         return _asset_lookup(assets, spec.style_anchor) is not None
     return False
@@ -1478,16 +1830,38 @@ def resolve_style_img2img_path(
                 return path
     kind = effective_style_anchor_kind(spec)
     if kind == "visual_reference":
-        ref = (project.visual_reference or "").strip()
-        if not ref:
-            return None
+        scene_ids = [str(s).strip() for s in (spec.scene_ids or []) if str(s).strip()]
         if brief_path is not None:
-            from visual_target import resolve_visual_reference_path
+            from visual_target import (
+                resolve_visual_reference_for_asset,
+                resolve_visual_reference_path,
+            )
 
-            resolved = resolve_visual_reference_path(brief_path)
+            if scene_ids:
+                # Scene-bound assets: only matching scene refs — never fall back to
+                # global (may be another screen's north star).
+                for sid in scene_ids:
+                    resolved = resolve_visual_reference_path(brief_path, scene_id=sid)
+                    if resolved is not None:
+                        return _cli_relative(resolved)
+                return None
+            resolved = resolve_visual_reference_for_asset(brief_path, scene_ids=[])
             if resolved is not None:
                 return _cli_relative(resolved)
-        return ref
+            return None
+        for sid in scene_ids:
+            for scene in project.scenes or []:
+                if not isinstance(scene, dict):
+                    continue
+                if str(scene.get("id") or "").strip() != sid:
+                    continue
+                sref = str(scene.get("visual_reference") or "").strip()
+                if sref:
+                    return sref
+        if scene_ids:
+            return None
+        ref = (project.visual_reference or "").strip()
+        return ref or None
     target = _asset_lookup(assets, spec.style_anchor)
     if target is None:
         return None
@@ -1604,25 +1978,67 @@ def audit_style_groups(
                 )
 
         if kind == "visual_reference":
-            ref = (project.visual_reference or "").strip()
-            if not ref:
-                errors.append(
-                    f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
-                    "project.visual_reference"
-                )
-            elif brief_path is not None:
-                from visual_target import resolve_visual_reference_path
-
-                if resolve_visual_reference_path(brief_path) is None:
+            scene_ids = [
+                str(s).strip() for s in (spec.scene_ids or []) if str(s).strip()
+            ]
+            if scene_ids:
+                # Scene-bound: any matching scenes[].visual_reference is enough
+                # (scene pick no longer seeds project.visual_reference).
+                matched_ref = ""
+                for sid in scene_ids:
+                    for scene in project.scenes or []:
+                        if not isinstance(scene, dict):
+                            continue
+                        if str(scene.get("id") or "").strip() != sid:
+                            continue
+                        matched_ref = str(scene.get("visual_reference") or "").strip()
+                        break
+                    if matched_ref:
+                        break
+                if not matched_ref:
                     errors.append(
-                        f"Asset '{spec.name}' style group uses visual_reference anchor but "
-                        f"project.visual_reference file not found: {ref}"
+                        f"Asset '{spec.name}' style_anchor_kind visual_reference with "
+                        f"scene_ids {scene_ids} requires a matching "
+                        "project.scenes[].visual_reference"
                     )
-            elif not looks_like_visual_reference_path(ref):
-                errors.append(
-                    f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
-                    "project.visual_reference as an image file path"
-                )
+                elif brief_path is not None:
+                    from visual_target import resolve_visual_reference_path
+
+                    resolved = None
+                    for sid in scene_ids:
+                        resolved = resolve_visual_reference_path(brief_path, scene_id=sid)
+                        if resolved is not None:
+                            break
+                    if resolved is None:
+                        errors.append(
+                            f"Asset '{spec.name}' style group uses scene visual_reference "
+                            f"but file not found for scene_ids {scene_ids}: {matched_ref}"
+                        )
+                elif not looks_like_visual_reference_path(matched_ref):
+                    errors.append(
+                        f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
+                        "scenes[].visual_reference as an image file path"
+                    )
+            else:
+                ref = (project.visual_reference or "").strip()
+                if not ref:
+                    errors.append(
+                        f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
+                        "project.visual_reference"
+                    )
+                elif brief_path is not None:
+                    from visual_target import resolve_visual_reference_path
+
+                    if resolve_visual_reference_path(brief_path) is None:
+                        errors.append(
+                            f"Asset '{spec.name}' style group uses visual_reference anchor but "
+                            f"project.visual_reference file not found: {ref}"
+                        )
+                elif not looks_like_visual_reference_path(ref):
+                    errors.append(
+                        f"Asset '{spec.name}' style_anchor_kind visual_reference requires "
+                        "project.visual_reference as an image file path"
+                    )
 
     return errors
 

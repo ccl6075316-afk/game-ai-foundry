@@ -2019,43 +2019,53 @@ app.whenReady().then(() => {
     };
   });
 
-  ipcMain.handle("visual-target-generate", async (event, briefRel, candidates) => {
+  ipcMain.handle("visual-target-generate", async (event, briefRel, candidates, sceneId) => {
     const sender = event.sender;
     const n = Math.max(1, Math.min(4, Number(candidates) || 3));
-    const result = await runCli(
-      [
-        "brief",
-        "visual-target",
-        "generate",
-        "--brief",
-        briefCliArg(briefRel),
-        "--candidates",
-        String(n),
-        "--json",
-      ],
-      {
-        onLine: (line, stream) => {
-          sender.send("pipeline-log", { line, stream });
-        },
+    const sid = String(sceneId || "").trim();
+    const args = [
+      "brief",
+      "visual-target",
+      "generate",
+      "--brief",
+      briefCliArg(briefRel),
+      "--candidates",
+      String(n),
+      "--json",
+    ];
+    if (sid) {
+      args.push("--scene", sid);
+    }
+    const result = await runCli(args, {
+      onLine: (line, stream) => {
+        sender.send("pipeline-log", { line, stream });
       },
-    );
+    });
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("visual-target-list", async (_e, briefRel) => {
-    const result = await runCli([
+  ipcMain.handle("visual-target-list", async (_e, briefRel, sceneId) => {
+    const sid = String(sceneId || "").trim();
+    const args = [
       "brief",
       "visual-target",
       "list",
       "--brief",
       briefCliArg(briefRel),
       "--json",
-    ]);
+    ];
+    if (sid) args.push("--scene", sid);
+    const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("visual-target-pick", async (_e, briefRel, candidateId) => {
-    const result = await runCli([
+  ipcMain.handle("visual-target-pick", async (_e, briefRel, candidateId, sceneId, manifestPath) => {
+    const sids = Array.isArray(sceneId)
+      ? sceneId.map((s) => String(s || "").trim()).filter(Boolean)
+      : String(sceneId || "").trim()
+        ? [String(sceneId).trim()]
+        : [];
+    const args = [
       "brief",
       "visual-target",
       "pick",
@@ -2064,16 +2074,45 @@ app.whenReady().then(() => {
       "--id",
       String(candidateId || "").trim(),
       "--json",
-    ]);
+    ];
+    for (const sid of sids) args.push("--scene", sid);
+    const mp = String(manifestPath || "").trim();
+    if (mp) {
+      // generate returns absolute path; absolute is fine for Click Path from cli/
+      args.push("--manifest", path.isAbsolute(mp) ? mp : cliArgForRel(mp));
+    }
+    const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("visual-target-status", (_e, briefRel) => {
+  ipcMain.handle("visual-target-assign", async (_e, briefRel, sceneIds, opts) => {
+    const sids = (Array.isArray(sceneIds) ? sceneIds : [sceneIds])
+      .map((s) => String(s || "").trim())
+      .filter(Boolean);
+    const options = opts && typeof opts === "object" ? opts : {};
+    const args = [
+      "brief",
+      "visual-target",
+      "assign",
+      "--brief",
+      briefCliArg(briefRel),
+      "--json",
+    ];
+    for (const sid of sids) args.push("--scene", sid);
+    if (options.fromScene) args.push("--from-scene", String(options.fromScene).trim());
+    if (options.fromGlobal) args.push("--from-global");
+    if (options.ref) args.push("--ref", String(options.ref).trim());
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("visual-target-status", (_e, briefRel, sceneId) => {
     const root = repoRoot();
     const external = resolveExternalRel(briefRel);
     const rel = external ? external.rel : resolveBriefRel(briefRel);
+    const sid = String(sceneId || "").trim() || null;
     if (!rel) {
-      return { ok: false, ready: false, visual_reference: "", candidates: [] };
+      return { ok: false, ready: false, visual_reference: "", candidates: [], scenes: [] };
     }
     const briefAbs = absForRel(rel);
     if (!existsSync(briefAbs)) {
@@ -2082,48 +2121,80 @@ app.whenReady().then(() => {
         ready: false,
         visual_reference: "",
         candidates: [],
+        scenes: [],
         error: `brief not found: ${rel}`,
         brief_rel: rel,
       };
     }
     let visualReference = "";
+    let projectScenes = [];
     try {
       const data = JSON.parse(readFileSync(briefAbs, "utf-8"));
       visualReference = String(data?.project?.visual_reference || "").trim();
+      projectScenes = Array.isArray(data?.project?.scenes) ? data.project.scenes : [];
     } catch {
       return {
         ok: false,
         ready: false,
         visual_reference: "",
         candidates: [],
+        scenes: [],
         error: "brief unreadable",
         brief_rel: rel,
       };
     }
-    const pathOk = looksLikeImagePath(visualReference);
-    let fileOk = false;
-    if (pathOk) {
-      const abs = path.isAbsolute(visualReference)
-        ? visualReference
-        : path.join(root, visualReference);
-      fileOk = existsSync(abs) && statSync(abs).isFile();
+    const refFileOk = (ref) => {
+      const pathOk = looksLikeImagePath(ref);
+      if (!pathOk) return { pathOk: false, fileOk: false };
+      const abs = path.isAbsolute(ref) ? ref : path.join(root, ref);
+      return { pathOk: true, fileOk: existsSync(abs) && statSync(abs).isFile() };
+    };
+    const globalCheck = refFileOk(visualReference);
+    const scenes = [];
+    let anySceneReady = false;
+    for (const row of projectScenes) {
+      if (!row || typeof row !== "object") continue;
+      const id = String(row.id || "").trim();
+      const title = String(row.title || "").trim();
+      if (!id) continue;
+      const sref = String(row.visual_reference || "").trim();
+      const check = refFileOk(sref);
+      const ready = Boolean(check.pathOk && check.fileOk);
+      if (ready) anySceneReady = true;
+      scenes.push({
+        id,
+        title,
+        visual_reference: sref,
+        ready,
+      });
     }
+    const globalReady = Boolean(globalCheck.pathOk && globalCheck.fileOk);
     const candidates = [];
-    // Prefer manifest next to selected.png under common VT output dirs
+    // Collect global + per-scene manifests; pick newest (matches CLI find_manifest).
     const tryManifests = [];
+    const pushVtManifestTree = (vtDir) => {
+      tryManifests.push(path.join(vtDir, "manifest.json"));
+      if (!existsSync(vtDir)) return;
+      try {
+        for (const name of readdirSync(vtDir)) {
+          const sub = path.join(vtDir, name, "manifest.json");
+          if (existsSync(sub)) tryManifests.push(sub);
+        }
+      } catch {
+        /* ignore */
+      }
+    };
     if (rel.startsWith("projects/")) {
       const slug = rel.split("/")[1];
-      tryManifests.push(path.join(root, "projects", slug, "output", "visual-target", "manifest.json"));
+      pushVtManifestTree(path.join(root, "projects", slug, "output", "visual-target"));
     }
     const stem = path.basename(rel).replace(/\.json$/i, "");
-    tryManifests.push(path.join(root, "output", stem, "visual-target", "manifest.json"));
-    // Title-slug folders are unknown here; also scan output/*/visual-target/manifest.json lightly
+    pushVtManifestTree(path.join(root, "output", stem, "visual-target"));
     const outputRoot = path.join(root, "output");
     if (existsSync(outputRoot)) {
       try {
         for (const name of readdirSync(outputRoot)) {
-          const m = path.join(outputRoot, name, "visual-target", "manifest.json");
-          if (existsSync(m)) tryManifests.push(m);
+          pushVtManifestTree(path.join(outputRoot, name, "visual-target"));
         }
       } catch {
         /* ignore */
@@ -2131,42 +2202,70 @@ app.whenReady().then(() => {
     }
     let selectedId = null;
     const seen = new Set();
+    const scored = [];
+    const briefNorm = briefAbs.replace(/\\/g, "/");
+    const briefBase = path.basename(briefAbs);
     for (const mPath of tryManifests) {
       if (!existsSync(mPath) || seen.has(mPath)) continue;
       seen.add(mPath);
       try {
         const man = JSON.parse(readFileSync(mPath, "utf-8"));
+        const manScene = String(man.scene_id || "").trim() || null;
+        if (sid && manScene && manScene !== sid) continue;
         const briefInMan = String(man.brief_path || "").replace(/\\/g, "/");
-        const briefNorm = briefAbs.replace(/\\/g, "/");
-        if (briefInMan && !briefInMan.includes(path.basename(briefAbs)) && briefInMan !== briefNorm) {
-          // keep scanning; weak match on basename below
+        if (
+          briefInMan &&
+          briefInMan !== briefNorm &&
+          !briefInMan.includes(briefBase)
+        ) {
+          continue;
         }
-        selectedId = man.selected_id || selectedId;
-        for (const c of man.candidates || []) {
-          if (!c || !c.id) continue;
-          const cAbs = String(c.path || "");
-          const cRel = cAbs
-            ? path.relative(root, path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs)).replace(/\\/g, "/")
-            : "";
-          candidates.push({
-            id: String(c.id),
-            label: c.label || c.id,
-            path: cRel || cAbs,
-            status: c.status,
-          });
-        }
-        if (candidates.length) break;
+        scored.push({
+          mPath,
+          man,
+          manScene,
+          mtime: statSync(mPath).mtimeMs || 0,
+        });
       } catch {
         /* ignore */
       }
     }
+    scored.sort((a, b) => b.mtime - a.mtime);
+    if (sid) {
+      scored.sort((a, b) => {
+        const aHit = a.manScene === sid ? 1 : 0;
+        const bHit = b.manScene === sid ? 1 : 0;
+        if (aHit !== bHit) return bHit - aHit;
+        return b.mtime - a.mtime;
+      });
+    }
+    const best = scored[0];
+    if (best) {
+      selectedId = best.man.selected_id || null;
+      for (const c of best.man.candidates || []) {
+        if (!c || !c.id) continue;
+        const cAbs = String(c.path || "");
+        const cRel = cAbs
+          ? path.relative(root, path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs)).replace(/\\/g, "/")
+          : "";
+        candidates.push({
+          id: String(c.id),
+          label: c.label || c.id,
+          path: cRel || cAbs,
+          status: c.status,
+        });
+      }
+    }
     return {
       ok: true,
-      ready: Boolean(pathOk && fileOk),
+      ready: globalReady || anySceneReady,
+      global_ready: globalReady,
       visual_reference: visualReference,
-      path_shaped: pathOk,
-      file_ok: fileOk,
+      path_shaped: globalCheck.pathOk,
+      file_ok: globalCheck.fileOk,
       selected_id: selectedId,
+      scene_id: sid,
+      scenes,
       candidates,
     };
   });

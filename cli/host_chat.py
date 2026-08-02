@@ -17,6 +17,7 @@ from typing import Any
 
 from brief import (
     AssetSpec,
+    AssetType,
     ProjectContext,
     animation_graph_to_dict,
     apply_deterministic_brief_fixes,
@@ -25,6 +26,7 @@ from brief import (
     characters_requiring_animation_graph,
     finalize_brief_export,
     parse_animation_graphs,
+    parse_assets_for_audit,
     validate_brief_for_export,
 )
 from external_projects import get_external_by_id, is_external_brief_key, parse_external_brief_key
@@ -214,6 +216,65 @@ def resolve_bound_brief_output_path(
     return (root / rel).resolve()
 
 
+def _draft_richness(draft: dict[str, Any] | None) -> tuple[int, int, int, int]:
+    """Cheap size signal: assets / scenes / systems / serialized length."""
+    if not isinstance(draft, dict) or not draft:
+        return (0, 0, 0, 0)
+    assets = draft.get("assets") if isinstance(draft.get("assets"), list) else []
+    project = draft.get("project") if isinstance(draft.get("project"), dict) else {}
+    scenes = project.get("scenes") if isinstance(project.get("scenes"), list) else []
+    systems = project.get("systems") if isinstance(project.get("systems"), list) else []
+    try:
+        nbytes = len(json.dumps(draft, ensure_ascii=False, separators=(",", ":")))
+    except (TypeError, ValueError):
+        nbytes = 0
+    return (len(assets), len(scenes), len(systems), nbytes)
+
+
+def _remember_disk_draft(
+    session: dict[str, Any],
+    draft: dict[str, Any],
+    *,
+    draft_path: Path | None = None,
+) -> None:
+    """Record fingerprint/mtime so later turns can detect external disk changes."""
+    session["draft_disk_fingerprint"] = draft_fingerprint(draft)
+    if draft_path is not None:
+        try:
+            session["draft_disk_mtime_ns"] = draft_path.stat().st_mtime_ns
+        except OSError:
+            session.pop("draft_disk_mtime_ns", None)
+    else:
+        session.pop("draft_disk_mtime_ns", None)
+
+
+def _should_flush_session_draft_to_disk(
+    session: dict[str, Any],
+    flush_rel: str,
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> bool:
+    """False when disk was updated externally (e.g. git pull) and is ahead of session."""
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        return False
+    disk = load_project_draft_from_disk(
+        flush_rel, repo_root=repo_root, workspace=workspace
+    )
+    if not disk:
+        return True
+    disk_fp = draft_fingerprint(disk)
+    tracked = str(session.get("draft_disk_fingerprint") or "").strip()
+    if tracked and disk_fp != tracked:
+        # Disk changed since we last loaded/persisted — never clobber it with stale session.
+        return False
+    if not tracked and _draft_richness(disk) > _draft_richness(draft):
+        # Legacy sessions without fingerprint: prefer the richer on-disk draft.
+        return False
+    return True
+
+
 def persist_project_draft(
     session: dict[str, Any],
     *,
@@ -240,6 +301,7 @@ def persist_project_draft(
         )
     except OSError:
         return None
+    _remember_disk_draft(session, out, draft_path=draft_path)
     # Keep Chinese companion in sync with the machine draft (no LLM on every save).
     try:
         from brief_zh_doc import write_brief_zh_document
@@ -250,6 +312,75 @@ def persist_project_draft(
     return draft_path
 
 
+def sync_session_draft_from_disk(
+    session: dict[str, Any],
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+    force: bool = False,
+) -> bool:
+    """Reload bound project draft when disk changed (git pull / external edit).
+
+    Cost is a local JSON read (skipped when mtime matches). Negligible vs an LLM turn.
+    Returns True when session.draft_brief was replaced from disk.
+    """
+    rel = _norm_brief_rel(session.get("bound_brief_rel"))
+    if not rel:
+        return False
+    root = (repo_root or _repo_root()).resolve()
+    ws = (workspace or root).resolve()
+    brief_path = resolve_bound_brief_output_path(
+        session, repo_root=root, workspace=ws
+    )
+    draft_path = brief_path.parent / "brief.draft.json" if brief_path is not None else None
+    if draft_path is not None and draft_path.is_file() and not force:
+        try:
+            mtime = draft_path.stat().st_mtime_ns
+        except OSError:
+            mtime = None
+        if (
+            mtime is not None
+            and session.get("draft_disk_mtime_ns") == mtime
+            and str(session.get("draft_disk_fingerprint") or "").strip()
+            and isinstance(session.get("draft_brief"), dict)
+            and session["draft_brief"]
+        ):
+            return False
+    disk = load_project_draft_from_disk(rel, repo_root=root, workspace=ws)
+    if not disk:
+        return False
+    fp = draft_fingerprint(disk)
+    tracked = str(session.get("draft_disk_fingerprint") or "").strip()
+    has_session_draft = (
+        isinstance(session.get("draft_brief"), dict) and bool(session["draft_brief"])
+    )
+    if not force and tracked and tracked == fp and has_session_draft:
+        if draft_path is not None and draft_path.is_file():
+            try:
+                session["draft_disk_mtime_ns"] = draft_path.stat().st_mtime_ns
+            except OSError:
+                pass
+        return False
+
+    take_disk = False
+    if force:
+        take_disk = True
+    elif tracked and tracked != fp:
+        # Disk changed since last load/persist (git pull / external edit).
+        take_disk = True
+    elif not has_session_draft:
+        take_disk = True
+    elif not tracked and _draft_richness(disk) > _draft_richness(session.get("draft_brief")):
+        # Legacy session: prefer richer on-disk draft after pull.
+        take_disk = True
+
+    if take_disk:
+        session["draft_brief"] = disk
+        _remember_disk_draft(session, disk, draft_path=draft_path)
+        return True
+    return False
+
+
 def attach_bound_project(
     session: dict[str, Any],
     brief_rel: str | None,
@@ -258,26 +389,26 @@ def attach_bound_project(
     workspace: Path | None = None,
     hydrate_draft: bool = True,
 ) -> None:
-    """Bind GUI project; sync draft ↔ disk (flush session first, then load)."""
+    """Bind GUI project; sync draft ↔ disk (flush only when safe, then load)."""
     if not brief_rel or not str(brief_rel).strip():
         return
     root = (repo_root or _repo_root()).resolve()
     ws = (workspace or root).resolve()
     prev = _norm_brief_rel(session.get("bound_brief_rel"))
     rel = _norm_brief_rel(brief_rel)
-    # Flush in-session draft before hydrate so GUI edits are not discarded
+    # Flush in-session draft before hydrate so GUI edits are not discarded —
+    # but never overwrite a disk draft that changed externally (git pull).
     if (
         hydrate_draft
         and isinstance(session.get("draft_brief"), dict)
         and session["draft_brief"]
     ):
         flush_rel = prev or rel
-        if flush_rel:
-            persist_project_draft(
-                {**session, "bound_brief_rel": flush_rel},
-                repo_root=root,
-                workspace=ws,
-            )
+        if flush_rel and _should_flush_session_draft_to_disk(
+            session, flush_rel, repo_root=root, workspace=ws
+        ):
+            session["bound_brief_rel"] = flush_rel
+            persist_project_draft(session, repo_root=root, workspace=ws)
     session["bound_brief_rel"] = rel
     session["project_slug"] = _slug_from_brief_rel(rel, workspace=ws)
     if not hydrate_draft:
@@ -285,10 +416,19 @@ def attach_bound_project(
     disk = load_project_draft_from_disk(rel, repo_root=root, workspace=ws)
     if disk:
         session["draft_brief"] = disk
+        brief_path = resolve_bound_brief_output_path(
+            session, repo_root=root, workspace=ws
+        )
+        draft_path = (
+            brief_path.parent / "brief.draft.json" if brief_path is not None else None
+        )
+        _remember_disk_draft(session, disk, draft_path=draft_path)
     else:
         # Bound to an empty project folder — don't keep another game's draft
         session["draft_brief"] = None
         session["draft_document"] = None
+        session.pop("draft_disk_fingerprint", None)
+        session.pop("draft_disk_mtime_ns", None)
 
 
 def _norm_brief_rel(brief_rel: str | None) -> str:
@@ -369,8 +509,15 @@ def _merge_dict_list_by_key(
     base_list: list[Any],
     incoming_list: list[Any],
     key_fn,
+    *,
+    preserve_nonempty_keys: frozenset[str] | None = None,
 ) -> list[Any]:
-    """Upsert incoming items onto base by key; never drop base items missing from incoming."""
+    """Upsert incoming items onto base by key; never drop base items missing from incoming.
+
+    ``preserve_nonempty_keys``: empty-string incoming values do not clobber a non-empty
+    base value (e.g. model clearing ``visual_reference`` after a visual-target pick).
+    """
+    protect = preserve_nonempty_keys or frozenset()
     out: list[Any] = [copy.deepcopy(x) for x in base_list]
     index: dict[str, int] = {}
     for i, item in enumerate(out):
@@ -388,6 +535,13 @@ def _merge_dict_list_by_key(
             for sk, sv in item.items():
                 if sv is None:
                     continue
+                if (
+                    sk in protect
+                    and isinstance(sv, str)
+                    and not sv.strip()
+                    and str(merged.get(sk) or "").strip()
+                ):
+                    continue
                 if isinstance(sv, dict) and isinstance(merged.get(sk), dict):
                     nested = copy.deepcopy(merged[sk])
                     nested.update(sv)
@@ -400,6 +554,17 @@ def _merge_dict_list_by_key(
             if key:
                 index[key] = len(out) - 1
     return out
+
+
+def _project_list_item_key(item: dict[str, Any]) -> str:
+    for field in ("id", "name", "title"):
+        raw = str(item.get(field) or "").strip()
+        if raw:
+            return raw.lower()
+    return ""
+
+
+_PROJECT_LIST_MERGE_KEYS = frozenset({"scenes", "systems"})
 
 
 _NARRATIVE_PROJECT_KEYS = frozenset(
@@ -440,6 +605,7 @@ def deep_merge_brief(
 
     - ``assets`` / ``animation_graphs``: upsert by id/name (never drop prior rows just
       because the model omitted them this turn).
+    - ``project.scenes`` / ``project.systems``: same upsert-by-id behaviour.
     - Long narrative project strings: empty / much-shorter rewrites do not clobber base.
     """
     if not incoming:
@@ -470,8 +636,35 @@ def deep_merge_brief(
                     nested = copy.deepcopy(merged[sk])
                     nested.update(sv)
                     merged[sk] = nested
+                elif (
+                    key == "project"
+                    and sk in _PROJECT_LIST_MERGE_KEYS
+                    and isinstance(sv, list)
+                ):
+                    base_list = (
+                        merged.get(sk) if isinstance(merged.get(sk), list) else []
+                    )
+                    merged[sk] = _merge_dict_list_by_key(
+                        base_list,
+                        sv,
+                        _project_list_item_key,
+                        preserve_nonempty_keys=(
+                            frozenset({"visual_reference"})
+                            if sk == "scenes"
+                            else frozenset()
+                        ),
+                    )
                 elif key == "project" and sk in _NARRATIVE_PROJECT_KEYS:
                     merged[sk] = _prefer_richer_string(merged.get(sk), sv)
+                elif (
+                    key == "project"
+                    and sk == "visual_reference"
+                    and isinstance(sv, str)
+                    and not sv.strip()
+                    and str(merged.get(sk) or "").strip()
+                ):
+                    # Keep picked global north-star; models often emit "".
+                    continue
                 else:
                     merged[sk] = copy.deepcopy(sv)
             out[key] = merged
@@ -922,11 +1115,17 @@ def run_makeability_review(
     session["makeability_review"] = review
     intent_count = len(review["intent_gaps"])
     detail_count = len(review["detail_gaps"])
-    if intent_count:
-        session["ready_to_export"] = False
 
     if session.get("draft_brief") != draft_before:
         session["draft_brief"] = draft_before
+
+    if intent_count:
+        session["ready_to_export"] = False
+    elif not _audit_draft_gaps(
+        session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None
+    ):
+        # Fresh review with no intent gaps + green contract → allow Save Brief.
+        session["ready_to_export"] = True
 
     assistant_message = (
         f"制作审查完成：{intent_count} 条意图缺口，{detail_count} 条施工细节缺口。"
@@ -1525,7 +1724,9 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     incoming_doc = _extract_document(parsed)
 
     if mode == "chat":
+        # Ignore model-claimed ready_to_export; real readiness is live-audited below.
         ready = False
+        prefer_patches = bool(session.get("_autofix_prefer_patches"))
         # Prefer surgical patches when answering review gaps / small clarifications.
         # If patches are present, do NOT apply a possibly thinned full draft_brief.
         if patches:
@@ -1544,9 +1745,31 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                 except HostChatError as exc:
                     assistant_message += f"\n\n（草稿补丁未应用：{exc}）"
         elif incoming:
+            # Autofix: reject huge assets[] rewrites (models truncate mid-JSON).
+            merge_incoming = incoming
+            if prefer_patches:
+                inc_assets = incoming.get("assets")
+                base_draft = (
+                    session.get("draft_brief")
+                    if isinstance(session.get("draft_brief"), dict)
+                    else None
+                )
+                base_n = (
+                    len(base_draft.get("assets") or [])
+                    if isinstance(base_draft, dict)
+                    else 0
+                )
+                if isinstance(inc_assets, list) and len(inc_assets) > 30 and base_n > 30:
+                    merge_incoming = {
+                        k: v for k, v in incoming.items() if k != "assets"
+                    }
+                    assistant_message += (
+                        "\n\n（自动修已忽略超大 assets[] 整表重写；"
+                        "请改用 artifact.brief_patches。）"
+                    )
             session["draft_brief"] = deep_merge_brief(
                 session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None,
-                incoming,
+                merge_incoming,
             )
         if incoming_doc:
             session["draft_document"] = incoming_doc
@@ -1601,6 +1824,18 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     elif mode in ("chat", "commit_brief", "commit_doc"):
         session["gaps"] = []
 
+    # Contract readiness is audit-driven. Chat must not permanently clear a green brief
+    # just because the model omitted ready_to_export (GUI export button depends on this).
+    draft_ok = (
+        isinstance(session.get("draft_brief"), dict) and bool(session.get("draft_brief"))
+    )
+    if mode == "chat":
+        ready = draft_ok and not live_gaps
+    elif mode == "commit_brief":
+        ready = bool(ready) and draft_ok and not live_gaps
+    elif live_gaps:
+        ready = False
+
     messages = list(session.get("messages") or [])
     messages.append({"role": "assistant", "content": assistant_message})
     session["messages"] = messages
@@ -1631,8 +1866,14 @@ def run_turn(
     user_message: str | None,
     config: dict[str, Any],
     instance_id: str | None = None,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
 ) -> dict[str, Any]:
     """Append user message, optionally compress, call host LLM (chat or commit)."""
+    # Pull externally updated drafts (git pull) before the model sees session state.
+    sync_session_draft_from_disk(
+        session, repo_root=repo_root, workspace=workspace
+    )
     messages: list[dict[str, Any]] = list(session.get("messages") or [])
     if user_message and user_message.strip():
         messages.append({"role": "user", "content": user_message.strip()})
@@ -1680,10 +1921,14 @@ def export_brief(session: dict[str, Any]) -> dict[str, Any]:
     draft = session.get("draft_brief")
     if not isinstance(draft, dict) or not draft:
         raise HostChatError("No draft_brief in session. Chat about the game first, then 落实成 brief.")
-    if not session.get("ready_to_export"):
+    gaps = _audit_draft_gaps(draft)
+    if gaps:
+        session["gaps"] = gaps
+        session["ready_to_export"] = False
         raise HostChatError(
-            "Brief 尚未 ready_to_export。请先落实（契约完整）后再导出，或在 GUI 等「保存 Brief」可点时导出。"
+            f"Brief 校验未通过（仍有 {len(gaps)} 条）。请先自动修或补齐后再导出。"
         )
+    session["ready_to_export"] = True
     assert_makeability_exportable(session)
     return finalize_brief_export(draft, source="host-chat")
 
@@ -1737,39 +1982,63 @@ def _asset_clip_lines(draft: dict[str, Any] | None) -> list[str]:
 
 def build_autofix_user_message(gaps: list[str], draft: dict[str, Any] | None) -> str:
     """Structured prompt so the model reads validator gaps without the user pasting them."""
+    gap_blob = "\n".join(gaps)
+    needs_graph = "animation_graph" in gap_blob or "clip" in gap_blob.lower()
+    needs_hud = "hud" in gap_blob or "ui_element" in gap_blob
+    needs_type = "illegal type" in gap_blob or "Unknown asset type" in gap_blob
+    allowed_types = ", ".join(t.value for t in AssetType)
+
     lines = [
-        "【自动修 brief】下面是宿主对当前 draft_brief 的校验错误。"
-        "请修正并输出完整的 artifact.draft_brief（在上一版上改，不要只给碎片）。"
-        "ready_to_export 必须为 false。",
+        "【自动修 brief】下面是宿主对当前 draft_brief 的校验错误。",
+        "必须用 artifact.brief_patches 做定点修改（upsert_asset / set / upsert_graph）。",
+        "禁止输出完整 assets[] 整表重写（会截断失败）。ready_to_export 必须为 false。",
         "",
         "硬约束：",
+        f"- assets[].type 只能是：{allowed_types}。"
+        "常见别名：animation/anim → character_pose；item/prop → texture（有 items[] 则 icon_kit）。",
         "- Foundry brief 没有 states[]；禁止输出 states / states[].id / states[].clip。",
-        "- animation_graphs 的 from/to/then/default_clip 只能用下面「资产→clip」表里的 clip 列，"
-        "不要用资产全名、不要用中文状态 id、不要自创 clip。",
-        "- 例：资产 球员_普通_跑动 的 clip 是「跑动」，transition 必须写 to:\"跑动\" 而不是 \"球员_普通_跑动\"。",
-        "- one-shot（animation_loop:false）作为 to 时必须有 then（通常指向 idle）。",
-        "- 缺动画就补 assets[]（video + reference_asset）；有资产但图写错名就改 transitions。",
-        "- 每个 usage=ui_element 必须在 project.hud[] 有一条 "
-        '{"asset":"<同名>","anchor":"top_left|…","description":"…"}；'
-        "必须写进 artifact.draft_brief.project.hud，不能只口头说改了。",
-        "",
-        "校验错误：",
     ]
+    if needs_type:
+        lines.append(
+            "- 改 type 时用 "
+            '{"op":"upsert_asset","match":{"name":"<资产名>"},"set":{"type":"character_pose"}}；'
+            "同类错误可多条 patch，不要重写全部资产。"
+        )
+    if needs_graph:
+        lines.extend(
+            [
+                "- animation_graphs 的 from/to/then/default_clip 只能用下面「资产→clip」表里的 clip 列，"
+                "不要用资产全名、不要用中文状态 id、不要自创 clip。",
+                "- 例：资产 球员_普通_跑动 的 clip 是「跑动」，transition 必须写 to:\"跑动\" "
+                "而不是 \"球员_普通_跑动\"。",
+                "- one-shot（animation_loop:false）作为 to 时必须有 then（通常指向 idle）。",
+                "- 缺动画就用 add_asset / upsert_asset 补视频资产；有资产但图写错名就改 transitions。",
+            ]
+        )
+    if needs_hud:
+        lines.append(
+            "- 每个 usage=ui_element 必须在 project.hud[] 有一条 "
+            '{"asset":"<同名>","anchor":"top_left|…","description":"…"}；'
+            "用 brief_patches 的 set path=project.hud，不能只口头说改了。"
+        )
+    lines.append("")
+    lines.append("校验错误：")
     for i, g in enumerate(gaps, 1):
         lines.append(f"{i}. {g}")
-    asset_lines = _asset_clip_lines(draft)
-    if asset_lines:
-        lines.append("")
-        lines.append("资产 → Godot clip（from/to/then/default_clip 只能用 clip 列）：")
-        lines.extend(asset_lines)
-    clip_map = _clip_map_for_draft(draft)
-    if clip_map:
-        lines.append("")
-        lines.append("各角色合法 clip 集合：")
-        for char, clips in clip_map.items():
-            lines.append(f"- {char}: {', '.join(clips) if clips else '（无）'}")
+    if needs_graph:
+        asset_lines = _asset_clip_lines(draft)
+        if asset_lines:
+            lines.append("")
+            lines.append("资产 → Godot clip（from/to/then/default_clip 只能用 clip 列）：")
+            lines.extend(asset_lines)
+        clip_map = _clip_map_for_draft(draft)
+        if clip_map:
+            lines.append("")
+            lines.append("各角色合法 clip 集合：")
+            for char, clips in clip_map.items():
+                lines.append(f"- {char}: {', '.join(clips) if clips else '（无）'}")
     lines.append("")
-    lines.append("请直接改草稿并简短说明改了什么。")
+    lines.append("请只返回 brief_patches + 简短说明；不要粘贴完整 draft_brief.assets。")
     return "\n".join(lines)
 
 
@@ -1844,7 +2113,7 @@ def run_autofix(
                 "gaps_after": gaps_a,
                 "notes": notes,
                 "assistant_message": (
-                    "代码已自动修补 brief（animation_graphs / project.hud 等）"
+                    "代码已自动修补 brief（asset type / animation_graphs / project.hud 等）"
                     + (f"：{'; '.join(notes[:6])}" if notes else "。")
                 ),
                 "gap_count_before": len(gaps_b),
@@ -1915,10 +2184,13 @@ def run_autofix(
             gaps,
             session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None,
         )
-        turn = run_turn(session, user_message=user_msg, config=config)
-        gaps_after = _audit_draft_gaps(
-            session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None
-        )
+        session["_autofix_prefer_patches"] = True
+        try:
+            turn = run_turn(session, user_message=user_msg, config=config)
+        finally:
+            session.pop("_autofix_prefer_patches", None)
+        # Mechanical aliases again — LLM may reintroduce animation/item.
+        _, gaps_after, _ = _apply_code_autofix(session)
         session["gaps"] = gaps_after
         rounds.append(
             {
@@ -1966,14 +2238,29 @@ def _audit_draft_gaps(draft: dict[str, Any] | None) -> list[str]:
     """Live gaps from current draft — authoritative for status / after each merge."""
     if not isinstance(draft, dict) or not draft:
         return []
+    assets, errors = parse_assets_for_audit(draft.get("assets") or [])
     try:
         project = ProjectContext.from_dict(draft.get("project") or {})
-        assets_raw = draft.get("assets") or []
-        assets = [AssetSpec.from_dict(item) for item in assets_raw if isinstance(item, dict)]
         graphs = parse_animation_graphs(draft)
-        return audit_brief_for_export(project, assets, animation_graphs=graphs)
     except (ValueError, KeyError, TypeError) as exc:
-        return [str(exc)]
+        errors.append(str(exc))
+        return errors
+    if not assets and errors:
+        # Still surface project-level issues when every asset failed to parse.
+        try:
+            errors.extend(
+                audit_brief_for_export(project, [], animation_graphs=graphs)
+            )
+        except (ValueError, KeyError, TypeError) as exc:
+            errors.append(str(exc))
+        return errors
+    try:
+        errors.extend(
+            audit_brief_for_export(project, assets, animation_graphs=graphs)
+        )
+    except (ValueError, KeyError, TypeError) as exc:
+        errors.append(str(exc))
+    return errors
 
 
 def session_status(session: dict[str, Any]) -> dict[str, Any]:
@@ -2021,6 +2308,14 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
                 str(review.get("draft_fingerprint") or "") == draft_fingerprint(draft)
             )
 
+    contract_complete = bool(draft) and not gaps
+    # Keep sticky flag aligned with live audit so a later chat turn cannot leave the
+    # GUI export button stuck off while gaps are empty and makeability is fresh.
+    if contract_complete and makeability_fingerprint_match and intent_count == 0:
+        session["ready_to_export"] = True
+    elif not contract_complete:
+        session["ready_to_export"] = False
+
     return {
         "id": session.get("id"),
         "exists": True,
@@ -2040,7 +2335,7 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
         "has_document": bool(doc and (doc.get("body") or doc.get("title"))),
         "last_choices": session.get("last_choices") or [],
         "gaps": gaps,
-        "contract_complete": bool(draft) and not gaps,
+        "contract_complete": contract_complete,
         "has_summary": bool(str(session.get("summary") or "").strip()),
         "compressed_count": int(session.get("compressed_count") or 0),
         "bound_brief_rel": session.get("bound_brief_rel") or None,
