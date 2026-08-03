@@ -1627,7 +1627,24 @@ app.whenReady().then(() => {
     if (!url || typeof url !== "string") {
       return { ok: false, error: "invalid url" };
     }
-    await shell.openExternal(url);
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      return { ok: false, error: "invalid url" };
+    }
+    const protocol = parsed.protocol.toLowerCase();
+    const host = (parsed.hostname || "").toLowerCase();
+    const httpsOk = protocol === "https:";
+    const localHttpOk =
+      protocol === "http:" && (host === "localhost" || host === "127.0.0.1");
+    if (!httpsOk && !localHttpOk) {
+      return {
+        ok: false,
+        error: "only https: or http://localhost|127.0.0.1 allowed",
+      };
+    }
+    await shell.openExternal(parsed.toString());
     return { ok: true };
   });
 

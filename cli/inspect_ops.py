@@ -82,6 +82,11 @@ def resolve_readable_path(raw: str | Path, *, must_exist: bool = True) -> Path:
     return candidate
 
 
+def redact_text(text: str) -> str:
+    """Redact secret-shaped tokens in free-form tool / file text."""
+    return _SECRET_VALUE_RE.sub("***", text or "")
+
+
 def redact_secrets(value: Any) -> Any:
     if isinstance(value, dict):
         out: dict[str, Any] = {}

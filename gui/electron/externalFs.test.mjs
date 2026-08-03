@@ -81,10 +81,35 @@ test("absForResolved maps repo and external paths", () => {
       resolvedExternal: null,
       repoRoot: "/repo",
     }),
-    path.join("/repo", "projects/foo/brief.json"),
+    path.resolve("/repo", "projects/foo/brief.json"),
   );
 });
 
-test("normalizeRepoRel strips ../ prefix", () => {
-  assert.equal(normalizeRepoRel("../projects/foo/brief.json"), "projects/foo/brief.json");
+test("normalizeRepoRel rejects path escape", () => {
+  assert.equal(normalizeRepoRel("projects/foo/brief.json"), "projects/foo/brief.json");
+  assert.equal(normalizeRepoRel("../projects/foo/brief.json"), "");
+  assert.equal(normalizeRepoRel("projects/foo/../../outside"), "");
+  assert.equal(normalizeRepoRel("./projects/foo/brief.json"), "projects/foo/brief.json");
+});
+
+test("cliArgForResolved rejects mid-path escape", () => {
+  assert.throws(
+    () =>
+      cliArgForResolved("projects/foo/../../outside", {
+        resolvedExternal: null,
+        repoRoot: "/repo",
+      }),
+    /invalid repo-relative path|path outside repo/,
+  );
+});
+
+test("absForResolved rejects mid-path escape", () => {
+  assert.throws(
+    () =>
+      absForResolved("projects/x/../../etc/passwd", {
+        resolvedExternal: null,
+        repoRoot: "/repo",
+      }),
+    /invalid repo-relative path|path outside repo/,
+  );
 });

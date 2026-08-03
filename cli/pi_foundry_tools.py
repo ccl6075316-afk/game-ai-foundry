@@ -174,7 +174,8 @@ Home-ops playbooks (Chinese answers):
 4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
 5. **Assets** — assets review list / regenerate-plan (guide user; soft annotations)
 6. **Read** — `conversations list|show`, `inspect list|read` (secrets redacted)
-7. **Shell** — `shell run --command "…" --i-confirm` (cwd: repo or ~/.gamefactory; 信任本会话可自动批准)
+7. **Shell** — `shell run --command "…" --i-confirm --json` (cwd: repo or ~/.gamefactory; prefer GUI approve when bridge is on, otherwise `--i-confirm` is enough)
+
 
 Rules:
 - Prefer `--json` when available.
@@ -185,7 +186,9 @@ Rules:
   When done, write an explicit **结论**.
 - Do **not** casually rewrite Foundry/Electron/Pi source or `games/` C# — if needed, say so and keep diffs minimal / ask first.
 - Do **not** tell users to install system Python/Node for Release — embed + toolchain auto/IT install.
-- **Shell & other mutating ops** need `--i-confirm` (信任本会话 may auto-approve). Mask API Keys in chat.
+- **Mutating ops** (including shell) need `--i-confirm`. When the GUI permission
+  bridge is connected, the host may ask once/turn/session — prefer approving so
+  work can finish. Without a bridge, `--i-confirm` alone is enough. Mask API Keys in chat.
   Example (shell):
   <<<FOUNDRY_TOOL
   ["shell", "run", "--command", "ls -la plans/conversations/brief | head", "--i-confirm", "--json"]
@@ -415,6 +418,10 @@ def run_allowed_gamefactory(
 ) -> dict[str, Any]:
     """Run ``python gamefactory.py <argv>`` if allow-listed."""
     run_argv_in = list(argv)
+
+    # When the GUI permission bridge is up, ask before mutates (once/turn/session).
+    # Without a bridge: do not block — require --i-confirm via is_allowed_argv so
+    # headless/CLI Pi can still complete user work (completion > permission theater).
     if is_mutating_argv(run_argv_in) and permission_bridge_configured():
         decision = request_mutate_permission(
             run_argv_in,
@@ -503,15 +510,28 @@ def run_allowed_gamefactory(
             "exit_code": None,
         }
 
+    out_stdout = (proc.stdout or "")[-8000:]
+    out_stderr = (proc.stderr or "")[-2000:]
+    err_tail = None
+    if proc.returncode != 0:
+        err_tail = (proc.stderr or proc.stdout or f"exit {proc.returncode}")[-500:]
+    try:
+        from inspect_ops import redact_text
+
+        out_stdout = redact_text(out_stdout)
+        out_stderr = redact_text(out_stderr)
+        if err_tail is not None:
+            err_tail = redact_text(err_tail)
+    except Exception:  # noqa: BLE001 — never fail the tool on redact
+        pass
+
     return {
         "ok": proc.returncode == 0,
         "argv": argv,
         "exit_code": proc.returncode,
-        "stdout": (proc.stdout or "")[-8000:],
-        "stderr": (proc.stderr or "")[-2000:],
-        "error": None
-        if proc.returncode == 0
-        else (proc.stderr or proc.stdout or f"exit {proc.returncode}")[-500:],
+        "stdout": out_stdout,
+        "stderr": out_stderr,
+        "error": err_tail,
     }
 
 

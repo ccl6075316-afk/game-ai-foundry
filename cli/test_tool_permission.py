@@ -34,13 +34,13 @@ class ToolPermissionUnitTest(unittest.TestCase):
             ["setup", "install", "ffmpeg", "--i-confirm"],
         )
 
-    def test_no_bridge_defaults_to_once(self) -> None:
+    def test_no_bridge_defaults_to_deny(self) -> None:
         with patch.dict("os.environ", {}, clear=False):
             import os
 
             os.environ.pop("GAMEFACTORY_TOOL_PERMISSION_URL", None)
             d = request_mutate_permission(["setup", "install", "ffmpeg", "--i-confirm"])
-        self.assertEqual(d, "once")
+        self.assertEqual(d, "deny")
 
     def test_turn_memory_skips_second_ask(self) -> None:
         calls: list[dict] = []
@@ -134,6 +134,75 @@ class ToolPermissionGateIntegrationTest(unittest.TestCase):
                             permission_session_id="chat-1",
                         )
         gate.assert_not_called()
+
+    def test_shell_without_bridge_runs_with_i_confirm(self) -> None:
+        """Completion-first: headless Pi may shell with --i-confirm (cwd-gated)."""
+        class FakeProc:
+            returncode = 0
+            stdout = '{"ok": true, "stdout": "hi"}'
+            stderr = ""
+
+        with (
+            patch("pi_foundry_tools.permission_bridge_configured", return_value=False),
+            patch("pi_foundry_tools.subprocess.run", return_value=FakeProc()) as run,
+            patch("pi_foundry_tools.Path.is_file", return_value=True),
+        ):
+            result = run_allowed_gamefactory(
+                [
+                    "shell",
+                    "run",
+                    "--command",
+                    "echo hi",
+                    "--i-confirm",
+                    "--json",
+                ],
+            )
+        self.assertTrue(result["ok"], msg=str(result))
+        run.assert_called_once()
+
+    def test_nonshell_mutate_without_bridge_runs_with_i_confirm(self) -> None:
+        class FakeProc:
+            returncode = 0
+            stdout = '{"ok": true}'
+            stderr = ""
+
+        with (
+            patch("pi_foundry_tools.permission_bridge_configured", return_value=False),
+            patch("pi_foundry_tools.subprocess.run", return_value=FakeProc()) as run,
+            patch("pi_foundry_tools.Path.is_file", return_value=True),
+        ):
+            result = run_allowed_gamefactory(
+                ["setup", "install", "ffmpeg", "--json", "--i-confirm"],
+            )
+        self.assertTrue(result["ok"])
+        run.assert_called_once()
+
+    def test_nonshell_mutate_without_bridge_blocked_without_i_confirm(self) -> None:
+        with patch("pi_foundry_tools.permission_bridge_configured", return_value=False):
+            with patch("pi_foundry_tools.subprocess.run") as run:
+                result = run_allowed_gamefactory(
+                    ["setup", "install", "ffmpeg", "--json"],
+                )
+        self.assertFalse(result["ok"])
+        run.assert_not_called()
+
+
+    def test_tool_stdout_redacts_api_keys(self) -> None:
+        class FakeProc:
+            returncode = 0
+            stdout = 'active key sk-abcdefghijklmnopqrstuvwxyz1234 and sk-or-abcdefghijklmnop'
+            stderr = ""
+
+        with (
+            patch("pi_foundry_tools.permission_bridge_configured", return_value=False),
+            patch("pi_foundry_tools.subprocess.run", return_value=FakeProc()),
+            patch("pi_foundry_tools.Path.is_file", return_value=True),
+        ):
+            result = run_allowed_gamefactory(["doctor", "--json"])
+        self.assertTrue(result["ok"])
+        self.assertNotIn("sk-abcdefghijklmnopqrstuvwxyz1234", result["stdout"])
+        self.assertNotIn("sk-or-abcdefghijklmnop", result["stdout"])
+        self.assertIn("***", result["stdout"])
 
 
 if __name__ == "__main__":

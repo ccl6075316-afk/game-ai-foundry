@@ -687,7 +687,12 @@ def generate(
         try:
             atype = AssetType(asset_type_name)
         except ValueError:
-            atype = AssetType.CHARACTER
+            click.echo(
+                f"Error: unknown asset_type {asset_type_name!r} for --validate "
+                "(refusing to fall back to character heuristics).",
+                err=True,
+            )
+            sys.exit(1)
         result = validate_image(output, atype, validation_rules)
         click.echo(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
         if not result.ok:

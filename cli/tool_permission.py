@@ -98,15 +98,16 @@ def request_mutate_permission(
 ) -> Decision:
     """Ask GUI (or ``requester``) whether to run a mutating tool.
 
-    If no bridge URL and no ``requester``, returns ``once`` so legacy
-    ``--i-confirm``-in-argv CLI paths keep working.
+    Fail-closed: if no bridge URL and no ``requester``, returns ``deny``.
+    Non-shell mutates without a bridge are gated by ``--i-confirm`` in
+    ``run_allowed_gamefactory`` / ``is_allowed_argv`` instead of this helper.
     """
     state = turn_state or PermissionTurnState()
     if state.allow_rest_of_turn:
         return "once"
 
     if requester is None and not permission_bridge_configured():
-        return "once"
+        return "deny"
 
     permission_id = uuid.uuid4().hex
     payload = {

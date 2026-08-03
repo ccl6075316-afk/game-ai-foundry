@@ -45,15 +45,19 @@ export function resolveExternalAbs(rel, getEntryById) {
 }
 
 /**
- * Normalize repo-relative path (strip ../ and ./).
+ * Normalize repo-relative path. Rejects any `..` segment (including mid-path).
+ * Returns "" for empty/invalid input — callers must treat empty as reject.
  * @param {string | null | undefined} relPath
  * @returns {string}
  */
 export function normalizeRepoRel(relPath) {
-  return String(relPath || "")
+  const raw = String(relPath || "")
     .replace(/\\/g, "/")
-    .replace(/^\.\.\//, "")
-    .replace(/^\.\//, "");
+    .replace(/^\/+/, "");
+  if (!raw) return "";
+  const parts = raw.split("/").filter((p) => p && p !== ".");
+  if (parts.some((p) => p === "..")) return "";
+  return parts.join("/");
 }
 
 /**
@@ -64,7 +68,16 @@ export function normalizeRepoRel(relPath) {
  */
 export function cliArgForResolved(rel, { resolvedExternal, repoRoot }) {
   if (resolvedExternal) return resolvedExternal.full;
-  return path.join("..", normalizeRepoRel(rel));
+  const norm = normalizeRepoRel(rel);
+  if (!norm) {
+    throw new Error(`invalid repo-relative path: ${rel}`);
+  }
+  const root = path.resolve(repoRoot);
+  const full = path.resolve(root, norm);
+  if (full !== root && !full.startsWith(root + path.sep)) {
+    throw new Error(`path outside repo: ${rel}`);
+  }
+  return path.join("..", norm);
 }
 
 /**
@@ -75,5 +88,14 @@ export function cliArgForResolved(rel, { resolvedExternal, repoRoot }) {
  */
 export function absForResolved(rel, { resolvedExternal, repoRoot }) {
   if (resolvedExternal) return resolvedExternal.full;
-  return path.join(repoRoot, normalizeRepoRel(rel));
+  const norm = normalizeRepoRel(rel);
+  if (!norm) {
+    throw new Error(`invalid repo-relative path: ${rel}`);
+  }
+  const root = path.resolve(repoRoot);
+  const full = path.resolve(root, norm);
+  if (full !== root && !full.startsWith(root + path.sep)) {
+    throw new Error(`path outside repo: ${rel}`);
+  }
+  return full;
 }
