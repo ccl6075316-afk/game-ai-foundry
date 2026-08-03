@@ -15,6 +15,7 @@ from visual_target import (
     brief_has_any_visual_reference,
     build_candidate_prompts,
     build_visual_target_plan,
+    clear_visual_target_run_artifacts,
     default_output_dir,
     find_manifest_for_brief,
     generate_visual_targets,
@@ -299,6 +300,154 @@ class TestVisualTarget(unittest.TestCase):
             "搏鱼" in prompt or "tense fight" in prompt or "combat" in prompt,
             msg=prompt[:400],
         )
+
+    def test_generate_clears_stale_partial_before_retry(self) -> None:
+        """Failed prior run left hollow scene dir + half plan; retry must start clean."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans" / "combat"
+        out.mkdir(parents=True)
+        plans.mkdir(parents=True)
+        stale_png = out / "candidate_a.png"
+        stale_png.write_bytes(b"\x89PNG-stale")
+        (plans / "candidate_a.json").write_text('{"stale": true}', encoding="utf-8")
+        # No manifest — mirrors mid-run image API failure.
+
+        manifest = generate_visual_targets(
+            brief,
+            out,
+            count=2,
+            config={},
+            dry_run=True,
+            craft=False,
+            plans_dir=plans,
+            scene_id="combat",
+        )
+        self.assertTrue((out / "manifest.json").is_file())
+        self.assertEqual(len(manifest["candidates"]), 2)
+        self.assertFalse(stale_png.is_file())
+        handoff = json.loads(
+            Path(manifest["candidates"][0]["handoff_path"]).read_text(encoding="utf-8")
+        )
+        self.assertNotIn("stale", handoff)
+
+    def test_generate_image_failure_rolls_back_scene_artifacts(self) -> None:
+        """Image API errors must not leave empty scene dirs or partial candidates."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans" / "combat"
+        sibling = self.tmp_path / "visual-target" / "dock"
+        sibling.mkdir(parents=True)
+        (sibling / "keep.txt").write_text("keep", encoding="utf-8")
+
+        calls = {"n": 0}
+
+        def fake_generate_image(**kwargs: object) -> None:
+            calls["n"] += 1
+            out_path = Path(str(kwargs["output"]))
+            if calls["n"] == 1:
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                out_path.write_bytes(b"\x89PNG-ok")
+                return
+            raise RuntimeError("503 no available channel")
+
+        with patch("gamefactory.generate_image", side_effect=fake_generate_image), patch(
+            "gamefactory.resolve_image_proxy", return_value=None
+        ), patch(
+            "image_model_route.resolve_image_credentials",
+            return_value=type(
+                "C",
+                (),
+                {
+                    "model": "gpt-image-2",
+                    "api_key": "test-key",
+                    "api_base": "https://api.example.com/v1",
+                },
+            )(),
+        ):
+            with self.assertRaises(RuntimeError):
+                generate_visual_targets(
+                    brief,
+                    out,
+                    count=2,
+                    config={"image": {"api_key": "x", "model": "gpt-image-2"}},
+                    dry_run=False,
+                    craft=False,
+                    plans_dir=plans,
+                    scene_id="combat",
+                )
+
+        self.assertFalse(out.exists())
+        self.assertFalse(plans.exists())
+        self.assertFalse((out / "manifest.json").exists())
+        self.assertTrue((sibling / "keep.txt").is_file())
+
+    def test_clear_artifacts_preserves_sibling_scene_dirs(self) -> None:
+        base = self.tmp_path / "visual-target"
+        scene = base / "main_hub"
+        plans = self.tmp_path / "plans"
+        base.mkdir()
+        scene.mkdir()
+        (base / "candidate_a.png").write_bytes(b"png")
+        (base / "manifest.json").write_text("{}", encoding="utf-8")
+        (base / "selected.png").write_bytes(b"picked")
+        (scene / "keep.png").write_bytes(b"keep")
+        plans.mkdir()
+        (plans / "candidate_a.json").write_text("{}", encoding="utf-8")
+
+        clear_visual_target_run_artifacts(base, plans)
+
+        self.assertFalse((base / "candidate_a.png").exists())
+        self.assertFalse((base / "manifest.json").exists())
+        self.assertFalse((plans / "candidate_a.json").exists())
+        self.assertTrue((base / "selected.png").is_file())
+        self.assertTrue((scene / "keep.png").is_file())
+
+    def test_failed_regenerate_keeps_previous_selected_png(self) -> None:
+        """Regenerate that dies mid-image must not break an already-picked north star."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans" / "combat"
+        out.mkdir(parents=True)
+        plans.mkdir(parents=True)
+        selected = out / "selected.png"
+        selected.write_bytes(b"\x89PNG-picked")
+        (out / "candidate_a.png").write_bytes(b"\x89PNG-old")
+        (out / "manifest.json").write_text(
+            json.dumps({"candidates": [{"id": "a"}]}), encoding="utf-8"
+        )
+
+        with patch("gamefactory.generate_image", side_effect=RuntimeError("503")), patch(
+            "gamefactory.resolve_image_proxy", return_value=None
+        ), patch(
+            "image_model_route.resolve_image_credentials",
+            return_value=type(
+                "C",
+                (),
+                {
+                    "model": "gpt-image-2",
+                    "api_key": "test-key",
+                    "api_base": "https://api.example.com/v1",
+                },
+            )(),
+        ):
+            with self.assertRaises(RuntimeError):
+                generate_visual_targets(
+                    brief,
+                    out,
+                    count=1,
+                    config={"image": {"api_key": "x", "model": "gpt-image-2"}},
+                    dry_run=False,
+                    craft=False,
+                    plans_dir=plans,
+                    scene_id="combat",
+                )
+
+        # Scene dir may remain solely for selected.png (pick artifact).
+        self.assertTrue(selected.is_file())
+        self.assertEqual(selected.read_bytes(), b"\x89PNG-picked")
+        self.assertFalse((out / "candidate_a.png").exists())
+        self.assertFalse((out / "manifest.json").exists())
 
     def test_pick_scene_writes_scene_ref_without_seeding_global(self) -> None:
         brief = _write_example_brief(self.tmp_path, with_scenes=True)

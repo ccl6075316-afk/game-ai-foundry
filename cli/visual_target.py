@@ -431,6 +431,67 @@ def default_plans_dir(brief_path: Path, *, scene_id: str | None = None) -> Path:
     return base
 
 
+def clear_visual_target_run_artifacts(output_dir: Path, plans_root: Path) -> None:
+    """Remove generate artifacts for one visual-target output scope.
+
+    Does not delete sibling scene subdirectories under a global visual-target root.
+    Does not delete ``selected.png`` (pick output): brief ``visual_reference`` may
+    still point at it until the user re-picks. Image API failures are common;
+    leftover partial generate runs must not block retries.
+    """
+    if output_dir.is_dir():
+        manifest = output_dir / VISUAL_TARGET_MANIFEST
+        if manifest.is_file():
+            try:
+                manifest.unlink()
+            except OSError:
+                pass
+        try:
+            leftovers = list(output_dir.glob("candidate_*.png"))
+        except OSError:
+            leftovers = []
+        for path in leftovers:
+            if path.is_file():
+                try:
+                    path.unlink()
+                except OSError:
+                    pass
+    if plans_root.is_dir():
+        try:
+            handoffs = list(plans_root.glob("candidate_*.json"))
+        except OSError:
+            handoffs = []
+        for path in handoffs:
+            if path.is_file():
+                try:
+                    path.unlink()
+                except OSError:
+                    pass
+
+
+def _rmdir_if_empty(path: Path) -> None:
+    """Drop an empty directory left by a failed / cleared generate."""
+    try:
+        if path.is_dir() and not any(path.iterdir()):
+            path.rmdir()
+    except OSError:
+        pass
+
+
+def _rollback_failed_visual_target_run(
+    output_dir: Path,
+    plans_root: Path,
+    *,
+    scene_id: str | None,
+) -> None:
+    clear_visual_target_run_artifacts(output_dir, plans_root)
+    # Scene-scoped dirs are leaf folders; remove them when empty so a failed
+    # --scene run does not leave a hollow visual-target/<scene>/ behind.
+    if scene_id:
+        _rmdir_if_empty(output_dir)
+        _rmdir_if_empty(plans_root)
+
+
 def generate_visual_targets(
     brief_path: Path,
     output_dir: Path,
@@ -453,12 +514,9 @@ def generate_visual_targets(
     sid = (scene_id or "").strip() or None
     scene = require_scene_entry(project, sid) if sid else None
     output_dir = output_dir.resolve()
-    output_dir.mkdir(parents=True, exist_ok=True)
     plans_root = (
         plans_dir or default_plans_dir(brief_path, scene_id=sid)
     ).resolve()
-    plans_root.mkdir(parents=True, exist_ok=True)
-
     variants = variant_specs(count=count)
     size = _viewport_size(project)
 
@@ -468,76 +526,88 @@ def generate_visual_targets(
     api_base = creds.api_base
     resolved_proxy = resolve_image_proxy(config, proxy)
 
-    if not dry_run and (not model or not api_key):
-        raise VisualTargetError(
-            "Image API not configured (config image.api_key or OPENROUTER_API_KEY)"
-        )
+    # Always start clean: prior partial/failed runs (or stale candidates) must
+    # not affect this attempt or confuse list/pick for the same scope.
+    clear_visual_target_run_artifacts(output_dir, plans_root)
 
-    generated: list[dict[str, Any]] = []
-    for variant in variants:
-        vid = variant["id"]
-        plan = build_visual_target_plan(
-            brief_path,
-            variant,
-            craft=craft,
-            config=config,
-            proxy=proxy,
-            scene=scene,
-        )
-        context = build_visual_target_context(project, variant, scene=scene)
-        handoff = build_handoff(plan, context=context)
-        handoff_path = handoff_path_for_variant(plans_root, vid)
-        save_handoff(handoff_path, handoff)
-
-        out_path = output_dir / f"candidate_{vid}.png"
-        prompt = prompt_from_handoff(handoff)
-        entry: dict[str, Any] = {
-            "id": vid,
-            "label": variant["label"],
-            "prompt_summary": variant["focus"],
-            "prompt": prompt,
-            "prompt_source": plan.get("prompt_source", "scaffold"),
-            "handoff_path": str(handoff_path),
-            "path": str(out_path),
-            "size": plan.get("image_size", size),
-        }
-        if dry_run:
-            entry["status"] = "dry_run"
-        else:
-            assert model and api_key and api_base
-            generate_image(
-                model=model,
-                prompt=prompt,
-                output=out_path,
-                size=str(plan.get("image_size", size)),
-                api_key=api_key,
-                api_base=api_base,
-                proxy=resolved_proxy,
+    try:
+        if not dry_run and (not model or not api_key):
+            raise VisualTargetError(
+                "Image API not configured (config image.api_key or OPENROUTER_API_KEY)"
             )
-            entry["status"] = "generated"
-        generated.append(entry)
+        output_dir.mkdir(parents=True, exist_ok=True)
+        plans_root.mkdir(parents=True, exist_ok=True)
 
-    notes = (
-        "Visual Target: prompt-crafter handoff → image-generator. "
-        "Pick one → brief visual-target pick → project.visual_reference"
-        + (f" or scenes[{sid}].visual_reference." if sid else ".")
-    )
-    manifest: dict[str, Any] = {
-        "brief_path": str(brief_path),
-        "slug": slug,
-        "scene_id": sid,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "viewport_size": size,
-        "craft": craft,
-        "plans_dir": str(plans_root),
-        "candidates": generated,
-        "selected_id": None,
-        "notes": notes,
-    }
-    manifest_path = output_dir / VISUAL_TARGET_MANIFEST
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    manifest["manifest_path"] = str(manifest_path)
-    return manifest
+        generated: list[dict[str, Any]] = []
+        for variant in variants:
+            vid = variant["id"]
+            plan = build_visual_target_plan(
+                brief_path,
+                variant,
+                craft=craft,
+                config=config,
+                proxy=proxy,
+                scene=scene,
+            )
+            context = build_visual_target_context(project, variant, scene=scene)
+            handoff = build_handoff(plan, context=context)
+            handoff_path = handoff_path_for_variant(plans_root, vid)
+            save_handoff(handoff_path, handoff)
+
+            out_path = output_dir / f"candidate_{vid}.png"
+            prompt = prompt_from_handoff(handoff)
+            entry: dict[str, Any] = {
+                "id": vid,
+                "label": variant["label"],
+                "prompt_summary": variant["focus"],
+                "prompt": prompt,
+                "prompt_source": plan.get("prompt_source", "scaffold"),
+                "handoff_path": str(handoff_path),
+                "path": str(out_path),
+                "size": plan.get("image_size", size),
+            }
+            if dry_run:
+                entry["status"] = "dry_run"
+            else:
+                assert model and api_key and api_base
+                generate_image(
+                    model=model,
+                    prompt=prompt,
+                    output=out_path,
+                    size=str(plan.get("image_size", size)),
+                    api_key=api_key,
+                    api_base=api_base,
+                    proxy=resolved_proxy,
+                )
+                entry["status"] = "generated"
+            generated.append(entry)
+
+        notes = (
+            "Visual Target: prompt-crafter handoff → image-generator. "
+            "Pick one → brief visual-target pick → project.visual_reference"
+            + (f" or scenes[{sid}].visual_reference." if sid else ".")
+        )
+        manifest: dict[str, Any] = {
+            "brief_path": str(brief_path),
+            "slug": slug,
+            "scene_id": sid,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "viewport_size": size,
+            "craft": craft,
+            "plans_dir": str(plans_root),
+            "candidates": generated,
+            "selected_id": None,
+            "notes": notes,
+        }
+        manifest_path = output_dir / VISUAL_TARGET_MANIFEST
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        manifest["manifest_path"] = str(manifest_path)
+        return manifest
+    except Exception:
+        _rollback_failed_visual_target_run(output_dir, plans_root, scene_id=sid)
+        raise
 
 
 def load_visual_target_manifest(path: Path) -> dict[str, Any]:
