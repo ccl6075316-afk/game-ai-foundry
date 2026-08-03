@@ -48,7 +48,12 @@ _OPENROUTER_IMAGE_ALIASES = {
 
 
 def normalize_image_model(model: str, api_base: str | None = None) -> str:
-    """Map common nicknames to OpenRouter/OpenAI slugs."""
+    """Map common nicknames to provider-specific image model ids.
+
+    OpenRouter uses ``openai/gpt-image-2``. OpenAI and most OpenAI-compatible
+    gateways (e.g. apilio) list the bare ``gpt-image-2`` id — sending the
+    OpenRouter slug there yields 503 "no available channel".
+    """
     raw = (model or "").strip()
     if not raw:
         return raw
@@ -58,9 +63,14 @@ def normalize_image_model(model: str, api_base: str | None = None) -> str:
     aliased = _OPENROUTER_IMAGE_ALIASES.get(key)
     if aliased:
         base = (api_base or "").lower()
-        if "openai.com" in base and aliased.startswith("openai/"):
+        if "openrouter.ai" in base:
+            return aliased
+        if aliased.startswith("openai/"):
             return aliased.split("/", 1)[1]
         return aliased
+    # Already-prefixed OpenRouter id pasted against a non-OR gateway.
+    if raw.lower().startswith("openai/") and "openrouter.ai" not in (api_base or "").lower():
+        return raw.split("/", 1)[1]
     return raw
 
 

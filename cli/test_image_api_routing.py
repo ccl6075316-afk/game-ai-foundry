@@ -31,6 +31,16 @@ class ImageApiRoutingTests(unittest.TestCase):
             "gpt-image-2",
         )
         self.assertEqual(
+            normalize_image_model("gpt-image-2", "https://api.apilio.ai/v1"),
+            "gpt-image-2",
+        )
+        self.assertEqual(
+            normalize_image_model(
+                "openai/gpt-image-2", "https://api.apilio.ai/v1"
+            ),
+            "gpt-image-2",
+        )
+        self.assertEqual(
             normalize_image_model(
                 "images/openai/gpt-image-2", "https://openrouter.ai/api/v1"
             ),
