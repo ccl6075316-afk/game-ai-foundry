@@ -59,7 +59,7 @@ ChatWise 式：**左侧账号列表**，右侧编辑当前账号（Key / Base / 
 ### 自建账号与模型目录
 
 - 除内置厂商外，可 **添加** OpenAI 兼容账号（自定 id / 显示名 / `api_base` / Key）。旧唯一槽 `custom` 仍兼容，可继续再加其它账号。
-- 自建账号用于 **Foundry 直连**（生文 `host` / `prompt`、生图含批量）。**不进入** Agent 预设、雇人、对话的 Provider 下拉（Pi / Hermes / Codex / Cursor 未必认自定义 base）。
+- 自建账号用于 **Foundry 直连**（生文 `host`、生图含批量）。prompt craft / 北极星出题跟 **生文选用（host）**，不跟生图网关；保存 Provider 时会把遗留 `config.prompt` 同步成与 host 一致。**不进入** Agent 预设、雇人、对话的 Provider 下拉（Pi / Hermes / Codex / Cursor 未必认自定义 base）。
 - 文/图模型可用「刷新」拉 `GET {api_base}/models`（CLI：`setup provider models --provider <id> --json`）。界面默认只展示靠前约 30 条，其余靠搜索或手填；失败时保留当前模型值。
 
 GUI 主对话（① 策划薄 Chat）走 LLM Provider，与下方 Agent 执行器选择无关。

@@ -130,6 +130,14 @@ function toProviderPatch(form: ProviderFormState): ConfigPatch {
       api_base: text.api_base,
       proxy: null,
     },
+    // Keep legacy prompt block aligned with settings 生文 — never leave a
+    // divergent gateway (e.g. image-only Midjourney) for prompt craft.
+    prompt: {
+      api_key: text.api_key,
+      model: text.model,
+      api_base: text.api_base,
+      proxy: null,
+    },
     image: {
       provider: image.provider,
       use_text_provider: image.use_text_provider,

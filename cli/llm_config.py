@@ -81,14 +81,39 @@ def resolve_prompt_api_settings(
     api_base: str | None = None,
     proxy: str | None = None,
 ) -> dict[str, str | None]:
-    """文案 prompt-crafter — config.prompt overrides, else host."""
+    """文案 prompt-crafter — follow settings 生文 (host) when configured.
+
+    Stale config.prompt credentials must not diverge from GUI host selection
+    (e.g. image-only Midjourney gateway leftover in prompt.api_base).
+    Explicit CLI kwargs still win. Legacy config.prompt only fills gaps when
+    host has no usable api_key.
+    """
     from prompt_craft import DEFAULT_PROMPT_MODEL
 
     prompt_cfg = _section(config, "prompt")
+    host_cfg = _section(config, "host")
     host = resolve_host_api_settings(config)
+    # Only treat settings 生文 as authoritative when host itself has a key —
+    # not when resolve_host merely inherited a legacy prompt/image key.
+    host_ready = _is_set(host_cfg.get("api_key"))
+    resolved_proxy = resolve_config_proxy(config, proxy)
 
-    use_host_key = not _is_set(api_key) and not _is_set(prompt_cfg.get("api_key"))
-    use_host_base = not _is_set(api_base) and not _is_set(prompt_cfg.get("api_base"))
+    if host_ready:
+        resolved_model = (
+            prompt_model
+            or host["model"]
+            or os.environ.get("GAMEFACTORY_PROMPT_MODEL")
+            or DEFAULT_PROMPT_MODEL
+        )
+        resolved_key = api_key or host["api_key"]
+        resolved_base = api_base or host["api_base"] or DEFAULT_API_BASE
+        return {
+            "prompt_model": str(resolved_model),
+            "api_key": str(resolved_key) if resolved_key else None,
+            "api_base": str(resolved_base),
+            "proxy": str(resolved_proxy) if resolved_proxy else None,
+            "source": "host",
+        }
 
     resolved_model = (
         prompt_model
@@ -100,28 +125,23 @@ def resolve_prompt_api_settings(
     resolved_key = (
         api_key
         or prompt_cfg.get("api_key")
-        or (host["api_key"] if use_host_key else None)
+        or host["api_key"]
         or os.environ.get("GAMEFACTORY_API_KEY")
         or os.environ.get("OPENROUTER_API_KEY")
     )
     resolved_base = (
         api_base
         or prompt_cfg.get("api_base")
-        or (host["api_base"] if use_host_base else None)
+        or host["api_base"]
         or DEFAULT_API_BASE
     )
-    resolved_proxy = resolve_config_proxy(config, proxy)
-
-    source = "prompt"
-    if use_host_key and resolved_key == host.get("api_key"):
-        source = "host"
 
     return {
         "prompt_model": str(resolved_model),
         "api_key": str(resolved_key) if resolved_key else None,
         "api_base": str(resolved_base),
         "proxy": str(resolved_proxy) if resolved_proxy else None,
-        "source": source,
+        "source": "prompt",
     }
 
 
