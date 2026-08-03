@@ -899,5 +899,17 @@ from assets_cmds import register_assets_commands  # noqa: E402
 
 register_assets_commands(cli)
 
+from inspect_cmds import register_inspect_commands  # noqa: E402
+
+register_inspect_commands(cli)
+
+from conversations_cmds import register_conversations_commands  # noqa: E402
+
+register_conversations_commands(cli)
+
+from shell_cmds import register_shell_commands  # noqa: E402
+
+register_shell_commands(cli)
+
 if __name__ == "__main__":
     cli()

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -661,6 +662,74 @@ def run_pi_text_completion(
     return text
 
 
+_CONTINUE_NARRATION_RE = re.compile(
+    r"("
+    r"我再(确认|查|看|核对|检查)|让我再|接下来我(再|去|会)?|我先(再)?(看|查|确认)|"
+    r"稍后|待会|继续(查|确认|排查|看)|我会去|我将(去|再)|马上(查|看|确认)|"
+    r"let me (check|look|verify|confirm|see)|"
+    r"i('ll| will) (check|look|verify|confirm|see)|"
+    r"i('m| am) going to (check|look|verify|confirm)"
+    r")",
+    re.IGNORECASE,
+)
+
+_CONCLUSION_RE = re.compile(
+    r"(结论|原因是|所以[：:]|总结|已确认|问题在于|根因|因此[，,]|可以直接)",
+)
+
+
+# Single user message: max FOUNDRY_TOOL loop iterations for IT (plus unfinished nudges).
+IT_DEFAULT_MAX_TOOL_ROUNDS = 24
+
+
+def looks_like_unfinished_narration(prose: str) -> bool:
+    """True when the model announces more work but did not emit tools."""
+    text = (prose or "").strip()
+    if not text:
+        return False
+    if not _CONTINUE_NARRATION_RE.search(text):
+        return False
+    # Has an explicit conclusion → treat as finished even if wording mentions 再查.
+    if _CONCLUSION_RE.search(text) and len(text) > 80:
+        return False
+    return True
+
+
+def _finalize_tool_only_message(
+    tool_trace: list[dict[str, Any]],
+    *,
+    tool_profile: str = "it",
+) -> str:
+    """Human-readable close when the model only emitted FOUNDRY_TOOL fences."""
+    if not tool_trace:
+        if tool_profile == "brief":
+            return "本回合没有得到可用的结构化答复，请再试一次。"
+        return "本回合没有得到可用的文字答复（可能只发出了工具调用）。请再问一次，或换个更具体的问题。"
+
+    fails = [t for t in tool_trace if not t.get("ok")]
+    oks = [t for t in tool_trace if t.get("ok")]
+    lines = [
+        "工具已执行完毕，但模型没有写出最终中文结论。",
+        "下面是本回合工具结果摘要：",
+    ]
+    for item in tool_trace[:8]:
+        argv = " ".join(str(x) for x in (item.get("argv") or []))
+        mark = "ok" if item.get("ok") else "fail"
+        detail = ""
+        if not item.get("ok"):
+            err = str(item.get("error") or item.get("stderr") or "").strip()
+            if err:
+                detail = f"：{err[:160]}"
+        lines.append(f"- `{argv}` → {mark}{detail}")
+    if fails and not oks:
+        lines.append("全部失败时，常见原因是路径/清单还不存在（例如尚未 `pipeline plan`）。")
+    elif fails:
+        lines.append(f"其中失败 {len(fails)} 条、成功 {len(oks)} 条；需要的话请让我根据成功结果继续排查。")
+    else:
+        lines.append("工具均成功；请再发一句「根据刚才工具结果用中文总结」。")
+    return "\n".join(lines)
+
+
 def run_pi_agent_turn(
     *,
     system_prompt: str,
@@ -669,13 +738,13 @@ def run_pi_agent_turn(
     instance_id: str | None = None,
     role_kind: str | None = None,
     session_id: str | None = None,
-    max_tool_rounds: int = 4,
+    max_tool_rounds: int = IT_DEFAULT_MAX_TOOL_ROUNDS,
     timeout_sec: float = 180.0,
     tool_profile: str = "it",
     allow_export: bool = False,
 ) -> dict[str, Any]:
     """Pi turn with Foundry tool-fence loop (for IT / optional agent roles)."""
-    from pi_foundry_tools import run_tool_round, tool_protocol_instructions
+    from pi_foundry_tools import run_tool_round, strip_foundry_tools, tool_protocol_instructions
     from tool_permission import PermissionTurnState
 
     auth_role = role_kind or ("brief" if tool_profile == "brief" else "it")
@@ -685,8 +754,12 @@ def run_pi_agent_turn(
     final_text = ""
     permission_turn = PermissionTurnState()
     perm_session = (session_id or "").strip()
+    unfinished_nudges = 0
+    max_nudges = 2 if tool_profile == "it" else 0
+    budget = max(1, max_tool_rounds + 1 + max_nudges)
+    hit_round_limit = False
 
-    for _ in range(max(1, max_tool_rounds + 1)):
+    for _ in range(budget):
         raw = run_pi_text_completion(
             system_prompt=system,
             user_text=conversation,
@@ -703,30 +776,79 @@ def run_pi_agent_turn(
             permission_session_id=perm_session,
             permission_turn_state=permission_turn,
         )
-        final_text = visible or raw
-        if not results:
-            break
-        tool_trace.extend(results)
-        if tool_profile == "brief":
+        # Never fall back to raw when strip left empty: that re-exposes FOUNDRY_TOOL
+        # fences and makes the turn look unfinished.
+        prose = (visible or "").strip()
+        if prose:
+            final_text = prose
+        elif not results:
+            final_text = (raw or "").strip()
+        if results:
+            tool_trace.extend(results)
+            if tool_profile == "brief":
+                conversation = (
+                    f"{user_text}\n\n## Tool results (JSON)\n"
+                    f"{json.dumps(results, ensure_ascii=False, indent=2)}\n\n"
+                    "Continue. If you need another allow-listed tool, emit FOUNDRY_TOOL; "
+                    "otherwise respond with ONLY the skill JSON object (no markdown)."
+                )
+            else:
+                conversation = (
+                    f"{user_text}\n\n## Previous assistant output\n{visible}\n\n"
+                    f"## Tool results so far (JSON)\n"
+                    f"{json.dumps(tool_trace[-12:], ensure_ascii=False, indent=2)}\n\n"
+                    "Continue. If you still need facts, emit FOUNDRY_TOOL in this same reply; "
+                    "otherwise give the final Chinese answer with an explicit 结论. "
+                    "Do NOT only say「我再确认/让我再查」without a tool fence."
+                )
+            continue
+
+        # No tools this round. If IT only narrated "I'll check more", nudge once/twice.
+        if (
+            tool_profile == "it"
+            and unfinished_nudges < max_nudges
+            and looks_like_unfinished_narration(prose or final_text)
+        ):
+            unfinished_nudges += 1
             conversation = (
-                f"{user_text}\n\n## Tool results (JSON)\n"
-                f"{json.dumps(results, ensure_ascii=False, indent=2)}\n\n"
-                "Continue. If you need another allow-listed tool, emit FOUNDRY_TOOL; "
-                "otherwise respond with ONLY the skill JSON object (no markdown)."
+                f"{user_text}\n\n## Your previous message (incomplete)\n{prose or final_text}\n\n"
+                f"## Tool results so far (JSON)\n"
+                f"{json.dumps(tool_trace[-12:], ensure_ascii=False, indent=2)}\n\n"
+                "You stopped after saying you would check more, but emitted no FOUNDRY_TOOL. "
+                "Either emit the next FOUNDRY_TOOL fence now, OR write the final Chinese "
+                "answer with a clear 结论 based on tools already run. "
+                "Forbidden: only promising to check without tools or conclusion."
             )
-        else:
-            conversation = (
-                f"{user_text}\n\n## Previous assistant output\n{visible}\n\n"
-                f"## Tool results (JSON)\n{json.dumps(results, ensure_ascii=False, indent=2)}\n\n"
-                "Continue. If you need another allow-listed command, emit FOUNDRY_TOOL again; "
-                "otherwise answer the user in Chinese without a tool fence."
-            )
+            continue
+        break
+    else:
+        # Exhausted budget without a clean break → round/time-box limit.
+        hit_round_limit = True
+
+    message = strip_foundry_tools(final_text).strip()
+    if not message or "<<<FOUNDRY_TOOL" in message:
+        message = _finalize_tool_only_message(tool_trace, tool_profile=tool_profile)
+    elif tool_profile == "it" and looks_like_unfinished_narration(message) and not hit_round_limit:
+        message = (
+            message.rstrip()
+            + "\n\n——（本回合已结束。若还要继续排查，请再发一句，例如「继续查 visual-target 目录」。）"
+        )
+
+    if tool_profile == "it" and hit_round_limit:
+        message = (
+            message.rstrip()
+            + f"\n\n—— **本回合工具轮次已用尽**（上限约 {max_tool_rounds} 轮，含催促）。"
+            "问题可能尚未完全解决。请再发一句「继续」让我接着查，或把问题缩小到更具体的一点。"
+        )
 
     return {
         "ok": True,
-        "assistant_message": final_text.strip(),
+        "assistant_message": message,
         "tool_trace": tool_trace,
         "tool_rounds": len(tool_trace),
+        "unfinished_nudges": unfinished_nudges,
+        "hit_round_limit": hit_round_limit,
+        "max_tool_rounds": max_tool_rounds,
     }
 
 

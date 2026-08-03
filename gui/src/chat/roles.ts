@@ -24,7 +24,7 @@ export const CHAT_AGENT_HINTS: Record<ChatAgentRole, string> = {
   brief: "主对话：商量需求，明确说「落实 brief」后再定稿",
   product_host: "Agent：试玩反馈、分诊派工、推进任务（修改主入口）",
   programmer: "Agent：按任务改 Godot C#、跑 validate",
-  it: "家庭运维：环境 / 草稿同步与中文说明 / 看板与流水线（默认可跑资产；信任本会话少弹卡）",
+  it: "家庭运维：可读会话/文件 + shell；环境 / 草稿 / 流水线（信任本会话少弹卡）",
 };
 
 export function roleHero(role: ChatAgentRole): { title: string; subtitle: string } {

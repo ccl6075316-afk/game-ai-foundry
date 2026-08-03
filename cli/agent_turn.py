@@ -818,7 +818,7 @@ def run_pi_executor_turn(
     instance_id: str | None = None,
     session_id: str | None = None,
 ) -> tuple[str, str | None, str]:
-    from pi_runtime import PiRuntimeError, run_pi_agent_turn
+    from pi_runtime import IT_DEFAULT_MAX_TOOL_ROUNDS, PiRuntimeError, run_pi_agent_turn
 
     system = _load_skill_text(role_kind)
     try:
@@ -829,7 +829,7 @@ def run_pi_executor_turn(
             instance_id=instance_id,
             role_kind=role_kind,
             session_id=session_id,
-            max_tool_rounds=4 if role_kind == "it" else 2,
+            max_tool_rounds=IT_DEFAULT_MAX_TOOL_ROUNDS if role_kind == "it" else 2,
             timeout_sec=float(min(timeout, 240)),
             tool_profile="it",
             allow_export=False,
@@ -840,6 +840,10 @@ def run_pi_executor_turn(
     text = str(result.get("assistant_message") or "").strip()
     if not text:
         raise AgentTurnError("内置 Pi 无输出")
+    if "<<<FOUNDRY_TOOL" in text:
+        from pi_foundry_tools import strip_foundry_tools
+
+        text = strip_foundry_tools(text).strip() or text
     trace = result.get("tool_trace") or []
     if trace:
         bits = []

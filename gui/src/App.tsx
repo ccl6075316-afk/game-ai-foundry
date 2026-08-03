@@ -2036,7 +2036,7 @@ export default function App() {
       if (!rawReply) {
         throw new Error(res.stderr || res.stdout || "executor 无回复");
       }
-      const prepared = prepareAgentDisplay(rawReply);
+      const prepared = prepareAgentDisplay(rawReply, { role: target.role });
       const reply = prepared.display;
       const via = data?.executor ? `\n\n—— via ${data.executor} CLI` : "";
       const dispatch = data?.dispatch;

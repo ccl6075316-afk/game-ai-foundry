@@ -25,20 +25,26 @@ export function isResumeOnlyReply(text: string): boolean {
   );
 }
 
-export function prepareAgentDisplay(text: string): {
+export function prepareAgentDisplay(
+  text: string,
+  opts?: { role?: string },
+): {
   display: string;
   weak: boolean;
   reason: "resume" | "config_noise" | null;
 } {
   const redacted = redactSecrets(text || "");
-  if (isResumeOnlyReply(redacted)) {
+  // Config-noise / resume heuristics are for 项目经理 only. IT often discusses
+  // config.json / provider setup — replacing those replies hides real answers.
+  const weakFilter = opts?.role === "product_host";
+  if (weakFilter && isResumeOnlyReply(redacted)) {
     return {
       display: redacted,
       weak: true,
       reason: "resume",
     };
   }
-  if (isConfigNoiseReply(redacted)) {
+  if (weakFilter && isConfigNoiseReply(redacted)) {
     return {
       display:
         "执行器输出了大量配置 diff，**未按用户要求改配置时不应自行改 config**。\n\n" +

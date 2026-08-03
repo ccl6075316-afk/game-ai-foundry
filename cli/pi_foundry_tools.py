@@ -66,6 +66,12 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("project", "external", "detect"),
     ("assets", "review", "list"),
     ("assets", "review", "regenerate-plan"),
+    # Broad read (IT): conversations + filesystem under repo / ~/.gamefactory
+    ("conversations", "list"),
+    ("conversations", "show"),
+    ("inspect", "list"),
+    ("inspect", "read"),
+    ("shell", "run"),
 )
 
 # Mutating ops: FOUNDRY_TOOL argv must include --i-confirm (stripped before CLI
@@ -87,6 +93,7 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
         ("brief", "zh-doc"),
+        ("shell", "run"),
     }
 )
 
@@ -96,6 +103,7 @@ _KEEP_I_CONFIRM_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("setup", "provider", "upsert"),
         ("setup", "agents", "executors", "upsert"),
         ("setup", "agents", "instances", "upsert"),
+        ("shell", "run"),
     }
 )
 
@@ -150,13 +158,13 @@ Rules:
     return f"""
 ## Foundry tools (whitelist only) — IT home ops
 
-You have **no** shell. Emit FOUNDRY_TOOL fences, then wait for results:
+You have FOUNDRY_TOOL access (including **shell**). Prefer dedicated tools first; use shell when needed.
 
 <<<FOUNDRY_TOOL
 ["doctor", "--json"]
 FOUNDRY_TOOL>>>
 
-Allowed command prefixes (flags/paths only; no `;` `|` `&&`):
+Allowed command prefixes:
 {examples}
 
 Home-ops playbooks (Chinese answers):
@@ -165,16 +173,35 @@ Home-ops playbooks (Chinese answers):
 3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
 4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
 5. **Assets** — assets review list / regenerate-plan (guide user; soft annotations)
+6. **Read** — `conversations list|show`, `inspect list|read` (secrets redacted)
+7. **Shell** — `shell run --command "…" --i-confirm` (cwd: repo or ~/.gamefactory; 信任本会话可自动批准)
 
 Rules:
 - Prefer `--json` when available.
 - Never invent tool output; wait for host results.
 - Answer in Chinese; do not claim config/disk changes unless a tool returned ok.
-- Do **not** edit Foundry/Electron/Pi source or `games/` C#.
+- **Finish or tool — never fake continue:** if you still need a fact, emit FOUNDRY_TOOL
+  in the **same** reply. Do not end with only「我再确认一下… / 让我再查…」.
+  When done, write an explicit **结论**.
+- Do **not** casually rewrite Foundry/Electron/Pi source or `games/` C# — if needed, say so and keep diffs minimal / ask first.
 - Do **not** tell users to install system Python/Node for Release — embed + toolchain auto/IT install.
-- **Mutating ops** need `--i-confirm` in argv. With **信任本会话** the GUI may auto-approve;
-  still include `--i-confirm`. Mask API Keys in chat.
-  Example (Key):
+- **Shell & other mutating ops** need `--i-confirm` (信任本会话 may auto-approve). Mask API Keys in chat.
+  Example (shell):
+  <<<FOUNDRY_TOOL
+  ["shell", "run", "--command", "ls -la plans/conversations/brief | head", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (read 策划 session):
+  <<<FOUNDRY_TOOL
+  ["conversations", "list", "--role", "brief", "--json"]
+  FOUNDRY_TOOL>>>
+  <<<FOUNDRY_TOOL
+  ["conversations", "show", "--role", "brief", "--session-id", "<id>", "--tail", "30", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (read config redacted / project file):
+  <<<FOUNDRY_TOOL
+  ["inspect", "read", "--path", "~/.gamefactory/config.json", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (Key mutate):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--set-active-text", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
@@ -235,13 +262,16 @@ def is_allowed_argv(
 ) -> bool:
     if not argv:
         return False
-    joined = " ".join(argv)
-    if any(ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")):
-        return False
     prefix = _prefix_of(argv)
     if prefix is None:
         return False
     if profile == "brief" and prefix not in _BRIEF_ALLOWED_PREFIXES:
+        return False
+    # Shell commands may contain ; | & — only this prefix is exempt.
+    joined = " ".join(argv)
+    if prefix != ("shell", "run") and any(
+        ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")
+    ):
         return False
     # IT never exports; defense-in-depth even if allow_export is mis-set.
     if profile == "it" and prefix in _WRITE_PREFIXES:
@@ -250,12 +280,14 @@ def is_allowed_argv(
         return False
     if prefix in _MUTATE_PREFIXES and "--i-confirm" not in argv:
         return False
-    rest = argv[len(prefix) :]
-    for tok in rest:
-        if tok.startswith("-"):
-            continue
-        if any(ch in tok for ch in ("*", "?", "<", ">")):
-            return False
+    # Glob metacharacters in non-shell argv remain blocked.
+    if prefix != ("shell", "run"):
+        rest = argv[len(prefix) :]
+        for tok in rest:
+            if tok.startswith("-"):
+                continue
+            if any(ch in tok for ch in ("*", "?", "<", ">")):
+                return False
     if prefix == ("brief", "chat", "export"):
         return _export_argv_ok(argv)
     if prefix in {
@@ -280,6 +312,7 @@ def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
         ("pipeline", "run"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
+        ("shell", "run"),
     }:
         return _INSTALL_TIMEOUT_SEC
     return _DEFAULT_TOOL_TIMEOUT_SEC
