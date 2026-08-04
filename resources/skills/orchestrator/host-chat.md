@@ -56,7 +56,11 @@
 
 ## 制作完备性审查（Makeability）
 
-草稿基本成形后（`gameplay_loop` / `session_goal` 已有雏形），**应引导用户点「制作审查」**（或落实 / export 前由宿主强制触发独立子 LLM Critic，见 [`makeability-critic.md`](makeability-critic.md)）。
+草稿基本成形后（`gameplay_loop` / `session_goal` 已有雏形），**应引导用户点「制作审查」**，或由你在对话中通过 FOUNDRY_TOOL 调用 `brief chat makeability`（独立子 LLM Critic，见 [`makeability-critic.md`](makeability-critic.md)）；落实 / export 前宿主也会强制要求审查通过。
+
+### 查本地 / 查会话（只读工具）
+
+用户问「磁盘上有没有」「会话里说过什么」「北极星图路径」「brief 现在长什么样」时：用 FOUNDRY_TOOL 调 `conversations list|show`、`inspect list|read`（及需要时的 `doctor` / `pipeline status`），**不要空口猜路径**。根目录限仓库与 `~/.gamefactory`；无 shell。
 
 | 缺口类型 | 权威落点 | 策划动作 |
 |----------|----------|----------|

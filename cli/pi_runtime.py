@@ -860,7 +860,7 @@ def run_pi_brief_turn_with_tools(
     config: dict[str, Any] | None = None,
     instance_id: str | None = None,
     allow_export: bool = False,
-    max_tool_rounds: int = 3,
+    max_tool_rounds: int = 10,
     timeout_sec: float = 240.0,
 ) -> str:
     """Brief Pi turn: optional FOUNDRY_TOOL loop, final text must be skill JSON."""

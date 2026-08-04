@@ -109,12 +109,30 @@ _KEEP_I_CONFIRM_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
 
 _WRITE_PREFIXES = frozenset({("brief", "chat", "export")})
 
-# Brief Pi may only touch brief tools — never IT mutate/readonly ops.
+# Brief Pi: draft/review/export + read-only local/session lookup.
+# Never: shell, pipeline run/plan/heal, setup install/upsert, image spend.
 _BRIEF_ALLOWED_PREFIXES = frozenset(
     {
         ("brief", "chat", "status"),
+        ("brief", "chat", "makeability"),
+        ("brief", "chat", "autofix"),
+        ("brief", "chat", "enrich"),
+        ("brief", "chat", "zh-doc"),
+        ("brief", "chat", "bind"),
+        ("brief", "zh-doc"),
         ("brief", "validate"),
         ("brief", "chat", "export"),
+        # Session / filesystem / env / board read (no mutate).
+        ("conversations", "list"),
+        ("conversations", "show"),
+        ("inspect", "list"),
+        ("inspect", "read"),
+        ("doctor",),
+        ("setup", "check"),
+        ("setup", "pi", "status"),
+        ("pipeline", "diagnose"),
+        ("pipeline", "status"),
+        ("assets", "review", "list"),
     }
 )
 
@@ -127,31 +145,52 @@ _DEFAULT_TOOL_TIMEOUT_SEC = 120.0
 def tool_protocol_instructions(*, profile: str = "it") -> str:
     """Append to Pi system prompts.
 
-    ``profile``: ``it`` (ops) or ``brief`` (策划 — status/validate/export with gates).
+    ``profile``: ``it`` (ops) or ``brief`` (策划 — draft/review/export tools).
     """
     if profile == "brief":
         return """
 ## Foundry tools (brief whitelist)
 
-You have **no** shell. For session/machine facts, emit a fence then wait:
+You have **no** shell and **no** pipeline run/plan/heal or setup install/upsert.
+When you need session logs or on-disk facts, **emit FOUNDRY_TOOL** — do not guess.
 
 <<<FOUNDRY_TOOL
 ["brief", "chat", "status", "--session-id", "<SESSION_ID>", "--json"]
 FOUNDRY_TOOL>>>
 
-Allowed:
+### Draft / export
 - `brief chat status --session-id <id> --json`
-- `brief validate --brief <path> --json` (existing exported brief on disk)
-- `brief chat export --session-id <id> -o <path> --json` — **only** after the user
-  clearly asked to 落实/导出 **and** the host said export is allowed this turn.
-  Output path must be under `projects/`, `output/`, or `plans/`, ending in `.json`.
+- `brief chat makeability --session-id <id> --json` — **制作审查**
+- `brief chat enrich … --json --i-confirm` — 补全细节
+- `brief chat autofix … --json --i-confirm`
+- `brief chat zh-doc` / `brief zh-doc` / `brief chat bind` — need `--i-confirm` where mutating
+- `brief validate --brief <path> --json`
+- `brief chat export …` — **only** when host said export is allowed this turn
+
+### 查日志 / 查本地（只读）
+- 会话：`conversations list --role brief --json` → `conversations show --role brief --session-id <id> --tail 40 --json`
+- 工程文件：`inspect list --path projects/<slug> --json` → `inspect read --path projects/<slug>/brief.json --json`
+- 北极星/产出：`inspect list --path projects/<slug>/output/visual-target --json`；读 `manifest.json` / 文案 plans
+- 策划会话落盘：`plans/conversations/brief/`（list/show 或 inspect）
+- 环境快照：`doctor --json`；`setup check --json`；`setup pi status --json`
+- 看板只读：`pipeline status|diagnose --json`（**不要** plan/run）；`assets review list --json`
+- `inspect` / `conversations` 根目录限仓库或 `~/.gamefactory`；密钥已脱敏
+
+Examples:
+<<<FOUNDRY_TOOL
+["conversations", "list", "--role", "brief", "--json"]
+FOUNDRY_TOOL>>>
+<<<FOUNDRY_TOOL
+["inspect", "read", "--path", "projects/fishing-2d/output/visual-target/manifest.json", "--json"]
+FOUNDRY_TOOL>>>
 
 Rules:
-- Prefer `--json`.
-- Do **not** claim brief.json was written unless export tool returned ok.
-- After tools (or if none needed), your **final** reply must still be the skill JSON
-  object (`assistant_message`, `choices`, `draft_brief`, …). No markdown outside JSON.
-- Never run `pipeline run` or spend money.
+- Prefer `--json`. Mutating brief tools need `--i-confirm` (session trust may auto-approve).
+- User asks 制作审查 / 缺口 / 能不能导出 → emit **makeability**, not only narration.
+- User asks 看看日志 / 本地有没有 / 磁盘上 brief·图·会话 → emit **conversations / inspect**, not only narration.
+- Do **not** claim brief.json was written unless export returned ok.
+- Final reply must still be skill JSON (`assistant_message`, `choices`, `draft_brief`, …).
+- Never `shell run`, `pipeline run|plan|heal`, or image spend via tools.
 """.strip()
 
     examples = "\n".join(f"- `{' '.join(p)} …`" for p in _ALLOWED_PREFIXES if p not in _WRITE_PREFIXES)
@@ -315,6 +354,7 @@ def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
         ("pipeline", "run"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
+        ("brief", "chat", "makeability"),
         ("shell", "run"),
     }:
         return _INSTALL_TIMEOUT_SEC

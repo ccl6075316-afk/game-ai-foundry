@@ -13,6 +13,7 @@ from pi_foundry_tools import (
     is_allowed_argv,
     run_allowed_gamefactory,
     strip_foundry_tools,
+    tool_protocol_instructions,
 )
 
 
@@ -260,7 +261,10 @@ class PiFoundryToolsTest(unittest.TestCase):
         self.assertTrue(is_allowed_argv(argv, profile="it"))
         self.assertFalse(is_allowed_argv(argv, profile="brief"))
         self.assertFalse(
-            is_allowed_argv(["doctor", "--json"], profile="brief")
+            is_allowed_argv(
+                ["setup", "provider", "upsert", "--provider", "x", "--json", "--i-confirm"],
+                profile="brief",
+            )
         )
         self.assertFalse(
             is_allowed_argv(
@@ -268,6 +272,73 @@ class PiFoundryToolsTest(unittest.TestCase):
                 profile="brief",
             )
         )
+        self.assertFalse(
+            is_allowed_argv(
+                ["shell", "run", "--command", "ls", "--i-confirm", "--json"],
+                profile="brief",
+            )
+        )
+
+    def test_brief_profile_allows_makeability_and_enrich(self) -> None:
+        self.assertTrue(
+            is_allowed_argv(
+                ["brief", "chat", "makeability", "--session-id", "s1", "--json"],
+                profile="brief",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "enrich",
+                    "--session-id",
+                    "s1",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="brief",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["brief", "chat", "enrich", "--session-id", "s1", "--json"],
+                profile="brief",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                ["conversations", "list", "--role", "brief", "--json"],
+                profile="brief",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "inspect",
+                    "read",
+                    "--path",
+                    "projects/fishing-2d/brief.json",
+                    "--json",
+                ],
+                profile="brief",
+            )
+        )
+        self.assertTrue(is_allowed_argv(["doctor", "--json"], profile="brief"))
+        self.assertTrue(
+            is_allowed_argv(["pipeline", "status", "--json"], profile="brief")
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["pipeline", "plan", "--json", "--i-confirm"],
+                profile="brief",
+            )
+        )
+        text = tool_protocol_instructions(profile="brief")
+        self.assertIn("makeability", text)
+        self.assertIn("制作审查", text)
+        self.assertIn("inspect", text)
+        self.assertIn("conversations", text)
         self.assertTrue(
             is_allowed_argv(
                 ["brief", "chat", "status", "--session-id", "s1", "--json"],
