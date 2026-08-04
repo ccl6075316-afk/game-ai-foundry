@@ -37,7 +37,7 @@ _ROLE_TO_AGENT: dict[str, str] = {
 _HERMES_SKILL: dict[str, str] = {
     "product_host": "game-factory-orchestrator",
     "programmer": "game-factory-godot-developer",
-    # IT defaults to Pi; Hermes fallback has no dedicated package yet.
+    # IT deliberately does not support Hermes; use Pi, Codex, or Cursor.
 }
 
 _DEFAULT_TIMEOUT = 600
@@ -152,18 +152,22 @@ def resolve_executor_for_role(
 ) -> str:
     normalized = _normalize_executor(override)
     if normalized:
+        if role_kind == "it" and normalized == "hermes":
+            raise AgentTurnError("IT 不支持 Hermes；请选择 pi、codex 或 cursor")
         return normalized
 
     auth = resolve_agent_auth(config, role_kind=role_kind, instance_id=instance_id)
     from_auth = _normalize_executor(auth.get("executor"))
     if from_auth:
+        if role_kind == "it" and from_auth == "hermes":
+            return "pi"
         return from_auth
 
     if role_kind == "it":
         agents = config.get("agents") if isinstance(config.get("agents"), dict) else {}
         it_cfg = agents.get("it") if isinstance(agents.get("it"), dict) else {}
         ex = str(it_cfg.get("executor") or "pi").strip().lower()
-        return ex if ex in ("pi", "hermes", "codex", "cursor") else "pi"
+        return ex if ex in ("pi", "codex", "cursor") else "pi"
 
     agent_role = _ROLE_TO_AGENT.get(role_kind, "orchestrator")
     resolved = resolve_agent(agent_role, config)
@@ -350,7 +354,8 @@ def build_prompt(
                 f"当前 executor={executor}（非内置 Pi）。",
                 "禁止输出 FOUNDRY_TOOL 栅栏。",
                 "需要 CLI 时在仓库根执行: python cli/gamefactory.py <subcommand> …",
-                "查策划「只说不写」：先 conversations show --role brief，再下结论。",
+                "查策划「只说不写」：先 conversations show --role brief；再核对响应是否包含 "
+                "brief_patches / draft_brief 以及草稿指纹是否变化，然后下结论。",
             ]
         )
     if role_kind == "product_host":
@@ -970,6 +975,49 @@ def record_turn_exchange(
     }
 
 
+def prepare_turn_prompt(
+    *,
+    role_kind: str,
+    session_id: str,
+    message: str,
+    config: dict[str, Any],
+    executor: str | None = None,
+    brief_path: Path | None = None,
+    progress_path: Path | None = None,
+    instance_id: str | None = None,
+    programmer_roster: list[dict[str, str]] | None = None,
+    default_target_instance_id: str | None = None,
+) -> dict[str, str]:
+    """Build the role-aware prompt used by ``run_turn`` without invoking an executor."""
+    if role_kind not in ROLE_KINDS:
+        raise AgentTurnError(f"Unsupported role_kind: {role_kind}")
+    if not message or not str(message).strip():
+        raise AgentTurnError("message is required.")
+
+    path = session_path_for(role_kind, session_id)
+    session = load_session(path) if path.is_file() else new_session(role_kind, session_id)
+    chosen = resolve_executor_for_role(role_kind, config, executor, instance_id=instance_id)
+    session["executor"] = chosen
+
+    user_text = message.strip()
+    messages = list(session.get("messages") or [])
+    messages.append({"role": "user", "content": user_text, "ts": _utc_now()})
+    session["messages"] = messages
+
+    prompt = build_prompt(
+        role_kind=role_kind,
+        user_message=user_text,
+        session=session,
+        brief_path=brief_path,
+        progress_path=progress_path,
+        programmer_roster=programmer_roster,
+        default_target_instance_id=default_target_instance_id,
+        instance_id=instance_id,
+        executor=chosen,
+    )
+    return {"prompt": prompt, "executor": chosen}
+
+
 def run_turn(
     *,
     role_kind: str,
@@ -996,8 +1044,13 @@ def run_turn(
     else:
         session = new_session(role_kind, session_id)
 
-    resolved_auth = resolve_agent_auth(config, role_kind=role_kind, instance_id=instance_id)
     chosen = resolve_executor_for_role(role_kind, config, executor, instance_id=instance_id)
+    resolved_auth = resolve_agent_auth(
+        config,
+        role_kind=role_kind,
+        instance_id=instance_id,
+        executor_override=chosen,
+    )
     session["executor"] = chosen
 
     if chosen == "pi" and resolved_auth.get("error"):

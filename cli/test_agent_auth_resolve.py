@@ -235,6 +235,47 @@ class ResolveAgentAuthTests(unittest.TestCase):
         self.assertEqual(auth["model"], "deepseek-v4-flash")
         self.assertEqual(auth["api_key"], "sk-ds-test")
 
+    def test_stale_it_hermes_instance_uses_pi_preset(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "pi": {"provider": "openrouter", "model": "pi-model"},
+            "hermes": {"provider": "deepseek", "model": "hermes-model"},
+        }
+        config["agents"]["instances"]["it-stale"] = {
+            "role_kind": "it",
+            "executor": "hermes",
+        }
+
+        auth = resolve_agent_auth(config, role_kind="it", instance_id="it-stale")
+
+        self.assertEqual(auth["executor"], "pi")
+        self.assertEqual(auth["provider"], "openrouter")
+        self.assertEqual(auth["model"], "pi-model")
+
+    def test_executor_override_selects_matching_preset(self) -> None:
+        config = _base_config()
+        config["agents"]["executors"] = {
+            "pi": {"provider": "openrouter", "model": "pi-model"},
+            "codex": {"provider": "deepseek", "model": "codex-model"},
+        }
+        config["agents"]["instances"]["it-override"] = {
+            "role_kind": "it",
+            "executor": "pi",
+            "provider": "openrouter",
+            "model": "pi-instance-model",
+        }
+
+        auth = resolve_agent_auth(
+            config,
+            role_kind="it",
+            instance_id="it-override",
+            executor_override="codex",
+        )
+
+        self.assertEqual(auth["executor"], "codex")
+        self.assertEqual(auth["provider"], "deepseek")
+        self.assertEqual(auth["model"], "codex-model")
+
     def test_no_executors_key_falls_back_to_role_then_host(self) -> None:
         config = _base_config()
         config["agents"]["it"]["provider"] = "deepseek"

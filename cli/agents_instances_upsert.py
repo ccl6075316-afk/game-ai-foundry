@@ -10,6 +10,7 @@ from provider_upsert import BUILTIN_PROVIDERS, _load_config, _save_config
 
 _KNOWN_ROLE_KINDS = frozenset({"brief", "it", "product_host", "programmer"})
 _KNOWN_EXECUTORS = frozenset({"pi", "hermes", "codex", "cursor"})
+_IT_EXECUTORS = frozenset({"pi", "codex", "cursor"})
 _PI_LOCKED = frozenset({"brief"})
 
 
@@ -77,6 +78,12 @@ def upsert_agent_instance(
                 "ok": False,
                 "instance_id": iid,
                 "error": f"策划固定使用内置 Pi，不能改成 {exec_id}",
+            }
+        if role == "it" and exec_id not in _IT_EXECUTORS:
+            return {
+                "ok": False,
+                "instance_id": iid,
+                "error": "IT 不支持 Hermes；请选择 pi、codex 或 cursor",
             }
         entry["executor"] = exec_id
 

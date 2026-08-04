@@ -128,10 +128,10 @@ def _resolve_executor(
     if instance:
         executor = _normalize_str(instance.get("executor"))
         if executor:
-            return executor
+            return "pi" if role_kind == "it" and executor == "hermes" else executor
     executor = _normalize_str(role_block.get("executor"))
     if executor:
-        return executor
+        return "pi" if role_kind == "it" and executor == "hermes" else executor
     return ROLE_KIND_DEFAULT_EXECUTOR.get(role_kind)
 
 
@@ -211,10 +211,12 @@ def resolve_agent_auth(
     *,
     role_kind: str,
     instance_id: str | None = None,
+    executor_override: str | None = None,
 ) -> dict[str, Any]:
     """Resolve executor / provider / model / credentials for a role instance.
 
-    Priority: ``agents.instances[id]`` → ``agents.executors[executor]`` → role block → ``host``.
+    Executor override selects the preset; provider/model priority remains
+    ``agents.instances[id]`` → ``agents.executors[executor]`` → role block → ``host``.
     """
     agent_key = ROLE_KIND_TO_AGENT_KEY.get(role_kind)
     if not agent_key:
@@ -242,9 +244,19 @@ def resolve_agent_auth(
         if isinstance(raw, dict):
             instance = raw
 
-    executor = _resolve_executor(role_kind, role_block, instance)
+    configured_executor = _resolve_executor(role_kind, role_block, instance)
+    executor = _normalize_str(executor_override) or configured_executor
+    if role_kind == "it" and executor == "hermes":
+        executor = "pi"
+    instance_executor = _normalize_str(instance.get("executor")) if instance else None
+    auth_instance = (
+        instance
+        if executor == configured_executor
+        and (not instance_executor or instance_executor == executor)
+        else None
+    )
     executor_preset, has_executors = _executor_preset(agents, executor)
-    merged = merge_auth_layers(role_block, executor_preset if has_executors else {}, instance)
+    merged = merge_auth_layers(role_block, executor_preset if has_executors else {}, auth_instance)
 
     use_third_party = bool(merged.get("use_third_party", False))
 
@@ -265,7 +277,7 @@ def resolve_agent_auth(
             model = _normalize_str(host.get("model"))
 
     source = _resolve_provider_source(
-        instance=instance,
+        instance=auth_instance,
         executor_preset=executor_preset,
         role_block=role_block,
         used_host=used_host,

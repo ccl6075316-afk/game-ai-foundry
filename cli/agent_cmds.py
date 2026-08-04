@@ -13,6 +13,7 @@ from agent_routing import all_agents, resolve_agent
 from agent_turn import (
     AgentTurnError,
     ROLE_KINDS,
+    prepare_turn_prompt,
     record_turn_exchange,
     run_turn,
     session_status,
@@ -168,6 +169,58 @@ def register_agent_commands(cli_group: click.Group) -> None:
             click.echo(json.dumps(result, ensure_ascii=False, indent=2))
         else:
             click.echo(result["assistant_message"])
+
+    @agent_group.command("prompt")
+    @click.option("--role", "role_kind", type=click.Choice(["it"]), required=True)
+    @click.option("--session-id", required=True, help="GUI session / conversation id")
+    @click.option("--message", "-m", required=True, help="User message")
+    @click.option(
+        "--executor",
+        type=click.Choice(["hermes", "codex", "cursor", "pi"]),
+        default=None,
+    )
+    @click.option("--brief", "brief_path", type=click.Path(path_type=Path), default=None)
+    @click.option("--progress", "progress_path", type=click.Path(path_type=Path), default=None)
+    @click.option("--instance-id", default=None)
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def prompt_cmd(
+        ctx: click.Context,
+        role_kind: str,
+        session_id: str,
+        message: str,
+        executor: str | None,
+        brief_path: Path | None,
+        progress_path: Path | None,
+        instance_id: str | None,
+        as_json: bool,
+    ) -> None:
+        """Build the shared IT role prompt without spawning an executor."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            result = prepare_turn_prompt(
+                role_kind=role_kind,
+                session_id=session_id,
+                message=message,
+                config=config,
+                executor=executor,
+                brief_path=brief_path,
+                progress_path=progress_path,
+                instance_id=instance_id,
+            )
+        except AgentTurnError as exc:
+            payload = {"ok": False, "status": "error", "error": str(exc)}
+            if as_json:
+                click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+            else:
+                click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {"ok": True, "status": "ok", **result}
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result["prompt"])
 
     @agent_group.command("record-turn")
     @click.option(

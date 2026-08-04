@@ -392,6 +392,8 @@ export default function App() {
   const pendingTargetProgrammer = useRef<string | null>(null);
   const pendingSafeActions = useRef<Map<string, string>>(new Map());
 
+  const [agentConfigSaving, setAgentConfigSaving] = useState(false);
+  const agentConfigSavingRef = useRef(false);
   const activeColleague = getActiveColleague(chatStore);
   const agentRole = activeColleague.roleKind;
   const briefExportReady = agentRole === "brief" && briefMakeabilityExportReady(briefDraftStatus);
@@ -1920,6 +1922,7 @@ export default function App() {
     message: string,
     opts?: { instanceId?: string },
   ) => {
+    if (agentConfigSavingRef.current) return;
     const colleague =
       (opts?.instanceId
         ? chatStore.roster.find((c) => c.id === opts.instanceId)
@@ -1948,7 +1951,7 @@ export default function App() {
       programmers.find((c) => c.id === target.instanceId)?.id || programmers[0]?.id;
     const waitHint =
       role === "it"
-        ? "Pi 首轮可能较慢（约 1–2 分钟属正常）。"
+        ? "IT 首轮可能较慢（约 1–2 分钟属正常）。"
         : "Hermes / Codex 常需 1–3 分钟才回完整答复。";
     append(
       "log",
@@ -2124,7 +2127,7 @@ export default function App() {
             (target.role === "it"
               ? String(e instanceof Error ? e.message : e).includes("9009")
                 ? "Windows **exit 9009** 通常是找不到内嵌 Python（CLI 起不来），与 DeepSeek Key 无关。请改用最新安装包，或确认安装目录 `resources/python/Scripts/python.exe` 存在；勿只依赖系统 PATH 上的 `python`。"
-                : "IT 使用**内置 Pi**（与 GUI 共用 Electron Node ≥22.19）。请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
+                : "IT 默认使用**内置 Pi**，也可切到 Codex / Cursor。若当前是 Pi，请确认：① 已用 Electron 39+（`npm install`）；② **设置 → Agent · Pi** / 实例 Provider+Key；③ `setup pi status --json` 显示 ready。"
               : "请到 **设置 → 环境** 确认执行器 CLI 已安装并登录（Hermes / Codex / Cursor Agent），并在 **设置 → Agent** 或对话配置里为当前实例选择执行器。"),
           undefined,
           target,
@@ -4170,9 +4173,13 @@ export default function App() {
             onPiSessionTrustChange={(trusted) => {
               itSessionTrustRef.current[activeColleague.id] = trusted;
             }}
+            onSavingChange={(saving) => {
+              agentConfigSavingRef.current = saving;
+              setAgentConfigSaving(saving);
+            }}
           />
           <ChatInput
-            busy={chatBusy}
+            busy={chatBusy || agentConfigSaving}
             onStop={() => void handleStopChat()}
             choices={
               agentRole === "brief"

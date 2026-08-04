@@ -63,11 +63,6 @@ const IT_HIRE_EXECUTOR_OPTIONS: {
     description: "与 GUI 共用 Electron Node；开箱默认，Provider 建议已配置",
   },
   {
-    id: "hermes",
-    label: "Hermes 助手",
-    description: "独立 AI 助手会话（需本机安装 Hermes，并安装本项目技能包）",
-  },
-  {
     id: "codex",
     label: "Codex 命令行",
     description: "用 OpenAI Codex 命令行处理任务（需安装 Codex CLI）",
@@ -271,7 +266,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
                 </div>
               </div>
               {roleKind === "it" ? (
-                <p className="field-hint">默认内置 Pi（开箱）；可改选 Hermes / Codex / Cursor。</p>
+                <p className="field-hint">默认内置 Pi（开箱）；可改选 Codex / Cursor。</p>
               ) : null}
               {executorOptions.find((o) => o.id === form.executor)?.description && (
                 <p className="field-hint">

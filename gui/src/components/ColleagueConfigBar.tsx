@@ -29,6 +29,7 @@ import {
   type AgentExecutor,
 } from "../settings/executors";
 import { isPiLockedRole } from "../settings/hireColleague";
+import { transitionSaveActivity } from "../settings/saveActivity";
 import {
   INHERIT_SAFETY,
   isInheritSafetyValue,
@@ -60,6 +61,8 @@ interface Props {
   disabled?: boolean;
   /** Prefer in-memory trust for the next agent turn (avoids disk race). */
   onPiSessionTrustChange?: (trusted: boolean) => void;
+  /** Block chat turns while instance config is being persisted. */
+  onSavingChange?: (saving: boolean) => void;
 }
 
 const MODEL_SAVE_DEBOUNCE_MS = 400;
@@ -70,7 +73,6 @@ function executorOptionsForRole(
   if (roleKind === "it") {
     return [
       { id: "pi", label: "内置 Pi" },
-      { id: "hermes", label: "Hermes" },
       { id: "codex", label: "Codex" },
       { id: "cursor", label: "Cursor" },
     ];
@@ -109,6 +111,7 @@ export function ColleagueConfigBar({
   sessionId,
   disabled,
   onPiSessionTrustChange,
+  onSavingChange,
 }: Props) {
   const piLocked = isPiLockedRole(colleague.roleKind);
   const executorOptions = executorOptionsForRole(colleague.roleKind);
@@ -132,6 +135,7 @@ export function ColleagueConfigBar({
   const [piSessionTrust, setPiSessionTrust] = useState(true);
   const [thinkingLevel, setThinkingLevel] = useState<ThinkingLevel>("off");
   const modelSaveTimer = useRef<number | null>(null);
+  const activeSavesRef = useRef(0);
   const pendingModel = useRef<{
     instanceId: string;
     roleKind: ChatAgentRole;
@@ -185,7 +189,12 @@ export function ColleagueConfigBar({
       safetySnapshot?: Pick<AgentInstanceRecord, "sandbox" | "permission_mode" | "yolo">,
     ) => {
       if (!window.gameFactory?.getConfig || !window.gameFactory?.saveConfig) return;
-      setSaving(true);
+      const started = transitionSaveActivity(activeSavesRef.current, 1);
+      activeSavesRef.current = started.active;
+      if (started.savingChangedTo !== undefined) {
+        setSaving(started.savingChangedTo);
+        onSavingChange?.(started.savingChangedTo);
+      }
       setError(null);
       try {
         const info = await window.gameFactory.getConfig();
@@ -260,10 +269,15 @@ export function ColleagueConfigBar({
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
       } finally {
-        setSaving(false);
+        const finished = transitionSaveActivity(activeSavesRef.current, -1);
+        activeSavesRef.current = finished.active;
+        if (finished.savingChangedTo !== undefined) {
+          setSaving(finished.savingChangedTo);
+          onSavingChange?.(finished.savingChangedTo);
+        }
       }
     },
-    [piLocked, syncCodexApi],
+    [onSavingChange, piLocked, syncCodexApi],
   );
 
   const flushPendingModel = useCallback(() => {

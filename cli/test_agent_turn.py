@@ -13,6 +13,7 @@ from agent_turn import (
     AgentTurnError,
     build_prompt,
     new_session,
+    prepare_turn_prompt,
     record_turn_exchange,
     resolve_executor_for_role,
     run_turn,
@@ -22,6 +23,23 @@ from agent_turn import (
 
 
 class AgentTurnTests(unittest.TestCase):
+    def test_prepare_turn_prompt_applies_non_pi_it_guidance(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            with patch("agent_turn.conversations_dir", return_value=Path(td)):
+                result = prepare_turn_prompt(
+                    role_kind="it",
+                    session_id="it-acp",
+                    message="检查策划只说不写",
+                    config={},
+                    executor="codex",
+                )
+
+        self.assertEqual(result["executor"], "codex")
+        self.assertIn("禁止输出 FOUNDRY_TOOL 栅栏", result["prompt"])
+        self.assertIn("conversations show --role brief", result["prompt"])
+        self.assertIn("brief_patches", result["prompt"])
+        self.assertIn("检查策划只说不写", result["prompt"])
+
     def test_resolve_executor_override(self) -> None:
         self.assertEqual(
             resolve_executor_for_role("product_host", {}, "codex"),
@@ -139,8 +157,13 @@ class AgentTurnTests(unittest.TestCase):
         self.assertEqual(resolve_executor_for_role("it", {}), "pi")
         self.assertEqual(
             resolve_executor_for_role("it", {"agents": {"it": {"executor": "hermes"}}}),
-            "hermes",
+            "pi",
         )
+
+    def test_it_explicit_hermes_override_is_rejected(self) -> None:
+        with self.assertRaises(AgentTurnError) as ctx:
+            resolve_executor_for_role("it", {}, "hermes")
+        self.assertIn("Hermes", str(ctx.exception))
 
     def test_it_hermes_rejected(self) -> None:
         from agent_turn import run_hermes_turn
@@ -174,7 +197,7 @@ class AgentTurnTests(unittest.TestCase):
         }
         self.assertEqual(
             resolve_executor_for_role("it", config, instance_id="ops-deepseek"),
-            "hermes",
+            "pi",
         )
 
     def test_cli_executor_override_wins_over_instance(self) -> None:

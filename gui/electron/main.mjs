@@ -28,6 +28,11 @@ import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
 import { createCodexAppServerSessionManager } from "./codex_app_server_session.mjs";
 import {
+  buildAgentTurnArgs,
+  prepareRoleAwareAcpPrompt,
+  resolveItExecutor,
+} from "./agent_prompt.mjs";
+import {
   absForResolved,
   cliArgForResolved,
   isExternalVirtualRel,
@@ -1224,19 +1229,27 @@ function resolveHermesAuthMethodId(config, instanceId) {
  */
 function resolveExecutorForAgentTurn(config, roleKind, opts) {
   const override = String(opts.executor || "").trim().toLowerCase();
-  if (VALID_AGENT_EXECUTORS.has(override)) return override;
-
   const inst = agentInstanceRecord(config, opts.instanceId);
   const fromInst = String(inst.executor || "").trim().toLowerCase();
-  if (VALID_AGENT_EXECUTORS.has(fromInst)) return fromInst;
-
   if (roleKind === "it") {
     const itCfg = config?.agents?.it;
-    const ex =
+    const fromRole =
       itCfg && typeof itCfg === "object"
         ? String(itCfg.executor || "pi").trim().toLowerCase()
         : "pi";
-    return VALID_AGENT_EXECUTORS.has(ex) ? ex : "pi";
+    return resolveItExecutor({
+      override,
+      instanceExecutor: fromInst,
+      roleExecutor: fromRole,
+    });
+  }
+
+  if (VALID_AGENT_EXECUTORS.has(override)) {
+    return override;
+  }
+
+  if (VALID_AGENT_EXECUTORS.has(fromInst)) {
+    return fromInst;
   }
 
   const agentKey = ROLE_TO_AGENT_KEY[roleKind] || "orchestrator";
@@ -2651,6 +2664,35 @@ app.whenReady().then(() => {
     const codexSandbox = resolveCodexSandbox(config, opts.instanceId);
     const instanceKey = String(opts.instanceId || sessionId).trim();
     abortedChatInstances.delete(instanceKey);
+    let preparedAcpPrompt;
+    const acpPrompt = async () => {
+      if (role !== "it") return message;
+      if (!preparedAcpPrompt) {
+        const brief = String(opts.brief || "")
+          .replace(/\\/g, "/")
+          .replace(/^\.\.\//, "");
+        const progress = String(opts.progress || "")
+          .replace(/\\/g, "/")
+          .replace(/^\.\.\//, "");
+        preparedAcpPrompt = prepareRoleAwareAcpPrompt({
+          roleKind: role,
+          message,
+          promptOptions: {
+            roleKind: role,
+            sessionId,
+            message,
+            executor: effectiveExecutor,
+            instanceId: opts.instanceId,
+            briefArg: brief ? cliArgForRel(brief) : "",
+            progressArg: progress ? cliArgForRel(progress) : "",
+          },
+          runPromptCommand: (args) =>
+            runCli(args, { jobKey: chatJobKey(instanceKey) }),
+          parseJsonOutput: parseJsonFromOutput,
+        });
+      }
+      return preparedAcpPrompt;
+    };
 
     // IT home-ops: default session trust (skip per-tool cards) unless explicitly off
     if (role === "it" && sessionId && toolPermissionBridge) {
@@ -2680,7 +2722,7 @@ app.whenReady().then(() => {
           sessionId,
           turnId,
           workspaceCwd: repoRoot(),
-          text: message,
+          text: await acpPrompt(),
           permissionMode,
         });
 
@@ -2767,7 +2809,7 @@ app.whenReady().then(() => {
           sessionId,
           turnId,
           workspaceCwd: repoRoot(),
-          text: message,
+          text: await acpPrompt(),
         });
 
         if (takeChatAbort(instanceKey)) {
@@ -2860,7 +2902,7 @@ app.whenReady().then(() => {
           sessionId,
           turnId,
           cwd: repoRoot(),
-          message,
+          message: await acpPrompt(),
           sandbox: codexSandbox,
         };
         if (codexModel) {
@@ -2946,40 +2988,24 @@ app.whenReady().then(() => {
       codexAppServerSessionManager?.stop(instanceKey);
     }
 
-    const args = [
-      "agent",
-      "turn",
-      "--role",
-      role,
-      "--session-id",
+    const brief = String(opts.brief || "")
+      .replace(/\\/g, "/")
+      .replace(/^\.\.\//, "");
+    const progress = String(opts.progress || "")
+      .replace(/\\/g, "/")
+      .replace(/^\.\.\//, "");
+    const args = buildAgentTurnArgs({
+      roleKind: role,
       sessionId,
-      "--message",
       message,
-      "--json",
-    ];
-    if (opts.executor) {
-      args.push("--executor", String(opts.executor));
-    }
-    if (opts.brief) {
-      const b = String(opts.brief).replace(/\\/g, "/").replace(/^\.\.\//, "");
-      args.push("--brief", cliArgForRel(b));
-    }
-    if (opts.progress) {
-      const p = String(opts.progress).replace(/\\/g, "/").replace(/^\.\.\//, "");
-      args.push("--progress", cliArgForRel(p));
-    }
-    if (opts.instanceId) {
-      args.push("--instance-id", String(opts.instanceId));
-    }
-    if (opts.targetInstanceId) {
-      args.push("--target-instance-id", String(opts.targetInstanceId));
-    }
-    if (opts.rosterJson) {
-      args.push("--roster-json", String(opts.rosterJson));
-    }
-    if (opts.timeout) {
-      args.push("--timeout", String(opts.timeout));
-    }
+      effectiveExecutor,
+      briefArg: brief ? cliArgForRel(brief) : "",
+      progressArg: progress ? cliArgForRel(progress) : "",
+      instanceId: opts.instanceId,
+      targetInstanceId: opts.targetInstanceId,
+      rosterJson: opts.rosterJson,
+      timeout: opts.timeout,
+    });
     const sender = event.sender;
     const result = await runCli(args, {
       jobKey: chatJobKey(instanceKey),

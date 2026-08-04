@@ -54,7 +54,7 @@ export interface HireColleagueConfirmPayload {
 const HIRE_AGENT_EXECUTORS: AgentExecutor[] = ["hermes", "codex", "cursor"];
 
 /** IT hire/config may pick Pi or an external CLI executor. */
-export const HIRE_IT_EXECUTORS: InstanceExecutor[] = ["pi", "hermes", "codex", "cursor"];
+export const HIRE_IT_EXECUTORS: InstanceExecutor[] = ["pi", "codex", "cursor"];
 
 export function isPiLockedRole(roleKind: ChatAgentRole): boolean {
   return roleKind === "brief";

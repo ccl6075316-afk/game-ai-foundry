@@ -79,10 +79,10 @@ function parseInstanceExecutor(
 ): InstanceExecutor {
   if (roleKind === "brief") return "pi";
   if (roleKind === "it") {
-    if (value === "pi" || value === "hermes" || value === "codex" || value === "cursor") {
+    if (value === "pi" || value === "codex" || value === "cursor") {
       return value as InstanceExecutor;
     }
-    return fallback === "pi" || fallback === "hermes" || fallback === "codex" || fallback === "cursor"
+    return fallback === "pi" || fallback === "codex" || fallback === "cursor"
       ? fallback
       : "pi";
   }
@@ -145,7 +145,7 @@ export function resolveInstanceRecord(
     (instance.roleKind === "product_host" ||
       instance.roleKind === "programmer" ||
       instance.roleKind === "it") &&
-    (instance.executor === "hermes" ||
+    ((instance.roleKind !== "it" && instance.executor === "hermes") ||
       instance.executor === "codex" ||
       instance.executor === "cursor" ||
       (instance.roleKind === "it" && instance.executor === "pi"))

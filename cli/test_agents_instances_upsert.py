@@ -90,6 +90,19 @@ class AgentsInstancesUpsertTests(unittest.TestCase):
             self.assertEqual(entry["executor"], "codex")
             self.assertTrue(entry["use_third_party"])
 
+    def test_it_rejects_hermes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.json"
+            self._cfg(path)
+            result = upsert_agent_instance(
+                config_path=path,
+                instance_id="it-1",
+                executor="hermes",
+                i_confirm=True,
+            )
+            self.assertFalse(result["ok"])
+            self.assertIn("Hermes", result.get("error") or "")
+
     def test_brief_still_locked_to_pi(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.json"

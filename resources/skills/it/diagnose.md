@@ -11,7 +11,7 @@
 |--------|--------|
 | **Pi（默认）** | 开箱、doctor/setup、装 Codex/Hermes、简单白名单运维 |
 | **Codex** | 根因排查、对照会话/代码、「只说不写」类诊断、需要强读写与推理时 |
-| Hermes/Cursor | 用户已偏好时可选 |
+| **Cursor** | 用户已在 Cursor 环境中工作并明确偏好时可选 |
 
 **切到 Codex 前（可用 Pi 完成）：**
 1. `setup executor step codex install_cli --i-confirm --json`
@@ -21,7 +21,8 @@
 **Codex 模式下：** 不要输出 `<<<FOUNDRY_TOOL`；在仓库根用 shell 调：
 `python cli/gamefactory.py …`（或 `cd cli && python gamefactory.py …`）。
 优先：`conversations show`、`inspect`、`doctor`、读 `cli/host_chat.py`。
-用户说「只说不写」时：先读 brief 会话找「落盘/只说/补丁」，**禁止**默认答成「策划不写工程」。
+用户说「只说不写」时：先读 brief 会话找「落盘/只说/补丁」，再核对响应是否有
+`brief_patches` / `draft_brief`、草稿指纹是否变化；**禁止**默认答成「策划不写工程」。
 
 ## 开箱原则（纯净机）
 
