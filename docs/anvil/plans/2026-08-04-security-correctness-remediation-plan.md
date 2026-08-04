@@ -5,13 +5,8 @@
 - **Status**：confirmed（用户 2026-08-04 拍板开放问题）
 - **Workflow Stage**：code（P0）
 - **Created**：2026-08-04
-- **Updated**：2026-08-04（用户重钉：完成需求优先于权限剧场；信息危险次要）
-- **Product stance（已确认）**：
-  - **优先**：别挡需求（权限尽量放开；会话/本机信任）
-  - **仍要硬闸**：会导致**做错/做不完**的（路径逃出写错盘、未知 asset_type 静默错校验、文档漂移误导 agent）
-  - **次要**：纯信息危险（redact 可保留但不为此加严权限）；细碎 Approve 弹窗不作为主防线
-- **Confirmed By**：user 2026-08-04 — 权限尽量放开；重视「需求无法完成」多于「信息危险」；P0-1 按放宽重做
-- **Resume Point**：放宽 P0-1（shell 无桥 + `--i-confirm` 可跑）→ 再 commit
+- **Updated**：2026-08-04（账本落地：[`docs/solutions/reviews/2026-08-04-whole-project-review-ledger.md`](../../solutions/reviews/2026-08-04-whole-project-review-ledger.md)）
+- **Resume Point**：未提交的 F6–F11 与账本一并 commit；P1 仅做 Deferred 表里 High 项（D1/D2），Accepted 勿再改严
 
 ## Goal
 

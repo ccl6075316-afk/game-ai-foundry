@@ -11,7 +11,7 @@
 ## 0. 执行摘要
 
 ```text
-brief export（冻结）→ prompt craft → pipeline plan/run → godot assemble → dev-context → C# 玩法
+brief chat export（冻结）→ prompt craft → pipeline plan/run → godot assemble → dev-context → C# 玩法
 ```
 
 - **契约**：export 后只读 `brief.json` + `plans/` + manifest；聊天记忆无效（§1）。
@@ -154,7 +154,7 @@ game-ai-foundry/
 
 | 结构 | 字段 | 说明 |
 |------|------|------|
-| `scenes[]` | `id`, `title` 必填；`summary?`, `ui_panel_ids?`, `notes?` | 如主界面、钓场、商店 |
+| `scenes[]` | `id`, `title` 必填；`summary?`, `ui_panel_ids?`, `notes?`, **`visual_reference?`（仅图片路径，场景效果靶）** | 如主界面、钓场、商店 |
 | `systems[]` | `id`, `title` 必填；`summary?`, `notes?` | 如时间池、经济、图鉴；可无贴图 |
 
 `project.description` 应保持**短总览**（约 2–4 句），勿把系统规则/鱼种表堆进去。资产可选 `scene_ids` / `system_ids` 归类（弱引用，不强制校验 id 存在）。程序员/PM 上下文在 brief 含 scenes/systems 时软提示 id 列表。
@@ -290,15 +290,17 @@ cd cli
 
 # Brief
 python gamefactory.py brief validate --brief ../resources/asset-brief.example.json
-python gamefactory.py brief export --brief ../resources/my-game-brief.json
+python gamefactory.py brief chat export --session-id <SESSION_ID> -o ../projects/my-game/brief.json
 
-# Visual Target（brief 定稿后：prompt craft → image generate → pick）
-python gamefactory.py prompt craft-visual-target --brief ../resources/my-game-brief.json --variant a -o ../plans/visual_target_a.json
-python gamefactory.py image generate --plan-file ../plans/visual_target_a.json -o ../output/my-game/visual-target/candidate_a.png --no-validate
-python gamefactory.py brief visual-target generate --brief ../resources/my-game-brief.json --candidates 3
-python gamefactory.py brief visual-target list --brief ../resources/my-game-brief.json
-python gamefactory.py brief visual-target pick --brief ../resources/my-game-brief.json --id b
-
+# Visual Target（全局或 --scene；另有 status / assign）
+python gamefactory.py brief visual-target generate --brief ../projects/my-game/brief.json --candidates 3
+python gamefactory.py brief visual-target generate --brief ../projects/my-game/brief.json --scene dock --candidates 3
+python gamefactory.py brief visual-target list --brief ../projects/my-game/brief.json --scene dock
+python gamefactory.py brief visual-target pick --brief ../projects/my-game/brief.json --id b --scene dock
+python gamefactory.py brief visual-target status --brief ../projects/my-game/brief.json
+python gamefactory.py brief visual-target assign --brief ../projects/my-game/brief.json --scene harbor --from-scene dock
+# 低级可选（无 --scene；场景请用 generate --scene）
+python gamefactory.py prompt craft-visual-target --brief ../projects/my-game/brief.json --variant a -o ../plans/visual_target_a.json
 # Pipeline（推荐路径）
 python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
 python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --run-prompts --jobs 4

@@ -34,13 +34,25 @@ class ToolPermissionUnitTest(unittest.TestCase):
             ["setup", "install", "ffmpeg", "--i-confirm"],
         )
 
-    def test_no_bridge_defaults_to_deny(self) -> None:
+    def test_no_bridge_defaults_to_unavailable(self) -> None:
         with patch.dict("os.environ", {}, clear=False):
             import os
 
             os.environ.pop("GAMEFACTORY_TOOL_PERMISSION_URL", None)
             d = request_mutate_permission(["setup", "install", "ffmpeg", "--i-confirm"])
-        self.assertEqual(d, "deny")
+        self.assertEqual(d, "unavailable")
+
+    def test_bridge_http_failure_is_unavailable_not_deny(self) -> None:
+        with patch.dict(
+            "os.environ",
+            {"GAMEFACTORY_TOOL_PERMISSION_URL": "http://127.0.0.1:9/missing"},
+            clear=False,
+        ):
+            d = request_mutate_permission(
+                ["setup", "install", "ffmpeg", "--i-confirm"],
+                timeout_sec=0.5,
+            )
+        self.assertEqual(d, "unavailable")
 
     def test_turn_memory_skips_second_ask(self) -> None:
         calls: list[dict] = []
@@ -117,6 +129,27 @@ class ToolPermissionGateIntegrationTest(unittest.TestCase):
         assert isinstance(cmd, list)
         # stripped for install before CLI
         self.assertNotIn("--i-confirm", cmd)
+
+    def test_bridge_unavailable_falls_back_to_i_confirm(self) -> None:
+        class FakeProc:
+            returncode = 0
+            stdout = '{"ok": true}'
+            stderr = ""
+
+        with (
+            patch("pi_foundry_tools.permission_bridge_configured", return_value=True),
+            patch(
+                "pi_foundry_tools.request_mutate_permission",
+                return_value="unavailable",
+            ),
+            patch("pi_foundry_tools.subprocess.run", return_value=FakeProc()) as run,
+            patch("pi_foundry_tools.Path.is_file", return_value=True),
+        ):
+            result = run_allowed_gamefactory(
+                ["setup", "install", "ffmpeg", "--json", "--i-confirm"],
+            )
+        self.assertTrue(result["ok"], msg=str(result))
+        run.assert_called_once()
 
     def test_readonly_skips_gate(self) -> None:
         with patch("pi_foundry_tools.request_mutate_permission") as gate:

@@ -36,7 +36,10 @@ import {
   absForResolved,
   cliArgForResolved,
   isExternalVirtualRel,
+  manifestBelongsToBrief,
   normalizeRepoRel,
+  pathUnderRoot,
+  projectRootKeyFromBriefRel,
   resolveExternalAbs,
 } from "./externalFs.mjs";
 
@@ -567,7 +570,7 @@ function readRepoText(relPath) {
 
 /** Merge fields into brief.project and rewrite the file (keeps rest of brief). */
 function patchBriefProject(relPath, projectPatch) {
-  const resolved = resolveRepoRel(relPath);
+  const resolved = resolveReadableRel(relPath);
   if (!resolved) return { ok: false, error: "invalid path" };
   if (!existsSync(resolved.full) || !statSync(resolved.full).isFile()) {
     return { ok: false, error: "file not found", path: resolved.rel };
@@ -1268,11 +1271,27 @@ function relToRepo(absPath) {
   return rel.split(path.sep).join("/");
 }
 
-/** Resolve image/video path for preview/open. Accepts repo-relative or absolute. */
+/** Resolve image/video path for preview/open. Accepts repo-relative, external:, or absolute. */
 function resolveMediaAbs(relOrAbs) {
   const root = path.resolve(repoRoot());
   const raw = String(relOrAbs || "").trim();
   if (!raw) return null;
+
+  const externalRoots = () =>
+    loadExternalRegistry().projects
+      .map((e) => (e?.root_abs ? path.resolve(String(e.root_abs)) : ""))
+      .filter(Boolean);
+
+  const allowedAbs = (candidate) => {
+    if (!existsSync(candidate) || !statSync(candidate).isFile()) return false;
+    if (pathUnderRoot(candidate, root)) return true;
+    return externalRoots().some((er) => pathUnderRoot(candidate, er));
+  };
+
+  const extResolved = resolveExternalRel(raw);
+  if (extResolved?.full && allowedAbs(extResolved.full)) {
+    return extResolved.full;
+  }
 
   const candidates = [];
   const push = (p) => {
@@ -1285,15 +1304,17 @@ function resolveMediaAbs(relOrAbs) {
     push(raw);
   } else {
     const rel = raw.replace(/\\/g, "/");
+    try {
+      push(absForRel(rel));
+    } catch {
+      /* fall through */
+    }
     push(path.join(root, rel));
-    // Bad gallery paths from clones under ~/projects/<repo>: first "projects/"
-    // matched the parent folder → projects/<repo>/projects/<slug>/…
     const nestedProjects = rel.lastIndexOf("projects/");
     if (nestedProjects > 0 && rel.startsWith("projects/")) {
       push(path.join(root, rel.slice(nestedProjects)));
     }
-    // Gallery sometimes truncated projects/<slug>/output/... → output/...
-    if (rel.startsWith("output/") || rel.startsWith("plans/") || rel.startsWith("games/")) {
+    if (rel.startsWith("output/") || rel.startsWith("plans/") || rel.startsWith("game/")) {
       const projectsDir = path.join(root, "projects");
       if (existsSync(projectsDir)) {
         try {
@@ -1304,14 +1325,14 @@ function resolveMediaAbs(relOrAbs) {
           /* ignore */
         }
       }
+      for (const er of externalRoots()) {
+        push(path.join(er, rel));
+      }
     }
   }
 
   for (const candidate of candidates) {
-    if (!existsSync(candidate) || !statSync(candidate).isFile()) continue;
-    const rel = path.relative(root, candidate);
-    if (rel.startsWith("..") || path.isAbsolute(rel)) continue;
-    return candidate;
+    if (allowedAbs(candidate)) return candidate;
   }
   return null;
 }
@@ -2150,7 +2171,20 @@ app.whenReady().then(() => {
     if (!rel) {
       return { ok: false, ready: false, visual_reference: "", candidates: [], scenes: [] };
     }
-    const briefAbs = absForRel(rel);
+    let briefAbs;
+    try {
+      briefAbs = absForRel(rel);
+    } catch (err) {
+      return {
+        ok: false,
+        ready: false,
+        visual_reference: "",
+        candidates: [],
+        scenes: [],
+        error: err instanceof Error ? err.message : String(err),
+        brief_rel: rel,
+      };
+    }
     if (!existsSync(briefAbs)) {
       return {
         ok: false,
@@ -2179,11 +2213,36 @@ app.whenReady().then(() => {
         brief_rel: rel,
       };
     }
+    const projectRootAbs = external
+      ? external.rootAbs
+      : (() => {
+          const key = projectRootKeyFromBriefRel(rel);
+          return key && key.startsWith("projects/")
+            ? path.join(root, key)
+            : path.dirname(briefAbs);
+        })();
     const refFileOk = (ref) => {
       const pathOk = looksLikeImagePath(ref);
       if (!pathOk) return { pathOk: false, fileOk: false };
-      const abs = path.isAbsolute(ref) ? ref : path.join(root, ref);
-      return { pathOk: true, fileOk: existsSync(abs) && statSync(abs).isFile() };
+      let abs = null;
+      if (path.isAbsolute(ref)) {
+        abs = ref;
+      } else {
+        try {
+          abs = absForRel(ref);
+        } catch {
+          abs = path.join(projectRootAbs, ref);
+        }
+        // Relative refs are often stored vs repo root (projects/slug/output/...).
+        if ((!abs || !existsSync(abs)) && !ref.replace(/\\/g, "/").startsWith("projects/")) {
+          const underProj = path.join(projectRootAbs, ref);
+          if (existsSync(underProj)) abs = underProj;
+        }
+      }
+      return {
+        pathOk: true,
+        fileOk: Boolean(abs && existsSync(abs) && statSync(abs).isFile()),
+      };
     };
     const globalCheck = refFileOk(visualReference);
     const scenes = [];
@@ -2206,7 +2265,6 @@ app.whenReady().then(() => {
     }
     const globalReady = Boolean(globalCheck.pathOk && globalCheck.fileOk);
     const candidates = [];
-    // Collect global + per-scene manifests; pick newest (matches CLI find_manifest).
     const tryManifests = [];
     const pushVtManifestTree = (vtDir) => {
       tryManifests.push(path.join(vtDir, "manifest.json"));
@@ -2220,27 +2278,19 @@ app.whenReady().then(() => {
         /* ignore */
       }
     };
-    if (rel.startsWith("projects/")) {
+    // Prefer this project's visual-target tree only (no cross-project basename match).
+    if (external?.rootAbs) {
+      pushVtManifestTree(path.join(external.rootAbs, "output", "visual-target"));
+    } else if (rel.startsWith("projects/")) {
       const slug = rel.split("/")[1];
       pushVtManifestTree(path.join(root, "projects", slug, "output", "visual-target"));
-    }
-    const stem = path.basename(rel).replace(/\.json$/i, "");
-    pushVtManifestTree(path.join(root, "output", stem, "visual-target"));
-    const outputRoot = path.join(root, "output");
-    if (existsSync(outputRoot)) {
-      try {
-        for (const name of readdirSync(outputRoot)) {
-          pushVtManifestTree(path.join(outputRoot, name, "visual-target"));
-        }
-      } catch {
-        /* ignore */
-      }
+    } else {
+      const stem = path.basename(rel).replace(/\.json$/i, "");
+      pushVtManifestTree(path.join(root, "output", stem, "visual-target"));
     }
     let selectedId = null;
     const seen = new Set();
     const scored = [];
-    const briefNorm = briefAbs.replace(/\\/g, "/");
-    const briefBase = path.basename(briefAbs);
     for (const mPath of tryManifests) {
       if (!existsSync(mPath) || seen.has(mPath)) continue;
       seen.add(mPath);
@@ -2249,10 +2299,15 @@ app.whenReady().then(() => {
         const manScene = String(man.scene_id || "").trim() || null;
         if (sid && manScene && manScene !== sid) continue;
         const briefInMan = String(man.brief_path || "").replace(/\\/g, "/");
+        // Local tree already scoped; if manifest names a brief, require real match.
         if (
           briefInMan &&
-          briefInMan !== briefNorm &&
-          !briefInMan.includes(briefBase)
+          !manifestBelongsToBrief({
+            briefAbs,
+            briefRel: rel,
+            manBriefPath: briefInMan,
+            repoRoot: root,
+          })
         ) {
           continue;
         }
@@ -2281,9 +2336,23 @@ app.whenReady().then(() => {
       for (const c of best.man.candidates || []) {
         if (!c || !c.id) continue;
         const cAbs = String(c.path || "");
-        const cRel = cAbs
-          ? path.relative(root, path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs)).replace(/\\/g, "/")
-          : "";
+        let cRel = cAbs;
+        if (cAbs) {
+          const abs = path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs);
+          try {
+            const r = path.relative(root, abs).replace(/\\/g, "/");
+            if (r && !r.startsWith("..")) cRel = r;
+            else if (external?.rootAbs && pathUnderRoot(abs, external.rootAbs)) {
+              cRel = `external:${external.entry?.id || ""}/${path
+                .relative(external.rootAbs, abs)
+                .replace(/\\/g, "/")}`;
+            } else {
+              cRel = abs;
+            }
+          } catch {
+            cRel = abs;
+          }
+        }
         candidates.push({
           id: String(c.id),
           label: c.label || c.id,

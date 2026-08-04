@@ -6,8 +6,10 @@ import {
   absForResolved,
   cliArgForResolved,
   isExternalVirtualRel,
+  manifestBelongsToBrief,
   normalizeRepoRel,
   parseExternalVirtual,
+  projectRootKeyFromBriefRel,
   resolveExternalAbs,
 } from "./externalFs.mjs";
 
@@ -82,6 +84,47 @@ test("absForResolved maps repo and external paths", () => {
       repoRoot: "/repo",
     }),
     path.resolve("/repo", "projects/foo/brief.json"),
+  );
+});
+
+test("projectRootKeyFromBriefRel covers projects and external", () => {
+  assert.equal(projectRootKeyFromBriefRel("projects/foo/brief.json"), "projects/foo");
+  assert.equal(
+    projectRootKeyFromBriefRel("external:ext_abc123/brief.json"),
+    "external:ext_abc123",
+  );
+});
+
+test("manifestBelongsToBrief matches abs and project root, not basename", () => {
+  const repo = path.resolve("/repo");
+  const briefAbs = path.join(repo, "projects", "foo", "brief.json");
+  assert.equal(
+    manifestBelongsToBrief({
+      briefAbs,
+      briefRel: "projects/foo/brief.json",
+      manBriefPath: briefAbs,
+      repoRoot: repo,
+    }),
+    true,
+  );
+  assert.equal(
+    manifestBelongsToBrief({
+      briefAbs,
+      briefRel: "projects/foo/brief.json",
+      manBriefPath: "projects/foo/brief.json",
+      repoRoot: repo,
+    }),
+    true,
+  );
+  // Same basename, different project — must NOT match.
+  assert.equal(
+    manifestBelongsToBrief({
+      briefAbs,
+      briefRel: "projects/foo/brief.json",
+      manBriefPath: "projects/bar/brief.json",
+      repoRoot: repo,
+    }),
+    false,
   );
 });
 

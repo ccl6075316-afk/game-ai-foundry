@@ -23,6 +23,8 @@ export function toRepoMediaRel(absOrRel: string): string {
   const norm = String(absOrRel || "").trim().replace(/\\/g, "/");
   if (!norm) return "";
 
+  if (/^external:[^/]+\//i.test(norm)) return norm;
+
   const projectsIdx = projectsSegmentIndex(norm);
   if (projectsIdx >= 0) return norm.slice(projectsIdx);
 

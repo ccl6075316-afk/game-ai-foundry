@@ -1,6 +1,6 @@
 # Visual Target (full-screen gameplay mock)
 
-Craft **structured fields** for a predicted **in-engine gameplay screenshot** — the visual north star (`visual_reference`), not asset sprites.
+Craft **structured fields** for a predicted **in-engine gameplay screenshot** — a visual north-star frame (`project.visual_reference` and/or `project.scenes[].visual_reference`), not asset sprites.
 
 ## Provenance (do not invent a new school)
 
@@ -9,9 +9,9 @@ Distilled for Foundry CLI from:
 - OpenAI Image generation prompting guide (wide → narrow; labeled segments)
 - GPT Image 2 Scene / Subject / Details / Use case / Constraints pattern
 - Community **game screenshot** prompt archetypes
-- Godogen Visual Target semantics (one north-star frame anchors the project)
+- Godogen Visual Target semantics (a north-star frame anchors **a** playable view; multi-scene games may have **one frame per scene**)
 
-Python will **assemble** your JSON fields into the final image prompt in that order. Fill fields; do not write a free-form essay as `prompt`.
+When the host asks for a **scene** north star, bias `scene` / `gameplay_beat` toward that scene's title/summary; do not invent a single image that must represent every system at once.
 
 ## Goal
 

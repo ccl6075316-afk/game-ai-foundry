@@ -8,6 +8,8 @@ import {
   parseExternalBriefId,
   planTargetsFromBrief,
   planTargetsFromExternalEntry,
+  projectRootFromBriefRel,
+  sameProjectRoot,
   type ExternalProjectEntry,
 } from "./projectPaths";
 
@@ -62,6 +64,18 @@ test("isIsolatedBriefRel includes external brief keys", () => {
   assert.equal(isIsolatedBriefRel("external:ext_x/brief.json"), true);
   assert.equal(isIsolatedBriefRel("projects/foo/brief.json"), true);
   assert.equal(isIsolatedBriefRel("resources/game-brief.json"), false);
+});
+
+test("sameProjectRoot treats external ids as roots", () => {
+  assert.equal(projectRootFromBriefRel("external:ext_a/brief.json"), "external:ext_a");
+  assert.equal(
+    sameProjectRoot("external:ext_a/brief.json", "external:ext_a/output/x.png"),
+    true,
+  );
+  assert.equal(
+    sameProjectRoot("external:ext_a/brief.json", "external:ext_b/brief.json"),
+    false,
+  );
 });
 
 test("planTargetsFromBrief rejects external virtual keys", () => {

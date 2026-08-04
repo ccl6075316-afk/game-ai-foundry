@@ -45,6 +45,80 @@ export function resolveExternalAbs(rel, getEntryById) {
 }
 
 /**
+ * Project root key for binding / VT matching.
+ * `projects/<slug>/…` → `projects/<slug>`
+ * `external:<id>/…` → `external:<id>`
+ * @param {string | null | undefined} rel
+ * @returns {string | null}
+ */
+export function projectRootKeyFromBriefRel(rel) {
+  const raw = String(rel || "")
+    .replace(/\\/g, "/")
+    .replace(/^\/+/, "");
+  if (!raw) return null;
+  const ext = raw.match(/^(external:[^/]+)/i);
+  if (ext?.[1]) return ext[1];
+  const proj = raw.match(/^(projects\/[^/]+)/i);
+  if (proj?.[1]) return proj[1];
+  return null;
+}
+
+/**
+ * True when path is under rootAbs (or equals it).
+ * @param {string} absPath
+ * @param {string} rootAbs
+ */
+export function pathUnderRoot(absPath, rootAbs) {
+  const full = path.resolve(absPath);
+  const root = path.resolve(rootAbs);
+  return full === root || full.startsWith(root + path.sep);
+}
+
+/**
+ * Match a visual-target manifest's brief_path to the active brief.
+ * Never match on basename alone (all briefs are often named brief.json).
+ *
+ * @param {{ briefAbs: string, briefRel: string, manBriefPath: string, repoRoot: string }} args
+ * @returns {boolean}
+ */
+export function manifestBelongsToBrief({
+  briefAbs,
+  briefRel,
+  manBriefPath,
+  repoRoot,
+}) {
+  const man = String(manBriefPath || "").replace(/\\/g, "/").trim();
+  if (!man) return false;
+  const briefResolved = path.resolve(briefAbs);
+  let manAbs;
+  try {
+    manAbs = path.isAbsolute(man)
+      ? path.resolve(man)
+      : path.resolve(repoRoot, man);
+  } catch {
+    return false;
+  }
+  if (manAbs === briefResolved) return true;
+
+  const briefRoot = projectRootKeyFromBriefRel(briefRel);
+  // Manifest may store repo-relative or absolute; derive root from man string too.
+  let manRelHint = man;
+  try {
+    const rel = path.relative(path.resolve(repoRoot), manAbs);
+    if (rel && !rel.startsWith("..") && !path.isAbsolute(rel)) {
+      manRelHint = rel.replace(/\\/g, "/");
+    }
+  } catch {
+    /* keep man */
+  }
+  const manRoot = projectRootKeyFromBriefRel(manRelHint);
+  if (briefRoot && manRoot) {
+    return briefRoot.toLowerCase() === manRoot.toLowerCase();
+  }
+  return false;
+}
+
+/**
  * Normalize repo-relative path. Rejects any `..` segment (including mid-path).
  * Returns "" for empty/invalid input — callers must treat empty as reject.
  * @param {string | null | undefined} relPath

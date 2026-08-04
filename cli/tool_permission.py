@@ -15,7 +15,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Callable, Literal
 
-Decision = Literal["once", "turn", "session", "deny"]
+Decision = Literal["once", "turn", "session", "deny", "unavailable"]
 
 DEFAULT_TIMEOUT_SEC = 300.0
 ENV_URL = "GAMEFACTORY_TOOL_PERMISSION_URL"
@@ -66,7 +66,7 @@ def summarize_argv(argv: list[str]) -> str:
 def _http_request_decision(payload: dict[str, Any], *, timeout_sec: float) -> Decision:
     url = (os.environ.get(ENV_URL) or "").strip()
     if not url:
-        return "deny"
+        return "unavailable"
     token = (os.environ.get(ENV_TOKEN) or "").strip()
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     headers = {"Content-Type": "application/json; charset=utf-8"}
@@ -77,15 +77,16 @@ def _http_request_decision(payload: dict[str, Any], *, timeout_sec: float) -> De
         with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
             raw = resp.read().decode("utf-8", errors="replace")
     except (urllib.error.URLError, TimeoutError, OSError):
-        return "deny"
+        # Completion-first: bridge down ≠ user deny — fall back to --i-confirm.
+        return "unavailable"
     try:
         data = json.loads(raw) if raw.strip() else {}
     except json.JSONDecodeError:
-        return "deny"
+        return "unavailable"
     decision = str(data.get("decision") or "").strip().lower()
     if decision in ("once", "turn", "session", "deny"):
         return decision  # type: ignore[return-value]
-    return "deny"
+    return "unavailable"
 
 
 def request_mutate_permission(
@@ -98,16 +99,16 @@ def request_mutate_permission(
 ) -> Decision:
     """Ask GUI (or ``requester``) whether to run a mutating tool.
 
-    Fail-closed: if no bridge URL and no ``requester``, returns ``deny``.
-    Non-shell mutates without a bridge are gated by ``--i-confirm`` in
-    ``run_allowed_gamefactory`` / ``is_allowed_argv`` instead of this helper.
+    If no bridge URL and no ``requester``, returns ``unavailable`` (caller should
+    rely on ``--i-confirm``). Bridge HTTP failures also return ``unavailable``
+    so a dead GUI loopback does not block author workflows.
     """
     state = turn_state or PermissionTurnState()
     if state.allow_rest_of_turn:
         return "once"
 
     if requester is None and not permission_bridge_configured():
-        return "deny"
+        return "unavailable"
 
     permission_id = uuid.uuid4().hex
     payload = {
@@ -123,9 +124,10 @@ def request_mutate_permission(
     else:
         decision = _http_request_decision(payload, timeout_sec=timeout_sec)
 
-    if decision not in ("once", "turn", "session", "deny"):
-        decision = "deny"
-    state.remember(decision)
+    if decision not in ("once", "turn", "session", "deny", "unavailable"):
+        decision = "unavailable"
+    if decision not in ("deny", "unavailable"):
+        state.remember(decision)
     return decision
 
 

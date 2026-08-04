@@ -65,11 +65,13 @@ export function slugFromBriefRel(briefRel: string): string {
 
 export function projectRootFromBriefRel(briefRel: string): string | null {
   const n = norm(briefRel);
+  const ext = n.match(/^(external:[^/]+)/i);
+  if (ext?.[1]) return ext[1];
   const m = n.match(/^(projects\/[^/]+)\//i);
   return m?.[1] ?? null;
 }
 
-/** True when both paths belong to the same isolated projects/<slug>/ tree. */
+/** True when both paths belong to the same projects/<slug>/ or external:<id>/ tree. */
 export function sameProjectRoot(a: string | null | undefined, b: string | null | undefined): boolean {
   if (!a || !b) return false;
   const ra = projectRootFromBriefRel(a);

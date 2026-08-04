@@ -30,6 +30,7 @@
 | [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host / 全角色 | **设计 vs 施工**、Change Request | CLI 命令、里程碑 |
 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | Host / 维护者 | **施工体系**：production、壳、验收、进度 | brief 字段全文 |
 | [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律、**§1.2 资产审查表** | 产品方法论、进度表 |
+| [`solutions/reviews/2026-08-04-whole-project-review-ledger.md`](solutions/reviews/2026-08-04-whole-project-review-ledger.md) | 接手 / 再 review | **已修/接受/延期** 账本；完成优先立场 | 当未处理 Critical 重报 Accepted 项 |
 | [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段全文 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |

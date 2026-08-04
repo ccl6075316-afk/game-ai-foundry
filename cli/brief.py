@@ -422,7 +422,13 @@ class AssetSpec:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> AssetSpec:
-        raw_type = str(data.get("type", "character"))
+        if "type" not in data or str(data.get("type") or "").strip() == "":
+            raise ValueError(
+                "Asset is missing required field 'type' "
+                f"(got name={data.get('name')!r}). "
+                f"Use: {', '.join(t.value for t in AssetType)}"
+            )
+        raw_type = str(data.get("type")).strip()
         try:
             asset_type = AssetType(raw_type)
         except ValueError as exc:
@@ -1055,7 +1061,10 @@ def parse_assets_for_audit(
         if not isinstance(item, dict):
             continue
         name = str(item.get("name") or "").strip() or "(unnamed)"
-        raw_type = str(item.get("type", "character"))
+        if "type" not in item or str(item.get("type") or "").strip() == "":
+            bad_types.setdefault("(missing)", []).append(name)
+            continue
+        raw_type = str(item.get("type")).strip()
         try:
             AssetType(raw_type)
         except ValueError:

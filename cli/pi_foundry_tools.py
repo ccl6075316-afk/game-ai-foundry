@@ -460,6 +460,7 @@ def run_allowed_gamefactory(
     run_argv_in = list(argv)
 
     # When the GUI permission bridge is up, ask before mutates (once/turn/session).
+    # Bridge unreachable → fall through like no bridge (--i-confirm still required).
     # Without a bridge: do not block — require --i-confirm via is_allowed_argv so
     # headless/CLI Pi can still complete user work (completion > permission theater).
     if is_mutating_argv(run_argv_in) and permission_bridge_configured():
@@ -478,7 +479,8 @@ def run_allowed_gamefactory(
                 "exit_code": None,
                 "permission": "deny",
             }
-        run_argv_in = ensure_i_confirm(run_argv_in)
+        if decision != "unavailable":
+            run_argv_in = ensure_i_confirm(run_argv_in)
 
     if not is_allowed_argv(run_argv_in, allow_export=allow_export, profile=profile):
         return {
