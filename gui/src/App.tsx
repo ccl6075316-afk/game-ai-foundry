@@ -10,8 +10,6 @@ import { BoardPanel } from "./components/BoardPanel";
 import {
   briefMakeabilityExportReady,
   briefMakeabilityGateHint,
-  flattenIntentChoices,
-  formatMakeabilityReviewDetails,
 } from "./components/briefPreviewFormat";
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
@@ -598,8 +596,11 @@ export default function App() {
       choices?: string[],
       attachments?: ChatAttachment[],
       target?: { instanceId: string; sessionId: string },
+      makeabilityCard?: import("./chat/types").MakeabilityCardState,
     ) => {
-      const mergedChoices = mergeMessageChoices(choices, content);
+      const mergedChoices = makeabilityCard
+        ? undefined
+        : mergeMessageChoices(choices, content);
       patchChatStore((prev) => {
         const msg = {
           id: newMessageId(),
@@ -608,6 +609,7 @@ export default function App() {
           timestamp: Date.now(),
           choices: mergedChoices,
           attachments: attachments?.length ? attachments : undefined,
+          makeabilityCard,
         };
         if (target) {
           return updateSessionMessages(prev, target.instanceId, target.sessionId, (msgs) => [
@@ -618,7 +620,7 @@ export default function App() {
         return updateActiveMessages(prev, (msgs) => [...msgs, msg]);
       });
       if (!target || target.instanceId === getActiveColleague(loadSessionStore()).id) {
-        setBrainstormChoices(mergedChoices || []);
+        setBrainstormChoices(makeabilityCard ? [] : mergedChoices || []);
       }
     },
     [patchChatStore],
@@ -1674,20 +1676,25 @@ export default function App() {
         throw new Error(res.stderr || res.stdout || "makeability failed");
       }
       let content = data.assistant_message || "制作审查完成。";
-      // Backend already embeds gap details into assistant_message for session context.
-      // Only format client-side when the reply is still a short summary.
-      if (!/意图缺口|施工细节/.test(content)) {
-        const details = formatMakeabilityReviewDetails(data.review);
-        if (details) {
-          content += `\n\n${details}`;
-        }
+      const intentGaps = data.review?.intent_gaps || [];
+      const hasIntent = intentGaps.some((g) => String(g?.id || "").trim());
+      const makeabilityCard = hasIntent
+        ? {
+            status: "pending" as const,
+            review: data.review || { intent_gaps: intentGaps },
+          }
+        : undefined;
+      if (hasIntent) {
+        content =
+          (data.assistant_message || "制作审查完成。").split("\n\n")[0] +
+          "\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。";
       }
-      const intentChoices = flattenIntentChoices(data.review?.intent_gaps);
       appendAssistant(
         content,
-        intentChoices.length ? intentChoices : undefined,
+        undefined,
         undefined,
         sessionTarget,
+        makeabilityCard,
       );
       applyDraftFromPayload(
         {
@@ -1706,6 +1713,83 @@ export default function App() {
       } else {
         appendAssistant(
           `制作审查失败：${e instanceof Error ? e.message : String(e)}`,
+          undefined,
+          undefined,
+          sessionTarget,
+        );
+      }
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleMakeabilityAnswer = async (
+    messageId: string,
+    answers: import("./components/MakeabilityGapCard").MakeabilityGapAnswer[],
+  ) => {
+    if (!window.gameFactory?.hostChatMakeabilityAnswer) {
+      appendAssistant("当前 GUI 不支持审查缺口写入，请重启 Foundry。");
+      return;
+    }
+    if (!answers.length) return;
+    const busyId = activeColleague.id;
+    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
+    markBusy(busyId);
+    append(
+      "log",
+      `制作审查：将 ${answers.length} 条选项写入草稿…`,
+      undefined,
+      sessionTarget,
+    );
+    try {
+      const res = await window.gameFactory.hostChatMakeabilityAnswer(
+        sessionTarget.sessionId,
+        answers,
+        sessionTarget.instanceId,
+      );
+      const data = res.data;
+      if (isChatAborted(res)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+        return;
+      }
+      if (!data) {
+        throw new Error(res.stderr || res.stdout || "makeability-answer failed");
+      }
+      patchChatStore((prev) =>
+        updateSessionMessages(prev, sessionTarget.instanceId, sessionTarget.sessionId, (msgs) =>
+          msgs.map((m) =>
+            m.id === messageId && m.makeabilityCard
+              ? {
+                  ...m,
+                  makeabilityCard: { ...m.makeabilityCard, status: "applied" as const },
+                }
+              : m,
+          ),
+        ),
+      );
+      appendAssistant(
+        data.assistant_message || "已按审查选项写入工作草稿。请再点一次「审」确认意图缺口清空。",
+        undefined,
+        undefined,
+        sessionTarget,
+      );
+      applyDraftFromPayload(
+        {
+          ...data,
+          draft_brief: data.draft_brief ?? briefDraft,
+          gaps: Array.isArray(data.gaps) ? data.gaps : briefDraftStatus?.gaps,
+        },
+        { replace: true },
+      );
+      if (data.draft_brief) setBriefDraft(data.draft_brief);
+      setBrainstormReady(false);
+      void refreshBrainstormStatus();
+    } catch (e) {
+      if (isAbortError(e)) {
+        appendAssistant("已停止。", undefined, undefined, sessionTarget);
+      } else {
+        appendAssistant(
+          `审查写入失败：${e instanceof Error ? e.message : String(e)}`,
           undefined,
           undefined,
           sessionTarget,
@@ -4070,8 +4154,14 @@ export default function App() {
             agentRole={agentRole}
             agentLabel={activeColleague.displayName}
             scrollKey={activeSession.id}
+            hideDialogChoices={messages.some(
+              (m) => m.makeabilityCard?.status === "pending",
+            )}
             onSuggestion={handleSend}
             onToolPermissionDecision={handleToolPermissionDecision}
+            onMakeabilityAnswer={(messageId, answers) =>
+              void handleMakeabilityAnswer(messageId, answers)
+            }
             heroTitle={hero.title}
             heroSubtitle={hero.subtitle}
             suggestions={suggestions}
@@ -4181,6 +4271,9 @@ export default function App() {
           <ChatInput
             busy={chatBusy || agentConfigSaving}
             onStop={() => void handleStopChat()}
+            hideDialogChoices={messages.some(
+              (m) => m.makeabilityCard?.status === "pending",
+            )}
             choices={
               agentRole === "brief"
                 ? brainstormChoices.filter(
@@ -4192,6 +4285,12 @@ export default function App() {
                         "都不满意，换风格",
                         "生成北极星 · 全局",
                         "生成北极星图 · 全局",
+                        "保存 Brief",
+                        "制作审查",
+                        "补全细节",
+                        "议题头脑风暴",
+                        "自动修 brief",
+                        "生成 UI 示意",
                       ].includes(c) &&
                       !/^生成北极星(?:图)?\s*[·•]/.test(c) &&
                       !/^选用北极星\s*[a-dA-D]/.test(c) &&
@@ -4215,10 +4314,11 @@ export default function App() {
                   : agentActionChoices
             }
             readyToExport={briefExportReady}
-            showAutofix={
-              agentRole === "brief" && Boolean(briefDraftStatus?.gaps && briefDraftStatus.gaps.length > 0)
-            }
+            showAutofix={agentRole === "brief" && Boolean(briefDraft)}
             showMakeability={agentRole === "brief" && Boolean(briefDraft)}
+            showEnrich={agentRole === "brief"}
+            showUiWireframe={agentRole === "brief"}
+            showTopicBrainstorm={agentRole === "brief"}
             exportGateHint={briefExportGateHint}
             placeholder={
               agentRole === "brief"
@@ -4227,48 +4327,31 @@ export default function App() {
                   ? "描述试玩问题或要推进的事…"
                   : "描述要改的代码或任务…"
             }
-            hint={
-              agentRole === "brief"
-                ? "Enter 发送 · 气泡内选项可点 · 保存 Brief 后可生成北极星"
-                : agentRole === "product_host"
-                  ? "上方：① 流水线 → ② 跑资产（蓝 = 建议下一步）"
-                  : "Enter 发送 · 经执行器 CLI 回信 · 「文档」可预览项目文件"
-            }
             onSend={handleSend}
             onChoice={(text) => {
-              if (text === "保存 Brief") {
-                void handleBriefExport();
-                return;
-              }
-              if (text === "制作审查") {
-                void handleBriefMakeability();
-                return;
-              }
-              if (text === "补全细节") {
-                void handleBriefEnrich();
-                return;
-              }
-              if (text === "议题头脑风暴") {
-                void handleTopicBrainstorm();
+              const adopt = text.match(/^采用\s+(p\d+)\s*[:：]/);
+              if (adopt) {
+                void handleBrainstormApply([adopt[1]], false);
                 return;
               }
               if (text === "融合前两个方案") {
                 void handleBrainstormApply(["p1", "p2"], true);
                 return;
               }
-              const adopt = text.match(/^采用\s+(p\d+)\s*[:：]/);
-              if (adopt) {
-                void handleBrainstormApply([adopt[1]], false);
-                return;
-              }
               void handleSend(text);
             }}
-            onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}
-            onMakeability={agentRole === "brief" ? () => void handleBriefMakeability() : undefined}
-            onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
-            onUiWireframe={agentRole === "brief" ? () => void handleBriefUiWireframe() : undefined}
-            onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
-            onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
+            onWorkstation={
+              agentRole === "brief"
+                ? (action) => {
+                    if (action === "makeability") void handleBriefMakeability();
+                    else if (action === "enrich") void handleBriefEnrich();
+                    else if (action === "topic") void handleTopicBrainstorm();
+                    else if (action === "ui") void handleBriefUiWireframe();
+                    else if (action === "autofix") void handleBriefAutofix(5);
+                    else if (action === "export") void handleBriefExport();
+                  }
+                : undefined
+            }
           />
         </section>
 

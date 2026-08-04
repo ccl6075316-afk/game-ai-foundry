@@ -20,12 +20,15 @@ from host_chat import (
     apply_brief_patches,
     build_autofix_user_message,
     deep_merge_brief,
+    draft_fingerprint,
     export_brief,
     list_sessions,
+    load_project_draft_from_disk,
     load_session,
     looks_like_draft_write_claim,
     maybe_compress_session,
     new_session,
+    reconcile_makeability_after_draft_write,
     resolve_mode,
     run_autofix,
     run_turn,
@@ -321,6 +324,245 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(rod.get("description"), "Basic rod")
         self.assertTrue(any(a.get("id") == "lake" for a in out["assets"]))
         self.assertTrue(any(a.get("id") == "bait" for a in out["assets"]))
+
+    def test_apply_brief_patches_upsert_system_scene_panel(self) -> None:
+        draft = {
+            "project": {
+                "title": "Fish",
+                "systems": [
+                    {"id": "aquarium", "title": "Aquarium", "notes": "locked until purchased"},
+                ],
+                "scenes": [
+                    {"id": "main_hub", "title": "Hub", "notes": "Aquarium locked"},
+                ],
+                "ui_panels": [
+                    {"id": "main_hub_buildings", "title": "Buildings", "notes": "锁定态"},
+                ],
+            },
+            "assets": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "aquarium"},
+                    "set": {
+                        "notes": "unlocked from the start with no building purchase",
+                    },
+                },
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "main_hub"},
+                    "set": {"notes": "enterable from the start"},
+                },
+                {
+                    "op": "upsert_ui_panel",
+                    "match": {"id": "main_hub_buildings"},
+                    "set": {"notes": "开局即可进入"},
+                },
+            ],
+        )
+        self.assertIn("unlocked from the start", out["project"]["systems"][0]["notes"])
+        self.assertIn("enterable from the start", out["project"]["scenes"][0]["notes"])
+        self.assertIn("开局即可进入", out["project"]["ui_panels"][0]["notes"])
+
+    def test_load_project_draft_prefers_draft_json_over_export(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "fish"
+            proj.mkdir(parents=True)
+            (proj / "brief.json").write_text(
+                json.dumps(
+                    {
+                        "project": {"title": "Exported Locked", "genre": "sim"},
+                        "assets": [{"name": "old", "type": "prop", "usage": "x"}],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            (proj / "brief.draft.json").write_text(
+                json.dumps(
+                    {
+                        "project": {"title": "Working Draft Open", "genre": "sim"},
+                        "assets": [{"name": "new", "type": "prop", "usage": "x"}],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            loaded = load_project_draft_from_disk(
+                "projects/fish/brief.json",
+                repo_root=root,
+                workspace=root,
+            )
+            assert loaded is not None
+            self.assertEqual(loaded["project"]["title"], "Working Draft Open")
+            self.assertEqual(loaded["assets"][0]["name"], "new")
+
+    def test_reconcile_makeability_closes_gaps_and_stales_review(self) -> None:
+        session = new_session("close-gaps")
+        draft = {
+            "project": {
+                "title": "Fish",
+                "description": "desc",
+                "genre": "sim",
+                "gameplay_loop": "cast",
+                "session_goal": "endless",
+            },
+            "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+        }
+        session["draft_brief"] = draft
+        session["makeability_review"] = {
+            "schema_version": 1,
+            "reviewed_at": "2026-08-04T00:00:00+00:00",
+            "draft_fingerprint": draft_fingerprint(draft),
+            "intent_gaps": [
+                {
+                    "id": "aquarium_unlock_flow",
+                    "question": "如何解锁水族馆？",
+                    "why_blocking": "入口不明",
+                    "choices": ["A", "B"],
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        closed, msg = reconcile_makeability_after_draft_write(
+            session,
+            closed_ids=["aquarium_unlock_flow"],
+            assistant_message="好，aquarium_unlock_flow 按 B 拍板关闭。",
+        )
+        self.assertEqual(closed, ["aquarium_unlock_flow"])
+        self.assertEqual(session["makeability_review"]["intent_gaps"], [])
+        self.assertFalse(session["ready_to_export"])
+        self.assertIn("制作审查", msg)
+        st = session_status(session)
+        self.assertFalse(st["makeability_fingerprint_match"])
+        self.assertEqual(st["intent_count"], 0)
+        payload = _build_user_payload(session, "chat")
+        latest = payload["latest_makeability_review"]
+        self.assertFalse(latest["fingerprint_match"])
+        self.assertEqual(latest["intent_gaps"], [])
+
+    def test_apply_parsed_closes_single_intent_gap_on_patch(self) -> None:
+        session = new_session("patch-close")
+        draft = {
+            "project": {
+                "title": "Fish",
+                "description": "A fishing sim.",
+                "genre": "sim",
+                "gameplay_loop": "cast sell",
+                "session_goal": "endless",
+                "systems": [
+                    {"id": "aquarium", "title": "Aquarium", "notes": "locked until purchased"},
+                ],
+            },
+            "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+        }
+        session["draft_brief"] = draft
+        session["makeability_review"] = {
+            "schema_version": 1,
+            "reviewed_at": "2026-08-04T00:00:00+00:00",
+            "draft_fingerprint": draft_fingerprint(draft),
+            "intent_gaps": [
+                {
+                    "id": "aquarium_unlock_flow",
+                    "question": "如何解锁？",
+                    "why_blocking": "x",
+                    "choices": ["A", "B"],
+                }
+            ],
+            "detail_gaps": [{"id": "economy", "topic": "numbers"}],
+            "suggested_defaults": [],
+        }
+        parsed = {
+            "assistant_message": "已拍板写进草稿：水族馆开局可进。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "upsert_system",
+                        "match": {"id": "aquarium"},
+                        "set": {"notes": "unlocked from the start"},
+                    }
+                ],
+                "closed_intent_gap_ids": ["aquarium_unlock_flow"],
+            },
+            "ready_to_export": False,
+        }
+        _apply_parsed(session, parsed, "chat")
+        self.assertIn(
+            "unlocked from the start",
+            session["draft_brief"]["project"]["systems"][0]["notes"],
+        )
+        self.assertEqual(session["makeability_review"]["intent_gaps"], [])
+        self.assertEqual(session_status(session)["intent_count"], 0)
+
+    def test_answer_makeability_gaps_applies_closer_patches(self) -> None:
+        from host_chat import answer_makeability_gaps
+
+        session = new_session("gap-answer")
+        draft = {
+            "project": {
+                "title": "Fish",
+                "description": "d",
+                "genre": "sim",
+                "gameplay_loop": "cast",
+                "session_goal": "endless",
+                "systems": [{"id": "aquarium", "notes": "locked until purchased"}],
+            },
+            "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+        }
+        session["draft_brief"] = draft
+        session["makeability_review"] = {
+            "schema_version": 1,
+            "reviewed_at": "t",
+            "draft_fingerprint": draft_fingerprint(draft),
+            "intent_gaps": [
+                {
+                    "id": "aquarium_unlock_flow",
+                    "question": "如何解锁？",
+                    "why_blocking": "x",
+                    "choices": ["A", "B 开局可进"],
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        closer = {
+            "assistant_message": "已按 B 写入。",
+            "brief_patches": [
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "aquarium"},
+                    "set": {"notes": "unlocked from the start"},
+                }
+            ],
+            "closed_intent_gap_ids": ["aquarium_unlock_flow"],
+        }
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(closer, ensure_ascii=False),
+        ), patch(
+            "host_chat.resolve_host_api_settings",
+            return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
+        ):
+            result = answer_makeability_gaps(
+                session,
+                [{"gap_id": "aquarium_unlock_flow", "choice": "B 开局可进"}],
+                config={},
+            )
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["closed_ids"], ["aquarium_unlock_flow"])
+        self.assertIn(
+            "unlocked from the start",
+            session["draft_brief"]["project"]["systems"][0]["notes"],
+        )
+        self.assertEqual(session["makeability_review"]["intent_gaps"], [])
 
     def test_apply_parsed_prefers_patches_over_thin_full_draft(self) -> None:
         session = new_session("patch-chat")

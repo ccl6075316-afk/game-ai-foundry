@@ -26,6 +26,11 @@ export interface ToolPermissionCard {
   source?: "pi" | "cursor_acp" | "hermes_acp" | "codex_app_server";
 }
 
+export interface MakeabilityCardState {
+  status: "pending" | "applied" | "dismissed";
+  review: MakeabilityReview;
+}
+
 export interface ChatMessage {
   id: string;
   role: ChatRole;
@@ -34,6 +39,8 @@ export interface ChatMessage {
   attachments?: ChatAttachment[];
   choices?: string[];
   toolPermission?: ToolPermissionCard;
+  /** Structured Critic gap card (not main-LLM chat chips). */
+  makeabilityCard?: MakeabilityCardState;
 }
 
 let seq = 0;

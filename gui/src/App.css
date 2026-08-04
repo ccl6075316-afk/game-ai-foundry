@@ -1397,6 +1397,15 @@ code {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
+  align-items: center;
+}
+
+.message__choices-tag {
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(91, 141, 239, 0.1);
 }
 
 .message__choice {
@@ -1761,6 +1770,21 @@ code {
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 6px;
+  align-items: center;
+}
+
+.composer__chips--dialog {
+  margin-bottom: 8px;
+}
+
+.composer__chips-tag {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(127, 127, 127, 0.12);
 }
 
 .composer__chip {
@@ -1788,6 +1812,181 @@ code {
   border-color: rgba(91, 141, 239, 0.55);
   background: rgba(91, 141, 239, 0.12);
   font-weight: 500;
+}
+
+.brief-workstation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding-top: 4px;
+}
+
+.brief-workstation__btn {
+  min-width: 28px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.brief-workstation__btn:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+
+.brief-workstation__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.brief-workstation__btn--primary {
+  color: rgba(91, 141, 239, 0.95);
+  border-color: rgba(91, 141, 239, 0.4);
+}
+
+.makeability-gap-card {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 120, 40, 0.45);
+  background: rgba(180, 120, 40, 0.08);
+}
+
+.makeability-gap-card--done {
+  opacity: 0.72;
+  border-style: dashed;
+}
+
+.makeability-gap-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.makeability-gap-card__badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(160, 100, 20, 0.95);
+  letter-spacing: 0.02em;
+}
+
+.makeability-gap-card__meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.makeability-gap-card__hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.makeability-gap-card__gaps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.makeability-gap-card__gap {
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.makeability-gap-card__qid code {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.makeability-gap-card__q {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.makeability-gap-card__why {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.makeability-gap-card__choices {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.makeability-gap-card__choice {
+  text-align: left;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.makeability-gap-card__choice:hover:not(:disabled) {
+  border-color: rgba(180, 120, 40, 0.55);
+}
+
+.makeability-gap-card__choice--on {
+  border-color: rgba(180, 120, 40, 0.7);
+  background: rgba(180, 120, 40, 0.14);
+  font-weight: 600;
+}
+
+.makeability-gap-card__choice:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.makeability-gap-card__note {
+  margin-top: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.makeability-gap-card__footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.makeability-gap-card__submit {
+  border: 1px solid rgba(180, 120, 40, 0.55);
+  background: rgba(180, 120, 40, 0.16);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.makeability-gap-card__submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .composer__box {

@@ -32,7 +32,11 @@
    - 纯技术咨询、与游戏无关的闲聊：`artifact` 可为 `null`。  
    - 工作草稿 = 可在 GUI「文档」侧栏实时预览、可纠偏；**不是**已冻结契约。对用户说明「这是草稿，落实后才定稿」。  
    - **制作审查只读当前草稿**，不读聊天记录：讨论过但没写进 `draft_brief` 的点，审查会当成「未确定」。拍板后必须用补丁或整稿写入字段。
+   - 关 intent 缺口时：除 `brief_patches` 外，在 `artifact.closed_intent_gap_ids` 列出已关闭的缺口 id（如 `["aquarium_unlock_flow"]`）。宿主会从审查列表移除它们，并要求再跑一次制作审查。
+   - 改 `scenes` / `systems` / `ui_panels` 某一条：用 `upsert_scene` / `upsert_system` / `upsert_ui_panel`（或 `upsert_list` + path），不要整表瘦身重写。
+   - 「先不用解锁 / 直接解锁 / 开局可进」= **无建筑购买门闩**，写入可进入；**不要**理解成「要做付费解锁」。
    - **宿主拦截「只说不写」**：若本轮口头声称「已写入/落盘草稿」但 JSON 无生效 `brief_patches`（草稿指纹未变），宿主会在回复末尾追加警告，并在下一轮 user payload 注入 `host_nudge`，要求必须用补丁落盘。
+   - **过期审查**：`fingerprint_match=false` 时宿主不再把旧 `intent_gaps` 注入下一轮（避免草稿已改仍追问「还要解锁」）。
 
 3. **只有用户明确落实时才切定稿**  
    触发语示例（同义即可）：
@@ -68,7 +72,8 @@
 | **intent_gaps** | `brief.project` 玩法意图 | 对话框内补齐；**未关则不得 export / 不得提示「可交项目经理」** |
 | **detail_gaps** | `production_doc`（export 后 derive 物化） | 仅展示「将进 production」；**禁止**把咬钩率、经济表等数值写进 brief 散文 |
 
-- Critic **不静默改稿**；关 intent 缺口靠用户点选项 / 回复 → 你更新 `draft_brief` → **再跑审查**。
+- Critic **不静默改稿**；关 intent 缺口靠 GUI **制作审查 · Critic** 缺口卡点选 / 填写 → 宿主 `brief chat makeability-answer` 专用 closer 写 `brief_patches`（不经主对话猜意图）→ **再跑审查**。
+- 主对话气泡与宿主固定功能（审/补/议/UI/修/存）分离：固定功能在输入框下方小钮；Critic 选项在对话流卡片内，不进输入区 chip。
 - 本 skill 的 `gaps`（契约字段）与 `makeability_review.intent_gaps` **不同**：后者是「能否开干」门闩，export 前须审查通过且 intent 为空。
 - 存在未审查、草稿指纹过期或未关 `intent_gaps` 时，`ready_to_export` 保持 `false`。
 - 宿主会在 user payload 注入 **`latest_makeability_review`**（`intent_gaps` / `detail_gaps` / `fingerprint_match`）。审查由子 LLM 跑完后也会写入会话消息。用户跟进审查问题时，**必须读这份对象**，不要假装没做过审查。
@@ -99,8 +104,10 @@
   "artifact": {
     "brief_patches": [
       {"op": "set", "path": "project.session_goal", "value": "…"},
-      {"op": "upsert_asset", "match": {"id": "rod"}, "set": {"usage": "ui_icon"}}
-    ]
+      {"op": "upsert_asset", "match": {"id": "rod"}, "set": {"usage": "ui_icon"}},
+      {"op": "upsert_system", "match": {"id": "aquarium"}, "set": {"notes": "…"}}
+    ],
+    "closed_intent_gap_ids": ["aquarium_unlock_flow"]
   },
   "ready_to_export": false,
   "notes_for_host": "",
@@ -121,6 +128,7 @@
 | `mode` | 固定 `"chat"` |
 | `intent_hint` | `none` \| `commit_brief` \| `commit_doc` \| `clarify_commit` |
 | `artifact.brief_patches` | **推荐**：定点改现有草稿（审查回填、小澄清） |
+| `artifact.closed_intent_gap_ids` | 本轮已拍板关闭的制作审查 intent 缺口 id 列表 |
 | `artifact.draft_brief` | 首稿 / 大改时用；有 patches 时不要塞瘦身整稿 |
 | `artifact.draft_document` | 整理说明时可带 |
 | `ready_to_export` | 默认 `false`；勿在未落实时标 true |
@@ -186,7 +194,10 @@
 → `brief_patches`: `set project.ui_panels` 为两条（`menu` / `equip_panel`），`slots` 用短列表；**不要**写 wireframe 文件。
 
 **用户：** 审查说缺 session_goal 和 player_asset，我定了：本局钓一条；玩家资产用钓竿。  
-→ 仅 `brief_patches`：`set project.session_goal`、`set project.player_asset`。
+→ 仅 `brief_patches`：`set project.session_goal`、`set project.player_asset`，并带 `closed_intent_gap_ids`（若审查给了对应 id）。
+
+**用户：** 水族馆先不用解锁了 / 做成直接可进。  
+→ `upsert_system` / `upsert_scene` / `upsert_ui_panel` 把相关 notes 改成开局可进（无建筑购买）；`closed_intent_gap_ids: ["aquarium_unlock_flow"]`（或审查给出的 id）。**禁止**写成付费解锁流程。
 
 **用户：** 行，就按刚才说的落实成 brief 吧。  
 → 确认 + `intent_hint: commit_brief`（宿主会切落实 skill）。

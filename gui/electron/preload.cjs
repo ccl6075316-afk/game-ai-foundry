@@ -75,6 +75,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("host-chat-autofix", sessionId, maxRounds, instanceId),
   hostChatMakeability: (sessionId, instanceId) =>
     ipcRenderer.invoke("host-chat-makeability", sessionId, instanceId),
+  hostChatMakeabilityAnswer: (sessionId, answers, instanceId) =>
+    ipcRenderer.invoke("host-chat-makeability-answer", sessionId, answers, instanceId),
   hostChatEnrich: (sessionId, hint, instanceId) =>
     ipcRenderer.invoke("host-chat-enrich", sessionId, hint, instanceId),
   hostChatTopicBrainstorm: (sessionId, topic, constraints, multiModel, instanceId) =>

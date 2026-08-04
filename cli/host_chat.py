@@ -152,15 +152,16 @@ def _brief_candidates_for_rel(
     repo_root: Path | None = None,
     workspace: Path | None = None,
 ) -> list[Path]:
+    """Prefer working draft over frozen export so bind/sync cannot clobber chat edits."""
     root = (repo_root or _repo_root()).resolve()
     ws = (workspace or root).resolve()
     rel = brief_rel.replace("\\", "/").lstrip("./")
     if is_external_brief_key(rel):
         paths = paths_for_brief_key(rel, ws)
         brief_abs = Path(paths["brief"]).resolve()
-        return [brief_abs, brief_abs.parent / "brief.draft.json"]
+        return [brief_abs.parent / "brief.draft.json", brief_abs]
     parent = (root / rel).parent
-    return [root / rel, parent / "brief.draft.json"]
+    return [parent / "brief.draft.json", root / rel]
 
 
 def load_project_draft_from_disk(
@@ -169,7 +170,7 @@ def load_project_draft_from_disk(
     repo_root: Path | None = None,
     workspace: Path | None = None,
 ) -> dict[str, Any] | None:
-    """Load working draft from brief.json or brief.draft.json beside it."""
+    """Load working draft; prefer brief.draft.json, fall back to exported brief.json."""
     try:
         candidates = _brief_candidates_for_rel(
             brief_rel,
@@ -1205,6 +1206,156 @@ def run_makeability_review(
     }
 
 
+_MAKEABILITY_ANSWER_SYSTEM = """You close Makeability intent gaps by writing brief patches.
+The user answered structured gap cards (not free chat). Reply with JSON only:
+{
+  "assistant_message": "short Chinese summary of what you wrote into the draft",
+  "brief_patches": [ /* set / upsert_asset / add_asset / upsert_graph / upsert_system / upsert_scene / upsert_ui_panel */ ],
+  "closed_intent_gap_ids": ["gap_id", ...]
+}
+Rules:
+- Patch current_draft_brief so each answered gap is decided in scenes/systems/ui_panels/notes.
+- Prefer upsert_system / upsert_scene / upsert_ui_panel for list rows; use set for scalar fields.
+- closed_intent_gap_ids must include every answered gap_id.
+- Phrases like 先不用解锁 / 直接解锁 / 开局可进 / no unlock = hall enterable from start, NO building purchase lock. Never invent a paid unlock flow for that answer.
+- Do not invent decisions the user did not make. Do not put numeric tables into brief prose.
+- Do not return a full draft_brief.
+"""
+
+
+def _normalize_makeability_answers(raw: Any) -> list[dict[str, str]]:
+    if isinstance(raw, str):
+        text = raw.strip()
+        if not text:
+            return []
+        try:
+            raw = json.loads(text)
+        except json.JSONDecodeError as exc:
+            raise HostChatError(f"Invalid answers JSON: {exc}") from exc
+    if not isinstance(raw, list) or not raw:
+        raise HostChatError("answers must be a non-empty JSON array of {gap_id, choice?, note?}")
+    out: list[dict[str, str]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        gap_id = str(item.get("gap_id") or item.get("id") or "").strip()
+        if not gap_id:
+            continue
+        choice = str(item.get("choice") or item.get("selected") or "").strip()
+        note = str(item.get("note") or item.get("text") or "").strip()
+        if not choice and not note:
+            continue
+        out.append({"gap_id": gap_id, "choice": choice, "note": note})
+    if not out:
+        raise HostChatError("No usable answers (need gap_id plus choice and/or note).")
+    return out
+
+
+def answer_makeability_gaps(
+    session: dict[str, Any],
+    answers: Any,
+    *,
+    config: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Apply structured gap-card answers via a dedicated closer LLM (not the chat planner)."""
+    cfg = config or {}
+    draft = session.get("draft_brief")
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("No draft_brief yet. Chat about the game first, then run makeability.")
+    review = session.get("makeability_review")
+    if not isinstance(review, dict) or not review:
+        raise HostChatError("No makeability review yet. Run「制作审查」first.")
+    intent_raw = review.get("intent_gaps")
+    if not isinstance(intent_raw, list) or not intent_raw:
+        raise HostChatError("No open intent gaps to answer.")
+
+    normalized = _normalize_makeability_answers(answers)
+    open_by_id = {
+        str(g.get("id") or "").strip(): g
+        for g in intent_raw
+        if isinstance(g, dict) and str(g.get("id") or "").strip()
+    }
+    for row in normalized:
+        if row["gap_id"] not in open_by_id:
+            raise HostChatError(f"Unknown or already-closed gap_id: {row['gap_id']}")
+
+    api = resolve_host_api_settings(cfg)
+    if not api.get("api_key"):
+        raise HostChatError(
+            "Makeability answer unavailable: configure API key (OpenRouter/host)."
+        )
+
+    user_payload = {
+        "current_draft_brief": draft,
+        "open_intent_gaps": [open_by_id[r["gap_id"]] for r in normalized],
+        "user_answers": normalized,
+        "instruction": (
+            "Write brief_patches that encode these answers into the draft, "
+            "and list closed_intent_gap_ids."
+        ),
+    }
+    try:
+        raw = chat_text_completion(
+            model=str(api["model"]),
+            messages=[
+                {"role": "system", "content": _MAKEABILITY_ANSWER_SYSTEM},
+                {
+                    "role": "user",
+                    "content": json.dumps(user_payload, ensure_ascii=False, indent=2),
+                },
+            ],
+            api_key=str(api["api_key"]),
+            api_base=str(api["api_base"]),
+            proxy=api.get("proxy"),
+            timeout=180,
+        )
+    except PromptCraftError as exc:
+        raise HostChatError(str(exc)) from exc
+
+    parsed = _parse_llm_json(raw or "")
+    patches = _extract_brief_patches(parsed) or []
+    if not patches:
+        raise HostChatError("Gap closer returned no brief_patches; draft unchanged.")
+
+    closed_ids = _extract_closed_intent_gap_ids(parsed)
+    answered_ids = [r["gap_id"] for r in normalized]
+    for gid in answered_ids:
+        if gid not in closed_ids:
+            closed_ids.append(gid)
+
+    session["draft_brief"] = apply_brief_patches(draft, patches)
+    assistant_message = str(parsed.get("assistant_message") or "").strip() or (
+        "已按审查选项写入工作草稿。"
+    )
+    closed, assistant_message = reconcile_makeability_after_draft_write(
+        session,
+        closed_ids=closed_ids,
+        assistant_message=assistant_message,
+    )
+
+    messages = list(session.get("messages") or [])
+    messages.append({"role": "assistant", "content": assistant_message})
+    session["messages"] = messages
+    session["ready_to_export"] = False
+
+    remaining = session.get("makeability_review") or {}
+    rem_intent = remaining.get("intent_gaps") if isinstance(remaining, dict) else []
+    rem_count = len(rem_intent) if isinstance(rem_intent, list) else 0
+
+    return {
+        "ok": True,
+        "closed_ids": closed,
+        "remaining_intent_count": rem_count,
+        "assistant_message": assistant_message,
+        "draft_brief": session.get("draft_brief"),
+        "review": session.get("makeability_review"),
+        "ready_to_export": False,
+        "session_id": session.get("id"),
+        "message_count": len(messages),
+        "fingerprint_match": False,
+    }
+
+
 def user_requests_commit_brief(text: str | None) -> bool:
     if not text or not text.strip():
         return False
@@ -1379,9 +1530,15 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             "null draft_brief — do NOT return a thinned full brief. "
             "Ops: set {path,value}, upsert_asset {match,set}, add_asset {value}, "
             "upsert_graph {match,set}. "
-            "If latest_makeability_review is present and the user is answering those "
-            "questions / picking choices, close the matching intent_gaps via patches "
-            "and acknowledge remaining open gaps. "
+            "If latest_makeability_review is present and fingerprint_match is true and "
+            "the user is answering those questions / picking choices: write decisions with "
+            "artifact.brief_patches (prefer upsert_system / upsert_scene / upsert_ui_panel "
+            "for list rows), set artifact.closed_intent_gap_ids to the closed gap ids, "
+            "and acknowledge any remaining open gaps. "
+            "If fingerprint_match is false, do NOT re-ask old intent_gaps — tell the user "
+            "to re-run 制作审查. "
+            "Phrases like 先不用解锁 / 直接解锁 / 开局可进 mean no building unlock purchase; "
+            "patch the draft to enterable-from-start, never invent a paid unlock flow. "
             "Only return a FULL artifact.draft_brief for major redesigns / first draft. "
             "When drafting a design note (not Foundry brief), you may also set "
             "artifact.draft_document {title, format, body}. ready_to_export must be false. "
@@ -1408,14 +1565,26 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             fingerprint_match = (
                 str(review.get("draft_fingerprint") or "") == draft_fingerprint(draft)
             )
+        intent_gaps = (
+            review.get("intent_gaps") if isinstance(review.get("intent_gaps"), list) else []
+        )
+        # Stale review must not keep injecting closed/outdated intent questions into
+        # the planner — that causes "水族馆还要解锁" loops after the draft already fixed it.
+        if not fingerprint_match:
+            intent_gaps = []
         payload["latest_makeability_review"] = {
             "fingerprint_match": fingerprint_match,
             "note": (
                 "独立制作审查（子 LLM Critic）的结果。用户按缺口提问/作答时必须对照此对象："
-                "用 brief_patches 关闭对应 intent_gaps；detail_gaps 只说明将进 production，勿写进 brief 散文。"
-                "fingerprint_match=false 表示审查已过期，更新草稿后应提示重新「制作审查」。"
+                "用 brief_patches（含 upsert_system / upsert_scene / upsert_ui_panel）"
+                "写入玩法决定，并在 artifact.closed_intent_gap_ids 列出已关闭的缺口 id；"
+                "detail_gaps 只说明将进 production，勿写进 brief 散文。"
+                "fingerprint_match=false 表示审查已过期：intent_gaps 已清空（勿再追问旧缺口），"
+                "应提示用户重新「制作审查」。"
+                "用户说「先不用解锁 / 直接解锁 / 先做成开着」= 无建筑购买门闩，写入开局可进，"
+                "不要理解成「要做付费解锁流程」。"
             ),
-            "intent_gaps": review.get("intent_gaps") if isinstance(review.get("intent_gaps"), list) else [],
+            "intent_gaps": intent_gaps,
             "detail_gaps": review.get("detail_gaps") if isinstance(review.get("detail_gaps"), list) else [],
             "suggested_defaults": (
                 review.get("suggested_defaults")
@@ -1491,6 +1660,51 @@ def _match_record(item: dict[str, Any], match: dict[str, Any], fields: tuple[str
     return False
 
 
+def _upsert_list_item(
+    root: dict[str, Any],
+    *,
+    path: str,
+    match: dict[str, Any],
+    fields: dict[str, Any],
+    match_fields: tuple[str, ...] = ("id", "name"),
+) -> None:
+    """Upsert one object inside a nested list (scenes / systems / ui_panels / …)."""
+    parts = [p for p in str(path or "").split(".") if p]
+    if not parts:
+        raise HostChatError("upsert_list requires a non-empty path")
+    parent: Any = root
+    for part in parts[:-1]:
+        nxt = parent.get(part) if isinstance(parent, dict) else None
+        if not isinstance(nxt, dict):
+            nxt = {}
+            if not isinstance(parent, dict):
+                raise HostChatError(f"Cannot upsert_list through non-object: {path}")
+            parent[part] = nxt
+        parent = nxt
+    leaf = parts[-1]
+    if not isinstance(parent, dict):
+        raise HostChatError(f"Cannot upsert_list on non-object: {path}")
+    items = parent.get(leaf)
+    if not isinstance(items, list):
+        items = []
+    items = list(items)
+    found = False
+    for i, item in enumerate(items):
+        if isinstance(item, dict) and _match_record(item, match, match_fields):
+            merged = copy.deepcopy(item)
+            merged.update(copy.deepcopy(fields))
+            items[i] = merged
+            found = True
+            break
+    if not found:
+        row = copy.deepcopy(fields)
+        for field in match_fields:
+            if match.get(field) and field not in row:
+                row[field] = match[field]
+        items.append(row)
+    parent[leaf] = items
+
+
 def apply_brief_patches(
     draft: dict[str, Any] | None,
     patches: list[Any] | None,
@@ -1502,6 +1716,8 @@ def apply_brief_patches(
     - ``upsert_asset``: ``{"op":"upsert_asset","match":{"id":"rod"},"set":{...}}``
     - ``add_asset``: ``{"op":"add_asset","value":{...}}``
     - ``upsert_graph``: ``{"op":"upsert_graph","match":{"character_asset":"carp"},"set":{...}}``
+    - ``upsert_list``: ``{"op":"upsert_list","path":"project.systems","match":{"id":"aquarium"},"set":{...}}``
+      (also ``upsert_scene`` / ``upsert_system`` / ``upsert_ui_panel`` shorthand)
     """
     if not isinstance(draft, dict) or not draft:
         raise HostChatError("brief_patches require an existing draft_brief")
@@ -1573,6 +1789,26 @@ def apply_brief_patches(
                         row[field] = match[field]
                 graphs.append(row)
             out["animation_graphs"] = graphs
+        elif op in (
+            "upsert_list",
+            "upsert_scene",
+            "upsert_system",
+            "upsert_ui_panel",
+        ):
+            match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
+            if not match or not fields:
+                continue
+            path = str(raw.get("path") or "").strip()
+            if not path:
+                path = {
+                    "upsert_scene": "project.scenes",
+                    "upsert_system": "project.systems",
+                    "upsert_ui_panel": "project.ui_panels",
+                }.get(op, "")
+            if not path:
+                continue
+            _upsert_list_item(out, path=path, match=match, fields=fields)
         else:
             continue
     return out
@@ -1588,6 +1824,123 @@ def _extract_brief_patches(parsed: dict[str, Any]) -> list[Any] | None:
             if isinstance(raw, list) and raw:
                 return raw
     return None
+
+
+def _extract_closed_intent_gap_ids(parsed: dict[str, Any]) -> list[str]:
+    """Gap ids the planner claims were closed this turn (host strips them from review)."""
+    found: list[str] = []
+    seen: set[str] = set()
+
+    def _take(raw: Any) -> None:
+        if not isinstance(raw, list):
+            return
+        for item in raw:
+            gid = str(item or "").strip()
+            if gid and gid not in seen:
+                seen.add(gid)
+                found.append(gid)
+
+    artifact = parsed.get("artifact")
+    for container in (artifact if isinstance(artifact, dict) else None, parsed):
+        if not isinstance(container, dict):
+            continue
+        for key in (
+            "closed_intent_gap_ids",
+            "closed_intent_gaps",
+            "closed_gaps",
+        ):
+            _take(container.get(key))
+    return found
+
+
+_CLOSED_GAP_ID_RE = re.compile(
+    r"(?:关闭|拍板|关掉|closed?)\s*[`「\"']?([a-z][a-z0-9_]{2,})[`」\"']?",
+    re.IGNORECASE,
+)
+_BACKTICK_GAP_ID_RE = re.compile(r"`([a-z][a-z0-9_]{2,})`")
+
+
+def _infer_closed_intent_gap_ids(
+    assistant_message: str,
+    open_ids: list[str],
+) -> list[str]:
+    """Best-effort: if prose names an open gap id as closed, treat it as closed."""
+    if not open_ids or not assistant_message:
+        return []
+    open_set = {gid.lower(): gid for gid in open_ids if gid}
+    hit: list[str] = []
+    seen: set[str] = set()
+    for rx in (_CLOSED_GAP_ID_RE, _BACKTICK_GAP_ID_RE):
+        for m in rx.finditer(assistant_message):
+            key = m.group(1).lower()
+            if key in open_set and key not in seen:
+                seen.add(key)
+                hit.append(open_set[key])
+    return hit
+
+
+_MAKEABILITY_CLOSED_NOTE = (
+    "\n\n（宿主：已把你本轮拍板的意图缺口从审查列表移除；"
+    "草稿已变，请再点一次「制作审查」确认 intent 为空后再导出。）"
+)
+
+
+def reconcile_makeability_after_draft_write(
+    session: dict[str, Any],
+    *,
+    closed_ids: list[str] | None = None,
+    assistant_message: str = "",
+) -> tuple[list[str], str]:
+    """After draft patches, drop closed intent_gaps so UI/LLM stop re-asking stale ones.
+
+    Export still requires a fresh makeability run (fingerprint will not match).
+    Returns (actually_closed_ids, possibly_amended assistant_message).
+    """
+    review = session.get("makeability_review")
+    if not isinstance(review, dict) or not review:
+        return [], assistant_message
+    intent_raw = review.get("intent_gaps")
+    if not isinstance(intent_raw, list) or not intent_raw:
+        return [], assistant_message
+
+    open_ids = [
+        str(g.get("id") or "").strip()
+        for g in intent_raw
+        if isinstance(g, dict) and str(g.get("id") or "").strip()
+    ]
+    wanted = [str(x).strip() for x in (closed_ids or []) if str(x).strip()]
+    if not wanted:
+        wanted = _infer_closed_intent_gap_ids(assistant_message, open_ids)
+    if not wanted:
+        return [], assistant_message
+
+    wanted_set = {w.lower() for w in wanted}
+    kept: list[Any] = []
+    closed: list[str] = []
+    for gap in intent_raw:
+        if not isinstance(gap, dict):
+            kept.append(gap)
+            continue
+        gid = str(gap.get("id") or "").strip()
+        if gid and gid.lower() in wanted_set:
+            closed.append(gid)
+            continue
+        kept.append(gap)
+
+    if not closed:
+        return [], assistant_message
+
+    review = copy.deepcopy(review)
+    review["intent_gaps"] = kept
+    # Force fingerprint mismatch until the next makeability run.
+    review["draft_fingerprint"] = f"stale-after-close:{draft_fingerprint(session.get('draft_brief') if isinstance(session.get('draft_brief'), dict) else {})}"
+    session["makeability_review"] = review
+    session["ready_to_export"] = False
+
+    msg = assistant_message
+    if _MAKEABILITY_CLOSED_NOTE.strip() not in msg:
+        msg = msg.rstrip() + _MAKEABILITY_CLOSED_NOTE
+    return closed, msg
 
 
 def _extract_draft(parsed: dict[str, Any]) -> dict[str, Any] | None:
@@ -1873,6 +2226,32 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     if mode == "chat":
         if draft_changed:
             session.pop("_talk_without_write", None)
+            closed_ids = _extract_closed_intent_gap_ids(parsed)
+            # Single open gap + any successful patch while answering review → close it.
+            review_before = session.get("makeability_review")
+            if (
+                not closed_ids
+                and patches
+                and isinstance(review_before, dict)
+            ):
+                intent_raw = review_before.get("intent_gaps")
+                open_ids = [
+                    str(g.get("id") or "").strip()
+                    for g in (intent_raw if isinstance(intent_raw, list) else [])
+                    if isinstance(g, dict) and str(g.get("id") or "").strip()
+                ]
+                if len(open_ids) == 1:
+                    closed_ids = open_ids
+                elif open_ids and re.search(
+                    r"(拍板|关闭|关掉|写进(?:工作)?草稿|已同步)",
+                    assistant_message,
+                ):
+                    closed_ids = open_ids
+            _, assistant_message = reconcile_makeability_after_draft_write(
+                session,
+                closed_ids=closed_ids,
+                assistant_message=assistant_message,
+            )
         elif looks_like_draft_write_claim(assistant_message):
             session["_talk_without_write"] = True
             if _TALK_WITHOUT_WRITE_NOTE.strip() not in assistant_message:
@@ -1882,6 +2261,13 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
             pass
     elif draft_changed:
         session.pop("_talk_without_write", None)
+        if mode == "commit_brief":
+            closed_ids = _extract_closed_intent_gap_ids(parsed)
+            _, assistant_message = reconcile_makeability_after_draft_write(
+                session,
+                closed_ids=closed_ids,
+                assistant_message=assistant_message,
+            )
 
     # Prefer live audit of the merged draft over LLM-reported gaps (which go stale).
     live_gaps = _audit_draft_gaps(
@@ -2371,12 +2757,16 @@ def session_status(session: dict[str, Any]) -> dict[str, Any]:
     if has_review:
         intent_raw = review.get("intent_gaps")
         detail_raw = review.get("detail_gaps")
-        intent_count = len(intent_raw) if isinstance(intent_raw, list) else 0
         detail_count = len(detail_raw) if isinstance(detail_raw, list) else 0
         if draft:
             makeability_fingerprint_match = (
                 str(review.get("draft_fingerprint") or "") == draft_fingerprint(draft)
             )
+        # Only count intent gaps against a fresh review; stale results must not look "open".
+        if makeability_fingerprint_match:
+            intent_count = len(intent_raw) if isinstance(intent_raw, list) else 0
+        else:
+            intent_count = 0
 
     contract_complete = bool(draft) and not gaps
     # Keep sticky flag aligned with live audit so a later chat turn cannot leave the

@@ -4,6 +4,10 @@ import type { ChatAgentRole, RoleSuggestion } from "../chat/roles";
 import { CHAT_AGENT_AVATAR, CHAT_AGENT_LABELS } from "../chat/roles";
 import { MessageMedia } from "./MessageMedia";
 import { mergeMessageChoices } from "../chat/inferChoices";
+import {
+  MakeabilityGapCard,
+  type MakeabilityGapAnswer,
+} from "./MakeabilityGapCard";
 
 const SCROLL_STORE_PREFIX = "gf.chat.scroll.";
 const NEAR_BOTTOM_PX = 120;
@@ -41,6 +45,9 @@ interface Props {
     permissionId: string,
     decision: "once" | "turn" | "session" | "deny",
   ) => void;
+  onMakeabilityAnswer?: (messageId: string, answers: MakeabilityGapAnswer[]) => void;
+  /** When true, hide main-LLM inline choice chips to leave room for Critic cards. */
+  hideDialogChoices?: boolean;
   heroTitle?: string;
   heroSubtitle?: string;
   suggestions?: RoleSuggestion[];
@@ -70,6 +77,8 @@ export function ChatView({
   busyHint,
   onSuggestion,
   onToolPermissionDecision,
+  onMakeabilityAnswer,
+  hideDialogChoices = false,
   heroTitle = "今天想做什么游戏？",
   heroSubtitle = "从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。",
   suggestions = [],
@@ -163,7 +172,7 @@ export function ChatView({
           <div className="chat-messages" ref={listRef}>
             {messages.map((m) => {
               const clickChoices =
-                m.role === "assistant"
+                !hideDialogChoices && m.role === "assistant" && !m.makeabilityCard
                   ? mergeMessageChoices(m.choices, m.content)
                   : undefined;
               return (
@@ -176,7 +185,7 @@ export function ChatView({
                   )}
                   <div className="message__content">
                     {m.role === "log" && <span className="message__tag">终端</span>}
-                    {m.role === "assistant" && agentLabel && (
+                    {m.role === "assistant" && agentLabel && !m.makeabilityCard && (
                       <span className="message__tag message__tag--role">{agentLabel}</span>
                     )}
                     {m.attachments && m.attachments.length > 0 && (
@@ -184,6 +193,14 @@ export function ChatView({
                     )}
                     {m.content ? (
                       <div className="message__text">{renderContent(m.content)}</div>
+                    ) : null}
+                    {m.makeabilityCard ? (
+                      <MakeabilityGapCard
+                        review={m.makeabilityCard.review}
+                        status={m.makeabilityCard.status}
+                        busy={busy}
+                        onSubmit={(answers) => onMakeabilityAnswer?.(m.id, answers)}
+                      />
                     ) : null}
                     {m.toolPermission ? (
                       <div className="tool-permission-card">
@@ -250,6 +267,7 @@ export function ChatView({
                     ) : null}
                     {clickChoices && clickChoices.length > 0 && (
                       <div className="message__choices">
+                        <span className="message__choices-tag">对话建议</span>
                         {clickChoices.map((c) => (
                           <button
                             key={c}

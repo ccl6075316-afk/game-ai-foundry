@@ -2646,6 +2646,22 @@ app.whenReady().then(() => {
     return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
+  ipcMain.handle("host-chat-makeability-answer", async (_e, sessionId, answers, instanceId) => {
+    const args = [
+      "brief",
+      "chat",
+      "makeability-answer",
+      "--session-id",
+      String(sessionId || "").trim(),
+      "--answers",
+      JSON.stringify(answers || []),
+      "--json",
+    ];
+    abortedChatInstances.delete(String(instanceId || "").trim());
+    const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+    return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
+  });
+
   ipcMain.handle("host-chat-enrich", async (_e, sessionId, hint, instanceId) => {
     const args = [
       "brief",

@@ -30,6 +30,7 @@ from host_chat import (
     new_session as host_new_session,
     run_autofix as host_run_autofix,
     run_brief_enrich as host_run_brief_enrich,
+    answer_makeability_gaps as host_answer_makeability_gaps,
     run_makeability_review as host_run_makeability_review,
     run_turn as host_run_turn,
     save_session as host_save_session,
@@ -494,6 +495,57 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 f"ready_to_export={result.get('ready_to_export')}"
             )
         if result.get("intent_count", 0) > 0:
+            sys.exit(2)
+
+    @chat_group.command("makeability-answer")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option(
+        "--answers",
+        required=True,
+        help='JSON array: [{"gap_id":"...","choice":"...","note":"..."}]',
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.pass_context
+    def chat_makeability_answer_cmd(
+        ctx: click.Context,
+        session_id: str | None,
+        session_path: Path | None,
+        answers: str,
+        as_json: bool,
+    ) -> None:
+        """Apply structured makeability gap-card answers into draft_brief."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            result = host_answer_makeability_gaps(session, answers, config=config)
+            host_save_session(path, session)
+            try:
+                from host_chat import persist_project_draft
+
+                persist_project_draft(session)
+            except Exception:
+                pass
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **result,
+            **{k: v for k, v in host_session_status(session).items() if k not in result},
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(result.get("assistant_message") or "makeability answers applied")
+            click.echo(
+                f"closed={len(result.get('closed_ids') or [])} "
+                f"remaining_intent={result.get('remaining_intent_count', 0)}"
+            )
+        if int(result.get("remaining_intent_count") or 0) > 0:
             sys.exit(2)
 
     @chat_group.command("enrich")

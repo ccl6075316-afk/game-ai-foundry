@@ -58,6 +58,7 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("brief", "chat", "zh-doc"),
     ("brief", "chat", "autofix"),
     ("brief", "chat", "makeability"),
+    ("brief", "chat", "makeability-answer"),
     ("brief", "chat", "enrich"),
     ("brief", "zh-doc"),
     ("brief", "validate"),
@@ -92,6 +93,7 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("brief", "chat", "zh-doc"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
+        ("brief", "chat", "makeability-answer"),
         ("brief", "zh-doc"),
         ("shell", "run"),
     }
@@ -115,6 +117,7 @@ _BRIEF_ALLOWED_PREFIXES = frozenset(
     {
         ("brief", "chat", "status"),
         ("brief", "chat", "makeability"),
+        ("brief", "chat", "makeability-answer"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
         ("brief", "chat", "zh-doc"),
@@ -161,6 +164,7 @@ FOUNDRY_TOOL>>>
 ### Draft / export
 - `brief chat status --session-id <id> --json`
 - `brief chat makeability --session-id <id> --json` — **制作审查**
+- `brief chat makeability-answer --session-id <id> --answers '[...]' --json --i-confirm` — 审查缺口卡写入草稿
 - `brief chat enrich … --json --i-confirm` — 补全细节
 - `brief chat autofix … --json --i-confirm`
 - `brief chat zh-doc` / `brief zh-doc` / `brief chat bind` — need `--i-confirm` where mutating
@@ -355,6 +359,7 @@ def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
         ("brief", "chat", "makeability"),
+        ("brief", "chat", "makeability-answer"),
         ("shell", "run"),
     }:
         return _INSTALL_TIMEOUT_SEC

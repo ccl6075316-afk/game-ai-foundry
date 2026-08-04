@@ -1,48 +1,51 @@
 import { useState, type FormEvent, type KeyboardEvent } from "react";
+import {
+  BriefWorkstationBar,
+  type BriefWorkstationAction,
+} from "./BriefWorkstationBar";
 
 interface Props {
   disabled?: boolean;
   busy?: boolean;
+  /** Main-LLM dialog suggestions only — never host tools / Critic gaps. */
   choices?: string[];
+  /** Hide dialog suggestion chips (e.g. while Critic gap card needs answers). */
+  hideDialogChoices?: boolean;
   readyToExport?: boolean;
   showAutofix?: boolean;
   showMakeability?: boolean;
+  showEnrich?: boolean;
+  showUiWireframe?: boolean;
+  showTopicBrainstorm?: boolean;
   exportGateHint?: string;
   placeholder?: string;
-  hint?: string;
   onSend: (text: string) => void;
   onStop?: () => void;
   onChoice?: (text: string) => void;
-  onExportBrief?: () => void;
-  onAutofix?: () => void;
-  onMakeability?: () => void;
-  onEnrich?: () => void;
-  onUiWireframe?: () => void;
-  onTopicBrainstorm?: () => void;
+  onWorkstation?: (action: BriefWorkstationAction) => void;
 }
 
 export function ChatInput({
   disabled = false,
   busy = false,
   choices = [],
+  hideDialogChoices = false,
   readyToExport,
   showAutofix,
   showMakeability,
+  showEnrich,
+  showUiWireframe,
+  showTopicBrainstorm,
   exportGateHint,
-  placeholder = "描述想法，或点下方快捷按钮…",
-  hint = "Enter 发送 · 左侧切换同事 · 快捷按钮推进流水线",
+  placeholder = "描述想法…",
   onSend,
   onStop,
   onChoice,
-  onExportBrief,
-  onAutofix,
-  onMakeability,
-  onEnrich,
-  onUiWireframe,
-  onTopicBrainstorm,
+  onWorkstation,
 }: Props) {
   const [text, setText] = useState("");
   const locked = disabled || busy;
+  const dialogChoices = hideDialogChoices ? [] : choices;
 
   const submit = () => {
     const v = text.trim();
@@ -74,9 +77,9 @@ export function ChatInput({
 
   return (
     <div className="composer">
-      {(choices.length > 0 || readyToExport || showAutofix || showMakeability || onEnrich || onUiWireframe || onTopicBrainstorm) && (
-        <div className="composer__chips">
-          {choices.map((c) => (
+      {dialogChoices.length > 0 && (
+        <div className="composer__chips composer__chips--dialog" aria-label="对话建议">
+          {dialogChoices.map((c) => (
             <button
               key={c}
               type="button"
@@ -87,72 +90,6 @@ export function ChatInput({
               {c}
             </button>
           ))}
-          {showMakeability && (
-            <button
-              type="button"
-              className="composer__chip"
-              disabled={locked}
-              onClick={() => onMakeability?.()}
-              title="独立子 LLM 审查 draft brief 的制作完备性"
-            >
-              制作审查
-            </button>
-          )}
-          {onEnrich && (
-            <button
-              type="button"
-              className="composer__chip"
-              disabled={locked}
-              onClick={() => onEnrich()}
-              title="开放式加厚玩家可见细节（可带要求二次补全）"
-            >
-              补全细节
-            </button>
-          )}
-          {onUiWireframe && (
-            <button
-              type="button"
-              className="composer__chip"
-              disabled={locked}
-              onClick={() => onUiWireframe()}
-              title="从草稿 ui_panels 生成字符线稿 ui-wireframe.md"
-            >
-              生成 UI 示意
-            </button>
-          )}
-          {onTopicBrainstorm && (
-            <button
-              type="button"
-              className="composer__chip"
-              disabled={locked}
-              onClick={() => onTopicBrainstorm()}
-              title="针对某一议题多视角头脑风暴，先拣再写回"
-            >
-              议题头脑风暴
-            </button>
-          )}
-          {showAutofix && (
-            <button
-              type="button"
-              className="composer__chip"
-              disabled={locked}
-              onClick={() => onAutofix?.()}
-              title="自动读取校验错误并循环修复草稿"
-            >
-              自动修 brief
-            </button>
-          )}
-          {readyToExport && (
-            <button
-              type="button"
-              className="composer__chip composer__chip--primary"
-              disabled={locked}
-              onClick={() => onExportBrief?.()}
-              title={exportGateHint || "导出到 projects/<slug>/"}
-            >
-              保存 Brief
-            </button>
-          )}
         </div>
       )}
       <form className="composer__box" onSubmit={onSubmit}>
@@ -195,7 +132,20 @@ export function ChatInput({
           </button>
         )}
       </form>
-      <p className="composer__hint">{busy ? "生成中 · 点停止可中断本轮对话" : hint}</p>
+      {onWorkstation && (
+        <BriefWorkstationBar
+          disabled={locked}
+          showMakeability={showMakeability}
+          showEnrich={showEnrich}
+          showTopic={showTopicBrainstorm}
+          showUi={showUiWireframe}
+          showAutofix={showAutofix}
+          showExport={true}
+          exportEnabled={Boolean(readyToExport)}
+          exportHint={exportGateHint}
+          onAction={onWorkstation}
+        />
+      )}
     </div>
   );
 }
