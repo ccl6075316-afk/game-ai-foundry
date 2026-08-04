@@ -10,8 +10,8 @@
 主 Agent **只编排与异常**；批量资产由 `pipeline run` subprocess 执行。
 
 **已定（施工中 / 可测）**：
-- **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端默认 Pi；**IT** 默认 Pi + 工具白名单。
-- **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**。
+- **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端 **固定 Pi**（实例不可切 Hermes/Codex/Cursor）；**IT** **默认 Pi** + 工具白名单，实例可在顶栏/雇人改为 `codex` / `hermes` / `cursor`。
+- **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**；IT 切外置执行器前通常先用 Pi 走 `setup executor step … install_cli`（或 GUI **环境 → 执行器**）。
 - 详见 [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md)。
 
 ---
@@ -32,10 +32,10 @@
 
 | GUI | 后端 | 默认 |
 |-----|------|------|
-| 策划 `brief` | `brief chat` → 内置 Pi（JSON draft） | 只配 API |
+| 策划 `brief` | `brief chat` → **内置 Pi**（JSON draft）；执行器 **锁 Pi** | 只配 API |
 | 项目经理 `product_host` | `agent turn` → Hermes/… | 引导装 |
 | 程序员 `programmer` | `agent turn` → Codex/Hermes | 引导装 |
-| **IT `it`** | `agent turn` → **内置 Pi** + `resources/skills/it/diagnose.md`（探测 + **经确认** 修环境/配置：upsert Key、install/ensure、executor step、agents.executors、heal/reset） | 只配 API |
+| **IT `it`** | `agent turn` → **默认 Pi**；实例可切 `codex` / `hermes` / `cursor` + `resources/skills/it/diagnose.md`（Pi 上探测 + **经确认** 修环境/配置；外置执行器走各自 CLI/ACP，装机仍靠 Pi 或 GUI 环境步进） | 开箱 Pi；可选外置 |
 
 ---
 
@@ -44,7 +44,7 @@
 | Executor | 何时用 |
 |----------|--------|
 | **`pipeline`** | `pipeline run` — 生图/视频/matte/assemble，无 LLM |
-| **`pi`** | Release 内置；策划 LLM + IT（工具白名单 → `doctor` / `pipeline diagnose`…） |
+| **`pi`** | Release 内置；策划 LLM（**仅 Pi**）+ IT **默认**（工具白名单 → `doctor` / `pipeline diagnose`…） |
 | **`hermes`** | 项目经理 / 可选其它 Agent、多会话 |
 | **`cursor`** | 读本仓库 `resources/skills/<role>/` |
 | **`codex`** | Pass 4 玩法、`codex exec` |
@@ -59,7 +59,7 @@ python gamefactory.py setup executor status --json
 
 配置：`resources/agents.example.json` → `~/.gamefactory/config.json` 的 `agents` 段。
 
-**按实例覆盖**：花名册实例 id 对应 `agents.instances.<id>`（Provider / 模型 / 执行器 / Codex `use_third_party`）；`agent turn --instance-id` 与内置 Pi 共用解析链。策划/IT 可在聊天顶栏快选并写回同一 config；Key 仅存 `provider_accounts`。详见 [`TOOLS.md`](TOOLS.md) §3.4。
+**按实例覆盖**：花名册实例 id 对应 `agents.instances.<id>`（Provider / 模型 / 执行器 / Codex `use_third_party`）；`agent turn --instance-id` 与内置 Pi 共用解析链。策划顶栏可快选 Provider/模型（**执行器仍 Pi**）；**IT** 顶栏/雇人可选执行器并写回同一 config；Key 仅存 `provider_accounts`。详见 [`TOOLS.md`](TOOLS.md) §3.4。
 
 **本机工具**（`setup check`）：FFmpeg、Godot .NET、.NET SDK — 三项**必需**，可 `setup install` 或 GUI **启动自动安装**。rembg 不在列表中（Release 内嵌 Python 自带）。
 
@@ -86,6 +86,20 @@ flowchart LR
 5. **验收** — `test run` → tester 会话（或 orchestrator 委派）
 
 Runner 细节 → [`pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md)
+
+---
+
+## IT 执行器切换 — 手工验收（E2E）
+
+发布或改 IT/执行器相关行为后，在 GUI 或 CLI 侧逐项确认：
+
+| # | 步骤 | 期望 |
+|---|------|------|
+| 1 | 仅配置 Provider API Key，打开 **IT**（默认 Pi） | `doctor --json` / 对话内探测可用 |
+| 2 | 对 IT(Pi) 说「帮我装 Codex CLI」 | 走到 `setup executor step codex install_cli`（或指引 GUI **环境 → 执行器** 步进） |
+| 3 | IT 顶栏切 **Codex** + 勾选第三方 → 保存 | `setup executor step codex sync_api` 成功（或 GUI 保存后自动 sync） |
+| 4 | 新开 IT 会话问：「策划这个确实又踩了只说不写，是代码原因吗」 | 应去读 brief 会话 / `host_chat` 等工程上下文，**不应**只答职责路由或 Godot 实现 |
+| 5 | 打开 **策划** 顶栏配置 | **无** Codex/Hermes/Cursor 执行器切换（仍仅 Pi + Provider/模型） |
 
 ---
 

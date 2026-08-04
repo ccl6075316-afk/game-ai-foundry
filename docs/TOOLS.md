@@ -128,7 +128,7 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 |------|------|
 | GUI **设置 → Agent** | 按工具（Pi/Hermes/Codex/Cursor）配置全局预设 → `agents.executors` |
 | **雇人弹窗** | 创建同事前配置实例字段；预填来自 Agent 预设 → `agents.instances.<id>` |
-| **对话内配置** | 各同事可改本实例 Provider / 模型 / 执行器 / Codex 第三方；**只写 instances，不回写 executors** |
+| **对话内配置** | 各同事可改本实例 Provider / 模型 / 执行器 / Codex 第三方；**只写 instances，不回写 executors**；**策划** 工种不暴露执行器下拉（固定 Pi），**IT** 可选 Pi 或外置 CLI |
 | CLI | `agent turn --instance-id <id>` 与 GUI 共用同一解析链 |
 
 - **Key 只在 `provider_accounts`**；executors 与 instances 只引用 provider id，不复制 API Key。
@@ -194,6 +194,8 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 ---
 
 ## 5. 执行器（Hermes / Codex / Cursor）
+
+**策划（`brief`）实例执行器锁 Pi**；**IT** 默认同上，但雇人/对话顶栏可把该 IT 实例改为 `hermes` / `codex` / `cursor`（写 `agents.instances.<id>.executor`），外置执行器需先完成本节安装/登录/sync。验收清单见 [`AGENT-ROUTING.md`](AGENT-ROUTING.md) § IT 执行器切换 — 手工验收（E2E）。
 
 GUI **环境 → 执行器** 可分步安装；CLI：
 
