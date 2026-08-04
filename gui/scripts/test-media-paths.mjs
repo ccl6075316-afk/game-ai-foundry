@@ -9,10 +9,22 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "../..");
 
+function projectsSegmentIndex(norm) {
+  const re =
+    /projects\/[^/]+\/(?:output|plans|pipeline|games|brief)(?:\/|$)/gi;
+  let last = -1;
+  let match;
+  while ((match = re.exec(norm)) !== null) {
+    last = match.index;
+  }
+  if (last >= 0) return last;
+  return norm.lastIndexOf("projects/");
+}
+
 function toRepoMediaRel(absOrRel) {
   const norm = String(absOrRel || "").trim().replace(/\\/g, "/");
   if (!norm) return "";
-  const projectsIdx = norm.indexOf("projects/");
+  const projectsIdx = projectsSegmentIndex(norm);
   if (projectsIdx >= 0) return norm.slice(projectsIdx);
   const outputIdx = norm.indexOf("output/");
   if (outputIdx >= 0) return norm.slice(outputIdx);
@@ -32,6 +44,10 @@ function resolveMediaAbs(relOrAbs) {
   else {
     const rel = raw.replace(/\\/g, "/");
     push(path.join(root, rel));
+    const nestedProjects = rel.lastIndexOf("projects/");
+    if (nestedProjects > 0 && rel.startsWith("projects/")) {
+      push(path.join(root, rel.slice(nestedProjects)));
+    }
     if (rel.startsWith("output/") || rel.startsWith("plans/") || rel.startsWith("games/")) {
       const projectsDir = path.join(root, "projects");
       if (existsSync(projectsDir)) {
@@ -52,11 +68,20 @@ function resolveMediaAbs(relOrAbs) {
 
 const abs =
   "E:\\game-ai-foundry\\projects\\black-whistle\\output\\visual-target\\candidate_a.png";
+const absUnderHomeProjects =
+  "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/output/visual-target/candidate_a.png";
 const cases = [
   ["abs windows", abs],
   ["toRepo from abs", toRepoMediaRel(abs)],
   ["BUG old truncated", "output/visual-target/candidate_a.png"],
   ["projects rel", "projects/black-whistle/output/visual-target/candidate_b.png"],
+  // Clone lives under ~/projects/<repo> — must not slice at the parent folder.
+  ["abs under ~/projects", absUnderHomeProjects],
+  ["toRepo under ~/projects", toRepoMediaRel(absUnderHomeProjects)],
+  [
+    "BAD double projects slice",
+    "projects/game-ai-foundry/projects/fishing-2d/output/visual-target/candidate_a.png",
+  ],
 ];
 
 let failed = 0;
@@ -75,6 +100,14 @@ if (rel !== "projects/black-whistle/output/visual-target/candidate_a.png") {
   failed += 1;
 } else {
   console.log("OK  toRepoMediaRel prefers projects/ over bare output/");
+}
+
+const homeRel = toRepoMediaRel(absUnderHomeProjects);
+if (homeRel !== "projects/fishing-2d/output/visual-target/candidate_a.png") {
+  console.log("FAIL  toRepoMediaRel under ~/projects got", homeRel);
+  failed += 1;
+} else {
+  console.log("OK  toRepoMediaRel ignores parent ~/projects/ folder");
 }
 
 function toMediaUrl(absPath) {

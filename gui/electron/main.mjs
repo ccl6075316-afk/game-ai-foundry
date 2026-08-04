@@ -1273,6 +1273,12 @@ function resolveMediaAbs(relOrAbs) {
   } else {
     const rel = raw.replace(/\\/g, "/");
     push(path.join(root, rel));
+    // Bad gallery paths from clones under ~/projects/<repo>: first "projects/"
+    // matched the parent folder → projects/<repo>/projects/<slug>/…
+    const nestedProjects = rel.lastIndexOf("projects/");
+    if (nestedProjects > 0 && rel.startsWith("projects/")) {
+      push(path.join(root, rel.slice(nestedProjects)));
+    }
     // Gallery sometimes truncated projects/<slug>/output/... → output/...
     if (rel.startsWith("output/") || rel.startsWith("plans/") || rel.startsWith("games/")) {
       const projectsDir = path.join(root, "projects");
