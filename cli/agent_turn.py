@@ -401,7 +401,7 @@ def build_prompt(
             "派给程序员时 dispatch.to 必须为 programmer，并填写 target_instance_id（上表 id）。\n"
             "资产/首跑用 dispatch.to=pipeline，并填写 gui_hints。"
         )
-    else:
+    elif role_kind == "programmer":
         try:
             from handoff import open_handoffs_for_prompt
 
@@ -433,6 +433,12 @@ def build_prompt(
             "按任务改 Godot C# / 验收；改完说明改了什么，并建议 validate/test 命令。"
             "若完成某个 handoff，在回复末尾附加：\n"
             '```json\n{"handoff_done":"<handoff_id>","progress_note":"可选"}\n```'
+        )
+    elif role_kind == "it":
+        parts.append(
+            "收尾：给出明确结论。"
+            "按需使用工具/CLI 查证；不要臆造磁盘状态；"
+            "除非用户明确要求，不要建议改写玩法侧工程代码。"
         )
     return "\n".join(parts)
 

@@ -48,6 +48,8 @@ class AgentTurnTests(unittest.TestCase):
         )
         self.assertIn("禁止输出 FOUNDRY_TOOL", text)
         self.assertIn("gamefactory.py", text)
+        self.assertNotIn("Godot C#", text)
+        self.assertIn("明确结论", text)
 
     def test_build_prompt_ui_wireframe_soft_hint(self) -> None:
         session = new_session("programmer", "w1")
