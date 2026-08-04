@@ -699,6 +699,54 @@ def draft_fingerprint(draft: dict[str, Any]) -> str:
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
+# Narration that claims the draft was updated this turn (talk-without-write gate).
+_DRAFT_WRITE_CLAIM_RE = re.compile(
+    r"(?:"
+    r"(?:已|刚刚|本轮|这轮|刚).{0,32}(?:写进|写入|落进|落到|落盘|同步到).{0,16}(?:草稿|draft|侧栏)"
+    r"|(?:写进|写入|落进|落到).{0,12}(?:草稿|draft)"
+    r"|用补丁.{0,48}(?:真正)?写"
+    r"|补丁真写"
+    r"|真正落到草稿"
+    r"|已按你的(?:决定|拍板).{0,20}写"
+    r"|已同步到"
+    r")",
+    re.I,
+)
+_DRAFT_WRITE_CLAIM_NEG_RE = re.compile(
+    r"(?:不可|不要|别|未|没有|还没|不会).{0,12}(?:声称)?(?:已)?(?:写入|写进|落盘)",
+    re.I,
+)
+
+_TALK_WITHOUT_WRITE_NOTE = (
+    "\n\n—— **宿主拦截：只说不写**\n"
+    "你本轮口头声称已写入/落盘草稿，但 JSON 里没有生效的 `brief_patches` "
+    "（也没有改动 `draft_brief`）。侧栏草稿**未变**。\n"
+    "请下一轮只返回 `artifact.brief_patches` 定点改字段；不要再说「已写入」。"
+)
+
+
+def looks_like_draft_write_claim(text: str) -> bool:
+    """True when assistant prose claims the working draft was written this turn."""
+    raw = (text or "").strip()
+    if not raw:
+        return False
+    if _DRAFT_WRITE_CLAIM_NEG_RE.search(raw) and not re.search(
+        r"(?:这轮|本轮|刚刚|刚用补丁).{0,24}(?:写|落)", raw
+    ):
+        # Pure policy / negation lines ("不可声称已写入") — not a write claim.
+        if not _DRAFT_WRITE_CLAIM_RE.search(raw):
+            return False
+        # Mixed: admission of past failure + claim of current write still counts.
+    return bool(_DRAFT_WRITE_CLAIM_RE.search(raw))
+
+
+def _draft_fp(session: dict[str, Any]) -> str:
+    draft = session.get("draft_brief")
+    if isinstance(draft, dict) and draft:
+        return draft_fingerprint(draft)
+    return ""
+
+
 def validate_enriched_draft(candidate: Any) -> dict[str, Any]:
     """Minimal validity for LLM enriched draft — no fixed screens/tuning schema."""
     if not isinstance(candidate, dict):
@@ -1387,6 +1435,12 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
                 "导出写入该 brief_rel。不要当成别的游戏（例如黑哨）。"
             ),
         }
+    if session.get("_talk_without_write"):
+        payload["host_nudge"] = (
+            "上一轮你声称写进草稿，但宿主检测到 brief_patches / draft 未变（只说不写）。"
+            "本轮必须用 artifact.brief_patches 定点落盘；禁止只口头说「已写入」。"
+            "制作审查只读草稿，聊天记录不算数。"
+        )
     return payload
 
 
@@ -1722,6 +1776,7 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     incoming = _extract_draft(parsed)
     patches = _extract_brief_patches(parsed)
     incoming_doc = _extract_document(parsed)
+    fp_before = _draft_fp(session)
 
     if mode == "chat":
         # Ignore model-claimed ready_to_export; real readiness is live-audited below.
@@ -1812,6 +1867,21 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
         if incoming_doc:
             session["draft_document"] = incoming_doc
         session["pending_mode"] = None
+
+    fp_after = _draft_fp(session)
+    draft_changed = bool(fp_after) and fp_after != fp_before
+    if mode == "chat":
+        if draft_changed:
+            session.pop("_talk_without_write", None)
+        elif looks_like_draft_write_claim(assistant_message):
+            session["_talk_without_write"] = True
+            if _TALK_WITHOUT_WRITE_NOTE.strip() not in assistant_message:
+                assistant_message = assistant_message.rstrip() + _TALK_WITHOUT_WRITE_NOTE
+        else:
+            # Keep prior nudge until a successful write; don't clear on pure Q&A.
+            pass
+    elif draft_changed:
+        session.pop("_talk_without_write", None)
 
     # Prefer live audit of the merged draft over LLM-reported gaps (which go stale).
     live_gaps = _audit_draft_gaps(

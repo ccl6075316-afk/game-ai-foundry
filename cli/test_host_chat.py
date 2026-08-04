@@ -23,6 +23,7 @@ from host_chat import (
     export_brief,
     list_sessions,
     load_session,
+    looks_like_draft_write_claim,
     maybe_compress_session,
     new_session,
     resolve_mode,
@@ -362,6 +363,55 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(draft["project"]["session_goal"], "Catch fish.")
         self.assertEqual(len(draft["assets"]), 2)
         self.assertEqual(draft["assets"][0].get("usage"), "ui_icon")
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", session["messages"][-1]["content"])
+
+    def test_looks_like_draft_write_claim(self) -> None:
+        self.assertTrue(looks_like_draft_write_claim("6 条意图缺口全部收到，我已按你的拍板关掉并写进草稿："))
+        self.assertTrue(looks_like_draft_write_claim("我刚用补丁把这 7 条的拍板真写进去了。"))
+        self.assertTrue(looks_like_draft_write_claim("以上已同步到 description 和 scenes。"))
+        self.assertFalse(looks_like_draft_write_claim("这是草稿，落实后才定稿。"))
+        self.assertFalse(looks_like_draft_write_claim("不可声称已写入 brief.json。"))
+
+    def test_apply_parsed_warns_on_talk_without_write(self) -> None:
+        session = new_session("talk-no-write")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "收到，3 条意图缺口按你的拍板关掉，我这轮用补丁真正落到草稿里。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertEqual(session["draft_brief"]["project"]["description"], "old")
+        self.assertTrue(session.get("_talk_without_write"))
+        self.assertIn("只说不写", out["assistant_message"])
+        self.assertIn("brief_patches", out["assistant_message"])
+        payload = _build_user_payload(session, "chat")
+        self.assertIn("只说不写", str(payload.get("host_nudge") or ""))
+
+    def test_apply_parsed_no_warn_when_quiet_no_claim(self) -> None:
+        session = new_session("quiet-chat")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "咬钩是 0–3 秒随机，没有超时失败。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", out["assistant_message"])
 
     def test_commit_keyword_uses_commit_skill(self) -> None:
         session = new_session("c1")
