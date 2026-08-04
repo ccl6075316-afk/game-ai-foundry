@@ -10,7 +10,7 @@ from provider_upsert import BUILTIN_PROVIDERS, _load_config, _save_config
 
 _KNOWN_ROLE_KINDS = frozenset({"brief", "it", "product_host", "programmer"})
 _KNOWN_EXECUTORS = frozenset({"pi", "hermes", "codex", "cursor"})
-_PI_LOCKED = frozenset({"brief", "it"})
+_PI_LOCKED = frozenset({"brief"})
 
 
 def upsert_agent_instance(
@@ -76,7 +76,7 @@ def upsert_agent_instance(
             return {
                 "ok": False,
                 "instance_id": iid,
-                "error": f"{role} 固定使用内置 Pi，不能改成 {exec_id}",
+                "error": f"策划固定使用内置 Pi，不能改成 {exec_id}",
             }
         entry["executor"] = exec_id
 

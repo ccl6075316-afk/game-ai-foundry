@@ -73,18 +73,50 @@ class AgentsInstancesUpsertTests(unittest.TestCase):
             self.assertEqual(entry["thinking_level"], "medium")
             self.assertEqual(entry["model"], "deepseek-v4-pro")
 
-    def test_rejects_non_pi_executor_for_it(self) -> None:
+    def test_it_can_switch_to_codex(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.json"
-            self._cfg(path)
-            res = upsert_agent_instance(
-                instance_id="it-1",
-                executor="hermes",
-                i_confirm=True,
+            self._cfg(path, instance_id="it-1")
+            result = upsert_agent_instance(
                 config_path=path,
+                instance_id="it-1",
+                executor="codex",
+                use_third_party=True,
+                i_confirm=True,
             )
-            self.assertFalse(res["ok"])
-            self.assertIn("Pi", res["error"])
+            self.assertTrue(result["ok"], result)
+            data = json.loads(path.read_text(encoding="utf-8"))
+            entry = data["agents"]["instances"]["it-1"]
+            self.assertEqual(entry["executor"], "codex")
+            self.assertTrue(entry["use_third_party"])
+
+    def test_brief_still_locked_to_pi(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "agents": {
+                            "instances": {
+                                "brief-1": {
+                                    "role_kind": "brief",
+                                    "executor": "pi",
+                                }
+                            }
+                        }
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+            result = upsert_agent_instance(
+                config_path=path,
+                instance_id="brief-1",
+                executor="codex",
+                i_confirm=True,
+            )
+            self.assertFalse(result["ok"])
+            self.assertIn("Pi", result.get("error") or "")
 
 
 if __name__ == "__main__":
