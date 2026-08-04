@@ -34,7 +34,8 @@ export function createColleague(
     id: newInstanceId(roleKind),
     roleKind,
     displayName: displayName?.trim() || DEFAULT_INSTANCE_NAMES[roleKind],
-    executor: roleKind === "brief" ? null : roleKind === "it" ? "pi" : executor,
+    executor:
+      roleKind === "brief" ? null : executor ?? (roleKind === "it" ? "pi" : null),
     createdAt: Date.now(),
   };
 }

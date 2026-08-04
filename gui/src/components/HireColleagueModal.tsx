@@ -26,7 +26,6 @@ import {
   CODE_EXECUTORS,
   EXECUTOR_LOGIN_HINTS,
   HOST_EXECUTORS,
-  type AgentExecutor,
 } from "../settings/executors";
 import { ExecutorIcon } from "../settings/ExecutorIcon";
 import {
@@ -52,6 +51,42 @@ const PI_THINKING_OPTIONS: { id: ThinkingLevel; label: string }[] = [
   { id: "medium", label: "中" },
   { id: "high", label: "高" },
 ];
+
+const IT_HIRE_EXECUTOR_OPTIONS: {
+  id: InstanceExecutor;
+  label: string;
+  description: string;
+}[] = [
+  {
+    id: "pi",
+    label: "内置 Pi",
+    description: "与 GUI 共用 Electron Node；开箱默认，Provider 建议已配置",
+  },
+  {
+    id: "hermes",
+    label: "Hermes 助手",
+    description: "独立 AI 助手会话（需本机安装 Hermes，并安装本项目技能包）",
+  },
+  {
+    id: "codex",
+    label: "Codex 命令行",
+    description: "用 OpenAI Codex 命令行处理任务（需安装 Codex CLI）",
+  },
+  {
+    id: "cursor",
+    label: "Cursor 对话",
+    description: "在 Cursor 里聊天带队（当前开发方式，GUI 也走这条）",
+  },
+];
+
+function executorOptionsForHire(
+  roleKind: ChatAgentRole,
+): { id: InstanceExecutor; label: string; description: string }[] {
+  if (roleKind === "product_host") return HOST_EXECUTORS;
+  if (roleKind === "programmer") return CODE_EXECUTORS;
+  if (roleKind === "it") return IT_HIRE_EXECUTOR_OPTIONS;
+  return [];
+}
 
 function emptyForm(displayName = ""): HireFormState {
   return {
@@ -122,8 +157,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
 
   const piLocked = isPiLockedRole(roleKind);
   const showPiThinking = piLocked || form.executor === "pi";
-  const executorOptions =
-    roleKind === "product_host" ? HOST_EXECUTORS : roleKind === "programmer" ? CODE_EXECUTORS : [];
+  const executorOptions = executorOptionsForHire(roleKind);
   const providerOk = isProviderConfigured(providerAccounts, form.provider);
   const providerPreset = getApiProvider(form.provider);
   const modelPlaceholder =
@@ -155,7 +189,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
     })();
   };
 
-  const handleExecutorChange = (id: AgentExecutor) => {
+  const handleExecutorChange = (id: InstanceExecutor) => {
     applyExecutorPreset(id);
   };
 
@@ -236,6 +270,9 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
                   </div>
                 </div>
               </div>
+              {roleKind === "it" ? (
+                <p className="field-hint">默认内置 Pi（开箱）；可改选 Hermes / Codex / Cursor。</p>
+              ) : null}
               {executorOptions.find((o) => o.id === form.executor)?.description && (
                 <p className="field-hint">
                   {executorOptions.find((o) => o.id === form.executor)!.description}

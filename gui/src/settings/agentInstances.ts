@@ -77,7 +77,15 @@ function parseInstanceExecutor(
   roleKind: ChatAgentRole,
   fallback: InstanceExecutor,
 ): InstanceExecutor {
-  if (roleKind === "brief" || roleKind === "it") return "pi";
+  if (roleKind === "brief") return "pi";
+  if (roleKind === "it") {
+    if (value === "pi" || value === "hermes" || value === "codex" || value === "cursor") {
+      return value;
+    }
+    return fallback === "pi" || fallback === "hermes" || fallback === "codex" || fallback === "cursor"
+      ? fallback
+      : "pi";
+  }
   if (value === "pi") return fallback === "pi" ? "codex" : fallback;
   return parseExecutor(value, fallback === "pi" ? "codex" : (fallback as AgentExecutor));
 }
@@ -134,8 +142,13 @@ export function resolveInstanceRecord(
   const roleBlock = (agents[roleKey] || {}) as Record<string, unknown>;
   let executor = defaultExecutorForRole(instance.roleKind, roleBlock);
   if (
-    (instance.roleKind === "product_host" || instance.roleKind === "programmer") &&
-    (instance.executor === "hermes" || instance.executor === "codex" || instance.executor === "cursor")
+    (instance.roleKind === "product_host" ||
+      instance.roleKind === "programmer" ||
+      instance.roleKind === "it") &&
+    (instance.executor === "hermes" ||
+      instance.executor === "codex" ||
+      instance.executor === "cursor" ||
+      (instance.roleKind === "it" && instance.executor === "pi"))
   ) {
     executor = instance.executor;
   }

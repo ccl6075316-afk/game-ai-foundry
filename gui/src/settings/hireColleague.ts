@@ -53,15 +53,19 @@ export interface HireColleagueConfirmPayload {
 
 const HIRE_AGENT_EXECUTORS: AgentExecutor[] = ["hermes", "codex", "cursor"];
 
+/** IT hire/config may pick Pi or an external CLI executor. */
+export const HIRE_IT_EXECUTORS: InstanceExecutor[] = ["pi", "hermes", "codex", "cursor"];
+
 export function isPiLockedRole(roleKind: ChatAgentRole): boolean {
-  return roleKind === "brief" || roleKind === "it";
+  return roleKind === "brief";
 }
 
 export function defaultExecutorForHire(
   roleKind: ChatAgentRole,
   agents: Record<string, unknown>,
 ): InstanceExecutor {
-  if (isPiLockedRole(roleKind)) return "pi";
+  // Brief is Pi-only; IT defaults to Pi for onboarding even though it is unlocked.
+  if (roleKind === "brief" || roleKind === "it") return "pi";
   const roleKey =
     roleKind === "product_host" ? "orchestrator" : roleKind === "programmer" ? "godot-developer" : roleKind;
   const roleBlock = (agents[roleKey] || {}) as Record<string, unknown>;
@@ -79,6 +83,10 @@ export function prefillFromExecutorPreset(
 export function validateHireForm(roleKind: ChatAgentRole, form: HireFormState): string | null {
   if (isPiLockedRole(roleKind)) {
     if (!String(form.provider || "").trim()) return "请选择 Provider";
+    return null;
+  }
+  if (roleKind === "it") {
+    if (!HIRE_IT_EXECUTORS.includes(form.executor)) return "请选择执行器";
     return null;
   }
   if (!HIRE_AGENT_EXECUTORS.includes(form.executor as AgentExecutor)) {

@@ -151,7 +151,7 @@ export const ROLES_SECTION = {
   title: "角色与执行器",
   roleId: "agents",
   purpose: "按花名册中的每个同事实例配置执行器、Provider 与模型；未单独保存的实例继承工种默认",
-  note: "策划 / IT 固定内置 Pi；Cursor 仅本机登录，第三方不可用。Key 仍在 Provider 页填写。",
+  note: "策划固定内置 Pi；IT 默认 Pi，可在雇人/顶栏改选 Hermes/Codex/Cursor。Cursor 仅本机登录，第三方不可用。Key 仍在 Provider 页填写。",
 };
 
 /** @deprecated 角色 Tab 已移除 */

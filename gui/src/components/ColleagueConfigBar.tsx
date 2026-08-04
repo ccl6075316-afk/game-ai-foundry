@@ -64,7 +64,17 @@ interface Props {
 
 const MODEL_SAVE_DEBOUNCE_MS = 400;
 
-function executorOptionsForRole(roleKind: ChatAgentRole): { id: AgentExecutor; label: string }[] {
+function executorOptionsForRole(
+  roleKind: ChatAgentRole,
+): { id: InstanceExecutor; label: string }[] {
+  if (roleKind === "it") {
+    return [
+      { id: "pi", label: "内置 Pi" },
+      { id: "hermes", label: "Hermes" },
+      { id: "codex", label: "Codex" },
+      { id: "cursor", label: "Cursor" },
+    ];
+  }
   if (roleKind === "product_host") {
     return HOST_EXECUTORS.map((o) => ({ id: o.id, label: o.label }));
   }
@@ -81,7 +91,7 @@ function missingConfigHint(
   useThirdParty: boolean,
   providerOk: boolean,
 ): string | null {
-  if (isPiLockedRole(roleKind)) {
+  if (isPiLockedRole(roleKind) || (roleKind === "it" && executor === "pi")) {
     if (!provider) return "请选择 Provider";
     if (!providerOk) return "未填 Key · 设置 → Provider";
     return null;
@@ -420,7 +430,7 @@ export function ColleagueConfigBar({
     [colleague.id, colleague.roleKind, executorsMap, persist, piLocked],
   );
 
-  const handleExecutorChange = (id: AgentExecutor) => {
+  const handleExecutorChange = (id: InstanceExecutor) => {
     flushPendingModel();
     applyExecutorPreset(id);
   };
@@ -633,11 +643,20 @@ export function ColleagueConfigBar({
       {!piLocked && executorOptions.length > 0 ? (
         <>
           <select
-            value={executor === "pi" ? "" : executor}
+            value={executor === "pi" && colleague.roleKind !== "it" ? "" : executor}
             disabled={disabled || loading || saving}
             aria-label="执行器"
-            onChange={(e) => handleExecutorChange(e.target.value as AgentExecutor)}
+            onChange={(e) => {
+              const raw = e.target.value;
+              if (!raw) return;
+              handleExecutorChange(raw as InstanceExecutor);
+            }}
           >
+            {colleague.roleKind !== "it" && executor === "pi" ? (
+              <option value="" disabled>
+                选择执行器
+              </option>
+            ) : null}
             {executorOptions.map((opt) => (
               <option key={opt.id} value={opt.id}>
                 {opt.label}

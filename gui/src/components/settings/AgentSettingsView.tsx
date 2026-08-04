@@ -348,7 +348,7 @@ export function AgentSettingsView({
                 />
               </label>
               <p className="settings-card__note">
-                策划 / IT 固定使用内置 Pi；需 Node ≥22.19 与 Provider Key。
+                策划固定内置 Pi；IT 默认 Pi（可改执行器）。需 Node ≥22.19 与 Provider Key。
               </p>
             </>
           )}
