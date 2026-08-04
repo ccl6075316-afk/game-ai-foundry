@@ -80,7 +80,7 @@ function parseInstanceExecutor(
   if (roleKind === "brief") return "pi";
   if (roleKind === "it") {
     if (value === "pi" || value === "hermes" || value === "codex" || value === "cursor") {
-      return value;
+      return value as InstanceExecutor;
     }
     return fallback === "pi" || fallback === "hermes" || fallback === "codex" || fallback === "cursor"
       ? fallback

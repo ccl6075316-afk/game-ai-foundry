@@ -90,7 +90,7 @@ function executorOptionsForHire(
 
 function emptyForm(displayName = ""): HireFormState {
   return {
-    executor: "codex",
+    executor: "pi",
     provider: "openrouter",
     model: "",
     use_third_party: false,
