@@ -279,6 +279,7 @@ def build_prompt(
     programmer_roster: list[dict[str, str]] | None = None,
     default_target_instance_id: str | None = None,
     instance_id: str | None = None,
+    executor: str | None = None,
 ) -> str:
     if role_kind == "it":
         title = "IT / 运维"
@@ -341,6 +342,17 @@ def build_prompt(
         parts.extend(["", "## 近部对话", *history_lines])
 
     parts.extend(["", "## 用户本轮消息", user_message.strip(), ""])
+    if role_kind == "it" and executor and executor != "pi":
+        parts.extend(
+            [
+                "",
+                "## 本实例执行器约束",
+                f"当前 executor={executor}（非内置 Pi）。",
+                "禁止输出 FOUNDRY_TOOL 栅栏。",
+                "需要 CLI 时在仓库根执行: python cli/gamefactory.py <subcommand> …",
+                "查策划「只说不写」：先 conversations show --role brief，再下结论。",
+            ]
+        )
     if role_kind == "product_host":
         roster = programmer_roster or []
         if roster:
@@ -999,6 +1011,7 @@ def run_turn(
         programmer_roster=programmer_roster,
         default_target_instance_id=default_target_instance_id,
         instance_id=instance_id,
+        executor=chosen,
     )
 
     assistant, exec_sid, stderr_tail = run_executor_turn(

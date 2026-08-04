@@ -39,6 +39,16 @@ class AgentTurnTests(unittest.TestCase):
         self.assertIn("项目经理", prompt)
         self.assertIn("再确认一下", prompt)
 
+    def test_it_codex_prompt_forbids_foundry_tool_fence(self) -> None:
+        text = build_prompt(
+            role_kind="it",
+            user_message="查只说不写",
+            session={"messages": []},
+            executor="codex",
+        )
+        self.assertIn("禁止输出 FOUNDRY_TOOL", text)
+        self.assertIn("gamefactory.py", text)
+
     def test_build_prompt_ui_wireframe_soft_hint(self) -> None:
         session = new_session("programmer", "w1")
         with tempfile.TemporaryDirectory() as tmp:

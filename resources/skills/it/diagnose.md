@@ -5,6 +5,24 @@
 默认 **信任本会话**：变更工具（含 **shell**）可带 `--i-confirm` 连续执行，少打断。  
 单次提问内工具环上限约 **24 轮**；若用尽仍未收束，回复末尾会提示「工具轮次已用尽」，请再发「继续」。
 
+## 执行器怎么选
+
+| 执行器 | 何时用 |
+|--------|--------|
+| **Pi（默认）** | 开箱、doctor/setup、装 Codex/Hermes、简单白名单运维 |
+| **Codex** | 根因排查、对照会话/代码、「只说不写」类诊断、需要强读写与推理时 |
+| Hermes/Cursor | 用户已偏好时可选 |
+
+**切到 Codex 前（可用 Pi 完成）：**
+1. `setup executor step codex install_cli --i-confirm --json`
+2. 实例 `use_third_party=true`（第三方模型）→ `setup executor step codex sync_api --i-confirm --json`
+3. GUI 顶栏把本 IT 同事执行器改为 Codex 并保存
+
+**Codex 模式下：** 不要输出 `<<<FOUNDRY_TOOL`；在仓库根用 shell 调：
+`python cli/gamefactory.py …`（或 `cd cli && python gamefactory.py …`）。
+优先：`conversations show`、`inspect`、`doctor`、读 `cli/host_chat.py`。
+用户说「只说不写」时：先读 brief 会话找「落盘/只说/补丁」，**禁止**默认答成「策划不写工程」。
+
 ## 开箱原则（纯净机）
 
 用户**只应在设置里配一次文本 API Key**。其余尽量：
