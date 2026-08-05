@@ -2,9 +2,11 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-07-30）
+## 当前版本要点（2026-08-05）
 
-- **v0.1.4 可用边界**：[`RELEASE-NOTES-0.1.4.md`](RELEASE-NOTES-0.1.4.md) — 纯净机开箱（可迁移 Python）+ 审查回填 + IT 实例配置
+- **v0.1.6**：[`RELEASE-NOTES-0.1.6.md`](RELEASE-NOTES-0.1.6.md) — Critic 缺口卡落盘 + 多场景北极星 + IT 换执行器 + 串工程/权限硬化
+- **v0.1.5**：[`RELEASE-NOTES-0.1.5.md`](RELEASE-NOTES-0.1.5.md) — scenes/systems/ui_panels + 文档栏恢复 + Pi 优先系统 Node
+- **v0.1.4**：[`RELEASE-NOTES-0.1.4.md`](RELEASE-NOTES-0.1.4.md) — 纯净机开箱（可迁移 Python）+ 审查回填 + IT 实例配置
 - **v0.1.3**：[`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) — 修复安装包启动崩溃（electron-updater ESM）
 - **v0.1.2**：[`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) — Windows 自动更新安装包 + Brief 定点补丁
 - **v0.1.1**：[`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) — Win NSIS 自动更新能力 / 对话停止 / 侧栏拖宽（Mac zip）
@@ -37,6 +39,8 @@
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、Windows 自动更新、纯净机首次运行 | brief 字段 |
+| [`RELEASE-NOTES-0.1.6.md`](RELEASE-NOTES-0.1.6.md) | 用户 | **v0.1.6** Critic 缺口卡 / 多场景北极星 / IT 执行器 | — |
+| [`RELEASE-NOTES-0.1.5.md`](RELEASE-NOTES-0.1.5.md) | 用户 | v0.1.5 scenes/systems / 文档栏 / Pi Node | — |
 | [`RELEASE-NOTES-0.1.4.md`](RELEASE-NOTES-0.1.4.md) | 用户 | **v0.1.4** 纯净机 Python / 审查回填 / IT 实例 | — |
 | [`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) | 用户 | v0.1.3 修复 setup 启动崩溃 | — |
 | [`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) | 用户 | v0.1.2 Win 自动更新包 / Brief 补丁 | — |
@@ -71,7 +75,7 @@
 要用 Hermes        → HERMES-CODEX
 Codex 会话         → AGENTS.md
 看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.1.4 · 未发布草稿见 UNRELEASED
+发 Release         → RELEASE + RELEASE-NOTES-0.1.6 · 未发布草稿见 UNRELEASED
 ```
 
 ## 设计 vs 施工（一句话）
