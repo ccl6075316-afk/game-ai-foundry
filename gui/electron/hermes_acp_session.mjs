@@ -39,6 +39,10 @@ export function pathWithCommonNodeBins(basePath) {
   const home = os.homedir();
   const extras = [
     path.join(home, ".local", "bin"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "hermes", "hermes-agent", "venv", "Scripts"),
+    path.join(home, ".hermes", "hermes-agent", "venv", "Scripts"),
+    path.join(home, ".hermes", "hermes-agent", "venv", "bin"),
+    path.join(home, ".gamefactory", "toolchain", "bin"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -85,7 +89,11 @@ function assertHermesBinary(hermesPath, envPath) {
  */
 export function resolveHermesAcpLaunch(hermesPath) {
   const home = os.homedir();
+  const local = process.env.LOCALAPPDATA || path.join(home, "AppData", "Local");
   const candidates = [
+    path.join(local, "hermes", "hermes-agent", "venv", "Scripts", "hermes.EXE"),
+    path.join(local, "hermes", "hermes-agent", "venv", "Scripts", "hermes.exe"),
+    path.join(home, ".hermes", "hermes-agent", "venv", "Scripts", "hermes.EXE"),
     path.join(home, ".hermes", "hermes-agent", "venv", "bin", "hermes"),
   ];
 
@@ -167,6 +175,7 @@ function extractTextFromSessionUpdate(update) {
  * @param {() => string} [opts.getHermesPath]
  * @param {(instanceId?: string) => string | Promise<string>} [opts.getAuthMethodId] Hermes auth methodId (provider)
  * @param {string} [opts.envPath]
+ * @param {() => NodeJS.ProcessEnv} [opts.getSpawnEnv]
  * @param {(req: {
  *   permissionId: string;
  *   instanceId: string;
@@ -182,6 +191,8 @@ export function createHermesAcpSessionManager(opts) {
   const getHermesPath = opts.getHermesPath ?? (() => "hermes");
   const getAuthMethodId = opts.getAuthMethodId ?? (() => "openrouter");
   const envPath = opts.envPath ?? pathWithCommonNodeBins(process.env.PATH);
+  const getSpawnEnv =
+    opts.getSpawnEnv ?? (() => /** @type {NodeJS.ProcessEnv} */ ({ ...process.env, PATH: envPath }));
   const onPermission = opts.onPermission;
   const onLog = opts.onLog ?? (() => {});
   const spawnFn = opts.spawnFn ?? spawn;
@@ -426,7 +437,10 @@ export function createHermesAcpSessionManager(opts) {
         const launch = resolveHermesAcpLaunch(hermesPath);
         state.proc = spawnFn(launch.command, launch.args, {
           stdio: ["pipe", "pipe", "pipe"],
-          env: buildHermesAcpEnv(process.env, envPath, launch.usePermissionPatch),
+          env: (() => {
+            const base = getSpawnEnv();
+            return buildHermesAcpEnv(base, String(base.PATH || envPath), launch.usePermissionPatch);
+          })(),
           shell: false,
         });
         onLog("hermes acp spawn", {

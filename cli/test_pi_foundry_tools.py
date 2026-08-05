@@ -58,6 +58,28 @@ class PiFoundryToolsTest(unittest.TestCase):
                 [
                     "setup",
                     "agents",
+                    "instances",
+                    "list",
+                    "--json",
+                ]
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "setup",
+                    "agents",
+                    "executors",
+                    "show",
+                    "--json",
+                ]
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "setup",
+                    "agents",
                     "executors",
                     "upsert",
                     "--executor",
@@ -416,6 +438,35 @@ class PiFoundryToolsTest(unittest.TestCase):
         self.assertIn("whitelist", result.get("error") or "")
         result2 = run_allowed_gamefactory(["pipeline", "run", "--jobs", "2", "--json"])
         self.assertFalse(result2["ok"])
+
+    def test_argv_rewrites_executor_id_typo(self) -> None:
+        from pi_foundry_tools import _argv_for_subprocess
+
+        fixed = _argv_for_subprocess(
+            [
+                "setup",
+                "agents",
+                "executors",
+                "upsert",
+                "--executor-id",
+                "codex",
+                "--use-third-party",
+                "--i-confirm",
+                "--json",
+            ],
+            ("setup", "agents", "executors", "upsert"),
+        )
+        self.assertIn("--executor", fixed)
+        self.assertNotIn("--executor-id", fixed)
+        self.assertEqual(fixed[fixed.index("--executor") + 1], "codex")
+
+    def test_it_prompt_forbids_missing_python_diagnosis(self) -> None:
+        from pi_foundry_tools import tool_protocol_instructions
+
+        text = tool_protocol_instructions(profile="it")
+        self.assertIn("Release already has Python", text)
+        self.assertIn("--executor", text)
+        self.assertIn("use-third-party", text)
 
     def test_session_allows_export_real_gate(self) -> None:
         from host_chat import new_session, save_session, session_path_for_id

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -91,15 +92,47 @@ class ExecutorSetupTests(unittest.TestCase):
     @patch("executor_setup.codex_download_sources", return_value=[])
     @patch("executor_setup.resolve_codex", return_value=None)
     def test_codex_install_cli_fails_without_sources(self, _resolve: object, _sources: object) -> None:
-        with self.assertRaises(RuntimeError) as ctx:
-            run_executor_step("codex", "install_cli")
+        with tempfile.TemporaryDirectory() as tmp:
+            bin_dir = Path(tmp) / "bin"
+            bin_dir.mkdir()
+            with patch("executor_setup.BIN_DIR", bin_dir):
+                with self.assertRaises(RuntimeError) as ctx:
+                    run_executor_step("codex", "install_cli")
         self.assertIn("GitHub", str(ctx.exception))
+
+    @patch(
+        "executor_setup.codex_download_sources",
+        return_value=[{"url": "https://example.invalid/codex.zip", "kind": "zip", "label": "bad"}],
+    )
+    @patch("executor_setup._download_file", side_effect=OSError("network down"))
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
+    def test_codex_install_cli_falls_back_when_downloads_fail(
+        self,
+        _resolve: object,
+        _download: object,
+        _sources: object,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            bin_dir = Path(tmp) / "bin"
+            bin_dir.mkdir()
+            with patch("executor_setup.BIN_DIR", bin_dir):
+                result = run_executor_step("codex", "install_cli")
+        self.assertTrue(result.get("ok"))
+        self.assertTrue(result.get("already"))
+        self.assertEqual(result.get("path"), "/usr/bin/codex")
+        self.assertIn("官方二进制安装失败", str(result.get("warning") or ""))
 
     @patch("executor_setup.resolve_codex", return_value="/mock/codex")
     def test_codex_install_cli_skips_when_present(self, _resolve: object) -> None:
-        result = run_executor_step("codex", "install_cli")
+        with tempfile.TemporaryDirectory() as tmp:
+            bin_dir = Path(tmp) / "bin"
+            bin_dir.mkdir()
+            dest = bin_dir / ("codex.exe" if sys.platform == "win32" else "codex")
+            dest.write_bytes(b"x")
+            with patch("executor_setup.BIN_DIR", bin_dir):
+                result = run_executor_step("codex", "install_cli")
         self.assertTrue(result.get("already"))
-        self.assertEqual(result.get("path"), "/mock/codex")
+        self.assertEqual(result.get("path"), str(dest))
 
     @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
     def test_codex_login_skips_when_logged_in(self, _resolve: object) -> None:

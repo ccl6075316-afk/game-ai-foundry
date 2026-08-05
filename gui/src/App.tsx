@@ -308,6 +308,8 @@ export default function App() {
   const [status, setStatus] = useState<PipelineStatus | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
   const [chatStore, setChatStore] = useState<ChatSessionStore>(() => loadSessionStore());
+  const chatStoreRef = useRef(chatStore);
+  chatStoreRef.current = chatStore;
   const [sidePanel, setSidePanel] = useState<SidePanel>(null);
   const [sidePanelWidth, setSidePanelWidth] = useState<number | null>(() => {
     const v = localStorage.getItem("sidePanelWidth");
@@ -392,6 +394,19 @@ export default function App() {
 
   const [agentConfigSaving, setAgentConfigSaving] = useState(false);
   const agentConfigSavingRef = useRef(false);
+  /** Pending ACP/Codex/Pi approvals — drives busy-hint text when a card is waiting. */
+  const [pendingToolPermissions, setPendingToolPermissions] = useState<
+    Array<{
+      permissionId: string;
+      sessionId: string;
+      instanceId?: string;
+      turnId?: string;
+      argvSummary: string;
+      source?: "pi" | "cursor_acp" | "hermes_acp" | "codex_app_server";
+    }>
+  >([]);
+  const pendingToolPermissionsRef = useRef(pendingToolPermissions);
+  pendingToolPermissionsRef.current = pendingToolPermissions;
   const activeColleague = getActiveColleague(chatStore);
   const agentRole = activeColleague.roleKind;
   const briefExportReady = agentRole === "brief" && briefMakeabilityExportReady(briefDraftStatus);
@@ -846,6 +861,7 @@ export default function App() {
         session: "allowed_session",
         deny: "denied",
       } as const;
+      setPendingToolPermissions((prev) => prev.filter((p) => p.permissionId !== permissionId));
       patchChatStore((store) => ({
         ...store,
         sessions: store.sessions.map((s) => ({
@@ -2048,17 +2064,33 @@ export default function App() {
       const secs = Math.floor((Date.now() - agentStartedAt) / 1000);
       patchChatStore((store) =>
         updateSessionMessages(store, target.instanceId, target.sessionId, (prev) => {
-          const last = prev[prev.length - 1];
-          if (last?.role !== "log") return prev;
+          const awaitingApproval =
+            prev.some((m) => m.toolPermission?.status === "pending") ||
+            pendingToolPermissionsRef.current.some(
+              (p) =>
+                (!p.instanceId || p.instanceId === target.instanceId) &&
+                (!p.sessionId || p.sessionId === target.sessionId),
+            );
+          let idx = -1;
+          for (let i = prev.length - 1; i >= 0; i -= 1) {
+            const m = prev[i];
+            if (m?.role === "log" && String(m.content || "").includes("执行器运行中")) {
+              idx = i;
+              break;
+            }
+          }
+          if (idx < 0) return prev;
+          const last = prev[idx];
           const base =
             last.content.split("\n")[0] || `「${target.displayName}」执行器运行中…`;
-          return [
-            ...prev.slice(0, -1),
-            {
-              ...last,
-              content: `${base}\n…仍在运行 ${secs}s（计时跳动即正常；${waitHint}）`,
-            },
-          ];
+          const statusLine = awaitingApproval
+            ? `…已挂起：请在对话里的批准卡片上点「允许」或「拒绝」（${secs}s）`
+            : `…仍在运行 ${secs}s（计时跳动即正常；${waitHint}）`;
+          const updated = {
+            ...last,
+            content: `${base}\n${statusLine}`,
+          };
+          return [...prev.slice(0, idx), updated, ...prev.slice(idx + 1)];
         }),
       );
     }, 4000);
@@ -2657,6 +2689,11 @@ export default function App() {
       .catch((e) =>
         append("system", `初始化失败：${e instanceof Error ? e.message : String(e)}`),
       );
+  }, [loadInitial, append, refreshBrainstormStatus]);
+
+  // IPC listeners must NOT share the didMountLoad early-return: dep changes / HMR
+  // would remove listeners in cleanup and never re-subscribe — permission cards vanish.
+  useEffect(() => {
     const offToolchain = window.gameFactory?.onToolchainLog?.(({ line }) => {
       setToolchainLog((prev) => [...prev.slice(-200), line]);
     });
@@ -2691,56 +2728,133 @@ export default function App() {
     });
     const offPermission = window.gameFactory?.onToolPermission?.((payload) => {
       const sid = String(payload.sessionId || "").trim();
-      patchChatStore((store) => {
-        const hit = sid ? store.sessions.find((s) => s.id === sid) : undefined;
-        const target = hit
-          ? { instanceId: hit.instanceId, sessionId: hit.id }
+      const instanceId = String(payload.instanceId || "").trim();
+      const permissionId = String(payload.permissionId || "");
+      if (!permissionId) return;
+      console.info("[gui] tool-permission received", {
+        permissionId,
+        sid,
+        instanceId,
+        source: payload.source,
+      });
+      const isCursorAcp = payload.source === "cursor_acp";
+      const isHermesAcp = payload.source === "hermes_acp";
+      const isCodexAppServer = payload.source === "codex_app_server";
+      const source = isCursorAcp
+        ? ("cursor_acp" as const)
+        : isHermesAcp
+          ? ("hermes_acp" as const)
+          : isCodexAppServer
+            ? ("codex_app_server" as const)
+            : undefined;
+
+      // Resolve target session first so we never leave orphan pending without a card.
+      const storeSnap = chatStoreRef.current;
+      const hit = sid ? storeSnap.sessions.find((s) => s.id === sid) : undefined;
+      const byInstance =
+        !hit && instanceId
+          ? storeSnap.sessions.find(
+              (s) =>
+                s.instanceId === instanceId &&
+                s.id === (storeSnap.activeByInstance[instanceId] || ""),
+            ) || storeSnap.sessions.find((s) => s.instanceId === instanceId)
+          : undefined;
+      const target = hit
+        ? { instanceId: hit.instanceId, sessionId: hit.id }
+        : byInstance
+          ? { instanceId: byInstance.instanceId, sessionId: byInstance.id }
           : {
-              instanceId: store.activeInstanceId,
-              sessionId: store.activeByInstance[store.activeInstanceId] || "",
+              instanceId: storeSnap.activeInstanceId,
+              sessionId: storeSnap.activeByInstance[storeSnap.activeInstanceId] || "",
             };
-        if (!target.sessionId) return store;
-        const isCursorAcp = payload.source === "cursor_acp";
-        const isHermesAcp = payload.source === "hermes_acp";
-        const isCodexAppServer = payload.source === "codex_app_server";
+      if (!target.sessionId) {
+        console.warn("[gui] tool-permission dropped — no sessionId target", payload);
+        void window.gameFactory?.decideToolPermission?.(permissionId, "deny").catch(() => {
+          /* bridge may already be gone */
+        });
+        return;
+      }
+
+      setPendingToolPermissions((prev) => {
+        if (prev.some((p) => p.permissionId === permissionId)) return prev;
+        return [
+          ...prev,
+          {
+            permissionId,
+            sessionId: sid || target.sessionId,
+            instanceId: instanceId || target.instanceId,
+            turnId: payload.turnId,
+            argvSummary: String(payload.argvSummary || ""),
+            source,
+          },
+        ];
+      });
+      patchChatStore((store) => {
+        const title = isCursorAcp
+          ? "Cursor 需要批准"
+          : isHermesAcp
+            ? "Hermes 需要批准"
+            : isCodexAppServer
+              ? "Codex 需要批准"
+              : "需要批准的变更";
         const msg: ChatMessage = {
           id: newMessageId(),
           role: "system",
-          content: isCursorAcp
-            ? "Cursor 需要批准"
-            : isHermesAcp
-              ? "Hermes 需要批准"
-              : isCodexAppServer
-                ? "Codex 需要批准"
-                : "需要批准的变更",
+          content: title,
           timestamp: Date.now(),
           toolPermission: {
-            permissionId: String(payload.permissionId || ""),
+            permissionId,
             sessionId: sid || target.sessionId,
             turnId: payload.turnId,
             argvSummary: String(payload.argvSummary || ""),
             status: "pending",
-            ...(isCursorAcp
-              ? { source: "cursor_acp" as const }
-              : isHermesAcp
-                ? { source: "hermes_acp" as const }
-                : isCodexAppServer
-                  ? { source: "codex_app_server" as const }
-                  : {}),
+            ...(source ? { source } : {}),
           },
         };
-        return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => [
-          ...msgs,
-          msg,
-        ]);
+        return updateSessionMessages(store, target.instanceId, target.sessionId, (msgs) => {
+          if (msgs.some((m) => m.toolPermission?.permissionId === permissionId)) return msgs;
+          return [...msgs, msg];
+        });
       });
+    });
+    const offPermissionResolved = window.gameFactory?.onToolPermissionResolved?.((payload) => {
+      const permissionId = String(payload.permissionId || "");
+      if (!permissionId) return;
+      const decision = String(payload.decision || "deny");
+      const statusMap = {
+        once: "allowed_once",
+        turn: "allowed_turn",
+        session: "allowed_session",
+        deny: "denied",
+      } as const;
+      const status = statusMap[decision as keyof typeof statusMap] || "denied";
+      setPendingToolPermissions((prev) => prev.filter((p) => p.permissionId !== permissionId));
+      patchChatStore((store) => ({
+        ...store,
+        sessions: store.sessions.map((s) => ({
+          ...s,
+          messages: s.messages.map((m) =>
+            m.toolPermission?.permissionId === permissionId &&
+            m.toolPermission.status === "pending"
+              ? {
+                  ...m,
+                  toolPermission: {
+                    ...m.toolPermission,
+                    status,
+                  },
+                }
+              : m,
+          ),
+        })),
+      }));
     });
     return () => {
       off?.();
       offToolchain?.();
       offPermission?.();
+      offPermissionResolved?.();
     };
-  }, [loadInitial, append, refreshBrainstormStatus, patchChatStore]);
+  }, [patchChatStore]);
 
   const handlePipelinePmHeal = async () => {
     if (!selectedManifest) {

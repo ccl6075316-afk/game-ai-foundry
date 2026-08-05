@@ -790,10 +790,14 @@ declare global {
           permissionId: string;
           sessionId: string;
           turnId?: string;
+          instanceId?: string;
           argvSummary: string;
           argv?: string[];
           source?: "pi" | "cursor_acp" | "hermes_acp" | "codex_app_server";
         }) => void,
+      ) => () => void;
+      onToolPermissionResolved: (
+        callback: (payload: { permissionId: string; decision: string }) => void,
       ) => () => void;
       agentStatus: (
         role: "product_host" | "programmer",

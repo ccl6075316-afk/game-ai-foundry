@@ -98,6 +98,72 @@ function sendAgentToolPermission(payload) {
   return true;
 }
 
+/** Notify renderer that a pending card timed out / was decided off-UI. */
+function sendAgentToolPermissionResolved(permissionId, decision) {
+  const sender = mainWindow && !mainWindow.isDestroyed() ? mainWindow.webContents : null;
+  if (!sender || sender.isDestroyed()) return;
+  sender.send("agent-tool-permission-resolved", {
+    permissionId: String(permissionId || ""),
+    decision: String(decision || "deny"),
+  });
+}
+
+/**
+ * Route Cursor/Hermes/Codex tool approvals to the UI (in-chat permission card).
+ * Always sends IPC — never silently auto-allow here.
+ *
+ * @param {object} opts
+ * @param {string} opts.permissionId
+ * @param {string} opts.sessionId
+ * @param {string} [opts.turnId]
+ * @param {string} [opts.instanceId]
+ * @param {string} opts.argvSummary
+ * @param {"cursor_acp" | "hermes_acp" | "codex_app_server"} opts.source
+ * @param {(permissionId: string, decision: string) => void} opts.decide
+ */
+function routeExternalToolPermission(opts) {
+  const permissionId = String(opts.permissionId || "");
+  const sessionId = String(opts.sessionId || "");
+  const turnId = String(opts.turnId || "");
+  const instanceId = String(opts.instanceId || "");
+  const argvSummary = String(opts.argvSummary || "").slice(0, 500);
+  const source = opts.source;
+
+  console.log(`[${source}] permission requested`, {
+    permissionId,
+    sessionId,
+    turnId,
+    instanceId,
+    argvSummary,
+  });
+
+  // Always surface UI — do not silently auto-allow here. Pi FOUNDRY_TOOL trust
+  // stays on tool_permission_bridge only; Codex/Cursor need a visible in-chat card.
+
+  const sent = sendAgentToolPermission({
+    permissionId,
+    sessionId,
+    turnId,
+    instanceId,
+    argvSummary,
+    source,
+  });
+  if (!sent) {
+    console.log(`[${source}] permission deny — no renderer`, { permissionId });
+    opts.decide(permissionId, "deny");
+    return;
+  }
+
+  clearAcpPermissionTimer(permissionId);
+  const timer = setTimeout(() => {
+    acpPermissionTimers.delete(permissionId);
+    console.log(`[${source}] permission timeout → deny`, { permissionId });
+    opts.decide(permissionId, "deny");
+    sendAgentToolPermissionResolved(permissionId, "deny");
+  }, ACP_PERMISSION_TIMEOUT_MS);
+  acpPermissionTimers.set(permissionId, timer);
+}
+
 const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif"]);
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".mkv"]);
 
@@ -125,6 +191,7 @@ function pathWithCommonNodeBins(basePath) {
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
     path.join(home, ".codex", "packages", "standalone", "current"),
     path.join(home, ".local", "share", "cursor-agent", "versions"),
+    path.join(process.env.APPDATA || path.join(home, "AppData", "Roaming"), "npm"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -290,19 +357,44 @@ function withAbortMeta(result, instanceId) {
   };
 }
 
+/**
+ * Env for Codex / Cursor / Hermes child processes so shell tools can call
+ * Foundry via GAMEFACTORY_PYTHON (embedded or venv), matching runCli.
+ * @returns {NodeJS.ProcessEnv}
+ */
+function agentExecutorChildEnv() {
+  const root = repoRoot();
+  const python = resolvePython(root);
+  const pythonDir = path.dirname(python);
+  const pathEnv = pythonDir
+    ? [pythonDir, pathWithCommonNodeBins(process.env.PATH)].filter(Boolean).join(path.delimiter)
+    : pathWithCommonNodeBins(process.env.PATH);
+  return {
+    ...process.env,
+    PATH: pathEnv,
+    GAMEFACTORY_ROOT: root,
+    GAMEFACTORY_PYTHON: python,
+  };
+}
+
 function runCli(args, { cwd, onLine, jobKey } = {}) {
   const root = repoRoot();
   const python = resolvePython(root);
   const workdir = cwd || cliDir(root);
   const permissionEnv = toolPermissionBridge ? toolPermissionBridge.env() : {};
+  const pythonDir = path.dirname(python);
+  const pathWithPython = pythonDir
+    ? [pythonDir, pathWithCommonNodeBins(process.env.PATH)].filter(Boolean).join(path.delimiter)
+    : pathWithCommonNodeBins(process.env.PATH);
 
   return new Promise((resolve, reject) => {
     const proc = spawn(python, ["gamefactory.py", ...args], {
       cwd: workdir,
       env: {
         ...process.env,
-        PATH: pathWithCommonNodeBins(process.env.PATH),
+        PATH: pathWithPython,
         GAMEFACTORY_ROOT: root,
+        GAMEFACTORY_PYTHON: python,
         PYTHONIOENCODING: "utf-8",
         // Prefer system Node for Pi when present; Electron-as-Node is Release fallback
         // (see cli/pi_runtime._node_candidates). Still pass execPath for that fallback.
@@ -1478,25 +1570,54 @@ app.whenReady().then(() => {
   });
 
   cursorAcpSessionManager = createCursorAcpSessionManager({
+    getSpawnEnv: agentExecutorChildEnv,
+    getAgentPath: () => {
+      const home = os.homedir();
+      const local = process.env.LOCALAPPDATA || path.join(home, "AppData", "Local");
+      const names = process.platform === "win32"
+        ? ["agent.CMD", "agent.cmd", "cursor-agent.CMD", "cursor-agent.cmd", "agent.exe", "agent"]
+        : ["agent", "cursor-agent"];
+      const dirs = [
+        path.join(local, "cursor-agent"),
+        path.join(home, ".local", "bin"),
+        path.join(home, ".local", "share", "cursor-agent", "versions"),
+      ];
+      // Prefer newest version dir if present.
+      try {
+        const versionsRoot = path.join(home, ".local", "share", "cursor-agent", "versions");
+        if (existsSync(versionsRoot)) {
+          const kids = readdirSync(versionsRoot)
+            .map((name) => path.join(versionsRoot, name))
+            .filter((p) =>
+              names.some((n) => existsSync(path.join(p, n))),
+            );
+          kids.sort();
+          dirs.unshift(...kids.slice(-3).reverse());
+        }
+      } catch {
+        /* ignore */
+      }
+      for (const dir of dirs) {
+        for (const name of names) {
+          const cand = path.join(dir, name);
+          if (existsSync(cand)) return cand;
+        }
+      }
+      return "agent";
+    },
     onPermission: (req) => {
       const permissionId = String(req.permissionId || "");
-      const sent = sendAgentToolPermission({
+      routeExternalToolPermission({
         permissionId,
         sessionId: String(req.sessionId || ""),
         turnId: String(req.turnId || ""),
+        instanceId: String(req.instanceId || ""),
         argvSummary: String(req.summary || "").slice(0, 500),
         source: "cursor_acp",
+        decide: (id, decision) => {
+          cursorAcpSessionManager?.decidePermission(id, decision);
+        },
       });
-      if (!sent) {
-        cursorAcpSessionManager?.decidePermission(permissionId, "deny");
-        return;
-      }
-      clearAcpPermissionTimer(permissionId);
-      const timer = setTimeout(() => {
-        acpPermissionTimers.delete(permissionId);
-        cursorAcpSessionManager?.decidePermission(permissionId, "deny");
-      }, ACP_PERMISSION_TIMEOUT_MS);
-      acpPermissionTimers.set(permissionId, timer);
     },
     onLog: (msg, ctx) => {
       console.log(`[cursor-acp] ${msg}`, ctx ?? "");
@@ -1504,29 +1625,38 @@ app.whenReady().then(() => {
   });
 
   hermesAcpSessionManager = createHermesAcpSessionManager({
+    getSpawnEnv: agentExecutorChildEnv,
+    getHermesPath: () => {
+      const home = os.homedir();
+      const local = process.env.LOCALAPPDATA || path.join(home, "AppData", "Local");
+      const cands = [
+        path.join(local, "hermes", "hermes-agent", "venv", "Scripts", "hermes.EXE"),
+        path.join(local, "hermes", "hermes-agent", "venv", "Scripts", "hermes.exe"),
+        path.join(home, ".hermes", "hermes-agent", "venv", "Scripts", "hermes.EXE"),
+        path.join(home, ".hermes", "hermes-agent", "venv", "bin", "hermes"),
+      ];
+      for (const cand of cands) {
+        if (existsSync(cand)) return cand;
+      }
+      return "hermes";
+    },
     getAuthMethodId: (instanceId) => {
       const config = loadUserConfig().data || {};
       return resolveHermesAuthMethodId(config, instanceId);
     },
     onPermission: (req) => {
       const permissionId = String(req.permissionId || "");
-      const sent = sendAgentToolPermission({
+      routeExternalToolPermission({
         permissionId,
         sessionId: String(req.sessionId || ""),
         turnId: String(req.turnId || ""),
+        instanceId: String(req.instanceId || ""),
         argvSummary: String(req.summary || "").slice(0, 500),
         source: "hermes_acp",
+        decide: (id, decision) => {
+          hermesAcpSessionManager?.decidePermission(id, decision);
+        },
       });
-      if (!sent) {
-        hermesAcpSessionManager?.decidePermission(permissionId, "deny");
-        return;
-      }
-      clearAcpPermissionTimer(permissionId);
-      const timer = setTimeout(() => {
-        acpPermissionTimers.delete(permissionId);
-        hermesAcpSessionManager?.decidePermission(permissionId, "deny");
-      }, ACP_PERMISSION_TIMEOUT_MS);
-      acpPermissionTimers.set(permissionId, timer);
     },
     onLog: (msg, ctx) => {
       console.log(`[hermes-acp] ${msg}`, ctx ?? "");
@@ -1534,15 +1664,17 @@ app.whenReady().then(() => {
   });
 
   codexAppServerSessionManager = createCodexAppServerSessionManager({
+    getSpawnEnv: agentExecutorChildEnv,
     resolveCodexBin: () => {
       const home = os.homedir();
       const win = process.platform === "win32";
-      const names = win ? ["codex.exe", "codex"] : ["codex"];
+      const names = win ? ["codex.exe", "codex.cmd", "codex"] : ["codex"];
       const dirs = [
         path.join(home, ".gamefactory", "toolchain", "bin"),
         path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
         path.join(home, ".local", "bin"),
         path.join(home, ".codex", "packages", "standalone", "current"),
+        path.join(process.env.APPDATA || path.join(home, "AppData", "Roaming"), "npm"),
       ];
       for (const dir of dirs) {
         for (const name of names) {
@@ -1557,23 +1689,17 @@ app.whenReady().then(() => {
       const summary = String(req.summary || "").slice(0, 500);
       const kind = req.kind ? String(req.kind) : "";
       const argvSummary = kind ? `[${kind}] ${summary}`.slice(0, 500) : summary;
-      const sent = sendAgentToolPermission({
+      routeExternalToolPermission({
         permissionId,
         sessionId: String(req.sessionId || ""),
         turnId: String(req.turnId || ""),
+        instanceId: String(req.instanceId || ""),
         argvSummary,
         source: "codex_app_server",
+        decide: (id, decision) => {
+          codexAppServerSessionManager?.decidePermission({ permissionId: id, decision });
+        },
       });
-      if (!sent) {
-        codexAppServerSessionManager?.decidePermission({ permissionId, decision: "deny" });
-        return;
-      }
-      clearAcpPermissionTimer(permissionId);
-      const timer = setTimeout(() => {
-        acpPermissionTimers.delete(permissionId);
-        codexAppServerSessionManager?.decidePermission({ permissionId, decision: "deny" });
-      }, ACP_PERMISSION_TIMEOUT_MS);
-      acpPermissionTimers.set(permissionId, timer);
     },
     onLog: (msg, ctx) => {
       console.log(`[codex-app-server] ${msg}`, ctx ?? "");

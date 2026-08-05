@@ -18,8 +18,16 @@
 2. 实例 `use_third_party=true`（第三方模型）→ `setup executor step codex sync_api --i-confirm --json`
 3. GUI 顶栏把本 IT 同事执行器改为 Codex 并保存
 
-**Codex 模式下：** 不要输出 `<<<FOUNDRY_TOOL`；在仓库根用 shell 调：
-`python cli/gamefactory.py …`（或 `cd cli && python gamefactory.py …`）。
+**Pi 模式（默认）：** 只发 `<<<FOUNDRY_TOOL`；宿主用**安装包内嵌 Python**跑 `gamefactory.py`。  
+你**不要**用 shell 去 `where python` / 找系统 Python —— 那是纯净机常态，**不代表** Foundry 缺运行时。  
+FOUNDRY_TOOL 已经成功返回（哪怕别的命令失败），就证明内嵌 Python 可用。
+
+**Codex / Cursor 模式：** 不要输出 `<<<FOUNDRY_TOOL`。在仓库根用 shell 调 CLI 时：
+
+- **优先**（Release / 本机已由 GUI 注入）：`%GAMEFACTORY_PYTHON% cli/gamefactory.py …`（Unix: `$GAMEFACTORY_PYTHON`）
+- 若环境变量空了：不要叫用户装系统 Python；让用户回 Pi 执行器，或说明「请用 GUI 里的 IT(Pi) 跑 setup」
+- 禁止把 PATH 上缺 `python.exe`（9009）诊断成「要重装安装包」——除非 `setup pi status` / `doctor` 明确报内嵌 Python 缺失
+
 优先：`conversations show`、`inspect`、`doctor`、读 `cli/host_chat.py`。
 用户说「只说不写」时：先读 brief 会话找「落盘/只说/补丁」，再核对响应是否有
 `brief_patches` / `draft_brief`、草稿指纹是否变化；**禁止**默认答成「策划不写工程」。
@@ -58,6 +66,7 @@
 - 未确认时复述完整 API Key（inspect/shell 输出已尽量脱敏，仍勿手抄 Key）  
 - 静默 `brief chat export`（除非用户明确要求导出冻结）  
 - 要求用户安装系统 Python / Node「才能用 Foundry」（Release 应自带）  
+- 因 PATH 上 `where python` / exit 9009 就断言「缺 Python、须重装」——FOUNDRY_TOOL 跑通即证明内嵌 Python 在  
 - 大段乱改 `games/` 玩法或 Foundry 内核而不说明风险（能改时也要先说清楚）
 
 ## 通用流程
@@ -71,8 +80,9 @@
 
 | 用户说 | 你做 |
 |--------|------|
-| 环境坏了 / Key / 装不上 | doctor → install / upsert / executor step |
-| 开箱不能用 / 9009 / 找不到 python | 说明须重装**含可迁移 Python**的最新安装包；不要让用户装系统 Python 凑合 |
+| 环境坏了 / Key / 装不上 | doctor → install / upsert / executor step；看工具 `error` 原文，勿脑补 |
+| 开箱不能用 / 9009 / shell 找不到 python | **先分清**：FOUNDRY_TOOL 已 ok → 内嵌 Python 正常，是 PATH/`python` 命令问题，**禁止**叫重装；仅当 `setup pi status`/`doctor` 报内嵌 Python 缺失才引导重装含可迁移 Python 的安装包 |
+| FOUNDRY_TOOL 白名单失败 / 参数错 | 读返回 `error`；常见：`--executor` 不是 `--executor-id`；用 `instances list` / `executors show` |
 | 装 Hermes / 项目经理不能聊 | executor step hermes install_cli → skills → configure_api |
 | 换模型 / 开思考 | instances upsert（provider / model / thinking-level） |
 | 草稿不同步 / 找不到中文说明 | bind（若未绑）→ zh-doc → 指出 `brief.zh.md` |

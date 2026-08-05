@@ -78,6 +78,14 @@ export function createToolPermissionBridge(opts) {
     const decision = await new Promise((resolve) => {
       const timer = setTimeout(() => {
         pending.delete(permissionId);
+        try {
+          sender.send("agent-tool-permission-resolved", {
+            permissionId,
+            decision: "deny",
+          });
+        } catch {
+          /* renderer gone */
+        }
         resolve("deny");
       }, timeoutMs);
       pending.set(permissionId, { resolve, timer, sessionId, turnId });
@@ -88,10 +96,19 @@ export function createToolPermissionBridge(opts) {
           turnId,
           argvSummary,
           argv: Array.isArray(payload.argv) ? payload.argv.slice(0, 40) : [],
+          source: "pi",
         });
       } catch {
         clearTimeout(timer);
         pending.delete(permissionId);
+        try {
+          sender.send("agent-tool-permission-resolved", {
+            permissionId,
+            decision: "deny",
+          });
+        } catch {
+          /* ignore */
+        }
         resolve("deny");
       }
     });

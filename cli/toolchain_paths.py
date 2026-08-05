@@ -116,8 +116,12 @@ def _codex_official_candidates() -> list[Path]:
     cands: list[Path] = []
     if sys.platform == "win32":
         local = os.environ.get("LOCALAPPDATA") or str(home / "AppData" / "Local")
+        roaming = os.environ.get("APPDATA") or str(home / "AppData" / "Roaming")
         cands.append(Path(local) / "Programs" / "OpenAI" / "Codex" / "bin" / "codex.exe")
         cands.append(Path(local) / "Programs" / "OpenAI" / "Codex" / "bin" / "codex")
+        # npm global shim (Electron needs absolute *.cmd + shell)
+        cands.append(Path(roaming) / "npm" / "codex.cmd")
+        cands.append(Path(roaming) / "npm" / "codex.exe")
     else:
         cands.append(home / ".local" / "bin" / "codex")
     # Managed standalone package used by remote-control / installer

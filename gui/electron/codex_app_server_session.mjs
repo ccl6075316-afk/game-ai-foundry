@@ -45,6 +45,7 @@ export function pathWithCommonNodeBins(basePath) {
     path.join(home, ".local", "bin"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
     path.join(home, ".codex", "packages", "standalone", "current"),
+    path.join(process.env.APPDATA || path.join(home, "AppData", "Roaming"), "npm"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -74,7 +75,7 @@ export function pathWithCommonNodeBins(basePath) {
 function assertCodexBinary(codexPath, envPath) {
   if (path.isAbsolute(codexPath) && !existsSync(codexPath)) {
     throw new Error(
-      `Codex 未找到：${codexPath}。请在 Foundry「环境 → 执行器」安装 Codex CLI（下载到 ~/.gamefactory/toolchain/bin，无需 npm）。`,
+      `Codex 未找到：${codexPath}。请在 Foundry「环境 → 执行器」安装 Codex CLI（下载到 ~/.gamefactory/toolchain/bin）。`,
     );
   }
   if (!envPath.includes(path.join(os.homedir(), ".local", "bin")) && codexPath === "codex") {
@@ -99,6 +100,7 @@ function extractTextDeltaFromNotification(msg) {
  * @param {object} opts
  * @param {() => string} [opts.resolveCodexBin]
  * @param {string} [opts.envPath]
+ * @param {() => NodeJS.ProcessEnv} [opts.getSpawnEnv]
  * @param {(req: {
  *   permissionId: string;
  *   instanceId: string;
@@ -114,6 +116,8 @@ function extractTextDeltaFromNotification(msg) {
 export function createCodexAppServerSessionManager(opts) {
   const resolveCodexBin = opts.resolveCodexBin ?? (() => "codex");
   const envPath = opts.envPath ?? pathWithCommonNodeBins(process.env.PATH);
+  const getSpawnEnv =
+    opts.getSpawnEnv ?? (() => /** @type {NodeJS.ProcessEnv} */ ({ ...process.env, PATH: envPath }));
   const onPermission = opts.onPermission;
   const onLog = opts.onLog ?? (() => {});
   const spawnImpl = opts.spawnImpl ?? spawn;
@@ -366,8 +370,9 @@ export function createCodexAppServerSessionManager(opts) {
       try {
         state.proc = spawnImpl(codexPath, ["app-server", "--listen", "stdio://"], {
           stdio: ["pipe", "pipe", "pipe"],
-          env: { ...process.env, PATH: envPath },
-          shell: false,
+          env: getSpawnEnv(),
+          // Windows npm shims are *.cmd; CreateProcess without shell → ENOENT.
+          shell: process.platform === "win32" && /\.(cmd|bat)$/i.test(String(codexPath)),
         });
         onLog("codex app-server spawn", {
           instanceId: state.instanceId,

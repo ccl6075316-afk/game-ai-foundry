@@ -732,22 +732,34 @@ def _install_codex_cli(progress: ProgressCb = None) -> dict[str, Any]:
     import tarfile
     import zipfile
 
-    existing = resolve_codex()
-    if existing:
-        return {"ok": True, "path": existing, "already": True}
+    dest_name = "codex.exe" if sys.platform == "win32" else "codex"
+    dest = BIN_DIR / dest_name
+    # Prefer a real toolchain binary. PATH/npm *.cmd often works in shells but
+    # Electron spawn(shell=false) cannot launch Windows npm shims → ENOENT.
+    if dest.is_file():
+        return {"ok": True, "path": str(dest), "already": True, "bin_dir": str(BIN_DIR)}
 
     sources = codex_download_sources()
     if not sources:
+        existing = resolve_codex()
+        if existing:
+            return {
+                "ok": True,
+                "path": existing,
+                "already": True,
+                "warning": (
+                    "无法下载官方二进制，暂用 PATH 上的 codex；"
+                    "若 GUI app-server 报 ENOENT，请检查网络后重试安装。"
+                ),
+            }
         raise RuntimeError(
             "无法解析 Codex 官方下载地址（GitHub releases）。"
             "请检查网络，或稍后重试「安装 Codex CLI」。"
             f"也可手动从 {CODEX_INSTALL_URL}/releases 下载对应平台二进制到 "
-            f"{BIN_DIR}，命名为 codex{'.exe' if sys.platform == 'win32' else ''}。"
+            f"{BIN_DIR}，命名为 {dest_name}。"
         )
 
     BIN_DIR.mkdir(parents=True, exist_ok=True)
-    dest_name = "codex.exe" if sys.platform == "win32" else "codex"
-    dest = BIN_DIR / dest_name
     errors: list[str] = []
 
     for src in sources:
@@ -791,6 +803,17 @@ def _install_codex_cli(progress: ProgressCb = None) -> dict[str, Any]:
             _emit(progress, f"{label} 失败，尝试下一源…")
 
     detail = "; ".join(errors[-5:]) if errors else "无可用下载源"
+    existing = resolve_codex()
+    if existing:
+        return {
+            "ok": True,
+            "path": existing,
+            "already": True,
+            "warning": (
+                f"官方二进制安装失败（{detail}）；暂用 PATH 上的 codex。"
+                "若 GUI app-server 报 ENOENT，请检查网络后重试安装到 toolchain。"
+            ),
+        }
     raise RuntimeError(f"Codex CLI 自动安装失败（已尝试 {len(sources)} 个源）: {detail}")
 
 

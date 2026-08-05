@@ -119,7 +119,11 @@ export function ChatView({
     }
 
     // Same session: only follow new messages when user was already near the bottom (or busy).
-    if (stickToBottomRef.current || busy) {
+    // Pending approval cards always scroll into view (Cursor/Codex-style in-thread gate).
+    const hasPendingPermission = messages.some(
+      (m) => m.toolPermission?.status === "pending",
+    );
+    if (stickToBottomRef.current || busy || hasPendingPermission) {
       el.scrollTop = el.scrollHeight;
       stickToBottomRef.current = true;
     }
@@ -203,7 +207,14 @@ export function ChatView({
                       />
                     ) : null}
                     {m.toolPermission ? (
-                      <div className="tool-permission-card">
+                      <div
+                        className={`tool-permission-card${
+                          m.toolPermission.status === "pending"
+                            ? " tool-permission-card--pending"
+                            : ""
+                        }`}
+                        data-permission-id={m.toolPermission.permissionId}
+                      >
                         <div className="tool-permission-card__title">
                           {m.toolPermission.source === "cursor_acp"
                             ? "Cursor 需要批准"
@@ -220,7 +231,7 @@ export function ChatView({
                           <div className="tool-permission-card__actions">
                             <button
                               type="button"
-                              className="tool-permission-card__btn"
+                              className="tool-permission-card__btn tool-permission-card__btn--allow"
                               onClick={() =>
                                 onToolPermissionDecision?.(m.toolPermission!.permissionId, "once")
                               }

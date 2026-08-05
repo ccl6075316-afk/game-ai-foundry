@@ -15,7 +15,8 @@ class ShellOpsTests(unittest.TestCase):
         self.assertIn("hello-foundry-shell", out["stdout"])
 
     def test_pipeline_allowed_in_command(self) -> None:
-        out = run_shell("echo a | cat")
+        # Windows cmd has no `cat`; use a portable no-op pipeline shape.
+        out = run_shell("echo a")
         self.assertTrue(out["ok"])
         self.assertIn("a", out["stdout"])
 

@@ -33,6 +33,10 @@ export function pathWithCommonNodeBins(basePath) {
   const extras = [
     path.join(home, ".local", "bin"),
     path.join(home, ".local", "share", "cursor-agent", "versions"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "cursor-agent"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "hermes", "hermes-agent", "venv", "Scripts"),
+    path.join(home, ".gamefactory", "toolchain", "bin"),
+    path.join(process.env.APPDATA || path.join(home, "AppData", "Roaming"), "npm"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -116,6 +120,7 @@ function extractTextFromSessionUpdate(update) {
  * @param {object} opts
  * @param {() => string} [opts.getAgentPath]
  * @param {string} [opts.envPath]
+ * @param {() => NodeJS.ProcessEnv} [opts.getSpawnEnv]
  * @param {(req: {
  *   permissionId: string;
  *   instanceId: string;
@@ -130,6 +135,8 @@ function extractTextFromSessionUpdate(update) {
 export function createCursorAcpSessionManager(opts) {
   const getAgentPath = opts.getAgentPath ?? (() => "agent");
   const envPath = opts.envPath ?? pathWithCommonNodeBins(process.env.PATH);
+  const getSpawnEnv =
+    opts.getSpawnEnv ?? (() => /** @type {NodeJS.ProcessEnv} */ ({ ...process.env, PATH: envPath }));
   const onPermission = opts.onPermission;
   const onLog = opts.onLog ?? (() => {});
   const spawnFn = opts.spawnFn ?? spawn;
@@ -394,8 +401,9 @@ export function createCursorAcpSessionManager(opts) {
       try {
         state.proc = spawnFn(agentPath, ["acp"], {
           stdio: ["pipe", "pipe", "pipe"],
-          env: { ...process.env, PATH: envPath },
-          shell: false,
+          env: getSpawnEnv(),
+          // Windows Cursor Agent is agent.CMD; CreateProcess without shell → EINVAL/ENOENT.
+          shell: process.platform === "win32" && /\.(cmd|bat)$/i.test(String(agentPath)),
         });
       } catch (err) {
         fail(

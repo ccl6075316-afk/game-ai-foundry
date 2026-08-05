@@ -45,7 +45,9 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("setup", "executor", "step"),
     ("setup", "executor", "models"),
     ("setup", "agents", "executors", "upsert"),
+    ("setup", "agents", "executors", "show"),
     ("setup", "agents", "instances", "upsert"),
+    ("setup", "agents", "instances", "list"),
     ("pipeline", "diagnose"),
     ("pipeline", "status"),
     ("pipeline", "heal"),
@@ -211,7 +213,7 @@ Allowed command prefixes:
 {examples}
 
 Home-ops playbooks (Chinese answers):
-1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors upsert
+1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors upsert|list|show
 2. **Project draft** — brief chat bind / zh-doc / status (sync + Chinese doc **before** export)
 3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
 4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
@@ -228,7 +230,16 @@ Rules:
   in the **same** reply. Do not end with only「我再确认一下… / 让我再查…」.
   When done, write an explicit **结论**.
 - Do **not** casually rewrite Foundry/Electron/Pi source or `games/` C# — if needed, say so and keep diffs minimal / ask first.
+- **Release already has Python.** FOUNDRY_TOOL runs via Foundry embedded Python (`GAMEFACTORY_PYTHON` / host `sys.executable`).
+  Never diagnose「缺 Python / 请重装安装包 / 请装系统 Python」from PATH/`where python`/exit 9009.
+  If a tool fails, quote that tool's error; do not shell-hunt `python.exe`.
 - Do **not** tell users to install system Python/Node for Release — embed + toolchain auto/IT install.
+- **Codex 第三方（DeepSeek 等）正确顺序**（flags 必须一字不差）：
+  1) `setup provider upsert --provider deepseek --api-key <KEY> --set-active-text --i-confirm --json`
+  2) `setup agents executors upsert --executor codex --provider deepseek --use-third-party --i-confirm --json`
+     （是 `--executor`，**不是** `--executor-id`；没有 `instances list` 以外的虚构子命令时用 `instances list` / `executors show` / `inspect read`）
+  3) `setup executor step codex sync_api --i-confirm --json` — 若返回 `skipped`/`use_third_party=false`，说明第 2 步没写上，重做 2→3
+  4) 程序员实例若要覆盖：`setup agents instances upsert --instance-id <id> --use-third-party --provider deepseek --i-confirm --json`
 - **Mutating ops** (including shell) need `--i-confirm`. When the GUI permission
   bridge is connected, the host may ask once/turn/session — prefer approving so
   work can finish. Without a bridge, `--i-confirm` alone is enough. Mask API Keys in chat.
@@ -250,6 +261,17 @@ Rules:
   Example (Key mutate):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--set-active-text", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (Codex third-party preset):
+  <<<FOUNDRY_TOOL
+  ["setup", "agents", "executors", "upsert", "--executor", "codex", "--provider", "deepseek", "--use-third-party", "--i-confirm", "--json"]
+  FOUNDRY_TOOL>>>
+  Example (list instances / show executors):
+  <<<FOUNDRY_TOOL
+  ["setup", "agents", "instances", "list", "--json"]
+  FOUNDRY_TOOL>>>
+  <<<FOUNDRY_TOOL
+  ["setup", "agents", "executors", "show", "--json"]
   FOUNDRY_TOOL>>>
   Example (Thinking):
   <<<FOUNDRY_TOOL
@@ -346,9 +368,24 @@ def is_allowed_argv(
 
 
 def _argv_for_subprocess(argv: list[str], prefix: tuple[str, ...] | None) -> list[str]:
+    # Common IT typo: --executor-id → --executor (Click only knows --executor).
+    fixed: list[str] = []
+    i = 0
+    while i < len(argv):
+        tok = argv[i]
+        if tok == "--executor-id":
+            fixed.append("--executor")
+            i += 1
+            continue
+        if tok.startswith("--executor-id="):
+            fixed.append("--executor=" + tok.split("=", 1)[1])
+            i += 1
+            continue
+        fixed.append(tok)
+        i += 1
     if prefix in _KEEP_I_CONFIRM_PREFIXES:
-        return list(argv)
-    return [t for t in argv if t != "--i-confirm"]
+        return fixed
+    return [t for t in fixed if t != "--i-confirm"]
 
 
 def _timeout_for_prefix(prefix: tuple[str, ...] | None) -> float:
@@ -488,10 +525,16 @@ def run_allowed_gamefactory(
             run_argv_in = ensure_i_confirm(run_argv_in)
 
     if not is_allowed_argv(run_argv_in, allow_export=allow_export, profile=profile):
+        hint = ""
+        joined = " ".join(run_argv_in)
+        if "--executor-id" in joined:
+            hint = "（提示：用 --executor，不是 --executor-id）"
+        elif "instances" in run_argv_in and "list" not in run_argv_in and "upsert" not in run_argv_in:
+            hint = "（提示：读实例用 setup agents instances list --json）"
         return {
             "ok": False,
             "argv": run_argv_in,
-            "error": f"command not on Pi whitelist (or export/confirm gated): {run_argv_in!r}",
+            "error": f"command not on Pi whitelist (or export/confirm gated): {run_argv_in!r}{hint}",
             "stdout": "",
             "stderr": "",
             "exit_code": None,
@@ -525,8 +568,15 @@ def run_allowed_gamefactory(
 
     run_argv = _argv_for_subprocess(argv, prefix)
     limit = timeout_sec if timeout_sec is not None else _timeout_for_prefix(prefix)
-    cmd = [_gamefactory_python(), str(cli), *run_argv]
+    py = _gamefactory_python()
+    cmd = [py, str(cli), *run_argv]
     work = cwd or _REPO_ROOT
+    env = os.environ.copy()
+    env["GAMEFACTORY_PYTHON"] = py
+    env.setdefault("PYTHONIOENCODING", "utf-8")
+    py_dir = str(Path(py).resolve().parent)
+    if py_dir:
+        env["PATH"] = py_dir + os.pathsep + env.get("PATH", "")
     try:
         proc = subprocess.run(
             cmd,
@@ -537,6 +587,7 @@ def run_allowed_gamefactory(
             timeout=limit,
             cwd=str(work),
             stdin=subprocess.DEVNULL,
+            env=env,
         )
     except subprocess.TimeoutExpired:
         return {

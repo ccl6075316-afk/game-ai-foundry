@@ -54,3 +54,50 @@ test("trustSession auto-allows mutate permission without UI", async () => {
     bridge.close();
   }
 });
+
+test("permission timeout notifies renderer via agent-tool-permission-resolved", async () => {
+  /** @type {Array<{ channel: string, payload: Record<string, unknown> }>} */
+  const sent = [];
+  const bridge = createToolPermissionBridge({
+    getSender: () => ({
+      isDestroyed: () => false,
+      send: (channel, payload) => {
+        sent.push({ channel, payload });
+      },
+    }),
+    timeoutMs: 50,
+  });
+  try {
+    await new Promise((resolve, reject) => {
+      bridge.server.once("listening", resolve);
+      bridge.server.once("error", reject);
+      if (bridge.server.listening) resolve(undefined);
+    });
+
+    const env = bridge.env();
+    const res = await fetch(env.GAMEFACTORY_TOOL_PERMISSION_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.GAMEFACTORY_TOOL_PERMISSION_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        permission_id: "p-timeout",
+        session_id: "sess-x",
+        turn_id: "t1",
+        argv_summary: "setup executor step",
+      }),
+    });
+
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.equal(body.decision, "deny");
+    assert.ok(sent.some((e) => e.channel === "agent-tool-permission"));
+    const resolved = sent.find((e) => e.channel === "agent-tool-permission-resolved");
+    assert.ok(resolved);
+    assert.equal(resolved.payload.permissionId, "p-timeout");
+    assert.equal(resolved.payload.decision, "deny");
+  } finally {
+    bridge.close();
+  }
+});

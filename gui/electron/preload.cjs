@@ -113,6 +113,11 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.on("agent-tool-permission", listener);
     return () => ipcRenderer.removeListener("agent-tool-permission", listener);
   },
+  onToolPermissionResolved: (callback) => {
+    const listener = (_event, payload) => callback(payload);
+    ipcRenderer.on("agent-tool-permission-resolved", listener);
+    return () => ipcRenderer.removeListener("agent-tool-permission-resolved", listener);
+  },
   handoffList: (status, targetInstanceId) =>
     ipcRenderer.invoke("handoff-list", status, targetInstanceId),
   runSafeAction: (command) => ipcRenderer.invoke("run-safe-action", command),

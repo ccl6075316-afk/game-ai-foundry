@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -57,9 +58,17 @@ def run_shell(
     work = resolve_cwd(cwd)
     limit = max(1.0, min(float(timeout_sec), float(MAX_TIMEOUT_SEC)))
     env = os.environ.copy()
-    # Prefer repo cli on PATH for convenience
+    # Prefer Foundry embedded Python + repo cli on PATH (Release has no system python).
+    prepend: list[str] = []
+    py = (env.get("GAMEFACTORY_PYTHON") or "").strip() or sys.executable
+    if py:
+        env["GAMEFACTORY_PYTHON"] = py
+        parent = str(Path(py).resolve().parent)
+        if parent:
+            prepend.append(parent)
     cli_dir = str(_REPO_ROOT / "cli")
-    env["PATH"] = cli_dir + os.pathsep + env.get("PATH", "")
+    prepend.append(cli_dir)
+    env["PATH"] = os.pathsep.join(prepend) + os.pathsep + env.get("PATH", "")
     env["GAMEFACTORY_SHELL"] = "1"
     try:
         proc = subprocess.run(

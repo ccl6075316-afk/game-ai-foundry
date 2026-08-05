@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import sys
+from typing import Any
 
 import click
 
@@ -421,6 +422,42 @@ def setup_agents_instances_group() -> None:
     """Manage agents.instances colleague overlays."""
 
 
+@setup_agents_instances_group.command("list")
+@click.option("--json", "as_json", is_flag=True)
+def setup_agents_instances_list_cmd(as_json: bool) -> None:
+    """List agents.instances (no secrets)."""
+    from provider_upsert import _load_config
+
+    cfg = _load_config()
+    agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
+    instances = agents.get("instances") if isinstance(agents.get("instances"), dict) else {}
+    rows: list[dict[str, Any]] = []
+    for iid, raw in instances.items():
+        if not isinstance(raw, dict):
+            continue
+        rows.append(
+            {
+                "instance_id": str(iid),
+                "role_kind": raw.get("role_kind"),
+                "executor": raw.get("executor"),
+                "provider": raw.get("provider"),
+                "model": raw.get("model"),
+                "thinking_level": raw.get("thinking_level"),
+                "use_third_party": raw.get("use_third_party"),
+            }
+        )
+    payload = {"ok": True, "count": len(rows), "instances": rows}
+    if as_json:
+        click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        click.echo(f"{len(rows)} instances")
+        for row in rows:
+            click.echo(
+                f"- {row['instance_id']}: role={row.get('role_kind') or '-'} "
+                f"executor={row.get('executor') or '-'} provider={row.get('provider') or '-'}"
+            )
+
+
 @setup_agents_instances_group.command("upsert")
 @click.option("--instance-id", "instance_id", required=True, help="GUI colleague instance id.")
 @click.option("--provider", "provider_id", default=None, help="Provider id (deepseek / openrouter / …).")
@@ -486,6 +523,39 @@ def setup_agents_instances_upsert_cmd(
 @setup_agents_group.group("executors")
 def setup_agents_executors_group() -> None:
     """Manage agents.executors tool presets."""
+
+
+@setup_agents_executors_group.command("show")
+@click.option("--json", "as_json", is_flag=True)
+def setup_agents_executors_show_cmd(as_json: bool) -> None:
+    """Show agents.executors presets (no secrets)."""
+    from provider_upsert import _load_config
+
+    cfg = _load_config()
+    agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
+    executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
+    clean: dict[str, Any] = {}
+    for eid, raw in executors.items():
+        if not isinstance(raw, dict):
+            continue
+        clean[str(eid)] = {
+            "provider": raw.get("provider"),
+            "model": raw.get("model"),
+            "use_third_party": raw.get("use_third_party"),
+            "sandbox": raw.get("sandbox"),
+            "yolo": raw.get("yolo"),
+            "permission_mode": raw.get("permission_mode"),
+        }
+    payload = {"ok": True, "executors": clean}
+    if as_json:
+        click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        for eid, entry in clean.items():
+            click.echo(
+                f"- {eid}: provider={entry.get('provider') or '-'} "
+                f"model={entry.get('model') or '-'} "
+                f"use_third_party={entry.get('use_third_party')}"
+            )
 
 
 @setup_agents_executors_group.command("upsert")
