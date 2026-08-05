@@ -543,15 +543,18 @@ def register_brief_commands(cli_group: click.Group) -> None:
         assert session is not None and result is not None
         try:
             host_save_session(path, session)
-            try:
-                from host_chat import persist_project_draft
-
-                persist_project_draft(session)
-            except Exception:
-                pass
+        except HostChatError as exc:
+            # Session JSON is still written; draft CAS may be recorded on session.
+            click.echo(f"Warning: {exc}", err=True)
         except OSError as exc:
             click.echo(f"Error: failed to save session: {exc}", err=True)
             sys.exit(1)
+        try:
+            from host_chat import persist_project_draft
+
+            persist_project_draft(session)
+        except Exception:
+            pass
 
         payload = {
             "session_id": session.get("id"),

@@ -180,6 +180,9 @@ export interface MakeabilityReview {
   draft_fingerprint?: string;
   intent_gaps?: MakeabilityIntentGap[];
   detail_gaps?: MakeabilityDetailGap[];
+  /** Critic-verified failures with saved answers — GUI shows retry card. */
+  repair_gaps?: MakeabilityIntentGap[];
+  repair_answers?: MakeabilityGapAnswer[];
 }
 
 export interface ProjectDocItem {

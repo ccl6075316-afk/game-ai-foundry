@@ -1681,17 +1681,36 @@ export default function App() {
       }
       let content = data.assistant_message || "制作审查完成。";
       const intentGaps = data.review?.intent_gaps || [];
+      const repairGaps = data.review?.repair_gaps || [];
       const hasIntent = intentGaps.some((g) => String(g?.id || "").trim());
+      const hasRepair = repairGaps.some((g) => String(g?.id || "").trim());
       const makeabilityCard = hasIntent
         ? {
             status: "pending" as const,
             review: data.review || { intent_gaps: intentGaps },
           }
-        : undefined;
+        : hasRepair
+          ? {
+              status: "repair_failed" as const,
+              review: {
+                ...(data.review || {}),
+                intent_gaps: repairGaps,
+              },
+              lastAnswers: (data.review?.repair_answers || []).map((row) => ({
+                gap_id: String(row.gap_id || ""),
+                ...(row.choice ? { choice: String(row.choice) } : {}),
+                ...(row.note ? { note: String(row.note) } : {}),
+              })),
+            }
+          : undefined;
       if (hasIntent) {
         content =
           (data.assistant_message || "制作审查完成。").split("\n\n")[0] +
           "\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。";
+      } else if (hasRepair) {
+        content =
+          (data.assistant_message || "制作审查完成。").split("\n\n")[0] +
+          "\n\n下方卡片可「重试写入」已保存的答案（无需重新选题）。";
       }
       appendAssistant(
         content,

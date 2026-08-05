@@ -597,8 +597,8 @@ def normalize_target_paths(raw: Any) -> tuple[str, ...]:
     return tuple(sorted({str(p).strip().lower() for p in raw if str(p).strip()}))
 
 
-def ledger_unique_target_path_keys(session: dict[str, Any]) -> dict[tuple[str, ...], str]:
-    """Normalized target_paths -> canonical decision_key when uniquely mapped in ledger."""
+def ledger_unique_path_keys(session: dict[str, Any]) -> dict[tuple[str, ...], str]:
+    """Normalized write_paths (else target_paths) -> canonical key when unique in ledger."""
     buckets: dict[tuple[str, ...], set[str]] = {}
     for entry in ensure_decision_ledger(session):
         if not isinstance(entry, dict):
@@ -606,7 +606,9 @@ def ledger_unique_target_path_keys(session: dict[str, Any]) -> dict[tuple[str, .
         snap = entry.get("gap_snapshot")
         if not isinstance(snap, dict):
             continue
-        sig = normalize_target_paths(snap.get("target_paths"))
+        sig = normalize_target_paths(snap.get("write_paths")) or normalize_target_paths(
+            snap.get("target_paths")
+        )
         if not sig:
             continue
         key = str(entry.get("decision_key") or "").strip()
@@ -615,21 +617,41 @@ def ledger_unique_target_path_keys(session: dict[str, Any]) -> dict[tuple[str, .
     return {sig: next(iter(keys)) for sig, keys in buckets.items() if len(keys) == 1}
 
 
+def ledger_unique_target_path_keys(session: dict[str, Any]) -> dict[tuple[str, ...], str]:
+    """Backward-compatible alias for path-signature uniqueness map."""
+    return ledger_unique_path_keys(session)
+
+
 def reconcile_intent_gaps_with_ledger(
     session: dict[str, Any],
     intent_gaps: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Reuse stable decision_key when target_paths uniquely match a ledger snapshot."""
-    sig_map = ledger_unique_target_path_keys(session)
+    """Reuse stable decision_key when path signature uniquely matches a ledger snapshot.
+
+    Explicit, non-gap decision_keys that differ from the ledger canonical key are kept
+    distinct even if they share a JSON path (same path can hold unrelated rules).
+    """
+    sig_map = ledger_unique_path_keys(session)
     out: list[dict[str, Any]] = []
     for gap in intent_gaps:
         if not isinstance(gap, dict):
             continue
         g = copy.deepcopy(gap)
-        sig = normalize_target_paths(g.get("target_paths"))
+        sig = normalize_target_paths(g.get("write_paths")) or normalize_target_paths(
+            g.get("target_paths")
+        )
+        llm_key = str(g.get("decision_key") or "").strip()
         if sig and sig in sig_map:
             canonical = sig_map[sig]
-            llm_key = str(g.get("decision_key") or "").strip() or resolve_decision_key(g)
+            explicit_other = (
+                bool(llm_key)
+                and not llm_key.startswith("gap.")
+                and llm_key != canonical
+            )
+            if explicit_other:
+                # Different named rule on an overlapping path — do not alias.
+                out.append(g)
+                continue
             g["decision_key"] = canonical
             if llm_key and llm_key != canonical:
                 g["decision_key_alias"] = llm_key
@@ -639,11 +661,52 @@ def reconcile_intent_gaps_with_ledger(
     return out
 
 
+def repair_failed_gaps_for_display(session: dict[str, Any]) -> list[dict[str, Any]]:
+    """Rebuild intent-gap cards for repair_failed ledger rows (Critic conflict recovery)."""
+    out: list[dict[str, Any]] = []
+    for entry in ensure_decision_ledger(session):
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("status") or "") != "repair_failed":
+            continue
+        if not str(entry.get("answer_text") or "").strip():
+            continue
+        gap_id = str(entry.get("gap_id") or "").strip()
+        if not gap_id:
+            continue
+        snap = entry.get("gap_snapshot")
+        if isinstance(snap, dict) and str(snap.get("id") or gap_id).strip():
+            gap = sanitize_intent_gap(copy.deepcopy(snap))
+            gap["id"] = gap_id
+            if not gap.get("decision_key"):
+                gap["decision_key"] = str(entry.get("decision_key") or "").strip()
+        else:
+            gap = sanitize_intent_gap(_synthesize_gap_from_ledger_entry(gap_id, entry))
+        out.append(gap)
+    return out
+
+
+def repair_answers_from_ledger(session: dict[str, Any]) -> list[dict[str, str]]:
+    """lastAnswers-shaped rows for repair_failed entries (GUI retry without re-pick)."""
+    out: list[dict[str, str]] = []
+    for entry in ensure_decision_ledger(session):
+        if not isinstance(entry, dict):
+            continue
+        if str(entry.get("status") or "") != "repair_failed":
+            continue
+        gap_id = str(entry.get("gap_id") or "").strip()
+        text = str(entry.get("answer_text") or "").strip()
+        if not gap_id or not text:
+            continue
+        out.append({"gap_id": gap_id, "choice": text, "note": ""})
+    return out
+
+
 def decision_key_alias_map_from_checks(
     session: dict[str, Any],
     checks: list[dict[str, Any]],
 ) -> dict[str, str]:
-    """No path-subset aliasing — same JSON path can hold unrelated rules.
+    """Disabled path-subset aliasing — same JSON path can hold unrelated rules.
 
     Alias maps must come from explicit gap identity (decision_key_alias /
     reconcile_intent_gaps_with_ledger). Kept for call-site compatibility.

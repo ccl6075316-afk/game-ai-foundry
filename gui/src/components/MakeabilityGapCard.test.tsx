@@ -29,8 +29,12 @@ test("MakeabilityGapCard repair_failed renders retry affordance", () => {
 test("MakeabilityGapCard retry click invokes onRetry (lastAnswers resubmit path)", async () => {
   const window = new Window({ url: "https://localhost/" });
   const { document } = window;
-  (globalThis as { window?: Window; document?: Document }).window = window as unknown as Window;
-  (globalThis as { document?: Document }).document = document as unknown as Document;
+  const g = globalThis as unknown as {
+    window?: unknown;
+    document?: unknown;
+  };
+  g.window = window;
+  g.document = document;
 
   let retried = false;
   const lastAnswers = [{ gap_id: "gap_a", choice: "B" }];

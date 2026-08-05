@@ -63,6 +63,8 @@ from makeability_decisions import (
     record_gap_answers,
     reconcile_intent_gaps_with_ledger,
     remove_verified_gaps_from_review,
+    repair_answers_from_ledger,
+    repair_failed_gaps_for_display,
     required_paths_by_key_from_gaps,
     resolve_gaps_for_answers,
     suppress_intent_gaps_by_ledger,
@@ -534,11 +536,26 @@ def load_session(path: Path) -> dict[str, Any]:
     return data
 
 
-def save_session(path: Path, session: dict[str, Any]) -> None:
+def save_session(
+    path: Path,
+    session: dict[str, Any],
+    *,
+    persist_draft: bool = True,
+) -> None:
+    """Persist session JSON. Draft CAS failures must not block session durability.
+
+    Order: attempt draft sync (updates fingerprints in-memory), then always write
+    the session file so decision_ledger answers survive disk conflicts (H1).
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     session["updated_at"] = _utc_now()
-    # Keep projects/<slug>/brief.draft.json in sync with GUI chat draft
-    persist_project_draft(session)
+    if persist_draft:
+        try:
+            persist_project_draft(session)
+            session.pop("last_draft_persist_error", None)
+        except HostChatError as exc:
+            # Session ledger / answers still must land on disk.
+            session["last_draft_persist_error"] = str(exc)
     path.write_text(json.dumps(session, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
@@ -1157,6 +1174,11 @@ def _build_makeability_review(
                 current_draft_fingerprint=fingerprint,
             )
         intent_gaps = suppress_intent_gaps_by_ledger(session, intent_gaps)
+        repair_gaps = repair_failed_gaps_for_display(session)
+        repair_answers = repair_answers_from_ledger(session)
+    else:
+        repair_gaps = []
+        repair_answers = []
     return {
         "schema_version": MAKEABILITY_SCHEMA_VERSION,
         "reviewed_at": _utc_now(),
@@ -1165,6 +1187,8 @@ def _build_makeability_review(
         "detail_gaps": detail_gaps,
         "suggested_defaults": suggested_defaults,
         "decision_checks": decision_checks,
+        "repair_gaps": repair_gaps,
+        "repair_answers": repair_answers,
     }
 
 
@@ -1366,6 +1390,8 @@ def run_makeability_review(
     session["makeability_review"] = review
     intent_count = len(review["intent_gaps"])
     detail_count = len(review["detail_gaps"])
+    repair_gaps = review.get("repair_gaps") if isinstance(review.get("repair_gaps"), list) else []
+    repair_count = len(repair_gaps)
 
     if session.get("draft_brief") != draft_before:
         session["draft_brief"] = draft_before
@@ -1379,6 +1405,11 @@ def run_makeability_review(
         assistant_message += " 意图未关前不可交接项目经理。"
     elif detail_count:
         assistant_message += " 施工细节将进 production，PM 可补暂定值。"
+    if repair_count:
+        assistant_message += (
+            f" 另有 {repair_count} 条已答决定验证失败，请在卡片中「重试写入」"
+            "（无需重新选题）。"
+        )
     details = format_makeability_review_details(review, session=session)
     if details:
         assistant_message = f"{assistant_message}\n\n{details}"
@@ -1394,6 +1425,7 @@ def run_makeability_review(
         "review": review,
         "intent_count": intent_count,
         "detail_count": detail_count,
+        "repair_count": repair_count,
         "ready_to_export": bool(session.get("ready_to_export")),
         "session_id": session.get("id"),
         "assistant_message": assistant_message,

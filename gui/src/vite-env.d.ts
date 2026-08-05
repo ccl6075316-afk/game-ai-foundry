@@ -649,6 +649,7 @@ declare global {
           review?: import("./chat/types").MakeabilityReview;
           intent_count?: number;
           detail_count?: number;
+          repair_count?: number;
           ready_to_export?: boolean;
           assistant_message?: string;
           session_id?: string;

@@ -240,8 +240,39 @@ class TargetPathReconcileTests(unittest.TestCase):
             }
         ]
         reconciled = reconcile_intent_gaps_with_ledger(session, raw_gaps)
+        # Explicit different decision_key on same path must stay distinct (M2).
+        self.assertEqual(reconciled[0]["decision_key"], "system.aquarium.entry_rule")
+        self.assertNotIn("decision_key_alias", reconciled[0])
+        filtered = suppress_intent_gaps_by_ledger(session, reconciled)
+        self.assertEqual(len(filtered), 1)
+
+    def test_gap_id_fallback_key_still_reconciles_by_path(self) -> None:
+        paths = ["project.systems[id=aquarium].notes"]
+        session = new_session("path-reconcile-gapkey")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "old_gap",
+                "answer_text": "B",
+                "status": "verified",
+                "gap_snapshot": {
+                    "id": "old_gap",
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "target_paths": paths,
+                },
+                "verified_draft_fingerprint": "fp1",
+            }
+        ]
+        raw_gaps = [
+            {
+                "id": "brand_new_gap",
+                "decision_key": "gap.brand_new_gap",
+                "target_paths": paths,
+                "question": "reworded?",
+            }
+        ]
+        reconciled = reconcile_intent_gaps_with_ledger(session, raw_gaps)
         self.assertEqual(reconciled[0]["decision_key"], "system.aquarium.unlock_rule")
-        self.assertEqual(reconciled[0].get("decision_key_alias"), "system.aquarium.entry_rule")
         filtered = suppress_intent_gaps_by_ledger(session, reconciled)
         self.assertEqual(filtered, [])
 
@@ -477,13 +508,12 @@ class CriticAliasCanonicalTests(unittest.TestCase):
         ]
         reconciled = reconcile_intent_gaps_with_ledger(session, raw_gaps)
         alias_map = decision_key_alias_map_from_gaps(reconciled)
-        self.assertEqual(
-            alias_map.get("system.aquarium.entry_rule"),
-            "system.aquarium.unlock_rule",
-        )
+        # Explicit other key on same path: no alias merge (M2).
+        self.assertEqual(alias_map, {})
+        self.assertEqual(reconciled[0]["decision_key"], "system.aquarium.entry_rule")
         raw_checks = [
             {
-                "decision_key": "system.aquarium.entry_rule",
+                "decision_key": "system.aquarium.unlock_rule",
                 "status": "satisfied",
                 "evidence_paths": paths,
             }
@@ -1600,6 +1630,130 @@ class MakeabilityAnswerCliTests(unittest.TestCase):
 
 
 class ReviewFindingFixesTests(unittest.TestCase):
+    def test_save_session_survives_draft_cas_conflict(self) -> None:
+        """H1: decision answers must land in session JSON even when draft CAS fails."""
+        from host_chat import persist_project_draft, save_session
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            conv = root / "conv"
+            conv.mkdir()
+            session = new_session("cas-answer")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            # External disk edit while session still at tracked content.
+            (proj / "brief.draft.json").write_text(
+                json.dumps({"project": {"title": "Disk"}, "assets": []}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            session["decision_ledger"] = [
+                {
+                    "decision_key": "system.a",
+                    "gap_id": "g1",
+                    "answer_text": "B saved before LLM",
+                    "status": "pending",
+                }
+            ]
+            sess_path = conv / "sess.json"
+            # Patch repo root resolution used by save_session → persist_project_draft
+            with patch("host_chat._repo_root", return_value=root):
+                save_session(sess_path, session)
+            loaded = json.loads(sess_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                loaded["decision_ledger"][0]["answer_text"],
+                "B saved before LLM",
+            )
+            self.assertTrue(str(loaded.get("last_draft_persist_error") or ""))
+            disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
+            self.assertEqual(disk["project"]["title"], "Disk")
+
+    def test_persist_after_record_keeps_answers_when_cas_blocks_draft(self) -> None:
+        from host_chat import persist_project_draft, save_session
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            conv = root / "conv"
+            conv.mkdir()
+            session = new_session("cas-persist-after")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = _minimal_draft()
+            persist_project_draft(session, repo_root=root)
+            (proj / "brief.draft.json").write_text(
+                json.dumps(
+                    {"project": {"title": "External"}, "assets": []},
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            session["makeability_review"] = {
+                "schema_version": 2,
+                "intent_gaps": [
+                    {
+                        "id": "aquarium_unlock_flow",
+                        "decision_key": "system.aquarium.unlock_rule",
+                        "question": "Q",
+                        "choices": ["A", "B"],
+                        "target_paths": ["project.systems[id=aquarium].notes"],
+                    }
+                ],
+                "detail_gaps": [],
+                "suggested_defaults": [],
+            }
+            sess_path = conv / "sess.json"
+            saved: list[str] = []
+
+            def persist_after_record(sess: dict) -> None:
+                with patch("host_chat._repo_root", return_value=root):
+                    save_session(sess_path, sess)
+                saved.append("ok")
+
+            closer = {
+                "assistant_message": "done",
+                "brief_patches": [
+                    {
+                        "op": "upsert_system",
+                        "match": {"id": "aquarium"},
+                        "set": {"notes": "unlocked"},
+                    }
+                ],
+            }
+            verifier = {
+                "decision_checks": [
+                    {
+                        "decision_key": "system.aquarium.unlock_rule",
+                        "gap_id": "aquarium_unlock_flow",
+                        "status": "satisfied",
+                        "evidence_paths": ["project.systems[id=aquarium].notes"],
+                    }
+                ]
+            }
+            with patch(
+                "host_chat.chat_text_completion",
+                side_effect=_route_llm(closer=closer, verifier=verifier),
+            ), patch(
+                "host_chat.resolve_host_api_settings",
+                return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
+            ), patch("host_chat._repo_root", return_value=root):
+                # First persist_after_record runs mid-flow; draft CAS soft-fails.
+                result = answer_makeability_gaps(
+                    session,
+                    [{"gap_id": "aquarium_unlock_flow", "choice": "B"}],
+                    config={},
+                    persist_after_record=persist_after_record,
+                )
+            self.assertEqual(saved, ["ok"])
+            mid = json.loads(sess_path.read_text(encoding="utf-8"))
+            self.assertIn("B", mid["decision_ledger"][0]["answer_text"])
+            # Whole-card may repair_failed if draft wasn't updated due to CAS —
+            # answers must still be durable either way.
+            self.assertTrue(mid["decision_ledger"][0].get("answer_text"))
+            self.assertIsNotNone(result)
+
     def test_illegal_occurrence_relation_rejected(self) -> None:
         from host_chat import _build_makeability_review
 
@@ -1739,6 +1893,56 @@ class ReviewFindingFixesTests(unittest.TestCase):
             "system.aquarium.unlock_rule",
         )
         self.assertTrue(gaps["aquarium_unlock_flow"].get("write_paths"))
+
+    def test_critic_conflict_exposes_repair_gaps_and_answers(self) -> None:
+        from host_chat import _build_makeability_review
+        from makeability_decisions import repair_answers_from_ledger, repair_failed_gaps_for_display
+
+        draft = _minimal_draft()
+        fp = draft_fingerprint(draft)
+        session = new_session("repair-gaps")
+        session["draft_brief"] = draft
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "aquarium_unlock_flow",
+                "answer_text": "B 开局可进",
+                "status": "verified",
+                "verified_draft_fingerprint": fp,
+                "gap_snapshot": {
+                    "id": "aquarium_unlock_flow",
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "question": "水族馆？",
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                    "choices": ["A", "B"],
+                },
+            }
+        ]
+        parsed = {
+            "intent_gaps": [],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+            "decision_checks": [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "status": "conflict",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ],
+        }
+        review = _build_makeability_review(parsed, fingerprint=fp, session=session)
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "repair_failed")
+        self.assertEqual(len(review.get("repair_gaps") or []), 1)
+        self.assertEqual(review["repair_gaps"][0]["id"], "aquarium_unlock_flow")
+        self.assertEqual(len(review.get("repair_answers") or []), 1)
+        self.assertEqual(
+            repair_failed_gaps_for_display(session)[0]["id"],
+            "aquarium_unlock_flow",
+        )
+        self.assertEqual(
+            repair_answers_from_ledger(session)[0]["choice"],
+            "B 开局可进",
+        )
 
 
 if __name__ == "__main__":
