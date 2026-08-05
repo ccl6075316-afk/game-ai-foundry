@@ -10,7 +10,8 @@
 | Review Date | 2026-08-05 |
 | Status | `APPROVED` |
 
-**审查范围：** 假成功门闩落地后的全分支复审（重点 `0d4a546` + 既有 ledger/CAS/repair 卡）。  
+**审查范围：** 假成功门闩落地后的全分支复审（重点 `0d4a546` + 既有 ledger/CAS/repair 卡）。
+
 **Loaded standards：** `.ai/anvil/reviews/2026-08-05-makeability-repeat-final-review.md`、`docs/solutions/patterns/critical-patterns.md`
 
 ---
