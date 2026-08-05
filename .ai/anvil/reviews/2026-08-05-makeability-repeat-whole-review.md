@@ -76,8 +76,13 @@ CLEAN（无密钥/注入/XSS；happy-dom 仅测试）。
 | R1 | Critic 对**同一规则**换显式新 `decision_key` 仍可能再问 | 为避免「同 path 多规则」误合并；换 key 是 Critic 质量问题 |
 | R2 | closer 首句可能仍像「已写入」，靠后续「草稿未写入磁盘」纠正 | 状态机与 `ok`/`repair_failed` 已正确 |
 | R3 | 双卡文案只取 `assistant_message` 首段 | 卡片本身可操作；细节可再点审查 |
-| R4 | answer 成功后再 `brief_cmds` 二次 `persist` 吞异常 | 主路径已在 answer 内强制落盘 |
+| R4 | answer 成功后再 `brief_cmds` 二次 `persist` 吞异常 | 主路径已在 answer 内强制落盘；导出仍被 ledger 挡 |
 | R5 | 本机多进程同时改 `brief.draft.json` 的 TOCTOU | 产品场景为单用户 GUI |
+| R6 | `makeability-answer` 未先 `sync_session_draft_from_disk`（并行审查） | CAS 拒覆盖；可能多走 repair，不静默写坏盘 |
+| R7 | `gap.*` 键仍可能按 path 签名并入 ledger（并行审查） | 显式 `system.*` 已测；理论错绑边界 |
+| R8 | GUI `intent_count` 未 suppress；卡片 `ok` 未再断言 `draft_persisted`（并行审查） | 导出门闩与后端 `ok⇔draft_persisted` 已收紧 |
+
+并行独立审查（[关键路径审查](7e8cec01-b2d8-4db0-bc61-b088d5f9f941)）同样 **APPROVE**，无 BLOCKING。
 
 ---
 
