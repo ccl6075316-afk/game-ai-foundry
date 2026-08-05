@@ -516,10 +516,30 @@ def register_brief_commands(cli_group: click.Group) -> None:
     ) -> None:
         """Apply structured makeability gap-card answers into draft_brief."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
+        path = _chat_session_path(session_id, session_path)
+        session: dict | None = None
+        result: dict | None = None
         try:
-            path = _chat_session_path(session_id, session_path)
             session = host_load_session(path)
-            result = host_answer_makeability_gaps(session, answers, config=config)
+
+            def persist_after_record(sess: dict) -> None:
+                host_save_session(path, sess)
+
+            result = host_answer_makeability_gaps(
+                session,
+                answers,
+                config=config,
+                persist_after_record=persist_after_record,
+            )
+        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        except OSError as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        assert session is not None and result is not None
+        try:
             host_save_session(path, session)
             try:
                 from host_chat import persist_project_draft
@@ -527,8 +547,8 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 persist_project_draft(session)
             except Exception:
                 pass
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
+        except OSError as exc:
+            click.echo(f"Error: failed to save session: {exc}", err=True)
             sys.exit(1)
 
         payload = {
@@ -542,10 +562,11 @@ def register_brief_commands(cli_group: click.Group) -> None:
         else:
             click.echo(result.get("assistant_message") or "makeability answers applied")
             click.echo(
-                f"closed={len(result.get('closed_ids') or [])} "
+                f"ok={result.get('ok')} verified={len(result.get('verified_ids') or [])} "
+                f"repair_failed={len(result.get('repair_failed_ids') or [])} "
                 f"remaining_intent={result.get('remaining_intent_count', 0)}"
             )
-        if int(result.get("remaining_intent_count") or 0) > 0:
+        if not result.get("ok"):
             sys.exit(2)
 
     @chat_group.command("enrich")

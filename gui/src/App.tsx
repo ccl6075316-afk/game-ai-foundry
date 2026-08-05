@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
+import {
+  makeabilityCardAfterServerPatch,
+  makeabilityCardLocalSubmitPatch,
+} from "./chat/makeabilityCardStatus";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
 import { ColleagueConfigBar } from "./components/ColleagueConfigBar";
@@ -1741,6 +1745,22 @@ export default function App() {
       undefined,
       sessionTarget,
     );
+    const localPatch = makeabilityCardLocalSubmitPatch(answers);
+    patchChatStore((prev) =>
+      updateSessionMessages(prev, sessionTarget.instanceId, sessionTarget.sessionId, (msgs) =>
+        msgs.map((m) =>
+          m.id === messageId && m.makeabilityCard
+            ? {
+                ...m,
+                makeabilityCard: {
+                  ...m.makeabilityCard,
+                  ...localPatch,
+                },
+              }
+            : m,
+        ),
+      ),
+    );
     try {
       const res = await window.gameFactory.hostChatMakeabilityAnswer(
         sessionTarget.sessionId,
@@ -1755,13 +1775,18 @@ export default function App() {
       if (!data) {
         throw new Error(res.stderr || res.stdout || "makeability-answer failed");
       }
+      const serverPatch = makeabilityCardAfterServerPatch(data, answers);
       patchChatStore((prev) =>
         updateSessionMessages(prev, sessionTarget.instanceId, sessionTarget.sessionId, (msgs) =>
           msgs.map((m) =>
             m.id === messageId && m.makeabilityCard
               ? {
                   ...m,
-                  makeabilityCard: { ...m.makeabilityCard, status: "applied" as const },
+                  makeabilityCard: {
+                    ...m.makeabilityCard,
+                    ...serverPatch,
+                    review: data.review ?? m.makeabilityCard.review,
+                  },
                 }
               : m,
           ),
@@ -4162,6 +4187,11 @@ export default function App() {
             onMakeabilityAnswer={(messageId, answers) =>
               void handleMakeabilityAnswer(messageId, answers)
             }
+            onMakeabilityRetry={(messageId) => {
+              const msg = messages.find((m) => m.id === messageId);
+              const last = msg?.makeabilityCard?.lastAnswers;
+              if (last?.length) void handleMakeabilityAnswer(messageId, last);
+            }}
             heroTitle={hero.title}
             heroSubtitle={hero.subtitle}
             suggestions={suggestions}

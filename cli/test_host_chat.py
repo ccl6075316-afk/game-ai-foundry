@@ -542,11 +542,27 @@ class HostChatTests(unittest.TestCase):
                     "set": {"notes": "unlocked from the start"},
                 }
             ],
-            "closed_intent_gap_ids": ["aquarium_unlock_flow"],
         }
+        verifier = {
+            "decision_checks": [
+                {
+                    "decision_key": "gap.aquarium_unlock_flow",
+                    "gap_id": "aquarium_unlock_flow",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ]
+        }
+
+        def _side(**kwargs):
+            messages = kwargs["messages"]
+            if "Makeability Verifier" in messages[0]["content"]:
+                return json.dumps(verifier, ensure_ascii=False)
+            return json.dumps(closer, ensure_ascii=False)
+
         with patch(
             "host_chat.chat_text_completion",
-            return_value=json.dumps(closer, ensure_ascii=False),
+            side_effect=_side,
         ), patch(
             "host_chat.resolve_host_api_settings",
             return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
@@ -796,6 +812,30 @@ class HostChatTests(unittest.TestCase):
 
         payload = _build_user_payload(session, "chat")
         self.assertIn("conversation_summary", payload)
+
+    def test_compress_prompt_excludes_ledger_decisions(self) -> None:
+        from host_chat import _compress_prompt
+
+        ledger = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "answer_text": "开局可进",
+                "status": "verified",
+            }
+        ]
+        prompt = _compress_prompt("已有摘要", [{"role": "user", "content": "hi"}], decision_ledger=ledger)
+        self.assertIn("勿写入 conversation_summary", prompt)
+        self.assertIn("system.aquarium.unlock_rule", prompt)
+        self.assertIn("禁止", prompt)
+        self.assertNotIn("保留已拍板设定", prompt)
+
+    def test_compress_prompt_without_ledger_backward_compatible(self) -> None:
+        from host_chat import _compress_prompt
+
+        prompt = _compress_prompt("old", [{"role": "user", "content": "讨论横版"}])
+        self.assertIn("待定", prompt)
+        self.assertIn("较早对话", prompt)
+        self.assertIn("（无 — 宿主未注入 decision_ledger）", prompt)
 
     def test_export_requires_draft(self) -> None:
         session = new_session("e1")

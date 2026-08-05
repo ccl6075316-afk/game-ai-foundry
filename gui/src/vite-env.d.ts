@@ -659,15 +659,14 @@ declare global {
         answers: Array<{ gap_id: string; choice?: string; note?: string }>,
         instanceId?: string,
       ) => Promise<
-        CliResult<{
-          ok?: boolean;
-          closed_ids?: string[];
-          remaining_intent_count?: number;
-          assistant_message?: string;
-          draft_brief?: import("./chat/types").HostChatDraftBrief | null;
-          review?: import("./chat/types").MakeabilityReview;
-          session_id?: string;
-        } & import("./chat/types").HostChatStatus>
+        CliResult<
+          import("./chat/types").MakeabilityAnswerResult & {
+            assistant_message?: string;
+            draft_brief?: import("./chat/types").HostChatDraftBrief | null;
+            review?: import("./chat/types").MakeabilityReview;
+            session_id?: string;
+          } & import("./chat/types").HostChatStatus
+        >
       >;
       hostChatEnrich: (
         sessionId: string,

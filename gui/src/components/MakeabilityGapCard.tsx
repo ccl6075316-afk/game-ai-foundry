@@ -9,9 +9,10 @@ export interface MakeabilityGapAnswer {
 
 interface Props {
   review: MakeabilityReview;
-  status?: "pending" | "applied" | "dismissed";
+  status?: "pending" | "applied" | "repair_failed" | "dismissed";
   busy?: boolean;
   onSubmit: (answers: MakeabilityGapAnswer[]) => void;
+  onRetry?: () => void;
 }
 
 export function MakeabilityGapCard({
@@ -19,6 +20,7 @@ export function MakeabilityGapCard({
   status = "pending",
   busy = false,
   onSubmit,
+  onRetry,
 }: Props) {
   const gaps = useMemo(
     () =>
@@ -32,7 +34,7 @@ export function MakeabilityGapCard({
   const [choices, setChoices] = useState<Record<string, string>>({});
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  if (!gaps.length) return null;
+  if (!gaps.length && status === "pending") return null;
 
   const pick = (gapId: string, choice: string) => {
     setChoices((prev) => ({ ...prev, [gapId]: choice }));
@@ -70,8 +72,10 @@ export function MakeabilityGapCard({
           {status === "pending"
             ? `独立子 Agent · ${gaps.length} 条意图缺口`
             : status === "applied"
-              ? "已写入草稿"
-              : "已关闭"}
+              ? "已验证并写入草稿"
+              : status === "repair_failed"
+                ? "答案已保存，可重试写入"
+                : "已关闭"}
         </span>
       </div>
       {status === "pending" ? (
@@ -134,6 +138,20 @@ export function MakeabilityGapCard({
             </button>
           </div>
         </>
+      ) : status === "repair_failed" ? (
+        <p className="makeability-gap-card__hint">
+          答案已保存在会话中，但未能验证写入草稿。请重试写入，无需重新选择选项。
+          {onRetry ? (
+            <button
+              type="button"
+              className="makeability-gap-card__submit"
+              disabled={busy}
+              onClick={() => onRetry()}
+            >
+              重试写入
+            </button>
+          ) : null}
+        </p>
       ) : null}
     </div>
   );

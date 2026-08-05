@@ -22,6 +22,7 @@
 
 - 当前 `draft_brief` JSON
 - `genre`（类型启发）
+- **`decision_ledger`**（用户已在制作审查卡片拍板的决定；`verified` 条目不得再作为 intent 问题）
 
 **禁止**读取或假设任何策划聊天历史。
 
@@ -69,6 +70,8 @@
   "intent_gaps": [
     {
       "id": "snake_case_id",
+      "decision_key": "system.scope.rule",
+      "target_paths": ["project.systems[id=scope].notes"],
       "question": "向策划提出的中文问题",
       "why_blocking": "为何阻塞开干/交接",
       "choices": ["选项 A", "选项 B"]
@@ -89,12 +92,22 @@
       "confidence": "low | medium",
       "note": "provisional placeholder — 仅供 production 暂定"
     }
+  ],
+  "decision_checks": [
+    {
+      "decision_key": "system.scope.rule",
+      "status": "satisfied | missing | conflict",
+      "evidence_paths": ["project.systems[id=scope].notes"]
+    }
   ]
 }
 ```
 
 规则：
 
+- **`decision_key`** 必须稳定（`system.<scope>.<rule>`）；同一语义换 `id`/措辞不得重复开 intent
+- **`target_paths`** 指向草稿中应体现该决定的 JSON 路径（systems/scenes/ui_panels）
+- **`decision_checks`**：对照 `decision_ledger` 与草稿，已 verified 的决定标 `satisfied`，草稿矛盾标 `conflict`，未写入标 `missing`；**不要**为 satisfied 的 key 再生成 intent_gaps
 - `choices` 可选；intent 缺口尽量给 2–4 个可点选项
 - `suggested_defaults` **仅**对应 `detail_gaps`；`confidence` 默认 `low`；必须注明 provisional
 - 无缺口时用空数组 `[]`，不要省略键

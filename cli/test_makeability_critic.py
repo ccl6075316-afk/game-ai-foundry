@@ -113,7 +113,7 @@ class MakeabilityCriticTests(unittest.TestCase):
 
         review = session.get("makeability_review")
         self.assertIsInstance(review, dict)
-        self.assertEqual(review.get("schema_version"), 1)
+        self.assertEqual(review.get("schema_version"), 2)
         self.assertEqual(review.get("draft_fingerprint"), draft_fingerprint(_FISHING_DRAFT))
         self.assertGreaterEqual(len(review.get("detail_gaps") or []), 3)
 
@@ -127,7 +127,7 @@ class MakeabilityCriticTests(unittest.TestCase):
         session = new_session("fish-bad-json")
         session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
         old_review = {
-            "schema_version": 1,
+            "schema_version": 2,
             "reviewed_at": "2026-07-27T00:00:00+00:00",
             "draft_fingerprint": "old",
             "intent_gaps": [],
@@ -179,6 +179,66 @@ class MakeabilityCriticTests(unittest.TestCase):
         self.assertTrue(latest.get("fingerprint_match"))
         self.assertEqual(len(latest.get("intent_gaps") or []), 1)
         self.assertIn("win_condition", str(latest["intent_gaps"][0].get("id")))
+
+    def test_repeat_makeability_review_does_not_repeat_detail_topics(self) -> None:
+        session = new_session("detail-dedupe")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        payload = _detail_gaps_mock()
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(payload, ensure_ascii=False),
+        ):
+            first = run_makeability_review(session, config=config)
+        topic = payload["detail_gaps"][0]["topic"]
+        self.assertIn(topic, first["assistant_message"])
+        self.assertGreaterEqual(len(session["makeability_review"]["detail_gaps"]), 3)
+
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(payload, ensure_ascii=False),
+        ):
+            second = run_makeability_review(session, config=config)
+
+        self.assertNotIn(topic, second["assistant_message"])
+        self.assertIn("不再重复", second["assistant_message"])
+        self.assertGreaterEqual(len(session["makeability_review"]["detail_gaps"]), 3)
+
+    def test_detail_dedupe_same_topic_different_id(self) -> None:
+        from makeability_decisions import detail_gap_stable_key
+
+        topic = "Bite Rate And Timing"
+        session = new_session("topic-dedupe")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        first_payload = {
+            "intent_gaps": [],
+            "detail_gaps": [{"id": "bite_rate", "topic": topic}],
+            "suggested_defaults": [],
+        }
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(first_payload, ensure_ascii=False),
+        ):
+            first = run_makeability_review(session, config=config)
+        self.assertIn(topic.lower(), first["assistant_message"].lower())
+
+        second_payload = {
+            "intent_gaps": [],
+            "detail_gaps": [{"id": "bite_rate_v2", "topic": "  bite   rate and timing  "}],
+            "suggested_defaults": [],
+        }
+        self.assertEqual(
+            detail_gap_stable_key(first_payload["detail_gaps"][0]),
+            detail_gap_stable_key(second_payload["detail_gaps"][0]),
+        )
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(second_payload, ensure_ascii=False),
+        ):
+            second = run_makeability_review(session, config=config)
+        self.assertNotIn("bite_rate_v2", second["assistant_message"])
+        self.assertIn("不再重复", second["assistant_message"])
 
     def test_format_makeability_review_details_lists_gaps(self) -> None:
         text = format_makeability_review_details(

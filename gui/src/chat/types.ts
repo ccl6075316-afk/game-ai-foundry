@@ -27,8 +27,25 @@ export interface ToolPermissionCard {
 }
 
 export interface MakeabilityCardState {
-  status: "pending" | "applied" | "dismissed";
+  status: "pending" | "applied" | "repair_failed" | "dismissed";
   review: MakeabilityReview;
+  /** Last submitted answers — used for repair_failed retry without re-picking. */
+  lastAnswers?: MakeabilityGapAnswer[];
+}
+
+export interface MakeabilityGapAnswer {
+  gap_id: string;
+  choice?: string;
+  note?: string;
+}
+
+export interface MakeabilityAnswerResult {
+  ok?: boolean;
+  repair_failed?: boolean;
+  verified_ids?: string[];
+  repair_failed_ids?: string[];
+  remaining_intent_count?: number;
+  closed_ids?: string[];
 }
 
 export interface ChatMessage {
@@ -135,6 +152,8 @@ export interface HostChatStatus {
 
 export interface MakeabilityIntentGap {
   id?: string;
+  decision_key?: string;
+  target_paths?: string[];
   question?: string;
   why_blocking?: string;
   choices?: string[];
