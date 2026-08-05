@@ -1362,6 +1362,99 @@ class HostChatTests(unittest.TestCase):
             # Second call with unchanged mtime should be a no-op.
             self.assertFalse(sync_session_draft_from_disk(session, repo_root=root))
 
+    def test_sync_disk_only_change_pulls_from_disk(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-disk-only")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            tracked = session["draft_disk_fingerprint"]
+            disk_only = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_only, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            self.assertNotEqual(draft_fingerprint(disk_only), tracked)
+            self.assertEqual(
+                draft_fingerprint(session["draft_brief"]),
+                tracked,
+            )
+            self.assertTrue(sync_session_draft_from_disk(session, repo_root=root))
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Disk Edit")
+
+    def test_sync_session_only_change_keeps_session(self) -> None:
+        from host_chat import persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-session-only")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            self.assertFalse(sync_session_draft_from_disk(session, repo_root=root))
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Session Edit")
+
+    def test_sync_dual_edit_raises_without_overwrite(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-dual")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            session_fp = draft_fingerprint(session["draft_brief"])
+            disk_other = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_other, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            disk_fp = draft_fingerprint(disk_other)
+            tracked = session["draft_disk_fingerprint"]
+            self.assertNotEqual(session_fp, tracked)
+            self.assertNotEqual(disk_fp, tracked)
+            self.assertNotEqual(session_fp, disk_fp)
+            with self.assertRaises(HostChatError):
+                sync_session_draft_from_disk(session, repo_root=root)
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Session Edit")
+
+    def test_sync_force_overwrites_after_dual_edit(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-force")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            disk_other = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_other, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            self.assertTrue(
+                sync_session_draft_from_disk(session, repo_root=root, force=True)
+            )
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Disk Edit")
+            self.assertEqual(
+                session["draft_disk_fingerprint"],
+                draft_fingerprint(session["draft_brief"]),
+            )
+
     def test_save_session_persists_bound_draft(self) -> None:
         from host_chat import persist_project_draft, save_session
 

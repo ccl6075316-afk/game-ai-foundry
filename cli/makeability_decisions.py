@@ -11,6 +11,7 @@ from typing import Any, Callable
 
 DECISION_STATUSES = frozenset({"pending", "applied", "verified", "repair_failed"})
 MAX_AUTO_REPAIR_ATTEMPTS = 2
+OCCURRENCE_RELATIONS = frozenset({"canonical", "duplicate", "conflict"})
 
 
 def _utc_now() -> str:
@@ -43,17 +44,100 @@ def _json_safe(value: Any) -> Any:
         return str(value)
 
 
+def normalize_path_list(raw: Any) -> list[str]:
+    if not isinstance(raw, list):
+        return []
+    seen: set[str] = set()
+    out: list[str] = []
+    for p in raw:
+        text = str(p).strip()
+        if not text:
+            continue
+        key = text.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(text)
+    return out
+
+
+def normalize_occurrences(raw: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    seen_paths: set[str] = set()
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        path = str(item.get("path") or "").strip()
+        if not path:
+            continue
+        path_key = path.lower()
+        if path_key in seen_paths:
+            continue
+        relation = str(item.get("relation") or "").strip().lower()
+        if relation not in OCCURRENCE_RELATIONS:
+            continue
+        row: dict[str, Any] = {"path": path, "relation": relation}
+        summary = str(item.get("current_summary") or "").strip()
+        if summary:
+            row["current_summary"] = summary
+        out.append(row)
+        seen_paths.add(path_key)
+    return out
+
+
+def normalize_write_paths(raw: Any) -> list[str]:
+    return normalize_path_list(raw)
+
+
+def required_write_paths_from_gap(gap: dict[str, Any]) -> list[str]:
+    wp = normalize_write_paths(gap.get("write_paths"))
+    if wp:
+        return wp
+    return normalize_path_list(gap.get("target_paths"))
+
+
+def sanitize_intent_gap(gap: dict[str, Any]) -> dict[str, Any]:
+    g = copy.deepcopy(gap)
+    occurrences = normalize_occurrences(g.get("occurrences"))
+    if occurrences:
+        g["occurrences"] = occurrences
+    else:
+        g.pop("occurrences", None)
+    write_paths = normalize_write_paths(g.get("write_paths"))
+    if write_paths:
+        g["write_paths"] = write_paths
+    elif "write_paths" in g:
+        g.pop("write_paths", None)
+    tp = normalize_path_list(g.get("target_paths"))
+    if tp:
+        g["target_paths"] = tp
+    elif "target_paths" in g:
+        g.pop("target_paths", None)
+    if not g.get("decision_key"):
+        g["decision_key"] = resolve_decision_key(g)
+    return g
+
+
 def _gap_snapshot(gap: dict[str, Any]) -> dict[str, Any]:
+    g = sanitize_intent_gap(gap)
     snap = {
-        "id": str(gap.get("id") or "").strip(),
-        "decision_key": resolve_decision_key(gap),
-        "question": str(gap.get("question") or "").strip(),
-        "why_blocking": str(gap.get("why_blocking") or "").strip(),
+        "id": str(g.get("id") or "").strip(),
+        "decision_key": resolve_decision_key(g),
+        "question": str(g.get("question") or "").strip(),
+        "why_blocking": str(g.get("why_blocking") or "").strip(),
     }
-    tp = gap.get("target_paths")
-    if isinstance(tp, list):
-        snap["target_paths"] = [str(p).strip() for p in tp if str(p).strip()]
-    choices = gap.get("choices")
+    tp = g.get("target_paths")
+    if isinstance(tp, list) and tp:
+        snap["target_paths"] = list(tp)
+    occ = g.get("occurrences")
+    if isinstance(occ, list) and occ:
+        snap["occurrences"] = copy.deepcopy(occ)
+    wp = g.get("write_paths")
+    if isinstance(wp, list) and wp:
+        snap["write_paths"] = list(wp)
+    choices = g.get("choices")
     if isinstance(choices, list):
         snap["choices"] = [str(c).strip() for c in choices if str(c).strip()]
     return snap
@@ -207,7 +291,76 @@ def normalize_decision_checks(raw: Any) -> list[dict[str, Any]]:
         ep = item.get("evidence_paths")
         if isinstance(ep, list):
             row["evidence_paths"] = [str(p).strip() for p in ep if str(p).strip()]
+        up = item.get("unresolved_paths")
+        if isinstance(up, list):
+            row["unresolved_paths"] = [str(p).strip() for p in up if str(p).strip()]
         out.append(row)
+    return out
+
+
+def effective_decision_check_status(
+    check: dict[str, Any],
+    required_write_paths: list[str] | None,
+) -> str:
+    """Deterministic satisfaction: prose status alone is not enough."""
+    status = str(check.get("status") or "").strip().lower()
+    if status != "satisfied":
+        return status
+    unresolved = check.get("unresolved_paths")
+    if isinstance(unresolved, list) and any(str(p).strip() for p in unresolved):
+        return "missing"
+    required = normalize_target_paths(required_write_paths or [])
+    if not required:
+        return "satisfied"
+    evidence = normalize_target_paths(check.get("evidence_paths"))
+    if not set(required).issubset(set(evidence)):
+        return "missing"
+    return "satisfied"
+
+
+def required_paths_by_key_from_ledger(session: dict[str, Any]) -> dict[str, list[str]]:
+    out: dict[str, list[str]] = {}
+    for entry in ensure_decision_ledger(session):
+        if not isinstance(entry, dict):
+            continue
+        dkey = str(entry.get("decision_key") or "").strip()
+        snap = entry.get("gap_snapshot")
+        if not dkey or not isinstance(snap, dict):
+            continue
+        paths = required_write_paths_from_gap(snap)
+        if paths:
+            out[dkey] = paths
+    return out
+
+
+def ledger_required_path_signatures(session: dict[str, Any]) -> dict[str, tuple[str, ...]]:
+    return {
+        dkey: normalize_target_paths(paths)
+        for dkey, paths in required_paths_by_key_from_ledger(session).items()
+        if normalize_target_paths(paths)
+    }
+
+
+def required_paths_by_key_from_gaps(
+    gaps_by_id: dict[str, dict[str, Any]],
+    *,
+    session: dict[str, Any] | None = None,
+) -> dict[str, list[str]]:
+    out: dict[str, list[str]] = {}
+    ledger = ledger_index_by_key(session) if session is not None else {}
+    for gap in gaps_by_id.values():
+        if not isinstance(gap, dict):
+            continue
+        dkey = resolve_decision_key(gap)
+        if not dkey:
+            continue
+        paths = required_write_paths_from_gap(gap)
+        if not paths and dkey in ledger:
+            snap = ledger[dkey].get("gap_snapshot")
+            if isinstance(snap, dict):
+                paths = required_write_paths_from_gap(snap)
+        if paths:
+            out[dkey] = paths
     return out
 
 
@@ -287,10 +440,7 @@ def enrich_intent_gaps(intent_gaps: list[dict[str, Any]]) -> list[dict[str, Any]
     for gap in intent_gaps:
         if not isinstance(gap, dict):
             continue
-        g = copy.deepcopy(gap)
-        if not g.get("decision_key"):
-            g["decision_key"] = resolve_decision_key(g)
-        out.append(g)
+        out.append(sanitize_intent_gap(gap))
     return out
 
 
@@ -301,14 +451,18 @@ def merge_critic_decision_checks(
     current_draft_fingerprint: str | None = None,
 ) -> None:
     """Promote ledger entries when critic confirms satisfied; downgrade on conflict."""
+    required_by_key = required_paths_by_key_from_ledger(session)
     for check in checks:
         dkey = str(check.get("decision_key") or "").strip()
         if not dkey:
             continue
-        status = str(check.get("status") or "").lower()
         by_key = ledger_index_by_key(session)
         entry = by_key.get(dkey)
-        if status == "satisfied" and entry is not None:
+        if entry is None:
+            continue
+        required = required_by_key.get(dkey)
+        effective = effective_decision_check_status(check, required)
+        if effective == "satisfied":
             ep = check.get("evidence_paths")
             update_ledger_status(
                 session,
@@ -317,7 +471,7 @@ def merge_critic_decision_checks(
                 evidence_paths=ep if isinstance(ep, list) else None,
                 verified_draft_fingerprint=current_draft_fingerprint,
             )
-        elif status in {"missing", "conflict"} and entry is not None:
+        elif effective in {"missing", "conflict"}:
             update_ledger_status(session, dkey, status="repair_failed")
 
 
@@ -469,8 +623,8 @@ def decision_key_alias_map_from_checks(
     session: dict[str, Any],
     checks: list[dict[str, Any]],
 ) -> dict[str, str]:
-    """Map check decision_key via evidence_paths → unique ledger snapshot target_paths."""
-    sig_map = ledger_unique_target_path_keys(session)
+    """Map check decision_key when ledger required paths are a subset of evidence."""
+    ledger_sigs = ledger_required_path_signatures(session)
     out: dict[str, str] = {}
     for check in checks:
         if not isinstance(check, dict):
@@ -478,12 +632,17 @@ def decision_key_alias_map_from_checks(
         dkey = str(check.get("decision_key") or "").strip()
         if not dkey:
             continue
-        sig = normalize_target_paths(check.get("evidence_paths"))
-        if not sig or sig not in sig_map:
+        evidence = set(normalize_target_paths(check.get("evidence_paths")))
+        if not evidence:
             continue
-        canonical = sig_map[sig]
-        if dkey != canonical:
-            out[dkey] = canonical
+        candidates: list[str] = []
+        for canonical, req_sig in ledger_sigs.items():
+            if set(req_sig).issubset(evidence):
+                candidates.append(canonical)
+        if len(candidates) == 1:
+            canonical = candidates[0]
+            if dkey != canonical:
+                out[dkey] = canonical
     return out
 
 
@@ -658,6 +817,12 @@ def decisions_for_verifier(
         }
         if isinstance(tp, list):
             spec["target_paths"] = [str(p).strip() for p in tp if str(p).strip()]
+        wp = required_write_paths_from_gap(gap)
+        if wp:
+            spec["write_paths"] = wp
+        occ = gap.get("occurrences")
+        if isinstance(occ, list) and occ:
+            spec["occurrences"] = copy.deepcopy(occ)
         specs.append(spec)
     return specs
 
@@ -689,6 +854,47 @@ def verifier_reported_all_keys(expected_keys: list[str], raw_checks: list[dict[s
     return all(k in reported for k in expected_keys)
 
 
+def verifier_path_failure_detail(
+    checks: list[dict[str, Any]],
+    required_paths_by_key: dict[str, list[str]],
+    *,
+    expected_keys: list[str] | None = None,
+) -> list[str]:
+    """Human-readable missing/unresolved paths for repair closer prompts."""
+    by_key: dict[str, dict[str, Any]] = {}
+    for check in checks:
+        if not isinstance(check, dict):
+            continue
+        dkey = str(check.get("decision_key") or "").strip()
+        if dkey:
+            by_key[dkey] = check
+    keys = list(expected_keys) if expected_keys is not None else list(required_paths_by_key.keys())
+    lines: list[str] = []
+    for dkey in keys:
+        if not dkey:
+            continue
+        required = required_paths_by_key.get(dkey) or []
+        check = by_key.get(dkey)
+        if check is None:
+            if required:
+                lines.append(
+                    f"{dkey}: missing verifier row; required {', '.join(required)}"
+                )
+            else:
+                lines.append(f"{dkey}: missing verifier row")
+            continue
+        if effective_decision_check_status(check, required) == "satisfied":
+            continue
+        unresolved = normalize_path_list(check.get("unresolved_paths"))
+        if unresolved:
+            lines.append(f"{dkey}: unresolved {', '.join(unresolved)}")
+        evidence = normalize_target_paths(check.get("evidence_paths"))
+        missing = [p for p in required if p.lower() not in evidence]
+        if missing:
+            lines.append(f"{dkey}: missing evidence for {', '.join(missing)}")
+    return lines
+
+
 def apply_whole_card_verifier_results(
     session: dict[str, Any],
     expected_keys: list[str],
@@ -697,9 +903,20 @@ def apply_whole_card_verifier_results(
     gap_id_for_key: dict[str, str],
     raw_complete: bool,
     verified_draft_fingerprint: str | None = None,
+    required_paths_by_key: dict[str, list[str]] | None = None,
 ) -> tuple[list[str], list[str]]:
     """All satisfied + complete verifier report required; else entire card repair_failed."""
-    completed = complete_decision_checks_for_keys(expected_keys, checks)
+    req_map = required_paths_by_key or {}
+    normalized_checks: list[dict[str, Any]] = []
+    for check in checks:
+        if not isinstance(check, dict):
+            continue
+        row = dict(check)
+        dkey = str(row.get("decision_key") or "").strip()
+        effective = effective_decision_check_status(row, req_map.get(dkey))
+        row["status"] = effective
+        normalized_checks.append(row)
+    completed = complete_decision_checks_for_keys(expected_keys, normalized_checks)
     all_satisfied = raw_complete and all(
         str(c.get("status") or "").lower() == "satisfied" for c in completed
     )

@@ -150,10 +150,18 @@ export interface HostChatStatus {
   makeability_fingerprint_match?: boolean;
 }
 
+export interface MakeabilityIntentGapOccurrence {
+  path: string;
+  relation: "canonical" | "duplicate" | "conflict";
+  current_summary?: string;
+}
+
 export interface MakeabilityIntentGap {
   id?: string;
   decision_key?: string;
   target_paths?: string[];
+  occurrences?: MakeabilityIntentGapOccurrence[];
+  write_paths?: string[];
   question?: string;
   why_blocking?: string;
   choices?: string[];

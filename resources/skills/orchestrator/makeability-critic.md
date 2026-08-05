@@ -72,6 +72,26 @@
       "id": "snake_case_id",
       "decision_key": "system.scope.rule",
       "target_paths": ["project.systems[id=scope].notes"],
+      "occurrences": [
+        {
+          "path": "project.systems[id=scope].notes",
+          "relation": "canonical",
+          "current_summary": "optional one-line paraphrase of what draft says here"
+        },
+        {
+          "path": "project.description",
+          "relation": "duplicate"
+        },
+        {
+          "path": "project.scenes[id=hall].notes",
+          "relation": "conflict"
+        }
+      ],
+      "write_paths": [
+        "project.description",
+        "project.scenes[id=hall].notes",
+        "project.systems[id=scope].notes"
+      ],
       "question": "向策划提出的中文问题",
       "why_blocking": "为何阻塞开干/交接",
       "choices": ["选项 A", "选项 B"]
@@ -106,7 +126,10 @@
 规则：
 
 - **`decision_key`** 必须稳定（`system.<scope>.<rule>`）；同一语义换 `id`/措辞不得重复开 intent
-- **`target_paths`** 指向草稿中应体现该决定的 JSON 路径（systems/scenes/ui_panels）
+- **`occurrences`**：同一决定在草稿中的每一处出现；`relation` 为 `canonical` | `duplicate` | `conflict`；可选 `current_summary`
+- **`write_paths`**：Closer 必须在一次写入中对齐的全部路径（须包含每个需改写/删除的 duplicate 与 conflict；canonical 若也需更新答案则列入）
+- **`target_paths`**（兼容旧版）：仍指向主 canonical 路径；新缺口应同时给出 `occurrences` + `write_paths`
+- 开 intent 前须扫描 **`description`、`gameplay_loop`、`scenes[]`、`systems[]`、`ui_panels[]`**，列出同一决定的所有出现位置，不要只报 system 一处
 - **`decision_checks`**：对照 `decision_ledger` 与草稿，已 verified 的决定标 `satisfied`，草稿矛盾标 `conflict`，未写入标 `missing`；**不要**为 satisfied 的 key 再生成 intent_gaps
 - `choices` 可选；intent 缺口尽量给 2–4 个可点选项
 - `suggested_defaults` **仅**对应 `detail_gaps`；`confidence` 默认 `low`；必须注明 provisional
@@ -122,7 +145,7 @@
 3. **系统边界**：优先 `systems[]`；否则从 prose / assets 推断。已声明系统是否说清职责
 4. **屏与 UI**：优先 `scenes[]` + `ui_panels[]`；缺两者且 prose 也想象不出关键屏 → intent
 5. 对每个已声明系统问：程序员需要哪些**表或参数**？→ `detail_gaps`
-6. 仅当循环或意图本身矛盾/缺失 → `intent_gaps`
+6. 仅当循环或意图本身矛盾/缺失 → `intent_gaps`；对每个 intent，在 **description / gameplay_loop / scenes / systems / ui_panels** 中找齐同一决定的所有出现，填入 `occurrences` 与 `write_paths`
 
 ---
 

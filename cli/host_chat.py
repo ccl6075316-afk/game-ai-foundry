@@ -54,15 +54,19 @@ from makeability_decisions import (
     merge_critic_decision_checks,
     merge_decision_key_alias_maps,
     normalize_decision_checks,
+    normalize_occurrences,
+    normalize_write_paths,
     detail_gap_stable_key,
     ensure_detail_gaps_shown_list,
     partition_detail_gaps_for_display,
     record_gap_answers,
     reconcile_intent_gaps_with_ledger,
     remove_verified_gaps_from_review,
+    required_paths_by_key_from_gaps,
     resolve_gaps_for_answers,
     suppress_intent_gaps_by_ledger,
     update_ledger_status,
+    verifier_path_failure_detail,
     verifier_reported_all_keys,
 )
 from shared_context import asset_to_dict, project_to_dict
@@ -393,6 +397,21 @@ def sync_session_draft_from_disk(
             except OSError:
                 pass
         return False
+
+    session_fp = draft_fingerprint(session["draft_brief"]) if has_session_draft else ""
+    if (
+        not force
+        and tracked
+        and fp != tracked
+        and has_session_draft
+        and session_fp
+        and session_fp != tracked
+        and session_fp != fp
+    ):
+        raise HostChatError(
+            "绑定的 brief.draft.json 与会话 draft 均已变更且不一致，"
+            "请先对齐后再继续（或使用 force 从磁盘覆盖）。"
+        )
 
     take_disk = False
     if force:
@@ -1031,6 +1050,37 @@ def _normalize_gap_list(raw: Any, *, field: str) -> list[dict[str, Any]]:
     return out
 
 
+def _validate_fresh_critic_intent_gaps(intent_gaps: list[dict[str, Any]]) -> None:
+    for index, gap in enumerate(intent_gaps):
+        if not isinstance(gap, dict):
+            raise HostChatError(
+                f"Makeability critic intent_gaps[{index}] must be an object."
+            )
+        occ = gap.get("occurrences")
+        if not isinstance(occ, list) or not occ:
+            raise HostChatError(
+                f"Makeability critic intent_gaps[{index}] missing non-empty occurrences."
+            )
+        wp = gap.get("write_paths")
+        if not isinstance(wp, list) or not wp:
+            raise HostChatError(
+                f"Makeability critic intent_gaps[{index}] missing non-empty write_paths."
+            )
+        write_paths = normalize_write_paths(wp)
+        write_set = {p.lower() for p in write_paths}
+        for occ in normalize_occurrences(gap.get("occurrences")):
+            relation = str(occ.get("relation") or "").strip().lower()
+            if relation not in {"duplicate", "conflict"}:
+                continue
+            path = str(occ.get("path") or "").strip().lower()
+            if path and path not in write_set:
+                raise HostChatError(
+                    "Makeability critic intent_gaps["
+                    f"{index}] duplicate/conflict path {occ.get('path')!r} "
+                    "must appear in write_paths."
+                )
+
+
 def _build_makeability_review(
     parsed: dict[str, Any],
     *,
@@ -1040,6 +1090,7 @@ def _build_makeability_review(
     intent_gaps = enrich_intent_gaps(
         _normalize_gap_list(parsed.get("intent_gaps"), field="intent_gaps")
     )
+    _validate_fresh_critic_intent_gaps(intent_gaps)
     if session is not None:
         intent_gaps = reconcile_intent_gaps_with_ledger(session, intent_gaps)
     detail_gaps = _normalize_gap_list(parsed.get("detail_gaps"), field="detail_gaps")
@@ -1310,7 +1361,9 @@ The user answered structured gap cards (not free chat). Reply with JSON only:
   "brief_patches": [ /* set / upsert_asset / add_asset / upsert_graph / upsert_system / upsert_scene / upsert_ui_panel */ ]
 }
 Rules:
-- Patch current_draft_brief so each answered gap is decided in scenes/systems/ui_panels/notes.
+- Patch current_draft_brief so each answered gap is decided everywhere it appears.
+- open_intent_gaps may include occurrences (canonical|duplicate|conflict) and write_paths: you MUST patch every write_paths entry in one response (description, gameplay_loop, scenes, systems, ui_panels as listed).
+- You may shorten or remove stale duplicate/conflict prose instead of repeating detailed rules in every path.
 - Prefer upsert_system / upsert_scene / upsert_ui_panel for list rows; use set for scalar fields.
 - Phrases like 先不用解锁 / 直接解锁 / 开局可进 / no unlock = hall enterable from start, NO building purchase lock.
 - Do not invent decisions the user did not make. Do not put numeric tables into brief prose.
@@ -1318,7 +1371,7 @@ Rules:
 """
 
 _MAKEABILITY_VERIFIER_SYSTEM = """You are Makeability Verifier — independent from the gap closer.
-Read candidate_draft_brief and pending_decisions (user answers + target_paths).
+Read candidate_draft_brief and pending_decisions (user answers, target_paths, write_paths, occurrences).
 Reply with JSON only:
 {
   "decision_checks": [
@@ -1326,14 +1379,18 @@ Reply with JSON only:
       "decision_key": "system.scope.rule",
       "gap_id": "gap_id",
       "status": "satisfied | missing | conflict",
-      "evidence_paths": ["project.systems[id=x].notes"]
+      "evidence_paths": ["project.systems[id=x].notes"],
+      "unresolved_paths": ["project.description"]
     }
   ]
 }
 Rules:
 - One decision_checks row per pending_decisions entry (same decision_key).
-- satisfied only if candidate draft clearly encodes the user's answer_text at target scope.
-- missing if not reflected; conflict if draft contradicts the answer.
+- Scan the whole candidate draft for duplicate/conflicting occurrences of the same decision (including paths not listed).
+- satisfied only if the draft clearly encodes the user's answer_text at every required write_path and no listed occurrence still conflicts.
+- List any duplicate/conflict you still find in unresolved_paths (even if status would otherwise be satisfied).
+- missing if not reflected at a required path; conflict if draft contradicts the answer.
+- evidence_paths must list every write_path you verified; omitting a required write_path means not satisfied.
 """
 
 
@@ -1434,6 +1491,7 @@ def answer_makeability_gaps(
     specs = decisions_for_verifier(session, gaps_by_id, normalized)
     gap_id_map = gap_id_map_from_specs(specs)
     expected_keys = list(dict.fromkeys(touched_keys))
+    required_paths_by_key = required_paths_by_key_from_gaps(gaps_by_id, session=session)
 
     try:
         api = resolve_host_api_settings(cfg)
@@ -1490,7 +1548,7 @@ def answer_makeability_gaps(
         }
         return _llm(_MAKEABILITY_ANSWER_SYSTEM, user_payload)
 
-    def _run_verifier(candidate_draft: dict[str, Any]) -> tuple[list[str], list[str]]:
+    def _run_verifier(candidate_draft: dict[str, Any]) -> tuple[list[str], list[str], list[str]]:
         user_payload = {
             "candidate_draft_brief": candidate_draft,
             "pending_decisions": specs,
@@ -1500,14 +1558,21 @@ def answer_makeability_gaps(
         raw_checks = normalize_decision_checks(parsed.get("decision_checks"))
         raw_complete = verifier_reported_all_keys(expected_keys, raw_checks)
         cand_fp = draft_fingerprint(candidate_draft)
-        return apply_whole_card_verifier_results(
+        path_notes = verifier_path_failure_detail(
+            raw_checks,
+            required_paths_by_key,
+            expected_keys=expected_keys,
+        )
+        verified, failed = apply_whole_card_verifier_results(
             session,
             expected_keys,
             raw_checks,
             gap_id_for_key=gap_id_map,
             raw_complete=raw_complete,
             verified_draft_fingerprint=cand_fp,
+            required_paths_by_key=required_paths_by_key,
         )
+        return verified, failed, path_notes
 
     if not api.get("api_key"):
         return _answer_makeability_failure_result(
@@ -1546,7 +1611,7 @@ def answer_makeability_gaps(
         session["draft_brief"] = apply_brief_patches(draft, patches)
         for key in touched_keys:
             update_ledger_status(session, key, status="applied")
-        verified_ids, repair_failed_ids = _run_verifier(session["draft_brief"])
+        verified_ids, repair_failed_ids, path_notes = _run_verifier(session["draft_brief"])
     except (HostChatError, PromptCraftError) as exc:
         return _answer_makeability_failure_result(
             session,
@@ -1557,14 +1622,19 @@ def answer_makeability_gaps(
 
     repair_rows = [r for r in normalized if r["gap_id"] in repair_failed_ids]
     attempt = 0
+    last_path_notes = path_notes if repair_failed_ids else []
     while repair_rows and attempt < MAX_AUTO_REPAIR_ATTEMPTS:
         attempt += 1
+        repair_detail = "; ".join(last_path_notes) if last_path_notes else ""
         try:
             reparsed = _call_closer(
                 session["draft_brief"],
                 repair_rows,
                 [gaps_by_id[r["gap_id"]] for r in repair_rows],
-                repair_note="prior patches missed these gaps; use saved user answers",
+                repair_note=(
+                    "prior patches missed these gaps; use saved user answers"
+                    + (f"; path gaps: {repair_detail}" if repair_detail else "")
+                ),
             )
             repatches = _extract_brief_patches(reparsed) or []
             if not repatches:
@@ -1573,7 +1643,7 @@ def answer_makeability_gaps(
             patches.extend(repatches)
             for key in expected_keys:
                 update_ledger_status(session, key, status="applied")
-            verified_ids, repair_failed_ids = _run_verifier(session["draft_brief"])
+            verified_ids, repair_failed_ids, last_path_notes = _run_verifier(session["draft_brief"])
             repair_rows = [r for r in normalized if r["gap_id"] in repair_failed_ids]
         except (HostChatError, PromptCraftError):
             break

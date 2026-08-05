@@ -34,6 +34,7 @@ from host_chat import (
     run_makeability_review as host_run_makeability_review,
     run_turn as host_run_turn,
     save_session as host_save_session,
+    sync_session_draft_from_disk as host_sync_session_draft_from_disk,
     session_path_for_id,
     session_status as host_session_status,
     write_makeability_sidecar as host_write_makeability_sidecar,
@@ -473,6 +474,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         try:
             path = _chat_session_path(session_id, session_path)
             session = host_load_session(path)
+            host_sync_session_draft_from_disk(session)
             result = host_run_makeability_review(session, config=config)
             host_save_session(path, session)
         except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:

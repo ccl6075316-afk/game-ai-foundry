@@ -27,6 +27,8 @@ from makeability_decisions import (
     apply_whole_card_verifier_results,
     canonicalize_decision_checks,
     complete_critic_ledger_checks,
+    decisions_for_verifier,
+    effective_decision_check_status,
     ensure_decision_ledger,
     filter_intent_gaps_for_display,
     ledger_blocks_export,
@@ -34,9 +36,14 @@ from makeability_decisions import (
     normalize_target_paths,
     record_gap_answers,
     reconcile_intent_gaps_with_ledger,
+    required_write_paths_from_gap,
+    decision_key_alias_map_from_checks,
     decision_key_alias_map_from_gaps,
+    required_paths_by_key_from_ledger,
     resolve_decision_key,
+    sanitize_intent_gap,
     suppress_intent_gaps_by_ledger,
+    verifier_path_failure_detail,
     verifier_reported_all_keys,
 )
 from test_makeability_gate import _detail_only_review, _ready_session
@@ -60,15 +67,59 @@ def _minimal_draft() -> dict:
     }
 
 
-def _route_llm(*, closer: dict, verifier: dict):
+def _route_llm(*, closer: dict, verifier: dict, verifier_sequence: list[dict] | None = None):
+    calls = {"n": 0}
+
     def side_effect(**kwargs):
         messages = kwargs["messages"]
         system = messages[0]["content"]
         if "Makeability Verifier" in system:
-            return json.dumps(verifier, ensure_ascii=False)
+            if verifier_sequence is not None:
+                idx = calls["n"]
+                calls["n"] += 1
+                payload = verifier_sequence[min(idx, len(verifier_sequence) - 1)]
+            else:
+                payload = verifier
+            return json.dumps(payload, ensure_ascii=False)
         return json.dumps(closer, ensure_ascii=False)
 
     return side_effect
+
+
+def _multi_path_gap() -> dict:
+    return {
+        "id": "aquarium_unlock_flow",
+        "decision_key": "system.aquarium.unlock_rule",
+        "question": "水族馆如何进入？",
+        "target_paths": ["project.systems[id=aquarium].notes"],
+        "write_paths": [
+            "project.description",
+            "project.scenes[id=aquarium_hall].notes",
+            "project.systems[id=aquarium].notes",
+        ],
+        "occurrences": [
+            {"path": "project.description", "relation": "duplicate"},
+            {"path": "project.scenes[id=aquarium_hall].notes", "relation": "conflict"},
+            {"path": "project.systems[id=aquarium].notes", "relation": "canonical"},
+        ],
+        "choices": ["A", "B"],
+    }
+
+
+def _v2_aquarium_intent(**overrides: object) -> dict:
+    gap = {
+        "id": "aquarium_unlock_flow",
+        "decision_key": "system.aquarium.unlock_rule",
+        "target_paths": ["project.systems[id=aquarium].notes"],
+        "write_paths": ["project.systems[id=aquarium].notes"],
+        "occurrences": [
+            {"path": "project.systems[id=aquarium].notes", "relation": "canonical"},
+        ],
+        "question": "Q",
+        "choices": ["A", "B"],
+    }
+    gap.update(overrides)
+    return gap
 
 
 class EarlyPersistTests(unittest.TestCase):
@@ -326,6 +377,47 @@ class VerifiedFingerprintTests(unittest.TestCase):
         self.assertTrue(_compute_ready_to_export(session))
         assert_makeability_exportable(session)
 
+    def test_critic_satisfied_partial_evidence_stays_repair_failed(self) -> None:
+        draft = copy.deepcopy(SMOKE_BRIEF)
+        fp_new = draft_fingerprint(draft)
+        required = [
+            "project.description",
+            "project.scenes[id=aquarium_hall].notes",
+            "project.systems[id=aquarium].notes",
+        ]
+        session = new_session("critic-partial")
+        session["draft_brief"] = draft
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "g1",
+                "answer_text": "B",
+                "status": "verified",
+                "verified_draft_fingerprint": "fp-old",
+                "gap_snapshot": {
+                    "write_paths": required,
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                    "decision_key": "system.aquarium.unlock_rule",
+                },
+            }
+        ]
+        checks = complete_critic_ledger_checks(
+            session,
+            [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ],
+        )
+        merge_critic_decision_checks(session, checks, current_draft_fingerprint=fp_new)
+        entry = ensure_decision_ledger(session)[0]
+        self.assertEqual(entry["status"], "repair_failed")
+        self.assertNotEqual(entry.get("verified_draft_fingerprint"), fp_new)
+        with self.assertRaises(HostChatError):
+            assert_makeability_exportable(session)
+
 
 class CriticAliasCanonicalTests(unittest.TestCase):
     def test_new_check_key_canonicalized_keeps_verified(self) -> None:
@@ -425,6 +517,44 @@ class CriticAliasCanonicalTests(unittest.TestCase):
         self.assertFalse(ledger_blocks_export(session, current_draft_fingerprint=fp_new))
         self.assertTrue(_compute_ready_to_export(session))
         assert_makeability_exportable(session)
+
+    def test_multi_path_evidence_subset_aliases_changed_check_key(self) -> None:
+        single = ["project.systems[id=aquarium].notes"]
+        full = [
+            "project.description",
+            "project.scenes[id=aquarium_hall].notes",
+            "project.systems[id=aquarium].notes",
+        ]
+        session = new_session("multi-alias")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "old_gap",
+                "answer_text": "B",
+                "status": "verified",
+                "verified_draft_fingerprint": "fp1",
+                "gap_snapshot": {
+                    "target_paths": single,
+                    "write_paths": full,
+                    "decision_key": "system.aquarium.unlock_rule",
+                },
+            }
+        ]
+        raw_checks = [
+            {
+                "decision_key": "system.aquarium.entry_rule",
+                "status": "satisfied",
+                "evidence_paths": full,
+            }
+        ]
+        alias_map = decision_key_alias_map_from_checks(session, raw_checks)
+        self.assertEqual(alias_map.get("system.aquarium.entry_rule"), "system.aquarium.unlock_rule")
+        checks = canonicalize_decision_checks(raw_checks, alias_map)
+        checks = complete_critic_ledger_checks(session, checks)
+        merge_critic_decision_checks(session, checks, current_draft_fingerprint="fp2")
+        entry = ensure_decision_ledger(session)[0]
+        self.assertEqual(entry["status"], "verified")
+        self.assertEqual(entry["verified_draft_fingerprint"], "fp2")
 
 
 class DecisionKeyTests(unittest.TestCase):
@@ -852,13 +982,11 @@ class SuppressRepeatTests(unittest.TestCase):
         ]
         critic_payload = {
             "intent_gaps": [
-                {
-                    "id": "new_id_same_semantics",
-                    "decision_key": "system.aquarium.unlock_rule",
-                    "question": "还要解锁？",
-                    "why_blocking": "x",
-                    "choices": ["A", "B"],
-                }
+                _v2_aquarium_intent(
+                    id="new_id_same_semantics",
+                    question="还要解锁？",
+                    why_blocking="x",
+                )
             ],
             "detail_gaps": [],
             "suggested_defaults": [],
@@ -881,14 +1009,7 @@ class SuppressRepeatTests(unittest.TestCase):
         session = new_session("double-critic")
         session["draft_brief"] = _minimal_draft()
         payload = {
-            "intent_gaps": [
-                {
-                    "id": "id1",
-                    "decision_key": "system.aquarium.unlock_rule",
-                    "question": "Q1",
-                    "choices": ["A", "B"],
-                }
-            ],
+            "intent_gaps": [_v2_aquarium_intent(id="id1", question="Q1")],
             "detail_gaps": [],
             "suggested_defaults": [],
         }
@@ -910,14 +1031,7 @@ class SuppressRepeatTests(unittest.TestCase):
             }
         ]
         payload2 = {
-            "intent_gaps": [
-                {
-                    "id": "id2",
-                    "decision_key": "system.aquarium.unlock_rule",
-                    "question": "Q2",
-                    "choices": ["A", "B"],
-                }
-            ],
+            "intent_gaps": [_v2_aquarium_intent(id="id2", question="Q2")],
             "detail_gaps": [],
             "suggested_defaults": [],
         }
@@ -997,6 +1111,402 @@ class FilterDisplayTests(unittest.TestCase):
         gaps = [{"id": "market_access", "decision_key": "system.market.access_rule", "question": "Q"}]
         shown = filter_intent_gaps_for_display(session, gaps)
         self.assertEqual(shown, [])
+
+
+class OccurrencesWritePathsTests(unittest.TestCase):
+    def test_normalization_stores_occurrences_write_paths_in_gap_snapshot(self) -> None:
+        session = new_session("snap-v2")
+        gap = sanitize_intent_gap(_multi_path_gap())
+        record_gap_answers(
+            session,
+            [{"gap_id": "aquarium_unlock_flow", "choice": "开局可进"}],
+            {"aquarium_unlock_flow": gap},
+        )
+        snap = ensure_decision_ledger(session)[0]["gap_snapshot"]
+        self.assertEqual(len(snap.get("occurrences") or []), 3)
+        self.assertEqual(
+            snap.get("write_paths"),
+            [
+                "project.description",
+                "project.scenes[id=aquarium_hall].notes",
+                "project.systems[id=aquarium].notes",
+            ],
+        )
+        self.assertEqual(snap.get("target_paths"), ["project.systems[id=aquarium].notes"])
+
+    def test_satisfied_partial_evidence_repair_failed(self) -> None:
+        required = [
+            "project.description",
+            "project.scenes[id=aquarium_hall].notes",
+            "project.systems[id=aquarium].notes",
+        ]
+        check = {
+            "decision_key": "system.aquarium.unlock_rule",
+            "status": "satisfied",
+            "evidence_paths": ["project.systems[id=aquarium].notes"],
+        }
+        self.assertEqual(
+            effective_decision_check_status(check, required),
+            "missing",
+        )
+        session = new_session("partial-ev")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "g",
+                "answer_text": "x",
+                "status": "applied",
+            }
+        ]
+        verified, failed = apply_whole_card_verifier_results(
+            session,
+            ["system.aquarium.unlock_rule"],
+            [check],
+            gap_id_for_key={"system.aquarium.unlock_rule": "g"},
+            raw_complete=True,
+            required_paths_by_key={"system.aquarium.unlock_rule": required},
+        )
+        self.assertEqual(verified, [])
+        self.assertEqual(failed, ["g"])
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "repair_failed")
+
+    def test_unresolved_paths_forces_repair_failed(self) -> None:
+        session = new_session("unresolved")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "g",
+                "answer_text": "x",
+                "status": "applied",
+            }
+        ]
+        check = {
+            "decision_key": "system.aquarium.unlock_rule",
+            "status": "satisfied",
+            "evidence_paths": ["project.systems[id=aquarium].notes"],
+            "unresolved_paths": ["project.description"],
+        }
+        verified, failed = apply_whole_card_verifier_results(
+            session,
+            ["system.aquarium.unlock_rule"],
+            [check],
+            gap_id_for_key={"system.aquarium.unlock_rule": "g"},
+            raw_complete=True,
+            required_paths_by_key={
+                "system.aquarium.unlock_rule": ["project.systems[id=aquarium].notes"]
+            },
+        )
+        self.assertEqual(verified, [])
+        self.assertEqual(failed, ["g"])
+
+    def test_backward_compat_target_paths_only_still_verifies(self) -> None:
+        session = new_session("legacy-tp")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "g",
+                "answer_text": "x",
+                "status": "applied",
+            }
+        ]
+        paths = ["project.systems[id=aquarium].notes"]
+        check = {
+            "decision_key": "system.aquarium.unlock_rule",
+            "status": "satisfied",
+            "evidence_paths": paths,
+        }
+        verified, failed = apply_whole_card_verifier_results(
+            session,
+            ["system.aquarium.unlock_rule"],
+            [check],
+            gap_id_for_key={"system.aquarium.unlock_rule": "g"},
+            raw_complete=True,
+            required_paths_by_key={"system.aquarium.unlock_rule": paths},
+        )
+        self.assertEqual(failed, [])
+        self.assertEqual(verified, ["g"])
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "verified")
+
+    def test_required_write_paths_fallback_target_paths(self) -> None:
+        gap = {"target_paths": ["project.systems[id=aquarium].notes"]}
+        self.assertEqual(
+            required_write_paths_from_gap(gap),
+            ["project.systems[id=aquarium].notes"],
+        )
+
+
+class MultiPathCloserVerifierTests(unittest.TestCase):
+    def test_repair_closer_patches_all_write_paths_then_verified(self) -> None:
+        session = new_session("multi-repair")
+        draft = _minimal_draft()
+        draft["project"]["description"] = "Buy aquarium building to unlock hall."
+        draft["project"]["scenes"] = [
+            {"id": "aquarium_hall", "notes": "Locked until purchase."},
+        ]
+        session["draft_brief"] = draft
+        gap = _multi_path_gap()
+        session["makeability_review"] = {
+            "schema_version": 2,
+            "intent_gaps": [gap],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        closer_first = {
+            "assistant_message": "system only",
+            "brief_patches": [
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "aquarium"},
+                    "set": {"notes": "Enter from start; no purchase lock."},
+                }
+            ],
+        }
+        closer_repair = {
+            "assistant_message": "all paths",
+            "brief_patches": [
+                {
+                    "op": "set",
+                    "path": "project.description",
+                    "value": "Aquarium hall open from start.",
+                },
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "aquarium_hall"},
+                    "set": {"notes": "Open from start."},
+                },
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "aquarium"},
+                    "set": {"notes": "Enter from start; no purchase lock."},
+                },
+            ],
+        }
+        verifier_first = {
+            "decision_checks": [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "gap_id": "aquarium_unlock_flow",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ]
+        }
+        verifier_second = {
+            "decision_checks": [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "gap_id": "aquarium_unlock_flow",
+                    "status": "satisfied",
+                    "evidence_paths": [
+                        "project.description",
+                        "project.scenes[id=aquarium_hall].notes",
+                        "project.systems[id=aquarium].notes",
+                    ],
+                }
+            ]
+        }
+        answers = [{"gap_id": "aquarium_unlock_flow", "choice": "开局可进"}]
+
+        def route(**kwargs):
+            messages = kwargs["messages"]
+            system = messages[0]["content"]
+            if "Makeability Verifier" in system:
+                user = json.loads(messages[1]["content"])
+                pending = user.get("pending_decisions") or []
+                if any(
+                    "project.description" in (p.get("write_paths") or [])
+                    for p in pending
+                    if isinstance(p, dict)
+                ):
+                    draft_brief = user.get("candidate_draft_brief") or {}
+                    desc = str((draft_brief.get("project") or {}).get("description") or "")
+                    if "open from start" in desc.lower():
+                        return json.dumps(verifier_second, ensure_ascii=False)
+                return json.dumps(verifier_first, ensure_ascii=False)
+            user = json.loads(messages[1]["content"])
+            note = str(user.get("instruction") or "")
+            if "Repair pass" in note:
+                return json.dumps(closer_repair, ensure_ascii=False)
+            return json.dumps(closer_first, ensure_ascii=False)
+
+        with patch("host_chat.chat_text_completion", side_effect=route), patch(
+            "host_chat.resolve_host_api_settings",
+            return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
+        ):
+            result = answer_makeability_gaps(session, answers, config={})
+        self.assertTrue(result["ok"])
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "verified")
+
+    def test_fishing_like_conflict_all_write_paths_in_verifier_spec(self) -> None:
+        session = new_session("fishing-spec")
+        gap = sanitize_intent_gap(_multi_path_gap())
+        gaps_by_id = {"aquarium_unlock_flow": gap}
+        record_gap_answers(
+            session,
+            [{"gap_id": "aquarium_unlock_flow", "choice": "开局可进"}],
+            gaps_by_id,
+        )
+        specs = decisions_for_verifier(
+            session,
+            gaps_by_id,
+            [{"gap_id": "aquarium_unlock_flow", "choice": "开局可进"}],
+        )
+        self.assertEqual(len(specs), 1)
+        wp = specs[0].get("write_paths") or []
+        self.assertIn("project.description", wp)
+        self.assertIn("project.scenes[id=aquarium_hall].notes", wp)
+        self.assertIn("project.systems[id=aquarium].notes", wp)
+
+
+class VerifierPathDetailTests(unittest.TestCase):
+    def test_missing_verifier_row_lists_all_required_paths(self) -> None:
+        required = {
+            "system.a": [
+                "project.description",
+                "project.systems[id=aquarium].notes",
+            ]
+        }
+        lines = verifier_path_failure_detail(
+            [],
+            required,
+            expected_keys=["system.a", "system.b"],
+        )
+        joined = " ".join(lines)
+        self.assertIn("system.a", joined)
+        self.assertIn("project.description", joined)
+        self.assertIn("system.b", joined)
+
+
+class CliMakeabilitySyncTests(unittest.TestCase):
+    def test_cli_makeability_syncs_bound_disk_draft_before_review(self) -> None:
+        from gamefactory import cli as gf_cli
+        from host_chat import attach_bound_project, draft_fingerprint, persist_project_draft
+        from host_chat import sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "demo"
+            proj.mkdir(parents=True)
+            session = new_session("cli-sync-review")
+            session["bound_brief_rel"] = "projects/demo/brief.json"
+            session["draft_brief"] = {
+                "project": {"title": "Stale Session Title"},
+                "assets": [],
+            }
+            attach_bound_project(session, "projects/demo/brief.json", repo_root=root)
+            persist_project_draft(session, repo_root=root)
+            draft_path = proj / "brief.draft.json"
+            disk_draft = {
+                "project": {"title": "Fresh Disk Title"},
+                "assets": [{"name": "rod", "type": "prop", "usage": "x"}],
+            }
+            draft_path.write_text(json.dumps(disk_draft, ensure_ascii=False), encoding="utf-8")
+            sess_path = root / "sess.json"
+            save_session(sess_path, session)
+            seen: list[str] = []
+
+            def fake_review(sess: dict, config: dict | None = None) -> dict:
+                seen.append(draft_fingerprint(sess.get("draft_brief")))
+                sess["makeability_review"] = {
+                    "schema_version": 2,
+                    "draft_fingerprint": draft_fingerprint(sess["draft_brief"]),
+                    "intent_gaps": [],
+                    "detail_gaps": [],
+                    "suggested_defaults": [],
+                }
+                return {
+                    "ok": True,
+                    "intent_count": 0,
+                    "detail_count": 0,
+                    "ready_to_export": True,
+                    "assistant_message": "ok",
+                }
+
+            runner = CliRunner()
+            with patch(
+                "brief_cmds.host_sync_session_draft_from_disk",
+                side_effect=lambda s: sync_session_draft_from_disk(
+                    s, repo_root=root, workspace=root
+                ),
+            ), patch("brief_cmds.host_run_makeability_review", side_effect=fake_review):
+                result = runner.invoke(
+                    gf_cli,
+                    [
+                        "brief",
+                        "chat",
+                        "makeability",
+                        "--session",
+                        str(sess_path),
+                        "--json",
+                    ],
+                    obj={"config": {}},
+                )
+            self.assertEqual(result.exit_code, 0, msg=result.output)
+            self.assertEqual(seen, [draft_fingerprint(disk_draft)])
+
+    def test_cli_makeability_dual_edit_errors_without_overwriting_session(self) -> None:
+        from gamefactory import cli as gf_cli
+        from host_chat import attach_bound_project, draft_fingerprint, persist_project_draft
+        from host_chat import sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "demo"
+            proj.mkdir(parents=True)
+            session = new_session("cli-dual-edit")
+            session["bound_brief_rel"] = "projects/demo/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            attach_bound_project(session, "projects/demo/brief.json", repo_root=root)
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Only Edit"}, "assets": []}
+            session_title = session["draft_brief"]["project"]["title"]
+            (proj / "brief.draft.json").write_text(
+                json.dumps(
+                    {"project": {"title": "Disk Only Edit"}, "assets": []},
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            sess_path = root / "sess.json"
+            from host_chat import _utc_now
+
+            session["updated_at"] = _utc_now()
+            sess_path.write_text(
+                json.dumps(session, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            review_calls: list[int] = []
+
+            def fake_review(sess: dict, config: dict | None = None) -> dict:
+                review_calls.append(1)
+                return {"ok": True, "intent_count": 0, "detail_count": 0}
+
+            runner = CliRunner()
+            with patch(
+                "brief_cmds.host_sync_session_draft_from_disk",
+                side_effect=lambda s: sync_session_draft_from_disk(
+                    s, repo_root=root, workspace=root
+                ),
+            ), patch("brief_cmds.host_run_makeability_review", side_effect=fake_review):
+                result = runner.invoke(
+                    gf_cli,
+                    [
+                        "brief",
+                        "chat",
+                        "makeability",
+                        "--session",
+                        str(sess_path),
+                        "--json",
+                    ],
+                    obj={"config": {}},
+                )
+            self.assertEqual(result.exit_code, 1, msg=result.output)
+            self.assertEqual(review_calls, [])
+            loaded = json.loads(sess_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                loaded["draft_brief"]["project"]["title"],
+                session_title,
+            )
 
 
 class MakeabilityAnswerCliTests(unittest.TestCase):
