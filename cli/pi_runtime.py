@@ -320,7 +320,22 @@ def pi_status(
     if ready:
         hint = None
     elif not entry:
-        hint = "运行: node scripts/prepare_embedded_pi.mjs"
+        # Release packages must ship Pi under resources/pi (see electron-after-pack.mjs).
+        # End users cannot run prepare_embedded_pi.mjs — that is a build-machine step.
+        if (os.environ.get("GAMEFACTORY_PI_ROOT") or "").strip() or getattr(
+            sys, "frozen", False
+        ):
+            hint = (
+                "安装包内置 Pi 不完整（缺 node_modules）。"
+                "请升级到含修复的版本，或临时安装系统 Node 并用 Codex/Cursor 作 IT 执行器。"
+            )
+        elif Path(sys.executable).resolve().as_posix().lower().find("/resources/python") >= 0:
+            hint = (
+                "安装包内置 Pi 不完整（缺 node_modules）。"
+                "请升级到含修复的版本，或临时安装系统 Node 并用 Codex/Cursor 作 IT 执行器。"
+            )
+        else:
+            hint = "开发机请运行: node scripts/prepare_embedded_pi.mjs"
     elif not node_exe:
         hint = (
             f"需要 Node >={PI_MIN_NODE_LABEL}（GUI 请用 Electron 39+；"

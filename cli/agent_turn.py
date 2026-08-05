@@ -452,7 +452,9 @@ def _which_executor_bin(executor: str) -> str | None:
     if executor == "hermes":
         return shutil.which("hermes")
     if executor == "codex":
-        return shutil.which("codex")
+        from toolchain_paths import resolve_codex
+
+        return resolve_codex()
     if executor == "cursor":
         return shutil.which("agent") or shutil.which("cursor-agent")
     return None

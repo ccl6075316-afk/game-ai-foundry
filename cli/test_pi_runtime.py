@@ -207,7 +207,11 @@ class PiRuntimeStatusTest(unittest.TestCase):
         ):
             report = pi_status(config={})
         self.assertFalse(report["ready"])
-        self.assertIn("prepare_embedded_pi", report.get("hint") or "")
+        hint = report.get("hint") or ""
+        self.assertTrue(
+            "prepare_embedded_pi" in hint or "开发机请运行" in hint,
+            msg=hint,
+        )
 
     def test_status_hints_when_node_too_old(self) -> None:
         with (

@@ -57,7 +57,7 @@
 | .NET SDK | **自动安装** → `~/.gamefactory/toolchain/dotnet` |
 | rembg | **内嵌 Python 自带**，无需操作 |
 | **Pi（策划/IT 会话）** | **Release 内置**（复用 Electron Node ≥22.19）；只需配置 API Key |
-| Hermes / Codex / Cursor | **设置 → 环境** 分步安装（推荐，非必需起步） |
+| Hermes / Codex / Cursor | **设置 → 环境** 分步安装（推荐，非必需起步）；**Codex 下载官方二进制到 toolchain，无需本机 npm** |
 
 详见 [`TOOLS.md`](TOOLS.md) · [`GUI-CONFIG.md`](GUI-CONFIG.md)
 

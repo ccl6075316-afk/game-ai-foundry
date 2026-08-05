@@ -110,6 +110,33 @@ def resolve_dotnet(config: dict[str, Any] | None = None) -> str | None:
     return shutil.which("dotnet")
 
 
+def _codex_official_candidates() -> list[Path]:
+    """Standalone installer locations (chatgpt.com/codex install.sh|ps1) — no npm."""
+    home = Path.home()
+    cands: list[Path] = []
+    if sys.platform == "win32":
+        local = os.environ.get("LOCALAPPDATA") or str(home / "AppData" / "Local")
+        cands.append(Path(local) / "Programs" / "OpenAI" / "Codex" / "bin" / "codex.exe")
+        cands.append(Path(local) / "Programs" / "OpenAI" / "Codex" / "bin" / "codex")
+    else:
+        cands.append(home / ".local" / "bin" / "codex")
+    # Managed standalone package used by remote-control / installer
+    for name in ("codex.exe", "codex"):
+        cands.append(home / ".codex" / "packages" / "standalone" / "current" / name)
+    return cands
+
+
+def resolve_codex(config: dict[str, Any] | None = None) -> str | None:
+    """Prefer Foundry toolchain bin, then official standalone install dirs, then PATH."""
+    found = resolve_binary("codex", config)
+    if found:
+        return found
+    for cand in _codex_official_candidates():
+        if cand.is_file():
+            return str(cand)
+    return None
+
+
 def toolchain_env(config: dict[str, Any] | None = None) -> dict[str, str]:
     """Copy of os.environ with toolchain dotnet/bin prepended to PATH for Godot child processes."""
     env = os.environ.copy()
@@ -123,6 +150,11 @@ def toolchain_env(config: dict[str, Any] | None = None) -> dict[str, str]:
     bin_dir = toolchain_bin_dir(config)
     if bin_dir.is_dir():
         prepend.append(str(bin_dir.resolve()))
+    codex = resolve_codex(config)
+    if codex:
+        parent = str(Path(codex).resolve().parent)
+        if parent not in prepend:
+            prepend.append(parent)
     if prepend:
         env["PATH"] = os.pathsep.join(prepend) + os.pathsep + env.get("PATH", "")
     return env

@@ -120,7 +120,10 @@ protocol.registerSchemesAsPrivileged([
 function pathWithCommonNodeBins(basePath) {
   const home = os.homedir();
   const extras = [
+    path.join(home, ".gamefactory", "toolchain", "bin"),
     path.join(home, ".local", "bin"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
+    path.join(home, ".codex", "packages", "standalone", "current"),
     path.join(home, ".local", "share", "cursor-agent", "versions"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
@@ -1531,6 +1534,24 @@ app.whenReady().then(() => {
   });
 
   codexAppServerSessionManager = createCodexAppServerSessionManager({
+    resolveCodexBin: () => {
+      const home = os.homedir();
+      const win = process.platform === "win32";
+      const names = win ? ["codex.exe", "codex"] : ["codex"];
+      const dirs = [
+        path.join(home, ".gamefactory", "toolchain", "bin"),
+        path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
+        path.join(home, ".local", "bin"),
+        path.join(home, ".codex", "packages", "standalone", "current"),
+      ];
+      for (const dir of dirs) {
+        for (const name of names) {
+          const cand = path.join(dir, name);
+          if (existsSync(cand)) return cand;
+        }
+      }
+      return "codex";
+    },
     onPermission: (req) => {
       const permissionId = String(req.permissionId || "");
       const summary = String(req.summary || "").slice(0, 500);

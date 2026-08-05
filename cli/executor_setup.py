@@ -13,6 +13,8 @@ from typing import Any, Callable
 
 from llm_config import resolve_host_api_settings
 from hermes_pack import hermes_home
+from codex_sources import codex_download_sources
+from toolchain_paths import BIN_DIR, resolve_codex
 
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 _CODEX_AUTH = Path.home() / ".codex" / "auth.json"
@@ -474,7 +476,11 @@ def _hermes_openrouter_configured() -> bool:
 def _step_specs(executor_id: str) -> list[dict[str, Any]]:
     if executor_id == "codex":
         return [
-            {"id": "install_cli", "label": "安装 Codex CLI", "hint": "npm install -g @openai/codex"},
+            {
+                "id": "install_cli",
+                "label": "安装 Codex CLI",
+                "hint": "下载官方二进制到 ~/.gamefactory/toolchain/bin（无需 npm / Node）",
+            },
             {"id": "login", "label": "浏览器登录 OpenAI", "hint": "将打开浏览器完成 OAuth"},
             {
                 "id": "sync_api",
@@ -509,8 +515,10 @@ def _step_specs(executor_id: str) -> list[dict[str, Any]]:
 def _step_done(executor_id: str, step_id: str) -> bool:
     if executor_id == "cursor":
         cli = shutil.which("agent") or shutil.which("cursor-agent") or shutil.which("cursor")
+    elif executor_id == "codex":
+        cli = resolve_codex()
     else:
-        cli = shutil.which({"codex": "codex", "hermes": "hermes"}[executor_id])
+        cli = shutil.which("hermes")
     if executor_id == "codex":
         if step_id == "install_cli":
             return bool(cli)
@@ -573,6 +581,8 @@ def executor_status(executor_id: str) -> dict[str, Any]:
     steps = _build_steps(executor_id)
     if executor_id == "cursor":
         path = shutil.which("agent") or shutil.which("cursor-agent") or shutil.which("cursor")
+    elif executor_id == "codex":
+        path = resolve_codex()
     else:
         path = shutil.which(executor_id)
     required_steps = [s for s in steps if not s.get("optional")]
@@ -680,19 +690,112 @@ def _write_env_key(env_path: Path, key: str, value: str) -> None:
     env_path.write_text("\n".join(out).rstrip() + "\n", encoding="utf-8")
 
 
+def _download_file(url: str, dest: Path, progress: ProgressCb = None) -> None:
+    import urllib.request
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    _emit(progress, f"下载 {url}")
+
+    def _reporthook(block: int, block_size: int, total: int) -> None:
+        if total <= 0 or not progress:
+            return
+        done = min(block * block_size, total)
+        pct = int(done * 100 / total)
+        if pct % 10 == 0:
+            _emit(progress, f"下载进度 {pct}%")
+
+    urllib.request.urlretrieve(url, dest, reporthook=_reporthook)
+
+
+def _find_codex_binary(root: Path) -> Path | None:
+    fallback: Path | None = None
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        name = path.name.lower()
+        if name in ("codex", "codex.exe"):
+            return path
+        if not name.startswith("codex-"):
+            continue
+        # Skip non-binary release sidecars if present in extract tree.
+        if any(name.endswith(suf) for suf in (".sigstore", ".zst", ".dmg", ".sha256", ".sig", ".txt", ".md")):
+            continue
+        if name.endswith(".exe") or path.suffix == "":
+            if fallback is None:
+                fallback = path
+    return fallback
+
+
 def _install_codex_cli(progress: ProgressCb = None) -> dict[str, Any]:
-    npm = shutil.which("npm")
-    if not npm:
-        raise RuntimeError("未找到 npm，请先安装 Node.js (https://nodejs.org)")
-    _emit(progress, "正在安装 @openai/codex…")
-    _run([npm, "install", "-g", "@openai/codex"], progress)
-    if not shutil.which("codex"):
-        raise RuntimeError("安装完成但未在 PATH 中找到 codex，请重启终端或 GUI 后重试")
-    return {"ok": True, "path": shutil.which("codex")}
+    """Install official Codex release binary into ~/.gamefactory/toolchain/bin (no npm)."""
+    import tempfile
+    import tarfile
+    import zipfile
+
+    existing = resolve_codex()
+    if existing:
+        return {"ok": True, "path": existing, "already": True}
+
+    sources = codex_download_sources()
+    if not sources:
+        raise RuntimeError(
+            "无法解析 Codex 官方下载地址（GitHub releases）。"
+            "请检查网络，或稍后重试「安装 Codex CLI」。"
+            f"也可手动从 {CODEX_INSTALL_URL}/releases 下载对应平台二进制到 "
+            f"{BIN_DIR}，命名为 codex{'.exe' if sys.platform == 'win32' else ''}。"
+        )
+
+    BIN_DIR.mkdir(parents=True, exist_ok=True)
+    dest_name = "codex.exe" if sys.platform == "win32" else "codex"
+    dest = BIN_DIR / dest_name
+    errors: list[str] = []
+
+    for src in sources:
+        url = src["url"]
+        kind = src["kind"]
+        label = src.get("label", url)
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                tmp_path = Path(tmp)
+                _emit(progress, f"尝试 {label}…")
+                if kind == "exe":
+                    archive = tmp_path / "codex.exe"
+                    _download_file(url, archive, progress)
+                    shutil.copy2(archive, dest)
+                else:
+                    archive = tmp_path / f"codex.{kind.replace('.', '_')}"
+                    _download_file(url, archive, progress)
+                    extract_dir = tmp_path / "extract"
+                    extract_dir.mkdir()
+                    _emit(progress, "解压 Codex…")
+                    if kind == "zip":
+                        with zipfile.ZipFile(archive) as zf:
+                            zf.extractall(extract_dir)
+                    else:
+                        with tarfile.open(archive, "r:gz") as tf:
+                            tf.extractall(extract_dir)
+                    found = _find_codex_binary(extract_dir)
+                    if not found:
+                        errors.append(f"{label}: 压缩包内未找到 codex 二进制")
+                        continue
+                    shutil.copy2(found, dest)
+                if sys.platform != "win32":
+                    dest.chmod(dest.stat().st_mode | 0o755)
+                if not dest.is_file():
+                    errors.append(f"{label}: 安装后目标文件不存在")
+                    continue
+                _emit(progress, f"已安装到 {dest}")
+                return {"ok": True, "path": str(dest), "source": label, "bin_dir": str(BIN_DIR)}
+        except Exception as exc:
+            errors.append(f"{label}: {exc}")
+            _emit(progress, f"{label} 失败，尝试下一源…")
+
+    detail = "; ".join(errors[-5:]) if errors else "无可用下载源"
+    raise RuntimeError(f"Codex CLI 自动安装失败（已尝试 {len(sources)} 个源）: {detail}")
 
 
 def _login_codex(progress: ProgressCb = None) -> dict[str, Any]:
-    codex = shutil.which("codex")
+    codex = resolve_codex()
     if not codex:
         raise RuntimeError("Codex CLI 未安装，请先完成「安装 Codex CLI」")
     if _codex_logged_in():
@@ -823,7 +926,7 @@ def configure_codex_api(
             "message": "未启用第三方（use_third_party=false），未修改 Codex 订阅配置。",
         }
 
-    if not shutil.which("codex"):
+    if not resolve_codex():
         return {
             "ok": False,
             "error": "cli_missing",

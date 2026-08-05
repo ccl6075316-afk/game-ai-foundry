@@ -1,6 +1,6 @@
 {
   "name": "game-ai-foundry-gui",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "description": "Game AI Foundry — desktop shell over gamefactory CLI",
   "author": "Game AI Foundry",
@@ -106,6 +106,7 @@
         ]
       }
     ],
+    "afterPack": "../scripts/electron-after-pack.mjs",
     "win": {
       "target": [
         {

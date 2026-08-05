@@ -100,7 +100,9 @@ def discover_hermes() -> dict[str, Any]:
 
 
 def discover_codex() -> dict[str, Any]:
-    cli = shutil.which("codex")
+    from toolchain_paths import resolve_codex
+
+    cli = resolve_codex()
     git_ok = (_REPO_ROOT / ".git").is_dir()
     hints: list[str] = []
     if not cli:

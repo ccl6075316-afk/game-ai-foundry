@@ -41,7 +41,10 @@ const CLIENT_INFO = Object.freeze({
 export function pathWithCommonNodeBins(basePath) {
   const home = os.homedir();
   const extras = [
+    path.join(home, ".gamefactory", "toolchain", "bin"),
     path.join(home, ".local", "bin"),
+    path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "OpenAI", "Codex", "bin"),
+    path.join(home, ".codex", "packages", "standalone", "current"),
     path.join(process.env.ProgramFiles || "C:\\Program Files", "nodejs"),
     path.join(process.env["ProgramFiles(x86)"] || "C:\\Program Files (x86)", "nodejs"),
     path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Programs", "node"),
@@ -71,7 +74,7 @@ export function pathWithCommonNodeBins(basePath) {
 function assertCodexBinary(codexPath, envPath) {
   if (path.isAbsolute(codexPath) && !existsSync(codexPath)) {
     throw new Error(
-      `Codex 未找到：${codexPath}。请安装 Codex CLI 并确保 codex 在 PATH（含 ~/.local/bin）中。`,
+      `Codex 未找到：${codexPath}。请在 Foundry「环境 → 执行器」安装 Codex CLI（下载到 ~/.gamefactory/toolchain/bin，无需 npm）。`,
     );
   }
   if (!envPath.includes(path.join(os.homedir(), ".local", "bin")) && codexPath === "codex") {

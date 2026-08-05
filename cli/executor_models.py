@@ -58,17 +58,26 @@ def _which_cursor_agent() -> str | None:
 
 
 def _which_codex() -> str | None:
-    return _which_on_path_or_home("codex")
+    from toolchain_paths import resolve_codex
+
+    return resolve_codex() or _which_on_path_or_home("codex")
 
 
 def _run(argv: list[str], *, timeout: float = 45.0) -> tuple[int, str, str]:
     try:
         env = {**os.environ, "NO_COLOR": "1", "CI": "1"}
-        # Ensure ~/.local/bin stays visible even if parent stripped PATH.
-        local_bin = os.path.join(os.path.expanduser("~"), ".local", "bin")
+        # Ensure Foundry toolchain + ~/.local/bin stay visible even if parent stripped PATH.
+        home = os.path.expanduser("~")
+        extras = [
+            os.path.join(home, ".gamefactory", "toolchain", "bin"),
+            os.path.join(home, ".local", "bin"),
+        ]
         path = env.get("PATH") or ""
-        if local_bin and local_bin not in path.split(os.pathsep):
-            env["PATH"] = local_bin + os.pathsep + path
+        parts = path.split(os.pathsep) if path else []
+        for extra in reversed(extras):
+            if extra and extra not in parts and os.path.isdir(extra):
+                parts.insert(0, extra)
+        env["PATH"] = os.pathsep.join(parts)
         proc = subprocess.run(
             argv,
             capture_output=True,
@@ -372,8 +381,9 @@ def list_executor_models(executor_id: str) -> dict[str, Any]:
                 "models": [],
                 "hint": (
                     "本机 `codex` 包装损坏（缺原生二进制 ENOENT）。"
-                    "请卸载坏掉的 npm 包后重装：`npm uninstall -g @openai/codex`，"
-                    "再用 `brew install --cask codex` 或官网安装，然后执行 `codex debug models`。"
+                    "请在 Foundry「环境 → 执行器」重装 Codex CLI"
+                    "（下载官方二进制到 ~/.gamefactory/toolchain/bin，无需 npm），"
+                    "或删除坏掉的 PATH 入口后再装。"
                 ),
                 "error": last_err,
                 "source": " ".join(argv[1:]),

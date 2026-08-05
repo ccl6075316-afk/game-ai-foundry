@@ -88,23 +88,31 @@ class ExecutorSetupTests(unittest.TestCase):
         self.assertEqual(sync["foundry_provider"], "kimi")
         self.assertEqual(sync["api_key"], "sk-kimi")
 
-    @patch("executor_setup.shutil.which", return_value=None)
-    def test_codex_install_cli_requires_npm(self, _which: object) -> None:
-        with self.assertRaises(RuntimeError):
+    @patch("executor_setup.codex_download_sources", return_value=[])
+    @patch("executor_setup.resolve_codex", return_value=None)
+    def test_codex_install_cli_fails_without_sources(self, _resolve: object, _sources: object) -> None:
+        with self.assertRaises(RuntimeError) as ctx:
             run_executor_step("codex", "install_cli")
+        self.assertIn("GitHub", str(ctx.exception))
 
-    @patch("executor_setup._codex_logged_in", return_value=True)
-    @patch("executor_setup.shutil.which", return_value="/usr/bin/codex")
-    def test_codex_login_skips_when_logged_in(self, _which: object, _auth: object) -> None:
-        result = run_executor_step("codex", "login")
+    @patch("executor_setup.resolve_codex", return_value="/mock/codex")
+    def test_codex_install_cli_skips_when_present(self, _resolve: object) -> None:
+        result = run_executor_step("codex", "install_cli")
+        self.assertTrue(result.get("already"))
+        self.assertEqual(result.get("path"), "/mock/codex")
+
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
+    def test_codex_login_skips_when_logged_in(self, _resolve: object) -> None:
+        with patch("executor_setup._codex_logged_in", return_value=True):
+            result = run_executor_step("codex", "login")
         self.assertTrue(result.get("already"))
 
     @patch("executor_setup._spawn_detached")
     @patch("executor_setup._codex_logged_in", return_value=False)
-    @patch("executor_setup.shutil.which", return_value="/usr/bin/codex")
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
     def test_codex_login_starts_detached(
         self,
-        _which: object,
+        _resolve: object,
         _auth: object,
         spawn: object,
     ) -> None:
@@ -265,8 +273,8 @@ class ExecutorSetupTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         self.assertTrue(result.get("skipped"))
 
-    @patch("executor_setup.shutil.which", return_value="/usr/bin/codex")
-    def test_configure_codex_api_writes_config_and_env(self, _which: object) -> None:
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
+    def test_configure_codex_api_writes_config_and_env(self, _resolve: object) -> None:
         config = {
             "agents": {
                 "godot-developer": {
@@ -299,8 +307,8 @@ class ExecutorSetupTests(unittest.TestCase):
             self.assertIn("https://api.deepseek.com/v1", text)
             self.assertIn("DEEPSEEK_API_KEY=sk-ds-sync", env_path.read_text(encoding="utf-8"))
 
-    @patch("executor_setup.shutil.which", return_value="/usr/bin/codex")
-    def test_configure_codex_api_missing_key(self, _which: object) -> None:
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
+    def test_configure_codex_api_missing_key(self, _resolve: object) -> None:
         config = {
             "agents": {
                 "godot-developer": {
@@ -322,8 +330,8 @@ class ExecutorSetupTests(unittest.TestCase):
         self.assertIn("sync_provider", payload)
 
     @patch("executor_setup._configure_codex_api")
-    @patch("executor_setup.shutil.which", return_value="/usr/bin/codex")
-    def test_run_executor_step_codex_sync_api(self, _which: object, configure: object) -> None:
+    @patch("executor_setup.resolve_codex", return_value="/usr/bin/codex")
+    def test_run_executor_step_codex_sync_api(self, _resolve: object, configure: object) -> None:
         configure.return_value = {"ok": True, "foundry_provider": "openrouter"}
         result = run_executor_step("codex", "sync_api")
         configure.assert_called_once()

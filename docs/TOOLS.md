@@ -228,7 +228,7 @@ python gamefactory.py setup executor step cursor verify_cli
 | | |
 |--|--|
 | **适合** | Pass 4 `godot-developer` 写 C# |
-| **安装** | `npm install -g @openai/codex` |
+| **安装** | GUI「安装 Codex CLI」或 CLI `setup executor step codex install_cli`：从 GitHub Releases 下载官方二进制到 `~/.gamefactory/toolchain/bin`（**无需 npm / Node**） |
 | **登录** | `codex login` → `~/.codex/auth.json`（`use_third_party=false` 时走订阅，不覆盖） |
 | **第三方** | 实例或 **Agent 预设**（Codex 勾选「用第三方」）→ 保存后 GUI 自动调 `sync_api`，或 CLI `setup executor step codex sync_api`；写入 `~/.codex/config.toml` + `~/.codex/.env` |
 | **要求** | git 仓库（本项目满足） |
