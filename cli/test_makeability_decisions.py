@@ -25,6 +25,7 @@ from host_chat import (
 )
 from makeability_decisions import (
     apply_whole_card_verifier_results,
+    assert_critic_decision_checks_protocol,
     canonicalize_decision_checks,
     complete_critic_ledger_checks,
     decisions_for_verifier,
@@ -41,8 +42,10 @@ from makeability_decisions import (
     decision_key_alias_map_from_gaps,
     required_paths_by_key_from_ledger,
     resolve_decision_key,
+    resolve_gaps_for_answers,
     sanitize_intent_gap,
     suppress_intent_gaps_by_ledger,
+    validate_occurrences_strict,
     verifier_path_failure_detail,
     verifier_reported_all_keys,
 )
@@ -298,7 +301,9 @@ class VerifiedFingerprintTests(unittest.TestCase):
         self.assertTrue(ledger_blocks_export(session, current_draft_fingerprint=fp_new))
         self.assertFalse(ledger_blocks_export(session, current_draft_fingerprint=fp_old))
 
-    def test_critic_empty_checks_downgrade_verified_and_block_export(self) -> None:
+    def test_critic_empty_checks_fail_protocol_without_downgrade(self) -> None:
+        from host_chat import _build_makeability_review
+
         draft = _minimal_draft()
         fp = draft_fingerprint(draft)
         session = new_session("critic-empty")
@@ -316,13 +321,38 @@ class VerifiedFingerprintTests(unittest.TestCase):
                 },
             }
         ]
-        session["makeability_review"] = {
-            "schema_version": 2,
-            "draft_fingerprint": draft_fingerprint(session["draft_brief"]),
+        parsed = {
             "intent_gaps": [],
             "detail_gaps": [],
             "suggested_defaults": [],
+            "decision_checks": [],
         }
+        with self.assertRaises(HostChatError) as ctx:
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(session["draft_brief"]),
+                session=session,
+            )
+        self.assertIn("decision_checks incomplete", str(ctx.exception))
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "verified")
+
+    def test_critic_empty_checks_helper_still_completes_for_merge_unit(self) -> None:
+        """complete_critic_ledger_checks remains available for unit merge tests."""
+        draft = _minimal_draft()
+        fp = draft_fingerprint(draft)
+        session = new_session("critic-empty-helper")
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "g1",
+                "answer_text": "B",
+                "status": "verified",
+                "verified_draft_fingerprint": fp,
+                "gap_snapshot": {
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                },
+            }
+        ]
         completed = complete_critic_ledger_checks(session, [])
         merge_critic_decision_checks(session, completed)
         self.assertEqual(ensure_decision_ledger(session)[0]["status"], "repair_failed")
@@ -467,7 +497,7 @@ class CriticAliasCanonicalTests(unittest.TestCase):
             "fp2",
         )
 
-    def test_checks_only_empty_intent_evidence_paths_canonicalize(self) -> None:
+    def test_checks_with_canonical_key_refresh_fingerprint(self) -> None:
         from host_chat import _build_makeability_review
 
         paths = ["project.session_goal"]
@@ -504,7 +534,7 @@ class CriticAliasCanonicalTests(unittest.TestCase):
             "suggested_defaults": [],
             "decision_checks": [
                 {
-                    "decision_key": "system.test.entry_rule",
+                    "decision_key": "system.test.rule",
                     "status": "satisfied",
                     "evidence_paths": paths,
                 }
@@ -518,7 +548,7 @@ class CriticAliasCanonicalTests(unittest.TestCase):
         self.assertTrue(_compute_ready_to_export(session))
         assert_makeability_exportable(session)
 
-    def test_multi_path_evidence_subset_aliases_changed_check_key(self) -> None:
+    def test_path_subset_does_not_alias_unrelated_decision_keys(self) -> None:
         single = ["project.systems[id=aquarium].notes"]
         full = [
             "project.description",
@@ -548,13 +578,12 @@ class CriticAliasCanonicalTests(unittest.TestCase):
             }
         ]
         alias_map = decision_key_alias_map_from_checks(session, raw_checks)
-        self.assertEqual(alias_map.get("system.aquarium.entry_rule"), "system.aquarium.unlock_rule")
-        checks = canonicalize_decision_checks(raw_checks, alias_map)
-        checks = complete_critic_ledger_checks(session, checks)
-        merge_critic_decision_checks(session, checks, current_draft_fingerprint="fp2")
+        self.assertEqual(alias_map, {})
+        with self.assertRaises(ValueError):
+            assert_critic_decision_checks_protocol(session, raw_checks)
         entry = ensure_decision_ledger(session)[0]
         self.assertEqual(entry["status"], "verified")
-        self.assertEqual(entry["verified_draft_fingerprint"], "fp2")
+        self.assertEqual(entry["verified_draft_fingerprint"], "fp1")
 
 
 class DecisionKeyTests(unittest.TestCase):
@@ -1034,6 +1063,13 @@ class SuppressRepeatTests(unittest.TestCase):
             "intent_gaps": [_v2_aquarium_intent(id="id2", question="Q2")],
             "detail_gaps": [],
             "suggested_defaults": [],
+            "decision_checks": [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ],
         }
         with patch(
             "host_chat.chat_text_completion",
@@ -1402,7 +1438,12 @@ class CliMakeabilitySyncTests(unittest.TestCase):
             }
             draft_path.write_text(json.dumps(disk_draft, ensure_ascii=False), encoding="utf-8")
             sess_path = root / "sess.json"
-            save_session(sess_path, session)
+            # Persist session JSON without CAS write — disk already diverged intentionally.
+            session["updated_at"] = "2026-08-05T00:00:00+00:00"
+            sess_path.write_text(
+                json.dumps(session, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
             seen: list[str] = []
 
             def fake_review(sess: dict, config: dict | None = None) -> dict:
@@ -1556,6 +1597,148 @@ class MakeabilityAnswerCliTests(unittest.TestCase):
             ledger = loaded.get("decision_ledger") or []
             self.assertTrue(ledger)
             self.assertIn("B", ledger[0].get("answer_text", ""))
+
+
+class ReviewFindingFixesTests(unittest.TestCase):
+    def test_illegal_occurrence_relation_rejected(self) -> None:
+        from host_chat import _build_makeability_review
+
+        with self.assertRaises(ValueError):
+            validate_occurrences_strict(
+                [{"path": "project.session_goal", "relation": "related"}],
+                field="occurrences",
+            )
+        session = new_session("bad-occ")
+        session["draft_brief"] = _minimal_draft()
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "g1",
+                    "decision_key": "session.goal",
+                    "write_paths": ["project.session_goal"],
+                    "occurrences": [
+                        {"path": "project.session_goal", "relation": "canonical"},
+                        {"path": "project.description", "relation": "kinda-dup"},
+                    ],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        with self.assertRaises(HostChatError) as ctx:
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(session["draft_brief"]),
+                session=session,
+            )
+        self.assertIn("invalid relation", str(ctx.exception))
+
+    def test_verifier_protocol_error_skips_closer_repair_rounds(self) -> None:
+        session = new_session("proto-skip")
+        draft = _minimal_draft()
+        session["draft_brief"] = draft
+        session["makeability_review"] = {
+            "schema_version": 2,
+            "intent_gaps": [
+                {
+                    "id": "aquarium_unlock_flow",
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "question": "水族馆？",
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                    "choices": ["A", "B"],
+                },
+                {
+                    "id": "market_access",
+                    "decision_key": "system.market.access_rule",
+                    "question": "市场？",
+                    "target_paths": ["project.systems[id=market].notes"],
+                    "choices": ["A", "B"],
+                },
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        closer = {
+            "assistant_message": "写了",
+            "brief_patches": [
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "aquarium"},
+                    "set": {"notes": "unlocked from start"},
+                },
+                {
+                    "op": "upsert_system",
+                    "match": {"id": "market"},
+                    "set": {"notes": "open"},
+                },
+            ],
+        }
+        verifier = {
+            "decision_checks": [
+                {
+                    "decision_key": "system.aquarium.unlock_rule",
+                    "gap_id": "aquarium_unlock_flow",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ]
+        }
+        answers = [
+            {"gap_id": "aquarium_unlock_flow", "choice": "B"},
+            {"gap_id": "market_access", "choice": "B"},
+        ]
+        calls = {"closer": 0, "verifier": 0}
+
+        def counting_route(**kwargs):
+            messages = kwargs["messages"]
+            system = messages[0]["content"]
+            if "Makeability Verifier" in system:
+                calls["verifier"] += 1
+                return json.dumps(verifier, ensure_ascii=False)
+            calls["closer"] += 1
+            return json.dumps(closer, ensure_ascii=False)
+
+        with patch(
+            "host_chat.chat_text_completion",
+            side_effect=counting_route,
+        ), patch(
+            "host_chat.resolve_host_api_settings",
+            return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
+        ):
+            result = answer_makeability_gaps(session, answers, config={})
+        self.assertTrue(result.get("repair_failed"))
+        self.assertEqual(calls["closer"], 1)
+        self.assertEqual(calls["verifier"], 1)
+
+    def test_legacy_ledger_without_snapshot_still_resolves_gap(self) -> None:
+        session = new_session("legacy-snap")
+        session["makeability_review"] = {
+            "schema_version": 2,
+            "intent_gaps": [],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        session["decision_ledger"] = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "gap_id": "aquarium_unlock_flow",
+                "answer_text": "B 开局可进",
+                "status": "repair_failed",
+                "evidence_paths": ["project.systems[id=aquarium].notes"],
+            }
+        ]
+        gaps = resolve_gaps_for_answers(
+            session,
+            [{"gap_id": "aquarium_unlock_flow", "choice": "B 开局可进"}],
+        )
+        self.assertIn("aquarium_unlock_flow", gaps)
+        self.assertEqual(
+            gaps["aquarium_unlock_flow"]["decision_key"],
+            "system.aquarium.unlock_rule",
+        )
+        self.assertTrue(gaps["aquarium_unlock_flow"].get("write_paths"))
 
 
 if __name__ == "__main__":

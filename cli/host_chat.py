@@ -38,6 +38,7 @@ from prompt_craft import PromptCraftError, chat_text_completion
 from makeability_decisions import (
     MAX_AUTO_REPAIR_ATTEMPTS,
     apply_whole_card_verifier_results,
+    assert_critic_decision_checks_protocol,
     canonicalize_decision_checks,
     complete_critic_ledger_checks,
     decisions_for_verifier,
@@ -66,6 +67,7 @@ from makeability_decisions import (
     resolve_gaps_for_answers,
     suppress_intent_gaps_by_ledger,
     update_ledger_status,
+    validate_occurrences_strict,
     verifier_path_failure_detail,
     verifier_reported_all_keys,
 )
@@ -301,13 +303,20 @@ def _should_flush_session_draft_to_disk(
     if not disk:
         return True
     disk_fp = draft_fingerprint(disk)
+    session_fp = draft_fingerprint(draft)
     tracked = str(session.get("draft_disk_fingerprint") or "").strip()
     if tracked and disk_fp != tracked:
         # Disk changed since we last loaded/persisted — never clobber it with stale session.
         return False
-    if not tracked and _draft_richness(disk) > _draft_richness(draft):
-        # Legacy sessions without fingerprint: prefer the richer on-disk draft.
-        return False
+    if not tracked:
+        disk_rich = _draft_richness(disk)
+        session_rich = _draft_richness(draft)
+        if disk_rich > session_rich:
+            # Legacy sessions without fingerprint: prefer the richer on-disk draft.
+            return False
+        if disk_fp != session_fp and session_rich <= disk_rich:
+            # Ambiguous divergent disk — do not flush without a tracked fingerprint.
+            return False
     return True
 
 
@@ -317,7 +326,11 @@ def persist_project_draft(
     repo_root: Path | None = None,
     workspace: Path | None = None,
 ) -> Path | None:
-    """Write session draft_brief to projects/…/brief.draft.json (or external root)."""
+    """Write session draft_brief to projects/…/brief.draft.json (or external root).
+
+    Compare-and-swap: refuse to overwrite when disk changed since last load/persist
+    and no longer matches the session's tracked fingerprint (LLM-window race).
+    """
     draft = session.get("draft_brief")
     if not isinstance(draft, dict) or not draft:
         return None
@@ -329,6 +342,32 @@ def persist_project_draft(
     if brief_path is None:
         return None
     draft_path = brief_path.parent / "brief.draft.json"
+    tracked = str(session.get("draft_disk_fingerprint") or "").strip()
+    if draft_path.is_file():
+        try:
+            disk_raw = json.loads(draft_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            disk_raw = None
+        if isinstance(disk_raw, dict) and disk_raw:
+            disk_fp = draft_fingerprint(disk_raw)
+            session_fp = draft_fingerprint(draft)
+            if tracked and disk_fp != tracked and session_fp != disk_fp:
+                raise HostChatError(
+                    "brief.draft.json 在持久化前已被外部修改，且与会话草稿不一致；"
+                    "已拒绝覆盖。请先同步磁盘或对齐后再保存。"
+                )
+            if tracked and disk_fp != tracked and session_fp == tracked:
+                # Session still at last-known disk; disk moved under us — refuse clobber.
+                raise HostChatError(
+                    "brief.draft.json 在 LLM/编辑期间已被外部修改；已拒绝用过期会话覆盖。"
+                )
+            if not tracked and disk_fp != session_fp:
+                # Legacy: allow only when session is strictly richer (attach flush).
+                if _draft_richness(draft) <= _draft_richness(disk_raw):
+                    raise HostChatError(
+                        "brief.draft.json 已存在且与会话草稿不同，且会话无磁盘指纹；"
+                        "已拒绝覆盖。请先加载绑定草稿后再保存。"
+                    )
     try:
         draft_path.parent.mkdir(parents=True, exist_ok=True)
         out = {k: copy.deepcopy(v) for k, v in draft.items() if k != "brief_meta"}
@@ -1061,6 +1100,10 @@ def _validate_fresh_critic_intent_gaps(intent_gaps: list[dict[str, Any]]) -> Non
             raise HostChatError(
                 f"Makeability critic intent_gaps[{index}] missing non-empty occurrences."
             )
+        try:
+            validate_occurrences_strict(occ, field=f"intent_gaps[{index}].occurrences")
+        except ValueError as exc:
+            raise HostChatError(f"Makeability critic {exc}") from exc
         wp = gap.get("write_paths")
         if not isinstance(wp, list) or not wp:
             raise HostChatError(
@@ -1068,15 +1111,15 @@ def _validate_fresh_critic_intent_gaps(intent_gaps: list[dict[str, Any]]) -> Non
             )
         write_paths = normalize_write_paths(wp)
         write_set = {p.lower() for p in write_paths}
-        for occ in normalize_occurrences(gap.get("occurrences")):
-            relation = str(occ.get("relation") or "").strip().lower()
+        for occ_row in normalize_occurrences(gap.get("occurrences")):
+            relation = str(occ_row.get("relation") or "").strip().lower()
             if relation not in {"duplicate", "conflict"}:
                 continue
-            path = str(occ.get("path") or "").strip().lower()
+            path = str(occ_row.get("path") or "").strip().lower()
             if path and path not in write_set:
                 raise HostChatError(
                     "Makeability critic intent_gaps["
-                    f"{index}] duplicate/conflict path {occ.get('path')!r} "
+                    f"{index}] duplicate/conflict path {occ_row.get('path')!r} "
                     "must appear in write_paths."
                 )
 
@@ -1087,20 +1130,25 @@ def _build_makeability_review(
     fingerprint: str,
     session: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    intent_gaps = enrich_intent_gaps(
-        _normalize_gap_list(parsed.get("intent_gaps"), field="intent_gaps")
-    )
-    _validate_fresh_critic_intent_gaps(intent_gaps)
+    raw_intent = _normalize_gap_list(parsed.get("intent_gaps"), field="intent_gaps")
+    _validate_fresh_critic_intent_gaps(raw_intent)
+    intent_gaps = enrich_intent_gaps(raw_intent)
     if session is not None:
         intent_gaps = reconcile_intent_gaps_with_ledger(session, intent_gaps)
     detail_gaps = _normalize_gap_list(parsed.get("detail_gaps"), field="detail_gaps")
     suggested_defaults = _normalize_gap_list(parsed.get("suggested_defaults"), field="suggested_defaults")
-    decision_checks = normalize_decision_checks(parsed.get("decision_checks"))
+    raw_decision_checks = parsed.get("decision_checks")
+    decision_checks = normalize_decision_checks(raw_decision_checks)
     if session is not None:
         gap_aliases = decision_key_alias_map_from_gaps(intent_gaps)
+        # Path-subset check aliasing disabled (H3); keep call for explicit API stability.
         check_aliases = decision_key_alias_map_from_checks(session, decision_checks)
         alias_map = merge_decision_key_alias_maps(gap_aliases, check_aliases)
         decision_checks = canonicalize_decision_checks(decision_checks, alias_map)
+        try:
+            assert_critic_decision_checks_protocol(session, decision_checks)
+        except ValueError as exc:
+            raise HostChatError(str(exc)) from exc
         decision_checks = complete_critic_ledger_checks(session, decision_checks)
         if decision_checks:
             merge_critic_decision_checks(
@@ -1548,7 +1596,14 @@ def answer_makeability_gaps(
         }
         return _llm(_MAKEABILITY_ANSWER_SYSTEM, user_payload)
 
-    def _run_verifier(candidate_draft: dict[str, Any]) -> tuple[list[str], list[str], list[str]]:
+    def _run_verifier(
+        candidate_draft: dict[str, Any],
+    ) -> tuple[list[str], list[str], list[str], bool]:
+        """Returns verified_ids, failed_ids, path_notes, protocol_error.
+
+        protocol_error=True when verifier omitted keys / returned unusable rows —
+        do not spend closer repair rounds on that (M2).
+        """
         user_payload = {
             "candidate_draft_brief": candidate_draft,
             "pending_decisions": specs,
@@ -1557,6 +1612,7 @@ def answer_makeability_gaps(
         parsed = _llm(_MAKEABILITY_VERIFIER_SYSTEM, user_payload)
         raw_checks = normalize_decision_checks(parsed.get("decision_checks"))
         raw_complete = verifier_reported_all_keys(expected_keys, raw_checks)
+        protocol_error = not raw_complete
         cand_fp = draft_fingerprint(candidate_draft)
         path_notes = verifier_path_failure_detail(
             raw_checks,
@@ -1572,7 +1628,7 @@ def answer_makeability_gaps(
             verified_draft_fingerprint=cand_fp,
             required_paths_by_key=required_paths_by_key,
         )
-        return verified, failed, path_notes
+        return verified, failed, path_notes, protocol_error
 
     if not api.get("api_key"):
         return _answer_makeability_failure_result(
@@ -1611,7 +1667,9 @@ def answer_makeability_gaps(
         session["draft_brief"] = apply_brief_patches(draft, patches)
         for key in touched_keys:
             update_ledger_status(session, key, status="applied")
-        verified_ids, repair_failed_ids, path_notes = _run_verifier(session["draft_brief"])
+        verified_ids, repair_failed_ids, path_notes, protocol_error = _run_verifier(
+            session["draft_brief"]
+        )
     except (HostChatError, PromptCraftError) as exc:
         return _answer_makeability_failure_result(
             session,
@@ -1623,7 +1681,12 @@ def answer_makeability_gaps(
     repair_rows = [r for r in normalized if r["gap_id"] in repair_failed_ids]
     attempt = 0
     last_path_notes = path_notes if repair_failed_ids else []
-    while repair_rows and attempt < MAX_AUTO_REPAIR_ATTEMPTS:
+    # Protocol errors (missing verifier rows) must not burn closer repair budget.
+    while (
+        repair_rows
+        and not protocol_error
+        and attempt < MAX_AUTO_REPAIR_ATTEMPTS
+    ):
         attempt += 1
         repair_detail = "; ".join(last_path_notes) if last_path_notes else ""
         try:
@@ -1643,7 +1706,12 @@ def answer_makeability_gaps(
             patches.extend(repatches)
             for key in expected_keys:
                 update_ledger_status(session, key, status="applied")
-            verified_ids, repair_failed_ids, last_path_notes = _run_verifier(session["draft_brief"])
+            (
+                verified_ids,
+                repair_failed_ids,
+                last_path_notes,
+                protocol_error,
+            ) = _run_verifier(session["draft_brief"])
             repair_rows = [r for r in normalized if r["gap_id"] in repair_failed_ids]
         except (HostChatError, PromptCraftError):
             break
@@ -2747,7 +2815,16 @@ def run_turn(
     return _apply_parsed(session, parsed, "chat")
 
 
-def export_brief(session: dict[str, Any]) -> dict[str, Any]:
+def export_brief(
+    session: dict[str, Any],
+    *,
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> dict[str, Any]:
+    """Export validated draft; sync bound disk draft first (H1)."""
+    sync_session_draft_from_disk(
+        session, repo_root=repo_root, workspace=workspace
+    )
     draft = session.get("draft_brief")
     if not isinstance(draft, dict) or not draft:
         raise HostChatError("No draft_brief in session. Chat about the game first, then 落实成 brief.")

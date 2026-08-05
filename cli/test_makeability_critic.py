@@ -286,6 +286,36 @@ class MakeabilityCriticTests(unittest.TestCase):
         ):
             self.assertIn(token, system, msg=f"missing {token} in critic system prompt")
 
+    def test_fresh_critic_rejects_illegal_occurrence_relation(self) -> None:
+        from host_chat import _build_makeability_review
+
+        session = new_session("bad-relation")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "bad_gap",
+                    "decision_key": "session.bad",
+                    "write_paths": ["project.session_goal", "project.description"],
+                    "occurrences": [
+                        {"path": "project.session_goal", "relation": "canonical"},
+                        {"path": "project.description", "relation": "similar"},
+                    ],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        with self.assertRaises(HostChatError) as ctx:
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(_FISHING_DRAFT),
+                session=session,
+            )
+        self.assertIn("invalid relation", str(ctx.exception))
+
     def test_fresh_critic_rejects_intent_gap_without_occurrences(self) -> None:
         from host_chat import _build_makeability_review
 

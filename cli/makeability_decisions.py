@@ -61,6 +61,26 @@ def normalize_path_list(raw: Any) -> list[str]:
     return out
 
 
+def validate_occurrences_strict(raw: Any, *, field: str = "occurrences") -> None:
+    """Fail closed: every occurrence object must carry a known relation."""
+    if raw is None:
+        return
+    if not isinstance(raw, list):
+        raise ValueError(f"{field} must be an array.")
+    for index, item in enumerate(raw):
+        if not isinstance(item, dict):
+            raise ValueError(f"{field}[{index}] must be an object.")
+        path = str(item.get("path") or "").strip()
+        if not path:
+            raise ValueError(f"{field}[{index}] missing non-empty path.")
+        relation = str(item.get("relation") or "").strip().lower()
+        if relation not in OCCURRENCE_RELATIONS:
+            raise ValueError(
+                f"{field}[{index}] invalid relation {item.get('relation')!r}; "
+                f"expected one of {sorted(OCCURRENCE_RELATIONS)}."
+            )
+
+
 def normalize_occurrences(raw: Any) -> list[dict[str, Any]]:
     if not isinstance(raw, list):
         return []
@@ -623,27 +643,13 @@ def decision_key_alias_map_from_checks(
     session: dict[str, Any],
     checks: list[dict[str, Any]],
 ) -> dict[str, str]:
-    """Map check decision_key when ledger required paths are a subset of evidence."""
-    ledger_sigs = ledger_required_path_signatures(session)
-    out: dict[str, str] = {}
-    for check in checks:
-        if not isinstance(check, dict):
-            continue
-        dkey = str(check.get("decision_key") or "").strip()
-        if not dkey:
-            continue
-        evidence = set(normalize_target_paths(check.get("evidence_paths")))
-        if not evidence:
-            continue
-        candidates: list[str] = []
-        for canonical, req_sig in ledger_sigs.items():
-            if set(req_sig).issubset(evidence):
-                candidates.append(canonical)
-        if len(candidates) == 1:
-            canonical = candidates[0]
-            if dkey != canonical:
-                out[dkey] = canonical
-    return out
+    """No path-subset aliasing — same JSON path can hold unrelated rules.
+
+    Alias maps must come from explicit gap identity (decision_key_alias /
+    reconcile_intent_gaps_with_ledger). Kept for call-site compatibility.
+    """
+    _ = session, checks
+    return {}
 
 
 def merge_decision_key_alias_maps(
@@ -750,6 +756,24 @@ def ledger_blocks_export(
     return False
 
 
+def _synthesize_gap_from_ledger_entry(gap_id: str, entry: dict[str, Any]) -> dict[str, Any]:
+    """Recover a minimal gap when open review and gap_snapshot are both missing."""
+    dkey = str(entry.get("decision_key") or "").strip() or f"gap.{gap_id}"
+    paths = normalize_path_list(entry.get("evidence_paths"))
+    gap: dict[str, Any] = {
+        "id": gap_id,
+        "decision_key": dkey,
+        "question": (
+            "（从会话账本恢复的旧审查项；若写入失败请重新运行「制作审查」。）"
+        ),
+        "why_blocking": "legacy_recovery",
+    }
+    if paths:
+        gap["target_paths"] = paths
+        gap["write_paths"] = list(paths)
+    return gap
+
+
 def resolve_gaps_for_answers(
     session: dict[str, Any],
     normalized: list[dict[str, str]],
@@ -791,6 +815,9 @@ def resolve_gaps_for_answers(
                 if not gap.get("decision_key"):
                     gap["decision_key"] = str(entry.get("decision_key") or "").strip()
                 gaps_by_id[gap_id] = gap
+            elif str(entry.get("answer_text") or "").strip():
+                # Pre-snapshot crash sessions: still allow retry from ledger answer.
+                gaps_by_id[gap_id] = _synthesize_gap_from_ledger_entry(gap_id, entry)
     return gaps_by_id
 
 
@@ -955,6 +982,40 @@ def complete_critic_ledger_checks(
     if not expected:
         return normalize_decision_checks(checks)
     return complete_decision_checks_for_keys(expected, normalize_decision_checks(checks))
+
+
+def assert_critic_decision_checks_protocol(
+    session: dict[str, Any],
+    checks: list[dict[str, Any]],
+) -> None:
+    """Require Critic to report every answered ledger key; refuse silent downgrade."""
+    expected = ledger_answered_decision_keys(session)
+    if not expected:
+        return
+    raw = normalize_decision_checks(checks)
+    if not verifier_reported_all_keys(expected, raw):
+        missing = [
+            k
+            for k in expected
+            if k
+            not in {
+                str(c.get("decision_key") or "").strip()
+                for c in raw
+                if isinstance(c, dict)
+            }
+        ]
+        raise ValueError(
+            "Makeability critic decision_checks incomplete for answered ledger keys: "
+            + ", ".join(missing)
+        )
+    for index, item in enumerate(checks if isinstance(checks, list) else []):
+        if not isinstance(item, dict):
+            raise ValueError(f"decision_checks[{index}] must be an object.")
+        status = str(item.get("status") or "").strip().lower()
+        if status and status not in {"satisfied", "missing", "conflict"}:
+            raise ValueError(
+                f"decision_checks[{index}] invalid status {item.get('status')!r}."
+            )
 
 
 def _patch_blob(patches: list[dict[str, Any]]) -> str:
