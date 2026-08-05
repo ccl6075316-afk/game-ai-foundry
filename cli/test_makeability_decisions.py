@@ -1739,7 +1739,6 @@ class ReviewFindingFixesTests(unittest.TestCase):
                 "host_chat.resolve_host_api_settings",
                 return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
             ), patch("host_chat._repo_root", return_value=root):
-                # First persist_after_record runs mid-flow; draft CAS soft-fails.
                 result = answer_makeability_gaps(
                     session,
                     [{"gap_id": "aquarium_unlock_flow", "choice": "B"}],
@@ -1749,10 +1748,20 @@ class ReviewFindingFixesTests(unittest.TestCase):
             self.assertEqual(saved, ["ok"])
             mid = json.loads(sess_path.read_text(encoding="utf-8"))
             self.assertIn("B", mid["decision_ledger"][0]["answer_text"])
-            # Whole-card may repair_failed if draft wasn't updated due to CAS —
-            # answers must still be durable either way.
-            self.assertTrue(mid["decision_ledger"][0].get("answer_text"))
-            self.assertIsNotNone(result)
+            # H1: must not claim verified/ok when project draft did not persist.
+            self.assertFalse(result.get("ok"))
+            self.assertTrue(result.get("repair_failed"))
+            self.assertFalse(result.get("draft_persisted"))
+            self.assertTrue(result.get("draft_persist_error"))
+            self.assertEqual(result.get("verified_ids") or [], [])
+            self.assertIn("aquarium_unlock_flow", result.get("repair_failed_ids") or [])
+            self.assertEqual(
+                ensure_decision_ledger(session)[0]["status"],
+                "repair_failed",
+            )
+            self.assertIn("草稿未写入磁盘", result.get("assistant_message") or "")
+            disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
+            self.assertEqual(disk["project"]["title"], "External")
 
     def test_illegal_occurrence_relation_rejected(self) -> None:
         from host_chat import _build_makeability_review

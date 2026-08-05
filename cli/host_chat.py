@@ -1536,7 +1536,40 @@ def _answer_makeability_failure_result(
         "session_id": session.get("id"),
         "message_count": len(messages),
         "fingerprint_match": False,
+        "draft_persisted": False,
+        "draft_persist_error": reason,
     }
+
+
+def _persist_answer_draft_or_mark(
+    session: dict[str, Any],
+    *,
+    verified_ids: list[str],
+    expected_keys: list[str],
+    normalized: list[dict[str, str]],
+) -> tuple[bool, str | None]:
+    """Try to flush session draft to disk after answer patches.
+
+    Unbound sessions have nothing to flush (treated as persisted). Bound sessions
+    must succeed CAS write or callers must not claim verified success.
+    """
+    _ = verified_ids, expected_keys, normalized
+    bound = _norm_brief_rel(session.get("bound_brief_rel"))
+    if not bound:
+        session.pop("last_draft_persist_error", None)
+        return True, None
+    try:
+        out = persist_project_draft(session)
+    except HostChatError as exc:
+        err = str(exc)
+        session["last_draft_persist_error"] = err
+        return False, err
+    if out is None:
+        err = "无法写入 brief.draft.json（缺少可落盘草稿字段或绑定路径）。"
+        session["last_draft_persist_error"] = err
+        return False, err
+    session.pop("last_draft_persist_error", None)
+    return True, None
 
 
 def answer_makeability_gaps(
@@ -1748,17 +1781,38 @@ def answer_makeability_gaps(
         except (HostChatError, PromptCraftError):
             break
 
-    if verified_ids:
+    # Memory verifier success is not enough — bound project draft must hit disk (H1).
+    draft_persisted, draft_persist_error = _persist_answer_draft_or_mark(
+        session,
+        verified_ids=verified_ids,
+        expected_keys=expected_keys,
+        normalized=normalized,
+    )
+    if draft_persist_error and verified_ids:
+        # Downgrade: answers kept, but do not claim verified write.
+        mark_keys_repair_failed(session, expected_keys)
+        repair_failed_ids = list(
+            dict.fromkeys(
+                [*(repair_failed_ids or []), *[r["gap_id"] for r in normalized]]
+            )
+        )
+        verified_ids = []
+    elif verified_ids:
         remove_verified_gaps_from_review(session, verified_ids)
 
     assistant_message = str(parsed.get("assistant_message") or "").strip() or (
         "已按审查选项写入工作草稿。"
     )
+    if draft_persist_error:
+        assistant_message += (
+            f"\n\n（草稿未写入磁盘：{draft_persist_error} "
+            "答案已保存在会话中，可对齐磁盘后重试写入。）"
+        )
     if repair_failed_ids:
         assistant_message += (
             f"\n\n（{len(repair_failed_ids)} 条答案已保存但未能验证写入，可重试写入。）"
         )
-    elif verified_ids:
+    elif verified_ids and draft_persisted:
         assistant_message = assistant_message.rstrip() + (
             "\n\n（宿主：已关闭已验证的意图缺口；草稿已变，请再点「制作审查」确认后再导出。）"
         )
@@ -1772,10 +1826,10 @@ def answer_makeability_gaps(
     rem_intent = remaining.get("intent_gaps") if isinstance(remaining, dict) else []
     rem_count = len(rem_intent) if isinstance(rem_intent, list) else 0
 
-    ok = not repair_failed_ids and rem_count == 0
+    ok = not repair_failed_ids and rem_count == 0 and draft_persisted
     return {
         "ok": ok,
-        "repair_failed": bool(repair_failed_ids),
+        "repair_failed": bool(repair_failed_ids) or bool(draft_persist_error),
         "verified_ids": verified_ids,
         "repair_failed_ids": repair_failed_ids,
         "closed_ids": verified_ids,
@@ -1787,6 +1841,8 @@ def answer_makeability_gaps(
         "session_id": session.get("id"),
         "message_count": len(messages),
         "fingerprint_match": False,
+        "draft_persisted": draft_persisted,
+        "draft_persist_error": draft_persist_error,
     }
 
 

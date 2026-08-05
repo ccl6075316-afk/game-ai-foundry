@@ -1684,41 +1684,47 @@ export default function App() {
       const repairGaps = data.review?.repair_gaps || [];
       const hasIntent = intentGaps.some((g) => String(g?.id || "").trim());
       const hasRepair = repairGaps.some((g) => String(g?.id || "").trim());
-      const makeabilityCard = hasIntent
-        ? {
+      const repairAnswers = (data.review?.repair_answers || []).map((row) => ({
+        gap_id: String(row.gap_id || ""),
+        ...(row.choice ? { choice: String(row.choice) } : {}),
+        ...(row.note ? { note: String(row.note) } : {}),
+      }));
+      const head = (data.assistant_message || "制作审查完成。").split("\n\n")[0];
+
+      // Intent and repair can both exist — emit separate cards so neither is hidden (M1).
+      if (hasRepair) {
+        appendAssistant(
+          hasIntent
+            ? `${head}\n\n下方卡片可「重试写入」已保存但验证失败的答案。`
+            : `${head}\n\n下方卡片可「重试写入」已保存的答案（无需重新选题）。`,
+          undefined,
+          undefined,
+          sessionTarget,
+          {
+            status: "repair_failed" as const,
+            review: {
+              ...(data.review || {}),
+              intent_gaps: repairGaps,
+            },
+            lastAnswers: repairAnswers,
+          },
+        );
+      }
+      if (hasIntent) {
+        appendAssistant(
+          `${head}\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。`,
+          undefined,
+          undefined,
+          sessionTarget,
+          {
             status: "pending" as const,
             review: data.review || { intent_gaps: intentGaps },
-          }
-        : hasRepair
-          ? {
-              status: "repair_failed" as const,
-              review: {
-                ...(data.review || {}),
-                intent_gaps: repairGaps,
-              },
-              lastAnswers: (data.review?.repair_answers || []).map((row) => ({
-                gap_id: String(row.gap_id || ""),
-                ...(row.choice ? { choice: String(row.choice) } : {}),
-                ...(row.note ? { note: String(row.note) } : {}),
-              })),
-            }
-          : undefined;
-      if (hasIntent) {
-        content =
-          (data.assistant_message || "制作审查完成。").split("\n\n")[0] +
-          "\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。";
-      } else if (hasRepair) {
-        content =
-          (data.assistant_message || "制作审查完成。").split("\n\n")[0] +
-          "\n\n下方卡片可「重试写入」已保存的答案（无需重新选题）。";
+          },
+        );
       }
-      appendAssistant(
-        content,
-        undefined,
-        undefined,
-        sessionTarget,
-        makeabilityCard,
-      );
+      if (!hasIntent && !hasRepair) {
+        appendAssistant(content, undefined, undefined, sessionTarget);
+      }
       applyDraftFromPayload(
         {
           ...data,

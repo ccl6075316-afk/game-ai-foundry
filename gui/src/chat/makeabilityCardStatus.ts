@@ -11,6 +11,9 @@ export function resolveMakeabilityCardStatus(
   if (data.repair_failed || repairFailedIds.length > 0) {
     return "repair_failed";
   }
+  if (data.draft_persisted === false) {
+    return "repair_failed";
+  }
   if (verifiedIds.length > 0 && remaining === 0 && data.ok) {
     return "applied";
   }

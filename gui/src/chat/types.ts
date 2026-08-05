@@ -46,6 +46,8 @@ export interface MakeabilityAnswerResult {
   repair_failed_ids?: string[];
   remaining_intent_count?: number;
   closed_ids?: string[];
+  draft_persisted?: boolean;
+  draft_persist_error?: string;
 }
 
 export interface ChatMessage {

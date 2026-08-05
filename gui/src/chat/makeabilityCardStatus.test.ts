@@ -51,6 +51,18 @@ test("verifier incomplete flags repair_failed via repair_failed boolean", () => 
   );
 });
 
+test("draft_persisted false forces repair_failed", () => {
+  assert.equal(
+    resolveMakeabilityCardStatus({
+      ok: false,
+      verified_ids: [],
+      draft_persisted: false,
+      draft_persist_error: "cas",
+    }),
+    "repair_failed",
+  );
+});
+
 test("local submit patch saves answers for crash retry", () => {
   const answers = [{ gap_id: "g1", choice: "B" }];
   const patch = makeabilityCardLocalSubmitPatch(answers);
