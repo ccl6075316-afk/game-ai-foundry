@@ -47,7 +47,7 @@
 
 | ID | 说明 | 证据 | 建议 |
 |----|------|------|------|
-| **H1** | 软闸门后 **GUI/`export_brief` 已按结构算就绪**，但 Pi 导出仍读磁盘 `session.ready_to_export`；enrich/验写入失败等会把旗标打成 `False` 且不重算 → **策划 Pi「存」与 GUI 存不一致** | `cli/pi_foundry_tools.py:503-517`；`host_chat.py` Pi `allow_export = … ready_to_export`；enrich/`_answer_makeability_failure` 写 False | 另开修复：`_session_allows_export` / Pi allow_export 改为 `_compute_ready_to_export(session)`，或写盘时同步重算旗标 |
+| **H1** | 软闸门后 **GUI/`export_brief` 已按结构算就绪**，但 Pi 导出仍读磁盘 `session.ready_to_export`；enrich/验写入失败等会把旗标打成 `False` 且不重算 → **策划 Pi「存」与 GUI 存不一致** | `cli/pi_foundry_tools.py:503-517`；`host_chat.py` Pi `allow_export = … ready_to_export`；enrich/`_answer_makeability_failure` 写 False | **已修（后续 commit）**：`_session_allows_export` / Pi `allow_export` / 若干写盘点改为 `_compute_ready_to_export` |
 | **H2** | 长任务大量 `append` **无 sessionTarget**（北极星 / pipeline run / safeAction / doctor…）。切同事 mid-flight 仍可能把结果写进当前窗 | `App.tsx` handleRun / VT / handleSafeAction 等（既有债，非顾问引入） | Deferred 专案：长任务强制 target；可记入整仓账本 Deferred |
 
 ### Medium（顾问注册 / 产品文案）
@@ -85,14 +85,14 @@
 | 子项 | 结论 |
 |------|------|
 | 未提交串线修复 | **允许合入**（已单独 APPROVED；默认值已反转为「仅 brief→策划」） |
-| 已上 main 的软闸门 + 顾问 | **维持可用**；**H1 为打开的 High follow-up**（不要求立刻回滚） |
-| 全局切片 | **`APPROVED_WITH_FOLLOWUPS`** |
+| 已上 main 的软闸门 + 顾问 | **维持可用**；H1 已在后续 commit 对齐；H2 仍为 Deferred |
+| 全局切片 | **`APPROVED_WITH_FOLLOWUPS`**（剩余：H2 长任务 target、顾问 Medium 注册） |
 
 **合入顺序建议**
 
-1. 提交并 push 串线修复（含本审查文件可选）。  
-2. 立刻或下一刀修 **H1**（Pi/`ready_to_export` 与结构就绪对齐）。  
-3. 顾问 Medium（M1/M2）与文档 M3 可同批或随后。  
+1. ~~提交并 push 串线修复~~（`eccd000`）
+2. ~~修 H1（Pi/`ready_to_export` 与结构就绪对齐）~~
+3. 顾问 Medium（M1/M2）与文档 M3 可随后。
 4. H2 长任务 target 专案，勿塞进热修。
 
 **不自动 compound**；H1 修完后再沉淀 solutions。

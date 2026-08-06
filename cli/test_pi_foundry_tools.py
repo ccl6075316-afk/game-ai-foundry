@@ -516,21 +516,23 @@ class PiFoundryToolsTest(unittest.TestCase):
 
     def test_session_allows_export_real_gate(self) -> None:
         from host_chat import new_session, save_session, session_path_for_id
+        from test_fixtures import SMOKE_BRIEF
 
         session = new_session("exp-gate-1")
-        session["ready_to_export"] = False
+        session["ready_to_export"] = True  # stale flag alone must not unlock export
         path = session_path_for_id("exp-gate-1")
         save_session(path, session)
         try:
             ok, reason = _session_allows_export("exp-gate-1")
             self.assertFalse(ok)
-            self.assertIn("ready_to_export", reason)
+            self.assertIn("structurally ready", reason)
 
-            session["ready_to_export"] = True
+            session["draft_brief"] = SMOKE_BRIEF
+            session["ready_to_export"] = False  # stale False must not block when structure OK
             save_session(path, session)
             ok2, reason2 = _session_allows_export("exp-gate-1")
             self.assertTrue(ok2)
-            self.assertEqual(reason2, "ready_to_export")
+            self.assertEqual(reason2, "structural_ready")
         finally:
             if path.is_file():
                 path.unlink()
@@ -539,7 +541,7 @@ class PiFoundryToolsTest(unittest.TestCase):
         from host_chat import new_session, save_session, session_path_for_id
 
         session = new_session("exp-block-1")
-        session["ready_to_export"] = False
+        session["ready_to_export"] = True  # flag True but empty draft → still blocked
         path = session_path_for_id("exp-block-1")
         save_session(path, session)
         try:

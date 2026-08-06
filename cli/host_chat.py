@@ -944,7 +944,7 @@ def apply_draft_replacement(
         new_draft = merge_asset_proposals(new_draft, asset_proposals)
 
     session["draft_brief"] = new_draft
-    session["ready_to_export"] = False
+    session["ready_to_export"] = _compute_ready_to_export(session)
 
     assets = new_draft.get("assets")
     asset_count = len(assets) if isinstance(assets, list) else 0
@@ -1490,7 +1490,7 @@ def _answer_makeability_failure_result(
     assistant_message = f"答案已保存，但写入草稿失败：{reason} 可在卡片中重试写入。"
     messages.append({"role": "assistant", "content": assistant_message})
     session["messages"] = messages
-    session["ready_to_export"] = False
+    session["ready_to_export"] = _compute_ready_to_export(session)
     review = session.get("makeability_review")
     rem_intent = (
         review.get("intent_gaps")
@@ -1507,7 +1507,7 @@ def _answer_makeability_failure_result(
         "assistant_message": assistant_message,
         "draft_brief": session.get("draft_brief"),
         "review": session.get("makeability_review"),
-        "ready_to_export": False,
+        "ready_to_export": bool(session.get("ready_to_export")),
         "session_id": session.get("id"),
         "message_count": len(messages),
         "fingerprint_match": False,
@@ -2438,7 +2438,7 @@ def reconcile_makeability_after_draft_write(
     # Force fingerprint mismatch until the next makeability run.
     review["draft_fingerprint"] = f"stale-after-close:{draft_fingerprint(session.get('draft_brief') if isinstance(session.get('draft_brief'), dict) else {})}"
     session["makeability_review"] = review
-    session["ready_to_export"] = False
+    session["ready_to_export"] = _compute_ready_to_export(session)
 
     msg = assistant_message
     if _MAKEABILITY_CLOSED_NOTE.strip() not in msg:
@@ -2521,7 +2521,7 @@ def _call_llm(
         )
 
         if resolve_brief_executor(config) == "pi":
-            allow_export = mode == "commit_brief" and bool(session.get("ready_to_export"))
+            allow_export = mode == "commit_brief" and _compute_ready_to_export(session)
             try:
                 sid = str(session.get("id") or "brief")
                 # Persist mid-turn so export/status tools can read the session file.
@@ -2654,7 +2654,7 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                 try:
                     session["draft_brief"] = apply_brief_patches(base, patches)
                     invalidate_verified_ledger_for_patches(session, patches)
-                    session["ready_to_export"] = False
+                    session["ready_to_export"] = _compute_ready_to_export(session)
                 except HostChatError as exc:
                     assistant_message += f"\n\n（草稿补丁未应用：{exc}）"
         elif incoming:

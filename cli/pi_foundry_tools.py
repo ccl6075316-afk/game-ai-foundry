@@ -3,8 +3,9 @@
 Pi itself runs with ``--no-tools``; when the model emits a FOUNDRY_TOOL fence,
 Foundry executes only allow-listed argv and feeds stdout back into the next turn.
 
-Write gates: ``brief chat export`` requires ``allow_export=True`` and a session that
-is ready (or commit mode). Output paths must stay under projects/output/plans.
+Write gates: ``brief chat export`` requires ``allow_export=True`` and a session
+that passes structural readiness (``_compute_ready_to_export``). Output paths
+must stay under projects/output/plans.
 """
 
 from __future__ import annotations
@@ -501,9 +502,13 @@ def _brief_rel_argv_ok(argv: list[str]) -> bool:
 
 
 def _session_allows_export(session_id: str) -> tuple[bool, str]:
-    """Load brief chat session; export only when ready_to_export."""
+    """Load brief chat session; export when structural contract is ready.
+
+    Aligns with ``host_chat._compute_ready_to_export`` (makeability advisory).
+    Ignores a stale ``session.ready_to_export`` disk flag.
+    """
     try:
-        from host_chat import load_session, session_path_for_id
+        from host_chat import _compute_ready_to_export, load_session, session_path_for_id
 
         path = session_path_for_id(session_id)
         if not path.is_file():
@@ -512,9 +517,9 @@ def _session_allows_export(session_id: str) -> tuple[bool, str]:
     except Exception as exc:  # noqa: BLE001
         return False, str(exc)
 
-    if session.get("ready_to_export"):
-        return True, "ready_to_export"
-    return False, "session not ready_to_export (落实完成后再导出)"
+    if _compute_ready_to_export(session):
+        return True, "structural_ready"
+    return False, "session not structurally ready to export"
 
 
 def _gamefactory_python() -> str:
