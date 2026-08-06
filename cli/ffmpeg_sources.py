@@ -10,6 +10,8 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from download_mirror import rewrite_url
+
 _GITHUB_API = "https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/latest"
 _USER_AGENT = "game-ai-foundry-toolchain/1.0"
 
@@ -26,6 +28,7 @@ def platform_key() -> str:
 
 
 def _http_get_json(url: str) -> dict[str, Any] | None:
+    url = rewrite_url(url)
     req = urllib.request.Request(url, headers={"User-Agent": _USER_AGENT, "Accept": "application/vnd.github+json"})
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
@@ -35,6 +38,7 @@ def _http_get_json(url: str) -> dict[str, Any] | None:
 
 
 def _head_ok(url: str) -> bool:
+    url = rewrite_url(url)
     req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": _USER_AGENT})
     try:
         with urllib.request.urlopen(req, timeout=20) as resp:
@@ -82,7 +86,7 @@ def ffmpeg_download_sources(key: str | None = None) -> list[dict[str, str]]:
     btbn = _btbn_asset_url(key)
     if btbn:
         kind = "tar.xz" if btbn.endswith(".tar.xz") else "zip"
-        sources.append({"url": btbn, "kind": kind, "label": "BtbN-GitHub"})
+        sources.append({"url": rewrite_url(btbn), "kind": kind, "label": "BtbN-GitHub"})
 
     if key.startswith("macos"):
         for item in _evermeet_sources():
@@ -99,7 +103,7 @@ def ffmpeg_download_sources(key: str | None = None) -> list[dict[str, str]]:
     legacy = legacy_names.get(key)
     if legacy and _head_ok(legacy):
         kind = "tar.xz" if legacy.endswith(".tar.xz") else "zip"
-        sources.append({"url": legacy, "kind": kind, "label": "BtbN-legacy"})
+        sources.append({"url": rewrite_url(legacy), "kind": kind, "label": "BtbN-legacy"})
 
     # Deduplicate by url
     seen: set[str] = set()

@@ -28,6 +28,7 @@ from toolchain_paths import (
 from ffmpeg_sources import ffmpeg_download_sources, platform_key
 from godot_sources import godot_download_source
 from dotnet_install import install_dotnet_sdk
+from download_mirror import rewrite_url
 
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
@@ -146,6 +147,7 @@ def _emit(progress: ProgressCb, message: str) -> None:
 
 
 def _download(url: str, dest: Path, progress: ProgressCb = None) -> None:
+    url = rewrite_url(url)
     dest.parent.mkdir(parents=True, exist_ok=True)
     _emit(progress, f"下载 {url}")
 

@@ -8,6 +8,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from download_mirror import rewrite_url
 from ffmpeg_sources import platform_key
 
 _GITHUB_API = "https://api.github.com/repos/godotengine/godot/releases/latest"
@@ -22,6 +23,7 @@ _ASSET_PATTERNS: dict[str, re.Pattern[str]] = {
 
 
 def _http_get_json(url: str) -> dict[str, Any] | None:
+    url = rewrite_url(url)
     req = urllib.request.Request(
         url,
         headers={"User-Agent": _USER_AGENT, "Accept": "application/vnd.github+json"},
@@ -65,7 +67,7 @@ def godot_download_source(key: str | None = None) -> dict[str, str] | None:
         if not url or not pattern.match(name):
             continue
         return {
-            "url": url,
+            "url": rewrite_url(url),
             "kind": "zip",
             "label": f"godot-{tag}-{name}",
             "asset": name,

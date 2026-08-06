@@ -101,7 +101,8 @@
     "import_skip_trail_ratio": 0.05
   },
   "toolchain": {
-    "bin_dir": "~/.gamefactory/toolchain/bin"
+    "bin_dir": "~/.gamefactory/toolchain/bin",
+    "download_mirror": false
   },
   "agents": {
     "hermes_provider": "openrouter",

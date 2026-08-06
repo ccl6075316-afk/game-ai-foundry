@@ -259,6 +259,16 @@ export interface ConfigPatch {
   godot?: {
     engine_path?: string;
   };
+  /** Local toolchain paths + optional GitHub download mirror */
+  toolchain?: {
+    bin_dir?: string;
+    godot_dir?: string;
+    dotnet_dir?: string;
+    /** When true, prefix GitHub downloads with a reverse-proxy mirror (default false) */
+    download_mirror?: boolean;
+    /** Mirror URL prefix, default https://ghproxy.net/ */
+    download_mirror_prefix?: string;
+  };
   agents?: {
     brief?: { executor?: string; skill?: string; provider?: string; model?: string | null };
     it?: { executor?: string; skill?: string; provider?: string; model?: string | null };
@@ -315,6 +325,7 @@ export interface ConfigInfo {
     code?: Record<string, unknown>;
     video?: Record<string, unknown>;
     godot?: Record<string, unknown>;
+    toolchain?: Record<string, unknown>;
     agents?: Record<string, unknown>;
     matting?: Record<string, unknown>;
   };

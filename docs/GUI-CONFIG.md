@@ -126,6 +126,7 @@ CLI 等价：`setup executor step <id> <step>` — 见 [`TOOLS.md`](TOOLS.md)。
 | **Godot .NET** | 必需；自动下载到 toolchain，写入 `godot.engine_path` |
 | **.NET SDK** | 必需；自动安装到 toolchain |
 | **rembg** | **打包版内嵌 Python 自带**；不出现在环境安装列表 |
+| **下载镜像** | **设置 → 环境**：可选开关（默认关）。开启后 GitHub 类工具链下载走反代镜像，适合国内无代理网络 |
 
 ---
 

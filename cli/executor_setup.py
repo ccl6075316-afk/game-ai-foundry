@@ -693,6 +693,9 @@ def _write_env_key(env_path: Path, key: str, value: str) -> None:
 def _download_file(url: str, dest: Path, progress: ProgressCb = None) -> None:
     import urllib.request
 
+    from download_mirror import rewrite_url
+
+    url = rewrite_url(url)
     dest.parent.mkdir(parents=True, exist_ok=True)
     _emit(progress, f"下载 {url}")
 

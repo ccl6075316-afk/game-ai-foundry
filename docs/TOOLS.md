@@ -109,6 +109,7 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 | `godot.engine_path` | Godot 4 **.NET / Mono** 可执行文件；自动安装后会写入 |
 | `toolchain.bin_dir` | FFmpeg 目录（默认 `~/.gamefactory/toolchain/bin`） |
 | `toolchain.godot_dir` / `dotnet_dir` | 自动安装目录 |
+| `toolchain.download_mirror` | **默认 `false`**。为 `true` 时，FFmpeg / Godot / Codex 等 GitHub 下载经反代镜像（默认前缀 `https://ghproxy.net/`；可改 `download_mirror_prefix`）。GUI：**设置 → 环境 → 下载镜像** |
 
 ### 3.3 Agent 路由（`agents`）
 

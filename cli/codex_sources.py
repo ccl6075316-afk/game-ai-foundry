@@ -10,6 +10,8 @@ import urllib.error
 import urllib.request
 from typing import Any
 
+from download_mirror import rewrite_url
+
 _GITHUB_API = "https://api.github.com/repos/openai/codex/releases/latest"
 _USER_AGENT = "game-ai-foundry-toolchain/1.0"
 
@@ -30,6 +32,7 @@ def platform_key() -> str:
 
 
 def _http_get_json(url: str) -> dict[str, Any] | None:
+    url = rewrite_url(url)
     req = urllib.request.Request(
         url,
         headers={"User-Agent": _USER_AGENT, "Accept": "application/vnd.github+json"},
@@ -86,7 +89,7 @@ def codex_download_sources(key: str | None = None) -> list[dict[str, str]]:
                 continue
             sources.append(
                 {
-                    "url": url,
+                    "url": rewrite_url(url),
                     "kind": kind,
                     "label": f"openai/codex {tag} {name}",
                     "name": name,

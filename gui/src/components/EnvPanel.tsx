@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from "react";
 import type { DoctorReport } from "../vite-env.d";
 import type { ToolchainReport } from "../settings/toolchain";
 import type { ExecutorSetupReport } from "../settings/executorsSetup";
@@ -5,8 +6,6 @@ import { autoInstallable } from "../settings/toolchain";
 import { EnvComponentList } from "./EnvComponentList";
 import { ExecutorSetupPanel } from "./ExecutorSetupPanel";
 import type { ExecutorId } from "../settings/executorsSetup";
-
-type Tab = "tools" | "doctor";
 
 interface Props {
   toolchain: ToolchainReport | null;
@@ -46,6 +45,52 @@ export function EnvPanel({
   const Shell = embedded ? "div" : "aside";
   const shellClass = embedded ? "env-panel env-panel--embedded" : "side-panel env-panel";
 
+  const [downloadMirror, setDownloadMirror] = useState(false);
+  const [mirrorSaving, setMirrorSaving] = useState(false);
+  const [mirrorError, setMirrorError] = useState<string | null>(null);
+
+  const loadMirrorPref = useCallback(async () => {
+    if (!window.gameFactory?.getConfig) return;
+    try {
+      const info = await window.gameFactory.getConfig();
+      const tc = info.data?.toolchain;
+      const on =
+        tc && typeof tc === "object" && !Array.isArray(tc)
+          ? Boolean((tc as { download_mirror?: unknown }).download_mirror)
+          : false;
+      setDownloadMirror(on);
+      setMirrorError(null);
+    } catch (err) {
+      setMirrorError(err instanceof Error ? err.message : String(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadMirrorPref();
+  }, [loadMirrorPref]);
+
+  const onToggleMirror = async (next: boolean) => {
+    if (!window.gameFactory?.saveConfig) return;
+    setMirrorSaving(true);
+    setMirrorError(null);
+    setDownloadMirror(next);
+    try {
+      const res = await window.gameFactory.saveConfig({
+        toolchain: { download_mirror: next },
+      });
+      if (!res?.ok) {
+        setDownloadMirror(!next);
+        setMirrorError(res?.error || "保存失败");
+        return;
+      }
+    } catch (err) {
+      setDownloadMirror(!next);
+      setMirrorError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setMirrorSaving(false);
+    }
+  };
+
   return (
     <Shell className={shellClass}>
       {!embedded && (
@@ -70,6 +115,24 @@ export function EnvPanel({
           </button>
         )}
       </div>
+
+      <section className="env-panel__section">
+        <h3>下载镜像</h3>
+        <p className="hint">
+          默认直连 GitHub。国内网络装 FFmpeg / Godot / Codex 过慢时可开启（经 ghproxy.net
+          等反代；社区服务，不稳定时可关掉）。
+        </p>
+        <label className="field field--checkbox">
+          <input
+            type="checkbox"
+            checked={downloadMirror}
+            disabled={mirrorSaving || !window.gameFactory?.saveConfig}
+            onChange={(e) => void onToggleMirror(e.target.checked)}
+          />
+          <span>使用 GitHub 下载镜像</span>
+        </label>
+        {mirrorError && <p className="hint">{mirrorError}</p>}
+      </section>
 
       <section className="env-panel__section">
         <h3>本机工具</h3>
