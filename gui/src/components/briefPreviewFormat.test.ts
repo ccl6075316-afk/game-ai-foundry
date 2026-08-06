@@ -147,29 +147,39 @@ test("assetStyleChips lists declared style fields only", () => {
   ]);
 });
 
-test("briefMakeabilityExportReady gates on review fingerprint and intent", () => {
+test("briefMakeabilityExportReady gates on structural contract only", () => {
   const base = {
     exists: true,
     ready_to_export: true,
-    has_review: true,
-    makeability_fingerprint_match: true,
-    intent_count: 0,
+    contract_complete: true,
+    gaps: [] as string[],
+    has_review: false,
+    makeability_fingerprint_match: false,
+    intent_count: 2,
   };
   assert.equal(briefMakeabilityExportReady(base), true);
-  assert.equal(briefMakeabilityExportReady({ ...base, has_review: false }), false);
-  assert.equal(briefMakeabilityExportReady({ ...base, makeability_fingerprint_match: false }), false);
-  assert.equal(briefMakeabilityExportReady({ ...base, intent_count: 2 }), false);
+  assert.equal(briefMakeabilityExportReady({ ...base, gaps: ["asset id missing"] }), false);
+  assert.equal(briefMakeabilityExportReady({ ...base, contract_complete: false, ready_to_export: false }), false);
 });
 
-test("briefMakeabilityGateHint explains blocked export", () => {
-  assert.match(briefMakeabilityGateHint({ exists: true, has_review: false }), /制作审查/);
+test("briefMakeabilityGateHint keeps makeability advisory", () => {
+  assert.match(
+    briefMakeabilityGateHint({ exists: true, contract_complete: true, gaps: [], has_review: false }),
+    /可保存/,
+  );
   assert.match(
     briefMakeabilityGateHint({
       exists: true,
+      contract_complete: true,
+      gaps: [],
       has_review: true,
       makeability_fingerprint_match: false,
     }),
-    /重新/,
+    /可保存/,
+  );
+  assert.match(
+    briefMakeabilityGateHint({ exists: true, gaps: ["bad id"], contract_complete: false }),
+    /校验未通过/,
   );
 });
 

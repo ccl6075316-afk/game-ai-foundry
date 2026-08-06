@@ -343,7 +343,7 @@ class MakeabilityCriticTests(unittest.TestCase):
             )
 
 
-    def test_fresh_critic_rejects_conflict_path_missing_from_write_paths(self) -> None:
+    def test_fresh_critic_heals_conflict_path_missing_from_write_paths(self) -> None:
         from host_chat import _build_makeability_review
 
         session = new_session("fresh-schema-wp")
@@ -367,17 +367,22 @@ class MakeabilityCriticTests(unittest.TestCase):
                     ],
                     "question": "Q?",
                     "why_blocking": "x",
+                    "choices": ["A", "B"],
                 }
             ],
             "detail_gaps": [],
             "suggested_defaults": [],
         }
-        with self.assertRaises(HostChatError):
-            _build_makeability_review(
-                parsed,
-                fingerprint=draft_fingerprint(_FISHING_DRAFT),
-                session=session,
-            )
+        review = _build_makeability_review(
+            parsed,
+            fingerprint=draft_fingerprint(_FISHING_DRAFT),
+            session=session,
+        )
+        gaps = review.get("intent_gaps") or []
+        self.assertEqual(len(gaps), 1)
+        wp = {str(p).lower() for p in (gaps[0].get("write_paths") or [])}
+        self.assertIn("project.scenes[id=hall].notes", wp)
+        self.assertIn("project.systems[id=aquarium].notes", wp)
 
     def test_fresh_critic_accepts_duplicate_conflict_in_write_paths(self) -> None:
         from host_chat import _build_makeability_review

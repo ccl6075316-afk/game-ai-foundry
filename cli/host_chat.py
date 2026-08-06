@@ -1107,6 +1107,11 @@ def _normalize_gap_list(raw: Any, *, field: str) -> list[dict[str, Any]]:
 
 
 def _validate_fresh_critic_intent_gaps(intent_gaps: list[dict[str, Any]]) -> None:
+    """Validate critic intent schema; auto-heal missing conflict/duplicate write_paths.
+
+    Models often list conflict paths in ``occurrences`` but forget ``write_paths``.
+    Raising used to abort the whole makeability run; we now union those paths in.
+    """
     for index, gap in enumerate(intent_gaps):
         if not isinstance(gap, dict):
             raise HostChatError(
@@ -1122,23 +1127,23 @@ def _validate_fresh_critic_intent_gaps(intent_gaps: list[dict[str, Any]]) -> Non
         except ValueError as exc:
             raise HostChatError(f"Makeability critic {exc}") from exc
         wp = gap.get("write_paths")
-        if not isinstance(wp, list) or not wp:
-            raise HostChatError(
-                f"Makeability critic intent_gaps[{index}] missing non-empty write_paths."
-            )
-        write_paths = normalize_write_paths(wp)
+        write_paths = normalize_write_paths(wp) if isinstance(wp, list) else []
         write_set = {p.lower() for p in write_paths}
         for occ_row in normalize_occurrences(gap.get("occurrences")):
             relation = str(occ_row.get("relation") or "").strip().lower()
-            if relation not in {"duplicate", "conflict"}:
+            path = str(occ_row.get("path") or "").strip()
+            if not path:
                 continue
-            path = str(occ_row.get("path") or "").strip().lower()
-            if path and path not in write_set:
-                raise HostChatError(
-                    "Makeability critic intent_gaps["
-                    f"{index}] duplicate/conflict path {occ_row.get('path')!r} "
-                    "must appear in write_paths."
-                )
+            if relation in {"duplicate", "conflict", "canonical"}:
+                if path.lower() not in write_set:
+                    write_paths.append(path)
+                    write_set.add(path.lower())
+        if not write_paths:
+            raise HostChatError(
+                f"Makeability critic intent_gaps[{index}] missing non-empty write_paths "
+                "(and occurrences have no usable paths to heal)."
+            )
+        gap["write_paths"] = write_paths
 
 
 def _build_makeability_review(
@@ -1248,55 +1253,25 @@ def format_makeability_review_details(
 
 
 def _compute_ready_to_export(session: dict[str, Any]) -> bool:
+    """Structural readiness only — makeability / intent / ledger are advisory."""
     draft = session.get("draft_brief")
-    draft_fp = draft_fingerprint(draft) if isinstance(draft, dict) and draft else None
-    if ledger_blocks_export(session, current_draft_fingerprint=draft_fp):
-        return False
     if not isinstance(draft, dict) or not draft:
         return False
     if _audit_draft_gaps(draft):
         return False
-    review = session.get("makeability_review")
-    if not isinstance(review, dict) or not review:
-        return False
-    if str(review.get("draft_fingerprint") or "") != draft_fingerprint(draft):
-        return False
-    intent_raw = review.get("intent_gaps")
-    if isinstance(intent_raw, list) and intent_raw:
-        open_intent = suppress_intent_gaps_by_ledger(session, intent_raw)
-        if open_intent:
-            return False
     return True
 
 
 def assert_makeability_exportable(session: dict[str, Any]) -> dict[str, Any]:
-    """Require fresh makeability review with no open intent gaps before export."""
+    """Return makeability review if present; never hard-blocks export.
+
+    Product / intent gaps are advisory. Callers that still want a soft signal
+    can inspect intent_gaps / fingerprint themselves.
+    """
     review = session.get("makeability_review")
-    if not isinstance(review, dict) or not review:
-        raise HostChatError(
-            "尚未进行制作审查。请先运行「制作审查」(brief chat makeability) 后再导出。"
-        )
-    draft = session.get("draft_brief")
-    if not isinstance(draft, dict) or not draft:
-        raise HostChatError("No draft_brief in session. Chat about the game first, then 落实成 brief.")
-    current_fp = draft_fingerprint(draft)
-    review_fp = str(review.get("draft_fingerprint") or "")
-    if review_fp != current_fp:
-        raise HostChatError(
-            "制作审查已过期（draft 已变更）。请重新运行「制作审查」后再导出。"
-        )
-    if ledger_blocks_export(session, current_draft_fingerprint=current_fp):
-        raise HostChatError(
-            "仍有制作审查决定未验证写入（pending/applied/repair_failed），不可导出。"
-        )
-    intent_gaps = review.get("intent_gaps")
-    if isinstance(intent_gaps, list) and intent_gaps:
-        open_intent = suppress_intent_gaps_by_ledger(session, intent_gaps)
-        if open_intent:
-            raise HostChatError(
-                f"仍有 {len(open_intent)} 条意图缺口未关闭，不可导出。请在策划对话内补齐后重新审查。"
-            )
-    return review
+    if isinstance(review, dict) and review:
+        return review
+    return {}
 
 
 def makeability_sidecar_path(
@@ -2924,6 +2899,7 @@ def export_brief(
             f"Brief 校验未通过（仍有 {len(gaps)} 条）。请先自动修或补齐后再导出。"
         )
     session["ready_to_export"] = True
+    # Makeability / intent / ledger are advisory — structural audit above is the hard gate.
     assert_makeability_exportable(session)
     return finalize_brief_export(draft, source="host-chat")
 

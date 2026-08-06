@@ -1632,8 +1632,8 @@ export default function App() {
       const left = data.gaps?.length ?? 0;
       if (data.ok && left === 0) {
         appendAssistant(
-          `**自动修完成**：校验已通过（用了 ${data.rounds_run ?? 0} 轮）。可点「保存 Brief」或 \`/brief save\`。`,
-          data.ready_to_export ? ["保存 Brief"] : undefined,
+          `**自动修完成**：结构校验已通过（用了 ${data.rounds_run ?? 0} 轮）。可点「保存 Brief」；制作审查为可选，不挡导出。`,
+          ["保存 Brief"],
           undefined,
           sessionTarget,
         );

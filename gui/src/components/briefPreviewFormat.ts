@@ -266,24 +266,31 @@ export function formatBriefDocument(
   return lines.join("\n");
 }
 
-/** Export allowed only when backend ready + fresh makeability review with no intent gaps. */
+/** Export allowed when structural contract passes (JSON / asset pipeline). Makeability is advisory. */
 export function briefMakeabilityExportReady(status: HostChatStatus | null): boolean {
-  if (!status?.ready_to_export) return false;
-  if (!status.has_review) return false;
-  if (!status.makeability_fingerprint_match) return false;
-  if ((status.intent_count ?? 0) > 0) return false;
-  return true;
+  if (!status) return false;
+  if ((status.gaps?.length ?? 0) > 0) return false;
+  if (status.contract_complete === false) return false;
+  if (status.ready_to_export) return true;
+  // Backend may omit ready when only makeability was stale; structural OK is enough.
+  return Boolean(status.contract_complete) && (status.gaps?.length ?? 0) === 0;
 }
 
 export function briefMakeabilityGateHint(status: HostChatStatus | null): string {
-  if (!status?.has_review) return "请先点「制作审查」";
-  if (!status.makeability_fingerprint_match) return "草稿已改，请重新「制作审查」";
-  if ((status.intent_count ?? 0) > 0) {
-    return `还有 ${status.intent_count} 条意图缺口未关，请点选项或回复后再审查`;
+  if ((status?.gaps?.length ?? 0) > 0) {
+    return "校验未通过，请先点「自动修」或补齐会挡生图/解析的字段";
   }
-  if (status.gaps?.length) return "校验未通过，请先点「自动修」或补齐字段";
-  if (!status.contract_complete && !status.ready_to_export) return "草稿尚未通过校验";
-  if (!status.ready_to_export) return "校验已过，刷新状态或再点一次「制作审查」后可导出";
+  if (status?.contract_complete === false) return "草稿尚未通过结构校验";
+  if (!status?.ready_to_export && !(status?.contract_complete && !(status.gaps?.length))) {
+    return "校验已过，刷新状态后可导出";
+  }
+  if (!status?.has_review) return "可保存；建议稍后点「制作审查」补产品逻辑（不挡导出）";
+  if (!status.makeability_fingerprint_match) {
+    return "可保存；草稿已改，制作审查已过期（可选再审，不挡导出）";
+  }
+  if ((status.intent_count ?? 0) > 0) {
+    return `可保存；还有 ${status.intent_count} 条意图缺口（可选继续拍板，不挡导出）`;
+  }
   return "导出到 projects/<slug>/";
 }
 

@@ -9,7 +9,6 @@ import unittest
 from pathlib import Path
 
 from host_chat import (
-    HostChatError,
     assert_makeability_exportable,
     draft_fingerprint,
     export_brief,
@@ -58,20 +57,18 @@ def _ready_session(*, review: dict | None = None) -> dict:
 
 
 class MakeabilityGateTests(unittest.TestCase):
-    def test_missing_review_blocks_export(self) -> None:
+    def test_missing_review_allows_structural_export(self) -> None:
         session = _ready_session(review=None)
-        with self.assertRaises(HostChatError) as ctx:
-            export_brief(session)
-        self.assertIn("制作审查", str(ctx.exception))
+        brief = export_brief(session)
+        self.assertEqual(brief["project"]["title"], _EXPORT_DRAFT["project"]["title"])
 
-    def test_stale_fingerprint_blocks_export(self) -> None:
+    def test_stale_fingerprint_allows_structural_export(self) -> None:
         session = _ready_session(review=_detail_only_review(_EXPORT_DRAFT))
         session["makeability_review"]["draft_fingerprint"] = "stale-fingerprint"
-        with self.assertRaises(HostChatError) as ctx:
-            export_brief(session)
-        self.assertIn("过期", str(ctx.exception))
+        brief = export_brief(session)
+        self.assertIn("project", brief)
 
-    def test_open_intent_gaps_block_export(self) -> None:
+    def test_open_intent_gaps_allow_structural_export(self) -> None:
         review = _detail_only_review(_EXPORT_DRAFT)
         review["intent_gaps"] = [
             {
@@ -81,9 +78,8 @@ class MakeabilityGateTests(unittest.TestCase):
             }
         ]
         session = _ready_session(review=review)
-        with self.assertRaises(HostChatError) as ctx:
-            export_brief(session)
-        self.assertIn("意图缺口", str(ctx.exception))
+        brief = export_brief(session)
+        self.assertIn("project", brief)
 
     def test_detail_gaps_allow_export_and_sidecar(self) -> None:
         session = _ready_session(review=_detail_only_review(_EXPORT_DRAFT))

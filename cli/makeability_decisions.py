@@ -112,10 +112,16 @@ def normalize_write_paths(raw: Any) -> list[str]:
 
 
 def required_write_paths_from_gap(gap: dict[str, Any]) -> list[str]:
-    wp = normalize_write_paths(gap.get("write_paths"))
-    if wp:
-        return wp
-    return normalize_path_list(gap.get("target_paths"))
+    """Paths the Verifier must confirm.
+
+    Prefer canonical ``target_paths`` so multi-location ``write_paths`` are
+    best-effort sync (Closer still gets full write_paths in the prompt), not a
+    hard gate that floods repair_failed.
+    """
+    tp = normalize_path_list(gap.get("target_paths"))
+    if tp:
+        return tp
+    return normalize_write_paths(gap.get("write_paths"))
 
 
 def sanitize_intent_gap(gap: dict[str, Any]) -> dict[str, Any]:
@@ -907,9 +913,13 @@ def decisions_for_verifier(
         }
         if isinstance(tp, list):
             spec["target_paths"] = [str(p).strip() for p in tp if str(p).strip()]
-        wp = required_write_paths_from_gap(gap)
-        if wp:
-            spec["write_paths"] = wp
+        # Expose full write_paths to the model as sync guidance; satisfaction
+        # gating still uses required_write_paths_from_gap (prefers target_paths).
+        full_wp = normalize_write_paths(gap.get("write_paths"))
+        if not full_wp:
+            full_wp = required_write_paths_from_gap(gap)
+        if full_wp:
+            spec["write_paths"] = full_wp
         occ = gap.get("occurrences")
         if isinstance(occ, list) and occ:
             spec["occurrences"] = copy.deepcopy(occ)
@@ -995,46 +1005,47 @@ def apply_whole_card_verifier_results(
     verified_draft_fingerprint: str | None = None,
     required_paths_by_key: dict[str, list[str]] | None = None,
 ) -> tuple[list[str], list[str]]:
-    """All satisfied + complete verifier report required; else entire card repair_failed."""
+    """Per-decision verify: satisfied keys pass; others repair_failed (no whole-card veto).
+
+    ``raw_complete`` is retained for callers/logging; missing keys still fail only
+    themselves, not siblings that already satisfied.
+    """
+    _ = raw_complete
     req_map = required_paths_by_key or {}
-    normalized_checks: list[dict[str, Any]] = []
+    by_key: dict[str, dict[str, Any]] = {}
     for check in checks:
         if not isinstance(check, dict):
             continue
+        dkey = str(check.get("decision_key") or "").strip()
+        if not dkey:
+            continue
         row = dict(check)
-        dkey = str(row.get("decision_key") or "").strip()
-        effective = effective_decision_check_status(row, req_map.get(dkey))
-        row["status"] = effective
-        normalized_checks.append(row)
-    completed = complete_decision_checks_for_keys(expected_keys, normalized_checks)
-    all_satisfied = raw_complete and all(
-        str(c.get("status") or "").lower() == "satisfied" for c in completed
-    )
+        row["status"] = effective_decision_check_status(row, req_map.get(dkey))
+        by_key[dkey] = row
+
     verified: list[str] = []
     failed: list[str] = []
-    if all_satisfied:
-        for check in completed:
-            dkey = str(check.get("decision_key") or "").strip()
-            gid = str(check.get("gap_id") or gap_id_for_key.get(dkey) or "").strip()
+    for dkey in expected_keys:
+        gid = str(gap_id_for_key.get(dkey) or "").strip()
+        check = by_key.get(dkey)
+        if check is not None and str(check.get("status") or "").lower() == "satisfied":
             ep = check.get("evidence_paths")
             update_ledger_status(
                 session,
                 dkey,
                 status="verified",
                 evidence_paths=ep if isinstance(ep, list) else [],
-                gap_id=gid or None,
+                gap_id=gid or str(check.get("gap_id") or "").strip() or None,
                 verified_draft_fingerprint=verified_draft_fingerprint,
             )
-            if gid:
-                verified.append(gid)
-        return verified, []
-
-    for dkey in expected_keys:
-        gid = str(gap_id_for_key.get(dkey) or "").strip()
+            use_gid = gid or str(check.get("gap_id") or "").strip()
+            if use_gid:
+                verified.append(use_gid)
+            continue
         update_ledger_status(session, dkey, status="repair_failed", gap_id=gid or None)
         if gid:
             failed.append(gid)
-    return [], list(dict.fromkeys(failed))
+    return list(dict.fromkeys(verified)), list(dict.fromkeys(failed))
 
 
 def complete_critic_ledger_checks(
@@ -1081,50 +1092,17 @@ def assert_critic_decision_checks_protocol(
             )
 
 
-def _patch_blob(patches: list[dict[str, Any]]) -> str:
-    return json.dumps(patches, ensure_ascii=False).lower()
-
-
 def invalidate_verified_ledger_for_patches(
     session: dict[str, Any],
     patches: list[dict[str, Any]],
 ) -> list[str]:
-    """Downgrade verified entries whose evidence paths may have been touched."""
-    if not patches:
-        return []
-    blob = _patch_blob(patches)
-    touched_keys: list[str] = []
-    for entry in ensure_decision_ledger(session):
-        if not isinstance(entry, dict):
-            continue
-        if str(entry.get("status") or "") != "verified":
-            continue
-        paths = entry.get("evidence_paths")
-        if not isinstance(paths, list) or not paths:
-            dkey = str(entry.get("decision_key") or "")
-            if dkey and dkey.lower() in blob:
-                update_ledger_status(session, dkey, status="repair_failed")
-                touched_keys.append(dkey)
-            continue
-        for path in paths:
-            p = str(path).lower()
-            system_id = ""
-            m = re.search(r"systems\[id=([^\]]+)\]", p)
-            if m:
-                system_id = m.group(1).lower()
-            if system_id and system_id in blob:
-                dkey = str(entry.get("decision_key") or "").strip()
-                if dkey:
-                    update_ledger_status(session, dkey, status="repair_failed")
-                    touched_keys.append(dkey)
-                break
-            if p and p in blob:
-                dkey = str(entry.get("decision_key") or "").strip()
-                if dkey:
-                    update_ledger_status(session, dkey, status="repair_failed")
-                    touched_keys.append(dkey)
-                break
-    return list(dict.fromkeys(touched_keys))
+    """No longer downgrade verified → repair_failed on path touch.
+
+    Later patches / autofix were cascading false repair cards. Answers stay
+    verified; Critic may still surface real conflicts on the next review.
+    """
+    _ = session, patches
+    return []
 
 
 def gap_id_map_from_specs(specs: list[dict[str, Any]]) -> dict[str, str]:

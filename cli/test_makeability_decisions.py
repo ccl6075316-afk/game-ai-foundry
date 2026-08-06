@@ -387,8 +387,8 @@ class VerifiedFingerprintTests(unittest.TestCase):
         completed = complete_critic_ledger_checks(session, [])
         merge_critic_decision_checks(session, completed)
         self.assertEqual(ensure_decision_ledger(session)[0]["status"], "repair_failed")
-        with self.assertRaises(HostChatError):
-            assert_makeability_exportable(session)
+        # Soft export: assert no longer raises on repair_failed ledger.
+        assert_makeability_exportable(session)
 
     def test_critic_satisfied_refreshes_fingerprint_allows_export(self) -> None:
         draft = copy.deepcopy(SMOKE_BRIEF)
@@ -456,8 +456,8 @@ class VerifiedFingerprintTests(unittest.TestCase):
                 "status": "verified",
                 "verified_draft_fingerprint": "fp-old",
                 "gap_snapshot": {
+                    # No target_paths → verifier requires full write_paths.
                     "write_paths": required,
-                    "target_paths": ["project.systems[id=aquarium].notes"],
                     "decision_key": "system.aquarium.unlock_rule",
                 },
             }
@@ -476,8 +476,7 @@ class VerifiedFingerprintTests(unittest.TestCase):
         entry = ensure_decision_ledger(session)[0]
         self.assertEqual(entry["status"], "repair_failed")
         self.assertNotEqual(entry.get("verified_draft_fingerprint"), fp_new)
-        with self.assertRaises(HostChatError):
-            assert_makeability_exportable(session)
+        assert_makeability_exportable(session)
 
 
 class CriticAliasCanonicalTests(unittest.TestCase):
@@ -625,9 +624,9 @@ class DecisionKeyTests(unittest.TestCase):
         self.assertEqual(resolve_decision_key({"id": "aquarium_unlock_flow"}), "gap.aquarium_unlock_flow")
 
 
-class VerifierWholeCardTests(unittest.TestCase):
-    def test_incomplete_verifier_report_whole_card_repair_failed(self) -> None:
-        session = new_session("whole-card")
+class VerifierPerDecisionTests(unittest.TestCase):
+    def test_incomplete_verifier_report_only_fails_missing_keys(self) -> None:
+        session = new_session("per-decision")
         session["decision_ledger"] = [
             {
                 "decision_key": "system.a",
@@ -657,8 +656,10 @@ class VerifierWholeCardTests(unittest.TestCase):
             gap_id_for_key={"system.a": "ga", "system.b": "gb"},
             raw_complete=verifier_reported_all_keys(["system.a", "system.b"], raw_checks),
         )
-        self.assertEqual(verified, [])
-        self.assertEqual(set(failed), {"ga", "gb"})
+        self.assertEqual(verified, ["ga"])
+        self.assertEqual(failed, ["gb"])
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "verified")
+        self.assertEqual(ensure_decision_ledger(session)[1]["status"], "repair_failed")
 
 
 class LedgerRecordTests(unittest.TestCase):
@@ -779,7 +780,7 @@ class VerifierIndependentTests(unittest.TestCase):
         self.assertEqual(result.get("verified_ids"), [])
         self.assertIn("aquarium_unlock_flow", result.get("repair_failed_ids") or [])
 
-    def test_verifier_missing_one_key_whole_card_repair_failed(self) -> None:
+    def test_verifier_missing_one_key_partial_verify(self) -> None:
         session = new_session("partial")
         draft = _minimal_draft()
         session["draft_brief"] = draft
@@ -825,7 +826,7 @@ class VerifierIndependentTests(unittest.TestCase):
                     "decision_key": "system.aquarium.unlock_rule",
                     "gap_id": "aquarium_unlock_flow",
                     "status": "satisfied",
-                    "evidence_paths": [],
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
                 }
             ]
         }
@@ -842,21 +843,15 @@ class VerifierIndependentTests(unittest.TestCase):
         ):
             result = answer_makeability_gaps(session, answers, config={})
         self.assertTrue(result.get("repair_failed"))
-        self.assertEqual(result.get("verified_ids"), [])
-        self.assertEqual(len(result.get("repair_failed_ids") or []), 2)
+        self.assertEqual(result.get("verified_ids"), ["aquarium_unlock_flow"])
+        self.assertEqual(result.get("repair_failed_ids"), ["market_access"])
 
 
 class ExportLedgerGateTests(unittest.TestCase):
-    def test_pending_applied_repair_failed_block_export_verified_allows(self) -> None:
+    def test_assert_makeability_exportable_never_blocks_on_ledger(self) -> None:
         draft = copy.deepcopy(SMOKE_BRIEF)
         review = _detail_only_review(draft)
-        fp = draft_fingerprint(draft)
-        for status, should_block in (
-            ("pending", True),
-            ("applied", True),
-            ("repair_failed", True),
-            ("verified", False),
-        ):
+        for status in ("pending", "applied", "repair_failed", "verified"):
             session = _ready_session(review=review)
             session["decision_ledger"] = [
                 {
@@ -866,20 +861,12 @@ class ExportLedgerGateTests(unittest.TestCase):
                     "status": status,
                     "evidence_paths": [],
                     "updated_at": "t",
-                    **(
-                        {"verified_draft_fingerprint": fp}
-                        if status == "verified"
-                        else {}
-                    ),
                 }
             ]
-            if should_block:
-                with self.assertRaises(HostChatError):
-                    assert_makeability_exportable(session)
-            else:
-                assert_makeability_exportable(session)
+            out = assert_makeability_exportable(session)
+            self.assertEqual(out.get("schema_version"), 1)
 
-    def test_verified_without_fingerprint_blocks_export(self) -> None:
+    def test_ledger_blocks_export_helper_still_reports_unverified(self) -> None:
         draft = copy.deepcopy(SMOKE_BRIEF)
         session = _ready_session(review=_detail_only_review(draft))
         session["decision_ledger"] = [
@@ -890,8 +877,8 @@ class ExportLedgerGateTests(unittest.TestCase):
             }
         ]
         self.assertTrue(ledger_blocks_export(session, current_draft_fingerprint=draft_fingerprint(draft)))
-        with self.assertRaises(HostChatError):
-            assert_makeability_exportable(session)
+        # Soft export path: assert no longer raises.
+        assert_makeability_exportable(session)
 
     def test_unknown_ledger_status_blocks_export(self) -> None:
         session = new_session("unknown-status")
@@ -1133,7 +1120,7 @@ class PayloadLedgerPriorityTests(unittest.TestCase):
 
 
 class ChatPatchLedgerTests(unittest.TestCase):
-    def test_apply_parsed_patches_downgrade_verified_ledger(self) -> None:
+    def test_apply_parsed_patches_keep_verified_ledger(self) -> None:
         session = new_session("chat-patch")
         session["draft_brief"] = _minimal_draft()
         session["decision_ledger"] = [
@@ -1158,8 +1145,7 @@ class ChatPatchLedgerTests(unittest.TestCase):
             },
         }
         _apply_parsed(session, parsed, "chat")
-        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "repair_failed")
-        self.assertFalse(session.get("ready_to_export"))
+        self.assertEqual(ensure_decision_ledger(session)[0]["status"], "verified")
 
 
 class FilterDisplayTests(unittest.TestCase):
@@ -1295,6 +1281,20 @@ class OccurrencesWritePathsTests(unittest.TestCase):
 
     def test_required_write_paths_fallback_target_paths(self) -> None:
         gap = {"target_paths": ["project.systems[id=aquarium].notes"]}
+        self.assertEqual(
+            required_write_paths_from_gap(gap),
+            ["project.systems[id=aquarium].notes"],
+        )
+
+    def test_required_write_paths_prefers_target_over_write_paths(self) -> None:
+        gap = {
+            "target_paths": ["project.systems[id=aquarium].notes"],
+            "write_paths": [
+                "project.description",
+                "project.systems[id=aquarium].notes",
+                "project.scenes[id=hall].notes",
+            ],
+        }
         self.assertEqual(
             required_write_paths_from_gap(gap),
             ["project.systems[id=aquarium].notes"],

@@ -117,11 +117,9 @@ export function DocsPreviewPanel({
         hint: readyToExport
           ? "可导出"
           : draftBrief
-            ? !status?.has_review
-              ? "待制作审查"
-              : (status.intent_count ?? 0) > 0
-                ? `${status.intent_count} 条意图缺口`
-                : "草稿中"
+            ? (status?.gaps?.length ?? 0) > 0
+              ? `${status!.gaps!.length} 条结构问题`
+              : "草稿中"
             : "尚未成形",
       },
     ];
@@ -135,7 +133,7 @@ export function DocsPreviewPanel({
       });
     }
     return items;
-  }, [draftBrief, draftDocument, readyToExport, status?.has_review, status?.intent_count]);
+  }, [draftBrief, draftDocument, readyToExport, status?.gaps]);
 
   useEffect(() => {
     let cancelled = false;
