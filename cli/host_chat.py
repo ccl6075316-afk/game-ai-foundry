@@ -1074,7 +1074,7 @@ def run_brief_enrich(
     session["last_enrich_at"] = _utc_now()
 
     assistant_message = summary or "Brief 细节已加厚。"
-    assistant_message += " 建议再运行「制作审查」(brief chat makeability) 确认可导出。"
+    assistant_message += " 建议再运行「制作审查」(brief chat makeability) 对齐意图（可选，不挡导出）。"
 
     return {
         "ok": True,

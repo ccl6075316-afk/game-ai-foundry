@@ -248,8 +248,8 @@ export function shouldSyncCodexThirdParty(record: AgentInstanceRecord): boolean 
 }
 
 /**
- * When Agent → Pi default Provider/model changes, update 策划/IT instances that
- * still match the previous default (so Settings change is visible in the chat bar).
+ * When Agent → Pi default Provider/model changes, update Pi-locked instances
+ * (策划 / 顾问) and IT-on-Pi that still match the previous default.
  */
 export function syncPiLockedInstancesToPreset(
   instances: AgentInstancesMap,
@@ -267,7 +267,9 @@ export function syncPiLockedInstancesToPreset(
   let changed = false;
   const out: AgentInstancesMap = { ...instances };
   for (const [id, rec] of Object.entries(instances)) {
-    if (rec.role_kind !== "brief" && rec.role_kind !== "it") continue;
+    if (rec.role_kind !== "brief" && rec.role_kind !== "advisor" && rec.role_kind !== "it") {
+      continue;
+    }
     if (rec.executor !== "pi") continue;
     if (rec.provider !== prevProvider) continue;
     if (String(rec.model ?? "").trim() !== prevModel) continue;

@@ -132,6 +132,6 @@ export function buildHireRecord(roleKind: ChatAgentRole, form: HireFormState): A
 
 export function executorKindForHire(record: AgentInstanceRecord): "pi" | AgentExecutor | null {
   if (record.executor === "pi") return "pi";
-  if (record.role_kind === "brief") return null;
+  if (record.role_kind === "brief" || record.role_kind === "advisor") return null;
   return record.executor as AgentExecutor;
 }

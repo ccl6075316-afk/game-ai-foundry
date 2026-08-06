@@ -38,7 +38,7 @@ The repo already ships a **frozen export contract**. Until Design Doc and Produc
 | `project-state.json` | — | 📋 recommended in §7 |
 | Makeability detail gaps | `production_doc.makeability` + `tuning`（export sidecar `makeability.json` + `production derive` 合并） | ✅ v1 |
 
-**Makeability mapping（v1）：** 策划 Critic 的 **intent_gaps** 阻塞 brief export（Design 意图）；**detail_gaps**（数值表、规则参数）权威在 Production，export 后 derive 物化，PM 可填暂定、**不改 brief 玩法意图**。
+**Makeability mapping（v1）：** 策划 Critic 的 **intent_gaps** 标记 Design 意图未拍板（**建议再审，不阻塞** brief export）；硬闸门仍是结构 / 生图契约 `gaps`。**detail_gaps**（数值表、规则参数）权威在 Production，export 后 derive 物化，PM 可填暂定、**不改 brief 玩法意图**。
 
 **MVP rule:** `brief.json` is the single frozen contract for workers today. Host interprets user intent into brief updates; iteration after demo follows §3.2 (Change Request → brief delta → `pipeline plan --merge` → `run`).
 

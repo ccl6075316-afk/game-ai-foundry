@@ -51,7 +51,8 @@ python gamefactory.py brief chat makeability --session-id <id> --json
 ```
 
 - 独立子 LLM（[`makeability-critic.md`](../resources/skills/orchestrator/makeability-critic.md)）；结果写入 session `makeability_review`（`intent_gaps` / `detail_gaps` / `suggested_defaults`）。
-- **Export 门闩**：无审查、草稿指纹过期、或 `intent_gaps` 非空 → `brief chat export` 拒绝；`detail_gaps` 不阻塞。
+- **Export 门闩（硬）**：结构 / 生图契约校验失败（`gaps` / `_audit_draft_gaps`）→ `brief chat export` 拒绝。
+- **制作审查（软 / 建议）**：无审查、草稿指纹过期、或 `intent_gaps` 非空 → **不阻塞** export；GUI 仍可提示再审。`detail_gaps` 同样不阻塞。
 - Export 成功时写出 sidecar：`projects/<slug>/makeability.json`（或与 brief 同目录）。
 - `production derive` 若发现 sidecar → 合并为 `production_doc.makeability` + 可选 `production_doc.tuning`。
 
@@ -65,7 +66,7 @@ python gamefactory.py brief chat brainstorm-apply --session-id <id> --proposal-i
 
 - GUI 策划：「补全细节」「议题头脑风暴」→ 方案卡「采用 pN」写回 draft（可含资产候选）。
 - 不定死通用 `screens` schema；具体数值可进 production，**需要哪些参数**应在 brief 中声明。
-- 写回后 makeability 指纹过期，需再「制作审查」才可 export。
+- 写回后 makeability 指纹可能过期；建议再「制作审查」对齐意图，但 **不强制** 才能 export。
 
 ### 1.2 资产审查表（GUI）
 

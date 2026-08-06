@@ -800,7 +800,7 @@ declare global {
         callback: (payload: { permissionId: string; decision: string }) => void,
       ) => () => void;
       agentStatus: (
-        role: "product_host" | "programmer",
+        role: "product_host" | "programmer" | "it" | "advisor",
         sessionId: string,
       ) => Promise<CliResult<{ exists?: boolean; message_count?: number; executor?: string }>>;
       handoffList: (

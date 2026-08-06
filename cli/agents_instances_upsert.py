@@ -77,7 +77,7 @@ def upsert_agent_instance(
             return {
                 "ok": False,
                 "instance_id": iid,
-                "error": f"策划固定使用内置 Pi，不能改成 {exec_id}",
+                "error": f"策划/顾问固定使用内置 Pi，不能改成 {exec_id}",
             }
         if role == "it" and exec_id not in _IT_EXECUTORS:
             return {

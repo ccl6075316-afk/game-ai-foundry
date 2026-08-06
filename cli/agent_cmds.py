@@ -70,7 +70,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
         "role_kind",
         type=click.Choice(sorted(ROLE_KINDS)),
         required=True,
-        help="GUI colleague role: product_host | programmer | it",
+        help="GUI colleague role: product_host | programmer | it | advisor",
     )
     @click.option("--session-id", required=True, help="GUI session / conversation id")
     @click.option("--message", "-m", required=True, help="User message")
@@ -228,7 +228,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
         "role_kind",
         type=click.Choice(sorted(ROLE_KINDS)),
         required=True,
-        help="GUI colleague role: product_host | programmer | it",
+        help="GUI colleague role: product_host | programmer | it | advisor",
     )
     @click.option("--session-id", required=True, help="GUI session / conversation id")
     @click.option("--message", "-m", required=True, help="User message")

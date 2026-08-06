@@ -110,7 +110,7 @@ export function HireColleagueModal({ roleKind, roster, onCancel, onConfirm }: Pr
 
     (async () => {
       if (!window.gameFactory?.getConfig) {
-        const executor = roleKind === "brief" || roleKind === "it" ? "pi" : "codex";
+        const executor = roleKind === "brief" || roleKind === "advisor" || roleKind === "it" ? "pi" : "codex";
         setForm((prev) => ({ ...prev, executor: executor as HireFormState["executor"] }));
         return;
       }

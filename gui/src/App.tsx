@@ -64,7 +64,7 @@ import {
   type PlanTargets,
 } from "./chat/projectPaths";
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
-import { routeColleagueSend } from "./chat/colleagueSendRoute";
+import { isAgentChatRole, routeColleagueSend } from "./chat/colleagueSendRoute";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import { prepareAgentDisplay } from "./chat/agentReply";
 import { mergeMessageChoices } from "./chat/inferChoices";
@@ -897,6 +897,8 @@ export default function App() {
   const handleSelectColleague = useCallback(
     (instanceId: string) => {
       patchChatStore((prev) => setActiveInstance(prev, instanceId));
+      pendingSafeActions.current = new Map();
+      setBrainstormActive(false);
       setBrainstormChoices([]);
       setBrainstormReady(false);
       setBriefDraft(null);
@@ -1387,6 +1389,10 @@ export default function App() {
   };
 
   const handleBriefExport = async (nameHint?: string) => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("导出 Brief 请先切换到 **策划** 同事。");
+      return;
+    }
     const busyId = activeColleague.id;
     const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
     markBusy(busyId);
@@ -1461,6 +1467,10 @@ export default function App() {
 
   /** Draft → brief.zh.md before export so humans can decide whether to freeze. */
   const handleBriefZhDoc = async (opts?: { skeletonOnly?: boolean; quiet?: boolean }) => {
+    if (activeColleague.roleKind !== "brief") {
+      if (!opts?.quiet) appendAssistant("生成中文说明请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatZhDoc) {
       appendAssistant("当前 GUI 不支持生成中文说明，请重启 Foundry。");
       return;
@@ -1517,6 +1527,10 @@ export default function App() {
   };
 
   const handleBriefUiWireframe = async () => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("生成 UI 示意请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatUiWireframe) {
       appendAssistant("当前 GUI 不支持生成 UI 示意，请重启 Foundry。");
       return;
@@ -1574,6 +1588,10 @@ export default function App() {
   };
 
   const handleBriefAutofix = async (maxRounds = 5) => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("自动修 Brief 请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatAutofix) {
       appendAssistant("当前 GUI 不支持自动修 brief，请重启 Foundry。");
       return;
@@ -1672,6 +1690,10 @@ export default function App() {
   };
 
   const handleBriefMakeability = async () => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("制作审查请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatMakeability) {
       appendAssistant("当前 GUI 不支持制作审查，请重启 Foundry。");
       return;
@@ -1775,6 +1797,10 @@ export default function App() {
     messageId: string,
     answers: import("./components/MakeabilityGapCard").MakeabilityGapAnswer[],
   ) => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("审查缺口写入请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatMakeabilityAnswer) {
       appendAssistant("当前 GUI 不支持审查缺口写入，请重启 Foundry。");
       return;
@@ -1870,6 +1896,10 @@ export default function App() {
   };
 
   const handleBriefEnrich = async () => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("补全细节请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatEnrich) {
       appendAssistant("当前 GUI 不支持补全细节，请重启 Foundry。");
       return;
@@ -1941,6 +1971,10 @@ export default function App() {
   };
 
   const handleTopicBrainstorm = async () => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("议题头脑风暴请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatTopicBrainstorm) {
       appendAssistant("当前 GUI 不支持议题头脑风暴，请重启 Foundry。");
       return;
@@ -2005,6 +2039,10 @@ export default function App() {
   };
 
   const handleBrainstormApply = async (proposalIds: string[], fuse = false) => {
+    if (activeColleague.roleKind !== "brief") {
+      appendAssistant("采用头脑风暴方案请先切换到 **策划** 同事。");
+      return;
+    }
     if (!window.gameFactory?.hostChatBrainstormApply) {
       appendAssistant("当前 GUI 不支持采用头脑风暴方案，请重启 Foundry。");
       return;
@@ -2081,7 +2119,7 @@ export default function App() {
         ? chatStore.roster.find((c) => c.id === opts.instanceId)
         : null) || activeColleague;
     const role = colleague.roleKind;
-    if (role !== "product_host" && role !== "programmer" && role !== "it" && role !== "advisor") {
+    if (!isAgentChatRole(role)) {
       return;
     }
     const sessionId =
@@ -2107,7 +2145,9 @@ export default function App() {
     const waitHint =
       role === "it"
         ? "IT 首轮可能较慢（约 1–2 分钟属正常）。"
-        : "Hermes / Codex 常需 1–3 分钟才回完整答复。";
+        : role === "advisor"
+          ? "顾问只读咨询，通常几十秒内回复。"
+          : "Hermes / Codex 常需 1–3 分钟才回完整答复。";
     append(
       "log",
       `「${target.displayName}」执行器运行中…\n（右侧可开「看板」；下方会显示等待秒数。${waitHint}）`,
@@ -3899,10 +3939,18 @@ export default function App() {
       return;
     }
     if (trimmed === "北极星图" || trimmed === "生成北极星" || trimmed === "生成北极星图") {
+      if (agentRole !== "brief" && agentRole !== "product_host") {
+        append("assistant", "生成北极星请切换到 **策划** 或 **项目经理**。");
+        return;
+      }
       promptVisualTargetScope();
       return;
     }
     if (trimmed === "生成北极星 · 全局" || trimmed === "生成北极星图 · 全局") {
+      if (agentRole !== "brief" && agentRole !== "product_host") {
+        append("assistant", "生成北极星请切换到 **策划** 或 **项目经理**。");
+        return;
+      }
       await handleVisualTargetGenerate(null);
       return;
     }
@@ -3912,6 +3960,10 @@ export default function App() {
         /^生成北极星(?:图)?\s*[·•]\s*.+?（([^）]+)）$/,
       );
       if (genScene) {
+        if (agentRole !== "brief" && agentRole !== "product_host") {
+          append("assistant", "生成北极星请切换到 **策划** 或 **项目经理**。");
+          return;
+        }
         await handleVisualTargetGenerate(genScene[1].trim());
         return;
       }
@@ -3943,10 +3995,18 @@ export default function App() {
       }
     }
     if (trimmed === "运行资产生成（含文案）") {
+      if (agentRole !== "product_host" && agentRole !== "brief") {
+        append("assistant", "运行资产生成请切换到 **项目经理**（或策划）。");
+        return;
+      }
       await handleRun(true);
       return;
     }
     if (trimmed === "运行资产生成" || trimmed === "运行 Pipeline") {
+      if (agentRole !== "product_host" && agentRole !== "brief") {
+        append("assistant", "运行资产生成请切换到 **项目经理**（或策划）。");
+        return;
+      }
       await handleRun(false);
       return;
     }
@@ -3976,6 +4036,10 @@ export default function App() {
       return;
     }
     if (pendingSafeActions.current.has(trimmed)) {
+      if (agentRole === "advisor") {
+        append("assistant", "顾问只咨询、不执行命令。请切换到 **项目经理** 或 **IT**。");
+        return;
+      }
       await handleSafeAction(trimmed);
       return;
     }

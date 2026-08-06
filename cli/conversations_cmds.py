@@ -15,7 +15,7 @@ def conversations_group() -> None:
 
 
 @conversations_group.command("list")
-@click.option("--role", required=True, help="brief|it|programmer|product_host")
+@click.option("--role", required=True, help="brief|it|programmer|product_host|advisor")
 @click.option("--limit", default=30, show_default=True, type=int)
 @click.option("--json", "as_json", is_flag=True)
 def conversations_list_cmd(role: str, limit: int, as_json: bool) -> None:
@@ -35,7 +35,7 @@ def conversations_list_cmd(role: str, limit: int, as_json: bool) -> None:
 
 
 @conversations_group.command("show")
-@click.option("--role", required=True, help="brief|it|programmer|product_host")
+@click.option("--role", required=True, help="brief|it|programmer|product_host|advisor")
 @click.option("--session-id", required=True, help="Session id (filename stem)")
 @click.option("--tail", default=40, show_default=True, type=int, help="Last N messages")
 @click.option("--json", "as_json", is_flag=True)
