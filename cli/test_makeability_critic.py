@@ -10,6 +10,7 @@ from unittest.mock import patch
 from host_chat import (
     HostChatError,
     _build_user_payload,
+    _makeability_critic_system,
     draft_fingerprint,
     format_makeability_review_details,
     new_session,
@@ -48,6 +49,21 @@ _FISHING_DRAFT = {
         },
     ],
 }
+
+
+def _v2_intent_gap(**overrides: object) -> dict:
+    gap = {
+        "id": "win_condition",
+        "decision_key": "session.win_condition",
+        "target_paths": ["project.session_goal"],
+        "write_paths": ["project.session_goal"],
+        "occurrences": [{"path": "project.session_goal", "relation": "canonical"}],
+        "question": "会话何时算结束？",
+        "why_blocking": "无明确胜负则无法验收",
+        "choices": ["集齐图鉴", "达到金币目标"],
+    }
+    gap.update(overrides)
+    return gap
 
 
 def _detail_gaps_mock() -> dict:
@@ -113,7 +129,7 @@ class MakeabilityCriticTests(unittest.TestCase):
 
         review = session.get("makeability_review")
         self.assertIsInstance(review, dict)
-        self.assertEqual(review.get("schema_version"), 1)
+        self.assertEqual(review.get("schema_version"), 2)
         self.assertEqual(review.get("draft_fingerprint"), draft_fingerprint(_FISHING_DRAFT))
         self.assertGreaterEqual(len(review.get("detail_gaps") or []), 3)
 
@@ -127,7 +143,7 @@ class MakeabilityCriticTests(unittest.TestCase):
         session = new_session("fish-bad-json")
         session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
         old_review = {
-            "schema_version": 1,
+            "schema_version": 2,
             "reviewed_at": "2026-07-27T00:00:00+00:00",
             "draft_fingerprint": "old",
             "intent_gaps": [],
@@ -149,14 +165,7 @@ class MakeabilityCriticTests(unittest.TestCase):
         session["ready_to_export"] = True
 
         payload = _detail_gaps_mock()
-        payload["intent_gaps"] = [
-            {
-                "id": "win_condition",
-                "question": "会话何时算结束？",
-                "why_blocking": "无明确胜负则无法验收",
-                "choices": ["集齐图鉴", "达到金币目标"],
-            }
-        ]
+        payload["intent_gaps"] = [_v2_intent_gap()]
 
         config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
         with patch("host_chat.chat_text_completion", return_value=json.dumps(payload)):
@@ -180,6 +189,66 @@ class MakeabilityCriticTests(unittest.TestCase):
         self.assertEqual(len(latest.get("intent_gaps") or []), 1)
         self.assertIn("win_condition", str(latest["intent_gaps"][0].get("id")))
 
+    def test_repeat_makeability_review_does_not_repeat_detail_topics(self) -> None:
+        session = new_session("detail-dedupe")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        payload = _detail_gaps_mock()
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(payload, ensure_ascii=False),
+        ):
+            first = run_makeability_review(session, config=config)
+        topic = payload["detail_gaps"][0]["topic"]
+        self.assertIn(topic, first["assistant_message"])
+        self.assertGreaterEqual(len(session["makeability_review"]["detail_gaps"]), 3)
+
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(payload, ensure_ascii=False),
+        ):
+            second = run_makeability_review(session, config=config)
+
+        self.assertNotIn(topic, second["assistant_message"])
+        self.assertIn("不再重复", second["assistant_message"])
+        self.assertGreaterEqual(len(session["makeability_review"]["detail_gaps"]), 3)
+
+    def test_detail_dedupe_same_topic_different_id(self) -> None:
+        from makeability_decisions import detail_gap_stable_key
+
+        topic = "Bite Rate And Timing"
+        session = new_session("topic-dedupe")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        first_payload = {
+            "intent_gaps": [],
+            "detail_gaps": [{"id": "bite_rate", "topic": topic}],
+            "suggested_defaults": [],
+        }
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(first_payload, ensure_ascii=False),
+        ):
+            first = run_makeability_review(session, config=config)
+        self.assertIn(topic.lower(), first["assistant_message"].lower())
+
+        second_payload = {
+            "intent_gaps": [],
+            "detail_gaps": [{"id": "bite_rate_v2", "topic": "  bite   rate and timing  "}],
+            "suggested_defaults": [],
+        }
+        self.assertEqual(
+            detail_gap_stable_key(first_payload["detail_gaps"][0]),
+            detail_gap_stable_key(second_payload["detail_gaps"][0]),
+        )
+        with patch(
+            "host_chat.chat_text_completion",
+            return_value=json.dumps(second_payload, ensure_ascii=False),
+        ):
+            second = run_makeability_review(session, config=config)
+        self.assertNotIn("bite_rate_v2", second["assistant_message"])
+        self.assertIn("不再重复", second["assistant_message"])
+
     def test_format_makeability_review_details_lists_gaps(self) -> None:
         text = format_makeability_review_details(
             {
@@ -199,6 +268,152 @@ class MakeabilityCriticTests(unittest.TestCase):
         self.assertIn("选项：x / y", text)
         self.assertIn("施工细节", text)
         self.assertIn("numbers", text)
+
+    def test_critic_skill_schema_lists_occurrences_write_paths_and_scan_areas(self) -> None:
+        system = _makeability_critic_system()
+        for token in (
+            "occurrences",
+            "write_paths",
+            "target_paths",
+            "description",
+            "gameplay_loop",
+            "scenes",
+            "systems",
+            "ui_panels",
+            "canonical",
+            "duplicate",
+            "conflict",
+        ):
+            self.assertIn(token, system, msg=f"missing {token} in critic system prompt")
+
+    def test_fresh_critic_rejects_illegal_occurrence_relation(self) -> None:
+        from host_chat import _build_makeability_review
+
+        session = new_session("bad-relation")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "bad_gap",
+                    "decision_key": "session.bad",
+                    "write_paths": ["project.session_goal", "project.description"],
+                    "occurrences": [
+                        {"path": "project.session_goal", "relation": "canonical"},
+                        {"path": "project.description", "relation": "similar"},
+                    ],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        with self.assertRaises(HostChatError) as ctx:
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(_FISHING_DRAFT),
+                session=session,
+            )
+        self.assertIn("invalid relation", str(ctx.exception))
+
+    def test_fresh_critic_rejects_intent_gap_without_occurrences(self) -> None:
+        from host_chat import _build_makeability_review
+
+        session = new_session("fresh-schema")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "bad_gap",
+                    "decision_key": "session.bad",
+                    "target_paths": ["project.session_goal"],
+                    "write_paths": ["project.session_goal"],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        with self.assertRaises(HostChatError):
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(_FISHING_DRAFT),
+                session=session,
+            )
+
+
+    def test_fresh_critic_rejects_conflict_path_missing_from_write_paths(self) -> None:
+        from host_chat import _build_makeability_review
+
+        session = new_session("fresh-schema-wp")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "bad_gap",
+                    "decision_key": "session.bad",
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                    "write_paths": ["project.systems[id=aquarium].notes"],
+                    "occurrences": [
+                        {
+                            "path": "project.systems[id=aquarium].notes",
+                            "relation": "canonical",
+                        },
+                        {
+                            "path": "project.scenes[id=hall].notes",
+                            "relation": "conflict",
+                        },
+                    ],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        with self.assertRaises(HostChatError):
+            _build_makeability_review(
+                parsed,
+                fingerprint=draft_fingerprint(_FISHING_DRAFT),
+                session=session,
+            )
+
+    def test_fresh_critic_accepts_duplicate_conflict_in_write_paths(self) -> None:
+        from host_chat import _build_makeability_review
+
+        session = new_session("fresh-schema-ok")
+        session["draft_brief"] = copy.deepcopy(_FISHING_DRAFT)
+        parsed = {
+            "intent_gaps": [
+                {
+                    "id": "ok_gap",
+                    "decision_key": "system.aquarium.rule",
+                    "target_paths": ["project.systems[id=aquarium].notes"],
+                    "write_paths": [
+                        "project.description",
+                        "project.scenes[id=hall].notes",
+                        "project.systems[id=aquarium].notes",
+                    ],
+                    "occurrences": [
+                        {"path": "project.systems[id=aquarium].notes", "relation": "canonical"},
+                        {"path": "project.description", "relation": "duplicate"},
+                        {"path": "project.scenes[id=hall].notes", "relation": "conflict"},
+                    ],
+                    "question": "Q?",
+                    "why_blocking": "x",
+                    "choices": ["A", "B"],
+                }
+            ],
+            "detail_gaps": [],
+            "suggested_defaults": [],
+        }
+        review = _build_makeability_review(
+            parsed,
+            fingerprint=draft_fingerprint(_FISHING_DRAFT),
+            session=session,
+        )
+        self.assertEqual(len(review.get("intent_gaps") or []), 1)
 
 
 if __name__ == "__main__":

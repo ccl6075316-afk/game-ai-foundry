@@ -27,8 +27,27 @@ export interface ToolPermissionCard {
 }
 
 export interface MakeabilityCardState {
-  status: "pending" | "applied" | "dismissed";
+  status: "pending" | "applied" | "repair_failed" | "dismissed";
   review: MakeabilityReview;
+  /** Last submitted answers — used for repair_failed retry without re-picking. */
+  lastAnswers?: MakeabilityGapAnswer[];
+}
+
+export interface MakeabilityGapAnswer {
+  gap_id: string;
+  choice?: string;
+  note?: string;
+}
+
+export interface MakeabilityAnswerResult {
+  ok?: boolean;
+  repair_failed?: boolean;
+  verified_ids?: string[];
+  repair_failed_ids?: string[];
+  remaining_intent_count?: number;
+  closed_ids?: string[];
+  draft_persisted?: boolean;
+  draft_persist_error?: string;
 }
 
 export interface ChatMessage {
@@ -133,8 +152,18 @@ export interface HostChatStatus {
   makeability_fingerprint_match?: boolean;
 }
 
+export interface MakeabilityIntentGapOccurrence {
+  path: string;
+  relation: "canonical" | "duplicate" | "conflict";
+  current_summary?: string;
+}
+
 export interface MakeabilityIntentGap {
   id?: string;
+  decision_key?: string;
+  target_paths?: string[];
+  occurrences?: MakeabilityIntentGapOccurrence[];
+  write_paths?: string[];
   question?: string;
   why_blocking?: string;
   choices?: string[];
@@ -153,6 +182,9 @@ export interface MakeabilityReview {
   draft_fingerprint?: string;
   intent_gaps?: MakeabilityIntentGap[];
   detail_gaps?: MakeabilityDetailGap[];
+  /** Critic-verified failures with saved answers — GUI shows retry card. */
+  repair_gaps?: MakeabilityIntentGap[];
+  repair_answers?: MakeabilityGapAnswer[];
 }
 
 export interface ProjectDocItem {

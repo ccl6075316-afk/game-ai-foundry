@@ -542,11 +542,27 @@ class HostChatTests(unittest.TestCase):
                     "set": {"notes": "unlocked from the start"},
                 }
             ],
-            "closed_intent_gap_ids": ["aquarium_unlock_flow"],
         }
+        verifier = {
+            "decision_checks": [
+                {
+                    "decision_key": "gap.aquarium_unlock_flow",
+                    "gap_id": "aquarium_unlock_flow",
+                    "status": "satisfied",
+                    "evidence_paths": ["project.systems[id=aquarium].notes"],
+                }
+            ]
+        }
+
+        def _side(**kwargs):
+            messages = kwargs["messages"]
+            if "Makeability Verifier" in messages[0]["content"]:
+                return json.dumps(verifier, ensure_ascii=False)
+            return json.dumps(closer, ensure_ascii=False)
+
         with patch(
             "host_chat.chat_text_completion",
-            return_value=json.dumps(closer, ensure_ascii=False),
+            side_effect=_side,
         ), patch(
             "host_chat.resolve_host_api_settings",
             return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
@@ -796,6 +812,30 @@ class HostChatTests(unittest.TestCase):
 
         payload = _build_user_payload(session, "chat")
         self.assertIn("conversation_summary", payload)
+
+    def test_compress_prompt_excludes_ledger_decisions(self) -> None:
+        from host_chat import _compress_prompt
+
+        ledger = [
+            {
+                "decision_key": "system.aquarium.unlock_rule",
+                "answer_text": "开局可进",
+                "status": "verified",
+            }
+        ]
+        prompt = _compress_prompt("已有摘要", [{"role": "user", "content": "hi"}], decision_ledger=ledger)
+        self.assertIn("勿写入 conversation_summary", prompt)
+        self.assertIn("system.aquarium.unlock_rule", prompt)
+        self.assertIn("禁止", prompt)
+        self.assertNotIn("保留已拍板设定", prompt)
+
+    def test_compress_prompt_without_ledger_backward_compatible(self) -> None:
+        from host_chat import _compress_prompt
+
+        prompt = _compress_prompt("old", [{"role": "user", "content": "讨论横版"}])
+        self.assertIn("待定", prompt)
+        self.assertIn("较早对话", prompt)
+        self.assertIn("（无 — 宿主未注入 decision_ledger）", prompt)
 
     def test_export_requires_draft(self) -> None:
         session = new_session("e1")
@@ -1322,6 +1362,99 @@ class HostChatTests(unittest.TestCase):
             # Second call with unchanged mtime should be a no-op.
             self.assertFalse(sync_session_draft_from_disk(session, repo_root=root))
 
+    def test_sync_disk_only_change_pulls_from_disk(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-disk-only")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            tracked = session["draft_disk_fingerprint"]
+            disk_only = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_only, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            self.assertNotEqual(draft_fingerprint(disk_only), tracked)
+            self.assertEqual(
+                draft_fingerprint(session["draft_brief"]),
+                tracked,
+            )
+            self.assertTrue(sync_session_draft_from_disk(session, repo_root=root))
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Disk Edit")
+
+    def test_sync_session_only_change_keeps_session(self) -> None:
+        from host_chat import persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-session-only")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            self.assertFalse(sync_session_draft_from_disk(session, repo_root=root))
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Session Edit")
+
+    def test_sync_dual_edit_raises_without_overwrite(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-dual")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            session_fp = draft_fingerprint(session["draft_brief"])
+            disk_other = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_other, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            disk_fp = draft_fingerprint(disk_other)
+            tracked = session["draft_disk_fingerprint"]
+            self.assertNotEqual(session_fp, tracked)
+            self.assertNotEqual(disk_fp, tracked)
+            self.assertNotEqual(session_fp, disk_fp)
+            with self.assertRaises(HostChatError):
+                sync_session_draft_from_disk(session, repo_root=root)
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Session Edit")
+
+    def test_sync_force_overwrites_after_dual_edit(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft, sync_session_draft_from_disk
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("sync-force")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = {"project": {"title": "Session Edit"}, "assets": []}
+            disk_other = {"project": {"title": "Disk Edit"}, "assets": []}
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_other, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            self.assertTrue(
+                sync_session_draft_from_disk(session, repo_root=root, force=True)
+            )
+            self.assertEqual(session["draft_brief"]["project"]["title"], "Disk Edit")
+            self.assertEqual(
+                session["draft_disk_fingerprint"],
+                draft_fingerprint(session["draft_brief"]),
+            )
+
     def test_save_session_persists_bound_draft(self) -> None:
         from host_chat import persist_project_draft, save_session
 
@@ -1541,6 +1674,100 @@ class BriefExecutorRoutingTest(unittest.TestCase):
         self.assertEqual(result["assistant_message"], "来自 Host")
         self.assertEqual(session.get("_brief_llm_backend"), "host")
         self.assertIn("boom", session.get("_brief_llm_pi_error") or "")
+
+
+class PersistCasAndExportSyncTests(unittest.TestCase):
+    def test_persist_refuses_overwrite_when_disk_changed_during_llm(self) -> None:
+        from host_chat import draft_fingerprint, persist_project_draft
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            session = new_session("cas-persist")
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            persist_project_draft(session, repo_root=root)
+            tracked = session["draft_disk_fingerprint"]
+            # External edit while "LLM" runs; session still at tracked content.
+            (proj / "brief.draft.json").write_text(
+                json.dumps({"project": {"title": "Disk"}, "assets": []}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            session["draft_brief"] = {"project": {"title": "Base"}, "assets": []}
+            self.assertEqual(draft_fingerprint(session["draft_brief"]), tracked)
+            with self.assertRaises(HostChatError) as ctx:
+                persist_project_draft(session, repo_root=root)
+            self.assertIn("外部修改", str(ctx.exception))
+            disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
+            self.assertEqual(disk["project"]["title"], "Disk")
+
+    def test_export_syncs_disk_ahead_of_session(self) -> None:
+        from host_chat import (
+            draft_fingerprint,
+            export_brief,
+            persist_project_draft,
+        )
+        from test_fixtures import SMOKE_BRIEF
+        from test_makeability_gate import _detail_only_review, _ready_session
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            draft = copy.deepcopy(SMOKE_BRIEF)
+            session = _ready_session(review=_detail_only_review(draft))
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = draft
+            persist_project_draft(session, repo_root=root)
+            disk_newer = copy.deepcopy(draft)
+            if isinstance(disk_newer.get("project"), dict):
+                disk_newer["project"] = dict(disk_newer["project"])
+                disk_newer["project"]["title"] = "Disk Ahead Title"
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_newer, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            # Session still holds old draft; review matches disk so export can pass after sync.
+            session["draft_brief"] = copy.deepcopy(draft)
+            session["makeability_review"] = _detail_only_review(disk_newer)
+            session["decision_ledger"] = []
+            brief = export_brief(session, repo_root=root)
+            self.assertEqual(brief["project"]["title"], "Disk Ahead Title")
+            self.assertEqual(
+                draft_fingerprint(session["draft_brief"]),
+                draft_fingerprint(disk_newer),
+            )
+
+    def test_export_dual_edit_conflict_refuses(self) -> None:
+        from host_chat import export_brief, persist_project_draft
+        from test_fixtures import SMOKE_BRIEF
+        from test_makeability_gate import _detail_only_review, _ready_session
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            proj = root / "projects" / "p"
+            proj.mkdir(parents=True)
+            draft = copy.deepcopy(SMOKE_BRIEF)
+            session = _ready_session(review=_detail_only_review(draft))
+            session["bound_brief_rel"] = "projects/p/brief.json"
+            session["draft_brief"] = draft
+            persist_project_draft(session, repo_root=root)
+            session["draft_brief"] = copy.deepcopy(draft)
+            if isinstance(session["draft_brief"].get("project"), dict):
+                session["draft_brief"]["project"] = dict(session["draft_brief"]["project"])
+                session["draft_brief"]["project"]["title"] = "Session Edit"
+            disk_edit = copy.deepcopy(draft)
+            if isinstance(disk_edit.get("project"), dict):
+                disk_edit["project"] = dict(disk_edit["project"])
+                disk_edit["project"]["title"] = "Disk Edit"
+            (proj / "brief.draft.json").write_text(
+                json.dumps(disk_edit, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            with self.assertRaises(HostChatError) as ctx:
+                export_brief(session, repo_root=root)
+            self.assertIn("不一致", str(ctx.exception))
 
 
 if __name__ == "__main__":

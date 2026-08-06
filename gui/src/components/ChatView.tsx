@@ -46,6 +46,7 @@ interface Props {
     decision: "once" | "turn" | "session" | "deny",
   ) => void;
   onMakeabilityAnswer?: (messageId: string, answers: MakeabilityGapAnswer[]) => void;
+  onMakeabilityRetry?: (messageId: string) => void;
   /** When true, hide main-LLM inline choice chips to leave room for Critic cards. */
   hideDialogChoices?: boolean;
   heroTitle?: string;
@@ -78,6 +79,7 @@ export function ChatView({
   onSuggestion,
   onToolPermissionDecision,
   onMakeabilityAnswer,
+  onMakeabilityRetry,
   hideDialogChoices = false,
   heroTitle = "今天想做什么游戏？",
   heroSubtitle = "从 brief 到资产生成、Godot 组装与玩法开发 — 在下方描述想法，或用快捷入口驱动 pipeline。",
@@ -204,6 +206,9 @@ export function ChatView({
                         status={m.makeabilityCard.status}
                         busy={busy}
                         onSubmit={(answers) => onMakeabilityAnswer?.(m.id, answers)}
+                        onRetry={
+                          onMakeabilityRetry ? () => onMakeabilityRetry(m.id) : undefined
+                        }
                       />
                     ) : null}
                     {m.toolPermission ? (
