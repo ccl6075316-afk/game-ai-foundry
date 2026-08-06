@@ -11,6 +11,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
@@ -289,6 +290,62 @@ def _api_error_detail(response: requests.Response) -> str:
     return detail
 
 
+
+def _parse_api_json_response(response: requests.Response, *, kind: str) -> Any:
+    """Parse JSON body or raise with a short, actionable preview."""
+    raw = response.content or b""
+    text_body = (response.text or "").strip()
+    ctype = (
+        response.headers.get("Content-Type")
+        or response.headers.get("content-type")
+        or "?"
+    )
+    if not text_body:
+        raise RuntimeError(
+            f"Empty {kind} response (HTTP {response.status_code}, "
+            f"content-type={ctype}, bytes={len(raw)})"
+        )
+    try:
+        return response.json()
+    except json.JSONDecodeError as exc:
+        preview = text_body[:400].replace("\r", "\\r").replace("\n", "\\n")
+        low = text_body[:240].lower()
+        hint = ""
+        if "<html" in low or "<!doctype" in low:
+            hint = "; response looks like HTML (proxy/gateway page), not model JSON"
+        elif text_body.lstrip().startswith("data:"):
+            hint = "; response looks like SSE (unexpected stream=true)"
+        elif len(raw) < 8000:
+            hint = "; short body often means gateway truncate/rate-limit under parallel gens"
+        raise RuntimeError(
+            f"Invalid JSON in {kind} response: {exc}"
+            f" | HTTP {response.status_code} content-type={ctype} bytes={len(raw)}{hint}"
+            f" | body[:400]={preview!r}"
+        ) from exc
+
+
+def _is_retryable_image_api_error(exc: BaseException) -> bool:
+    msg = str(exc).lower()
+    markers = (
+        "invalid json",
+        "empty ",
+        "timed out",
+        "timeout",
+        "connection",
+        "temporarily",
+        "bad gateway",
+        "service unavailable",
+        "cloudflare",
+        "502",
+        "503",
+        "504",
+        "520",
+        "524",
+    )
+    return any(m in msg for m in markers)
+
+
+
 def generate_image_via_images_api(
     *,
     model: str,
@@ -396,10 +453,7 @@ def generate_image_via_images_api(
                 f"endpoint={endpoint} model={model}"
             )
 
-    try:
-        data = response.json()
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Invalid JSON in Images API response: {exc}") from exc
+    data = _parse_api_json_response(response, kind="Images API")
 
     image_url = extract_images_api_payload(data)
     download_image(image_url, output, proxy=proxy)
@@ -416,8 +470,56 @@ def generate_image(
     proxy: str | None = None,
     reference_image: Path | None = None,
     config: dict[str, Any] | None = None,
+    retries: int = 2,
 ) -> None:
-    """Generate an image via chat modalities or dedicated Images API."""
+    """Generate an image via chat modalities or dedicated Images API.
+
+    ``retries`` = extra attempts after the first failure for transient
+    proxy/gateway/non-JSON responses (common under parallel visual-target gens).
+    """
+    attempts = max(1, int(retries) + 1)
+    last_exc: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            _generate_image_once(
+                model=model,
+                prompt=prompt,
+                output=output,
+                size=size,
+                api_key=api_key,
+                api_base=api_base,
+                proxy=proxy,
+                reference_image=reference_image,
+                config=config,
+            )
+            return
+        except Exception as exc:  # noqa: BLE001 — classify then re-raise
+            last_exc = exc
+            if attempt >= attempts or not _is_retryable_image_api_error(exc):
+                raise
+            wait_s = float(2 * attempt)
+            print(
+                f"image generate retry {attempt}/{attempts - 1} in {wait_s:.0f}s: {exc}",
+                file=sys.stderr,
+            )
+            time.sleep(wait_s)
+    assert last_exc is not None
+    raise last_exc
+
+
+def _generate_image_once(
+    *,
+    model: str,
+    prompt: str,
+    output: Path,
+    size: str,
+    api_key: str,
+    api_base: str,
+    proxy: str | None = None,
+    reference_image: Path | None = None,
+    config: dict[str, Any] | None = None,
+) -> None:
+    """Single attempt for generate_image (no retries)."""
     model = normalize_image_model(model, api_base)
     if uses_dedicated_images_api(model):
         generate_image_via_images_api(
@@ -492,10 +594,7 @@ def generate_image(
             )
         raise RuntimeError(f"API error (HTTP {response.status_code}): {detail}{hint}")
 
-    try:
-        data = response.json()
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"Invalid JSON in API response: {exc}") from exc
+    data = _parse_api_json_response(response, kind="API")
 
     image_url = extract_image_url(data)
     download_image(image_url, output, proxy=proxy)
