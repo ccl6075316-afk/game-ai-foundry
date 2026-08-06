@@ -64,6 +64,7 @@ import {
   type PlanTargets,
 } from "./chat/projectPaths";
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
+import { routeColleagueSend } from "./chat/colleagueSendRoute";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import { prepareAgentDisplay } from "./chat/agentReply";
 import { mergeMessageChoices } from "./chat/inferChoices";
@@ -1299,6 +1300,7 @@ export default function App() {
   );
 
   const handleBrainstormStart = async (seed?: string) => {
+    if (activeColleague.roleKind !== "brief") return;
     const busyId = activeColleague.id;
     const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
     markBusy(busyId);
@@ -1335,6 +1337,7 @@ export default function App() {
   };
 
   const handleBrainstormTurn = async (message: string) => {
+    if (activeColleague.roleKind !== "brief") return;
     const busyId = activeColleague.id;
     const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
     markBusy(busyId);
@@ -4110,16 +4113,15 @@ export default function App() {
       return;
     }
 
-    if (agentRole === "product_host" || agentRole === "programmer" || agentRole === "it") {
+    const sendRoute = routeColleagueSend(agentRole, brainstormActive);
+    if (sendRoute === "agent") {
       await handleAgentTurn(text, { instanceId: activeColleague.id });
       return;
     }
-
-    if (brainstormActive) {
+    if (sendRoute === "brief_turn") {
       await handleBrainstormTurn(text);
       return;
     }
-
     await handleBrainstormStart(text);
   };
 

@@ -731,7 +731,7 @@ declare global {
       >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
       agentTurn: (opts: {
-        role: "product_host" | "programmer" | "it";
+        role: "product_host" | "programmer" | "it" | "advisor";
         sessionId: string;
         message: string;
         executor?: "hermes" | "codex" | "cursor" | "pi";

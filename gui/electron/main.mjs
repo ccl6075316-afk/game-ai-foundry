@@ -1216,6 +1216,7 @@ const ROLE_TO_AGENT_KEY = {
   product_host: "orchestrator",
   programmer: "godot-developer",
   it: "it",
+  advisor: "advisor",
 };
 
 /**
@@ -1329,6 +1330,9 @@ function resolveExecutorForAgentTurn(config, roleKind, opts) {
   const override = String(opts.executor || "").trim().toLowerCase();
   const inst = agentInstanceRecord(config, opts.instanceId);
   const fromInst = String(inst.executor || "").trim().toLowerCase();
+  if (roleKind === "advisor") {
+    return "pi";
+  }
   if (roleKind === "it") {
     const itCfg = config?.agents?.it;
     const fromRole =
