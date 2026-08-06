@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import unittest
 
-from agent_auth_resolve import merge_instance_overlay, resolve_agent_auth
+from agent_auth_resolve import (
+    ROLE_KIND_DEFAULT_EXECUTOR,
+    ROLE_KIND_TO_AGENT_KEY,
+    merge_instance_overlay,
+    resolve_agent_auth,
+)
 
 
 def _base_config(**overrides: object) -> dict:
@@ -101,13 +106,15 @@ class ResolveAgentAuthTests(unittest.TestCase):
         self.assertEqual(auth["instance_id"], "ops-1")
         self.assertIsNone(auth.get("error"))
 
-    def test_role_overrides_host(self) -> None:
+    def test_advisor_defaults_to_pi_and_agent_key(self) -> None:
         config = _base_config()
-        config["agents"]["it"]["provider"] = "deepseek"
-        auth = resolve_agent_auth(config, role_kind="it")
-        self.assertEqual(auth["source"], "role")
-        self.assertEqual(auth["provider"], "deepseek")
-        self.assertEqual(auth["api_key"], "sk-ds-test")
+        config["agents"]["advisor"] = {"executor": "pi", "provider": "openrouter", "model": None}
+        auth = resolve_agent_auth(config, role_kind="advisor")
+        self.assertEqual(auth["executor"], "pi")
+        self.assertEqual(auth["provider"], "openrouter")
+        self.assertEqual(auth["api_key"], "sk-or-test")
+        self.assertEqual(ROLE_KIND_DEFAULT_EXECUTOR["advisor"], "pi")
+        self.assertEqual(ROLE_KIND_TO_AGENT_KEY["advisor"], "advisor")
 
     def test_host_fallback_when_no_role_provider(self) -> None:
         config = _base_config()

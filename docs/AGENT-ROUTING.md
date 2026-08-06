@@ -10,7 +10,7 @@
 主 Agent **只编排与异常**；批量资产由 `pipeline run` subprocess 执行。
 
 **已定（施工中 / 可测）**：
-- **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端 **固定 Pi**（实例不可切 Hermes/Codex/Cursor）；**IT** **默认 Pi** + 工具白名单，实例可在顶栏/雇人改为 `codex` / `cursor`。
+- **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端 **固定 Pi**（实例不可切 Hermes/Codex/Cursor）；**顾问** **固定 Pi** + **只读**工具白名单；**IT** **默认 Pi** + 工具白名单，实例可在顶栏/雇人改为 `codex` / `cursor`。
 - **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**；IT 切外置执行器前通常先用 Pi 走 `setup executor step … install_cli`（或 GUI **环境 → 执行器**）。
 - 详见 [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md)。
 
@@ -33,6 +33,7 @@
 | GUI | 后端 | 默认 |
 |-----|------|------|
 | 策划 `brief` | `brief chat` → **内置 Pi**（JSON draft）；执行器 **锁 Pi** | 只配 API |
+| **顾问 `advisor`** | `agent turn` → **锁 Pi**；`tool_profile=advisor` **只读**（不改 brief / 不跑流水线） | 只配 API |
 | 项目经理 `product_host` | `agent turn` → Hermes/… | 引导装 |
 | 程序员 `programmer` | `agent turn` → Codex/Hermes | 引导装 |
 | **IT `it`** | `agent turn` → **默认 Pi**；实例可切 `codex` / `cursor` + `resources/skills/it/diagnose.md`（Pi 上探测 + **经确认** 修环境/配置；外置执行器走各自 CLI/ACP，装机仍靠 Pi 或 GUI 环境步进） | 开箱 Pi；可选外置 |

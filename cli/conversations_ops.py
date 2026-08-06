@@ -20,6 +20,8 @@ ROLE_ALIASES = {
     "product_host": "product_host",
     "项目经理": "product_host",
     "pm": "product_host",
+    "advisor": "advisor",
+    "顾问": "advisor",
 }
 
 
@@ -33,7 +35,7 @@ def normalize_role(raw: str) -> str:
         return ROLE_ALIASES[key]
     if key == "brief" or key in ROLE_KINDS:
         return key
-    raise ConversationsError(f"unknown role: {raw!r} (brief|it|programmer|product_host)")
+    raise ConversationsError(f"unknown role: {raw!r} (brief|it|programmer|product_host|advisor)")
 
 
 def role_dir(role: str) -> Path:

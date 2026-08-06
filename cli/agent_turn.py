@@ -24,14 +24,16 @@ _CONV_ROOT = _REPO_ROOT / "plans" / "conversations"
 _PRODUCT_HOST_SKILL = _REPO_ROOT / "resources" / "skills" / "orchestrator" / "product-host.md"
 _PROGRAMMER_SKILL = _REPO_ROOT / "resources" / "skills" / "godot-developer" / "implement.md"
 _IT_SKILL = _REPO_ROOT / "resources" / "skills" / "it" / "diagnose.md"
+_ADVISOR_SKILL = _REPO_ROOT / "resources" / "skills" / "advisor" / "consult.md"
 
-ROLE_KINDS = frozenset({"product_host", "programmer", "it"})
+ROLE_KINDS = frozenset({"product_host", "programmer", "it", "advisor"})
 
 # Map GUI colleague role → config.agents role key
 _ROLE_TO_AGENT: dict[str, str] = {
     "product_host": "orchestrator",
     "programmer": "godot-developer",
     "it": "it",
+    "advisor": "advisor",
 }
 
 _HERMES_SKILL: dict[str, str] = {
@@ -150,6 +152,8 @@ def resolve_executor_for_role(
     *,
     instance_id: str | None = None,
 ) -> str:
+    if role_kind == "advisor":
+        return "pi"
     normalized = _normalize_executor(override)
     if normalized:
         if role_kind == "it" and normalized == "hermes":
@@ -182,6 +186,8 @@ def resolve_executor_for_role(
 def _load_skill_text(role_kind: str, limit: int = 12_000) -> str:
     if role_kind == "it":
         path = _IT_SKILL
+    elif role_kind == "advisor":
+        path = _ADVISOR_SKILL
     elif role_kind == "product_host":
         path = _PRODUCT_HOST_SKILL
     else:
@@ -287,6 +293,8 @@ def build_prompt(
 ) -> str:
     if role_kind == "it":
         title = "IT / 运维"
+    elif role_kind == "advisor":
+        title = "顾问"
     elif role_kind == "product_host":
         title = "项目经理"
     else:
@@ -854,9 +862,9 @@ def run_pi_executor_turn(
             instance_id=instance_id,
             role_kind=role_kind,
             session_id=session_id,
-            max_tool_rounds=IT_DEFAULT_MAX_TOOL_ROUNDS if role_kind == "it" else 2,
+            max_tool_rounds=IT_DEFAULT_MAX_TOOL_ROUNDS if role_kind in {"it", "advisor"} else 2,
             timeout_sec=float(min(timeout, 240)),
-            tool_profile="it",
+            tool_profile="advisor" if role_kind == "advisor" else "it",
             allow_export=False,
         )
     except PiRuntimeError as exc:

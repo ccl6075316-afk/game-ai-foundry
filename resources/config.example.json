@@ -118,6 +118,7 @@
     },
     "brief": { "executor": "pi", "skill": "host-chat", "provider": "openrouter", "model": null },
     "it": { "executor": "pi", "skill": "diagnose", "provider": "openrouter", "model": null },
+    "advisor": { "executor": "pi", "skill": "consult", "provider": "openrouter", "model": null },
     "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter", "model": null },
     "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
     "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },

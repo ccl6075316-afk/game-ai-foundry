@@ -19,6 +19,7 @@ export const DEFAULT_INSTANCE_NAMES: Record<ChatAgentRole, string> = {
   product_host: "项目经理 · 主线",
   programmer: "程序员 · 玩法",
   it: "IT · 运维",
+  advisor: "顾问 · 默认",
 };
 
 function newInstanceId(roleKind: ChatAgentRole): string {
@@ -35,7 +36,11 @@ export function createColleague(
     roleKind,
     displayName: displayName?.trim() || DEFAULT_INSTANCE_NAMES[roleKind],
     executor:
-      roleKind === "brief" ? null : executor ?? (roleKind === "it" ? "pi" : null),
+      roleKind === "brief"
+        ? null
+        : roleKind === "advisor"
+          ? "pi"
+          : executor ?? (roleKind === "it" ? "pi" : null),
     createdAt: Date.now(),
   };
 }
@@ -55,6 +60,7 @@ export function nextHireName(roster: ColleagueInstance[], roleKind: ChatAgentRol
   if (roleKind === "brief") return `${base} · ${n}`;
   if (roleKind === "product_host") return `项目经理 · ${n}`;
   if (roleKind === "it") return `IT · ${n}`;
+  if (roleKind === "advisor") return `顾问 · ${n}`;
   return `程序员 · ${n}`;
 }
 

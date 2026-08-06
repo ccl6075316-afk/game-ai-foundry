@@ -57,15 +57,15 @@ const HIRE_AGENT_EXECUTORS: AgentExecutor[] = ["hermes", "codex", "cursor"];
 export const HIRE_IT_EXECUTORS: InstanceExecutor[] = ["pi", "codex", "cursor"];
 
 export function isPiLockedRole(roleKind: ChatAgentRole): boolean {
-  return roleKind === "brief";
+  return roleKind === "brief" || roleKind === "advisor";
 }
 
 export function defaultExecutorForHire(
   roleKind: ChatAgentRole,
   agents: Record<string, unknown>,
 ): InstanceExecutor {
-  // Brief is Pi-only; IT defaults to Pi for onboarding even though it is unlocked.
-  if (roleKind === "brief" || roleKind === "it") return "pi";
+  // Brief / advisor are Pi-only; IT defaults to Pi for onboarding even though it is unlocked.
+  if (roleKind === "brief" || roleKind === "advisor" || roleKind === "it") return "pi";
   const roleKey =
     roleKind === "product_host" ? "orchestrator" : roleKind === "programmer" ? "godot-developer" : roleKind;
   const roleBlock = (agents[roleKey] || {}) as Record<string, unknown>;

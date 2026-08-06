@@ -141,6 +141,22 @@ _BRIEF_ALLOWED_PREFIXES = frozenset(
     }
 )
 
+# Advisor: consult-only — read context, never mutate brief / pipeline / shell.
+_ADVISOR_ALLOWED_PREFIXES = frozenset(
+    {
+        ("conversations", "list"),
+        ("conversations", "show"),
+        ("inspect", "list"),
+        ("inspect", "read"),
+        ("doctor",),
+        ("setup", "check"),
+        ("setup", "pi", "status"),
+        ("pipeline", "diagnose"),
+        ("pipeline", "status"),
+        ("assets", "review", "list"),
+    }
+)
+
 _EXPORT_ROOT_ALLOW = ("projects", "output", "plans")
 
 _INSTALL_TIMEOUT_SEC = 900.0
@@ -150,7 +166,7 @@ _DEFAULT_TOOL_TIMEOUT_SEC = 120.0
 def tool_protocol_instructions(*, profile: str = "it") -> str:
     """Append to Pi system prompts.
 
-    ``profile``: ``it`` (ops) or ``brief`` (策划 — draft/review/export tools).
+    ``profile``: ``it`` (ops), ``brief`` (策划), or ``advisor`` (ask-only consult).
     """
     if profile == "brief":
         return """
@@ -197,6 +213,29 @@ Rules:
 - Do **not** claim brief.json was written unless export returned ok.
 - Final reply must still be skill JSON (`assistant_message`, `choices`, `draft_brief`, …).
 - Never `shell run`, `pipeline run|plan|heal`, or image spend via tools.
+""".strip()
+
+    if profile == "advisor":
+        return """
+## Foundry tools (advisor — read only)
+
+You **consult only**. You may read local facts; you must **never** mutate brief, export, run pipeline, or shell.
+
+<<<FOUNDRY_TOOL
+["conversations", "list", "--role", "brief", "--json"]
+FOUNDRY_TOOL>>>
+
+Allowed:
+- `conversations list|show`
+- `inspect list|read` (brief.json / docs / projects)
+- `doctor --json`；`setup check --json`；`setup pi status --json`
+- `pipeline status|diagnose --json`（只读；不要 plan/run/heal）
+- `assets review list --json`
+
+Forbidden (hard-blocked): brief chat export/makeability/autofix/enrich/bind；pipeline plan|run|heal|reset；shell run；setup install/upsert.
+
+If user asks you to change the draft or run the pipeline, refuse and point them to 策划 / 项目经理 / IT.
+Reply in Chinese. Prefer clear recommendations over tool spam.
 """.strip()
 
     examples = "\n".join(f"- `{' '.join(p)} …`" for p in _ALLOWED_PREFIXES if p not in _WRITE_PREFIXES)
@@ -335,14 +374,16 @@ def is_allowed_argv(
         return False
     if profile == "brief" and prefix not in _BRIEF_ALLOWED_PREFIXES:
         return False
+    if profile == "advisor" and prefix not in _ADVISOR_ALLOWED_PREFIXES:
+        return False
     # Shell commands may contain ; | & — only this prefix is exempt.
     joined = " ".join(argv)
     if prefix != ("shell", "run") and any(
         ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")
     ):
         return False
-    # IT never exports; defense-in-depth even if allow_export is mis-set.
-    if profile == "it" and prefix in _WRITE_PREFIXES:
+    # IT / advisor never exports; defense-in-depth even if allow_export is mis-set.
+    if profile in {"it", "advisor"} and prefix in _WRITE_PREFIXES:
         return False
     if prefix in _WRITE_PREFIXES and not allow_export:
         return False

@@ -53,6 +53,7 @@ export type AgentInstancesMap = Record<string, AgentInstanceRecord>;
 const ROLE_AGENT_KEYS: Record<ChatAgentRole, string> = {
   brief: "brief",
   it: "it",
+  advisor: "advisor",
   product_host: "orchestrator",
   programmer: "godot-developer",
 };
@@ -66,7 +67,7 @@ export function defaultExecutorForRole(
   roleKind: ChatAgentRole,
   roleBlock?: Record<string, unknown>,
 ): InstanceExecutor {
-  if (roleKind === "brief" || roleKind === "it") return "pi";
+  if (roleKind === "brief" || roleKind === "advisor" || roleKind === "it") return "pi";
   const raw = String(roleBlock?.executor || "");
   if (raw === "hermes" || raw === "cursor" || raw === "codex") return raw;
   return roleKind === "product_host" ? "hermes" : "codex";
@@ -77,7 +78,7 @@ function parseInstanceExecutor(
   roleKind: ChatAgentRole,
   fallback: InstanceExecutor,
 ): InstanceExecutor {
-  if (roleKind === "brief") return "pi";
+  if (roleKind === "brief" || roleKind === "advisor") return "pi";
   if (roleKind === "it") {
     if (value === "pi" || value === "codex" || value === "cursor") {
       return value as InstanceExecutor;

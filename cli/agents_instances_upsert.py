@@ -8,10 +8,10 @@ from typing import Any
 from pi_runtime import normalize_thinking_level
 from provider_upsert import BUILTIN_PROVIDERS, _load_config, _save_config
 
-_KNOWN_ROLE_KINDS = frozenset({"brief", "it", "product_host", "programmer"})
+_KNOWN_ROLE_KINDS = frozenset({"brief", "it", "advisor", "product_host", "programmer"})
 _KNOWN_EXECUTORS = frozenset({"pi", "hermes", "codex", "cursor"})
 _IT_EXECUTORS = frozenset({"pi", "codex", "cursor"})
-_PI_LOCKED = frozenset({"brief"})
+_PI_LOCKED = frozenset({"brief", "advisor"})
 
 
 def upsert_agent_instance(

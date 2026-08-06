@@ -8,6 +8,7 @@ from typing import Any
 ROLE_KIND_DEFAULT_EXECUTOR: dict[str, str] = {
     "brief": "pi",
     "it": "pi",
+    "advisor": "pi",
     "product_host": "hermes",
     "programmer": "codex",
 }
@@ -16,6 +17,7 @@ ROLE_KIND_DEFAULT_EXECUTOR: dict[str, str] = {
 ROLE_KIND_TO_AGENT_KEY: dict[str, str] = {
     "brief": "brief",
     "it": "it",
+    "advisor": "advisor",
     "product_host": "orchestrator",
     "programmer": "godot-developer",
 }

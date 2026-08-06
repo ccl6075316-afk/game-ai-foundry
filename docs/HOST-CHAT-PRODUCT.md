@@ -56,49 +56,51 @@
 
 ---
 
-## 3. 三种工种（跟用户直接对话的角色）
+## 3. 工种（跟用户直接对话的角色）
 
-用户只和 **三种工种** 对话；每种可 **雇佣多个实例**（例如「项目经理·小王」「程序员·平台组」「程序员·战斗」）。
+用户和下列 **工种** 对话；每种可 **雇佣多个实例**（顾问 / IT / 项目经理 / 程序员均可多人）。
 
 | 工种 | 用户怎么叫 | 职责 | 对话后端 |
 |------|------------|------|----------|
-| **① 策划 / Brief** | 主对话、出 brief | 边聊边扩写工作草稿（侧栏可全盘查看）；用户明确「落实/导出」才写 `brief.json` | **薄 Chat**：`host-chat`（增量 `draft_brief`）→ `commit-brief`；**不是** Agent 环 |
-| **② 项目经理** | 产品、Host | **修改主入口**：听反馈 → 分诊 A/B/C/D → 派工、推进 progress、触发验收 / 定点 pipeline | **Agent**（Hermes / Cursor / Codex 等 executor） |
-| **③ 程序员** | 程序员 | 接项目经理下发的 task；改 Godot C#；跑 validate / 测试 | **Agent**（同上） |
-
-**命名对齐（避免混淆）：**
-
-- **「项目经理」= 产品 = Host** → 指 **② 这个可对话角色**，不是 Provider 页某个 API 字段的别名。
-- **Provider 页** 填各厂商 Key；**Agent 页** 配工具默认连法（`agents.executors`）；**雇人弹窗 / 对话内配置** 配每个同事实例（`agents.instances`）。① 策划岗走 Pi + Provider；②③ 走 executor Agent。
+| **① 策划 / Brief** | 主对话、出 brief | 边聊边扩写工作草稿；用户明确「落实/导出」才写 `brief.json` | **薄 Chat / 内置 Pi**（增量 `draft_brief`） |
+| **顾问** | 顾问、咨询 | **只答问题与给建议**；不改 brief、不跑流水线 | **Agent 环（锁 Pi，只读工具）** |
+| **② 项目经理** | 产品、Host | **修改主入口**：听反馈 → 分诊 → 派工、推进 progress | **Agent**（Hermes / Cursor / Codex） |
+| **③ 程序员** | 程序员 | 接任务改 Godot C#；跑 validate | **Agent**（同上） |
+| **IT** | 运维 | 环境、草稿同步、流水线运维 | **Agent（默认 Pi，可外置）** |
 
 **禁止并错：**
 
+- 不要把策划（出 brief）和顾问（只咨询）合成一个聊天窗。
+- 不要把顾问做成第二个 IT（顾问无 shell / 无 pipeline run）。
 - 不要把策划（出 brief）和项目经理（分诊派工）合成一个聊天窗。
-- 不要把「项目经理」实现成「拼文件 + 调一次 LLM 出 JSON」——那是宿主辅助，**② 的主路径是 Agent**。
+
+**命名对齐：**「项目经理」= 产品 = Host（可对话角色）；Provider 页填 Key；雇人弹窗配实例。顾问与策划都锁 **Pi**，但顾问无 brief 写入路径。
 
 ---
 
-## 4. 多实例：可雇多个项目经理、多个程序员
+## 4. 多实例：可雇多个同事
 
 用户可按项目需要 **创建多个同事实例**：
 
 ```text
 同事列表示意
 ├── 策划 · 默认
+├── 顾问 · 默认                 ← 可雇；只咨询
 ├── 项目经理 · 主线
-├── 项目经理 · 素材跟进        ← 第二个项目经理实例
+├── 项目经理 · 素材跟进
 ├── 程序员 · 玩法
-└── 程序员 · UI                ← 第二个程序员实例
+├── 程序员 · UI
+└── IT · 运维
 ```
 
 每个实例拥有：
 
 | 属性 | 说明 |
 |------|------|
-| `role_kind` | `brief` \| `product_manager` \| `programmer` |
+| `role_kind` | `brief` \| `advisor` \| `product_host` \| `programmer` \| `it` |
 | `instance_id` | 唯一 id |
 | `display_name` | 用户可见名（「小王」「平台组」） |
-| `executor` | ②③ 绑定的 Agent 执行器（Hermes / Cursor / Codex） |
+| `executor` | Agent 执行器；策划/顾问锁 `pi`；IT 默认可切；项目经理/程序员为 Hermes/Cursor/Codex |
 | `sessions[]` | 该实例自己的对话历史（不与其他实例共享） |
 
 **配置入口**：点「+ 雇佣」时弹窗预填 Agent 预设并写入 `agents.instances`；对话内可改本实例 Provider / 模型 / 执行器等，**不回写** Agent 全局预设。详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)。

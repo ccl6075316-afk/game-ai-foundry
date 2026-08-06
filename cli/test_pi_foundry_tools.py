@@ -301,6 +301,52 @@ class PiFoundryToolsTest(unittest.TestCase):
             )
         )
 
+    def test_advisor_profile_read_only(self) -> None:
+        self.assertTrue(
+            is_allowed_argv(["conversations", "list", "--role", "brief", "--json"], profile="advisor")
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                ["inspect", "read", "--path", "projects/x/brief.json", "--json"],
+                profile="advisor",
+            )
+        )
+        self.assertTrue(is_allowed_argv(["doctor", "--json"], profile="advisor"))
+        self.assertTrue(is_allowed_argv(["pipeline", "status", "--json"], profile="advisor"))
+        self.assertFalse(
+            is_allowed_argv(
+                ["brief", "chat", "export", "--session-id", "s1", "--json"],
+                allow_export=True,
+                profile="advisor",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["brief", "chat", "makeability", "--session-id", "s1", "--json"],
+                profile="advisor",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["brief", "chat", "autofix", "--session-id", "s1", "--json", "--i-confirm"],
+                profile="advisor",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["pipeline", "run", "--jobs", "2", "--json", "--i-confirm"],
+                profile="advisor",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                ["shell", "run", "--command", "ls", "--i-confirm", "--json"],
+                profile="advisor",
+            )
+        )
+        text = tool_protocol_instructions(profile="advisor")
+        self.assertIn("consult only", text.lower())
+
     def test_brief_profile_allows_makeability_and_enrich(self) -> None:
         self.assertTrue(
             is_allowed_argv(

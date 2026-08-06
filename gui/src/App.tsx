@@ -2078,7 +2078,9 @@ export default function App() {
         ? chatStore.roster.find((c) => c.id === opts.instanceId)
         : null) || activeColleague;
     const role = colleague.roleKind;
-    if (role !== "product_host" && role !== "programmer" && role !== "it") return;
+    if (role !== "product_host" && role !== "programmer" && role !== "it" && role !== "advisor") {
+      return;
+    }
     const sessionId =
       (opts?.instanceId
         ? chatStore.activeByInstance[colleague.id] ||

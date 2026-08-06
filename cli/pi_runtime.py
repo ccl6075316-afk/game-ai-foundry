@@ -762,7 +762,13 @@ def run_pi_agent_turn(
     from pi_foundry_tools import run_tool_round, strip_foundry_tools, tool_protocol_instructions
     from tool_permission import PermissionTurnState
 
-    auth_role = role_kind or ("brief" if tool_profile == "brief" else "it")
+    auth_role = role_kind or (
+        "brief"
+        if tool_profile == "brief"
+        else "advisor"
+        if tool_profile == "advisor"
+        else "it"
+    )
     system = f"{system_prompt.rstrip()}\n\n{tool_protocol_instructions(profile=tool_profile)}"
     conversation = user_text
     tool_trace: list[dict[str, Any]] = []
@@ -770,7 +776,7 @@ def run_pi_agent_turn(
     permission_turn = PermissionTurnState()
     perm_session = (session_id or "").strip()
     unfinished_nudges = 0
-    max_nudges = 2 if tool_profile == "it" else 0
+    max_nudges = 2 if tool_profile in {"it", "advisor"} else 0
     budget = max(1, max_tool_rounds + 1 + max_nudges)
     hit_round_limit = False
 
@@ -818,9 +824,9 @@ def run_pi_agent_turn(
                 )
             continue
 
-        # No tools this round. If IT only narrated "I'll check more", nudge once/twice.
+        # No tools this round. If IT/advisor only narrated "I'll check more", nudge once/twice.
         if (
-            tool_profile == "it"
+            tool_profile in {"it", "advisor"}
             and unfinished_nudges < max_nudges
             and looks_like_unfinished_narration(prose or final_text)
         ):
@@ -843,13 +849,13 @@ def run_pi_agent_turn(
     message = strip_foundry_tools(final_text).strip()
     if not message or "<<<FOUNDRY_TOOL" in message:
         message = _finalize_tool_only_message(tool_trace, tool_profile=tool_profile)
-    elif tool_profile == "it" and looks_like_unfinished_narration(message) and not hit_round_limit:
+    elif tool_profile in {"it", "advisor"} and looks_like_unfinished_narration(message) and not hit_round_limit:
         message = (
             message.rstrip()
             + "\n\n——（本回合已结束。若还要继续排查，请再发一句，例如「继续查 visual-target 目录」。）"
         )
 
-    if tool_profile == "it" and hit_round_limit:
+    if tool_profile in {"it", "advisor"} and hit_round_limit:
         message = (
             message.rstrip()
             + f"\n\n—— **本回合工具轮次已用尽**（上限约 {max_tool_rounds} 轮，含催促）。"
