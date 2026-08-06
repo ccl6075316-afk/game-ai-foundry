@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,10 @@ from roles import IMAGE_GENERATOR_ROLE, PROMPT_CRAFTER_ROLE
 from shared_context import build_visual_target_context
 
 VISUAL_TARGET_MANIFEST = "manifest.json"
+
+# Cap concurrent craft+generate workers. Default candidate count is 3; 3 keeps
+# wall-clock ≈ one image while avoiding hammering image APIs (5 often rate-limits).
+VISUAL_TARGET_MAX_PARALLEL = 3
 
 # Composition variants (same brief contract, different key moments).
 _VARIANTS: tuple[dict[str, str], ...] = (
@@ -538,8 +543,7 @@ def generate_visual_targets(
         output_dir.mkdir(parents=True, exist_ok=True)
         plans_root.mkdir(parents=True, exist_ok=True)
 
-        generated: list[dict[str, Any]] = []
-        for variant in variants:
+        def _run_one(variant: dict[str, str]) -> dict[str, Any]:
             vid = variant["id"]
             plan = build_visual_target_plan(
                 brief_path,
@@ -580,7 +584,25 @@ def generate_visual_targets(
                     proxy=resolved_proxy,
                 )
                 entry["status"] = "generated"
-            generated.append(entry)
+            return entry
+
+        workers = max(1, min(VISUAL_TARGET_MAX_PARALLEL, len(variants)))
+        by_index: dict[int, dict[str, Any]] = {}
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(_run_one, variant): idx
+                for idx, variant in enumerate(variants)
+            }
+            errors: list[BaseException] = []
+            for fut in as_completed(futures):
+                idx = futures[fut]
+                try:
+                    by_index[idx] = fut.result()
+                except BaseException as exc:  # noqa: BLE001 — collect then re-raise
+                    errors.append(exc)
+            if errors:
+                raise errors[0]
+        generated = [by_index[i] for i in range(len(variants))]
 
         notes = (
             "Visual Target: prompt-crafter handoff → image-generator. "
@@ -594,6 +616,7 @@ def generate_visual_targets(
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "viewport_size": size,
             "craft": craft,
+            "parallel": workers,
             "plans_dir": str(plans_root),
             "candidates": generated,
             "selected_id": None,

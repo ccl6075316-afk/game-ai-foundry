@@ -27,6 +27,7 @@ import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
 import { createCodexAppServerSessionManager } from "./codex_app_server_session.mjs";
+import { killChildTree } from "./process_kill.mjs";
 import {
   buildAgentTurnArgs,
   prepareRoleAwareAcpPrompt,
@@ -234,6 +235,9 @@ function pathWithCommonNodeBins(basePath) {
 
 /** @type {Map<string, import('node:child_process').ChildProcess>} */
 const cliJobs = new Map();
+/** All spawned CLI children (including those without a jobKey). */
+/** @type {Set<import('node:child_process').ChildProcess>} */
+const cliChildren = new Set();
 /** Instance ids whose in-flight chat turn was user-aborted (ACP + CLI). */
 const abortedChatInstances = new Set();
 
@@ -242,15 +246,22 @@ function chatJobKey(instanceId) {
   return id ? `chat:${id}` : "";
 }
 
+function trackCliChild(child) {
+  if (!child) return;
+  cliChildren.add(child);
+  const clear = () => {
+    cliChildren.delete(child);
+  };
+  child.once("close", clear);
+  child.once("exit", clear);
+  child.once("error", clear);
+}
+
 function registerCliJob(jobKey, child) {
   if (!jobKey || !child) return;
   const prev = cliJobs.get(jobKey);
   if (prev && prev !== child && !prev.killed) {
-    try {
-      prev.kill("SIGTERM");
-    } catch {
-      /* ignore */
-    }
+    killChildTree(prev, { sync: false });
   }
   cliJobs.set(jobKey, child);
   const clear = () => {
@@ -265,30 +276,24 @@ function abortCliJob(jobKey) {
   if (!jobKey) return false;
   const child = cliJobs.get(jobKey);
   if (!child || child.killed) return false;
-  try {
-    if (process.platform === "win32" && child.pid) {
-      try {
-        spawn("taskkill", ["/pid", String(child.pid), "/T", "/F"], {
-          windowsHide: true,
-          stdio: "ignore",
-        });
-      } catch {
-        child.kill();
-      }
-    } else {
-      child.kill("SIGTERM");
-      setTimeout(() => {
-        try {
-          if (!child.killed) child.kill("SIGKILL");
-        } catch {
-          /* ignore */
-        }
-      }, 1500);
-    }
-    return true;
-  } catch {
-    return false;
+  const ok = killChildTree(child, { sync: false });
+  cliJobs.delete(jobKey);
+  cliChildren.delete(child);
+  return ok;
+}
+
+/** Kill every tracked CLI child (and Windows process trees). Prefer sync on app quit. */
+function abortAllCliJobs(opts = {}) {
+  const sync = Boolean(opts.sync);
+  for (const child of [...cliChildren]) {
+    killChildTree(child, { sync });
   }
+  for (const key of [...cliJobs.keys()]) {
+    const child = cliJobs.get(key);
+    if (child) killChildTree(child, { sync });
+  }
+  cliChildren.clear();
+  cliJobs.clear();
 }
 
 function stopChatRuntime(instanceId) {
@@ -408,6 +413,7 @@ function runCli(args, { cwd, onLine, jobKey } = {}) {
     });
 
     if (jobKey) registerCliJob(String(jobKey), proc);
+    trackCliChild(proc);
 
     let stdout = "";
     let stderr = "";
@@ -3426,11 +3432,13 @@ app.on("before-quit", () => {
     clearTimeout(timer);
   }
   acpPermissionTimers.clear();
-  cursorAcpSessionManager?.disposeAll();
+  // Sync kill so orphans cannot lock install-dir files during NSIS upgrade.
+  abortAllCliJobs({ sync: true });
+  cursorAcpSessionManager?.disposeAll({ sync: true });
   cursorAcpSessionManager = null;
-  hermesAcpSessionManager?.disposeAll();
+  hermesAcpSessionManager?.disposeAll({ sync: true });
   hermesAcpSessionManager = null;
-  codexAppServerSessionManager?.disposeAll();
+  codexAppServerSessionManager?.disposeAll({ sync: true });
   codexAppServerSessionManager = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;

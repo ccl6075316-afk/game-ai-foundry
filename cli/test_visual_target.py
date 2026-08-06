@@ -340,12 +340,10 @@ class TestVisualTarget(unittest.TestCase):
         sibling.mkdir(parents=True)
         (sibling / "keep.txt").write_text("keep", encoding="utf-8")
 
-        calls = {"n": 0}
-
         def fake_generate_image(**kwargs: object) -> None:
-            calls["n"] += 1
             out_path = Path(str(kwargs["output"]))
-            if calls["n"] == 1:
+            # Fail a specific variant so parallel runs stay deterministic.
+            if out_path.name == "candidate_a.png":
                 out_path.parent.mkdir(parents=True, exist_ok=True)
                 out_path.write_bytes(b"\x89PNG-ok")
                 return
@@ -381,6 +379,60 @@ class TestVisualTarget(unittest.TestCase):
         self.assertFalse(plans.exists())
         self.assertFalse((out / "manifest.json").exists())
         self.assertTrue((sibling / "keep.txt").is_file())
+
+    def test_generate_runs_candidates_in_parallel(self) -> None:
+        """Three candidates should overlap in flight (not purely sequential)."""
+        import threading
+        import time
+
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans" / "combat"
+        lock = threading.Lock()
+        active = 0
+        max_active = 0
+
+        def fake_generate_image(**kwargs: object) -> None:
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.08)
+            out_path = Path(str(kwargs["output"]))
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\x89PNG")
+            with lock:
+                active -= 1
+
+        with patch("gamefactory.generate_image", side_effect=fake_generate_image), patch(
+            "gamefactory.resolve_image_proxy", return_value=None
+        ), patch(
+            "image_model_route.resolve_image_credentials",
+            return_value=type(
+                "C",
+                (),
+                {
+                    "model": "gpt-image-2",
+                    "api_key": "test-key",
+                    "api_base": "https://api.example.com/v1",
+                },
+            )(),
+        ):
+            manifest = generate_visual_targets(
+                brief,
+                out,
+                count=3,
+                config={"image": {"api_key": "x", "model": "gpt-image-2"}},
+                dry_run=False,
+                craft=False,
+                plans_dir=plans,
+                scene_id="combat",
+            )
+
+        self.assertEqual(len(manifest["candidates"]), 3)
+        self.assertEqual([c["id"] for c in manifest["candidates"]], ["a", "b", "c"])
+        self.assertEqual(manifest.get("parallel"), 3)
+        self.assertGreaterEqual(max_active, 2)
 
     def test_clear_artifacts_preserves_sibling_scene_dirs(self) -> None:
         base = self.tmp_path / "visual-target"

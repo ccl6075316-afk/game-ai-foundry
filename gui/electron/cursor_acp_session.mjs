@@ -21,6 +21,7 @@ import {
   decodeLine,
   encodeRequest,
 } from "./cursor_acp_adapter.mjs";
+import { killChildTree } from "./process_kill.mjs";
 
 /** @typedef {'once' | 'turn' | 'session' | 'deny'} FoundryPermissionDecision */
 
@@ -605,7 +606,11 @@ export function createCursorAcpSessionManager(opts) {
   /**
    * @param {string} instanceId
    */
-  function stop(instanceId) {
+  /**
+   * @param {string} instanceId
+   * @param {{ sync?: boolean }} [opts]
+   */
+  function stop(instanceId, opts = {}) {
     const state = instances.get(String(instanceId));
     if (!state) return;
 
@@ -624,11 +629,7 @@ export function createCursorAcpSessionManager(opts) {
     state.currentTurnId = null;
 
     if (state.proc && !state.proc.killed) {
-      try {
-        state.proc.kill("SIGTERM");
-      } catch {
-        /* ignore */
-      }
+      killChildTree(state.proc, { sync: Boolean(opts.sync) });
     }
     state.proc = null;
     state.ready = null;
@@ -636,14 +637,20 @@ export function createCursorAcpSessionManager(opts) {
     onLog("acp instance stopped", { instanceId });
   }
 
-  function stopAll() {
+  /**
+   * @param {{ sync?: boolean }} [opts]
+   */
+  function stopAll(opts = {}) {
     for (const instanceId of [...instances.keys()]) {
-      stop(instanceId);
+      stop(instanceId, opts);
     }
   }
 
-  function disposeAll() {
-    stopAll();
+  /**
+   * @param {{ sync?: boolean }} [opts]
+   */
+  function disposeAll(opts = {}) {
+    stopAll(opts);
   }
 
   return {
