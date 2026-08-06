@@ -20,6 +20,8 @@ export function routeColleagueSend(
   return "agent";
 }
 
-export function isAgentChatRole(role: ChatAgentRole): boolean {
+export function isAgentChatRole(
+  role: ChatAgentRole,
+): role is Exclude<ChatAgentRole, "brief"> {
   return role !== "brief";
 }

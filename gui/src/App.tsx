@@ -64,6 +64,7 @@ import {
   type PlanTargets,
 } from "./chat/projectPaths";
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
+import { resolveAppendTarget, sessionTargetForInstance } from "./chat/appendTarget";
 import { isAgentChatRole, routeColleagueSend } from "./chat/colleagueSendRoute";
 import { roleHero, roleSuggestions, type ChatAgentRole } from "./chat/roles";
 import { prepareAgentDisplay } from "./chat/agentReply";
@@ -327,10 +328,20 @@ export default function App() {
   const [settingsTab, setSettingsTab] = useState<SettingsPageTab>("providers");
   /** 正在等待回复的同事 instanceId（可并行；避免一人转圈三人一起 loading） */
   const [busyInstanceIds, setBusyInstanceIds] = useState<string[]>([]);
+  /** markBusy 时钉住发起会话，避免切同事后无 target 的 append 写到当前窗 */
+  const appendOriginByBusyRef = useRef<Map<string, { instanceId: string; sessionId: string }>>(
+    new Map(),
+  );
   const markBusy = useCallback((instanceId: string) => {
+    const store = loadSessionStore();
+    const pinned = sessionTargetForInstance(store, instanceId);
+    if (pinned) {
+      appendOriginByBusyRef.current.set(instanceId, pinned);
+    }
     setBusyInstanceIds((prev) => (prev.includes(instanceId) ? prev : [...prev, instanceId]));
   }, []);
   const clearBusy = useCallback((instanceId: string) => {
+    appendOriginByBusyRef.current.delete(instanceId);
     setBusyInstanceIds((prev) => prev.filter((id) => id !== instanceId));
   }, []);
   const anyBusy = busyInstanceIds.length > 0;
@@ -621,6 +632,9 @@ export default function App() {
       const mergedChoices = makeabilityCard
         ? undefined
         : mergeMessageChoices(choices, content);
+      const storeSnap = loadSessionStore();
+      const resolved =
+        resolveAppendTarget(target, storeSnap, appendOriginByBusyRef.current) || undefined;
       patchChatStore((prev) => {
         const msg = {
           id: newMessageId(),
@@ -631,15 +645,15 @@ export default function App() {
           attachments: attachments?.length ? attachments : undefined,
           makeabilityCard,
         };
-        if (target) {
-          return updateSessionMessages(prev, target.instanceId, target.sessionId, (msgs) => [
+        if (resolved) {
+          return updateSessionMessages(prev, resolved.instanceId, resolved.sessionId, (msgs) => [
             ...msgs,
             msg,
           ]);
         }
         return updateActiveMessages(prev, (msgs) => [...msgs, msg]);
       });
-      if (!target || target.instanceId === getActiveColleague(loadSessionStore()).id) {
+      if (!resolved || resolved.instanceId === getActiveColleague(loadSessionStore()).id) {
         setBrainstormChoices(makeabilityCard ? [] : mergedChoices || []);
       }
     },
@@ -827,6 +841,9 @@ export default function App() {
     ) => {
       const merged =
         role === "assistant" ? mergeMessageChoices(choices, content) : choices?.length ? choices : undefined;
+      const storeSnap = loadSessionStore();
+      const resolved =
+        resolveAppendTarget(target, storeSnap, appendOriginByBusyRef.current) || undefined;
       patchChatStore((prev) => {
         const msg = {
           id: newMessageId(),
@@ -836,8 +853,8 @@ export default function App() {
           attachments: attachments?.length ? attachments : undefined,
           choices: merged,
         };
-        if (target) {
-          return updateSessionMessages(prev, target.instanceId, target.sessionId, (msgs) => [
+        if (resolved) {
+          return updateSessionMessages(prev, resolved.instanceId, resolved.sessionId, (msgs) => [
             ...msgs,
             msg,
           ]);
@@ -846,7 +863,7 @@ export default function App() {
       });
       if (
         merged?.length &&
-        (!target || target.instanceId === getActiveColleague(loadSessionStore()).id)
+        (!resolved || resolved.instanceId === getActiveColleague(loadSessionStore()).id)
       ) {
         if (getActiveColleague(loadSessionStore()).roleKind === "brief") {
           setBrainstormChoices(merged);

@@ -48,7 +48,7 @@
 | ID | 说明 | 证据 | 建议 |
 |----|------|------|------|
 | **H1** | 软闸门后 **GUI/`export_brief` 已按结构算就绪**，但 Pi 导出仍读磁盘 `session.ready_to_export`；enrich/验写入失败等会把旗标打成 `False` 且不重算 → **策划 Pi「存」与 GUI 存不一致** | `cli/pi_foundry_tools.py:503-517`；`host_chat.py` Pi `allow_export = … ready_to_export`；enrich/`_answer_makeability_failure` 写 False | **已修（后续 commit）**：`_session_allows_export` / Pi `allow_export` / 若干写盘点改为 `_compute_ready_to_export` |
-| **H2** | 长任务大量 `append` **无 sessionTarget**（北极星 / pipeline run / safeAction / doctor…）。切同事 mid-flight 仍可能把结果写进当前窗 | `App.tsx` handleRun / VT / handleSafeAction 等（既有债，非顾问引入） | **部分缓解**：切同事清 `pendingSafeActions` / `brainstormActive`；hostChat 入口 brief 闸；顾问拒 safeAction / VT·跑资产角色闸。完整「长任务强制 target」仍 Deferred |
+| **H2** | 长任务大量 `append` **无 sessionTarget**（北极星 / pipeline run / safeAction / doctor…）。切同事 mid-flight 仍可能把结果写进当前窗 | `App.tsx` handleRun / VT / handleSafeAction 等（既有债，非顾问引入） | **已修**：`markBusy` 钉住发起会话；`append`/`appendAssistant` 无显式 target 时经 `resolveAppendTarget` 回写钉住会话（单任务切同事场景）。多 busy 且当前窗不在钉住集合时仍回退 active（罕见） |
 
 ### Medium（顾问注册 / 产品文案）
 
