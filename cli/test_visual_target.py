@@ -380,6 +380,56 @@ class TestVisualTarget(unittest.TestCase):
         self.assertFalse((out / "manifest.json").exists())
         self.assertTrue((sibling / "keep.txt").is_file())
 
+    def test_generate_failure_waits_before_rollback(self) -> None:
+        """Slow sibling must finish (or abort) before rollback — no orphan PNGs."""
+        import time
+
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "visual-target" / "combat"
+        plans = self.tmp_path / "plans" / "combat"
+
+        def fake_generate_image(**kwargs: object) -> None:
+            out_path = Path(str(kwargs["output"]))
+            if out_path.name == "candidate_a.png":
+                time.sleep(0.02)
+                raise RuntimeError("503 no available channel")
+            # Slow sibling: previously could write after wait=False rollback.
+            time.sleep(0.15)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_bytes(b"\x89PNG-late")
+
+        with patch("gamefactory.generate_image", side_effect=fake_generate_image), patch(
+            "gamefactory.resolve_image_proxy", return_value=None
+        ), patch(
+            "image_model_route.resolve_image_credentials",
+            return_value=type(
+                "C",
+                (),
+                {
+                    "model": "gpt-image-2",
+                    "api_key": "test-key",
+                    "api_base": "https://api.example.com/v1",
+                },
+            )(),
+        ):
+            with self.assertRaises(RuntimeError):
+                generate_visual_targets(
+                    brief,
+                    out,
+                    count=2,
+                    config={"image": {"api_key": "x", "model": "gpt-image-2"}},
+                    dry_run=False,
+                    craft=False,
+                    plans_dir=plans,
+                    scene_id="combat",
+                )
+
+        # Give any leaked background writer a moment; still must stay clean.
+        time.sleep(0.05)
+        self.assertFalse(out.exists())
+        orphans = list(self.tmp_path.rglob("candidate_*.png")) if self.tmp_path.exists() else []
+        self.assertEqual(orphans, [])
+
     def test_generate_runs_candidates_in_parallel(self) -> None:
         """Three candidates should overlap in flight (not purely sequential)."""
         import threading
@@ -1056,6 +1106,22 @@ class TestVisualTarget(unittest.TestCase):
         st = visual_target_brief_status(self.example_brief)
         self.assertTrue(st["ready"])
         self.assertEqual(st["scenes"], [])
+
+    def test_status_disk_mark_without_brief_binding(self) -> None:
+        """selected.png alone must not open the pipeline ready gate."""
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        out = self.tmp_path / "vt-disk-only"
+        out.mkdir()
+        (out / "selected.png").write_bytes(b"\x89PNG\r\n")
+        with patch("visual_target.default_output_dir", return_value=out):
+            st = visual_target_brief_status(brief)
+        self.assertFalse(st["ready"])
+        self.assertFalse(st["global_ready"])
+        self.assertTrue(st["disk_marked"])
+        self.assertTrue(st["has_selected_image"])
+        for scene in st["scenes"]:
+            self.assertFalse(scene["ready"])
+            self.assertTrue(scene["marked"])
 
 
 if __name__ == "__main__":

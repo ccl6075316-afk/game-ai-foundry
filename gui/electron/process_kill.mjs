@@ -19,10 +19,12 @@ export function killPidTree(pid, opts = {}) {
     if (process.platform === "win32") {
       const args = ["/pid", String(id), "/T", "/F"];
       if (sync) {
-        spawnSync("taskkill", args, { windowsHide: true, stdio: "ignore" });
-      } else {
-        spawn("taskkill", args, { windowsHide: true, stdio: "ignore" });
+        const r = spawnSync("taskkill", args, { windowsHide: true, stdio: "ignore" });
+        // taskkill exit 128 = process not found (already gone) — treat as cleaned.
+        const code = r.status;
+        return code === 0 || code === 128 || code === null;
       }
+      spawn("taskkill", args, { windowsHide: true, stdio: "ignore" });
       return true;
     }
 
@@ -58,15 +60,19 @@ export function killPidTree(pid, opts = {}) {
  * @returns {boolean}
  */
 export function killChildTree(child, opts = {}) {
-  if (!child || child.killed) return false;
-  const ok = killPidTree(child.pid, opts);
-  if (!ok) {
-    try {
-      child.kill(process.platform === "win32" ? undefined : "SIGTERM");
-      return true;
-    } catch {
-      return false;
-    }
+  if (!child) return false;
+  // Even if Node marked the handle killed, Windows grandchildren may remain —
+  // still attempt pid tree kill when we have a pid.
+  const pid = child.pid;
+  if (pid) {
+    const ok = killPidTree(pid, opts);
+    if (ok) return true;
   }
-  return true;
+  if (child.killed) return false;
+  try {
+    child.kill(process.platform === "win32" ? undefined : "SIGTERM");
+    return true;
+  } catch {
+    return false;
+  }
 }

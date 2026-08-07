@@ -2,7 +2,7 @@
 
 **AI-driven game factory** — describe a game → freeze **brief JSON** → generate assets → Godot project → iterate with AI colleagues.
 
-**Latest:** [**v0.1.7**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.7) — 纯净机 Codex 无需 npm + Release 内嵌 Pi 修复
+**Latest:** [**v0.2.0**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.2.0) — 多场景北极星加固 + 退出杀进程 / 生图重试 / 并行生成
 
 **GUI**（`start-gui.bat` / `start-gui.sh`）或 **CLI**（`cd cli && python gamefactory.py`）。七角色 skills + Hermes / Codex / Cursor 执行器。
 
@@ -24,7 +24,7 @@ brief.json → production.json → scaffold
 产品心智 → [`docs/HOST-CHAT-PRODUCT.md`](docs/HOST-CHAT-PRODUCT.md)  
 改需求 / Delta → [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 
-## Features (v0.1.7)
+## Features (v0.2.0)
 
 ### GUI — AI 公司前台
 
@@ -72,14 +72,14 @@ brief.json → production.json → scaffold
 
 ### Release（最终用户）
 
-1. 下载 [**v0.1.7 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.1.7)（Windows 推荐 **`*-setup.exe`**）
+1. 下载 [**v0.2.0 Release**](https://github.com/ccl6075316-afk/game-ai-foundry/releases/tag/v0.2.0)（Windows 推荐 **`*-setup.exe`**）
 2. 安装 / 解压并打开 **Game AI Foundry**
 3. **设置** → Provider 填 LLM API Key（可自建兼容端）；高级里可配代理；等待顶部芯片变绿（FFmpeg / Godot / .NET）
 4. **（推荐）设置 → 环境** → 安装 Hermes / Codex / Cursor Agent；**设置 → Agent** 配默认连法
 5. 与**策划**落实 brief → `/plan` → `/run --run-prompts` → 侧栏 **资产** 审图
 6. 试玩问题找**项目经理**；环境/看板找 **IT**；改需求用 `/delta 00x-name | 描述`
 
-说明 → [`docs/RELEASE-NOTES-0.1.7.md`](docs/RELEASE-NOTES-0.1.7.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
+说明 → [`docs/RELEASE-NOTES-0.2.0.md`](docs/RELEASE-NOTES-0.2.0.md) · 打包 → [`docs/RELEASE.md`](docs/RELEASE.md)
 
 **无需**安装 Python / Node。Windows 安装版支持应用内更新；macOS 请手动换 zip。
 

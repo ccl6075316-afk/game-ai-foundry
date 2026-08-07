@@ -2593,7 +2593,9 @@ app.whenReady().then(() => {
     }
     return {
       ok: true,
-      ready: globalReady || anySceneReady || globalHasSelectedImage || scenes.some((s) => s.marked),
+      // Run gate: brief must bind a real visual_reference path (not disk-only selected.png).
+      ready: globalReady || anySceneReady,
+      disk_marked: globalHasSelectedImage || scenes.some((s) => s.marked),
       global_ready: globalReady,
       global_selected_id: globalSelectedId,
       global_has_selected_image: globalHasSelectedImage,

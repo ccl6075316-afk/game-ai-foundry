@@ -506,6 +506,8 @@ declare global {
       ) => Promise<{
         ok: boolean;
         ready: boolean;
+        /** Disk selected.png / manifest mark without requiring brief bind */
+        disk_marked?: boolean;
         global_ready?: boolean;
         global_selected_id?: string | null;
         global_has_selected_image?: boolean;

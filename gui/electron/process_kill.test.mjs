@@ -12,5 +12,7 @@ test("killPidTree rejects invalid pids", () => {
 test("killChildTree no-ops on missing child", () => {
   assert.equal(killChildTree(null), false);
   assert.equal(killChildTree(undefined), false);
-  assert.equal(killChildTree({ killed: true, pid: 1 }), false);
+  // killed + no usable pid: skip tree kill, do not call child.kill again
+  assert.equal(killChildTree({ killed: true }), false);
+  assert.equal(killChildTree({ killed: true, pid: 0 }), false);
 });

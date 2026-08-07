@@ -35,7 +35,36 @@ class ApiJsonResponseTests(unittest.TestCase):
     def test_retryable_markers(self) -> None:
         self.assertTrue(_is_retryable_image_api_error(RuntimeError("Invalid JSON in API response")))
         self.assertTrue(_is_retryable_image_api_error(RuntimeError("HTTP 503 boom")))
+        self.assertTrue(_is_retryable_image_api_error(RuntimeError("HTTP 429 rate limit")))
+        self.assertTrue(_is_retryable_image_api_error(RuntimeError("connection reset by peer")))
+        self.assertTrue(
+            _is_retryable_image_api_error(
+                RuntimeError(
+                    "Images API request failed: "
+                    "[WinError 10054] An existing connection was forcibly closed by the remote host"
+                )
+            )
+        )
+        self.assertTrue(
+            _is_retryable_image_api_error(
+                RuntimeError(
+                    "Images API request failed: "
+                    "No connection could be made because the target machine actively refused it"
+                )
+            )
+        )
+        self.assertTrue(
+            _is_retryable_image_api_error(
+                RuntimeError(
+                    "Images API request failed: "
+                    "HTTPSConnectionPool(host='x', port=443): Max retries exceeded with url: /v1 "
+                    "(Caused by NewConnectionError("
+                    "'Failed to establish a new connection: [WinError 10060]'))"
+                )
+            )
+        )
         self.assertFalse(_is_retryable_image_api_error(RuntimeError("Could not extract image")))
+        self.assertFalse(_is_retryable_image_api_error(RuntimeError("bad connection string in prompt")))
 
 
 if __name__ == "__main__":

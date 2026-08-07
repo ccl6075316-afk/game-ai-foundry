@@ -6,6 +6,7 @@ import copy
 import hashlib
 import json
 import re
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -341,7 +342,10 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
         "global_ready": global_path is not None,
         "global_selected_id": global_sel["selected_id"],
         "global_has_selected_image": global_sel["has_selected_image"],
-        "ready": brief_bound or any_disk_mark,
+        # Pipeline / run gate: brief must bind at least one visual_reference.
+        "ready": brief_bound,
+        # Progress UI: disk selected.png / manifest selected_id somewhere.
+        "disk_marked": any_disk_mark,
         "selected_id": global_sel["selected_id"],
         "has_selected_image": global_sel["has_selected_image"],
         "scenes": scenes_out,
@@ -650,7 +654,11 @@ def generate_visual_targets(
         output_dir.mkdir(parents=True, exist_ok=True)
         plans_root.mkdir(parents=True, exist_ok=True)
 
+        abort = threading.Event()
+
         def _run_one(variant: dict[str, str]) -> dict[str, Any]:
+            if abort.is_set():
+                raise VisualTargetError("Visual-target generate aborted")
             vid = variant["id"]
             plan = build_visual_target_plan(
                 brief_path,
@@ -680,6 +688,8 @@ def generate_visual_targets(
             if dry_run:
                 entry["status"] = "dry_run"
             else:
+                if abort.is_set():
+                    raise VisualTargetError("Visual-target generate aborted")
                 assert model and api_key and api_base
                 generate_image(
                     model=model,
@@ -690,25 +700,47 @@ def generate_visual_targets(
                     api_base=api_base,
                     proxy=resolved_proxy,
                 )
+                if abort.is_set():
+                    # Sibling already failed; drop this late write before rollback.
+                    try:
+                        out_path.unlink(missing_ok=True)
+                    except OSError:
+                        pass
+                    raise VisualTargetError("Visual-target generate aborted")
                 entry["status"] = "generated"
             return entry
 
         workers = max(1, min(VISUAL_TARGET_MAX_PARALLEL, len(variants)))
         by_index: dict[int, dict[str, Any]] = {}
-        with ThreadPoolExecutor(max_workers=workers) as pool:
+        pool = ThreadPoolExecutor(max_workers=workers)
+        first_error: BaseException | None = None
+        try:
             futures = {
                 pool.submit(_run_one, variant): idx
                 for idx, variant in enumerate(variants)
             }
-            errors: list[BaseException] = []
             for fut in as_completed(futures):
                 idx = futures[fut]
                 try:
                     by_index[idx] = fut.result()
-                except BaseException as exc:  # noqa: BLE001 — collect then re-raise
-                    errors.append(exc)
-            if errors:
-                raise errors[0]
+                except BaseException as exc:  # noqa: BLE001 — fail fast, stop siblings
+                    first_error = exc
+                    abort.set()
+                    for other in futures:
+                        if other is not fut:
+                            other.cancel()
+                    break
+            if first_error is not None:
+                raise first_error
+        finally:
+            # Wait for in-flight generate_image calls so rollback does not race
+            # writers recreating candidate_*.png after clear.
+            pool.shutdown(wait=True, cancel_futures=True)
+        if len(by_index) != len(variants):
+            raise VisualTargetError(
+                "Visual-target parallel generate incomplete "
+                f"({len(by_index)}/{len(variants)} candidates)"
+            )
         generated = [by_index[i] for i in range(len(variants))]
 
         notes = (

@@ -299,6 +299,7 @@ python gamefactory.py brief visual-target generate --brief ../projects/my-game/b
 python gamefactory.py brief visual-target list --brief ../projects/my-game/brief.json --scene dock
 python gamefactory.py brief visual-target pick --brief ../projects/my-game/brief.json --id b --scene dock
 python gamefactory.py brief visual-target status --brief ../projects/my-game/brief.json
+# status：`ready` = brief 已绑定 visual_reference（跑资产闸门）；`disk_marked` = 仅磁盘有 selected.png（进度）
 python gamefactory.py brief visual-target assign --brief ../projects/my-game/brief.json --scene harbor --from-scene dock
 # 低级可选（无 --scene；场景请用 generate --scene）
 python gamefactory.py prompt craft-visual-target --brief ../projects/my-game/brief.json --variant a -o ../plans/visual_target_a.json

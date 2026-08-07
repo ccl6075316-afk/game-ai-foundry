@@ -80,6 +80,7 @@ import {
   parseVtRestyleChoice,
   parseVtRegenAfterFeedbackChoice,
   wrapVtRestyleUserMessage,
+  isVtRestyleClarificationAsk,
   type VtRestyleFocus,
 } from "./chat/vtRestyleRoute";
 import { formatVtPickChoice, parseVtPickChoice, extractSceneIdFromChoice } from "./chat/vtChoiceParse";
@@ -1440,21 +1441,31 @@ export default function App() {
       void refreshBrainstormStatus();
       const focus = vtRestyleFocusRef.current;
       if (focus.active && focus.kind === "restyle") {
-        vtRestyleFocusRef.current = { ...focus, feedbackDone: true };
-        setVtRestyleAwaitingText(false);
-        const regen = formatVtRegenAfterFeedbackChoice(
-          focus.sceneId,
-          focus.sceneTitle,
-        );
-        appendAssistant(
-          focus.sceneId
-            ? `已记下你对 **${focus.sceneTitle || focus.sceneId}** 的修改意向。确认无误就点下方 **「${regen}」**。`
-            : `已记下全局画风修改意向。确认无误就点下方 **「${regen}」**。`,
-          [regen, "生成北极星图（改选其他范围）"],
-          undefined,
-          sessionTarget,
-        );
-        setBrainstormChoices([regen, "生成北极星图（改选其他范围）"]);
+        const reply = String(data.assistant_message || "").trim();
+        if (isVtRestyleClarificationAsk(reply)) {
+          appendAssistant(
+            "先回答上面的澄清问题；说清楚后再点「我写好了 · 重新生成」。",
+            ["生成北极星图（改选其他范围）"],
+            undefined,
+            sessionTarget,
+          );
+        } else {
+          vtRestyleFocusRef.current = { ...focus, feedbackDone: true };
+          setVtRestyleAwaitingText(false);
+          const regen = formatVtRegenAfterFeedbackChoice(
+            focus.sceneId,
+            focus.sceneTitle,
+          );
+          appendAssistant(
+            focus.sceneId
+              ? `已记下你对 **${focus.sceneTitle || focus.sceneId}** 的修改意向。确认无误就点下方 **「${regen}」**。`
+              : `已记下全局北极星修改意向。确认无误就点下方 **「${regen}」**。`,
+            [regen, "生成北极星图（改选其他范围）"],
+            undefined,
+            sessionTarget,
+          );
+          setBrainstormChoices([regen, "生成北极星图（改选其他范围）"]);
+        }
       }
     } catch (e) {
       if (isAbortError(e)) {
@@ -3554,19 +3565,13 @@ export default function App() {
       append("assistant", "当前客户端不支持选用北极星，请重启 Electron。");
       return;
     }
-    // Prefer scene from the chip; if chip is bare「选用北极星 a」, fall back to
-    // the generate that produced these candidates (not an unrelated pending id).
+    // Prefer scene from the chip. Bare「选用北极星 a」= global (do not fall back
+    // to pending scene — that made old chips write the wrong screen).
     let sids = Array.isArray(sceneId)
       ? sceneId.map((s) => String(s || "").trim()).filter(Boolean)
       : sceneId
         ? [String(sceneId).trim()]
         : [];
-    if (!sids.length) {
-      const fromGen = pendingVtGenerateRef.current?.sceneId;
-      const fromPending = pendingVtSceneIdRef.current;
-      const fallback = (fromGen || fromPending || "").trim();
-      if (fallback) sids = [fallback];
-    }
     const primarySid = sids[0] || null;
     const sceneMeta = primarySid
       ? listBriefScenesForVt().find((s) => s.id === primarySid)
@@ -3620,13 +3625,9 @@ export default function App() {
         sceneTitle ||
         pickedScene ||
         "";
-      vtRestyleFocusRef.current = {
-        active: true,
-        sceneId: pickedScene,
-        sceneTitle: pickTitle || undefined,
-        candidateId: candidateId,
-        kind: "pick",
-      };
+      // End restyle/pick lock after a successful pick — do not wrap all later
+      // planner turns as "刚选定该场景" (that polluted unrelated chat).
+      vtRestyleFocusRef.current = { active: false, sceneId: null };
       setVtRestyleAwaitingText(false);
       await refreshVisualTarget(briefRel);
       // Re-hydrate host-chat from disk so策划 draft sees the new scene refs
@@ -3662,7 +3663,7 @@ export default function App() {
             : share.length
               ? "其他空场景未自动命中。需要共用可点「也用于 …」。\n\n"
               : "") +
-          "后续说「太暗了 / 再改」会默认钉住**这一场景**。可点 **去找项目经理**，或继续为其他场景生成北极星。",
+          "后续若要改这张图，直接说具体哪里不对；再点「都不满意，重做…」才会钉住场景反馈。可点 **去找项目经理**，或继续为其他场景生成北极星。",
         undefined,
         undefined,
         [
@@ -4102,10 +4103,7 @@ export default function App() {
           );
           return;
         }
-        const sid =
-          regen.sceneId !== null && regen.sceneId !== undefined
-            ? regen.sceneId
-            : focus.sceneId;
+        const sid = regen.sceneId; // null = explicit global; never fall back to focus
         await handleVisualTargetGenerate(sid);
         return;
       }

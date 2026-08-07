@@ -11,10 +11,10 @@ export type VtRestyleFocus = {
   /** null = global default north-star */
   sceneId: string | null;
   sceneTitle?: string;
-  /** Set after a successful pick so follow-up chat stays on that scene. */
+  /** Set while restyling after「都不满意」; cleared on pick / scope change. */
   candidateId?: string;
   kind?: "restyle" | "pick";
-  /** Restyle: user has typed feedback; only then show / allow regenerate. */
+  /** Restyle: user has typed non-clarification feedback; only then show / allow regenerate. */
   feedbackDone?: boolean;
 };
 
@@ -128,5 +128,30 @@ export function wrapVtRestyleUserMessage(
     `【北极星重做 · 全局默认北极星】` +
     RESTYLE_NO_SPECULATIVE_PATCH +
     `\n\n用户原话：${body}`
+  );
+}
+
+/**
+ * True only when the planner reply is a short, clarify-only ask.
+ *
+ * Bias hard toward unlocking regen: multi-sentence replies (ack + soft follow-up,
+ * ack +「请再说」, notes update +「哪里还需要」) must not trap the restyle flow.
+ * Showing the regen chip early is fine; blocking it after feedback is not.
+ */
+export function isVtRestyleClarificationAsk(assistantReply: string): boolean {
+  const t = assistantReply.trim();
+  if (!t) return false;
+
+  const sentences = t
+    .split(/[\n。！]/)
+    .map((s) => s.replace(/[？?]\s*$/, "").trim())
+    .filter(Boolean);
+
+  // Ack + question / notes + soft follow-up → unlock.
+  if (sentences.length >= 2) return false;
+
+  const only = sentences[0] || t.replace(/[？?]\s*$/, "").trim();
+  return /^(?:能否|可以说得|请具体|请再说|请补充|哪里不对|哪方面(?:需要)?|什么地方|想改成什么样|具体是哪|还需要你说|信息不够|不太确定)/.test(
+    only,
   );
 }
