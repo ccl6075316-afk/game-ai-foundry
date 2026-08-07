@@ -2555,6 +2555,124 @@ code {
   /* inherits .side-panel */
 }
 
+.vt-board-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.vt-board-strip__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.vt-board-strip__head h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vt-board-strip__meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.vt-board-strip__refresh {
+  margin-left: auto;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.vt-board-strip__empty {
+  margin: 0;
+  font-size: 12px;
+}
+
+.vt-board-strip__row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.vt-board-card {
+  flex: 0 0 auto;
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  overflow: hidden;
+}
+
+.vt-board-card:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.vt-board-card:not(:disabled):hover {
+  border-color: color-mix(in srgb, var(--accent, #3b82f6) 45%, var(--border));
+}
+
+.vt-board-card__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.vt-board-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vt-board-card__placeholder {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 4px;
+  text-align: center;
+}
+
+.vt-board-card__badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+}
+
+.vt-board-card__label {
+  display: block;
+  padding: 0 6px 6px;
+  font-size: 11px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .asset-review-panel {
   width: min(420px, 42vw);
   gap: 12px;

@@ -507,6 +507,9 @@ declare global {
         ok: boolean;
         ready: boolean;
         global_ready?: boolean;
+        global_selected_id?: string | null;
+        global_has_selected_image?: boolean;
+        global_preview_path?: string | null;
         visual_reference?: string;
         path_shaped?: boolean;
         file_ok?: boolean;
@@ -517,6 +520,10 @@ declare global {
           title?: string;
           visual_reference?: string;
           ready?: boolean;
+          selected_id?: string | null;
+          has_selected_image?: boolean;
+          marked?: boolean;
+          preview_path?: string | null;
         }>;
         candidates?: Array<{ id: string; label?: string; path?: string; status?: string }>;
         error?: string;

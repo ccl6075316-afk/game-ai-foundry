@@ -532,6 +532,51 @@ class TestVisualTarget(unittest.TestCase):
         self.assertTrue((out_dir / "selected.png").is_file())
         self.assertNotIn("visual_reference", scenes["dock"])
 
+    def test_pick_mirrors_scene_ref_into_sibling_draft(self) -> None:
+        brief = _write_example_brief(self.tmp_path, with_scenes=True)
+        draft = brief.parent / "brief.draft.json"
+        draft.write_text(
+            json.dumps(
+                {
+                    "project": {
+                        "title": "Draft Fish",
+                        "art_direction": "keep me",
+                        "scenes": [
+                            {"id": "combat", "title": "搏鱼", "summary": "fight"},
+                            {"id": "dock", "title": "钓场"},
+                        ],
+                    },
+                    "assets": [{"id": "rod", "name": "rod"}],
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        out_dir = self.tmp_path / "visual-target" / "combat"
+        out_dir.mkdir(parents=True)
+        fake_png = out_dir / "candidate_a.png"
+        fake_png.write_bytes(b"\x89PNG\r\n")
+        manifest_path = out_dir / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "viewport_size": "1280x720",
+                    "scene_id": "combat",
+                    "candidates": [{"id": "a", "path": str(fake_png)}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with patch("project_paths.repo_root", return_value=self.tmp_path):
+            apply_visual_target_pick(brief, "a", manifest_path, scene_id="combat")
+        mirrored = json.loads(draft.read_text(encoding="utf-8"))
+        self.assertEqual(mirrored["project"]["art_direction"], "keep me")
+        self.assertEqual(mirrored["assets"][0]["id"], "rod")
+        combat = next(s for s in mirrored["project"]["scenes"] if s["id"] == "combat")
+        self.assertTrue(str(combat.get("visual_reference") or "").strip())
+        dock = next(s for s in mirrored["project"]["scenes"] if s["id"] == "dock")
+        self.assertFalse(str(dock.get("visual_reference") or "").strip())
+
     def test_pick_scene_does_not_overwrite_existing_global(self) -> None:
         brief = _write_example_brief(self.tmp_path, with_scenes=True)
         data = json.loads(brief.read_text(encoding="utf-8"))

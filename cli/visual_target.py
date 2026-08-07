@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import re
@@ -14,6 +15,78 @@ from brief import ProjectContext, load_brief_document
 from plan_io import build_handoff, prompt_from_handoff, save_handoff
 from roles import IMAGE_GENERATOR_ROLE, PROMPT_CRAFTER_ROLE
 from shared_context import build_visual_target_context
+
+
+def _mirror_visual_north_star_to_working_draft(
+    brief_path: Path,
+    updated_brief: dict[str, Any],
+) -> Path | None:
+    """Copy visual_reference / visual_target into sibling brief.draft.json.
+
+    Host-chat prefers ``brief.draft.json`` over ``brief.json``. Picks that only
+    write the export leave the working draft empty — the策划 agent then cannot
+    see which scene was selected.
+    """
+    draft_path = brief_path.parent / "brief.draft.json"
+    if not draft_path.is_file():
+        return None
+    try:
+        draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError, ValueError):
+        return None
+    if not isinstance(draft, dict):
+        return None
+    src_proj = updated_brief.get("project")
+    if not isinstance(src_proj, dict):
+        return None
+    dst_proj = draft.setdefault("project", {})
+    if not isinstance(dst_proj, dict):
+        draft["project"] = copy.deepcopy(src_proj)
+        draft_path.write_text(
+            json.dumps(draft, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        return draft_path
+
+    if "visual_reference" in src_proj:
+        dst_proj["visual_reference"] = copy.deepcopy(src_proj.get("visual_reference"))
+    if "visual_target" in src_proj:
+        dst_proj["visual_target"] = copy.deepcopy(src_proj.get("visual_target"))
+
+    src_scenes = src_proj.get("scenes") if isinstance(src_proj.get("scenes"), list) else []
+    src_by_id: dict[str, dict[str, Any]] = {}
+    for row in src_scenes:
+        if not isinstance(row, dict):
+            continue
+        sid = str(row.get("id") or "").strip()
+        if sid:
+            src_by_id[sid] = row
+
+    dst_scenes = dst_proj.get("scenes") if isinstance(dst_proj.get("scenes"), list) else []
+    if dst_scenes and src_by_id:
+        for row in dst_scenes:
+            if not isinstance(row, dict):
+                continue
+            sid = str(row.get("id") or "").strip()
+            src = src_by_id.get(sid)
+            if not src:
+                continue
+            if "visual_reference" in src:
+                row["visual_reference"] = copy.deepcopy(src.get("visual_reference"))
+    elif src_by_id and not dst_scenes:
+        dst_proj["scenes"] = copy.deepcopy(src_scenes)
+
+    draft_path.write_text(
+        json.dumps(draft, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return draft_path
+
+
+def _write_brief_and_mirror_draft(brief_path: Path, data: dict[str, Any]) -> None:
+    brief_path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    _mirror_visual_north_star_to_working_draft(brief_path, data)
+
 
 VISUAL_TARGET_MANIFEST = "manifest.json"
 
@@ -233,7 +306,9 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
     project = _load_project(brief_path)
     global_ref = (project.visual_reference or "").strip()
     global_path = resolve_visual_reference_path(brief_path)
+    global_sel = _selection_from_output_dir(default_output_dir(brief_path))
     scenes_out: list[dict[str, Any]] = []
+    any_disk_mark = bool(global_sel["has_selected_image"] or global_sel["selected_id"])
     for scene in project.scenes or []:
         if not isinstance(scene, dict):
             continue
@@ -242,21 +317,53 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
             continue
         sref = str(scene.get("visual_reference") or "").strip()
         spath = resolve_visual_reference_path(brief_path, scene_id=sid)
+        sel = _selection_from_output_dir(default_output_dir(brief_path, scene_id=sid))
+        ready = spath is not None
+        marked = bool(ready or sel["has_selected_image"])
+        if marked:
+            any_disk_mark = True
         scenes_out.append(
             {
                 "id": sid,
                 "title": str(scene.get("title") or "").strip(),
                 "visual_reference": sref,
-                "ready": spath is not None,
+                "ready": ready,
+                "selected_id": sel["selected_id"],
+                "has_selected_image": sel["has_selected_image"],
+                "marked": marked,
             }
         )
+    brief_bound = brief_has_any_visual_reference(brief_path)
     return {
         "ok": True,
         "brief_path": str(brief_path),
         "visual_reference": global_ref,
         "global_ready": global_path is not None,
-        "ready": brief_has_any_visual_reference(brief_path),
+        "global_selected_id": global_sel["selected_id"],
+        "global_has_selected_image": global_sel["has_selected_image"],
+        "ready": brief_bound or any_disk_mark,
+        "selected_id": global_sel["selected_id"],
+        "has_selected_image": global_sel["has_selected_image"],
         "scenes": scenes_out,
+    }
+
+
+def _selection_from_output_dir(output_dir: Path) -> dict[str, Any]:
+    """Read pick marker from a visual-target output folder (manifest + selected.png)."""
+    selected_id: str | None = None
+    man = output_dir / "manifest.json"
+    if man.is_file():
+        try:
+            data = json.loads(man.read_text(encoding="utf-8"))
+            raw = data.get("selected_id") if isinstance(data, dict) else None
+            text = str(raw or "").strip().lower()
+            if text:
+                selected_id = text
+        except (OSError, json.JSONDecodeError, TypeError, ValueError):
+            selected_id = None
+    return {
+        "selected_id": selected_id,
+        "has_selected_image": (output_dir / "selected.png").is_file(),
     }
 
 
@@ -1191,9 +1298,7 @@ def assign_visual_reference_to_scenes(
     # and seeding would make unrelated scene_ids assets fall back to the wrong image.
 
     if write_brief:
-        brief_path.write_text(
-            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-        )
+        _write_brief_and_mirror_draft(brief_path, data)
 
     return {
         "brief_path": str(brief_path),
@@ -1358,7 +1463,7 @@ def apply_visual_target_pick(
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     if write_brief:
-        brief_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _write_brief_and_mirror_draft(brief_path, data)
 
     return {
         "brief_path": str(brief_path),

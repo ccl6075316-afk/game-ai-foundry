@@ -2402,8 +2402,59 @@ app.whenReady().then(() => {
       };
     };
     const globalCheck = refFileOk(visualReference);
+    /** scene_id -> { selected_id, has_selected_image, preview_path } from VT manifests */
+    const selectionByScene = new Map();
+    let globalSelectedId = null;
+    let globalHasSelectedImage = false;
+    let globalPreviewPath = null;
+    const toPreviewRel = (absPath) => {
+      if (!absPath) return null;
+      try {
+        const r = path.relative(root, absPath).replace(/\\/g, "/");
+        if (r && !r.startsWith("..")) return r;
+        if (external?.rootAbs && pathUnderRoot(absPath, external.rootAbs)) {
+          return `external:${external.entry?.id || ""}/${path
+            .relative(external.rootAbs, absPath)
+            .replace(/\\/g, "/")}`;
+        }
+      } catch {
+        /* ignore */
+      }
+      return absPath;
+    };
+    const noteManifestSelection = (manPath, man) => {
+      const manScene = String(man?.scene_id || "").trim() || null;
+      const selRaw = man?.selected_id;
+      const sel =
+        selRaw === null || selRaw === undefined || selRaw === ""
+          ? null
+          : String(selRaw).trim().toLowerCase();
+      const selectedAbs = path.join(path.dirname(manPath), "selected.png");
+      const hasImg = existsSync(selectedAbs);
+      const previewPath = hasImg ? toPreviewRel(selectedAbs) : null;
+      if (!manScene) {
+        if (sel || hasImg) {
+          globalSelectedId = sel;
+          globalHasSelectedImage = hasImg;
+          if (previewPath) globalPreviewPath = previewPath;
+        }
+        return;
+      }
+      // Prefer entries that already have a pick; don't let empty manifests wipe.
+      const prev = selectionByScene.get(manScene);
+      if (prev && (prev.selected_id || prev.has_selected_image) && !(sel || hasImg)) {
+        return;
+      }
+      selectionByScene.set(manScene, {
+        selected_id: sel,
+        has_selected_image: hasImg,
+        preview_path: previewPath,
+      });
+    };
     const scenes = [];
     let anySceneReady = false;
+    // First pass manifests later — scenes filled after tryManifests scan.
+    const projectSceneRows = [];
     for (const row of projectScenes) {
       if (!row || typeof row !== "object") continue;
       const id = String(row.id || "").trim();
@@ -2413,12 +2464,7 @@ app.whenReady().then(() => {
       const check = refFileOk(sref);
       const ready = Boolean(check.pathOk && check.fileOk);
       if (ready) anySceneReady = true;
-      scenes.push({
-        id,
-        title,
-        visual_reference: sref,
-        ready,
-      });
+      projectSceneRows.push({ id, title, visual_reference: sref, ready });
     }
     const globalReady = Boolean(globalCheck.pathOk && globalCheck.fileOk);
     const candidates = [];
@@ -2453,6 +2499,7 @@ app.whenReady().then(() => {
       seen.add(mPath);
       try {
         const man = JSON.parse(readFileSync(mPath, "utf-8"));
+        noteManifestSelection(mPath, man);
         const manScene = String(man.scene_id || "").trim() || null;
         if (sid && manScene && manScene !== sid) continue;
         const briefInMan = String(man.brief_path || "").replace(/\\/g, "/");
@@ -2477,6 +2524,25 @@ app.whenReady().then(() => {
       } catch {
         /* ignore */
       }
+    }
+    for (const row of projectSceneRows) {
+      const pick = selectionByScene.get(row.id) || {};
+      let previewPath = null;
+      if (row.ready && row.visual_reference) {
+        previewPath = row.visual_reference.replace(/\\/g, "/");
+      } else if (pick.preview_path) {
+        previewPath = pick.preview_path;
+      }
+      scenes.push({
+        id: row.id,
+        title: row.title,
+        visual_reference: row.visual_reference,
+        ready: row.ready,
+        selected_id: pick.selected_id || null,
+        has_selected_image: Boolean(pick.has_selected_image),
+        marked: Boolean(row.ready || pick.has_selected_image),
+        preview_path: previewPath,
+      });
     }
     scored.sort((a, b) => b.mtime - a.mtime);
     if (sid) {
@@ -2518,10 +2584,20 @@ app.whenReady().then(() => {
         });
       }
     }
+    if (!selectedId && globalSelectedId) selectedId = globalSelectedId;
+    let globalPreview = null;
+    if (globalReady && visualReference) {
+      globalPreview = visualReference.replace(/\\/g, "/");
+    } else if (globalPreviewPath) {
+      globalPreview = globalPreviewPath;
+    }
     return {
       ok: true,
-      ready: globalReady || anySceneReady,
+      ready: globalReady || anySceneReady || globalHasSelectedImage || scenes.some((s) => s.marked),
       global_ready: globalReady,
+      global_selected_id: globalSelectedId,
+      global_has_selected_image: globalHasSelectedImage,
+      global_preview_path: globalPreview,
       visual_reference: visualReference,
       path_shaped: globalCheck.pathOk,
       file_ok: globalCheck.fileOk,

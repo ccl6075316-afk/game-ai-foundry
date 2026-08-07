@@ -1,7 +1,9 @@
 import type React from "react";
 import type { PipelineStatus, PipelineTask } from "../vite-env.d";
 import type { HostChatDraftBrief } from "../chat/types";
+import type { VtGlobalMark, VtSceneMark } from "../chat/vtProgressFormat";
 import { TaskList } from "./TaskList";
+import { BoardVtStrip } from "./BoardVtStrip";
 
 interface Props {
   manifest: string;
@@ -13,6 +15,9 @@ interface Props {
   busy: boolean;
   draftBrief?: HostChatDraftBrief | null;
   style?: React.CSSProperties;
+  vtGlobal?: VtGlobalMark & { preview_path?: string | null };
+  vtScenes?: Array<VtSceneMark & { preview_path?: string | null }>;
+  onRefreshVt?: () => void;
 }
 
 export function BoardPanel({
@@ -25,6 +30,9 @@ export function BoardPanel({
   busy,
   draftBrief = null,
   style,
+  vtGlobal = {},
+  vtScenes = [],
+  onRefreshVt,
 }: Props) {
   const counts = status?.counts || {};
 
@@ -42,6 +50,8 @@ export function BoardPanel({
       <div className={`board-meta mono ${tasks.length > 0 ? "board-meta--ready" : ""}`}>
         {manifest || "（未选择 manifest）"}
       </div>
+
+      <BoardVtStrip globalMark={vtGlobal} scenes={vtScenes} onRefresh={onRefreshVt} />
 
       <div className="stats compact">
         <div className={`stat ${tasks.length > 0 ? "ok" : ""} ${status?.done ? "ok" : ""}`}>
