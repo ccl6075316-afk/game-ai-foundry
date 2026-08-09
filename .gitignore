@@ -26,8 +26,8 @@ cli/_test_img.py
 resources/test-brief-*.json
 resources/*-brief.json
 !resources/asset-brief.example.json
-pipeline/
-plans/
+/pipeline/
+/plans/
 projects/*/
 !projects/.gitkeep
 tests/fixtures/

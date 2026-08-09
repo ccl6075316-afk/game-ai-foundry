@@ -1,6 +1,7 @@
 import type React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AssetReviewRow } from "../vite-env.d";
+import { MediaLightbox } from "./MediaLightbox";
 
 type ReviewStatusFilter = "all" | "pending" | "accepted" | "replaced";
 
@@ -29,10 +30,12 @@ function Thumb({
   pathRepo,
   updatedAt,
   className,
+  onActivate,
 }: {
   pathRepo: string | null;
   updatedAt?: string;
   className?: string;
+  onActivate?: (url: string) => void;
 }) {
   const [url, setUrl] = useState<string | null>(null);
 
@@ -60,6 +63,21 @@ function Thumb({
   if (!url) {
     return <div className={`asset-review-thumb asset-review-thumb--empty ${className || ""}`}>…</div>;
   }
+  if (onActivate) {
+    return (
+      <button
+        type="button"
+        className="asset-review-thumb-btn"
+        onClick={(e) => {
+          e.stopPropagation();
+          onActivate(url);
+        }}
+        title="点开预览"
+      >
+        <img className={`asset-review-thumb ${className || ""}`} src={url} alt="" loading="lazy" />
+      </button>
+    );
+  }
   return (
     <img
       className={`asset-review-thumb ${className || ""}`}
@@ -84,6 +102,9 @@ export function AssetReviewPanel({
   const [filter, setFilter] = useState<ReviewStatusFilter>("all");
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<{ url: string; title: string; path: string } | null>(
+    null,
+  );
   const [actionBusy, setActionBusy] = useState(false);
   /** Path IPC actually used when list succeeds via pipeline resolve */
   const [listedManifest, setListedManifest] = useState<string | null>(null);
@@ -155,9 +176,13 @@ export function AssetReviewPanel({
     });
   }, [rows, filter, search]);
 
+  // Keep selection only while it still matches the filter; do not auto-pick
+  // the first row (that trapped users in detail with no clear way back).
   useEffect(() => {
-    if (selectedId && filtered.some((r) => r.row_id === selectedId)) return;
-    setSelectedId(filtered[0]?.row_id ?? null);
+    if (!selectedId) return;
+    if (!filtered.some((r) => r.row_id === selectedId)) {
+      setSelectedId(null);
+    }
   }, [filtered, selectedId]);
 
   const selected = filtered.find((r) => r.row_id === selectedId) || null;
@@ -310,6 +335,13 @@ export function AssetReviewPanel({
               key={`${row.preview_path_repo || ""}:${row.review?.updated_at || ""}`}
               pathRepo={row.preview_path_repo}
               updatedAt={row.review?.updated_at}
+              onActivate={(url) =>
+                setLightbox({
+                  url,
+                  title: row.label,
+                  path: row.preview_path_repo || row.canonical_path_repo || "",
+                })
+              }
             />
             <div className="asset-review-row__body">
               <span className="asset-review-row__title">{row.label}</span>
@@ -330,12 +362,28 @@ export function AssetReviewPanel({
 
       {selected && (
         <div className="asset-review-detail">
-          <h3>{selected.label}</h3>
+          <div className="asset-review-detail__head">
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => setSelectedId(null)}
+            >
+              ← 返回列表
+            </button>
+            <h3>{selected.label}</h3>
+          </div>
           <Thumb
             key={`${selected.preview_path_repo || ""}:${selected.review?.updated_at || ""}`}
             pathRepo={selected.preview_path_repo}
             updatedAt={selected.review?.updated_at}
             className="asset-review-thumb--lg"
+            onActivate={(url) =>
+              setLightbox({
+                url,
+                title: selected.label,
+                path: selected.preview_path_repo || selected.canonical_path_repo || "",
+              })
+            }
           />
           <dl className="asset-review-dl">
             <div>
@@ -368,7 +416,7 @@ export function AssetReviewPanel({
                       className="btn btn--ghost"
                       onClick={() => openPath(selected.canonical_path_repo)}
                     >
-                      打开
+                      系统打开
                     </button>
                   </>
                 )}
@@ -417,6 +465,21 @@ export function AssetReviewPanel({
             <p className="hint">重生成已禁用：请先「① 生成流水线」得到 pipeline manifest。</p>
           )}
         </div>
+      )}
+      {lightbox && (
+        <MediaLightbox
+          url={lightbox.url}
+          title={lightbox.title}
+          pathHint={lightbox.path}
+          onClose={() => setLightbox(null)}
+          onOpenExternal={
+            lightbox.path
+              ? () => {
+                  void window.gameFactory?.openMedia?.(lightbox.path);
+                }
+              : undefined
+          }
+        />
       )}
     </aside>
   );

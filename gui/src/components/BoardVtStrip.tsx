@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { VtGlobalMark, VtSceneMark } from "../chat/vtProgressFormat";
 import { vtIsMarked, vtMarkBadge } from "../chat/vtProgressFormat";
 import { toRepoMediaRel } from "../chat/toRepoMediaRel";
+import { MediaLightbox } from "./MediaLightbox";
 
 export type VtBoardItem = VtSceneMark & { preview_path?: string | null };
 
@@ -11,16 +12,24 @@ interface Props {
   onRefresh?: () => void;
 }
 
+type LightboxState = {
+  url: string;
+  title: string;
+  path: string;
+};
+
 function VtThumb({
   label,
   badge,
   path,
   emptyHint,
+  onOpen,
 }: {
   label: string;
   badge: string;
   path?: string | null;
   emptyHint: string;
+  onOpen: (payload: LightboxState) => void;
 }) {
   const mediaPath = path ? toRepoMediaRel(path) || path : "";
   const [url, setUrl] = useState<string | null>(null);
@@ -49,17 +58,15 @@ function VtThumb({
     };
   }, [mediaPath]);
 
-  const open = () => {
-    if (!mediaPath || !window.gameFactory?.openMedia) return;
-    void window.gameFactory.openMedia(mediaPath);
-  };
-
   return (
     <button
       type="button"
       className={"vt-board-card" + (mediaPath ? "" : " vt-board-card--empty")}
-      onClick={open}
-      disabled={!mediaPath}
+      onClick={() => {
+        if (!mediaPath || !url) return;
+        onOpen({ url, title: label, path: mediaPath });
+      }}
+      disabled={!mediaPath || !url}
       title={mediaPath || emptyHint}
     >
       <div className="vt-board-card__frame">
@@ -77,6 +84,7 @@ function VtThumb({
 
 /** Compact north-star strip for the pipeline board. */
 export function BoardVtStrip({ globalMark, scenes, onRefresh }: Props) {
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const marked = scenes.filter((s) => vtIsMarked(s) || Boolean(s.preview_path));
   const hasAny =
     Boolean(globalMark.preview_path) ||
@@ -112,6 +120,7 @@ export function BoardVtStrip({ globalMark, scenes, onRefresh }: Props) {
             badge={vtMarkBadge(globalMark)}
             path={globalMark.preview_path}
             emptyHint="未选"
+            onOpen={setLightbox}
           />
           {scenes.map((s) => (
             <VtThumb
@@ -120,9 +129,21 @@ export function BoardVtStrip({ globalMark, scenes, onRefresh }: Props) {
               badge={vtMarkBadge(s)}
               path={s.preview_path || s.visual_reference}
               emptyHint="○"
+              onOpen={setLightbox}
             />
           ))}
         </div>
+      )}
+      {lightbox && (
+        <MediaLightbox
+          url={lightbox.url}
+          title={lightbox.title}
+          pathHint={lightbox.path}
+          onClose={() => setLightbox(null)}
+          onOpenExternal={() => {
+            void window.gameFactory?.openMedia?.(lightbox.path);
+          }}
+        />
       )}
     </section>
   );
