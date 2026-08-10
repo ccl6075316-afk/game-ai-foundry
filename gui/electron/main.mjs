@@ -2973,6 +2973,24 @@ app.whenReady().then(() => {
     return { ...result, data: { exists: data.exists !== false, ...data } };
   });
 
+  ipcMain.handle("host-chat-focus", async (_e, sessionId, opts = {}) => {
+    const sid = String(sessionId || "").trim();
+    const args = ["brief", "chat", "focus", "--session-id", sid, "--json"];
+    if (opts && opts.clear) {
+      args.push("--clear");
+    } else {
+      const kind = String(opts.kind || "").trim();
+      if (kind) args.push("--kind", kind);
+      const id = String(opts.id || "").trim();
+      if (id) args.push("--id", id);
+      if (opts.extra && typeof opts.extra === "object") {
+        args.push("--extra", JSON.stringify(opts.extra));
+      }
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
   ipcMain.handle("agent-turn", async (event, opts = {}) => {
     const role = String(opts.role || "").trim();
     const sessionId = String(opts.sessionId || "").trim();

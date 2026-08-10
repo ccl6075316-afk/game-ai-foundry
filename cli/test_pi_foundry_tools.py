@@ -414,6 +414,52 @@ class PiFoundryToolsTest(unittest.TestCase):
             )
         )
 
+    def test_brief_profile_allows_search_and_shard_load(self) -> None:
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "search",
+                    "--brief",
+                    "projects/x/brief.json",
+                    "--query",
+                    "hub",
+                    "--json",
+                ],
+                profile="brief",
+            )
+        )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "shard",
+                    "load",
+                    "--brief",
+                    "projects/x/brief.json",
+                    "--kind",
+                    "scene",
+                    "--id",
+                    "main_hub",
+                    "--json",
+                ],
+                profile="brief",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "shard",
+                    "migrate",
+                    "--brief",
+                    "projects/x/brief.json",
+                    "--json",
+                ],
+                profile="brief",
+            )
+        )
+
     def test_install_strips_i_confirm_before_cli(self) -> None:
         captured: dict[str, object] = {}
 

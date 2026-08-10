@@ -18,6 +18,7 @@ interface Props {
   vtGlobal?: VtGlobalMark & { preview_path?: string | null };
   vtScenes?: Array<VtSceneMark & { preview_path?: string | null }>;
   onRefreshVt?: () => void;
+  onFocusScene?: (sceneId: string, title: string) => void | Promise<void>;
 }
 
 export function BoardPanel({
@@ -33,6 +34,7 @@ export function BoardPanel({
   vtGlobal = {},
   vtScenes = [],
   onRefreshVt,
+  onFocusScene,
 }: Props) {
   const counts = status?.counts || {};
 
@@ -51,7 +53,7 @@ export function BoardPanel({
         {manifest || "（未选择 manifest）"}
       </div>
 
-      <BoardVtStrip globalMark={vtGlobal} scenes={vtScenes} onRefresh={onRefreshVt} />
+      <BoardVtStrip globalMark={vtGlobal} scenes={vtScenes} onRefresh={onRefreshVt} onFocusScene={onFocusScene} />
 
       <div className="stats compact">
         <div className={`stat ${tasks.length > 0 ? "ok" : ""} ${status?.done ? "ok" : ""}`}>

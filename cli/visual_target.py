@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from brief import ProjectContext, load_brief_document
+from brief_shards import hydrate_brief_for_review, is_catalog_ref, load_shard, upsert_shard_body
 from plan_io import build_handoff, prompt_from_handoff, save_handoff
 from roles import IMAGE_GENERATOR_ROLE, PROMPT_CRAFTER_ROLE
 from shared_context import build_visual_target_context
@@ -124,12 +125,28 @@ class VisualTargetError(RuntimeError):
     pass
 
 
-def _load_project(brief_path: Path) -> ProjectContext:
+def _load_brief_dict_hydrated(brief_path: Path) -> dict[str, Any]:
     data = load_brief_document(brief_path)
-    raw = data.get("project", data)
+    from brief_shards import hydrate_brief_for_review, project_root_for_brief_path
+
+    root = project_root_for_brief_path(brief_path)
+    payload = hydrate_brief_for_review(data, root)
+    draft = payload.get("draft_brief")
+    return draft if isinstance(draft, dict) else data
+
+
+def _load_project(brief_path: Path) -> ProjectContext:
+    hydrated = _load_brief_dict_hydrated(brief_path)
+    raw = hydrated.get("project", hydrated)
     if not isinstance(raw, dict):
         raise VisualTargetError("Brief missing project section")
-    return ProjectContext.from_dict(raw)
+    ctx = ProjectContext.from_dict(raw)
+    # normalize_scenes/systems drop catalog shard bodies; keep hydrated rows.
+    if isinstance(raw.get("scenes"), list):
+        ctx.scenes = [dict(s) for s in raw["scenes"] if isinstance(s, dict)]
+    if isinstance(raw.get("systems"), list):
+        ctx.systems = [dict(s) for s in raw["systems"] if isinstance(s, dict)]
+    return ctx
 
 
 def _slug_from_brief(brief_path: Path, title: str) -> str:
@@ -907,11 +924,14 @@ def _apply_ref_to_scenes(
     ref_str: str,
     *,
     only_empty: bool = False,
+    brief: dict[str, Any] | None = None,
+    project_root: Path | None = None,
 ) -> tuple[list[str], list[str]]:
     """Write the same visual_reference path onto listed scenes.
 
     Returns ``(applied, skipped)``. With ``only_empty=True``, scenes that already
     have a *different* path are left untouched (same path counts as applied).
+    Catalog scenes persist ``visual_reference`` in shard files; brief keeps thin refs.
     """
     scenes = project.get("scenes")
     if not isinstance(scenes, list):
@@ -933,13 +953,46 @@ def _apply_ref_to_scenes(
         )
     for sid in scene_ids:
         i = index_by_id[sid]
-        updated = dict(scenes[i])
-        existing = str(updated.get("visual_reference") or "").strip()
+        row = scenes[i]
+        updated = dict(row) if isinstance(row, dict) else {}
+        existing = ""
+        if (
+            brief is not None
+            and project_root is not None
+            and isinstance(updated, dict)
+            and is_catalog_ref(updated, kind="scene")
+        ):
+            try:
+                body = load_shard(project_root, "scene", sid, brief)
+                existing = str(body.get("visual_reference") or "").strip()
+            except (OSError, ValueError):
+                existing = ""
+        else:
+            existing = str(updated.get("visual_reference") or "").strip()
         if only_empty and existing and existing != ref_str:
             skipped.append(sid)
             continue
-        updated["visual_reference"] = ref_str
-        scenes[i] = updated
+        if (
+            brief is not None
+            and project_root is not None
+            and isinstance(updated, dict)
+            and is_catalog_ref(updated, kind="scene")
+        ):
+            thin = upsert_shard_body(
+                project_root,
+                brief,
+                "scene",
+                sid,
+                {"visual_reference": ref_str},
+            )
+            if thin is not None:
+                scenes[i] = thin
+            else:
+                updated["visual_reference"] = ref_str
+                scenes[i] = updated
+        else:
+            updated["visual_reference"] = ref_str
+            scenes[i] = updated
         applied.append(sid)
     return applied, skipped
 
@@ -1323,8 +1376,16 @@ def assign_visual_reference_to_scenes(
             "assign needs --from-scene, --from-global, or --ref"
         )
 
+    from brief_shards import project_root_for_brief_path
+
+    root = project_root_for_brief_path(brief_path)
     applied, skipped = _apply_ref_to_scenes(
-        project, targets, ref_str, only_empty=not overwrite
+        project,
+        targets,
+        ref_str,
+        only_empty=not overwrite,
+        brief=data,
+        project_root=root,
     )
     # Do not seed global from assign — scene refs alone satisfy soft-gates,
     # and seeding would make unrelated scene_ids assets fall back to the wrong image.
@@ -1411,6 +1472,10 @@ def apply_visual_target_pick(
     if not isinstance(project, dict):
         raise VisualTargetError("brief project section invalid")
 
+    from brief_shards import project_root_for_brief_path
+
+    vt_root = project_root_for_brief_path(brief_path)
+
     target_meta = {
         "selected_id": cid,
         "selected_path": ref_str,
@@ -1433,7 +1498,14 @@ def apply_visual_target_pick(
 
     if pick_targets:
         # Explicit / generate-scoped pick always writes listed scenes (user intent).
-        _apply_ref_to_scenes(project, pick_targets, ref_str, only_empty=False)
+        _apply_ref_to_scenes(
+            project,
+            pick_targets,
+            ref_str,
+            only_empty=False,
+            brief=data,
+            project_root=vt_root,
+        )
         # Do NOT seed project.visual_reference from a scene pick — soft-gates
         # already accept any scene ref, and seeding makes other scene_ids assets
         # fall back to the wrong north-star for style img2img.
@@ -1466,7 +1538,12 @@ def apply_visual_target_pick(
         empty_ok = [mid for mid in matched if mid not in pick_targets]
         if empty_ok:
             applied_auto, _skipped = _apply_ref_to_scenes(
-                project, empty_ok, ref_str, only_empty=True
+                project,
+                empty_ok,
+                ref_str,
+                only_empty=True,
+                brief=data,
+                project_root=vt_root,
             )
             auto_matched = applied_auto
             if auto_matched:

@@ -8,7 +8,10 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from brief_shards import save_json_shard
+from shared_context import build_visual_target_context
 from visual_target import (
+    _load_project,
     _safe_scene_dir,
     apply_visual_target_pick,
     assign_visual_reference_to_scenes,
@@ -23,6 +26,7 @@ from visual_target import (
     match_scenes_for_north_star,
     resolve_visual_reference_for_asset,
     resolve_visual_reference_path,
+    variant_specs,
     visual_target_brief_status,
 )
 
@@ -1122,6 +1126,41 @@ class TestVisualTarget(unittest.TestCase):
         for scene in st["scenes"]:
             self.assertFalse(scene["ready"])
             self.assertTrue(scene["marked"])
+
+    def test_hydrated_catalog_scene_notes_in_vt_context(self) -> None:
+        brief = {
+            "project": {
+                "title": "Catalog VT",
+                "description": "Side-scrolling test.",
+                "art_direction": "Pixel art.",
+                "genre": "side_scroller",
+                "gameplay_loop": "Collect scraps.",
+                "session_goal": "Win.",
+                "viewport": {"width": 1280, "height": 720},
+                "scenes": [
+                    {"id": "dock", "title": "Dock", "path": "scenes/dock.json"},
+                ],
+            },
+            "assets": [],
+        }
+        brief_path = self.tmp_path / "catalog-brief.json"
+        brief_path.write_text(json.dumps(brief), encoding="utf-8")
+        save_json_shard(
+            self.tmp_path / "scenes" / "dock.json",
+            {
+                "id": "dock",
+                "title": "Dock",
+                "summary": "Calm pier casting.",
+                "notes": "wide horizon marker",
+            },
+        )
+        project = _load_project(brief_path)
+        scene = next(s for s in project.scenes if str(s.get("id")) == "dock")
+        ctx = build_visual_target_context(
+            project, variant_specs(count=1)[0], scene=scene
+        )
+        vt_scene = ctx["visual_target"]["scene"]
+        self.assertIn("wide horizon", vt_scene.get("notes", ""))
 
 
 if __name__ == "__main__":

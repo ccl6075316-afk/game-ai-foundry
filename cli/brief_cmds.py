@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 import click
 
@@ -35,6 +36,8 @@ from host_chat import (
     run_turn as host_run_turn,
     save_session as host_save_session,
     sync_session_draft_from_disk as host_sync_session_draft_from_disk,
+    clear_session_focus as host_clear_session_focus,
+    set_session_focus as host_set_session_focus,
     session_path_for_id,
     session_status as host_session_status,
     write_makeability_sidecar as host_write_makeability_sidecar,
@@ -389,6 +392,53 @@ def register_brief_commands(cli_group: click.Group) -> None:
                     "session_path": str(path.resolve()),
                     **host_session_status(session),
                 }
+        except (HostChatError, click.UsageError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+
+    @chat_group.command("focus")
+    @click.option("--session-id", default=None)
+    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
+    @click.option("--kind", default=None, help="scene|system|asset|visual_target|intent_gap|project|data")
+    @click.option("--id", "focus_id", default=None, help="Focus id (omit for --clear or kind=project)")
+    @click.option("--extra", default=None, help="JSON object for focus.extra")
+    @click.option("--clear", is_flag=True, help="Clear session focus")
+    @click.option("--json", "as_json", is_flag=True)
+    def chat_focus_cmd(
+        session_id: str | None,
+        session_path: Path | None,
+        kind: str | None,
+        focus_id: str | None,
+        extra: str | None,
+        clear: bool,
+        as_json: bool,
+    ) -> None:
+        """Pin or clear host-chat session focus (scene/system/asset cursor)."""
+        try:
+            path = _chat_session_path(session_id, session_path)
+            session = host_load_session(path)
+            if clear:
+                host_clear_session_focus(session)
+            else:
+                raw: dict[str, Any] = {"kind": kind or ""}
+                if focus_id:
+                    raw["id"] = focus_id
+                if extra:
+                    parsed_extra = json.loads(extra)
+                    if not isinstance(parsed_extra, dict):
+                        raise HostChatError("focus.extra must be a JSON object")
+                    raw["extra"] = parsed_extra
+                host_set_session_focus(session, raw)
+            host_save_session(path, session)
+            payload = {
+                "session_path": str(path.resolve()),
+                **host_session_status(session),
+                "focus": session.get("focus") if isinstance(session.get("focus"), dict) else None,
+            }
         except (HostChatError, click.UsageError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
@@ -814,33 +864,165 @@ def register_brief_commands(cli_group: click.Group) -> None:
     def validate_cmd(brief_path: Path, as_json: bool) -> None:
         """Check that a brief is complete — the frozen contract for all downstream steps."""
         from brief import audit_brief_for_export
+        from brief_shards import audit_intro_budgets
 
         try:
-            project, assets = load_brief(brief_path)
             data = load_brief_document(brief_path)
+            warnings = audit_intro_budgets(data)
+            project, assets = load_brief(brief_path)
             graphs = parse_animation_graphs(data)
-            gaps = audit_brief_for_export(project, assets, animation_graphs=graphs)
+            gaps = audit_brief_for_export(
+                project,
+                assets,
+                animation_graphs=graphs,
+                brief_path=brief_path,
+            )
             if gaps:
                 if as_json:
-                    click.echo(json.dumps({"ok": False, "gaps": gaps}, ensure_ascii=False, indent=2))
+                    click.echo(
+                        json.dumps(
+                            {"ok": False, "gaps": gaps, "warnings": warnings},
+                            ensure_ascii=False,
+                            indent=2,
+                        )
+                    )
                 else:
                     click.echo("Brief incomplete:", err=True)
                     for gap in gaps:
                         click.echo(f"  - {gap}", err=True)
+                    for w in warnings:
+                        click.echo(f"  ! {w}", err=True)
                 sys.exit(1)
             validate_brief_for_export(project, assets, animation_graphs=graphs)
-            data = json.loads(brief_path.read_text(encoding="utf-8"))
             meta = data.get("brief_meta") if isinstance(data.get("brief_meta"), dict) else None
-            payload = {"ok": True, "brief": str(brief_path.resolve()), "brief_meta": meta}
+            payload = {
+                "ok": True,
+                "brief": str(brief_path.resolve()),
+                "brief_meta": meta,
+                "warnings": warnings,
+            }
             if as_json:
                 click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
             else:
                 click.echo(f"OK — {brief_path.resolve()}")
+                for w in warnings:
+                    click.echo(f"  ! {w}", err=True)
                 if meta:
                     click.echo(f"  frozen_at: {meta.get('frozen_at', '?')}")
         except (ValueError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
+
+    @brief_group.group("shard")
+    def shard_group() -> None:
+        """Catalog shard maintenance (migrate thick brief → thin index + shard files)."""
+
+    @shard_group.command("migrate")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON to migrate to catalog + on-disk shards.",
+    )
+    @click.option("--json", "as_json", is_flag=True, help="Print migration report as JSON.")
+    def shard_migrate_cmd(brief_path: Path, as_json: bool) -> None:
+        """Extract embedded scene/system/asset bodies into shard files; leave catalog refs in brief."""
+        from brief_shards import migrate_brief_to_shards
+
+        try:
+            report = migrate_brief_to_shards(brief_path, backup=True)
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"Migrated: {report.get('brief_path')}")
+            if report.get("backup_path"):
+                click.echo(f"Backup: {report['backup_path']}")
+            for key in ("scenes_written", "systems_written", "assets_written"):
+                items = report.get(key) or []
+                if items:
+                    click.echo(f"  {key}: {', '.join(items)}")
+
+    @shard_group.command("load")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON containing catalog refs.",
+    )
+    @click.option(
+        "--kind",
+        "kind",
+        required=True,
+        type=click.Choice(["scene", "system", "asset"], case_sensitive=False),
+    )
+    @click.option("--id", "entry_id", required=True, help="Catalog entry id.")
+    @click.option("--json", "as_json", is_flag=True, help="Print shard JSON.")
+    def shard_load_cmd(brief_path: Path, kind: str, entry_id: str, as_json: bool) -> None:
+        """Load one shard body by catalog kind + id."""
+        from brief_shards import load_shard, project_root_for_brief_path
+
+        try:
+            data = load_brief_document(brief_path)
+            root = project_root_for_brief_path(brief_path)
+            shard = load_shard(root, kind, entry_id, data)  # type: ignore[arg-type]
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps(shard, ensure_ascii=False, indent=2))
+        else:
+            click.echo(json.dumps(shard, ensure_ascii=False, indent=2))
+
+    @brief_group.command("search")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON (catalog or legacy).",
+    )
+    @click.option("--q", "query", required=True, help="Search query (substring).")
+    @click.option(
+        "--kind",
+        "kind",
+        default=None,
+        type=click.Choice(["scene", "system", "asset"], case_sensitive=False),
+        help="Optional filter by shard kind.",
+    )
+    @click.option("--limit", default=20, show_default=True, type=int)
+    @click.option("--json", "as_json", is_flag=True, help="Print hits as JSON.")
+    def brief_search_cmd(
+        brief_path: Path,
+        query: str,
+        kind: str | None,
+        limit: int,
+        as_json: bool,
+    ) -> None:
+        """Structured substring search over catalog labels and shard files."""
+        from brief_shards import project_root_for_brief_path, search_shards
+
+        try:
+            data = load_brief_document(brief_path)
+            root = project_root_for_brief_path(brief_path)
+            kinds = (kind,) if kind else None
+            hits = search_shards(root, data, query, kinds=kinds, limit=limit)
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps({"ok": True, "hits": hits}, ensure_ascii=False, indent=2))
+        else:
+            if not hits:
+                click.echo("No hits.")
+            for hit in hits:
+                click.echo(
+                    f"{hit['kind']}:{hit['id']} score={hit['score']} — {hit.get('snippet') or ''}"
+                )
 
     @brainstorm_group.command("start")
     @click.option("--seed", default=None, help="Optional initial idea in one sentence.")

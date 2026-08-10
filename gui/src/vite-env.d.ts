@@ -750,6 +750,15 @@ declare global {
         } & import("./chat/types").HostChatStatus>
       >;
       hostChatStatus: (sessionId: string) => Promise<CliResult<import("./chat/types").HostChatStatus>>;
+      hostChatFocus: (
+        sessionId: string,
+        opts?: {
+          kind?: string;
+          id?: string;
+          clear?: boolean;
+          extra?: Record<string, unknown>;
+        },
+      ) => Promise<CliResult<import("./chat/types").HostChatStatus & { focus?: import("./chat/types").HostChatStatus["focus"] }>>;
       agentTurn: (opts: {
         role: "product_host" | "programmer" | "it" | "advisor";
         sessionId: string;

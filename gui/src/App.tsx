@@ -880,6 +880,20 @@ export default function App() {
     }
   }, [applyDraftFromPayload, activeBriefRel, setBrief]);
 
+  const pinBriefFocus = useCallback(
+    async (kind: string, id?: string, extra?: Record<string, unknown>) => {
+      if (agentRole !== "brief") return;
+      const sid = getActiveSession(chatStore).id;
+      if (!sid || !window.gameFactory?.hostChatFocus) return;
+      await window.gameFactory.hostChatFocus(sid, {
+        kind,
+        id: id || undefined,
+        extra,
+      });
+    },
+    [agentRole, chatStore],
+  );
+
   const append = useCallback(
     (
       role: ChatMessage["role"],
@@ -3577,6 +3591,7 @@ export default function App() {
       ? listBriefScenesForVt().find((s) => s.id === primarySid)
       : null;
     const sceneTitle = sceneMeta?.title || primarySid || "";
+    await pinBriefFocus("visual_target", primarySid || "global", { candidate: candidateId });
     const busyId = activeColleague.id;
     markBusy(busyId);
     try {
@@ -4062,6 +4077,7 @@ export default function App() {
         kind: "restyle",
         feedbackDone: false,
       };
+      await pinBriefFocus("visual_target", sid || "global");
       setVtRestyleAwaitingText(true);
       if (agentRole !== "brief") {
         append(
@@ -4837,6 +4853,9 @@ export default function App() {
             vtScenes={listBriefScenesForVt()}
             onRefreshVt={() => {
               void refreshVisualTarget(activeBriefRel);
+            }}
+            onFocusScene={async (sceneId) => {
+              await pinBriefFocus("scene", sceneId);
             }}
             onRefresh={() => refreshManifest(selectedManifest)}
             onRun={handleRun}

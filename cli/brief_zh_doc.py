@@ -12,6 +12,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from brief_shards import hydrate_brief_for_review, project_root_for_brief_path
+
 BRIEF_ZH_DOC_NAME = "brief.zh.md"
 BRIEF_DRAFT_NAME = "brief.draft.json"
 
@@ -34,6 +36,25 @@ def _text(value: Any) -> str:
     if isinstance(value, (dict, list)):
         return json.dumps(value, ensure_ascii=False)
     return str(value).strip()
+
+
+def _hydrate_brief_for_render(brief: dict[str, Any], brief_path: Path) -> dict[str, Any]:
+    try:
+        from brief_shards import hydrate_brief_for_review, project_root_for_brief_path
+
+        root = project_root_for_brief_path(brief_path)
+        payload = hydrate_brief_for_review(brief, root)
+        draft = payload.get("draft_brief")
+        return draft if isinstance(draft, dict) else brief
+    except (OSError, ValueError, TypeError):
+        return brief
+
+
+def _truncate_notes(notes: str, *, max_len: int = 240) -> str:
+    text = notes.strip()
+    if len(text) <= max_len:
+        return text
+    return text[: max_len - 1] + "…"
 
 
 def load_brief_dict_from_path(path: Path) -> dict[str, Any]:
@@ -157,7 +178,11 @@ def render_brief_zh_skeleton(
             sid = _text(item.get("id")) or "—"
             title = _text(item.get("title")) or sid
             summary = _text(item.get("summary"))
-            lines.append(f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else ""))
+            notes = _truncate_notes(_text(item.get("notes")))
+            line = f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else "")
+            if notes:
+                line += f"（备注：{notes}）"
+            lines.append(line)
         lines.append("")
 
     systems = _as_list(project.get("systems"))
@@ -168,7 +193,11 @@ def render_brief_zh_skeleton(
             sid = _text(item.get("id")) or "—"
             title = _text(item.get("title")) or sid
             summary = _text(item.get("summary"))
-            lines.append(f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else ""))
+            notes = _truncate_notes(_text(item.get("notes")))
+            line = f"- **{title}** (`{sid}`)" + (f"：{summary}" if summary else "")
+            if notes:
+                line += f"（备注：{notes}）"
+            lines.append(line)
         lines.append("")
 
     ui_panels = _as_list(project.get("ui_panels"))
@@ -331,6 +360,7 @@ def write_brief_zh_document(
     """Write ``brief.zh.md`` beside the brief/draft path. Returns paths + mode."""
     path = Path(brief_path)
     data = brief if isinstance(brief, dict) else load_brief_dict_from_path(path)
+    data = _hydrate_brief_for_render(data, path)
     if persist_draft and isinstance(data, dict):
         draft_path = path.parent / BRIEF_DRAFT_NAME
         draft_path.parent.mkdir(parents=True, exist_ok=True)

@@ -63,6 +63,8 @@
 | [`RELEASE-NOTES-0.0.3.md`](RELEASE-NOTES-0.0.3.md) | 用户 | v0.0.3 construction harness | — |
 | [`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md) | 维护者 | **下一版草稿** | — |
 | [`superpowers/specs/2026-07-24-asset-review-table-design.md`](superpowers/specs/2026-07-24-asset-review-table-design.md) | 维护者 | **资产审查表** Spec（已落地） | — |
+| [`superpowers/specs/2026-08-10-document-focus-and-stable-ids.md`](superpowers/specs/2026-08-10-document-focus-and-stable-ids.md) | 维护者 | **文档 focus / 稳定 id**（定位宿主钉、模型改 focus 内） | 分册 + 策划读闭环 |
+| [`superpowers/specs/2026-08-10-brief-catalog-shards-design.md`](superpowers/specs/2026-08-10-brief-catalog-shards-design.md) | 维护者 | **Brief 目录 + 分册** | focus / search |
 | [`superpowers/specs/2026-07-19-asset-english-id-design.md`](superpowers/specs/2026-07-19-asset-english-id-design.md) | 维护者 | 资产英文 `id`（路径） | — |
 | [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md) | 维护者 | **同族风格对齐**（草案） | 实现细节 |
 | [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md) | 维护者 | **Pi / 存储 / IT 角色**（已定） | 实现代码 |

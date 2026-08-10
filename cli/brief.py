@@ -556,6 +556,11 @@ def normalize_scenes(raw: Any) -> list[dict[str, Any]]:
         title = str(item.get("title", "")).strip()
         if not scene_id or not title:
             continue
+        path = str(item.get("path", "")).strip()
+        if path:
+            entry = {"id": scene_id, "title": title, "path": path.replace("\\", "/")}
+            out.append(entry)
+            continue
         entry: dict[str, Any] = {"id": scene_id, "title": title}
         summary = str(item.get("summary", "")).strip()
         if summary:
@@ -588,6 +593,16 @@ def normalize_systems(raw: Any) -> list[dict[str, Any]]:
         title = str(item.get("title", "")).strip()
         if not system_id or not title:
             continue
+        path = str(item.get("path", "")).strip()
+        if path:
+            out.append(
+                {
+                    "id": system_id,
+                    "title": title,
+                    "path": path.replace("\\", "/"),
+                }
+            )
+            continue
         entry: dict[str, Any] = {"id": system_id, "title": title}
         summary = str(item.get("summary", "")).strip()
         if summary:
@@ -596,6 +611,27 @@ def normalize_systems(raw: Any) -> list[dict[str, Any]]:
         if notes:
             entry["notes"] = notes
         out.append(entry)
+    return out
+
+
+def normalize_assets(raw: Any) -> list[dict[str, Any]]:
+    """Normalize assets[] — preserve catalog refs (id/name/path only)."""
+    if not isinstance(raw, list):
+        return []
+    from brief_shards import is_catalog_ref
+
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        path = str(item.get("path", "")).strip()
+        if path and is_catalog_ref(item, kind="asset"):
+            aid = str(item.get("id", "")).strip()
+            name = str(item.get("name", "")).strip() or aid
+            if aid and name:
+                out.append({"id": aid, "name": name, "path": path.replace("\\", "/")})
+            continue
+        out.append(item)
     return out
 
 
@@ -2200,6 +2236,16 @@ def audit_brief_for_export(
     errors.extend(audit_art_tokens(project))
     errors.extend(audit_content_class(project, assets))
 
+    if brief_path is not None:
+        try:
+            from brief_shards import audit_catalog_refs, project_root_for_brief_path
+
+            brief_data = load_brief_document(brief_path)
+            root = project_root_for_brief_path(brief_path)
+            errors.extend(audit_catalog_refs(brief_data, root))
+        except (OSError, json.JSONDecodeError, ValueError):
+            pass
+
     return errors
 
 
@@ -2260,7 +2306,26 @@ def parse_brief_document(
 def load_brief_full(
     path: Path,
 ) -> tuple[ProjectContext, list[AssetSpec], list[CharacterAnimationGraph]]:
-    return parse_brief_document(load_brief_document(path))
+    from brief_shards import (
+        hydrate_brief_for_review,
+        project_root_for_brief_path,
+        resolve_asset_specs,
+    )
+
+    data = load_brief_document(path)
+    root = project_root_for_brief_path(path)
+    hydrated = hydrate_brief_for_review(data, root)
+    draft = hydrated.get("draft_brief") if isinstance(hydrated.get("draft_brief"), dict) else data
+    project = ProjectContext.from_dict(draft.get("project", draft))
+    # normalize_scenes drops catalog bodies when path is set; restore hydrated rows.
+    raw_proj = draft.get("project") if isinstance(draft.get("project"), dict) else {}
+    if isinstance(raw_proj.get("scenes"), list):
+        project.scenes = [dict(s) for s in raw_proj["scenes"] if isinstance(s, dict)]
+    if isinstance(raw_proj.get("systems"), list):
+        project.systems = [dict(s) for s in raw_proj["systems"] if isinstance(s, dict)]
+    assets = [AssetSpec.from_dict(item) for item in resolve_asset_specs(path)]
+    graphs = parse_animation_graphs(data)
+    return project, assets, graphs
 
 
 def resolve_animation_name(spec: AssetSpec) -> str:

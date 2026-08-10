@@ -68,6 +68,15 @@ python gamefactory.py brief chat brainstorm-apply --session-id <id> --proposal-i
 - 不定死通用 `screens` schema；具体数值可进 production，**需要哪些参数**应在 brief 中声明。
 - 写回后 makeability 指纹可能过期；建议再「制作审查」对齐意图，但 **不强制** 才能 export。
 
+**Brief 目录 + 分册（catalog shards）**
+
+- 推荐形态：`brief.json` 为**薄目录**（`scenes` / `systems` / `assets` 仅 `id` + `title`|`name` + `path`）；正文在工程内 `scenes/*.json`、`systems/*.json`、`assets/*.spec.json`。
+- 厚 brief 仍可读（validate 告警）；新写入用 `brief shard migrate --brief …` 迁出正文并留 `*.pre-shard.json` 备份。
+- **简介预算（软告警）**：`project.description` ≤ **800** 字符、`gameplay_loop` ≤ **1200**；细则进 scene/system 分册，勿堆进 description。
+- **结构化搜索**（无向量）：`brief search --brief PATH --q QUERY [--kind scene|system|asset] [--json]`；读单册 `brief shard load --brief PATH --kind scene --id ID [--json]`。
+- **host-chat**：主对话轮 payload 为薄索引 + 短简介 + 可选 session `focus` 分册；enrich 等子流程仍可能带整稿 draft。
+- **文档 focus / 稳定 id**（定位由宿主钉、模型只改 focus 内正文）：见 [`superpowers/specs/2026-08-10-document-focus-and-stable-ids.md`](superpowers/specs/2026-08-10-document-focus-and-stable-ids.md)。
+
 ### 1.2 资产审查表（GUI）
 
 Pipeline 跑完后，GUI 右侧 **看板 | 资产** Tab 打开 **资产审查表**，读当前工程 `assets-manifest.json`：

@@ -71,6 +71,7 @@ projects/<slug>/
 - `path` 必填，相对工程根，POSIX `/`。
 - **禁止**在索引上再挂：`summary`、`notes`、`ui_panel_ids`、`visual_reference`、`display_size`、`type`、`usage` 等正文/施工字段（全部进分册）。
 - `project.description` / `gameplay_loop` / `session_goal` / viewport 等**项目级**短字段仍留 brief。
+- **简介纪律（用户 2026-08-10 确认）**：玩法细则、屏级交互、数值表、鱼种/钓点名单、UI 实现方案**不得**堆进 `description` / 长 `gameplay_loop`；应落在 **scenes / systems / 数据表（tuning 或独立 data 分册）**。`description` 只保留类型、一句话循环、画风一句、无终局目标等门面信息（建议硬预算，见 Plan）。
 
 ### 分册最小形状（v1）
 
@@ -109,9 +110,15 @@ load_asset_spec(...) → read spec; used by pipeline plan / prompt craft
 ## Host-chat / 性能
 
 1. 会话携带 `focus`：`{ kind: scene|system|asset|project, id }`。
-2. 每轮 user payload：**薄 brief 索引** + **当前 focus 分册全文**（非 focus 不注入正文）。
-3. 写入：默认只 patch 当前分册；新建则写分册 + append 索引映射。
+2. 每轮 user payload：**薄 brief 索引** + **短 description/loop** + **当前 focus 分册全文**（非 focus 不注入正文）。
+3. 写入：默认只 patch 当前分册；新建则写分册 + append 索引映射；**拒绝**把场景/系统/表级细节写回 `description`。
 4. **禁止**再输出整份厚 `draft_brief` 内嵌 assets/scenes/systems 正文（迁移完成后）；过渡期宿主拒绝写入索引上的禁止字段。
+
+## 结构化搜索（v1，非向量）
+
+- CLI / host-chat 工具：`brief search --q …`（及等价内部 API）。
+- 在工程根下检索：薄目录标题/id + 各 scene/system shard 正文 + 可选 `data/` 表文件；按命中返回 `{kind,id,path,snippet}`，**不**把全部分册灌进模型。
+- 模型工作流：看目录 → search → `load_shard(kind,id)`；不用 embedding / 向量库（v1 明确非目标）。
 
 ## 迁移
 
@@ -134,17 +141,20 @@ load_asset_spec(...) → read spec; used by pipeline plan / prompt craft
 
 ## 实现分期（供 plan）
 
-可执行任务清单：[`docs/anvil/plans/2026-08-10-brief-catalog-shards.md`](../../anvil/plans/2026-08-10-brief-catalog-shards.md)
+可执行任务清单（取代旧 shards-only plan）：[`docs/anvil/plans/2026-08-10-foundry-brief-shards-search-plan.md`](../../anvil/plans/2026-08-10-foundry-brief-shards-search-plan.md)
 
 | 期 | 内容 |
 |----|------|
-| P0 | 分册 IO + normalize 索引形状 + validate path；legacy 读 |
-| P1 | migrate 命令 + 样例测试 |
-| P2 | host-chat focus 加载/写入分册；禁双写 |
-| P3 | pipeline / prompt craft 改走 spec path；文档 |
+| P0 | 分册 IO + normalize + validate；legacy 读 |
+| P1 | migrate + description/loop 瘦身规则与告警 |
+| P2 | 结构化 search + load_shard |
+| P3 | host-chat focus 注入/写入；禁双写 description |
+| P4 | pipeline / prompt craft；文档与 skills |
 
 ## 开放点（实现时可定默认）
 
 - Asset 索引是否同时保留 `name` 与 `id`（默认两者都有，可相同）。
 - `ui_panels` 全局列表：v1 建议挂在**主场景分册**或 `scenes/_ui.json`，不回灌 brief。
 - 外置工程 path 与 `external:` brief key 的拼接规则（跟现 `project_paths`）。
+- `description` 硬预算默认：**800 字符**；`gameplay_loop` 默认：**1200 字符**（超限 = validate warning，export 不硬拦；enrich/host 写入时拒扩）。
+- `data/` 目录：v1 可选；名单/倍率可先放 `systems/*/tuning`，多表共享时再引入 `data/<name>.json`。

@@ -66,6 +66,8 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("brief", "zh-doc"),
     ("brief", "validate"),
     ("brief", "chat", "export"),  # gated separately via allow_export; brief profile only in practice
+    ("brief", "search"),
+    ("brief", "shard", "load"),
     ("project", "external", "list"),
     ("project", "external", "detect"),
     ("assets", "review", "list"),
@@ -139,6 +141,8 @@ _BRIEF_ALLOWED_PREFIXES = frozenset(
         ("pipeline", "diagnose"),
         ("pipeline", "status"),
         ("assets", "review", "list"),
+        ("brief", "search"),
+        ("brief", "shard", "load"),
     }
 )
 
@@ -189,6 +193,8 @@ FOUNDRY_TOOL>>>
 - `brief chat zh-doc` / `brief zh-doc` / `brief chat bind` — need `--i-confirm` where mutating
 - `brief validate --brief <path> --json`
 - `brief chat export …` — **only** when host said export is allowed this turn
+- `brief search --brief <path> --query <text> --json` — 结构化检索分册（只读）
+- `brief shard load --brief <path> --kind scene|system|asset --id <id> --json` — 打开单册正文（只读）
 
 ### 查日志 / 查本地（只读）
 - 会话：`conversations list --role brief --json` → `conversations show --role brief --session-id <id> --tail 40 --json`
@@ -205,6 +211,12 @@ Examples:
 FOUNDRY_TOOL>>>
 <<<FOUNDRY_TOOL
 ["inspect", "read", "--path", "projects/fishing-2d/output/visual-target/manifest.json", "--json"]
+FOUNDRY_TOOL>>>
+<<<FOUNDRY_TOOL
+["brief", "search", "--brief", "projects/fishing-2d/brief.json", "--query", "钓点", "--json"]
+FOUNDRY_TOOL>>>
+<<<FOUNDRY_TOOL
+["brief", "shard", "load", "--brief", "projects/fishing-2d/brief.json", "--kind", "scene", "--id", "main_hub", "--json"]
 FOUNDRY_TOOL>>>
 
 Rules:

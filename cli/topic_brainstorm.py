@@ -7,9 +7,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
+from brief_shards import (
+    canonicalize_structure_to_shards,
+    hydrate_brief_for_review,
+    is_catalog_ref,
+)
 from host_chat import (
     HostChatError,
     _parse_llm_json,
+    _project_root_for_session,
     _utc_now,
     apply_draft_replacement,
 )
@@ -17,6 +23,30 @@ from llm_config import resolve_host_api_settings
 from prompt_craft import PromptCraftError, chat_text_completion
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _draft_for_llm(session: dict[str, Any], draft: dict[str, Any]) -> dict[str, Any]:
+    root = _project_root_for_session(session)
+    payload = hydrate_brief_for_review(draft, root)
+    out = payload.get("draft_brief")
+    return out if isinstance(out, dict) else draft
+
+
+def _candidate_has_structure_bodies(candidate: dict[str, Any]) -> bool:
+    """True when draft carries scene/system bodies that must land in shard files."""
+    project = candidate.get("project") if isinstance(candidate.get("project"), dict) else {}
+    for key, kind in (("scenes", "scene"), ("systems", "system")):
+        raw = project.get(key)
+        if not isinstance(raw, list):
+            continue
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            if not is_catalog_ref(item, kind=kind):  # type: ignore[arg-type]
+                return True
+    return False
+
+
 _PERSONA_SKILL = (
     _REPO_ROOT / "resources" / "skills" / "orchestrator" / "topic-brainstorm-persona.md"
 )
@@ -141,6 +171,8 @@ def run_topic_brainstorm(
     proposals: list[dict[str, Any]] = []
     errors: list[str] = []
 
+    draft_for_llm = _draft_for_llm(session, draft)
+
     def _run(job: tuple[str, str | None]) -> dict[str, Any]:
         role_key, model = job
         base_role = role_key.split("__", 1)[0]
@@ -148,7 +180,7 @@ def run_topic_brainstorm(
             role=base_role,
             topic=topic_s,
             constraints=constraints,
-            draft=draft,
+            draft=draft_for_llm,
             api=api,
             temperature=temperature,
             model=model,
@@ -252,7 +284,7 @@ def apply_brainstorm_proposals(
         "fuse": bool(fuse),
         "topic": stored.get("topic"),
         "selected_proposals": selected,
-        "draft_brief": draft,
+        "draft_brief": _draft_for_llm(session, draft),
     }
     try:
         raw = chat_text_completion(
@@ -277,6 +309,14 @@ def apply_brainstorm_proposals(
     candidate = parsed.get("draft_brief")
     if not isinstance(candidate, dict):
         raise HostChatError("Brainstorm apply LLM did not return draft_brief object.")
+    root = _project_root_for_session(session)
+    if root is not None:
+        candidate = canonicalize_structure_to_shards(candidate, root)
+    elif _candidate_has_structure_bodies(candidate):
+        raise HostChatError(
+            "Brainstorm apply with scene/system bodies requires a bound project "
+            "(bind brief / project root first)."
+        )
     proposals_raw = parsed.get("asset_proposals")
     asset_proposals = (
         [p for p in proposals_raw if isinstance(p, dict)]

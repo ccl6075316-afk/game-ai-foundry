@@ -157,6 +157,88 @@ class DraftMergeGuardTests(unittest.TestCase):
         )
         self.assertEqual((session["draft_brief"].get("project") or {}).get("genre"), "fishing")
 
+    def test_apply_strips_fat_scene_bodies_keeps_base_catalog(self) -> None:
+        session = new_session("strip-enrich-merge")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Old",
+                "scenes": [
+                    {"id": "lake", "title": "湖面", "path": "scenes/lake.json"},
+                ],
+            },
+            "assets": [{"name": "hook", "type": "prop"}],
+        }
+        candidate = {
+            "project": {
+                "title": "New",
+                "scenes": [
+                    {
+                        "id": "lake",
+                        "title": "湖面",
+                        "notes": "ENRICH_FAT_SHOULD_NOT_LAND",
+                    }
+                ],
+            },
+            "assets": [{"name": "hook", "type": "prop"}],
+        }
+        apply_draft_replacement(session, candidate)
+        self.assertEqual(session["draft_brief"]["project"]["title"], "New")
+        scenes = session["draft_brief"]["project"]["scenes"]
+        self.assertEqual(len(scenes), 1)
+        self.assertEqual(scenes[0].get("path"), "scenes/lake.json")
+        self.assertNotIn("notes", scenes[0])
+
+    def test_enrich_full_draft_without_root_strips_scene_bodies(self) -> None:
+        session = new_session("enrich-no-root-strip")
+        session["draft_brief"] = copy.deepcopy(_THIN_DRAFT)
+        session["draft_brief"]["project"]["scenes"] = [
+            {"id": "lake", "title": "湖面", "path": "scenes/lake.json"},
+        ]
+        config = {"api_key": "k", "model": "m", "api_base": "http://x"}
+        fat = {
+            "draft_brief": {
+                "project": {
+                    "title": "River Cast enriched",
+                    "genre": "fishing",
+                    "gameplay_loop": "Cast, wait, reel, sell.",
+                    "scenes": [
+                        {
+                            "id": "lake",
+                            "title": "湖面",
+                            "notes": "ENRICH_NO_ROOT_FAT",
+                        }
+                    ],
+                },
+                "assets": [{"name": "player_fisher", "type": "character"}],
+            },
+            "asset_proposals": [],
+            "summary": "加厚了湖面",
+        }
+        with patch(
+            "host_chat.chat_text_completion",
+            side_effect=[
+                json.dumps(_gaps_mock(), ensure_ascii=False),
+                json.dumps(fat, ensure_ascii=False),
+            ],
+        ), patch(
+            "host_chat.resolve_host_api_settings",
+            return_value={
+                "api_key": "k",
+                "model": "m",
+                "api_base": "http://x",
+                "proxy": None,
+            },
+        ), patch(
+            "host_chat._project_root_for_session",
+            return_value=None,
+        ):
+            result = run_brief_enrich(session, config=config)
+        self.assertTrue(result["ok"])
+        scenes = session["draft_brief"]["project"]["scenes"]
+        self.assertEqual(scenes[0].get("path"), "scenes/lake.json")
+        self.assertNotIn("notes", scenes[0])
+        self.assertEqual(session["draft_brief"]["project"]["title"], "River Cast enriched")
+
     def test_merge_asset_proposals_dedupes_by_name_case_insensitive(self) -> None:
         draft = {
             "project": {"title": "Demo"},

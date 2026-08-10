@@ -48,6 +48,8 @@ Target:    design.json + production.json ──► export ──► same pipelin
 Iteration: changes/*.json + production-delta ──► plan --merge ──► run
 ```
 
+**Brief shards (2026-08):** Large projects may keep a **thin catalog** in `brief.json` and edit scene/system/asset bodies in on-disk shard files. Host-chat uses focus + `brief search` / `shard load` instead of stuffing every screen into `project.description`; pipeline `plan`/`craft` resolve asset specs from shard paths via `load_brief` / `resolve_asset_specs`.
+
 ## 1. Document Types
 
 ### 1.1 Design Doc

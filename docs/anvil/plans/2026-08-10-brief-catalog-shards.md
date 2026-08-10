@@ -1,5 +1,7 @@
 # Brief Catalog + Shards Implementation Plan
 
+> **SUPERSEDED（2026-08-10）**：请改用 [`2026-08-10-foundry-brief-shards-search-plan.md`](./2026-08-10-foundry-brief-shards-search-plan.md)（含结构化搜索 + description 瘦身纪律）。下文仅作历史参考。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make `brief.json` a thin catalog (id + title/name + path); put scene / system / asset bodies in shard files; load by focus so host-chat and pipeline stop stuffing the full draft every turn.

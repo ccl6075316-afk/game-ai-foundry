@@ -91,6 +91,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   hostChatBrainstormApply: (sessionId, proposalIds, fuse, instanceId) =>
     ipcRenderer.invoke("host-chat-brainstorm-apply", sessionId, proposalIds, fuse, instanceId),
   hostChatStatus: (sessionId) => ipcRenderer.invoke("host-chat-status", sessionId),
+  hostChatFocus: (sessionId, opts) => ipcRenderer.invoke("host-chat-focus", sessionId, opts || {}),
   agentTurn: (opts) => ipcRenderer.invoke("agent-turn", opts),
   agentStatus: (role, sessionId) => ipcRenderer.invoke("agent-status", role, sessionId),
   setPiSessionTrust: (sessionId, trusted) =>

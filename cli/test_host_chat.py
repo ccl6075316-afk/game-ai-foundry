@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from brief_shards import save_json_shard
 from host_chat import (
     HostChatError,
     _CHAR_BUDGET,
@@ -35,6 +36,11 @@ from host_chat import (
     save_session,
     session_path_for_id,
     session_status,
+    set_session_focus,
+    clear_session_focus,
+    normalize_session_focus,
+    focus_from_paths,
+    validate_focus_allows_write,
     user_requests_commit_brief,
     user_requests_commit_doc,
 )
@@ -148,6 +154,80 @@ class HostChatTests(unittest.TestCase):
         payload = _build_user_payload(session, "chat")
         self.assertIn("current_draft_brief", payload)
 
+    def test_chat_payload_focus_excludes_other_scene_bodies(self) -> None:
+        session = new_session("focus-scenes")
+        dock_marker = "UNIQUE_DOCK_SCENE_BODY_XYZ"
+        hall_marker = "UNIQUE_HALL_SCENE_BODY_XYZ"
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "description": "Short intro.",
+                "art_direction": "pixel",
+                "dimension": "2d",
+            },
+            "scenes": [
+                {"id": "hall", "title": "Hall", "summary": hall_marker},
+                {"id": "dock", "title": "Dock", "summary": dock_marker},
+            ],
+            "assets": [
+                {
+                    "id": "rod",
+                    "name": "rod",
+                    "type": "texture",
+                    "usage": "world_background",
+                    "display_size": {"width": 32, "height": 32},
+                    "usage_description": "rod",
+                }
+            ],
+        }
+        session["focus"] = {"kind": "scene", "id": "hall"}
+        payload = _build_user_payload(session, "chat")
+        blob = json.dumps(payload, ensure_ascii=False)
+        self.assertIn(hall_marker, blob)
+        self.assertNotIn(dock_marker, blob)
+
+    def test_normalize_session_focus_requires_id_except_project(self) -> None:
+        self.assertEqual(
+            normalize_session_focus({"kind": "project"}),
+            {"kind": "project"},
+        )
+        with self.assertRaises(HostChatError):
+            normalize_session_focus({"kind": "scene"})
+        out = normalize_session_focus(
+            {"kind": "visual_target", "id": "hub", "extra": {"candidate": "a"}}
+        )
+        self.assertEqual(out, {"kind": "visual_target", "id": "hub", "extra": {"candidate": "a"}})
+
+    def test_focus_from_paths_first_match(self) -> None:
+        self.assertEqual(
+            focus_from_paths(["project.scenes[id=main_hub].notes"]),
+            {"kind": "scene", "id": "main_hub"},
+        )
+        self.assertEqual(
+            focus_from_paths(["project.systems[id=economy].tuning", "project.scenes[id=x]"]),
+            {"kind": "system", "id": "economy"},
+        )
+        self.assertEqual(
+            focus_from_paths(["assets[name=rod_01]"]),
+            {"kind": "asset", "id": "rod_01"},
+        )
+
+    def test_set_session_focus_in_status(self) -> None:
+        session = new_session("focus-api")
+        set_session_focus(session, {"kind": "scene", "id": "dock"})
+        st = session_status(session)
+        self.assertEqual(st.get("focus"), {"kind": "scene", "id": "dock"})
+
+    def test_apply_parsed_sets_focus_from_artifact(self) -> None:
+        session = new_session("focus-artifact")
+        session["draft_brief"] = {"project": {"title": "T"}, "assets": []}
+        parsed = {
+            "assistant_message": "ok",
+            "artifact": {"focus": {"kind": "system", "id": "combat"}},
+        }
+        _apply_parsed(session, parsed, "chat")
+        self.assertEqual(session.get("focus"), {"kind": "system", "id": "combat"})
+
     def test_deep_merge_brief_keeps_assets_when_project_patched(self) -> None:
         base = {
             "project": {"title": "A", "genre": "platformer"},
@@ -213,12 +293,34 @@ class HostChatTests(unittest.TestCase):
         assert merged is not None
         scenes = merged["project"]["scenes"]
         systems = merged["project"]["systems"]
+        # Fat structure bodies are stripped from merge; base catalog/list preserved.
         self.assertEqual(len(scenes), 2)
-        self.assertEqual(scenes[0].get("summary"), "主场景")
+        self.assertNotIn("summary", scenes[0])
         self.assertEqual(scenes[1].get("id"), "shop")
         self.assertEqual(len(systems), 2)
-        self.assertEqual(systems[0].get("summary"), "力度条")
+        self.assertNotIn("summary", systems[0])
         self.assertEqual(systems[1].get("id"), "reel")
+
+    def test_deep_merge_brief_allows_catalog_scene_refs(self) -> None:
+        base = {
+            "project": {
+                "title": "Fish",
+                "scenes": [{"id": "lake", "title": "湖面", "path": "scenes/lake.json"}],
+            },
+            "assets": [],
+        }
+        incoming = {
+            "project": {
+                "scenes": [
+                    {"id": "lake", "title": "湖面", "path": "scenes/lake.json"},
+                    {"id": "shop", "title": "商店", "path": "scenes/shop.json"},
+                ]
+            }
+        }
+        merged = deep_merge_brief(base, incoming)
+        assert merged is not None
+        ids = [s.get("id") for s in merged["project"]["scenes"]]
+        self.assertEqual(ids, ["lake", "shop"])
 
     def test_deep_merge_brief_preserves_global_visual_reference(self) -> None:
         base = {
@@ -270,7 +372,8 @@ class HostChatTests(unittest.TestCase):
             merged["project"]["scenes"][0]["visual_reference"],
             "output/lake/selected.png",
         )
-        self.assertEqual(merged["project"]["scenes"][0]["summary"], "主场景")
+        # Fat incoming scenes are stripped; summary must not land via deep_merge.
+        self.assertNotIn("summary", merged["project"]["scenes"][0])
 
     def test_apply_brief_patches_sets_nested_project_fields(self) -> None:
         draft = {
@@ -287,6 +390,7 @@ class HostChatTests(unittest.TestCase):
                 {"op": "set", "path": "project.session_goal", "value": "Land one fish today."},
                 {"op": "set", "path": "project.controls.cast", "value": ["Click"]},
             ],
+            enforce_focus=False,
         )
         self.assertEqual(out["project"]["session_goal"], "Land one fish today.")
         self.assertEqual(out["project"]["controls"]["cast"], ["Click"])
@@ -317,6 +421,7 @@ class HostChatTests(unittest.TestCase):
                     "value": {"id": "bait", "name": "bait", "type": "icon_kit"},
                 },
             ],
+            enforce_focus=False,
         )
         self.assertEqual(len(out["assets"]), 3)
         rod = next(a for a in out["assets"] if a.get("id") == "rod")
@@ -362,10 +467,109 @@ class HostChatTests(unittest.TestCase):
                     "set": {"notes": "开局即可进入"},
                 },
             ],
+            enforce_focus=False,
         )
         self.assertIn("unlocked from the start", out["project"]["systems"][0]["notes"])
         self.assertIn("enterable from the start", out["project"]["scenes"][0]["notes"])
         self.assertIn("开局即可进入", out["project"]["ui_panels"][0]["notes"])
+
+    def test_apply_brief_patches_catalog_upsert_writes_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard_path = root / "scenes" / "hall.json"
+            shard_path.parent.mkdir(parents=True)
+            save_json_shard(
+                shard_path,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {"id": "hall", "title": "Hall", "path": "scenes/hall.json"},
+                    ],
+                },
+                "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "updated notes"},
+                    },
+                ],
+                project_root=root,
+                focus={"kind": "scene", "id": "hall"},
+                enforce_focus=True,
+            )
+            row = out["project"]["scenes"][0]
+            self.assertEqual(row, {"id": "hall", "title": "Hall", "path": "scenes/hall.json"})
+            body = json.loads(shard_path.read_text(encoding="utf-8"))
+            self.assertEqual(body["notes"], "updated notes")
+
+    def test_apply_brief_patches_no_focus_rejects_scene_upsert(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall", "summary": "x"}],
+            },
+            "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
+        }
+        with self.assertRaises(HostChatError):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "nope"},
+                    },
+                ],
+                enforce_focus=True,
+            )
+
+    def test_apply_brief_patches_focus_mismatch_rejects_scene_upsert(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [
+                    {"id": "hall", "title": "Hall"},
+                    {"id": "dock", "title": "Dock"},
+                ],
+            },
+            "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
+        }
+        with self.assertRaises(HostChatError):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "dock"},
+                        "set": {"notes": "nope"},
+                    },
+                ],
+                focus={"kind": "scene", "id": "hall"},
+                enforce_focus=True,
+            )
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "hall"},
+                    "set": {"notes": "ok"},
+                },
+            ],
+            focus={"kind": "scene", "id": "hall"},
+            enforce_focus=True,
+        )
+        self.assertEqual(out["project"]["scenes"][0]["notes"], "ok")
+
+    def test_validate_focus_intent_gap_allows_scene(self) -> None:
+        validate_focus_allows_write({"kind": "intent_gap", "id": "gap1"}, "scene", "hall")
 
     def test_load_project_draft_prefers_draft_json_over_export(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -477,6 +681,7 @@ class HostChatTests(unittest.TestCase):
             "detail_gaps": [{"id": "economy", "topic": "numbers"}],
             "suggested_defaults": [],
         }
+        set_session_focus(session, {"kind": "intent_gap", "id": "aquarium_unlock_flow"})
         parsed = {
             "assistant_message": "已拍板写进草稿：水族馆开局可进。",
             "choices": [],
@@ -580,6 +785,114 @@ class HostChatTests(unittest.TestCase):
         )
         self.assertEqual(session["makeability_review"]["intent_gaps"], [])
 
+    def test_answer_makeability_closer_and_verifier_see_catalog_shard_notes(self) -> None:
+        """Catalog systems live in shards; closer/verifier must hydrate before LLM."""
+        from host_chat import answer_makeability_gaps
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "systems").mkdir()
+            save_json_shard(
+                root / "systems" / "aquarium.json",
+                {
+                    "id": "aquarium",
+                    "title": "Aquarium",
+                    "notes": "SHARD_LOCKED_UNTIL_PURCHASE",
+                },
+            )
+            draft = {
+                "project": {
+                    "title": "Fish",
+                    "description": "d",
+                    "genre": "sim",
+                    "gameplay_loop": "cast",
+                    "session_goal": "endless",
+                    "systems": [
+                        {
+                            "id": "aquarium",
+                            "title": "Aquarium",
+                            "path": "systems/aquarium.json",
+                        }
+                    ],
+                },
+                "assets": [{"name": "rod", "type": "prop", "usage": "player"}],
+            }
+            session = new_session("gap-hydrate")
+            session["draft_brief"] = draft
+            session["makeability_review"] = {
+                "schema_version": 1,
+                "reviewed_at": "t",
+                "draft_fingerprint": draft_fingerprint(draft),
+                "intent_gaps": [
+                    {
+                        "id": "aquarium_unlock_flow",
+                        "question": "如何解锁？",
+                        "why_blocking": "x",
+                        "choices": ["A", "B 开局可进"],
+                        "write_paths": ["project.systems[id=aquarium].notes"],
+                    }
+                ],
+                "detail_gaps": [],
+                "suggested_defaults": [],
+            }
+            closer = {
+                "assistant_message": "已按 B 写入。",
+                "brief_patches": [
+                    {
+                        "op": "upsert_system",
+                        "match": {"id": "aquarium"},
+                        "set": {"notes": "unlocked from the start"},
+                    }
+                ],
+            }
+            verifier = {
+                "decision_checks": [
+                    {
+                        "decision_key": "gap.aquarium_unlock_flow",
+                        "gap_id": "aquarium_unlock_flow",
+                        "status": "satisfied",
+                        "evidence_paths": ["project.systems[id=aquarium].notes"],
+                    }
+                ]
+            }
+            seen: list[dict] = []
+
+            def _side(**kwargs):
+                messages = kwargs["messages"]
+                user = json.loads(messages[1]["content"])
+                seen.append(user)
+                if "Makeability Verifier" in messages[0]["content"]:
+                    return json.dumps(verifier, ensure_ascii=False)
+                return json.dumps(closer, ensure_ascii=False)
+
+            with patch(
+                "host_chat.chat_text_completion",
+                side_effect=_side,
+            ), patch(
+                "host_chat.resolve_host_api_settings",
+                return_value={"api_key": "k", "api_base": "https://x", "model": "m"},
+            ), patch(
+                "host_chat._project_root_for_session",
+                return_value=root,
+            ):
+                result = answer_makeability_gaps(
+                    session,
+                    [{"gap_id": "aquarium_unlock_flow", "choice": "B 开局可进"}],
+                    config={},
+                )
+            self.assertTrue(result["ok"])
+            self.assertGreaterEqual(len(seen), 2)
+            closer_draft = seen[0].get("current_draft_brief") or {}
+            closer_systems = (closer_draft.get("project") or {}).get("systems") or []
+            self.assertEqual(closer_systems[0].get("notes"), "SHARD_LOCKED_UNTIL_PURCHASE")
+            verifier_draft = seen[1].get("candidate_draft_brief") or {}
+            verifier_systems = (verifier_draft.get("project") or {}).get("systems") or []
+            self.assertEqual(verifier_systems[0].get("notes"), "unlocked from the start")
+            # Session catalog stays thin; body lives on disk.
+            self.assertNotIn("notes", session["draft_brief"]["project"]["systems"][0])
+            body = json.loads((root / "systems" / "aquarium.json").read_text(encoding="utf-8"))
+            self.assertEqual(body["notes"], "unlocked from the start")
+
     def test_apply_parsed_prefers_patches_over_thin_full_draft(self) -> None:
         session = new_session("patch-chat")
         session["draft_brief"] = {
@@ -594,6 +907,7 @@ class HostChatTests(unittest.TestCase):
             ],
         }
         long_desc = session["draft_brief"]["project"]["description"]
+        set_session_focus(session, {"kind": "asset", "id": "rod"})
         parsed = {
             "assistant_message": "已把审查的两点写进草稿。",
             "choices": [],
@@ -623,6 +937,94 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(draft["assets"][0].get("usage"), "ui_icon")
         self.assertFalse(session.get("_talk_without_write"))
         self.assertNotIn("只说不写", session["messages"][-1]["content"])
+
+    def test_apply_parsed_strips_scene_bodies_on_full_merge(self) -> None:
+        session = new_session("strip-struct-merge")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "scenes": [
+                    {"id": "lake", "title": "湖面", "path": "scenes/lake.json"},
+                ],
+            },
+            "assets": [],
+        }
+        parsed = {
+            "assistant_message": "更新了标题。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "draft_brief": {
+                    "project": {
+                        "title": "Fish 2",
+                        "scenes": [
+                            {
+                                "id": "lake",
+                                "title": "湖面",
+                                "summary": "模型塞进来的场景正文",
+                            }
+                        ],
+                    }
+                }
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertEqual(session["draft_brief"]["project"]["title"], "Fish 2")
+        scenes = session["draft_brief"]["project"]["scenes"]
+        self.assertEqual(len(scenes), 1)
+        self.assertNotIn("summary", scenes[0])
+        self.assertIn("整稿合并已忽略结构正文", out["assistant_message"])
+
+    def test_apply_parsed_commit_brief_strips_scene_bodies(self) -> None:
+        session = new_session("strip-commit")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "description": "d",
+                "genre": "sim",
+                "gameplay_loop": "cast",
+                "session_goal": "g",
+                "scenes": [
+                    {"id": "lake", "title": "湖面", "path": "scenes/lake.json"},
+                ],
+            },
+            "assets": [{"id": "rod", "name": "rod", "type": "prop", "usage": "player"}],
+        }
+        parsed = {
+            "assistant_message": "落实稿。",
+            "choices": [],
+            "mode": "commit_brief",
+            "intent_hint": "none",
+            "artifact": {
+                "draft_brief": {
+                    "project": {
+                        "title": "Fish",
+                        "description": "d",
+                        "genre": "sim",
+                        "gameplay_loop": "cast",
+                        "session_goal": "g",
+                        "scenes": [
+                            {
+                                "id": "lake",
+                                "title": "湖面",
+                                "notes": "COMMIT_FAT_BODY",
+                            }
+                        ],
+                    },
+                    "assets": [
+                        {"id": "rod", "name": "rod", "type": "prop", "usage": "player"}
+                    ],
+                }
+            },
+            "ready_to_export": False,
+        }
+        _apply_parsed(session, parsed, "commit_brief")
+        scenes = session["draft_brief"]["project"]["scenes"]
+        self.assertEqual(len(scenes), 1)
+        self.assertNotIn("notes", scenes[0])
+        self.assertEqual(scenes[0].get("path"), "scenes/lake.json")
 
     def test_looks_like_draft_write_claim(self) -> None:
         self.assertTrue(looks_like_draft_write_claim("6 条意图缺口全部收到，我已按你的拍板关掉并写进草稿："))

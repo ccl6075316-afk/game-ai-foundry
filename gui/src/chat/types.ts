@@ -150,6 +150,7 @@ export interface HostChatStatus {
   intent_count?: number;
   detail_count?: number;
   makeability_fingerprint_match?: boolean;
+  focus?: { kind: string; id?: string; extra?: Record<string, unknown> } | null;
 }
 
 export interface MakeabilityIntentGapOccurrence {

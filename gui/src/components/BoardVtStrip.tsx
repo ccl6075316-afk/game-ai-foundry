@@ -10,6 +10,7 @@ interface Props {
   globalMark: VtGlobalMark & { preview_path?: string | null };
   scenes: VtBoardItem[];
   onRefresh?: () => void;
+  onFocusScene?: (sceneId: string, title: string) => void | Promise<void>;
 }
 
 type LightboxState = {
@@ -24,12 +25,14 @@ function VtThumb({
   path,
   emptyHint,
   onOpen,
+  onPin,
 }: {
   label: string;
   badge: string;
   path?: string | null;
   emptyHint: string;
   onOpen: (payload: LightboxState) => void;
+  onPin?: () => void | Promise<void>;
 }) {
   const mediaPath = path ? toRepoMediaRel(path) || path : "";
   const [url, setUrl] = useState<string | null>(null);
@@ -63,10 +66,12 @@ function VtThumb({
       type="button"
       className={"vt-board-card" + (mediaPath ? "" : " vt-board-card--empty")}
       onClick={() => {
-        if (!mediaPath || !url) return;
-        onOpen({ url, title: label, path: mediaPath });
+        void (async () => {
+          await onPin?.();
+          if (!mediaPath || !url) return;
+          onOpen({ url, title: label, path: mediaPath });
+        })();
       }}
-      disabled={!mediaPath || !url}
       title={mediaPath || emptyHint}
     >
       <div className="vt-board-card__frame">
@@ -83,7 +88,7 @@ function VtThumb({
 }
 
 /** Compact north-star strip for the pipeline board. */
-export function BoardVtStrip({ globalMark, scenes, onRefresh }: Props) {
+export function BoardVtStrip({ globalMark, scenes, onRefresh, onFocusScene }: Props) {
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const marked = scenes.filter((s) => vtIsMarked(s) || Boolean(s.preview_path));
   const hasAny =
@@ -130,6 +135,11 @@ export function BoardVtStrip({ globalMark, scenes, onRefresh }: Props) {
               path={s.preview_path || s.visual_reference}
               emptyHint="○"
               onOpen={setLightbox}
+              onPin={
+                onFocusScene
+                  ? () => onFocusScene(s.id, s.title || s.id)
+                  : undefined
+              }
             />
           ))}
         </div>
