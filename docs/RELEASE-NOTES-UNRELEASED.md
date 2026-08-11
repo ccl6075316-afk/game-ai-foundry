@@ -1,5 +1,5 @@
 # Unreleased — 下一版 Release Notes 草稿
 
-相对当前已打标签的 [`v0.2.0`](RELEASE-NOTES-0.2.0.md)。打版时把本节并入正式 `RELEASE-NOTES-x.y.z.md`。
+相对当前已打标签的 [`v0.2.1`](RELEASE-NOTES-0.2.1.md)。打版时把本节并入正式 `RELEASE-NOTES-x.y.z.md`。
 
 （暂无）
