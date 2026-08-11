@@ -68,8 +68,8 @@
 | `description` | **短**总览（约 2–4 句）；禁止规则全书 / 鱼种表 / 数值表 |
 | `gameplay_loop` | 场景串法或主重复活动；**允许短**（模拟类尤其如此） |
 | `session_goal` | 本构建目标；开放无终局可写明确短句（如 endless / no final goal） |
-| `scenes[]` | 可选；运行时屏（`id`+`title`，可选 `summary` / `ui_panel_ids` / `notes`） |
-| `systems[]` | 可选；跨场景逻辑（`id`+`title`，可选 `summary` / `notes`） |
+| `scenes[]` | 可选；运行时屏（`id` 英文 slug + `title` **中文展示名**，可选 `summary` / `ui_panel_ids` / `notes`） |
+| `systems[]` | 可选；跨场景逻辑（`id` 英文 slug + `title` **中文展示名**，可选 `summary` / `notes`） |
 | `ui_panels[]` | 可选；屏内 UI 块（见下） |
 
 `scenes` / `systems` **非冻结必填**；缺省不挡 validate。聊到屏或跨屏规则时写入，勿堆进 `description`。

@@ -14,7 +14,11 @@ import { BoardPanel } from "./components/BoardPanel";
 import {
   briefMakeabilityExportReady,
   briefMakeabilityGateHint,
+  catalogDisplayTitle,
+  catalogRowsFromDraft,
+  mergeStatusFocus,
 } from "./components/briefPreviewFormat";
+import type { FocusOption } from "./components/BriefWorkstationBar";
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
 import { DocsPreviewPanel } from "./components/DocsPreviewPanel";
 import { ProjectSwitcher } from "./components/ProjectSwitcher";
@@ -447,6 +451,20 @@ export default function App() {
   pendingToolPermissionsRef.current = pendingToolPermissions;
   const activeColleague = getActiveColleague(chatStore);
   const agentRole = activeColleague.roleKind;
+  const briefFocusOptions = useMemo((): FocusOption[] => {
+    const rows = catalogRowsFromDraft(briefDraft);
+    const opts: FocusOption[] = [{ value: "project", label: "项目门面" }];
+    for (const row of rows) {
+      if (row.kind === "asset") continue; // keep focus menu short; pin asset via search later
+      opts.push({
+        value: `${row.kind}:${row.id}`,
+        label: catalogDisplayTitle(row),
+        group: row.kind === "scene" ? "场景" : "系统",
+      });
+    }
+    return opts;
+  }, [briefDraft]);
+
   const briefExportReady = agentRole === "brief" && briefMakeabilityExportReady(briefDraftStatus);
   const briefExportGateHint = briefMakeabilityGateHint(briefDraftStatus);
   const activeSession = getActiveSession(chatStore);
@@ -734,6 +752,7 @@ export default function App() {
         intent_count?: number;
         detail_count?: number;
         makeability_fingerprint_match?: boolean;
+        focus?: HostChatStatus["focus"];
       },
       opts?: { replace?: boolean },
     ) => {
@@ -801,6 +820,7 @@ export default function App() {
           makeability_fingerprint_match:
             data.makeability_fingerprint_match ??
             (replace ? false : prev?.makeability_fingerprint_match),
+          focus: mergeStatusFocus(prev?.focus, data.focus),
         };
       });
     },
@@ -885,14 +905,32 @@ export default function App() {
       if (agentRole !== "brief") return;
       const sid = getActiveSession(chatStore).id;
       if (!sid || !window.gameFactory?.hostChatFocus) return;
-      await window.gameFactory.hostChatFocus(sid, {
+      const res = await window.gameFactory.hostChatFocus(sid, {
         kind,
         id: id || undefined,
         extra,
       });
+      const focusFromCli = res?.data?.focus;
+      applyDraftFromPayload({
+        exists: true,
+        focus:
+          focusFromCli !== undefined
+            ? focusFromCli
+            : { kind, id: id || undefined, ...(extra ? { extra } : {}) },
+      });
+      void refreshBrainstormStatus();
     },
-    [agentRole, chatStore],
+    [agentRole, chatStore, refreshBrainstormStatus, applyDraftFromPayload],
   );
+
+  const clearBriefFocus = useCallback(async () => {
+    if (agentRole !== "brief") return;
+    const sid = getActiveSession(chatStore).id;
+    if (!sid || !window.gameFactory?.hostChatFocus) return;
+    await window.gameFactory.hostChatFocus(sid, { clear: true });
+    applyDraftFromPayload({ exists: true, focus: null });
+    void refreshBrainstormStatus();
+  }, [agentRole, chatStore, refreshBrainstormStatus, applyDraftFromPayload]);
 
   const append = useCallback(
     (
@@ -1817,6 +1855,17 @@ export default function App() {
       sessionTarget,
     );
     try {
+      if (activeBriefRel && window.gameFactory.hostChatBind) {
+        const bindRes = await window.gameFactory.hostChatBind(
+          sessionTarget.sessionId,
+          activeBriefRel,
+        );
+        if (bindRes.exitCode !== 0) {
+          throw new Error(
+            bindRes.stderr || bindRes.stdout || "绑定工程失败，无法读取分册正文",
+          );
+        }
+      }
       const res = await window.gameFactory.hostChatMakeability(
         sessionTarget.sessionId,
         sessionTarget.instanceId,
@@ -1941,6 +1990,17 @@ export default function App() {
       ),
     );
     try {
+      if (activeBriefRel && window.gameFactory.hostChatBind) {
+        const bindRes = await window.gameFactory.hostChatBind(
+          sessionTarget.sessionId,
+          activeBriefRel,
+        );
+        if (bindRes.exitCode !== 0) {
+          throw new Error(
+            bindRes.stderr || bindRes.stdout || "绑定工程失败，无法写入分册正文",
+          );
+        }
+      }
       const res = await window.gameFactory.hostChatMakeabilityAnswer(
         sessionTarget.sessionId,
         answers,
@@ -4817,6 +4877,42 @@ export default function App() {
                     else if (action === "ui") void handleBriefUiWireframe();
                     else if (action === "autofix") void handleBriefAutofix(5);
                     else if (action === "export") void handleBriefExport();
+                  }
+                : undefined
+            }
+            focusValue={
+              agentRole === "brief"
+                ? (() => {
+                    const f = briefDraftStatus?.focus;
+                    if (!f?.kind) return "";
+                    if (f.kind === "project") return "project";
+                    if (f.kind === "visual_target" && f.id && f.id !== "global") {
+                      return `scene:${f.id}`;
+                    }
+                    if (
+                      (f.kind === "scene" || f.kind === "system" || f.kind === "asset") &&
+                      f.id
+                    ) {
+                      return `${f.kind}:${f.id}`;
+                    }
+                    return "";
+                  })()
+                : undefined
+            }
+            focusOptions={agentRole === "brief" ? briefFocusOptions : undefined}
+            onFocusChange={
+              agentRole === "brief"
+                ? (value) => {
+                    if (!value) {
+                      void clearBriefFocus();
+                      return;
+                    }
+                    if (value === "project") {
+                      void pinBriefFocus("project");
+                      return;
+                    }
+                    const m = value.match(/^(scene|system|asset):(.+)$/);
+                    if (m) void pinBriefFocus(m[1], m[2]);
                   }
                 : undefined
             }

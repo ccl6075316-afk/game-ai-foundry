@@ -8,11 +8,22 @@ import {
   assetStyleChips,
   briefMakeabilityExportReady,
   briefMakeabilityGateHint,
+  catalogDisplayTitle,
+  catalogRowsFromDraft,
+  docsViewFromFocus,
   flattenIntentChoices,
+  formatBriefCatalogOverview,
   formatBriefDocument,
+  formatDocsViewLabel,
+  formatFocusLabel,
   formatMakeabilityProductionSummary,
   formatMakeabilityReviewDetails,
+  formatShardDocument,
+  inlineShardFromDraft,
   isBriefShaped,
+  mergeStatusFocus,
+  shardEntryHasBody,
+  shardRelPath,
   tryFormatBriefJsonText,
 } from "./briefPreviewFormat";
 
@@ -212,4 +223,111 @@ test("formatMakeabilityProductionSummary reads production_doc.makeability", () =
     "制作完备性：pending · 2 条施工细节",
   );
   assert.equal(formatMakeabilityProductionSummary({}), null);
+});
+
+test("formatBriefCatalogOverview lists shards without dumping notes", () => {
+  const brief = {
+    project: {
+      title: "钓鱼",
+      description: "短总览",
+      scenes: [
+        {
+          id: "dock",
+          title: "钓场",
+          summary: "抛竿",
+          notes: "超长正文不应进总览",
+        },
+      ],
+      systems: [{ id: "economy", title: "经济", notes: "表级细则" }],
+    },
+    assets: [{ name: "carp", type: "character", description: "鱼" }],
+  };
+  const out = formatBriefCatalogOverview(brief, null);
+  assert.match(out, /Brief 总览/);
+  assert.match(out, /短总览/);
+  assert.match(out, /点选不会改对话焦点/);
+  assert.doesNotMatch(out, /超长正文不应进总览/);
+  assert.doesNotMatch(out, /表级细则/);
+  assert.doesNotMatch(out, /## 原始 JSON/);
+  const rows = catalogRowsFromDraft(brief);
+  assert.equal(rows.some((r) => r.id === "dock" && r.kind === "scene"), true);
+  assert.equal(rows.some((r) => r.id === "economy"), true);
+});
+
+test("catalog rows and shard path helpers", () => {
+  const rows = catalogRowsFromDraft({
+    project: {
+      scenes: [{ id: "hub", title: "主界面" }],
+      systems: [{ id: "combat", title: "战斗" }],
+    },
+    assets: [{ name: "rod" }],
+  });
+  assert.equal(rows.length, 3);
+  assert.equal(shardRelPath("projects/fishing-2d", "scene", "hub"), "projects/fishing-2d/scenes/hub.json");
+  assert.equal(
+    shardRelPath("projects/fishing-2d", "asset", "rod"),
+    "projects/fishing-2d/assets/rod.spec.json",
+  );
+  assert.equal(
+    shardRelPath("projects/fishing-2d", "asset", "x", "assets/bg_1.spec.json"),
+    "projects/fishing-2d/assets/bg_1.spec.json",
+  );
+});
+
+test("focus / docs view labels and mapping", () => {
+  assert.equal(formatDocsViewLabel({ mode: "overview" }), "总览");
+  assert.equal(formatDocsViewLabel({ mode: "shard", kind: "scene", id: "hub" }), "场景 · hub");
+  assert.equal(
+    formatDocsViewLabel({ mode: "shard", kind: "scene", id: "hub" }, "主界面"),
+    "场景 · 主界面",
+  );
+  assert.equal(formatFocusLabel(null), "未钉住");
+  assert.equal(formatFocusLabel({ kind: "scene", id: "hub" }), "场景 · hub");
+  assert.equal(formatFocusLabel({ kind: "scene", id: "hub" }, "主界面"), "场景 · 主界面");
+  assert.equal(catalogDisplayTitle({ id: "combat", title: "钓鱼战斗" }), "钓鱼战斗");
+  assert.equal(catalogDisplayTitle({ id: "combat", title: "" }), "combat");
+  assert.deepEqual(docsViewFromFocus({ kind: "scene", id: "hub" }), {
+    mode: "shard",
+    kind: "scene",
+    id: "hub",
+  });
+  assert.deepEqual(docsViewFromFocus({ kind: "visual_target", id: "hub" }), {
+    mode: "shard",
+    kind: "scene",
+    id: "hub",
+  });
+  assert.deepEqual(docsViewFromFocus({ kind: "project" }), { mode: "overview" });
+  assert.match(
+    formatShardDocument("scene", "hub", { title: "主界面", notes: "大厅" }),
+    /## 备注 \/ 正文/,
+  );
+});
+
+test("mergeStatusFocus keeps prev unless payload sets focus", () => {
+  assert.deepEqual(
+    mergeStatusFocus({ kind: "scene", id: "hub" }, undefined),
+    { kind: "scene", id: "hub" },
+  );
+  assert.equal(mergeStatusFocus({ kind: "scene", id: "hub" }, null), null);
+  assert.deepEqual(
+    mergeStatusFocus({ kind: "scene", id: "hub" }, { kind: "system", id: "eco" }),
+    { kind: "system", id: "eco" },
+  );
+});
+
+test("inlineShardFromDraft falls back to draft body", () => {
+  const draft = {
+    project: {
+      scenes: [{ id: "hub", title: "主界面", notes: "大厅细则" }],
+      systems: [{ id: "eco", title: "经济" }],
+    },
+    assets: [{ id: "rod", name: "鱼竿", description: "木竿" }],
+  };
+  const scene = inlineShardFromDraft(draft, "scene", "hub");
+  assert.ok(scene);
+  assert.equal(scene!.notes, "大厅细则");
+  assert.equal(shardEntryHasBody(scene), true);
+  assert.equal(shardEntryHasBody(inlineShardFromDraft(draft, "system", "eco")), false);
+  assert.equal(inlineShardFromDraft(draft, "asset", "rod")?.description, "木竿");
+  assert.equal(inlineShardFromDraft(draft, "scene", "missing"), null);
 });

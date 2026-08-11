@@ -12,9 +12,19 @@ import {
 import { ProjectSwitcher } from "./ProjectSwitcher";
 import {
   briefMakeabilityGateHint,
-  formatBriefDocument,
+  catalogDisplayTitle,
+  catalogRowsFromDraft,
+  docsViewFromFocus,
+  focusKey,
+  formatBriefCatalogOverview,
   formatMakeabilityProductionSummary,
+  formatShardDocument,
+  inlineShardFromDraft,
+  shardEntryHasBody,
+  shardRelPath,
   tryFormatBriefJsonText,
+  type DocsShardKind,
+  type DocsView,
 } from "./briefPreviewFormat";
 import type { ExternalProjectEntry } from "../vite-env";
 
@@ -72,6 +82,14 @@ function targetsForBrief(
   return planTargetsFromBrief(briefRel);
 }
 
+function parseSessionShardKey(
+  value: string,
+): { kind: DocsShardKind; id: string } | null {
+  const m = value.match(/^session-brief:(scene|system|asset):(.+)$/);
+  if (!m) return null;
+  return { kind: m[1] as DocsShardKind, id: m[2] };
+}
+
 export function DocsPreviewPanel({
   draftBrief,
   draftDocument,
@@ -104,8 +122,24 @@ export function DocsPreviewPanel({
   const [diskLoading, setDiskLoading] = useState(false);
   const [diskDocs, setDiskDocs] = useState<DocListItem[]>([]);
   const [diskListTick, setDiskListTick] = useState(0);
+  const [docsView, setDocsView] = useState<DocsView>({ mode: "overview" });
+  const [shardBody, setShardBody] = useState("");
+  const [shardError, setShardError] = useState("");
+  const [shardLoading, setShardLoading] = useState(false);
   /** Last focusDiskRel we already jumped to — avoid sticky re-select on every click. */
   const appliedFocusRelRef = useRef<string | null>(null);
+  const lastFollowedFocusRef = useRef<string | null>(null);
+
+  const projectRootRel = useMemo(() => {
+    if (!activeBriefRel) return null;
+    try {
+      return targetsForBrief(activeBriefRel, externalEntryById).projectRootRel;
+    } catch {
+      return null;
+    }
+  }, [activeBriefRel, externalEntryById]);
+
+  const catalogRows = useMemo(() => catalogRowsFromDraft(draftBrief), [draftBrief]);
 
   const sessionDocs = useMemo(() => {
     const items: DocListItem[] = [
@@ -197,7 +231,6 @@ export function DocsPreviewPanel({
   const allDocs = useMemo(() => [...sessionDocs, ...diskDocs], [sessionDocs, diskDocs]);
 
   // One-shot jump when parent asks to focus a disk path (e.g. after zh-doc).
-  // Must NOT re-run on selectedId — that was snapping every click back to focusDiskRel.
   useEffect(() => {
     if (!focusDiskRel) {
       appliedFocusRelRef.current = null;
@@ -217,10 +250,59 @@ export function DocsPreviewPanel({
     }
   }, [allDocs, selectedId]);
 
+  // External pin → jump docs select to that shard (preview only).
+  useEffect(() => {
+    const key = focusKey(status?.focus);
+    if (!key) {
+      lastFollowedFocusRef.current = null;
+      return;
+    }
+    if (lastFollowedFocusRef.current === key) return;
+    const next = docsViewFromFocus(status?.focus);
+    if (!next) {
+      // Consume unmappable focus so a later remappable focus with the same prior
+      // key (e.g. scene → visual_target global → scene) can follow again.
+      lastFollowedFocusRef.current = key;
+      return;
+    }
+    lastFollowedFocusRef.current = key;
+    setSelectedId("session-brief");
+    setDocsView(next);
+  }, [status?.focus]);
+
   const selectDoc = (id: string) => {
     setSelectedId(id);
+    if (id === "session-brief") {
+      setDocsView({ mode: "overview" });
+    }
     if (focusDiskRel) onFocusDiskRelConsumed?.();
   };
+
+  const applyDocSelect = (value: string) => {
+    const shard = parseSessionShardKey(value);
+    if (value === "session-brief") {
+      selectDoc("session-brief");
+      setDocsView({ mode: "overview" });
+      return;
+    }
+    if (shard) {
+      setSelectedId("session-brief");
+      setDocsView({ mode: "shard", kind: shard.kind, id: shard.id });
+      if (focusDiskRel) onFocusDiskRelConsumed?.();
+      return;
+    }
+    selectDoc(value);
+  };
+
+  const docSelectValue = useMemo(() => {
+    if (selectedId === "session-brief") {
+      if (docsView.mode === "shard") {
+        return `session-brief:${docsView.kind}:${docsView.id}`;
+      }
+      return "session-brief";
+    }
+    return selectedId;
+  }, [selectedId, docsView]);
 
   const selected = allDocs.find((d) => d.id === selectedId) || allDocs[0];
 
@@ -262,6 +344,88 @@ export function DocsPreviewPanel({
     };
   }, [selected?.id, selected?.path, selected?.source]);
 
+  useEffect(() => {
+    let cancelled = false;
+    const loadShard = async () => {
+      if (selected?.id !== "session-brief" || docsView.mode !== "shard") {
+        setShardBody("");
+        setShardError("");
+        setShardLoading(false);
+        return;
+      }
+      const applyInlineFallback = (diskError?: string) => {
+        const inline = inlineShardFromDraft(draftBrief, docsView.kind, docsView.id);
+        if (inline && shardEntryHasBody(inline)) {
+          const note = diskError
+            ? `_磁盘分册不可用（${diskError}），以下为会话草稿内嵌正文。_\n\n`
+            : `_未找到磁盘分册，以下为会话草稿内嵌正文。_\n\n`;
+          setShardError("");
+          setShardBody(note + formatShardDocument(docsView.kind, docsView.id, inline));
+          return true;
+        }
+        if (inline) {
+          setShardError("");
+          setShardBody(
+            formatShardDocument(docsView.kind, docsView.id, inline) +
+              "\n\n_（仅目录条目；磁盘分册尚未落盘或无可读正文。）_",
+          );
+          return true;
+        }
+        return false;
+      };
+
+      if (!projectRootRel) {
+        if (applyInlineFallback("无项目根目录")) return;
+        setShardBody("");
+        setShardError("当前工程没有可解析的项目根目录，无法读分册。");
+        return;
+      }
+      if (!window.gameFactory?.readRepoText) {
+        if (applyInlineFallback("GUI 不支持读盘")) return;
+        setShardError("当前 GUI 不支持读仓库文件，请重启应用。");
+        return;
+      }
+      const rel = shardRelPath(
+        projectRootRel,
+        docsView.kind,
+        docsView.id,
+        catalogRows.find((r) => r.kind === docsView.kind && r.id === docsView.id)?.path,
+      );
+      setShardLoading(true);
+      setShardError("");
+      try {
+        const res = await window.gameFactory.readRepoText(rel);
+        if (cancelled) return;
+        if (!res.ok) {
+          if (applyInlineFallback(res.error || `读分册失败：${rel}`)) return;
+          setShardBody("");
+          setShardError(res.error || `读分册失败：${rel}`);
+          return;
+        }
+        const text = res.text || "";
+        try {
+          const parsed = JSON.parse(text) as unknown;
+          setShardBody(formatShardDocument(docsView.kind, docsView.id, parsed));
+        } catch {
+          setShardBody(text);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          const msg = e instanceof Error ? e.message : String(e);
+          if (applyInlineFallback(msg)) return;
+          setShardBody("");
+          setShardError(msg);
+        }
+      } finally {
+        if (!cancelled) setShardLoading(false);
+      }
+    };
+    void loadShard();
+    return () => {
+      cancelled = true;
+    };
+  }, [selected?.id, docsView, projectRootRel, catalogRows, draftBrief]);
+
   const sessionBody = useMemo(() => {
     if (!selected || selected.source !== "session") return "";
     if (selected.id === "session-doc") {
@@ -269,8 +433,22 @@ export function DocsPreviewPanel({
       const body = draftDocument?.body || "（正文为空）";
       return body.startsWith("#") ? body : `# ${title}\n\n${body}`;
     }
-    return formatBriefDocument(draftBrief, status);
-  }, [selected, draftBrief, draftDocument, status]);
+    if (docsView.mode === "shard") {
+      if (shardLoading) return "读取分册中…";
+      if (shardError) return shardError;
+      return shardBody || "（分册为空）";
+    }
+    return formatBriefCatalogOverview(draftBrief, status);
+  }, [
+    selected,
+    draftBrief,
+    draftDocument,
+    status,
+    docsView,
+    shardLoading,
+    shardError,
+    shardBody,
+  ]);
 
   const previewBody = useMemo(() => {
     if (selected?.source === "disk") {
@@ -309,15 +487,15 @@ export function DocsPreviewPanel({
         ? "说「整理成设计说明」后，这里会显示 Markdown 文档。"
         : "";
 
+  const showBriefChrome = selected?.id === "session-brief";
+  const previewError =
+    (selected?.source === "disk" && Boolean(diskError)) ||
+    (showBriefChrome && docsView.mode === "shard" && Boolean(shardError));
+
   return (
     <aside className="side-panel docs-preview-panel" style={style}>
       <div className="side-panel__head">
         <h2>{projectSlug ? `文档 · ${projectSlug}` : "文档"}</h2>
-        <p className="hint">
-          {projectSlug
-            ? "看「中文说明」才是 brief 全文镜像；「工作草稿」是机器 JSON；「策划笔记」是手写要点。草稿落盘时会自动刷新中文说明骨架。"
-            : "尚未绑定工程。请先顶栏「新建项目」创建目录，或从列表选择已有工程。"}
-        </p>
         {onSelectProject ? (
           <ProjectSwitcher
             variant="panel"
@@ -326,30 +504,63 @@ export function DocsPreviewPanel({
             onNewProject={onNewProject}
           />
         ) : null}
-      </div>
-
-      <div className="docs-preview-list">
-        {!activeBriefRel && diskDocs.length === 0 ? (
-          <p className="docs-preview-empty hint">
-            未绑定工程时这里不会列出其它项目的文件。请先新建或选择工程。
-          </p>
-        ) : null}
-        {allDocs.map((doc) => (
-          <button
-            key={doc.id}
-            type="button"
-            className={`docs-preview-item ${selected?.id === doc.id ? "docs-preview-item--active" : ""}`}
-            onClick={() => selectDoc(doc.id)}
+        <label className="docs-doc-select">
+          <select
+            className="docs-doc-select__control"
+            value={
+              allDocs.some((d) => d.id === selectedId) || docSelectValue.startsWith("session-brief:")
+                ? docSelectValue
+                : allDocs[0]?.id || "session-brief"
+            }
+            onChange={(e) => applyDocSelect(e.target.value)}
+            aria-label="选择文档"
           >
-            <span className="docs-preview-item__label">{doc.label}</span>
-            {doc.hint ? <span className="docs-preview-item__hint">{doc.hint}</span> : null}
-          </button>
-        ))}
-        {activeBriefRel && diskDocs.length === 0 ? (
-          <p className="docs-preview-empty hint">
-            当前工程还没有落盘文件。有草稿时点「生成中文说明」，或点「刷新」。
-          </p>
-        ) : null}
+            <optgroup label="会话">
+              {sessionDocs.map((doc) => (
+                <option key={doc.id} value={doc.id}>
+                  {doc.label}
+                  {doc.id === "session-brief" ? " · 总览" : ""}
+                </option>
+              ))}
+              {draftBrief
+                ? catalogRows
+                    .filter((r) => r.kind === "scene")
+                    .map((row) => (
+                      <option key={`scene:${row.id}`} value={`session-brief:scene:${row.id}`}>
+                        场景 · {catalogDisplayTitle(row)}
+                      </option>
+                    ))
+                : null}
+              {draftBrief
+                ? catalogRows
+                    .filter((r) => r.kind === "system")
+                    .map((row) => (
+                      <option key={`system:${row.id}`} value={`session-brief:system:${row.id}`}>
+                        系统 · {catalogDisplayTitle(row)}
+                      </option>
+                    ))
+                : null}
+              {draftBrief
+                ? catalogRows
+                    .filter((r) => r.kind === "asset")
+                    .map((row) => (
+                      <option key={`asset:${row.id}`} value={`session-brief:asset:${row.id}`}>
+                        资产 · {catalogDisplayTitle(row)}
+                      </option>
+                    ))
+                : null}
+            </optgroup>
+            {diskDocs.length ? (
+              <optgroup label="磁盘">
+                {diskDocs.map((doc) => (
+                  <option key={doc.id} value={doc.id}>
+                    {doc.label}
+                  </option>
+                ))}
+              </optgroup>
+            ) : null}
+          </select>
+        </label>
       </div>
 
       {productionMakeabilityLine ? (
@@ -360,7 +571,9 @@ export function DocsPreviewPanel({
         {emptyHint && !previewBody ? (
           <p className="brief-draft-empty">{emptyHint}</p>
         ) : (
-          <pre className={`docs-preview-content mono ${diskError ? "docs-preview-content--error" : ""}`}>
+          <pre
+            className={`docs-preview-content mono ${previewError ? "docs-preview-content--error" : ""}`}
+          >
             {previewBody || "（空）"}
           </pre>
         )}

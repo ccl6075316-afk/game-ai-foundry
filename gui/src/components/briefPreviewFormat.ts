@@ -197,6 +197,262 @@ export function isBriefShaped(value: unknown): value is HostChatDraftBrief {
   return "project" in obj || "assets" in obj;
 }
 
+export type DocsShardKind = "scene" | "system" | "asset";
+
+export type DocsView =
+  | { mode: "overview" }
+  | { mode: "shard"; kind: DocsShardKind; id: string };
+
+export type CatalogRow = {
+  kind: DocsShardKind;
+  id: string;
+  title: string;
+  summary?: string;
+  /** Repo-relative path when present on catalog ref. */
+  path?: string;
+};
+
+/** Human label for catalog rows: use title when present; id is machine mapping only. */
+export function catalogDisplayTitle(row: { id: string; title?: string }): string {
+  const id = String(row.id || "").trim();
+  const title = String(row.title || "").trim();
+  if (title) return title;
+  return id || "（未命名）";
+}
+
+const SHARD_KIND_LABEL: Record<DocsShardKind, string> = {
+  scene: "场景",
+  system: "系统",
+  asset: "资产",
+};
+
+export function formatDocsViewLabel(
+  view: DocsView,
+  title?: string | null,
+): string {
+  if (view.mode === "overview") return "总览";
+  const kind = SHARD_KIND_LABEL[view.kind] || view.kind;
+  const display = catalogDisplayTitle({ id: view.id, title: title || "" });
+  return `${kind} · ${display}`;
+}
+
+export function formatFocusLabel(
+  focus: HostChatStatus["focus"] | null | undefined,
+  title?: string | null,
+): string {
+  if (!focus || typeof focus !== "object") return "未钉住";
+  const kind = String(focus.kind || "").trim();
+  if (!kind) return "未钉住";
+  const id = String(focus.id || "").trim();
+  if (kind === "project") return "项目门面";
+  if (kind === "visual_target") {
+    const sceneLabel = catalogDisplayTitle({ id: id === "global" ? "" : id, title: title || "" });
+    return id && id !== "global"
+      ? `北极星 · 场景 ${sceneLabel || id}`
+      : "北极星 · 全局";
+  }
+  const kindLabel =
+    kind === "scene" || kind === "system" || kind === "asset"
+      ? SHARD_KIND_LABEL[kind]
+      : kind;
+  if (!id) return kindLabel;
+  return `${kindLabel} · ${catalogDisplayTitle({ id, title: title || "" })}`;
+}
+
+/** Map session.focus → docs preview target (null = leave view alone). */
+export function docsViewFromFocus(
+  focus: HostChatStatus["focus"] | null | undefined,
+): DocsView | null {
+  if (!focus || typeof focus !== "object") return null;
+  const kind = String(focus.kind || "").trim();
+  const id = String(focus.id || "").trim();
+  if (kind === "project") return { mode: "overview" };
+  if (kind === "scene" || kind === "system" || kind === "asset") {
+    if (!id) return null;
+    return { mode: "shard", kind, id };
+  }
+  if (kind === "visual_target" && id && id !== "global") {
+    return { mode: "shard", kind: "scene", id };
+  }
+  return null;
+}
+
+export function focusKey(
+  focus: HostChatStatus["focus"] | null | undefined,
+): string | null {
+  if (!focus || typeof focus !== "object") return null;
+  const kind = String(focus.kind || "").trim();
+  if (!kind) return null;
+  const id = String(focus.id || "").trim();
+  return `${kind}:${id}`;
+}
+
+export function shardRelPath(
+  projectRootRel: string,
+  kind: DocsShardKind,
+  id: string,
+  catalogPath?: string | null,
+): string {
+  const explicit = String(catalogPath || "").trim().replace(/\\/g, "/");
+  if (explicit) {
+    if (explicit.startsWith("external:") || explicit.startsWith("projects/")) {
+      return explicit;
+    }
+    const root = projectRootRel.replace(/\\/g, "/").replace(/\/+$/, "");
+    return `${root}/${explicit.replace(/^\//, "")}`;
+  }
+  const root = projectRootRel.replace(/\\/g, "/").replace(/\/+$/, "");
+  const safeId = id.replace(/\\/g, "/").replace(/\.\./g, "");
+  if (kind === "scene") return `${root}/scenes/${safeId}.json`;
+  if (kind === "system") return `${root}/systems/${safeId}.json`;
+  return `${root}/assets/${safeId}.spec.json`;
+}
+
+export function catalogRowsFromDraft(draft: HostChatDraftBrief | null): CatalogRow[] {
+  if (!draft) return [];
+  const rows: CatalogRow[] = [];
+  const p = (draft.project || {}) as Record<string, unknown>;
+  for (const item of asRecordList(p.scenes)) {
+    const id = String(item.id || "").trim();
+    if (!id) continue;
+    const path = String(item.path || "").trim() || undefined;
+    rows.push({
+      kind: "scene",
+      id,
+      title: String(item.title || id).trim() || id,
+      summary: String(item.summary || "").trim() || undefined,
+      path,
+    });
+  }
+  for (const item of asRecordList(p.systems)) {
+    const id = String(item.id || "").trim();
+    if (!id) continue;
+    const path = String(item.path || "").trim() || undefined;
+    rows.push({
+      kind: "system",
+      id,
+      title: String(item.title || id).trim() || id,
+      summary: String(item.summary || "").trim() || undefined,
+      path,
+    });
+  }
+  for (const a of draft.assets || []) {
+    const id = String((a as { name?: string; id?: string }).id || a?.name || "").trim();
+    if (!id) continue;
+    const title = String(a?.name || id).trim() || id;
+    const summary = String(a?.description || "").trim() || undefined;
+    const path = String((a as { path?: string }).path || "").trim() || undefined;
+    rows.push({ kind: "asset", id, title, summary, path });
+  }
+  return rows;
+}
+
+/** Thin catalog for human docs panel (no scene/system notes dump). */
+export function formatBriefCatalogOverview(
+  draft: HostChatDraftBrief | null,
+  status: HostChatStatus | null,
+): string {
+  if (!draft) return "";
+  const p = draft.project || {};
+  const title = String(status?.title || p.title || "未命名项目");
+  const lines: string[] = [
+    `# ${title}`,
+    "",
+    "_Brief 总览（薄目录）。下方点选场景 / 系统 / 资产打开分册；点选不会改对话焦点。_",
+    "",
+  ];
+  const genre = status?.genre || p.genre;
+  if (genre) lines.push(`**类型：** ${genre}`, "");
+  const view = p.view;
+  if (view !== undefined && view !== null && String(view).trim() !== "") {
+    lines.push(`**视角 (view)：** ${String(view)}`, "");
+  }
+  const desc = p.description;
+  if (desc) lines.push("## 简介", "", String(desc), "");
+  const loop = status?.gameplay_loop || p.gameplay_loop;
+  if (loop) lines.push("## 玩法循环", "", String(loop), "");
+  const art = p.art_direction;
+  if (art) lines.push("## 美术方向", "", String(art), "");
+  lines.push(...formatArtTokensSection(p as Record<string, unknown>));
+  const goal = p.session_goal;
+  if (goal) lines.push("## 本局目标", "", String(goal), "");
+  lines.push(...formatUiPanelsSection(p as Record<string, unknown>));
+  return lines.join("\n");
+}
+
+export function formatShardDocument(
+  kind: DocsShardKind,
+  id: string,
+  raw: unknown,
+): string {
+  const kindLabel = SHARD_KIND_LABEL[kind];
+  let title = "";
+  if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+    const obj = raw as Record<string, unknown>;
+    title = String(obj.title || obj.name || "").trim();
+  }
+  const display = catalogDisplayTitle({ id, title });
+  const lines: string[] = [`# ${kindLabel} · ${display}`, "", `**id：** \`${id}\``, ""];
+  if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+    const obj = raw as Record<string, unknown>;
+    if (title && title !== display) lines.push(`**标题：** ${title}`, "");
+    const summary = String(obj.summary || "").trim();
+    if (summary) lines.push("## 摘要", "", summary, "");
+    const notes = String(obj.notes || "").trim();
+    if (notes) lines.push("## 备注 / 正文", "", notes, "");
+    const desc = String(obj.description || "").trim();
+    if (desc && kind === "asset") lines.push("## 描述", "", desc, "");
+  }
+  lines.push("## 原始 JSON", "", "```json", JSON.stringify(raw, null, 2), "```", "");
+  return lines.join("\n");
+}
+
+/** Keep previous focus unless payload explicitly sets focus (incl. null). */
+export function mergeStatusFocus(
+  prev: HostChatStatus["focus"] | null | undefined,
+  incoming: HostChatStatus["focus"] | undefined,
+): HostChatStatus["focus"] | null {
+  if (incoming !== undefined) return incoming;
+  return prev ?? null;
+}
+
+/** Resolve inline scene/system/asset body from session draft (legacy or unsaved). */
+export function inlineShardFromDraft(
+  draft: HostChatDraftBrief | null,
+  kind: DocsShardKind,
+  id: string,
+): Record<string, unknown> | null {
+  const want = String(id || "").trim();
+  if (!draft || !want) return null;
+  if (kind === "asset") {
+    for (const a of draft.assets || []) {
+      if (!a || typeof a !== "object") continue;
+      const row = a as Record<string, unknown>;
+      const aid = String(row.id || row.name || "").trim();
+      if (aid === want) return row;
+    }
+    return null;
+  }
+  const p = (draft.project || {}) as Record<string, unknown>;
+  const list = asRecordList(kind === "scene" ? p.scenes : p.systems);
+  for (const item of list) {
+    if (String(item.id || "").trim() === want) return item;
+  }
+  return null;
+}
+
+/** True when entry looks like body (not bare catalog ref). */
+export function shardEntryHasBody(entry: Record<string, unknown> | null | undefined): boolean {
+  if (!entry) return false;
+  for (const key of ["notes", "summary", "description", "tuning", "ui_panel_ids"]) {
+    const v = entry[key];
+    if (v === undefined || v === null || v === "") continue;
+    if (Array.isArray(v) && v.length === 0) continue;
+    return true;
+  }
+  return false;
+}
+
 export function formatBriefDocument(
   draft: HostChatDraftBrief | null,
   status: HostChatStatus | null,

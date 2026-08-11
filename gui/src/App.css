@@ -1849,6 +1849,35 @@ code {
   padding-top: 4px;
 }
 
+.brief-workstation__focus {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  flex: 1 1 160px;
+  max-width: 280px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.brief-workstation__focus-label {
+  flex: 0 0 auto;
+}
+
+.brief-workstation__focus-select {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 11px;
+}
+
 .brief-workstation__btn {
   min-width: 28px;
   height: 26px;
@@ -2968,16 +2997,20 @@ code {
   gap: 10px;
 }
 
-.docs-preview-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  /* overflow:auto makes flex min-size 0 — without flex-shrink:0 the preview
-     body collapses this list and the doc chips vanish. */
-  flex-shrink: 0;
-  /* ~1.5 doc cards visible (label+hint row ≈ 52px + gap) */
-  max-height: calc(1.5 * 52px + 4px);
-  overflow-y: auto;
+.docs-doc-select {
+  display: block;
+  margin-top: 8px;
+}
+
+.docs-doc-select__control {
+  width: 100%;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 12px;
 }
 
 .docs-preview-item {
@@ -3021,12 +3054,112 @@ code {
   min-height: 280px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.docs-focus-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.docs-focus-bar__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.docs-focus-bar__lines strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.docs-focus-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.docs-focus-bar__actions .btn {
+  flex: 0 0 auto;
+}
+
+.docs-catalog-lead {
+  margin: 0 0 4px;
+}
+
+.docs-catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-height: 160px;
+  max-height: 48vh;
+  overflow: auto;
+  padding: 2px;
+}
+
+.docs-catalog-group h3 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.docs-catalog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.docs-catalog-item {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel, var(--bg));
+  color: var(--text);
+  cursor: pointer;
+}
+
+.docs-catalog-item:hover {
+  border-color: var(--accent, #6b8cae);
+}
+
+.docs-catalog-item__title {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.docs-catalog-item__id {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.docs-catalog-item__summary {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
 }
 
 .docs-preview-content {
   margin: 0;
   flex: 1 1 auto;
-  min-height: 280px;
+  min-height: 160px;
   max-height: none;
   overflow: auto;
   padding: 10px 12px;
@@ -3037,6 +3170,12 @@ code {
   border-radius: 8px;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.docs-preview-content--overview {
+  flex: 0 1 auto;
+  min-height: 120px;
+  max-height: 28vh;
 }
 
 .docs-preview-content--error {

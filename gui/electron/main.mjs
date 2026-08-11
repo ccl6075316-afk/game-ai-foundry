@@ -746,6 +746,7 @@ function listProjectDocs(briefRel) {
             if (/^brief\.zh\.md$/i.test(f)) continue;
             if (/^工程说明\.md$/i.test(f)) continue;
             if (/^策划笔记\.md$/i.test(f)) continue;
+            if (/\.pre-shard\./i.test(f) || /\.pre-slim\./i.test(f)) continue;
             pushIfExists(`${root}/${f}`, f, "markdown");
           }
           const docsSub = path.join(rootAbs, "docs");
@@ -783,6 +784,9 @@ function listProjectDocs(briefRel) {
           if (/^brief\.zh\.md$/i.test(f)) continue;
           if (/^工程说明\.md$/i.test(f)) continue;
           if (/^策划笔记\.md$/i.test(f)) continue;
+          // Migration / slim backups — hide from docs list
+          if (/\.pre-shard\./i.test(f) || /\.pre-slim\./i.test(f)) continue;
+          if (/\.pre-shard$/i.test(f.replace(/\.(md|txt)$/i, ""))) continue;
           pushIfExists(`${root}/${f}`, f, "markdown");
         }
         const docsSub = path.join(rootAbs, "docs");

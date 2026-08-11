@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { VtGlobalMark, VtSceneMark } from "../chat/vtProgressFormat";
 import { vtIsMarked, vtMarkBadge } from "../chat/vtProgressFormat";
 import { toRepoMediaRel } from "../chat/toRepoMediaRel";
+import { catalogDisplayTitle } from "./briefPreviewFormat";
 import { MediaLightbox } from "./MediaLightbox";
 
 export type VtBoardItem = VtSceneMark & { preview_path?: string | null };
@@ -127,21 +128,24 @@ export function BoardVtStrip({ globalMark, scenes, onRefresh, onFocusScene }: Pr
             emptyHint="未选"
             onOpen={setLightbox}
           />
-          {scenes.map((s) => (
+          {scenes.map((s) => {
+            const label = catalogDisplayTitle(s);
+            return (
             <VtThumb
               key={s.id}
-              label={s.title || s.id}
+              label={label}
               badge={vtMarkBadge(s)}
               path={s.preview_path || s.visual_reference}
               emptyHint="○"
               onOpen={setLightbox}
               onPin={
                 onFocusScene
-                  ? () => onFocusScene(s.id, s.title || s.id)
+                  ? () => onFocusScene(s.id, label)
                   : undefined
               }
             />
-          ))}
+            );
+          })}
         </div>
       )}
       {lightbox && (

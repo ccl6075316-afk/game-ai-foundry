@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import copy
 import json
+import tempfile
 import unittest
+from pathlib import Path
+from typing import Any
 from unittest.mock import patch
 
 from host_chat import (
@@ -17,6 +20,7 @@ from host_chat import (
     run_makeability_review,
     session_status,
 )
+from host_chat import _build_makeability_review
 
 _FISHING_DRAFT = {
     "project": {
@@ -419,6 +423,78 @@ class MakeabilityCriticTests(unittest.TestCase):
             session=session,
         )
         self.assertEqual(len(review.get("intent_gaps") or []), 1)
+
+    def test_catalog_makeability_without_bind_raises(self) -> None:
+        session = new_session("catalog-blind")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "description": "overview",
+                "genre": "sim",
+                "gameplay_loop": "cast",
+                "session_goal": "endless",
+                "scenes": [{"id": "hub", "title": "Hub", "path": "scenes/hub.json"}],
+                "systems": [],
+            },
+            "assets": [],
+        }
+        config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+        with patch("host_chat.chat_text_completion") as mock_chat:
+            with self.assertRaises(HostChatError) as ctx:
+                run_makeability_review(session, config=config)
+            mock_chat.assert_not_called()
+        self.assertIn("绑定", str(ctx.exception))
+
+    def test_catalog_makeability_with_bind_sees_shard_notes(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "scenes").mkdir()
+            (root / "scenes" / "hub.json").write_text(
+                json.dumps(
+                    {"id": "hub", "title": "Hub", "notes": "SHARD_BODY_VISIBLE"},
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            brief_path = root / "brief.json"
+            brief_path.write_text("{}", encoding="utf-8")
+            session = new_session("catalog-bound")
+            # Point bind at a path under repo via monkeypatch of project root resolver
+            session["draft_brief"] = {
+                "project": {
+                    "title": "Fish",
+                    "description": "overview",
+                    "genre": "sim",
+                    "gameplay_loop": "cast",
+                    "session_goal": "endless",
+                    "scenes": [{"id": "hub", "title": "Hub", "path": "scenes/hub.json"}],
+                    "systems": [],
+                },
+                "assets": [],
+            }
+            session["bound_brief_rel"] = "projects/_tmp_catalog_test/brief.json"
+            seen: dict[str, Any] = {}
+
+            def fake_chat(**kwargs: Any) -> str:
+                payload = json.loads(kwargs["messages"][1]["content"])
+                scenes = (payload.get("draft_brief") or {}).get("project", {}).get("scenes") or []
+                hub = next((s for s in scenes if s.get("id") == "hub"), None)
+                seen["notes"] = (hub or {}).get("notes")
+                seen["shards"] = list((payload.get("scene_shards") or {}).keys())
+                return json.dumps(_detail_gaps_mock())
+
+            config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
+            with (
+                patch(
+                    "host_chat._project_root_for_session",
+                    return_value=root,
+                ),
+                patch("host_chat.chat_text_completion", side_effect=fake_chat),
+            ):
+                result = run_makeability_review(session, config=config)
+            self.assertTrue(result["ok"])
+            self.assertEqual(seen.get("notes"), "SHARD_BODY_VISIBLE")
+            self.assertIn("hub", seen.get("shards") or [])
 
 
 if __name__ == "__main__":

@@ -47,7 +47,7 @@
 | `visual_reference` | **导出时必须留空**。保存 Brief 后由策划在 GUI 点「生成北极星图」→「选用北极星 a/b/c」写入**图片路径**。**禁止**把风格散文、参考游戏名写进此字段——风格只写 `art_direction` |
 | `art_tokens` | **可选**。与 `art_direction` 并存的结构化风格硬锁（`line`, `palette`, `forbid`, `silhouette`）；有具体配色/线宽/禁止项时保守填写，否则省略 |
 | `hud` | 有 `usage: ui_element` 素材时必填；每项 `{ "asset", "anchor", "description" }` |
-| `scenes` / `systems` / `ui_panels` | **可选**（不挡冻结清单必填项）。多系统游戏：屏→`scenes[]`，跨屏规则→`systems[]`，屏内 UI→`ui_panels[]`；勿堆进 `description` |
+| `scenes` / `systems` / `ui_panels` | **可选**（不挡冻结清单必填项）。多系统游戏：屏→`scenes[]`，跨屏规则→`systems[]`，屏内 UI→`ui_panels[]`；勿堆进 `description`。条目：`id` 英文 slug，`title` **中文展示名** |
 
 ### `assets[]`（每个素材一行）
 

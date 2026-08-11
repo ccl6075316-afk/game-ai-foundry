@@ -8,6 +8,12 @@ export type BriefWorkstationAction =
   | "autofix"
   | "export";
 
+export type FocusOption = {
+  value: string; // "" | "project" | "scene:id" | "system:id" | "asset:id"
+  label: string;
+  group?: string;
+};
+
 interface Props {
   disabled?: boolean;
   showMakeability?: boolean;
@@ -20,6 +26,10 @@ interface Props {
   exportEnabled?: boolean;
   exportHint?: string;
   onAction: (action: BriefWorkstationAction) => void;
+  /** Conversation focus dropdown (session.focus). */
+  focusValue?: string;
+  focusOptions?: FocusOption[];
+  onFocusChange?: (value: string) => void;
 }
 
 const TOOLS: Array<{
@@ -73,13 +83,59 @@ export function BriefWorkstationBar({
   exportEnabled = true,
   exportHint,
   onAction,
+  focusValue = "",
+  focusOptions,
+  onFocusChange,
   ...flags
 }: Props) {
   const visible = TOOLS.filter((t) => Boolean(flags[t.showKey]));
-  if (!visible.length) return null;
+  const showFocus = Boolean(onFocusChange);
+
+  if (!visible.length && !showFocus) return null;
+
+  const groups = new Map<string, FocusOption[]>();
+  const ungrouped: FocusOption[] = [];
+  for (const opt of focusOptions || []) {
+    if (opt.group) {
+      const list = groups.get(opt.group) || [];
+      list.push(opt);
+      groups.set(opt.group, list);
+    } else {
+      ungrouped.push(opt);
+    }
+  }
 
   return (
     <div className="brief-workstation" role="toolbar" aria-label="策划固定功能">
+      {showFocus ? (
+        <label className="brief-workstation__focus">
+          <span className="brief-workstation__focus-label">焦点</span>
+          <select
+            className="brief-workstation__focus-select"
+            disabled={disabled}
+            value={focusValue}
+            title="对话焦点：决定本轮改哪一册"
+            aria-label="对话焦点"
+            onChange={(e) => onFocusChange?.(e.target.value)}
+          >
+            <option value="">未钉住</option>
+            {ungrouped.map((opt) => (
+              <option key={opt.value || "empty"} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+            {[...groups.entries()].map(([group, opts]) => (
+              <optgroup key={group} label={group}>
+                {opts.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </label>
+      ) : null}
       {visible.map((t) => {
         const exportBlocked = t.id === "export" && !exportEnabled;
         const btnDisabled = disabled || exportBlocked;

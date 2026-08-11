@@ -2,6 +2,7 @@ import { useState, type FormEvent, type KeyboardEvent } from "react";
 import {
   BriefWorkstationBar,
   type BriefWorkstationAction,
+  type FocusOption,
 } from "./BriefWorkstationBar";
 
 interface Props {
@@ -23,6 +24,9 @@ interface Props {
   onStop?: () => void;
   onChoice?: (text: string) => void;
   onWorkstation?: (action: BriefWorkstationAction) => void;
+  focusValue?: string;
+  focusOptions?: FocusOption[];
+  onFocusChange?: (value: string) => void;
 }
 
 export function ChatInput({
@@ -42,6 +46,9 @@ export function ChatInput({
   onStop,
   onChoice,
   onWorkstation,
+  focusValue,
+  focusOptions,
+  onFocusChange,
 }: Props) {
   const [text, setText] = useState("");
   const locked = disabled || busy;
@@ -144,6 +151,9 @@ export function ChatInput({
           exportEnabled={Boolean(readyToExport)}
           exportHint={exportGateHint}
           onAction={onWorkstation}
+          focusValue={focusValue}
+          focusOptions={focusOptions}
+          onFocusChange={onFocusChange}
         />
       )}
     </div>

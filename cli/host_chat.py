@@ -211,6 +211,37 @@ def _hydrate_draft_for_llm(
     return out if isinstance(out, dict) else draft
 
 
+_CATALOG_ROOT_REQUIRED_MSG = (
+    "制作审查需要已绑定的工程目录才能读取 scenes/systems 分册正文。"
+    "请先在界面选择/绑定工程，或执行 brief chat bind --brief <path>。"
+)
+
+
+def _hydrate_for_makeability(
+    session: dict[str, Any],
+    draft: dict[str, Any],
+) -> dict[str, Any]:
+    """Hydrate catalog shards for Critic/closer; refuse blind catalog review."""
+    root = _project_root_for_session(session)
+    if brief_uses_catalog(draft) and root is None:
+        raise HostChatError(_CATALOG_ROOT_REQUIRED_MSG)
+    hydrated = hydrate_brief_for_review(draft, root)
+    if not isinstance(hydrated, dict):
+        return {
+            "draft_brief": draft,
+            "scene_shards": {},
+            "system_shards": {},
+            "assets_index": [],
+            "hydrate_errors": [],
+        }
+    errors = hydrated.get("hydrate_errors") or []
+    if brief_uses_catalog(draft):
+        blocked = [e for e in errors if "needs project_root" in str(e)]
+        if blocked:
+            raise HostChatError(_CATALOG_ROOT_REQUIRED_MSG)
+    return hydrated
+
+
 def _slug_from_brief_rel(brief_rel: str, *, workspace: Path | None = None) -> str:
     n = brief_rel.replace("\\", "/").lstrip("./")
     if is_external_brief_key(n):
@@ -1439,10 +1470,7 @@ def run_makeability_review(
     genre = str(project_raw.get("genre") or "").strip()
 
     ensure_decision_ledger(session)
-    hydrated = hydrate_brief_for_review(
-        draft,
-        project_root=_project_root_for_session(session),
-    )
+    hydrated = _hydrate_for_makeability(session, draft)
     user_payload = {
         "genre": genre,
         "draft_brief": hydrated.get("draft_brief") or draft,
@@ -1550,6 +1578,7 @@ Rules:
 - open_intent_gaps may include occurrences (canonical|duplicate|conflict) and write_paths: you MUST patch every write_paths entry in one response (description, gameplay_loop, scenes, systems, ui_panels as listed).
 - You may shorten or remove stale duplicate/conflict prose instead of repeating detailed rules in every path.
 - Prefer upsert_system / upsert_scene / upsert_ui_panel for list rows; use set for scalar fields.
+- current_draft_brief scenes/systems are already expanded from catalog shards — write rules into those entry fields (notes/summary/tuning), not by dumping into project.description.
 - Phrases like 先不用解锁 / 直接解锁 / 开局可进 / no unlock = hall enterable from start, NO building purchase lock.
 - Do not invent decisions the user did not make. Do not put numeric tables into brief prose.
 - Do not return a full draft_brief. Do not return decision_checks (a separate Verifier will run).
@@ -1557,6 +1586,7 @@ Rules:
 
 _MAKEABILITY_VERIFIER_SYSTEM = """You are Makeability Verifier — independent from the gap closer.
 Read candidate_draft_brief and pending_decisions (user answers, target_paths, write_paths, occurrences).
+candidate_draft_brief scenes/systems are expanded shard bodies — judge evidence there, not thin catalog refs.
 Reply with JSON only:
 {
   "decision_checks": [
@@ -1700,6 +1730,9 @@ def answer_makeability_gaps(
             raise HostChatError(f"Unknown or unrecoverable gap_id: {row['gap_id']}")
     if not gaps_by_id:
         raise HostChatError("No usable gaps for these answers.")
+
+    # Refuse closer/verifier blind catalog reads (same gate as Critic).
+    _hydrate_for_makeability(session, draft)
 
     ensure_decision_ledger(session)
     touched_keys = record_gap_answers(session, normalized, gaps_by_id)
