@@ -104,6 +104,6 @@ fishing 已真正跑在新模型上：薄目录 + 分册正文 + 简介预算 + 
 ## 7. Resume
 
 1. ~~migrate + validate~~ **done / APPROVED**  
-2. （建议）瘦 `art_direction`；核对 `main_hub` VR  
-3. （建议）fishing 仓 commit  
-4. foundry 平台包仍可另开 commit
+2. ~~瘦 `art_direction`；核对 `main_hub` VR~~ **done**（2026-08-11：art→318 字；main_hub/aquarium_hall VR 纠正）  
+3. ~~fishing 仓 commit~~（随本轮再 push）  
+4. foundry：focus_error + catalog audit 不吞错（同批）

@@ -297,6 +297,28 @@ class TestFocusContextTruncate(unittest.TestCase):
         self.assertLessEqual(len(proj["gameplay_loop"]), GAMEPLAY_LOOP_MAX_CHARS + 1)
         self.assertTrue(proj.get("gameplay_loop_truncated"))
 
+    def test_build_focus_context_sets_focus_error_when_shard_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {"id": "missing", "title": "Missing", "path": "scenes/missing.json"},
+                    ],
+                },
+                "assets": [],
+            }
+            ctx = build_focus_context(
+                draft,
+                {"kind": "scene", "id": "missing"},
+                project_root=root,
+            )
+            self.assertEqual(ctx.get("focus"), {"kind": "scene", "id": "missing"})
+            self.assertNotIn("focus_shard", ctx)
+            err = str(ctx.get("focus_error") or "")
+            self.assertTrue(err, "expected focus_error when shard cannot load")
+
 
 class TestUpsertShardBody(unittest.TestCase):
     def test_upsert_shard_body_updates_file_and_returns_thin_ref(self) -> None:

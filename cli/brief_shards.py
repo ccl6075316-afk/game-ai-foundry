@@ -969,12 +969,12 @@ def build_focus_context(
 
     if focus_kind in ("scene", "system", "asset") and focus_id:
         kind_lit: Kind = focus_kind  # type: ignore[assignment]
+        ctx["focus"] = {"kind": focus_kind, "id": focus_id}
         try:
-            ctx["focus"] = {"kind": focus_kind, "id": focus_id}
             pr = Path(project_root) if project_root is not None else Path(".")
             ctx["focus_shard"] = load_shard(pr, kind_lit, focus_id, draft)
-        except ValueError:
-            pass
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            ctx["focus_error"] = str(exc)
     elif focus_kind == "project":
         ctx["focus"] = {"kind": "project"}
     elif focus_kind in ("visual_target", "intent_gap", "data") and focus_id:

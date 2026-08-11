@@ -2243,8 +2243,8 @@ def audit_brief_for_export(
             brief_data = load_brief_document(brief_path)
             root = project_root_for_brief_path(brief_path)
             errors.extend(audit_catalog_refs(brief_data, root))
-        except (OSError, json.JSONDecodeError, ValueError):
-            pass
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            errors.append(f"catalog audit failed: {exc}")
 
     return errors
 
