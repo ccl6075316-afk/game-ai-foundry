@@ -445,6 +445,113 @@ class TestFocusContextTruncate(unittest.TestCase):
             self.assertTrue(err, "expected focus_error when shard cannot load")
 
 
+class TestFocusContextRelatedShards(unittest.TestCase):
+    def _write_catalog_fixtures(self, root: Path) -> dict:
+        (root / "scenes").mkdir(parents=True, exist_ok=True)
+        (root / "systems").mkdir(parents=True, exist_ok=True)
+        (root / "assets").mkdir(parents=True, exist_ok=True)
+        save_json_shard(
+            root / "scenes" / "main_hub.json",
+            {"id": "main_hub", "title": "Main Hub", "summary": "Hub screen."},
+        )
+        save_json_shard(
+            root / "systems" / "combat.json",
+            {"id": "combat", "title": "Combat", "notes": "Combat rules."},
+        )
+        save_json_shard(
+            root / "assets" / "hero.spec.json",
+            {
+                "id": "hero",
+                "name": "Hero",
+                "type": "character",
+                "scene_ids": ["main_hub"],
+            },
+        )
+        save_json_shard(
+            root / "scenes" / "arena.json",
+            {
+                "id": "arena",
+                "title": "Arena",
+                "notes": "Uses combat system for rounds.",
+            },
+        )
+        return {
+            "project": {"title": "T"},
+            "scenes": [
+                {"id": "main_hub", "title": "Main Hub", "path": "scenes/main_hub.json"},
+                {"id": "arena", "title": "Arena", "path": "scenes/arena.json"},
+            ],
+            "systems": [
+                {"id": "combat", "title": "Combat", "path": "systems/combat.json"},
+            ],
+            "assets": [
+                {"id": "hero", "name": "Hero", "path": "assets/hero.spec.json"},
+            ],
+        }
+
+    def test_scene_focus_includes_related_shards_without_notes_dump(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = self._write_catalog_fixtures(root)
+            ctx = build_focus_context(
+                draft,
+                {"kind": "scene", "id": "arena"},
+                project_root=root,
+            )
+            related = ctx.get("related_shards")
+            self.assertIsInstance(related, list)
+            combat_hits = [r for r in related if r.get("kind") == "system" and r.get("id") == "combat"]
+            self.assertEqual(len(combat_hits), 1)
+            for item in related:
+                self.assertNotIn("notes", item)
+            self.assertNotIn("combat", ctx)
+            systems_thin = ctx.get("systems") or []
+            for row in systems_thin:
+                self.assertNotIn("notes", row)
+
+    def test_project_focus_omits_related_shards(self) -> None:
+        draft = {"project": {"title": "T"}, "assets": []}
+        ctx = build_focus_context(draft, {"kind": "project"}, project_root=Path("."))
+        self.assertNotIn("related_shards", ctx)
+        self.assertNotIn("related_error", ctx)
+
+    def test_no_project_root_omits_related_shards(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = self._write_catalog_fixtures(root)
+            ctx = build_focus_context(
+                draft,
+                {"kind": "scene", "id": "arena"},
+                project_root=None,
+            )
+            self.assertNotIn("related_shards", ctx)
+            self.assertNotIn("related_error", ctx)
+
+    def test_missing_shard_keeps_focus_error_with_related_handling(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {"id": "missing", "title": "Missing", "path": "scenes/missing.json"},
+                    ],
+                },
+                "assets": [],
+            }
+            ctx = build_focus_context(
+                draft,
+                {"kind": "scene", "id": "missing"},
+                project_root=root,
+            )
+            self.assertTrue(ctx.get("focus_error"))
+            self.assertNotIn("focus_shard", ctx)
+            if "related_shards" in ctx:
+                self.assertIsInstance(ctx["related_shards"], list)
+            else:
+                self.assertTrue(ctx.get("related_error"))
+
+
 class TestUpsertShardBody(unittest.TestCase):
     def test_upsert_shard_body_updates_file_and_returns_thin_ref(self) -> None:
         with tempfile.TemporaryDirectory() as td:

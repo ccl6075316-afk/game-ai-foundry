@@ -1148,6 +1148,13 @@ def build_focus_context(
             ctx["focus_shard"] = load_shard(pr, kind_lit, focus_id, draft)
         except (OSError, ValueError, json.JSONDecodeError) as exc:
             ctx["focus_error"] = str(exc)
+        if project_root is not None:
+            try:
+                ctx["related_shards"] = related_shards(
+                    Path(project_root), draft, kind_lit, focus_id
+                )
+            except Exception as exc:
+                ctx["related_error"] = str(exc)
     elif focus_kind == "project":
         ctx["focus"] = {"kind": "project"}
     elif focus_kind in ("visual_target", "intent_gap", "data") and focus_id:
