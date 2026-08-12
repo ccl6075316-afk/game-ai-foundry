@@ -9,11 +9,11 @@
 - **Source Of Truth Until**：本方案 `executed` 或被更新 spec/plan 取代
 - **Requirements Source**：[`docs/superpowers/specs/2026-08-12-related-shards-blast-radius-design.md`](../../superpowers/specs/2026-08-12-related-shards-blast-radius-design.md)；用户 2026-08-12 确认「图不靠人维护 / 不做向量」
 - **Compounded Knowledge**：not yet compounded
-- **Resume**：确认本 plan → `/anvil:code` 从任务 1 起；v1.5 软写闸不在本 DAG
+- **Policy Note**：本 DAG 记录 related_shards v1 的历史实现；后续 soft-focus correction 已删除 focus 写闸与 related allowlist，当前行为以 Requirements Source spec 为准。
 
 ## 目标
 
-钉住 scene/system/asset 时，宿主算出「还可能碰到哪些分册」并注入策划 payload。模型看见列表；**写闸仍只允许当前 focus**。
+钉住 scene/system/asset 时，宿主算出「还可能碰到哪些分册」并注入策划 payload。模型看见列表。原 DAG 要求写闸只允许当前 focus；该限制已被后续 soft-focus correction 取代。
 
 ## 非目标
 

@@ -6,6 +6,7 @@ import copy
 import json
 import os
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -40,11 +41,8 @@ from host_chat import (
     clear_session_focus,
     normalize_session_focus,
     focus_from_paths,
-    validate_focus_allows_write,
     user_requests_commit_brief,
     user_requests_commit_doc,
-    user_confirms_related_writes,
-    related_write_allowlist,
 )
 
 
@@ -392,7 +390,6 @@ class HostChatTests(unittest.TestCase):
                 {"op": "set", "path": "project.session_goal", "value": "Land one fish today."},
                 {"op": "set", "path": "project.controls.cast", "value": ["Click"]},
             ],
-            enforce_focus=False,
         )
         self.assertEqual(out["project"]["session_goal"], "Land one fish today.")
         self.assertEqual(out["project"]["controls"]["cast"], ["Click"])
@@ -423,7 +420,6 @@ class HostChatTests(unittest.TestCase):
                     "value": {"id": "bait", "name": "bait", "type": "icon_kit"},
                 },
             ],
-            enforce_focus=False,
         )
         self.assertEqual(len(out["assets"]), 3)
         rod = next(a for a in out["assets"] if a.get("id") == "rod")
@@ -469,7 +465,6 @@ class HostChatTests(unittest.TestCase):
                     "set": {"notes": "开局即可进入"},
                 },
             ],
-            enforce_focus=False,
         )
         self.assertIn("unlocked from the start", out["project"]["systems"][0]["notes"])
         self.assertIn("enterable from the start", out["project"]["scenes"][0]["notes"])
@@ -503,15 +498,13 @@ class HostChatTests(unittest.TestCase):
                     },
                 ],
                 project_root=root,
-                focus={"kind": "scene", "id": "hall"},
-                enforce_focus=True,
             )
             row = out["project"]["scenes"][0]
             self.assertEqual(row, {"id": "hall", "title": "Hall", "path": "scenes/hall.json"})
             body = json.loads(shard_path.read_text(encoding="utf-8"))
             self.assertEqual(body["notes"], "updated notes")
 
-    def test_apply_brief_patches_no_focus_rejects_scene_upsert(self) -> None:
+    def test_apply_brief_patches_no_focus_allows_scene_upsert(self) -> None:
         draft = {
             "project": {
                 "title": "T",
@@ -519,20 +512,21 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
         }
-        with self.assertRaises(HostChatError):
-            apply_brief_patches(
-                draft,
-                [
-                    {
-                        "op": "upsert_scene",
-                        "match": {"id": "hall"},
-                        "set": {"notes": "nope"},
-                    },
-                ],
-                enforce_focus=True,
-            )
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "hall"},
+                    "set": {"notes": "updated without focus"},
+                },
+            ],
+        )
+        self.assertEqual(
+            out["project"]["scenes"][0]["notes"], "updated without focus"
+        )
 
-    def test_apply_brief_patches_focus_mismatch_rejects_scene_upsert(self) -> None:
+    def test_apply_brief_patches_allows_cross_scene_upsert(self) -> None:
         draft = {
             "project": {
                 "title": "T",
@@ -543,41 +537,19 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [{"id": "a", "name": "a", "type": "prop", "usage": "x"}],
         }
-        with self.assertRaises(HostChatError):
-            apply_brief_patches(
-                draft,
-                [
-                    {
-                        "op": "upsert_scene",
-                        "match": {"id": "dock"},
-                        "set": {"notes": "nope"},
-                    },
-                ],
-                focus={"kind": "scene", "id": "hall"},
-                enforce_focus=True,
-            )
         out = apply_brief_patches(
             draft,
             [
                 {
                     "op": "upsert_scene",
-                    "match": {"id": "hall"},
-                    "set": {"notes": "ok"},
+                    "match": {"id": "dock"},
+                    "set": {"notes": "related update"},
                 },
             ],
-            focus={"kind": "scene", "id": "hall"},
-            enforce_focus=True,
         )
-        self.assertEqual(out["project"]["scenes"][0]["notes"], "ok")
+        self.assertEqual(out["project"]["scenes"][1]["notes"], "related update")
 
-    def test_user_confirms_related_writes_phrases(self) -> None:
-        self.assertTrue(user_confirms_related_writes("入口文案一并改相关场景"))
-        self.assertTrue(user_confirms_related_writes("相关也改一下"))
-        self.assertTrue(user_confirms_related_writes("Please also update related shards"))
-        self.assertFalse(user_confirms_related_writes("全局修改"))
-        self.assertFalse(user_confirms_related_writes("改一下主界面"))
-
-    def test_related_allow_lets_mismatch_upsert_related_scene(self) -> None:
+    def test_cross_scene_patch_writes_catalog_shard(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             save_json_shard(
@@ -598,44 +570,1562 @@ class HostChatTests(unittest.TestCase):
                 },
                 "assets": [],
             }
-            allow = related_write_allowlist(
-                draft, {"kind": "scene", "id": "hall"}, root
-            )
-            self.assertIn(("scene", "dock"), allow)
-            with self.assertRaises(HostChatError):
-                apply_brief_patches(
-                    draft,
-                    [
-                        {
-                            "op": "upsert_scene",
-                            "match": {"id": "dock"},
-                            "set": {"notes": "nope"},
-                        },
-                    ],
-                    project_root=root,
-                    focus={"kind": "scene", "id": "hall"},
-                    enforce_focus=True,
-                )
             out = apply_brief_patches(
                 draft,
                 [
                     {
                         "op": "upsert_scene",
                         "match": {"id": "dock"},
-                        "set": {"notes": "updated from related"},
+                        "set": {"notes": "updated across focus"},
                     },
                 ],
                 project_root=root,
-                focus={"kind": "scene", "id": "hall"},
-                enforce_focus=True,
-                related_allow=allow,
             )
-            body = json.loads((root / "scenes" / "dock.json").read_text(encoding="utf-8"))
-            self.assertEqual(body["notes"], "updated from related")
+            body = json.loads(
+                (root / "scenes" / "dock.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(body["notes"], "updated across focus")
             self.assertEqual(out["project"]["scenes"][1]["path"], "scenes/dock.json")
 
-    def test_validate_focus_intent_gap_allows_scene(self) -> None:
-        validate_focus_allows_write({"kind": "intent_gap", "id": "gap1"}, "scene", "hall")
+    def test_apply_brief_patches_no_focus_allows_asset_upsert(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "fish", "name": "鱼", "type": "character"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "fish"},
+                    "set": {"display_size": {"width": 1536, "height": 1024}},
+                },
+            ],
+        )
+        self.assertEqual(
+            out["assets"][0]["display_size"], {"width": 1536, "height": 1024}
+        )
+
+    def test_apply_brief_patches_rejects_destructive_collection_set(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall"}],
+            },
+            "assets": [{"id": "fish", "name": "鱼", "type": "character"}],
+        }
+        for path, value in (
+            ("project", {}),
+            ("project.scenes", []),
+            ("project.scenes.invalid", "x"),
+            ("project..scenes", []),
+            (".project.scenes", []),
+        ):
+            with self.subTest(path=path):
+                with self.assertRaisesRegex(HostChatError, "受保护|空路径段"):
+                    apply_brief_patches(
+                        draft,
+                        [{"op": "set", "path": path, "value": value}],
+                    )
+
+    def test_apply_brief_patches_rejects_stable_catalog_key_changes(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [
+                    {
+                        "id": "hall",
+                        "title": "Hall",
+                        "path": "scenes/hall.json",
+                    }
+                ],
+            },
+            "assets": [{"id": "fish", "name": "鱼", "type": "character"}],
+        }
+        for path, value in (
+            ("project.scenes[id=hall].id", "dock"),
+            ("project.scenes[id=hall].path", "../escape.json"),
+            ("project.scenes[id=hall]..id", "dock"),
+            ("project.scenes[id=hall]..path", "../escape.json"),
+        ):
+            with self.subTest(path=path):
+                with self.assertRaisesRegex(HostChatError, "稳定字段|空路径段"):
+                    apply_brief_patches(
+                        draft,
+                        [
+                            {
+                                "op": "set",
+                                "path": path,
+                                "value": value,
+                            }
+                        ],
+                    )
+
+    def test_apply_brief_patches_rejects_typed_upsert_path_mismatch(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall"}],
+                "systems": [],
+            },
+            "assets": [{"id": "fish", "name": "鱼", "type": "character"}],
+        }
+        with self.assertRaisesRegex(HostChatError, "path"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "path": "project.systems",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "wrong section"},
+                    }
+                ],
+            )
+
+    def test_invalid_asset_patch_does_not_mutate_catalog_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "assets" / "fish.spec.json"
+            save_json_shard(
+                shard,
+                {"id": "fish", "name": "鱼", "type": "character"},
+            )
+            before = shard.read_bytes()
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "fish",
+                        "name": "鱼",
+                        "path": "assets/fish.spec.json",
+                    }
+                ],
+            }
+            with self.assertRaisesRegex(HostChatError, "Unknown asset type"):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_asset",
+                            "match": {"id": "fish"},
+                            "set": {"type": "not_a_real_type"},
+                        }
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(shard.read_bytes(), before)
+
+    def test_invalid_content_class_does_not_mutate_catalog_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "assets" / "fish.spec.json"
+            save_json_shard(
+                shard,
+                {"id": "fish", "name": "鱼", "type": "character"},
+            )
+            before = shard.read_bytes()
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "fish",
+                        "name": "鱼",
+                        "path": "assets/fish.spec.json",
+                    }
+                ],
+            }
+            with self.assertRaisesRegex(HostChatError, "content_class"):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_asset",
+                            "match": {"id": "fish"},
+                            "set": {"content_class": "bogus"},
+                        }
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(shard.read_bytes(), before)
+
+    def test_add_asset_rejects_invalid_content_class(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "fish", "name": "鱼", "type": "character"}],
+        }
+        with self.assertRaisesRegex(HostChatError, "content_class"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "add_asset",
+                        "value": {
+                            "id": "rock",
+                            "name": "石头",
+                            "type": "texture",
+                            "content_class": "bogus",
+                        },
+                    }
+                ],
+            )
+
+    def test_asset_name_match_preserves_existing_catalog_id(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            original_shard = root / "assets" / "fish_01.spec.json"
+            save_json_shard(
+                original_shard,
+                {"id": "fish_01", "name": "鱼", "type": "character"},
+            )
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "fish_01",
+                        "name": "鱼",
+                        "path": "assets/fish_01.spec.json",
+                    }
+                ],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"name": "鱼"},
+                        "set": {"description": "updated"},
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertEqual(out["assets"][0]["id"], "fish_01")
+            self.assertEqual(out["assets"][0]["path"], "assets/fish_01.spec.json")
+            self.assertEqual(
+                json.loads(original_shard.read_text(encoding="utf-8"))["description"],
+                "updated",
+            )
+            self.assertFalse((root / "assets" / "鱼.spec.json").exists())
+
+    def test_generic_scene_upsert_writes_catalog_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(
+                shard,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_list",
+                        "path": "project.scenes",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "new"},
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertNotIn("notes", out["project"]["scenes"][0])
+            self.assertEqual(
+                json.loads(shard.read_text(encoding="utf-8"))["notes"], "new"
+            )
+
+    def test_invalid_later_catalog_path_prevents_earlier_shard_write(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            first = root / "scenes" / "hall.json"
+            save_json_shard(first, {"id": "hall", "title": "Hall", "notes": "old"})
+            before = first.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        },
+                        {
+                            "id": "dock",
+                            "title": "Dock",
+                            "path": "../escape.json",
+                        },
+                    ],
+                },
+                "assets": [],
+            }
+            with self.assertRaises(HostChatError):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "hall"},
+                            "set": {"notes": "must not persist"},
+                        },
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "dock"},
+                            "set": {"notes": "invalid target"},
+                        },
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(first.read_bytes(), before)
+
+    def test_runtime_write_failure_rolls_back_earlier_shard(self) -> None:
+        from brief_shards import upsert_shard_body as real_upsert_shard_body
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            hall = root / "scenes" / "hall.json"
+            dock = root / "scenes" / "dock.json"
+            save_json_shard(hall, {"id": "hall", "title": "Hall", "notes": "old hall"})
+            save_json_shard(dock, {"id": "dock", "title": "Dock", "notes": "old dock"})
+            before = hall.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        },
+                        {
+                            "id": "dock",
+                            "title": "Dock",
+                            "path": "scenes/dock.json",
+                        },
+                    ],
+                },
+                "assets": [],
+            }
+            calls = 0
+
+            def fail_second_write(*args, **kwargs):
+                nonlocal calls
+                calls += 1
+                if calls == 2:
+                    raise OSError("simulated write failure")
+                return real_upsert_shard_body(*args, **kwargs)
+
+            with patch("host_chat.upsert_shard_body", side_effect=fail_second_write):
+                with self.assertRaises(OSError):
+                    apply_brief_patches(
+                        draft,
+                        [
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": "hall"},
+                                "set": {"notes": "new hall"},
+                            },
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": "dock"},
+                                "set": {"notes": "new dock"},
+                            },
+                        ],
+                        project_root=root,
+                    )
+            self.assertEqual(hall.read_bytes(), before)
+
+    def test_asset_batch_validates_final_candidate_state(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "switch", "name": "开关", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "switch"},
+                    "set": {"states": ["on", "off"]},
+                },
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "switch"},
+                    "set": {"content_class": "prop_stateful"},
+                },
+            ],
+        )
+        self.assertEqual(out["assets"][0]["states"], ["on", "off"])
+        self.assertEqual(out["assets"][0]["content_class"], "prop_stateful")
+
+    def test_dynamic_asset_target_is_rolled_back_after_later_failure(self) -> None:
+        from brief_shards import upsert_shard_body as real_upsert_shard_body
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            existing_asset = root / "assets" / "seed.spec.json"
+            scene = root / "scenes" / "hall.json"
+            save_json_shard(
+                existing_asset,
+                {"id": "seed", "name": "种子", "type": "texture"},
+            )
+            save_json_shard(scene, {"id": "hall", "title": "Hall"})
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [
+                    {
+                        "id": "seed",
+                        "name": "种子",
+                        "path": "assets/seed.spec.json",
+                    }
+                ],
+            }
+            calls = 0
+
+            def fail_scene_write(*args, **kwargs):
+                nonlocal calls
+                calls += 1
+                if calls == 3:
+                    raise OSError("simulated scene failure")
+                return real_upsert_shard_body(*args, **kwargs)
+
+            with patch("host_chat.upsert_shard_body", side_effect=fail_scene_write):
+                with self.assertRaises(OSError):
+                    apply_brief_patches(
+                        draft,
+                        [
+                            {
+                                "op": "add_asset",
+                                "value": {
+                                    "id": "a",
+                                    "name": "N",
+                                    "type": "texture",
+                                },
+                            },
+                            {
+                                "op": "upsert_asset",
+                                "match": {"name": "N"},
+                                "set": {"usage": "ui"},
+                            },
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": "hall"},
+                                "set": {"notes": "fail"},
+                            },
+                        ],
+                        project_root=root,
+                    )
+            self.assertFalse((root / "assets" / "a.spec.json").exists())
+            self.assertFalse((root / "assets" / "N.spec.json").exists())
+
+    def test_batch_asset_name_collision_is_rejected_before_write(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            a_shard = root / "assets" / "a.spec.json"
+            b_shard = root / "assets" / "b.spec.json"
+            save_json_shard(a_shard, {"id": "a", "name": "A", "type": "texture"})
+            save_json_shard(b_shard, {"id": "b", "name": "B", "type": "texture"})
+            before_a = a_shard.read_bytes()
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {"id": "a", "name": "A", "path": "assets/a.spec.json"},
+                    {"id": "b", "name": "B", "path": "assets/b.spec.json"},
+                ],
+            }
+            with self.assertRaisesRegex(HostChatError, "歧义|冲突"):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_asset",
+                            "match": {"id": "a"},
+                            "set": {"name": "B"},
+                        },
+                        {
+                            "op": "upsert_asset",
+                            "match": {"name": "B"},
+                            "set": {"states": ["on", "off"]},
+                        },
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(a_shard.read_bytes(), before_a)
+
+    def test_catalog_add_asset_creates_shard_and_thin_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "assets" / "seed.spec.json",
+                {"id": "seed", "name": "种子", "type": "texture"},
+            )
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "seed",
+                        "name": "种子",
+                        "path": "assets/seed.spec.json",
+                    }
+                ],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "add_asset",
+                        "value": {
+                            "id": "rock",
+                            "name": " 石头 ",
+                            "type": "texture",
+                            "description": "new asset",
+                        },
+                    }
+                ],
+                project_root=root,
+            )
+            added = next(item for item in out["assets"] if item["id"] == "rock")
+            self.assertEqual(
+                added,
+                {
+                    "id": "rock",
+                    "name": "石头",
+                    "path": "assets/rock.spec.json",
+                },
+            )
+            body = json.loads(
+                (root / "assets" / "rock.spec.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(body["description"], "new asset")
+            self.assertEqual(body["name"], "石头")
+
+    def test_catalog_add_then_incremental_upsert_validates_final_state(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "assets" / "seed.spec.json",
+                {"id": "seed", "name": "种子", "type": "texture"},
+            )
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "seed",
+                        "name": "种子",
+                        "path": "assets/seed.spec.json",
+                    }
+                ],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "add_asset",
+                        "value": {
+                            "id": "rock",
+                            "name": "石头",
+                            "type": "texture",
+                        },
+                    },
+                    {
+                        "op": "upsert_asset",
+                        "match": {"name": "石头"},
+                        "set": {"usage": "decoration"},
+                    },
+                ],
+                project_root=root,
+            )
+            added = next(item for item in out["assets"] if item["id"] == "rock")
+            self.assertNotIn("usage", added)
+            body = json.loads(
+                (root / "assets" / "rock.spec.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(body["usage"], "decoration")
+
+    def test_generic_scene_upsert_requires_match_id(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall"}],
+            },
+            "assets": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "match.id"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_list",
+                        "path": "project.scenes",
+                        "match": {"name": "hall"},
+                        "set": {"notes": "x"},
+                    }
+                ],
+            )
+
+    def test_invalid_new_catalog_id_raises_host_chat_error(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "hall.json",
+                {"id": "hall", "title": "Hall"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            with self.assertRaises(HostChatError):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "../escape"},
+                            "set": {"title": "Escape"},
+                        }
+                    ],
+                    project_root=root,
+                )
+
+    def test_asset_identity_conflicts_are_case_insensitive(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {
+                    "id": "rod",
+                    "name": "Rod",
+                    "type": "texture",
+                    "description": "original",
+                }
+            ],
+        }
+        for value in (
+            {"id": "ROD", "name": "Other", "type": "character"},
+            {"id": "other", "name": "rod", "type": "character"},
+        ):
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(HostChatError, "冲突|稳定 id"):
+                    apply_brief_patches(
+                        draft,
+                        [{"op": "add_asset", "value": value}],
+                    )
+
+    def test_new_asset_upsert_preserves_match_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "seed", "name": "Seed", "type": "texture"},
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "new", "name": "Display"},
+                    "set": {"type": "texture"},
+                }
+            ],
+        )
+        added = next(item for item in out["assets"] if item["id"] == "new")
+        self.assertEqual(added["name"], "Display")
+
+    def test_asset_identity_rejects_cross_field_conflicts(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "rod", "name": "bait", "type": "texture"},
+                {"id": "hook", "name": "worm", "type": "texture"},
+            ],
+        }
+        conflicting_patches = (
+            {
+                "op": "add_asset",
+                "value": {"id": "bait", "name": "hook", "type": "texture"},
+            },
+            {
+                "op": "add_asset",
+                "value": {"id": "hook", "name": "ROD", "type": "texture"},
+            },
+            {
+                "op": "upsert_asset",
+                "match": {"id": "rod"},
+                "set": {"name": "HOOK"},
+            },
+        )
+        for patch_value in conflicting_patches:
+            with self.subTest(patch=patch_value):
+                with self.assertRaisesRegex(HostChatError, "冲突|歧义"):
+                    apply_brief_patches(draft, [patch_value])
+
+    def test_new_asset_rejects_noncanonical_id_without_writing_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "assets" / "seed.spec.json",
+                {"id": "seed", "name": "Seed", "type": "texture"},
+            )
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {
+                        "id": "seed",
+                        "name": "Seed",
+                        "path": "assets/seed.spec.json",
+                    }
+                ],
+            }
+            for invalid_id in ("A", "a/b", "two words", "../escape"):
+                with self.subTest(asset_id=invalid_id):
+                    with self.assertRaisesRegex(HostChatError, "稳定 id"):
+                        apply_brief_patches(
+                            draft,
+                            [
+                                {
+                                    "op": "upsert_asset",
+                                    "match": {
+                                        "id": invalid_id,
+                                        "name": "Invalid",
+                                    },
+                                    "set": {"type": "texture"},
+                                }
+                            ],
+                            project_root=root,
+                        )
+            self.assertEqual(
+                sorted(path.name for path in (root / "assets").iterdir()),
+                ["seed.spec.json"],
+            )
+
+    def test_inline_asset_nested_updates_use_deep_merge(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {
+                    "id": "panel",
+                    "name": "Panel",
+                    "type": "texture",
+                    "display_size": {"width": 100, "height": 200},
+                }
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "panel"},
+                    "set": {"display_size": {"width": 300}},
+                },
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "panel"},
+                    "set": {"display_size": {"height": 400}},
+                },
+            ],
+        )
+        self.assertEqual(
+            out["assets"][0]["display_size"],
+            {"width": 300, "height": 400},
+        )
+
+    def test_new_asset_upsert_rejects_conflicting_or_blank_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "rod", "name": "bait", "type": "texture"},
+            ],
+        }
+        patches = (
+            {
+                "op": "upsert_asset",
+                "match": {"id": "hook"},
+                "set": {"name": "BAIT", "type": "texture"},
+            },
+            {
+                "op": "upsert_asset",
+                "match": {"id": "hook"},
+                "set": {"name": "   ", "type": "texture"},
+            },
+            {
+                "op": "add_asset",
+                "value": {"id": "hook", "name": "   ", "type": "texture"},
+            },
+            {
+                "op": "upsert_asset",
+                "match": {"id": "hook", "name": "   "},
+                "set": {"type": "texture"},
+            },
+        )
+        for patch_value in patches:
+            with self.subTest(patch=patch_value):
+                with self.assertRaisesRegex(HostChatError, "冲突|不能为空"):
+                    apply_brief_patches(draft, [patch_value])
+
+    def test_id_only_new_asset_upsert_uses_id_as_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "seed", "name": "Seed", "type": "texture"},
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "hook"},
+                    "set": {"type": "texture"},
+                }
+            ],
+        )
+        added = next(item for item in out["assets"] if item["id"] == "hook")
+        self.assertEqual(added["name"], "hook")
+
+    def test_inline_add_asset_trims_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "seed", "name": "Seed", "type": "texture"},
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "add_asset",
+                    "value": {
+                        "id": "hook",
+                        "name": " Hook ",
+                        "type": "texture",
+                    },
+                }
+            ],
+        )
+        added = next(item for item in out["assets"] if item["id"] == "hook")
+        self.assertEqual(added["name"], "Hook")
+
+    def test_inline_asset_rename_trims_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "seed", "name": "Seed", "type": "texture"},
+            ],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": "seed"},
+                    "set": {"name": " Renamed "},
+                }
+            ],
+        )
+        self.assertEqual(out["assets"][0]["name"], "Renamed")
+
+    def test_scene_upsert_rejects_noncanonical_or_case_variant_id(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(
+                shard,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            before = shard.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            for scene_id in ("HALL", "two words", "../escape"):
+                with self.subTest(scene_id=scene_id):
+                    with self.assertRaisesRegex(HostChatError, "稳定 id|冲突"):
+                        apply_brief_patches(
+                            draft,
+                            [
+                                {
+                                    "op": "upsert_scene",
+                                    "match": {"id": scene_id},
+                                    "set": {"notes": "invalid"},
+                                }
+                            ],
+                            project_root=root,
+                        )
+            self.assertEqual(shard.read_bytes(), before)
+
+    def test_scene_set_rejects_nested_index_fields(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall"}],
+            },
+            "assets": [],
+        }
+        for field in ("id.value", "title.text", "path.value"):
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(HostChatError, "稳定字段|子路径"):
+                    apply_brief_patches(
+                        draft,
+                        [
+                            {
+                                "op": "set",
+                                "path": f"project.scenes[id=hall].{field}",
+                                "value": "broken",
+                            }
+                        ],
+                    )
+
+    def test_scene_set_rejects_noncanonical_selector_id(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "hall", "title": "Hall"}],
+            },
+            "assets": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "稳定 id"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "set",
+                        "path": "project.scenes[id=HALL].notes",
+                        "value": "invalid",
+                    }
+                ],
+            )
+
+    def test_inline_scene_nested_updates_use_deep_merge(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [
+                    {
+                        "id": "hall",
+                        "title": "Hall",
+                        "camera": {"zoom": 1, "pan": 2},
+                    }
+                ],
+            },
+            "assets": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "hall"},
+                    "set": {"camera": {"zoom": 3}},
+                }
+            ],
+        )
+        self.assertEqual(
+            out["project"]["scenes"][0]["camera"],
+            {"zoom": 3, "pan": 2},
+        )
+
+    def test_catalog_new_asset_upsert_requires_project_root(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {
+                    "id": "seed",
+                    "name": "Seed",
+                    "path": "assets/seed.spec.json",
+                }
+            ],
+        }
+        with self.assertRaisesRegex(HostChatError, "project_root"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "rock"},
+                        "set": {"type": "texture"},
+                    }
+                ],
+            )
+
+    def test_catalog_scene_upsert_requires_project_root(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [
+                    {
+                        "id": "hall",
+                        "title": "Hall",
+                        "path": "scenes/hall.json",
+                    }
+                ],
+            },
+            "assets": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "project_root"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "new"},
+                    }
+                ],
+            )
+
+    def test_catalog_scene_title_set_updates_index_and_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(shard, {"id": "hall", "title": "Old"})
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Old",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "set",
+                        "path": "project.scenes[id=hall].title",
+                        "value": "New",
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertEqual(out["project"]["scenes"][0]["title"], "New")
+            self.assertEqual(
+                json.loads(shard.read_text(encoding="utf-8"))["title"],
+                "New",
+            )
+
+    def test_stale_catalog_draft_does_not_revert_committed_title(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(
+                shard,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            stale_draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            apply_brief_patches(
+                stale_draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"title": "Renamed"},
+                    }
+                ],
+                project_root=root,
+            )
+            out = apply_brief_patches(
+                stale_draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "second"},
+                    }
+                ],
+                project_root=root,
+            )
+            body = json.loads(shard.read_text(encoding="utf-8"))
+            self.assertEqual(body["title"], "Renamed")
+            self.assertEqual(out["project"]["scenes"][0]["title"], "Renamed")
+
+    def test_stale_mixed_catalog_inline_entry_preserves_committed_title(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "dock.json",
+                {"id": "dock", "title": "Dock"},
+            )
+            stale_draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "notes": "old",
+                        },
+                        {
+                            "id": "dock",
+                            "title": "Dock",
+                            "path": "scenes/dock.json",
+                        },
+                    ],
+                },
+                "assets": [],
+            }
+            apply_brief_patches(
+                stale_draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"title": "Renamed"},
+                    }
+                ],
+                project_root=root,
+            )
+            out = apply_brief_patches(
+                stale_draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "hall"},
+                        "set": {"notes": "second"},
+                    }
+                ],
+                project_root=root,
+            )
+            body = json.loads(
+                (root / "scenes" / "hall.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(body["title"], "Renamed")
+            self.assertEqual(out["project"]["scenes"][0]["title"], "Renamed")
+
+    def test_asset_schema_preflight_uses_existing_default_shard(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "hall.json",
+                {"id": "hall", "title": "Hall"},
+            )
+            orphan = root / "assets" / "rock.spec.json"
+            save_json_shard(
+                orphan,
+                {
+                    "id": "rock",
+                    "name": "Rock",
+                    "type": "texture",
+                    "content_class": "bogus",
+                },
+            )
+            before = orphan.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            with self.assertRaisesRegex(HostChatError, "content_class"):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_asset",
+                            "match": {"id": "rock", "name": "Rock"},
+                            "set": {"type": "texture"},
+                        }
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(orphan.read_bytes(), before)
+
+    def test_mixed_asset_write_preserves_inline_name_when_shard_lacks_name(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "hall.json",
+                {"id": "hall", "title": "Hall"},
+            )
+            asset_shard = root / "assets" / "rock.spec.json"
+            save_json_shard(asset_shard, {"id": "rock", "type": "texture"})
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [
+                    {
+                        "id": "rock",
+                        "name": "Current Rock",
+                        "type": "texture",
+                    }
+                ],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "rock"},
+                        "set": {"usage": "decor"},
+                    }
+                ],
+                project_root=root,
+            )
+            body = json.loads(asset_shard.read_text(encoding="utf-8"))
+            self.assertEqual(body["name"], "Current Rock")
+            self.assertEqual(out["assets"][0]["name"], "Current Rock")
+
+    def test_stale_catalog_asset_names_refresh_before_identity_validation(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "assets" / "a.spec.json",
+                {"id": "a", "name": "B", "type": "texture"},
+            )
+            save_json_shard(
+                root / "assets" / "b.spec.json",
+                {"id": "b", "name": "C", "type": "texture"},
+            )
+            stale_draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {"id": "a", "name": "A", "path": "assets/a.spec.json"},
+                    {"id": "b", "name": "B", "path": "assets/b.spec.json"},
+                ],
+            }
+            out = apply_brief_patches(
+                stale_draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "a"},
+                        "set": {"usage": "updated"},
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertEqual(
+                [(item["id"], item["name"]) for item in out["assets"]],
+                [("a", "B"), ("b", "C")],
+            )
+
+    def test_id_only_upsert_preserves_existing_orphan_shard_name(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "hall.json",
+                {"id": "hall", "title": "Hall"},
+            )
+            asset_shard = root / "assets" / "rock.spec.json"
+            save_json_shard(
+                asset_shard,
+                {"id": "rock", "name": "Display Rock", "type": "texture"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "rock"},
+                        "set": {"usage": "decor"},
+                    }
+                ],
+                project_root=root,
+            )
+            body = json.loads(asset_shard.read_text(encoding="utf-8"))
+            self.assertEqual(body["name"], "Display Rock")
+            self.assertEqual(out["assets"][0]["name"], "Display Rock")
+
+    def test_catalog_shard_id_mismatch_is_rejected_without_write(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(
+                shard,
+                {"id": "other", "title": "Other", "notes": "foreign"},
+            )
+            before = shard.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            with self.assertRaisesRegex(HostChatError, "shard id|身份"):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "hall"},
+                            "set": {"notes": "patched"},
+                        }
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(shard.read_bytes(), before)
+
+    def test_generic_set_rejects_traversing_existing_non_object(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "controls": {"cast": ["Click", "Space"]},
+            },
+            "assets": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "非对象|non-object"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "set",
+                        "path": "project.controls.cast.primary",
+                        "value": "Click",
+                    }
+                ],
+            )
+        self.assertEqual(draft["project"]["controls"]["cast"], ["Click", "Space"])
+
+    def test_generic_set_batch_rejects_traversing_new_non_object(self) -> None:
+        draft = {"project": {"title": "T"}, "assets": []}
+        with self.assertRaises(HostChatError):
+            apply_brief_patches(
+                draft,
+                [
+                    {"op": "set", "path": "project.mode", "value": []},
+                    {
+                        "op": "set",
+                        "path": "project.mode.primary",
+                        "value": "x",
+                    },
+                ],
+            )
+
+    def test_same_project_patch_transactions_are_serialized(self) -> None:
+        from brief_shards import upsert_shard_body as real_upsert_shard_body
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            hall = root / "scenes" / "hall.json"
+            dock = root / "scenes" / "dock.json"
+            save_json_shard(hall, {"id": "hall", "title": "Hall", "notes": "old"})
+            save_json_shard(dock, {"id": "dock", "title": "Dock", "notes": "old"})
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        },
+                        {
+                            "id": "dock",
+                            "title": "Dock",
+                            "path": "scenes/dock.json",
+                        },
+                    ],
+                },
+                "assets": [],
+            }
+            a_wrote = threading.Event()
+            allow_a_failure = threading.Event()
+            b_entered_write = threading.Event()
+            errors: list[Exception] = []
+
+            def controlled_upsert(*args, **kwargs):
+                entry_id = str(args[3])
+                if threading.current_thread().name == "patch-a":
+                    if entry_id == "hall":
+                        result = real_upsert_shard_body(*args, **kwargs)
+                        a_wrote.set()
+                        allow_a_failure.wait(timeout=2)
+                        return result
+                    raise OSError("simulated later failure")
+                b_entered_write.set()
+                return real_upsert_shard_body(*args, **kwargs)
+
+            def run_a() -> None:
+                try:
+                    apply_brief_patches(
+                        draft,
+                        [
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": "hall"},
+                                "set": {"notes": "A"},
+                            },
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": "dock"},
+                                "set": {"notes": "fail"},
+                            },
+                        ],
+                        project_root=root,
+                    )
+                except Exception as exc:
+                    errors.append(exc)
+
+            def run_b() -> None:
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "hall"},
+                            "set": {"notes": "B committed"},
+                        }
+                    ],
+                    project_root=root,
+                )
+
+            with patch("host_chat.upsert_shard_body", side_effect=controlled_upsert):
+                thread_a = threading.Thread(target=run_a, name="patch-a")
+                thread_a.start()
+                self.assertTrue(a_wrote.wait(timeout=2))
+                thread_b = threading.Thread(target=run_b, name="patch-b")
+                thread_b.start()
+                b_started_before_release = b_entered_write.wait(timeout=0.1)
+                allow_a_failure.set()
+                thread_a.join(timeout=2)
+                thread_b.join(timeout=2)
+
+            self.assertFalse(b_started_before_release)
+            self.assertTrue(errors)
+            self.assertEqual(
+                json.loads(hall.read_text(encoding="utf-8"))["notes"],
+                "B committed",
+            )
+
+    def test_later_invalid_patch_prevents_earlier_shard_write(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            scene_shard = root / "scenes" / "hall.json"
+            asset_shard = root / "assets" / "fish.spec.json"
+            save_json_shard(
+                scene_shard,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            save_json_shard(
+                asset_shard,
+                {"id": "fish", "name": "鱼", "type": "character"},
+            )
+            before = scene_shard.read_bytes()
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [
+                    {
+                        "id": "fish",
+                        "name": "鱼",
+                        "path": "assets/fish.spec.json",
+                    }
+                ],
+            }
+            with self.assertRaises(HostChatError):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "hall"},
+                            "set": {"notes": "must not persist"},
+                        },
+                        {
+                            "op": "upsert_asset",
+                            "match": {"id": "fish"},
+                            "set": {"type": "not_a_real_type"},
+                        },
+                    ],
+                    project_root=root,
+                )
+            self.assertEqual(scene_shard.read_bytes(), before)
 
     def test_load_project_draft_prefers_draft_json_over_export(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

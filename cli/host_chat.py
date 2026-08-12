@@ -10,6 +10,7 @@ import copy
 import hashlib
 import json
 import re
+import threading
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,6 +24,7 @@ from brief import (
     animation_graph_to_dict,
     apply_deterministic_brief_fixes,
     audit_brief_for_export,
+    audit_content_class,
     character_clip_names,
     characters_requiring_animation_graph,
     finalize_brief_export,
@@ -83,8 +85,10 @@ from brief_shards import (
     canonicalize_structure_to_shards,
     hydrate_brief_for_review,
     is_catalog_ref,
+    load_json_shard,
+    load_shard,
     project_root_for_brief_path,
-    related_shards,
+    resolve_shard_path,
     upsert_shard_body,
 )
 
@@ -1191,8 +1195,6 @@ def run_brief_enrich(
                 base,
                 patches,
                 project_root=project_root,
-                focus=session.get("focus") if isinstance(session.get("focus"), dict) else None,
-                enforce_focus=False,
             )
             if asset_proposals:
                 session["draft_brief"] = merge_asset_proposals(
@@ -1869,12 +1871,7 @@ def answer_makeability_gaps(
 
     assert parsed is not None
     _pin_focus_from_makeability_answers(session, normalized, gaps_by_id)
-    enforce_focus = isinstance(session.get("focus"), dict)
-    apply_kw = {
-        "project_root": _project_root_for_session(session),
-        "focus": session.get("focus") if isinstance(session.get("focus"), dict) else None,
-        "enforce_focus": enforce_focus,
-    }
+    apply_kw = {"project_root": _project_root_for_session(session)}
     try:
         session["draft_brief"] = apply_brief_patches(draft, patches, **apply_kw)
         for key in touched_keys:
@@ -2240,9 +2237,9 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             )
             payload["current_draft_brief_note"] = (
                 "薄目录 + 短 project 简介 + 可选 focus_shard；屏级/系统细则在分册。"
-                "payload 可能含 related_shards（声明引用 + id 提及）。默认仍须 focus.id 一致才可 upsert；"
-                "仅当用户本轮明确说「一并改 / 相关也改」时，宿主才放行 related 列表内的 id。"
-                "未说一并改时，勿因 related_shards 出现而 upsert 其他 id。"
+                "focus 仅提示优先阅读对象，不限制 brief_patches 的写入范围。"
+                "payload 可能含 related_shards（声明引用 + id 提及），用于检查连带影响；"
+                "可按用户意图自主选择需要修改的现有分册。"
                 "需要时用 brief search / brief shard load 读正文，勿把长细则写进 description。"
             )
         else:
@@ -2384,9 +2381,7 @@ def _upsert_list_item(
     found = False
     for i, item in enumerate(items):
         if isinstance(item, dict) and _match_record(item, match, match_fields):
-            merged = copy.deepcopy(item)
-            merged.update(copy.deepcopy(fields))
-            items[i] = merged
+            items[i] = _deep_merge_patch_fields(item, fields)
             found = True
             break
     if not found:
@@ -2441,129 +2436,6 @@ def _upsert_list_catalog_ref(
     parent[leaf] = items
 
 
-_FOCUS_WRITE_DENIED_MSG = (
-    "无法写入场景/系统正文：请先在界面点选场景或系统以钉住 focus，"
-    "或使用 brief search 定位后再改。"
-)
-
-_RELATED_WRITE_RE = re.compile(
-    r"(一并改|一起改|相关也改|相关的也|相关分册|连带改|"
-    r"also\s+(update|change|edit)\s+related|"
-    r"update\s+related\s+(shards?|scenes|systems))",
-    re.I,
-)
-
-
-def user_confirms_related_writes(text: str | None) -> bool:
-    """True when the user explicitly asks to also patch related shards this turn."""
-    if not text or not str(text).strip():
-        return False
-    return bool(_RELATED_WRITE_RE.search(str(text)))
-
-
-def related_write_allowlist(
-    draft: dict[str, Any] | None,
-    focus: dict[str, Any] | None,
-    project_root: Path | None,
-) -> frozenset[tuple[str, str]]:
-    """Host-computed (kind, id) pairs related to the current focus. Empty if unknown."""
-    if not isinstance(draft, dict) or not isinstance(focus, dict) or project_root is None:
-        return frozenset()
-    fk = str(focus.get("kind") or "").strip()
-    fid = str(focus.get("id") or "").strip()
-    if fk not in ("scene", "system", "asset") or not fid:
-        return frozenset()
-    try:
-        rows = related_shards(Path(project_root), draft, fk, fid)  # type: ignore[arg-type]
-    except (OSError, ValueError, json.JSONDecodeError, TypeError):
-        return frozenset()
-    out: set[tuple[str, str]] = set()
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        kind = str(row.get("kind") or "").strip()
-        entry_id = str(row.get("id") or "").strip()
-        if kind in ("scene", "system", "asset") and entry_id:
-            out.add((kind, entry_id))
-    return frozenset(out)
-
-
-def _last_user_message(session: dict[str, Any]) -> str:
-    for item in reversed(list(session.get("messages") or [])):
-        if isinstance(item, dict) and str(item.get("role") or "") == "user":
-            return str(item.get("content") or "")
-    return ""
-
-
-def validate_focus_allows_write(
-    focus: dict[str, Any] | None,
-    kind: Kind,
-    entry_id: str,
-    related_allow: frozenset[tuple[str, str]] | None = None,
-) -> None:
-    """Raise HostChatError when focus does not permit writing this catalog body."""
-    target = str(entry_id or "").strip()
-    if not target:
-        raise HostChatError("补丁缺少 id，无法写入。")
-
-    if (
-        related_allow
-        and (kind, target) in related_allow
-        and isinstance(focus, dict)
-        and str(focus.get("kind") or "").strip()
-    ):
-        return
-
-    if kind == "asset":
-        if not isinstance(focus, dict) or not str(focus.get("kind") or "").strip():
-            raise HostChatError(
-                "无法写入资产正文：请先在界面选中资产或钉住 focus 后再改。"
-            )
-        fk = str(focus.get("kind") or "").strip()
-        if fk == "intent_gap":
-            return
-        if fk != "asset":
-            raise HostChatError(
-                "当前 focus 不是资产，无法写入资产正文；请点选对应资产或切换 focus。"
-            )
-        fid = str(focus.get("id") or "").strip()
-        if fid and fid != target:
-            raise HostChatError(
-                f"focus 指向资产 {fid}，与补丁目标 {target} 不一致；请切换 focus 后再改。"
-            )
-        return
-
-    if not isinstance(focus, dict) or not str(focus.get("kind") or "").strip():
-        raise HostChatError(_FOCUS_WRITE_DENIED_MSG)
-
-    fk = str(focus.get("kind") or "").strip()
-    fid = str(focus.get("id") or "").strip()
-
-    if fk == "intent_gap":
-        return
-    if fk == "project":
-        raise HostChatError(_FOCUS_WRITE_DENIED_MSG)
-    if fk == "visual_target":
-        if kind == "scene" and fid and fid != "global" and fid == target:
-            return
-        raise HostChatError(_FOCUS_WRITE_DENIED_MSG)
-    if fk == "scene":
-        if kind == "scene" and fid == target:
-            return
-        raise HostChatError(
-            f"当前 focus 在场景 {fid or '?'}，无法写入"
-            f"{'系统' if kind == 'system' else '场景'} {target}；请点选目标场景。"
-        )
-    if fk == "system":
-        if kind == "system" and fid == target:
-            return
-        raise HostChatError(
-            f"当前 focus 在系统 {fid or '?'}，无法写入"
-            f"{'场景' if kind == 'scene' else '系统'} {target}；请点选目标系统。"
-        )
-    raise HostChatError(_FOCUS_WRITE_DENIED_MSG)
-
-
 def _match_id_from_dict(match: dict[str, Any]) -> str:
     return str(match.get("id") or match.get("name") or "").strip()
 
@@ -2590,16 +2462,9 @@ def _set_scene_or_system_field(
     subpath: str,
     value: Any,
     project_root: Path | None,
-    focus: dict[str, Any] | None,
-    enforce_focus: bool,
-    related_allow: frozenset[tuple[str, str]] | None = None,
 ) -> None:
-    if enforce_focus:
-        validate_focus_allows_write(
-            focus, kind, entry_id, related_allow=related_allow
-        )
     list_path = "project.scenes" if kind == "scene" else "project.systems"
-    index_keys = frozenset({"id", "title", "path"})
+    index_keys = _STABLE_CATALOG_FIELDS
     if subpath in index_keys:
         _upsert_list_item(
             root,
@@ -2631,14 +2496,594 @@ def _set_scene_or_system_field(
     )
 
 
-def apply_brief_patches(
+_PROTECTED_COLLECTION_PATHS = frozenset(
+    {
+        "assets",
+        "animation_graphs",
+        "project.scenes",
+        "project.systems",
+        "project.ui_panels",
+    }
+)
+_PROTECTED_ROOT_PATHS = frozenset({"project"})
+_ALLOWED_UPSERT_LIST_PATHS = frozenset(
+    {"project.scenes", "project.systems", "project.ui_panels"}
+)
+_TYPED_UPSERT_PATHS = {
+    "upsert_scene": "project.scenes",
+    "upsert_system": "project.systems",
+    "upsert_ui_panel": "project.ui_panels",
+}
+_STABLE_CATALOG_FIELDS = frozenset({"id", "path"})
+_CATALOG_INDEX_FIELDS = frozenset({"id", "title", "path"})
+_STABLE_CATALOG_ID_RE = re.compile(r"^[a-z][a-z0-9_]*$")
+_PATCH_LOCKS_GUARD = threading.Lock()
+_PATCH_LOCKS: dict[str, threading.RLock] = {}
+
+
+def _patch_lock_for(project_root: Path) -> threading.RLock:
+    key = str(Path(project_root).resolve())
+    with _PATCH_LOCKS_GUARD:
+        lock = _PATCH_LOCKS.get(key)
+        if lock is None:
+            lock = threading.RLock()
+            _PATCH_LOCKS[key] = lock
+        return lock
+
+
+def _deep_merge_patch_fields(base: dict[str, Any], fields: dict[str, Any]) -> dict[str, Any]:
+    out = copy.deepcopy(base)
+    for key, value in fields.items():
+        if isinstance(value, dict) and isinstance(out.get(key), dict):
+            out[key] = _deep_merge_patch_fields(out[key], value)
+        else:
+            out[key] = copy.deepcopy(value)
+    return out
+
+
+def _require_loaded_shard_id(body: dict[str, Any], target_id: str) -> None:
+    body_id = str(body.get("id") or "").strip()
+    if body_id and body_id != target_id:
+        raise HostChatError(
+            f"shard id={body_id!r} 与目标身份 {target_id!r} 冲突。"
+        )
+
+
+def _asset_entry_for_match(
+    draft: dict[str, Any], match: dict[str, Any]
+) -> dict[str, Any] | None:
+    for item in draft.get("assets") or []:
+        if isinstance(item, dict) and _match_record(item, match, ("id", "name")):
+            return item
+    return None
+
+
+def _asset_id_for_match(draft: dict[str, Any], match: dict[str, Any]) -> str:
+    explicit_id = str(match.get("id") or "").strip()
+    if explicit_id:
+        return explicit_id
+    entry = _asset_entry_for_match(draft, match)
+    if isinstance(entry, dict):
+        existing_id = str(entry.get("id") or "").strip()
+        if existing_id:
+            return existing_id
+    return str(match.get("name") or "").strip()
+
+
+def _asset_candidate_for_patch(
+    draft: dict[str, Any],
+    match: dict[str, Any],
+    fields: dict[str, Any],
+    project_root: Path | None,
+) -> dict[str, Any]:
+    asset_id = _asset_id_for_match(draft, match)
+    existing: dict[str, Any] = {}
+    entry = _asset_entry_for_match(draft, match)
+    if project_root is not None and brief_uses_catalog(draft):
+        if isinstance(entry, dict) and is_catalog_ref(entry, kind="asset"):
+            existing = load_shard(Path(project_root), "asset", asset_id, draft)
+            _require_loaded_shard_id(existing, asset_id)
+        else:
+            default_path = resolve_shard_path(
+                Path(project_root), f"assets/{asset_id}.spec.json"
+            )
+            if default_path.is_file():
+                existing = load_json_shard(default_path)
+                _require_loaded_shard_id(existing, asset_id)
+                if not str(existing.get("name") or "").strip() and isinstance(
+                    entry, dict
+                ):
+                    existing["name"] = str(entry.get("name") or "").strip()
+            elif isinstance(entry, dict):
+                existing = copy.deepcopy(entry)
+    elif isinstance(entry, dict):
+        existing = copy.deepcopy(entry)
+    candidate = _deep_merge_patch_fields(existing, fields)
+    if asset_id:
+        candidate["id"] = asset_id
+    candidate["name"] = str(
+        candidate.get("name") or match.get("name") or asset_id
+    ).strip()
+    return candidate
+
+
+def _refresh_catalog_asset_refs(
+    draft: dict[str, Any], project_root: Path | None
+) -> dict[str, Any]:
+    out = copy.deepcopy(draft)
+    if project_root is None or not brief_uses_catalog(out):
+        return out
+    root = Path(project_root)
+    assets = out.get("assets") if isinstance(out.get("assets"), list) else []
+    for item in assets:
+        if not isinstance(item, dict):
+            continue
+        asset_id = str(item.get("id") or "").strip()
+        if not asset_id:
+            continue
+        body: dict[str, Any] | None = None
+        if is_catalog_ref(item, kind="asset"):
+            body = load_shard(root, "asset", asset_id, out)
+        else:
+            default_path = resolve_shard_path(
+                root, f"assets/{asset_id}.spec.json"
+            )
+            if default_path.is_file():
+                body = load_json_shard(default_path)
+        if isinstance(body, dict):
+            _require_loaded_shard_id(body, asset_id)
+        current_name = (
+            str(body.get("name") or "").strip()
+            if isinstance(body, dict)
+            else ""
+        )
+        if current_name:
+            item["name"] = current_name
+    return out
+
+
+def _validate_asset_patch_schema(
+    draft: dict[str, Any], candidate: dict[str, Any]
+) -> None:
+    spec = AssetSpec.from_dict(candidate)
+    project = ProjectContext.from_dict(draft.get("project", {}))
+    content_errors = audit_content_class(project, [spec])
+    if content_errors:
+        raise ValueError("; ".join(content_errors))
+
+
+def _validate_set_path_parent_types(root: dict[str, Any], path: str) -> None:
+    parts = [part for part in path.split(".") if part]
+    current: Any = root
+    for part in parts[:-1]:
+        if not isinstance(current, dict):
+            raise HostChatError(
+                f"brief patch set 不能穿透非对象节点：{path}"
+            )
+        if part not in current:
+            return
+        current = current[part]
+    if not isinstance(current, dict):
+        raise HostChatError(f"brief patch set 的父节点是非对象：{path}")
+
+
+def _normalize_brief_patch_batch(
+    draft: dict[str, Any],
+    patches: list[Any],
+    project_root: Path | None,
+) -> list[Any]:
+    """Resolve mutable asset names to stable ids once for the whole patch batch."""
+    asset_rows = [
+        {
+            "id": str(item.get("id") or "").strip(),
+            "name": str(item.get("name") or "").strip(),
+        }
+        for item in draft.get("assets") or []
+        if isinstance(item, dict)
+    ]
+    catalog = brief_uses_catalog(draft)
+    normalized: list[Any] = []
+
+    def _identity_rows(
+        value: str, *, exclude: dict[str, str] | None = None
+    ) -> list[dict[str, str]]:
+        folded = value.casefold()
+        return [
+            row
+            for row in asset_rows
+            if row is not exclude
+            and (
+                str(row.get("id") or "").casefold() == folded
+                or str(row.get("name") or "").casefold() == folded
+            )
+        ]
+
+    def _unique_row(field: str, value: str) -> dict[str, str] | None:
+        folded = value.casefold()
+        field_matches = [
+            row
+            for row in asset_rows
+            if str(row.get(field) or "").casefold() == folded
+        ]
+        identity_matches = _identity_rows(value)
+        if len(field_matches) > 1 or len(identity_matches) > 1:
+            raise HostChatError(f"资产 {field}={value!r} 存在歧义，必须使用唯一 id。")
+        if identity_matches and not field_matches:
+            raise HostChatError(
+                f"资产 {field}={value!r} 与其它资产 identity 冲突。"
+            )
+        return field_matches[0] if field_matches else None
+
+    def _require_new_asset_id(asset_id: str) -> None:
+        if not _STABLE_CATALOG_ID_RE.fullmatch(asset_id):
+            raise HostChatError(
+                f"资产稳定 id 非法：{asset_id!r}；必须匹配 "
+                "^[a-z][a-z0-9_]*$。"
+            )
+
+    for raw in patches:
+        if not isinstance(raw, dict):
+            normalized.append(copy.deepcopy(raw))
+            continue
+        op = str(raw.get("op") or "").strip().lower()
+        if op == "add_asset":
+            value = raw.get("value")
+            if not isinstance(value, dict):
+                normalized.append(copy.deepcopy(raw))
+                continue
+            asset_id = str(value.get("id") or "").strip()
+            name = str(value.get("name") or "").strip()
+            if not asset_id:
+                raise HostChatError("add_asset 必须提供稳定 id。")
+            if not name:
+                raise HostChatError("add_asset 的 name 不能为空。")
+            _require_new_asset_id(asset_id)
+            if _identity_rows(asset_id):
+                raise HostChatError(f"资产 id 冲突：{asset_id}")
+            if name and _identity_rows(name):
+                raise HostChatError(f"资产 name 冲突：{name}")
+            if catalog and project_root is None:
+                raise HostChatError("Catalog 工程新增资产需要 project_root。")
+            asset_rows.append({"id": asset_id, "name": name or asset_id})
+            normalized_fields = {
+                key: copy.deepcopy(item_value)
+                for key, item_value in value.items()
+                if key not in _STABLE_CATALOG_FIELDS
+            }
+            normalized_fields["name"] = name
+            normalized.append(
+                {
+                    "op": "upsert_asset",
+                    "match": {"id": asset_id},
+                    "set": normalized_fields,
+                }
+            )
+            continue
+
+        if op != "upsert_asset":
+            normalized.append(copy.deepcopy(raw))
+            continue
+
+        match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+        fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
+        match_id = str(match.get("id") or "").strip()
+        match_name = str(match.get("name") or "").strip()
+        if "name" in match and not match_name:
+            raise HostChatError("资产 match.name 不能为空。")
+        row_by_id = _unique_row("id", match_id) if match_id else None
+        row_by_name = _unique_row("name", match_name) if match_name else None
+        if match_id and match_name and row_by_id is not row_by_name:
+            raise HostChatError(
+                f"资产 match.id={match_id!r} 与 match.name={match_name!r} 冲突。"
+            )
+        row = row_by_id or row_by_name
+        if row is None and match_id and catalog and project_root is not None:
+            _require_new_asset_id(match_id)
+            default_path = resolve_shard_path(
+                Path(project_root), f"assets/{match_id}.spec.json"
+            )
+            if default_path.is_file():
+                body = load_json_shard(default_path)
+                body_id = str(body.get("id") or match_id).strip()
+                if body_id.casefold() != match_id.casefold():
+                    raise HostChatError(
+                        f"资产 shard id={body_id!r} 与目标 id={match_id!r} 冲突。"
+                    )
+                body_name = str(
+                    body.get("name") or match_name or match_id
+                ).strip()
+                if _identity_rows(body_name):
+                    raise HostChatError(f"资产 name 冲突：{body_name}")
+                row = {"id": match_id, "name": body_name}
+                asset_rows.append(row)
+        if row is None and not match_id:
+            raise HostChatError(
+                f"资产 name={match_name!r} 未唯一命中；新增资产必须提供稳定 id。"
+            )
+        asset_id = row["id"] if row is not None else match_id
+        if not asset_id:
+            raise HostChatError("upsert_asset 必须解析到稳定 id。")
+        normalized_fields = copy.deepcopy(fields)
+        new_name = str(normalized_fields.get("name") or "").strip()
+        if "name" in normalized_fields and not new_name:
+            raise HostChatError("资产 name 不能为空。")
+        if "name" in normalized_fields:
+            normalized_fields["name"] = new_name
+        if row is None:
+            if catalog and project_root is None:
+                raise HostChatError("Catalog 工程新增资产需要 project_root。")
+            _require_new_asset_id(asset_id)
+            if match_name and not str(normalized_fields.get("name") or "").strip():
+                normalized_fields["name"] = match_name
+                new_name = match_name
+            candidate_name = new_name or match_name or asset_id
+            if _identity_rows(candidate_name):
+                raise HostChatError(f"资产 name 冲突：{candidate_name}")
+            normalized_fields["name"] = candidate_name
+            row = {
+                "id": asset_id,
+                "name": candidate_name,
+            }
+            asset_rows.append(row)
+        if new_name and new_name != row.get("name"):
+            if _identity_rows(new_name, exclude=row):
+                raise HostChatError(f"资产 name 冲突：{new_name}")
+            row["name"] = new_name
+        normalized.append(
+            {
+                **copy.deepcopy(raw),
+                "match": {"id": asset_id},
+                "set": normalized_fields,
+            }
+        )
+    return normalized
+
+
+def _validate_catalog_target_shard_id(
+    draft: dict[str, Any],
+    kind: str,
+    entry_id: str,
+    project_root: Path,
+) -> None:
+    target = _catalog_shard_path_for_patch(
+        draft, kind, entry_id, project_root
+    )
+    if target is not None and target.is_file():
+        _require_loaded_shard_id(load_json_shard(target), entry_id)
+
+
+def _validate_brief_patch_safety(
+    draft: dict[str, Any],
+    patches: list[Any],
+    project_root: Path | None,
+) -> None:
+    """Reject destructive or structurally invalid patches before any shard write."""
+    asset_candidates: dict[str, dict[str, Any]] = {}
+    set_state = copy.deepcopy(draft)
+    for raw in patches:
+        if not isinstance(raw, dict):
+            continue
+        op = str(raw.get("op") or "").strip().lower()
+        if op == "set":
+            path = str(raw.get("path") or "").strip()
+            if not path or any(not part for part in path.split(".")):
+                raise HostChatError(f"brief patch path 含空路径段：{path!r}")
+            if (
+                path in _PROTECTED_ROOT_PATHS
+                or path in _PROTECTED_COLLECTION_PATHS
+                or any(
+                    path.startswith(f"{collection_path}.")
+                    for collection_path in _PROTECTED_COLLECTION_PATHS
+                )
+            ):
+                raise HostChatError(f"禁止整体替换或穿透受保护结构：{path}")
+            m_set = _SET_SCENE_SYSTEM_FIELD.match(path)
+            if m_set:
+                subpath = m_set.group(3)
+                stable_field = subpath.split(".", 1)[0]
+                selector_id = m_set.group(2).strip()
+                if not _STABLE_CATALOG_ID_RE.fullmatch(selector_id):
+                    raise HostChatError(
+                        f"稳定 id 非法：{selector_id!r}；"
+                        "必须匹配 ^[a-z][a-z0-9_]*$。"
+                    )
+                if stable_field in _STABLE_CATALOG_FIELDS:
+                    raise HostChatError(
+                        f"禁止通过普通补丁修改稳定字段 {stable_field}；"
+                        "重命名或迁移需使用显式流程。"
+                    )
+                if stable_field == "title" and subpath != "title":
+                    raise HostChatError("title 是标量索引字段，禁止写入子路径。")
+                if brief_uses_catalog(draft) and project_root is None:
+                    raise HostChatError("Catalog 工程修改分册需要 project_root。")
+                if brief_uses_catalog(draft) and project_root is not None:
+                    target_kind = {
+                        "scenes": "scene",
+                        "systems": "system",
+                    }[m_set.group(1)]
+                    _validate_catalog_target_shard_id(
+                        draft, target_kind, selector_id, Path(project_root)
+                    )
+            elif "[" in path or "]" in path:
+                raise HostChatError(f"不支持的 brief patch path：{path}")
+            else:
+                _validate_set_path_parent_types(set_state, path)
+                _set_path_value(set_state, path, raw.get("value"))
+            continue
+
+        if op == "add_asset":
+            value = raw.get("value")
+            if not isinstance(value, dict):
+                continue
+            try:
+                _validate_asset_patch_schema(draft, value)
+            except (KeyError, TypeError, ValueError) as exc:
+                raise HostChatError(str(exc)) from exc
+            continue
+
+        if op not in {
+            "upsert_asset",
+            "upsert_list",
+            "upsert_scene",
+            "upsert_system",
+            "upsert_ui_panel",
+        }:
+            continue
+        match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+        fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
+        changed_stable = sorted(_STABLE_CATALOG_FIELDS.intersection(fields))
+        if changed_stable:
+            raise HostChatError(
+                "禁止通过普通补丁修改稳定字段："
+                + ", ".join(changed_stable)
+                + "；重命名或迁移需使用显式流程。"
+            )
+
+        path = str(raw.get("path") or "").strip()
+        canonical_path = _TYPED_UPSERT_PATHS.get(op)
+        if canonical_path and path and path != canonical_path:
+            raise HostChatError(
+                f"{op} 的 path 必须是 {canonical_path}，收到 {path}"
+            )
+        if op == "upsert_list" and path not in _ALLOWED_UPSERT_LIST_PATHS:
+            raise HostChatError(f"upsert_list 不允许写入 path：{path or '<empty>'}")
+
+        kind_for_path: Kind | None = {
+            "upsert_scene": "scene",
+            "upsert_system": "system",
+        }.get(op)
+        if op == "upsert_list":
+            kind_for_path = {
+                "project.scenes": "scene",
+                "project.systems": "system",
+            }.get(path)
+        if kind_for_path and not str(match.get("id") or "").strip():
+            raise HostChatError(f"{op} 写 {path or canonical_path} 时必须提供 match.id。")
+        if kind_for_path:
+            structure_id = str(match.get("id") or "").strip()
+            if not _STABLE_CATALOG_ID_RE.fullmatch(structure_id):
+                raise HostChatError(
+                    f"{kind_for_path} 稳定 id 非法：{structure_id!r}；"
+                    "必须匹配 ^[a-z][a-z0-9_]*$。"
+                )
+            if brief_uses_catalog(draft) and project_root is None:
+                raise HostChatError("Catalog 工程修改分册需要 project_root。")
+            if brief_uses_catalog(draft) and project_root is not None:
+                _validate_catalog_target_shard_id(
+                    draft,
+                    kind_for_path,
+                    structure_id,
+                    Path(project_root),
+                )
+
+        if op == "upsert_asset" and match and fields:
+            try:
+                asset_id = _asset_id_for_match(draft, match)
+                candidate = asset_candidates.get(asset_id)
+                if candidate is None:
+                    candidate = _asset_candidate_for_patch(
+                        draft, match, {}, project_root
+                    )
+                asset_candidates[asset_id] = _deep_merge_patch_fields(
+                    candidate, fields
+                )
+            except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+                raise HostChatError(str(exc)) from exc
+
+        entry_id = _match_id_from_dict(match)
+        entry = (
+            _find_catalog_entry(draft, kind_for_path, entry_id)
+            if kind_for_path and entry_id
+            else None
+        )
+        if (
+            isinstance(entry, dict)
+            and is_catalog_ref(entry, kind=kind_for_path)
+            and project_root is not None
+        ):
+            try:
+                load_shard(Path(project_root), kind_for_path, entry_id, draft)
+            except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+                raise HostChatError(str(exc)) from exc
+
+    for candidate in asset_candidates.values():
+        try:
+            _validate_asset_patch_schema(draft, candidate)
+        except (KeyError, TypeError, ValueError) as exc:
+            raise HostChatError(str(exc)) from exc
+
+
+def _catalog_shard_path_for_patch(
+    draft: dict[str, Any],
+    kind: Kind,
+    entry_id: str,
+    project_root: Path,
+) -> Path | None:
+    if not entry_id or not _should_persist_shard(
+        draft, kind, entry_id, project_root
+    ):
+        return None
+    entry = _find_catalog_entry(draft, kind, entry_id)
+    if isinstance(entry, dict) and is_catalog_ref(entry, kind=kind):
+        rel = str(entry.get("path") or "").strip()
+    elif kind == "scene":
+        rel = f"scenes/{entry_id}.json"
+    elif kind == "system":
+        rel = f"systems/{entry_id}.json"
+    else:
+        rel = f"assets/{entry_id}.spec.json"
+    return resolve_shard_path(project_root, rel)
+
+
+def _touched_shard_paths(
+    draft: dict[str, Any],
+    patches: list[Any],
+    project_root: Path | None,
+) -> set[Path]:
+    if project_root is None:
+        return set()
+    root = Path(project_root)
+    touched: set[Path] = set()
+    for raw in patches:
+        if not isinstance(raw, dict):
+            continue
+        op = str(raw.get("op") or "").strip().lower()
+        kind: Kind | None = None
+        entry_id = ""
+        if op == "set":
+            m_set = _SET_SCENE_SYSTEM_FIELD.match(str(raw.get("path") or "").strip())
+            if m_set and m_set.group(3) not in _STABLE_CATALOG_FIELDS:
+                kind = "scene" if m_set.group(1).lower() == "scenes" else "system"
+                entry_id = m_set.group(2).strip()
+        elif op == "upsert_asset":
+            match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            kind = "asset"
+            entry_id = _asset_id_for_match(draft, match)
+        elif op in {"upsert_scene", "upsert_system", "upsert_list"}:
+            path = str(raw.get("path") or "").strip()
+            kind = {
+                "upsert_scene": "scene",
+                "upsert_system": "system",
+            }.get(op)
+            if op == "upsert_list":
+                kind = {
+                    "project.scenes": "scene",
+                    "project.systems": "system",
+                }.get(path)
+            match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            entry_id = _match_id_from_dict(match)
+        if kind and entry_id:
+            target = _catalog_shard_path_for_patch(draft, kind, entry_id, root)
+            if target is not None:
+                touched.add(target)
+    return touched
+
+
+def _apply_brief_patches_unchecked(
     draft: dict[str, Any] | None,
     patches: list[Any] | None,
     *,
     project_root: Path | None = None,
-    focus: dict[str, Any] | None = None,
-    enforce_focus: bool = True,
-    related_allow: frozenset[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Apply surgical patches onto a brief draft (code-edit style, not full rewrite).
 
@@ -2675,9 +3120,6 @@ def apply_brief_patches(
                     subpath=subpath,
                     value=raw.get("value"),
                     project_root=project_root,
-                    focus=focus,
-                    enforce_focus=enforce_focus,
-                    related_allow=related_allow,
                 )
             else:
                 _set_path_value(out, path, raw.get("value"))
@@ -2686,11 +3128,7 @@ def apply_brief_patches(
             fields = raw.get("set") if isinstance(raw.get("set"), dict) else {}
             if not match or not fields:
                 continue
-            asset_id = _match_id_from_dict(match)
-            if enforce_focus and asset_id:
-                validate_focus_allows_write(
-                    focus, "asset", asset_id, related_allow=related_allow
-                )
+            asset_id = _asset_id_for_match(out, match)
             ref = None
             if asset_id and _should_persist_shard(out, "asset", asset_id, project_root):
                 ref = upsert_shard_body(
@@ -2714,9 +3152,7 @@ def apply_brief_patches(
                 found = False
                 for i, item in enumerate(assets):
                     if isinstance(item, dict) and _match_record(item, match, ("id", "name")):
-                        merged = copy.deepcopy(item)
-                        merged.update(copy.deepcopy(fields))
-                        assets[i] = merged
+                        assets[i] = _deep_merge_patch_fields(item, fields)
                         found = True
                         break
                 if not found:
@@ -2785,11 +3221,12 @@ def apply_brief_patches(
                 "upsert_scene": "scene",
                 "upsert_system": "system",
             }.get(op)
+            if op == "upsert_list":
+                kind_for_path = {
+                    "project.scenes": "scene",
+                    "project.systems": "system",
+                }.get(path)
             entry_id = _match_id_from_dict(match)
-            if kind_for_path and enforce_focus and entry_id:
-                validate_focus_allows_write(
-                    focus, kind_for_path, entry_id, related_allow=related_allow
-                )
             ref = None
             if kind_for_path and entry_id and _should_persist_shard(
                 out, kind_for_path, entry_id, project_root
@@ -2808,6 +3245,76 @@ def apply_brief_patches(
         else:
             continue
     return apply_description_write_guard(draft, out)
+
+
+def _apply_brief_patches_transaction(
+    draft: dict[str, Any] | None,
+    patches: list[Any] | None,
+    *,
+    project_root: Path | None = None,
+) -> dict[str, Any]:
+    """Validate and transactionally apply surgical brief patches."""
+    if not isinstance(draft, dict) or not draft:
+        raise HostChatError("brief_patches require an existing draft_brief")
+    if not isinstance(patches, list) or not patches:
+        return copy.deepcopy(draft)
+
+    try:
+        working_draft = _refresh_catalog_asset_refs(draft, project_root)
+        normalized = _normalize_brief_patch_batch(
+            working_draft, patches, project_root
+        )
+        _validate_brief_patch_safety(
+            working_draft, normalized, project_root
+        )
+        touched = _touched_shard_paths(
+            working_draft, normalized, project_root
+        )
+        snapshots = {
+            path: path.read_bytes() if path.is_file() else None
+            for path in touched
+        }
+    except HostChatError:
+        raise
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise HostChatError(str(exc)) from exc
+    try:
+        return _apply_brief_patches_unchecked(
+            working_draft, normalized, project_root=project_root
+        )
+    except Exception as exc:
+        rollback_errors: list[str] = []
+        for path, content in snapshots.items():
+            try:
+                if content is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(content)
+            except OSError as rollback_exc:
+                rollback_errors.append(f"{path}: {rollback_exc}")
+        if rollback_errors:
+            raise HostChatError(
+                f"{exc}; shard rollback failed: {'; '.join(rollback_errors)}"
+            ) from exc
+        raise
+
+
+def apply_brief_patches(
+    draft: dict[str, Any] | None,
+    patches: list[Any] | None,
+    *,
+    project_root: Path | None = None,
+) -> dict[str, Any]:
+    """Serialize and transactionally apply surgical brief patches per project."""
+    if project_root is None:
+        return _apply_brief_patches_transaction(
+            draft, patches, project_root=None
+        )
+    with _patch_lock_for(Path(project_root)):
+        return _apply_brief_patches_transaction(
+            draft, patches, project_root=project_root
+        )
 
 
 def _extract_brief_patches(parsed: dict[str, Any]) -> list[Any] | None:
@@ -3156,25 +3663,10 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                 assistant_message += "\n\n（收到定点补丁但还没有草稿，请先聊出一版 draft。）"
             else:
                 try:
-                    focus = (
-                        session.get("focus")
-                        if isinstance(session.get("focus"), dict)
-                        else None
-                    )
-                    related_allow = None
-                    if user_confirms_related_writes(_last_user_message(session)):
-                        related_allow = related_write_allowlist(
-                            base,
-                            focus,
-                            _project_root_for_session(session),
-                        )
                     session["draft_brief"] = apply_brief_patches(
                         base,
                         patches,
                         project_root=_project_root_for_session(session),
-                        focus=focus,
-                        enforce_focus=True,
-                        related_allow=related_allow,
                     )
                     invalidate_verified_ledger_for_patches(session, patches)
                     session["ready_to_export"] = _compute_ready_to_export(session)
@@ -3842,9 +4334,9 @@ def _pin_focus_from_makeability_answers(
 ) -> None:
     """Pin session.focus after makeability answers.
 
-    Prefer ``intent_gap`` so multi-path closer patches (several scenes/systems in one
-    card batch) stay allowed under ``enforce_focus``. Also derive a scene/system focus
-    into ``extra`` when a single path is obvious — for subsequent chat reads.
+    Prefer ``intent_gap`` to preserve the review context across multi-path closer
+    patches. Also derive a scene/system focus into ``extra`` when a single path is
+    obvious — for subsequent chat reads.
     """
     gap_ids = [
         str(row.get("gap_id") or "").strip()

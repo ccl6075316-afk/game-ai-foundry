@@ -22,7 +22,7 @@ Catalog 化后，GUI「Brief 工作草稿」仍用 `formatBriefDocument(session 
 |------|------|
 | **总览** | 简介 / loop / art 门面 + 场景·系统·资产 id+title 清单 |
 | **预览光标（view）** | 文档栏当前打开的对象：`overview` 或 `{kind,id}`；**不写** session |
-| **对话焦点（focus）** | `session.focus`；决定下一轮模型上下文与写闸 |
+| **对话焦点（focus）** | `session.focus`；决定下一轮模型优先上下文，不限制写入范围 |
 | **钉住** | 把当前 view 写成 focus（或清空） |
 | **外部 pin** | 看板 / VT / 审查已有 `pinBriefFocus` → **同时**把文档 view 切到同 id |
 
@@ -94,7 +94,7 @@ type DocsView =
 
 ## 非目标
 
-- 不改变模型侧 `build_focus_context` / 写闸语义。
+- 本预览功能不改变模型侧 `build_focus_context`；写闸语义后来由 soft-focus correction 独立调整。
 - 不做整本 hydrate 给人看的「迁册前体验」复刻。
 - 本轮不拆 `host_chat` 大模块。
 - 不强制 ui_wireframe hydrate。

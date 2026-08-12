@@ -79,6 +79,14 @@ def _nonempty_str(value: Any) -> str:
     return str(value or "").strip()
 
 
+def _require_shard_body_id(body: dict[str, Any], entry_id: str) -> None:
+    body_id = _nonempty_str(body.get("id"))
+    if body_id and body_id != entry_id:
+        raise ValueError(
+            f"Shard body id {body_id!r} does not match target {entry_id!r}"
+        )
+
+
 def _body_keys_for_kind(kind: Kind) -> frozenset[str]:
     if kind == "scene":
         return _SCENE_BODY_HINT_KEYS
@@ -533,51 +541,95 @@ def upsert_shard_body(
         body: dict[str, Any] = {}
         if shard_path.is_file():
             body = load_json_shard(shard_path)
+            _require_shard_body_id(body, eid)
         merged = _deep_merge_dict(body, fields)
         merged["id"] = eid
         if kind in ("scene", "system"):
-            title = _nonempty_str(fields.get("title")) or _nonempty_str(entry.get("title"))
+            title = (
+                _nonempty_str(fields.get("title"))
+                or _nonempty_str(body.get("title"))
+                or _nonempty_str(entry.get("title"))
+            )
             if title:
                 merged["title"] = title
         elif kind == "asset":
-            name = _nonempty_str(fields.get("name")) or _nonempty_str(entry.get("name")) or eid
+            name = (
+                _nonempty_str(fields.get("name"))
+                or _nonempty_str(body.get("name"))
+                or _nonempty_str(entry.get("name"))
+                or eid
+            )
             merged["name"] = name
         save_json_shard(shard_path, merged)
         ref_entry = dict(entry)
-        if kind in ("scene", "system") and _nonempty_str(fields.get("title")):
-            ref_entry["title"] = _nonempty_str(fields.get("title"))
-        elif kind == "asset" and _nonempty_str(fields.get("name")):
-            ref_entry["name"] = _nonempty_str(fields.get("name"))
+        if kind in ("scene", "system") and _nonempty_str(merged.get("title")):
+            ref_entry["title"] = _nonempty_str(merged.get("title"))
+        elif kind == "asset" and _nonempty_str(merged.get("name")):
+            ref_entry["name"] = _nonempty_str(merged.get("name"))
         return _catalog_ref_from_entry(ref_entry, kind=kind, rel_path=rel)
 
     if entry is not None and uses_catalog:
         if kind == "scene":
-            base_body = _scene_shard_body(entry)
+            legacy_body = _scene_shard_body(entry)
             rel = f"scenes/{eid}.json"
         elif kind == "system":
-            base_body = _system_shard_body(entry)
+            legacy_body = _system_shard_body(entry)
             rel = f"systems/{eid}.json"
         else:
-            base_body = _asset_shard_body(entry)
+            legacy_body = _asset_shard_body(entry)
             rel = f"assets/{eid}.spec.json"
+        shard_path = resolve_shard_path(root, rel)
+        base_body = load_json_shard(shard_path) if shard_path.is_file() else legacy_body
+        _require_shard_body_id(base_body, eid)
         merged = _deep_merge_dict(base_body, fields)
         merged["id"] = eid
-        shard_path = resolve_shard_path(root, rel)
+        if kind in ("scene", "system"):
+            title = (
+                _nonempty_str(fields.get("title"))
+                or _nonempty_str(base_body.get("title"))
+                or _nonempty_str(entry.get("title"))
+            )
+            if title:
+                merged["title"] = title
+        else:
+            name = (
+                _nonempty_str(fields.get("name"))
+                or _nonempty_str(base_body.get("name"))
+                or _nonempty_str(entry.get("name"))
+                or eid
+            )
+            merged["name"] = name
         save_json_shard(shard_path, merged)
         return _catalog_ref_from_entry(merged, kind=kind, rel_path=rel)
 
     if entry is None and uses_catalog:
         if kind == "scene":
             rel = f"scenes/{eid}.json"
-            body = _deep_merge_dict(_scene_shard_body({"id": eid, **fields}), fields)
+            new_body = _scene_shard_body({"id": eid, **fields})
         elif kind == "system":
             rel = f"systems/{eid}.json"
-            body = _deep_merge_dict(_system_shard_body({"id": eid, **fields}), fields)
+            new_body = _system_shard_body({"id": eid, **fields})
         else:
             rel = f"assets/{eid}.spec.json"
-            body = _deep_merge_dict(_asset_shard_body({"id": eid, **fields}), fields)
-        body["id"] = eid
+            new_body = _asset_shard_body({"id": eid, **fields})
         shard_path = resolve_shard_path(root, rel)
+        base_body = load_json_shard(shard_path) if shard_path.is_file() else new_body
+        _require_shard_body_id(base_body, eid)
+        body = _deep_merge_dict(base_body, fields)
+        body["id"] = eid
+        if kind in ("scene", "system"):
+            title = (
+                _nonempty_str(fields.get("title"))
+                or _nonempty_str(base_body.get("title"))
+            )
+            if title:
+                body["title"] = title
+        else:
+            body["name"] = (
+                _nonempty_str(fields.get("name"))
+                or _nonempty_str(base_body.get("name"))
+                or eid
+            )
         save_json_shard(shard_path, body)
         return _catalog_ref_from_entry(body, kind=kind, rel_path=rel)
 
