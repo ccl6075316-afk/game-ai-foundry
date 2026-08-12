@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 import shutil
 from pathlib import Path
 from typing import Any, Literal
@@ -864,6 +865,178 @@ def search_shards(
 
     hits.sort(key=lambda h: (-int(h["score"]), str(h["kind"]), str(h["id"])))
     return hits[: max(1, int(limit))]
+
+
+_DECLARED_EDGE_KEYS: tuple[tuple[str, Kind], ...] = (
+    ("scene_ids", "scene"),
+    ("system_ids", "system"),
+    ("asset_ids", "asset"),
+)
+
+_KIND_SORT_ORDER: dict[Kind, int] = {"scene": 0, "system": 1, "asset": 2}
+
+
+def _catalog_row_title(entry: dict[str, Any], kind: Kind) -> str:
+    entry_id = _nonempty_str(entry.get("id"))
+    if kind == "asset":
+        return _nonempty_str(entry.get("name")) or entry_id
+    return _nonempty_str(entry.get("title")) or entry_id
+
+
+def _declared_ids_from_sources(*sources: dict[str, Any] | None) -> dict[Kind, set[str]]:
+    out: dict[Kind, set[str]] = {"scene": set(), "system": set(), "asset": set()}
+    for source in sources:
+        if not isinstance(source, dict):
+            continue
+        for key, target_kind in _DECLARED_EDGE_KEYS:
+            raw = source.get(key)
+            if not isinstance(raw, list):
+                continue
+            for item in raw:
+                item_id = _nonempty_str(item)
+                if item_id:
+                    out[target_kind].add(item_id)
+    return out
+
+
+def _focus_shard_text(
+    project_root: Path,
+    kind: Kind,
+    entry: dict[str, Any],
+    body: dict[str, Any],
+) -> str:
+    if is_catalog_ref(entry, kind=kind):
+        rel = _nonempty_str(entry.get("path"))
+        if rel:
+            try:
+                shard_path = resolve_shard_path(project_root, rel)
+                if shard_path.is_file():
+                    return shard_path.read_text(encoding="utf-8")
+            except (OSError, ValueError):
+                pass
+    return json.dumps(body, ensure_ascii=False)
+
+
+def _mention_pattern(entry_id: str) -> re.Pattern[str]:
+    return re.compile(
+        rf"(^|[^a-z0-9_]){re.escape(entry_id)}([^a-z0-9_]|$)",
+        re.IGNORECASE,
+    )
+
+
+def _load_entry_body(
+    project_root: Path,
+    brief: dict[str, Any],
+    kind: Kind,
+    entry_id: str,
+    entry: dict[str, Any],
+) -> dict[str, Any]:
+    try:
+        return load_shard(project_root, kind, entry_id, brief)
+    except (OSError, ValueError, json.JSONDecodeError):
+        if is_catalog_ref(entry, kind=kind):
+            raise
+        return dict(entry)
+
+
+def related_shards(
+    project_root: Path,
+    brief: dict[str, Any],
+    kind: Kind,
+    entry_id: str,
+    *,
+    limit: int = 12,
+) -> list[dict[str, Any]]:
+    """Return related catalog rows for focus (kind, entry_id). Never includes self."""
+    focus_id = _nonempty_str(entry_id)
+    if not focus_id:
+        return []
+    focus_entry = _find_catalog_entry(brief, kind, focus_id)
+    if focus_entry is None:
+        return []
+
+    root = Path(project_root).resolve()
+    focus_body = _load_entry_body(root, brief, kind, focus_id, focus_entry)
+    focus_text = _focus_shard_text(root, kind, focus_entry, focus_body)
+
+    catalog_rows: list[tuple[Kind, str, dict[str, Any]]] = []
+    for _section_key, row_kind, items in _iter_catalog_sections(brief):
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            row_id = _nonempty_str(item.get("id"))
+            if not row_id:
+                continue
+            catalog_rows.append((row_kind, row_id, item))
+
+    row_by_key = {(row_kind, row_id): item for row_kind, row_id, item in catalog_rows}
+
+    hits: dict[tuple[Kind, str], dict[str, Any]] = {}
+
+    def _ensure_hit(target_kind: Kind, target_id: str, via: str) -> None:
+        if target_kind == kind and target_id == focus_id:
+            return
+        key = (target_kind, target_id)
+        row = row_by_key.get(key)
+        if row is None:
+            return
+        existing = hits.get(key)
+        if existing is None:
+            hits[key] = {
+                "kind": target_kind,
+                "id": target_id,
+                "title": _catalog_row_title(row, target_kind),
+                "via": [via],
+                "path": _nonempty_str(row.get("path")) or None,
+            }
+            return
+        if via not in existing["via"]:
+            existing["via"].append(via)
+
+    forward = _declared_ids_from_sources(focus_entry, focus_body)
+    for target_kind, ids in forward.items():
+        for target_id in ids:
+            _ensure_hit(target_kind, target_id, "declared")
+
+    for row_kind, row_id, row in catalog_rows:
+        if row_kind == kind and row_id == focus_id:
+            continue
+        try:
+            row_body = _load_entry_body(root, brief, row_kind, row_id, row)
+        except (OSError, ValueError, json.JSONDecodeError):
+            continue
+        reverse = _declared_ids_from_sources(row, row_body)
+        for target_kind, ids in reverse.items():
+            if target_kind == kind and focus_id in ids:
+                _ensure_hit(row_kind, row_id, "declared")
+
+    for row_kind, row_id, row in catalog_rows:
+        if row_kind == kind and row_id == focus_id:
+            continue
+        if len(row_id) < 3:
+            continue
+        if _mention_pattern(row_id).search(focus_text):
+            _ensure_hit(row_kind, row_id, "mention")
+
+    ordered = list(hits.values())
+    for hit in ordered:
+        via = hit["via"]
+        if "declared" in via and "mention" in via:
+            hit["via"] = ["declared", "mention"]
+        elif "declared" in via:
+            hit["via"] = ["declared"]
+        else:
+            hit["via"] = ["mention"]
+
+    ordered.sort(
+        key=lambda h: (
+            0 if "declared" in h["via"] else 1,
+            _KIND_SORT_ORDER.get(h["kind"], 99),  # type: ignore[arg-type]
+            str(h["id"]),
+        )
+    )
+    cap = max(1, int(limit))
+    return ordered[:cap]
 
 
 _PROJECT_INTRO_KEYS = frozenset(

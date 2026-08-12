@@ -24,6 +24,7 @@ from brief_shards import (
     load_json_shard,
     load_shard,
     migrate_brief_to_shards,
+    related_shards,
     resolve_asset_specs,
     resolve_shard_path,
     save_json_shard,
@@ -183,6 +184,130 @@ class TestMigrate(unittest.TestCase):
             asset_ref = out["assets"][0]
             self.assertIn("path", asset_ref)
             self.assertNotIn("type", asset_ref)
+
+
+class RelatedShardsTests(unittest.TestCase):
+    def _write_catalog_fixtures(self, root: Path) -> dict:
+        """Minimal catalog: main_hub scene, combat system, hero asset, ab system."""
+        save_json_shard(
+            root / "scenes" / "main_hub.json",
+            {"id": "main_hub", "title": "Main Hub", "summary": "Hub screen."},
+        )
+        save_json_shard(
+            root / "systems" / "combat.json",
+            {"id": "combat", "title": "Combat", "notes": "Combat rules."},
+        )
+        save_json_shard(
+            root / "systems" / "ab.json",
+            {"id": "ab", "title": "Short Id System", "notes": "Tiny id."},
+        )
+        save_json_shard(
+            root / "assets" / "hero.spec.json",
+            {
+                "id": "hero",
+                "name": "Hero",
+                "type": "character",
+                "scene_ids": ["main_hub"],
+            },
+        )
+        save_json_shard(
+            root / "scenes" / "arena.json",
+            {
+                "id": "arena",
+                "title": "Arena",
+                "notes": "Uses combat system for rounds.",
+            },
+        )
+        return {
+            "project": {"title": "T"},
+            "scenes": [
+                {"id": "main_hub", "title": "Main Hub", "path": "scenes/main_hub.json"},
+                {"id": "arena", "title": "Arena", "path": "scenes/arena.json"},
+            ],
+            "systems": [
+                {"id": "combat", "title": "Combat", "path": "systems/combat.json"},
+                {"id": "ab", "title": "Short Id System", "path": "systems/ab.json"},
+            ],
+            "assets": [
+                {"id": "hero", "name": "Hero", "path": "assets/hero.spec.json"},
+            ],
+        }
+
+    def test_asset_declared_scene_ids(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            related = related_shards(root, brief, "asset", "hero")
+            scene_hits = [r for r in related if r["kind"] == "scene" and r["id"] == "main_hub"]
+            self.assertEqual(len(scene_hits), 1)
+            self.assertIn("declared", scene_hits[0]["via"])
+            self.assertEqual(scene_hits[0]["title"], "Main Hub")
+
+    def test_scene_mention_system_id_word_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            related = related_shards(root, brief, "scene", "arena")
+            combat_hits = [r for r in related if r["kind"] == "system" and r["id"] == "combat"]
+            self.assertEqual(len(combat_hits), 1)
+            self.assertIn("mention", combat_hits[0]["via"])
+            self.assertNotIn("declared", combat_hits[0]["via"])
+
+    def test_self_excluded(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            related = related_shards(root, brief, "scene", "arena")
+            self.assertFalse(any(r["id"] == "arena" for r in related))
+
+    def test_mention_disappears_when_notes_rewritten(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            before = related_shards(root, brief, "scene", "arena")
+            self.assertTrue(any(r["id"] == "combat" for r in before))
+            save_json_shard(
+                root / "scenes" / "arena.json",
+                {"id": "arena", "title": "Arena", "notes": "No system references."},
+            )
+            after = related_shards(root, brief, "scene", "arena")
+            self.assertFalse(any(r["id"] == "combat" for r in after))
+
+    def test_short_id_no_mention(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            save_json_shard(
+                root / "scenes" / "arena.json",
+                {
+                    "id": "arena",
+                    "title": "Arena",
+                    "notes": "Mentions ab twice: ab and ab.",
+                },
+            )
+            related = related_shards(root, brief, "scene", "arena")
+            self.assertFalse(any(r["id"] == "ab" for r in related))
+
+    def test_noncombat_does_not_mention_combat(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            save_json_shard(
+                root / "scenes" / "arena.json",
+                {
+                    "id": "arena",
+                    "title": "Arena",
+                    "notes": "noncombat exploration mode.",
+                },
+            )
+            related = related_shards(root, brief, "scene", "arena")
+            self.assertFalse(any(r["id"] == "combat" for r in related))
+
+    def test_missing_focus_id_returns_empty(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            self.assertEqual(related_shards(root, brief, "scene", "missing"), [])
 
 
 class TestSearchAndLoad(unittest.TestCase):
