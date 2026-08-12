@@ -1024,6 +1024,50 @@ def register_brief_commands(cli_group: click.Group) -> None:
                     f"{hit['kind']}:{hit['id']} score={hit['score']} — {hit.get('snippet') or ''}"
                 )
 
+    @brief_group.command("related")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON (catalog or legacy).",
+    )
+    @click.option(
+        "--kind",
+        required=True,
+        type=click.Choice(["scene", "system", "asset"], case_sensitive=False),
+    )
+    @click.option("--id", "entry_id", required=True)
+    @click.option("--limit", default=12, show_default=True, type=int)
+    @click.option("--json", "as_json", is_flag=True)
+    def brief_related_cmd(
+        brief_path: Path,
+        kind: str,
+        entry_id: str,
+        limit: int,
+        as_json: bool,
+    ) -> None:
+        """Related catalog entries for one focus (declared refs + id mentions)."""
+        from brief_shards import project_root_for_brief_path, related_shards
+
+        try:
+            data = load_brief_document(brief_path)
+            root = project_root_for_brief_path(brief_path)
+            related = related_shards(root, data, kind, entry_id, limit=limit)  # type: ignore[arg-type]
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        if as_json:
+            click.echo(json.dumps({"ok": True, "related": related}, ensure_ascii=False, indent=2))
+        else:
+            if not related:
+                click.echo("No related entries.")
+            for item in related:
+                via = ",".join(item.get("via") or [])
+                click.echo(
+                    f"{item['kind']}:{item['id']} via={via} — {item.get('title') or ''}"
+                )
+
     @brainstorm_group.command("start")
     @click.option("--seed", default=None, help="Optional initial idea in one sentence.")
     @click.option(

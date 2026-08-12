@@ -446,6 +446,22 @@ class PiFoundryToolsTest(unittest.TestCase):
                 profile="brief",
             )
         )
+        self.assertTrue(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "related",
+                    "--brief",
+                    "projects/x/brief.json",
+                    "--kind",
+                    "scene",
+                    "--id",
+                    "main_hub",
+                    "--json",
+                ],
+                profile="brief",
+            )
+        )
         self.assertFalse(
             is_allowed_argv(
                 [
