@@ -243,6 +243,24 @@ class RelatedShardsTests(unittest.TestCase):
             self.assertIn("declared", scene_hits[0]["via"])
             self.assertEqual(scene_hits[0]["title"], "Main Hub")
 
+    def test_scene_reverse_declared_from_asset(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            related = related_shards(root, brief, "scene", "main_hub")
+            hero_hits = [r for r in related if r["kind"] == "asset" and r["id"] == "hero"]
+            self.assertEqual(len(hero_hits), 1)
+            self.assertIn("declared", hero_hits[0]["via"])
+            self.assertEqual(hero_hits[0]["title"], "Hero")
+
+    def test_unreadable_catalog_row_raises(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            brief = self._write_catalog_fixtures(root)
+            (root / "assets" / "hero.spec.json").write_text("{not-json", encoding="utf-8")
+            with self.assertRaises((OSError, ValueError, json.JSONDecodeError)):
+                related_shards(root, brief, "scene", "main_hub")
+
     def test_scene_mention_system_id_word_boundary(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
@@ -550,6 +568,20 @@ class TestFocusContextRelatedShards(unittest.TestCase):
                 self.assertIsInstance(ctx["related_shards"], list)
             else:
                 self.assertTrue(ctx.get("related_error"))
+
+    def test_unreadable_related_catalog_sets_related_error(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = self._write_catalog_fixtures(root)
+            (root / "assets" / "hero.spec.json").write_text("{not-json", encoding="utf-8")
+            ctx = build_focus_context(
+                draft,
+                {"kind": "scene", "id": "main_hub"},
+                project_root=root,
+            )
+            self.assertIn("focus_shard", ctx)
+            self.assertNotIn("related_shards", ctx)
+            self.assertTrue(ctx.get("related_error"))
 
 
 class TestUpsertShardBody(unittest.TestCase):

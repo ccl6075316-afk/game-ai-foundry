@@ -204,8 +204,8 @@ T2 与 T3 并行时 **禁止** 再改 `related_shards` 签名。
 - **Ownership**：`cli/host_chat.py` note、`resources/skills/orchestrator/host-chat.md`
 - **Read Set**：`build_focus_context` 输出
 - **Write Set**：`cli/host_chat.py`（仅 `current_draft_brief_note`）、`resources/skills/orchestrator/host-chat.md`、`docs/superpowers/specs/2026-08-10-document-focus-and-stable-ids.md` 实现清单一行
-- **描述**：note 写明 `related_shards` 是连锁提示，upsert 仍须 focus.id 一致。Focus 纪律补一句。不改 `validate_focus_allows_write`。
-- **成功标准**：`rg related_shards cli/host_chat.py resources/skills/orchestrator/host-chat.md` 命中；`python -m unittest test_host_chat -q` 仍拒跨册 upsert。
+- **描述**：note 写明 `related_shards` 是连锁提示而非写白名单。Focus 只影响阅读优先级。（历史：初版曾写「upsert 须 focus.id」；已由 soft-focus 取代，跨册写安全靠 patch 预检/事务。）
+- **成功标准**：`rg related_shards cli/host_chat.py resources/skills/orchestrator/host-chat.md` 命中；文案标明 related 是连锁提示而非写白名单（后续 soft-focus 允许跨册 upsert，安全靠 patch 预检/事务）。
 - **Code Status**：done
 - **Actual Write Set**：`cli/host_chat.py`、`resources/skills/orchestrator/host-chat.md`、`docs/superpowers/specs/2026-08-10-document-focus-and-stable-ids.md`
 - **Verification**：`python -m unittest test_host_chat -q` → 75 PASS
@@ -233,7 +233,7 @@ T2 与 T3 并行时 **禁止** 再改 `related_shards` 签名。
 
 ## 验收
 
-1. declared / mention / 脱离（mention 消失）有单测 — **Code Status**：done（RelatedShardsTests）
+1. declared（含反向）/ mention / 脱离（mention 消失）有单测；catalog 不可读 → `related_error` — **Code Status**：done（RelatedShardsTests + TestFocusContextRelatedShards）
 2. payload 有列表无他册正文 — **Code Status**：done（TestFocusContextRelatedShards）
-3. 跨册 upsert 仍失败 — **Code Status**：done（test_host_chat write-gate）
+3. related 不作写白名单；跨册写安全改由 soft-focus 预检/事务（见 soft-focus review）— **Code Status**：done（superseded write-gate）
 4. 无新向量依赖 — **Code Status**：done

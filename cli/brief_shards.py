@@ -1053,10 +1053,9 @@ def related_shards(
     for row_kind, row_id, row in catalog_rows:
         if row_kind == kind and row_id == focus_id:
             continue
-        try:
-            row_body = _load_entry_body(root, brief, row_kind, row_id, row)
-        except (OSError, ValueError, json.JSONDecodeError):
-            continue
+        # Catalog refs that fail to load must raise (caller → related_error).
+        # Inline legacy rows fall back via _load_entry_body without raising.
+        row_body = _load_entry_body(root, brief, row_kind, row_id, row)
         reverse = _declared_ids_from_sources(row, row_body)
         for target_kind, ids in reverse.items():
             if target_kind == kind and focus_id in ids:
