@@ -2,8 +2,9 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-08-11）
+## 当前版本要点（2026-08-13）
 
+- **v0.2.2**：[`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md) — 相关分册提示 + soft-focus 安全写 + related 完整性
 - **v0.2.1**：[`RELEASE-NOTES-0.2.1.md`](RELEASE-NOTES-0.2.1.md) — Brief 目录分册 + 文档焦点预览 + 应用内媒体灯箱
 - **v0.2.0**：[`RELEASE-NOTES-0.2.0.md`](RELEASE-NOTES-0.2.0.md) — 多场景北极星加固 + 退出杀进程 / 生图重试 / 并行生成
 - **v0.1.10**：[`RELEASE-NOTES-0.1.10.md`](RELEASE-NOTES-0.1.10.md) — 环境「下载镜像」开关（国内加速 GitHub 工具链）
@@ -45,6 +46,7 @@
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
 | [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、Windows 自动更新、纯净机首次运行 | brief 字段 |
+| [`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md) | 用户 | **v0.2.2** related 提示 / soft-focus 写 / related_error | — |
 | [`RELEASE-NOTES-0.2.1.md`](RELEASE-NOTES-0.2.1.md) | 用户 | **v0.2.1** Brief 分册 / 文档焦点 / 媒体灯箱 | — |
 | [`RELEASE-NOTES-0.2.0.md`](RELEASE-NOTES-0.2.0.md) | 用户 | **v0.2.0** 北极星加固 / 退出杀进程 / 生图重试 | — |
 | [`RELEASE-NOTES-0.1.10.md`](RELEASE-NOTES-0.1.10.md) | 用户 | **v0.1.10** 下载镜像开关 | — |
