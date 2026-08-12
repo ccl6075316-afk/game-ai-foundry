@@ -43,6 +43,8 @@ from host_chat import (
     validate_focus_allows_write,
     user_requests_commit_brief,
     user_requests_commit_doc,
+    user_confirms_related_writes,
+    related_write_allowlist,
 )
 
 
@@ -567,6 +569,70 @@ class HostChatTests(unittest.TestCase):
             enforce_focus=True,
         )
         self.assertEqual(out["project"]["scenes"][0]["notes"], "ok")
+
+    def test_user_confirms_related_writes_phrases(self) -> None:
+        self.assertTrue(user_confirms_related_writes("入口文案一并改相关场景"))
+        self.assertTrue(user_confirms_related_writes("相关也改一下"))
+        self.assertTrue(user_confirms_related_writes("Please also update related shards"))
+        self.assertFalse(user_confirms_related_writes("全局修改"))
+        self.assertFalse(user_confirms_related_writes("改一下主界面"))
+
+    def test_related_allow_lets_mismatch_upsert_related_scene(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "scenes" / "hall.json",
+                {"id": "hall", "title": "Hall", "notes": "Mentions dock entrance."},
+            )
+            save_json_shard(
+                root / "scenes" / "dock.json",
+                {"id": "dock", "title": "Dock", "notes": "old"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {"id": "hall", "title": "Hall", "path": "scenes/hall.json"},
+                        {"id": "dock", "title": "Dock", "path": "scenes/dock.json"},
+                    ],
+                },
+                "assets": [],
+            }
+            allow = related_write_allowlist(
+                draft, {"kind": "scene", "id": "hall"}, root
+            )
+            self.assertIn(("scene", "dock"), allow)
+            with self.assertRaises(HostChatError):
+                apply_brief_patches(
+                    draft,
+                    [
+                        {
+                            "op": "upsert_scene",
+                            "match": {"id": "dock"},
+                            "set": {"notes": "nope"},
+                        },
+                    ],
+                    project_root=root,
+                    focus={"kind": "scene", "id": "hall"},
+                    enforce_focus=True,
+                )
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "dock"},
+                        "set": {"notes": "updated from related"},
+                    },
+                ],
+                project_root=root,
+                focus={"kind": "scene", "id": "hall"},
+                enforce_focus=True,
+                related_allow=allow,
+            )
+            body = json.loads((root / "scenes" / "dock.json").read_text(encoding="utf-8"))
+            self.assertEqual(body["notes"], "updated from related")
+            self.assertEqual(out["project"]["scenes"][1]["path"], "scenes/dock.json")
 
     def test_validate_focus_intent_gap_allows_scene(self) -> None:
         validate_focus_allows_write({"kind": "intent_gap", "id": "gap1"}, "scene", "hall")

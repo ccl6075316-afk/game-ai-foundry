@@ -84,6 +84,7 @@ from brief_shards import (
     hydrate_brief_for_review,
     is_catalog_ref,
     project_root_for_brief_path,
+    related_shards,
     upsert_shard_body,
 )
 
@@ -2239,10 +2240,9 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             )
             payload["current_draft_brief_note"] = (
                 "薄目录 + 短 project 简介 + 可选 focus_shard；屏级/系统细则在分册。"
-                "payload 可能含 related_shards（声明引用 + id 提及），仅作连锁影响提示，非写许可；"
-                "upsert scene/system/asset 正文仍须 focus.id 一致。"
-                "要改关联分册须先钉该 id（或 brief related / brief shard load 后由用户钉 focus），"
-                "勿因 related_shards 出现而 upsert 其他 id。"
+                "payload 可能含 related_shards（声明引用 + id 提及）。默认仍须 focus.id 一致才可 upsert；"
+                "仅当用户本轮明确说「一并改 / 相关也改」时，宿主才放行 related 列表内的 id。"
+                "未说一并改时，勿因 related_shards 出现而 upsert 其他 id。"
                 "需要时用 brief search / brief shard load 读正文，勿把长细则写进 description。"
             )
         else:
@@ -2446,16 +2446,73 @@ _FOCUS_WRITE_DENIED_MSG = (
     "或使用 brief search 定位后再改。"
 )
 
+_RELATED_WRITE_RE = re.compile(
+    r"(一并改|一起改|相关也改|相关的也|相关分册|连带改|"
+    r"also\s+(update|change|edit)\s+related|"
+    r"update\s+related\s+(shards?|scenes|systems))",
+    re.I,
+)
+
+
+def user_confirms_related_writes(text: str | None) -> bool:
+    """True when the user explicitly asks to also patch related shards this turn."""
+    if not text or not str(text).strip():
+        return False
+    return bool(_RELATED_WRITE_RE.search(str(text)))
+
+
+def related_write_allowlist(
+    draft: dict[str, Any] | None,
+    focus: dict[str, Any] | None,
+    project_root: Path | None,
+) -> frozenset[tuple[str, str]]:
+    """Host-computed (kind, id) pairs related to the current focus. Empty if unknown."""
+    if not isinstance(draft, dict) or not isinstance(focus, dict) or project_root is None:
+        return frozenset()
+    fk = str(focus.get("kind") or "").strip()
+    fid = str(focus.get("id") or "").strip()
+    if fk not in ("scene", "system", "asset") or not fid:
+        return frozenset()
+    try:
+        rows = related_shards(Path(project_root), draft, fk, fid)  # type: ignore[arg-type]
+    except (OSError, ValueError, json.JSONDecodeError, TypeError):
+        return frozenset()
+    out: set[tuple[str, str]] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        kind = str(row.get("kind") or "").strip()
+        entry_id = str(row.get("id") or "").strip()
+        if kind in ("scene", "system", "asset") and entry_id:
+            out.add((kind, entry_id))
+    return frozenset(out)
+
+
+def _last_user_message(session: dict[str, Any]) -> str:
+    for item in reversed(list(session.get("messages") or [])):
+        if isinstance(item, dict) and str(item.get("role") or "") == "user":
+            return str(item.get("content") or "")
+    return ""
+
 
 def validate_focus_allows_write(
     focus: dict[str, Any] | None,
     kind: Kind,
     entry_id: str,
+    related_allow: frozenset[tuple[str, str]] | None = None,
 ) -> None:
     """Raise HostChatError when focus does not permit writing this catalog body."""
     target = str(entry_id or "").strip()
     if not target:
         raise HostChatError("补丁缺少 id，无法写入。")
+
+    if (
+        related_allow
+        and (kind, target) in related_allow
+        and isinstance(focus, dict)
+        and str(focus.get("kind") or "").strip()
+    ):
+        return
 
     if kind == "asset":
         if not isinstance(focus, dict) or not str(focus.get("kind") or "").strip():
@@ -2535,9 +2592,12 @@ def _set_scene_or_system_field(
     project_root: Path | None,
     focus: dict[str, Any] | None,
     enforce_focus: bool,
+    related_allow: frozenset[tuple[str, str]] | None = None,
 ) -> None:
     if enforce_focus:
-        validate_focus_allows_write(focus, kind, entry_id)
+        validate_focus_allows_write(
+            focus, kind, entry_id, related_allow=related_allow
+        )
     list_path = "project.scenes" if kind == "scene" else "project.systems"
     index_keys = frozenset({"id", "title", "path"})
     if subpath in index_keys:
@@ -2578,6 +2638,7 @@ def apply_brief_patches(
     project_root: Path | None = None,
     focus: dict[str, Any] | None = None,
     enforce_focus: bool = True,
+    related_allow: frozenset[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Apply surgical patches onto a brief draft (code-edit style, not full rewrite).
 
@@ -2616,6 +2677,7 @@ def apply_brief_patches(
                     project_root=project_root,
                     focus=focus,
                     enforce_focus=enforce_focus,
+                    related_allow=related_allow,
                 )
             else:
                 _set_path_value(out, path, raw.get("value"))
@@ -2626,7 +2688,9 @@ def apply_brief_patches(
                 continue
             asset_id = _match_id_from_dict(match)
             if enforce_focus and asset_id:
-                validate_focus_allows_write(focus, "asset", asset_id)
+                validate_focus_allows_write(
+                    focus, "asset", asset_id, related_allow=related_allow
+                )
             ref = None
             if asset_id and _should_persist_shard(out, "asset", asset_id, project_root):
                 ref = upsert_shard_body(
@@ -2723,7 +2787,9 @@ def apply_brief_patches(
             }.get(op)
             entry_id = _match_id_from_dict(match)
             if kind_for_path and enforce_focus and entry_id:
-                validate_focus_allows_write(focus, kind_for_path, entry_id)
+                validate_focus_allows_write(
+                    focus, kind_for_path, entry_id, related_allow=related_allow
+                )
             ref = None
             if kind_for_path and entry_id and _should_persist_shard(
                 out, kind_for_path, entry_id, project_root
@@ -3090,14 +3156,25 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                 assistant_message += "\n\n（收到定点补丁但还没有草稿，请先聊出一版 draft。）"
             else:
                 try:
+                    focus = (
+                        session.get("focus")
+                        if isinstance(session.get("focus"), dict)
+                        else None
+                    )
+                    related_allow = None
+                    if user_confirms_related_writes(_last_user_message(session)):
+                        related_allow = related_write_allowlist(
+                            base,
+                            focus,
+                            _project_root_for_session(session),
+                        )
                     session["draft_brief"] = apply_brief_patches(
                         base,
                         patches,
                         project_root=_project_root_for_session(session),
-                        focus=session.get("focus")
-                        if isinstance(session.get("focus"), dict)
-                        else None,
+                        focus=focus,
                         enforce_focus=True,
+                        related_allow=related_allow,
                     )
                     invalidate_verified_ledger_for_patches(session, patches)
                     session["ready_to_export"] = _compute_ready_to_export(session)

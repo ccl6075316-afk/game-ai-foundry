@@ -125,7 +125,7 @@
 | `session.focus` 注入主对话 payload | 已有；**生产路径已接 GUI / 审查钉 focus** |
 | brief Pi 白名单 `brief search` / `shard load` | **已放行（P0）** |
 | Catalog 下 upsert 写分册文件 | **已做（P1）** |
-| 宿主 related_shards 注入 + `brief related` CLI | **已做（v1 只提示，不放行写）** |
+| 宿主 related_shards 注入 + `brief related` CLI | **已做**；用户确认「一并改」时 related 可写 |
 | 无 focus 拒写 | **已做（P1）** |
 | GUI 点选场景 → 写 focus | **已做（看板场景条 + VT restyle/pick）** |
 
