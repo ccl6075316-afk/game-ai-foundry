@@ -2239,6 +2239,10 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             )
             payload["current_draft_brief_note"] = (
                 "薄目录 + 短 project 简介 + 可选 focus_shard；屏级/系统细则在分册。"
+                "payload 可能含 related_shards（声明引用 + id 提及），仅作连锁影响提示，非写许可；"
+                "upsert scene/system/asset 正文仍须 focus.id 一致。"
+                "要改关联分册须先钉该 id（或 brief related / brief shard load 后由用户钉 focus），"
+                "勿因 related_shards 出现而 upsert 其他 id。"
                 "需要时用 brief search / brief shard load 读正文，勿把长细则写进 description。"
             )
         else:

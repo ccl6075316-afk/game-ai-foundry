@@ -37,8 +37,8 @@
    - 「先不用解锁 / 直接解锁 / 开局可进」= **无建筑购买门闩**，写入可进入；**不要**理解成「要做付费解锁」。
    - **宿主拦截「只说不写」**：若本轮口头声称「已写入/落盘草稿」但 JSON 无生效 `brief_patches`（草稿指纹未变），宿主会在回复末尾追加警告，并在下一轮 user payload 注入 `host_nudge`，要求必须用补丁落盘。
    - **过期审查**：`fingerprint_match=false` 时宿主不再把旧 `intent_gaps` 注入下一轮（避免草稿已改仍追问「还要解锁」）。
-   - **薄 brief / 分册**：主对话轮 payload 常为目录 + 短简介 + `focus` 分册；细则写 `scenes` / `systems`（或 shard 文件），勿堆进 `project.description`。需要检索正文时 CLI：`brief search`、`brief shard load`（FOUNDRY_TOOL 只读，见 Pi 白名单）。
-   - **Focus 纪律**：以 payload 里的 `focus` / 工具返回的 `{kind,id}` 为当前光标；改 scene/system 正文时 **upsert 的 id 须与 focus.id 一致**（或先 `brief search` 跳转 focus）。无 focus 时不要凭记忆改未加载分册。Catalog 工程下 upsert 会写分册文件，brief 索引保持薄映射；改 scene/system 正文须已钉 focus。
+   - **薄 brief / 分册**：主对话轮 payload 常为目录 + 短简介 + `focus` 分册；细则写 `scenes` / `systems`（或 shard 文件），勿堆进 `project.description`。需要检索正文时 CLI：`brief search`、`brief shard load`、`brief related`（FOUNDRY_TOOL 只读，见 Pi 白名单）。
+   - **Focus 纪律**：以 payload 里的 `focus` / 工具返回的 `{kind,id}` 为当前光标；改 scene/system 正文时 **upsert 的 id 须与 focus.id 一致**（或先 `brief search` 跳转 focus）。无 focus 时不要凭记忆改未加载分册。Catalog 工程下 upsert 会写分册文件，brief 索引保持薄映射；改 scene/system 正文须已钉 focus。`related_shards` / `brief related` 只提示可能受影响的分册，不是写许可；改他册须先切换 focus。需要时可用 `brief related --kind --id`。
 
 3. **只有用户明确落实时才切定稿**  
    触发语示例（同义即可）：
