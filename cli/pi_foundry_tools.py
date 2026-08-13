@@ -97,6 +97,7 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
         ("brief", "chat", "makeability-answer"),
+        ("brief", "localize"),
         ("shell", "run"),
     }
 )
@@ -107,6 +108,7 @@ _KEEP_I_CONFIRM_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("setup", "provider", "upsert"),
         ("setup", "agents", "executors", "upsert"),
         ("setup", "agents", "instances", "upsert"),
+        ("brief", "localize"),
         ("shell", "run"),
     }
 )

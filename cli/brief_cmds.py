@@ -774,6 +774,86 @@ def register_brief_commands(cli_group: click.Group) -> None:
         else:
             click.echo(str(output_path.resolve()))
 
+    @brief_group.command("localize")
+    @click.option(
+        "--brief",
+        "brief_path",
+        required=True,
+        type=click.Path(exists=True, path_type=Path),
+        help="Brief JSON whose project intro + catalog shards to rewrite to Chinese.",
+    )
+    @click.option(
+        "--i-confirm",
+        "i_confirm",
+        is_flag=True,
+        help="Required confirmation for rewriting brief/shards on disk.",
+    )
+    @click.option("--json", "as_json", is_flag=True, help="Print localization report as JSON.")
+    @click.pass_context
+    def localize_cmd(
+        ctx: click.Context,
+        brief_path: Path,
+        i_confirm: bool,
+        as_json: bool,
+    ) -> None:
+        """One-shot rewrite of narrative fields to Chinese (host LLM or offline map)."""
+        from brief_localize import (
+            fishing_offline_translator,
+            localize_brief_narratives,
+            make_llm_translator,
+            register_fishing_disk_summaries,
+        )
+        from brief_shards import project_root_for_brief_path
+
+        if not i_confirm:
+            click.echo("Error: brief localize requires --i-confirm", err=True)
+            sys.exit(2)
+
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        root = project_root_for_brief_path(brief_path)
+        register_fishing_disk_summaries(root)
+        llm = make_llm_translator(config)
+        mode = "llm" if llm is not None else "offline_map"
+
+        def translator(field_name: str, text: str) -> str:
+            # Prefer deterministic map/patterns; only unresolved leftovers hit LLM.
+            offline = fishing_offline_translator(field_name, text)
+            if not str(offline).startswith("（待全文润色）"):
+                return offline
+            if llm is not None:
+                return llm(field_name, text)
+            return offline
+
+        try:
+            report = localize_brief_narratives(
+                brief_path,
+                translator=translator,
+                i_confirm=True,
+            )
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+
+        report = {**report, "translator": mode}
+        if mode == "offline_map":
+            report["note"] = (
+                "Used offline EN→ZH map/patterns; re-run with host LLM configured "
+                "for a full prose pass."
+            )
+
+        if as_json:
+            click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            click.echo(f"ok={report.get('ok')} translator={mode}")
+            for p in report.get("changed_paths") or []:
+                click.echo(f"  changed: {p}")
+            for s in report.get("skipped") or []:
+                click.echo(f"  skipped: {s}")
+            if report.get("note"):
+                click.echo(report["note"])
+        if not report.get("ok"):
+            sys.exit(2)
+
     @brief_group.command("validate")
     @click.option(
         "--brief",
