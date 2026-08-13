@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from brief import normalize_ui_panels
-from brief_zh_doc import BRIEF_DRAFT_NAME, load_brief_dict_from_path
+from brief_shards import BRIEF_DRAFT_NAME, load_brief_dict_from_path
 from llm_config import resolve_host_api_settings
 from project_paths import default_paths_for_brief, repo_root
 from prompt_craft import PromptCraftError, chat_text_completion

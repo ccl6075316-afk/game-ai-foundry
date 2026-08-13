@@ -72,7 +72,33 @@ _BODY_HINT_KEYS = _SCENE_BODY_HINT_KEYS | _SYSTEM_BODY_HINT_KEYS | _ASSET_BODY_H
 DESCRIPTION_MAX_CHARS = 800
 GAMEPLAY_LOOP_MAX_CHARS = 1200
 
+BRIEF_DRAFT_NAME = "brief.draft.json"
+
 Kind = Literal["scene", "system", "asset"]
+
+
+def load_brief_dict_from_path(path: Path) -> dict[str, Any]:
+    """Load brief.json, or fall back to brief.draft.json beside it / as path."""
+    p = Path(path)
+    candidates: list[Path] = []
+    if p.is_file():
+        candidates.append(p)
+        if p.name.lower() == "brief.json":
+            candidates.append(p.parent / BRIEF_DRAFT_NAME)
+    elif p.is_dir():
+        candidates.extend([p / "brief.json", p / BRIEF_DRAFT_NAME])
+    else:
+        candidates.append(p)
+        candidates.append(p.parent / BRIEF_DRAFT_NAME)
+        if p.name.lower() != BRIEF_DRAFT_NAME.lower():
+            candidates.append(p.parent / "brief.json")
+    for c in candidates:
+        if not c.is_file():
+            continue
+        data = json.loads(c.read_text(encoding="utf-8"))
+        if isinstance(data, dict) and (data.get("project") or data.get("assets")):
+            return data
+    raise FileNotFoundError(f"No brief or draft at {path}")
 
 
 def _nonempty_str(value: Any) -> str:
