@@ -1635,6 +1635,8 @@ Rules:
 - open_intent_gaps may include occurrences (canonical|duplicate|conflict) and write_paths: you MUST patch every write_paths entry in one response (description, gameplay_loop, scenes, systems, ui_panels as listed).
 - You may shorten or remove stale duplicate/conflict prose instead of repeating detailed rules in every path.
 - Prefer upsert_system / upsert_scene / upsert_ui_panel for list rows; use set for scalar fields.
+- UI panels (HUD/popup/menu) go in project.ui_panels, not scenes. `set` path
+  `project.ui_panels[id=catch_result_popup].notes` is valid (same as upsert_ui_panel).
 - current_draft_brief scenes/systems are already expanded from catalog shards — write rules into those entry fields (notes/summary/tuning), not by dumping into project.description.
 - Phrases like 先不用解锁 / 直接解锁 / 开局可进 / no unlock = hall enterable from start, NO building purchase lock.
 - Do not invent decisions the user did not make. Do not put numeric tables into brief prose.
@@ -2843,7 +2845,8 @@ def _patch_recovery_hint(error: str) -> str:
         )
     if "set 只改现有" in text or "set 路径找不到" in text:
         return (
-            "【怎么改】set 只改已有 scene/system；新建用 upsert_scene/system，"
+            "【怎么改】set 只改已有 scene/system/ui_panel；"
+            "新建用 upsert_scene/system/ui_panel，"
             "或 path 里用已有英文 id / 中文 title。"
         )
     if "稳定 id" in text:
@@ -2970,7 +2973,7 @@ def _repair_set_structure_path(
     section = matched.group(1).lower()
     selector = matched.group(2).strip()
     subpath = matched.group(3).strip()
-    kind = "scene" if section == "scenes" else "system"
+    kind = {"scenes": "scene", "systems": "system", "ui_panels": "panel"}[section]
     if selector and _STABLE_CATALOG_ID_RE.fullmatch(selector):
         return out
     match, _ = _repair_structure_match(
@@ -2978,9 +2981,12 @@ def _repair_set_structure_path(
     )
     resolved = str(match.get("id") or "").strip()
     if not _STABLE_CATALOG_ID_RE.fullmatch(resolved):
+        upsert_name = {"scene": "scene", "system": "system", "panel": "ui_panel"}.get(
+            kind, kind
+        )
         raise HostChatError(
             f"set 路径找不到{kind} {selector!r}。"
-            f"新建请用 upsert_{kind}，或 path 用已有英文 id / 中文 title。"
+            f"新建请用 upsert_{upsert_name}，或 path 用已有英文 id / 中文 title。"
         )
     out["path"] = f"project.{section}[id={resolved}].{subpath}"
     return out
@@ -3375,6 +3381,7 @@ def _validate_brief_patch_safety(
                 raise HostChatError(f"禁止整体替换或穿透受保护结构：{path}")
             m_set = _SET_SCENE_SYSTEM_FIELD.match(path)
             if m_set:
+                section = m_set.group(1).lower()
                 subpath = m_set.group(3)
                 stable_field = subpath.split(".", 1)[0]
                 selector_id = m_set.group(2).strip()
@@ -3390,16 +3397,17 @@ def _validate_brief_patch_safety(
                     )
                 if stable_field == "title" and subpath != "title":
                     raise HostChatError("title 是标量索引字段，禁止写入子路径。")
-                if brief_uses_catalog(draft) and project_root is None:
-                    raise HostChatError("Catalog 工程修改分册需要 project_root。")
-                if brief_uses_catalog(draft) and project_root is not None:
-                    target_kind = {
-                        "scenes": "scene",
-                        "systems": "system",
-                    }[m_set.group(1)]
-                    _validate_catalog_target_shard_id(
-                        draft, target_kind, selector_id, Path(project_root)
-                    )
+                if section in ("scenes", "systems"):
+                    if brief_uses_catalog(draft) and project_root is None:
+                        raise HostChatError("Catalog 工程修改分册需要 project_root。")
+                    if brief_uses_catalog(draft) and project_root is not None:
+                        target_kind = {
+                            "scenes": "scene",
+                            "systems": "system",
+                        }[section]
+                        _validate_catalog_target_shard_id(
+                            draft, target_kind, selector_id, Path(project_root)
+                        )
             elif "[" in path or "]" in path:
                 raise HostChatError(f"不支持的 brief patch path：{path}")
             else:
@@ -3549,8 +3557,10 @@ def _touched_shard_paths(
         if op == "set":
             m_set = _SET_SCENE_SYSTEM_FIELD.match(str(raw.get("path") or "").strip())
             if m_set and m_set.group(3) not in _STABLE_CATALOG_FIELDS:
-                kind = "scene" if m_set.group(1).lower() == "scenes" else "system"
-                entry_id = m_set.group(2).strip()
+                section = m_set.group(1).lower()
+                if section in ("scenes", "systems"):
+                    kind = "scene" if section == "scenes" else "system"
+                    entry_id = m_set.group(2).strip()
         elif op == "upsert_asset":
             match = raw.get("match") if isinstance(raw.get("match"), dict) else {}
             kind = "asset"
@@ -3585,6 +3595,7 @@ def _apply_brief_patches_unchecked(
 
     Supported ops:
     - ``set``: ``{"op":"set","path":"project.session_goal","value":"..."}``
+      (also ``project.scenes|systems|ui_panels[id=x].notes``)
     - ``upsert_asset``: ``{"op":"upsert_asset","match":{"id":"rod"},"set":{...}}``
     - ``add_asset``: ``{"op":"add_asset","value":{...}}``
     - ``upsert_graph``: ``{"op":"upsert_graph","match":{"character_asset":"carp"},"set":{...}}``
@@ -3608,15 +3619,25 @@ def _apply_brief_patches_unchecked(
                 section = m_set.group(1).lower()
                 entry_id = m_set.group(2).strip()
                 subpath = m_set.group(3).strip()
-                kind_lit: Kind = "scene" if section == "scenes" else "system"
-                _set_scene_or_system_field(
-                    out,
-                    kind=kind_lit,
-                    entry_id=entry_id,
-                    subpath=subpath,
-                    value=raw.get("value"),
-                    project_root=project_root,
-                )
+                if section == "ui_panels":
+                    merge_fields: dict[str, Any] = {}
+                    _set_path_value(merge_fields, subpath, raw.get("value"))
+                    _upsert_list_item(
+                        out,
+                        path="project.ui_panels",
+                        match={"id": entry_id},
+                        fields=merge_fields,
+                    )
+                else:
+                    kind_lit: Kind = "scene" if section == "scenes" else "system"
+                    _set_scene_or_system_field(
+                        out,
+                        kind=kind_lit,
+                        entry_id=entry_id,
+                        subpath=subpath,
+                        value=raw.get("value"),
+                        project_root=project_root,
+                    )
             else:
                 _set_path_value(out, path, raw.get("value"))
         elif op == "upsert_asset":
@@ -4930,7 +4951,7 @@ FOCUS_KINDS = frozenset(
 _FOCUS_SCENE_PATH = re.compile(r"project\.scenes\[id=([^\]]+)\]", re.IGNORECASE)
 _FOCUS_SYSTEM_PATH = re.compile(r"project\.systems\[id=([^\]]+)\]", re.IGNORECASE)
 _SET_SCENE_SYSTEM_FIELD = re.compile(
-    r"^project\.(scenes|systems)\[id=([^\]]+)\]\.(.+)$",
+    r"^project\.(scenes|systems|ui_panels)\[id=([^\]]+)\]\.(.+)$",
     re.IGNORECASE,
 )
 _FOCUS_ASSET_ID_PATH = re.compile(r"assets\[id=([^\]]+)\]", re.IGNORECASE)

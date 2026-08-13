@@ -498,6 +498,57 @@ class HostChatTests(unittest.TestCase):
         self.assertIn("enterable from the start", out["project"]["scenes"][0]["notes"])
         self.assertIn("开局即可进入", out["project"]["ui_panels"][0]["notes"])
 
+    def test_apply_brief_patches_set_ui_panel_selector_path(self) -> None:
+        draft = {
+            "project": {
+                "title": "Fish",
+                "ui_panels": [
+                    {
+                        "id": "catch_result_popup",
+                        "title": "收获展示",
+                        "notes": "old",
+                    }
+                ],
+            },
+            "assets": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "set",
+                    "path": "project.ui_panels[id=catch_result_popup].notes",
+                    "value": "捕获/逃脱均弹出；一侧操作，一侧挂鱼动画。",
+                }
+            ],
+        )
+        self.assertEqual(
+            out["project"]["ui_panels"][0]["notes"],
+            "捕获/逃脱均弹出；一侧操作，一侧挂鱼动画。",
+        )
+
+    def test_apply_brief_patches_set_ui_panel_chinese_title_selector(self) -> None:
+        draft = {
+            "project": {
+                "title": "Fish",
+                "ui_panels": [
+                    {"id": "catch_result_popup", "title": "收获展示", "notes": "old"},
+                ],
+            },
+            "assets": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "set",
+                    "path": "project.ui_panels[id=收获展示].notes",
+                    "value": "卖或存仓。",
+                }
+            ],
+        )
+        self.assertEqual(out["project"]["ui_panels"][0]["notes"], "卖或存仓。")
+
     def test_apply_brief_patches_catalog_upsert_writes_shard(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

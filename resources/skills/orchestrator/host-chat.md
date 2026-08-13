@@ -36,7 +36,7 @@
    - 改 `scenes` / `systems` / `ui_panels` 某一条：用 `upsert_scene` / `upsert_system` / `upsert_ui_panel`（或 `upsert_list` + path），不要整表瘦身重写。
    - 「先不用解锁 / 直接解锁 / 开局可进」= **无建筑购买门闩**，写入可进入；**不要**理解成「要做付费解锁」。
    - **写入失败由宿主解决，不甩给用户**：只说不写、补丁 schema 被拒、空回复/非 JSON、无草稿却交补丁、整表改写 scenes/systems/assets、落实轮没返回正文时，宿主同一轮自动重试策划（带 `host_nudge` + 用户原话），最多两次。非法 focus 直接丢掉，正文照写。用户看到的是结果（已写入 / 简短说明还没落上）；不要把校验原文当成对用户的报错。补丁已应用但指纹不变（分册已是目标态）算写成功。解决者仍是策划重交补丁，不是用户换角色或外挂 Agent。
-   - **add_asset / upsert_asset 宿主补全**：缺 `type`、或 id 不是英文蛇形时，宿主按 name/id 前缀推断（建筑/船/前景→`texture`，背景/海岸→`background`，`_角色`→`character`，`_游动`→`character_pose`）并生成稳定 id。`upsert_scene` / `upsert_system` 中文 `match.id` 会按 title/name 命中现有分册，否则生成稳定 id。`set` 路径 `project.scenes[id=主界面].notes` 只改写到**已有**分册，不新建。`upsert_graph` 中文 `character_asset` 会命中现有角色 id。
+   - **add_asset / upsert_asset 宿主补全**：缺 `type`、或 id 不是英文蛇形时，宿主按 name/id 前缀推断（建筑/船/前景→`texture`，背景/海岸→`background`，`_角色`→`character`，`_游动`→`character_pose`）并生成稳定 id。`upsert_scene` / `upsert_system` / `upsert_ui_panel` 中文 `match.id` 会按 title/name 命中现有分册/面板，否则生成稳定 id。`set` 路径 `project.scenes[id=主界面].notes` / `project.ui_panels[id=收获展示].notes` 只改写到**已有**条目，不新建。`upsert_graph` 中文 `character_asset` 会命中现有角色 id。
    - **补丁被拒谁来修**：解决者永远是**策划本轮重交 `brief_patches`**（宿主同轮 `host_nudge` 会写清怎么改）。不是用户换角色，不是程序员，不是外挂 Agent。硬校验（id/name 冲突、整表替换 `assets/scenes/systems`、改稳定 `id/path`、非法 `content_class`/`animation_method`）宿主不会替策划改内容，但会同轮重试让策划改补丁。
    - **过期审查**：`fingerprint_match=false` 时宿主不再把旧 `intent_gaps` 注入下一轮（避免草稿已改仍追问「还要解锁」）。
    - **薄 brief / 分册**：主对话轮 payload 常为目录 + 短简介 + `focus` 分册；细则写 `scenes` / `systems`（或 shard 文件），勿堆进 `project.description`。需要检索正文时 CLI：`brief search`、`brief shard load`、`brief related`（FOUNDRY_TOOL 只读，见 Pi 白名单）。
@@ -163,7 +163,8 @@
 - 每项至少：`id`（英文 slug）、`title`（显示名）；可选 `kind`（如 `menu` / `hud` / `inventory`）、`anchor`（大致位置）、`slots`（**短字符串列表**，如 `["金币", "5×4 格子"]`）、`notes`（一句备注）。  
 - **可选字段**：用户从未提过 UI 面板 → **不要**编造整屏 UI；可省略 `ui_panels`。  
 - **不要**生成或提及 `ui-wireframe.md` 等字符线稿文件（仅用户后续点击「生成 UI 示意」才由宿主写入）。  
-- 小改面板：用 `brief_patches` 的 `set` 更新 `project.ui_panels` 整数组，或首稿/大改时在 `draft_brief.project` 内带上。
+- 小改面板：用 `upsert_ui_panel`，或 `set` 路径 `project.ui_panels[id=catch_result_popup].notes`（禁止整表替换 `project.ui_panels`）。首稿/大改时可在 `draft_brief.project` 内带上。
+- **场景 vs 面板**：`scenes[]` 只写屏的进出与画面/分层；HUD、弹窗、按钮等交互或展示块写 `ui_panels[]`，不要塞进场景 notes。
 
 ### `project.scenes[]` / `project.systems[]`（可选）
 
