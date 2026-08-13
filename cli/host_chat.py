@@ -462,13 +462,6 @@ def persist_project_draft(
     except OSError:
         return None
     _remember_disk_draft(session, out, draft_path=draft_path)
-    # Keep Chinese companion in sync with the machine draft (no LLM on every save).
-    try:
-        from brief_zh_doc import write_brief_zh_document
-
-        write_brief_zh_document(brief_path, out, config={}, use_llm=False)
-    except Exception:
-        pass
     return draft_path
 
 
@@ -505,7 +498,15 @@ def sync_session_draft_from_disk(
             and isinstance(session.get("draft_brief"), dict)
             and session["draft_brief"]
         ):
-            return False
+            disk_at_mtime = load_project_draft_from_disk(
+                rel, repo_root=root, workspace=ws
+            )
+            tracked = str(session.get("draft_disk_fingerprint") or "").strip()
+            if (
+                disk_at_mtime
+                and draft_fingerprint(disk_at_mtime) == tracked
+            ):
+                return False
     disk = load_project_draft_from_disk(rel, repo_root=root, workspace=ws)
     if not disk:
         return False

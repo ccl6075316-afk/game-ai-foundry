@@ -4213,8 +4213,7 @@ class HostChatTests(unittest.TestCase):
             self.assertEqual(disk["project"]["title"], "同步测试")
             self.assertEqual(len(disk["assets"]), 1)
             zh = proj / "brief.zh.md"
-            self.assertTrue(zh.is_file(), "persist should refresh brief.zh.md skeleton")
-            self.assertIn("同步测试", zh.read_text(encoding="utf-8"))
+            self.assertFalse(zh.is_file(), "persist must not write brief.zh.md")
 
 
 class ExternalBoundProjectTests(unittest.TestCase):
