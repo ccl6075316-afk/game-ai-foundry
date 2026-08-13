@@ -2,4 +2,4 @@
 
 相对当前已打标签的 [`v0.2.2`](RELEASE-NOTES-0.2.2.md)。打版时把本节并入正式 `RELEASE-NOTES-x.y.z.md`。
 
-（暂无）
+- Brief 叙事中文优先；移除 `brief.zh.md`；prompt-crafter 二次生成英文 prompt；`brief localize` 一次迁移
