@@ -36,6 +36,8 @@ class PromptCraftError(RuntimeError):
 
 
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+_CJK_PROSE_PUNCT_RE = re.compile(r"[。！？.!?\n]")
+_SHORT_CJK_LABEL_MAX = 12
 
 _CJK_BRIEF_BLOCK_MSG = (
     "Chinese brief text cannot be used as the final image prompt; "
@@ -47,9 +49,22 @@ def contains_cjk(text: str) -> bool:
     return bool(_CJK_RE.search(text or ""))
 
 
-def _raise_if_cjk_prompt_field(text: str) -> None:
-    if contains_cjk(text):
-        raise PromptCraftError(_CJK_BRIEF_BLOCK_MSG)
+def _cjk_ok_as_short_label(text: str) -> bool:
+    """Allow short CJK name/token; reject CJK prose (long or sentence-punctuated)."""
+    s = (text or "").strip()
+    if not s or not contains_cjk(s):
+        return True
+    if _CJK_PROSE_PUNCT_RE.search(s):
+        return False
+    return len(_CJK_RE.findall(s)) <= _SHORT_CJK_LABEL_MAX
+
+
+def _raise_if_cjk_prompt_field(text: str, *, allow_short_label: bool = False) -> None:
+    if not contains_cjk(text or ""):
+        return
+    if allow_short_label and _cjk_ok_as_short_label(text):
+        return
+    raise PromptCraftError(_CJK_BRIEF_BLOCK_MSG)
 
 
 def chat_text_completion(
@@ -404,8 +419,11 @@ def assemble_asset_prompt(
             "Asset assemble needs at least 'subject' or injectable technical defaults"
         )
 
-    _raise_if_cjk_prompt_field(cleaned.get("subject", ""))
-    _raise_if_cjk_prompt_field(cleaned.get("style_lock", ""))
+    # Prose / style fields: any CJK blocked. Name-like locks: short CJK labels only.
+    for key in ("subject", "style_lock"):
+        _raise_if_cjk_prompt_field(cleaned.get(key, ""))
+    for key in ("silhouette", "view", "technical", "negatives"):
+        _raise_if_cjk_prompt_field(cleaned.get(key, ""), allow_short_label=True)
 
     if not profile.negatives_effective:
         _merge_negatives_into_style_lock(cleaned)
@@ -713,9 +731,11 @@ def assemble_visual_target_prompt(
         )
 
     # Brief narrative may be Chinese; never inject Chinese prose into final VT prompt.
-    # Allow short CJK names in hero/hud (e.g. player_asset).
+    # hero/hud may keep short CJK names (e.g. player_asset); long/punctuated CJK raises.
     for key in ("scene", "style_lock", "details", "gameplay_beat"):
         _raise_if_cjk_prompt_field(cleaned.get(key, ""))
+    for key in ("hero", "hud"):
+        _raise_if_cjk_prompt_field(cleaned.get(key, ""), allow_short_label=True)
 
     labels = [
         ("Use case", "use_case"),
