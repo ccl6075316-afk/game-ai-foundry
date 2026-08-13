@@ -770,6 +770,56 @@ class HostChatTests(unittest.TestCase):
                 ],
             )
 
+    def test_add_asset_heals_missing_type_and_chinese_id(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "seed", "name": "种子", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "add_asset",
+                    "value": {"name": "主界面_建筑_钓具店"},
+                }
+            ],
+        )
+        added = next(item for item in out["assets"] if item.get("name") == "主界面_建筑_钓具店")
+        self.assertEqual(added["type"], "texture")
+        self.assertRegex(str(added["id"]), r"^tex_[a-z0-9_]+$")
+
+    def test_add_asset_heals_pose_and_background_hints(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "seed", "name": "种子", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {"op": "add_asset", "value": {"name": "鱼_鲫鱼_角色"}},
+                {"op": "add_asset", "value": {"name": "鱼_鲫鱼_游动"}},
+                {"op": "add_asset", "value": {"name": "水族馆_小型缸_观赏背景"}},
+            ],
+        )
+        by_name = {item["name"]: item for item in out["assets"] if isinstance(item, dict)}
+        self.assertEqual(by_name["鱼_鲫鱼_角色"]["type"], "character")
+        self.assertRegex(str(by_name["鱼_鲫鱼_角色"]["id"]), r"^char_")
+        self.assertEqual(by_name["鱼_鲫鱼_游动"]["type"], "character_pose")
+        self.assertRegex(str(by_name["鱼_鲫鱼_游动"]["id"]), r"^pose_")
+        self.assertEqual(by_name["水族馆_小型缸_观赏背景"]["type"], "background")
+        self.assertRegex(str(by_name["水族馆_小型缸_观赏背景"]["id"]), r"^bg_")
+
+    def test_add_asset_still_rejects_untyped_opaque_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "seed", "name": "种子", "type": "texture"}],
+        }
+        with self.assertRaisesRegex(HostChatError, "缺少 type"):
+            apply_brief_patches(
+                draft,
+                [{"op": "add_asset", "value": {"name": "未分类物件"}}],
+            )
+
     def test_asset_name_match_preserves_existing_catalog_id(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
@@ -1161,7 +1211,7 @@ class HostChatTests(unittest.TestCase):
             )
             self.assertEqual(body["usage"], "decoration")
 
-    def test_generic_scene_upsert_requires_match_id(self) -> None:
+    def test_generic_scene_upsert_resolves_match_name_to_id(self) -> None:
         draft = {
             "project": {
                 "title": "T",
@@ -1169,26 +1219,26 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [],
         }
-        with self.assertRaisesRegex(HostChatError, "match.id"):
-            apply_brief_patches(
-                draft,
-                [
-                    {
-                        "op": "upsert_list",
-                        "path": "project.scenes",
-                        "match": {"name": "hall"},
-                        "set": {"notes": "x"},
-                    }
-                ],
-            )
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_list",
+                    "path": "project.scenes",
+                    "match": {"name": "hall"},
+                    "set": {"notes": "x"},
+                }
+            ],
+        )
+        self.assertEqual(out["project"]["scenes"][0]["id"], "hall")
+        self.assertEqual(out["project"]["scenes"][0]["notes"], "x")
 
-    def test_invalid_new_catalog_id_raises_host_chat_error(self) -> None:
+    def test_invalid_new_catalog_id_mints_stable_scene_without_escape(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            save_json_shard(
-                root / "scenes" / "hall.json",
-                {"id": "hall", "title": "Hall"},
-            )
+            hall = root / "scenes" / "hall.json"
+            save_json_shard(hall, {"id": "hall", "title": "Hall"})
+            before = hall.read_bytes()
             draft = {
                 "project": {
                     "title": "T",
@@ -1202,18 +1252,28 @@ class HostChatTests(unittest.TestCase):
                 },
                 "assets": [],
             }
-            with self.assertRaises(HostChatError):
-                apply_brief_patches(
-                    draft,
-                    [
-                        {
-                            "op": "upsert_scene",
-                            "match": {"id": "../escape"},
-                            "set": {"title": "Escape"},
-                        }
-                    ],
-                    project_root=root,
-                )
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "../escape"},
+                        "set": {"title": "Escape"},
+                    }
+                ],
+                project_root=root,
+            )
+            rows = out["project"]["scenes"]
+            self.assertEqual(len(rows), 2)
+            added = next(item for item in rows if item["id"] != "hall")
+            self.assertRegex(str(added["id"]), r"^scene_[a-z0-9_]+$")
+            self.assertNotIn("/", str(added["id"]))
+            self.assertNotIn("..", str(added["id"]))
+            self.assertEqual(added["title"], "Escape")
+            self.assertEqual(hall.read_bytes(), before)
+            for path in root.rglob("*"):
+                if path.is_file():
+                    self.assertTrue(path.resolve().is_relative_to(root.resolve()))
 
     def test_asset_identity_conflicts_are_case_insensitive(self) -> None:
         draft = {
@@ -1286,7 +1346,7 @@ class HostChatTests(unittest.TestCase):
                 with self.assertRaisesRegex(HostChatError, "冲突|歧义"):
                     apply_brief_patches(draft, [patch_value])
 
-    def test_new_asset_rejects_noncanonical_id_without_writing_shard(self) -> None:
+    def test_new_asset_upsert_heals_noncanonical_id_without_escape_paths(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             save_json_shard(
@@ -1305,25 +1365,101 @@ class HostChatTests(unittest.TestCase):
             }
             for invalid_id in ("A", "a/b", "two words", "../escape"):
                 with self.subTest(asset_id=invalid_id):
-                    with self.assertRaisesRegex(HostChatError, "稳定 id"):
-                        apply_brief_patches(
-                            draft,
-                            [
-                                {
-                                    "op": "upsert_asset",
-                                    "match": {
-                                        "id": invalid_id,
-                                        "name": "Invalid",
-                                    },
-                                    "set": {"type": "texture"},
-                                }
-                            ],
-                            project_root=root,
-                        )
-            self.assertEqual(
-                sorted(path.name for path in (root / "assets").iterdir()),
-                ["seed.spec.json"],
-            )
+                    local = copy.deepcopy(draft)
+                    out = apply_brief_patches(
+                        local,
+                        [
+                            {
+                                "op": "upsert_asset",
+                                "match": {
+                                    "id": invalid_id,
+                                    "name": f"Item {invalid_id}",
+                                },
+                                "set": {"type": "texture"},
+                            }
+                        ],
+                        project_root=root,
+                    )
+                    added = next(
+                        item
+                        for item in out["assets"]
+                        if isinstance(item, dict) and item.get("id") != "seed"
+                    )
+                    self.assertRegex(str(added["id"]), r"^[a-z][a-z0-9_]*$")
+                    self.assertNotIn("/", str(added["id"]))
+                    self.assertNotIn("..", str(added["id"]))
+            self.assertFalse((root / "assets" / "escape.spec.json").is_file())
+            self.assertTrue((root / "assets" / "seed.spec.json").is_file())
+
+    def test_upsert_asset_heals_new_chinese_name_without_type(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [{"id": "seed", "name": "种子", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_asset",
+                    "match": {"name": "主界面_建筑_钓具店"},
+                    "set": {"description": "shop"},
+                }
+            ],
+        )
+        added = next(
+            item
+            for item in out["assets"]
+            if isinstance(item, dict) and item.get("name") == "主界面_建筑_钓具店"
+        )
+        self.assertEqual(added["type"], "texture")
+        self.assertRegex(str(added["id"]), r"^tex_[a-z0-9_]+$")
+
+    def test_upsert_scene_resolves_chinese_title_to_existing_id(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "main_hub", "title": "主界面", "notes": "old"}],
+            },
+            "assets": [{"id": "a", "name": "a", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "主界面"},
+                    "set": {"notes": "new"},
+                }
+            ],
+        )
+        self.assertEqual(len(out["project"]["scenes"]), 1)
+        self.assertEqual(out["project"]["scenes"][0]["id"], "main_hub")
+        self.assertEqual(out["project"]["scenes"][0]["notes"], "new")
+
+    def test_upsert_scene_mints_id_for_unknown_chinese_name(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "main_hub", "title": "主界面"}],
+            },
+            "assets": [{"id": "a", "name": "a", "type": "texture"}],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_scene",
+                    "match": {"id": "图鉴亭"},
+                    "set": {"summary": "codex pavilion"},
+                }
+            ],
+        )
+        rows = out["project"]["scenes"]
+        self.assertEqual(len(rows), 2)
+        added = next(item for item in rows if item["id"] != "main_hub")
+        self.assertRegex(str(added["id"]), r"^scene_[a-z0-9_]+$")
+        self.assertEqual(added["title"], "图鉴亭")
+        self.assertEqual(added["summary"], "codex pavilion")
 
     def test_inline_asset_nested_updates_use_deep_merge(self) -> None:
         draft = {
@@ -1452,7 +1588,44 @@ class HostChatTests(unittest.TestCase):
         )
         self.assertEqual(out["assets"][0]["name"], "Renamed")
 
-    def test_scene_upsert_rejects_noncanonical_or_case_variant_id(self) -> None:
+    def test_scene_upsert_heals_case_variant_id_to_existing(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            shard = root / "scenes" / "hall.json"
+            save_json_shard(
+                shard,
+                {"id": "hall", "title": "Hall", "notes": "old"},
+            )
+            draft = {
+                "project": {
+                    "title": "T",
+                    "scenes": [
+                        {
+                            "id": "hall",
+                            "title": "Hall",
+                            "path": "scenes/hall.json",
+                        }
+                    ],
+                },
+                "assets": [],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_scene",
+                        "match": {"id": "HALL"},
+                        "set": {"notes": "updated"},
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertEqual(len(out["project"]["scenes"]), 1)
+            self.assertEqual(out["project"]["scenes"][0]["id"], "hall")
+            body = json.loads(shard.read_text(encoding="utf-8"))
+            self.assertEqual(body["notes"], "updated")
+
+    def test_scene_upsert_mints_id_for_noncanonical_new_id(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             shard = root / "scenes" / "hall.json"
@@ -1474,21 +1647,31 @@ class HostChatTests(unittest.TestCase):
                 },
                 "assets": [],
             }
-            for scene_id in ("HALL", "two words", "../escape"):
+            for scene_id in ("two words", "../escape"):
                 with self.subTest(scene_id=scene_id):
-                    with self.assertRaisesRegex(HostChatError, "稳定 id|冲突"):
-                        apply_brief_patches(
-                            draft,
-                            [
-                                {
-                                    "op": "upsert_scene",
-                                    "match": {"id": scene_id},
-                                    "set": {"notes": "invalid"},
-                                }
-                            ],
-                            project_root=root,
-                        )
-            self.assertEqual(shard.read_bytes(), before)
+                    local = copy.deepcopy(draft)
+                    out = apply_brief_patches(
+                        local,
+                        [
+                            {
+                                "op": "upsert_scene",
+                                "match": {"id": scene_id},
+                                "set": {"notes": "minted"},
+                            }
+                        ],
+                        project_root=root,
+                    )
+                    rows = out["project"]["scenes"]
+                    self.assertEqual(len(rows), 2)
+                    added = next(item for item in rows if item["id"] != "hall")
+                    added_id = str(added["id"])
+                    self.assertRegex(added_id, r"^scene_[a-z0-9_]+$")
+                    self.assertNotIn("/", added_id)
+                    self.assertEqual(shard.read_bytes(), before)
+                    new_shard = root / "scenes" / f"{added_id}.json"
+                    self.assertTrue(new_shard.is_file())
+                    body = json.loads(new_shard.read_text(encoding="utf-8"))
+                    self.assertEqual(body.get("notes"), "minted")
 
     def test_scene_set_rejects_nested_index_fields(self) -> None:
         draft = {
@@ -1512,7 +1695,7 @@ class HostChatTests(unittest.TestCase):
                         ],
                     )
 
-    def test_scene_set_rejects_noncanonical_selector_id(self) -> None:
+    def test_scene_set_heals_case_variant_selector_id(self) -> None:
         draft = {
             "project": {
                 "title": "T",
@@ -1520,14 +1703,105 @@ class HostChatTests(unittest.TestCase):
             },
             "assets": [],
         }
-        with self.assertRaisesRegex(HostChatError, "稳定 id"):
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "set",
+                    "path": "project.scenes[id=HALL].notes",
+                    "value": "updated",
+                }
+            ],
+        )
+        self.assertEqual(len(out["project"]["scenes"]), 1)
+        self.assertEqual(out["project"]["scenes"][0]["id"], "hall")
+        self.assertEqual(out["project"]["scenes"][0]["notes"], "updated")
+
+    def test_scene_set_resolves_chinese_title_selector(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "main_hub", "title": "主界面"}],
+            },
+            "assets": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "set",
+                    "path": "project.scenes[id=主界面].notes",
+                    "value": "hub notes",
+                }
+            ],
+        )
+        self.assertEqual(len(out["project"]["scenes"]), 1)
+        self.assertEqual(out["project"]["scenes"][0]["id"], "main_hub")
+        self.assertEqual(out["project"]["scenes"][0]["notes"], "hub notes")
+
+    def test_scene_set_unknown_chinese_selector_does_not_mint(self) -> None:
+        draft = {
+            "project": {
+                "title": "T",
+                "scenes": [{"id": "main_hub", "title": "主界面"}],
+            },
+            "assets": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "set 只改现有|找不到"):
             apply_brief_patches(
                 draft,
                 [
                     {
                         "op": "set",
-                        "path": "project.scenes[id=HALL].notes",
-                        "value": "invalid",
+                        "path": "project.scenes[id=图鉴亭].notes",
+                        "value": "should not mint",
+                    }
+                ],
+            )
+
+    def test_upsert_graph_resolves_chinese_character_name(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {
+                    "id": "char_carp",
+                    "name": "鲫鱼",
+                    "type": "character",
+                }
+            ],
+            "animation_graphs": [],
+        }
+        out = apply_brief_patches(
+            draft,
+            [
+                {
+                    "op": "upsert_graph",
+                    "match": {"character_asset": "鲫鱼"},
+                    "set": {"clips": ["swim"]},
+                }
+            ],
+        )
+        graphs = out["animation_graphs"]
+        self.assertEqual(len(graphs), 1)
+        self.assertEqual(graphs[0]["character_asset"], "char_carp")
+        self.assertEqual(graphs[0]["clips"], ["swim"])
+
+    def test_upsert_graph_unknown_chinese_character_fails(self) -> None:
+        draft = {
+            "project": {"title": "T"},
+            "assets": [
+                {"id": "char_carp", "name": "鲫鱼", "type": "character"},
+            ],
+            "animation_graphs": [],
+        }
+        with self.assertRaisesRegex(HostChatError, "upsert_graph 找不到角色"):
+            apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_graph",
+                        "match": {"character_asset": "真鲷"},
+                        "set": {"clips": ["swim"]},
                     }
                 ],
             )
@@ -2608,8 +2882,12 @@ class HostChatTests(unittest.TestCase):
         self.assertTrue(session.get("_talk_without_write"))
         self.assertIn("只说不写", out["assistant_message"])
         self.assertIn("brief_patches", out["assistant_message"])
+        self.assertIn("策划", out["assistant_message"])
+        self.assertIn("外挂", out["assistant_message"])
         payload = _build_user_payload(session, "chat")
         self.assertIn("只说不写", str(payload.get("host_nudge") or ""))
+        self.assertIn("策划", str(payload.get("host_nudge") or ""))
+        self.assertIn("外挂", str(payload.get("host_nudge") or ""))
 
     def test_apply_parsed_no_warn_when_quiet_no_claim(self) -> None:
         session = new_session("quiet-chat")
@@ -2628,6 +2906,64 @@ class HostChatTests(unittest.TestCase):
         out = _apply_parsed(session, parsed, "chat")
         self.assertFalse(session.get("_talk_without_write"))
         self.assertNotIn("只说不写", out["assistant_message"])
+
+    def test_apply_parsed_heals_add_asset_instead_of_talk_without_write(self) -> None:
+        session = new_session("heal-add-asset")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "定点补丁已落进侧栏草稿：新增钓具店建筑。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {"op": "add_asset", "value": {"name": "主界面_建筑_钓具店"}},
+                ]
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        added = next(
+            item
+            for item in session["draft_brief"]["assets"]
+            if item.get("name") == "主界面_建筑_钓具店"
+        )
+        self.assertEqual(added["type"], "texture")
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", out["assistant_message"])
+        self.assertNotIn("草稿补丁未应用", out["assistant_message"])
+
+    def test_apply_parsed_schema_error_nudges_without_talk_without_write(self) -> None:
+        session = new_session("schema-fail")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "补丁已随本轮 JSON 提交，侧栏可预览 diff。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {"op": "add_asset", "value": {"name": "未分类物件"}},
+                ]
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertIn("草稿补丁未应用", out["assistant_message"])
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", out["assistant_message"])
+        self.assertIn("缺少 type", str(session.get("_patch_schema_error") or ""))
+        payload = _build_user_payload(session, "chat")
+        self.assertIn("校验失败", str(payload.get("host_nudge") or ""))
+        self.assertIn("策划", str(payload.get("host_nudge") or ""))
+        self.assertIn("外挂", str(payload.get("host_nudge") or ""))
+        self.assertIn("下一轮策划自己改", out["assistant_message"])
 
     def test_commit_keyword_uses_commit_skill(self) -> None:
         session = new_session("c1")

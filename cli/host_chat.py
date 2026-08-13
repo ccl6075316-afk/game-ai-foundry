@@ -28,6 +28,7 @@ from brief import (
     character_clip_names,
     characters_requiring_animation_graph,
     finalize_brief_export,
+    infer_asset_type_from_hints,
     parse_animation_graphs,
     parse_assets_for_audit,
     validate_brief_for_export,
@@ -935,8 +936,51 @@ _TALK_WITHOUT_WRITE_NOTE = (
     "\n\n—— **宿主拦截：只说不写**\n"
     "你本轮口头声称已写入/落盘草稿，但 JSON 里没有生效的 `brief_patches` "
     "（也没有改动 `draft_brief`）。侧栏草稿**未变**。\n"
-    "请下一轮只返回 `artifact.brief_patches` 定点改字段；不要再说「已写入」。"
+    "【谁来修】解决者=策划（你下一轮重交 `brief_patches`），"
+    "不是用户、不是程序员、不是外挂 Agent。不要再说「已写入」。"
 )
+_PATCH_APPLY_FAILED_NOTE = (
+    "\n\n（草稿补丁未应用：{exc}）\n"
+    "这是策划补丁校验，**下一轮策划自己改 brief_patches 即可**；"
+    "不用换项目经理/程序员，也不用外挂 Agent。宿主已把修正要求打回策划。"
+)
+_PATCH_SCHEMA_NUDGE = (
+    "【谁来修】brief_patches 被宿主拒收。解决者=策划（你下一轮重交补丁），"
+    "不是用户、不是程序员、不是外挂 Agent。校验失败。错误：{error}\n"
+    "{hint}\n"
+    "宿主已自动补：add_asset/upsert_asset 缺 type、中文/非法 id；"
+    "upsert_scene/system 中文 id 会按 title/name 命中现有分册或生成稳定 id；"
+    "set 路径里的中文/非法 scene/system 选择器会改写成现有稳定 id；"
+    "upsert_graph 的中文 character_asset 会命中现有角色。\n"
+    "硬校验须你改补丁（宿主不会自动改）："
+    "id/name 冲突；整表替换 assets/scenes/systems；改稳定字段 id/path；"
+    "非法 content_class / animation_method。\n"
+    "不要只口头说已写入。"
+)
+_ADD_ASSET_TYPE_REQUIRED = (
+    "新增资产缺少 type，且无法从 name/id 推断。"
+    "必须含 type（character, icon_kit, texture, background, "
+    "character_pose, audio）。"
+    '例：{"id":"tex_hub_bldg_tackle","name":"主界面_建筑_钓具店","type":"texture"}。'
+)
+_ASSET_ID_STEM = {
+    AssetType.CHARACTER.value: "char",
+    AssetType.CHARACTER_POSE.value: "pose",
+    AssetType.BACKGROUND.value: "bg",
+    AssetType.TEXTURE.value: "tex",
+    AssetType.ICON_KIT.value: "kit",
+    AssetType.AUDIO.value: "sfx",
+}
+_STRUCTURE_LIST_PATHS = {
+    "scene": "project.scenes",
+    "system": "project.systems",
+    "panel": "project.ui_panels",
+}
+_STRUCTURE_ID_STEM = {
+    "scene": "scene",
+    "system": "system",
+    "panel": "panel",
+}
 
 
 def looks_like_draft_write_claim(text: str) -> bool:
@@ -2294,8 +2338,16 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
                 "导出写入该 brief_rel。不要当成别的游戏（例如黑哨）。"
             ),
         }
-    if session.get("_talk_without_write"):
+    schema_err = str(session.get("_patch_schema_error") or "").strip()
+    if schema_err:
+        payload["host_nudge"] = _PATCH_SCHEMA_NUDGE.format(
+            error=schema_err,
+            hint=_patch_recovery_hint(schema_err),
+        )
+    elif session.get("_talk_without_write"):
         payload["host_nudge"] = (
+            "【谁来修】解决者=策划（你下一轮重交 brief_patches），"
+            "不是用户、不是程序员、不是外挂 Agent。"
             "上一轮你声称写进草稿，但宿主检测到 brief_patches / draft 未变（只说不写）。"
             "本轮必须用 artifact.brief_patches 定点落盘；禁止只口头说「已写入」。"
             "制作审查只读草稿，聊天记录不算数。"
@@ -2642,6 +2694,274 @@ def _refresh_catalog_asset_refs(
     return out
 
 
+def _mint_stable_catalog_id(stem: str, seed: str, taken: set[str]) -> str:
+    stem_s = re.sub(r"[^a-z0-9_]+", "", str(stem or "").lower()) or "id"
+    if not stem_s[0].isalpha():
+        stem_s = f"id_{stem_s}"
+    digest = hashlib.sha1(f"{stem_s}\0{(seed or '').strip()}".encode()).hexdigest()[:10]
+    base = f"{stem_s}_{digest}"
+    if base not in taken and _STABLE_CATALOG_ID_RE.fullmatch(base):
+        return base
+    for suffix in range(2, 80):
+        candidate = f"{base}_{suffix}"
+        if candidate not in taken and _STABLE_CATALOG_ID_RE.fullmatch(candidate):
+            return candidate
+    raise HostChatError(f"无法为 {seed!r} 生成稳定 id。")
+
+
+def _mint_stable_asset_id(name: str, asset_type: str, taken: set[str]) -> str:
+    return _mint_stable_catalog_id(
+        _ASSET_ID_STEM.get(asset_type, "tex"), name, taken
+    )
+
+
+def _patch_recovery_hint(error: str) -> str:
+    text = str(error or "")
+    lowered = text.lower()
+    if "冲突" in text or "歧义" in text:
+        return (
+            "【怎么改】换一个不重复的 name/id；不要 set 已有资产的 id/path。"
+            "现有条目用 upsert_* + 已有英文 id 或中文 title/name。"
+        )
+    if "整体替换" in text or "受保护" in text:
+        return (
+            "【怎么改】不要 set project.scenes / assets / systems 整表；"
+            "单条用 upsert_scene / upsert_asset / upsert_system。"
+        )
+    if "稳定字段" in text:
+        return "【怎么改】补丁里不要改 id/path；只 set notes/summary/description 等正文。"
+    if "content_class" in lowered:
+        return (
+            "【怎么改】content_class 只能是 floor_tile, wall_tile, prop_static, "
+            "prop_interactable, prop_stateful, weapon, tool, decor, "
+            "backdrop_sparse, backdrop_full；不确定就删掉该字段。"
+        )
+    if "animation_method" in lowered:
+        return "【怎么改】animation_method 只用 video 或 img2img，不要 spritesheet。"
+    if "type" in lowered or "缺少 type" in text:
+        return (
+            "【怎么改】补上 type，或把 name 写成带 建筑/背景/_角色/_游动 的提示。"
+            "建筑/船/前景→texture；背景/海岸→background。"
+        )
+    if "upsert_graph" in text or "找不到角色" in text:
+        return (
+            "【怎么改】match.character_asset 用现有 character 的英文 id 或中文 name。"
+        )
+    if "set 只改现有" in text or "set 路径找不到" in text:
+        return (
+            "【怎么改】set 只改已有 scene/system；新建用 upsert_scene/system，"
+            "或 path 里用已有英文 id / 中文 title。"
+        )
+    if "稳定 id" in text:
+        return (
+            "【怎么改】match.id 用英文蛇形，或只给中文 title/name 让宿主解析现有分册。"
+        )
+    return "【怎么改】按错误改 brief_patches 后重交；不要整稿覆盖。"
+
+
+def _repair_add_asset_value(
+    value: dict[str, Any],
+    *,
+    taken_ids: set[str],
+    taken_names: set[str],
+) -> dict[str, Any]:
+    """Fill missing/illegal type and id so planner add/upsert can land without a human."""
+    repaired = copy.deepcopy(value)
+    name = str(repaired.get("name") or "").strip()
+    if not name:
+        raise HostChatError("新增资产 name 不能为空。")
+    asset_type = infer_asset_type_from_hints(repaired)
+    if not asset_type:
+        raise HostChatError(_ADD_ASSET_TYPE_REQUIRED)
+    repaired["type"] = asset_type
+    asset_id = str(repaired.get("id") or "").strip()
+    if not _STABLE_CATALOG_ID_RE.fullmatch(asset_id):
+        lowered = asset_id.lower().replace("-", "_")
+        if asset_id and _STABLE_CATALOG_ID_RE.fullmatch(lowered):
+            if lowered in taken_ids or lowered.casefold() in taken_names:
+                raise HostChatError(f"资产 id 冲突：{lowered}")
+            asset_id = lowered
+        else:
+            asset_id = _mint_stable_asset_id(name, asset_type, taken_ids)
+        repaired["id"] = asset_id
+    return repaired
+
+
+def _structure_catalog_rows(draft: dict[str, Any], kind: str) -> list[dict[str, Any]]:
+    project = draft.get("project") if isinstance(draft.get("project"), dict) else {}
+    path = _STRUCTURE_LIST_PATHS.get(kind, "")
+    leaf = path.rsplit(".", 1)[-1] if path else ""
+    rows = project.get(leaf) if leaf else None
+    return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
+
+
+def _repair_structure_match(
+    kind: str,
+    match: dict[str, Any],
+    fields: dict[str, Any],
+    draft: dict[str, Any],
+    *,
+    mint: bool = True,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Resolve Chinese/missing scene-system-panel ids to a stable catalog id."""
+    out_match = copy.deepcopy(match) if isinstance(match, dict) else {}
+    extra: dict[str, Any] = {}
+    rows = _structure_catalog_rows(draft, kind)
+    match_id = str(out_match.get("id") or "").strip()
+    hints = [
+        match_id,
+        str(out_match.get("title") or "").strip(),
+        str(out_match.get("name") or "").strip(),
+        str(fields.get("title") or "").strip(),
+        str(fields.get("name") or "").strip(),
+    ]
+    hints = [item for item in hints if item]
+
+    def _unique(field: str, value: str) -> dict[str, Any] | None:
+        folded = value.casefold()
+        hits = [
+            row
+            for row in rows
+            if str(row.get(field) or "").strip().casefold() == folded
+        ]
+        if len(hits) > 1:
+            raise HostChatError(
+                f"{kind} {field}={value!r} 存在歧义，必须使用唯一 id。"
+            )
+        return hits[0] if hits else None
+
+    if match_id and _STABLE_CATALOG_ID_RE.fullmatch(match_id):
+        return out_match, extra
+
+    for hint in hints:
+        row = _unique("id", hint) or _unique("title", hint) or _unique("name", hint)
+        if row and str(row.get("id") or "").strip():
+            out_match["id"] = str(row["id"]).strip()
+            return out_match, extra
+
+    seed = next((item for item in hints if item), "")
+    if not seed:
+        raise HostChatError(
+            f"upsert_{kind} 缺少 match.id，且无法从 title/name 推断。"
+            f'例：{{"op":"upsert_{kind}","match":{{"id":"main_hub"}},'
+            '"set":{"notes":"…"}} 或 match.title 用现有中文标题。'
+        )
+    if not mint:
+        raise HostChatError(
+            f"set 只改现有分册，找不到{kind} {seed!r}。"
+            f"新建请用 upsert_{kind}，或 path 用已有英文 id / 中文 title。"
+        )
+    taken = {
+        str(row.get("id") or "").strip()
+        for row in rows
+        if str(row.get("id") or "").strip()
+    }
+    out_match["id"] = _mint_stable_catalog_id(
+        _STRUCTURE_ID_STEM.get(kind, kind), seed, taken
+    )
+    if not str(fields.get("title") or "").strip() and not _STABLE_CATALOG_ID_RE.fullmatch(seed):
+        extra["title"] = seed
+    return out_match, extra
+
+
+def _repair_set_structure_path(
+    raw: dict[str, Any], draft: dict[str, Any]
+) -> dict[str, Any]:
+    """Rewrite set paths like project.scenes[id=主界面].notes to a stable id."""
+    out = copy.deepcopy(raw)
+    path = str(out.get("path") or "").strip()
+    matched = _SET_SCENE_SYSTEM_FIELD.match(path)
+    if not matched:
+        return out
+    section = matched.group(1).lower()
+    selector = matched.group(2).strip()
+    subpath = matched.group(3).strip()
+    kind = "scene" if section == "scenes" else "system"
+    if selector and _STABLE_CATALOG_ID_RE.fullmatch(selector):
+        return out
+    match, _ = _repair_structure_match(
+        kind, {"id": selector}, {}, draft, mint=False
+    )
+    resolved = str(match.get("id") or "").strip()
+    if not _STABLE_CATALOG_ID_RE.fullmatch(resolved):
+        raise HostChatError(
+            f"set 路径找不到{kind} {selector!r}。"
+            f"新建请用 upsert_{kind}，或 path 用已有英文 id / 中文 title。"
+        )
+    out["path"] = f"project.{section}[id={resolved}].{subpath}"
+    return out
+
+
+def _resolve_character_asset_id(hint: str, draft: dict[str, Any]) -> str:
+    """Map a Chinese/case-variant character hint to an existing asset id."""
+    needle = str(hint or "").strip()
+    if not needle:
+        return ""
+    assets = [
+        item for item in draft.get("assets") or [] if isinstance(item, dict)
+    ]
+    folded = needle.casefold()
+
+    def _hits(field: str) -> list[dict[str, Any]]:
+        return [
+            item
+            for item in assets
+            if str(item.get(field) or "").strip().casefold() == folded
+        ]
+
+    by_id = _hits("id")
+    by_name = _hits("name")
+    characters_id = [
+        item
+        for item in by_id
+        if str(item.get("type") or "").strip() == AssetType.CHARACTER.value
+    ]
+    characters_name = [
+        item
+        for item in by_name
+        if str(item.get("type") or "").strip() == AssetType.CHARACTER.value
+    ]
+    pool = characters_id or characters_name or by_id or by_name
+    if len(pool) > 1:
+        raise HostChatError(
+            f"角色 {needle!r} 存在歧义，必须使用唯一 character id。"
+        )
+    if not pool:
+        return ""
+    asset_id = str(pool[0].get("id") or "").strip()
+    return asset_id if _STABLE_CATALOG_ID_RE.fullmatch(asset_id) else ""
+
+
+def _repair_upsert_graph_patch(
+    raw: dict[str, Any], draft: dict[str, Any]
+) -> dict[str, Any]:
+    out = copy.deepcopy(raw)
+    match = out.get("match") if isinstance(out.get("match"), dict) else {}
+    fields = out.get("set") if isinstance(out.get("set"), dict) else {}
+    hint = (
+        str(match.get("character_asset") or "").strip()
+        or str(match.get("id") or "").strip()
+        or str(match.get("name") or "").strip()
+        or str(fields.get("character_asset") or "").strip()
+    )
+    resolved = _resolve_character_asset_id(hint, draft)
+    if resolved:
+        match = dict(match)
+        match["character_asset"] = resolved
+        out["match"] = match
+        if "character_asset" in fields:
+            fields = dict(fields)
+            fields["character_asset"] = resolved
+            out["set"] = fields
+        return out
+    if hint and not _STABLE_CATALOG_ID_RE.fullmatch(hint):
+        raise HostChatError(
+            f"upsert_graph 找不到角色 {hint!r}。"
+            "match.character_asset 用现有 character 的英文 id 或中文 name。"
+        )
+    return out
+
+
 def _validate_asset_patch_schema(
     draft: dict[str, Any], candidate: dict[str, Any]
 ) -> None:
@@ -2731,6 +3051,19 @@ def _normalize_brief_patch_batch(
             if not isinstance(value, dict):
                 normalized.append(copy.deepcopy(raw))
                 continue
+            taken_ids = {
+                str(row.get("id") or "").strip()
+                for row in asset_rows
+                if str(row.get("id") or "").strip()
+            }
+            taken_names = {
+                str(row.get("name") or "").strip().casefold()
+                for row in asset_rows
+                if str(row.get("name") or "").strip()
+            }
+            value = _repair_add_asset_value(
+                value, taken_ids=taken_ids, taken_names=taken_names
+            )
             asset_id = str(value.get("id") or "").strip()
             name = str(value.get("name") or "").strip()
             if not asset_id:
@@ -2760,6 +3093,40 @@ def _normalize_brief_patch_batch(
             )
             continue
 
+        path = str(raw.get("path") or "").strip()
+        structure_kind = {
+            "upsert_scene": "scene",
+            "upsert_system": "system",
+            "upsert_ui_panel": "panel",
+            "project.scenes": "scene",
+            "project.systems": "system",
+            "project.ui_panels": "panel",
+        }.get(op if op != "upsert_list" else path)
+        if structure_kind:
+            match = copy.deepcopy(
+                raw.get("match") if isinstance(raw.get("match"), dict) else {}
+            )
+            fields = copy.deepcopy(
+                raw.get("set") if isinstance(raw.get("set"), dict) else {}
+            )
+            match, extra_fields = _repair_structure_match(
+                structure_kind, match, fields, draft
+            )
+            if extra_fields:
+                fields = {**fields, **extra_fields}
+            repaired_op = copy.deepcopy(raw)
+            repaired_op["match"] = match
+            repaired_op["set"] = fields
+            normalized.append(repaired_op)
+            continue
+
+        if op == "set":
+            normalized.append(_repair_set_structure_path(raw, draft))
+            continue
+        if op == "upsert_graph":
+            normalized.append(_repair_upsert_graph_patch(raw, draft))
+            continue
+
         if op != "upsert_asset":
             normalized.append(copy.deepcopy(raw))
             continue
@@ -2770,6 +3137,11 @@ def _normalize_brief_patch_batch(
         match_name = str(match.get("name") or "").strip()
         if "name" in match and not match_name:
             raise HostChatError("资产 match.name 不能为空。")
+        if match_id and not _STABLE_CATALOG_ID_RE.fullmatch(match_id):
+            named = _unique_row("name", match_id)
+            if named and not match_name:
+                match_name = str(named.get("name") or "").strip()
+            match_id = ""
         row_by_id = _unique_row("id", match_id) if match_id else None
         row_by_name = _unique_row("name", match_name) if match_name else None
         if match_id and match_name and row_by_id is not row_by_name:
@@ -2796,10 +3168,40 @@ def _normalize_brief_patch_batch(
                     raise HostChatError(f"资产 name 冲突：{body_name}")
                 row = {"id": match_id, "name": body_name}
                 asset_rows.append(row)
-        if row is None and not match_id:
-            raise HostChatError(
-                f"资产 name={match_name!r} 未唯一命中；新增资产必须提供稳定 id。"
+        if row is None:
+            taken_ids = {
+                str(item.get("id") or "").strip()
+                for item in asset_rows
+                if str(item.get("id") or "").strip()
+            }
+            taken_names = {
+                str(item.get("name") or "").strip().casefold()
+                for item in asset_rows
+                if str(item.get("name") or "").strip()
+            }
+            hint_name = (
+                match_name
+                or str(fields.get("name") or "").strip()
+                or str(match.get("id") or "").strip()
             )
+            repaired_new = _repair_add_asset_value(
+                {
+                    **copy.deepcopy(fields),
+                    "id": match_id,
+                    "name": hint_name,
+                },
+                taken_ids=taken_ids,
+                taken_names=taken_names,
+            )
+            match_id = str(repaired_new.get("id") or "").strip()
+            if catalog and project_root is None:
+                raise HostChatError("Catalog 工程新增资产需要 project_root。")
+            fields = copy.deepcopy(fields)
+            for key, item_value in repaired_new.items():
+                if key == "id":
+                    continue
+                if key not in fields or fields.get(key) in (None, ""):
+                    fields[key] = copy.deepcopy(item_value)
         asset_id = row["id"] if row is not None else match_id
         if not asset_id:
             raise HostChatError("upsert_asset 必须解析到稳定 id。")
@@ -3670,8 +4072,10 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                     )
                     invalidate_verified_ledger_for_patches(session, patches)
                     session["ready_to_export"] = _compute_ready_to_export(session)
+                    session.pop("_patch_schema_error", None)
                 except HostChatError as exc:
-                    assistant_message += f"\n\n（草稿补丁未应用：{exc}）"
+                    session["_patch_schema_error"] = str(exc)
+                    assistant_message += _PATCH_APPLY_FAILED_NOTE.format(exc=exc)
         elif incoming:
             # Autofix: reject huge assets[] rewrites (models truncate mid-JSON).
             merge_incoming = incoming
@@ -3754,6 +4158,7 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     if mode == "chat":
         if draft_changed:
             session.pop("_talk_without_write", None)
+            session.pop("_patch_schema_error", None)
             closed_ids = _extract_closed_intent_gap_ids(parsed)
             # Single open gap + any successful patch while answering review → close it.
             review_before = session.get("makeability_review")
@@ -3780,6 +4185,9 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                 closed_ids=closed_ids,
                 assistant_message=assistant_message,
             )
+        elif patches and session.get("_patch_schema_error"):
+            # Planner attempted a write; schema failed. Don't mislabel as 只说不写.
+            session.pop("_talk_without_write", None)
         elif looks_like_draft_write_claim(assistant_message):
             session["_talk_without_write"] = True
             if _TALK_WITHOUT_WRITE_NOTE.strip() not in assistant_message:

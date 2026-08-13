@@ -35,7 +35,9 @@
    - 关 intent 缺口时：除 `brief_patches` 外，在 `artifact.closed_intent_gap_ids` 列出已关闭的缺口 id（如 `["aquarium_unlock_flow"]`）。宿主会从审查列表移除它们，并要求再跑一次制作审查。
    - 改 `scenes` / `systems` / `ui_panels` 某一条：用 `upsert_scene` / `upsert_system` / `upsert_ui_panel`（或 `upsert_list` + path），不要整表瘦身重写。
    - 「先不用解锁 / 直接解锁 / 开局可进」= **无建筑购买门闩**，写入可进入；**不要**理解成「要做付费解锁」。
-   - **宿主拦截「只说不写」**：若本轮口头声称「已写入/落盘草稿」但 JSON 无生效 `brief_patches`（草稿指纹未变），宿主会在回复末尾追加警告，并在下一轮 user payload 注入 `host_nudge`，要求必须用补丁落盘。
+   - **宿主拦截「只说不写」**：若本轮口头声称「已写入/落盘草稿」但 JSON 无生效 `brief_patches`（草稿指纹未变），宿主会在回复末尾追加警告，并在下一轮 user payload 注入 `host_nudge`。解决者=策划下一轮重交补丁，不是用户换角色、不是程序员、不是外挂 Agent。
+   - **add_asset / upsert_asset 宿主补全**：缺 `type`、或 id 不是英文蛇形时，宿主按 name/id 前缀推断（建筑/船/前景→`texture`，背景/海岸→`background`，`_角色`→`character`，`_游动`→`character_pose`）并生成稳定 id。`upsert_scene` / `upsert_system` 中文 `match.id` 会按 title/name 命中现有分册，否则生成稳定 id。`set` 路径 `project.scenes[id=主界面].notes` 只改写到**已有**分册，不新建。`upsert_graph` 中文 `character_asset` 会命中现有角色 id。
+   - **补丁被拒谁来修**：解决者永远是**策划下一轮重交 `brief_patches`**（宿主 `host_nudge` 会写清怎么改）。不是用户换角色，不是程序员，不是外挂 Agent。硬校验（id/name 冲突、整表替换 `assets/scenes/systems`、改稳定 `id/path`、非法 `content_class`/`animation_method`）宿主不会自动改，按 nudge 改补丁即可。
    - **过期审查**：`fingerprint_match=false` 时宿主不再把旧 `intent_gaps` 注入下一轮（避免草稿已改仍追问「还要解锁」）。
    - **薄 brief / 分册**：主对话轮 payload 常为目录 + 短简介 + `focus` 分册；细则写 `scenes` / `systems`（或 shard 文件），勿堆进 `project.description`。需要检索正文时 CLI：`brief search`、`brief shard load`、`brief related`（FOUNDRY_TOOL 只读，见 Pi 白名单）。
    - **Focus 纪律**：payload 里的 `focus` / 工具返回的 `{kind,id}` 只是当前阅读光标，**不是写权限，也不是必填项**。有 focus 时优先理解该分册；无 focus 或发现连带影响时，可根据薄目录、`related_shards`、`brief search` / `brief related` / `brief shard load` 自主选择需要修改的现有分册，并用定点 `brief_patches` 落盘。Catalog 工程下正文仍写分册文件，brief 索引保持薄映射；回答中列明本轮实际修改了哪些分册。普通补丁不得整体替换 `scenes/systems/assets`，不得修改稳定 `id/path`，typed upsert 不得改写到其它 section。

@@ -1007,6 +1007,42 @@ def _default_hud_anchor(asset_name: str) -> str:
     return "top_left"
 
 
+_ASSET_TYPE_NAME_HINTS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    (AssetType.CHARACTER_POSE.value, ("_游动", "游动", "swim", "_pose")),
+    (AssetType.CHARACTER.value, ("_角色", "角色", "character")),
+    (AssetType.BACKGROUND.value, ("_背景", "背景", "background", "海岸", "海面")),
+    (AssetType.AUDIO.value, ("_音效", "音效", "sfx", "bgm", "music", "_audio")),
+    (AssetType.ICON_KIT.value, ("icon_kit", "图标包", "_kit")),
+    (
+        AssetType.TEXTURE.value,
+        (
+            "_建筑",
+            "建筑",
+            "_图标",
+            "图标",
+            "icon",
+            "船",
+            "鱼竿",
+            "前景",
+            "透明",
+            "overlay",
+            "building",
+        ),
+    ),
+)
+_ASSET_TYPE_ID_PREFIXES: tuple[tuple[str, str], ...] = (
+    ("pose_", AssetType.CHARACTER_POSE.value),
+    ("char_", AssetType.CHARACTER.value),
+    ("bg_", AssetType.BACKGROUND.value),
+    ("sfx_", AssetType.AUDIO.value),
+    ("bgm_", AssetType.AUDIO.value),
+    ("aud_", AssetType.AUDIO.value),
+    ("kit_", AssetType.ICON_KIT.value),
+    ("tex_", AssetType.TEXTURE.value),
+    ("icon_", AssetType.TEXTURE.value),
+)
+
+
 def remap_illegal_asset_type(item: dict[str, Any]) -> str | None:
     """Return a legal AssetType value if ``item['type']`` is a known alias; else None."""
     raw = str(item.get("type") or "").strip().lower()
@@ -1027,6 +1063,39 @@ def remap_illegal_asset_type(item: dict[str, Any]) -> str | None:
         if "kit" in usage or usage == "icon_kit":
             return AssetType.ICON_KIT.value
         return AssetType.TEXTURE.value
+    return None
+
+
+def infer_asset_type_from_hints(item: dict[str, Any]) -> str | None:
+    """Resolve a legal AssetType from explicit type, aliases, or id/name hints.
+
+    Used by host patch healing so planner ``add_asset`` missing ``type`` still lands.
+    Only ``id`` + ``name`` are used for keyword hints (not description).
+    """
+    if not isinstance(item, dict):
+        return None
+    aliased = remap_illegal_asset_type(item)
+    if aliased:
+        return aliased
+    raw = str(item.get("type") or "").strip()
+    if raw:
+        try:
+            return AssetType(raw).value
+        except ValueError:
+            pass
+    aid = str(item.get("id") or "").strip().lower()
+    for prefix, typ in _ASSET_TYPE_ID_PREFIXES:
+        if aid.startswith(prefix):
+            return typ
+    text = f"{item.get('id') or ''} {item.get('name') or ''}"
+    blob = text.lower()
+    for typ, needles in _ASSET_TYPE_NAME_HINTS:
+        for needle in needles:
+            if needle.isascii():
+                if needle.lower() in blob:
+                    return typ
+            elif needle in text:
+                return typ
     return None
 
 

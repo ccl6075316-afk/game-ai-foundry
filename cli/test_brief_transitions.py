@@ -15,6 +15,7 @@ from brief import (
     apply_deterministic_brief_fixes,
     apply_deterministic_hud_fixes,
     apply_deterministic_visual_reference_fixes,
+    infer_asset_type_from_hints,
     parse_assets_for_audit,
     looks_like_visual_reference_path,
     audit_animation_graphs,
@@ -252,6 +253,29 @@ class BriefTransitionsTests(unittest.TestCase):
         self.assertEqual(by_name["fish_swim"], "character_pose")
         self.assertEqual(by_name["rod_icon"], "texture")
         self.assertEqual(by_name["kit"], "icon_kit")
+
+    def test_infer_asset_type_from_name_and_id_hints(self) -> None:
+        self.assertEqual(
+            infer_asset_type_from_hints({"name": "主界面_建筑_钓具店"}),
+            "texture",
+        )
+        self.assertEqual(
+            infer_asset_type_from_hints({"name": "鱼_鲫鱼_角色"}),
+            "character",
+        )
+        self.assertEqual(
+            infer_asset_type_from_hints({"name": "鱼_鲫鱼_游动"}),
+            "character_pose",
+        )
+        self.assertEqual(
+            infer_asset_type_from_hints({"name": "水族馆_小型缸_观赏背景"}),
+            "background",
+        )
+        self.assertEqual(
+            infer_asset_type_from_hints({"id": "tex_hub_boat_rod", "name": "船"}),
+            "texture",
+        )
+        self.assertIsNone(infer_asset_type_from_hints({"name": "未分类物件"}))
 
     def test_parse_assets_for_audit_collects_all_bad_types(self) -> None:
         assets_raw = [
