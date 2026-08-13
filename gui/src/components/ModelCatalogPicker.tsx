@@ -3,12 +3,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const DISPLAY_LIMIT = 30;
 const CUSTOM_OPTION = "__custom__";
 const IMAGE_MODEL_RE = /image|dall-e|flux|gpt-image|imagen/i;
+const VIDEO_MODEL_RE =
+  /veo|wan|hailuo|grok-imagine|grok.?video|seedance|kling|sora|runway|luma|minimax|vidu|pika|lightricks|happyhorse/i;
 
 export interface ModelCatalogPickerProps {
   providerId: string;
   value: string;
   onChange: (value: string) => void;
-  role: "text" | "image";
+  role: "text" | "image" | "video";
   disabled?: boolean;
   placeholder?: string;
   /** 对话顶栏等窄行：单行下拉 + 刷新 */
@@ -39,6 +41,10 @@ function normalizeModels(raw: unknown): CatalogModel[] {
 
 function filterImageModels(models: CatalogModel[]): CatalogModel[] {
   return models.filter((m) => IMAGE_MODEL_RE.test(m.id));
+}
+
+function filterVideoModels(models: CatalogModel[]): CatalogModel[] {
+  return models.filter((m) => VIDEO_MODEL_RE.test(m.id));
 }
 
 function filterByQuery(models: CatalogModel[], query: string): CatalogModel[] {
@@ -121,8 +127,10 @@ export function ModelCatalogPicker({
   }, [providerId, disabled, refresh]);
 
   const roleFiltered = useMemo(() => {
-    if (role !== "image" || showAllModels) return catalog;
-    return filterImageModels(catalog);
+    if (showAllModels || role === "text") return catalog;
+    if (role === "image") return filterImageModels(catalog);
+    if (role === "video") return filterVideoModels(catalog);
+    return catalog;
   }, [catalog, role, showAllModels]);
 
   const filtered = useMemo(
@@ -222,7 +230,7 @@ export function ModelCatalogPicker({
         aria-label="搜索模型"
       />
       {customInput}
-      {role === "image" && (
+      {(role === "image" || role === "video") && (
         <label className="field field--checkbox">
           <input
             type="checkbox"
@@ -230,7 +238,11 @@ export function ModelCatalogPicker({
             onChange={(e) => setShowAllModels(e.target.checked)}
             disabled={disabled}
           />
-          <span>显示全部模型（含非图像启发式）</span>
+          <span>
+            {role === "video"
+              ? "显示全部模型（含非视频启发式）"
+              : "显示全部模型（含非图像启发式）"}
+          </span>
         </label>
       )}
       {catalog.length > 0 && filtered.length > DISPLAY_LIMIT && (

@@ -1,4 +1,4 @@
-"""Video generation (Seedance) and frame extraction for gamefactory CLI."""
+"""Video generation (Seedance / OpenAI-compat) and frame extraction for gamefactory CLI."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ import requests
 
 from proxy_utils import activate_proxy, resolve_config_proxy
 from seedance_api import SEEDANCE_MODELS, SeedanceError, generate_video, resolve_model
+from video_compat import CompatVideoError, generate_compat_video
+from video_route import resolve_video_credentials
 
 
 def _load_config() -> dict:
@@ -26,28 +28,13 @@ def _load_config() -> dict:
     return config
 
 
-def _video_settings(config: dict, cli_key: str | None, cli_base: str | None) -> tuple[str | None, str]:
-    video_cfg = config.get("video", {}) if isinstance(config.get("video"), dict) else {}
-    api_key = (
-        cli_key
-        or video_cfg.get("api_key")
-        or config.get("ark_api_key")
-    )
-    api_base = (
-        cli_base
-        or video_cfg.get("api_base")
-        or "https://ark.cn-beijing.volces.com/api/v3"
-    )
-    return api_key, str(api_base)
-
-
 def _status_echo(status: str, task: dict) -> None:
     click.echo(f"task status: {status}", err=True)
 
 
 @click.command("models")
 def models_cmd() -> None:
-    """List built-in Seedance 2.0 model ids (pro / fast / mini)."""
+    """List built-in Seedance model ids (pro / fast / mini / 2.5)."""
     for alias, model_id in SEEDANCE_MODELS.items():
         click.echo(f"{alias}\t{model_id}")
 
@@ -56,7 +43,7 @@ def models_cmd() -> None:
 @click.option(
     "--model",
     default=None,
-    help="Model id or alias: pro, fast, mini (default from config).",
+    help="Model id (Seedance: pro/fast/mini; Apilio: veo3.1, grok-imagine-video-1.5, …).",
 )
 @click.option("--prompt", default=None, help="Motion / scene description.")
 @click.option(
@@ -79,7 +66,12 @@ def models_cmd() -> None:
     type=click.Path(path_type=Path),
     help="Output MP4 path.",
 )
-@click.option("--duration", type=int, default=None, help="Seconds (Seedance 2.0: 4–15).")
+@click.option(
+    "--duration",
+    type=int,
+    default=None,
+    help="Seconds (Seedance 4–15; other vendors typically 1–30).",
+)
 @click.option(
     "--resolution",
     default=None,
@@ -93,8 +85,8 @@ def models_cmd() -> None:
 )
 @click.option("--generate-audio/--no-generate-audio", default=None, help="Sync audio (default from config/plan).")
 @click.option("--watermark/--no-watermark", default=None, help="AI watermark (default from config/plan).")
-@click.option("--api-key", default=None, help="Volcengine Ark API key override.")
-@click.option("--api-base", default=None, help="Ark API base override.")
+@click.option("--api-key", default=None, help="API key override (Ark or provider account).")
+@click.option("--api-base", default=None, help="API base override.")
 @click.option("--poll-interval", type=float, default=10.0, help="Task poll seconds.")
 @click.option("--timeout", type=float, default=600.0, help="Max wait seconds.")
 def generate_cmd(
@@ -113,13 +105,20 @@ def generate_cmd(
     poll_interval: float,
     timeout: float,
 ) -> None:
-    """video-generator agent: Seedance image-to-video / text-to-video."""
+    """video-generator agent: image-to-video / text-to-video."""
     from plan_io import load_video_handoff, video_params_from_handoff
     from video_config import resolve_video_generate_settings
 
     config = _load_config()
     proxy = resolve_config_proxy(config)
-    resolved_key, resolved_base = _video_settings(config, api_key, api_base)
+    creds = resolve_video_credentials(
+        config,
+        explicit_model=model,
+        explicit_key=api_key,
+        explicit_base=api_base,
+    )
+    resolved_key = creds.api_key
+    resolved_base = creds.api_base
 
     plan_overrides: dict[str, Any] = {}
     resolved_prompt = prompt
@@ -145,7 +144,7 @@ def generate_cmd(
     try:
         video = resolve_video_generate_settings(
             config,
-            model=model or plan_overrides.get("model"),
+            model=model or plan_overrides.get("model") or creds.model,
             duration=duration if duration is not None else plan_overrides.get("duration"),
             resolution=resolution or plan_overrides.get("resolution"),
             ratio=ratio if ratio is not None else plan_overrides.get("ratio"),
@@ -159,6 +158,7 @@ def generate_cmd(
             ),
             reference_image=ref_image,
             cli_ratio=ratio is not None,
+            backend=creds.backend if creds.usable else None,
         )
     except ValueError as exc:
         click.echo(f"Error: {exc}", err=True)
@@ -189,31 +189,57 @@ def generate_cmd(
 
     if not resolved_key:
         click.echo(
-            "Error: Ark API key not found. Set video.api_key in ~/.gamefactory/config.json "
-            "or pass --api-key.",
+            "Error: 未配置生视频账号。请在设置 → Provider 选择「生视频用账号」，"
+            "或配置遗留 video.api_key（Seedance），或传 --api-key。",
             err=True,
         )
         sys.exit(1)
 
+    click.echo(
+        f"video backend={creds.backend} provider={creds.provider or '-'} "
+        f"model={video['model']}",
+        err=True,
+    )
+
     try:
-        result = generate_video(
-            model=video["model"],
-            prompt=resolved_prompt,
-            output_path=output_path,
-            api_key=resolved_key,
-            api_base=resolved_base,
-            proxy=proxy,
-            reference_image=ref_image,
-            duration=video["duration"],
-            resolution=video["resolution"],
-            ratio=video["ratio"],
-            generate_audio=video["generate_audio"],
-            watermark=video["watermark"],
-            poll_interval=poll_interval,
-            timeout=timeout,
-            status_cb=_status_echo,
-        )
-    except (SeedanceError, requests.RequestException) as exc:
+        if creds.backend == "openai_compat":
+            result = generate_compat_video(
+                model=video["model"],
+                prompt=resolved_prompt,
+                output_path=output_path,
+                api_key=resolved_key,
+                api_base=resolved_base,
+                proxy=proxy,
+                reference_image=ref_image,
+                duration=video["duration"],
+                resolution=video["resolution"],
+                ratio=video["ratio"],
+                generate_audio=video["generate_audio"],
+                poll_interval=poll_interval,
+                timeout=timeout,
+                status_cb=_status_echo,
+            )
+            resolved_model_id = result.get("model") or video["model"]
+        else:
+            result = generate_video(
+                model=video["model"],
+                prompt=resolved_prompt,
+                output_path=output_path,
+                api_key=resolved_key,
+                api_base=resolved_base,
+                proxy=proxy,
+                reference_image=ref_image,
+                duration=video["duration"],
+                resolution=video["resolution"],
+                ratio=video["ratio"],
+                generate_audio=video["generate_audio"],
+                watermark=video["watermark"],
+                poll_interval=poll_interval,
+                timeout=timeout,
+                status_cb=_status_echo,
+            )
+            resolved_model_id = resolve_model(video["model"])
+    except (SeedanceError, CompatVideoError, requests.RequestException) as exc:
         click.echo(f"Error: {exc}", err=True)
         sys.exit(1)
 
@@ -222,7 +248,9 @@ def generate_cmd(
             {
                 "output": str(output_path.resolve()),
                 "task_id": result["task_id"],
-                "model": resolve_model(video["model"]),
+                "backend": creds.backend,
+                "provider": creds.provider,
+                "model": resolved_model_id,
                 "duration": video["duration"],
                 "resolution": video["resolution"],
                 "ratio": video["ratio"],

@@ -94,6 +94,7 @@ def resolve_video_generate_settings(
     watermark: bool | None = None,
     reference_image: Path | None = None,
     cli_ratio: bool = False,
+    backend: str | None = None,
 ) -> dict[str, Any]:
     """Merge settings: CLI/plan overrides > config.video > defaults.
 
@@ -159,7 +160,13 @@ def resolve_video_generate_settings(
     else:
         resolved_watermark = bool(DEFAULT_VIDEO_GENERATE["watermark"])
 
-    if resolved_duration < 4 or resolved_duration > 15:
+    resolved_backend = str(backend or "").strip().lower()
+    if resolved_backend == "openai_compat":
+        if resolved_duration < 1 or resolved_duration > 30:
+            raise ValueError(
+                f"video duration must be 1–30 seconds, got {resolved_duration}"
+            )
+    elif resolved_duration < 4 or resolved_duration > 15:
         raise ValueError(f"video duration must be 4–15 seconds, got {resolved_duration}")
 
     result = {
@@ -203,4 +210,11 @@ def video_settings_from_asset_spec(
         overrides["generate_audio"] = spec.generate_audio
     if getattr(spec, "watermark", None) is not None:
         overrides["watermark"] = spec.watermark
+    from video_route import resolve_video_credentials
+
+    creds = resolve_video_credentials(config)
+    if creds.usable:
+        overrides["backend"] = creds.backend
+        if not overrides.get("model") and creds.model:
+            overrides["model"] = creds.model
     return resolve_video_generate_settings(config, **overrides)

@@ -27,7 +27,7 @@ export const COMMAND_GUIDE: GuideSection[] = [
       {
         title: "① 配置 API（最低开工）",
         command: "设置 → 从示例创建 → 填写 OpenRouter Key → 保存",
-        description: "即可 /brief、/plan、/run；视频需另配 Seedance",
+        description: "即可 /brief、/plan、/run；做动画再在 Provider 里选生视频账号（Veo/Wan/Hailuo/Grok 或遗留 Seedance）",
       },
       {
         title: "② 等本机工具自动装好",
@@ -95,7 +95,7 @@ export const COMMAND_GUIDE: GuideSection[] = [
       {
         title: "0. 配置 API",
         command: "设置 → Provider → 保存 OpenRouter Key",
-        description: "最低门槛；生视频另配 Seedance",
+        description: "最低门槛；做动画再选生视频账号（或遗留 Seedance）",
       },
       {
         title: "0b. 配置 Agent（推荐）",

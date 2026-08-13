@@ -241,7 +241,7 @@ export interface ConfigPatch {
   prompt?: {
     api_key?: string | null;
     model?: string;
-    proxy?: string;
+    proxy?: string | null;
     api_base?: string | null;
   };
   code?: {
@@ -251,9 +251,9 @@ export interface ConfigPatch {
     proxy?: string;
   };
   video?: {
-    provider?: string;
+    provider?: string | null;
     api_key?: string | null;
-    model?: string;
+    model?: string | null;
     api_base?: string;
   };
   godot?: {

@@ -102,7 +102,7 @@ python gamefactory.py hermes install --target ~/my-hermes-skills
 | `game-factory-orchestrator` | orchestrator | 流水线编排、抠图、Godot |
 | `game-factory-prompt-crafter` | prompt-crafter | 写 prompt / plan JSON |
 | `game-factory-image-generator` | image-generator | OpenRouter 生图 |
-| `game-factory-video-generator` | video-generator | Seedance 图生视频 |
+| `game-factory-video-generator` | video-generator | 图生视频（Provider 账号或遗留 Seedance） |
 | `game-factory-godot-assembler` | godot-assembler | Godot 4 .NET 组装（无 GDScript） |
 | `game-factory-godot-developer` | godot-developer | Pass 4：读 dev-context 写 C# 玩法 |
 | `game-factory-codex` | — | Hermes/Codex 调 terminal 约定 |

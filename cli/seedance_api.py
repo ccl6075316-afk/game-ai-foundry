@@ -21,6 +21,7 @@ SEEDANCE_MODELS: dict[str, str] = {
     "pro": "doubao-seedance-2-0-260128",
     "fast": "doubao-seedance-2-0-fast-260128",
     "mini": "doubao-seedance-2-0-mini-260615",
+    "2.5": "doubao-seedance-2-5-260628",
 }
 
 
@@ -150,15 +151,24 @@ def build_task_payload(
     if reference_image_item is not None:
         content.append(reference_image_item)
 
-    return {
-        "model": resolve_model(model),
+    resolved = resolve_model(model)
+    payload: dict[str, Any] = {
+        "model": resolved,
         "content": content,
         "duration": duration,
         "resolution": resolution,
-        "ratio": ratio,
         "generate_audio": generate_audio,
         "watermark": watermark,
     }
+    ratio_s = str(ratio or "").strip().lower()
+    seedance_25 = "2-5" in resolved.lower() or "2.5" in str(model).lower()
+    # Seedance 2.5 i2v: ratio follows the first frame; sending 1:1/16:9 → HTTP 400.
+    omit_ratio = ratio_s in {"", "auto", "adaptive"} or (
+        reference_image_item is not None and seedance_25
+    )
+    if not omit_ratio:
+        payload["ratio"] = ratio
+    return payload
 
 
 def create_video_task(

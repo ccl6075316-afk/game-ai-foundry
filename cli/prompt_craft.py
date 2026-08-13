@@ -502,6 +502,13 @@ def _resolve_video_model_binding(
     video_model_override = str(asset.get("video_model") or "").strip()
     if video_model_override:
         overrides["model"] = video_model_override
+    from video_route import resolve_video_credentials
+
+    creds = resolve_video_credentials(config or {})
+    if creds.usable:
+        overrides["backend"] = creds.backend
+        if not overrides.get("model") and creds.model:
+            overrides["model"] = creds.model
     video = resolve_video_generate_settings(config or {}, **overrides)
     video_model = resolve_model(str(video["model"]))
     profile = resolve_media_prompt_profile(video_model, modality="video")

@@ -114,7 +114,7 @@ Details → [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) · Progress → [`ROADMAP
 | 项 | 必需 | 说明 |
 |----|------|------|
 | **LLM Provider**（如 OpenRouter） | ✅ | Brief、生图（GUI 设置） |
-| **Seedance / ARK** | 做视频时 | 生视频 |
+| **生视频账号** | 做视频时 | Provider 选 Veo/Wan/Hailuo/Grok，或遗留 Seedance/ARK |
 | **FFmpeg / Godot / .NET** | ✅ | GUI **启动自动安装** |
 | **rembg** | — | **打包版内嵌** |
 | **Hermes / Codex / Cursor Agent** | 推荐 | 项目经理 / 程序员；**设置 → 环境** 配置 |

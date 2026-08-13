@@ -46,7 +46,7 @@ ChatWise 式：**左侧账号列表**，右侧编辑当前账号（Key / Base / 
 | **生文选用** | 决定 `host` / 策划对话走哪家 | ✅ |
 | **生图选用** | 可沿用生文账号；默认 image model 在账号详情 | ✅ |
 | **高级 · 批量** | `bulk_provider` / `bulk_model` | icon_kit 时建议 |
-| **高级 · 视频** | Seedance 等 | 做动画时需要 |
+| **生视频选用** | 可选；从账号库选一家，刷新/手填 `video.model` | 做动画时建议 |
 | **高级 · 代理** | 顶层 `proxy` | 可选 |
 
 `proxy`：设置 → Provider → **网络**（Clash 示例 `http://127.0.0.1:7897`）。权威字段为配置顶层；保存时会清掉旧的 `host.proxy` / `image.proxy`。域名分流规则在 Clash 客户端配置，不在 Foundry GUI。
@@ -54,13 +54,15 @@ ChatWise 式：**左侧账号列表**，右侧编辑当前账号（Key / Base / 
 `image.provider` + `image.model`：角色/场景等默认生图（**主图 Provider** + **主图 model**）。  
 `image.bulk_provider` + `image.bulk_model`：icon_kit 各项与 `generate_tier: "bulk"`（**批量 Provider** + **批量 model**）。缺 `bulk_provider` 时回退 `image.provider`；缺 `bulk_model` 时回退主图 model。两档各从 `provider_accounts` 取对应 Key/Base。icon_kit 按 `items[]` **逐张单物体生成**，不再网格切片。`items` 可为字符串，或 `{id, label?, usage?, usage_description?}`（slug 跟 `id`；玩法绑定见 `production.collectible_items`）。
 
+`video.provider` + `video.model`：可选生视频账号（与生图同一套 `provider_accounts`）+ 模型目录。未选时若仍有遗留 `video.api_key`，运行时按 Seedance / 火山方舟。Apilio：Veo/Grok 走 `POST /v1/videos` + 字符串 `input_reference` + `ratio`；Wan 走站点根 `POST /v2/videos/generations`（`images[]`，分辨率 `720P`）；Hailuo 走 `POST /minimax/v1/video_generation`（`first_frame_image`，`768P`）。`video.extra` 可存盘但本期不透传。
+
 **API Key 只在此页填写**；雇人弹窗与对话配置仅选择账号库 id，不重复填 Key。
 
 ### 自建账号与模型目录
 
 - 除内置厂商外，可 **添加** OpenAI 兼容账号（自定 id / 显示名 / `api_base` / Key）。旧唯一槽 `custom` 仍兼容，可继续再加其它账号。
 - 自建账号用于 **Foundry 直连**（生文 `host`、生图含批量）。prompt craft / 北极星出题跟 **生文选用（host）**，不跟生图网关；保存 Provider 时会把遗留 `config.prompt` 同步成与 host 一致。**不进入** Agent 预设、雇人、对话的 Provider 下拉（Pi / Hermes / Codex / Cursor 未必认自定义 base）。
-- 文/图模型可用「刷新」拉 `GET {api_base}/models`（CLI：`setup provider models --provider <id> --json`）。界面默认只展示靠前约 30 条，其余靠搜索或手填；失败时保留当前模型值。
+- 文/图/视频模型可用「刷新」拉 `GET {api_base}/models`（CLI：`setup provider models --provider <id> --json`）。界面默认只展示靠前约 30 条，其余靠搜索或手填；失败时保留当前模型值。
 
 GUI 主对话（① 策划薄 Chat）走 LLM Provider，与下方 Agent 执行器选择无关。
 
@@ -142,7 +144,7 @@ CLI 等价：`setup executor step <id> <step>` — 见 [`TOOLS.md`](TOOLS.md)。
 
 ## 推荐 Release 用户路径
 
-1. **设置** → 从示例创建 → 填 OpenRouter（+ 可选 Seedance）  
+1. **设置** → 从示例创建 → 填 OpenRouter（做动画再选生视频账号 / 或遗留 Seedance Key）  
 2. 等待启动自动装好 FFmpeg / Godot / .NET（看顶部芯片）  
 3. **（推荐）环境 → 执行器** → 配 Hermes（同步 API）或 Cursor  
 4. **设置 → Agent** → 配各工具默认 Provider（可选；雇人时会预填）  

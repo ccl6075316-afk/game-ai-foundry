@@ -87,7 +87,7 @@ Release 打包版：内嵌 Python 在应用 `Resources/python/`，**rembg 已预
 | `provider_accounts.*` | 多账号库（推荐） | `doctor` → `config.openrouter_key` 等 |
 | `host` | 生文 / Brief 默认模型 | `capabilities.image_api` 等 |
 | `image` | 生图；`provider` / `bulk_provider`；`model` / `bulk_model`；可 `use_text_provider` | 同上 |
-| `video` | Seedance 等视频 API | `config.seedance_key` |
+| `video` | 生视频：`provider` + `model`（账号库）或遗留 Seedance Key | `capabilities.video_api` / `config.seedance_key` |
 
 权威代理字段为顶层 `proxy`；旧 `host.proxy` / `image.proxy` 仍可读，GUI 保存时会迁到顶层。详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)。
 

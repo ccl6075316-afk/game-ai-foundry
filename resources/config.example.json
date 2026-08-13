@@ -41,6 +41,7 @@
     "api_key": "YOUR_ARK_API_KEY",
     "api_base": "https://ark.cn-beijing.volces.com/api/v3",
     "model": "mini",
+    "extra": {},
     "duration": 4,
     "resolution": "480p",
     "ratio": "1:1",

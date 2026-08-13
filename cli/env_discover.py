@@ -188,6 +188,15 @@ def discover_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
             loaded = json.loads(_CONFIG_PATH.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             loaded = {}
+    video_key = _key_status(loaded, "video", "api_key")
+    if video_key != "set":
+        try:
+            from video_route import resolve_video_credentials
+
+            if resolve_video_credentials(loaded).usable:
+                video_key = "set"
+        except Exception:
+            pass
     return {
         "path": str(_CONFIG_PATH),
         "exists": exists,
@@ -197,7 +206,7 @@ def discover_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
         "host_key": _key_status(loaded, "host", "api_key"),
         "prompt_key": _key_status(loaded, "prompt", "api_key"),
         "code_key": _key_status(loaded, "code", "api_key"),
-        "seedance_key": _key_status(loaded, "video", "api_key"),
+        "seedance_key": video_key,
         "godot_engine_path": _key_status(loaded, "godot", "engine_path"),
     }
 

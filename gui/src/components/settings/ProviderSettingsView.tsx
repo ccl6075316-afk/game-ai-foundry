@@ -3,36 +3,26 @@ import type { ConfigInfo, ConfigPatch } from "../../vite-env.d";
 import { ModelCatalogPicker } from "../ModelCatalogPicker";
 import {
   API_PROVIDERS,
-  VIDEO_PROVIDERS,
   getApiProvider,
-  getVideoProvider,
   isApiProviderId,
   isBuiltinProviderId,
-  type VideoProviderId,
 } from "../../settings/apiProviders";
 import {
   NETWORK_SECTION,
   VIDEO_PROVIDER_SECTION,
-  keyConfigured,
 } from "../../settings/sections";
 import {
   getProviderAccount,
-  getVideoAccount,
   isProviderConfigured,
-  isVideoConfigured,
   loadProviderAccountsFromConfig,
   resolveActiveImageSettings,
   resolveActiveTextSettings,
-  resolveActiveVideoSettings,
   serializeProviderAccounts,
-  serializeVideoAccounts,
   updateProviderAccount,
-  updateVideoAccount as applyVideoAccountPatch,
   isValidProviderSlug,
   isUserProviderId,
   listUserAccounts,
   type ProviderAccountsMap,
-  type VideoAccountsMap,
   type ProviderAccount,
 } from "../../settings/providerAccounts";
 
@@ -48,8 +38,8 @@ interface ProviderFormState {
   activeBulkImageProvider: string;
   imageUseTextProvider: boolean;
   imageBulkModel: string;
-  videoAccounts: VideoAccountsMap;
-  activeVideoProvider: VideoProviderId;
+  videoProvider: string;
+  videoModel: string;
   proxy: string;
 }
 
@@ -87,11 +77,24 @@ function isProviderReferenced(form: ProviderFormState, id: string): boolean {
   if (form.activeTextProvider === id) return true;
   if (!form.imageUseTextProvider && form.activeImageProvider === id) return true;
   if (form.activeBulkImageProvider === id) return true;
+  if (form.videoProvider === id) return true;
   return false;
+}
+
+function resolveVideoPick(
+  data: ConfigInfo["data"],
+  accounts: ProviderAccountsMap,
+): string {
+  const video = (data.video || {}) as Record<string, unknown>;
+  const raw = String(video.provider || "").trim();
+  if (!raw || raw === "seedance") return "";
+  if (raw in accounts || isApiProviderId(raw) || isValidProviderSlug(raw)) return raw;
+  return "";
 }
 
 function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
   const imageBlock = (data.image || {}) as Record<string, unknown>;
+  const videoBlock = (data.video || {}) as Record<string, unknown>;
   const loaded = loadProviderAccountsFromConfig(data as Record<string, unknown>);
 
   const bulkRaw = imageBlock.bulk_provider;
@@ -101,9 +104,14 @@ function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
       : loaded.activeImageProvider;
 
   return {
-    ...loaded,
+    providerAccounts: loaded.providerAccounts,
+    activeTextProvider: loaded.activeTextProvider,
+    activeImageProvider: loaded.activeImageProvider,
+    imageUseTextProvider: loaded.imageUseTextProvider,
     activeBulkImageProvider,
     imageBulkModel: String(imageBlock.bulk_model || ""),
+    videoProvider: resolveVideoPick(data, loaded.providerAccounts),
+    videoModel: String(videoBlock.model || ""),
     proxy: String(
       data.proxy ||
         (data.host as Record<string, unknown> | undefined)?.proxy ||
@@ -117,12 +125,10 @@ function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
 function toProviderPatch(form: ProviderFormState): ConfigPatch {
   const text = resolveActiveTextSettings(form);
   const image = resolveActiveImageSettings(form);
-  const video = resolveActiveVideoSettings(form);
 
   return {
     proxy: form.proxy.trim() || null,
     provider_accounts: serializeProviderAccounts(form.providerAccounts),
-    video_accounts: serializeVideoAccounts(form.videoAccounts),
     host: {
       provider: text.provider,
       api_key: text.api_key,
@@ -149,9 +155,8 @@ function toProviderPatch(form: ProviderFormState): ConfigPatch {
       proxy: null,
     },
     video: {
-      provider: video.provider,
-      api_key: video.api_key,
-      api_base: video.api_base,
+      provider: form.videoProvider.trim() || null,
+      model: form.videoModel.trim() || null,
     },
   };
 }
@@ -206,8 +211,6 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
   const textPreset = getApiProvider(form.activeTextProvider, getProviderAccount(form.providerAccounts, form.activeTextProvider));
   const bulkImageAccount = getProviderAccount(form.providerAccounts, form.activeBulkImageProvider);
   const bulkImagePreset = getApiProvider(form.activeBulkImageProvider, bulkImageAccount);
-  const videoAccount = getVideoAccount(form.videoAccounts, form.activeVideoProvider);
-  const videoPreset = getVideoProvider(form.activeVideoProvider);
 
   const setField = <K extends keyof ProviderFormState>(key: K, value: ProviderFormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -231,14 +234,6 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
     setForm((prev) => ({
       ...prev,
       providerAccounts: updateProviderAccount(prev.providerAccounts, prev.activeBulkImageProvider, patch),
-    }));
-    setMessage(null);
-  };
-
-  const patchActiveVideoAccount = (patch: Partial<{ apiKey: string; apiBase: string }>) => {
-    setForm((prev) => ({
-      ...prev,
-      videoAccounts: applyVideoAccountPatch(prev.videoAccounts, prev.activeVideoProvider, patch),
     }));
     setMessage(null);
   };
@@ -285,7 +280,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
   const handleDeleteAccount = (id: string) => {
     if (!isUserProviderId(id) || isBuiltinProviderId(id)) return;
     if (isProviderReferenced(form, id)) {
-      setError("无法删除：该账号正被生文 / 主图 / 批量启用，请先切换到其他账号");
+      setError("无法删除：该账号正被生文 / 主图 / 批量 / 生视频启用，请先切换到其他账号");
       return;
     }
     setForm((prev) => {
@@ -395,6 +390,45 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
               ))}
             </select>
           </label>
+        )}
+        <label className="field">
+          <span>生视频用账号（可选）</span>
+          <select
+            value={form.videoProvider}
+            onChange={(e) => {
+              const next = e.target.value;
+              setForm((prev) => ({
+                ...prev,
+                videoProvider: next,
+                videoModel: next === prev.videoProvider ? prev.videoModel : "",
+              }));
+              setMessage(null);
+            }}
+            disabled={disabled}
+          >
+            <option value="">未启用</option>
+            {options.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.label}
+                {isProviderConfigured(form.providerAccounts, p.id) ? " ✓" : ""}
+              </option>
+            ))}
+          </select>
+        </label>
+        {form.videoProvider ? (
+          <label className="field">
+            <span>生视频 model</span>
+            <ModelCatalogPicker
+              providerId={form.videoProvider}
+              value={form.videoModel}
+              onChange={(v) => setField("videoModel", v)}
+              role="video"
+              disabled={disabled}
+              placeholder="veo3.1 / grok-imagine-video-1.5 / wan2.6-i2v"
+            />
+          </label>
+        ) : (
+          <p className="field-hint">{VIDEO_PROVIDER_SECTION.note}</p>
         )}
       </div>
 
@@ -709,65 +743,14 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
                   <h3 className="settings-card__title">{VIDEO_PROVIDER_SECTION.title}</h3>
                   <span className="settings-card__role-id">（{VIDEO_PROVIDER_SECTION.roleId}）</span>
                 </div>
-                <span
-                  className={`settings-card__status ${
-                    isVideoConfigured(form.videoAccounts, form.activeVideoProvider) ? "ok" : "warn"
-                  }`}
-                >
-                  {isVideoConfigured(form.videoAccounts, form.activeVideoProvider)
-                    ? "已填写"
-                    : "未填写"}
-                </span>
               </div>
               <p className="settings-card__purpose">{VIDEO_PROVIDER_SECTION.purpose}</p>
             </header>
             <div className="settings-card__body">
-              <label className="field">
-                <span>视频平台</span>
-                <select
-                  value={form.activeVideoProvider}
-                  onChange={(e) => setField("activeVideoProvider", e.target.value as VideoProviderId)}
-                  disabled={disabled}
-                >
-                  {VIDEO_PROVIDERS.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.label}
-                      {isVideoConfigured(form.videoAccounts, p.id) ? " ✓" : ""}
-                    </option>
-                  ))}
-                </select>
-                {form.activeVideoProvider !== "custom" && (
-                  <span className="field-endpoint mono">{videoPreset.apiBase}</span>
-                )}
-              </label>
-              {form.activeVideoProvider === "custom" && (
-                <label className="field">
-                  <span>自定义平台地址</span>
-                  <input
-                    type="text"
-                    value={videoAccount.apiBase}
-                    onChange={(e) => patchActiveVideoAccount({ apiBase: e.target.value })}
-                    placeholder="https://…"
-                    disabled={disabled}
-                  />
-                </label>
-              )}
-              <label className="field">
-                <span>
-                  {videoPreset.label} API Key
-                  {isVideoConfigured(form.videoAccounts, form.activeVideoProvider)
-                    ? "（已配置）"
-                    : "（未配置）"}
-                </span>
-                <input
-                  type="password"
-                  value={videoAccount.apiKey}
-                  onChange={(e) => patchActiveVideoAccount({ apiKey: e.target.value })}
-                  placeholder={videoPreset.keyPlaceholder}
-                  autoComplete="off"
-                  disabled={disabled}
-                />
-              </label>
+              <p className="field-hint">
+                生视频账号与模型在上方短选。遗留 <code>video.api_key</code>（Seedance / 火山方舟）仍可被 CLI
+                读取，无需在此重复填写。
+              </p>
             </div>
           </section>
         </div>
