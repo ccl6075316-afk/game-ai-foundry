@@ -34,3 +34,6 @@ Brief animation fields: `duration_seconds`, `sprite_frames`, `video_model`, `vid
 ## Craft quality
 
 Be visually specific; English under ~120 words total across JSON fields. Follow the loaded class skill + shared locks.
+
+Brief narrative may be Chinese. You MUST secondary-generate English structured fields.
+Never copy Chinese description/art_direction verbatim into subject/style_lock/scene/hero.

@@ -26,6 +26,9 @@ Match:
 - `project.camera` for viewpoint language when present
 - `project.hud` only for in-game HUD chips (never outer app chrome)
 
+Brief narrative may be Chinese. You MUST secondary-generate English structured fields.
+Never copy Chinese description/art_direction verbatim into subject/style_lock/scene/hero.
+
 ## JSON fields (English, concrete visual facts)
 
 ```json

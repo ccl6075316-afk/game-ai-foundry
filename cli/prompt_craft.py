@@ -7,6 +7,7 @@ orchestrator (project + asset), not orchestrator skills.
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 import requests
@@ -32,6 +33,23 @@ DEFAULT_PROMPT_MODEL = "deepseek/deepseek-v4-flash"
 
 class PromptCraftError(RuntimeError):
     """Raised when LLM prompt crafting fails."""
+
+
+_CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+
+_CJK_BRIEF_BLOCK_MSG = (
+    "Chinese brief text cannot be used as the final image prompt; "
+    "re-run prompt craft with LLM to secondary-generate English fields"
+)
+
+
+def contains_cjk(text: str) -> bool:
+    return bool(_CJK_RE.search(text or ""))
+
+
+def _raise_if_cjk_prompt_field(text: str) -> None:
+    if contains_cjk(text):
+        raise PromptCraftError(_CJK_BRIEF_BLOCK_MSG)
 
 
 def chat_text_completion(
@@ -373,10 +391,21 @@ def assemble_asset_prompt(
         elif getattr(spec, "description", None):
             cleaned["subject"] = str(spec.description).strip()
 
+    if not cleaned.get("style_lock"):
+        if isinstance(project, dict) and project.get("art_direction"):
+            cleaned["style_lock"] = str(project["art_direction"]).strip()
+        else:
+            art = getattr(project, "art_direction", None)
+            if art:
+                cleaned["style_lock"] = str(art).strip()
+
     if not cleaned.get("subject") and not cleaned.get("technical"):
         raise PromptCraftError(
             "Asset assemble needs at least 'subject' or injectable technical defaults"
         )
+
+    _raise_if_cjk_prompt_field(cleaned.get("subject", ""))
+    _raise_if_cjk_prompt_field(cleaned.get("style_lock", ""))
 
     if not profile.negatives_effective:
         _merge_negatives_into_style_lock(cleaned)
@@ -682,6 +711,11 @@ def assemble_visual_target_prompt(
         raise PromptCraftError(
             "Visual target assemble needs at least 'scene' or 'hero' field"
         )
+
+    # Brief narrative may be Chinese; never inject Chinese prose into final VT prompt.
+    # Allow short CJK names in hero/hud (e.g. player_asset).
+    for key in ("scene", "style_lock", "details", "gameplay_beat"):
+        _raise_if_cjk_prompt_field(cleaned.get(key, ""))
 
     labels = [
         ("Use case", "use_case"),
