@@ -412,6 +412,35 @@ class PiFoundryToolsTest(unittest.TestCase):
                 profile="brief",
             )
         )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "chat",
+                    "zh-doc",
+                    "--session-id",
+                    "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="brief",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "zh-doc",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="brief",
+            )
+        )
 
     def test_brief_profile_allows_search_and_shard_load(self) -> None:
         self.assertTrue(
