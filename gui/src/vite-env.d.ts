@@ -601,24 +601,6 @@ declare global {
           brief_rel?: string;
           brief?: Record<string, unknown>;
           session_id?: string;
-          zh_doc_path?: string;
-          zh_doc_rel?: string;
-          zh_doc_name?: string;
-          zh_doc_mode?: string;
-          zh_doc_error?: string;
-        }>
-      >;
-      hostChatZhDoc: (
-        sessionId: string,
-        briefRel: string,
-        skeletonOnly?: boolean,
-      ) => Promise<
-        CliResult<{
-          zh_doc_path?: string;
-          zh_doc_rel?: string;
-          zh_doc_name?: string;
-          zh_doc_mode?: string;
-          brief_rel?: string;
         }>
       >;
       hostChatUiWireframe: (

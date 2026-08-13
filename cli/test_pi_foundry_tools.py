@@ -113,7 +113,7 @@ class PiFoundryToolsTest(unittest.TestCase):
                 profile="it",
             )
         )
-        self.assertTrue(
+        self.assertFalse(
             is_allowed_argv(
                 [
                     "brief",
@@ -121,6 +121,19 @@ class PiFoundryToolsTest(unittest.TestCase):
                     "zh-doc",
                     "--session-id",
                     "s1",
+                    "--brief-rel",
+                    "projects/x/brief.json",
+                    "--json",
+                    "--i-confirm",
+                ],
+                profile="it",
+            )
+        )
+        self.assertFalse(
+            is_allowed_argv(
+                [
+                    "brief",
+                    "zh-doc",
                     "--brief-rel",
                     "projects/x/brief.json",
                     "--json",
@@ -235,20 +248,6 @@ class PiFoundryToolsTest(unittest.TestCase):
             is_allowed_argv(["pipeline", "reset", "--task-id", "t1", "--json"])
         )
         self.assertFalse(is_allowed_argv(["pipeline", "run", "--jobs", "2", "--json"]))
-        self.assertFalse(
-            is_allowed_argv(
-                [
-                    "brief",
-                    "chat",
-                    "zh-doc",
-                    "--session-id",
-                    "s1",
-                    "--brief-rel",
-                    "projects/x/brief.json",
-                    "--json",
-                ]
-            )
-        )
         self.assertFalse(
             is_allowed_argv(
                 [

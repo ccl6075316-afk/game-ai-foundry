@@ -1302,7 +1302,7 @@ export default function App() {
               "",
               `- 目录：\`projects/${created.slug}/\``,
               `- 顶栏已指向本工程；右侧「文档」**只列出本工程文件**`,
-              `- 可先看 **工程说明**；导出 Brief 后会出现 **中文说明 · Brief**`,
+              `- 可先看 **工程说明**；导出 Brief 后在文档栏预览分册`,
               "",
               "接下来在本对话描述玩法；落实后点文档面板「导出 Brief」写入本目录。",
             ].join("\n"),
@@ -1399,20 +1399,6 @@ export default function App() {
           { replace: true },
         );
         if (data.draft_brief) setBriefDraft(data.draft_brief);
-        // Pre-export Chinese mirror (skeleton, fast) whenever draft is on disk/session
-        if (data.draft_brief && window.gameFactory?.hostChatZhDoc) {
-          void window.gameFactory
-            .hostChatZhDoc(sid, briefRel, true)
-            .then((zh) => {
-              if (zh.exitCode !== 0) return;
-              const zhRel =
-                (zh.data?.zh_doc_rel || "").replace(/\\/g, "/") ||
-                `${briefRel.replace(/\/[^/]+$/i, "")}/brief.zh.md`;
-              setDocsFocusDiskRel(zhRel);
-              setDocsDiskRefreshKey((n) => n + 1);
-            })
-            .catch(() => undefined);
-        }
       }
       return data;
     },
@@ -1576,11 +1562,7 @@ export default function App() {
       await syncPipelineForBriefRef.current(briefRel);
       const extId = parseExternalBriefId(briefRel);
       const extEntry = extId ? externalEntryById[extId] : null;
-      const zhRel =
-        (res.data?.zh_doc_rel || "").replace(/\\/g, "/") ||
-        (extId ? `${briefRel.replace(/\/brief\.json$/i, "")}/brief.zh.md` : `projects/${slug}/brief.zh.md`);
-      const zhMode = res.data?.zh_doc_mode || "skeleton";
-      setDocsFocusDiskRel(zhRel);
+      setDocsFocusDiskRel(briefRel.replace(/\\/g, "/"));
       setDocsDiskRefreshKey((n) => n + 1);
       setSidePanel("docs");
       const rootLine = extEntry
@@ -1589,7 +1571,6 @@ export default function App() {
       appendAssistant(
         `**Brief 已写入本工程**\n\n` +
           `- Brief：\`${briefRel}\`\n` +
-          `- 中文说明：\`${zhRel}\`${zhMode === "llm" ? "（已翻译）" : "（中文目录骨架；配好 API Key 后重新导出可全文翻译）"}\n` +
           `${rootLine}\n\n` +
           `右侧「文档」仅显示本工程。下一步可定 **北极星图**，再交给项目经理。`,
         ["生成北极星图", "切换到项目经理", "切换到项目经理并生成流水线"],
@@ -1609,67 +1590,6 @@ export default function App() {
       }
     } finally {
       clearBusy(busyId);
-    }
-  };
-
-  /** Draft → brief.zh.md before export so humans can decide whether to freeze. */
-  const handleBriefZhDoc = async (opts?: { skeletonOnly?: boolean; quiet?: boolean }) => {
-    if (activeColleague.roleKind !== "brief") {
-      if (!opts?.quiet) appendAssistant("生成中文说明请先切换到 **策划** 同事。");
-      return;
-    }
-    if (!window.gameFactory?.hostChatZhDoc) {
-      appendAssistant("当前 GUI 不支持生成中文说明，请重启 Foundry。");
-      return;
-    }
-    if (!activeBriefRel) {
-      appendAssistant("请先绑定工程（顶栏），再生成中文说明。");
-      return;
-    }
-    if (!briefDraft) {
-      appendAssistant("还没有工作草稿。先和策划聊几轮，或绑定带有 brief.draft.json 的工程。");
-      return;
-    }
-    const busyId = activeColleague.id;
-    const sessionTarget = { instanceId: busyId, sessionId: getActiveSession(chatStore).id };
-    if (!opts?.quiet) markBusy(busyId);
-    try {
-      const res = await window.gameFactory.hostChatZhDoc(
-        sessionTarget.sessionId,
-        activeBriefRel,
-        Boolean(opts?.skeletonOnly),
-      );
-      if (res.exitCode !== 0) {
-        throw new Error(res.stderr || res.stdout || "zh-doc failed");
-      }
-      const zhRel =
-        (res.data?.zh_doc_rel || "").replace(/\\/g, "/") ||
-        `${activeBriefRel.replace(/\/[^/]+$/i, "")}/brief.zh.md`;
-      const zhMode = res.data?.zh_doc_mode || "skeleton";
-      setDocsFocusDiskRel(zhRel);
-      setDocsDiskRefreshKey((n) => n + 1);
-      setSidePanel("docs");
-      if (!opts?.quiet) {
-        appendAssistant(
-          `**中文说明已更新**（导出前审阅）\n\n` +
-            `- \`${zhRel}\`${zhMode === "llm" ? "（全文翻译）" : "（中文目录骨架）"}\n` +
-            `- 看完再决定是否「导出 Brief」冻结。`,
-          ["打开文档", "导出 Brief"],
-          undefined,
-          sessionTarget,
-        );
-      }
-    } catch (e) {
-      if (!opts?.quiet) {
-        appendAssistant(
-          `生成中文说明失败：${e instanceof Error ? e.message : String(e)}`,
-          undefined,
-          undefined,
-          sessionTarget,
-        );
-      }
-    } finally {
-      if (!opts?.quiet) clearBusy(busyId);
     }
   };
 
@@ -2651,7 +2571,7 @@ export default function App() {
         undefined,
         undefined,
         briefStatus === "draft"
-          ? ["打开文档", "生成中文说明"]
+          ? ["打开文档", "导出 Brief"]
           : ["打开文档", "生成流水线"],
       );
     },
@@ -2758,7 +2678,7 @@ export default function App() {
       brief = briefs[0]?.path || null;
     } else {
       // pref.kind === "none": prefer lastBrief, then session bind, then newest listed brief.
-      // Avoid sticking on 「未选择工程」so docs disk list (工程说明 / brief.zh.md …) stays available.
+      // Avoid sticking on 「未选择工程」so docs disk list stays available.
       brief = loadLastBriefRel();
       if (!brief) {
         try {
@@ -5006,7 +4926,6 @@ export default function App() {
             onEnrich={agentRole === "brief" ? () => void handleBriefEnrich() : undefined}
             onUiWireframe={agentRole === "brief" ? () => void handleBriefUiWireframe() : undefined}
             onTopicBrainstorm={agentRole === "brief" ? () => void handleTopicBrainstorm() : undefined}
-            onRefreshZhDoc={agentRole === "brief" ? () => void handleBriefZhDoc() : undefined}
             onExportBrief={agentRole === "brief" ? () => void handleBriefExport() : undefined}
           />
         )}

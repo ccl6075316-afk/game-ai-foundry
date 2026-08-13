@@ -47,8 +47,6 @@ interface Props {
   activeProjectLabel?: string | null;
   readyToExport: boolean;
   onExportBrief?: () => void;
-  /** Write brief.zh.md from current draft (before export). */
-  onRefreshZhDoc?: () => void;
   /** Write ui-wireframe.md from draft project.ui_panels. */
   onUiWireframe?: () => void;
   onAutofix?: () => void;
@@ -62,7 +60,7 @@ interface Props {
   busy?: boolean;
   /** Bump after export so disk list reloads. */
   diskRefreshKey?: number;
-  /** Prefer selecting this repo-relative path after refresh (e.g. brief.zh.md). */
+  /** Prefer selecting this repo-relative path after refresh (e.g. brief.json). */
   focusDiskRel?: string | null;
   /** Clear sticky focus after user picks another doc (or after focus applied). */
   onFocusDiskRelConsumed?: () => void;
@@ -99,7 +97,6 @@ export function DocsPreviewPanel({
   activeProjectLabel,
   readyToExport,
   onExportBrief,
-  onRefreshZhDoc,
   onUiWireframe,
   onAutofix,
   onMakeability,
@@ -230,7 +227,7 @@ export function DocsPreviewPanel({
 
   const allDocs = useMemo(() => [...sessionDocs, ...diskDocs], [sessionDocs, diskDocs]);
 
-  // One-shot jump when parent asks to focus a disk path (e.g. after zh-doc).
+  // One-shot jump when parent asks to focus a disk path (e.g. after export).
   useEffect(() => {
     if (!focusDiskRel) {
       appliedFocusRelRef.current = null;
@@ -655,17 +652,6 @@ export function DocsPreviewPanel({
             title="针对议题多视角头脑风暴"
           >
             议题头脑风暴
-          </button>
-        )}
-        {onRefreshZhDoc && selected?.id === "session-brief" && draftBrief && activeBriefRel && (
-          <button
-            type="button"
-            className="btn btn--secondary"
-            onClick={onRefreshZhDoc}
-            disabled={busy}
-            title="根据当前工作草稿生成 brief.zh.md，导出前用中文审阅"
-          >
-            生成中文说明
           </button>
         )}
         {onUiWireframe && selected?.id === "session-brief" && draftBrief && activeBriefRel && (

@@ -58,12 +58,10 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("pipeline", "suggest-retry"),
     ("brief", "chat", "status"),
     ("brief", "chat", "bind"),
-    ("brief", "chat", "zh-doc"),
     ("brief", "chat", "autofix"),
     ("brief", "chat", "makeability"),
     ("brief", "chat", "makeability-answer"),
     ("brief", "chat", "enrich"),
-    ("brief", "zh-doc"),
     ("brief", "validate"),
     ("brief", "chat", "export"),  # gated separately via allow_export; brief profile only in practice
     ("brief", "search"),
@@ -96,11 +94,9 @@ _MUTATE_PREFIXES: frozenset[tuple[str, ...]] = frozenset(
         ("pipeline", "plan"),
         ("pipeline", "run"),
         ("brief", "chat", "bind"),
-        ("brief", "chat", "zh-doc"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
         ("brief", "chat", "makeability-answer"),
-        ("brief", "zh-doc"),
         ("shell", "run"),
     }
 )
@@ -126,9 +122,7 @@ _BRIEF_ALLOWED_PREFIXES = frozenset(
         ("brief", "chat", "makeability-answer"),
         ("brief", "chat", "autofix"),
         ("brief", "chat", "enrich"),
-        ("brief", "chat", "zh-doc"),
         ("brief", "chat", "bind"),
-        ("brief", "zh-doc"),
         ("brief", "validate"),
         ("brief", "chat", "export"),
         # Session / filesystem / env / board read (no mutate).
@@ -192,7 +186,7 @@ FOUNDRY_TOOL>>>
 - `brief chat makeability-answer --session-id <id> --answers '[...]' --json --i-confirm` — 审查缺口卡写入草稿
 - `brief chat enrich … --json --i-confirm` — 补全细节
 - `brief chat autofix … --json --i-confirm`
-- `brief chat zh-doc` / `brief zh-doc` / `brief chat bind` — need `--i-confirm` where mutating
+- `brief chat bind` — need `--i-confirm` where mutating
 - `brief validate --brief <path> --json`
 - `brief chat export …` — **only** when host said export is allowed this turn
 - `brief search --brief <path> --query <text> --json` — 结构化检索分册（只读）
@@ -272,7 +266,7 @@ Allowed command prefixes:
 
 Home-ops playbooks (Chinese answers):
 1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors upsert|list|show
-2. **Project draft** — brief chat bind / zh-doc / status (sync + Chinese doc **before** export)
+2. **Project draft** — brief chat bind / status (sync draft to project)
 3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
 4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
 5. **Assets** — assets review list / regenerate-plan (guide user; soft annotations)
@@ -342,10 +336,6 @@ Rules:
   Example (pipeline run):
   <<<FOUNDRY_TOOL
   ["pipeline", "run", "--manifest", "projects/<slug>/pipeline/manifest.json", "--jobs", "4", "--json", "--i-confirm"]
-  FOUNDRY_TOOL>>>
-  Example (Chinese doc before export):
-  <<<FOUNDRY_TOOL
-  ["brief", "chat", "zh-doc", "--session-id", "<SESSION_ID>", "--brief-rel", "projects/<slug>/brief.json", "--json", "--i-confirm"]
   FOUNDRY_TOOL>>>
 """.strip()
 
@@ -418,11 +408,7 @@ def is_allowed_argv(
                 return False
     if prefix == ("brief", "chat", "export"):
         return _export_argv_ok(argv)
-    if prefix in {
-        ("brief", "chat", "zh-doc"),
-        ("brief", "chat", "bind"),
-        ("brief", "zh-doc"),
-    }:
+    if prefix == ("brief", "chat", "bind"):
         return _brief_rel_argv_ok(argv)
     return True
 
@@ -509,7 +495,7 @@ def _export_argv_ok(argv: list[str]) -> bool:
 
 
 def _brief_rel_argv_ok(argv: list[str]) -> bool:
-    """zh-doc / bind: --brief-rel must stay under allowed roots (same spirit as export)."""
+    """bind: --brief-rel must stay under allowed roots (same spirit as export)."""
     brief_rel = _flag_value(argv, "--brief-rel")
     if not brief_rel or not _repo_rel_under_allow(brief_rel):
         return False

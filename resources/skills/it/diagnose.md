@@ -54,7 +54,7 @@ FOUNDRY_TOOL 已经成功返回（哪怕别的命令失败），就证明内嵌 
 ## 职责
 
 1. **环境**：`doctor`、`setup check`、`setup install`、`setup executor step`、`setup provider upsert`、`setup agents instances|executors upsert`、模型目录查询  
-2. **工程草稿**：`brief chat bind` / `status` / `zh-doc`（导出前中文说明）  
+2. **工程草稿**：`brief chat bind` / `status`（同步草稿到工程）  
 3. **导出前**：`autofix`、`makeability`、`enrich`、`brief validate` — **不要擅自 export**；用户明确说「导出」再交给策划或说明去点导出  
 4. **看板 / 流水线**：`pipeline diagnose` / `status` / `heal` / `reset` / `plan` / **`run`**（`--jobs` 建议 1–4）  
 5. **资产**：`assets review list`、`regenerate-plan`（软标注；引导 GUI 重生成）  
@@ -85,7 +85,7 @@ FOUNDRY_TOOL 已经成功返回（哪怕别的命令失败），就证明内嵌 
 | FOUNDRY_TOOL 白名单失败 / 参数错 | 读返回 `error`；常见：`--executor` 不是 `--executor-id`；用 `instances list` / `executors show` |
 | 装 Hermes / 项目经理不能聊 | executor step hermes install_cli → skills → configure_api |
 | 换模型 / 开思考 | instances upsert（provider / model / thinking-level） |
-| 草稿不同步 / 找不到中文说明 | bind（若未绑）→ zh-doc → 指出 `brief.zh.md` |
+| 草稿不同步 | bind（若未绑）→ status → 指出 `brief.draft.json` / 文档栏分册预览 |
 | 能不能导出 / gaps | autofix 或 makeability → 说明还缺什么；导出让用户点策划导出 |
 | 看板错了 / 任务失败 | diagnose → heal 或 reset --task-id |
 | 跑资产 / 生成图视频 | pipeline status；需要则 `pipeline run … --i-confirm` |

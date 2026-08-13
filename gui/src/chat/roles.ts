@@ -58,7 +58,7 @@ export function roleHero(role: ChatAgentRole): { title: string; subtitle: string
       return {
         title: "家里哪台机器卡住了？",
         subtitle:
-          "环境、草稿同步、中文说明、看板与流水线都能管；默认可跑资产。改 Foundry 源码或大段玩法再回 Cursor。",
+          "环境、草稿同步、看板与流水线都能管；默认可跑资产。改 Foundry 源码或大段玩法再回 Cursor。",
       };
     case "advisor":
       return {
@@ -92,7 +92,6 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
     return [
       { label: "跑 doctor", desc: "环境与密钥", cmd: "帮我跑 doctor，用 JSON 看缺什么" },
       { label: "同步草稿", desc: "bind + 落盘", cmd: "把当前会话草稿同步到工程目录" },
-      { label: "生成中文说明", desc: "brief.zh.md", cmd: "为当前工程生成 brief.zh.md 中文说明" },
       { label: "流水线诊断", desc: "pipeline diagnose", cmd: "对当前工程跑 pipeline diagnose" },
       { label: "跑资产生成", desc: "pipeline run", cmd: "对当前工程跑 pipeline run，jobs 用 2" },
       { label: "Pi 状态", desc: "内置执行器", cmd: "检查内置 Pi 是否就绪" },
