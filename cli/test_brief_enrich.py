@@ -221,6 +221,9 @@ class DraftMergeGuardTests(unittest.TestCase):
                 json.dumps(fat, ensure_ascii=False),
             ],
         ), patch(
+            "host_chat._try_rerun_makeability_after_write",
+            return_value="",
+        ), patch(
             "host_chat.resolve_host_api_settings",
             return_value={
                 "api_key": "k",
@@ -290,11 +293,15 @@ class BriefEnrichRunnerTests(unittest.TestCase):
             json.dumps(_gaps_mock()),
             json.dumps(_enrich_mock()),
         ]
-        with patch("host_chat.chat_text_completion", side_effect=side_effect) as mock_llm:
+        with patch("host_chat.chat_text_completion", side_effect=side_effect) as mock_llm, patch(
+            "host_chat._try_rerun_makeability_after_write",
+            return_value="",
+        ) as mock_rerun:
             result = run_brief_enrich(session, config=config)
 
         self.assertTrue(result["ok"])
         self.assertEqual(mock_llm.call_count, 2)
+        mock_rerun.assert_called_once()
         self.assertIn("player_flow", session["draft_brief"]["project"])
         self.assertEqual(session["draft_brief_backup"], _THIN_DRAFT)
         self.assertFalse(session["ready_to_export"])
@@ -313,7 +320,10 @@ class BriefEnrichRunnerTests(unittest.TestCase):
             json.dumps(_gaps_mock()),
             json.dumps(_enrich_mock(title_suffix=" HUD focus")),
         ]
-        with patch("host_chat.chat_text_completion", side_effect=side_effect) as mock_llm:
+        with patch("host_chat.chat_text_completion", side_effect=side_effect) as mock_llm, patch(
+            "host_chat._try_rerun_makeability_after_write",
+            return_value="",
+        ):
             run_brief_enrich(session, hint="只补 HUD", temperature=0.9, config=config)
 
         critique_user = mock_llm.call_args_list[0].kwargs["messages"][1]["content"]

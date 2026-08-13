@@ -228,6 +228,34 @@ class HostChatTests(unittest.TestCase):
         _apply_parsed(session, parsed, "chat")
         self.assertEqual(session.get("focus"), {"kind": "system", "id": "combat"})
 
+    def test_apply_parsed_drops_illegal_focus_still_writes(self) -> None:
+        session = new_session("focus-drop")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "改了目标。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "focus": {"kind": "scene"},
+                "brief_patches": [
+                    {
+                        "op": "set",
+                        "path": "project.session_goal",
+                        "value": "Catch fish.",
+                    }
+                ],
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertEqual(session["draft_brief"]["project"]["session_goal"], "Catch fish.")
+        self.assertNotEqual(session.get("focus"), {"kind": "scene"})
+        self.assertNotIn("focus 未更新", out["assistant_message"])
+
     def test_deep_merge_brief_keeps_assets_when_project_patched(self) -> None:
         base = {
             "project": {"title": "A", "genre": "platformer"},
@@ -2805,7 +2833,10 @@ class HostChatTests(unittest.TestCase):
         scenes = session["draft_brief"]["project"]["scenes"]
         self.assertEqual(len(scenes), 1)
         self.assertNotIn("summary", scenes[0])
-        self.assertIn("整稿合并已忽略结构正文", out["assistant_message"])
+        self.assertTrue(session.get("_rewrite_needs_patches"))
+        self.assertFalse(session.get("_rewrite_retry_now"))
+        self.assertNotIn("整稿合并已忽略结构正文", out["assistant_message"])
+        self.assertNotIn("请改用 brief_patches", out["assistant_message"])
 
     def test_apply_parsed_commit_brief_strips_scene_bodies(self) -> None:
         session = new_session("strip-commit")
@@ -2880,14 +2911,116 @@ class HostChatTests(unittest.TestCase):
         out = _apply_parsed(session, parsed, "chat")
         self.assertEqual(session["draft_brief"]["project"]["description"], "old")
         self.assertTrue(session.get("_talk_without_write"))
-        self.assertIn("只说不写", out["assistant_message"])
-        self.assertIn("brief_patches", out["assistant_message"])
-        self.assertIn("策划", out["assistant_message"])
-        self.assertIn("外挂", out["assistant_message"])
+        self.assertNotIn("只说不写", out["assistant_message"])
+        self.assertNotIn("宿主拦截", out["assistant_message"])
         payload = _build_user_payload(session, "chat")
         self.assertIn("只说不写", str(payload.get("host_nudge") or ""))
         self.assertIn("策划", str(payload.get("host_nudge") or ""))
         self.assertIn("外挂", str(payload.get("host_nudge") or ""))
+
+    def test_apply_parsed_idempotent_patches_not_talk_without_write(self) -> None:
+        session = new_session("idempotent-patch")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "description": "old",
+                "genre": "sim",
+                "session_goal": "Catch fish.",
+            },
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        parsed = {
+            "assistant_message": "补丁已随本轮 JSON 提交，侧栏可预览 diff。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "set",
+                        "path": "project.session_goal",
+                        "value": "Catch fish.",
+                    }
+                ]
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        self.assertEqual(session["draft_brief"]["project"]["session_goal"], "Catch fish.")
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", out["assistant_message"])
+
+    def test_run_turn_retries_talk_without_write_once(self) -> None:
+        session = new_session("retry-write")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        claim = {
+            "assistant_message": "四项已用补丁真正落到草稿里。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        write = {
+            "assistant_message": "已把 session_goal 写入草稿。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "set",
+                        "path": "project.session_goal",
+                        "value": "Catch fish.",
+                    }
+                ]
+            },
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", side_effect=[claim, write]) as mocked:
+            result = run_turn(session, user_message="鱼改成宽图", config=config)
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual(session["draft_brief"]["project"]["session_goal"], "Catch fish.")
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertNotIn("只说不写", result["assistant_message"])
+        self.assertIn("已自动改正", result["assistant_message"])
+        self.assertEqual(
+            sum(1 for m in session["messages"] if m["role"] == "assistant"),
+            1,
+        )
+
+    def test_run_turn_retry_still_fails_keeps_intercept(self) -> None:
+        session = new_session("retry-fail")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        claim = {
+            "assistant_message": "四项已用补丁真正落到草稿里。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", side_effect=[claim, claim, claim]) as mocked:
+            result = run_turn(session, user_message="鱼改成宽图", config=config)
+        self.assertEqual(mocked.call_count, 3)
+        self.assertTrue(session.get("_talk_without_write"))
+        self.assertNotIn("宿主拦截", result["assistant_message"])
+        self.assertIn("还没写进侧栏", result["assistant_message"])
+        self.assertIn("不用重复需求", result["assistant_message"])
+        payload = _build_user_payload(session, "chat")
+        self.assertIn("鱼改成宽图", str(payload.get("host_nudge") or ""))
 
     def test_apply_parsed_no_warn_when_quiet_no_claim(self) -> None:
         session = new_session("quiet-chat")
@@ -2955,7 +3088,7 @@ class HostChatTests(unittest.TestCase):
             "ready_to_export": False,
         }
         out = _apply_parsed(session, parsed, "chat")
-        self.assertIn("草稿补丁未应用", out["assistant_message"])
+        self.assertNotIn("草稿补丁未应用", out["assistant_message"])
         self.assertFalse(session.get("_talk_without_write"))
         self.assertNotIn("只说不写", out["assistant_message"])
         self.assertIn("缺少 type", str(session.get("_patch_schema_error") or ""))
@@ -2963,7 +3096,265 @@ class HostChatTests(unittest.TestCase):
         self.assertIn("校验失败", str(payload.get("host_nudge") or ""))
         self.assertIn("策划", str(payload.get("host_nudge") or ""))
         self.assertIn("外挂", str(payload.get("host_nudge") or ""))
-        self.assertIn("下一轮策划自己改", out["assistant_message"])
+
+    def test_run_turn_stripped_scene_merge_does_not_retry(self) -> None:
+        session = new_session("strip-no-retry")
+        session["draft_brief"] = {
+            "project": {
+                "title": "Fish",
+                "scenes": [{"id": "lake", "title": "湖面", "path": "scenes/lake.json"}],
+            },
+            "assets": [],
+        }
+        parsed = {
+            "assistant_message": "更新了标题。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "draft_brief": {
+                    "project": {
+                        "title": "Fish 2",
+                        "scenes": [
+                            {
+                                "id": "lake",
+                                "title": "湖面",
+                                "summary": "模型塞进来的场景正文",
+                            }
+                        ],
+                    }
+                }
+            },
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", return_value=parsed) as mocked:
+            result = run_turn(session, user_message="改标题", config=config)
+        self.assertEqual(mocked.call_count, 1)
+        self.assertEqual(session["draft_brief"]["project"]["title"], "Fish 2")
+        self.assertTrue(session.get("_rewrite_needs_patches"))
+        self.assertFalse(session.get("_rewrite_retry_now"))
+        self.assertIn("更新了标题", result["assistant_message"])
+        self.assertNotIn("还没写进侧栏", result["assistant_message"])
+        payload = _build_user_payload(session, "chat")
+        self.assertIn("upsert_scene", str(payload.get("host_nudge") or ""))
+
+    def test_apply_parsed_bootstraps_draft_for_patches(self) -> None:
+        session = new_session("boot-patch")
+        parsed = {
+            "assistant_message": "先写下钓具店。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "add_asset",
+                        "value": {"name": "主界面_建筑_钓具店"},
+                    }
+                ]
+            },
+            "ready_to_export": False,
+        }
+        out = _apply_parsed(session, parsed, "chat")
+        assets = (session.get("draft_brief") or {}).get("assets") or []
+        added = next(item for item in assets if item.get("name") == "主界面_建筑_钓具店")
+        self.assertEqual(added["type"], "texture")
+        self.assertNotIn("还没有草稿", out["assistant_message"])
+
+    def test_run_turn_retries_broken_json_then_writes(self) -> None:
+        session = new_session("retry-broken-json")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        write = {
+            "assistant_message": "已把 session_goal 写入草稿。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "set",
+                        "path": "project.session_goal",
+                        "value": "Catch fish.",
+                    }
+                ]
+            },
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch(
+            "host_chat.chat_text_completion",
+            side_effect=[
+                "{assistant_message: 还在扩写, draft_brief: <<<broken>>>",
+                json.dumps(write, ensure_ascii=False),
+            ],
+        ) as mocked:
+            result = run_turn(session, user_message="目标改成钓鱼", config=config)
+        self.assertGreaterEqual(mocked.call_count, 2)
+        self.assertEqual(session["draft_brief"]["project"]["session_goal"], "Catch fish.")
+        self.assertIn("已自动改正", result["assistant_message"])
+        self.assertNotIn("请再发一句", result["assistant_message"])
+
+    def test_run_turn_retries_empty_llm_then_writes(self) -> None:
+        session = new_session("retry-empty")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        empty = {
+            "assistant_message": "",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        write = {
+            "assistant_message": "已把 session_goal 写入草稿。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {
+                        "op": "set",
+                        "path": "project.session_goal",
+                        "value": "Catch fish.",
+                    }
+                ]
+            },
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", side_effect=[empty, write]) as mocked:
+            result = run_turn(session, user_message="目标改成钓鱼", config=config)
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual(session["draft_brief"]["project"]["session_goal"], "Catch fish.")
+        self.assertFalse(session.get("_empty_model_turn"))
+        self.assertIn("已自动改正", result["assistant_message"])
+        self.assertNotIn("请再发一句", result["assistant_message"])
+
+    def test_run_turn_retries_commit_brief_when_empty(self) -> None:
+        session = new_session("retry-commit")
+        session["messages"] = [
+            {"role": "user", "content": "横版魔法王子，能走跳砍"},
+            {"role": "assistant", "content": "好的，我们先聊手感。"},
+        ]
+        empty = {
+            "assistant_message": "落实中。",
+            "choices": [],
+            "mode": "commit_brief",
+            "intent_hint": "none",
+            "artifact": None,
+            "ready_to_export": False,
+        }
+        good = {
+            "assistant_message": "已按对话落实草案。",
+            "choices": ["导出"],
+            "mode": "commit_brief",
+            "intent_hint": "none",
+            "artifact": {
+                "kind": "brief",
+                "draft_brief": {
+                    "project": {
+                        "title": "Magic Prince",
+                        "description": "2D platformer",
+                        "art_direction": "painterly fantasy",
+                        "dimension": "2d",
+                        "genre": "2d_platformer",
+                        "gameplay_loop": "Run jump slash through levels.",
+                        "session_goal": "Demo move jump attack.",
+                        "player_asset": "hero",
+                        "controls": {
+                            "move_left": ["A"],
+                            "move_right": ["D"],
+                            "jump": ["Space"],
+                        },
+                        "viewport": {"width": 1280, "height": 720},
+                        "camera": {"mode": "follow_player"},
+                    },
+                    "assets": [
+                        {
+                            "id": "hero",
+                            "name": "hero",
+                            "type": "character",
+                            "usage": "player_idle",
+                            "usage_description": "Hero idle",
+                            "description": "A prince",
+                            "display_size": "128x128 px",
+                            "generate_method": "image",
+                        }
+                    ],
+                },
+            },
+            "ready_to_export": True,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", side_effect=[empty, good]) as mocked:
+            result = run_turn(session, user_message="落实成 brief", config=config)
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual(session["draft_brief"]["project"]["title"], "Magic Prince")
+        self.assertFalse(session.get("_commit_body_missing"))
+        self.assertIn("已自动改正", result["assistant_message"])
+        self.assertNotIn("请再说明", result["assistant_message"])
+
+    def test_run_turn_retries_schema_error_and_writes(self) -> None:
+        session = new_session("retry-schema")
+        session["draft_brief"] = {
+            "project": {"title": "Fish", "description": "old", "genre": "sim"},
+            "assets": [{"id": "rod", "name": "rod", "type": "icon_kit"}],
+        }
+        bad = {
+            "assistant_message": "已新增未分类物件。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {"op": "add_asset", "value": {"name": "未分类物件"}},
+                ]
+            },
+            "ready_to_export": False,
+        }
+        good = {
+            "assistant_message": "已新增钓具店建筑。",
+            "choices": [],
+            "mode": "chat",
+            "intent_hint": "none",
+            "artifact": {
+                "brief_patches": [
+                    {"op": "add_asset", "value": {"name": "主界面_建筑_钓具店"}},
+                ]
+            },
+            "ready_to_export": False,
+        }
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}
+        }
+        with patch("host_chat._call_llm", side_effect=[bad, good]) as mocked:
+            result = run_turn(session, user_message="主界面加钓具店", config=config)
+        self.assertEqual(mocked.call_count, 2)
+        added = next(
+            item
+            for item in session["draft_brief"]["assets"]
+            if item.get("name") == "主界面_建筑_钓具店"
+        )
+        self.assertEqual(added["type"], "texture")
+        self.assertFalse(session.get("_patch_schema_error"))
+        self.assertFalse(session.get("_talk_without_write"))
+        self.assertIn("已自动改正", result["assistant_message"])
+        self.assertNotIn("还没写进侧栏", result["assistant_message"])
 
     def test_commit_keyword_uses_commit_skill(self) -> None:
         session = new_session("c1")

@@ -1670,7 +1670,7 @@ class ReviewFindingFixesTests(unittest.TestCase):
             disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
             self.assertEqual(disk["project"]["title"], "Disk")
 
-    def test_persist_after_record_keeps_answers_when_cas_blocks_draft(self) -> None:
+    def test_persist_after_record_rebases_patches_onto_external_disk(self) -> None:
         from host_chat import persist_project_draft, save_session
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -1748,20 +1748,26 @@ class ReviewFindingFixesTests(unittest.TestCase):
             self.assertEqual(saved, ["ok"])
             mid = json.loads(sess_path.read_text(encoding="utf-8"))
             self.assertIn("B", mid["decision_ledger"][0]["answer_text"])
-            # H1: must not claim verified/ok when project draft did not persist.
-            self.assertFalse(result.get("ok"))
-            self.assertTrue(result.get("repair_failed"))
-            self.assertFalse(result.get("draft_persisted"))
-            self.assertTrue(result.get("draft_persist_error"))
-            self.assertEqual(result.get("verified_ids") or [], [])
-            self.assertIn("aquarium_unlock_flow", result.get("repair_failed_ids") or [])
+            # H1: rebase closer patches onto disk instead of clobbering or asking user.
+            self.assertTrue(result.get("ok"))
+            self.assertFalse(result.get("repair_failed"))
+            self.assertTrue(result.get("draft_persisted"))
+            self.assertFalse(result.get("draft_persist_error"))
+            self.assertEqual(result.get("verified_ids") or [], ["aquarium_unlock_flow"])
             self.assertEqual(
                 ensure_decision_ledger(session)[0]["status"],
-                "repair_failed",
+                "verified",
             )
-            self.assertIn("草稿未写入磁盘", result.get("assistant_message") or "")
+            self.assertNotIn("对齐磁盘", result.get("assistant_message") or "")
+            self.assertNotIn("草稿未写入磁盘", result.get("assistant_message") or "")
             disk = json.loads((proj / "brief.draft.json").read_text(encoding="utf-8"))
             self.assertEqual(disk["project"]["title"], "External")
+            aqua = next(
+                item
+                for item in (disk.get("project") or {}).get("systems") or []
+                if item.get("id") == "aquarium"
+            )
+            self.assertIn("unlocked", str(aqua.get("notes") or ""))
 
     def test_illegal_occurrence_relation_rejected(self) -> None:
         from host_chat import _build_makeability_review

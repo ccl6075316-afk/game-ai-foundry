@@ -932,20 +932,11 @@ _DRAFT_WRITE_CLAIM_NEG_RE = re.compile(
     re.I,
 )
 
-_TALK_WITHOUT_WRITE_NOTE = (
-    "\n\n—— **宿主拦截：只说不写**\n"
-    "你本轮口头声称已写入/落盘草稿，但 JSON 里没有生效的 `brief_patches` "
-    "（也没有改动 `draft_brief`）。侧栏草稿**未变**。\n"
-    "【谁来修】解决者=策划（你下一轮重交 `brief_patches`），"
-    "不是用户、不是程序员、不是外挂 Agent。不要再说「已写入」。"
-)
-_PATCH_APPLY_FAILED_NOTE = (
-    "\n\n（草稿补丁未应用：{exc}）\n"
-    "这是策划补丁校验，**下一轮策划自己改 brief_patches 即可**；"
-    "不用换项目经理/程序员，也不用外挂 Agent。宿主已把修正要求打回策划。"
-)
+_PLANNER_RECOVERY_MAX = 2
+_PERSIST_ANSWER_TRIES = 3
+_USER_RECOVERY_OK_NOTE = "（刚才写入有问题，已自动改正并写入草稿。）\n\n"
 _PATCH_SCHEMA_NUDGE = (
-    "【谁来修】brief_patches 被宿主拒收。解决者=策划（你下一轮重交补丁），"
+    "【谁来修】brief_patches 被宿主拒收。解决者=策划（你本轮立刻重交补丁），"
     "不是用户、不是程序员、不是外挂 Agent。校验失败。错误：{error}\n"
     "{hint}\n"
     "宿主已自动补：add_asset/upsert_asset 缺 type、中文/非法 id；"
@@ -1146,6 +1137,23 @@ def _normalize_asset_proposals(raw: Any) -> list[dict[str, Any]]:
     return out
 
 
+def _try_rerun_makeability_after_write(
+    session: dict[str, Any],
+    *,
+    config: dict[str, Any] | None,
+) -> str:
+    """Best-effort critic rerun after a successful draft write. Never blocks the write."""
+    cfg = config or {}
+    try:
+        api = resolve_host_api_settings(cfg)
+        if not api.get("api_key"):
+            return ""
+        out = run_makeability_review(session, config=cfg)
+    except (HostChatError, PromptCraftError):
+        return ""
+    return str((out or {}).get("assistant_message") or "").strip()
+
+
 def run_brief_enrich(
     session: dict[str, Any],
     *,
@@ -1269,7 +1277,9 @@ def run_brief_enrich(
     session["last_enrich_at"] = _utc_now()
 
     assistant_message = summary or "Brief 细节已加厚。"
-    assistant_message += " 建议再运行「制作审查」(brief chat makeability) 对齐意图（可选，不挡导出）。"
+    review_note = _try_rerun_makeability_after_write(session, config=cfg)
+    if review_note:
+        assistant_message = assistant_message.rstrip() + "\n\n" + review_note
 
     return {
         "ok": True,
@@ -1723,35 +1733,80 @@ def _answer_makeability_failure_result(
     }
 
 
+def _rebase_answer_patches_onto_disk(
+    session: dict[str, Any],
+    patches: list[dict[str, Any]],
+) -> bool:
+    """Replay closer patches onto the current disk draft after a CAS conflict."""
+    rel = _norm_brief_rel(session.get("bound_brief_rel"))
+    if not rel or not patches:
+        return False
+    disk = load_project_draft_from_disk(rel)
+    if not isinstance(disk, dict) or not disk:
+        return False
+    try:
+        session["draft_brief"] = apply_brief_patches(
+            disk,
+            patches,
+            project_root=_project_root_for_session(session),
+        )
+    except HostChatError:
+        return False
+    session["draft_disk_fingerprint"] = draft_fingerprint(disk)
+    brief_path = resolve_bound_brief_output_path(session)
+    draft_path = brief_path.parent / "brief.draft.json" if brief_path is not None else None
+    if draft_path is not None and draft_path.is_file():
+        try:
+            session["draft_disk_mtime_ns"] = draft_path.stat().st_mtime_ns
+        except OSError:
+            session.pop("draft_disk_mtime_ns", None)
+    return True
+
+
 def _persist_answer_draft_or_mark(
     session: dict[str, Any],
     *,
     verified_ids: list[str],
     expected_keys: list[str],
     normalized: list[dict[str, str]],
+    patches: list[dict[str, Any]] | None = None,
 ) -> tuple[bool, str | None]:
     """Try to flush session draft to disk after answer patches.
 
     Unbound sessions have nothing to flush (treated as persisted). Bound sessions
     must succeed CAS write or callers must not claim verified success.
+    On CAS, replay closer patches onto the current disk draft instead of asking
+    the user to align files.
     """
     _ = verified_ids, expected_keys, normalized
     bound = _norm_brief_rel(session.get("bound_brief_rel"))
     if not bound:
         session.pop("last_draft_persist_error", None)
         return True, None
-    try:
-        out = persist_project_draft(session)
-    except HostChatError as exc:
-        err = str(exc)
-        session["last_draft_persist_error"] = err
-        return False, err
-    if out is None:
-        err = "无法写入 brief.draft.json（缺少可落盘草稿字段或绑定路径）。"
-        session["last_draft_persist_error"] = err
-        return False, err
-    session.pop("last_draft_persist_error", None)
-    return True, None
+    last_err: str | None = None
+    rebased = False
+    for attempt in range(_PERSIST_ANSWER_TRIES):
+        try:
+            out = persist_project_draft(session)
+        except HostChatError as exc:
+            last_err = str(exc)
+            if (
+                patches
+                and not rebased
+                and ("外部修改" in last_err or "不一致" in last_err or "无磁盘指纹" in last_err)
+            ):
+                rebased = True
+                if _rebase_answer_patches_onto_disk(session, patches):
+                    continue
+            continue
+        if out is None:
+            last_err = "无法写入 brief.draft.json（缺少可落盘草稿字段或绑定路径）。"
+            continue
+        session.pop("last_draft_persist_error", None)
+        return True, None
+    err = last_err or "无法写入 brief.draft.json。"
+    session["last_draft_persist_error"] = err
+    return False, err
 
 
 def answer_makeability_gaps(
@@ -1977,6 +2032,7 @@ def answer_makeability_gaps(
         verified_ids=verified_ids,
         expected_keys=expected_keys,
         normalized=normalized,
+        patches=patches,
     )
     if draft_persist_error and verified_ids:
         # Downgrade: answers kept, but do not claim verified write.
@@ -1995,20 +2051,24 @@ def answer_makeability_gaps(
     )
     if draft_persist_error:
         assistant_message += (
-            f"\n\n（草稿未写入磁盘：{draft_persist_error} "
-            "答案已保存在会话中，可对齐磁盘后重试写入。）"
+            "\n\n草稿这轮没写上磁盘。下次再点审查选项时我会继续写入，不用对齐磁盘。"
         )
     if repair_failed_ids:
         assistant_message += (
             f"\n\n（{len(repair_failed_ids)} 条答案已保存但未能验证写入，可重试写入。）"
         )
-    elif verified_ids and draft_persisted:
-        assistant_message = assistant_message.rstrip() + (
-            "\n\n（宿主：已关闭已验证的意图缺口；草稿已变，请再点「制作审查」确认后再导出。）"
-        )
+
+    review_note = ""
+    if verified_ids and draft_persisted and not repair_failed_ids:
+        review_note = _try_rerun_makeability_after_write(session, config=cfg)
+        if review_note:
+            assistant_message = assistant_message.rstrip() + "\n\n" + review_note
 
     messages = list(session.get("messages") or [])
-    messages.append({"role": "assistant", "content": assistant_message})
+    if review_note and messages and str(messages[-1].get("role") or "") == "assistant":
+        messages[-1] = {"role": "assistant", "content": assistant_message}
+    else:
+        messages.append({"role": "assistant", "content": assistant_message})
     session["messages"] = messages
     session["ready_to_export"] = _compute_ready_to_export(session)
 
@@ -2217,6 +2277,13 @@ def _system_prompt(mode: str) -> str:
     )
 
 
+def _last_user_utterance(session: dict[str, Any]) -> str:
+    for msg in reversed(session.get("messages") or []):
+        if str(msg.get("role") or "") == "user":
+            return str(msg.get("content") or "").strip()
+    return ""
+
+
 def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
     if mode == "commit_brief":
         instruction = (
@@ -2339,6 +2406,8 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
             ),
         }
     schema_err = str(session.get("_patch_schema_error") or "").strip()
+    last_user = _last_user_utterance(session)
+    last_user_note = f"用户原话（必须落实）：{last_user}" if last_user else ""
     if schema_err:
         payload["host_nudge"] = _PATCH_SCHEMA_NUDGE.format(
             error=schema_err,
@@ -2346,11 +2415,36 @@ def _build_user_payload(session: dict[str, Any], mode: str) -> dict[str, Any]:
         )
     elif session.get("_talk_without_write"):
         payload["host_nudge"] = (
-            "【谁来修】解决者=策划（你下一轮重交 brief_patches），"
+            "【谁来修】解决者=策划（你本轮立刻重交 brief_patches），"
             "不是用户、不是程序员、不是外挂 Agent。"
             "上一轮你声称写进草稿，但宿主检测到 brief_patches / draft 未变（只说不写）。"
             "本轮必须用 artifact.brief_patches 定点落盘；禁止只口头说「已写入」。"
             "制作审查只读草稿，聊天记录不算数。"
+            "不要让用户再复述需求。"
+            + last_user_note
+        )
+    elif session.get("_empty_model_turn"):
+        payload["host_nudge"] = (
+            "【谁来修】解决者=策划。上一轮没有返回可读 JSON（空回复或非 JSON 散文）。"
+            "本轮必须只输出规定 JSON：assistant_message，并用 artifact.brief_patches "
+            "或 draft_brief / draft_document 落实用户原话。"
+            "不要让用户再复述需求。"
+            + last_user_note
+        )
+    elif session.get("_rewrite_needs_patches"):
+        payload["host_nudge"] = (
+            "【谁来修】解决者=策划。上一轮用整份 draft_brief 改写了 "
+            "scenes/systems/assets 正文，宿主已忽略结构正文。"
+            "本轮必须用 artifact.brief_patches（upsert_scene/system/asset）定点写入。"
+            "不要让用户再复述需求。"
+            + last_user_note
+        )
+    elif session.get("_commit_body_missing"):
+        payload["host_nudge"] = (
+            "【谁来修】解决者=策划。落实轮没有返回 draft_brief / 文档正文。"
+            "本轮立刻输出完整 artifact.draft_brief 或 artifact.body。"
+            "不要让用户再复述需求。"
+            + last_user_note
         )
     return payload
 
@@ -3786,7 +3880,7 @@ def _infer_closed_intent_gap_ids(
 
 _MAKEABILITY_CLOSED_NOTE = (
     "\n\n（宿主：已把你本轮拍板的意图缺口从审查列表移除；"
-    "草稿已变，请再点一次「制作审查」确认 intent 为空后再导出。）"
+    "草稿已变，导出前还需要一次制作审查。）"
 )
 
 
@@ -3975,7 +4069,17 @@ def _call_llm(
             raise HostChatError(str(exc)) from exc
 
     session["_brief_llm_backend"] = backend
-    parsed = _parse_llm_json(raw)
+    try:
+        parsed = _parse_llm_json(raw or "")
+    except HostChatError as exc:
+        return {
+            "assistant_message": "",
+            "intent_hint": "none",
+            "choices": [],
+            "notes_for_host": f"json_parse_failed:{exc}",
+            "artifact": None,
+            "ready_to_export": False,
+        }
     note = str(parsed.get("notes_for_host") or "")
     if note.startswith("recovered") and isinstance(raw, str):
         try:
@@ -3984,6 +4088,15 @@ def _call_llm(
             dump.write_text(raw[:200_000], encoding="utf-8")
         except OSError:
             pass
+    if note.startswith("recovered_from_broken_json"):
+        return {
+            "assistant_message": "",
+            "intent_hint": "none",
+            "choices": [],
+            "notes_for_host": note,
+            "artifact": parsed.get("artifact"),
+            "ready_to_export": False,
+        }
     return parsed
 
 
@@ -4010,15 +4123,29 @@ def _infer_choices_from_message(text: str, *, max_n: int = 6) -> list[str]:
     return found if len(found) >= 2 else []
 
 
+def _bootstrap_draft_for_patches() -> dict[str, Any]:
+    return {"project": {"title": "Untitled"}, "assets": []}
+
+
 def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) -> dict[str, Any]:
-    assistant_message = str(parsed.get("assistant_message", "")).strip()
-    if not assistant_message:
-        # Prefer keeping the turn alive over hard-failing the GUI.
-        note = str(parsed.get("notes_for_host") or "").strip()
-        assistant_message = (
-            "（模型没有返回可读回复，草稿未改动。请再发一句，或说「再整理一遍」。）"
-            + (f"\n\n_{note}_" if note else "")
-        )
+    session.pop("_rewrite_attempted_now", None)
+    session.pop("_rewrite_retry_now", None)
+    incoming = _extract_draft(parsed)
+    patches = _extract_brief_patches(parsed)
+    incoming_doc = _extract_document(parsed)
+    has_write = bool(incoming or patches or incoming_doc)
+    raw_assistant = str(parsed.get("assistant_message", "")).strip()
+    if raw_assistant:
+        session.pop("_empty_model_turn", None)
+        assistant_message = raw_assistant
+    elif has_write:
+        assistant_message = "已整理文档。" if mode == "commit_doc" else "已更新草稿。"
+    elif mode == "chat":
+        session["_empty_model_turn"] = True
+        assistant_message = ""
+    else:
+        session["_commit_body_missing"] = True
+        assistant_message = ""
 
     choices = parsed.get("choices") or []
     if not isinstance(choices, list):
@@ -4031,9 +4158,6 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     intent = str(parsed.get("intent_hint") or "none").strip() or "none"
     ready = bool(parsed.get("ready_to_export"))
     gaps = _extract_gaps(parsed)
-    incoming = _extract_draft(parsed)
-    patches = _extract_brief_patches(parsed)
-    incoming_doc = _extract_document(parsed)
     fp_before = _draft_fp(session)
 
     if mode == "chat":
@@ -4048,8 +4172,8 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
         if raw_focus is not None:
             try:
                 set_session_focus(session, raw_focus)
-            except HostChatError as exc:
-                assistant_message += f"\n\n（focus 未更新：{exc}）"
+            except HostChatError:
+                pass
         prefer_patches = bool(session.get("_autofix_prefer_patches"))
         # Prefer surgical patches when answering review gaps / small clarifications.
         # If patches are present, do NOT apply a possibly thinned full draft_brief.
@@ -4062,20 +4186,20 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
             if base is None and incoming:
                 base = incoming
             if base is None:
-                assistant_message += "\n\n（收到定点补丁但还没有草稿，请先聊出一版 draft。）"
-            else:
-                try:
-                    session["draft_brief"] = apply_brief_patches(
-                        base,
-                        patches,
-                        project_root=_project_root_for_session(session),
-                    )
-                    invalidate_verified_ledger_for_patches(session, patches)
-                    session["ready_to_export"] = _compute_ready_to_export(session)
-                    session.pop("_patch_schema_error", None)
-                except HostChatError as exc:
-                    session["_patch_schema_error"] = str(exc)
-                    assistant_message += _PATCH_APPLY_FAILED_NOTE.format(exc=exc)
+                base = _bootstrap_draft_for_patches()
+            try:
+                session["draft_brief"] = apply_brief_patches(
+                    base,
+                    patches,
+                    project_root=_project_root_for_session(session),
+                )
+                invalidate_verified_ledger_for_patches(session, patches)
+                session["ready_to_export"] = _compute_ready_to_export(session)
+                session.pop("_patch_schema_error", None)
+            except HostChatError as exc:
+                session["_patch_schema_error"] = str(exc)
+                if session.get("draft_brief") is None:
+                    session["draft_brief"] = base
         elif incoming:
             # Autofix: reject huge assets[] rewrites (models truncate mid-JSON).
             merge_incoming = incoming
@@ -4095,18 +4219,14 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                     merge_incoming = {
                         k: v for k, v in incoming.items() if k != "assets"
                     }
-                    assistant_message += (
-                        "\n\n（自动修已忽略超大 assets[] 整表重写；"
-                        "请改用 artifact.brief_patches。）"
-                    )
+                    session["_rewrite_needs_patches"] = True
+                    session["_rewrite_attempted_now"] = True
             merge_incoming, stripped_struct = _strip_structure_bodies_from_incoming(
                 merge_incoming
             )
             if stripped_struct:
-                assistant_message += (
-                    "\n\n（场景/系统正文请用 brief_patches（upsert_scene/system）；"
-                    "整稿合并已忽略结构正文。）"
-                )
+                session["_rewrite_needs_patches"] = True
+                session["_rewrite_attempted_now"] = True
             session["draft_brief"] = deep_merge_brief(
                 session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None,
                 merge_incoming,
@@ -4123,19 +4243,21 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     elif mode == "commit_doc":
         if incoming_doc is None:
             ready = False
-            assistant_message += "\n\n（整理文档轮未返回正文，请再说要写入文档的要点。）"
+            session["_commit_body_missing"] = True
         else:
+            session.pop("_commit_body_missing", None)
             session["draft_document"] = incoming_doc
             if ready and not incoming_doc.get("body"):
                 ready = False
-                assistant_message += "\n\n（文档正文为空，我们继续补全。）"
+                session["_commit_body_missing"] = True
         session["mode"] = "commit_doc"
         session["pending_mode"] = None
     else:
         if incoming is None:
             ready = False
-            assistant_message += "\n\n（落实轮未返回 draft_brief，请再说明要冻结的玩法要点。）"
+            session["_commit_body_missing"] = True
         else:
+            session.pop("_commit_body_missing", None)
             merged = deep_merge_brief(
                 session.get("draft_brief") if isinstance(session.get("draft_brief"), dict) else None,
                 incoming,
@@ -4156,14 +4278,22 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     fp_after = _draft_fp(session)
     draft_changed = bool(fp_after) and fp_after != fp_before
     if mode == "chat":
-        if draft_changed:
+        patches_applied = bool(patches) and not session.get("_patch_schema_error")
+        if draft_changed or patches_applied:
             session.pop("_talk_without_write", None)
-            session.pop("_patch_schema_error", None)
+            session.pop("_empty_model_turn", None)
+            session.pop("_rewrite_retry_now", None)
+            if patches_applied:
+                session.pop("_patch_schema_error", None)
+                session.pop("_rewrite_needs_patches", None)
+            elif not session.get("_rewrite_needs_patches"):
+                session.pop("_patch_schema_error", None)
             closed_ids = _extract_closed_intent_gap_ids(parsed)
             # Single open gap + any successful patch while answering review → close it.
             review_before = session.get("makeability_review")
             if (
-                not closed_ids
+                draft_changed
+                and not closed_ids
                 and patches
                 and isinstance(review_before, dict)
             ):
@@ -4180,21 +4310,23 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
                     assistant_message,
                 ):
                     closed_ids = open_ids
-            _, assistant_message = reconcile_makeability_after_draft_write(
-                session,
-                closed_ids=closed_ids,
-                assistant_message=assistant_message,
-            )
+            if draft_changed:
+                _, assistant_message = reconcile_makeability_after_draft_write(
+                    session,
+                    closed_ids=closed_ids,
+                    assistant_message=assistant_message,
+                )
+        elif session.get("_rewrite_attempted_now"):
+            session["_rewrite_retry_now"] = True
+            session.pop("_talk_without_write", None)
         elif patches and session.get("_patch_schema_error"):
             # Planner attempted a write; schema failed. Don't mislabel as 只说不写.
             session.pop("_talk_without_write", None)
         elif looks_like_draft_write_claim(assistant_message):
             session["_talk_without_write"] = True
-            if _TALK_WITHOUT_WRITE_NOTE.strip() not in assistant_message:
-                assistant_message = assistant_message.rstrip() + _TALK_WITHOUT_WRITE_NOTE
         else:
             # Keep prior nudge until a successful write; don't clear on pure Q&A.
-            pass
+            session.pop("_rewrite_retry_now", None)
     elif draft_changed:
         session.pop("_talk_without_write", None)
         if mode == "commit_brief":
@@ -4252,6 +4384,124 @@ def _apply_parsed(session: dict[str, Any], parsed: dict[str, Any], mode: str) ->
     }
 
 
+def _planner_write_pending(session: dict[str, Any]) -> bool:
+    return bool(
+        session.get("_talk_without_write")
+        or str(session.get("_patch_schema_error") or "").strip()
+        or session.get("_empty_model_turn")
+        or session.get("_rewrite_retry_now")
+    )
+
+
+def _pop_last_assistant(session: dict[str, Any]) -> None:
+    msgs = list(session.get("messages") or [])
+    if msgs and str(msgs[-1].get("role") or "") == "assistant":
+        msgs.pop()
+        session["messages"] = msgs
+
+
+def _user_write_failed_note(session: dict[str, Any]) -> str:
+    err = str(session.get("_patch_schema_error") or "").strip()
+    if err:
+        return "这几项还没写进侧栏。下次你说话时我会继续写上，不用重复需求。"
+    if session.get("_talk_without_write"):
+        return (
+            "这几项还没写进侧栏：策划说了但没交补丁。"
+            "下次你说话时我会继续写上，不用重复需求。"
+        )
+    if session.get("_empty_model_turn"):
+        return "这一轮没生成出内容，下次你说话时我会继续，不用重复需求。"
+    if session.get("_rewrite_retry_now"):
+        return (
+            "场景/系统/资产正文还没写进侧栏。"
+            "下次你说话时我会继续写上，不用重复需求。"
+        )
+    return ""
+
+
+def _replace_last_assistant_text(session: dict[str, Any], text: str) -> None:
+    messages = list(session.get("messages") or [])
+    if messages and str(messages[-1].get("role") or "") == "assistant":
+        messages[-1]["content"] = text
+        session["messages"] = messages
+
+
+def _finish_chat_with_planner_recovery(
+    session: dict[str, Any],
+    parsed: dict[str, Any],
+    config: dict[str, Any],
+    *,
+    instance_id: str | None,
+) -> dict[str, Any]:
+    """Apply chat JSON; if planner write failed, retry in-turn and return a result."""
+    out = _apply_parsed(session, parsed, "chat")
+    recovered = False
+    for _ in range(_PLANNER_RECOVERY_MAX):
+        if not _planner_write_pending(session):
+            break
+        _pop_last_assistant(session)
+        retry_parsed = _call_llm(session, "chat", config, instance_id=instance_id)
+        out = _apply_parsed(session, retry_parsed, "chat")
+        recovered = True
+    if not _planner_write_pending(session):
+        if recovered:
+            note = _USER_RECOVERY_OK_NOTE
+            msg = str(out.get("assistant_message") or "")
+            if note.strip() not in msg:
+                msg = note + msg.lstrip()
+                out["assistant_message"] = msg
+                _replace_last_assistant_text(session, msg)
+        return out
+    extra = _user_write_failed_note(session)
+    extra = extra.strip()
+    if extra and extra not in str(out.get("assistant_message") or ""):
+        base = str(out.get("assistant_message") or "").rstrip()
+        message = f"{base}\n\n{extra}" if base else extra
+        out["assistant_message"] = message
+        _replace_last_assistant_text(session, message)
+    return out
+
+
+def _finish_commit_with_recovery(
+    session: dict[str, Any],
+    parsed: dict[str, Any],
+    mode: str,
+    config: dict[str, Any],
+    *,
+    instance_id: str | None,
+) -> dict[str, Any]:
+    """Apply commit JSON; retry in-turn if draft/doc body is missing."""
+    out = _apply_parsed(session, parsed, mode)
+    recovered = False
+    for _ in range(_PLANNER_RECOVERY_MAX):
+        if not session.get("_commit_body_missing"):
+            break
+        _pop_last_assistant(session)
+        retry_parsed = _call_llm(session, mode, config, instance_id=instance_id)
+        out = _apply_parsed(session, retry_parsed, mode)
+        recovered = True
+    if not session.get("_commit_body_missing"):
+        if recovered:
+            note = _USER_RECOVERY_OK_NOTE
+            msg = str(out.get("assistant_message") or "")
+            if note.strip() not in msg:
+                msg = note + msg.lstrip()
+                out["assistant_message"] = msg
+                _replace_last_assistant_text(session, msg)
+        return out
+    extra = (
+        "落实稿这轮没生成出来，下次你说话时我会继续，不用重复需求。"
+        if mode == "commit_brief"
+        else "文档正文这轮没生成出来，下次你说话时我会继续，不用重复需求。"
+    )
+    base = str(out.get("assistant_message") or "").rstrip()
+    message = f"{base}\n\n{extra}" if base else extra
+    if extra not in str(out.get("assistant_message") or ""):
+        out["assistant_message"] = message
+        _replace_last_assistant_text(session, message)
+    return out
+
+
 def run_turn(
     session: dict[str, Any],
     *,
@@ -4278,10 +4528,14 @@ def run_turn(
     mode = resolve_mode(session, user_message)
     if mode == "commit_brief":
         parsed = _call_llm(session, "commit_brief", config, instance_id=instance_id)
-        return _apply_parsed(session, parsed, "commit_brief")
+        return _finish_commit_with_recovery(
+            session, parsed, "commit_brief", config, instance_id=instance_id
+        )
     if mode == "commit_doc":
         parsed = _call_llm(session, "commit_doc", config, instance_id=instance_id)
-        return _apply_parsed(session, parsed, "commit_doc")
+        return _finish_commit_with_recovery(
+            session, parsed, "commit_doc", config, instance_id=instance_id
+        )
 
     parsed = _call_llm(session, "chat", config, instance_id=instance_id)
     intent = str(parsed.get("intent_hint") or "none").strip()
@@ -4304,9 +4558,13 @@ def run_turn(
         session["intent_hint"] = intent
         follow = "commit_brief" if intent == "commit_brief" else "commit_doc"
         parsed = _call_llm(session, follow, config, instance_id=instance_id)
-        return _apply_parsed(session, parsed, follow)
+        return _finish_commit_with_recovery(
+            session, parsed, follow, config, instance_id=instance_id
+        )
 
-    return _apply_parsed(session, parsed, "chat")
+    return _finish_chat_with_planner_recovery(
+        session, parsed, config, instance_id=instance_id
+    )
 
 
 def export_brief(
