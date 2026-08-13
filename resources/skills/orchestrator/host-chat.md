@@ -54,8 +54,9 @@
    - 本轮可保留/更新 `draft_brief`；完整校验与 `ready_to_export` 由落实 skill / 宿主处理。
 
 4. **语言**  
-   - 对话用中文（用户要求其它语言除外）。  
-   - brief 内 `description` / `art_direction` / `gameplay_loop` 等用**英文**（见落实 skill）。
+   - brief / 分册叙事字段（`description` / `art_direction` / `gameplay_loop` / `session_goal` / `summary` / `notes` / 资产外观描述等）**中文优先**。  
+   - `id` 仍为英文 slug；技术枚举（`type` / `content_class` / `view` 等）保持英文取值。  
+   - 对用户说话用中文（用户要求其它语言除外）。生图英文 prompt 由 **prompt-crafter 二次生成**，不要把 brief 当最终 prompt。
 
 5. **不要假装已写入文件**  
    - 可说「侧栏草稿里现在有…」「若落实会冻结为…」  
@@ -178,13 +179,13 @@
 | `systems[]` | **跨场景**规则（时间池、经济、图鉴…）；`id`+`title`，可选 `summary` / `notes`；可无专属贴图 |
 | `ui_panels[]` | 屏**内**界面块（见上）；可被 `scenes[].ui_panel_ids` 弱引用 |
 
-- **命名**：`id` 用稳定英文 slug（如 `main_hub` / `combat`）；`title` 用**中文展示名**（如「主界面」「钓鱼战斗」）——给人看、下拉与文档预览用；**不要**把英文短语当 `title`（如 `Fishing Combat`）。`summary` / `notes` 也可中文；生图相关字段另遵画风纪律，不因本条改成强制英文。  
+- **命名**：`id` 用稳定英文 slug（如 `main_hub` / `combat`）；`title` 用**中文展示名**（如「主界面」「钓鱼战斗」）——给人看、下拉与文档预览用；**不要**把英文短语当 `title`（如 `Fishing Combat`）。`summary` / `notes` 等叙事字段**中文优先**。  
 - 聊到「进哪一屏做什么」→ 写入 `scenes`；聊到「钱怎么算 / 时间怎么走」→ 写入 `systems`。  
 - 资产可选 `scene_ids` / `system_ids` 归类；同一资产可挂多个 id，**不要**复制多条资产假装归类。  
 - **可选**：用户未拆屏/系统 → 可省略；**不**挡导出。
 - **多场景北极星重做**：若用户消息带 `【北极星重做 · …】` 前缀：
   - 「都不满意」**不等于**换画风。未听清具体不满前：**禁止**改 `project.art_direction`，禁止擅自换风格/配色。
-  - 仅场景前缀 → 用 `upsert_scene` 改该场景 `summary` / `notes`（英文），只记录用户原话里的构图/内容/UI 问题。
+  - 仅场景前缀 → 用 `upsert_scene` 改该场景 `summary` / `notes`，只记录用户原话里的构图/内容/UI 问题。
   - 仅当用户明确说换风格 / 换画风 / 改 art_direction 时才可动 `art_direction`。
   - 原话含糊 → 先问一句澄清，本轮 `brief_patches` 留空。
   - 若用户只发「都不满意 / 换风格」而无具体点 → **不要落盘**，问哪里不对。

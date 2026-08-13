@@ -77,6 +77,8 @@
 
 ## 纪律
 
+- brief / 分册叙事字段（`description` / `art_direction` / `gameplay_loop` / `session_goal` / `summary` / `notes` / 资产外观描述等）**中文优先**；`id` 仍为英文 slug；技术枚举（`type` / `content_class` / `view` 等）保持英文取值
+- 生图英文 prompt 由 **prompt-crafter 二次生成**，不要把 brief 当最终 prompt
 - **不要**输出具体平衡数值表（概率、价格等）塞进 brief 散文；只写**需要什么参数**
 - **不要**修改 pipeline 配置或触发导出
 - 若 `user_hint` 要求聚焦某块（如「只补 HUD」），优先加厚该区域，轻度关联扩写可接受

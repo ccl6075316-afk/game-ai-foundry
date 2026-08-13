@@ -145,9 +145,9 @@ game-ai-foundry/
 
 | 字段 | 说明 |
 |------|------|
-| `title`, `description`, `art_direction`, `dimension` | 基础。`description` 宜为短产品总览，系统细则放可选 `scenes` / `systems` |
+| `title`, `description`, `art_direction`, `dimension` | 基础。`description` 宜为短产品总览（**中文优先**），系统细则放可选 `scenes` / `systems` |
 | `genre` | 如 `2d_platformer` |
-| `gameplay_loop`, `session_goal` | 英文；godot-developer 完成标准。`gameplay_loop` 写场景串法/主重复活动，**允许短**；系统细则见可选 `scenes` / `systems` |
+| `gameplay_loop`, `session_goal` | **中文优先**；godot-developer 完成标准。`gameplay_loop` 写场景串法/主重复活动，**允许短**；系统细则见可选 `scenes` / `systems` |
 | `player_asset` | 有 player 向 asset 时必填 |
 | `controls` | 动作 → 按键 |
 | `viewport` | `{ width, height }` |
@@ -269,7 +269,7 @@ Spec → [`docs/anvil/brainstorms/2026-07-24-content-class-structured-craft.md`]
 
 可选（风格组）：`style_group`, `style_anchor_kind`, `style_anchor`, `identity_anchor`, `use_style_img2img`（见上表）。动作 / 视频族仍用 `reference_asset`。
 
-中文可用在 `name`（对话 / HUD / `reference_asset`）；**产物文件名只用 `id`**（如 `referee_raw.png`）。
+叙事字段（`description`、`art_direction`、`usage_description`、`summary`、`notes` 等）**中文优先**；`name` / `title` 亦可用中文（对话 / HUD / `reference_asset`）；**产物文件名只用 `id`**（如 `referee_raw.png`）。生图 handoff `prompt` 仍由 prompt-crafter **二次生成**英文。**`brief.zh.md` 已废弃**——人读走文档栏分册预览，不再导出镜像。
 
 ### `animation_graphs[]`
 

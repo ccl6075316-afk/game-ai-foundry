@@ -18,7 +18,10 @@
 2. 优先给 **2–4 个选项**（`choices`），降低用户回答成本；开放题也可以。
    - **`choices` 必须是 JSON 数组**（短句），GUI 会渲染成可点按钮；不要只把选项写在正文列表里却留空 `choices`。
    - 保存 Brief 后：风格不满意 → 用户改 `art_direction` → 再生成北极星图（不要让用户去找项目经理改画风）。
-3. 用中文对话，brief 内的 `description` / `art_direction` 等用英文（便于后续 prompt-crafter）。
+3. **语言**
+   - brief / 分册叙事字段（`description` / `art_direction` / `gameplay_loop` / `session_goal` / `summary` / `notes` / 资产外观描述等）**中文优先**。
+   - `id` 仍为英文 slug；技术枚举（`type` / `content_class` / `view` 等）保持英文取值。
+   - 对用户说话用中文。生图英文 prompt 由 **prompt-crafter 二次生成**，不要把 brief 当最终 prompt。
 4. 逐步补全下方 **冻结清单** 中的每一项；缺任一项不得设 `ready_to_export: true`。
 5. 资产类型允许：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`。
 6. 角色动画用 `animation_method: "video"` + `reference_asset`，禁止 spritesheet 多动作单图。
@@ -33,11 +36,11 @@
 | 字段 | 要求 |
 |------|------|
 | `title` | 非空 |
-| `description` | 非空，英文：**短**产品总览（类型/体验/视角，约 2–4 句）；**禁止**把系统规则全书、鱼种表、数值表堆在这里 |
-| `art_direction` | 非空，英文：画风、配色、可读性要求 |
+| `description` | 非空，**中文优先**：**短**产品总览（类型/体验/视角，约 2–4 句）；**禁止**把系统规则全书、鱼种表、数值表堆在这里 |
+| `art_direction` | 非空，**中文优先**：画风、配色、可读性要求 |
 | `dimension` | `2d` 或 `3d` |
 | `genre` | 非空，如 `2d_platformer`, `top_down`, `endless_runner` |
-| `gameplay_loop` | 非空，英文：场景串法 / 主重复活动；**允许短**（模拟类尤其如此） |
+| `gameplay_loop` | 非空，**中文优先**：场景串法 / 主重复活动；**允许短**（模拟类尤其如此） |
 | `session_goal` | 非空，本版本赢/输/演示范围；开放无终局写明确短句 |
 | `player_asset` | 有 player 向 asset 时必填，对应 `assets[].name` |
 | `controls` | 非空，动作名 → 按键列表；usage 含 locomotion 时需 `move_left`/`move_right`；含 jump/attack 时需对应 action |
@@ -61,7 +64,7 @@
 | `usage_description` | 谁用、怎么用（可与 `description` 二选一，但至少要有一个） |
 | `display_size` | `{ width, height }` 游戏内像素（看起来多大）；兼容 `"128x128 px"` 字符串 |
 | `generate_method` | 可选；`image` / `video` / `procedural` / `file`，缺省按 type 推断 |
-| `description` | 英文 prompt 素材描述（视觉外观；勿写跨屏规则全书） |
+| `description` | **中文优先**素材描述（视觉外观；勿写跨屏规则全书） |
 | `scene_ids` / `system_ids` | **可选**；弱引用 `project.scenes` / `systems` 的 id |
 
 **`content_class`（类属，闭集）** — 禁止 `door` 等特指物名；与玩法 `usage` 可同时存在：

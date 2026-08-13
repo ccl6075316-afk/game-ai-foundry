@@ -21,7 +21,7 @@
 ## 目标
 
 1. 从对话提炼**已拍板**结论。  
-2. **主动补全**可推断的合理细节（美术方向英文句、资产表、controls、animation_graphs 等）。  
+2. **主动补全**可推断的合理细节（美术方向中文句、资产表、controls、animation_graphs 等）。  
 3. 不确定处：用 `choices` 问关键分叉，或在 `gaps` 列出；**不要把纯商量写成既定事实**。  
 4. 输出可过 `brief validate` 的 `draft_brief`（或标明还差什么 → `ready_to_export: false`）。
 
@@ -33,7 +33,7 @@
 |--------------|----------|
 | 「横版魔法王子」 | `genre`, `gameplay_loop`, `session_goal`, `viewport`, `camera`, `view`… |
 | 「能走跳砍」 | `controls` + 对应 `player_*` assets + 视频动画条目 |
-| 「梦幻一点」 | 英文 `art_direction` / 各 asset `description` |
+| 「梦幻一点」 | `art_direction` / 各 asset `description`（**中文优先**） |
 | 「这几个角色要同一画风」 | 保守写 `style_group` + `style_anchor`（见下）；无明确关系则不建组 |
 | 没提 UI | 可不加 `ui_element`；不要编造 HUD 除非合理且标明假设 |
 | 聊到菜单/装备等面板 | 分条写入可选 `project.ui_panels[]`（见下）；用户未提面板则省略 |
@@ -45,7 +45,9 @@
 - **对话里明确反对的**，不要写进 brief。  
 - **从未讨论过、且无法从类型合理默认的**，写入 `gaps` 或问一轮，不要瞎编关键玩法。  
 - **可合理默认的**（如 1280×720、平台机 follow 相机、mini/480p 视频成本默认）→ 直接填，并在 `assistant_message` 用短列表说明「我默认了哪些」。  
-- brief 内 `description` / `art_direction` / `gameplay_loop` 等用**英文**；对用户说话用**中文**。
+- brief / 分册叙事字段（`description` / `art_direction` / `gameplay_loop` / `session_goal` / `summary` / `notes` / 资产外观描述等）**中文优先**。  
+- `id` 仍为英文 slug；技术枚举（`type` / `content_class` / `view` 等）保持英文取值。  
+- 对用户说话用中文。生图英文 prompt 由 **prompt-crafter 二次生成**，不要把 brief 当最终 prompt。
 
 ---
 

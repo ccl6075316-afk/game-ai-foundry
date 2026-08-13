@@ -20,7 +20,7 @@
 - **v0.1.0**：[`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) — IT 家庭运维 / 外置工程 / 设置全页 / Brief 补全
 - **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)
 - **GUI 主路径**：同事（策划 / 项目经理 / 程序员 / **IT**，可多实例）
-- **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`（或外置根）；北极星图在策划侧定稿；导出前可 `brief.zh.md`
+- **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`（或外置根）；北极星图在策划侧定稿；文档栏预览中文分册
 - **设置**：顶栏进**全页**（Provider / Agent / 本机 / 环境 / 指南）；右侧栏仅 **文档 | 看板 | 资产**（可拖宽）
 - **Provider**：可自建 OpenAI 兼容账号；文/图模型可拉 `/models`；生图主档 + 批量档；详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)
 - **IT**：默认可信任本会话跑 `pipeline run`；环境 / 草稿同步 / 看板诊断
