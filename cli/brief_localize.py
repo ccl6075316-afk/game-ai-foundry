@@ -35,9 +35,50 @@ NEVER_TOUCH = frozenset({"id", "path", "type", "content_class"})
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
 BRIEF_ZH_DOC_NAME = "brief.zh.md"
 
+# Path / identity markers that unlock the fishing offline EN→ZH map.
+_FISHING_PATH_MARKERS = ("fishing-2d", "fishing_2d")
+
 
 def contains_cjk(text: str) -> bool:
     return bool(_CJK_RE.search(text or ""))
+
+
+def is_fishing_project(
+    brief_path: Path,
+    brief: dict[str, Any] | None = None,
+) -> bool:
+    """True when path or brief identity looks like the fishing-2d sample project."""
+    path_s = str(brief_path).replace("\\", "/").lower()
+    if any(m in path_s for m in _FISHING_PATH_MARKERS):
+        return True
+    data = brief
+    if data is None and Path(brief_path).is_file():
+        try:
+            loaded = json.loads(Path(brief_path).read_text(encoding="utf-8"))
+            data = loaded if isinstance(loaded, dict) else None
+        except (OSError, json.JSONDecodeError, UnicodeError):
+            data = None
+    if not isinstance(data, dict):
+        return False
+    project = data.get("project") if isinstance(data.get("project"), dict) else {}
+    blob = " ".join(
+        str(x or "")
+        for x in (
+            data.get("id"),
+            project.get("id"),
+            project.get("title"),
+            project.get("genre"),
+            data.get("title"),
+        )
+    ).lower()
+    if "fishing-2d" in blob or "fishing_2d" in blob:
+        return True
+    # Genre / title markers (avoid bare "fish" substring false positives).
+    if "fishing" in blob:
+        return True
+    if "钓鱼" in blob or "釣" in blob:
+        return True
+    return False
 
 
 def _nonempty_str(value: Any) -> str:

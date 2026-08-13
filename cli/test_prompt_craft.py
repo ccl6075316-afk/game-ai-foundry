@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+from unittest.mock import patch
 
 from prompt_craft import (
     PromptCraftError,
@@ -10,6 +11,8 @@ from prompt_craft import (
     assemble_asset_prompt,
     assemble_visual_target_prompt,
     contains_cjk,
+    craft_asset_prompt,
+    craft_visual_target_prompt,
     structured_fields_from_project_scaffold,
 )
 
@@ -101,6 +104,52 @@ class CjkAssembleGuardTests(unittest.TestCase):
         )
         self.assertIn("裁判", prompt)
         self.assertIn("判罚轮盘", prompt)
+
+    @patch("prompt_craft.chat_text_completion")
+    def test_llm_prose_asset_rejects_cjk_prose(self, chat: object) -> None:
+        chat.return_value = (
+            '{"prompt": "码头上的红色小船停靠在木质栈桥旁，柔和像素风。"}'
+        )
+        with self.assertRaises(PromptCraftError) as ctx:
+            craft_asset_prompt(
+                context={
+                    "project": {"view": "side"},
+                    "asset": {"type": "prop", "content_class": "prop_static"},
+                },
+                model="test",
+                api_key="k",
+                api_base="https://example.com/v1",
+            )
+        self.assertIn("Chinese brief text", str(ctx.exception))
+
+    @patch("prompt_craft.chat_text_completion")
+    def test_llm_prose_asset_allows_english(self, chat: object) -> None:
+        chat.return_value = '{"prompt": "Referee on a green pitch, side view prop"}'
+        out = craft_asset_prompt(
+            context={
+                "project": {"view": "side"},
+                "asset": {"type": "character", "content_class": "character"},
+            },
+            model="test",
+            api_key="k",
+            api_base="https://example.com/v1",
+        )
+        self.assertEqual(out["prompt_source"], "llm_prose")
+        self.assertIn("Referee", out["prompt"])
+
+    @patch("prompt_craft.chat_text_completion")
+    def test_llm_prose_vt_rejects_cjk_prose(self, chat: object) -> None:
+        chat.return_value = (
+            '{"prompt": "这是一款体育模拟的全屏截图，裁判正在判罚犯规。"}'
+        )
+        with self.assertRaises(PromptCraftError) as ctx:
+            craft_visual_target_prompt(
+                context={"project": {}},
+                model="test",
+                api_key="k",
+                api_base="https://example.com/v1",
+            )
+        self.assertIn("Chinese brief text", str(ctx.exception))
 
 
 if __name__ == "__main__":

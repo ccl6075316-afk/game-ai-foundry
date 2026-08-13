@@ -93,4 +93,4 @@ ASCII 示例（示意即可，勿追求精确像素）：
 | `project.ui_panels[]` | 本任务的输入权威；缺省时宿主不会调用你 |
 | 工程 `ui-wireframe.md` | 本任务输出落盘文件 |
 | `usage: ui_element` / `project.hud` | **不**要求本任务去对齐或校验 |
-| `brief.zh.md` | 无关；不要改写中文说明 |
+| 文档栏分册预览 | 无关；不要生成或改写已废弃的 `brief.zh.md` |

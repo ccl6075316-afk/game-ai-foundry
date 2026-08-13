@@ -788,17 +788,30 @@ def register_brief_commands(cli_group: click.Group) -> None:
         is_flag=True,
         help="Required confirmation for rewriting brief/shards on disk.",
     )
+    @click.option(
+        "--offline-map",
+        "offline_map",
+        type=click.Choice(["fishing"], case_sensitive=False),
+        default=None,
+        help=(
+            "Allow fishing EN→ZH offline dictionary when host LLM is unavailable "
+            "(or prefer it for fishing leftovers). Default: LLM only; fishing "
+            "projects auto-enable this map when detected."
+        ),
+    )
     @click.option("--json", "as_json", is_flag=True, help="Print localization report as JSON.")
     @click.pass_context
     def localize_cmd(
         ctx: click.Context,
         brief_path: Path,
         i_confirm: bool,
+        offline_map: str | None,
         as_json: bool,
     ) -> None:
-        """One-shot rewrite of narrative fields to Chinese (host LLM or offline map)."""
+        """One-shot rewrite of narrative fields to Chinese (host LLM; fishing offline gated)."""
         from brief_localize import (
             fishing_offline_translator,
+            is_fishing_project,
             localize_brief_narratives,
             make_llm_translator,
             register_fishing_disk_summaries,
@@ -811,18 +824,51 @@ def register_brief_commands(cli_group: click.Group) -> None:
 
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         root = project_root_for_brief_path(brief_path)
-        register_fishing_disk_summaries(root)
         llm = make_llm_translator(config)
-        mode = "llm" if llm is not None else "offline_map"
+        fishing_gated = (offline_map or "").lower() == "fishing" or is_fishing_project(
+            brief_path
+        )
 
-        def translator(field_name: str, text: str) -> str:
-            # Prefer deterministic map/patterns; only unresolved leftovers hit LLM.
-            offline = fishing_offline_translator(field_name, text)
-            if not str(offline).startswith("（待全文润色）"):
-                return offline
-            if llm is not None:
+        if llm is None and not fishing_gated:
+            msg = (
+                "brief localize needs host LLM credentials, or an explicit "
+                "--offline-map fishing (or a fishing-2d project path/title)."
+            )
+            if as_json:
+                click.echo(
+                    json.dumps(
+                        {"ok": False, "error": msg, "translator": None},
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+                )
+            else:
+                click.echo(f"Error: {msg}", err=True)
+            sys.exit(2)
+
+        if fishing_gated:
+            register_fishing_disk_summaries(root)
+
+        if llm is not None and fishing_gated:
+            mode = "llm+offline_map"
+
+            def translator(field_name: str, text: str) -> str:
+                offline = fishing_offline_translator(field_name, text)
+                if not str(offline).startswith("（待全文润色）"):
+                    return offline
                 return llm(field_name, text)
-            return offline
+
+        elif llm is not None:
+            mode = "llm"
+
+            def translator(field_name: str, text: str) -> str:
+                return llm(field_name, text)
+
+        else:
+            mode = "offline_map"
+
+            def translator(field_name: str, text: str) -> str:
+                return fishing_offline_translator(field_name, text)
 
         try:
             report = localize_brief_narratives(
@@ -837,8 +883,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
         report = {**report, "translator": mode}
         if mode == "offline_map":
             report["note"] = (
-                "Used offline EN→ZH map/patterns; re-run with host LLM configured "
-                "for a full prose pass."
+                "Used fishing offline EN→ZH map/patterns; re-run with host LLM "
+                "configured for a full prose pass."
+            )
+        elif mode == "llm+offline_map":
+            report["note"] = (
+                "Preferred fishing offline map for known strings; LLM filled leftovers."
             )
 
         if as_json:

@@ -730,7 +730,6 @@ function listProjectDocs(briefRel) {
         extId.replace(/^ext_/, "") ||
         "external";
       pushIfExists(norm, `Brief · ${slug}`, "json");
-      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief（全文镜像）", "markdown");
       pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（机器 JSON）", "brief");
       pushIfExists(`${root}/工程说明.md`, "工程说明（目录导读）", "markdown");
       pushIfExists(`${root}/策划笔记.md`, "策划笔记（手写要点）", "markdown");
@@ -768,8 +767,6 @@ function listProjectDocs(briefRel) {
       pushIfExists(norm, `Brief · ${slug}`, "json");
       if (projMatch) {
       const root = projMatch[1];
-      // Prefer a friendly label for the Chinese companion written on export.
-      pushIfExists(`${root}/brief.zh.md`, "中文说明 · Brief（全文镜像）", "markdown");
       pushIfExists(`${root}/brief.draft.json`, "工作草稿 · Brief（机器 JSON）", "brief");
       pushIfExists(`${root}/工程说明.md`, "工程说明（目录导读）", "markdown");
       pushIfExists(`${root}/策划笔记.md`, "策划笔记（手写要点）", "markdown");
@@ -848,13 +845,13 @@ function ensureProject(slugRaw) {
         "",
         "| 文件 | 用途 |",
         "|------|------|",
-        "| `brief.json` | 英文 brief，给流水线（导出后生成） |",
-        "| `brief.zh.md` | 中文说明，给人看（导出 brief 时同步生成） |",
+        "| `brief.json` | 工程 brief（叙事可用中文；导出后生成） |",
+        "| `scenes/` · `systems/` · `assets/` | 分册正文；人读请在文档栏打开 brief 后用中文分册预览 |",
         "| `game/` | Godot 工程 |",
         "| `output/` | 资产生成产物 |",
         "| `pipeline/` | 流水线 manifest |",
         "",
-        "先与策划把玩法聊清楚，再在文档面板点「导出 Brief」。",
+        "先与策划把玩法聊清楚，再在文档面板点「导出 Brief」。人读走分册预览，不再生成 `brief.zh.md`。",
         "",
       ].join("\n"),
       "utf-8",

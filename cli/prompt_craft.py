@@ -615,6 +615,8 @@ def craft_asset_prompt(
         if not prompt:
             raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
         prompt = append_hard_locks(prompt, project, spec)
+        # Final prose must not be CJK brief dump (short name tokens OK).
+        _raise_if_cjk_prompt_field(prompt, allow_short_label=True)
         result: dict[str, Any] = {"prompt": prompt, "prompt_source": "llm_prose"}
         _attach_still_image_handoff(
             result,
@@ -627,6 +629,7 @@ def craft_asset_prompt(
                 raise PromptCraftError(
                     "Animation craft requires non-empty 'video_prompt' in LLM JSON"
                 )
+            _raise_if_cjk_prompt_field(video_prompt, allow_short_label=True)
             _attach_animation_video_handoff(
                 result,
                 video_prompt=video_prompt,
@@ -875,6 +878,7 @@ def craft_visual_target_prompt(
         prompt = str(parsed.get("prompt", "")).strip()
         if not prompt:
             raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
+        _raise_if_cjk_prompt_field(prompt, allow_short_label=True)
         return {"prompt": prompt, "prompt_source": "llm_prose"}
 
     fields = {k: parsed.get(k) for k in VT_STRUCTURED_KEYS}

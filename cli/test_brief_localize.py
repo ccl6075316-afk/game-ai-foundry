@@ -7,11 +7,39 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from brief_localize import localize_brief_narratives
+from brief_localize import is_fishing_project, localize_brief_narratives
 from brief_shards import load_json_shard, save_json_shard
 
 
 class TestBriefLocalize(unittest.TestCase):
+    def test_is_fishing_project_by_path(self) -> None:
+        self.assertTrue(
+            is_fishing_project(Path("projects/fishing-2d/brief.json"), brief={})
+        )
+        self.assertFalse(
+            is_fishing_project(Path("projects/space-runner/brief.json"), brief={})
+        )
+
+    def test_is_fishing_project_by_genre_title(self) -> None:
+        self.assertTrue(
+            is_fishing_project(
+                Path("projects/other/brief.json"),
+                brief={"project": {"title": "Coastal", "genre": "fishing"}},
+            )
+        )
+        self.assertTrue(
+            is_fishing_project(
+                Path("projects/other/brief.json"),
+                brief={"project": {"title": "2D钓鱼模拟"}},
+            )
+        )
+        self.assertFalse(
+            is_fishing_project(
+                Path("projects/other/brief.json"),
+                brief={"project": {"title": "Platformer", "genre": "platformer"}},
+            )
+        )
+
     def test_localize_rewrites_shard_description(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
