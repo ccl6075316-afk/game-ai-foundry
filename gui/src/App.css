@@ -2582,6 +2582,12 @@ code {
 
 .board-panel {
   /* inherits .side-panel */
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.board-panel > * {
+  min-width: 0;
 }
 
 .vt-board-strip {
@@ -3263,6 +3269,15 @@ code {
   border-radius: 8px;
   padding: 8px;
   text-align: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stat-label,
+.stat span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .stat.ok {
@@ -3289,6 +3304,33 @@ code {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 10px;
+}
+
+.board-panel .panel.board-tasks {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.board-panel .task-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.board-panel .table {
+  table-layout: auto;
+  width: max-content;
+  min-width: 100%;
+}
+
+.board-panel .table th,
+.board-panel .table td {
+  white-space: nowrap;
+}
+
+.board-panel .table td.mono {
+  max-width: none;
 }
 
 .panel.compact h3 {
@@ -4182,11 +4224,14 @@ code {
 }
 
 .chat-messages::-webkit-scrollbar,
-.side-panel::-webkit-scrollbar {
+.side-panel::-webkit-scrollbar,
+.board-panel .task-table-scroll::-webkit-scrollbar {
   width: 5px;
+  height: 6px;
 }
 .chat-messages::-webkit-scrollbar-thumb,
-.side-panel::-webkit-scrollbar-thumb {
+.side-panel::-webkit-scrollbar-thumb,
+.board-panel .task-table-scroll::-webkit-scrollbar-thumb {
   background: var(--bg-hover);
   border-radius: 3px;
 }

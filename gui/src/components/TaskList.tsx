@@ -75,30 +75,32 @@ export function TaskList({ tasks, compact = false, briefAssets }: Props) {
                 </span>
               )}
             </div>
-            <table className="table tasks">
-              <thead>
-                <tr>
-                  <th>Layer</th>
-                  <th>ID</th>
-                  <th>Role</th>
-                  <th>Step</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {groupTasks.map((t) => (
-                  <tr key={t.id}>
-                    <td>{t.layer}</td>
-                    <td className="mono">{t.id}</td>
-                    <td>{t.role}</td>
-                    <td>{t.step}</td>
-                    <td>
-                      <span className={`pill ${STATUS_CLASS[t.status] || ""}`}>{t.status}</span>
-                    </td>
+            <div className="task-table-scroll">
+              <table className="table tasks">
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>ID</th>
+                    <th>Role</th>
+                    <th>Step</th>
+                    <th>Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {groupTasks.map((t) => (
+                    <tr key={t.id}>
+                      <td>{t.layer}</td>
+                      <td className="mono">{t.id}</td>
+                      <td>{t.role}</td>
+                      <td>{t.step}</td>
+                      <td>
+                        <span className={`pill ${STATUS_CLASS[t.status] || ""}`}>{t.status}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         );
       })}

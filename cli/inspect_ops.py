@@ -36,6 +36,38 @@ _SECRET_VALUE_RE = re.compile(
 
 DEFAULT_MAX_BYTES = 200_000
 DEFAULT_LIST_LIMIT = 200
+DEFAULT_TREE_LIMIT = 400
+DEFAULT_GREP_MATCHES = 80
+_SKIP_GREP_SUFFIXES = frozenset(
+    {
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".gif",
+        ".webp",
+        ".mp4",
+        ".mov",
+        ".wav",
+        ".mp3",
+        ".ogg",
+        ".bin",
+        ".exe",
+        ".dll",
+        ".so",
+        ".dylib",
+        ".pyc",
+        ".zip",
+        ".7z",
+        ".gz",
+        ".tgz",
+        ".woff",
+        ".woff2",
+        ".ttf",
+        ".otf",
+        ".ico",
+        ".icns",
+    }
+)
 
 
 class InspectError(ValueError):
@@ -181,3 +213,141 @@ def read_file(
             pass
     payload["content"] = text
     return payload
+
+
+def tree_dir(
+    path: str | Path,
+    *,
+    max_depth: int = 3,
+    limit: int = DEFAULT_TREE_LIMIT,
+) -> dict[str, Any]:
+    """Recursive directory listing for full-repo orientation."""
+    target = resolve_readable_path(path, must_exist=True)
+    if not target.is_dir():
+        raise InspectError(f"not a directory: {target}")
+    depth_cap = max(1, min(int(max_depth), 8))
+    cap = max(1, int(limit))
+    entries: list[dict[str, Any]] = []
+    truncated = False
+
+    def walk(current: Path, depth: int) -> None:
+        nonlocal truncated
+        if truncated:
+            return
+        try:
+            children = sorted(current.iterdir(), key=lambda p: p.name.lower())
+        except OSError:
+            return
+        for child in children:
+            if child.name in _DENY_DIR_NAMES or _is_denied_dir(child):
+                continue
+            if len(entries) >= cap:
+                truncated = True
+                return
+            rel = str(child.relative_to(target)).replace("\\", "/")
+            is_dir = child.is_dir()
+            size = None
+            if child.is_file():
+                try:
+                    size = child.stat().st_size
+                except OSError:
+                    size = None
+            entries.append(
+                {
+                    "path": rel,
+                    "type": "dir" if is_dir else "file",
+                    "depth": depth,
+                    "size": size,
+                }
+            )
+            if is_dir and depth < depth_cap:
+                walk(child, depth + 1)
+
+    walk(target, 1)
+    return {
+        "ok": True,
+        "path": str(target),
+        "max_depth": depth_cap,
+        "count": len(entries),
+        "entries": entries,
+        "truncated": truncated,
+    }
+
+
+def grep_files(
+    path: str | Path,
+    pattern: str,
+    *,
+    max_matches: int = DEFAULT_GREP_MATCHES,
+    max_file_bytes: int = 400_000,
+) -> dict[str, Any]:
+    """Search file contents under path (repo-wide, skip binaries / denied trees)."""
+    raw = (pattern or "").strip()
+    if not raw:
+        raise InspectError("pattern is required")
+    try:
+        cre = re.compile(raw)
+    except re.error as exc:
+        raise InspectError(f"invalid regex: {exc}") from exc
+
+    target = resolve_readable_path(path, must_exist=True)
+    cap = max(1, min(int(max_matches), 400))
+    file_limit = max(1, int(max_file_bytes))
+    matches: list[dict[str, Any]] = []
+    files_scanned = 0
+    truncated = False
+    roots = [target] if target.is_file() else [target]
+
+    def consider(file_path: Path) -> None:
+        nonlocal truncated, files_scanned
+        if truncated:
+            return
+        if file_path.suffix.lower() in _SKIP_GREP_SUFFIXES:
+            return
+        if _is_denied_dir(file_path):
+            return
+        try:
+            size = file_path.stat().st_size
+        except OSError:
+            return
+        if size > file_limit:
+            return
+        try:
+            text = file_path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            return
+        files_scanned += 1
+        text = redact_text(text)
+        for i, line in enumerate(text.splitlines(), start=1):
+            if cre.search(line):
+                matches.append(
+                    {
+                        "path": str(file_path),
+                        "line": i,
+                        "text": line[:400],
+                    }
+                )
+                if len(matches) >= cap:
+                    truncated = True
+                    return
+
+    for root in roots:
+        if root.is_file():
+            consider(root)
+            continue
+        for child in root.rglob("*"):
+            if truncated:
+                break
+            if not child.is_file():
+                continue
+            consider(child)
+
+    return {
+        "ok": True,
+        "path": str(target),
+        "pattern": raw,
+        "files_scanned": files_scanned,
+        "count": len(matches),
+        "matches": matches,
+        "truncated": truncated,
+    }

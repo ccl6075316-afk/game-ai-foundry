@@ -9,7 +9,15 @@ from pathlib import Path
 from unittest.mock import patch
 
 from conversations_ops import list_sessions, show_session
-from inspect_ops import InspectError, list_dir, read_file, redact_secrets, resolve_readable_path
+from inspect_ops import (
+    InspectError,
+    grep_files,
+    list_dir,
+    read_file,
+    redact_secrets,
+    resolve_readable_path,
+    tree_dir,
+)
 from pi_foundry_tools import is_allowed_argv
 
 
@@ -35,6 +43,14 @@ class InspectPathTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         self.assertIn("content", result)
         self.assertTrue(result["content"])
+
+    def test_tree_and_grep_cli(self) -> None:
+        tree = tree_dir("cli", max_depth=1, limit=50)
+        self.assertTrue(tree["ok"])
+        self.assertGreater(tree["count"], 3)
+        hits = grep_files("cli/inspect_ops.py", "DEFAULT_MAX_BYTES", max_matches=10)
+        self.assertTrue(hits["ok"])
+        self.assertGreaterEqual(hits["count"], 1)
 
     def test_config_json_redacts_keys(self) -> None:
         cfg = Path.home() / ".gamefactory" / "config.json"
@@ -66,6 +82,10 @@ class WhitelistTests(unittest.TestCase):
     def test_inspect_and_conversations_allowed(self) -> None:
         self.assertTrue(is_allowed_argv(["inspect", "list", "--path", "plans", "--json"]))
         self.assertTrue(is_allowed_argv(["inspect", "read", "--path", "AGENTS.md", "--json"]))
+        self.assertTrue(is_allowed_argv(["inspect", "tree", "--path", "cli", "--json"]))
+        self.assertTrue(
+            is_allowed_argv(["inspect", "grep", "--path", "cli", "--pattern", "AgentTurnError|foo*", "--json"])
+        )
         self.assertTrue(is_allowed_argv(["conversations", "list", "--role", "brief", "--json"]))
         self.assertTrue(
             is_allowed_argv(

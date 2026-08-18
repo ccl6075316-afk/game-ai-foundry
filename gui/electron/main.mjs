@@ -2969,6 +2969,7 @@ app.whenReady().then(() => {
             instanceId: opts.instanceId,
             briefArg: brief ? cliArgForRel(brief) : "",
             progressArg: progress ? cliArgForRel(progress) : "",
+            opsContextArg: String(opts.opsContext || "").trim(),
           },
           runPromptCommand: (args) =>
             runCli(args, { jobKey: chatJobKey(instanceKey) }),
@@ -3288,6 +3289,7 @@ app.whenReady().then(() => {
       instanceId: opts.instanceId,
       targetInstanceId: opts.targetInstanceId,
       rosterJson: opts.rosterJson,
+      opsContextArg: String(opts.opsContext || "").trim(),
       timeout: opts.timeout,
     });
     const sender = event.sender;

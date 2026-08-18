@@ -40,6 +40,33 @@ class AgentTurnTests(unittest.TestCase):
         self.assertIn("brief_patches", result["prompt"])
         self.assertIn("检查策划只说不写", result["prompt"])
 
+    def test_build_prompt_it_includes_ops_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            conv = Path(td) / "product_host"
+            conv.mkdir(parents=True)
+            pm_sess = {
+                "id": "sess-pm",
+                "role": "product_host",
+                "messages": [
+                    {"role": "user", "content": "流水线失败了"},
+                    {"role": "assistant", "content": "task foo.image.generate failed: validation"},
+                ],
+            }
+            (conv / "sess-pm.json").write_text(json.dumps(pm_sess), encoding="utf-8")
+            with patch("conversations_ops.agent_conversations_dir", return_value=conv):
+                prompt = build_prompt(
+                    role_kind="it",
+                    user_message="帮我看看项目经理报错",
+                    session=new_session("it", "it-1"),
+                    ops_context="最近流水线终端日志：\nError: exit 2",
+                )
+        self.assertIn("运维快照", prompt)
+        self.assertIn("全仓", prompt)
+        self.assertIn("项目经理最近会话", prompt)
+        self.assertIn("validation", prompt)
+        self.assertIn("GUI 附加上下文", prompt)
+        self.assertIn("exit 2", prompt)
+
     def test_resolve_executor_override(self) -> None:
         self.assertEqual(
             resolve_executor_for_role("product_host", {}, "codex"),
@@ -68,6 +95,8 @@ class AgentTurnTests(unittest.TestCase):
         self.assertIn("gamefactory.py", text)
         self.assertNotIn("Godot C#", text)
         self.assertIn("明确结论", text)
+        self.assertIn("inspect grep", text)
+        self.assertIn("全仓", text)
 
     def test_build_prompt_ui_wireframe_soft_hint(self) -> None:
         session = new_session("programmer", "w1")

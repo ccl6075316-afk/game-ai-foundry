@@ -76,6 +76,8 @@ _ALLOWED_PREFIXES: tuple[tuple[str, ...], ...] = (
     ("conversations", "show"),
     ("inspect", "list"),
     ("inspect", "read"),
+    ("inspect", "tree"),
+    ("inspect", "grep"),
     ("shell", "run"),
 )
 
@@ -132,6 +134,8 @@ _BRIEF_ALLOWED_PREFIXES = frozenset(
         ("conversations", "show"),
         ("inspect", "list"),
         ("inspect", "read"),
+        ("inspect", "tree"),
+        ("inspect", "grep"),
         ("doctor",),
         ("setup", "check"),
         ("setup", "pi", "status"),
@@ -151,6 +155,8 @@ _ADVISOR_ALLOWED_PREFIXES = frozenset(
         ("conversations", "show"),
         ("inspect", "list"),
         ("inspect", "read"),
+        ("inspect", "tree"),
+        ("inspect", "grep"),
         ("doctor",),
         ("setup", "check"),
         ("setup", "pi", "status"),
@@ -255,85 +261,60 @@ Reply in Chinese. Prefer clear recommendations over tool spam.
 
     examples = "\n".join(f"- `{' '.join(p)} …`" for p in _ALLOWED_PREFIXES if p not in _WRITE_PREFIXES)
     return f"""
-## Foundry tools (whitelist only) — IT home ops
+## Foundry tools — IT 全仓助手（不是阉割运维）
 
-You have FOUNDRY_TOOL access (including **shell**). Prefer dedicated tools first; use shell when needed.
+你要能查 **整个仓库 + 当前游戏工程**，像完整编程助手一样：先读源码和磁盘事实，再下结论、再改。
+禁止说「我看不到项目经理报错 / 看不到源码」——用工具去读。
 
 <<<FOUNDRY_TOOL
-["doctor", "--json"]
+["inspect", "tree", "--path", ".", "--max-depth", "2", "--json"]
 FOUNDRY_TOOL>>>
 
 Allowed command prefixes:
 {examples}
 
-Home-ops playbooks (Chinese answers):
-1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors upsert|list|show
-2. **Project draft** — brief chat bind / status (sync draft to project)
-3. **Export readiness** — autofix / makeability / enrich / validate (do **not** export unless user clearly says 导出)
-4. **Board / pipeline** — diagnose / status / heal / reset / plan / **run** (spend API; prefer --jobs 1..4)
-5. **Assets** — assets review list / regenerate-plan (guide user; soft annotations)
-6. **Read** — `conversations list|show`, `inspect list|read` (secrets redacted)
-7. **Shell** — `shell run --command "…" --i-confirm --json` (cwd: repo or ~/.gamefactory; prefer GUI approve when bridge is on, otherwise `--i-confirm` is enough)
+### 全仓只读（必会）
+- `inspect tree --path . --max-depth 2 --json` — 仓库地图
+- `inspect tree --path projects/<slug> --max-depth 3 --json` — 当前游戏
+- `inspect grep --path cli --pattern <regex> --json` — 搜 Foundry 内核
+- `inspect grep --path gui --pattern <regex> --json`
+- `inspect grep --path projects/<slug> --pattern <regex> --json`
+- `inspect read --path cli/<file> --json` / `gui/src/...` / `projects/<slug>/game/...`
+- `conversations list|show --role product_host|programmer|brief|it --json`
+- `pipeline diagnose|status --json`
 
+### 运维 / 变更
+1. **Environment** — doctor / setup check / install / executor step / provider upsert / agents instances|executors
+2. **Project draft** — brief chat bind / status
+3. **Export readiness** — autofix / makeability / enrich / validate（用户明确说导出才 export；IT 默认不 export）
+4. **Board / pipeline** — diagnose / status / heal / reset / plan / run
+5. **Assets** — assets review list / regenerate-plan
+6. **Shell** — `shell run --command "…" --i-confirm --json`（cwd: 仓库或 ~/.gamefactory）
 
 Rules:
-- Prefer `--json` when available.
-- Never invent tool output; wait for host results.
-- Answer in Chinese; do not claim config/disk changes unless a tool returned ok.
-- **Finish or tool — never fake continue:** if you still need a fact, emit FOUNDRY_TOOL
-  in the **same** reply. Do not end with only「我再确认一下… / 让我再查…」.
-  When done, write an explicit **结论**.
-- Do **not** casually rewrite Foundry/Electron/Pi source or `games/` C# — if needed, say so and keep diffs minimal / ask first.
-- **Release already has Python.** FOUNDRY_TOOL runs via Foundry embedded Python (`GAMEFACTORY_PYTHON` / host `sys.executable`).
-  Never diagnose「缺 Python / 请重装安装包 / 请装系统 Python」from PATH/`where python`/exit 9009.
-  If a tool fails, quote that tool's error; do not shell-hunt `python.exe`.
-- Do **not** tell users to install system Python/Node for Release — embed + toolchain auto/IT install.
-- **Codex 第三方（DeepSeek 等）正确顺序**（flags 必须一字不差）：
-  1) `setup provider upsert --provider deepseek --api-key <KEY> --set-active-text --i-confirm --json`
-  2) `setup agents executors upsert --executor codex --provider deepseek --use-third-party --i-confirm --json`
-     （是 `--executor`，**不是** `--executor-id`；没有 `instances list` 以外的虚构子命令时用 `instances list` / `executors show` / `inspect read`）
-  3) `setup executor step codex sync_api --i-confirm --json` — 若返回 `skipped`/`use_third_party=false`，说明第 2 步没写上，重做 2→3
-  4) 程序员实例若要覆盖：`setup agents instances upsert --instance-id <id> --use-third-party --provider deepseek --i-confirm --json`
-- **Mutating ops** (including shell) need `--i-confirm`. When the GUI permission
-  bridge is connected, the host may ask once/turn/session — prefer approving so
-  work can finish. Without a bridge, `--i-confirm` alone is enough. Mask API Keys in chat.
+- Prefer `--json`. 先 inspect/grep/read，不要猜磁盘。
+- **Finish or tool — never fake continue.**
+- 需要改 `cli/` `gui/` `games/` / 当前 `projects/<slug>/game` 时：先读相关文件，再给最小 diff / 用 shell 改，并说明路径。用户让你修 bug 就是授权。
+- **Release already has Python.** Never diagnose「缺 Python」from PATH/`where python`/exit 9009.
+- Codex 第三方：`setup agents executors upsert --executor codex --provider deepseek --use-third-party --i-confirm --json`（是 `--executor`，不是 `--executor-id`）
+- Mutating ops (including shell) need `--i-confirm`. Mask API Keys.
+  Example (search PM errors / source):
+  <<<FOUNDRY_TOOL
+  ["inspect", "grep", "--path", "cli", "--pattern", "AgentTurnError", "--json"]
+  FOUNDRY_TOOL>>>
+  <<<FOUNDRY_TOOL
+  ["conversations", "list", "--role", "product_host", "--json"]
+  FOUNDRY_TOOL>>>
+  <<<FOUNDRY_TOOL
+  ["conversations", "show", "--role", "product_host", "--session-id", "<id>", "--tail", "40", "--json"]
+  FOUNDRY_TOOL>>>
   Example (shell):
   <<<FOUNDRY_TOOL
-  ["shell", "run", "--command", "ls -la plans/conversations/brief | head", "--i-confirm", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (read 策划 session):
-  <<<FOUNDRY_TOOL
-  ["conversations", "list", "--role", "brief", "--json"]
-  FOUNDRY_TOOL>>>
-  <<<FOUNDRY_TOOL
-  ["conversations", "show", "--role", "brief", "--session-id", "<id>", "--tail", "30", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (read config redacted / project file):
-  <<<FOUNDRY_TOOL
-  ["inspect", "read", "--path", "~/.gamefactory/config.json", "--json"]
+  ["shell", "run", "--command", "ls -la projects/fishing-2d/game", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
   Example (Key mutate):
   <<<FOUNDRY_TOOL
   ["setup", "provider", "upsert", "--provider", "deepseek", "--api-key", "<KEY>", "--set-active-text", "--i-confirm", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (Codex third-party preset):
-  <<<FOUNDRY_TOOL
-  ["setup", "agents", "executors", "upsert", "--executor", "codex", "--provider", "deepseek", "--use-third-party", "--i-confirm", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (list instances / show executors):
-  <<<FOUNDRY_TOOL
-  ["setup", "agents", "instances", "list", "--json"]
-  FOUNDRY_TOOL>>>
-  <<<FOUNDRY_TOOL
-  ["setup", "agents", "executors", "show", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (Thinking):
-  <<<FOUNDRY_TOOL
-  ["setup", "agents", "instances", "upsert", "--instance-id", "<id>", "--thinking-level", "medium", "--i-confirm", "--json"]
-  FOUNDRY_TOOL>>>
-  Example (Hermes for 项目经理):
-  <<<FOUNDRY_TOOL
-  ["setup", "executor", "step", "hermes", "install_cli", "--i-confirm", "--json"]
   FOUNDRY_TOOL>>>
   Example (pipeline run):
   <<<FOUNDRY_TOOL
@@ -387,9 +368,10 @@ def is_allowed_argv(
         return False
     if profile == "advisor" and prefix not in _ADVISOR_ALLOWED_PREFIXES:
         return False
-    # Shell commands may contain ; | & — only this prefix is exempt.
+    # Shell / inspect grep may contain regex | * ? — exempt those prefixes.
+    glob_ok_prefixes = {("shell", "run"), ("inspect", "grep")}
     joined = " ".join(argv)
-    if prefix != ("shell", "run") and any(
+    if prefix not in glob_ok_prefixes and any(
         ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")
     ):
         return False
@@ -400,8 +382,8 @@ def is_allowed_argv(
         return False
     if prefix in _MUTATE_PREFIXES and "--i-confirm" not in argv:
         return False
-    # Glob metacharacters in non-shell argv remain blocked.
-    if prefix != ("shell", "run"):
+    # Glob metacharacters in non-shell argv remain blocked (inspect grep is regex).
+    if prefix not in glob_ok_prefixes:
         rest = argv[len(prefix) :]
         for tok in rest:
             if tok.startswith("-"):

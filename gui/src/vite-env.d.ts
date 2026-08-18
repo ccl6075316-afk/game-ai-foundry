@@ -754,6 +754,8 @@ declare global {
         timeout?: number;
         /** IT: pre-approve FOUNDRY_TOOL mutates for this session (default true). */
         piSessionTrust?: boolean;
+        /** Pipeline logs + PM GUI chat tail for IT triage (not stored in user message). */
+        opsContext?: string;
       }) => Promise<
         CliResult<{
           ok?: boolean;

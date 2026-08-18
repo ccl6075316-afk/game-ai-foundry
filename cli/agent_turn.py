@@ -279,6 +279,117 @@ def _scenes_systems_prompt_lines(brief: Path | None) -> list[str]:
         return []
 
 
+def _it_ops_context_lines(brief: Path | None) -> list[str]:
+    """Inject pipeline + PM session + repo map so IT can triage like a full coding agent."""
+    lines = [
+        "",
+        "## 你的权限（全仓，不是阉割运维）",
+        "你必须能查仓库内**所有**源码与工程文件，等价于完整编程助手：",
+        "- Foundry 内核：`cli/` `gui/` `resources/` `docs/`",
+        "- 当前游戏：`projects/<slug>/`（brief、assets spec、pipeline、game/ Godot、output、plans）",
+        "- 同事会话：`conversations show --role product_host|programmer|brief|it`",
+        "工具：`inspect tree|grep|read|list`；不够再用 `shell run`。禁止声称看不到源码或项目经理报错。",
+        "",
+        "## 运维快照（自动注入；不够就自己 grep/read）",
+    ]
+
+    try:
+        from inspect_ops import list_dir
+
+        listed = list_dir(_REPO_ROOT, limit=40)
+        names = [str(e.get("name") or "") for e in (listed.get("entries") or [])]
+        if names:
+            lines.append(f"- 仓库根目录：{', '.join(names[:30])}")
+    except Exception as exc:  # noqa: BLE001
+        lines.append(f"- 仓库根目录列出失败: {exc}")
+
+    manifest_path: Path | None = None
+    if brief and brief.is_file():
+        try:
+            from project_paths import default_paths_for_brief
+
+            paths = default_paths_for_brief(brief)
+            raw = paths.get("manifest")
+            if raw:
+                manifest_path = Path(raw)
+            proj = paths.get("project_root")
+            if proj:
+                try:
+                    from inspect_ops import list_dir
+
+                    game_listed = list_dir(proj, limit=40)
+                    gnames = [str(e.get("name") or "") for e in (game_listed.get("entries") or [])]
+                    if gnames:
+                        lines.append(f"- 当前游戏目录 {proj}: {', '.join(gnames[:30])}")
+                except Exception as exc:  # noqa: BLE001
+                    lines.append(f"- 当前游戏目录列出失败: {exc}")
+        except Exception as exc:  # noqa: BLE001
+            lines.append(f"- 解析 brief 路径失败: {exc}")
+
+    if manifest_path and manifest_path.is_file():
+        try:
+            from pipeline_heal import diagnose_manifest
+            from pipeline_manifest import load_manifest, status_summary
+
+            manifest = load_manifest(manifest_path)
+            diag = diagnose_manifest(manifest)
+            summary = status_summary(manifest)
+            lines.append(f"- pipeline manifest: {manifest_path}")
+            lines.append(f"- 任务统计: {json.dumps(summary, ensure_ascii=False)}")
+            failed = int(diag.get("failed_count") or 0)
+            if failed:
+                lines.append(f"- failed 任务 ({failed}):")
+                for item in (diag.get("items") or [])[:10]:
+                    if not isinstance(item, dict):
+                        continue
+                    tid = str(item.get("task_id") or "?")
+                    kind = str(item.get("kind") or "unknown")
+                    summary_text = str(item.get("summary") or "").strip()[:200]
+                    lines.append(f"  · {tid} [{kind}] {summary_text}")
+                    stderr_tail = str(item.get("stderr_tail") or "").strip()
+                    if stderr_tail:
+                        lines.append(f"    stderr: {stderr_tail[-400:]}")
+            advice = str(diag.get("pm_advice_short") or diag.get("pm_advice") or "").strip()
+            if advice:
+                lines.append(f"- 项目经理分诊建议: {advice[:300]}")
+        except Exception as exc:  # noqa: BLE001
+            lines.append(f"- pipeline 诊断失败: {exc}")
+    else:
+        lines.append("- pipeline manifest: （未找到；可先 brief chat bind）")
+
+    try:
+        from conversations_ops import list_sessions, show_session
+
+        listed = list_sessions("product_host", limit=3)
+        sessions = listed.get("sessions") if isinstance(listed, dict) else None
+        if isinstance(sessions, list) and sessions:
+            top = sessions[0] if isinstance(sessions[0], dict) else {}
+            sid = str(top.get("id") or "").strip()
+            if sid:
+                shown = show_session("product_host", sid, tail=10)
+                lines.append(
+                    f"- 项目经理最近会话: {shown.get('id')} "
+                    f"({shown.get('path')}, msgs={shown.get('message_count')})"
+                )
+                for m in shown.get("messages") or []:
+                    if not isinstance(m, dict):
+                        continue
+                    role = str(m.get("role") or "")
+                    content = str(m.get("content") or "").strip()
+                    if content:
+                        lines.append(f"  {role}: {content[:700]}")
+        else:
+            lines.append("- 项目经理会话: （尚无 product_host 会话文件）")
+    except Exception as exc:  # noqa: BLE001
+        lines.append(f"- 项目经理会话读取失败: {exc}")
+
+    lines.append(
+        "更完整记录: `conversations list --role product_host` → "
+        "`conversations show --role product_host --session-id <id>`"
+    )
+    return lines
+
+
 def build_prompt(
     *,
     role_kind: str,
@@ -290,6 +401,7 @@ def build_prompt(
     default_target_instance_id: str | None = None,
     instance_id: str | None = None,
     executor: str | None = None,
+    ops_context: str | None = None,
 ) -> str:
     if role_kind == "it":
         title = "IT / 运维"
@@ -352,6 +464,12 @@ def build_prompt(
 
     if history_lines:
         parts.extend(["", "## 近部对话", *history_lines])
+
+    if role_kind == "it":
+        parts.extend(_it_ops_context_lines(brief))
+        gui_ctx = str(ops_context or "").strip()
+        if gui_ctx:
+            parts.extend(["", "## GUI 附加上下文（看板 / 当前会话）", gui_ctx[:12_000]])
 
     parts.extend(["", "## 用户本轮消息", user_message.strip(), ""])
     if role_kind == "it" and executor and executor != "pi":
@@ -449,9 +567,9 @@ def build_prompt(
         )
     elif role_kind == "it":
         parts.append(
-            "收尾：给出明确结论。"
-            "按需使用工具/CLI 查证；不要臆造磁盘状态；"
-            "除非用户明确要求，不要建议改写玩法侧工程代码。"
+            "收尾：给出明确结论与文件路径。"
+            "排障必须读源码（inspect grep/read），不要臆造。"
+            "用户让你修就改 `cli/` `gui/` 或当前 `projects/<slug>/`；先读后写。"
         )
     return "\n".join(parts)
 
@@ -997,6 +1115,7 @@ def prepare_turn_prompt(
     instance_id: str | None = None,
     programmer_roster: list[dict[str, str]] | None = None,
     default_target_instance_id: str | None = None,
+    ops_context: str | None = None,
 ) -> dict[str, str]:
     """Build the role-aware prompt used by ``run_turn`` without invoking an executor."""
     if role_kind not in ROLE_KINDS:
@@ -1024,6 +1143,7 @@ def prepare_turn_prompt(
         default_target_instance_id=default_target_instance_id,
         instance_id=instance_id,
         executor=chosen,
+        ops_context=ops_context,
     )
     return {"prompt": prompt, "executor": chosen}
 
@@ -1041,6 +1161,7 @@ def run_turn(
     instance_id: str | None = None,
     programmer_roster: list[dict[str, str]] | None = None,
     default_target_instance_id: str | None = None,
+    ops_context: str | None = None,
 ) -> dict[str, Any]:
     """Append user message, call executor CLI, persist, return GUI payload."""
     if role_kind not in ROLE_KINDS:
@@ -1081,6 +1202,7 @@ def run_turn(
         default_target_instance_id=default_target_instance_id,
         instance_id=instance_id,
         executor=chosen,
+        ops_context=ops_context,
     )
 
     assistant, exec_sid, stderr_tail = run_executor_turn(

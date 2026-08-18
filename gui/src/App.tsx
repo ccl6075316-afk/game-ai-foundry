@@ -108,6 +108,7 @@ import {
   removeColleague,
   type ChatSessionStore,
 } from "./chat/sessions";
+import { buildItGuiOpsContext } from "./chat/itOpsContext";
 import {
   loadAgentInstancesFromConfig,
   serializeAgentInstances,
@@ -1811,10 +1812,11 @@ export default function App() {
       const head = (data.assistant_message || "制作审查完成。").split("\n\n")[0];
 
       // Intent and repair can both exist — emit separate cards so neither is hidden (M1).
+      // Summary (head) only on the first bubble to avoid duplicate paragraphs in chat.
       if (hasRepair) {
         appendAssistant(
           hasIntent
-            ? `${head}\n\n下方卡片可「重试写入」已保存但验证失败的答案。`
+            ? `${head}\n\n先处理下方「重试写入」卡片，再回答新的意图缺口。`
             : `${head}\n\n下方卡片可「重试写入」已保存的答案（无需重新选题）。`,
           undefined,
           undefined,
@@ -1831,7 +1833,9 @@ export default function App() {
       }
       if (hasIntent) {
         appendAssistant(
-          `${head}\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。`,
+          hasRepair
+            ? "请在新卡片中点选选项并「写入草稿」。"
+            : `${head}\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。`,
           undefined,
           undefined,
           sessionTarget,
@@ -2305,6 +2309,14 @@ export default function App() {
           piSessionTrust = true;
         }
       }
+      const opsContext =
+        target.role === "it"
+          ? buildItGuiOpsContext({
+              store: loadSessionStore(),
+              manifestRel: selectedManifest,
+              pipelineLogs: logs,
+            })
+          : undefined;
       const res = await window.gameFactory.agentTurn({
         role: target.role,
         sessionId: target.sessionId,
@@ -2321,6 +2333,7 @@ export default function App() {
               )
             : undefined,
         piSessionTrust,
+        opsContext: opsContext || undefined,
       });
       const data = res.data;
       if (isChatAborted(res)) {

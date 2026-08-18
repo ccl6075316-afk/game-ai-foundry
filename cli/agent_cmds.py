@@ -97,6 +97,11 @@ def register_agent_commands(cli_group: click.Group) -> None:
         default=None,
         help='JSON array of programmers: [{"id":"...","display_name":"..."}]',
     )
+    @click.option(
+        "--ops-context",
+        default=None,
+        help="GUI ops snapshot (pipeline logs / PM chat tail) for IT turns.",
+    )
     @click.option("--timeout", default=600, show_default=True, type=int)
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
@@ -111,6 +116,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
         instance_id: str | None,
         target_instance_id: str | None,
         roster_json: str | None,
+        ops_context: str | None,
         timeout: int,
         as_json: bool,
     ) -> None:
@@ -145,6 +151,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
                 instance_id=instance_id,
                 programmer_roster=roster,
                 default_target_instance_id=target_instance_id,
+                ops_context=ops_context,
             )
         except AgentTurnError as exc:
             payload = {"ok": False, "status": "error", "error": str(exc)}
@@ -182,6 +189,11 @@ def register_agent_commands(cli_group: click.Group) -> None:
     @click.option("--brief", "brief_path", type=click.Path(path_type=Path), default=None)
     @click.option("--progress", "progress_path", type=click.Path(path_type=Path), default=None)
     @click.option("--instance-id", default=None)
+    @click.option(
+        "--ops-context",
+        default=None,
+        help="GUI-only ops snapshot for IT prompt building.",
+    )
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
     def prompt_cmd(
@@ -193,6 +205,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
         brief_path: Path | None,
         progress_path: Path | None,
         instance_id: str | None,
+        ops_context: str | None,
         as_json: bool,
     ) -> None:
         """Build the shared IT role prompt without spawning an executor."""
@@ -207,6 +220,7 @@ def register_agent_commands(cli_group: click.Group) -> None:
                 brief_path=brief_path,
                 progress_path=progress_path,
                 instance_id=instance_id,
+                ops_context=ops_context,
             )
         except AgentTurnError as exc:
             payload = {"ok": False, "status": "error", "error": str(exc)}

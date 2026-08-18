@@ -24,6 +24,7 @@ export function resolveItExecutor({ override, instanceExecutor, roleExecutor }) 
  * @param {string} [opts.instanceId]
  * @param {string} [opts.briefArg]
  * @param {string} [opts.progressArg]
+ * @param {string} [opts.opsContextArg]
  * @returns {string[]}
  */
 export function buildAgentPromptArgs(opts) {
@@ -45,6 +46,8 @@ export function buildAgentPromptArgs(opts) {
   if (briefArg) args.push("--brief", briefArg);
   const progressArg = String(opts.progressArg || "").trim();
   if (progressArg) args.push("--progress", progressArg);
+  const opsContextArg = String(opts.opsContextArg || "").trim();
+  if (opsContextArg) args.push("--ops-context", opsContextArg);
   args.push("--json");
   return args;
 }
@@ -68,6 +71,7 @@ export function buildAgentTurnArgs(opts) {
     ["--instance-id", opts.instanceId],
     ["--target-instance-id", opts.targetInstanceId],
     ["--roster-json", opts.rosterJson],
+    ["--ops-context", opts.opsContextArg],
     ["--timeout", opts.timeout],
   ];
   for (const [flag, value] of optionalArgs) {
