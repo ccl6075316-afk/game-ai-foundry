@@ -48,6 +48,41 @@ export function buildAgentPromptArgs(opts) {
   if (progressArg) args.push("--progress", progressArg);
   const opsContextArg = String(opts.opsContextArg || "").trim();
   if (opsContextArg) args.push("--ops-context", opsContextArg);
+  const targetInstanceId = String(opts.targetInstanceId || "").trim();
+  if (targetInstanceId) args.push("--target-instance-id", targetInstanceId);
+  const rosterJson = String(opts.rosterJson || "").trim();
+  if (rosterJson) args.push("--roster-json", rosterJson);
+  args.push("--json");
+  return args;
+}
+
+/**
+ * CLI args for persisting an ACP turn with dispatch side effects.
+ *
+ * @param {object} opts
+ * @returns {string[]}
+ */
+export function buildRecordTurnArgs(opts) {
+  const args = [
+    "agent",
+    "record-turn",
+    "--role",
+    String(opts.roleKind),
+    "--session-id",
+    String(opts.sessionId),
+    "--message",
+    String(opts.message),
+    "--assistant-message",
+    String(opts.assistantMessage),
+    "--executor",
+    String(opts.executor),
+  ];
+  const briefArg = String(opts.briefArg || "").trim();
+  if (briefArg) args.push("--brief", briefArg);
+  const progressArg = String(opts.progressArg || "").trim();
+  if (progressArg) args.push("--progress", progressArg);
+  const targetInstanceId = String(opts.targetInstanceId || "").trim();
+  if (targetInstanceId) args.push("--target-instance-id", targetInstanceId);
   args.push("--json");
   return args;
 }
@@ -83,7 +118,7 @@ export function buildAgentTurnArgs(opts) {
 }
 
 /**
- * Resolve the executor text for an ACP turn, using the shared CLI prompt for IT.
+ * Resolve the executor text for an ACP turn, using the shared CLI prompt builder.
  *
  * @param {object} opts
  * @param {string} opts.roleKind
@@ -94,8 +129,6 @@ export function buildAgentTurnArgs(opts) {
  * @returns {Promise<string>}
  */
 export async function prepareRoleAwareAcpPrompt(opts) {
-  if (opts.roleKind !== "it") return String(opts.message);
-
   const result = await opts.runPromptCommand(buildAgentPromptArgs(opts.promptOptions));
   const data = opts.parseJsonOutput(result.stdout) || {};
   const prompt = String(data.prompt || "").trim();
@@ -103,7 +136,7 @@ export async function prepareRoleAwareAcpPrompt(opts) {
     throw new Error(
       String(data.error || "").trim() ||
         String(result.stderr || "").trim() ||
-        "无法构建 IT 角色提示词",
+        "无法构建角色提示词",
     );
   }
   return prompt;

@@ -119,7 +119,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   },
   handoffList: (status, targetInstanceId) =>
     ipcRenderer.invoke("handoff-list", status, targetInstanceId),
-  runSafeAction: (command) => ipcRenderer.invoke("run-safe-action", command),
+  runSafeAction: (command, instanceId) => ipcRenderer.invoke("run-safe-action", command, instanceId),
   productionDelta: (opts) => ipcRenderer.invoke("production-delta", opts),
   productionApplyDelta: (opts) => ipcRenderer.invoke("production-apply-delta", opts),
   onToolchainLog: (callback) => {

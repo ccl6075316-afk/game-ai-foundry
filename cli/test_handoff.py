@@ -185,6 +185,37 @@ class HandoffTests(unittest.TestCase):
                 "prog-1",
             )
 
+    def test_dispatch_injects_manifest_into_pipeline_hints(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            brief_path = base / "projects" / "demo" / "brief.json"
+            manifest_path = base / "projects" / "demo" / "pipeline" / "manifest.json"
+            brief_path.parent.mkdir(parents=True)
+            manifest_path.parent.mkdir(parents=True)
+            brief_path.write_text("{}", encoding="utf-8")
+            manifest_path.write_text('{"tasks":[]}', encoding="utf-8")
+            payload = {
+                "triage": "asset",
+                "dispatch": {
+                    "to": "pipeline",
+                    "cli_hints": [
+                        "pipeline reset --task-id hero.image.generate --cascade",
+                        "pipeline run --run-prompts --jobs 4",
+                    ],
+                },
+                "progress_note": "重跑失败资产",
+            }
+            result = apply_product_host_dispatch(
+                payload,
+                assistant_message="重跑资产。",
+                progress_path=None,
+                brief_path=brief_path,
+                from_session_id="sess-1",
+            )
+            actions = result["next_actions"]
+            self.assertEqual(len(actions), 2)
+            self.assertTrue(all("--manifest" in a for a in actions if "pipeline" in a))
+
     def test_run_turn_applies_dispatch(self) -> None:
         from agent_turn import run_turn
 

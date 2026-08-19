@@ -218,11 +218,122 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
     )
 
 
-def diagnose_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
+def _manifest_cli_rel(manifest_path: Any) -> str:
+    """Path for --manifest when CLI cwd is cli/ (matches GUI cliArgForRel)."""
+    from pathlib import Path
+
+    path = Path(manifest_path).resolve()
+    cli_dir = Path(__file__).resolve().parent
+    repo_root = cli_dir.parent
+    try:
+        rel = path.relative_to(repo_root)
+        return f"../{rel.as_posix()}"
+    except ValueError:
+        try:
+            return path.relative_to(cli_dir).as_posix()
+        except ValueError:
+            return path.as_posix()
+
+
+def _ensure_manifest_in_hint(hint: str, manifest_cli_rel: str) -> str:
+    from safe_cli import SafeCliError, parse_gamefactory_argv
+
+    line = (hint or "").strip()
+    if not line:
+        return ""
+    try:
+        argv = parse_gamefactory_argv(line)
+    except SafeCliError:
+        return line
+    if not argv or argv[0] != "pipeline":
+        return line
+    if any(tok == "--manifest" for tok in argv):
+        return line
+    if len(argv) < 2:
+        return line
+    sub, rest = argv[1], argv[2:]
+    return " ".join(["pipeline", sub, "--manifest", manifest_cli_rel, *rest])
+
+
+def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) -> list[str]:
+    """Ordered whitelisted CLI lines for PM-suitable pipeline failures (GUI auto-run)."""
+    from safe_cli import filter_runnable_actions, normalize_action
+
+    manifest_cli_rel = (manifest_cli_rel or "").strip().replace("\\", "/")
+    items = diagnosis.get("needs_hermes") or []
+    if not items:
+        items = [
+            i
+            for i in (diagnosis.get("items") or [])
+            if i.get("pm_fit") == "yes" and i.get("kind") not in ("network", "missing_file")
+        ]
+
+    config_lines: list[str] = []
+    reset_lines: list[str] = []
+    seen: set[str] = set()
+    touched = False
+
+    has_validation = any(i.get("kind") == "validation" for i in items)
+
+    def _add(bucket: list[str], line: str) -> None:
+        norm = line.strip()
+        if not norm or norm in seen:
+            return
+        seen.add(norm)
+        bucket.append(norm)
+
+    def _is_cmd(argv: list[str], a: str, b: str) -> bool:
+        return len(argv) >= 2 and argv[0] == a and argv[1] == b
+
+    for item in items:
+        kind = str(item.get("kind") or "")
+        if kind in ("config_proxy", "unknown"):
+            continue
+        touched = True
+        for raw in item.get("cli_hints") or []:
+            line = _ensure_manifest_in_hint(str(raw), manifest_cli_rel)
+            info = normalize_action(line)
+            if not info["ok"]:
+                continue
+            argv = info["argv"]
+            if _is_cmd(argv, "pipeline", "status") or _is_cmd(argv, "config", "get"):
+                continue
+            if _is_cmd(argv, "config", "set"):
+                _add(config_lines, line)
+            elif _is_cmd(argv, "pipeline", "reset"):
+                _add(reset_lines, line)
+            # Ignore per-item pipeline run hints — synthesize one final run below.
+
+    chain = config_lines + reset_lines
+    if touched and chain:
+        run_line = (
+            f"pipeline run --manifest {manifest_cli_rel} --jobs 4"
+            + (" --run-prompts" if has_validation else "")
+        )
+        _add(chain, run_line)
+    runnable = filter_runnable_actions(chain)
+    return [str(i["raw"]) for i in runnable]
+
+
+def can_auto_fix_without_agent(diagnosis: dict[str, Any]) -> bool:
+    """True when diagnose fix chain is fully deterministic (no LLM triage needed)."""
+    items = diagnosis.get("needs_hermes") or []
+    if not items:
+        return False
+    if not build_fix_command_chain(diagnosis.get("manifest_cli_rel") or "", diagnosis):
+        return False
+    return all(str(i.get("kind") or "") in ("validation", "config_size") for i in items)
+
+
+def diagnose_manifest(
+    manifest: dict[str, Any],
+    *,
+    manifest_cli_rel: str = "",
+) -> dict[str, Any]:
     failed = [t for t in tasks_list(manifest) if t.get("status") == TASK_FAILED]
     items = [classify_failed_task(t) for t in failed]
     advice = _aggregate_pm_advice(items)
-    return {
+    out: dict[str, Any] = {
         "failed_count": len(items),
         "items": items,
         "auto_healable": [i for i in items if i.get("owner") == "code"],
@@ -230,6 +341,11 @@ def diagnose_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
         "summary": status_summary(manifest),
         **advice,
     }
+    if manifest_cli_rel:
+        out["manifest_cli_rel"] = manifest_cli_rel
+        out["fix_commands"] = build_fix_command_chain(manifest_cli_rel, out)
+        out["auto_fix_without_agent"] = can_auto_fix_without_agent(out)
+    return out
 
 def heal_manifest(manifest: dict[str, Any], *, only_code: bool = True) -> dict[str, Any]:
     """Reset failed tasks that code can safely heal. Returns heal report."""
@@ -258,9 +374,18 @@ def diagnose_and_heal_file(manifest_path: Any, *, apply: bool) -> dict[str, Any]
 
     path = Path(manifest_path)
     manifest = load_manifest(path)
-    diagnosis = diagnose_manifest(manifest)
+    manifest_cli_rel = _manifest_cli_rel(path)
+    diagnosis = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
     if not apply:
         return {"applied": False, **diagnosis}
     heal = heal_manifest(manifest, only_code=True)
     save_manifest(path, manifest)
-    return {"applied": True, **heal}
+    post = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
+    return {
+        "applied": True,
+        **heal,
+        "diagnose": post,
+        "manifest_cli_rel": manifest_cli_rel,
+        "fix_commands": post.get("fix_commands") or [],
+        "auto_fix_without_agent": post.get("auto_fix_without_agent"),
+    }

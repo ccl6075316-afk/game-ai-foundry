@@ -30,6 +30,7 @@ import { createCodexAppServerSessionManager } from "./codex_app_server_session.m
 import { killChildTree } from "./process_kill.mjs";
 import {
   buildAgentTurnArgs,
+  buildRecordTurnArgs,
   prepareRoleAwareAcpPrompt,
   resolveItExecutor,
 } from "./agent_prompt.mjs";
@@ -620,6 +621,44 @@ function cliArgForRel(rel) {
   return cliArgForResolved(rel, {
     resolvedExternal: resolveExternalRel(rel),
     repoRoot: repoRoot(),
+  });
+}
+
+function normalizeAgentRelPath(value) {
+  return String(value || "")
+    .replace(/\\/g, "/")
+    .replace(/^\.\.\//, "");
+}
+
+function buildAcpPromptOptions(opts, role, sessionId, message, effectiveExecutor) {
+  const brief = normalizeAgentRelPath(opts.brief);
+  const progress = normalizeAgentRelPath(opts.progress);
+  return {
+    roleKind: role,
+    sessionId,
+    message,
+    executor: effectiveExecutor,
+    instanceId: opts.instanceId,
+    briefArg: brief ? cliArgForRel(brief) : "",
+    progressArg: progress ? cliArgForRel(progress) : "",
+    opsContextArg: String(opts.opsContext || "").trim(),
+    targetInstanceId: opts.targetInstanceId,
+    rosterJson: opts.rosterJson,
+  };
+}
+
+function buildRecordTurnCliArgs(opts, role, sessionId, message, assistantText, executor) {
+  const brief = normalizeAgentRelPath(opts.brief);
+  const progress = normalizeAgentRelPath(opts.progress);
+  return buildRecordTurnArgs({
+    roleKind: role,
+    sessionId,
+    message,
+    assistantMessage: assistantText,
+    executor,
+    briefArg: brief ? cliArgForRel(brief) : "",
+    progressArg: progress ? cliArgForRel(progress) : "",
+    targetInstanceId: opts.targetInstanceId,
   });
 }
 
@@ -2956,27 +2995,11 @@ app.whenReady().then(() => {
     abortedChatInstances.delete(instanceKey);
     let preparedAcpPrompt;
     const acpPrompt = async () => {
-      if (role !== "it") return message;
       if (!preparedAcpPrompt) {
-        const brief = String(opts.brief || "")
-          .replace(/\\/g, "/")
-          .replace(/^\.\.\//, "");
-        const progress = String(opts.progress || "")
-          .replace(/\\/g, "/")
-          .replace(/^\.\.\//, "");
         preparedAcpPrompt = prepareRoleAwareAcpPrompt({
           roleKind: role,
           message,
-          promptOptions: {
-            roleKind: role,
-            sessionId,
-            message,
-            executor: effectiveExecutor,
-            instanceId: opts.instanceId,
-            briefArg: brief ? cliArgForRel(brief) : "",
-            progressArg: progress ? cliArgForRel(progress) : "",
-            opsContextArg: String(opts.opsContext || "").trim(),
-          },
+          promptOptions: buildAcpPromptOptions(opts, role, sessionId, message, effectiveExecutor),
           runPromptCommand: (args) =>
             runCli(args, { jobKey: chatJobKey(instanceKey) }),
           parseJsonOutput: parseJsonFromOutput,
@@ -3021,21 +3044,14 @@ app.whenReady().then(() => {
           return abortedChatResult();
         }
 
-        const recordArgs = [
-          "agent",
-          "record-turn",
-          "--role",
+        const recordArgs = buildRecordTurnCliArgs(
+          opts,
           role,
-          "--session-id",
           sessionId,
-          "--message",
           message,
-          "--assistant-message",
           out.text,
-          "--executor",
           "cursor",
-          "--json",
-        ];
+        );
         const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
         if (recordResult.aborted || takeChatAbort(instanceKey)) {
           return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
@@ -3057,7 +3073,7 @@ app.whenReady().then(() => {
         const payload = {
           ...recordData,
           ok: true,
-          assistant_message: out.text,
+          assistant_message: recordData.assistant_message || out.text,
           executor: "cursor",
           stderr_tail: out.stderrTail || "",
         };
@@ -3107,21 +3123,14 @@ app.whenReady().then(() => {
           return abortedChatResult();
         }
 
-        const recordArgs = [
-          "agent",
-          "record-turn",
-          "--role",
+        const recordArgs = buildRecordTurnCliArgs(
+          opts,
           role,
-          "--session-id",
           sessionId,
-          "--message",
           message,
-          "--assistant-message",
           out.text,
-          "--executor",
           "hermes",
-          "--json",
-        ];
+        );
         const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
         if (recordResult.aborted || takeChatAbort(instanceKey)) {
           return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
@@ -3143,7 +3152,7 @@ app.whenReady().then(() => {
         const payload = {
           ...recordData,
           ok: true,
-          assistant_message: out.text,
+          assistant_message: recordData.assistant_message || out.text,
           executor: "hermes",
           stderr_tail: out.stderrTail || "",
         };
@@ -3206,21 +3215,14 @@ app.whenReady().then(() => {
           return abortedChatResult();
         }
 
-        const recordArgs = [
-          "agent",
-          "record-turn",
-          "--role",
+        const recordArgs = buildRecordTurnCliArgs(
+          opts,
           role,
-          "--session-id",
           sessionId,
-          "--message",
           message,
-          "--assistant-message",
           out.text,
-          "--executor",
           "codex",
-          "--json",
-        ];
+        );
         const recordResult = await runCli(recordArgs, { jobKey: chatJobKey(instanceKey) });
         if (recordResult.aborted || takeChatAbort(instanceKey)) {
           return abortedChatResult({ stdout: recordResult.stdout, stderr: recordResult.stderr });
@@ -3242,7 +3244,7 @@ app.whenReady().then(() => {
         const payload = {
           ...recordData,
           ok: true,
-          assistant_message: out.text,
+          assistant_message: recordData.assistant_message || out.text,
           executor: "codex",
           stderr_tail: out.stderrTail || "",
         };
@@ -3417,10 +3419,12 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("run-safe-action", async (event, command) => {
+  ipcMain.handle("run-safe-action", async (event, command, instanceId) => {
     const cmd = String(command || "").trim();
     const sender = event.sender;
-    const result = await runCli(
+    const id = String(instanceId || "").trim();
+    const jobKey = chatJobKey(id);
+    let result = await runCli(
       [
         "project",
         "action",
@@ -3432,9 +3436,14 @@ app.whenReady().then(() => {
         onLine: (line, stream) => {
           sender.send("pipeline-log", { line, stream, source: "action" });
         },
+        jobKey: id ? jobKey : undefined,
       },
     );
-    return { ...result, data: parseJsonFromOutput(result.stdout) };
+    result = { ...result, data: parseJsonFromOutput(result.stdout) };
+    if (id) {
+      result = withAbortMeta(result, id);
+    }
+    return result;
   });
 
   ipcMain.handle("list-output-media", (_e, dirRel, limit = 24) => {

@@ -507,6 +507,9 @@ def build_prompt(
             ]
         )
     if role_kind == "product_host":
+        gui_ctx = str(ops_context or "").strip()
+        if gui_ctx:
+            parts.extend(["", "## 宿主注入的流水线上下文（目标模式）", gui_ctx[:12_000]])
         roster = programmer_roster or []
         if roster:
             parts.append("## 可派工的程序员实例（必须从下列 id 中选 target_instance_id）")
@@ -1079,6 +1082,83 @@ def run_executor_turn(
     raise AgentTurnError(f"Unsupported executor: {executor}")
 
 
+def _apply_assistant_dispatch(
+    *,
+    role_kind: str,
+    session_id: str,
+    assistant: str,
+    brief_path: Path | None = None,
+    progress_path: Path | None = None,
+    default_target_instance_id: str | None = None,
+) -> tuple[str, dict[str, Any] | None]:
+    """Parse dispatch JSON from assistant text and apply handoff side effects."""
+    brief = brief_path or _find_default_brief()
+    progress = progress_path or _find_default_progress()
+    dispatch_result: dict[str, Any] | None = None
+    display_message = assistant
+
+    try:
+        from handoff import (
+            apply_product_host_dispatch,
+            apply_programmer_done,
+            extract_dispatch_payload,
+            strip_dispatch_fence,
+        )
+
+        payload = extract_dispatch_payload(assistant)
+        if role_kind == "product_host" and payload:
+            display_message = strip_dispatch_fence(assistant)
+            dispatch_result = apply_product_host_dispatch(
+                payload,
+                assistant_message=display_message,
+                progress_path=progress,
+                brief_path=brief,
+                from_session_id=str(session_id),
+                default_target_instance_id=default_target_instance_id,
+            )
+            bits: list[str] = []
+            if dispatch_result.get("handoff_path"):
+                tid = dispatch_result.get("target_instance_id")
+                bits.append(
+                    f"已写 handoff：`{dispatch_result['handoff_path']}`"
+                    + (f"（目标实例 `{tid}`）" if tid else "")
+                )
+            if dispatch_result.get("progress_note_written") and progress and progress.is_file():
+                bits.append(f"已记 progress：`{progress}`")
+            if dispatch_result.get("task_updated"):
+                bits.append(f"task `{dispatch_result['task_updated']}` → in_progress")
+            if dispatch_result.get("dispatch_to") == "pipeline":
+                bits.append("分诊为资产/pipeline：请按下方建议命令定点重跑")
+            actions = dispatch_result.get("next_actions") or []
+            if actions:
+                bits.append("建议命令：\n- " + "\n- ".join(str(a) for a in actions[:6]))
+            if bits:
+                display_message = display_message + "\n\n—— " + "；".join(bits)
+        elif role_kind == "programmer" and payload:
+            display_message = strip_dispatch_fence(assistant)
+            done_id = payload.get("handoff_done")
+            if done_id:
+                try:
+                    done = apply_programmer_done(
+                        str(done_id),
+                        progress_path=progress,
+                        progress_note=str(payload.get("progress_note") or "").strip() or None,
+                    )
+                    dispatch_result = done
+                    display_message += f"\n\n—— handoff `{done_id}` 已标为 done"
+                    if done.get("task_done"):
+                        display_message += f"；task `{done['task_done']}` → done"
+                except Exception as exc:  # noqa: BLE001
+                    dispatch_result = {"handoff_done": done_id, "error": str(exc)}
+                    display_message += f"\n\n—— 关单失败：{exc}"
+            else:
+                dispatch_result = {"payload": payload}
+    except Exception as exc:  # noqa: BLE001 — never fail the chat on handoff IO
+        dispatch_result = {"error": str(exc)}
+
+    return display_message, dispatch_result
+
+
 def record_turn_exchange(
     *,
     role_kind: str,
@@ -1086,6 +1166,9 @@ def record_turn_exchange(
     user_message: str,
     assistant_message: str,
     executor: str | None = None,
+    brief_path: Path | None = None,
+    progress_path: Path | None = None,
+    default_target_instance_id: str | None = None,
 ) -> dict[str, Any]:
     """Append user+assistant to session without calling executor CLI (GUI ACP path)."""
     if role_kind not in ROLE_KINDS:
@@ -1106,14 +1189,27 @@ def record_turn_exchange(
         session["executor"] = chosen
 
     user_text = user_message.strip()
-    display_message = assistant_message.strip()
     messages = list(session.get("messages") or [])
-    messages.append({"role": "user", "content": user_text, "ts": _utc_now()})
+    if not (
+        messages
+        and messages[-1].get("role") == "user"
+        and str(messages[-1].get("content") or "").strip() == user_text
+    ):
+        messages.append({"role": "user", "content": user_text, "ts": _utc_now()})
+
+    display_message, dispatch_result = _apply_assistant_dispatch(
+        role_kind=role_kind,
+        session_id=session_id,
+        assistant=assistant_message.strip(),
+        brief_path=brief_path,
+        progress_path=progress_path,
+        default_target_instance_id=default_target_instance_id,
+    )
     messages.append({"role": "assistant", "content": display_message, "ts": _utc_now()})
     session["messages"] = messages
     save_session(path, session)
 
-    return {
+    out: dict[str, Any] = {
         "ok": True,
         "status": "ok",
         "role_kind": role_kind,
@@ -1123,6 +1219,9 @@ def record_turn_exchange(
         "assistant_message": display_message,
         "message_count": len(messages),
     }
+    if dispatch_result:
+        out["dispatch"] = dispatch_result
+    return out
 
 
 def prepare_turn_prompt(
@@ -1241,69 +1340,14 @@ def run_turn(
     if exec_sid:
         session["executor_session_id"] = exec_sid
 
-    brief = brief_path or _find_default_brief()
-    progress = progress_path or _find_default_progress()
-    dispatch_result: dict[str, Any] | None = None
-    display_message = assistant
-
-    try:
-        from handoff import (
-            apply_product_host_dispatch,
-            apply_programmer_done,
-            extract_dispatch_payload,
-            strip_dispatch_fence,
-        )
-
-        payload = extract_dispatch_payload(assistant)
-        if role_kind == "product_host" and payload:
-            display_message = strip_dispatch_fence(assistant)
-            dispatch_result = apply_product_host_dispatch(
-                payload,
-                assistant_message=display_message,
-                progress_path=progress,
-                brief_path=brief,
-                from_session_id=str(session.get("id") or session_id),
-                default_target_instance_id=default_target_instance_id,
-            )
-            bits: list[str] = []
-            if dispatch_result.get("handoff_path"):
-                tid = dispatch_result.get("target_instance_id")
-                bits.append(
-                    f"已写 handoff：`{dispatch_result['handoff_path']}`"
-                    + (f"（目标实例 `{tid}`）" if tid else "")
-                )
-            if dispatch_result.get("progress_note_written") and progress and progress.is_file():
-                bits.append(f"已记 progress：`{progress}`")
-            if dispatch_result.get("task_updated"):
-                bits.append(f"task `{dispatch_result['task_updated']}` → in_progress")
-            if dispatch_result.get("dispatch_to") == "pipeline":
-                bits.append("分诊为资产/pipeline：请按下方建议命令定点重跑")
-            actions = dispatch_result.get("next_actions") or []
-            if actions:
-                bits.append("建议命令：\n- " + "\n- ".join(str(a) for a in actions[:6]))
-            if bits:
-                display_message = display_message + "\n\n—— " + "；".join(bits)
-        elif role_kind == "programmer" and payload:
-            display_message = strip_dispatch_fence(assistant)
-            done_id = payload.get("handoff_done")
-            if done_id:
-                try:
-                    done = apply_programmer_done(
-                        str(done_id),
-                        progress_path=progress,
-                        progress_note=str(payload.get("progress_note") or "").strip() or None,
-                    )
-                    dispatch_result = done
-                    display_message += f"\n\n—— handoff `{done_id}` 已标为 done"
-                    if done.get("task_done"):
-                        display_message += f"；task `{done['task_done']}` → done"
-                except Exception as exc:  # noqa: BLE001
-                    dispatch_result = {"handoff_done": done_id, "error": str(exc)}
-                    display_message += f"\n\n—— 关单失败：{exc}"
-            else:
-                dispatch_result = {"payload": payload}
-    except Exception as exc:  # noqa: BLE001 — never fail the chat on handoff IO
-        dispatch_result = {"error": str(exc)}
+    display_message, dispatch_result = _apply_assistant_dispatch(
+        role_kind=role_kind,
+        session_id=str(session.get("id") or session_id),
+        assistant=assistant,
+        brief_path=brief_path,
+        progress_path=progress_path,
+        default_target_instance_id=default_target_instance_id,
+    )
 
     messages.append({"role": "assistant", "content": display_message, "ts": _utc_now()})
     session["messages"] = messages

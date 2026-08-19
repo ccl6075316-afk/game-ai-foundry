@@ -834,9 +834,13 @@ declare global {
           count?: number;
         }>
       >;
-      runSafeAction: (command: string) => Promise<
+      runSafeAction: (
+        command: string,
+        instanceId?: string,
+      ) => Promise<
         CliResult<{
           ok?: boolean;
+          aborted?: boolean;
           error?: string;
           argv?: string[];
           label?: string;

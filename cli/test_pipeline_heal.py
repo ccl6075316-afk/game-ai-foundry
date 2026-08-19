@@ -78,6 +78,73 @@ class PipelineHealTests(unittest.TestCase):
         task = next(t for t in tasks_list(manifest) if t["id"] == "knight.image.generate")
         self.assertEqual(task["status"], "pending")
 
+    def test_build_fix_command_chain_validation(self) -> None:
+        from pipeline_heal import build_fix_command_chain
+
+        diagnosis = {
+            "needs_hermes": [
+                {
+                    "task_id": "hero.image.generate",
+                    "kind": "validation",
+                    "cli_hints": [
+                        "pipeline reset --task-id hero.image.generate --cascade",
+                        "pipeline run --run-prompts --jobs 4",
+                    ],
+                },
+                {
+                    "task_id": "icon.image.generate",
+                    "kind": "validation",
+                    "cli_hints": [
+                        "pipeline reset --task-id icon.image.generate --cascade",
+                    ],
+                },
+            ],
+        }
+        cmds = build_fix_command_chain("../pipeline/test.json", diagnosis)
+        self.assertEqual(len(cmds), 3)
+        self.assertTrue(all("--manifest ../pipeline/test.json" in c for c in cmds if "pipeline" in c))
+        self.assertEqual(sum(1 for c in cmds if c.startswith("pipeline run")), 1)
+        self.assertIn("--run-prompts", cmds[-1])
+
+    def test_auto_fix_without_agent(self) -> None:
+        from pipeline_heal import can_auto_fix_without_agent
+
+        yes = {
+            "manifest_cli_rel": "../pipeline/x.json",
+            "needs_hermes": [{"kind": "validation", "cli_hints": ["pipeline reset --task-id a --cascade"]}],
+        }
+        self.assertTrue(can_auto_fix_without_agent(yes))
+        no = {
+            "manifest_cli_rel": "../pipeline/x.json",
+            "needs_hermes": [{"kind": "unknown", "cli_hints": ["pipeline reset --task-id a --cascade"]}],
+        }
+        self.assertFalse(can_auto_fix_without_agent(no))
+
+    def test_build_fix_command_chain_mixed_validation_config_size(self) -> None:
+        from pipeline_heal import build_fix_command_chain
+
+        diagnosis = {
+            "needs_hermes": [
+                {
+                    "kind": "validation",
+                    "cli_hints": ["pipeline reset --task-id hero.image.generate --cascade"],
+                },
+                {
+                    "kind": "config_size",
+                    "cli_hints": [
+                        "config set --key image.constraints.size_multiple --value 16",
+                        "pipeline reset --task-id pitch.image.generate --cascade",
+                        "pipeline run --jobs 4",
+                    ],
+                },
+            ],
+        }
+        cmds = build_fix_command_chain("../pipeline/test.json", diagnosis)
+        run_cmds = [c for c in cmds if c.startswith("pipeline run")]
+        self.assertEqual(len(run_cmds), 1)
+        self.assertIn("--run-prompts", run_cmds[0])
+        self.assertIn("--manifest ../pipeline/test.json", run_cmds[0])
+
 
 if __name__ == "__main__":
     unittest.main()

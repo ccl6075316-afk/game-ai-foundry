@@ -178,7 +178,13 @@ def register_agent_commands(cli_group: click.Group) -> None:
             click.echo(result["assistant_message"])
 
     @agent_group.command("prompt")
-    @click.option("--role", "role_kind", type=click.Choice(["it"]), required=True)
+    @click.option(
+        "--role",
+        "role_kind",
+        type=click.Choice(sorted(ROLE_KINDS)),
+        required=True,
+        help="GUI colleague role",
+    )
     @click.option("--session-id", required=True, help="GUI session / conversation id")
     @click.option("--message", "-m", required=True, help="User message")
     @click.option(
@@ -189,10 +195,12 @@ def register_agent_commands(cli_group: click.Group) -> None:
     @click.option("--brief", "brief_path", type=click.Path(path_type=Path), default=None)
     @click.option("--progress", "progress_path", type=click.Path(path_type=Path), default=None)
     @click.option("--instance-id", default=None)
+    @click.option("--target-instance-id", default=None, help="Default programmer instance for PM dispatch")
+    @click.option("--roster-json", default=None, help="JSON array of programmer instances for PM")
     @click.option(
         "--ops-context",
         default=None,
-        help="GUI-only ops snapshot for IT prompt building.",
+        help="GUI-only ops snapshot (pipeline logs / diagnose) for prompt building.",
     )
     @click.option("--json", "as_json", is_flag=True)
     @click.pass_context
@@ -205,11 +213,29 @@ def register_agent_commands(cli_group: click.Group) -> None:
         brief_path: Path | None,
         progress_path: Path | None,
         instance_id: str | None,
+        target_instance_id: str | None,
+        roster_json: str | None,
         ops_context: str | None,
         as_json: bool,
     ) -> None:
-        """Build the shared IT role prompt without spawning an executor."""
+        """Build the role-aware prompt without spawning an executor."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
+        roster: list[dict[str, str]] | None = None
+        if roster_json:
+            try:
+                parsed = json.loads(roster_json)
+            except json.JSONDecodeError as exc:
+                click.echo(f"Error: invalid --roster-json: {exc}", err=True)
+                sys.exit(1)
+            if isinstance(parsed, list):
+                roster = [
+                    {
+                        "id": str(r.get("id") or ""),
+                        "display_name": str(r.get("display_name") or r.get("id") or ""),
+                    }
+                    for r in parsed
+                    if isinstance(r, dict) and r.get("id")
+                ]
         try:
             result = prepare_turn_prompt(
                 role_kind=role_kind,
@@ -220,6 +246,8 @@ def register_agent_commands(cli_group: click.Group) -> None:
                 brief_path=brief_path,
                 progress_path=progress_path,
                 instance_id=instance_id,
+                programmer_roster=roster,
+                default_target_instance_id=target_instance_id,
                 ops_context=ops_context,
             )
         except AgentTurnError as exc:
@@ -253,6 +281,9 @@ def register_agent_commands(cli_group: click.Group) -> None:
         default=None,
         help="Executor label stored on session",
     )
+    @click.option("--brief", "brief_path", type=click.Path(path_type=Path), default=None)
+    @click.option("--progress", "progress_path", type=click.Path(path_type=Path), default=None)
+    @click.option("--target-instance-id", default=None, help="Default programmer instance for PM dispatch")
     @click.option("--json", "as_json", is_flag=True)
     def record_turn_cmd(
         role_kind: str,
@@ -260,6 +291,9 @@ def register_agent_commands(cli_group: click.Group) -> None:
         message: str,
         assistant_message: str,
         executor: str | None,
+        brief_path: Path | None,
+        progress_path: Path | None,
+        target_instance_id: str | None,
         as_json: bool,
     ) -> None:
         """Persist one user+assistant exchange without spawning executor CLI."""
@@ -270,6 +304,9 @@ def register_agent_commands(cli_group: click.Group) -> None:
                 user_message=message,
                 assistant_message=assistant_message,
                 executor=executor,
+                brief_path=brief_path,
+                progress_path=progress_path,
+                default_target_instance_id=target_instance_id,
             )
         except AgentTurnError as exc:
             payload = {"ok": False, "status": "error", "error": str(exc)}

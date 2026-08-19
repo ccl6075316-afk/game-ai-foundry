@@ -228,6 +228,34 @@ def strip_dispatch_fence(text: str) -> str:
     return cleaned.strip() or text.strip()
 
 
+def _resolve_manifest_cli_rel(brief_path: Path | None) -> str | None:
+    """Manifest path for CLI (--manifest) from a brief.json path."""
+    if not brief_path or not brief_path.is_file():
+        return None
+    from pipeline_heal import _manifest_cli_rel
+
+    parent = brief_path.resolve().parent
+    pipeline_dir = parent / "pipeline"
+    if pipeline_dir.is_dir():
+        manifests = sorted(pipeline_dir.glob("*.json"))
+        if manifests:
+            return _manifest_cli_rel(manifests[0])
+    repo_root = Path(__file__).resolve().parent.parent
+    legacy = repo_root / "pipeline" / f"{brief_path.stem}.json"
+    if legacy.is_file():
+        return _manifest_cli_rel(legacy)
+    return None
+
+
+def _inject_manifest_cli_hints(cli_hints: list[str], brief_path: Path | None) -> list[str]:
+    manifest_cli_rel = _resolve_manifest_cli_rel(brief_path)
+    if not manifest_cli_rel:
+        return list(cli_hints)
+    from pipeline_heal import _ensure_manifest_in_hint
+
+    return [_ensure_manifest_in_hint(str(h), manifest_cli_rel) for h in cli_hints if str(h).strip()]
+
+
 def apply_product_host_dispatch(
     payload: dict[str, Any],
     *,
@@ -301,6 +329,7 @@ def apply_product_host_dispatch(
             cli_hints = ["python gamefactory.py pipeline status --json"]
     elif to == "programmer" and not cli_hints:
         cli_hints = ["python gamefactory.py godot validate --project ../games"]
+    cli_hints = _inject_manifest_cli_hints(cli_hints, brief_path)
     result["next_actions"] = list(cli_hints)
 
     gui_hints_raw = payload.get("gui_hints")

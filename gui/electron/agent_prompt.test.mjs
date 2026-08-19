@@ -114,6 +114,26 @@ test("buildAgentTurnArgs forwards the resolved executor to non-ACP CLI", () => {
   );
 });
 
+test("prepareRoleAwareAcpPrompt returns the shared CLI prompt for product_host", async () => {
+  const prompt = await prepareRoleAwareAcpPrompt({
+    roleKind: "product_host",
+    message: "流水线失败了",
+    promptOptions: {
+      roleKind: "product_host",
+      sessionId: "pm-1",
+      message: "流水线失败了",
+      executor: "codex",
+    },
+    runPromptCommand: async () => ({
+      exitCode: 0,
+      stdout: '{"ok":true,"prompt":"完整 PM prompt"}',
+      stderr: "",
+    }),
+    parseJsonOutput: JSON.parse,
+  });
+  assert.equal(prompt, "完整 PM prompt");
+});
+
 test("prepareRoleAwareAcpPrompt returns the shared CLI prompt", async () => {
   let receivedArgs;
   const prompt = await prepareRoleAwareAcpPrompt({
@@ -155,7 +175,7 @@ test("prepareRoleAwareAcpPrompt rejects failed or empty CLI output", async () =>
         runPromptCommand: async () => result,
         parseJsonOutput: JSON.parse,
       }),
-      /构建失败|无法构建 IT 角色提示词/,
+        /构建失败|无法构建角色提示词/,
     );
   }
 });

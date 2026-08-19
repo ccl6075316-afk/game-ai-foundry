@@ -110,6 +110,7 @@ import {
   type ChatSessionStore,
 } from "./chat/sessions";
 import { buildItGuiOpsContext } from "./chat/itOpsContext";
+import { buildPmGuiOpsContext } from "./chat/pmOpsContext";
 import {
   loadAgentInstancesFromConfig,
   serializeAgentInstances,
@@ -240,6 +241,7 @@ function planPipelineStop(opts: {
           `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
           `**推荐下一步 → 项目经理处理失败**\n` +
           `（${opts.advice.headline}）\n\n${opts.advice.detail}` +
+          `\n\n点一次后将自动 diagnose → heal → 串跑修复命令（校验/配置类无需 Agent）。` +
           (opts.healed.length
             ? `\n\n另已自动复位 ${opts.healed.length} 项（网络/缺文件），处理后可一并续跑。`
             : ""),
@@ -2200,9 +2202,88 @@ export default function App() {
     }
   };
 
+  const normalizeSafeCmd = (raw: string): string => {
+    const line = String(raw || "").trim();
+    if (!line || line.startsWith("#")) return "";
+    return /^python\b/i.test(line) ? line : `python gamefactory.py ${line}`;
+  };
+
+  const manifestCliArg = (manifestRel: string): string => {
+    const norm = manifestRel.replace(/\\/g, "/").replace(/^\.\//, "");
+    return norm.startsWith("..") ? norm : `../${norm}`;
+  };
+
+  /** Inject --manifest into pipeline subcommands when Agent hints omit it. */
+  const injectManifestIntoCmd = (raw: string, manifestRel: string): string => {
+    const cmd = normalizeSafeCmd(raw);
+    if (!cmd || !/^python\s+gamefactory\.py\s+pipeline\b/i.test(cmd)) return cmd;
+    if (/\b--manifest\b/i.test(cmd)) return cmd;
+    const body = cmd.replace(/^python\s+gamefactory\.py\s+/i, "");
+    const m = body.match(/^pipeline\s+(\S+)(?:\s+(.*))?$/i);
+    if (!m) return cmd;
+    const sub = m[1];
+    const rest = (m[2] || "").trim();
+    const manifest = manifestCliArg(manifestRel);
+    return `python gamefactory.py pipeline ${sub} --manifest ${manifest}${rest ? ` ${rest}` : ""}`;
+  };
+
+  const prepareAutoFixCommands = (
+    agentCmds: string[],
+    fixCommandsFallback: string[] | undefined,
+    manifestRel: string | undefined,
+  ): string[] => {
+    if (fixCommandsFallback?.length) {
+      return fixCommandsFallback.map(normalizeSafeCmd).filter(Boolean);
+    }
+    const base = agentCmds.map(normalizeSafeCmd).filter(Boolean);
+    if (!manifestRel) return base;
+    return base.map((c) => injectManifestIntoCmd(c, manifestRel));
+  };
+
+  const executeSafeActionChain = async (
+    commands: string[],
+    opts?: { busyInstanceId?: string; intro?: string },
+  ): Promise<{ ok: boolean; ran: number; lastError?: string; aborted?: boolean }> => {
+    const cmds = commands.map(normalizeSafeCmd).filter(Boolean);
+    if (!cmds.length) {
+      return { ok: true, ran: 0 };
+    }
+    if (!window.gameFactory?.runSafeAction) {
+      return { ok: false, ran: 0, lastError: "runSafeAction IPC 不可用，请重启 GUI。" };
+    }
+    const busyId = opts?.busyInstanceId || activeColleague.id;
+    markBusy(busyId);
+    if (opts?.intro) {
+      append("assistant", opts.intro);
+    }
+    append("log", "自动修复命令开始…（点「停止」可中断）");
+    let ran = 0;
+    try {
+      for (const cmd of cmds) {
+        append("log", `→ ${cmd.replace(/^python\s+gamefactory\.py\s+/i, "")}`);
+        const res = await window.gameFactory.runSafeAction(cmd, busyId);
+        if (isChatAborted(res)) {
+          return { ok: false, ran, lastError: "已停止", aborted: true };
+        }
+        const data = res.data;
+        if (res.exitCode !== 0 || data?.ok === false) {
+          return {
+            ok: false,
+            ran,
+            lastError: data?.error || data?.stderr || res.stderr || `exit ${res.exitCode}`,
+          };
+        }
+        ran += 1;
+      }
+      return { ok: true, ran };
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
   const handleAgentTurn = async (
     message: string,
-    opts?: { instanceId?: string },
+    opts?: { instanceId?: string; autoRunSafeActions?: boolean; fixCommandsFallback?: string[] },
   ) => {
     if (agentConfigSavingRef.current) return;
     const colleague =
@@ -2314,7 +2395,12 @@ export default function App() {
               manifestRel: selectedManifest,
               pipelineLogs: logs,
             })
-          : undefined;
+          : target.role === "product_host"
+            ? buildPmGuiOpsContext({
+                manifestRel: selectedManifest,
+                pipelineLogs: logs,
+              })
+            : undefined;
       const res = await window.gameFactory.agentTurn({
         role: target.role,
         sessionId: target.sessionId,
@@ -2393,7 +2479,9 @@ export default function App() {
         extra =
           `\n\n**资产/pipeline 分诊**` +
           (actions.length ? `\n建议命令：\n${actions.map((a) => `- \`${a}\``).join("\n")}` : "") +
-          `\n\n可点下方「执行 · …」一键跑白名单命令。`;
+          (opts?.autoRunSafeActions
+            ? `\n\n将**自动串跑**上述白名单命令（无需逐条点「执行 · …」）。`
+            : `\n\n可点下方「执行 · …」一键跑白名单命令。`);
         queueActions(actions);
         if (!choices.some((c) => c.startsWith("生成流水线"))) {
           choices.push("生成流水线", "运行资产生成（含文案）");
@@ -2425,8 +2513,44 @@ export default function App() {
         `**${target.displayName}**\n\n${reply}${via}${extra}`,
         undefined,
         target,
-        choices,
+        opts?.autoRunSafeActions ? undefined : choices,
       );
+      if (opts?.autoRunSafeActions) {
+        const toRun = prepareAutoFixCommands(
+          Array.from(pendingSafeActions.current.values()),
+          opts.fixCommandsFallback,
+          selectedManifest || undefined,
+        );
+        if (toRun.length) {
+          const chain = await executeSafeActionChain(toRun, {
+            busyInstanceId: target.instanceId,
+            intro: `**自动执行分诊命令**（${toRun.length} 步）`,
+          });
+          if (selectedManifest) {
+            await refreshManifest(selectedManifest);
+          }
+          const tail = chain.aborted
+            ? "\n\n已停止。"
+            : chain.ok && chain.ran > 0
+              ? `\n\n修复命令已跑完（${chain.ran}/${toRun.length}）。`
+              : chain.lastError
+                ? `\n\n停在第 ${chain.ran + 1} 步：${chain.lastError}`
+                : "";
+          append(
+            "assistant",
+            (chain.aborted
+              ? "**自动修复已停止**"
+              : chain.ok
+                ? "**自动修复完成**"
+                : "**自动修复未完成**") +
+              tail +
+              (chain.ok ? `\n\n**推荐下一步 → 运行资产生成**（续跑流水线）` : ""),
+            undefined,
+            target,
+            chain.ok ? ["运行资产生成", "打开看板"] : ["打开看板", "运行资产生成"],
+          );
+        }
+      }
       await refreshHandoffs();
     } catch (e) {
       if (isAbortError(e)) {
@@ -3051,6 +3175,161 @@ export default function App() {
     };
   }, [patchChatStore]);
 
+  const GOAL_MODE_MAX_REPAIR_ROUNDS = 2;
+
+  const attemptPipelineAutoRepair = async (opts?: {
+    busyInstanceId?: string;
+    invokePm?: boolean;
+    intro?: string;
+  }): Promise<{
+    healed: string[];
+    fixCommands: string[];
+    advice: ReturnType<typeof formatPmFitAdvice>;
+    autoWithoutAgent: boolean;
+    chainOk: boolean;
+    chainRan: number;
+    chainAborted: boolean;
+    chainError?: string;
+    shouldRetry: boolean;
+    useRunPrompts: boolean;
+    complete: boolean;
+    summary: string;
+  }> => {
+    const empty = {
+      healed: [] as string[],
+      fixCommands: [] as string[],
+      advice: formatPmFitAdvice(null),
+      autoWithoutAgent: false,
+      chainOk: false,
+      chainRan: 0,
+      chainAborted: false,
+      shouldRetry: false,
+      useRunPrompts: false,
+      complete: false,
+      summary: "无法诊断流水线失败。",
+    };
+    if (!selectedManifest) return empty;
+
+    const busyId = opts?.busyInstanceId || activeColleague.id;
+    const heal = window.gameFactory.pipelineHeal
+      ? await window.gameFactory.pipelineHeal(selectedManifest, true)
+      : null;
+    const diagData = (heal?.data?.diagnose || heal?.data || null) as
+      | {
+          needs_hermes?: DiagnoseItem[];
+          fix_commands?: string[];
+          auto_fix_without_agent?: boolean;
+          pm_advice_short?: string;
+          pm_advice?: string;
+          items?: DiagnoseItem[];
+        }
+      | null;
+    const advice = formatPmFitAdvice(diagData);
+    const healed = (heal?.data?.healed as string[] | undefined) || [];
+    const needs = (diagData?.needs_hermes as DiagnoseItem[] | undefined) || [];
+    const fixCommands = (diagData?.fix_commands as string[] | undefined) || [];
+    const autoWithoutAgent = Boolean(diagData?.auto_fix_without_agent);
+    const useRunPrompts = needs.some((n) => n.kind === "validation");
+
+    let chainOk = false;
+    let chainRan = 0;
+    let chainAborted = false;
+    let chainError: string | undefined;
+
+    if (fixCommands.length) {
+      if (opts?.intro) append("assistant", opts.intro);
+      const chain = await executeSafeActionChain(fixCommands, { busyInstanceId: busyId });
+      chainOk = chain.ok;
+      chainRan = chain.ran;
+      chainAborted = Boolean(chain.aborted);
+      chainError = chain.lastError;
+    }
+
+    let pmInvoked = false;
+    const statusRes = await refreshManifest(selectedManifest);
+    let statusNow = statusRes?.status;
+    let failedN = statusNow?.failed_ids?.length ?? 0;
+    let pending = Number(statusNow?.counts?.pending ?? 0);
+    let completeAfter = failedN === 0 && pending === 0;
+
+    const needsPmAgent =
+      Boolean(opts?.invokePm) &&
+      advice.suitable &&
+      needs.length > 0 &&
+      !autoWithoutAgent &&
+      needs.some((n) => ["config_proxy", "unknown"].includes(String(n.kind || "")));
+
+    if (needsPmAgent && !completeAfter) {
+      const pm = chatStore.roster.find((c) => c.roleKind === "product_host");
+      if (pm) {
+        const payload = needs
+          .map(
+            (n, i) =>
+              `${i + 1}. task=${n.task_id} kind=${n.kind} pm_fit=${n.pm_fit}\n   ${String(n.pm_tip || (n as { summary?: string }).summary || "").slice(0, 200)}`,
+          )
+          .join("\n");
+        const msg =
+          `【目标模式】流水线失败 — 请直接修复并给出可执行 cli_hints（宿主会自动串跑，禁止只报 errno）：\n${payload}\n\n` +
+          `config_size / config_proxy → config set + pipeline reset --cascade；validation → reset + run --run-prompts。`;
+        clearBusy(busyId);
+        await handleAgentTurn(msg, {
+          instanceId: pm.id,
+          autoRunSafeActions: true,
+          fixCommandsFallback: fixCommands,
+        });
+        pmInvoked = true;
+        const afterPm = await refreshManifest(selectedManifest);
+        statusNow = afterPm?.status;
+        failedN = statusNow?.failed_ids?.length ?? 0;
+        pending = Number(statusNow?.counts?.pending ?? 0);
+        completeAfter = failedN === 0 && pending === 0;
+      }
+    }
+
+    const shouldRetry = completeAfter || chainOk || healed.length > 0 || pmInvoked;
+
+    const parts: string[] = [];
+    if (advice.headline) {
+      parts.push(`**${advice.headline}**`);
+      if (advice.detail) parts.push(advice.detail);
+    }
+    if (healed.length) {
+      parts.push(`已自动复位 ${healed.length} 项：${healed.join(", ")}`);
+    }
+    if (fixCommands.length) {
+      parts.push(
+        chainAborted
+          ? "**自动修复已停止**"
+          : chainOk
+            ? `**自动修复完成**（${chainRan}/${fixCommands.length} 步）`
+            : chainError
+              ? `**自动修复未完成**：${chainError}`
+              : "**自动修复未执行**",
+      );
+    }
+    if (pmInvoked) {
+      parts.push("已调用项目经理 Agent 执行修复命令。");
+    }
+    if (completeAfter) {
+      parts.push("**流水线已全部完成。**");
+    }
+
+    return {
+      healed,
+      fixCommands,
+      advice,
+      autoWithoutAgent,
+      chainOk,
+      chainRan,
+      chainAborted,
+      chainError,
+      shouldRetry,
+      useRunPrompts,
+      complete: completeAfter,
+      summary: parts.join("\n\n") || advice.detail,
+    };
+  };
+
   const handlePipelinePmHeal = async () => {
     if (!selectedManifest) {
       append("assistant", "没有流水线 manifest，无法处理失败任务。");
@@ -3059,76 +3338,26 @@ export default function App() {
     const busyId = activeColleague.id;
     markBusy(busyId);
     try {
-      const diag = window.gameFactory.pipelineDiagnose
-        ? await window.gameFactory.pipelineDiagnose(selectedManifest)
-        : null;
-      const advice = formatPmFitAdvice(diag?.data);
-      const heal = window.gameFactory.pipelineHeal
-        ? await window.gameFactory.pipelineHeal(selectedManifest, true)
-        : null;
-      const healed = (heal?.data?.healed as string[] | undefined) || [];
-      const needs = (diag?.data?.needs_hermes as DiagnoseItem[] | undefined) || [];
-      await refreshManifest(selectedManifest);
-
+      const repair = await attemptPipelineAutoRepair({
+        busyInstanceId: busyId,
+        invokePm: true,
+      });
       append(
         "assistant",
-        `**是否适合项目经理处理：${advice.headline}**\n\n${advice.detail}`,
+        repair.summary +
+          (repair.complete
+            ? ""
+            : repair.shouldRetry
+              ? `\n\n**推荐下一步 → 运行资产生成**（续跑）`
+              : ""),
         undefined,
         undefined,
-        advice.suitable
-          ? undefined
-          : ["运行资产生成", "打开看板"],
+        repair.complete
+          ? ["打开看板", "打开资产表"]
+          : repair.shouldRetry
+            ? ["运行资产生成", "打开看板"]
+            : ["项目经理处理失败", "运行资产生成", "打开看板"],
       );
-
-      if (healed.length) {
-        append(
-          "assistant",
-          `已自动复位代码可修任务（${healed.length}）：${healed.join(", ")}。可再点「运行资产生成」。`,
-          undefined,
-          undefined,
-          ["运行资产生成", "打开看板"],
-        );
-      }
-      if (!advice.suitable || !needs.length) {
-        if (!healed.length && !needs.length) {
-          append("assistant", "当前没有需要项目经理处理的 failed 任务。");
-        } else if (!advice.suitable) {
-          append("assistant", "按诊断结果：不必调用项目经理 Agent，直接重跑即可。");
-        }
-        return;
-      }
-      const payload = needs
-        .map(
-          (n, i) =>
-            `${i + 1}. task=${n.task_id} kind=${n.kind} pm_fit=${n.pm_fit}\n   ${String(n.pm_tip || n.summary || "").slice(0, 200)}`,
-        )
-        .join("\n");
-      const pm = chatStore.roster.find((c) => c.roleKind === "product_host");
-      if (!pm) {
-        append(
-          "assistant",
-          `适合项目经理处理，但还没有项目经理同事。请先「+ 雇佣」一位。\n\n${payload}`,
-          undefined,
-          undefined,
-          ["打开看板"],
-        );
-        return;
-      }
-      append(
-        "assistant",
-        `结论：**适合**交给 **${pm.displayName}**（${needs.length} 项）。正在调用…`,
-        undefined,
-        undefined,
-        ["打开看板"],
-      );
-      const msg =
-        `流水线失败需要你分诊（已判定适合项目经理处理）：\n${payload}\n\n` +
-        `config_size / config_proxy → 用白名单命令改配置，再 pipeline reset --cascade；不要改内核代码。\n` +
-        `validation → reset 后 pipeline run --run-prompts。\n` +
-        `在 cli_hints / gui_hints 给出可执行下一步。不要空话。`;
-      clearBusy(busyId);
-      await handleAgentTurn(msg, { instanceId: pm.id });
-      return;
     } catch (e) {
       append("assistant", `处理失败：${e instanceof Error ? e.message : String(e)}`);
     } finally {
@@ -3168,60 +3397,22 @@ export default function App() {
         (runPrompts
           ? "正在执行流水线（含文案生成）…\n"
           : "正在执行流水线…\n") +
-          "已完成的任务会跳过，只跑 pending；终端日志与右侧看板会持续更新。失败任务需 reset 后再续跑。",
+          `已完成的任务会跳过，只跑 pending。**目标模式**：失败时将自动 diagnose → 修复 → 续跑（最多 ${GOAL_MODE_MAX_REPAIR_ROUNDS} 轮）。`,
         undefined,
         undefined,
         ["打开看板"],
       );
-      append("log", "pipeline run 开始…");
-      const res = await window.gameFactory.pipelineRun(selectedManifest, 4, runPrompts);
-      const runData = (res.data || null) as PipelineRunPayload | null;
-      const statusAfter = await refreshManifest(selectedManifest);
 
-      if (
-        res.exitCode !== 0 ||
-        Boolean(runData?.paused) ||
-        Boolean(runData?.blocked) ||
-        runData?.complete === false
-      ) {
-        let advice = formatPmFitAdvice(null);
-        let healed: string[] = [];
-        try {
-          const diag = window.gameFactory.pipelineDiagnose
-            ? await window.gameFactory.pipelineDiagnose(selectedManifest)
-            : null;
-          advice = formatPmFitAdvice(diag?.data);
-          if (window.gameFactory.pipelineHeal) {
-            const heal = await window.gameFactory.pipelineHeal(selectedManifest, true);
-            healed = (heal.data?.healed as string[] | undefined) || [];
-            if (healed.length) {
-              await refreshManifest(selectedManifest);
-            }
-          }
-        } catch {
-          /* diagnose/heal best-effort */
-        }
-        // Re-read status after heal so progress/next-step match reality
-        const statusNow =
-          healed.length > 0 ? await refreshManifest(selectedManifest) : statusAfter;
-        const plan = planPipelineStop({
-          exitCode: res.exitCode,
-          runData,
-          advice,
-          healed,
-          status: statusNow?.status || status,
-        });
-        const rawTail = (res.stderr || "").trim()
-          ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
-          : "";
-        append(
-          "assistant",
-          `**${plan.title}**\n\n${plan.body}${rawTail}`,
-          undefined,
-          undefined,
-          plan.choices,
-        );
-      } else {
+      const pipelineRunFailed = (
+        runRes: { exitCode?: number },
+        payload: PipelineRunPayload | null,
+      ) =>
+        runRes.exitCode !== 0 ||
+        Boolean(payload?.paused) ||
+        Boolean(payload?.blocked) ||
+        payload?.complete === false;
+
+      const showRunSuccess = async (statusAfter: Awaited<ReturnType<typeof refreshManifest>>) => {
         const counts = statusAfter?.status?.counts || status?.counts || {};
         const pending = Number(counts.pending ?? 0);
         const ready = statusAfter?.status?.ready_ids?.length ?? status?.ready_ids?.length ?? 0;
@@ -3257,7 +3448,71 @@ export default function App() {
         } catch {
           /* ignore gallery errors */
         }
+      };
+
+      let runPromptsFlag = runPrompts;
+      let res!: { exitCode?: number; stderr?: string; data?: unknown };
+      let runData: PipelineRunPayload | null = null;
+      let statusAfter: Awaited<ReturnType<typeof refreshManifest>> | null = null;
+
+      for (let round = 0; round <= GOAL_MODE_MAX_REPAIR_ROUNDS; round++) {
+        append(
+          "log",
+          round === 0 ? "pipeline run 开始…" : `pipeline run 续跑（第 ${round + 1} 轮）…`,
+        );
+        res = await window.gameFactory.pipelineRun(selectedManifest, 4, runPromptsFlag);
+        runData = (res.data || null) as PipelineRunPayload | null;
+        statusAfter = await refreshManifest(selectedManifest);
+
+        if (!pipelineRunFailed(res, runData)) {
+          await showRunSuccess(statusAfter);
+          setSidePanel("board");
+          return;
+        }
+
+        if (round >= GOAL_MODE_MAX_REPAIR_ROUNDS) break;
+
+        append("assistant", "**流水线暂停 — 目标模式：自动诊断并修复…**");
+        const repair = await attemptPipelineAutoRepair({
+          busyInstanceId: busyId,
+          invokePm: true,
+        });
+        append("assistant", repair.summary);
+        if (repair.complete) {
+          await showRunSuccess(await refreshManifest(selectedManifest));
+          setSidePanel("board");
+          return;
+        }
+        if (repair.useRunPrompts) runPromptsFlag = true;
+        if (!repair.shouldRetry || repair.chainAborted) break;
       }
+
+      let advice = formatPmFitAdvice(null);
+      try {
+        const diag = window.gameFactory.pipelineDiagnose
+          ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+          : null;
+        advice = formatPmFitAdvice(diag?.data);
+      } catch {
+        /* diagnose best-effort */
+      }
+      const plan = planPipelineStop({
+        exitCode: res.exitCode ?? 1,
+        runData,
+        advice,
+        healed: [],
+        status: statusAfter?.status || status,
+      });
+      const rawTail = (res.stderr || "").trim()
+        ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
+        : "";
+      append(
+        "assistant",
+        `**${plan.title}**\n\n${plan.body}${rawTail}`,
+        undefined,
+        undefined,
+        plan.choices,
+      );
       setSidePanel("board");
     } catch (e) {
       append("assistant", `运行失败：${e instanceof Error ? e.message : String(e)}`);

@@ -46,6 +46,15 @@
 3. **`validation` / `prompt_crafter_regenerate`**：说明 task → reset cascade → `pipeline run --run-prompts`。
 4. **不要**空转复述日志；`cli_hints` 给白名单命令，`gui_hints` 含「运行资产生成」「打开看板」。
 
+### 目标模式（GUI 自动修复）
+
+用户点「运行资产生成」时，宿主处于 **目标模式**：你的职责是 **先修再报**，不是只解释 errno。
+
+1. **禁止**只复述 `exit 2` / 日志摘录当唯一答复；必须在 `dispatch.cli_hints` 给出 **白名单可执行命令**（`config set` / `pipeline reset` / `pipeline run --run-prompts`）。
+2. 宿主会 **自动串跑** `cli_hints` 与 diagnose 的 `fix_commands`；你给出命令后应假定会被执行，不要叫用户手打终端。
+3. `config_size` / `validation` 类通常已由 diagnose 链处理；你重点处理 **config_proxy / unknown** 或链仍失败时的补刀。
+4. 回复仍须带末尾 JSON dispatch 块；`cli_hints` 与 `gui_hints` 要一致、可一键续跑。
+
 ---
 
 ## 什么时候该停下来问用户
