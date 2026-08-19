@@ -33,6 +33,7 @@ import {
   prepareRoleAwareAcpPrompt,
   resolveItExecutor,
 } from "./agent_prompt.mjs";
+import { mergeSceneVisualRefsFromShards } from "./visualTargetHydrate.mjs";
 import {
   absForResolved,
   cliArgForResolved,
@@ -2379,6 +2380,11 @@ app.whenReady().then(() => {
             ? path.join(root, key)
             : path.dirname(briefAbs);
         })();
+    projectScenes = mergeSceneVisualRefsFromShards(projectScenes, projectRootAbs, {
+      join: path.join,
+      existsSync,
+      readFileSync,
+    });
     const refFileOk = (ref) => {
       const pathOk = looksLikeImagePath(ref);
       if (!pathOk) return { pathOk: false, fileOk: false };
