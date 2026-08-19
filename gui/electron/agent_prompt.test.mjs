@@ -52,6 +52,7 @@ test("buildAgentPromptArgs forwards IT turn context to shared CLI prompt builder
       instanceId: "it-1",
       briefArg: "../projects/demo/brief.draft.json",
       progressArg: "../projects/demo/plans/progress.json",
+      opsContextArg: "GUI 会话尾部：ok",
     }),
     [
       "agent",
@@ -70,6 +71,8 @@ test("buildAgentPromptArgs forwards IT turn context to shared CLI prompt builder
       "../projects/demo/brief.draft.json",
       "--progress",
       "../projects/demo/plans/progress.json",
+      "--ops-context",
+      "GUI 会话尾部：ok",
       "--json",
     ],
   );
@@ -85,6 +88,7 @@ test("buildAgentTurnArgs forwards the resolved executor to non-ACP CLI", () => {
       instanceId: "it-1",
       briefArg: "../projects/demo/brief.json",
       progressArg: "../projects/demo/progress.json",
+      opsContextArg: "最近流水线终端日志：exit 2",
     }),
     [
       "agent",
@@ -103,6 +107,8 @@ test("buildAgentTurnArgs forwards the resolved executor to non-ACP CLI", () => {
       "../projects/demo/progress.json",
       "--instance-id",
       "it-1",
+      "--ops-context",
+      "最近流水线终端日志：exit 2",
       "--json",
     ],
   );

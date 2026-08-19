@@ -23,6 +23,7 @@ _DENY_DIR_NAMES = frozenset(
         "dist",
         "build",
         ".tox",
+        ".godot",
     }
 )
 
@@ -38,6 +39,8 @@ DEFAULT_MAX_BYTES = 200_000
 DEFAULT_LIST_LIMIT = 200
 DEFAULT_TREE_LIMIT = 400
 DEFAULT_GREP_MATCHES = 80
+DEFAULT_GREP_FILE_CAP = 2_000
+DEFAULT_GREP_PATTERN_MAX = 256
 _SKIP_GREP_SUFFIXES = frozenset(
     {
         ".png",
@@ -84,6 +87,40 @@ def allow_roots() -> list[Path]:
 
 def _is_denied_dir(path: Path) -> bool:
     return any(part in _DENY_DIR_NAMES for part in path.parts)
+
+
+def _skip_walk_entry(path: Path) -> bool:
+    if path.name in _DENY_DIR_NAMES or _is_denied_dir(path):
+        return True
+    try:
+        if path.is_symlink():
+            return True
+    except OSError:
+        return True
+    return False
+
+
+def _iter_files_skip_denied(root: Path):
+    """Yield files under root, skipping deny dirs and not following symlinks."""
+    stack = [root]
+    while stack:
+        current = stack.pop()
+        if _skip_walk_entry(current) and current != root:
+            continue
+        try:
+            children = list(current.iterdir())
+        except OSError:
+            continue
+        for child in children:
+            if _skip_walk_entry(child):
+                continue
+            try:
+                if child.is_dir():
+                    stack.append(child)
+                elif child.is_file():
+                    yield child
+            except OSError:
+                continue
 
 
 def resolve_readable_path(raw: str | Path, *, must_exist: bool = True) -> Path:
@@ -226,7 +263,7 @@ def tree_dir(
     if not target.is_dir():
         raise InspectError(f"not a directory: {target}")
     depth_cap = max(1, min(int(max_depth), 8))
-    cap = max(1, int(limit))
+    cap = max(1, min(int(limit), DEFAULT_TREE_LIMIT))
     entries: list[dict[str, Any]] = []
     truncated = False
 
@@ -239,7 +276,7 @@ def tree_dir(
         except OSError:
             return
         for child in children:
-            if child.name in _DENY_DIR_NAMES or _is_denied_dir(child):
+            if _skip_walk_entry(child):
                 continue
             if len(entries) >= cap:
                 truncated = True
@@ -285,6 +322,8 @@ def grep_files(
     raw = (pattern or "").strip()
     if not raw:
         raise InspectError("pattern is required")
+    if len(raw) > DEFAULT_GREP_PATTERN_MAX:
+        raise InspectError(f"pattern too long (max {DEFAULT_GREP_PATTERN_MAX})")
     try:
         cre = re.compile(raw)
     except re.error as exc:
@@ -296,15 +335,15 @@ def grep_files(
     matches: list[dict[str, Any]] = []
     files_scanned = 0
     truncated = False
-    roots = [target] if target.is_file() else [target]
 
     def consider(file_path: Path) -> None:
         nonlocal truncated, files_scanned
         if truncated:
             return
-        if file_path.suffix.lower() in _SKIP_GREP_SUFFIXES:
+        if files_scanned >= DEFAULT_GREP_FILE_CAP:
+            truncated = True
             return
-        if _is_denied_dir(file_path):
+        if file_path.suffix.lower() in _SKIP_GREP_SUFFIXES:
             return
         try:
             size = file_path.stat().st_size
@@ -331,15 +370,12 @@ def grep_files(
                     truncated = True
                     return
 
-    for root in roots:
-        if root.is_file():
-            consider(root)
-            continue
-        for child in root.rglob("*"):
+    if target.is_file():
+        consider(target)
+    else:
+        for child in _iter_files_skip_denied(target):
             if truncated:
                 break
-            if not child.is_file():
-                continue
             consider(child)
 
     return {

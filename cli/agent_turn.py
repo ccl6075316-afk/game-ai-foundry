@@ -279,7 +279,25 @@ def _scenes_systems_prompt_lines(brief: Path | None) -> list[str]:
         return []
 
 
-def _it_ops_context_lines(brief: Path | None) -> list[str]:
+def _compact_pipeline_summary(summary: dict[str, Any]) -> dict[str, Any]:
+    """Drop full ready_ids lists so IT prompts stay small."""
+    ready_ids = [str(x) for x in (summary.get("ready_ids") or []) if str(x).strip()]
+    failed_ids = [str(x) for x in (summary.get("failed_ids") or []) if str(x).strip()]
+    sample_n = 12
+    return {
+        "brief": summary.get("brief"),
+        "total": summary.get("total"),
+        "counts": summary.get("counts"),
+        "ready_count": summary.get("ready_count", len(ready_ids)),
+        "failed_ids": failed_ids[:sample_n],
+        "failed_ids_truncated": max(0, len(failed_ids) - sample_n),
+        "ready_ids_sample": ready_ids[:sample_n],
+        "ready_ids_truncated": max(0, len(ready_ids) - sample_n),
+        "done": summary.get("done"),
+    }
+
+
+def _it_ops_context_lines(brief: Path | None, *, include_pm_messages: bool = True) -> list[str]:
     """Inject pipeline + PM session + repo map so IT can triage like a full coding agent."""
     lines = [
         "",
@@ -335,7 +353,7 @@ def _it_ops_context_lines(brief: Path | None) -> list[str]:
             diag = diagnose_manifest(manifest)
             summary = status_summary(manifest)
             lines.append(f"- pipeline manifest: {manifest_path}")
-            lines.append(f"- 任务统计: {json.dumps(summary, ensure_ascii=False)}")
+            lines.append(f"- 任务统计: {json.dumps(_compact_pipeline_summary(summary), ensure_ascii=False)}")
             failed = int(diag.get("failed_count") or 0)
             if failed:
                 lines.append(f"- failed 任务 ({failed}):")
@@ -371,13 +389,16 @@ def _it_ops_context_lines(brief: Path | None) -> list[str]:
                     f"- 项目经理最近会话: {shown.get('id')} "
                     f"({shown.get('path')}, msgs={shown.get('message_count')})"
                 )
-                for m in shown.get("messages") or []:
-                    if not isinstance(m, dict):
-                        continue
-                    role = str(m.get("role") or "")
-                    content = str(m.get("content") or "").strip()
-                    if content:
-                        lines.append(f"  {role}: {content[:700]}")
+                if include_pm_messages:
+                    for m in shown.get("messages") or []:
+                        if not isinstance(m, dict):
+                            continue
+                        role = str(m.get("role") or "")
+                        content = str(m.get("content") or "").strip()
+                        if content:
+                            lines.append(f"  {role}: {content[:700]}")
+                else:
+                    lines.append("  （正文见下方 GUI 会话尾部，避免重复注入）")
         else:
             lines.append("- 项目经理会话: （尚无 product_host 会话文件）")
     except Exception as exc:  # noqa: BLE001
@@ -466,8 +487,9 @@ def build_prompt(
         parts.extend(["", "## 近部对话", *history_lines])
 
     if role_kind == "it":
-        parts.extend(_it_ops_context_lines(brief))
         gui_ctx = str(ops_context or "").strip()
+        skip_pm_bodies = "GUI 会话尾部" in gui_ctx
+        parts.extend(_it_ops_context_lines(brief, include_pm_messages=not skip_pm_bodies))
         if gui_ctx:
             parts.extend(["", "## GUI 附加上下文（看板 / 当前会话）", gui_ctx[:12_000]])
 

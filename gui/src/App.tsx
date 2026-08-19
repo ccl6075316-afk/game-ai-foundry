@@ -4,6 +4,7 @@ import {
   makeabilityCardAfterServerPatch,
   makeabilityCardLocalSubmitPatch,
 } from "./chat/makeabilityCardStatus";
+import { makeabilityCardCopies } from "./chat/makeabilityCopies";
 import { ChatView } from "./components/ChatView";
 import { ChatInput } from "./components/ChatInput";
 import { ColleagueConfigBar } from "./components/ColleagueConfigBar";
@@ -1810,14 +1811,13 @@ export default function App() {
         ...(row.note ? { note: String(row.note) } : {}),
       }));
       const head = (data.assistant_message || "制作审查完成。").split("\n\n")[0];
+      const copies = makeabilityCardCopies(head, hasIntent, hasRepair);
 
       // Intent and repair can both exist — emit separate cards so neither is hidden (M1).
       // Summary (head) only on the first bubble to avoid duplicate paragraphs in chat.
-      if (hasRepair) {
+      if (hasRepair && copies.repairContent) {
         appendAssistant(
-          hasIntent
-            ? `${head}\n\n先处理下方「重试写入」卡片，再回答新的意图缺口。`
-            : `${head}\n\n下方卡片可「重试写入」已保存的答案（无需重新选题）。`,
+          copies.repairContent,
           undefined,
           undefined,
           sessionTarget,
@@ -1831,11 +1831,9 @@ export default function App() {
           },
         );
       }
-      if (hasIntent) {
+      if (hasIntent && copies.intentContent) {
         appendAssistant(
-          hasRepair
-            ? "请在新卡片中点选选项并「写入草稿」。"
-            : `${head}\n\n下方 **制作审查 · Critic** 卡片中点选选项并「写入草稿」。`,
+          copies.intentContent,
           undefined,
           undefined,
           sessionTarget,

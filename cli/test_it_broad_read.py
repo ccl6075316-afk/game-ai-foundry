@@ -52,6 +52,27 @@ class InspectPathTests(unittest.TestCase):
         self.assertTrue(hits["ok"])
         self.assertGreaterEqual(hits["count"], 1)
 
+    def test_grep_skips_denied_trees(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "node_modules").mkdir()
+            (root / "node_modules" / "secret.py").write_text(
+                "UNIQUE_GREP_HIT_DENIED = 1\n", encoding="utf-8"
+            )
+            (root / "src").mkdir()
+            (root / "src" / "ok.py").write_text("UNIQUE_GREP_HIT_OK = 1\n", encoding="utf-8")
+            with patch("inspect_ops.allow_roots", return_value=[root.resolve()]):
+                hits = grep_files(root, "UNIQUE_GREP_HIT")
+        paths = [str(m["path"]) for m in hits["matches"]]
+        self.assertTrue(any("ok.py" in p for p in paths))
+        self.assertFalse(any("secret.py" in p for p in paths))
+
+    def test_grep_rejects_invalid_or_long_pattern(self) -> None:
+        with self.assertRaises(InspectError):
+            grep_files("cli/inspect_ops.py", "(")
+        with self.assertRaises(InspectError):
+            grep_files("cli/inspect_ops.py", "a" * 300)
+
     def test_config_json_redacts_keys(self) -> None:
         cfg = Path.home() / ".gamefactory" / "config.json"
         if not cfg.is_file():
@@ -85,6 +106,9 @@ class WhitelistTests(unittest.TestCase):
         self.assertTrue(is_allowed_argv(["inspect", "tree", "--path", "cli", "--json"]))
         self.assertTrue(
             is_allowed_argv(["inspect", "grep", "--path", "cli", "--pattern", "AgentTurnError|foo*", "--json"])
+        )
+        self.assertFalse(
+            is_allowed_argv(["inspect", "grep", "--path", "cli*", "--pattern", "x", "--json"])
         )
         self.assertTrue(is_allowed_argv(["conversations", "list", "--role", "brief", "--json"]))
         self.assertTrue(

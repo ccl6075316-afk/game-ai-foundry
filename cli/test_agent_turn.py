@@ -67,6 +67,47 @@ class AgentTurnTests(unittest.TestCase):
         self.assertIn("GUI 附加上下文", prompt)
         self.assertIn("exit 2", prompt)
 
+    def test_build_prompt_it_skips_duplicate_pm_bodies_when_gui_tail_present(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            conv = Path(td) / "product_host"
+            conv.mkdir(parents=True)
+            pm_sess = {
+                "id": "sess-pm",
+                "role": "product_host",
+                "messages": [
+                    {"role": "assistant", "content": "DISK_ONLY_VALIDATION_TOKEN"},
+                ],
+            }
+            (conv / "sess-pm.json").write_text(json.dumps(pm_sess), encoding="utf-8")
+            with patch("conversations_ops.agent_conversations_dir", return_value=conv):
+                prompt = build_prompt(
+                    role_kind="it",
+                    user_message="看报错",
+                    session=new_session("it", "it-1"),
+                    ops_context="项目经理（项目经理）GUI 会话尾部：\nassistant: GUI_COPY",
+                )
+        self.assertIn("GUI_COPY", prompt)
+        self.assertIn("避免重复注入", prompt)
+        self.assertNotIn("DISK_ONLY_VALIDATION_TOKEN", prompt)
+
+    def test_compact_pipeline_summary_truncates_ready_ids(self) -> None:
+        from agent_turn import _compact_pipeline_summary
+
+        compact = _compact_pipeline_summary(
+            {
+                "total": 40,
+                "counts": {"ready": 30},
+                "ready_ids": [f"t{i}" for i in range(30)],
+                "failed_ids": [f"f{i}" for i in range(20)],
+                "done": False,
+            }
+        )
+        self.assertEqual(len(compact["ready_ids_sample"]), 12)
+        self.assertEqual(compact["ready_ids_truncated"], 18)
+        self.assertEqual(len(compact["failed_ids"]), 12)
+        self.assertEqual(compact["failed_ids_truncated"], 8)
+        self.assertNotIn("ready_ids", compact)
+
     def test_resolve_executor_override(self) -> None:
         self.assertEqual(
             resolve_executor_for_role("product_host", {}, "codex"),

@@ -1,6 +1,13 @@
+/** Ephemeral ops snapshot for IT agent turns (not persisted as user message). */
+
 import type { ChatSessionStore } from "./sessions";
 
-/** Build ephemeral ops snapshot for IT agent turns (not persisted as user message). */
+const SECRET_VALUE_RE = /\b(sk-[a-zA-Z0-9_-]{12,}|sk-or-[a-zA-Z0-9_-]{12,})\b/g;
+
+export function redactOpsSecrets(text: string): string {
+  return String(text || "").replace(SECRET_VALUE_RE, "***");
+}
+
 export function buildItGuiOpsContext(opts: {
   store: ChatSessionStore;
   manifestRel?: string | null;
@@ -19,7 +26,7 @@ export function buildItGuiOpsContext(opts: {
     if (sess?.messages?.length) {
       lines.push(`项目经理（${pm.displayName}）GUI 会话尾部：`);
       for (const m of sess.messages.slice(-10)) {
-        const text = String(m.content || "").trim();
+        const text = redactOpsSecrets(String(m.content || "").trim());
         if (!text) continue;
         lines.push(`${m.role}: ${text.slice(0, 900)}`);
       }
@@ -30,7 +37,7 @@ export function buildItGuiOpsContext(opts: {
   if (logTail.length) {
     lines.push("最近流水线终端日志：");
     for (const line of logTail) {
-      lines.push(String(line).slice(0, 600));
+      lines.push(redactOpsSecrets(String(line)).slice(0, 600));
     }
   }
 

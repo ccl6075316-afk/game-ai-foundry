@@ -353,6 +353,23 @@ def _prefix_of(argv: list[str]) -> tuple[str, ...] | None:
     return None
 
 
+def _drop_named_flag_values(argv: list[str], names: set[str]) -> list[str]:
+    """Copy argv without `--flag value` / `--flag=value` for named flags."""
+    out: list[str] = []
+    i = 0
+    while i < len(argv):
+        tok = argv[i]
+        if tok in names and i + 1 < len(argv):
+            i += 2
+            continue
+        if any(tok.startswith(f"{name}=") for name in names):
+            i += 1
+            continue
+        out.append(tok)
+        i += 1
+    return out
+
+
 def is_allowed_argv(
     argv: list[str],
     *,
@@ -368,13 +385,21 @@ def is_allowed_argv(
         return False
     if profile == "advisor" and prefix not in _ADVISOR_ALLOWED_PREFIXES:
         return False
-    # Shell / inspect grep may contain regex | * ? — exempt those prefixes.
-    glob_ok_prefixes = {("shell", "run"), ("inspect", "grep")}
-    joined = " ".join(argv)
-    if prefix not in glob_ok_prefixes and any(
-        ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")
-    ):
-        return False
+    # Shell may contain ; | &. inspect grep may put regex in --pattern only.
+    if prefix != ("shell", "run"):
+        haystack_argv = (
+            _drop_named_flag_values(argv, {"--pattern"})
+            if prefix == ("inspect", "grep")
+            else argv
+        )
+        joined = " ".join(haystack_argv)
+        if any(ch in joined for ch in (";", "|", "&", "`", "\n", "\r", "$(", "${")):
+            return False
+        for tok in haystack_argv[len(prefix) :]:
+            if tok.startswith("-"):
+                continue
+            if any(ch in tok for ch in ("*", "?", "<", ">")):
+                return False
     # IT / advisor never exports; defense-in-depth even if allow_export is mis-set.
     if profile in {"it", "advisor"} and prefix in _WRITE_PREFIXES:
         return False
@@ -382,14 +407,6 @@ def is_allowed_argv(
         return False
     if prefix in _MUTATE_PREFIXES and "--i-confirm" not in argv:
         return False
-    # Glob metacharacters in non-shell argv remain blocked (inspect grep is regex).
-    if prefix not in glob_ok_prefixes:
-        rest = argv[len(prefix) :]
-        for tok in rest:
-            if tok.startswith("-"):
-                continue
-            if any(ch in tok for ch in ("*", "?", "<", ">")):
-                return False
     if prefix == ("brief", "chat", "export"):
         return _export_argv_ok(argv)
     if prefix == ("brief", "chat", "bind"):
