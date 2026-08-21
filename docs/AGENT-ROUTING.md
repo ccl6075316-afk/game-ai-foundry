@@ -5,7 +5,7 @@
 | **读者** | 主 Agent（Hermes / Cursor / Codex）做委派时 |
 | **侧重** | **六角色边界**、默认 executor、混排流程图 |
 | **不写** | brief 字段表、CLI 大全、Change Request 方法论 |
-| **姊妹文档** | 契约 → [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) · 命令 → [`AI-HANDOFF.md`](AI-HANDOFF.md) · 索引 → [`README.md`](README.md) · Pi/IT/存储 → [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md) |
+| **姊妹文档** | 契约 → [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) · 命令 → [`AI-HANDOFF.md`](AI-HANDOFF.md) · 索引 → [`README.md`](README.md) · 架构 → [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) |
 
 主 Agent **只编排与异常**；批量资产由 `pipeline run` subprocess 执行。
 
@@ -30,7 +30,7 @@
 **已定（施工中 / 可测）**：
 - **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端 **固定 Pi**（实例不可切 Hermes/Codex/Cursor）；**顾问** **固定 Pi** + **只读**工具白名单；**IT** **默认 Pi** + 工具白名单，实例可在顶栏/雇人改为 `codex` / `cursor`。
 - **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**；IT 切外置执行器前通常先用 Pi 走 `setup executor step … install_cli`（或 GUI **环境 → 执行器**）。
-- 详见 [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md)。
+- IT / 执行器 / 存储心智见 [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) 与 [`GUI-CONFIG.md`](GUI-CONFIG.md)。
 
 ---
 

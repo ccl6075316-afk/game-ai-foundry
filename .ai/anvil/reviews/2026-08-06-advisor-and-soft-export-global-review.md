@@ -11,7 +11,7 @@
 | Status | `APPROVED_WITH_FOLLOWUPS` |
 | 子审查 | 串线路由已单独 `APPROVED`（`.ai/anvil/reviews/2026-08-06-advisor-send-route-review.md`）；软闸门曾 `APPROVED`（同日 export-soft review） |
 
-**Loaded standards：** 整仓账本 `docs/solutions/reviews/2026-08-04-whole-project-review-ledger.md`（不重报 Fixed/Accepted）；并行 explore：顾问注册 / 软闸门残留 / 多同事串台。
+**Loaded standards：** 并行 explore：顾问注册 / 软闸门残留 / 多同事串台；架构现状见 `docs/ARCHITECTURE-LAYER-INVENTORY.md`。
 
 ---
 

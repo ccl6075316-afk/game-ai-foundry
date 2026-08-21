@@ -33,7 +33,7 @@ python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.js
 |------|-----|
 | **Tools, config, troubleshooting** | [`docs/TOOLS.md`](docs/TOOLS.md) |
 | CLI + brief fields + matting + **资产审查** | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
-| **整仓审查账本**（Fixed/Accepted/Deferred · 完成优先） | [`docs/solutions/reviews/2026-08-04-whole-project-review-ledger.md`](docs/solutions/reviews/2026-08-04-whole-project-review-ledger.md) |
+| **架构归属 / Host 收口** | [`docs/ARCHITECTURE-LAYER-INVENTORY.md`](docs/ARCHITECTURE-LAYER-INVENTORY.md) |
 | GUI Provider（代理 / 生图双档） | [`docs/GUI-CONFIG.md`](docs/GUI-CONFIG.md) |
 | Six roles + tester | [`docs/AGENT-ROUTING.md`](docs/AGENT-ROUTING.md) |
 | Design vs production, iteration | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |

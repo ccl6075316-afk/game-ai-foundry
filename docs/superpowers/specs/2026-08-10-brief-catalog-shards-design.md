@@ -3,7 +3,7 @@
 ## 状态
 
 - **Status**：confirmed（用户 2026-08-10 确认 spec）
-- **Related**：[`docs/ITERATIVE-PRODUCTION.md`](../../ITERATIVE-PRODUCTION.md) Design vs Production；[`docs/anvil/brainstorms/2026-07-31-brief-scenes-systems.md`](../../anvil/brainstorms/2026-07-31-brief-scenes-systems.md)（清单仍内嵌 brief，本 Spec 进一步拆盘）
+- **Related**：[`docs/ITERATIVE-PRODUCTION.md`](../../ITERATIVE-PRODUCTION.md) Design vs Production；brief 场景/系统清单可进一步拆盘（见本 Spec）
 
 ## 背景
 

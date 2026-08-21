@@ -9,7 +9,7 @@
 - **Confirmed By**：user「1.确认」（2026-08-13）；并行要求：fish 工程两条鱼白底图测各厂最多 3 模型游动动画
 - **Source Of Truth Until**：requirements are confirmed and replaced by a `/anvil:plan`, or the request is abandoned
 - **Requirements Source**：用户要生视频也支持自定义配置；确认能力接 Google / Alibaba / MiniMax / xAI；联调走 Apilio；Grill Q3=最小图生视频+可扩展私有参数；Grill Q4=方案 1，生视频在已配置 Provider 里可选，选完刷新拉模型
-- **Background Inputs**：OpenRouter `/videos` 目录；xAI `/v1/videos/generations`；Apilio 现为 Foundry 自建 OpenAI 兼容账号（`https://api.apilio.ai/v1`）；[`docs/anvil/brainstorms/2026-07-28-open-provider-accounts-model-catalog.md`](2026-07-28-open-provider-accounts-model-catalog.md) 明确「视频本轮不做」；当前 `cli/seedance_api.py` + `video_accounts`
+- **Background Inputs**：OpenRouter `/videos` 目录；xAI `/v1/videos/generations`；Apilio 现为 Foundry 自建 OpenAI 兼容账号（`https://api.apilio.ai/v1`）；Provider 账号目录已支持生图模型选用（视频曾延后，本 Spec 补齐）；当前 `cli/seedance_api.py` + `video_accounts` + `video_compat`
 - **Compounded Knowledge**：not yet compounded
 - **Resume Point**：Spec 待用户确认 → `/anvil:plan` 拆 GUI 选用、凭证解析、OpenAI 兼容视频 adapter、Seedance 保留、doctor/video_api
 

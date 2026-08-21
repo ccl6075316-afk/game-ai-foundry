@@ -30,12 +30,11 @@
 | [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host | 设计 vs 施工 |
 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | 维护者 | production / 验收 / 进度 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex | skill / terminal |
-| [`solutions/reviews/2026-08-04-whole-project-review-ledger.md`](solutions/reviews/2026-08-04-whole-project-review-ledger.md) | 再 review | Fixed / Accepted / Deferred 账本 |
-| [`archive/`](archive/) | 考古 | 旧 Release 摘要 |
+| [`archive/`](archive/) | 考古 | 旧 Release 摘要；过程稿仅保留近 15 天 |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | 里程碑进度 |
 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | `pipeline run` 阶段 |
 
-过程史料（默认不读）：`docs/anvil/brainstorms|plans`（已执行的可参考 Resume）、`docs/superpowers/`、`docs/solutions/failures`。
+过程史料（近 15 天）：`docs/anvil/`、`docs/superpowers/`、`.ai/anvil/reviews/`。更早已删。
 
 ## 读法建议
 
