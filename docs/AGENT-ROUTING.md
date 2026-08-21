@@ -9,6 +9,24 @@
 
 主 Agent **只编排与异常**；批量资产由 `pipeline run` subprocess 执行。
 
+---
+
+## 用户可见同事 vs pipeline 内部角色
+
+**对用户（GUI 花名册）**：策划 · 顾问 · 项目经理 · 程序员 · IT — 这五类是**可聊天同事**。
+
+**不对用户暴露为同事**（pipeline / CLI 内部步骤，Hermes skill 仍保留供 Runner 调试）：
+
+| 内部 Role ID | 用户心智 | 实际入口 |
+|--------------|----------|----------|
+| `prompt-crafter` | **不是**第七个聊天同事 | `pipeline run --run-prompts`、`prompt craft --asset`、或 `host retry-asset --recraft-prompt` |
+| `image-generator` / `video-generator` / `godot-assembler` | 同上 | `pipeline run` 子进程 |
+| `orchestrator` | 混排主 Agent 概念 | Hermes / Cursor / Codex 编排 skill，非 GUI 工种 |
+
+**要点**：用户不必、也不应被引导去「找 prompt-crafter 同事改 prompt」。validation / CJK 类失败由 **Host**（`host run-assets --auto-fix` / `host retry-asset`）或项目经理分诊后自动带 `--run-prompts`；`prompt_craft.py` 模块保留，只是产品叙事上并入流水线。
+
+---
+
 **已定（施工中 / 可测）**：
 - **Pi 随 Release 内置**（只配 API）：① 策划 LLM 后端 **固定 Pi**（实例不可切 Hermes/Codex/Cursor）；**顾问** **固定 Pi** + **只读**工具白名单；**IT** **默认 Pi** + 工具白名单，实例可在顶栏/雇人改为 `codex` / `cursor`。
 - **Hermes / Codex**：仍 **引导安装**（可选），服务 **② 项目经理 / ③ 程序员**；IT 切外置执行器前通常先用 Pi 走 `setup executor step … install_cli`（或 GUI **环境 → 执行器**）。
@@ -18,15 +36,17 @@
 
 ## 六角色 + GUI 工种
 
-| Role ID | 一句话 | 默认 executor | Hermes skill |
-|---------|--------|---------------|--------------|
-| `orchestrator` | 聊体验、export brief、派活、失败 triage、Change Request 解释 | `hermes` | `game-factory-orchestrator` |
-| `prompt-crafter` | brief → `plans/*.json` | `hermes` | `game-factory-prompt-crafter` |
-| `image-generator` | 静图 generate + trim/remove-bg | `pipeline` | `game-factory-image-generator` |
-| `video-generator` | 图生视频 + split/matte | `pipeline` | `game-factory-video-generator` |
-| `godot-assembler` | Pass 3：PNG → Godot .NET，**不写玩法** | `pipeline` | `game-factory-godot-assembler` |
-| `godot-developer` | Pass 4：读 dev-context 写 C# | `codex` | `game-factory-godot-developer` |
-| `tester` | validate + 截图 + 视觉分析 → Validation Report | `hermes` | `game-factory-tester` |
+> **对外叙事**：上表前四行（orchestrator / prompt-crafter / image / video / godot-assembler）是 **pipeline 内部步骤**；用户只感知 GUI 工种（下表）。`prompt-crafter` 尤其 **不是** 需单独开聊的同事。
+
+| Role ID | 一句话 | 默认 executor | Hermes skill | 用户可见？ |
+|---------|--------|---------------|--------------|------------|
+| `orchestrator` | 聊体验、export brief、派活、失败 triage、Change Request 解释 | `hermes` | `game-factory-orchestrator` | 混排 Agent |
+| `prompt-crafter` | brief → `plans/*.json`（**pipeline 步骤**） | `pipeline` / `hermes` | `game-factory-prompt-crafter` | **否** |
+| `image-generator` | 静图 generate + trim/remove-bg | `pipeline` | `game-factory-image-generator` | **否** |
+| `video-generator` | 图生视频 + split/matte | `pipeline` | `game-factory-video-generator` | **否** |
+| `godot-assembler` | Pass 3：PNG → Godot .NET，**不写玩法** | `pipeline` | `game-factory-godot-assembler` | **否** |
+| `godot-developer` | Pass 4：读 dev-context 写 C# | `codex` | `game-factory-godot-developer` | 程序员 |
+| `tester` | validate + 截图 + 视觉分析 → Validation Report | `hermes` | `game-factory-tester` | 可选委派 |
 
 **GUI 前台工种**（与上表不完全一一对应）：
 
@@ -72,16 +92,16 @@ python gamefactory.py setup executor status --json
 
 ```mermaid
 flowchart LR
-    O[orchestrator] --> PC[prompt-crafter]
-    O --> PR[pipeline run]
+    O[orchestrator] --> PR[pipeline run / host]
+    PR --> PC[prompt-crafter 步骤]
     PR --> IG[image-generator]
     PR --> VG[video-generator]
     PR --> GA[godot-assembler]
     O --> GD[godot-developer]
 ```
 
-1. **AI 阶段** — orchestrator + prompt-crafter：brief、`plans/`
-2. **程序阶段** — `pipeline plan` + `pipeline run --jobs 4`
+1. **AI 阶段** — orchestrator：brief、export；`plans/` 由 pipeline 内 **prompt-crafter 步骤**（`--run-prompts` / `host retry-asset`）产出，非独立聊天同事
+2. **程序阶段** — `pipeline plan` + `host run-assets --auto-fix` 或 `pipeline run --jobs 4`
 3. **异常** — `exit 2` → 改 plan → `pipeline reset` → 再 `run`
 4. **Pass 4** — `godot dev-context` → godot-developer 会话
 5. **验收** — `test run` → tester 会话（或 orchestrator 委派）

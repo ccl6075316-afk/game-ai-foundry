@@ -43,7 +43,7 @@
 
 1. 宿主可能已跑 `pipeline heal`（瞬时网络 / 缺文件 → reset）。
 2. **`config_size` / `config_proxy`**：直接改配置（`config set …`），再 reset + 跑资产。不要改仓库内核。
-3. **`validation` / `prompt_crafter_regenerate`**：说明 task → reset cascade → `pipeline run --run-prompts`。
+3. **`validation` / `prompt_crafter_regenerate`**：说明 task → reset cascade → `pipeline run --run-prompts`（或引导 GUI 调 `host retry-asset --recraft-prompt`）。**prompt-crafter 是 pipeline 步骤**，不要叫用户去找「prompt-crafter 同事」。
 4. **不要**空转复述日志；`cli_hints` 给白名单命令，`gui_hints` 含「运行资产生成」「打开看板」。
 
 ### 目标模式（GUI 自动修复）

@@ -3,7 +3,7 @@
 > **读者**：下一任接手的 AI / 维护者。  
 > **背景**：用户与 Agent 讨论「目标模式、GUI/CLI 边界、prompt-crafter、单条重试、是否重构」的结论汇总。  
 > **侧重**：现状、已实现、待做、优先级；**不重复** [`AI-HANDOFF.md`](AI-HANDOFF.md) 命令大全。  
-> **姊妹**：[`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) · [`AGENT-ROUTING.md`](AGENT-ROUTING.md) · [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)
+> **姊妹**：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)（**功能归属总表**）· [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)（**可执行重构 Plan**）· [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) · [`AGENT-ROUTING.md`](AGENT-ROUTING.md) · [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)
 
 ---
 
@@ -141,7 +141,7 @@ pipeline run --manifest <manifest> --jobs 4 --run-prompts
 | PM 直接 craft | ✅ 通过 **`prompt craft --asset X`** 或 **`host retry-asset --recraft-prompt`** |
 | Agent 手写 plans/*.json | ⚠️ 仅作 escape hatch，非默认 |
 
-**待做**：`safe_cli` 放行 `prompt craft`（可限 `--asset`）；或新增 `host retry-asset`。
+**待做（已落地）**：`safe_cli` 经 `host retry-asset` 间接 craft；`host retry-asset` CLI 已实现。
 
 ---
 
@@ -152,19 +152,14 @@ pipeline run --manifest <manifest> --jobs 4 --run-prompts
 - `pipeline reset --task-id <id>` / `--cascade`
 - `pipeline suggest-retry --manifest … --asset hero`
 - `pipeline run` 只跑 **ready + pending** 任务（reset 一条后不会全表重跑）
+- **`host retry-asset --manifest … --asset X [--recraft-prompt]`**（T2）
+- **`host run-assets --auto-fix`**：validation 路径自动带 `--run-prompts`（T1/T3）
+- GUI「运行资产生成」「重跑此资产」经 Host IPC（T4）
 
-**缺失**
+**仍可选 follow-up**
 
-- validation 失败时 suggest-retry / 默认路径 **未自动带 `--run-prompts`**
-- 无显式 `pipeline run --only-task`（靠 reset 间接实现，文档未强调）
-- GUI 看板/资产表 **「只重跑此资产」** 一键不完整
-
-**建议一级命令**
-
-```bash
-gamefactory.py host retry-asset --manifest … --asset hero [--recraft-prompt] [--jobs 2]
-# 内部：reset(hero*) + 可选 prompt craft + run（带 run-prompts 若 validation 类）
-```
+- `host run-assets` 日志流式输出（现同步版）
+- `AssetReviewPanel` 独立「重跑此资产」入口（看板/TaskList 已接）
 
 ---
 
@@ -172,19 +167,23 @@ gamefactory.py host retry-asset --manifest … --asset hero [--recraft-prompt] [
 
 ### P0 — 认知收口（几乎零架构改动）
 
-- [ ] 本文件 + 主路径图进 [`docs/README.md`](README.md) 索引
-- [ ] 明确：image exit 2 = 改 prompt 再生成
+- [x] 本文件 + 主路径图进 [`docs/README.md`](README.md) 索引
+- [x] 三层归属总表：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)
+- [ ] 明确：image exit 2 = 改 prompt 再生成（技能/看板文案仍可再钉）
 
 ### P1 — Host 包（收益最大）
 
-- [ ] `host run-assets --manifest … --auto-fix` ← 从 `App.tsx` `handleRun` 迁出
-- [ ] `host retry-asset --asset X [--recraft-prompt]`
-- [ ] GUI 按钮只调上述 JSON API
+- [x] 可执行 Plan：[`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)（T1–T6）
+- [x] `host run-assets --manifest … --auto-fix` ← 从 `App.tsx` `handleRun` 迁出
+- [x] `host retry-asset --asset X [--recraft-prompt]`
+- [x] GUI 按钮只调上述 JSON API
+- [x] CJK craft 失败归类 validation（T1）
+- [x] VT status 单源 CLI（T5）
 
 ### P2 — 权限与角色文档
 
-- [ ] `safe_cli` 加 `prompt craft`（限参数）
-- [ ] `AGENT-ROUTING.md`：prompt-crafter 降级为 pipeline 步骤
+- [x] `safe_cli` 经 `host retry-asset` 间接 craft（非裸 `prompt craft`）
+- [x] `AGENT-ROUTING.md`：prompt-crafter 降级为 pipeline 步骤
 
 ### P3 — GUI 瘦身
 
@@ -199,9 +198,9 @@ gamefactory.py host retry-asset --manifest … --asset hero [--recraft-prompt] [
 
 ## 9. 下一任 AI 建议起手式
 
-1. 读本文 + [`AI-HANDOFF.md`](AI-HANDOFF.md) §0–1 + [`resources/skills/orchestrator/product-host.md`](../resources/skills/orchestrator/product-host.md) 目标模式节。
-2. 在 **`projects/fishing-2d`** 上试跑：`pipeline run` → 故意 validation 失败 → 验证目标模式 / `pipeline heal --json`。
-3. 若用户要继续 **P1**：先实现 `host retry-asset` CLI + 单测，再改 GUI 调一条命令。
+1. 读本文 + [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) + [`AI-HANDOFF.md`](AI-HANDOFF.md) §0–1 + [`resources/skills/orchestrator/product-host.md`](../resources/skills/orchestrator/product-host.md) 目标模式节。
+2. 在 **`projects/fishing-2d`** 上试跑：`host run-assets --auto-fix` 或 GUI「运行资产生成」→ validation 失败应自动续跑。
+3. **Host Plan 已完成**；可选 follow-up：`host run-assets` 流式日志、`AssetReviewPanel` retry-asset、`App.tsx` P3 瘦身。
 4. **不要**先删 prompt_craft 或 weaken image validate。
 
 ---
@@ -220,4 +219,4 @@ gamefactory.py host retry-asset --manifest … --asset hero [--recraft-prompt] [
 
 ---
 
-*文档版本：2026-08-20，与 main 上 goal-mode + ACP dispatch 提交同步。*
+*文档版本：2026-08-21，与 Host Plan T1–T6 落地同步。*

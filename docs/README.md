@@ -40,8 +40,10 @@
 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | Host / 维护者 | **施工体系**：production、壳、验收、进度 | brief 字段全文 |
 | [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律、**§1.2 资产审查表** | 产品方法论、进度表 |
 | [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) | 下一任 AI / 维护者 | **三层架构、目标模式、重构 P0–P4、prompt/单条重试** | CLI 字段大全 |
+| [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) | 下一任 AI / 维护者 | **功能归属**：CLI / 桥接 / GUI；要改 / 降级 / 模块化 | 产品方法论 |
+| [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md) | 实现 Agent | **Host 收口可执行 Plan**（retry / auto-fix / GUI / VT 单源） | 业务功能 |
 | [`solutions/reviews/2026-08-04-whole-project-review-ledger.md`](solutions/reviews/2026-08-04-whole-project-review-ledger.md) | 接手 / 再 review | **已修/接受/延期** 账本；完成优先立场 | 当未处理 Critical 重报 Accepted 项 |
-| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **七角色 + executor** | brief 字段全文 |
+| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **用户可见同事 + pipeline 内部角色** | brief 字段全文 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
 | [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
@@ -83,6 +85,8 @@
 新人 30 秒        → README（功能表 + Quick Start）
 要跑通一条线       → AI-HANDOFF §5–§6
 要架构 / 重构交接   → ARCHITECTURE-REFACTOR-HANDOFF
+要功能归属总表       → ARCHITECTURE-LAYER-INVENTORY
+要动手重构 Host      → anvil/plans/2026-08-20-host-layer-refactor-plan
 要配 GUI          → GUI-CONFIG（含网络代理 / 生图双档）
 要审资产图         → AI-HANDOFF §1.2 · GUI 侧栏「资产」/ `/assets`
 要配工具 / 排错    → TOOLS.md

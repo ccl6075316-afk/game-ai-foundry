@@ -7,13 +7,15 @@
 | **不写** | 设计/施工方法论、六角色总表 |
 | **姊妹文档** | 产品契约 → `docs/ITERATIVE-PRODUCTION.md` · CLI 大全 → `docs/AI-HANDOFF.md` |
 
-After the **product brief is finalized**, use a **program runner** for CLI work. Reserve Hermes/AI for brief, prompt craft, and failures.
+After the **product brief is finalized**, use a **program runner** for CLI work. Reserve Hermes/AI for brief and failures.
+
+> **角色说明**：`prompt-crafter` 是 **pipeline 内部步骤**（`prompt craft` / `pipeline run --run-prompts` / `host retry-asset --recraft-prompt`），**不是** GUI 里需单独开聊的同事。用户只与策划 / 项目经理 / 程序员 / IT 对话。
 
 **Canonical example brief in git:** `resources/asset-brief.example.json`. Local demos (`resources/test-brief-*.json`, `tests/fixtures/`) are gitignored.
 
 ## Phase A — AI (serial / parallel sessions)
 
-User + orchestrator + prompt-crafter → frozen `brief.json` + `plans/*.json`
+User + orchestrator → frozen `brief.json`；`plans/*.json` 由 pipeline 内 prompt-crafter **步骤**产出（非独立聊天同事）
 
 ```bash
 python gamefactory.py brief validate --brief ../resources/asset-brief.example.json
