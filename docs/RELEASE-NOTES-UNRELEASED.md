@@ -9,6 +9,7 @@
 - code heal 清零失败后自动续跑（审查 H1）
 - 历史 Release Notes（v0.0–v0.1）合并为 [`archive/RELEASE-NOTES-LEGACY.md`](archive/RELEASE-NOTES-LEGACY.md)
 - **VT 闸门单源**：Electron 改调 CLI `brief visual-target status`，删除独立 hydrate 副本
+- **修**：`visual-target-status` 误查 `result.ok`（`runCli` 无此字段）导致 GUI 恒报未选定；加回归测 `visualTargetStatusMap.test.mjs`
 - **角色文档**：prompt-crafter 降为 pipeline 内部步骤，非 GUI 聊天同事（见 [`AGENT-ROUTING.md`](AGENT-ROUTING.md)）
 - **目标模式**：运行资产生成失败 → 自动 diagnose/heal/串跑 fix_commands → 必要时 PM Agent → 续跑（GUI）
 - **ACP 收口**：全角色 `agent prompt`；`record-turn` 应用 dispatch（等同 `agent turn` 落盘）
