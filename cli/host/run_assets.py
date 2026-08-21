@@ -209,18 +209,62 @@ def run_assets(
 
         diagnosis = heal_report.get("diagnose") if isinstance(heal_report.get("diagnose"), dict) else heal_report
         fingerprints = _failure_fingerprints(diagnosis)
+        healed = [str(t) for t in (heal_report.get("healed") or []) if t]
+        failed_count = int(diagnosis.get("failed_count") or 0)
+        auto_fixable = bool(
+            heal_report.get("auto_fix_without_agent")
+            if heal_report.get("auto_fix_without_agent") is not None
+            else can_auto_fix_without_agent(diagnosis)
+        )
         rounds.append(
             {
                 "phase": "diagnose",
                 "repair_round": repair_rounds + 1,
                 "fingerprints": [list(item) for item in sorted(fingerprints)],
-                "auto_fix_without_agent": bool(
-                    heal_report.get("auto_fix_without_agent")
-                    if heal_report.get("auto_fix_without_agent") is not None
-                    else can_auto_fix_without_agent(diagnosis)
-                ),
+                "healed": healed,
+                "failed_count": failed_count,
+                "auto_fix_without_agent": auto_fixable,
             }
         )
+
+        # Code-owned heal resets failed→pending; post diagnose then has no needs_hermes,
+        # so can_auto_fix is false — still must re-run, not bail to needs_agent.
+        if healed and failed_count == 0 and not fingerprints:
+            repair_rounds += 1
+            rounds.append(
+                {
+                    "phase": "repair",
+                    "repair_round": repair_rounds,
+                    "fix_commands": [],
+                    "executed": [{"action": "code_heal", "healed": healed}],
+                }
+            )
+            run_result = run_pipeline(
+                manifest_path,
+                jobs=jobs,
+                run_prompts=run_prompts,
+            )
+            rounds.append(
+                _run_round_record(phase="run", run_result=run_result, repair_round=repair_rounds)
+            )
+            if run_result.complete:
+                return {
+                    "ok": True,
+                    "stopped_reason": "complete",
+                    "repair_rounds": repair_rounds,
+                    "rounds": rounds,
+                    "summary": run_result.summary,
+                    "message": run_result.message,
+                    "complete": True,
+                    "paused": False,
+                    "blocked": False,
+                    "run_exit_code": 0,
+                }
+            if prior_fingerprints is not None and fingerprints == prior_fingerprints:
+                stopped_reason = "max_rounds"
+                break
+            prior_fingerprints = fingerprints
+            continue
 
         if not can_auto_fix_without_agent(diagnosis):
             return {

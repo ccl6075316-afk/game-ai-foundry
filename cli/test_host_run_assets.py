@@ -154,6 +154,64 @@ class HostRunAssetsTests(unittest.TestCase):
             self.assertEqual(fix_mock.call_count, 2)
             self.assertEqual(run_mock.call_count, 3)
 
+    def test_code_heal_cleared_failures_then_rerun(self) -> None:
+        """Network/code heal resets tasks; must run_pipeline again, not needs_agent."""
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest_path = Path(tmp) / "manifest.json"
+            save_manifest(manifest_path, _sample_manifest())
+
+            incomplete = PipelineRunResult(
+                paused=True,
+                message="Pipeline has failed tasks: foo.image.generate",
+                summary={"done": False, "failed_ids": ["foo.image.generate"]},
+            )
+            complete = PipelineRunResult(
+                complete=True,
+                message="All tasks done.",
+                summary={"done": True},
+            )
+            post_clean = {
+                "failed_count": 0,
+                "items": [],
+                "needs_hermes": [],
+                "manifest_cli_rel": "../pipeline/test.json",
+                "fix_commands": [],
+                "auto_fix_without_agent": False,
+                "summary": {"done": False, "pending": 1},
+            }
+            heal_report = {
+                "applied": True,
+                "healed": ["foo.image.generate"],
+                "diagnose": post_clean,
+                "fix_commands": [],
+                "auto_fix_without_agent": False,
+                "manifest_cli_rel": "../pipeline/test.json",
+            }
+
+            with mock.patch(
+                "host.run_assets.run_pipeline",
+                side_effect=[incomplete, complete],
+            ) as run_mock:
+                with mock.patch(
+                    "host.run_assets.diagnose_and_heal_file",
+                    return_value=heal_report,
+                ) as diagnose_mock:
+                    with mock.patch("host.run_assets._execute_fix_commands") as fix_mock:
+                        result = run_assets(
+                            manifest_path,
+                            jobs=2,
+                            run_prompts=False,
+                            auto_fix=True,
+                            max_repair_rounds=2,
+                        )
+
+            self.assertTrue(result["ok"])
+            self.assertEqual(result["stopped_reason"], "complete")
+            self.assertEqual(result["repair_rounds"], 1)
+            diagnose_mock.assert_called_once()
+            fix_mock.assert_not_called()
+            self.assertEqual(run_mock.call_count, 2)
+
     def test_unknown_diagnosis_needs_agent(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "manifest.json"

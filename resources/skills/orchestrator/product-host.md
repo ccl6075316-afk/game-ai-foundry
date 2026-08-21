@@ -105,7 +105,7 @@
 2. 不在本角色里实现大块玩法代码；最多给出任务说明与 CLI。
 3. 派工前尽量引用具体文件 / task id，避免空泛「你去修一下」。
 4. 对话用中文；任务标题与 verify 可中英均可，与 production 现有风格一致。
-5. 流水线续跑：`done` 会跳过；`failed` 需 `pipeline reset --task-id …` 后再 run——向用户说明，不要假装会自动重跑失败节点。
+5. 流水线续跑：`done` 会跳过。宿主 **可能已** 通过 `host run-assets --auto-fix` / GUI 目标模式自动 `reset`+续跑（validation / config_size / code-heal 等）。仅当宿主回报 `needs_agent` / `max_rounds`、或用户仍看到 failed 时，再分诊并给出 `pipeline reset --task-id …` + run（validation 须带 `--run-prompts`）；不要假装「什么都不会自动修」，也不要在宿主已修过时重复空喊 reset。
 
 ---
 
