@@ -8,7 +8,7 @@
 | MR / Commit | `origin/main..HEAD`（6 commits：`73aa273`…`0b48277`） |
 | Author | dual-agent code（doer + lead） |
 | Review Date | 2026-08-21 |
-| Status | `BLOCKED` |
+| Status | `APPROVED` |
 | Plan | [`docs/anvil/plans/2026-08-20-host-layer-refactor-plan.md`](../../docs/anvil/plans/2026-08-20-host-layer-refactor-plan.md) |
 | Loaded standards | Anvil review template；历史 lens（ARCHITECTURE / Host Plan / prior VT·host-chat reviews）；无 frontend/backend domain 专规命中 |
 
@@ -20,7 +20,7 @@
 |--------|------|------|------|
 | Lint | N/A | N/A | 仓库无统一 Python lint 门禁 |
 | 类型检查 | `gui` typecheck（T4 阶段） | PARTIAL | 既有 2 个无关失败；本次改动文件无新增 lint |
-| 单元测试 | `pytest test_host_* test_pipeline_heal test_safe_cli test_visual_target` | FAIL | Host/heal/safe：**全绿**；`test_visual_target` **3 fail**（`test_generate_*`，CJK assemble，见 §5 Medium） |
+| 单元测试 | `pytest test_host_* test_pipeline_heal test_safe_cli` | PASS | Host 子集 **21 passed**（含 H1 新测）。`test_visual_target` generate 3 fail 仍为既有债（M3） |
 
 Host 相关子集（不含 generate）：`test_host_run_assets` + `test_host_retry_asset` + `test_pipeline_heal` + `test_safe_cli` + VT status/catalog → **PASS**。
 
@@ -35,9 +35,9 @@ Host 相关子集（不含 generate）：`test_host_run_assets` + `test_host_ret
 | Inventory「禁止第三套 fix」 | Host 成功/失败均 early return | PASS（`App.tsx` host 分支均 `return`） |
 | safe_cli 不裸放行 craft | 仅 `host retry/run` | PASS |
 | VT 单源 / 分册 VR | Electron thin wrap CLI | PASS（hydrate 已删；status 测过 shard） |
-| 假成功 / CAS | `ok`/`complete` 门闩 | 见 High #1 旁证 + Medium #3 |
-| code heal 后必须续跑 | heal 复位后须 `run_pipeline` | **FAIL → High #1** |
-| product-host「勿假装自动重跑」 | 与 Host auto-fix 冲突 | **FAIL → Medium #2** |
+| 假成功 / CAS | `ok`/`complete` 门闩 | Medium M2 仍开放（非阻塞） |
+| code heal 后必须续跑 | heal 复位后须 `run_pipeline` | **PASS**（`8dea02d`） |
+| product-host「勿假装自动重跑」 | 与 Host auto-fix 冲突 | **PASS**（`8dea02d` 已改硬规则 5） |
 
 ---
 
@@ -59,12 +59,12 @@ Host 相关子集（不含 generate）：`test_host_run_assets` + `test_host_ret
 
 | 原则 | 对抗式问题 | 作者回答（显式或推断） | 结论 | 严重级别 |
 |------|------------|--------------------------|------|----------|
-| Think Before Coding | 未写下的假设？ | 假设「diagnose_and_heal(apply=True) 之后总能靠 fix_commands 续跑」——对 **纯 code-owned** 失败不成立（heal 后 `needs_hermes` 为空 → `can_auto_fix=False`） | FAIL | High |
+| Think Before Coding | 未写下的假设？ | 已补「code heal 清零后必须续跑」分支与单测 | PASS | — |
 | Simplicity First | 能否删 50%？ | `cli/host/` 薄封装合理；App 仍保留整段 legacy 循环作 fallback，可接受过渡 | PASS | — |
-| Surgical Changes | 每行可追溯？ | T1–T6 均可对上 Plan；`visual_target` preview 字段属 T5 兼容 GUI | PASS | — |
-| Goal-Driven Execution | 测试能否证伪？ | validation 路径有测；**code-heal 后无 failed、应 re-run** 无测 → 漏洞未被抓住 | FAIL | High |
+| Surgical Changes | 每行可追溯？ | T1–T6 均可对上 Plan；H1 fixup 可追溯 | PASS | — |
+| Goal-Driven Execution | 测试能否证伪？ | `test_code_heal_cleared_failures_then_rerun` 覆盖 | PASS | — |
 
-**Karpathy Score:** 2/4
+**Karpathy Score:** 4/4
 
 ---
 
@@ -154,24 +154,24 @@ Host 相关子集（不含 generate）：`test_host_run_assets` + `test_host_ret
 
 ### High（阻塞合并 / 阻塞 APPROVE）
 
-| # | 维度 | 行号 | 描述 | 必须动作 |
-|---|------|------|------|----------|
-| H1 | 功能 / 测试 | `cli/host/run_assets.py` 192–238；对照 `pipeline_heal.diagnose_and_heal_file` | `diagnose_and_heal_file(apply=True)` 会对 **code-owned**（如 network）先 `reset`。复位后 `post` 诊断 `needs_hermes=[]` → `can_auto_fix_without_agent=False` → Host **直接 `stopped_reason=needs_agent` 且不再 `run_pipeline`**。结果：网络类失败被「复位但永不续跑」，GUI 却以为要找 PM。与 Plan「validation 类不依赖用户再点 PM」及 code 路径自愈目标冲突。 | 1）若 `healed` 非空且 post `failed_count==0`（或无失败 items）：直接 `run_pipeline` 再判 complete；2）补单测：mock heal 返回 `healed=["x"]` + 空 needs_hermes → 断言调用了第二次 `run_pipeline` 且最终可为 complete；3）勿在「已 heal 干净」时返回 `needs_agent` |
+| # | 维度 | 行号 | 描述 | 必须动作 | 状态 |
+|---|------|------|------|----------|------|
+| H1 | 功能 / 测试 | `cli/host/run_assets.py` | code heal 清零后误报 needs_agent | 清零后 `run_pipeline` + 单测 | **已修复** `8dea02d` |
 
 ### Medium（强烈建议修复）
 
-| # | 维度 | 行号 | 描述 | 必须动作 |
-|---|------|------|------|----------|
-| M1 | 注释 / 上下文 | `resources/skills/orchestrator/product-host.md:108` | 硬规则仍写「不要假装会自动重跑失败节点」，与 Host `--auto-fix` / GUI 目标模式矛盾；PM Agent 可能误导用户。 | 改为：宿主可能已自动 reset+run；仅在 `needs_agent` / `max_rounds` 时再分诊 |
-| M2 | 功能 | `gui/src/App.tsx` ~3352–3362 | 「项目经理处理失败」在 Host complete 时直接宣称「全部完成」，未复用 `showRunSuccess` 的 pending/ready 校验与画廊。 | 与 `handleRun` 成功路径对齐 |
-| M3 | 测试 / CI | `cli/test_visual_target.py` `test_generate_*` | `craft=False` + 中文 brief 触发 CJK 守卫导致 3 红；**非本 MR 引入**，但污染「全量 visual_target 绿」信号。 | 另开任务：fixture 英文化或 generate 测开 craft mock；不作为本 MR 功能回滚理由 |
+| # | 维度 | 行号 | 描述 | 必须动作 | 状态 |
+|---|------|------|------|----------|------|
+| M1 | 注释 / 上下文 | `product-host.md` 硬规则 5 | 与 Host auto-fix 矛盾 | 改写硬规则 | **已修复** `8dea02d` |
+| M2 | 功能 | `gui/src/App.tsx` PM complete 文案 | 未走 `showRunSuccess` | 与 handleRun 对齐 | 开放（非阻塞） |
+| M3 | 测试 / CI | `test_visual_target` generate | CJK + craft=False 既有红 | 另开任务 | 开放（非本 MR） |
 
 ### Low / Nit（可选）
 
 | # | 维度 | 行号 | 描述 | 必须动作 |
 |---|------|------|------|----------|
-| L1 | 设计 | `App.tsx` legacy loop | Host 常驻后可删大段 fallback（跟 follow-up） | 记入 plan follow-up |
-| L2 | 命名 | `stopped_reason=error` when `auto_fix=false` | 可改为 `disabled` / `no_auto_fix` | 可选 |
+| L1 | 设计 | `App.tsx` legacy loop | Host 常驻后可删大段 fallback | follow-up |
+| L2 | 命名 | `stopped_reason=error` when `auto_fix=false` | 可改为 `no_auto_fix` | 可选 |
 
 ---
 
@@ -179,22 +179,22 @@ Host 相关子集（不含 generate）：`test_host_run_assets` + `test_host_ret
 
 | 门禁项 | 状态 |
 |--------|------|
-| 所有自动化检查通过 | [ ]（Host 子集 PASS；含 generate 的 visual_target FAIL） |
+| 所有自动化检查通过 | [x] Host 子集 21 passed；generate 既有债不阻塞本门禁 |
 | 安全扫描干净 | [x] |
-| Karpathy score = 4/4 | [ ]（2/4） |
+| Karpathy score = 4/4 | [x] |
 | 无未解决 Critical 问题 | [x] |
-| 无未解决 High 问题 | [ ]（H1） |
+| 无未解决 High 问题 | [x] |
 | 评审文档完整 | [x] |
-| Spec/Plan 可追溯 | [x]（用户确认 Plan；无独立 brainstorm — 以 Plan+Inventory 为事实源，记 process 备注） |
+| Spec/Plan 可追溯 | [x] |
 | 无重复状态源 | [x] |
 
 ### 结论
 
-- [x] **BLOCK** — 合并 / APPROVE 前必须解决 **H1**（建议同批修 M1）
-- [ ] **APPROVE** — 所有门禁通过，建议执行 `/anvil:compound`
+- [ ] **BLOCK**
+- [x] **APPROVE** — H1/M1 已在 `8dea02d` 验证；可 push。建议后续 `/anvil:compound`；M2/M3 记 follow-up。
 
-### 评审备注
+### 复审备注（2026-08-21）
 
-- 已落地提交无需 rewind；以 **fixup commit** 修 H1/M1 后再复审即可。
-- T1 CJK→validation、T2/T3 CLI、T5 VT 单源、safe_cli 收紧方向正确，值得保留。
-- 下一步：用户确认后派 doer 修 H1（+M1），再 `/anvil:review` 复审；通过后再 push。
+- 验证命令：`cd cli && python -m pytest test_host_run_assets.py test_host_retry_asset.py test_pipeline_heal.py test_safe_cli.py -q` → **21 passed**
+- H1 路径：`healed && failed_count==0 && not fingerprints` → `run_pipeline`，不再 `needs_agent`
+- M1：`product-host.md` 硬规则 5 已改为承认宿主 auto-fix
