@@ -15,6 +15,7 @@ interface Props {
   compact?: boolean;
   /** Brief assets for read-only style chips (declared fields only). */
   briefAssets?: HostChatDraftBrief["assets"];
+  onRetryAsset?: (asset: string) => void;
 }
 
 function lookupAsset(
@@ -43,7 +44,7 @@ function groupTasksByAsset(tasks: PipelineTask[]): { asset: string; tasks: Pipel
   return order.map((asset) => ({ asset, tasks: map.get(asset)! }));
 }
 
-export function TaskList({ tasks, compact = false, briefAssets }: Props) {
+export function TaskList({ tasks, compact = false, briefAssets, onRetryAsset }: Props) {
   if (!tasks.length) {
     return (
       <section className={`panel muted ${compact ? "compact" : ""}`}>
@@ -61,10 +62,21 @@ export function TaskList({ tasks, compact = false, briefAssets }: Props) {
       {groups.map(({ asset, tasks: groupTasks }) => {
         const styleAsset = lookupAsset(briefAssets, asset);
         const chips = styleAsset ? assetStyleChips(styleAsset) : [];
+        const hasFailed = groupTasks.some((t) => t.status === "failed");
         return (
           <div key={asset} className="task-asset-group">
             <div className="task-asset-head">
               <span className="task-asset-name mono">{asset}</span>
+              {hasFailed && onRetryAsset && (
+                <button
+                  type="button"
+                  className="btn btn--ghost btn--sm"
+                  onClick={() => onRetryAsset(asset)}
+                  title="重跑此资产"
+                >
+                  重跑
+                </button>
+              )}
               {chips.length > 0 && (
                 <span className="task-style-chips">
                   {chips.map((c) => (

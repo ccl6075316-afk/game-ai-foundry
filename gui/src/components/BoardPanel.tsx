@@ -19,6 +19,7 @@ interface Props {
   vtScenes?: Array<VtSceneMark & { preview_path?: string | null }>;
   onRefreshVt?: () => void;
   onFocusScene?: (sceneId: string, title: string) => void | Promise<void>;
+  onRetryAsset?: (asset: string) => void;
 }
 
 export function BoardPanel({
@@ -35,6 +36,7 @@ export function BoardPanel({
   vtScenes = [],
   onRefreshVt,
   onFocusScene,
+  onRetryAsset,
 }: Props) {
   const counts = status?.counts || {};
 
@@ -81,7 +83,12 @@ export function BoardPanel({
         </button>
       </div>
 
-      <TaskList tasks={tasks} compact briefAssets={draftBrief?.assets} />
+      <TaskList
+        tasks={tasks}
+        compact
+        briefAssets={draftBrief?.assets}
+        onRetryAsset={onRetryAsset}
+      />
 
       {logs.length > 0 && (
         <div className="board-logs">

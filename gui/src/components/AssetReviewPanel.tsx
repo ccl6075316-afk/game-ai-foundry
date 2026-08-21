@@ -237,21 +237,35 @@ export function AssetReviewPanel({
 
   const regenerate = async () => {
     if (!selected || !pipelineManifestRel) return;
+    const useHost = Boolean(window.gameFactory?.hostRetryAsset) && !selected.kit_item_slug;
     const ok = window.confirm(
-      `重生成「${selected.label}」？\n将 cascade 重置相关 image.generate 任务并重新跑 pipeline。`,
+      useHost
+        ? `重生成「${selected.label}」？\n将通过 Host 重置并重跑该资产（含 prompt 重制）。`
+        : `重生成「${selected.label}」？\n将 cascade 重置相关 image.generate 任务并重新跑 pipeline。`,
     );
     if (!ok) return;
     setActionBusy(true);
     setError(null);
     try {
-      const res = await window.gameFactory.assetsReviewRegenerate(
-        pipelineManifestRel,
-        selected.asset_name,
-        selected.kit_item_slug ?? null,
-        4,
-      );
-      if (res.exitCode !== 0) {
-        setError(res.stderr?.trim() || "重生成失败");
+      if (useHost) {
+        const res = await window.gameFactory.hostRetryAsset!(
+          pipelineManifestRel,
+          selected.asset_name,
+          { recraftPrompt: true, jobs: 4 },
+        );
+        if (res.exitCode !== 0) {
+          setError(res.stderr?.trim() || "重生成失败");
+        }
+      } else {
+        const res = await window.gameFactory.assetsReviewRegenerate(
+          pipelineManifestRel,
+          selected.asset_name,
+          selected.kit_item_slug ?? null,
+          4,
+        );
+        if (res.exitCode !== 0) {
+          setError(res.stderr?.trim() || "重生成失败");
+        }
       }
       await refresh();
       onAfterRegenerate?.();

@@ -3330,6 +3330,89 @@ export default function App() {
     };
   };
 
+  const reportRunSuccess = useCallback(
+    async (statusAfter: Awaited<ReturnType<typeof refreshManifest>>) => {
+      const counts = statusAfter?.status?.counts || status?.counts || {};
+      const pending = Number(counts.pending ?? 0);
+      const ready = statusAfter?.status?.ready_ids?.length ?? status?.ready_ids?.length ?? 0;
+      if (pending > 0 || ready > 0) {
+        append(
+          "assistant",
+          `**本轮跑完，流水线未全部完成**\n\n` +
+            `进度：完成 ${counts.done ?? "?"} · 待跑 ${pending}` +
+            (ready ? `（${ready} 个已就绪）` : "") +
+            `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
+          undefined,
+          undefined,
+          ["运行资产生成", "打开看板"],
+        );
+      } else {
+        append(
+          "assistant",
+          "**流水线已全部完成。** 可在看板或资产表查看，或继续派工给程序员。",
+          undefined,
+          undefined,
+          ["打开看板", "打开资产表"],
+        );
+      }
+      try {
+        if (!selectedManifest) return;
+        const meta = await window.gameFactory.getManifestMeta(selectedManifest);
+        const outputDir = meta?.output_dir;
+        if (outputDir) {
+          const gallery = await window.gameFactory.listOutputMedia(outputDir, 12);
+          if (gallery.length > 0) {
+            append("assistant", "**本次产出预览** — 点击缩略图打开原文件。", gallery);
+          }
+        }
+      } catch {
+        /* ignore gallery errors */
+      }
+    },
+    [append, selectedManifest, status],
+  );
+
+  const handleRetryAsset = async (asset: string) => {
+    if (!selectedManifest) {
+      append("assistant", "没有流水线 manifest，无法重跑资产。");
+      return;
+    }
+    const hostRetryAsset = window.gameFactory.hostRetryAsset;
+    if (!hostRetryAsset) {
+      append("assistant", "Host API 不可用（hostRetryAsset），请重启应用。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    markBusy(busyId);
+    try {
+      append("log", `host retry-asset：${asset}…`);
+      append("assistant", `正在重跑资产 **${asset}**（含 prompt 重制）…`);
+      const res = await hostRetryAsset(selectedManifest, asset, {
+        recraftPrompt: true,
+        jobs: 4,
+      });
+      await refreshManifest(selectedManifest);
+      if (res.exitCode !== 0 || res.data?.ok === false) {
+        append(
+          "assistant",
+          `重跑 **${asset}** 未完成：${res.stderr?.trim() || "未知错误"}`,
+        );
+      } else {
+        append(
+          "assistant",
+          `**${asset}** 重跑已完成。`,
+          undefined,
+          undefined,
+          ["打开看板", "打开资产表"],
+        );
+      }
+    } catch (e) {
+      append("assistant", `重跑失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
   const handlePipelinePmHeal = async () => {
     if (!selectedManifest) {
       append("assistant", "没有流水线 manifest，无法处理失败任务。");
@@ -3347,18 +3430,12 @@ export default function App() {
           autoFix: true,
         });
         const data = res.data as HostRunAssetsResult | undefined;
-        await refreshManifest(selectedManifest);
+        const statusAfter = await refreshManifest(selectedManifest);
 
         const hostComplete =
           data?.complete === true || data?.stopped_reason === "complete" || data?.ok === true;
         if (hostComplete) {
-          append(
-            "assistant",
-            "**流水线已全部完成。**",
-            undefined,
-            undefined,
-            ["打开看板", "打开资产表"],
-          );
+          await reportRunSuccess(statusAfter);
           return;
         }
 
@@ -3483,43 +3560,7 @@ export default function App() {
         Boolean(payload?.blocked) ||
         payload?.complete === false;
 
-      const showRunSuccess = async (statusAfter: Awaited<ReturnType<typeof refreshManifest>>) => {
-        const counts = statusAfter?.status?.counts || status?.counts || {};
-        const pending = Number(counts.pending ?? 0);
-        const ready = statusAfter?.status?.ready_ids?.length ?? status?.ready_ids?.length ?? 0;
-        if (pending > 0 || ready > 0) {
-          append(
-            "assistant",
-            `**本轮跑完，流水线未全部完成**\n\n` +
-              `进度：完成 ${counts.done ?? "?"} · 待跑 ${pending}` +
-              (ready ? `（${ready} 个已就绪）` : "") +
-              `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
-            undefined,
-            undefined,
-            ["运行资产生成", "打开看板"],
-          );
-        } else {
-          append(
-            "assistant",
-            "**流水线已全部完成。** 可在看板或资产表查看，或继续派工给程序员。",
-            undefined,
-            undefined,
-            ["打开看板", "打开资产表"],
-          );
-        }
-        try {
-          const meta = await window.gameFactory.getManifestMeta(selectedManifest);
-          const outputDir = meta?.output_dir;
-          if (outputDir) {
-            const gallery = await window.gameFactory.listOutputMedia(outputDir, 12);
-            if (gallery.length > 0) {
-              append("assistant", "**本次产出预览** — 点击缩略图打开原文件。", gallery);
-            }
-          }
-        } catch {
-          /* ignore gallery errors */
-        }
-      };
+      const showRunSuccess = reportRunSuccess;
 
       let runPromptsFlag = runPrompts;
       let res!: { exitCode?: number; stderr?: string; data?: unknown };
@@ -5300,6 +5341,7 @@ export default function App() {
             }}
             onRefresh={() => refreshManifest(selectedManifest)}
             onRun={handleRun}
+            onRetryAsset={handleRetryAsset}
           />
         )}
 
