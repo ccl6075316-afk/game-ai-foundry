@@ -2420,7 +2420,8 @@ app.whenReady().then(() => {
     ];
     const result = await runCli(args);
     const data = parseJsonFromOutput(result.stdout);
-    if (!result.ok || !data || data.ok === false) {
+    // runCli returns { exitCode, stdout, stderr } — never `ok`
+    if ((result.exitCode ?? 1) !== 0 || !data || data.ok === false) {
       return {
         ok: false,
         ready: false,
@@ -2430,7 +2431,6 @@ app.whenReady().then(() => {
         error:
           (typeof data?.error === "string" && data.error) ||
           result.stderr ||
-          result.error ||
           "visual-target status failed",
       };
     }

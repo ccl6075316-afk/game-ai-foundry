@@ -574,6 +574,13 @@ export default function App() {
     }
   }, [activeBriefRel]);
 
+  // Refresh north-star readiness whenever the active brief changes (not only on board open).
+  useEffect(() => {
+    if (activeBriefRel) {
+      void refreshVisualTarget(activeBriefRel);
+    }
+  }, [activeBriefRel, refreshVisualTarget]);
+
   // Refresh north-star thumbs when opening the board
   useEffect(() => {
     if (sidePanel === "board" && activeBriefRel) {
