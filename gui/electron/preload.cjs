@@ -27,6 +27,10 @@ contextBridge.exposeInMainWorld("gameFactory", {
   pipelineStatus: (manifestRel) => ipcRenderer.invoke("pipeline-status", manifestRel),
   pipelineRun: (manifestRel, jobs, runPrompts) =>
     ipcRenderer.invoke("pipeline-run", manifestRel, jobs, runPrompts),
+  hostRunAssets: (manifestRel, opts) =>
+    ipcRenderer.invoke("host-run-assets", manifestRel, opts || {}),
+  hostRetryAsset: (manifestRel, asset, opts) =>
+    ipcRenderer.invoke("host-retry-asset", manifestRel, asset, opts || {}),
   pipelineDiagnose: (manifestRel) => ipcRenderer.invoke("pipeline-diagnose", manifestRel),
   pipelineHeal: (manifestRel, apply) => ipcRenderer.invoke("pipeline-heal", manifestRel, apply),
   assetsReviewList: (assetsManifestRel, pipelineManifestRel) =>

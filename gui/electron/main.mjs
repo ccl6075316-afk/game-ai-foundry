@@ -2043,6 +2043,55 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
+  ipcMain.handle("host-run-assets", async (event, manifestRel, opts = {}) => {
+    const sender = event.sender;
+    const jobs = Math.max(1, Number(opts.jobs) || 4);
+    const args = [
+      "host",
+      "run-assets",
+      "--manifest",
+      cliArgForRel(manifestRel),
+      "--jobs",
+      String(jobs),
+      "--json",
+    ];
+    if (opts.runPrompts) args.push("--run-prompts");
+    if (opts.autoFix === false) args.push("--no-auto-fix");
+    const result = await runCli(args, {
+      onLine: (line, stream) => {
+        sender.send("pipeline-log", { line, stream });
+      },
+    });
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("host-retry-asset", async (event, manifestRel, asset, opts = {}) => {
+    const sender = event.sender;
+    const jobs = Math.max(1, Number(opts.jobs) || 4);
+    const assetName = String(asset || "").trim();
+    if (!assetName) {
+      return { exitCode: 1, stdout: "", stderr: "asset name required", data: null };
+    }
+    const args = [
+      "host",
+      "retry-asset",
+      "--manifest",
+      cliArgForRel(manifestRel),
+      "--asset",
+      assetName,
+      "--jobs",
+      String(jobs),
+      "--json",
+    ];
+    if (opts.recraftPrompt) args.push("--recraft-prompt");
+    const result = await runCli(args, {
+      onLine: (line, stream) => {
+        sender.send("pipeline-log", { line, stream });
+      },
+    });
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
   ipcMain.handle("pipeline-diagnose", async (_e, manifestRel) => {
     const result = await runCli([
       "pipeline",

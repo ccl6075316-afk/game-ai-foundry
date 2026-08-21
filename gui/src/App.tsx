@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
+import type { HostRunAssetsResult, ManifestMeta, PipelineStatus, PipelineTask } from "./vite-env.d";
 import {
   makeabilityCardAfterServerPatch,
   makeabilityCardLocalSubmitPatch,
@@ -3338,6 +3338,77 @@ export default function App() {
     const busyId = activeColleague.id;
     markBusy(busyId);
     try {
+      const hostRunAssets = window.gameFactory.hostRunAssets;
+      if (hostRunAssets) {
+        append("log", "host run-assets（处理失败）…");
+        const res = await hostRunAssets(selectedManifest, {
+          jobs: 4,
+          runPrompts: false,
+          autoFix: true,
+        });
+        const data = res.data as HostRunAssetsResult | undefined;
+        await refreshManifest(selectedManifest);
+
+        const hostComplete =
+          data?.complete === true || data?.stopped_reason === "complete" || data?.ok === true;
+        if (hostComplete) {
+          append(
+            "assistant",
+            "**流水线已全部完成。**",
+            undefined,
+            undefined,
+            ["打开看板", "打开资产表"],
+          );
+          return;
+        }
+
+        if (data?.stopped_reason === "needs_agent") {
+          const repair = await attemptPipelineAutoRepair({
+            busyInstanceId: busyId,
+            invokePm: true,
+            intro: "**Host 无法自动修复 — 调用项目经理 Agent…**",
+          });
+          append(
+            "assistant",
+            repair.summary +
+              (repair.complete
+                ? ""
+                : repair.shouldRetry
+                  ? `\n\n**推荐下一步 → 运行资产生成**（续跑）`
+                  : ""),
+            undefined,
+            undefined,
+            repair.complete
+              ? ["打开看板", "打开资产表"]
+              : repair.shouldRetry
+                ? ["运行资产生成", "打开看板"]
+                : ["项目经理处理失败", "运行资产生成", "打开看板"],
+          );
+          return;
+        }
+
+        const parts: string[] = [];
+        const reason = data?.stopped_reason;
+        if (reason === "max_rounds") {
+          parts.push(`**自动修复已达上限**（${data?.repair_rounds ?? 0} 轮）。`);
+        } else if (reason === "error") {
+          parts.push(`**处理出错**：${data?.message || data?.error || "未知错误"}`);
+        } else {
+          parts.push("**流水线仍未全部完成。**");
+        }
+        if ((data?.repair_rounds ?? 0) > 0) {
+          parts.push(`Host 已尝试修复 ${data!.repair_rounds} 轮。`);
+        }
+        append(
+          "assistant",
+          parts.join("\n\n") + `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
+          undefined,
+          undefined,
+          ["运行资产生成", "打开看板", "项目经理处理失败"],
+        );
+        return;
+      }
+
       const repair = await attemptPipelineAutoRepair({
         busyInstanceId: busyId,
         invokePm: true,
@@ -3454,6 +3525,94 @@ export default function App() {
       let res!: { exitCode?: number; stderr?: string; data?: unknown };
       let runData: PipelineRunPayload | null = null;
       let statusAfter: Awaited<ReturnType<typeof refreshManifest>> | null = null;
+
+      const hostRunAssets = window.gameFactory.hostRunAssets;
+      if (hostRunAssets) {
+        append("log", "host run-assets 开始…");
+        res = await hostRunAssets(selectedManifest, {
+          jobs: 4,
+          runPrompts: runPromptsFlag,
+          autoFix: true,
+        });
+        runData = (res.data || null) as PipelineRunPayload | null;
+        statusAfter = await refreshManifest(selectedManifest);
+
+        const hostPayload = res.data as HostRunAssetsResult | undefined;
+        const hostComplete =
+          hostPayload?.complete === true ||
+          hostPayload?.stopped_reason === "complete" ||
+          hostPayload?.ok === true;
+
+        if (hostComplete) {
+          await showRunSuccess(statusAfter);
+          setSidePanel("board");
+          return;
+        }
+
+        const stoppedReason = hostPayload?.stopped_reason;
+        if (stoppedReason === "needs_agent") {
+          const advice = formatPmFitAdvice(hostPayload?.diagnosis || null);
+          const repairNote =
+            (hostPayload?.repair_rounds ?? 0) > 0
+              ? `\n\nHost 已自动修复 ${hostPayload!.repair_rounds} 轮，仍需要项目经理介入。`
+              : "";
+          const plan = planPipelineStop({
+            exitCode: res.exitCode ?? hostPayload?.run_exit_code ?? 1,
+            runData,
+            advice,
+            healed: [],
+            status: statusAfter?.status || status,
+          });
+          append(
+            "assistant",
+            `**${plan.title}**\n\n${plan.body}${repairNote}`,
+            undefined,
+            undefined,
+            plan.choices,
+          );
+          setSidePanel("board");
+          return;
+        }
+
+        let advice = formatPmFitAdvice(hostPayload?.diagnosis || null);
+        if (!advice.headline) {
+          try {
+            const diag = window.gameFactory.pipelineDiagnose
+              ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+              : null;
+            advice = formatPmFitAdvice(diag?.data);
+          } catch {
+            /* diagnose best-effort */
+          }
+        }
+        const hostNote =
+          (hostPayload?.repair_rounds ?? 0) > 0
+            ? `Host 已尝试自动修复 ${hostPayload!.repair_rounds} 轮` +
+              (stoppedReason ? `（${stoppedReason}）` : "") +
+              "。\n\n"
+            : hostPayload?.message
+              ? `${hostPayload.message}\n\n`
+              : "";
+        const plan = planPipelineStop({
+          exitCode: res.exitCode ?? hostPayload?.run_exit_code ?? 1,
+          runData,
+          advice,
+          healed: [],
+          status: statusAfter?.status || status,
+        });
+        const rawTail = (res.stderr || "").trim()
+          ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
+          : "";
+        append(
+          "assistant",
+          `${hostNote}**${plan.title}**\n\n${plan.body}${rawTail}`,
+          undefined,
+          undefined,
+          plan.choices,
+        );
+        setSidePanel("board");
+        return;
+      }
 
       for (let round = 0; round <= GOAL_MODE_MAX_REPAIR_ROUNDS; round++) {
         append(

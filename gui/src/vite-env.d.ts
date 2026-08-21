@@ -38,6 +38,47 @@ export interface CliResult<T = unknown> {
   aborted?: boolean;
 }
 
+export interface HostRunAssetsOpts {
+  jobs?: number;
+  runPrompts?: boolean;
+  autoFix?: boolean;
+}
+
+export interface HostRunAssetsResult {
+  ok?: boolean;
+  stopped_reason?: "complete" | "error" | "needs_agent" | "max_rounds";
+  repair_rounds?: number;
+  rounds?: unknown[];
+  summary?: Record<string, unknown> & {
+    counts?: Record<string, number>;
+    failed_ids?: string[];
+    ready_ids?: string[];
+    ready_count?: number;
+    done?: boolean;
+  };
+  message?: string;
+  complete?: boolean;
+  paused?: boolean;
+  blocked?: boolean;
+  run_exit_code?: number;
+  diagnosis?: Record<string, unknown>;
+  error?: string;
+}
+
+export interface HostRetryAssetOpts {
+  jobs?: number;
+  recraftPrompt?: boolean;
+}
+
+export interface HostRetryAssetResult {
+  ok?: boolean;
+  asset?: string;
+  healed_task_ids?: string[];
+  ran?: boolean;
+  run_exit_code?: number;
+  summary?: Record<string, unknown>;
+}
+
 export interface BriefItem {
   id: string;
   path: string;
@@ -424,6 +465,15 @@ declare global {
         tasks: PipelineTask[];
       }>;
       pipelineRun: (manifestRel: string, jobs: number, runPrompts?: boolean) => Promise<CliResult>;
+      hostRunAssets: (
+        manifestRel: string,
+        opts?: HostRunAssetsOpts,
+      ) => Promise<CliResult<HostRunAssetsResult>>;
+      hostRetryAsset: (
+        manifestRel: string,
+        asset: string,
+        opts?: HostRetryAssetOpts,
+      ) => Promise<CliResult<HostRetryAssetResult>>;
       pipelineDiagnose: (manifestRel: string) => Promise<CliResult & { data?: any }>;
       pipelineHeal: (manifestRel: string, apply?: boolean) => Promise<CliResult & { data?: any }>;
       assetsReviewList: (
