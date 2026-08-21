@@ -34,12 +34,10 @@ import {
   prepareRoleAwareAcpPrompt,
   resolveItExecutor,
 } from "./agent_prompt.mjs";
-import { mergeSceneVisualRefsFromShards } from "./visualTargetHydrate.mjs";
 import {
   absForResolved,
   cliArgForResolved,
   isExternalVirtualRel,
-  manifestBelongsToBrief,
   normalizeRepoRel,
   pathUnderRoot,
   projectRootKeyFromBriefRel,
@@ -2410,298 +2408,61 @@ app.whenReady().then(() => {
     return { ...result, data: parseJsonFromOutput(result.stdout) };
   });
 
-  ipcMain.handle("visual-target-status", (_e, briefRel, sceneId) => {
-    const root = repoRoot();
-    const external = resolveExternalRel(briefRel);
-    const rel = external ? external.rel : resolveBriefRel(briefRel);
+  ipcMain.handle("visual-target-status", async (_e, briefRel, sceneId) => {
     const sid = String(sceneId || "").trim() || null;
-    if (!rel) {
-      return { ok: false, ready: false, visual_reference: "", candidates: [], scenes: [] };
-    }
-    let briefAbs;
-    try {
-      briefAbs = absForRel(rel);
-    } catch (err) {
+    const args = [
+      "brief",
+      "visual-target",
+      "status",
+      "--brief",
+      briefCliArg(briefRel),
+      "--json",
+    ];
+    const result = await runCli(args);
+    const data = parseJsonFromOutput(result.stdout);
+    if (!result.ok || !data || data.ok === false) {
       return {
         ok: false,
         ready: false,
         visual_reference: "",
         candidates: [],
         scenes: [],
-        error: err instanceof Error ? err.message : String(err),
-        brief_rel: rel,
+        error:
+          (typeof data?.error === "string" && data.error) ||
+          result.stderr ||
+          result.error ||
+          "visual-target status failed",
       };
     }
-    if (!existsSync(briefAbs)) {
-      return {
-        ok: false,
-        ready: false,
-        visual_reference: "",
-        candidates: [],
-        scenes: [],
-        error: `brief not found: ${rel}`,
-        brief_rel: rel,
-      };
-    }
-    let visualReference = "";
-    let projectScenes = [];
-    try {
-      const data = JSON.parse(readFileSync(briefAbs, "utf-8"));
-      visualReference = String(data?.project?.visual_reference || "").trim();
-      projectScenes = Array.isArray(data?.project?.scenes) ? data.project.scenes : [];
-    } catch {
-      return {
-        ok: false,
-        ready: false,
-        visual_reference: "",
-        candidates: [],
-        scenes: [],
-        error: "brief unreadable",
-        brief_rel: rel,
-      };
-    }
-    const projectRootAbs = external
-      ? external.rootAbs
-      : (() => {
-          const key = projectRootKeyFromBriefRel(rel);
-          return key && key.startsWith("projects/")
-            ? path.join(root, key)
-            : path.dirname(briefAbs);
-        })();
-    projectScenes = mergeSceneVisualRefsFromShards(projectScenes, projectRootAbs, {
-      join: path.join,
-      existsSync,
-      readFileSync,
-    });
-    const refFileOk = (ref) => {
-      const pathOk = looksLikeImagePath(ref);
-      if (!pathOk) return { pathOk: false, fileOk: false };
-      let abs = null;
-      if (path.isAbsolute(ref)) {
-        abs = ref;
-      } else {
-        try {
-          abs = absForRel(ref);
-        } catch {
-          abs = path.join(projectRootAbs, ref);
-        }
-        // Relative refs are often stored vs repo root (projects/slug/output/...).
-        if ((!abs || !existsSync(abs)) && !ref.replace(/\\/g, "/").startsWith("projects/")) {
-          const underProj = path.join(projectRootAbs, ref);
-          if (existsSync(underProj)) abs = underProj;
-        }
-      }
-      return {
-        pathOk: true,
-        fileOk: Boolean(abs && existsSync(abs) && statSync(abs).isFile()),
-      };
-    };
-    const globalCheck = refFileOk(visualReference);
-    /** scene_id -> { selected_id, has_selected_image, preview_path } from VT manifests */
-    const selectionByScene = new Map();
-    let globalSelectedId = null;
-    let globalHasSelectedImage = false;
-    let globalPreviewPath = null;
-    const toPreviewRel = (absPath) => {
-      if (!absPath) return null;
-      try {
-        const r = path.relative(root, absPath).replace(/\\/g, "/");
-        if (r && !r.startsWith("..")) return r;
-        if (external?.rootAbs && pathUnderRoot(absPath, external.rootAbs)) {
-          return `external:${external.entry?.id || ""}/${path
-            .relative(external.rootAbs, absPath)
-            .replace(/\\/g, "/")}`;
-        }
-      } catch {
-        /* ignore */
-      }
-      return absPath;
-    };
-    const noteManifestSelection = (manPath, man) => {
-      const manScene = String(man?.scene_id || "").trim() || null;
-      const selRaw = man?.selected_id;
-      const sel =
-        selRaw === null || selRaw === undefined || selRaw === ""
-          ? null
-          : String(selRaw).trim().toLowerCase();
-      const selectedAbs = path.join(path.dirname(manPath), "selected.png");
-      const hasImg = existsSync(selectedAbs);
-      const previewPath = hasImg ? toPreviewRel(selectedAbs) : null;
-      if (!manScene) {
-        if (sel || hasImg) {
-          globalSelectedId = sel;
-          globalHasSelectedImage = hasImg;
-          if (previewPath) globalPreviewPath = previewPath;
-        }
-        return;
-      }
-      // Prefer entries that already have a pick; don't let empty manifests wipe.
-      const prev = selectionByScene.get(manScene);
-      if (prev && (prev.selected_id || prev.has_selected_image) && !(sel || hasImg)) {
-        return;
-      }
-      selectionByScene.set(manScene, {
-        selected_id: sel,
-        has_selected_image: hasImg,
-        preview_path: previewPath,
-      });
-    };
-    const scenes = [];
-    let anySceneReady = false;
-    // First pass manifests later — scenes filled after tryManifests scan.
-    const projectSceneRows = [];
-    for (const row of projectScenes) {
-      if (!row || typeof row !== "object") continue;
-      const id = String(row.id || "").trim();
-      const title = String(row.title || "").trim();
-      if (!id) continue;
-      const sref = String(row.visual_reference || "").trim();
-      const check = refFileOk(sref);
-      const ready = Boolean(check.pathOk && check.fileOk);
-      if (ready) anySceneReady = true;
-      projectSceneRows.push({ id, title, visual_reference: sref, ready });
-    }
-    const globalReady = Boolean(globalCheck.pathOk && globalCheck.fileOk);
-    const candidates = [];
-    const tryManifests = [];
-    const pushVtManifestTree = (vtDir) => {
-      tryManifests.push(path.join(vtDir, "manifest.json"));
-      if (!existsSync(vtDir)) return;
-      try {
-        for (const name of readdirSync(vtDir)) {
-          const sub = path.join(vtDir, name, "manifest.json");
-          if (existsSync(sub)) tryManifests.push(sub);
-        }
-      } catch {
-        /* ignore */
-      }
-    };
-    // Prefer this project's visual-target tree only (no cross-project basename match).
-    if (external?.rootAbs) {
-      pushVtManifestTree(path.join(external.rootAbs, "output", "visual-target"));
-    } else if (rel.startsWith("projects/")) {
-      const slug = rel.split("/")[1];
-      pushVtManifestTree(path.join(root, "projects", slug, "output", "visual-target"));
-    } else {
-      const stem = path.basename(rel).replace(/\.json$/i, "");
-      pushVtManifestTree(path.join(root, "output", stem, "visual-target"));
-    }
-    let selectedId = null;
-    const seen = new Set();
-    const scored = [];
-    for (const mPath of tryManifests) {
-      if (!existsSync(mPath) || seen.has(mPath)) continue;
-      seen.add(mPath);
-      try {
-        const man = JSON.parse(readFileSync(mPath, "utf-8"));
-        noteManifestSelection(mPath, man);
-        const manScene = String(man.scene_id || "").trim() || null;
-        if (sid && manScene && manScene !== sid) continue;
-        const briefInMan = String(man.brief_path || "").replace(/\\/g, "/");
-        // Local tree already scoped; if manifest names a brief, require real match.
-        if (
-          briefInMan &&
-          !manifestBelongsToBrief({
-            briefAbs,
-            briefRel: rel,
-            manBriefPath: briefInMan,
-            repoRoot: root,
-          })
-        ) {
-          continue;
-        }
-        scored.push({
-          mPath,
-          man,
-          manScene,
-          mtime: statSync(mPath).mtimeMs || 0,
-        });
-      } catch {
-        /* ignore */
-      }
-    }
-    for (const row of projectSceneRows) {
-      const pick = selectionByScene.get(row.id) || {};
-      let previewPath = null;
-      if (row.ready && row.visual_reference) {
-        previewPath = row.visual_reference.replace(/\\/g, "/");
-      } else if (pick.preview_path) {
-        previewPath = pick.preview_path;
-      }
-      scenes.push({
-        id: row.id,
-        title: row.title,
-        visual_reference: row.visual_reference,
-        ready: row.ready,
-        selected_id: pick.selected_id || null,
-        has_selected_image: Boolean(pick.has_selected_image),
-        marked: Boolean(row.ready || pick.has_selected_image),
-        preview_path: previewPath,
-      });
-    }
-    scored.sort((a, b) => b.mtime - a.mtime);
-    if (sid) {
-      scored.sort((a, b) => {
-        const aHit = a.manScene === sid ? 1 : 0;
-        const bHit = b.manScene === sid ? 1 : 0;
-        if (aHit !== bHit) return bHit - aHit;
-        return b.mtime - a.mtime;
-      });
-    }
-    const best = scored[0];
-    if (best) {
-      selectedId = best.man.selected_id || null;
-      for (const c of best.man.candidates || []) {
-        if (!c || !c.id) continue;
-        const cAbs = String(c.path || "");
-        let cRel = cAbs;
-        if (cAbs) {
-          const abs = path.isAbsolute(cAbs) ? cAbs : path.join(root, cAbs);
-          try {
-            const r = path.relative(root, abs).replace(/\\/g, "/");
-            if (r && !r.startsWith("..")) cRel = r;
-            else if (external?.rootAbs && pathUnderRoot(abs, external.rootAbs)) {
-              cRel = `external:${external.entry?.id || ""}/${path
-                .relative(external.rootAbs, abs)
-                .replace(/\\/g, "/")}`;
-            } else {
-              cRel = abs;
-            }
-          } catch {
-            cRel = abs;
-          }
-        }
-        candidates.push({
-          id: String(c.id),
-          label: c.label || c.id,
-          path: cRel || cAbs,
-          status: c.status,
-        });
-      }
-    }
-    if (!selectedId && globalSelectedId) selectedId = globalSelectedId;
-    let globalPreview = null;
-    if (globalReady && visualReference) {
-      globalPreview = visualReference.replace(/\\/g, "/");
-    } else if (globalPreviewPath) {
-      globalPreview = globalPreviewPath;
-    }
+    const globalRef = String(data.visual_reference || "").trim();
+    const globalReady = Boolean(data.global_ready);
     return {
       ok: true,
-      // Run gate: brief must bind a real visual_reference path (not disk-only selected.png).
-      ready: globalReady || anySceneReady,
-      disk_marked: globalHasSelectedImage || scenes.some((s) => s.marked),
+      ready: Boolean(data.ready),
+      disk_marked: Boolean(data.disk_marked),
       global_ready: globalReady,
-      global_selected_id: globalSelectedId,
-      global_has_selected_image: globalHasSelectedImage,
-      global_preview_path: globalPreview,
-      visual_reference: visualReference,
-      path_shaped: globalCheck.pathOk,
-      file_ok: globalCheck.fileOk,
-      selected_id: selectedId,
+      global_selected_id: data.global_selected_id ?? null,
+      global_has_selected_image: Boolean(data.global_has_selected_image),
+      global_preview_path:
+        data.global_preview_path ?? (globalReady && globalRef ? globalRef : null),
+      visual_reference: globalRef,
+      path_shaped: looksLikeImagePath(globalRef),
+      file_ok: globalReady,
+      selected_id: data.selected_id ?? null,
       scene_id: sid,
-      scenes,
-      candidates,
+      scenes: (Array.isArray(data.scenes) ? data.scenes : []).map((s) => ({
+        id: String(s.id || "").trim(),
+        title: String(s.title || s.id || "").trim(),
+        visual_reference: String(s.visual_reference || "").trim(),
+        ready: Boolean(s.ready),
+        selected_id: s.selected_id ? String(s.selected_id).trim().toLowerCase() : null,
+        has_selected_image: Boolean(s.has_selected_image),
+        marked: Boolean(s.marked),
+        preview_path:
+          s.preview_path ||
+          (s.ready && s.visual_reference ? String(s.visual_reference).trim() : null),
+      })),
+      candidates: [],
     };
   });
 

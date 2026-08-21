@@ -340,6 +340,11 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
         marked = bool(ready or sel["has_selected_image"])
         if marked:
             any_disk_mark = True
+        preview_path: str | None = None
+        if ready and sref:
+            preview_path = sref.replace("\\", "/")
+        elif sel.get("preview_path"):
+            preview_path = str(sel["preview_path"])
         scenes_out.append(
             {
                 "id": sid,
@@ -349,9 +354,15 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
                 "selected_id": sel["selected_id"],
                 "has_selected_image": sel["has_selected_image"],
                 "marked": marked,
+                "preview_path": preview_path,
             }
         )
     brief_bound = brief_has_any_visual_reference(brief_path)
+    global_preview: str | None = None
+    if global_path is not None and global_ref:
+        global_preview = global_ref.replace("\\", "/")
+    elif global_sel.get("preview_path"):
+        global_preview = str(global_sel["preview_path"])
     return {
         "ok": True,
         "brief_path": str(brief_path),
@@ -359,6 +370,7 @@ def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
         "global_ready": global_path is not None,
         "global_selected_id": global_sel["selected_id"],
         "global_has_selected_image": global_sel["has_selected_image"],
+        "global_preview_path": global_preview,
         # Pipeline / run gate: brief must bind at least one visual_reference.
         "ready": brief_bound,
         # Progress UI: disk selected.png / manifest selected_id somewhere.
@@ -382,9 +394,20 @@ def _selection_from_output_dir(output_dir: Path) -> dict[str, Any]:
                 selected_id = text
         except (OSError, json.JSONDecodeError, TypeError, ValueError):
             selected_id = None
+    selected_png = output_dir / "selected.png"
+    preview_path: str | None = None
+    if selected_png.is_file():
+        from project_paths import repo_root as foundry_root
+
+        root = foundry_root()
+        try:
+            preview_path = str(selected_png.relative_to(root)).replace("\\", "/")
+        except ValueError:
+            preview_path = str(selected_png.resolve()).replace("\\", "/")
     return {
         "selected_id": selected_id,
-        "has_selected_image": (output_dir / "selected.png").is_file(),
+        "has_selected_image": selected_png.is_file(),
+        "preview_path": preview_path,
     }
 
 

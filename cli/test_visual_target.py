@@ -1127,6 +1127,44 @@ class TestVisualTarget(unittest.TestCase):
             self.assertFalse(scene["ready"])
             self.assertTrue(scene["marked"])
 
+    def test_status_catalog_shard_visual_reference(self) -> None:
+        """VR on scenes/<id>.json shards must drive ready=true via hydrated brief load."""
+        scene_png = self.tmp_path / "output" / "visual-target" / "main_hub" / "selected.png"
+        scene_png.parent.mkdir(parents=True, exist_ok=True)
+        scene_png.write_bytes(b"\x89PNG\r\n")
+        brief = {
+            "project": {
+                "title": "Catalog VT",
+                "description": "Side-scrolling test.",
+                "art_direction": "Pixel art.",
+                "genre": "side_scroller",
+                "gameplay_loop": "Collect scraps.",
+                "session_goal": "Win.",
+                "viewport": {"width": 1280, "height": 720},
+                "scenes": [
+                    {"id": "main_hub", "title": "主界面", "path": "scenes/main_hub.json"},
+                ],
+            },
+            "assets": [],
+        }
+        brief_path = self.tmp_path / "catalog-brief.json"
+        brief_path.write_text(json.dumps(brief), encoding="utf-8")
+        save_json_shard(
+            self.tmp_path / "scenes" / "main_hub.json",
+            {
+                "id": "main_hub",
+                "title": "主界面",
+                "visual_reference": str(scene_png),
+            },
+        )
+
+        st = visual_target_brief_status(brief_path)
+        self.assertTrue(st["ready"])
+        self.assertFalse(st["global_ready"])
+        hub = next(s for s in st["scenes"] if s["id"] == "main_hub")
+        self.assertTrue(hub["ready"])
+        self.assertEqual(hub["visual_reference"], str(scene_png))
+
     def test_hydrated_catalog_scene_notes_in_vt_context(self) -> None:
         brief = {
             "project": {
