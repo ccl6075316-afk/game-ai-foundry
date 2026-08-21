@@ -153,6 +153,11 @@ class HostRunAssetsTests(unittest.TestCase):
             self.assertEqual(diagnose_mock.call_count, 2)
             self.assertEqual(fix_mock.call_count, 2)
             self.assertEqual(run_mock.call_count, 3)
+            self.assertIsNotNone(result.get("diagnosis"))
+            self.assertEqual(
+                (result.get("diagnosis") or {}).get("failed_count"),
+                1,
+            )
 
     def test_code_heal_cleared_failures_then_rerun(self) -> None:
         """Network/code heal resets tasks; must run_pipeline again, not needs_agent."""

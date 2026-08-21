@@ -121,6 +121,27 @@ class CjkAssembleGuardTests(unittest.TestCase):
                 api_base="https://example.com/v1",
             )
         self.assertIn("Chinese brief text", str(ctx.exception))
+        self.assertEqual(chat.call_count, 3)
+
+    @patch("prompt_craft.chat_text_completion")
+    def test_llm_prose_asset_retries_cjk_then_english(self, chat: object) -> None:
+        chat.side_effect = [
+            '{"prompt": "码头上的红色小船停靠在木质栈桥旁，柔和像素风。"}',
+            '{"prompt": "码头上的红色小船停靠在木质栈桥旁，柔和像素风。"}',
+            '{"prompt": "A red boat at a wooden pier, soft pixel art, side view"}',
+        ]
+        out = craft_asset_prompt(
+            context={
+                "project": {"view": "side"},
+                "asset": {"type": "prop", "content_class": "prop_static"},
+            },
+            model="test",
+            api_key="k",
+            api_base="https://example.com/v1",
+        )
+        self.assertEqual(out["prompt_source"], "llm_prose")
+        self.assertIn("red boat", out["prompt"].lower())
+        self.assertEqual(chat.call_count, 3)
 
     @patch("prompt_craft.chat_text_completion")
     def test_llm_prose_asset_allows_english(self, chat: object) -> None:

@@ -3433,7 +3433,7 @@ export default function App() {
         append("log", "host run-assets（处理失败）…");
         const res = await hostRunAssets(selectedManifest, {
           jobs: 4,
-          runPrompts: false,
+          runPrompts: true,
           autoFix: true,
         });
         const data = res.data as HostRunAssetsResult | undefined;
@@ -3623,7 +3623,12 @@ export default function App() {
         }
 
         let advice = formatPmFitAdvice(hostPayload?.diagnosis || null);
-        if (!advice.headline) {
+        const needFreshDiag =
+          advice.headline === "未能诊断失败原因" ||
+          (!(hostPayload?.diagnosis as { items?: unknown[] } | null)?.items?.length &&
+            !(hostPayload?.diagnosis as { needs_hermes?: unknown[] } | null)?.needs_hermes
+              ?.length);
+        if (needFreshDiag) {
           try {
             const diag = window.gameFactory.pipelineDiagnose
               ? await window.gameFactory.pipelineDiagnose(selectedManifest)

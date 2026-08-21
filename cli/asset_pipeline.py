@@ -161,7 +161,8 @@ def _plan_metadata(
             "requires_background_removal": True,
             "requires_reference_image": False,
             "animation_method": None,
-            "expand_items": True,
+            # Per-item singles are expanded in pipeline_manifest; do not pass
+            # expand_items into PromptPlan (dataclass has no such field).
         }
     if spec.type == AssetType.TEXTURE:
         return _apply_style_img2img_to_meta(

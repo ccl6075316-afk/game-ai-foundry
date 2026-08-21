@@ -2238,6 +2238,8 @@ code {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-height: 0;
+  align-self: stretch;
 }
 
 .settings-panel {
@@ -2583,11 +2585,17 @@ code {
 .board-panel {
   /* inherits .side-panel */
   min-width: 0;
+  /* Whole board scrolls vertically (head + VT + tasks). Avoid per-row
+     overflow-x scrollers — they steal trackpad vertical pans. */
   overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .board-panel > * {
   min-width: 0;
+  flex-shrink: 0;
 }
 
 .vt-board-strip {
@@ -3307,26 +3315,48 @@ code {
 }
 
 .board-panel .panel.board-tasks {
-  overflow: hidden;
+  overflow: visible;
   max-width: 100%;
 }
 
 .board-panel .task-table-scroll {
-  overflow-x: auto;
+  /* No per-row horizontal scroller — that ate vertical trackpad pans. */
+  overflow-x: hidden;
   max-width: 100%;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .board-panel .table {
-  table-layout: auto;
-  width: max-content;
-  min-width: 100%;
+  table-layout: fixed;
+  width: 100%;
+  min-width: 0;
 }
 
 .board-panel .table th,
 .board-panel .table td {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.board-panel .table th:nth-child(1),
+.board-panel .table td:nth-child(1) {
+  width: 2.5rem;
+}
+
+.board-panel .table th:nth-child(3),
+.board-panel .table td:nth-child(3) {
+  width: 4.5rem;
+}
+
+.board-panel .table th:nth-child(4),
+.board-panel .table td:nth-child(4) {
+  width: 5.5rem;
+}
+
+.board-panel .table th:nth-child(5),
+.board-panel .table td:nth-child(5) {
+  width: 4.5rem;
 }
 
 .board-panel .table td.mono {

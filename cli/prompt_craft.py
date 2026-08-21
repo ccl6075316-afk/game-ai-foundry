@@ -584,12 +584,60 @@ def craft_asset_prompt(
     kind: str = "image",
     config: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """prompt-crafter role: structured fields → assembled generation prompt."""
-    user = {
+    """prompt-crafter role: structured fields → assembled generation prompt.
+
+    Retries when the model dumps Chinese brief prose into final prompt fields
+    (Host auto-fix reset+rerun alone cannot fix that flake).
+    """
+    last_cjk: PromptCraftError | None = None
+    max_attempts = 3
+    for attempt in range(max_attempts):
+        try:
+            return _craft_asset_prompt_once(
+                context=context,
+                model=model,
+                api_key=api_key,
+                api_base=api_base,
+                proxy=proxy,
+                kind=kind,
+                config=config,
+                english_only_retry=attempt > 0,
+                retry_attempt=attempt,
+            )
+        except PromptCraftError as exc:
+            if _CJK_BRIEF_BLOCK_MSG not in str(exc) or attempt >= max_attempts - 1:
+                raise
+            last_cjk = exc
+    assert last_cjk is not None
+    raise last_cjk
+
+
+def _craft_asset_prompt_once(
+    *,
+    context: dict[str, Any],
+    model: str,
+    api_key: str,
+    api_base: str,
+    proxy: str | None = None,
+    kind: str = "image",
+    config: dict[str, Any] | None = None,
+    english_only_retry: bool = False,
+    retry_attempt: int = 0,
+) -> dict[str, Any]:
+    """Single LLM attempt for asset prompt craft."""
+    user: dict[str, Any] = {
         "role": PROMPT_CRAFTER_ROLE,
         "task": f"Craft a {kind} generation prompt.",
         "context": context,
     }
+    if english_only_retry:
+        user["hard_constraint"] = (
+            "CRITICAL retry: previous output was REJECTED. "
+            "Every prompt / video_prompt / structured field value must be English prose only. "
+            "Short CJK asset-name tokens are OK; do NOT paste Chinese brief description or art_direction. "
+            f"(attempt {retry_attempt + 1})"
+        )
+        user["output_language"] = "en"
 
     raw = chat_text_completion(
         model=model,
@@ -669,6 +717,7 @@ def craft_asset_prompt(
             raise PromptCraftError(
                 "Animation craft requires non-empty 'video_prompt' in LLM JSON"
             )
+        _raise_if_cjk_prompt_field(video_prompt, allow_short_label=True)
         _attach_animation_video_handoff(
             result,
             video_prompt=video_prompt,

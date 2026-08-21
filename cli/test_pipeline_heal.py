@@ -48,6 +48,25 @@ class PipelineHealTests(unittest.TestCase):
         self.assertEqual(d["pm_fit"], "yes")
         self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
 
+    def test_classify_typeerror_surfaces_exception_line(self) -> None:
+        task = {
+            "id": "kit.prompt.craft",
+            "step": "prompt.craft",
+            "result": {
+                "exit_code": 1,
+                "stderr": (
+                    "\x1b[31mTraceback\x1b[0m (most recent call last):\n"
+                    "  File click/core.py, line 1, in invoke\n"
+                    "TypeError: PromptPlan.__init__() got an unexpected "
+                    "keyword argument 'expand_items'\n"
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "unknown")
+        self.assertIn("expand_items", d["summary"])
+        self.assertIn("TypeError", d["summary"])
+
     def test_classify_validation_needs_hermes(self) -> None:
         task = {
             "id": "hero.image.generate",

@@ -88,6 +88,14 @@ def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+_EXC_LINE_RE = re.compile(r"(?m)^(\w*Error|Exception):\s*(.+)$")
+
+
+def _strip_ansi(text: str) -> str:
+    return _ANSI_RE.sub("", text or "")
+
+
 def _blob(task: dict[str, Any]) -> str:
     result = task.get("result") or {}
     if not isinstance(result, dict):
@@ -98,7 +106,7 @@ def _blob(task: dict[str, Any]) -> str:
         str(result.get("stdout_tail") or ""),
         str(result.get("error") or ""),
     ]
-    return "\n".join(parts)
+    return _strip_ansi("\n".join(parts))
 
 
 def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
@@ -226,6 +234,34 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
+    # Prefer the real exception line over Click traceback noise.
+    exc_summary = ""
+    for match in _EXC_LINE_RE.finditer(blob):
+        exc_summary = f"{match.group(0).strip()}"
+    if not exc_summary:
+        plain = blob.strip()
+        for line in reversed(plain.splitlines()):
+            s = line.strip()
+            if s and not s.startswith("File ") and "site-packages/click" not in s:
+                exc_summary = s
+                break
+    if "unexpected keyword argument" in blob_l or (
+        "typeerror" in blob_l and "promptplan" in blob_l
+    ):
+        return _with_pm_fit(
+            {
+                "task_id": tid,
+                "step": step,
+                "kind": "unknown",
+                "owner": "hermes",
+                "remediation": "triage",
+                "summary": exc_summary[:240]
+                or "PromptPlan/dataclass TypeError — code bug, not config",
+                "cli_hints": [f"pipeline reset --task-id {tid} --cascade"],
+                "stderr_tail": blob[-600:],
+            }
+        )
+
     return _with_pm_fit(
         {
             "task_id": tid,
@@ -233,7 +269,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             "kind": "unknown",
             "owner": "hermes",
             "remediation": "triage",
-            "summary": (blob.strip()[:240] or f"exit {exit_code}"),
+            "summary": (exc_summary[:240] or blob.strip()[:240] or f"exit {exit_code}"),
             "cli_hints": [f"pipeline reset --task-id {tid} --cascade"],
             "stderr_tail": blob[-600:],
         }

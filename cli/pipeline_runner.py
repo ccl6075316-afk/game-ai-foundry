@@ -148,6 +148,18 @@ def is_retryable_network_failure(
     return any(marker in blob for marker in _NETWORK_ERROR_MARKERS)
 
 
+def clip_process_output(text: str, *, limit: int = 2400) -> str:
+    """Keep head+tail so Click tracebacks do not erase the leading ``Error:`` line."""
+    s = (text or "").strip()
+    if len(s) <= limit:
+        return s
+    head = min(900, limit // 3)
+    tail = limit - head - 5
+    if tail < 200:
+        return s[-limit:]
+    return f"{s[:head]}\n…\n{s[-tail:]}"
+
+
 def outcome_from_process(
     task_id: str,
     *,
@@ -169,9 +181,9 @@ def outcome_from_process(
     if parsed is not None:
         result["parsed"] = parsed
     if stderr.strip():
-        result["stderr"] = stderr.strip()[-2000:]
+        result["stderr"] = clip_process_output(stderr)
     if exit_code != 0 and stdout.strip():
-        result["stdout"] = stdout.strip()[-2000:]
+        result["stdout"] = clip_process_output(stdout)
 
     if exit_code == 0:
         return TaskRunOutcome(
@@ -238,8 +250,8 @@ def _run_task_once(
             result={
                 "exit_code": EXIT_TIMEOUT,
                 "error": "timeout",
-                "stdout": stdout[-2000:],
-                "stderr": stderr[-2000:],
+                "stdout": clip_process_output(stdout or "", limit=2000),
+                "stderr": clip_process_output(stderr or "", limit=2000),
             },
             should_pause=True,
             pause_reason=f"Timeout running {task_id}",

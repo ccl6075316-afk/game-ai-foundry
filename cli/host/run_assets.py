@@ -22,6 +22,14 @@ def _run_exit_code(result: PipelineRunResult) -> int:
     return 1
 
 
+def _safe_diagnosis(manifest_path: Path) -> dict[str, Any] | None:
+    """Best-effort diagnose for GUI copy when auto-fix stops."""
+    try:
+        return diagnose_and_heal_file(manifest_path, apply=False)
+    except (ValueError, OSError, SafeCliError):
+        return None
+
+
 def _failure_fingerprints(diagnosis: dict[str, Any]) -> frozenset[tuple[str, str]]:
     items = list(diagnosis.get("items") or [])
     if not items:
@@ -186,9 +194,11 @@ def run_assets(
             "paused": run_result.paused,
             "blocked": run_result.blocked,
             "run_exit_code": _run_exit_code(run_result),
+            "diagnosis": _safe_diagnosis(manifest_path),
         }
 
     stopped_reason = "max_rounds"
+    last_diagnosis: dict[str, Any] | None = None
     while repair_rounds < max_repair_rounds:
         try:
             heal_report = diagnose_and_heal_file(manifest_path, apply=True)
@@ -205,9 +215,12 @@ def run_assets(
                 "blocked": run_result.blocked,
                 "run_exit_code": _run_exit_code(run_result),
                 "error": str(exc),
+                "diagnosis": _safe_diagnosis(manifest_path),
             }
 
         diagnosis = heal_report.get("diagnose") if isinstance(heal_report.get("diagnose"), dict) else heal_report
+        if isinstance(diagnosis, dict):
+            last_diagnosis = diagnosis
         fingerprints = _failure_fingerprints(diagnosis)
         healed = [str(t) for t in (heal_report.get("healed") or []) if t]
         failed_count = int(diagnosis.get("failed_count") or 0)
@@ -308,6 +321,7 @@ def run_assets(
                 "blocked": run_result.blocked,
                 "run_exit_code": _run_exit_code(run_result),
                 "error": str(exc),
+                "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
             }
 
         repair_rounds += 1
@@ -360,4 +374,5 @@ def run_assets(
         "paused": run_result.paused,
         "blocked": run_result.blocked,
         "run_exit_code": _run_exit_code(run_result),
+        "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
     }
