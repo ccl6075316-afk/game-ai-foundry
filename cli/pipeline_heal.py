@@ -204,6 +204,28 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
+    # Prompt craft CJK guard — needs English field regeneration (Hermes)
+    if (
+        "chinese brief text cannot be used" in blob_l
+        or "secondary-generate english" in blob_l
+    ):
+        return _with_pm_fit(
+            {
+                "task_id": tid,
+                "step": step,
+                "kind": "validation",
+                "owner": "hermes",
+                "remediation": "reset_and_recraft_prompt",
+                "summary": (
+                    "Prompt craft CJK guard — regenerate English prompt fields via LLM"
+                ),
+                "cli_hints": [
+                    f"pipeline reset --task-id {tid} --cascade",
+                    "pipeline run --run-prompts --jobs 4",
+                ],
+            }
+        )
+
     return _with_pm_fit(
         {
             "task_id": tid,

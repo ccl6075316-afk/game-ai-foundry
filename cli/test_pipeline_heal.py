@@ -8,6 +8,7 @@ from pathlib import Path
 
 from pipeline_heal import classify_failed_task, diagnose_manifest, heal_manifest
 from pipeline_manifest import build_manifest, record_task, tasks_list
+from prompt_craft import _CJK_BRIEF_BLOCK_MSG
 from test_fixtures import EXAMPLE_BRIEF
 
 
@@ -30,6 +31,22 @@ class PipelineHealTests(unittest.TestCase):
         self.assertTrue(
             any("size_multiple" in h for h in d["cli_hints"]),
         )
+
+    def test_classify_cjk_prompt_craft_as_validation(self) -> None:
+        task = {
+            "id": "hero.prompt.craft",
+            "step": "prompt.craft",
+            "result": {
+                "exit_code": 1,
+                "stderr": _CJK_BRIEF_BLOCK_MSG,
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "validation")
+        self.assertEqual(d["remediation"], "reset_and_recraft_prompt")
+        self.assertEqual(d["owner"], "hermes")
+        self.assertEqual(d["pm_fit"], "yes")
+        self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
 
     def test_classify_validation_needs_hermes(self) -> None:
         task = {
