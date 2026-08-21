@@ -9,7 +9,7 @@
 - **Source Of Truth Until**：落地后以 CLI/GUI 为准
 - **Confirmed By**：user「开始吧」（2026-07-22）— 接受交接文档推荐默认（Spike 选项 1）
 - **Change Log**：自 Spike / handoff 收敛为配置层；不做 ACP / app-server；code 已落地
-- **Requirements Source**：[`docs/superpowers/handoffs/2026-07-22-next-ai-executor-safety-config.md`](../../superpowers/handoffs/2026-07-22-next-ai-executor-safety-config.md)；[`docs/superpowers/specs/2026-07-22-executor-permission-b2-spike.md`](../../superpowers/specs/2026-07-22-executor-permission-b2-spike.md)
+- **Requirements Source**：[`docs/superpowers/specs/2026-07-22-executor-permission-b2-spike.md`](../../superpowers/specs/2026-07-22-executor-permission-b2-spike.md)；[`docs/superpowers/specs/2026-07-22-executor-safety-config-design.md`](../../superpowers/specs/2026-07-22-executor-safety-config-design.md)
 - **Background Inputs**：B v1 Pi 工具权限 GUI；`cli/agent_turn.py` one-shot + capture_output
 - **Compounded Knowledge**：not yet compounded
 

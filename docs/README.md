@@ -2,106 +2,54 @@
 
 各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
 
-## 当前版本要点（2026-08-13）
+## 当前版本（2026-08）
 
-- **v0.2.2**：[`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md) — 相关分册提示 + soft-focus 安全写 + related 完整性
-- **v0.2.1**：[`RELEASE-NOTES-0.2.1.md`](RELEASE-NOTES-0.2.1.md) — Brief 目录分册 + 文档焦点预览 + 应用内媒体灯箱
-- **v0.2.0**：[`RELEASE-NOTES-0.2.0.md`](RELEASE-NOTES-0.2.0.md) — 多场景北极星加固 + 退出杀进程 / 生图重试 / 并行生成
-- **v0.1.10**：[`RELEASE-NOTES-0.1.10.md`](RELEASE-NOTES-0.1.10.md) — 环境「下载镜像」开关（国内加速 GitHub 工具链）
-- **v0.1.9**：[`RELEASE-NOTES-0.1.9.md`](RELEASE-NOTES-0.1.9.md) — 制作审查去重 + 顾问同事 + 聊天回写钉会话
-- **v0.1.8**：[`RELEASE-NOTES-0.1.8.md`](RELEASE-NOTES-0.1.8.md) — Codex 对话内批准卡 + Windows spawn / IT Python 误诊修复
-- **v0.1.7**：[`RELEASE-NOTES-0.1.7.md`](RELEASE-NOTES-0.1.7.md) — 纯净机 Codex 无需 npm + Release 内嵌 Pi 依赖修复
-- **v0.1.6**：[`RELEASE-NOTES-0.1.6.md`](RELEASE-NOTES-0.1.6.md) — Critic 缺口卡落盘 + 多场景北极星 + IT 换执行器 + 串工程/权限硬化
-- **v0.1.5**：[`RELEASE-NOTES-0.1.5.md`](RELEASE-NOTES-0.1.5.md) — scenes/systems/ui_panels + 文档栏恢复 + Pi 优先系统 Node
-- **v0.1.4**：[`RELEASE-NOTES-0.1.4.md`](RELEASE-NOTES-0.1.4.md) — 纯净机开箱（可迁移 Python）+ 审查回填 + IT 实例配置
-- **v0.1.3**：[`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) — 修复安装包启动崩溃（electron-updater ESM）
-- **v0.1.2**：[`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) — Windows 自动更新安装包 + Brief 定点补丁
-- **v0.1.1**：[`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) — Win NSIS 自动更新能力 / 对话停止 / 侧栏拖宽（Mac zip）
-- **v0.1.0**：[`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) — IT 家庭运维 / 外置工程 / 设置全页 / Brief 补全
-- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)
-- **GUI 主路径**：同事（策划 / 项目经理 / 程序员 / **IT**，可多实例）
-- **Brief**：策划岗 `brief chat` → `projects/<slug>/brief.json`（或外置根）；北极星图在策划侧定稿；文档栏预览中文分册
-- **设置**：顶栏进**全页**（Provider / Agent / 本机 / 环境 / 指南）；右侧栏仅 **文档 | 看板 | 资产**（可拖宽）
-- **Provider**：可自建 OpenAI 兼容账号；文/图模型可拉 `/models`；生图主档 + 批量档；详见 [`GUI-CONFIG.md`](GUI-CONFIG.md)
-- **IT**：默认可信任本会话跑 `pipeline run`；环境 / 草稿同步 / 看板诊断
-- **Release / 更新**：Windows 推荐 `*-setup.exe`（自动更新）；macOS zip 手动换包 — [`RELEASE.md`](RELEASE.md)
-- **资产审查**：侧栏 **资产**（`/assets`）读 `assets-manifest`；行内采纳 / 重生成 / 本地替换（软 `review`）
-- **layout**：`production derive` → scaffold/assemble 写 `World` props；DocsPreview 只读 `view` / `content_class`
-- **最低开工**：LLM Provider Key → 策划保存 Brief + 北极星 → 项目经理 `/plan` `/run`
-- **推荐**：再配 Hermes / Cursor / Codex 执行器（②③ Agent 依赖）；设置 → Agent 配工具预设，雇人/对话配实例
-- **工具链**：FFmpeg、Godot、.NET 启动自动安装；rembg 打包自带；检测失败可复制给支持
-- **外部 AI**：读 [`TOOLS.md`](TOOLS.md) 代操 Foundry
+- **已发布最新**：[`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md)（相关分册 / soft-focus / related 完整性）
+- **同系列**：[`0.2.1`](RELEASE-NOTES-0.2.1.md) · [`0.2.0`](RELEASE-NOTES-0.2.0.md)
+- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)（含 Host 桥接收口）
+- **更早版本摘要**：[`archive/RELEASE-NOTES-LEGACY.md`](archive/RELEASE-NOTES-LEGACY.md)（v0.0–v0.1，独立文件已删）
+- **打包 / 更新**：[`RELEASE.md`](RELEASE.md)
+
+### 产品主路径（一句话）
+
+同事（策划 / 项目经理 / 程序员 / IT）→ Brief + 北极星 → `host run-assets --auto-fix` / GUI「运行资产生成」→ 资产审查 → Godot。工具与排错见 [`TOOLS.md`](TOOLS.md)。
+
 ---
 
-| 文档 | 读者 | 侧重 | 不写什么 |
-|------|------|------|----------|
-| [`../README.md`](../README.md) | 新人 / GitHub | 功能一览、Quick Start、前置依赖 | 字段 schema、角色边界 |
-| [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host / 全角色 | **设计 vs 施工**、Change Request | CLI 命令、里程碑 |
-| [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | Host / 维护者 | **施工体系**：production、壳、验收、进度 | brief 字段全文 |
-| [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent（中文） | **CLI 速查**、brief 字段、抠图铁律、**§1.2 资产审查表** | 产品方法论、进度表 |
-| [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) | 下一任 AI / 维护者 | **三层架构、目标模式、重构 P0–P4、prompt/单条重试** | CLI 字段大全 |
-| [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) | 下一任 AI / 维护者 | **功能归属**：CLI / 桥接 / GUI；要改 / 降级 / 模块化 | 产品方法论 |
-| [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md) | 实现 Agent | **Host 收口可执行 Plan**（retry / auto-fix / GUI / VT 单源） | 业务功能 |
-| [`solutions/reviews/2026-08-04-whole-project-review-ledger.md`](solutions/reviews/2026-08-04-whole-project-review-ledger.md) | 接手 / 再 review | **已修/接受/延期** 账本；完成优先立场 | 当未处理 Critical 重报 Accepted 项 |
-| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排编排 | **用户可见同事 + pipeline 内部角色** | brief 字段全文 |
-| [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex 用户 | skill 安装、terminal、`pty=true` | brief schema |
-| [`TOOLS.md`](TOOLS.md) | **外部 AI Agent** / 运维 | **工具配置、功能、纠错**、JSON 探测 | brief 字段、设计方法论 |
-| [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | **AI 公司前台**：策划 / 项目经理 / 程序员（可多实例）；文件总线；用户为决策人 | pipeline 命令细节 |
-| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI / Release 用户 | **设置全页**：Provider 主从账号 / Agent 预设 / 本机 / 环境 / 指南；雇人与对话实例 | CLI 大全 |
-| [`RELEASE.md`](RELEASE.md) | 发布 / 维护者 | 打包、Windows 自动更新、纯净机首次运行 | brief 字段 |
-| [`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md) | 用户 | **v0.2.2** related 提示 / soft-focus 写 / related_error | — |
-| [`RELEASE-NOTES-0.2.1.md`](RELEASE-NOTES-0.2.1.md) | 用户 | **v0.2.1** Brief 分册 / 文档焦点 / 媒体灯箱 | — |
-| [`RELEASE-NOTES-0.2.0.md`](RELEASE-NOTES-0.2.0.md) | 用户 | **v0.2.0** 北极星加固 / 退出杀进程 / 生图重试 | — |
-| [`RELEASE-NOTES-0.1.10.md`](RELEASE-NOTES-0.1.10.md) | 用户 | **v0.1.10** 下载镜像开关 | — |
-| [`RELEASE-NOTES-0.1.9.md`](RELEASE-NOTES-0.1.9.md) | 用户 | **v0.1.9** 制作审查去重 / 顾问 / 钉会话 | — |
-| [`RELEASE-NOTES-0.1.8.md`](RELEASE-NOTES-0.1.8.md) | 用户 | **v0.1.8** 批准卡 / spawn / IT 误诊 | — |
-| [`RELEASE-NOTES-0.1.7.md`](RELEASE-NOTES-0.1.7.md) | 用户 | **v0.1.7** Codex 无 npm / Pi afterPack | — |
-| [`RELEASE-NOTES-0.1.6.md`](RELEASE-NOTES-0.1.6.md) | 用户 | **v0.1.6** Critic 缺口卡 / 多场景北极星 / IT 执行器 | — |
-| [`RELEASE-NOTES-0.1.5.md`](RELEASE-NOTES-0.1.5.md) | 用户 | v0.1.5 scenes/systems / 文档栏 / Pi Node | — |
-| [`RELEASE-NOTES-0.1.4.md`](RELEASE-NOTES-0.1.4.md) | 用户 | **v0.1.4** 纯净机 Python / 审查回填 / IT 实例 | — |
-| [`RELEASE-NOTES-0.1.3.md`](RELEASE-NOTES-0.1.3.md) | 用户 | v0.1.3 修复 setup 启动崩溃 | — |
-| [`RELEASE-NOTES-0.1.2.md`](RELEASE-NOTES-0.1.2.md) | 用户 | v0.1.2 Win 自动更新包 / Brief 补丁 | — |
-| [`RELEASE-NOTES-0.1.1.md`](RELEASE-NOTES-0.1.1.md) | 用户 | v0.1.1 Win 自动更新能力 / 停止对话 / 侧栏拖宽 | — |
-| [`RELEASE-NOTES-0.1.0.md`](RELEASE-NOTES-0.1.0.md) | 用户 | **v0.1.0** IT / 外置工程 / 设置全页 | — |
-| [`RELEASE-NOTES-0.0.8.md`](RELEASE-NOTES-0.0.8.md) | 用户 | v0.0.8 DeepSeek 修复 / 滚动 | — |
-| [`RELEASE-NOTES-0.0.7.md`](RELEASE-NOTES-0.0.7.md) | 用户 | v0.0.7 类型化出图 / 审图 / layout | — |
-| [`RELEASE-NOTES-0.0.6.md`](RELEASE-NOTES-0.0.6.md) | 用户 | v0.0.6 工程隔离与北极星 | — |
-| [`RELEASE-NOTES-0.0.5.md`](RELEASE-NOTES-0.0.5.md) | 用户 | v0.0.5 Bugfix | — |
-| [`RELEASE-NOTES-0.0.3.md`](RELEASE-NOTES-0.0.3.md) | 用户 | v0.0.3 construction harness | — |
-| [`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md) | 维护者 | **下一版草稿** | — |
-| [`superpowers/specs/2026-07-24-asset-review-table-design.md`](superpowers/specs/2026-07-24-asset-review-table-design.md) | 维护者 | **资产审查表** Spec（已落地） | — |
-| [`superpowers/specs/2026-08-10-document-focus-and-stable-ids.md`](superpowers/specs/2026-08-10-document-focus-and-stable-ids.md) | 维护者 | **文档 focus / 稳定 id**（定位宿主钉、模型改 focus 内） | 分册 + 策划读闭环 |
-| [`superpowers/specs/2026-08-10-brief-catalog-shards-design.md`](superpowers/specs/2026-08-10-brief-catalog-shards-design.md) | 维护者 | **Brief 目录 + 分册** | focus / search |
-| [`superpowers/specs/2026-07-19-asset-english-id-design.md`](superpowers/specs/2026-07-19-asset-english-id-design.md) | 维护者 | 资产英文 `id`（路径） | — |
-| [`superpowers/specs/2026-07-20-style-group-alignment-design.md`](superpowers/specs/2026-07-20-style-group-alignment-design.md) | 维护者 | **同族风格对齐**（草案） | 实现细节 |
-| [`superpowers/specs/2026-07-20-executor-storage-it-design.md`](superpowers/specs/2026-07-20-executor-storage-it-design.md) | 维护者 | **Pi / 存储 / IT 角色**（已定） | 实现代码 |
-| [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | **进度、里程碑 %** | 命令复制块 |
-| [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | **`pipeline run` 阶段** | GUI |
-| [`../resources/skills/tester/`](../resources/skills/tester/) | Tester | **截图 + 视觉 QA** | brief 字段 |
+| 文档 | 读者 | 侧重 |
+|------|------|------|
+| [`../README.md`](../README.md) | 新人 / GitHub | 功能一览、Quick Start |
+| [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent | CLI 速查、brief、抠图、资产审查 |
+| [`TOOLS.md`](TOOLS.md) | 外部 AI / 运维 | 配置、探测、纠错 |
+| [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) | 维护者 / 下一任 AI | 三层架构、目标模式、P0–P4 |
+| [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) | 维护者 | CLI / Host / GUI 归属 |
+| [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md) | 实现 Agent | Host 收口 Plan（已执行） |
+| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排 | 用户可见同事 vs pipeline 内部角色 |
+| [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | AI 公司前台心智 |
+| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI 用户 | 设置全页、Provider、生图双档 |
+| [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host | 设计 vs 施工 |
+| [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | 维护者 | production / 验收 / 进度 |
+| [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex | skill / terminal |
+| [`solutions/reviews/2026-08-04-whole-project-review-ledger.md`](solutions/reviews/2026-08-04-whole-project-review-ledger.md) | 再 review | Fixed / Accepted / Deferred 账本 |
+| [`archive/`](archive/) | 考古 | 旧 Release 摘要 |
+| [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | 里程碑进度 |
+| [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | `pipeline run` 阶段 |
+
+过程史料（默认不读）：`docs/anvil/brainstorms|plans`（已执行的可参考 Resume）、`docs/superpowers/`、`docs/solutions/failures`。
 
 ## 读法建议
 
 ```text
-新人 30 秒        → README（功能表 + Quick Start）
+新人 30 秒        → 仓库 README
 要跑通一条线       → AI-HANDOFF §5–§6
-要架构 / 重构交接   → ARCHITECTURE-REFACTOR-HANDOFF
-要功能归属总表       → ARCHITECTURE-LAYER-INVENTORY
-要动手重构 Host      → anvil/plans/2026-08-20-host-layer-refactor-plan
-要配 GUI          → GUI-CONFIG（含网络代理 / 生图双档）
-要审资产图         → AI-HANDOFF §1.2 · GUI 侧栏「资产」/ `/assets`
-要配工具 / 排错    → TOOLS.md
-外部 AI 代操       → TOOLS.md §2、§8
-要理解分工         → AGENT-ROUTING
-要定施工架构       → CONSTRUCTION-SYSTEM
-主对话 / AI 公司前台  → HOST-CHAT-PRODUCT（策划 · 项目经理 · 程序员）
-要用 Hermes        → HERMES-CODEX
-Codex 会话         → AGENTS.md
-看进度             → ROADMAP
-发 Release         → RELEASE + RELEASE-NOTES-0.2.0 · 未发布草稿见 UNRELEASED
+要架构 / Host      → ARCHITECTURE-REFACTOR-HANDOFF + LAYER-INVENTORY
+要配 GUI / 工具    → GUI-CONFIG · TOOLS
+要理解同事分工     → AGENT-ROUTING · HOST-CHAT-PRODUCT
+发 Release         → RELEASE + 0.2.2 · 草稿 UNRELEASED · 更早见 archive
 ```
 
-## 设计 vs 施工（一句话）
+## 设计 vs 施工
 
-- **设计（Design）**：玩家体验、胜负、验收标准 → **ITERATIVE §1.1**；今天嵌在 `brief.project`
-- **施工（Production）**：资产表、尺寸、Godot 任务 → **ITERATIVE §1.2**；今天 = `brief.json`（`brief export`）
-- **怎么敲命令**：**AI-HANDOFF** + **TOOLS**，不是 ITERATIVE
+- **设计**：玩家体验、胜负 → ITERATIVE §1.1（`brief.project`）
+- **施工**：资产表、Godot 任务 → ITERATIVE §1.2
+- **命令**：AI-HANDOFF + TOOLS，不是 ITERATIVE

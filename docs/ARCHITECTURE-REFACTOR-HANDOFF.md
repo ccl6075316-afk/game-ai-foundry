@@ -159,8 +159,8 @@ pipeline run --manifest <manifest> --jobs 4 --run-prompts
 **仍可选 follow-up**
 
 - `host run-assets` 日志流式输出（现同步版）
-- `AssetReviewPanel` 独立「重跑此资产」入口（看板/TaskList 已接）
-
+- P3：`App.tsx` 编排函数进一步迁出 / 删除 legacy `attemptPipelineAutoRepair`（Host 常驻后）
+- `test_visual_target` generate 用例与中文 brief / `craft=False` 对齐（既有债）
 ---
 
 ## 8. 推荐重构优先级（给下一任 AI）
@@ -200,7 +200,7 @@ pipeline run --manifest <manifest> --jobs 4 --run-prompts
 
 1. 读本文 + [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) + [`AI-HANDOFF.md`](AI-HANDOFF.md) §0–1 + [`resources/skills/orchestrator/product-host.md`](../resources/skills/orchestrator/product-host.md) 目标模式节。
 2. 在 **`projects/fishing-2d`** 上试跑：`host run-assets --auto-fix` 或 GUI「运行资产生成」→ validation 失败应自动续跑。
-3. **Host Plan 已完成**；可选 follow-up：`host run-assets` 流式日志、`AssetReviewPanel` retry-asset、`App.tsx` P3 瘦身。
+3. **Host Plan 已完成**；看板/资产「重跑」已接 `hostRetryAsset`。可选：流式日志、`App.tsx` P3 瘦身、VT generate 测试债。
 4. **不要**先删 prompt_craft 或 weaken image validate。
 
 ---

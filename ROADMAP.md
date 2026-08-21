@@ -18,10 +18,11 @@ Orchestrated by **Agent + Skill + `gamefactory` CLI** (Hermes / Cursor / Codex v
 
 ---
 
-## Current Status (2026-07-30)
+## Current Status (2026-08)
 
-> **v0.1.4 可用边界** → [`docs/RELEASE-NOTES-0.1.4.md`](docs/RELEASE-NOTES-0.1.4.md)
-> 收：Windows setup 自动更新包、Brief 定点补丁、对话停止、侧栏拖宽。不收：视觉硬门禁、macOS 应用内更新。
+> **已发布最新** → [`docs/RELEASE-NOTES-0.2.2.md`](docs/RELEASE-NOTES-0.2.2.md)  
+> **下一版草稿** → [`docs/RELEASE-NOTES-UNRELEASED.md`](docs/RELEASE-NOTES-UNRELEASED.md)（Host 桥接等）  
+> **更早 v0.0–v0.1** → [`docs/archive/RELEASE-NOTES-LEGACY.md`](docs/archive/RELEASE-NOTES-LEGACY.md)
 
 ### ✅ Done
 

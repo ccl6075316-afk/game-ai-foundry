@@ -304,8 +304,9 @@ T6 文档 / 角色降级（AGENT-ROUTING + skills 短注）
 
 ## Resume / 下一刀
 
-**Plan 已完成**（T1–T6）。可选 follow-up：
+**Plan 已完成**（T1–T6）。Follow-up 进度：
 
-- `host run-assets` 流式日志（现 GUI 同步 spawn）
-- `AssetReviewPanel` 独立「重跑此资产」按钮
-- P3：`App.tsx` 编排函数进一步迁出 / 删除
+- [x] 看板 / 资产「重跑」接 `hostRetryAsset`；PM 成功文案对齐 `reportRunSuccess`
+- [ ] `host run-assets` 流式日志
+- [ ] P3：`App.tsx` 进一步删 legacy auto-repair
+- [ ] `test_visual_target` generate × CJK/`craft=False`

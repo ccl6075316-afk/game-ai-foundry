@@ -53,7 +53,7 @@ CLI 引擎（brief / prompt_craft / pipeline / image / godot …）
 | Safe 串跑白名单 | `cli/safe_cli.py` + Host 内部 | Host 统一 | ✅ 放行 `host *` |
 | Agent 回合 / prompt / dispatch | `agent_turn.py` + Electron ACP | Host 策略 | 部分 |
 | PM / IT ops 注入 | `pmOpsContext.ts` / `itOpsContext.ts` | 可并进 Host prompt builder | 待续 |
-| 单资产 suggest-retry | `cli/host/retry_asset.py` | `host retry-asset` | ✅ T2/T4 |
+| 单资产 suggest-retry | `cli/host/retry_asset.py` + 看板/资产「重跑」 | `host retry-asset` | ✅ T2/T4 + UI |
 | VT status 分册 hydrate | CLI `brief visual-target status` | **只留 CLI** | ✅ T5（删 Electron hydrate） |
 
 ---
