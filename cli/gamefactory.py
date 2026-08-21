@@ -949,6 +949,10 @@ from pipeline_cmds import pipeline_group  # noqa: E402
 
 cli.add_command(pipeline_group)
 
+from host_cmds import host_group  # noqa: E402
+
+cli.add_command(host_group)
+
 from config_cmds import config_group  # noqa: E402
 
 cli.add_command(config_group)
