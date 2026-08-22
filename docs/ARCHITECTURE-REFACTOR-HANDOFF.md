@@ -3,7 +3,7 @@
 > **读者**：下一任接手的 AI / 维护者。  
 > **背景**：用户与 Agent 讨论「目标模式、GUI/CLI 边界、prompt-crafter、单条重试、是否重构」的结论汇总。  
 > **侧重**：现状、已实现、待做、优先级；**不重复** [`AI-HANDOFF.md`](AI-HANDOFF.md) 命令大全。  
-> **姊妹**：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)（**功能归属总表**）· [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)（**可执行重构 Plan**）· [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) · [`AGENT-ROUTING.md`](AGENT-ROUTING.md) · [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)
+> **姊妹**：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)（**功能归属总表**）· [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)（Host 已执行）· [`anvil/plans/2026-08-23-conversation-handoff-plan.md`](anvil/plans/2026-08-23-conversation-handoff-plan.md)（**本次对话总 Plan**）· [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) · [`AGENT-ROUTING.md`](AGENT-ROUTING.md) · [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)
 
 ---
 

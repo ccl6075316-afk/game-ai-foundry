@@ -24,6 +24,7 @@
 | [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) | 维护者 / 下一任 AI | 三层架构、目标模式、P0–P4 |
 | [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) | 维护者 | CLI / Host / GUI 归属 |
 | [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md) | 实现 Agent | Host 收口 Plan（已执行） |
+| [`anvil/plans/2026-08-23-conversation-handoff-plan.md`](anvil/plans/2026-08-23-conversation-handoff-plan.md) | 实现 Agent | **本次对话总 Plan**（尺寸 v2、fishing 迁移） |
 | [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排 | 用户可见同事 vs pipeline 内部角色 |
 | [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | AI 公司前台心智 |
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI 用户 | 设置全页、Provider、生图双档 |
@@ -42,6 +43,7 @@
 新人 30 秒        → 仓库 README
 要跑通一条线       → AI-HANDOFF §5–§6
 要架构 / Host      → ARCHITECTURE-REFACTOR-HANDOFF + LAYER-INVENTORY
+要实施总清单       → anvil/plans/2026-08-23-conversation-handoff-plan
 要配 GUI / 工具    → GUI-CONFIG · TOOLS
 要理解同事分工     → AGENT-ROUTING · HOST-CHAT-PRODUCT
 发 Release         → RELEASE + 0.2.2 · 草稿 UNRELEASED · 更早见 archive

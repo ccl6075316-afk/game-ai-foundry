@@ -14,5 +14,6 @@
 - **目标模式**：运行资产生成失败 → 自动 diagnose/heal/串跑 fix_commands → 必要时 PM Agent → 续跑（GUI）
 - **ACP 收口**：全角色 `agent prompt`；`record-turn` 应用 dispatch（等同 `agent turn` 落盘）
 - 架构与重构交接：[`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md)
+- **本次对话总 Plan（尺寸 v2 + 目标模式衔接）**：[`anvil/plans/2026-08-23-conversation-handoff-plan.md`](anvil/plans/2026-08-23-conversation-handoff-plan.md)
 - 三层功能归属清单：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)
 - Host 桥接层收口 Plan（已执行）：[`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)
