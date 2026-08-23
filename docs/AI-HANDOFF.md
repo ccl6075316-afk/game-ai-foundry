@@ -180,19 +180,47 @@ game-ai-foundry/
 
 旧 brief 无此字段 → 行为与改前相同。示例见 [`resources/style-group-img2img.example.json`](../resources/style-group-img2img.example.json)。
 
-#### 尺寸契约（godogen ASSETS.md Size 列）
+#### 尺寸契约 v2（generation / display / runtime scale）
 
-**权威字段**：`assets[].display_size: { width, height }` = 在 `project.viewport` 里**看起来多大**（游戏内像素）。
+三层分离，勿混用：
+
+| 层级 | 字段 | 含义 |
+|------|------|------|
+| API 出图 | `generation_size` 或 plan `image_size` | 生图请求分辨率（可大于游戏内尺寸） |
+| 游戏内 canonical | `display_size` 或 **derive** | assemble 缩放到此；Godot 默认 scale=1 |
+| 个体差 / 同图多处 | Godot `scale` / `layout.placements[].scale` | 钓获长度、水族箱随机、一图多处 — **不写 brief** |
+
+**derive display**（物种间比例）：
+
+```json
+"project": {
+  "size_baseline": {
+    "asset_id": "char_barramundi",
+    "real_length_cm": 80,
+    "display_size": { "width": 213, "height": 120 }
+  }
+},
+"assets": [{
+  "id": "char_bluegill",
+  "real_length_cm": 19,
+  "aspect_ratio": "16:9",
+  "generation_size": { "width": 1920, "height": 1080 }
+}]
+```
+
+`display = baseline.display × (asset.real_length_cm / baseline.real_length_cm)`，宽按 `aspect_ratio` 拆。**无** `display_size` 时 export 仍可通过（derive 有效即可）。
+
+可选资产字段：`real_length_cm`、`real_length_max_cm`、`size_source`（`manual` / `web`）、`generation_size`。
+
+**权威字段（legacy）**：`assets[].display_size` = 在 `project.viewport` 里**看起来多大**（游戏内像素）。兼容 `"128x128 px"` 字符串 parse。
 
 | 层级 | 字段 | 含义 |
 |------|------|------|
 | 北极星 | `visual_reference` | 整屏参考**图路径**（构图 + 物体屏上比例；风格文案写 `art_direction`） |
-| 游戏内 | `display_size` | 玩家眼里多大 → assemble **缩放到此**，Godot scale=1 |
-| 生成 | handoff `image_size` | API 出图分辨率（按 display 推导，勿手填） |
+| 游戏内 | `display_size` 或 derive | 玩家眼里多大 → assemble **缩放到此**，Godot scale=1 |
+| 生成 | `generation_size` / handoff `image_size` | API 出图分辨率（character 按 `aspect_ratio`，非默认方图） |
 
-兼容旧 brief：`"128x128 px"` 字符串仍可 parse。
-
-**校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → `display_size` 必须一致。
+**校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → **effective display** 必须一致（含 derive）。
 
 #### 风格组（`style_group` img2img）
 
@@ -255,7 +283,7 @@ game-ai-foundry/
 
 ### `assets[]` 每项
 
-`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`, `generate_method`；可选 `scene_ids` / `system_ids`（弱引用归类）；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
+`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`（或 `real_length_cm` + `project.size_baseline` derive）, `aspect_ratio`, `generation_size`（可选）, `real_length_cm` / `real_length_max_cm` / `size_source`（鱼类等物种比例）, `generate_method`；可选 `scene_ids` / `system_ids`（弱引用归类）；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
 
 **`type: icon_kit`**：`items[]` 必填。每项为字符串，或  
 `{id, label?, usage?, usage_description?}`（文件键 slug 跟 `id`；item `usage` 进 `production.collectible_items`）。  

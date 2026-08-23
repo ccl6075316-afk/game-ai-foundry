@@ -917,12 +917,14 @@ def register_brief_commands(cli_group: click.Group) -> None:
         """Check that a brief is complete — the frozen contract for all downstream steps."""
         from brief import audit_brief_for_export
         from brief_shards import audit_intro_budgets
+        from asset_sizing import audit_brief_size_warnings
 
         try:
             data = load_brief_document(brief_path)
             warnings = audit_intro_budgets(data)
             project, assets = load_brief(brief_path)
             graphs = parse_animation_graphs(data)
+            warnings.extend(audit_brief_size_warnings(project, assets))
             gaps = audit_brief_for_export(
                 project,
                 assets,

@@ -39,6 +39,20 @@ class GodotLayoutTest(unittest.TestCase):
         self.assertIn('[node name="MossyRock" type="Sprite2D" parent="World"]', joined)
         self.assertEqual(next_id, 12)
 
+    def test_build_fragments_with_scale(self) -> None:
+        layout = {
+            "placements": [
+                {"asset": "crate", "xy_norm": [0.5, 0.5], "scale": 0.5},
+            ],
+        }
+        _, nodes, _ = build_layout_world_fragments(
+            layout,
+            {"width": 1280, "height": 720},
+            ext_id_start=10,
+        )
+        joined = "\n".join(nodes)
+        self.assertIn("scale = Vector2(0.5, 0.5)", joined)
+
     def test_sanitize_and_res_path(self) -> None:
         self.assertEqual(sanitize_prop_node_name("wooden_crate"), "WoodenCrate")
         self.assertEqual(prop_texture_res_path("wooden_crate"), "assets/props/wooden_crate_nobg.png")

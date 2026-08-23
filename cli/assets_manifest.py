@@ -109,6 +109,7 @@ def _utc_now() -> str:
 def _brief_asset_entry(spec: AssetSpec) -> dict[str, Any]:
     loop = resolve_animation_loop(spec)
     entry: dict[str, Any] = {
+        "id": spec.id or "",
         "name": spec.name,
         "type": spec.type.value,
         "usage": spec.usage,

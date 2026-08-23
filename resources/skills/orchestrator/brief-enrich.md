@@ -25,7 +25,7 @@
 1. **玩家可见流程**：菜单/主循环/HUD/反馈/过渡（若有则写清顺序与点击效果）。`project.description` 只保留**短**产品总览；场景串法写 `gameplay_loop`（可短）；有进出的屏写入可选 `project.scenes[]`（`id` 英文 slug + **`title` 中文展示名**，可选 `summary` / `ui_panel_ids`）；跨场景规则（时间、经济、图鉴等）写入可选 `project.systems[]`（同样：`id` 英文、`title` 中文）——**不要**把系统规则全书堆进 `description`。若已有条目的 `title` 是纯英文短语（如 `Fishing Combat`），加厚时可顺手改成中文展示名，**不要**为此整表重写。
 2. **呈现与 UI**：张力条、拉线、计数器等信息**在哪显示、长什么样**；若对话或原文已涉及**具体 UI 面板**（菜单、装备、背包、地图、HUD 区块等），在 `draft_brief.project.ui_panels[]` 中**分条**列出（每项 `id` 英文 + **`title` 中文**，可选 `kind` / `anchor` / `slots` / `notes`）。`slots` 只用**短字符串列表**（如 `["体力条", "小地图"]`），不要把整页布局写进 `notes` 或 `description`。用户未提过面板 → **不要**编造整屏 UI，可省略 `ui_panels`。**不要**输出或要求生成 `ui-wireframe.md`（示意仅用户点击后才写盘）。
 3. **参数名清单**：列出**需要哪些数值/表**（参数名 + 含义 + 出现在哪）；**具体数字可省略**（留给 production/tuning）
-4. **资产候选**：与加厚内容相关的 `asset_proposals[]`（新贴图/动画/UI 等）；若无新资产需求可返回空数组并在 summary 说明。资产可带可选 `scene_ids` / `system_ids` 归类。
+4. **资产候选**：与加厚内容相关的 `asset_proposals[]`（新贴图/动画/UI 等）；若无新资产需求可返回空数组并在 summary 说明。资产可带可选 `scene_ids` / `system_ids` 归类。**鱼类等可动物种**：建议填 `real_length_cm`（成年常见体长 cm）与 `aspect_ratio`（如 `16:9`）；屏上像素由 `project.size_baseline` + 比例 derive，勿全员同一 `display_size` 档位。可选 `generation_size`（如 1920×1080）生大用小；个体钓获大小用运行时 scale，不写 brief。
 
 保留原有 `project` 意图与已有资产；在原有结构上**加厚**，不要无故推翻玩法。
 

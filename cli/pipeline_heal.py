@@ -26,6 +26,7 @@ _PM_FIT: dict[str, tuple[str, str]] = {
     "config_size": ("yes", "改配置（尺寸倍数）即可，适合项目经理直接处理"),
     "config_proxy": ("yes", "改代理配置即可，适合项目经理直接处理"),
     "validation": ("yes", "图校验/文案问题，适合项目经理复位并重跑文案"),
+    "billing": ("no", "API 余额不足：请给 OpenRouter/Provider 充值后续跑，不必找项目经理"),
     "unknown": ("maybe", "原因不清：可先让项目经理分诊；若像内核/玩法 bug 再另处理"),
     "network": ("no", "瞬时网络错误：自动复位后重跑即可，不必找项目经理"),
     "missing_file": ("no", "缺产物文件：自动复位后重跑即可，不必找项目经理"),
@@ -53,6 +54,17 @@ def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
     yes = [i for i in items if i.get("pm_fit") == "yes"]
     maybe = [i for i in items if i.get("pm_fit") == "maybe"]
     no = [i for i in items if i.get("pm_fit") == "no"]
+    billing = [i for i in items if i.get("kind") == "billing"]
+    if billing and len(billing) == len(items):
+        return {
+            "pm_fit": "no",
+            "pm_suitable": False,
+            "pm_advice": (
+                f"API 余额不足（{len(billing)} 项，HTTP 402）。"
+                "请给 OpenRouter/Provider 充值后点「运行资产生成」续跑，不必找项目经理。"
+            ),
+            "pm_advice_short": "API 余额不足，请充值",
+        }
     if yes and not maybe and not no:
         return {
             "pm_fit": "yes",
@@ -77,13 +89,26 @@ def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
             "pm_advice": "；".join(parts) + "。建议点「项目经理处理失败」处理适合的部分。",
             "pm_advice_short": "部分适合项目经理处理",
         }
+    if no:
+        kinds = {str(i.get("kind") or "unknown") for i in no}
+        if kinds == {"network"}:
+            detail = f"{len(no)} 项为瞬时网络错误"
+        elif kinds == {"missing_file"}:
+            detail = f"{len(no)} 项为缺产物文件"
+        elif kinds == {"billing"}:
+            detail = f"{len(no)} 项为 API 余额不足"
+        else:
+            detail = f"{len(no)} 项可自动复位重跑"
+        return {
+            "pm_fit": "no",
+            "pm_suitable": False,
+            "pm_advice": f"不必找项目经理（{detail}）。已可自动复位，直接点「运行资产生成」续跑。",
+            "pm_advice_short": "不必找项目经理，直接重跑",
+        }
     return {
         "pm_fit": "no",
         "pm_suitable": False,
-        "pm_advice": (
-            f"不适合/不必找项目经理（{len(no)} 项为网络或缺文件）。"
-            "已可自动复位，直接点「运行资产生成」续跑。"
-        ),
+        "pm_advice": "不必找项目经理。直接点「运行资产生成」续跑。",
         "pm_advice_short": "不必找项目经理，直接重跑",
     }
 
@@ -178,6 +203,33 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                     "config get --key image.proxy",
                     f"pipeline reset --task-id {tid} --cascade",
                 ],
+            }
+        )
+
+    # API billing / credits — recharge provider; not PM / not auto-heal loop
+    if (
+        "insufficient credits" in blob_l
+        or "http 402" in blob_l
+        or "payment required" in blob_l
+        or ("402" in blob and "credit" in blob_l)
+    ):
+        billing_summary = ""
+        for match in _EXC_LINE_RE.finditer(blob):
+            billing_summary = match.group(0).strip()
+            break
+        if not billing_summary:
+            billing_summary = (
+                blob.strip().splitlines()[0][:240] if blob.strip() else "HTTP 402 insufficient credits"
+            )
+        return _with_pm_fit(
+            {
+                "task_id": tid,
+                "step": step,
+                "kind": "billing",
+                "owner": "user",
+                "remediation": "add_credits",
+                "summary": billing_summary[:240],
+                "cli_hints": [],
             }
         )
 

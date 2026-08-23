@@ -237,8 +237,11 @@ def build_prompt_scaffold(
     assets: list[AssetSpec] | None = None,
 ) -> PromptPlan:
     """Pipeline + validation metadata only. Prompt is null until LLM crafts it."""
+    from asset_sizing import resolve_effective_display_size
+
     meta = _plan_metadata(project, spec, assets=assets)
-    ds = None if spec.display_size.is_empty() else spec.display_size.to_dict()
+    effective = resolve_effective_display_size(spec, project)
+    ds = None if effective.is_empty() else effective.to_dict()
     return PromptPlan(
         asset_name=spec.name,
         asset_type=spec.type.value,

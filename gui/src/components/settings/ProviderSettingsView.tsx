@@ -14,17 +14,28 @@ import {
 import {
   getProviderAccount,
   isProviderConfigured,
+  isVideoConfigured,
   loadProviderAccountsFromConfig,
   resolveActiveImageSettings,
   resolveActiveTextSettings,
+  resolveActiveVideoSettings,
   serializeProviderAccounts,
+  serializeVideoAccounts,
   updateProviderAccount,
+  updateVideoAccount,
+  getVideoAccount,
   isValidProviderSlug,
   isUserProviderId,
   listUserAccounts,
   type ProviderAccountsMap,
   type ProviderAccount,
+  type VideoAccountsMap,
 } from "../../settings/providerAccounts";
+import { keyConfigured } from "../../settings/sections";
+import {
+  getVideoProvider,
+  VIDEO_PROVIDERS,
+} from "../../settings/apiProviders";
 
 interface Props {
   busy?: boolean;
@@ -40,6 +51,7 @@ interface ProviderFormState {
   imageBulkModel: string;
   videoProvider: string;
   videoModel: string;
+  videoAccounts: VideoAccountsMap;
   proxy: string;
 }
 
@@ -73,23 +85,46 @@ function providerOptionLabel(id: string, accounts: ProviderAccountsMap): string 
   return acc?.label?.trim() || id;
 }
 
+function listVideoProviderOptions(accounts: ProviderAccountsMap): ProviderOption[] {
+  const seedance = VIDEO_PROVIDERS.find((p) => p.id === "seedance");
+  const out: ProviderOption[] = seedance ? [{ id: seedance.id, label: seedance.label }] : [];
+  const seen = new Set(out.map((o) => o.id));
+  for (const p of listConfigurableProviders(accounts)) {
+    if (seen.has(p.id)) continue;
+    out.push(p);
+    seen.add(p.id);
+  }
+  return out;
+}
+
+function resolveVideoFormProvider(
+  data: ConfigInfo["data"],
+  accounts: ProviderAccountsMap,
+  videoAccounts: VideoAccountsMap,
+): string {
+  const video = (data.video || {}) as Record<string, unknown>;
+  const raw = String(video.provider || "").trim();
+  if (raw && raw !== "seedance") {
+    if (raw in accounts || isApiProviderId(raw) || isValidProviderSlug(raw)) {
+      return raw;
+    }
+  }
+  if (
+    raw === "seedance" ||
+    keyConfigured(String(video.api_key || "")) ||
+    isVideoConfigured(videoAccounts, "seedance")
+  ) {
+    return "seedance";
+  }
+  return "";
+}
+
 function isProviderReferenced(form: ProviderFormState, id: string): boolean {
   if (form.activeTextProvider === id) return true;
   if (!form.imageUseTextProvider && form.activeImageProvider === id) return true;
   if (form.activeBulkImageProvider === id) return true;
   if (form.videoProvider === id) return true;
   return false;
-}
-
-function resolveVideoPick(
-  data: ConfigInfo["data"],
-  accounts: ProviderAccountsMap,
-): string {
-  const video = (data.video || {}) as Record<string, unknown>;
-  const raw = String(video.provider || "").trim();
-  if (!raw || raw === "seedance") return "";
-  if (raw in accounts || isApiProviderId(raw) || isValidProviderSlug(raw)) return raw;
-  return "";
 }
 
 function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
@@ -110,8 +145,13 @@ function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
     imageUseTextProvider: loaded.imageUseTextProvider,
     activeBulkImageProvider,
     imageBulkModel: String(imageBlock.bulk_model || ""),
-    videoProvider: resolveVideoPick(data, loaded.providerAccounts),
+    videoProvider: resolveVideoFormProvider(
+      data,
+      loaded.providerAccounts,
+      loaded.videoAccounts,
+    ),
     videoModel: String(videoBlock.model || ""),
+    videoAccounts: loaded.videoAccounts,
     proxy: String(
       data.proxy ||
         (data.host as Record<string, unknown> | undefined)?.proxy ||
@@ -125,10 +165,19 @@ function fromConfig(data: ConfigInfo["data"]): ProviderFormState {
 function toProviderPatch(form: ProviderFormState): ConfigPatch {
   const text = resolveActiveTextSettings(form);
   const image = resolveActiveImageSettings(form);
+  const videoPick = form.videoProvider.trim();
+  const isSeedance = videoPick === "seedance";
+  const seedanceVideo = isSeedance
+    ? resolveActiveVideoSettings({
+        videoAccounts: form.videoAccounts,
+        activeVideoProvider: "seedance",
+      })
+    : null;
 
   return {
     proxy: form.proxy.trim() || null,
     provider_accounts: serializeProviderAccounts(form.providerAccounts),
+    video_accounts: serializeVideoAccounts(form.videoAccounts),
     host: {
       provider: text.provider,
       api_key: text.api_key,
@@ -154,10 +203,24 @@ function toProviderPatch(form: ProviderFormState): ConfigPatch {
       api_base: image.api_base,
       proxy: null,
     },
-    video: {
-      provider: form.videoProvider.trim() || null,
-      model: form.videoModel.trim() || null,
-    },
+    video: isSeedance
+      ? {
+          provider: "seedance",
+          api_key: seedanceVideo?.api_key,
+          api_base: seedanceVideo?.api_base,
+          model: form.videoModel.trim() || null,
+        }
+      : videoPick
+        ? {
+            provider: videoPick,
+            model: form.videoModel.trim() || null,
+            api_key: null,
+          }
+        : {
+            provider: null,
+            model: null,
+            api_key: null,
+          },
   };
 }
 
@@ -205,6 +268,13 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
 
   const disabled = busy || loading || saving;
   const options = listConfigurableProviders(form.providerAccounts);
+  const videoOptions = listVideoProviderOptions(form.providerAccounts);
+  const seedanceAccount = getVideoAccount(form.videoAccounts, "seedance");
+  const seedancePreset = getVideoProvider("seedance");
+  const videoCompatAccount =
+    form.videoProvider && form.videoProvider !== "seedance"
+      ? getProviderAccount(form.providerAccounts, form.videoProvider)
+      : null;
   const editAccount = getProviderAccount(form.providerAccounts, editAccountId);
   const editPreset = getApiProvider(editAccountId, editAccount);
   const editConfigured = isProviderConfigured(form.providerAccounts, editAccountId);
@@ -392,7 +462,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
           </label>
         )}
         <label className="field">
-          <span>生视频用账号（可选）</span>
+          <span>生视频用账号</span>
           <select
             value={form.videoProvider}
             onChange={(e) => {
@@ -406,30 +476,24 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
             }}
             disabled={disabled}
           >
-            <option value="">未启用</option>
-            {options.map((p) => (
+            <option value="">未启用 compat 中转（仅遗留配置）</option>
+            {videoOptions.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.label}
-                {isProviderConfigured(form.providerAccounts, p.id) ? " ✓" : ""}
+                {p.id === "seedance"
+                  ? isVideoConfigured(form.videoAccounts, "seedance")
+                    ? " ✓"
+                    : ""
+                  : isProviderConfigured(form.providerAccounts, p.id)
+                    ? " ✓"
+                    : ""}
               </option>
             ))}
           </select>
         </label>
-        {form.videoProvider ? (
-          <label className="field">
-            <span>生视频 model</span>
-            <ModelCatalogPicker
-              providerId={form.videoProvider}
-              value={form.videoModel}
-              onChange={(v) => setField("videoModel", v)}
-              role="video"
-              disabled={disabled}
-              placeholder="veo3.1 / grok-imagine-video-1.5 / wan2.6-i2v"
-            />
-          </label>
-        ) : (
-          <p className="field-hint">{VIDEO_PROVIDER_SECTION.note}</p>
-        )}
+        <p className="field-hint field-hint--compact">
+          Key、模型 alias 等在下方<strong>高级 → 生视频</strong>配置。
+        </p>
       </div>
 
       <div className="provider-settings__master-detail">
@@ -473,7 +537,15 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
                     type="text"
                     value={newAccount.id}
                     onChange={(e) => {
-                      setNewAccount((prev) => ({ ...prev, id: e.target.value }));
+                      const id = e.target.value;
+                      setNewAccount((prev) => ({
+                        ...prev,
+                        id,
+                        apiBase:
+                          id.trim().toLowerCase() === "apilio" && !prev.apiBase.trim()
+                            ? "https://api.apilio.ai/v1"
+                            : prev.apiBase,
+                      }));
                       setAddAccountError(null);
                     }}
                     placeholder="apilio"
@@ -496,7 +568,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
                     type="text"
                     value={newAccount.apiBase}
                     onChange={(e) => setNewAccount((prev) => ({ ...prev, apiBase: e.target.value }))}
-                    placeholder="https://your-api.example.com/v1"
+                    placeholder="https://api.apilio.ai/v1"
                     disabled={disabled}
                   />
                 </label>
@@ -598,6 +670,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
               role="text"
               disabled={disabled}
               placeholder={editPreset.promptModelDefault}
+              previewCredentials={{ apiKey: editAccount.apiKey, apiBase: editAccount.apiBase }}
             />
           </label>
 
@@ -610,6 +683,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
               role="image"
               disabled={disabled}
               placeholder={editPreset.imageModelDefault}
+              previewCredentials={{ apiKey: editAccount.apiKey, apiBase: editAccount.apiBase }}
             />
           </label>
 
@@ -700,7 +774,7 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
                     type="text"
                     value={bulkImageAccount.apiBase}
                     onChange={(e) => updateBulkImageAccount({ apiBase: e.target.value })}
-                    placeholder="https://your-api.example.com/v1"
+                    placeholder="https://api.apilio.ai/v1"
                     disabled={disabled}
                   />
                 </label>
@@ -730,6 +804,10 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
                   role="image"
                   disabled={disabled}
                   placeholder="留空则回退主图 model"
+                  previewCredentials={{
+                    apiKey: bulkImageAccount.apiKey,
+                    apiBase: bulkImageAccount.apiBase,
+                  }}
                 />
               </label>
             </div>
@@ -747,10 +825,68 @@ export function ProviderSettingsView({ busy = false, onSaved }: Props) {
               <p className="settings-card__purpose">{VIDEO_PROVIDER_SECTION.purpose}</p>
             </header>
             <div className="settings-card__body">
-              <p className="field-hint">
-                生视频账号与模型在上方短选。遗留 <code>video.api_key</code>（Seedance / 火山方舟）仍可被 CLI
-                读取，无需在此重复填写。
+              <p className="field-hint field-hint--compact">
+                短选区仅切换账号；此处配置 Seedance 方舟 Key + mini/fast/pro，或 compat 账号的视频 model。保存会同步{" "}
+                <code>video</code> 与 <code>video_accounts.seedance</code>。
               </p>
+              {form.videoProvider === "seedance" ? (
+                <>
+                  <label className="field">
+                    <span>
+                      Seedance API Key
+                      {isVideoConfigured(form.videoAccounts, "seedance") ? "（已配置）" : "（未配置）"}
+                    </span>
+                    <input
+                      type="password"
+                      value={seedanceAccount.apiKey}
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          videoAccounts: updateVideoAccount(prev.videoAccounts, "seedance", {
+                            apiKey: e.target.value,
+                          }),
+                        }))
+                      }
+                      placeholder={seedancePreset.keyPlaceholder}
+                      autoComplete="off"
+                      disabled={disabled}
+                    />
+                  </label>
+                  <p className="field-hint">
+                    API 地址：<span className="mono">{seedancePreset.apiBase}</span>
+                  </p>
+                  <label className="field">
+                    <span>Seedance 模型 alias</span>
+                    <input
+                      type="text"
+                      value={form.videoModel}
+                      onChange={(e) => setField("videoModel", e.target.value)}
+                      placeholder="mini / fast / pro"
+                      disabled={disabled}
+                    />
+                  </label>
+                </>
+              ) : form.videoProvider ? (
+                <label className="field">
+                  <span>生视频 model（OpenAI-compat：Veo / Wan / Grok 等）</span>
+                  <ModelCatalogPicker
+                    providerId={form.videoProvider}
+                    value={form.videoModel}
+                    onChange={(v) => setField("videoModel", v)}
+                    role="video"
+                    disabled={disabled}
+                    placeholder="veo3.1 / grok-imagine-video-1.5 / wan2.6-i2v"
+                    previewCredentials={{
+                      apiKey: videoCompatAccount?.apiKey,
+                      apiBase: videoCompatAccount?.apiBase,
+                    }}
+                  />
+                </label>
+              ) : (
+                <p className="field-hint">
+                  先在上方短选 <strong>Seedance / 火山方舟</strong> 或 apilio 等 compat 账号。
+                </p>
+              )}
             </div>
           </section>
         </div>

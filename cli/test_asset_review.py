@@ -182,6 +182,70 @@ class AssetReviewTests(unittest.TestCase):
         tid = _pick_regenerate_task_id(tasks, "item_icons", item="sword")
         self.assertEqual(tid, "item_icons__sword.image.generate")
 
+    def test_pick_regenerate_prefers_prompt_craft_when_recraft(self) -> None:
+        tasks = [
+            {
+                "id": "knight.prompt.craft",
+                "asset": "knight",
+                "step": "prompt.craft",
+                "status": "done",
+            },
+            {
+                "id": "knight.image.generate",
+                "asset": "knight",
+                "step": "image.generate",
+                "status": "done",
+            },
+        ]
+        tid = _pick_regenerate_task_id(tasks, "knight", recraft_prompt=True)
+        self.assertEqual(tid, "knight.prompt.craft")
+
+    def test_regenerate_assets_batch_reset_only(self) -> None:
+        from unittest import mock
+
+        from assets_cmds import regenerate_assets_batch
+
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest_path = Path(tmp) / "pipe.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "manifest_version": 1,
+                        "tasks": [
+                            {
+                                "id": "knight.prompt.craft",
+                                "asset": "knight",
+                                "asset_id": "knight",
+                                "step": "prompt.craft",
+                                "status": "done",
+                                "depends_on": [],
+                            },
+                            {
+                                "id": "knight.image.generate",
+                                "asset": "knight",
+                                "asset_id": "knight",
+                                "step": "image.generate",
+                                "status": "done",
+                                "depends_on": ["knight.prompt.craft"],
+                            },
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with mock.patch("pipeline_runner.run_pipeline") as run_mock:
+                result = regenerate_assets_batch(
+                    manifest_path,
+                    [("knight", None)],
+                    reset_only=True,
+                    recraft_prompt=True,
+                )
+            run_mock.assert_not_called()
+            self.assertTrue(result["ok"])
+            data = json.loads(manifest_path.read_text(encoding="utf-8"))
+            gen = next(t for t in data["tasks"] if t["id"] == "knight.image.generate")
+            self.assertEqual(gen["status"], "pending")
+
     def test_build_regenerate_plan(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest = Path(tmp) / "pipe.json"

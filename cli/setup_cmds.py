@@ -395,12 +395,23 @@ def setup_provider_remove_cmd(
 
 @setup_provider_group.command("models")
 @click.option("--provider", "provider_id", required=True, help="Account id to fetch models for.")
+@click.option("--api-key", "api_key_override", default=None, help="Preview Key (not saved; for GUI refresh).")
+@click.option("--api-base", "api_base_override", default=None, help="Preview api_base (not saved).")
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
-def setup_provider_models_cmd(provider_id: str, as_json: bool) -> None:
+def setup_provider_models_cmd(
+    provider_id: str,
+    api_key_override: str | None,
+    api_base_override: str | None,
+    as_json: bool,
+) -> None:
     """Fetch OpenAI-compatible /models for a provider account."""
     from provider_models import fetch_provider_models
 
-    result = fetch_provider_models(provider=provider_id)
+    result = fetch_provider_models(
+        provider=provider_id,
+        api_key_override=api_key_override,
+        api_base_override=api_base_override,
+    )
     if as_json:
         click.echo(json.dumps(result, ensure_ascii=False, indent=2))
     elif result.get("ok"):

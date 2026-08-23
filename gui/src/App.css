@@ -2744,7 +2744,41 @@ code {
 }
 
 .asset-review-error {
-  color: #e07070;
+  color: var(--danger, #e57373);
+}
+
+.asset-review-ok {
+  color: var(--success, #81c784);
+}
+
+.asset-review-batch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  background: var(--surface-elevated, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.asset-review-batch__count {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-right: 0.25rem;
+}
+
+.asset-review-list-head {
+  margin-bottom: 0.35rem;
+}
+
+.asset-review-check-all {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
 }
 
 .asset-review-list {
@@ -2756,17 +2790,12 @@ code {
 }
 
 .asset-review-row {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  gap: 8px;
-  align-items: center;
-  text-align: left;
-  padding: 6px 8px;
+  display: flex;
+  align-items: stretch;
+  gap: 0.35rem;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--bg);
-  color: inherit;
-  cursor: pointer;
 }
 
 .asset-review-row:hover {
@@ -2776,6 +2805,35 @@ code {
 .asset-review-row.is-active {
   border-color: color-mix(in srgb, var(--accent, #3b82f6) 65%, var(--border));
   background: color-mix(in srgb, var(--accent, #3b82f6) 8%, var(--bg));
+}
+
+.asset-review-row__check {
+  flex: 0 0 auto;
+  margin: 0.55rem 0 0 0.35rem;
+}
+
+.asset-review-row__open {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.asset-review-row__open:hover {
+  background: transparent;
+}
+
+.asset-review-row.is-active .asset-review-row__open {
+  background: transparent;
 }
 
 .asset-review-row__body {

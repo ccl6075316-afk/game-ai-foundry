@@ -32,6 +32,10 @@ _ASSET_BODY_HINT_KEYS = frozenset(
         "type",
         "usage",
         "display_size",
+        "generation_size",
+        "real_length_cm",
+        "real_length_max_cm",
+        "size_source",
         "description",
         "usage_description",
         "generate_method",
@@ -1128,6 +1132,7 @@ _PROJECT_INTRO_KEYS = frozenset(
         "platform",
         "camera",
         "perspective",
+        "size_baseline",
     }
 )
 

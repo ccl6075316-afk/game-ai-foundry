@@ -197,6 +197,21 @@ export function isBriefShaped(value: unknown): value is HostChatDraftBrief {
   return "project" in obj || "assets" in obj;
 }
 
+/** Strip export metadata; suitable for docs panel / catalog from disk JSON. */
+export function parseBriefDraftJson(text: string): HostChatDraftBrief | null {
+  const trimmed = text.trim();
+  if (!trimmed) return null;
+  try {
+    const parsed: unknown = JSON.parse(trimmed);
+    if (!isBriefShaped(parsed)) return null;
+    const obj = parsed as Record<string, unknown>;
+    const { brief_meta: _meta, ...rest } = obj;
+    return rest as HostChatDraftBrief;
+  } catch {
+    return null;
+  }
+}
+
 export type DocsShardKind = "scene" | "system" | "asset";
 
 export type DocsView =
@@ -308,6 +323,44 @@ export function shardRelPath(
   return `${root}/assets/${safeId}.spec.json`;
 }
 
+export function projectRootFromBriefRel(briefRel: string | null | undefined): string {
+  const norm = String(briefRel || "").replace(/\\/g, "/").trim();
+  if (!norm) return "";
+  const idx = norm.lastIndexOf("/");
+  return idx > 0 ? norm.slice(0, idx) : "";
+}
+
+export function resolveBriefAssetFromDraft(
+  draft: HostChatDraftBrief | null,
+  assetName: string,
+  projectRootRel?: string | null,
+): { briefId: string; title: string; specPathRel: string } | null {
+  const needle = String(assetName || "").trim();
+  if (!needle || !draft) return null;
+  const root = String(projectRootRel || "").replace(/\\/g, "/").replace(/\/+$/, "");
+  for (const a of draft.assets || []) {
+    const name = String(a?.name || "").trim();
+    const id = String((a as { id?: string }).id || name).trim();
+    if (name !== needle && id !== needle) continue;
+    const catalogPath = String((a as { path?: string }).path || "").trim();
+    const specPathRel = catalogPath
+      ? catalogPath.startsWith("projects/") || catalogPath.startsWith("external:")
+        ? catalogPath
+        : root
+          ? `${root}/${catalogPath.replace(/^\//, "")}`
+          : catalogPath
+      : root
+        ? shardRelPath(root, "asset", id, catalogPath)
+        : `assets/${id}.spec.json`;
+    return {
+      briefId: id,
+      title: name || id,
+      specPathRel,
+    };
+  }
+  return null;
+}
+
 export function catalogRowsFromDraft(draft: HostChatDraftBrief | null): CatalogRow[] {
   if (!draft) return [];
   const rows: CatalogRow[] = [];
@@ -376,6 +429,8 @@ export function formatBriefCatalogOverview(
   lines.push(...formatArtTokensSection(p as Record<string, unknown>));
   const goal = p.session_goal;
   if (goal) lines.push("## 本局目标", "", String(goal), "");
+  lines.push(...formatScenesSection(p as Record<string, unknown>));
+  lines.push(...formatSystemsSection(p as Record<string, unknown>));
   lines.push(...formatUiPanelsSection(p as Record<string, unknown>));
   return lines.join("\n");
 }

@@ -182,6 +182,7 @@ def iter_review_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
                     {
                         "row_id": row_id_for(asset_name, slug),
                         "asset_name": asset_name,
+                        "brief_id": str(brief.get("id") or asset_name).strip(),
                         "kit_item_slug": slug,
                         "label": label,
                         "type": atype,
@@ -200,6 +201,7 @@ def iter_review_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
             {
                 "row_id": row_id_for(asset_name),
                 "asset_name": asset_name,
+                "brief_id": str(brief.get("id") or asset_name).strip(),
                 "kit_item_slug": None,
                 "label": str(brief.get("name") or asset_name),
                 "type": atype,

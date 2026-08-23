@@ -59,6 +59,8 @@ def project_to_dict(project: ProjectContext) -> dict[str, Any]:
         data["art_tokens"] = project.art_tokens
     if project.view:
         data["view"] = project.view
+    if project.size_baseline:
+        data["size_baseline"] = dict(project.size_baseline)
     return data
 
 
@@ -94,6 +96,14 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         "display_size": spec.display_size.to_dict() if not spec.display_size.is_empty() else None,
         "aspect_ratio": spec.aspect_ratio,
     }
+    if not spec.generation_size.is_empty():
+        data["generation_size"] = spec.generation_size.to_dict()
+    if spec.real_length_cm > 0:
+        data["real_length_cm"] = spec.real_length_cm
+    if spec.real_length_max_cm > 0:
+        data["real_length_max_cm"] = spec.real_length_max_cm
+    if spec.size_source:
+        data["size_source"] = spec.size_source
     if spec.id:
         data["id"] = spec.id
     if spec.items:

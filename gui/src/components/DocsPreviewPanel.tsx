@@ -479,7 +479,7 @@ export function DocsPreviewPanel({
   const exportGateHint = briefMakeabilityGateHint(status);
   const emptyHint =
     selected?.id === "session-brief" && !draftBrief
-      ? "和策划聊聊玩法后，这里会实时出现 Brief 全文预览。"
+      ? "和策划聊聊玩法后，这里会实时出现 Brief 全文预览；已绑定工程时可从磁盘 brief 载入目录。"
       : selected?.id === "session-doc" && !draftDocument?.body
         ? "说「整理成设计说明」后，这里会显示 Markdown 文档。"
         : "";

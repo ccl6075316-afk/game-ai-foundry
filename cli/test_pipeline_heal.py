@@ -67,6 +67,36 @@ class PipelineHealTests(unittest.TestCase):
         self.assertIn("expand_items", d["summary"])
         self.assertIn("TypeError", d["summary"])
 
+    def test_classify_billing_insufficient_credits(self) -> None:
+        task = {
+            "id": "fish.image.generate",
+            "step": "image.generate",
+            "result": {
+                "exit_code": 1,
+                "stderr": (
+                    "Error: Images API error (HTTP 402): Insufficient credits. "
+                    "Add more using https://openrouter.ai/settings/credits"
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "billing")
+        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["owner"], "user")
+        self.assertIn("402", d["summary"])
+
+    def test_pm_advice_all_billing(self) -> None:
+        from pipeline_heal import _aggregate_pm_advice
+
+        advice = _aggregate_pm_advice(
+            [
+                {"task_id": "a", "kind": "billing", "pm_fit": "no"},
+                {"task_id": "b", "kind": "billing", "pm_fit": "no"},
+            ]
+        )
+        self.assertFalse(advice["pm_suitable"])
+        self.assertIn("余额", advice["pm_advice_short"])
+
     def test_classify_validation_needs_hermes(self) -> None:
         task = {
             "id": "hero.image.generate",

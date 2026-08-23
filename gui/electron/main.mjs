@@ -794,6 +794,30 @@ function listProjectDocs(briefRel) {
               pushIfExists(`${root}/docs/${f}`, `docs/${f}`, "markdown");
             }
           }
+          const scenesDir = path.join(rootAbs, "scenes");
+          if (existsSync(scenesDir) && statSync(scenesDir).isDirectory()) {
+            for (const f of readdirSync(scenesDir)) {
+              if (!f.endsWith(".json")) continue;
+              const stem = f.replace(/\.json$/i, "");
+              pushIfExists(`${root}/scenes/${f}`, `场景 · ${stem}`, "json");
+            }
+          }
+          const systemsDir = path.join(rootAbs, "systems");
+          if (existsSync(systemsDir) && statSync(systemsDir).isDirectory()) {
+            for (const f of readdirSync(systemsDir)) {
+              if (!f.endsWith(".json")) continue;
+              const stem = f.replace(/\.json$/i, "");
+              pushIfExists(`${root}/systems/${f}`, `系统 · ${stem}`, "json");
+            }
+          }
+          const assetsDir = path.join(rootAbs, "assets");
+          if (existsSync(assetsDir) && statSync(assetsDir).isDirectory()) {
+            for (const f of readdirSync(assetsDir)) {
+              if (!/\.spec\.json$/i.test(f)) continue;
+              const stem = f.replace(/\.spec\.json$/i, "");
+              pushIfExists(`${root}/assets/${f}`, `资产 · ${stem}`, "json");
+            }
+          }
         }
       }
       return out;
@@ -830,6 +854,30 @@ function listProjectDocs(briefRel) {
           for (const f of readdirSync(docsSub)) {
             if (!/\.(md|txt)$/i.test(f)) continue;
             pushIfExists(`${root}/docs/${f}`, `docs/${f}`, "markdown");
+          }
+        }
+        const scenesDir = path.join(rootAbs, "scenes");
+        if (existsSync(scenesDir) && statSync(scenesDir).isDirectory()) {
+          for (const f of readdirSync(scenesDir)) {
+            if (!f.endsWith(".json")) continue;
+            const stem = f.replace(/\.json$/i, "");
+            pushIfExists(`${root}/scenes/${f}`, `场景 · ${stem}`, "json");
+          }
+        }
+        const systemsDir = path.join(rootAbs, "systems");
+        if (existsSync(systemsDir) && statSync(systemsDir).isDirectory()) {
+          for (const f of readdirSync(systemsDir)) {
+            if (!f.endsWith(".json")) continue;
+            const stem = f.replace(/\.json$/i, "");
+            pushIfExists(`${root}/systems/${f}`, `系统 · ${stem}`, "json");
+          }
+        }
+        const assetsDir = path.join(rootAbs, "assets");
+        if (existsSync(assetsDir) && statSync(assetsDir).isDirectory()) {
+          for (const f of readdirSync(assetsDir)) {
+            if (!/\.spec\.json$/i.test(f)) continue;
+            const stem = f.replace(/\.spec\.json$/i, "");
+            pushIfExists(`${root}/assets/${f}`, `资产 · ${stem}`, "json");
           }
         }
       }
@@ -1828,15 +1876,22 @@ app.whenReady().then(() => {
     return { ...result, data };
   });
 
-  ipcMain.handle("provider-models", async (_event, providerId) => {
-    const result = await runCli([
+  ipcMain.handle("provider-models", async (_event, providerId, opts = {}) => {
+    const args = [
       "setup",
       "provider",
       "models",
       "--provider",
       String(providerId || ""),
       "--json",
-    ]);
+    ];
+    if (opts?.apiKey && String(opts.apiKey).trim()) {
+      args.push("--api-key", String(opts.apiKey).trim());
+    }
+    if (opts?.apiBase && String(opts.apiBase).trim()) {
+      args.push("--api-base", String(opts.apiBase).trim());
+    }
+    const result = await runCli(args);
     const data = parseJsonFromOutput(result.stdout);
     return { ...result, data };
   });
@@ -2209,6 +2264,7 @@ app.whenReady().then(() => {
       ];
       const slug = String(itemSlug || "").trim();
       if (slug) planArgs.push("--item", slug);
+      planArgs.push("--recraft-prompt");
       const planResult = await runCli(planArgs);
       const plan = parseJsonFromOutput(planResult.stdout);
       if (planResult.exitCode !== 0) {
@@ -2303,6 +2359,47 @@ app.whenReady().then(() => {
       };
     },
   );
+
+  ipcMain.handle("assets-review-regenerate-batch", async (event, pipelineManifestRel, opts = {}) => {
+    const sender = event.sender;
+    const pipeRel = normalizeRepoRel(pipelineManifestRel);
+    if (!pipeRel) {
+      return { exitCode: 1, stdout: "", stderr: "pipeline manifest path required" };
+    }
+    const rowIds = Array.isArray(opts?.rowIds) ? opts.rowIds : [];
+    const jobCount = Math.max(1, Number(opts.jobs) || 4);
+    const resetOnly = Boolean(opts.resetOnly);
+    const recraftPrompt = opts.recraftPrompt !== false;
+    const assetsRel = resolveAssetsManifestRel(opts.assetsManifestRel, pipeRel);
+    const args = [
+      "assets",
+      "review",
+      "regenerate-batch",
+      "--pipeline-manifest",
+      manifestCliArg(pipeRel),
+      "--jobs",
+      String(jobCount),
+      "--json",
+    ];
+    if (assetsRel) {
+      args.push("--assets-manifest", manifestCliArg(assetsRel));
+    }
+    if (resetOnly) args.push("--reset-only");
+    if (!recraftPrompt) args.push("--no-recraft-prompt");
+    for (const rid of rowIds) {
+      const id = String(rid || "").trim();
+      if (id) args.push("--row-id", id);
+    }
+    if (rowIds.length === 0) {
+      return { exitCode: 1, stdout: "", stderr: "rowIds required" };
+    }
+    const result = await runCli(args, {
+      onLine: (line, stream) => {
+        sender.send("pipeline-log", { line, stream });
+      },
+    });
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
 
   ipcMain.handle("resolve-brief-rel", (_e, briefRel) => {
     const external = resolveExternalRel(briefRel);

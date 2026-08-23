@@ -88,13 +88,23 @@ def build_layout_world_fragments(
         ext_id = f"{next_id}_prop"
         next_id += 1
         ext_lines.append(f'[ext_resource type="Texture2D" path="res://{res}" id="{ext_id}"]')
-        node_lines.extend(
-            [
-                f'[node name="{node_name}" type="Sprite2D" parent="World"]',
-                f"position = Vector2({px}, {py})",
-                f'texture = ExtResource("{ext_id}")',
-                "",
-            ]
-        )
+        scale_raw = placement.get("scale")
+        scale_line = ""
+        if scale_raw is not None:
+            try:
+                scale_val = float(scale_raw)
+                if scale_val > 0 and scale_val != 1.0:
+                    scale_line = f"scale = Vector2({scale_val}, {scale_val})"
+            except (TypeError, ValueError):
+                pass
+        node_body = [
+            f'[node name="{node_name}" type="Sprite2D" parent="World"]',
+            f"position = Vector2({px}, {py})",
+            f'texture = ExtResource("{ext_id}")',
+        ]
+        if scale_line:
+            node_body.append(scale_line)
+        node_body.append("")
+        node_lines.extend(node_body)
 
     return ext_lines, node_lines, next_id

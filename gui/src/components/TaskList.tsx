@@ -63,18 +63,19 @@ export function TaskList({ tasks, compact = false, briefAssets, onRetryAsset }: 
         const styleAsset = lookupAsset(briefAssets, asset);
         const chips = styleAsset ? assetStyleChips(styleAsset) : [];
         const hasFailed = groupTasks.some((t) => t.status === "failed");
+        const showRetry = Boolean(onRetryAsset);
         return (
           <div key={asset} className="task-asset-group">
             <div className="task-asset-head">
               <span className="task-asset-name mono">{asset}</span>
-              {hasFailed && onRetryAsset && (
+              {showRetry && (
                 <button
                   type="button"
                   className="btn btn--ghost btn--sm"
-                  onClick={() => onRetryAsset(asset)}
-                  title="重跑此资产"
+                  onClick={() => onRetryAsset!(asset)}
+                  title="重置并重跑此资产（含 prompt 重制）"
                 >
-                  重跑
+                  {hasFailed ? "重跑" : "重生成"}
                 </button>
               )}
               {chips.length > 0 && (

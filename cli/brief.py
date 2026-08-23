@@ -125,6 +125,7 @@ class ProjectContext:
     systems: list[dict[str, Any]] = field(default_factory=list)
     art_tokens: dict[str, Any] | None = None
     view: str = ""
+    size_baseline: dict[str, Any] = field(default_factory=dict)
     _art_tokens_errors: list[str] = field(default_factory=list, repr=False, compare=False)
 
     @classmethod
@@ -140,6 +141,9 @@ class ProjectContext:
         viewport = data.get("viewport") if isinstance(data.get("viewport"), dict) else {}
         camera = data.get("camera") if isinstance(data.get("camera"), dict) else {}
         art_tokens, art_tokens_errors = normalize_art_tokens(data.get("art_tokens"))
+        size_baseline = data.get("size_baseline")
+        if not isinstance(size_baseline, dict):
+            size_baseline = {}
         return cls(
             title=str(data.get("title", "")),
             description=str(data.get("description", "")),
@@ -159,6 +163,7 @@ class ProjectContext:
             systems=normalize_systems(data.get("systems")),
             art_tokens=art_tokens,
             view=str(data.get("view", "")).strip(),
+            size_baseline=dict(size_baseline),
             _art_tokens_errors=art_tokens_errors,
         )
 
@@ -386,6 +391,10 @@ class AssetSpec:
     grid: str = "2x2"
     aspect_ratio: str = "1:1"
     display_size: DisplaySize = field(default_factory=DisplaySize.empty)
+    generation_size: DisplaySize = field(default_factory=DisplaySize.empty)
+    real_length_cm: float = 0.0
+    real_length_max_cm: float = 0.0
+    size_source: str = ""
     action: str = ""
     animation_method: str = ANIMATION_METHOD_VIDEO
     reference_asset: str = ""
@@ -455,6 +464,15 @@ class AssetSpec:
                 f"generate_tier must be 'default' or 'bulk', got {data.get('generate_tier')!r}"
             )
 
+        try:
+            real_length_cm = float(data.get("real_length_cm") or 0)
+        except (TypeError, ValueError):
+            real_length_cm = 0.0
+        try:
+            real_length_max_cm = float(data.get("real_length_max_cm") or 0)
+        except (TypeError, ValueError):
+            real_length_max_cm = 0.0
+
         return cls(
             name=str(data["name"]),
             type=asset_type,
@@ -464,6 +482,10 @@ class AssetSpec:
             grid=grid,
             aspect_ratio=str(data.get("aspect_ratio", "1:1")),
             display_size=parse_display_size(data.get("display_size")) or DisplaySize.empty(),
+            generation_size=parse_display_size(data.get("generation_size")) or DisplaySize.empty(),
+            real_length_cm=real_length_cm,
+            real_length_max_cm=real_length_max_cm,
+            size_source=str(data.get("size_source", "")).strip(),
             action=str(data.get("action", "")),
             animation_method=method,
             reference_asset=str(data.get("reference_asset", "")),
@@ -2220,7 +2242,11 @@ def audit_brief_for_export(
             AssetType.BACKGROUND,
             AssetType.ICON_KIT,
         ):
-            errors.append(f"Asset '{spec.name}' missing required 'display_size'")
+            from asset_sizing import resolve_effective_display_size
+
+            eff = resolve_effective_display_size(spec, project)
+            if eff.is_empty():
+                errors.append(f"Asset '{spec.name}' missing required 'display_size'")
         if not (spec.usage_description or spec.description).strip():
             errors.append(f"Asset '{spec.name}' needs 'usage_description' or 'description'")
         if spec.type == AssetType.ICON_KIT and not spec.items:
@@ -2298,6 +2324,7 @@ def audit_brief_for_export(
             assets,
             animation_graphs=animation_graphs,
             viewport=project.viewport,
+            project=project,
         )
     )
     errors.extend(audit_visual_reference(project, brief_path=brief_path))

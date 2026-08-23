@@ -214,6 +214,7 @@ export interface PipelineStatus {
 export interface AssetReviewRow {
   row_id: string;
   asset_name: string;
+  brief_id?: string;
   kit_item_slug?: string | null;
   label: string;
   type: string;
@@ -400,6 +401,7 @@ declare global {
       >;
       providerModels: (
         providerId: string,
+        opts?: { apiKey?: string; apiBase?: string },
       ) => Promise<
         CliResult<{
           ok?: boolean;
@@ -497,6 +499,16 @@ declare global {
         itemSlug?: string | null,
         jobs?: number,
       ) => Promise<CliResult<AssetReviewRegenerateResult>>;
+      assetsReviewRegenerateBatch: (
+        pipelineManifestRel: string,
+        opts?: {
+          rowIds: string[];
+          assetsManifestRel?: string | null;
+          jobs?: number;
+          resetOnly?: boolean;
+          recraftPrompt?: boolean;
+        },
+      ) => Promise<CliResult<Record<string, unknown>>>;
       resolveBriefRel: (briefRel: string) => Promise<{
         input: string;
         path: string;

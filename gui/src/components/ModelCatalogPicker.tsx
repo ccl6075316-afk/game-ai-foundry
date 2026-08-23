@@ -15,6 +15,8 @@ export interface ModelCatalogPickerProps {
   placeholder?: string;
   /** 对话顶栏等窄行：单行下拉 + 刷新 */
   compact?: boolean;
+  /** 表单中未保存的 Key / api_base，刷新目录时使用 */
+  previewCredentials?: { apiKey?: string; apiBase?: string };
 }
 
 interface CatalogModel {
@@ -23,6 +25,14 @@ interface CatalogModel {
 }
 
 const catalogCache = new Map<string, CatalogModel[]>();
+
+function catalogCacheKey(
+  providerId: string,
+  preview?: { apiKey?: string; apiBase?: string },
+): string {
+  const base = (preview?.apiBase || "").trim();
+  return base ? `${providerId}@${base}` : providerId;
+}
 
 function normalizeModels(raw: unknown): CatalogModel[] {
   if (!Array.isArray(raw)) return [];
@@ -71,23 +81,25 @@ export function ModelCatalogPicker({
   disabled = false,
   placeholder,
   compact = false,
+  previewCredentials,
 }: ModelCatalogPickerProps) {
+  const cacheKey = providerId ? catalogCacheKey(providerId, previewCredentials) : "";
   const [query, setQuery] = useState("");
   const [showAllModels, setShowAllModels] = useState(false);
   const [customOpen, setCustomOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [catalog, setCatalog] = useState<CatalogModel[]>(() =>
-    providerId ? catalogCache.get(providerId) ?? [] : [],
+    cacheKey ? catalogCache.get(cacheKey) ?? [] : [],
   );
   const autoFetched = useRef<string | null>(null);
 
   useEffect(() => {
-    setCatalog(providerId ? catalogCache.get(providerId) ?? [] : []);
+    setCatalog(cacheKey ? catalogCache.get(cacheKey) ?? [] : []);
     setQuery("");
     setError(null);
     setCustomOpen(false);
-  }, [providerId]);
+  }, [cacheKey]);
 
   const refresh = useCallback(async () => {
     if (!providerId || disabled) return;
@@ -98,33 +110,36 @@ export function ModelCatalogPicker({
         setError("当前环境无法拉取模型目录");
         return;
       }
-      const res = await window.gameFactory.providerModels(providerId);
+      const res = await window.gameFactory.providerModels(providerId, {
+        apiKey: previewCredentials?.apiKey,
+        apiBase: previewCredentials?.apiBase,
+      });
       const data = res.data;
       if (!data?.ok) {
         setError(data?.error || "拉取模型目录失败");
         return;
       }
       const models = normalizeModels(data.models);
-      catalogCache.set(providerId, models);
+      catalogCache.set(cacheKey, models);
       setCatalog(models);
       if (models.length === 0) {
-        setError("目录为空");
+        setError("目录为空（可勾选「显示全部模型」或手填）");
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setLoading(false);
     }
-  }, [providerId, disabled]);
+  }, [providerId, disabled, cacheKey, previewCredentials?.apiKey, previewCredentials?.apiBase]);
 
   // 首次进入某账号且无缓存时自动拉一次，方便直接下拉
   useEffect(() => {
-    if (!providerId || disabled) return;
-    if (catalogCache.has(providerId)) return;
-    if (autoFetched.current === providerId) return;
-    autoFetched.current = providerId;
+    if (!providerId || disabled || !cacheKey) return;
+    if (catalogCache.has(cacheKey)) return;
+    if (autoFetched.current === cacheKey) return;
+    autoFetched.current = cacheKey;
     void refresh();
-  }, [providerId, disabled, refresh]);
+  }, [providerId, disabled, cacheKey, refresh]);
 
   const roleFiltered = useMemo(() => {
     if (showAllModels || role === "text") return catalog;

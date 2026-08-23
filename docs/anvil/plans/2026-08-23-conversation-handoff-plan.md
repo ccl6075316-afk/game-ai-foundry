@@ -14,9 +14,9 @@
 
 | 字段 | 值 |
 |------|----|
-| Status | **partial** — §A 已落地并 push；§B Host Plan 已执行；§C–E 待做 |
+| Status | **partial** — §A/B 已落地；§C 核心已落地（2026-08-23）；§E fishing-2d 内容迁移待做 |
 | Created | 2026-08-23 |
-| Resume Point | **§C 尺寸契约 v2**（`asset_sizing` + brief 字段）优先于 fishing-2d 内容手改 |
+| Resume Point | **§E** fishing-2d 标尺鱼 + `real_length_cm` + re-plan |
 | 验收靶机 | `projects/fishing-2d`（30 鱼 char 方图 / 16:9 描述分裂） |
 
 ---
@@ -104,10 +104,10 @@ Godot 运行时
 
 **Files:** `cli/asset_sizing.py`, `cli/test_display_size.py`, 新增 `cli/test_asset_sizing_aspect.py`
 
-- [ ] character / character_pose / weapon(class→still)：**按 `aspect_ratio` 拆 WxH**，不再 `gen×gen`
-- [ ] 默认比例按 `content_class`（weapon 横长、角色可 1:1 或配置默认）
-- [ ] 保留 `snap_api_image_size` / `size_multiple_for_model`
-- [ ] 单测：16:9 + display 1920×1080 → 非方图 `image_size`；background 行为不变
+- [x] character / character_pose / weapon(class→still)：**按 `aspect_ratio` 拆 WxH**，不再 `gen×gen`
+- [x] 默认比例按 `content_class`（weapon 横长、角色可 1:1 或配置默认）
+- [x] 保留 `snap_api_image_size` / `size_multiple_for_model`
+- [x] 单测：16:9 + display 1920×1080 → 非方图 `image_size`；background 行为不变
 
 **成功标准：** fishing-2d 任一条 `char_*.json` plan 的 `image_size` 宽高比 ≈ spec `aspect_ratio`（非 1:1 时）。
 
@@ -117,9 +117,9 @@ Godot 运行时
 
 **Files:** `cli/brief.py` (`AssetSpec`), `cli/brief_shards.py`, `cli/asset_pipeline.py` (`build_prompt_scaffold`), `docs/AI-HANDOFF.md`
 
-- [ ] brief 可选 `generation_size: {width, height}` 或 `generation_tier: standard|high`
-- [ ] 若存在 → plan `image_size` 优先用它（再 snap）；否则 C1 推导
-- [ ] `display_size` 仍只驱动 assemble（`godot_import.save_texture_at_display_size`）
+- [x] brief 可选 `generation_size: {width, height}` 或 `generation_tier: standard|high`
+- [x] 若存在 → plan `image_size` 优先用它（再 snap）；否则 C1 推导
+- [x] `display_size` 仍只驱动 assemble（`godot_import.save_texture_at_display_size`）
 - [ ] 文档：生大用小示例（generation 2048×1152，display 128×72）
 
 ---
@@ -128,8 +128,8 @@ Godot 运行时
 
 **Files:** `cli/brief.py` (`audit_brief_for_export`), `cli/test_brief_contract.py`
 
-- [ ] 警告：`aspect_ratio != 1:1` 且 type=character 时，若 derive 后仍为方图 → export 警告或硬拦（产品定）
-- [ ] 警告：同场景多鱼 `display_size` 完全相同且均有 `real_length_cm` 差异
+- [x] 警告：`aspect_ratio != 1:1` 且 type=character 时，若 derive 后仍为方图 → export 警告（`brief validate`）
+- [x] 警告：同场景多鱼 `display_size` 完全相同且均有 `real_length_cm` 差异
 
 ---
 
@@ -150,10 +150,10 @@ Godot 运行时
 "assets": [{ "id": "char_bluegill", "real_length_cm": 19, "aspect_ratio": "16:9" }]
 ```
 
-- [ ] `real_length_cm`（可选 `real_length_max_cm`、`size_source`）进 AssetSpec + shard 白名单
-- [ ] `production derive`：`display = baseline.display × (asset.real_length_cm / baseline.real_length_cm)`，再按 aspect 拆宽
+- [x] `real_length_cm`（可选 `real_length_max_cm`、`size_source`）进 AssetSpec + shard 白名单
+- [x] `production derive`：`asset_display_sizes` + effective display；`display = baseline × ratio`，再按 aspect 拆宽
 - [ ] 允许 `display_size_override` 艺术夸张
-- [ ] 单测：80cm 标尺 120px 高 → 19cm 鱼 ≈ 28px 高
+- [x] 单测：80cm 标尺 120px 高 → 19cm 鱼 ≈ 28px 高
 
 **非目标：** 本轮不做运行时 Web Search；体长由 enrich/人工填入。
 
@@ -173,9 +173,10 @@ Godot 运行时
 
 **Files:** `cli/production.py` / layout schema, `cli/godot_layout.py`, `docs/AI-HANDOFF.md` §production.layout
 
-- [ ] `layout.placements[]` 增加可选 `scale` 或 `display_size_override`
-- [ ] assemble/scaffold 读 placement scale，叠在 canonical display 上
-- [ ] 单测：同 asset 两 placement 不同 scale → 不同屏上尺寸
+- [x] `layout.placements[]` 增加可选 `scale`
+- [x] assemble/scaffold 读 placement scale → Godot `Sprite2D.scale`
+- [x] 单测：placement `scale` → scene fragment 含 `scale = Vector2(...)`
+- [ ] 文档：AI-HANDOFF §production.layout
 
 ---
 
@@ -204,10 +205,10 @@ Godot 运行时
 
 ## §E fishing-2d 内容迁移（依赖 §C，非 Foundry 内核）
 
-- [ ] 定 **标尺鱼**（如尖吻鲈 ~80cm → canonical display）
-- [ ] 30 鱼 spec 填 `real_length_cm`（enrich 或表格）
-- [ ] 去掉「全员 128×128 / 中鱼框」；derive 后 re `pipeline plan`
-- [ ] validation 失败鱼：`host retry-asset --recraft-prompt`
+- [x] 定 **标尺鱼**（维多利亚尖吻鲈 `char_330d60e64c` ~80cm → display 213×120）
+- [x] 30 鱼 spec 填 `real_length_cm`（`scripts/migrate_sizing_v2.py`）
+- [x] 去掉「全员 1920×1080 display」；`generation_size` 1920×1080 + derive display
+- [ ] validation 失败鱼：`host retry-asset --recraft-prompt`（按需人工续跑）
 - [ ] 钓获大小 / 水族箱：**Godot C#** `scale`，不写 brief 个体
 
 ---

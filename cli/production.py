@@ -19,6 +19,7 @@ from brief import (
     resolve_asset_file_key,
     unique_kit_item_slugs,
 )
+from asset_sizing import resolve_effective_display_size
 from genre_presets import get_genre_preset
 
 PRODUCTION_SCHEMA_VERSION = 1
@@ -59,11 +60,28 @@ def _slug(title: str, fallback: str) -> str:
     return slug or fallback
 
 
-def _player_display_size(assets: list[AssetSpec], player_asset: str) -> dict[str, int]:
+def _player_display_size(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    player_asset: str,
+) -> dict[str, int]:
     for spec in assets:
-        if spec.name == player_asset and not spec.display_size.is_empty():
-            return spec.display_size.to_dict()
+        if spec.name == player_asset:
+            eff = resolve_effective_display_size(spec, project)
+            if not eff.is_empty():
+                return eff.to_dict()
     return {"width": 64, "height": 64}
+
+
+def _asset_display_sizes(project: ProjectContext, assets: list[AssetSpec]) -> dict[str, dict[str, int]]:
+    out: dict[str, dict[str, int]] = {}
+    for spec in assets:
+        eff = resolve_effective_display_size(spec, project)
+        if not eff.is_empty():
+            key = layout_asset_key(spec)
+            if key:
+                out[key] = eff.to_dict()
+    return out
 
 
 def _animation_names(graphs: list[CharacterAnimationGraph], player_asset: str) -> list[str]:
@@ -498,6 +516,13 @@ def _validate_layout(
                 errors.append(
                     f"layout.placements[{i}] asset '{asset_ref}' not found in brief"
                 )
+        scale = placement.get("scale")
+        if scale is not None:
+            try:
+                if float(scale) <= 0:
+                    errors.append(f"layout.placements[{i}].scale must be > 0")
+            except (TypeError, ValueError):
+                errors.append(f"layout.placements[{i}].scale must be numeric")
 
     return errors
 
@@ -621,7 +646,11 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
         player_asset = assets[0].name
 
     viewport = dict(project.viewport) if project.viewport else {"width": 1280, "height": 720}
-    display_size = _player_display_size(assets, player_asset) if player_asset else {"width": 64, "height": 64}
+    display_size = (
+        _player_display_size(project, assets, player_asset)
+        if player_asset
+        else {"width": 64, "height": 64}
+    )
 
     world = dict(preset.get("world") or {})
     if viewport.get("height"):
@@ -706,6 +735,7 @@ def derive_production(brief_path: Path) -> dict[str, Any]:
         "godot_tasks": godot_tasks,
         "validation": _build_validation(project, godot_tasks),
         "layout": layout,
+        "asset_display_sizes": _asset_display_sizes(project, assets),
         "scaffold": {
             "main_scene": "scenes/main.tscn",
             "scripts_dir": "scripts",

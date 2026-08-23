@@ -18,6 +18,8 @@ import {
   catalogDisplayTitle,
   catalogRowsFromDraft,
   mergeStatusFocus,
+  parseBriefDraftJson,
+  resolveBriefAssetFromDraft,
 } from "./components/briefPreviewFormat";
 import type { FocusOption } from "./components/BriefWorkstationBar";
 import { AssetReviewPanel } from "./components/AssetReviewPanel";
@@ -138,6 +140,19 @@ type DiagnoseItem = {
   pm_tip?: string;
 };
 
+/** Prefer concrete stderr summary over generic pm_tip for unknown triage. */
+function diagnoseItemTip(n: DiagnoseItem): string {
+  const summary = String(n.summary || "").trim();
+  const pmTip = String(n.pm_tip || "").trim();
+  if (summary && (n.kind === "unknown" || n.kind === "billing") && pmTip.startsWith("原因不清")) {
+    return summary;
+  }
+  if (summary && n.kind === "billing") {
+    return summary;
+  }
+  return pmTip || summary;
+}
+
 /** Format diagnose JSON into a clear「适不适合项目经理」tip for chat. */
 function formatPmFitAdvice(data: {
   pm_fit?: string;
@@ -158,7 +173,7 @@ function formatPmFitAdvice(data: {
   const lines = items.slice(0, 6).map((n) => {
     const fit =
       n.pm_fit === "yes" ? "适合" : n.pm_fit === "no" ? "不必" : n.pm_fit === "maybe" ? "可分诊" : "?";
-    const tip = n.pm_tip || n.summary || "";
+    const tip = diagnoseItemTip(n);
     return `- \`${n.task_id || "?"}\`（${n.kind || "?"}）· **${fit}**${tip ? ` — ${tip}` : ""}`;
   });
   const headline =
@@ -385,6 +400,7 @@ export default function App() {
   } | null>(null);
   const [draftTitle, setDraftTitle] = useState("");
   const [briefDraft, setBriefDraft] = useState<HostChatDraftBrief | null>(null);
+  const [projectBriefDraft, setProjectBriefDraft] = useState<HostChatDraftBrief | null>(null);
   const [draftDocument, setDraftDocument] = useState<HostChatDraftDocument | null>(null);
   const [briefDraftStatus, setBriefDraftStatus] = useState<HostChatStatus | null>(null);
   const [toolchainReport, setToolchainReport] = useState<ToolchainReport | null>(null);
@@ -459,7 +475,14 @@ export default function App() {
     const rows = catalogRowsFromDraft(briefDraft);
     const opts: FocusOption[] = [{ value: "project", label: "项目门面" }];
     for (const row of rows) {
-      if (row.kind === "asset") continue; // keep focus menu short; pin asset via search later
+      if (row.kind === "asset") {
+        opts.push({
+          value: `asset:${row.id}`,
+          label: catalogDisplayTitle(row),
+          group: "资产",
+        });
+        continue;
+      }
       opts.push({
         value: `${row.kind}:${row.id}`,
         label: catalogDisplayTitle(row),
@@ -636,11 +659,54 @@ export default function App() {
     return slugFromBriefRel(activeBriefRel);
   }, [activeBriefRel, externalEntryById]);
 
+  const loadProjectBriefDraft = useCallback(async (briefRel: string | null) => {
+    if (!briefRel || !window.gameFactory?.readRepoText) {
+      setProjectBriefDraft(null);
+      return;
+    }
+    const norm = briefRel.replace(/\\/g, "/");
+    const root = projectRootFromBriefRel(norm);
+    const candidates = root
+      ? [`${root}/brief.draft.json`, norm]
+      : [norm];
+    for (const rel of candidates) {
+      try {
+        const res = await window.gameFactory.readRepoText(rel);
+        if (!res.ok || !res.text?.trim()) continue;
+        const parsed = parseBriefDraftJson(res.text);
+        if (parsed) {
+          setProjectBriefDraft(parsed);
+          return;
+        }
+      } catch {
+        /* try next */
+      }
+    }
+    setProjectBriefDraft(null);
+  }, []);
+
+  const docsBriefDraft = useMemo(
+    () => briefDraft ?? projectBriefDraft,
+    [briefDraft, projectBriefDraft],
+  );
+
+  const docsBriefStatus = useMemo((): HostChatStatus | null => {
+    if (briefDraftStatus) return briefDraftStatus;
+    if (!projectBriefDraft?.project) return null;
+    const p = projectBriefDraft.project;
+    return {
+      title: String(p.title || ""),
+      genre: String(p.genre || ""),
+      gameplay_loop: String(p.gameplay_loop || ""),
+    };
+  }, [briefDraftStatus, projectBriefDraft]);
+
   const setBrief = useCallback((briefRel: string) => {
     const normalized = briefRel.replace(/\\/g, "/");
     setActiveBriefRel(normalized);
     saveActiveBriefRel(normalized);
     void refreshVisualTarget(normalized);
+    void loadProjectBriefDraft(normalized);
     // Canonicalize legacy resources/ ↔ cli/resources/ paths in the background.
     // Never let resolve remap projects/A → projects/B (e.g. fishing-2d before brief.json exists).
     void (async () => {
@@ -658,12 +724,13 @@ export default function App() {
         void refreshVisualTarget(r.path);
       }
     })();
-  }, [refreshVisualTarget]);
+  }, [refreshVisualTarget, loadProjectBriefDraft]);
 
   /** Unbind topbar project so a new planner draft cannot silently write to the old path. */
   const clearBriefBinding = useCallback(() => {
     setActiveBriefRel(null);
     clearActiveBriefRel();
+    setProjectBriefDraft(null);
     setSelectedManifest("");
     setTasks([]);
     setStatus(null);
@@ -880,7 +947,7 @@ export default function App() {
     const sid = getActiveSession(loadSessionStore()).id;
     const res = await window.gameFactory.hostChatStatus(sid);
     const data = res.data;
-    if (data?.exists && (data.message_count || 0) > 0) {
+    if (data?.exists && ((data.message_count || 0) > 0 || data.draft_brief)) {
       setBrainstormActive(true);
       // Don't wipe chips if status has no last_choices (message bubbles keep theirs)
       if (Array.isArray(data.last_choices) && data.last_choices.length > 0) {
@@ -905,11 +972,22 @@ export default function App() {
         setBrief(bound);
       }
     } else {
+      setBrainstormActive(false);
       setBriefDraft(null);
       setDraftDocument(null);
       setBriefDraftStatus(null);
+      const bound = String(data?.bound_brief_rel || "").replace(/\\/g, "/");
+      if (bound && (!activeBriefRel || !sameProjectRoot(bound, activeBriefRel))) {
+        setBrief(bound);
+      }
+      const hydrateRel = activeBriefRel || bound || null;
+      if (hydrateRel) {
+        void loadProjectBriefDraft(hydrateRel);
+      } else {
+        setProjectBriefDraft(null);
+      }
     }
-  }, [applyDraftFromPayload, activeBriefRel, setBrief]);
+  }, [applyDraftFromPayload, activeBriefRel, setBrief, loadProjectBriefDraft]);
 
   const pinBriefFocus = useCallback(
     async (kind: string, id?: string, extra?: Record<string, unknown>) => {
@@ -1042,9 +1120,13 @@ export default function App() {
       }
       if (colleague?.roleKind === "brief") {
         void refreshBrainstormStatus();
+      } else if (activeBriefRel) {
+        void loadProjectBriefDraft(activeBriefRel);
+      } else {
+        setProjectBriefDraft(null);
       }
     },
-    [patchChatStore, refreshBrainstormStatus],
+    [patchChatStore, refreshBrainstormStatus, activeBriefRel, loadProjectBriefDraft],
   );
 
   const refreshHandoffs = useCallback(async () => {
@@ -3379,6 +3461,80 @@ export default function App() {
     [append, selectedManifest, status],
   );
 
+  const handlePinAssetForBriefEdit = useCallback(
+    async (payload: {
+      briefId: string;
+      label: string;
+      assetName: string;
+      specPathRel?: string;
+    }) => {
+      const briefColleague = chatStore.roster.find((c) => c.roleKind === "brief");
+      if (!briefColleague) {
+        append("assistant", "请先 **+ 雇佣** 一位 **策划** 同事，再标记改描述。");
+        return;
+      }
+      patchChatStore((prev) => setActiveInstance(prev, briefColleague.id));
+      const sessionId =
+        chatStore.activeByInstance[briefColleague.id] ||
+        chatStore.sessions.find((s) => s.instanceId === briefColleague.id)?.id;
+      if (!sessionId) {
+        append(
+          "assistant",
+          "策划会话未就绪 — 请点左侧 **策划** 同事开聊一次，再回来点「送入策划」。",
+        );
+        return;
+      }
+      const meta =
+        resolveBriefAssetFromDraft(
+          briefDraft ?? projectBriefDraft,
+          payload.assetName,
+          projectRootFromBriefRel(activeBriefRel || "") || undefined,
+        ) || null;
+      const briefId = meta?.briefId || payload.briefId;
+      const specPathRel = payload.specPathRel || meta?.specPathRel;
+      if (window.gameFactory?.hostChatFocus) {
+        const res = await window.gameFactory.hostChatFocus(sessionId, {
+          kind: "asset",
+          id: briefId,
+        });
+        const focusFromCli = res?.data?.focus;
+        applyDraftFromPayload({
+          exists: true,
+          focus:
+            focusFromCli !== undefined
+              ? focusFromCli
+              : { kind: "asset", id: briefId },
+        });
+      }
+      void refreshBrainstormStatus();
+      if (specPathRel) {
+        setDocsFocusDiskRel(specPathRel);
+        setSidePanel("docs");
+      }
+      append(
+        "assistant",
+        `已锁定资产 **${payload.label}**（brief id：` +
+          "`" +
+          briefId +
+          "`" +
+          "）。\n\n" +
+          "直接在下方说要如何改 **description / real_length_cm / generation_size** 等；会写入对应 `assets/*.spec.json` 分册。改完可回到资产表 **重生成** 该图。",
+        undefined,
+        { instanceId: briefColleague.id, sessionId },
+      );
+    },
+    [
+      activeBriefRel,
+      applyDraftFromPayload,
+      append,
+      briefDraft,
+      projectBriefDraft,
+      chatStore,
+      patchChatStore,
+      refreshBrainstormStatus,
+    ],
+  );
+
   const handleRetryAsset = async (asset: string) => {
     if (!selectedManifest) {
       append("assistant", "没有流水线 manifest，无法重跑资产。");
@@ -4949,6 +5105,7 @@ export default function App() {
               }
               toggleSidePanel("docs");
               if (agentRole === "brief") void refreshBrainstormStatus();
+              else if (activeBriefRel) void loadProjectBriefDraft(activeBriefRel);
             }}
           >
             文档
@@ -5364,6 +5521,7 @@ export default function App() {
             pipelineManifestRel={selectedManifest || null}
             busy={anyBusy}
             onOpenBoard={() => setSidePanel("board")}
+            onPinForBriefEdit={(payload) => void handlePinAssetForBriefEdit(payload)}
             onAfterRegenerate={() => {
               if (selectedManifest) void refreshManifest(selectedManifest);
             }}
@@ -5374,9 +5532,9 @@ export default function App() {
           <DocsPreviewPanel
             key={activeBriefRel || "docs-unbound"}
             style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
-            draftBrief={briefDraft}
+            draftBrief={docsBriefDraft}
             draftDocument={draftDocument}
-            status={briefDraftStatus}
+            status={docsBriefStatus}
             activeBriefRel={activeBriefRel}
             externalEntryById={externalEntryById}
             activeProjectLabel={activeProjectLabel}
@@ -5398,6 +5556,7 @@ export default function App() {
               });
             }}
             onRefresh={() => {
+              void loadProjectBriefDraft(activeBriefRel);
               if (agentRole === "brief") void refreshBrainstormStatus();
             }}
             onAutofix={agentRole === "brief" ? () => void handleBriefAutofix(5) : undefined}

@@ -16,6 +16,7 @@ from asset_pipeline import (
     find_asset,
     load_brief,
 )
+from generation_fingerprint import embed_generation_fingerprint
 from plan_io import build_handoff, build_video_handoff, save_handoff
 from prompt_craft import PromptCraftError
 from shared_context import build_role_context
@@ -172,12 +173,24 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                 if not plan.video_prompt:
                     click.echo("Error: LLM did not produce video_prompt.", err=True)
                     sys.exit(1)
-                handoff = build_video_handoff(plan.to_dict(), context=context)
+                plan_dict = embed_generation_fingerprint(
+                    plan.to_dict(),
+                    spec=spec,
+                    project=project,
+                    kit_item=kit_row,
+                )
+                handoff = build_video_handoff(plan_dict, context=context)
             else:
                 if not plan.prompt:
                     click.echo("Error: LLM did not produce a prompt.", err=True)
                     sys.exit(1)
-                handoff = build_handoff(plan.to_dict(), context=context)
+                plan_dict = embed_generation_fingerprint(
+                    plan.to_dict(),
+                    spec=spec,
+                    project=project,
+                    kit_item=kit_row,
+                )
+                handoff = build_handoff(plan_dict, context=context)
 
             if output_path:
                 save_handoff(output_path, handoff)

@@ -105,9 +105,30 @@ class FetchProviderModelsTest(unittest.TestCase):
         self.assertFalse(res["ok"])
         self.assertEqual(res["models"], [])
         self.assertIn("401", res["error"])
+        self.assertIn("Apilio", res["error"])
         payload = json.dumps(res)
         self.assertNotIn("sk-secret", payload)
         self.assertNotIn("api_key", payload)
+
+    def test_api_key_override_without_saved_account(self) -> None:
+        def fake_http(url: str, api_key: str) -> tuple[int, bytes]:
+            self.assertEqual(url, "https://api.apilio.ai/v1/models")
+            self.assertEqual(api_key, "sk-apilio-preview")
+            body = json.dumps({"data": [{"id": "openai/gpt-5.4-image-2"}]}).encode()
+            return 200, body
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.json"
+            path.write_text("{}", encoding="utf-8")
+            res = fetch_provider_models(
+                provider="apilio",
+                config_path=path,
+                http_get=fake_http,
+                api_key_override="sk-apilio-preview",
+                api_base_override="https://api.apilio.ai/v1",
+            )
+        self.assertTrue(res["ok"])
+        self.assertEqual([m["id"] for m in res["models"]], ["openai/gpt-5.4-image-2"])
 
     def test_success_empty_models(self) -> None:
         def fake_http(_url: str, _api_key: str) -> tuple[int, bytes]:

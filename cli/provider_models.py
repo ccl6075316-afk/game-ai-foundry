@@ -70,14 +70,49 @@ def _default_http_get(url: str, api_key: str) -> tuple[int, bytes]:
         return int(exc.code), body
 
 
-def _http_error_message(status: int) -> str:
+def _http_error_message(status: int, *, provider_id: str = "", api_base: str = "") -> str:
     if status == 401:
-        return "HTTP 401 未授权"
+        hint = "检查 API Key 是否与 api_base 匹配"
+        if provider_id and "apilio" in api_base.lower():
+            hint += "（Apilio 需用 Apilio Key，不能用 OpenRouter Key）"
+        elif provider_id:
+            hint += f"（账号 {provider_id}）"
+        return f"HTTP 401 未授权 — {hint}"
     if status == 403:
         return "HTTP 403 禁止访问"
     if status == 404:
-        return "HTTP 404 未找到"
+        return "HTTP 404 — 该网关可能不支持 GET /models，请手填 model id"
     return f"HTTP {status}"
+
+
+def _account_entry(
+    cfg: dict[str, Any],
+    provider_id: str,
+    *,
+    api_key_override: str | None = None,
+    api_base_override: str | None = None,
+) -> dict[str, Any]:
+    accounts_raw = cfg.get("provider_accounts")
+    accounts = accounts_raw if isinstance(accounts_raw, dict) else {}
+    raw_entry = accounts.get(provider_id)
+    entry: dict[str, Any] = dict(raw_entry) if isinstance(raw_entry, dict) else {}
+
+    if api_key_override and str(api_key_override).strip():
+        entry["api_key"] = str(api_key_override).strip()
+    if api_base_override and str(api_base_override).strip():
+        entry["api_base"] = str(api_base_override).strip()
+
+    image = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
+    if str(image.get("provider") or "").strip().lower() == provider_id:
+        if not resolve_api_key(api_key=str(entry.get("api_key") or "")):
+            legacy = str(image.get("api_key") or "").strip()
+            if legacy:
+                entry["api_key"] = legacy
+        if not str(entry.get("api_base") or "").strip():
+            legacy_base = str(image.get("api_base") or "").strip()
+            if legacy_base:
+                entry["api_base"] = legacy_base
+    return entry
 
 
 def fetch_provider_models(
@@ -85,6 +120,8 @@ def fetch_provider_models(
     provider: str,
     config_path: Path | None = None,
     http_get: HttpGetFn | None = None,
+    api_key_override: str | None = None,
+    api_base_override: str | None = None,
 ) -> dict[str, Any]:
     """Return ``{ok, provider, models, source, error}``; never exposes api_key."""
     provider_id = str(provider or "").strip().lower()
@@ -98,11 +135,17 @@ def fetch_provider_models(
         return {**base, "ok": False, "error": "缺少 --provider"}
 
     cfg = _load_config(config_path)
-    accounts_raw = cfg.get("provider_accounts")
-    accounts = accounts_raw if isinstance(accounts_raw, dict) else {}
-    entry = accounts.get(provider_id)
-    if not isinstance(entry, dict):
-        return {**base, "ok": False, "error": f"账号不存在: {provider_id}"}
+    entry = _account_entry(
+        cfg,
+        provider_id,
+        api_key_override=api_key_override,
+        api_base_override=api_base_override,
+    )
+    if not entry and not (api_key_override or api_base_override):
+        accounts_raw = cfg.get("provider_accounts")
+        accounts = accounts_raw if isinstance(accounts_raw, dict) else {}
+        if provider_id not in accounts:
+            return {**base, "ok": False, "error": f"账号不存在: {provider_id}"}
 
     api_key = resolve_api_key(api_key=str(entry.get("api_key") or "") or None)
     if not api_key:
@@ -130,7 +173,11 @@ def fetch_provider_models(
         return {**base, "ok": False, "error": str(exc).strip() or "网络请求失败"}
 
     if status >= 400:
-        return {**base, "ok": False, "error": _http_error_message(status)}
+        return {
+            **base,
+            "ok": False,
+            "error": _http_error_message(status, provider_id=provider_id, api_base=api_base),
+        }
 
     try:
         payload = json.loads(body.decode("utf-8") if body else "{}")

@@ -11,6 +11,12 @@ interface Props {
   busy: boolean;
   onOpenBoard?: () => void;
   onAfterRegenerate?: () => void;
+  onPinForBriefEdit?: (payload: {
+    briefId: string;
+    label: string;
+    assetName: string;
+    specPathRel?: string;
+  }) => void;
   style?: React.CSSProperties;
 }
 
@@ -94,14 +100,17 @@ export function AssetReviewPanel({
   busy,
   onOpenBoard,
   onAfterRegenerate,
+  onPinForBriefEdit,
   style,
 }: Props) {
   const [rows, setRows] = useState<AssetReviewRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [filter, setFilter] = useState<ReviewStatusFilter>("all");
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [checkedIds, setCheckedIds] = useState<Set<string>>(() => new Set());
   const [lightbox, setLightbox] = useState<{ url: string; title: string; path: string } | null>(
     null,
   );
@@ -185,6 +194,37 @@ export function AssetReviewPanel({
     }
   }, [filtered, selectedId]);
 
+  useEffect(() => {
+    const visible = new Set(filtered.map((r) => r.row_id));
+    setCheckedIds((prev) => {
+      const next = new Set([...prev].filter((id) => visible.has(id)));
+      return next.size === prev.size ? prev : next;
+    });
+  }, [filtered]);
+
+  const toggleChecked = (rowId: string, checked: boolean) => {
+    setCheckedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) next.add(rowId);
+      else next.delete(rowId);
+      return next;
+    });
+  };
+
+  const toggleAllFiltered = () => {
+    const allSelected =
+      filtered.length > 0 && filtered.every((r) => checkedIds.has(r.row_id));
+    setCheckedIds((prev) => {
+      const next = new Set(prev);
+      if (allSelected) {
+        for (const r of filtered) next.delete(r.row_id);
+      } else {
+        for (const r of filtered) next.add(r.row_id);
+      }
+      return next;
+    });
+  };
+
   const selected = filtered.find((r) => r.row_id === selectedId) || null;
 
   const accept = async () => {
@@ -228,6 +268,43 @@ export function AssetReviewPanel({
         setError(res.stderr?.trim() || "本地替换失败");
       }
       await refresh();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setActionBusy(false);
+    }
+  };
+
+  const regenerateBatch = async (resetOnly: boolean) => {
+    if (!pipelineManifestRel || checkedIds.size === 0) return;
+    const n = checkedIds.size;
+    const ok = window.confirm(
+      resetOnly
+        ? `仅重置选中的 ${n} 项？\n任务会变为 pending，之后点「运行资产生成」续跑。`
+        : `重生成选中的 ${n} 项？\n将重置并重跑（含 prompt 重制，若适用）。`,
+    );
+    if (!ok) return;
+    setActionBusy(true);
+    setError(null);
+    try {
+      if (!window.gameFactory?.assetsReviewRegenerateBatch) {
+        setError("批量重生成 API 不可用（请重启应用）");
+        return;
+      }
+      const res = await window.gameFactory.assetsReviewRegenerateBatch(pipelineManifestRel, {
+        rowIds: [...checkedIds],
+        assetsManifestRel: manifestForMutations,
+        jobs: 4,
+        resetOnly,
+        recraftPrompt: true,
+      });
+      if (res.exitCode !== 0) {
+        setError(res.stderr?.trim() || "批量操作失败");
+      } else {
+        setCheckedIds(new Set());
+      }
+      await refresh();
+      onAfterRegenerate?.();
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -281,11 +358,23 @@ export function AssetReviewPanel({
     void window.gameFactory.openMedia(rel);
   };
 
+  const copyHint = async (text: string, label: string) => {
+    const value = String(text || "").trim();
+    if (!value) return;
+    try {
+      await navigator.clipboard.writeText(value);
+      setError(null);
+      setMessage(`已复制 ${label}`);
+    } catch {
+      setError(`无法复制到剪贴板，请手动复制：${value}`);
+    }
+  };
+
   return (
     <aside className="side-panel board-panel asset-review-panel" style={style}>
       <div className="side-panel__head board-head">
         <h2>资产</h2>
-        <p className="hint">审查缩略图与 usage 映射；采纳 / 替换 / 重生成（软标注，不挡流水线）</p>
+        <p className="hint">改说明用 brief id +「送入策划」；不满意图用勾选 → 重生成</p>
       </div>
 
       <div className={`board-meta mono ${manifestForMutations ? "board-meta--ready" : ""}`}>
@@ -332,42 +421,111 @@ export function AssetReviewPanel({
       />
 
       {error && <p className="hint asset-review-error">{error}</p>}
+      {message && !error && <p className="hint asset-review-ok">{message}</p>}
 
       {!manifestForMutations && !loading && (
         <p className="brief-draft-empty">尚无 assets-manifest。请先生成流水线并运行资产生成。</p>
       )}
 
+      {checkedIds.size > 0 && canRegenerate && (
+        <div className="asset-review-batch">
+          <span className="asset-review-batch__count">已选 {checkedIds.size} 项</span>
+          <button
+            type="button"
+            className="btn btn--primary btn--sm"
+            disabled={panelBusy}
+            onClick={() => void regenerateBatch(false)}
+          >
+            重生成选中
+          </button>
+          <button
+            type="button"
+            className="btn btn--secondary btn--sm"
+            disabled={panelBusy}
+            onClick={() => void regenerateBatch(true)}
+            title="只打回 pending，不立刻跑 pipeline"
+          >
+            仅重置
+          </button>
+          <button
+            type="button"
+            className="btn btn--ghost btn--sm"
+            disabled={panelBusy}
+            onClick={() => {
+              const ids = filtered
+                .filter((r) => checkedIds.has(r.row_id))
+                .map((r) => r.brief_id || r.asset_name);
+              void copyHint(ids.join("\n"), `${ids.length} 个 brief id`);
+            }}
+          >
+            复制 brief id
+          </button>
+          <button
+            type="button"
+            className="btn btn--ghost btn--sm"
+            disabled={panelBusy}
+            onClick={() => setCheckedIds(new Set())}
+          >
+            取消选择
+          </button>
+        </div>
+      )}
+
+      <div className="asset-review-list-head">
+        <label className="asset-review-check-all">
+          <input
+            type="checkbox"
+            checked={filtered.length > 0 && filtered.every((r) => checkedIds.has(r.row_id))}
+            onChange={() => toggleAllFiltered()}
+            disabled={panelBusy || filtered.length === 0}
+          />
+          <span>全选当前列表</span>
+        </label>
+      </div>
+
       <div className="asset-review-list">
         {filtered.map((row) => (
-          <button
+          <div
             key={row.row_id}
-            type="button"
             className={`asset-review-row ${selectedId === row.row_id ? "is-active" : ""}`}
-            onClick={() => setSelectedId(row.row_id)}
           >
-            <Thumb
-              key={`${row.preview_path_repo || ""}:${row.review?.updated_at || ""}`}
-              pathRepo={row.preview_path_repo}
-              updatedAt={row.review?.updated_at}
-              onActivate={(url) =>
-                setLightbox({
-                  url,
-                  title: row.label,
-                  path: row.preview_path_repo || row.canonical_path_repo || "",
-                })
-              }
+            <input
+              type="checkbox"
+              className="asset-review-row__check"
+              checked={checkedIds.has(row.row_id)}
+              onChange={(e) => toggleChecked(row.row_id, e.target.checked)}
+              disabled={panelBusy}
+              aria-label={`选择 ${row.label}`}
             />
-            <div className="asset-review-row__body">
-              <span className="asset-review-row__title">{row.label}</span>
-              <span className="asset-review-row__meta">
-                {row.type || "—"}
-                {row.usage ? ` · ${row.usage}` : ""}
+            <button
+              type="button"
+              className="asset-review-row__open"
+              onClick={() => setSelectedId(row.row_id)}
+            >
+              <Thumb
+                key={`${row.preview_path_repo || ""}:${row.review?.updated_at || ""}`}
+                pathRepo={row.preview_path_repo}
+                updatedAt={row.review?.updated_at}
+                onActivate={(url) =>
+                  setLightbox({
+                    url,
+                    title: row.label,
+                    path: row.preview_path_repo || row.canonical_path_repo || "",
+                  })
+                }
+              />
+              <div className="asset-review-row__body">
+                <span className="asset-review-row__title">{row.label}</span>
+                <span className="asset-review-row__meta">
+                  {row.type || "—"}
+                  {row.usage ? ` · ${row.usage}` : ""}
+                </span>
+              </div>
+              <span className={`style-chip ${statusClass(row.review?.status || "pending")}`}>
+                {STATUS_LABEL[row.review?.status || "pending"]}
               </span>
-            </div>
-            <span className={`style-chip ${statusClass(row.review?.status || "pending")}`}>
-              {STATUS_LABEL[row.review?.status || "pending"]}
-            </span>
-          </button>
+            </button>
+          </div>
         ))}
         {manifestForMutations && !loading && filtered.length === 0 && (
           <p className="brief-draft-empty">没有匹配的资产行。</p>
@@ -401,7 +559,50 @@ export function AssetReviewPanel({
           />
           <dl className="asset-review-dl">
             <div>
-              <dt>id</dt>
+              <dt>改 brief 用（id）</dt>
+              <dd className="mono">
+                {selected.brief_id || selected.asset_name}
+                <button
+                  type="button"
+                  className="btn btn--ghost"
+                  onClick={() =>
+                    void copyHint(selected.brief_id || selected.asset_name, "brief id")
+                  }
+                >
+                  复制
+                </button>
+                {onPinForBriefEdit && !selected.kit_item_slug ? (
+                  <button
+                    type="button"
+                    className="btn btn--secondary"
+                    onClick={() =>
+                      onPinForBriefEdit({
+                        briefId: selected.brief_id || selected.asset_name,
+                        label: selected.label,
+                        assetName: selected.asset_name,
+                      })
+                    }
+                  >
+                    送入策划
+                  </button>
+                ) : null}
+              </dd>
+            </div>
+            <div>
+              <dt>流水线名（asset_name）</dt>
+              <dd className="mono">
+                {selected.asset_name}
+                <button
+                  type="button"
+                  className="btn btn--ghost"
+                  onClick={() => void copyHint(selected.asset_name, "流水线名")}
+                >
+                  复制
+                </button>
+              </dd>
+            </div>
+            <div>
+              <dt>审查行 id</dt>
               <dd className="mono">{selected.row_id}</dd>
             </div>
             <div>
@@ -444,7 +645,8 @@ export function AssetReviewPanel({
             )}
           </dl>
           <p className="hint">
-            本地替换会覆盖当前交付物路径；若只换 nobg、raw 仍旧，后续从 raw 重跑可能冲掉替换。
+            改 <code>description</code> / 尺寸：点 <strong>送入策划</strong>（锁定 brief 分册 + 对话焦点），直接说怎么改即可，不必手抄 id。
+            icon_kit 子项请用流水线名或在文档里改父资产。
           </p>
           <div className="board-actions asset-review-actions">
             <button
@@ -468,7 +670,9 @@ export function AssetReviewPanel({
               className="btn btn--secondary"
               disabled={panelBusy || !canRegenerate}
               title={
-                canRegenerate ? "重置并重跑相关生图任务" : "需要先选择 / 生成 pipeline manifest"
+                canRegenerate
+                  ? "重置并重跑（含 prompt 重制）"
+                  : "需要先选择 / 生成 pipeline manifest"
               }
               onClick={() => void regenerate()}
             >

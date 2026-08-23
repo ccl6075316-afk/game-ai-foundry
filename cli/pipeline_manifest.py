@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
@@ -10,24 +11,33 @@ from pathlib import Path
 from typing import Any
 
 from asset_pipeline import _plan_metadata
+from asset_sizing import effective_display_dict, resolve_effective_display_size
 from brief import (
     ANIMATION_METHOD_IMG2IMG,
     ANIMATION_METHOD_VIDEO,
     AssetSpec,
     AssetType,
+    IconKitItem,
     ProjectContext,
     effective_style_anchor_kind,
     expand_stateful_assets,
     find_asset,
+    find_icon_kit_item,
     is_runtime_only_asset,
     load_brief,
     load_brief_full,
     resolve_animation_loop,
     resolve_animation_name,
     resolve_asset_file_key,
+    resolve_kit_item_slug,
     resolve_style_img2img_path,
     should_use_style_img2img,
+    unique_kit_item_slugs,
     validate_brief_for_export,
+)
+from generation_fingerprint import (
+    build_generation_input,
+    is_handoff_generation_stale,
 )
 from roles import (
     GODOT_ASSEMBLER_ROLE,
@@ -784,9 +794,7 @@ def _collect_godot_plan(
                     "sprite_frames": sprite_count,
                     "pre_trimmed": True,
                     "pre_sampled": True,
-                    "display_size": (
-                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
-                    ),
+                    "display_size": effective_display_dict(spec, project),
                 }
             )
         elif spec.type == AssetType.BACKGROUND:
@@ -795,9 +803,7 @@ def _collect_godot_plan(
                 {
                     "asset": spec.name,
                     "image": raw,
-                    "display_size": (
-                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
-                    ),
+                    "display_size": effective_display_dict(spec, project),
                 }
             )
         elif (spec.content_class or "").strip() in PLACABLE_CONTENT_CLASSES:
@@ -815,9 +821,7 @@ def _collect_godot_plan(
                 {
                     "asset": asset_key,
                     "image": image,
-                    "display_size": (
-                        spec.display_size.to_dict() if not spec.display_size.is_empty() else None
-                    ),
+                    "display_size": effective_display_dict(spec, project),
                 }
             )
 
@@ -870,9 +874,10 @@ def _collect_godot_plan(
     if character_asset:
         plan["character_asset"] = character_asset
         for spec in assets:
-            if spec.name == character_asset and not spec.display_size.is_empty():
-                plan["character_display_size"] = spec.display_size.to_dict()
-                break
+            if spec.name == character_asset:
+                plan["character_display_size"] = effective_display_dict(spec, project)
+                if plan["character_display_size"]:
+                    break
     return plan
 
 
@@ -1254,11 +1259,331 @@ def _primary_artifact_rel(task: dict[str, Any]) -> str | None:
     return None
 
 
+def _load_handoff_json(cli_rel: str) -> dict[str, Any] | None:
+    path = (_CLI_DIR / cli_rel).resolve()
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _brief_path_from_manifest(manifest: dict[str, Any]) -> Path | None:
+    brief_rel = str(manifest.get("brief") or "").strip()
+    if not brief_rel:
+        return None
+    brief_path = (_REPO_ROOT / brief_rel).resolve()
+    return brief_path if brief_path.is_file() else None
+
+
+def _load_generation_context(manifest: dict[str, Any]) -> tuple[ProjectContext, list[AssetSpec], dict[str, dict[str, Any]]] | None:
+    brief_path = _brief_path_from_manifest(manifest)
+    if brief_path is None:
+        return None
+    from brief_shards import resolve_asset_specs
+
+    project, assets, _ = load_brief_full(brief_path)
+    spec_dicts: dict[str, dict[str, Any]] = {}
+    for raw in resolve_asset_specs(brief_path):
+        if not isinstance(raw, dict):
+            continue
+        aid = str(raw.get("id") or "").strip()
+        if aid:
+            spec_dicts[aid] = raw
+        try:
+            spec = AssetSpec.from_dict(raw)
+            fk = resolve_asset_file_key(spec)
+            if fk:
+                spec_dicts[fk] = raw
+        except ValueError:
+            continue
+    return project, assets, spec_dicts
+
+
+def _find_prompt_craft_task(manifest: dict[str, Any], asset_id: str) -> dict[str, Any] | None:
+    needle = str(asset_id or "").strip()
+    if not needle:
+        return None
+    for task in tasks_list(manifest):
+        if str(task.get("step") or "") != "prompt.craft":
+            continue
+        if str(task.get("asset_id") or "") == needle:
+            return task
+    return None
+
+
+def _resolve_spec_for_asset_id(
+    asset_id: str,
+    assets: list[AssetSpec],
+    task: dict[str, Any],
+) -> tuple[AssetSpec | None, IconKitItem | None]:
+    needle = str(asset_id or "").strip()
+    arts = task.get("artifacts") if isinstance(task.get("artifacts"), dict) else {}
+    kit_slug = str(arts.get("kit_item_slug") or "").strip()
+    kit_id = str(arts.get("kit_item_id") or "").strip()
+
+    for spec in assets:
+        fk = resolve_asset_file_key(spec)
+        if needle not in (fk, spec.id):
+            continue
+        kit_item: IconKitItem | None = None
+        if kit_slug or kit_id:
+            slugs = unique_kit_item_slugs(spec.items)
+            for item, slug in zip(spec.items, slugs, strict=False):
+                if kit_slug and slug == kit_slug:
+                    kit_item = item
+                    break
+                if kit_id and item.id == kit_id:
+                    kit_item = item
+                    break
+            if kit_item is None and kit_id:
+                kit_item = find_icon_kit_item(spec, kit_id)
+        return spec, kit_item
+
+    if "__" in needle:
+        base, slug = needle.rsplit("__", 1)
+        for spec in assets:
+            if resolve_asset_file_key(spec) != base:
+                continue
+            slugs = unique_kit_item_slugs(spec.items)
+            for item, item_slug in zip(spec.items, slugs, strict=False):
+                if item_slug == slug or item.id == slug:
+                    return spec, item
+    return None, None
+
+
+def is_asset_generation_stale(
+    manifest: dict[str, Any],
+    asset_id: str,
+    *,
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    spec_dicts: dict[str, dict[str, Any]],
+) -> bool:
+    prompt_task = _find_prompt_craft_task(manifest, asset_id)
+    if prompt_task is None:
+        return False
+    arts = prompt_task.get("artifacts") if isinstance(prompt_task.get("artifacts"), dict) else {}
+    plan_rel = str(arts.get("plan") or "").strip()
+    if not plan_rel:
+        return False
+    handoff = _load_handoff_json(plan_rel)
+    if handoff is None:
+        return False
+    spec, kit_item = _resolve_spec_for_asset_id(asset_id, assets, prompt_task)
+    if spec is None:
+        return False
+    raw_shard = spec_dicts.get(asset_id) or spec_dicts.get(spec.id) or spec_dicts.get(resolve_asset_file_key(spec))
+    current = build_generation_input(
+        spec,
+        project,
+        kit_item=kit_item,
+        raw_shard=raw_shard,
+    )
+    return is_handoff_generation_stale(handoff, current)
+
+
+def invalidate_stale_generation_inputs(manifest: dict[str, Any]) -> list[str]:
+    """Reset done/skipped prompt.craft + dependents when brief/spec inputs changed."""
+    ctx = _load_generation_context(manifest)
+    if ctx is None:
+        return []
+    project, assets, spec_dicts = ctx
+    stale_roots: list[str] = []
+    for task in tasks_list(manifest):
+        if task.get("status") not in (TASK_DONE, TASK_SKIPPED):
+            continue
+        if str(task.get("step") or "") != "prompt.craft":
+            continue
+        asset_id = str(task.get("asset_id") or "").strip()
+        if not asset_id:
+            continue
+        if is_asset_generation_stale(
+            manifest,
+            asset_id,
+            project=project,
+            assets=assets,
+            spec_dicts=spec_dicts,
+        ):
+            stale_roots.append(str(task["id"]))
+
+    if not stale_roots:
+        return []
+
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+    reset_ids: list[str] = []
+    seen: set[str] = set()
+    stack = list(stale_roots)
+    while stack:
+        tid = stack.pop()
+        if tid in seen:
+            continue
+        seen.add(tid)
+        task = by_id.get(tid)
+        if task is None:
+            continue
+        _reset_task_to_pending(task)
+        reset_ids.append(tid)
+        for other in tasks_list(manifest):
+            if tid in (other.get("depends_on") or []):
+                stack.append(str(other["id"]))
+
+    purged = purge_stale_task_artifacts(manifest, reset_ids)
+
+    from assets_manifest import refresh_assets_manifest_from_pipeline
+
+    refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset_ids)
+    if purged:
+        manifest.setdefault("meta", {})["last_stale_purge"] = {
+            "at": _utc_now(),
+            "paths": purged[:200],
+            "count": len(purged),
+        }
+    return reset_ids
+
+
 def _reset_task_to_pending(task: dict[str, Any]) -> None:
     task["status"] = TASK_PENDING
     task["result"] = None
     task["started_at"] = None
     task["finished_at"] = None
+
+
+_ARTIFACT_PURGE_KEYS = frozenset(
+    {
+        "plan",
+        "output",
+        "output_dir",
+        "nobg_image",
+        "video",
+        "dev_handoff",
+        "assemble_file",
+        "input",
+        "frames_dir",
+        "plan_file",
+    }
+)
+
+# Produced by this task — safe to delete on stale invalidation.
+_ARTIFACT_PURGE_ARTIFACT_KEYS = frozenset(
+    {
+        "plan",
+        "output",
+        "output_dir",
+        "nobg_image",
+        "video",
+        "dev_handoff",
+        "assemble_file",
+        "input",
+        "frames_dir",
+        "plan_file",
+    }
+)
+
+# Cross-asset inputs — never delete (e.g. video reference_image → another asset's raw).
+_ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS = frozenset(
+    {
+        "reference_image",
+        "kit_style_reference",
+        "kit_style_anchor_slug",
+    }
+)
+
+
+def _collect_task_artifact_rels(task: dict[str, Any]) -> list[str]:
+    """Cli-relative artifact paths to delete when a task is invalidated."""
+    seen: set[str] = set()
+    out: list[str] = []
+
+    def add(raw: Any) -> None:
+        rel = str(raw or "").strip().replace("\\", "/")
+        if not rel or rel in seen:
+            return
+        seen.add(rel)
+        out.append(rel)
+
+    arts = task.get("artifacts")
+    if isinstance(arts, dict):
+        for key, val in arts.items():
+            key_s = str(key or "")
+            if key_s in _ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS:
+                continue
+            if key_s in _ARTIFACT_PURGE_ARTIFACT_KEYS:
+                add(val)
+
+    result = task.get("result")
+    if isinstance(result, dict):
+        for key in _ARTIFACT_PURGE_KEYS:
+            add(result.get(key))
+
+    return out
+
+
+def purge_stale_task_artifacts(
+    manifest: dict[str, Any],
+    task_ids: list[str],
+) -> list[str]:
+    """Delete on-disk artifacts for invalidated pipeline tasks.
+
+    Stale brief inputs mean deliverables are obsolete — remove them so UI/disk
+    match manifest pending state and the next run starts clean.
+    """
+    if not task_ids:
+        return []
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+    removed: list[str] = []
+    for tid in task_ids:
+        task = by_id.get(tid)
+        if task is None:
+            continue
+        for rel in _collect_task_artifact_rels(task):
+            path = (_CLI_DIR / rel).resolve()
+            try:
+                if path.is_file():
+                    path.unlink()
+                    removed.append(rel)
+                elif path.is_dir():
+                    shutil.rmtree(path)
+                    removed.append(rel)
+            except OSError:
+                continue
+    return removed
+
+
+def purge_obsolete_generation_artifacts(manifest: dict[str, Any]) -> list[str]:
+    """Delete on-disk deliverables for assets whose handoff no longer matches brief.
+
+    Runs even when tasks are already pending (e.g. after a prior stale reset left files).
+    """
+    ctx = _load_generation_context(manifest)
+    if ctx is None:
+        return []
+    project, assets, spec_dicts = ctx
+    stale_assets: set[str] = set()
+    for task in tasks_list(manifest):
+        if str(task.get("step") or "") != "prompt.craft":
+            continue
+        asset_id = str(task.get("asset_id") or "").strip()
+        if not asset_id:
+            continue
+        if is_asset_generation_stale(
+            manifest,
+            asset_id,
+            project=project,
+            assets=assets,
+            spec_dicts=spec_dicts,
+        ):
+            stale_assets.add(asset_id)
+    if not stale_assets:
+        return []
+    purge_ids: list[str] = []
+    for task in tasks_list(manifest):
+        asset_id = str(task.get("asset_id") or "").strip()
+        if asset_id in stale_assets:
+            purge_ids.append(str(task["id"]))
+    return purge_stale_task_artifacts(manifest, purge_ids)
 
 
 def invalidate_missing_artifacts(manifest: dict[str, Any]) -> list[str]:
@@ -1305,14 +1630,30 @@ def invalidate_missing_artifacts(manifest: dict[str, Any]) -> list[str]:
 
 
 def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = None) -> dict[str, Any]:
-    """Sync task status with disk: missing outputs → pending; existing outputs → done.
+    """Sync task status with disk: stale brief inputs → pending; missing outputs → pending;
+    existing valid outputs → done.
 
-    Returns ``{"invalidated": n, "promoted": m, "invalidated_ids": [...], "total": n+m}``.
+    Returns counts including stale invalidation from changed spec/description/sizing.
     """
     _ = repo_root
+    stale_ids = invalidate_stale_generation_inputs(manifest)
+    purged_obsolete = purge_obsolete_generation_artifacts(manifest)
     invalidated_ids = invalidate_missing_artifacts(manifest)
+    purged_count = 0
+    meta = manifest.get("meta") if isinstance(manifest.get("meta"), dict) else {}
+    purge_meta = meta.get("last_stale_purge")
+    if isinstance(purge_meta, dict):
+        purged_count = int(purge_meta.get("count") or 0)
+    if purged_obsolete:
+        purged_count += len(purged_obsolete)
+        manifest.setdefault("meta", {})["last_stale_purge"] = {
+            "at": _utc_now(),
+            "paths": purged_obsolete[:200],
+            "count": len(purged_obsolete),
+        }
     promoted = 0
     by_id = {t["id"]: t for t in tasks_list(manifest)}
+    gen_ctx = _load_generation_context(manifest)
 
     for task in tasks_list(manifest):
         if task.get("status") != TASK_PENDING:
@@ -1323,6 +1664,17 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
         rel = _primary_artifact_rel(task)
         if not rel or not _artifact_exists(_REPO_ROOT, rel):
             continue
+        asset_id = str(task.get("asset_id") or "").strip()
+        if gen_ctx and asset_id:
+            project, assets, spec_dicts = gen_ctx
+            if is_asset_generation_stale(
+                manifest,
+                asset_id,
+                project=project,
+                assets=assets,
+                spec_dicts=spec_dicts,
+            ):
+                continue
         record_task(
             manifest,
             task["id"],
@@ -1333,10 +1685,13 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
         promoted += 1
 
     return {
+        "stale_invalidated": len(stale_ids),
+        "stale_invalidated_ids": stale_ids,
+        "stale_purged": purged_count,
         "invalidated": len(invalidated_ids),
         "promoted": promoted,
         "invalidated_ids": invalidated_ids,
-        "total": len(invalidated_ids) + promoted,
+        "total": len(stale_ids) + len(invalidated_ids) + promoted,
     }
 
 

@@ -7,7 +7,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   toolchainInstall: (componentId) => ipcRenderer.invoke("toolchain-install", componentId),
   executorStatus: () => ipcRenderer.invoke("executor-status"),
   executorModels: (executorId) => ipcRenderer.invoke("executor-models", executorId),
-  providerModels: (providerId) => ipcRenderer.invoke("provider-models", providerId),
+  providerModels: (providerId, opts) => ipcRenderer.invoke("provider-models", providerId, opts),
   executorStep: (executorId, stepId, opts) =>
     ipcRenderer.invoke("executor-step", executorId, stepId, opts),
   openExternal: (url) => ipcRenderer.invoke("open-external", url),
@@ -41,6 +41,8 @@ contextBridge.exposeInMainWorld("gameFactory", {
     ipcRenderer.invoke("assets-review-replace", assetsManifestRel, assetName, itemSlug, absFilePath),
   assetsReviewRegenerate: (pipelineManifestRel, assetName, itemSlug, jobs) =>
     ipcRenderer.invoke("assets-review-regenerate", pipelineManifestRel, assetName, itemSlug, jobs),
+  assetsReviewRegenerateBatch: (pipelineManifestRel, opts) =>
+    ipcRenderer.invoke("assets-review-regenerate-batch", pipelineManifestRel, opts),
   resolveBriefRel: (briefRel) => ipcRenderer.invoke("resolve-brief-rel", briefRel),
   visualTargetGenerate: (briefRel, candidates, sceneId) =>
     ipcRenderer.invoke("visual-target-generate", briefRel, candidates, sceneId),

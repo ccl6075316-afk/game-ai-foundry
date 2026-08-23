@@ -99,7 +99,7 @@ export const VIDEO_PROVIDER_SECTION: SettingsSectionMeta = {
   title: "生视频",
   roleId: "video-api",
   purpose: "图生视频：从账号库选用（Veo / Wan / Hailuo / Grok Imagine 等，或遗留 Seedance）",
-  note: "未启用时仍可读旧 video.api_key（Seedance）。模型用刷新目录或手填。",
+  note: "短选 Seedance / 火山方舟（方舟 Key + mini/fast/pro），或选 apilio 等 compat 账号 + 视频 model。",
 };
 
 /** @deprecated 使用 TEXT_PROVIDER_SECTION + IMAGE_PROVIDER_SECTION */
