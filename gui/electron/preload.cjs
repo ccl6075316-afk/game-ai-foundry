@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   readRepoText: (relPath) => ipcRenderer.invoke("read-repo-text", relPath),
   patchBriefProject: (relPath, projectPatch) =>
     ipcRenderer.invoke("patch-brief-project", relPath, projectPatch),
+  patchBriefAssets: (relPath, updates) => ipcRenderer.invoke("patch-brief-assets", relPath, updates),
   listProjectDocs: (briefRel) => ipcRenderer.invoke("list-project-docs", briefRel),
   ensureProject: (slug) => ipcRenderer.invoke("ensure-project", slug),
   externalProjectOpen: () => ipcRenderer.invoke("external-project-open"),

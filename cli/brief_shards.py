@@ -13,7 +13,9 @@ from project_paths import project_root_for_brief
 
 CATALOG_SCENE_KEYS = frozenset({"id", "title", "path"})
 CATALOG_SYSTEM_KEYS = frozenset({"id", "title", "path"})
-CATALOG_ASSET_KEYS = frozenset({"id", "name", "path"})
+CATALOG_ASSET_KEYS = frozenset(
+    {"id", "name", "path", "production_wave", "availability", "placeholder_reason"}
+)
 
 _SCENE_BODY_HINT_KEYS = frozenset(
     {
@@ -349,6 +351,16 @@ def resolve_asset_specs(brief_path: Path) -> list[dict[str, Any]]:
             if name and not _nonempty_str(body.get("name")):
                 body = dict(body)
                 body["name"] = name
+            # Catalog may stage routing metadata without rewriting every shard body.
+            if "production_wave" in item and item.get("production_wave") is not None:
+                body = dict(body)
+                body["production_wave"] = item.get("production_wave")
+            if "availability" in item and item.get("availability") is not None:
+                body = dict(body)
+                body["availability"] = item.get("availability")
+            if "placeholder_reason" in item and item.get("placeholder_reason") is not None:
+                body = dict(body)
+                body["placeholder_reason"] = item.get("placeholder_reason")
             out.append(body)
         else:
             out.append(_minimal_legacy_asset(item))
@@ -399,7 +411,16 @@ def _catalog_ref_from_entry(entry: dict[str, Any], *, kind: Kind, rel_path: str)
     ref_id = _nonempty_str(entry.get("id"))
     if kind == "asset":
         name = _nonempty_str(entry.get("name")) or ref_id
-        return {"id": ref_id, "name": name, "path": rel_path}
+        out = {"id": ref_id, "name": name, "path": rel_path}
+        if entry.get("production_wave") is not None:
+            out["production_wave"] = entry.get("production_wave")
+        availability = _nonempty_str(entry.get("availability"))
+        if availability:
+            out["availability"] = availability
+        reason = _nonempty_str(entry.get("placeholder_reason"))
+        if reason:
+            out["placeholder_reason"] = reason
+        return out
     return {"id": ref_id, "title": _nonempty_str(entry.get("title")), "path": rel_path}
 
 
@@ -596,6 +617,10 @@ def upsert_shard_body(
             ref_entry["title"] = _nonempty_str(merged.get("title"))
         elif kind == "asset" and _nonempty_str(merged.get("name")):
             ref_entry["name"] = _nonempty_str(merged.get("name"))
+        if kind == "asset":
+            for key in ("production_wave", "availability", "placeholder_reason"):
+                if merged.get(key) is not None and _nonempty_str(merged.get(key)):
+                    ref_entry[key] = merged.get(key)
         return _catalog_ref_from_entry(ref_entry, kind=kind, rel_path=rel)
 
     if entry is not None and uses_catalog:

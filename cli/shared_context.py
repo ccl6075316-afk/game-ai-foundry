@@ -158,6 +158,12 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["use_style_img2img"] = spec.use_style_img2img
     if spec.generate_tier:
         data["generate_tier"] = spec.generate_tier
+    if spec.production_wave and spec.production_wave != 1:
+        data["production_wave"] = spec.production_wave
+    if spec.availability and spec.availability != "ready":
+        data["availability"] = spec.availability
+    if spec.placeholder_reason:
+        data["placeholder_reason"] = spec.placeholder_reason
     if spec.content_class:
         data["content_class"] = spec.content_class
     if spec.states:

@@ -61,6 +61,27 @@ class GodotDevHandoffTest(unittest.TestCase):
             )
             self.assertIsNotNone(plan["authoritative_sources"]["assets_manifest"])
 
+    def test_runtime_bindings_surface_placeholder_assets(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "output" / "asset-brief.example"
+            out.mkdir(parents=True)
+            manifest = build_assets_manifest(EXAMPLE_BRIEF, output_dir=out)
+            manifest["assets"]["mossy_rock"]["brief"]["availability"] = "placeholder"
+            manifest["assets"]["mossy_rock"]["brief"]["placeholder_reason"] = "later"
+            manifest_path = out / "assets-manifest.json"
+            save_assets_manifest(manifest_path, manifest)
+
+            repo = Path(__file__).resolve().parent.parent
+            brief_in_repo = repo / "resources" / "asset-brief.example.json"
+            plan = build_godot_dev_plan(
+                brief_in_repo,
+                project_path=Path(tmp) / "games" / "demo",
+                assets_manifest_path=manifest_path,
+            )
+            mossy = next(b for b in plan["runtime_bindings"] if b["asset"] == "mossy_rock")
+            self.assertEqual(mossy["availability"], "placeholder")
+            self.assertEqual(mossy["placeholder_reason"], "later")
+
 
 if __name__ == "__main__":
     unittest.main()

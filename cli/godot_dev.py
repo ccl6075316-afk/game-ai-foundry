@@ -60,6 +60,11 @@ def _runtime_bindings(
             "type": spec.type.value,
             "usage": spec.usage or (brief_snap or {}).get("usage", ""),
             "usage_description": spec.usage_description or (brief_snap or {}).get("usage_description", ""),
+            "production_wave": (brief_snap or {}).get("production_wave", spec.production_wave),
+            "availability": (brief_snap or {}).get("availability", spec.availability or "ready"),
+            "placeholder_reason": (
+                (brief_snap or {}).get("placeholder_reason") or spec.placeholder_reason
+            ),
             "display_size": (
                 spec.display_size.to_dict()
                 if not spec.display_size.is_empty()

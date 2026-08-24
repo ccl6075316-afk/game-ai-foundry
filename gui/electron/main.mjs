@@ -748,6 +748,90 @@ function patchBriefProject(relPath, projectPatch) {
   }
 }
 
+function resolveWritableBriefRel(relPath) {
+  const raw = String(relPath || "").replace(/\\/g, "/").replace(/^\.\//, "");
+  if (!raw) return "";
+  const base = raw.startsWith("external:") ? raw : resolveBriefRel(raw);
+  if (!base) return "";
+  const slash = base.lastIndexOf("/");
+  const parent = slash >= 0 ? base.slice(0, slash) : "";
+  const draftRel = parent ? `${parent}/brief.draft.json` : "brief.draft.json";
+  const draftAbs = absForRel(draftRel);
+  if (existsSync(draftAbs) && statSync(draftAbs).isFile()) return draftRel;
+  return base;
+}
+
+function patchBriefAssets(relPath, updates) {
+  const targetRel = resolveWritableBriefRel(relPath);
+  const resolved = resolveReadableRel(targetRel);
+  if (!resolved) return { ok: false, error: "invalid brief path" };
+  if (!existsSync(resolved.full) || !statSync(resolved.full).isFile()) {
+    return { ok: false, error: "brief file not found", path: resolved.rel };
+  }
+  if (!Array.isArray(updates) || updates.length === 0) {
+    return { ok: false, error: "updates must be a non-empty array", path: resolved.rel };
+  }
+  try {
+    const data = JSON.parse(readFileSync(resolved.full, "utf-8"));
+    const assets = Array.isArray(data?.assets) ? [...data.assets] : null;
+    if (!assets) {
+      return { ok: false, error: "brief.assets must be an array", path: resolved.rel };
+    }
+    let changed = 0;
+    const touched = [];
+    for (const rawUpdate of updates) {
+      if (!rawUpdate || typeof rawUpdate !== "object") continue;
+      const matchId = String(rawUpdate.id || "").trim();
+      const matchName = String(rawUpdate.name || rawUpdate.assetName || "").trim();
+      const idx = assets.findIndex((item) => {
+        if (!item || typeof item !== "object") return false;
+        if (matchId && String(item.id || "").trim() === matchId) return true;
+        if (matchName && String(item.name || "").trim() === matchName) return true;
+        return false;
+      });
+      if (idx < 0) continue;
+      const next = { ...assets[idx] };
+      if (rawUpdate.productionWave != null) {
+        const wave = Math.max(1, Math.floor(Number(rawUpdate.productionWave) || 1));
+        if (wave === 1) delete next.production_wave;
+        else next.production_wave = wave;
+      }
+      if (rawUpdate.availability != null) {
+        const availability =
+          String(rawUpdate.availability || "ready").trim().toLowerCase() || "ready";
+        if (availability === "ready") {
+          delete next.availability;
+          delete next.placeholder_reason;
+        } else {
+          next.availability = availability;
+          const reason = String(rawUpdate.placeholderReason || rawUpdate.placeholder_reason || "")
+            .trim();
+          if (reason) next.placeholder_reason = reason;
+        }
+      }
+      if (rawUpdate.placeholderReason != null || rawUpdate.placeholder_reason != null) {
+        const reason = String(rawUpdate.placeholderReason || rawUpdate.placeholder_reason || "")
+          .trim();
+        if (reason) next.placeholder_reason = reason;
+        else delete next.placeholder_reason;
+      }
+      if (JSON.stringify(next) !== JSON.stringify(assets[idx])) {
+        assets[idx] = next;
+        changed += 1;
+        touched.push(String(next.id || next.name || idx));
+      }
+    }
+    if (!changed) {
+      return { ok: true, path: resolved.rel, changed: 0, touched: [], skipped: true };
+    }
+    data.assets = assets;
+    writeFileSync(resolved.full, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+    return { ok: true, path: resolved.rel, changed, touched, skipped: false };
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : String(e), path: resolved.rel };
+  }
+}
+
 function listProjectDocs(briefRel) {
   const out = [];
   const pushIfExists = (rel, label, kind) => {
@@ -1026,6 +1110,7 @@ function manifestMeta(relPath) {
   try {
     const manifest = loadManifest(relPath);
     const outputDir = manifest.paths?.output_dir || "";
+    const plansDir = manifest.paths?.plans_dir || "";
     const godotProject = manifest.godot_project || "";
     const brief = manifest.brief || "";
     const tasks = Array.isArray(manifest.tasks) ? manifest.tasks : [];
@@ -1037,9 +1122,11 @@ function manifestMeta(relPath) {
     return {
       brief: String(brief).replace(/\\/g, "/"),
       output_dir: String(outputDir).replace(/\\/g, "/"),
+      plans_dir: String(plansDir).replace(/\\/g, "/"),
       godot_project: String(godotProject).replace(/\\/g, "/"),
       project_title: manifest.project?.title || "",
       task_count: tasks.length,
+      production_max_wave: Number(manifest.meta?.production_max_wave) || undefined,
       counts,
     };
   } catch {
@@ -1948,6 +2035,7 @@ app.whenReady().then(() => {
   ipcMain.handle("patch-brief-project", (_e, relPath, projectPatch) =>
     patchBriefProject(relPath, projectPatch),
   );
+  ipcMain.handle("patch-brief-assets", (_e, relPath, updates) => patchBriefAssets(relPath, updates));
   ipcMain.handle("list-project-docs", (_e, briefRel) => {
     const docs = listProjectDocs(briefRel);
     if (!app.isPackaged) {
@@ -2029,6 +2117,8 @@ app.whenReady().then(() => {
       outputDirRel,
       godotProjectRel,
       plansDirRel,
+      mergeRel,
+      maxWave,
     } = opts;
     const briefResolved = isExternalVirtualRel(briefRel)
       ? normalizeRepoRel(briefRel)
@@ -2047,6 +2137,12 @@ app.whenReady().then(() => {
     ];
     if (plansDirRel) {
       args.push("--plans-dir", cliArgForRel(plansDirRel));
+    }
+    if (mergeRel) {
+      args.push("--merge", cliArgForRel(mergeRel));
+    }
+    if (Number.isFinite(Number(maxWave)) && Number(maxWave) > 0) {
+      args.push("--max-wave", String(Math.floor(Number(maxWave))));
     }
     // Ensure parent dirs exist for isolated projects
     for (const rel of [manifestRel, outputDirRel, godotProjectRel, plansDirRel]) {

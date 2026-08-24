@@ -1493,6 +1493,57 @@ class HostChatTests(unittest.TestCase):
         self.assertEqual(added["type"], "texture")
         self.assertRegex(str(added["id"]), r"^tex_[a-z0-9_]+$")
 
+    def test_upsert_asset_catalog_writes_wave_and_placeholder_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            save_json_shard(
+                root / "assets" / "rod.spec.json",
+                {
+                    "id": "rod",
+                    "name": "Rod",
+                    "type": "texture",
+                    "usage": "ui_icon",
+                    "display_size": {"width": 32, "height": 32},
+                    "usage_description": "rod icon",
+                },
+            )
+            draft = {
+                "project": {"title": "T"},
+                "assets": [
+                    {"id": "rod", "name": "Rod", "path": "assets/rod.spec.json"},
+                ],
+            }
+            out = apply_brief_patches(
+                draft,
+                [
+                    {
+                        "op": "upsert_asset",
+                        "match": {"id": "rod"},
+                        "set": {
+                            "production_wave": 3,
+                            "availability": "placeholder",
+                            "placeholder_reason": "ship later",
+                        },
+                    }
+                ],
+                project_root=root,
+            )
+            self.assertEqual(
+                out["assets"][0],
+                {
+                    "id": "rod",
+                    "name": "Rod",
+                    "path": "assets/rod.spec.json",
+                    "production_wave": 3,
+                    "availability": "placeholder",
+                    "placeholder_reason": "ship later",
+                },
+            )
+            shard = json.loads((root / "assets" / "rod.spec.json").read_text(encoding="utf-8"))
+            self.assertEqual(shard["production_wave"], 3)
+            self.assertEqual(shard["availability"], "placeholder")
+            self.assertEqual(shard["placeholder_reason"], "ship later")
+
     def test_upsert_scene_resolves_chinese_title_to_existing_id(self) -> None:
         draft = {
             "project": {

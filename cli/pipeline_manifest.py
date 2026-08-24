@@ -755,6 +755,54 @@ def _layout_for_godot_plan(
     return build_layout(project, assets)
 
 
+def _is_placeholder_asset(spec: AssetSpec) -> bool:
+    return str(getattr(spec, "availability", "") or "ready").strip().lower() == "placeholder"
+
+
+def _validate_placeholder_assets(
+    project: ProjectContext,
+    assets: list[AssetSpec],
+    graphs: list[Any],
+) -> None:
+    placeholder_names = {spec.name for spec in assets if _is_placeholder_asset(spec)}
+    placeholder_ids = {spec.id for spec in assets if _is_placeholder_asset(spec) and spec.id.strip()}
+    if not placeholder_names and not placeholder_ids:
+        return
+
+    def _is_placeholder_ref(label: str) -> bool:
+        key = str(label or "").strip()
+        return bool(key) and (key in placeholder_names or key in placeholder_ids)
+
+    errors: list[str] = []
+    player_asset = str(project.player_asset or "").strip()
+    if _is_placeholder_ref(player_asset):
+        errors.append(f"player_asset '{player_asset}' cannot be placeholder")
+
+    for spec in assets:
+        if _is_placeholder_asset(spec):
+            continue
+        if _is_placeholder_ref(spec.reference_asset):
+            errors.append(
+                f"Asset '{spec.name}' references placeholder asset '{spec.reference_asset.strip()}'"
+            )
+        if _is_placeholder_ref(spec.style_anchor):
+            errors.append(
+                f"Asset '{spec.name}' style_anchor points to placeholder asset '{spec.style_anchor.strip()}'"
+            )
+        if _is_placeholder_ref(spec.identity_anchor):
+            errors.append(
+                f"Asset '{spec.name}' identity_anchor points to placeholder asset '{spec.identity_anchor.strip()}'"
+            )
+
+    for graph in graphs:
+        char_asset = str(getattr(graph, "character_asset", "") or "").strip()
+        if _is_placeholder_ref(char_asset):
+            errors.append(f"animation_graph character_asset '{char_asset}' cannot be placeholder")
+
+    if errors:
+        raise ValueError("Placeholder assets are still required:\n- " + "\n- ".join(errors))
+
+
 def _collect_godot_plan(
     *,
     brief_stem: str,
@@ -766,6 +814,7 @@ def _collect_godot_plan(
     sprite_frames_default: int = 8,
     plans_dir: Path | None = None,
 ) -> dict[str, Any]:
+    assets = [spec for spec in assets if not _is_placeholder_asset(spec)]
     animations: list[dict[str, Any]] = []
     backgrounds: list[dict[str, Any]] = []
     props: list[dict[str, Any]] = []
@@ -971,12 +1020,29 @@ def build_manifest(
     godot_project: Path | None = None,
     include_godot: bool = True,
     include_game_dev: bool = True,
+    max_wave: int | None = None,
 ) -> dict[str, Any]:
-    """Expand brief into a task DAG manifest."""
+    """Expand brief into a task DAG manifest.
+
+    When ``max_wave`` is set, only assets with ``production_wave <= max_wave``
+    enter the generation DAG. The full brief remains the design ledger;
+    later waves are planned with a higher ``max_wave`` (or omit the filter).
+    """
     brief_path = brief_path.resolve()
     project, assets, graphs = load_brief_full(brief_path)
     validate_brief_for_export(project, assets, animation_graphs=graphs)
     assets = expand_stateful_assets(assets)
+    _validate_placeholder_assets(project, assets, graphs)
+    assets = [a for a in assets if not _is_placeholder_asset(a)]
+    keep_names = {a.name for a in assets}
+    graphs = [g for g in graphs if g.character_asset in keep_names]
+
+    if max_wave is not None:
+        if max_wave < 1:
+            raise ValueError(f"max_wave must be >= 1, got {max_wave}")
+        assets = [a for a in assets if int(getattr(a, "production_wave", 1) or 1) <= max_wave]
+        keep_names = {a.name for a in assets}
+        graphs = [g for g in graphs if g.character_asset in keep_names]
 
     from project_paths import default_paths_for_brief
 
@@ -1121,6 +1187,12 @@ def build_manifest(
         },
         "tasks": [t.to_dict() for t in tasks],
     }
+    if max_wave is not None:
+        manifest["meta"] = {
+            **(manifest.get("meta") if isinstance(manifest.get("meta"), dict) else {}),
+            "production_max_wave": max_wave,
+            "production_wave_asset_count": len(assets),
+        }
     if include_godot and godot_handoff_cli:
         manifest["godot_project"] = rel_to_repo(godot_project.resolve())
         manifest["godot_assemble_file"] = godot_handoff_cli

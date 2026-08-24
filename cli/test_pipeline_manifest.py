@@ -332,6 +332,78 @@ class PipelineManifestTest(unittest.TestCase):
         self.assertNotIn("../output/knight_raw.png", rels)
         self.assertNotIn("../output/anchor_raw.png", rels)
 
+    def test_max_wave_filters_generation_dag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            brief = json.loads(Path(EXAMPLE_BRIEF).read_text(encoding="utf-8"))
+            deferred_names = {"mossy_rock"}
+            for asset in brief.get("assets") or []:
+                asset["production_wave"] = 2 if asset.get("name") in deferred_names else 1
+            brief_path = root / "brief.json"
+            brief_path.write_text(json.dumps(brief, ensure_ascii=False), encoding="utf-8")
+            out_dir = root / "output"
+            plans_dir = root / "plans"
+            full = build_manifest(
+                brief_path,
+                output_dir=out_dir,
+                plans_dir=plans_dir,
+                include_godot=False,
+                include_game_dev=False,
+            )
+            wave1 = build_manifest(
+                brief_path,
+                output_dir=out_dir,
+                plans_dir=plans_dir,
+                include_godot=False,
+                include_game_dev=False,
+                max_wave=1,
+            )
+            full_names = {t["asset"] for t in tasks_list(full)}
+            wave_names = {t["asset"] for t in tasks_list(wave1)}
+            self.assertIn("mossy_rock", full_names)
+            self.assertNotIn("mossy_rock", wave_names)
+            self.assertLess(len(tasks_list(wave1)), len(tasks_list(full)))
+            self.assertEqual(wave1.get("meta", {}).get("production_max_wave"), 1)
+
+    def test_placeholder_assets_do_not_enter_generation_dag(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            brief = json.loads(Path(EXAMPLE_BRIEF).read_text(encoding="utf-8"))
+            for asset in brief.get("assets") or []:
+                if asset.get("name") == "mossy_rock":
+                    asset["availability"] = "placeholder"
+                    asset["placeholder_reason"] = "later"
+            brief_path = root / "brief.json"
+            brief_path.write_text(json.dumps(brief, ensure_ascii=False), encoding="utf-8")
+            manifest = build_manifest(
+                brief_path,
+                output_dir=root / "output",
+                plans_dir=root / "plans",
+                include_godot=False,
+                include_game_dev=False,
+            )
+            asset_names = {t["asset"] for t in tasks_list(manifest)}
+            self.assertNotIn("mossy_rock", asset_names)
+
+    def test_placeholder_reference_asset_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            brief = json.loads(Path(EXAMPLE_BRIEF).read_text(encoding="utf-8"))
+            for asset in brief.get("assets") or []:
+                if asset.get("name") == "knight":
+                    asset["availability"] = "placeholder"
+                    asset["placeholder_reason"] = "later"
+            brief_path = root / "brief.json"
+            brief_path.write_text(json.dumps(brief, ensure_ascii=False), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "placeholder|占位|reference_asset"):
+                build_manifest(
+                    brief_path,
+                    output_dir=root / "output",
+                    plans_dir=root / "plans",
+                    include_godot=False,
+                    include_game_dev=False,
+                )
+
     def test_asset_brief_example_layers(self) -> None:
         manifest = build_manifest(EXAMPLE_BRIEF)
         summary = status_summary(manifest)

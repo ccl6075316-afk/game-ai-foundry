@@ -6,6 +6,7 @@ import { MediaLightbox } from "./MediaLightbox";
 type ReviewStatusFilter = "all" | "pending" | "accepted" | "replaced";
 
 interface Props {
+  briefRel: string | null;
   assetsManifestRel: string | null;
   pipelineManifestRel: string | null;
   busy: boolean;
@@ -95,6 +96,7 @@ function Thumb({
 }
 
 export function AssetReviewPanel({
+  briefRel,
   assetsManifestRel,
   pipelineManifestRel,
   busy,
@@ -103,6 +105,13 @@ export function AssetReviewPanel({
   onPinForBriefEdit,
   style,
 }: Props) {
+  type ScopeMeta = {
+    id: string;
+    name: string;
+    productionWave: number;
+    availability: "ready" | "placeholder";
+    placeholderReason: string;
+  };
   const [rows, setRows] = useState<AssetReviewRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -115,12 +124,78 @@ export function AssetReviewPanel({
     null,
   );
   const [actionBusy, setActionBusy] = useState(false);
+  const [scopeMap, setScopeMap] = useState<Record<string, ScopeMeta>>({});
+  const [waveFilter, setWaveFilter] = useState<"all" | "1" | "2" | "3+">("all");
+  const [availabilityFilter, setAvailabilityFilter] = useState<"all" | "ready" | "placeholder">("all");
+  const [manifestMaxWave, setManifestMaxWave] = useState<number>(1);
+  const [batchWave, setBatchWave] = useState("1");
+  const [detailWave, setDetailWave] = useState("1");
+  const [placeholderReason, setPlaceholderReason] = useState("");
   /** Path IPC actually used when list succeeds via pipeline resolve */
   const [listedManifest, setListedManifest] = useState<string | null>(null);
 
   const canRegenerate = Boolean(pipelineManifestRel?.trim());
   const panelBusy = busy || loading || actionBusy;
   const manifestForMutations = assetsManifestRel || listedManifest;
+
+  const scopeForRow = useCallback(
+    (row: AssetReviewRow): ScopeMeta | null =>
+      scopeMap[row.asset_name] || (row.brief_id ? scopeMap[row.brief_id] : null) || null,
+    [scopeMap],
+  );
+
+  const writableBriefCandidate = useMemo(() => {
+    const rel = String(briefRel || "").replace(/\\/g, "/").trim();
+    if (!rel) return "";
+    const slash = rel.lastIndexOf("/");
+    const parent = slash >= 0 ? rel.slice(0, slash) : "";
+    return parent ? `${parent}/brief.draft.json` : "brief.draft.json";
+  }, [briefRel]);
+
+  const refreshScope = useCallback(async () => {
+    const next: Record<string, ScopeMeta> = {};
+    const readJson = async (rel: string | null) => {
+      if (!rel || !window.gameFactory?.readRepoText) return null;
+      const res = await window.gameFactory.readRepoText(rel);
+      if (!res?.ok || !res.text) return null;
+      return JSON.parse(res.text);
+    };
+    try {
+      const draftData = (await readJson(writableBriefCandidate)) || (await readJson(briefRel));
+      const assets = Array.isArray(draftData?.assets) ? draftData.assets : [];
+      for (const item of assets) {
+        if (!item || typeof item !== "object") continue;
+        const id = String(item.id || "").trim();
+        const name = String(item.name || "").trim() || id;
+        if (!name) continue;
+        const meta: ScopeMeta = {
+          id,
+          name,
+          productionWave: Math.max(1, Number(item.production_wave) || 1),
+          availability:
+            String(item.availability || "ready").trim().toLowerCase() === "placeholder"
+              ? "placeholder"
+              : "ready",
+          placeholderReason: String(item.placeholder_reason || "").trim(),
+        };
+        next[name] = meta;
+        if (id) next[id] = meta;
+      }
+    } catch {
+      // ignore parse errors; asset review remains usable
+    }
+    setScopeMap(next);
+    if (pipelineManifestRel && window.gameFactory?.getManifestMeta) {
+      try {
+        const meta = await window.gameFactory.getManifestMeta(pipelineManifestRel);
+        const wave = Math.max(1, Number(meta?.production_max_wave) || 1);
+        setManifestMaxWave(wave);
+        setBatchWave(String(wave));
+      } catch {
+        setManifestMaxWave(1);
+      }
+    }
+  }, [briefRel, pipelineManifestRel, writableBriefCandidate]);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -174,16 +249,28 @@ export function AssetReviewPanel({
     void refresh();
   }, [refresh]);
 
+  useEffect(() => {
+    void refreshScope();
+  }, [refreshScope]);
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return rows.filter((row) => {
       if (filter !== "all" && row.review?.status !== filter) return false;
+      const scope = scopeForRow(row);
+      if (availabilityFilter !== "all" && (scope?.availability || "ready") !== availabilityFilter) {
+        return false;
+      }
+      const wave = scope?.productionWave || 1;
+      if (waveFilter === "1" && wave !== 1) return false;
+      if (waveFilter === "2" && wave !== 2) return false;
+      if (waveFilter === "3+" && wave < 3) return false;
       if (!q) return true;
       const hay =
-        `${row.label} ${row.asset_name} ${row.kit_item_slug || ""} ${row.usage || ""} ${row.type || ""}`.toLowerCase();
+        `${row.label} ${row.asset_name} ${row.kit_item_slug || ""} ${row.usage || ""} ${row.type || ""} wave${wave} ${scope?.availability || "ready"}`.toLowerCase();
       return hay.includes(q);
     });
-  }, [rows, filter, search]);
+  }, [rows, filter, search, scopeForRow, availabilityFilter, waveFilter]);
 
   // Keep selection only while it still matches the filter; do not auto-pick
   // the first row (that trapped users in detail with no clear way back).
@@ -226,6 +313,73 @@ export function AssetReviewPanel({
   };
 
   const selected = filtered.find((r) => r.row_id === selectedId) || null;
+  const selectedScope = selected ? scopeForRow(selected) : null;
+
+  useEffect(() => {
+    if (!selectedScope) return;
+    setDetailWave(String(selectedScope.productionWave || 1));
+    setPlaceholderReason(selectedScope.placeholderReason || "");
+  }, [selectedScope?.id, selectedScope?.productionWave, selectedScope?.placeholderReason]);
+
+  const replanCurrentManifest = async (maxWaveOverride?: number) => {
+    if (!pipelineManifestRel || !window.gameFactory?.getManifestMeta || !window.gameFactory?.pipelinePlan) {
+      return;
+    }
+    const meta = await window.gameFactory.getManifestMeta(pipelineManifestRel);
+    if (!meta?.brief || !meta.output_dir || !meta.godot_project) return;
+    const wave = Math.max(1, Number(maxWaveOverride || meta.production_max_wave || manifestMaxWave || 1));
+    const result = await window.gameFactory.pipelinePlan({
+      briefRel: meta.brief,
+      manifestRel: pipelineManifestRel,
+      outputDirRel: meta.output_dir,
+      godotProjectRel: meta.godot_project,
+      plansDirRel: meta.plans_dir,
+      mergeRel: pipelineManifestRel,
+      maxWave: wave,
+    });
+    if (result.exitCode !== 0) {
+      throw new Error(result.stderr?.trim() || "重排 manifest 失败");
+    }
+    setManifestMaxWave(wave);
+  };
+
+  const updateScope = async (
+    targets: AssetReviewRow[],
+    patch: { productionWave?: number; availability?: "ready" | "placeholder"; placeholderReason?: string },
+    opts?: { replan?: boolean; maxWave?: number },
+  ) => {
+    if (!briefRel || !window.gameFactory?.patchBriefAssets || targets.length === 0) return;
+    setActionBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      const updates = targets.map((row) => ({
+        id: row.brief_id || undefined,
+        name: row.asset_name,
+        assetName: row.asset_name,
+        productionWave: patch.productionWave,
+        availability: patch.availability,
+        placeholderReason: patch.placeholderReason,
+      }));
+      const res = await window.gameFactory.patchBriefAssets(briefRel, updates);
+      if (!res?.ok) {
+        throw new Error(res?.error || "更新资产标记失败");
+      }
+      if (opts?.replan !== false) {
+        await replanCurrentManifest(opts?.maxWave);
+      }
+      await refreshScope();
+      await refresh();
+      onAfterRegenerate?.();
+      setMessage(`已更新 ${updates.length} 项资产施工标记`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setActionBusy(false);
+    }
+  };
+
+  const checkedRows = filtered.filter((r) => checkedIds.has(r.row_id));
 
   const accept = async () => {
     if (!selected || !manifestForMutations) return;
@@ -411,6 +565,62 @@ export function AssetReviewPanel({
           </button>
         ))}
       </div>
+      <div className="asset-review-filters">
+        {(
+          [
+            ["all", "全部波次"],
+            ["1", "第 1 波"],
+            ["2", "第 2 波"],
+            ["3+", "第 3 波+"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={`composer__chip ${waveFilter === id ? "composer__chip--primary" : ""}`}
+            onClick={() => setWaveFilter(id)}
+          >
+            {label}
+          </button>
+        ))}
+        {(
+          [
+            ["all", "全部状态"],
+            ["ready", "已就绪"],
+            ["placeholder", "暂空占位"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={`composer__chip ${availabilityFilter === id ? "composer__chip--primary" : ""}`}
+            onClick={() => setAvailabilityFilter(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="asset-scope-toolbar">
+        <span className="asset-scope-toolbar__label">当前施工波次</span>
+        <input
+          className="asset-scope-toolbar__input"
+          type="number"
+          min={1}
+          value={batchWave}
+          onChange={(e) => setBatchWave(e.target.value)}
+          disabled={panelBusy}
+        />
+        <button
+          type="button"
+          className="btn btn--secondary btn--sm"
+          disabled={panelBusy || !pipelineManifestRel}
+          onClick={() => void replanCurrentManifest(Math.max(1, Number(batchWave) || 1)).then(() => setMessage("已按新波次重排 manifest")).catch((e) => setError(e instanceof Error ? e.message : String(e)))}
+        >
+          重排 manifest
+        </button>
+        <span className="hint">manifest 当前为第 {manifestMaxWave} 波</span>
+      </div>
 
       <input
         className="asset-review-search"
@@ -430,6 +640,46 @@ export function AssetReviewPanel({
       {checkedIds.size > 0 && canRegenerate && (
         <div className="asset-review-batch">
           <span className="asset-review-batch__count">已选 {checkedIds.size} 项</span>
+          <input
+            className="asset-scope-toolbar__input"
+            type="number"
+            min={1}
+            value={batchWave}
+            onChange={(e) => setBatchWave(e.target.value)}
+            disabled={panelBusy}
+            title="批量改到第几波"
+          />
+          <button
+            type="button"
+            className="btn btn--secondary btn--sm"
+            disabled={panelBusy || !briefRel}
+            onClick={() =>
+              void updateScope(checkedRows, { productionWave: Math.max(1, Number(batchWave) || 1) })
+            }
+          >
+            改波次
+          </button>
+          <button
+            type="button"
+            className="btn btn--secondary btn--sm"
+            disabled={panelBusy || !briefRel}
+            onClick={() =>
+              void updateScope(checkedRows, {
+                availability: "placeholder",
+                placeholderReason: "GUI 暂空",
+              })
+            }
+          >
+            标记暂空
+          </button>
+          <button
+            type="button"
+            className="btn btn--secondary btn--sm"
+            disabled={panelBusy || !briefRel}
+            onClick={() => void updateScope(checkedRows, { availability: "ready", placeholderReason: "" })}
+          >
+            恢复就绪
+          </button>
           <button
             type="button"
             className="btn btn--primary btn--sm"
@@ -519,6 +769,8 @@ export function AssetReviewPanel({
                 <span className="asset-review-row__meta">
                   {row.type || "—"}
                   {row.usage ? ` · ${row.usage}` : ""}
+                  {scopeForRow(row) ? ` · W${scopeForRow(row)?.productionWave || 1}` : ""}
+                  {scopeForRow(row)?.availability === "placeholder" ? " · 暂空" : ""}
                 </span>
               </div>
               <span className={`style-chip ${statusClass(row.review?.status || "pending")}`}>
@@ -606,6 +858,14 @@ export function AssetReviewPanel({
               <dd className="mono">{selected.row_id}</dd>
             </div>
             <div>
+              <dt>施工控制</dt>
+              <dd>
+                W{selectedScope?.productionWave || 1}
+                {selectedScope?.availability === "placeholder" ? " · 暂空占位" : " · 已就绪"}
+                {selectedScope?.placeholderReason ? ` · ${selectedScope.placeholderReason}` : ""}
+              </dd>
+            </div>
+            <div>
               <dt>type / usage</dt>
               <dd>
                 {selected.type || "—"}
@@ -644,6 +904,72 @@ export function AssetReviewPanel({
               </div>
             )}
           </dl>
+          <div className="asset-scope-editor">
+            <label className="asset-scope-editor__field">
+              <span>波次</span>
+              <input
+                className="asset-scope-toolbar__input"
+                type="number"
+                min={1}
+                value={detailWave}
+                onChange={(e) => setDetailWave(e.target.value)}
+                disabled={panelBusy}
+              />
+            </label>
+            <label className="asset-scope-editor__field asset-scope-editor__field--grow">
+              <span>暂空原因</span>
+              <input
+                className="asset-review-search"
+                type="text"
+                placeholder="例如：玩法未启用 / 下一波再补"
+                value={placeholderReason}
+                onChange={(e) => setPlaceholderReason(e.target.value)}
+                disabled={panelBusy}
+              />
+            </label>
+            <button
+              type="button"
+              className="btn btn--secondary"
+              disabled={panelBusy || !briefRel || !selected}
+              onClick={() =>
+                void updateScope(
+                  [selected],
+                  { productionWave: Math.max(1, Number(detailWave) || 1) },
+                  { maxWave: manifestMaxWave },
+                )
+              }
+            >
+              保存波次
+            </button>
+            <button
+              type="button"
+              className="btn btn--secondary"
+              disabled={panelBusy || !briefRel || !selected}
+              onClick={() =>
+                void updateScope(
+                  [selected],
+                  { availability: "placeholder", placeholderReason },
+                  { maxWave: manifestMaxWave },
+                )
+              }
+            >
+              设为暂空
+            </button>
+            <button
+              type="button"
+              className="btn btn--ghost"
+              disabled={panelBusy || !briefRel || !selected}
+              onClick={() =>
+                void updateScope(
+                  [selected],
+                  { availability: "ready", placeholderReason: "" },
+                  { maxWave: manifestMaxWave },
+                )
+              }
+            >
+              恢复就绪
+            </button>
+          </div>
           <p className="hint">
             改 <code>description</code> / 尺寸：点 <strong>送入策划</strong>（锁定 brief 分册 + 对话焦点），直接说怎么改即可，不必手抄 id。
             icon_kit 子项请用流水线名或在文档里改父资产。

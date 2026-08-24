@@ -132,10 +132,22 @@ export interface ExternalProjectRemoveResult {
 export interface ManifestMeta {
   brief?: string;
   output_dir?: string;
+  plans_dir?: string;
   godot_project?: string;
   project_title?: string;
   task_count?: number;
+  production_max_wave?: number;
   counts?: Record<string, number>;
+}
+
+export interface PipelinePlanOpts {
+  briefRel: string;
+  manifestRel: string;
+  outputDirRel: string;
+  godotProjectRel: string;
+  plansDirRel?: string;
+  mergeRel?: string;
+  maxWave?: number;
 }
 
 export interface ManifestMatch {
@@ -228,6 +240,15 @@ export interface AssetReviewRow {
     updated_at: string;
     note: string;
   };
+}
+
+export interface AssetScopeUpdate {
+  id?: string;
+  name?: string;
+  assetName?: string;
+  productionWave?: number;
+  availability?: "ready" | "placeholder";
+  placeholderReason?: string;
 }
 
 export interface AssetReviewAcceptResult {
@@ -436,6 +457,17 @@ declare global {
         skipped?: boolean;
         error?: string;
       }>;
+      patchBriefAssets: (
+        relPath: string,
+        updates: AssetScopeUpdate[],
+      ) => Promise<{
+        ok: boolean;
+        path?: string;
+        changed?: number;
+        touched?: string[];
+        skipped?: boolean;
+        error?: string;
+      }>;
       listProjectDocs: (briefRel?: string | null) => Promise<
         Array<{
           path: string;
@@ -455,12 +487,7 @@ declare global {
       externalProjectOpen: () => Promise<ExternalProjectOpenResult>;
       externalProjectsList: () => Promise<ExternalProjectsListResult>;
       externalProjectRemove: (extId: string) => Promise<ExternalProjectRemoveResult>;
-      pipelinePlan: (opts: {
-        briefRel: string;
-        manifestRel: string;
-        outputDirRel: string;
-        godotProjectRel: string;
-      }) => Promise<CliResult>;
+      pipelinePlan: (opts: PipelinePlanOpts) => Promise<CliResult>;
       pipelineStatus: (manifestRel: string) => Promise<{
         exitCode: number;
         status: PipelineStatus;

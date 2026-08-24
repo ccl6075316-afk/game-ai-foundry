@@ -318,6 +318,12 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
                 continue
             asset = str(item.get("asset", "bg"))
             img = _resolve_repo_path(str(item["image"]))
+            optional = bool(item.get("optional", False))
+            if optional and not img.is_file():
+                skipped = results.setdefault("backgrounds_skipped", [])
+                if isinstance(skipped, list):
+                    skipped.append({"asset": asset, "skipped": "missing_source"})
+                continue
             try:
                 rel = copy_background_image(
                     project_path,
@@ -335,15 +341,19 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
     idle_still_src: Path | None = None
     if isinstance(idle_still, str) and idle_still.strip():
         idle_still_src = _resolve_repo_path(idle_still)
-        try:
-            idle_still_res = copy_idle_still(
-                project_path,
-                image_path=idle_still_src,
-                display_size=plan.get("character_display_size"),
-            )
-        except GodotImportError as exc:
-            raise GodotAssembleError(str(exc)) from exc
-        results["idle_still"] = idle_still_res
+        if bool(plan.get("idle_still_optional", False)) and not idle_still_src.is_file():
+            results["idle_still_skipped"] = "missing_source"
+            idle_still_src = None
+        else:
+            try:
+                idle_still_res = copy_idle_still(
+                    project_path,
+                    image_path=idle_still_src,
+                    display_size=plan.get("character_display_size"),
+                )
+            except GodotImportError as exc:
+                raise GodotAssembleError(str(exc)) from exc
+            results["idle_still"] = idle_still_res
 
     texture_by_asset: dict[str, str] = {}
     props = plan.get("props") or []

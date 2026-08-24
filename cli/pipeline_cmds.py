@@ -83,6 +83,13 @@ def pipeline_group() -> None:
     help="Preserve task status from an existing manifest.",
 )
 @click.option(
+    "--max-wave",
+    "max_wave",
+    default=None,
+    type=int,
+    help="Only schedule assets with production_wave <= N (design ledger stays full).",
+)
+@click.option(
     "--game-dev/--no-game-dev",
     default=True,
     help="Append Pass 4 godot-developer dev-context task after assemble.",
@@ -96,6 +103,7 @@ def plan_cmd(
     godot: bool,
     godot_project: Path | None,
     merge_path: Path | None,
+    max_wave: int | None,
     game_dev: bool,
 ) -> None:
     """Build task DAG from brief (what to generate, animation deps, layers)."""
@@ -108,6 +116,7 @@ def plan_cmd(
             godot_project=godot_project,
             include_godot=godot,
             include_game_dev=game_dev and godot,
+            max_wave=max_wave,
         )
         if merge_path is not None:
             merge_manifest_status(manifest, load_manifest(merge_path))

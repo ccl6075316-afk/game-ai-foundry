@@ -419,6 +419,9 @@ class AssetSpec:
     identity_anchor: str = ""
     use_style_img2img: bool | None = None
     generate_tier: str = ""
+    production_wave: int = 1
+    availability: str = "ready"
+    placeholder_reason: str = ""
     content_class: str = ""
     states: list[str] = field(default_factory=list)
     state: str = ""
@@ -472,6 +475,22 @@ class AssetSpec:
             real_length_max_cm = float(data.get("real_length_max_cm") or 0)
         except (TypeError, ValueError):
             real_length_max_cm = 0.0
+        try:
+            production_wave = int(data.get("production_wave") or 1)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(
+                f"production_wave must be a positive integer, got {data.get('production_wave')!r}"
+            ) from exc
+        if production_wave < 1:
+            raise ValueError(
+                f"production_wave must be >= 1, got {production_wave}"
+            )
+        availability = str(data.get("availability") or "ready").strip().lower() or "ready"
+        if availability not in ("ready", "placeholder"):
+            raise ValueError(
+                "availability must be 'ready' or 'placeholder', "
+                f"got {data.get('availability')!r}"
+            )
 
         return cls(
             name=str(data["name"]),
@@ -512,6 +531,9 @@ class AssetSpec:
                 bool(data["use_style_img2img"]) if "use_style_img2img" in data else None
             ),
             generate_tier=tier_raw,
+            production_wave=production_wave,
+            availability=availability,
+            placeholder_reason=str(data.get("placeholder_reason", "")).strip(),
             content_class=str(data.get("content_class", "")).strip(),
             states=normalize_asset_states(data.get("states")),
             state=str(data.get("state", "")).strip(),
@@ -2283,6 +2305,13 @@ def audit_brief_for_export(
         ):
             errors.append(
                 f"Asset '{spec.name}' generate_tier must be 'default' or 'bulk'"
+            )
+        if (spec.availability or "").strip() and spec.availability not in (
+            "ready",
+            "placeholder",
+        ):
+            errors.append(
+                f"Asset '{spec.name}' availability must be 'ready' or 'placeholder'"
             )
 
         method = resolve_generate_method(spec)

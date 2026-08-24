@@ -87,6 +87,43 @@ class AssetsManifestTests(unittest.TestCase):
             loaded = load_assets_manifest(path)
             self.assertEqual(loaded["assets"]["forest_bg"]["brief"]["usage"], "world_background")
 
+    def test_build_from_brief_includes_placeholder_metadata(self) -> None:
+        brief = write_brief(
+            {
+                "project": {
+                    "title": "Placeholder",
+                    "description": "d",
+                    "art_direction": "flat",
+                    "dimension": "2d",
+                    "genre": "2d_platformer",
+                    "gameplay_loop": "loop",
+                    "session_goal": "goal",
+                    "controls": {"jump": ["Space"]},
+                    "viewport": {"width": 1280, "height": 720},
+                },
+                "assets": [
+                    {
+                        "name": "optional_icon",
+                        "id": "optional_icon",
+                        "type": "texture",
+                        "usage": "ui_icon",
+                        "usage_description": "optional",
+                        "description": "optional",
+                        "display_size": {"width": 32, "height": 32},
+                        "availability": "placeholder",
+                        "placeholder_reason": "later",
+                    }
+                ],
+            }
+        )
+        try:
+            manifest = build_assets_manifest(brief)
+            entry = manifest["assets"]["optional_icon"]["brief"]
+            self.assertEqual(entry["availability"], "placeholder")
+            self.assertEqual(entry["placeholder_reason"], "later")
+        finally:
+            brief.unlink(missing_ok=True)
+
 
 if __name__ == "__main__":
     unittest.main()

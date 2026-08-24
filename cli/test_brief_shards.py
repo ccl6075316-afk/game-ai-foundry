@@ -44,6 +44,21 @@ class TestBriefShardsIo(unittest.TestCase):
         self.assertTrue(is_catalog_ref(ref, kind="asset"))
         ref2 = {"id": "fish_02", "path": "assets/fish_02.spec.json"}
         self.assertTrue(is_catalog_ref(ref2, kind="asset"))
+        ref3 = {
+            "id": "fish_03",
+            "name": "fish_03",
+            "path": "assets/fish_03.spec.json",
+            "production_wave": 2,
+        }
+        self.assertTrue(is_catalog_ref(ref3, kind="asset"))
+        ref4 = {
+            "id": "fish_04",
+            "name": "fish_04",
+            "path": "assets/fish_04.spec.json",
+            "availability": "placeholder",
+            "placeholder_reason": "later",
+        }
+        self.assertTrue(is_catalog_ref(ref4, kind="asset"))
 
     def test_legacy_scene_has_body_without_usable_path(self) -> None:
         legacy = {"id": "dock", "title": "Dock", "summary": "Fishing pier."}
@@ -108,6 +123,51 @@ class TestResolveAndAudit(unittest.TestCase):
             self.assertEqual(len(specs), 1)
             self.assertEqual(specs[0]["type"], "character")
             self.assertEqual(specs[0]["id"], "eel")
+
+    def test_resolve_asset_specs_from_catalog_overrides_placeholder_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            spec_path = root / "assets" / "eel.spec.json"
+            spec_path.parent.mkdir(parents=True)
+            save_json_shard(
+                spec_path,
+                {
+                    "id": "eel",
+                    "name": "eel",
+                    "type": "character",
+                    "usage": "player_idle",
+                    "display_size": {"width": 64, "height": 64},
+                    "usage_description": "hero",
+                    "availability": "ready",
+                },
+            )
+            brief_path = root / "brief.json"
+            brief_path.write_text(
+                json.dumps(
+                    {
+                        "project": {
+                            "title": "T",
+                            "description": "d",
+                            "art_direction": "a",
+                            "dimension": "2d",
+                        },
+                        "assets": [
+                            {
+                                "id": "eel",
+                                "name": "eel",
+                                "path": "assets/eel.spec.json",
+                                "availability": "placeholder",
+                                "placeholder_reason": "defer",
+                            },
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            specs = resolve_asset_specs(brief_path)
+            self.assertEqual(specs[0]["availability"], "placeholder")
+            self.assertEqual(specs[0]["placeholder_reason"], "defer")
 
     def test_audit_missing_shard_file(self) -> None:
         with tempfile.TemporaryDirectory() as td:
@@ -608,6 +668,35 @@ class TestUpsertShardBody(unittest.TestCase):
             body = load_json_shard(root / "scenes" / "hub.json")
             self.assertEqual(body["notes"], "new note")
             self.assertNotIn("notes", ref)
+
+    def test_upsert_shard_body_asset_updates_placeholder_ref(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            asset = root / "assets" / "rod.spec.json"
+            asset.parent.mkdir(parents=True)
+            save_json_shard(
+                asset,
+                {"id": "rod", "name": "Rod", "type": "texture", "usage": "ui_icon"},
+            )
+            brief = {
+                "assets": [
+                    {"id": "rod", "name": "Rod", "path": "assets/rod.spec.json"},
+                ],
+            }
+            ref = upsert_shard_body(
+                root,
+                brief,
+                "asset",
+                "rod",
+                {"availability": "placeholder", "placeholder_reason": "todo"},
+            )
+            self.assertIsNotNone(ref)
+            assert ref is not None
+            self.assertEqual(ref["availability"], "placeholder")
+            self.assertEqual(ref["placeholder_reason"], "todo")
+            body = load_json_shard(asset)
+            self.assertEqual(body["availability"], "placeholder")
+            self.assertEqual(body["placeholder_reason"], "todo")
 
     def test_brief_uses_catalog(self) -> None:
         self.assertFalse(brief_uses_catalog({"project": {"scenes": [{"id": "x", "title": "X"}]}}))

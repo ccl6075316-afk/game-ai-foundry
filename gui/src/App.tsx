@@ -5517,6 +5517,7 @@ export default function App() {
         {sidePanel === "assets" && (
           <AssetReviewPanel
             style={sidePanelWidth ? { width: sidePanelWidth, minWidth: sidePanelWidth, maxWidth: sidePanelWidth } : undefined}
+            briefRel={activeBriefRel}
             assetsManifestRel={assetsManifestRel}
             pipelineManifestRel={selectedManifest || null}
             busy={anyBusy}

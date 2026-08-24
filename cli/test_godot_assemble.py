@@ -124,6 +124,35 @@ class GodotAssembleLayoutTests(unittest.TestCase):
             self.assertIn("MossyRock", main)
             self.assertIn('parent="World"', main)
 
+    def test_assemble_skips_optional_background_and_idle(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            repo = root / "repo"
+            repo.mkdir(parents=True)
+            project_rel = "games/demo"
+            plan = {
+                "project_path": project_rel,
+                "project_name": "Optional Assemble Demo",
+                "template": "dotnet",
+                "main_scene": "scenes/main.tscn",
+                "animations": [],
+                "backgrounds": [
+                    {
+                        "asset": "forest_bg",
+                        "image": str((repo / "missing_bg.png").resolve()),
+                        "optional": True,
+                    }
+                ],
+                "idle_still": str((repo / "missing_idle.png").resolve()),
+                "idle_still_optional": True,
+                "character_asset": "hero",
+                "viewport": {"width": 1280, "height": 720},
+                "layout": {"coord_space": "viewport_norm", "regions": [], "placements": []},
+            }
+            result = assemble_from_plan(plan, repo_root=repo)
+            self.assertEqual(result.get("backgrounds_skipped")[0]["asset"], "forest_bg")
+            self.assertEqual(result.get("idle_still_skipped"), "missing_source")
+
 
 class GodotPlanLayoutPreferProductionTests(unittest.TestCase):
     def test_collect_plan_prefers_production_layout(self) -> None:
