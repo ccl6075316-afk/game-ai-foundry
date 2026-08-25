@@ -56,6 +56,7 @@ import {
   loadActiveBriefRel,
   loadActiveBriefRelForStartup,
   loadLastBriefRel,
+  normRepoRel,
   parseDeltaCommand,
   parseExternalBriefId,
   parsePlanSubcommand,
@@ -140,17 +141,28 @@ type DiagnoseItem = {
   pm_tip?: string;
 };
 
-/** Prefer concrete stderr summary over generic pm_tip for unknown triage. */
+/** Prefer concrete stderr/summary over generic pm_tip role hints. */
 function diagnoseItemTip(n: DiagnoseItem): string {
   const summary = String(n.summary || "").trim();
   const pmTip = String(n.pm_tip || "").trim();
-  if (summary && (n.kind === "unknown" || n.kind === "billing") && pmTip.startsWith("原因不清")) {
-    return summary;
+  if (summary) return summary;
+  return pmTip;
+}
+
+function taskStepFromId(taskId: string): string {
+  const dot = taskId.lastIndexOf(".");
+  return dot >= 0 ? taskId.slice(dot + 1) : "";
+}
+
+function failureKindLabel(kind: string, taskId: string): string {
+  const step = taskStepFromId(taskId);
+  if (kind === "validation" && step === "prompt.craft") {
+    return "Prompt/文案生成未通过";
   }
-  if (summary && n.kind === "billing") {
-    return summary;
+  if (kind === "validation" && step === "image.generate") {
+    return "出图校验未通过";
   }
-  return pmTip || summary;
+  return FAILURE_KIND_LABEL[kind] || kind || "运行失败";
 }
 
 /** Format diagnose JSON into a clear「适不适合项目经理」tip for chat. */
@@ -161,12 +173,18 @@ function formatPmFitAdvice(data: {
   pm_advice_short?: string;
   items?: DiagnoseItem[];
   needs_hermes?: DiagnoseItem[];
-} | null | undefined): { suitable: boolean; headline: string; detail: string } {
+} | null | undefined): {
+  suitable: boolean;
+  headline: string;
+  detail: string;
+  primaryFailure: { taskId: string; kind: string; message: string } | null;
+} {
   if (!data) {
     return {
       suitable: false,
       headline: "未能诊断失败原因",
       detail: "可打开看板查看 failed 任务，或重试「项目经理处理失败」。",
+      primaryFailure: null,
     };
   }
   const items = (data.items?.length ? data.items : data.needs_hermes) || [];
@@ -176,13 +194,40 @@ function formatPmFitAdvice(data: {
     const tip = diagnoseItemTip(n);
     return `- \`${n.task_id || "?"}\`（${n.kind || "?"}）· **${fit}**${tip ? ` — ${tip}` : ""}`;
   });
+  const first = items[0];
+  const primaryFailure = first
+    ? {
+        taskId: String(first.task_id || "?"),
+        kind: String(first.kind || "unknown"),
+        message: diagnoseItemTip(first) || String(first.summary || "").trim() || "未知错误",
+      }
+    : null;
   const headline =
     data.pm_advice_short ||
     (data.pm_suitable ? "适合项目经理直接处理" : "不必找项目经理");
   const detail =
     (data.pm_advice ? `${data.pm_advice}\n\n` : "") +
     (lines.length ? `逐项：\n${lines.join("\n")}` : "");
-  return { suitable: Boolean(data.pm_suitable), headline, detail };
+  return { suitable: Boolean(data.pm_suitable), headline, detail, primaryFailure };
+}
+
+const FAILURE_KIND_LABEL: Record<string, string> = {
+  network: "网络/CDN 错误",
+  billing: "API 余额不足",
+  validation: "出图校验未通过",
+  config_size: "出图尺寸配置",
+  config_proxy: "代理配置",
+  missing_file: "缺少上游产物",
+  stale_plan: "Plan 与生成器不匹配",
+  unknown: "运行失败",
+};
+
+function failureLeadBlock(
+  primary: { taskId: string; kind: string; message: string } | null,
+): string {
+  if (!primary?.message) return "";
+  const label = failureKindLabel(primary.kind, primary.taskId);
+  return `**失败原因**（${label} · \`${primary.taskId}\`）\n${primary.message}\n\n`;
 }
 
 type PipelineRunPayload = {
@@ -247,12 +292,17 @@ function planPipelineStop(opts: {
     : "";
   const paused = Boolean(opts.runData?.paused) || opts.exitCode === 2 || failedN > 0;
   const blocked = Boolean(opts.runData?.blocked);
+  const failureLead = failureLeadBlock(opts.advice.primaryFailure);
+  const pauseTitle = opts.advice.primaryFailure
+    ? `流水线已暂停：${failureKindLabel(opts.advice.primaryFailure.kind, opts.advice.primaryFailure.taskId)}`
+    : "流水线已暂停";
 
   if (paused && failedN > 0) {
     if (opts.advice.suitable) {
       return {
-        title: "流水线已暂停",
+        title: pauseTitle,
         body:
+          failureLead +
           `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
           `**推荐下一步 → 项目经理处理失败**\n` +
           `（${opts.advice.headline}）\n\n${opts.advice.detail}` +
@@ -265,8 +315,9 @@ function planPipelineStop(opts: {
     }
     if (opts.healed.length) {
       return {
-        title: "流水线已暂停（可修项已复位）",
+        title: pauseTitle,
         body:
+          failureLead +
           `${progress}${last}\n\n` +
           `已自动复位：${opts.healed.slice(0, 6).join(", ")}${opts.healed.length > 6 ? "…" : ""}\n` +
           `（${opts.advice.headline}）\n\n` +
@@ -275,10 +326,11 @@ function planPipelineStop(opts: {
       };
     }
     return {
-      title: "流水线已暂停",
+      title: pauseTitle,
       body:
+        failureLead +
         `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
-        `**推荐下一步 → 运行资产生成**\n` +
+        `**推荐下一步 → 运行资产生成**（续跑）\n` +
         `（${opts.advice.headline}）\n\n${opts.advice.detail}`,
       choices: ["运行资产生成", "运行资产生成（含文案）", "打开看板"],
     };
@@ -2725,13 +2777,26 @@ export default function App() {
         window.gameFactory.findManifestForBrief
           ? await window.gameFactory.findManifestForBrief(normalized)
           : null;
+      const preferredNorm = normRepoRel(preferred);
+      const manifestListed = (p: string) =>
+        manifests.some((m) => normRepoRel(m.path) === normRepoRel(p));
       let manifest = "";
-      if (manifests.some((m) => m.path === preferred)) {
+      if (manifestListed(preferred)) {
         manifest = preferred;
-      } else if (byBrief?.path && manifests.some((m) => m.path === byBrief.path)) {
+      } else if (byBrief?.path && manifestListed(byBrief.path)) {
         const metaBrief = String(byBrief.meta?.brief || "").replace(/\\/g, "/");
         if (!metaBrief || sameProjectRoot(metaBrief, normalized)) {
           manifest = byBrief.path;
+        }
+      } else if (preferredNorm && manifests.length === 0) {
+        // Manifest file exists on disk but listManifests missed it — still try load.
+        try {
+          const meta = await window.gameFactory.getManifestMeta(preferred);
+          if (meta?.brief && sameProjectRoot(String(meta.brief), normalized)) {
+            manifest = preferred;
+          }
+        } catch {
+          /* no manifest yet */
         }
       }
       if (manifest) {
@@ -2743,6 +2808,12 @@ export default function App() {
     [refreshManifest, resolvePlanTargets],
   );
   syncPipelineForBriefRef.current = syncPipelineForBrief;
+
+  /** Recover board/assets when brief is bound but manifest was never loaded (stale session / panel opened early). */
+  useEffect(() => {
+    if (!activeBriefRel || selectedManifest) return;
+    void syncPipelineForBrief(activeBriefRel);
+  }, [activeBriefRel, selectedManifest, syncPipelineForBrief]);
 
   const switchProject = useCallback(
     async (briefRel: string) => {
@@ -4422,9 +4493,11 @@ export default function App() {
         window.gameFactory.findManifestForBrief &&
         (await window.gameFactory.findManifestForBrief(briefRel));
       let reusePath = "";
-      if (manifests.some((m) => m.path === preferred)) {
+      const manifestListed = (p: string) =>
+        manifests.some((m) => normRepoRel(m.path) === normRepoRel(p));
+      if (manifestListed(preferred)) {
         reusePath = preferred;
-      } else if (existing?.path && manifests.some((m) => m.path === existing.path)) {
+      } else if (existing?.path && manifestListed(existing.path)) {
         const metaBrief = String(existing.meta?.brief || "").replace(/\\/g, "/");
         if (!metaBrief || sameProjectRoot(metaBrief, briefRel)) {
           reusePath = existing.path;

@@ -52,6 +52,11 @@ function norm(rel: string): string {
   return rel.replace(/\\/g, "/").replace(/^\.?\//, "");
 }
 
+/** Normalize repo-relative paths for cross-platform equality (GUI ↔ Electron IPC). */
+export function normRepoRel(rel: string): string {
+  return norm(rel).replace(/^\.\.\//, "");
+}
+
 /** projects/<slug>/... → slug; else stem without -brief */
 export function slugFromBriefRel(briefRel: string): string {
   const n = norm(briefRel);

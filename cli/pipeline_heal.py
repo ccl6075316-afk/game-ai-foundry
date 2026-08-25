@@ -116,6 +116,32 @@ def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
 
 _ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 _EXC_LINE_RE = re.compile(r"(?m)^(\w*Error|Exception):\s*(.+)$")
+_HTTP_STATUS_RE = re.compile(r"HTTP\s*(\d{3})", re.I)
+
+
+def _exc_summary_from_blob(blob: str) -> str:
+    for match in _EXC_LINE_RE.finditer(blob):
+        return match.group(0).strip()
+    plain = blob.strip()
+    for line in reversed(plain.splitlines()):
+        s = line.strip()
+        if s and not s.startswith("File ") and "site-packages/click" not in s:
+            return s
+    return ""
+
+
+def _network_error_summary(blob: str, exc_summary: str, default: str) -> str:
+    if exc_summary:
+        return exc_summary[:240]
+    blob_l = blob.lower()
+    m = _HTTP_STATUS_RE.search(blob)
+    if m:
+        code = m.group(1)
+        if code in ("522", "521", "520", "502", "503", "504", "429"):
+            return f"供应商 CDN/网关返回 HTTP {code}，图片下载失败（通常可稍后重试）"
+    if "failed to download" in blob_l:
+        return "供应商返回的图片 URL 下载失败（CDN/网关超时或不可用，通常可重试）"
+    return default
 
 
 def _strip_ansi(text: str) -> str:
@@ -234,11 +260,25 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # Network already exhausted retries
+    # Network / CDN download failures (including HTTP 522 from provider file hosts)
     if any(
         k in blob_l
-        for k in ("connection", "timeout", "503", "502", "504", "429", "rate limit")
+        for k in (
+            "connection",
+            "timeout",
+            "503",
+            "502",
+            "504",
+            "521",
+            "522",
+            "520",
+            "429",
+            "rate limit",
+            "failed to download",
+            "http 5",
+        )
     ):
+        exc_summary = _exc_summary_from_blob(blob)
         return _with_pm_fit(
             {
                 "task_id": tid,
@@ -246,7 +286,11 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                 "kind": "network",
                 "owner": "code",
                 "remediation": "reset_cascade",
-                "summary": "Network/API transient error after retries — reset and re-run",
+                "summary": _network_error_summary(
+                    blob,
+                    exc_summary,
+                    "Network/API transient error after retries — reset and re-run",
+                ),
                 "cli_hints": [f"pipeline reset --task-id {tid} --cascade", "pipeline run --jobs 4"],
             }
         )
@@ -278,7 +322,8 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                 "owner": "hermes",
                 "remediation": "reset_and_recraft_prompt",
                 "summary": (
-                    "Prompt craft CJK guard — regenerate English prompt fields via LLM"
+                    "Brief 含中文描述，不能直接进入出图 prompt；"
+                    "需用 LLM 重新 craft 生成英文 prompt 字段"
                 ),
                 "cli_hints": [
                     f"pipeline reset --task-id {tid} --cascade",
@@ -311,16 +356,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
         )
 
     # Prefer the real exception line over Click traceback noise.
-    exc_summary = ""
-    for match in _EXC_LINE_RE.finditer(blob):
-        exc_summary = f"{match.group(0).strip()}"
-    if not exc_summary:
-        plain = blob.strip()
-        for line in reversed(plain.splitlines()):
-            s = line.strip()
-            if s and not s.startswith("File ") and "site-packages/click" not in s:
-                exc_summary = s
-                break
+    exc_summary = _exc_summary_from_blob(blob)
     if "unexpected keyword argument" in blob_l or (
         "typeerror" in blob_l and "promptplan" in blob_l
     ):

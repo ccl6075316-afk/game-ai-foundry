@@ -84,6 +84,25 @@ class PipelineHealTests(unittest.TestCase):
         self.assertIn("expand_items", d["summary"])
         self.assertIn("TypeError", d["summary"])
 
+    def test_classify_network_http_522_download(self) -> None:
+        task = {
+            "id": "bg_11c7f01383.image.generate",
+            "step": "image.generate",
+            "result": {
+                "exit_code": 1,
+                "stderr": (
+                    "Error: Failed to download image from "
+                    "https://files.anyroutes.cn/au9mebn5cq2o0hn/output/20260826/"
+                    "144277/cf1bc15a-8257-4c3d-a45f-f3bf98ceb86a/"
+                    "02fe5f4a-3865-4010-9153-54e6e8935eee.png: HTTP 522"
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "network")
+        self.assertEqual(d["pm_fit"], "no")
+        self.assertIn("522", d["summary"])
+
     def test_classify_billing_insufficient_credits(self) -> None:
         task = {
             "id": "fish.image.generate",
