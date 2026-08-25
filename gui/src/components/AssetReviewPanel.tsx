@@ -267,7 +267,7 @@ export function AssetReviewPanel({
       if (waveFilter === "3+" && wave < 3) return false;
       if (!q) return true;
       const hay =
-        `${row.label} ${row.asset_name} ${row.kit_item_slug || ""} ${row.usage || ""} ${row.type || ""} wave${wave} ${scope?.availability || "ready"}`.toLowerCase();
+        `${row.label} ${row.asset_name} ${row.kit_item_slug || ""} ${row.usage || ""} ${row.type || ""} ${row.generate_method || ""} ${row.animation_method || ""} wave${wave} ${scope?.availability || "ready"}`.toLowerCase();
       return hay.includes(q);
     });
   }, [rows, filter, search, scopeForRow, availabilityFilter, waveFilter]);
@@ -769,6 +769,12 @@ export function AssetReviewPanel({
                 <span className="asset-review-row__meta">
                   {row.type || "—"}
                   {row.usage ? ` · ${row.usage}` : ""}
+                  {row.generate_method
+                    ? ` · ${row.generate_method === "video" ? "视频" : row.generate_method === "image" ? "静图" : row.generate_method}`
+                    : ""}
+                  {row.animation_method === "video" && row.generate_method !== "video"
+                    ? " · ⚠动画/生成不一致"
+                    : ""}
                   {scopeForRow(row) ? ` · W${scopeForRow(row)?.productionWave || 1}` : ""}
                   {scopeForRow(row)?.availability === "placeholder" ? " · 暂空" : ""}
                 </span>
@@ -870,6 +876,16 @@ export function AssetReviewPanel({
               <dd>
                 {selected.type || "—"}
                 {selected.usage ? ` · ${selected.usage}` : ""}
+              </dd>
+            </div>
+            <div>
+              <dt>生成方式</dt>
+              <dd>
+                {selected.generate_method || "—"}
+                {selected.animation_method ? ` · animation=${selected.animation_method}` : ""}
+                {selected.animation_method === "video" && selected.generate_method === "image"
+                  ? " · ⚠ 矛盾（应改为 video）"
+                  : ""}
               </dd>
             </div>
             <div>

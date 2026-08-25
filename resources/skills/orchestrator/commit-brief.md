@@ -105,9 +105,10 @@
 - `name`, `id`（英文 slug，必填）, `type`, `usage`, `content_class`, `usage_description` 或 `description`
 - `display_size`（character / pose / background / icon_kit / ui_element）
 - 可选归类：`scene_ids` / `system_ids`（字符串列表，弱引用 `project.scenes` / `systems` 的 id；不强制存在性校验）
-- `generate_method`：`image` | `video` | `procedural` | `file`
+- `generate_method`：`image` | `video` | `procedural` | `file`；**缺省**时由 type/`animation_method` 推断
+- **禁止矛盾**：`usage: animation_clip` 或「角色 + action + animation_method:video」时不得写 `generate_method: image`——必须 `video` 或省略该字段
 - 类型：`character`, `character_pose`, `icon_kit`, `texture`, `background`, `audio`
-- 视频动画：`reference_asset` + `action`；one-shot → `animation_loop: false`
+- 视频动画：`character` / `character_pose`（clip）+ `reference_asset` + `action` + `animation_method: video`；`usage` 用 `animation_clip`；one-shot → `animation_loop: false`
 - `parallax_layer` → `parallax_order`, `scroll_factor`
 - `audio` → `usage` music|sfx；music 要 `audio_loop`
 - **产物路径只用 `id`**（如 `plans/referee.json`、`referee_raw.png`）；`name` 可中文

@@ -398,7 +398,7 @@ class AssetSpec:
     action: str = ""
     animation_method: str = ANIMATION_METHOD_VIDEO
     reference_asset: str = ""
-    duration_seconds: float = 2.0
+    duration_seconds: float = 4.0
     sprite_frames: int = 0
     video_model: str = ""
     video_resolution: str = ""
@@ -508,7 +508,7 @@ class AssetSpec:
             action=str(data.get("action", "")),
             animation_method=method,
             reference_asset=str(data.get("reference_asset", "")),
-            duration_seconds=float(data.get("duration_seconds", 2.0)),
+            duration_seconds=float(data.get("duration_seconds", 4.0)),
             sprite_frames=int(data.get("sprite_frames", 0)),
             video_model=str(data.get("video_model", "")),
             video_resolution=str(data.get("video_resolution", "")),
@@ -810,11 +810,20 @@ def resolve_asset_file_key(spec: AssetSpec) -> str:
 
 
 def is_video_animation(spec: AssetSpec) -> bool:
-    return (
-        spec.type == AssetType.CHARACTER
-        and bool(spec.action.strip())
-        and spec.animation_method == ANIMATION_METHOD_VIDEO
-    )
+    """True when this asset should run the Seedance/video pipeline."""
+    if spec.animation_method != ANIMATION_METHOD_VIDEO:
+        return False
+    if not spec.action.strip():
+        return False
+    if spec.type == AssetType.CHARACTER:
+        return True
+    if spec.type == AssetType.CHARACTER_POSE:
+        # character_pose defaults animation_method=video in the schema; only treat as
+        # video when tagged as a clip or explicitly generate_method=video.
+        if spec.generate_method.strip().lower() == "video":
+            return True
+        return spec.usage.strip() == "animation_clip"
+    return False
 
 
 def resolve_generate_method(spec: AssetSpec) -> str:
@@ -2314,6 +2323,21 @@ def audit_brief_for_export(
                 f"Asset '{spec.name}' availability must be 'ready' or 'placeholder'"
             )
 
+        explicit_method = spec.generate_method.strip().lower()
+        if explicit_method == "image" and (
+            spec.usage.strip() == "animation_clip"
+            or (
+                spec.type == AssetType.CHARACTER
+                and bool(spec.action.strip())
+                and spec.animation_method == ANIMATION_METHOD_VIDEO
+            )
+        ):
+            errors.append(
+                f"Asset '{spec.name}' contradiction: animation clip / video action "
+                "cannot use generate_method=image — use generate_method=video "
+                "(or omit it) so pipeline schedules video.generate"
+            )
+
         method = resolve_generate_method(spec)
         if method == "video":
             if not spec.reference_asset.strip():
@@ -2324,17 +2348,29 @@ def audit_brief_for_export(
                 errors.append(
                     f"Asset '{spec.name}' references unknown asset '{spec.reference_asset}'"
                 )
+            dur = float(spec.duration_seconds or 0)
+            if dur < 4 or dur > 15:
+                errors.append(
+                    f"Asset '{spec.name}' video duration_seconds must be 4–15 "
+                    f"(got {spec.duration_seconds})"
+                )
         if method == "image" and spec.type == AssetType.CHARACTER_POSE:
             if not spec.reference_asset.strip():
                 errors.append(f"Asset '{spec.name}' character_pose requires 'reference_asset'")
             if not spec.action.strip():
                 errors.append(f"Asset '{spec.name}' character_pose requires 'action'")
 
-    if any(resolve_generate_method(a) == "video" for a in assets) and not has_player_facing:
-        errors.append(
-            "Brief has video animations but no player-facing asset "
-            f"(usage one of: {', '.join(sorted(PLAYER_USAGES))})"
+    if any(resolve_generate_method(a) == "video" for a in assets):
+        has_video_still = has_player_facing or any(
+            a.type == AssetType.CHARACTER
+            and resolve_generate_method(a) != "video"
+            for a in assets
         )
+        if not has_video_still:
+            errors.append(
+                "Brief has video animations but no still character / player-facing asset "
+                f"(usage one of: {', '.join(sorted(PLAYER_USAGES))}, or type=character)"
+            )
 
     errors.extend(
         audit_project_gameplay(

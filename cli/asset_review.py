@@ -187,6 +187,8 @@ def iter_review_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
                         "label": label,
                         "type": atype,
                         "usage": usage,
+                        "generate_method": str(brief.get("generate_method") or ""),
+                        "animation_method": str(brief.get("animation_method") or ""),
                         "preview_path_repo": path,
                         "canonical_path_repo": path,
                         "review": get_review(
@@ -206,6 +208,8 @@ def iter_review_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
                 "label": str(brief.get("name") or asset_name),
                 "type": atype,
                 "usage": str(brief.get("usage") or ""),
+                "generate_method": str(brief.get("generate_method") or ""),
+                "animation_method": str(brief.get("animation_method") or ""),
                 "preview_path_repo": path,
                 "canonical_path_repo": path,
                 "review": get_review(manifest, asset_name=asset_name),

@@ -66,7 +66,16 @@ class PipelineManifestTest(unittest.TestCase):
             plan_rel = "../plans/knight.json"
             plan_path = (cli_dir / plan_rel).resolve()
             plan_path.parent.mkdir(parents=True, exist_ok=True)
-            plan_path.write_text("{}", encoding="utf-8")
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "handoff_version": 1,
+                        "consumer_role": "image-generator",
+                        "plan": {"prompt": "knight"},
+                    }
+                ),
+                encoding="utf-8",
+            )
 
             task = next(t for t in tasks_list(manifest) if t["id"] == "knight.prompt.craft")
             task["artifacts"]["plan"] = plan_rel
@@ -84,6 +93,82 @@ class PipelineManifestTest(unittest.TestCase):
             self.assertGreaterEqual(updated["total"], 1)
             task = next(t for t in tasks_list(manifest) if t["id"] == "knight.prompt.craft")
             self.assertEqual(task["status"], "done")
+
+    def test_reconcile_rejects_image_plan_for_animation_craft(self) -> None:
+        manifest = build_manifest(EXAMPLE_BRIEF)
+        with tempfile.TemporaryDirectory() as tmp:
+            cli_dir = Path(tmp) / "cli"
+            cli_dir.mkdir()
+            plan_rel = "../plans/knight_walk.json"
+            plan_path = (cli_dir / plan_rel).resolve()
+            plan_path.parent.mkdir(parents=True, exist_ok=True)
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "handoff_version": 1,
+                        "consumer_role": "image-generator",
+                        "plan": {"prompt": "walk"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            task = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.prompt.craft")
+            task["artifacts"]["plan"] = plan_rel
+            task["status"] = "pending"
+
+            import pipeline_manifest as pm
+
+            old_cli = pm._CLI_DIR
+            pm._CLI_DIR = cli_dir
+            try:
+                updated = reconcile_manifest(manifest)
+            finally:
+                pm._CLI_DIR = old_cli
+
+            task = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.prompt.craft")
+            self.assertEqual(task["status"], "pending")
+            self.assertEqual(updated["promoted"], 0)
+
+    def test_invalidate_mismatched_craft_plans_resets_done(self) -> None:
+        from pipeline_manifest import invalidate_mismatched_craft_plans, record_task
+
+        manifest = build_manifest(EXAMPLE_BRIEF)
+        with tempfile.TemporaryDirectory() as tmp:
+            cli_dir = Path(tmp) / "cli"
+            cli_dir.mkdir()
+            plan_rel = "../plans/knight_walk.json"
+            plan_path = (cli_dir / plan_rel).resolve()
+            plan_path.parent.mkdir(parents=True, exist_ok=True)
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "handoff_version": 1,
+                        "consumer_role": "image-generator",
+                        "plan": {"prompt": "walk"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            craft = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.prompt.craft")
+            craft["artifacts"]["plan"] = plan_rel
+            record_task(manifest, "knight_walk.prompt.craft", status="done", result={"exit_code": 0})
+            record_task(manifest, "knight_walk.video.generate", status="failed", result={"exit_code": 1})
+
+            import pipeline_manifest as pm
+
+            old_cli = pm._CLI_DIR
+            pm._CLI_DIR = cli_dir
+            try:
+                reset_ids = invalidate_mismatched_craft_plans(manifest)
+            finally:
+                pm._CLI_DIR = old_cli
+
+            self.assertIn("knight_walk.prompt.craft", reset_ids)
+            self.assertIn("knight_walk.video.generate", reset_ids)
+            craft = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.prompt.craft")
+            self.assertEqual(craft["status"], "pending")
 
     def test_invalidate_missing_output_resets_done_and_cascade(self) -> None:
         """Deleted unsatisfactory assets should re-queue done tasks on reconcile."""
@@ -147,7 +232,16 @@ class PipelineManifestTest(unittest.TestCase):
             plan_rel = "../plans/knight.json"
             plan_path = (cli_dir / plan_rel).resolve()
             plan_path.parent.mkdir(parents=True, exist_ok=True)
-            plan_path.write_text("{}", encoding="utf-8")
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "handoff_version": 1,
+                        "consumer_role": "image-generator",
+                        "plan": {"prompt": "knight"},
+                    }
+                ),
+                encoding="utf-8",
+            )
             out_rel = "../output/knight_raw.png"
 
             prompt = next(t for t in tasks_list(manifest) if t["id"] == "knight.prompt.craft")

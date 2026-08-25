@@ -64,7 +64,9 @@ class BriefContractTests(unittest.TestCase):
             reference_asset="hero_ref",
             action="walking",
             animation_method="video",
+            generate_method="video",
         )
+        # Reference is also a video clip — no still character remains.
         ref = AssetSpec(
             name="hero_ref",
             id="hero_ref",
@@ -73,9 +75,13 @@ class BriefContractTests(unittest.TestCase):
             usage_description="ref",
             display_size=DisplaySize(128, 128),
             description="ref",
+            action="idle",
+            animation_method="video",
+            generate_method="video",
+            reference_asset="missing_still",
         )
         gaps = audit_brief_for_export(project, [ref, walk])
-        self.assertTrue(any("player-facing" in g for g in gaps))
+        self.assertTrue(any("still character" in g or "player-facing" in g for g in gaps))
 
     def test_finalize_stamps_brief_meta(self) -> None:
         out = finalize_brief_export(SMOKE_BRIEF, source="brainstorm")
@@ -270,6 +276,79 @@ class BriefContractTests(unittest.TestCase):
             self.assertNotIn("bgm", task_assets)
         finally:
             path.unlink(missing_ok=True)
+
+    def test_video_pose_generate_method_contradiction(self) -> None:
+        project = ProjectContext(
+            title="T",
+            description="fishing",
+            art_direction="pixel",
+            dimension="2d",
+            genre="simulation",
+            gameplay_loop="cast",
+            session_goal="catch",
+        )
+        ref = AssetSpec(
+            name="鱼_鲫鱼_角色",
+            id="char_fish",
+            type=AssetType.CHARACTER,
+            usage="character",
+            usage_description="still",
+            display_size=DisplaySize(1920, 1080),
+            description="fish",
+            generate_method="image",
+        )
+        bad = AssetSpec(
+            name="鱼_鲫鱼_游动",
+            id="pose_fish_swim",
+            type=AssetType.CHARACTER_POSE,
+            usage="animation_clip",
+            usage_description="swim",
+            display_size=DisplaySize(1920, 1080),
+            description="swim",
+            reference_asset="鱼_鲫鱼_角色",
+            action="swim",
+            animation_method="video",
+            generate_method="image",
+        )
+        gaps = audit_brief_for_export(project, [ref, bad])
+        self.assertTrue(any("contradiction" in g for g in gaps))
+
+    def test_character_pose_video_defaults_and_classifies(self) -> None:
+        from pipeline_manifest import AssetKind, classify_asset
+        from brief import resolve_generate_method
+
+        pose = AssetSpec(
+            name="鱼_鲫鱼_游动",
+            id="pose_fish_swim",
+            type=AssetType.CHARACTER_POSE,
+            usage="animation_clip",
+            usage_description="swim",
+            display_size=DisplaySize(1920, 1080),
+            description="swim",
+            reference_asset="鱼_鲫鱼_角色",
+            action="swim",
+            animation_method="video",
+            generate_method="",
+        )
+        self.assertEqual(resolve_generate_method(pose), "video")
+        self.assertEqual(classify_asset(pose), AssetKind.VIDEO_ANIMATION)
+        pose.generate_method = "video"
+        self.assertEqual(classify_asset(pose), AssetKind.VIDEO_ANIMATION)
+        # img2img pose (not a clip) stays still even with default animation_method=video
+        still_pose = AssetSpec(
+            name="knight_attack_pose",
+            id="knight_attack_pose",
+            type=AssetType.CHARACTER_POSE,
+            usage="player_attack",
+            usage_description="slash",
+            display_size=DisplaySize(64, 64),
+            description="slash",
+            reference_asset="knight",
+            action="sword slash",
+            generate_method="image",
+        )
+        self.assertEqual(resolve_generate_method(still_pose), "image")
+        self.assertEqual(classify_asset(still_pose), AssetKind.CHARACTER_POSE)
 
 
 if __name__ == "__main__":

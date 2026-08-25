@@ -32,7 +32,24 @@ class PipelineHealTests(unittest.TestCase):
             any("size_multiple" in h for h in d["cli_hints"]),
         )
 
-    def test_classify_cjk_prompt_craft_as_validation(self) -> None:
+    def test_classify_stale_plan_role_mismatch(self) -> None:
+        task = {
+            "id": "pose_x.video.generate",
+            "step": "video.generate",
+            "asset_id": "pose_x",
+            "depends_on": ["pose_x.prompt.craft", "char.image.generate"],
+            "result": {
+                "exit_code": 1,
+                "stderr": "Error: Plan file ../plans/pose_x.json is not for video-generator",
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "stale_plan")
+        self.assertEqual(d["pm_fit"], "yes")
+        self.assertEqual(d["remediation"], "reset_and_recraft_prompt")
+        self.assertTrue(any("pose_x.prompt.craft" in h for h in d["cli_hints"]))
+        self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
+
         task = {
             "id": "hero.prompt.craft",
             "step": "prompt.craft",

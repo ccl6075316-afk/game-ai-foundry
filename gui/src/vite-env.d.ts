@@ -231,6 +231,8 @@ export interface AssetReviewRow {
   label: string;
   type: string;
   usage: string;
+  generate_method?: string;
+  animation_method?: string;
   preview_path_repo: string | null;
   canonical_path_repo: string | null;
   stages_summary?: string;

@@ -337,9 +337,14 @@ def build_animation_pipeline(
     config: dict[str, Any] | None = None,
 ) -> PromptPlan:
     """Plan animation workflow: video first, img2img as fallback."""
-    if spec.type != AssetType.CHARACTER or not spec.action:
+    if not spec.action.strip():
         raise ValueError(
-            "Animation planning requires a character asset with an 'action' field."
+            "Animation planning requires an asset with an 'action' field."
+        )
+    if spec.type not in (AssetType.CHARACTER, AssetType.CHARACTER_POSE):
+        raise ValueError(
+            "Animation planning requires type 'character' or 'character_pose' "
+            f"(got '{spec.type.value}')."
         )
 
     method = spec.animation_method

@@ -14,7 +14,6 @@ from asset_pipeline import _plan_metadata
 from asset_sizing import effective_display_dict, resolve_effective_display_size
 from brief import (
     ANIMATION_METHOD_IMG2IMG,
-    ANIMATION_METHOD_VIDEO,
     AssetSpec,
     AssetType,
     IconKitItem,
@@ -29,6 +28,7 @@ from brief import (
     resolve_animation_loop,
     resolve_animation_name,
     resolve_asset_file_key,
+    resolve_generate_method,
     resolve_kit_item_slug,
     resolve_style_img2img_path,
     should_use_style_img2img,
@@ -120,13 +120,18 @@ def cli_relative(path: Path) -> str:
 
 
 def classify_asset(spec: AssetSpec) -> AssetKind:
+    # generate_method (resolved) is the pipeline truth; animation_method alone on
+    # character_pose must not silently fall through to still-only tasks.
+    if resolve_generate_method(spec) == "video":
+        return AssetKind.VIDEO_ANIMATION
     if spec.type == AssetType.CHARACTER_POSE:
         return AssetKind.CHARACTER_POSE
-    if spec.type == AssetType.CHARACTER and spec.action.strip():
-        if spec.animation_method == ANIMATION_METHOD_VIDEO:
-            return AssetKind.VIDEO_ANIMATION
-        if spec.animation_method == ANIMATION_METHOD_IMG2IMG:
-            return AssetKind.CHARACTER_POSE
+    if (
+        spec.type == AssetType.CHARACTER
+        and spec.action.strip()
+        and spec.animation_method == ANIMATION_METHOD_IMG2IMG
+    ):
+        return AssetKind.CHARACTER_POSE
     return AssetKind.STATIC
 
 
@@ -1331,6 +1336,69 @@ def _primary_artifact_rel(task: dict[str, Any]) -> str | None:
     return None
 
 
+def _expected_craft_consumer_role(task: dict[str, Any]) -> str | None:
+    """Expected handoff consumer_role for a prompt.craft task, or None if unknown."""
+    step = str(task.get("step") or "")
+    if step != "prompt.craft" and not step.endswith(".prompt.craft"):
+        return None
+    cmd = str(task.get("command") or "")
+    if "--animation" in cmd:
+        return VIDEO_GENERATOR_ROLE
+    return IMAGE_GENERATOR_ROLE
+
+
+def _craft_plan_matches_task(task: dict[str, Any], plan_rel: str) -> bool:
+    """Reject promoting craft when on-disk plan is for the wrong generator."""
+    expected = _expected_craft_consumer_role(task)
+    if expected is None:
+        return True
+    handoff = _load_handoff_json(plan_rel)
+    if handoff is None:
+        return False
+    return str(handoff.get("consumer_role") or "") == expected
+
+
+def invalidate_mismatched_craft_plans(manifest: dict[str, Any]) -> list[str]:
+    """Reset done/skipped prompt.craft (+ cascade) when plan consumer_role mismatches command."""
+    roots: list[str] = []
+    for task in tasks_list(manifest):
+        if task.get("status") not in (TASK_DONE, TASK_SKIPPED):
+            continue
+        if _expected_craft_consumer_role(task) is None:
+            continue
+        rel = _primary_artifact_rel(task)
+        if not rel or not _artifact_exists(_REPO_ROOT, rel):
+            continue
+        if not _craft_plan_matches_task(task, rel):
+            roots.append(str(task["id"]))
+
+    if not roots:
+        return []
+
+    by_id = {t["id"]: t for t in tasks_list(manifest)}
+    reset_ids: list[str] = []
+    seen: set[str] = set()
+    stack = list(roots)
+    while stack:
+        tid = stack.pop()
+        if tid in seen:
+            continue
+        seen.add(tid)
+        task = by_id.get(tid)
+        if task is None:
+            continue
+        _reset_task_to_pending(task)
+        reset_ids.append(tid)
+        for other in tasks_list(manifest):
+            if tid in (other.get("depends_on") or []):
+                stack.append(str(other["id"]))
+
+    from assets_manifest import refresh_assets_manifest_from_pipeline
+
+    refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset_ids)
+    return reset_ids
+
+
 def _load_handoff_json(cli_rel: str) -> dict[str, Any] | None:
     path = (_CLI_DIR / cli_rel).resolve()
     if not path.is_file():
@@ -1710,7 +1778,10 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
     _ = repo_root
     stale_ids = invalidate_stale_generation_inputs(manifest)
     purged_obsolete = purge_obsolete_generation_artifacts(manifest)
+    mismatched_ids = invalidate_mismatched_craft_plans(manifest)
     invalidated_ids = invalidate_missing_artifacts(manifest)
+    # Include role-mismatch resets in the same invalidated list for callers.
+    invalidated_ids = list(dict.fromkeys([*mismatched_ids, *invalidated_ids]))
     purged_count = 0
     meta = manifest.get("meta") if isinstance(manifest.get("meta"), dict) else {}
     purge_meta = meta.get("last_stale_purge")
@@ -1735,6 +1806,8 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
         # Must match invalidate: only the primary deliverable counts (not plan alone).
         rel = _primary_artifact_rel(task)
         if not rel or not _artifact_exists(_REPO_ROOT, rel):
+            continue
+        if not _craft_plan_matches_task(task, rel):
             continue
         asset_id = str(task.get("asset_id") or "").strip()
         if gen_ctx and asset_id:

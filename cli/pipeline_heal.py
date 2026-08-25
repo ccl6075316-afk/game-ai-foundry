@@ -26,6 +26,7 @@ _PM_FIT: dict[str, tuple[str, str]] = {
     "config_size": ("yes", "改配置（尺寸倍数）即可，适合项目经理直接处理"),
     "config_proxy": ("yes", "改代理配置即可，适合项目经理直接处理"),
     "validation": ("yes", "图校验/文案问题，适合项目经理复位并重跑文案"),
+    "stale_plan": ("yes", "Plan 角色不匹配：复位 prompt.craft 后重跑文案即可"),
     "billing": ("no", "API 余额不足：请给 OpenRouter/Provider 充值后续跑，不必找项目经理"),
     "unknown": ("maybe", "原因不清：可先让项目经理分诊；若像内核/玩法 bug 再另处理"),
     "network": ("no", "瞬时网络错误：自动复位后重跑即可，不必找项目经理"),
@@ -286,6 +287,29 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
+    # Plan handoff written for the wrong generator (stale image plan under video task)
+    if "is not for video-generator" in blob_l or "is not for image-generator" in blob_l:
+        asset = str(task.get("asset_id") or task.get("asset") or "").strip()
+        deps = task.get("depends_on") if isinstance(task.get("depends_on"), list) else []
+        craft_id = next(
+            (str(d) for d in deps if str(d).endswith(".prompt.craft")),
+            f"{asset}.prompt.craft" if asset else tid,
+        )
+        return _with_pm_fit(
+            {
+                "task_id": tid,
+                "step": step,
+                "kind": "stale_plan",
+                "owner": "hermes",
+                "remediation": "reset_and_recraft_prompt",
+                "summary": "Plan handoff consumer_role mismatch — recraft for this generator",
+                "cli_hints": [
+                    f"pipeline reset --task-id {craft_id} --cascade",
+                    "pipeline run --run-prompts --jobs 4",
+                ],
+            }
+        )
+
     # Prefer the real exception line over Click traceback noise.
     exc_summary = ""
     for match in _EXC_LINE_RE.finditer(blob):
@@ -383,7 +407,7 @@ def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) ->
     seen: set[str] = set()
     touched = False
 
-    has_validation = any(i.get("kind") == "validation" for i in items)
+    has_validation = any(i.get("kind") in ("validation", "stale_plan") for i in items)
 
     def _add(bucket: list[str], line: str) -> None:
         norm = line.strip()
@@ -432,7 +456,7 @@ def can_auto_fix_without_agent(diagnosis: dict[str, Any]) -> bool:
         return False
     if not build_fix_command_chain(diagnosis.get("manifest_cli_rel") or "", diagnosis):
         return False
-    return all(str(i.get("kind") or "") in ("validation", "config_size") for i in items)
+    return all(str(i.get("kind") or "") in ("validation", "stale_plan", "config_size") for i in items)
 
 
 def diagnose_manifest(

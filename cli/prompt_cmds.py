@@ -16,10 +16,27 @@ from asset_pipeline import (
     find_asset,
     load_brief,
 )
+from brief import resolve_generate_method
 from generation_fingerprint import embed_generation_fingerprint
 from plan_io import build_handoff, build_video_handoff, save_handoff
 from prompt_craft import PromptCraftError
 from shared_context import build_role_context
+
+
+def _should_craft_animation(spec, animation_flag: bool) -> bool:
+    """True when craft/scaffold should build a video/img2img animation plan."""
+    if animation_flag:
+        return True
+    if not str(getattr(spec, "action", "") or "").strip():
+        return False
+    if spec.type == AssetType.CHARACTER:
+        return True
+    if spec.type == AssetType.CHARACTER_POSE:
+        return (
+            resolve_generate_method(spec) == "video"
+            or str(getattr(spec, "usage", "") or "").strip() == "animation_clip"
+        )
+    return False
 
 
 def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_settings) -> None:
@@ -37,7 +54,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             project, assets = load_brief(brief_path)
             if asset:
                 spec = find_asset(assets, asset)
-                if animation or (spec.action and spec.type == AssetType.CHARACTER):
+                if _should_craft_animation(spec, animation):
                     payload = build_animation_pipeline(
                         project, spec, assets, craft=False, config=config
                     ).to_dict()
@@ -47,7 +64,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             else:
                 payloads = []
                 for spec in assets:
-                    if spec.action and spec.type == AssetType.CHARACTER:
+                    if _should_craft_animation(spec, False):
                         payloads.append(
                             build_animation_pipeline(
                                 project, spec, assets, craft=False, config=config
@@ -145,9 +162,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                 kit_item_usage_description=kit_row.usage_description if kit_row else None,
             )
 
-            is_animation = animation or (
-                spec.action and spec.type == AssetType.CHARACTER
-            )
+            is_animation = _should_craft_animation(spec, animation)
             if is_animation:
                 if item_needle:
                     raise ValueError("--item cannot be combined with animation craft")
