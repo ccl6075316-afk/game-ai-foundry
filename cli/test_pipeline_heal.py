@@ -32,6 +32,37 @@ class PipelineHealTests(unittest.TestCase):
             any("size_multiple" in h for h in d["cli_hints"]),
         )
 
+    def test_classify_matte_missing_frames_as_missing_file(self) -> None:
+        task = {
+            "id": "pose_x.video.matte-frames",
+            "step": "video.matte-frames",
+            "asset_id": "pose_x",
+            "result": {
+                "exit_code": 1,
+                "stderr": (
+                    "Error: Batch matting had failures:\n"
+                    "frame_0005.png: Cannot read ../projects/x/output/pose_x_frames/frame_0005.png\n"
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "missing_file")
+        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["reset_task_id"], "pose_x.prompt.craft")
+        self.assertTrue(any("pose_x.prompt.craft" in h for h in d["cli_hints"]))
+
+    def test_classify_godot_assemble_exit2_not_validation(self) -> None:
+        task = {
+            "id": "brief.godot.assemble",
+            "step": "godot.assemble",
+            "result": {
+                "exit_code": 2,
+                "stderr": "Error: Godot assemble failed: missing sprites",
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertNotEqual(d["kind"], "validation")
+
     def test_classify_stale_plan_role_mismatch(self) -> None:
         task = {
             "id": "pose_x.video.generate",
@@ -50,6 +81,7 @@ class PipelineHealTests(unittest.TestCase):
         self.assertTrue(any("pose_x.prompt.craft" in h for h in d["cli_hints"]))
         self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
 
+    def test_classify_cjk_prompt_craft_as_validation(self) -> None:
         task = {
             "id": "hero.prompt.craft",
             "step": "prompt.craft",

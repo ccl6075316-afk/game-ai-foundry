@@ -566,7 +566,13 @@ def reset_task(manifest: dict[str, Any], task_id: str) -> None:
 
 
 def reset_task_cascade(manifest: dict[str, Any], task_id: str) -> list[str]:
-    """Reset task and any downstream tasks that depend on it (transitively)."""
+    """Reset task and any downstream tasks that depend on it (transitively).
+
+    Also deletes on-disk artifacts for the reset set so the next reconcile/run
+    cannot promote stale/partial outputs (e.g. half-written video frames).
+    """
+    from pipeline_manifest import purge_stale_task_artifacts
+
     reset: list[str] = []
     by_id = {t["id"]: t for t in tasks_list(manifest)}
 
@@ -585,5 +591,6 @@ def reset_task_cascade(manifest: dict[str, Any], task_id: str) -> list[str]:
             reset.append(tid)
         for dep in dependents_of(tid):
             stack.append(dep)
+    purge_stale_task_artifacts(manifest, reset)
     refresh_assets_manifest_from_pipeline(manifest, invalidated_task_ids=reset)
     return reset

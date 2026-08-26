@@ -170,8 +170,23 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
     blob = _blob(task)
     blob_l = blob.lower()
 
-    # Validation gate — needs prompt/plan judgment (Hermes)
-    if exit_code == 2 or "prompt_crafter_regenerate" in blob_l:
+    # Validation gate — image/prompt only (exit 2 is also used by unrelated CLIs)
+    step_l = step.lower()
+    tid_l = tid.lower()
+    is_godotish = "godot" in step_l or "godot" in tid_l or "assemble" in step_l
+    is_videoish = step_l.startswith("video.") or ".video." in tid_l
+    if "prompt_crafter_regenerate" in blob_l or (
+        not is_godotish
+        and not is_videoish
+        and (
+            exit_code == 2
+            or "image validation" in blob_l
+            or (
+                "validation failed" in blob_l
+                and ("prompt" in blob_l or step_l.startswith("image."))
+            )
+        )
+    ):
         return _with_pm_fit(
             {
                 "task_id": tid,
@@ -295,8 +310,21 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # Missing input file often from deleted assets
-    if "not found" in blob_l or "no such file" in blob_l or "cannot find" in blob_l:
+    # Missing input file / unreadable frames (matte often fails this way)
+    if (
+        "not found" in blob_l
+        or "no such file" in blob_l
+        or "cannot find" in blob_l
+        or "cannot read" in blob_l
+        or "can't open/read" in blob_l
+        or "batch matting had failures" in blob_l
+    ):
+        # Prefer resetting the craft root so generate→split→matte can rebuild.
+        reset_id = tid
+        if tid.endswith(".video.matte-frames"):
+            reset_id = tid[: -len(".video.matte-frames")] + ".prompt.craft"
+        elif tid.endswith(".video.split-frames"):
+            reset_id = tid[: -len(".video.split-frames")] + ".prompt.craft"
         return _with_pm_fit(
             {
                 "task_id": tid,
@@ -304,8 +332,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                 "kind": "missing_file",
                 "owner": "code",
                 "remediation": "reset_cascade",
+                "reset_task_id": reset_id,
                 "summary": "Missing input artifact — reset upstream and regenerate",
-                "cli_hints": [f"pipeline reset --task-id {tid} --cascade", "pipeline run --jobs 4"],
+                "cli_hints": [
+                    f"pipeline reset --task-id {reset_id} --cascade",
+                    "pipeline run --run-prompts --jobs 4",
+                ],
             }
         )
 
@@ -443,7 +475,9 @@ def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) ->
     seen: set[str] = set()
     touched = False
 
-    has_validation = any(i.get("kind") in ("validation", "stale_plan") for i in items)
+    has_validation = any(
+        i.get("kind") in ("validation", "stale_plan", "missing_file") for i in items
+    )
 
     def _add(bucket: list[str], line: str) -> None:
         norm = line.strip()
@@ -487,12 +521,18 @@ def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) ->
 
 def can_auto_fix_without_agent(diagnosis: dict[str, Any]) -> bool:
     """True when diagnose fix chain is fully deterministic (no LLM triage needed)."""
-    items = diagnosis.get("needs_hermes") or []
-    if not items:
-        return False
+    hermes = diagnosis.get("needs_hermes") or []
+    code = diagnosis.get("auto_healable") or []
+    if not hermes:
+        # network / missing_file etc. — heal_manifest resets without Agent
+        return bool(code)
     if not build_fix_command_chain(diagnosis.get("manifest_cli_rel") or "", diagnosis):
         return False
-    return all(str(i.get("kind") or "") in ("validation", "stale_plan", "config_size") for i in items)
+    return all(
+        str(i.get("kind") or "")
+        in ("validation", "stale_plan", "config_size", "missing_file", "network")
+        for i in hermes
+    )
 
 
 def diagnose_manifest(
@@ -529,7 +569,7 @@ def heal_manifest(manifest: dict[str, Any], *, only_code: bool = True) -> dict[s
         if item.get("remediation") not in ("reset_cascade", "reset_and_recraft_prompt"):
             skipped.append(item)
             continue
-        tid = item["task_id"]
+        tid = str(item.get("reset_task_id") or item["task_id"])
         reset_task_cascade(manifest, tid)
         healed.append(tid)
     return {
@@ -547,15 +587,16 @@ def diagnose_and_heal_file(manifest_path: Any, *, apply: bool) -> dict[str, Any]
     manifest_cli_rel = _manifest_cli_rel(path)
     diagnosis = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
     if not apply:
-        return {"applied": False, **diagnosis}
+        return {"applied": False, "pre_diagnose": diagnosis, **diagnosis}
     heal = heal_manifest(manifest, only_code=True)
     save_manifest(path, manifest)
     post = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
     return {
         "applied": True,
         **heal,
+        "pre_diagnose": diagnosis,
         "diagnose": post,
         "manifest_cli_rel": manifest_cli_rel,
-        "fix_commands": post.get("fix_commands") or [],
+        "fix_commands": post.get("fix_commands") or diagnosis.get("fix_commands") or [],
         "auto_fix_without_agent": post.get("auto_fix_without_agent"),
     }

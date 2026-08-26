@@ -35,6 +35,18 @@ class SafeCliTests(unittest.TestCase):
         )
         self.assertFalse(normalize_action("python gamefactory.py config set --key secrets.api_key --value x")["ok"])
         self.assertTrue(normalize_action("python gamefactory.py config get --key image.model")["ok"])
+        # Agents often wrap with ``cd cli &&`` — must still whitelist.
+        self.assertTrue(
+            normalize_action(
+                "cd cli && python3 gamefactory.py pipeline reset "
+                "--manifest ../projects/fishing-2d/pipeline/manifest.json "
+                "--task-id pose_x.prompt.craft --cascade"
+            )["ok"]
+        )
+        argv_cd = parse_gamefactory_argv(
+            "cd ../cli && python gamefactory.py pipeline run --jobs 4 --run-prompts"
+        )
+        self.assertEqual(argv_cd[:2], ["pipeline", "run"])
 
     def test_filter_skips_comments(self) -> None:
         items = filter_runnable_actions(

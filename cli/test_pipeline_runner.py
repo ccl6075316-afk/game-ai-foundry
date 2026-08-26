@@ -97,6 +97,57 @@ class PipelineRunnerTest(unittest.TestCase):
         task = next(t for t in manifest["tasks"] if t["id"] == "knight.image.generate")
         self.assertEqual(task["status"], TASK_PENDING)
 
+    def test_reset_cascade_purges_frame_artifacts(self) -> None:
+        """Heal/reset must delete partial frames so reconcile cannot fake-promote."""
+        brief_path = write_brief(MINIMAL_VIDEO_BRIEF, prefix="purge-brief-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
+        with tempfile.TemporaryDirectory() as tmp:
+            cli_dir = Path(tmp) / "cli"
+            cli_dir.mkdir()
+            frames_rel = "../output/knight_walk_frames"
+            video_rel = "../output/knight_walk.mp4"
+            plan_rel = "../plans/knight_walk.json"
+            frames = (cli_dir / frames_rel).resolve()
+            frames.mkdir(parents=True)
+            (frames / "frame_0001.png").write_bytes(b"not-a-png")
+            plan = (cli_dir / plan_rel).resolve()
+            plan.parent.mkdir(parents=True, exist_ok=True)
+            plan.write_text(
+                json.dumps(
+                    {
+                        "handoff_version": 1,
+                        "consumer_role": "video-generator",
+                        "plan": {"video_prompt": "walk"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            mp4 = (cli_dir / video_rel).resolve()
+            mp4.parent.mkdir(parents=True, exist_ok=True)
+            mp4.write_bytes(b"fake")
+
+            manifest = build_manifest(brief_path)
+            split = next(t for t in manifest["tasks"] if t["id"] == "knight_walk.video.split-frames")
+            split["artifacts"]["output_dir"] = frames_rel
+            gen = next(t for t in manifest["tasks"] if t["id"] == "knight_walk.video.generate")
+            gen["artifacts"]["output"] = video_rel
+            craft = next(t for t in manifest["tasks"] if t["id"] == "knight_walk.prompt.craft")
+            craft["artifacts"]["plan"] = plan_rel
+
+            import pipeline_manifest as pm
+
+            old_cli = pm._CLI_DIR
+            pm._CLI_DIR = cli_dir
+            try:
+                reset_ids = reset_task_cascade(manifest, "knight_walk.prompt.craft")
+            finally:
+                pm._CLI_DIR = old_cli
+
+            self.assertIn("knight_walk.video.split-frames", reset_ids)
+            self.assertFalse(frames.exists())
+            self.assertFalse(mp4.exists())
+            self.assertFalse(plan.exists())
+
     def test_run_dry_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "m.json"

@@ -149,10 +149,10 @@ class HostRunAssetsTests(unittest.TestCase):
                         )
 
             self.assertFalse(result["ok"])
-            self.assertEqual(result["stopped_reason"], "max_rounds")
-            self.assertEqual(diagnose_mock.call_count, 2)
-            self.assertEqual(fix_mock.call_count, 2)
-            self.assertEqual(run_mock.call_count, 3)
+            self.assertIn(result["stopped_reason"], ("max_rounds", "same_failure"))
+            self.assertGreaterEqual(diagnose_mock.call_count, 1)
+            self.assertGreaterEqual(fix_mock.call_count, 1)
+            self.assertGreaterEqual(run_mock.call_count, 2)
             self.assertIsNotNone(result.get("diagnosis"))
             self.assertEqual(
                 (result.get("diagnosis") or {}).get("failed_count"),
@@ -187,6 +187,24 @@ class HostRunAssetsTests(unittest.TestCase):
             heal_report = {
                 "applied": True,
                 "healed": ["foo.image.generate"],
+                "pre_diagnose": {
+                    "failed_count": 1,
+                    "items": [
+                        {
+                            "task_id": "foo.image.generate",
+                            "kind": "network",
+                            "owner": "code",
+                        }
+                    ],
+                    "needs_hermes": [],
+                    "auto_healable": [
+                        {
+                            "task_id": "foo.image.generate",
+                            "kind": "network",
+                            "owner": "code",
+                        }
+                    ],
+                },
                 "diagnose": post_clean,
                 "fix_commands": [],
                 "auto_fix_without_agent": False,

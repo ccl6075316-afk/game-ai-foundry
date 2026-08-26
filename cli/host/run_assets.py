@@ -218,16 +218,38 @@ def run_assets(
                 "diagnosis": _safe_diagnosis(manifest_path),
             }
 
-        diagnosis = heal_report.get("diagnose") if isinstance(heal_report.get("diagnose"), dict) else heal_report
-        if isinstance(diagnosis, dict):
+        pre_diagnosis = (
+            heal_report.get("pre_diagnose")
+            if isinstance(heal_report.get("pre_diagnose"), dict)
+            else None
+        )
+        post_diagnosis = (
+            heal_report.get("diagnose")
+            if isinstance(heal_report.get("diagnose"), dict)
+            else heal_report
+        )
+        diagnosis = post_diagnosis if isinstance(post_diagnosis, dict) else {}
+        if isinstance(pre_diagnosis, dict) and int(pre_diagnosis.get("failed_count") or 0) > 0:
+            last_diagnosis = pre_diagnosis
+        elif isinstance(diagnosis, dict):
             last_diagnosis = diagnosis
-        fingerprints = _failure_fingerprints(diagnosis)
+
+        # Compare failure fingerprints from *before* heal — post-heal is often empty.
+        fingerprints = _failure_fingerprints(
+            pre_diagnosis if isinstance(pre_diagnosis, dict) else diagnosis
+        )
         healed = [str(t) for t in (heal_report.get("healed") or []) if t]
         failed_count = int(diagnosis.get("failed_count") or 0)
         auto_fixable = bool(
             heal_report.get("auto_fix_without_agent")
             if heal_report.get("auto_fix_without_agent") is not None
             else can_auto_fix_without_agent(diagnosis)
+        )
+        # Purging craft plans requires re-crafting on the next run.
+        repair_run_prompts = bool(
+            run_prompts
+            or any(tid.endswith(".prompt.craft") for tid in healed)
+            or any("--run-prompts" in str(line) for line in (heal_report.get("fix_commands") or []))
         )
         rounds.append(
             {
@@ -237,12 +259,17 @@ def run_assets(
                 "healed": healed,
                 "failed_count": failed_count,
                 "auto_fix_without_agent": auto_fixable,
+                "run_prompts": repair_run_prompts,
             }
         )
 
+        if prior_fingerprints is not None and fingerprints and fingerprints == prior_fingerprints:
+            stopped_reason = "same_failure"
+            break
+
         # Code-owned heal resets failed→pending; post diagnose then has no needs_hermes,
         # so can_auto_fix is false — still must re-run, not bail to needs_agent.
-        if healed and failed_count == 0 and not fingerprints:
+        if healed and failed_count == 0 and not _failure_fingerprints(diagnosis):
             repair_rounds += 1
             rounds.append(
                 {
@@ -255,7 +282,7 @@ def run_assets(
             run_result = run_pipeline(
                 manifest_path,
                 jobs=jobs,
-                run_prompts=run_prompts,
+                run_prompts=repair_run_prompts,
             )
             rounds.append(
                 _run_round_record(phase="run", run_result=run_result, repair_round=repair_rounds)
@@ -273,30 +300,29 @@ def run_assets(
                     "blocked": False,
                     "run_exit_code": 0,
                 }
-            if prior_fingerprints is not None and fingerprints == prior_fingerprints:
-                stopped_reason = "max_rounds"
-                break
             prior_fingerprints = fingerprints
             continue
 
         if not can_auto_fix_without_agent(diagnosis):
+            # Prefer pre-heal diagnosis for GUI copy when post-heal is empty.
             return {
                 "ok": False,
                 "stopped_reason": "needs_agent",
                 "repair_rounds": repair_rounds,
                 "rounds": rounds,
-                "summary": diagnosis.get("summary") or run_result.summary,
+                "summary": (last_diagnosis or diagnosis).get("summary") or run_result.summary,
                 "message": run_result.message,
                 "complete": False,
                 "paused": run_result.paused,
                 "blocked": run_result.blocked,
                 "run_exit_code": _run_exit_code(run_result),
-                "diagnosis": diagnosis,
+                "diagnosis": last_diagnosis or diagnosis,
             }
 
         fix_commands = list(
             heal_report.get("fix_commands")
             or diagnosis.get("fix_commands")
+            or (pre_diagnosis or {}).get("fix_commands")
             or []
         )
         try:
@@ -304,9 +330,7 @@ def run_assets(
                 manifest_path,
                 fix_commands,
                 default_jobs=jobs,
-                default_run_prompts=run_prompts or any(
-                    "--run-prompts" in str(line) for line in fix_commands
-                ),
+                default_run_prompts=repair_run_prompts,
             )
         except (ValueError, OSError) as exc:
             return {
@@ -336,7 +360,6 @@ def run_assets(
 
         run_result = fix_out.get("run_result")
         if run_result is None:
-            repair_run_prompts = run_prompts or any("--run-prompts" in str(line) for line in fix_commands)
             run_result = run_pipeline(
                 manifest_path,
                 jobs=jobs,
@@ -358,9 +381,6 @@ def run_assets(
                 "run_exit_code": 0,
             }
 
-        if prior_fingerprints is not None and fingerprints == prior_fingerprints:
-            stopped_reason = "max_rounds"
-            break
         prior_fingerprints = fingerprints
 
     return {

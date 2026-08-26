@@ -163,6 +163,19 @@ def matte_frames_batch(
     if not frames:
         raise VideoMattingError(f"No frames matching {pattern} in {input_dir}")
 
+    # Fail fast on truncated/corrupt extracts — avoid partial nobg + heal loops.
+    unreadable = [
+        frame.name
+        for frame in frames
+        if cv2.imread(str(frame), cv2.IMREAD_UNCHANGED) is None
+    ]
+    if unreadable:
+        raise VideoMattingError(
+            "Cannot read frame(s) before matting (re-split required):\n"
+            + "\n".join(unreadable[:8])
+            + (f"\n... and {len(unreadable) - 8} more" if len(unreadable) > 8 else "")
+        )
+
     output_dir.mkdir(parents=True, exist_ok=True)
     results: list[dict[str, Any]] = []
     failures: list[str] = []

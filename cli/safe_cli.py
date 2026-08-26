@@ -55,9 +55,23 @@ def _strip_comment(raw: str) -> str:
     return line
 
 
+def _strip_cd_and_prefix(line: str) -> str:
+    """Agents often emit ``cd cli && python gamefactory.py …`` — peel the cd."""
+    text = (line or "").strip()
+    # Allow a single ``cd <dir> && <cmd>`` prefix only (no chains / pipes).
+    m = re.match(r"^cd\s+(\S+)\s+&&\s+(.+)$", text, re.I | re.DOTALL)
+    if not m:
+        return text
+    rest = m.group(2).strip()
+    if not rest:
+        return text
+    # Reject further shell chaining in the remainder before metachar check.
+    return rest
+
+
 def parse_gamefactory_argv(raw: str) -> list[str]:
     """Return argv tokens for gamefactory.py (without python / script name)."""
-    line = _strip_comment(raw)
+    line = _strip_cd_and_prefix(_strip_comment(raw))
     if not line:
         raise SafeCliError("empty command")
     if any(ch in line for ch in (";", "|", "&", "`", "$(", "\n", "\r")):

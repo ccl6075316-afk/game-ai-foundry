@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
@@ -1308,6 +1309,53 @@ def _artifact_exists(repo_root: Path, cli_rel: str) -> bool:
     return False
 
 
+_PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
+
+
+def _png_header_ok(path: Path) -> bool:
+    try:
+        if path.stat().st_size < 33:
+            return False
+        with path.open("rb") as fh:
+            return fh.read(8) == _PNG_MAGIC
+    except OSError:
+        return False
+
+
+def _expected_split_frame_count(task: dict[str, Any]) -> int | None:
+    cmd = str(task.get("command") or "")
+    match = re.search(r"--frames\s+(\d+)", cmd)
+    if not match:
+        return None
+    try:
+        value = int(match.group(1))
+    except ValueError:
+        return None
+    return value if value > 0 else None
+
+
+def _frames_dir_ready(task: dict[str, Any], cli_rel: str) -> bool:
+    """True when a split-frames output dir has enough intact frame_*.png files."""
+    path = (_CLI_DIR / cli_rel).resolve()
+    if not path.is_dir():
+        return False
+    frames = sorted(path.glob("frame_*.png"))
+    if not frames:
+        return False
+    expected = _expected_split_frame_count(task)
+    if expected is not None and len(frames) < expected:
+        return False
+    return all(_png_header_ok(frame) for frame in frames)
+
+
+def _primary_artifact_ready(task: dict[str, Any], cli_rel: str) -> bool:
+    """Stricter than exists — refuse promoting half-written video frame dirs."""
+    step = str(task.get("step") or "")
+    if step == "video.split-frames" or step.endswith(".video.split-frames"):
+        return _frames_dir_ready(task, cli_rel)
+    return _artifact_exists(_REPO_ROOT, cli_rel)
+
+
 def _primary_artifact_rel(task: dict[str, Any]) -> str | None:
     """Cli-relative path that must exist for a task to stay done.
 
@@ -1601,6 +1649,7 @@ _ARTIFACT_PURGE_KEYS = frozenset(
         "dev_handoff",
         "assemble_file",
         "input",
+        "input_dir",
         "frames_dir",
         "plan_file",
     }
@@ -1617,6 +1666,7 @@ _ARTIFACT_PURGE_ARTIFACT_KEYS = frozenset(
         "dev_handoff",
         "assemble_file",
         "input",
+        "input_dir",
         "frames_dir",
         "plan_file",
     }
@@ -1739,7 +1789,7 @@ def invalidate_missing_artifacts(manifest: dict[str, Any]) -> list[str]:
         rel = _primary_artifact_rel(task)
         if not rel:
             continue
-        if not _artifact_exists(_REPO_ROOT, rel):
+        if not _primary_artifact_ready(task, rel):
             missing_roots.append(str(task["id"]))
 
     if not missing_roots:
@@ -1805,7 +1855,7 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
             continue
         # Must match invalidate: only the primary deliverable counts (not plan alone).
         rel = _primary_artifact_rel(task)
-        if not rel or not _artifact_exists(_REPO_ROOT, rel):
+        if not rel or not _primary_artifact_ready(task, rel):
             continue
         if not _craft_plan_matches_task(task, rel):
             continue

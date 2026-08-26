@@ -130,6 +130,47 @@ class PipelineManifestTest(unittest.TestCase):
             self.assertEqual(task["status"], "pending")
             self.assertEqual(updated["promoted"], 0)
 
+    def test_reconcile_rejects_incomplete_split_frames_dir(self) -> None:
+        """Partial/corrupt frame dirs must not be promoted to done."""
+        from test_fixtures import MINIMAL_VIDEO_BRIEF, write_brief
+
+        brief_path = write_brief(MINIMAL_VIDEO_BRIEF, prefix="split-recon-")
+        self.addCleanup(lambda: brief_path.unlink(missing_ok=True))
+        with tempfile.TemporaryDirectory() as tmp:
+            cli_dir = Path(tmp) / "cli"
+            cli_dir.mkdir()
+            frames_rel = "../output/knight_walk_frames"
+            frames_dir = (cli_dir / frames_rel).resolve()
+            frames_dir.mkdir(parents=True)
+            (frames_dir / "frame_0001.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 40)
+            (frames_dir / "frame_0002.png").write_bytes(b"truncated")
+
+            manifest = build_manifest(brief_path)
+            craft = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.prompt.craft")
+            craft["status"] = "done"
+            gen = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.video.generate")
+            gen["status"] = "done"
+            split = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.video.split-frames")
+            split["status"] = "pending"
+            split["artifacts"]["output_dir"] = frames_rel
+            split["command"] = (
+                "python gamefactory.py video split-frames "
+                "--input x.mp4 --output-dir y --frames 8"
+            )
+
+            import pipeline_manifest as pm
+
+            old_cli = pm._CLI_DIR
+            pm._CLI_DIR = cli_dir
+            try:
+                updated = reconcile_manifest(manifest)
+            finally:
+                pm._CLI_DIR = old_cli
+
+            split = next(t for t in tasks_list(manifest) if t["id"] == "knight_walk.video.split-frames")
+            self.assertEqual(split["status"], "pending")
+            self.assertEqual(updated["promoted"], 0)
+
     def test_invalidate_mismatched_craft_plans_resets_done(self) -> None:
         from pipeline_manifest import invalidate_mismatched_craft_plans, record_task
 

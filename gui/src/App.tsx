@@ -2344,8 +2344,11 @@ export default function App() {
   };
 
   const normalizeSafeCmd = (raw: string): string => {
-    const line = String(raw || "").trim();
+    let line = String(raw || "").trim();
     if (!line || line.startsWith("#")) return "";
+    // Agents often emit ``cd cli && python …`` — Host whitelist forbids ``&&``.
+    line = line.replace(/^cd\s+\S+\s+&&\s+/i, "").trim();
+    if (!line) return "";
     return /^python\b/i.test(line) ? line : `python gamefactory.py ${line}`;
   };
 
@@ -2425,22 +2428,22 @@ export default function App() {
   const handleAgentTurn = async (
     message: string,
     opts?: { instanceId?: string; autoRunSafeActions?: boolean; fixCommandsFallback?: string[] },
-  ) => {
-    if (agentConfigSavingRef.current) return;
+  ): Promise<{ ok: boolean; autoFixOk?: boolean }> => {
+    if (agentConfigSavingRef.current) return { ok: false };
     const colleague =
       (opts?.instanceId
         ? chatStore.roster.find((c) => c.id === opts.instanceId)
         : null) || activeColleague;
     const role = colleague.roleKind;
     if (!isAgentChatRole(role)) {
-      return;
+      return { ok: false };
     }
     const sessionId =
       (opts?.instanceId
         ? chatStore.activeByInstance[colleague.id] ||
           chatStore.sessions.find((s) => s.instanceId === colleague.id)?.id
         : null) || activeSession.id;
-    if (!sessionId) return;
+    if (!sessionId) return { ok: false };
     if (opts?.instanceId && opts.instanceId !== activeColleague.id) {
       patchChatStore((prev) => setActiveInstance(prev, opts.instanceId!));
     }
@@ -2563,7 +2566,7 @@ export default function App() {
       const data = res.data;
       if (isChatAborted(res)) {
         append("assistant", "已停止。", undefined, target);
-        return;
+        return { ok: false };
       }
       if (res.exitCode !== 0 || data?.ok === false) {
         const err =
@@ -2586,9 +2589,8 @@ export default function App() {
       pendingSafeActions.current = new Map();
       const queueActions = (actions: string[] | undefined) => {
         for (const raw of actions || []) {
-          const line = String(raw || "").trim();
-          if (!line || line.startsWith("#")) continue;
-          const cmd = /^python\b/i.test(line) ? line : `python gamefactory.py ${line}`;
+          const cmd = normalizeSafeCmd(String(raw || ""));
+          if (!cmd) continue;
           const short = cmd.replace(/^python\s+gamefactory\.py\s+/i, "").slice(0, 48);
           const label = `执行 · ${short}`;
           pendingSafeActions.current.set(label, cmd);
@@ -2690,9 +2692,12 @@ export default function App() {
             target,
             chain.ok ? ["运行资产生成", "打开看板"] : ["打开看板", "运行资产生成"],
           );
+          await refreshHandoffs();
+          return { ok: true, autoFixOk: chain.ok };
         }
       }
       await refreshHandoffs();
+      return { ok: true };
     } catch (e) {
       if (isAbortError(e)) {
         append("assistant", "已停止。", undefined, target);
@@ -2712,6 +2717,7 @@ export default function App() {
             : undefined,
         );
       }
+      return { ok: false };
     } finally {
       window.clearInterval(heartbeat);
       clearBusy(target.instanceId);
@@ -3389,7 +3395,9 @@ export default function App() {
     const needs = (diagData?.needs_hermes as DiagnoseItem[] | undefined) || [];
     const fixCommands = (diagData?.fix_commands as string[] | undefined) || [];
     const autoWithoutAgent = Boolean(diagData?.auto_fix_without_agent);
-    const useRunPrompts = needs.some((n) => n.kind === "validation");
+    const useRunPrompts = needs.some((n) =>
+      ["validation", "stale_plan", "missing_file"].includes(String(n.kind || "")),
+    );
 
     let chainOk = false;
     let chainRan = 0;
@@ -3406,6 +3414,8 @@ export default function App() {
     }
 
     let pmInvoked = false;
+    let pmOk = false;
+    let pmAutoFixOk = false;
     const statusRes = await refreshManifest(selectedManifest);
     let statusNow = statusRes?.status;
     let failedN = statusNow?.failed_ids?.length ?? 0;
@@ -3417,7 +3427,9 @@ export default function App() {
       advice.suitable &&
       needs.length > 0 &&
       !autoWithoutAgent &&
-      needs.some((n) => ["config_proxy", "unknown"].includes(String(n.kind || "")));
+      needs.some((n) =>
+        ["config_proxy", "unknown", "stale_plan"].includes(String(n.kind || "")),
+      );
 
     if (needsPmAgent && !completeAfter) {
       const pm = chatStore.roster.find((c) => c.roleKind === "product_host");
@@ -3430,14 +3442,17 @@ export default function App() {
           .join("\n");
         const msg =
           `【目标模式】流水线失败 — 请直接修复并给出可执行 cli_hints（宿主会自动串跑，禁止只报 errno）：\n${payload}\n\n` +
-          `config_size / config_proxy → config set + pipeline reset --cascade；validation → reset + run --run-prompts。`;
+          `config_size / config_proxy → config set + pipeline reset --cascade；validation / stale_plan → reset + run --run-prompts。` +
+          `\n命令必须是单行白名单（如 \`pipeline reset --manifest …\`），不要写 \`cd cli &&\`。`;
         clearBusy(busyId);
-        await handleAgentTurn(msg, {
+        const turn = await handleAgentTurn(msg, {
           instanceId: pm.id,
           autoRunSafeActions: true,
           fixCommandsFallback: fixCommands,
         });
         pmInvoked = true;
+        pmOk = Boolean(turn?.ok);
+        pmAutoFixOk = Boolean(turn?.autoFixOk);
         const afterPm = await refreshManifest(selectedManifest);
         statusNow = afterPm?.status;
         failedN = statusNow?.failed_ids?.length ?? 0;
@@ -3446,7 +3461,8 @@ export default function App() {
       }
     }
 
-    const shouldRetry = completeAfter || chainOk || healed.length > 0 || pmInvoked;
+    const shouldRetry =
+      completeAfter || chainOk || healed.length > 0 || (pmInvoked && pmOk && (pmAutoFixOk || chainOk));
 
     const parts: string[] = [];
     if (advice.headline) {
@@ -3468,7 +3484,15 @@ export default function App() {
       );
     }
     if (pmInvoked) {
-      parts.push("已调用项目经理 Agent 执行修复命令。");
+      if (!pmOk) {
+        parts.push("**项目经理 Agent 调用失败**（未执行修复）。请检查执行器登录/网络后重试。");
+      } else if (pmAutoFixOk) {
+        parts.push("项目经理已分诊，且修复命令已自动执行。");
+      } else {
+        parts.push(
+          "项目经理已分诊，但自动修复命令未跑完（见上方）。可按建议手动点「运行资产生成」。",
+        );
+      }
     }
     if (completeAfter) {
       parts.push("**流水线已全部完成。**");
@@ -3868,7 +3892,11 @@ export default function App() {
         const hostNote =
           (hostPayload?.repair_rounds ?? 0) > 0
             ? `Host 已尝试自动修复 ${hostPayload!.repair_rounds} 轮` +
-              (stoppedReason ? `（${stoppedReason}）` : "") +
+              (stoppedReason === "same_failure"
+                ? "（同一失败反复出现，已停止空转）"
+                : stoppedReason
+                  ? `（${stoppedReason}）`
+                  : "") +
               "。\n\n"
             : hostPayload?.message
               ? `${hostPayload.message}\n\n`
@@ -3880,15 +3908,21 @@ export default function App() {
           healed: [],
           status: statusAfter?.status || status,
         });
+        const sameFailureHint =
+          stoppedReason === "same_failure"
+            ? "\n\n请用 **运行资产生成（含文案）** 重跑整条视频链；若仍失败，把看板里该任务的 stderr 发出来（多半是抽帧/视频产物坏了，不是项目经理能点修好的）。"
+            : "";
         const rawTail = (res.stderr || "").trim()
           ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
           : "";
         append(
           "assistant",
-          `${hostNote}**${plan.title}**\n\n${plan.body}${rawTail}`,
+          `${hostNote}**${plan.title}**\n\n${plan.body}${sameFailureHint}${rawTail}`,
           undefined,
           undefined,
-          plan.choices,
+          stoppedReason === "same_failure"
+            ? ["运行资产生成（含文案）", "打开看板"]
+            : plan.choices,
         );
         setSidePanel("board");
         return;
