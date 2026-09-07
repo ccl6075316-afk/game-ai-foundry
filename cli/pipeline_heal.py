@@ -291,6 +291,11 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             "rate limit",
             "failed to download",
             "http 5",
+            "ended prematurely",
+            "incomplete read",
+            "chunkedencoding",
+            "protocolerror",
+            "craft_fail_kind=network",
         )
     ):
         exc_summary = _exc_summary_from_blob(blob)
@@ -314,17 +319,33 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
     if (
         "not found" in blob_l
         or "no such file" in blob_l
+        or "does not exist" in blob_l
         or "cannot find" in blob_l
         or "cannot read" in blob_l
         or "can't open/read" in blob_l
         or "batch matting had failures" in blob_l
+        or "invalid value for '--input-dir'" in blob_l
+        or "invalid value for '--input'" in blob_l
     ):
-        # Prefer resetting the craft root so generate→split→matte can rebuild.
+        # Prefer the nearest upstream producer — do NOT jump to prompt.craft for
+        # matte/split missing files (that purges good plans + mp4 and restarts craft).
         reset_id = tid
+        run_prompts = False
         if tid.endswith(".video.matte-frames"):
-            reset_id = tid[: -len(".video.matte-frames")] + ".prompt.craft"
+            # Rebuild frames from mp4 (keeps plan + video).
+            reset_id = tid[: -len(".video.matte-frames")] + ".video.split-frames"
         elif tid.endswith(".video.split-frames"):
-            reset_id = tid[: -len(".video.split-frames")] + ".prompt.craft"
+            # Rebuild mp4 (keeps plan).
+            reset_id = tid[: -len(".video.split-frames")] + ".video.generate"
+        elif tid.endswith(".video.generate"):
+            # Missing plan / reference — must recraft + regenerate.
+            reset_id = tid[: -len(".video.generate")] + ".prompt.craft"
+            run_prompts = True
+        hints = [f"pipeline reset --task-id {reset_id} --cascade"]
+        if run_prompts:
+            hints.append("pipeline run --run-prompts --jobs 4")
+        else:
+            hints.append("pipeline run --jobs 4")
         return _with_pm_fit(
             {
                 "task_id": tid,
@@ -334,10 +355,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                 "remediation": "reset_cascade",
                 "reset_task_id": reset_id,
                 "summary": "Missing input artifact — reset upstream and regenerate",
-                "cli_hints": [
-                    f"pipeline reset --task-id {reset_id} --cascade",
-                    "pipeline run --run-prompts --jobs 4",
-                ],
+                "cli_hints": hints,
             }
         )
 

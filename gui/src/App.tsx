@@ -73,6 +73,15 @@ import {
 } from "./chat/projectPaths";
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
 import { resolveAppendTarget, sessionTargetForInstance } from "./chat/appendTarget";
+import {
+  PM_HANDLE_FAILURE,
+  RETRY_FIX_AND_CONTINUE,
+  RUN_WITH_PROMPTS,
+  formatPmFitAdvice,
+  planPipelineStop,
+  type DiagnoseItem,
+  type PipelineRunPayload,
+} from "./chat/pipelineStopPlan";
 import { isAgentChatRole, routeColleagueSend } from "./chat/colleagueSendRoute";
 import {
   formatVtGlobalChoiceLabel,
@@ -133,119 +142,6 @@ function slugifyBriefName(raw: string): string {
   return slug || `game-${Date.now().toString(36)}`;
 }
 
-type DiagnoseItem = {
-  task_id?: string;
-  kind?: string;
-  summary?: string;
-  pm_fit?: string;
-  pm_tip?: string;
-};
-
-/** Prefer concrete stderr/summary over generic pm_tip role hints. */
-function diagnoseItemTip(n: DiagnoseItem): string {
-  const summary = String(n.summary || "").trim();
-  const pmTip = String(n.pm_tip || "").trim();
-  if (summary) return summary;
-  return pmTip;
-}
-
-function taskStepFromId(taskId: string): string {
-  const dot = taskId.lastIndexOf(".");
-  return dot >= 0 ? taskId.slice(dot + 1) : "";
-}
-
-function failureKindLabel(kind: string, taskId: string): string {
-  const step = taskStepFromId(taskId);
-  if (kind === "validation" && step === "prompt.craft") {
-    return "Prompt/文案生成未通过";
-  }
-  if (kind === "validation" && step === "image.generate") {
-    return "出图校验未通过";
-  }
-  return FAILURE_KIND_LABEL[kind] || kind || "运行失败";
-}
-
-/** Format diagnose JSON into a clear「适不适合项目经理」tip for chat. */
-function formatPmFitAdvice(data: {
-  pm_fit?: string;
-  pm_suitable?: boolean;
-  pm_advice?: string;
-  pm_advice_short?: string;
-  items?: DiagnoseItem[];
-  needs_hermes?: DiagnoseItem[];
-} | null | undefined): {
-  suitable: boolean;
-  headline: string;
-  detail: string;
-  primaryFailure: { taskId: string; kind: string; message: string } | null;
-} {
-  if (!data) {
-    return {
-      suitable: false,
-      headline: "未能诊断失败原因",
-      detail: "可打开看板查看 failed 任务，或重试「项目经理处理失败」。",
-      primaryFailure: null,
-    };
-  }
-  const items = (data.items?.length ? data.items : data.needs_hermes) || [];
-  const lines = items.slice(0, 6).map((n) => {
-    const fit =
-      n.pm_fit === "yes" ? "适合" : n.pm_fit === "no" ? "不必" : n.pm_fit === "maybe" ? "可分诊" : "?";
-    const tip = diagnoseItemTip(n);
-    return `- \`${n.task_id || "?"}\`（${n.kind || "?"}）· **${fit}**${tip ? ` — ${tip}` : ""}`;
-  });
-  const first = items[0];
-  const primaryFailure = first
-    ? {
-        taskId: String(first.task_id || "?"),
-        kind: String(first.kind || "unknown"),
-        message: diagnoseItemTip(first) || String(first.summary || "").trim() || "未知错误",
-      }
-    : null;
-  const headline =
-    data.pm_advice_short ||
-    (data.pm_suitable ? "适合项目经理直接处理" : "不必找项目经理");
-  const detail =
-    (data.pm_advice ? `${data.pm_advice}\n\n` : "") +
-    (lines.length ? `逐项：\n${lines.join("\n")}` : "");
-  return { suitable: Boolean(data.pm_suitable), headline, detail, primaryFailure };
-}
-
-const FAILURE_KIND_LABEL: Record<string, string> = {
-  network: "网络/CDN 错误",
-  billing: "API 余额不足",
-  validation: "出图校验未通过",
-  config_size: "出图尺寸配置",
-  config_proxy: "代理配置",
-  missing_file: "缺少上游产物",
-  stale_plan: "Plan 与生成器不匹配",
-  unknown: "运行失败",
-};
-
-function failureLeadBlock(
-  primary: { taskId: string; kind: string; message: string } | null,
-): string {
-  if (!primary?.message) return "";
-  const label = failureKindLabel(primary.kind, primary.taskId);
-  return `**失败原因**（${label} · \`${primary.taskId}\`）\n${primary.message}\n\n`;
-}
-
-type PipelineRunPayload = {
-  complete?: boolean;
-  paused?: boolean;
-  blocked?: boolean;
-  message?: string;
-  last_task?: string;
-  last_exit_code?: number;
-  summary?: {
-    counts?: Record<string, number>;
-    failed_ids?: string[];
-    ready_ids?: string[];
-    ready_count?: number;
-    done?: boolean;
-  };
-};
-
 /** User cancelled an in-flight chat/CLI turn (Stop button). */
 function isChatAborted(res: {
   aborted?: boolean;
@@ -263,108 +159,6 @@ function isChatAborted(res: {
 function isAbortError(e: unknown): boolean {
   const msg = e instanceof Error ? e.message : String(e || "");
   return /已停止|aborted|cancelled|canceled/i.test(msg);
-}
-
-/** Clear stop notice + recommended next action for pipeline pause / incomplete run. */
-function planPipelineStop(opts: {
-  exitCode: number;
-  runData?: PipelineRunPayload | null;
-  advice: ReturnType<typeof formatPmFitAdvice>;
-  healed: string[];
-  status?: PipelineStatus | null;
-}): { title: string; body: string; choices: string[] } {
-  const summary = opts.status || opts.runData?.summary;
-  const counts = summary?.counts || {};
-  const done = Number(counts.done ?? 0);
-  const pending = Number(counts.pending ?? 0);
-  const failedN = Number(
-    counts.failed ?? opts.status?.failed_ids?.length ?? opts.runData?.summary?.failed_ids?.length ?? 0,
-  );
-  const ready =
-    opts.status?.ready_ids?.length ??
-    opts.runData?.summary?.ready_ids?.length ??
-    opts.runData?.summary?.ready_count ??
-    0;
-  const progress = `进度：完成 ${done} · 待跑 ${pending}` + (failedN ? ` · 失败 ${failedN}` : "");
-  const last = opts.runData?.last_task
-    ? `\n停在：\`${opts.runData.last_task}\`` +
-      (opts.runData.last_exit_code != null ? `（exit ${opts.runData.last_exit_code}）` : "")
-    : "";
-  const paused = Boolean(opts.runData?.paused) || opts.exitCode === 2 || failedN > 0;
-  const blocked = Boolean(opts.runData?.blocked);
-  const failureLead = failureLeadBlock(opts.advice.primaryFailure);
-  const pauseTitle = opts.advice.primaryFailure
-    ? `流水线已暂停：${failureKindLabel(opts.advice.primaryFailure.kind, opts.advice.primaryFailure.taskId)}`
-    : "流水线已暂停";
-
-  if (paused && failedN > 0) {
-    if (opts.advice.suitable) {
-      return {
-        title: pauseTitle,
-        body:
-          failureLead +
-          `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
-          `**推荐下一步 → 项目经理处理失败**\n` +
-          `（${opts.advice.headline}）\n\n${opts.advice.detail}` +
-          `\n\n点一次后将自动 diagnose → heal → 串跑修复命令（校验/配置类无需 Agent）。` +
-          (opts.healed.length
-            ? `\n\n另已自动复位 ${opts.healed.length} 项（网络/缺文件），处理后可一并续跑。`
-            : ""),
-        choices: ["项目经理处理失败", "运行资产生成", "打开看板"],
-      };
-    }
-    if (opts.healed.length) {
-      return {
-        title: pauseTitle,
-        body:
-          failureLead +
-          `${progress}${last}\n\n` +
-          `已自动复位：${opts.healed.slice(0, 6).join(", ")}${opts.healed.length > 6 ? "…" : ""}\n` +
-          `（${opts.advice.headline}）\n\n` +
-          `**推荐下一步 → 运行资产生成**（续跑）`,
-        choices: ["运行资产生成", "打开看板"],
-      };
-    }
-    return {
-      title: pauseTitle,
-      body:
-        failureLead +
-        `默认遇失败即停，已完成的任务会保留。\n${progress}${last}\n\n` +
-        `**推荐下一步 → 运行资产生成**（续跑）\n` +
-        `（${opts.advice.headline}）\n\n${opts.advice.detail}`,
-      choices: ["运行资产生成", "运行资产生成（含文案）", "打开看板"],
-    };
-  }
-
-  if (blocked) {
-    return {
-      title: "流水线卡住了",
-      body:
-        `${progress}\n` +
-        (opts.runData?.message ? `${opts.runData.message}\n` : "") +
-        `\n常见原因：上游失败未清、缺文案 plan、或缺依赖产物。\n\n` +
-        `**推荐下一步 → 打开看板** 看哪条红了；若有失败再点「项目经理处理失败」。`,
-      choices: ["打开看板", "项目经理处理失败", "运行资产生成（含文案）"],
-    };
-  }
-
-  if (ready > 0 || pending > 0) {
-    return {
-      title: "本轮已停下，还有任务未跑完",
-      body:
-        `${progress}` +
-        (ready > 0 ? `（其中 ${ready} 个已就绪）` : "") +
-        `${last}\n\n` +
-        `**推荐下一步 → 运行资产生成**（续跑，已完成的会跳过）`,
-      choices: ["运行资产生成", "运行资产生成（含文案）", "打开看板"],
-    };
-  }
-
-  return {
-    title: "流水线已结束",
-    body: `${progress}${last}\n\n可打开看板确认，或继续派工给程序员。`,
-    choices: ["打开看板"],
-  };
 }
 
 function parseBriefSubcommand(
@@ -608,11 +402,12 @@ export default function App() {
       setVisualReferenceReady(false);
       setVtGlobalMark({});
       setVtScenesFromStatus([]);
-      return false;
+      return { ready: false, diskMarked: false, hasBoardThumbs: false };
     }
     try {
       const st = await window.gameFactory.visualTargetStatus(rel);
-      setVisualReferenceReady(Boolean(st.ready));
+      const ready = Boolean(st.ready);
+      setVisualReferenceReady(ready);
       const gSel = st.global_selected_id;
       setVtGlobalMark({
         ready: Boolean(st.global_ready),
@@ -640,12 +435,23 @@ export default function App() {
             .filter((s) => Boolean(s.id))
         : [];
       setVtScenesFromStatus(scenes);
-      return Boolean(st.ready);
+      const hasBoardThumbs =
+        Boolean(st.global_preview_path) ||
+        Boolean(st.global_has_selected_image) ||
+        Boolean(st.global_ready) ||
+        scenes.some(
+          (s) => s.ready || s.has_selected_image || Boolean(s.preview_path),
+        );
+      return {
+        ready,
+        diskMarked: Boolean(st.disk_marked),
+        hasBoardThumbs,
+      };
     } catch {
       setVisualReferenceReady(false);
       setVtGlobalMark({});
       setVtScenesFromStatus([]);
-      return false;
+      return { ready: false, diskMarked: false, hasBoardThumbs: false };
     }
   }, [activeBriefRel]);
 
@@ -3525,10 +3331,10 @@ export default function App() {
           `**本轮跑完，流水线未全部完成**\n\n` +
             `进度：完成 ${counts.done ?? "?"} · 待跑 ${pending}` +
             (ready ? `（${ready} 个已就绪）` : "") +
-            `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
+            `\n\n**推荐下一步 → ${RUN_WITH_PROMPTS}**（续跑）`,
           undefined,
           undefined,
-          ["运行资产生成", "打开看板"],
+          [RUN_WITH_PROMPTS, "打开看板"],
         );
       } else {
         append(
@@ -3681,7 +3487,7 @@ export default function App() {
     try {
       const hostRunAssets = window.gameFactory.hostRunAssets;
       if (hostRunAssets) {
-        append("log", "host run-assets（处理失败）…");
+        append("log", "host run-assets（处理失败 → 含文案续跑）…");
         const res = await hostRunAssets(selectedManifest, {
           jobs: 4,
           runPrompts: true,
@@ -3703,43 +3509,64 @@ export default function App() {
             invokePm: true,
             intro: "**Host 无法自动修复 — 调用项目经理 Agent…**",
           });
+          if (repair.complete) {
+            append("assistant", repair.summary, undefined, undefined, ["打开看板", "打开资产表"]);
+            return;
+          }
+          const advice = repair.advice;
+          const plan = planPipelineStop({
+            exitCode: 2,
+            runData: null,
+            advice,
+            healed: repair.healed,
+            status: statusAfter?.status || status,
+            alreadyAutoFixed: true,
+            stoppedReason: "needs_agent",
+          });
           append(
             "assistant",
-            repair.summary +
-              (repair.complete
-                ? ""
-                : repair.shouldRetry
-                  ? `\n\n**推荐下一步 → 运行资产生成**（续跑）`
-                  : ""),
+            `${repair.summary}\n\n**${plan.title}**\n\n${plan.body}`,
             undefined,
             undefined,
-            repair.complete
-              ? ["打开看板", "打开资产表"]
-              : repair.shouldRetry
-                ? ["运行资产生成", "打开看板"]
-                : ["项目经理处理失败", "运行资产生成", "打开看板"],
+            plan.choices,
           );
           return;
         }
 
-        const parts: string[] = [];
-        const reason = data?.stopped_reason;
-        if (reason === "max_rounds") {
-          parts.push(`**自动修复已达上限**（${data?.repair_rounds ?? 0} 轮）。`);
-        } else if (reason === "error") {
-          parts.push(`**处理出错**：${data?.message || data?.error || "未知错误"}`);
-        } else {
-          parts.push("**流水线仍未全部完成。**");
+        let advice = formatPmFitAdvice(data?.diagnosis || null);
+        try {
+          const diag = window.gameFactory.pipelineDiagnose
+            ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+            : null;
+          if (diag?.data) advice = formatPmFitAdvice(diag.data);
+        } catch {
+          /* best-effort */
         }
-        if ((data?.repair_rounds ?? 0) > 0) {
-          parts.push(`Host 已尝试修复 ${data!.repair_rounds} 轮。`);
-        }
+        const plan = planPipelineStop({
+          exitCode: res.exitCode ?? data?.run_exit_code ?? 2,
+          runData: (res.data || null) as PipelineRunPayload | null,
+          advice,
+          healed: [],
+          status: statusAfter?.status || status,
+          alreadyAutoFixed: true,
+          stoppedReason: data?.stopped_reason || null,
+        });
+        const hostNote =
+          (data?.repair_rounds ?? 0) > 0
+            ? `Host 已尝试修复 ${data!.repair_rounds} 轮` +
+              (data?.stopped_reason === "same_failure"
+                ? "（同一失败反复，已停）。"
+                : data?.stopped_reason === "max_rounds"
+                  ? "（已达上限）。"
+                  : "。") +
+              "\n\n"
+            : "";
         append(
           "assistant",
-          parts.join("\n\n") + `\n\n**推荐下一步 → 运行资产生成**（续跑）`,
+          `${hostNote}**${plan.title}**\n\n${plan.body}`,
           undefined,
           undefined,
-          ["运行资产生成", "打开看板", "项目经理处理失败"],
+          plan.choices,
         );
         return;
       }
@@ -3748,21 +3575,27 @@ export default function App() {
         busyInstanceId: busyId,
         invokePm: true,
       });
+      if (repair.complete) {
+        append("assistant", repair.summary, undefined, undefined, ["打开看板", "打开资产表"]);
+        return;
+      }
+      // Legacy path: heal may only reset; still mark alreadyAutoFixed so we don't
+      // bounce the user to bare「运行资产生成」.
+      const plan = planPipelineStop({
+        exitCode: 2,
+        runData: null,
+        advice: repair.advice,
+        healed: repair.healed,
+        status: status,
+        alreadyAutoFixed: true,
+        stoppedReason: repair.shouldRetry ? "max_rounds" : null,
+      });
       append(
         "assistant",
-        repair.summary +
-          (repair.complete
-            ? ""
-            : repair.shouldRetry
-              ? `\n\n**推荐下一步 → 运行资产生成**（续跑）`
-              : ""),
+        `${repair.summary}\n\n**${plan.title}**\n\n${plan.body}`,
         undefined,
         undefined,
-        repair.complete
-          ? ["打开看板", "打开资产表"]
-          : repair.shouldRetry
-            ? ["运行资产生成", "打开看板"]
-            : ["项目经理处理失败", "运行资产生成", "打开看板"],
+        plan.choices,
       );
     } catch (e) {
       append("assistant", `处理失败：${e instanceof Error ? e.message : String(e)}`);
@@ -3779,11 +3612,34 @@ export default function App() {
       );
       return;
     }
-    if (!visualReferenceReady && !runWithoutVtWarned.current) {
+    // Soft-gate must refresh first: board thumbs use disk selected.png / stale React
+    // state, while this flag is brief-bound `visual_reference` (easy to disagree).
+    let briefForVt = activeBriefRel;
+    if (!briefForVt && window.gameFactory?.getManifestMeta) {
+      try {
+        const meta = await window.gameFactory.getManifestMeta(selectedManifest);
+        const fromManifest = String(meta?.brief || "")
+          .trim()
+          .replace(/\\/g, "/");
+        if (fromManifest) briefForVt = fromManifest;
+      } catch {
+        /* keep null */
+      }
+    }
+    let vtReady = visualReferenceReady;
+    let boardLooksReady = false;
+    if (briefForVt) {
+      const vt = await refreshVisualTarget(briefForVt);
+      vtReady = Boolean(vt.ready);
+      boardLooksReady = Boolean(vt.hasBoardThumbs || vt.diskMarked);
+    }
+    if (!vtReady && !runWithoutVtWarned.current) {
       runWithoutVtWarned.current = true;
       append(
         "assistant",
-        "尚未选定 **北极星图**（全局或任一场景的 `visual_reference`）。建议先点 **② 北极星图** 生成并选用，风格才容易一致。\n\n仍要直接跑资产？再点一次「运行资产生成」。",
+        boardLooksReady
+          ? "看板「北极星」缩略图多半来自磁盘 `selected.png`，但 Brief 里还没有可用的 `visual_reference` 绑定（或状态刚才还是旧的）。跑资产要认 Brief 绑定，才好锁风格。\n\n请在策划点 **选用北极星** 写回 Brief；若其实已经选过，再点一次「运行资产生成」即可（会重新读盘）。"
+          : "尚未选定 **北极星图**（全局或任一场景的 `visual_reference`）。建议先点 **② 北极星图** 生成并选用，风格才容易一致。\n\n仍要直接跑资产？再点一次「运行资产生成」。",
         undefined,
         undefined,
         ["北极星图", "运行资产生成（含文案）"],
@@ -3861,6 +3717,8 @@ export default function App() {
             advice,
             healed: [],
             status: statusAfter?.status || status,
+            alreadyAutoFixed: true,
+            stoppedReason,
           });
           append(
             "assistant",
@@ -3907,22 +3765,18 @@ export default function App() {
           advice,
           healed: [],
           status: statusAfter?.status || status,
+          alreadyAutoFixed: true,
+          stoppedReason: stoppedReason || null,
         });
-        const sameFailureHint =
-          stoppedReason === "same_failure"
-            ? "\n\n请用 **运行资产生成（含文案）** 重跑整条视频链；若仍失败，把看板里该任务的 stderr 发出来（多半是抽帧/视频产物坏了，不是项目经理能点修好的）。"
-            : "";
         const rawTail = (res.stderr || "").trim()
           ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
           : "";
         append(
           "assistant",
-          `${hostNote}**${plan.title}**\n\n${plan.body}${sameFailureHint}${rawTail}`,
+          `${hostNote}**${plan.title}**\n\n${plan.body}${rawTail}`,
           undefined,
           undefined,
-          stoppedReason === "same_failure"
-            ? ["运行资产生成（含文案）", "打开看板"]
-            : plan.choices,
+          plan.choices,
         );
         setSidePanel("board");
         return;
@@ -3975,6 +3829,8 @@ export default function App() {
         advice,
         healed: [],
         status: statusAfter?.status || status,
+        alreadyAutoFixed: true,
+        stoppedReason: "max_rounds",
       });
       const rawTail = (res.stderr || "").trim()
         ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`
@@ -4943,7 +4799,7 @@ export default function App() {
         }
       }
     }
-    if (trimmed === "运行资产生成（含文案）") {
+    if (trimmed === "运行资产生成（含文案）" || trimmed === RUN_WITH_PROMPTS) {
       if (agentRole !== "product_host" && agentRole !== "brief") {
         append("assistant", "运行资产生成请切换到 **项目经理**（或策划）。");
         return;
@@ -4959,7 +4815,12 @@ export default function App() {
       await handleRun(false);
       return;
     }
-    if (trimmed === "项目经理处理失败") {
+    if (
+      trimmed === "项目经理处理失败" ||
+      trimmed === PM_HANDLE_FAILURE ||
+      trimmed === RETRY_FIX_AND_CONTINUE ||
+      trimmed === "再试一次（修复并续跑）"
+    ) {
       await handlePipelinePmHeal();
       return;
     }
@@ -5417,7 +5278,7 @@ export default function App() {
                 }
                 disabled={chatBusy}
                 onClick={() => void handleSend("运行资产生成（含文案）")}
-                title="执行管线：出图/出视频（已完成任务会跳过）"
+                title="修复并续跑：含文案 craft + 出图/视频（已完成任务会跳过）"
               >
                 ② 运行资产生成
               </button>

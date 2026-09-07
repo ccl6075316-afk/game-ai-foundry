@@ -213,7 +213,20 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             else:
                 click.echo(json.dumps(handoff, ensure_ascii=False, indent=2))
         except (ValueError, json.JSONDecodeError, OSError, PromptCraftError) as exc:
-            click.echo(f"Error: {exc}", err=True)
+            from prompt_craft import craft_failure_log_path, format_craft_failure_stderr
+
+            err_text = str(exc)
+            if "craft_fail_kind=" not in err_text:
+                err_text = format_craft_failure_stderr(
+                    exc,
+                    asset_id=str(asset or "").strip() or None,
+                    kind="animation" if animation else "image",
+                    model=str(prompt_api.get("prompt_model") or "") or None,
+                    api_base=str(prompt_api.get("api_base") or "") or None,
+                    proxy=prompt_api.get("proxy"),
+                )
+            click.echo(f"Error: {err_text}", err=True)
+            click.echo(f"craft_fail_log={craft_failure_log_path()}", err=True)
             sys.exit(1)
 
     @prompt_group.command("craft-visual-target")

@@ -454,6 +454,7 @@ class PipelineManifestTest(unittest.TestCase):
 
     def test_collect_artifact_rels_skips_cross_asset_reference(self) -> None:
         task = {
+            "step": "video.generate",
             "artifacts": {
                 "plan": "../plans/walk.json",
                 "reference_image": "../output/knight_raw.png",
@@ -462,10 +463,33 @@ class PipelineManifestTest(unittest.TestCase):
             },
         }
         rels = _collect_task_artifact_rels(task)
-        self.assertIn("../plans/walk.json", rels)
+        # plan is owned by prompt.craft — generate must not purge it.
+        self.assertNotIn("../plans/walk.json", rels)
         self.assertIn("../output/walk.mp4", rels)
         self.assertNotIn("../output/knight_raw.png", rels)
         self.assertNotIn("../output/anchor_raw.png", rels)
+
+    def test_collect_artifact_rels_craft_purges_plan(self) -> None:
+        task = {
+            "step": "prompt.craft",
+            "artifacts": {"plan": "../plans/walk.json"},
+        }
+        self.assertEqual(
+            _collect_task_artifact_rels(task),
+            ["../plans/walk.json"],
+        )
+
+    def test_collect_artifact_rels_matte_skips_input_dir(self) -> None:
+        task = {
+            "step": "video.matte-frames",
+            "artifacts": {
+                "input_dir": "../output/walk_frames",
+                "output_dir": "../output/walk_nobg",
+            },
+        }
+        rels = _collect_task_artifact_rels(task)
+        self.assertNotIn("../output/walk_frames", rels)
+        self.assertIn("../output/walk_nobg", rels)
 
     def test_max_wave_filters_generation_dag(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

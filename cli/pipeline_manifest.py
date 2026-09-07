@@ -1656,6 +1656,8 @@ _ARTIFACT_PURGE_KEYS = frozenset(
 )
 
 # Produced by this task — safe to delete on stale invalidation.
+# NOTE: `plan` is only produced by prompt.craft; generate lists it as an input.
+# `input` / `input_dir` are always upstream — cascade deletes them via the producer.
 _ARTIFACT_PURGE_ARTIFACT_KEYS = frozenset(
     {
         "plan",
@@ -1665,27 +1667,32 @@ _ARTIFACT_PURGE_ARTIFACT_KEYS = frozenset(
         "video",
         "dev_handoff",
         "assemble_file",
-        "input",
-        "input_dir",
         "frames_dir",
         "plan_file",
     }
 )
 
-# Cross-asset inputs — never delete (e.g. video reference_image → another asset's raw).
+# Cross-asset / upstream inputs — never delete from this task's artifact map.
 _ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS = frozenset(
     {
         "reference_image",
         "kit_style_reference",
         "kit_style_anchor_slug",
+        "input",
+        "input_dir",
     }
 )
+
+# Keys that look like outputs but are only owned by prompt.craft.
+_ARTIFACT_PURGE_CRAFT_ONLY_KEYS = frozenset({"plan", "plan_file"})
 
 
 def _collect_task_artifact_rels(task: dict[str, Any]) -> list[str]:
     """Cli-relative artifact paths to delete when a task is invalidated."""
     seen: set[str] = set()
     out: list[str] = []
+    step = str(task.get("step") or "")
+    is_craft = step == "prompt.craft" or step.endswith(".prompt.craft")
 
     def add(raw: Any) -> None:
         rel = str(raw or "").strip().replace("\\", "/")
@@ -1700,12 +1707,18 @@ def _collect_task_artifact_rels(task: dict[str, Any]) -> list[str]:
             key_s = str(key or "")
             if key_s in _ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS:
                 continue
+            if key_s in _ARTIFACT_PURGE_CRAFT_ONLY_KEYS and not is_craft:
+                continue
             if key_s in _ARTIFACT_PURGE_ARTIFACT_KEYS:
                 add(val)
 
     result = task.get("result")
     if isinstance(result, dict):
         for key in _ARTIFACT_PURGE_KEYS:
+            if key in _ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS:
+                continue
+            if key in _ARTIFACT_PURGE_CRAFT_ONLY_KEYS and not is_craft:
+                continue
             add(result.get(key))
 
     return out

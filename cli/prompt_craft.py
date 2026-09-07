@@ -8,7 +8,12 @@ from __future__ import annotations
 
 import json
 import re
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import requests
 
@@ -36,7 +41,9 @@ class PromptCraftError(RuntimeError):
 
 
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
-_CJK_PROSE_PUNCT_RE = re.compile(r"[。！？.!?\n]")
+# Only Chinese sentence punctuation marks CJK *prose*.
+# ASCII .!? must NOT reject English sentences that embed a short name like （真鲷）.
+_CJK_PROSE_PUNCT_RE = re.compile(r"[。！？\n]")
 _SHORT_CJK_LABEL_MAX = 12
 
 _CJK_BRIEF_BLOCK_MSG = (
@@ -59,12 +66,187 @@ def _cjk_ok_as_short_label(text: str) -> bool:
     return len(_CJK_RE.findall(s)) <= _SHORT_CJK_LABEL_MAX
 
 
-def _raise_if_cjk_prompt_field(text: str, *, allow_short_label: bool = False) -> None:
+_CJK_REJECT_TEXT_MAX = 800
+_CJK_REJECT_RAW_MAX = 2000
+
+
+def _truncate_for_log(text: str, limit: int) -> str:
+    s = (text or "").replace("\r\n", "\n").strip()
+    if len(s) <= limit:
+        return s
+    return s[:limit] + "…"
+
+
+def _cjk_reject_message(
+    *,
+    field: str,
+    text: str,
+    llm_raw: str | None = None,
+) -> str:
+    """Keep classifier prefix; append rejected field/text for pipeline stderr."""
+    lines = [
+        _CJK_BRIEF_BLOCK_MSG,
+        f"rejected_field={field}",
+        f"rejected_text={_truncate_for_log(text, _CJK_REJECT_TEXT_MAX)}",
+    ]
+    if llm_raw and str(llm_raw).strip():
+        lines.append(
+            f"llm_raw_preview={_truncate_for_log(str(llm_raw), _CJK_REJECT_RAW_MAX)}"
+        )
+    return "\n".join(lines)
+
+
+def _annotate_cjk_error_with_llm_raw(
+    exc: PromptCraftError,
+    llm_raw: str,
+) -> PromptCraftError:
+    msg = str(exc)
+    if _CJK_BRIEF_BLOCK_MSG not in msg or "llm_raw_preview=" in msg:
+        return exc
+    return PromptCraftError(
+        msg.rstrip()
+        + "\n"
+        + f"llm_raw_preview={_truncate_for_log(llm_raw, _CJK_REJECT_RAW_MAX)}"
+    )
+
+
+def _raise_if_cjk_prompt_field(
+    text: str,
+    *,
+    field: str = "prompt",
+    allow_short_label: bool = False,
+    llm_raw: str | None = None,
+) -> None:
     if not contains_cjk(text or ""):
         return
     if allow_short_label and _cjk_ok_as_short_label(text):
         return
-    raise PromptCraftError(_CJK_BRIEF_BLOCK_MSG)
+    raise PromptCraftError(
+        _cjk_reject_message(field=field, text=text or "", llm_raw=llm_raw)
+    )
+
+
+def classify_craft_failure(message: str) -> str:
+    """Stable craft_fail_kind for logs / board stderr."""
+    blob = (message or "").lower()
+    if (
+        "chinese brief text cannot be used" in blob
+        or "secondary-generate english" in blob
+        or "rejected_field=" in blob
+    ):
+        return "cjk"
+    if "response ended prematurely" in blob or "ended prematurely" in blob:
+        return "network_premature"
+    if "proxyerror" in blob or "unable to connect to proxy" in blob:
+        return "network_proxy"
+    if "connection refused" in blob or "nodename nor servname" in blob:
+        return "network_connect"
+    if "timed out" in blob or "timeout" in blob or "read timed out" in blob:
+        return "network_timeout"
+    if "prompt llm request failed" in blob or "connection" in blob:
+        return "network"
+    if "prompt llm error (http" in blob:
+        return "http"
+    if "requires non-empty 'video_prompt'" in blob or "missing non-empty 'video_prompt'" in blob:
+        return "missing_video_prompt"
+    if "invalid json" in blob or "llm json" in blob:
+        return "parse"
+    if "empty content" in blob or "missing non-empty" in blob:
+        return "empty"
+    return "other"
+
+
+def _is_retryable_craft_error(exc: BaseException) -> bool:
+    """Flaky LLM shape / language issues — worth another attempt."""
+    kind = classify_craft_failure(str(exc))
+    return kind in {"cjk", "missing_video_prompt", "empty", "parse"}
+
+
+def _annotate_error_with_llm_raw(
+    exc: PromptCraftError,
+    llm_raw: str,
+) -> PromptCraftError:
+    msg = str(exc)
+    if "llm_raw_preview=" in msg:
+        return exc
+    return PromptCraftError(
+        msg.rstrip()
+        + "\n"
+        + f"llm_raw_preview={_truncate_for_log(llm_raw, _CJK_REJECT_RAW_MAX)}"
+    )
+
+
+def _proxy_log_label(proxy: str | None) -> str:
+    if not proxy:
+        return "none"
+    try:
+        u = urlparse(proxy)
+        host = u.hostname or proxy
+        port = f":{u.port}" if u.port else ""
+        return f"{host}{port}"
+    except Exception:
+        return "set"
+
+
+def _api_base_log_label(api_base: str) -> str:
+    try:
+        u = urlparse(api_base)
+        return u.netloc or api_base
+    except Exception:
+        return api_base
+
+
+def craft_failure_log_path() -> Path:
+    return Path.home() / ".gamefactory" / "logs" / "prompt_craft_failures.jsonl"
+
+
+def append_craft_failure_log(record: dict[str, Any]) -> Path | None:
+    """Append one JSONL diagnosis row; best-effort (never raise to caller)."""
+    try:
+        path = craft_failure_log_path()
+        path.parent.mkdir(parents=True, exist_ok=True)
+        line = json.dumps(record, ensure_ascii=False)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(line + "\n")
+        return path
+    except OSError:
+        return None
+
+
+def format_craft_failure_stderr(
+    exc: BaseException,
+    *,
+    asset_id: str | None = None,
+    kind: str | None = None,
+    model: str | None = None,
+    api_base: str | None = None,
+    proxy: str | None = None,
+    attempt: int | None = None,
+    max_attempts: int | None = None,
+    elapsed_ms: float | None = None,
+) -> str:
+    """Error text for CLI stderr / pipeline result (includes craft_fail_kind)."""
+    msg = str(exc).strip() or exc.__class__.__name__
+    fail_kind = classify_craft_failure(msg)
+    meta: list[str] = [f"craft_fail_kind={fail_kind}"]
+    if asset_id:
+        meta.append(f"asset={asset_id}")
+    if kind:
+        meta.append(f"craft_kind={kind}")
+    if model:
+        meta.append(f"model={model}")
+    if api_base:
+        meta.append(f"api_base={_api_base_log_label(api_base)}")
+    if proxy is not None:
+        meta.append(f"proxy={_proxy_log_label(proxy)}")
+    if attempt is not None and max_attempts is not None:
+        meta.append(f"attempt={attempt}/{max_attempts}")
+    elif attempt is not None:
+        meta.append(f"attempt={attempt}")
+    if elapsed_ms is not None:
+        meta.append(f"elapsed_ms={int(elapsed_ms)}")
+    # Keep original message first so heal classifiers still match prefixes.
+    return msg + "\n" + " ".join(meta)
 
 
 def chat_text_completion(
@@ -85,6 +267,7 @@ def chat_text_completion(
     payload: dict[str, Any] = {"model": model, "messages": messages}
     if temperature is not None:
         payload["temperature"] = temperature
+    t0 = time.monotonic()
     try:
         response = http_post(
             proxy,
@@ -94,7 +277,14 @@ def chat_text_completion(
             timeout=timeout,
         )
     except requests.RequestException as exc:
-        raise PromptCraftError(f"Prompt LLM request failed: {exc}") from exc
+        elapsed_ms = (time.monotonic() - t0) * 1000
+        raise PromptCraftError(
+            f"Prompt LLM request failed: {exc}\n"
+            f"craft_fail_kind={classify_craft_failure(str(exc))} "
+            f"model={model} api_base={_api_base_log_label(api_base)} "
+            f"proxy={_proxy_log_label(proxy)} elapsed_ms={int(elapsed_ms)} "
+            f"exc_type={type(exc).__name__}"
+        ) from exc
 
     if response.status_code != 200:
         detail = response.text.strip()
@@ -102,7 +292,13 @@ def chat_text_completion(
             detail = response.json().get("error", {}).get("message", detail)
         except (json.JSONDecodeError, AttributeError, TypeError):
             pass
-        raise PromptCraftError(f"Prompt LLM error (HTTP {response.status_code}): {detail}")
+        elapsed_ms = (time.monotonic() - t0) * 1000
+        raise PromptCraftError(
+            f"Prompt LLM error (HTTP {response.status_code}): {detail}\n"
+            f"craft_fail_kind=http model={model} "
+            f"api_base={_api_base_log_label(api_base)} "
+            f"proxy={_proxy_log_label(proxy)} elapsed_ms={int(elapsed_ms)}"
+        )
 
     try:
         data = response.json()
@@ -419,11 +615,14 @@ def assemble_asset_prompt(
             "Asset assemble needs at least 'subject' or injectable technical defaults"
         )
 
-    # Prose / style fields: any CJK blocked. Name-like locks: short CJK labels only.
-    for key in ("subject", "style_lock"):
-        _raise_if_cjk_prompt_field(cleaned.get(key, ""))
+    # Subject may embed a short CJK species/name token inside English prose.
+    # style_lock: any CJK blocked (Chinese art_direction dump must not land here).
+    _raise_if_cjk_prompt_field(cleaned.get("subject", ""), field="subject", allow_short_label=True)
+    _raise_if_cjk_prompt_field(cleaned.get("style_lock", ""), field="style_lock")
     for key in ("silhouette", "view", "technical", "negatives"):
-        _raise_if_cjk_prompt_field(cleaned.get(key, ""), allow_short_label=True)
+        _raise_if_cjk_prompt_field(
+            cleaned.get(key, ""), field=key, allow_short_label=True
+        )
 
     if not profile.negatives_effective:
         _merge_negatives_into_style_lock(cleaned)
@@ -589,8 +788,11 @@ def craft_asset_prompt(
     Retries when the model dumps Chinese brief prose into final prompt fields
     (Host auto-fix reset+rerun alone cannot fix that flake).
     """
-    last_cjk: PromptCraftError | None = None
+    asset = context.get("asset") if isinstance(context.get("asset"), dict) else {}
+    asset_id = str(asset.get("id") or asset.get("name") or "").strip() or None
+    last_retryable: PromptCraftError | None = None
     max_attempts = 3
+    t0 = time.monotonic()
     for attempt in range(max_attempts):
         try:
             return _craft_asset_prompt_once(
@@ -605,11 +807,73 @@ def craft_asset_prompt(
                 retry_attempt=attempt,
             )
         except PromptCraftError as exc:
-            if _CJK_BRIEF_BLOCK_MSG not in str(exc) or attempt >= max_attempts - 1:
-                raise
-            last_cjk = exc
-    assert last_cjk is not None
-    raise last_cjk
+            elapsed_ms = (time.monotonic() - t0) * 1000
+            retryable = _is_retryable_craft_error(exc)
+            if retryable and attempt < max_attempts - 1:
+                print(
+                    f"Warning: prompt craft retryable reject "
+                    f"(attempt {attempt + 1}/{max_attempts} "
+                    f"kind={classify_craft_failure(str(exc))}):\n{exc}",
+                    file=sys.stderr,
+                )
+                last_retryable = exc
+                continue
+            detail = format_craft_failure_stderr(
+                exc,
+                asset_id=asset_id,
+                kind=kind,
+                model=model,
+                api_base=api_base,
+                proxy=proxy,
+                attempt=attempt + 1,
+                max_attempts=max_attempts,
+                elapsed_ms=elapsed_ms,
+            )
+            append_craft_failure_log(
+                {
+                    "ts": datetime.now(timezone.utc).isoformat(),
+                    "craft_fail_kind": classify_craft_failure(str(exc)),
+                    "asset": asset_id,
+                    "craft_kind": kind,
+                    "model": model,
+                    "api_base": _api_base_log_label(api_base),
+                    "proxy": _proxy_log_label(proxy),
+                    "attempt": attempt + 1,
+                    "max_attempts": max_attempts,
+                    "elapsed_ms": int(elapsed_ms),
+                    "message": str(exc)[:4000],
+                }
+            )
+            raise PromptCraftError(detail) from exc
+    assert last_retryable is not None
+    elapsed_ms = (time.monotonic() - t0) * 1000
+    detail = format_craft_failure_stderr(
+        last_retryable,
+        asset_id=asset_id,
+        kind=kind,
+        model=model,
+        api_base=api_base,
+        proxy=proxy,
+        attempt=max_attempts,
+        max_attempts=max_attempts,
+        elapsed_ms=elapsed_ms,
+    )
+    append_craft_failure_log(
+        {
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "craft_fail_kind": classify_craft_failure(str(last_retryable)),
+            "asset": asset_id,
+            "craft_kind": kind,
+            "model": model,
+            "api_base": _api_base_log_label(api_base),
+            "proxy": _proxy_log_label(proxy),
+            "attempt": max_attempts,
+            "max_attempts": max_attempts,
+            "elapsed_ms": int(elapsed_ms),
+            "message": str(last_retryable)[:4000],
+        }
+    )
+    raise PromptCraftError(detail)
 
 
 def _craft_asset_prompt_once(
@@ -635,6 +899,8 @@ def _craft_asset_prompt_once(
             "CRITICAL retry: previous output was REJECTED. "
             "Every prompt / video_prompt / structured field value must be English prose only. "
             "Short CJK asset-name tokens are OK; do NOT paste Chinese brief description or art_direction. "
+            "For animation/video craft, JSON MUST include non-empty string field video_prompt "
+            "(motion-only i2v instruction). "
             f"(attempt {retry_attempt + 1})"
         )
         user["output_language"] = "en"
@@ -649,6 +915,24 @@ def _craft_asset_prompt_once(
         api_base=api_base,
         proxy=proxy,
     )
+    try:
+        return _craft_asset_prompt_from_llm_raw(
+            raw,
+            context=context,
+            kind=kind,
+            config=config,
+        )
+    except PromptCraftError as exc:
+        raise _annotate_error_with_llm_raw(exc, raw) from exc
+
+
+def _craft_asset_prompt_from_llm_raw(
+    raw: str,
+    *,
+    context: dict[str, Any],
+    kind: str,
+    config: dict[str, Any] | None,
+) -> dict[str, Any]:
     parsed = _parse_json_object(raw)
     project = context.get("project") if isinstance(context.get("project"), dict) else {}
     spec = context.get("asset") if isinstance(context.get("asset"), dict) else {}
@@ -664,7 +948,9 @@ def _craft_asset_prompt_once(
             raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
         prompt = append_hard_locks(prompt, project, spec)
         # Final prose must not be CJK brief dump (short name tokens OK).
-        _raise_if_cjk_prompt_field(prompt, allow_short_label=True)
+        _raise_if_cjk_prompt_field(
+            prompt, field="prompt", allow_short_label=True, llm_raw=raw
+        )
         result: dict[str, Any] = {"prompt": prompt, "prompt_source": "llm_prose"}
         _attach_still_image_handoff(
             result,
@@ -677,7 +963,12 @@ def _craft_asset_prompt_once(
                 raise PromptCraftError(
                     "Animation craft requires non-empty 'video_prompt' in LLM JSON"
                 )
-            _raise_if_cjk_prompt_field(video_prompt, allow_short_label=True)
+            _raise_if_cjk_prompt_field(
+                video_prompt,
+                field="video_prompt",
+                allow_short_label=True,
+                llm_raw=raw,
+            )
             _attach_animation_video_handoff(
                 result,
                 video_prompt=video_prompt,
@@ -688,7 +979,14 @@ def _craft_asset_prompt_once(
 
     fields = {k: parsed.get(k) for k in ASSET_STRUCTURED_KEYS}
     if not fields.get("style_lock") and project.get("art_direction"):
-        fields["style_lock"] = str(project["art_direction"])
+        art = str(project["art_direction"])
+        if contains_cjk(art):
+            print(
+                "Warning: filling empty style_lock from Chinese project.art_direction "
+                f"(chars={len(art)}); CJK guard will reject unless LLM supplied English style_lock.",
+                file=sys.stderr,
+            )
+        fields["style_lock"] = art
 
     prompt = assemble_asset_prompt(
         fields,
@@ -717,7 +1015,12 @@ def _craft_asset_prompt_once(
             raise PromptCraftError(
                 "Animation craft requires non-empty 'video_prompt' in LLM JSON"
             )
-        _raise_if_cjk_prompt_field(video_prompt, allow_short_label=True)
+        _raise_if_cjk_prompt_field(
+            video_prompt,
+            field="video_prompt",
+            allow_short_label=True,
+            llm_raw=raw,
+        )
         _attach_animation_video_handoff(
             result,
             video_prompt=video_prompt,
@@ -785,9 +1088,11 @@ def assemble_visual_target_prompt(
     # Brief narrative may be Chinese; never inject Chinese prose into final VT prompt.
     # hero/hud may keep short CJK names (e.g. player_asset); long/punctuated CJK raises.
     for key in ("scene", "style_lock", "details", "gameplay_beat"):
-        _raise_if_cjk_prompt_field(cleaned.get(key, ""))
+        _raise_if_cjk_prompt_field(cleaned.get(key, ""), field=key)
     for key in ("hero", "hud"):
-        _raise_if_cjk_prompt_field(cleaned.get(key, ""), allow_short_label=True)
+        _raise_if_cjk_prompt_field(
+            cleaned.get(key, ""), field=key, allow_short_label=True
+        )
 
     labels = [
         ("Use case", "use_case"),
@@ -918,6 +1223,17 @@ def craft_visual_target_prompt(
         proxy=proxy,
         timeout=120,
     )
+    try:
+        return _craft_visual_target_prompt_from_llm_raw(raw, context=context)
+    except PromptCraftError as exc:
+        raise _annotate_cjk_error_with_llm_raw(exc, raw) from exc
+
+
+def _craft_visual_target_prompt_from_llm_raw(
+    raw: str,
+    *,
+    context: dict[str, Any],
+) -> dict[str, Any]:
     parsed = _parse_json_object(raw)
 
     # Backward compat: if model still returns only {"prompt": "..."} use it.
@@ -927,7 +1243,9 @@ def craft_visual_target_prompt(
         prompt = str(parsed.get("prompt", "")).strip()
         if not prompt:
             raise PromptCraftError("LLM JSON missing non-empty 'prompt' field")
-        _raise_if_cjk_prompt_field(prompt, allow_short_label=True)
+        _raise_if_cjk_prompt_field(
+            prompt, field="prompt", allow_short_label=True, llm_raw=raw
+        )
         return {"prompt": prompt, "prompt_source": "llm_prose"}
 
     fields = {k: parsed.get(k) for k in VT_STRUCTURED_KEYS}

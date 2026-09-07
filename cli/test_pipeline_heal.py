@@ -48,8 +48,57 @@ class PipelineHealTests(unittest.TestCase):
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "missing_file")
         self.assertEqual(d["pm_fit"], "no")
+        # Matte missing frames → resplit only; do not purge plan via craft reset.
+        self.assertEqual(d["reset_task_id"], "pose_x.video.split-frames")
+        self.assertTrue(any("pose_x.video.split-frames" in h for h in d["cli_hints"]))
+        self.assertFalse(any("--run-prompts" in h for h in d["cli_hints"]))
+
+    def test_classify_click_missing_input_dir_as_missing_file(self) -> None:
+        task = {
+            "id": "pose_x.video.matte-frames",
+            "step": "video.matte-frames",
+            "asset_id": "pose_x",
+            "result": {
+                "exit_code": 2,
+                "stderr": (
+                    "Error: Invalid value for '--input-dir': "
+                    "Directory '../projects/x/output/pose_x_frames' does not exist."
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "missing_file")
+        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["reset_task_id"], "pose_x.video.split-frames")
+
+    def test_classify_split_missing_mp4_resets_generate(self) -> None:
+        task = {
+            "id": "pose_x.video.split-frames",
+            "step": "video.split-frames",
+            "asset_id": "pose_x",
+            "result": {
+                "exit_code": 1,
+                "stderr": "Error: Input video ../output/pose_x.mp4 not found",
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "missing_file")
+        self.assertEqual(d["reset_task_id"], "pose_x.video.generate")
+        self.assertFalse(any("--run-prompts" in h for h in d["cli_hints"]))
+
+    def test_classify_generate_missing_plan_resets_craft(self) -> None:
+        task = {
+            "id": "pose_x.video.generate",
+            "step": "video.generate",
+            "asset_id": "pose_x",
+            "result": {
+                "exit_code": 1,
+                "stderr": "Error: Plan file ../plans/pose_x.json not found",
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "missing_file")
         self.assertEqual(d["reset_task_id"], "pose_x.prompt.craft")
-        self.assertTrue(any("pose_x.prompt.craft" in h for h in d["cli_hints"]))
 
     def test_classify_godot_assemble_exit2_not_validation(self) -> None:
         task = {
@@ -134,6 +183,20 @@ class PipelineHealTests(unittest.TestCase):
         self.assertEqual(d["kind"], "network")
         self.assertEqual(d["pm_fit"], "no")
         self.assertIn("522", d["summary"])
+
+    def test_classify_prompt_llm_response_ended_prematurely_as_network(self) -> None:
+        task = {
+            "id": "pose_x.prompt.craft",
+            "step": "prompt.craft",
+            "result": {
+                "exit_code": 1,
+                "stderr": "Error: Prompt LLM request failed: Response ended prematurely",
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "network")
+        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["owner"], "code")
 
     def test_classify_billing_insufficient_credits(self) -> None:
         task = {

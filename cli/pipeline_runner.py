@@ -68,6 +68,12 @@ _NETWORK_ERROR_MARKERS = (
     "remote disconnected",
     "server disconnected",
     "chunkedencodingerror",
+    # urllib3/requests often surface only this phrase (no "chunkedencodingerror" text)
+    "response ended prematurely",
+    "ended prematurely",
+    "incomplete read",
+    "protocolerror",
+    "craft_fail_kind=network",
     "http 429",
     "http 502",
     "http 503",

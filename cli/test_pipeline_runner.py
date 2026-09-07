@@ -50,6 +50,11 @@ class PipelineRunnerTest(unittest.TestCase):
         )
         self.assertTrue(is_retryable_network_failure(124, "", "timeout"))
         self.assertTrue(is_retryable_network_failure(1, "", "HTTP 503 Service Unavailable"))
+        self.assertTrue(
+            is_retryable_network_failure(
+                1, "", "Error: Prompt LLM request failed: Response ended prematurely"
+            )
+        )
         self.assertFalse(
             is_retryable_network_failure(
                 2, json.dumps({"next_action": "prompt_crafter_regenerate"}), ""

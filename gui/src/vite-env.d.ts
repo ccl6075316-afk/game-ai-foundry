@@ -46,7 +46,7 @@ export interface HostRunAssetsOpts {
 
 export interface HostRunAssetsResult {
   ok?: boolean;
-  stopped_reason?: "complete" | "error" | "needs_agent" | "max_rounds";
+  stopped_reason?: "complete" | "error" | "needs_agent" | "max_rounds" | "same_failure";
   repair_rounds?: number;
   rounds?: unknown[];
   summary?: Record<string, unknown> & {
