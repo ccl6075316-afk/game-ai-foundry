@@ -67,4 +67,21 @@ describe("planPipelineStop ping-pong guard", () => {
     assert.match(plan.body, /空转/);
     assert.deepEqual(plan.choices, ["打开看板"]);
   });
+
+  it("alreadyAutoFixed with pending-only still shows failure reason", () => {
+    const plan = planPipelineStop({
+      exitCode: 2,
+      advice: adviceSuitable,
+      healed: [],
+      alreadyAutoFixed: true,
+      stoppedReason: "same_failure",
+      status: { counts: { done: 59, pending: 14, failed: 0 }, ready_ids: ["pose_x.prompt.craft"] },
+      runData: { paused: false, summary: { counts: { done: 59, pending: 14, failed: 0 } } },
+      failureLogPath: "projects/fishing-2d/pipeline/failure-log.jsonl",
+    });
+    assert.match(plan.title, /本轮已停下/);
+    assert.match(plan.body, /失败原因/);
+    assert.match(plan.body, /Chinese brief text/);
+    assert.match(plan.body, /failure-log\.jsonl/);
+  });
 });

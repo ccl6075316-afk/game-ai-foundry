@@ -62,6 +62,7 @@ export interface HostRunAssetsResult {
   blocked?: boolean;
   run_exit_code?: number;
   diagnosis?: Record<string, unknown>;
+  failure_log?: string;
   error?: string;
 }
 

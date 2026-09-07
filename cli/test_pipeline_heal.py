@@ -342,6 +342,55 @@ class PipelineHealTests(unittest.TestCase):
         self.assertIn("--run-prompts", run_cmds[0])
         self.assertIn("--manifest ../pipeline/test.json", run_cmds[0])
 
+    def test_diagnose_and_heal_persists_failure_log_before_reset(self) -> None:
+        """Heal clears failed→pending; failure-log.jsonl must keep the reason."""
+        import json
+
+        from pipeline_heal import diagnose_and_heal_file, failure_log_path
+        from pipeline_manifest import MANIFEST_VERSION, TASK_PENDING, load_manifest, save_manifest
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            manifest_path = root / "manifest.json"
+            save_manifest(
+                manifest_path,
+                {
+                    "manifest_version": MANIFEST_VERSION,
+                    "tasks": [
+                        {
+                            "id": "bg_x.image.generate",
+                            "step": "image.generate",
+                            "status": "failed",
+                            "result": {
+                                "exit_code": 1,
+                                "stderr": "ConnectionError: Failed to establish a new connection",
+                            },
+                        }
+                    ],
+                },
+            )
+            report = diagnose_and_heal_file(manifest_path, apply=True)
+            self.assertTrue(report.get("applied"))
+            self.assertIn("bg_x.image.generate", report.get("healed") or [])
+            after = load_manifest(manifest_path)
+            self.assertEqual(after["tasks"][0]["status"], TASK_PENDING)
+            log_path = failure_log_path(manifest_path)
+            self.assertTrue(log_path.is_file(), f"missing {log_path}")
+            rows = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+            self.assertGreaterEqual(len(rows), 1)
+            last = rows[-1]
+            self.assertEqual(last.get("event"), "pre_heal")
+            items = last.get("items") or []
+            self.assertEqual(items[0].get("task_id"), "bg_x.image.generate")
+            self.assertEqual(items[0].get("kind"), "network")
+            blob = str(items[0].get("summary") or "") + str(items[0].get("stderr") or "")
+            self.assertIn("ConnectionError", blob)
+            self.assertEqual(report.get("failure_log"), str(log_path))
+
 
 if __name__ == "__main__":
     unittest.main()

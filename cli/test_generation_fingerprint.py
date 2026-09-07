@@ -109,6 +109,53 @@ class GenerationFingerprintTest(unittest.TestCase):
         fp_base = generation_input_fingerprint(build_generation_input(spec, with_baseline))
         self.assertNotEqual(fp_none, fp_base)
 
+    def test_embed_with_raw_shard_matches_reconcile_current(self) -> None:
+        """Craft must fingerprint the same raw_shard reconcile uses, or board wipe is pending."""
+        project = ProjectContext(
+            title="t",
+            size_baseline={
+                "asset_id": "char_ref",
+                "real_length_cm": 80,
+                "display_size": {"width": 213, "height": 120},
+            },
+        )
+        raw_shard = {
+            "id": "pose_x",
+            "name": "fish_swim",
+            "type": "character_pose",
+            "description": "swim clip",
+            "aspect_ratio": "16:9",
+            "action": "swim",
+            "animation_method": "video",
+            "duration_seconds": 4,
+            "animation_loop": True,
+            "generate_method": "video",
+            "usage": "animation_clip",
+            "real_length_cm": 60,
+            "size_source": "manual",
+            "generation_size": {"width": 1920, "height": 1080},
+            "grid": "2x2",
+            "reference_asset": "fish_char",
+        }
+        spec = AssetSpec.from_dict(raw_shard)
+        plan = embed_generation_fingerprint(
+            {"video_prompt": "swim", "asset_name": spec.name, "asset_type": "character_pose"},
+            spec=spec,
+            project=project,
+            raw_shard=raw_shard,
+        )
+        handoff = build_handoff(plan, context={"asset": dict(raw_shard), "project": {}})
+        current = build_generation_input(spec, project, raw_shard=raw_shard)
+        self.assertFalse(is_handoff_generation_stale(handoff, current))
+        # Without raw_shard at embed time, reconcile (with shard) falsely marks stale.
+        bad = embed_generation_fingerprint(
+            {"video_prompt": "swim", "asset_name": spec.name, "asset_type": "character_pose"},
+            spec=spec,
+            project=project,
+        )
+        bad_handoff = build_handoff(bad, context={"asset": dict(raw_shard), "project": {}})
+        self.assertTrue(is_handoff_generation_stale(bad_handoff, current))
+
 
 if __name__ == "__main__":
     unittest.main()

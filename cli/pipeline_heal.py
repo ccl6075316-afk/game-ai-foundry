@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import json
 import re
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 from pipeline_manifest import (
@@ -597,19 +600,106 @@ def heal_manifest(manifest: dict[str, Any], *, only_code: bool = True) -> dict[s
     }
 
 
-def diagnose_and_heal_file(manifest_path: Any, *, apply: bool) -> dict[str, Any]:
-    from pathlib import Path
+def failure_log_path(manifest_path: Any) -> Path:
+    """JSONL beside the manifest — survives heal reset of failed→pending."""
+    return Path(manifest_path).resolve().parent / "failure-log.jsonl"
 
+
+def _compact_failure_item(item: dict[str, Any]) -> dict[str, Any]:
+    out: dict[str, Any] = {
+        "task_id": item.get("task_id"),
+        "kind": item.get("kind"),
+        "owner": item.get("owner"),
+        "remediation": item.get("remediation"),
+        "summary": item.get("summary"),
+        "pm_fit": item.get("pm_fit"),
+        "pm_tip": item.get("pm_tip"),
+    }
+    stderr = str(item.get("stderr") or "").strip()
+    if not stderr:
+        # classify_failed_task may only put text in summary; keep raw if present
+        for key in ("stderr", "stdout_tail", "error"):
+            if item.get(key):
+                stderr = str(item.get(key)).strip()
+                break
+    if stderr:
+        out["stderr"] = stderr[:4000]
+    return {k: v for k, v in out.items() if v is not None and v != ""}
+
+
+def append_failure_log(
+    manifest_path: Any,
+    *,
+    event: str,
+    diagnosis: dict[str, Any] | None = None,
+    extra: dict[str, Any] | None = None,
+) -> Path | None:
+    """Append one JSONL row with failed-task diagnosis before heal clears it."""
+    items_src = []
+    if isinstance(diagnosis, dict):
+        items_src = list(diagnosis.get("items") or [])
+        if not items_src:
+            items_src = list(diagnosis.get("needs_hermes") or []) + list(
+                diagnosis.get("auto_healable") or []
+            )
+    if not items_src and not extra:
+        return None
+    try:
+        path = failure_log_path(manifest_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        record: dict[str, Any] = {
+            "ts": datetime.now(timezone.utc).isoformat(),
+            "event": event,
+            "manifest": str(Path(manifest_path).resolve()),
+            "failed_count": (
+                int(diagnosis.get("failed_count") or len(items_src))
+                if isinstance(diagnosis, dict)
+                else len(items_src)
+            ),
+            "items": [_compact_failure_item(i) for i in items_src if isinstance(i, dict)],
+        }
+        if isinstance(diagnosis, dict):
+            for key in ("pm_advice_short", "pm_advice", "pm_fit"):
+                if diagnosis.get(key) is not None:
+                    record[key] = diagnosis.get(key)
+        if extra:
+            record.update(extra)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(record, ensure_ascii=False) + "\n")
+        return path
+    except OSError:
+        return None
+
+
+def diagnose_and_heal_file(manifest_path: Any, *, apply: bool) -> dict[str, Any]:
     path = Path(manifest_path)
     manifest = load_manifest(path)
     manifest_cli_rel = _manifest_cli_rel(path)
     diagnosis = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
+    # Enrich items with raw stderr from tasks so the log stays useful after reset.
+    by_id = {str(t.get("id")): t for t in tasks_list(manifest)}
+    for item in diagnosis.get("items") or []:
+        tid = str(item.get("task_id") or "")
+        task = by_id.get(tid) or {}
+        result = task.get("result") if isinstance(task.get("result"), dict) else {}
+        if result.get("stderr") and not item.get("stderr"):
+            item["stderr"] = str(result.get("stderr"))[:4000]
+    log_path: Path | None = None
+    if int(diagnosis.get("failed_count") or 0) > 0:
+        log_path = append_failure_log(
+            path,
+            event="pre_heal" if apply else "diagnose",
+            diagnosis=diagnosis,
+        )
     if not apply:
-        return {"applied": False, "pre_diagnose": diagnosis, **diagnosis}
+        out = {"applied": False, "pre_diagnose": diagnosis, **diagnosis}
+        if log_path is not None:
+            out["failure_log"] = str(log_path)
+        return out
     heal = heal_manifest(manifest, only_code=True)
     save_manifest(path, manifest)
     post = diagnose_manifest(manifest, manifest_cli_rel=manifest_cli_rel)
-    return {
+    out = {
         "applied": True,
         **heal,
         "pre_diagnose": diagnosis,
@@ -618,3 +708,6 @@ def diagnose_and_heal_file(manifest_path: Any, *, apply: bool) -> dict[str, Any]
         "fix_commands": post.get("fix_commands") or diagnosis.get("fix_commands") or [],
         "auto_fix_without_agent": post.get("auto_fix_without_agent"),
     }
+    if log_path is not None:
+        out["failure_log"] = str(log_path)
+    return out

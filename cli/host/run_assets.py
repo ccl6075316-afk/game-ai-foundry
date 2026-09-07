@@ -6,7 +6,12 @@ from pathlib import Path
 from typing import Any
 
 from config_cmds import apply_config_set
-from pipeline_heal import can_auto_fix_without_agent, diagnose_and_heal_file
+from pipeline_heal import (
+    append_failure_log,
+    can_auto_fix_without_agent,
+    diagnose_and_heal_file,
+    failure_log_path,
+)
 from pipeline_manifest import load_manifest, save_manifest
 from pipeline_runner import PipelineRunResult, reset_task, reset_task_cascade, run_pipeline
 from safe_cli import SafeCliError, normalize_action
@@ -151,6 +156,34 @@ def _execute_fix_commands(
     return {"executed": executed, "run_result": run_result}
 
 
+def _attach_stop_log(
+    manifest_path: Path,
+    payload: dict[str, Any],
+    *,
+    event: str,
+) -> dict[str, Any]:
+    """Persist why Host stopped — even after heal wiped failed tasks from manifest."""
+    diagnosis = payload.get("diagnosis")
+    if not isinstance(diagnosis, dict):
+        diagnosis = None
+    log_path = append_failure_log(
+        manifest_path,
+        event=event,
+        diagnosis=diagnosis,
+        extra={
+            "stopped_reason": payload.get("stopped_reason"),
+            "repair_rounds": payload.get("repair_rounds"),
+            "run_message": payload.get("message"),
+        },
+    )
+    if log_path is None:
+        # Still point GUI at the expected path next to the manifest.
+        log_path = failure_log_path(manifest_path)
+    payload = dict(payload)
+    payload["failure_log"] = str(log_path)
+    return payload
+
+
 def run_assets(
     manifest_path: Path,
     *,
@@ -183,40 +216,52 @@ def run_assets(
         }
 
     if not auto_fix:
-        return {
-            "ok": False,
-            "stopped_reason": "error",
-            "repair_rounds": 0,
-            "rounds": rounds,
-            "summary": run_result.summary,
-            "message": run_result.message,
-            "complete": False,
-            "paused": run_result.paused,
-            "blocked": run_result.blocked,
-            "run_exit_code": _run_exit_code(run_result),
-            "diagnosis": _safe_diagnosis(manifest_path),
-        }
-
-    stopped_reason = "max_rounds"
-    last_diagnosis: dict[str, Any] | None = None
-    while repair_rounds < max_repair_rounds:
-        try:
-            heal_report = diagnose_and_heal_file(manifest_path, apply=True)
-        except (ValueError, OSError, SafeCliError) as exc:
-            return {
+        return _attach_stop_log(
+            manifest_path,
+            {
                 "ok": False,
                 "stopped_reason": "error",
-                "repair_rounds": repair_rounds,
+                "repair_rounds": 0,
                 "rounds": rounds,
                 "summary": run_result.summary,
-                "message": str(exc),
+                "message": run_result.message,
                 "complete": False,
                 "paused": run_result.paused,
                 "blocked": run_result.blocked,
                 "run_exit_code": _run_exit_code(run_result),
-                "error": str(exc),
                 "diagnosis": _safe_diagnosis(manifest_path),
-            }
+            },
+            event="host_stop",
+        )
+
+    stopped_reason = "max_rounds"
+    last_diagnosis: dict[str, Any] | None = None
+    last_failure_log: str | None = None
+    while repair_rounds < max_repair_rounds:
+        try:
+            heal_report = diagnose_and_heal_file(manifest_path, apply=True)
+        except (ValueError, OSError, SafeCliError) as exc:
+            return _attach_stop_log(
+                manifest_path,
+                {
+                    "ok": False,
+                    "stopped_reason": "error",
+                    "repair_rounds": repair_rounds,
+                    "rounds": rounds,
+                    "summary": run_result.summary,
+                    "message": str(exc),
+                    "complete": False,
+                    "paused": run_result.paused,
+                    "blocked": run_result.blocked,
+                    "run_exit_code": _run_exit_code(run_result),
+                    "error": str(exc),
+                    "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
+                },
+                event="host_stop",
+            )
+
+        if heal_report.get("failure_log"):
+            last_failure_log = str(heal_report.get("failure_log"))
 
         pre_diagnosis = (
             heal_report.get("pre_diagnose")
@@ -305,19 +350,24 @@ def run_assets(
 
         if not can_auto_fix_without_agent(diagnosis):
             # Prefer pre-heal diagnosis for GUI copy when post-heal is empty.
-            return {
-                "ok": False,
-                "stopped_reason": "needs_agent",
-                "repair_rounds": repair_rounds,
-                "rounds": rounds,
-                "summary": (last_diagnosis or diagnosis).get("summary") or run_result.summary,
-                "message": run_result.message,
-                "complete": False,
-                "paused": run_result.paused,
-                "blocked": run_result.blocked,
-                "run_exit_code": _run_exit_code(run_result),
-                "diagnosis": last_diagnosis or diagnosis,
-            }
+            return _attach_stop_log(
+                manifest_path,
+                {
+                    "ok": False,
+                    "stopped_reason": "needs_agent",
+                    "repair_rounds": repair_rounds,
+                    "rounds": rounds,
+                    "summary": (last_diagnosis or diagnosis).get("summary") or run_result.summary,
+                    "message": run_result.message,
+                    "complete": False,
+                    "paused": run_result.paused,
+                    "blocked": run_result.blocked,
+                    "run_exit_code": _run_exit_code(run_result),
+                    "diagnosis": last_diagnosis or diagnosis,
+                    **({"failure_log": last_failure_log} if last_failure_log else {}),
+                },
+                event="host_stop",
+            )
 
         fix_commands = list(
             heal_report.get("fix_commands")
@@ -333,20 +383,24 @@ def run_assets(
                 default_run_prompts=repair_run_prompts,
             )
         except (ValueError, OSError) as exc:
-            return {
-                "ok": False,
-                "stopped_reason": "error",
-                "repair_rounds": repair_rounds,
-                "rounds": rounds,
-                "summary": run_result.summary,
-                "message": str(exc),
-                "complete": False,
-                "paused": run_result.paused,
-                "blocked": run_result.blocked,
-                "run_exit_code": _run_exit_code(run_result),
-                "error": str(exc),
-                "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
-            }
+            return _attach_stop_log(
+                manifest_path,
+                {
+                    "ok": False,
+                    "stopped_reason": "error",
+                    "repair_rounds": repair_rounds,
+                    "rounds": rounds,
+                    "summary": run_result.summary,
+                    "message": str(exc),
+                    "complete": False,
+                    "paused": run_result.paused,
+                    "blocked": run_result.blocked,
+                    "run_exit_code": _run_exit_code(run_result),
+                    "error": str(exc),
+                    "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
+                },
+                event="host_stop",
+            )
 
         repair_rounds += 1
         rounds.append(
@@ -383,16 +437,21 @@ def run_assets(
 
         prior_fingerprints = fingerprints
 
-    return {
-        "ok": False,
-        "stopped_reason": stopped_reason,
-        "repair_rounds": repair_rounds,
-        "rounds": rounds,
-        "summary": run_result.summary,
-        "message": run_result.message,
-        "complete": False,
-        "paused": run_result.paused,
-        "blocked": run_result.blocked,
-        "run_exit_code": _run_exit_code(run_result),
-        "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
-    }
+    return _attach_stop_log(
+        manifest_path,
+        {
+            "ok": False,
+            "stopped_reason": stopped_reason,
+            "repair_rounds": repair_rounds,
+            "rounds": rounds,
+            "summary": run_result.summary,
+            "message": run_result.message,
+            "complete": False,
+            "paused": run_result.paused,
+            "blocked": run_result.blocked,
+            "run_exit_code": _run_exit_code(run_result),
+            "diagnosis": last_diagnosis or _safe_diagnosis(manifest_path),
+            **({"failure_log": last_failure_log} if last_failure_log else {}),
+        },
+        event="host_stop",
+    )

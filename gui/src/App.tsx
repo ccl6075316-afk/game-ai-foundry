@@ -3534,13 +3534,22 @@ export default function App() {
         }
 
         let advice = formatPmFitAdvice(data?.diagnosis || null);
-        try {
-          const diag = window.gameFactory.pipelineDiagnose
-            ? await window.gameFactory.pipelineDiagnose(selectedManifest)
-            : null;
-          if (diag?.data) advice = formatPmFitAdvice(diag.data);
-        } catch {
-          /* best-effort */
+        // Host already returns pre-heal diagnosis; fresh diagnose after heal often
+        // says「无失败」and would wipe the real reason.
+        const hostHasItems = Boolean(
+          (data?.diagnosis as { items?: unknown[] } | undefined)?.items?.length ||
+            (data?.diagnosis as { needs_hermes?: unknown[] } | undefined)?.needs_hermes
+              ?.length,
+        );
+        if (!hostHasItems && advice.headline === "未能诊断失败原因") {
+          try {
+            const diag = window.gameFactory.pipelineDiagnose
+              ? await window.gameFactory.pipelineDiagnose(selectedManifest)
+              : null;
+            if (diag?.data) advice = formatPmFitAdvice(diag.data);
+          } catch {
+            /* best-effort */
+          }
         }
         const plan = planPipelineStop({
           exitCode: res.exitCode ?? data?.run_exit_code ?? 2,
@@ -3550,6 +3559,7 @@ export default function App() {
           status: statusAfter?.status || status,
           alreadyAutoFixed: true,
           stoppedReason: data?.stopped_reason || null,
+          failureLogPath: data?.failure_log || null,
         });
         const hostNote =
           (data?.repair_rounds ?? 0) > 0
@@ -3767,6 +3777,7 @@ export default function App() {
           status: statusAfter?.status || status,
           alreadyAutoFixed: true,
           stoppedReason: stoppedReason || null,
+          failureLogPath: hostPayload?.failure_log || null,
         });
         const rawTail = (res.stderr || "").trim()
           ? `\n\n日志摘录：\n${(res.stderr || "").slice(0, 400)}`

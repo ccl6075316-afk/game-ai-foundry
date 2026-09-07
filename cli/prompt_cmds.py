@@ -16,11 +16,27 @@ from asset_pipeline import (
     find_asset,
     load_brief,
 )
-from brief import resolve_generate_method
+from brief import resolve_asset_file_key, resolve_generate_method
 from generation_fingerprint import embed_generation_fingerprint
 from plan_io import build_handoff, build_video_handoff, save_handoff
 from prompt_craft import PromptCraftError
 from shared_context import build_role_context
+
+
+def _load_raw_shard_for_spec(brief_path: Path, spec) -> dict | None:
+    """Disk assets/<id>.spec.json — must match reconcile's raw_shard for fingerprints."""
+    try:
+        key = resolve_asset_file_key(spec)
+    except ValueError:
+        return None
+    path = brief_path.parent / "assets" / f"{key}.spec.json"
+    if not path.is_file():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
 
 
 def _should_craft_animation(spec, animation_flag: bool) -> bool:
@@ -163,6 +179,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
             )
 
             is_animation = _should_craft_animation(spec, animation)
+            raw_shard = _load_raw_shard_for_spec(brief_path, spec)
             if is_animation:
                 if item_needle:
                     raise ValueError("--item cannot be combined with animation craft")
@@ -193,6 +210,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     spec=spec,
                     project=project,
                     kit_item=kit_row,
+                    raw_shard=raw_shard,
                 )
                 handoff = build_video_handoff(plan_dict, context=context)
             else:
@@ -204,6 +222,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                     spec=spec,
                     project=project,
                     kit_item=kit_row,
+                    raw_shard=raw_shard,
                 )
                 handoff = build_handoff(plan_dict, context=context)
 

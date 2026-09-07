@@ -142,6 +142,8 @@ export function planPipelineStop(opts: {
   /** Host/GUI already ran diagnose→heal→续跑（含文案） */
   alreadyAutoFixed?: boolean;
   stoppedReason?: string | null;
+  /** Persist path for failure-log.jsonl (survives heal) */
+  failureLogPath?: string | null;
 }): { title: string; body: string; choices: string[] } {
   const summary = opts.status || opts.runData?.summary;
   const counts = summary?.counts || {};
@@ -251,15 +253,27 @@ export function planPipelineStop(opts: {
 
   if (ready > 0 || pending > 0) {
     if (opts.alreadyAutoFixed) {
+      const logHint = opts.failureLogPath
+        ? `\n失败日志：\`${opts.failureLogPath}\``
+        : "";
       return {
         title: "本轮已停下，还有任务未跑完",
         body:
+          failureLead +
           `${progress}` +
           (ready > 0 ? `（其中 ${ready} 个已就绪）` : "") +
           `${last}\n\n` +
-          `自动修复已跑过仍未跑完。不要改点「运行资产生成」指望另一条路。\n\n` +
-          `**推荐下一步 → ${RETRY_FIX_AND_CONTINUE}** 或打开看板核对。`,
-        choices: [RETRY_FIX_AND_CONTINUE, "打开看板"],
+          (sameFailure
+            ? `同一失败已反复出现，自动修复已停止空转。Host 复位后看板可能不再标红 failed。\n`
+            : `自动修复已跑过仍未跑完。不要改点「运行资产生成」指望另一条路。\n`) +
+          `\n**推荐下一步 → ${RETRY_FIX_AND_CONTINUE}** 或打开看板核对。` +
+          (opts.advice.primaryFailure
+            ? `\n\n（失败时：\`${opts.advice.primaryFailure.taskId}\` · ${opts.advice.primaryFailure.kind}）`
+            : "") +
+          logHint,
+        choices: sameFailure
+          ? ["打开看板", RETRY_FIX_AND_CONTINUE]
+          : [RETRY_FIX_AND_CONTINUE, "打开看板"],
       };
     }
     return {
