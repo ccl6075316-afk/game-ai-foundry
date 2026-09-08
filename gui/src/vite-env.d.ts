@@ -41,6 +41,7 @@ export interface CliResult<T = unknown> {
 export interface HostRunAssetsOpts {
   jobs?: number;
   runPrompts?: boolean;
+  runGameDev?: boolean;
   autoFix?: boolean;
 }
 
@@ -222,6 +223,7 @@ export interface PipelineStatus {
   done?: boolean;
   ready_ids?: string[];
   failed_ids?: string[];
+  skipped_ids?: string[];
 }
 
 export interface AssetReviewRow {

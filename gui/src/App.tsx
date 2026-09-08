@@ -74,10 +74,12 @@ import {
 import { parseNewProjectIntent } from "./chat/newProjectIntent";
 import { resolveAppendTarget, sessionTargetForInstance } from "./chat/appendTarget";
 import {
+  GENERATE_DEV_HANDOFF,
   PM_HANDLE_FAILURE,
   RETRY_FIX_AND_CONTINUE,
   RUN_WITH_PROMPTS,
   formatPmFitAdvice,
+  isGameDevHandoffReady,
   planPipelineStop,
   type DiagnoseItem,
   type PipelineRunPayload,
@@ -3322,10 +3324,30 @@ export default function App() {
 
   const reportRunSuccess = useCallback(
     async (statusAfter: Awaited<ReturnType<typeof refreshManifest>>) => {
-      const counts = statusAfter?.status?.counts || status?.counts || {};
+      const st = statusAfter?.status || status;
+      const counts = st?.counts || {};
       const pending = Number(counts.pending ?? 0);
-      const ready = statusAfter?.status?.ready_ids?.length ?? status?.ready_ids?.length ?? 0;
-      if (pending > 0 || ready > 0) {
+      const readyIds = st?.ready_ids || [];
+      const ready = readyIds.length;
+      const gameDevReady = isGameDevHandoffReady({
+        failedIds: st?.failed_ids || [],
+        readyIds,
+        pending,
+        skippedIds: st?.skipped_ids || [],
+      });
+      if (gameDevReady) {
+        append(
+          "assistant",
+          `**资产已齐，可生成程序员交接**\n\n` +
+            `进度：完成 ${counts.done ?? "?"} · 待跑 ${pending}` +
+            (ready ? `（${ready} 个已就绪）` : "") +
+            `\n\nPass 4（\`godot.dev-context\`）默认未跑。\n\n` +
+            `**推荐下一步 → ${GENERATE_DEV_HANDOFF}**（写出 \`plans/dev_*.json\`）`,
+          undefined,
+          undefined,
+          [GENERATE_DEV_HANDOFF, "打开看板"],
+        );
+      } else if (pending > 0 || ready > 0) {
         append(
           "assistant",
           `**本轮跑完，流水线未全部完成**\n\n` +
@@ -3609,6 +3631,66 @@ export default function App() {
       );
     } catch (e) {
       append("assistant", `处理失败：${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      clearBusy(busyId);
+    }
+  };
+
+  const handleGenerateDevHandoff = async () => {
+    if (!selectedManifest) {
+      append("assistant", "还没有流水线。请先「生成流水线」并跑完资产生成。");
+      return;
+    }
+    if (agentRole !== "product_host" && agentRole !== "brief") {
+      append("assistant", "生成程序员交接请切换到 **项目经理**（或策划）。");
+      return;
+    }
+    const busyId = activeColleague.id;
+    markBusy(busyId);
+    try {
+      const hostRunAssets = window.gameFactory.hostRunAssets;
+      if (!hostRunAssets) {
+        append("assistant", "当前环境不支持 host run-assets。");
+        return;
+      }
+      append("log", "host run-assets --run-game-dev …");
+      const res = await hostRunAssets(selectedManifest, {
+        jobs: 4,
+        runPrompts: false,
+        runGameDev: true,
+        autoFix: true,
+      });
+      const statusAfter = await refreshManifest(selectedManifest);
+      const hostPayload = res.data as HostRunAssetsResult | undefined;
+      const hostComplete =
+        hostPayload?.complete === true ||
+        hostPayload?.stopped_reason === "complete" ||
+        hostPayload?.ok === true;
+      if (hostComplete || (res.exitCode ?? 1) === 0) {
+        append(
+          "assistant",
+          "**程序员交接已生成。** 可打开看板确认 `godot.dev-context`，或打开文档查看 `plans/dev_*.json`。",
+          undefined,
+          undefined,
+          ["打开看板", "打开文档"],
+        );
+        setSidePanel("board");
+        return;
+      }
+      const plan = planPipelineStop({
+        exitCode: res.exitCode ?? hostPayload?.run_exit_code ?? 1,
+        runData: (res.data || null) as PipelineRunPayload | null,
+        advice: formatPmFitAdvice(hostPayload?.diagnosis || null),
+        healed: [],
+        status: statusAfter?.status || status,
+        alreadyAutoFixed: true,
+        stoppedReason: hostPayload?.stopped_reason || null,
+        failureLogPath: hostPayload?.failure_log || null,
+      });
+      append("assistant", `**${plan.title}**\n\n${plan.body}`, undefined, undefined, plan.choices);
+      setSidePanel("board");
+    } catch (err) {
+      append("assistant", `生成程序员交接失败：${String(err)}`);
     } finally {
       clearBusy(busyId);
     }
@@ -4818,6 +4900,10 @@ export default function App() {
       await handleRun(true);
       return;
     }
+    if (trimmed === GENERATE_DEV_HANDOFF || trimmed === "生成程序员交接") {
+      await handleGenerateDevHandoff();
+      return;
+    }
     if (trimmed === "运行资产生成" || trimmed === "运行 Pipeline") {
       if (agentRole !== "product_host" && agentRole !== "brief") {
         append("assistant", "运行资产生成请切换到 **项目经理**（或策划）。");
@@ -5295,6 +5381,25 @@ export default function App() {
               </button>
               <button
                 type="button"
+                className={
+                  "pm-sticky-actions__btn" +
+                  (isGameDevHandoffReady({
+                    failedIds: status?.failed_ids || [],
+                    readyIds: status?.ready_ids || [],
+                    pending: Number(status?.counts?.pending ?? 0),
+                    skippedIds: status?.skipped_ids || [],
+                  })
+                    ? " pm-sticky-actions__btn--primary"
+                    : "")
+                }
+                disabled={chatBusy || !selectedManifest}
+                onClick={() => void handleSend(GENERATE_DEV_HANDOFF)}
+                title="Pass 4：写出 godot-developer handoff（plans/dev_*.json）"
+              >
+                ③ 生成程序员交接
+              </button>
+              <button
+                type="button"
                 className="pm-sticky-actions__btn"
                 disabled={chatBusy}
                 onClick={() => void handleSend("打开看板")}
@@ -5366,6 +5471,8 @@ export default function App() {
                           "生成北极星图",
                           "运行资产生成",
                           "运行资产生成（含文案）",
+                          GENERATE_DEV_HANDOFF,
+                          "生成程序员交接",
                           "打开看板",
                           "打开资产表",
                           "打开资产",

@@ -100,6 +100,24 @@ class PipelineHealTests(unittest.TestCase):
         self.assertEqual(d["kind"], "missing_file")
         self.assertEqual(d["reset_task_id"], "pose_x.prompt.craft")
 
+    def test_classify_assemble_missing_handoff_regenerates(self) -> None:
+        task = {
+            "id": "brief.godot.assemble",
+            "step": "godot.assemble",
+            "result": {
+                "exit_code": 2,
+                "stderr": (
+                    "Error: Invalid value for '--assemble-file': "
+                    "Path '../projects/x/plans/godot_brief.json' does not exist."
+                ),
+            },
+        }
+        d = classify_failed_task(task)
+        self.assertEqual(d["kind"], "missing_file")
+        self.assertEqual(d["remediation"], "regenerate_assemble_handoff")
+        self.assertEqual(d["reset_task_id"], "brief.godot.assemble")
+        self.assertEqual(d["pm_fit"], "no")
+
     def test_classify_godot_assemble_exit2_not_validation(self) -> None:
         task = {
             "id": "brief.godot.assemble",

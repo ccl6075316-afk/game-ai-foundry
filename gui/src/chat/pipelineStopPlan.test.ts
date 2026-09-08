@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import {
+  GENERATE_DEV_HANDOFF,
   PM_HANDLE_FAILURE,
   RETRY_FIX_AND_CONTINUE,
   RUN_WITH_PROMPTS,
   formatPmFitAdvice,
+  isGameDevHandoffReady,
   planPipelineStop,
 } from "./pipelineStopPlan";
 
@@ -83,5 +85,49 @@ describe("planPipelineStop ping-pong guard", () => {
     assert.match(plan.body, /失败原因/);
     assert.match(plan.body, /Chinese brief text/);
     assert.match(plan.body, /failure-log\.jsonl/);
+  });
+
+  it("only godot.dev-context ready → offer programmer handoff", () => {
+    const emptyAdvice = formatPmFitAdvice(null);
+    const plan = planPipelineStop({
+      exitCode: 0,
+      advice: emptyAdvice,
+      healed: [],
+      status: {
+        counts: { done: 72, pending: 1, failed: 0 },
+        ready_ids: ["brief.godot.dev-context"],
+        failed_ids: [],
+      },
+      runData: {
+        complete: false,
+        summary: {
+          counts: { done: 72, pending: 1, failed: 0 },
+          ready_ids: ["brief.godot.dev-context"],
+        },
+      },
+    });
+    assert.match(plan.title, /程序员交接/);
+    assert.deepEqual(plan.choices, [GENERATE_DEV_HANDOFF, "打开看板"]);
+    assert.ok(!plan.choices.includes(RUN_WITH_PROMPTS));
+  });
+
+  it("isGameDevHandoffReady detects skipped Pass 4", () => {
+    assert.equal(
+      isGameDevHandoffReady({
+        failedIds: [],
+        readyIds: [],
+        pending: 0,
+        skippedIds: ["brief.godot.dev-context"],
+      }),
+      true,
+    );
+    assert.equal(
+      isGameDevHandoffReady({
+        failedIds: [],
+        readyIds: ["pose_x.video.generate"],
+        pending: 1,
+      }),
+      false,
+    );
   });
 });

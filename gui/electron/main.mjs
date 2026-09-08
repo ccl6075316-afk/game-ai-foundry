@@ -2206,6 +2206,7 @@ app.whenReady().then(() => {
       "--json",
     ];
     if (opts.runPrompts) args.push("--run-prompts");
+    if (opts.runGameDev) args.push("--run-game-dev");
     if (opts.autoFix === false) args.push("--no-auto-fix");
     const result = await runCli(args, {
       onLine: (line, stream) => {

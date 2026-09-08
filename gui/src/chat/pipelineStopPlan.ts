@@ -35,11 +35,32 @@ export type PipelineStatusLike = {
   counts?: Record<string, number>;
   failed_ids?: string[];
   ready_ids?: string[];
+  skipped_ids?: string[];
 };
 
 export const RETRY_FIX_AND_CONTINUE = "再试一次（修复并续跑）";
 export const PM_HANDLE_FAILURE = "项目经理处理失败";
 export const RUN_WITH_PROMPTS = "运行资产生成（含文案）";
+/** Pass 4 — write godot-developer handoff (dev_*.json) */
+export const GENERATE_DEV_HANDOFF = "生成程序员交接";
+
+export function isGameDevHandoffReady(opts: {
+  failedIds?: string[] | null;
+  readyIds?: string[] | null;
+  pending?: number;
+  skippedIds?: string[] | null;
+}): boolean {
+  const failed = opts.failedIds || [];
+  if (failed.length > 0) return false;
+  const ready = (opts.readyIds || []).filter(Boolean);
+  const skipped = (opts.skippedIds || []).filter(Boolean);
+  const isDev = (id: string) => id.endsWith(".godot.dev-context");
+  if (ready.length > 0 && ready.every(isDev)) return true;
+  if (ready.length === 0 && skipped.length > 0 && skipped.every(isDev)) {
+    return Number(opts.pending ?? 0) === 0;
+  }
+  return false;
+}
 
 const FAILURE_KIND_LABEL: Record<string, string> = {
   network: "网络/CDN 错误",
@@ -252,6 +273,29 @@ export function planPipelineStop(opts: {
   }
 
   if (ready > 0 || pending > 0) {
+    const readyIds =
+      opts.status?.ready_ids ||
+      opts.runData?.summary?.ready_ids ||
+      [];
+    if (
+      isGameDevHandoffReady({
+        failedIds: opts.status?.failed_ids || opts.runData?.summary?.failed_ids || [],
+        readyIds,
+        pending,
+        skippedIds: opts.status?.skipped_ids || [],
+      })
+    ) {
+      return {
+        title: "资产已齐，可生成程序员交接",
+        body:
+          `${progress}` +
+          (ready > 0 ? `（其中 ${ready} 个已就绪）` : "") +
+          `${last}\n\n` +
+          `资产流水线已就绪，Pass 4（\`godot.dev-context\`）默认未跑。\n\n` +
+          `**推荐下一步 → ${GENERATE_DEV_HANDOFF}**（写出 \`plans/dev_*.json\` 给程序员）`,
+        choices: [GENERATE_DEV_HANDOFF, "打开看板"],
+      };
+    }
     if (opts.alreadyAutoFixed) {
       const logHint = opts.failureLogPath
         ? `\n失败日志：\`${opts.failureLogPath}\``
@@ -284,6 +328,23 @@ export function planPipelineStop(opts: {
         `${last}\n\n` +
         `**推荐下一步 → ${RUN_WITH_PROMPTS}**（续跑，已完成的会跳过）`,
       choices: [RUN_WITH_PROMPTS, "打开看板"],
+    };
+  }
+
+  if (
+    isGameDevHandoffReady({
+      failedIds: opts.status?.failed_ids || opts.runData?.summary?.failed_ids || [],
+      readyIds: [],
+      pending: 0,
+      skippedIds: opts.status?.skipped_ids || [],
+    })
+  ) {
+    return {
+      title: "资产已齐，可生成程序员交接",
+      body:
+        `${progress}${last}\n\n` +
+        `Pass 4 先前被跳过。点 **${GENERATE_DEV_HANDOFF}** 写出程序员 handoff。`,
+      choices: [GENERATE_DEV_HANDOFF, "打开看板"],
     };
   }
 

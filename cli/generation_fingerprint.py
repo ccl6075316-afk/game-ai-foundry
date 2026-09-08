@@ -26,7 +26,8 @@ _GENERATION_ASSET_KEYS = frozenset(
         "action",
         "animation_method",
         "duration_seconds",
-        "sprite_frames",
+        # sprite_frames only affects video.split-frames sampling, not generate —
+        # changing it must not invalidate/purge the MP4.
         "video_model",
         "video_resolution",
         "video_ratio",
@@ -179,8 +180,6 @@ def build_generation_input(
         base["real_length_max_cm"] = spec.real_length_max_cm
     if spec.duration_seconds and "duration_seconds" not in base:
         base["duration_seconds"] = spec.duration_seconds
-    if spec.sprite_frames and "sprite_frames" not in base:
-        base["sprite_frames"] = spec.sprite_frames
     if spec.generate_audio is not None and "generate_audio" not in base:
         base["generate_audio"] = spec.generate_audio
     if spec.watermark is not None and "watermark" not in base:

@@ -491,6 +491,17 @@ class PipelineManifestTest(unittest.TestCase):
         self.assertNotIn("../output/walk_frames", rels)
         self.assertIn("../output/walk_nobg", rels)
 
+    def test_collect_artifact_rels_assemble_skips_handoff(self) -> None:
+        task = {
+            "step": "godot.assemble",
+            "artifacts": {
+                "assemble_file": "../plans/godot_brief.json",
+                "project_path": "projects/x/game",
+            },
+        }
+        self.assertEqual(_collect_task_artifact_rels(task), [])
+
+
     def test_max_wave_filters_generation_dag(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

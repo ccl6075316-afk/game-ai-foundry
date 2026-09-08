@@ -1266,6 +1266,9 @@ def status_summary(manifest: dict[str, Any]) -> dict[str, Any]:
         "ready_count": len(ready),
         "ready_ids": [t["id"] for t in ready],
         "failed_ids": [t["id"] for t in tasks_list(manifest) if t.get("status") == TASK_FAILED],
+        "skipped_ids": [
+            t["id"] for t in tasks_list(manifest) if t.get("status") == TASK_SKIPPED
+        ],
         "done": (
             counts.get(TASK_DONE, 0) + counts.get(TASK_SKIPPED, 0)
             == len(tasks_list(manifest))
@@ -1666,7 +1669,6 @@ _ARTIFACT_PURGE_ARTIFACT_KEYS = frozenset(
         "nobg_image",
         "video",
         "dev_handoff",
-        "assemble_file",
         "frames_dir",
         "plan_file",
     }
@@ -1680,6 +1682,9 @@ _ARTIFACT_PURGE_SKIP_ARTIFACT_KEYS = frozenset(
         "kit_style_anchor_slug",
         "input",
         "input_dir",
+        # Written at pipeline plan time; assemble/dev-context only consume it.
+        "assemble_file",
+        "project_path",
     }
 )
 
@@ -1913,3 +1918,90 @@ def merge_manifest_status(new_manifest: dict[str, Any], old_manifest: dict[str, 
         for key in ("status", "result", "started_at", "finished_at"):
             if old.get(key) is not None:
                 task[key] = old[key]
+
+
+def rewrite_godot_assemble_handoff(manifest: dict[str, Any]) -> str | None:
+    """Regenerate plans/godot_<brief>.json from the brief + current task artifacts.
+
+    The assemble handoff is written at ``pipeline plan`` time. Cascade resets used to
+    delete it (assemble_file listed as an assemble artifact), leaving
+    ``godot.assemble`` stuck in a missing-file heal loop. Call this to restore it.
+    Returns the cli-relative path written, or None if Godot is not in the manifest.
+    """
+    from types import SimpleNamespace
+
+    from brief import load_brief_full
+    from project_paths import default_paths_for_brief
+
+    brief_rel = str(manifest.get("brief") or "").strip()
+    if not brief_rel:
+        return None
+    brief_path = (_REPO_ROOT / brief_rel).resolve()
+    if not brief_path.is_file():
+        return None
+
+    paths = manifest.get("paths") if isinstance(manifest.get("paths"), dict) else {}
+    defaults = default_paths_for_brief(brief_path)
+    plans_dir = Path(str(paths.get("plans_dir") or defaults["plans_dir"]))
+    output_dir = Path(str(paths.get("output_dir") or defaults["output_dir"]))
+    if not plans_dir.is_absolute():
+        plans_dir = (_REPO_ROOT / plans_dir).resolve()
+    else:
+        plans_dir = plans_dir.resolve()
+    if not output_dir.is_absolute():
+        output_dir = (_REPO_ROOT / output_dir).resolve()
+    else:
+        output_dir = output_dir.resolve()
+
+    godot_rel = str(manifest.get("godot_project") or "").strip()
+    if godot_rel:
+        godot_project = (_REPO_ROOT / godot_rel).resolve()
+    else:
+        godot_project = Path(defaults["godot_project"]).resolve()
+
+    project, assets, _graphs = load_brief_full(brief_path)
+    assets = [a for a in assets if not _is_placeholder_asset(a)]
+    meta = manifest.get("meta") if isinstance(manifest.get("meta"), dict) else {}
+    max_wave = meta.get("production_max_wave")
+    if max_wave is not None:
+        try:
+            mw = int(max_wave)
+        except (TypeError, ValueError):
+            mw = None
+        if mw is not None:
+            assets = [
+                a for a in assets if int(getattr(a, "production_wave", 1) or 1) <= mw
+            ]
+
+    tasks_by_id = {
+        str(t.get("id") or ""): SimpleNamespace(artifacts=t.get("artifacts") or {})
+        for t in tasks_list(manifest)
+        if t.get("id")
+    }
+    godot_plan = _collect_godot_plan(
+        brief_stem=brief_path.stem,
+        project=project,
+        assets=assets,
+        output_dir=output_dir,
+        tasks_by_id=tasks_by_id,  # type: ignore[arg-type]
+        godot_project=godot_project,
+        plans_dir=plans_dir,
+    )
+    if (
+        not godot_plan.get("animations")
+        and not godot_plan.get("backgrounds")
+        and not godot_plan.get("idle_still")
+        and not godot_plan.get("props")
+        and not (
+            isinstance(godot_plan.get("layout"), dict)
+            and godot_plan["layout"].get("placements")
+        )
+    ):
+        return None
+
+    handoff_path = plans_dir / f"godot_{brief_path.stem}.json"
+    save_handoff(handoff_path, build_godot_handoff(godot_plan))
+    cli_rel = cli_relative(handoff_path)
+    manifest["godot_assemble_file"] = cli_rel
+    manifest["godot_project"] = rel_to_repo(godot_project.resolve())
+    return cli_rel

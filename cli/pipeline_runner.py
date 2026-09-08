@@ -383,6 +383,19 @@ def _auto_skip_role_tasks(manifest: dict[str, Any], skip_roles: set[str]) -> lis
     return skipped
 
 
+def _reopen_skipped_game_dev_tasks(manifest: dict[str, Any]) -> list[str]:
+    """When --run-game-dev is set, turn prior Pass-4 skips back into pending."""
+    reopened: list[str] = []
+    for task in tasks_list(manifest):
+        if task.get("role") != GODOT_DEVELOPER_ROLE:
+            continue
+        if task.get("status") != TASK_SKIPPED:
+            continue
+        reset_task(manifest, str(task["id"]))
+        reopened.append(str(task["id"]))
+    return reopened
+
+
 def _missing_handoffs_for_skipped_roles(manifest: dict[str, Any], skip_roles: set[str]) -> list[str]:
     missing: list[str] = []
     for task in tasks_list(manifest):
@@ -452,6 +465,11 @@ def run_pipeline(
     synced = reconcile_manifest(manifest)
     if synced["total"] and not dry_run:
         persist()
+
+    if run_game_dev:
+        reopened = _reopen_skipped_game_dev_tasks(manifest)
+        if reopened and not dry_run:
+            persist()
 
     if skip:
         _auto_skip_role_tasks(manifest, skip)

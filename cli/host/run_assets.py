@@ -85,6 +85,7 @@ def _execute_fix_commands(
     *,
     default_jobs: int,
     default_run_prompts: bool,
+    default_run_game_dev: bool = False,
 ) -> dict[str, Any]:
     """Apply whitelisted fix_commands in-process where possible."""
     manifest_path = manifest_path.resolve()
@@ -137,6 +138,7 @@ def _execute_fix_commands(
                 "command": raw,
                 "jobs": jobs,
                 "run_prompts": _argv_has_flag(argv, "--run-prompts") or default_run_prompts,
+                "run_game_dev": _argv_has_flag(argv, "--run-game-dev") or default_run_game_dev,
             }
             executed.append({"action": "pipeline_run", **deferred_run})
             continue
@@ -151,6 +153,7 @@ def _execute_fix_commands(
             manifest_path,
             jobs=int(deferred_run["jobs"]),
             run_prompts=bool(deferred_run["run_prompts"]),
+            run_game_dev=bool(deferred_run["run_game_dev"]),
         )
 
     return {"executed": executed, "run_result": run_result}
@@ -189,6 +192,7 @@ def run_assets(
     *,
     jobs: int = 4,
     run_prompts: bool = False,
+    run_game_dev: bool = False,
     auto_fix: bool = True,
     max_repair_rounds: int = 2,
 ) -> dict[str, Any]:
@@ -198,7 +202,12 @@ def run_assets(
     repair_rounds = 0
     prior_fingerprints: frozenset[tuple[str, str]] | None = None
 
-    run_result = run_pipeline(manifest_path, jobs=jobs, run_prompts=run_prompts)
+    run_result = run_pipeline(
+        manifest_path,
+        jobs=jobs,
+        run_prompts=run_prompts,
+        run_game_dev=run_game_dev,
+    )
     rounds.append(_run_round_record(phase="initial_run", run_result=run_result))
 
     if run_result.complete:
@@ -328,6 +337,7 @@ def run_assets(
                 manifest_path,
                 jobs=jobs,
                 run_prompts=repair_run_prompts,
+                run_game_dev=run_game_dev,
             )
             rounds.append(
                 _run_round_record(phase="run", run_result=run_result, repair_round=repair_rounds)
@@ -381,6 +391,7 @@ def run_assets(
                 fix_commands,
                 default_jobs=jobs,
                 default_run_prompts=repair_run_prompts,
+                default_run_game_dev=run_game_dev,
             )
         except (ValueError, OSError) as exc:
             return _attach_stop_log(
@@ -418,6 +429,7 @@ def run_assets(
                 manifest_path,
                 jobs=jobs,
                 run_prompts=repair_run_prompts,
+                run_game_dev=run_game_dev,
             )
         rounds.append(_run_round_record(phase="run", run_result=run_result, repair_round=repair_rounds))
 

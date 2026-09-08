@@ -77,6 +77,12 @@ def retry_asset_cmd(
     help="Include prompt.craft tasks in pipeline run.",
 )
 @click.option(
+    "--run-game-dev",
+    is_flag=True,
+    default=False,
+    help="Run Pass 4 godot.dev-context (writes programmer handoff).",
+)
+@click.option(
     "--auto-fix/--no-auto-fix",
     default=True,
     show_default=True,
@@ -87,6 +93,7 @@ def retry_asset_cmd(
 def run_assets_cmd(
     manifest_path: Path,
     run_prompts: bool,
+    run_game_dev: bool,
     auto_fix: bool,
     jobs: int,
     as_json: bool,
@@ -97,6 +104,7 @@ def run_assets_cmd(
             manifest_path,
             jobs=jobs,
             run_prompts=run_prompts,
+            run_game_dev=run_game_dev,
             auto_fix=auto_fix,
         )
     except (ValueError, OSError) as exc:

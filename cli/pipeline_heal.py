@@ -330,6 +330,35 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
         or "invalid value for '--input-dir'" in blob_l
         or "invalid value for '--input'" in blob_l
     ):
+        # Assemble handoff is written at pipeline plan time — regenerate it,
+        # do not empty-reset assemble (that loops forever on the same missing file).
+        if (
+            step == "godot.assemble"
+            or tid.endswith(".godot.assemble")
+        ) and (
+            "assemble-file" in blob_l
+            or "godot_" in blob_l
+            or "assemble_file" in blob_l
+        ):
+            return _with_pm_fit(
+                {
+                    "task_id": tid,
+                    "step": step,
+                    "kind": "missing_file",
+                    "owner": "code",
+                    "remediation": "regenerate_assemble_handoff",
+                    "reset_task_id": tid,
+                    "summary": (
+                        "Godot assemble handoff missing — regenerate from brief "
+                        "and re-run assemble"
+                    ),
+                    "cli_hints": [
+                        "pipeline plan --merge <manifest> --godot",
+                        f"pipeline reset --task-id {tid}",
+                        "pipeline run --jobs 4",
+                    ],
+                }
+            )
         # Prefer the nearest upstream producer — do NOT jump to prompt.craft for
         # matte/split missing files (that purges good plans + mp4 and restarts craft).
         reset_id = tid
@@ -580,6 +609,9 @@ def diagnose_manifest(
 
 def heal_manifest(manifest: dict[str, Any], *, only_code: bool = True) -> dict[str, Any]:
     """Reset failed tasks that code can safely heal. Returns heal report."""
+    from pipeline_manifest import rewrite_godot_assemble_handoff
+    from pipeline_runner import reset_task
+
     report = diagnose_manifest(manifest)
     healed: list[str] = []
     skipped: list[dict[str, Any]] = []
@@ -587,7 +619,14 @@ def heal_manifest(manifest: dict[str, Any], *, only_code: bool = True) -> dict[s
         if only_code and item.get("owner") != "code":
             skipped.append(item)
             continue
-        if item.get("remediation") not in ("reset_cascade", "reset_and_recraft_prompt"):
+        remediation = str(item.get("remediation") or "")
+        if remediation == "regenerate_assemble_handoff":
+            tid = str(item.get("reset_task_id") or item["task_id"])
+            rewrite_godot_assemble_handoff(manifest)
+            reset_task(manifest, tid)
+            healed.append(tid)
+            continue
+        if remediation not in ("reset_cascade", "reset_and_recraft_prompt"):
             skipped.append(item)
             continue
         tid = str(item.get("reset_task_id") or item["task_id"])
