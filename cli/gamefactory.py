@@ -992,6 +992,7 @@ from godot_cmds import (
     import_sprites_cmd,
     init_cmd,
     open_cmd,
+    run_cmd,
     scaffold_cmd,
     screenshot_cmd as godot_screenshot_cmd,
     validate_cmd,
@@ -1004,6 +1005,7 @@ godot.add_command(dev_context_cmd)
 godot.add_command(godot_screenshot_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)
+godot.add_command(run_cmd)
 godot.add_command(export_cmd)
 
 from test_cmds import test_group  # noqa: E402

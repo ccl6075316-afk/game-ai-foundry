@@ -56,6 +56,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   visualTargetStatus: (briefRel, sceneId) =>
     ipcRenderer.invoke("visual-target-status", briefRel, sceneId),
   openGodot: (projectRel) => ipcRenderer.invoke("open-godot", projectRel),
+  runGodot: (projectRel) => ipcRenderer.invoke("run-godot", projectRel),
   getConfig: () => ipcRenderer.invoke("get-config"),
   saveConfig: (patch) => ipcRenderer.invoke("save-config", patch),
   initConfigFromExample: () => ipcRenderer.invoke("init-config-from-example"),
@@ -126,6 +127,7 @@ contextBridge.exposeInMainWorld("gameFactory", {
   },
   handoffList: (status, targetInstanceId) =>
     ipcRenderer.invoke("handoff-list", status, targetInstanceId),
+  handoffCreate: (opts) => ipcRenderer.invoke("handoff-create", opts || {}),
   runSafeAction: (command, instanceId) => ipcRenderer.invoke("run-safe-action", command, instanceId),
   productionDelta: (opts) => ipcRenderer.invoke("production-delta", opts),
   productionApplyDelta: (opts) => ipcRenderer.invoke("production-apply-delta", opts),

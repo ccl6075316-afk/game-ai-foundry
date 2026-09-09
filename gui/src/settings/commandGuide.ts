@@ -123,9 +123,14 @@ export const COMMAND_GUIDE: GuideSection[] = [
         description: "并行执行生图、视频、抠图、Godot 组装等任务",
       },
       {
-        title: "5. 打开 Godot",
+        title: "5. 打开 Godot 编辑器",
         command: "/godot",
-        description: "用本机 Godot 打开 games/{slug} 工程",
+        description: "用本机 Godot 打开当前工程（编辑器）",
+      },
+      {
+        title: "6. 运行游戏",
+        command: "/play",
+        description: "直接运行当前工程 main 场景（试玩，非编辑器）",
       },
     ],
   },
@@ -139,6 +144,8 @@ export const COMMAND_GUIDE: GuideSection[] = [
       { title: "看板", command: "/board", description: "打开 pipeline 任务 DAG 与日志" },
       { title: "设置", command: "/settings", description: "编辑 API Key、代理、Godot 路径" },
       { title: "仅运行（不 craft prompt）", command: "/run", description: "使用已有 plans/*.json 直接跑管线" },
+      { title: "运行游戏", command: "/play", description: "启动当前 Godot 工程 main 场景（试玩）" },
+      { title: "打开 Godot 编辑器", command: "/godot", description: "用本机 Godot 打开当前工程" },
     ],
   },
   {

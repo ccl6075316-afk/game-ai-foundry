@@ -43,6 +43,8 @@ export const PM_HANDLE_FAILURE = "项目经理处理失败";
 export const RUN_WITH_PROMPTS = "运行资产生成（含文案）";
 /** Pass 4 — write godot-developer handoff (dev_*.json) */
 export const GENERATE_DEV_HANDOFF = "生成程序员交接";
+export const SWITCH_TO_PROGRAMMER = "切换到程序员";
+export const START_FROM_HANDOFF = "按交接开工";
 
 export function isGameDevHandoffReady(opts: {
   failedIds?: string[] | null;

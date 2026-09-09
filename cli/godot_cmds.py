@@ -496,9 +496,47 @@ def validate_cmd(project_path: Path) -> None:
 def open_cmd(project_path: Path) -> None:
     """Open a Godot project in the editor."""
     godot = _get_godot_exe().replace("_console.exe", ".exe")
+    env = toolchain_env(_load_config())
     try:
-        subprocess.Popen([godot, "--path", str(project_path), "--editor"])
+        subprocess.Popen([godot, "--path", str(project_path), "--editor"], env=env)
         click.echo(f"Opening {project_path} in Godot...")
+    except FileNotFoundError:
+        click.echo(f"Error: Godot not found at '{godot}'.", err=True)
+        sys.exit(1)
+
+
+@click.command("run")
+@click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
+              help="Godot project directory.")
+@click.option("--skip-build", is_flag=True, help="Skip dotnet build before launch.")
+def run_cmd(project_path: Path, skip_build: bool) -> None:
+    """Launch the Godot project main scene (play mode, not editor)."""
+    godot = _get_godot_exe().replace("_console.exe", ".exe")
+    project_path = project_path.resolve()
+    config = _load_config()
+    env = toolchain_env(config)
+
+    if not skip_build:
+        csproj_files = list(project_path.glob("*.csproj"))
+        if csproj_files:
+            dotnet = resolve_dotnet(config) or "dotnet"
+            build = subprocess.run(
+                [dotnet, "build", str(csproj_files[0])],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=180,
+                env=env,
+            )
+            if build.returncode != 0:
+                click.echo(f"dotnet build failed:\n{build.stderr}\n{build.stdout}", err=True)
+                sys.exit(1)
+
+    try:
+        # No --editor → runs project.godot main scene in a game window.
+        subprocess.Popen([godot, "--path", str(project_path)], env=env)
+        click.echo(f"Running {project_path} …")
     except FileNotFoundError:
         click.echo(f"Error: Godot not found at '{godot}'.", err=True)
         sys.exit(1)

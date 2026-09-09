@@ -386,6 +386,72 @@ def register_project_commands(cli_group: click.Group) -> None:
     def handoff_group() -> None:
         """Dispatch packages from 项目经理 → 程序员 (file bus)."""
 
+    @handoff_group.command("create")
+    @click.option("--title", required=True, help="Short title for the programmer.")
+    @click.option("--summary", required=True, help="What to implement / why.")
+    @click.option(
+        "--triage",
+        default="design_change",
+        type=click.Choice(["bug", "asset", "brief_mismatch", "design_change", "unknown"]),
+        show_default=True,
+    )
+    @click.option("--task-id", default=None, help="Optional progress/pipeline task id.")
+    @click.option("--brief", "brief_path", default=None, help="Brief path (repo-relative OK).")
+    @click.option(
+        "--cli-hint",
+        "cli_hints",
+        multiple=True,
+        help="Repeatable CLI/path hints for the programmer.",
+    )
+    @click.option(
+        "--target-instance-id",
+        default=None,
+        help="Optional programmer instance id; omit = broadcast.",
+    )
+    @click.option("--handoff-id", default=None, help="Stable id (default: from task-id / random).")
+    @click.option("--json", "as_json", is_flag=True)
+    def handoff_create_cmd(
+        title: str,
+        summary: str,
+        triage: str,
+        task_id: str | None,
+        brief_path: str | None,
+        cli_hints: tuple[str, ...],
+        target_instance_id: str | None,
+        handoff_id: str | None,
+        as_json: bool,
+    ) -> None:
+        """Create an open handoff package under plans/handoffs/."""
+        from handoff import HandoffError, create_handoff
+
+        try:
+            doc = create_handoff(
+                triage=triage,
+                title=title,
+                summary=summary,
+                task_id=task_id,
+                cli_hints=list(cli_hints),
+                target_instance_id=target_instance_id,
+                brief_path=brief_path,
+                handoff_id=handoff_id,
+            )
+        except (HandoffError, OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        meta = doc.get("handoff_meta") if isinstance(doc.get("handoff_meta"), dict) else {}
+        payload = {
+            "ok": True,
+            "handoff_id": meta.get("id"),
+            "handoff_path": doc.get("_path"),
+            "status": meta.get("status"),
+            "title": doc.get("title"),
+            "triage": doc.get("triage"),
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+            return
+        click.echo(f"OK {payload['handoff_id']} -> {payload['handoff_path']}")
+
     @handoff_group.command("list")
     @click.option(
         "--status",

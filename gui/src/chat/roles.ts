@@ -85,6 +85,7 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
       { label: "运行资产生成", desc: "含文案生成并出图", cmd: "运行资产生成（含文案）" },
       { label: "改需求 Delta", desc: "增量改蓝图", cmd: "/delta 003-feature | 描述改动" },
       { label: "打开看板", desc: "看右侧任务列表", cmd: "打开看板" },
+      { label: "运行游戏", desc: "直接玩 main 场景", cmd: "运行游戏" },
       { label: "打开 Godot", desc: "编辑器", cmd: "/godot" },
     ];
   }
@@ -107,6 +108,7 @@ export function roleSuggestions(role: ChatAgentRole): RoleSuggestion[] {
     ];
   }
   return [
+    { label: "运行游戏", desc: "直接玩 main 场景", cmd: "运行游戏" },
     { label: "打开 Godot", desc: "查看工程", cmd: "/godot" },
     { label: "检测环境", desc: "Godot / .NET", cmd: "/doctor" },
     { label: "命令指南", desc: "CLI 速查", cmd: "/guide" },

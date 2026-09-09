@@ -625,6 +625,7 @@ declare global {
         error?: string;
       }>;
       openGodot: (projectRel: string) => Promise<CliResult>;
+      runGodot: (projectRel: string) => Promise<CliResult>;
       getConfig: () => Promise<ConfigInfo>;
       saveConfig: (patch: ConfigPatch) => Promise<SaveConfigResult>;
       initConfigFromExample: () => Promise<ConfigInfo>;
@@ -926,6 +927,25 @@ declare global {
             cli_hints?: string[];
           }>;
           count?: number;
+        }>
+      >;
+      handoffCreate: (opts: {
+        title: string;
+        summary: string;
+        triage?: string;
+        taskId?: string;
+        brief?: string;
+        targetInstanceId?: string;
+        handoffId?: string;
+        cliHints?: string[];
+      }) => Promise<
+        CliResult<{
+          ok?: boolean;
+          handoff_id?: string;
+          handoff_path?: string;
+          status?: string;
+          title?: string;
+          triage?: string;
         }>
       >;
       runSafeAction: (

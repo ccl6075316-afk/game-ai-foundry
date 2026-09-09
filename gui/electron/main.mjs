@@ -2630,6 +2630,16 @@ app.whenReady().then(() => {
     return result;
   });
 
+  ipcMain.handle("run-godot", async (_e, projectRel) => {
+    const result = await runCli([
+      "godot",
+      "run",
+      "--project",
+      cliArgForRel(projectRel),
+    ]);
+    return result;
+  });
+
   ipcMain.handle("get-config", () => loadUserConfig());
 
   ipcMain.handle("save-config", (_e, patch) => {
@@ -3336,6 +3346,37 @@ app.whenReady().then(() => {
     }
     if (targetInstanceId) {
       args.push("--target-instance-id", String(targetInstanceId));
+    }
+    const result = await runCli(args);
+    return { ...result, data: parseJsonFromOutput(result.stdout) };
+  });
+
+  ipcMain.handle("handoff-create", async (_e, opts = {}) => {
+    const title = String(opts.title || "").trim();
+    const summary = String(opts.summary || "").trim();
+    if (!title || !summary) {
+      return { exitCode: 1, stdout: "", stderr: "title and summary required", data: null };
+    }
+    const args = [
+      "project",
+      "handoff",
+      "create",
+      "--title",
+      title,
+      "--summary",
+      summary,
+      "--json",
+    ];
+    if (opts.triage) args.push("--triage", String(opts.triage));
+    if (opts.taskId) args.push("--task-id", String(opts.taskId));
+    if (opts.brief) args.push("--brief", cliArgForRel(String(opts.brief)));
+    if (opts.targetInstanceId) {
+      args.push("--target-instance-id", String(opts.targetInstanceId));
+    }
+    if (opts.handoffId) args.push("--handoff-id", String(opts.handoffId));
+    for (const hint of opts.cliHints || []) {
+      const h = String(hint || "").trim();
+      if (h) args.push("--cli-hint", h);
     }
     const result = await runCli(args);
     return { ...result, data: parseJsonFromOutput(result.stdout) };

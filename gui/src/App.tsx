@@ -78,6 +78,8 @@ import {
   PM_HANDLE_FAILURE,
   RETRY_FIX_AND_CONTINUE,
   RUN_WITH_PROMPTS,
+  START_FROM_HANDOFF,
+  SWITCH_TO_PROGRAMMER,
   formatPmFitAdvice,
   isGameDevHandoffReady,
   planPipelineStop,
@@ -1014,9 +1016,55 @@ export default function App() {
         return;
       }
       patchChatStore((prev) => setActiveInstance(prev, prog.id));
-      setAgentActionChoices([]);
       setBrainstormChoices([]);
-      void refreshHandoffs();
+      void (async () => {
+        await refreshHandoffs();
+        let items: Array<{
+          id?: string;
+          title?: string;
+          path?: string;
+          cli_hints?: string[];
+        }> = [];
+        try {
+          const res = await window.gameFactory?.handoffList?.("open", prog.id);
+          items = res?.data?.handoffs || [];
+          if (!items.length) {
+            const all = await window.gameFactory?.handoffList?.("open");
+            items = all?.data?.handoffs || [];
+          }
+        } catch {
+          items = [];
+        }
+        const top = items[0];
+        if (top) {
+          const hints = (top.cli_hints || []).slice(0, 4);
+          append(
+            "assistant",
+            `已切到 **${prog.displayName}**。\n\n` +
+              `有 **${items.length}** 个未读派工。优先处理：\n` +
+              `- **${top.title || top.id}**` +
+              (top.path ? `\n- 文件：\`${top.path}\`` : "") +
+              (hints.length
+                ? `\n- 提示：\n${hints.map((h) => `  - \`${h}\``).join("\n")}`
+                : "") +
+              `\n\n**推荐下一步 → ${START_FROM_HANDOFF}**（会把交接上下文发给程序员执行器）`,
+            undefined,
+            undefined,
+            [START_FROM_HANDOFF, "打开看板"],
+          );
+          setAgentActionChoices([START_FROM_HANDOFF, "打开看板"]);
+        } else {
+          append(
+            "assistant",
+            `已切到 **${prog.displayName}**。当前没有未读派工。\n` +
+              `若刚生成了 Pass 4，请回项目经理确认「生成程序员交接」是否写出了 handoff；或直接说明要改的玩法。`,
+            undefined,
+            undefined,
+            ["打开看板"],
+          );
+          setAgentActionChoices([]);
+        }
+      })();
     },
     [chatStore.roster, patchChatStore, append, refreshHandoffs],
   );
@@ -3667,13 +3715,58 @@ export default function App() {
         hostPayload?.stopped_reason === "complete" ||
         hostPayload?.ok === true;
       if (hostComplete || (res.exitCode ?? 1) === 0) {
+        const prog = chatStore.roster.find((c) => c.roleKind === "programmer");
+        const briefRel =
+          activeBriefRel ||
+          String((await window.gameFactory.getManifestMeta(selectedManifest))?.brief || "")
+            .trim()
+            .replace(/\\/g, "/");
+        const godotRel = briefRel
+          ? (await resolvePlanTargets(briefRel)).godotProjectRel
+          : "projects/fishing-2d/game";
+        let handoffId = "";
+        let handoffPath = "";
+        try {
+          if (window.gameFactory.handoffCreate) {
+            const created = await window.gameFactory.handoffCreate({
+              title: "Pass 4 · 实现玩法（dev-context）",
+              summary:
+                "资产与 Godot assemble 已就绪。请读 plans/dev_brief.json（godot-developer handoff），" +
+                `在 ${godotRel} 实现 C# 玩法（仅 brief / Production Delta 范围，勿扩资产）。`,
+              triage: "design_change",
+              taskId: "brief.godot.dev-context",
+              brief: briefRel || undefined,
+              targetInstanceId: prog?.id,
+              handoffId: briefRel
+                ? `pass4-${slugFromBriefRel(briefRel) || "game"}`
+                : "pass4-game",
+              cliHints: [
+                "plans/dev_brief.json",
+                `godot project: ${godotRel}`,
+                `python gamefactory.py godot validate --project ../${godotRel}`,
+              ],
+            });
+            handoffId = String(created.data?.handoff_id || "");
+            handoffPath = String(created.data?.handoff_path || "");
+          }
+        } catch {
+          /* handoff create best-effort */
+        }
+        await refreshHandoffs();
+        if (prog?.id) pendingTargetProgrammer.current = prog.id;
         append(
           "assistant",
-          "**程序员交接已生成。** 可打开看板确认 `godot.dev-context`，或打开文档查看 `plans/dev_*.json`。",
+          `**程序员交接已生成。**\n\n` +
+            `- Pass 4 产物：\`plans/dev_brief.json\`\n` +
+            `- Godot 工程：\`${godotRel}\`` +
+            (handoffId ? `\n- 派工单：\`${handoffId}\`` : "") +
+            (handoffPath ? `\n- 派工文件：\`${handoffPath}\`` : "") +
+            `\n\n**推荐下一步 → ${SWITCH_TO_PROGRAMMER}**，再点「${START_FROM_HANDOFF}」让程序员按交接施工。`,
           undefined,
           undefined,
-          ["打开看板", "打开文档"],
+          [SWITCH_TO_PROGRAMMER, "打开看板", "打开文档"],
         );
+        setAgentActionChoices([SWITCH_TO_PROGRAMMER, "打开看板"]);
         setSidePanel("board");
         return;
       }
@@ -4577,8 +4670,7 @@ export default function App() {
     ],
   );
 
-  const handleOpenGodot = async () => {
-    // Prefer active brief's game/ — never open another project's Godot from a stale manifest
+  const resolveActiveGodotProjectRel = async (): Promise<string | null> => {
     let projectRel = activeBriefRel
       ? (await resolvePlanTargets(activeBriefRel)).godotProjectRel
       : null;
@@ -4596,12 +4688,42 @@ export default function App() {
         /* keep brief-derived path */
       }
     }
+    return projectRel;
+  };
+
+  const handleOpenGodot = async () => {
+    // Prefer active brief's game/ — never open another project's Godot from a stale manifest
+    const projectRel = await resolveActiveGodotProjectRel();
     if (!projectRel) {
       append("assistant", "还没有 Godot 工程路径。请先找 **项目经理** 点「生成流水线」。");
       return;
     }
     await window.gameFactory.openGodot(projectRel);
-    append("assistant", `已尝试打开 \`${projectRel}\`。`);
+    append("assistant", `已尝试打开编辑器：\`${projectRel}\`。`);
+  };
+
+  const handleRunGodot = async () => {
+    const projectRel = await resolveActiveGodotProjectRel();
+    if (!projectRel) {
+      append("assistant", "还没有 Godot 工程路径。请先找 **项目经理** 点「生成流水线」。");
+      return;
+    }
+    if (!window.gameFactory?.runGodot) {
+      append("assistant", "当前 GUI 不支持运行游戏，请整窗重启后再试。");
+      return;
+    }
+    const res = await window.gameFactory.runGodot(projectRel);
+    if ((res.exitCode ?? 1) !== 0) {
+      append(
+        "assistant",
+        `启动游戏失败：${(res.stderr || res.stdout || `exit ${res.exitCode}`).trim()}`,
+      );
+      return;
+    }
+    append(
+      "assistant",
+      `已启动游戏窗口：\`${projectRel}\`\n（玩法入口是 main 场景；关窗口即退出。编辑器用 \`/godot\`。）`,
+    );
   };
 
   const handleSafeAction = async (label: string) => {
@@ -4697,10 +4819,34 @@ export default function App() {
 
   const handleSend = async (text: string) => {
     const trimmed = text.trim();
-    if (trimmed === "切换到程序员") {
+    if (trimmed === "切换到程序员" || trimmed === SWITCH_TO_PROGRAMMER) {
       const tid = pendingTargetProgrammer.current || undefined;
       pendingTargetProgrammer.current = null;
       handleSwitchToProgrammer(tid);
+      return;
+    }
+    if (trimmed === START_FROM_HANDOFF || trimmed === "按交接开工") {
+      const prog =
+        agentRole === "programmer"
+          ? activeColleague
+          : chatStore.roster.find((c) => c.roleKind === "programmer");
+      if (!prog || prog.roleKind !== "programmer") {
+        append("assistant", "还没有程序员同事。请先「切换到程序员」或「+ 雇佣」。");
+        return;
+      }
+      if (prog.id !== activeColleague.id) {
+        patchChatStore((prev) => setActiveInstance(prev, prog.id));
+      }
+      const kickoff =
+        "按未读派工开工：优先读 open handoff 与 `plans/dev_brief.json`（godot-developer），" +
+        "在对应 Godot 工程实现玩法（仅 brief / Production Delta 范围）。完成后用 handoff_done 关单。";
+      append("user", kickoff, undefined, {
+        instanceId: prog.id,
+        sessionId:
+          chatStore.activeByInstance[prog.id] ||
+          chatStore.sessions.find((s) => s.instanceId === prog.id)?.id,
+      });
+      await handleAgentTurn(kickoff, { instanceId: prog.id });
       return;
     }
     if (trimmed === "切换到项目经理") {
@@ -4942,6 +5088,14 @@ export default function App() {
       );
       return;
     }
+    if (trimmed === "运行游戏" || trimmed === "试玩" || trimmed === "启动游戏") {
+      await handleRunGodot();
+      return;
+    }
+    if (trimmed === "打开 Godot" || trimmed === "打开编辑器") {
+      await handleOpenGodot();
+      return;
+    }
     if (pendingSafeActions.current.has(trimmed)) {
       if (agentRole === "advisor") {
         append("assistant", "顾问只咨询、不执行命令。请切换到 **项目经理** 或 **IT**。");
@@ -5066,6 +5220,10 @@ export default function App() {
       await handleOpenGodot();
       return;
     }
+    if (cmd === "/play" || cmd === "/run-game") {
+      await handleRunGodot();
+      return;
+    }
     const delta = parseDeltaCommand(text);
     if (delta) {
       if (agentRole !== "product_host" && agentRole !== "brief") {
@@ -5079,7 +5237,7 @@ export default function App() {
     if (text.trim().startsWith("/")) {
       append(
         "assistant",
-        `未知指令。可用：/brief /doctor /plan /run /board /assets /settings /env /guide /godot /delta`,
+        `未知指令。可用：/brief /doctor /plan /run /board /assets /settings /env /guide /godot /play /delta`,
       );
       return;
     }
@@ -5394,9 +5552,18 @@ export default function App() {
                 }
                 disabled={chatBusy || !selectedManifest}
                 onClick={() => void handleSend(GENERATE_DEV_HANDOFF)}
-                title="Pass 4：写出 godot-developer handoff（plans/dev_*.json）"
+                title="Pass 4：写出 plans/dev_*.json，并创建程序员派工单（plans/handoffs/）"
               >
                 ③ 生成程序员交接
+              </button>
+              <button
+                type="button"
+                className="pm-sticky-actions__btn"
+                disabled={chatBusy}
+                onClick={() => void handleSend("运行游戏")}
+                title="直接运行当前工程 main 场景（非编辑器）"
+              >
+                运行游戏
               </button>
               <button
                 type="button"
@@ -5473,6 +5640,7 @@ export default function App() {
                           "运行资产生成（含文案）",
                           GENERATE_DEV_HANDOFF,
                           "生成程序员交接",
+                          "运行游戏",
                           "打开看板",
                           "打开资产表",
                           "打开资产",
