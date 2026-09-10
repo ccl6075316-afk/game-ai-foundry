@@ -317,6 +317,7 @@ python gamefactory.py test run --project ../games/my-game-brief --brief ../resou
 | 生图 `exit 2` | **不要** trim/remove-bg；交 prompt-crafter 改 plan |
 | 视频帧抠图失败 | 确认 rembg（打包版自带）；或 manifest 改 `engine: soft-key` |
 | manifest 过期 | brief 变更后 **必须** `pipeline plan`（必要时 `--merge`） |
+| 看板里游泳拆帧突然变 `pending`、PNG 打不开 | 工程若用了 **Git LFS**，工作区可能只剩 pointer 文本。流水线 reconcile 会尝试 `git lfs checkout`；仍异常时在工程根执行 `git lfs pull` / `git lfs checkout`（需已装 `git-lfs`） |
 
 ### 7.3 给外部 Agent 的操作原则
 

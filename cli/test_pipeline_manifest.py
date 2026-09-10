@@ -582,6 +582,42 @@ class PipelineManifestTest(unittest.TestCase):
         roles = {t["role"] for t in ready}
         self.assertIn("prompt-crafter", roles)
 
+    def test_lfs_pointer_detection_and_checkout_before_frames_ready(self) -> None:
+        """Git LFS pointer frames must be materialized, not treated as missing PNGs."""
+        import pipeline_manifest as pm
+
+        pointer = (
+            b"version https://git-lfs.github.com/spec/v1\n"
+            b"oid sha256:" + (b"a" * 64) + b"\n"
+            b"size 100\n"
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / ".git").mkdir()
+            frame_dir = root / "frames"
+            frame_dir.mkdir()
+            frame = frame_dir / "frame_0001.png"
+            frame.write_bytes(pointer)
+            self.assertTrue(pm._is_lfs_pointer_file(frame))
+            self.assertTrue(pm._path_needs_lfs_checkout(frame_dir))
+
+            real_png = b"\x89PNG\r\n\x1a\n" + b"\x00" * 40
+
+            def fake_checkout(paths, *, repo_root=None):
+                for path in paths:
+                    target = path if path.is_file() else path / "frame_0001.png"
+                    target.write_bytes(real_png)
+                return True
+
+            old = pm._git_lfs_checkout
+            pm._git_lfs_checkout = fake_checkout  # type: ignore[assignment]
+            try:
+                checked = pm.ensure_git_lfs_artifacts([frame_dir], repo_root=root)
+                self.assertEqual(checked, ["frames"])
+                self.assertTrue(pm._png_header_ok(frame))
+            finally:
+                pm._git_lfs_checkout = old
+
 
 if __name__ == "__main__":
     unittest.main()

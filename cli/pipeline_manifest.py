@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import subprocess
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
@@ -1313,6 +1314,127 @@ def _artifact_exists(repo_root: Path, cli_rel: str) -> bool:
 
 
 _PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
+_LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
+
+
+def _is_lfs_pointer_file(path: Path) -> bool:
+    """True when path is a Git LFS pointer text file (not the real blob)."""
+    try:
+        if not path.is_file():
+            return False
+        # Pointers are tiny (~100–200 bytes); skip reading large real media.
+        if path.stat().st_size > 1024:
+            return False
+        with path.open("rb") as fh:
+            return fh.read(len(_LFS_POINTER_PREFIX)) == _LFS_POINTER_PREFIX
+    except OSError:
+        return False
+
+
+def _path_needs_lfs_checkout(path: Path) -> bool:
+    if path.is_file():
+        return _is_lfs_pointer_file(path)
+    if not path.is_dir():
+        return False
+    samples = sorted(path.glob("frame_*.png"))[:3]
+    if not samples:
+        samples = [p for p in sorted(path.iterdir())[:8] if p.is_file()]
+    return any(_is_lfs_pointer_file(p) for p in samples)
+
+
+def _git_toplevel_for(path: Path) -> Path | None:
+    """Nearest git work tree that contains path (supports nested project repos)."""
+    cur = path.resolve()
+    if cur.is_file():
+        cur = cur.parent
+    for candidate in [cur, *cur.parents]:
+        git_meta = candidate / ".git"
+        if git_meta.exists():
+            return candidate
+    return None
+
+
+def _git_lfs_checkout(paths: list[Path], *, repo_root: Path | None = None) -> bool:
+    """Materialize LFS blobs for paths. Returns True if git-lfs was invoked."""
+    if not paths:
+        return False
+    # Group by owning git repo — fishing-2d is a nested repo with its own LFS store.
+    by_root: dict[Path, list[Path]] = {}
+    for path in paths:
+        root = _git_toplevel_for(path)
+        if root is None and repo_root is not None:
+            root = repo_root.resolve()
+        if root is None:
+            continue
+        by_root.setdefault(root, []).append(path.resolve())
+
+    invoked = False
+    for root, group in by_root.items():
+        if not (root / ".git").exists():
+            continue
+        rel_args: list[str] = []
+        for path in group:
+            try:
+                rel_args.append(str(path.relative_to(root)))
+            except ValueError:
+                rel_args.append(str(path))
+        try:
+            subprocess.run(
+                ["git", "lfs", "checkout", "--", *rel_args],
+                cwd=str(root),
+                capture_output=True,
+                text=True,
+                timeout=180,
+                check=False,
+            )
+            invoked = True
+        except (FileNotFoundError, OSError, subprocess.TimeoutExpired):
+            continue
+    return invoked
+
+
+def ensure_git_lfs_artifacts(
+    paths: list[Path],
+    *,
+    repo_root: Path | None = None,
+) -> list[str]:
+    """Checkout any LFS pointer paths before readiness / missing-artifact checks.
+
+    Prevents false pending resets after ``git lfs migrate`` / clone without smudge.
+    Returns paths that were targeted for checkout (repo-relative when possible).
+    """
+    _ = repo_root
+    need = [p for p in paths if _path_needs_lfs_checkout(p)]
+    if not need:
+        return []
+    _git_lfs_checkout(need, repo_root=repo_root)
+    out: list[str] = []
+    for path in need:
+        top = _git_toplevel_for(path)
+        if top is not None:
+            try:
+                out.append(str(path.resolve().relative_to(top)))
+                continue
+            except ValueError:
+                pass
+        out.append(str(path))
+    return out
+
+
+def _manifest_primary_artifact_paths(manifest: dict[str, Any]) -> list[Path]:
+    paths: list[Path] = []
+    seen: set[str] = set()
+    for task in tasks_list(manifest):
+        rel = _primary_artifact_rel(task)
+        if not rel:
+            continue
+        path = (_CLI_DIR / rel).resolve()
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        paths.append(path)
+    return paths
 
 
 def _png_header_ok(path: Path) -> bool:
@@ -1342,6 +1464,8 @@ def _frames_dir_ready(task: dict[str, Any], cli_rel: str) -> bool:
     path = (_CLI_DIR / cli_rel).resolve()
     if not path.is_dir():
         return False
+    if _path_needs_lfs_checkout(path):
+        ensure_git_lfs_artifacts([path])
     frames = sorted(path.glob("frame_*.png"))
     if not frames:
         return False
@@ -1800,6 +1924,9 @@ def invalidate_missing_artifacts(manifest: dict[str, Any]) -> list[str]:
     Supports the workflow where producers delete unsatisfactory outputs and expect
     the next status/reconcile/run pass to regenerate them.
     """
+    # LFS pointers look like tiny text files — materialize before PNG/existence checks.
+    ensure_git_lfs_artifacts(_manifest_primary_artifact_paths(manifest))
+
     missing_roots: list[str] = []
     for task in tasks_list(manifest):
         if task.get("status") not in (TASK_DONE, TASK_SKIPPED):
@@ -1844,6 +1971,10 @@ def reconcile_manifest(manifest: dict[str, Any], *, repo_root: Path | None = Non
     Returns counts including stale invalidation from changed spec/description/sizing.
     """
     _ = repo_root
+    ensure_git_lfs_artifacts(
+        _manifest_primary_artifact_paths(manifest),
+        repo_root=repo_root or _REPO_ROOT,
+    )
     stale_ids = invalidate_stale_generation_inputs(manifest)
     purged_obsolete = purge_obsolete_generation_artifacts(manifest)
     mismatched_ids = invalidate_mismatched_craft_plans(manifest)

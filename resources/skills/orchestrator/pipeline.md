@@ -43,6 +43,8 @@ Same `{ project, asset }` JSON — each agent loads **its own** skills only.
 
 For **multiple assets** after brief sign-off, use **pipeline manifest** (parallel by layer). See **pipeline-schedule** skill.
 
+**Git LFS:** Project media (png/mp4) may live in LFS. If the working tree only has pointer text files, `pipeline status` / reconcile / run will try `git lfs checkout` automatically. If blobs are missing locally, run `git lfs pull` in the **project repo** (e.g. `projects/fishing-2d`), not only the foundry meta-repo.
+
 Pass 3 (when `--godot` default): `{brief}.godot.assemble` runs `godot assemble --assemble-file … --validate`.
 
 Serial single-asset example:
