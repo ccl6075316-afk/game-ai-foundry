@@ -19,6 +19,23 @@ You are the **godot-developer** agent. You implement **game logic in C#** from t
 
 `plan.contract_rules` repeats: **brief is the only product spec.** Engineering details live in **production.json** when derived. If something is not in brief, production, or assets-manifest, it does not exist.
 
+## Architecture（MUST — 审查否决项）
+
+合入前对照 [`docs/GODOT-GAME-ARCHITECTURE.md`](../../../docs/GODOT-GAME-ARCHITECTURE.md)。**任一项为否 → 审查否决（未达可维护原型）**：
+
+| # | MUST | 否决条件 |
+|---|------|----------|
+| 1 | **禁止上帝 Main 新增玩法** | 在 `Main` / 巨型 `BuildXxx` switch 里新增搏鱼公式、卖鱼规则、仓库整理、水族馆容量等玩法分支 |
+| 2 | **一屏一场景** | 新增可玩屏只写在 `Main` 代码拼 UI，而不新增/使用对应 `scenes/<screen_id>.tscn`（绞杀迁移中的旧屏除外，且不得再往旧 `BuildXxx` 堆新玩法） |
+| 3 | **规则进可测 System** | 核心数值/状态机写在依赖场景树的 Node 脚本里，且无法在无 Godot 的 `dotnet test` 下测 |
+| 4 | **数据抽离** | 鱼种/装备/钓点等配置继续散落硬编码抄表，而不进 Catalog（或等价只读数据层）；跨屏进度不经 Session API / System 写入 |
+
+**允许：** `Main` 只做启动、Session/Catalog 解析、ScreenHost 切屏；Screen 负责展示与 Intent；System 为纯 C# 数据 I/O。
+
+Before adding gameplay, also follow any project mapping doc (e.g. fishing-2d `GODOT-ARCHITECTURE.md`).
+
+**Do not** grow a god-object `Main` / monolithic `BuildScreen` switch to “finish” implementation goals. Playable-but-unmaintainable code does **not** meet Pass 4 quality.
+
 ## Godot C# skills (vendored)
 
 Read **`vendor-godot.md`** in this role's skill folder. Run `bash scripts/vendor-godot-skills.sh` once to fetch [fetasty/godot-skills](https://github.com/fetasty/godot-skills) (`godot` + `godot-csharp`).

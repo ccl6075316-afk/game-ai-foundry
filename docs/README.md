@@ -30,6 +30,8 @@
 | [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI 用户 | 设置全页、Provider、生图双档 |
 | [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host | 设计 vs 施工 |
 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | 维护者 | production / 验收 / 进度 |
+| [`GODOT-GAME-ARCHITECTURE.md`](GODOT-GAME-ARCHITECTURE.md) | godot-developer / 程序员 | Godot 可维护原型：Main / 分场景 / System / 数据 |
+| [`../projects/fishing-2d/GODOT-ARCHITECTURE.md`](../projects/fishing-2d/GODOT-ARCHITECTURE.md) | fishing 维护者 | 全局架构 → fishing 现状与目标映射 |
 | [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex | skill / terminal |
 | [`archive/`](archive/) | 考古 | 旧 Release 摘要；过程稿仅保留近 15 天 |
 | [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | 里程碑进度 |
@@ -43,6 +45,7 @@
 新人 30 秒        → 仓库 README
 要跑通一条线       → AI-HANDOFF §5–§6
 要架构 / Host      → ARCHITECTURE-REFACTOR-HANDOFF + LAYER-INVENTORY
+要 Godot 代码怎么拆 → GODOT-GAME-ARCHITECTURE（fishing 见 projects/fishing-2d/GODOT-ARCHITECTURE）
 要实施总清单       → anvil/plans/2026-08-23-conversation-handoff-plan
 要配 GUI / 工具    → GUI-CONFIG · TOOLS
 要理解同事分工     → AGENT-ROUTING · HOST-CHAT-PRODUCT

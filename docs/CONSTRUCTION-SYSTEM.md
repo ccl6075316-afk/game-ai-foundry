@@ -51,12 +51,13 @@ Foundry 不照搬某家的 Markdown 协议，而是走 **JSON + CLI** 路线，�
 - 无论 Hermes / Codex / Cursor，共用 **`resources/skills/godot-developer/`** 源
 - skill 分两层：
   - **契约**（读什么、不读什么、validate 门禁）— 今天 `implement.md` 已有
-  - **规范**（C# / Godot 4 .NET 惯用写法、genre 模板、常见坑）— **待补**
+  - **规范**（C# / Godot 4 .NET 惯用写法、genre 模板、常见坑）— vendored godot-csharp；**可维护原型架构** → [`GODOT-GAME-ARCHITECTURE.md`](GODOT-GAME-ARCHITECTURE.md)
 
 **分工**
 
 - `production.json` = 这个项目要建什么
 - godot-developer skills = 在 Godot C# 里通常怎么建
+- **架构纪律** = `GODOT-GAME-ARCHITECTURE.md`（Main 仅入口、一屏一场景、System 可单测、Catalog/Session 抽离）
 
 ### 2.3 完整验收流程
 
