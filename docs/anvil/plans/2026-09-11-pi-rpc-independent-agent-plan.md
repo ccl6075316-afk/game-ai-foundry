@@ -2,17 +2,24 @@
 
 ## 执行元数据
 
-- **Status**：active
+- **Status**：executed
 - **Workflow Stage**：code
 - **Created**：2026-09-11
 - **Updated**：2026-09-11
-- **Source Of Truth Until**：本 plan 被 `/anvil:code` 执行完毕并标 `executed`，或被更新 plan `superseded` / 用户 `abandoned`
+- **Source Of Truth Until**：已被更新 plan `superseded` 或用户 `abandoned`；本轮实现以 git `f3c5c64` 为收口
 - **Requirements Source**：[`docs/anvil/brainstorms/2026-09-11-pi-rpc-independent-agent.md`](../brainstorms/2026-09-11-pi-rpc-independent-agent.md)（Status: confirmed；决策 A/X/P/S1/R2/B1/C1/T1）
 - **Compounded Knowledge**：`docs/solutions/patterns/critical-patterns.md`（JSON-RPC 入站先分流）；`docs/solutions` 无 Pi 专用历史条目
-- **Readiness**：每任务成功标准含命令/断言；总验收见「通过条件」
-- **Resume Point**：`/anvil:code`；T1–T5 done（T5=`633da40`）；**T6 in progress** → T7
-- **Code Status**：T1–T5 done；T6 in progress；T7 pending
-- **Accepted Baseline T5**：`633da40` — skills/docs Pi RPC + B1/S1
+- **Readiness**：自动化证据见下；手工带 Key 的多轮 live 列为可选验收
+- **Resume Point**：**Plan 代码阶段完成**。可选 follow-up：`GAMEFACTORY_PI_RPC_LIVE=1` 真机 spawn；`/anvil:review` 全量；GUI 手测 IT/策划多轮
+- **Code Status**：T1–T7 done
+  - T1 `8e88d9c` contract
+  - T2 `e8cf790` session manager
+  - T3 `0efd4fd` IT wiring
+  - T4 `18a8832` brief wiring
+  - T5 `633da40` skills/docs
+  - T6 `f3c5c64` legacy gates
+  - T7：unittest 210 + electron 16 pass / 1 skip；grep 验收通过；live spawn 需 Key（skip）
+- **Accepted Baseline T6**：`f3c5c64` — brief/IT hollow shell behind LEGACY_SHELL
 
 ## 目标与非目标（继承 Spec）
 
