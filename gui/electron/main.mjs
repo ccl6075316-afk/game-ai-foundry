@@ -470,6 +470,47 @@ function buildPiRpcAuthEnv(config, instanceId) {
   return { env: { [envKey]: apiKey } };
 }
 
+const BRIEF_PI_RPC_SYSTEM =
+  "你是 Game AI Foundry 的策划同事，帮助用户构思游戏 brief。" +
+  "请尽量按既有 skill 要求输出 JSON 对象（含 assistant_message、choices、draft_brief 等字段），以便侧栏 draft 更新。" +
+  "权威 brief 导出仍须经产品闸门，勿直接覆盖权威 brief 文件。";
+
+/**
+ * Mirrors cli `resolve_brief_executor`: env → agents.brief.executor → auto (pi when ready).
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {"pi" | "host"}
+ */
+function resolveBriefExecutor(config, instanceId) {
+  const env = String(process.env.GAMEFACTORY_BRIEF_EXECUTOR || "")
+    .trim()
+    .toLowerCase();
+  const piReady = Boolean(resolvePiRuntimeRoot()) && !buildPiRpcAuthEnv(config, instanceId).error;
+
+  if (env === "host") return "host";
+  if (env === "pi") return piReady ? "pi" : "host";
+
+  const brief =
+    config?.agents && typeof config.agents === "object" && config.agents.brief
+      ? config.agents.brief
+      : null;
+  const configured =
+    brief && typeof brief === "object" ? String(brief.executor || "").trim().toLowerCase() : "";
+  if (configured === "host") return "host";
+  if (configured === "pi") return piReady ? "pi" : "host";
+
+  return piReady ? "pi" : "host";
+}
+
+/**
+ * @param {string} message
+ * @returns {string}
+ */
+function buildBriefPiRpcPrompt(message) {
+  const userText = String(message || "").trim();
+  return `${BRIEF_PI_RPC_SYSTEM}\n\n用户：${userText}`;
+}
+
 /**
  * Env for embedded Pi RPC child (API key injected per active IT turn).
  * @returns {NodeJS.ProcessEnv}
@@ -2819,6 +2860,88 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId, briefRel) => {
+    const config = loadUserConfig().data || {};
+    const instanceKey = String(instanceId || sessionId).trim();
+    abortedChatInstances.delete(instanceKey);
+
+    if (resolveBriefExecutor(config, instanceId) === "pi") {
+      if (!piRpcSessionManager) {
+        const errMsg = "Pi RPC 会话管理器未初始化，请重启 GUI。";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      const auth = buildPiRpcAuthEnv(config, instanceId);
+      if (auth.error || !auth.env || Object.keys(auth.env).length === 0) {
+        const errMsg = auth.error || "Pi RPC 缺少 API Key";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      piRpcActiveAuthEnv = auth.env;
+      try {
+        const out = await piRpcSessionManager.prompt({
+          instanceId: instanceKey,
+          sessionId: String(sessionId || "").trim(),
+          text: buildBriefPiRpcPrompt(message),
+        });
+
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+
+        const args = [
+          "brief",
+          "chat",
+          "turn",
+          "--session-id",
+          String(sessionId || "").trim(),
+          "--message",
+          String(message),
+          "--assistant-raw",
+          out.text,
+          "--json",
+        ];
+        if (instanceId) {
+          args.push("--instance-id", String(instanceId));
+        }
+        if (briefRel && String(briefRel).trim()) {
+          args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
+        }
+
+        const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
+        const data = parseJsonFromOutput(result.stdout) || {};
+        if (data && typeof data === "object") {
+          data.pi_session_path = out.piSessionPath || null;
+          if (!data.llm_backend) {
+            data.llm_backend = "pi";
+          }
+        }
+        return withAbortMeta({ ...result, data }, instanceId);
+      } catch (err) {
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+        const errMsg = err instanceof Error ? err.message : "Pi RPC 策划回合失败";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      } finally {
+        piRpcActiveAuthEnv = null;
+      }
+    }
+
     const args = [
       "brief",
       "chat",
@@ -2835,7 +2958,6 @@ app.whenReady().then(() => {
     if (briefRel && String(briefRel).trim()) {
       args.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
     }
-    abortedChatInstances.delete(String(instanceId || "").trim());
     const result = await runCli(args, { jobKey: chatJobKey(instanceId) });
     return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });

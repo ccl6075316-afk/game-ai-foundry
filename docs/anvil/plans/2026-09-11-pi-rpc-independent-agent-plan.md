@@ -10,10 +10,9 @@
 - **Requirements Source**：[`docs/anvil/brainstorms/2026-09-11-pi-rpc-independent-agent.md`](../brainstorms/2026-09-11-pi-rpc-independent-agent.md)（Status: confirmed；决策 A/X/P/S1/R2/B1/C1/T1）
 - **Compounded Knowledge**：`docs/solutions/patterns/critical-patterns.md`（JSON-RPC 入站先分流）；`docs/solutions` 无 Pi 专用历史条目
 - **Readiness**：每任务成功标准含命令/断言；总验收见「通过条件」
-- **Resume Point**：`/anvil:code` All-tasks；T1–T2 done（T2=`e8cf790`）；**T3→T4 串行**（共享 `main.mjs`，并行写集冲突 → serial fallback）
-- **Code Status**：T1–T2 done；T3 in progress；T4–T7 pending
-- **Accepted Baseline T1**：`8e88d9c` — contract docs/tests
-- **Accepted Baseline T2**：`e8cf790` — `pi_rpc_session.mjs` + tests；16 pass / 1 skip
+- **Resume Point**：`/anvil:code`；T1–T3 done（T3=`0efd4fd`）；**T4 in progress**（serial after T3）
+- **Code Status**：T1–T3 done；T4 in progress；T5–T7 pending
+- **Accepted Baseline T3**：`0efd4fd` — IT agent-turn → PiRpcSessionManager；CLI IT 需 LEGACY_SHELL
 
 ## 目标与非目标（继承 Spec）
 

@@ -192,6 +192,11 @@ def register_brief_commands(cli_group: click.Group) -> None:
         help="GUI colleague instance id (per-instance Provider/model for Pi).",
     )
     @click.option("--brief-rel", default=None)
+    @click.option(
+        "--assistant-raw",
+        default=None,
+        help="Precomputed assistant text (GUI Pi RPC); skips LLM and parses draft/export gates.",
+    )
     @click.pass_context
     def chat_turn_cmd(
         ctx: click.Context,
@@ -201,6 +206,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
         as_json: bool,
         instance_id: str | None,
         brief_rel: str | None,
+        assistant_raw: str | None,
     ) -> None:
         """Send one user message in host-chat."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
@@ -213,6 +219,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 user_message=message,
                 config=config,
                 instance_id=instance_id,
+                assistant_raw=assistant_raw,
             )
             host_save_session(path, session)
         except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:

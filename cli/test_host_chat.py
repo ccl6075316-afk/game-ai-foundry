@@ -3831,7 +3831,7 @@ class HostChatTests(unittest.TestCase):
                     "usage_description": "walk",
                     "description": "Walk",
                     "display_size": "64x64 px",
-                    "generate_method": "image",
+                    "generate_method": "video",
                     "reference_asset": "hero",
                     "action": "walking",
                     "animation_method": "video",
@@ -3849,7 +3849,10 @@ class HostChatTests(unittest.TestCase):
             ],
         }
         config = {"host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"}}
-        with patch("host_chat.chat_text_completion") as mock_llm:
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "host"}),
+            patch("host_chat.chat_text_completion") as mock_llm,
+        ):
             result = run_autofix(session, config=config, max_rounds=3)
         mock_llm.assert_not_called()
         self.assertTrue(result["ok"])
@@ -4399,10 +4402,10 @@ class BriefExecutorRoutingTest(unittest.TestCase):
                     "host",
                 )
 
-    def test_call_llm_uses_pi_when_forced(self) -> None:
+    def test_assistant_raw_skips_llm_and_marks_pi_backend(self) -> None:
         session = new_session("pi-route")
         payload = {
-            "assistant_message": "来自 Pi",
+            "assistant_message": "来自 Pi RPC",
             "choices": ["A"],
             "mode": "chat",
             "intent_hint": "none",
@@ -4415,21 +4418,21 @@ class BriefExecutorRoutingTest(unittest.TestCase):
         with (
             patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "pi"}),
             patch("pi_runtime.pi_status", return_value={"ready": True}),
-            patch(
-                "pi_runtime.run_pi_brief_turn_with_tools",
-                return_value=json.dumps(payload),
-            ) as mock_pi,
             patch("host_chat.chat_text_completion") as mock_host,
+            patch("pi_runtime.run_pi_brief_turn_with_tools") as mock_pi,
         ):
-            result = run_turn(session, user_message="你好", config=config)
-        mock_pi.assert_called_once()
+            result = run_turn(
+                session,
+                user_message="你好",
+                config=config,
+                assistant_raw=json.dumps(payload),
+            )
+        mock_pi.assert_not_called()
         mock_host.assert_not_called()
-        self.assertEqual(result["assistant_message"], "来自 Pi")
+        self.assertEqual(result["assistant_message"], "来自 Pi RPC")
         self.assertEqual(session.get("_brief_llm_backend"), "pi")
 
-    def test_pi_failure_falls_back_to_host_once(self) -> None:
-        from pi_runtime import PiRuntimeError
-
+    def test_pi_executor_without_assistant_raw_falls_back_to_host(self) -> None:
         session = new_session("pi-fail")
         host_payload = {
             "assistant_message": "来自 Host",
@@ -4445,21 +4448,17 @@ class BriefExecutorRoutingTest(unittest.TestCase):
         with (
             patch.dict(os.environ, {"GAMEFACTORY_BRIEF_EXECUTOR": "pi"}),
             patch("pi_runtime.pi_status", return_value={"ready": True}),
-            patch(
-                "pi_runtime.run_pi_brief_turn_with_tools",
-                side_effect=PiRuntimeError("boom"),
-            ) as mock_pi,
+            patch("pi_runtime.run_pi_brief_turn_with_tools") as mock_pi,
             patch(
                 "host_chat.chat_text_completion",
                 return_value=json.dumps(host_payload),
             ) as mock_host,
         ):
             result = run_turn(session, user_message="你好", config=config)
-        mock_pi.assert_called_once()
+        mock_pi.assert_not_called()
         mock_host.assert_called_once()
         self.assertEqual(result["assistant_message"], "来自 Host")
         self.assertEqual(session.get("_brief_llm_backend"), "host")
-        self.assertIn("boom", session.get("_brief_llm_pi_error") or "")
 
 
 class PersistCasAndExportSyncTests(unittest.TestCase):

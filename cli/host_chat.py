@@ -4025,47 +4025,24 @@ def _call_llm(
     config: dict[str, Any],
     *,
     instance_id: str | None = None,
+    assistant_raw: str | None = None,
 ) -> dict[str, Any]:
     system = _system_prompt(mode)
     user_text = json.dumps(_build_user_payload(session, mode), ensure_ascii=False, indent=2)
 
-    raw: str | None = None
+    raw: str | None = assistant_raw
     backend = "host"
-    try:
-        from pi_runtime import (
-            PiRuntimeError,
-            resolve_brief_executor,
-            run_pi_brief_turn_with_tools,
-        )
+    if raw is not None:
+        try:
+            from pi_runtime import resolve_brief_executor
 
-        if resolve_brief_executor(config) == "pi":
-            allow_export = mode == "commit_brief" and _compute_ready_to_export(session)
-            try:
-                sid = str(session.get("id") or "brief")
-                # Persist mid-turn so export/status tools can read the session file.
-                try:
-                    save_session(session_path_for_id(sid), session)
-                except (HostChatError, OSError):
-                    pass
-                raw = run_pi_brief_turn_with_tools(
-                    system_prompt=system,
-                    user_text=user_text,
-                    session_id=sid,
-                    config=config,
-                    allow_export=allow_export,
-                    timeout_sec=240.0,
-                    instance_id=instance_id,
-                )
+            if resolve_brief_executor(config) == "pi":
                 backend = "pi"
                 session.pop("_brief_llm_pi_error", None)
-            except PiRuntimeError as exc:
-                # One Pi attempt only — fall back to Host (avoid double paid calls).
-                session["_brief_llm_pi_error"] = str(exc)[:500]
-                raw = None
-                backend = "host"
-    except ImportError:
-        raw = None
-        backend = "host"
+        except ImportError:
+            pass
+    else:
+        session.pop("_brief_llm_pi_error", None)
 
     if raw is None:
         api = resolve_host_api_settings(config)
@@ -4530,6 +4507,7 @@ def run_turn(
     user_message: str | None,
     config: dict[str, Any],
     instance_id: str | None = None,
+    assistant_raw: str | None = None,
     repo_root: Path | None = None,
     workspace: Path | None = None,
 ) -> dict[str, Any]:
@@ -4548,18 +4526,19 @@ def run_turn(
     maybe_compress_session(session, config)
 
     mode = resolve_mode(session, user_message)
+    llm_kwargs = {"instance_id": instance_id, "assistant_raw": assistant_raw}
     if mode == "commit_brief":
-        parsed = _call_llm(session, "commit_brief", config, instance_id=instance_id)
+        parsed = _call_llm(session, "commit_brief", config, **llm_kwargs)
         return _finish_commit_with_recovery(
             session, parsed, "commit_brief", config, instance_id=instance_id
         )
     if mode == "commit_doc":
-        parsed = _call_llm(session, "commit_doc", config, instance_id=instance_id)
+        parsed = _call_llm(session, "commit_doc", config, **llm_kwargs)
         return _finish_commit_with_recovery(
             session, parsed, "commit_doc", config, instance_id=instance_id
         )
 
-    parsed = _call_llm(session, "chat", config, instance_id=instance_id)
+    parsed = _call_llm(session, "chat", config, **llm_kwargs)
     intent = str(parsed.get("intent_hint") or "none").strip()
     if intent in ("commit_brief", "commit_doc"):
         ack = str(parsed.get("assistant_message", "")).strip()
@@ -4579,7 +4558,7 @@ def run_turn(
         session["pending_mode"] = intent
         session["intent_hint"] = intent
         follow = "commit_brief" if intent == "commit_brief" else "commit_doc"
-        parsed = _call_llm(session, follow, config, instance_id=instance_id)
+        parsed = _call_llm(session, follow, config, **llm_kwargs)
         return _finish_commit_with_recovery(
             session, parsed, follow, config, instance_id=instance_id
         )
