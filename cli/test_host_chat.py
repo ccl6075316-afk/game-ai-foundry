@@ -4432,6 +4432,34 @@ class BriefExecutorRoutingTest(unittest.TestCase):
         self.assertEqual(result["assistant_message"], "来自 Pi RPC")
         self.assertEqual(session.get("_brief_llm_backend"), "pi")
 
+    def test_build_turn_llm_prompt_includes_draft_payload(self) -> None:
+        from host_chat import build_turn_llm_prompt
+
+        session = new_session("prep-prompt")
+        session["draft_brief"] = {
+            "project": {"title": "钓鱼日记", "genre": "休闲"},
+            "assets": [{"name": "渔夫", "type": "character"}],
+        }
+        session["messages"] = [
+            {"role": "user", "content": "想做钓鱼"},
+            {"role": "assistant", "content": "好的，继续细化。"},
+        ]
+        config = {
+            "host": {"api_key": "k", "api_base": "https://example/v1", "model": "m"},
+        }
+        bundle = build_turn_llm_prompt(
+            session,
+            user_message="加一个淡水场景",
+            config=config,
+        )
+        self.assertEqual(bundle["mode"], "chat")
+        self.assertIn("钓鱼日记", bundle["user"])
+        self.assertIn("current_draft_brief", bundle["user"])
+        self.assertIn("加一个淡水场景", bundle["user"])
+        self.assertIn(bundle["system"], bundle["prompt_text"])
+        # Original session not mutated with the new user turn
+        self.assertEqual(len(session["messages"]), 2)
+
     def test_pi_executor_without_assistant_raw_falls_back_to_host(self) -> None:
         session = new_session("pi-fail")
         host_payload = {

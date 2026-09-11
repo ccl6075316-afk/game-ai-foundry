@@ -120,11 +120,13 @@ import {
   startNewSession,
   updateActiveMessages,
   updateSessionMessages,
+  updateSessionPiPath,
   hireColleague,
   renameColleague,
   removeColleague,
   type ChatSessionStore,
 } from "./chat/sessions";
+import { mapPiMessagesToChat } from "./chat/piSessionSync";
 import { buildItGuiOpsContext } from "./chat/itOpsContext";
 import { buildPmGuiOpsContext } from "./chat/pmOpsContext";
 import {
@@ -399,6 +401,68 @@ export default function App() {
       return next;
     });
   }, []);
+
+  const syncedPiKeyRef = useRef<string | null>(null);
+
+  // C1: when a Foundry chat session remembers a Pi session file, reload history from Pi.
+  useEffect(() => {
+    const path = String(activeSession.piSessionPath || "").trim();
+    if (!path || !window.gameFactory?.piRpcListMessages) return;
+    const key = `${activeSession.instanceId}:${activeSession.id}:${path}`;
+    if (syncedPiKeyRef.current === key) return;
+
+    const colleague = getActiveColleague(chatStore);
+    const executor = String(colleague.executor || "").toLowerCase();
+    const wantsPi =
+      (colleague.roleKind === "it" && (executor === "pi" || !executor)) ||
+      colleague.roleKind === "brief";
+    if (!wantsPi) return;
+
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await window.gameFactory.piRpcListMessages!({
+          instanceId: activeSession.instanceId,
+          piSessionPath: path,
+        });
+        if (cancelled || !res.ok) return;
+        const mapped = mapPiMessagesToChat(res.messages || []);
+        if (!mapped.length) {
+          syncedPiKeyRef.current = key;
+          return;
+        }
+        const storeSnap = loadSessionStore();
+        const sess = storeSnap.sessions.find(
+          (s) => s.id === activeSession.id && s.instanceId === activeSession.instanceId,
+        );
+        const hasConv = (sess?.messages || []).some(
+          (m) => m.role === "user" || m.role === "assistant",
+        );
+        // Brief keeps host-chat structured bubbles when already populated; IT always trusts Pi.
+        if (colleague.roleKind === "brief" && hasConv) {
+          syncedPiKeyRef.current = key;
+          return;
+        }
+        patchChatStore((prev) =>
+          updateSessionMessages(prev, activeSession.instanceId, activeSession.id, () => mapped),
+        );
+        syncedPiKeyRef.current = key;
+      } catch {
+        /* best-effort sync */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    activeSession.id,
+    activeSession.instanceId,
+    activeSession.piSessionPath,
+    activeColleague.roleKind,
+    activeColleague.executor,
+    chatStore,
+    patchChatStore,
+  ]);
 
   const refreshVisualTarget = useCallback(async (briefRel?: string | null) => {
     const rel = (briefRel || activeBriefRel || "").replace(/\\/g, "/");
@@ -779,6 +843,7 @@ export default function App() {
         llm_backend?: string | null;
         llm_pi_error?: string | null;
         bound_brief_rel?: string | null;
+        pi_session_path?: string | null;
       },
       target?: { instanceId: string; sessionId: string },
     ) => {
@@ -796,12 +861,17 @@ export default function App() {
       }
       appendAssistant(content, data.choices, undefined, target);
       applyDraftFromPayload(data);
+      if (target && data.pi_session_path) {
+        patchChatStore((prev) =>
+          updateSessionPiPath(prev, target.instanceId, target.sessionId, data.pi_session_path),
+        );
+      }
       const bound = String(data.bound_brief_rel || "").replace(/\\/g, "/");
       if (bound && (!activeBriefRel || !sameProjectRoot(bound, activeBriefRel))) {
         setBrief(bound);
       }
     },
-    [appendAssistant, applyDraftFromPayload, activeBriefRel, setBrief],
+    [appendAssistant, applyDraftFromPayload, activeBriefRel, setBrief, patchChatStore],
   );
 
   const refreshBrainstormStatus = useCallback(async () => {
@@ -1451,11 +1521,17 @@ export default function App() {
     setBrainstormChoices([]);
     const turnMessage = wrapVtRestyleUserMessage(vtRestyleFocusRef.current, message);
     try {
+      const storeSnap = loadSessionStore();
+      const piPath =
+        storeSnap.sessions.find(
+          (s) => s.id === sessionTarget.sessionId && s.instanceId === sessionTarget.instanceId,
+        )?.piSessionPath || null;
       let res = await window.gameFactory.hostChatTurn(
         sessionTarget.sessionId,
         turnMessage,
         sessionTarget.instanceId,
         activeBriefRel,
+        piPath,
       );
       if (res.exitCode !== 0 && /Session not found/i.test(res.stderr || res.stdout || "")) {
         res = await window.gameFactory.hostChatStart(
@@ -2417,6 +2493,10 @@ export default function App() {
               )
             : undefined,
         piSessionTrust,
+        piSessionPath:
+          loadSessionStore().sessions.find(
+            (s) => s.id === target.sessionId && s.instanceId === target.instanceId,
+          )?.piSessionPath || null,
         opsContext: opsContext || undefined,
       });
       const data = res.data;
@@ -2431,6 +2511,11 @@ export default function App() {
           res.stdout ||
           `agent turn failed (exit ${res.exitCode})`;
         throw new Error(err);
+      }
+      if (data?.pi_session_path) {
+        patchChatStore((prev) =>
+          updateSessionPiPath(prev, target.instanceId, target.sessionId, data.pi_session_path),
+        );
       }
       const rawReply = (data?.assistant_message || "").trim();
       if (!rawReply) {

@@ -118,6 +118,9 @@ export interface HostChatResult {
   message_count?: number;
   mode?: string;
   intent_hint?: string;
+  /** Pi RPC session file path when brief executor is pi. */
+  pi_session_path?: string | null;
+  llm_backend?: string | null;
 }
 
 export interface HostChatStatus {

@@ -67,8 +67,9 @@ contextBridge.exposeInMainWorld("gameFactory", {
   listOutputMedia: (dirRel, limit) => ipcRenderer.invoke("list-output-media", dirRel, limit),
   hostChatStart: (sessionId, seed, instanceId, briefRel) =>
     ipcRenderer.invoke("host-chat-start", sessionId, seed, instanceId, briefRel),
-  hostChatTurn: (sessionId, message, instanceId, briefRel) =>
-    ipcRenderer.invoke("host-chat-turn", sessionId, message, instanceId, briefRel),
+  hostChatTurn: (sessionId, message, instanceId, briefRel, piSessionPath) =>
+    ipcRenderer.invoke("host-chat-turn", sessionId, message, instanceId, briefRel, piSessionPath),
+  piRpcListMessages: (opts) => ipcRenderer.invoke("pi-rpc-list-messages", opts),
   hostChatReset: (sessionId, seed, instanceId, briefRel) =>
     ipcRenderer.invoke("host-chat-reset", sessionId, seed, instanceId, briefRel),
   hostChatBind: (sessionId, briefRel) =>

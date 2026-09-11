@@ -4019,6 +4019,42 @@ def _extract_gaps(parsed: dict[str, Any]) -> list[str]:
     return [str(g).strip() for g in raw if str(g).strip()][:20]
 
 
+def build_turn_llm_prompt(
+    session: dict[str, Any],
+    *,
+    user_message: str | None,
+    config: dict[str, Any],
+    repo_root: Path | None = None,
+    workspace: Path | None = None,
+) -> dict[str, Any]:
+    """Build system+user texts matching the first ``_call_llm`` in ``run_turn``.
+
+    Does not mutate ``session``. Used by GUI Pi RPC so the model sees the same
+    draft/focus/history payload as the host LLM path.
+    """
+    work = copy.deepcopy(session)
+    sync_session_draft_from_disk(
+        work, repo_root=repo_root, workspace=workspace
+    )
+    messages: list[dict[str, Any]] = list(work.get("messages") or [])
+    if user_message and user_message.strip():
+        messages.append({"role": "user", "content": user_message.strip()})
+    elif not messages:
+        messages.append({"role": "user", "content": "你好，想先随便聊聊游戏想法。"})
+    work["messages"] = messages
+    maybe_compress_session(work, config)
+    mode = resolve_mode(work, user_message)
+    system = _system_prompt(mode)
+    user_text = json.dumps(_build_user_payload(work, mode), ensure_ascii=False, indent=2)
+    prompt_text = f"{system}\n\n---\n\n{user_text}"
+    return {
+        "mode": mode,
+        "system": system,
+        "user": user_text,
+        "prompt_text": prompt_text,
+    }
+
+
 def _call_llm(
     session: dict[str, Any],
     mode: str,

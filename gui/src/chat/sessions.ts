@@ -26,6 +26,8 @@ export interface ChatSession {
   messages: ChatMessage[];
   createdAt: number;
   updatedAt: number;
+  /** Pi RPC session file path (C1 source of truth for IT/brief Pi chats). */
+  piSessionPath?: string | null;
 }
 
 export interface ChatSessionStore {
@@ -331,6 +333,24 @@ export function updateSessionMessages(
       messages,
       updatedAt: Date.now(),
       title: titleFromUser ? titleFromUser.replace(/\s+/g, " ") : s.title,
+    };
+  });
+  return { ...store, sessions };
+}
+
+export function updateSessionPiPath(
+  store: ChatSessionStore,
+  instanceId: string,
+  sessionId: string,
+  piSessionPath: string | null | undefined,
+): ChatSessionStore {
+  const path = piSessionPath != null ? String(piSessionPath).trim() : "";
+  const sessions = store.sessions.map((s) => {
+    if (s.id !== sessionId || s.instanceId !== instanceId) return s;
+    return {
+      ...s,
+      piSessionPath: path || null,
+      updatedAt: Date.now(),
     };
   });
   return { ...store, sessions };

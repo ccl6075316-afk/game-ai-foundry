@@ -23,6 +23,7 @@ from host_chat import (
     DEFAULT_AUTOFIX_MAX_ROUNDS,
     HostChatError,
     attach_bound_project as host_attach_bound_project,
+    build_turn_llm_prompt as host_build_turn_llm_prompt,
     export_brief as host_export_brief,
     resolve_bound_brief_output_path as host_resolve_bound_brief_output_path,
     list_sessions as host_list_sessions,
@@ -197,6 +198,12 @@ def register_brief_commands(cli_group: click.Group) -> None:
         default=None,
         help="Precomputed assistant text (GUI Pi RPC); skips LLM and parses draft/export gates.",
     )
+    @click.option(
+        "--assistant-raw-file",
+        default=None,
+        type=click.Path(path_type=Path, exists=True),
+        help="Read assistant text from file (preferred over --assistant-raw for large replies).",
+    )
     @click.pass_context
     def chat_turn_cmd(
         ctx: click.Context,
@@ -207,10 +214,18 @@ def register_brief_commands(cli_group: click.Group) -> None:
         instance_id: str | None,
         brief_rel: str | None,
         assistant_raw: str | None,
+        assistant_raw_file: Path | None,
     ) -> None:
         """Send one user message in host-chat."""
         config = ctx.obj.get("config", {}) if ctx.obj else {}
         path = _chat_session_path(session_id, session_path)
+        raw = assistant_raw
+        if assistant_raw_file is not None:
+            try:
+                raw = assistant_raw_file.read_text(encoding="utf-8")
+            except OSError as exc:
+                click.echo(f"Error: cannot read --assistant-raw-file: {exc}", err=True)
+                sys.exit(1)
         try:
             session = host_load_session(path)
             host_attach_bound_project(session, brief_rel)
@@ -219,7 +234,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
                 user_message=message,
                 config=config,
                 instance_id=instance_id,
-                assistant_raw=assistant_raw,
+                assistant_raw=raw,
             )
             host_save_session(path, session)
         except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
@@ -240,6 +255,50 @@ def register_brief_commands(cli_group: click.Group) -> None:
             if result.get("ready_to_export"):
                 click.echo("\n[ready] Brief 可导出 — 使用 brief chat export")
 
+    @chat_group.command("prepare-prompt")
+    @click.option("--message", required=True, help="User message for this turn.")
+    @click.option("--session-id", default=None)
+    @click.option(
+        "-s",
+        "--session",
+        "session_path",
+        default=None,
+        type=click.Path(path_type=Path),
+    )
+    @click.option("--json", "as_json", is_flag=True)
+    @click.option("--brief-rel", default=None)
+    @click.pass_context
+    def chat_prepare_prompt_cmd(
+        ctx: click.Context,
+        message: str,
+        session_id: str | None,
+        session_path: Path | None,
+        as_json: bool,
+        brief_rel: str | None,
+    ) -> None:
+        """Build host-chat LLM prompt texts without calling the model (GUI Pi RPC)."""
+        config = ctx.obj.get("config", {}) if ctx.obj else {}
+        path = _chat_session_path(session_id, session_path)
+        try:
+            session = host_load_session(path)
+            host_attach_bound_project(session, brief_rel)
+            bundle = host_build_turn_llm_prompt(
+                session,
+                user_message=message,
+                config=config,
+            )
+        except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        payload = {
+            "session_id": session.get("id"),
+            "session_path": str(path.resolve()),
+            **bundle,
+        }
+        if as_json:
+            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(bundle["prompt_text"])
 
     @chat_group.command("bind")
     @click.option("--session-id", default=None)

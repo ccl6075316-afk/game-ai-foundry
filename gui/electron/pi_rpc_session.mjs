@@ -98,6 +98,8 @@ export function createPiRpcSessionManager(opts) {
    * @property {string[]} stderrTail
    * @property {boolean} stopped
    * @property {string | null} piSessionPath
+   * @property {Record<string, string> | null} authEnv
+   * @property {string | null} authEnvFp
    * @property {(() => void) | null} settleResolve
    * @property {Promise<void> | null} settledPromise
    * @property {string[] | undefined} textBuffer
@@ -120,6 +122,8 @@ export function createPiRpcSessionManager(opts) {
         stderrTail: [],
         stopped: false,
         piSessionPath: null,
+        authEnv: null,
+        authEnvFp: null,
         settleResolve: null,
         settledPromise: null,
         textBuffer: undefined,
@@ -278,7 +282,10 @@ export function createPiRpcSessionManager(opts) {
         state.proc = spawnFn(process.execPath, [launch.entry, ...launch.args], {
           cwd: launch.cwd,
           stdio: ["pipe", "pipe", "pipe"],
-          env: getSpawnEnv(),
+          env: {
+            ...getSpawnEnv(),
+            ...(state.authEnv || {}),
+          },
           shell: false,
         });
         onLog("pi rpc spawn", {
@@ -376,21 +383,55 @@ export function createPiRpcSessionManager(opts) {
     if (!state.piSessionPath) {
       await sendCommand(state, { type: "new_session" });
       const stateResp = await sendCommand(state, { type: "get_state" });
-      const sessionId =
-        stateResp.data &&
-        typeof stateResp.data === "object" &&
-        /** @type {Record<string, unknown>} */ (stateResp.data).sessionId != null
-          ? String(/** @type {Record<string, unknown>} */ (stateResp.data).sessionId)
+      const data =
+        stateResp.data && typeof stateResp.data === "object"
+          ? /** @type {Record<string, unknown>} */ (stateResp.data)
           : null;
-      state.piSessionPath = sessionId;
+      state.piSessionPath = resolvePiSessionPathFromState(data);
       onLog("pi rpc new_session", {
         instanceId: state.instanceId,
         phase: "handshake",
-        piSessionPath: sessionId,
+        piSessionPath: state.piSessionPath,
+        sessionFile: data?.sessionFile ?? null,
+        sessionId: data?.sessionId ?? null,
       });
     }
 
     return state.piSessionPath;
+  }
+
+  /**
+   * Kill child but keep InstanceState (auth / path) for respawn.
+   * @param {InstanceState} state
+   */
+  function killProcessKeepState(state) {
+    for (const [, pending] of state.pendingRequests) {
+      pending.reject(new Error("Pi RPC 进程重启"));
+    }
+    state.pendingRequests.clear();
+    state.settleResolve = null;
+    state.settledPromise = null;
+    delete state.textBuffer;
+    if (state.proc && !state.proc.killed) {
+      killChildTree(state.proc, { sync: false });
+    }
+    state.proc = null;
+    state.ready = null;
+  }
+
+  /**
+   * @param {InstanceState} state
+   * @param {Record<string, string> | null | undefined} authEnv
+   */
+  function applyAuthEnv(state, authEnv) {
+    if (!authEnv || typeof authEnv !== "object") return;
+    const fp = JSON.stringify(authEnv);
+    if (state.authEnvFp === fp) return;
+    if (state.proc && !state.proc.killed) {
+      killProcessKeepState(state);
+    }
+    state.authEnv = { ...authEnv };
+    state.authEnvFp = fp;
   }
 
   /**
@@ -412,10 +453,12 @@ export function createPiRpcSessionManager(opts) {
    * @param {string} [args.message]
    * @param {string} [args.text]
    * @param {string} [args.piSessionPath]
+   * @param {Record<string, string>} [args.authEnv]
    * @returns {Promise<{ text: string, piSessionPath?: string, stderrTail?: string }>}
    */
   async function prompt(args) {
     const state = getOrCreateInstance(args.instanceId);
+    applyAuthEnv(state, args.authEnv);
     /** @type {string[]} */
     state.textBuffer = [];
     state.settledPromise = new Promise((resolve) => {
@@ -449,6 +492,26 @@ export function createPiRpcSessionManager(opts) {
       text,
       ...(piSessionPath ? { piSessionPath } : {}),
       ...(stderrJoined ? { stderrTail: stderrJoined.slice(-STDERR_TAIL_CHARS) } : {}),
+    };
+  }
+
+  /**
+   * @param {object} args
+   * @param {string} args.instanceId
+   * @param {string} [args.piSessionPath]
+   * @param {Record<string, string>} [args.authEnv]
+   * @returns {Promise<{ messages: unknown[], piSessionPath?: string | null }>}
+   */
+  async function listMessages(args) {
+    const state = getOrCreateInstance(args.instanceId);
+    applyAuthEnv(state, args.authEnv);
+    const piSessionPath = await ensurePiSession(state, {
+      piSessionPath: args.piSessionPath,
+    });
+    const messages = await getMessages(state);
+    return {
+      messages,
+      piSessionPath: piSessionPath || state.piSessionPath,
     };
   }
 
@@ -516,9 +579,29 @@ export function createPiRpcSessionManager(opts) {
 
   return {
     prompt,
+    listMessages,
     abort,
     stop,
     stopAll,
     disposeAll,
   };
+}
+
+/**
+ * Prefer sessionFile for switch_session; fall back to sessionId.
+ * @param {Record<string, unknown> | null | undefined} data
+ * @returns {string | null}
+ */
+export function resolvePiSessionPathFromState(data) {
+  if (!data || typeof data !== "object") return null;
+  const sessionFile =
+    data.sessionFile != null && String(data.sessionFile).trim()
+      ? String(data.sessionFile).trim()
+      : null;
+  if (sessionFile) return sessionFile;
+  const sessionId =
+    data.sessionId != null && String(data.sessionId).trim()
+      ? String(data.sessionId).trim()
+      : null;
+  return sessionId;
 }

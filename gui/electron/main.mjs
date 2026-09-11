@@ -8,6 +8,7 @@ import {
   readFileSync,
   readdirSync,
   statSync,
+  unlinkSync,
   writeFileSync,
 } from "node:fs";
 import os from "node:os";
@@ -66,9 +67,6 @@ let codexAppServerSessionManager = null;
 
 /** @type {ReturnType<typeof createPiRpcSessionManager> | null} */
 let piRpcSessionManager = null;
-
-/** @type {Record<string, string> | null} */
-let piRpcActiveAuthEnv = null;
 
 /** @type {Map<string, NodeJS.Timeout>} */
 const acpPermissionTimers = new Map();
@@ -470,11 +468,6 @@ function buildPiRpcAuthEnv(config, instanceId) {
   return { env: { [envKey]: apiKey } };
 }
 
-const BRIEF_PI_RPC_SYSTEM =
-  "你是 Game AI Foundry 的策划同事，帮助用户构思游戏 brief。" +
-  "请尽量按既有 skill 要求输出 JSON 对象（含 assistant_message、choices、draft_brief 等字段），以便侧栏 draft 更新。" +
-  "权威 brief 导出仍须经产品闸门，勿直接覆盖权威 brief 文件。";
-
 /**
  * Mirrors cli `resolve_brief_executor`: env → agents.brief.executor → auto (pi when ready).
  * @param {Record<string, unknown>} config
@@ -503,16 +496,7 @@ function resolveBriefExecutor(config, instanceId) {
 }
 
 /**
- * @param {string} message
- * @returns {string}
- */
-function buildBriefPiRpcPrompt(message) {
-  const userText = String(message || "").trim();
-  return `${BRIEF_PI_RPC_SYSTEM}\n\n用户：${userText}`;
-}
-
-/**
- * Env for embedded Pi RPC child (API key injected per active IT turn).
+ * Env for embedded Pi RPC child (API keys passed per-instance via SessionManager.authEnv).
  * @returns {NodeJS.ProcessEnv}
  */
 function piRpcChildEnv() {
@@ -525,8 +509,20 @@ function piRpcChildEnv() {
     PI_TELEMETRY: "0",
     PI_OFFLINE: "1",
     CI: "1",
-    ...(piRpcActiveAuthEnv || {}),
   };
+}
+
+/**
+ * Write large assistant raw to a temp file for CLI argv safety (M1).
+ * @param {string} text
+ * @returns {string} abs path
+ */
+function writeAssistantRawTemp(text) {
+  const dir = path.join(os.tmpdir(), "gamefactory-pi-rpc");
+  mkdirSync(dir, { recursive: true });
+  const file = path.join(dir, `assistant-raw-${randomUUID()}.txt`);
+  writeFileSync(file, String(text ?? ""), "utf-8");
+  return file;
 }
 
 function runCli(args, { cwd, onLine, jobKey } = {}) {
@@ -2859,7 +2855,7 @@ app.whenReady().then(() => {
     return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
-  ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId, briefRel) => {
+  ipcMain.handle("host-chat-turn", async (_e, sessionId, message, instanceId, briefRel, piSessionPath) => {
     const config = loadUserConfig().data || {};
     const instanceKey = String(instanceId || sessionId).trim();
     abortedChatInstances.delete(instanceKey);
@@ -2886,18 +2882,60 @@ app.whenReady().then(() => {
         };
       }
 
-      piRpcActiveAuthEnv = auth.env;
+      let rawFile = "";
       try {
+        const prepArgs = [
+          "brief",
+          "chat",
+          "prepare-prompt",
+          "--session-id",
+          String(sessionId || "").trim(),
+          "--message",
+          String(message),
+          "--json",
+        ];
+        if (briefRel && String(briefRel).trim()) {
+          prepArgs.push("--brief-rel", String(briefRel).replace(/\\/g, "/").trim());
+        }
+        const prepResult = await runCli(prepArgs, { jobKey: chatJobKey(instanceId) });
+        if (prepResult.exitCode !== 0) {
+          return withAbortMeta(
+            {
+              ...prepResult,
+              data: parseJsonFromOutput(prepResult.stdout) || {
+                ok: false,
+                error: prepResult.stderr || "prepare-prompt failed",
+              },
+            },
+            instanceId,
+          );
+        }
+        const prepData = parseJsonFromOutput(prepResult.stdout) || {};
+        const promptText = String(prepData.prompt_text || "").trim();
+        if (!promptText) {
+          const errMsg = "prepare-prompt 未返回 prompt_text";
+          return {
+            exitCode: 1,
+            stdout: "",
+            stderr: errMsg,
+            data: { ok: false, error: errMsg },
+          };
+        }
+
+        const piSessionPathOpt = piSessionPath ? String(piSessionPath).trim() : "";
         const out = await piRpcSessionManager.prompt({
           instanceId: instanceKey,
           sessionId: String(sessionId || "").trim(),
-          text: buildBriefPiRpcPrompt(message),
+          text: promptText,
+          authEnv: auth.env,
+          ...(piSessionPathOpt ? { piSessionPath: piSessionPathOpt } : {}),
         });
 
         if (takeChatAbort(instanceKey)) {
           return abortedChatResult();
         }
 
+        rawFile = writeAssistantRawTemp(out.text);
         const args = [
           "brief",
           "chat",
@@ -2906,8 +2944,8 @@ app.whenReady().then(() => {
           String(sessionId || "").trim(),
           "--message",
           String(message),
-          "--assistant-raw",
-          out.text,
+          "--assistant-raw-file",
+          rawFile,
           "--json",
         ];
         if (instanceId) {
@@ -2938,7 +2976,13 @@ app.whenReady().then(() => {
           data: { ok: false, error: errMsg },
         };
       } finally {
-        piRpcActiveAuthEnv = null;
+        if (rawFile) {
+          try {
+            unlinkSync(rawFile);
+          } catch {
+            /* ignore */
+          }
+        }
       }
     }
 
@@ -2962,6 +3006,39 @@ app.whenReady().then(() => {
     return withAbortMeta({ ...result, data: parseJsonFromOutput(result.stdout) }, instanceId);
   });
 
+  ipcMain.handle("pi-rpc-list-messages", async (_e, opts = {}) => {
+    const instanceId = String(opts.instanceId || "").trim();
+    if (!instanceId) {
+      return { ok: false, error: "instanceId required", messages: [] };
+    }
+    if (!piRpcSessionManager) {
+      return { ok: false, error: "Pi RPC 会话管理器未初始化", messages: [] };
+    }
+    const config = loadUserConfig().data || {};
+    const auth = buildPiRpcAuthEnv(config, instanceId);
+    if (auth.error || !auth.env || Object.keys(auth.env).length === 0) {
+      return { ok: false, error: auth.error || "Pi RPC 缺少 API Key", messages: [] };
+    }
+    try {
+      const piSessionPathOpt = opts.piSessionPath ? String(opts.piSessionPath).trim() : "";
+      const out = await piRpcSessionManager.listMessages({
+        instanceId,
+        authEnv: auth.env,
+        ...(piSessionPathOpt ? { piSessionPath: piSessionPathOpt } : {}),
+      });
+      return {
+        ok: true,
+        messages: out.messages,
+        pi_session_path: out.piSessionPath || null,
+      };
+    } catch (err) {
+      return {
+        ok: false,
+        error: err instanceof Error ? err.message : String(err),
+        messages: [],
+      };
+    }
+  });
   ipcMain.handle("host-chat-reset", async (_e, sessionId, seed, instanceId, briefRel) => {
     const args = ["brief", "chat", "reset", "--json", "--session-id", String(sessionId || "").trim()];
     if (seed && String(seed).trim()) {
@@ -3501,7 +3578,6 @@ app.whenReady().then(() => {
         };
       }
 
-      piRpcActiveAuthEnv = auth.env;
       try {
         const promptText = await acpPrompt();
         const piSessionPathOpt = opts.piSessionPath ? String(opts.piSessionPath).trim() : "";
@@ -3509,6 +3585,7 @@ app.whenReady().then(() => {
           instanceId: instanceKey,
           sessionId,
           text: promptText,
+          authEnv: auth.env,
           ...(piSessionPathOpt ? { piSessionPath: piSessionPathOpt } : {}),
         });
 
@@ -3541,8 +3618,6 @@ app.whenReady().then(() => {
           stderr: errMsg,
           data: { ok: false, error: errMsg },
         };
-      } finally {
-        piRpcActiveAuthEnv = null;
       }
     }
 
@@ -3810,7 +3885,6 @@ app.on("before-quit", () => {
   codexAppServerSessionManager = null;
   piRpcSessionManager?.disposeAll({ sync: true });
   piRpcSessionManager = null;
-  piRpcActiveAuthEnv = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;
 });

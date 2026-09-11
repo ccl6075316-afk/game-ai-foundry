@@ -27,7 +27,10 @@
 | `new_session` | `parentSession?` | 新建会话 |
 | `switch_session` | `sessionPath` | 切换会话文件 |
 | `get_messages` | — | 返回 `data.messages` |
-| `get_state` | — | 返回 `data`（`RpcSessionState`） |
+| `get_state` | — | 返回 `data`（`RpcSessionState`：含 `sessionId`、可选 `sessionFile`） |
+
+Foundry 持久化 / `switch_session` 优先用 **`sessionFile`**（文件路径）；仅当缺失时回退 `sessionId`。
+
 | `abort` | — | 中止当前运行 |
 
 完整命令表见 embed 包 `dist/modes/rpc/rpc-types.d.ts`。

@@ -667,7 +667,17 @@ declare global {
         message: string,
         instanceId?: string,
         briefRel?: string | null,
+        piSessionPath?: string | null,
       ) => Promise<CliResult<import("./chat/types").HostChatResult>>;
+      piRpcListMessages: (opts: {
+        instanceId: string;
+        piSessionPath?: string | null;
+      }) => Promise<{
+        ok?: boolean;
+        error?: string;
+        messages?: unknown[];
+        pi_session_path?: string | null;
+      }>;
       hostChatReset: (
         sessionId: string,
         seed?: string,
@@ -849,6 +859,8 @@ declare global {
         timeout?: number;
         /** IT: pre-approve FOUNDRY_TOOL mutates for this session (default true). */
         piSessionTrust?: boolean;
+        /** Persist Pi RPC session file for switch_session (C1). */
+        piSessionPath?: string | null;
         /** Pipeline logs + PM GUI chat tail for IT triage (not stored in user message). */
         opsContext?: string;
       }) => Promise<
@@ -860,6 +872,7 @@ declare global {
           executor?: string;
           session_id?: string;
           message_count?: number;
+          pi_session_path?: string | null;
           dispatch?: {
             applied?: boolean;
             triage?: string;

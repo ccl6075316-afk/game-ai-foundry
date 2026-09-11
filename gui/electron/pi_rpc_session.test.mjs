@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { PassThrough } from "node:stream";
 import test from "node:test";
 
-import { createPiRpcSessionManager, getLastAssistantText } from "./pi_rpc_session.mjs";
+import { createPiRpcSessionManager, getLastAssistantText, resolvePiSessionPathFromState } from "./pi_rpc_session.mjs";
 
 /** @param {PassThrough} stdout @param {Record<string, unknown>} msg */
 function emitLine(stdout, msg) {
@@ -46,6 +46,7 @@ function createMockPiRpcChild(opts = {}) {
           success: true,
           data: {
             sessionId,
+            sessionFile: `/tmp/${sessionId}.jsonl`,
             thinkingLevel: "off",
             isStreaming: false,
             isCompacting: false,
@@ -283,5 +284,78 @@ test("module exports expected API", async () => {
   assert.deepEqual(Object.keys(mod).sort(), [
     "createPiRpcSessionManager",
     "getLastAssistantText",
+    "resolvePiSessionPathFromState",
   ]);
+});
+
+test("resolvePiSessionPathFromState prefers sessionFile", () => {
+  assert.equal(
+    resolvePiSessionPathFromState({
+      sessionId: "sid-1",
+      sessionFile: "/tmp/pi-sess.jsonl",
+    }),
+    "/tmp/pi-sess.jsonl",
+  );
+  assert.equal(resolvePiSessionPathFromState({ sessionId: "sid-only" }), "sid-only");
+  assert.equal(resolvePiSessionPathFromState(null), null);
+});
+
+test("new_session stores sessionFile path", async () => {
+  const manager = createPiRpcSessionManager({
+    getCliLaunch: () => MOCK_LAUNCH,
+    getSpawnEnv: () => ({ ...process.env }),
+    spawnFn: () => createMockPiRpcChild(),
+  });
+  const result = await manager.prompt({
+    instanceId: "inst-file-path",
+    message: "hi",
+  });
+  assert.match(String(result.piSessionPath || ""), /\/tmp\/mock-pi-session.*\.jsonl/);
+  manager.stopAll();
+});
+
+test("authEnv change respawns process", async () => {
+  let spawnCount = 0;
+  /** @type {NodeJS.ProcessEnv[]} */
+  const envs = [];
+  const manager = createPiRpcSessionManager({
+    getCliLaunch: () => MOCK_LAUNCH,
+    getSpawnEnv: () => ({ BASE: "1" }),
+    spawnFn: (_cmd, _args, opts) => {
+      spawnCount += 1;
+      envs.push({ ...(opts?.env || {}) });
+      return createMockPiRpcChild();
+    },
+  });
+
+  await manager.prompt({
+    instanceId: "inst-auth",
+    message: "a",
+    authEnv: { KEY: "one" },
+  });
+  await manager.prompt({
+    instanceId: "inst-auth",
+    message: "b",
+    authEnv: { KEY: "two" },
+  });
+  assert.equal(spawnCount, 2);
+  assert.equal(envs[0]?.KEY, "one");
+  assert.equal(envs[1]?.KEY, "two");
+  manager.stopAll();
+});
+
+test("listMessages returns mapped history", async () => {
+  const manager = createPiRpcSessionManager({
+    getCliLaunch: () => MOCK_LAUNCH,
+    getSpawnEnv: () => ({ ...process.env }),
+    spawnFn: () =>
+      createMockPiRpcChild({
+        fallbackMessages: true,
+        assistantText: "hist",
+      }),
+  });
+  const out = await manager.listMessages({ instanceId: "inst-list" });
+  assert.equal(out.messages.length, 1);
+  assert.ok(out.piSessionPath);
+  manager.stopAll();
 });
