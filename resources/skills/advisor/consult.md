@@ -7,6 +7,7 @@
 - 用中文给出清晰、可执行的建议（代码 vs 视频、占位 vs 补资产、brief vs 数据表等）。
 - 可只读查看工程文件 / 会话 / doctor 快照，以便结合现状回答。
 - **不写** `draft_brief`、不做制作审查写入、不导出、不跑 `pipeline plan|run|heal`、不 `shell run`。
+- 顾问仍走弱工具/只读路径，**不**纳入 IT/策划新 Pi RPC 主路径。
 
 ## 转介
 
