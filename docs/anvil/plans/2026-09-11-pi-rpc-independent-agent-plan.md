@@ -10,9 +10,10 @@
 - **Requirements Source**：[`docs/anvil/brainstorms/2026-09-11-pi-rpc-independent-agent.md`](../brainstorms/2026-09-11-pi-rpc-independent-agent.md)（Status: confirmed；决策 A/X/P/S1/R2/B1/C1/T1）
 - **Compounded Knowledge**：`docs/solutions/patterns/critical-patterns.md`（JSON-RPC 入站先分流）；`docs/solutions` 无 Pi 专用历史条目
 - **Readiness**：每任务成功标准含命令/断言；总验收见「通过条件」
-- **Resume Point**：`/anvil:code` All-tasks；**T1 done**（`8e88d9c`）；当前执行 **T2**
-- **Code Status**：T1 done；T2 in progress；T3–T7 pending
-- **Accepted Baseline T1**：`pi_rpc_protocol.md` / `pi_rpc_paths.mjs` / `pi_rpc_contract.test.mjs`；`node --test pi_rpc_contract.test.mjs` → 8 pass 1 skip
+- **Resume Point**：`/anvil:code` All-tasks；T1–T2 done（T2=`e8cf790`）；**T3→T4 串行**（共享 `main.mjs`，并行写集冲突 → serial fallback）
+- **Code Status**：T1–T2 done；T3 in progress；T4–T7 pending
+- **Accepted Baseline T1**：`8e88d9c` — contract docs/tests
+- **Accepted Baseline T2**：`e8cf790` — `pi_rpc_session.mjs` + tests；16 pass / 1 skip
 
 ## 目标与非目标（继承 Spec）
 

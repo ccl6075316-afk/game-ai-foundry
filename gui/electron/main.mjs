@@ -26,6 +26,8 @@ import { initAutoUpdate, registerAutoUpdateIpc } from "./autoUpdate.mjs";
 import { createToolPermissionBridge } from "./tool_permission_bridge.mjs";
 import { createCursorAcpSessionManager } from "./cursor_acp_session.mjs";
 import { createHermesAcpSessionManager } from "./hermes_acp_session.mjs";
+import { createPiRpcSessionManager } from "./pi_rpc_session.mjs";
+import { resolvePiRpcSpawnLaunch } from "./pi_rpc_paths.mjs";
 import { createCodexAppServerSessionManager } from "./codex_app_server_session.mjs";
 import { killChildTree } from "./process_kill.mjs";
 import {
@@ -61,6 +63,12 @@ let hermesAcpSessionManager = null;
 
 /** @type {ReturnType<typeof createCodexAppServerSessionManager> | null} */
 let codexAppServerSessionManager = null;
+
+/** @type {ReturnType<typeof createPiRpcSessionManager> | null} */
+let piRpcSessionManager = null;
+
+/** @type {Record<string, string> | null} */
+let piRpcActiveAuthEnv = null;
 
 /** @type {Map<string, NodeJS.Timeout>} */
 const acpPermissionTimers = new Map();
@@ -327,6 +335,14 @@ function stopChatRuntime(instanceId) {
   } catch {
     /* ignore */
   }
+  try {
+    if (piRpcSessionManager) {
+      piRpcSessionManager.stop(id);
+      stoppedAcp = true;
+    }
+  } catch {
+    /* ignore */
+  }
   return { ok: true, aborted: killedCli || stoppedAcp, killedCli, stoppedAcp };
 }
 
@@ -380,6 +396,95 @@ function agentExecutorChildEnv() {
     PATH: pathEnv,
     GAMEFACTORY_ROOT: root,
     GAMEFACTORY_PYTHON: python,
+  };
+}
+
+const PI_PROVIDER_ENV_KEYS = Object.freeze({
+  openrouter: "OPENROUTER_API_KEY",
+  openai: "OPENAI_API_KEY",
+  deepseek: "DEEPSEEK_API_KEY",
+});
+
+/**
+ * @param {unknown} value
+ * @returns {boolean}
+ */
+function piAuthKeyUsable(value) {
+  if (value == null) return false;
+  const text = String(value).trim();
+  return Boolean(text) && !text.toUpperCase().includes("YOUR_");
+}
+
+/**
+ * Minimal Pi auth env for RPC spawn (mirrors cli resolve_pi_auth_for_turn chain).
+ * @param {Record<string, unknown>} config
+ * @param {string | undefined | null} instanceId
+ * @returns {{ env: Record<string, string>, error?: string }}
+ */
+function buildPiRpcAuthEnv(config, instanceId) {
+  const inst = agentInstanceRecord(config, instanceId);
+  const agents = config?.agents && typeof config.agents === "object" ? config.agents : {};
+  const itCfg = agents.it && typeof agents.it === "object" ? agents.it : {};
+  const piPreset =
+    agents.executors && typeof agents.executors === "object" && agents.executors.pi
+      ? agents.executors.pi
+      : {};
+  const host = config?.host && typeof config.host === "object" ? config.host : {};
+  const accounts =
+    config?.provider_accounts && typeof config.provider_accounts === "object"
+      ? config.provider_accounts
+      : {};
+
+  let provider = String(inst.provider || "").trim().toLowerCase();
+  if (!provider && piPreset && typeof piPreset === "object" && piPreset.provider) {
+    provider = String(piPreset.provider).trim().toLowerCase();
+  }
+  if (!provider && itCfg.provider) {
+    provider = String(itCfg.provider).trim().toLowerCase();
+  }
+  if (!provider) {
+    provider = String(host.provider || "openrouter").trim().toLowerCase();
+  }
+
+  const acc =
+    accounts[provider] && typeof accounts[provider] === "object" ? accounts[provider] : {};
+  let apiKey = piAuthKeyUsable(acc.api_key) ? String(acc.api_key).trim() : "";
+  if (
+    !apiKey &&
+    String(host.provider || "")
+      .trim()
+      .toLowerCase() === provider &&
+    piAuthKeyUsable(host.api_key)
+  ) {
+    apiKey = String(host.api_key).trim();
+  }
+
+  if (!apiKey) {
+    return {
+      env: {},
+      error: `未找到可用 API Key（provider=${provider || "?"}）`,
+    };
+  }
+
+  const envKey = PI_PROVIDER_ENV_KEYS[provider] || "OPENAI_API_KEY";
+  return { env: { [envKey]: apiKey } };
+}
+
+/**
+ * Env for embedded Pi RPC child (API key injected per active IT turn).
+ * @returns {NodeJS.ProcessEnv}
+ */
+function piRpcChildEnv() {
+  const base = agentExecutorChildEnv();
+  const piRoot = resolvePiRuntimeRoot();
+  return {
+    ...base,
+    ...(piRoot ? { GAMEFACTORY_PI_ROOT: piRoot } : {}),
+    GAMEFACTORY_ELECTRON_EXECUTABLE: process.execPath,
+    PI_TELEMETRY: "0",
+    PI_OFFLINE: "1",
+    CI: "1",
+    ...(piRpcActiveAuthEnv || {}),
   };
 }
 
@@ -1891,6 +1996,14 @@ app.whenReady().then(() => {
     },
   });
 
+  piRpcSessionManager = createPiRpcSessionManager({
+    getCliLaunch: () => resolvePiRpcSpawnLaunch(),
+    getSpawnEnv: piRpcChildEnv,
+    onLog: (msg, ctx) => {
+      console.log(`[pi-rpc] ${msg}`, ctx ?? "");
+    },
+  });
+
   protocol.handle("gamefactory-media", (request) => {
     try {
       const url = new URL(request.url);
@@ -3243,6 +3356,74 @@ app.whenReady().then(() => {
       }
     }
 
+    // T3: IT + pi → 常驻 Pi RPC（C1：Pi session 为聊天真相；不走 FOUNDRY_TOOL 围栏）
+    if (role === "it" && effectiveExecutor === "pi") {
+      if (!piRpcSessionManager) {
+        const errMsg = "Pi RPC 会话管理器未初始化，请重启 GUI。";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      const auth = buildPiRpcAuthEnv(config, opts.instanceId);
+      if (auth.error || !auth.env || Object.keys(auth.env).length === 0) {
+        const errMsg = auth.error || "Pi RPC 缺少 API Key";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      }
+
+      piRpcActiveAuthEnv = auth.env;
+      try {
+        const promptText = await acpPrompt();
+        const piSessionPathOpt = opts.piSessionPath ? String(opts.piSessionPath).trim() : "";
+        const out = await piRpcSessionManager.prompt({
+          instanceId: instanceKey,
+          sessionId,
+          text: promptText,
+          ...(piSessionPathOpt ? { piSessionPath: piSessionPathOpt } : {}),
+        });
+
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+
+        const payload = {
+          ok: true,
+          assistant_message: out.text,
+          executor: "pi",
+          pi_session_path: out.piSessionPath || null,
+          stderr_tail: out.stderrTail || "",
+        };
+        const stdout = JSON.stringify(payload, null, 2);
+        return {
+          exitCode: 0,
+          stdout,
+          stderr: out.stderrTail || "",
+          data: payload,
+        };
+      } catch (err) {
+        if (takeChatAbort(instanceKey)) {
+          return abortedChatResult();
+        }
+        const errMsg = err instanceof Error ? err.message : "Pi RPC 回合失败";
+        return {
+          exitCode: 1,
+          stdout: "",
+          stderr: errMsg,
+          data: { ok: false, error: errMsg },
+        };
+      } finally {
+        piRpcActiveAuthEnv = null;
+      }
+    }
+
     if (effectiveExecutor === "cursor" && permissionMode === "force") {
       cursorAcpSessionManager?.stop(instanceKey);
     }
@@ -3318,6 +3499,7 @@ app.whenReady().then(() => {
     cursorAcpSessionManager?.stop(key);
     hermesAcpSessionManager?.stop(key);
     codexAppServerSessionManager?.stop(key);
+    piRpcSessionManager?.stop(key);
     return { ok: true };
   });
 
@@ -3504,6 +3686,9 @@ app.on("before-quit", () => {
   hermesAcpSessionManager = null;
   codexAppServerSessionManager?.disposeAll({ sync: true });
   codexAppServerSessionManager = null;
+  piRpcSessionManager?.disposeAll({ sync: true });
+  piRpcSessionManager = null;
+  piRpcActiveAuthEnv = null;
   toolPermissionBridge?.close();
   toolPermissionBridge = null;
 });

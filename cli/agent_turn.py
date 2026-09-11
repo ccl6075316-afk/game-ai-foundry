@@ -994,6 +994,11 @@ def run_pi_executor_turn(
     instance_id: str | None = None,
     session_id: str | None = None,
 ) -> tuple[str, str | None, str]:
+    # IT 默认改走 GUI Electron Pi RPC（C1）；空心壳 FOUNDRY_TOOL 围栏仅 legacy CLI 调试。
+    if role_kind == "it" and os.environ.get("GAMEFACTORY_PI_LEGACY_SHELL") != "1":
+        raise AgentTurnError(
+            "IT 内置 Pi 已改走 GUI 常驻 RPC；直接 CLI agent turn 请设 GAMEFACTORY_PI_LEGACY_SHELL=1。"
+        )
     from pi_runtime import IT_DEFAULT_MAX_TOOL_ROUNDS, PiRuntimeError, run_pi_agent_turn
 
     system = _load_skill_text(role_kind)
