@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from pi_runtime import (
+    PiRuntimeError,
     node_meets_pi_min,
     parse_node_version,
     pi_status,
@@ -15,6 +16,7 @@ from pi_runtime import (
     resolve_pi_api_auth,
     resolve_pi_auth_for_brief,
     resolve_pi_cli_js,
+    run_pi_brief_turn_with_tools,
 )
 
 
@@ -236,6 +238,34 @@ class PiRuntimeStatusTest(unittest.TestCase):
     def test_resolve_cli_none_when_missing_root(self) -> None:
         missing = Path("/nonexistent/pi-runtime-root-xyz")
         self.assertIsNone(resolve_pi_cli_js(missing))
+
+
+class PiLegacyShellGateTest(unittest.TestCase):
+    def test_brief_turn_rejects_without_legacy_shell(self) -> None:
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(PiRuntimeError) as ctx:
+                run_pi_brief_turn_with_tools(
+                    system_prompt="sys",
+                    user_text="hi",
+                    session_id="brief-s1",
+                )
+        self.assertIn("GAMEFACTORY_PI_LEGACY_SHELL", str(ctx.exception))
+
+    def test_brief_turn_allowed_with_legacy_shell(self) -> None:
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_PI_LEGACY_SHELL": "1"}, clear=False),
+            patch(
+                "pi_runtime.run_pi_agent_turn",
+                return_value={"assistant_message": '{"ok": true}'},
+            ) as mock_turn,
+        ):
+            out = run_pi_brief_turn_with_tools(
+                system_prompt="sys",
+                user_text="hi",
+                session_id="brief-s1",
+            )
+        self.assertEqual(out, '{"ok": true}')
+        mock_turn.assert_called_once()
 
 
 if __name__ == "__main__":

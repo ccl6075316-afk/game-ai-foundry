@@ -10,9 +10,9 @@
 - **Requirements Source**：[`docs/anvil/brainstorms/2026-09-11-pi-rpc-independent-agent.md`](../brainstorms/2026-09-11-pi-rpc-independent-agent.md)（Status: confirmed；决策 A/X/P/S1/R2/B1/C1/T1）
 - **Compounded Knowledge**：`docs/solutions/patterns/critical-patterns.md`（JSON-RPC 入站先分流）；`docs/solutions` 无 Pi 专用历史条目
 - **Readiness**：每任务成功标准含命令/断言；总验收见「通过条件」
-- **Resume Point**：`/anvil:code`；T1–T4 done（T4=`18a8832`）；**T5 in progress** → 然后 T6 → T7
-- **Code Status**：T1–T4 done；T5 in progress；T6–T7 pending
-- **Accepted Baseline T4**：`18a8832` — brief host-chat-turn → Pi RPC + `--assistant-raw`
+- **Resume Point**：`/anvil:code`；T1–T5 done（T5=`633da40`）；**T6 in progress** → T7
+- **Code Status**：T1–T5 done；T6 in progress；T7 pending
+- **Accepted Baseline T5**：`633da40` — skills/docs Pi RPC + B1/S1
 
 ## 目标与非目标（继承 Spec）
 

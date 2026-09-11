@@ -18,6 +18,14 @@ PI_PIN_VERSION = "0.80.10"
 PI_MIN_NODE = (22, 19, 0)
 PI_MIN_NODE_LABEL = "22.19.0"
 
+# Escape hatch for hollow-shell ``--no-tools --no-session`` + FOUNDRY_TOOL fence loop.
+# Production IT/brief paths use GUI Pi RPC; advisor CLI still uses legacy shell by default.
+PI_LEGACY_SHELL_ENV = "GAMEFACTORY_PI_LEGACY_SHELL"
+
+
+def _pi_legacy_shell_enabled() -> bool:
+    return os.environ.get(PI_LEGACY_SHELL_ENV) == "1"
+
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _DEFAULT_RUNTIME = _REPO_ROOT / "gui" / "runtime" / "pi"
 _ENTRY_REL = Path("node_modules") / "@earendil-works" / "pi-coding-agent" / "dist" / "cli.js"
@@ -587,9 +595,13 @@ def run_pi_text_completion(
     timeout_sec: float = 180.0,
     response_mode: str = "json",
 ) -> str:
-    """One-shot Pi ``-p`` completion (no built-in tools).
+    """Legacy hollow-shell Pi ``-p`` completion (``--no-tools --no-session``).
 
-    ``response_mode``: ``json`` (brief) or ``text`` (IT / free-form).
+    **Not** the production IT/brief path — those use GUI Pi RPC with native tools.
+    Called by :func:`run_pi_agent_turn` for **advisor** read-only turns and for
+    IT/brief only when ``GAMEFACTORY_PI_LEGACY_SHELL=1`` CLI debugging.
+
+    ``response_mode``: ``json`` (brief fence) or ``text`` (IT/advisor free-form).
     Long system/user bodies go through temp files to stay under Windows argv limits.
     """
     import tempfile
@@ -758,7 +770,13 @@ def run_pi_agent_turn(
     tool_profile: str = "it",
     allow_export: bool = False,
 ) -> dict[str, Any]:
-    """Pi turn with Foundry tool-fence loop (for IT / optional agent roles)."""
+    """Legacy Pi turn with FOUNDRY_TOOL fence loop (hollow shell).
+
+    **Production IT/brief** use GUI Pi RPC (native tools + ``gamefactory`` CLI).
+    This loop remains for **advisor** read-only CLI turns and for IT/brief when
+    ``GAMEFACTORY_PI_LEGACY_SHELL=1`` (see :func:`run_pi_executor_turn` /
+    :func:`run_pi_brief_turn_with_tools` gates).
+    """
     from pi_foundry_tools import run_tool_round, strip_foundry_tools, tool_protocol_instructions
     from tool_permission import PermissionTurnState
 
@@ -884,7 +902,16 @@ def run_pi_brief_turn_with_tools(
     max_tool_rounds: int = 10,
     timeout_sec: float = 240.0,
 ) -> str:
-    """Brief Pi turn: optional FOUNDRY_TOOL loop, final text must be skill JSON."""
+    """Legacy brief Pi turn: FOUNDRY_TOOL fence loop, final text must be skill JSON.
+
+    **Deprecated for production** — host-chat brief turns use GUI Pi RPC.
+    Requires ``GAMEFACTORY_PI_LEGACY_SHELL=1``; otherwise raises :class:`PiRuntimeError`.
+    """
+    if not _pi_legacy_shell_enabled():
+        raise PiRuntimeError(
+            "策划 brief 空心壳已退役；GUI 走 Pi RPC。"
+            f" CLI 调试请设 {PI_LEGACY_SHELL_ENV}=1。"
+        )
     hint = (
         f"\n\nCurrent host-chat session_id is `{session_id}`. "
         "Use this exact id in brief chat status/export tools.\n"

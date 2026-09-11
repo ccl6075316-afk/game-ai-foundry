@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -16,6 +17,7 @@ from agent_turn import (
     prepare_turn_prompt,
     record_turn_exchange,
     resolve_executor_for_role,
+    run_pi_executor_turn,
     run_turn,
     session_path_for,
     session_status,
@@ -952,27 +954,38 @@ class TestInstanceExecutorSafety(unittest.TestCase):
             self.assertEqual(data["messages"][0]["content"], "你好")
             self.assertEqual(data["messages"][1]["content"], "已收到")
 
-    def test_record_turn_exchange_persists_messages(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            conv = Path(tmp) / "programmer"
-            conv.mkdir()
-            with (
-                patch("agent_turn.conversations_dir", return_value=conv),
-                patch("agent_turn._CONV_ROOT", Path(tmp)),
-            ):
-                result = record_turn_exchange(
-                    role_kind="programmer",
-                    session_id="acp-s1",
-                    user_message="你好",
-                    assistant_message="已收到",
-                    executor="cursor",
-                )
-            self.assertTrue(result["ok"])
-            self.assertEqual(result["assistant_message"], "已收到")
-            self.assertEqual(result["executor"], "cursor")
-            path = conv / "acp-s1.json"
-            self.assertTrue(path.is_file())
-            data = json.loads(path.read_text(encoding="utf-8"))
-            self.assertEqual(len(data["messages"]), 2)
-            self.assertEqual(data["messages"][0]["content"], "你好")
-            self.assertEqual(data["messages"][1]["content"], "已收到")
+
+class PiLegacyShellGateTest(unittest.TestCase):
+    def test_it_pi_rejects_without_legacy_shell(self) -> None:
+        with patch.dict(os.environ, {}, clear=True):
+            with self.assertRaises(AgentTurnError) as ctx:
+                run_pi_executor_turn("查 doctor", role_kind="it")
+        self.assertIn("GAMEFACTORY_PI_LEGACY_SHELL", str(ctx.exception))
+
+    def test_it_pi_allowed_with_legacy_shell(self) -> None:
+        with (
+            patch.dict(os.environ, {"GAMEFACTORY_PI_LEGACY_SHELL": "1"}, clear=False),
+            patch(
+                "pi_runtime.run_pi_agent_turn",
+                return_value={"assistant_message": "环境正常", "tool_trace": []},
+            ) as mock_turn,
+        ):
+            text, sid, err = run_pi_executor_turn("查 doctor", role_kind="it")
+        self.assertEqual(text, "环境正常")
+        self.assertIsNone(sid)
+        self.assertEqual(err, "")
+        mock_turn.assert_called_once()
+        self.assertEqual(mock_turn.call_args.kwargs.get("tool_profile"), "it")
+
+    def test_advisor_pi_works_without_legacy_shell(self) -> None:
+        with (
+            patch.dict(os.environ, {}, clear=True),
+            patch(
+                "pi_runtime.run_pi_agent_turn",
+                return_value={"assistant_message": "只读建议", "tool_trace": []},
+            ) as mock_turn,
+        ):
+            text, sid, err = run_pi_executor_turn("怎么看架构", role_kind="advisor")
+        self.assertEqual(text, "只读建议")
+        mock_turn.assert_called_once()
+        self.assertEqual(mock_turn.call_args.kwargs.get("tool_profile"), "advisor")
