@@ -20,3 +20,7 @@ For `content_class` `backdrop_sparse` / `backdrop_full`, or `type: background`.
 ## Negatives
 
 No character cutouts on white, no HUD, no tileable-only framing unless brief is texture (use tile class instead).
+
+## Layered motion / i2v
+
+When the backdrop must split into sky / distant / water (or similar bands) for independent motion or per-layer video: use [`layered-backdrop.md`](layered-backdrop.md) — do **not** rely on whole-plate mask shaders as the final path.
