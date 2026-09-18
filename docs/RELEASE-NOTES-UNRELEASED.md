@@ -17,3 +17,4 @@
 - **本次对话总 Plan（尺寸 v2 + 目标模式衔接）**：[`anvil/plans/2026-08-23-conversation-handoff-plan.md`](anvil/plans/2026-08-23-conversation-handoff-plan.md)
 - 三层功能归属清单：[`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md)
 - Host 桥接层收口 Plan（已执行）：[`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md)
+- **fishing-2d 水族馆**：2D 假深度展厅 + 墙面/鱼缸编辑；独立 `aquarium_hall`/`tank_screen` 场景（见 [`anvil/plans/2026-09-17-fishing-aquarium-fake-depth-editors-plan.md`](anvil/plans/2026-09-17-fishing-aquarium-fake-depth-editors-plan.md)）
