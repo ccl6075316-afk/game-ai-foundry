@@ -248,7 +248,7 @@ def _run_validate(project_path: Path) -> None:
     help="Run godot validate after assembly.",
 )
 def assemble_cmd(assemble_path: Path, validate: bool) -> None:
-    """godot-assembler agent: build .NET project from handoff plan."""
+    """Assemble the .NET project from an implementation handoff plan."""
     try:
         handoff = load_godot_handoff(assemble_path)
         result = assemble_from_plan(handoff["plan"])
@@ -430,7 +430,7 @@ def dev_context_cmd(
                 {
                     "consumer_role": "godot-developer",
                     "project_path": plan["project_path"],
-                    "delegate": "codex or cursor — implement C# per plan.implementation_goals",
+                    "delegate": "external implementation workflow — implement C# per plan.implementation_goals",
                 },
                 ensure_ascii=False,
             ),

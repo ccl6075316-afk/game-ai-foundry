@@ -1343,7 +1343,7 @@ def audit_visual_reference(
                 "project.visual_reference must be an image file path "
                 "(e.g. output/.../visual-target/selected.png), not style prose. "
                 "Put art style in project.art_direction; leave visual_reference empty "
-                "until `brief visual-target pick` (or GUI「北极星图」)."
+                "until `brief visual-target pick` in the CLI."
             )
         elif brief_path is not None:
             from visual_target import resolve_visual_reference_path

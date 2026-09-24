@@ -35,7 +35,7 @@ stencil buffer and SMAA (4.5), Accessibility via AccessKit (4.5).
 
 When in doubt, prefer APIs documented in the reference files over training data.
 
-## Language Decision Guide
+## Language Decision Reference
 
 | Language | Best For | Avoid For |
 |----------|----------|-----------|

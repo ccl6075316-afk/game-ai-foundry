@@ -1,4 +1,4 @@
-"""CLI commands for the prompt-crafter agent only."""
+"""CLI commands for deterministic prompt-crafting workflows."""
 
 from __future__ import annotations
 
@@ -109,7 +109,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         "output_path",
         default=None,
         type=click.Path(path_type=Path),
-        help="Save handoff JSON for image-generator or video-generator agent.",
+        help="Save handoff JSON for image or video generation.",
     )
     @click.option("--prompt-model", default=None)
     @click.option("--api-key", default=None)
@@ -128,7 +128,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
         api_base: str | None,
         proxy: str | None,
     ) -> None:
-        """prompt-crafter agent: LLM writes prompt → handoff file for image-generator."""
+        """Write an LLM prompt and save a handoff file for image generation."""
         from brief import find_icon_kit_item, resolve_kit_item_slug
 
         config = ctx.obj["config"]

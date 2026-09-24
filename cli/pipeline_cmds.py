@@ -204,7 +204,7 @@ def status_cmd(manifest_path: Path, as_json: bool) -> None:
 @click.option(
     "--role",
     default=None,
-    help="Filter ready tasks by agent role (e.g. image-generator).",
+    help="Filter ready tasks by task role (e.g. image-generator).",
 )
 @click.option("--json", "as_json", is_flag=True, help="Print task objects as JSON array.")
 def ready_cmd(manifest_path: Path, role: str | None, as_json: bool) -> None:
@@ -355,7 +355,7 @@ def show_cmd(manifest_path: Path, task_id: str) -> None:
 @click.option(
     "--run-game-dev",
     is_flag=True,
-    help="Run Pass 4 godot.dev-context (writes dev handoff). Default: skip (delegate to codex/cursor).",
+    help="Run Pass 4 godot.dev-context (writes dev handoff). Default: skip (leave to an external implementation workflow).",
 )
 @click.option(
     "--skip-roles",
@@ -403,7 +403,7 @@ def run_cmd(
     retry_backoff: float,
     dry_run: bool,
 ) -> None:
-    """Run ready manifest tasks via subprocess (no Hermes). Default skips prompt.craft."""
+    """Run ready manifest tasks via subprocess. Default skips prompt.craft."""
     skip: set[str] | None = None
     if skip_roles:
         skip = {r.strip() for r in skip_roles.split(",") if r.strip()}
@@ -506,7 +506,7 @@ def reset_cmd(manifest_path: Path, task_id: str, cascade: bool) -> None:
     type=click.Path(exists=True, path_type=Path),
 )
 def diagnose_cmd(manifest_path: Path) -> None:
-    """Classify failed tasks: code-healable vs needs Hermes project manager."""
+    """Classify failed tasks: code-healable vs needing deterministic external remediation."""
     try:
         from pipeline_heal import diagnose_and_heal_file
 
@@ -530,7 +530,7 @@ def diagnose_cmd(manifest_path: Path) -> None:
     help="Reset code-healable failed tasks (default: apply).",
 )
 def heal_cmd(manifest_path: Path, apply: bool) -> None:
-    """Reset simple failed tasks (API size / network / missing file). Hermes handles the rest."""
+    """Reset simple failed tasks (API size / network / missing file). Route the rest to external remediation."""
     try:
         from pipeline_heal import diagnose_and_heal_file
 
@@ -557,7 +557,7 @@ def heal_cmd(manifest_path: Path, apply: bool) -> None:
 @click.option("--jobs", default=2, show_default=True, type=int)
 @click.option("--json", "as_json", is_flag=True)
 def suggest_retry_cmd(manifest_path: Path, assets: tuple[str, ...], jobs: int, as_json: bool) -> None:
-    """Print whitelisted reset+run commands for named assets (GUI next_actions)."""
+    """Print whitelisted reset+run commands for named assets (external Agent next_actions)."""
     from pipeline_retry import suggest_retry_commands
 
     # Prefer path relative to cli cwd for copy-paste

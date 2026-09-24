@@ -34,7 +34,7 @@ Changes between Godot versions, focused on post-LLM-cutoff changes (4.4+).
 | Rendering | Shader Baker | Pre-compiles shaders — reportedly 20x faster startup on some demos |
 | Rendering | Bent normal maps, specular occlusion | New material features |
 | Accessibility | Screen reader support | Control nodes work with accessibility tools via AccessKit |
-| Editor | Live translation preview | Test GUI layouts in different languages in-editor |
+| Editor | Live translation preview | Test UI layouts in different languages in-editor |
 | Physics | 3D interpolation rearchitected | Moved from RenderingServer to SceneTree. API unchanged but internals differ. |
 | Animation | BoneConstraint3D | New: AimModifier3D, CopyTransformModifier3D, ConvertTransformModifier3D |
 | Resources | `duplicate_deep()` added | New explicit method for deep duplication of nested resources |
@@ -55,8 +55,8 @@ Changes between Godot versions, focused on post-LLM-cutoff changes (4.4+).
 | Rendering | `RenderingDevice.draw_list_begin` | Many parameters removed; `breadcrumb` parameter added |
 | Rendering | Shader texture types | Parameter/return types changed from `Texture2D` to `Texture` |
 | Particles | `.restart()` method | Added optional `keep_seed` parameter (CPU/GPU 2D/3D) |
-| GUI | `RichTextLabel.push_meta` | Added optional `tooltip` parameter |
-| GUI | `GraphEdit.connect_node` | Added optional `keep_alive` parameter |
+| UI | `RichTextLabel.push_meta` | Added optional `tooltip` parameter |
+| UI | `GraphEdit.connect_node` | Added optional `keep_alive` parameter |
 
 ## 4.2 → 4.3 (In Training Data — LOW RISK)
 

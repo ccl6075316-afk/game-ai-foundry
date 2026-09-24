@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from config_cmds import apply_config_set
+from config_cmds import ALLOWED_SET_KEYS, apply_config_set
 
 
 class ConfigSetTests(unittest.TestCase):
@@ -28,6 +28,10 @@ class ConfigSetTests(unittest.TestCase):
             path = Path(tmp) / "config.json"
             with self.assertRaises(ValueError):
                 apply_config_set("text.api_key", "sk-secret", path=path)
+
+    def test_allowlist_has_no_agent_or_api_key_paths(self) -> None:
+        self.assertFalse(any(key.startswith("agents.") for key in ALLOWED_SET_KEYS))
+        self.assertFalse(any(key.endswith(".api_key") for key in ALLOWED_SET_KEYS))
 
 
 if __name__ == "__main__":

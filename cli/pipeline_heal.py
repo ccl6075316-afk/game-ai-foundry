@@ -23,75 +23,74 @@ _SIZE_MULTIPLE_RE = re.compile(
     re.I,
 )
 
-# kind → (pm_fit, short Chinese tip for GUI)
-# pm_fit: yes = 适合项目经理直接改；maybe = 可先分诊；no = 不必找项目经理
-_PM_FIT: dict[str, tuple[str, str]] = {
-    "config_size": ("yes", "改配置（尺寸倍数）即可，适合项目经理直接处理"),
-    "config_proxy": ("yes", "改代理配置即可，适合项目经理直接处理"),
-    "validation": ("yes", "图校验/文案问题，适合项目经理复位并重跑文案"),
+# kind → (triage_fit, short deterministic external-agent tip)
+_TRIAGE_FIT: dict[str, tuple[str, str]] = {
+    "config_size": ("yes", "改配置（尺寸倍数）即可，由外部 Agent 执行对应 CLI 命令"),
+    "config_proxy": ("yes", "改代理配置即可，由外部 Agent 执行对应 CLI 命令"),
+    "validation": ("yes", "图校验/文案问题，由外部 Agent 复位并重跑文案"),
     "stale_plan": ("yes", "Plan 角色不匹配：复位 prompt.craft 后重跑文案即可"),
-    "billing": ("no", "API 余额不足：请给 OpenRouter/Provider 充值后续跑，不必找项目经理"),
-    "unknown": ("maybe", "原因不清：可先让项目经理分诊；若像内核/玩法 bug 再另处理"),
-    "network": ("no", "瞬时网络错误：自动复位后重跑即可，不必找项目经理"),
-    "missing_file": ("no", "缺产物文件：自动复位后重跑即可，不必找项目经理"),
+    "billing": ("no", "API 余额不足：请给 OpenRouter/Provider 充值后重跑，无需外部 Agent 介入"),
+    "unknown": ("maybe", "原因不清：由外部 Agent 先分诊；若像内核/玩法 bug 再另处理"),
+    "network": ("no", "瞬时网络错误：自动复位后重跑即可，无需外部 Agent 介入"),
+    "missing_file": ("no", "缺产物文件：自动复位后重跑即可，无需外部 Agent 介入"),
 }
 
 
-def _with_pm_fit(item: dict[str, Any]) -> dict[str, Any]:
+def _with_triage_fit(item: dict[str, Any]) -> dict[str, Any]:
     kind = str(item.get("kind") or "unknown")
-    fit, tip = _PM_FIT.get(kind, ("maybe", "可先让项目经理分诊"))
+    fit, tip = _TRIAGE_FIT.get(kind, ("maybe", "由外部 Agent 先分诊"))
     out = dict(item)
-    out["pm_fit"] = fit
-    out["pm_tip"] = tip
+    out["triage_fit"] = fit
+    out["triage_tip"] = tip
     return out
 
 
-def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
-    """User-facing: should they hand this to the project-manager agent?"""
+def _aggregate_triage_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
+    """Deterministic triage output for an external Agent/CLI consumer."""
     if not items:
         return {
-            "pm_fit": "none",
-            "pm_suitable": False,
-            "pm_advice": "当前没有 failed 任务。",
-            "pm_advice_short": "无失败",
+            "triage_fit": "none",
+            "triage_suitable": False,
+            "triage_advice": "当前没有 failed 任务。",
+            "triage_advice_short": "无失败",
         }
-    yes = [i for i in items if i.get("pm_fit") == "yes"]
-    maybe = [i for i in items if i.get("pm_fit") == "maybe"]
-    no = [i for i in items if i.get("pm_fit") == "no"]
+    yes = [i for i in items if i.get("triage_fit") == "yes"]
+    maybe = [i for i in items if i.get("triage_fit") == "maybe"]
+    no = [i for i in items if i.get("triage_fit") == "no"]
     billing = [i for i in items if i.get("kind") == "billing"]
     if billing and len(billing) == len(items):
         return {
-            "pm_fit": "no",
-            "pm_suitable": False,
-            "pm_advice": (
+            "triage_fit": "no",
+            "triage_suitable": False,
+            "triage_advice": (
                 f"API 余额不足（{len(billing)} 项，HTTP 402）。"
-                "请给 OpenRouter/Provider 充值后点「运行资产生成」续跑，不必找项目经理。"
+                "请给 OpenRouter/Provider 充值后执行 pipeline run 重跑，无需外部 Agent 介入。"
             ),
-            "pm_advice_short": "API 余额不足，请充值",
+            "triage_advice_short": "API 余额不足，请充值",
         }
     if yes and not maybe and not no:
         return {
-            "pm_fit": "yes",
-            "pm_suitable": True,
-            "pm_advice": (
-                f"适合交给项目经理 Agent 直接处理（{len(yes)} 项：配置/校验/文案）。"
-                "点「项目经理处理失败」即可。"
+            "triage_fit": "yes",
+            "triage_suitable": True,
+            "triage_advice": (
+                f"外部 Agent 可直接处理（{len(yes)} 项：配置/校验/文案）。"
+                "执行对应 CLI 命令后重跑。"
             ),
-            "pm_advice_short": "适合项目经理直接处理",
+            "triage_advice_short": "适合外部 Agent 直接处理",
         }
     if yes or maybe:
         parts = []
         if yes:
-            parts.append(f"{len(yes)} 项适合项目经理（配置/校验）")
+            parts.append(f"{len(yes)} 项适合外部 Agent（配置/校验）")
         if maybe:
             parts.append(f"{len(maybe)} 项需先分诊")
         if no:
-            parts.append(f"{len(no)} 项只需复位重跑、不必找项目经理")
+            parts.append(f"{len(no)} 项只需复位重跑，无需外部 Agent 介入")
         return {
-            "pm_fit": "mixed",
-            "pm_suitable": True,
-            "pm_advice": "；".join(parts) + "。建议点「项目经理处理失败」处理适合的部分。",
-            "pm_advice_short": "部分适合项目经理处理",
+            "triage_fit": "mixed",
+            "triage_suitable": True,
+            "triage_advice": "；".join(parts) + "。外部 Agent 请执行对应 CLI 命令后重跑。",
+            "triage_advice_short": "部分适合外部 Agent 处理",
         }
     if no:
         kinds = {str(i.get("kind") or "unknown") for i in no}
@@ -104,16 +103,16 @@ def _aggregate_pm_advice(items: list[dict[str, Any]]) -> dict[str, Any]:
         else:
             detail = f"{len(no)} 项可自动复位重跑"
         return {
-            "pm_fit": "no",
-            "pm_suitable": False,
-            "pm_advice": f"不必找项目经理（{detail}）。已可自动复位，直接点「运行资产生成」续跑。",
-            "pm_advice_short": "不必找项目经理，直接重跑",
+            "triage_fit": "no",
+            "triage_suitable": False,
+            "triage_advice": f"无需外部 Agent 介入（{detail}）。已可自动复位，执行 pipeline run 重跑。",
+            "triage_advice_short": "无需外部 Agent，直接重跑",
         }
     return {
-        "pm_fit": "no",
-        "pm_suitable": False,
-        "pm_advice": "不必找项目经理。直接点「运行资产生成」续跑。",
-        "pm_advice_short": "不必找项目经理，直接重跑",
+        "triage_fit": "no",
+        "triage_suitable": False,
+        "triage_advice": "无需外部 Agent 介入。执行 pipeline run 重跑。",
+        "triage_advice_short": "无需外部 Agent，直接重跑",
     }
 
 
@@ -190,12 +189,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             )
         )
     ):
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "validation",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "reset_and_recraft_prompt",
                 "summary": "Image validation failed — regenerate plan prompt",
                 "cli_hints": [
@@ -205,7 +204,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # API size constraints — fix via config (PM), not kernel logic
+    # API size constraints — fix via config, not kernel logic
     if "divisible" in blob_l or "invalid size" in blob_l or "unsupported size" in blob_l:
         mult = None
         m = _SIZE_MULTIPLE_RE.search(blob)
@@ -215,12 +214,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
                     mult = int(g)
                     break
         mult = mult or 16
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "config_size",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "fix_config",
                 "size_multiple": mult,
                 "summary": f"API rejected image size — set image.constraints.size_multiple={mult}",
@@ -232,16 +231,16 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # Proxy misconfig — PM can patch allowlisted proxy keys
+    # Proxy misconfig — patch allowlisted proxy keys
     if "proxy" in blob_l and any(
         k in blob_l for k in ("connection", "refused", "tunnel", "407", "cannot connect")
     ):
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "config_proxy",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "fix_config",
                 "summary": "Proxy connection failed — check image.proxy / proxy in config",
                 "cli_hints": [
@@ -251,7 +250,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # API billing / credits — recharge provider; not PM / not auto-heal loop
+    # API billing / credits — recharge provider; requires user action
     if (
         "insufficient credits" in blob_l
         or "http 402" in blob_l
@@ -266,7 +265,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             billing_summary = (
                 blob.strip().splitlines()[0][:240] if blob.strip() else "HTTP 402 insufficient credits"
             )
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
@@ -302,7 +301,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
         )
     ):
         exc_summary = _exc_summary_from_blob(blob)
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
@@ -340,7 +339,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             or "godot_" in blob_l
             or "assemble_file" in blob_l
         ):
-            return _with_pm_fit(
+            return _with_triage_fit(
                 {
                     "task_id": tid,
                     "step": step,
@@ -378,7 +377,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             hints.append("pipeline run --run-prompts --jobs 4")
         else:
             hints.append("pipeline run --jobs 4")
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
@@ -391,17 +390,17 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    # Prompt craft CJK guard — needs English field regeneration (Hermes)
+    # Prompt craft CJK guard — needs deterministic English field regeneration
     if (
         "chinese brief text cannot be used" in blob_l
         or "secondary-generate english" in blob_l
     ):
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "validation",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "reset_and_recraft_prompt",
                 "summary": (
                     "Brief 含中文描述，不能直接进入出图 prompt；"
@@ -422,12 +421,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             (str(d) for d in deps if str(d).endswith(".prompt.craft")),
             f"{asset}.prompt.craft" if asset else tid,
         )
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "stale_plan",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "reset_and_recraft_prompt",
                 "summary": "Plan handoff consumer_role mismatch — recraft for this generator",
                 "cli_hints": [
@@ -442,12 +441,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
     if "unexpected keyword argument" in blob_l or (
         "typeerror" in blob_l and "promptplan" in blob_l
     ):
-        return _with_pm_fit(
+        return _with_triage_fit(
             {
                 "task_id": tid,
                 "step": step,
                 "kind": "unknown",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "remediation": "triage",
                 "summary": exc_summary[:240]
                 or "PromptPlan/dataclass TypeError — code bug, not config",
@@ -456,12 +455,12 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
-    return _with_pm_fit(
+    return _with_triage_fit(
         {
             "task_id": tid,
             "step": step,
             "kind": "unknown",
-            "owner": "hermes",
+            "owner": "external_agent",
             "remediation": "triage",
             "summary": (exc_summary[:240] or blob.strip()[:240] or f"exit {exit_code}"),
             "cli_hints": [f"pipeline reset --task-id {tid} --cascade"],
@@ -471,7 +470,7 @@ def classify_failed_task(task: dict[str, Any]) -> dict[str, Any]:
 
 
 def _manifest_cli_rel(manifest_path: Any) -> str:
-    """Path for --manifest when CLI cwd is cli/ (matches GUI cliArgForRel)."""
+    """Path for --manifest when CLI cwd is cli/."""
     from pathlib import Path
 
     path = Path(manifest_path).resolve()
@@ -508,16 +507,16 @@ def _ensure_manifest_in_hint(hint: str, manifest_cli_rel: str) -> str:
 
 
 def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) -> list[str]:
-    """Ordered whitelisted CLI lines for PM-suitable pipeline failures (GUI auto-run)."""
+    """Ordered whitelisted CLI lines for triage-suitable pipeline failures."""
     from safe_cli import filter_runnable_actions, normalize_action
 
     manifest_cli_rel = (manifest_cli_rel or "").strip().replace("\\", "/")
-    items = diagnosis.get("needs_hermes") or []
+    items = diagnosis.get("needs_external_agent") or []
     if not items:
         items = [
             i
             for i in (diagnosis.get("items") or [])
-            if i.get("pm_fit") == "yes" and i.get("kind") not in ("network", "missing_file")
+            if i.get("triage_fit") == "yes" and i.get("kind") not in ("network", "missing_file")
         ]
 
     config_lines: list[str] = []
@@ -571,9 +570,9 @@ def build_fix_command_chain(manifest_cli_rel: str, diagnosis: dict[str, Any]) ->
 
 def can_auto_fix_without_agent(diagnosis: dict[str, Any]) -> bool:
     """True when diagnose fix chain is fully deterministic (no LLM triage needed)."""
-    hermes = diagnosis.get("needs_hermes") or []
+    external_agent_items = diagnosis.get("needs_external_agent") or []
     code = diagnosis.get("auto_healable") or []
-    if not hermes:
+    if not external_agent_items:
         # network / missing_file etc. — heal_manifest resets without Agent
         return bool(code)
     if not build_fix_command_chain(diagnosis.get("manifest_cli_rel") or "", diagnosis):
@@ -581,7 +580,7 @@ def can_auto_fix_without_agent(diagnosis: dict[str, Any]) -> bool:
     return all(
         str(i.get("kind") or "")
         in ("validation", "stale_plan", "config_size", "missing_file", "network")
-        for i in hermes
+        for i in external_agent_items
     )
 
 
@@ -592,12 +591,12 @@ def diagnose_manifest(
 ) -> dict[str, Any]:
     failed = [t for t in tasks_list(manifest) if t.get("status") == TASK_FAILED]
     items = [classify_failed_task(t) for t in failed]
-    advice = _aggregate_pm_advice(items)
+    advice = _aggregate_triage_advice(items)
     out: dict[str, Any] = {
         "failed_count": len(items),
         "items": items,
         "auto_healable": [i for i in items if i.get("owner") == "code"],
-        "needs_hermes": [i for i in items if i.get("owner") == "hermes"],
+        "needs_external_agent": [i for i in items if i.get("owner") == "external_agent"],
         "summary": status_summary(manifest),
         **advice,
     }
@@ -651,8 +650,8 @@ def _compact_failure_item(item: dict[str, Any]) -> dict[str, Any]:
         "owner": item.get("owner"),
         "remediation": item.get("remediation"),
         "summary": item.get("summary"),
-        "pm_fit": item.get("pm_fit"),
-        "pm_tip": item.get("pm_tip"),
+        "triage_fit": item.get("triage_fit"),
+        "triage_tip": item.get("triage_tip"),
     }
     stderr = str(item.get("stderr") or "").strip()
     if not stderr:
@@ -678,7 +677,7 @@ def append_failure_log(
     if isinstance(diagnosis, dict):
         items_src = list(diagnosis.get("items") or [])
         if not items_src:
-            items_src = list(diagnosis.get("needs_hermes") or []) + list(
+            items_src = list(diagnosis.get("needs_external_agent") or []) + list(
                 diagnosis.get("auto_healable") or []
             )
     if not items_src and not extra:
@@ -698,7 +697,7 @@ def append_failure_log(
             "items": [_compact_failure_item(i) for i in items_src if isinstance(i, dict)],
         }
         if isinstance(diagnosis, dict):
-            for key in ("pm_advice_short", "pm_advice", "pm_fit"):
+            for key in ("triage_advice_short", "triage_advice", "triage_fit"):
                 if diagnosis.get(key) is not None:
                     record[key] = diagnosis.get(key)
         if extra:

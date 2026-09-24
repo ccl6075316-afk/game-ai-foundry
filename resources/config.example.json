@@ -104,38 +104,5 @@
   "toolchain": {
     "bin_dir": "~/.gamefactory/toolchain/bin",
     "download_mirror": false
-  },
-  "agents": {
-    "hermes_provider": "openrouter",
-    "executors": {
-      "pi": { "provider": "openrouter", "model": null },
-      "hermes": { "provider": "openrouter", "yolo": true },
-      "codex": {
-        "use_third_party": false,
-        "provider": null,
-        "model": null,
-        "sandbox": "workspace-write"
-      },
-      "cursor": { "permission_mode": "force" }
-    },
-    "brief": { "executor": "pi", "skill": "host-chat", "provider": "openrouter", "model": null },
-    "it": { "executor": "pi", "skill": "diagnose", "provider": "openrouter", "model": null },
-    "advisor": { "executor": "pi", "skill": "consult", "provider": "openrouter", "model": null },
-    "orchestrator": { "executor": "hermes", "skill": "game-factory-orchestrator", "provider": "openrouter", "model": null },
-    "prompt-crafter": { "executor": "hermes", "skill": "game-factory-prompt-crafter" },
-    "image-generator": { "executor": "pipeline", "skill": "game-factory-image-generator" },
-    "video-generator": { "executor": "pipeline", "skill": "game-factory-video-generator" },
-    "godot-assembler": { "executor": "pipeline", "skill": "game-factory-godot-assembler" },
-    "godot-developer": { "executor": "codex", "skill": "game-factory-godot-developer", "provider": null, "model": null, "use_third_party": false },
-    "tester": { "executor": "hermes", "skill": "game-factory-tester" },
-    "instances": {
-      "example-it-instance": {
-        "role_kind": "it",
-        "executor": "pi",
-        "provider": "deepseek",
-        "model": "deepseek-v4-flash",
-        "use_third_party": false
-      }
-    }
   }
 }

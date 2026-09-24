@@ -1,4 +1,4 @@
-"""Godot developer handoff — brief + assets-manifest contract for code agent."""
+"""Godot developer handoff — brief and assets-manifest contract for implementation."""
 
 from __future__ import annotations
 
@@ -214,7 +214,7 @@ def build_godot_dev_plan(
     assets_manifest_path: Path | None = None,
     production_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Build implementation plan for godot-developer agent."""
+    """Build the Godot implementation plan."""
     brief_path = brief_path.resolve()
     project_path = project_path.resolve()
     project, assets, graphs = load_brief_full(brief_path)

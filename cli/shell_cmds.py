@@ -6,7 +6,7 @@ import json
 
 import click
 
-from shell_ops import DEFAULT_TIMEOUT_SEC, ShellError, run_shell
+from shell_ops import DEFAULT_TIMEOUT_SEC, ShellError, redact_result, redact_text, run_shell
 
 
 @click.group("shell")
@@ -36,12 +36,16 @@ def shell_run_cmd(
         click.echo("Error: shell run requires --i-confirm", err=True)
         raise SystemExit(1)
     try:
-        result = run_shell(command, cwd=cwd, timeout_sec=timeout)
+        result = redact_result(run_shell(command, cwd=cwd, timeout_sec=timeout))
     except ShellError as exc:
-        click.echo(f"Error: {exc}", err=True)
+        click.echo(f"Error: {redact_text(str(exc))}", err=True)
         raise SystemExit(1) from exc
     if as_json:
         click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+        if result.get("exit_code") not in (0, None):
+            raise SystemExit(int(result["exit_code"] or 1))
+        if not result.get("ok"):
+            raise SystemExit(1)
     else:
         click.echo(f"$ ({result['cwd']}) {result['command']}")
         if result.get("stdout"):

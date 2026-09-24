@@ -8,6 +8,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from llm_config import normalize_llm_model
+
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
 
 _PROVIDER_SLUG_RE = re.compile(r"^[a-z][a-z0-9_-]{1,31}$")
@@ -251,8 +253,6 @@ def upsert_provider_account(
         }
 
     model = (text_model or "").strip() or defaults.get("text_model") or ""
-    from agent_auth_resolve import normalize_llm_model
-
     model = normalize_llm_model(model) or ""
     image = (image_model or "").strip() or str(existing.get("image_model") or "").strip()
 
@@ -283,17 +283,8 @@ def upsert_provider_account(
             "model": model or host.get("model"),
         }
         cfg["host"] = host
-        # Keep 策划/IT (Pi) usable after first Key without extra GUI clicks.
-        agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
-        executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
-        pi_entry = dict(executors.get("pi") if isinstance(executors.get("pi"), dict) else {})
-        pi_entry["provider"] = provider_id
-        if model:
-            pi_entry["model"] = model
-        executors = {**executors, "pi": pi_entry}
         image = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
         image = {**image, "use_text_provider": True, "provider": provider_id}
-        cfg["agents"] = {**agents, "executors": executors}
         cfg["image"] = image
 
     _save_config(cfg, config_path)

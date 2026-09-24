@@ -5,7 +5,6 @@ from __future__ import annotations
 import unittest
 
 from llm_json import LlmJsonError, parse_llm_json_object
-from host_chat import _parse_llm_json
 
 
 class LlmJsonTests(unittest.TestCase):
@@ -55,10 +54,6 @@ class LlmJsonTests(unittest.TestCase):
     def test_soft_fallback_off_raises(self) -> None:
         with self.assertRaises(LlmJsonError):
             parse_llm_json_object("先聊聊横版手感吧。", soft_prose_fallback=False)
-
-    def test_host_chat_wrapper_uses_soft_fallback(self) -> None:
-        parsed = _parse_llm_json("只是普通一句话，没有 JSON")
-        self.assertTrue(parsed["assistant_message"])
 
     def test_unescaped_newlines_inside_string(self) -> None:
         raw = '{\n  "assistant_message": "第一行\n第二行",\n  "ready_to_export": false\n}'

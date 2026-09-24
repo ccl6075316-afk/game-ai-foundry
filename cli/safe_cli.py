@@ -1,4 +1,4 @@
-"""Whitelist runner for post-triage next_actions (GUI / CLI).
+"""Whitelist runner for post-triage next_actions (external Agent / CLI).
 
 Only allows a fixed set of `gamefactory.py` subcommands — no shell metacharacters.
 """

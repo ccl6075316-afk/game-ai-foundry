@@ -1,4 +1,4 @@
-"""Deterministic pipeline runner — subprocess DAG execution without Hermes."""
+"""Deterministic pipeline runner — subprocess DAG execution with external implementation workflows."""
 
 from __future__ import annotations
 
@@ -376,7 +376,7 @@ def _auto_skip_role_tasks(manifest: dict[str, Any], skip_roles: set[str]) -> lis
                 status=TASK_SKIPPED,
                 result={
                     "source": "skip_role",
-                    "reason": "Pass 4 — delegate to codex/cursor (use --run-game-dev for dev-context only)",
+                    "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)",
                 },
             )
             skipped.append(task["id"])

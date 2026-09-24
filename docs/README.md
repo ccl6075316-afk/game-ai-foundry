@@ -1,59 +1,42 @@
 # 文档索引
 
-各文档 **只写自己那一层**，避免同一流程在多处复制粘贴。
+## 当前入口
 
-## 当前版本（2026-08）
+项目最终形态是：外部 Agent → 通用 Skill → `workflow` CLI → 确定性模块 → JSON 文件状态。
 
-- **已发布最新**：[`RELEASE-NOTES-0.2.2.md`](RELEASE-NOTES-0.2.2.md)（相关分册 / soft-focus / related 完整性）
-- **同系列**：[`0.2.1`](RELEASE-NOTES-0.2.1.md) · [`0.2.0`](RELEASE-NOTES-0.2.0.md)
-- **下一版草稿**：[`RELEASE-NOTES-UNRELEASED.md`](RELEASE-NOTES-UNRELEASED.md)（含 Host 桥接收口）
-- **更早版本摘要**：[`archive/RELEASE-NOTES-LEGACY.md`](archive/RELEASE-NOTES-LEGACY.md)（v0.0–v0.1，独立文件已删）
-- **打包 / 更新**：[`RELEASE.md`](RELEASE.md)
+| 需要 | 文档 |
+|---|---|
+| 外部 Agent 协议 | [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md) |
+| CLI、Brief 字段、资产审查、matting | [`AI-HANDOFF.md`](AI-HANDOFF.md) |
+| 本机工具、配置、故障排查 | [`TOOLS.md`](TOOLS.md) |
+| 施工体系与验收 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) |
+| Change Request 与 Production Delta | [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) |
+| 架构归属 | [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) |
+| 架构交接 | [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) |
+| Active Pipeline Skill | [`../resources/skills/orchestrator/pipeline.md`](../resources/skills/orchestrator/pipeline.md) |
+| Pipeline 阶段顺序 | [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) |
+| Roadmap | [`../ROADMAP.md`](../ROADMAP.md) |
+| External Agent one-pager | [`../AGENTS.md`](../AGENTS.md) |
 
-### 产品主路径（一句话）
+## 读取顺序
 
-同事（策划 / 项目经理 / 程序员 / IT）→ Brief + 北极星 → `host run-assets --auto-fix` / GUI「运行资产生成」→ 资产审查 → Godot。工具与排错见 [`TOOLS.md`](TOOLS.md)。
+1. 先读 [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md)。
+2. 需要字段和命令细节时读 [`AI-HANDOFF.md`](AI-HANDOFF.md)。
+3. 需要环境或排错时读 [`TOOLS.md`](TOOLS.md)。
+4. 需要改需求时读 [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)。
 
----
+## 状态原则
 
-| 文档 | 读者 | 侧重 |
-|------|------|------|
-| [`../README.md`](../README.md) | 新人 / GitHub | 功能一览、Quick Start |
-| [`AI-HANDOFF.md`](AI-HANDOFF.md) | 接手 Agent | CLI 速查、brief、抠图、资产审查 |
-| [`TOOLS.md`](TOOLS.md) | 外部 AI / 运维 | 配置、探测、纠错 |
-| [`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md) | 维护者 / 下一任 AI | 三层架构、目标模式、P0–P4 |
-| [`ARCHITECTURE-LAYER-INVENTORY.md`](ARCHITECTURE-LAYER-INVENTORY.md) | 维护者 | CLI / Host / GUI 归属 |
-| [`anvil/plans/2026-08-20-host-layer-refactor-plan.md`](anvil/plans/2026-08-20-host-layer-refactor-plan.md) | 实现 Agent | Host 收口 Plan（已执行） |
-| [`anvil/plans/2026-08-23-conversation-handoff-plan.md`](anvil/plans/2026-08-23-conversation-handoff-plan.md) | 实现 Agent | **本次对话总 Plan**（尺寸 v2、fishing 迁移） |
-| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | 混排 | 用户可见同事 vs pipeline 内部角色 |
-| [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md) | 产品 / GUI | AI 公司前台心智 |
-| [`GUI-CONFIG.md`](GUI-CONFIG.md) | GUI 用户 | 设置全页、Provider、生图双档 |
-| [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md) | Host | 设计 vs 施工 |
-| [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) | 维护者 | production / 验收 / 进度 |
-| [`GODOT-GAME-ARCHITECTURE.md`](GODOT-GAME-ARCHITECTURE.md) | godot-developer / 程序员 | Godot 可维护原型：Main / 分场景 / System / 数据 |
-| [`../projects/fishing-2d/GODOT-ARCHITECTURE.md`](../projects/fishing-2d/GODOT-ARCHITECTURE.md) | fishing 维护者 | 全局架构 → fishing 现状与目标映射 |
-| [`HERMES-CODEX.md`](HERMES-CODEX.md) | Hermes / Codex | skill / terminal |
-| [`archive/`](archive/) | 考古 | 旧 Release 摘要；过程稿仅保留近 15 天 |
-| [`../ROADMAP.md`](../ROADMAP.md) | 维护者 | 里程碑进度 |
-| [`../resources/skills/orchestrator/pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md) | Runner | `pipeline run` 阶段 |
+`brief.json` 是冻结后的设计契约；`production.json` 是工程蓝图；`manifest`、`progress`、`handoff`、`assets-manifest`、`validation report` 是唯一权威状态。不要另建状态副本。
 
-过程史料（近 15 天）：`docs/anvil/`、`docs/superpowers/`、`.ai/anvil/reviews/`。更早已删。
+## 已移除文档
 
-## 读法建议
+以下文件已移除或归档，仅保留历史记录，不是当前入口：
 
-```text
-新人 30 秒        → 仓库 README
-要跑通一条线       → AI-HANDOFF §5–§6
-要架构 / Host      → ARCHITECTURE-REFACTOR-HANDOFF + LAYER-INVENTORY
-要 Godot 代码怎么拆 → GODOT-GAME-ARCHITECTURE（fishing 见 projects/fishing-2d/GODOT-ARCHITECTURE）
-要实施总清单       → anvil/plans/2026-08-23-conversation-handoff-plan
-要配 GUI / 工具    → GUI-CONFIG · TOOLS
-要理解同事分工     → AGENT-ROUTING · HOST-CHAT-PRODUCT
-发 Release         → RELEASE + 0.2.2 · 草稿 UNRELEASED · 更早见 archive
-```
+- `GUI-CONFIG.md`：已移除。
+- `HOST-CHAT-PRODUCT.md`：已移除。
+- `HERMES-CODEX.md`：已移除。
+- `AGENT-ROUTING.md`：已移除。
+- `RELEASE.md`：已移除。
 
-## 设计 vs 施工
-
-- **设计**：玩家体验、胜负 → ITERATIVE §1.1（`brief.project`）
-- **施工**：资产表、Godot 任务 → ITERATIVE §1.2
-- **命令**：AI-HANDOFF + TOOLS，不是 ITERATIVE
+历史计划、旧发布说明和归档内容位于 [`archive/README.md`](archive/README.md)、[`anvil/`](anvil/)、[`superpowers/`](superpowers/) 与 `RELEASE-NOTES-*.md`；其中出现的旧入口均只作历史记录。

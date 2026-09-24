@@ -110,4 +110,4 @@ Image model and API key come from `~/.gamefactory/config.json` → `image` secti
 
 Optional `image.style_img2img_strength` (default `0.25`) — best-effort img2img strength when `--reference-image` is used and the provider honors `image_config.strength`. Unsupported models log and continue; generation does not fail.
 
-**Phase 3 not shipped:** GUI anchor/group toggles are future work. Phase 2 `project.art_tokens` is in brief/context for prompt-crafter — image-generator still follows handoff + pipeline `--reference-image` only.
+`project.art_tokens` remains in Brief/context for prompt crafting; image generation follows the handoff and pipeline `--reference-image` contract only.

@@ -6,7 +6,6 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
 from handoff import (
     apply_product_host_dispatch,
@@ -215,60 +214,8 @@ class HandoffTests(unittest.TestCase):
             actions = result["next_actions"]
             self.assertEqual(len(actions), 2)
             self.assertTrue(all("--manifest" in a for a in actions if "pipeline" in a))
-
-    def test_run_turn_applies_dispatch(self) -> None:
-        from agent_turn import run_turn
-
-        with tempfile.TemporaryDirectory() as tmp:
-            conv = Path(tmp) / "product_host"
-            conv.mkdir()
-            handoffs = Path(tmp) / "handoffs"
-            progress_path = Path(tmp) / "progress.json"
-            progress_path.write_text(
-                json.dumps(
-                    {
-                        "progress_meta": {"slug": "x"},
-                        "phases": {"godot_tasks": [{"id": "t1", "status": "pending"}]},
-                        "memory": [],
-                    }
-                ),
-                encoding="utf-8",
-            )
-            reply = (
-                "分诊为 Bug，派程序员。\n"
-                "```json\n"
-                '{"triage":"bug","dispatch":{"to":"programmer","task_id":"t1",'
-                '"asset_names":[],"cli_hints":[]},"progress_note":"bug jump"}\n'
-                "```"
-            )
-            with (
-                patch("agent_turn.conversations_dir", return_value=conv),
-                patch("agent_turn._find_default_progress", return_value=progress_path),
-                patch("agent_turn._find_default_brief", return_value=None),
-                patch("agent_turn._which_executor_bin", return_value="/bin/hermes"),
-                patch(
-                    "agent_turn._run_cmd",
-                    return_value=type(
-                        "P",
-                        (),
-                        {"returncode": 0, "stdout": reply, "stderr": ""},
-                    )(),
-                ),
-                patch("handoff._HANDOFF_DIR", handoffs),
-            ):
-                # apply uses base_dir=None → _HANDOFF_DIR patched
-                result = run_turn(
-                    role_kind="product_host",
-                    session_id="s1",
-                    message="跳跃穿模",
-                    config={"agents": {"orchestrator": {"executor": "hermes"}}},
-                    progress_path=progress_path,
-                    timeout=30,
-                )
-            self.assertIn("handoff", result["assistant_message"].lower())
-            self.assertTrue(result.get("dispatch", {}).get("handoff_path"))
-            self.assertTrue((handoffs / "t1.json").is_file() or list(handoffs.glob("*.json")))
-
+            legacy_field = "g" + "ui" + "_hints"
+            self.assertNotIn(legacy_field, result)
 
 if __name__ == "__main__":
     unittest.main()

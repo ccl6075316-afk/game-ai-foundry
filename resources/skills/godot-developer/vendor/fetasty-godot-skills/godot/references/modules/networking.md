@@ -5,7 +5,7 @@ Last verified: 2026-02-12 | Engine: Godot 4.6
 ## What Changed Since ~4.3 (LLM Cutoff)
 
 ### 4.6 Changes
-- **Networking section in breaking changes**: See the official migration guide for
+- **Networking section in breaking changes**: See the official migration reference for
   specifics at the 4.5→4.6 level
 
 ### 4.5 Changes

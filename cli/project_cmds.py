@@ -28,7 +28,7 @@ def register_project_commands(cli_group: click.Group) -> None:
 
     @project_group.group("progress")
     def progress_group() -> None:
-        """Task + validation progress for agent resume."""
+        """Task and validation progress for resuming work."""
 
     @progress_group.command("init")
     @click.option("--brief", "brief_path", default=None, type=click.Path(exists=True, path_type=Path))
@@ -183,7 +183,7 @@ def register_project_commands(cli_group: click.Group) -> None:
     @click.option("--progress", "progress_path", required=True, type=click.Path(exists=True, path_type=Path))
     @click.argument("message")
     def note_cmd(progress_path: Path, message: str) -> None:
-        """Append a memory note for the next agent session."""
+        """Append a memory note for the next work session."""
         try:
             data = load_progress(progress_path)
             append_memory(data, message)
@@ -252,7 +252,7 @@ def register_project_commands(cli_group: click.Group) -> None:
             assert stream is not None
             for line in stream:
                 sink.append(line)
-                # Stream to parent so Electron onLine can forward to GUI
+                # Stream to parent so CLI consumers receive live output
                 if as_json:
                     # Keep JSON final payload clean: mirror to stderr for live log
                     sys.stderr.write(line)

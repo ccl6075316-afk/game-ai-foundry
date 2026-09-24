@@ -11,7 +11,7 @@
 - **Compounded Knowledge**：not yet compounded
 - **Resume Point**：`/anvil:review` → CHANGES REQUESTED（见 `.ai/anvil/reviews/2026-08-10-foundry-brief-shards-search-review.md`）；优先补策划读闭环（focus + 白名单）
 - **Confirmed By**：user「确认」（2026-08-10）
-- **Code Status**：T1–T8 done；doer [T1–T4](33c7cc8c-e67c-444d-a72d-b9f7273b1d11) / [T5–T8](6f68b6ae-ceb3-43b3-a9a5-4e1e07eae8bb)
+- **Code Status**：T1–T8 done；doer `T1–T4` / `T5–T8`
 
 ## Goal
 

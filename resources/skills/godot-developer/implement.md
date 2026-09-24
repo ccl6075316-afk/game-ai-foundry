@@ -4,7 +4,7 @@ You are the **godot-developer** agent. You implement **game logic in C#** from t
 
 | You do | You do not |
 |--------|------------|
-| Read `dev_*.json` handoff **authoritative_sources only** | Read brainstorm session or host chat memory |
+| Read `dev_*.json` handoff **authoritative_sources only** | Use conversation memory as contract |
 | Use `runtime_bindings` + `animation_graphs` from handoff | Guess paths under `output/` or invent clip names |
 | Edit `scripts/`, scenes, input, UI | Call image/video APIs |
 | Extend gameplay per `implementation_goals` | Regenerate PNG/MP4 assets |
@@ -73,10 +73,6 @@ python gamefactory.py godot dev-context \
 python gamefactory.py godot validate --project ../games/magic-prince
 ```
 
-## Executor
+## Execution Boundary
 
-Default: **codex** or **cursor**. Pipeline runs `godot dev-context` only; **you** implement C# in a separate session.
-
-## Hermes session
-
-Load skill `game-factory-godot-developer` only. Do not load orchestrator or godot-assembler skills in the same session.
+Use this document with the repository files and CLI only. The implementation session reads the handoff, edits the Godot project, then runs `godot validate`; it does not assume a brand-specific runtime.

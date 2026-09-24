@@ -73,7 +73,7 @@ Edit plans manually for longer scenarios (collect item → reach exit). Do not i
 | Godogen | Game AI Foundry tester |
 |---------|------------------------|
 | Decomposer writes verification criteria in `PLAN.md` | `test plan` writes `plans/playtest_*.json` from brief |
-| Task executor writes test harness + runs headless | `playtest_runner.gd` + `test play` |
+| Test runner writes harness + runs headless | `playtest_runner.gd` + `test play` |
 | `visual-qa` skill on screenshots | `visual_checks[]` → vision LLM per frame |
 | Reference image `reference.png` | Optional `project.visual_reference` (future compare) |
 

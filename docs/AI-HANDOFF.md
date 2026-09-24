@@ -1,423 +1,194 @@
-# Game AI Foundry — AI Agent Handoff
+# Game AI Foundry — CLI 与文件契约手册
 
-> **读者**：后续接手的 AI Agent / 自动化编排器（中文操作手册）。  
-> **侧重**：仓库结构、**brief 字段**、CLI 速查、抠图/动画铁律、配置、**§1.2 资产审查表**。  
-> **工具与纠错**：[`TOOLS.md`](TOOLS.md)（本机工具、执行器、外部 Agent 探测命令）。  
-> **不写**：设计 vs 施工方法论、六角色边界、里程碑进度 — 分别见 [`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)、[`AGENT-ROUTING.md`](AGENT-ROUTING.md)、[`ROADMAP.md`](../ROADMAP.md)。  
-> **索引**：[`docs/README.md`](README.md)
+> 读者：使用本仓库的外部 Agent 与维护者。
+> 入口：先读 [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md)；环境问题读 [`TOOLS.md`](TOOLS.md)。
+> 本文只写确定性命令、文件契约、失败处理与验收规则。
 
----
-
-## 0. 执行摘要
+## 1. 主路径
 
 ```text
-brief chat export（冻结）→ prompt craft → pipeline plan/run → godot assemble → dev-context → C# 玩法
+Draft JSON
+  → brief freeze
+  → workflow context / validate / init
+  → workflow run --stage assets
+  → workflow status / resume
+  → assets review
+  → production / progress / handoff
+  → godot scaffold / assemble / validate
+  → test unit / play / regression
 ```
 
-- **契约**：export 后只读 `brief.json` + `plans/` + manifest；聊天记忆无效（§1）。
-- **批量资产**：用 `pipeline run`，不要逐步 Hermes terminal（[`pipeline-schedule.md`](../resources/skills/orchestrator/pipeline-schedule.md)）。
-- **迭代改需求**：流程见 ITERATIVE §3.2；今天 = 改 brief → `plan --merge` → `run`。
+六个 Workflow 命令的 JSON 合同、只读边界和失败分类见通用 Skill。所有面向外部 Agent 的命令优先加 `--json`。
 
----
+## 2. 项目与文件状态
 
-## 1. 操作流水线（CLI 视角）
+```text
+projects/<slug>/
+  brief.json                 # 冻结后的设计契约
+  scenes/*.json              # 场景分册
+  systems/*.json             # 系统分册
+  assets/*.spec.json         # 资产分册
+  output/                    # 生成资产
+  plans/
+    production.json          # 工程蓝图
+    progress.json            # 施工续作状态
+    handoffs/*.json          # 任务交接包
+    changes/*.json           # Change Request / Production Delta
+  game/                      # Godot 工程
+pipeline/
+  manifest.json              # 资产 DAG 与任务状态
+```
 
-| 步 | 执行者 | 命令 / 产物 |
-|----|--------|-------------|
-| 1 | orchestrator / GUI 策划 | **`brief chat`**（host-chat → 落实）→ `brief chat export` → `brief_meta`；兼容 CLI `brief brainstorm` |
-| 1b | orchestrator | **`production derive`** → `plans/production_<brief>.json`（工程蓝图） |
-| 1c | orchestrator | **`project progress init`** → `plans/progress_<slug>.json` |
-| 2 | prompt-crafter | `prompt craft` → `plans/*.json`（runner 默认跳过，加 `--run-prompts`） |
-| 3 | **`pipeline run`** | `pipeline plan` → manifest；`run --jobs N` → `output/` + `assets-manifest.json` |
-| 4 | godot-assembler | manifest 内 `godot.assemble` 或 `godot assemble` |
-| 4b | orchestrator | **`godot scaffold`**（production → 可编译壳；可在 assemble 前或后） |
-| 5 | godot-developer | `production derive` → `godot dev-context` → `plans/dev_*.json` → 写 C# |
-| 6 | tester | `test unit` · `test plan` / `test play`（`--task` + `assert_*`；`--progress`）· `test regression` |
-| 异常 | orchestrator | `exit 2` → 改 plan/brief → `pipeline reset` → 再 `run` |
+外部路径可由 `project external` 登记。`manifest`、`progress`、`handoff`、`assets-manifest`、`validation report` 是唯一权威状态，不建立第二份状态库。
 
-角色分工表 → [`AGENT-ROUTING.md`](AGENT-ROUTING.md)。
+## 3. Brief 契约
 
-### 1.1 Brief 门禁
+### 3.1 冻结
 
-- **GUI 主路径**：策划岗多轮用 `brief chat`（host-chat）；用户明确「落实」才写盘；`brief chat export` 后下游只读文件。
-- **CLI 兼容**：`brief brainstorm` 仍可用（问卷式每轮 merge）；**勿**作为 GUI 默认。
-- 改素材/玩法 → 改 brief → `pipeline plan`（必要时 `--merge`），不能靠会话记忆。
-- 产品心智与工种 → [`HOST-CHAT-PRODUCT.md`](HOST-CHAT-PRODUCT.md)。
-
-**制作完备性审查（makeability）**
+- 外部 Agent 直接补全 Draft JSON；创意判断、议题取舍与字段修订都在外部完成。
+- `brief freeze --input <draft> -o <brief> --json` 执行完整门禁并写 `brief_meta`。
+- 冻结后的 `brief.json` 是下游只读设计契约；修改需求必须生成新版本或走 Delta，不依赖会话记忆。
+- 示例：`resources/asset-brief.example.json`。
 
 ```bash
-python gamefactory.py brief chat makeability --session-id <id> --json
+python gamefactory.py brief freeze --input ../projects/my-game/brief.draft.json -o ../projects/my-game/brief.json --json
+python gamefactory.py brief validate --brief ../projects/my-game/brief.json --json
 ```
 
-- 独立子 LLM（[`makeability-critic.md`](../resources/skills/orchestrator/makeability-critic.md)）；结果写入 session `makeability_review`（`intent_gaps` / `detail_gaps` / `suggested_defaults`）。
-- **Export 门闩（硬）**：结构 / 生图契约校验失败（`gaps` / `_audit_draft_gaps`）→ `brief chat export` 拒绝。
-- **制作审查（软 / 建议）**：无审查、草稿指纹过期、或 `intent_gaps` 非空 → **不阻塞** export；GUI 仍可提示再审。`detail_gaps` 同样不阻塞。
-- Export 成功时写出 sidecar：`projects/<slug>/makeability.json`（或与 brief 同目录）。
-- `production derive` 若发现 sidecar → 合并为 `production_doc.makeability` + 可选 `production_doc.tuning`。
+### 3.2 场景 / 系统 / 资产
 
-**Brief 补全 / 议题头脑风暴（可选，不绑导出）**
+| 分册 | 作用 | 与 Production 的关系 |
+|---|---|---|
+| `scenes[]` | 空间、入口、主流程、视觉边界 | 派生场景树、主场景、关卡任务 |
+| `systems[]` | 玩法机制、规则、状态与交互 | 派生脚本职责、信号、输入与验收 |
+| `assets[]` | 可生成/可装配的视觉与音频资源 | 派生 Pipeline task、尺寸、用途、依赖 |
+| `animation_graphs[]` | 动作状态、帧序列、转换条件 | 派生 still / video / frame tasks |
+
+推荐薄 Brief：主文件只放 `id`、`title|name`、`path`，正文放分册。外部 Agent 用 `brief search` / `brief shard load` 按需读取。
 
 ```bash
-python gamefactory.py brief chat enrich --session-id <id> [--hint "只补 HUD"] --json
-python gamefactory.py brief chat topic-brainstorm --session-id <id> --topic "张力条怎么呈现" --json
-python gamefactory.py brief chat brainstorm-apply --session-id <id> --proposal-id p1 --json
+python gamefactory.py brief shard migrate --brief ../projects/my-game/brief.json
+python gamefactory.py brief search --brief ../projects/my-game/brief.json --q "jump" --json
+python gamefactory.py brief shard load --brief ../projects/my-game/brief.json --kind scene --id <scene_id> --json
 ```
 
-- GUI 策划：「补全细节」「议题头脑风暴」→ 方案卡「采用 pN」写回 draft（可含资产候选）。
-- 不定死通用 `screens` schema；具体数值可进 production，**需要哪些参数**应在 brief 中声明。
-- 写回后 makeability 指纹可能过期；建议再「制作审查」对齐意图，但 **不强制** 才能 export。
+### 3.3 核心字段
 
-**Brief 目录 + 分册（catalog shards）**
+- `project`：标题、类型、玩法循环、会话目标、控制、风格、验收条件。
+- `scenes[]`：`id`、`title` 必填；场景流程与引用可选。
+- `systems[]`：`id`、`title` 必填；摘要与规则可选。
+- `assets[]`：`id/name/type/usage`、生成规格、交付路径、场景/系统弱引用。
+- `animation_graphs[]`：动作、帧数、转换与输入条件。
+- `art_tokens`、`visual_reference`：风格锚点与视觉目标。
 
-- 推荐形态：`brief.json` 为**薄目录**（`scenes` / `systems` / `assets` 仅 `id` + `title`|`name` + `path`）；正文在工程内 `scenes/*.json`、`systems/*.json`、`assets/*.spec.json`。
-- 厚 brief 仍可读（validate 告警）；新写入用 `brief shard migrate --brief …` 迁出正文并留 `*.pre-shard.json` 备份。
-- **简介预算（软告警）**：`project.description` ≤ **800** 字符、`gameplay_loop` ≤ **1200**；细则进 scene/system 分册，勿堆进 description。
-- **结构化搜索**（无向量）：`brief search --brief PATH --q QUERY [--kind scene|system|asset] [--json]`；读单册 `brief shard load --brief PATH --kind scene --id ID [--json]`。
-- **host-chat**：主对话轮 payload 为薄索引 + 短简介 + 可选 session `focus` 分册；enrich 等子流程仍可能带整稿 draft。
-- **文档 focus / 稳定 id**（定位由宿主钉、模型只改 focus 内正文）：见 [`superpowers/specs/2026-08-10-document-focus-and-stable-ids.md`](superpowers/specs/2026-08-10-document-focus-and-stable-ids.md)。
+尺寸区分 `source_size`、`display_size`、`runtime scale`；个体差异、布局缩放与碰撞盒不要写进通用 Brief 规则。
 
-### 1.2 资产审查表（GUI）
-
-Pipeline 跑完后，GUI 右侧 **看板 | 资产** Tab 打开 **资产审查表**，读当前工程 `assets-manifest.json`：
-
-- **展示**：缩略图 + id/name + type + usage + 交付路径 + `review.status`
-- **行粒度**：brief 每项资产一行；`icon_kit` 按 `items[]` **逐项展开**（各行独立 review）
-- **三动作**（行内）：
-  - **采纳** — 只写 `review.status=accepted`，不改文件
-  - **重生成** — `pipeline reset --cascade` + `pipeline run`（需已有 pipeline manifest；无则按钮禁用）
-  - **本地替换** — 选图覆盖 canonical 路径（优先 `*_nobg`），`review.source=local_file`
-- **软标注**：`review` **不阻塞** `godot.assemble` / 程序员派工；普通资产存 `assets[<name>].review`；kit item 存 `assets[<kit>].item_reviews[<slug>]`
-
-入口：顶栏/侧栏 **「资产」**；聊天快捷 **「打开资产表」** 或 `/assets`。
+## 4. Production 与续作账本
 
 ```bash
-python gamefactory.py assets review list --manifest ../output/.../assets-manifest.json --json
-python gamefactory.py assets review accept --manifest ... --asset knight
-python gamefactory.py assets review replace --manifest ... --asset knight --file /path/to.png
-python gamefactory.py assets review regenerate-plan --pipeline-manifest ../pipeline/manifest.json --asset knight
+python gamefactory.py production derive --brief <brief> -o <production> --json
+python gamefactory.py production validate --production <production> --brief <brief> --json
+python gamefactory.py project progress init --production <production> --brief <brief>
+python gamefactory.py project progress show --progress <progress> --json
+python gamefactory.py project handoff list --json
 ```
 
----
-
-## 2. 项目结构
-
-```
-game-ai-foundry/
-├── cli/                    # gamefactory 入口（在此目录执行命令）
-├── resources/
-│   ├── asset-brief.example.json   # git 内唯一示例 brief
-│   └── skills/                    # 六角色 skill 源（hermes sync 生成包）
-├── projects/<slug>/        # 新游戏工程根（隔离；gitignored）
-│   ├── brief.json
-│   ├── progress.json / production.json
-│   ├── pipeline/manifest.json
-│   ├── plans/  output/  game/
-├── pipeline/ plans/ output/ games/   # 旧扁平产物（兼容；gitignored）
-└── docs/                   # 文档索引 → docs/README.md
-├── external-projects.json  # 外置工程索引（workspace 根；与 projects/ 同级）
-```
-
-**入口**：`cd cli && python gamefactory.py --help`
-
-### 外置工程根
-
-新建游戏仍默认 **`projects/<slug>/`**（隔离、gitignored）。已有独立 Godot 仓（如 fish2d）**不必拷贝进 `projects/`**，可在 GUI 顶栏工程切换器点 **「打开外置工程…」**（目录选择器）登记为当前工程。
-
-| 项 | 说明 |
-|----|------|
-| **索引** | workspace 根 `external-projects.json`；GUI 与 CLI 共用 |
-| **虚拟 brief 键** | `external:<id>/brief.json`（不把绝对路径写入 localStorage 主键） |
-| **Godot 布局** | 根目录 `project.godot` → `godot_rel=.`；否则 `game/project.godot` → `godot_rel=game`；皆无则标 `godot_missing`，可绑定但打开 Godot / validate 会报错 |
-| **产物路径** | `brief.json`、`pipeline/`、`output/`、`plans/`、`production.json`、`progress.json`、`makeability.json` 均写在 **外置根**（与 brief 同级）；无 brief 时可绑定，export / 保存 Brief 目标为该根 `brief.json` |
-| **移除** | 「从列表移除」只删索引条目，**不删**磁盘文件 |
-| **CLI** | `project external list|add|remove|detect`（`add --root <abs>` 探测布局并登记；同一归一化路径幂等） |
-
----
-
-## 3. Brief 契约（export 门禁）
-
-> 设计意图 vs 施工规格的 **概念拆分**见 ITERATIVE §1；下列为 **当前 `brief.json` 校验规则**。
-
-### `project` 必填（P0 玩法）
-
-| 字段 | 说明 |
-|------|------|
-| `title`, `description`, `art_direction`, `dimension` | 基础。`description` 宜为短产品总览（**中文优先**），系统细则放可选 `scenes` / `systems` |
-| `genre` | 如 `2d_platformer` |
-| `gameplay_loop`, `session_goal` | **中文优先**；godot-developer 完成标准。`gameplay_loop` 写场景串法/主重复活动，**允许短**；系统细则见可选 `scenes` / `systems` |
-| `player_asset` | 有 player 向 asset 时必填 |
-| `controls` | 动作 → 按键 |
-| `viewport` | `{ width, height }` |
-| `camera` | 平台类 genre 必填（**运行时**跟随/固定，如 `follow_player`） |
-| `view` | 可选；内容视角闭集 `side` \| `top_down` \| `three_quarter`；与 `camera` **正交**；brief LLM 从 genre 推断 |
-
-### `project` 可选（P1）
-
-`visual_reference`（**仅图片路径**，导出时留空，由 `brief visual-target pick` / GUI「北极星图」写入；禁止风格散文；默认 prompt 软对齐 — 作 still `--reference-image` 需从属资产设 `style_anchor_kind: visual_reference`）、`art_tokens`（可选结构化风格硬锁，见下）、`project.visual_target{}`、`hud[]`（有 `ui_element` 素材时必填）、`ui_panels[]`（**可选**：菜单/装备等面板清单 `{id,title,kind?,anchor?,slots?,notes?}`；聊到 UI 时写入；**不**挡导出；与 `hud`/`ui_element` 无强制绑定。字符布局示意见工程内 `ui-wireframe.md`，仅 GUI「生成 UI 示意」或 `brief chat ui-wireframe` / `brief ui-wireframe` 按需生成；程序员上下文在文件存在时软提示路径）、`scenes[]` / `systems[]`（见下）
-
-#### `scenes[]` / `systems[]`（可选）
-
-开发向信息架构：**场景**（有进出的屏）+ **逻辑系统**（跨场景规则）。**不**挡 `brief validate` / 导出；与 `ui_panels` 正交（panel = 屏内块；scene 可通过 `ui_panel_ids` 弱引用）。
-
-| 结构 | 字段 | 说明 |
-|------|------|------|
-| `scenes[]` | `id`, `title` 必填；`summary?`, `ui_panel_ids?`, `notes?`, **`visual_reference?`（仅图片路径，场景效果靶）** | 如主界面、钓场、商店 |
-| `systems[]` | `id`, `title` 必填；`summary?`, `notes?` | 如时间池、经济、图鉴；可无贴图 |
-
-`project.description` 应保持**短总览**（约 2–4 句），勿把系统规则/鱼种表堆进去。资产可选 `scene_ids` / `system_ids` 归类（弱引用，不强制校验 id 存在）。程序员/PM 上下文在 brief 含 scenes/systems 时软提示 id 列表。
-
-#### `art_tokens`（可选，Phase 2）
-
-与必填 `art_direction` **并存**；`brief validate` **不要求**本字段。非空时 `build_role_context` / visual-target context 注入整对象，prompt-crafter 优先把 tokens 写成 `style_lock` 硬锁，`art_direction` 仍负责 mood 散文。
-
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `line` | string | 线宽 / 描边 |
-| `palette` | string \| string[] | 主色或 hex 列表 |
-| `forbid` | string[] | 禁止风格 / 效果 |
-| `silhouette` | string | 剪影 / 头身比 |
-
-旧 brief 无此字段 → 行为与改前相同。示例见 [`resources/style-group-img2img.example.json`](../resources/style-group-img2img.example.json)。
-
-#### 尺寸契约 v2（generation / display / runtime scale）
-
-三层分离，勿混用：
-
-| 层级 | 字段 | 含义 |
-|------|------|------|
-| API 出图 | `generation_size` 或 plan `image_size` | 生图请求分辨率（可大于游戏内尺寸） |
-| 游戏内 canonical | `display_size` 或 **derive** | assemble 缩放到此；Godot 默认 scale=1 |
-| 个体差 / 同图多处 | Godot `scale` / `layout.placements[].scale` | 钓获长度、水族箱随机、一图多处 — **不写 brief** |
-
-**derive display**（物种间比例）：
-
-```json
-"project": {
-  "size_baseline": {
-    "asset_id": "char_barramundi",
-    "real_length_cm": 80,
-    "display_size": { "width": 213, "height": 120 }
-  }
-},
-"assets": [{
-  "id": "char_bluegill",
-  "real_length_cm": 19,
-  "aspect_ratio": "16:9",
-  "generation_size": { "width": 1920, "height": 1080 }
-}]
-```
-
-`display = baseline.display × (asset.real_length_cm / baseline.real_length_cm)`，宽按 `aspect_ratio` 拆。**无** `display_size` 时 export 仍可通过（derive 有效即可）。
-
-可选资产字段：`real_length_cm`、`real_length_max_cm`、`size_source`（`manual` / `web`）、`generation_size`。
-
-**权威字段（legacy）**：`assets[].display_size` = 在 `project.viewport` 里**看起来多大**（游戏内像素）。兼容 `"128x128 px"` 字符串 parse。
-
-| 层级 | 字段 | 含义 |
-|------|------|------|
-| 北极星 | `visual_reference` | 整屏参考**图路径**（构图 + 物体屏上比例；风格文案写 `art_direction`） |
-| 游戏内 | `display_size` 或 derive | 玩家眼里多大 → assemble **缩放到此**，Godot scale=1 |
-| 生成 | `generation_size` / handoff `image_size` | API 出图分辨率（character 按 `aspect_ratio`，非默认方图） |
-
-**校验**：同 `reference_asset` 家族 / 同 `animation_graphs` 角色 → **effective display** 必须一致（含 derive）。
-
-#### 风格组（`style_group` img2img）
-
-同屏多角色、套图等同族 / 从属关系，用 **风格组** 锁 still 画风（与动作族 `reference_asset` **正交**）：
-
-| 字段 | 说明 |
-|------|------|
-| `style_group` | 组名；同组 still 共享风格锚 |
-| `style_anchor_kind` | `asset`（默认）或 `visual_reference` |
-| `style_anchor` | kind=`asset` 时为锚点资产的 `name` / `id`；kind=`visual_reference` 时可省略（读 `project.visual_reference`） |
-| `use_style_img2img` | 缺省 **true**；设 `false` 退回纯文生图 |
-| `identity_anchor` | 可选；同角色/变体身份锚（`name` / `id`）。从属 + 风格 img2img 时 **优先**于 `style_anchor` 作 `--reference-image`（单槽） |
-
-**默认行为**：资产在组内且为从属（非锚点）→ `pipeline plan` 对该 still 的 `image.generate` **自动**带 `--reference-image`，并 `depends_on` 锚点 raw（或已解析的北极星路径）。handoff 中 `requires_reference_image: true`。
-
-**参考图优先级（单槽）**：需风格 img2img 且 `identity_anchor` 有效 → identity 资产 `*_raw.png`；否则 `style_anchor` / `visual_reference` 既有规则。
-
-**类型配方**：`character` / `texture` / `background` 可从属走风格 img2img；**`icon_kit` 不走跨资产 `style_group`**（类型白名单）。套内另规则：N≥2 且未设 `use_style_img2img: false` 时，**items[0] 为锚**，其余 generate 带 `--reference-image` 指向首项 raw（仍用 `image.bulk_model`）。
-
-**软强度**：prompt-crafter 对从属资产应写「低影响、借风格/身份特征、勿整图复制构图」；Gemini 栈无可靠 API strength。可选 `image.style_img2img_strength`（默认 `0.25`）对支持 `image_config.strength` 的 Provider（如 Recraft）best-effort 透传；不支持则忽略并短日志，**不失败**。
-
-**已做**：Phase 3 GUI DocsPreview 只读标注；看板按资产组头只读 style chips（不写回）。
-
-**例外 / 正交**：
-
-- **视频优先**：`animation_method: video` 仍跟 `reference_asset` 静帧作 i2v 参考；风格组**不**覆盖视频参考图选择。视频所依赖的**初始静帧**本身可先经风格组 img2img 产出。
-- **`character_pose`**：仍跟本角色 `reference_asset`（角色本体 still）；风格经本体传递，不走 `style_anchor`。
-- **北极星作硬参考**：默认**禁止**把 `project.visual_reference` 当 `--reference-image`；**仅当** brief 对该从属资产设 `style_anchor_kind: visual_reference` 时允许（pipeline 自动传该路径）。
-- 无 `style_group` 的旧 brief：行为与改前相同（纯文生图；pose / 视频仍可有各自参考图）。
-
-#### `content_class` + `project.view`（Phase 2）
-
-与玩法 **`usage`**、运行时 **`camera`** 均 **正交**；用户自然语言描述，**brief LLM 填写**；旧 brief 无字段仍兼容。
-
-| 层级 | 字段 | 说明 |
-|------|------|------|
-| `project` | `view` | `side` \| `top_down` \| `three_quarter` — 内容/出图视角；≠ `camera.mode` |
-| `assets[]` | `content_class` | 闭集类属（**非** door/cabinet 等特指物名） |
-| `assets[]` | `states[]` | 仅 `prop_stateful`；≥2 个 state slug |
-
-**`content_class` 闭集**：`floor_tile`, `wall_tile`, `prop_static`, `prop_interactable`, `prop_stateful`, `weapon`, `tool`, `decor`, `backdrop_sparse`, `backdrop_full`。
-
-**Pipeline 映射（LLM 填 class → 推断 `type`，用户不手填策略）**：
-
-| class 组 | 典型 `type` | 产物 |
-|----------|-------------|------|
-| `*_tile` | `texture` | 平铺，不去背 |
-| `prop_*` / `weapon` / `tool` / `decor` | still 族 | 白底 mattable |
-| `backdrop_*` | `background` | 场景背景 |
-
-**场景构图**：默认 `backdrop_sparse` + 独立 props；逻辑布局见 **`production.layout`**（derive 规则生成）；避免单张 busy `backdrop_full` 塞整关。
-
-**`production.layout`（可选）**：`production derive` 写入 `layout.regions`（命名区域）与 `layout.placements`（`asset` + 归一化 `xy_norm`）。**`godot scaffold` / `godot assemble`** 会按 `xy_norm * viewport` 在 `scenes/main.tscn/World` 下写入 Sprite2D；纹理约定路径 `assets/props/{asset}_nobg.png`（assemble 会从 pipeline 产物拷贝；源图缺失时跳过拷贝并记入 `props_skipped`，场景仍引用约定路径）。**注意**：典型流水线里 **assemble 会整文件重写 `main.tscn`**（内联 Player + Background + World），覆盖先前 scaffold 的 PackedScene 结构；施工改动应落在 assemble 之后，或只做纹理绑定。程序员仍可手写覆盖；只引用 brief 已有资产。旧 production 无 `layout` 仍合法。
-
-**`prop_stateful` + `states`**：`pipeline plan` 展开为多 still（如 `{id}__closed` / `{id}__open`）；状态 0 → T2I；状态 k>0 → img2img，`--reference-image` = 状态 0 raw，`depends_on` 状态 0 generate；craft prompt 只写状态差。手写多行 + `identity_anchor` 仍合法。
-
-**Prompt craft（结构化）**：LLM 输出 `subject` / `silhouette` / `style_lock` / `view` / `technical` / `negatives` 等；`assemble_asset_prompt()` 在 Python 合并 `art_tokens`、`project.view`、class 硬锁 → handoff `prompt`（可选保留 `prompt_fields`）。Skills：`resources/skills/prompt-crafter/class-*.md` 按 class 加载；`asset-planner.md` 路由。
-
-**模型能力自推定（assemble）**：craft 时解析目标生图/视频模型 id（still：`image.model` / tier；animation：`video_model` / Seedance 配置）→ `resolve_media_prompt_profile()` → `prompt_profile_id`（`gpt_image` / `gemini_image` / `volc_image` / `volc_video` / `grok_image` / `default`）。火山族用 **`volc_*`** 标识（匹配 `seedream*` / `seedance*` / `doubao-seedream*` 等别名，不用独立 `seed` profile）。Profile 只调组装形态（如 negatives 是否独立成段、soft style 尾句）；结构化硬锁不变。**无 GUI/config 开关**。更换 `image.model` 或 `video_model` 后须 **重跑 `prompt craft`**，旧 handoff 不会自动重装。
-
-### `assets[]` 每项
-
-`name`, `id`（英文 slug，必填，`^[a-z][a-z0-9_]*$`，用于磁盘路径与 pipeline task 前缀）, `type`, `usage`, `content_class`（可选，见上）, `states`（`prop_stateful` 时）, `usage_description`, `display_size`（或 `real_length_cm` + `project.size_baseline` derive）, `aspect_ratio`, `generation_size`（可选）, `real_length_cm` / `real_length_max_cm` / `size_source`（鱼类等物种比例）, `generate_method`；可选 `scene_ids` / `system_ids`（弱引用归类）；音频见 `type: audio`；视差见 `parallax_order` / `scroll_factor`。
-
-**`type: icon_kit`**：`items[]` 必填。每项为字符串，或  
-`{id, label?, usage?, usage_description?}`（文件键 slug 跟 `id`；item `usage` 进 `production.collectible_items`）。  
-`grid` 可省略（不再驱动切片）。批量模型见 `image.bulk_model` / `generate_tier`。
-
-可选（风格组）：`style_group`, `style_anchor_kind`, `style_anchor`, `identity_anchor`, `use_style_img2img`（见上表）。动作 / 视频族仍用 `reference_asset`。
-
-叙事字段（`description`、`art_direction`、`usage_description`、`summary`、`notes` 等）**中文优先**；`name` / `title` 亦可用中文（对话 / HUD / `reference_asset`）；**产物文件名只用 `id`**（如 `referee_raw.png`）。生图 handoff `prompt` 仍由 prompt-crafter **二次生成**英文。**`brief.zh.md` 已废弃**——人读走文档栏分册预览，不再导出镜像。
-
-### `animation_graphs[]`
-
-多 clip 角色必填；`from`/`to`/`then`/`bidirectional`。
-
-**校验**：`python gamefactory.py brief validate --brief ../resources/asset-brief.example.json`
-
-完整示例 → [`resources/asset-brief.example.json`](../resources/asset-brief.example.json)
-
----
-
-## 4. 抠图 + 动画帧（必读）
-
-| 来源 | 工具 | 说明 |
-|------|------|------|
-| 静图 | `image remove-bg --mode color` | 纯白底；~0.1s |
-| 视频帧 | `video matte-frames --engine ai` | rembg；**禁止**静图色键 |
-
-- 禁止用拆帧前几帧当 idle；禁止用 `*_raw.png` 当游戏站立图
-- `video split-frames` 默认 trim 片头过渡；idle 用独立 `*_nobg.png`
-
----
-
-## 5. 命令速查
+- `production.json`：把 Brief 转成场景、系统、资产、`godot_tasks[]`、输入映射与验收条件。
+- `progress.json`：记录施工任务、验证阶段、备注与回归快照。
+- `handoff`：把一次任务的输入、范围、权威来源和完成条件写成可恢复文件。
+- Change Request 先用 `production delta` 形成局部变更，再用 `production apply-delta --dry-run` 检查，最后合并并同步 `progress`。
+
+## 5. Pipeline DAG
 
 ```bash
-cd cli
-
-# Brief
-python gamefactory.py brief validate --brief ../resources/asset-brief.example.json
-python gamefactory.py brief chat export --session-id <SESSION_ID> -o ../projects/my-game/brief.json
-
-# Visual Target（全局或 --scene；另有 status / assign）
-python gamefactory.py brief visual-target generate --brief ../projects/my-game/brief.json --candidates 3
-python gamefactory.py brief visual-target generate --brief ../projects/my-game/brief.json --scene dock --candidates 3
-python gamefactory.py brief visual-target list --brief ../projects/my-game/brief.json --scene dock
-python gamefactory.py brief visual-target pick --brief ../projects/my-game/brief.json --id b --scene dock
-python gamefactory.py brief visual-target status --brief ../projects/my-game/brief.json
-# status：`ready` = brief 已绑定 visual_reference（跑资产闸门）；`disk_marked` = 仅磁盘有 selected.png（进度）
-python gamefactory.py brief visual-target assign --brief ../projects/my-game/brief.json --scene harbor --from-scene dock
-# 低级可选（无 --scene；场景请用 generate --scene）
-python gamefactory.py prompt craft-visual-target --brief ../projects/my-game/brief.json --variant a -o ../plans/visual_target_a.json
-# Pipeline（推荐路径）
-python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
-python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --run-prompts --jobs 4
-python gamefactory.py pipeline status --manifest ../pipeline/asset-brief.example.json
-
-# 单资产调试
-python gamefactory.py prompt craft --brief ../resources/asset-brief.example.json --asset knight -o ../plans/knight.json
-python gamefactory.py image generate --plan-file ../plans/knight.json -o ../output/asset-brief.example/knight_raw.png --validate
-
-# Godot
-python gamefactory.py godot assemble --assemble-file ../plans/godot_asset-brief.example.json
-python gamefactory.py godot dev-context \
-  --brief ../resources/asset-brief.example.json \
-  --project ../games/asset-brief.example \
-  -o ../plans/dev_asset-brief.example.json
-python gamefactory.py godot validate --project ../games/asset-brief.example
-
-# Tester（Pass 5 验收）
-python gamefactory.py test plan --brief ../resources/asset-brief.example.json
-python gamefactory.py test play \
-  --project ../games/asset-brief.example \
-  --plan ../plans/playtest_asset-brief.example.json \
-  --brief ../resources/asset-brief.example.json
-
-python gamefactory.py doctor --json
-python gamefactory.py setup check --json
-python gamefactory.py setup executor status --json
-python gamefactory.py setup install ffmpeg
-python gamefactory.py setup install godot
-python gamefactory.py setup install dotnet
+python gamefactory.py pipeline plan --brief <brief> -o <manifest>
+python gamefactory.py pipeline ready --manifest <manifest> --json
+python gamefactory.py pipeline run --manifest <manifest> --jobs 4
+python gamefactory.py pipeline status --manifest <manifest> --json
 ```
 
-**本机工具**：FFmpeg / Godot .NET / .NET SDK 为必需项；`setup install` 或 GUI 启动自动装。Godot 自动安装后写入 `godot.engine_path`。**rembg**：Release 内嵌 Python 自带；开发机可 `npm run prepare:python`（gui）。详见 [`TOOLS.md`](TOOLS.md)。
+建议优先使用 Workflow 六命令；底层 Pipeline 命令用于诊断、dry-run 和定点维护。
 
-本地 demo brief（`test-brief-*`、`magic-prince-brief.json`、`tests/fixtures/`）均为 **gitignored**；clone 后用 `asset-brief.example.json`。
+- `plan` 根据 Brief 建立 prompt、生成、裁剪、抠图、拆帧、组装依赖。
+- `run` 按 wave 执行 ready tasks，并把结果写回同一 `manifest`。
+- `status` 汇总 counts、ready、failed；`pipeline status` 可 reconcile 磁盘缺失输出。
+- `reset` 只在输入已修正后定点恢复；`suggest-retry` 可输出白名单命令。
+- 简报变化后重新 `plan`；需要保留 task 状态时使用 `--merge`。
 
----
+## 6. 资产审查
 
-## 6. 配置
+```bash
+python gamefactory.py assets review list --manifest <assets-manifest> --json
+python gamefactory.py assets review accept --manifest <assets-manifest> --asset <asset>
+python gamefactory.py assets review replace --manifest <assets-manifest> --asset <asset> --file <new-file>
+python gamefactory.py assets review regenerate-plan --pipeline-manifest <manifest> --asset <asset> --json
+```
 
-模板：`resources/config.example.json` → `~/.gamefactory/config.json`
+- `list` 展开 Brief 每项资产；`icon_kit` 按 `items[]` 逐项展开。
+- `accept` 是软标注，只写 `review.status`，不改图像文件。
+- `replace` 显式替换文件并更新路径；`regenerate` 生成定点重跑计划。
+- 审查失败时保留失败证据，不用未审查文件继续 Godot 组装。
 
-| 项 | 说明 |
-|----|------|
-| `provider_accounts` | 多 Provider 账号库（内置厂商 + 自建 OpenAI 兼容；可 `label`/`kind`/`api_base`） |
-| `host` / `image` / `video` | 活跃 Provider 与 API key；生图可 `use_text_provider`；批量见 `bulk_provider`/`bulk_model` |
-| `image.style_img2img_strength` | 可选，默认 `0.25`；风格 img2img 时 best-effort 透传 `image_config.strength`（Recraft 等）；Gemini 可忽略 |
-| `godot.engine_path` | Godot 4 **.NET / Mono**；`setup install godot` 可自动写入 |
-| `toolchain.bin_dir` | FFmpeg 目录（默认 `~/.gamefactory/toolchain/bin`） |
-| `toolchain.godot_dir` / `dotnet_dir` | 自动安装目录 |
-| `agents` | 七角色 executor 路由（见 AGENT-ROUTING） |
-| rembg | **Release 内嵌**；开发 venv 用 `prepare:python --with-rembg` |
+## 7. Matting 与动画铁律
 
-**执行器配置**（Hermes / Codex / Cursor）：GUI **设置 → 环境** 或 `setup executor step` — 见 [`TOOLS.md`](TOOLS.md) §5。账号与模型见 **设置 → Provider / Agent**（[`GUI-CONFIG.md`](GUI-CONFIG.md)）。
+1. **Validate before matting**：生成结果未通过 `--validate` 时，先修 prompt 或 Brief；禁止 trim、remove-bg 或继续拆帧。
+2. 图片后处理必须写 `--input` / `--output`，不要依赖短参数。
+3. 动画输入使用**原始 still**，不要先裁剪；参考图需纯白背景和单一主体。
+4. idle 使用独立 `*_nobg.png`，不要拿动画第一帧充当 idle。
+5. 视频先 `video split-frames`，再：
 
-启动检测：`setup check --json` + `doctor --json` + `setup executor status --json`。
+```bash
+python gamefactory.py video matte-frames --input <frames-dir> --output <output-dir> --engine ai
+```
 
----
+6. 不要用 `image remove-bg` 处理视频帧。
+7. 一张图不能包含多个动作帧；spritesheet 必须走显式 slice 流程。
 
-## 7. 操作原则
+## 8. Godot 与测试
 
-1. 只读 brief — 不补猜未写入 JSON 的内容  
-2. 生图 `exit 2` → prompt-crafter，不要 trim/remove-bg  
-3. 视频帧只用 `video matte-frames`  
-4. Pass 3 = assemble；Pass 4 = dev-context 再写 C#  
-5. 省钱默认：mini + 480p + 4s + 8 帧 + no audio  
-6. godot-developer 不扩 scope（ITERATIVE §8）
+```bash
+python gamefactory.py godot scaffold --production <production> --project <project> --validate
+python gamefactory.py godot assemble --assemble-file <assemble-file> --validate
+python gamefactory.py godot validate --project <project>
 
----
+python gamefactory.py test unit --project <project>
+python gamefactory.py test plan --brief <brief> -o <playtest>
+python gamefactory.py test play --project <project> --plan <playtest> --brief <brief>
+python gamefactory.py test regression --project <project>
+```
 
-## 8. 代码索引
+验收至少覆盖：
 
-| 用途 | 路径 |
-|------|------|
-| Brief 校验 | `cli/brief.py` |
-| Pipeline DAG / runner | `cli/pipeline_manifest.py`, `cli/pipeline_runner.py` |
-| Godot handoff | `cli/godot_dev.py`, `cli/godot_assemble.py` |
-| Tester / screenshot | `cli/test_analysis.py`, `cli/godot_screenshot.py` |
-| 本机工具检测 / 安装 | `cli/toolchain_setup.py`, `cli/setup_cmds.py` |
-| 执行器向导 | `cli/executor_setup.py`, `setup executor` |
-| Runner 阶段说明 | `resources/skills/orchestrator/pipeline-schedule.md` |
-| 资产审查表 / review | `cli/asset_review.py`, `cli/assets_cmds.py` |
-| 工具与外部 Agent 手册 | `docs/TOOLS.md` |
+| 层 | 命令 | 证明 |
+|---|---|---|
+| L0 | `godot validate` | 导入、C# build、主场景启动 |
+| L1 | `test unit` | 纯逻辑与系统规则 |
+| L2 | `test play` | 控制、胜负、核心循环、截图 |
+| L3 | `godot validate` + 视觉审查 | 画面符合 Brief / visual target |
+| L4 | `test regression` | Change 后旧验收未退化 |
 
----
+Godot 只实现冻结 Brief 与已应用 Production Delta；不得自行扩展场景、系统或玩法。
 
-*文档版本：2026-07-24*
+## 9. 失败处理
+
+Workflow 合法 `status` 为 `pending|running|done|paused|blocked|failed`；`failures[].kind` 为 `validation|network|dependency|config|unknown`。
+
+| 场景 | 下一步 |
+|---|---|
+| `ok=false` 或 `next_action=fix_input` | 读取 `failures[].kind/code/message`，修 Brief/Production/manifest，再 `workflow validate` |
+| `status=blocked` 且 `next_action=derive_production` | `workflow init`，检查 `summary.created` / `preserved` |
+| `run` 返回 `failed` | 读取 `summary.manifest.failed_ids` 与 task result |
+| validation pause / `exit 2` | 修 prompt、Brief 或输入；不要做后处理 |
+| network timeout / API size | 按失败分类定点 `workflow resume` 或 `pipeline reset` |
+| toolchain missing | `doctor --json` + `setup check --json` |
+| Godot / test failed | 记录 verification evidence；只改 Production Delta 允许的范围 |
+
+## 10. 操作原则
+
+1. 文件与 `--json` 是事实源；会话记忆不是契约。
+2. 先 `context` / `validate`，再写状态或执行。
+3. 同一任务失败时读 `failures`，不要盲目重跑整条 DAG。
+4. 只读与写入边界按 Skill；shell、配置写入、删除、网络请求需显式权限。
+5. 最终报告包含 `status`、`next_action`、`outputs`、`failures` 与验证证据。
+
+相关文档：[`ITERATIVE-PRODUCTION.md`](ITERATIVE-PRODUCTION.md)、[`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md)、[`TOOLS.md`](TOOLS.md)、[`README.md`](README.md)。

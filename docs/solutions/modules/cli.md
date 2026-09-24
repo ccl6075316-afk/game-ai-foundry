@@ -14,3 +14,4 @@ Dated solutions 条目（identity / style_group 等）已按 15 天政策清理�
 
 - [`docs/ARCHITECTURE-LAYER-INVENTORY.md`](../../ARCHITECTURE-LAYER-INVENTORY.md)
 - [`docs/AI-HANDOFF.md`](../../AI-HANDOFF.md)（brief / pipeline / 资产审查）
+- [`external-agent-workflow-replaces-gui-internal-agents-cli-20260924.md`](../architecture/external-agent-workflow-replaces-gui-internal-agents-cli-20260924.md)（去 GUI/内置 Agent、保留 Pipeline）

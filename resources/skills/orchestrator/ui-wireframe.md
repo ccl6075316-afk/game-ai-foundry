@@ -3,7 +3,7 @@
 独立子 LLM 任务：根据 `project.ui_panels`（及少量 brief 上下文），写出工程内 **`ui-wireframe.md` 正文**。  
 由宿主在用户**点击「生成 UI 示意」**后调用；**不是**补全细节 / 聊天的自动步骤。
 
-对标用途类似 [`commit-doc.md`](commit-doc.md)（产出给人看的 Markdown），但本任务**只输出 Markdown 正文**，不要包一层 JSON。
+对标用途类似既往 `commit-doc.md`（产出给人看的 Markdown），但本任务**只输出 Markdown 正文**，不要包一层 JSON。
 
 ---
 

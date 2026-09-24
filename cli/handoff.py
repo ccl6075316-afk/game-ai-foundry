@@ -279,7 +279,6 @@ def apply_product_host_dispatch(
         "dispatch_to": None,
         "target_instance_id": None,
         "next_actions": [],
-        "gui_hints": [],
     }
 
     triage = str(payload.get("triage") or "unknown").strip().lower()
@@ -331,14 +330,6 @@ def apply_product_host_dispatch(
         cli_hints = ["python gamefactory.py godot validate --project ../games"]
     cli_hints = _inject_manifest_cli_hints(cli_hints, brief_path)
     result["next_actions"] = list(cli_hints)
-
-    gui_hints_raw = payload.get("gui_hints")
-    if not isinstance(gui_hints_raw, list):
-        gui_hints_raw = []
-    gui_hints = [str(g).strip() for g in gui_hints_raw if str(g).strip()]
-    if to == "pipeline" and not gui_hints:
-        gui_hints = ["生成流水线", "运行资产生成（含文案）", "打开看板"]
-    result["gui_hints"] = gui_hints
 
     progress_file = progress_path
     if progress_file and progress_file.is_file():

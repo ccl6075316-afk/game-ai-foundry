@@ -101,29 +101,20 @@ class GenerateUiWireframeTests(unittest.TestCase):
         self.assertEqual(p.parent.name, "projects")
 
 
-class ChatUiWireframeCmdTests(unittest.TestCase):
-    def test_chat_cmd_resolves_external_brief_via_paths_for_brief_key(self) -> None:
+class UiWireframeCmdTests(unittest.TestCase):
+    def test_deterministic_cmd_reads_external_draft_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             ext_root = tmp_path / "ext-game"
             ext_root.mkdir()
-            session_file = tmp_path / "sess.json"
-            session_file.write_text(
-                json.dumps({"id": "sess", "draft_brief": _draft_with_panels()}, ensure_ascii=False),
+            draft_path = ext_root / "brief.draft.json"
+            draft_path.write_text(
+                json.dumps(_draft_with_panels(), ensure_ascii=False),
                 encoding="utf-8",
             )
-            brief_key = "external:deadbeef/brief.json"
             seen: dict[str, object] = {}
 
-            def fake_paths_for_brief_key(key: str, workspace=None):
-                seen["key"] = key
-                seen["workspace"] = workspace
-                return {
-                    "brief": ext_root / "brief.json",
-                    "project_root": ext_root,
-                }
-
-            def fake_generate(session, project_dir, *, config=None):
+            def fake_generate(draft, project_dir, *, config=None):
                 seen["project_dir"] = Path(project_dir).resolve()
                 return {
                     "ok": True,
@@ -138,24 +129,20 @@ class ChatUiWireframeCmdTests(unittest.TestCase):
             register_brief_commands(root)
             runner = CliRunner()
 
-            with patch("project_paths.paths_for_brief_key", fake_paths_for_brief_key):
-                with patch("ui_wireframe.generate_ui_wireframe", fake_generate):
-                    result = runner.invoke(
-                        root,
-                        [
-                            "brief",
-                            "chat",
-                            "ui-wireframe",
-                            "--brief-rel",
-                            brief_key,
-                            "-s",
-                            str(session_file),
-                        ],
-                        obj={"config": {}},
-                    )
+            with patch("ui_wireframe.generate_ui_wireframe", fake_generate):
+                result = runner.invoke(
+                    root,
+                    [
+                        "brief",
+                        "ui-wireframe",
+                        "--brief",
+                        str(draft_path),
+                        "--draft",
+                    ],
+                    obj={"config": {}},
+                )
 
             self.assertEqual(result.exit_code, 0, result.output)
-            self.assertEqual(seen.get("key"), brief_key)
             self.assertEqual(seen.get("project_dir"), ext_root.resolve())
 
 

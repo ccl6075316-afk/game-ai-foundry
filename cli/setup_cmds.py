@@ -1,15 +1,12 @@
-"""CLI: startup toolchain check and optional auto-install."""
+"""CLI: startup toolchain checks and provider account management."""
 
 from __future__ import annotations
 
 import json
 import sys
-from typing import Any
 
 import click
 
-from executor_setup import all_executor_status, run_executor_step
-from pi_runtime import pi_status, run_pi_smoke
 from toolchain_setup import check_toolchain, ensure_components, install_component
 
 
@@ -94,173 +91,14 @@ def setup_ensure_cmd(as_json: bool, only: tuple[str, ...]) -> None:
     if result["skipped"]:
         click.echo(f"已就绪: {', '.join(result['skipped'])}")
     if result["errors"]:
-        for cid, err in result["errors"].items():
-            click.echo(f"失败 {cid}: {err}", err=True)
+        for component_id, error in result["errors"].items():
+            click.echo(f"失败 {component_id}: {error}", err=True)
         sys.exit(1)
 
-
-@setup_group.group("executor")
-def setup_executor_group() -> None:
-    """Step-by-step setup for Codex / Hermes / Cursor executors."""
-
-
-@setup_executor_group.command("status")
-@click.option("--json", "as_json", is_flag=True, help="Print JSON report.")
-def setup_executor_status_cmd(as_json: bool) -> None:
-    """Show install/login/configure progress for each executor."""
-    report = all_executor_status()
-    if as_json:
-        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
-        return
-
-    click.echo("Game AI Foundry — executor setup\n")
-    for info in report["executors"].values():
-        mark = "就绪" if info["ready"] else "未完成"
-        click.echo(f"  [{mark}] {info['label']}")
-        for step in info["steps"]:
-            sm = "OK" if step["done"] else ("→" if step.get("active") else "…")
-            click.echo(f"      [{sm}] {step['label']}")
-
-
-@setup_executor_group.command("models")
-@click.option(
-    "--executor",
-    "executor_id",
-    required=True,
-    type=click.Choice(["cursor", "codex"], case_sensitive=False),
-    help="Native executor to query.",
-)
-@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
-def setup_executor_models_cmd(executor_id: str, as_json: bool) -> None:
-    """List models from local Cursor / Codex CLI (no static catalog)."""
-    from executor_models import list_executor_models
-
-    result = list_executor_models(executor_id)
-    if as_json:
-        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
-    elif result.get("models"):
-        click.echo(f"{executor_id} models ({result.get('source') or '-'}):")
-        for item in result["models"]:
-            click.echo(f"  - {item.get('id')}  {item.get('label') or ''}".rstrip())
-    else:
-        click.echo(result.get("hint") or result.get("error") or "无模型", err=True)
-    if not result.get("ok") and not result.get("models"):
-        sys.exit(1)
-
-
-@setup_executor_group.command("step")
-@click.argument("executor_id")
-@click.argument("step_id")
-@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
-@click.option(
-    "--provider",
-    "provider_id",
-    default=None,
-    help="Hermes configure_api / Codex sync_api: Foundry provider id (openrouter/deepseek/kimi/…).",
-)
-@click.option(
-    "--instance-id",
-    "instance_id",
-    default=None,
-    help="Codex sync_api: roster instance id for agents.instances overlay.",
-)
-def setup_executor_step_cmd(
-    executor_id: str,
-    step_id: str,
-    as_json: bool,
-    provider_id: str | None,
-    instance_id: str | None,
-) -> None:
-    """Run one executor setup step (install_cli, login, configure_api, …)."""
-    try:
-
-        def _progress(msg: str) -> None:
-            if not as_json:
-                click.echo(msg, err=True)
-            else:
-                click.echo(json.dumps({"progress": msg}, ensure_ascii=False), err=True)
-
-        result = run_executor_step(
-            executor_id,
-            step_id,
-            progress=_progress,
-            provider_id=provider_id,
-            instance_id=instance_id,
-        )
-        if as_json:
-            click.echo(json.dumps(result, ensure_ascii=False, indent=2))
-        else:
-            click.echo(f"完成 {executor_id}/{step_id}")
-            if result.get("message"):
-                click.echo(result["message"])
-    except Exception as exc:
-        if as_json:
-            click.echo(json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False))
-            sys.exit(1)
-        raise click.ClickException(str(exc)) from exc
-
-
-@setup_group.group("pi")
-def setup_pi_group() -> None:
-    """Embedded Pi coding-agent (Release runtime / Spike 0)."""
-
-
-@setup_pi_group.command("status")
-@click.option("--json", "as_json", is_flag=True, help="Print JSON report.")
-def setup_pi_status_cmd(as_json: bool) -> None:
-    """Show whether embedded Pi + Node + API key are ready."""
-    report = pi_status()
-    if as_json:
-        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
-        if not report.get("ready"):
-            sys.exit(1)
-        return
-
-    mark = "就绪" if report.get("ready") else "未就绪"
-    click.echo(f"Game AI Foundry — embedded Pi [{mark}]")
-    click.echo(f"  package: {report.get('package')}@{report.get('pin_version')}")
-    click.echo(f"  runtime: {report.get('runtime_root') or '(missing)'}")
-    click.echo(f"  node:    {report.get('node') or '(missing)'}")
-    auth = report.get("auth") or {}
-    click.echo(
-        f"  auth:    provider={auth.get('provider') or '-'} "
-        f"key={'yes' if auth.get('has_api_key') else 'no'}"
-    )
-    if report.get("size_mb") is not None:
-        click.echo(f"  size:    {report['size_mb']} MB")
-    if report.get("hint"):
-        click.echo(f"  hint:    {report['hint']}", err=True)
-    if not report.get("ready"):
-        sys.exit(1)
-
-
-@setup_pi_group.command("smoke")
-@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
-@click.option("--timeout", default=90.0, show_default=True, help="Seconds before abort.")
-def setup_pi_smoke_cmd(as_json: bool, timeout: float) -> None:
-    """One no-tool Pi turn using config API key (Spike 0)."""
-    result = run_pi_smoke(timeout_sec=timeout)
-    if as_json:
-        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
-        if not result.get("ok"):
-            sys.exit(1)
-        return
-
-    if result.get("ok"):
-        click.echo(f"Pi smoke OK ({result.get('provider')}/{result.get('model')})")
-        out = (result.get("stdout") or "").strip()
-        if out:
-            click.echo(out[:500])
-        return
-
-    click.echo(f"Pi smoke FAILED: {result.get('error')}", err=True)
-    if result.get("stderr"):
-        click.echo(result["stderr"][-800:], err=True)
-    sys.exit(1)
 
 @setup_group.group("provider")
 def setup_provider_group() -> None:
-    """Manage provider_accounts (IT toolbox write path)."""
+    """Manage provider_accounts (confirmed write path)."""
 
 
 @setup_provider_group.command("upsert")
@@ -293,7 +131,7 @@ def setup_provider_group() -> None:
     "--i-confirm",
     "i_confirm",
     is_flag=True,
-    help="Required: user confirmed write in IT chat (or equivalent).",
+    help="Required: user confirmed this write.",
 )
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
 def setup_provider_upsert_cmd(
@@ -368,7 +206,7 @@ def setup_provider_list_cmd(as_json: bool) -> None:
     "--i-confirm",
     "i_confirm",
     is_flag=True,
-    help="Required: user confirmed delete in IT chat (or equivalent).",
+    help="Required: user confirmed this deletion.",
 )
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
 def setup_provider_remove_cmd(
@@ -395,7 +233,7 @@ def setup_provider_remove_cmd(
 
 @setup_provider_group.command("models")
 @click.option("--provider", "provider_id", required=True, help="Account id to fetch models for.")
-@click.option("--api-key", "api_key_override", default=None, help="Preview Key (not saved; for GUI refresh).")
+@click.option("--api-key", "api_key_override", default=None, help="Preview key (not saved).")
 @click.option("--api-base", "api_base_override", default=None, help="Preview api_base (not saved).")
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
 def setup_provider_models_cmd(
@@ -417,206 +255,6 @@ def setup_provider_models_cmd(
     elif result.get("ok"):
         models = result.get("models") or []
         click.echo(f"{result.get('provider')}: {len(models)} 个模型")
-    else:
-        click.echo(f"失败: {result.get('error')}", err=True)
-    if not result.get("ok"):
-        sys.exit(1)
-
-
-@setup_group.group("agents")
-def setup_agents_group() -> None:
-    """Manage agents.* presets (IT toolbox)."""
-
-
-@setup_agents_group.group("instances")
-def setup_agents_instances_group() -> None:
-    """Manage agents.instances colleague overlays."""
-
-
-@setup_agents_instances_group.command("list")
-@click.option("--json", "as_json", is_flag=True)
-def setup_agents_instances_list_cmd(as_json: bool) -> None:
-    """List agents.instances (no secrets)."""
-    from provider_upsert import _load_config
-
-    cfg = _load_config()
-    agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
-    instances = agents.get("instances") if isinstance(agents.get("instances"), dict) else {}
-    rows: list[dict[str, Any]] = []
-    for iid, raw in instances.items():
-        if not isinstance(raw, dict):
-            continue
-        rows.append(
-            {
-                "instance_id": str(iid),
-                "role_kind": raw.get("role_kind"),
-                "executor": raw.get("executor"),
-                "provider": raw.get("provider"),
-                "model": raw.get("model"),
-                "thinking_level": raw.get("thinking_level"),
-                "use_third_party": raw.get("use_third_party"),
-            }
-        )
-    payload = {"ok": True, "count": len(rows), "instances": rows}
-    if as_json:
-        click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-    else:
-        click.echo(f"{len(rows)} instances")
-        for row in rows:
-            click.echo(
-                f"- {row['instance_id']}: role={row.get('role_kind') or '-'} "
-                f"executor={row.get('executor') or '-'} provider={row.get('provider') or '-'}"
-            )
-
-
-@setup_agents_instances_group.command("upsert")
-@click.option("--instance-id", "instance_id", required=True, help="GUI colleague instance id.")
-@click.option("--provider", "provider_id", default=None, help="Provider id (deepseek / openrouter / …).")
-@click.option("--model", "model", default=None, help="Model id (empty clears).")
-@click.option(
-    "--thinking-level",
-    "thinking_level",
-    default=None,
-    type=click.Choice(["off", "low", "medium", "high"], case_sensitive=False),
-    help="Pi --thinking level.",
-)
-@click.option(
-    "--executor",
-    "executor_id",
-    default=None,
-    type=click.Choice(["pi", "hermes", "codex", "cursor"], case_sensitive=False),
-    help="Executor (brief/IT locked to pi).",
-)
-@click.option(
-    "--use-third-party/--no-use-third-party",
-    "use_third_party",
-    default=None,
-    help="Codex only.",
-)
-@click.option("--i-confirm", "i_confirm", is_flag=True, help="Required after user confirmation.")
-@click.option("--json", "as_json", is_flag=True)
-def setup_agents_instances_upsert_cmd(
-    instance_id: str,
-    provider_id: str | None,
-    model: str | None,
-    thinking_level: str | None,
-    executor_id: str | None,
-    use_third_party: bool | None,
-    i_confirm: bool,
-    as_json: bool,
-) -> None:
-    """Upsert agents.instances[id] after user confirmation (IT NL config)."""
-    from agents_instances_upsert import upsert_agent_instance
-
-    result = upsert_agent_instance(
-        instance_id=instance_id,
-        provider=provider_id,
-        model=model,
-        thinking_level=thinking_level,
-        executor=executor_id,
-        use_third_party=use_third_party,
-        i_confirm=i_confirm,
-    )
-    if as_json:
-        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
-    elif result.get("ok"):
-        click.echo(
-            f"已写入 agents.instances.{result.get('instance_id')}"
-            f"（provider={result.get('provider') or '-'}, model={result.get('model') or '-'}, "
-            f"thinking={result.get('thinking_level') or '-'}）"
-        )
-    else:
-        click.echo(f"失败: {result.get('error')}", err=True)
-    if not result.get("ok"):
-        sys.exit(1)
-
-
-@setup_agents_group.group("executors")
-def setup_agents_executors_group() -> None:
-    """Manage agents.executors tool presets."""
-
-
-@setup_agents_executors_group.command("show")
-@click.option("--json", "as_json", is_flag=True)
-def setup_agents_executors_show_cmd(as_json: bool) -> None:
-    """Show agents.executors presets (no secrets)."""
-    from provider_upsert import _load_config
-
-    cfg = _load_config()
-    agents = cfg.get("agents") if isinstance(cfg.get("agents"), dict) else {}
-    executors = agents.get("executors") if isinstance(agents.get("executors"), dict) else {}
-    clean: dict[str, Any] = {}
-    for eid, raw in executors.items():
-        if not isinstance(raw, dict):
-            continue
-        clean[str(eid)] = {
-            "provider": raw.get("provider"),
-            "model": raw.get("model"),
-            "use_third_party": raw.get("use_third_party"),
-            "sandbox": raw.get("sandbox"),
-            "yolo": raw.get("yolo"),
-            "permission_mode": raw.get("permission_mode"),
-        }
-    payload = {"ok": True, "executors": clean}
-    if as_json:
-        click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-    else:
-        for eid, entry in clean.items():
-            click.echo(
-                f"- {eid}: provider={entry.get('provider') or '-'} "
-                f"model={entry.get('model') or '-'} "
-                f"use_third_party={entry.get('use_third_party')}"
-            )
-
-
-@setup_agents_executors_group.command("upsert")
-@click.option(
-    "--executor",
-    "executor_id",
-    required=True,
-    type=click.Choice(["pi", "hermes", "codex", "cursor"], case_sensitive=False),
-    help="Tool preset id: pi / hermes / codex / cursor.",
-)
-@click.option("--provider", "provider_id", default=None, help="Default provider id for this tool.")
-@click.option("--model", "model", default=None, help="Default model id (empty clears).")
-@click.option(
-    "--use-third-party/--no-use-third-party",
-    "use_third_party",
-    default=None,
-    help="Codex only: use Foundry third-party auth sync.",
-)
-@click.option(
-    "--i-confirm",
-    "i_confirm",
-    is_flag=True,
-    help="Required: user confirmed write in IT chat (or equivalent).",
-)
-@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
-def setup_agents_executors_upsert_cmd(
-    executor_id: str,
-    provider_id: str | None,
-    model: str | None,
-    use_third_party: bool | None,
-    i_confirm: bool,
-    as_json: bool,
-) -> None:
-    """Upsert agents.executors[executor] after user confirmation."""
-    from agents_executors_upsert import upsert_agent_executor
-
-    result = upsert_agent_executor(
-        executor=executor_id,
-        provider=provider_id,
-        model=model,
-        use_third_party=use_third_party,
-        i_confirm=i_confirm,
-    )
-    if as_json:
-        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
-    elif result.get("ok"):
-        click.echo(
-            f"已写入 agents.executors.{result.get('executor')}"
-            f"（provider={result.get('provider') or '-'}, model={result.get('model') or '-'}）"
-        )
     else:
         click.echo(f"失败: {result.get('error')}", err=True)
     if not result.get("ok"):

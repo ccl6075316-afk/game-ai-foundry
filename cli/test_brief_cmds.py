@@ -32,19 +32,6 @@ class BriefCmdsSurfaceTests(unittest.TestCase):
         self.assertEqual(result.exit_code, 0, result.output)
         self.assertNotIn("zh-doc", result.output)
 
-    def test_brief_chat_help_has_no_zh_doc(self) -> None:
-        runner = CliRunner()
-        result = runner.invoke(_brief_cli(), ["brief", "chat", "--help"])
-        self.assertEqual(result.exit_code, 0, result.output)
-        self.assertNotIn("zh-doc", result.output)
-
-    def test_brief_chat_export_help_has_no_skip_zh_doc(self) -> None:
-        runner = CliRunner()
-        result = runner.invoke(_brief_cli(), ["brief", "chat", "export", "--help"])
-        self.assertEqual(result.exit_code, 0, result.output)
-        self.assertNotIn("skip-zh-doc", result.output)
-        self.assertNotIn("zh-doc", result.output)
-
     def test_localize_help_mentions_offline_map(self) -> None:
         runner = CliRunner()
         result = runner.invoke(_brief_cli(), ["brief", "localize", "--help"])

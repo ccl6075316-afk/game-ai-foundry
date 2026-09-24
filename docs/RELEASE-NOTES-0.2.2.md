@@ -1,5 +1,7 @@
 # Game AI Foundry v0.2.2
 
+> **历史发布说明**：仅记录既往版本，不是当前操作入口。
+
 **主更新：相关分册提示 + soft-focus 安全写 + related 完整性**
 
 相对 [`v0.2.1`](RELEASE-NOTES-0.2.1.md)。本版给策划焦点注入 `related_shards`（声明引用 + id 提及），帮助发现连锁影响；写入不再靠 focus/related 白名单，而靠 patch 预检与事务（soft-focus）；catalog 分册不可读时明确报 `related_error`，不再静默漏边。
@@ -39,7 +41,7 @@
 3. 分册工程下策划焦点会看到 `related_shards`；改他册前请自行确认连带影响
 4. 国内装工具过慢时：**设置 → 环境** 打开「下载镜像」
 
-说明 → 本文件 · 工具 → [`TOOLS.md`](TOOLS.md) · 打包 → [`RELEASE.md`](RELEASE.md)
+说明 → 本文件 · 工具 → [`TOOLS.md`](TOOLS.md) · 打包入口已移除。
 
 ## 已知限制
 

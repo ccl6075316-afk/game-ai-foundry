@@ -1,6 +1,6 @@
 # Codex Godot Skills
 
-> :globe_with_meridians: [中文版本](./README_zh.md) | English
+> English reference
 
 A curated AI coding skill library for **Godot 4.6**, providing deep engine expertise to AI coding assistants (Codex CLI, Claude Code, etc.) to generate accurate, best-practice-compliant Godot code.
 
@@ -31,7 +31,7 @@ This skill library packages Godot 4.6 engine knowledge — architecture patterns
 ```
 codex-godot-skills/
 ├── README.md
-├── README_zh.md
+├── README.md
 ├── LICENSE
 ├── godot/                          # Core Godot engine skill
 │   ├── SKILL.md                    # Architecture, signals, resources, naming, etc.
@@ -96,7 +96,7 @@ You can also explicitly name a skill: `@godot-gdscript review this code`.
 - Scene architecture: composition over inheritance, max inheritance depth ≤ 3
 - Signals: `signal.emit()` / `signal.connect(callable)` modern syntax
 - Autoloads: reserved for truly global systems only
-- Language decision guide: GDScript → gameplay / C# → complex systems / GDExtension → hot paths
+- Language decision reference: GDScript → gameplay / C# → complex systems / GDExtension → hot paths
 
 ### godot-gdscript
 

@@ -3,12 +3,8 @@
 from __future__ import annotations
 
 import copy
-import json
-import tempfile
 import unittest
-from pathlib import Path
 
-from agent_turn import build_prompt, new_session
 from brief import (
     AssetSpec,
     ProjectContext,
@@ -211,39 +207,6 @@ class ValidateScenesSystemsTests(unittest.TestCase):
         self.assertEqual(out["project"]["scenes"][0]["id"], "dock")
         self.assertEqual(out["project"]["systems"][0]["id"], "day")
         self.assertEqual(out["assets"][0]["scene_ids"], ["dock"])
-
-
-class SoftHintScenesSystemsTests(unittest.TestCase):
-    def test_build_prompt_scenes_systems_soft_hint(self) -> None:
-        session = new_session("programmer", "ss1")
-        payload = {
-            "project": {
-                "scenes": [{"id": "fishing_combat", "title": "搏鱼"}],
-                "systems": [{"id": "economy", "title": "经济"}],
-            }
-        }
-        with tempfile.TemporaryDirectory() as tmp:
-            brief = Path(tmp) / "brief.json"
-            brief.write_text(json.dumps(payload), encoding="utf-8")
-            prompt = build_prompt(
-                role_kind="programmer",
-                user_message="实现日结",
-                session=session,
-                brief_path=brief,
-            )
-            self.assertIn("场景与逻辑系统", prompt)
-            self.assertIn("fishing_combat", prompt)
-            self.assertIn("economy", prompt)
-        with tempfile.TemporaryDirectory() as tmp2:
-            brief_only = Path(tmp2) / "brief.json"
-            brief_only.write_text("{}", encoding="utf-8")
-            prompt_empty = build_prompt(
-                role_kind="programmer",
-                user_message="实现日结",
-                session=session,
-                brief_path=brief_only,
-            )
-            self.assertNotIn("场景与逻辑系统", prompt_empty)
 
 
 if __name__ == "__main__":

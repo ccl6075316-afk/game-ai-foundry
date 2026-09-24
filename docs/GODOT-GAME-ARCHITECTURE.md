@@ -2,10 +2,10 @@
 
 | | |
 |--|--|
-| **读者** | godot-developer Agent、程序员同事、维护者 |
+| **读者** | godot-developer、外部 Agent、维护者 |
 | **地位** | Foundry 产出的 Godot C# 游戏的 **默认可维护原型标准** |
 | **姊妹** | 施工流程 → [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) · 角色 → godot-developer `implement.md` · 范例映射 → [`../projects/fishing-2d/GODOT-ARCHITECTURE.md`](../projects/fishing-2d/GODOT-ARCHITECTURE.md) |
-| **事实源** | [`anvil/brainstorms/2026-09-10-godot-game-architecture-guidance.md`](anvil/brainstorms/2026-09-10-godot-game-architecture-guidance.md) |
+| **事实源** | 已归档的 Anvil brainstorm（历史记录，不是当前入口） |
 
 ---
 

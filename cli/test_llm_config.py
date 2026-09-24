@@ -4,10 +4,37 @@ from __future__ import annotations
 
 import unittest
 
-from llm_config import resolve_code_api_settings, resolve_host_api_settings, resolve_prompt_api_settings
+from llm_config import (
+    migrate_retired_llm_models,
+    normalize_llm_model,
+    resolve_code_api_settings,
+    resolve_host_api_settings,
+    resolve_prompt_api_settings,
+)
 
 
 class LlmConfigTests(unittest.TestCase):
+    def test_normalize_llm_model_maps_retired_deepseek_ids(self) -> None:
+        self.assertEqual(normalize_llm_model("deepseek-chat"), "deepseek-v4-flash")
+        self.assertEqual(
+            normalize_llm_model("deepseek/deepseek-chat"),
+            "deepseek/deepseek-v4-flash",
+        )
+        self.assertEqual(normalize_llm_model("deepseek-v4-pro"), "deepseek-v4-pro")
+
+    def test_migrate_retired_llm_models_rewrites_nested_fields(self) -> None:
+        config = {
+            "host": {"model": "deepseek-chat"},
+            "provider_accounts": {"deepseek": {"text_model": "deepseek/deepseek-chat"}},
+        }
+        notes = migrate_retired_llm_models(config)
+        self.assertEqual(config["host"]["model"], "deepseek-v4-flash")
+        self.assertEqual(
+            config["provider_accounts"]["deepseek"]["text_model"],
+            "deepseek/deepseek-v4-flash",
+        )
+        self.assertEqual(len(notes), 2)
+
     def test_prompt_follows_host_when_configured(self) -> None:
         config = {
             "host": {

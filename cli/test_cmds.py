@@ -59,7 +59,7 @@ def _default_play_screenshot_dir(project_path: Path, brief_path: Path | None) ->
 
 @click.group("test")
 def test_group() -> None:
-    """Tester agent — playtest plan, command playback, vision QA (ITERATIVE §6)."""
+    """Playtest plan, command playback, and vision QA."""
 
 
 @test_group.command("plan")

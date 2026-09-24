@@ -8,7 +8,7 @@ from typing import Any
 
 import click
 
-# Dotted keys Hermes / safe CLI may set without user explicitly asking.
+# Dotted keys safe CLI may set without user explicitly asking.
 # Keep narrow — no API keys, no arbitrary nested writes.
 ALLOWED_SET_KEYS: frozenset[str] = frozenset(
     {

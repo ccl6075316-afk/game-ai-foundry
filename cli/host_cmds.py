@@ -1,4 +1,4 @@
-"""CLI: host bridge commands for single-asset / batch pipeline repair."""
+"""CLI: deterministic repair bridge commands for pipeline repair."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from host.run_assets import run_assets
 
 @click.group("host")
 def host_group() -> None:
-    """Host bridge — thin wrappers for GUI and safe_cli pipeline repair."""
+    """Deterministic repair bridge — wrappers for pipeline repair."""
 
 
 @host_group.command("retry-asset")

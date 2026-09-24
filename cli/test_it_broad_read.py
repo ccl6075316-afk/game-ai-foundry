@@ -1,4 +1,4 @@
-"""Tests for IT broad read (inspect + conversations)."""
+"""Tests for broad deterministic inspect reads."""
 
 from __future__ import annotations
 
@@ -8,7 +8,6 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from conversations_ops import list_sessions, show_session
 from inspect_ops import (
     InspectError,
     grep_files,
@@ -18,7 +17,6 @@ from inspect_ops import (
     resolve_readable_path,
     tree_dir,
 )
-from pi_foundry_tools import is_allowed_argv
 
 
 class RedactTests(unittest.TestCase):
@@ -81,42 +79,6 @@ class InspectPathTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         blob = json.dumps(result.get("json") or result.get("content") or "")
         self.assertNotRegex(blob, r"sk-[a-zA-Z0-9_-]{20,}")
-
-
-class ConversationsTests(unittest.TestCase):
-    def test_list_brief(self) -> None:
-        out = list_sessions("brief", limit=5)
-        self.assertTrue(out["ok"])
-        self.assertEqual(out["role"], "brief")
-
-    def test_show_brief_tail(self) -> None:
-        listed = list_sessions("brief", limit=1)
-        if not listed["sessions"]:
-            self.skipTest("no brief sessions")
-        sid = listed["sessions"][0]["id"]
-        shown = show_session("brief", sid, tail=5)
-        self.assertTrue(shown["ok"])
-        self.assertLessEqual(len(shown["messages"]), 5)
-
-
-class WhitelistTests(unittest.TestCase):
-    def test_inspect_and_conversations_allowed(self) -> None:
-        self.assertTrue(is_allowed_argv(["inspect", "list", "--path", "plans", "--json"]))
-        self.assertTrue(is_allowed_argv(["inspect", "read", "--path", "AGENTS.md", "--json"]))
-        self.assertTrue(is_allowed_argv(["inspect", "tree", "--path", "cli", "--json"]))
-        self.assertTrue(
-            is_allowed_argv(["inspect", "grep", "--path", "cli", "--pattern", "AgentTurnError|foo*", "--json"])
-        )
-        self.assertFalse(
-            is_allowed_argv(["inspect", "grep", "--path", "cli*", "--pattern", "x", "--json"])
-        )
-        self.assertTrue(is_allowed_argv(["conversations", "list", "--role", "brief", "--json"]))
-        self.assertTrue(
-            is_allowed_argv(
-                ["conversations", "show", "--role", "brief", "--session-id", "x", "--tail", "10", "--json"]
-            )
-        )
-
 
 if __name__ == "__main__":
     unittest.main()

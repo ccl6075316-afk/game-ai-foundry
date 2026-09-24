@@ -52,7 +52,7 @@ This supplements (not replaces) the agent's built-in knowledge.
 ## Accessibility (4.5+)
 
 - **Screen reader support**: Control nodes integrate with accessibility tools via AccessKit
-- **Live translation preview**: Test GUI layouts in different languages directly in-editor
+- **Live translation preview**: Test UI layouts in different languages directly in-editor
 - **FoldableContainer**: New accordion-style UI node for collapsible sections
 - **Recursive Control disable**: Disable mouse/focus interactions for entire node hierarchies with a single property
 

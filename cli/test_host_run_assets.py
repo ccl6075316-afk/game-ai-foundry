@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -37,15 +38,15 @@ def _validation_diagnosis(*, task_id: str = "foo.prompt.craft") -> dict:
             {
                 "task_id": task_id,
                 "kind": "validation",
-                "owner": "hermes",
-                "pm_fit": "yes",
+                "owner": "external_agent",
+                "triage_fit": "yes",
             }
         ],
-        "needs_hermes": [
+        "needs_external_agent": [
             {
                 "task_id": task_id,
                 "kind": "validation",
-                "owner": "hermes",
+                "owner": "external_agent",
                 "cli_hints": [
                     f"pipeline reset --manifest {manifest_cli_rel} --task-id {task_id} --cascade",
                 ],
@@ -160,7 +161,7 @@ class HostRunAssetsTests(unittest.TestCase):
             )
 
     def test_code_heal_cleared_failures_then_rerun(self) -> None:
-        """Network/code heal resets tasks; must run_pipeline again, not needs_agent."""
+        """Network/code heal resets tasks and must run_pipeline again."""
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "manifest.json"
             save_manifest(manifest_path, _sample_manifest())
@@ -178,7 +179,7 @@ class HostRunAssetsTests(unittest.TestCase):
             post_clean = {
                 "failed_count": 0,
                 "items": [],
-                "needs_hermes": [],
+                "needs_external_agent": [],
                 "manifest_cli_rel": "../pipeline/test.json",
                 "fix_commands": [],
                 "auto_fix_without_agent": False,
@@ -196,7 +197,7 @@ class HostRunAssetsTests(unittest.TestCase):
                             "owner": "code",
                         }
                     ],
-                    "needs_hermes": [],
+                    "needs_external_agent": [],
                     "auto_healable": [
                         {
                             "task_id": "foo.image.generate",
@@ -235,7 +236,7 @@ class HostRunAssetsTests(unittest.TestCase):
             fix_mock.assert_not_called()
             self.assertEqual(run_mock.call_count, 2)
 
-    def test_unknown_diagnosis_needs_agent(self) -> None:
+    def test_unknown_diagnosis_needs_external_agent(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             manifest_path = Path(tmp) / "manifest.json"
             save_manifest(manifest_path, _sample_manifest())
@@ -247,8 +248,12 @@ class HostRunAssetsTests(unittest.TestCase):
             )
             diagnosis = {
                 "failed_count": 1,
-                "items": [{"task_id": "foo.prompt.craft", "kind": "unknown", "owner": "hermes"}],
-                "needs_hermes": [{"task_id": "foo.prompt.craft", "kind": "unknown", "owner": "hermes"}],
+                "items": [
+                    {"task_id": "foo.prompt.craft", "kind": "unknown", "owner": "external_agent"}
+                ],
+                "needs_external_agent": [
+                    {"task_id": "foo.prompt.craft", "kind": "unknown", "owner": "external_agent"}
+                ],
                 "manifest_cli_rel": "../pipeline/test.json",
                 "fix_commands": [],
                 "auto_fix_without_agent": False,
@@ -269,7 +274,24 @@ class HostRunAssetsTests(unittest.TestCase):
                         result = run_assets(manifest_path, auto_fix=True)
 
             self.assertFalse(result["ok"])
-            self.assertEqual(result["stopped_reason"], "needs_agent")
+            self.assertEqual(result["stopped_reason"], "needs_external_agent")
+            self.assertNotEqual(result["run_exit_code"], 0)
+            self.assertIn("failure_log", result)
+            self.assertEqual(result["diagnosis"]["needs_external_agent"][0]["owner"], "external_agent")
+            serialized = json.dumps(result, ensure_ascii=False).lower()
+            legacy_terms = [
+                "her" + "mes",
+                "needs_" + "her" + "mes",
+                "pm" + "_" + "fit",
+                "pm" + "_" + "advice",
+                "".join(("g", "u", "i")),
+                "Elect" + "ron",
+                "看" + "板",
+                "项目经理" + " Agent",
+                "按" + "钮",
+                "点" + "「",
+            ]
+            self.assertFalse([term for term in legacy_terms if term.lower() in serialized])
             diagnose_mock.assert_called_once()
             fix_mock.assert_not_called()
             self.assertEqual(run_mock.call_count, 1)

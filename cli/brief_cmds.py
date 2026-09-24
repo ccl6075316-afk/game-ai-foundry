@@ -1,844 +1,105 @@
-"""CLI commands for brief brainstorming."""
+"""Deterministic CLI commands for project briefs."""
 
 from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
-from typing import Any
-
 import click
 
-from brief import load_brief, load_brief_document, parse_animation_graphs, validate_brief_for_export
-from brief_brainstorm import (
-    BriefBrainstormError,
-    export_brief,
-    load_session,
-    new_session,
-    run_turn,
-    save_session,
-    session_status,
+from brief import (
+    load_brief,
+    load_brief_document,
+    parse_animation_graphs,
+    validate_brief_for_export,
 )
-from host_chat import (
-    DEFAULT_AUTOFIX_MAX_ROUNDS,
-    HostChatError,
-    attach_bound_project as host_attach_bound_project,
-    build_turn_llm_prompt as host_build_turn_llm_prompt,
-    export_brief as host_export_brief,
-    resolve_bound_brief_output_path as host_resolve_bound_brief_output_path,
-    list_sessions as host_list_sessions,
-    load_session as host_load_session,
-    makeability_sidecar_path as host_makeability_sidecar_path,
-    new_session as host_new_session,
-    run_autofix as host_run_autofix,
-    run_brief_enrich as host_run_brief_enrich,
-    answer_makeability_gaps as host_answer_makeability_gaps,
-    run_makeability_review as host_run_makeability_review,
-    run_turn as host_run_turn,
-    save_session as host_save_session,
-    sync_session_draft_from_disk as host_sync_session_draft_from_disk,
-    clear_session_focus as host_clear_session_focus,
-    set_session_focus as host_set_session_focus,
-    session_path_for_id,
-    session_status as host_session_status,
-    write_makeability_sidecar as host_write_makeability_sidecar,
-)
-from topic_brainstorm import (
-    apply_brainstorm_proposals as topic_apply_brainstorm,
-    run_topic_brainstorm as topic_run_brainstorm,
-)
-from prompt_craft import PromptCraftError
 
-_DEFAULT_SESSION = Path("plans/brainstorm-session.json")
+
 
 
 def register_brief_commands(cli_group: click.Group) -> None:
     @cli_group.group("brief")
     def brief_group() -> None:
-        """Project brief — load, brainstorm, export."""
+        """Project brief — validate, freeze, inspect, and maintain catalog shards."""
 
-    @brief_group.group("brainstorm")
-    def brainstorm_group() -> None:
-        """Multi-turn requirement refinement (orchestrator-style)."""
-
-    @brief_group.group("chat")
-    def chat_group() -> None:
-        """Brief Tab host-chat (default chat; 落实 → commit-brief)."""
-
-    def _chat_session_path(session_id: str | None, session_path: Path | None) -> Path:
-        if session_path is not None:
-            return session_path
-        if not session_id:
-            raise click.UsageError("Pass --session-id or -s/--session.")
-        return session_path_for_id(session_id)
-
-    @chat_group.command("start")
-    @click.option("--seed", default=None, help="Optional first user message.")
-    @click.option("--session-id", default=None, help="Session id (file under plans/conversations/brief/).")
+    @brief_group.command("freeze")
     @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=None,
-        type=click.Path(path_type=Path),
-        help="Explicit session JSON path (overrides --session-id).",
-    )
-    @click.option(
-        "--brief-rel",
-        default=None,
-        help="GUI-bound project brief path (e.g. projects/fishing-2d/brief.json).",
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_start_cmd(
-        ctx: click.Context,
-        seed: str | None,
-        session_id: str | None,
-        session_path: Path | None,
-        brief_rel: str | None,
-        as_json: bool,
-    ) -> None:
-        """Start or restart a host-chat session."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        if session_path is not None:
-            path = session_path
-            sid = session_id or path.stem
-        elif session_id:
-            path = session_path_for_id(session_id)
-            sid = session_id
-        else:
-            session = host_new_session()
-            host_attach_bound_project(session, brief_rel)
-            sid = str(session["id"])
-            path = session_path_for_id(sid)
-            try:
-                result = host_run_turn(session, user_message=seed, config=config)
-                host_save_session(path, session)
-            except (HostChatError, PromptCraftError) as exc:
-                click.echo(f"Error: {exc}", err=True)
-                sys.exit(1)
-            payload = {
-                "session_id": session.get("id"),
-                "session_path": str(path.resolve()),
-                **result,
-            }
-            if as_json:
-                click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-            else:
-                click.echo(result["assistant_message"])
-                for i, c in enumerate(result.get("choices") or [], 1):
-                    click.echo(f"  {i}. {c}")
-            return
-
-        session = host_new_session(sid)
-        host_attach_bound_project(session, brief_rel)
-        try:
-            result = host_run_turn(session, user_message=seed, config=config)
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result["assistant_message"])
-            for i, c in enumerate(result.get("choices") or [], 1):
-                click.echo(f"  {i}. {c}")
-
-    @chat_group.command("reset")
-    @click.option("--seed", default=None)
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--brief-rel", default=None)
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_reset_cmd(
-        ctx: click.Context,
-        seed: str | None,
-        session_id: str | None,
-        session_path: Path | None,
-        brief_rel: str | None,
-        as_json: bool,
-    ) -> None:
-        """Discard and restart a host-chat session."""
-        ctx.invoke(
-            chat_start_cmd,
-            seed=seed,
-            session_id=session_id,
-            session_path=session_path,
-            brief_rel=brief_rel,
-            as_json=as_json,
-        )
-
-    @chat_group.command("turn")
-    @click.option("--message", "-m", required=True, help="User reply.")
-    @click.option("--session-id", default=None)
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=None,
-        type=click.Path(path_type=Path),
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.option(
-        "--instance-id",
-        default=None,
-        help="GUI colleague instance id (per-instance Provider/model for Pi).",
-    )
-    @click.option("--brief-rel", default=None)
-    @click.option(
-        "--assistant-raw",
-        default=None,
-        help="Precomputed assistant text (GUI Pi RPC); skips LLM and parses draft/export gates.",
-    )
-    @click.option(
-        "--assistant-raw-file",
-        default=None,
-        type=click.Path(path_type=Path, exists=True),
-        help="Read assistant text from file (preferred over --assistant-raw for large replies).",
-    )
-    @click.pass_context
-    def chat_turn_cmd(
-        ctx: click.Context,
-        message: str,
-        session_id: str | None,
-        session_path: Path | None,
-        as_json: bool,
-        instance_id: str | None,
-        brief_rel: str | None,
-        assistant_raw: str | None,
-        assistant_raw_file: Path | None,
-    ) -> None:
-        """Send one user message in host-chat."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        path = _chat_session_path(session_id, session_path)
-        raw = assistant_raw
-        if assistant_raw_file is not None:
-            try:
-                raw = assistant_raw_file.read_text(encoding="utf-8")
-            except OSError as exc:
-                click.echo(f"Error: cannot read --assistant-raw-file: {exc}", err=True)
-                sys.exit(1)
-        try:
-            session = host_load_session(path)
-            host_attach_bound_project(session, brief_rel)
-            result = host_run_turn(
-                session,
-                user_message=message,
-                config=config,
-                instance_id=instance_id,
-                assistant_raw=raw,
-            )
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result["assistant_message"])
-            for i, c in enumerate(result.get("choices") or [], 1):
-                click.echo(f"  {i}. {c}")
-            if result.get("ready_to_export"):
-                click.echo("\n[ready] Brief 可导出 — 使用 brief chat export")
-
-    @chat_group.command("prepare-prompt")
-    @click.option("--message", required=True, help="User message for this turn.")
-    @click.option("--session-id", default=None)
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=None,
-        type=click.Path(path_type=Path),
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.option("--brief-rel", default=None)
-    @click.pass_context
-    def chat_prepare_prompt_cmd(
-        ctx: click.Context,
-        message: str,
-        session_id: str | None,
-        session_path: Path | None,
-        as_json: bool,
-        brief_rel: str | None,
-    ) -> None:
-        """Build host-chat LLM prompt texts without calling the model (GUI Pi RPC)."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        path = _chat_session_path(session_id, session_path)
-        try:
-            session = host_load_session(path)
-            host_attach_bound_project(session, brief_rel)
-            bundle = host_build_turn_llm_prompt(
-                session,
-                user_message=message,
-                config=config,
-            )
-        except (HostChatError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **bundle,
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(bundle["prompt_text"])
-
-    @chat_group.command("bind")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--brief-rel", required=True, help="projects/<slug>/brief.json")
-    @click.option("--json", "as_json", is_flag=True)
-    def chat_bind_cmd(
-        session_id: str | None,
-        session_path: Path | None,
-        brief_rel: str,
-        as_json: bool,
-    ) -> None:
-        """Attach GUI project binding and hydrate draft from disk if empty."""
-        path = _chat_session_path(session_id, session_path)
-        try:
-            if path.is_file():
-                session = host_load_session(path)
-            else:
-                sid = session_id or path.stem
-                session = host_new_session(sid)
-            host_attach_bound_project(session, brief_rel, hydrate_draft=True)
-            host_save_session(path, session)
-            st = host_session_status(session)
-        except (HostChatError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        payload = {"session_id": session.get("id"), "session_path": str(path.resolve()), **st}
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(f"bound {st.get('project_slug')} -> {st.get('bound_brief_rel')}")
-            click.echo(f"draft assets: {st.get('asset_count', 0)}")
-
-    @chat_group.command("ui-wireframe")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option(
-        "--brief-rel",
+        "--input",
+        "input_path",
         required=True,
-        help="projects/<slug>/brief.json (draft ui_panels used from session).",
+        type=click.Path(exists=True, path_type=Path),
+        help="Draft brief JSON to validate and freeze.",
     )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_ui_wireframe_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        brief_rel: str,
-        as_json: bool,
-    ) -> None:
-        """Write ui-wireframe.md from session draft ui_panels (LLM ASCII layout)."""
-        from project_paths import paths_for_brief_key, repo_root
-        from ui_wireframe import generate_ui_wireframe
-
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        rel = str(brief_rel).replace("\\", "/").lstrip("./")
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            draft = session.get("draft_brief")
-            if not isinstance(draft, dict) or not draft:
-                raise HostChatError("Session has no draft_brief — chat or bind a project draft first.")
-            paths = paths_for_brief_key(rel, repo_root())
-            project_dir = Path(paths["brief"]).resolve().parent
-            result = generate_ui_wireframe(session, project_dir, config=config)
-            payload = {
-                "session_id": session.get("id"),
-                "brief_rel": rel,
-                **result,
-                **host_session_status(session),
-            }
-        except (HostChatError, json.JSONDecodeError, OSError, ValueError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            if result.get("ok"):
-                click.echo(result["path"])
-                click.echo(f"panels: {result.get('panel_count', 0)}")
-            else:
-                click.echo(result.get("error") or "ui-wireframe failed", err=True)
-        if not result.get("ok"):
-            sys.exit(1)
-
-    @chat_group.command("status")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--json", "as_json", is_flag=True)
-    def chat_status_cmd(session_id: str | None, session_path: Path | None, as_json: bool) -> None:
-        """Show host-chat session summary."""
-        try:
-            path = _chat_session_path(session_id, session_path)
-            if not path.is_file():
-                payload = {"exists": False, "session_id": session_id or path.stem, "session_path": str(path)}
-            else:
-                session = host_load_session(path)
-                payload = {
-                    "session_path": str(path.resolve()),
-                    **host_session_status(session),
-                }
-        except (HostChatError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-
-    @chat_group.command("focus")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--kind", default=None, help="scene|system|asset|visual_target|intent_gap|project|data")
-    @click.option("--id", "focus_id", default=None, help="Focus id (omit for --clear or kind=project)")
-    @click.option("--extra", default=None, help="JSON object for focus.extra")
-    @click.option("--clear", is_flag=True, help="Clear session focus")
-    @click.option("--json", "as_json", is_flag=True)
-    def chat_focus_cmd(
-        session_id: str | None,
-        session_path: Path | None,
-        kind: str | None,
-        focus_id: str | None,
-        extra: str | None,
-        clear: bool,
-        as_json: bool,
-    ) -> None:
-        """Pin or clear host-chat session focus (scene/system/asset cursor)."""
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            if clear:
-                host_clear_session_focus(session)
-            else:
-                raw: dict[str, Any] = {"kind": kind or ""}
-                if focus_id:
-                    raw["id"] = focus_id
-                if extra:
-                    parsed_extra = json.loads(extra)
-                    if not isinstance(parsed_extra, dict):
-                        raise HostChatError("focus.extra must be a JSON object")
-                    raw["extra"] = parsed_extra
-                host_set_session_focus(session, raw)
-            host_save_session(path, session)
-            payload = {
-                "session_path": str(path.resolve()),
-                **host_session_status(session),
-                "focus": session.get("focus") if isinstance(session.get("focus"), dict) else None,
-            }
-        except (HostChatError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-
-    @chat_group.command("list")
-    @click.option("--json", "as_json", is_flag=True)
-    def chat_list_cmd(as_json: bool) -> None:
-        """List Brief Tab host-chat sessions on disk."""
-        items = host_list_sessions()
-        payload = {"sessions": items, "count": len(items)}
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            if not items:
-                click.echo("(no sessions)")
-                return
-            for item in items:
-                click.echo(f"{item['id']}\t{item['message_count']} msgs\t{item['title']}")
-
-    @chat_group.command("autofix")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option(
-        "--max-rounds",
-        default=DEFAULT_AUTOFIX_MAX_ROUNDS,
-        show_default=True,
-        type=int,
-        help="Stop after this many LLM fix turns (or sooner if clean / stuck).",
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_autofix_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        max_rounds: int,
-        as_json: bool,
-    ) -> None:
-        """Read validator gaps and ask the host LLM to fix the draft until clean."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            result = host_run_autofix(session, config=config, max_rounds=max_rounds)
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-            **{k: v for k, v in host_session_status(session).items() if k not in result},
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or result.get("reason"))
-            click.echo(f"ok={result.get('ok')} rounds={result.get('rounds_run')} gaps={len(result.get('gaps') or [])}")
-            for g in result.get("gaps") or []:
-                click.echo(f"  - {g}")
-        if not result.get("ok"):
-            sys.exit(2)
-
-    @chat_group.command("makeability")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_makeability_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        as_json: bool,
-    ) -> None:
-        """Run Makeability Critic on draft_brief (does not modify draft)."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            host_sync_session_draft_from_disk(session)
-            result = host_run_makeability_review(session, config=config)
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-            **{k: v for k, v in host_session_status(session).items() if k not in result},
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or "makeability review done")
-            click.echo(
-                f"intent={result.get('intent_count', 0)} "
-                f"detail={result.get('detail_count', 0)} "
-                f"ready_to_export={result.get('ready_to_export')}"
-            )
-        if result.get("intent_count", 0) > 0:
-            sys.exit(2)
-
-    @chat_group.command("makeability-answer")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option(
-        "--answers",
-        required=True,
-        help='JSON array: [{"gap_id":"...","choice":"...","note":"..."}]',
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_makeability_answer_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        answers: str,
-        as_json: bool,
-    ) -> None:
-        """Apply structured makeability gap-card answers into draft_brief."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        path = _chat_session_path(session_id, session_path)
-        session: dict | None = None
-        result: dict | None = None
-        try:
-            session = host_load_session(path)
-
-            def persist_after_record(sess: dict) -> None:
-                host_save_session(path, sess)
-
-            result = host_answer_makeability_gaps(
-                session,
-                answers,
-                config=config,
-                persist_after_record=persist_after_record,
-            )
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        except OSError as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        assert session is not None and result is not None
-        try:
-            host_save_session(path, session)
-        except HostChatError as exc:
-            # Session JSON is still written; draft CAS may be recorded on session.
-            click.echo(f"Warning: {exc}", err=True)
-        except OSError as exc:
-            click.echo(f"Error: failed to save session: {exc}", err=True)
-            sys.exit(1)
-        try:
-            from host_chat import persist_project_draft
-
-            persist_project_draft(session)
-        except Exception:
-            pass
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-            **{k: v for k, v in host_session_status(session).items() if k not in result},
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or "makeability answers applied")
-            click.echo(
-                f"ok={result.get('ok')} verified={len(result.get('verified_ids') or [])} "
-                f"repair_failed={len(result.get('repair_failed_ids') or [])} "
-                f"remaining_intent={result.get('remaining_intent_count', 0)}"
-            )
-        if not result.get("ok"):
-            sys.exit(2)
-
-    @chat_group.command("enrich")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--hint", default=None, help="Optional focus hint for this enrich pass.")
-    @click.option("--temperature", default=0.7, show_default=True, type=float)
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_enrich_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        hint: str | None,
-        temperature: float,
-        as_json: bool,
-    ) -> None:
-        """Thicken draft_brief with player-visible flow/UI presentation (writes draft)."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            result = host_run_brief_enrich(
-                session,
-                hint=hint,
-                temperature=temperature,
-                config=config,
-            )
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-            **{k: v for k, v in host_session_status(session).items() if k not in result},
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or "brief enrich done")
-            click.echo(
-                f"fingerprint={result.get('fingerprint')} "
-                f"assets={result.get('asset_count', 0)} "
-                f"ready_to_export={result.get('ready_to_export')}"
-            )
-
-    @chat_group.command("topic-brainstorm")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option("--topic", required=True, help="Issue to brainstorm (e.g. tension HUD).")
-    @click.option("--constraints", default=None, help="Optional constraints for personas.")
-    @click.option("--multi-model", is_flag=True, help="Also try agents.brainstorm_models if set.")
-    @click.option("--temperature", default=0.85, show_default=True, type=float)
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_topic_brainstorm_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        topic: str,
-        constraints: str | None,
-        multi_model: bool,
-        temperature: float,
-        as_json: bool,
-    ) -> None:
-        """Multi-persona topic brainstorm (does not write draft until apply)."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            result = topic_run_brainstorm(
-                session,
-                topic,
-                constraints=constraints,
-                multi_model=multi_model,
-                temperature=temperature,
-                config=config,
-            )
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or "topic brainstorm done")
-            for p in (result.get("brainstorm_result") or {}).get("proposals") or []:
-                click.echo(f"  [{p.get('id')}] ({p.get('role')}) {p.get('title')}")
-
-    @chat_group.command("brainstorm-apply")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
-    @click.option(
-        "--proposal-id",
-        "proposal_ids",
-        multiple=True,
-        required=True,
-        help="Proposal id from topic-brainstorm (repeatable).",
-    )
-    @click.option("--fuse", is_flag=True, help="Ask LLM to fuse multiple selected proposals.")
-    @click.option("--temperature", default=0.7, show_default=True, type=float)
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def chat_brainstorm_apply_cmd(
-        ctx: click.Context,
-        session_id: str | None,
-        session_path: Path | None,
-        proposal_ids: tuple[str, ...],
-        fuse: bool,
-        temperature: float,
-        as_json: bool,
-    ) -> None:
-        """Apply selected topic-brainstorm proposals into draft_brief."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            result = topic_apply_brainstorm(
-                session,
-                list(proposal_ids),
-                fuse=fuse,
-                temperature=temperature,
-                config=config,
-            )
-            host_save_session(path, session)
-        except (HostChatError, PromptCraftError, click.UsageError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_id": session.get("id"),
-            "session_path": str(path.resolve()),
-            **result,
-            **{k: v for k, v in host_session_status(session).items() if k not in result},
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result.get("assistant_message") or "brainstorm apply done")
-            click.echo(
-                f"applied={','.join(result.get('applied_ids') or [])} "
-                f"fingerprint={result.get('fingerprint')}"
-            )
-
-    @chat_group.command("export")
-    @click.option("--session-id", default=None)
-    @click.option("-s", "--session", "session_path", default=None, type=click.Path(path_type=Path))
     @click.option(
         "-o",
         "--output",
         "output_path",
-        default=None,
+        required=True,
         type=click.Path(path_type=Path),
-        help="Write validated brief JSON (defaults to bound external brief path).",
+        help="Canonical brief JSON to write.",
     )
-    @click.option("--json", "as_json", is_flag=True)
-    def chat_export_cmd(
-        session_id: str | None,
-        session_path: Path | None,
-        output_path: Path | None,
-        as_json: bool,
-    ) -> None:
-        """Export draft brief from a host-chat session."""
+    @click.option("--json", "as_json", is_flag=True, help="Print one JSON result object.")
+    def freeze_cmd(input_path: Path, output_path: Path, as_json: bool) -> None:
+        """Freeze a draft JSON into a canonical brief with brief_meta."""
+        from brief import audit_brief_for_export, finalize_brief_export
+
+        input_abs = str(input_path.resolve())
+        output_abs = str(output_path.resolve())
+
+        def fail(gaps: list[str]) -> None:
+            if as_json:
+                click.echo(json.dumps({
+                    "ok": False,
+                    "input": input_abs,
+                    "output": output_abs,
+                    "brief_meta": None,
+                    "gaps": gaps,
+                }, ensure_ascii=False, indent=2))
+            else:
+                click.echo("Brief freeze failed:", err=True)
+                for gap in gaps:
+                    click.echo(f"  - {gap}", err=True)
+            sys.exit(1)
+
         try:
-            path = _chat_session_path(session_id, session_path)
-            session = host_load_session(path)
-            if output_path is None:
-                output_path = host_resolve_bound_brief_output_path(session)
-                if output_path is None:
-                    raise click.UsageError(
-                        "Pass -o/--output, or bind session to an external project."
-                    )
-            brief = host_export_brief(session)
+            data = load_brief_document(input_path)
+            if not isinstance(data, dict):
+                raise ValueError("--input must contain a JSON object.")
+            project, assets = load_brief(input_path)
+            graphs = parse_animation_graphs(data)
+            gaps = audit_brief_for_export(
+                project,
+                assets,
+                animation_graphs=graphs,
+                brief_path=input_path,
+            )
+        except (ValueError, json.JSONDecodeError, OSError) as exc:
+            fail([str(exc)])
+
+        if gaps:
+            fail(gaps)
+
+        try:
+            brief = finalize_brief_export(data, source="manual")
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(
                 json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
-            bound = str(session.get("bound_brief_rel") or "").strip()
-            if bound:
-                sidecar_path = host_makeability_sidecar_path(bound)
-            else:
-                sidecar_path = host_makeability_sidecar_path(output_path)
-            review = session.get("makeability_review")
-            if isinstance(review, dict):
-                host_write_makeability_sidecar(sidecar_path, review)
-        except (HostChatError, ValueError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
+        except (ValueError, json.JSONDecodeError, OSError) as exc:
+            fail([str(exc)])
 
         payload = {
-            "session_id": session.get("id"),
-            "brief_path": str(output_path.resolve()),
-            "makeability_path": str(sidecar_path.resolve()),
-            "brief": brief,
+            "ok": True,
+            "input": input_abs,
+            "output": output_abs,
+            "brief_meta": brief["brief_meta"],
+            "gaps": [],
         }
         if as_json:
             click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
         else:
-            click.echo(str(output_path.resolve()))
+            click.echo(output_abs)
 
     @brief_group.command("localize")
     @click.option(
@@ -1188,151 +449,6 @@ def register_brief_commands(cli_group: click.Group) -> None:
                     f"{item['kind']}:{item['id']} via={via} — {item.get('title') or ''}"
                 )
 
-    @brainstorm_group.command("start")
-    @click.option("--seed", default=None, help="Optional initial idea in one sentence.")
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=str(_DEFAULT_SESSION),
-        type=click.Path(path_type=Path),
-        help="Session JSON path (default: plans/brainstorm-session.json).",
-    )
-    @click.option("--json", "as_json", is_flag=True, help="Print JSON for GUI.")
-    @click.pass_context
-    def start_cmd(ctx: click.Context, seed: str | None, session_path: Path, as_json: bool) -> None:
-        """Start or restart a brainstorm session and get the first question."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        session = new_session()
-        try:
-            result = run_turn(session, user_message=seed, config=config)
-            save_session(session_path, session)
-        except (BriefBrainstormError, PromptCraftError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {
-            "session_path": str(session_path.resolve()),
-            **result,
-        }
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result["assistant_message"])
-            for i, c in enumerate(result.get("choices") or [], 1):
-                click.echo(f"  {i}. {c}")
-
-    @brainstorm_group.command("reset")
-    @click.option("--seed", default=None, help="Optional initial idea.")
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=str(_DEFAULT_SESSION),
-        type=click.Path(path_type=Path),
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def reset_cmd(ctx: click.Context, seed: str | None, session_path: Path, as_json: bool) -> None:
-        """Discard current session and start fresh."""
-        ctx.invoke(start_cmd, seed=seed, session_path=session_path, as_json=as_json)
-
-    @brainstorm_group.command("turn")
-    @click.option("--message", "-m", required=True, help="User reply.")
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=str(_DEFAULT_SESSION),
-        type=click.Path(exists=True, path_type=Path),
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    @click.pass_context
-    def turn_cmd(
-        ctx: click.Context,
-        message: str,
-        session_path: Path,
-        as_json: bool,
-    ) -> None:
-        """Send one user message and get the next brainstorm response."""
-        config = ctx.obj.get("config", {}) if ctx.obj else {}
-        try:
-            session = load_session(session_path)
-            result = run_turn(session, user_message=message, config=config)
-            save_session(session_path, session)
-        except (BriefBrainstormError, PromptCraftError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {"session_path": str(session_path.resolve()), **result}
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(result["assistant_message"])
-            for i, c in enumerate(result.get("choices") or [], 1):
-                click.echo(f"  {i}. {c}")
-            if result.get("ready_to_export"):
-                click.echo("\n[ready] Brief 可导出 — 使用 brief brainstorm export")
-
-    @brainstorm_group.command("status")
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=str(_DEFAULT_SESSION),
-        type=click.Path(exists=True, path_type=Path),
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    def status_cmd(session_path: Path, as_json: bool) -> None:
-        """Show brainstorm session summary."""
-        try:
-            session = load_session(session_path)
-            payload = {"session_path": str(session_path.resolve()), **session_status(session)}
-        except (BriefBrainstormError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-
-    @brainstorm_group.command("export")
-    @click.option(
-        "-s",
-        "--session",
-        "session_path",
-        default=str(_DEFAULT_SESSION),
-        type=click.Path(exists=True, path_type=Path),
-    )
-    @click.option(
-        "-o",
-        "--output",
-        "output_path",
-        required=True,
-        type=click.Path(path_type=Path),
-        help="Write validated brief JSON.",
-    )
-    @click.option("--json", "as_json", is_flag=True)
-    def export_cmd(session_path: Path, output_path: Path, as_json: bool) -> None:
-        """Export draft brief to a brief JSON file."""
-        try:
-            session = load_session(session_path)
-            brief = export_brief(session)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            output_path.write_text(
-                json.dumps(brief, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-        except (BriefBrainstormError, ValueError, json.JSONDecodeError, OSError) as exc:
-            click.echo(f"Error: {exc}", err=True)
-            sys.exit(1)
-
-        payload = {"brief_path": str(output_path.resolve()), "brief": brief}
-        if as_json:
-            click.echo(json.dumps(payload, ensure_ascii=False, indent=2))
-        else:
-            click.echo(str(output_path.resolve()))
-
     @brief_group.command("ui-wireframe")
     @click.option(
         "--brief",
@@ -1515,7 +631,7 @@ def register_brief_commands(cli_group: click.Group) -> None:
             sys.exit(1)
 
         if as_json:
-            # Surface which file was chosen so CLI/GUI can see list≡pick target.
+            # Surface which file was chosen so the CLI sees the list/pick target.
             payload = dict(manifest)
             payload["manifest_path"] = str(Path(manifest_path).resolve())
             click.echo(json.dumps(payload, ensure_ascii=False, indent=2))

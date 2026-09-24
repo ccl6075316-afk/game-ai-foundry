@@ -9,6 +9,46 @@ from proxy_utils import resolve_config_proxy
 
 DEFAULT_API_BASE = "https://openrouter.ai/api/v1"
 
+_LEGACY_MODEL_ALIASES: dict[str, str] = {
+    "deepseek-chat": "deepseek-v4-flash",
+    "deepseek-reasoner": "deepseek-v4-pro",
+    "deepseek/deepseek-chat": "deepseek/deepseek-v4-flash",
+    "deepseek/deepseek-reasoner": "deepseek/deepseek-v4-pro",
+}
+
+
+def normalize_llm_model(model: str | None) -> str | None:
+    """Rewrite retired DeepSeek model ids to current API names."""
+    if model is None:
+        return None
+    text = str(model).strip()
+    if not text:
+        return None
+    return _LEGACY_MODEL_ALIASES.get(text, text)
+
+
+def migrate_retired_llm_models(config: dict[str, Any]) -> list[str]:
+    """In-place rewrite of retired model ids in a config dict."""
+    changes: list[str] = []
+
+    def walk(obj: Any, path: str = "") -> None:
+        if isinstance(obj, dict):
+            for key, value in list(obj.items()):
+                here = f"{path}.{key}" if path else str(key)
+                if key in ("model", "text_model", "textModel") and isinstance(value, str):
+                    new_value = normalize_llm_model(value)
+                    if new_value and new_value != value:
+                        obj[key] = new_value
+                        changes.append(f"{here}: {value} -> {new_value}")
+                else:
+                    walk(value, here)
+        elif isinstance(obj, list):
+            for index, item in enumerate(obj):
+                walk(item, f"{path}[{index}]")
+
+    walk(config)
+    return changes
+
 
 def _section(config: dict[str, Any], name: str) -> dict[str, Any]:
     block = config.get(name, {})
@@ -83,7 +123,7 @@ def resolve_prompt_api_settings(
 ) -> dict[str, str | None]:
     """文案 prompt-crafter — follow settings 生文 (host) when configured.
 
-    Stale config.prompt credentials must not diverge from GUI host selection
+    Stale config.prompt credentials must not diverge from config host selection
     (e.g. image-only Midjourney gateway leftover in prompt.api_base).
     Explicit CLI kwargs still win. Legacy config.prompt only fills gaps when
     host has no usable api_key.

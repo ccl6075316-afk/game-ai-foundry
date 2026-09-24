@@ -2,7 +2,7 @@
 
 > **Created**：2026-08-10  
 > **Context**：catalog + shards + focus 已落地；用户确认：**制作审查不怕慢，但必须审到拆分后的分册正文**；并要求盘点其它功能是否跟改。  
-> **Related**：[`2026-08-10-brief-catalog-shards-design.md`](../superpowers/specs/2026-08-10-brief-catalog-shards-design.md)、[`2026-08-10-document-focus-and-stable-ids.md`](../superpowers/specs/2026-08-10-document-focus-and-stable-ids.md)
+> **Related**：[`2026-08-10-brief-catalog-shards-design.md`](../../superpowers/specs/2026-08-10-brief-catalog-shards-design.md)、[`2026-08-10-document-focus-and-stable-ids.md`](../../superpowers/specs/2026-08-10-document-focus-and-stable-ids.md)
 
 ## 原则
 

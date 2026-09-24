@@ -51,7 +51,7 @@ def models_cmd() -> None:
     "plan_path",
     default=None,
     type=click.Path(exists=True, path_type=Path),
-    help="Handoff JSON from `prompt craft --animation` (video-generator agent).",
+    help="Handoff JSON from `prompt craft --animation` (video-generator).",
 )
 @click.option(
     "--reference-image",
@@ -105,7 +105,7 @@ def generate_cmd(
     poll_interval: float,
     timeout: float,
 ) -> None:
-    """video-generator agent: image-to-video / text-to-video."""
+    """Generate image-to-video or text-to-video output."""
     from plan_io import load_video_handoff, video_params_from_handoff
     from video_config import resolve_video_generate_settings
 

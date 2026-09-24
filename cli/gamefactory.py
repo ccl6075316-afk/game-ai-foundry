@@ -95,8 +95,7 @@ from llm_config import resolve_prompt_api_settings
 def load_config() -> dict[str, Any]:
     """Load config from ~/.gamefactory/config.json, or return empty dict.
 
-    Rewrites retired DeepSeek model ids (e.g. deepseek-chat → deepseek-v4-flash)
-    and persists the migration once so GUI/Pi keep working after API renames.
+    Retired model ids are normalized in memory only; read paths never rewrite config.
     """
     if not CONFIG_PATH.exists():
         return {}
@@ -108,14 +107,9 @@ def load_config() -> dict[str, Any]:
     if not isinstance(data, dict):
         return {}
     try:
-        from agent_auth_resolve import migrate_retired_llm_models
+        from llm_config import migrate_retired_llm_models
 
-        changes = migrate_retired_llm_models(data)
-        if changes:
-            CONFIG_PATH.write_text(
-                json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
+        migrate_retired_llm_models(data)
     except Exception:
         pass
     return data
@@ -650,14 +644,14 @@ def image() -> None:
 @click.option(
     "--prompt",
     default=None,
-    help="Generation prompt (image-generator: use --plan-file from prompt-crafter instead).",
+    help="Generation prompt (pipeline: prefer --plan-file from prompt craft).",
 )
 @click.option(
     "--plan-file",
     "plan_path",
     default=None,
     type=click.Path(exists=True, path_type=Path),
-    help="Handoff JSON from `prompt craft` (preferred for image-generator agent).",
+    help="Handoff JSON from `prompt craft` (preferred for image generation).",
 )
 @click.option(
     "--reference-image",
@@ -691,7 +685,7 @@ def generate(
     api_base: str | None,
     proxy: str | None,
 ) -> None:
-    """image-generator agent: call image API only. No prompt crafting."""
+    """Call the image API only; prompt crafting is handled separately."""
     from asset_pipeline import AssetType, validate_image
     from image_model_route import effective_generate_tier, resolve_image_credentials
     from plan_io import (
@@ -732,7 +726,7 @@ def generate(
             sys.exit(1)
     elif not resolved_prompt:
         click.echo(
-            "Error: image-generator requires --plan-file (from prompt craft) or --prompt.",
+            "Error: image generation requires --plan-file (from prompt craft) or --prompt.",
             err=True,
         )
         sys.exit(1)
@@ -825,7 +819,7 @@ def generate(
 
 @cli.group()
 def prompt() -> None:
-    """prompt-crafter agent — write generation prompts (not image API)."""
+    """Write generation prompts without calling the image API."""
 
 
 from prompt_cmds import register_prompt_commands  # noqa: E402
@@ -899,26 +893,6 @@ def validate_cmd(
         sys.exit(1)
 
 
-@cli.command("context")
-@click.option(
-    "--brief",
-    "brief_path",
-    required=True,
-    type=click.Path(exists=True, path_type=Path),
-    help="Project brief JSON.",
-)
-@click.option("--asset", required=True, help="Asset name to build shared context for.")
-def context_cmd(brief_path: Path, asset: str) -> None:
-    """Print shared project+asset context (same payload all roles receive)."""
-    from shared_context import dump_role_context, load_role_context
-
-    try:
-        click.echo(dump_role_context(load_role_context(brief_path, asset)))
-    except (ValueError, json.JSONDecodeError, OSError) as exc:
-        click.echo(f"Error: {exc}", err=True)
-        sys.exit(1)
-
-
 @cli.group()
 def video() -> None:
     """Video generation and processing commands."""
@@ -928,14 +902,6 @@ def video() -> None:
 def godot() -> None:
     """Godot project management commands."""
 
-
-from hermes_cmds import hermes_group  # noqa: E402
-
-cli.add_command(hermes_group)
-
-from agent_cmds import agents_group  # noqa: E402
-
-cli.add_command(agents_group)
 
 from doctor_cmds import doctor_cmd  # noqa: E402
 
@@ -952,6 +918,10 @@ cli.add_command(pipeline_group)
 from host_cmds import host_group  # noqa: E402
 
 cli.add_command(host_group)
+
+from workflow_cmds import workflow_group  # noqa: E402
+
+cli.add_command(workflow_group)
 
 from config_cmds import config_group  # noqa: E402
 
@@ -1016,10 +986,6 @@ from brief_cmds import register_brief_commands  # noqa: E402
 
 register_brief_commands(cli)
 
-from agent_cmds import register_agent_commands  # noqa: E402
-
-register_agent_commands(cli)
-
 from production_cmds import register_production_commands  # noqa: E402
 
 register_production_commands(cli)
@@ -1035,10 +1001,6 @@ register_assets_commands(cli)
 from inspect_cmds import register_inspect_commands  # noqa: E402
 
 register_inspect_commands(cli)
-
-from conversations_cmds import register_conversations_commands  # noqa: E402
-
-register_conversations_commands(cli)
 
 from shell_cmds import register_shell_commands  # noqa: E402
 

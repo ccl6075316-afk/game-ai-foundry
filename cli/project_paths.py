@@ -181,7 +181,7 @@ def find_default_progress(*, brief_path: Path | None = None, root: Path | None =
 
 
 def paths_as_rel_dict(brief_path: Path, *, root: Path | None = None) -> dict[str, Any]:
-    """JSON-serializable relative paths for GUI / tests."""
+    """JSON-serializable relative paths for CLI / tests."""
     repo = (root or _REPO_ROOT).resolve()
     abs_paths = default_paths_for_brief(brief_path, root=repo)
     out: dict[str, Any] = {"isolated": bool(abs_paths.get("isolated"))}
@@ -458,7 +458,7 @@ def migrate_legacy_brief_to_project(
         man_src.write_text(json.dumps(pointer, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     if remove_legacy_brief:
-        # Replace legacy with a tiny pointer so old GUI localStorage still resolves
+        # Replace legacy with a tiny pointer so legacy CLI pointers still resolve
         pointer_brief = {
             "brief_meta": {
                 "redirect_to": f"projects/{chosen_slug}/brief.json",

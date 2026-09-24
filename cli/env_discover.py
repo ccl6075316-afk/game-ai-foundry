@@ -1,17 +1,22 @@
-"""Discover local executors and toolchain — nothing is bundled with the repo."""
+"""Discover retained pipeline configuration and local toolchain."""
 
 from __future__ import annotations
 
-import os
+import importlib.util
+import json
 import shutil
 import sys
 from pathlib import Path
 from typing import Any
 
-from agent_routing import all_agents
-from hermes_pack import HERMES_PACKAGES, resolve_hermes_install_dir
-from roles import ALL_ROLES
-from toolchain_paths import resolve_dotnet, resolve_ffmpeg, resolve_ffprobe, resolve_godot
+from toolchain_paths import (
+    dotnet_root,
+    resolve_dotnet,
+    resolve_ffmpeg,
+    resolve_ffprobe,
+    resolve_godot,
+    toolchain_bin_dir,
+)
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _CONFIG_PATH = Path.home() / ".gamefactory" / "config.json"
@@ -51,24 +56,16 @@ def _key_status(config: dict[str, Any], *paths: str) -> str:
     return "missing"
 
 
-def _hermes_skills_status(install_dir: Path) -> dict[str, Any]:
-    expected = [name for name, meta in HERMES_PACKAGES.items() if meta.get("role")]
-    installed: list[str] = []
-    missing: list[str] = []
-    for pkg in expected:
-        skill_md = install_dir / pkg / "SKILL.md"
-        if skill_md.is_file() or (install_dir / pkg).exists():
-            installed.append(pkg)
-        else:
-            missing.append(pkg)
-    return {
-        "install_dir": str(install_dir),
-        "installed_count": len(installed),
-        "expected_count": len(expected),
-        "installed": installed,
-        "missing": missing,
-        "skills_ready": len(missing) == 0,
-    }
+def _provider_key_status(config: dict[str, Any], provider: str | None = None) -> str:
+    accounts = config.get("provider_accounts")
+    if not isinstance(accounts, dict):
+        return "missing"
+    candidates = [provider] if provider else list(accounts)
+    for provider_id in candidates:
+        entry = accounts.get(provider_id)
+        if isinstance(entry, dict) and _key_status(entry, "api_key") == "set":
+            return "set"
+    return "missing"
 
 
 def discover_pipeline() -> dict[str, Any]:
@@ -80,101 +77,15 @@ def discover_pipeline() -> dict[str, Any]:
     }
 
 
-def discover_hermes() -> dict[str, Any]:
-    cli = shutil.which("hermes")
-    install_dir = resolve_hermes_install_dir()
-    skills = _hermes_skills_status(install_dir)
-    skills_ok = skills["skills_ready"]
-    available = bool(cli) or skills_ok
-    hints: list[str] = []
-    if not cli:
-        hints.append("Hermes CLI not on PATH — install Hermes Agent separately.")
-    if not skills_ok:
-        hints.append("Run: cd cli && python gamefactory.py hermes install")
-    return {
-        "available": available,
-        "cli": cli,
-        "skills": skills,
-        "hints": hints,
-    }
-
-
-def discover_codex() -> dict[str, Any]:
-    from toolchain_paths import resolve_codex
-
-    cli = resolve_codex()
-    git_ok = (_REPO_ROOT / ".git").is_dir()
-    hints: list[str] = []
-    if not cli:
-        hints.append("Codex CLI not on PATH — install OpenAI Codex CLI separately.")
-    if not git_ok:
-        hints.append("Codex exec expects a git repo (this project qualifies when cloned).")
-    return {
-        "available": bool(cli),
-        "cli": cli,
-        "git_repo": git_ok,
-        "hints": hints,
-    }
-
-
-def discover_cursor() -> dict[str, Any]:
-    editor = shutil.which("cursor")
-    agent = shutil.which("agent") or shutil.which("cursor-agent")
-    in_cursor = any(
-        os.environ.get(k)
-        for k in (
-            "CURSOR_AGENT",
-            "CURSOR_TRACE_ID",
-            "CURSOR_SESSION_ID",
-            "VSCODE_GIT_IPC_HANDLE",  # often set in Cursor/Electron IDE terminal
-        )
-    )
-    hints: list[str] = []
-    if not agent:
-        hints.append(
-            "Cursor Agent CLI (`agent` / `cursor-agent`) not on PATH — "
-            "install shell command from Cursor, or set executor to hermes/codex."
-        )
-    if not editor and not agent and not in_cursor:
-        hints.append("No Cursor editor CLI either.")
-    return {
-        "available": bool(agent) or bool(editor) or in_cursor,
-        "cli": editor,
-        "agent_cli": agent,
-        "headless_ready": bool(agent),
-        "in_ide_session": in_cursor,
-        "hints": hints,
-        "note": "GUI agent turns use `agent`/`cursor-agent` CLI, not the desktop app.",
-    }
-
-
-def discover_executors() -> dict[str, dict[str, Any]]:
-    return {
-        "pipeline": discover_pipeline(),
-        "hermes": discover_hermes(),
-        "codex": discover_codex(),
-        "cursor": discover_cursor(),
-    }
-
-
-def _godot_path_from_config(config: dict[str, Any]) -> str | None:
-    return resolve_godot(config)
-
-
 def discover_tools(config: dict[str, Any] | None = None) -> dict[str, Any]:
     config = config or {}
-    godot_path = _godot_path_from_config(config)
-    dotnet = resolve_dotnet(config)
-    ffmpeg = resolve_ffmpeg(config)
-    ffprobe = resolve_ffprobe(config)
-    git = shutil.which("git")
     return {
         "python": _tool("python", sys.executable, version_args=("-V",)),
-        "git": _tool("git", git),
-        "godot": _tool("godot", godot_path, version_args=("--version",)),
-        "dotnet": _tool("dotnet", dotnet),
-        "ffmpeg": _tool("ffmpeg", ffmpeg),
-        "ffprobe": _tool("ffprobe", ffprobe),
+        "git": _tool("git", shutil.which("git")),
+        "godot": _tool("godot", resolve_godot(config)),
+        "dotnet": _tool("dotnet", resolve_dotnet(config)),
+        "ffmpeg": _tool("ffmpeg", resolve_ffmpeg(config)),
+        "ffprobe": _tool("ffprobe", resolve_ffprobe(config)),
     }
 
 
@@ -183,11 +94,12 @@ def discover_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
     loaded = config if config is not None else {}
     if exists and not loaded:
         try:
-            import json
-
             loaded = json.loads(_CONFIG_PATH.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             loaded = {}
+    if not isinstance(loaded, dict):
+        loaded = {}
+
     video_key = _key_status(loaded, "video", "api_key")
     if video_key != "set":
         try:
@@ -197,90 +109,72 @@ def discover_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
                 video_key = "set"
         except Exception:
             pass
+
+    host_key = _key_status(loaded, "host", "api_key")
+    provider_key = _provider_key_status(loaded)
     return {
         "path": str(_CONFIG_PATH),
         "exists": exists,
-        "openrouter_key": _key_status(loaded, "host", "api_key")
-        if _key_status(loaded, "host", "api_key") == "set"
+        "openrouter_key": host_key
+        if host_key == "set"
         else _key_status(loaded, "image", "api_key"),
-        "host_key": _key_status(loaded, "host", "api_key"),
+        "host_key": host_key,
         "prompt_key": _key_status(loaded, "prompt", "api_key"),
         "code_key": _key_status(loaded, "code", "api_key"),
+        "test_key": _key_status(loaded, "test", "api_key"),
         "seedance_key": video_key,
+        "provider_accounts_key": provider_key,
         "godot_engine_path": _key_status(loaded, "godot", "engine_path"),
+        "toolchain_bin_dir": str(toolchain_bin_dir(loaded)),
+        "toolchain_dotnet_dir": str(dotnet_root(loaded)),
     }
-
-
-def _suggest_executor(role: str, configured: str, executors: dict[str, dict[str, Any]]) -> str:
-    if executors.get(configured, {}).get("available"):
-        return configured
-    if role in ("image-generator", "video-generator", "godot-assembler"):
-        return "pipeline"
-    if executors.get("codex", {}).get("available") and role == "godot-developer":
-        return "codex"
-    if executors.get("hermes", {}).get("available"):
-        return "hermes"
-    if executors.get("cursor", {}).get("available"):
-        return "cursor"
-    return "pipeline"
-
-
-def discover_agents(
-    config: dict[str, Any] | None = None,
-    executors: dict[str, dict[str, Any]] | None = None,
-) -> dict[str, Any]:
-    config = config or {}
-    executors = executors or discover_executors()
-    agents_cfg = all_agents(config)
-    out: dict[str, Any] = {}
-    for role in ALL_ROLES:
-        resolved = agents_cfg[role]
-        configured = resolved["executor"]
-        available = bool(executors.get(configured, {}).get("available"))
-        suggested = _suggest_executor(role, configured, executors)
-        out[role] = {
-            **resolved,
-            "configured_executor": configured,
-            "executor_available": available,
-            "suggested_executor": suggested if suggested != configured or not available else configured,
-            "action_required": not available,
-        }
-    return out
 
 
 def discover_capabilities(
     config: dict[str, Any] | None = None,
-    executors: dict[str, dict[str, Any]] | None = None,
     tools: dict[str, Any] | None = None,
     cfg_status: dict[str, Any] | None = None,
 ) -> dict[str, bool]:
-    executors = executors or discover_executors()
     tools = tools or discover_tools(config)
     cfg_status = cfg_status or discover_config(config)
+
+    def has_module(name: str) -> bool:
+        return importlib.util.find_spec(name) is not None
+
+    image_key = cfg_status["openrouter_key"] == "set" or cfg_status["provider_accounts_key"] == "set"
+    prompt_key = cfg_status["host_key"] == "set" or cfg_status["prompt_key"] == "set" or image_key
+    code_key = cfg_status["host_key"] == "set" or cfg_status["code_key"] == "set" or image_key
+    test_key = cfg_status["host_key"] == "set" or cfg_status["test_key"] == "set" or image_key
     return {
-        "pipeline_run": executors["pipeline"]["available"],
-        "image_api": cfg_status["openrouter_key"] == "set",
+        "pipeline_run": True,
+        "image_api": image_key,
         "video_api": cfg_status["seedance_key"] == "set",
+        "prompt_api": prompt_key,
+        "code_api": code_key,
+        "test_api": test_key,
+        "ffmpeg": tools["ffmpeg"]["available"],
+        "ffprobe": tools["ffprobe"]["available"],
         "godot_assemble": tools["godot"]["available"],
-        "hermes_orchestration": executors["hermes"]["available"],
-        "codex_game_dev": executors["codex"]["available"],
-        "cursor_sessions": executors["cursor"]["available"],
+        "dotnet": tools["dotnet"]["available"],
+        "toolchain": tools["ffmpeg"]["available"] or tools["godot"]["available"] or tools["dotnet"]["available"],
+        "media_validate": has_module("asset_pipeline") and has_module("video_matting"),
+        "matting_validate": has_module("matting_validate"),
+        "cjk_guard": has_module("prompt_craft"),
+        "pipeline_heal": has_module("pipeline_heal"),
     }
 
 
 def run_doctor(config: dict[str, Any] | None = None) -> dict[str, Any]:
-    executors = discover_executors()
     tools = discover_tools(config)
     cfg_status = discover_config(config)
     return {
-        "executors": executors,
+        "pipeline": discover_pipeline(),
         "tools": tools,
         "config": cfg_status,
-        "agents": discover_agents(config, executors),
-        "capabilities": discover_capabilities(config, executors, tools, cfg_status),
+        "capabilities": discover_capabilities(config, tools, cfg_status),
         "notes": [
-            "Hermes, Codex, and Cursor are not bundled — install separately.",
-            "Use `python gamefactory.py doctor` before assigning executors in config.",
-            "pipeline executor always available (local subprocess runner).",
+            "Pipeline execution is available through this CLI process.",
+            "API keys are reported by status only and never printed.",
+            "FFmpeg, Godot, and .NET readiness are detected from PATH and toolchain config.",
         ],
     }

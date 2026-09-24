@@ -6,7 +6,7 @@ Craft **structured fields** for a predicted **in-engine gameplay screenshot** �
 
 Distilled for Foundry CLI from:
 
-- OpenAI Image generation prompting guide (wide → narrow; labeled segments)
+- Image-generation prompting reference (wide → narrow; labeled segments)
 - GPT Image 2 Scene / Subject / Details / Use case / Constraints pattern
 - Community **game screenshot** prompt archetypes
 - Godogen Visual Target semantics (a north-star frame anchors **a** playable view; multi-scene games may have **one frame per scene**)

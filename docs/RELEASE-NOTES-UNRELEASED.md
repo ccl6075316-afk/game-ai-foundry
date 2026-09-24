@@ -1,5 +1,7 @@
 # Unreleased — 下一版 Release Notes 草稿
 
+> **历史草稿**：其中旧客户端与运行时条目已移除，不是当前操作入口。
+
 相对当前已打标签的 [`v0.2.2`](RELEASE-NOTES-0.2.2.md)。打版时把本节并入正式 `RELEASE-NOTES-x.y.z.md`。
 
 - Brief 叙事中文优先；移除 `brief.zh.md`；prompt-crafter 二次生成英文 prompt；`brief localize` 一次迁移
@@ -10,7 +12,7 @@
 - 历史 Release Notes（v0.0–v0.1）合并为 [`archive/RELEASE-NOTES-LEGACY.md`](archive/RELEASE-NOTES-LEGACY.md)
 - **VT 闸门单源**：Electron 改调 CLI `brief visual-target status`，删除独立 hydrate 副本
 - **修**：`visual-target-status` 误查 `result.ok`（`runCli` 无此字段）导致 GUI 恒报未选定；加回归测 `visualTargetStatusMap.test.mjs`
-- **角色文档**：prompt-crafter 降为 pipeline 内部步骤，非 GUI 聊天同事（见 [`AGENT-ROUTING.md`](AGENT-ROUTING.md)）
+- **角色文档**：prompt-crafter 降为 pipeline 内部步骤；旧角色文档已移除。
 - **目标模式**：运行资产生成失败 → 自动 diagnose/heal/串跑 fix_commands → 必要时 PM Agent → 续跑（GUI）
 - **ACP 收口**：全角色 `agent prompt`；`record-turn` 应用 dispatch（等同 `agent turn` 落盘）
 - 架构与重构交接：[`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md)

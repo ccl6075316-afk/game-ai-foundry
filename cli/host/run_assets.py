@@ -28,7 +28,7 @@ def _run_exit_code(result: PipelineRunResult) -> int:
 
 
 def _safe_diagnosis(manifest_path: Path) -> dict[str, Any] | None:
-    """Best-effort diagnose for GUI copy when auto-fix stops."""
+    """Best-effort diagnosis for an external Agent/CLI consumer when auto-fix stops."""
     try:
         return diagnose_and_heal_file(manifest_path, apply=False)
     except (ValueError, OSError, SafeCliError):
@@ -38,7 +38,9 @@ def _safe_diagnosis(manifest_path: Path) -> dict[str, Any] | None:
 def _failure_fingerprints(diagnosis: dict[str, Any]) -> frozenset[tuple[str, str]]:
     items = list(diagnosis.get("items") or [])
     if not items:
-        items = list(diagnosis.get("needs_hermes") or []) + list(diagnosis.get("auto_healable") or [])
+        items = list(diagnosis.get("needs_external_agent") or []) + list(
+            diagnosis.get("auto_healable") or []
+        )
     out: set[tuple[str, str]] = set()
     for item in items:
         task_id = str(item.get("task_id") or "")
@@ -180,7 +182,7 @@ def _attach_stop_log(
         },
     )
     if log_path is None:
-        # Still point GUI at the expected path next to the manifest.
+        # Still point consumers at the expected path next to the manifest.
         log_path = failure_log_path(manifest_path)
     payload = dict(payload)
     payload["failure_log"] = str(log_path)
@@ -321,8 +323,8 @@ def run_assets(
             stopped_reason = "same_failure"
             break
 
-        # Code-owned heal resets failed→pending; post diagnose then has no needs_hermes,
-        # so can_auto_fix is false — still must re-run, not bail to needs_agent.
+        # Code-owned heal resets failed→pending; post diagnose has no
+        # needs_external_agent, so re-run rather than stop for external-agent action.
         if healed and failed_count == 0 and not _failure_fingerprints(diagnosis):
             repair_rounds += 1
             rounds.append(
@@ -359,12 +361,12 @@ def run_assets(
             continue
 
         if not can_auto_fix_without_agent(diagnosis):
-            # Prefer pre-heal diagnosis for GUI copy when post-heal is empty.
+            # Prefer pre-heal diagnosis for structured output when post-heal is empty.
             return _attach_stop_log(
                 manifest_path,
                 {
                     "ok": False,
-                    "stopped_reason": "needs_agent",
+                    "stopped_reason": "needs_external_agent",
                     "repair_rounds": repair_rounds,
                     "rounds": rounds,
                     "summary": (last_diagnosis or diagnosis).get("summary") or run_result.summary,

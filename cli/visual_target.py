@@ -319,7 +319,7 @@ def brief_has_any_visual_reference(brief_path: Path) -> bool:
 
 
 def visual_target_brief_status(brief_path: Path) -> dict[str, Any]:
-    """Status payload for GUI: global + per-scene north-star readiness."""
+    """Status payload for CLI: global + per-scene north-star readiness."""
     brief_path = brief_path.resolve()
     project = _load_project(brief_path)
     global_ref = (project.visual_reference or "").strip()
@@ -869,7 +869,7 @@ def find_manifest_for_brief(
     - Explicit ``manifest_path`` wins.
     - With ``scene_id`` / ``scene_ids``: try each scene subdir in order.
     - With no scene: use the global ``visual-target/manifest.json`` only.
-      Scene picks must pass ``--scene`` (GUI also pins ``--manifest`` from generate).
+      Scene picks must pass ``--scene`` (the CLI pins ``--manifest`` from generate).
     """
     if manifest_path is not None:
         if not manifest_path.is_file():
@@ -1571,7 +1571,7 @@ def apply_visual_target_pick(
             auto_matched = applied_auto
             if auto_matched:
                 # Keep scene_ids = intentional pick scope; auto_match is separate
-                # so CLI/GUI do not treat a global pick as scene-scoped.
+                # so CLI consumers do not treat a global pick as scene-scoped.
                 target_meta["auto_matched_scene_ids"] = auto_matched
                 target_meta["auto_match_method"] = match_method
                 project["visual_target"] = target_meta

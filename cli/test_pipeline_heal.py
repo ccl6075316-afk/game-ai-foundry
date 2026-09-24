@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -24,9 +25,9 @@ class PipelineHealTests(unittest.TestCase):
             },
         }
         d = classify_failed_task(task)
-        self.assertEqual(d["owner"], "hermes")
+        self.assertEqual(d["owner"], "external_agent")
         self.assertEqual(d["kind"], "config_size")
-        self.assertEqual(d["pm_fit"], "yes")
+        self.assertEqual(d["triage_fit"], "yes")
         self.assertEqual(d["size_multiple"], 16)
         self.assertTrue(
             any("size_multiple" in h for h in d["cli_hints"]),
@@ -47,7 +48,7 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "missing_file")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
         # Matte missing frames → resplit only; do not purge plan via craft reset.
         self.assertEqual(d["reset_task_id"], "pose_x.video.split-frames")
         self.assertTrue(any("pose_x.video.split-frames" in h for h in d["cli_hints"]))
@@ -68,7 +69,7 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "missing_file")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
         self.assertEqual(d["reset_task_id"], "pose_x.video.split-frames")
 
     def test_classify_split_missing_mp4_resets_generate(self) -> None:
@@ -116,7 +117,7 @@ class PipelineHealTests(unittest.TestCase):
         self.assertEqual(d["kind"], "missing_file")
         self.assertEqual(d["remediation"], "regenerate_assemble_handoff")
         self.assertEqual(d["reset_task_id"], "brief.godot.assemble")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
 
     def test_classify_godot_assemble_exit2_not_validation(self) -> None:
         task = {
@@ -143,7 +144,7 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "stale_plan")
-        self.assertEqual(d["pm_fit"], "yes")
+        self.assertEqual(d["triage_fit"], "yes")
         self.assertEqual(d["remediation"], "reset_and_recraft_prompt")
         self.assertTrue(any("pose_x.prompt.craft" in h for h in d["cli_hints"]))
         self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
@@ -160,8 +161,8 @@ class PipelineHealTests(unittest.TestCase):
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "validation")
         self.assertEqual(d["remediation"], "reset_and_recraft_prompt")
-        self.assertEqual(d["owner"], "hermes")
-        self.assertEqual(d["pm_fit"], "yes")
+        self.assertEqual(d["owner"], "external_agent")
+        self.assertEqual(d["triage_fit"], "yes")
         self.assertTrue(any("--run-prompts" in h for h in d["cli_hints"]))
 
     def test_classify_typeerror_surfaces_exception_line(self) -> None:
@@ -199,7 +200,7 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "network")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
         self.assertIn("522", d["summary"])
 
     def test_classify_prompt_llm_response_ended_prematurely_as_network(self) -> None:
@@ -213,7 +214,7 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "network")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
         self.assertEqual(d["owner"], "code")
 
     def test_classify_billing_insufficient_credits(self) -> None:
@@ -230,23 +231,23 @@ class PipelineHealTests(unittest.TestCase):
         }
         d = classify_failed_task(task)
         self.assertEqual(d["kind"], "billing")
-        self.assertEqual(d["pm_fit"], "no")
+        self.assertEqual(d["triage_fit"], "no")
         self.assertEqual(d["owner"], "user")
         self.assertIn("402", d["summary"])
 
-    def test_pm_advice_all_billing(self) -> None:
-        from pipeline_heal import _aggregate_pm_advice
+    def test_triage_advice_all_billing(self) -> None:
+        from pipeline_heal import _aggregate_triage_advice
 
-        advice = _aggregate_pm_advice(
+        advice = _aggregate_triage_advice(
             [
-                {"task_id": "a", "kind": "billing", "pm_fit": "no"},
-                {"task_id": "b", "kind": "billing", "pm_fit": "no"},
+                {"task_id": "a", "kind": "billing", "triage_fit": "no"},
+                {"task_id": "b", "kind": "billing", "triage_fit": "no"},
             ]
         )
-        self.assertFalse(advice["pm_suitable"])
-        self.assertIn("余额", advice["pm_advice_short"])
+        self.assertFalse(advice["triage_suitable"])
+        self.assertIn("余额", advice["triage_advice_short"])
 
-    def test_classify_validation_needs_hermes(self) -> None:
+    def test_classify_validation_needs_external_agent(self) -> None:
         task = {
             "id": "hero.image.generate",
             "step": "image.generate",
@@ -256,26 +257,57 @@ class PipelineHealTests(unittest.TestCase):
             },
         }
         d = classify_failed_task(task)
-        self.assertEqual(d["owner"], "hermes")
+        self.assertEqual(d["owner"], "external_agent")
         self.assertEqual(d["kind"], "validation")
-        self.assertEqual(d["pm_fit"], "yes")
+        self.assertEqual(d["triage_fit"], "yes")
 
-    def test_pm_advice_for_validation(self) -> None:
-        from pipeline_heal import _aggregate_pm_advice
+    def test_triage_advice_for_validation(self) -> None:
+        from pipeline_heal import _aggregate_triage_advice
 
-        advice = _aggregate_pm_advice(
+        advice = _aggregate_triage_advice(
             [
                 {
                     "task_id": "a",
                     "kind": "validation",
-                    "pm_fit": "yes",
-                    "pm_tip": "x",
+                    "triage_fit": "yes",
+                    "triage_tip": "x",
                 }
             ]
         )
-        self.assertTrue(advice["pm_suitable"])
-        self.assertEqual(advice["pm_fit"], "yes")
-        self.assertIn("适合", advice["pm_advice_short"])
+        self.assertTrue(advice["triage_suitable"])
+        self.assertEqual(advice["triage_fit"], "yes")
+        self.assertIn("适合", advice["triage_advice_short"])
+
+    def test_diagnosis_contract_uses_external_triage_fields(self) -> None:
+        from pipeline_heal import diagnose_manifest
+
+        manifest = build_manifest(EXAMPLE_BRIEF)
+        record_task(
+            manifest,
+            "knight.image.generate",
+            status="failed",
+            result={"exit_code": 1, "stderr": "Image validation failed: prompt is invalid"},
+        )
+        diagnosis = diagnose_manifest(manifest, manifest_cli_rel="../pipeline/test.json")
+        item = diagnosis["needs_external_agent"][0]
+        self.assertEqual(item["owner"], "external_agent")
+        self.assertEqual(item["triage_fit"], "yes")
+        self.assertIn("triage_tip", item)
+        self.assertIn("triage_advice_short", diagnosis)
+        serialized = json.dumps(diagnosis, ensure_ascii=False).lower()
+        legacy_terms = [
+            "her" + "mes",
+            "needs_" + "her" + "mes",
+            "pm" + "_" + "fit",
+            "pm" + "_" + "advice",
+            "".join(("g", "u", "i")),
+            "Elect" + "ron",
+            "看" + "板",
+            "项目经理" + " Agent",
+            "按" + "钮",
+            "点" + "「",
+        ]
+        self.assertFalse([term for term in legacy_terms if term.lower() in serialized])
 
     def test_heal_resets_code_owned(self) -> None:
         manifest = build_manifest(EXAMPLE_BRIEF)
@@ -297,7 +329,7 @@ class PipelineHealTests(unittest.TestCase):
         from pipeline_heal import build_fix_command_chain
 
         diagnosis = {
-            "needs_hermes": [
+            "needs_external_agent": [
                 {
                     "task_id": "hero.image.generate",
                     "kind": "validation",
@@ -326,12 +358,16 @@ class PipelineHealTests(unittest.TestCase):
 
         yes = {
             "manifest_cli_rel": "../pipeline/x.json",
-            "needs_hermes": [{"kind": "validation", "cli_hints": ["pipeline reset --task-id a --cascade"]}],
+            "needs_external_agent": [
+                {"kind": "validation", "cli_hints": ["pipeline reset --task-id a --cascade"]}
+            ],
         }
         self.assertTrue(can_auto_fix_without_agent(yes))
         no = {
             "manifest_cli_rel": "../pipeline/x.json",
-            "needs_hermes": [{"kind": "unknown", "cli_hints": ["pipeline reset --task-id a --cascade"]}],
+            "needs_external_agent": [
+                {"kind": "unknown", "cli_hints": ["pipeline reset --task-id a --cascade"]}
+            ],
         }
         self.assertFalse(can_auto_fix_without_agent(no))
 
@@ -339,7 +375,7 @@ class PipelineHealTests(unittest.TestCase):
         from pipeline_heal import build_fix_command_chain
 
         diagnosis = {
-            "needs_hermes": [
+            "needs_external_agent": [
                 {
                     "kind": "validation",
                     "cli_hints": ["pipeline reset --task-id hero.image.generate --cascade"],

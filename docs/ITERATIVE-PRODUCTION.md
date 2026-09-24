@@ -1,460 +1,151 @@
-# Game AI Foundry — Iterative Production Contract
+# 迭代式 Production
 
-| | |
-|--|--|
-| **读者** | Host、全 Worker、验收方 |
-| **侧重** | 设计 vs 施工、Change Request、切片、验收哲学、角色 **权责** |
-| **不写** | CLI 命令表、Hermes 安装、抠图参数、里程碑 % |
-| **姊妹文档** | 操作 → [`AI-HANDOFF.md`](AI-HANDOFF.md) · 角色路由 → [`AGENT-ROUTING.md`](AGENT-ROUTING.md) · 索引 → [`README.md`](README.md) |
+> 目标：把“改需求”变成可审阅、可合并、可回归的文件变化。
 
-## 0. Core Rule
-
-Game AI Foundry must separate **what the player should experience** from **how the project is built**.
+## 1. 文档链
 
 ```text
-User conversation
-  -> Design Doc        # human-readable design intent and validation basis
-  -> Production Doc    # machine-readable construction spec
-  -> Pipeline Manifest # executable asset/Godot DAG
-  -> Godot Project
-  -> Validation Report
-  -> next Change Request
+Vision / intent
+  → frozen brief.json
+  → production.json
+  → Change Request
+  → Production Delta
+  → apply-delta
+  → progress / handoff
+  → validation + regression
 ```
 
-The user should mostly describe play experience. AI fills production details. Workers execute only the current documents.
+| 文档 | 回答的问题 | 是否可施工 |
+|---|---|---|
+| Vision / intent | 想做什么、长期方向 | 否 |
+| frozen `brief.json` | 当前玩家体验、场景、系统、资产与验收 | 是 |
+| `production.json` | 当前 slice 如何实现 | 是 |
+| Change Request | 用户改变了什么意图 | 否，先分析 |
+| Production Delta | 本次要新增/修改哪些任务与验收 | 是，合并后 |
+| validation report | 新旧行为是否通过 | 证据 |
 
-### 0.1 Relationship to `brief.json` (today)
+## 2. Brief 是冻结契约
 
-The repo already ships a **frozen export contract**. Until Design Doc and Production Doc are split into separate files, map concepts like this:
+外部 Agent 负责创意补全、取舍和字段修订；冻结后下游只读该文件。
 
-| ITERATIVE concept | Current repo | Status |
-|-------------------|--------------|--------|
-| Design Doc | `brief.project` — 短 `description` 总览；`gameplay_loop` / `session_goal`；可选 `scenes[]` / `systems[]` / `ui_panels[]`（屏、跨屏规则、UI 块） | Embedded in brief |
-| Production Doc | Full `brief.json` after `brief export` (`brief_meta`) | ✅ `brief validate` / `export` |
-| Pipeline Manifest | `pipeline/{slug}.json` | ✅ `pipeline plan` |
-| Assets ledger | `output/{slug}/assets-manifest.json` | ✅ pipeline + assemble |
-| Change Request / Production Delta | — | 📋 target; see §1.3–1.4, §7 |
-| Validation Report | — | Partial: `godot validate` + manual playtest |
-| `project-state.json` | — | 📋 recommended in §7 |
-| Makeability detail gaps | `production_doc.makeability` + `tuning`（export sidecar `makeability.json` + `production derive` 合并） | ✅ v1 |
-
-**Makeability mapping（v1）：** 策划 Critic 的 **intent_gaps** 标记 Design 意图未拍板（**建议再审，不阻塞** brief export）；硬闸门仍是结构 / 生图契约 `gaps`。**detail_gaps**（数值表、规则参数）权威在 Production，export 后 derive 物化，PM 可填暂定、**不改 brief 玩法意图**。
-
-**MVP rule:** `brief.json` is the single frozen contract for workers today. Host interprets user intent into brief updates; iteration after demo follows §3.2 (Change Request → brief delta → `pipeline plan --merge` → `run`).
-
-```text
-Today:     brief.json (frozen) ──► pipeline manifest ──► output/ + games/
-Target:    design.json + production.json ──► export ──► same pipeline
-Iteration: changes/*.json + production-delta ──► plan --merge ──► run
+```bash
+python gamefactory.py brief validate --brief <brief> --json
+python gamefactory.py production validate --production <production> --brief <brief> --json
 ```
 
-**Brief shards (2026-08):** Large projects may keep a **thin catalog** in `brief.json` and edit scene/system/asset bodies in on-disk shard files. Host-chat uses focus + `brief search` / `shard load` instead of stuffing every screen into `project.description`; pipeline `plan`/`craft` resolve asset specs from shard paths via `load_brief` / `resolve_asset_specs`.
+若变化只影响实现细节，可直接进入 Production Delta；若改变玩家体验、场景、系统或资产范围，先更新 Brief 并重新冻结。
 
-## 1. Document Types
+## 3. Slice 与范围
 
-### 1.1 Design Doc
+复杂游戏必须切片。当前 slice 至少明确：
 
-The Design Doc describes the game from the player's point of view. It is used for user confirmation and validation.
+- 目标场景与入口。
+- 必须工作的系统。
+- 必需资产。
+- 会话目标与核心循环。
+- 本次时长/进度边界。
+- acceptance criteria 与 regression checks。
 
-It should answer:
+未来区域、长期成长、未选系统保留在 intent 文档，不提前施工。
 
-- What is the fantasy?
-- What does the player do moment to moment?
-- What is the core loop?
-- What is the first playable slice?
-- What are the win/fail conditions?
-- What should the pacing, difficulty, and feel be?
-- What visual/audio mood should the result match?
+## 4. Change Request
 
-Example shape:
+一次 Change Request 只描述用户意图、原因和期望体验，不直接写代码任务。
 
-```json
-{
-  "design_doc": {
-    "title": "Magic Prince",
-    "pitch": "A light 2D fairy-tale platformer.",
-    "player_fantasy": "Play as a young prince crossing an enchanted forest with jumps and magic.",
-    "opening_moment": "The prince starts at the forest gate with a low platform and a slow slime ahead.",
-    "core_loop": [
-      "read the obstacle",
-      "jump or cast magic",
-      "avoid enemies",
-      "collect star fragments",
-      "reach the portal"
-    ],
-    "win_condition": "Collect at least five star fragments and enter the portal.",
-    "fail_condition": "Health reaches zero or the player falls out of the level.",
-    "difficulty_curve": "First 20 seconds teach jumping; then enemies, moving platforms, and narrower gaps appear.",
-    "feel_targets": [
-      "forgiving jumps",
-      "short 2-3 minute run",
-      "bright fairy-tale tone"
-    ],
-    "acceptance_criteria": [
-      "Player can move, jump, collect, and reach the portal.",
-      "The opening scene matches the described forest gate moment.",
-      "The game feels forgiving rather than punishing."
-    ]
-  }
-}
+```bash
+python gamefactory.py production delta \
+  --change-id 002-add-double-jump \
+  --intent "允许二段跳，并保持现有平台间距可通关" \
+  --asset hero \
+  --task double-jump \
+  -o plans/changes/002-add-double-jump.production-delta.json \
+  --json
 ```
 
-The Design Doc is not a place for low-level values unless the user explicitly cares about them.
+审阅 Delta：
 
-Do not ask the user for `jump_velocity`, `collision_size`, `pivot`, `tile_size`, or similar construction details by default.
+- 是否只改当前 slice。
+- 是否引用稳定 `id`。
+- 是否新增必要资产与任务依赖。
+- 是否新增 acceptance criteria。
+- 是否声明需要保护的 regression checks。
 
-### 1.2 Production Doc
+## 5. 合并与续作
 
-The Production Doc translates the Design Doc into concrete work for pipeline and code.
+```bash
+python gamefactory.py production apply-delta \
+  --delta <delta> --production <production> --dry-run --json
 
-It should answer:
+python gamefactory.py production apply-delta \
+  --delta <delta> --production <production> --progress <progress> --json
 
-- Which genre preset is used?
-- What assets must be generated?
-- What source/display/collision sizes are required?
-- Which maps/scenes are needed?
-- Which runtime systems are needed?
-- Which Godot tasks must be implemented?
-- Which acceptance and regression checks must pass?
-
-Example shape:
-
-```json
-{
-  "production_doc": {
-    "genre": "2d_platformer",
-    "viewport": { "width": 960, "height": 540 },
-    "world": {
-      "tile_size": 16,
-      "gravity": 980,
-      "level_length": 2400,
-      "ground_y": 480
-    },
-    "player": {
-      "asset": "magic_prince",
-      "move_speed": 180,
-      "jump_velocity": -420,
-      "health": 3,
-      "hitbox": { "width": 28, "height": 44 }
-    },
-    "assets": [
-      {
-        "name": "magic_prince",
-        "type": "character",
-        "usage": "player",
-        "source_size": { "width": 1024, "height": 1024 },
-        "display_size": { "width": 64, "height": 64 },
-        "collision_size": { "width": 28, "height": 44 },
-        "anchor": "bottom_center",
-        "animations": ["idle", "run", "jump", "cast"]
-      }
-    ],
-    "godot_tasks": [
-      "Implement PlayerController with left/right movement and jump.",
-      "Bind magic_prince idle/run/jump/cast animations.",
-      "Create collectible star fragments.",
-      "Create portal win trigger.",
-      "Add HUD for health and collected fragments."
-    ],
-    "validation": {
-      "acceptance_criteria": [
-        "main scene loads",
-        "player can move and jump",
-        "player can collect star fragments",
-        "portal triggers win state"
-      ],
-      "regression_checks": []
-    }
-  }
-}
+python gamefactory.py project progress sync \
+  --production <production> --progress <progress>
 ```
 
-The Production Doc is allowed to contain technical values inferred by AI or genre presets. These values must be traceable to the Design Doc or default presets.
+- `--dry-run` 只验证，不写。
+- 合并成功后把新增/变更 `godot_tasks[]` 同步到 `progress`。
+- 需要资产变化时重新 `pipeline plan --merge`，保留未受影响 task 状态。
+- 为每个施工范围创建 `handoff`，记录权威来源与完成条件。
 
-### 1.3 Change Request
+## 6. 验证必须回看设计
 
-After a demo or validation run exists, new user intent must enter through a Change Request.
+最低验证层：
 
-Example:
+1. Build：`godot validate` 成功。
+2. Scene：main scene 加载、控制可用。
+3. Functional：核心循环、胜负、关键系统按 Brief 工作。
+4. Visual：截图/视频符合 visual target 与风格约束。
+5. Regression：已接受旧行为没有退化。
 
-```json
-{
-  "change_request": {
-    "source": "user_feedback",
-    "user_intent": "Add a forest map with a charging boar enemy. Clearing it unlocks double jump.",
-    "design_delta": {
-      "new_location": "forest",
-      "new_enemy": "charging boar",
-      "new_reward": "double jump",
-      "new_play_moment": "The player survives a more aggressive forest encounter and earns stronger movement."
-    }
-  }
-}
+```bash
+python gamefactory.py test unit --project <project>
+python gamefactory.py test plan --brief <brief> -o <playtest>
+python gamefactory.py test play --project <project> --plan <playtest> --brief <brief>
+python gamefactory.py test regression --project <project> --production <production>
 ```
 
-Change Requests are not executed directly. The host must translate them into Production Doc deltas and task dispatch.
+Validation report 应引用失败的 Brief/Delta 条款，而不是只写“build failed”。
 
-### 1.4 Production Delta
+## 7. 失败后的分流
 
-A Production Delta is the construction plan for one Change Request.
+| 失败性质 | 下一步 |
+|---|---|
+| 实现偏离 Production | 修改对应 `godot_tasks[]`，保留验收 |
+| Production 漏掉 Brief 规则 | 修 Production 或创建 Delta |
+| 用户改变体验目标 | 新 Change Request → 更新 Brief → 新 Delta |
+| 资产不合格 | 修 prompt/输入 → `workflow resume` → `status=done` 且 `next_action=human_review` → assets review |
+| 旧功能退化 | 修复实现，不删除 regression check |
+| 验收标准本身错误 | 明确提出设计变更，不能静默放宽 |
 
-```json
-{
-  "production_delta": {
-    "change_id": "002-add-forest-double-jump",
-    "asset_tasks": [
-      "forest_background",
-      "boar_enemy",
-      "double_jump_icon"
-    ],
-    "godot_tasks": [
-      "Add Forest scene connected from current level exit.",
-      "Add BoarEnemy patrol and charge behavior.",
-      "Add double jump ability gated by forest completion.",
-      "Update HUD to show ability unlock."
-    ],
-    "preserve": [
-      "existing player movement except adding optional double jump",
-      "existing first-level portal logic",
-      "existing health HUD"
-    ],
-    "do_not_touch": [
-      "unrelated input mappings",
-      "existing asset import paths unless required"
-    ],
-    "acceptance_criteria": [
-      "Player can enter the forest from the existing level.",
-      "Boar patrols and charges when the player is near.",
-      "Double jump is unavailable before clearing the forest.",
-      "Double jump is available after the forest reward.",
-      "Existing first-level win condition still works."
-    ]
-  }
-}
+## 8. 续作账本
+
+```bash
+python gamefactory.py project progress show --progress <progress> --json
+python gamefactory.py project progress note --progress <progress> "<note>"
+python gamefactory.py project progress validation --progress <progress> --layer unit --status fail
+python gamefactory.py project handoff list --json
+python gamefactory.py project handoff status <handoff_id> --set open
 ```
 
-## 2. Role Boundaries
+跨会话恢复顺序：
 
-Do not create a vague all-powerful "extender" worker role.
+1. `workflow context` / `status`。
+2. `production show`。
+3. `project progress show`。
+4. `project handoff list/show`。
+5. validation report。
+6. 再选择任务。
 
-Iteration is a **host-orchestrated workflow**, not a new worker that invents requirements.
+## 9. 不可协商规则
 
-| Role | Owns | Must not do |
-|------|------|-------------|
-| host / orchestrator | user intent, Design Doc updates, Production Doc deltas, dispatch, triage, validation decisions | write large Godot features directly when worker dispatch is available |
-| prompt-crafter | prompt plans from Production Doc / Production Delta | invent gameplay or assets outside the doc |
-| image-generator | image generation from plan files | decide what assets should exist |
-| video-generator | animation/video generation and frame processing | decide animation needs outside the doc |
-| godot-assembler | import generated assets into Godot and update bindings | implement gameplay logic |
-| godot-developer / coder | modify existing Godot C# project according to Production Doc / Production Delta | redesign features, expand scope, or rewrite unrelated systems |
-| tester / validator | test against Design Doc and Production Doc criteria | change implementation targets during testing |
+1. 用户问题优先谈体验，不让实现数字取代设计意图。
+2. Brief 描述目标，Production 描述实现。
+3. 每次 Change 都先形成可审阅的意图与 Delta。
+4. 施工只做当前 slice。
+5. 实现必须保留已接受行为。
+6. 验证同时检查新条件与旧回归。
+7. 文件是契约，会话记忆不是契约。
+8. Godot 不越 Brief / Delta 范围。
 
-**tester / validator** is a **seventh Hermes skill** (`game-factory-tester`). CLI: `test run` / `test analyze` / `godot screenshot`.
-
-Coder rule:
-
-> godot-developer is a construction worker, not product owner. It must code according to the current Production Doc, Production Delta, assets-manifest, and validation criteria.
-
-## 3. Standard Lifecycle
-
-### 3.1 New Project
-
-```text
-1. Host asks user about play experience, not construction details.
-2. Host drafts Design Doc (today: GUI `brief chat` / host-chat；CLI 兼容 brainstorm).
-3. User confirms → brief export (`brief_meta` frozen).
-4. prompt-crafter: prompt craft → plans/*.json
-5. pipeline plan → pipeline/{slug}.json
-6. pipeline run --jobs N → image / video / matte / godot.assemble
-7. godot dev-context → plans/dev_*.json
-8. godot-developer implements C# from dev-context.
-9. Host / tester validates against Design + Production criteria.
-```
-
-**Commands** → [`AI-HANDOFF.md`](AI-HANDOFF.md) §5 · **Role routing** → [`AGENT-ROUTING.md`](AGENT-ROUTING.md)
-
-### 3.2 Iteration After Demo
-
-```text
-1. User feedback or validation failure arrives.
-2. Host writes Change Request.
-3. Host updates Design Doc if the user intent changes play experience.
-4. Host writes Production Delta.
-5. Host dispatches workers:
-   - prompt-crafter for new/changed asset plans
-   - pipeline run for assets
-   - godot-assembler for imports
-   - godot-developer for C# changes
-6. tester validates new acceptance criteria plus regression checks.
-7. Host records Validation Report and decides next loop.
-```
-
-Workers must not skip back to user intent or reinterpret the design. They read the current docs and execute.
-
-## 4. Complex Games
-
-Complex games require slicing. Do not turn a large vision into one giant Production Doc.
-
-Use this hierarchy:
-
-```text
-Vision Doc      # full imagined game/world
-Slice Design    # current playable slice, user-confirmable
-Production Doc  # current slice construction spec
-Change Request  # one iteration of intent
-Production Delta # one iteration of construction
-```
-
-For RPG/open-world/metroidvania-like ideas, ask scope questions first:
-
-- What is the full world fantasy?
-- What is the first playable slice?
-- Which 1-3 locations must exist first?
-- What is the first quest line?
-- What level or upgrade range should the first slice cover?
-- Which systems are mandatory now and which can wait?
-
-Example complex scope:
-
-```json
-{
-  "vision_doc": {
-    "title": "Ashen Kingdom",
-    "genre": "topdown_action_rpg",
-    "fantasy": "Explore a ruined kingdom, take quests, level up, and uncover the disaster."
-  },
-  "slice_design": {
-    "slice_id": "001-village-forest-mine",
-    "locations": ["ashen_village", "deadwood_forest", "old_mine"],
-    "quest_lines": ["missing_miners"],
-    "player_level_range": [1, 3],
-    "duration_target": "10 minutes",
-    "systems": ["movement", "combat", "dialogue", "quest_log", "leveling_1_to_3"]
-  }
-}
-```
-
-The Production Doc must only build the current slice. Future regions, factions, equipment systems, and long-term progression can stay in Vision Doc until selected for a slice.
-
-## 5. Asset Size And Usage
-
-Asset specs should be derived from usage. Ask the user about use and feel; infer the technical sizes.
-
-Recommended production fields:
-
-```json
-{
-  "name": "hero",
-  "type": "character",
-  "usage": "player",
-  "source_size": { "width": 1024, "height": 1024 },
-  "display_size": { "width": 64, "height": 64 },
-  "collision_size": { "width": 28, "height": 44 },
-  "anchor": "bottom_center",
-  "pivot": { "x": 0.5, "y": 1.0 },
-  "safe_padding": 8
-}
-```
-
-Default usage rules should live in genre presets. Example defaults:
-
-| usage | display_size | anchor | collision |
-|-------|--------------|--------|-----------|
-| player | 64x64 | bottom_center | 28x44 |
-| enemy | 48x48 | bottom_center | 32x28 |
-| projectile | 16x16 | center | 12x12 |
-| pickup | 24x24 | center | 20x20 |
-| ui_icon | 32x32 | center | none |
-| background | viewport or larger | top_left | none |
-
-These are defaults, not user-facing questions.
-
-## 6. Validation
-
-Validation must look back to the Design Doc, not only to compile/build success.
-
-Minimum validation layers:
-
-- Build validation: Godot/.NET build succeeds.
-- Scene validation: main scene loads.
-- Functional validation: controls, win/fail, core loop work.
-- Visual validation: screenshot/video matches important design criteria.
-- Regression validation: existing accepted behavior still works after a Change Request.
-
-Validation Reports should say which document rule failed.
-
-Example:
-
-```json
-{
-  "validation_report": {
-    "status": "failed",
-    "failed_criteria": [
-      {
-        "source": "design_doc.acceptance_criteria[2]",
-        "criterion": "The game feels forgiving rather than punishing.",
-        "evidence": "Player misses short jumps frequently due to strict jump timing.",
-        "recommended_change": "Add coyote time and jump buffer in Production Delta."
-      }
-    ],
-    "regressions": []
-  }
-}
-```
-
-The host decides the next Change Request or Production Delta. The tester does not alter implementation goals.
-
-## 7. Project State
-
-After the first playable project exists, maintain project state as files, not chat memory.
-
-Recommended local project structure:
-
-```text
-resources/<slug>/
-  vision.json
-  slices/
-    001.design.json
-    001.production.json
-  changes/
-    002-add-fireball.change.json
-    002-add-fireball.production-delta.json
-  validation/
-    001-report.json
-    002-report.json
-
-games/<slug>/
-  gamefactory/
-    project-state.json
-    applied-changes.json
-```
-
-`project-state.json` should summarize implemented systems, scenes, scripts, input actions, known extension points, and regression checks.
-
-Workers should prefer these files over conversation memory.
-
-## 8. Non-Negotiable Rules
-
-1. User-facing questions should focus on play experience, not implementation numbers.
-2. Design Doc describes desired experience and validation basis.
-3. Production Doc describes implementation details for workers.
-4. Complex games must be sliced; build only the current slice.
-5. After demo, every change starts as a Change Request and becomes a Production Delta.
-6. Host/orchestrator owns interpretation and dispatch.
-7. Coder/godot-developer only implements documented tasks.
-8. Workers must preserve existing accepted behavior unless the Change Request explicitly changes it.
-9. Validation must check both new acceptance criteria and old regressions.
-10. Chat memory is not a contract; documents are the contract.
-
----
-
-## 9. Related documents
-
-| Document | Focus |
-|----------|--------|
-| [`docs/README.md`](README.md) | Documentation index |
-| [`AI-HANDOFF.md`](AI-HANDOFF.md) | CLI, brief schema, matting (中文) |
-| [`AGENT-ROUTING.md`](AGENT-ROUTING.md) | Six roles, executors |
-| [`../ROADMAP.md`](../ROADMAP.md) | Milestones, backlog |
-| [`../AGENTS.md`](../AGENTS.md) | Codex one-pager |
-
+相关文档：[`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md)、[`AI-HANDOFF.md`](AI-HANDOFF.md)、[`README.md`](README.md)。

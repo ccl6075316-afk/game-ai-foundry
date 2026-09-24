@@ -1,64 +1,43 @@
-# Game AI Foundry — Codex / Agent Instructions
+# Game AI Foundry — External Agent One-pager
 
-> **One-pager for Codex.** Details live elsewhere — see [`docs/README.md`](docs/README.md).
+本仓库是给外部 Agent 使用的纯 CLI / Workflow 工具箱。不要假设任何桌面客户端、内置会话或品牌专属运行时。
 
-**Flow:** AI for brief + prompts → **`pipeline run`** for assets (no per-step Hermes).
+## 读取顺序
 
-## Setup
+1. 读取 [`resources/skills/gamefactory-toolkit/SKILL.md`](resources/skills/gamefactory-toolkit/SKILL.md)。
+2. 运行 `python cli/gamefactory.py workflow --help` 和需要的子命令 `--help`。
+3. 按 `context → validate → init → run → status → resume` 调用，全部加 `--json`。
+4. 只把 `manifest`、`progress`、`handoff`、`assets-manifest`、`validation report` 当作状态。
 
-```bash
-cd cli
-pip install -r requirements.txt
-cp ../resources/config.example.json ~/.gamefactory/config.json
-python gamefactory.py setup check --json   # FFmpeg / Godot / .NET
-python gamefactory.py doctor --json        # API keys、executors、capabilities
-```
-
-**本机工具**：FFmpeg / Godot / .NET 可 `setup install` 或 GUI 启动自动装；**rembg** 在 Release 内嵌 Python 中自带。详见 [`docs/TOOLS.md`](docs/TOOLS.md)。
-
-**执行器**（推荐）：`setup executor status --json`；GUI **环境 → 执行器** 或 `setup executor step …`。
-
-## Workflow
+## 最小命令
 
 ```bash
-python gamefactory.py pipeline plan --brief ../resources/asset-brief.example.json
-python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4
-# exit 2 → fix plan → pipeline reset --task-id <id> → run again
-# 审图（可选）：GUI 侧栏「资产」，或 assets review list/accept/replace
+python cli/gamefactory.py workflow context --brief <brief> --json
+python cli/gamefactory.py workflow validate --brief <brief> --json
+python cli/gamefactory.py workflow init --brief <brief> --json
+python cli/gamefactory.py workflow run --manifest <manifest> --stage assets --json
+python cli/gamefactory.py workflow status --manifest <manifest> --json
+python cli/gamefactory.py workflow resume --manifest <manifest> --task-id <task_id> --json
 ```
 
-## Read next
+## 关键规则
 
-| Need | Doc |
-|------|-----|
-| **Tools, config, troubleshooting** | [`docs/TOOLS.md`](docs/TOOLS.md) |
-| CLI + brief fields + matting + **资产审查** | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
-| **架构归属 / Host 收口** | [`docs/ARCHITECTURE-LAYER-INVENTORY.md`](docs/ARCHITECTURE-LAYER-INVENTORY.md) |
-| GUI Provider（代理 / 生图双档） | [`docs/GUI-CONFIG.md`](docs/GUI-CONFIG.md) |
-| Six roles + tester | [`docs/AGENT-ROUTING.md`](docs/AGENT-ROUTING.md) |
-| Design vs production, iteration | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |
-| `pipeline run` phases | [`resources/skills/orchestrator/pipeline-schedule.md`](resources/skills/orchestrator/pipeline-schedule.md) |
-| Autonomous QA | `python gamefactory.py test run --project ... --brief ...` |
+1. `ok=false` 或 `next_action=fix_input` 时读取 `failures[].kind/code/message`，先修输入，不继续执行。
+2. `status=blocked` 按 `next_action` 处理；`status=failed` 才用 `resume`；`status=paused` 用 `resume`，`pending/running` 按 `next_action=run` 继续。
+3. 只有 `status=done` 且 `next_action=human_review` 才进入 assets review、Godot、test。
+4. `validate before matting`；图像失败先修 prompt/Brief。
+5. 动画原始帧、idle 独立 `*_nobg.png`；视频帧用 `video matte-frames --engine ai`。
+6. 图片后处理使用 `--input` / `--output`。
+7. Godot 只实现 Brief / Production Delta 范围。
+8. shell、配置写入、删除和网络请求必须显式确认或走白名单。
 
-## Critical rules
+## 文档
 
-1. **Validate before matting** — `exit 2` → regenerate prompt.
-2. **Animation** — raw still to Seedance; idle = separate `*_nobg.png`, not frame 0.
-3. **Video frames** — `video matte-frames --engine ai`, not `image remove-bg`.
-4. **Image post** — `--input` / `--output` (not `-i`/`-o`).
-5. **No scope creep** — godot-developer implements brief / Production Delta only.
-
-## Anvil（可选工作流）
-
-全流程改动走 Anvil：`req` → `plan` → `code` → `review` → `compound`。  
-已确认需求与可执行计划见 `docs/anvil/brainstorms/`、`docs/anvil/plans/`。简单单点修复可不走完整流程。
-
-## Hermes (optional)
-
-Brief + prompt craft via Hermes; batch assets via **`pipeline run`**:
-
-```text
-terminal(command="cd cli && python gamefactory.py pipeline run --manifest ../pipeline/asset-brief.example.json --jobs 4", workdir="<repo>", pty=true)
-```
-
-Install: [`docs/HERMES-CODEX.md`](docs/HERMES-CODEX.md)
+| 需要 | 文档 |
+|---|---|
+| 外部 Agent 协议 | [`resources/skills/gamefactory-toolkit/SKILL.md`](resources/skills/gamefactory-toolkit/SKILL.md) |
+| CLI 与字段 | [`docs/AI-HANDOFF.md`](docs/AI-HANDOFF.md) |
+| 工具链与配置 | [`docs/TOOLS.md`](docs/TOOLS.md) |
+| 施工与验收 | [`docs/CONSTRUCTION-SYSTEM.md`](docs/CONSTRUCTION-SYSTEM.md) |
+| 迭代 Delta | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |
+| Pipeline 阶段 | [`resources/skills/orchestrator/pipeline-schedule.md`](resources/skills/orchestrator/pipeline-schedule.md) |
