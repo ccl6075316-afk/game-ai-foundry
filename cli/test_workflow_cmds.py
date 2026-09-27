@@ -413,7 +413,7 @@ class WorkflowCmdTests(unittest.TestCase):
     def test_status_maps_all_legal_manifest_states_deterministically(self) -> None:
         expected = {
             "pending": ("pending", "run"),
-            "running": ("running", "run"),
+            "running": ("running", "poll"),
             "failed": ("failed", "resume"),
             "done": ("done", "human_review"),
             "paused": ("paused", "resume"),
@@ -547,6 +547,82 @@ class WorkflowCmdTests(unittest.TestCase):
             run_game_dev=False,
             auto_fix=False,
         )
+
+    def test_run_detach_returns_poll_and_status_merges_job(self) -> None:
+        fake_job = {
+            "job_id": "abc123def456",
+            "status": "running",
+            "pid": 4242,
+            "exit_code": None,
+            "argv": ["workflow", "run"],
+            "cwd": str(self.root),
+            "jobs_dir": str(self.manifest.parent / "jobs"),
+            "job_file": str(self.manifest.parent / "jobs" / "abc123def456.json"),
+            "log_file": str(self.manifest.parent / "jobs" / "abc123def456.log"),
+            "error": None,
+            "started_at": "2026-01-01T00:00:00+00:00",
+            "finished_at": None,
+        }
+
+        with patch("async_job.start_detached_job", return_value=fake_job) as start_mock:
+            result = self._invoke(
+                "workflow",
+                "run",
+                "--manifest",
+                str(self.manifest),
+                "--stage",
+                "assets",
+                "--detach",
+                "--json",
+            )
+        self.assertEqual(result.exit_code, 0, result.output)
+        payload = _payload(result)
+        self._assert_contract(payload)
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["status"], "running")
+        self.assertEqual(payload["next_action"], "poll")
+        self.assertEqual(payload["summary"]["job_id"], "abc123def456")
+        self.assertTrue(payload["summary"]["detached"])
+        start_mock.assert_called_once()
+        child_argv = start_mock.call_args.args[0]
+        self.assertIn("workflow", child_argv)
+        self.assertIn("run", child_argv)
+        self.assertNotIn("--detach", child_argv)
+
+        with patch("async_job.refresh_job", return_value=fake_job):
+            status = self._invoke(
+                "workflow",
+                "status",
+                "--manifest",
+                str(self.manifest),
+                "--job-id",
+                "abc123def456",
+                "--json",
+            )
+        self.assertEqual(status.exit_code, 0, status.output)
+        status_payload = _payload(status)
+        self._assert_contract(status_payload)
+        self.assertEqual(status_payload["status"], "running")
+        self.assertEqual(status_payload["next_action"], "poll")
+        self.assertEqual(status_payload["summary"]["job_id"], "abc123def456")
+
+        done_job = {**fake_job, "status": "done", "exit_code": 0, "finished_at": "2026-01-01T00:01:00+00:00"}
+        with patch("async_job.refresh_job", return_value=done_job):
+            status_done = self._invoke(
+                "workflow",
+                "status",
+                "--manifest",
+                str(self.manifest),
+                "--job-id",
+                "abc123def456",
+                "--json",
+            )
+        self.assertEqual(status_done.exit_code, 0, status_done.output)
+        done_payload = _payload(status_done)
+        self._assert_contract(done_payload)
+        # Job finished; classify from manifest (still pending → run).
+        self.assertEqual(done_payload["next_action"], "run")
+        self.assertEqual(done_payload["summary"]["job"]["exit_code"], 0)
 
     def test_readme_quick_start_gates_init_on_successful_validation(self) -> None:
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")

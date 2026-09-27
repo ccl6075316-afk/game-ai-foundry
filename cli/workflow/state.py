@@ -36,7 +36,8 @@ def classify_manifest_state(summary: dict[str, Any]) -> tuple[str, str]:
     if summary.get("done"):
         return "done", "human_review"
     if counts.get("running"):
-        return "running", "run"
+        # Another process may own the run; agents should poll status, not start a second run.
+        return "running", "poll"
     if summary.get("ready_count"):
         return "pending", "run"
     return "paused", "resume"

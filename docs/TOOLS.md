@@ -15,17 +15,19 @@
 ## 2. 首次准备
 
 ```bash
-cd cli
-pip install -r requirements.txt
-cp ../resources/config.example.json ~/.gamefactory/config.json
+# 创建仓库 .venv 并安装 cli/requirements.txt（推荐，尤其是 Windows）
+py -3 cli/gamefactory.py setup ensure-python --json
+copy resources\config.example.json %USERPROFILE%\.gamefactory\config.json
 
-python gamefactory.py setup check --json
-python gamefactory.py doctor --json
-python gamefactory.py workflow --help
-python gamefactory.py workflow context --brief ../resources/asset-brief.example.json --json
+.\gamefactory.cmd setup check --json
+.\gamefactory.cmd doctor --json
+.\gamefactory.cmd workflow --help
+.\gamefactory.cmd workflow context --brief resources/asset-brief.example.json --json
 ```
 
-`setup check` 检查 FFmpeg、Godot、.NET；`doctor` 检查配置、Provider、能力与本机路径。两者都优先用 `--json`。
+`setup ensure-python` 会避开 Microsoft Store 的 `python.exe` 占位程序，把依赖装进仓库 `.venv`。之后外部 Agent **应使用** `.\gamefactory.cmd`（Unix: `./gamefactory`），不要依赖系统 PATH 里的裸 `python`。
+
+`setup check` 检查 FFmpeg、Godot、.NET；`doctor` 检查配置、Provider、能力、本机路径，并在 `python_env` 报告当前解释器是否可用。两者都优先用 `--json`。
 
 ## 3. 配置
 
@@ -98,17 +100,37 @@ python gamefactory.py inspect list --path <path> --json
 
 ```bash
 python gamefactory.py workflow init --brief <brief> --json
-python gamefactory.py workflow run --manifest <manifest> --stage assets --json
+python gamefactory.py workflow run --manifest <manifest> --stage assets --detach --json
+python gamefactory.py workflow status --manifest <manifest> [--job-id <job_id>] --json
 python gamefactory.py workflow resume --manifest <manifest> --task-id <task_id> --json
+
+python gamefactory.py host workflow-run --brief <brief> --dry-run --json
+python gamefactory.py host workflow-run --brief <brief> --i-confirm [--detach] --json
 
 python gamefactory.py pipeline plan --brief <brief> -o <manifest>
 python gamefactory.py pipeline reset --manifest <manifest> --task-id <task_id> --cascade
 python gamefactory.py production apply-delta --delta <delta> --production <production> --dry-run
 python gamefactory.py godot validate --project <project>
+python gamefactory.py play [PROJECT] [--skip-build]
 python gamefactory.py test unit --project <project>
 ```
 
 `workflow context/status/validate` 只读；`workflow init/run/resume` 只写已有权威状态文件。其他命令按 `--help` 明确输入输出。
+
+### 6.1 外部 Agent 一站式入口
+
+`host workflow-run` 将六条 Workflow 命令封装成一条白名单命令，仍只写 `manifest`、`progress`、`handoff` 等既有状态文件。先用 `--dry-run` 读状态；确认生成/恢复时只传一次 `--i-confirm`。命令返回单个 JSON，`summary.steps` 保留每一步的 `command/status/next_action/outputs/failures`。
+
+### 6.1 快捷运行游戏
+
+```bash
+python gamefactory.py play
+python gamefactory.py play fishing-2d
+python gamefactory.py run-game projects/fishing-2d/game --skip-build
+python gamefactory.py play fishing-2d --dry-run
+```
+
+命令可在仓库根目录运行；根目录的 `gamefactory.py` 会转发到 `cli/gamefactory.py`。`play` 是快捷入口，`run-game` 是同义命令。项目参数可传 Godot 工程目录、`projects/<slug>` 工程根目录或项目名；省略时依次解析当前目录工程、最新 `progress.json` 的 `project_path`、唯一 Godot 候选。解析到多个项目时必须显式指定。`--dry-run` 只输出工程路径；默认启动前会构建检测到的 C# 项目，`--skip-build` 可跳过。
 
 ## 7. 排错手册
 

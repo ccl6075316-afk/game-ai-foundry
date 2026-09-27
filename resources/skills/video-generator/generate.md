@@ -18,7 +18,7 @@ Seedance clips **morph from the reference still into motion**. Early frames diff
 
 - **Do not** use clip start frames as game sprites or idle poses.
 - **Do not** reuse the **reference still** (`*_raw.png` sent to Seedance) as an in-game idle sprite next to walk frames.
-- `video split-frames` skips lead-in by default (`video.split_frames.skip_lead_ratio`, usually **25%**), then samples `--frames` / config count.
+- `video split-frames` defaults to **loop optimize** (`--optimize-loop`): probe the full clip, pick a phase-aligned window so loop seams stay near mid-clip motion; falls back to `skip_lead_ratio` / `skip_trail_ratio` only when ratios score better. Use `--no-optimize-loop` for fixed time trim only.
 - Godot idle uses a **separate** character `*_nobg.png` via handoff `idle_still`.
 
 ## Seedance models (pick one via `--model` or config)
@@ -45,7 +45,7 @@ Optional config: `"ratio_from_reference": "nearest"` to snap to `16:9` / `1:1` /
 | `resolution` | `480p` | `720p` / `1080p` |
 | `duration` | `4` (min 4s) | `8–15` |
 | `generate_audio` | `false` | only if needed |
-| `sprite_frames` (split) | `8` | `12` |
+| `sprite_frames` (split) | `24`（3–4s 默认） | `32+` / 更长片 |
 
 Brief per-asset overrides beat global config. CLI flags beat plan file.
 
@@ -85,7 +85,7 @@ python gamefactory.py video generate \
 python gamefactory.py video split-frames \
   --input output/prison-test/prison_inmate_walk.mp4 \
   --output-dir output/prison-test/walk_frames/ \
-  --frames 8
+  --frames 24
 ```
 
 ## Config (`~/.gamefactory/config.json`)

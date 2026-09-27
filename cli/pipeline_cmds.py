@@ -59,10 +59,10 @@ def pipeline_group() -> None:
 )
 @click.option(
     "--sprite-frames",
-    default=8,
+    default=24,
     show_default=True,
     type=int,
-    help="Default sprite frame count for video animations.",
+    help="Default sprite frame count for video animations (3–4s clips).",
 )
 @click.option(
     "--godot/--no-godot",
@@ -391,6 +391,18 @@ def show_cmd(manifest_path: Path, task_id: str) -> None:
     help="Base seconds between network retries (doubles each attempt).",
 )
 @click.option("--dry-run", is_flag=True, help="Print wave without executing commands.")
+@click.option(
+    "--detach",
+    is_flag=True,
+    help="Start run in background and return job_id immediately (poll with pipeline job status).",
+)
+@click.option(
+    "--jobs-dir",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Detached job store directory (default: <manifest-dir>/jobs).",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON (required shape for --detach).")
 def run_cmd(
     manifest_path: Path,
     jobs: int,
@@ -402,8 +414,65 @@ def run_cmd(
     network_retries: int,
     retry_backoff: float,
     dry_run: bool,
+    detach: bool,
+    jobs_dir: Path | None,
+    as_json: bool,
 ) -> None:
     """Run ready manifest tasks via subprocess. Default skips prompt.craft."""
+    if detach:
+        from async_job import (
+            job_public_view,
+            jobs_dir_for_manifest,
+            start_detached_job,
+        )
+
+        if dry_run:
+            click.echo("Error: --detach cannot be combined with --dry-run.", err=True)
+            sys.exit(1)
+        store = Path(jobs_dir) if jobs_dir else jobs_dir_for_manifest(manifest_path)
+        child: list[str] = [
+            sys.executable,
+            str(Path(__file__).resolve().parent / "gamefactory.py"),
+            "pipeline",
+            "run",
+            "--manifest",
+            str(Path(manifest_path).resolve()),
+            "--jobs",
+            str(jobs),
+            "--timeout",
+            str(task_timeout),
+            "--retries",
+            str(network_retries),
+            "--retry-backoff",
+            str(retry_backoff),
+        ]
+        if run_prompts:
+            child.append("--run-prompts")
+        if run_game_dev:
+            child.append("--run-game-dev")
+        if skip_roles:
+            child.extend(["--skip-roles", skip_roles])
+        if not stop_on_fail:
+            child.append("--no-stop-on-fail")
+        try:
+            job = start_detached_job(
+                child,
+                cwd=Path.cwd(),
+                jobs_dir=store,
+                python_executable=sys.executable,
+            )
+        except (OSError, ValueError) as exc:
+            click.echo(f"Error: {exc}", err=True)
+            sys.exit(1)
+        view = job_public_view(job)
+        view["command"] = "pipeline run --detach"
+        view["next_action"] = "poll"
+        view["outputs"] = list(view.get("outputs") or []) + [str(Path(manifest_path).resolve())]
+        view["summary"]["manifest"] = str(Path(manifest_path).resolve())
+        view["summary"]["jobs_dir"] = str(store.resolve())
+        click.echo(json.dumps(view, ensure_ascii=False, indent=2))
+        return
+
     skip: set[str] | None = None
     if skip_roles:
         skip = {r.strip() for r in skip_roles.split(",") if r.strip()}
@@ -577,3 +646,108 @@ def suggest_retry_cmd(manifest_path: Path, assets: tuple[str, ...], jobs: int, a
         return
     for c in cmds:
         click.echo(c)
+
+
+@pipeline_group.group("job")
+def pipeline_job_group() -> None:
+    """Detached file-backed jobs for external-agent polling."""
+
+
+@pipeline_job_group.command("start")
+@click.option(
+    "--jobs-dir",
+    required=True,
+    type=click.Path(path_type=Path),
+    help="Directory for job JSON + logs.",
+)
+@click.option(
+    "--cwd",
+    default=".",
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="Working directory for the detached command.",
+)
+@click.option("--json", "as_json", is_flag=True, default=True, help="Print JSON (default).")
+@click.argument("argv", nargs=-1, required=True)
+def pipeline_job_start_cmd(
+    jobs_dir: Path,
+    cwd: Path,
+    as_json: bool,
+    argv: tuple[str, ...],
+) -> None:
+    """Start any command as a detached job; return job_id immediately."""
+    from async_job import job_public_view, start_detached_job
+
+    try:
+        job = start_detached_job(list(argv), cwd=cwd, jobs_dir=jobs_dir)
+    except (OSError, ValueError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    view = job_public_view(job)
+    view["command"] = "pipeline job start"
+    if as_json:
+        click.echo(json.dumps(view, ensure_ascii=False, indent=2))
+    else:
+        click.echo(f"job_id={job['job_id']} status={job['status']} next_action=poll")
+
+
+@pipeline_job_group.command("status")
+@click.option(
+    "--jobs-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+)
+@click.option("--job-id", required=True)
+@click.option("--json", "as_json", is_flag=True, default=True)
+def pipeline_job_status_cmd(jobs_dir: Path, job_id: str, as_json: bool) -> None:
+    """Refresh and print one job's file-backed status."""
+    from async_job import job_public_view, refresh_job
+
+    try:
+        job = refresh_job(jobs_dir, job_id)
+    except (OSError, ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    view = job_public_view(job)
+    if as_json:
+        click.echo(json.dumps(view, ensure_ascii=False, indent=2))
+    else:
+        click.echo(f"{job_id} status={view['status']} next_action={view['next_action']}")
+    if view["status"] == "failed":
+        sys.exit(1)
+
+
+@pipeline_job_group.command("wait")
+@click.option(
+    "--jobs-dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+)
+@click.option("--job-id", required=True)
+@click.option("--timeout", "timeout_sec", default=600.0, type=float)
+@click.option("--poll-interval", default=1.0, type=float)
+@click.option("--json", "as_json", is_flag=True, default=True)
+def pipeline_job_wait_cmd(
+    jobs_dir: Path,
+    job_id: str,
+    timeout_sec: float,
+    poll_interval: float,
+    as_json: bool,
+) -> None:
+    """Block until job reaches done/failed (for local scripts/tests)."""
+    from async_job import job_public_view, wait_for_job
+
+    try:
+        job = wait_for_job(
+            jobs_dir,
+            job_id,
+            timeout_sec=timeout_sec,
+            poll_sec=poll_interval,
+        )
+    except (OSError, ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    view = job_public_view(job)
+    if as_json:
+        click.echo(json.dumps(view, ensure_ascii=False, indent=2))
+    if view["status"] != "done":
+        sys.exit(1)

@@ -1,0 +1,17 @@
+---
+description: Game AI Foundry long-running jobs — file status polling for any agent
+globs:
+alwaysApply: true
+---
+
+# Foundry long jobs
+
+When running Game AI Foundry asset/pipeline commands from this repo:
+
+1. Prefer `.\gamefactory.cmd` (not bare `python` on Windows).
+2. Long work (`workflow run`, `pipeline run`, image/video generate) is either:
+   - **blocking** until process exit (long-timeout hosts), or
+   - **`--detach`** → read `job_id` → poll `workflow status --job-id` (or `pipeline job status`) until `status` is `done`/`failed` or `next_action` ≠ `poll`.
+3. Never treat "command started in background" as success. Authority is `manifest` / `jobs/<job_id>.json` / `workflow status --json`.
+4. When `next_action=poll` or `status=running`, do not start another `run`.
+5. Follow `resources/skills/gamefactory-toolkit/SKILL.md`.

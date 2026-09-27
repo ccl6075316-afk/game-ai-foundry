@@ -51,6 +51,9 @@ from roles import (
 )
 from plan_io import build_godot_handoff, save_handoff
 from production import PLACABLE_CONTENT_CLASSES, build_layout, layout_asset_key, load_production
+from video_frames import resolve_sprite_frame_count
+from frame_sequence import DEFAULT_SKIP_LEAD_RATIO, DEFAULT_SKIP_TRAIL_RATIO
+from godot_import import resolve_playback_fps
 
 MANIFEST_VERSION = 1
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -666,6 +669,7 @@ def _video_animation_tasks(
 
     video_deps = [prompt_id, ref_image_task]
     video_layer = _layer_from_deps(video_deps, tasks_by_id)
+    loop_flag = " --loop-align" if resolve_animation_loop(spec) else ""
     video_id = _add_task(
         tasks,
         asset=name,
@@ -679,11 +683,13 @@ def _video_animation_tasks(
             f"--plan-file {paths['plan']} "
             f"--reference-image {ref_raw} "
             f"--output {paths['video']}"
+            f"{loop_flag}"
         ),
         artifacts={
             "plan": paths["plan"],
             "reference_image": ref_raw,
             "output": paths["video"],
+            "loop_align": "true" if resolve_animation_loop(spec) else "false",
         },
     )
     tasks_by_id[video_id] = tasks[-1]
@@ -818,7 +824,7 @@ def _collect_godot_plan(
     output_dir: Path,
     tasks_by_id: dict[str, PipelineTask],
     godot_project: Path,
-    sprite_frames_default: int = 8,
+    sprite_frames_default: int = 24,
     plans_dir: Path | None = None,
 ) -> dict[str, Any]:
     assets = [spec for spec in assets if not _is_placeholder_asset(spec)]
@@ -838,12 +844,27 @@ def _collect_godot_plan(
                 )
             else:
                 frames_dir = rel_to_repo(output_dir / f"{file_key}_nobg")
-            sprite_count = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
+            sprite_count = resolve_sprite_frame_count(
+                explicit=spec.sprite_frames if spec.sprite_frames > 0 else None,
+                duration_seconds=spec.duration_seconds or None,
+                config={"video": {"split_frames": {"frames": sprite_frames_default}}},
+            )
+            clip_duration = float(spec.duration_seconds) if spec.duration_seconds else None
+            playback_fps = (
+                resolve_playback_fps(
+                    sprite_count,
+                    source_duration_seconds=clip_duration,
+                    lead_ratio=DEFAULT_SKIP_LEAD_RATIO,
+                    trail_ratio=DEFAULT_SKIP_TRAIL_RATIO,
+                )
+                if clip_duration
+                else 12.0
+            )
             animations.append(
                 {
                     "asset": spec.name,
                     "frames_dir": frames_dir,
-                    "fps": 12,
+                    "fps": playback_fps,
                     "animation_name": resolve_animation_name(spec),
                     "loop": resolve_animation_loop(spec),
                     "reference_asset": spec.reference_asset.strip(),
@@ -851,6 +872,9 @@ def _collect_godot_plan(
                     "pre_trimmed": True,
                     "pre_sampled": True,
                     "display_size": effective_display_dict(spec, project),
+                    "source_duration_seconds": clip_duration,
+                    "skip_lead_ratio": DEFAULT_SKIP_LEAD_RATIO,
+                    "skip_trail_ratio": DEFAULT_SKIP_TRAIL_RATIO,
                 }
             )
         elif spec.type == AssetType.BACKGROUND:
@@ -1023,7 +1047,7 @@ def build_manifest(
     *,
     output_dir: Path | None = None,
     plans_dir: Path | None = None,
-    sprite_frames_default: int = 8,
+    sprite_frames_default: int = 24,
     godot_project: Path | None = None,
     include_godot: bool = True,
     include_game_dev: bool = True,
@@ -1116,7 +1140,11 @@ def build_manifest(
     for spec in assets:
         if classify_asset(spec) != AssetKind.VIDEO_ANIMATION:
             continue
-        frames = spec.sprite_frames if spec.sprite_frames > 0 else sprite_frames_default
+        frames = resolve_sprite_frame_count(
+            explicit=spec.sprite_frames if spec.sprite_frames > 0 else None,
+            duration_seconds=spec.duration_seconds or None,
+            config={"video": {"split_frames": {"frames": sprite_frames_default}}},
+        )
         paths = _asset_artifacts(output_dir, plans_dir, asset_ids[spec.name])
         _video_animation_tasks(
             tasks,

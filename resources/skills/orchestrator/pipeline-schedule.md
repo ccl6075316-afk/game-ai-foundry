@@ -115,7 +115,7 @@ raw still
 4. 一张图不能包含多个动作帧。
 
 ```bash
-python gamefactory.py video split-frames --input <video> --output <frames-dir> --frames 8
+python gamefactory.py video split-frames --input <video> --output <frames-dir> --frames 24
 python gamefactory.py video matte-frames --input <frames-dir> --output <nobg-dir> --engine ai
 ```
 
@@ -138,14 +138,14 @@ python gamefactory.py workflow status --manifest <manifest> --json
 
 | `status` | `next_action` | 动作 |
 |---|---|---|
-| `pending` | `run` | 运行 ready tasks |
-| `running` | `run` | 继续观察，不重复启动 |
+| `pending` | `run` | 运行 ready tasks（短超时用 `--detach`） |
+| `running` | `poll` | 继续观察，不重复启动 |
 | `failed` | `resume` | 读取 `failed_ids`，定点恢复 |
 | `paused` | `resume` | 检查阻塞原因后恢复 |
 | `blocked` | `fix_input` / `derive_production` | 按 `failures[]` 修输入或补建缺失状态 |
 | `done` | `human_review` | 资产审查、Godot、test；无后续时为 `none` |
 
-合法 `status` 仅为 `pending`、`running`、`done`、`paused`、`blocked`、`failed`；合法 `next_action` 为 `none`、`freeze_brief`、`derive_production`、`run`、`resume`、`recraft_prompt`、`fix_input`、`human_review`。
+合法 `status` 仅为 `pending`、`running`、`done`、`paused`、`blocked`、`failed`；合法 `next_action` 为 `none`、`freeze_brief`、`derive_production`、`run`、`resume`、`recraft_prompt`、`fix_input`、`human_review`、`poll`。
 
 定点恢复：
 

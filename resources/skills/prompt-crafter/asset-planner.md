@@ -29,7 +29,7 @@ Respect `asset.content_class`, `project.view`, and `project.art_tokens` from con
 2. **img2img** (fallback): one pose frame; never multiple actions in one image.
 3. **Forbidden**: spritesheet, action grid, walk-cycle sheet in one prompt.
 
-Brief animation fields: `duration_seconds`, `sprite_frames`, `video_model`, `video_resolution`, `video_ratio`, `generate_audio`.
+Brief animation fields: `duration_seconds`, `sprite_frames`（默认 **24**，约 6 帧/秒 × 3–4s；未写时 pipeline 按 `duration×6` 与配置底线上调）, `video_model`, `video_resolution`, `video_ratio`, `generate_audio`.
 
 ## Craft quality
 

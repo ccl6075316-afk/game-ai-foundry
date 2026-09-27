@@ -38,6 +38,7 @@ When `project.view` is set (`side` | `top_down` | `three_quarter`), write `view`
 
 ## Sizing reminder
 
-- **`display_size`** = in-game pixels on `project.viewport`.
-- Same character family must share `display_size`.
-- Under ~128px display size → flat colors, thick outlines, bold shapes.
+- **`source` pixels** = generate / matte output — keep this clarity at Godot import.
+- **`display_size` / `real_length_cm`** = in-game size **intent** (relative length / layout), consumed as **runtime scale** when placing sprites — **not** a reason to crush PNGs at import.
+- Same character family should share length intent (`real_length_cm` / family scale), not necessarily identical baked bitmap sizes.
+- Under ~128px **on-screen** target → prompt for flat colors, thick outlines, bold shapes (art direction), still import sharp sources when available.

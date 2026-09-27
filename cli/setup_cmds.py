@@ -63,6 +63,32 @@ def setup_install_cmd(component_id: str, as_json: bool) -> None:
         raise click.ClickException(str(exc)) from exc
 
 
+@setup_group.command("ensure-python")
+@click.option("--json", "as_json", is_flag=True, help="Print JSON report.")
+@click.option("--recreate", is_flag=True, help="Delete and recreate repo .venv.")
+def setup_ensure_python_cmd(as_json: bool, recreate: bool) -> None:
+    """Create repo-local .venv and install cli/requirements.txt.
+
+    Prefer this over bare ``python`` on Windows: Store app-execution aliases often
+    resolve to a stub that cannot run the CLI. External agents should then use
+    ``.\\gamefactory.cmd`` / ``./gamefactory`` instead of system python.
+    """
+    from python_env import ensure_python_env
+
+    report = ensure_python_env(recreate=recreate)
+    if as_json:
+        click.echo(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        if report.get("ok"):
+            click.echo(f"OK — {report.get('venv_python')}")
+            click.echo("Next: .\\gamefactory.cmd --help   (or ./gamefactory --help)")
+        else:
+            click.echo("Failed to prepare repo Python env.", err=True)
+            for err in report.get("errors") or []:
+                click.echo(f"  - {err}", err=True)
+    raise SystemExit(0 if report.get("ok") else 1)
+
+
 @setup_group.command("ensure")
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
 @click.option(

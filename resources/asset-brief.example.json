@@ -63,7 +63,7 @@
       "animation_name": "walk",
       "animation_method": "video",
       "duration_seconds": 4,
-      "sprite_frames": 8,
+      "sprite_frames": 24,
       "video_model": "mini",
       "video_resolution": "480p",
       "id": "knight_walk"

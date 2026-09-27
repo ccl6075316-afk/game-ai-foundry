@@ -40,8 +40,10 @@ class EnvDiscoverTest(unittest.TestCase):
         )
         self.assertEqual(config["host_key"], "set")
         self.assertEqual(config["seedance_key"], "set")
-        self.assertEqual(config["toolchain_bin_dir"], "/tmp/bin")
-        self.assertEqual(config["toolchain_dotnet_dir"], "/tmp/dotnet")
+        self.assertIn("tmp", config["toolchain_bin_dir"].replace("\\", "/"))
+        self.assertIn("bin", config["toolchain_bin_dir"].replace("\\", "/"))
+        self.assertIn("tmp", config["toolchain_dotnet_dir"].replace("\\", "/"))
+        self.assertIn("dotnet", config["toolchain_dotnet_dir"].replace("\\", "/"))
 
     def test_doctor_report_has_no_runtime_sections(self) -> None:
         report = run_doctor({})
@@ -50,8 +52,9 @@ class EnvDiscoverTest(unittest.TestCase):
         self.assertIn("tools", report)
         self.assertIn("config", report)
         self.assertIn("capabilities", report)
+        self.assertIn("python_env", report)
         self.assertNotIn("executors", serialized)
-        self.assertNotIn("agents", serialized)
+        self.assertNotIn('"agents"', serialized)
 
     def test_capabilities_include_pipeline_and_retained_guards(self) -> None:
         caps = discover_capabilities(

@@ -20,6 +20,7 @@ _ALLOWED: tuple[tuple[str, ...], ...] = (
     ("pipeline", "heal"),
     ("host", "retry-asset"),
     ("host", "run-assets"),
+    ("host", "workflow-run"),
     ("config", "set"),
     ("config", "get"),
     ("godot", "validate"),

@@ -15,21 +15,24 @@
 ## Quick Start
 
 ```bash
-cd cli
-pip install -r requirements.txt
-cp ../resources/config.example.json ~/.gamefactory/config.json
+# 1) 准备仓库本地 Python（避开 Windows Store stub）
+py -3 cli/gamefactory.py setup ensure-python --json
+# 2) 配置
+copy resources\config.example.json %USERPROFILE%\.gamefactory\config.json
 
-python gamefactory.py workflow context --brief ../resources/asset-brief.example.json --json
-python gamefactory.py workflow validate --brief ../resources/asset-brief.example.json --json
+# 3) 之后一律用 launcher（不要裸调 python）
+.\gamefactory.cmd doctor --json
+.\gamefactory.cmd workflow context --brief resources/asset-brief.example.json --json
+.\gamefactory.cmd workflow validate --brief resources/asset-brief.example.json --json
 ```
 
 仅当上一条校验通过并返回 `ok=true` 且 `failures=[]` 后才继续 `init`；当前示例 Brief 若缺少视觉参考会返回 `ok=false`，必须先按 `failures` 修复，不能带着失败继续初始化。
 
 ```bash
-python gamefactory.py workflow init --brief ../resources/asset-brief.example.json --json
-python gamefactory.py workflow run --manifest ../pipeline/asset-brief.example.json --stage assets --json
-python gamefactory.py workflow status --manifest ../pipeline/asset-brief.example.json --json
-python gamefactory.py workflow resume --manifest ../pipeline/asset-brief.example.json --task-id <task_id> --json
+.\gamefactory.cmd workflow init --brief resources/asset-brief.example.json --json
+.\gamefactory.cmd workflow run --manifest <manifest> --stage assets --json
+.\gamefactory.cmd workflow status --manifest <manifest> --json
+.\gamefactory.cmd workflow resume --manifest <manifest> --task-id <task_id> --json
 ```
 
 `status=failed` 才进入 `resume`；`status=done` 且 `next_action=human_review` 后进入资产审查、Godot 和测试：
@@ -41,6 +44,16 @@ python gamefactory.py test unit --project <project>
 python gamefactory.py test regression --project <project>
 ```
 
+无 GUI 时可直接快捷运行游戏：
+
+```bash
+python gamefactory.py play
+python gamefactory.py play --project fishing-2d
+python gamefactory.py run-game --project projects/fishing-2d/game --skip-build
+```
+
+在仓库根目录运行 `python gamefactory.py ...`；也可以进入 `cli/` 后运行 `python gamefactory.py ...`。`play` 与 `run-game` 等价。未传项目时优先使用当前目录工程，再按最新 progress 和唯一候选自动解析；存在多个候选时必须显式指定项目。`--dry-run` 只打印解析结果，不启动 Godot。
+
 ## 主要能力
 
 | 能力 | 入口 |
@@ -50,7 +63,7 @@ python gamefactory.py test regression --project <project>
 | 续作账本 | `project progress`、`project handoff` |
 | 资产 DAG | `pipeline plan`、`pipeline run`、`pipeline reset`、`pipeline status` |
 | 资产审查 | `assets review list`、`accept`、`replace`、`regenerate` |
-| Godot | `godot scaffold`、`godot assemble`、`godot validate` |
+| Godot | `play` / `run-game`、`godot scaffold`、`godot assemble`、`godot validate` |
 | 验收 | `test unit`、`test plan`、`test play`、`test regression` |
 
 ## 文档

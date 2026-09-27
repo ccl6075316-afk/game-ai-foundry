@@ -29,3 +29,16 @@ class SeedancePayloadTests(unittest.TestCase):
 
     def test_resolve_25_alias(self) -> None:
         self.assertEqual(resolve_model("2.5"), "doubao-seedance-2-5-260628")
+
+    def test_last_frame_appended_for_loop_align(self) -> None:
+        first = {"type": "image_url", "image_url": {"url": "a"}, "role": "first_frame"}
+        last = {"type": "image_url", "image_url": {"url": "a"}, "role": "last_frame"}
+        payload = build_task_payload(
+            model="mini",
+            prompt="seamless swim loop",
+            ratio="16:9",
+            reference_image_item=first,
+            last_frame_image_item=last,
+        )
+        roles = [item.get("role") for item in payload["content"] if item.get("type") == "image_url"]
+        self.assertEqual(roles, ["first_frame", "last_frame"])

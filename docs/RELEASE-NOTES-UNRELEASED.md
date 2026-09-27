@@ -13,6 +13,12 @@
 - **VT 闸门单源**：Electron 改调 CLI `brief visual-target status`，删除独立 hydrate 副本
 - **修**：`visual-target-status` 误查 `result.ok`（`runCli` 无此字段）导致 GUI 恒报未选定；加回归测 `visualTargetStatusMap.test.mjs`
 - **角色文档**：prompt-crafter 降为 pipeline 内部步骤；旧角色文档已移除。
+- **无 GUI 快捷试玩**：新增顶层 `play` / `run-game`，自动解析当前或唯一 Godot 工程并启动 main 场景；支持 `--dry-run`、`--skip-build`，多工程时显式指定。
+- **异步 Job 轮询**：`workflow run --detach` / `pipeline run --detach` 立刻返回 `job_id` + `next_action=poll`；`workflow status --job-id` 合并 job 与 manifest；短超时外部 Agent 的推荐默认。
+- **动画默认 24 帧**：`video.split_frames.frames` / pipeline `--sprite-frames` 默认改为 24（适配 3–4s 视频）；`resolve_sprite_frame_count` 按 `duration×6` 上调；Brief `sprite_frames` 仍可覆盖。
+- **导入保清晰、放置再缩放**：静帧与动画默认 **不再** 把 PNG 烘焙成 Brief `display_size`（`godot.bake_display_size` 默认 `false`；可显式开启旧行为）。动画用主体原分辨率 `clip_subject` 稳定尺寸；游戏侧 `FishDisplayScale.SpriteScaleForSourceTexture` 按 `real_length_cm` 缩放。
+- **循环切帧优化**：`video split-frames` 默认对 `--frames` 做帧差搜窗（`optimize_loop`），使循环接缝接近中段运动；失败时回退到配置的 lead/trail 比例；`--no-optimize-loop` 可关。已写入 toolkit / matting-video / assemble 规则。
+- **动画导入防闪烁**：序列帧主体稳定 compose（原分辨率）；SpriteFrames `speed` 按片源可用时长推算；游戏侧 `AssetTextures` 读取 `.tres` 速度，不再硬编码 12fps。
 - **目标模式**：运行资产生成失败 → 自动 diagnose/heal/串跑 fix_commands → 必要时 PM Agent → 续跑（GUI）
 - **ACP 收口**：全角色 `agent prompt`；`record-turn` 应用 dispatch（等同 `agent turn` 落盘）
 - 架构与重构交接：[`ARCHITECTURE-REFACTOR-HANDOFF.md`](ARCHITECTURE-REFACTOR-HANDOFF.md)

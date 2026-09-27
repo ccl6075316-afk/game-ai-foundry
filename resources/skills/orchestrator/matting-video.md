@@ -17,7 +17,10 @@ Orchestrator post-process skill for **animation frames** extracted from Seedance
 python gamefactory.py video split-frames \
   --input output/walk.mp4 \
   --output-dir output/walk_frames \
-  --frames 8
+  --frames 24
+# default --optimize-loop: probe full clip, pick phase-aligned window so loop
+# seams stay near mid-clip motion; falls back to skip_lead/trail ratios if needed.
+# Use --no-optimize-loop for fixed-ratio trim only.
 
 python gamefactory.py video matte-frames \
   --input-dir output/walk_frames \
@@ -26,6 +29,16 @@ python gamefactory.py video matte-frames \
 # default --no-trim: keep full frame after video (do not crop before matting)
 ```
 
+默认：`video.split_frames.frames=24`（约 6 帧/秒 × 3–4s）。更长视频按 `duration×6` 上调；Brief `sprite_frames` 可覆盖。
+
+### Loop optimize (`optimize_loop`)
+
+i2v clips morph from the reference still at the head (and often soften at the tail). Fixed 25%/5% trim is a fallback, not a guarantee of seamless loops.
+
+- Default **on** for `--frames` mode (`video.split_frames.optimize_loop`, CLI `--optimize-loop`).
+- Densely probes the clip, drops still-like morph ends, searches a window where first≈last relative to mid-clip motion (`seam_over_mid`, default max **1.25**).
+- If no window passes, keeps the better of best-effort window vs configured lead/trail ratios.
+- Config knobs: `seam_over_mid_max`, `loop_probe_fps`, `loop_min_keep_ratio`.
 ## Before video (reference still)
 
 | Step | Trim? |

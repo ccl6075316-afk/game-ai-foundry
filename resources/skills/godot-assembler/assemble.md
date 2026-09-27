@@ -16,9 +16,10 @@ You do **not** craft prompts, call image/video APIs, or write GDScript.
 2. **No LLM code generation** in v1 — Player/Main `.cs` come from template.
 3. **Animations** — input is `frames_dir` of RGBA PNGs (from `video matte-frames`).
 4. **Skip i2v lead-in** — never use the first frames of a generated clip or the Seedance reference still as idle. Those frames morph from still → motion (color/shape mismatch).
-5. **Trim then sample** — drop lead/trail transition frames first, **then** sample to `sprite_frames` (brief/config, usually 8). Pipeline split-frames sets `pre_trimmed`/`pre_sampled`; full extracts rely on godot import.
+5. **Trim then sample** — prefer `video split-frames --optimize-loop` (default): frame-diff search for a phase-aligned window, then sample to `sprite_frames`. Fallback lead/trail ratios only when needed. Pipeline sets `pre_trimmed`/`pre_sampled` after split.
 6. **Idle display** — use `idle_still`: separate character `*_nobg.png`, not reference still or anim frames.
-7. **Backgrounds** — copy static PNGs into `assets/backgrounds/`.
+7. **Import clarity** — copy matte/source pixels into the project; do **not** bake Brief `display_size` into PNG dimensions. Stills and animation frames follow the same rule; in-game size uses `real_length_cm` / runtime scale.
+8. **Backgrounds** — copy static PNGs into `assets/backgrounds/`.
 
 ## CLI
 
@@ -47,7 +48,7 @@ python gamefactory.py godot open --project ../games/prison-demo
         "frames_dir": "output/prison-test/walk_frames_nobg",
         "fps": 12,
         "animation_name": "walk",
-        "sprite_frames": 8,
+        "sprite_frames": 24,
         "skip_lead_ratio": 0.25,
         "skip_trail_ratio": 0.05,
         "pre_trimmed": false,

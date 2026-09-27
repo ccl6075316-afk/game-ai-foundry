@@ -22,14 +22,14 @@ python gamefactory.py workflow resume --manifest <manifest> --task-id <task_id> 
 
 | `status` | `next_action` | 路由 |
 |---|---|---|
-| `pending` | `run` | 执行或等待 `--stage assets` |
-| `running` | `run` | 只读观察当前执行，不重复启动 |
+| `pending` | `run` | 执行或等待 `--stage assets`（短超时用 `--detach`） |
+| `running` | `poll` | 只读观察当前执行，不重复启动 |
 | `done` | `human_review` | 进入资产审查、Godot 与测试 |
 | `paused` | `resume` | 恢复暂停任务 |
 | `blocked` | `fix_input` / `derive_production` | 读取 `failures[]` 修输入，或补建缺失状态 |
 | `failed` | `resume` | 读取 `failed_ids`，修因后恢复指定 task |
 
-合法 `next_action` 集合仅为：`none`、`freeze_brief`、`derive_production`、`run`、`resume`、`recraft_prompt`、`fix_input`、`human_review`。不得把命令名当成 `next_action` 枚举。
+合法 `next_action` 集合仅为：`none`、`freeze_brief`、`derive_production`、`run`、`resume`、`recraft_prompt`、`fix_input`、`human_review`、`poll`。不得把命令名当成 `next_action` 枚举。
 
 ## 确定性阶段
 

@@ -268,6 +268,11 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
         pre_sampled = bool(item.get("pre_sampled", False))
         trim_lead = item.get("trim_lead")
         trim_trail = item.get("trim_trail")
+        raw_dur = item.get("source_duration_seconds", item.get("duration_seconds"))
+        try:
+            source_duration = float(raw_dur) if raw_dur is not None else None
+        except (TypeError, ValueError):
+            source_duration = None
         try:
             imp = import_sprite_frames(
                 project_path,
@@ -285,6 +290,8 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
                 config=config,
                 handoff=item,
                 loop=loop,
+                display_size=item.get("display_size"),
+                source_duration_seconds=source_duration,
             )
         except GodotImportError as exc:
             raise GodotAssembleError(str(exc)) from exc

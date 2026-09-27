@@ -16,8 +16,47 @@ from frame_sequence import (
     resolve_transition_trim,
     sample_frame_paths_evenly,
 )
+from loop_seam import (
+    DEFAULT_MIN_KEEP_RATIO,
+    DEFAULT_PROBE_FPS,
+    DEFAULT_SEAM_OVER_MID_MAX,
+    DEFAULT_SPIKE_FACTOR,
+    select_loop_frame_paths,
+)
 
-DEFAULT_SPRITE_FRAMES = 8
+DEFAULT_SPRITE_FRAMES = 24
+# Target density for 3–4s i2v clips (4s × 6 ≈ 24). Longer clips scale up.
+SPRITE_FRAMES_PER_SECOND = 6.0
+
+
+def resolve_sprite_frame_count(
+    *,
+    explicit: int | None = None,
+    duration_seconds: float | None = None,
+    config: dict[str, Any] | None = None,
+) -> int:
+    """Resolve sprite sample count for video → frames.
+
+    Priority: Brief ``sprite_frames`` > config ``video.split_frames.frames`` >
+    duration-scaled default (floor ``DEFAULT_SPRITE_FRAMES``).
+    """
+    if explicit is not None and int(explicit) > 0:
+        return int(explicit)
+
+    cfg = _split_frames_config(config or {})
+    configured = cfg.get("frames")
+    try:
+        base = int(configured) if configured is not None else DEFAULT_SPRITE_FRAMES
+    except (TypeError, ValueError):
+        base = DEFAULT_SPRITE_FRAMES
+    if base < 1:
+        base = DEFAULT_SPRITE_FRAMES
+
+    dur = float(duration_seconds or 0)
+    if dur > 0:
+        from_duration = int(round(dur * SPRITE_FRAMES_PER_SECOND))
+        return max(base, from_duration, DEFAULT_SPRITE_FRAMES)
+    return max(base, DEFAULT_SPRITE_FRAMES)
 
 
 class SplitFramesError(RuntimeError):
@@ -76,6 +115,29 @@ def _split_frames_config(config: dict[str, Any]) -> dict[str, Any]:
         return {}
     block = video_cfg.get("split_frames", {})
     return block if isinstance(block, dict) else {}
+
+
+def resolve_optimize_loop(
+    config: dict[str, Any] | None,
+    *,
+    optimize_loop: bool | None = None,
+) -> bool:
+    """Default on for --frames mode unless config/CLI disables it."""
+    if optimize_loop is not None:
+        return bool(optimize_loop)
+    cfg = _split_frames_config(config or {})
+    raw = cfg.get("optimize_loop", True)
+    return bool(raw)
+
+
+def _loop_opt_params(config: dict[str, Any] | None) -> dict[str, float]:
+    cfg = _split_frames_config(config or {})
+    return {
+        "seam_over_mid_max": float(cfg.get("seam_over_mid_max", DEFAULT_SEAM_OVER_MID_MAX)),
+        "spike_factor": float(cfg.get("loop_spike_factor", DEFAULT_SPIKE_FACTOR)),
+        "min_keep_ratio": float(cfg.get("loop_min_keep_ratio", DEFAULT_MIN_KEEP_RATIO)),
+        "probe_fps": float(cfg.get("loop_probe_fps", DEFAULT_PROBE_FPS)),
+    }
 
 
 def resolve_skip_bounds(
@@ -154,8 +216,11 @@ def resolve_split_frames_options(
         raise SplitFramesError("Use either --fps or --frames, not both.")
 
     cfg = _split_frames_config(config)
-    default_frames = int(cfg.get("frames", DEFAULT_SPRITE_FRAMES))
     default_fps = cfg.get("fps")
+    default_frames = resolve_sprite_frame_count(
+        duration_seconds=duration_seconds,
+        config=config,
+    )
 
     if frames is not None:
         if frames < 1:
@@ -278,8 +343,14 @@ def split_video_to_frames(
     skip_trail_ratio: float | None = None,
     trim_lead: bool | None = None,
     trim_trail: bool | None = None,
+    optimize_loop: bool | None = None,
 ) -> dict[str, Any]:
-    """Extract sprite frames; optional head/tail trim then sample (see config trim_lead/trim_trail)."""
+    """Extract sprite frames; optional head/tail trim then sample (see config trim_lead/trim_trail).
+
+    When ``optimize_loop`` is enabled (default for ``--frames``), densely probe the
+    full clip and pick a phase-aligned window so loop seams stay near mid-clip motion.
+    Falls back to configured lead/trail ratios if no window passes the threshold.
+    """
     config = config or {}
     trim_opts = resolve_transition_trim(
         config,
@@ -297,6 +368,21 @@ def split_video_to_frames(
         frames=frames,
         duration_seconds=duration_seconds,
     )
+    use_loop_opt = (
+        options["mode"] == "frames"
+        and resolve_optimize_loop(config, optimize_loop=optimize_loop)
+    )
+
+    if use_loop_opt:
+        return _split_frames_optimize_loop(
+            input_path,
+            output_dir,
+            config=config,
+            options=options,
+            fmt=fmt,
+            trim_opts=trim_opts,
+        )
+
     extract_fps, duration, target_frames, t_start, t_end = resolve_extract_fps(
         input_path,
         options,
@@ -311,7 +397,6 @@ def split_video_to_frames(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     extracted: list[Path] = []
-    dense_fps = extract_fps
     ffmpeg = _require_ffmpeg(config)
 
     if options["mode"] == "frames" and target_frames is not None:
@@ -414,8 +499,125 @@ def split_video_to_frames(
         "target_frames": target_frames,
         "trim_lead": trim_opts.trim_lead,
         "trim_trail": trim_opts.trim_trail,
+        "optimize_loop": False,
         "skip_lead_seconds": round(skip_lead, 3),
         "skip_trail_seconds": round(skip_trail, 3),
+        "sample_start_seconds": round(t_start, 3),
+        "sample_end_seconds": round(t_end, 3),
+        "output_dir": str(output_dir.resolve()),
+        "paths": [str(p.resolve()) for p in extracted],
+    }
+
+
+def _split_frames_optimize_loop(
+    input_path: Path,
+    output_dir: Path,
+    *,
+    config: dict[str, Any],
+    options: dict[str, Any],
+    fmt: str,
+    trim_opts: Any,
+) -> dict[str, Any]:
+    """Dense-probe full clip, pick phase-aligned loop window, sample to target."""
+    duration = options.get("duration_hint")
+    if duration is None:
+        duration = probe_video_duration(input_path, config)
+    duration = float(duration)
+    target_frames = int(options["target_frames"])
+    loop_params = _loop_opt_params(config)
+    probe_fps = max(float(loop_params["probe_fps"]), target_frames / max(duration, 0.1))
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    # Clear prior outputs so stale frames cannot linger.
+    for stale in output_dir.glob(f"frame_*.{fmt}"):
+        stale.unlink(missing_ok=True)
+    for stale in output_dir.glob(f"_probe_*.{fmt}"):
+        stale.unlink(missing_ok=True)
+
+    ffmpeg = _require_ffmpeg(config)
+    out_pattern = str(output_dir / f"_probe_%04d.{fmt}")
+    cmd = [
+        ffmpeg,
+        "-i",
+        str(input_path),
+        "-y",
+        "-vf",
+        f"fps={probe_fps}",
+        out_pattern,
+    ]
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as exc:
+        raise SplitFramesError(f"ffmpeg failed: {exc.stderr}") from exc
+    except FileNotFoundError as exc:
+        raise SplitFramesError("ffmpeg not found — install ffmpeg") from exc
+
+    probe = sorted(output_dir.glob(f"_probe_*.{fmt}"))
+    if len(probe) < max(4, target_frames // 2):
+        for tmp in probe:
+            tmp.unlink(missing_ok=True)
+        raise SplitFramesError(
+            f"Loop probe extracted too few frames ({len(probe)}) from {input_path}"
+        )
+
+    lead_ratio = trim_opts.skip_lead_ratio if trim_opts.trim_lead else 0.0
+    trail_ratio = trim_opts.skip_trail_ratio if trim_opts.trim_trail else 0.0
+    if not trim_opts.trim_lead and not trim_opts.trim_trail:
+        lead_ratio, trail_ratio = DEFAULT_SKIP_LEAD_RATIO, DEFAULT_SKIP_TRAIL_RATIO
+
+    try:
+        picked, meta = select_loop_frame_paths(
+            probe,
+            target_frames=target_frames,
+            fallback_lead_ratio=lead_ratio or DEFAULT_SKIP_LEAD_RATIO,
+            fallback_trail_ratio=trail_ratio or DEFAULT_SKIP_TRAIL_RATIO,
+            seam_over_mid_max=loop_params["seam_over_mid_max"],
+            spike_factor=loop_params["spike_factor"],
+            min_keep_ratio=loop_params["min_keep_ratio"],
+        )
+    except ValueError as exc:
+        for tmp in probe:
+            tmp.unlink(missing_ok=True)
+        raise SplitFramesError(str(exc)) from exc
+
+    probe_count = len(probe)
+    extracted: list[Path] = []
+    for idx, src in enumerate(picked, start=1):
+        out_path = output_dir / f"frame_{idx:04d}.{fmt}"
+        shutil.copy2(src, out_path)
+        extracted.append(out_path)
+    for tmp in probe:
+        tmp.unlink(missing_ok=True)
+
+    if meta.get("strategy") in {"optimize_loop", "optimize_loop_best_effort"} and "start_index" in meta:
+        start_i = int(meta["start_index"])
+        end_i = int(meta["end_index"])
+        denom = max(probe_count - 1, 1)
+        t_start = duration * (start_i / denom)
+        t_end = duration * (end_i / denom)
+    else:
+        t_start = duration * float(meta.get("fallback_lead_ratio", lead_ratio) or 0)
+        trail = float(meta.get("fallback_trail_ratio", trail_ratio) or 0)
+        t_end = duration * (1.0 - trail)
+
+    usable = max(t_end - t_start, duration * 0.05)
+    extract_fps = target_frames / usable
+
+    return {
+        "count": len(extracted),
+        "mode": options["mode"],
+        "duration_seconds": round(duration, 3),
+        "extract_fps": round(extract_fps, 4),
+        "target_frames": target_frames,
+        "trim_lead": trim_opts.trim_lead,
+        "trim_trail": trim_opts.trim_trail,
+        "optimize_loop": True,
+        "loop_strategy": meta.get("strategy"),
+        "seam_over_mid": meta.get("seam_over_mid"),
+        "seam_over_mid_max": meta.get("seam_over_mid_max"),
+        "loop_keep_ratio": meta.get("keep_ratio"),
+        "skip_lead_seconds": round(t_start, 3),
+        "skip_trail_seconds": round(max(0.0, duration - t_end), 3),
         "sample_start_seconds": round(t_start, 3),
         "sample_end_seconds": round(t_end, 3),
         "output_dir": str(output_dir.resolve()),

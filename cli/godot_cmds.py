@@ -11,6 +11,7 @@ from pathlib import Path
 import click
 
 from godot_assemble import GodotAssembleError, assemble_from_plan, init_project_from_template
+from game_run import GameRunInputError, resolve_game_project
 from toolchain_paths import resolve_dotnet, resolve_godot, toolchain_env
 from godot_import import GodotImportError, import_sprite_frames
 from plan_io import load_godot_handoff
@@ -505,12 +506,8 @@ def open_cmd(project_path: Path) -> None:
         sys.exit(1)
 
 
-@click.command("run")
-@click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
-              help="Godot project directory.")
-@click.option("--skip-build", is_flag=True, help="Skip dotnet build before launch.")
-def run_cmd(project_path: Path, skip_build: bool) -> None:
-    """Launch the Godot project main scene (play mode, not editor)."""
+def launch_game_project(project_path: Path, *, skip_build: bool = False) -> None:
+    """Build when needed and launch the project's main scene in play mode."""
     godot = _get_godot_exe().replace("_console.exe", ".exe")
     project_path = project_path.resolve()
     config = _load_config()
@@ -540,6 +537,48 @@ def run_cmd(project_path: Path, skip_build: bool) -> None:
     except FileNotFoundError:
         click.echo(f"Error: Godot not found at '{godot}'.", err=True)
         sys.exit(1)
+
+
+@click.command("run")
+@click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
+              help="Godot project directory.")
+@click.option("--skip-build", is_flag=True, help="Skip dotnet build before launch.")
+def run_cmd(project_path: Path, skip_build: bool) -> None:
+    """Launch the Godot project main scene (play mode, not editor)."""
+    launch_game_project(project_path, skip_build=skip_build)
+
+
+def _quick_run(project: str | None, skip_build: bool, dry_run: bool) -> None:
+    try:
+        project_path = resolve_game_project(project)
+    except GameRunInputError as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+
+    if dry_run:
+        click.echo(str(project_path))
+        return
+    launch_game_project(project_path, skip_build=skip_build)
+
+
+def _build_quick_run_command(name: str) -> click.Command:
+    @click.command(name)
+    @click.argument("project_arg", required=False)
+    @click.option("--project", "project_option", default=None,
+                  help="Godot project directory or project name (optional).")
+    @click.option("--skip-build", is_flag=True, help="Skip dotnet build before launch.")
+    @click.option("--dry-run", is_flag=True, help="Print the resolved project without launching Godot.")
+    def command(project_arg: str | None, project_option: str | None, skip_build: bool, dry_run: bool) -> None:
+        """Quickly run a game main scene; project is auto-detected when omitted."""
+        if project_arg and project_option and project_arg != project_option:
+            raise click.UsageError("Pass the project once, either as PROJECT or --project.")
+        _quick_run(project_arg or project_option, skip_build, dry_run)
+
+    return command
+
+
+play_cmd = _build_quick_run_command("play")
+run_game_cmd = _build_quick_run_command("run-game")
 
 
 @click.command("export")

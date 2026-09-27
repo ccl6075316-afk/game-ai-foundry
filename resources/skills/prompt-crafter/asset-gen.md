@@ -16,7 +16,7 @@
 
 ## Still relevant cross-cutting notes
 
-- **`display_size`** = in-game pixels; **`image_size`** = API size (pipeline-derived).
+- **Source pixels** = generate / matte output (keep at import). **`display_size` / `real_length_cm`** = size intent for **runtime scale**, not a bake target for PNG. **`image_size`** = API size (pipeline-derived).
 - **`project.visual_reference`**: match palette/line/mood — characters/icons still use white studio, not full screenshot paste.
 - **Style group img2img**: followers get low-influence wording; `identity_anchor` locks who, not composition copy.
 - **`character_pose` / animation video**: img2img / i2v — describe only motion or pose delta.

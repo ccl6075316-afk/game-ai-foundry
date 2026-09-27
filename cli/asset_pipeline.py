@@ -28,6 +28,7 @@ from brief import (
     should_use_style_img2img,
 )
 from prompt_craft import DEFAULT_PROMPT_MODEL, PromptCraftError, craft_asset_prompt
+from video_frames import resolve_sprite_frame_count
 from roles import PROMPT_CRAFTER_ROLE
 from shared_context import build_role_context
 from skill_loader import ROLE_SKILLS
@@ -389,7 +390,10 @@ def build_animation_pipeline(
 
         cfg = config if config is not None else _load_gamefactory_config()
         video = video_settings_from_asset_spec(cfg, spec)
-        sprite_frames = spec.sprite_frames if spec.sprite_frames > 0 else 8
+        sprite_frames = resolve_sprite_frame_count(
+            explicit=spec.sprite_frames if spec.sprite_frames > 0 else None,
+            duration_seconds=spec.duration_seconds or None,
+        )
         duration = video["duration"]
         return PromptPlan(
             asset_name=spec.name,

@@ -60,6 +60,17 @@ def models_cmd() -> None:
     help="Local PNG/JPG — first-frame image-to-video (uploaded via Files API).",
 )
 @click.option(
+    "--last-frame-image",
+    default=None,
+    type=click.Path(exists=True, path_type=Path),
+    help="Local PNG/JPG used as Seedance last_frame (loop head/tail align).",
+)
+@click.option(
+    "--loop-align/--no-loop-align",
+    default=None,
+    help="Reuse --reference-image as last_frame when true (Seedance loop align).",
+)
+@click.option(
     "--output",
     "output_path",
     required=True,
@@ -94,6 +105,8 @@ def generate_cmd(
     prompt: str | None,
     plan_path: Path | None,
     reference_image: Path | None,
+    last_frame_image: Path | None,
+    loop_align: bool | None,
     output_path: Path,
     duration: int | None,
     resolution: str | None,
@@ -123,6 +136,8 @@ def generate_cmd(
     plan_overrides: dict[str, Any] = {}
     resolved_prompt = prompt
     ref_image = reference_image
+    last_image = last_frame_image
+    plan_loop_align = False
 
     if plan_path is not None:
         if prompt:
@@ -137,9 +152,18 @@ def generate_cmd(
                     plan_overrides[key] = params[key]
             if ref_image is None and params.get("reference_image"):
                 ref_image = Path(params["reference_image"])
+            if params.get("loop_align") or params.get("animation_loop"):
+                plan_loop_align = True
+            if last_image is None and params.get("last_frame_image"):
+                last_image = Path(params["last_frame_image"])
         except (ValueError, json.JSONDecodeError, OSError) as exc:
             click.echo(f"Error: {exc}", err=True)
             sys.exit(1)
+
+    use_loop_align = bool(loop_align) if loop_align is not None else plan_loop_align
+    if last_image is None and use_loop_align and ref_image is not None:
+        last_image = ref_image
+
 
     try:
         video = resolve_video_generate_settings(
@@ -229,6 +253,7 @@ def generate_cmd(
                 api_base=resolved_base,
                 proxy=proxy,
                 reference_image=ref_image,
+                last_frame_image=last_image,
                 duration=video["duration"],
                 resolution=video["resolution"],
                 ratio=video["ratio"],
@@ -272,7 +297,7 @@ def generate_cmd(
     "--frames",
     type=int,
     default=None,
-    help="Target sprite frame count — evenly spaced across the clip (game default: 8).",
+    help="Target sprite frame count — evenly spaced across the clip (default from config / 24 for 3–4s).",
 )
 @click.option(
     "--fps",
@@ -316,6 +341,11 @@ def generate_cmd(
     default=None,
     help="Trim clip tail before sampling (default from config video.split_frames.trim_trail).",
 )
+@click.option(
+    "--optimize-loop/--no-optimize-loop",
+    default=None,
+    help="Search a phase-aligned loop window via frame diffs (default: on for --frames).",
+)
 def split_frames_cmd(
     input_path: Path,
     output_dir: Path,
@@ -328,6 +358,7 @@ def split_frames_cmd(
     skip_trail_ratio: float | None,
     trim_lead: bool | None,
     trim_trail: bool | None,
+    optimize_loop: bool | None,
 ) -> None:
     """Extract sprite frames; optional head/tail trim, then sample to --frames."""
     from video_frames import SplitFramesError, split_video_to_frames
@@ -347,6 +378,7 @@ def split_frames_cmd(
             skip_trail_ratio=skip_trail_ratio,
             trim_lead=trim_lead,
             trim_trail=trim_trail,
+            optimize_loop=optimize_loop,
         )
     except SplitFramesError as exc:
         click.echo(f"Error: {exc}", err=True)

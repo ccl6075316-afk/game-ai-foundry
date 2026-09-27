@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import sys
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Iterator
@@ -513,6 +514,17 @@ def init_cmd(brief_path: Path, manifest_path: Path | None, as_json: bool) -> Non
 @click.option("--auto-fix/--no-auto-fix", default=True, show_default=True)
 @click.option("--run-prompts", is_flag=True, default=False)
 @click.option("--jobs", default=4, show_default=True, type=int)
+@click.option(
+    "--detach",
+    is_flag=True,
+    help="Start assets run in background; return job_id and next_action=poll immediately.",
+)
+@click.option(
+    "--jobs-dir",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Detached job store (default: <manifest-dir>/jobs).",
+)
 @click.option("--json", "as_json", is_flag=True, help="Print one stable JSON object.")
 def run_cmd(
     manifest_path: Path,
@@ -520,6 +532,8 @@ def run_cmd(
     auto_fix: bool,
     run_prompts: bool,
     jobs: int,
+    detach: bool,
+    jobs_dir: Path | None,
     as_json: bool,
 ) -> None:
     """Run an existing stage through the deterministic asset runner."""
@@ -530,6 +544,8 @@ def run_cmd(
         "auto_fix": auto_fix,
         "run_prompts": run_prompts,
         "jobs": jobs,
+        "detach": detach,
+        "jobs_dir": str(jobs_dir) if jobs_dir else None,
     }
     if stage != "assets":
         payload = _error_payload(
@@ -541,6 +557,73 @@ def run_cmd(
         )
         emit_response(payload, as_json=as_json)
         raise SystemExit(1)
+
+    if detach:
+        from async_job import (
+            job_public_view,
+            jobs_dir_for_manifest,
+            start_detached_job,
+        )
+
+        try:
+            manifest_file = _require_manifest(manifest_path)
+            load_manifest(manifest_file)
+            store = Path(jobs_dir) if jobs_dir else jobs_dir_for_manifest(manifest_file)
+            child = [
+                sys.executable,
+                str(Path(__file__).resolve().parent / "gamefactory.py"),
+                "workflow",
+                "run",
+                "--manifest",
+                str(manifest_file),
+                "--stage",
+                "assets",
+                "--jobs",
+                str(jobs),
+                "--auto-fix" if auto_fix else "--no-auto-fix",
+            ]
+            if run_prompts:
+                child.append("--run-prompts")
+            job = start_detached_job(
+                child,
+                cwd=Path.cwd(),
+                jobs_dir=store,
+                python_executable=sys.executable,
+            )
+            view = job_public_view(job)
+            payload = build_response(
+                command=command,
+                ok=True,
+                stage="assets",
+                status="running",
+                next_action="poll",
+                inputs=inputs,
+                outputs=[
+                    _path_input(manifest_file),
+                    str(Path(store) / f"{job['job_id']}.json"),
+                ],
+                summary={
+                    "detached": True,
+                    "job": view["summary"],
+                    "job_id": job["job_id"],
+                    "jobs_dir": str(store.resolve()),
+                    "poll": {
+                        "command": "workflow status",
+                        "args": {
+                            "manifest": str(manifest_file),
+                            "job_id": job["job_id"],
+                            "jobs_dir": str(store.resolve()),
+                        },
+                    },
+                },
+                failures=[],
+            )
+        except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
+            payload = _error_payload(command=command, stage="assets", inputs=inputs, exc=exc)
+        emit_response(payload, as_json=as_json)
+        if not payload["ok"]:
+            raise SystemExit(1)
+        return
 
     try:
         manifest_file = _require_manifest(manifest_path)
@@ -660,11 +743,35 @@ def resume_cmd(
 
 @workflow_group.command("status")
 @click.option("--manifest", "manifest_path", required=True, type=click.Path(path_type=Path))
+@click.option(
+    "--job-id",
+    default=None,
+    help="Optional detached job id from workflow run --detach; refreshes job then merges into status.",
+)
+@click.option(
+    "--jobs-dir",
+    default=None,
+    type=click.Path(path_type=Path),
+    help="Detached job store (default: <manifest-dir>/jobs).",
+)
 @click.option("--json", "as_json", is_flag=True, help="Print one stable JSON object.")
-def status_cmd(manifest_path: Path, as_json: bool) -> None:
-    """Read manifest state without reconcile or disk writes."""
+def status_cmd(
+    manifest_path: Path,
+    job_id: str | None,
+    jobs_dir: Path | None,
+    as_json: bool,
+) -> None:
+    """Read manifest state without reconcile or disk writes.
+
+    With ``--job-id``, also refresh the file-backed job and overlay
+    ``status`` / ``next_action`` when the job is still running or failed.
+    """
     command = "status"
-    inputs = {"manifest": str(manifest_path)}
+    inputs = {
+        "manifest": str(manifest_path),
+        "job_id": job_id,
+        "jobs_dir": str(jobs_dir) if jobs_dir else None,
+    }
     try:
         manifest_file = _require_manifest(manifest_path)
         summary = summarize_manifest(load_manifest(manifest_file))
@@ -679,6 +786,32 @@ def status_cmd(manifest_path: Path, as_json: bool) -> None:
             summary={"manifest": summary},
             failures=manifest_failures(summary),
         )
+        if job_id:
+            from async_job import (
+                job_public_view,
+                jobs_dir_for_manifest,
+                refresh_job,
+            )
+
+            store = Path(jobs_dir) if jobs_dir else jobs_dir_for_manifest(manifest_file)
+            job = refresh_job(store, job_id)
+            view = job_public_view(job)
+            payload["summary"]["job"] = view["summary"]
+            payload["summary"]["job_id"] = job_id
+            payload["summary"]["jobs_dir"] = str(store.resolve())
+            job_status = str(view.get("status") or "")
+            if job_status == "running" or (
+                job_status not in {"done", "failed"} and view.get("next_action") == "poll"
+            ):
+                payload["status"] = "running"
+                payload["next_action"] = "poll"
+            elif job_status == "failed":
+                payload["status"] = "failed"
+                payload["next_action"] = "resume"
+                payload["failures"] = list(payload.get("failures") or []) + list(
+                    view.get("failures") or []
+                )
+            # job done: keep manifest classification
     except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
         payload = _error_payload(command=command, stage="assets", inputs=inputs, exc=exc)
 

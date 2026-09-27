@@ -25,6 +25,7 @@ NEXT_ACTIONS = frozenset(
         "recraft_prompt",
         "fix_input",
         "human_review",
+        "poll",
     }
 )
 FAILURE_KINDS = frozenset({"validation", "network", "dependency", "config", "unknown"})
@@ -58,6 +59,7 @@ FAILURE_KIND_BY_CODE = {
     "run_failed": "unknown",
     "resume_failed": "unknown",
     "init_failed": "unknown",
+    "confirmation_required": "config",
     "rollback_failed": "dependency",
     "workflow_error": "unknown",
 }

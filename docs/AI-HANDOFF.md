@@ -9,9 +9,10 @@
 ```text
 Draft JSON
   → brief freeze
+  → host workflow-run（外部 Agent 一站式入口）
   → workflow context / validate / init
-  → workflow run --stage assets
-  → workflow status / resume
+  → workflow run --stage assets [--detach]
+  → workflow status [--job-id] / resume
   → assets review
   → production / progress / handoff
   → godot scaffold / assemble / validate
@@ -19,6 +20,8 @@ Draft JSON
 ```
 
 六个 Workflow 命令的 JSON 合同、只读边界和失败分类见通用 Skill。所有面向外部 Agent 的命令优先加 `--json`。
+
+外部 Agent 可直接使用 `host workflow-run --brief <brief> --dry-run --json`，确认写入/生成后使用 `host workflow-run --brief <brief> --i-confirm --json`；不要自行重复拼装状态命令。
 
 ## 2. 项目与文件状态
 
@@ -81,7 +84,15 @@ python gamefactory.py brief shard load --brief ../projects/my-game/brief.json --
 - `animation_graphs[]`：动作、帧数、转换与输入条件。
 - `art_tokens`、`visual_reference`：风格锚点与视觉目标。
 
-尺寸区分 `source_size`、`display_size`、`runtime scale`；个体差异、布局缩放与碰撞盒不要写进通用 Brief 规则。
+尺寸分层（勿混用）：
+
+| 层 | 含义 | 谁消费 |
+|---|---|---|
+| `source_size` / 生成与抠图输出 | 源像素（如 1280×720、1920×1080） | `image` / `video` / matte 产物 |
+| `display_size` / `real_length_cm` | 体型与布局**意图**（相对体长、占屏参考） | Brief / Production；**游戏 runtime scale** |
+| runtime scale | 节点放置时的缩放 | Godot 游戏代码 |
+
+**规则**：Godot 导入静帧与动画帧时保留源清晰度，**禁止**为表达体型而把 PNG 烘焙成很小的 `display_size`。体型差异在放置时用 `real_length_cm`（及 UiScale 等）缩放。个体差异、布局缩放与碰撞盒不要写进通用 Brief 文案规则。
 
 ## 4. Production 与续作账本
 
@@ -150,12 +161,15 @@ python gamefactory.py video matte-frames --input <frames-dir> --output <output-d
 python gamefactory.py godot scaffold --production <production> --project <project> --validate
 python gamefactory.py godot assemble --assemble-file <assemble-file> --validate
 python gamefactory.py godot validate --project <project>
+python gamefactory.py play <project>
 
 python gamefactory.py test unit --project <project>
 python gamefactory.py test plan --brief <brief> -o <playtest>
 python gamefactory.py test play --project <project> --plan <playtest> --brief <brief>
 python gamefactory.py test regression --project <project>
 ```
+
+`play`（别名 `run-game`）直接启动 main 场景进行人工试玩；省略项目参数时会解析当前工程，多个候选时必须指定项目。`--dry-run` 可先确认解析出的工程路径。
 
 验收至少覆盖：
 

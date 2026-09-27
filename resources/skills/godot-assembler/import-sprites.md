@@ -1,8 +1,10 @@
 # Godot Assembler — import sprites
 
-Import extracted animation frames into a Godot project as `SpriteFrames` resources.
+Import extracted animation frames (or stills) into a Godot project.
 
-**Skip i2v lead-in**: use `--skip-lead-ratio 0.15` (or config) to drop early morph frames. Never import clip start as idle.
+**Clarity rule**: import keeps source / matte resolution. Do **not** crush PNGs to Brief `display_size` to encode body size — games scale with `real_length_cm` / runtime placement. Optional `display_size` on import is legacy; prefer identity copy (or subject-stable compose **without** downscaling below source).
+
+**Skip i2v lead-in**: prefer upstream `video split-frames --optimize-loop`. If importing a full extract, use trim flags — never import clip start as idle.
 
 ## Command
 
@@ -35,7 +37,7 @@ Paths are **res://** relative to project root.
 | `--fps` | 12 | Animation speed in SpriteFrames |
 | `--animation-name` | asset name | e.g. `walk`, `idle` |
 | `--loop` | true | Loop animation |
-| `--skip-lead-ratio` | config (0.15) | Drop leading morph frames from i2v clip |
+| `--skip-lead-ratio` | config | Prefer optimize_loop at split-frames instead |
 | `--skip-lead-frames` | 0 | Drop exact N leading frames |
 
 ## When to use

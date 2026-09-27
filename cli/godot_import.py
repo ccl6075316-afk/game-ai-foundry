@@ -5,9 +5,14 @@ from __future__ import annotations
 import re
 import shutil
 from pathlib import Path
+from typing import Any
 
 from frame_sequence import process_frame_sequence, resolve_transition_trim
 from display_size import DisplaySize, parse_display_size
+
+# Keep subject length stable across animation frames (avoid Seedance zoom → size flicker).
+_STABLE_SUBJECT_FILL = 0.92
+_STABLE_ALPHA_THRESHOLD = 16
 
 
 def _parse_display_arg(raw: Any) -> DisplaySize | None:
@@ -22,11 +27,17 @@ def save_texture_at_display_size(
     src: Path,
     dest: Path,
     display: DisplaySize | None,
+    *,
+    bake: bool = False,
 ) -> None:
-    """Resize to in-game display pixels (godogen Size column); Godot scale stays 1."""
+    """Write texture to dest.
+
+    By default (``bake=False``) keeps source pixels — ``display_size`` is size *intent*
+    for runtime scale, not a bake target. Set ``bake=True`` for legacy downscale.
+    """
     dest.parent.mkdir(parents=True, exist_ok=True)
-    if display is None or display.is_empty():
-        shutil.copy2(src, dest)
+    if not bake or display is None or display.is_empty():
+        _copy_image_as_png(src, dest)
         return
     try:
         from PIL import Image
@@ -37,6 +48,206 @@ def save_texture_at_display_size(
         img = img.convert("RGBA")
     resized = img.resize((display.width, display.height), Image.Resampling.LANCZOS)
     resized.save(dest, format="PNG")
+
+
+def _copy_image_as_png(src: Path, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    header = src.read_bytes()[:8]
+    if header.startswith(b"\x89PNG\r\n\x1a\n") and dest.suffix.lower() == ".png":
+        shutil.copy2(src, dest)
+        return
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise GodotImportError(
+            f"Cannot convert {src} to PNG without Pillow"
+        ) from exc
+    Image.open(src).convert("RGBA").save(dest, format="PNG")
+
+
+def resolve_bake_display_size(
+    config: dict | None = None,
+    *,
+    bake_display_size: bool | None = None,
+) -> bool:
+    """Default off: import keeps source clarity; games scale at placement."""
+    if bake_display_size is not None:
+        return bool(bake_display_size)
+    godot = (config or {}).get("godot", {})
+    if not isinstance(godot, dict):
+        return False
+    return bool(godot.get("bake_display_size", False))
+
+
+def native_subject_display_size(
+    sources: list[Path],
+    *,
+    fill: float = _STABLE_SUBJECT_FILL,
+    alpha_threshold: int = _STABLE_ALPHA_THRESHOLD,
+) -> DisplaySize:
+    """Canvas that fits the largest subject at ~1:1 pixels (fill margin)."""
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise GodotImportError("Pillow required for native subject sizing") from exc
+
+    fill = max(0.5, min(1.0, float(fill)))
+    ref_w = 1
+    ref_h = 1
+    for src in sources:
+        img = Image.open(src).convert("RGBA")
+        bbox = img.getchannel("A").point(
+            lambda a, t=alpha_threshold: 255 if a > t else 0
+        ).getbbox()
+        if bbox is None:
+            continue
+        ref_w = max(ref_w, bbox[2] - bbox[0])
+        ref_h = max(ref_h, bbox[3] - bbox[1])
+    width = max(1, int(round(ref_w / fill)))
+    height = max(1, int(round(ref_h / fill)))
+    return DisplaySize(width, height)
+
+def save_animation_frames_at_display_size(
+    sources: list[Path],
+    dest_dir: Path,
+    display: DisplaySize,
+    *,
+    fill: float = _STABLE_SUBJECT_FILL,
+    alpha_threshold: int = _STABLE_ALPHA_THRESHOLD,
+    mode: str = "plate",
+) -> list[Path]:
+    """Fit animation frames onto a fixed display canvas.
+
+    Modes:
+    - ``plate`` (default): scale the whole RGBA plate uniformly (no content crop).
+      Matches how the matted video frames look when browsed as full images.
+    - ``clip_subject``: crop each subject, then apply one scale for the whole clip
+      (largest subject width = length reference). Avoids per-frame upscaling.
+    """
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise GodotImportError("Pillow required to resize assets to display_size") from exc
+
+    if display.is_empty():
+        raise GodotImportError("display_size required for stable animation import")
+    if not sources:
+        raise GodotImportError("No source frames to compose")
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    mode_key = (mode or "plate").strip().lower()
+    if mode_key in ("plate", "full", "canvas"):
+        return _compose_frames_plate(sources, dest_dir, display)
+    if mode_key in ("clip_subject", "clip", "subject"):
+        return _compose_frames_clip_subject(
+            sources,
+            dest_dir,
+            display,
+            fill=fill,
+            alpha_threshold=alpha_threshold,
+        )
+    raise GodotImportError(f"Unknown animation compose mode: {mode}")
+
+
+def _compose_frames_plate(
+    sources: list[Path],
+    dest_dir: Path,
+    display: DisplaySize,
+) -> list[Path]:
+    """Uniformly scale each full frame onto the display canvas (letterbox if needed)."""
+    from PIL import Image
+
+    dests: list[Path] = []
+    for idx, src in enumerate(sources, start=1):
+        img = Image.open(src).convert("RGBA")
+        canvas = Image.new("RGBA", (display.width, display.height), (0, 0, 0, 0))
+        dest = dest_dir / f"frame_{idx:04d}.png"
+        if img.width < 1 or img.height < 1:
+            canvas.save(dest, format="PNG")
+            dests.append(dest)
+            continue
+        scale = min(display.width / img.width, display.height / img.height)
+        new_w = max(1, int(round(img.width * scale)))
+        new_h = max(1, int(round(img.height * scale)))
+        fitted = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        x = (display.width - fitted.width) // 2
+        y = (display.height - fitted.height) // 2
+        canvas.paste(fitted, (x, y), fitted)
+        canvas.save(dest, format="PNG")
+        dests.append(dest)
+    return dests
+
+
+def _compose_frames_clip_subject(
+    sources: list[Path],
+    dest_dir: Path,
+    display: DisplaySize,
+    *,
+    fill: float,
+    alpha_threshold: int,
+) -> list[Path]:
+    """Crop subjects; one scale for the clip from the largest subject width."""
+    from PIL import Image
+
+    crops: list[Any] = []
+    for src in sources:
+        img = Image.open(src).convert("RGBA")
+        alpha = img.getchannel("A")
+        bbox = alpha.point(lambda a: 255 if a > alpha_threshold else 0).getbbox()
+        crops.append(None if bbox is None else img.crop(bbox))
+
+    if not any(c is not None for c in crops):
+        raise GodotImportError("No opaque subject found in animation frames")
+
+    fill = max(0.5, min(1.0, float(fill)))
+    ref_w = max((c.width for c in crops if c is not None and c.width >= 1), default=1)
+    ref_h = max((c.height for c in crops if c is not None and c.height >= 1), default=1)
+
+    scale = (display.width * fill) / max(1.0, float(ref_w))
+    if ref_h * scale > display.height:
+        scale = display.height / float(ref_h)
+    if ref_w * scale > display.width:
+        scale = display.width / float(ref_w)
+
+    dests: list[Path] = []
+    for idx, crop in enumerate(crops, start=1):
+        canvas = Image.new("RGBA", (display.width, display.height), (0, 0, 0, 0))
+        dest = dest_dir / f"frame_{idx:04d}.png"
+        if crop is None or crop.width < 1 or crop.height < 1:
+            canvas.save(dest, format="PNG")
+            dests.append(dest)
+            continue
+        new_w = max(1, int(round(crop.width * scale)))
+        new_h = max(1, int(round(crop.height * scale)))
+        new_w = min(new_w, display.width)
+        new_h = min(new_h, display.height)
+        fitted = crop.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        x = (display.width - fitted.width) // 2
+        y = (display.height - fitted.height) // 2
+        canvas.paste(fitted, (x, y), fitted)
+        canvas.save(dest, format="PNG")
+        dests.append(dest)
+    return dests
+
+
+def resolve_playback_fps(
+    frame_count: int,
+    *,
+    source_duration_seconds: float | None = None,
+    lead_ratio: float = 0.0,
+    trail_ratio: float = 0.0,
+    default_fps: float = 12.0,
+) -> float:
+    """Match SpriteFrames speed to the temporal span the frames were sampled from."""
+    if frame_count < 1:
+        return default_fps
+    dur = float(source_duration_seconds or 0.0)
+    if dur <= 0:
+        return default_fps
+    lead = max(0.0, min(0.9, float(lead_ratio or 0.0)))
+    trail = max(0.0, min(0.9, float(trail_ratio or 0.0)))
+    usable = dur * max(0.05, 1.0 - lead - trail)
+    return max(1.0, round(frame_count / usable, 2))
 
 
 class GodotImportError(RuntimeError):
@@ -69,8 +280,16 @@ def import_sprite_frames(
     config: dict | None = None,
     handoff: dict | None = None,
     display_size: Any = None,
+    source_duration_seconds: float | None = None,
+    stable_subject: bool = True,
+    bake_display_size: bool | None = None,
 ) -> dict[str, str]:
-    """Trim i2v transition frames (optional), sample, then copy into project."""
+    """Trim i2v transition frames (optional), sample, then copy into project.
+
+    By default does **not** bake Brief ``display_size`` into PNG pixels. Multi-frame
+    clips use clip_subject onto a native subject canvas (stable size, source clarity).
+    Pass ``bake_display_size=True`` for legacy downscale-to-display behavior.
+    """
     project_path = project_path.resolve()
     input_dir = input_dir.resolve()
 
@@ -112,22 +331,73 @@ def import_sprite_frames(
 
     anim_name = animation_name or asset
     dest_dir = project_path / "assets" / "sprites" / asset
+    # Replace prior import so stale frames cannot linger.
+    if dest_dir.is_dir():
+        shutil.rmtree(dest_dir)
     dest_dir.mkdir(parents=True, exist_ok=True)
 
     display = _parse_display_arg(display_size)
     if display is None and isinstance(handoff, dict):
         display = _parse_display_arg(handoff.get("display_size"))
 
+    bake = resolve_bake_display_size(config, bake_display_size=bake_display_size)
+    if isinstance(handoff, dict) and handoff.get("bake_display_size") is not None:
+        bake = bool(handoff.get("bake_display_size"))
+
+    duration = source_duration_seconds
+    if duration is None and isinstance(handoff, dict):
+        raw_dur = handoff.get("source_duration_seconds") or handoff.get("duration_seconds")
+        try:
+            duration = float(raw_dur) if raw_dur is not None else None
+        except (TypeError, ValueError):
+            duration = None
+
+    # When frames already span the trimmed window, playback fps must match that span
+    # (hardcoded 12fps makes ~4s / 24-frame clips play ~1.4–2× too fast).
+    playback_fps = float(fps)
+    if duration and duration > 0:
+        ho = handoff if isinstance(handoff, dict) else {}
+        play_lead = float(ho.get("skip_lead_ratio", lead_ratio) or 0.0)
+        play_trail = float(ho.get("skip_trail_ratio", trail_ratio) or 0.0)
+        if not pre_trimmed:
+            if not trim_opts.trim_lead:
+                play_lead = 0.0
+            if not trim_opts.trim_trail:
+                play_trail = 0.0
+        playback_fps = resolve_playback_fps(
+            len(frames),
+            source_duration_seconds=duration,
+            lead_ratio=play_lead,
+            trail_ratio=play_trail,
+            default_fps=playback_fps,
+        )
+
     copied: list[tuple[str, Path]] = []
-    for idx, src in enumerate(frames, start=1):
-        dest = dest_dir / f"frame_{idx:04d}{src.suffix}"
-        save_texture_at_display_size(src, dest, display)
-        rel = dest.relative_to(project_path).as_posix()
-        copied.append((rel, dest))
+    if len(frames) > 1 and stable_subject:
+        if bake and display is not None and not display.is_empty():
+            canvas = display
+            mode = "plate"
+        else:
+            canvas = native_subject_display_size(frames)
+            mode = "clip_subject"
+        dest_paths = save_animation_frames_at_display_size(
+            frames, dest_dir, canvas, mode=mode
+        )
+        for dest in dest_paths:
+            rel = dest.relative_to(project_path).as_posix()
+            copied.append((rel, dest))
+    else:
+        for idx, src in enumerate(frames, start=1):
+            dest = dest_dir / f"frame_{idx:04d}{src.suffix}"
+            save_texture_at_display_size(src, dest, display, bake=bake)
+            rel = dest.relative_to(project_path).as_posix()
+            copied.append((rel, dest))
 
     tres_path = project_path / "assets" / "sprites" / f"{asset}_frames.tres"
     tres_rel = tres_path.relative_to(project_path).as_posix()
-    tres_content = _build_sprite_frames_tres(copied, animation_name=anim_name, fps=fps, loop=loop)
+    tres_content = _build_sprite_frames_tres(
+        copied, animation_name=anim_name, fps=playback_fps, loop=loop
+    )
     tres_path.write_text(tres_content, encoding="utf-8")
 
     return {
@@ -140,6 +410,8 @@ def import_sprite_frames(
         "sampled_to": str(meta["sampled_to"]) if meta["sampled_to"] else "",
         "trim_lead": str(trim_opts.trim_lead).lower(),
         "trim_trail": str(trim_opts.trim_trail).lower(),
+        "fps": str(playback_fps),
+        "bake_display_size": str(bake).lower(),
         "frames_dir": dest_dir.relative_to(project_path).as_posix(),
         "sprite_frames": tres_rel,
     }
@@ -312,7 +584,9 @@ def import_still_as_animation(
     dest_dir = project_path / "assets" / "sprites" / asset
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / f"frame_0001{image_path.suffix or '.png'}"
-    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
+    save_texture_at_display_size(
+        image_path, dest, _parse_display_arg(display_size), bake=False
+    )
     rel = dest.relative_to(project_path).as_posix()
 
     tres_path = project_path / "assets" / "sprites" / f"{asset}_frames.tres"
@@ -348,19 +622,10 @@ def copy_background_image(
     dest = dest_dir / f"{asset}.png"
     display = _parse_display_arg(display_size)
     if display is None:
-        header = image_path.read_bytes()[:8]
-        if header.startswith(b"\x89PNG\r\n\x1a\n"):
-            shutil.copy2(image_path, dest)
-        else:
-            try:
-                from PIL import Image
-            except ImportError as exc:
-                raise GodotImportError(
-                    f"Background is not PNG ({image_path}); install Pillow to convert."
-                ) from exc
-            Image.open(image_path).save(dest, format="PNG")
+        _copy_image_as_png(image_path, dest)
     else:
-        save_texture_at_display_size(image_path, dest, display)
+        # Backgrounds may still target viewport size when display_size is set.
+        save_texture_at_display_size(image_path, dest, display, bake=True)
 
     return dest.relative_to(project_path).as_posix()
 
@@ -382,7 +647,9 @@ def copy_idle_still(
     dest_dir.mkdir(parents=True, exist_ok=True)
     ext = image_path.suffix or ".png"
     dest = dest_dir / f"{asset}{ext}"
-    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
+    save_texture_at_display_size(
+        image_path, dest, _parse_display_arg(display_size), bake=False
+    )
     return dest.relative_to(project_path).as_posix()
 
 
@@ -404,5 +671,7 @@ def copy_prop_image(
     rel = prop_texture_res_path(asset)
     dest = project_path / rel
     dest.parent.mkdir(parents=True, exist_ok=True)
-    save_texture_at_display_size(image_path, dest, _parse_display_arg(display_size))
+    save_texture_at_display_size(
+        image_path, dest, _parse_display_arg(display_size), bake=False
+    )
     return dest.relative_to(project_path).as_posix()

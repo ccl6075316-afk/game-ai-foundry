@@ -165,16 +165,22 @@ def discover_capabilities(
 
 
 def run_doctor(config: dict[str, Any] | None = None) -> dict[str, Any]:
+    from python_env import diagnose_python_env
+
     tools = discover_tools(config)
     cfg_status = discover_config(config)
+    python_env = diagnose_python_env()
+    notes = [
+        "Pipeline execution is available through this CLI process.",
+        "API keys are reported by status only and never printed.",
+        "FFmpeg, Godot, and .NET readiness are detected from PATH and toolchain config.",
+    ]
+    notes.extend(python_env.get("notes") or [])
     return {
         "pipeline": discover_pipeline(),
         "tools": tools,
         "config": cfg_status,
         "capabilities": discover_capabilities(config, tools, cfg_status),
-        "notes": [
-            "Pipeline execution is available through this CLI process.",
-            "API keys are reported by status only and never printed.",
-            "FFmpeg, Godot, and .NET readiness are detected from PATH and toolchain config.",
-        ],
+        "python_env": python_env,
+        "notes": notes,
     }

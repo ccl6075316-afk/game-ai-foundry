@@ -35,7 +35,7 @@ python gamefactory.py image remove-bg --input <layer>_raw.png \
 ```bash
 python gamefactory.py video generate --reference-image water_raw.png --prompt '...' \
   --output water_loop.mp4 --duration 5
-python gamefactory.py video split-frames --input water_loop.mp4 --output-dir frames --frames 8
+python gamefactory.py video split-frames --input water_loop.mp4 --output-dir frames --frames 24
 ```
 
 ## 引擎

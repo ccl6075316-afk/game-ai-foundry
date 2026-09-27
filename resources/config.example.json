@@ -49,11 +49,13 @@
     "watermark": false,
     "ratio_from_reference": "adaptive",
     "split_frames": {
-      "frames": 8,
+      "frames": 24,
       "trim_lead": true,
       "trim_trail": true,
       "skip_lead_ratio": 0.25,
-      "skip_trail_ratio": 0.05
+      "skip_trail_ratio": 0.05,
+      "optimize_loop": true,
+      "seam_over_mid_max": 1.25
     }
   },
   "matting": {
@@ -96,6 +98,7 @@
   },
   "godot": {
     "engine_path": "",
+    "bake_display_size": false,
     "import_trim_lead": true,
     "import_trim_trail": true,
     "import_skip_lead_ratio": 0.25,

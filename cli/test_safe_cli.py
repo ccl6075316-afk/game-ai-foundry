@@ -33,6 +33,11 @@ class SafeCliTests(unittest.TestCase):
                 "python gamefactory.py config set --key image.constraints.size_multiple --value 16"
             )["ok"]
         )
+        self.assertTrue(
+            normalize_action(
+                "python gamefactory.py host workflow-run --brief ../projects/x/brief.json --i-confirm --json"
+            )["ok"]
+        )
         self.assertFalse(normalize_action("python gamefactory.py config set --key secrets.api_key --value x")["ok"])
         self.assertTrue(normalize_action("python gamefactory.py config get --key image.model")["ok"])
         # Agents often wrap with ``cd cli &&`` — must still whitelist.

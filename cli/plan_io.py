@@ -145,6 +145,9 @@ def video_params_from_handoff(handoff: dict[str, Any]) -> dict[str, Any]:
         "generate_audio": plan.get("video_generate_audio"),
         "watermark": plan.get("video_watermark"),
         "reference_image": plan.get("reference_image"),
+        "last_frame_image": plan.get("last_frame_image"),
+        "animation_loop": plan.get("animation_loop"),
+        "loop_align": plan.get("loop_align"),
     }
     for step in plan.get("pipeline") or []:
         if isinstance(step, dict) and step.get("step") == "video_generate":
@@ -160,7 +163,15 @@ def video_params_from_handoff(handoff: dict[str, Any]) -> dict[str, Any]:
                 params["generate_audio"] = bool(step["generate_audio"])
             if "watermark" in step:
                 params["watermark"] = bool(step["watermark"])
+            if "loop_align" in step:
+                params["loop_align"] = bool(step["loop_align"])
+            if "animation_loop" in step:
+                params["animation_loop"] = bool(step["animation_loop"])
             break
     if params.get("duration") is not None:
         params["duration"] = int(params["duration"])
+    ctx = handoff.get("context") if isinstance(handoff.get("context"), dict) else {}
+    asset = ctx.get("asset") if isinstance(ctx.get("asset"), dict) else {}
+    if params.get("animation_loop") is None and asset.get("animation_loop") is not None:
+        params["animation_loop"] = bool(asset.get("animation_loop"))
     return params

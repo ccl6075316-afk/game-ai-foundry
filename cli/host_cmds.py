@@ -10,6 +10,7 @@ import click
 
 from host.retry_asset import retry_asset
 from host.run_assets import run_assets
+from host.workflow_run import run_workflow
 
 
 @click.group("host")
@@ -115,3 +116,62 @@ def run_assets_cmd(
 
     if not result.get("ok"):
         sys.exit(result.get("run_exit_code") or 1)
+
+
+@host_group.command("workflow-run")
+@click.option("--brief", "brief_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--production", "production_path", default=None, type=click.Path(path_type=Path))
+@click.option("--manifest", "manifest_path", default=None, type=click.Path(path_type=Path))
+@click.option("--stage", default="assets", show_default=True)
+@click.option("--auto-fix/--no-auto-fix", default=True, show_default=True)
+@click.option("--run-prompts", is_flag=True, default=False)
+@click.option("--jobs", default=4, show_default=True, type=int)
+@click.option("--auto-resume/--no-auto-resume", default=True, show_default=True)
+@click.option("--max-resumes", default=3, show_default=True, type=int)
+@click.option("--dry-run", is_flag=True, default=False, help="Only run context/validate.")
+@click.option("--i-confirm", is_flag=True, default=False, help="One user confirmation for writes/generation.")
+@click.option(
+    "--detach",
+    is_flag=True,
+    default=False,
+    help="Detach assets run; return next_action=poll with job_id (skip in-process auto-resume).",
+)
+@click.option("--json", "as_json", is_flag=True, help="Print JSON result.")
+def workflow_run_cmd(
+    brief_path: Path,
+    production_path: Path | None,
+    manifest_path: Path | None,
+    stage: str,
+    auto_fix: bool,
+    run_prompts: bool,
+    jobs: int,
+    auto_resume: bool,
+    max_resumes: int,
+    dry_run: bool,
+    i_confirm: bool,
+    detach: bool,
+    as_json: bool,
+) -> None:
+    """Run the external-agent workflow as one auditable chain."""
+    result = run_workflow(
+        brief_path,
+        production_path=production_path,
+        manifest_path=manifest_path,
+        stage=stage,
+        auto_fix=auto_fix,
+        run_prompts=run_prompts,
+        jobs=jobs,
+        auto_resume=auto_resume,
+        max_resumes=max_resumes,
+        dry_run=dry_run,
+        i_confirm=i_confirm,
+        detach=detach,
+    )
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        click.echo(f"{result['command']}: {result['status']} -> {result['next_action']}")
+        for failure in result.get("failures") or []:
+            click.echo(f"failure[{failure['kind']}]: {failure.get('message') or failure['code']}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)

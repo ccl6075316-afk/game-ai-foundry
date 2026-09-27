@@ -101,7 +101,7 @@
       "animation_method": "video",
       "action": "walking to the right, smooth walk cycle",
       "duration_seconds": 4,
-      "sprite_frames": 8
+      "sprite_frames": 24
     }
   ],
   "animation_graphs": [

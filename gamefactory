@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Repo-local launcher: prefer .venv over system python.
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+VENV_PY="$ROOT/.venv/bin/python"
+LAUNCHER="$ROOT/gamefactory.py"
+
+if [[ ! -x "$VENV_PY" ]]; then
+  echo "[gamefactory] .venv missing. Bootstrapping with setup ensure-python ..."
+  if command -v python3 >/dev/null 2>&1; then
+    python3 "$ROOT/cli/gamefactory.py" setup ensure-python
+  else
+    python "$ROOT/cli/gamefactory.py" setup ensure-python
+  fi
+  if [[ ! -x "$VENV_PY" ]]; then
+    echo "[gamefactory] Failed to create .venv. Install Python 3.11+ and retry." >&2
+    exit 1
+  fi
+fi
+
+exec "$VENV_PY" "$LAUNCHER" "$@"

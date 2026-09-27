@@ -138,18 +138,25 @@ def build_task_payload(
     model: str,
     prompt: str,
     reference_image_item: dict[str, Any] | None = None,
+    last_frame_image_item: dict[str, Any] | None = None,
     duration: int = 5,
     resolution: str = "720p",
     ratio: str = "1:1",
     generate_audio: bool = False,
     watermark: bool = False,
 ) -> dict[str, Any]:
-    """Assemble create-task body for text-to-video or image-to-video."""
+    """Assemble create-task body for text-to-video or image-to-video.
+
+    When both first_frame and last_frame image items are provided (typically the
+    same still), Seedance treats the clip as a head/tail-aligned loop.
+    """
     content: list[dict[str, Any]] = [
         {"type": "text", "text": prompt.strip()},
     ]
     if reference_image_item is not None:
         content.append(reference_image_item)
+    if last_frame_image_item is not None:
+        content.append(last_frame_image_item)
 
     resolved = resolve_model(model)
     payload: dict[str, Any] = {
@@ -286,6 +293,7 @@ def generate_video(
     api_base: str = DEFAULT_API_BASE,
     proxy: str | None = None,
     reference_image: Path | None = None,
+    last_frame_image: Path | None = None,
     duration: int = 5,
     resolution: str = "720p",
     ratio: str = "1:1",
@@ -295,15 +303,27 @@ def generate_video(
     timeout: float = 600.0,
     status_cb: Any | None = None,
 ) -> dict[str, Any]:
-    """End-to-end: optional local reference image → create → poll → download."""
+    """End-to-end: optional local reference image → create → poll → download.
+
+    Pass ``last_frame_image`` (often the same path as ``reference_image``) to
+    request Seedance first/last-frame loop alignment.
+    """
     reference_image_item = None
     if reference_image is not None:
-        reference_image_item = _image_content_item_from_path(reference_image)
+        reference_image_item = _image_content_item_from_path(
+            reference_image, role="first_frame"
+        )
+    last_frame_image_item = None
+    if last_frame_image is not None:
+        last_frame_image_item = _image_content_item_from_path(
+            last_frame_image, role="last_frame"
+        )
 
     payload = build_task_payload(
         model=model,
         prompt=prompt,
         reference_image_item=reference_image_item,
+        last_frame_image_item=last_frame_image_item,
         duration=duration,
         resolution=resolution,
         ratio=ratio,
