@@ -141,7 +141,9 @@ def resolve_canonical_path(
         stage = str(s.get("stage") or "")
         path = str(s.get("path_repo") or s.get("path_cli") or "")
         pri = 0
-        if role == "gameplay_ready":
+        if stage == "image.plate_locked":
+            pri = 4
+        elif role == "gameplay_ready":
             pri = 3
         elif "nobg" in stage or path.endswith("_nobg.png"):
             pri = 2

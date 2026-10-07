@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
@@ -83,6 +84,7 @@ CONTENT_CLASSES = frozenset(
         "decor",
         "backdrop_sparse",
         "backdrop_full",
+        "scene_layer",
     }
 )
 
@@ -427,6 +429,11 @@ class AssetSpec:
     state: str = ""
     scene_ids: list[str] = field(default_factory=list)
     system_ids: list[str] = field(default_factory=list)
+    scene_master: str = ""
+    scene_box_norm: list[float] = field(default_factory=list)
+    scene_scale: float = 1.0
+    scene_z: int = 0
+    scene_occludes: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if self.items and any(not isinstance(x, IconKitItem) for x in self.items):
@@ -538,6 +545,11 @@ class AssetSpec:
             states=normalize_asset_states(data.get("states")),
             state=str(data.get("state", "")).strip(),
             scene_ids=normalize_id_list(data.get("scene_ids")),
+            scene_master=str(data.get("scene_master", "")).strip(),
+            scene_box_norm=list(data.get("scene_box_norm") or []),
+            scene_scale=float(data.get("scene_scale", 1.0)),
+            scene_z=int(data.get("scene_z", 0)),
+            scene_occludes=normalize_id_list(data.get("scene_occludes")),
             system_ids=normalize_id_list(data.get("system_ids")),
         )
 
@@ -2210,6 +2222,106 @@ def audit_style_groups(
     return errors
 
 
+def audit_scene_layers(
+    project: ProjectContext, assets: list[AssetSpec]
+) -> list[str]:
+    """A scene layer is cut from one complete plate, never an unrelated still.
+
+    The box is in normalized master-image coordinates. display_size records the
+    unscaled box; scene_scale is an explicit runtime placement multiplier.
+    """
+    from asset_sizing import resolve_effective_display_size
+
+    errors: list[str] = []
+    for spec in assets:
+        uses_scene = bool(
+            spec.scene_master
+            or spec.scene_box_norm
+            or spec.scene_occludes
+            or spec.scene_z
+            or spec.content_class == "scene_layer"
+            or spec.usage == "parallax_layer"
+        )
+        if not uses_scene:
+            continue
+        label = f"Asset '{spec.name}'"
+        if spec.content_class != "scene_layer":
+            errors.append(
+                f"{label} scene_master/scene_box_norm requires content_class='scene_layer'"
+            )
+        if spec.type not in (AssetType.CHARACTER, AssetType.BACKGROUND):
+            errors.append(f"{label} scene_layer type must be character or background")
+        master = _asset_lookup(assets, spec.scene_master)
+        if master is None:
+            errors.append(f"{label} scene_master '{spec.scene_master}' not found in assets[]")
+        elif master is spec or master.type != AssetType.BACKGROUND or master.scene_master:
+            errors.append(f"{label} scene_master must be a separate complete background asset")
+        elif not spec.scene_ids or not master.scene_ids:
+            errors.append(f"{label} and its scene_master both need scene_ids")
+        elif not set(spec.scene_ids) & set(master.scene_ids):
+            errors.append(f"{label} scene_ids do not overlap its scene_master")
+        if spec.use_style_img2img is False:
+            errors.append(f"{label} scene layer cannot disable img2img from its master")
+        master_labels = (spec.scene_master, getattr(master, "name", ""), getattr(master, "id", ""))
+        if spec.style_anchor and spec.style_anchor not in master_labels:
+            errors.append(f"{label} style_anchor conflicts with scene_master")
+        box = spec.scene_box_norm
+        if len(box) != 4:
+            errors.append(f"{label} scene_box_norm must be [x, y, width, height]")
+            continue
+        try:
+            x, y, w, h = (float(v) for v in box)
+        except (TypeError, ValueError):
+            errors.append(f"{label} scene_box_norm values must be numeric")
+            continue
+        in_canvas = (
+            all(math.isfinite(v) for v in (x, y, w, h))
+            and min(x, y) >= 0
+            and min(w, h) > 0
+            and x + w <= 1.000001
+            and y + h <= 1.000001
+        )
+        if not in_canvas:
+            errors.append(f"{label} scene_box_norm must fit within the master canvas")
+            continue
+        if not math.isfinite(spec.scene_scale) or not 0 < spec.scene_scale <= 8:
+            errors.append(f"{label} scene_scale must be in (0,8] for runtime placement")
+        if spec.scene_z < -32 or spec.scene_z > 32:
+            errors.append(f"{label} scene_z must be between -32 and 32")
+        for target_ref in spec.scene_occludes:
+            target = _asset_lookup(assets, target_ref)
+            if target is None or target is spec or not target.scene_master:
+                errors.append(f"{label} scene_occludes '{target_ref}' must name another scene layer")
+                continue
+            if target.scene_master != spec.scene_master:
+                errors.append(f"{label} scene_occludes '{target_ref}' must share its scene_master")
+                continue
+            if spec.scene_z <= target.scene_z:
+                errors.append(f"{label} must have scene_z above occluded layer '{target_ref}'")
+            if len(target.scene_box_norm) == 4:
+                try:
+                    tx, ty, tw, th = (float(v) for v in target.scene_box_norm)
+                    overlaps = min(x + w, tx + tw) > max(x, tx) and min(y + h, ty + th) > max(y, ty)
+                except (TypeError, ValueError):
+                    overlaps = False
+                if not overlaps:
+                    errors.append(f"{label} scene_occludes '{target_ref}' boxes do not overlap")
+        if master is not None and master.type == AssetType.BACKGROUND:
+            master_size = resolve_effective_display_size(master, project)
+            layer_size = resolve_effective_display_size(spec, project)
+            if not master_size.is_empty() and not layer_size.is_empty():
+                expected_w, expected_h = master_size.width * w, master_size.height * h
+                width_mismatch = abs(layer_size.width - expected_w) > max(4, expected_w * 0.15)
+                height_mismatch = abs(layer_size.height - expected_h) > max(4, expected_h * 0.15)
+                if width_mismatch or height_mismatch:
+                    errors.append(
+                        f"{label} display_size must match scene_box_norm on master "
+                        f"({round(expected_w)}x{round(expected_h)} before scene_scale); "
+                        "resize at runtime via scene_scale, not by baking a different size"
+                    )
+    return errors
+
+
 def audit_brief_for_export(
     project: ProjectContext,
     assets: list[AssetSpec],
@@ -2394,6 +2506,7 @@ def audit_brief_for_export(
     )
     errors.extend(audit_visual_reference(project, brief_path=brief_path))
     errors.extend(audit_style_groups(project, assets, brief_path=brief_path))
+    errors.extend(audit_scene_layers(project, assets))
     errors.extend(audit_art_tokens(project))
     errors.extend(audit_content_class(project, assets))
 

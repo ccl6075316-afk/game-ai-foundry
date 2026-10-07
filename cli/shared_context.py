@@ -172,6 +172,15 @@ def asset_to_dict(spec: AssetSpec) -> dict[str, Any]:
         data["state"] = spec.state
     if spec.scene_ids:
         data["scene_ids"] = list(spec.scene_ids)
+    if spec.scene_master:
+        data["scene_master"] = spec.scene_master
+    if spec.scene_box_norm:
+        data["scene_box_norm"] = list(spec.scene_box_norm)
+    if spec.scene_master or spec.scene_box_norm or spec.content_class == "scene_layer":
+        data["scene_scale"] = spec.scene_scale
+        data["scene_z"] = spec.scene_z
+    if spec.scene_occludes:
+        data["scene_occludes"] = list(spec.scene_occludes)
     if spec.system_ids:
         data["system_ids"] = list(spec.system_ids)
     return data

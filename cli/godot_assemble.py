@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import copy
 import shutil
 from pathlib import Path
 from typing import Any
@@ -16,7 +17,12 @@ from godot_import import (
     import_still_as_animation,
     merge_sprite_frames_tres,
 )
-from godot_layout import build_layout_world_fragments, layout_placements, prop_texture_res_path
+from godot_layout import (
+    build_layout_world_fragments,
+    layout_placements,
+    prop_texture_res_path,
+    scene_layer_runtime_scale,
+)
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _TEMPLATE_DOTNET = _REPO_ROOT / "resources" / "godot-templates" / "dotnet"
@@ -363,6 +369,7 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
             results["idle_still"] = idle_still_res
 
     texture_by_asset: dict[str, str] = {}
+    scene_scales: dict[str, tuple[float, float]] = {}
     props = plan.get("props") or []
     prop_results: list[dict[str, str]] = []
     if isinstance(props, list):
@@ -388,6 +395,26 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
                 raise GodotAssembleError(str(exc)) from exc
             texture_by_asset[asset] = rel
             prop_results.append({"asset": asset, "path": rel})
+            if item.get("scene_master"):
+                from PIL import Image
+
+                display = item.get("display_size") or {}
+                if not isinstance(display, dict):
+                    raise GodotAssembleError(f"Scene layer '{asset}' needs display_size")
+                with Image.open(img) as source:
+                    source_size = source.size
+                try:
+                    target_size = (int(display["width"]), int(display["height"]))
+                    scene_scales[asset] = scene_layer_runtime_scale(
+                        source_size,
+                        target_size,
+                        float(item.get("scene_scale", 1.0)),
+                        opaque=bool(item.get("scene_layer_opaque", False)),
+                    )
+                except (KeyError, TypeError, ValueError) as exc:
+                    raise GodotAssembleError(
+                        f"Scene layer '{asset}' has invalid display/source scale"
+                    ) from exc
     if prop_results:
         results["props"] = prop_results
         skipped = [p for p in prop_results if p.get("skipped")]
@@ -413,7 +440,11 @@ def assemble_from_plan(plan: dict[str, Any], *, repo_root: Path | None = None) -
         results["animations"].append(imp)
         primary_sf = imp["sprite_frames"]
 
-    layout = plan.get("layout") if isinstance(plan.get("layout"), dict) else None
+    layout = copy.deepcopy(plan.get("layout")) if isinstance(plan.get("layout"), dict) else None
+    for placement in layout_placements(layout):
+        scale_xy = scene_scales.get(str(placement.get("asset") or ""))
+        if scale_xy is not None:
+            placement["scale_xy"] = list(scale_xy)
     viewport = plan.get("viewport") if isinstance(plan.get("viewport"), dict) else {}
     if primary_sf or idle_still_res or primary_bg or layout_placements(layout):
         wire_main_scene(

@@ -82,6 +82,8 @@ def resolve_class_skill_name(spec: Any) -> str:
     asset_type = _spec_field(spec, "type").lower()
     usage = _spec_field(spec, "usage").lower()
 
+    if content_class == "scene_layer":
+        return "class-scene-layer"
     if content_class in _TILE_CONTENT_CLASSES:
         return "class-tiles"
     if content_class in _BACKDROP_CONTENT_CLASSES:

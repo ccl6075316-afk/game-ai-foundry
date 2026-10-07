@@ -69,6 +69,11 @@ _ASSET_BODY_HINT_KEYS = frozenset(
         "states",
         "state",
         "scene_ids",
+        "scene_master",
+        "scene_box_norm",
+        "scene_scale",
+        "scene_z",
+        "scene_occludes",
         "system_ids",
     }
 )

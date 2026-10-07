@@ -932,11 +932,19 @@ cli.add_command(config_group)
 from image_cmds import (
     slice_cmd,
     trim_cmd,
+    scene_crop_cmd,
+    scene_compose_cmd,
+    scene_preview_cmd,
+    scene_reproject_cmd,
     remove_bg_cmd,
     resize_cmd,
     validate_matting_cmd,
 )  # noqa: E402
 image.add_command(trim_cmd)
+image.add_command(scene_crop_cmd)
+image.add_command(scene_compose_cmd)
+image.add_command(scene_preview_cmd)
+image.add_command(scene_reproject_cmd)
 image.add_command(slice_cmd)
 image.add_command(remove_bg_cmd)
 image.add_command(validate_matting_cmd)

@@ -63,6 +63,14 @@ _STEP_STAGE: dict[str, dict[str, Any]] = {
         "next_stage": "godot.assemble",
         "next_consumer": "godot-assembler",
     },
+    "image.scene-reproject": {
+        "stage": "image.plate_locked",
+        "role": "gameplay_ready",
+        "artifact_key": "output",
+        "next_stage": "godot.assemble",
+        "next_consumer": "godot-assembler",
+        "notes": "Exact plate pixels with the cutout alpha; review composite before acceptance.",
+    },
     "image.slice": {
         "stage": "image.tiles",
         "role": "gameplay_ready",
@@ -128,6 +136,12 @@ def _brief_asset_entry(spec: AssetSpec) -> dict[str, Any]:
         "animation_loop": loop if spec.action else None,
         "action": spec.action,
     }
+    if spec.scene_master:
+        entry["scene_master"] = spec.scene_master
+        entry["scene_box_norm"] = list(spec.scene_box_norm)
+        entry["scene_scale"] = spec.scene_scale
+        entry["scene_z"] = spec.scene_z
+        entry["scene_occludes"] = list(spec.scene_occludes)
     if spec.type == AssetType.ICON_KIT and spec.items:
         from brief import unique_kit_item_slugs
 

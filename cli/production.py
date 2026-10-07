@@ -34,6 +34,7 @@ _PLACABLE_CONTENT_CLASSES = frozenset(
         "weapon",
         "tool",
         "decor",
+        "scene_layer",
     }
 )
 
@@ -396,6 +397,20 @@ def _build_layout(project: ProjectContext, assets: list[AssetSpec]) -> dict[str,
     placements: list[dict[str, Any]] = []
     count = len(placables)
     for i, spec in enumerate(placables):
+        if spec.scene_master and len(spec.scene_box_norm) == 4:
+            x, y, w, h = (float(value) for value in spec.scene_box_norm)
+            placements.append(
+                {
+                    "asset": _layout_asset_key(spec),
+                    "xy_norm": [round(x + w / 2, 4), round(y + h / 2, 4)],
+                    "region": target_region_id,
+                    "scale": spec.scene_scale,
+                    "z_index": spec.scene_z,
+                    "scene_master": spec.scene_master,
+                    "scene_box_norm": list(spec.scene_box_norm),
+                }
+            )
+            continue
         if count == 1:
             x_norm = 0.5
         else:

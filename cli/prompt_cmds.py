@@ -188,6 +188,7 @@ def register_prompt_commands(prompt_group: click.Group, resolve_prompt_api_setti
                 plan = build_prompt(
                     project,
                     spec,
+                    assets=assets,
                     craft=craft_kwargs["craft"],
                     prompt_model=craft_kwargs["prompt_model"],
                     api_key=craft_kwargs["api_key"],

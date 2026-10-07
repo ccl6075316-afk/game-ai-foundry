@@ -317,6 +317,42 @@ def list_provider_accounts(
     return {"ok": True, "accounts": items, "error": None}
 
 
+def select_prompt_provider(
+    *,
+    provider: str,
+    text_model: str | None = None,
+    i_confirm: bool = False,
+    config_path: Path | None = None,
+) -> dict[str, Any]:
+    """Use an existing account for prompt-craft without changing host/image."""
+    provider_id = str(provider or "").strip().lower()
+    if not i_confirm:
+        return {"ok": False, "provider": provider_id, "error": "需要用户确认后带 --i-confirm 才能写入"}
+    cfg_path = config_path or _CONFIG_PATH
+    cfg = _load_config(cfg_path)
+    entry = _accounts_map(cfg).get(provider_id)
+    if not entry or not _key_usable(entry.get("api_key")):
+        return {"ok": False, "provider": provider_id, "error": "账号不存在或缺少可用 API Key"}
+    defaults = KNOWN_PROVIDERS.get(provider_id) or {}
+    api_base = str(entry.get("api_base") or defaults.get("api_base") or "").strip()
+    model = normalize_llm_model(str(text_model or entry.get("text_model") or defaults.get("text_model") or ""))
+    if not api_base or not model:
+        return {"ok": False, "provider": provider_id, "error": "账号缺少 API base 或 text model"}
+    prompt = cfg.get("prompt") if isinstance(cfg.get("prompt"), dict) else {}
+    cfg["prompt"] = {**prompt, "provider": provider_id, "model": model}
+    _save_config(cfg, cfg_path)
+    return {
+        "ok": True,
+        "provider": provider_id,
+        "has_api_key": True,
+        "api_base": api_base,
+        "text_model": model,
+        "host_unchanged": True,
+        "image_unchanged": True,
+        "error": None,
+    }
+
+
 def remove_provider_account(
     *,
     provider: str,

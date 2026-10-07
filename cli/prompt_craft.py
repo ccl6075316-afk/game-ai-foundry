@@ -520,6 +520,44 @@ def _ensure_technical_lock(
     defaults = _technical_defaults_for_content_class(_resolve_content_class(spec))
     if defaults:
         fields["technical"] = _merge_prompt_text(fields.get("technical", ""), defaults)
+    master = str(
+        (spec.get("scene_master") if isinstance(spec, dict)
+         else getattr(spec, "scene_master", "")) or ""
+    ).strip()
+    box = (spec.get("scene_box_norm") if isinstance(spec, dict)
+           else getattr(spec, "scene_box_norm", None))
+    if master and isinstance(box, (list, tuple)) and len(box) == 4:
+        x, y, w, h = (float(v) for v in box)
+        asset_type = str(
+            (spec.get("type") if isinstance(spec, dict)
+             else getattr(spec, "type", "")) or ""
+        ).lower()
+        if "background" in asset_type:
+            finish = (
+                "Keep this rectangular band edge-to-edge, with no white studio "
+                "margin; it is an opaque scene layer."
+            )
+        else:
+            finish = "Isolate only that subject on a flat pure-white background for matting."
+        lock = (
+            f"This is an image-to-image extraction from the complete scene plate '{master}', "
+            f"source box x={x:.4f}, y={y:.4f}, width={w:.4f}, height={h:.4f} "
+            "in normalized plate coordinates. Preserve the exact camera, perspective, "
+            "horizon, lighting direction, palette, pixel density and apparent size of "
+            "the referenced subject. "
+            + finish
+            + " Do not invent a separate landscape or rescale it."
+        )
+        occludes = (spec.get("scene_occludes") if isinstance(spec, dict)
+                    else getattr(spec, "scene_occludes", None)) or []
+        if occludes:
+            names = ", ".join(str(value) for value in occludes)
+            lock += (
+                f" This layer must partly overlap and naturally occlude {names} in the "
+                "original plate: preserve irregular foliage, rock or shoreline edges "
+                "and their real silhouette, with no rectangular cutout edge."
+            )
+        fields["technical"] = _merge_prompt_text(fields.get("technical", ""), lock)
 
 
 def _ensure_global_negatives(fields: dict[str, str]) -> None:

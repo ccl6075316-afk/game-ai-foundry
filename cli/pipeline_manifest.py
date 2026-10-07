@@ -150,6 +150,9 @@ def _asset_artifacts(output_dir: Path, plans_dir: Path, file_key: str) -> dict[s
         "frames_dir": cli_relative(output_dir / f"{file_key}_frames"),
         "frames_nobg_dir": cli_relative(output_dir / f"{file_key}_nobg"),
         "slice_dir": cli_relative(output_dir / f"{file_key}_tiles"),
+        "scene_reference": cli_relative(output_dir / f"{file_key}_scene_ref.png"),
+        "scene_reprojected": cli_relative(output_dir / f"{file_key}_plate_locked.png"),
+        "scene_preview": cli_relative(output_dir / f"{file_key}_scene_preview.png"),
     }
 
 
@@ -249,6 +252,7 @@ def _post_image_tasks(
     prev_id = image_task_id
     name = spec.name
     file_key = resolve_asset_file_key(spec)
+    trimmed = False
 
     for step_def in pipeline:
         if not isinstance(step_def, dict):
@@ -278,10 +282,13 @@ def _post_image_tasks(
             )
             tasks_by_id[tid] = tasks[-1]
             prev_id = tid
+            trimmed = True
         elif step_name == "remove_bg":
-            src = paths.get("trimmed_image", paths["raw_image"])
+            src = paths["trimmed_image"] if trimmed else paths["raw_image"]
             dep = [prev_id]
             layer = _layer_from_deps(dep, tasks_by_id)
+            mode = str(step_def.get("mode") or "").strip()
+            mode_flag = f" --mode {mode}" if mode else ""
             tid = _add_task(
                 tasks,
                 asset=name,
@@ -292,7 +299,7 @@ def _post_image_tasks(
                 layer=layer,
                 command=(
                     f"python gamefactory.py image remove-bg "
-                    f"--input {src} --output {paths['nobg_image']}"
+                    f"--input {src} --output {paths['nobg_image']}{mode_flag}"
                 ),
                 artifacts={"input": src, "output": paths["nobg_image"]},
             )
@@ -516,6 +523,32 @@ def _static_asset_tasks(
         image_deps.append(ref_image_task)
         ref_raw = _find_artifacts_for_asset(tasks, ref_name)["output"]
         ref_flag = f" --reference-image {ref_raw}"
+    elif spec.scene_master:
+        master = find_asset(assets, spec.scene_master)
+        master_id = _image_generate_task_id(asset_ids, master.name)
+        if master_id not in tasks_by_id:
+            raise ValueError(
+                f"Asset '{name}' scene_master '{spec.scene_master}' must be planned first"
+            )
+        master_raw = tasks_by_id[master_id].artifacts["output"]
+        box_args = " ".join(str(float(value)) for value in spec.scene_box_norm)
+        crop_id = _add_task(
+            tasks,
+            asset=name,
+            asset_id=file_key,
+            step="image.scene-crop",
+            role=ORCHESTRATOR_ROLE,
+            depends_on=[master_id],
+            layer=_layer_from_deps([master_id], tasks_by_id),
+            command=(
+                f"python gamefactory.py image scene-crop --input {master_raw} "
+                f"--output {paths['scene_reference']} --box {box_args}"
+            ),
+            artifacts={"input": master_raw, "output": paths["scene_reference"]},
+        )
+        tasks_by_id[crop_id] = tasks[-1]
+        image_deps.append(crop_id)
+        ref_flag = f" --reference-image {paths['scene_reference']}"
     elif _is_stateful_follow_on(spec, assets):
         state0 = _stateful_state0_spec(spec, assets)
         if state0 is None:
@@ -619,6 +652,103 @@ def _static_asset_tasks(
             image_task_id=image_id,
             assets=assets,
         )
+    if spec.scene_master:
+        matte_id = f"{file_key}.image.remove-bg"
+        opaque = spec.type == AssetType.BACKGROUND
+        mask_id = image_id if opaque else matte_id
+        mask_image = "" if opaque else paths["nobg_image"]
+        if mask_id not in tasks_by_id:
+            raise ValueError(f"Asset '{name}' scene layer has no image for recomposition")
+        master = find_asset(assets, spec.scene_master)
+        master_id = _image_generate_task_id(asset_ids, master.name)
+        master_raw = tasks_by_id[master_id].artifacts["output"]
+        box_args = " ".join(str(float(value)) for value in spec.scene_box_norm)
+        reproject_id = _add_task(
+            tasks,
+            asset=name,
+            asset_id=file_key,
+            step="image.scene-reproject",
+            role=ORCHESTRATOR_ROLE,
+            depends_on=[mask_id, master_id],
+            layer=_layer_from_deps([mask_id, master_id], tasks_by_id),
+            command=(
+                f"python gamefactory.py image scene-reproject --master {master_raw} "
+                f"--output {paths['scene_reprojected']} --box {box_args}"
+                f"{' --mask ' + mask_image if mask_image else ''}"
+            ),
+            artifacts={"master": master_raw, "mask": mask_image,
+                       "output": paths["scene_reprojected"]},
+        )
+        tasks_by_id[reproject_id] = tasks[-1]
+        preview_id = _add_task(
+            tasks,
+            asset=name,
+            asset_id=file_key,
+            step="image.scene-preview",
+            role=ORCHESTRATOR_ROLE,
+            depends_on=[reproject_id],
+            layer=_layer_from_deps([reproject_id], tasks_by_id),
+            command=(
+                f"python gamefactory.py image scene-preview --master {master_raw} "
+                f"--layer {paths['scene_reprojected']} --output {paths['scene_preview']} "
+                f"--box {box_args} --scale {spec.scene_scale}"
+                f"{' --opaque' if opaque else ''}"
+            ),
+            artifacts={"master": master_raw, "input": paths["scene_reprojected"],
+                       "output": paths["scene_preview"]},
+        )
+        tasks_by_id[preview_id] = tasks[-1]
+
+
+def _scene_composition_tasks(
+    tasks: list[PipelineTask],
+    tasks_by_id: dict[str, PipelineTask],
+    *,
+    assets: list[AssetSpec],
+    output_dir: Path,
+) -> None:
+    """Render a full depth-ordered review composite for each layered plate."""
+    groups: dict[str, tuple[AssetSpec, list[AssetSpec]]] = {}
+    for spec in assets:
+        if not spec.scene_master:
+            continue
+        master = find_asset(assets, spec.scene_master)
+        key = resolve_asset_file_key(master)
+        if key not in groups:
+            groups[key] = (master, [])
+        groups[key][1].append(spec)
+    for key, (master, layers) in groups.items():
+        master_id = f"{key}.image.generate"
+        master_raw = tasks_by_id[master_id].artifacts["output"]
+        output = cli_relative(output_dir / f"{key}_scene_composite.png")
+        deps = [master_id]
+        layer_args: list[str] = []
+        for spec in layers:
+            file_key = resolve_asset_file_key(spec)
+            opaque = spec.type == AssetType.BACKGROUND
+            dep_id = f"{file_key}.image.scene-preview"
+            deps.append(dep_id)
+            path = _asset_artifacts(output_dir, output_dir, file_key)["scene_reprojected"]
+            box = " ".join(str(float(value)) for value in spec.scene_box_norm)
+            layer_args.append(
+                f"--layer {path} {box} {spec.scene_scale} {spec.scene_z} {int(opaque)}"
+            )
+        task_id = _add_task(
+            tasks,
+            asset=master.name,
+            asset_id=key,
+            step="image.scene-compose",
+            role=ORCHESTRATOR_ROLE,
+            depends_on=deps,
+            layer=_layer_from_deps(deps, tasks_by_id),
+            command=(
+                f"python gamefactory.py image scene-compose --master {master_raw} "
+                f"--output {output} {' '.join(layer_args)}"
+                f"{' --require-exact' if all(spec.scene_scale == 1.0 for spec in layers) else ''}"
+            ),
+            artifacts={"master": master_raw, "output": output},
+        )
+        tasks_by_id[task_id] = tasks[-1]
 
 
 def _find_artifacts_for_asset(tasks: list[PipelineTask], asset_name: str) -> dict[str, str]:
@@ -877,7 +1007,7 @@ def _collect_godot_plan(
                     "skip_trail_ratio": DEFAULT_SKIP_TRAIL_RATIO,
                 }
             )
-        elif spec.type == AssetType.BACKGROUND:
+        elif spec.type == AssetType.BACKGROUND and spec.content_class != "scene_layer":
             raw = rel_to_repo(output_dir / f"{resolve_asset_file_key(spec)}_raw.png")
             backgrounds.append(
                 {
@@ -890,20 +1020,32 @@ def _collect_godot_plan(
             file_key = resolve_asset_file_key(spec)
             asset_key = layout_asset_key(spec)
             nobg_id = f"{file_key}.image.remove-bg"
-            if nobg_id in tasks_by_id:
+            if spec.type == AssetType.BACKGROUND:
+                image = rel_to_repo(output_dir / f"{file_key}_plate_locked.png") if spec.scene_master else rel_to_repo(output_dir / f"{file_key}_raw.png")
+            elif spec.scene_master:
+                image = rel_to_repo(output_dir / f"{file_key}_plate_locked.png")
+            elif nobg_id in tasks_by_id:
                 out_art = tasks_by_id[nobg_id].artifacts.get("output", "")
                 image = _artifact_path_to_repo_rel(out_art) if out_art else rel_to_repo(
                     output_dir / f"{file_key}_nobg.png"
                 )
             else:
                 image = rel_to_repo(output_dir / f"{file_key}_nobg.png")
-            props.append(
-                {
-                    "asset": asset_key,
-                    "image": image,
-                    "display_size": effective_display_dict(spec, project),
-                }
-            )
+            prop_entry = {
+                "asset": asset_key,
+                "image": image,
+                "display_size": effective_display_dict(spec, project),
+            }
+            if spec.scene_master:
+                prop_entry.update({
+                    "scene_master": spec.scene_master,
+                    "scene_box_norm": list(spec.scene_box_norm),
+                    "scene_scale": spec.scene_scale,
+                    "scene_z": spec.scene_z,
+                    "scene_occludes": list(spec.scene_occludes),
+                    "scene_layer_opaque": spec.type == AssetType.BACKGROUND,
+                })
+            props.append(prop_entry)
 
     idle_still_path: str | None = None
     name_to_id = {s.name: resolve_asset_file_key(s) for s in assets}
@@ -1103,12 +1245,14 @@ def build_manifest(
         pipeline_config = {}
 
     # Pass 1: static + pose assets (produce reference stills).
-    for spec in assets:
-        if is_runtime_only_asset(spec):
-            continue
-        kind = classify_asset(spec)
-        if kind == AssetKind.VIDEO_ANIMATION:
-            continue
+    static_specs = [
+        spec for spec in assets
+        if not is_runtime_only_asset(spec) and classify_asset(spec) != AssetKind.VIDEO_ANIMATION
+    ]
+    # Complete plates are generated before the scene layers cropped from them,
+    # even if the author listed a layer first in the Brief.
+    static_specs.sort(key=lambda spec: bool(spec.scene_master))
+    for spec in static_specs:
         if spec.type == AssetType.ICON_KIT:
             _icon_kit_item_tasks(
                 tasks,
@@ -1135,6 +1279,10 @@ def build_manifest(
             brief_path=brief_path,
             config=pipeline_config,
         )
+
+    _scene_composition_tasks(
+        tasks, tasks_by_id, assets=static_specs, output_dir=output_dir
+    )
 
     # Pass 2: video animations (depend on reference stills).
     for spec in assets:

@@ -83,6 +83,28 @@ class LlmConfigTests(unittest.TestCase):
         self.assertEqual(resolved["prompt_model"], "m")
         self.assertEqual(resolved["source"], "prompt")
 
+    def test_prompt_explicit_provider_overrides_host_without_changing_image(self) -> None:
+        config = {
+            "host": {"api_key": "apilio-key", "api_base": "https://api.apilio.ai/v1", "model": "m"},
+            "prompt": {"provider": "deepseek", "api_base": "https://stale.example/v1", "model": "deepseek-flash"},
+            "image": {"provider": "apilio"},
+            "provider_accounts": {"deepseek": {"api_key": "deepseek-key"}},
+        }
+        resolved = resolve_prompt_api_settings(config)
+        self.assertEqual(resolved["api_key"], "deepseek-key")
+        self.assertEqual(resolved["api_base"], "https://api.deepseek.com/v1")
+        self.assertEqual(resolved["prompt_model"], "deepseek-flash")
+        self.assertEqual(resolved["source"], "prompt_provider")
+        self.assertEqual(config["image"]["provider"], "apilio")
+
+    def test_missing_selected_prompt_key_never_falls_back_to_host(self) -> None:
+        config = {
+            "host": {"api_key": "apilio-key", "api_base": "https://api.apilio.ai/v1"},
+            "prompt": {"provider": "deepseek"},
+            "provider_accounts": {"deepseek": {}},
+        }
+        self.assertIsNone(resolve_prompt_api_settings(config)["api_key"])
+
     def test_code_falls_back_to_host(self) -> None:
         config = {
             "host": {

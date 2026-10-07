@@ -1,0 +1,66 @@
+{
+  "brief_meta": {"contract_version": 1, "source": "example"},
+  "project": {
+    "title": "Plate-first fishing backdrop example",
+    "description": "One complete fishing background with water and island layers derived from it.",
+    "art_direction": "Crisp high-density pixel art with coherent afternoon lighting.",
+    "dimension": "2d",
+    "genre": "Simulation / Fishing",
+    "view": "side",
+    "gameplay_loop": "Cast, reel, land fish.",
+    "session_goal": "Preview a coherent layered fishing scene.",
+    "player_asset": "",
+    "controls": {"cast": ["Space"]},
+    "viewport": {"width": 1920, "height": 1080},
+    "scenes": [{"id": "fishing", "title": "Lake fishing"}]
+  },
+  "assets": [
+    {
+      "id": "lake_plate",
+      "name": "Complete lake plate",
+      "type": "background",
+      "usage": "world_background",
+      "content_class": "backdrop_full",
+      "scene_ids": ["fishing"],
+      "description": "A complete fishing vista with sky, distant island and water; no boat, rod, UI or fish.",
+      "display_size": {"width": 1920, "height": 1080},
+      "generation_size": {"width": 1920, "height": 1080},
+      "aspect_ratio": "16:9"
+    },
+    {
+      "id": "lake_water",
+      "name": "Lake water band",
+      "type": "background",
+      "usage": "parallax_layer",
+      "content_class": "scene_layer",
+      "scene_ids": ["fishing"],
+      "scene_master": "lake_plate",
+      "scene_box_norm": [0.0, 0.48, 1.0, 0.52],
+      "scene_scale": 1.0,
+      "scene_z": 0,
+      "parallax_order": 2,
+      "scroll_factor": 0.05,
+      "description": "The exact water band from the complete lake plate; preserve reflections and horizon.",
+      "display_size": {"width": 1920, "height": 562},
+      "generation_size": {"width": 1536, "height": 448},
+      "aspect_ratio": "24:7"
+    },
+    {
+      "id": "lake_island",
+      "name": "Lake island cutout",
+      "type": "character",
+      "usage": "prop",
+      "content_class": "scene_layer",
+      "scene_ids": ["fishing"],
+      "scene_master": "lake_plate",
+      "scene_box_norm": [0.1, 0.3, 0.4, 0.25],
+      "scene_scale": 1.0,
+      "scene_z": 1,
+      "scene_occludes": ["lake_water"],
+      "description": "Isolate the island visible in this exact crop from the complete lake plate on white.",
+      "display_size": {"width": 768, "height": 270},
+      "generation_size": {"width": 1536, "height": 1024},
+      "aspect_ratio": "3:2"
+    }
+  ]
+}

@@ -47,6 +47,11 @@ _GENERATION_ASSET_KEYS = frozenset(
         "grid",
         "display_size",
         "generation_size",
+        "scene_master",
+        "scene_box_norm",
+        "scene_scale",
+        "scene_z",
+        "scene_occludes",
     }
 )
 
@@ -170,6 +175,7 @@ def build_generation_input(
         "state",
         "generate_tier",
         "grid",
+        "scene_master",
     ):
         val = getattr(spec, field_name, "")
         if val and field_name not in base:
@@ -190,6 +196,14 @@ def build_generation_input(
         base["use_style_img2img"] = spec.use_style_img2img
     if spec.states and "states" not in base:
         base["states"] = list(spec.states)
+    if spec.scene_box_norm and "scene_box_norm" not in base:
+        base["scene_box_norm"] = list(spec.scene_box_norm)
+    if spec.scene_master and "scene_scale" not in base:
+        base["scene_scale"] = spec.scene_scale
+    if spec.scene_master and "scene_z" not in base:
+        base["scene_z"] = spec.scene_z
+    if spec.scene_occludes and "scene_occludes" not in base:
+        base["scene_occludes"] = list(spec.scene_occludes)
 
     effective = resolve_effective_display_size(spec, project)
     if not effective.is_empty():

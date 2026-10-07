@@ -8,6 +8,7 @@ from godot_layout import (
     build_layout_world_fragments,
     prop_texture_res_path,
     sanitize_prop_node_name,
+    scene_layer_runtime_scale,
     xy_norm_to_pixels,
 )
 
@@ -52,6 +53,25 @@ class GodotLayoutTest(unittest.TestCase):
         )
         joined = "\n".join(nodes)
         self.assertIn("scale = Vector2(0.5, 0.5)", joined)
+
+    def test_scene_layer_source_pixels_are_scaled_at_runtime(self) -> None:
+        self.assertEqual(
+            scene_layer_runtime_scale((1536, 512), (1920, 540), 1.0, opaque=True),
+            (1.25, 1.0546875),
+        )
+        self.assertEqual(
+            scene_layer_runtime_scale((1024, 512), (768, 270), 1.0, opaque=False),
+            (0.52734375, 0.52734375),
+        )
+        layout = {
+            "placements": [
+                {"asset": "water", "xy_norm": [0.5, 0.75],
+                 "scale": 1.0, "scale_xy": [1.25, 1.0546875], "z_index": 2},
+            ],
+        }
+        _, nodes, _ = build_layout_world_fragments(layout, {"width": 1920, "height": 1080})
+        self.assertIn("scale = Vector2(1.25, 1.0546875)", "\n".join(nodes))
+        self.assertIn("z_index = 2", "\n".join(nodes))
 
     def test_sanitize_and_res_path(self) -> None:
         self.assertEqual(sanitize_prop_node_name("wooden_crate"), "WoodenCrate")

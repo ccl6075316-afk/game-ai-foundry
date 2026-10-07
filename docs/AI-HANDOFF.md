@@ -94,6 +94,25 @@ python gamefactory.py brief shard load --brief ../projects/my-game/brief.json --
 
 **规则**：Godot 导入静帧与动画帧时保留源清晰度，**禁止**为表达体型而把 PNG 烘焙成很小的 `display_size`。体型差异在放置时用 `real_length_cm`（及 UiScale 等）缩放。个体差异、布局缩放与碰撞盒不要写进通用 Brief 文案规则。
 
+### 场景背景：母图优先、定尺度拆层
+
+需要天空、远景、水面等独立层的场景，先把完整画面登记为 `type: background` 母图，再给每个拆层资产写：
+
+```json
+{
+  "id": "lake_water",
+  "type": "background",
+  "content_class": "scene_layer",
+  "scene_master": "lake_plate",
+  "scene_box_norm": [0.0, 0.48, 1.0, 0.52],
+  "scene_scale": 1.0,
+  "scene_z": 1,
+  "display_size": {"width": 1920, "height": 562}
+}
+```
+
+`scene_box_norm` 是母图上的 `[x,y,宽,高]`，`display_size` 必须约等于母图显示尺寸乘这个框；`scene_scale` 是回拼时的额外运行时倍率，默认 1。`scene_z` 是叠放深度；`scene_occludes` 声明要局部遮住的同母图层，校验会要求两个源框确实相交且遮挡层在前。前景树叶、山缘、岩石等用透明不规则轮廓，不用矩形硬边。Godot 组装按导入后实际源像素尺寸先拟合目标框，再乘 `scene_scale`，不会把 PNG 烤小。`usage: parallax_layer` 也必须走这套契约。Foundry 会先生成母图、原像素裁出框作为图生图参考，再生成拆层、验证、按类型抠图，并输出单层以及按 `scene_z` 全部叠放的母图/回拼并排预览；母图与拆层有 DAG 依赖。不要把其他场景独立生成的水、岛、云塞入本场景。真实视觉一致性、地标辨识度、遮挡轮廓与白边仍需在 assets review 和回拼预览中确认。
+
 ## 4. Production 与续作账本
 
 ```bash

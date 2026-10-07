@@ -114,7 +114,13 @@ def prompt_from_handoff(handoff: dict[str, Any]) -> str:
 def validation_from_handoff(handoff: dict[str, Any]) -> dict[str, Any] | None:
     plan = handoff.get("plan", {})
     validation = plan.get("validation")
-    return validation if isinstance(validation, dict) else None
+    if not isinstance(validation, dict):
+        return None
+    # Existing scene-layer handoffs predate edge-aware validation. The asset
+    # context is authoritative, so apply the same rule without prompt recraft.
+    if handoff.get("context", {}).get("asset", {}).get("content_class") == "scene_layer":
+        return {**validation, "allow_subject_at_edge": True}
+    return validation
 
 
 def asset_type_from_handoff(handoff: dict[str, Any]) -> str:

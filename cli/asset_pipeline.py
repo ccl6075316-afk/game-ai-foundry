@@ -101,6 +101,10 @@ def _apply_style_img2img_to_meta(
     assets: list[AssetSpec] | None,
 ) -> dict[str, Any]:
     """Mark still plans that require style-group ``--reference-image`` (not pose/video)."""
+    if spec.scene_master:
+        out = dict(meta)
+        out["requires_reference_image"] = True
+        return out
     if not assets or spec.type == AssetType.CHARACTER_POSE:
         return meta
     if not should_use_style_img2img(spec, project=project, assets=assets):
@@ -117,6 +121,28 @@ def _plan_metadata(
     assets: list[AssetSpec] | None = None,
 ) -> dict[str, Any]:
     """Pipeline, validation, and flags — always deterministic."""
+    if spec.content_class == "scene_layer" and spec.type == AssetType.CHARACTER:
+        scene_validation = _validation_spec(AssetType.CHARACTER)
+        scene_validation["max_subject_regions"] = 16
+        # A crop-derived shoreline or bank may intentionally continue past a
+        # side of its crop. Its backdrop must still be white for color matting.
+        scene_validation["allow_subject_at_edge"] = True
+        return {
+            "negative_hints": [
+                "Do not invent scenery outside the referenced plate crop.",
+                "Keep the extracted subject on pure white for matting; no new horizon or lighting.",
+            ],
+            "validation": scene_validation,
+            "pipeline": [
+                {"step": "generate_image"},
+                {"step": "validate"},
+                {"step": "remove_bg", "mode": "color"},
+                {"step": "validate_matting"},
+            ],
+            "requires_background_removal": True,
+            "requires_reference_image": True,
+            "animation_method": None,
+        }
     if spec.type == AssetType.CHARACTER:
         return _apply_style_img2img_to_meta(
             {
@@ -583,6 +609,7 @@ def _subject_mask(gray: np.ndarray, *, threshold: int = 245, min_area: int = 200
 def _check_pure_white_background(
     img: np.ndarray,
     *,
+    allow_subject_at_edge: bool = False,
     white_threshold: int = PURE_WHITE_THRESHOLD,
     edge_min_white_ratio: float = PURE_WHITE_EDGE_MIN_RATIO,
     edge_max_dark_ratio: float = PURE_WHITE_EDGE_MAX_DARK_RATIO,
@@ -632,9 +659,9 @@ def _check_pure_white_background(
     probe_dark_hits = sum(1 for v in probe_values if v < 200)
 
     corner_white = corner_brightness >= white_threshold
-    edge_white = edge_white_ratio >= edge_min_white_ratio
+    edge_white = allow_subject_at_edge or edge_white_ratio >= edge_min_white_ratio
     no_dark_frame = (
-        edge_dark_ratio <= edge_max_dark_ratio
+        (allow_subject_at_edge or edge_dark_ratio <= edge_max_dark_ratio)
         and background_dark_ratio <= edge_max_dark_ratio
         and probe_dark_hits <= 2
     )
@@ -723,7 +750,9 @@ def validate_image(
     next_action: str | None = None
 
     if rules.get("require_pure_white_background"):
-        passed, pure_checks = _check_pure_white_background(img)
+        passed, pure_checks = _check_pure_white_background(
+            img, allow_subject_at_edge=bool(rules.get("allow_subject_at_edge"))
+        )
         checks.extend(pure_checks)
         ok = ok and passed
         if not passed:

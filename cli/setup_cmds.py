@@ -201,6 +201,26 @@ def setup_provider_upsert_cmd(
         sys.exit(1)
 
 
+@setup_provider_group.command("select-prompt")
+@click.option("--provider", "provider_id", required=True, help="Existing account id for prompt-craft only.")
+@click.option("--text-model", default=None, help="Model id served by the selected account.")
+@click.option("--i-confirm", "i_confirm", is_flag=True, help="Required: user confirmed this config change.")
+@click.option("--json", "as_json", is_flag=True, help="Print result without credentials.")
+def setup_provider_select_prompt_cmd(provider_id: str, text_model: str | None, i_confirm: bool, as_json: bool) -> None:
+    """Select an existing Prompt account without switching host or image."""
+    from provider_upsert import select_prompt_provider
+
+    result = select_prompt_provider(provider=provider_id, text_model=text_model, i_confirm=i_confirm)
+    if as_json:
+        click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+    elif result.get("ok"):
+        click.echo(f"Prompt 账号已切换到 {result['provider']}")
+    else:
+        click.echo(f"失败: {result.get('error')}", err=True)
+    if not result.get("ok"):
+        sys.exit(1)
+
+
 @setup_provider_group.command("list")
 @click.option("--json", "as_json", is_flag=True, help="Print JSON result (never includes raw key).")
 def setup_provider_list_cmd(as_json: bool) -> None:

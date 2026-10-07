@@ -8,10 +8,31 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from provider_upsert import upsert_provider_account
+from provider_upsert import select_prompt_provider, upsert_provider_account
 
 
 class ProviderUpsertTests(unittest.TestCase):
+    def test_select_prompt_uses_existing_key_without_switching_host_or_image(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.json"
+            original = {
+                "host": {"provider": "apilio", "api_key": "host-secret"},
+                "image": {"provider": "apilio"},
+                "provider_accounts": {"deepseek": {"api_key": "deepseek-secret"}},
+            }
+            path.write_text(json.dumps(original), encoding="utf-8")
+            denied = select_prompt_provider(provider="deepseek", config_path=path)
+            self.assertFalse(denied["ok"])
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8")), original)
+            result = select_prompt_provider(provider="deepseek", text_model="deepseek-flash", i_confirm=True, config_path=path)
+            self.assertTrue(result["ok"])
+            self.assertNotIn("deepseek-secret", json.dumps(result))
+            saved = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(saved["prompt"]["provider"], "deepseek")
+            self.assertEqual(saved["prompt"]["model"], "deepseek-flash")
+            self.assertEqual(saved["host"], original["host"])
+            self.assertEqual(saved["image"], original["image"])
+
     def test_rejects_without_i_confirm(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "config.json"
@@ -35,13 +56,15 @@ class ProviderUpsertTests(unittest.TestCase):
         self.assertIn("非法", res["error"])
 
     def test_rejects_user_slug_without_api_base(self) -> None:
-        res = upsert_provider_account(
-            provider="apilio",
-            api_key="sk-test",
-            i_confirm=True,
-        )
-        self.assertFalse(res["ok"])
-        self.assertIn("api-base", res["error"])
+        with tempfile.TemporaryDirectory() as tmp:
+            res = upsert_provider_account(
+                provider="apilio",
+                api_key="sk-test",
+                i_confirm=True,
+                config_path=Path(tmp) / "config.json",
+            )
+            self.assertFalse(res["ok"])
+            self.assertIn("api-base", res["error"])
 
     def test_accepts_user_slug_with_api_base(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -52,6 +52,24 @@ def layout_placements(layout: dict[str, Any] | None) -> list[dict[str, Any]]:
     return out
 
 
+def scene_layer_runtime_scale(
+    source_size: tuple[int, int],
+    display_size: tuple[int, int],
+    scene_scale: float,
+    *,
+    opaque: bool,
+) -> tuple[float, float]:
+    """Map preserved source pixels to the authored plate box at runtime."""
+    sw, sh = source_size
+    dw, dh = display_size
+    if min(sw, sh, dw, dh) <= 0 or scene_scale <= 0:
+        raise ValueError("scene layer sizes and scale must be positive")
+    if opaque:
+        return dw / sw * scene_scale, dh / sh * scene_scale
+    fit = min(dw / sw, dh / sh) * scene_scale
+    return fit, fit
+
+
 def build_layout_world_fragments(
     layout: dict[str, Any] | None,
     viewport: dict[str, Any],
@@ -88,9 +106,17 @@ def build_layout_world_fragments(
         ext_id = f"{next_id}_prop"
         next_id += 1
         ext_lines.append(f'[ext_resource type="Texture2D" path="res://{res}" id="{ext_id}"]')
+        scale_xy = placement.get("scale_xy")
         scale_raw = placement.get("scale")
         scale_line = ""
-        if scale_raw is not None:
+        if isinstance(scale_xy, (list, tuple)) and len(scale_xy) == 2:
+            try:
+                sx, sy = float(scale_xy[0]), float(scale_xy[1])
+                if sx > 0 and sy > 0 and (sx != 1.0 or sy != 1.0):
+                    scale_line = f"scale = Vector2({sx}, {sy})"
+            except (TypeError, ValueError):
+                pass
+        elif scale_raw is not None:
             try:
                 scale_val = float(scale_raw)
                 if scale_val > 0 and scale_val != 1.0:
@@ -102,6 +128,9 @@ def build_layout_world_fragments(
             f"position = Vector2({px}, {py})",
             f'texture = ExtResource("{ext_id}")',
         ]
+        z_index = placement.get("z_index")
+        if isinstance(z_index, int) and z_index != 0:
+            node_body.append(f"z_index = {z_index}")
         if scale_line:
             node_body.append(scale_line)
         node_body.append("")

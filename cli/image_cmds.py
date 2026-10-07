@@ -9,6 +9,7 @@ from pathlib import Path
 import click
 import cv2
 import numpy as np
+from PIL import Image
 
 
 from matting_config import (
@@ -19,6 +20,202 @@ from matting_config import (
     resolve_trim_settings,
     resolve_validate_edges_settings,
 )
+
+
+def _scene_pixel_box(box_norm: tuple[float, ...], size: tuple[int, int]) -> tuple[int, int, int, int]:
+    x, y, w, h = box_norm
+    return (
+        round(x * size[0]),
+        round(y * size[1]),
+        round((x + w) * size[0]),
+        round((y + h) * size[1]),
+    )
+
+
+@click.command("scene-crop")
+@click.option("--input", "input_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--output", "output_path", required=True, type=click.Path(path_type=Path))
+@click.option("--box", "box_norm", required=True, nargs=4, type=float,
+              help="Normalized x y width height on the complete scene plate.")
+def scene_crop_cmd(input_path: Path, output_path: Path, box_norm: tuple[float, ...]) -> None:
+    """Crop a scene plate without resampling, for scale-locked img2img layers."""
+    x, y, w, h = box_norm
+    if min(x, y) < 0 or min(w, h) <= 0 or x + w > 1.000001 or y + h > 1.000001:
+        raise click.BadParameter("box must be inside [0,1] with positive width and height")
+    with Image.open(input_path) as source:
+        left, top, right, bottom = _scene_pixel_box(box_norm, source.size)
+        if right <= left or bottom <= top:
+            raise click.BadParameter("box is smaller than one source pixel")
+        cropped = source.crop((left, top, right, bottom))
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        cropped.save(output_path)
+    click.echo(str(output_path.resolve()))
+
+
+@click.command("scene-reproject")
+@click.option("--master", "master_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--output", "output_path", required=True, type=click.Path(path_type=Path))
+@click.option("--box", "box_norm", required=True, nargs=4, type=float,
+              help="Normalized source box on the complete scene plate.")
+@click.option("--mask", "mask_path", type=click.Path(exists=True, path_type=Path),
+              help="Optional transparent cutout; only its alpha is used.")
+def scene_reproject_cmd(
+    master_path: Path,
+    output_path: Path,
+    box_norm: tuple[float, ...],
+    mask_path: Path | None,
+) -> None:
+    """Use exact plate pixels under an optional subject alpha mask.
+
+    Img2img cutouts are useful for an irregular silhouette, but their colors and
+    geometry must not be painted back over a finished plate. The opaque water
+    case omits --mask and becomes a pixel-identical RGBA crop.
+    """
+    x, y, w, h = box_norm
+    if min(x, y) < 0 or min(w, h) <= 0 or x + w > 1.000001 or y + h > 1.000001:
+        raise click.BadParameter("box must fit inside [0,1]")
+    with Image.open(master_path) as source:
+        left, top, right, bottom = _scene_pixel_box(box_norm, source.size)
+        if right <= left or bottom <= top:
+            raise click.BadParameter("box is smaller than one source pixel")
+        plate_crop = source.convert("RGBA").crop((left, top, right, bottom))
+    if mask_path is not None:
+        with Image.open(mask_path) as mask_source:
+            if "A" not in mask_source.getbands():
+                raise click.BadParameter("mask must contain an alpha channel")
+            alpha = mask_source.getchannel("A").resize(
+                plate_crop.size, Image.Resampling.NEAREST
+            )
+        plate_crop.putalpha(alpha)
+        # Transparent RGB should not retain the whole plate crop: it confuses
+        # asset viewers and can bleed through filtered texture edges at runtime.
+        pixels = np.asarray(plate_crop).copy()
+        pixels[pixels[:, :, 3] == 0, :3] = 0
+        plate_crop = Image.fromarray(pixels, mode="RGBA")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    plate_crop.save(output_path)
+    click.echo(str(output_path.resolve()))
+
+
+@click.command("scene-preview")
+@click.option("--master", "master_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--layer", "layer_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--output", "output_path", required=True, type=click.Path(path_type=Path))
+@click.option("--box", "box_norm", required=True, nargs=4, type=float)
+@click.option("--scale", type=float, default=1.0, show_default=True)
+@click.option("--opaque", is_flag=True, help="Resize an opaque rectangular band to its source box.")
+def scene_preview_cmd(
+    master_path: Path,
+    layer_path: Path,
+    output_path: Path,
+    box_norm: tuple[float, ...],
+    scale: float,
+    opaque: bool,
+) -> None:
+    """Save master and recomposed layer side by side for human review."""
+    x, y, w, h = box_norm
+    if min(x, y) < 0 or min(w, h) <= 0 or x + w > 1.000001 or y + h > 1.000001:
+        raise click.BadParameter("box must fit inside [0,1]")
+    if not 0 < scale <= 8:
+        raise click.BadParameter("scale must be in (0,8]")
+    with Image.open(master_path) as source, Image.open(layer_path) as layer_source:
+        master = source.convert("RGBA")
+        layer = layer_source.convert("RGBA")
+        pixel_left, pixel_top, pixel_right, pixel_bottom = _scene_pixel_box(box_norm, master.size)
+        exact_size = (pixel_right - pixel_left, pixel_bottom - pixel_top)
+        if scale == 1.0 and layer.size == exact_size:
+            left, top = pixel_left, pixel_top
+        else:
+            box_w = max(1, round(w * master.width * scale))
+            box_h = max(1, round(h * master.height * scale))
+            if opaque:
+                layer = layer.resize((box_w, box_h), Image.Resampling.NEAREST)
+            else:
+                fit = min(box_w / layer.width, box_h / layer.height)
+                layer = layer.resize(
+                    (max(1, round(layer.width * fit)), max(1, round(layer.height * fit))),
+                    Image.Resampling.NEAREST,
+                )
+            center_x = (x + w / 2) * master.width
+            center_y = (y + h / 2) * master.height
+            left = round(center_x - layer.width / 2)
+            top = round(center_y - layer.height / 2)
+        overlay = Image.new("RGBA", master.size, (0, 0, 0, 0))
+        overlay.paste(layer, (left, top))
+        recomposed = Image.alpha_composite(master, overlay)
+        comparison = Image.new("RGB", (master.width * 2, master.height))
+        comparison.paste(master.convert("RGB"), (0, 0))
+        comparison.paste(recomposed.convert("RGB"), (master.width, 0))
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        comparison.save(output_path)
+    click.echo(str(output_path.resolve()))
+
+
+@click.command("scene-compose")
+@click.option("--master", "master_path", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--output", "output_path", required=True, type=click.Path(path_type=Path))
+@click.option("--layer", "layer_specs", multiple=True, nargs=8, type=str,
+              help="Repeat: path x y width height scale z opaque(0|1).")
+@click.option("--require-exact", is_flag=True,
+              help="Fail when recomposed plate differs from its source at any pixel.")
+def scene_compose_cmd(
+    master_path: Path, output_path: Path, layer_specs: tuple[tuple[str, ...], ...],
+    require_exact: bool,
+) -> None:
+    """Compare a complete plate with all extracted layers stacked in depth order."""
+    layers: list[tuple[int, int, Path, tuple[float, float, float, float], float, bool]] = []
+    for index, raw in enumerate(layer_specs):
+        path = Path(raw[0])
+        if not path.is_file():
+            raise click.BadParameter(f"layer image not found: {path}")
+        try:
+            x, y, w, h, scale = (float(value) for value in raw[1:6])
+            z = int(raw[6])
+        except ValueError as exc:
+            raise click.BadParameter("layer coordinates, scale and z must be numeric") from exc
+        if min(x, y) < 0 or min(w, h, scale) <= 0 or x + w > 1.000001 or y + h > 1.000001 or scale > 8:
+            raise click.BadParameter("layer box or scale is outside the plate")
+        if raw[7] not in ("0", "1"):
+            raise click.BadParameter("layer opaque must be 0 or 1")
+        layers.append((z, index, path, (x, y, w, h), scale, raw[7] == "1"))
+    with Image.open(master_path) as source:
+        master = source.convert("RGBA")
+    recomposed = master.copy()
+    for _, _, path, (x, y, w, h), scale, opaque in sorted(layers):
+        with Image.open(path) as source:
+            layer = source.convert("RGBA")
+        pixel_left, pixel_top, pixel_right, pixel_bottom = _scene_pixel_box(
+            (x, y, w, h), master.size
+        )
+        exact_size = (pixel_right - pixel_left, pixel_bottom - pixel_top)
+        if scale == 1.0 and layer.size == exact_size:
+            left, top = pixel_left, pixel_top
+        else:
+            box_w = max(1, round(w * master.width * scale))
+            box_h = max(1, round(h * master.height * scale))
+            if opaque:
+                layer = layer.resize((box_w, box_h), Image.Resampling.NEAREST)
+            else:
+                fit = min(box_w / layer.width, box_h / layer.height)
+                layer = layer.resize(
+                    (max(1, round(layer.width * fit)), max(1, round(layer.height * fit))),
+                    Image.Resampling.NEAREST,
+                )
+            left = round((x + w / 2) * master.width - layer.width / 2)
+            top = round((y + h / 2) * master.height - layer.height / 2)
+        overlay = Image.new("RGBA", master.size, (0, 0, 0, 0))
+        overlay.paste(layer, (left, top))
+        recomposed = Image.alpha_composite(recomposed, overlay)
+    if require_exact and np.any(
+        np.asarray(master.convert("RGB")) != np.asarray(recomposed.convert("RGB"))
+    ):
+        raise click.ClickException("scene composition differs from the source plate")
+    comparison = Image.new("RGB", (master.width * 2, master.height))
+    comparison.paste(master.convert("RGB"), (0, 0))
+    comparison.paste(recomposed.convert("RGB"), (master.width, 0))
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    comparison.save(output_path)
+    click.echo(str(output_path.resolve()))
 
 
 def refine_alpha_mask(

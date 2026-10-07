@@ -17,6 +17,7 @@ Skills are loaded per asset:
 | Always | `shared-locks.md` + this planner |
 | `floor_tile` / `wall_tile` / `tile_texture` | `class-tiles.md` |
 | `backdrop_*` / `type: background` | `class-backdrops.md` |
+| `scene_layer` | `class-scene-layer.md` |
 | `ui_element` / `icon_kit` | `class-ui.md` |
 | `type: character` / player usages | `class-character.md` |
 | Other props (`prop_*`, `weapon`, `tool`, `decor`) | `class-props.md` |

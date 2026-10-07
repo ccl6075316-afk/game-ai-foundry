@@ -133,10 +133,36 @@ def resolve_prompt_api_settings(
     prompt_cfg = _section(config, "prompt")
     host_cfg = _section(config, "host")
     host = resolve_host_api_settings(config)
+    resolved_proxy = resolve_config_proxy(config, proxy)
+    prompt_provider = str(prompt_cfg.get("provider") or "").strip().lower()
+    if prompt_provider:
+        accounts = _section(config, "provider_accounts")
+        account = accounts.get(prompt_provider)
+        entry = account if isinstance(account, dict) else {}
+        # An explicit prompt provider is a hard selection: never silently fall
+        # back to the host's credentials if its account is missing or invalid.
+        from provider_upsert import BUILTIN_PROVIDERS
+
+        defaults = BUILTIN_PROVIDERS.get(prompt_provider, {})
+        selected_model = (
+            prompt_model or entry.get("text_model") or prompt_cfg.get("model")
+            or defaults.get("text_model") or DEFAULT_PROMPT_MODEL
+        )
+        selected_base = (
+            api_base or entry.get("api_base") or defaults.get("api_base")
+            or prompt_cfg.get("api_base") or DEFAULT_API_BASE
+        )
+        selected_key = api_key or entry.get("api_key")
+        return {
+            "prompt_model": str(normalize_llm_model(selected_model) or selected_model),
+            "api_key": str(selected_key) if _is_set(selected_key) else None,
+            "api_base": str(selected_base),
+            "proxy": str(resolved_proxy) if resolved_proxy else None,
+            "source": "prompt_provider",
+        }
     # Only treat settings 生文 as authoritative when host itself has a key —
     # not when resolve_host merely inherited a legacy prompt/image key.
     host_ready = _is_set(host_cfg.get("api_key"))
-    resolved_proxy = resolve_config_proxy(config, proxy)
 
     if host_ready:
         resolved_model = (
