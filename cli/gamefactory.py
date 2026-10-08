@@ -975,6 +975,7 @@ from godot_cmds import (
     run_game_cmd,
     scaffold_cmd,
     screenshot_cmd as godot_screenshot_cmd,
+    capture_frames_cmd,
     validate_cmd,
 )  # noqa: E402
 godot.add_command(init_cmd)
@@ -983,6 +984,7 @@ godot.add_command(assemble_cmd)
 godot.add_command(scaffold_cmd)
 godot.add_command(dev_context_cmd)
 godot.add_command(godot_screenshot_cmd)
+godot.add_command(capture_frames_cmd)
 godot.add_command(validate_cmd)
 godot.add_command(open_cmd)
 godot.add_command(run_cmd)

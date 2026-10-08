@@ -471,6 +471,47 @@ def screenshot_cmd(project_path: Path, output_path: Path, wait_frames: int) -> N
     click.echo(json.dumps(result, ensure_ascii=False, indent=2))
 
 
+@click.command("capture-frames")
+@click.option(
+    "--project",
+    "project_path",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="Godot project directory.",
+)
+@click.option(
+    "--scene",
+    default="",
+    help="Scene to run, e.g. res://scenes/rod_anim_probe.tscn. Default is the main scene.",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_dir",
+    required=True,
+    type=click.Path(path_type=Path),
+    help="Directory for frame_0001.png and the rest.",
+)
+@click.option("--fps", default=12, show_default=True, help="Fixed simulation rate.")
+@click.option("--frames", default=48, show_default=True, help="How many frames to record.")
+def capture_frames_cmd(project_path: Path, scene: str, output_dir: Path, fps: int, frames: int) -> None:
+    """Record a scene as a PNG sequence. The scene should save each frame."""
+    from godot_capture_frames import capture_frames
+
+    try:
+        result = capture_frames(
+            project_path,
+            output_dir,
+            scene=scene or None,
+            fps=fps,
+            frames=frames,
+        )
+    except (RuntimeError, subprocess.TimeoutExpired, FileNotFoundError) as exc:
+        click.echo(f"Error: {exc}", err=True)
+        sys.exit(1)
+    click.echo(json.dumps(result, ensure_ascii=False, indent=2))
+
+
 @click.command("validate")
 @click.option("--project", "project_path", required=True, type=click.Path(exists=True, path_type=Path),
               help="Godot project directory.")
