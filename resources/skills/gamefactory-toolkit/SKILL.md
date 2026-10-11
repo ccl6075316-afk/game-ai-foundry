@@ -164,8 +164,10 @@ python gamefactory.py test regression --project <project>
 
 ## 关键规则
 
+已有游动的鱼类追加转身时，除下面的连续动作规则，还应读取 [鱼类转向复用流程](../../../docs/FISH-TURN-WORKFLOW.md)，复用相位规划、深度水域边界和当前帧轮廓校正；每条鱼独立确定素材、首尾相位、镜像资格、时长及曝光需求。
+
 1. `validate` before matting：图像验证失败时只修 prompt/Brief，不做 trim 或 remove-bg。
-2. 动画使用原始 still；idle 使用独立 `*_nobg.png`，不要拿第一帧冒充。
+2. 首次动画使用原始 still；同角色已有已验收动画时，后续动作必须使用该动画的稳定动态帧作为参考，避开静图进入运动的前导过渡。转身需显式传入分别匹配切入、回接动画的首尾帧；只有目标方向在运行时也由镜像实现时，尾帧才可镜像目标游动帧，禁止用不匹配的旧转身尾帧延续偏差。参考帧保留原画布和分辨率；idle 仍使用独立 `*_nobg.png`，不要拿动画第一帧冒充。选帧、参数与游戏衔接验收见 [AI-HANDOFF.md](../../../docs/AI-HANDOFF.md#连续动作的首尾帧规则)。
 3. 视频帧使用 `video matte-frames --engine ai`，不要用 `image remove-bg`。拆帧默认 **24**（适配 3–4s；Brief `sprite_frames` 或 `duration×6` 可覆盖）。
 4. **循环切帧**：`video split-frames` 默认 `--optimize-loop`（帧差搜窗，使循环接缝接近中段运动）；失败时回退固定 lead/trail。可用 `--no-optimize-loop` 关闭。
 5. **导入保清晰、放置再缩放**：静帧与动画导入保留抠图/生成原分辨率（或接近原分辨率）；**不要**为了体型把 PNG 压成 Brief `display_size`。游戏内大小由 `real_length_cm` / 放置与 `runtime scale` 决定。`display_size` 是布局/体长意图，不是导入画布必须烤死的像素。

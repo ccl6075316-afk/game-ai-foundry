@@ -42,6 +42,20 @@ class InspectPathTests(unittest.TestCase):
         self.assertIn("content", result)
         self.assertTrue(result["content"])
 
+    def test_bounded_utf8_read_keeps_valid_prefix(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            target = root / "text.md"
+            target.write_text("ab鱼cd", encoding="utf-8")
+            with patch("inspect_ops.allow_roots", return_value=[root.resolve()]):
+                result = read_file(target, max_bytes=4)
+            self.assertEqual(result["encoding"], "utf-8")
+            self.assertEqual(result["content"], "ab")
+            self.assertTrue(result["truncated"])
+            target.write_bytes(b"ab\xffcd")
+            with patch("inspect_ops.allow_roots", return_value=[root.resolve()]):
+                self.assertEqual(read_file(target, max_bytes=4)["encoding"], "binary")
+
     def test_tree_and_grep_cli(self) -> None:
         tree = tree_dir("cli", max_depth=1, limit=50)
         self.assertTrue(tree["ok"])

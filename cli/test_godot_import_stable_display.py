@@ -155,6 +155,26 @@ class GodotImportStableDisplayTest(unittest.TestCase):
             save_texture_at_display_size(src, dest, DisplaySize(32, 16), bake=True)
             self.assertEqual(Image.open(dest).size, (32, 16))
 
+    def test_cli_can_preserve_exact_animation_sources(self) -> None:
+        from PIL import Image
+        from click.testing import CliRunner
+        from godot_cmds import import_sprites_cmd
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            project = root / "game"
+            project.mkdir()
+            source = root / "source"
+            source.mkdir()
+            for i in range(1, 4):
+                Image.new("RGBA", (320, 180), (20, 80, 160, 128)).save(source / f"frame_{i:04d}.png")
+            result = CliRunner().invoke(import_sprites_cmd, [
+                "--project", str(project), "--asset", "fish", "--input-dir", str(source),
+                "--pre-trimmed", "--pre-sampled", "--no-stable-subject"])
+            self.assertEqual(result.exit_code, 0, result.output)
+            for original in source.glob("frame_*.png"):
+                imported = project / "assets/sprites/fish" / original.name
+                self.assertEqual(original.read_bytes(), imported.read_bytes())
+
 
 if __name__ == "__main__":
     unittest.main()

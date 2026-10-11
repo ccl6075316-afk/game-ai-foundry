@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from asset_sizing import resolve_generation_image_size
 from brief import AssetSpec, AssetType, ProjectContext
@@ -16,9 +19,34 @@ from generation_fingerprint import (
     is_handoff_generation_stale,
 )
 from plan_io import build_handoff
+from prompt_cmds import _load_raw_shard_for_spec
 
 
 class GenerationFingerprintTest(unittest.TestCase):
+    def test_nested_catalog_brief_craft_matches_reconcile_inputs(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder) / "projects" / "fish"
+            (root / "assets").mkdir(parents=True)
+            (root / "plans" / "changes").mkdir(parents=True)
+            raw = {"id": "pose_fish", "name": "fish_swim", "type": "character_pose",
+                   "description": "side-view swim", "action": "swim", "grid": "2x2",
+                   "animation_method": "video", "generate_method": "video",
+                   "duration_seconds": 4, "real_length_cm": 60}
+            (root / "assets" / "pose_fish.spec.json").write_text(json.dumps(raw), encoding="utf-8")
+            brief = root / "plans" / "changes" / "batch.brief.json"
+            brief.write_text(json.dumps({"project": {"title": "Fish"}, "assets": [
+                {"id": "pose_fish", "path": "assets/pose_fish.spec.json"}]}), encoding="utf-8")
+            (root / "brief.json").write_text(brief.read_text(encoding="utf-8"), encoding="utf-8")
+            spec = AssetSpec.from_dict(raw)
+            project = ProjectContext(title="Fish")
+            with patch("project_paths._REPO_ROOT", Path(folder)):
+                resolved = _load_raw_shard_for_spec(brief, spec)
+            self.assertEqual(resolved, raw)
+            plan = embed_generation_fingerprint({"video_prompt": "swim"}, spec=spec,
+                                                project=project, raw_shard=resolved)
+            self.assertFalse(is_handoff_generation_stale(
+                {"plan": plan}, build_generation_input(spec, project, raw_shard=raw)))
+
     def _fish_spec(self, description: str) -> AssetSpec:
         return AssetSpec(
             name="fish",

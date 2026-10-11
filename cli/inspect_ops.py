@@ -222,7 +222,10 @@ def read_file(
     truncated = start + len(data) < size
     text: str | None
     try:
-        text = data.decode("utf-8")
+        # A bounded read may end inside a valid UTF-8 character.
+        # Keep strict validation of the prefix while buffering an unfinished tail.
+        import codecs
+        text = codecs.getincrementaldecoder("utf-8")().decode(data, final=not truncated)
     except UnicodeDecodeError:
         text = None
     payload: dict[str, Any] = {

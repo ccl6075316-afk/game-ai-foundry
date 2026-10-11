@@ -30,7 +30,9 @@
 4. `validate before matting`；图像失败先修 prompt/Brief。
 5. 长任务：短超时宿主默认 `workflow run --detach` + `workflow status --job-id`；长超时可用同步阻塞。动画拆帧默认 **24**（3–4s 视频；`duration×6` 可上调；Brief `sprite_frames` 可覆盖）。
 6. 动画原始帧、idle 独立 `*_nobg.png`；视频帧用 `video matte-frames --engine ai`；`split-frames` 默认 `optimize_loop`。
+   已有动画的角色续做动作，必须从已验收动画的稳定动态帧取参考，避开静转动过渡段；转身首尾帧分别匹配切入与回接动画。只有运行时也使用左右镜像时，尾帧才可由目标游动帧镜像得到，不能复用不匹配的旧转身尾帧。详见 `docs/AI-HANDOFF.md`「连续动作的首尾帧规则」。
 7. **导入保清晰**：静帧/动画导入不压到 `display_size`；游戏内大小用 `real_length_cm` / runtime scale。
+   鱼类转向的生成、相位衔接、曝光、深度边界及验收按 [`docs/FISH-TURN-WORKFLOW.md`](docs/FISH-TURN-WORKFLOW.md)；复用方法，每条鱼独立确定参数，不照搬银龙鱼帧号和时长。
 8. 图片后处理使用 `--input` / `--output`。
 9. Godot 只实现 Brief / Production Delta 范围。
 10. shell、配置写入、删除和网络请求必须显式确认或走白名单。

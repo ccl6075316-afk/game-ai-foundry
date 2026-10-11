@@ -453,6 +453,9 @@ def run_pipeline(
 
     manifest_path = manifest_path.resolve()
     lock = threading.Lock()
+    # BiRefNet sessions can exhaust RAM when several full-resolution clips are
+    # matted at once. Keep generation parallel, but serialize frame matting.
+    matting_slot = threading.BoundedSemaphore(1)
 
     def persist(*, sync_assets: bool = True) -> None:
         save_manifest(manifest_path, manifest)
@@ -535,7 +538,7 @@ def run_pipeline(
 
         pause_outcome: TaskRunOutcome | None = None
 
-        def execute_one(task: dict[str, Any]) -> TaskRunOutcome:
+        def execute_task(task: dict[str, Any]) -> TaskRunOutcome:
             nonlocal manifest
             tid = task["id"]
             with lock:
@@ -558,6 +561,12 @@ def run_pipeline(
             if on_task_finish:
                 on_task_finish(outcome)
             return outcome
+
+        def execute_one(task: dict[str, Any]) -> TaskRunOutcome:
+            if str(task.get("step") or "") == "video.matte-frames":
+                with matting_slot:
+                    return execute_task(task)
+            return execute_task(task)
 
         with ThreadPoolExecutor(max_workers=jobs) as pool:
             futures = {pool.submit(execute_one, task): task for task in ready}

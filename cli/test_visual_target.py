@@ -32,6 +32,7 @@ from visual_target import (
 
 
 def _write_example_brief(dir_path: Path, *, with_scenes: bool = False) -> Path:
+    # Scaffold/no-craft fixtures must already use English prompt fields.
     brief = {
         "project": {
             "title": "Dino Scavenger",
@@ -55,13 +56,13 @@ def _write_example_brief(dir_path: Path, *, with_scenes: bool = False) -> Path:
         brief["project"]["scenes"] = [
             {
                 "id": "dock",
-                "title": "钓场",
+                "title": "Fishing dock",
                 "summary": "Calm pier casting.",
                 "notes": "wide horizon",
             },
             {
                 "id": "combat",
-                "title": "搏鱼",
+                "title": "Fish fight",
                 "summary": "Tense fight UI.",
             },
         ]

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import tempfile
+import threading
+import time
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -29,6 +31,38 @@ from test_fixtures import EXAMPLE_BRIEF, MINIMAL_VIDEO_BRIEF, write_brief
 
 
 class PipelineRunnerTest(unittest.TestCase):
+    def test_parallel_pipeline_serializes_memory_heavy_frame_matting(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "manifest.json"
+            manifest = build_manifest(EXAMPLE_BRIEF)
+            manifest["tasks"] = [
+                {"id": f"fish_{i}.video.matte-frames", "asset": f"fish_{i}",
+                 "step": "video.matte-frames", "role": "orchestrator", "layer": 0,
+                 "depends_on": [], "status": TASK_PENDING, "command": "unused", "artifacts": {}}
+                for i in range(3)]
+            save_manifest(path, manifest)
+            counter_lock = threading.Lock()
+            active = 0
+            peak = 0
+
+            def simulate_matting(task, **kwargs):
+                nonlocal active, peak
+                with counter_lock:
+                    active += 1
+                    peak = max(peak, active)
+                time.sleep(0.03)
+                with counter_lock:
+                    active -= 1
+                return outcome_from_process(task["id"], exit_code=0, stdout="", stderr="")
+
+            with mock.patch("pipeline_runner.reconcile_manifest", return_value={"total": 0}), \
+                 mock.patch("pipeline_runner.refresh_assets_manifest_from_pipeline"), \
+                 mock.patch("pipeline_runner.run_task_subprocess", side_effect=simulate_matting):
+                result = run_pipeline(path, jobs=3, run_prompts=True)
+            self.assertTrue(result.complete)
+            self.assertEqual(peak, 1)
+            self.assertTrue(all(t["status"] == TASK_DONE for t in load_manifest(path)["tasks"]))
+
     def test_extract_json_multiline(self) -> None:
         stdout = '{\n  "ok": false,\n  "next_action": "prompt_crafter_regenerate"\n}\n'
         parsed = extract_json_from_stdout(stdout)

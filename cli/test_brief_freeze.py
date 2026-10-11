@@ -26,6 +26,32 @@ def _brief_cli() -> click.Group:
 
 
 class BriefFreezeTests(unittest.TestCase):
+    def test_freeze_catalog_preserves_shard_refs_and_checks_body(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            draft = json.loads(json.dumps(SMOKE_BRIEF))
+            body = draft["assets"][0]
+            body.setdefault("id", "catalog_asset")
+            shard = root / "asset.spec.json"
+            shard.write_text(json.dumps(body), encoding="utf-8")
+            ref = {"id": body["id"], "name": body["name"], "path": shard.name}
+            draft["assets"][0] = ref
+            source = root / "draft.json"
+            target = root / "brief.json"
+            source.write_text(json.dumps(draft), encoding="utf-8")
+            args = ["brief", "freeze", "--input", str(source), "-o", str(target), "--json"]
+            result = CliRunner().invoke(_brief_cli(), args)
+            self.assertEqual(result.exit_code, 0, result.output)
+            frozen = json.loads(target.read_text(encoding="utf-8"))
+            self.assertEqual(frozen["assets"][0], ref)
+            self.assertEqual(frozen["brief_meta"]["source"], "manual")
+            before = target.read_bytes()
+            shard.write_text(json.dumps({"name": body["name"]}), encoding="utf-8")
+            failed = CliRunner().invoke(_brief_cli(), args)
+            self.assertNotEqual(failed.exit_code, 0)
+            self.assertFalse(json.loads(failed.output)["ok"])
+            self.assertEqual(target.read_bytes(), before)
+
     def test_freeze_success_writes_brief_meta_and_stable_json(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

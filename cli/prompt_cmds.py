@@ -24,19 +24,18 @@ from shared_context import build_role_context
 
 
 def _load_raw_shard_for_spec(brief_path: Path, spec) -> dict | None:
-    """Disk assets/<id>.spec.json — must match reconcile's raw_shard for fingerprints."""
+    """Resolve the same catalog inputs used by reconcile, including nested briefs."""
+    from brief_shards import resolve_asset_specs
+
     try:
         key = resolve_asset_file_key(spec)
-    except ValueError:
+        rows = resolve_asset_specs(brief_path)
+    except (ValueError, OSError, json.JSONDecodeError):
         return None
-    path = brief_path.parent / "assets" / f"{key}.spec.json"
-    if not path.is_file():
-        return None
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    return data if isinstance(data, dict) else None
+    for data in rows:
+        if isinstance(data, dict) and str(data.get("id") or "") in (key, spec.id):
+            return data
+    return None
 
 
 def _should_craft_animation(spec, animation_flag: bool) -> bool:

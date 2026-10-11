@@ -128,6 +128,10 @@ def init_cmd(name: str, project_path: Path, template: str) -> None:
     default=None,
     help="Trim clip tail before sampling (default from config).",
 )
+@click.option(
+    "--stable-subject/--no-stable-subject", default=True,
+    help="Center subjects on a native canvas; disable to copy source PNGs exactly.",
+)
 def import_sprites_cmd(
     project_path: Path,
     asset: str,
@@ -144,6 +148,7 @@ def import_sprites_cmd(
     pre_sampled: bool,
     trim_lead: bool | None,
     trim_trail: bool | None,
+    stable_subject: bool,
 ) -> None:
     """Copy PNG frames into project and generate SpriteFrames .tres."""
     config_path = Path.home() / ".gamefactory" / "config.json"
@@ -172,6 +177,7 @@ def import_sprites_cmd(
             trim_lead=trim_lead,
             trim_trail=trim_trail,
             config=config if isinstance(config, dict) else {},
+            stable_subject=stable_subject,
         )
     except GodotImportError as exc:
         click.echo(f"Error: {exc}", err=True)

@@ -678,11 +678,14 @@ def run_cmd(
 @click.option("--manifest", "manifest_path", required=True, type=click.Path(path_type=Path))
 @click.option("--task-id", "task_id", required=True)
 @click.option("--recraft-prompt", is_flag=True, default=False)
+@click.option("--jobs", type=click.IntRange(min=1), default=4, show_default=True,
+              help="Concurrent tasks during recovery; use 1 for memory-heavy matting.")
 @click.option("--json", "as_json", is_flag=True, help="Print one stable JSON object.")
 def resume_cmd(
     manifest_path: Path,
     task_id: str,
     recraft_prompt: bool,
+    jobs: int,
     as_json: bool,
 ) -> None:
     """Delegate failed-task recovery to the existing retry runner."""
@@ -691,6 +694,7 @@ def resume_cmd(
         "manifest": str(manifest_path),
         "task_id": task_id,
         "recraft_prompt": recraft_prompt,
+        "jobs": jobs,
     }
     try:
         manifest_file = _require_manifest(manifest_path)
@@ -698,6 +702,7 @@ def resume_cmd(
             manifest_file,
             task_id=task_id,
             recraft_prompt=recraft_prompt,
+            jobs=jobs,
         )
         summary = summarize_manifest(load_manifest(manifest_file))
         status, next_action = classify_runner_state(summary, result)

@@ -80,7 +80,32 @@ def register_brief_commands(cli_group: click.Group) -> None:
             fail(gaps)
 
         try:
-            brief = finalize_brief_export(data, source="manual")
+            from brief_shards import is_catalog_ref, project_root_for_brief_path
+            from shared_context import asset_to_dict, project_to_dict
+
+            # Catalog refs have already been resolved and audited above. Finalize
+            # the resolved contract, then retain its source refs rather than
+            # flattening shards or trying to parse thin refs as full AssetSpecs.
+            has_catalog = any(
+                is_catalog_ref(row, kind=kind)
+                for kind, rows in (
+                    ("asset", data.get("assets", [])),
+                    ("scene", data.get("project", {}).get("scenes", [])),
+                    ("system", data.get("project", {}).get("systems", [])),
+                )
+                for row in rows if isinstance(row, dict)
+            )
+            if has_catalog:
+                if project_root_for_brief_path(input_path) != project_root_for_brief_path(output_path):
+                    raise ValueError("Catalog Brief freeze must stay within its project root so shard references remain valid.")
+                resolved = dict(data)
+                resolved["project"] = project_to_dict(project)
+                resolved["assets"] = [asset_to_dict(asset) for asset in assets]
+                frozen = finalize_brief_export(resolved, source="manual")
+                brief = dict(data)
+                brief["brief_meta"] = frozen["brief_meta"]
+            else:
+                brief = finalize_brief_export(data, source="manual")
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(
                 json.dumps(brief, ensure_ascii=False, indent=2) + "\n",

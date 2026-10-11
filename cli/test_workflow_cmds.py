@@ -484,6 +484,7 @@ class WorkflowCmdTests(unittest.TestCase):
                 "--task-id",
                 task_id,
                 "--recraft-prompt",
+                "--jobs", "1",
                 "--json",
             )
         self.assertEqual(result.exit_code, 0, result.output)
@@ -499,6 +500,7 @@ class WorkflowCmdTests(unittest.TestCase):
             self.manifest.resolve(),
             task_id=task_id,
             recraft_prompt=True,
+            jobs=1,
         )
 
     def test_run_delegates_to_existing_asset_runner(self) -> None:
