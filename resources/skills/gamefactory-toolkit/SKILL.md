@@ -134,6 +134,8 @@ Unix：`./gamefactory setup ensure-python --json`，之后 `./gamefactory …`�
 
 ## 后续入口
 
+侧面图重建实体鱼、Blender 骨骼动作和 Godot 3D 展示缸使用 [鱼类实体建模与游戏展示](../../../docs/FISH-VOLUME-WORKFLOW.md)。相近物种复用网格、跨体形物种重建几何，导入后检查真实骨骼/鱼鳍播放与目标场景日志，不把视频预览当作游戏运行结果。
+
 ### 一站式 Host Bridge
 
 外部 Agent 优先调用单入口，不要自行拼接六条命令：
