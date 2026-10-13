@@ -1,6 +1,99 @@
 # 单图鱼类实体建模与游戏展示
 
-本流程总结食人鱼、带鱼 Blender 原型及其 Godot 大厅接入。实际代码、正式 GLB、选定原生 Blender 文件和紧凑验收报告保存在 Fisher（`fishing-2d` 仓库）；Foundry 保存通用方法。视频是预览证据，游戏运行的是网格、蒙皮和骨骼动画。
+本流程覆盖像素鱼源图、物种专用实体建模、骨骼动作和 Godot 展厅验收。通用 CLI、构建器和物种 profile 保存在 Foundry；正式 GLB、选定原生模型和游戏集成报告保存在目标游戏。旧 Fisher（`fishing-2d`）实验脚本保留为历史参考，后续生产入口统一为 Foundry。视频是预览证据，游戏运行的是网格、蒙皮和骨骼动画。
+
+## 当前生产入口：先像素源图，后实体模型（040）
+
+原游戏是像素画风，增加三维体积不改变这项风格要求。新鱼先使用 Foundry 的生图流程，并把已有已接受的鱼图作为风格参考；明确整侧面、独立鱼体、轮廓可拆分的鱼鳍、有限色阶及清晰像素块。检查源图形态、轮廓、配色、像素密度和鳞片/鳍条表现，再按现有 `assets review` 接受源图。不要先做光滑程序色模型，再用 nearest 或后处理宣称风格已统一。
+
+已有鱼种可复用已经生成并接受的源图，仍须提供资产清单、生成来源和审核记录，不因变为 3D 就强制重复生图。源图 `image.raw` 阶段须完成，资产审核须接受；canonical 透明源图必须真实存在，Brief/profile 中必须明确 `pixel_art` 与 `style.reference_image`。缺失来源、审核或风格契约时，`volume plan` 返回阻塞/修输入；不能跳过 CLI 直接运行内部 Blender 脚本。
+
+先执行 `volume --help` 及所需子命令 `--help`。为本次鱼种准备 profile：
+
+1. 将 `resources/volume-fish/profile.schema.example.json` 复制到该项目的制作资料目录，例如 `volume/blacktip-reef-shark.profile.json`。模板是 `draft`，不是已接受鱼形；已有物种 profile 也须对照本次实际源图检查。
+2. 将已接受的游戏风格参考图原样复制到 profile 同目录，命名为 `style-reference.png`，保留示例的 `style.reference_image: "style-reference.png"`；也可显式改为绝对路径，或 `repo://` 开头的 Foundry 根相对路径。普通相对路径按 profile 所在目录解析，禁止 `../` 向父目录跳转。不要移动或改写原参考素材。
+3. 根据已接受的 canonical PNG 校准 `source_aspect_ratio`、body 横截面、脊柱、鱼鳍、眼睛、须和动作参数。坐标契约为 `normalized_source_top_left`；厚度和隐藏部位须说明推断。确认 `style.pixel_art=true`、`texture_filter="nearest"`、`roughness=1.0`。校准与输入审核通过后才把 `profile_review_status` 设为 `approved`，不能只改状态跳过检查。
+4. 调用下面的 `volume plan` 冻结输入。profile 输入接受与产物美术接受是不同审核：profile 已批准，输出仍须三视和实际游戏风格审核。
+
+CLI 输入如下，Windows 使用仓库 launcher；Unix 使用对应 launcher 或已配置的仓库 Python 环境：
+
+```bash
+.\gamefactory.cmd volume plan --brief <brief.json> --assets-manifest <assets-manifest.json> --asset <asset-name> --profile <species.profile.json> --output <handoff.json> --json
+.\gamefactory.cmd volume build --handoff <handoff.json> --blender <blender-executable> --json
+.\gamefactory.cmd volume validate --handoff <handoff.json> --json
+.\gamefactory.cmd volume render --handoff <handoff.json> --blender <blender-executable> --json
+```
+
+上述四步之后，操作者或外部 Agent 逐张检查侧面、正面、斜视、源图/风格参考对照图，并完成目标游戏画面审核；通过后执行第五条命令收口：
+
+```bash
+.\gamefactory.cmd volume accept --handoff <handoff.json> --note "Agent visual review: inspected side/front/oblique/style comparison and game views; record concrete findings and image paths here" --json
+```
+
+`--note` 必填，应写实际审查者身份、所看图及具体结论，不能照抄示例占位文字。外部 Agent 的检查只记录为 Agent 视觉审核，不能写成用户本人已接受。发现缺陷先修源图/profile/模型，再构建、渲染和复核，不能直接修改 handoff 的接受字段。
+
+`plan` 只创建待执行的 handoff；`build` 使用固定构建器生成实体、绑定、动作和导出；`validate` 读取产物检查技术条件；`render` 生成侧面、正面、斜视及源图/风格参考对照；`accept` 在视觉审查之后检查构建、渲染及四张审核图仍对应当前输入与产物，记录接受结果。产物目录为 handoff 同目录的 `<handoff-stem>-artifacts`，渲染检查另存 `render.json`。按每次 JSON 的 `ok/status/next_action/failures` 决定下一步，不把命令退出或文件存在当作完成。Blender 路径可由 `--blender` 临时指定，未提供时查找 PATH 中的 Blender。构建和渲染不自行触发生图；付费生图仍走已有 image/workflow 入口和资产账本。
+
+通用入口为 `resources/scripts/volume-fish/build_fish.py`，物种 profile 位于 `resources/volume-fish/`。profile 描述物种自己的轮廓、厚度、鱼鳍和动作，不用同一条鱼任意拉伸替代解剖。handoff 冻结源图与风格参考的 SHA256，记录 native 图片尺寸、产物路径及像素材质契约；输入改变后重做计划与相应审核。仅把 handoff、资产清单和 validation report 作为状态，不另建生产队列。
+
+### 可选正面辅助原画：双来源头部投影
+
+侧面图无法提供可靠的正面头部纹理。需要补全这部分时，先为正面辅助原画建立独立的 frozen Brief，设置 `project.view="front"`，通过已有 Foundry workflow 生图，再完成透明 canonical 图和 `assets review` 接受。提示硬锁为正对观众、居中对称，禁止侧面和三分之四角度。它使用与侧面图一致的像素风格参考；不是把侧面像素强行拉到整个正脸，也不是生成后的图像后处理。
+
+侧面原图继续用于身体和鱼鳍；可选正面原图只投射到 profile 指定的头部朝前表面。两张图都以原始分辨率打包，各自检查 Foundry `image.raw` 完成、接受状态、冻结 Brief、生成来源与哈希。正面资产的 Brief 从其资产清单读取，不能拿普通本地图片绕过来源审核。
+
+```bash
+.\gamefactory.cmd volume plan --brief <side-brief.json> --assets-manifest <side-assets-manifest.json> --asset <side-asset-name> --profile <dual-source.profile.json> --front-assets-manifest <front-assets-manifest.json> --front-asset <front-asset-name> --output <handoff.json> --json
+```
+
+`--front-assets-manifest` 与 `--front-asset` 必须成对提供，而且 profile 必须包含 `head_projection`；反过来，包含 `head_projection` 的 profile 也必须提供正面源图。随后仍执行相同的 `build → validate → render → 视觉审查 → accept`。不要仅靠新增字段将未审核的 profile 设为接受。
+
+`head_projection` 的必填字段如下。数值是说明结构的示例，必须按实际侧面几何与已接受正面图校准后才可使用：
+
+```json
+{
+  "head_projection": {
+    "start_u": 0.86,
+    "end_u": 0.98,
+    "normal_threshold": 0.35,
+    "side_limit": 0.65,
+    "source_rect": [0.25, 0.2, 0.75, 0.8],
+    "model_depth_range": [-0.05, 0.05],
+    "model_v_range": [0.3, 0.65]
+  }
+}
+```
+
+| 字段 | 含义与边界 |
+|---|---|
+| `start_u`、`end_u` | 侧面源图归一化横坐标中允许投射的头部区间，均为 0–1 且不相等；允许逆序，实际按最小/最大值取区间。 |
+| `normal_threshold` | 表面法线沿鱼头方向的分量必须大于此值，范围 0–0.95，避免覆盖侧腹。 |
+| `side_limit` | 表面法线左右分量绝对值必须小于此值，范围 0.1–1。 |
+| `source_rect` | 正面原图中的 `[左, 上, 右, 下]` 归一化矩形；各项 0–1，左小于右、上小于下。 |
+| `model_depth_range` | 模型左右厚度方向映射到正面矩形宽度的区间，按鱼头朝向统一左右；以侧面原图整幅宽度为 1 的模型单位表示，各项 −0.5–0.5 且递增。 |
+| `model_v_range` | 模型上下位置对应侧面源图的归一化高度区间，0–1 且递增，映射到正面矩形高度。 |
+
+`head_projection` 还可提供 `uv_patches`，用于在已接受正面原图中借用邻近像素修正重复眼纹等局部投影。它是最多 16 项的数组，每项只允许 `polygon` 与 `offset`：`polygon` 为 3–128 个归一化 `[u,v]` 顶点（各项 0–1），`offset` 为两个 −1–1 的有限数。每个顶点加上 offset 后的 donor 坐标也必须留在 0–1，不能靠截断或纹理重复掩盖越界。省略表示不修补；只改变模型 UV，不修改源 PNG。
+
+眼睛需要贴合头部表面时，可使用 `eyes.mode="surface_patch"`。原有 `center`、`radius`、`depth` 仍必填，并增加 `source_rect`（归一化 `[左,上,右,下]`，各项 0–1 且宽高为正）、`thickness`（0.0001–0.01）和 `surface_offset`（0–0.003）。`center` 和 `source_rect` 都取侧面原图左上原点的归一化坐标；半径、深度、厚度和表面偏移使用“侧面原图整幅宽度为 1”的模型单位，矩形的原生像素纵横比决定眼部贴片高度。派生半高 `radius × (矩形归一化高度 / 矩形归一化宽度) / source_aspect_ratio` 也必须为有限正数且不大于 0.05；CLI 按 profile 宽高比检查，构建器再按实际原图宽高检查，拒绝极窄矩形导致的溢出或过大几何。所有数值必须有限，拒绝 NaN/Infinity。未提供 `mode` 时维持原有眼睛行为，且禁止携带这三个 patch 字段；显式 mode 只接受 `surface_patch`，未知字段或模式均拒绝。这些参数须按实际头部和原画眼位校准，不能通过增加眼球体积掩盖眼位错误。
+
+投影只为符合区间和法线条件的身体表面选择正面材质及 UV，鱼鳍和其余身体继续使用侧面图。它不自动确定真实头部厚度，几何仍需单独校准。渲染对照包含侧面源图、正面源图、风格参考和模型，检查接缝、眼口位置、色阶及像素密度；有双来源文件不代表观感已通过。
+
+该接口描述 Foundry 支持的可选能力。040 本次正面辅助原画的实际生成/接受和双来源模型完成情况须读取对应资产清单、handoff 与报告；接口或自动测试通过不能写成本次双来源美术已经完成。
+
+### 风格审核不能由机械检查替代
+
+对照板至少同时提供源图、已有风格参考和模型三视；实际 Godot 中再检查默认距离、近看、正侧面和斜视。审核项目包括像素块尺度、有限色阶、轮廓节奏、鳞片/鳍条笔触、体积遮挡和原图已画明暗是否被物理光照重压。新旧鱼放在同一灯光和相机条件下比较。发现风格不一致，应修源图或材质并复核，不能把“32 项 GUI/骨骼检查通过”写成美术通过。
+
+自动构建和首次验证只确认网格、蒙皮、动作、原尺寸纹理、nearest 和粗糙材质等条件，保持 `style_visual_review=pending`、`next_action=human_review`，不能自动接受风格。`volume accept` 检查报告、输入、blend/GLB 以及四张渲染图的新鲜度并冻结相关哈希，通过后写入 `handoff.style_visual_review=accepted`、时间、审核说明及哈希，返回 `next_action=none`。这些机械门禁只防止接受陈旧或缺失产物，不会判断图中内容；实际视觉审查必须由调用者完成并据实记录。用户随后指出观感差异时，仍需继续修正和重新审核。
+
+每次重新构建或重新渲染都会清除上一轮 `style_review` 并把接受状态恢复为 `pending`；新的四张图需要重新视觉审核和 `accept`。接受记录绑定侧面源、可选正面源、风格参考、profile、blend、GLB 与四张审核图的哈希；后续 `validate` 也会核对已接受记录是否仍匹配当前产物，不能沿用旧注释给新模型背书。
+
+### 像素材质与实际引擎
+
+保留源图 native 分辨率并嵌入模型，大小由运行时真实体长控制。鱼的颜色贴图使用 nearest，最终 3D 视口展示也使用 nearest，避免两次平滑。过滤器保留已有像素，不能创造不存在的像素美术。远处斜视可能出现高频闪烁；若需要 nearest mipmap，须以同场景对比确认，不能静默改为线性过滤或把原图缩成屏幕尺寸。
+
+像素图已经画了光照，新增金属/镜面高光容易变成塑料或写实效果。当前展厅复制鱼材质后设 `metallic=0`、`metallic_specular=0`、`roughness=1`，保留既有柔和漫反射和源材质少量自发光，使三维体积仍可辨认；不统一切成完全无光照。身体不透明，独立鱼鳍保留原 alpha。相机、动画、鱼体尺寸和原图像素不因此改变。
 
 ## 单张侧面图能确定什么
 
@@ -40,7 +133,7 @@ Blender 坐标为 X 头尾、Y 厚度、Z 高度。普通摆尾左右摆动，�
 
 本次食人鱼 15 根骨骼、体长 0.1775 m；带鱼 67 根骨骼、体长 1.0 m。导出采样为 24 FPS/1 秒和 24 FPS/2 秒。Godot 当前片段时长约 1.0417/2.0417 秒，应保留实际测量，不能以源时间替代导入后的长度。
 
-## 大厅展示缸与验收
+## 原大厅展示缸与验收（036 历史阶段）
 
 大厅保留现有 2D UI，通过拥有独立 World3D 的 SubViewport 放入 3D 缸体、底砂、石头、灯光、摄像机及蒙皮鱼。缩略图和放大观察共用同一视口，不复制动画；轻量屏幕后处理添加水光。内尺寸约 2.8×1.05×1.2 m，当前仅展示，不写入鱼库存或饲养系统。
 
@@ -52,6 +145,57 @@ Blender 坐标为 X 头尾、Y 厚度、Z 高度。普通摆尾左右摆动，�
 
 只把平缓循环游动接入缸内；头朝上悬停、主动掉头、进食和挂线挣扎保留在 Blender，尚未接成游戏行为。小幅位置漂移是展示控制，不是路径跟随转向验收。
 
+## 独立 3D 展厅（038）
+
+后续用户要求单独的 3D 展厅与自由视角。游戏现在从海岸枢纽和各水族馆展厅的「3D 展厅」按钮进入独立场景；普通大厅不再挂载实时 3D 缩略缸。切换场景销毁旧视口，避免把两套场景同时留在后台。新增空白展厅仍按玩家设置创建，3D 展示不依赖当前展厅编号，也不改鱼库存或存档结构。
+
+复用已验收的食人鱼、带鱼 GLB 与骨骼游动，保留原纹理和真实相对体长。独立场景采用透视相机、玻璃缸与展台，支持拖动环绕、Shift 拖动或中键平移、滚轮及触控板缩放，并提供正面、斜视、复位、暂停和返回。全周观察时不能沿用遮挡背面的实心缸背板；俯仰、距离和平移应有边界，避免相机进入地板。
+
+SubViewport 按可见画面的实际宽高比生成，渲染尺寸上限 1280×720；这只限制最终屏幕渲染，不缩小原始鱼纹理。隐藏时停用视口和鱼动画。Mac 性能调查要分别记录场景创建耗时、持续帧耗时、纹理内存和视口渲染成本，不能凭「有 3D」判定全部卡顿由 GPU 引起。该项目已测到 2D 转身亮度分析重复执行和轮廓循环中频繁跨引擎读取属性的 CPU 成本，具体前后数值以 Fisher 本次验证报告为准。
+
+独立展厅需测试真实 GUI 输入路由、骨骼变化、暂停恢复、返回再进入、窗口宽高比变化与旧视口销毁。直接调用按钮回调不能代替鼠标命中测试；无窗口的 dummy renderer 也不能证明 Mac 上的显示帧率。038 的范围仍是展示与观察，未把 Blender 的其他动作接成完整 3D 饲养行为。
+
+## 两种新实体鱼（039 历史原型）
+
+新增黑鳍礁鲨使用物种专用网格和原生顶点色；现有银龙鱼使用原生 1838×515 侧面图重建，图像像素保持原样。各自保存构建器、打包 `.blend`、正式 GLB 与验证报告，目录为 Fisher 的 `experiments/blender-fish/models/{blacktip_reef_shark,silver_arowana}`。骨骼分别为 15 / 35 根，源游动循环 2 秒，Godot 导入实际片段为 `Animation`、约 2.041667 秒。体长 1.5 / 0.7 m 由运行时设定。
+
+本轮导入教训：GLB 有 `COLOR_0` 不代表 Godot 已使用它。黑鳍礁鲨首轮通体白色，读取导入网格确认颜色非白，但材质 `vertex_color_use_as_albedo=false`；复制运行材质后，只对含 `Mesh.ARRAY_FORMAT_COLOR` 的 surface 启用该属性，灰背、白腹和黑尖才正常。银龙鱼的独立鱼鳍必须连接原图 alpha，否则被轮廓略微包住的透明像素会变成黑色三角；身体材质仍保持不透明。两项均以目标引擎画面复核，不能只检查 Blender 或导出文件存在。
+
+展示分为黑鳍礁鲨、银龙鱼、原食人鱼与带鱼三组。切换复用房间/缸体，立即释放旧模型，保留暂停状态；近看仅调相机，不改体长。32 项真实 GUI、材质、骨骼和生命周期检查通过，另有 173 项游戏回归测试；最终报告为 `plans/reviews/2026-10-13-shark-arowana-3d-validation.json`。检查正侧面、另一侧、头部正面与斜视，保存两张最终引擎图，其余临时图和探针移出工程。
+
+形态参考分别为 [Smithsonian 黑鳍礁鲨条目](https://biogeodb.stri.si.edu/sftep/en/thefishes/species/4821)与[国家动物园银龙鱼条目](https://nationalzoo.si.edu/animals/silver-arowana)。资料支持形态特征；未知厚度、鳍弧度和运动幅度仍是制作推断。当前只有循环游动和轻微展示位移，不将其称为完整 3D 饲养或转向行为。039 这一轮历史记录中，生图、生视频 API 调用均为 0；这不是后续生产的零付费限制。用户随后要求新鱼先 Foundry 生图统一像素画风，执行范围由 040 覆盖。
+
+## 已接受模型的四动作展缸（042）
+
+当任务只为当前黑鳍礁鲨、银龙鱼、食人鱼和带鱼增加 `Swim/Turn/Ascend/Dive` 展示动作时，复用正式 GLB 的网格、贴图、蒙皮和基础循环，不重新生成原画，也不伪造新的 `image.raw` 阶段。该入口与上面的新原画/新几何生产分开；模型本身改变后，应先完成相应模型审核，再重新计划动作。
+
+固定控制器位于 `resources/runtime/godot/VolumeFishMotion.gd`，四份声明式配置位于 `resources/volume-fish/motion/<species>.json`。使用三条命令：
+
+```bash
+.\gamefactory.cmd volume motion-plan --profile resources/volume-fish/motion/blacktip_reef_shark.json --profile resources/volume-fish/motion/silver_arowana.json --profile resources/volume-fish/motion/piranha.json --profile resources/volume-fish/motion/hairtail.json --models-dir <game/assets/models/fish> --reviews-dir <plans/reviews/042-input-models> --output <motion.handoff.json> --json
+.\gamefactory.cmd volume motion-build --handoff <motion.handoff.json> --json
+.\gamefactory.cmd volume motion-validate --handoff <motion.handoff.json> --json
+```
+
+`motion-plan` 要求恰好四个不同物种，从目录读取 `<species>.glb` 和 `<species>.validation.json`，验证真实网格、skin、基础 `Animation` 循环及头到尾骨骼映射，再冻结 profile、模型、控制器和审核来源的 SHA256，写 `pending/run` handoff。基础循环须有实际骨骼旋转，变化的位移/缩放不在当前 rest/skin 包络范围内；四元数正负号变化不算真实动作。配置只有受限数值和骨名，不接受脚本、命令或插件字段。
+
+每鱼复用验证报告使用 `kind="existing_volume_model_review"`，至少包含 `schema_version:1`、`species`、实际 `model_sha256`、`review_status:"accepted"`、`reviewer:"command_operator"`、具体 `note` 和 1–8 项 `evidence` 文件路径。可同时保留标准 JSON 命令合同字段。evidence 引用既有 JSON 验收报告与 PNG/JPEG 实际画面；已有 Foundry volume handoff 必须仍通过验证、处于视觉接受状态，且指向同一 GLB。旧鱼的 operator 复用审核说明沿用的模型身份和历史证据，不把空的旧生图账本补写成新生成记录。
+
+| profile 范围 | 校验约束 |
+|---|---|
+| `real_length_cm`、`head_sign`、`base_clip` | 0.1–1000 cm；方向只接受 −1 或 1；基础片段为实际存在的 `Animation`。 |
+| `body_bones` | 4–32 个唯一 skin 骨名，按实际父子层级从头到尾排列。 |
+| `tank_size_m`、`path_radii_m` | 三维缸内尺寸各 0.1–100 m；水平两轴路径半径各 0.01–50 m。 |
+| `vertical_amplitude_m`、`envelope_radius_m` | 0–20 m 和 0.01–50 m；安全包络半径 E 至少为实际体长 L 的 2 倍。 |
+| 时间与基础游动 | `period_seconds` 4–60 s、`transition_seconds` 0.2–3 s、`body_delay_seconds` 0–2 s、`base_body_gain` 0–1。 |
+| 四个 `actions` | 每项只有 `radius_scale` 0.3–1、总 `bend_radians` 0–1、`vertical_sign` 和 `clip_speed` 0.2–2。Swim/Turn 不改变高度方向；Ascend 为 +1、Dive 为 −1。 |
+
+Swim 使用完整路径半径，Turn 的半径系数不大于 0.8 且总弯曲量至少比 Swim 多 0.1 rad；弯曲量沿骨链分配，不是每根骨骼都转同一大角度。所有数值须有限，未知字段拒绝。缸体各半尺寸必须容纳对应路径半径或垂直幅度，加上 E 与 0.02 L 余量。运行时还须按实际 Godot 骨架 rest 链和 skin 杠杆距离再次核算姿态包络，不能仅相信声明的 E。该保守空间不是物种实测的转弯半径。
+
+`motion-build` 仅将固定控制器和校准配置写到 handoff 同级的 `<stem>-artifacts/FoundryFishMotion.gd`、`motion.json` 和 `validation.json`；`motion.json` 为 `{schema_version:1, profiles:{species:profile}}`。游戏接入可复制到 `res://scripts/aquarium/FoundryFishMotion.gd` 与 `res://assets/models/fish/motion/motion.json`，已有 GLB 原样保留。输出位置固定在 handoff 范围内，拒绝符号链接和改写输出路径；重放前检查模型、profile、helper、复用报告及其证据是否变化。
+
+技术构建与只读验证保持 `human_review`，不自动认证动作质量。最终操作者报告须绑定实际使用的四个 GLB、生成配置及控制器哈希，记录 16 组物种/动作的真实 Godot 骨骼、路径、连续性、缸内包含性和 GUI 证据，再记录实际画面审核。该报告继续作为验收状态，不新增任务数据库或通用动作插件系统。
+
 ## 成本与保存范围
 
 复用验收模型后，增加动作主要是骨骼参数、关键帧和验证成本，不需要每个动作重复生视频；换鱼种仍有轮廓、厚度、鱼鳍、绑定及真实动作研究成本。先用代表动作验证，再扩展动作库。
@@ -59,3 +203,17 @@ Blender 坐标为 X 头尾、Y 厚度、Z 高度。普通摆尾左右摆动，�
 本次导出、游戏展示和录像没有调用生视频 API；早期局部修鳍曾使用生图，不能称整个流程零 API 成本。机器时间、人工时间、供应商费用分别记录，没有账单不编造价格。
 
 保存代码、正式 GLB、选定原生模型、必要局部材质与轮廓输入、资料记录和紧凑报告。缓存、密集逐帧图、旧视频和存档备份留本机。制作记录不是第二套状态；状态仍读取 manifest、progress、handoff、assets-manifest 和 validation report。
+
+## 040 双原画制作完成（2026-10-13）
+
+黑鳍礁鲨侧面主图与正面辅图均通过 Foundry workflow 和 assets review；本轮成功生成 2 张静图、0 次视频。源图尺寸分别为 1834×618 和 891×654，原像素嵌入模型，nearest、非金属、粗糙度 1。正式五步通过，接受后的再次 validate 返回 accepted/none。
+
+制作 profile 与权威 handoff 位于游戏 `experiments/blender-fish/models/blacktip_reef_shark/040-blacktip.profile.json`、`040-foundry.handoff.json`；原生 blend、GLB、机械验证、四张三视/风格对照图位于 `040-foundry.handoff-artifacts/`。实际游戏 GLB 与接受记录哈希一致。游戏中为 18 骨骼、2 秒循环、1.5 米展示体长；银龙鱼继续使用已有原生像素源图。
+
+实际 Mac Apple M4 Godot 检查 64/64 通过，游戏测试 173/173；游戏证据见 `output/040-foundry-pixel-volume-qa/validation.json` 和同目录两张 `*-final.png`。源图、正面、两侧及斜面已目视核查；修复侧面矩形接缝与重复眼。斜面眼形略长、鼻顶仍有窄纹理带，厚度与游动参数为艺术性估计。本次只接入展示游动，不表示已实现鲨鱼的转身、进食、挣扎。
+
+## 041 眼位修正（2026-10-13）
+
+用户指出040眼位观感异常。原因是前图覆盖侧眼并沿弯曲头部拉长；041改为左右各一个固定的原生侧图眼片，与头表面法线对齐，移除body两种投射中的重复眼色。原PNG不变，十个原网格及其权重不变。正式输入/权威状态为游戏制作目录 `041-eye.profile.json`、`041-eye.handoff.json`，原040资料保留为历史。
+
+新版双侧眼像素完整率100%，侧投影约44.5×39.9原图像素，落点误差小于0.59像素；旧前图眼残影映射为0。实际Mac Godot五视和66项检查通过，独立审查通过，Foundry接受及再次validate完成。当前游戏结果见 `output/041-shark-eye-qa/` 和 `plans/reviews/2026-10-13-shark-eye-placement-validation.json`。040所记录的斜视长眼限制已在041修正；本次没有额外生图或视频生成。

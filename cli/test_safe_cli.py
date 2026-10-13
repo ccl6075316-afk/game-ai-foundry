@@ -53,6 +53,12 @@ class SafeCliTests(unittest.TestCase):
         )
         self.assertEqual(argv_cd[:2], ["pipeline", "run"])
 
+    def test_volume_commands_are_explicitly_allowlisted(self) -> None:
+        for command in ("plan", "build", "validate", "render", "accept", "motion-plan", "motion-build", "motion-validate"):
+            self.assertTrue(normalize_action(f"python gamefactory.py volume {command} --handoff x.json --json")["ok"])
+        self.assertFalse(normalize_action("python gamefactory.py volume exec --python payload.py")["ok"])
+        self.assertFalse(normalize_action("python gamefactory.py volume build --handoff x.json; rm -rf /")["ok"])
+
     def test_filter_skips_comments(self) -> None:
         items = filter_runnable_actions(
             [

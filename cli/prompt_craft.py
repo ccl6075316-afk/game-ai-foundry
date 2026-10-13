@@ -361,6 +361,10 @@ VIEW_LOCK_PHRASES: dict[str, str] = {
     "side": (
         "Side view, profile facing right, readable silhouette for side-scroller gameplay"
     ),
+    "front": (
+        "Strict head-on front view, facing directly toward the viewer, centered and symmetric; "
+        "no side view, no three-quarter angle"
+    ),
     "top_down": (
         "Top-down view, looking straight down, clear readable shapes from above"
     ),

@@ -5,6 +5,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch
 
+from brief import ProjectContext, audit_content_class
 from media_prompt_profile import GPT_IMAGE
 from prompt_craft import (
     append_hard_locks,
@@ -81,6 +82,19 @@ class AssembleAssetPromptTests(unittest.TestCase):
         self.assertIn("View:", prompt)
         self.assertIn("Side view", prompt)
         self.assertIn("facing right", prompt.lower())
+
+    def test_front_view_is_legal_and_injects_strict_head_on_lock(self) -> None:
+        project = _project(view="front")
+        self.assertEqual(audit_content_class(ProjectContext.from_dict(project), []), [])
+        prompt = assemble_asset_prompt(
+            {"subject": "silver arowana head-on anatomy reference"},
+            project=project,
+            spec=_spec(content_class="prop_static"),
+        ).lower()
+        self.assertIn("strict head-on front view", prompt)
+        self.assertIn("facing directly toward the viewer", prompt)
+        self.assertIn("no side view, no three-quarter angle", prompt)
+        self.assertNotIn("profile facing right", prompt)
 
     def test_floor_tile_technical_is_seamless_not_white_studio(self) -> None:
         prompt = assemble_asset_prompt(

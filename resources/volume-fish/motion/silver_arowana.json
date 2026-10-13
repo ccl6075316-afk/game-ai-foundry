@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "species": "silver_arowana",
+  "real_length_cm": 70,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07",
+    "body_08"
+  ],
+  "tank_size_m": [
+    5.054,
+    4.074,
+    4.284
+  ],
+  "path_radii_m": [
+    0.945,
+    0.5599999999999999
+  ],
+  "vertical_amplitude_m": 0.45499999999999996,
+  "envelope_radius_m": 1.54,
+  "period_seconds": 14,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 1.0,
+  "base_body_gain": 1,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.14,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.66,
+      "vertical_sign": 0,
+      "clip_speed": 1.15
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "Existing accepted GLB and native textures unchanged. Motion overlays use real rest-bone axes and a single continuously advanced base clip.",
+    "Path timing, radius, bend and delay are artistic observation-gallery settings, not measured species biomechanics.",
+    "Conservative head-centered envelope is verified from skin influence lever arms plus rest bone-chain path lengths during configure."
+  ]
+}

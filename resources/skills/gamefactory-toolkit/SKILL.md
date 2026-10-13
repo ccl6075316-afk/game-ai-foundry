@@ -134,7 +134,17 @@ Unix：`./gamefactory setup ensure-python --json`，之后 `./gamefactory …`�
 
 ## 后续入口
 
-侧面图重建实体鱼、Blender 骨骼动作和 Godot 3D 展示缸使用 [鱼类实体建模与游戏展示](../../../docs/FISH-VOLUME-WORKFLOW.md)。相近物种复用网格、跨体形物种重建几何，导入后检查真实骨骼/鱼鳍播放与目标场景日志，不把视频预览当作游戏运行结果。
+侧面图重建实体鱼、Blender 骨骼动作和 Godot 3D 展示缸使用 [鱼类实体建模与游戏展示](../../../docs/FISH-VOLUME-WORKFLOW.md)。新鱼先通过 Foundry 生图与资产审核，使用已有游戏像素鱼作为风格参考；已有已接受源图可经过相同来源与审核检查复用。源图生成完成且审核接受后，再执行 `volume plan → build → validate → render`，完成视觉审核后 `volume accept --handoff <handoff> --note <实际审核说明> --json`，全部加 `--json`；先读各子命令 `--help`。计划必须明确像素画风、风格参考及源图哈希，缺失时先修输入，不绕过门禁直接调用 Blender。
+
+通用建模器位于 `resources/scripts/volume-fish/build_fish.py`，物种 profile 位于 `resources/volume-fish/`。通过 CLI 传入 profile，不把游戏仓库内的实验脚本当作长期唯一生产入口。相近物种可复用方法，跨体形物种重建几何。导入后检查真实骨骼/鱼鳍播放与目标场景日志，不把视频预览当作游戏运行结果。
+
+当前四条已接受 3D 鱼只增加 `Swim/Turn/Ascend/Dive` 时，使用 `volume motion-plan → motion-build → motion-validate`（均 `--json`），复用正式 GLB 与既有模型审核报告，固定控制器及四鱼配置由 Foundry `resources` 提供。先读三个子命令 `--help`；plan 冻结模型/profile/helper/审核来源哈希，build 只生成固定 Godot helper 和动作 JSON。技术检查仍返回 `human_review`，最终需真实 Godot 的 16 组动作与操作者画面审核报告。不得给旧模型补造新生图阶段，也不得把包络校验当作动作质量通过；具体命令、字段与证明格式见上述指南的 042 节。
+
+需要正面头部纹理时，使用独立 `project.view="front"` 的 frozen Brief 经 Foundry workflow 和资产审核生成辅助原画。`volume plan` 的 `--front-assets-manifest`、`--front-asset` 必须成对且与 profile 的 `head_projection` 同时存在；侧面、正面来源均检查生成完成、资产接受及哈希。渲染对照应同时检查侧面/正面原画、风格参考和模型，不能把单侧纹理强行扭曲视为正面原画。字段和命令示例见上述指南。
+
+保留原图像素尺寸，3D 贴图与展示视口使用 nearest 采样，避免平滑过滤和额外金属高光改写像素画风。过滤设置不能把不合格的光滑源图变成合格像素画。`volume validate` 的几何、权重、循环和贴图检查只能证明技术条件；风格仍需源图/风格参考/三视对照及实际 Godot 画面审核，`style_visual_review=pending` 不能当作风格通过。`volume accept` 要求构建、渲染和四张审核图仍对应当前输入，记录审核说明、时间及哈希并把 handoff 的 `style_visual_review` 设为 `accepted`，返回 `next_action=none`。外部 Agent 需先实际查看源图/风格参考/三视和游戏画面，不能把自己的审核写成用户本人接受；自动构建/验证仍不做视觉批准。构建与渲染结果继续使用 handoff 和 validation report，不另建状态库。
+
+重建或重渲染会清除旧接受说明并将视觉审核恢复为 `pending`；接受记录绑定当前输入、模型与四张审核图的哈希，后续验证也检查新鲜度。可选双来源接口通过测试不代表某次双来源模型已经生成并接受，必须读取该次资产清单、handoff 和验证报告。
 
 ### 一站式 Host Bridge
 

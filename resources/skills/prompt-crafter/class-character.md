@@ -7,10 +7,11 @@ For `type: character`, player usages (`player_idle`, `player_locomotion`, …), 
 | view | Write in `view` field |
 |------|----------------------|
 | `side` | Side view, profile facing right, readable side-scroller silhouette |
+| `front` | Strict head-on front view, facing the viewer; no side or three-quarter angle |
 | `top_down` | Top-down, looking straight down, clear shapes from above |
 | `three_quarter` | Three-quarter angle, readable game asset perspective |
 
-Do not assume side view when `project.view` is `top_down` or `three_quarter`.
+Do not assume side view when `project.view` is `front`, `top_down` or `three_quarter`. A `front` image can serve as auxiliary anatomy/volume reference for 3D reconstruction while the accepted side image remains the primary texture.
 
 ## Technical / subject
 

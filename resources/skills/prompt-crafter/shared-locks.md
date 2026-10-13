@@ -34,7 +34,7 @@ When context includes non-empty `project.art_tokens`:
 
 ## `project.view`
 
-When `project.view` is set (`side` | `top_down` | `three_quarter`), write `view` field to match — do not hardcode side-scroller-only language unless view is `side`.
+When `project.view` is set (`side` | `front` | `top_down` | `three_quarter`), write `view` field to match — do not hardcode side-scroller-only language unless view is `side`. Use `front` for strict head-on anatomy/volume reference art: facing the viewer, with no side or three-quarter angle. This auxiliary image does not replace the accepted side texture.
 
 ## Sizing reminder
 

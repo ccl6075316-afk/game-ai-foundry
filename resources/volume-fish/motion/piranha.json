@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "species": "piranha",
+  "real_length_cm": 17.75,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "Head",
+    "Spine_01",
+    "Spine_02",
+    "Tail_Peduncle",
+    "Tail"
+  ],
+  "tank_size_m": [
+    1.28155,
+    1.03305,
+    1.0863
+  ],
+  "path_radii_m": [
+    0.239625,
+    0.142
+  ],
+  "vertical_amplitude_m": 0.11537499999999999,
+  "envelope_radius_m": 0.3905,
+  "period_seconds": 10,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.48,
+  "base_body_gain": 1,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.14,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.56,
+      "vertical_sign": 0,
+      "clip_speed": 1.15
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "Existing accepted GLB and native textures unchanged. Motion overlays use real rest-bone axes and a single continuously advanced base clip.",
+    "Path timing, radius, bend and delay are artistic observation-gallery settings, not measured species biomechanics.",
+    "Conservative head-centered envelope is verified from skin influence lever arms plus rest bone-chain path lengths during configure."
+  ]
+}

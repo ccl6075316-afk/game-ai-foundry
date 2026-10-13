@@ -1,0 +1,385 @@
+"""Foundry parameter-only native-texture fish reconstruction backend for Blender 4.5+.
+Usage: blender --background --python build_fish.py -- handoff.json [--render-only]
+The approved source pixels remain unchanged. No vendor/API calls or executable profile fields.
+"""
+import sys, json, math, hashlib, struct, traceback, array
+from pathlib import Path
+import bpy, bmesh
+from mathutils import Vector, Quaternion
+from mathutils.geometry import delaunay_2d_cdt
+
+
+def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def require(test, message):
+    if not test: raise ValueError(message)
+def number(v, lo, hi): return isinstance(v,(int,float)) and not isinstance(v,bool) and math.isfinite(v) and lo<=v<=hi
+def keys(value, allowed, label):
+    require(isinstance(value,dict) and not set(value)-set(allowed.split()),label+' has unknown fields')
+def inside(pt,polygon):
+    x,y=pt;yes=False
+    for (ax,ay),(bx,by) in zip(polygon,polygon[1:]+polygon[:1]):
+        if (ay>y)!=(by>y) and x<(bx-ax)*(y-ay)/(by-ay)+ax:yes=not yes
+    return yes
+def polygons_overlap(a,b):
+    if any(inside(v,b) for v in a) or any(inside(v,a) for v in b):return True
+    def cross(p,q,r):return (q[0]-p[0])*(r[1]-p[1])-(q[1]-p[1])*(r[0]-p[0])
+    for p,q in zip(a,a[1:]+a[:1]):
+        for r,s in zip(b,b[1:]+b[:1]):
+            if max(p[0],q[0])<min(r[0],s[0]) or max(r[0],s[0])<min(p[0],q[0]) or max(p[1],q[1])<min(r[1],s[1]) or max(r[1],s[1])<min(p[1],q[1]):continue
+            if cross(p,q,r)*cross(p,q,s)<=0 and cross(r,s,p)*cross(r,s,q)<=0:return True
+    return False
+def uvpoint(p): return isinstance(p,list) and len(p)==2 and all(number(v,0,1) for v in p)
+def validate_profile(p):
+    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection rig fins eyes barbels animation notes','profile')
+    require(p['schema_version']==1 and p['coordinate_space']=='normalized_source_top_left','Unsupported profile coordinates/version')
+    require(p['profile_review_status']=='approved','Profile landmarks need review: profile_review_status must be approved')
+    require(number(p['real_length_cm'],.1,1000) and number(p['source_aspect_ratio'],.1,20),'Invalid length/aspect')
+    style=p['style'];keys(style,'pixel_art reference_image texture_filter roughness','style')
+    require(style['pixel_art'] is True and style['texture_filter']=='nearest' and style['roughness']==1,'Pixel style requires nearest, roughness 1')
+    body=p['body'];keys(body,'sections rings radial','body'); sections=body['sections']
+    require(4<=len(sections)<=128 and all(len(r)==4 and all(number(v,0,1) for v in r[:3]) and r[1]<r[2] and number(r[3],.0001,.3) for r in sections),'Invalid body sections')
+    require(all(a[0]<b[0] for a,b in zip(sections,sections[1:])),'Sections must increase in source u')
+    require(isinstance(body['rings'],int) and 16<=body['rings']<=256 and isinstance(body['radial'],int) and 12<=body['radial']<=96,'Invalid ring detail')
+    for patch in p.get('body_uv_patches',[]):
+        keys(patch,'polygon offset','body UV patch')
+        require(3<=len(patch['polygon'])<=128 and all(uvpoint(v) for v in patch['polygon']) and len(patch['offset'])==2 and all(number(v,-1,1) for v in patch['offset']),'Invalid body UV patch')
+    if p.get('head_projection'):
+        cap=p['head_projection'];keys(cap,'start_u end_u normal_threshold side_limit source_rect model_depth_range model_v_range uv_patches','head projection')
+        require(all(number(cap[k],0,1) for k in ['start_u','end_u']) and cap['start_u']!=cap['end_u'],'Invalid head interval')
+        rect=cap['source_rect'];require(len(rect)==4 and all(number(v,0,1) for v in rect) and rect[0]<rect[2] and rect[1]<rect[3],'Invalid front source rectangle')
+        depth=cap['model_depth_range'];require(len(depth)==2 and all(number(v,-.5,.5) for v in depth) and depth[0]<depth[1],'Invalid front depth range')
+        vr=cap['model_v_range'];require(uvpoint(vr) and vr[0]<vr[1],'Invalid front model height range')
+        require(number(cap['normal_threshold'],0,.95) and number(cap['side_limit'],.1,1),'Invalid head projection facing limits')
+        patches=cap.get('uv_patches',[]);require(isinstance(patches,list) and len(patches)<=16,'Too many front UV patches')
+        for patch in patches:
+            keys(patch,'polygon offset','front UV patch');polygon=patch['polygon'];offset=patch['offset']
+            require(3<=len(polygon)<=128 and all(uvpoint(v) for v in polygon) and len(offset)==2 and all(number(v,-1,1) for v in offset),'Invalid front UV patch')
+            require(all(uvpoint([v[0]+offset[0],v[1]+offset[1]]) for v in polygon),'Front UV donor leaves source bounds')
+    keys(p['rig'],'spine','rig');spine=p['rig']['spine']
+    require(4<=len(spine)<=32 and all(uvpoint(v) for v in spine),'Invalid spine')
+    require(all(a[0]<b[0] for a,b in zip(spine,spine[1:])) or all(a[0]>b[0] for a,b in zip(spine,spine[1:])),'Spine must consistently run head to tail')
+    require(len(p['fins'])<=32,'Too many fins')
+    fin_names=[f.get('name','')+suffix for f in p['fins'] for suffix in (['_left','_right'] if f.get('paired') else [''])]
+    require(len(set(fin_names))==len(fin_names) and all(n!='root' and not n.startswith('body_') for n in fin_names),'Duplicate or reserved fin names')
+    for f in p['fins']:
+        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis','fin')
+        require(isinstance(f['name'],str) and f['name'] and len(f['name'])<80,'Invalid fin name')
+        require(3<=len(f['polygon'])<=128 and all(uvpoint(v) for v in f['polygon']) and uvpoint(f['anchor']) and uvpoint(f['tip']),'Invalid fin landmarks')
+        require(isinstance(f['paired'],bool) and number(f['root_depth'],0,.3) and number(f['tip_depth'],0,.5) and number(f['thickness'],.0001,.02),'Invalid fin depth')
+        require(number(f['amplitude'],0,.5) and number(f['phase'],-20,20),'Invalid fin movement')
+        require(len(f['axis'])==3 and all(number(v,-1,1) for v in f['axis']) and Vector(f['axis']).length>.1,'Invalid fin axis')
+    if p['eyes'] is not None:
+        e=p['eyes'];keys(e,'center radius depth mode source_rect thickness surface_offset','eyes')
+        require(uvpoint(e['center']) and number(e['radius'],.001,.05) and number(e['depth'],.001,.2),'Invalid eyes')
+        if 'mode' in e:
+            require(e['mode']=='surface_patch','Invalid eye mode')
+            rect=e['source_rect'];require(len(rect)==4 and all(number(v,0,1) for v in rect) and rect[0]<rect[2] and rect[1]<rect[3],'Invalid eye source rectangle')
+            require(number(e['thickness'],.0001,.01) and number(e['surface_offset'],0,.003),'Invalid eye patch depth')
+            height=e['radius']*((rect[3]-rect[1])/(rect[2]-rect[0]))/p['source_aspect_ratio']
+            require(number(height,0,.05) and height>0,'Derived eye patch half-height exceeds geometry budget')
+        else:require(not any(k in e for k in ['source_rect','thickness','surface_offset']),'Eye patch fields require surface_patch mode')
+    require(len(p['barbels'])<=8,'Too many barbels')
+    for b in p['barbels']:
+        keys(b,'name path radius','barbel')
+        require(2<=len(b['path'])<=64 and all(len(v)==3 and uvpoint(v[:2]) and number(v[2],-.5,.5) for v in b['path']) and number(b['radius'],.0001,.01),'Invalid barbels')
+    a=p['animation'];keys(a,'fps period_seconds body_amplitudes phase_step','animation')
+    require(isinstance(a['fps'],int) and 12<=a['fps']<=60 and number(a['period_seconds'],.5,10) and number(a['phase_step'],0,3),'Invalid animation')
+    require(len(a['body_amplitudes'])==len(spine) and all(number(v,0,.5) for v in a['body_amplitudes']),'Invalid body amplitudes')
+
+
+def binary_inspect(path):
+    data=Path(path).read_bytes(); require(data[:4]==b'glTF','Invalid GLB magic')
+    size=struct.unpack_from('<I',data,12)[0]; doc=json.loads(data[20:20+size]); binary=data[28+size:]
+    def values(idx):
+        a=doc['accessors'][idx]; view=doc['bufferViews'][a['bufferView']]
+        count={'SCALAR':1,'VEC2':2,'VEC3':3,'VEC4':4,'MAT4':16}[a['type']]
+        fmt={5126:'f',5125:'I',5123:'H',5121:'B'}[a['componentType']]; step=struct.calcsize(fmt)*count
+        off=view.get('byteOffset',0)+a.get('byteOffset',0);stride=view.get('byteStride',step)
+        return [struct.unpack_from('<'+fmt*count,binary,off+i*stride) for i in range(a['count'])]
+    total=0;bad=0
+    for i,a in enumerate(doc['accessors']):
+        if a['componentType']==5126:
+            for row in values(i):
+                total+=len(row);bad+=sum(not math.isfinite(v) for v in row)
+    tracks=[]
+    for a in doc.get('animations',[]):
+        for c in a['channels']:
+            if c['target']['path']!='rotation':continue
+            rows=values(a['samplers'][c['sampler']]['output'])
+            tracks.append({'bone':doc['nodes'][c['target']['node']]['name'],'max_change':max(max(abs(x-y) for x,y in zip(row,rows[0])) for row in rows),'seam_delta':max(abs(x-y) for x,y in zip(rows[0],rows[-1]))})
+    nearest=all(s.get('magFilter')==9728 and s.get('minFilter')==9728 for s in doc.get('samplers',[])) and bool(doc.get('samplers'))
+    rough=all(m.get('pbrMetallicRoughness',{}).get('metallicFactor',1)==0 and m.get('pbrMetallicRoughness',{}).get('roughnessFactor',1)==1 for m in doc.get('materials',[]))
+    return {'finite_components':total,'nonfinite_components':bad,'animation_tracks':tracks,'nearest':nearest,'roughness':rough,'images_embedded':all('bufferView' in i for i in doc.get('images',[])),'animations':[a.get('name') for a in doc.get('animations',[])]}
+
+
+def build(h,p,source,outputs):
+    bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
+    image=bpy.data.images.load(str(source),check_existing=False);image.pack();W,H=image.size[:];aspect=H/W
+    require(16<=W<=8192 and 16<=H<=8192 and W*H<=32000000,'Source image dimensions out of range')
+    pixels=array.array('f',[0])*(W*H*4);image.pixels.foreach_get(pixels)
+    require(any(a<.1 for a in pixels[3::4]) and any(a>.9 for a in pixels[3::4]),'Source must contain transparent background and opaque fish')
+    uv_edge_repairs=0
+    def opaque_uv(u,v,towards):
+        nonlocal uv_edge_repairs
+        original=v
+        for step in range(65):
+            x=min(W-1,max(0,int(u*W)));y=min(H-1,max(0,int((1-v)*H)))
+            if pixels[(y*W+x)*4+3]>=.85:
+                if step:uv_edge_repairs+=1
+                return (u,v)
+            v=original+(1 if towards>original else -1)*(step+1)/H
+        raise ValueError('Body UV cannot find opaque source pixels: review contour profile')
+    require(abs(W/H/p['source_aspect_ratio']-1)<.02,'Source aspect differs from approved profile; review landmarks')
+    scene=bpy.context.scene;scene.render.fps=p['animation']['fps']; frames=round(scene.render.fps*p['animation']['period_seconds'])
+    scene.frame_start=0;scene.frame_end=frames
+    def xyz(u,v,depth=0):return Vector((u-.5,depth,(.5-v)*aspect))
+    def uv(co):return (co.x+.5,.5+co.z/aspect)
+    mat=bpy.data.materials.new('Native pixel art · nearest · matte');mat.use_nodes=True
+    bsdf=mat.node_tree.nodes.get('Principled BSDF');bsdf.inputs['Metallic'].default_value=0;bsdf.inputs['Roughness'].default_value=1;bsdf.inputs['Specular IOR Level'].default_value=0
+    tex=mat.node_tree.nodes.new('ShaderNodeTexImage');tex.image=image;tex.interpolation='Closest';tex.extension='EXTEND'
+    mat.node_tree.links.new(tex.outputs['Color'],bsdf.inputs['Base Color']);mat.node_tree.links.new(tex.outputs['Color'],bsdf.inputs['Emission Color']);bsdf.inputs['Emission Strength'].default_value=.35
+    finmat=mat.copy();finmat.name='Native pixel fins · alpha silhouette'
+    fintex=next(n for n in finmat.node_tree.nodes if n.type=='TEX_IMAGE')
+    finmat.node_tree.links.new(fintex.outputs['Alpha'],finmat.node_tree.nodes.get('Principled BSDF').inputs['Alpha']);finmat.surface_render_method='DITHERED'
+    front_image=None;frontmat=None;front_face_count=0
+    if p.get('head_projection'):
+        require(bool(h.get('front_source_image')),'head_projection requires accepted front_source_image')
+        front_image=bpy.data.images.load(h['front_source_image'],check_existing=False);front_image.pack()
+        FW,FH=front_image.size[:];require(16<=FW<=8192 and 16<=FH<=8192 and FW*FH<=32000000,'Front source dimensions out of range')
+        frontmat=mat.copy();frontmat.name='Accepted frontal pixel art · native nearest'
+        next(n for n in frontmat.node_tree.nodes if n.type=='TEX_IMAGE').image=front_image
+    arm=bpy.data.armatures.new(p['species']+'_Skeleton');rig=bpy.data.objects.new(p['species']+'_Rig',arm);scene.collection.objects.link(rig)
+    bpy.context.view_layer.objects.active=rig;rig.select_set(True);bpy.ops.object.mode_set(mode='EDIT')
+    root=arm.edit_bones.new('root');root.head=(0,0,0);root.tail=(0,0,.03)
+    spine=p['rig']['spine'];names=[]
+    for i,point in enumerate(spine):
+        b=arm.edit_bones.new('body_%02d'%i);b.head=xyz(*point)
+        b.tail=xyz(*(spine[i+1] if i+1<len(spine) else [point[0]+(point[0]-spine[i-1][0])*.4,point[1]]))
+        b.parent=arm.edit_bones[names[-1]] if names else root;names.append(b.name)
+    bpy.ops.object.mode_set(mode='OBJECT');rig.select_set(False)
+    def weights(u):
+        ordered=sorted(zip([v[0] for v in spine],names))
+        if u<=ordered[0][0]:return {ordered[0][1]:1}
+        if u>=ordered[-1][0]:return {ordered[-1][1]:1}
+        for (a,na),(b,nb) in zip(ordered,ordered[1:]):
+            if a<=u<=b:
+                t=(u-a)/(b-a);return {na:1-t,nb:t}
+    meshes=[];fin_motion=[]
+    def mesh(name,verts,faces,uvs,ws,thickness=0):
+        nonlocal front_face_count
+        data=bpy.data.meshes.new(name);data.from_pydata(verts,[],faces);data.update();obj=bpy.data.objects.new(name,data);scene.collection.objects.link(obj);data.materials.append(finmat if thickness else mat)
+        layer=data.uv_layers.new(name='NativeSourceUV')
+        for poly in data.polygons:
+            poly.use_smooth=True
+            for li in poly.loop_indices:layer.data[li].uv=uvs[data.loops[li].vertex_index]
+        for i,w in enumerate(ws):
+            for n,value in w.items():
+                if value>1e-8:(obj.vertex_groups.get(n) or obj.vertex_groups.new(name=n)).add([i],value/sum(w.values()),'REPLACE')
+        bpy.context.view_layer.objects.active=obj;obj.select_set(True)
+        if thickness:
+            mod=obj.modifiers.new('Closed fin membrane','SOLIDIFY');mod.thickness=thickness;mod.offset=0;bpy.ops.object.modifier_apply(modifier=mod.name)
+        bm=bmesh.new();bm.from_mesh(data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(data);bm.free()
+        if name=='Closed_body' and frontmat:
+            data.materials.append(frontmat);layer=data.uv_layers.active;cap=p['head_projection']
+            head_sign=1 if spine[0][0]>spine[-1][0] else -1
+            for poly in data.polygons:
+                center=sum((data.vertices[i].co for i in poly.vertices),Vector())/len(poly.vertices);u=center.x+.5
+                if min(cap['start_u'],cap['end_u'])<=u<=max(cap['start_u'],cap['end_u']) and poly.normal.x*head_sign>cap['normal_threshold'] and abs(poly.normal.y)<cap['side_limit']:
+                    poly.material_index=1;front_face_count+=1
+                    rect=cap['source_rect'];dr=cap['model_depth_range'];vr=cap['model_v_range']
+                    projected=[]
+                    for li in poly.loop_indices:
+                        co=data.vertices[data.loops[li].vertex_index].co
+                        side=max(0,min(1,(co.y*head_sign-dr[0])/(dr[1]-dr[0])))
+                        high=max(0,min(1,((.5-co.z/aspect)-vr[0])/(vr[1]-vr[0])))
+                        projected.append((rect[0]+side*(rect[2]-rect[0]),rect[1]+high*(rect[3]-rect[1])))
+                    # A donor is a face-level UV island. Mixing donor and original
+                    # corners would interpolate back through the removed pigment.
+                    offset=(0,0)
+                    for patch in cap.get('uv_patches',[]):
+                        if polygons_overlap(projected,patch['polygon']):
+                            offset=patch['offset'];break
+                    for li,(tu,tv) in zip(poly.loop_indices,projected):
+                        tu+=offset[0];tv+=offset[1]
+                        require(0<=tu<=1 and 0<=tv<=1,'Front UV donor left source bounds')
+                        layer.data[li].uv=(tu,1-tv)
+        mod=obj.modifiers.new('Swim skin','ARMATURE');mod.object=rig;obj.parent=rig;obj.select_set(False);meshes.append(obj);return obj
+    def section(u):
+        rows=p['body']['sections']
+        if u<=rows[0][0]:return rows[0][1:]
+        for a,b in zip(rows,rows[1:]):
+            if a[0]<=u<=b[0]:
+                t=(u-a[0])/(b[0]-a[0]);return [x*(1-t)+y*t for x,y in zip(a[1:],b[1:])]
+        return rows[-1][1:]
+    verts=[];faces=[];coords=[];ws=[];N=p['body']['rings'];R=p['body']['radial'];lo=p['body']['sections'][0][0];hi=p['body']['sections'][-1][0]
+    for i in range(N):
+        u=lo+(hi-lo)*i/(N-1);top,bottom,depth=section(u)
+        for j in range(R):
+            angle=math.tau*j/R;v=(top+bottom)/2-(bottom-top)/2*math.cos(angle)
+            verts.append(xyz(u,v,depth*math.sin(angle)))
+            inset=min(12/H,(bottom-top)*.20)
+            tu,tv=u,max(top+inset,min(bottom-inset,v))
+            for patch in p.get('body_uv_patches',[]):
+                if inside([tu,tv],patch['polygon']):
+                    tu+=patch['offset'][0];tv+=patch['offset'][1];break
+            require(0<=tu<=1 and 0<=tv<=1,'Body donor UV left source bounds')
+            tu,tv=opaque_uv(tu,tv,(top+bottom)/2)
+            coords.append((tu,1-tv));ws.append(weights(u))
+            if i:
+                a=(i-1)*R+j;b=(i-1)*R+(j+1)%R;faces.append((a,b,b+R,a+R))
+    faces += [tuple(reversed(range(R))),tuple((N-1)*R+j for j in range(R))]
+    body_object=mesh('Closed_body',verts,faces,coords,ws)
+    def finbone(name,anchor,tip,axis,amplitude,phase):
+        bpy.context.view_layer.objects.active=rig;bpy.ops.object.mode_set(mode='EDIT');b=arm.edit_bones.new(name);b.head=anchor;b.tail=tip
+        if (tip-anchor).length<.001:b.tail.z+=.005
+        parent=max(weights(anchor.x+.5),key=weights(anchor.x+.5).get);b.parent=arm.edit_bones[parent];bpy.ops.object.mode_set(mode='OBJECT')
+        fin_motion.append((name,Vector(axis),amplitude,phase));return name
+    for f in p['fins']:
+        polygon=f['polygon'];points=[Vector(v) for v in polygon]
+        xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
+        for i in range(1,13):
+            for j in range(1,7):
+                pt=[xmin+(xmax-xmin)*i/13,ymin+(ymax-ymin)*j/7]
+                if inside(pt,polygon):points.append(Vector(pt))
+        dv,de,df,*_=delaunay_2d_cdt(points,[(i,(i+1)%len(polygon)) for i in range(len(polygon))],[list(range(len(polygon)))],1,1e-7)
+        require(bool(df),'Fin polygon cannot be triangulated: '+f['name'])
+        for side in ([-1,1] if f['paired'] else [1]):
+            name=f['name']+('_left' if side<0 else '_right' if f['paired'] else '')
+            anchor=xyz(*f['anchor'],side*f['root_depth']);tip=xyz(*f['tip'],side*f['tip_depth']);bn=finbone(name,anchor,tip,f['axis'],f['amplitude']*side,f['phase'])
+            delta=Vector(f['tip'])-Vector(f['anchor']);denom=max(delta.length_squared,1e-8);vs=[];uvs=[];wts=[]
+            for v in dv:
+                t=max(0,min(1,(v-Vector(f['anchor'])).dot(delta)/denom));depth=side*(f['root_depth']+(f['tip_depth']-f['root_depth'])*t)
+                vs.append(xyz(v.x,v.y,depth));uvs.append((v.x,1-v.y));w={n:w*(1-t) for n,w in weights(v.x).items()};w[bn]=t;wts.append(w)
+            mesh(name,vs,df,uvs,wts,f['thickness'])
+    if p['eyes']:
+        e=p['eyes'];u,v=e['center']
+        for side in [-1,1]:
+            bpy.ops.mesh.primitive_uv_sphere_add(segments=24,ring_count=12,radius=1)
+            tmp=bpy.context.object;fs=[tuple(poly.vertices) for poly in tmp.data.polygons]
+            if e.get('mode')=='surface_patch':
+                found,anchor,normal,_=body_object.closest_point_on_mesh(xyz(u,v,side*e['depth']))
+                require(found and normal.y*side>0,'Eye landmark does not resolve to the matching body side')
+                normal.normalize();horizontal=Vector((1,0,0));horizontal=(horizontal-normal*horizontal.dot(normal)).normalized()
+                vertical=horizontal.cross(normal)*side;vertical.normalize()
+                rect=e['source_rect'];height=e['radius']*(H/W)*((rect[3]-rect[1])/(rect[2]-rect[0]))
+                require(number(height,0,.05) and height>0,'Derived eye patch half-height exceeds native-image geometry budget')
+                center=anchor+normal*e['surface_offset']
+                vs=[center+horizontal*pt.co.x*e['radius']+normal*pt.co.y*e['thickness']+vertical*pt.co.z*height for pt in tmp.data.vertices]
+                uvs=[((rect[0]+rect[2])/2+pt.co.x*(rect[2]-rect[0])/2,1-((rect[1]+rect[3])/2-pt.co.z*(rect[3]-rect[1])/2)) for pt in tmp.data.vertices]
+                wts=[weights(anchor.x+.5) for _ in vs]
+            else:
+                vs=[xyz(u,v,side*e['depth'])+Vector((pt.co.x*e['radius'],pt.co.y*e['radius']*.3,pt.co.z*e['radius'])) for pt in tmp.data.vertices];uvs=[uv(co) for co in vs];wts=[{names[0]:1} for _ in vs]
+            bpy.data.objects.remove(tmp,do_unlink=True);mesh('Textured_eye_'+str(side),vs,fs,uvs,wts)
+    for b in p['barbels']:
+        path=[xyz(*v) for v in b['path']];vs=[];fs=[];uvs=[]
+        for i,point in enumerate(path):
+            tangent=(path[min(i+1,len(path)-1)]-path[max(0,i-1)]).normalized();a=tangent.cross(Vector((0,0,1))).normalized();bb=tangent.cross(a).normalized()
+            for j in range(8):
+                co=point+(a*math.cos(j*math.tau/8)+bb*math.sin(j*math.tau/8))*b['radius']*(1-.8*i/(len(path)-1));vs.append(co);uvs.append(uv(point))
+                if i:
+                    n=i*8+j;k=i*8+(j+1)%8;fs.append((n-8,k-8,k,n))
+        fs.extend([tuple(reversed(range(8))),tuple((len(path)-1)*8+j for j in range(8))]);mesh(b['name'],vs,fs,uvs,[{names[0]:1} for _ in vs])
+    for frame in range(frames+1):
+        phase=math.tau*(frame%frames)/frames
+        for i,n in enumerate(names):
+            pb=rig.pose.bones[n];pb.rotation_mode='QUATERNION';axis=pb.bone.matrix_local.to_3x3().inverted()@Vector((0,0,1));pb.rotation_quaternion=Quaternion(axis,p['animation']['body_amplitudes'][i]*math.sin(phase-i*p['animation']['phase_step']));pb.keyframe_insert('rotation_quaternion',frame=frame,group=n)
+        for n,axis,amp,delay in fin_motion:
+            pb=rig.pose.bones[n];pb.rotation_mode='QUATERNION';pb.rotation_quaternion=Quaternion(pb.bone.matrix_local.to_3x3().inverted()@axis,amp*math.sin(phase-delay));pb.keyframe_insert('rotation_quaternion',frame=frame,group=n)
+    rig.animation_data.action.name='Swim';scene.frame_set(0)
+    closure={};bad_weights=0
+    for o in meshes:
+        bm=bmesh.new();bm.from_mesh(o.data);closure[o.name]=all(e.is_manifold for e in bm.edges);bm.free()
+        bad_weights+=sum(abs(sum(g.weight for g in v.groups)-1)>1e-5 for v in o.data.vertices)
+    bpy.ops.object.select_all(action='DESELECT')
+    rig.select_set(True)
+    for o in meshes:o.select_set(True)
+    bpy.context.view_layer.objects.active=rig;bpy.context.preferences.filepaths.save_version=0
+    bpy.ops.wm.save_as_mainfile(filepath=str(outputs['blend']))
+    bpy.ops.export_scene.gltf(filepath=str(outputs['glb']),export_format='GLB',use_selection=True,export_animations=True,export_animation_mode='ACTIVE_ACTIONS',export_frame_range=True,export_force_sampling=True,export_skins=True,export_materials='EXPORT',export_apply=False,export_yup=True)
+    # Blender chooses nearest mipmaps by default. Pixel-art contract forbids mip interpolation.
+    raw=outputs['glb'].read_bytes();size=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+size])
+    for sampler in doc.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
+    encoded=json.dumps(doc,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
+    tail=raw[20+size:];outputs['glb'].write_bytes(struct.pack('<4sII',b'glTF',2,20+len(encoded)+len(tail))+struct.pack('<I4s',len(encoded),b'JSON')+encoded+tail)
+    glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
+    checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':tuple(image.size)==(W,H) and image.packed_file is not None and glb['images_embedded'] and (front_image is None or (front_image.packed_file is not None and tuple(front_image.size)==(FW,FH) and front_face_count>0)),'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
+    return checks,{'source_size':[W,H],'source_packed':image.packed_file is not None,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
+
+
+def render_review(h,outputs):
+    bpy.ops.wm.open_mainfile(filepath=str(outputs['blend']));scene=bpy.context.scene;scene.frame_set(0)
+    scene.render.engine='CYCLES';scene.cycles.samples=12;scene.cycles.use_denoising=False
+    scene.render.resolution_x=900;scene.render.resolution_y=600;scene.render.resolution_percentage=100
+    scene.render.image_settings.file_format='PNG';scene.view_settings.view_transform='Standard';scene.render.film_transparent=False
+    world=bpy.data.worlds.new('Review neutral world');world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.13,.16,.19,1);world.node_tree.nodes['Background'].inputs[1].default_value=.75;scene.world=world
+    fish=[o for o in scene.objects if o.type=='MESH'];bound=[o.matrix_world@Vector(c) for o in fish for c in o.bound_box];lo=Vector([min(v[i] for v in bound) for i in range(3)]);hi=Vector([max(v[i] for v in bound) for i in range(3)]);center=(lo+hi)/2;span=max((hi-lo).x,.2)
+    camdata=bpy.data.cameras.new('Review camera');cam=bpy.data.objects.new('Review camera',camdata);scene.collection.objects.link(cam);scene.camera=cam;camdata.type='ORTHO';camdata.ortho_scale=span*1.35
+    lampdata=bpy.data.lights.new('Soft review light','AREA');lampdata.energy=35;lampdata.size=3;lamp=bpy.data.objects.new('Soft review light',lampdata);scene.collection.objects.link(lamp);lamp.location=(0,-2,3);lamp.rotation_euler=(Vector((0,0,0))-lamp.location).to_track_quat('-Z','Y').to_euler()
+    review=Path(outputs['review_dir']);review.mkdir(parents=True,exist_ok=True);files={}
+    spine=json.loads(Path(h['profile']).read_text())['rig']['spine'];head_sign=1 if spine[0][0]>spine[-1][0] else -1
+    for name,direction in [('side',(0,-3,0)),('front',(head_sign*3,0,0)),('oblique',(head_sign*2,-3,1.2))]:
+        cam.location=center+Vector(direction)*span;cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler()
+        bpy.context.view_layer.update();projected=[cam.matrix_world.inverted()@v for v in bound]
+        extent_x=max(v.x for v in projected)-min(v.x for v in projected);extent_y=max(v.y for v in projected)-min(v.y for v in projected)
+        camdata.ortho_scale=max(extent_x,extent_y*scene.render.resolution_x/scene.render.resolution_y)*1.25
+        scene.render.filepath=str(review/(name+'.png'));bpy.ops.render.render(write_still=True);files[name]=scene.render.filepath
+    # Build a true Blender comparison scene: unchanged source/anchor planes above model.
+    def image_plane(path,name,cx,cz,width):
+        image=bpy.data.images.load(str(path),check_existing=True);w,hh=image.size[:];height=width*hh/w
+        data=bpy.data.meshes.new(name);data.from_pydata([(cx-width/2,-.1,cz-height/2),(cx+width/2,-.1,cz-height/2),(cx+width/2,-.1,cz+height/2),(cx-width/2,-.1,cz+height/2)],[],[(0,1,2,3)]);obj=bpy.data.objects.new(name,data);scene.collection.objects.link(obj)
+        layer=data.uv_layers.new();coords=[(0,0),(1,0),(1,1),(0,1)]
+        for i in range(4):layer.data[i].uv=coords[i]
+        mat=bpy.data.materials.new(name);mat.use_nodes=True;nodes=mat.node_tree.nodes;nodes.clear();tex=nodes.new('ShaderNodeTexImage');tex.image=image;tex.interpolation='Closest';em=nodes.new('ShaderNodeEmission');out=nodes.new('ShaderNodeOutputMaterial');transparent=nodes.new('ShaderNodeBsdfTransparent');mix=nodes.new('ShaderNodeMixShader');links=mat.node_tree.links;links.new(tex.outputs['Color'],em.inputs[0]);links.new(tex.outputs['Alpha'],mix.inputs[0]);links.new(transparent.outputs[0],mix.inputs[1]);links.new(em.outputs[0],mix.inputs[2]);links.new(mix.outputs[0],out.inputs[0]);data.materials.append(mat)
+    source=Path(h['source_image']);anchor=Path(h['style_contract']['style_reference_image'])
+    image_plane(source,'Approved source',-.57,.68,.92);image_plane(anchor,'Style reference',.57,.68,.92)
+    rig=next(o for o in scene.objects if o.type=='ARMATURE')
+    def text(label,pos,size=.05):
+        data=bpy.data.curves.new(label,'FONT');data.body=label;data.size=size;obj=bpy.data.objects.new(label,data);scene.collection.objects.link(obj);obj.location=pos;obj.rotation_euler=(math.pi/2,0,0)
+    text('APPROVED SIDE SOURCE',(-1.03,-.12,1.02),.045);text('STYLE REFERENCE',(.12,-.12,1.02))
+    if h.get('front_source_image'):
+        fi=bpy.data.images.load(h['front_source_image'],check_existing=True)
+        image_plane(Path(h['front_source_image']),'Approved front source',-.57,-.23,min(.92,.48*fi.size[0]/fi.size[1]))
+        rig.location=(.57,0,-.23);rig.scale*=.92/span
+        text('APPROVED FRONT SOURCE',(-1.03,-.12,.09),.04);text('RECONSTRUCTED 3D',(.12,-.12,.09),.04)
+    else:
+        rig.location.z=-.22
+        text('RECONSTRUCTED 3D / SAME NATIVE PIXELS',(-.75,-.12,.08),.04)
+    cam.location=(0,-4,.34);cam.rotation_euler=(Vector((0,0,.34))-cam.location).to_track_quat('-Z','Y').to_euler();camdata.ortho_scale=2.35;scene.render.resolution_x=1100;scene.render.resolution_y=800;scene.render.filepath=str(review/'style-comparison.png');bpy.ops.render.render(write_still=True);files['style_comparison']=scene.render.filepath
+    return files
+
+
+def main():
+    args=sys.argv[sys.argv.index('--')+1:];require(len(args) in (1,2) and (len(args)==1 or args[1]=='--render-only'),'Expected handoff.json [--render-only]')
+    handoff=Path(args[0]).resolve();h=json.loads(handoff.read_text());outputs={k:Path(v).resolve() for k,v in h['outputs'].items() if k in ['blend','glb','validation_report','review_dir','render_report']}
+    for destination in outputs.values():
+        require(destination.is_relative_to(handoff.parent),'Outputs must stay within the handoff directory')
+    report={'schema_version':1,'run_id':h.get('run_id'),'ok':False,'status':'failed','next_action':'fix_input','outputs':{k:str(v) for k,v in outputs.items()},'checks':{},'failures':[],'style_visual_review':'pending'}
+    try:
+        source=Path(h['source_image']).resolve();profile=Path(h['profile']).resolve();p=json.loads(profile.read_text());validate_profile(p)
+        contract=h['style_contract'];require(contract.get('pixel_art') is True and contract.get('texture_filter')=='nearest' and contract.get('roughness')==1,'Invalid pixel style contract')
+        source_sha=sha(source);profile_sha=sha(profile);anchor=Path(contract['style_reference_image']).resolve();anchor_sha=sha(anchor)
+        require(source_sha==contract['source_sha256'],'Source hash changed');require(anchor_sha==contract['style_reference_sha256'],'Style reference hash changed')
+        frozen=h.get('profile_snapshot',{});require(not frozen.get('sha256') or frozen['sha256']==profile_sha,'Profile hash changed')
+        for key in ['blend','glb','validation_report']:
+            require(key in outputs,'Missing output '+key);outputs[key].parent.mkdir(parents=True,exist_ok=True)
+        report.update(source_sha256=source_sha,profile_sha256=profile_sha,style_reference_sha256=anchor_sha)
+        require(bool(h.get('front_source_image'))==bool(p.get('head_projection')),'Front input and head_projection must be supplied together')
+        if h.get('front_source_image'):
+            front_sha=sha(h['front_source_image']);require(front_sha==h.get('front_source',{}).get('sha256'),'Front source hash changed or missing provenance')
+            report['front_source_sha256']=front_sha
+        if '--render-only' in args:
+            require(outputs['blend'].is_file() and outputs['glb'].is_file(),'Build model before render')
+            previous=json.loads(outputs['validation_report'].read_text())
+            require(all(previous.get(key)==report[key] for key in (['source_sha256','profile_sha256','style_reference_sha256']+(['front_source_sha256'] if h.get('front_source_image') else []))),'Render inputs differ from successful build inputs')
+            require(previous.get('ok') is True and previous.get('blend_sha256')==sha(outputs['blend']) and previous.get('glb_sha256')==sha(outputs['glb']),'Model outputs differ from successful build validation')
+            files=render_review(h,outputs);report.update(ok=True,status='done',next_action='human_review',review=files,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']))
+            target=outputs.get('render_report',outputs['validation_report'])
+        else:
+            checks,metrics=build(h,p,source,outputs);report.update(checks=checks,metrics=metrics,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']));passed=all(checks.values());report.update(ok=passed,status='done' if passed else 'failed',next_action='human_review' if passed else 'fix_input')
+            report['failures']=[{'kind':'validation','code':k,'message':'Model check failed: '+k} for k,v in checks.items() if not v];target=outputs['validation_report']
+    except Exception as exc:
+        report['failures'].append({'kind':'validation','code':type(exc).__name__,'message':str(exc)});report['traceback']=traceback.format_exc();target=outputs.get('render_report') if '--render-only' in args else outputs['validation_report']
+    target=target or outputs['validation_report'];target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print('FOUNDRY_VOLUME_REPORT '+json.dumps(report,ensure_ascii=False))
+    if not report['ok']:raise SystemExit(2)
+
+if __name__=='__main__':main()

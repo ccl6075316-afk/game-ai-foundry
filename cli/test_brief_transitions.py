@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import unittest
 
 from brief import (
@@ -36,12 +37,21 @@ class BriefTransitionsTests(unittest.TestCase):
         self.assertEqual(graphs[0].transitions[0].from_clip, "idle")
 
     def test_magic_prince_requires_graph(self) -> None:
-        from pathlib import Path
-
-        brief = Path(__file__).resolve().parent.parent / "resources" / "magic-prince-brief.json"
-        project, assets, graphs = load_brief_full(brief)
-        self.assertIn("magic_prince", characters_requiring_animation_graph(assets))
-        validate_brief_for_export(project, assets, animation_graphs=graphs)
+        data = copy.deepcopy(MINIMAL_VIDEO_BRIEF)
+        data["project"]["player_asset"] = "magic_prince"
+        for asset in data["assets"]:
+            for key in ("name", "id", "reference_asset"):
+                if key in asset:
+                    asset[key] = asset[key].replace("knight", "magic_prince", 1)
+        for graph in data["animation_graphs"]:
+            graph["character_asset"] = "magic_prince"
+        brief = write_brief(data, prefix="magic-prince-")
+        try:
+            project, assets, graphs = load_brief_full(brief)
+            self.assertIn("magic_prince", characters_requiring_animation_graph(assets))
+            validate_brief_for_export(project, assets, animation_graphs=graphs)
+        finally:
+            brief.unlink(missing_ok=True)
 
     def test_one_shot_requires_then(self) -> None:
         project = ProjectContext(

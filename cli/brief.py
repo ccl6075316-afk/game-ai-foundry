@@ -71,7 +71,7 @@ PLAYER_USAGES = frozenset(
         "player_action",
     }
 )
-PROJECT_VIEWS = frozenset({"side", "top_down", "three_quarter"})
+PROJECT_VIEWS = frozenset({"side", "front", "top_down", "three_quarter"})
 CONTENT_CLASSES = frozenset(
     {
         "floor_tile",

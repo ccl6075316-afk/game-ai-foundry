@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "species": "hairtail",
+  "real_length_cm": 100,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "Body_00",
+    "Body_01",
+    "Body_02",
+    "Body_03",
+    "Body_04",
+    "Body_05",
+    "Body_06",
+    "Body_07",
+    "Body_08",
+    "Body_09",
+    "Body_10",
+    "Body_11",
+    "Body_12",
+    "Body_13",
+    "Body_14",
+    "Body_15",
+    "Body_16",
+    "Body_17",
+    "Body_18",
+    "Body_19",
+    "Body_20",
+    "Body_21",
+    "Body_22",
+    "Body_23"
+  ],
+  "tank_size_m": [
+    7.22,
+    5.82,
+    6.12
+  ],
+  "path_radii_m": [
+    1.35,
+    0.8
+  ],
+  "vertical_amplitude_m": 0.65,
+  "envelope_radius_m": 2.2,
+  "period_seconds": 18,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 1.2,
+  "base_body_gain": 0.35,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.04,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.78,
+      "vertical_sign": 0,
+      "clip_speed": 1.15
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.1,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.1,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "Existing accepted GLB and native textures unchanged. Motion overlays use real rest-bone axes and a single continuously advanced base clip.",
+    "Path timing, radius, bend and delay are artistic observation-gallery settings, not measured species biomechanics.",
+    "Conservative head-centered envelope is verified from skin influence lever arms plus rest bone-chain path lengths during configure.",
+    "Tokyo Sea Life Park observations and local hairtail-motion-research.json support dorsal-fin-led ordinary swimming, flexible turns and variable pitch; exact turn radius/time is unmeasured. Body-only base attenuation preserves existing independent dorsal-fin tracks; this action set is active swimming, not hovering."
+  ]
+}

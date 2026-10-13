@@ -1020,5 +1020,9 @@ from shell_cmds import register_shell_commands  # noqa: E402
 
 register_shell_commands(cli)
 
+from volume_cmds import volume_group  # noqa: E402
+
+cli.add_command(volume_group)
+
 if __name__ == "__main__":
     cli()
