@@ -38,14 +38,22 @@ def volume_group() -> None:
 @click.option("--output", required=True, type=click.Path(path_type=Path))
 @click.option("--front-assets-manifest", type=click.Path(path_type=Path))
 @click.option("--front-asset")
+@click.option("--top-assets-manifest", type=click.Path(path_type=Path))
+@click.option("--top-asset")
+@click.option("--bottom-assets-manifest", type=click.Path(path_type=Path))
+@click.option("--bottom-asset")
 @click.option("--json", "as_json", is_flag=True)
-def plan_cmd(brief: Path, assets_manifest: Path, asset: str, profile: Path, output: Path, front_assets_manifest: Path | None, front_asset: str | None, as_json: bool) -> None:
+def plan_cmd(brief: Path, assets_manifest: Path, asset: str, profile: Path, output: Path,
+             front_assets_manifest: Path | None, front_asset: str | None,
+             top_assets_manifest: Path | None, top_asset: str | None,
+             bottom_assets_manifest: Path | None, bottom_asset: str | None, as_json: bool) -> None:
     """Freeze accepted Foundry still, calibrated geometry and pixel-art style."""
     inputs = {"brief": str(brief.resolve()), "assets_manifest": str(assets_manifest.resolve()),
               "asset": asset, "profile": str(profile.resolve()), "output": str(output.resolve())}
 
     def action():
-        data = plan_volume(brief, assets_manifest, asset, profile, output, front_assets_manifest, front_asset)
+        data = plan_volume(brief, assets_manifest, asset, profile, output, front_assets_manifest, front_asset,
+                           top_assets_manifest, top_asset, bottom_assets_manifest, bottom_asset)
         return data, {"handoff": str(output.resolve()), "source": data["source"], "style_visual_review": "pending"}
     _execute("plan", inputs, action, as_json)
 
@@ -104,13 +112,13 @@ def _motion_execute(command: str, inputs: dict, action, as_json: bool) -> None:
 
 
 @volume_group.command("motion-plan")
-@click.option("--profile", "profiles", required=True, multiple=True, type=click.Path(path_type=Path), help="Repeat once for each of the four species.")
+@click.option("--profile", "profiles", required=True, multiple=True, type=click.Path(path_type=Path), help="Repeat once for each species in the complete exhibit.")
 @click.option("--models-dir", required=True, type=click.Path(path_type=Path))
 @click.option("--reviews-dir", required=True, type=click.Path(path_type=Path))
 @click.option("--output", required=True, type=click.Path(path_type=Path))
 @click.option("--json", "as_json", is_flag=True)
 def motion_plan_cmd(profiles: tuple[Path,...], models_dir: Path, reviews_dir: Path, output: Path, as_json: bool) -> None:
-    """Pin four existing reviewed models, bounded motion profiles and fixed helper."""
+    """Pin a complete reviewed exhibit, bounded motion profiles and fixed helper."""
     inputs = {"profiles":[str(p.resolve()) for p in profiles],"models_dir":str(models_dir.resolve()),
               "reviews_dir":str(reviews_dir.resolve()),"output":str(output.resolve())}
     _motion_execute("motion-plan",inputs,lambda:plan_motion(profiles,models_dir,reviews_dir,output),as_json)

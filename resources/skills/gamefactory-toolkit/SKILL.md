@@ -138,7 +138,7 @@ Unix：`./gamefactory setup ensure-python --json`，之后 `./gamefactory …`�
 
 通用建模器位于 `resources/scripts/volume-fish/build_fish.py`，物种 profile 位于 `resources/volume-fish/`。通过 CLI 传入 profile，不把游戏仓库内的实验脚本当作长期唯一生产入口。相近物种可复用方法，跨体形物种重建几何。导入后检查真实骨骼/鱼鳍播放与目标场景日志，不把视频预览当作游戏运行结果。
 
-当前四条已接受 3D 鱼只增加 `Swim/Turn/Ascend/Dive` 时，使用 `volume motion-plan → motion-build → motion-validate`（均 `--json`），复用正式 GLB 与既有模型审核报告，固定控制器及四鱼配置由 Foundry `resources` 提供。先读三个子命令 `--help`；plan 冻结模型/profile/helper/审核来源哈希，build 只生成固定 Godot helper 和动作 JSON。技术检查仍返回 `human_review`，最终需真实 Godot 的 16 组动作与操作者画面审核报告。不得给旧模型补造新生图阶段，也不得把包络校验当作动作质量通过；具体命令、字段与证明格式见上述指南的 042 节。
+当前已接受 3D 鱼只增加 `Swim/Turn/Ascend/Dive` 时，使用 `volume motion-plan → motion-build → motion-validate`（均 `--json`），复用正式 GLB 与既有模型审核报告，固定控制器及物种配置由 Foundry `resources` 提供。先读三个子命令 `--help`；plan 冻结完整展厅物种集合的模型/profile/helper/审核来源哈希，build 只生成固定 Godot helper 和动作 JSON。技术检查仍返回 `human_review`，最终需真实 Godot 的每鱼四动作与操作者画面审核报告。不得给旧模型补造新生图阶段，也不得把包络校验当作动作质量通过；具体命令、字段与证明格式见上述指南的 042 与 046 节。
 
 需要正面头部纹理时，使用独立 `project.view="front"` 的 frozen Brief 经 Foundry workflow 和资产审核生成辅助原画。`volume plan` 的 `--front-assets-manifest`、`--front-asset` 必须成对且与 profile 的 `head_projection` 同时存在；侧面、正面来源均检查生成完成、资产接受及哈希。渲染对照应同时检查侧面/正面原画、风格参考和模型，不能把单侧纹理强行扭曲视为正面原画。字段和命令示例见上述指南。
 

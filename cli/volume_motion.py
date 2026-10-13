@@ -1,4 +1,4 @@
-"""Bounded motion artifacts for four existing, reviewed volume fish.
+"""Bounded motion artifacts for a complete reviewed volume-fish exhibit.
 
 No model rebuilding or image provenance fabrication: pin the reviewed GLB,
 reuse receipt, calibrated motion profile and fixed Godot controller instead.
@@ -17,7 +17,8 @@ from PIL import Image
 
 from volume_fish import REPO_ROOT, glb_document, keys, number, point, read_json, require, resolve_file, sha, validate_volume
 
-SPECIES = {"blacktip_reef_shark", "silver_arowana", "piranha", "hairtail"}
+LEGACY_SPECIES = {"blacktip_reef_shark", "silver_arowana", "piranha", "hairtail"}
+SPECIES = LEGACY_SPECIES | {"scalloped_hammerhead"}
 RUNTIME = REPO_ROOT / "resources/runtime/godot/VolumeFishMotion.gd"
 
 
@@ -137,7 +138,7 @@ def inspect_model(path: Path, clip_name: str) -> dict:
         require(instances, "Uninstanced fish mesh")
         for i in instances:
             require(type(nodes[i].get("skin")) is int and 0 <= nodes[i]["skin"] < len(skins), "Unskinned fish mesh")
-            # The four accepted meshes are exported in common model coordinates.
+            # Accepted exhibit meshes are exported in common model coordinates.
             # Reject other layouts rather than misreporting their tank envelope.
             seen = set()
             while i is not None:
@@ -214,7 +215,9 @@ def validate_motion_profile(data: dict, model: dict) -> dict:
     fields = {"schema_version","species","real_length_cm","head_sign","base_clip","body_bones","tank_size_m",
               "path_radii_m","vertical_amplitude_m","envelope_radius_m","period_seconds","transition_seconds",
               "body_delay_seconds","base_body_gain","actions","notes"}
-    keys(data,fields,fields,"motion profile")
+    keys(data,fields | {"body_wave_radians","body_wave_cycles","bend_bias"},fields,"motion profile")
+    for field,low,high in [("body_wave_radians",0,1),("body_wave_cycles",.25,2),("bend_bias",0,2)]:
+        if field in data: number(data[field],low,high,field)
     require(data["schema_version"] == 1 and data["species"] in SPECIES,"Unknown motion profile species/schema")
     require(type(data["head_sign"]) is int and data["head_sign"] in {-1,1},"head_sign must be -1 or 1")
     require(data["base_clip"] == "Animation" and data["base_clip"] == model["clip"],"Unsupported base swim clip")
@@ -263,7 +266,8 @@ def _canonical_handoff(path: Path) -> Path:
 
 
 def plan_motion(profiles: tuple[Path, ...], models_dir: Path, reviews_dir: Path, output: Path) -> tuple[dict,dict]:
-    require(len(profiles) == 4,"Motion plan needs exactly four species profiles")
+    require(len(profiles) in {len(LEGACY_SPECIES), len(SPECIES)},
+            "Motion plan needs a complete legacy or current exhibit profile set")
     require(RUNTIME.is_file() and not RUNTIME.is_symlink(),"Bundled motion runtime is missing or symlinked")
     handoff = _canonical_handoff(output)
     require(not handoff.exists(),"Motion handoff already exists; use a new output to preserve its review")
@@ -272,7 +276,8 @@ def plan_motion(profiles: tuple[Path, ...], models_dir: Path, reviews_dir: Path,
         path = path.expanduser().resolve()
         data = read_json(path)
         species = data.get("species")
-        require(isinstance(species,str) and species in SPECIES and species not in used,"Four distinct supported species are required")
+        require(isinstance(species,str) and species in SPECIES and species not in used,
+                "Distinct supported species are required")
         used.add(species)
         model_path = resolve_file(str(models_dir.expanduser().resolve()/(species+".glb")),handoff.parent)
         receipt_path = resolve_file(str(reviews_dir.expanduser().resolve()/(species+".validation.json")),handoff.parent)
@@ -280,11 +285,13 @@ def plan_motion(profiles: tuple[Path, ...], models_dir: Path, reviews_dir: Path,
         bounds = validate_motion_profile(data,model)
         entries.append({"species":species,"profile":record(path),"model":record(model_path),
                         "review":reuse_receipt(receipt_path,species,model_path),"model_checks":model,"bounds":bounds})
+    require(used in {frozenset(LEGACY_SPECIES), frozenset(SPECIES)},
+            "Profiles must cover a complete legacy or current exhibit")
     outputs = output_paths(handoff)
     for value in outputs.values():
         safe_output(Path(value),handoff.parent)
     document = {"schema_version":1,"kind":"fish_volume_motion_handoff","status":"pending","next_action":"run",
-                "scope":"Swim/Turn/Ascend/Dive for four existing reviewed models; no asset regeneration",
+                "scope":f"Swim/Turn/Ascend/Dive for {len(entries)} reviewed models; no asset regeneration",
                 "runtime":record(RUNTIME.resolve()),"models":sorted(entries,key=lambda e:e["species"]),"outputs":outputs,
                 "motion_visual_review":"pending","failures":[]}
     save_json(handoff,document,handoff.parent)
@@ -299,7 +306,8 @@ def fresh_motion(path: Path) -> tuple[Path,dict,dict]:
     require(data.get("outputs") == output_paths(path),"Motion output paths changed")
     for value in data["outputs"].values():
         safe_output(Path(value),path.parent)
-    require(isinstance(data.get("models"),list) and len(data["models"]) == 4,"Motion handoff must contain four fish")
+    require(isinstance(data.get("models"),list) and len(data["models"]) in {len(LEGACY_SPECIES), len(SPECIES)},
+            "Motion handoff must contain a complete legacy or current exhibit")
     profiles = {}
     for entry in data["models"]:
         species = entry.get("species")
@@ -314,6 +322,8 @@ def fresh_motion(path: Path) -> tuple[Path,dict,dict]:
         bounds = validate_motion_profile(profile,model)
         require(model == entry["model_checks"] and bounds == entry["bounds"],"Pinned model checks or tank bounds changed")
         profiles[species] = profile
+    require(set(profiles) in {frozenset(LEGACY_SPECIES), frozenset(SPECIES)},
+            "Motion handoff species set is incomplete")
     return path,data,{"schema_version":1,"profiles":profiles}
 
 
@@ -326,9 +336,9 @@ def build_motion(path: Path) -> tuple[dict,dict]:
               "next_action":"human_review","motion_visual_review":"pending",
               "inputs":{"runtime":data["runtime"],"models":data["models"]},
               "outputs":{"runtime":record(Path(outputs["runtime"])),"config":record(Path(outputs["config"]))},
-              "checks":{"four_models_reviewed":True,"actual_skin_loop_bone_mapping":True,"bounded_profiles":True,
+              "checks":{"models_reviewed":len(config["profiles"]),"actual_skin_loop_bone_mapping":True,"bounded_profiles":True,
                         "tank_envelopes":True,"native_models_unchanged":True},
-              "remaining_review":"Actual Godot setup must validate posed envelope; inspect all 16 species/actions and GUI, then bind final operator report to these model/config/helper hashes.","failures":[]}
+              "remaining_review":f"Actual Godot setup must validate posed envelope; inspect all {len(config['profiles']) * 4} species/actions and GUI, then bind final operator report to these model/config/helper hashes.","failures":[]}
     save_json(Path(outputs["validation_report"]),report,path.parent)
     data.update(status="done",next_action="human_review",motion_visual_review="pending",failures=[],
                 artifact_hashes={key:sha(Path(value)) for key,value in outputs.items()})

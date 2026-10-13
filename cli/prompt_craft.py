@@ -368,6 +368,10 @@ VIEW_LOCK_PHRASES: dict[str, str] = {
     "top_down": (
         "Top-down view, looking straight down, clear readable shapes from above"
     ),
+    "bottom_up": (
+        "Bottom-up orthographic view, looking straight at the underside, centered and symmetric; "
+        "no side view, no three-quarter angle"
+    ),
     "three_quarter": (
         "Three-quarter view, slightly angled, readable game asset perspective"
     ),

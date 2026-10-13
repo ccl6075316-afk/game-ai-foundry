@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "species": "scalloped_hammerhead",
+  "real_length_cm": 250,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07"
+  ],
+  "tank_size_m": [
+    18.1,
+    14.6,
+    15.4
+  ],
+  "path_radii_m": [
+    3.375,
+    2.0
+  ],
+  "vertical_amplitude_m": 1.625,
+  "envelope_radius_m": 5.5,
+  "period_seconds": 15,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.7,
+  "base_body_gain": 0.84,
+  "body_wave_radians": 0.2,
+  "body_wave_cycles": 0.75,
+  "bend_bias": 0.9,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.15,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.62,
+      "bend_radians": 0.56,
+      "vertical_sign": 0,
+      "clip_speed": 1.12
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "The accepted scalloped-hammerhead GLB and native source textures remain unchanged; this profile only adds the fixed exhibit motion overlay.",
+    "Routine swimming uses a conservative posterior travelling wave. Lowe (1996, J Exp Biol 199:2605-2610) found juvenile Sphyrna lewini tailbeat frequency and stride length increase with relative speed.",
+    "Turn curvature is based on the related sphyrnid Sphyrna tiburo routine-yaw study and remains below maximal prey-capture maneuvering.",
+    "Ascend and dive keep body curvature modest. Gaylord et al. (2020) support treating the cephalofoil as an actively controlled forward rudder, while noting maximum head angles are uncommon in routine swimming.",
+    "Conservative head-centered envelope is verified again from actual Godot skin influence lever arms and rest-chain lengths during configure."
+  ]
+}

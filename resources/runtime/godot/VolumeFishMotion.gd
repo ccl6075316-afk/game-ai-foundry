@@ -14,6 +14,7 @@ var _pitch_axes: Array[Vector3] = []
 var _rest_rotations: Array[Quaternion] = []
 var _base_rotations: Array[Quaternion] = []
 var _bend_weights: Array[float] = []
+var _body_distances: Array[float] = []
 var _head_anchor := Vector3.ZERO
 var _time := 0.0
 var _clip_time := 0.0
@@ -23,6 +24,7 @@ var _blend_start := -100.0
 var _blend_clip_start := 0.0
 var _from: Dictionary = {}
 var _to: Dictionary = {}
+var _transitions: Array[Dictionary] = []
 var _pending_action := ""
 var _pending_restart := false
 var _ready := false
@@ -48,6 +50,7 @@ func configure(carrier: Node3D, model: Node3D, player: AnimationPlayer, skeleton
     _rest_rotations.clear()
     _base_rotations.clear()
     _bend_weights.clear()
+    _body_distances.clear()
     var failures: Array[String] = []
     for key in ["species", "real_length_cm", "head_sign", "base_clip", "body_bones", "tank_size_m", "path_radii_m", "vertical_amplitude_m", "envelope_radius_m", "period_seconds", "transition_seconds", "body_delay_seconds", "base_body_gain", "actions"]:
         if not profile.has(key): failures.append("Missing profile field: " + key)
@@ -60,16 +63,21 @@ func configure(carrier: Node3D, model: Node3D, player: AnimationPlayer, skeleton
     if not failures.is_empty() or _bones.size() < 4: return {"ok":false,"failures":failures + ["Body chain incomplete"]}
     var model_to_skeleton: Basis = (_model.global_basis.inverse() * _skeleton.global_basis).inverse().orthonormalized()
     var weight_total := 0.0
+    var chain_length := 0.0
     for i in _bones.size():
         var rest := _skeleton.get_bone_global_rest(_bones[i])
         _yaw_axes.append((rest.basis.inverse() * model_to_skeleton * Vector3.UP).normalized())
         _pitch_axes.append((rest.basis.inverse() * model_to_skeleton * Vector3.BACK).normalized())
         _rest_rotations.append(_skeleton.get_bone_rest(_bones[i]).basis.get_rotation_quaternion())
         _base_rotations.append(_skeleton.get_bone_pose_rotation(_bones[i]))
-        var weight := 0.0 if i == 0 else pow(float(i) / (_bones.size() - 1), 0.65)
+        if i > 0:
+            chain_length += (rest.origin - _skeleton.get_bone_global_rest(_bones[i - 1]).origin).length()
+        _body_distances.append(chain_length)
+        var weight := 0.0 if i == 0 else pow(float(i) / (_bones.size() - 1), float(profile.get("bend_bias", 0.65)))
         _bend_weights.append(weight)
         weight_total += weight
     for i in _bend_weights.size(): _bend_weights[i] /= weight_total
+    for i in _body_distances.size(): _body_distances[i] /= maxf(chain_length, 0.000001)
     var skeleton_to_carrier := _carrier.global_transform.affine_inverse() * _skeleton.global_transform
     _head_anchor = skeleton_to_carrier * _skeleton.get_bone_global_rest(_bones[0]).origin
     var tail_anchor := skeleton_to_carrier * _skeleton.get_bone_global_rest(_bones[-1]).origin
@@ -165,17 +173,22 @@ func _target(action: String, epoch: float) -> Dictionary:
     return {"radius":float(config.radius_scale),"bend":float(config.bend_radians),"a":amplitude * cos(angle),"b":-amplitude * sin(angle),"clip":float(config.clip_speed)}
 
 func _coefficients(at: float) -> Dictionary:
-    var u := clampf((at - _blend_start) / float(_profile.transition_seconds), 0.0, 1.0)
-    var weight := u * u * (3.0 - 2.0 * u)
+    var segment := _transitions[0]
+    for candidate in _transitions:
+        if float(candidate.start) > at: break
+        segment = candidate
+    var u := clampf((at - float(segment.start)) / float(_profile.transition_seconds), 0.0, 1.0)
+    # Continuous acceleration matters: body steering differentiates path heading.
+    var weight := u * u * u * (10.0 + u * (-15.0 + 6.0 * u))
     var result := {}
-    for key in _to: result[key] = lerpf(float(_from[key]), float(_to[key]), weight)
+    for key in segment.to: result[key] = lerpf(float(segment.from[key]), float(segment.to[key]), weight)
     return result
 
 func _integrated_clip(at: float) -> float:
     var duration := float(_profile.transition_seconds)
     var elapsed := maxf(0.0, at - _blend_start)
     var u := clampf(elapsed / duration, 0.0, 1.0)
-    var integrated_blend := duration * (u * u * u - 0.5 * pow(u, 4)) + maxf(0.0, elapsed - duration)
+    var integrated_blend := duration * (2.5 * pow(u, 4) - 3.0 * pow(u, 5) + pow(u, 6)) + maxf(0.0, elapsed - duration)
     return _blend_clip_start + float(_from.clip) * elapsed + (float(_to.clip) - float(_from.clip)) * integrated_blend
 
 func seek(seconds: float) -> void:
@@ -184,6 +197,7 @@ func seek(seconds: float) -> void:
     _action_epoch = 0.0
     _from = _target(_action, 0.0)
     _to = _from.duplicate()
+    _transitions = [{"start":0.0,"from":_from.duplicate(),"to":_to.duplicate()}]
     _blend_start = 0.0
     _blend_clip_start = 0.0
     _clip_time = _time * float(_to.clip)
@@ -211,12 +225,16 @@ func step(delta: float) -> void:
             _blend_clip_start = _clip_time
             _action_epoch = _time
             _action = selected
+            _transitions.append({"start":_time,"from":_from.duplicate(),"to":_to.duplicate()})
     _restore_base()
     var before := _clip_time
     _time += delta
     _clip_time = _integrated_clip(_time)
     _player.advance(maxf(0.0, _clip_time - before))
     _capture_base_and_pose()
+    # Keep actual prior paths until the trailing body has finished following them.
+    while _transitions.size() > 1 and float(_transitions[1].start) < _time - float(_profile.body_delay_seconds) - 0.20:
+        _transitions.pop_front()
 
 func _restore_base() -> void:
     for i in _bones.size(): _skeleton.set_bone_pose_rotation(_bones[i], _base_rotations[i])
@@ -246,20 +264,27 @@ func _capture_base_and_pose() -> void:
     for i in _bones.size():
         var base := _skeleton.get_bone_pose_rotation(_bones[i])
         _base_rotations[i] = base
-        var t := _time - delay * float(i) / (_bones.size() - 1)
-        var yaw_rate := wrapf(_yaw(t + .02) - _yaw(t - .02), -PI, PI) / .04
+        var t := _time - delay * _body_distances[i]
+        # Average steering over a short interval instead of amplifying a sharp
+        # acceleration change into an instantaneous reversal of body curvature.
+        var yaw_rate := wrapf(_yaw(t + .15) - _yaw(t - .15), -PI, PI) / .30
         var curve := clampf(absf(yaw_rate) / reference_rate, 0.0, 1.0)
         var delayed_coeff := _coefficients(t)
         var bend := -signf(yaw_rate) * float(delayed_coeff.bend) * curve * _bend_weights[i]
+        # Specify an absolute travelling heading wave, then take joint differences.
+        # This prevents the angle from multiplying with the number of rig bones.
+        var wave := 0.0
+        if i > 0:
+            wave = _wave_heading(_body_distances[i]) - _wave_heading(_body_distances[i - 1])
         var pitch_bend := 0.0
         if i > 0:
-            var previous_t := _time - delay * float(i - 1) / (_bones.size() - 1)
+            var previous_t := _time - delay * _body_distances[i - 1]
             pitch_bend = clampf(_path_pitch(t) - _path_pitch(previous_t), -.04, .04) * float(_profile.head_sign)
         var neutral := _rest_rotations[i].slerp(base, float(_profile.base_body_gain))
-        _skeleton.set_bone_pose_rotation(_bones[i], (neutral * Quaternion(_yaw_axes[i], bend) * Quaternion(_pitch_axes[i], pitch_bend)).normalized())
-        _bone_overlay.append({"bone":_skeleton.get_bone_name(_bones[i]),"yaw_radians":bend,"pitch_radians":pitch_bend,"delay_seconds":_time-t})
+        _skeleton.set_bone_pose_rotation(_bones[i], (neutral * Quaternion(_yaw_axes[i], bend + wave) * Quaternion(_pitch_axes[i], pitch_bend)).normalized())
+        _bone_overlay.append({"bone":_skeleton.get_bone_name(_bones[i]),"yaw_radians":bend,"wave_radians":wave,"pitch_radians":pitch_bend,"delay_seconds":_time-t})
         _bend_sum += absf(bend)
-        _joint_max = maxf(_joint_max, absf(bend))
+        _joint_max = maxf(_joint_max, absf(bend + wave))
     _head_path = _path(_time)
     _heading = _velocity(_time).normalized()
     _pitch = _path_pitch(_time)
@@ -269,6 +294,12 @@ func _capture_base_and_pose() -> void:
     var orientation := Basis(right, up, back)
     _carrier.transform = Transform3D(orientation, _head_path - orientation * _head_anchor)
     _skeleton.force_update_all_bone_transforms()
+
+func _wave_heading(distance_along_body: float) -> float:
+    var amplitude := float(_profile.get("body_wave_radians", 0.0))
+    var cycles := float(_profile.get("body_wave_cycles", 0.75))
+    var phase := TAU * _clip_time / _player.get_animation(_profile.base_clip).length
+    return amplitude * pow(distance_along_body, 1.4) * sin(phase - TAU * cycles * distance_along_body)
 
 func snapshot() -> Dictionary:
     if not _ready: return {"ready":false}

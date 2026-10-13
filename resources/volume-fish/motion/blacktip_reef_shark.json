@@ -25,20 +25,23 @@
   ],
   "vertical_amplitude_m": 0.9750000000000001,
   "envelope_radius_m": 3.3000000000000003,
-  "period_seconds": 16,
+  "period_seconds": 14,
   "transition_seconds": 1.0,
-  "body_delay_seconds": 0.85,
-  "base_body_gain": 1,
+  "body_delay_seconds": 0.65,
+  "base_body_gain": 0.85,
+  "body_wave_radians": 0.21,
+  "body_wave_cycles": 0.75,
+  "bend_bias": 1.1,
   "actions": {
     "Swim": {
       "radius_scale": 1.0,
-      "bend_radians": 0.14,
+      "bend_radians": 0.16,
       "vertical_sign": 0,
       "clip_speed": 1.0
     },
     "Turn": {
       "radius_scale": 0.65,
-      "bend_radians": 0.7,
+      "bend_radians": 0.58,
       "vertical_sign": 0,
       "clip_speed": 1.15
     },
@@ -57,7 +60,8 @@
   },
   "notes": [
     "Existing accepted GLB and native textures unchanged. Motion overlays use real rest-bone axes and a single continuously advanced base clip.",
-    "Path timing, radius, bend and delay are artistic observation-gallery settings, not measured species biomechanics.",
+    "Cruise wave is calibrated to Porter et al. (2020), which measured 12.21 +/- 3.13 degrees posterior flexion, 8.28 +/- 1.74 degrees anterior flexion and 0.24 +/- 0.08 body-length peak-to-peak tail amplitude in volitionally swimming Carcharhinus limbatus.",
+    "Turn curvature is intentionally a conservative routine-turn inference from shark yaw-turn literature; it does not reproduce maximal escape turns.",
     "Conservative head-centered envelope is verified from skin influence lever arms plus rest bone-chain path lengths during configure."
   ]
 }

@@ -111,8 +111,8 @@ def point(value: Any, length: int, low: float, high: float, label: str) -> None:
 
 def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     fields = {"schema_version", "species", "display_name", "coordinate_space", "source_aspect_ratio",
-              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection"}
-    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection"}, "profile")
+              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil"}
+    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil"}, "profile")
     require(data["schema_version"] == 1, "Unsupported profile schema")
     require(isinstance(data["species"], str) and re.fullmatch(r"[a-z][a-z0-9_]{0,63}", data["species"]), "Invalid species identifier")
     require(isinstance(data["display_name"], str) and 0 < len(data["display_name"]) <= 100, "display_name is required")
@@ -132,6 +132,21 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
         number(body[field], low, high, field)
         require(type(body[field]) is int, f"{field} must be an integer")
     patches = data.get("body_uv_patches", [])
+    if "cephalofoil" in data:
+        head = keys(data["cephalofoil"], {"sections", "center_v", "mouth"}, {"sections", "center_v"}, "cephalofoil")
+        if "mouth" in head:
+            mouth = keys(head["mouth"], {"points", "width", "source_uv"}, {"points", "width", "source_uv"}, "mouth")
+            require(3 <= len(mouth["points"]) <= 32, "Invalid mouth path")
+            for p in mouth["points"]: point(p, 3, -.5, 1, "mouth point")
+            number(mouth["width"], .0001, .005, "mouth width")
+            point(mouth["source_uv"], 2, 0, 1, "mouth source UV")
+        number(head["center_v"], 0, 1, "head center")
+        require(5 <= len(head["sections"]) <= 64, "Head needs 5–64 lateral sections")
+        previous = -.5
+        for row in head["sections"]:
+            point(row, 4, -.3, 1, "head section")
+            require(previous < row[0] <= .3 and 0 <= row[1] < row[2] <= 1 and .001 <= row[3] <= .05, "Invalid lateral head section")
+            previous = row[0]
     require(isinstance(patches, list) and len(patches) <= 16, "At most 16 body UV patches")
     for patch in patches:
         keys(patch, {"polygon", "offset"}, {"polygon", "offset"}, "UV patch")
@@ -145,7 +160,7 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
         for key in ("start_u", "end_u"):
             number(head[key], 0, 1, key)
         require(head["start_u"] != head["end_u"], "Head projection u range must be nonzero")
-        number(head["normal_threshold"], 0, .95, "head projection normal threshold")
+        number(head["normal_threshold"], -1, .95, "head projection normal threshold")
         number(head["side_limit"], .1, 1, "head projection side limit")
         point(head["source_rect"], 4, 0, 1, "front source rect")
         rect = head["source_rect"]
@@ -162,6 +177,32 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
             for p in patch["polygon"]:
                 point(p, 2, 0, 1, "head UV patch point")
                 point([p[i] + patch["offset"][i] for i in range(2)], 2, 0, 1, "head UV donor point")
+    for projection_name in ("dorsal_projection", "ventral_projection"):
+        if projection_name not in data:
+            continue
+        surface = keys(data[projection_name], {"start_u", "end_u", "normal_threshold", "source_rect", "model_depth_range", "head_source_rect", "sections"},
+                       {"start_u", "end_u", "normal_threshold", "source_rect", "model_depth_range"}, projection_name.replace("_", " "))
+        for key in ("start_u", "end_u"):
+            number(surface[key], 0, 1, key)
+        require(surface["start_u"] != surface["end_u"], f"{projection_name} u range must be nonzero")
+        number(surface["normal_threshold"], 0, .95, f"{projection_name} normal threshold")
+        point(surface["source_rect"], 4, 0, 1, f"{projection_name} source rect")
+        rect = surface["source_rect"]
+        require(rect[0] < rect[2] and rect[1] < rect[3], f"{projection_name} source rectangle must increase")
+        if "head_source_rect" in surface:
+            point(surface["head_source_rect"], 4, 0, 1, "head surface rect")
+            r = surface["head_source_rect"]
+            require(r[0] < r[2] and r[1] < r[3], "Head surface rectangle must increase")
+        point(surface["model_depth_range"], 2, -.5, .5, f"{projection_name} model depth range")
+        require(surface["model_depth_range"][0] < surface["model_depth_range"][1], f"{projection_name} model depth range must increase")
+        if "sections" in surface:
+            rows=surface["sections"]
+            require(isinstance(rows,list) and 4 <= len(rows) <= 128, "Surface mapping needs 4–128 sections")
+            previous=-1
+            for row in rows:
+                point(row,5,0,1,"surface mapping section")
+                require(row[0]>previous and row[2]<row[3] and .0001<=row[4]<=.3,"Invalid surface mapping section")
+                previous=row[0]
     rig = keys(data["rig"], {"spine"}, {"spine"}, "rig")
     require(isinstance(rig["spine"], list) and 4 <= len(rig["spine"]) <= 32, "rig requires 4–32 spine points")
     for p in rig["spine"]:
@@ -169,8 +210,14 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     require(isinstance(data["fins"], list) and len(data["fins"]) <= 32, "At most 32 fins")
     names = set()
     for fin in data["fins"]:
-        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis"}
-        keys(fin, allowed, allowed, "fin")
+        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect"}
+        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect"}, "fin")
+        if "source_rect" in fin:
+            point(fin["source_rect"], 4, 0, 1, "fin donor rectangle")
+            r=fin["source_rect"]
+            require(r[0]<r[2] and r[1]<r[3] and fin.get("opaque"), "Fin donor requires opaque and increasing rectangle")
+        number(fin.get("vertical_scale", 1), 0, 1, "fin vertical scale")
+        require(type(fin.get("opaque", False)) is bool, "Fin opaque must be boolean")
         require(isinstance(fin["name"], str) and re.fullmatch(r"[A-Za-z][A-Za-z0-9_]{0,63}", fin["name"]) and fin["name"] not in names, "Fin names must be unique identifiers")
         names.add(fin["name"])
         require(isinstance(fin["polygon"], list) and 3 <= len(fin["polygon"]) <= 128, "Fin needs 3–128 polygon points")
@@ -184,7 +231,8 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     if data.get("eyes") is not None:
         base = {"center", "radius", "depth"}
         patch_fields = {"source_rect", "thickness", "surface_offset"}
-        eyes = keys(data["eyes"], base | {"mode"} | patch_fields, base, "eyes")
+        eyes = keys(data["eyes"], base | {"mode", "source_uv"} | patch_fields, base, "eyes")
+        if "source_uv" in eyes: point(eyes["source_uv"], 2, 0, 1, "eye source UV")
         point(eyes["center"], 2, 0, 1, "eye center")
         number(eyes["radius"], .001, .05, "eye radius")
         number(eyes["depth"], .001, .2, "eye depth")
@@ -261,7 +309,13 @@ def generation_reference(plan: Path | None, raw: Path, task_id: str, asset: str,
                 and task.get("result", {}).get("exit_code") == 0, "Generation reference task was not successfully completed for this asset")
         command = task.get("command")
         require(isinstance(command, str), "Generation command missing")
-        argv = shlex.split(command, posix=True)
+        lexer = shlex.shlex(command, posix=True)
+        lexer.whitespace_split = True
+        lexer.commenters = ""
+        # Foundry emits mixed-separator Windows paths. Backslashes are path
+        # characters here, not shell escapes; provenance never executes them.
+        if os.name == "nt": lexer.escape = ""
+        argv = list(lexer)
         require("image" in argv and argv[argv.index("image") + 1:argv.index("image") + 2] == ["generate"], "Not an image generation command")
         def flag(name):
             require(argv.count(name) == 1 and argv.index(name) + 1 < len(argv), f"Generation command needs one {name}")
@@ -316,7 +370,9 @@ def expected_outputs(handoff_path: Path) -> dict:
 
 
 def plan_volume(brief: Path, assets_manifest: Path, asset: str, profile: Path, output: Path,
-                front_assets_manifest: Path | None = None, front_asset: str | None = None) -> dict:
+                front_assets_manifest: Path | None = None, front_asset: str | None = None,
+                top_assets_manifest: Path | None = None, top_asset: str | None = None,
+                bottom_assets_manifest: Path | None = None, bottom_asset: str | None = None) -> dict:
     brief, assets_manifest, profile, output = (p.expanduser().resolve() for p in (brief, assets_manifest, profile, output))
     require(not output.exists(), "Handoff already exists; choose a new output instead of overwriting state")
     require(output not in {brief, assets_manifest, profile}, "Output must not overwrite an input")
@@ -352,17 +408,32 @@ def plan_volume(brief: Path, assets_manifest: Path, asset: str, profile: Path, o
         front_source, front_review, front_brief = frozen_front(front_manifest, front_asset)
         data.update(front_source=front_source, front_source_image=front_source["path"], front_source_review=front_review,
                     front_assets_manifest=str(front_manifest), front_brief=front_brief)
+    for label, manifest, aux_asset, projection, view in (
+            ("top", top_assets_manifest, top_asset, "dorsal_projection", "top_down"),
+            ("bottom", bottom_assets_manifest, bottom_asset, "ventral_projection", "bottom_up")):
+        require(bool(manifest) == bool(aux_asset), f"--{label}-assets-manifest and --{label}-asset must be paired")
+        require(bool(manifest) == (projection in profile_data), f"{projection} requires a {label} source; {label} source requires {projection}")
+        if manifest:
+            resolved = manifest.expanduser().resolve()
+            aux_source, aux_review, aux_brief = frozen_view(resolved, aux_asset, view, label.capitalize())
+            data.update({f"{label}_source": aux_source, f"{label}_source_image": aux_source["path"],
+                         f"{label}_source_review": aux_review, f"{label}_assets_manifest": str(resolved),
+                         f"{label}_brief": aux_brief})
     write_json(output, data)
     return data
 
 
 def frozen_front(manifest: Path, asset: str) -> tuple[dict, dict, dict]:
+    return frozen_view(manifest, asset, "front", "Front")
+
+
+def frozen_view(manifest: Path, asset: str, required_view: str, label: str) -> tuple[dict, dict, dict]:
     ledger = load_assets_manifest(manifest)
     brief = resolve_file(ledger.get("brief"), REPO_ROOT)
     meta = read_json(brief).get("brief_meta", {})
-    require(isinstance(meta, dict) and meta.get("contract_version") == 1 and bool(meta.get("frozen_at")), "Front source requires a frozen Brief")
+    require(isinstance(meta, dict) and meta.get("contract_version") == 1 and bool(meta.get("frozen_at")), f"{label} source requires a frozen Brief")
     project, specs, _ = load_brief_full(brief)
-    require(project.view == "front", "Front source Brief must declare project.view=front")
+    require(project.view == required_view, f"{label} source Brief must declare project.view={required_view}")
     spec = find_asset(specs, asset)
     source, review, _ = accepted_source(manifest, spec.name, brief)
     return source, review, {"path": str(brief), "sha256": sha(brief), "art_direction": project.art_direction, "tokens": project.art_tokens,
@@ -394,6 +465,17 @@ def fresh_handoff(path: Path) -> dict:
                 "Front source/provenance/Brief changed after plan")
     else:
         require(not any(key in data for key in ("front_source_image", "front_assets_manifest", "front_brief", "front_source_review")), "Unexpected front source metadata")
+    for label, projection, view in (("top", "dorsal_projection", "top_down"), ("bottom", "ventral_projection", "bottom_up")):
+        source_key = f"{label}_source"
+        require(bool(data.get(source_key)) == (projection in profile_data), f"{label.capitalize()} source/projection contract changed")
+        if data.get(source_key):
+            aux_source, _, aux_brief = frozen_view(resolve_file(data[f"{label}_assets_manifest"], path.parent),
+                                                    data[source_key]["asset"], view, label.capitalize())
+            require(aux_source == data[source_key] and data.get(f"{label}_source_image") == aux_source["path"]
+                    and data.get(f"{label}_brief") == aux_brief, f"{label.capitalize()} source/provenance/Brief changed after plan")
+        else:
+            require(not any(key in data for key in (f"{label}_source_image", f"{label}_assets_manifest", f"{label}_brief", f"{label}_source_review")),
+                    f"Unexpected {label} source metadata")
     source, review, _ = accepted_source(resolve_file(data["assets_manifest"], path.parent), data["asset"], brief)
     require(source == data["source"] and data["source_image"] == source["path"], "Source/provenance changed after plan; create a fresh handoff")
     style = data["style_contract"]
@@ -434,7 +516,8 @@ def glb_document(path: Path) -> tuple[dict, bytes]:
     return doc, blob
 
 
-def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = None) -> dict:
+def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = None,
+               surface_source_paths: tuple[Path, ...] = ()) -> dict:
     doc, blob = glb_document(path)
     components = {5120: ("b", 1), 5121: ("B", 1), 5122: ("h", 2), 5123: ("H", 2), 5125: ("I", 4), 5126: ("f", 4)}
     widths = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4, "MAT4": 16}
@@ -530,7 +613,7 @@ def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = N
             require(error <= .0001, "Animation actual first/last keyframes do not loop")
             channels += 1
     require(channels > 0 and animated_motion, "No actual changing animated channels")
-    sources = [source_path] + ([front_source_path] if front_source_path else [])
+    sources = [source_path] + ([front_source_path] if front_source_path else []) + list(surface_source_paths)
     matching_by_source = []
     for source_path in sources:
         with Image.open(source_path) as source:
@@ -576,7 +659,11 @@ def validate_volume(handoff_path: Path, *, require_run: bool = False, check_visu
     require(report.get("glb_sha256") == sha(glb), "GLB output changed after builder validation")
     require(all(report.get("checks", {}).get(k) is True for k in CHECKS), "Builder mechanical validation is incomplete or failed")
     require(report.get("front_source_sha256") == data.get("front_source", {}).get("sha256"), "Builder front source hash mismatch")
-    checks = glb_checks(glb, Path(data["source_image"]), Path(data["front_source_image"]) if data.get("front_source_image") else None)
+    for label in ("top", "bottom"):
+        require(report.get(f"{label}_source_sha256") == data.get(f"{label}_source", {}).get("sha256"),
+                f"Builder {label} source hash mismatch")
+    checks = glb_checks(glb, Path(data["source_image"]), Path(data["front_source_image"]) if data.get("front_source_image") else None,
+                        tuple(Path(data[f"{label}_source_image"]) for label in ("top", "bottom") if data.get(f"{label}_source_image")))
     require(report.get("style_visual_review", "pending") == "pending", "Builder cannot automatically approve visual style")
     visual = data.get("style_visual_review", "pending")
     require(visual in {"pending", "accepted"}, "Unknown visual review status")
@@ -641,20 +728,32 @@ def validated_render(data: dict) -> dict:
     require(report.get("source_sha256") == data["source"]["sha256"] and report.get("profile_sha256") == data["profile_snapshot"]["sha256"]
             and report.get("style_reference_sha256") == data["style_contract"]["style_reference_sha256"], "Render inputs changed")
     require(report.get("front_source_sha256") == data.get("front_source", {}).get("sha256"), "Render front source hash mismatch")
+    for label in ("top", "bottom"):
+        require(report.get(f"{label}_source_sha256") == data.get(f"{label}_source", {}).get("sha256"),
+                f"Render {label} source hash mismatch")
     require(report.get("style_visual_review", "pending") == "pending", "Render cannot automatically approve style")
     review = report.get("review", {})
     require(isinstance(review, dict), "Render review artifact map missing")
-    for view in ("side", "front", "oblique", "style_comparison"):
+    views = ["side", "front", "oblique", "style_comparison"]
+    profile = read_json(Path(data["profile"]))
+    if profile.get("cephalofoil"):
+        views.extend(["clay_side", "clay_front", "clay_top", "clay_oblique"])
+    if data.get("top_source"): views.append("top")
+    if data.get("bottom_source"): views.append("bottom")
+    if "master_comparison" in review: views.append("master_comparison")
+    for view in views:
+        require(isinstance(review.get(view), str) and bool(review[view]), f"Required review view missing: {view}")
         path = resolve_file(review.get(view), Path(data["outputs"]["review_dir"]))
         require(path.is_relative_to(Path(data["outputs"]["review_dir"])), "Render review path escapes output directory")
         image_info(path)
-    return {view: image_info(resolve_file(value, Path(data["outputs"]["review_dir"]))) for view, value in review.items() if view in {"side", "front", "oblique", "style_comparison"}}
+    return {view: image_info(resolve_file(value, Path(data["outputs"]["review_dir"]))) for view, value in review.items() if view in set(views)}
 
 
 def review_fingerprint(data: dict) -> dict:
     return {"glb_sha256": sha(Path(data["outputs"]["glb"])), "blend_sha256": sha(Path(data["outputs"]["blend"])),
             "source_sha256": data["source"]["sha256"], "reference_sha256": data["style_contract"]["style_reference_sha256"],
             "profile_sha256": data["profile_snapshot"]["sha256"], "front_source_sha256": data.get("front_source", {}).get("sha256"),
+            "top_source_sha256": data.get("top_source", {}).get("sha256"), "bottom_source_sha256": data.get("bottom_source", {}).get("sha256"),
             "review_images": {view: info["sha256"] for view, info in validated_render(data).items()}}
 
 

@@ -128,6 +128,16 @@ class MotionTests(unittest.TestCase):
             with self.subTest(action=change),self.assertRaises(VolumeError):
                 motion.validate_motion_profile(data,model)
 
+    def test_travelling_wave_parameters_are_optional_and_bounded(self):
+        model = motion.inspect_model(self.models/'piranha.glb','Animation')
+        motion.validate_motion_profile(self.profile(),model)
+        motion.validate_motion_profile({**self.profile(),'body_wave_radians':.78,'body_wave_cycles':.85,'bend_bias':0},model)
+        for field,value in [('body_wave_radians',1.01),('body_wave_radians',-.01),
+                            ('body_wave_cycles',0),('body_wave_cycles',float('nan')),
+                            ('bend_bias',-1),('bend_bias',float('inf'))]:
+            with self.subTest(field=field,value=value),self.assertRaises(VolumeError):
+                motion.validate_motion_profile({**self.profile(),field:value},model)
+
     def test_tank_and_action_relationships_are_enforced(self):
         model = motion.inspect_model(self.models/'piranha.glb','Animation')
         changes = [{'envelope_radius_m':1.99},{'tank_size_m':[5,5.1,5.8]},
@@ -221,7 +231,7 @@ class MotionTests(unittest.TestCase):
         result,_=self.invoke('motion-validate','--handoff',self.handoff)
         self.assertEqual(result.exit_code,1,result.output)
 
-    def test_exactly_four_distinct_profiles_and_no_overwrite(self):
+    def test_complete_distinct_profile_set_and_no_overwrite(self):
         original=self.profiles[1];self.profiles[1]=self.profiles[0]
         self.assertEqual(self.plan()[0].exit_code,1)
         self.profiles[1]=original

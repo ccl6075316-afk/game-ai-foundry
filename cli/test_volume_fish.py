@@ -94,7 +94,7 @@ class VolumeTests(unittest.TestCase):
         image.save(self.source)
         Image.new('RGB',(8,4),'white').save(self.raw)
         image.save(self.reference)
-        self.profile_data = json.loads((volume.REPO_ROOT / 'resources/volume-fish/profile.schema.example.json').read_text())
+        self.profile_data = json.loads((volume.REPO_ROOT / 'resources/volume-fish/profile.schema.example.json').read_text(encoding='utf-8'))
         self.profile_data.update(profile_review_status='approved')
         self.profile_data['style']['reference_image'] = str(self.reference)
         self.brief_data = {'brief_meta':{'contract_version':1,'frozen_at':'2026-10-13T00:00:00Z'},'project': {'art_direction': 'pixel art, limited palette', 'art_tokens': {'texture_filter':'nearest'}}, 'assets': [{'name':'fish','id':'fish_id','type':'character','real_length_cm':30}]}
@@ -105,6 +105,27 @@ class VolumeTests(unittest.TestCase):
 
     def tearDown(self):
         self.tmp.cleanup()
+
+    def test_lateral_head_and_fin_geometry_reject_invalid_parameters(self):
+        self.profile_data['cephalofoil'] = {'center_v': .55, 'sections': [[-.2,.90,.97,.01],[-.1,.89,.98,.02],[0,.88,.97,.02],[.1,.89,.98,.02],[.2,.90,.97,.01]]}
+        volume.validate_profile(self.profile_data,self.profile)
+        for field,value in [('center_v',float('nan')),('sections',[[0,.9,.8,.02]]*5)]:
+            invalid=copy.deepcopy(self.profile_data);invalid['cephalofoil'][field]=value
+            with self.subTest(field=field), self.assertRaises(volume.VolumeError):volume.validate_profile(invalid,self.profile)
+        for value in [-.1,1.1]:
+            invalid=copy.deepcopy(self.profile_data)
+            invalid['fins']=[{'name':'Pectoral','polygon':[[.4,.5],[.6,.5],[.5,.7]],'anchor':[.5,.5],'tip':[.5,.7],'paired':True,'root_depth':.03,'tip_depth':.1,'thickness':.001,'amplitude':.01,'phase':0,'axis':[1,0,0],'vertical_scale':value}]
+            with self.subTest(scale=value), self.assertRaises(volume.VolumeError):volume.validate_profile(invalid,self.profile)
+
+    def test_lateral_head_requires_clay_review_evidence(self):
+        self.profile_data['cephalofoil'] = {'center_v': .55, 'sections': [[-.2,.90,.97,.01],[-.1,.89,.98,.02],[0,.88,.97,.02],[.1,.89,.98,.02],[.2,.90,.97,.01]]}
+        self.save_inputs();self.plan()
+        with patch('volume_fish.subprocess.run',side_effect=self.successful_builder):
+            self.invoke('build','--handoff',self.handoff,'--blender',sys.executable)
+            result,data=self.invoke('render','--handoff',self.handoff,'--blender',sys.executable)
+        self.assertEqual(result.exit_code,1)
+        self.assertIn('clay', str(data['failures']))
+        self.assertEqual(self.invoke('accept','--handoff',self.handoff,'--note','Test')[0].exit_code,1)
 
     def save_inputs(self):
         for path,data in [(self.brief,self.brief_data),(self.manifest,self.manifest_data),(self.profile,self.profile_data)]:
@@ -171,7 +192,7 @@ class VolumeTests(unittest.TestCase):
         data['head_projection'] = valid
         volume.validate_profile(data,self.profile)
         invalid = [dict(valid,start_u=0),dict(valid,source_rect=[0,0,1.01,1]),dict(valid,model_v_range=[.8,.2]),
-                   dict(valid,normal_threshold=.96),dict(valid,side_limit=0),dict(valid,start_u=float('nan')),
+                   dict(valid,normal_threshold=.96),dict(valid,normal_threshold=-1.01),dict(valid,side_limit=0),dict(valid,start_u=float('nan')),
                    dict(valid,python='arbitrary code')]
         for head in invalid:
             with self.subTest(head=head), self.assertRaises(volume.VolumeError):
@@ -292,6 +313,19 @@ class VolumeTests(unittest.TestCase):
                 volume.fresh_handoff(self.handoff)
         with self.assertRaises(volume.VolumeError):
             volume.generation_path('../../outside.png')
+
+    def test_surface_sections_reject_disordered_and_degenerate_donors(self):
+        self.profile_data['dorsal_projection'] = {
+            'start_u':.1,'end_u':.9,'normal_threshold':.5,
+            'source_rect':[.1,.2,.9,.8],'model_depth_range':[-.1,.1],
+            'sections':[[.1,.1,.4,.6,.02],[.3,.3,.3,.7,.06],
+                        [.6,.6,.3,.7,.05],[.9,.9,.45,.55,.01]]}
+        volume.validate_profile(self.profile_data,self.profile)
+        for column,value in [(0,.1),(2,.8),(4,0),(4,float('nan'))]:
+            invalid=copy.deepcopy(self.profile_data)
+            invalid['dorsal_projection']['sections'][1][column]=value
+            with self.subTest(column=column,value=value),self.assertRaises(volume.VolumeError):
+                volume.validate_profile(invalid,self.profile)
 
     def test_two_original_textures_on_one_closed_mesh_and_unused_front_rejected(self):
         front = self.root/'front.png'

@@ -165,11 +165,11 @@ SubViewport 按可见画面的实际宽高比生成，渲染尺寸上限 1280×7
 
 形态参考分别为 [Smithsonian 黑鳍礁鲨条目](https://biogeodb.stri.si.edu/sftep/en/thefishes/species/4821)与[国家动物园银龙鱼条目](https://nationalzoo.si.edu/animals/silver-arowana)。资料支持形态特征；未知厚度、鳍弧度和运动幅度仍是制作推断。当前只有循环游动和轻微展示位移，不将其称为完整 3D 饲养或转向行为。039 这一轮历史记录中，生图、生视频 API 调用均为 0；这不是后续生产的零付费限制。用户随后要求新鱼先 Foundry 生图统一像素画风，执行范围由 040 覆盖。
 
-## 已接受模型的四动作展缸（042）
+## 已接受模型的四动作展缸（042，046 扩展为五鱼）
 
 当任务只为当前黑鳍礁鲨、银龙鱼、食人鱼和带鱼增加 `Swim/Turn/Ascend/Dive` 展示动作时，复用正式 GLB 的网格、贴图、蒙皮和基础循环，不重新生成原画，也不伪造新的 `image.raw` 阶段。该入口与上面的新原画/新几何生产分开；模型本身改变后，应先完成相应模型审核，再重新计划动作。
 
-固定控制器位于 `resources/runtime/godot/VolumeFishMotion.gd`，四份声明式配置位于 `resources/volume-fish/motion/<species>.json`。使用三条命令：
+固定控制器位于 `resources/runtime/godot/VolumeFishMotion.gd`，声明式配置位于 `resources/volume-fish/motion/<species>.json`。使用三条命令：
 
 ```bash
 .\gamefactory.cmd volume motion-plan --profile resources/volume-fish/motion/blacktip_reef_shark.json --profile resources/volume-fish/motion/silver_arowana.json --profile resources/volume-fish/motion/piranha.json --profile resources/volume-fish/motion/hairtail.json --models-dir <game/assets/models/fish> --reviews-dir <plans/reviews/042-input-models> --output <motion.handoff.json> --json
@@ -177,7 +177,7 @@ SubViewport 按可见画面的实际宽高比生成，渲染尺寸上限 1280×7
 .\gamefactory.cmd volume motion-validate --handoff <motion.handoff.json> --json
 ```
 
-`motion-plan` 要求恰好四个不同物种，从目录读取 `<species>.glb` 和 `<species>.validation.json`，验证真实网格、skin、基础 `Animation` 循环及头到尾骨骼映射，再冻结 profile、模型、控制器和审核来源的 SHA256，写 `pending/run` handoff。基础循环须有实际骨骼旋转，变化的位移/缩放不在当前 rest/skin 包络范围内；四元数正负号变化不算真实动作。配置只有受限数值和骨名，不接受脚本、命令或插件字段。
+`motion-plan` 要求完整物种集合；当前集合为黑鳍礁鲨、路氏双髻鲨、银龙鱼、食人鱼和带鱼，同时保留旧四鱼 handoff 的只读兼容。从目录读取 `<species>.glb` 和 `<species>.validation.json`，验证真实网格、skin、基础 `Animation` 循环及头到尾骨骼映射，再冻结 profile、模型、控制器和审核来源的 SHA256，写 `pending/run` handoff。基础循环须有实际骨骼旋转，变化的位移/缩放不在当前 rest/skin 包络范围内；四元数正负号变化不算真实动作。配置只有受限数值和骨名，不接受脚本、命令或插件字段。
 
 每鱼复用验证报告使用 `kind="existing_volume_model_review"`，至少包含 `schema_version:1`、`species`、实际 `model_sha256`、`review_status:"accepted"`、`reviewer:"command_operator"`、具体 `note` 和 1–8 项 `evidence` 文件路径。可同时保留标准 JSON 命令合同字段。evidence 引用既有 JSON 验收报告与 PNG/JPEG 实际画面；已有 Foundry volume handoff 必须仍通过验证、处于视觉接受状态，且指向同一 GLB。旧鱼的 operator 复用审核说明沿用的模型身份和历史证据，不把空的旧生图账本补写成新生成记录。
 
@@ -192,11 +192,49 @@ SubViewport 按可见画面的实际宽高比生成，渲染尺寸上限 1280×7
 
 Swim 使用完整路径半径，Turn 的半径系数不大于 0.8 且总弯曲量至少比 Swim 多 0.1 rad；弯曲量沿骨链分配，不是每根骨骼都转同一大角度。所有数值须有限，未知字段拒绝。缸体各半尺寸必须容纳对应路径半径或垂直幅度，加上 E 与 0.02 L 余量。运行时还须按实际 Godot 骨架 rest 链和 skin 杠杆距离再次核算姿态包络，不能仅相信声明的 E。该保守空间不是物种实测的转弯半径。
 
+可选 `body_wave_radians`（0–1）为尾端相对头部的游动航向摆幅，`body_wave_cycles`（0.25–2）为沿身体的波周期，`bend_bias`（0–2，默认0.65）控制转弯分布向尾部集中程度。省略波幅时不添加身体波动。波相位跟随连续基础动画时间，沿真实rest骨链距离传播；各关节施加相邻绝对航向的差值，避免骨骼数量累加放大。基础循环用 `base_body_gain` 混合，独立鱼鳍仍播放原动画。`max_bend_rad`包含转弯与波动的合成关节偏转；包络仍依据任意旋转下的完整蒙皮杠杆上界。
+
 `motion-build` 仅将固定控制器和校准配置写到 handoff 同级的 `<stem>-artifacts/FoundryFishMotion.gd`、`motion.json` 和 `validation.json`；`motion.json` 为 `{schema_version:1, profiles:{species:profile}}`。游戏接入可复制到 `res://scripts/aquarium/FoundryFishMotion.gd` 与 `res://assets/models/fish/motion/motion.json`，已有 GLB 原样保留。输出位置固定在 handoff 范围内，拒绝符号链接和改写输出路径；重放前检查模型、profile、helper、复用报告及其证据是否变化。
 
-技术构建与只读验证保持 `human_review`，不自动认证动作质量。最终操作者报告须绑定实际使用的四个 GLB、生成配置及控制器哈希，记录 16 组物种/动作的真实 Godot 骨骼、路径、连续性、缸内包含性和 GUI 证据，再记录实际画面审核。该报告继续作为验收状态，不新增任务数据库或通用动作插件系统。
+技术构建与只读验证保持 `human_review`，不自动认证动作质量。最终操作者报告须绑定实际使用的全部 GLB、生成配置及控制器哈希，记录每鱼四动作的真实 Godot 骨骼、路径、连续性、缸内包含性和 GUI 证据，再记录实际画面审核。该报告继续作为验收状态，不新增任务数据库或通用动作插件系统。
+
+### 046 宽头鲨生产经验（2026-10-14）
+
+路氏双髻鲨最终使用独立的侧面、正面、俯视和仰视图。每个 frozen Brief 必须放在不同项目根，不能只靠子目录名区分，否则 workflow 状态文件会互相覆盖。侧图负责身体、鳍、尾和侧面轮廓，正面图负责头部厚度与宽度，俯视和仰视图分别提供头锤与颈部的背面、腹面颜色；四图都先走 Foundry 生图和资产接受，再进入同一个 volume handoff。
+
+宽头不能只把普通鲨鱼头部贴图横向拉宽。profile 的 `head_projection` 同时定义前向几何宽度和纹理供体区域；供体 crop 必须完全落在不透明像素内。若 crop 包含透明角，导出到不透明 body 材质后会形成大块黑斑，即使法线阈值和投射方向正确也无法补救。进入 Blender 前先对 front source 的 alpha 做轮廓采样，确认 crop 的四角和插值路径均不穿透明区；眼睛可用单独小网格定位在头翼末端，避免被正面投射拉成黑椭圆。
+
+侧面图也不能提供真实的头顶与腹面。把侧面眼睛、鳃和轮廓阴影沿环形截面包裹，会在头颈形成黑色项圈；把整张俯视或仰视透明图矩形投射到不透明网格，同样会把轮廓外透明像素显示成黑块。`dorsal_projection` 和 `ventral_projection` 因此只选择真正朝上或朝下的面，并用扩大后的 `model_depth_range` 将几何映射到供体图连续不透明的中央区域。每条鱼须独立校准 crop、深度范围和法线阈值。
+
+Blender 5 在本地化界面中会翻译节点显示名。构建器查找 Principled BSDF 和 Background 时使用稳定的 `node.type`，不依赖英文显示名。`head_projection.normal_threshold` 允许到 −1，用于确实需要覆盖整个前向头部的物种；这不是默认值，每条鱼仍应以最小覆盖范围为准。侧、正、斜视、俯视、仰视和源图风格对比全部目视通过后，才执行 `volume accept`。俯视和仰视专门检查头顶、腹面、头颈接缝及成对鱼鳍，不能由斜视代替。
+
+路氏双髻鲨动作没有复制黑鳍礁鲨 profile。常规游动沿后体传播保守波形；转身半径与弯曲参考同科鲨鱼研究，升降则把头翼视为可主动控制的前置舵面。文献支持方向，不足以给出当前展缸所有关节角，因此绝对幅度仍是明确标注的制作推断。046 的 Godot 验收覆盖五鱼二十种动作、二十五组动作过渡和二十八次真实鼠标检查。
 
 ## 成本与保存范围
+
+### 047 锤头与鱼鳍重建（2026-10-14）
+
+046 的宽头由纵向身体截面逐渐加宽，俯视成为楔形；双髻鲨不能用这个结构验收。新增可选 `cephalofoil.sections`，每行独立定义横向位置、后缘、前缘和半厚度，以横向扫掠构造闭合头翼，中央凹口和前缘浅凹槽由几何定义。它连接窄颈、眼位位于两端、口部位于腹面。它仍是制作重建，不是测量扫描。
+
+侧面鳍图的垂直长度不能同时充当三维胸鳍的垂直长度和横向展长。可选 `vertical_scale` 控制相对鳍根的垂直量，横向展长仍由独立 depth 定义。`opaque` 与 `source_rect` 让闭合几何决定鳍缘，颜色从经过审核的原图不透明供体矩形取样；只把顶点 UV 挪到不透明像素还不够，三角形内部可能穿越透明背景。背腹供体同样应避开原画里已画出的鳍和阴影，以免形成拉长条带。
+
+含 `cephalofoil` 的验收强制提供 `clay_side/clay_front/clay_top/clay_oblique` 四个灰模视图，连同五个带材质视图和源图风格对照绑定哈希。Godot 腹面诊断须用独立相机绕过展厅交互 pitch 限制，核对真正腹面且完整入镜。灰模证明结构，材质图证明贴图，运行测试证明动作连续性，三者不能互相代替。
+
+### 043 身体柔韧性与转向修正（2026-10-13）
+
+用户反馈鲨鱼与银龙身体僵硬。固定控制器增加沿真实骨链距离传播的身体波，分别校准两鱼摆幅与转向分布；Turn路径半径系数由0.65改为鲨鱼0.45、银龙0.38。保留身体正在跟随的历史路径，系数使用加速度连续的五次过渡，短窗平均转向速率，修复切换时迟滞身体突然折转。四鱼GLB、贴图和眼位保持原哈希。
+
+当前权威输入为游戏 `plans/volume-motion/043-flexible-fish-v3.handoff.json`，操作者报告为 `plans/reviews/2026-10-13-flexible-volume-fish-validation.json`；Foundry技术报告仍保持human_review，实际Agent画面审查单独记录。Windows Godot 4.6.1/RTX 5080实际展厅16组动作、20次动作切换以及23项真实鼠标路由检查通过；对照动画与16组画面位于游戏 `output/043-flexible-fish-qa/`。可复跑 `game/tests/VolumeFishMotionQA.gd`，使用游戏工程作为Godot的path。由于本地新鱼导入缓存缺失，QA通过Godot GLTFDocument读取相同GLB并进入现有展厅；未重测完整C#主场景导航或macOS性能。CLI十项测试通过，两项符号链接安全测试受Windows账户权限限制未能执行。
+
+### 044 单鱼默认镜头可见性修正（2026-10-13）
+
+用户指出正常3D场馆看不到鲨鱼和银龙。复现确认模型实际存在，但单鱼镜头错误使用技术安全包络鱼缸尺寸：鲨鱼镜头距离17.87米、银龙8.34米，两鱼缩成几十像素，鲨鱼还会被相邻鱼缸结构遮挡。单鱼页面现按真实鱼长2.6倍取景并跟随当前carrier；正面、斜视和复位均保持单鱼聚焦，只有总览显示完整鱼缸布局。正式standalone场景在Windows Godot 4.6.1/RTX 5080下复核；修复后距离分别为3.9米和1.82米。前后画面及报告位于游戏 `output/044-fish-visibility-qa/` 与 `plans/reviews/2026-10-13-volume-fish-visibility-validation.json`。173项游戏单元测试、16组动作、20次动作切换、23项鼠标路由和10项CLI动作测试通过。
+
+### 045 现实运动学文献校准（2026-10-14）
+
+用户认为043的摆幅过强。黑鳍鲨巡游波改按野外 `Carcharhinus limbatus` 实测校准：后段屈曲均值12.21°，本控制器尾端程序波由0.55降至0.21 rad；前体保持更稳，转弯总弯曲由0.95降至0.58 rad，Turn半径系数由0.45增至0.65。银龙依据同种研究确认为亚鲹形BCF游姿，约后2/3身体参与波动；程序波由0.78降至0.31 rad、沿身周期0.67，转弯总弯曲由1.0降至0.68 rad，半径系数由0.38增至0.60。银龙论文没有给关节角，其绝对幅值明确作为保守制作推断。
+
+资料与参数映射见游戏 `plans/research/045-fish-motion-literature.md`，权威动作 handoff 为 `plans/volume-motion/045-literature-calibrated-motion.handoff.json`，操作者验证报告为 `plans/reviews/2026-10-14-literature-calibrated-volume-fish-validation.json`。Windows Godot 4.6.1/RTX 5080实际场馆16组动作、20次转场、23项真实鼠标路由和全部包络检查通过；匹配机位对照位于 `output/045-literature-fish-qa/`。该校准针对常规巡游与偏航转向，不代表逃逸急转。
 
 复用验收模型后，增加动作主要是骨骼参数、关键帧和验证成本，不需要每个动作重复生视频；换鱼种仍有轮廓、厚度、鱼鳍、绑定及真实动作研究成本。先用代表动作验证，再扩展动作库。
 
@@ -217,3 +255,17 @@ Swim 使用完整路径半径，Turn 的半径系数不大于 0.8 且总弯曲�
 用户指出040眼位观感异常。原因是前图覆盖侧眼并沿弯曲头部拉长；041改为左右各一个固定的原生侧图眼片，与头表面法线对齐，移除body两种投射中的重复眼色。原PNG不变，十个原网格及其权重不变。正式输入/权威状态为游戏制作目录 `041-eye.profile.json`、`041-eye.handoff.json`，原040资料保留为历史。
 
 新版双侧眼像素完整率100%，侧投影约44.5×39.9原图像素，落点误差小于0.59像素；旧前图眼残影映射为0。实际Mac Godot五视和66项检查通过，独立审查通过，Foundry接受及再次validate完成。当前游戏结果见 `output/041-shark-eye-qa/` 和 `plans/reviews/2026-10-13-shark-eye-placement-validation.json`。040所记录的斜视长眼限制已在041修正；本次没有额外生图或视频生成。
+
+## 051：主图 B 驱动的路氏双髻鲨重建
+
+先选定 049B 主图，再经 Foundry 图生图生成并审核侧面 050r3、俯视 050r2、正面 050、腹面 050r4；腹面引用已审核的俯视图，保持 B 的来源链。生成视图仍是近似参考，不是精确正交测量。
+
+通用建模器支持 dorsal/ventral projection 的 `sections`：每行 `[model_u, source_u, donor_low_v, donor_high_v, model_half_depth]`，沿躯干插值对应关系，保留原尺寸纵向色泽与像素细节。横向头翼独立扫掠，头部贴图按每行透明轮廓取有效区域；前缘描边不能铺成整个正面的黑带。俯视和腹面中烘焙的眼睛要避开，由末端眼睛表面贴片承担。鱼鳍从原图轮廓校准几何与原尺寸 UV，不能用小块灰色 donor 替代整片鳍的细节。
+
+Windows 图生图命令的来源核验必须保留参数中的反斜杠；用禁用转义的词法解析器读取历史 argv，不执行历史命令。主图对照 `master-comparison.png` 与侧、正、斜、俯、腹和四张灰模图一起纳入接受哈希。机械校验不承担视觉验收；最终还需 Godot 实际四动作和场馆画面。051 仍简化腹面嘴部细节，不能宣称逐像素复刻主图或用户亲自验收。
+
+### Godot/.NET 验证与交付
+
+主项目 SDK 与测试项目 GodotSharp 依赖必须使用同一版本。本轮 Godot 4.6.1 使用 `SpriteFrames.SetAnimationLoop(name, bool)`；4.7 的 `LoopMode` / `SetAnimationLoopMode` 不能直接用于 4.6.1。测试项目通过不代表主项目可编译：交付前同时执行主项目 `dotnet build` 与测试项目 `dotnet test`，再核对真实引擎画面。Windows 仅安装 .NET 10 时，net8 测试可临时设置 `DOTNET_ROLL_FORWARD=Major`，不要把这个本机环境需求写入产品配置。
+
+正式交付保留最终 GLB、打包贴图的原生 blend、选定主图及四视图、生成与接受来源记录、物种 profile、动作研究和紧凑验收证据。旧失败模型与逐帧视频截图不进入提交。Foundry 通用工具与独立游戏仓库分别提交；历史 handoff 保持原哈希和路径，不为迁移档案伪造一次新的接受。新机器按归档源图重新初始化 workflow/handoff 后复验。
