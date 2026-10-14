@@ -75,3 +75,11 @@
 
 - 按用户提议，从 v12 几何创建 `arapaima-head-v18-single-source.profile.json`，移除 `head_projection`，眼睛保持 `null`，没有正面辅图或额外眼面；只复用已接受侧图。Foundry `plan→build→validate→render` 全部成功，机械检查通过。
 - 视觉审核失败：[正面](../evidence/arapaima-head/v18-single-source-front.png)只有一对眼睛，但额头呈大面积黑色同心条纹，嘴部像被拉成圆靶；[侧面](../evidence/arapaima-head/v18-single-source-side.png)鱼头背缘也有黑纹；[斜视](../evidence/arapaima-head/v18-single-source-oblique.png)更明显。单侧图消除了叠图重眼，却暴露侧面像素沿椭圆环绕到额头/正面的 UV 拉伸。当前通用单侧 UV 路径不能直接作为巨骨舌鱼成品；`style_visual_review=pending`，不 accept、不替换游戏 GLB。
+
+## 后续诊断：正面视角与截面形状
+
+- 直接用已验收 v11 的 `.blend` 从鱼头前方近距离透视渲染，[正面结果](../evidence/arapaima-head/v11-perspective-front.png)仍是圆脸、眼位和口部比例也未恢复；单改场馆镜头无法修正。
+- v19 诊断试样把头肩横向半宽增加到接近后躯，正面来源图缩到不含眼睛的中区，由侧面图负责眼睛。构建和渲染完成，但[正面](../evidence/arapaima-head/v19-front.png)出现平切的额头贴图面板、黑色环状条纹和仍然可见的后躯圆环，视觉审核失败。
+- v20 诊断试样尝试让头部截面由椭圆渐变为圆角方形；[正面](../evidence/arapaima-head/v20-front.png)的脸部轮廓稍改善，但后躯仍围住脸，额头黑纹及上下硬接缝仍在；[斜视](../evidence/arapaima-head/v20-oblique.png)显示额头斑驳条纹。视觉审核失败，实验性截面参数已从通用建模器撤回。
+- 当前正面源图本身是强透视构图：头脸占画面下半，躯干向上缩成橙色尖形，不是与侧图同尺度的正交前视。椭圆环建模器把侧图的纵向轮廓和正面宽度一起解释成标准横截面，又把两张图按法线分区投到同一连续网格，因此会同时产生后躯圆环与贴图接缝。仅加宽局部深度、改镜头或改截面幂次都不能可靠解决；下一版需要经风格审核的同尺度正交前/侧/俯视图，并为头部明确一套连续表面与每只眼的唯一纹理归属。
+- 本轮诊断没有正式的本机源图生成 manifest/plan；旧 v11 handoff 保留的是另一台机器的路径。以上构建是隔离的模型实验，不属于可 `volume accept` 的 Foundry 成品，不得安装到游戏。
