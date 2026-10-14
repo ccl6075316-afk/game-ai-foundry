@@ -1,0 +1,110 @@
+diff --git a/resources/scripts/volume-fish/build_fish.py b/resources/scripts/volume-fish/build_fish.py
+index 0a673f3..a856641 100644
+--- a/resources/scripts/volume-fish/build_fish.py
++++ b/resources/scripts/volume-fish/build_fish.py
+@@ -141,13 +141,23 @@ def build(h,p,source,outputs):
+     finmat=mat.copy();finmat.name='Native pixel fins · alpha silhouette'
+     fintex=next(n for n in finmat.node_tree.nodes if n.type=='TEX_IMAGE')
+     finmat.node_tree.links.new(fintex.outputs['Alpha'],finmat.node_tree.nodes.get('Principled BSDF').inputs['Alpha']);finmat.surface_render_method='DITHERED'
+-    front_image=None;frontmat=None;front_face_count=0
++    front_image=None;frontmat=None;front_fade_mats=[];front_face_count=0
+     if p.get('head_projection'):
+         require(bool(h.get('front_source_image')),'head_projection requires accepted front_source_image')
+         front_image=bpy.data.images.load(h['front_source_image'],check_existing=False);front_image.pack()
+         FW,FH=front_image.size[:];require(16<=FW<=8192 and 16<=FH<=8192 and FW*FH<=32000000,'Front source dimensions out of range')
+         frontmat=mat.copy();frontmat.name='Accepted frontal pixel art · native nearest'
+-        next(n for n in frontmat.node_tree.nodes if n.type=='TEX_IMAGE').image=front_image
++        fronttex=next(n for n in frontmat.node_tree.nodes if n.type=='TEX_IMAGE');fronttex.image=front_image
++        frontmat.node_tree.links.new(fronttex.outputs['Alpha'],frontmat.node_tree.nodes.get('Principled BSDF').inputs['Alpha']);frontmat.surface_render_method='DITHERED'
++        # glTF exports texture alpha multiplied by a material constant; Blender's
++        # vertex-alpha multiplication does not reliably export as COLOR_0.
++        for step in range(17):
++            faded=frontmat.copy();faded.name='Frontal overlay alpha %02d'%step
++            nodes=faded.node_tree.nodes;links=faded.node_tree.links
++            alpha=nodes.new('ShaderNodeMath');alpha.operation='MULTIPLY';alpha.inputs[1].default_value=step/16
++            links.new(next(n for n in nodes if n.type=='TEX_IMAGE').outputs['Alpha'],alpha.inputs[0])
++            links.new(alpha.outputs[0],nodes.get('Principled BSDF').inputs['Alpha'])
++            front_fade_mats.append(faded)
+     arm=bpy.data.armatures.new(p['species']+'_Skeleton');rig=bpy.data.objects.new(p['species']+'_Rig',arm);scene.collection.objects.link(rig)
+     bpy.context.view_layer.objects.active=rig;rig.select_set(True);bpy.ops.object.mode_set(mode='EDIT')
+     root=arm.edit_bones.new('root');root.head=(0,0,0);root.tail=(0,0,.03)
+@@ -179,30 +189,37 @@ def build(h,p,source,outputs):
+         if thickness:
+             mod=obj.modifiers.new('Closed fin membrane','SOLIDIFY');mod.thickness=thickness;mod.offset=0;bpy.ops.object.modifier_apply(modifier=mod.name)
+         bm=bmesh.new();bm.from_mesh(data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(data);bm.free()
+-        if name=='Closed_body' and frontmat:
+-            data.materials.append(frontmat);layer=data.uv_layers.active;cap=p['head_projection']
++        if name=='Frontal_head_overlay':
++            data.materials.clear()
++            for faded in front_fade_mats:data.materials.append(faded)
++            layer=data.uv_layers.active;cap=p['head_projection']
+             head_sign=1 if spine[0][0]>spine[-1][0] else -1
++            u_low,u_high=sorted((cap['start_u'],cap['end_u']))
++            def smooth(t):
++                t=max(0,min(1,t));return t*t*(3-2*t)
+             for poly in data.polygons:
+                 center=sum((data.vertices[i].co for i in poly.vertices),Vector())/len(poly.vertices);u=center.x+.5
+-                if min(cap['start_u'],cap['end_u'])<=u<=max(cap['start_u'],cap['end_u']) and poly.normal.x*head_sign>cap['normal_threshold'] and abs(poly.normal.y)<cap['side_limit']:
+-                    poly.material_index=1;front_face_count+=1
+-                    rect=cap['source_rect'];dr=cap['model_depth_range'];vr=cap['model_v_range']
+-                    projected=[]
+-                    for li in poly.loop_indices:
+-                        co=data.vertices[data.loops[li].vertex_index].co
+-                        side=max(0,min(1,(co.y*head_sign-dr[0])/(dr[1]-dr[0])))
+-                        high=max(0,min(1,((.5-co.z/aspect)-vr[0])/(vr[1]-vr[0])))
+-                        projected.append((rect[0]+side*(rect[2]-rect[0]),rect[1]+high*(rect[3]-rect[1])))
+-                    # A donor is a face-level UV island. Mixing donor and original
+-                    # corners would interpolate back through the removed pigment.
+-                    offset=(0,0)
+-                    for patch in cap.get('uv_patches',[]):
+-                        if polygons_overlap(projected,patch['polygon']):
+-                            offset=patch['offset'];break
+-                    for li,(tu,tv) in zip(poly.loop_indices,projected):
+-                        tu+=offset[0];tv+=offset[1]
+-                        require(0<=tu<=1 and 0<=tv<=1,'Front UV donor left source bounds')
+-                        layer.data[li].uv=(tu,1-tv)
++                fade=smooth(4*((u-u_low) if head_sign>0 else (u_high-u))/(u_high-u_low))
++                fade*=smooth((poly.normal.x*head_sign-cap['normal_threshold'])/.3)
++                fade*=smooth((cap['side_limit']-abs(poly.normal.y))/.25)
++                poly.material_index=min(16,max(0,round(fade*16)));front_face_count+=1
++                rect=cap['source_rect'];dr=cap['model_depth_range'];vr=cap['model_v_range']
++                projected=[]
++                for li in poly.loop_indices:
++                    co=data.vertices[data.loops[li].vertex_index].co
++                    side=max(0,min(1,(co.y*head_sign-dr[0])/(dr[1]-dr[0])))
++                    high=max(0,min(1,((.5-co.z/aspect)-vr[0])/(vr[1]-vr[0])))
++                    projected.append((rect[0]+side*(rect[2]-rect[0]),rect[1]+high*(rect[3]-rect[1])))
++                offset=(0,0)
++                for patch in cap.get('uv_patches',[]):
++                    if polygons_overlap(projected,patch['polygon']):
++                        offset=patch['offset'];break
++                for li,(tu,tv) in zip(poly.loop_indices,projected):
++                    tu+=offset[0];tv+=offset[1]
++                    require(0<=tu<=1 and 0<=tv<=1,'Front UV donor left source bounds')
++                    layer.data[li].uv=(tu,1-tv)
++            mod=obj.modifiers.new('Closed frontal membrane','SOLIDIFY');mod.thickness=.0008;mod.offset=0
++            bpy.ops.object.modifier_apply(modifier=mod.name)
+         mod=obj.modifiers.new('Swim skin','ARMATURE');mod.object=rig;obj.parent=rig;obj.select_set(False);meshes.append(obj);return obj
+     def section(u):
+         rows=p['body']['sections']
+@@ -229,6 +246,20 @@ def build(h,p,source,outputs):
+                 a=(i-1)*R+j;b=(i-1)*R+(j+1)%R;faces.append((a,b,b+R,a+R))
+     faces += [tuple(reversed(range(R))),tuple((N-1)*R+j for j in range(R))]
+     body_object=mesh('Closed_body',verts,faces,coords,ws)
++    if frontmat:
++        cap=p['head_projection'];head_sign=1 if spine[0][0]>spine[-1][0] else -1
++        selected=[]
++        for poly in body_object.data.polygons:
++            center=sum((body_object.data.vertices[i].co for i in poly.vertices),Vector())/len(poly.vertices)
++            if min(cap['start_u'],cap['end_u'])<=center.x+.5<=max(cap['start_u'],cap['end_u']) and poly.normal.x*head_sign>cap['normal_threshold'] and abs(poly.normal.y)<cap['side_limit']:
++                selected.append(poly)
++        require(selected,'Head projection selected no body faces')
++        indices=sorted({i for poly in selected for i in poly.vertices});remap={index:i for i,index in enumerate(indices)}
++        # The original closed body retains its side UV. A shallow closed skin
++        # carries the front pigment, with the body visible through PNG alpha.
++        overlay_verts=[body_object.data.vertices[i].co+body_object.data.vertices[i].normal*.0015 for i in indices]
++        overlay_faces=[tuple(remap[i] for i in poly.vertices) for poly in selected]
++        mesh('Frontal_head_overlay',overlay_verts,overlay_faces,[(0,0)]*len(indices),[ws[i] for i in indices])
+     def finbone(name,anchor,tip,axis,amplitude,phase):
+         bpy.context.view_layer.objects.active=rig;bpy.ops.object.mode_set(mode='EDIT');b=arm.edit_bones.new(name);b.head=anchor;b.tail=tip
+         if (tip-anchor).length<.001:b.tail.z+=.005
