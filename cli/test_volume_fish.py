@@ -106,6 +106,20 @@ class VolumeTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    def test_native_root_attachment_requires_paired_authored_roots(self):
+        data=copy.deepcopy(self.profile_data)
+        data['rest_shape_revision']={'source_handoff':'old.json','source_handoff_sha256':'a'*64,
+            'source_blend':'base.blend','source_glb':'base.glb','blend_sha256':'b'*64,'glb_sha256':'c'*64,
+            'stations':[[0,.1,.1],[1,.1,.1]]}
+        data['fins']=[{'name':'Pectoral','polygon':[[.4,.5],[.6,.5],[.5,.7]],
+            'anchor':[.5,.5],'tip':[.5,.7],'paired':True,'root_depth':.03,'tip_depth':.1,
+            'thickness':.001,'amplitude':.01,'phase':0,'axis':[1,0,0],
+            'root_attachment':{'mode':'body_surface','root_band':.05,'blend_end':.35,'inset':.0008}}]
+        volume.validate_profile(data,self.profile)
+        data['fins'][0]['paired']=False
+        with self.assertRaisesRegex(volume.VolumeError,'paired fin roots'):
+            volume.validate_profile(data,self.profile)
+
     def test_lateral_head_and_fin_geometry_reject_invalid_parameters(self):
         self.profile_data['cephalofoil'] = {'center_v': .55, 'sections': [[-.2,.90,.97,.01],[-.1,.89,.98,.02],[0,.88,.97,.02],[.1,.89,.98,.02],[.2,.90,.97,.01]]}
         volume.validate_profile(self.profile_data,self.profile)

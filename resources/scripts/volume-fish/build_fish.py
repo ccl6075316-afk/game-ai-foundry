@@ -83,7 +83,7 @@ def validate_profile(p):
     for f in p['fins']:
         keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment','fin')
         if 'root_attachment' in f:
-            require('rest_shape_revision' not in p,'root_attachment requires a procedural build, not native revision')
+            require('rest_shape_revision' not in p or f.get('paired') is True,'Native root_attachment supports authored paired fin roots only')
             validate_root_attachment(f['root_attachment'])
         require(number(f.get('vertical_scale',1),0,1) and isinstance(f.get('opaque',False),bool),'Invalid fin geometry options')
         require(isinstance(f['name'],str) and f['name'] and len(f['name'])<80,'Invalid fin name')
@@ -522,6 +522,23 @@ def revise_native(h,p,source,outputs):
             anchor=bone.head_local
             shifts[name]=shifted(anchor)-anchor
     before={o.name:(len(o.data.vertices),len(o.data.polygons),[tuple(v.uv) for v in o.data.uv_layers.active.data]) for o in meshes}
+    native_attachment={}
+    for fin in p['fins']:
+        if not fin.get('root_attachment'):continue
+        require(fin['paired'],'Native attachment only supports authored paired fins')
+        for side,suffix in [(-1,'_left'),(1,'_right')]:
+            name=fin['name']+suffix;obj=bpy.data.objects[name]
+            delta=Vector(fin['tip'])-Vector(fin['anchor']);denom=delta.length_squared
+            require(denom>1e-8 and fin.get('vertical_scale',1)>0,'Invalid native fin parameter axis')
+            attribute=obj.data.attributes.get('foundry_fin_source_t')
+            if attribute is None:
+                values=[]
+                for vertex in obj.data.vertices:
+                    u=vertex.co.x+.5;v=fin['anchor'][1]+((.5-vertex.co.z/aspect)-fin['anchor'][1])/fin.get('vertical_scale',1)
+                    values.append(max(0,min(1,(Vector((u,v))-Vector(fin['anchor'])).dot(delta)/denom)))
+                attribute=obj.data.attributes.new('foundry_fin_source_t','FLOAT','POINT')
+                for item,value in zip(attribute.data,values):item.value=value
+            native_attachment[name]=(fin,side,[item.value for item in attribute.data])
     for obj in meshes:
         if obj.name in shifts:
             delta=shifts[obj.name]
@@ -541,6 +558,38 @@ def revise_native(h,p,source,outputs):
         else:
             bone.head=shifted(bone.head);bone.tail=shifted(bone.tail)
     bpy.ops.object.mode_set(mode='OBJECT')
+    # Opt-in repairs reuse the accepted native membrane/UVs. The proximal band
+    # follows the current actual body and carries body-only weights; distal
+    # geometry and the independent fin animation remain intact.
+    attachment_metrics={}
+    if native_attachment:
+        body=bpy.data.objects.get('Closed_body');require(body is not None,'Native attachment requires Closed_body')
+        saved_pose=rig.data.pose_position;rig.data.pose_position='REST'
+        bpy.context.view_layer.update()
+        ordered=sorted((point[0],'body_%02d'%i) for i,point in enumerate(p['rig']['spine']))
+        def body_weights(u):
+            if u<=ordered[0][0]:return {ordered[0][1]:1}
+            if u>=ordered[-1][0]:return {ordered[-1][1]:1}
+            for (a,na),(b,nb) in zip(ordered,ordered[1:]):
+                if a<=u<=b:
+                    t=(u-a)/(b-a);return {na:1-t,nb:t}
+        for name,(fin,side,parameters) in native_attachment.items():
+            obj=bpy.data.objects[name];option=fin['root_attachment'];moved=0
+            for vertex,t in zip(obj.data.vertices,parameters):
+                gain=root_attachment_gain(t,option['root_band'],option['blend_end'])
+                if gain<=0:continue
+                found,hit,normal,_=body.closest_point_on_mesh(vertex.co)
+                require(found and normal.length>.5 and normal.y*side>=-1e-5,'Native fin root resolves to wrong body side: '+name)
+                vertex.co=vertex.co.lerp(hit-normal.normalized()*option['inset'],gain)
+                own=t*(1-gain);weights={n:value*(1-own) for n,value in body_weights(vertex.co.x+.5).items()};weights[name]=own
+                for group in list(vertex.groups):obj.vertex_groups[group.group].remove([vertex.index])
+                for bone,value in weights.items():
+                    require(rig.data.bones.get(bone) is not None,'Native attachment bone missing: '+bone)
+                    if value>1e-8:(obj.vertex_groups.get(bone) or obj.vertex_groups.new(name=bone)).add([vertex.index],value,'REPLACE')
+                moved+=1
+            obj.data.update()
+            attachment_metrics[name]={'vertices_adjusted':moved,'root_attachment':option,'body_weighted_root':True,'distal_vertices_preserved':sum(t>=option['blend_end'] for t in parameters)}
+        rig.data.pose_position=saved_pose;bpy.context.view_layer.update()
     closure={};bad_weights=0
     for obj in meshes:
         bm=bmesh.new();bm.from_mesh(obj.data);closure[obj.name]=all(e.is_manifold for e in bm.edges);bm.free()
@@ -553,7 +602,7 @@ def revise_native(h,p,source,outputs):
     export_native(outputs,rig,meshes)
     glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
     checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':expected<=packed and glb['images_embedded'],'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
-    return checks,{'native_revision':True,'width_only':not bool(vertical),'vertical_stations':vertical,'topology_uv_unchanged':unchanged,'stations':stations,'fin_root_shifts':{name:list(value) for name,value in shifts.items()},'bones':len(rig.data.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':(scene.frame_end-scene.frame_start)/scene.render.fps}
+    return checks,{'native_revision':True,'width_only':not bool(vertical),'vertical_stations':vertical,'topology_uv_unchanged':unchanged,'stations':stations,'root_attachments':attachment_metrics,'fin_root_shifts':{name:list(value) for name,value in shifts.items()},'bones':len(rig.data.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':(scene.frame_end-scene.frame_start)/scene.render.fps}
 
 
 def render_review(h,outputs):
@@ -578,7 +627,7 @@ def render_review(h,outputs):
     # Clay geometry is reviewed independently of texture and alpha masks.
     clay=bpy.data.materials.new('Geometry review clay');clay.diffuse_color=(.5,.5,.5,1)
     scene.view_layers[0].material_override=clay
-    for name,direction in [('clay_side',(0,-3,0)),('clay_front',(head_sign*3,0,0)),('clay_top',(0,0,3)),('clay_oblique',(head_sign*2,-3,1.2))]:
+    for name,direction in [('clay_side',(0,-3,0)),('clay_front',(head_sign*3,0,0)),('clay_top',(0,0,3)),('clay_bottom',(0,0,-3)),('clay_oblique',(head_sign*2,-3,1.2))]:
         cam.location=center+Vector(direction)*span;cam.rotation_euler=(center-cam.location).to_track_quat('-Z','Y').to_euler()
         camdata.ortho_scale=span*1.5
         scene.render.filepath=str(review/(name+'.png'));bpy.ops.render.render(write_still=True);files[name]=scene.render.filepath
@@ -605,7 +654,7 @@ def render_review(h,outputs):
         rig.location.z=-.22
         text('RECONSTRUCTED 3D / SAME NATIVE PIXELS',(-.75,-.12,.08),.04)
     cam.location=(0,-4,.34);cam.rotation_euler=(Vector((0,0,.34))-cam.location).to_track_quat('-Z','Y').to_euler();camdata.ortho_scale=2.35;scene.render.resolution_x=1100;scene.render.resolution_y=800;scene.render.filepath=str(review/'style-comparison.png');bpy.ops.render.render(write_still=True);files['style_comparison']=scene.render.filepath
-    master=h.get('source',{}).get('generation_reference_image')
+    master=h.get('source',{}).get('generation_reference_image') if not h.get('accepted_archive') else None
     if master:
         for o in scene.objects:
             if o.type=='FONT' or o.name in ('Approved source','Style reference','Approved front source'):o.hide_render=True

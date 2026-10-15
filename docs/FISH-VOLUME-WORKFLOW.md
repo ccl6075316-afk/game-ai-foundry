@@ -6,6 +6,8 @@
 
 先读 fish 知识库的 [建模前准备](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/PREPARATION.md) 与 [验证与交付](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/VALIDATION.md)（本地 `projects/fishing-2d/docs/3d-fish/`）。准备时冻结物种、测位、资料类别和会失败的基线；交付分别报告技术、同测位资料、连接、源图轮廓、真实蒙皮动作、整体视觉。不得只对齐一个宽度或以包络通过代替其余项目。
 
+验收先覆盖前期研究的头、吻、眼、各鳍等适用部位，再复核整鱼长宽高、指定背部宽度及关联比例，最后评整体视觉与动作。操作者须对照最初资料主动判断尺寸偏差是否合理，允许有依据的制作容差，不要求完全一致；关键比例明显失真应修正。各项接受区间及理由在制作前记录，不以统一百分比或事后放宽区间代替判断；具体清单、偏差示例及报告格式见上述验证指南。
+
 共用制作知识库在独立 fish 仓库的 [`docs/3d-fish/README.md`](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/README.md)，本地路径为 `projects/fishing-2d/docs/3d-fish/`。新增或重建真实鱼类时，先按其中尺寸规范查同种形态测量，填写物种参考卡；巨骨舌鱼已有原始宽高、头部比例和当前模型尺寸示例。缺少数据须记录检索与推断，不能仅依据生成三视图估计全部厚度。
 
 先区分 TL/SL、裸鱼体与含鳍包围盒、局部与最大宽高。英语生物测量 `body depth` 是背腹体高，当前 profile 的 `half_depth` 是左右半宽；两者不可互换。按相同解剖测位约束灰模后，再对齐多视图和划分 UV。头/嘴/眼、背鳍/臀鳍、尾柄/尾鳍、成对鳍须分别核对；环绕视频与五视检查共同评价整体，不能只凭正脸静图判整鱼优劣。
@@ -43,6 +45,16 @@ CLI 输入如下，Windows 使用仓库 launcher；Unix 使用对应 launcher �
 `plan` 只创建待执行的 handoff；`build` 使用固定构建器生成实体、绑定、动作和导出；`validate` 读取产物检查技术条件；`render` 生成侧面、正面、斜视及源图/风格参考对照；`accept` 在视觉审查之后检查构建、渲染及四张审核图仍对应当前输入与产物，记录接受结果。产物目录为 handoff 同目录的 `<handoff-stem>-artifacts`，渲染检查另存 `render.json`。按每次 JSON 的 `ok/status/next_action/failures` 决定下一步，不把命令退出或文件存在当作完成。Blender 路径可由 `--blender` 临时指定，未提供时查找 PATH 中的 Blender。构建和渲染不自行触发生图；付费生图仍走已有 image/workflow 入口和资产账本。
 
 通用入口为 `resources/scripts/volume-fish/build_fish.py`，物种 profile 位于 `resources/volume-fish/`。profile 描述物种自己的轮廓、厚度、鱼鳍和动作，不用同一条鱼任意拉伸替代解剖。handoff 冻结源图与风格参考的 SHA256，记录 native 图片尺寸、产物路径及像素材质契约；输入改变后重做计划与相应审核。仅把 handoff、资产清单和 validation report 作为状态，不另建生产队列。
+
+### 已接受源图随原生模型归档后的复用
+
+旧生图工程不在当前机器、但完整的模型接受证据仍在时，可使用 `volume replan --archive-inputs <archive-inputs.json> --profile <profile> --output <new.handoff.json> --json`。先读 `volume replan --help`。这是同物种、同展示体长、同源像素的历史接受复用，不重建或伪造已丢失的 frozen Brief、raw、pipeline 或 image.raw 状态。
+
+输入映射必填 `accepted_handoff`、原始 `profile`、`blend`、`glb`、`source`、`reference` 和 `review_images`；有辅助源图时提供 `front_source/top_source/bottom_source`。路径显式定位当前本机文件，相对路径以映射文件目录解析。`review_images` 的键和值须覆盖旧接受记录的全部审核图。CLI检查旧handoff确为done/accepted、有操作者说明与历史生成/源图接受记录，并核对原profile、模型、全部源图、风格图和审核图的接受哈希。只有profile文本允许Git CRLF→LF规范化比较，图片和模型要求逐字节一致。
+
+生成的handoff冻结当前映射及所有证据哈希，仍为pending/run、视觉pending，随后走同一个 `build → validate → render → 实际审核 → accept`。每一步重新检查归档证据，禁止覆盖接受输入。`accepted_archive.scope` 明确记录上游原文件没有重新验证；旧Brief字段仅保留历史身份，不冒称本次重新运行了缺失的workflow。缺少这些接受证据时不得使用该入口，应恢复原工程或按正常workflow重新制作源图。输入映射只是文件定位，不是第二套接受状态。
+
+055黑鳍礁鲨复核采用此入口：源图像素与041接受一致，改进胸腹鳍连接并试验第二背鳍高度。部位标准见游戏 `docs/3d-fish/species/blacktip-reef-shark.md`；实验通过与最终整鱼接受分别记录。
 
 ### 可选正面辅助原画：双来源头部投影
 
@@ -326,7 +338,9 @@ Windows 图生图命令的来源核验必须保留参数中的反斜杠；用禁
 }
 ```
 
-`root_band` 和 `blend_end` 使用原始源图 anchor→tip 投影参数 t，要求 `0 <= root_band < blend_end <= 1`；`inset` 使用源图宽度归一化原生单位，范围 0–0.005，不是厘米。根区内每个实际三角化顶点查询身体表面，沿向外法线向内缩进；位移平滑减至 blend_end 处为零。鳍骨根部同步附着，根区完全使用身体脊柱权重，外侧平滑恢复鱼鳍骨骼权重。该选项当前仅支持正常程序化构建；与 `rest_shape_revision` 同时提供会拒绝输入，不会静默忽略。
+`root_band` 和 `blend_end` 使用原始源图 anchor→tip 投影参数 t，要求 `0 <= root_band < blend_end <= 1`；`inset` 使用源图宽度归一化原生单位，范围 0–0.005，不是厘米。根区内每个实际三角化顶点查询身体表面，沿向外法线向内缩进；位移平滑减至 blend_end 处为零。正常程序化构建中鳍骨根部同步附着，根区完全使用身体脊柱权重，外侧平滑恢复鱼鳍骨骼权重。
+
+058起，`rest_shape_revision`也允许**明确的成对鳍**设置相同`root_attachment`，未提供时保留原行为。先在修形前的原生静止坐标记录`foundry_fin_source_t`，再对修改后的实际`Closed_body`投射根区；查询必须临时使用骨架REST姿势，不能把第0帧已弯曲的评估身体当作静止表面。保留拓扑、UV、贴图和旧动画；只改声明的近端几何与权重，t≥blend_end的鳍面不变，原有鳍骨旋转轴/枢轴保留，近端改用身体权重。非成对鳍仍拒绝此原生选项，不能套用不合适的t选区。默认原生权重不变的审计不适用于这项显式修复，必须单列实际变化、原生根区距离、远端保留及Godot实际蒙皮证据；058的只读审计见`scripts/audit_arapaima_native_058.py`。
 
 构建后的原生鱼鳍保存 POINT FLOAT 属性 `foundry_fin_source_t`，使 Solidify 双层顶点仍能追溯原始 t。不能根据投影后的 XYZ 或修补过的 donor UV 猜测根区。连接检查覆盖完整附着边界和根区，报告最大/最小间隙、穿入量及采样覆盖；不能用一个穿入身体的顶点证明整条根部相连。接触容差属于制作准则，不能写成文献生物学范围。
 

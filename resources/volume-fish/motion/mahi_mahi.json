@@ -1,0 +1,68 @@
+{
+  "species": "mahi_mahi",
+  "real_length_cm": 120,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07",
+    "body_08",
+    "body_09"
+  ],
+  "tank_size_m": [
+    11,
+    9,
+    10
+  ],
+  "path_radii_m": [
+    1.6,
+    1
+  ],
+  "vertical_amplitude_m": 0.6,
+  "envelope_radius_m": 3.2,
+  "period_seconds": 12,
+  "transition_seconds": 0.8,
+  "body_delay_seconds": 0.3,
+  "base_body_gain": 0.7,
+  "bend_bias": 1.2,
+  "body_wave_radians": 0.12,
+  "body_wave_cycles": 0.7,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1,
+      "bend_radians": 0.12,
+      "vertical_sign": 0,
+      "clip_speed": 1
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.5,
+      "vertical_sign": 0,
+      "clip_speed": 1
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.16,
+      "vertical_sign": 1,
+      "clip_speed": 1
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.16,
+      "vertical_sign": -1,
+      "clip_speed": 1
+    }
+  },
+  "schema_version": 1,
+  "notes": [
+    "057e experiment, user authorized exhibit trial; visual acceptance still pending.",
+    "Conservative artistic motion, not species-measured kinematics.",
+    "Head projection, dorsal origin and caudal embedding findings retained in057-mahi-mahi.validation.json."
+  ]
+}

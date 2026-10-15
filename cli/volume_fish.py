@@ -219,7 +219,7 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
         allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment"}
         keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment"}, "fin")
         if "root_attachment" in fin:
-            require("rest_shape_revision" not in data, "root_attachment requires a procedural build, not native revision")
+            require("rest_shape_revision" not in data or fin.get("paired") is True, "Native root_attachment supports authored paired fin roots only")
             try:
                 validate_root_attachment(fin["root_attachment"])
             except ValueError as exc:
@@ -469,6 +469,9 @@ def fresh_handoff(path: Path) -> dict:
     for key, value in expected.items():
         target = Path(value)
         require(target.resolve() == target, f"Output {key} may not redirect through a symlink")
+    if "accepted_archive" in data:
+        from volume_archive import fresh_archive
+        return fresh_archive(data, path)
     brief = resolve_file(data["brief"]["path"], path.parent)
     profile = resolve_file(data["profile"], path.parent)
     require(data["profile_snapshot"]["path"] == str(profile), "Profile pointer changed")
