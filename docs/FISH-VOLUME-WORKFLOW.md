@@ -4,6 +4,8 @@
 
 ## 建模前先查物种尺寸与部件结构
 
+先读 fish 知识库的 [建模前准备](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/PREPARATION.md) 与 [验证与交付](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/VALIDATION.md)（本地 `projects/fishing-2d/docs/3d-fish/`）。准备时冻结物种、测位、资料类别和会失败的基线；交付分别报告技术、同测位资料、连接、源图轮廓、真实蒙皮动作、整体视觉。不得只对齐一个宽度或以包络通过代替其余项目。
+
 共用制作知识库在独立 fish 仓库的 [`docs/3d-fish/README.md`](https://github.com/ccl6075316-afk/fishing-2d/blob/main/docs/3d-fish/README.md)，本地路径为 `projects/fishing-2d/docs/3d-fish/`。新增或重建真实鱼类时，先按其中尺寸规范查同种形态测量，填写物种参考卡；巨骨舌鱼已有原始宽高、头部比例和当前模型尺寸示例。缺少数据须记录检索与推断，不能仅依据生成三视图估计全部厚度。
 
 先区分 TL/SL、裸鱼体与含鳍包围盒、局部与最大宽高。英语生物测量 `body depth` 是背腹体高，当前 profile 的 `half_depth` 是左右半宽；两者不可互换。按相同解剖测位约束灰模后，再对齐多视图和划分 UV。头/嘴/眼、背鳍/臀鳍、尾柄/尾鳍、成对鳍须分别核对；环绕视频与五视检查共同评价整体，不能只凭正脸静图判整鱼优劣。
@@ -275,3 +277,63 @@ Windows 图生图命令的来源核验必须保留参数中的反斜杠；用禁
 主项目 SDK 与测试项目 GodotSharp 依赖必须使用同一版本。本轮 Godot 4.6.1 使用 `SpriteFrames.SetAnimationLoop(name, bool)`；4.7 的 `LoopMode` / `SetAnimationLoopMode` 不能直接用于 4.6.1。测试项目通过不代表主项目可编译：交付前同时执行主项目 `dotnet build` 与测试项目 `dotnet test`，再核对真实引擎画面。Windows 仅安装 .NET 10 时，net8 测试可临时设置 `DOTNET_ROLL_FORWARD=Major`，不要把这个本机环境需求写入产品配置。
 
 正式交付保留最终 GLB、打包贴图的原生 blend、选定主图及四视图、生成与接受来源记录、物种 profile、动作研究和紧凑验收证据。旧失败模型与逐帧视频截图不进入提交。Foundry 通用工具与独立游戏仓库分别提交；历史 handoff 保持原哈希和路径，不为迁移档案伪造一次新的接受。新机器按归档源图重新初始化 workflow/handoff 后复验。
+
+## 052：基于已接受原生模型的横向宽度调整
+
+已有模型只需调整左右宽度时，profile 可增加 `rest_shape_revision`，继续走 `volume plan → build → validate → render → accept`（全部 `--json`）。该分支打开已接受的原生 `.blend`，只调整静止网格与骨骼的 Blender Y 坐标，保留 X 长度和 Z 高度；不重新生成拓扑、UV、材质或动作。它不能替代需要改嘴部结构、背腹弧度或鱼鳍轮廓的建模。
+
+`rest_shape_revision` 必须提供 `source_handoff`、`source_blend`、`source_glb` 三条路径及对应的 `source_handoff_sha256`、`blend_sha256`、`glb_sha256`，另加 `stations`。相对路径以当前 profile 所在目录为基准。历史 handoff 必须为 `done` 且具有操作者视觉接受记录；模型哈希须对应接受记录，侧/正/俯/腹源图及画风契约须与新计划一致。plan 与后续 freshness 检查都会重验，输出不得覆盖接受源模型。历史接受只证明来源，不会自动接受新形状。
+
+每个 station 为 `[u, source_half_width, target_half_width]`。`u = Blender X + 0.5`，对应原源图横向归一化位置，按原图朝向读取，不自动转换成鼻尖起算的 TL 百分比。两个半宽均使用 Blender 原生模型单位，等于源图宽度归一化尺度；不是厘米，也不是源图高度比例。先在相同解剖站位测量原模型左右半宽，再把资料中的目标全宽按模型实际 `cm_per_unit` 转为半宽。局部鳃盖宽不能直接替代全身体最大宽。目标/原半宽比在站位间以 C1 smoothstep 插值，端外沿用最近端点比；因此修改区外要设置比值为 1 的保护站位。源半宽不由构建器自动测量，资料、定位及比例推断须在物种研究卡中记录。
+
+成对鱼鳍以原鳍根的宽度变化做整体 Y 平移，鳍骨同步平移，以保留自身展长与鳍面形状；独立 `Textured_eye_*` 眼片以中心做整体平移，避免随头部横向缩放而压扁。其他网格按站位比例缩放 Y。技术报告记录 `native_revision`、`width_only`、`topology_uv_unchanged`、鳍根平移、骨骼数、顶点数与八项技术检查。计数和活动 UV 不变的断言不等同所有原生数据的完整差分；验收仍检查实际整鱼环绕与游动、眼片贴合和鳍根连接。
+
+052 的巨骨舌鱼与路氏双髻鲨构建、渲染已完成，八项技术检查均通过；该事实不代替新的运行画面与视觉接受。权威结果分别位于游戏 `experiments/blender-fish/models/arapaima/052-knowledge-width.handoff-artifacts/validation.json` 与 `experiments/blender-fish/models/scalloped_hammerhead/052-knowledge-width.handoff-artifacts/validation.json`。
+
+## 053：头部高度、鱼鳍连接与独立解剖验证
+
+052 的 `width_only=true` 只保证当次不改变 Z；它没有验证眼位头高、闭嘴形状、全身厚度或鱼鳍接触。八项技术检查以及 Godot 的 `inside_envelope=true` 均不能作为整鱼解剖正确的结论。后续必须分别报告技术条件、同解剖站位资料比较、实际连接与视觉审核。
+
+### 原生模型的可选高度场
+
+`rest_shape_revision` 可增加 `vertical_stations`；没有此字段时继续保持 Z 不变。示例仅说明字段，不是某条鱼的生物学目标：
+
+```json
+"vertical_stations": [
+  [0.60, 0.30, 0.70, 0.30, 0.70],
+  [0.80, 0.30, 0.70, 0.35, 0.65]
+]
+```
+
+每行 `[u, source_top_v, source_bottom_v, target_top_v, target_bottom_v]`，v 使用原源图高度归一化、从上向下的坐标。u 递增，top 必须小于 bottom，要求 2–128 个站位、有限数值和 0.25–4 的正高度比例。构建器在站位间平滑插值 Z 仿射映射，源图高宽比参与 v→Z 换算；端外延伸最近的映射，修改区外须提供恒等保护站位。
+
+身体与原生头部覆盖层使用相同的场；独立眼片、成对及中线鱼鳍按自身中心/鳍根整体平移以保留形状，对应骨骼根尾同步移动，其他骨骼按相同场调整静止位置。X、拓扑、UV、权重及动作曲线继续保留。它改变静止骨骼方向，因此仍须检查原生游动与 Godot 四动作；不能仅凭曲线没有变化断言动态外形正确。
+
+横向 `stations` 的目标/源半宽比允许 0.25–12，同时两种绝对半宽仍限制在源图宽度的 0.0001–0.5。较高比例仅提供窄端环的局部宽嘴实验能力，不提供任何物种嘴宽依据；零宽端点也不能通过乘法扩展。嘴宽、躯干最大宽缺乏匹配资料时必须标为推断或未测量，并检查正、侧、俯、腹及斜面灰模/纹理外形。
+
+`resources/scripts/volume-fish/audit_native_revision.py` 是只读原生保留审计：比较接受原生模型与候选的拓扑、UV、权重、动作、贴图和骨骼层级；X 必须不变，Z 只允许声明的 `vertical_stations` 映射，并逐网格报告实际变化与映射误差。无高度场时要求 Z 不变。它不能用于声称程序化重建的尾鳍仍保留旧拓扑；有意重建的部件须单独记录与审核。
+
+### 程序化鱼鳍的可选身体表面附着
+
+需要修复悬空鳍根时，在相应 `fins[]` 增加：
+
+```json
+"root_attachment": {
+  "mode": "body_surface",
+  "root_band": 0.05,
+  "blend_end": 0.35,
+  "inset": 0.001
+}
+```
+
+`root_band` 和 `blend_end` 使用原始源图 anchor→tip 投影参数 t，要求 `0 <= root_band < blend_end <= 1`；`inset` 使用源图宽度归一化原生单位，范围 0–0.005，不是厘米。根区内每个实际三角化顶点查询身体表面，沿向外法线向内缩进；位移平滑减至 blend_end 处为零。鳍骨根部同步附着，根区完全使用身体脊柱权重，外侧平滑恢复鱼鳍骨骼权重。该选项当前仅支持正常程序化构建；与 `rest_shape_revision` 同时提供会拒绝输入，不会静默忽略。
+
+构建后的原生鱼鳍保存 POINT FLOAT 属性 `foundry_fin_source_t`，使 Solidify 双层顶点仍能追溯原始 t。不能根据投影后的 XYZ 或修补过的 donor UV 猜测根区。连接检查覆盖完整附着边界和根区，报告最大/最小间隙、穿入量及采样覆盖；不能用一个穿入身体的顶点证明整条根部相连。接触容差属于制作准则，不能写成文献生物学范围。
+
+尾鳍源图轮廓保留率、真实物种尾叶/尾柄形状与动画连接分别验证。源图 alpha 的区域、阈值、源图/profile/模型哈希须随验证报告记录；较高面积保留率仍可能形成错误的宽面板，需实际灰模与纹理审核。只修鱼鳍轮廓时不更换已接受源图，重建的拓扑及权重按实际结果报告。
+
+### 解剖与实际动作证据
+
+解剖诊断脚本输出只读 validation report，绑定当前模型与 profile 哈希，不代替 handoff 或资产接受。报告区分：发表测量/比例、跨研究换算场景、艺术推断、缺失测量及不可比较项；分别列出文献均值与实际观测范围、模型值、偏差和站位/生长阶段不确定性。局部鳃盖宽不能与全身体最大宽直接比较，体高不能与宽度混用，围度换算宽度必须声明截面假设。
+
+鱼鳍连接至少检查静止姿势、原生 Swim 的明确采样及真实 Godot `Swim/Turn/Ascend/Dive`。四动作须测量实际蒙皮后的身体和附着边界位置；包络通过只说明没有越界。数值场景满足、技术通过、视觉接受分别报告。闭嘴轮廓、眼睛归属、尾柄连接及未知目标仍需整鱼环绕视频、灰模和真实资料对照，不能自动汇总成“解剖全部通过”。

@@ -2,6 +2,10 @@
 
 > **日志说明：** 2026-09-24 条目为当前知识沉淀；更早条目是已移除运行时的历史排障记录，不是当前操作入口。
 
+## 2026-10-15
+
+- 新增鱼模型准备/验证漏检案例；关联053排障与限定范围复审，整体美术接受仍pending。
+
 ## 2026-09-24
 
 - 新增 `architecture/external-agent-workflow-replaces-gui-internal-agents-cli-20260924.md`（纯 CLI/Workflow 外部 Agent 工具箱；来源 pure-workflow-toolkit Stage 5 review）。

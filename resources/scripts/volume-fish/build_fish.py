@@ -4,6 +4,8 @@ The approved source pixels remain unchanged. No vendor/API calls or executable p
 """
 import sys, json, math, hashlib, struct, traceback, array
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "cli"))
+from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain
 import bpy, bmesh
 from mathutils import Vector, Quaternion
 from mathutils.geometry import delaunay_2d_cdt
@@ -30,7 +32,8 @@ def polygons_overlap(a,b):
     return False
 def uvpoint(p): return isinstance(p,list) and len(p)==2 and all(number(v,0,1) for v in p)
 def validate_profile(p):
-    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rig fins eyes barbels animation notes','profile')
+    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rest_shape_revision rig fins eyes barbels animation notes','profile')
+    if 'rest_shape_revision' in p:validate_revision(p['rest_shape_revision'])
     require(p['schema_version']==1 and p['coordinate_space']=='normalized_source_top_left','Unsupported profile coordinates/version')
     require(p['profile_review_status']=='approved','Profile landmarks need review: profile_review_status must be approved')
     require(number(p['real_length_cm'],.1,1000) and number(p['source_aspect_ratio'],.1,20),'Invalid length/aspect')
@@ -78,7 +81,10 @@ def validate_profile(p):
     fin_names=[f.get('name','')+suffix for f in p['fins'] for suffix in (['_left','_right'] if f.get('paired') else [''])]
     require(len(set(fin_names))==len(fin_names) and all(n!='root' and not n.startswith('body_') for n in fin_names),'Duplicate or reserved fin names')
     for f in p['fins']:
-        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect','fin')
+        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment','fin')
+        if 'root_attachment' in f:
+            require('rest_shape_revision' not in p,'root_attachment requires a procedural build, not native revision')
+            validate_root_attachment(f['root_attachment'])
         require(number(f.get('vertical_scale',1),0,1) and isinstance(f.get('opaque',False),bool),'Invalid fin geometry options')
         require(isinstance(f['name'],str) and f['name'] and len(f['name'])<80,'Invalid fin name')
         require(3<=len(f['polygon'])<=128 and all(uvpoint(v) for v in f['polygon']) and uvpoint(f['anchor']) and uvpoint(f['tip']),'Invalid fin landmarks')
@@ -127,6 +133,20 @@ def binary_inspect(path):
     nearest=all(s.get('magFilter')==9728 and s.get('minFilter')==9728 for s in doc.get('samplers',[])) and bool(doc.get('samplers'))
     rough=all(m.get('pbrMetallicRoughness',{}).get('metallicFactor',1)==0 and m.get('pbrMetallicRoughness',{}).get('roughnessFactor',1)==1 for m in doc.get('materials',[]))
     return {'finite_components':total,'nonfinite_components':bad,'animation_tracks':tracks,'nearest':nearest,'roughness':rough,'images_embedded':all('bufferView' in i for i in doc.get('images',[])),'animations':[a.get('name') for a in doc.get('animations',[])]}
+
+
+def export_native(outputs,rig,meshes):
+    bpy.ops.object.select_all(action='DESELECT')
+    rig.select_set(True)
+    for o in meshes:o.select_set(True)
+    bpy.context.view_layer.objects.active=rig;bpy.context.preferences.filepaths.save_version=0
+    bpy.ops.wm.save_as_mainfile(filepath=str(outputs['blend']))
+    bpy.ops.export_scene.gltf(filepath=str(outputs['glb']),export_format='GLB',use_selection=True,export_animations=True,export_animation_mode='ACTIVE_ACTIONS',export_frame_range=True,export_force_sampling=True,export_skins=True,export_materials='EXPORT',export_apply=False,export_yup=True)
+    # Blender chooses nearest mipmaps by default. Pixel-art contract forbids mip interpolation.
+    raw=outputs['glb'].read_bytes();size=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+size])
+    for sampler in doc.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
+    encoded=json.dumps(doc,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
+    tail=raw[20+size:];outputs['glb'].write_bytes(struct.pack('<4sII',b'glTF',2,20+len(encoded)+len(tail))+struct.pack('<I4s',len(encoded),b'JSON')+encoded+tail)
 
 
 def build(h,p,source,outputs):
@@ -255,7 +275,7 @@ def build(h,p,source,outputs):
         # across the rounded leading edge of the solid cephalofoil.
         t=.08+.84*t
         return ((left+(right-left)*t+.5)/sw,(sy+.5)/sh)
-    def mesh(name,verts,faces,uvs,ws,thickness=0,opaque=False):
+    def mesh(name,verts,faces,uvs,ws,thickness=0,opaque=False,source_parameters=None):
         nonlocal front_face_count,surface_face_counts
         data=bpy.data.meshes.new(name);data.from_pydata(verts,[],faces);data.update();obj=bpy.data.objects.new(name,data);scene.collection.objects.link(obj);data.materials.append(finmat if thickness and not opaque else mat)
         layer=data.uv_layers.new(name='NativeSourceUV')
@@ -265,6 +285,9 @@ def build(h,p,source,outputs):
         for i,w in enumerate(ws):
             for n,value in w.items():
                 if value>1e-8:(obj.vertex_groups.get(n) or obj.vertex_groups.new(name=n)).add([i],value/sum(w.values()),'REPLACE')
+        if source_parameters is not None:
+            attribute=data.attributes.new('foundry_fin_source_t','FLOAT','POINT')
+            for i,value in enumerate(source_parameters):attribute.data[i].value=value
         bpy.context.view_layer.objects.active=obj;obj.select_set(True)
         if thickness:
             mod=obj.modifiers.new('Closed fin membrane','SOLIDIFY');mod.thickness=thickness;mod.offset=0;bpy.ops.object.modifier_apply(modifier=mod.name)
@@ -382,6 +405,7 @@ def build(h,p,source,outputs):
         if (tip-anchor).length<.001:b.tail.z+=.005
         parent=max(weights(anchor.x+.5),key=weights(anchor.x+.5).get);b.parent=arm.edit_bones[parent];bpy.ops.object.mode_set(mode='OBJECT')
         fin_motion.append((name,Vector(axis),amplitude,phase));return name
+    attachment_metrics={}
     for f in p['fins']:
         polygon=f['polygon'];points=[Vector(v) for v in polygon]
         xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
@@ -395,11 +419,19 @@ def build(h,p,source,outputs):
             name=f['name']+('_left' if side<0 else '_right' if f['paired'] else '')
             scale=f.get('vertical_scale',1)
             def finpos(u,v,depth):return xyz(u,f['anchor'][1]+(v-f['anchor'][1])*scale,depth)
-            anchor=finpos(*f['anchor'],side*f['root_depth']);tip=finpos(*f['tip'],side*f['tip_depth']);bn=finbone(name,anchor,tip,f['axis'],f['amplitude']*side,f['phase'])
-            delta=Vector(f['tip'])-Vector(f['anchor']);denom=max(delta.length_squared,1e-8);vs=[];uvs=[];wts=[]
+            attachment=f.get('root_attachment')
+            def attach(point,t):
+                if not attachment:return point
+                gain=root_attachment_gain(t,attachment['root_band'],attachment['blend_end'])
+                if gain<=0:return point
+                found,hit,normal,_=body_object.closest_point_on_mesh(point)
+                require(found and normal.length>.5 and (not f['paired'] or normal.y*side>=-1e-5),'Fin root does not resolve to matching body surface: '+name)
+                return point.lerp(hit-normal.normalized()*attachment['inset'],gain)
+            anchor=attach(finpos(*f['anchor'],side*f['root_depth']),0);tip=finpos(*f['tip'],side*f['tip_depth']);bn=finbone(name,anchor,tip,f['axis'],f['amplitude']*side,f['phase'])
+            delta=Vector(f['tip'])-Vector(f['anchor']);denom=max(delta.length_squared,1e-8);vs=[];uvs=[];wts=[];source_parameters=[]
             for v in dv:
                 t=max(0,min(1,(v-Vector(f['anchor'])).dot(delta)/denom));depth=side*(f['root_depth']+(f['tip_depth']-f['root_depth'])*t)
-                vs.append(finpos(v.x,v.y,depth))
+                vs.append(attach(finpos(v.x,v.y,depth),t));source_parameters.append(t)
                 if f.get('opaque'):
                     # Fin silhouette comes from geometry; sample an opaque
                     # interior donor rather than clipping the mesh with alpha.
@@ -408,8 +440,10 @@ def build(h,p,source,outputs):
                         uvs.append(fin_uv(u,vv))
                     else:uvs.append(fin_uv(v.x,v.y))
                 else:uvs.append((v.x,1-v.y))
-                w={n:w*(1-t) for n,w in weights(v.x).items()};w[bn]=t;wts.append(w)
-            mesh(name,vs,df,uvs,wts,f['thickness'],f.get('opaque',False))
+                fin_weight=t*(1-root_attachment_gain(t,attachment['root_band'],attachment['blend_end'])) if attachment else t
+                w={n:w*(1-fin_weight) for n,w in weights(vs[-1].x+.5 if attachment else v.x).items()};w[bn]=fin_weight;wts.append(w)
+            mesh(name,vs,df,uvs,wts,f['thickness'],f.get('opaque',False),source_parameters if attachment else None)
+            if attachment:attachment_metrics[name]={'root_attachment':attachment,'root_bone_anchor':list(anchor),'distal_tip':list(tip),'body_weighted_root':True}
     if p['eyes']:
         e=p['eyes'];u,v=e['center']
         for side in [-1,1]:
@@ -452,21 +486,74 @@ def build(h,p,source,outputs):
     for o in meshes:
         bm=bmesh.new();bm.from_mesh(o.data);closure[o.name]=all(e.is_manifold for e in bm.edges);bm.free()
         bad_weights+=sum(abs(sum(g.weight for g in v.groups)-1)>1e-5 for v in o.data.vertices)
-    bpy.ops.object.select_all(action='DESELECT')
-    rig.select_set(True)
-    for o in meshes:o.select_set(True)
-    bpy.context.view_layer.objects.active=rig;bpy.context.preferences.filepaths.save_version=0
-    bpy.ops.wm.save_as_mainfile(filepath=str(outputs['blend']))
-    bpy.ops.export_scene.gltf(filepath=str(outputs['glb']),export_format='GLB',use_selection=True,export_animations=True,export_animation_mode='ACTIVE_ACTIONS',export_frame_range=True,export_force_sampling=True,export_skins=True,export_materials='EXPORT',export_apply=False,export_yup=True)
-    # Blender chooses nearest mipmaps by default. Pixel-art contract forbids mip interpolation.
-    raw=outputs['glb'].read_bytes();size=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+size])
-    for sampler in doc.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
-    encoded=json.dumps(doc,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
-    tail=raw[20+size:];outputs['glb'].write_bytes(struct.pack('<4sII',b'glTF',2,20+len(encoded)+len(tail))+struct.pack('<I4s',len(encoded),b'JSON')+encoded+tail)
+    export_native(outputs,rig,meshes)
     glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
     surface_sources_ok=all(source.packed_file is not None and surface_face_counts[label]>0 for label,source in surface_images.items())
     checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':tuple(image.size)==(W,H) and image.packed_file is not None and glb['images_embedded'] and (front_image is None or (front_image.packed_file is not None and tuple(front_image.size)==(FW,FH) and front_face_count>0)) and surface_sources_ok,'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
-    return checks,{'source_size':[W,H],'source_packed':image.packed_file is not None,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
+    return checks,{'root_attachments':attachment_metrics,'source_size':[W,H],'source_packed':image.packed_file is not None,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
+
+
+def revise_native(h,p,source,outputs):
+    """Keep accepted topology/UV/weights/actions; apply declared native Y/Z fields."""
+    revision=p['rest_shape_revision']
+    original=revision_source(revision,Path(h['profile']).parent,h)
+    native=(Path(h['profile']).parent/revision['source_blend']).resolve()
+    bpy.ops.wm.open_mainfile(filepath=str(native),use_scripts=False)
+    scene=bpy.context.scene;scene.frame_set(scene.frame_start)
+    rigs=[o for o in scene.objects if o.type=='ARMATURE']
+    require(len(rigs)==1,'Native revision requires exactly one armature')
+    rig=rigs[0];meshes=[o for o in scene.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers)]
+    require(meshes,'Native revision has no rigged meshes')
+    require(all(o.data.shape_keys is None for o in meshes),'Native revision does not support shape keys')
+    require(all(o.matrix_world==rig.matrix_world for o in meshes),'Native revision requires shared mesh/armature coordinates')
+    stations=revision['stations'];vertical=revision.get('vertical_stations',[]);aspect=1/p['source_aspect_ratio']
+    def scale(u):return width_scale(stations,u)
+    def shifted(point):
+        result=point.copy();result.y*=scale(point.x+.5);result.z=vertical_position(vertical,point.x+.5,point.z,aspect);return result
+    # A paired appendage preserves its own span/shape while its root follows the body.
+    # Eye patches similarly retain their roundness instead of flattening with the head.
+    shifts={}
+    for fin in p['fins']:
+        if not fin['paired'] and not vertical:continue
+        for side,suffix in ([(-1,'_left'),(1,'_right')] if fin['paired'] else [(1,'')]):
+            name=fin['name']+suffix
+            bone=rig.data.bones.get(name)
+            require(bone is not None,'Native paired fin bone missing: '+name)
+            anchor=bone.head_local
+            shifts[name]=shifted(anchor)-anchor
+    before={o.name:(len(o.data.vertices),len(o.data.polygons),[tuple(v.uv) for v in o.data.uv_layers.active.data]) for o in meshes}
+    for obj in meshes:
+        if obj.name in shifts:
+            delta=shifts[obj.name]
+            for vertex in obj.data.vertices:vertex.co+=delta
+        elif obj.name.startswith('Textured_eye_'):
+            center=sum((v.co for v in obj.data.vertices),Vector())/len(obj.data.vertices)
+            delta=shifted(center)-center
+            for vertex in obj.data.vertices:vertex.co+=delta
+        else:
+            for vertex in obj.data.vertices:vertex.co=shifted(vertex.co)
+        obj.data.update()
+    bpy.context.view_layer.objects.active=rig
+    bpy.ops.object.mode_set(mode='EDIT')
+    for bone in rig.data.edit_bones:
+        if bone.name in shifts:
+            bone.head+=shifts[bone.name];bone.tail+=shifts[bone.name]
+        else:
+            bone.head=shifted(bone.head);bone.tail=shifted(bone.tail)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    closure={};bad_weights=0
+    for obj in meshes:
+        bm=bmesh.new();bm.from_mesh(obj.data);closure[obj.name]=all(e.is_manifold for e in bm.edges);bm.free()
+        bad_weights+=sum(abs(sum(g.weight for g in v.groups)-1)>1e-5 for v in obj.data.vertices)
+    unchanged=all(before[o.name]==(len(o.data.vertices),len(o.data.polygons),[tuple(v.uv) for v in o.data.uv_layers.active.data]) for o in meshes)
+    require(unchanged,'Native revision changed topology or UVs')
+    packed={sha256 for image in bpy.data.images if image.packed_file for sha256 in [hashlib.sha256(bytes(image.packed_file.data)).hexdigest()]}
+    expected={h[key]['sha256'] for key in ['source','front_source','top_source','bottom_source'] if h.get(key)}
+    require(expected<=packed,'Native revision textures differ from accepted source bytes')
+    export_native(outputs,rig,meshes)
+    glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
+    checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':expected<=packed and glb['images_embedded'],'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
+    return checks,{'native_revision':True,'width_only':not bool(vertical),'vertical_stations':vertical,'topology_uv_unchanged':unchanged,'stations':stations,'fin_root_shifts':{name:list(value) for name,value in shifts.items()},'bones':len(rig.data.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':(scene.frame_end-scene.frame_start)/scene.render.fps}
 
 
 def render_review(h,outputs):
@@ -563,7 +650,7 @@ def main():
             files=render_review(h,outputs);report.update(ok=True,status='done',next_action='human_review',review=files,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']))
             target=outputs.get('render_report',outputs['validation_report'])
         else:
-            checks,metrics=build(h,p,source,outputs);report.update(checks=checks,metrics=metrics,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']));passed=all(checks.values());report.update(ok=passed,status='done' if passed else 'failed',next_action='human_review' if passed else 'fix_input')
+            checks,metrics=(revise_native(h,p,source,outputs) if p.get("rest_shape_revision") else build(h,p,source,outputs));report.update(checks=checks,metrics=metrics,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']));passed=all(checks.values());report.update(ok=passed,status='done' if passed else 'failed',next_action='human_review' if passed else 'fix_input')
             report['failures']=[{'kind':'validation','code':k,'message':'Model check failed: '+k} for k,v in checks.items() if not v];target=outputs['validation_report']
     except Exception as exc:
         report['failures'].append({'kind':'validation','code':type(exc).__name__,'message':str(exc)});report['traceback']=traceback.format_exc();target=outputs.get('render_report') if '--render-only' in args else outputs['validation_report']

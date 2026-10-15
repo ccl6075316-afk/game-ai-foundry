@@ -23,6 +23,7 @@ from dataclasses import asdict
 from typing import Any
 
 from PIL import Image
+from volume_shape import validate_revision, revision_source, validate_root_attachment
 
 from asset_review import get_review, resolve_canonical_path
 from assets_manifest import load_assets_manifest
@@ -111,8 +112,13 @@ def point(value: Any, length: int, low: float, high: float, label: str) -> None:
 
 def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     fields = {"schema_version", "species", "display_name", "coordinate_space", "source_aspect_ratio",
-              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil"}
-    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil"}, "profile")
+              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision"}
+    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision"}, "profile")
+    if "rest_shape_revision" in data:
+        try:
+            validate_revision(data["rest_shape_revision"])
+        except ValueError as exc:
+            raise VolumeError(str(exc)) from exc
     require(data["schema_version"] == 1, "Unsupported profile schema")
     require(isinstance(data["species"], str) and re.fullmatch(r"[a-z][a-z0-9_]{0,63}", data["species"]), "Invalid species identifier")
     require(isinstance(data["display_name"], str) and 0 < len(data["display_name"]) <= 100, "display_name is required")
@@ -210,8 +216,14 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     require(isinstance(data["fins"], list) and len(data["fins"]) <= 32, "At most 32 fins")
     names = set()
     for fin in data["fins"]:
-        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect"}
-        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect"}, "fin")
+        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment"}
+        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment"}, "fin")
+        if "root_attachment" in fin:
+            require("rest_shape_revision" not in data, "root_attachment requires a procedural build, not native revision")
+            try:
+                validate_root_attachment(fin["root_attachment"])
+            except ValueError as exc:
+                raise VolumeError(str(exc)) from exc
         if "source_rect" in fin:
             point(fin["source_rect"], 4, 0, 1, "fin donor rectangle")
             r=fin["source_rect"]
@@ -419,6 +431,11 @@ def plan_volume(brief: Path, assets_manifest: Path, asset: str, profile: Path, o
             data.update({f"{label}_source": aux_source, f"{label}_source_image": aux_source["path"],
                          f"{label}_source_review": aux_review, f"{label}_assets_manifest": str(resolved),
                          f"{label}_brief": aux_brief})
+    if "rest_shape_revision" in profile_data:
+        try:
+            revision_source(profile_data["rest_shape_revision"], profile.parent, data)
+        except ValueError as exc:
+            raise VolumeError(str(exc)) from exc
     write_json(output, data)
     return data
 
@@ -488,6 +505,11 @@ def fresh_handoff(path: Path) -> dict:
     spec_hash = hashlib.sha256(json.dumps(asdict(spec), sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
     require(data["brief"].get("asset_spec_sha256") == spec_hash, "Resolved Brief asset/shard changed after plan")
     require(data["brief"].get("art_direction") == project.art_direction and data["brief"].get("tokens") == project.art_tokens, "Brief art contract metadata changed")
+    if "rest_shape_revision" in profile_data:
+        try:
+            revision_source(profile_data["rest_shape_revision"], profile.parent, data)
+        except ValueError as exc:
+            raise VolumeError(str(exc)) from exc
     return data
 
 
