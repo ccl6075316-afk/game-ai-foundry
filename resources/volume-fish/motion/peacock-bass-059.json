@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "species": "peacock_bass",
+  "real_length_cm": 50,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07"
+  ],
+  "tank_size_m": [
+    4.5,
+    3.6,
+    3.9
+  ],
+  "path_radii_m": [
+    0.6,
+    0.35
+  ],
+  "vertical_amplitude_m": 0.28,
+  "envelope_radius_m": 1.2,
+  "period_seconds": 12,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.48,
+  "base_body_gain": 1,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.14,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.56,
+      "vertical_sign": 0,
+      "clip_speed": 1.15
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "Shared production controller unchanged. All peacock motion amplitudes/path timings are production assumptions; no species kinematic measurements claimed."
+  ],
+  "body_wave_radians": 0.12,
+  "body_wave_cycles": 0.7
+}

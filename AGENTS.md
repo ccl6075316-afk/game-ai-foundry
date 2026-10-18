@@ -34,7 +34,9 @@
 7. **导入保清晰**：静帧/动画导入不压到 `display_size`；游戏内大小用 `real_length_cm` / runtime scale。
    鱼类转向的生成、相位衔接、曝光、深度边界及验收按 [`docs/FISH-TURN-WORKFLOW.md`](docs/FISH-TURN-WORKFLOW.md)；复用方法，每条鱼独立确定参数，不照搬银龙鱼帧号和时长。
    **3D 鱼先统一源图画风**：新鱼先走 Foundry 生图，引用已有像素鱼作风格参考；源图生成完成且资产审核接受后，才走 `volume plan → build → validate → render`，完成视觉审核后 `volume accept --handoff <handoff> --note <实际审核说明> --json`（均 `--json`）。已有已接受源图可经同一来源/审核门复用。通用建模器和物种 profile 保存在 Foundry `resources`，不得只留在某个游戏实验目录。原尺寸像素贴图用 nearest 采样；源图/风格参考/三视及引擎对比的视觉审核不能由机械检查代替。详见 [`docs/FISH-VOLUME-WORKFLOW.md`](docs/FISH-VOLUME-WORKFLOW.md)。
+   **鱼类部位不确定或无法验收先查证**：对位置、形状、连接、测位或动作判断不清，或用户指出形态不符时，按 `projects/fishing-2d/docs/3d-fish/ANATOMY-RESEARCH.md` 查询部位术语和目标物种资料，转成制作约束与有效验证后再修该部位；查不到保留未知，不以机械通过或连续猜测代替。可复用方法与物种参数分别沉淀，不把找到术语等同已有实现或跨鱼种验收。
 8. 图片后处理使用 `--input` / `--output`。
+   **每条3D鱼交付前必须验鳍根**：新建、微调、换材质、重新导出或改动作后，都检查全部适用鱼鳍的完整鳍基，覆盖静止、原生循环、Godot四动作与切换。用同姿态实际蒙皮身体表面的有符号距离，不能用“与旧版一样”“包围盒内”或单个埋入点代替。执行 `resources/scripts/volume-fish/validate_fin_completion.py` 阻断检查，模型/配置改变后旧报告失效；缺鱼鳍、空选区、悬空或过度埋入不得声明完成。根区须按物种源图/资料定义，不能照抄其他鱼的选点。仍需灰模/贴图多视与原图对照，离散采样不证明全连续时间。详见项目 `docs/3d-fish/VALIDATION.md` 的072门。
 9. Godot 只实现 Brief / Production Delta 范围。
 10. shell、配置写入、删除和网络请求必须显式确认或走白名单。
 11. 用户要求“提交”时，同时检查 Foundry 主仓库和 `projects/fishing-2d` 独立 Git 仓库；只提交、推送有保留价值的代码、记录与验收资产。未验收的实验输出先提炼必要证据和结论，再清理无用临时文件。完成前分别确认两仓库 `git status --short` 为空，并报告各自的提交与推送结果。
@@ -49,3 +51,5 @@
 | 施工与验收 | [`docs/CONSTRUCTION-SYSTEM.md`](docs/CONSTRUCTION-SYSTEM.md) |
 | 迭代 Delta | [`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md) |
 | Pipeline 阶段 | [`resources/skills/orchestrator/pipeline-schedule.md`](resources/skills/orchestrator/pipeline-schedule.md) |
+
+077鱼类验收补充：用户明确身体除正常口腔外不接受镂空。每鱼交付须通过 `validate_body_integrity.py`，检查闭合身体、逐surface不透明供体及GPU同姿态覆盖；不能以网格闭合代替透明缺块检查。详见项目 `docs/3d-fish/BODY-INTEGRITY.md`。

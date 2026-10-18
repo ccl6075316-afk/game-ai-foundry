@@ -120,6 +120,16 @@ class VolumeTests(unittest.TestCase):
         with self.assertRaisesRegex(volume.VolumeError,'paired fin roots'):
             volume.validate_profile(data,self.profile)
 
+    def test_static_mouth_with_single_skin_keeps_multisource_atlas_requirement(self):
+        data=copy.deepcopy(self.profile_data)
+        data['oral_jaws']={'corner':[.7,.5],'front':[.85,.5],'gap':.001,'upper_retraction':0,'lower_projection':0,'lip_bevel':0,'front_pigment_band':[.3,.7]}
+        volume.validate_profile(data,self.profile)
+        data['head_projection']=self.projection()
+        with self.assertRaisesRegex(volume.VolumeError,'multi-source'):
+            volume.validate_profile(data,self.profile)
+        data['head_projection']['continuous_atlas']=True
+        volume.validate_profile(data,self.profile)
+
     def test_lateral_head_and_fin_geometry_reject_invalid_parameters(self):
         self.profile_data['cephalofoil'] = {'center_v': .55, 'sections': [[-.2,.90,.97,.01],[-.1,.89,.98,.02],[0,.88,.97,.02],[.1,.89,.98,.02],[.2,.90,.97,.01]]}
         volume.validate_profile(self.profile_data,self.profile)
@@ -199,6 +209,32 @@ class VolumeTests(unittest.TestCase):
     def projection(self):
         return {'start_u':1,'end_u':0,'normal_threshold':.95,'side_limit':.1,
                 'source_rect':[0,0,1,1], 'model_depth_range':[-.5,.5], 'model_v_range':[0,1]}
+
+    def test_continuous_atlas_rejects_invalid_blend_intervals(self):
+        data=copy.deepcopy(self.profile_data)
+        data['head_projection']=dict(self.projection(),continuous_atlas=True,blend_end_u=.80)
+        volume.validate_profile(data,self.profile)
+        for end in (float('nan'),.0,.99):
+            invalid=copy.deepcopy(data);invalid['head_projection']['blend_end_u']=end
+            with self.subTest(end=end),self.assertRaises(volume.VolumeError):volume.validate_profile(invalid,self.profile)
+        invalid=copy.deepcopy(data);invalid['head_projection']['continuous_atlas']='true'
+        with self.assertRaises(volume.VolumeError):volume.validate_profile(invalid,self.profile)
+
+    def test_head_vertical_offsets_require_ordered_finite_stations(self):
+        data=copy.deepcopy(self.profile_data)
+        data['head_projection']=dict(self.projection(),vertical_offsets=[[.6,-.03],[.8,.05]])
+        volume.validate_profile(data,self.profile)
+        for rows in ([[.6,0]],[[.8,0],[.6,0]],[[.6,0],[.6,.1]],[[.6,0],[.8,float('nan')]],[[.6,0],[.8,.3]]):
+            invalid=copy.deepcopy(data);invalid['head_projection']['vertical_offsets']=rows
+            with self.subTest(rows=rows),self.assertRaises(volume.VolumeError):volume.validate_profile(invalid,self.profile)
+
+    def test_derived_texture_must_be_declared_and_pixel_identical(self):
+        derived=self.root/'derived.png';Image.new('RGBA',(8,4),(30,70,90,255)).save(derived)
+        glb=self.root/'derived.glb';make_glb(glb,self.source,front_source=derived)
+        with self.assertRaises(volume.VolumeError):volume.glb_checks(glb,self.source)
+        volume.glb_checks(glb,self.source,derived_source_paths=(derived,))
+        Image.new('RGBA',(8,4),(31,70,90,255)).save(derived)
+        with self.assertRaises(volume.VolumeError):volume.glb_checks(glb,self.source,derived_source_paths=(derived,))
 
     def test_head_projection_valid_boundaries_and_invalid_donors(self):
         valid = self.projection()

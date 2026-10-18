@@ -5,10 +5,15 @@ The approved source pixels remain unchanged. No vendor/API calls or executable p
 import sys, json, math, hashlib, struct, traceback, array
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "cli"))
-from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain
+from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain,validate_fin_baseline,fin_baseline_parameter
+from volume_mouth import validate_oral_jaws,validate_oral_context
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from oral_jaws import build_closed_oral_jaws
+from separate_jaw import build_separate_lower_jaw,rig_lower_jaw
 import bpy, bmesh
 from mathutils import Vector, Quaternion
 from mathutils.geometry import delaunay_2d_cdt
+from mathutils.bvhtree import BVHTree
 
 
 def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -30,9 +35,21 @@ def polygons_overlap(a,b):
             if max(p[0],q[0])<min(r[0],s[0]) or max(r[0],s[0])<min(p[0],q[0]) or max(p[1],q[1])<min(r[1],s[1]) or max(r[1],s[1])<min(p[1],q[1]):continue
             if cross(p,q,r)*cross(p,q,s)<=0 and cross(r,s,p)*cross(r,s,q)<=0:return True
     return False
+
+def head_vertical_offset(cap,u):
+    rows=cap.get('vertical_offsets',[])
+    if not rows:return 0.
+    if u<=rows[0][0]:return rows[0][1]
+    for a,b in zip(rows,rows[1:]):
+        if a[0]<=u<=b[0]:
+            t=(u-a[0])/(b[0]-a[0]);return a[1]+(b[1]-a[1])*t
+    return rows[-1][1]
 def uvpoint(p): return isinstance(p,list) and len(p)==2 and all(number(v,0,1) for v in p)
 def validate_profile(p):
-    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rest_shape_revision rig fins eyes barbels animation notes','profile')
+    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rest_shape_revision rig fins eyes barbels animation notes oral_jaws','profile')
+    if 'oral_jaws' in p:
+        validate_oral_jaws(p['oral_jaws'])
+        require(not p.get('rest_shape_revision') and not p.get('cephalofoil') and (not p.get('head_projection') or p['head_projection'].get('continuous_atlas')),'Oral cleft requires longitudinal build and a continuous atlas when using multiple skin sources')
     if 'rest_shape_revision' in p:validate_revision(p['rest_shape_revision'])
     require(p['schema_version']==1 and p['coordinate_space']=='normalized_source_top_left','Unsupported profile coordinates/version')
     require(p['profile_review_status']=='approved','Profile landmarks need review: profile_review_status must be approved')
@@ -52,7 +69,11 @@ def validate_profile(p):
         keys(patch,'polygon offset','body UV patch')
         require(3<=len(patch['polygon'])<=128 and all(uvpoint(v) for v in patch['polygon']) and len(patch['offset'])==2 and all(number(v,-1,1) for v in patch['offset']),'Invalid body UV patch')
     if p.get('head_projection'):
-        cap=p['head_projection'];keys(cap,'start_u end_u normal_threshold side_limit source_rect model_depth_range model_v_range uv_patches','head projection')
+        cap=p['head_projection'];keys(cap,'start_u end_u normal_threshold side_limit source_rect model_depth_range model_v_range uv_patches continuous_atlas blend_end_u vertical_offsets','head projection')
+        if 'vertical_offsets' in cap:
+            rows=cap['vertical_offsets'];require(isinstance(rows,list) and 2<=len(rows)<=64 and all(isinstance(r,list) and len(r)==2 and number(r[0],0,1) and number(r[1],-.2,.2) for r in rows) and all(a[0]<b[0] for a,b in zip(rows,rows[1:])),'Invalid head vertical offsets')
+        require(type(cap.get('continuous_atlas',False)) is bool and not (cap.get('continuous_atlas') and p.get('cephalofoil')),'Continuous atlas requires boolean flag and longitudinal body')
+        if 'blend_end_u' in cap:require(cap.get('continuous_atlas') and number(cap['blend_end_u'],0,1) and min(cap['start_u'],cap['end_u'])<cap['blend_end_u']<=p['body']['sections'][-1][0],'Invalid continuous head blend interval')
         require(all(number(cap[k],0,1) for k in ['start_u','end_u']) and cap['start_u']!=cap['end_u'],'Invalid head interval')
         rect=cap['source_rect'];require(len(rect)==4 and all(number(v,0,1) for v in rect) and rect[0]<rect[2] and rect[1]<rect[3],'Invalid front source rectangle')
         depth=cap['model_depth_range'];require(len(depth)==2 and all(number(v,-.5,.5) for v in depth) and depth[0]<depth[1],'Invalid front depth range')
@@ -77,11 +98,13 @@ def validate_profile(p):
     keys(p['rig'],'spine','rig');spine=p['rig']['spine']
     require(4<=len(spine)<=32 and all(uvpoint(v) for v in spine),'Invalid spine')
     require(all(a[0]<b[0] for a,b in zip(spine,spine[1:])) or all(a[0]>b[0] for a,b in zip(spine,spine[1:])),'Spine must consistently run head to tail')
+    if p.get('oral_jaws'):validate_oral_context(p['oral_jaws'],body,spine)
     require(len(p['fins'])<=32,'Too many fins')
     fin_names=[f.get('name','')+suffix for f in p['fins'] for suffix in (['_left','_right'] if f.get('paired') else [''])]
     require(len(set(fin_names))==len(fin_names) and all(n!='root' and not n.startswith('body_') for n in fin_names),'Duplicate or reserved fin names')
     for f in p['fins']:
-        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment','fin')
+        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment source_baseline','fin')
+        if f.get('source_baseline'):validate_fin_baseline(f['source_baseline'])
         if 'root_attachment' in f:
             require('rest_shape_revision' not in p or f.get('paired') is True,'Native root_attachment supports authored paired fin roots only')
             validate_root_attachment(f['root_attachment'])
@@ -304,7 +327,7 @@ def build(h,p,source,outputs):
                     for li in poly.loop_indices:
                         co=data.vertices[data.loops[li].vertex_index].co
                         side=max(0,min(1,(co.y*head_sign-dr[0])/(dr[1]-dr[0])))
-                        high=max(0,min(1,((.5-co.z/aspect)-vr[0])/(vr[1]-vr[0])))
+                        high=max(0,min(1,((.5-co.z/aspect)+head_vertical_offset(cap,co.x+.5)-vr[0])/(vr[1]-vr[0])))
                         projected.append((rect[0]+side*(rect[2]-rect[0]),rect[1]+high*(rect[3]-rect[1])))
                     # A donor is a face-level UV island. Mixing donor and original
                     # corners would interpolate back through the removed pigment.
@@ -376,6 +399,117 @@ def build(h,p,source,outputs):
                 a=(i-1)*R+j;b=(i-1)*R+(j+1)%R;faces.append((a,b,b+R,a+R))
     faces += [tuple(reversed(range(R))),tuple((N-1)*R+j for j in range(R))]
     body_object=mesh('Closed_body',verts,faces,coords,ws)
+    continuous_atlas_metrics=None
+    if p.get('head_projection',{}).get('continuous_atlas'):
+        # Freeze the side/front mixture into one native-resolution head atlas.
+        # A face-normal material switch breaks painted lips when the snout changes.
+        # Interpolate in surface coordinates instead; the anterior cap uses the
+        # same frontal UV mapping as the final atlas column.
+        cap=p['head_projection'];start=min(cap['start_u'],cap['end_u']);end=cap.get('blend_end_u',hi)
+        head_sign=1 if spine[0][0]>spine[-1][0] else -1
+        require(start<end and front_image is not None,'Continuous atlas needs an anterior frontal donor')
+        atlas_pixels=array.array('f',[0])*(W*H*4)
+        rect=cap['source_rect'];dr=cap['model_depth_range'];vr=cap['model_v_range']
+        angular=[(math.cos(math.tau*(y+.5)/H),math.sin(math.tau*(y+.5)/H)) for y in range(H)]
+        def sample_rgba(values,width,height,u,v):
+            x=max(0,min(width-1,int(u*width)));y=max(0,min(height-1,int((1-v)*height)))
+            at=(y*width+x)*4;return values[at:at+3]
+        clean_metrics=None
+        head_front_pixels=front_pixels
+        if p.get('oral_jaws'):
+            # Remove the obsolete painted lip line from one declared derivative.
+            # Use the same texels for the cap and side atlas. Preserve some native
+            # skin pixel variation from the adjacent donor strip, rather than
+            # replacing the whole chin with a flat gradient.
+            low,high=p['oral_jaws']['front_pigment_band']
+            clean_pixels=array.array('f',front_pixels)
+            for cy in range(FH):
+                fv=1-(cy+.5)/FH
+                if not low<fv<high:continue
+                t=(fv-low)/(high-low)
+                for cx in range(FW):
+                    fu=(cx+.5)/FW
+                    above=sample_rgba(front_pixels,FW,FH,fu,low)
+                    below=sample_rgba(front_pixels,FW,FH,fu,high)
+                    donor=sample_rgba(front_pixels,FW,FH,fu,low-.04+((fv-low)%.04))
+                    donor_base=sample_rgba(front_pixels,FW,FH,fu,low-.02)
+                    color=[max(0,min(1,a+(b-a)*t+.45*math.sin(math.pi*t)*(d-c))) for a,b,d,c in zip(above,below,donor,donor_base)]
+                    at=(cy*FW+cx)*4;clean_pixels[at:at+3]=array.array('f',color)
+            clean=bpy.data.images.new('Frontal skin - old painted mouth removed',width=FW,height=FH,alpha=True)
+            clean.pixels.foreach_set(clean_pixels)
+            clean_path=outputs['blend'].parent/'front-skin.png';clean.filepath_raw=str(clean_path);clean.file_format='PNG';clean.save();clean.pack()
+            cleanmat=frontmat.copy();cleanmat.name='Frontal skin around geometric oral cleft'
+            next(n for n in cleanmat.node_tree.nodes if n.type=='TEX_IMAGE').image=clean
+            data=body_object.data
+            bm=bmesh.new();bm.from_mesh(data);bmesh.ops.triangulate(bm,faces=[f for f in bm.faces if len(f.verts)>4]);bm.to_mesh(data);bm.free()
+            data.materials.append(cleanmat);clean_index=len(data.materials)-1
+            # Untouched forehead triangles continue using the original donor.
+            for poly in data.polygons:
+                if len(poly.vertices)==3 and poly.material_index==1:
+                    values=[1-data.uv_layers.active.data[li].uv.y for li in poly.loop_indices]
+                    if max(values)>low and min(values)<high:poly.material_index=clean_index
+            head_front_pixels=clean_pixels
+            clean_metrics={'path':str(clean_path),'sha256':sha(clean_path),'size':[FW,FH],'source_front_sha256':sha(Path(h['front_source_image'])),'band':[low,high],'method':'Linear boundary color plus adjacent native skin pixel residual; same derivative sampled by cap and atlas.'}
+        for x in range(max(0,int((start-.025)*W)),W):
+            u=min(hi,(x+.5)/W);top,bottom,depth=section(u)
+            blend=max(0,min(1,(u-start)/(end-start)));blend=blend*blend*(3-2*blend)
+            for y,(cosine,sine) in enumerate(angular):
+                v=(top+bottom)/2-(bottom-top)/2*cosine
+                inset=min(12/H,(bottom-top)*.20);tu,tv=u,max(top+inset,min(bottom-inset,v))
+                for patch in p.get('body_uv_patches',[]):
+                    if inside([tu,tv],patch['polygon']):
+                        tu+=patch['offset'][0];tv+=patch['offset'][1];break
+                tu,tv=opaque_uv(tu,tv,(top+bottom)/2)
+                side_color=sample_rgba(pixels,W,H,tu,tv)
+                across=max(0,min(1,(depth*sine*head_sign-dr[0])/(dr[1]-dr[0])))
+                high=max(0,min(1,(v+head_vertical_offset(cap,u)-vr[0])/(vr[1]-vr[0])))
+                fu=rect[0]+across*(rect[2]-rect[0]);fv=rect[1]+high*(rect[3]-rect[1])
+                front_color=sample_rgba(head_front_pixels,FW,FH,fu,fv)
+                at=(y*W+x)*4
+                atlas_pixels[at:at+4]=array.array('f',[a+(b-a)*blend for a,b in zip(side_color,front_color)]+[1])
+        atlas=bpy.data.images.new('Continuous head atlas - derived from reviewed side and front',width=W,height=H,alpha=True)
+        atlas.pixels.foreach_set(atlas_pixels)
+        atlas_path=outputs['blend'].parent/'head-atlas.png';atlas.filepath_raw=str(atlas_path);atlas.file_format='PNG';atlas.save();atlas.pack()
+        atlasmat=mat.copy();atlasmat.name='Continuous head pixels - baked side-front transition'
+        next(n for n in atlasmat.node_tree.nodes if n.type=='TEX_IMAGE').image=atlas
+        data=body_object.data;data.materials.append(atlasmat);atlas_index=len(data.materials)-1;layer=data.uv_layers.active
+        atlas_faces=0
+        for poly in data.polygons:
+            if len(poly.vertices)!=4:continue # anterior cap retains exact front projection
+            center_u=sum(data.vertices[i].co.x+.5 for i in poly.vertices)/len(poly.vertices)
+            if center_u<start:continue
+            if p.get('oral_jaws') and center_u>=end:
+                projected=[]
+                for li in poly.loop_indices:
+                    co=data.vertices[data.loops[li].vertex_index].co
+                    across=max(0,min(1,(co.y*head_sign-dr[0])/(dr[1]-dr[0])))
+                    high_v=max(0,min(1,(.5-co.z/aspect+head_vertical_offset(cap,co.x+.5)-vr[0])/(vr[1]-vr[0])))
+                    projected.append((rect[0]+across*(rect[2]-rect[0]),rect[1]+high_v*(rect[3]-rect[1])))
+                low,high=p['oral_jaws']['front_pigment_band']
+                if max(v for u,v in projected)<=low or min(v for u,v in projected)>=high:
+                    poly.material_index=1
+                    for li,(tu,tv) in zip(poly.loop_indices,projected):layer.data[li].uv=(tu,1-tv)
+                    continue
+            poly.material_index=atlas_index;atlas_faces+=1
+            angular_indices=[data.loops[li].vertex_index%R for li in poly.loop_indices]
+            wraps=0 in angular_indices and R-1 in angular_indices
+            for li in poly.loop_indices:
+                i=data.loops[li].vertex_index;j=i%R
+                layer.data[li].uv=(data.vertices[i].co.x+.5,1. if wraps and j==0 else j/R)
+        continuous_atlas_metrics={'path':str(atlas_path),'sha256':sha(atlas_path),'size':[W,H],'source_side_sha256':sha(source),'source_front_sha256':sha(Path(h['front_source_image'])),'baked_faces':atlas_faces,'method':'Nearest source sampling; spatial smoothstep color blend into a packed atlas; no face-normal material switch in head band. Derived texels, not unmodified source pixels.'}
+        if clean_metrics:continuous_atlas_metrics['front_skin']=clean_metrics
+    oral_metrics=None
+    if p.get('oral_jaws'):
+        if p['oral_jaws'].get('separate_lower'):
+            jaw,oral_metrics=build_separate_lower_jaw(body_object,p['oral_jaws'],p['head_projection'],aspect,weights,head_vertical_offset,section,p.get('body_uv_patches',[]))
+            for oral_obj in [jaw]+[bpy.data.objects[name] for name in jaw.get('oral_web_names',[])]:
+                oral_obj.parent=rig;mod=oral_obj.modifiers.new('Swim skin','ARMATURE');mod.object=rig;meshes.append(oral_obj)
+            rig_lower_jaw(rig,jaw,p['oral_jaws'],aspect,weights)
+            if p['oral_jaws'].get('articulation'):
+                oral_metrics['articulated_jaw']=True
+                oral_metrics['articulation']=p['oral_jaws']['articulation']
+                oral_metrics['jaw_bone']='jaw_lower'
+        else:oral_metrics=build_closed_oral_jaws(body_object,p['oral_jaws'],aspect,weights)
     if p.get('cephalofoil'):
         head=p['cephalofoil'];control=head['sections'];rows=[]
         for i in range(97):
@@ -408,6 +542,11 @@ def build(h,p,source,outputs):
     attachment_metrics={}
     for f in p['fins']:
         polygon=f['polygon'];points=[Vector(v) for v in polygon]
+        if f.get('source_baseline'):
+            for a,b in zip(f['source_baseline'],f['source_baseline'][1:]):
+                spacing=.001 if f.get('root_attachment',{}).get('surface_clearance') and not f['paired'] else .004
+                count=max(1,math.ceil(math.hypot(b[0]-a[0],(b[1]-a[1])*aspect)/spacing))
+                for j in range(1,count):points.append(Vector(a).lerp(Vector(b),j/count))
         xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
         for i in range(1,13):
             for j in range(1,7):
@@ -420,17 +559,50 @@ def build(h,p,source,outputs):
             scale=f.get('vertical_scale',1)
             def finpos(u,v,depth):return xyz(u,f['anchor'][1]+(v-f['anchor'][1])*scale,depth)
             attachment=f.get('root_attachment')
+            posterior_bvh=None
+            if attachment and attachment.get('surface_region')=='posterior':
+                body_object.data.calc_loop_triangles();pv=[v.co.copy() for v in body_object.data.vertices];rear=min(v.x for v in pv);span=max(v.x for v in pv)-rear
+                pf=[tuple(t.vertices) for t in body_object.data.loop_triangles if max(pv[i].x for i in t.vertices)<=rear+.025*span and (pv[t.vertices[1]]-pv[t.vertices[0]]).cross(pv[t.vertices[2]]-pv[t.vertices[0]]).normalized().x<-.5]
+                require(bool(pf),'No posterior body region for fin root: '+name);posterior_bvh=BVHTree.FromPolygons(pv,pf,all_triangles=True)
             def attach(point,t):
                 if not attachment:return point
                 gain=root_attachment_gain(t,attachment['root_band'],attachment['blend_end'])
-                if gain<=0:return point
-                found,hit,normal,_=body_object.closest_point_on_mesh(point)
+                if gain<=0 and not attachment.get('surface_clearance'):return point
+                if posterior_bvh:
+                    hit,normal,face,_=posterior_bvh.find_nearest(point);found=face is not None
+                elif attachment.get('surface_clearance') and not f['paired']:
+                    vertical=1 if f['tip'][1]<f['anchor'][1] else -1
+                    origin=Vector((point.x,point.y,vertical*2.))
+                    found,hit,normal,_=body_object.ray_cast(origin,Vector((0,0,-vertical)),distance=4.)
+                    if not found:found,hit,normal,_=body_object.closest_point_on_mesh(point)
+                else:found,hit,normal,_=body_object.closest_point_on_mesh(point)
                 require(found and normal.length>.5 and (not f['paired'] or normal.y*side>=-1e-5),'Fin root does not resolve to matching body surface: '+name)
-                return point.lerp(hit-normal.normalized()*attachment['inset'],gain)
+                result=point.lerp(hit-normal.normalized()*attachment['inset'],gain)
+                clearance=attachment.get('surface_clearance',0)
+                if clearance and t>attachment['root_band']:
+                    # Full membrane safety is distinct from basal projection.
+                    # Keep source side silhouette while clearing the actual flank.
+                    if f['paired']:
+                        origin=Vector((result.x,side*2.,result.z))
+                        found_side,side_hit,_,_=body_object.ray_cast(origin,Vector((0,-side,0)),distance=4.)
+                        if found_side:result.y=side*max(abs(result.y),abs(side_hit.y)+clearance)
+                    else:
+                        if not posterior_bvh:
+                            origin=Vector((result.x,result.y,vertical*2.))
+                            free_hit,near,n,_=body_object.ray_cast(origin,Vector((0,0,-vertical)),distance=4.)
+                            if free_hit:result.z=vertical*max(vertical*result.z,vertical*near.z+clearance)
+                        if posterior_bvh:near,n,face,distance=posterior_bvh.find_nearest(result)
+                        else:
+                            found_free,near,n,_=body_object.closest_point_on_mesh(result)
+                            require(found_free,'Free fin surface has no body donor')
+                            distance=(result-near).length
+                        signed=distance*(1 if (result-near).dot(n)>=0 else -1)
+                        if signed<clearance:result=near+n.normalized()*clearance
+                return result
             anchor=attach(finpos(*f['anchor'],side*f['root_depth']),0);tip=finpos(*f['tip'],side*f['tip_depth']);bn=finbone(name,anchor,tip,f['axis'],f['amplitude']*side,f['phase'])
             delta=Vector(f['tip'])-Vector(f['anchor']);denom=max(delta.length_squared,1e-8);vs=[];uvs=[];wts=[];source_parameters=[]
             for v in dv:
-                t=max(0,min(1,(v-Vector(f['anchor'])).dot(delta)/denom));depth=side*(f['root_depth']+(f['tip_depth']-f['root_depth'])*t)
+                t=fin_baseline_parameter(v,f['source_baseline'],polygon,aspect) if f.get('source_baseline') else max(0,min(1,(v-Vector(f['anchor'])).dot(delta)/denom));depth=side*(f['root_depth']+(f['tip_depth']-f['root_depth'])*t)
                 vs.append(attach(finpos(v.x,v.y,depth),t));source_parameters.append(t)
                 if f.get('opaque'):
                     # Fin silhouette comes from geometry; sample an opaque
@@ -490,7 +662,7 @@ def build(h,p,source,outputs):
     glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
     surface_sources_ok=all(source.packed_file is not None and surface_face_counts[label]>0 for label,source in surface_images.items())
     checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':tuple(image.size)==(W,H) and image.packed_file is not None and glb['images_embedded'] and (front_image is None or (front_image.packed_file is not None and tuple(front_image.size)==(FW,FH) and front_face_count>0)) and surface_sources_ok,'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
-    return checks,{'root_attachments':attachment_metrics,'source_size':[W,H],'source_packed':image.packed_file is not None,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
+    return checks,{'oral_jaws':oral_metrics,'root_attachments':attachment_metrics,'source_size':[W,H],'source_packed':image.packed_file is not None,'continuous_head_atlas':continuous_atlas_metrics,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
 
 
 def revise_native(h,p,source,outputs):
@@ -632,6 +804,23 @@ def render_review(h,outputs):
         camdata.ortho_scale=span*1.5
         scene.render.filepath=str(review/(name+'.png'));bpy.ops.render.render(write_still=True);files[name]=scene.render.filepath
     scene.view_layers[0].material_override=None
+    profile=json.loads(Path(h['profile']).read_text())
+    if profile.get('oral_jaws'):
+        body=next(o for o in fish if o.name=='Closed_body')
+        points=[body.matrix_world@v.co for v in body.data.vertices if v.co.x+.5>=profile['oral_jaws']['corner'][0]-.04]
+        head_lo=Vector([min(v[i] for v in points) for i in range(3)])
+        head_hi=Vector([max(v[i] for v in points) for i in range(3)])
+        target=(head_lo+head_hi)/2
+        scene.cycles.samples=32
+        for gray in [False,True]:
+            scene.view_layers[0].material_override=clay if gray else None
+            for view,direction in [('side',(0,-3,0)),('front',(3,0,0)),('oblique',(2,-3,.65))]:
+                name=('clay_' if gray else '')+'oral_'+view
+                cam.location=target+Vector(direction)*span
+                cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler()
+                camdata.ortho_scale=max((head_hi-head_lo).x,(head_hi-head_lo).z*1.5)*1.35
+                scene.render.filepath=str(review/(name+'.png'));bpy.ops.render.render(write_still=True);files[name]=scene.render.filepath
+        scene.view_layers[0].material_override=None
     # Build a true Blender comparison scene: unchanged source/anchor planes above model.
     def image_plane(path,name,cx,cz,width):
         image=bpy.data.images.load(str(path),check_existing=True);w,hh=image.size[:];height=width*hh/w

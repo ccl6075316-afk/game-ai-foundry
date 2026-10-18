@@ -112,8 +112,14 @@ def point(value: Any, length: int, low: float, high: float, label: str) -> None:
 
 def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     fields = {"schema_version", "species", "display_name", "coordinate_space", "source_aspect_ratio",
-              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision"}
-    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision"}, "profile")
+              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws"}
+    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws"}, "profile")
+    if 'oral_jaws' in data:
+        from volume_mouth import validate_oral_jaws
+        try:validate_oral_jaws(data['oral_jaws'])
+        except ValueError as exc:raise VolumeError(str(exc)) from exc
+        require(not data.get('rest_shape_revision') and not data.get('cephalofoil'),'Oral shell cleft is for new longitudinal builds only')
+        require(not data.get('head_projection') or data['head_projection'].get('continuous_atlas'),'A multi-source oral shell cleft requires a declared continuous head atlas; a single side source already has one continuous skin material')
     if "rest_shape_revision" in data:
         try:
             validate_revision(data["rest_shape_revision"])
@@ -161,8 +167,21 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
             point(p, 2, 0, 1, "UV patch point")
         point(patch["offset"], 2, -1, 1, "UV patch offset")
     if "head_projection" in data:
-        fields = {"start_u", "end_u", "normal_threshold", "side_limit", "source_rect", "model_depth_range", "model_v_range", "uv_patches"}
-        head = keys(data["head_projection"], fields, fields - {"uv_patches"}, "head projection")
+        fields = {"start_u", "end_u", "normal_threshold", "side_limit", "source_rect", "model_depth_range", "model_v_range", "uv_patches", "continuous_atlas", "blend_end_u", "vertical_offsets"}
+        head = keys(data["head_projection"], fields, fields - {"uv_patches", "continuous_atlas", "blend_end_u", "vertical_offsets"}, "head projection")
+        if 'vertical_offsets' in head:
+            rows=head['vertical_offsets']
+            require(isinstance(rows,list) and 2<=len(rows)<=64,'Head vertical offsets need2–64 stations')
+            previous=-1
+            for row in rows:
+                require(isinstance(row,list) and len(row)==2,'Head vertical offset needs[u,offset_v]')
+                number(row[0],0,1,'head offset u');number(row[1],-.2,.2,'head offset v')
+                require(row[0]>previous,'Head offset stations must increase');previous=row[0]
+        require(type(head.get("continuous_atlas", False)) is bool, "continuous_atlas must be boolean")
+        require(not head.get("continuous_atlas") or not data.get("cephalofoil"), "Continuous head atlas requires a longitudinal body")
+        if 'blend_end_u' in head:
+            number(head['blend_end_u'], 0, 1, 'head blend end')
+            require(head.get('continuous_atlas') and min(head['start_u'],head['end_u']) < head['blend_end_u'] <= data['body']['sections'][-1][0], 'Head blend must finish after its start and inside the body')
         for key in ("start_u", "end_u"):
             number(head[key], 0, 1, key)
         require(head["start_u"] != head["end_u"], "Head projection u range must be nonzero")
@@ -216,8 +235,15 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     require(isinstance(data["fins"], list) and len(data["fins"]) <= 32, "At most 32 fins")
     names = set()
     for fin in data["fins"]:
-        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment"}
-        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment"}, "fin")
+        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline"}
+        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline"}, "fin")
+        if 'source_baseline' in fin:
+            from volume_shape import validate_fin_baseline,fin_baseline_parameter
+            try:
+                validate_fin_baseline(fin['source_baseline'])
+                fin_baseline_parameter(fin['anchor'],fin['source_baseline'],fin['polygon'],1/data['source_aspect_ratio'])
+            except ValueError as exc:raise VolumeError(str(exc)) from exc
+            require('rest_shape_revision' not in data,'Explicit basal source curves require a fresh build; native revisions must preserve frozen source parameters')
         if "root_attachment" in fin:
             require("rest_shape_revision" not in data or fin.get("paired") is True, "Native root_attachment supports authored paired fin roots only")
             try:
@@ -286,6 +312,10 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     style = keys(data["style"], {"pixel_art", "reference_image", "texture_filter", "roughness"}, {"pixel_art", "reference_image", "texture_filter", "roughness"}, "style")
     require(style["pixel_art"] is True and style["texture_filter"] == "nearest" and style["roughness"] == 1.0, "Explicit pixel_art=true, nearest texture and roughness=1.0 contract required")
     reference = image_info(resolve_file(style["reference_image"], path.parent))
+    if data.get('oral_jaws'):
+        from volume_mouth import validate_oral_context
+        try:validate_oral_context(data['oral_jaws'],body,rig['spine'])
+        except ValueError as exc:raise VolumeError(str(exc)) from exc
     return data, reference
 
 
@@ -542,7 +572,7 @@ def glb_document(path: Path) -> tuple[dict, bytes]:
 
 
 def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = None,
-               surface_source_paths: tuple[Path, ...] = ()) -> dict:
+               surface_source_paths: tuple[Path, ...] = (), derived_source_paths: tuple[Path, ...] = ()) -> dict:
     doc, blob = glb_document(path)
     components = {5120: ("b", 1), 5121: ("B", 1), 5122: ("h", 2), 5123: ("H", 2), 5125: ("I", 4), 5126: ("f", 4)}
     widths = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4, "MAT4": 16}
@@ -638,7 +668,7 @@ def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = N
             require(error <= .0001, "Animation actual first/last keyframes do not loop")
             channels += 1
     require(channels > 0 and animated_motion, "No actual changing animated channels")
-    sources = [source_path] + ([front_source_path] if front_source_path else []) + list(surface_source_paths)
+    sources = [source_path] + ([front_source_path] if front_source_path else []) + list(surface_source_paths) + list(derived_source_paths)
     matching_by_source = []
     for source_path in sources:
         with Image.open(source_path) as source:
@@ -660,7 +690,7 @@ def glb_checks(path: Path, source_path: Path, front_source_path: Path | None = N
         require(pbr.get("roughnessFactor", 1.0) == 1.0 and pbr.get("metallicFactor", 1.0) == 0.0, "Material roughness/nonmetal contract violated")
         if "baseColorTexture" in pbr:
             tex = doc["textures"][pbr["baseColorTexture"]["index"]]
-            require(tex.get("source") in allowed_images, "Material does not use an original source image")
+            require(tex.get("source") in allowed_images, "Material does not use a declared original or derived image")
             sampler = doc["samplers"][tex["sampler"]]
             require(sampler.get("magFilter") == 9728 and sampler.get("minFilter") == 9728, "Pixel-art texture must use nearest without mipmap blur")
             if material_index in used_materials:
@@ -687,8 +717,26 @@ def validate_volume(handoff_path: Path, *, require_run: bool = False, check_visu
     for label in ("top", "bottom"):
         require(report.get(f"{label}_source_sha256") == data.get(f"{label}_source", {}).get("sha256"),
                 f"Builder {label} source hash mismatch")
+    derived_sources = ()
+    profile_data = read_json(Path(data['profile']))
+    if profile_data.get('head_projection', {}).get('continuous_atlas'):
+        atlas = report.get('metrics', {}).get('continuous_head_atlas') or {}
+        atlas_path = Path(data['outputs']['blend']).parent / 'head-atlas.png'
+        require(atlas.get('path') == str(atlas_path) and atlas_path.is_file() and atlas.get('sha256') == sha(atlas_path), 'Declared continuous head atlas missing or stale')
+        require(atlas.get('source_side_sha256') == data['source']['sha256'] and atlas.get('source_front_sha256') == data.get('front_source', {}).get('sha256'), 'Derived head atlas source hashes do not match')
+        with Image.open(atlas_path) as derived:
+            require(derived.size == (data['source']['width'], data['source']['height']), 'Head atlas must retain source canvas resolution')
+        derived_sources = (atlas_path,)
+        if profile_data.get('oral_jaws'):
+            skin=atlas.get('front_skin') or {}
+            skin_path=atlas_path.parent/'front-skin.png'
+            require(skin.get('path')==str(skin_path) and skin_path.is_file() and skin.get('sha256')==sha(skin_path),'Declared frontal skin derivative missing or stale')
+            require(skin.get('source_front_sha256')==data['front_source']['sha256'] and skin.get('band')==profile_data['oral_jaws']['front_pigment_band'],'Frontal skin donor or pigment settings mismatch')
+            with Image.open(skin_path) as derived:
+                require(derived.size==(data['front_source']['width'],data['front_source']['height']),'Frontal skin must retain donor canvas resolution')
+            derived_sources+=(skin_path,)
     checks = glb_checks(glb, Path(data["source_image"]), Path(data["front_source_image"]) if data.get("front_source_image") else None,
-                        tuple(Path(data[f"{label}_source_image"]) for label in ("top", "bottom") if data.get(f"{label}_source_image")))
+                        tuple(Path(data[f"{label}_source_image"]) for label in ("top", "bottom") if data.get(f"{label}_source_image")), derived_sources)
     require(report.get("style_visual_review", "pending") == "pending", "Builder cannot automatically approve visual style")
     visual = data.get("style_visual_review", "pending")
     require(visual in {"pending", "accepted"}, "Unknown visual review status")
@@ -726,7 +774,7 @@ def run_builder(handoff_path: Path, blender: Path | None, *, render_only: bool =
     if render_only:
         argv.append("--render-only")
     try:
-        process = subprocess.run(argv, capture_output=True, text=True, timeout=600, check=False)
+        process = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600, check=False)
         if process.returncode:
             raise VolumeError(f"Blender exited with code {process.returncode}; inspect the validation report", code="run_failed", status="failed")
         data, summary = validate_volume(handoff_path, require_run=True)

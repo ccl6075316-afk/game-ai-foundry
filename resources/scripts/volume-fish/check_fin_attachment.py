@@ -12,6 +12,7 @@ loop. It never saves a Blender model or claims a visual/anatomical acceptance.
 import argparse
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -61,7 +62,13 @@ def main():
         parser.add_argument('--' + key, type=Path, required=True)
     parser.add_argument('--samples', type=int, default=18)
     parser.add_argument('--tolerance-cm', type=float, default=.10)
+    parser.add_argument('--require-paired-contact', action='store_true', help='Gate all authored paired proximal bands, including profiles without root_attachment.')
+    parser.add_argument('--max-penetration-cm', type=float, help='Optional maximum root-band embedding; production tolerance, not biological evidence.')
     args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else [])
+    if args.samples < 2 or args.tolerance_cm < 0 or not math.isfinite(args.tolerance_cm):
+        parser.error('At least two samples and nonnegative finite gap tolerance required')
+    if args.max_penetration_cm is not None and (not math.isfinite(args.max_penetration_cm) or args.max_penetration_cm < 0):
+        parser.error('Maximum penetration must be nonnegative and finite')
     profile = json.loads(args.profile.read_text())
     bpy.ops.wm.open_mainfile(filepath=str(args.blend.resolve()), use_scripts=False)
     scene = bpy.context.scene
@@ -85,17 +92,18 @@ def main():
             idset = set(ids)
             edges = [(edge.vertices[0], edge.vertices[1]) for edge in obj.data.edges if all(i in idset for i in edge.vertices)]
             selections[name] = {'ids': ids, 'edges': edges, 'method': method, 'cutoff': cutoff,
-                                'attachment_required': bool(fin.get('root_attachment')), 'paired': fin['paired']}
+                                'attachment_required': bool(fin.get('root_attachment')) or (args.require_paired_contact and fin['paired']), 'paired': fin['paired'], 'explicit_baseline':bool(fin.get('source_baseline'))}
     report = {'schema_version': 1, 'command': 'volume.fin.check-attachment', 'stage': 'validate',
               'status': 'done', 'next_action': 'human_review', 'ok': True, 'failures': [],
               'blend': str(args.blend.resolve()), 'blend_sha256': sha(args.blend),
               'profile': str(args.profile.resolve()), 'profile_sha256': sha(args.profile),
               'cm_per_unit': cm, 'tolerance_cm': args.tolerance_cm,
+              'require_paired_contact': args.require_paired_contact, 'max_penetration_cm': args.max_penetration_cm,
               'method': 'Exact evaluated Closed_body triangle BVH signed nearest distances. Actual proximal root vertices plus 1/4,1/2,3/4 points on edges wholly in the root band. Negative means embedded. Positive above tolerance means exposed. No whole-mesh nearest-point shortcut.',
               'scope': 'Rest + native Blender clip; Godot four-action overlays require separate runtime skin audit.',
               'fins': {name: {'source_t_method': s['method'], 'root_band': s['cutoff'],
                               'root_vertex_indices': s['ids'], 'root_edges': len(s['edges']),
-                              'attachment_required': s['attachment_required'], 'root_band_anatomy_limit': 'Proximal source-t band is meaningful for authored paired attachment gates only; unpaired free edges may also have t<=.05 and their band distances must not be called root gaps.' if not s['paired'] else 'Author-specified paired proximal band', 'native_samples': []}
+                              'attachment_required': s['attachment_required'], 'root_band_anatomy_limit': 'Full authored source_baseline distance band, frozen before projection.' if s['explicit_baseline'] else ('Proximal source-t band is meaningful for authored paired attachment gates only; unpaired free edges may also have t<=.05 and their band distances must not be called root gaps.' if not s['paired'] else 'Author-specified paired proximal band'), 'native_samples': []}
                        for name, s in selections.items()}}
 
     def sample(label, frame):
@@ -129,7 +137,7 @@ def main():
                         'selector': 'Maximum source-u vertical clipping cap of alpha-traced tail ROI; original rest X IDs frozen, not anchor-tip t.'}
             evaluated.to_mesh_clear()
             result = summarize(values)
-            result.update({'frame': frame, 'all_roots_within_tolerance': max(values) <= args.tolerance_cm,
+            result.update({'frame': frame, 'all_roots_within_tolerance': max(values) <= args.tolerance_cm and (args.max_penetration_cm is None or min(values) >= -args.max_penetration_cm),
                            'entire_root_band_detached': min(values) > args.tolerance_cm})
             if intersection is not None: result['unpaired_intersection_evidence'] = intersection
             if label == 'rest':

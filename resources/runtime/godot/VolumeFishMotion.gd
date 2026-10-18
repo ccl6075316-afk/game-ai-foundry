@@ -2,6 +2,89 @@ extends RefCounted
 ## Foundry bounded existing-rig motion. No assets, saves or external services are loaded.
 ## Hall owns visibility/pause; only step() advances. set_action/replay queue until step.
 
+# Independent presentation controls; zero amplitude returns to the local rest pose.
+var _motion := {"body_amplitude":1.0,"body_frequency":1.0,"fin_amplitude":1.0,"fin_frequency":1.0}
+var _motion_target := _motion.duplicate()
+var _body_clock := 0.0
+var _fin_clock := 0.0
+var _fin_tracks: Array[Dictionary] = []
+
+func set_motion_controls(values: Dictionary, immediate: bool = false) -> Dictionary:
+    for key in values:
+        assert(_motion.has(key), "Unknown motion control: " + str(key))
+        assert(is_finite(float(values[key])), "Motion control must be finite")
+        var limit := 2.5 if "amplitude" in key else 3.0
+        _motion_target[key] = clampf(float(values[key]), 0.0, limit)
+        if immediate: _motion[key] = _motion_target[key]
+    return _motion_target.duplicate()
+
+func motion_controls() -> Dictionary:
+    return _motion_target.duplicate()
+
+func _prepare_fin_tracks() -> bool:
+    _fin_tracks.clear()
+    var applied_constraints: Array[String]=[]
+    var animation := _player.get_animation(_profile.base_clip)
+    for track in animation.get_track_count():
+        if animation.track_get_type(track) != Animation.TYPE_ROTATION_3D: continue
+        var path := animation.track_get_path(track)
+        if path.get_subname_count() < 1: continue
+        var bone := _skeleton.find_bone(str(path.get_subname(0)))
+        if bone < 0 or bone in _bones: continue
+        var label := _skeleton.get_bone_name(bone).to_lower()
+        if not ("pectoral" in label or "pelvic" in label or "dorsal" in label or "anal" in label or "caudal" in label or label == "tail" or "adipose" in label): continue
+        var rest := _skeleton.get_bone_rest(bone).basis.get_rotation_quaternion()
+        var peak := 0.0
+        for k in 64:
+            var q := animation.rotation_track_interpolate(track, animation.length * float(k) / 64.0)
+            peak = maxf(peak, rest.angle_to(q))
+        if peak < 0.0001: continue
+        var paired := "pectoral" in label or "pelvic" in label
+        var desired := float(_profile.get("paired_fin_radians",0.26) if paired else _profile.get("median_fin_radians",0.10))
+        if "tip" in label: desired *= 0.45
+        _fin_tracks.append({"bone":bone,"track":track,"rest":rest,"peak":peak,"range":desired})
+        var constraints: Dictionary=_profile.get("fin_motion_constraints",{})
+        var name: String=_skeleton.get_bone_name(bone)
+        if constraints.has(name):
+            applied_constraints.append(name)
+            var config: Dictionary=constraints[name]
+            var global_rest:=_skeleton.get_bone_global_rest(bone)
+            var raw: Array=config.outward_model_axis
+            var outward:=Vector3(raw[0],raw[1],raw[2]).normalized()
+            var hinge: Vector3=(global_rest.basis.inverse()*global_rest.basis.y.normalized().cross(outward).normalized()).normalized()
+            _fin_tracks[-1]["hinge"]=hinge
+            _fin_tracks[-1]["minimum"]=float(config.minimum_radians)
+            _fin_tracks[-1]["neutral"]=(rest*Quaternion(hinge,float(config.minimum_radians))).normalized()
+    for constrained_bone in _profile.get("fin_motion_constraints",{}):
+        if not applied_constraints.has(str(constrained_bone)):return false
+    return true
+
+func _pose_fins() -> void:
+    var animation := _player.get_animation(_profile.base_clip)
+    for item in _fin_tracks:
+        var q := animation.rotation_track_interpolate(item.track, fposmod(_fin_clock, animation.length))
+        var delta: Quaternion = (item.rest.inverse() * q).normalized()
+        if delta.w < 0.0: delta = -delta
+        var axis := Vector3(delta.x,delta.y,delta.z)
+        var angle := 2.0 * atan2(axis.length(),delta.w)
+        var posed: Quaternion = item.rest
+        if item.has("hinge"):
+            # Abduct/adduct outside the body rather than sweeping a symmetric
+            # rotation through the flank. Local pivot and full basal weights stay.
+            var dominant:=0
+            for k in [1,2]:
+                if absf(axis[k])>absf(axis[dominant]):dominant=k
+            var signed_angle:=angle*signf(axis[dominant])
+            var gait_signal:=clampf(signed_angle/float(item.peak),-1.0,1.0)
+            var sweep:=float(item.minimum)+float(item.range)*float(_motion.fin_amplitude)*(.5+.5*gait_signal)
+            posed=(item.rest*Quaternion(item.hinge,sweep)).normalized()
+            _skeleton.set_bone_pose_rotation(item.bone,posed)
+            continue
+        if angle > 0.00001:
+            var amplitude := minf(angle / float(item.peak),1.0) * float(item.range) * float(_motion.fin_amplitude)
+            posed = (item.rest * Quaternion(axis.normalized(),amplitude)).normalized()
+        _skeleton.set_bone_pose_rotation(item.bone,posed)
+
 var _carrier: Node3D
 var _model: Node3D
 var _player: AnimationPlayer
@@ -96,6 +179,7 @@ func configure(carrier: Node3D, model: Node3D, player: AnimationPlayer, skeleton
     _player.get_animation(profile.base_clip).loop_mode = Animation.LOOP_LINEAR
     _player.speed_scale = 1.0
     _player.play(profile.base_clip)
+    if not _prepare_fin_tracks():return {"ok":false,"failures":["Fin constraint does not match an imported animated bone"]}
     _ready = true
     _action = "Swim"
     _pending_action = ""
@@ -203,8 +287,10 @@ func seek(seconds: float) -> void:
     _clip_time = _time * float(_to.clip)
     _pending_action = ""
     _pending_restart = false
+    _body_clock = _clip_time * float(_motion.body_frequency)
+    _fin_clock = _clip_time * float(_motion.fin_frequency)
     _restore_base()
-    _player.seek(fposmod(_clip_time, _player.get_animation(_profile.base_clip).length), true)
+    _player.seek(fposmod(_body_clock, _player.get_animation(_profile.base_clip).length), true)
     _player.advance(0.0)
     _capture_base_and_pose()
 
@@ -230,7 +316,12 @@ func step(delta: float) -> void:
     var before := _clip_time
     _time += delta
     _clip_time = _integrated_clip(_time)
-    _player.advance(maxf(0.0, _clip_time - before))
+    var clip_delta := maxf(0.0, _clip_time - before)
+    for key in _motion:
+        _motion[key] = lerpf(float(_motion[key]),float(_motion_target[key]),1.0-exp(-delta*8.0))
+    _body_clock += clip_delta * float(_motion.body_frequency)
+    _fin_clock += clip_delta * float(_motion.fin_frequency)
+    _player.advance(clip_delta * float(_motion.body_frequency))
     _capture_base_and_pose()
     # Keep actual prior paths until the trailing body has finished following them.
     while _transitions.size() > 1 and float(_transitions[1].start) < _time - float(_profile.body_delay_seconds) - 0.20:
@@ -280,11 +371,12 @@ func _capture_base_and_pose() -> void:
         if i > 0:
             var previous_t := _time - delay * _body_distances[i - 1]
             pitch_bend = clampf(_path_pitch(t) - _path_pitch(previous_t), -.04, .04) * float(_profile.head_sign)
-        var neutral := _rest_rotations[i].slerp(base, float(_profile.base_body_gain))
-        _skeleton.set_bone_pose_rotation(_bones[i], (neutral * Quaternion(_yaw_axes[i], bend + wave) * Quaternion(_pitch_axes[i], pitch_bend)).normalized())
+        var neutral := _rest_rotations[i].slerp(base, float(_profile.base_body_gain) * float(_motion.body_amplitude))
+        _skeleton.set_bone_pose_rotation(_bones[i], (neutral * Quaternion(_yaw_axes[i], (bend + wave) * float(_motion.body_amplitude)) * Quaternion(_pitch_axes[i], pitch_bend * float(_motion.body_amplitude))).normalized())
         _bone_overlay.append({"bone":_skeleton.get_bone_name(_bones[i]),"yaw_radians":bend,"wave_radians":wave,"pitch_radians":pitch_bend,"delay_seconds":_time-t})
         _bend_sum += absf(bend)
         _joint_max = maxf(_joint_max, absf(bend + wave))
+    _pose_fins()
     _head_path = _path(_time)
     _heading = _velocity(_time).normalized()
     _pitch = _path_pitch(_time)
@@ -298,7 +390,7 @@ func _capture_base_and_pose() -> void:
 func _wave_heading(distance_along_body: float) -> float:
     var amplitude := float(_profile.get("body_wave_radians", 0.0))
     var cycles := float(_profile.get("body_wave_cycles", 0.75))
-    var phase := TAU * _clip_time / _player.get_animation(_profile.base_clip).length
+    var phase := TAU * _body_clock / _player.get_animation(_profile.base_clip).length
     return amplitude * pow(distance_along_body, 1.4) * sin(phase - TAU * cycles * distance_along_body)
 
 func snapshot() -> Dictionary:
@@ -316,4 +408,4 @@ func snapshot() -> Dictionary:
         poses[_skeleton.get_bone_name(_bones[i])] = [q.x,q.y,q.z,q.w]
     var parent := _carrier.get_parent_node_3d()
     var world_heading := (parent.global_basis * _heading).normalized() if parent != null else _heading
-    return {"ready":true,"species":_profile.species,"action":_action,"pending_action":_pending_action,"state":"transition" if remaining > 0.0 else "steady","time":_time,"action_phase":fposmod((_time - _action_epoch) / float(_profile.period_seconds),1.0),"base_clip_time":_player.current_animation_position,"loop_seconds":float(_profile.period_seconds),"position":[_carrier.position.x,_carrier.position.y,_carrier.position.z],"head_path_local":[_head_path.x,_head_path.y,_head_path.z],"heading":[world_heading.x,world_heading.y,world_heading.z],"yaw":_yaw(_time),"pitch":_pitch,"head_world":[head_world.x,head_world.y,head_world.z],"tail_world":[tail_world.x,tail_world.y,tail_world.z],"bend_radians":_bend_sum,"max_bend_rad":_joint_max,"transition_remaining":remaining,"envelope_radius_m":envelope,"computed_skin_envelope_m":_computed_envelope,"inside_envelope":contained,"bone_poses":poses,"bone_overlays":_bone_overlay.duplicate(true)}
+    return {"ready":true,"species":_profile.species,"action":_action,"pending_action":_pending_action,"state":"transition" if remaining > 0.0 else "steady","time":_time,"action_phase":fposmod((_time - _action_epoch) / float(_profile.period_seconds),1.0),"base_clip_time":_player.current_animation_position,"loop_seconds":float(_profile.period_seconds),"position":[_carrier.position.x,_carrier.position.y,_carrier.position.z],"head_path_local":[_head_path.x,_head_path.y,_head_path.z],"heading":[world_heading.x,world_heading.y,world_heading.z],"yaw":_yaw(_time),"pitch":_pitch,"head_world":[head_world.x,head_world.y,head_world.z],"tail_world":[tail_world.x,tail_world.y,tail_world.z],"bend_radians":_bend_sum,"max_bend_rad":_joint_max,"transition_remaining":remaining,"envelope_radius_m":envelope,"computed_skin_envelope_m":_computed_envelope,"inside_envelope":contained,"motion_controls":_motion.duplicate(),"body_clock":_body_clock,"fin_clock":_fin_clock,"fin_tracks":_fin_tracks.size(),"bone_poses":poses,"bone_overlays":_bone_overlay.duplicate(true)}

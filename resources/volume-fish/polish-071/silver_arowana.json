@@ -1,0 +1,24 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "silver_arowana",
+  "frozen_baseline_sha256": "a7e46284d921062cd463881fed7a9f5d502162dccead8be454440925bed517bd",
+  "source_sha256": "d1940c55f6ceb0056c7689e66f794dd8c04fd563ca304519203d21fcfe2f24c9",
+  "pixel_mapping": {
+    "pixels_per_unit": 1800.0,
+    "center_x": 918.0,
+    "center_y": 260.0,
+    "width": 1838,
+    "height": 515
+  },
+  "change": {
+    "mode": "head_affine",
+    "start": 0.82,
+    "full": 0.87,
+    "end": 0.98,
+    "gain": 0.6,
+    "top_only": false,
+    "body": "Arowana_closed_laterally_compressed_body",
+    "reproject": true
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

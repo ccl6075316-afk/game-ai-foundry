@@ -134,6 +134,8 @@ Unix：`./gamefactory setup ensure-python --json`，之后 `./gamefactory …`�
 
 ## 后续入口
 
+鱼类3D任务可直接使用同仓库 [`fish-volume-production`](../fish-volume-production/SKILL.md)：集中路由物种查证、按源图校准鱼嘴、完整鳍基绑定和实际游戏完成门。069d、072、073的已验证方法与失败原因由它链接到维护中的知识库，不把某条鱼的比例当通用模板。
+
 侧面图重建实体鱼、Blender 骨骼动作和 Godot 3D 展示缸使用 [鱼类实体建模与游戏展示](../../../docs/FISH-VOLUME-WORKFLOW.md)。新鱼先通过 Foundry 生图与资产审核，使用已有游戏像素鱼作为风格参考；已有已接受源图可经过相同来源与审核检查复用。源图生成完成且审核接受后，再执行 `volume plan → build → validate → render`，完成视觉审核后 `volume accept --handoff <handoff> --note <实际审核说明> --json`，全部加 `--json`；先读各子命令 `--help`。计划必须明确像素画风、风格参考及源图哈希，缺失时先修输入，不绕过门禁直接调用 Blender。
 
 通用建模器位于 `resources/scripts/volume-fish/build_fish.py`，物种 profile 位于 `resources/volume-fish/`。通过 CLI 传入 profile，不把游戏仓库内的实验脚本当作长期唯一生产入口。相近物种可复用方法，跨体形物种重建几何。导入后检查真实骨骼/鱼鳍播放与目标场景日志，不把视频预览当作游戏运行结果。
@@ -186,3 +188,5 @@ python gamefactory.py test regression --project <project>
 6. 图片后处理必须使用 `--input` / `--output`。
 7. Godot 施工只能实现冻结 Brief 与 Production Delta 声明的范围，不扩展玩法。
 8. 每次报告都返回 `command`、`status`、`next_action`、`outputs`、`failures`，不输出凭据或未授权的环境细节。
+
+077鱼类验收补充：用户明确身体除正常口腔外不接受镂空。每鱼交付须通过 `validate_body_integrity.py`，检查闭合身体、逐surface不透明供体及GPU同姿态覆盖；不能以网格闭合代替透明缺块检查。详见项目 `docs/3d-fish/BODY-INTEGRITY.md`。

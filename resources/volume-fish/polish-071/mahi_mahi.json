@@ -1,0 +1,21 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "mahi_mahi",
+  "frozen_baseline_sha256": "30d194b5913298a46456a823cd4c903068dbc1c7d7e0a529261d78ccde7ef4f3",
+  "source_sha256": "fd9e6eeb1ef3c2f02d96cb66b1ae69d596f692c58ad8e312d74057334d0bebde",
+  "pixel_mapping": {
+    "pixels_per_unit": 1974,
+    "center_x": 987.0,
+    "center_y": 329.5,
+    "width": 1974,
+    "height": 659
+  },
+  "change": {
+    "mode": "side_uv",
+    "start": 0.81,
+    "body": "Closed_body",
+    "normal_y_min": 0.5,
+    "source_eye_on_body": true
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

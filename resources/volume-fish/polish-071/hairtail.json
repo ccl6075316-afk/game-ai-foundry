@@ -1,0 +1,17 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "hairtail",
+  "frozen_baseline_sha256": "52a40d0a3975e7f41474f91be2ef425c4b7966779aaf38d043888ab421ba4564",
+  "source_sha256": "e93cec1d2544d9ffa67bb74dfbc4d1fd11ea569861736ca0819c2edc0c1ae6f4",
+  "pixel_mapping": {
+    "pixels_per_unit": 186.9,
+    "center_x": 934.5,
+    "center_y": 89.5,
+    "width": 1869,
+    "height": 179
+  },
+  "change": {
+    "mode": "pixel_material_only"
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "scalloped_hammerhead",
+  "frozen_baseline_sha256": "acd9060842bacfccd0effc20ec24c0a1523a58303a1296f733181a0a3ed755fc",
+  "source_sha256": "71024f7b9aa710b7b7fb7178d994f219b655a51177e8be97fd37c12d339f397e",
+  "pixel_mapping": {
+    "pixels_per_unit": 1940,
+    "center_x": 970.0,
+    "center_y": 289.0,
+    "width": 1940,
+    "height": 578
+  },
+  "change": {
+    "mode": "pectoral_cant",
+    "degrees": 4.0,
+    "fixed_own_weight_max": 0.05,
+    "full_own_weight": 0.4
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

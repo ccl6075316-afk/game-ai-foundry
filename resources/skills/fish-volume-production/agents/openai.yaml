@@ -1,0 +1,4 @@
+interface:
+  display_name: "鱼类3D制作与验收"
+  short_description: "从已有鱼类原图制作或修订3D模型，核对嘴部、完整鳍基和真实游戏动作"
+  default_prompt: "使用 $fish-volume-production 选择已有鱼类原图，完成3D建模、原图对照、鳍根检查和游戏预览。"

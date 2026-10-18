@@ -1,0 +1,17 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "piranha",
+  "frozen_baseline_sha256": "3d9fc3ae37a7cdb43ac7aa45e8ffd0a4f544ff4f2b76c3f7179a6bc5b36aa437",
+  "source_sha256": "71c52ce8c783b6955f63842da0eda2c320022c737c362624aa35054c684b52cf",
+  "pixel_mapping": {
+    "pixels_per_unit": 240.0,
+    "center_x": 746.0,
+    "center_y": 422.0,
+    "width": 1492,
+    "height": 844
+  },
+  "change": {
+    "mode": "pixel_material_only"
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "coordinate_space": "Original embedded image pixels, origin top-left; reviewed source ink footprint, not anatomical dimensions.",
+  "species": {
+    "bluegill": {
+      "source_footprints": [
+        {
+          "image_index": 0,
+          "source_size": [
+            1477,
+            868
+          ],
+          "source_rgba_sha256": "69b221d9ed2049cecef2a57f593ad2ef04210d4f6f6fae6fe0424273fedf927e",
+          "part": "pectoral painted ink including edge excluded by authored UV",
+          "polygon_px": [
+            [
+              832,
+              451
+            ],
+            [
+              905,
+              453
+            ],
+            [
+              955,
+              470
+            ],
+            [
+              994,
+              484
+            ],
+            [
+              1042,
+              498
+            ],
+            [
+              1067,
+              523
+            ],
+            [
+              1064,
+              579
+            ],
+            [
+              1037,
+              610
+            ],
+            [
+              994,
+              628
+            ],
+            [
+              946,
+              630
+            ],
+            [
+              900,
+              611
+            ],
+            [
+              862,
+              574
+            ],
+            [
+              842,
+              531
+            ]
+          ]
+        }
+      ]
+    },
+    "brown_trout": {
+      "source_footprints": [
+        {
+          "image_index": 0,
+          "source_size": [
+            1597,
+            534
+          ],
+          "source_rgba_sha256": "70cdfbfbc2698ec8b44f0f1c9285856f1c91cd7baafc40fde46a7661f186029e",
+          "part": "pectoral painted ink including edge excluded by authored UV",
+          "polygon_px": [
+            [
+              1054,
+              363
+            ],
+            [
+              1064,
+              342
+            ],
+            [
+              1084,
+              326
+            ],
+            [
+              1127,
+              327
+            ],
+            [
+              1175,
+              334
+            ],
+            [
+              1217,
+              343
+            ],
+            [
+              1248,
+              361
+            ],
+            [
+              1252,
+              390
+            ],
+            [
+              1234,
+              421
+            ],
+            [
+              1187,
+              439
+            ],
+            [
+              1134,
+              440
+            ],
+            [
+              1085,
+              423
+            ],
+            [
+              1059,
+              401
+            ]
+          ]
+        }
+      ]
+    },
+    "hairtail": {
+      "existing_separate_clean_body_texture": {
+        "model_sha256": "2f14016eedc5b3086780bee3a12ae483f0c68c853495353c426c3b0b5fafc69e",
+        "review": "Inspected embedded body image1 independently from image0 used by fins; no original painted pectoral fin remains. Do not overwrite the existing clean skin with the fin source."
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "blacktip_reef_shark",
+  "frozen_baseline_sha256": "f19216bd68bd10602d74313a0a25ef3f47b902a8f7905790e1eb4ef71485f11a",
+  "source_sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+  "pixel_mapping": {
+    "pixels_per_unit": 1834,
+    "center_x": 917.0,
+    "center_y": 309.0,
+    "width": 1834,
+    "height": 618
+  },
+  "change": {
+    "mode": "head_affine",
+    "start": 0.86,
+    "full": 0.91,
+    "end": 1.0,
+    "gain": 0.35,
+    "top_only": false,
+    "body": "Closed_body",
+    "reproject": false
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

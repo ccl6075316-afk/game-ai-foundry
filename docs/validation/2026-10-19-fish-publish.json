@@ -1,0 +1,53 @@
+{
+  "ok": true,
+  "tests": 761,
+  "passed": 755,
+  "skips": [
+    {
+      "test": "test_live_smoke_run_with_godot (test_e2e_smoke.E2eLiveTests.test_live_smoke_run_with_godot)",
+      "reason": "Set GAMEFACTORY_E2E_LIVE=1 for API run"
+    },
+    {
+      "test": "test_fixture_brief_builds_godot_task (test_e2e_smoke.E2eSmokeTests.test_fixture_brief_builds_godot_task)",
+      "reason": "local e2e-smoke-brief.json not present"
+    },
+    {
+      "test": "test_output_traversal_and_symlink_are_rejected (test_volume_fish.VolumeTests.test_output_traversal_and_symlink_are_rejected)",
+      "reason": "Windows account lacks symlink creation privilege (WinError1314)"
+    },
+    {
+      "test": "test_output_traversal_and_symlink_are_rejected (test_volume_fish.VolumeTests.test_output_traversal_and_symlink_are_rejected)",
+      "reason": "Windows account lacks symlink creation privilege (WinError1314)"
+    },
+    {
+      "test": "test_symlink_artifact_and_modified_output_paths_are_rejected (test_volume_motion.MotionTests.test_symlink_artifact_and_modified_output_paths_are_rejected)",
+      "reason": "Windows account lacks symlink creation privilege (WinError1314)"
+    },
+    {
+      "test": "test_symlink_handoff_and_stale_artifacts_do_not_pass (test_volume_motion.MotionTests.test_symlink_handoff_and_stale_artifacts_do_not_pass)",
+      "reason": "Windows account lacks symlink creation privilege (WinError1314)"
+    }
+  ],
+  "errors": [],
+  "failures": [],
+  "elapsed_seconds": 22.49,
+  "environment": "Windows .venv Python3.14. Only actual symlink WinError1314 mapped to reported SkipTest; source tests unchanged.",
+  "scope": "Fish oral-jaw, full-fin-root, membrane clearance, motion ranges, surface ownership, body integrity and transverse-head toolchain through080",
+  "fish_repository": "ccl6075316-afk/fishing-2d",
+  "fish_branch": "main",
+  "fish_tests": {
+    "passed": 173,
+    "skipped": 0,
+    "runtime": "DOTNET_ROLL_FORWARD=Major; installed .NET10 executes net8 tests"
+  },
+  "cleanup": "Regenerable frames/pose geometry and superseded candidate binaries removed after retained evidence hashes verified. See fishing-2d experiments/blender-fish/evidence-081.",
+  "additional_head_width_unit_tests": {
+    "passed": 3,
+    "skipped": 0
+  },
+  "fish_build": {
+    "ok": true,
+    "warnings": 0,
+    "errors": 0
+  }
+}

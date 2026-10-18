@@ -1,0 +1,66 @@
+{
+  "kind": "existing_native_head_width_revision",
+  "version": "079b-red",
+  "body_coordinate": "glTF X longitudinal; normalized source u=X+.5; Z transverse. Preserve X/Y, all rig/bind/animation/texture/fin streams.",
+  "targets": "Production inference, species-specific, no claim of measured anatomical width. Smooth monotone widening restricted to anterior head; preserve body maximum width and original side contour.",
+  "review_criteria": [
+    "Compare front/top/oblique before-after with same camera; no blade-like taper or barrel muzzle",
+    "Bluegill retains very small mouth and lateral compression, salmonids retain elongated taper",
+    "X and vertical coordinates, UV/topology, rig/animation/image BIN prefix unchanged",
+    "No fin vertex enters affected region, preserve all fin bytes/root selection/limits",
+    "Body integrity192views and full fin membrane490poses per changed fish must pass"
+  ],
+  "sources": [
+    "https://fisheries.tamu.edu/pond-management/species/bluegill/",
+    "https://fishesofaustralia.net.au/home/species/3624",
+    "https://fish-commercial-names.ec.europa.eu/fish-names/species/lutjanus-sebae_en"
+  ],
+  "items": [
+    {
+      "species": "red_emperor",
+      "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\head-width-079\\red_emperor\\before.glb",
+      "source_sha256": "a5b329fd843cffa33d1449f5ab5f21bb4b8509d776980627592272852b1f5fdf",
+      "target": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\head-width-079\\red_emperor\\079b.glb",
+      "stations": [
+        [
+          0,
+          1
+        ],
+        [
+          0.84,
+          1
+        ],
+        [
+          0.88,
+          1.25
+        ],
+        [
+          0.92,
+          1.35
+        ],
+        [
+          0.95,
+          1.7
+        ],
+        [
+          0.97,
+          2.15
+        ],
+        [
+          0.985,
+          3
+        ],
+        [
+          0.995,
+          6
+        ],
+        [
+          1,
+          10
+        ]
+      ],
+      "affected_start_u": 0.84
+    }
+  ],
+  "visual_revision_reason": "Broaden preorbital/cheek transition as well as muzzle, so a wider tip does not sit on an excessively narrow head."
+}

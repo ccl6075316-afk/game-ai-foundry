@@ -1,0 +1,24 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "arapaima",
+  "frozen_baseline_sha256": "946cb77830e9a5230750ab3e888698bc7612dfbc5ae659a70061b478a344a7c9",
+  "source_sha256": "3255e62f66dc9644a84e6eb570bd5af8bc9a2f03ddd08ade795b13c35a4d56e7",
+  "pixel_mapping": {
+    "pixels_per_unit": 1745,
+    "center_x": 872.5,
+    "center_y": 198.0,
+    "width": 1745,
+    "height": 396
+  },
+  "change": {
+    "mode": "head_affine",
+    "start": 0.83,
+    "full": 0.89,
+    "end": 1.0,
+    "gain": 0.25,
+    "top_only": true,
+    "body": "Closed_body",
+    "reproject": false
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

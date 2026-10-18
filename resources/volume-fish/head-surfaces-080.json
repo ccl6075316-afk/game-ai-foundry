@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "arapaima": {
+      "model_sha256": "9d6d24c81dbe7318451c83cfc8378f4aa66cb8c16a81c2b56f22b0289af08319",
+      "decorative_overlays": {
+        "Frontal_head_overlay": {
+          "underlying_body": "Closed_body",
+          "reason": "Authored 17 alpha-weighted frontal color layers over complete closed skin; retain source blending, never promote to opaque body."
+        }
+      }
+    },
+    "mahi_mahi": {
+      "model_sha256": "9629f580f31d4239531eb4e1782ff4cb3ef6c036f89b6266474dab7d10c0a2d1",
+      "head_projection": {
+        "mesh": "Closed_body",
+        "side_surface": 0,
+        "front_surface": 1,
+        "start_x": 0.37,
+        "blend_x": [
+          0.44,
+          0.49
+        ],
+        "side_uv": [
+          1.0,
+          0.5,
+          -2.9954476479514414,
+          0.5
+        ],
+        "front_uv": [
+          -18.0,
+          0.5,
+          -4.4646,
+          0.5116,
+          0.0602
+        ],
+        "note": "Continuous rest-position projection across all four original body materials; dimensions are this export local coordinates, not cross-species anatomy."
+      }
+    }
+  }
+}

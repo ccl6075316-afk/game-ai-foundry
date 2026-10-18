@@ -44,18 +44,49 @@ def validate_revision(revision):
 
 
 def validate_root_attachment(value):
-    if not isinstance(value,dict) or set(value)!={'mode','root_band','blend_end','inset'} or value['mode']!='body_surface':
+    if not isinstance(value,dict) or not {'mode','root_band','blend_end','inset'}<=set(value) or set(value)-{'mode','root_band','blend_end','inset','surface_region','surface_clearance'} or value['mode']!='body_surface':
         raise ValueError('root_attachment requires mode=body_surface, root_band, blend_end, inset')
     if not all(type(value[k]) in (int,float) and math.isfinite(value[k]) for k in ['root_band','blend_end','inset']):
         raise ValueError('Nonfinite root attachment value')
     if not 0<=value['root_band']<value['blend_end']<=1 or not 0<=value['inset']<=.005:
         raise ValueError('Root attachment requires 0<=root_band<blend_end<=1 and inset 0–.005')
+    if value.get('surface_region','nearest') not in ['nearest','posterior']:
+        raise ValueError('Fin attachment surface_region must be nearest or posterior')
+    if 'surface_clearance' in value and (type(value['surface_clearance']) not in (int,float) or not math.isfinite(value['surface_clearance']) or not 0<=value['surface_clearance']<=.02):
+        raise ValueError('Invalid free fin surface_clearance')
 
 
 def root_attachment_gain(t,root_band,blend_end):
     """One across the complete root band, fading smoothly to zero distally."""
     t=max(0,min(1,(t-root_band)/(blend_end-root_band)))
     return 1-t*t*(3-2*t)
+
+
+def validate_fin_baseline(points):
+    if not isinstance(points,list) or not 2<=len(points)<=128:
+        raise ValueError('source_baseline requires 2–128 source-coordinate points')
+    if any(not isinstance(p,list) or len(p)!=2 or any(type(v) not in (int,float) or not math.isfinite(v) or not 0<=v<=1 for v in p) for p in points):
+        raise ValueError('Invalid source_baseline coordinate')
+    if any(math.dist(a,b)<1e-8 for a,b in zip(points,points[1:])):
+        raise ValueError('Degenerate source_baseline segment')
+
+
+def fin_baseline_parameter(point,baseline,polygon,aspect):
+    """Distance to complete fin base, normalized by distal span in source X/Z.
+
+    A tilted anchor-to-tip dot product can miss one end of a sloping fin base.
+    This parameter is zero on every segment, including its interior points.
+    """
+    def distance(p):
+        x,y=p[0],p[1]*aspect;best=float('inf')
+        for a,b in zip(baseline,baseline[1:]):
+            ax,ay=a[0],a[1]*aspect;dx,dy=b[0]-ax,(b[1]-a[1])*aspect
+            t=max(0,min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy)))
+            best=min(best,math.hypot(x-ax-t*dx,y-ay-t*dy))
+        return best
+    maximum=max(distance(p) for p in polygon)
+    if maximum<1e-8:raise ValueError('Fin polygon has no distal span from source_baseline')
+    return min(1,distance(point)/maximum)
 
 
 def vertical_position(stations,u,z,aspect):

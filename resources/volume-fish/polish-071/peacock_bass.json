@@ -1,0 +1,22 @@
+{
+  "kind": "existing_export_polish_profile",
+  "species": "peacock_bass",
+  "frozen_baseline_sha256": "976aeb0cb9e5fdd3faed6718c386dc3add1a29afef67bc4a67dbc7d6276aec31",
+  "source_sha256": "5d391b474bb8e762ed8a2557ecdcc770d047478c4131e274c5ee551707a878b3",
+  "pixel_mapping": {
+    "pixels_per_unit": 1817,
+    "center_x": 908.5,
+    "center_y": 402.5,
+    "width": 1817,
+    "height": 805
+  },
+  "change": {
+    "mode": "tail_affine",
+    "start_u": 0.0,
+    "fade_start_u": 0.1,
+    "end_u": 0.135,
+    "gain": 0.35,
+    "mesh": "Caudal"
+  },
+  "scope": "Parameters for existing-export repair tool; not a volume-source acceptance."
+}

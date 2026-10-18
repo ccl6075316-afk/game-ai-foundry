@@ -81,5 +81,30 @@ class NativeRevisionTests(unittest.TestCase):
         for change in [{'mode':'script'},{'root_band':.5,'blend_end':.3},{'inset':float('nan')},{'inset':.1},{'unknown':0}]:
             with self.subTest(change=change),self.assertRaises(ValueError):validate_root_attachment({**option,**change})
 
+    def test_full_sloping_fin_base_is_zero_across_all_segments(self):
+        from volume_shape import validate_fin_baseline,fin_baseline_parameter
+        base=[[.2,.6],[.4,.4],[.7,.35]];poly=[base[0],[.3,.1],[.65,.05],base[-1],base[1]]
+        validate_fin_baseline(base)
+        for p in [base[0],base[1],base[-1],[.3,.5],[.55,.375]]:
+            self.assertAlmostEqual(fin_baseline_parameter(p,base,poly,.5),0)
+        self.assertGreater(fin_baseline_parameter([.45,.1],base,poly,.5),.7)
+        # Unlike the old anchor dot product, the anterior end stays a root too.
+        self.assertEqual(fin_baseline_parameter(base[-1],base,poly,.5),0)
+        for invalid in [[],[[0,0]],[[0,0],[0,0]],[[0,0],[1,float('nan')]],[[0,0],[1,2]]]:
+            with self.assertRaises(ValueError):validate_fin_baseline(invalid)
+
+    def test_posterior_surface_region_is_explicit_and_bounded(self):
+        option={'mode':'body_surface','root_band':.05,'blend_end':.35,'inset':.001}
+        validate_root_attachment({**option,'surface_region':'posterior'})
+        with self.assertRaises(ValueError):validate_root_attachment({**option,'surface_region':'anywhere'})
+
+    def test_free_membrane_clearance_is_optional_finite_and_bounded(self):
+        option={'mode':'body_surface','root_band':.05,'blend_end':.26,'inset':.00004}
+        validate_root_attachment(option)
+        for value in [0,.0025,.02]:validate_root_attachment({**option,'surface_clearance':value})
+        for value in [-.001,.0201,float('nan'),float('inf'),True,'0.0025']:
+            with self.subTest(value=value),self.assertRaises(ValueError):
+                validate_root_attachment({**option,'surface_clearance':value})
+
 
 if __name__=='__main__':unittest.main()
