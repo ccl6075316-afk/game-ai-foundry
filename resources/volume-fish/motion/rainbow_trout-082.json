@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "species": "rainbow_trout",
+  "real_length_cm": 60,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07",
+    "body_08",
+    "body_09"
+  ],
+  "tank_size_m": [
+    4.8,
+    3.5999999999999996,
+    4.2
+  ],
+  "path_radii_m": [
+    0.66,
+    0.39
+  ],
+  "vertical_amplitude_m": 0.27,
+  "envelope_radius_m": 1.14,
+  "period_seconds": 12,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.56,
+  "base_body_gain": 1.0,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.16,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.65,
+      "bend_radians": 0.54,
+      "vertical_sign": 0,
+      "clip_speed": 1.1
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.18,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.18,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "body_wave_radians": 0.14,
+  "body_wave_cycles": 0.8,
+  "paired_fin_radians": 0.18,
+  "median_fin_radians": 0.065,
+  "fin_motion_constraints": {
+    "Pectoral_left_2": {
+      "outward_model_axis": [
+        0,
+        0,
+        1
+      ],
+      "minimum_radians": 0.12
+    },
+    "Pectoral_right_2": {
+      "outward_model_axis": [
+        0,
+        0,
+        -1
+      ],
+      "minimum_radians": 0.12
+    },
+    "Pelvic_left_2": {
+      "outward_model_axis": [
+        0,
+        0,
+        1
+      ],
+      "minimum_radians": 0.12
+    },
+    "Pelvic_right_2": {
+      "outward_model_axis": [
+        0,
+        0,
+        -1
+      ],
+      "minimum_radians": 0.12
+    }
+  },
+  "notes": [
+    "082 display kinematics and hidden widths are species-specific production assumptions, not measured biological limits. Full membrane and root limits frozen before pose validation."
+  ]
+}

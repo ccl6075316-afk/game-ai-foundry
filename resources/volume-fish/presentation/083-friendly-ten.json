@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "scope": "083 ten-fish isolated mild stylization and authored behavior, user includes yellow croaker. Original pixel palette and native texture/GLB preserved. No biological or delivery acceptance claims.",
+  "species": [
+    "crucian",
+    "carp",
+    "grass_carp",
+    "yellow_croaker",
+    "nile_tilapia",
+    "black_seabream",
+    "sea_bass",
+    "rainbow_trout",
+    "african_catfish",
+    "zander"
+  ],
+  "profiles": {
+    "crucian": {
+      "name": "鲫鱼",
+      "shape_scale": [
+        1,
+        1.03,
+        1.06
+      ],
+      "eye_scale": 0.96,
+      "eye_center": [
+        0.9054,
+        0.528
+      ],
+      "eye_radius": [
+        0.0213,
+        0.0379
+      ],
+      "phase_ends": [
+        2.4,
+        5.8,
+        8.8,
+        11.2,
+        13,
+        16
+      ],
+      "burst_amplitude": 0.9,
+      "burst_frequency": 1.2,
+      "glide_amplitude": 0.32,
+      "glide_frequency": 0.62,
+      "fin_amplitude": 1.0,
+      "fin_frequency": 1.05,
+      "observe_yaw": -0.36,
+      "height_tl": 0.0,
+      "intent": "轻巧、短摆后滑行",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/crucian/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-crucian/output/char_crucian_082_nobg.png",
+      "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+      "model_sha256": "f496e84ca12652890f244a8eb5986797237910d681de27d3b2ca3df458d0ce67"
+    },
+    "carp": {
+      "name": "鲤鱼",
+      "shape_scale": [
+        1,
+        1.025,
+        1.05
+      ],
+      "eye_scale": 1.0,
+      "eye_center": [
+        0.8992,
+        0.4823
+      ],
+      "eye_radius": [
+        0.0219,
+        0.0437
+      ],
+      "phase_ends": [
+        2.6,
+        6,
+        9,
+        11,
+        13.4,
+        16
+      ],
+      "burst_amplitude": 1.0,
+      "burst_frequency": 1.15,
+      "glide_amplitude": 0.38,
+      "glide_frequency": 0.65,
+      "fin_amplitude": 0.95,
+      "fin_frequency": 1.0,
+      "observe_yaw": -0.32,
+      "height_tl": -0.015,
+      "intent": "缓慢靠近、低幅度观察",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/carp/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-carp/output/char_carp_082_nobg.png",
+      "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+      "model_sha256": "9d7a740f4400ea6ce8ebc224060cb3946221b9b0e4d0a19854fb601aa1361e0f"
+    },
+    "grass_carp": {
+      "name": "草鱼",
+      "shape_scale": [
+        1,
+        1.015,
+        1.035
+      ],
+      "eye_scale": 1.0,
+      "eye_center": [
+        0.9271,
+        0.4822
+      ],
+      "eye_radius": [
+        0.0182,
+        0.0521
+      ],
+      "phase_ends": [
+        1.8,
+        6.2,
+        8.6,
+        10.2,
+        12.1,
+        16
+      ],
+      "burst_amplitude": 1.05,
+      "burst_frequency": 1.35,
+      "glide_amplitude": 0.4,
+      "glide_frequency": 0.8,
+      "fin_amplitude": 0.9,
+      "fin_frequency": 1.05,
+      "observe_yaw": -0.3,
+      "height_tl": 0.0,
+      "intent": "保持修长、较长滑行",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/grass_carp/082f.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-grass_carp/output/char_grass_carp_082_nobg.png",
+      "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+      "model_sha256": "ec68d68cf625168836ff0d595f882dff69d036e10ecaf7ed97307a3ce0130f55"
+    },
+    "yellow_croaker": {
+      "name": "大黄鱼",
+      "shape_scale": [
+        1,
+        1.025,
+        1.045
+      ],
+      "eye_scale": 0.9,
+      "eye_center": [
+        0.9223,
+        0.4766
+      ],
+      "eye_radius": [
+        0.0243,
+        0.0673
+      ],
+      "phase_ends": [
+        1.5,
+        4.8,
+        7.8,
+        9.8,
+        11.5,
+        16
+      ],
+      "burst_amplitude": 1.05,
+      "burst_frequency": 1.6,
+      "glide_amplitude": 0.4,
+      "glide_frequency": 0.95,
+      "fin_amplitude": 1.0,
+      "fin_frequency": 1.25,
+      "observe_yaw": -0.4,
+      "height_tl": 0.0,
+      "intent": "金色保留、轻快启动",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/yellow_croaker/082h.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-yellow_croaker-r2/output/char_yellow_croaker_082r2_nobg.png",
+      "source_sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+      "model_sha256": "223204d5c3e3aaff90ae13ca3de452c7999177edd5a72dd9e876efe671a1f96b"
+    },
+    "nile_tilapia": {
+      "name": "尼罗罗非鱼",
+      "shape_scale": [
+        1,
+        1.025,
+        1.045
+      ],
+      "eye_scale": 0.94,
+      "eye_center": [
+        0.8932,
+        0.4408
+      ],
+      "eye_radius": [
+        0.0254,
+        0.0513
+      ],
+      "phase_ends": [
+        2,
+        5,
+        8.5,
+        11,
+        13,
+        16
+      ],
+      "burst_amplitude": 0.9,
+      "burst_frequency": 1.2,
+      "glide_amplitude": 0.35,
+      "glide_frequency": 0.7,
+      "fin_amplitude": 1.1,
+      "fin_frequency": 1.4,
+      "observe_yaw": -0.48,
+      "height_tl": 0.0,
+      "intent": "饱满体态、胸鳍微调",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/nile_tilapia/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-nile_tilapia/output/char_nile_tilapia_082_nobg.png",
+      "source_sha256": "2f2018df6aff97da99f000ff13a5d999ca0287440e961444f4f0f1be89b071d1",
+      "model_sha256": "6a38befd77f519cff3460f1b051f77092a2aac43fd512f2b8eac1fe03fe50b61"
+    },
+    "black_seabream": {
+      "name": "黑鲷",
+      "shape_scale": [
+        1,
+        1.025,
+        1.045
+      ],
+      "eye_scale": 0.9,
+      "eye_center": [
+        0.9056,
+        0.4364
+      ],
+      "eye_radius": [
+        0.0241,
+        0.0482
+      ],
+      "phase_ends": [
+        2.2,
+        5.5,
+        8.3,
+        10.8,
+        12.6,
+        16
+      ],
+      "burst_amplitude": 0.9,
+      "burst_frequency": 1.25,
+      "glide_amplitude": 0.34,
+      "glide_frequency": 0.72,
+      "fin_amplitude": 1.0,
+      "fin_frequency": 1.2,
+      "observe_yaw": -0.4,
+      "height_tl": 0.0,
+      "intent": "保持灰黑条纹、侧身观察",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/black_seabream/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-black_seabream/output/char_black_seabream_082_nobg.png",
+      "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+      "model_sha256": "3643445fa0b91066206351d7390357c37ec393bf02407dcd582b04bc71b58baf"
+    },
+    "sea_bass": {
+      "name": "海鲈",
+      "shape_scale": [
+        1,
+        1.02,
+        1.04
+      ],
+      "eye_scale": 0.96,
+      "eye_center": [
+        0.902,
+        0.4356
+      ],
+      "eye_radius": [
+        0.0195,
+        0.0484
+      ],
+      "phase_ends": [
+        1.6,
+        5.8,
+        8.1,
+        9.7,
+        11.4,
+        16
+      ],
+      "burst_amplitude": 1.1,
+      "burst_frequency": 1.55,
+      "glide_amplitude": 0.42,
+      "glide_frequency": 0.95,
+      "fin_amplitude": 0.9,
+      "fin_frequency": 1.15,
+      "observe_yaw": -0.32,
+      "height_tl": 0.0,
+      "intent": "保留长吻、短启动长滑行",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/sea_bass/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-sea_bass/output/char_sea_bass_082_nobg.png",
+      "source_sha256": "7add2141512f57e0d189c2abc84a58b8582f9f30bc7086f2c57b328ce25bd6b1",
+      "model_sha256": "9b160a43ad2c1e5fbee8e25416559e5dd90804f1b917057cc1410a785daba767"
+    },
+    "rainbow_trout": {
+      "name": "虹鳟",
+      "shape_scale": [
+        1,
+        1.02,
+        1.035
+      ],
+      "eye_scale": 0.92,
+      "eye_center": [
+        0.9249,
+        0.4958
+      ],
+      "eye_radius": [
+        0.0251,
+        0.0696
+      ],
+      "phase_ends": [
+        1.4,
+        5.2,
+        7.8,
+        9.4,
+        11.2,
+        16
+      ],
+      "burst_amplitude": 1.0,
+      "burst_frequency": 1.7,
+      "glide_amplitude": 0.45,
+      "glide_frequency": 1.05,
+      "fin_amplitude": 0.9,
+      "fin_frequency": 1.2,
+      "observe_yaw": -0.36,
+      "height_tl": 0.0,
+      "intent": "保留粉红侧带、观察时仍轻游",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/rainbow_trout/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-rainbow_trout/output/char_rainbow_trout_082_nobg.png",
+      "source_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+      "model_sha256": "974d27a62a23025088d360133e555d9d748507ee5a4329e60e9de226fa172623"
+    },
+    "african_catfish": {
+      "name": "非洲鲶鱼",
+      "shape_scale": [
+        1,
+        1.015,
+        1.025
+      ],
+      "eye_scale": 1.0,
+      "eye_center": [
+        0.8979,
+        0.5574
+      ],
+      "eye_radius": [
+        0.01,
+        0.039
+      ],
+      "phase_ends": [
+        3,
+        6.4,
+        9.4,
+        11.8,
+        13.8,
+        16
+      ],
+      "burst_amplitude": 0.7,
+      "burst_frequency": 0.95,
+      "glide_amplitude": 0.45,
+      "glide_frequency": 0.75,
+      "fin_amplitude": 0.85,
+      "fin_frequency": 0.95,
+      "observe_yaw": -0.25,
+      "height_tl": -0.055,
+      "intent": "保留扁头须、小眼、贴底慢游",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/african_catfish/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-african_catfish/output/char_african_catfish_082_nobg.png",
+      "source_sha256": "b8992e2a9613ef9a1049b80853e3151ed47bce8343b6baae6c22f620e213736f",
+      "model_sha256": "783f97f90cb4e6e6d120a8ef98137aeaaaeb703e8ff1b432d5aefbb735ae3e20"
+    },
+    "zander": {
+      "name": "梭鲈",
+      "shape_scale": [
+        1,
+        1.015,
+        1.03
+      ],
+      "eye_scale": 0.96,
+      "eye_center": [
+        0.9217,
+        0.5115
+      ],
+      "eye_radius": [
+        0.0197,
+        0.0538
+      ],
+      "phase_ends": [
+        1.9,
+        5.8,
+        8.5,
+        10.4,
+        12.2,
+        16
+      ],
+      "burst_amplitude": 0.85,
+      "burst_frequency": 1.25,
+      "glide_amplitude": 0.35,
+      "glide_frequency": 0.7,
+      "fin_amplitude": 0.9,
+      "fin_frequency": 1.05,
+      "observe_yaw": -0.3,
+      "height_tl": 0.0,
+      "intent": "保留尖吻和条带、克制转身",
+      "handoff": "projects/fishing-2d/experiments/blender-fish/models/zander/082g.handoff.json",
+      "source": "/Users/czl/projects/game-ai-foundry/projects/fish-082-zander/output/char_zander_082_nobg.png",
+      "source_sha256": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+      "model_sha256": "c1b10d96c7aa83e41129df16170d7302f4c4335b226785c5f5b5bd562b6e0aef"
+    }
+  }
+}
