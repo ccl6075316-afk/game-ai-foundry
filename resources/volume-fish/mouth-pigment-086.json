@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "rainbow_trout": {
+      "model_sha256": "5badcd7d88acbec7c21a567dd3ede12e92cccd25701270df1d2bc3e1fcfa2ee3",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.97,
+        0.48
+      ],
+      "pigment_bottom_uv": [
+        0.97,
+        0.62
+      ],
+      "pigment_height": [
+        -0.03889748743718595,
+        0.009102512562814052
+      ],
+      "pigment_u": [
+        0.949,
+        0.981
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.06589748743718594,
+        0.044102512562814056
+      ],
+      "pigment_seam_y": -0.020897487437185946,
+      "pigment_line_width": 0.0012,
+      "source_image_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+      "source_size": [
+        1990,
+        717
+      ],
+      "simplification": "User requested adjacent source colors with a readable dark seam; not biological mucosa-color reconstruction."
+    },
+    "grass_carp": {
+      "model_sha256": "775d33258bd8a2972fc5c2aaac9e0378e85ef5af6d72fb1a46d050cc93dd76b2",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.975,
+        0.46
+      ],
+      "pigment_bottom_uv": [
+        0.975,
+        0.59
+      ],
+      "pigment_height": [
+        -0.02603283582089553,
+        0.02196716417910447
+      ],
+      "pigment_u": [
+        0.956,
+        0.988
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.053032835820895526,
+        0.056967164179104475
+      ],
+      "pigment_seam_y": -0.008032835820895529,
+      "pigment_line_width": 0.0012,
+      "source_image_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+      "source_size": [
+        2010,
+        702
+      ],
+      "simplification": "User requested adjacent source colors with a readable dark seam; not biological mucosa-color reconstruction."
+    },
+    "carp": {
+      "model_sha256": "8e7a034ca09f3054aff8cc11fee3dadb3116daeb6f81758b0da043ff48665fa3",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.945,
+        0.51
+      ],
+      "pigment_bottom_uv": [
+        0.945,
+        0.64
+      ],
+      "pigment_height": [
+        -0.04752909270216965,
+        0.00047090729783035024
+      ],
+      "pigment_u": [
+        0.957,
+        0.989
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.07452909270216965,
+        0.035470907297830354
+      ],
+      "pigment_seam_y": -0.02952909270216965,
+      "pigment_line_width": 0.0012,
+      "source_image_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+      "source_size": [
+        2028,
+        1015
+      ],
+      "simplification": "User requested adjacent source colors with a readable dark seam; not biological mucosa-color reconstruction."
+    },
+    "crucian": {
+      "model_sha256": "75e2bd5a95353a94d0c30d7ab854436f1ef2976d7b437dce60d44d999f51439c",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.96,
+        0.53
+      ],
+      "pigment_bottom_uv": [
+        0.96,
+        0.61
+      ],
+      "pigment_height": [
+        -0.0545539832285115,
+        -0.006553983228511501
+      ],
+      "pigment_u": [
+        0.954,
+        0.986
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.0815539832285115,
+        0.028446016771488503
+      ],
+      "pigment_seam_y": -0.0365539832285115,
+      "pigment_line_width": 0.0012,
+      "source_image_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+      "source_size": [
+        1908,
+        1073
+      ],
+      "simplification": "User requested adjacent source colors with a readable dark seam; not biological mucosa-color reconstruction."
+    }
+  }
+}

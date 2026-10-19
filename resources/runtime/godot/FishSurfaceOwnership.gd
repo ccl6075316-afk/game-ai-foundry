@@ -2,6 +2,8 @@ extends RefCounted
 ## Per-mesh ownership. Never replace source textures or edit skin/bone geometry.
 var _profiles: Dictionary = {}
 var _body_profiles: Dictionary = {}
+var _head_source=preload("res://scripts/aquarium/FishHeadSource.gd").new()
+var _mouth_pigment=preload("res://scripts/aquarium/FishMouthPigment.gd").new()
 
 func apply(model: Node3D, species: String) -> Dictionary:
     if _profiles.is_empty():
@@ -77,4 +79,6 @@ func apply(model: Node3D, species: String) -> Dictionary:
                 material.set_shader_parameter("patch_points",points)
                 if records.has(str(surface)):changed.skin_surfaces+=1
             mesh.set_surface_override_material(surface,material)
+    changed.mouth_surfaces=_mouth_pigment.apply(model,species)
+    changed.head_source_surfaces=_head_source.apply(model,species)
     return changed

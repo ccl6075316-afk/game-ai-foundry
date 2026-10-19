@@ -16,9 +16,10 @@ def main():
  for key in ['game','godot','output']:p.add_argument('--'+key,type=Path,required=True)
  a=p.parse_args();a.game=a.game.resolve();a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=True);records=[]
  try:
-  code=(a.game/'scripts/aquarium/FishBodyOpaque.gdshader').read_text(encoding='utf8')
-  code=re.sub(r'//[^\n]*|/\*[\s\S]*?\*/','',code)
-  assert not re.search(r'\b(?:ALPHA|ALPHA_SCISSOR_THRESHOLD|ALPHA_HASH_SCALE|discard)\b',code),'Body shader can discard body coverage'
+  for shader in ['FishBodyOpaque.gdshader','FishMouthPigment.gdshader']:
+   code=(a.game/'scripts/aquarium'/shader).read_text(encoding='utf8')
+   code=re.sub(r'//[^\n]*|/\*[\s\S]*?\*/','',code)
+   assert not re.search(r'\b(?:ALPHA|ALPHA_SCISSOR_THRESHOLD|ALPHA_HASH_SCALE|discard)\b',code),'Body shader can discard body coverage: '+shader
   models=a.game/'assets/models/fish';own=json.loads((models/'motion/surface-ownership.json').read_text());opaque=json.loads((models/'motion/body-opacity.json').read_text());files=sorted(models.glob('*.glb'));assert files,'No fish models';assert set(opaque['profiles'])=={x.stem for x in files},'Incomplete opacity species inventory'
   for f in files:
    sp=f.stem;d,b=read_glb(f);profile=opaque['profiles'][sp];assert sha(f)==profile['model_sha256'];bodies=[]

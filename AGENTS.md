@@ -53,3 +53,5 @@
 | Pipeline 阶段 | [`resources/skills/orchestrator/pipeline-schedule.md`](resources/skills/orchestrator/pipeline-schedule.md) |
 
 077鱼类验收补充：用户明确身体除正常口腔外不接受镂空。每鱼交付须通过 `validate_body_integrity.py`，检查闭合身体、逐surface不透明供体及GPU同姿态覆盖；不能以网格闭合代替透明缺块检查。详见项目 `docs/3d-fish/BODY-INTEGRITY.md`。
+
+083鱼类验收补充：身体纺锤形不意味着吻端应收成针尖。新鱼/头部修改须以同种吻型资料和正、俯、斜视灰模独立验证口裂、眼前宽度与唇缘；不要为贴图方便改错头型。已有鳍/身体门和旧profile approved不得替代此门。冻结物种横向包络时运行 `check_head_form.py` 并检查旧尖头负例，详见目标游戏 `HEAD-TRANSVERSE.md`。

@@ -40,8 +40,16 @@ func run():
                 for s in mesh.mesh.get_surface_count():
                     var material=mesh.get_active_material(s)
                     if material is ShaderMaterial:
-                        assert(material.shader.resource_path=="res://scripts/aquarium/FishBodyOpaque.gdshader","Unexpected body shader")
-                        assert(material.get_shader_parameter("opaque_skin")!=null,"Missing body donor")
+                        if material.shader.resource_path=="res://scripts/aquarium/FishMouthPigment.gdshader":
+                            var mouth_profiles:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-pigment.json")).profiles
+                            assert(mouth_profiles.has(species),"Unregistered oral pigment")
+                            var p:Dictionary=mouth_profiles[species]
+                            assert(p.mesh==str(mesh.name) and int(p.oral_surface)==s,"Wrong oral pigment surface")
+                            assert(p.model_sha256==FileAccess.get_sha256("res://assets/models/fish/"+species+".glb"))
+                            assert(material.get_shader_parameter("source_texture")!=null,"Missing oral palette")
+                        else:
+                            assert(material.shader.resource_path=="res://scripts/aquarium/FishBodyOpaque.gdshader","Unexpected body shader")
+                            assert(material.get_shader_parameter("opaque_skin")!=null,"Missing body donor")
                     else:
                         assert(material is StandardMaterial3D and material.transparency==BaseMaterial3D.TRANSPARENCY_DISABLED,"Nonopaque body surface")
                     originals.append(material)
@@ -67,5 +75,5 @@ func run():
             for s in b.materials.size():b.mesh.set_surface_override_material(s,b.materials[s])
         print("BODY_COVERAGE ",species)
     var bindings: Dictionary={}
-    for file in ["scripts/aquarium/FishSurfaceOwnership.gd","scripts/aquarium/FishSurfaceOwnership.gdshader","scripts/aquarium/FishBodyOpaque.gdshader","scripts/aquarium/FoundryFishMotion.gd","assets/models/fish/motion/body-opacity.json","assets/models/fish/motion/motion.json"]:bindings[file]=FileAccess.get_sha256("res://"+file)
+    for file in ["scripts/aquarium/FishHeadSource.gd","scripts/aquarium/FishHeadSource.gdshaderinc","assets/models/fish/motion/head-source.json","scripts/aquarium/FishSurfaceOwnership.gd","scripts/aquarium/FishSurfaceOwnership.gdshader","scripts/aquarium/FishBodyOpaque.gdshader","scripts/aquarium/FishMouthPigment.gd","scripts/aquarium/FishMouthPigment.gdshader","scripts/aquarium/FoundryFishMotion.gd","assets/models/fish/motion/mouth-pigment.json","assets/models/fish/motion/body-opacity.json","assets/models/fish/motion/motion.json"]:bindings[file]=FileAccess.get_sha256("res://"+file)
     var f=FileAccess.open(out+"/capture.validation.json",FileAccess.WRITE);f.store_string(JSON.stringify({"records":records,"files":bindings}));f.close();quit()

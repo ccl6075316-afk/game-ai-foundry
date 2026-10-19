@@ -1,0 +1,581 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "rainbow_trout": {
+      "model_sha256": "169bea5033d6d886e81bdd15efa059be026c4302fb6dc7863f9fe48411c11887",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.97,
+        0.48
+      ],
+      "pigment_bottom_uv": [
+        0.97,
+        0.62
+      ],
+      "pigment_height": [
+        -0.03889748743718595,
+        0.009102512562814052
+      ],
+      "pigment_u": [
+        0.949,
+        0.981
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.06589748743718594,
+        0.044102512562814056
+      ],
+      "source_image_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+      "source_size": [
+        1990,
+        717
+      ],
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1930,
+            344
+          ],
+          "rgba": [
+            131,
+            131,
+            84,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1930,
+            444
+          ],
+          "rgba": [
+            182,
+            188,
+            203,
+            255
+          ]
+        }
+      }
+    },
+    "grass_carp": {
+      "model_sha256": "b9980ea035c629238ec14104965daa56c5df92f762b4ff99296581c4b857272c",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.975,
+        0.46
+      ],
+      "pigment_bottom_uv": [
+        0.975,
+        0.59
+      ],
+      "pigment_height": [
+        -0.02603283582089553,
+        0.02196716417910447
+      ],
+      "pigment_u": [
+        0.956,
+        0.988
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.053032835820895526,
+        0.056967164179104475
+      ],
+      "source_image_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+      "source_size": [
+        2010,
+        702
+      ],
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1959,
+            322
+          ],
+          "rgba": [
+            103,
+            103,
+            58,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1959,
+            414
+          ],
+          "rgba": [
+            174,
+            159,
+            129,
+            255
+          ]
+        }
+      }
+    },
+    "carp": {
+      "model_sha256": "44befcbd51b11005cca86b6b596f4f18317b7ceb3affb7a19655050f147251e9",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.945,
+        0.51
+      ],
+      "pigment_bottom_uv": [
+        0.945,
+        0.64
+      ],
+      "pigment_height": [
+        -0.04752909270216965,
+        0.00047090729783035024
+      ],
+      "pigment_u": [
+        0.957,
+        0.989
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.07452909270216965,
+        0.035470907297830354
+      ],
+      "source_image_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+      "source_size": [
+        2028,
+        1015
+      ],
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1916,
+            517
+          ],
+          "rgba": [
+            106,
+            93,
+            44,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1916,
+            649
+          ],
+          "rgba": [
+            234,
+            192,
+            103,
+            255
+          ]
+        }
+      }
+    },
+    "crucian": {
+      "model_sha256": "c62f7f2d5efcd2352f8c4bd455b8f76203bb81eb7b44bc8706916f0bc3557967",
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.96,
+        0.53
+      ],
+      "pigment_bottom_uv": [
+        0.96,
+        0.61
+      ],
+      "pigment_height": [
+        -0.0545539832285115,
+        -0.006553983228511501
+      ],
+      "pigment_u": [
+        0.954,
+        0.986
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.0815539832285115,
+        0.028446016771488503
+      ],
+      "source_image_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+      "source_size": [
+        1908,
+        1073
+      ],
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1831,
+            568
+          ],
+          "rgba": [
+            96,
+            88,
+            40,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1831,
+            654
+          ],
+          "rgba": [
+            201,
+            164,
+            93,
+            255
+          ]
+        }
+      }
+    },
+    "sea_bass": {
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.95,
+        0.48
+      ],
+      "pigment_bottom_uv": [
+        0.95,
+        0.6
+      ],
+      "pigment_height": [
+        -0.032105793450881624,
+        0.015894206549118377
+      ],
+      "pigment_u": [
+        0.95,
+        0.985
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.05910579345088162,
+        0.05089420654911838
+      ],
+      "model_sha256": "859cdab2e8a208ee946b00846107890f3c9ef3a7920b19a4a4a8af484091ef24",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "source_image_sha256": "7add2141512f57e0d189c2abc84a58b8582f9f30bc7086f2c57b328ce25bd6b1",
+      "source_size": [
+        1985,
+        800
+      ],
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1885,
+            384
+          ],
+          "rgba": [
+            158,
+            166,
+            168,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1885,
+            480
+          ],
+          "rgba": [
+            247,
+            245,
+            240,
+            255
+          ]
+        }
+      }
+    },
+    "yellow_croaker": {
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.96,
+        0.52
+      ],
+      "pigment_bottom_uv": [
+        0.96,
+        0.6
+      ],
+      "pigment_height": [
+        -0.03785352532274083,
+        0.010146474677259168
+      ],
+      "pigment_u": [
+        0.95,
+        0.985
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.06485352532274083,
+        0.04514647467725917
+      ],
+      "model_sha256": "a3b0a804e9bbfd00397db623e7752f23ffe29e27998582dce2cd1a7663bf8102",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "source_image_sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+      "source_size": [
+        2014,
+        727
+      ],
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1933,
+            378
+          ],
+          "rgba": [
+            242,
+            221,
+            166,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1933,
+            436
+          ],
+          "rgba": [
+            244,
+            229,
+            190,
+            255
+          ]
+        }
+      }
+    },
+    "nile_tilapia": {
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.96,
+        0.48
+      ],
+      "pigment_bottom_uv": [
+        0.96,
+        0.58
+      ],
+      "pigment_height": [
+        -0.018991330953595103,
+        0.029008669046404895
+      ],
+      "pigment_u": [
+        0.95,
+        0.985
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.0459913309535951,
+        0.0640086690464049
+      ],
+      "model_sha256": "731ed2d403a45ee23d2924e530d68b5c05ca06d0b42fe20c30da9ee4a50d395a",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "source_image_sha256": "2f2018df6aff97da99f000ff13a5d999ca0287440e961444f4f0f1be89b071d1",
+      "source_size": [
+        1961,
+        972
+      ],
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1882,
+            466
+          ],
+          "rgba": [
+            143,
+            144,
+            136,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1882,
+            563
+          ],
+          "rgba": [
+            186,
+            182,
+            174,
+            255
+          ]
+        }
+      }
+    },
+    "atlantic_salmon": {
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.968,
+        0.49
+      ],
+      "pigment_bottom_uv": [
+        0.968,
+        0.66
+      ],
+      "pigment_height": [
+        -0.04390529247910863,
+        0.004094707520891364
+      ],
+      "pigment_u": [
+        0.95,
+        0.985
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.07090529247910864,
+        0.039094707520891364
+      ],
+      "model_sha256": "4a7177a37542dfb304bf535262d80e8694cb4f71d4648c597aca67a3dd87a4d4",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "source_image_sha256": "dad9cede1784b5ef4a7fb65872ea6ea3bb48996db31f882aa474984c7d90652c",
+      "source_size": [
+        1795,
+        583
+      ],
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1737,
+            285
+          ],
+          "rgba": [
+            49,
+            68,
+            74,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1737,
+            384
+          ],
+          "rgba": [
+            193,
+            186,
+            178,
+            255
+          ]
+        }
+      }
+    },
+    "brown_trout": {
+      "mesh": "Closed_body",
+      "skin_surface": 0,
+      "oral_surface": 1,
+      "pigment_top_uv": [
+        0.96,
+        0.48
+      ],
+      "pigment_bottom_uv": [
+        0.96,
+        0.6
+      ],
+      "pigment_height": [
+        -0.031775829680651214,
+        0.01622417031934878
+      ],
+      "pigment_u": [
+        0.95,
+        0.985
+      ],
+      "pigment_depth": [
+        0.012,
+        0.035
+      ],
+      "pigment_y": [
+        -0.05877582968065122,
+        0.05122417031934878
+      ],
+      "model_sha256": "5f61bc7add3a7a5cc335f8310fc1d5f4808b9afacc6a36f47ff8ac2fcb401de2",
+      "rim_width_native": 0.0022,
+      "recess_width_native": 0.007,
+      "simplification": "Actual rolled upper/lower lip boundary with adjacent source palette fading into recessed mouth. No fixed-height seam.",
+      "source_image_sha256": "5419c26072eaff9b02c052aa47f793efd61d2847b07470a1f31b90cc3c86da53",
+      "source_size": [
+        1597,
+        534
+      ],
+      "palette_samples": {
+        "pigment_top_uv": {
+          "pixel": [
+            1533,
+            256
+          ],
+          "rgba": [
+            171,
+            146,
+            51,
+            255
+          ]
+        },
+        "pigment_bottom_uv": {
+          "pixel": [
+            1533,
+            320
+          ],
+          "rgba": [
+            237,
+            228,
+            194,
+            255
+          ]
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@ uniform vec4 head_side_uv=vec4(1.0,0.5,-2.995,0.5);
 uniform vec4 head_front_uv=vec4(-18.0,0.5,-4.4646,0.5116);
 uniform float head_front_x=0.0602;
 varying vec3 rest_position;
+#include "res://scripts/aquarium/FishHeadSource.gdshaderinc"
 void vertex(){rest_position=VERTEX;}
 void fragment() {
     vec2 donor = UV;
@@ -92,7 +93,12 @@ void fragment() {
         vec4 front_color=texture(front_head,front_uv);
         color=mix(side_color,front_color,smoothstep(head_blend_x.x,head_blend_x.y,rest_position.x));
     }
+    if(head_source_repair)color.rgb=repaired_head_color(UV,rest_position,UV2.y,color.rgb);
     ALBEDO=color.rgb;
+    if(head_eye_debug>0){
+        float eye=source_eye_footprint(UV)*(head_eye_debug==2?1.0:source_eye_keep(rest_position));
+        ALBEDO=vec3(0.0);EMISSION=vec3(eye);
+    }
     // Body surface coverage must never depend on a side artwork alpha mask.
     ROUGHNESS=1.0;
     METALLIC=0.0;
