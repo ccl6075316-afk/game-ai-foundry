@@ -1,0 +1,325 @@
+{
+  "status": "ALLOW_CURATED_COMMIT_AND_CONDITIONAL_TERMINAL_CLEANUP_NOT_MODEL_DELIVERY",
+  "executor_sha256": "a3edcdf19a5315344542376853fe7c8acc29ad3d3b0d57830e29270125a4d118",
+  "manifest_sha256": "b0aeaf33281d96d5a340727890124cd115cd131a29dde78799af019c892ab494",
+  "targets": 64,
+  "files": 370,
+  "bytes": 75502025,
+  "permanent_sources_working_bytes_verified": 156,
+  "unique_bindings_decoded_or_documented": 280,
+  "cache_only_regenerable_files_without_backup": 90,
+  "exact_copyright_exception": [
+    "/private/tmp/fish108-anatomy/head-detail-3.png",
+    "/private/tmp/fish108-anatomy/head-guide-1.png",
+    "/private/tmp/fish108-anatomy/sander-lucioperca-guide.pdf"
+  ],
+  "HEAD_source_ready_count": 93,
+  "HEAD_source_blockers": [
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/108-phase3f-independent.validation.json.80dcf6b6b578d73d.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/108-phase3f-independent.validation.json.80dcf6b6b578d73d.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/extend108diagnostic.py.5a4fa06b9c90e92e.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/extend108diagnostic.py.5a4fa06b9c90e92e.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-alignment.stdout.bf17922e24046da7.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-alignment.stdout.bf17922e24046da7.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/source-anatomy-readonly/evidence.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/source-anatomy-readonly/evidence.validation.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-camera-projection.log.3e4cf89801572ddd.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-camera-projection.log.3e4cf89801572ddd.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-final-local-cleanup-plan.json.dbeb1e16615c7336.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-final-local-cleanup-plan.json.dbeb1e16615c7336.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-lip-band-detail.png.3bca37ce68b43077.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-lip-band-detail.png.3bca37ce68b43077.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-lip-band-inspect.png.0989946ad6d17b6b.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-lip-band-inspect.png.0989946ad6d17b6b.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-mouth-uv-source.png.f301df57ca8caeab.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-mouth-uv-source.png.f301df57ca8caeab.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-phase2.py.7b35c404beee30d4.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-phase2.py.7b35c404beee30d4.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-sheet-audit.py.afc988195a8d5233.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-sheet-audit.py.afc988195a8d5233.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-sheet-overlap.py.a8a8434a8e3a0695.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-sheet-overlap.py.a8a8434a8e3a0695.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-stage1-cross-detail.py.887ff68879e1a44f.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-stage1-cross-detail.py.887ff68879e1a44f.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-unpack.log.b0351d5798db365c.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-unpack.log.b0351d5798db365c.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-zander-mouth-grid.png.6b0062a3129135e6.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-zander-mouth-grid.png.6b0062a3129135e6.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-zander-oral-rest.json.d5c263a4dfb86fe4.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/fish108-zander-oral-rest.json.d5c263a4dfb86fe4.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/make_fish_tmp_executor.py.d595dd03f7ee4587.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/make_fish_tmp_executor.py.d595dd03f7ee4587.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-attempt2-ram-grey.log.9c18d2215be75fc6.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-attempt2-ram-grey.log.9c18d2215be75fc6.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-stage1-grey-final.log.3e58d879335e02c1.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-stage1-grey-final.log.3e58d879335e02c1.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-stage1-grey.log.5e7811fd047917fb.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-stage1-grey.log.5e7811fd047917fb.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-y-grey.log.7d8e4bd29c2a506a.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/mouth108-y-grey.log.7d8e4bd29c2a506a.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_fixture_final_plan.py.a950967148754e56.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_fixture_final_plan.py.a950967148754e56.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_original_skin108.py.a9c8a2c4321a0593.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_original_skin108.py.a9c8a2c4321a0593.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_original_skin_readonly108.py.698ed948d99994af.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/prepare_original_skin_readonly108.py.698ed948d99994af.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/zander108-full-head.png.1dc3649b85a64dc8.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/zander108-full-head.png.1dc3649b85a64dc8.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/zander108-source-mouth.png.5eb53ee106a90438.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/tmp-forensics/zander108-source-mouth.png.5eb53ee106a90438.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/inventory-and-restore.plan.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/inventory-and-restore.plan.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/byte-restoration.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/byte-restoration.validation.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/restore-active-fixture.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/restore-active-fixture.py')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/restore-safety-package.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/restore-safety-package.validation.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-log-archive/original-log-archive.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-log-archive/original-log-archive.validation.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-log-archive/actual-camera-projection-run.log.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-log-archive/actual-camera-projection-run.log.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-projection-package.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/attempt2-cpu/camera-projection-package.validation.json')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/audit_mouth_refinement_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/audit_mouth_refinement_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/audit_mouth_skin_chart_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/audit_mouth_skin_chart_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/audit_mouth_source_alignment_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/audit_mouth_source_alignment_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/audit_mouth_y_failure_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/audit_mouth_y_failure_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/audit_original_skin_readonly_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/audit_original_skin_readonly_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/build_mouth_y_candidate_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/build_mouth_y_candidate_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/build_stage1_cdt_candidate_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/build_stage1_cdt_candidate_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/continuous_lip_checks_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/continuous_lip_checks_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/continuous_lip_exact_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/continuous_lip_exact_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/continuous_spline_checks_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/continuous_spline_checks_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/continuous_spline_exact_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/continuous_spline_exact_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/diagnose_original_skin_report_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/diagnose_original_skin_report_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/diagnostic_original_skin_ram_payload_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/diagnostic_original_skin_ram_payload_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/diagnostic_spline_ram_payload_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/diagnostic_spline_ram_payload_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_continuous_lip_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_continuous_lip_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_continuous_spline_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_continuous_spline_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_mouth_field_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_mouth_field_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_mouth_refinement_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_mouth_refinement_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_mouth_slit_stage1_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_mouth_slit_stage1_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/probe_original_skin_attempt2_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/probe_original_skin_attempt2_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/propose_mouth_y_uv_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/propose_mouth_y_uv_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/test_continuous_spline_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/test_continuous_spline_108.py')"
+    },
+    {
+      "path": "resources/scripts/volume-fish/validate_oral_cdt_108.py",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry ('show', 'HEAD:resources/scripts/volume-fish/validate_oral_cdt_108.py')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/continuous-spline-sections-camera-readonly/agent-scratch-inventory.validation.json",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/continuous-spline-sections-camera-readonly/agent-scratch-inventory.validation.json')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_continuous_probe108.py.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_continuous_probe108.py.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/spline_camera_summary108.py.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/spline_camera_summary108.py.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/README.md",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/README.md')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_final_cleanup_executor.py.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_final_cleanup_executor.py.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/final_cleanup_executor_body.py.txt.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/final_cleanup_executor_body.py.txt.gz')"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_terminal108_cleanup.py.gz",
+      "reason": "Git check failed: /Users/czl/projects/game-ai-foundry/projects/fishing-2d ('show', 'HEAD:experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/tmp-originals/prepare_terminal108_cleanup.py.gz')"
+    }
+  ],
+  "independent_mock_process_tests": [
+    {
+      "case": "unrelated54404",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "case": "lsof1empty",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "permission_stderr",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "missing_pid",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "missing_files",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "related_handle",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "empty_output",
+      "accepted": false,
+      "expected": false
+    }
+  ],
+  "missing_binding_source_rejected": true,
+  "scope_extension_rejected": true,
+  "root_explicit_64_scope_confirmed": true,
+  "no_tmp_created": true,
+  "no_Godot_delete_or_git_mutation": true,
+  "execution_condition": "ALL permanent sources + executor + manifest committed to actual HEAD, materialized LFS + local objects verified, idle process guard and complete fresh global preflight must pass; this report is not a bypass",
+  "corroborating_final_dryrun": {
+    "sha256": "529667baad4014c521a5b90ae9c10bbceb57d654da63fa666faf13a3a71ad1ab",
+    "status": "blocked",
+    "deleted": false,
+    "actual_engine_pids_read_only": [
+      54404
+    ],
+    "HEAD_failures_expected_precommit": true
+  },
+  "no_assert_guards_or_kill_calls_in_executor": true,
+  "author8regressions_final_script_binding_verified": true
+}
