@@ -1,0 +1,56 @@
+{
+  "status": "ALLOW_FINAL_OUTCOME_COMMIT_NO_MODEL_DELIVERY",
+  "receipt_sha256": "b7f8c323b48f2e35d830373eec4696f6b47510978c37aecb82d5f47fe8863123",
+  "manifest_sha256": "b0aeaf33281d96d5a340727890124cd115cd131a29dde78799af019c892ab494",
+  "executor_sha256": "a3edcdf19a5315344542376853fe7c8acc29ad3d3b0d57830e29270125a4d118",
+  "exact_ordered64_roots_match_manifest_and_absent_lexists": true,
+  "original_regular_files_from_manifest": 370,
+  "logical_bytes_removed": 75502025,
+  "all156_permanent_sources_full_file_SHA_unchanged": true,
+  "all280_restoration_bindings_decoded_or_documented": true,
+  "copyright_exception_not_offline_recoverable": 3,
+  "preexecution_full_HEAD_LFS_tree_process_pass_receipt_verified": true,
+  "commits_from_root_postcheck": {
+    "foundry": "3571d2a43d72fbca0b4851cfebd6a3888b9a810e",
+    "fish": "4da26b23dd97cf799a321cbb8660184681146317"
+  },
+  "original_Godot_process_verified": {
+    "pid": 54404,
+    "started": "Thu Oct8 19:56:36 2026",
+    "executable": "/Users/czl/.gamefactory/toolchain/godot/Godot_mono.app/Contents/MacOS/Godot",
+    "readonly_ps_only": true
+  },
+  "toolchains_present": [
+    "/Users/czl/.gamefactory/toolchain",
+    "/private/tmp/fish-blender-toolchain"
+  ],
+  "documents_read_and_outcome_matches": [
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/eye-separation-106/README.md",
+      "sha256": "b491491da79e17498d3979a07bd13606f8b34b6abf83e253e2c32b91a92ec2c5"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/README.md",
+      "sha256": "13c8aa8607778f1b5e2db0ebaf35ae8872b38ce853c1081aaa55b03b65a1b5cd"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/README.md",
+      "sha256": "cae6610750af144a18143b6d271c2e43860b1b171f9d50a767e09dedf09a764c"
+    },
+    {
+      "path": "projects/fishing-2d/docs/3d-fish/SESSION-106-108-20261021.md",
+      "sha256": "ba8d9625df5af9fe57fabb0d0ab69aa8d9ac3c895e34f8f0f8449a76bb3b99e1"
+    },
+    {
+      "path": "docs/anvil/debug-sessions/2026-10-21-108-zander-mouth-session.md",
+      "sha256": "4dff1b44840304067d02067f1b7e37e1cd4f71b476a54f15485007ed54afbe47"
+    },
+    {
+      "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/terminal-execution/EXECUTED.md",
+      "sha256": "3612b0cbd07619e0ad7a2995e00fddc903e1210f449622e0cab9141f2084f541"
+    }
+  ],
+  "frozen_terminal_README_unchanged_separate_EXECUTED_status": true,
+  "model_delivered": false,
+  "no_new_tmp_GPU_delete_or_Git_actions": true
+}

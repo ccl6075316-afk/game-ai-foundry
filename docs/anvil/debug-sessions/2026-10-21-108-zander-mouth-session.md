@@ -233,3 +233,7 @@ CPU通过后只生成RAM灰模与只读截面/旧镜头数学投影，没有保�
 通用知识已沉淀到 `docs/anvil/knowledge/2026-10-22-zander-mouth-source-fit.md`，制作技能与mouth-repair参考同步补充。回家查看入口为Fish `docs/3d-fish/SESSION-106-108-20261021.md`，含鱼种和位置标注。历史失败、数值通过与视觉拒绝分别保留；106/107的局部眼睛改进不等于整鱼通过。
 
 本轮脚本是冻结证据的历史重放工具，不是生产CLI。重放需按各execution-freeze/manifest恢复源图、GLB、运行时覆盖及导入设置；RAM诊断依赖前序冻结输入、Blender和部分工具的numpy/scipy。已归档完整输入的21项C2控制可重跑；12项早期控制只有历史结果，不称可重跑套件。六个临时工程的活动文件恢复按 `final-cleanup-plan/restore-active-fixture.py`，输出必须为不存在的工程根目录，不能附加`/game`；恢复文件不等于已做引擎导入或GPU验收。最终删除必须使用终末快照精确白名单、先确认保留源已提交，再执行并记录回执。
+
+### 清理已执行
+
+必要来源先以Foundry `3571d2a`（含`ad2cc71`）及Fish `4da26b2`提交推送。终末包经独审后，实际HEAD/LFS/全树/进程预检通过，按manifest `b0aeaf33281d96d5a340727890124cd115cd131a29dde78799af019c892ab494`执行64项精确清理，370文件、75,502,025逻辑字节。root逐项复核全部不存在，回执和核对位于Fish108 `final-cleanup-plan/terminal-execution/`。六个实验工程已删但243个活动输入有恢复映射；三个版权资料只保留来源记录，不能离线还原。用户原Godot54404与共享工具链未动；嘴型仍拒绝，未运行新的验收门。
