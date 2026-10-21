@@ -8,7 +8,10 @@ func _initialize():
     call_deferred("run")
 func capture(path: String):
     await process_frame
-    await RenderingServer.frame_post_draw
+    if OS.get_environment("FOUNDRY_MANUAL_RENDER")=="1":
+        RenderingServer.force_draw()
+    else:
+        await RenderingServer.frame_post_draw
     assert(hall.viewport.get_texture().get_image().save_png(path)==OK)
 func run():
     DirAccess.make_dir_recursive_absolute(out)
@@ -66,6 +69,13 @@ func run():
                 var stem=folder+"/p%d-v%d"%[pose,v]
                 for b in bodies:
                     for s in b.materials.size():b.mesh.set_surface_override_material(s,b.materials[s])
+                # A hidden manual render loop must submit the new skeleton
+                # pose once before comparing actual and reference coverage.
+                # Otherwise view0 can compare the previous GPU bone buffer
+                # against the current one, producing a false silhouette gap.
+                if v==0 and OS.get_environment("FOUNDRY_MANUAL_RENDER")=="1":
+                    RenderingServer.force_draw()
+                    await process_frame
                 await capture(stem+"-actual.png")
                 for b in bodies:
                     for s in b.materials.size():b.mesh.set_surface_override_material(s,reference)
@@ -76,4 +86,9 @@ func run():
         print("BODY_COVERAGE ",species)
     var bindings: Dictionary={}
     for file in ["scripts/aquarium/FishHeadSource.gd","scripts/aquarium/FishHeadSource.gdshaderinc","assets/models/fish/motion/head-source.json","scripts/aquarium/FishSurfaceOwnership.gd","scripts/aquarium/FishSurfaceOwnership.gdshader","scripts/aquarium/FishBodyOpaque.gdshader","scripts/aquarium/FishMouthPigment.gd","scripts/aquarium/FishMouthPigment.gdshader","scripts/aquarium/FoundryFishMotion.gd","assets/models/fish/motion/mouth-pigment.json","assets/models/fish/motion/body-opacity.json","assets/models/fish/motion/motion.json"]:bindings[file]=FileAccess.get_sha256("res://"+file)
-    var f=FileAccess.open(out+"/capture.validation.json",FileAccess.WRITE);f.store_string(JSON.stringify({"records":records,"files":bindings}));f.close();quit()
+    var f=FileAccess.open(out+"/capture.validation.json",FileAccess.WRITE);f.store_string(JSON.stringify({"records":records,"files":bindings}));f.close()
+    hall.queue_free()
+    await process_frame
+    if RenderingServer.has_method("force_sync"):RenderingServer.force_sync()
+    await process_frame
+    quit()

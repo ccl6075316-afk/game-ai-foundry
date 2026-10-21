@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "red_seabream": {
+      "kind": "source_ink",
+      "model_sha256": "998ef6c9b04286aec2155dbf7fdae6f10e1a4d70109b484b65df5a920715e0f1",
+      "mesh": "Closed_body",
+      "surface": 0,
+      "source_size": [
+        2026,
+        1054
+      ],
+      "source_eye": [
+        0.886,
+        0.438,
+        0.04,
+        0.079
+      ],
+      "rest_normal_z_fade": [
+        0.2,
+        0.85
+      ],
+      "source_rect_donor": [
+        0.83,
+        0.35,
+        0.85,
+        0.39
+      ],
+      "ink_mask": "res://assets/models/fish/motion/red-head-ink-mask.png",
+      "ink_mask_sha256": "2f08c12d8c5bc760b1ce5eddfbf7de176d2c0686a6c0484935539c42b0f9535d",
+      "ink_donors": "res://assets/models/fish/motion/red-head-ink-donors.png",
+      "ink_donors_sha256": "fd6d19f6b6d2af3b6cdcab9dbe2bff66c3a74e3bbaedbc969ec0f233ed0977a7",
+      "scope": "Complete frozen3473 source ink pixels, including existing lateral head outline ink; all other source red, eye, lips and gills excluded. No normal gate."
+    }
+  }
+}

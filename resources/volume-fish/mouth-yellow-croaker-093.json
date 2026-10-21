@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "species": "yellow_croaker",
+  "source_canvas": [
+    2014,
+    727
+  ],
+  "opening": "Native source slight opening; independently traced true lower cleft, not upper maxillary outline",
+  "oral_edges_canvas_px": [
+    [
+      1860,
+      450,
+      456
+    ],
+    [
+      1880,
+      437,
+      445
+    ],
+    [
+      1900,
+      428,
+      436
+    ],
+    [
+      1920,
+      419,
+      429
+    ],
+    [
+      1940,
+      412,
+      425
+    ],
+    [
+      1960,
+      407,
+      420
+    ],
+    [
+      1980,
+      408,
+      421
+    ],
+    [
+      2000,
+      413,
+      425
+    ]
+  ],
+  "influence_native_x": [
+    0.29,
+    0.36
+  ],
+  "transverse": "Preserved exactly; no species measured width available",
+  "source_sha256": "dfc09e04d3cc0cfa2b02b7fd783f6c026d3d06cf25f04eefc2e7cb0ac19fb1b0",
+  "geometry": {
+    "influence_start": 0.29,
+    "influence_full": 0.36,
+    "oral_blend_start": 0.425,
+    "oral_blend_span": 0.009
+  },
+  "uv": {
+    "front_start": 0.482,
+    "front_span": 0.014,
+    "lateral_native": 0.018,
+    "rim_front_u_start": 0.98,
+    "rim_front_u_span": 0.014,
+    "rim_width_native": 0.008,
+    "rim_donor_u_start": 0.967,
+    "rim_donor_u_span": 0.014,
+    "rim_source_offset_px": [
+      -5,
+      5
+    ]
+  },
+  "runtime": {
+    "cap_start_native": 0.478,
+    "cap_full_native": 0.491,
+    "lip_protection_native": [
+      0.001,
+      0.0025
+    ],
+    "cap_donor_x_px": [
+      1920,
+      1950
+    ],
+    "cap_donor_v": "native spatial v, within anterior skin region; unseen front is production inference",
+    "oral_lining_donor_px": [
+      1940,
+      446
+    ],
+    "dorsal_inward_px": 9
+  },
+  "parameter_basis": "oral-edge points directly authored against native source canvas; all geometric transition widths, donor continuation and unknown front skin are production choices, not biological measurements",
+  "eye_scope": "Lateral eye artwork not redesigned or scaled; complete anterior section y-fit and planar UV reprojection can change eye-bearing surface vertices. Verify position against fixed source canvas, not exact geometry identity."
+}

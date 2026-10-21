@@ -8,6 +8,7 @@
 |------|------|------|
 | [External Agent Workflow 替代 GUI/内置 Agent](architecture/external-agent-workflow-replaces-gui-internal-agents-cli-20260924.md) | architecture | 去 GUI/去内置 Agent、保留 Pipeline 的外部入口方案 |
 | [鱼模型准备与验证漏检](logic/fish-validation-misses-anatomy-volume-fish-20261015.md) | logic | 同测位尺寸、鳍根真实蒙皮与轮廓检查，限定通过和整体接受分开 |
+| [源描边污染新增鱼皮肤](logic/source-outline-contaminates-fish-skin-20261020.md) | logic | 实际取样溯源、RGB/alpha边界与失败试修归档 |
 | [cli 模块索引](modules/cli.md) | modules | pipeline/brief 相关 |
 | [critical-patterns](patterns/critical-patterns.md) | patterns | 常青模式 |
 | [log](log.md) | log | 知识库日志 |

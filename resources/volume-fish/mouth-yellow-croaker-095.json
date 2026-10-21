@@ -1,0 +1,12 @@
+{
+  "species": "yellow_croaker",
+  "source_sha256": "dfc09e04d3cc0cfa2b02b7fd783f6c026d3d06cf25f04eefc2e7cb0ac19fb1b0",
+  "baseline_sha256": "ba67d5e61eb44ba74acf677555f02186780337825e469e7dde4b35117d346c74",
+  "source_canvas": [2014, 727],
+  "influence_x": [0.330, 0.400],
+  "upper_fade_native": 0.025,
+  "oral_edges_canvas_px": [[1860,450,456],[1880,437,445],[1900,428,436],[1920,419,429],[1940,412,425],[1960,407,420],[1980,408,421],[2000,413,425]],
+  "chin_canvas_px": [[1690,550],[1730,542],[1770,527],[1810,520],[1850,505],[1880,497],[1910,483],[1940,474],[1970,458],[1990,443],[2004,429]],
+  "cavity": {"back_x":0.407,"center_y":-0.035,"radius_y":0.012,"radius_z":0.014,"cap_depth":0.010,"rings":12},
+  "limits": "Static source opening only. Transverse envelope retained. Cavity depth, hidden lining and transition widths are production inference, not species measurements."
+}

@@ -1,0 +1,114 @@
+{
+  "species": "yellow_croaker",
+  "source_sha256": "dfc09e04d3cc0cfa2b02b7fd783f6c026d3d06cf25f04eefc2e7cb0ac19fb1b0",
+  "baseline_sha256": "627f8f8592545b989b9464cd3d2ff8306fffc6ab290233a2c77117fee8e9585f",
+  "source_canvas": [
+    2014,
+    727
+  ],
+  "influence_x": [
+    0.33,
+    0.4
+  ],
+  "cavity": {
+    "back_x": 0.407,
+    "center_y": -0.035,
+    "radius_y": 0.012,
+    "radius_z": 0.014,
+    "cap_depth": 0.01,
+    "rings": 12
+  },
+  "limits": "Keep097 fixed upper cut and overall lower-jaw construction. Replace nearest-point displacement by continuous field from actual 3D lip-arc fit, modest12-source-pixel gap. Lower chart travels with jaw; source artwork unchanged. Static slight-open styling, not exact source pose or jaw animation. Width, hidden skin and cavity remain inference.",
+  "constraint_basis": {
+    "user": "2026-10-20: lower lip transition from start to tip is not fluid, not globally too thick; modest opening acceptable; black exterior bands look strange.",
+    "boundary": "Manual native-canvas trace of light upper lip to dark oral region, separate from maxillary rear outline; frozen source projection for upper skin",
+    "failure_check": "Upper retained positions exact; new cut boundary on fixed source chart, explicit pre/post visual overlay; no upper UV deformation to hide mismatch.",
+    "lower_boundary": "Same3D arc correspondence as097, continuous lower-jaw displacement instead of discontinuous nearest-point field; no uniform lip thinning."
+  },
+  "upper_cut_canvas_px": [
+    [
+      1920,
+      424
+    ],
+    [
+      1930,
+      417
+    ],
+    [
+      1940,
+      412
+    ],
+    [
+      1950,
+      405
+    ],
+    [
+      1960,
+      397
+    ],
+    [
+      1970,
+      391
+    ],
+    [
+      1980,
+      388
+    ],
+    [
+      1990,
+      380
+    ],
+    [
+      2000,
+      370
+    ],
+    [
+      2014,
+      370
+    ]
+  ],
+  "lower_gap_px": 12,
+  "source_lip_edges_canvas_px": [
+    [
+      1860,
+      450,
+      456
+    ],
+    [
+      1880,
+      437,
+      445
+    ],
+    [
+      1900,
+      428,
+      436
+    ],
+    [
+      1920,
+      419,
+      429
+    ],
+    [
+      1940,
+      412,
+      425
+    ],
+    [
+      1960,
+      407,
+      420
+    ],
+    [
+      1980,
+      408,
+      421
+    ],
+    [
+      2000,
+      413,
+      425
+    ]
+  ],
+  "lower_fit_mode": "continuous_3d_arc"
+}

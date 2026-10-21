@@ -1,0 +1,17 @@
+{
+  "species": "yellow_croaker",
+  "baseline_sha256": "b503e86be771955211cc1a2965d60a0decf74160da36eb8fa867488651b05ff6",
+  "source_sha256": "dfc09e04d3cc0cfa2b02b7fd783f6c026d3d06cf25f04eefc2e7cb0ac19fb1b0",
+  "source_x_range": [
+    1690,
+    1987
+  ],
+  "smoothing_rms_px": 0.8,
+  "max_target_deviation_px": 2.0,
+  "max_edge_px": 6.0,
+  "max_split_iterations": 7,
+  "subdivide_depth_fraction": 0.5,
+  "deform_start_depth_fraction": 0.35,
+  "endpoint_fade_px": 12,
+  "limits": "Repair entire lower chin silhouette, not oral rim. Bounded C2 smoothing of existing accepted-direction098 volume, with local conforming subdivision. Mouth rim, upper geometry, cavity, UV artwork, fins, skeleton and animations fixed. Production smoothness, not species anatomical measurement."
+}

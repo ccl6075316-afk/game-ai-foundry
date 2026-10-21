@@ -1,0 +1,13 @@
+{
+  "model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+  "interior_margin_px": 65.0,
+  "transverse_scale": 0.8,
+  "blend_across": [
+    0.55,
+    0.92
+  ],
+  "inference": "Unseen dorsal and ventral skin uses native golden/silver interior source strips. This is an artistic continuation, not a photographed texture.",
+  "mesh": "Closed_body",
+  "surface": 0,
+  "section_count": 128
+}

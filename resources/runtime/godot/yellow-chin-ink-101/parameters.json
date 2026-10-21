@@ -1,0 +1,34 @@
+{
+  "species": "yellow_croaker",
+  "baseline_model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+  "baseline_shader_sha256": "9a1ed1e3b7c5b9cd010874e487f2889dc8cca38c2273061f6e8e87d1ead1b247",
+  "baseline_include_sha256": "a869c1ee58fffb8b8b3cc05f5fd85d93c372dc93943412546b472a3845a9f65b",
+  "x_fade_native": [
+    0.41,
+    0.425
+  ],
+  "x_max_native": 0.496,
+  "below_lower_lip_margin_native": 0.002,
+  "edge_depth_source_px": [
+    3.0,
+    14.0
+  ],
+  "scope": "Only dark exterior pixels in the lower chin outline strip plus the bounded anterior lower-jaw exterior. Nearest lip region and oral surface excluded; all normal body pixels, full099 dorsal/ventral charts, eyes and gills retained.",
+  "dark_max_shader_value": [
+    0.26,
+    0.38
+  ],
+  "donor_min_shader_value": 0.4,
+  "donor_max_shader_value": 0.5,
+  "renderer": "Actual099 compatibility renderer, source_color shader values, not assumed linear RGB",
+  "anterior_lower_jaw_fade_native": [
+    0.438,
+    0.448
+  ],
+  "anterior_lip_exclusion_native": [
+    0.003,
+    0.002
+  ],
+  "mask_boundary": "Nearest actual099 lower-rim segment y in model space; not the old source lip height",
+  "donor_search_vertical_px": 24
+}

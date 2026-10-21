@@ -64,3 +64,6 @@ inside_envelope = contained
 - [限定范围复审](../../anvil/reviews/2026-10-15-fish-anatomy-phase4-review.md)
 - [常用工作流](../../FISH-VOLUME-WORKFLOW.md)
 - fish本地准备/验证指南：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、`VALIDATION.md`。
+
+
+相关材质案例：[源描边污染新增鱼皮肤](source-outline-contaminates-fish-skin-20261020.md)，独立解释像素供体、透明扩展与局部保留门，不替代解剖/鳍身门。
