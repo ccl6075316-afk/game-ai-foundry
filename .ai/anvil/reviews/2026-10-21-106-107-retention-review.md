@@ -100,3 +100,40 @@ Read both updated rebuild manifests, restore scripts and README supplements. Ind
 The observed current engine `4.7.1.stable.mono.official.a13da4feb` is explicitly not asserted as a historical GPU-engine version. File restoration is not a new import, GPU run or LOD acceptance. Updated entry documentation continues to distinguish106/107 local eye trial success from106 fin failure,107 LOD5 failure and rejected108 shape work. The skill's removal of the obsolete absolute installation path correctly requires current-workspace discovery. Final independent both-repository diff checks are clean.
 
 **Final commit-scope verdict: APPROVED.** No new implementation or asset was modified by this independent review. All existing whole-fish/runtime/export blockers remain.
+
+
+## 8. Subsequent pose-export cleanup supplement commit gate
+
+**APPROVED for this separate narrow cleanup/metadata commit.** Read both pose-export cleanup reports, all four original-file manifests, archived export/completion/check metadata, input-chain/re-export templates and README additions. Independently verified24 retained metadata files by SHA/byte size, all four manifest hashes, all current-gates hashes, every rebuild-input-chain hash and all1334 exported sample hashes against the original-file manifests. The four exact whitelisted temporary directories are absent. This audit observes their current absence and retained records; it does not independently re-observe the historical deletion process.
+
+Manifest totals reconcile to1358 removed files:1334 raw posed-mesh JSON samples plus24 archived metadata originals,4,109,020,676 logical source bytes. New archives/manifests total6,877,829 bytes; net logical reduction4,102,142,847 bytes. These are logical file-byte figures, not APFS physical-space measurements. Long-lived current-gates records and original failure outcomes hash-match; no broader deletion is authorized by this review.
+
+READMEs explicitly disclose that raw posed meshes are deleted and cannot now be directly read: manifests are not backups. The retained model/controller/config/exporter/plan and prior fixture/import-setting chains support a future re-export attempt, with historical engine/export logs retained. The command templates have not been executed in this cleanup and do not establish a fresh Godot/GPU/LOD/fin rerun or byte-identical future generated output. Actual regeneration would require another real run and fresh report.
+
+No code/shader/field change is hidden in this supplement; security/design scope is unchanged from sections2–4. Fish diff whitespace check passes. The106 fin failure,107 LOD5 failure and all108 trial gates remain unchanged. This approval does not alter the separately granted single108 CPU evaluation or authorize an108 asset.
+
+
+## 9. Independent control-fixture reconstruction supplement
+
+**APPROVED for the narrow reproducibility supplement commit.** Read all three control manifests, both restoration scripts and README additions. Independently executed each restore CLI in a separate temporary directory, then compared the complete restored file set against both its manifest and the original control fixture excluding only `.godot`. Sets and every declared byte count/SHA match:106 baseline32 files,106 LOD-only reference34 and107 baseline35. Each includes all three actual import settings; UID counts9/9/11 are restored. No unexpected original noncached file was omitted.
+
+Referenced source models/textures and shared code/config hashes match; newly archived exact differences are3540/13639/3505 bytes respectively. This preserves the actual distinct controls rather than assuming candidate mode0 equals a baseline. Restoration is file-only: no Godot importer, GPU or new LOD check was run, and original fixtures still exist. Scripts validate all declared source hashes and relative destination paths before writing. Prior failure/acceptance boundaries and108 CPU authorization remain unchanged.
+
+Fish diff whitespace check passes. No blocker was found for this supplement. Any later184-temporary-entry cleanup is outside this section and needs its own reviewed classification/whitelist evidence.
+
+
+## 10. Final oneoff-source archive and future exact-path cleanup review
+
+**Small archive commit APPROVED.** Reviewed both forensic source maps, READMEs, corrected pose-log mappings and `/private/tmp/fish106107-final-exact-cleanup-candidates.json`. Independently verified all171 forensic records: decompressing58 gzip records and resolving58 exact aliases plus34 archived source texts/21 tracked references produces the recorded original SHA/size. All originals still present match those bytes. The records cover39 historical oneoff sources, including already tracked references. The corrected nested-log names include content SHA; the earlier basename collision is disclosed as caught before deletion, not hidden.
+
+The178 candidate temporary entries total67,311,388 logical bytes in the reviewed manifest. All present explicitly listed candidate file hashes/sizes match; no root candidate symlink was observed. The three rebuild-scratch directories are disposable restoration outputs. Other unarchived115 PNG/JPG entries are explicitly derived diagnostics, not promised recoverable backups. Their deletion intentionally discards those raw rasters; critical numerical/source/control/gate and selected visual evidence remains in the tracked experiment archive. The archival source texts preserve historical absolute inputs/outputs/scratch roles and explicitly warn they are not all runnable unchanged or production CLI. No old script was executed during this review.
+
+All corrected pose-log `.log.txt` paths exist and retain their original byte hashes. Independently checked167 files across local-diagnostics, pose archives and control reconstruction against Fish Git ignore rules: zero ignored. Credential-pattern inspection of all decoded forensic payloads found no private-key blocks or recognizable API/cloud/Git token strings; no new network/credential capability is introduced. Fish diff whitespace check passes.
+
+### Deletion boundary and current indirect dependency
+
+Archive approval is not a blanket `fish*` deletion. Root may use only the immutable reviewed exact candidate list after committing the archive and rechecking current hashes, exact directory membership and process use immediately before execution. Any changed/new file returns for classification; do not kill historical PID54404 or touch either toolchain. Original tracked gates/failure reports remain immutable.
+
+**Do not delete `projects/fish-107-zander-eye` while108 is active.** It is an indirect108 input: current108 support audits read its eye config/mask/source, the oral preparer reads its GLB, and grey render/UV diagnostics read its GLB/opaque skin. Reconstructibility does not make an active input disposable. Root explicitly agreed to protect this directory alongside the108 fixture and nine108 temporary inputs. The three old controls and106 candidate have restoration contracts, but actual fixture deletion remains a later root action with fresh exact-path/hash/process checks; none was performed by this review. Any proposal to delete107 candidate must wait until108 releases it or reviewed inputs have explicitly migrated and been re-frozen.
+
+No new cleanup execution or GPU/LOD/geometry validation is inferred. Existing106 fin failure,107 LOD5 failure and108 CPU/visual gates remain unchanged.
