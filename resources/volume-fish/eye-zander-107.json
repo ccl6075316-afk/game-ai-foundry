@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "species": "zander",
+  "allowed_modes": [
+    0,
+    1,
+    2
+  ],
+  "scope": "107 zander local mode1 color trial after independent mode0/2 domain approval; all6LOD retained, LOD5 gate failed; not wholefish acceptance.",
+  "model_path": "projects/fish-107-zander-eye/game/assets/models/fish/zander.glb",
+  "model_sha256": "c1b10d96c7aa83e41129df16170d7302f4c4335b226785c5f5b5bd562b6e0aef",
+  "runtime_model_path": "res://assets/models/fish/zander.glb",
+  "source_path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/current-audit/zander/rgba-4014021fe9b39bb7b6e3b0f4ad34084842fbf91c959f84b760ecc26d8a4cda13.png",
+  "source_sha256": "1415a61526306ca0877a18a0471d49120b4e4fc0af26c1b5fa502146fa38b510",
+  "source_embedded_sha256": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+  "opaque_path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/current-audit/zander/rgba-fe89d2dc06096e7dd0c2f1a5a098e96eaac851ae99ae58c519b556c552952716.png",
+  "opaque_sha256": "653275206950eeea78730ee85e78e936ddca1db62fbca783326b313edcedc63a",
+  "source_size": [
+    2024,
+    742
+  ],
+  "mesh": "Closed_body",
+  "surface": 0,
+  "surface0_vertices": 11672,
+  "vertex_order_sha256": "17b5bc51eece60c999266f4d3f6e0b9c199b1b227fe855314e0d4af195641d6b",
+  "all_lods_sha256": "d1471d727bdbfc27f76f1432b51e36569e3ea71f009d53e0ef68ded0e2e561bd",
+  "all_surface_arrays_sha256": "3afe2479f6ee52281822f3b730028bcae69b3a699588b44467bed8617c89e119",
+  "shader_origin": "res://scripts/aquarium/FishBodyOpaque.gdshader",
+  "original_shader_code_sha256": "9a1ed1e3b7c5b9cd010874e487f2889dc8cca38c2273061f6e8e87d1ead1b247",
+  "original_shader_file_sha256": "9a1ed1e3b7c5b9cd010874e487f2889dc8cca38c2273061f6e8e87d1ead1b247",
+  "head_include_sha256": "095231ce30943a8260f881900cdf142498cf65f58bd9d69d4dc407585e9b3c0d",
+  "head_profile_sha256": "3106c57863f6ebd8a9faae14d1db36d82bfaecfbc832f03b70bb34c503785308",
+  "original_uniforms_sha256": "a086d18fef9504eb4a40d32408603498ebbbbb63fcfaf3066cddac3e914e7070",
+  "runtime_data_directory": "res://assets/models/fish/motion/eye-107",
+  "projection": {
+    "kind": "rest_xy",
+    "anchor_rest_xy": [
+      0.4209895690220033,
+      -0.003507364876505719
+    ],
+    "source_pupil_px": [
+      1864.0828877005347,
+      378.09893048128345
+    ],
+    "pixel_native_xy": [
+      0.0004940711462450593,
+      0.0004940711462450593
+    ],
+    "downshift_native_pixels": 11,
+    "central_gap_abs_z": 0.00422370582818985,
+    "full_owner_abs_z": 0.009503338113427162
+  },
+  "masks": {
+    "source_eye_mask": {
+      "path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/old-eye-cleaning-union.png",
+      "sha256": "007555cff57607681d9c6c0ff63dca28fa1ac9eeb5e5358c29b77167240c2f93",
+      "pixels": 7127
+    },
+    "fallback_eye_mask": {
+      "path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/old-eye-fallback-footprint.png",
+      "sha256": "007555cff57607681d9c6c0ff63dca28fa1ac9eeb5e5358c29b77167240c2f93",
+      "pixels": 7127
+    },
+    "eye_layer_mask": {
+      "path": "projects/fishing-2d/experiments/blender-fish/eye-rollout-107/eye-layer-mask.png",
+      "sha256": "0fb1dc031083c58f69334cf8c3e038c28f48c64668fba80e330e28a55d6bc338",
+      "pixels": 6039
+    }
+  },
+  "original_lod_gate": {
+    "status": "failed",
+    "failed_level": 5,
+    "triangles": 439,
+    "all_original_lods_retained": true,
+    "cpu_base_through_lod4_11px": "sampled_pass"
+  },
+  "cpu_proposal_sha256": "dc37b98fb6eb28fae931f66a3bccfadf2f98e373c5daadd94abffb6470f8db31",
+  "repair": {
+    "kind": "native_mirror_rgb",
+    "donor_native_rect": [
+      1780,
+      335,
+      1808,
+      360
+    ],
+    "source_and_opaque_independent": true,
+    "all_alpha_preserved": true,
+    "outside_mask_rgba_preserved": true
+  }
+}

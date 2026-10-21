@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "species": "black_seabream",
+  "scope": "106 mode1 trial repair after independently reviewed mode0/2 domain; not whole-fish acceptance; retain explicit badLOD5 retirement",
+  "model_path": "projects/fish-106-black-eye/game/assets/models/fish/black_seabream.glb",
+  "model_sha256": "3643445fa0b91066206351d7390357c37ec393bf02407dcd582b04bc71b58baf",
+  "runtime_model_path": "res://assets/models/fish/black_seabream.glb",
+  "source_path": "projects/fishing-2d/experiments/blender-fish/eye-separation-106/source-runtime.png",
+  "source_sha256": "6414c6e415014e5ba09853ffea9f9c6bc2bafbc50b2af05a089866de4e0f59bc",
+  "source_embedded_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "source_size": [
+    1986,
+    991
+  ],
+  "mesh": "Closed_body",
+  "surface": 0,
+  "surface0_vertices": 11552,
+  "vertex_order_sha256": "9db28483c443f64298d25994f9e64709a53ff166eaf80a7001f253fbcc84c8df",
+  "source_polygon": [
+    [
+      1761,
+      385
+    ],
+    [
+      1818,
+      385
+    ],
+    [
+      1843,
+      399
+    ],
+    [
+      1858,
+      424
+    ],
+    [
+      1858,
+      466
+    ],
+    [
+      1838,
+      492
+    ],
+    [
+      1810,
+      504
+    ],
+    [
+      1761,
+      504
+    ],
+    [
+      1738,
+      480
+    ],
+    [
+      1733,
+      446
+    ],
+    [
+      1740,
+      411
+    ]
+  ],
+  "centers": [
+    [
+      0.404712319,
+      0.02403102,
+      -0.02614241
+    ],
+    [
+      0.404712319,
+      0.02403102,
+      0.02614241
+    ]
+  ],
+  "radii": [
+    0.045,
+    0.07,
+    0.017
+  ],
+  "fade_q": [
+    0.95,
+    1.05
+  ],
+  "allowed_modes": [
+    0,
+    1,
+    2
+  ],
+  "runtime_data_directory": "res://assets/models/fish/motion/eye-106",
+  "proposal": "projects/fishing-2d/experiments/blender-fish/eye-separation-106/ownership-proposal.validation.json",
+  "projection": {
+    "kind": "rest_xy",
+    "anchor_rest_xy": [
+      0.4034926681664948,
+      0.02486993356463753
+    ],
+    "source_pupil_px": [
+      1793.8714,
+      447.6234
+    ],
+    "pixel_native": 0.00045317220543806646,
+    "downshift_native_pixels": 22,
+    "central_gap_abs_z": 0.005,
+    "full_owner_abs_z": 0.0055
+  },
+  "retired_lod": {
+    "surface": 0,
+    "index": 5,
+    "triangles": 402,
+    "edge_length": 0.816751837730408,
+    "index_data_sha256": "a94319232179a3fb13288f05028877bccfa44a3c0edd8a3c471ea3086c4d4ab3"
+  },
+  "cleaning_mask": {
+    "path": "projects/fishing-2d/experiments/blender-fish/eye-separation-106/old-eye-cleaning-mask-r1-12752.png",
+    "sha256": "1945f57e23447b6799ae386c32fd9bd3acb3a27cbce3fbfe972920d4427d0353"
+  },
+  "eye_layer_mask": {
+    "path": "projects/fishing-2d/experiments/blender-fish/eye-separation-106/eye-layer-mask.png",
+    "sha256": "f0d4e5672cb6a870152c9672f2a752d4bb475c8655172b40969eadf8f52ceebb"
+  },
+  "opaque_skin": {
+    "path": "res://assets/models/fish/motion/opaque-skin/162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924.png",
+    "sha256": "2bb534d21e86dde70b0de11bf7618ba1775f72c595bdd05941cb82300ad780ca"
+  },
+  "repair": {
+    "kind": "mirrored_source_rect_rgb",
+    "donor_rect": [
+      0.85,
+      0.36,
+      0.88,
+      0.39
+    ],
+    "source_and_opaque_independent": true,
+    "alpha_unchanged": true,
+    "native_pixel_mirror_repeat": true
+  }
+}
