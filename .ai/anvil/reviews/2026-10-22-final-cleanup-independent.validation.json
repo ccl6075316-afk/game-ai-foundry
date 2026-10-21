@@ -1,0 +1,778 @@
+{
+  "status": "APPROVED_RESTORE_AND_FUTURE_EXACT_WHITELIST_BOUNDARY_ONLY_NOT_DELETE_AUTHORIZATION",
+  "runs": [
+    {
+      "plan_sha256": "8bece4de79a0d68662d720e9c86edc4f4f7429699bd3f7949b67d0f5943e5630",
+      "script_sha256": "7517c9b5ecf837ae68b2dddce198f668634ae831bc43298cfefb9ea62b464a55",
+      "no_Godot_or_delete": true,
+      "fixtures": [
+        {
+          "fixture": "fish-106-black-eye",
+          "full_tree_matches": true,
+          "files": 59,
+          "active_files": 46,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-106-black-eye-baseline",
+          "full_tree_matches": true,
+          "files": 45,
+          "active_files": 32,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-106-black-eye-lod-reference",
+          "full_tree_matches": true,
+          "files": 47,
+          "active_files": 34,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-107-zander-eye",
+          "full_tree_matches": true,
+          "files": 62,
+          "active_files": 48,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-107-zander-eye-baseline",
+          "full_tree_matches": true,
+          "files": 49,
+          "active_files": 35,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-108-zander-mouth",
+          "full_tree_matches": true,
+          "files": 48,
+          "active_files": 48,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        }
+      ],
+      "tmp": [
+        {
+          "path": "/private/tmp/108-phase3f-independent.validation.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/extend108diagnostic.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-exact-cleanup-result.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-exact-cleanup.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-final-exact-cleanup-candidates.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-alignment.stdout",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-anatomy",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 3
+        },
+        {
+          "path": "/private/tmp/fish108-camera-projection.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-final-local-cleanup-plan.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-lip-band-detail.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-lip-band-inspect.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-mouth-uv-source.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-phase2.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-sheet-audit.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-sheet-overlap.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-stage1-cross-detail.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-unpack.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-zander-mouth-grid.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-zander-oral-rest.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/make_fish_tmp_executor.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-attempt2-ram-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-stage1-grey-final.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-stage1-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-y-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_fixture_final_plan.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_original_skin108.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_original_skin_readonly108.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/zander108-full-head.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/zander108-source-mouth.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        }
+      ],
+      "issues": [],
+      "scratch_retained": "/private/tmp/independent-cleanup-review-0got6nlf",
+      "restores": [
+        {
+          "fixture": "fish-107-zander-eye",
+          "output": "/private/tmp/independent-cleanup-review-0got6nlf/fish-107-zander-eye",
+          "active_set_and_all_bytes_equal": true,
+          "includes_import_and_UID": true,
+          "stdout": "{\"ok\": true, \"active_files_restored\": 48, \"cache_restored\": false, \"godot_import_or_GPU_run\": false}"
+        },
+        {
+          "fixture": "fish-108-zander-mouth",
+          "output": "/private/tmp/independent-cleanup-review-0got6nlf/fish-108-zander-mouth",
+          "active_set_and_all_bytes_equal": true,
+          "includes_import_and_UID": true,
+          "stdout": "{\"ok\": true, \"active_files_restored\": 48, \"cache_restored\": false, \"godot_import_or_GPU_run\": false}"
+        }
+      ],
+      "LFS_note": "For Git LFS data: index pointer sha256 and size plus materialized working bytes and local LFS object bytes all matched. Ordinary blobs compared byte for byte."
+    },
+    {
+      "plan_sha256": "0445f2c9222bf27eb2a105e66643b101d0249efa240333aa706d32ca0c561ff6",
+      "script_sha256": "2abb2a3bcbd24b3f57ca191bb4fc9f49348cee5bdeb6a17960827a639d99d8b0",
+      "no_Godot_or_delete": true,
+      "fixtures": [
+        {
+          "fixture": "fish-106-black-eye",
+          "full_tree_matches": true,
+          "files": 59,
+          "active_files": 46,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-106-black-eye-baseline",
+          "full_tree_matches": true,
+          "files": 45,
+          "active_files": 32,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-106-black-eye-lod-reference",
+          "full_tree_matches": true,
+          "files": 47,
+          "active_files": 34,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 9,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-107-zander-eye",
+          "full_tree_matches": true,
+          "files": 62,
+          "active_files": 48,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-107-zander-eye-baseline",
+          "full_tree_matches": true,
+          "files": 49,
+          "active_files": 35,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        },
+        {
+          "fixture": "fish-108-zander-mouth",
+          "full_tree_matches": true,
+          "files": 48,
+          "active_files": 48,
+          "all_source_working_bytes_and_Git_index_equal": true,
+          "import_files": 3,
+          "uid_files": 11,
+          "ignored": true
+        }
+      ],
+      "tmp": [
+        {
+          "path": "/private/tmp/108-phase3f-independent.validation.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/extend108diagnostic.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-exact-cleanup-result.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-exact-cleanup.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish106107-final-exact-cleanup-candidates.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-alignment.stdout",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-anatomy",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 3
+        },
+        {
+          "path": "/private/tmp/fish108-camera-projection.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-final-local-cleanup-plan.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-lip-band-detail.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-lip-band-inspect.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-mouth-uv-source.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-phase2.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-sheet-audit.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-sheet-overlap.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-stage1-cross-detail.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-unpack.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-zander-mouth-grid.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/fish108-zander-oral-rest.json",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/make_fish_tmp_executor.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-attempt2-ram-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-stage1-grey-final.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-stage1-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/mouth108-y-grey.log",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_fixture_final_plan.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_original_skin108.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/prepare_original_skin_readonly108.py",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/zander108-full-head.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        },
+        {
+          "path": "/private/tmp/zander108-source-mouth.png",
+          "current_snapshot_and_preservation_verified": true,
+          "files": 1
+        }
+      ],
+      "issues": [],
+      "scratch_retained": "/private/tmp/independent-cleanup-review-qlvvu1bb",
+      "restores": [
+        {
+          "fixture": "fish-107-zander-eye",
+          "output": "/private/tmp/independent-cleanup-review-qlvvu1bb/fish-107-zander-eye",
+          "active_set_and_all_bytes_equal": true,
+          "includes_import_and_UID": true,
+          "stdout": "{\"ok\": true, \"active_files_restored\": 48, \"cache_restored\": false, \"godot_import_or_GPU_run\": false}"
+        },
+        {
+          "fixture": "fish-108-zander-mouth",
+          "output": "/private/tmp/independent-cleanup-review-qlvvu1bb/fish-108-zander-mouth",
+          "active_set_and_all_bytes_equal": true,
+          "includes_import_and_UID": true,
+          "stdout": "{\"ok\": true, \"active_files_restored\": 48, \"cache_restored\": false, \"godot_import_or_GPU_run\": false}"
+        }
+      ],
+      "LFS_note": "For Git LFS data: index pointer sha256 and size plus materialized working bytes and local LFS object bytes all matched. Ordinary blobs compared byte for byte."
+    }
+  ],
+  "patched_boundary_CLI": {
+    "script_sha256": "2abb2a3bcbd24b3f57ca191bb4fc9f49348cee5bdeb6a17960827a639d99d8b0",
+    "scratch": "/private/tmp/independent-cleanup-boundaries-vsuw9j61",
+    "cases": [
+      {
+        "case": "valid",
+        "python_optimized": false,
+        "expected": true,
+        "exit_code": 0,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "relative-output",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "existing-output",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "dangling-output",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "ancestor-symlink",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "absolute-source",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "parent-source",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "source-symlink",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "source-ancestor-symlink",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "absolute-target",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "parent-target",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "duplicate-target",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "prefix-collision",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "bad-hash",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "bad-size",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "unknown-fixture",
+        "python_optimized": false,
+        "expected": false,
+        "exit_code": 2,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "valid",
+        "python_optimized": true,
+        "expected": true,
+        "exit_code": 0,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "relative-output",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "existing-output",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "dangling-output",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "ancestor-symlink",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "absolute-source",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "parent-source",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "source-symlink",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "source-ancestor-symlink",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "absolute-target",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "parent-target",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "duplicate-target",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "prefix-collision",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "bad-hash",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "bad-size",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 1,
+        "no_external_or_existing_overwrite": true
+      },
+      {
+        "case": "unknown-fixture",
+        "python_optimized": true,
+        "expected": false,
+        "exit_code": 2,
+        "no_external_or_existing_overwrite": true
+      }
+    ],
+    "all_passed": true
+  },
+  "scope_checks": {
+    "current107and108protected": true,
+    "printed_page1and3corrected": true,
+    "copyright_offline_loss_explicit": true,
+    "new_active_continuous_lip_script_not_in_whitelist": true,
+    "POSIX_macOS_only_and_LFS_materialization_disclosed": true
+  },
+  "own_scratch_cleanup": {
+    "root_explicit_authorization": true,
+    "entries": [
+      {
+        "exact_path": "/private/tmp/independent-cleanup-review-0got6nlf",
+        "regular_files": 97,
+        "regular_bytes": 23150330,
+        "symlinks": 0,
+        "manifest_sha256": "821ebb2778950945076b2a424a278c3705f2dd2feefd772244c6b92ef4a89250",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      },
+      {
+        "exact_path": "/private/tmp/independent-cleanup-review-qlvvu1bb",
+        "regular_files": 97,
+        "regular_bytes": 23150330,
+        "symlinks": 0,
+        "manifest_sha256": "b060a0b0d8b844d910cfadbb08c07cd347d0d0b379ba4cb82704693598899ea2",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      },
+      {
+        "exact_path": "/private/tmp/independent-cleanup-boundaries-vsuw9j61",
+        "regular_files": 10,
+        "regular_bytes": 11753,
+        "symlinks": 6,
+        "manifest_sha256": "afd3a369fdb99c7f6d4fc5764bc08c7b2cd01e13c1e264aa73d1a57b89dd9970",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      },
+      {
+        "exact_path": "/private/tmp/independent-final-cleanup-review.py",
+        "regular_files": 1,
+        "regular_bytes": 5240,
+        "symlinks": 0,
+        "manifest_sha256": "9374cdb764615510c9e9917f2dec20f37b54731ab51cc16214cb4d6e0f6fd8ec",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      },
+      {
+        "exact_path": "/private/tmp/independent-cleanup-boundaries.py",
+        "regular_files": 1,
+        "regular_bytes": 4184,
+        "symlinks": 0,
+        "manifest_sha256": "202023ceddb77b963c66acae9b8ba9c0614c8b96413a7f986c8f9554d89cc257",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      },
+      {
+        "exact_path": "/private/tmp/independent-cleanup-final.json",
+        "regular_files": 1,
+        "regular_bytes": 6900,
+        "symlinks": 0,
+        "manifest_sha256": "ad9df1769c3994aabbbda9d865e79d28541776f4d964f714b8f72d5cac037516",
+        "owned_review_scratch_only": true,
+        "original_fixture_or_whitelist_item": false
+      }
+    ],
+    "completed": true,
+    "total_regular_bytes": 46328737,
+    "original_fixture_and_29_whitelist_paths_deleted": false
+  },
+  "final_author_package": {
+    "path": "projects/fishing-2d/experiments/blender-fish/mouth-alignment-108/final-cleanup-plan/restore-safety-package.validation.json",
+    "sha256": "2a50d11cc51632b709f2153e69345b75b53c9f19789335b651b344deea7dae85",
+    "all9_member_hashes_verified": true,
+    "old_vulnerable_script_exact_gzip_verified": true,
+    "author30negative_and6positive_final_hash_binding_verified": true
+  }
+}
