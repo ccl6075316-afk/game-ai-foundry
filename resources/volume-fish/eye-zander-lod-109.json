@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "species": "zander",
+  "scope": "109 post-eye runtime exclusion of one independently confirmed broken nativeLOD; never treats originalLOD5 as passed.",
+  "model_sha256": "c1b10d96c7aa83e41129df16170d7302f4c4335b226785c5f5b5bd562b6e0aef",
+  "mesh": "Closed_body",
+  "surface": 0,
+  "retired_lod": {
+    "index": 5,
+    "triangles": 439,
+    "edge_length": 0.481706261634827,
+    "index_data_sha256": "68041fab79cd5ec78bb6ab034c6a906bd1efbdd2a0365be4627070b880b06839"
+  },
+  "retained": "Original base andLOD0-4; all surface1 and finLOD; packed arrays, skin, skeleton and source images unchanged.",
+  "whole_fish_accepted": false
+}

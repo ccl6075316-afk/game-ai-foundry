@@ -1,0 +1,23 @@
+
+# Freeze the byte-hashed fish repair tools and runtime evidence.
+/resources/runtime/godot/surface-chart-112/** -text whitespace=cr-at-eol
+/resources/runtime/godot/eye-ownership-107/** -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/capture_body_coverage.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/capture_surface_mouth_audit.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/check_head_form.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/validate_fin_completion.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/validate_fin_membrane_clearance.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/build_surface_charts.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/build_eye_relief.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/export_runtime_fin_roots112.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/rebuild_source_head.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/warp_source_lips.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/offset_paired_fin.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/restore_eye_trial.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/retract_static_lower_jaw.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/verify_installed_fish112.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/capture_transitions112.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/capture_review_hall112.gd -text whitespace=cr-at-eol
+/resources/runtime/godot/mouth-zander-110/** -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/check_runtime_fin_attachment.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/check_fin_membrane_collision.py -text whitespace=cr-at-eol

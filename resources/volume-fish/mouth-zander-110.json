@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "species": "zander",
+  "source": "E:\\game-ai-foundry\\projects\\fish-eye-final-zander\\game\\assets\\models\\fish\\zander.glb",
+  "source_sha256": "c1b10d96c7aa83e41129df16170d7302f4c4335b226785c5f5b5bd562b6e0aef",
+  "source_image": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\eye-rollout-107\\frozen-runtime\\source-runtime.png",
+  "source_image_sha256": "1415a61526306ca0877a18a0471d49120b4e4fc0af26c1b5fa502146fa38b510",
+  "source_size": [
+    2024,
+    742
+  ],
+  "old_slit_path": [
+    [
+      0.936,
+      0.61
+    ],
+    [
+      0.961,
+      0.5845
+    ],
+    [
+      0.986,
+      0.559
+    ]
+  ],
+  "old_gap_native": 0.0045,
+  "target": "E:\\game-ai-foundry\\projects\\fish-mouth-zander-110\\candidate.glb",
+  "lower_retract_native": 0.01,
+  "lower_blend_native": 0.0075,
+  "start_u": 0.95,
+  "end_u": 0.996,
+  "source_gap_pixels": [
+    [
+      1890,
+      447,
+      454
+    ],
+    [
+      1900,
+      441,
+      449
+    ],
+    [
+      1920,
+      432,
+      441
+    ],
+    [
+      1940,
+      425,
+      434
+    ],
+    [
+      1960,
+      418,
+      430
+    ],
+    [
+      1980,
+      409,
+      425
+    ],
+    [
+      2000,
+      405,
+      426
+    ],
+    [
+      2019,
+      404,
+      429
+    ]
+  ],
+  "maximum_lower_ahead_source_pixels": 3.0
+}

@@ -76,16 +76,35 @@ static func validate_dynamic_107_shader(model: Node3D, species: String, mesh: Me
         if not FileAccess.file_exists(paths[key]):return {"ok":false,"reason":"Missing mandatory107 dependency: "+paths[key]}
         digests[key]=FileAccess.get_sha256(paths[key])
         if eye.get(key,"")!=digests[key]:return {"ok":false,"reason":"Stale107 receipt hash: "+key}
-    if model.scene_file_path!=paths.model_sha256 or not eye.get("mesh_after") is Dictionary or eye.mesh_after.get("mesh_resource_id",-1)!=mesh.mesh.get_instance_id() or eye.get("mesh_before")!=eye.mesh_after:
+    var lod: Dictionary=model.get_meta("eye_lod_107_receipt",{})
+    var repaired_lod: bool=not lod.is_empty()
+    var expected_mesh_id=lod.get("runtime_mesh_resource_id",-1) if repaired_lod else eye.get("mesh_after",{}).get("mesh_resource_id",-1)
+    if model.scene_file_path!=paths.model_sha256 or not eye.get("mesh_after") is Dictionary or expected_mesh_id!=mesh.mesh.get_instance_id() or eye.get("mesh_before")!=eye.mesh_after:
         return {"ok":false,"reason":"Receipt does not own unchanged actual107 mesh/model"}
     if mesh.mesh.get_surface_count()!=2 or eye.mesh_after.get("lod_counts")!=[6,2] or not eye.get("all_original_lods_retained",false) or eye.get("lod_geometry_gate",{}).get("status","")!="failed":
         return {"ok":false,"reason":"107 must retain original6/2LOD and failedLOD5 geometry gate"}
+    #109 changes only the post-eye runtime LOD inventory. Preserve107's failed
+    # originalLOD evidence and validate the separate, current packed-copy receipt.
+    var expected_lod_hash: String=eye.mesh_after.get("all_lods_sha256","")
+    if repaired_lod:
+        var helper_path="res://scripts/aquarium/FishEyeLod107.gd"
+        if not FileAccess.file_exists(helper_path) or lod.get("helper_sha256","")!=FileAccess.get_sha256(helper_path) or lod.get("config_sha256","")!=digests.profile_sha256 or lod.get("model_sha256","")!=digests.model_sha256:
+            return {"ok":false,"reason":"Stale109 LOD helper/config/model receipt"}
+        if lod.get("source_mesh_resource_id",-1)!=eye.mesh_after.mesh_resource_id or not lod.get("original_resource_raw_unchanged",false) or not lod.get("skin_same_object",false) or not lod.get("skeleton_path_unchanged",false):
+            return {"ok":false,"reason":"109 original resource/binding not preserved"}
+        var context=HashingContext.new();context.start(HashingContext.HASH_SHA256);context.update(var_to_bytes(mesh.mesh.get("_surfaces")))
+        if context.finish().hex_encode()!=lod.get("actual_after_raw_surfaces_sha256","") or lod.get("expected_after_raw_surfaces_sha256","")!=lod.get("actual_after_raw_surfaces_sha256","") or lod.get("all_decoded_surface_arrays_before")!=lod.get("all_decoded_surface_arrays_after"):
+            return {"ok":false,"reason":"109 actual packed mesh differs from preservation receipt"}
+        var raw: Array=mesh.mesh.get("_surfaces")
+        if raw[0].get("lods",[]).size()!=10 or raw[1].get("lods",[]).size()!=4 or lod.get("retired_lod",{}).get("triangles",0)!=439 or lod.get("retired_lod",{}).get("index",-1)!=5:
+            return {"ok":false,"reason":"109 must retire exactly broken zanderLOD5"}
+        expected_lod_hash=lod.get("runtime_lods_sha256","")
     var arrays_hash:=HashingContext.new();var lod_hash:=HashingContext.new()
     arrays_hash.start(HashingContext.HASH_SHA256);lod_hash.start(HashingContext.HASH_SHA256)
     for index in mesh.mesh.get_surface_count():
         arrays_hash.update(var_to_bytes(mesh.mesh.surface_get_arrays(index)))
         lod_hash.update(var_to_bytes(RenderingServer.mesh_get_surface(mesh.mesh.get_rid(),index).get("lods",[])))
-    if arrays_hash.finish().hex_encode()!=eye.mesh_after.get("all_surface_arrays_sha256","") or lod_hash.finish().hex_encode()!=eye.mesh_after.get("all_lods_sha256","") or str(mesh.skeleton)!=eye.mesh_after.get("skeleton_path","") or (mesh.skin.get_instance_id() if mesh.skin!=null else 0)!=eye.mesh_after.get("skin_resource_id",-1):
+    if arrays_hash.finish().hex_encode()!=eye.mesh_after.get("all_surface_arrays_sha256","") or lod_hash.finish().hex_encode()!=expected_lod_hash or str(mesh.skeleton)!=eye.mesh_after.get("skeleton_path","") or (mesh.skin.get_instance_id() if mesh.skin!=null else 0)!=eye.mesh_after.get("skin_resource_id",-1):
         return {"ok":false,"reason":"Actual107 arrays/LOD/binding differ from install"}
     var generated: String=material.shader.code.sha256_text()
     if eye.get("generated_shader_sha256","")!=generated:return {"ok":false,"reason":"Generated107 shader code differs from install receipt"}
@@ -100,6 +119,8 @@ static func validate_dynamic_107_shader(model: Node3D, species: String, mesh: Me
     var config=JSON.parse_string(FileAccess.get_file_as_string(paths.profile_sha256))
     if not config is Dictionary or not config.get("profiles") is Dictionary or not config.profiles.get(species) is Dictionary:return {"ok":false,"reason":"Invalid107 config"}
     var p: Dictionary=config.profiles[species]
+    if repaired_lod and lod.get("retired_lod",{})!=p.get("retired_lod",{}):
+        return {"ok":false,"reason":"109 LOD retirement differs from frozen profile"}
     if p.get("mesh","")!="Closed_body" or p.get("surface",-1)!=0 or p.get("model_path","")!=paths.model_sha256 or p.get("model_sha256","")!=digests.model_sha256 or p.get("head_include_sha256","")!=digests.head_include_sha256 or p.get("head_profile_sha256","")!=digests.head_profile_sha256 or p.get("original_shader_file_sha256","")!=digests.original_shader_file_sha256 or p.get("original_shader_code_sha256","")!=eye.get("original_shader_code_sha256","") or p.get("original_uniforms_sha256","")!=eye.get("original_uniforms_sha256",""):
         return {"ok":false,"reason":"107 profile original assembly binding mismatch"}
     if p.get("all_lods_sha256","")!=eye.mesh_after.get("all_lods_sha256","") or p.get("all_surface_arrays_sha256","")!=eye.mesh_after.get("all_surface_arrays_sha256","") or p.get("vertex_order_sha256","")!=eye.get("vertex_order_sha256",""):
@@ -128,9 +149,13 @@ static func validate_dynamic_107_shader(model: Node3D, species: String, mesh: Me
     var expected_uniforms: Dictionary={"eye_source_size":Vector2(p.source_size[0],p.source_size[1]),"eye_anchor_xy":Vector2(projection.anchor_rest_xy[0],projection.anchor_rest_xy[1]),"eye_pupil_uv":Vector2(projection.source_pupil_px[0]/p.source_size[0],projection.source_pupil_px[1]/p.source_size[1]),"eye_pixel_native":Vector2(projection.pixel_native_xy[0],projection.pixel_native_xy[1]),"eye_downshift_pixels":projection.downshift_native_pixels,"eye_z_gap":Vector2(projection.central_gap_abs_z,projection.full_owner_abs_z),"eye_vertex_count":p.surface0_vertices}
     for uniform in expected_uniforms:
         if material.get_shader_parameter(uniform)!=expected_uniforms[uniform]:return {"ok":false,"reason":"Actual107 projection uniform mismatch: "+uniform}
-    return {"ok":true,"species":species,"mesh":"Closed_body","surface":0,"generated_shader_sha256":generated,"model_sha256":digests.model_sha256,"helper_sha256":digests.helper_sha256,"template_sha256":digests.template_sha256,"config_sha256":digests.profile_sha256,"original_shader_sha256":digests.original_shader_file_sha256,"head_include_sha256":digests.head_include_sha256,"head_profile_sha256":digests.head_profile_sha256,"fallback_sha256":p.opaque_skin.sha256,"all_original_lods_retained":true,"LOD5_geometry_gate":"failed","scope":"Opaque coverage authorization only; not eye/LOD/wholefish acceptance"}
+    return {"ok":true,"species":species,"mesh":"Closed_body","surface":0,"generated_shader_sha256":generated,"model_sha256":digests.model_sha256,"helper_sha256":digests.helper_sha256,"template_sha256":digests.template_sha256,"config_sha256":digests.profile_sha256,"original_shader_sha256":digests.original_shader_file_sha256,"head_include_sha256":digests.head_include_sha256,"head_profile_sha256":digests.head_profile_sha256,"fallback_sha256":p.opaque_skin.sha256,"all_original_lods_retained":not repaired_lod,"LOD5_geometry_gate":"failed","LOD5_excluded_by_109":repaired_lod,"scope":"Opaque coverage authorization only; not eye/LOD/wholefish acceptance"}
 
 static func validate_dynamic_body_shader(model: Node3D, species: String, mesh: MeshInstance3D, surface: int, material: ShaderMaterial) -> Dictionary:
+    if model.get_meta("front_skin112_receipts",{}).has(str(mesh.name)+":"+str(surface)):
+        return load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_front(model,species,mesh,surface,material)
+    if model.has_meta("surface_chart_112_receipt"):
+        return load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_chart(model,species,mesh,surface,material)
     if species=="black_seabream":return validate_dynamic_106_shader(model,species,mesh,surface,material)
     if species=="zander":return validate_dynamic_107_shader(model,species,mesh,surface,material)
     return {"ok":false,"reason":"Unknown dynamic body shader"}
@@ -138,6 +163,12 @@ static func validate_dynamic_body_shader(model: Node3D, species: String, mesh: M
 func _initialize():
     out=OS.get_cmdline_user_args()[0]
     call_deferred("run")
+func runtime_files(directory:String)->Array:
+    var files:Array=[]
+    for name in DirAccess.get_files_at(directory):
+        if name.get_extension() in ["gd","gdshader","gdshaderinc","json"]:files.append(directory.path_join(name).trim_prefix("res://"))
+    for name in DirAccess.get_directories_at(directory):files.append_array(runtime_files(directory.path_join(name)))
+    return files
 func capture(path: String):
     await process_frame
     if OS.get_environment("FOUNDRY_MANUAL_RENDER")=="1":
@@ -167,19 +198,30 @@ func run():
         var entry: Dictionary=hall._selected()
         for mesh in hall.world.find_children("*","MeshInstance3D",true,false):mesh.visible=entry.model.is_ancestor_of(mesh) and not profiles[species].fins.has(str(mesh.name)) and not str(mesh.name) in opaque_profiles[species].suppressed_auxiliary and not opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name))
         for mesh in entry.model.find_children("*","MeshInstance3D",true,false):
+            if mesh.has_meta("decorative_relief112"):
+                load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_relief(entry.model,mesh)
+                mesh.hide()
+                continue
             if opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name)):
                 for si in mesh.mesh.get_surface_count():
                     var original=mesh.mesh.surface_get_material(si)
                     var active=mesh.get_active_material(si)
-                    assert(active is StandardMaterial3D and active.transparency==original.transparency and active.albedo_color==original.albedo_color and active.albedo_texture==original.albedo_texture,"Authored head fusion overwritten")
+                    if entry.model.has_meta("feature_overlay112_receipt"):
+                        assert(active is ShaderMaterial and active.shader.resource_path=="res://scripts/aquarium/FeatureOverlay112.gdshader")
+                        assert(active.get_shader_parameter("tint")==original.albedo_color and active.get_shader_parameter("source_texture")==original.albedo_texture,"112 overlay fusion differs")
+                    else:
+                        assert(active is StandardMaterial3D and active.transparency==original.transparency and active.albedo_color==original.albedo_color and active.albedo_texture==original.albedo_texture,"Authored head fusion overwritten")
         var bodies: Array=[]
         for mesh in entry.model.find_children("*","MeshInstance3D",true,false):
+            if mesh.has_meta("decorative_relief112"):continue # Test complete skin independently under the decorative eye cap.
             if not profiles[species].fins.has(str(mesh.name)) and not str(mesh.name) in opaque_profiles[species].suppressed_auxiliary and not opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name)):
                 var originals: Array=[]
                 for s in mesh.mesh.get_surface_count():
                     var material=mesh.get_active_material(s)
                     if material is ShaderMaterial:
-                        if material.shader.resource_path=="res://scripts/aquarium/FishMouthPigment.gdshader":
+                        if material.shader.resource_path=="res://scripts/aquarium/SourceJaw112.gdshader":
+                            load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_lining(entry.model,species,mesh,s,material)
+                        elif material.shader.resource_path in ["res://scripts/aquarium/FishMouthPigment.gdshader","res://scripts/aquarium/review_candidates/yellow_croaker/FishMouthPigment.gdshader"]:
                             uses_mouth=true
                             var mouth_profiles:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-pigment.json")).profiles
                             assert(mouth_profiles.has(species),"Unregistered oral pigment")
@@ -231,6 +273,9 @@ func run():
     var head_files: Array=["scripts/aquarium/FishHeadSource.gd","scripts/aquarium/FishHeadSource.gdshaderinc","assets/models/fish/motion/head-source.json"]
     var mouth_files: Array=["scripts/aquarium/FishMouthPigment.gd","scripts/aquarium/FishMouthPigment.gdshader","assets/models/fish/motion/mouth-pigment.json"]
     var optional: Array=[]
+    if FileAccess.file_exists("res://scripts/aquarium/ValidateSurface112.gd"):
+        required.append_array(runtime_files("res://scripts/aquarium"));required.append_array(runtime_files("res://assets/models/fish/motion"))
+        required.append_array(["scripts/aquarium/ValidateSurface112.gd","scripts/aquarium/BodyChart112.gd","scripts/aquarium/BodyChart112.gdshaderinc","scripts/aquarium/EyeRelief112.gd","scripts/aquarium/SourceJaw112.gd","scripts/aquarium/SourceJaw112.gdshader","scripts/aquarium/SourceHeadLod112.gd","scripts/aquarium/FeatureOverlay112.gd","scripts/aquarium/FeatureOverlay112.gdshader","assets/models/fish/motion/eye-relief112.json","assets/models/fish/motion/source-jaw112.json","assets/models/fish/motion/surface-charts112.json","assets/models/fish/motion/head-lods112.json"])
     var only_106: bool=hall.SPECIES.size()==1 and hall.SPECIES[0]=="black_seabream" and not dynamic_shaders.is_empty()
     if only_106:
         required.append_array(["scripts/aquarium/FishEyeOwnership.gd","scripts/aquarium/FishEyeOwnership.gdshaderinc","scripts/aquarium/FishEyeLod106.gd","assets/models/fish/motion/eye-ownership-106.json"])

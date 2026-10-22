@@ -7,6 +7,13 @@ var ownership:Dictionary
 var intrinsic:Dictionary={}
 var records:Array=[]
 var shaders:Dictionary={}
+var starting_bindings:Dictionary={}
+func runtime_files(directory:String)->Array:
+    var files:Array=[]
+    for name in DirAccess.get_files_at(directory):
+        if name.get_extension() in ["gd","gdshader","gdshaderinc","json"]:files.append(directory.path_join(name).trim_prefix("res://"))
+    for name in DirAccess.get_directories_at(directory):files.append_array(runtime_files(directory.path_join(name)))
+    return files
 func _initialize():
     var args=OS.get_cmdline_user_args();out=args[0]
     for i in range(1,args.size()):requested.append(args[i])
@@ -73,6 +80,8 @@ func set_mode(entry:Dictionary,stored:Array,mode:String):
         mesh.set_surface_override_material(surface,clay)
 func run():
     DirAccess.make_dir_recursive_absolute(out)
+    if FileAccess.file_exists("res://scripts/aquarium/BodyChart112.gd"):
+        for file in runtime_files("res://scripts/aquarium")+runtime_files("res://assets/models/fish/motion"):starting_bindings[file]=FileAccess.get_sha256("res://"+file)
     root.size=Vector2i(1200,800)
     hall=load("res://scripts/aquarium/VolumeFishExhibit.gd").new();root.add_child(hall)
     hall.set_process(false);hall.paused=true;hall.header.hide();hall.footer.hide()
@@ -134,6 +143,9 @@ func run():
         records.append({"species":species,"model_sha256":FileAccess.get_sha256("res://assets/models/fish/"+species+".glb"),"name":hall.LABELS[species],"body_region_native":str(r.body),"head_region_native":str(r.head),"materials":material_inventory,"motion_samples":samples,"separate_jaw":entry.has("jaw_controller")})
         print("SURFACE_MOUTH_CAPTURE ",species)
     var files:Dictionary={}
+    for file in starting_bindings:
+        assert(FileAccess.get_sha256("res://"+file)==starting_bindings[file],"Runtime changed during visual capture: "+file)
+        files[file]=starting_bindings[file]
     for file in ["scripts/aquarium/VolumeFishExhibit.gd","scripts/aquarium/FishBodyOpaque.gdshader","scripts/aquarium/FishMouthPigment.gdshader","scripts/aquarium/FishHeadSource.gdshaderinc","scripts/aquarium/FishHeadSource.gd","scripts/aquarium/FishSurfaceOwnership.gd","scripts/aquarium/FoundryFishMotion.gd","assets/models/fish/motion/head-source.json","assets/models/fish/motion/mouth-pigment.json","assets/models/fish/motion/body-opacity.json","assets/models/fish/motion/surface-ownership.json","assets/models/fish/motion/motion.json"]:
         if FileAccess.file_exists("res://"+file):files[file]=FileAccess.get_sha256("res://"+file)
     var f=FileAccess.open(out+"/capture.validation.json",FileAccess.WRITE)

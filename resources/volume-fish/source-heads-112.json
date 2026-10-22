@@ -1,0 +1,214 @@
+{
+  "items": [
+    {
+      "species": "black_seabream",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/black_seabream.glb",
+      "source_sha256": "c29f93153cbdb3a3d3f109ad8369b16ec3599dd2d8b1e4b8fc1c505c62eb68e6",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/black_seabream.png",
+      "source_image_sha256": "ae6906ea16447c46ed0b488a48d09c242801a7e63d800f43bbe82ab8f736239a",
+      "target": "projects/fish-review-112/rebuild/models/black_seabream.glb",
+      "join_u": 0.8,
+      "end_u": 0.996,
+      "lip_pixels": [
+        [
+          1860,
+          604,
+          604
+        ],
+        [
+          1880,
+          593,
+          599
+        ],
+        [
+          1900,
+          584,
+          589
+        ],
+        [
+          1920,
+          574,
+          582
+        ],
+        [
+          1940,
+          568,
+          577
+        ],
+        [
+          1960,
+          562,
+          577
+        ],
+        [
+          1978,
+          555,
+          578
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.95,
+          0.0225
+        ],
+        [
+          0.97,
+          0.0175
+        ],
+        [
+          0.985,
+          0.013
+        ],
+        [
+          0.996,
+          0.0115
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "longitudinal_rings": 40,
+      "oral_across": 12,
+      "outer_envelope_blend_end_u": 0.9,
+      "preserve_join_shading_u": 0.015,
+      "premouth_rings": 30
+    },
+    {
+      "species": "red_seabream",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/red_seabream.glb",
+      "source_sha256": "998ef6c9b04286aec2155dbf7fdae6f10e1a4d70109b484b65df5a920715e0f1",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/red_seabream.png",
+      "source_image_sha256": "d2a14a22a6e73bfc776c518b62e21945b7aeb33380d484b5eb7d1e1a0cee5123",
+      "target": "projects/fish-review-112/rebuild/models/red_seabream.glb",
+      "join_u": 0.93,
+      "end_u": 0.996,
+      "lip_pixels": [
+        [
+          1935,
+          621,
+          621
+        ],
+        [
+          1950,
+          612,
+          620
+        ],
+        [
+          1970,
+          604,
+          612
+        ],
+        [
+          1990,
+          602,
+          610
+        ],
+        [
+          2010,
+          600,
+          611
+        ],
+        [
+          2018,
+          595,
+          612
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.955,
+          0.022
+        ],
+        [
+          0.975,
+          0.016
+        ],
+        [
+          0.987,
+          0.0145
+        ],
+        [
+          0.996,
+          0.014
+        ]
+      ],
+      "front_donor_u": 0.984,
+      "corner_blend_u": 0.002,
+      "longitudinal_rings": 40,
+      "oral_across": 12
+    },
+    {
+      "species": "zander",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/zander.glb",
+      "source_sha256": "d2015a80bbf608684044c981e2d8d44c14f1624e89409c2619275f1833870e8b",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/zander.png",
+      "source_image_sha256": "7a984e47a2accd9722c9f7810537e0a233e83be4a9d47bb4127df103c9fbcf6a",
+      "target": "projects/fish-review-112/rebuild/models/zander.glb",
+      "join_u": 0.93,
+      "end_u": 0.996,
+      "lip_pixels": [
+        [
+          1890,
+          447,
+          447
+        ],
+        [
+          1905,
+          438,
+          444
+        ],
+        [
+          1920,
+          432,
+          440
+        ],
+        [
+          1940,
+          425,
+          433
+        ],
+        [
+          1960,
+          419,
+          427
+        ],
+        [
+          1980,
+          412,
+          422
+        ],
+        [
+          2000,
+          411,
+          423
+        ],
+        [
+          2016,
+          407,
+          424
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.95,
+          0.0167
+        ],
+        [
+          0.97,
+          0.013
+        ],
+        [
+          0.985,
+          0.011
+        ],
+        [
+          0.996,
+          0.01
+        ]
+      ],
+      "front_donor_u": 0.982,
+      "corner_blend_u": 0.002,
+      "longitudinal_rings": 40,
+      "oral_across": 12
+    }
+  ]
+}

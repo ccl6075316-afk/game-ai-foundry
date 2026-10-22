@@ -49,7 +49,10 @@ def main():
         checks=[]
         tolerance=item['envelope_halfwidth_tolerance_native']
         for u,half_width in item['target_half_width_envelope']:
-            measured=cross_section(triangles,u-.5)
+            try:measured=cross_section(triangles,u-.5)
+            except ValueError as error:
+                checks.append({'source_u':u,'target_half_width':half_width,'measured_half_width':None,'ok':False,'error':str(error)})
+                continue
             checks.append({'source_u':u,'target_half_width':half_width,
                            'measured_half_width':measured,
                            'error_native':measured-half_width,

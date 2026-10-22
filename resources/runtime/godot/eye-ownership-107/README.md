@@ -6,6 +6,23 @@ The prior0/2 helper/template/profile/config/receipt are archived in
 `eye-rollout-107/phase02-freeze`; those are not current mode1 evidence.
 It is not a general eye detector or whole-fish acceptance.
 
+###109 local completion candidate
+
+`FishEyeLod107.gd` is an optional, separate post-eye step. It retires only the
+frozen broken439-triangleLOD5 after the unchanged107 eye helper has installed.
+It preserves all packed surface arrays, base/LOD0–4, oral/finLOD and bindings;
+the original GLB and the107 helper's historical failedLOD receipt stay intact.
+This step is installed only in the new109 candidate, not the original107 trial
+or formal game. Species data is in `resources/volume-fish/eye-zander-lod-109.json`.
+Runtime config supplies its `retired_lod` record alongside the original eye data.
+
+The `*_109.gd` capture variants report the separate post-eyeLOD receipt and do
+not claim all originalLOD levels remain active. The shared body checker binds
+the new packed mesh, current helper/config/model and exact runtimeLOD digest.
+The existing107 body contract test accepts `--output=ABSOLUTE_PATH` and adds
+ten rejection cases when the109LOD receipt is present. Final local technical
+checks and appearance limits are in the game's `eye-completion-109/README.md`.
+
 ## Scope and frozen data
 
 - Only the actual assembled `zander/Closed_body/surface0` material is copied.

@@ -47,6 +47,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 执行与复验
 
+出现背腹黑斑、拉丝、唇线错位或眼睛重影时，读 [references/source-surface-repair.md](references/source-surface-repair.md)。先追踪实际材质与供体，再区分完整颌部、原图纹理和装饰叠层；不要用机械门通过替代用户指出部位的实际对照。
+
 新鱼走 `volume plan → build → validate → render`，实际查看源图、风格参考、灰模/贴图多视与Godot动作后，才用 `volume accept` 记录操作者审核。不能写成用户本人已接受。
 
 通用实现位于 `resources/scripts/volume-fish/`，物种profile位于 `resources/volume-fish/`：

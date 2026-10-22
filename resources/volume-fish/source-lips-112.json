@@ -1,0 +1,299 @@
+{
+  "items": [
+    {
+      "species": "red_emperor",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/red_emperor.glb",
+      "source_sha256": "09bf84a4f3884f9b43f5a532bc86e18c5f21592cc6a93a674f880e05232f0023",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/red_emperor.png",
+      "source_image_sha256": "0b198d357fc02eed0b0078f30b5f4602f36037fa01f845fc6ebe48f95c80795b",
+      "target": "projects/fish-review-112/rebuild/models/red_emperor.glb",
+      "join_u": 0.87,
+      "end_u": 0.996,
+      "lip_pixels": [
+        [
+          1600,
+          616,
+          616
+        ],
+        [
+          1620,
+          603,
+          609
+        ],
+        [
+          1660,
+          579,
+          585
+        ],
+        [
+          1700,
+          561,
+          567
+        ],
+        [
+          1740,
+          544,
+          561
+        ],
+        [
+          1760,
+          537,
+          562
+        ],
+        [
+          1774,
+          534,
+          563
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.996,
+          0.001
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "preserve_width": true
+    },
+    {
+      "species": "brown_trout",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/brown_trout.glb",
+      "source_sha256": "6e3c6d984d8d26cc629a70a15eb424e5e4d1bfb0c4aca91b35e1f562f01c0310",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/brown_trout.png",
+      "source_image_sha256": "f5ed74382b34ca02f9bc8749e69a06ec39ecd97b29551d19f3234a4c47f49baa",
+      "target": "projects/fish-review-112/rebuild/models/brown_trout.glb",
+      "join_u": 0.875,
+      "end_u": 0.997,
+      "lip_pixels": [
+        [
+          1422,
+          354,
+          354
+        ],
+        [
+          1440,
+          345,
+          351
+        ],
+        [
+          1460,
+          328,
+          335
+        ],
+        [
+          1480,
+          318,
+          325
+        ],
+        [
+          1500,
+          307,
+          314
+        ],
+        [
+          1520,
+          296,
+          305
+        ],
+        [
+          1540,
+          288,
+          298
+        ],
+        [
+          1560,
+          282,
+          295
+        ],
+        [
+          1580,
+          281,
+          293
+        ],
+        [
+          1592,
+          280,
+          299
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.997,
+          0.001
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "preserve_width": true
+    },
+    {
+      "species": "grass_carp",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/grass_carp.glb",
+      "source_sha256": "594f94a23acc477cac95b8222d3f83cd175398cc5c2416f5ce2bc5da7874852d",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/grass_carp.png",
+      "source_image_sha256": "e693d2d773b05dee60f754a4242fa1f4f703594887ed39360903998495e979c5",
+      "target": "projects/fish-review-112/rebuild/models/grass_carp.glb",
+      "join_u": 0.946,
+      "end_u": 0.997,
+      "lip_pixels": [
+        [
+          1915,
+          401,
+          401
+        ],
+        [
+          1930,
+          395,
+          403
+        ],
+        [
+          1940,
+          388,
+          397
+        ],
+        [
+          1960,
+          374,
+          382
+        ],
+        [
+          1980,
+          365,
+          374
+        ],
+        [
+          2000,
+          357,
+          367
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.997,
+          0.001
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "preserve_width": true
+    },
+    {
+      "species": "nile_tilapia",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/nile_tilapia.glb",
+      "source_sha256": "7944de74855cf1b070c328e495e8052da96fe1e7772d7ca2eac5077bba767a4f",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/nile_tilapia.png",
+      "source_image_sha256": "4ca6a4c59fcba8a6ddb0b35e40b3a77cc22058febe5dc8ce5ff10ac88ab7043c",
+      "target": "projects/fish-review-112/rebuild/models/nile_tilapia.glb",
+      "join_u": 0.925,
+      "end_u": 0.995,
+      "lip_pixels": [
+        [
+          1835,
+          551,
+          551
+        ],
+        [
+          1850,
+          541,
+          548
+        ],
+        [
+          1870,
+          525,
+          533
+        ],
+        [
+          1890,
+          513,
+          522
+        ],
+        [
+          1910,
+          502,
+          511
+        ],
+        [
+          1930,
+          495,
+          506
+        ],
+        [
+          1948,
+          490,
+          503
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.995,
+          0.001
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "preserve_width": true
+    },
+    {
+      "species": "sea_bass",
+      "source": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-models/sea_bass.glb",
+      "source_sha256": "8607da96fbf658a3e1ca261129680e0db3e0cc271167e1849414cbfe225f5e9c",
+      "source_image": "projects/fishing-2d/experiments/blender-fish/material-shape-112/source-images/sea_bass.png",
+      "source_image_sha256": "78f619ebbc2c00459b0ac8ad62a2a36d76bb1f0953823172efed51d8033370b4",
+      "target": "projects/fish-review-112/rebuild/models/sea_bass.glb",
+      "join_u": 0.916,
+      "end_u": 0.998,
+      "lip_pixels": [
+        [
+          1834,
+          496,
+          496
+        ],
+        [
+          1860,
+          476,
+          483
+        ],
+        [
+          1880,
+          449,
+          458
+        ],
+        [
+          1900,
+          433,
+          441
+        ],
+        [
+          1920,
+          418,
+          426
+        ],
+        [
+          1940,
+          408,
+          419
+        ],
+        [
+          1960,
+          404,
+          415
+        ],
+        [
+          1978,
+          400,
+          417
+        ]
+      ],
+      "half_width_stations": [
+        [
+          0.998,
+          0.001
+        ]
+      ],
+      "front_donor_u": 0.985,
+      "corner_blend_u": 0.002,
+      "preserve_width": true
+    }
+  ]
+}

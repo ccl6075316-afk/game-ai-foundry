@@ -49,7 +49,25 @@ func _initialize():
  check(not validator.validate_dynamic_107_shader(model,"zander",mesh,0,material).ok,"active mode mutation rejected")
  material.set_shader_parameter("eye_mode",original_mode)
  check(not validator.validate_dynamic_body_shader(model,"unknown_fish",mesh,0,material).ok,"unknown dynamic species rejected by dispatcher")
+ var lod:Dictionary=model.get_meta("eye_lod_107_receipt",{}).duplicate(true)
+ if not lod.is_empty():
+  model.remove_meta("eye_lod_107_receipt")
+  check(not validator.validate_dynamic_107_shader(model,"zander",mesh,0,material).ok,"runtime LOD copy requires separate receipt")
+  for key in ["helper_sha256","config_sha256","model_sha256","actual_after_raw_surfaces_sha256","expected_after_raw_surfaces_sha256","runtime_lods_sha256"]:
+   var stale=lod.duplicate(true);stale[key]="0".repeat(64);model.set_meta("eye_lod_107_receipt",stale)
+   check(not validator.validate_dynamic_107_shader(model,"zander",mesh,0,material).ok,"stale109 LOD "+key+" rejected")
+  for key in ["source_mesh_resource_id","runtime_mesh_resource_id"]:
+   var stale=lod.duplicate(true);stale[key]=0;model.set_meta("eye_lod_107_receipt",stale)
+   check(not validator.validate_dynamic_107_shader(model,"zander",mesh,0,material).ok,"wrong109 LOD "+key+" rejected")
+  var stale=lod.duplicate(true);stale.retired_lod.index=4;model.set_meta("eye_lod_107_receipt",stale)
+  check(not validator.validate_dynamic_107_shader(model,"zander",mesh,0,material).ok,"wrong109 retired level rejected")
+  model.set_meta("eye_lod_107_receipt",lod)
+ var output:String="/tmp/fish107-body-gate-check.validation.json"
+ for argument in OS.get_cmdline_user_args():
+  if argument.begins_with("--output="):output=argument.trim_prefix("--output=")
  var report={"schema_version":1,"ok":failures.is_empty(),"command":"fish.body-coverage107-auth-contract","stage":"validate","status":"done" if failures.is_empty() else "failed","next_action":"human_review" if failures.is_empty() else "fix_input","inputs":{},"outputs":["/tmp/fish107-body-gate-check.validation.json"],"summary":{"simulated_generated_metadata_before_candidate_sync":simulated,"positive_authorization":good,"negative_checks":22,"frozen_shader_sampling_changed":false},"failures":[]}
  for message in failures:report.failures.append({"kind":"validation","code":"body107_contract_failed","message":message})
- var file=FileAccess.open("/tmp/fish107-body-gate-check.validation.json",FileAccess.WRITE);file.store_string(JSON.stringify(report,"  "));file.close()
+ report.outputs=[output]
+ report.summary["post_eye_lod_exception_negative_checks"]=10 if not lod.is_empty() else 0
+ var file=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify(report,"  "));file.close()
  model.free();print("107_BODY_GATE_CONTRACT ","PASS" if failures.is_empty() else "FAIL",failures);quit(0 if failures.is_empty() else 1)

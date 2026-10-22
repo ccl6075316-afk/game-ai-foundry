@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "scope": "Real shallow skinned caps. Eye texture/placement preserved; silver arowana and piranha existing volume retained. Depth is an explicit art choice.",
+  "species": {
+    "african_catfish": {
+      "enabled": true,
+      "model_sha256": "783f97f90cb4e6e6d120a8ef98137aeaaaeb703e8ff1b432d5aefbb735ae3e20",
+      "source_size": [
+        2003,
+        514
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9052037328622451,
+        0.4436545944328046
+      ],
+      "radius_uv": [
+        0.01238814854641115,
+        0.04827521700089793
+      ]
+    },
+    "arapaima": {
+      "enabled": true,
+      "model_sha256": "9d6d24c81dbe7318451c83cfc8378f4aa66cb8c16a81c2b56f22b0289af08319",
+      "source_size": [
+        1745,
+        396
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9216795239144809,
+        0.49728049728049734
+      ],
+      "radius_uv": [
+        0.010742120343839543,
+        0.047335858585858585
+      ]
+    },
+    "atlantic_salmon": {
+      "enabled": true,
+      "model_sha256": "405f3492d06172ce1cdb822b7e441ed7c1368004d8c462e2801933f91c04c3e1",
+      "source_size": [
+        1795,
+        583
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9250786234162998,
+        0.5330050351352847
+      ],
+      "radius_uv": [
+        0.01433444154910594,
+        0.044134344049134064
+      ]
+    },
+    "black_seabream": {
+      "enabled": true,
+      "model_sha256": "222ff56b3401ce5c3ad4bc78187fc681197267dd28f0862ec87bd3910c45bc9e",
+      "source_size": [
+        1986,
+        991
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9020644511581067,
+        0.45055499495459134
+      ],
+      "radius_uv": [
+        0.028449144008056395,
+        0.052976791120080725
+      ],
+      "projection": {
+        "kind": "rest_xy",
+        "anchor_rest_xy": [
+          0.40325850956696874,
+          0.03407683786505539
+        ],
+        "source_pupil_px": [
+          1793.8714,
+          447.6234
+        ],
+        "pixel_native": 0.00045317220543806646,
+        "downshift_native_pixels": 22,
+        "central_gap_abs_z": 0.005,
+        "full_owner_abs_z": 0.0055,
+        "pixel_native_xy": [
+          0.00045317220543806646,
+          0.00045317220543806646
+        ]
+      }
+    },
+    "blacktip_reef_shark": {
+      "enabled": true,
+      "model_sha256": "e72e75ba35c0a574d045f458a5a8f11e86181b6ff7e5246f409dc9fc837dcd19",
+      "source_size": [
+        1834,
+        618
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9200390473845289,
+        0.5330932247625013
+      ],
+      "radius_uv": [
+        0.011385918317092902,
+        0.03378927863033719
+      ],
+      "native_xy": {
+        "center": [
+          0.4200252702759795,
+          -0.011612572038306956
+        ],
+        "radius": [
+          0.010716528242298493,
+          0.010970321174223955
+        ]
+      }
+    },
+    "bluegill": {
+      "enabled": true,
+      "model_sha256": "8b27002aad23d69e690832ab060295b30d62b7d0a6a5f11a831d33fe07a79abb",
+      "source_size": [
+        1477,
+        868
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.8814379627405159,
+        0.470098112085625
+      ],
+      "radius_uv": [
+        0.038113984318693075,
+        0.06485524751003419
+      ]
+    },
+    "brown_trout": {
+      "enabled": true,
+      "model_sha256": "9cb562556fd32b1d876074bdd80d6f885e001223e882491f47b45e8731e2ef4b",
+      "source_size": [
+        1597,
+        534
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9138586462520452,
+        0.48329104748097135
+      ],
+      "radius_uv": [
+        0.02166107823136122,
+        0.06478041560952036
+      ]
+    },
+    "carp": {
+      "enabled": true,
+      "model_sha256": "12f233a8322e7c8c96b0c851aeea105707f4defda5bfe62139d8b54d67c2775f",
+      "source_size": [
+        2028,
+        1015
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.8983584653559841,
+        0.4769426346734467
+      ],
+      "radius_uv": [
+        0.023377552968123685,
+        0.04670904179246782
+      ]
+    },
+    "crucian": {
+      "enabled": true,
+      "model_sha256": "9efe36e7ff532ea61a5d7daf9bf781334e3529fe3cc02c22ce323688a9c27bdc",
+      "source_size": [
+        1908,
+        1073
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9090383444917833,
+        0.5334455701530229
+      ],
+      "radius_uv": [
+        0.030703996753905453,
+        0.05459760093797912
+      ]
+    },
+    "grass_carp": {
+      "enabled": true,
+      "model_sha256": "c212875e6081cfaf68827da1546d81e2e1ad227271ea7b4744ae2fe981dd80d9",
+      "source_size": [
+        2010,
+        702
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9239913336543091,
+        0.4812379376895506
+      ],
+      "radius_uv": [
+        0.0190300914780934,
+        0.054487868762062304
+      ]
+    },
+    "hairtail": {
+      "enabled": true,
+      "model_sha256": "2f14016eedc5b3086780bee3a12ae483f0c68c853495353c426c3b0b5fafc69e",
+      "source_size": [
+        1869,
+        179
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.935300654401778,
+        0.565592322016903
+      ],
+      "radius_uv": [
+        0.01322742176674761,
+        0.13811201833548203
+      ]
+    },
+    "mahi_mahi": {
+      "enabled": true,
+      "model_sha256": "9629f580f31d4239531eb4e1782ff4cb3ef6c036f89b6266474dab7d10c0a2d1",
+      "source_size": [
+        1974,
+        659
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9403111416151909,
+        0.5716089872240443
+      ],
+      "radius_uv": [
+        0.01562800274536719,
+        0.04681286406578882
+      ],
+      "native_xy": {
+        "center": [
+          0.4403111416151909,
+          -0.02390593849070172
+        ],
+        "radius": [
+          0.01562800274536719,
+          0.01562800274536719
+        ]
+      }
+    },
+    "nile_tilapia": {
+      "enabled": true,
+      "model_sha256": "485ecf91d51cc2f9aa303289e674a3807de0051abad68221202551fd2d91879d",
+      "source_size": [
+        1961,
+        972
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.8954072148837822,
+        0.43620403557679543
+      ],
+      "radius_uv": [
+        0.030918392525209323,
+        0.06237753882915174
+      ]
+    },
+    "peacock_bass": {
+      "enabled": true,
+      "model_sha256": "8316f225d9b28588acb716c590882827d169a1619ac5738d79dcbd7a8f560fee",
+      "source_size": [
+        1817,
+        805
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.8750687947165657,
+        0.44061711079943905
+      ],
+      "radius_uv": [
+        0.028787260106165783,
+        0.06497695852534562
+      ]
+    },
+    "rainbow_trout": {
+      "enabled": true,
+      "model_sha256": "d0099d20824e8f09ae99e049b3cd1c0c696ffbb07e25a7ad5ba68f315afa6d53",
+      "source_size": [
+        1990,
+        717
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.927103258226617,
+        0.47897602015566654
+      ],
+      "radius_uv": [
+        0.023395201815529256,
+        0.06493228955774508
+      ]
+    },
+    "red_emperor": {
+      "enabled": true,
+      "model_sha256": "96f803926574da31f954daa984aa24869c03492c525cb016c4b571f6f95bc733",
+      "source_size": [
+        1782,
+        956
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.8628796929872198,
+        0.4340126872722364
+      ],
+      "radius_uv": [
+        0.033424568263277936,
+        0.06230395464975029
+      ]
+    },
+    "red_seabream": {
+      "enabled": true,
+      "model_sha256": "dab123c02624009227e5cf7df6e62643e6e521b95f987ea6aeb658201f944abd",
+      "source_size": [
+        2026,
+        1054
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.886,
+        0.438
+      ],
+      "radius_uv": [
+        0.04,
+        0.079
+      ],
+      "body_eye_scale": 0.8
+    },
+    "sea_bass": {
+      "enabled": true,
+      "model_sha256": "2330ca27218513120df513be50771b10f3fbbb2b8ca76224123232d6a3e34840",
+      "source_size": [
+        1985,
+        800
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9137401478833185,
+        0.4412903225806451
+      ],
+      "radius_uv": [
+        0.023024295116600306,
+        0.05712903225806451
+      ]
+    },
+    "yellow_croaker": {
+      "enabled": true,
+      "model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+      "source_size": [
+        2014,
+        727
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9274433802095013,
+        0.4745174601765985
+      ],
+      "radius_uv": [
+        0.0252641189095685,
+        0.0699889071304965
+      ]
+    },
+    "zander": {
+      "enabled": true,
+      "model_sha256": "83d7b1338a78ca8f818f7c07615e88194893779984a2fae56776b14fb1ee86f7",
+      "source_size": [
+        2024,
+        742
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 8,
+      "sectors": 40,
+      "center_uv": [
+        0.9189723320158103,
+        0.5094339622641509
+      ],
+      "radius_uv": [
+        0.022727272727272728,
+        0.05525606469002695
+      ],
+      "projection": {
+        "kind": "rest_xy",
+        "anchor_rest_xy": [
+          0.4209895690220033,
+          -0.003507364876505719
+        ],
+        "source_pupil_px": [
+          1864.0828877005347,
+          378.09893048128345
+        ],
+        "pixel_native_xy": [
+          0.0004940711462450593,
+          0.0004940711462450593
+        ],
+        "downshift_native_pixels": 11,
+        "central_gap_abs_z": 0.00422370582818985,
+        "full_owner_abs_z": 0.009503338113427162
+      }
+    }
+  }
+}

@@ -1,0 +1,617 @@
+{
+  "schema_version": 1,
+  "scope": "Source-native skin transport charts. Per-model geometry and source exclusions, not anatomical measurements.",
+  "species": {
+    "african_catfish": {
+      "enabled": true,
+      "model_sha256": "783f97f90cb4e6e6d120a8ef98137aeaaaeb703e8ff1b432d5aefbb735ae3e20",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8866215100426283,
+          0.37124176893145766,
+          0.9237859556818618,
+          0.5160674199341515
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "arapaima": {
+      "enabled": true,
+      "model_sha256": "9d6d24c81dbe7318451c83cfc8378f4aa66cb8c16a81c2b56f22b0289af08319",
+      "outline_exclusion_pixels": 13,
+      "patch_pixels": 17,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9055663433987217,
+          0.4262767094017095,
+          0.9377927044302402,
+          0.5682842851592852
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "atlantic_salmon": {
+      "enabled": true,
+      "model_sha256": "405f3492d06172ce1cdb822b7e441ed7c1368004d8c462e2801933f91c04c3e1",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 18,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9035769610926409,
+          0.4668035190615837,
+          0.9465802857399587,
+          0.5992065512089858
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "black_seabream": {
+      "enabled": true,
+      "model_sha256": "222ff56b3401ce5c3ad4bc78187fc681197267dd28f0862ec87bd3910c45bc9e",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.855,
+          0.37,
+          0.95,
+          0.54
+        ],
+        [
+          0.93,
+          0.55,
+          1.0,
+          0.65
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.05,
+        0.09,
+        0.99,
+        0.999
+      ]
+    },
+    "blacktip_reef_shark": {
+      "enabled": false,
+      "model_sha256": "e72e75ba35c0a574d045f458a5a8f11e86181b6ff7e5246f409dc9fc837dcd19",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 18,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9029601699088896,
+          0.4824093068169955,
+          0.9371179248601682,
+          0.5837771427080071
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "bluegill": {
+      "enabled": true,
+      "model_sha256": "8b27002aad23d69e690832ab060295b30d62b7d0a6a5f11a831d33fe07a79abb",
+      "outline_exclusion_pixels": 11,
+      "patch_pixels": 15,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8242669862624763,
+          0.3728152408205737,
+          0.9386089392185555,
+          0.5673809833506763
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "brown_trout": {
+      "enabled": true,
+      "model_sha256": "9cb562556fd32b1d876074bdd80d6f885e001223e882491f47b45e8731e2ef4b",
+      "outline_exclusion_pixels": 12,
+      "patch_pixels": 16,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8813670289050033,
+          0.3861204240666908,
+          0.946350263599087,
+          0.5804616708952519
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "carp": {
+      "enabled": true,
+      "model_sha256": "12f233a8322e7c8c96b0c851aeea105707f4defda5bfe62139d8b54d67c2775f",
+      "outline_exclusion_pixels": 16,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8632921359037985,
+          0.406879071984745,
+          0.9334247948081696,
+          0.5470061973621485
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "crucian": {
+      "enabled": true,
+      "model_sha256": "9efe36e7ff532ea61a5d7daf9bf781334e3529fe3cc02c22ce323688a9c27bdc",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 19,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8629823493609251,
+          0.45154916874605416,
+          0.9550943396226416,
+          0.6153419715599915
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "grass_carp": {
+      "enabled": true,
+      "model_sha256": "c212875e6081cfaf68827da1546d81e2e1ad227271ea7b4744ae2fe981dd80d9",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8954461964371689,
+          0.3995061345464571,
+          0.9525364708714492,
+          0.5629697408326441
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "hairtail": {
+      "enabled": false,
+      "model_sha256": "2f14016eedc5b3086780bee3a12ae483f0c68c853495353c426c3b0b5fafc69e",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 19,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9154595217516566,
+          0.35842429451367996,
+          0.9551417870518994,
+          0.7727603495201261
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "mahi_mahi": {
+      "enabled": false,
+      "model_sha256": "9629f580f31d4239531eb4e1782ff4cb3ef6c036f89b6266474dab7d10c0a2d1",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9168691374971402,
+          0.501389691125361,
+          0.9637531457332417,
+          0.6418282833227276
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "nile_tilapia": {
+      "enabled": true,
+      "model_sha256": "485ecf91d51cc2f9aa303289e674a3807de0051abad68221202551fd2d91879d",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8490296260959682,
+          0.34263772733306785,
+          0.9417848036715961,
+          0.529770343820523
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "peacock_bass": {
+      "enabled": true,
+      "model_sha256": "8316f225d9b28588acb716c590882827d169a1619ac5738d79dcbd7a8f560fee",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 18,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8318879045573171,
+          0.34315167301142063,
+          0.9182496848758144,
+          0.5380825485874574
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "piranha": {
+      "enabled": true,
+      "model_sha256": "c2aed76e31fc9bbe047055fdb36dd3ac0d19bbb49e28185d61f37d69850c69a2",
+      "outline_exclusion_pixels": 11,
+      "patch_pixels": 15,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8321242865173398,
+          0.42910153264026907,
+          0.9423330342471677,
+          0.6239255274422871
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "rainbow_trout": {
+      "enabled": true,
+      "model_sha256": "d0099d20824e8f09ae99e049b3cd1c0c696ffbb07e25a7ad5ba68f315afa6d53",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8920104555033231,
+          0.38157758581904894,
+          0.9621960609499108,
+          0.5763744544922842
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "red_emperor": {
+      "enabled": true,
+      "model_sha256": "96f803926574da31f954daa984aa24869c03492c525cb016c4b571f6f95bc733",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 18,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8127428405923028,
+          0.340556755297611,
+          0.9130165453821367,
+          0.5274686192468618
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "red_seabream": {
+      "enabled": true,
+      "model_sha256": "dab123c02624009227e5cf7df6e62643e6e521b95f987ea6aeb658201f944abd",
+      "outline_exclusion_pixels": 16,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.83,
+          0.33,
+          0.94,
+          0.54
+        ],
+        [
+          0.94,
+          0.56,
+          1.0,
+          0.67
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.05,
+        0.09,
+        0.99,
+        0.999
+      ]
+    },
+    "scalloped_hammerhead": {
+      "enabled": false,
+      "model_sha256": "edbb23e48bafc20140bdadedfeafe4b95445ee354c7d1e4642ab5d8a5be4fd88",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 19,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.9500830029077452,
+          0.5580196965664095,
+          0.9823304255881575,
+          0.6662549906840565
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "sea_bass": {
+      "enabled": true,
+      "model_sha256": "2330ca27218513120df513be50771b10f3fbbb2b8ca76224123232d6a3e34840",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8792037052084181,
+          0.35559677419354835,
+          0.9482765905582189,
+          0.5269838709677419
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "silver_arowana": {
+      "enabled": true,
+      "model_sha256": "ce2b16e3e7a71a0805bf14875cd61419f49c506e7f907dce8d0441c6923a7bab",
+      "outline_exclusion_pixels": 14,
+      "patch_pixels": 18,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8401626279958706,
+          0.3149632810555141,
+          0.9170009556094975,
+          0.5891940502862832
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "yellow_croaker": {
+      "enabled": true,
+      "model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+      "outline_exclusion_pixels": 15,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8895472018451486,
+          0.36953409948085375,
+          0.9653395585738541,
+          0.5795008208723433
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.11,
+        0.15,
+        0.86,
+        0.93
+      ]
+    },
+    "zander": {
+      "enabled": true,
+      "model_sha256": "83d7b1338a78ca8f818f7c07615e88194893779984a2fae56776b14fb1ee86f7",
+      "outline_exclusion_pixels": 16,
+      "patch_pixels": 20,
+      "chart_height": 384,
+      "protected_source_rects": [
+        [
+          0.8863918063878617,
+          0.41883173202330237,
+          0.9520278034553105,
+          0.5978711633770977
+        ],
+        [
+          0.932,
+          0.54,
+          1.0,
+          0.65
+        ],
+        [
+          0.932,
+          0.54,
+          1.0,
+          0.65
+        ],
+        [
+          0.932,
+          0.54,
+          1.0,
+          0.65
+        ],
+        [
+          0.932,
+          0.54,
+          1.0,
+          0.65
+        ]
+      ],
+      "normal_blend": [
+        0.18,
+        0.72
+      ],
+      "longitudinal_u": [
+        0.05,
+        0.09,
+        0.99,
+        0.999
+      ]
+    }
+  }
+}
