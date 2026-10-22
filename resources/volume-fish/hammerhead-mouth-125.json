@@ -1,0 +1,96 @@
+{
+  "scope": "Retain only ventral mouth-source UV for three hammerheads under explicit rollback instruction; no visual acceptance.",
+  "items": [
+    {
+      "species": "scalloped_hammerhead",
+      "source": "game/assets/models/fish/scalloped_hammerhead.glb",
+      "target": "game/assets/models/fish/scalloped_hammerhead.glb",
+      "source_sha256": "edbb23e48bafc20140bdadedfeafe4b95445ee354c7d1e4642ab5d8a5be4fd88",
+      "channels": [
+        {
+          "surface": 2,
+          "u_curve": [
+            [
+              0.33,
+              0.77
+            ],
+            [
+              0.375,
+              0.851
+            ],
+            [
+              0.425,
+              0.916
+            ],
+            [
+              0.5,
+              0.985
+            ]
+          ],
+          "v_scale": 3.0
+        }
+      ]
+    },
+    {
+      "species": "great_hammerhead",
+      "source": "game/assets/models/fish/great_hammerhead.glb",
+      "target": "game/assets/models/fish/great_hammerhead.glb",
+      "source_sha256": "fd75b27ce3634cdf5fc1241369ba5ca0176fb868333608fecb1ad7350e175d52",
+      "channels": [
+        {
+          "surface": 2,
+          "u_curve": [
+            [
+              0.33,
+              0.77
+            ],
+            [
+              0.375,
+              0.8180000000000001
+            ],
+            [
+              0.425,
+              0.883
+            ],
+            [
+              0.5,
+              0.985
+            ]
+          ],
+          "v_scale": 3.0
+        }
+      ]
+    },
+    {
+      "species": "smooth_hammerhead",
+      "source": "game/assets/models/fish/smooth_hammerhead.glb",
+      "target": "game/assets/models/fish/smooth_hammerhead.glb",
+      "source_sha256": "9f87f9dec8fd824ab68926eabadd12d3a424098ad1f9f75015fd98a18a0174fb",
+      "channels": [
+        {
+          "surface": 2,
+          "u_curve": [
+            [
+              0.33,
+              0.77
+            ],
+            [
+              0.375,
+              0.877
+            ],
+            [
+              0.425,
+              0.942
+            ],
+            [
+              0.5,
+              0.985
+            ]
+          ],
+          "v_scale": 3.0
+        }
+      ]
+    }
+  ],
+  "baseline_commit": "29d01931180cd4ed75573ecc6fa4b9ee1a4b5ec3"
+}
