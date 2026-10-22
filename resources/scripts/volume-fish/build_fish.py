@@ -5,7 +5,7 @@ The approved source pixels remain unchanged. No vendor/API calls or executable p
 import sys, json, math, hashlib, struct, traceback, array
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "cli"))
-from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain,validate_fin_baseline,fin_baseline_parameter
+from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain,root_attachment_inset,validate_fin_baseline,fin_baseline_parameter
 from volume_mouth import validate_oral_jaws,validate_oral_context
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from oral_jaws import build_closed_oral_jaws
@@ -27,6 +27,36 @@ def inside(pt,polygon):
     for (ax,ay),(bx,by) in zip(polygon,polygon[1:]+polygon[:1]):
         if (ay>y)!=(by>y) and x<(bx-ax)*(y-ay)/(by-ay)+ax:yes=not yes
     return yes
+
+def fin_source_geometry(fin,aspect):
+    """Constrain actual basal boundary subdivisions, instead of free slivers.
+
+    A float32 interpolated point beside a long unsplit boundary can create an
+    almost collinear CDT triangle; projecting that triangle to the body folds
+    or collapses it. Internal authored baselines retain their existing meaning.
+    """
+    polygon=[Vector(v) for v in fin['polygon']];extra=[]
+    for a,b in zip(fin.get('source_baseline',[]),fin.get('source_baseline',[])[1:]):
+        va,vb=Vector(a),Vector(b)
+        attachment=fin.get('root_attachment',{})
+        spacing=attachment.get('baseline_spacing',.001 if attachment.get('surface_clearance') and not fin['paired'] else .004)
+        count=max(1,math.ceil(math.hypot(b[0]-a[0],(b[1]-a[1])*aspect)/spacing))
+        mids=[va.lerp(vb,j/count) for j in range(1,count)]
+        for i in range(len(polygon)):
+            left,right=polygon[i],polygon[(i+1)%len(polygon)]
+            forward=(left-va).length<1e-7 and (right-vb).length<1e-7
+            reverse=(left-vb).length<1e-7 and (right-va).length<1e-7
+            if forward or reverse:
+                polygon=polygon[:i+1]+(mids if forward else list(reversed(mids)))+polygon[i+1:]
+                break
+        else:extra.extend(mids)
+    points=polygon+extra
+    xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
+    for i in range(1,13):
+        for j in range(1,7):
+            pt=[xmin+(xmax-xmin)*i/13,ymin+(ymax-ymin)*j/7]
+            if inside(pt,polygon):points.append(Vector(pt))
+    return polygon,points
 def polygons_overlap(a,b):
     if any(inside(v,b) for v in a) or any(inside(v,a) for v in b):return True
     def cross(p,q,r):return (q[0]-p[0])*(r[1]-p[1])-(q[1]-p[1])*(r[0]-p[0])
@@ -108,6 +138,7 @@ def validate_profile(p):
         if 'root_attachment' in f:
             require('rest_shape_revision' not in p or f.get('paired') is True,'Native root_attachment supports authored paired fin roots only')
             validate_root_attachment(f['root_attachment'])
+            require(not f.get('paired') or 'root_band_depth' not in f['root_attachment'],'Finite collar depth is for median fins; paired roots retain their two-dimensional flank mapping')
         require(number(f.get('vertical_scale',1),0,1) and isinstance(f.get('opaque',False),bool),'Invalid fin geometry options')
         require(isinstance(f['name'],str) and f['name'] and len(f['name'])<80,'Invalid fin name')
         require(3<=len(f['polygon'])<=128 and all(uvpoint(v) for v in f['polygon']) and uvpoint(f['anchor']) and uvpoint(f['tip']),'Invalid fin landmarks')
@@ -541,17 +572,8 @@ def build(h,p,source,outputs):
         fin_motion.append((name,Vector(axis),amplitude,phase));return name
     attachment_metrics={}
     for f in p['fins']:
-        polygon=f['polygon'];points=[Vector(v) for v in polygon]
-        if f.get('source_baseline'):
-            for a,b in zip(f['source_baseline'],f['source_baseline'][1:]):
-                spacing=.001 if f.get('root_attachment',{}).get('surface_clearance') and not f['paired'] else .004
-                count=max(1,math.ceil(math.hypot(b[0]-a[0],(b[1]-a[1])*aspect)/spacing))
-                for j in range(1,count):points.append(Vector(a).lerp(Vector(b),j/count))
+        polygon,points=fin_source_geometry(f,aspect)
         xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
-        for i in range(1,13):
-            for j in range(1,7):
-                pt=[xmin+(xmax-xmin)*i/13,ymin+(ymax-ymin)*j/7]
-                if inside(pt,polygon):points.append(Vector(pt))
         dv,de,df,*_=delaunay_2d_cdt(points,[(i,(i+1)%len(polygon)) for i in range(len(polygon))],[list(range(len(polygon)))],1,1e-7)
         require(bool(df),'Fin polygon cannot be triangulated: '+f['name'])
         for side in ([-1,1] if f['paired'] else [1]):
@@ -577,7 +599,7 @@ def build(h,p,source,outputs):
                     if not found:found,hit,normal,_=body_object.closest_point_on_mesh(point)
                 else:found,hit,normal,_=body_object.closest_point_on_mesh(point)
                 require(found and normal.length>.5 and (not f['paired'] or normal.y*side>=-1e-5),'Fin root does not resolve to matching body surface: '+name)
-                result=point.lerp(hit-normal.normalized()*attachment['inset'],gain)
+                result=point.lerp(hit-normal.normalized()*root_attachment_inset(t,attachment),gain)
                 clearance=attachment.get('surface_clearance',0)
                 if clearance and t>attachment['root_band']:
                     # Full membrane safety is distinct from basal projection.

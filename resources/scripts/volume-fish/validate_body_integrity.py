@@ -14,7 +14,7 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  for key in ['game','godot','output']:p.add_argument('--'+key,type=Path,required=True)
- a=p.parse_args();a.game=a.game.resolve();a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=True);records=[]
+ a=p.parse_args();a.game=a.game.resolve();a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=True);records=[];capture_process={}
  try:
   for shader in ['FishBodyOpaque.gdshader','FishMouthPigment.gdshader']:
    code=(a.game/'scripts/aquarium'/shader).read_text(encoding='utf8')
@@ -51,7 +51,7 @@ def main():
   capture=Path(__file__).with_name('capture_body_coverage.gd');out=a.output/'captures'
   receipt=out/'capture.validation.json'
   if receipt.exists():receipt.unlink()
-  run=subprocess.run([str(a.godot),'--path',str(a.game),'--quit-after','1200','--script',str(capture),'--',str(out)],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=180);(a.output/'capture.log').write_text(run.stdout+run.stderr,encoding='utf8');assert run.returncode==0 and 'ERROR:' not in run.stdout+run.stderr and receipt.exists(),'GPU capture failed'
+  run=subprocess.run([str(a.godot),'--path',str(a.game),'--quit-after','1200','--script',str(capture),'--',str(out)],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=180);(a.output/'capture.log').write_text(run.stdout+run.stderr,encoding='utf8');capture_process={'returncode':run.returncode,'quit_after_frames':1200,'receipt_exists':receipt.exists(),'logged_error':'ERROR:' in run.stdout+run.stderr};assert run.returncode==0 and 'ERROR:' not in run.stdout+run.stderr and receipt.exists(),'GPU capture failed'
   data=json.loads(receipt.read_text());assert len(data['records'])==len(files)*2
   assert {(x['species'],x['pose']) for x in data['records']}=={(f.stem,pose) for f in files for pose in [0,1]},'Incomplete captured species/pose inventory'
   for record in data['records']:
@@ -67,5 +67,6 @@ def main():
    row['ok']=all(v['missing_body_pixels']==0 for v in row['views'])
   result={'ok':all(x['ok'] for x in records),'species':records,'capture_files':data['files'],'checker_sha256':sha(__file__),'capture_script_sha256':sha(capture),'body_opacity_sha256':sha(models/'motion/body-opacity.json'),'views_per_species':16,'method':'Closed welded non-fin shells; opaque donor inventory; actual GPU material alpha coverage compared with opaque double-sided render of identical body geometry. No mouth alpha exemption.','limits':'16 discrete views/poses per species, not exhaustive continuous visibility proof; actual geometry cavities retain their inner surfaces.'}
  except Exception as e:result={'ok':False,'error':str(e),'species':records}
- (a.output/'completion.validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':result['ok'],'species':len(records),'error':result.get('error')}));return 0 if result['ok'] else 1
+ result['capture_process']=capture_process
+ (a.output/'completion.validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':result['ok'],'species':len(records),'error':result.get('error'),'capture_process':capture_process}));return 0 if result['ok'] else 1
 if __name__=='__main__':sys.exit(main())

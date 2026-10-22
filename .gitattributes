@@ -21,3 +21,7 @@
 /resources/runtime/godot/mouth-zander-110/** -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/check_runtime_fin_attachment.py -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/check_fin_membrane_collision.py -text whitespace=cr-at-eol
+
+# Portable hashes for retained reconstruction tools and species profiles.
+/resources/scripts/volume-fish/** -text whitespace=cr-at-eol
+/resources/volume-fish/** -text whitespace=cr-at-eol

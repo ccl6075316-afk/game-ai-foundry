@@ -554,7 +554,7 @@ def open_cmd(project_path: Path) -> None:
 
 
 def launch_game_project(project_path: Path, *, skip_build: bool = False) -> None:
-    """Build when needed and launch the project's main scene in play mode."""
+    """Build when needed, refresh imported assets, then enter play mode."""
     godot = _get_godot_exe().replace("_console.exe", ".exe")
     project_path = project_path.resolve()
     config = _load_config()
@@ -578,6 +578,18 @@ def launch_game_project(project_path: Path, *, skip_build: bool = False) -> None
                 sys.exit(1)
 
     try:
+        # Runtime loads .godot caches directly. After pulling changed GLBs or
+        # new textures, they can be stale/missing even when C# already builds.
+        imported = subprocess.run(
+            [godot, "--headless", "--path", str(project_path), "--import", "--quit"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=180, env=env,
+        )
+        combined = (imported.stdout or "") + (imported.stderr or "")
+        import_errors = [line for line in combined.splitlines() if "ERROR:" in line]
+        if imported.returncode != 0 or import_errors:
+            click.echo("Godot import failed:\n" + "\n".join(import_errors or combined.splitlines()[-20:]), err=True)
+            sys.exit(1)
         # No --editor → runs project.godot main scene in a game window.
         subprocess.Popen([godot, "--path", str(project_path)], env=env)
         click.echo(f"Running {project_path} …")

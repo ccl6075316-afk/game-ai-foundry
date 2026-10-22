@@ -85,6 +85,10 @@ def main():
         lip=np.array(p['lip_pixels'],float);roof=PchipInterpolator(lip[:,0]/w,lip[:,1]/h);floor=PchipInterpolator(lip[:,0]/w,lip[:,2]/h)
         mouth_u=float(lip[0,0]/w);end_u=float(p['end_u']);assert p['join_u']<mouth_u<end_u
         old_width=float(np.max(abs(boundary[:,2])));width_stations=np.array([[p['join_u'],old_width]]+p['half_width_stations'],float)
+        frozen_sections=np.asarray(p.get('frozen_outer_sections115',[]),float)
+        if len(frozen_sections):
+            assert frozen_sections.shape[1]==4 and np.all(np.diff(frozen_sections[:,0])>0)
+            width_stations=np.array([[p['join_u'],old_width],[frozen_sections[-1,0],frozen_sections[-1,3]],[end_u,frozen_sections[-1,3]]])
         width=PchipInterpolator(width_stations[:,0],width_stations[:,1])
         old_envelope=None
         if p.get('outer_envelope_blend_end_u'):
@@ -102,6 +106,8 @@ def main():
         def section(u):
             x=u*w;lo=float(np.interp(x,columns,bottom));hi=float(np.interp(x,columns,top))
             top_y=(.5-hi/h)*aspect;bottom_y=(.5-lo/h)*aspect
+            if len(frozen_sections):
+                top_y=float(np.interp(u,frozen_sections[:,0],frozen_sections[:,1]));bottom_y=float(np.interp(u,frozen_sections[:,0],frozen_sections[:,2]))
             if old_envelope is not None and u<old_envelope[-1,0]:
                 blend=np.clip((u-p['join_u'])/(old_envelope[-1,0]-p['join_u']),0.,1.);blend=blend*blend*(3.-2.*blend)
                 top_y=float(np.interp(u,old_envelope[:,0],old_envelope[:,1]))*(1.-blend)+top_y*blend
@@ -112,7 +118,12 @@ def main():
             else:
                 fade=np.clip((u-mouth_u)/float(p['corner_blend_u']),0.,1.);fade=fade*fade*(3-2*fade);middle=(ru+fl)*.5;gap=(fl-ru)*fade;ru=middle-gap*.5;fl=middle+gap*.5
             ry=max(ry,1e-5);upper=np.clip((.5-ru)*aspect,bottom_y+ry*.03,top_y-ry*.03);lower=np.clip((.5-fl)*aspect,bottom_y+ry*.03,upper)
-            return cy,ry,float(width(u)),upper,lower
+            rz=float(width(u))
+            if len(frozen_sections):
+                theta_up=float(np.arccos(np.clip((upper-cy)/ry,-1,1)));theta_low=float(np.arccos(np.clip((lower-cy)/ry,-1,1)))
+                visible=max(np.sin(min(theta_up,np.pi/2)),np.sin(min(np.pi-theta_low,np.pi/2)))
+                rz=float(np.interp(u,frozen_sections[:,0],frozen_sections[:,3]))/max(visible,1e-6)
+            return cy,ry,rz,upper,lower
         cy,ry,rz,upper,lower=section(mouth_u)
         start_point=np.array([cut,(upper+lower)/2,-old_width]);pivot=np.linalg.norm(boundary-start_point,axis=1).argmin();ids=ids[pivot:]+ids[:pivot]
         boundary=np.array([values['POSITION'][i] for i in ids])
@@ -152,7 +163,7 @@ def main():
                 y+=(-1 if upper_flag else 1)*2/w
                 u=donor_u;v=.5-y/aspect
             return add_point(values,position,[u,v],upper_flag,sample_index=sample_index)
-        rings=np.unique(np.r_[np.linspace(p['join_u']+.00025,mouth_u,int(p.get('premouth_rings',8))),np.linspace(mouth_u,end_u,int(p['longitudinal_rings']))])
+        rings=np.unique(np.r_[np.linspace(p['join_u']+.00025,mouth_u,int(p.get('premouth_rings',8))),np.linspace(mouth_u,end_u,int(p['longitudinal_rings'])),lip[:,0]/w if p.get('include_lip_knots') else []])
         corner_up=None;corner_low=None;roof_previous=None;floor_previous=None
         for u in rings:
             cy,ry,rz,upper,lower=section(float(u));theta_up=float(np.arccos(np.clip((upper-cy)/ry,-1,1)));theta_low=float(np.arccos(np.clip((lower-cy)/ry,-1,1)))
@@ -162,14 +173,22 @@ def main():
                 if i in [0,nup]:point[1]=upper
                 if u<mouth_u:
                     blend=np.clip((u-p['join_u'])/(mouth_u-p['join_u']),0,1);blend=blend*blend*(3-2*blend)
-                    reference=boundary[i%n];point[1:]=reference[1:]*(1-blend)+point[1:]*blend
+                    reference=boundary[i%n].copy()
+                    if len(frozen_sections):
+                        reference[1]=cy+(reference[1]-old_cy)/old_ry*ry
+                        reference[2]=reference[2]/old_width*float(np.interp(u,frozen_sections[:,0],frozen_sections[:,3]))
+                    point[1:]=reference[1:]*(1-blend)+point[1:]*blend
                 uppers.append(add_skin(point,1,i))
             for i in range(nlow+1):
                 theta=theta_low+(2*np.pi-2*theta_low)*float(lower_t[i]);point=np.array([u-.5,cy+ry*np.cos(theta),rz*np.sin(theta)])
                 if i in [0,nlow]:point[1]=lower
                 if u<mouth_u:
                     blend=np.clip((u-p['join_u'])/(mouth_u-p['join_u']),0,1);blend=blend*blend*(3-2*blend)
-                    reference=boundary[(nup+i)%n];point[1:]=reference[1:]*(1-blend)+point[1:]*blend
+                    reference=boundary[(nup+i)%n].copy()
+                    if len(frozen_sections):
+                        reference[1]=cy+(reference[1]-old_cy)/old_ry*ry
+                        reference[2]=reference[2]/old_width*float(np.interp(u,frozen_sections[:,0],frozen_sections[:,3]))
+                    point[1:]=reference[1:]*(1-blend)+point[1:]*blend
                 if u<=mouth_u and i==0:lowers.append(uppers[-1])
                 elif u<=mouth_u and i==nlow:lowers.append(uppers[0])
                 else:lowers.append(add_skin(point,0,nup+i))
@@ -182,6 +201,10 @@ def main():
                 for oldrow,newrow in [(corner_up,uppers),(corner_low,lowers)]:
                     for i in range(len(newrow)-1):faces.extend([[oldrow[i],newrow[i],newrow[i+1]],[oldrow[i],newrow[i+1],oldrow[i+1]]])
                 corner_up=uppers;corner_low=lowers
+            if len(frozen_sections) and u>=mouth_u:
+                ring_ids=list(dict.fromkeys(uppers+lowers));actual=max(abs(values['POSITION'][i][2]) for i in ring_ids)
+                factor=float(np.interp(u,frozen_sections[:,0],frozen_sections[:,3]))/max(actual,1e-12)
+                for i in ring_ids:values['POSITION'][i][2]*=factor
             if u>=mouth_u:
                 roof_ids=[];floor_ids=[];steps=int(p['oral_across'])
                 for flag,row_y,arc in [(1,upper,uppers),(0,lower,lowers)]:
@@ -204,6 +227,33 @@ def main():
         # Each anterior lip section gets a shallow convex skin cap. No tapered
         # single-pole snout and no repeated side-outline texture at the front.
         for flag,arc,oralrow in [(1,corner_up,roof_previous),(0,corner_low,floor_previous)]:
+            if p.get('front_cap_native_rects'):
+                # The true skin/oral boundary retains identical source UVs.
+                # A narrow geometric rim strip ends at an internal UV seam;
+                # interior cap triangles remain wholly inside an opaque native
+                # two-dimensional donor, never sweeping through side outline.
+                polygon=list(arc)
+                for i in reversed(oralrow[1:-1]):
+                    pos0=oral_values['POSITION'][i];polygon.append(add_skin(pos0,flag,front=False))
+                pts=np.array([values['POSITION'][i] for i in polygon]);center_pos=pts.mean(0);center_pos[0]+=.00015
+                rect=np.asarray(p['front_cap_native_rects']['upper' if flag else 'lower'],float)
+                x0,y0,x1,y1=rect.astype(int);donor=image[y0:y1,x0:x1];assert donor.size and donor[:,:,3].min()==255
+                assert not (donor[:,:,:3].max(2)<100).any(),'115 cap donor contains known dark outline'
+                low=pts[:,[2,1]].min(0);span=np.maximum(np.ptp(pts[:,[2,1]],axis=0),1e-8)
+                def cap_uv(point):
+                    t=np.clip((np.asarray(point)[[2,1]]-low)/span,0,1);t[1]=1-t[1]
+                    return (rect[:2]+.5+t*(rect[2:]-rect[:2]-1))/[w,h]
+                band=[];inside=[]
+                for i,v in enumerate(pts):
+                    distance=np.linalg.norm(center_pos[1:]-v[1:]);fraction=min(float(p['front_rim_band_pixels'])/w/max(distance,1e-8),.35)
+                    point=v+(center_pos-v)*fraction
+                    band.append(add_skin(point,flag,front=False))
+                    inside.append(add_point(values,point,cap_uv(point),flag,sample_index=i))
+                for i in range(len(polygon)):
+                    j=(i+1)%len(polygon);faces.extend([[polygon[i],polygon[j],band[j]],[polygon[i],band[j],band[i]]])
+                center_id=add_point(values,center_pos,cap_uv(center_pos),flag)
+                for i in range(len(inside)):faces.append([center_id,inside[i],inside[(i+1)%len(inside)]])
+                continue
             polygon=list(arc)
             for i in reversed(oralrow[1:-1]):
                 pos0=oral_values['POSITION'][i];polygon.append(add_skin(pos0,flag,front=True,tvertical=0.))

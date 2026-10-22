@@ -28,7 +28,15 @@ func validate_chart(model:Node3D,species:String,mesh:MeshInstance3D,surface:int,
     var expected=base.replace("void vertex()",FileAccess.get_file_as_string(template)+"\nvoid vertex()")
     expected=expected.insert(expected.find("{",expected.find("void vertex()"))+1,"chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;")
     expected=expected.replace(assignment,"ALBEDO=chart112_color("+value+");")
+    var rest=preload("res://scripts/aquarium/RestSurface114.gd").new()
+    expected=rest.wrap_chart(expected)
+    var chart_profile:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(config)).profiles[species]
+    if chart_profile.has("mouth_protection115"):
+        var lip=preload("res://scripts/aquarium/LipMaterial115.gd").new();var lr:Dictionary=model.get_meta("lip_material115_receipt",{})
+        assert(lr.helper_sha256==FileAccess.get_sha256(lip.get_script().resource_path) and lr.template_sha256==FileAccess.get_sha256(lip.template_path()))
+        expected=lip.wrap(expected);lip.validate(material,chart_profile)
     assert(expected==material.shader.code,"112 wrapper differs from exact authorized construction")
+    rest.validate(model,mesh,surface,material)
     coverage_safe(expected)
     if species in ["black_seabream","zander"]:
         var number="106" if species=="black_seabream" else "107";var eye:Dictionary=model.get_meta("eye_ownership_"+number+"_receipt",{})

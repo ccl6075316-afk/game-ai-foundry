@@ -44,7 +44,7 @@ def validate_revision(revision):
 
 
 def validate_root_attachment(value):
-    if not isinstance(value,dict) or not {'mode','root_band','blend_end','inset'}<=set(value) or set(value)-{'mode','root_band','blend_end','inset','surface_region','surface_clearance'} or value['mode']!='body_surface':
+    if not isinstance(value,dict) or not {'mode','root_band','blend_end','inset'}<=set(value) or set(value)-{'mode','root_band','blend_end','inset','surface_region','surface_clearance','root_band_depth','baseline_spacing'} or value['mode']!='body_surface':
         raise ValueError('root_attachment requires mode=body_surface, root_band, blend_end, inset')
     if not all(type(value[k]) in (int,float) and math.isfinite(value[k]) for k in ['root_band','blend_end','inset']):
         raise ValueError('Nonfinite root attachment value')
@@ -54,6 +54,22 @@ def validate_root_attachment(value):
         raise ValueError('Fin attachment surface_region must be nearest or posterior')
     if 'surface_clearance' in value and (type(value['surface_clearance']) not in (int,float) or not math.isfinite(value['surface_clearance']) or not 0<=value['surface_clearance']<=.02):
         raise ValueError('Invalid free fin surface_clearance')
+    if 'root_band_depth' in value and (type(value['root_band_depth']) not in (int,float) or not math.isfinite(value['root_band_depth']) or not 0<value['root_band_depth']<=.005 or value['root_band']<=0):
+        raise ValueError('root_band_depth requires positive finite depth <=.005 and root_band>0')
+    if 'baseline_spacing' in value and (type(value['baseline_spacing']) not in (int,float) or not math.isfinite(value['baseline_spacing']) or not .0001<=value['baseline_spacing']<=.02):
+        raise ValueError('baseline_spacing must be finite native spacing .0001–.02')
+
+
+def root_attachment_inset(t, attachment):
+    """Optional finite embedded collar; legacy profiles retain exact inset.
+
+    Median fins otherwise project a two-dimensional basal band onto a curve,
+    collapsing points with the same longitudinal coordinate. A shallow depth
+    gradient retains that second dimension. It does not change root selection.
+    """
+    depth=attachment.get('root_band_depth',0)
+    if not depth:return attachment['inset']
+    return attachment['inset']+depth*max(0,min(1,t/attachment['root_band']))
 
 
 def root_attachment_gain(t,root_band,blend_end):

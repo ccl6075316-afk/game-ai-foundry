@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "species": "smooth_hammerhead",
+  "real_length_cm": 300,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07"
+  ],
+  "tank_size_m": [
+    21.720000000000002,
+    17.52,
+    18.48
+  ],
+  "path_radii_m": [
+    4.05,
+    2.4
+  ],
+  "vertical_amplitude_m": 1.95,
+  "envelope_radius_m": 6.6,
+  "period_seconds": 16,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.7,
+  "base_body_gain": 0.84,
+  "body_wave_radians": 0.18,
+  "body_wave_cycles": 0.75,
+  "bend_bias": 0.9,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.15,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.62,
+      "bend_radians": 0.48,
+      "vertical_sign": 0,
+      "clip_speed": 1.12
+    },
+    "Ascend": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.9,
+      "bend_radians": 0.2,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "121 new species: conservative display motion adapted from existing sphyrnid rig/controller method; not target-species measured swimming kinematics.",
+    "Representative display length 300cm. Head width, body/fin shape authored independently from own source/profile; old scalloped geometry is not reused.",
+    "Four actions, transitions, native clip, full fin/body and actual engine visual checks are separate gates."
+  ],
+  "paired_fin_radians": 0.08,
+  "median_fin_radians": 0.045
+}

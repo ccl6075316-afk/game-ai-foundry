@@ -22,9 +22,29 @@ func apply(model: Node3D,species: String)->int:
     var opening=code.find("{",code.find("void vertex()"))
     code=code.insert(opening+1,"chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;")
     code=code.replace(assignment,"ALBEDO=chart112_color("+final_color+");")
+    var rest=preload("res://scripts/aquarium/RestSurface114.gd").new()
+    code=rest.wrap_chart(code)
+    var lip115:Dictionary={}
+    if p.has("mouth_protection115"):
+        var lip=preload("res://scripts/aquarium/LipMaterial115.gd").new()
+        code=lip.wrap(code)
+        lip115={"helper_sha256":FileAccess.get_sha256(lip.get_script().resource_path),"template_sha256":FileAccess.get_sha256(lip.template_path())}
     var shader=Shader.new();shader.code=code
     assert(not shader.get_shader_uniform_list().is_empty(),"112 chart shader failed")
+    if model.has_meta("source_jaw112_receipt"):
+        for key in ["mouth_source_projection","rim_local_source"]:assert(material.get_shader_parameter(key)==false,"Upstream SourceJaw projection changed")
+    material=material.duplicate() as ShaderMaterial
     material.shader=shader
+    # ShaderMaterial.duplicate omits parameters absent from the wrapped eye
+    # shader's uniform list. Preserve SourceJaw's explicit disabled legacy
+    # projections too; their exact false values remain part of the body gate.
+    if model.has_meta("source_jaw112_receipt"):
+        var jaw:Dictionary=model.get_meta("source_jaw112_receipt")
+        assert(jaw.mesh==str(body.name) and jaw.mouth_source_projection==false and jaw.rim_local_source==false)
+        for key in ["mouth_source_projection","rim_local_source"]:material.set_shader_parameter(key,false)
+    body.set_surface_override_material(int(p.surface),material)
+    rest.bind(model,body,int(p.surface),material)
+    if p.has("mouth_protection115"):preload("res://scripts/aquarium/LipMaterial115.gd").new().bind(material,p)
     for kind in ["dorsal","ventral"]:
         assert(FileAccess.get_sha256(p[kind].path)==p[kind].sha256,"Stale112 chart")
         material.set_shader_parameter("chart112_"+kind,load(p[kind].path))
@@ -46,4 +66,5 @@ func apply(model: Node3D,species: String)->int:
         var center=(minimum+maximum)*.5;var radius=(maximum-minimum)*.55
         material.set_shader_parameter("chart112_eye_rect_native",Vector4(center.x,center.y,radius.x,radius.y))
     model.set_meta("surface_chart_112_receipt",{"species":species,"model_sha256":p.model_sha256,"helper_sha256":FileAccess.get_sha256(get_script().resource_path),"template_sha256":FileAccess.get_sha256(template_path),"profile_sha256":FileAccess.get_sha256(CONFIG),"base_shader_code":original,"base_shader_sha256":original.sha256_text(),"generated_shader_sha256":code.sha256_text(),"geometry_changed":false,"surface":p.surface,"mesh":p.mesh})
+    model.set_meta("lip_material115_receipt",lip115)
     return 1

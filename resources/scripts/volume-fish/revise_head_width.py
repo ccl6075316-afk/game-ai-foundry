@@ -18,12 +18,21 @@ def main():
   source=Path(row['source']);assert source.resolve()!=Path(row['target']).resolve();assert hashlib.sha256(source.read_bytes()).hexdigest()==row['source_sha256'];d,b=read_glb(source);original=bytes(b);binary=bytearray(b);old_doc=copy.deepcopy(d);stations=row['stations'];assert len(stations)>=2 and all(0<=x<=1 and 1<=y<=12 and math.isfinite(x+y) for x,y in stations);assert all(x[0]<y[0] for x,y in zip(stations,stations[1:]));changed=[]
   def add(values,template):
    data=np.asarray(values,dtype='<f4');binary.extend(b'\0'*(-len(binary)%4));start=len(binary);binary.extend(data.tobytes());vi=len(d['bufferViews']);d['bufferViews'].append({'buffer':0,'byteOffset':start,'byteLength':data.nbytes,'target':34962});ac=copy.deepcopy(template);ac.update(bufferView=vi,byteOffset=0,count=len(data),componentType=5126,min=data.min(axis=0).tolist(),max=data.max(axis=0).tolist());idx=len(d['accessors']);d['accessors'].append(ac);return idx
+  allowlist=row.get('mesh_allowlist')
+  if allowlist is not None:
+   assert allowlist and len(set(allowlist))==len(allowlist)
+   assert set(allowlist)<={n['name'] for n in d['nodes'] if 'mesh' in n},'Unknown allowed mesh'
+   for node in d['nodes']:
+    if 'mesh' in node and node['name'] in own['profiles'][row['species']]['fins']:
+     for prim in d['meshes'][node['mesh']]['primitives']:
+      assert np.all(accessor(old_doc,b,prim['attributes']['POSITION'])[:,0]+.5<=stations[0][0]),'Fin overlaps local head domain'
   for node in d['nodes']:
    if 'mesh' not in node:continue
+   if allowlist is not None and node['name'] not in allowlist:continue
    assert not any(k in node for k in ['matrix','translation','rotation','scale']),'Nonidentity mesh space requires explicit transform'
    isfin=node['name'] in own['profiles'][row['species']]['fins']
    for prim in d['meshes'][node['mesh']]['primitives']:
-    attrs=prim['attributes'];old=accessor(old_doc,b,attrs['POSITION']);u=old[:,0]+.5;factors=np.array([gain_at(stations,float(x)) for x in u]);g=factors[:,0];derivative=factors[:,1];mask=g>1+1e-9
+    attrs=prim['attributes'];old=accessor(old_doc,b,attrs['POSITION']);u=old[:,0].astype(float)+.5;factors=np.array([gain_at(stations,float(x)) for x in u]);g=factors[:,0];derivative=factors[:,1];mask=g>1+1e-9
     if not mask.any():continue
     assert not isfin,'A fin overlaps head revision region'
     new=old.copy();new[:,2]=old[:,2]*g;assert np.array_equal(new[:,:2],old[:,:2]);assert np.array_equal(new[~mask],old[~mask]);attrs['POSITION']=add(new,d['accessors'][attrs['POSITION']])

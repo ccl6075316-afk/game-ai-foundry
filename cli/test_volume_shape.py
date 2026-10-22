@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from volume_shape import validate_revision, width_scale, revision_source, vertical_position, validate_root_attachment, root_attachment_gain
+from volume_shape import validate_revision, width_scale, revision_source, vertical_position, validate_root_attachment, root_attachment_gain, root_attachment_inset
 
 
 class NativeRevisionTests(unittest.TestCase):
@@ -105,6 +105,28 @@ class NativeRevisionTests(unittest.TestCase):
         for value in [-.001,.0201,float('nan'),float('inf'),True,'0.0025']:
             with self.subTest(value=value),self.assertRaises(ValueError):
                 validate_root_attachment({**option,'surface_clearance':value})
+
+    def test_finite_median_collar_keeps_distinct_root_depths_and_legacy_inset(self):
+        option={'mode':'body_surface','root_band':.025,'blend_end':.32,'inset':.000025}
+        for t in [0,.000001,.015,.025,.5,1]:
+            self.assertEqual(root_attachment_inset(t,option),option['inset'])
+        collar={**option,'root_band_depth':.00004};validate_root_attachment(collar)
+        depths=[root_attachment_inset(t,collar) for t in [0,.005,.015,.025]]
+        self.assertEqual(len({round(d,7) for d in depths}),4)
+        # Smooth121's frozen300cm display: even worst aligned half-thickness
+        # plus the deepest median collar stays below the existing0.5mm seam.
+        self.assertLess((max(depths)+.00015/2)*3000,.5)
+        for change in [{'root_band_depth':0},{'root_band_depth':-.001},{'root_band_depth':.0051},{'root_band_depth':float('nan')},{'root_band_depth':True},{'root_band_depth':.001,'root_band':0}]:
+            with self.subTest(change=change),self.assertRaises(ValueError):
+                validate_root_attachment({**option,**change})
+
+    def test_basal_geometry_spacing_is_explicit_finite_and_bounded(self):
+        option={'mode':'body_surface','root_band':.025,'blend_end':.32,'inset':.000025}
+        validate_root_attachment(option)
+        for spacing in [.0001,.0005,.004,.02]:validate_root_attachment({**option,'baseline_spacing':spacing})
+        for spacing in [0,.00009,.0201,float('nan'),float('inf'),True,'0.0005']:
+            with self.subTest(spacing=spacing),self.assertRaises(ValueError):
+                validate_root_attachment({**option,'baseline_spacing':spacing})
 
 
 if __name__=='__main__':unittest.main()

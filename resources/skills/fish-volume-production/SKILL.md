@@ -14,6 +14,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。
 - 口部：`projects/fishing-2d/docs/3d-fish/ORAL-JAWS.md` 的开头方法选择和069d结论。口位、下颌前突、口裂倾角、唇缘包合、开闭动作分别判断；不要把所有鱼套成上位口或孔雀鲈下颌。
 - 嘴像板片、喙或勺子，或侧面也对不上原画时：读 [references/mouth-repair.md](references/mouth-repair.md)，先检查完整颌部与参考姿态，不能继续只调唇厚/UV。
+- 沿已有双髻鲨增加近缘种，或其鳍轮廓CDT/投影后退化：读 [references/hammerhead-family.md](references/hammerhead-family.md)，区分物种头缘、局部源图接受、平面pinch与实际根带降维。
 - 连接与交付：`projects/fishing-2d/docs/3d-fish/VALIDATION.md`。完整鳍基的绝对连接是每条鱼必检项。
 - 命令/配置：`docs/FISH-VOLUME-WORKFLOW.md`，需要时读 `volume <子命令> --help`。
 
@@ -47,7 +48,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 执行与复验
 
-出现背腹黑斑、拉丝、唇线错位或眼睛重影时，读 [references/source-surface-repair.md](references/source-surface-repair.md)。先追踪实际材质与供体，再区分完整颌部、原图纹理和装饰叠层；不要用机械门通过替代用户指出部位的实际对照。
+出现背腹黑斑、拉丝、唇线错位、游动贴图滑转或眼睛重影时，读 [references/source-surface-repair.md](references/source-surface-repair.md)。先追踪实际材质与供体，再区分完整颌部、原图纹理和装饰叠层；不要用机械门通过替代用户指出部位的实际对照。用户认为当前效果最好时，绑定实际安装文件哈希保留对比基线；先在原截图上标注主观观察，不把未经确认的重复纹样升级为必须返修项。用户暂缓口内时保持口内实现，不让它阻塞外部展示审阅。
 
 新鱼走 `volume plan → build → validate → render`，实际查看源图、风格参考、灰模/贴图多视与Godot动作后，才用 `volume accept` 记录操作者审核。不能写成用户本人已接受。
 

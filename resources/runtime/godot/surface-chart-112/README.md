@@ -28,3 +28,13 @@
 ## 存档与当前文件复核
 
 Fish `material-shape-112/README.md` 是运行资产、冻结输入与保留证据入口。`verify_installed_fish112.py --game ... --archive ... --report ...` 核对实际132个安装文件、23鱼模型、材质依赖、最终鳍/身体报告及存档文件哈希；它不重跑GPU，也不作用户外观批准。捕获重放入口为 `capture_surface_mouth_audit.gd`、`capture_transitions112.gd` 和 `capture_review_hall112.gd`，避免依赖已清理的暂存工程脚本。
+
+## 114：背腹贴图固定到原始网格
+
+112的`chart112_rest_position=VERTEX`和`chart112_rest_normal=NORMAL`实际上读取了Godot Compatibility已蒙皮的输入，静态截面和法线掩码随游动改变，导致贴图滑转。`RestSurface114.gd`直接读取当前实际导入ArrayMesh的逐surface原始XYZ、normal、UV；RGBAF无mipmap、无sRGB转换表通过VERTEX_ID定位，并核对顶点数量/有效位/原UV。代码在任何chart计算之前恢复固定坐标；正常骨骼变形继续进行。查表错误显示洋红，不删除身体像素。
+
+每个chart surface拥有独立ShaderMaterial，表不写进共享材质。复制须保留SourceJaw的显式禁用参数；Godot的duplicate不会复制已被眼域wrapper去掉声明的inactive参数。先核对旧材质为false，再恢复新材质为false，身体门继续严格检查，不能删除这个断言。
+
+`ValidateSurface112`精确重建新的wrapper，再重算实际导入模型的完整surface数组、LOD摘要及三个表的全部字节、格式、尺寸和数量。SourceJaw和FrontSkin自身算法不在本次修复范围；FrontSkin外层继承其下的BodyChart修复。它们的UV画布诊断覆盖不足，不能用零变化当稳定性证明。
+
+复现用`probe_material_anchor114.gd`：同一固定UV画布中实际生产vertex对照独立静态oracle；强制1000个非均匀供体像素，空命中失败。`legacy`参数仅在诊断内恢复原两条错误赋值，作为单变量负例，不写生产材质。`probe_runtime_anchor114.gd`保留实际LOD和真实3D蒙皮，覆盖四动作、三距离及四个真实切换中点。源图标线由`capture_original_lips114.gd`直接显示112原始PNG，源图与模型保持原样；标线不是嘴型或材质接受。
