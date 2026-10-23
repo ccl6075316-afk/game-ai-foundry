@@ -14,6 +14,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。
 - 口部：`projects/fishing-2d/docs/3d-fish/ORAL-JAWS.md` 的开头方法选择和069d结论。口位、下颌前突、口裂倾角、唇缘包合、开闭动作分别判断；不要把所有鱼套成上位口或孔雀鲈下颌。
 - 嘴像板片、喙或勺子，或侧面也对不上原画时：读 [references/mouth-repair.md](references/mouth-repair.md)，先检查完整颌部与参考姿态，不能继续只调唇厚/UV。
+- 头吻仍有横切面、需要按源材质铺薄唇，或像素唇线接不上时：读 [references/mouth-material-continuity.md](references/mouth-material-continuity.md)。分别处理完整曲面、实际UV接头和完整绘画像素簇，保留真正唇线。
 - 沿已有双髻鲨增加近缘种，或其鳍轮廓CDT/投影后退化：读 [references/hammerhead-family.md](references/hammerhead-family.md)，区分物种头缘、局部源图接受、平面pinch与实际根带降维。
 - 连接与交付：`projects/fishing-2d/docs/3d-fish/VALIDATION.md`。完整鳍基的绝对连接是每条鱼必检项。
 - 命令/配置：`docs/FISH-VOLUME-WORKFLOW.md`，需要时读 `volume <子命令> --help`。

@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "species": "black_seabream",
+  "scientific_name": "Acanthopagrus schlegelii",
+  "status": "static_local_visual_improvement_acknowledged",
+  "production_installed": false,
+  "full_fish_delivery_accepted": false,
+  "user_feedback": "好很多；授权沉淀、清理、commit + push",
+  "source_model_sha256": "c42765e1a8c975840ab43840ca69ff72cf3b483e9a40bfb0ae288330f38285bf",
+  "source_image_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "source_size": [
+    1986,
+    991
+  ],
+  "species_evidence": {
+    "url": "https://fishdb.sinica.edu.tw/taxon/382635-fishdb",
+    "supports": "Terminal mouth; upper/lower jaws approximately equal length",
+    "unknown": "Hidden transverse head/lip dimensions and front pigment; artistic continuation, not measured anatomy"
+  },
+  "whole_head_surface128": {
+    "voxel_size": 0.0008,
+    "stages": [
+      {
+        "start_x": 0.33,
+        "full_x": 0.41,
+        "factor": 0.7,
+        "iterations": 250
+      },
+      {
+        "start_x": 0.405,
+        "full_x": 0.465,
+        "factor": 0.7,
+        "iterations": 650
+      }
+    ],
+    "decimation_ratio": 0.2,
+    "forehead_bow": {
+      "minimum_y": -0.035,
+      "maximum_y": 0.1,
+      "start_x": 0.38,
+      "full_x": 0.445,
+      "inset_native": 0.0045
+    },
+    "lower_jaw_position_restore": {
+      "start_x": 0.455,
+      "full_x": 0.485,
+      "upper_y": -0.03,
+      "full_y": -0.039,
+      "restore_native": 0.0015
+    },
+    "transverse_roundness": {
+      "start_x": 0.41,
+      "full_x": 0.48,
+      "maximum_scale": 1.4,
+      "scope": "Artistic hidden-depth trial to round entire eye-to-snout envelope. No native XY change; not species-measured width or approved cross-fish default."
+    }
+  },
+  "thin_lip129": {
+    "geometry": {
+      "longitudinal_samples": 257,
+      "cross_samples": 17,
+      "relief_native": 0.00025,
+      "curve_smoothing_iterations": 8,
+      "projection_step_native": 0.0004,
+      "surface_offset_native": 3.5e-05
+    },
+    "bands": {
+      "upper": {
+        "source_bounds": [
+          [
+            1830,
+            621,
+            621
+          ],
+          [
+            1840,
+            578,
+            615
+          ],
+          [
+            1860,
+            570,
+            606
+          ],
+          [
+            1880,
+            561,
+            594
+          ],
+          [
+            1900,
+            553,
+            578
+          ],
+          [
+            1920,
+            546,
+            569
+          ],
+          [
+            1940,
+            538,
+            560
+          ],
+          [
+            1960,
+            530,
+            553
+          ]
+        ],
+        "central_source_column": 1960,
+        "atlas_offset_y": 0,
+        "atlas_rows": 48,
+        "central_safe_color_y": [
+          541,
+          551
+        ],
+        "central_color_blend_start_x": 1940
+      },
+      "lower": {
+        "source_bounds": [
+          [
+            1830,
+            621,
+            621
+          ],
+          [
+            1840,
+            622,
+            625
+          ],
+          [
+            1860,
+            616,
+            628
+          ],
+          [
+            1880,
+            600,
+            615
+          ],
+          [
+            1900,
+            592,
+            607
+          ],
+          [
+            1920,
+            579,
+            598
+          ],
+          [
+            1940,
+            579,
+            596
+          ],
+          [
+            1960,
+            578,
+            592
+          ]
+        ],
+        "central_source_column": 1960,
+        "atlas_offset_y": 48,
+        "atlas_rows": 32,
+        "central_safe_color_y": [
+          590,
+          579
+        ],
+        "central_color_blend_start_x": 1940
+      }
+    },
+    "atlas": {
+      "minimum_x": 1830,
+      "width": 132,
+      "height": 80,
+      "ink_exclusion_margin_px": 2
+    }
+  },
+  "subtractive_rounding131": {
+    "start_x": 0.46,
+    "full_x": 0.495,
+    "maximum_inset": 0.0045,
+    "lobes": [
+      {
+        "center_y": -0.021,
+        "y_support": [
+          -0.04,
+          -0.032,
+          0.003,
+          0.018
+        ],
+        "vertical_curvature": 110.0,
+        "transverse_curvature": 40.0
+      },
+      {
+        "center_y": -0.0455,
+        "y_support": [
+          -0.13,
+          -0.11,
+          -0.042,
+          -0.035
+        ],
+        "vertical_curvature": 100.0,
+        "transverse_curvature": 30.0
+      }
+    ]
+  },
+  "nose_ownership132": {
+    "nose_support": {
+      "start_x": 0.452,
+      "full_x": 0.474,
+      "full_abs_z": 0.018,
+      "zero_abs_z": 0.026,
+      "lower_y": -0.027,
+      "full_lower_y": -0.022,
+      "full_upper_y": 0.055,
+      "upper_y": 0.07
+    },
+    "donor_rect": [
+      1880,
+      480,
+      1920,
+      532
+    ],
+    "donor_mapping": {
+      "z_min": -0.02,
+      "z_max": 0.02,
+      "y_min": -0.019,
+      "y_max": 0.07
+    }
+  },
+  "material135": {
+    "charts": [
+      {
+        "part": "upper",
+        "join_rows": [
+          95,
+          159
+        ],
+        "left_join_source_outer_xy": [
+          1947.7377990384082,
+          536.1686150975461
+        ],
+        "right_join_source_outer_xy": [
+          1947.8794098548092,
+          536.12570606172
+        ],
+        "measured_source_u_per_native_left_right": [
+          1977.4488932481313,
+          2000.572921608154
+        ],
+        "cross_source_pixel_span_left_right": [
+          26.614097737380245,
+          26.449652804499028
+        ],
+        "central_chart_size": [
+          108,
+          67
+        ],
+        "central_unwrapped_source_pixels": 92,
+        "lower_edge_uses_actual_lower_source_boundary": false,
+        "whole_source_cells_and_midtone_preserved": true
+      },
+      {
+        "part": "lower",
+        "join_rows": [
+          95,
+          159
+        ],
+        "left_join_source_outer_xy": [
+          1942.4666461366721,
+          599.4556146043117
+        ],
+        "right_join_source_outer_xy": [
+          1942.5248031366486,
+          599.4777721944811
+        ],
+        "measured_source_u_per_native_left_right": [
+          2000.4180103052495,
+          2006.003633993622
+        ],
+        "cross_source_pixel_span_left_right": [
+          23.289754011804654,
+          23.272049286500256
+        ],
+        "central_chart_size": [
+          96,
+          64
+        ],
+        "central_unwrapped_source_pixels": 81,
+        "lower_edge_uses_actual_lower_source_boundary": true,
+        "whole_source_cells_and_midtone_preserved": true
+      }
+    ],
+    "source_ink_policy": "Repair only confirmed rising nasal ink; retain real lip lines/mouth slit/nostril. Continue full source cells and adjacent skin from measured actual body UV.",
+    "sampling": "native source pixels, nearest; preserve whole painted clusters and phase, not detached dark dabs",
+    "hidden_continuation": "Reflected source artwork; inference, not original front material"
+  },
+  "historical_only": [
+    "129 old central repeated-column/clean pale fill is retained for geometry/old baseline, superseded for final material by135",
+    "133 smooth stroke and134 independently spaced dark dabs rejected; renderers retained only as comparison dependencies"
+  ],
+  "archive": "projects/fishing-2d/experiments/blender-fish/lip-uv-alignment-135/retention.manifest.json",
+  "replay_guide": "projects/fishing-2d/docs/3d-fish/MOUTH-STUDY-135.md",
+  "reuse_boundary": "This is one frozen static black-seabream study. Do not use these dimensions, sample rows, donors or UV phases as other species defaults; no rig/fin/body/motion/LOD gate claim."
+}
