@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "species": "bluegill",
+  "scientific_name": "Lepomis macrochirus",
+  "status": "experimental_human_review_required",
+  "scope": "Opt-in existing-model gait demonstration; no production profile replacement",
+  "cycle_seconds": 2.2,
+  "propel_seconds": 1.15,
+  "edge_seconds": 0.16,
+  "speed_floor": 0.75,
+  "speed_peak": 1.55,
+  "speed_response_seconds": 0.27,
+  "amplitude_response_seconds": 0.09,
+  "body_hz": 0.85,
+  "fin_hz": 0.72,
+  "body_coast": 0.12,
+  "body_propel": 1.0,
+  "fin_coast": 0.45,
+  "fin_propel": 0.85,
+  "evidence": [
+    "https://doi.org/10.1098/rsbl.2019.0270",
+    "https://academic.oup.com/plankt/article/47/2/fbae048/7758518"
+  ],
+  "interpretation": "Literature motivates intermittent propulsion and speed-dependent duty cycles; this single low-speed demonstration does not fit a measured individual or claim universally fixed frequency.",
+  "parameter_provenance": "All numeric settings are visual/engineering hypotheses, including slow display frequency, duty cycle, speed ratios, positive speed floor and response constants. They are not species measurements or hydrodynamic simulation.",
+  "limitations": [
+    "Carrier phase continues during coasts while active wave amplitude is reduced; residual motion is illustrative.",
+    "Shared fin amplitude is reduced but not stopped in coast; no fin-specific hydrodynamic control.",
+    "Speed changes retime the existing path-follow and action transition clock; this is not independent world-time steering.",
+    "Adapter uses 120 pose updates per second for a single opt-in fish; scalability is unmeasured."
+  ]
+}

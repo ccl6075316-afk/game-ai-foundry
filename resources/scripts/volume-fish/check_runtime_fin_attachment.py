@@ -11,6 +11,8 @@ import json
 import math
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from runtime_pose_coverage import validate_runtime_pose_coverage
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 
@@ -27,6 +29,7 @@ def main():
     if args.max_penetration_cm is not None and (not math.isfinite(args.max_penetration_cm) or args.max_penetration_cm < 0):
         parser.error('Maximum penetration must be nonnegative and finite')
     export = json.loads(args.export.read_text())
+    counts = validate_runtime_pose_coverage(export)
     if hashlib.sha256(Path(export['model']).read_bytes()).hexdigest() != export['model_sha256']:
         raise ValueError('Runtime model changed after export')
     report = {'schema_version': 1, 'command': 'volume.fin.check-runtime-attachment', 'stage': 'validate',
@@ -39,9 +42,13 @@ def main():
               'motion_config_sha256': export['motion_config_sha256'], 'export_script_sha256': export['export_script_sha256'],
               'engine_version': export['engine_version'], 'sample_limit': export['sample_limit'],
               'checker_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'coverage_checker_sha256': hashlib.sha256(Path(__file__).with_name('runtime_pose_coverage.py').read_bytes()).hexdigest(),
               'tolerance_cm': args.tolerance_cm, 'max_penetration_cm': args.max_penetration_cm, 'body_triangles': export['body_triangles'],
               'method': 'Actual Godot exhibit four-action controller bone poses and imported GLB skin inverse-bind matrices. CPU linear-blend-skin body triangles and root vertices/edge points; exact posed body triangle BVH signed nearest distances in carrier-local meters, converted to cm. This measures root contact, not tank containment.',
               'samples': [], 'summary': {}}
+    for key in ['candidate_gait_revision', 'gait_adapter_sha256', 'gait_config_sha256', 'base_exporter_sha256']:
+        if key in export:
+            report[key] = export[key]
     for sample in export['samples']:
         path = Path(sample['posed_mesh_json'])
         if hashlib.sha256(path.read_bytes()).hexdigest() != sample['sha256']:
@@ -75,18 +82,6 @@ def main():
                                    'all_roots_within_tolerance': max(distances) <= args.tolerance_cm and (args.max_penetration_cm is None or min(distances) >= -args.max_penetration_cm),
                                    'entire_root_band_detached': min(distances) > args.tolerance_cm}
         report['samples'].append(result)
-    counts = {a:sum(s['action']==a for s in report['samples']) for a in set(s['action'] for s in report['samples'])}
-    expected = ({'Static':1, **{a:16 for a in ['Swim','Turn','Ascend','Dive']}, **{'Transition:'+a:4 for a in ['Swim','Turn','Ascend','Dive']}}
-                if export.get('expected_fins') else {a:8 for a in ['Swim','Turn','Ascend','Dive']})
-    if export.get('motion_range_revision') == 1:
-        expected.update({'Range:'+a:16 for a in ['Neutral','WideSlow','WideFast','FinsOnly','BodyOnly']})
-        expected.update({'RangeTransition:'+a:4 for a in ['Neutral','WideSlow','WideFast','FinsOnly']})
-    if export.get('fin_membrane_revision')==1:
-        expected['Native']=25
-        expected.update({'Clearance:'+a:64 for a in ['MixedLow','MixedMid','Independent','MaxDense']})
-        expected['Clearance:ControlSweep']=32
-    if counts != expected:
-        raise ValueError('Incomplete runtime pose coverage: ' + str(counts))
     report['coverage'] = {'poses':counts,'expected_fins':export.get('expected_fins'), 'all_expected_fins_present_in_every_sample':True}
     for name in report['samples'][0]['fins']:
         values = [sample['fins'][name] for sample in report['samples']]
