@@ -152,6 +152,8 @@ static func validate_dynamic_107_shader(model: Node3D, species: String, mesh: Me
     return {"ok":true,"species":species,"mesh":"Closed_body","surface":0,"generated_shader_sha256":generated,"model_sha256":digests.model_sha256,"helper_sha256":digests.helper_sha256,"template_sha256":digests.template_sha256,"config_sha256":digests.profile_sha256,"original_shader_sha256":digests.original_shader_file_sha256,"head_include_sha256":digests.head_include_sha256,"head_profile_sha256":digests.head_profile_sha256,"fallback_sha256":p.opaque_skin.sha256,"all_original_lods_retained":not repaired_lod,"LOD5_geometry_gate":"failed","LOD5_excluded_by_109":repaired_lod,"scope":"Opaque coverage authorization only; not eye/LOD/wholefish acceptance"}
 
 static func validate_dynamic_body_shader(model: Node3D, species: String, mesh: MeshInstance3D, surface: int, material: ShaderMaterial) -> Dictionary:
+    if species in ["scalloped_hammerhead","great_hammerhead","smooth_hammerhead"] and FileAccess.file_exists("res://scripts/aquarium/HammerSurface136.gd"):
+        return load("res://scripts/aquarium/HammerSurface136.gd").new().validate(model,species,mesh,surface,material)
     if model.get_meta("front_skin112_receipts",{}).has(str(mesh.name)+":"+str(surface)):
         return load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_front(model,species,mesh,surface,material)
     if model.has_meta("surface_chart_112_receipt"):
@@ -159,6 +161,10 @@ static func validate_dynamic_body_shader(model: Node3D, species: String, mesh: M
     if species=="black_seabream":return validate_dynamic_106_shader(model,species,mesh,surface,material)
     if species=="zander":return validate_dynamic_107_shader(model,species,mesh,surface,material)
     return {"ok":false,"reason":"Unknown dynamic body shader"}
+
+func authorize_body_shader(model:Node3D,species:String,mesh:MeshInstance3D,surface:int,material:ShaderMaterial)->Dictionary:return validate_dynamic_body_shader(model,species,mesh,surface,material)
+func authorize_relief(model:Node3D,mesh:MeshInstance3D):load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_relief(model,mesh)
+func extra_capture_bindings()->Dictionary:return {}
 
 func _initialize():
     out=OS.get_cmdline_user_args()[0]
@@ -193,13 +199,19 @@ func run():
     var uses_head: bool=false
     var uses_mouth: bool=false
     var views=[[0.,0.],[PI,0.],[PI/2.,0.],[-PI/2.,0.],[.5,.85],[.5,-.85],[PI+.5,.65],[PI+.5,-.65]]
+    var requested: Array=[]
+    var arguments=OS.get_cmdline_user_args()
+    for i in range(1,arguments.size()):
+        assert(arguments[i] in hall.SPECIES and not arguments[i] in requested,"Unknown/duplicate body capture species")
+        requested.append(arguments[i])
     for species in hall.SPECIES:
+        if not requested.is_empty() and not species in requested:continue
         hall._select_display(species)
         var entry: Dictionary=hall._selected()
         for mesh in hall.world.find_children("*","MeshInstance3D",true,false):mesh.visible=entry.model.is_ancestor_of(mesh) and not profiles[species].fins.has(str(mesh.name)) and not str(mesh.name) in opaque_profiles[species].suppressed_auxiliary and not opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name))
         for mesh in entry.model.find_children("*","MeshInstance3D",true,false):
             if mesh.has_meta("decorative_relief112"):
-                load("res://scripts/aquarium/ValidateSurface112.gd").new().validate_relief(entry.model,mesh)
+                authorize_relief(entry.model,mesh)
                 mesh.hide()
                 continue
             if opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name)):
@@ -231,7 +243,7 @@ func run():
                             assert(material.get_shader_parameter("source_texture")!=null,"Missing oral palette")
                         else:
                             if material.shader.resource_path!="res://scripts/aquarium/FishBodyOpaque.gdshader":
-                                var authorization:=validate_dynamic_body_shader(entry.model,species,mesh,s,material)
+                                var authorization:=authorize_body_shader(entry.model,species,mesh,s,material)
                                 assert(authorization.ok,str(authorization.get("reason","Unexpected body shader")))
                                 dynamic_shaders.append(authorization)
                                 dynamic_checks.append([entry.model,species,mesh,s,material])
@@ -288,7 +300,7 @@ func run():
     if hall.SPECIES.size()==1 and hall.SPECIES[0]=="zander" and not dynamic_shaders.is_empty():
         required.append_array(["scripts/aquarium/FishEyeOwnership.gd","scripts/aquarium/FishEyeOwnership.gdshaderinc","assets/models/fish/motion/eye-ownership-107.json"])
     for check in dynamic_checks:
-        var current:=validate_dynamic_body_shader(check[0],check[1],check[2],check[3],check[4])
+        var current:=authorize_body_shader(check[0],check[1],check[2],check[3],check[4])
         assert(current.ok,str(current.get("reason","106 changed during capture")))
     for file in required:
         assert(FileAccess.file_exists("res://"+file),"Missing mandatory capture dependency: "+file)
@@ -297,6 +309,7 @@ func run():
     for file in optional:
         if FileAccess.file_exists("res://"+file):bindings[file]=FileAccess.get_sha256("res://"+file)
         else:missing_optional.append(file)
+    bindings.merge(extra_capture_bindings())
     var f=FileAccess.open(out+"/capture.validation.json",FileAccess.WRITE);f.store_string(JSON.stringify({"records":records,"files":bindings,"dynamic_body_shaders":dynamic_shaders,"missing_optional_unused_106_files":missing_optional}));f.close()
     hall.queue_free()
     await process_frame

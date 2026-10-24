@@ -48,6 +48,22 @@ def freeze(path,parameters=None):
                 simple=cv2.approxPolyDP(c,1.2,True).reshape(-1,2)
                 cv2.drawContours(boundary,[c],-1,255,max(2,round(w/600)))
                 for a,z in zip(simple,np.roll(simple,-1,axis=0)):edges.append([a[0]/w,a[1]/h,z[0]/w,z[1]/h])
+            # A basal attachment is not a free border. Explicit species source
+            # baselines exclude only those boundary segments from added ink.
+            for base in spec.get('attached_fin_baselines',{}).get(name,[]):
+                aa,bb=np.asarray(base['points'],float)*[w,h];ab=bb-aa
+                retained=[];denom=max(np.dot(ab,ab),1e-12)
+                for edge in edges:
+                    pa,pb=np.asarray(edge[:2])*[w,h],np.asarray(edge[2:])*[w,h]
+                    ta,tb=np.dot(pa-aa,ab)/denom,np.dot(pb-aa,ab)/denom
+                    if max(np.linalg.norm(pa-aa-ta*ab),np.linalg.norm(pb-aa-tb*ab))>base['tolerance_px'] or abs(tb-ta)<1e-10:
+                        retained.append(edge);continue
+                    cuts=sorted(set([0.,1.]+[float(np.clip((t-ta)/(tb-ta),0,1)) for t in [0.,1.]]))
+                    for lo,hi in zip(cuts,cuts[1:]):
+                        t=ta+(tb-ta)*(lo+hi)/2
+                        if 0<=t<=1:continue
+                        retained.append(np.r_[(pa+(pb-pa)*lo)/[w,h],(pa+(pb-pa)*hi)/[w,h]].tolist())
+                edges=retained
             assert len(edges)<=128,(name,len(edges))
             ink=image[(boundary>0)&(image[:,:,3]>240),:3]/255
             if len(ink):ink=ink[np.argsort(ink@np.array([.2126,.7152,.0722]))[max(0,int(len(ink)*.08))]].tolist()

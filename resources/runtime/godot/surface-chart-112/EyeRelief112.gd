@@ -6,6 +6,11 @@ func apply(model: Node3D,species: String)->int:
     if not data.profiles.has(species):return 0
     var p: Dictionary=data.profiles[species]
     assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale eye relief112")
+    if p.has("support_body_resource"):
+        var support:Dictionary=p.support_body_resource
+        assert(FileAccess.get_sha256(support.path)==support.sha256,"Stale current-body eye support")
+        var mouth=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-repair139.json"))
+        assert(mouth.profiles[species].body==support,"Eye cap no longer matches installed body")
     var body=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(body!=null and body.skin!=null)
     var skin=body.get_active_material(int(p.source_surface)) as ShaderMaterial
@@ -44,7 +49,12 @@ func apply(model: Node3D,species: String)->int:
         for row in cap.weights:
             for weight in row:weights.append(float(weight))
         arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_NORMAL]=normals;arrays[Mesh.ARRAY_TEX_UV]=uv
-        arrays[Mesh.ARRAY_BONES]=bones;arrays[Mesh.ARRAY_WEIGHTS]=weights;arrays[Mesh.ARRAY_INDEX]=PackedInt32Array(cap.indices)
+        arrays[Mesh.ARRAY_BONES]=bones;arrays[Mesh.ARRAY_WEIGHTS]=weights
+        if p.get("godot_clockwise",false):
+            var clockwise=PackedInt32Array()
+            for ti in range(0,cap.indices.size(),3):clockwise.append_array(PackedInt32Array([cap.indices[ti],cap.indices[ti+2],cap.indices[ti+1]]))
+            arrays[Mesh.ARRAY_INDEX]=clockwise
+        else:arrays[Mesh.ARRAY_INDEX]=PackedInt32Array(cap.indices)
         var mesh=ArrayMesh.new();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
         var material=StandardMaterial3D.new();material.albedo_texture=texture
         material.texture_filter=BaseMaterial3D.TEXTURE_FILTER_NEAREST;material.roughness=1.;material.metallic=0.;material.metallic_specular=0.;material.cull_mode=BaseMaterial3D.CULL_DISABLED

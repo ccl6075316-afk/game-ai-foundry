@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "method": "restore_caudal_source.py; source-space refinement, complete original basal retention, narrow continuous attachment transition, matching side-art UV",
+  "scope": "Only the two inspected 121 caudal planes after 137 head repair. Generated top/bottom tail drawings are excluded. Hidden thickness remains the original production inference.",
+  "species": {
+    "great_hammerhead": {
+      "baseline_model_sha256": "5216243229c37d32149effb66cfe07a938555167633ec8181786c79c43a410e9",
+      "source_edge_spacing_native": 0.006,
+      "attachment_transition_native": 0.006,
+      "complete_original_root_vertices": 86
+    },
+    "smooth_hammerhead": {
+      "baseline_model_sha256": "67dfe0a0625bd0158a69085a9e793c7414bcfc47b174d2636850a8073e79a631",
+      "source_edge_spacing_native": 0.006,
+      "attachment_transition_native": 0.006,
+      "complete_original_root_vertices": 82
+    }
+  }
+}

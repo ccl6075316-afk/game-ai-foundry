@@ -1,0 +1,698 @@
+{
+  "schema_version": 1,
+  "source_annotations": "resources/volume-fish/fin-source-143.json",
+  "profiles": {
+    "black_seabream": {
+      "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+      "source_model_sha256": "c42765e1a8c975840ab43840ca69ff72cf3b483e9a40bfb0ae288330f38285bf",
+      "source_size": [
+        1986,
+        991
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.35162428021431,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005119100418500467,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.888,
+          "root_dense_px": 2.5,
+          "grid_px": 11.916,
+          "free_clearance_native": 0.003697128080028115,
+          "minimum_outer_clearance_native": 0.00034127336123336447,
+          "spread_native": 0.025,
+          "root_inset_native": 9.953806369306462e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005119100418500467,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.888,
+          "root_dense_px": 2.5,
+          "grid_px": 11.916,
+          "free_clearance_native": 0.003697128080028115,
+          "minimum_outer_clearance_native": 0.00034127336123336447,
+          "spread_native": 0.025,
+          "root_inset_native": 9.953806369306462e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "d516e349dc56b1a960235fbb1962a0c9d2897c3a76c3f9fee294469ae742e3eb",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "red_seabream": {
+      "source_sha256": "164d0d76b301bedbe5478accdde015b8118fd63c3f9ae026784ac0caccb9f7fc",
+      "source_model_sha256": "dab123c02624009227e5cf7df6e62643e6e521b95f987ea6aeb658201f944abd",
+      "source_size": [
+        2026,
+        1054
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.301765352487564,
+      "fins": {
+        "Anal": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005964899499435343,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.208000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.004307982971814414,
+          "minimum_outer_clearance_native": 0.00039765996662902283,
+          "spread_native": 0.022309970384995065,
+          "root_inset_native": 0.00011598415693346498,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005964899499435343,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.208000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.004307982971814414,
+          "minimum_outer_clearance_native": 0.00039765996662902283,
+          "spread_native": 0.025,
+          "root_inset_native": 0.00011598415693346498,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005964899499435343,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.208000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.004307982971814414,
+          "minimum_outer_clearance_native": 0.00039765996662902283,
+          "spread_native": 0.025,
+          "root_inset_native": 0.00011598415693346498,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "b20d47390461cfa9e4fd70a1f4e29e7172a2622f6993bf33cec09ad6312ddc20",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "zander": {
+      "source_sha256": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+      "source_model_sha256": "714e9b315bbf0e9e77bf59a3cf35123b8de0c02f8c1c7f3a81bf0e5cbe697aa9",
+      "source_size": [
+        2024,
+        742
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.503448605537415,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00035753401244970355,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.192,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0025821900899145253,
+          "minimum_outer_clearance_native": 0.00023835600829980234,
+          "spread_native": 0.014387351778656125,
+          "root_inset_native": 6.952050242077568e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00035753401244970355,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.192,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0025821900899145253,
+          "minimum_outer_clearance_native": 0.00023835600829980234,
+          "spread_native": 0.014387351778656125,
+          "root_inset_native": 6.952050242077568e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00035753401244970355,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.192,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0025821900899145253,
+          "minimum_outer_clearance_native": 0.00023835600829980234,
+          "spread_native": 0.014624505928853756,
+          "root_inset_native": 6.952050242077568e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00035753401244970355,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.192,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0025821900899145253,
+          "minimum_outer_clearance_native": 0.00023835600829980234,
+          "spread_native": 0.014624505928853756,
+          "root_inset_native": 6.952050242077568e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "8f750d21641c6f348b81a4a49446e7a458f4bdf61c5821acb15ef82047ca40a3",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "grass_carp": {
+      "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+      "source_model_sha256": "c212875e6081cfaf68827da1546d81e2e1ad227271ea7b4744ae2fe981dd80d9",
+      "source_size": [
+        2010,
+        702
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.763819098472595,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00023565789381274318,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.080000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0017019736775364784,
+          "minimum_outer_clearance_native": 0.00015710526254182877,
+          "spread_native": 0.01408955223880597,
+          "root_inset_native": 4.5822368241366723e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.00023565789381274318,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.080000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0017019736775364784,
+          "minimum_outer_clearance_native": 0.00015710526254182877,
+          "spread_native": 0.01408955223880597,
+          "root_inset_native": 4.5822368241366723e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "1c54044ae7d024ddafb7f97e709d01056e4c2052f43a6ca57582ffaefbe19ec2",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "rainbow_trout": {
+      "source_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+      "source_model_sha256": "d0099d20824e8f09ae99e049b3cd1c0c696ffbb07e25a7ad5ba68f315afa6d53",
+      "source_size": [
+        1990,
+        717
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.603621780872345,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.000298199975057008,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.92,
+          "root_dense_px": 2.5,
+          "grid_px": 11.94,
+          "free_clearance_native": 0.0021536664865228353,
+          "minimum_outer_clearance_native": 0.00019879998337133864,
+          "spread_native": 0.013306532663316583,
+          "root_inset_native": 5.79833284833071e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.000298199975057008,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.92,
+          "root_dense_px": 2.5,
+          "grid_px": 11.94,
+          "free_clearance_native": 0.0021536664865228353,
+          "minimum_outer_clearance_native": 0.00019879998337133864,
+          "spread_native": 0.013306532663316583,
+          "root_inset_native": 5.79833284833071e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "9745cc7ce417cbb585328c8639cc1efe8e63e325f786892e91ec5996589fd86d",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "carp": {
+      "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+      "source_model_sha256": "12f233a8322e7c8c96b0c851aeea105707f4defda5bfe62139d8b54d67c2775f",
+      "source_size": [
+        2028,
+        1015
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.311871230602264,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005771612843300632,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.224,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0041683870534949,
+          "minimum_outer_clearance_native": 0.00038477418955337544,
+          "spread_native": 0.016646942800788954,
+          "root_inset_native": 0.00011222580528640116,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0005771612843300632,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.224,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.0041683870534949,
+          "minimum_outer_clearance_native": 0.00038477418955337544,
+          "spread_native": 0.016646942800788954,
+          "root_inset_native": 0.00011222580528640116,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "2b78fe508d8c5d31af71b9435c205df4dccdec4b3dab4f6f164ed30bbbfe73c4",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "crucian": {
+      "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+      "source_model_sha256": "9efe36e7ff532ea61a5d7daf9bf781334e3529fe3cc02c22ce323688a9c27bdc",
+      "source_size": [
+        1908,
+        1073
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.201816365122795,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0008918999204572888,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.264000000000001,
+          "root_dense_px": 2.5,
+          "grid_px": 11.448,
+          "free_clearance_native": 0.006441499425524863,
+          "minimum_outer_clearance_native": 0.0005945999469715258,
+          "spread_native": 0.014004192872117401,
+          "root_inset_native": 0.0001734249845333617,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0008918999204572888,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.264000000000001,
+          "root_dense_px": 2.5,
+          "grid_px": 11.448,
+          "free_clearance_native": 0.006441499425524863,
+          "minimum_outer_clearance_native": 0.0005945999469715258,
+          "spread_native": 0.014004192872117401,
+          "root_inset_native": 0.0001734249845333617,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0008918999204572888,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.264000000000001,
+          "root_dense_px": 2.5,
+          "grid_px": 11.448,
+          "free_clearance_native": 0.006441499425524863,
+          "minimum_outer_clearance_native": 0.0005945999469715258,
+          "spread_native": 0.017651991614255763,
+          "root_inset_native": 0.0001734249845333617,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0008918999204572888,
+          "root_band_px": 2.0,
+          "root_blend_px": 15.264000000000001,
+          "root_dense_px": 2.5,
+          "grid_px": 11.448,
+          "free_clearance_native": 0.006441499425524863,
+          "minimum_outer_clearance_native": 0.0005945999469715258,
+          "spread_native": 0.017651991614255763,
+          "root_inset_native": 0.0001734249845333617,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "cddef364131a81c9cda2ad07caaa0ab44f240734d994bd659c2923f28cfe712a",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "bluegill": {
+      "source_sha256": "bfba9d8f51fa664de911d3396cc8aa48c6a0e0654a23ea41ae6b71c8e9cfea77",
+      "source_model_sha256": "8b27002aad23d69e690832ab060295b30d62b7d0a6a5f11a831d33fe07a79abb",
+      "source_size": [
+        1477,
+        868
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.192696034908295,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0009341136681180954,
+          "root_band_px": 2.0,
+          "root_blend_px": 11.816,
+          "root_dense_px": 2.5,
+          "grid_px": 8.862,
+          "free_clearance_native": 0.006746376491964022,
+          "minimum_outer_clearance_native": 0.0006227424454120636,
+          "spread_native": 0.015057549085985104,
+          "root_inset_native": 0.00018163321324518518,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0009341136681180954,
+          "root_band_px": 2.0,
+          "root_blend_px": 11.816,
+          "root_dense_px": 2.5,
+          "grid_px": 8.862,
+          "free_clearance_native": 0.006746376491964022,
+          "minimum_outer_clearance_native": 0.0006227424454120636,
+          "spread_native": 0.015057549085985104,
+          "root_inset_native": 0.00018163321324518518,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0009341136681180954,
+          "root_band_px": 2.0,
+          "root_blend_px": 11.816,
+          "root_dense_px": 2.5,
+          "grid_px": 8.862,
+          "free_clearance_native": 0.006746376491964022,
+          "minimum_outer_clearance_native": 0.0006227424454120636,
+          "spread_native": 0.016086662153012864,
+          "root_inset_native": 0.00018163321324518518,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0009341136681180954,
+          "root_band_px": 2.0,
+          "root_blend_px": 11.816,
+          "root_dense_px": 2.5,
+          "grid_px": 8.862,
+          "free_clearance_native": 0.006746376491964022,
+          "minimum_outer_clearance_native": 0.0006227424454120636,
+          "spread_native": 0.016086662153012864,
+          "root_inset_native": 0.00018163321324518518,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "e4abefa279fd3e1079545c1acbd871e83a42d6494d4133c8af8d558f5a797b17",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    },
+    "peacock_bass": {
+      "source_sha256": "5d391b474bb8e762ed8a2557ecdcc770d047478c4131e274c5ee551707a878b3",
+      "source_model_sha256": "8316f225d9b28588acb716c590882827d169a1619ac5738d79dcbd7a8f560fee",
+      "source_size": [
+        1817,
+        805
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.502622961997986,
+      "fins": {
+        "Anal": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0003581213227594669,
+          "root_band_px": 2.0,
+          "root_blend_px": 14.536,
+          "root_dense_px": 2.5,
+          "grid_px": 10.902000000000001,
+          "free_clearance_native": 0.0025864317754850387,
+          "minimum_outer_clearance_native": 0.0002387475485063113,
+          "spread_native": 0.022498624105668684,
+          "root_inset_native": 6.963470164767412e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0003581213227594669,
+          "root_band_px": 2.0,
+          "root_blend_px": 14.536,
+          "root_dense_px": 2.5,
+          "grid_px": 10.902000000000001,
+          "free_clearance_native": 0.0025864317754850387,
+          "minimum_outer_clearance_native": 0.0002387475485063113,
+          "spread_native": 0.04,
+          "root_inset_native": 6.963470164767412e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates. Preserve same-species original source-UV multi-bone weighting through the new free contour, instead of assigning full generic fin-bone influence; maximum-range collision blocked the generic mapping. v9 inferred rest spread and35percent fin flex blended with local body weighting; source outline/UV unchanged; same original control limits.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true,
+          "fin_weight_mode": "source_uv_interpolation",
+          "fin_influence_scale": 0.35
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0003581213227594669,
+          "root_band_px": 2.0,
+          "root_blend_px": 14.536,
+          "root_dense_px": 2.5,
+          "grid_px": 10.902000000000001,
+          "free_clearance_native": 0.0025864317754850387,
+          "minimum_outer_clearance_native": 0.0002387475485063113,
+          "spread_native": 0.04,
+          "root_inset_native": 6.963470164767412e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates. Preserve same-species original source-UV multi-bone weighting through the new free contour, instead of assigning full generic fin-bone influence; maximum-range collision blocked the generic mapping. v9 inferred rest spread and35percent fin flex blended with local body weighting; source outline/UV unchanged; same original control limits.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true,
+          "fin_weight_mode": "source_uv_interpolation",
+          "fin_influence_scale": 0.35
+        },
+        "Pelvic_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0003581213227594669,
+          "root_band_px": 2.0,
+          "root_blend_px": 14.536,
+          "root_dense_px": 2.5,
+          "grid_px": 10.902000000000001,
+          "free_clearance_native": 0.0025864317754850387,
+          "minimum_outer_clearance_native": 0.0002387475485063113,
+          "spread_native": 0.01778756191524491,
+          "root_inset_native": 6.963470164767412e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pelvic_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.0003581213227594669,
+          "root_band_px": 2.0,
+          "root_blend_px": 14.536,
+          "root_dense_px": 2.5,
+          "grid_px": 10.902000000000001,
+          "free_clearance_native": 0.0025864317754850387,
+          "minimum_outer_clearance_native": 0.0002387475485063113,
+          "spread_native": 0.01778756191524491,
+          "root_inset_native": 6.963470164767412e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "c2faa07c6817d1219ee73b88dcce62e6aae3e7adf650521d517e677712a6a910",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873",
+      "contact_only_adjustments": {
+        "Dorsal_soft": {
+          "uniform_native_y_direction": "outward dorsal",
+          "uniform_lift_mm": 0.15,
+          "preserve": [
+            "complete_original_basal_selection",
+            "native_texture",
+            "uv",
+            "normals",
+            "skin_weights",
+            "triangles"
+          ],
+          "shape_scope": "Original design translated less than one source pixel; not rebuilt."
+        }
+      }
+    },
+    "arapaima": {
+      "source_sha256": "3255e62f66dc9644a84e6eb570bd5af8bc9a2f03ddd08ade795b13c35a4d56e7",
+      "source_model_sha256": "9d6d24c81dbe7318451c83cfc8378f4aa66cb8c16a81c2b56f22b0289af08319",
+      "source_size": [
+        1745,
+        396
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 2.01742362976074,
+      "fins": {
+        "Anal": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 8.922270828231918e-05,
+          "root_band_px": 2.0,
+          "root_blend_px": 13.96,
+          "root_dense_px": 1.5,
+          "grid_px": 10.0,
+          "free_clearance_native": 0.0006443862264834163,
+          "minimum_outer_clearance_native": 0.00017348859943784286,
+          "spread_native": 0.021684813753581663,
+          "root_inset_native": 1.7348859943784283e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Caudal": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 8.922270828231918e-05,
+          "root_band_px": 2.0,
+          "root_blend_px": 13.96,
+          "root_dense_px": 1.5,
+          "grid_px": 10.0,
+          "free_clearance_native": 0.0006443862264834163,
+          "minimum_outer_clearance_native": 0.00017348859943784286,
+          "spread_native": 0.019025787965616044,
+          "root_inset_native": -7.435225690193264e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true,
+          "tail_uniform_transport_native": -0.0315,
+          "root_project_normal_only": true
+        },
+        "Dorsal": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 8.922270828231918e-05,
+          "root_band_px": 2.0,
+          "root_blend_px": 13.96,
+          "root_dense_px": 1.5,
+          "grid_px": 10.0,
+          "free_clearance_native": 0.0006443862264834163,
+          "minimum_outer_clearance_native": 0.00017348859943784286,
+          "spread_native": 0.02251002865329513,
+          "root_inset_native": 1.7348859943784283e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "390603f68323db6a6fce5ed4a8574d98f43d27c8a08b6d6922ab0275682e8577",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873",
+      "contact_only_adjustments": {
+        "targets": [
+          "Pectoral_left",
+          "Pectoral_right",
+          "Pelvic_left",
+          "Pelvic_right"
+        ],
+        "conforming_edge_mm": 3.0,
+        "root_surface_offset_mm": 0.04,
+        "free_clearance_mm": [
+          0.24,
+          1.74
+        ],
+        "preserve": [
+          "source_xy_design",
+          "native_texture",
+          "uv"
+        ],
+        "shape_unknown": "Tiny pelvic source shape remains uncertain."
+      }
+    },
+    "yellow_croaker": {
+      "source_sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+      "source_model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+      "source_size": [
+        2014,
+        727
+      ],
+      "pixel_mapping": {},
+      "model_scale_m_per_native": 0.605317950248718,
+      "fins": {
+        "Pectoral_left": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.000297364384991458,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.112000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.002147631669382752,
+          "minimum_outer_clearance_native": 0.00019824292332763866,
+          "spread_native": 0.017000993048659385,
+          "root_inset_native": 5.782085263722794e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        },
+        "Pectoral_right": {
+          "geometry_only_padding_px": 1,
+          "thickness_native": 0.000297364384991458,
+          "root_band_px": 2.0,
+          "root_blend_px": 16.112000000000002,
+          "root_dense_px": 2.5,
+          "grid_px": 12.0,
+          "free_clearance_native": 0.002147631669382752,
+          "minimum_outer_clearance_native": 0.00019824292332763866,
+          "spread_native": 0.017000993048659385,
+          "root_inset_native": 5.782085263722794e-05,
+          "parameter_basis": "Native source-specific outline/basal line. Finite shell0.18mm and initial free clearance1.3mm in displayed metres; density set in native source pixels. Unseen spread is explicitly production inference, subject to unchanged physical gates.",
+          "finite_tangent_collar": true,
+          "transport_median_relative_to_base": true
+        }
+      },
+      "configured_rest_export_sha256": "4db905f7279ad2ba8f70f2524d0718978e5d1dff553fab07447fbf505c5accab",
+      "source_annotations_sha256": "2696ba4f77e2f40bdeecafc81548888ac931c5aac93398f1d9dee215b5585873"
+    }
+  },
+  "status_source": "projects/fishing-2d/experiments/blender-fish/fin-rollout-143/completion143.validation.json",
+  "scope": "Reusable same-source species parameter records for the143 final candidates. Existence does not grant acceptance; read current validation. Parameters depend on exact source, body, rig and actual display scale. No cross-species shape/weight acceptance inferred."
+}

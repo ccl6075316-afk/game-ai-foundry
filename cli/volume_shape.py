@@ -78,6 +78,21 @@ def root_attachment_gain(t,root_band,blend_end):
     return 1-t*t*(3-2*t)
 
 
+def validate_simple_fin_polygon(points):
+    """Reject crossing/touching nonadjacent source edges before triangulation."""
+    def cross(a,b,c):return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+    def on(a,b,p):return abs(cross(a,b,p))<=1e-12 and min(a[0],b[0])-1e-12<=p[0]<=max(a[0],b[0])+1e-12 and min(a[1],b[1])-1e-12<=p[1]<=max(a[1],b[1])+1e-12
+    n=len(points)
+    for i in range(n):
+        a,b=points[i],points[(i+1)%n]
+        if math.dist(a,b)<=1e-10:raise ValueError('Degenerate source fin edge')
+        for j in range(i+1,n):
+            if j==i+1 or (i==0 and j==n-1):continue
+            c,d=points[j],points[(j+1)%n];x,y,z,w=cross(a,b,c),cross(a,b,d),cross(c,d,a),cross(c,d,b)
+            if (x*y<0 and z*w<0)or on(a,b,c)or on(a,b,d)or on(c,d,a)or on(c,d,b):
+                raise ValueError(f'Source fin polygon self-intersects at edges {i}/{j}')
+
+
 def validate_fin_baseline(points):
     if not isinstance(points,list) or not 2<=len(points)<=128:
         raise ValueError('source_baseline requires 2–128 source-coordinate points')

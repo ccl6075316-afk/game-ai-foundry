@@ -5,7 +5,7 @@ The approved source pixels remain unchanged. No vendor/API calls or executable p
 import sys, json, math, hashlib, struct, traceback, array
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "cli"))
-from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain,root_attachment_inset,validate_fin_baseline,fin_baseline_parameter
+from volume_shape import validate_revision, revision_source, width_scale, vertical_position, validate_root_attachment, root_attachment_gain,root_attachment_inset,validate_fin_baseline,fin_baseline_parameter,validate_simple_fin_polygon
 from volume_mouth import validate_oral_jaws,validate_oral_context
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from oral_jaws import build_closed_oral_jaws
@@ -76,7 +76,8 @@ def head_vertical_offset(cap,u):
     return rows[-1][1]
 def uvpoint(p): return isinstance(p,list) and len(p)==2 and all(number(v,0,1) for v in p)
 def validate_profile(p):
-    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rest_shape_revision rig fins eyes barbels animation notes oral_jaws','profile')
+    keys(p,'schema_version species display_name coordinate_space source_aspect_ratio profile_review_status real_length_cm style body body_uv_patches head_projection dorsal_projection ventral_projection cephalofoil rest_shape_revision rig fins eyes barbels animation notes oral_jaws native_fin_cutouts','profile')
+    require(type(p.get('native_fin_cutouts',False))is bool,'native_fin_cutouts must be boolean')
     if 'oral_jaws' in p:
         validate_oral_jaws(p['oral_jaws'])
         require(not p.get('rest_shape_revision') and not p.get('cephalofoil') and (not p.get('head_projection') or p['head_projection'].get('continuous_atlas')),'Oral cleft requires longitudinal build and a continuous atlas when using multiple skin sources')
@@ -142,6 +143,7 @@ def validate_profile(p):
         require(number(f.get('vertical_scale',1),0,1) and isinstance(f.get('opaque',False),bool),'Invalid fin geometry options')
         require(isinstance(f['name'],str) and f['name'] and len(f['name'])<80,'Invalid fin name')
         require(3<=len(f['polygon'])<=128 and all(uvpoint(v) for v in f['polygon']) and uvpoint(f['anchor']) and uvpoint(f['tip']),'Invalid fin landmarks')
+        if p.get('native_fin_cutouts'):validate_simple_fin_polygon(f['polygon'])
         require(isinstance(f['paired'],bool) and number(f['root_depth'],0,.3) and number(f['tip_depth'],0,.5) and number(f['thickness'],.0001,.02),'Invalid fin depth')
         require(number(f['amplitude'],0,.5) and number(f['phase'],-20,20),'Invalid fin movement')
         require(len(f['axis'])==3 and all(number(v,-1,1) for v in f['axis']) and Vector(f['axis']).length>.1,'Invalid fin axis')
@@ -204,6 +206,7 @@ def export_native(outputs,rig,meshes):
 
 
 def build(h,p,source,outputs):
+    native_side_path=Path(source)
     bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
     image=bpy.data.images.load(str(source),check_existing=False);image.pack();W,H=image.size[:];aspect=H/W
     require(16<=W<=8192 and 16<=H<=8192 and W*H<=32000000,'Source image dimensions out of range')
@@ -329,9 +332,9 @@ def build(h,p,source,outputs):
         # across the rounded leading edge of the solid cephalofoil.
         t=.08+.84*t
         return ((left+(right-left)*t+.5)/sw,(sy+.5)/sh)
-    def mesh(name,verts,faces,uvs,ws,thickness=0,opaque=False,source_parameters=None):
+    def mesh(name,verts,faces,uvs,ws,thickness=0,opaque=False,source_parameters=None,own_material=None):
         nonlocal front_face_count,surface_face_counts
-        data=bpy.data.meshes.new(name);data.from_pydata(verts,[],faces);data.update();obj=bpy.data.objects.new(name,data);scene.collection.objects.link(obj);data.materials.append(finmat if thickness and not opaque else mat)
+        data=bpy.data.meshes.new(name);data.from_pydata(verts,[],faces);data.update();obj=bpy.data.objects.new(name,data);scene.collection.objects.link(obj);data.materials.append(own_material or (finmat if thickness and not opaque else mat))
         layer=data.uv_layers.new(name='NativeSourceUV')
         for poly in data.polygons:
             poly.use_smooth=True
@@ -570,9 +573,29 @@ def build(h,p,source,outputs):
         if (tip-anchor).length<.001:b.tail.z+=.005
         parent=max(weights(anchor.x+.5),key=weights(anchor.x+.5).get);b.parent=arm.edit_bones[parent];bpy.ops.object.mode_set(mode='OBJECT')
         fin_motion.append((name,Vector(axis),amplitude,phase));return name
-    attachment_metrics={}
+    attachment_metrics={};cutout_metrics={}
     for f in p['fins']:
         polygon,points=fin_source_geometry(f,aspect)
+        own_material=None;cutout_box=None
+        if p.get('native_fin_cutouts'):
+            # Crop at original pixel density; retain native source RGB/alpha
+            # inside the independently authored fin polygon, zero alpha outside.
+            left=max(0,math.floor(min(v[0] for v in polygon)*W)-2);right=min(W,math.ceil(max(v[0] for v in polygon)*W)+2)
+            top=max(0,math.floor(min(v[1] for v in polygon)*H)-2);bottom=min(H,math.ceil(max(v[1] for v in polygon)*H)+2)
+            cw,ch=right-left,bottom-top;cp=array.array('f',[0])*(cw*ch*4);count=0
+            for y in range(ch):
+                sy=H-bottom+y
+                for x in range(cw):
+                    sx=left+x;src=(sy*W+sx)*4;dst=(y*cw+x)*4
+                    cp[dst:dst+4]=pixels[src:src+4]
+                    if not inside([(sx+.5)/W,1-(sy+.5)/H],polygon):cp[dst+3]=0
+                    elif cp[dst+3]>.9:count+=1
+            require(count>0,'Empty independently authored fin cutout: '+f['name'])
+            cut=bpy.data.images.new(f['name']+' native source cutout',width=cw,height=ch,alpha=True);cut.colorspace_settings.name=image.colorspace_settings.name;cut.pixels.foreach_set(cp)
+            cut.filepath_raw=str(Path(outputs['blend']).parent/(f['name']+'-native-cutout.png'));cut.file_format='PNG';cut.save();cut.pack()
+            own_material=finmat.copy();own_material.name=f['name']+' native independent pixel cutout';next(n for n in own_material.node_tree.nodes if n.type=='TEX_IMAGE').image=cut
+            cutout_box=(left,H-bottom,cw,ch)
+            cutout_metrics[f['name']]={'path':cut.filepath_raw,'sha256':sha(cut.filepath_raw),'original_source_size':[W,H],'native_crop_top_left':[left,top,right,bottom],'opaque_pixels':count,'resampled':False,'source_sha256':sha(native_side_path)}
         xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
         dv,de,df,*_=delaunay_2d_cdt(points,[(i,(i+1)%len(polygon)) for i in range(len(polygon))],[list(range(len(polygon)))],1,1e-7)
         require(bool(df),'Fin polygon cannot be triangulated: '+f['name'])
@@ -636,7 +659,9 @@ def build(h,p,source,outputs):
                 else:uvs.append((v.x,1-v.y))
                 fin_weight=t*(1-root_attachment_gain(t,attachment['root_band'],attachment['blend_end'])) if attachment else t
                 w={n:w*(1-fin_weight) for n,w in weights(vs[-1].x+.5 if attachment else v.x).items()};w[bn]=fin_weight;wts.append(w)
-            mesh(name,vs,df,uvs,wts,f['thickness'],f.get('opaque',False),source_parameters if attachment else None)
+            if cutout_box:
+                left,base,cw,ch=cutout_box;uvs=[((u*W-left)/cw,(v*H-base)/ch)for u,v in uvs]
+            mesh(name,vs,df,uvs,wts,f['thickness'],f.get('opaque',False),source_parameters if attachment else None,own_material)
             if attachment:attachment_metrics[name]={'root_attachment':attachment,'root_bone_anchor':list(anchor),'distal_tip':list(tip),'body_weighted_root':True}
     if p['eyes']:
         e=p['eyes'];u,v=e['center']
@@ -684,7 +709,7 @@ def build(h,p,source,outputs):
     glb=binary_inspect(outputs['glb']);tracks=glb['animation_tracks']
     surface_sources_ok=all(source.packed_file is not None and surface_face_counts[label]>0 for label,source in surface_images.items())
     checks={'closed_mesh':all(closure.values()),'normalized_weights':bad_weights==0,'finite_glb':glb['nonfinite_components']==0,'animation_loop':bool(tracks) and all(t['seam_delta']<1e-6 for t in tracks) and any(t['max_change']>1e-5 for t in tracks),'root_motion':rig.location.length==0 and rig.rotation_euler.x==0 and rig.rotation_euler.y==0 and rig.rotation_euler.z==0,'texture_original_resolution':tuple(image.size)==(W,H) and image.packed_file is not None and glb['images_embedded'] and (front_image is None or (front_image.packed_file is not None and tuple(front_image.size)==(FW,FH) and front_face_count>0)) and surface_sources_ok,'texture_nearest':glb['nearest'],'roughness_contract':glb['roughness']}
-    return checks,{'oral_jaws':oral_metrics,'root_attachments':attachment_metrics,'source_size':[W,H],'source_packed':image.packed_file is not None,'continuous_head_atlas':continuous_atlas_metrics,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
+    return checks,{'oral_jaws':oral_metrics,'root_attachments':attachment_metrics,'native_fin_cutouts':cutout_metrics,'source_size':[W,H],'source_packed':image.packed_file is not None,'continuous_head_atlas':continuous_atlas_metrics,'body_uv_edge_repairs':uv_edge_repairs,'front_source_size':list(front_image.size) if front_image else None,'front_projected_faces':front_face_count,'surface_source_sizes':{label:list(source.size) for label,source in surface_images.items()},'surface_projected_faces':surface_face_counts,'bones':len(arm.bones),'vertices':sum(len(o.data.vertices) for o in meshes),'closed_meshes':closure,'unnormalized_weights':bad_weights,'glb':glb,'source_loop_seconds':frames/scene.render.fps}
 
 
 def revise_native(h,p,source,outputs):

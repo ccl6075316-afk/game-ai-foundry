@@ -112,8 +112,9 @@ def point(value: Any, length: int, low: float, high: float, label: str) -> None:
 
 def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     fields = {"schema_version", "species", "display_name", "coordinate_space", "source_aspect_ratio",
-              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws"}
-    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws"}, "profile")
+              "profile_review_status", "body", "rig", "fins", "eyes", "barbels", "animation", "notes", "style", "real_length_cm", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws", "native_fin_cutouts"}
+    keys(data, fields, fields - {"eyes", "barbels", "notes", "body_uv_patches", "head_projection", "dorsal_projection", "ventral_projection", "cephalofoil", "rest_shape_revision", "oral_jaws", "native_fin_cutouts"}, "profile")
+    require(type(data.get('native_fin_cutouts',False))is bool,'native_fin_cutouts must be boolean')
     if 'oral_jaws' in data:
         from volume_mouth import validate_oral_jaws
         try:validate_oral_jaws(data['oral_jaws'])
@@ -261,6 +262,10 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
         require(isinstance(fin["polygon"], list) and 3 <= len(fin["polygon"]) <= 128, "Fin needs 3–128 polygon points")
         for p in fin["polygon"] + [fin["anchor"], fin["tip"]]:
             point(p, 2, 0, 1, "fin point")
+        if data.get('native_fin_cutouts'):
+            from volume_shape import validate_simple_fin_polygon
+            try:validate_simple_fin_polygon(fin['polygon'])
+            except ValueError as exc:raise VolumeError(fin['name']+': '+str(exc)) from exc
         require(type(fin["paired"]) is bool, "paired must be boolean")
         for key, low, high in (("root_depth", 0, .3), ("tip_depth", 0, .5), ("thickness", .0001, .02), ("amplitude", 0, .5), ("phase", -20, 20)):
             number(fin[key], low, high, key)
@@ -735,6 +740,22 @@ def validate_volume(handoff_path: Path, *, require_run: bool = False, check_visu
             with Image.open(skin_path) as derived:
                 require(derived.size==(data['front_source']['width'],data['front_source']['height']),'Frontal skin must retain donor canvas resolution')
             derived_sources+=(skin_path,)
+    if profile_data.get('native_fin_cutouts'):
+        cutouts=report.get('metrics',{}).get('native_fin_cutouts',{})
+        require(set(cutouts)=={f['name']for f in profile_data['fins']},'Native cutout inventory incomplete')
+        original=Image.open(data['source_image']).convert('RGBA')
+        from PIL import ImageChops
+        for name,row in cutouts.items():
+            path=Path(data['outputs']['blend']).parent/(name+'-native-cutout.png')
+            require(row.get('path')==str(path)and path.is_file()and row.get('sha256')==sha(path),'Stale native fin cutout')
+            box=row.get('native_crop_top_left',[])
+            require(len(box)==4 and all(type(v)is int for v in box)and 0<=box[0]<box[2]<=original.width and 0<=box[1]<box[3]<=original.height,'Invalid native fin crop')
+            cut=Image.open(path).convert('RGBA');crop=original.crop(box)
+            require(cut.size==crop.size and row.get('resampled')is False and row.get('source_sha256')==data['source']['sha256'],'Native cutout scale/source mismatch')
+            require(ImageChops.difference(cut.convert('RGB'),crop.convert('RGB')).getbbox()is None,'Native fin RGB changed')
+            require(all(a==0 or a==b for a,b in zip(cut.getchannel('A').tobytes(),crop.getchannel('A').tobytes())),'Native fin alpha generated/resampled')
+            require(cut.getchannel('A').getextrema()[1]>0,'Empty native fin cutout')
+            derived_sources+=(path,)
     checks = glb_checks(glb, Path(data["source_image"]), Path(data["front_source_image"]) if data.get("front_source_image") else None,
                         tuple(Path(data[f"{label}_source_image"]) for label in ("top", "bottom") if data.get(f"{label}_source_image")), derived_sources)
     require(report.get("style_visual_review", "pending") == "pending", "Builder cannot automatically approve visual style")

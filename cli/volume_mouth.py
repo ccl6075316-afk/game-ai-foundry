@@ -6,7 +6,7 @@ width native units. This is a production simplification, not a skeletal simulato
 import math
 
 FIELDS={'corner','front','gap','upper_retraction','lower_projection','lip_bevel','front_pigment_band'}
-OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation'}
+OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation','bill_tip_u'}
 
 def validate_oral_jaws(data):
     def require(value,message):
@@ -18,6 +18,10 @@ def validate_oral_jaws(data):
         point=data[name]
         require(isinstance(point,list) and len(point)==2 and all(finite(x,0,1) for x in point),'Invalid oral '+name)
     require(data['front'][0]-data['corner'][0]>=.03,'Oral front must be at least 0.03 source width anterior to corner')
+    if 'bill_tip_u' in data:
+        require(finite(data['bill_tip_u'],data['front'][0]+.05,1),'Billed fish needs a distinct anterior bill tip')
+        require(not data.get('separate_lower') and not data.get('articulation'),'Finite billed cleft currently supports static joined jaws only')
+        require(data['upper_retraction']==0 and data['lower_projection']==0,'Billed cleft must preserve source bill and jaw positions')
     for name,lo,hi in [('gap',.0002,.005),('upper_retraction',0,.025),('lower_projection',0,.025),('lip_bevel',0,.003)]:
         require(finite(data[name],lo,hi),'Invalid oral '+name)
     band=data['front_pigment_band']
@@ -79,7 +83,8 @@ def validate_oral_context(data,body,spine):
     validate_oral_jaws(data)
     if spine[0][0]<=spine[-1][0]:raise ValueError('Oral cleft prototype currently requires head-right source orientation')
     rows=body['sections']
-    if not rows[0][0]<data['corner'][0]<data['front'][0] or abs(data['front'][0]-rows[-1][0])>.025:
+    tip=data.get('bill_tip_u',data['front'][0])
+    if not rows[0][0]<data['corner'][0]<data['front'][0] or abs(tip-rows[-1][0])>.025:
         raise ValueError('Oral landmarks must lie in anterior body and reach its tip')
     for u,v in data.get('slit_path',[data['corner'],data['front']]):
         row=rows[-1]
@@ -108,6 +113,7 @@ def slit_v(data,u):
     return a[1]+(b[1]-a[1])*(u-a[0])/(b[0]-a[0])
 
 def jaw_shift(data,u,v):
+    if 'bill_tip_u'in data and u>data['front'][0]:return 0.
     a,b=data['corner'][0],data['front'][0]
     t=max(0.,min(1.,(u-(a+.28*(b-a)))/(.72*(b-a))))
     if data.get('slit_path'):

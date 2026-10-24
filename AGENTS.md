@@ -9,6 +9,8 @@
 3. 按 `context → validate → init → run → status → resume` 调用，全部加 `--json`。
 4. 只把 `manifest`、`progress`、`handoff`、`assets-manifest`、`validation report` 当作状态。
 
+鱼类3D新建、返修和批量推广，先读[完整生产SOP](resources/skills/fish-volume-production/references/production-sop.md)：准备材料与生图用途、各部位制作、动作、最终对照和证据按同一流程执行。每次修正回写通用方法、本鱼参数、本次证据；交付前运行 `volume sop-check --review <逐鱼清单> --output <报告> --json`，不能用清单通过替代实际看图或专项验证。清单用 `volume sop-init` 建立，字段与操作见SOP第9节。
+
 ## 最小命令
 
 ```bash

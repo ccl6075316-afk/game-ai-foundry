@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "User accepted Atlantic sailfish eye148 in the actual game on2026-10-25. Reuse the shallow current-body method, not species dimensions. Height remains an art choice. Historical trial reports retain their original hashes; later acceptance is recorded separately.",
+  "species": {
+    "atlantic_sailfish": {
+      "enabled": true,
+      "model_sha256": "8b857c3800403d122bdcadbc825e093945eabdc5ddd7125d9c69361abcefb4b8",
+      "source_size": [
+        1989,
+        1061
+      ],
+      "center_uv": [
+        0.7526395173453997,
+        0.5749293119698398
+      ],
+      "radius_uv": [
+        0.01256913021618904,
+        0.0235626767200754
+      ],
+      "native_xy": {
+        "center": [
+          0.2526395173453997,
+          -0.03996983408748114
+        ],
+        "radius": [
+          0.01256913021618904,
+          0.01256913021618904
+        ]
+      },
+      "height_over_radius": 0.22,
+      "footprint": 1.12,
+      "rings": 12,
+      "sectors": 64,
+      "native_surface": {
+        "path": "projects/pelagic-fish-147/body.bound.json",
+        "sha256": "9a76d71a95b7cbc6bfe22c7b41856b4fb057b79f48082f4fb82fe5aaa1448467"
+      }
+    }
+  },
+  "acceptance_record": "projects/fishing-2d/plans/reviews/fish-production-136-148/acceptance148.json"
+}

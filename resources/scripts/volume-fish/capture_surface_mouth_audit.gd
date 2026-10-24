@@ -57,7 +57,8 @@ func camera(entry:Dictionary,r:Dictionary,close:bool,yaw:float,pitch:float):
 func unlit(material:Material)->Material:
     var copy:Material=material.duplicate()
     if copy is ShaderMaterial:
-        var key:String=material.shader.resource_path
+        assert(material.shader!=null,"Missing shader in reviewed material")
+        var key:String=material.shader.code.sha256_text()
         if not shaders.has(key):
             var shader=Shader.new();var code:String=material.shader.code
             if code.contains("render_mode"):code=code.replace("render_mode","render_mode unshaded,")

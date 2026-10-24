@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "species": "atlantic_sailfish",
+  "real_length_cm": 240.0,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07",
+    "body_08",
+    "body_09"
+  ],
+  "tank_size_m": [
+    38.4,
+    28.799999999999997,
+    33.6
+  ],
+  "path_radii_m": [
+    4.8,
+    2.88
+  ],
+  "vertical_amplitude_m": 1.44,
+  "envelope_radius_m": 7.68,
+  "period_seconds": 14.0,
+  "transition_seconds": 1.0,
+  "body_delay_seconds": 0.55,
+  "base_body_gain": 0.65,
+  "body_wave_radians": 0.045,
+  "body_wave_cycles": 0.72,
+  "bend_bias": 1.3,
+  "paired_fin_radians": 0.06,
+  "median_fin_radians": 0.024,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.06,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.8,
+      "bend_radians": 0.2,
+      "vertical_sign": 0,
+      "clip_speed": 1.05
+    },
+    "Ascend": {
+      "radius_scale": 0.95,
+      "bend_radians": 0.08,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.95,
+      "bend_radians": 0.08,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "145 new species own rig/fin shape and conservative illustrative BCF exhibit motion. Not species-measured biomechanics.",
+    "Body and fins retain independent amplitude/frequency controls and full2.5/3.0 presentation ranges; formal177/490 gates remain mandatory."
+  ]
+}

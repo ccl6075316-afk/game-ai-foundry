@@ -1,0 +1,16 @@
+{
+  "revision": 1,
+  "scope": "Two user-rejected hammerhead tail/peduncle assemblies. Supersedes source-plane-only repair as a delivery criterion.",
+  "species": {
+    "great_hammerhead": {"free_tail_scale": 0.9, "collar_native": 0.035, "normal_join_native": 0.012, "clearance_offsets": {"Pelvic_left": [0, 0, 0.000025]}},
+    "smooth_hammerhead": {"free_tail_scale": 0.9, "collar_native": 0.035, "normal_join_native": 0.012}
+  },
+  "authority": "User explicitly permits a smaller whole caudal fin to fit the peduncle. Scale is an art-direction choice, not a biological measurement.",
+  "section": "Interpolate each model's actual terminal body polygon; retain every original basal vertex and root XY. Hidden thickness is a bounded construction inference.",
+  "source": "Accepted species-specific side artwork and original nearest UV remain unchanged. Generated top/bottom tail silhouette is not an anatomy reference.",
+  "required_visual_scope": "Whole fish proportion plus complete peduncle/caudal junction in side, opposite, top, bottom, rear and oblique clay/albedo/textured views; native animation, four actions and transitions.",
+  "research": [
+    "https://biogeodb.stri.si.edu/sftep/en/thefishes/species/118",
+    "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/great-hammerhead/"
+  ]
+}

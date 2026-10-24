@@ -16,7 +16,10 @@ func apply(model:Node3D,species:String)->int:
             var base:String=original.shader.code;var assignment="ALBEDO=chart112_color(color.rgb);" if base.contains("chart112_color") else "ALBEDO=color.rgb;"
             assert(base.count(assignment)==1 and base.count("void vertex()")==1)
             var code=base.replace("void vertex()",template+"\nvoid vertex()")
-            code=code.insert(code.find("{",code.find("void vertex()"))+1,"front112_rest=VERTEX;front112_normal=NORMAL;")
+            if target.get("immutable_rest114",false):
+                var marker="// rest114_vertex_end";assert(code.count(marker)==1,"Immutable front colour requires an already bound114 surface")
+                code=code.replace(marker,marker+"\nfront112_rest=rest114_position;front112_normal=rest114_normal;")
+            else:code=code.insert(code.find("{",code.find("void vertex()"))+1,"front112_rest=VERTEX;front112_normal=NORMAL;")
             code=code.replace(assignment,"ALBEDO=front112_color("+("chart112_color(color.rgb)" if base.contains("chart112_color") else "color.rgb")+");")
             var material=original.duplicate() as ShaderMaterial;var shader=Shader.new();shader.code=code;material.shader=shader
             material.set_shader_parameter("front112_source",source);material.set_shader_parameter("front112_source_size",Vector2(source.get_size()))

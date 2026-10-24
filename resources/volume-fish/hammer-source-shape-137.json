@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "species": "scalloped_hammerhead",
+      "label": "路氏双髻鲨",
+      "model": "projects/fishing-2d/experiments/blender-fish/hammer-shape-137/baseline/scalloped_hammerhead.glb",
+      "model_sha256": "8ab1cb43472c46c967bc143c6f6e4b112832e72692e80e65cec0011be3efa03a",
+      "top_source": "projects/fishing-2d/experiments/blender-fish/models/scalloped_hammerhead/051-source-inputs/hammerhead-top-050r2/output/char_hammerhead_top050r2_nobg.png",
+      "source_sha256": "d4740b2848277916220adefb6ebbc2471166810f298bbbf22a61fc4ce0a423d9",
+      "head_roi_min_x": 0.85
+    },
+    {
+      "species": "great_hammerhead",
+      "label": "大双髻鲨",
+      "model": "projects/fishing-2d/experiments/blender-fish/hammer-shape-137/baseline/great_hammerhead.glb",
+      "model_sha256": "b17998c131f8747f10b4c7e8a4e6081086c536c9fb067845440a3c21a41f2aef",
+      "top_source": "projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/char_great_hammerhead_top121_nobg.png",
+      "source_sha256": "56161111be976ef2aa872e37846ac12dd8b1578d061abc6e82d94e5f12a1d250",
+      "head_roi_min_x": 0.85
+    },
+    {
+      "species": "smooth_hammerhead",
+      "label": "无沟双髻鲨",
+      "model": "projects/fishing-2d/experiments/blender-fish/hammer-shape-137/baseline/smooth_hammerhead.glb",
+      "model_sha256": "a3b3768cff04f287f947d77d5f9c5fc11466dfb2462e215deaa535d7ec9f2ed9",
+      "top_source": "projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/smooth_hammerhead/inputs/char_smooth_hammerhead_top121_nobg.png",
+      "source_sha256": "9e33c51a1840bcd2491d03749a7fe8b6fff9dbcbb7ac2539980f16a42a35f27b",
+      "head_roi_min_x": 0.85
+    }
+  ],
+  "user_request": "Match the cephalofoil front/rear/tip silhouette, independent of whole-body proportion. Preserve accepted source provenance; head width unchanged.",
+  "method": "Cephalofoil silhouette fit to accepted top source; isotropic same-head-width transform, bilateral mean, 97 lateral sections, source neck collar and hidden root height inference. Separate rigid eyes, original ventral mouth UV retained."
+}

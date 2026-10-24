@@ -30,6 +30,41 @@ def volume_group() -> None:
     """Reviewed image → textured, skinned 3D fish; visual approval stays human."""
 
 
+@volume_group.command("sop-init")
+@click.option("--species", required=True)
+@click.option("--output", required=True, type=click.Path(path_type=Path))
+@click.option("--json", "as_json", is_flag=True)
+def sop_init_cmd(species: str, output: Path, as_json: bool) -> None:
+    """Create an unapproved complete fish production evidence checklist."""
+    from volume_sop import initialize
+    try:
+        data=initialize(species,output)
+        payload=build_response(command="volume.sop-init",ok=True,stage="validate",status="pending",next_action="human_review",
+            inputs={"species":species},outputs=[str(output.resolve())],summary={"stages":list(data['stages']),"accepted":False})
+    except Exception as exc:
+        payload=build_response(command="volume.sop-init",ok=False,stage="validate",status="blocked",next_action="fix_input",failures=[make_failure("manifest_invalid",str(exc))])
+    emit_response(payload,as_json=as_json)
+    if not payload['ok']:raise click.exceptions.Exit(1)
+
+
+@volume_group.command("sop-check")
+@click.option("--review", required=True, type=click.Path(exists=True,path_type=Path))
+@click.option("--output", required=True, type=click.Path(path_type=Path))
+@click.option("--json", "as_json", is_flag=True)
+def sop_check_cmd(review: Path, output: Path, as_json: bool) -> None:
+    """Reject missing/stale evidence; does not run gates or approve visuals."""
+    from volume_sop import check
+    try:
+        report=check(review,output)
+        payload=build_response(command="volume.sop-check",ok=report['ok'],stage="validate",status=report['status'],next_action=report['next_action'],
+            inputs={"review":str(review.resolve())},outputs=[str(output.resolve())],summary={k:report[k] for k in ['species','stages','evidence_count','scope']},
+            failures=[make_failure("manifest_invalid",f['message'],check_code=f['code']) for f in report['failures']])
+    except Exception as exc:
+        payload=build_response(command="volume.sop-check",ok=False,stage="validate",status="blocked",next_action="fix_input",failures=[make_failure("manifest_invalid",str(exc))])
+    emit_response(payload,as_json=as_json)
+    if not payload['ok']:raise click.exceptions.Exit(1)
+
+
 @volume_group.command("replan")
 @click.option("--archive-inputs", required=True, type=click.Path(path_type=Path))
 @click.option("--profile", required=True, type=click.Path(path_type=Path))

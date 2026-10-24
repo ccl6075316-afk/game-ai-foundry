@@ -95,7 +95,15 @@ func validate_front(model:Node3D,species:String,mesh:MeshInstance3D,surface:int,
     assert(r.model_sha256==FileAccess.get_sha256(model.scene_file_path) and r.helper_sha256==FileAccess.get_sha256(helper) and r.template_sha256==FileAccess.get_sha256(template) and r.profile_sha256==FileAccess.get_sha256(config))
     assert(mesh.get_active_material(surface)==material and material.shader.code.sha256_text()==r.generated_shader_sha256 and r.base_shader_code.sha256_text()==r.base_shader_sha256)
     var base:String=r.base_shader_code;var expected=base.replace("void vertex()",FileAccess.get_file_as_string(template)+"\nvoid vertex()")
-    expected=expected.insert(expected.find("{",expected.find("void vertex()"))+1,"front112_rest=VERTEX;front112_normal=NORMAL;")
+    var profile:Dictionary=JSON.parse_string(FileAccess.get_file_as_string(config)).profiles[species];var immutable=false
+    for t in profile.targets:
+        if t.mesh==str(mesh.name):
+            for si in t.surfaces:
+                if int(si)==surface:immutable=t.get("immutable_rest114",false)
+    if immutable:
+        var marker="// rest114_vertex_end";assert(expected.count(marker)==1)
+        expected=expected.replace(marker,marker+"\nfront112_rest=rest114_position;front112_normal=rest114_normal;")
+    else:expected=expected.insert(expected.find("{",expected.find("void vertex()"))+1,"front112_rest=VERTEX;front112_normal=NORMAL;")
     expected=expected.replace(r.assignment,"ALBEDO=front112_color("+("chart112_color(color.rgb)" if base.contains("chart112_color") else "color.rgb")+");")
     assert(material.shader.code==expected);coverage_safe(expected)
     if base.contains("chart112_color"):

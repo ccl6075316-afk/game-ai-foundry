@@ -1,0 +1,205 @@
+{
+  "species": "atlantic_sailfish",
+  "source_image_sha256": "5aa73c40904aab54d81fa61f2dcdc10e64a108cf87ccd07fc65c4b4fd9c33c7c",
+  "source_model_sha256": "8b857c3800403d122bdcadbc825e093945eabdc5ddd7125d9c69361abcefb4b8",
+  "source_size": [
+    1989,
+    1061
+  ],
+  "bands": {
+    "upper": {
+      "central_source_column": 1628,
+      "source_bounds": [
+        [
+          1478,
+          657,
+          663
+        ],
+        [
+          1490,
+          659,
+          665
+        ],
+        [
+          1500,
+          654,
+          660
+        ],
+        [
+          1520,
+          643,
+          649
+        ],
+        [
+          1540,
+          640,
+          646
+        ],
+        [
+          1550,
+          638,
+          644
+        ],
+        [
+          1560,
+          637,
+          643
+        ],
+        [
+          1566,
+          633,
+          639
+        ],
+        [
+          1580,
+          632,
+          638
+        ],
+        [
+          1600,
+          629,
+          635
+        ],
+        [
+          1620,
+          625,
+          631
+        ],
+        [
+          1630,
+          625,
+          631
+        ],
+        [
+          1635,
+          625,
+          631
+        ]
+      ],
+      "atlas_offset_y": 0,
+      "atlas_rows": 24,
+      "posterior_source_hook": {
+        "replace_rows": 32,
+        "source_path_px": [
+          [
+            1476,
+            649
+          ],
+          [
+            1470,
+            652
+          ],
+          [
+            1466,
+            658
+          ],
+          [
+            1466,
+            662
+          ],
+          [
+            1471,
+            665
+          ]
+        ],
+        "basis": "User specifies rear commissure below eye must return upward; follow native source C-shaped fold on original cheek, preserve anterior/lower band and body."
+      }
+    },
+    "lower": {
+      "central_source_column": 1628,
+      "source_bounds": [
+        [
+          1478,
+          672,
+          665
+        ],
+        [
+          1490,
+          674,
+          667
+        ],
+        [
+          1500,
+          672,
+          665
+        ],
+        [
+          1520,
+          660,
+          653
+        ],
+        [
+          1540,
+          657,
+          650
+        ],
+        [
+          1550,
+          655,
+          648
+        ],
+        [
+          1560,
+          653,
+          646
+        ],
+        [
+          1566,
+          652,
+          645
+        ],
+        [
+          1580,
+          650,
+          643
+        ],
+        [
+          1600,
+          650,
+          643
+        ],
+        [
+          1620,
+          651,
+          644
+        ],
+        [
+          1630,
+          651,
+          644
+        ],
+        [
+          1635,
+          648,
+          647
+        ]
+      ],
+      "atlas_offset_y": 28,
+      "atlas_rows": 24
+    }
+  },
+  "geometry": {
+    "longitudinal_samples": 257,
+    "cross_samples": 17,
+    "projection_step_native": 8e-05,
+    "relief_native": 0.0002,
+    "surface_offset_native": 4e-05,
+    "curve_smoothing_iterations": 0
+  },
+  "eye_protection": {
+    "source_center_px": [
+      1497,
+      610
+    ],
+    "radii_px": [
+      25,
+      25
+    ],
+    "full_radius": 1.25,
+    "fade_end": 1.65
+  },
+  "method_reference": "resources/skills/fish-volume-production/references/mouth-execution.md",
+  "build_resource_helper": "resources/scripts/volume-fish/build_native_mouth_resources.gd",
+  "aperture_adapter": "projects/pelagic-fish-147/prepare147.py",
+  "limits": "Sailfish-specific source aperture and long bill. Reuse method, not coordinates. Original X/Z head envelope and eye footprint protected. Current local/technical checks do not grant user appearance acceptance."
+}

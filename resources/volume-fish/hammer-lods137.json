@@ -1,0 +1,170 @@
+{
+  "profiles": {
+    "scalloped_hammerhead": {
+      "model_sha256": "b78692e45242881214337af8c7e735907ca893dba4feaf7123b179ade370a826",
+      "meshes": {
+        "Anal": {
+          "all_surface_arrays_sha256": "b5371d9f55d442c76de4ce7d5dbbe35cd57407260b13cbb404d143d815e9708a",
+          "lods_sha256": "1ae4d620a6bd84f16fb902e521fc1e44b95c9319e5f4873b7c18a0bdfa18cf97"
+        },
+        "CaudalLower": {
+          "all_surface_arrays_sha256": "3aae9af1469a49ac0e0079fb77206c7e61e47293f72a4927e34c6810bd9e1700",
+          "lods_sha256": "7366c1d33b5d6608d238704bdfc9a3482ff2bd64014bccb748554d38803bf11c"
+        },
+        "CaudalUpper": {
+          "all_surface_arrays_sha256": "5b3486700f3c14fc317729ebab2a33a4d383504d6c74e22b4a201f9ee26c667f",
+          "lods_sha256": "2daa07df7c101c3cc6bf9a87b365e875cb14c866d4d15fbb831915dc3812a3eb"
+        },
+        "Cephalofoil": {
+          "all_surface_arrays_sha256": "60de163a1c0e181ff3789074bbc28361fc921821fac4e47a8578681a9c0cba46",
+          "lods_sha256": "cefcee1dd0d5be4da25aa46640be90467186ba03f6441fdfc25509ce2b522f52"
+        },
+        "Closed_body": {
+          "all_surface_arrays_sha256": "e611cc3c9cb6e419788165b8a26f8496c6d428c679b7491f3fd2f9a8fe873f0c",
+          "lods_sha256": "0662ee76fc0aaccbb55a79a9cfca82b6e1b6ac72b4b3fcef85707804578b006a"
+        },
+        "FirstDorsal": {
+          "all_surface_arrays_sha256": "9e449f2635100113004d417daa3f77de2efe20eefbcea99be3cd93418e985a6b",
+          "lods_sha256": "d587ea9607d3b072d0eeddf2d427dbb6a51aba0fe863d9f952f94239495fc759"
+        },
+        "Pectoral_left": {
+          "all_surface_arrays_sha256": "7d746d64bdc42bbc6d9033357cb1cddb890101849c925b3cbd6a6bcafde5b446",
+          "lods_sha256": "bf9a96894f14735900f04d0e4b45e634d592667d4c8449892333e6157df45755"
+        },
+        "Pectoral_right": {
+          "all_surface_arrays_sha256": "76bd60fd204119155aed54515dec8746c0b7a347487a9a5fd91901cd4c83ef97",
+          "lods_sha256": "28d1d503e9c4b1aea944df013bc962924f136e8c7e072e9de487fde0145edcfb"
+        },
+        "Pelvic_left": {
+          "all_surface_arrays_sha256": "da945155e356f841684ae85698fe61d6e2926ba5218333d913bebdd998d19973",
+          "lods_sha256": "ee10e4feb3a155bd72e9ed7f39f668033b1b215b16a65108f424aafbbcc20aa7"
+        },
+        "Pelvic_right": {
+          "all_surface_arrays_sha256": "6f7fc4614f23f1340334046581844c298120d83bddbe7bc03ba1d1e6c5420c45",
+          "lods_sha256": "1b76f86991cc0ccb7c382767c47427ea608164b99dd49fd1f248f4947d0d7a3e"
+        },
+        "SecondDorsal": {
+          "all_surface_arrays_sha256": "1c40e4db5665f85175c5540e5371733d32311d90692a3f7762abdb3df7d09e68",
+          "lods_sha256": "094d41dd747a69a81c9da7922f49f4de5b087da37fac6e0a0983cacb0a90d7d6"
+        },
+        "Textured_eye_-1": {
+          "all_surface_arrays_sha256": "137d749c6bc0e05b5974e85a73911de184427f7fccf456deafa8412bd2a9ed1d",
+          "lods_sha256": "1ca71be9820b66307b95f4857d8b83510db4a7b8092e625398681f66b26ad82f"
+        },
+        "Textured_eye_1": {
+          "all_surface_arrays_sha256": "47a2d5a6a77790401588111fe10a9cc8399f57fa601451dcefd9a8d383e623cf",
+          "lods_sha256": "331a7c85c7c6b671d744e48330a1f106a1dcb5ca5528de4f353694addd154743"
+        }
+      },
+      "reason": "137 forced coarse LOD audit: disconnected fin bases and distorted cephalofoil/ventral geometry. Retain exact reviewed full-detail arrays; remove generated index LODs only."
+    },
+    "great_hammerhead": {
+      "meshes": {
+        "Anal": {
+          "all_surface_arrays_sha256": "40b3cf9cd6b68858ebc6a299184d055c815d9226196998942eb46dc01b5b4774",
+          "lods_sha256": "2edd90eb7a90eaf8648015190583684a3d5d74f703d44545167ab1b9c2687e48"
+        },
+        "Caudal": {
+          "all_surface_arrays_sha256": "c20a9641267885719f0d8577843aaf128466d854cb50b5eecc17fbcc10f0dea6",
+          "lods_sha256": "37ef6af99b0c1535dffb1a4ef197813c9825750c7b643eda8f2a7a5dc787ca7a"
+        },
+        "Cephalofoil": {
+          "all_surface_arrays_sha256": "e8a63c0712ca7a5b359ae31e00d654bc44ded0adc4b68397e249dc161b8b6fce",
+          "lods_sha256": "fa43a204330642d1c707d1c408dd256e04b078c4264bdc66563745b2d9d8c8b3"
+        },
+        "Closed_body": {
+          "all_surface_arrays_sha256": "7cf91771c1506f72b088b9b4f6041b9af3fed85588b81ff3771abcea742a38ee",
+          "lods_sha256": "d7998881a9896737b8a9248254e95f4247fc7136857a3b1705422f583c7c1369"
+        },
+        "FirstDorsal": {
+          "all_surface_arrays_sha256": "c8204ecc22bddcb47cb12bfe22144d681df3fc99ac7955aa65e5668713e96d5c",
+          "lods_sha256": "d3b40a6bba4d2a842e614eb4f4076d8bf5a67d5d9b408537ad68526636f820a3"
+        },
+        "Pectoral_left": {
+          "all_surface_arrays_sha256": "694f940ab65c5e13d03cdc8f7351dd351f1fb0a6b598aeb731201f33973311a3",
+          "lods_sha256": "2eb0232beb09dedddf0e3171bf2fa7481648fedfa14aa7543aa3753ffafbabd2"
+        },
+        "Pectoral_right": {
+          "all_surface_arrays_sha256": "3bb8710a9817f3a8b7fee26377cd46f9c832b25e7c9eaaa66488dee39393e9ce",
+          "lods_sha256": "9994c766aa9cc46408e752edd781b828d58d7672ec67e83e11b276aa601506c4"
+        },
+        "Pelvic_left": {
+          "all_surface_arrays_sha256": "a35117ec8feb0075f2d7416dd6d5ba79b11dc48c96a687d6351822e2e8868cff",
+          "lods_sha256": "fdcea16b9ee133ef72b57fff37bae8293e842257ceb39d8b5b4243fef5627752"
+        },
+        "Pelvic_right": {
+          "all_surface_arrays_sha256": "f2a9da8117e8e6dab4809184c6f90c07b9851dbad58b99aad0d87ad651ee3bcc",
+          "lods_sha256": "73edd9b2bffa39af27a8f7b9db2e482fbe3fbec8a60ae54a5e74fc7ec36633db"
+        },
+        "SecondDorsal": {
+          "all_surface_arrays_sha256": "9acfd1594d3d80dcaea333fe56ec14f56316f7db068da96ce4a218a6f8429964",
+          "lods_sha256": "1d3e9e1d3a7a7a21bb40400c2b69fcf6137c3d0adeafb6398dd85f84f973f7e6"
+        },
+        "Textured_eye_-1": {
+          "all_surface_arrays_sha256": "cac9ca413a126512bc6784729fa288475c43411b5624963faf66141dcd68bf20",
+          "lods_sha256": "56cc28236f41c2bf692910dba0e87466161573a7ae81f6a1ff3ed9d10bc42c93"
+        },
+        "Textured_eye_1": {
+          "all_surface_arrays_sha256": "453b920cd244fe0f33c27a630d781dcc9cd6b69cf4a4e98674e05b5524626489",
+          "lods_sha256": "0934504ab3391261e7b3830a635239cbf52ac1ff56e2e5ad252f63a9937c7156"
+        }
+      },
+      "model_sha256": "06c224fb57784e8a0ec912a87eefef3c3cdc6dd6abff63ac6232fe2f5d5889b2"
+    },
+    "smooth_hammerhead": {
+      "meshes": {
+        "Anal": {
+          "all_surface_arrays_sha256": "a361857f8c365eaf4c2a3438c3c4c9e68e53d9291c1e3f975c6ec425898e639f",
+          "lods_sha256": "c95da54ac10e26a3265a07b446a82aeabc0aabd07ebd24a39f288f8bdda15a55"
+        },
+        "Caudal": {
+          "all_surface_arrays_sha256": "86d0c967b7057aeb92b974faa7f4d595569ac061c9e44970d8647b5e20486732",
+          "lods_sha256": "c136f280f7cc6ccab1b1a521df26dc45e60c773b8660f43f0a2026575a8a9107"
+        },
+        "Cephalofoil": {
+          "all_surface_arrays_sha256": "68bc79bed5611e9b2f6e3aade1b63116de0b2c458fd7798d608f4457ecabf6bc",
+          "lods_sha256": "233c5cdba4b392880017a4a8cf5a11028f3791411dbea1dea6f676535a702ba0"
+        },
+        "Closed_body": {
+          "all_surface_arrays_sha256": "e6f7add06a64406ca2ebe98cf97cb6a421b1ceb438f27ac2949f01e8c4b8198e",
+          "lods_sha256": "3044f9df5a6f0e3d94118a1e0e7ff695e5ef6777d9682312777e31a6f5878fe5"
+        },
+        "FirstDorsal": {
+          "all_surface_arrays_sha256": "7ac98e257cdadccba340d732ee1b32ec90078a38f724175b1226687cef8e928d",
+          "lods_sha256": "a8b883610ff9ee9450fce8622633ce88704e95f6b2fcb37adb97724cb9da4192"
+        },
+        "Pectoral_left": {
+          "all_surface_arrays_sha256": "8ddf9ebe32759c320d283261999c1c6dc6fc0984698d6d8fb20330c7fefcc2cd",
+          "lods_sha256": "536442eb522d0f608186167b4136a1296a4db4aa94acc691732522d21d715513"
+        },
+        "Pectoral_right": {
+          "all_surface_arrays_sha256": "eeb48384cb497e8997b15824fa626657d9fe2c53b481e40a24cf09774dc78966",
+          "lods_sha256": "e228fb693800b004f32e9e5053e7257f8aac02e30b960e127a7f8cc5a5cd0878"
+        },
+        "Pelvic_left": {
+          "all_surface_arrays_sha256": "3346147f6c37a085b3131ea15968ecb4e4e14ec57c7590096f6755c9a5f4d4ae",
+          "lods_sha256": "9a7adc0cf44d6f23645140401c21146c34f267c49c39140f05fa65e63df74554"
+        },
+        "Pelvic_right": {
+          "all_surface_arrays_sha256": "4f76f1982b35e2a81c1a2f5c86dcb0c1684687d5df8e5d7b51791059d29d5d6f",
+          "lods_sha256": "e59500cff50b0cba424f330d64858e1325014f9c08e57105362f5fd94e64be08"
+        },
+        "SecondDorsal": {
+          "all_surface_arrays_sha256": "3ab473c057c487283b201c6eb1f28920015fb5cbcecd0f36e5109ff06a1f515a",
+          "lods_sha256": "3a6d384432de8dc951fbf0031ffac828103152f4a94a5da50610b0e0007a1393"
+        },
+        "Textured_eye_-1": {
+          "all_surface_arrays_sha256": "b26b816278f183f9591491f9d9f02958d0262b5d49605509fb1e88498e9b47cf",
+          "lods_sha256": "5739a4b77877b26663bed68d7452c0e8ad10c0e13d128f0b742a7b7076ac10d7"
+        },
+        "Textured_eye_1": {
+          "all_surface_arrays_sha256": "4fd3c5aae406b3ece37003f3745f917bed81fce6bb76cf14e16a14c95531dbb9",
+          "lods_sha256": "7569611684262d40ac0e409caf1531eab0e12afbb2d62bef5b9ee8c74bb4899f"
+        }
+      },
+      "model_sha256": "1fd28bd456f6d77f209b2f6a4ff00cdcba0d14190d26b20849b8e2af9953ef7c"
+    }
+  },
+  "evidence": "experiments/blender-fish/hammer-shape-137/lods-final/lod.validation.json",
+  "limit": "Full detail at all distances has additional render cost; no coarse-level approval."
+}

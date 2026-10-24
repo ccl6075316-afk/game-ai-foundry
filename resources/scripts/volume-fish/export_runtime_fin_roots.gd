@@ -28,6 +28,12 @@ func prepare(entry: Dictionary, spec: Dictionary) -> void:
                 for i in range(0,triangles.size(),3):faces.append([offset+triangles[i],offset+triangles[i+1],offset+triangles[i+2]])
                 offset+=vertices.size()
             else:
+                var radius: float=float(spec.length_native)*.00002
+                var root_cells: Dictionary={}
+                for raw in spec.fins[name].rest_points_gltf:
+                    var p=Vector3(raw[0],raw[1],raw[2]);var key=Vector3i((p/radius).floor())
+                    if not root_cells.has(key):root_cells[key]=[]
+                    root_cells[key].append(p)
                 var transforms: Array[Transform3D]=[]
                 for j in bindings.size():transforms.append(s.global_transform*s.get_bone_global_rest(bindings[j])*node.skin.get_bind_pose(j))
                 var selected={}
@@ -36,9 +42,13 @@ func prepare(entry: Dictionary, spec: Dictionary) -> void:
                     for j in count:
                         var at=i*count+j
                         point+=(transforms[joints[at]]*vertices[i])*weights[at]
-                    for raw in spec.fins[name].rest_points_gltf:
-                        if point.distance_to(Vector3(raw[0],raw[1],raw[2]))<float(spec.length_native)*.00002:
-                            ids.append(i);selected[i]=true;break
+                    var cell=Vector3i((point/radius).floor());var matched=false
+                    for dx in [-1,0,1]:
+                        for dy in [-1,0,1]:
+                            for dz in [-1,0,1]:
+                                for p in root_cells.get(cell+Vector3i(dx,dy,dz),[]):
+                                    if point.distance_to(p)<radius:matched=true;break
+                    if matched:ids.append(i);selected[i]=true
                 var seen={}
                 for i in range(0,triangles.size(),3):
                     for pair in [[triangles[i],triangles[i+1]],[triangles[i+1],triangles[i+2]],[triangles[i+2],triangles[i]]]:
@@ -48,6 +58,7 @@ func prepare(entry: Dictionary, spec: Dictionary) -> void:
             surfaces.append({"name":name,"body":is_body,"mesh":node,"vertices":vertices,"joints":joints,"weights":weights,"bindings":bindings,"count":count,"ids":ids,"edges":edges})
     assert(found.size()==spec.fins.size()+1,"Incomplete fin inventory "+spec.species)
 func sample(entry: Dictionary, label: String, seconds: float) -> void:
+    if variant=="diagnostic" and label!="Static" and not (label in ["Native","Range:WideFast","Clearance:Independent"] and is_equal_approx(seconds,3.75)):return
     var s: Skeleton3D=entry.skeleton;s.force_update_all_bone_transforms();var relative: Transform3D=entry.carrier.global_transform.affine_inverse()*s.global_transform;var body: Array=[];var roots={};var membranes={}
     for surface in surfaces:
         var transforms: Array[Transform3D]=[]
@@ -140,6 +151,7 @@ func run() -> void:
         if export_membranes:
             report["fin_membrane_revision"]=1
             report["sample_limit"]="490 discrete poses: original 177, native clip 25, four dense independent control mixes 256, control sweep 32. Full fin surfaces exported; not continuous proof."
-        report["sample_limit"]="81 baseline poses plus 80 independent amplitude/frequency range poses and 16 range transitions; 177 discrete poses, not continuous proof."
+        if not export_membranes:report["sample_limit"]="81 baseline poses plus 80 independent amplitude/frequency range poses and 16 range transitions; 177 discrete poses, not continuous proof."
+        if variant=="diagnostic":report["sample_limit"]="Diagnostic subset only; not a delivery gate.";report["diagnostic_only"]=true
         save_json(out+"/export.validation.json",report);print("FIN_EXPORT_DONE ",spec.species," ",samples.size());carrier.queue_free();await process_frame
     quit()

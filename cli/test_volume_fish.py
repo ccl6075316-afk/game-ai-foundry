@@ -106,6 +106,17 @@ class VolumeTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    def test_native_fin_cutouts_reject_crossing_source_polygon(self):
+        data=copy.deepcopy(self.profile_data)
+        data['native_fin_cutouts']=True
+        data['fins']=[{'name':'Dorsal','polygon':[[.2,.2],[.8,.8],[.2,.8],[.8,.2]],
+            'anchor':[.5,.5],'tip':[.5,.2],'paired':False,'root_depth':0.,'tip_depth':0.,
+            'thickness':.001,'amplitude':.01,'phase':0.,'axis':[1,0,0]}]
+        with self.assertRaisesRegex(volume.VolumeError,'self-intersects'):
+            volume.validate_profile(data,self.profile)
+        data['native_fin_cutouts']=False
+        volume.validate_profile(data,self.profile) # Existing profiles retain their legacy gate.
+
     def test_native_root_attachment_requires_paired_authored_roots(self):
         data=copy.deepcopy(self.profile_data)
         data['rest_shape_revision']={'source_handoff':'old.json','source_handoff_sha256':'a'*64,
@@ -575,7 +586,12 @@ class VolumeTests(unittest.TestCase):
         volume.write_json(self.handoff,data)
         target = self.root/'redirected'
         target.mkdir()
-        Path(data['outputs']['directory']).symlink_to(target,target_is_directory=True)
+        try:
+            Path(data['outputs']['directory']).symlink_to(target,target_is_directory=True)
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                self.skipTest('Windows account cannot create directory symlinks')
+            raise
         with patch('volume_fish.subprocess.run') as run:
             result,_ = self.invoke('build','--handoff',self.handoff,'--blender',sys.executable)
             self.assertEqual(result.exit_code,1)

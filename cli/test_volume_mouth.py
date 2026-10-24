@@ -4,6 +4,13 @@ from pathlib import Path
 from volume_mouth import validate_oral_jaws,validate_oral_context,slit_v,jaw_shift
 
 class OralJawsTests(unittest.TestCase):
+    def test_billed_fish_finite_mouth_preserves_anterior_bill(self):
+        data={'corner':[.75,.55],'front':[.83,.51],'gap':.001,'upper_retraction':0,'lower_projection':0,'lip_bevel':0,'front_pigment_band':[.4,.6],'bill_tip_u':.99}
+        body={'sections':[[.1,.4,.7,.02],[.5,.3,.7,.04],[.75,.4,.65,.03],[.83,.48,.55,.01],[.99,.49,.51,.001]]};spine=[[.9,.5],[.7,.5],[.5,.5],[.1,.5]]
+        validate_oral_context(data,body,spine)
+        self.assertEqual(jaw_shift(data,.95,.5),0)
+        for bad in [dict(bill_tip_u=.84),dict(bill_tip_u=float('nan')),dict(upper_retraction=.001),dict(bill_tip_u=.95)]:
+            with self.subTest(bad=bad),self.assertRaises(ValueError):validate_oral_context({**data,**bad},body,spine)
     def setUp(self):
         self.profile=json.loads((Path(__file__).resolve().parents[1]/'resources/volume-fish/peacock-bass-oral-jaws-060b.profile.json').read_text(encoding='utf-8'))
         self.data=self.profile['oral_jaws']

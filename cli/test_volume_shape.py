@@ -6,10 +6,17 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from volume_shape import validate_revision, width_scale, revision_source, vertical_position, validate_root_attachment, root_attachment_gain, root_attachment_inset
+from volume_shape import validate_revision, width_scale, revision_source, vertical_position, validate_root_attachment, root_attachment_gain, root_attachment_inset, validate_simple_fin_polygon
 
 
 class NativeRevisionTests(unittest.TestCase):
+    def test_fin_crossing_chord_and_touch_are_rejected(self):
+        for points in [[[0,0],[1,1],[0,1],[1,0]],[[0,0],[1,0],[1,1],[.5,0],[0,1]]]:
+            with self.subTest(points=points),self.assertRaises(ValueError):validate_simple_fin_polygon(points)
+
+    def test_concave_non_crossing_fin_is_valid(self):
+        validate_simple_fin_polygon([[0,0],[1,0],[1,1],[.5,.4],[0,1]])
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)

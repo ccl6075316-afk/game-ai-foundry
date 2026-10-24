@@ -40,11 +40,21 @@ def main():
             # Existing multi-material heads may have different UV charts on the
             # cap. Intersect the complete actual body in native XY space.
             vp=[];up=[];npieces=[];jp=[];wp=[];tp=[];offset=0
-            for part in d['meshes'][node['mesh']]['primitives']:
-                at=part['attributes'];vv=accessor(d,b,at['POSITION'])
-                vp.append(vv);up.append(accessor(d,b,at['TEXCOORD_0']));npieces.append(accessor(d,b,at['NORMAL']))
-                jp.append(accessor(d,b,at['JOINTS_0']));wp.append(accessor(d,b,at['WEIGHTS_0']))
-                tp.append(accessor(d,b,part['indices']).reshape(-1,3)+offset);offset+=len(vv)
+            if row.get('native_surface'):
+                frozen=row['native_surface'];support=Path(frozen['path'])
+                if not support.is_absolute():support=Path(__file__).resolve().parents[3]/support
+                assert sha(support)==frozen['sha256'],'Stale actual eye support body'
+                actual=json.loads(support.read_text())
+                for part in actual['parts']:
+                    vv=np.asarray(part['vertices']);vp.append(vv);up.append(np.asarray(part['uv']));npieces.append(np.asarray(part['normals']))
+                    jp.append(np.asarray(part['joints']));wp.append(np.asarray(part['weights']))
+                    tp.append(np.asarray(part['triangles']).reshape(-1,3)+offset);offset+=len(vv)
+            else:
+                for part in d['meshes'][node['mesh']]['primitives']:
+                    at=part['attributes'];vv=accessor(d,b,at['POSITION'])
+                    vp.append(vv);up.append(accessor(d,b,at['TEXCOORD_0']));npieces.append(accessor(d,b,at['NORMAL']))
+                    jp.append(accessor(d,b,at['JOINTS_0']));wp.append(accessor(d,b,at['WEIGHTS_0']))
+                    tp.append(accessor(d,b,part['indices']).reshape(-1,3)+offset);offset+=len(vv)
             pos=np.concatenate(vp);uv=np.concatenate(up);normal=np.concatenate(npieces);joints=np.concatenate(jp);weights=np.concatenate(wp);tri=np.concatenate(tp)
         src=np.asarray(row['center_uv']);radius=np.asarray(row['radius_uv'])*float(row.get('footprint',.93));scale=float(row.get('body_eye_scale',1.))
         samples=[(0.,0.)];rings=int(row.get('rings',8));sectors=int(row.get('sectors',40))
@@ -113,6 +123,7 @@ def main():
             peak.append(float(np.max(np.linalg.norm(vv-np.array(base),axis=1))))
         bone_names=[d['nodes'][i]['name'] for i in d['skins'][node['skin']]['joints']]
         profiles[species]={'model_sha256':row['model_sha256'],'mesh':node['name'],'source_surface':si,'source_size':row['source_size'],'source_center':row['center_uv'],'source_radius':row['radius_uv'],'bones':bone_names,'caps':caps}
+        if row.get('native_surface'):profiles[species]['native_surface']=row['native_surface']
         reports.append({'species':species,'model_sha256':row['model_sha256'],'caps':2,'vertices_per_cap':len(samples),'peak_native':peak,'underlying_body_unchanged':True,'source_footprint_preserved':True,'limits':'Height is a subtle game-art choice, not measured corneal projection. Original opaque body remains under each skinned cap.'})
         print('EYE_RELIEF',species,flush=True)
     (a.output/'eye-relief112.json').write_text(json.dumps({'schema_version':1,'profiles':profiles},separators=(',',':'))+'\n')

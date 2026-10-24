@@ -1,0 +1,16 @@
+{
+  "revision": 1,
+  "scope": "Fixed accepted side canvas from the last small dorsal/anal fin through the entire peduncle and caudal. Replaces the rejected 90% tail-only/junction fit.",
+  "profiles": {
+    "great_hammerhead": {"cap_u": 0.235, "body_match_end_u": 0.28, "body_blend_end_u": 0.295, "tail_correct_start_u": 0.20},
+    "smooth_hammerhead": {"cap_u": 0.245, "body_match_end_u": 0.30, "body_blend_end_u": 0.315, "tail_correct_start_u": 0.21}
+  },
+  "constraints": [
+    "No independent tail rescaling or registration. Last dorsal/anal positions remain the fixed reference.",
+    "At each posterior section sample the actual opaque interval of the accepted source. Incorrect authored cap endpoints are not a target.",
+    "Repair body-end and caudal-root Y together, retaining every existing basal index and all weights. Source pixels and original rig/animations remain unchanged.",
+    "Side UV follows corrected XY. Original hidden transverse width remains an inference; source side does not measure that width.",
+    "Compare fixed-source outlines before any physical gate; reject old angular shoulder and root silhouette deficit. Then full dynamic fin/body/material gates."
+  ],
+  "research": ["https://biogeodb.stri.si.edu/sftep/en/thefishes/species/118", "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/great-hammerhead/"]
+}

@@ -6,6 +6,20 @@ import math
 def validate_runtime_pose_coverage(export):
     samples = export["samples"]
     counts = dict(Counter(row["action"] for row in samples))
+    if "native_cycle_revision" in export:
+        if export["native_cycle_revision"] != 1 or not export.get("expected_fins"):
+            raise ValueError("Unknown native cycle contract or missing fin inventory")
+        if any(k in export for k in ["candidate_gait_revision", "motion_range_revision", "fin_membrane_revision"]):
+            raise ValueError("Native-only evidence cannot impersonate runtime or membrane coverage")
+        duration = export.get("native_clip_seconds", 0)
+        if not math.isfinite(duration) or duration <= 0 or counts != {"Static": 1, "Native": 25}:
+            raise ValueError("Incomplete native cycle coverage")
+        if samples[0]["action"] != "Static" or samples[0]["seconds"] != 0:
+            raise ValueError("Native cycle requires static baseline first")
+        for phase, row in enumerate(samples[1:]):
+            if row["action"] != "Native" or not math.isfinite(row["seconds"]) or abs(row["seconds"] - duration * phase / 25) > 1e-6:
+                raise ValueError("Native cycle missing or duplicated phase")
+        return counts
     if "candidate_gait_revision" in export:
         if export["candidate_gait_revision"] != 132:
             raise ValueError("Unknown candidate gait revision")

@@ -68,8 +68,10 @@ varying float probe114_error;
 """
     var code: String=production.code.replace("render_mode","render_mode unshaded,depth_test_disabled,depth_draw_never,")
     if legacy:
-        assert(domain=="chart" and code.count("chart112_rest_position=rest114_position;chart112_rest_normal=rest114_normal;")==1)
-        code=code.replace("chart112_rest_position=rest114_position;chart112_rest_normal=rest114_normal;","chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;")
+        var stable:String={"chart":"chart112_rest_position=rest114_position;chart112_rest_normal=rest114_normal;","front":"front112_rest=rest114_position;front112_normal=rest114_normal;"}.get(domain,"")
+        var posed:String={"chart":"chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;","front":"front112_rest=VERTEX;front112_normal=NORMAL;"}.get(domain,"")
+        assert(not stable.is_empty() and code.count(stable)==1)
+        code=code.replace(stable,posed)
     code=code.replace("void vertex()",declaration+"\nvoid vertex()")
     var parser=load("res://scripts/aquarium/FishEyeOwnership.gd").new()
     var vertex: Dictionary=parser._stage_braces(code,"vertex")

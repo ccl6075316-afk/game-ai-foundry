@@ -2,6 +2,8 @@
 
 供外部 Agent 使用的通用工具箱协议。正文使用中文；命令、路径、JSON 字段与枚举值使用英文。
 
+鱼类3D新建、返修或推广任务，进入volume前先读取仓库 `resources/skills/fish-volume-production/references/production-sop.md`，按其完整材料/制作/动作/验收顺序选择已有方法；此SOP不改变下面的来源与job状态合同。
+
 ## CLI 入口（必读）
 
 不要依赖系统 PATH 里的裸 `python`（Windows 常落到 Microsoft Store 占位程序）。首次在本仓库执行：

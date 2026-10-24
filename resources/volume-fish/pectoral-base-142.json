@@ -1,0 +1,70 @@
+{
+  "species": "nile_tilapia",
+  "source_sha256": "2f2018df6aff97da99f000ff13a5d999ca0287440e961444f4f0f1be89b071d1",
+  "body_owned_attachment_polygon_px": [
+    [
+      1470,
+      570
+    ],
+    [
+      1487,
+      567
+    ],
+    [
+      1501,
+      572
+    ],
+    [
+      1518,
+      587
+    ],
+    [
+      1529,
+      612
+    ],
+    [
+      1535,
+      640
+    ],
+    [
+      1532,
+      661
+    ],
+    [
+      1518,
+      680
+    ],
+    [
+      1495,
+      691
+    ],
+    [
+      1468,
+      697
+    ],
+    [
+      1440,
+      690
+    ],
+    [
+      1400,
+      674
+    ],
+    [
+      1396,
+      645
+    ],
+    [
+      1400,
+      608
+    ],
+    [
+      1412,
+      584
+    ]
+  ],
+  "exclude_original_fin_mask_sha256": "f8355f3cdec43748257bf481bde5f93a0b004e6ee6202ea5e000b5fc84232541",
+  "mask_sha256": "6c25b65dc9896949efa591027d0748f72bec7d26e6a6d490ed03ed34705ca81a",
+  "purpose": "Original artwork attachment mark kept on skin while independent fin moves. Not a movable gray wedge on the fin.",
+  "anatomical_limit": "Source artwork feature; exact tissue identity/hidden anatomy unknown."
+}

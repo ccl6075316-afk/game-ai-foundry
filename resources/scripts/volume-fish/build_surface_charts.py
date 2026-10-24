@@ -82,6 +82,14 @@ def main():
         for kind,edge,sign in [('dorsal',tops,1),('ventral',bottoms,-1)]:
             grid_y=np.arange(h)[:,None];middle=(tops+bottoms)[None,:]*.5
             kind_valid=valid & ((grid_y<=middle) if kind=='dorsal' else (grid_y>=middle))
+            # Anatomical half alone is insufficient: spots from the upper
+            # flank must not become new dorsal markings. Freeze a reviewed
+            # two-dimensional donor domain for each reconstructed surface.
+            if kind in p.get('donor_domains_px',{}):
+                domain=np.zeros((h,w),np.uint8)
+                for polygon in p['donor_domains_px'][kind]:
+                    cv2.fillPoly(domain,[np.rint(polygon).astype(np.int32)],255)
+                kind_valid &= domain>0
             kind_centers=cv2.erode(kind_valid.astype(np.uint8),np.ones((radius*2+1,radius*2+1),np.uint8))>0
             ys,xs=np.where(kind_centers);assert len(xs)>100,(species,kind,'No same-side clean skin donors')
             tree=cKDTree(np.column_stack([xs,ys]))
@@ -103,7 +111,7 @@ def main():
                         score+=.03*((int(xs[idx])-desired[0])**2+(int(ys[idx])-desired[1])**2)
                         if score<bestcost:bestcost=score;best=(sx,sy,error)
                     sx,sy,error=best
-                    assert valid[sy,sx].all(),(species,kind,'Invalid donor')
+                    assert kind_valid[sy,sx].all(),(species,kind,'Invalid surface-specific donor')
                     keep=np.zeros((bh,bw),bool)
                     if xx:
                         n=min(overlap,bw);path=seam(error[:,:n]);keep|=np.arange(bw)[None,:]<path[:,None]

@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "species": {
+    "black_seabream": {
+      "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+      "body_owned_attachment_polygon_px": [
+        [
+          1465,
+          550
+        ],
+        [
+          1420,
+          558
+        ],
+        [
+          1404,
+          580
+        ],
+        [
+          1404,
+          616
+        ],
+        [
+          1420,
+          640
+        ],
+        [
+          1438,
+          651
+        ],
+        [
+          1493,
+          651
+        ],
+        [
+          1475,
+          640
+        ],
+        [
+          1459,
+          616
+        ],
+        [
+          1459,
+          580
+        ],
+        [
+          1475,
+          558
+        ],
+        [
+          1520,
+          550
+        ]
+      ],
+      "mask_sha256": "db5dabe29c2a98d8dfb2f82869badefc41cbb2a2cf817a6334b6890bdc87e590",
+      "mask_pixels": 5749,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "red_seabream": {
+      "source_sha256": "164d0d76b301bedbe5478accdde015b8118fd63c3f9ae026784ac0caccb9f7fc",
+      "body_owned_attachment_polygon_px": [
+        [
+          1485,
+          582
+        ],
+        [
+          1445,
+          586
+        ],
+        [
+          1415,
+          604
+        ],
+        [
+          1405,
+          638
+        ],
+        [
+          1405,
+          675
+        ],
+        [
+          1422,
+          704
+        ],
+        [
+          1482,
+          704
+        ],
+        [
+          1465,
+          675
+        ],
+        [
+          1465,
+          638
+        ],
+        [
+          1475,
+          604
+        ],
+        [
+          1505,
+          586
+        ],
+        [
+          1545,
+          582
+        ]
+      ],
+      "mask_sha256": "e68764a8ba630b4778a1742edb3d0a118ed625027a7dec5425537230a220581c",
+      "mask_pixels": 7540,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "zander": {
+      "source_sha256": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+      "body_owned_attachment_polygon_px": [
+        [
+          1530,
+          425
+        ],
+        [
+          1505,
+          434
+        ],
+        [
+          1494,
+          451
+        ],
+        [
+          1490,
+          477
+        ],
+        [
+          1505,
+          491
+        ],
+        [
+          1540,
+          491
+        ],
+        [
+          1525,
+          477
+        ],
+        [
+          1529,
+          451
+        ],
+        [
+          1540,
+          434
+        ],
+        [
+          1565,
+          425
+        ]
+      ],
+      "mask_sha256": "08ca67a434130a5a8518f68f3308bfd4539ac37f1febee74cda5ea5b52b1882a",
+      "mask_pixels": 2405,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "grass_carp": {
+      "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+      "body_owned_attachment_polygon_px": [
+        [
+          1600,
+          447
+        ],
+        [
+          1583,
+          467
+        ],
+        [
+          1569,
+          485
+        ],
+        [
+          1540,
+          495
+        ],
+        [
+          1575,
+          495
+        ],
+        [
+          1604,
+          485
+        ],
+        [
+          1618,
+          467
+        ],
+        [
+          1635,
+          447
+        ]
+      ],
+      "mask_sha256": "ca7b778918f84a63c089aa31369515e42835101a9ae66901c940601da22af12c",
+      "mask_pixels": 1767,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "rainbow_trout": {
+      "source_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+      "body_owned_attachment_polygon_px": [
+        [
+          1590,
+          465
+        ],
+        [
+          1565,
+          478
+        ],
+        [
+          1550,
+          498
+        ],
+        [
+          1575,
+          498
+        ],
+        [
+          1590,
+          478
+        ],
+        [
+          1615,
+          465
+        ]
+      ],
+      "mask_sha256": "1fcca054e70708352b0937c3792fd8a70472abffbae971ad710c4540fcacb0e0",
+      "mask_pixels": 882,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "carp": {
+      "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+      "body_owned_attachment_polygon_px": [
+        [
+          1540,
+          640
+        ],
+        [
+          1540,
+          675
+        ],
+        [
+          1538,
+          701
+        ],
+        [
+          1514,
+          713
+        ],
+        [
+          1536,
+          713
+        ],
+        [
+          1560,
+          701
+        ],
+        [
+          1562,
+          675
+        ],
+        [
+          1562,
+          640
+        ]
+      ],
+      "mask_sha256": "16d66f94c69b645a3b1e92d0dba6b79ab1237c861c0f285f76743ecc8e8ad51a",
+      "mask_pixels": 1696,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "crucian": {
+      "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+      "body_owned_attachment_polygon_px": [
+        [
+          1463,
+          713
+        ],
+        [
+          1450,
+          746
+        ],
+        [
+          1440,
+          777
+        ],
+        [
+          1462,
+          777
+        ],
+        [
+          1472,
+          746
+        ],
+        [
+          1485,
+          713
+        ]
+      ],
+      "mask_sha256": "9cbb67107e243e042926aca810d3e3daf0e03acb698fdddaaff735e1d342189c",
+      "mask_pixels": 1480,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "bluegill": {
+      "source_sha256": "bfba9d8f51fa664de911d3396cc8aa48c6a0e0654a23ea41ae6b71c8e9cfea77",
+      "body_owned_attachment_polygon_px": [
+        [
+          1025,
+          520
+        ],
+        [
+          1015,
+          542
+        ],
+        [
+          1010,
+          579
+        ],
+        [
+          1038,
+          579
+        ],
+        [
+          1043,
+          542
+        ],
+        [
+          1053,
+          520
+        ]
+      ],
+      "mask_sha256": "29ed70fec9e7697e6552886e0b9a53cb538242fbc798a317df6e5e68efa4759d",
+      "mask_pixels": 1707,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "peacock_bass": {
+      "source_sha256": "5d391b474bb8e762ed8a2557ecdcc770d047478c4131e274c5ee551707a878b3",
+      "body_owned_attachment_polygon_px": [
+        [
+          1220,
+          462
+        ],
+        [
+          1208,
+          488
+        ],
+        [
+          1218,
+          524
+        ],
+        [
+          1214,
+          548
+        ],
+        [
+          1239,
+          548
+        ],
+        [
+          1243,
+          524
+        ],
+        [
+          1233,
+          488
+        ],
+        [
+          1245,
+          462
+        ]
+      ],
+      "mask_sha256": "b3afe56495c5c146fadddc8cce3be33e4c7cd9d559db9b89eabb35dd8aa31931",
+      "mask_pixels": 2248,
+      "moving_fin_overlap_pixels": 0,
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown."
+    },
+    "yellow_croaker": {
+      "source_sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+      "body_owned_attachment_polygon_px": [
+        [
+          1520,
+          422
+        ],
+        [
+          1480,
+          424
+        ],
+        [
+          1458,
+          438
+        ],
+        [
+          1450,
+          460
+        ],
+        [
+          1452,
+          481
+        ],
+        [
+          1482,
+          481
+        ],
+        [
+          1480,
+          460
+        ],
+        [
+          1488,
+          438
+        ],
+        [
+          1510,
+          424
+        ],
+        [
+          1550,
+          422
+        ]
+      ],
+      "mask_sha256": "7a837d2761a6fc07e0cd080212daebf5a4a77b071f293b55380af8052733d250",
+      "mask_pixels": 1884,
+      "moving_fin_overlap_pixels": 0,
+      "spatial_xy_bounds_native": [
+        0.2075471698113207,
+        -0.07075471698113207,
+        0.28202581926514403,
+        -0.01663356504468719
+      ],
+      "scope": "Original source RGB of the bodyward pectoral-base neighborhood. Preserve exact body arrays, existing shader inputs and opacity; exclude complete moving fin. Tissue identity is unknown. Immutable rest114 XY bounds exclude reused mouth-side donor UVs from the body attachment mark."
+    }
+  }
+}

@@ -141,6 +141,44 @@
         "model_sha256": "2f14016eedc5b3086780bee3a12ae483f0c68c853495353c426c3b0b5fafc69e",
         "review": "Inspected embedded body image1 independently from image0 used by fins; no original painted pectoral fin remains. Do not overwrite the existing clean skin with the fin source."
       }
+    },
+    "great_hammerhead": {
+      "attached_fin_baselines": {
+        "Caudal": [
+          {
+            "points": [
+              [
+                0.235,
+                0.44522292993630574
+              ],
+              [
+                0.235,
+                0.6197452229299363
+              ]
+            ],
+            "tolerance_px": 2.0
+          }
+        ]
+      }
+    },
+    "smooth_hammerhead": {
+      "attached_fin_baselines": {
+        "Caudal": [
+          {
+            "points": [
+              [
+                0.245,
+                0.41102941176470587
+              ],
+              [
+                0.245,
+                0.674264705882353
+              ]
+            ],
+            "tolerance_px": 2.0
+          }
+        ]
+      }
     }
   }
 }

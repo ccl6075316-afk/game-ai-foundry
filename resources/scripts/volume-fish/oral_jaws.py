@@ -76,7 +76,7 @@ def build_closed_oral_jaws(body,settings,aspect,weights):
     bsdf.inputs['Roughness'].default_value=1;bsdf.inputs['Metallic'].default_value=0;bsdf.inputs['Specular IOR Level'].default_value=0
     inner.diffuse_color=(.025,.018,.012,1)
     body.data.materials.append(inner)
-    start=corner[0];end=max(v.co.x+.5 for v in body.data.vertices)+.04
+    start=corner[0];end=front[0]+.012 if 'bill_tip_u'in settings else max(v.co.x+.5 for v in body.data.vertices)+.04
     half_width=max(abs(v.co.y) for v in body.data.vertices)+.02
     points=[]
     if settings.get('slit_path'):

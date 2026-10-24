@@ -207,7 +207,13 @@ class MotionTests(unittest.TestCase):
     def test_symlink_artifact_and_modified_output_paths_are_rejected(self):
         self.assertEqual(self.plan()[0].exit_code,0)
         data=json.loads(self.handoff.read_text());artifact=Path(data['outputs']['runtime']).parent
-        outside=self.root/'outside';outside.mkdir();artifact.symlink_to(outside,target_is_directory=True)
+        outside=self.root/'outside';outside.mkdir()
+        try:
+            artifact.symlink_to(outside,target_is_directory=True)
+        except OSError as error:
+            if getattr(error,'winerror',None)==1314:
+                self.skipTest('Windows account cannot create directory symlinks')
+            raise
         result,_=self.invoke('motion-build','--handoff',self.handoff)
         self.assertEqual(result.exit_code,1,result.output);self.assertEqual(list(outside.iterdir()),[])
         artifact.unlink()
@@ -222,7 +228,13 @@ class MotionTests(unittest.TestCase):
 
     def test_symlink_handoff_and_stale_artifacts_do_not_pass(self):
         self.assertEqual(self.plan()[0].exit_code,0)
-        alias=self.root/'alias.json';alias.symlink_to(self.handoff)
+        alias=self.root/'alias.json'
+        try:
+            alias.symlink_to(self.handoff)
+        except OSError as error:
+            if getattr(error,'winerror',None)==1314:
+                self.skipTest('Windows account cannot create file symlinks')
+            raise
         result,_=self.invoke('motion-build','--handoff',alias)
         self.assertEqual(result.exit_code,1,result.output)
         self.assertEqual(self.invoke('motion-build','--handoff',self.handoff)[0].exit_code,0)

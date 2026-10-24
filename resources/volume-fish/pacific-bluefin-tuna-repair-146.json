@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "species": "pacific_bluefin_tuna",
+  "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de",
+  "rig_fin_donor_sha256": "c3d14b9a77c4a6b199053ba53dcda2e0fa9029fc7a345d157a9a1215550926ef",
+  "source_size": [
+    2016,
+    747
+  ],
+  "source_aperture": {
+    "commissure_px": [
+      1880,
+      445
+    ],
+    "upper_return_then_anterior_px": [
+      [
+        1880,
+        444
+      ],
+      [
+        1890,
+        457
+      ],
+      [
+        1900,
+        459
+      ],
+      [
+        1920,
+        436
+      ],
+      [
+        1940,
+        418
+      ],
+      [
+        1960,
+        403
+      ],
+      [
+        1980,
+        395
+      ],
+      [
+        2000,
+        386
+      ],
+      [
+        2011,
+        385
+      ]
+    ],
+    "lower_return_then_anterior_px": [
+      [
+        1880,
+        446
+      ],
+      [
+        1890,
+        460
+      ],
+      [
+        1900,
+        461
+      ],
+      [
+        1920,
+        438
+      ],
+      [
+        1940,
+        422
+      ],
+      [
+        1960,
+        415
+      ],
+      [
+        1980,
+        410
+      ],
+      [
+        2000,
+        410
+      ],
+      [
+        2011,
+        415
+      ]
+    ],
+    "x_and_z_displacements": 0,
+    "old_slit_terminal_extrapolation_must_be_preserved_for_classification": true,
+    "eye_guard_native_source_ellipse_px": {
+      "center": [
+        1878,
+        365
+      ],
+      "radii": [
+        32,
+        34
+      ],
+      "full_protection_radius_multiple": 1.25,
+      "fade_end_radius_multiple": 1.65
+    }
+  },
+  "bands": {
+    "upper": {
+      "central_source_column": 2000,
+      "source_bounds": [
+        [
+          1880,
+          433,
+          444
+        ],
+        [
+          1890,
+          426,
+          457
+        ],
+        [
+          1900,
+          417,
+          459
+        ],
+        [
+          1920,
+          401,
+          436
+        ],
+        [
+          1940,
+          390,
+          418
+        ],
+        [
+          1960,
+          380,
+          403
+        ],
+        [
+          1980,
+          373,
+          395
+        ],
+        [
+          2000,
+          377,
+          386
+        ],
+        [
+          2011,
+          380,
+          385
+        ]
+      ],
+      "atlas_offset_y": 0,
+      "atlas_rows": 38
+    },
+    "lower": {
+      "central_source_column": 2000,
+      "source_bounds": [
+        [
+          1880,
+          458,
+          446
+        ],
+        [
+          1890,
+          472,
+          460
+        ],
+        [
+          1900,
+          474,
+          461
+        ],
+        [
+          1920,
+          452,
+          438
+        ],
+        [
+          1940,
+          436,
+          422
+        ],
+        [
+          1960,
+          429,
+          415
+        ],
+        [
+          1980,
+          425,
+          410
+        ],
+        [
+          2000,
+          425,
+          410
+        ],
+        [
+          2011,
+          427,
+          415
+        ]
+      ],
+      "atlas_offset_y": 40,
+      "atlas_rows": 35
+    }
+  },
+  "lip_geometry": {
+    "longitudinal_samples": 257,
+    "cross_samples": 17,
+    "projection_step_native": 8e-05,
+    "relief_native": 0.00025,
+    "surface_offset_native": 4.5e-05,
+    "curve_smoothing_iterations": 0
+  },
+  "surface_donor_domains_px": {
+    "dorsal": [
+      [
+        [
+          920,
+          232
+        ],
+        [
+          1060,
+          205
+        ],
+        [
+          1220,
+          184
+        ],
+        [
+          1400,
+          174
+        ],
+        [
+          1550,
+          183
+        ],
+        [
+          1610,
+          195
+        ],
+        [
+          1610,
+          238
+        ],
+        [
+          1550,
+          226
+        ],
+        [
+          1400,
+          219
+        ],
+        [
+          1220,
+          228
+        ],
+        [
+          1060,
+          249
+        ],
+        [
+          920,
+          276
+        ]
+      ]
+    ],
+    "ventral": [
+      [
+        [
+          700,
+          475
+        ],
+        [
+          1000,
+          540
+        ],
+        [
+          1300,
+          558
+        ],
+        [
+          1500,
+          545
+        ],
+        [
+          1590,
+          530
+        ],
+        [
+          1590,
+          567
+        ],
+        [
+          1500,
+          585
+        ],
+        [
+          1300,
+          598
+        ],
+        [
+          1000,
+          580
+        ],
+        [
+          700,
+          515
+        ]
+      ]
+    ]
+  },
+  "pipeline": [
+    "freeze actual exterior/oral common boundary from native_surface",
+    "prepare_source_lips.py",
+    "build_native_source_lips.py",
+    "probe_source_lip_uv.py",
+    "build_mouth_material_continuity.py",
+    "conforming140 contact refinement",
+    "portable rigged139 resources",
+    "cold body/fin/motion/GPU and source visual checks"
+  ],
+  "evidence": "projects/pelagic-fish-146/",
+  "acceptance": "Read current validation/production SOP. This recipe is not user acceptance; hidden central widths/pigment continuation are artistic inference."
+}

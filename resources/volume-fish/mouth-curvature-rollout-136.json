@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "production_installed": false,
+  "items": [
+    {
+      "species": "yellow_croaker",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\yellow_croaker.glb",
+      "model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\yellow_croaker",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.35,
+            "full_x": 0.405,
+            "factor": 0.7,
+            "iterations": 80
+          },
+          {
+            "start_x": 0.43,
+            "full_x": 0.475,
+            "factor": 0.7,
+            "iterations": 220
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.32,
+      "anterior_cut_x": 0.325,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\yellow-croaker.md",
+        "evidence_sha256": "b11d45181ff0f902334206995063544fba25a726e31aae53f34bd6a9d7abf6d0",
+        "species_form": "Keep elongated croaker head, oblique slit, pale source lip and white oral lining; preserve lower-jaw relation.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "zander",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\zander.glb",
+      "model_sha256": "714e9b315bbf0e9e77bf59a3cf35123b8de0c02f8c1c7f3a81bf0e5cbe697aa9",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\zander",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.36,
+            "full_x": 0.415,
+            "factor": 0.7,
+            "iterations": 75
+          },
+          {
+            "start_x": 0.445,
+            "full_x": 0.48,
+            "factor": 0.7,
+            "iterations": 210
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.33,
+      "anterior_cut_x": 0.335,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\zander.md",
+        "evidence_sha256": "17ee9237b0237a11f529f07b9952fc1b2011515edb6f3966d234cfc438f5d3cb",
+        "species_form": "Preserve long terminal predatory mouth and existing source jaw relation; do not impose a small bream mouth.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\atlantic_salmon.glb",
+      "model_sha256": "405f3492d06172ce1cdb822b7e441ed7c1368004d8c462e2801933f91c04c3e1",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\atlantic_salmon",
+      "surface": {
+        "voxel_size": 0.0009,
+        "stages": [
+          {
+            "start_x": 0.37,
+            "full_x": 0.425,
+            "factor": 0.7,
+            "iterations": 90
+          },
+          {
+            "start_x": 0.45,
+            "full_x": 0.485,
+            "factor": 0.7,
+            "iterations": 210
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.34,
+      "anterior_cut_x": 0.34500000000000003,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\atlantic-salmon.md",
+        "evidence_sha256": "74c9e1808820d2957a2faf4ae808e04cb4b82a610a361d6696aa392999da2051",
+        "species_form": "Round blunt snout with long upward slit; no breeding male hooked jaw inference.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "red_emperor",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\red_emperor.glb",
+      "model_sha256": "96f803926574da31f954daa984aa24869c03492c525cb016c4b571f6f95bc733",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\red_emperor",
+      "surface": {
+        "voxel_size": 0.0012,
+        "stages": [
+          {
+            "start_x": 0.35,
+            "full_x": 0.415,
+            "factor": 0.7,
+            "iterations": 110
+          },
+          {
+            "start_x": 0.44,
+            "full_x": 0.48,
+            "factor": 0.7,
+            "iterations": 240
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.32,
+      "anterior_cut_x": 0.325,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\red-emperor.md",
+        "evidence_sha256": "1416c2b7554a4f684c72fd8b14e81ecf754381a2607162ebddf61bf1b6d6daa6",
+        "species_form": "Retain steep forehead and large oblique aperture; steep side profile does not imply transverse needle tip.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "bluegill",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\bluegill.glb",
+      "model_sha256": "8b27002aad23d69e690832ab060295b30d62b7d0a6a5f11a831d33fe07a79abb",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\bluegill",
+      "surface": {
+        "voxel_size": 0.0012,
+        "stages": [
+          {
+            "start_x": 0.385,
+            "full_x": 0.435,
+            "factor": 0.7,
+            "iterations": 75
+          },
+          {
+            "start_x": 0.455,
+            "full_x": 0.483,
+            "factor": 0.7,
+            "iterations": 200
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.355,
+      "anterior_cut_x": 0.36,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\bluegill.md",
+        "evidence_sha256": "65fbf81e7af5a358f077aaffcbde930545986d640fce1d6a9f4c4b067ff4dab3",
+        "species_form": "Keep short small upward mouth, deep cheek and lateral compression; do not enlarge mouth like bass.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      },
+      "source_uv_repair": {
+        "maximum_native_u_deviation": 0.03,
+        "source_size": [
+          1477,
+          868
+        ],
+        "reason": "Original anterior skin has polar cap UV crossing far outside mouth source columns; explicit lip/adjacent-skin source-reference correction."
+      }
+    },
+    {
+      "species": "brown_trout",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\brown_trout.glb",
+      "model_sha256": "9cb562556fd32b1d876074bdd80d6f885e001223e882491f47b45e8731e2ef4b",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\brown_trout",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.35,
+            "full_x": 0.41,
+            "factor": 0.7,
+            "iterations": 75
+          },
+          {
+            "start_x": 0.44,
+            "full_x": 0.48,
+            "factor": 0.7,
+            "iterations": 180
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.32,
+      "anterior_cut_x": 0.325,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\brown-trout.md",
+        "evidence_sha256": "dbaa015a3ac27d5482de83396f3f16aaee7c72c5eae906e82f454d6163ffb209",
+        "species_form": "Keep elongated snout and oblique mouth; avoid beak or generic spawning hook.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "grass_carp",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\grass_carp.glb",
+      "model_sha256": "c212875e6081cfaf68827da1546d81e2e1ad227271ea7b4744ae2fe981dd80d9",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\grass_carp",
+      "surface": {
+        "voxel_size": 0.0011,
+        "stages": [
+          {
+            "start_x": 0.4,
+            "full_x": 0.445,
+            "factor": 0.7,
+            "iterations": 90
+          },
+          {
+            "start_x": 0.462,
+            "full_x": 0.486,
+            "factor": 0.7,
+            "iterations": 190
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.37,
+      "anterior_cut_x": 0.375,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\grass-carp.md",
+        "evidence_sha256": "b41b6641774e30cba1a55f31172849b5383cdd9d330277ef576122f556423193",
+        "species_form": "Keep terminal arcuate mouth and rounded head envelope, no barbels or bream-like tall nose.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "nile_tilapia",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\nile_tilapia.glb",
+      "model_sha256": "485ecf91d51cc2f9aa303289e674a3807de0051abad68221202551fd2d91879d",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\nile_tilapia",
+      "surface": {
+        "voxel_size": 0.0011,
+        "stages": [
+          {
+            "start_x": 0.385,
+            "full_x": 0.43,
+            "factor": 0.7,
+            "iterations": 80
+          },
+          {
+            "start_x": 0.452,
+            "full_x": 0.483,
+            "factor": 0.7,
+            "iterations": 200
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.355,
+      "anterior_cut_x": 0.36,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\nile-tilapia.md",
+        "evidence_sha256": "b0584ba956bd0c060c6823bf5628818019b93206123bdcab3e7101b4fc6d34ae",
+        "species_form": "Preserve compact source mouth and original upper/lower lip relation and head width.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "sea_bass",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\sea_bass.glb",
+      "model_sha256": "2330ca27218513120df513be50771b10f3fbbb2b8ca76224123232d6a3e34840",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\sea_bass",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.37,
+            "full_x": 0.425,
+            "factor": 0.7,
+            "iterations": 80
+          },
+          {
+            "start_x": 0.445,
+            "full_x": 0.484,
+            "factor": 0.7,
+            "iterations": 190
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.34,
+      "anterior_cut_x": 0.34500000000000003,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\sea-bass.md",
+        "evidence_sha256": "a32e03e03239876587e5ad3cb95c9b2a2fc290596fec3482842fcf9a741e5b20",
+        "species_form": "Retain large oblique mouth and lower-jaw projection established in091; round complete chin as well as upper front.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "rainbow_trout",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\rainbow_trout.glb",
+      "model_sha256": "d0099d20824e8f09ae99e049b3cd1c0c696ffbb07e25a7ad5ba68f315afa6d53",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\rainbow_trout",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.39,
+            "full_x": 0.435,
+            "factor": 0.7,
+            "iterations": 90
+          },
+          {
+            "start_x": 0.455,
+            "full_x": 0.482,
+            "factor": 0.7,
+            "iterations": 190
+          }
+        ],
+        "decimation_ratio": 0.15,
+        "topology_weld_native": 2e-07
+      },
+      "posterior_cut_x": 0.3497,
+      "anterior_cut_x": 0.3547,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\rainbow-trout.md",
+        "evidence_sha256": "92f85ccc08fbfa1e9b1c5686aadd4e037ae1bd3674dbd075d18ff74766e402da",
+        "species_form": "Keep rounded salmonid snout, current upward mouth and width; no new breeding hook.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    },
+    {
+      "species": "crucian",
+      "model": "E:\\fish-mouth-rollout136-snapshot\\game\\assets\\models\\fish\\crucian.glb",
+      "model_sha256": "9efe36e7ff532ea61a5d7daf9bf781334e3529fe3cc02c22ce323688a9c27bdc",
+      "output": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\mouth-rollout-136\\crucian",
+      "surface": {
+        "voxel_size": 0.001,
+        "stages": [
+          {
+            "start_x": 0.405,
+            "full_x": 0.45,
+            "factor": 0.7,
+            "iterations": 75
+          },
+          {
+            "start_x": 0.465,
+            "full_x": 0.486,
+            "factor": 0.7,
+            "iterations": 175
+          }
+        ],
+        "decimation_ratio": 0.15
+      },
+      "posterior_cut_x": 0.375,
+      "anterior_cut_x": 0.38,
+      "constraints": {
+        "evidence": "projects\\fishing-2d\\docs\\3d-fish\\species\\crucian.md",
+        "evidence_sha256": "a2caf728519c5dcf03d4bad0b0021f3d30f0291d5b6ec8b55246117fb239f4ec",
+        "species_form": "Keep blunt small terminal mouth without barbels; do not turn snout into a conical point.",
+        "parameter_status": "Species-specific artistic candidate, not measured anatomy or user acceptance. Review clay, source and native-material continuity before installation."
+      }
+    }
+  ]
+}

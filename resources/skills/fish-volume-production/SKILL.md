@@ -5,6 +5,18 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 # 从鱼类原图制作可审阅的3D鱼
 
+## 统一执行入口
+
+涉及新建/返修鱼嘴，开工先读[嘴部执行卡](references/mouth-execution.md)，选既有实现分支并记录本鱼参数差异；先稳定源口裂、灰模、上下薄带、原像素接续和局部冷读，再冻结候选跑完整门。`sop-check`须填实际带层声明；不能以倒角、图片或完成勾选代替上下唇几何。相同适配再次失败时停止盲调，定位最小反例，不从历史失败路线重试。
+
+新鱼、局部返修和批量推广都先读 [鱼类生产SOP](references/production-sop.md)。它规定材料包、条件性侧/正/俯/腹生图、头嘴眼/背腹材质/鳍的制作顺序、骨骼动作、最终对照图和验证材料，以及返修后的回归范围。专题经验按这条顺序调用，不能只选一个脚本代替完整方法；用户指定已修好样板时先看最终成品，按完整依赖链复用。
+
+每次新经验更新SOP/通用工具、本鱼profile、本次证据三层。通用方法与物种参数分开；失败方案写明被什么替代，不能因脚本仍存在就再次作为推荐模板。本机安装副本与仓库入口须同步。
+
+每鱼用 `volume sop-init` 建立证据清单，交付前运行 `volume sop-check`，均带 `--json`；参见SOP第9节的字段和命令。清单未完成不得宣称整鱼完成；检查通过仍须实际视觉审核、专项门和既有接受合同。
+
+原画整片鳍分离、活动鳍/身体鳍基/旧残影三类归属、同画布形状与UV对照、装回身体后的可见面积，是每条新鱼的标准产物。它们已进入SOP证据检查，不作为仅罗非鱼适用的返修技巧。旧鱼推广先逐鱼判定严重程度，仅修有原图及实际模型证据的严重偏差，轻微差异保留。
+
 适用于 Game AI Foundry 的鱼类制作与修订。先从当前工作区定位实际 Foundry 根目录和目标游戏。目录迁移时重新定位，不能把旧报告里的绝对路径当仍存在的输入。
 
 读取根目录 `AGENTS.md` 与 `resources/skills/gamefactory-toolkit/SKILL.md`，遵循已有资产来源与CLI合同。新鱼使用已接受的真实源图或正式生图流程，不能给旧图片补造生成或接受记录。用户要求沿用已有鱼时，先比对游戏模型清单与源资产账本，从未3D化的鱼中选择。
@@ -17,6 +29,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 - 头吻仍有横切面、需要按源材质铺薄唇，或像素唇线接不上时：读 [references/mouth-material-continuity.md](references/mouth-material-continuity.md)。分别处理完整曲面、实际UV接头和完整绘画像素簇，保留真正唇线。
 - 沿已有双髻鲨增加近缘种，或其鳍轮廓CDT/投影后退化：读 [references/hammerhead-family.md](references/hammerhead-family.md)，区分物种头缘、局部源图接受、平面pinch与实际根带降维。
 - 连接与交付：`projects/fishing-2d/docs/3d-fish/VALIDATION.md`。完整鳍基的绝对连接是每条鱼必检项。
+- 鳍形与原图不同、鳍根吞进身体或鳍纹混到鱼身：读 [references/fin-source-shape.md](references/fin-source-shape.md)。先分离原图整片鳍、独立确认边界，再比较实际UV/几何和装回身体后的可见面积；旧轮廓与接触通过均不代表来源形状正确。
 - 命令/配置：`docs/FISH-VOLUME-WORKFLOW.md`，需要时读 `volume <子命令> --help`。
 
 ## 真正改变制作判断的规则
@@ -48,6 +61,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 16. **对齐完整颌部，不只平移口线。** 091海鲈表明，口裂中心抬对但保留错误下巴，仍会削成薄片；须独立检查额头、上下唇缘、下颌底与嘴尖。区分真实口裂、颌骨片后缘和描边，先实际查看同种侧头/吻部照片，再以固定源画布、同开口状态比较原图/旧版/候选。眼图侧位已正确时保留原投影，只修绕到背侧的重复；不要为修嘴顺带重建眼形。前端外皮、真实唇缘和口内衬按空间归属分别取色；黑端盖不能靠捏尖或抹唇掩盖。侧面轮廓改善、横向制作推断、正面口内面局限与用户同意提交分别记录，均不自动成为跨鱼种模板。相对前突先分别量上下尖；连续场正确仍须验写出后的实际有限三角。具体方法、失败试法与091/108边界见上述参考及知识库。
 
 ## 执行与复验
+
+浅凸/立体眼制作与推广先读 [references/eye-volume.md](references/eye-volume.md)。148旗鱼是已获用户实际游戏确认的局部眼睛样板；支持面必须取当前头部，身体不挖洞，原画眼纹与实际蒙皮保留。先判断正常游戏大小的收益，不照搬物种尺寸或自动批量换眼。
 
 出现背腹黑斑、拉丝、唇线错位、游动贴图滑转或眼睛重影时，读 [references/source-surface-repair.md](references/source-surface-repair.md)。先追踪实际材质与供体，再区分完整颌部、原图纹理和装饰叠层；不要用机械门通过替代用户指出部位的实际对照。用户认为当前效果最好时，绑定实际安装文件哈希保留对比基线；先在原截图上标注主观观察，不把未经确认的重复纹样升级为必须返修项。用户暂缓口内时保持口内实现，不让它阻塞外部展示审阅。
 

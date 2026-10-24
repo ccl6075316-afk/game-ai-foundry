@@ -25,6 +25,11 @@
 # Portable hashes for retained reconstruction tools and species profiles.
 /resources/scripts/volume-fish/** -text whitespace=cr-at-eol
 /resources/volume-fish/** -text whitespace=cr-at-eol
+/resources/runtime/godot/fin-source-141/** -text whitespace=cr-at-eol
+/resources/runtime/godot/hammer-surface-136/** -text whitespace=cr-at-eol
+/resources/runtime/godot/mouth-repair-139/** -text whitespace=cr-at-eol
+/resources/skills/fish-volume-production/** -text whitespace=cr-at-eol
+/cli/volume_sop.py -text whitespace=cr-at-eol
 
 # Retained aquascape tools and source packages bind exact source bytes.
 /resources/aquascape/** -text whitespace=cr-at-eol
