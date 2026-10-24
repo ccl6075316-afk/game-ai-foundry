@@ -1,0 +1,108 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-wood-materials-v3",
+      "description": "Generated matching-camera pixel material views for the reviewed three-view scenery trial.",
+      "art_direction": "Preserve the supplied source pixel artwork finish and exact three-view structure.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect generated materials on jointly constrained three-view scenery in Godot.",
+      "session_goal": "Three source-matched colored orthographic views, then a review-only game preview.",
+      "player_asset": "wood_material_views",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 3072,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-wood-materials-v3/reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (3072x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "wood_material_views",
+      "type": "background",
+      "description": "Paint the three BOTTOM grayscale orthographic views in the supplied reference, using the UPPER LEFT original artwork's exact pixel drawing finish and palette. The upper left artwork is only a material reference and must NOT appear in the output. Output ONE white 3072x1024 sheet containing exactly THREE separate views in a single row: FRONT left, RIGHT END middle, TOP right. Small labels FRONT / RIGHT / TOP at the top. Preserve the bottom drawings' silhouettes, cameras and branch/facet identities. Each object fully visible with generous white margin. No dimensions, rulers, diagram lines or other text. Strict orthographic: front is level elevation, side is narrow end-on, top is a flat overhead footprint, no vertical front walls in TOP. Do NOT rotate any gray view into the original artwork's three-quarter camera. Keep exact same object and distinctive landmarks. Refined naturalistic game PIXEL ART with crisp deliberate pixel clusters, broad coherent painted material planes and subtle detail; no CGI, no smooth airbrush or photographic noise. Flat neutral illumination shared by all views, no cast shadows, no scene, no water, no fish or plants. This is full surface artwork for three different projection donors, NOT a seamless material swatch. Desaturated umber and gray-brown driftwood with restrained honey worn grain following every fork. Retain long S-shaped horizontal trunk, broken left root, single short upward fork and two splayed lower roots. RIGHT is the end silhouette with large central broken oval main-trunk face, upright fork behind and root feet below; no long horizontal trunk in RIGHT. TOP has short oval upright stub, not a tall branch. Do not add or remove branches. End grain occurs only at the genuine broken ends; all side grain flows through junctions.",
+      "display_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "aspect_ratio": "3:1",
+      "generation_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "id": "wood_material_views",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_v3",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "wood_material_views",
+    "asset_type": "background",
+    "prompt": "Paint the three BOTTOM grayscale orthographic views in the supplied reference, using the UPPER LEFT original artwork's exact pixel drawing finish and palette. The upper left artwork is only a material reference and must NOT appear in the output. Output ONE white 3072x1024 sheet containing exactly THREE separate views in a single row: FRONT left, RIGHT END middle, TOP right. Small labels FRONT / RIGHT / TOP at the top. Preserve the bottom drawings' silhouettes, cameras and branch/facet identities. Each object fully visible with generous white margin. No dimensions, rulers, diagram lines or other text. Strict orthographic: front is level elevation, side is narrow end-on, top is a flat overhead footprint, no vertical front walls in TOP. Do NOT rotate any gray view into the original artwork's three-quarter camera. Keep exact same object and distinctive landmarks. Refined naturalistic game PIXEL ART with crisp deliberate pixel clusters, broad coherent painted material planes and subtle detail; no CGI, no smooth airbrush or photographic noise. Flat neutral illumination shared by all views, no cast shadows, no scene, no water, no fish or plants. This is full surface artwork for three different projection donors, NOT a seamless material swatch. Desaturated umber and gray-brown driftwood with restrained honey worn grain following every fork. Retain long S-shaped horizontal trunk, broken left root, single short upward fork and two splayed lower roots. RIGHT is the end silhouette with large central broken oval main-trunk face, upright fork behind and root feet below; no long horizontal trunk in RIGHT. TOP has short oval upright stub, not a tall branch. Do not add or remove branches. End grain occurs only at the genuine broken ends; all side grain flows through junctions.",
+    "negative_hints": [
+      "No perspective camera or redesign.",
+      "No extra views, scene, dimensions or shadows.",
+      "Keep the bottom reference cameras and the upper reference pixel finish."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "3:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": true,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "agent_manual_camera_locked_material",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "3072x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 3072,
+      "height": 1024
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "9a5063e48a563517"
+  }
+}

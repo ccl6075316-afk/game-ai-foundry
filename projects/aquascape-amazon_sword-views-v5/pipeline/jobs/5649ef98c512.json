@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "5649ef98c512",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "2",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\pipeline\\jobs\\5649ef98c512.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\pipeline\\jobs\\5649ef98c512.log",
+  "pid": 18584,
+  "exit_code": 0,
+  "started_at": "2026-10-23T20:16:38+00:00",
+  "finished_at": "2026-10-23T20:17:52+00:00",
+  "error": null,
+  "worker_pid": 49288
+}

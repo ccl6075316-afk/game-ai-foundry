@@ -1,0 +1,294 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:20:16+00:00",
+  "updated_at": "2026-10-23T20:21:23+00:00",
+  "brief": "projects\\aquascape-crypt_crispatula-views-v5\\brief.json",
+  "project": {
+    "title": "aquascape-crypt_crispatula-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-crypt_crispatula-views-v5\\output",
+    "plans_dir": "projects\\aquascape-crypt_crispatula-views-v5\\plans",
+    "assets_manifest": "projects\\aquascape-crypt_crispatula-views-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "crypt_crispatula_right.prompt.craft",
+      "asset": "crypt_crispatula_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-crypt_crispatula-views-v5\\brief.json --asset crypt_crispatula_right -o ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:20+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:20+00:00",
+      "asset_id": "crypt_crispatula_right"
+    },
+    {
+      "id": "crypt_crispatula_right.image.generate",
+      "asset": "crypt_crispatula_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "crypt_crispatula_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_right.json --output ../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_right_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\crypt_crispatula_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_right.json",
+        "output": "../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.1953125
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 64.48014393842409,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:20+00:00",
+      "finished_at": "2026-10-23T20:20:47+00:00",
+      "asset_id": "crypt_crispatula_right"
+    },
+    {
+      "id": "crypt_crispatula_top.prompt.craft",
+      "asset": "crypt_crispatula_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-crypt_crispatula-views-v5\\brief.json --asset crypt_crispatula_top -o ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:20+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:20+00:00",
+      "asset_id": "crypt_crispatula_top"
+    },
+    {
+      "id": "crypt_crispatula_top.image.generate",
+      "asset": "crypt_crispatula_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "crypt_crispatula_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_top.json --output ../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_top_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\crypt_crispatula_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_top.json",
+        "output": "../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.15364583333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 73.67367039405238,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:47+00:00",
+      "finished_at": "2026-10-23T20:21:16+00:00",
+      "asset_id": "crypt_crispatula_top"
+    },
+    {
+      "id": "crypt_crispatula_leaves.prompt.craft",
+      "asset": "crypt_crispatula_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-crypt_crispatula-views-v5\\brief.json --asset crypt_crispatula_leaves -o ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_leaves.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:20+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:20+00:00",
+      "asset_id": "crypt_crispatula_leaves"
+    },
+    {
+      "id": "crypt_crispatula_leaves.image.generate",
+      "asset": "crypt_crispatula_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "crypt_crispatula_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_leaves.json --output ../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_leaves_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\crypt_crispatula_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\crypt_crispatula_leaves.json",
+        "output": "../projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-crypt_crispatula-views-v5\\output\\crypt_crispatula_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.15234375
+            },
+            {
+              "check": "subject_regions",
+              "value": 6
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 48.449024586601176,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:20+00:00",
+      "finished_at": "2026-10-23T20:20:53+00:00",
+      "asset_id": "crypt_crispatula_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "crypt_crispatula_right.prompt.craft",
+        "crypt_crispatula_right.image.generate",
+        "crypt_crispatula_top.prompt.craft",
+        "crypt_crispatula_top.image.generate",
+        "crypt_crispatula_leaves.prompt.craft",
+        "crypt_crispatula_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-crypt_crispatula-views-v5\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-crypt_crispatula-views-v5\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "crypt_crispatula_right",
+              "path": "assets/backgrounds/crypt_crispatula_right.png"
+            },
+            {
+              "asset": "crypt_crispatula_top",
+              "path": "assets/backgrounds/crypt_crispatula_top.png"
+            },
+            {
+              "asset": "crypt_crispatula_leaves",
+              "path": "assets/backgrounds/crypt_crispatula_leaves.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T20:21:16+00:00",
+      "finished_at": "2026-10-23T20:21:23+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-crypt_crispatula-views-v5\\brief.json --project ../projects\\aquascape-crypt_crispatula-views-v5\\game --assemble-file ../projects\\aquascape-crypt_crispatula-views-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-crypt_crispatula-views-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:20+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-crypt_crispatula-views-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-crypt_crispatula-views-v5\\plans\\godot_brief.json"
+}

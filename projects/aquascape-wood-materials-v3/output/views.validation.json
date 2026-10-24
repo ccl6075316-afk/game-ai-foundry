@@ -1,0 +1,74 @@
+{
+  "command": "aquascape.inspect-orthographic-sheet",
+  "status": "done",
+  "next_action": "human_review",
+  "ok": true,
+  "input": "projects\\aquascape-wood-materials-v3\\output\\wood_material_views_raw.png",
+  "sha256": "a6fc1fdf2b8617bc2c9512b6f76a002922fe65aceae80a45f905d05df25ce054",
+  "image_size": [
+    2137,
+    736
+  ],
+  "regions": [
+    {
+      "bbox": [
+        49,
+        227,
+        766,
+        603
+      ],
+      "area": 93250,
+      "width": 717,
+      "height": 376,
+      "cx": 407.5,
+      "candidate_view": "front"
+    },
+    {
+      "bbox": [
+        884,
+        128,
+        1269,
+        656
+      ],
+      "area": 66033,
+      "width": 385,
+      "height": 528,
+      "cx": 1076.5,
+      "candidate_view": "right"
+    },
+    {
+      "bbox": [
+        1398,
+        293,
+        2032,
+        583
+      ],
+      "area": 69139,
+      "width": 634,
+      "height": 290,
+      "cx": 1715.0,
+      "candidate_view": "top"
+    }
+  ],
+  "metrics": {
+    "front_top_length_ratio": 0.8842398884239888,
+    "front_right_height_ratio": 1.4042553191489362,
+    "side_top_depth_ratio": 0.7532467532467533,
+    "uniform_scale_to_front": {
+      "front": 1.0,
+      "right": 0.7121212121212122,
+      "top": 1.1309148264984228
+    },
+    "depth_in_front_length_units": {
+      "from_right": 0.38238028823802883,
+      "from_top": 0.4574132492113565
+    },
+    "normalized_depth_disagreement": 0.16403757674858532,
+    "note": "Uniform per-view print-scale calibration only. Residual depth disagreement remains independent; no image warp or geometric approval."
+  },
+  "scope": "Region and printed-scale diagnostics only; these do not certify a true camera or consistent object geometry. No image resize or warping.",
+  "camera_visual_review": "pending",
+  "object_identity_visual_review": "pending",
+  "user_acceptance": "pending",
+  "failures": []
+}

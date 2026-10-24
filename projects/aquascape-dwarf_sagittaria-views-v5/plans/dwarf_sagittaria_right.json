@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-dwarf_sagittaria-views-v5",
+      "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+      "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+      "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+      "player_asset": "dwarf_sagittaria_right",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1024,
+        "height": 1536
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-plants-fronts-v5/output/dwarf_sagittaria_front_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "dwarf_sagittaria_right",
+      "type": "background",
+      "description": "Render ONE RIGHT view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: Sagittaria subulata. Small dense rooted crown with eleven narrow light-green ribbon leaves of unequal length 6-12 cm, about 4-7 mm wide. Straight tapering entire blades with rounded-to-pointed tips and delicate longitudinal veins, outward arching older leaves, upright younger leaves. One short basal runner with a tiny daughter bud. Submerged ribbon form, NOT emergent arrow-shaped leaves or a broad-leaf fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is exactly at the RIGHT END, looking along -X. Orthographic perpendicular end elevation. Horizontal image axis is front/back Z depth, vertical is Y height. The long X axis points straight at the viewer and disappears in projection: horizontal long limbs become short broken end faces. Do NOT show the long front facade again. Match FRONT height and branch elevations.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "dwarf_sagittaria_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "dwarf_sagittaria_right",
+    "asset_type": "background",
+    "prompt": "Render ONE RIGHT view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: Sagittaria subulata. Small dense rooted crown with eleven narrow light-green ribbon leaves of unequal length 6-12 cm, about 4-7 mm wide. Straight tapering entire blades with rounded-to-pointed tips and delicate longitudinal veins, outward arching older leaves, upright younger leaves. One short basal runner with a tiny daughter bud. Submerged ribbon form, NOT emergent arrow-shaped leaves or a broad-leaf fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is exactly at the RIGHT END, looking along -X. Orthographic perpendicular end elevation. Horizontal image axis is front/back Z depth, vertical is Y height. The long X axis points straight at the viewer and disappears in projection: horizontal long limbs become short broken end faces. Do NOT show the long front facade again. Match FRONT height and branch elevations.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+    "negative_hints": [
+      "One camera-specific full-resolution artwork; no packed views.",
+      "No isometric tilt in orthographic cameras."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "2:3",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "explicit_full_view_template",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1024x1536",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 1024,
+      "height": 1536
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "a00dcef267dad225"
+  }
+}

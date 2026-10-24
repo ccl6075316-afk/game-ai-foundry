@@ -1,0 +1,117 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-wood-v2-top",
+      "description": "Correct rejected oblique auxiliary image with a true top camera.",
+      "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-driven scenery.",
+      "session_goal": "A true top projection suitable for depth estimation.",
+      "player_asset": "wood_top_locked",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/driftwood_master_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "top_down"
+    },
+    "asset": {
+      "name": "wood_top_locked",
+      "type": "character",
+      "description": "The exact same forked driftwood from the reference viewed in STRICT ORTHOGRAPHIC TOP PLAN. Camera points VERTICALLY DOWN, elevation EXACTLY 90 degrees. Reveal the entire FRONT-BACK spread of stabilizing roots and the upper sides of the knotted root crotch. Tall upward fork must be strongly foreshortened into a short stub extending toward camera rather than towering above the main trunk. Keep master left-right orientation with knotted base LEFT and long sinuous main limb reaching RIGHT. This object is about twice as long as its front-back spread. Preserve source branch inventory and continuous natural grain. This must be a real camera rotation, not a copied broadside pose. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_top_locked",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "wood_top_locked",
+    "asset_type": "character",
+    "prompt": "Subject: Single forked driftwood branch, knotted root base at LEFT, long sinuous main limb reaching RIGHT; strict top-down rotation of the same master piece, roots spreading front-to-back, upper sides of the knotted root crotch visible, upward fork foreshortened into a short stub pointing toward camera; continuous natural grain, identical branch inventory.\nSilhouette: Readable elongated fork, overall length about twice its front-back spread, clean unbroken outline, generous even margins, centered.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Source-matched detailed naturalistic pixel-art: painted wood grain, muted brown and tan palette, consistent fine line weight, master material preserved, no invented detail.\nView: Top-down view, looking straight down, clear readable shapes from above; Strict orthographic top plan; camera pointing vertically down at exactly 90 degrees elevation; master left-right orientation retained, no broadside or oblique copy.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Pure flat white #FFFFFF studio backdrop, entire silhouette inside frame, no ground shadow, no scene, 3:2 landscape.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No oblique, three-quarter, side or broadside view; no towering upright fork; no transparent or checkerboard background; no scenery, text, UI, cast shadow, extra or duplicated branches.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "a4dda589fd228854"
+  }
+}

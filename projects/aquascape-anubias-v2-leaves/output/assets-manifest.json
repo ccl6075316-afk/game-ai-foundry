@@ -1,0 +1,93 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T17:36:14+00:00",
+  "brief": "projects\\aquascape-anubias-v2-leaves\\brief.json",
+  "output_dir": "projects\\aquascape-anubias-v2-leaves\\output",
+  "project": {
+    "title": "aquascape-anubias-v2-leaves",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+    "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "anubias_leaves": {
+      "brief": {
+        "id": "anubias_leaves",
+        "name": "anubias_leaves",
+        "type": "character",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "reference_still",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Generate a PRODUCTION PART SHEET that faithfully preserves the exact supplied Anubias plant's drawing finish and dark green painted material. Exact 3 columns by 2 rows on pure white, NO grid lines, text or labels. In each equal cell draw ONE complete isolated Anubias barteri var. nana LEAF BLADE plus a short petiole stub, with clear white gaps around all leaves; petiole DOWN, leaf tip UP, blade fully inside its cell. Six unique leaves taken from the same plant: broad mature oval front-facing, medium broad slightly cupped, smaller young oval, mature blade gently curled to one side, angled broad leaf with folded shoulder, narrow freshly unfolding young leaf. Show the FULL continuous leaf contour including the basal shoulders and stem junction. The first five remain broad ovate leaves with full believable width, not generic lanceolate fern. Paint the exact leaf vein pattern, broad light/dark planes, rim and curled edge from the original. Avoid new coarse dithering or speckle texture. All leaves have their own curved silhouette. No whole plant, roots, rhizome, pot, scenery or overlap across cells. These six painted leaf images will be traced into individually shaped thick 3D leaves; no generic surface swatches. IMPORTANT: exact same individual Anubias barteri var. nana and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "anubias_leaves.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-anubias-v2-leaves\\plans\\anubias_leaves.json",
+          "path_repo": "projects\\aquascape-anubias-v2-leaves\\plans\\anubias_leaves.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "anubias_leaves.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_raw.png",
+          "path_repo": "projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_raw.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.trim",
+          "next_consumer": "orchestrator",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "anubias_leaves.image.trim",
+          "stage": "image.trimmed",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_trimmed.png",
+          "path_repo": "projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_trimmed.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.remove-bg",
+          "next_consumer": "orchestrator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "anubias_leaves.image.remove-bg",
+          "stage": "image.nobg",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_nobg.png",
+          "path_repo": "projects\\aquascape-anubias-v2-leaves\\output\\anubias_leaves_nobg.png",
+          "role": "gameplay_ready",
+          "next_stage": "godot.assemble",
+          "next_consumer": "godot-assembler",
+          "usage": "reference_still",
+          "clip_name": "idle",
+          "loop": null
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T17:36:14+00:00",
+        "note": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T17:30:42+00:00",
+  "brief": "projects\\aquascape-wood-v2-top\\brief.json",
+  "output_dir": "projects\\aquascape-wood-v2-top\\output",
+  "project": {
+    "title": "aquascape-wood-v2-top",
+    "description": "Correct rejected oblique auxiliary image with a true top camera.",
+    "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "wood_top_locked": {
+      "brief": {
+        "id": "wood_top_locked",
+        "name": "wood_top_locked",
+        "type": "character",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "reference_still",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "The exact same forked driftwood from the reference viewed in STRICT ORTHOGRAPHIC TOP PLAN. Camera points VERTICALLY DOWN, elevation EXACTLY 90 degrees. Reveal the entire FRONT-BACK spread of stabilizing roots and the upper sides of the knotted root crotch. Tall upward fork must be strongly foreshortened into a short stub extending toward camera rather than towering above the main trunk. Keep master left-right orientation with knotted base LEFT and long sinuous main limb reaching RIGHT. This object is about twice as long as its front-back spread. Preserve source branch inventory and continuous natural grain. This must be a real camera rotation, not a copied broadside pose. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "wood_top_locked.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json",
+          "path_repo": "projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "wood_top_locked.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png",
+          "path_repo": "projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.trim",
+          "next_consumer": "orchestrator",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "wood_top_locked.image.trim",
+          "stage": "image.trimmed",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png",
+          "path_repo": "projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.remove-bg",
+          "next_consumer": "orchestrator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "wood_top_locked.image.remove-bg",
+          "stage": "image.nobg",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_nobg.png",
+          "path_repo": "projects\\aquascape-wood-v2-top\\output\\wood_top_locked_nobg.png",
+          "role": "gameplay_ready",
+          "next_stage": "godot.assemble",
+          "next_consumer": "godot-assembler",
+          "usage": "reference_still",
+          "clip_name": "idle",
+          "loop": null
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

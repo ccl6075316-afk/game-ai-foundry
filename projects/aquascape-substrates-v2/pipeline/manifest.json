@@ -1,0 +1,367 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-24T08:46:08+00:00",
+  "updated_at": "2026-10-24T08:56:57+00:00",
+  "brief": "projects\\aquascape-substrates-v2\\brief.json",
+  "project": {
+    "title": "Aquascape substrates v2",
+    "description": "Four independently generated full-resolution substrate textures added to the accepted warm fine sand experiment. Local material painting and batched surface gravel, retaining two existing large rock models."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-substrates-v2\\output",
+    "plans_dir": "projects\\aquascape-substrates-v2\\plans",
+    "assets_manifest": "projects\\aquascape-substrates-v2\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "quartz_white.prompt.craft",
+      "asset": "quartz_white",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-substrates-v2\\brief.json --asset quartz_white -o ../projects\\aquascape-substrates-v2\\plans\\quartz_white.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\quartz_white.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T08:46:11+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T08:46:11+00:00",
+      "asset_id": "quartz_white"
+    },
+    {
+      "id": "quartz_white.image.generate",
+      "asset": "quartz_white",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "quartz_white.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-substrates-v2\\plans\\quartz_white.json --output ../projects\\aquascape-substrates-v2\\output\\quartz_white_raw.png --validate --reference-image ../projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\quartz_white.json",
+        "output": "../projects\\aquascape-substrates-v2\\output\\quartz_white_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\output\\quartz_white_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 216.99479166666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 20.100172967780818,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T08:47:49+00:00",
+      "finished_at": "2026-10-24T08:48:45+00:00",
+      "asset_id": "quartz_white"
+    },
+    {
+      "id": "aquasoil_dark.prompt.craft",
+      "asset": "aquasoil_dark",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-substrates-v2\\brief.json --asset aquasoil_dark -o ../projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T08:46:11+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T08:46:11+00:00",
+      "asset_id": "aquasoil_dark"
+    },
+    {
+      "id": "aquasoil_dark.image.generate",
+      "asset": "aquasoil_dark",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "aquasoil_dark.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json --output ../projects\\aquascape-substrates-v2\\output\\aquasoil_dark_raw.png --validate --reference-image ../projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json",
+        "output": "../projects\\aquascape-substrates-v2\\output\\aquasoil_dark_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\output\\aquasoil_dark_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 42.610677083333336
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 23.68641058822099,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T08:52:20+00:00",
+      "finished_at": "2026-10-24T08:53:15+00:00",
+      "asset_id": "aquasoil_dark"
+    },
+    {
+      "id": "river_gravel.prompt.craft",
+      "asset": "river_gravel",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-substrates-v2\\brief.json --asset river_gravel -o ../projects\\aquascape-substrates-v2\\plans\\river_gravel.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\river_gravel.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T08:46:11+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T08:46:11+00:00",
+      "asset_id": "river_gravel"
+    },
+    {
+      "id": "river_gravel.image.generate",
+      "asset": "river_gravel",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "river_gravel.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-substrates-v2\\plans\\river_gravel.json --output ../projects\\aquascape-substrates-v2\\output\\river_gravel_raw.png --validate --reference-image ../projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\river_gravel.json",
+        "output": "../projects\\aquascape-substrates-v2\\output\\river_gravel_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\output\\river_gravel_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 85.77473958333333
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 42.18277923719766,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T08:55:45+00:00",
+      "finished_at": "2026-10-24T08:56:51+00:00",
+      "asset_id": "river_gravel"
+    },
+    {
+      "id": "slate_chips.prompt.craft",
+      "asset": "slate_chips",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-substrates-v2\\brief.json --asset slate_chips -o ../projects\\aquascape-substrates-v2\\plans\\slate_chips.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\slate_chips.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T08:46:11+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T08:46:11+00:00",
+      "asset_id": "slate_chips"
+    },
+    {
+      "id": "slate_chips.image.generate",
+      "asset": "slate_chips",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "slate_chips.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-substrates-v2\\plans\\slate_chips.json --output ../projects\\aquascape-substrates-v2\\output\\slate_chips_raw.png --validate --reference-image ../projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-substrates-v2\\plans\\slate_chips.json",
+        "output": "../projects\\aquascape-substrates-v2\\output\\slate_chips_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\output\\slate_chips_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 119.42447916666667
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 48.907147286410066,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T08:47:49+00:00",
+      "finished_at": "2026-10-24T08:48:50+00:00",
+      "asset_id": "slate_chips"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "quartz_white.prompt.craft",
+        "quartz_white.image.generate",
+        "aquasoil_dark.prompt.craft",
+        "aquasoil_dark.image.generate",
+        "river_gravel.prompt.craft",
+        "river_gravel.image.generate",
+        "slate_chips.prompt.craft",
+        "slate_chips.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-substrates-v2\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-substrates-v2\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-substrates-v2\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "quartz_white",
+              "path": "assets/backgrounds/quartz_white.png"
+            },
+            {
+              "asset": "aquasoil_dark",
+              "path": "assets/backgrounds/aquasoil_dark.png"
+            },
+            {
+              "asset": "river_gravel",
+              "path": "assets/backgrounds/river_gravel.png"
+            },
+            {
+              "asset": "slate_chips",
+              "path": "assets/backgrounds/slate_chips.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-24T08:56:51+00:00",
+      "finished_at": "2026-10-24T08:56:57+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-substrates-v2\\brief.json --project ../projects\\aquascape-substrates-v2\\game --assemble-file ../projects\\aquascape-substrates-v2\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-substrates-v2\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T08:55:45+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-substrates-v2\\game",
+  "godot_assemble_file": "../projects\\aquascape-substrates-v2\\plans\\godot_brief.json"
+}

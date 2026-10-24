@@ -1,0 +1,234 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-24T08:58:04+00:00",
+  "brief": "projects\\aquascape-substrates-v2\\brief.json",
+  "output_dir": "projects\\aquascape-substrates-v2\\output",
+  "project": {
+    "title": "Aquascape substrates v2",
+    "description": "Four independently generated full-resolution substrate textures added to the accepted warm fine sand experiment. Local material painting and batched surface gravel, retaining two existing large rock models.",
+    "art_direction": "Match the accepted warm sand reference and established naturalistic pixel aquarium artwork. Different materials must remain distinct in hue, grain shape and grain scale.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "quartz_white": {
+      "brief": {
+        "id": "quartz_white",
+        "name": "quartz_white",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Warm ivory-white quartz aquarium sand. Clearly pale ivory rather than yellow beige; a few very pale gray and translucent quartz grains, delicate cool gray separations, no pure white blown-out areas. Fine rounded irregular mineral grains mostly 2-5 pixels across. Restrained low contrast and no large pebbles.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "quartz_white.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\plans\\quartz_white.json",
+          "path_repo": "projects\\aquascape-substrates-v2\\plans\\quartz_white.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "quartz_white.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\output\\quartz_white_raw.png",
+          "path_repo": "projects\\aquascape-substrates-v2\\output\\quartz_white_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T08:58:02+00:00",
+        "note": ""
+      }
+    },
+    "aquasoil_dark": {
+      "brief": {
+        "id": "aquasoil_dark",
+        "name": "aquasoil_dark",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Dark umber-charcoal aquarium planting soil. Small rounded slightly irregular granules mostly 7-14 pixels across, porous matte earth surface, natural near-black brown and muted warm charcoal variation. Fine dark gaps, soft restrained highlights, no shiny spheres, no light sand grains, no orange soil or oversized stones.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "aquasoil_dark.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json",
+          "path_repo": "projects\\aquascape-substrates-v2\\plans\\aquasoil_dark.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "aquasoil_dark.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\output\\aquasoil_dark_raw.png",
+          "path_repo": "projects\\aquascape-substrates-v2\\output\\aquasoil_dark_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T08:58:03+00:00",
+        "note": ""
+      }
+    },
+    "river_gravel": {
+      "brief": {
+        "id": "river_gravel",
+        "name": "river_gravel",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Natural fine river gravel, rounded water-worn small pebbles mostly 12-24 pixels across, a minority 8 pixels. A restrained mix of warm gray, buff, desaturated brown, slate gray and a few ivory pebbles; slightly unequal sizes and oval silhouettes, subtle mineral marks, dark gray-brown fine gaps. No bright colorful candy stones, no giant boulders, no loose isolated objects.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "river_gravel.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\plans\\river_gravel.json",
+          "path_repo": "projects\\aquascape-substrates-v2\\plans\\river_gravel.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "river_gravel.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\output\\river_gravel_raw.png",
+          "path_repo": "projects\\aquascape-substrates-v2\\output\\river_gravel_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T08:58:03+00:00",
+        "note": ""
+      }
+    },
+    "slate_chips": {
+      "brief": {
+        "id": "slate_chips",
+        "name": "slate_chips",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Fine dark slate aquarium gravel chips, flattened irregular subrounded angular mineral fragments mostly 10-22 pixels across, dark slate gray, cool charcoal and restrained pale gray exposed small planes. Moderately rounded worn corners, no dangerous needle spikes, no sharp black outlines, no regular polygons or uniform round balls. Dark fine gravel in small gaps. Fine readable pixel material details, no large terrain slabs.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "slate_chips.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\plans\\slate_chips.json",
+          "path_repo": "projects\\aquascape-substrates-v2\\plans\\slate_chips.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "slate_chips.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-substrates-v2\\output\\slate_chips_raw.png",
+          "path_repo": "projects\\aquascape-substrates-v2\\output\\slate_chips_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T08:58:04+00:00",
+        "note": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "b39d24178e9a",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquarium-hall-materials-v3\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "3",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquarium-hall-materials-v3\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquarium-hall-materials-v3\\pipeline\\jobs\\b39d24178e9a.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquarium-hall-materials-v3\\pipeline\\jobs\\b39d24178e9a.log",
+  "pid": 13584,
+  "exit_code": 0,
+  "started_at": "2026-10-24T20:32:20+00:00",
+  "finished_at": "2026-10-24T20:33:47+00:00",
+  "error": null,
+  "worker_pid": 52120
+}

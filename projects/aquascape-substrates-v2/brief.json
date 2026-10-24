@@ -1,0 +1,119 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-24T08:55:41+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "Aquascape substrates v2",
+    "description": "Four independently generated full-resolution substrate textures added to the accepted warm fine sand experiment. Local material painting and batched surface gravel, retaining two existing large rock models.",
+    "art_direction": "Match the accepted warm sand reference and established naturalistic pixel aquarium artwork. Different materials must remain distinct in hue, grain shape and grain scale.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Select a substrate and locally pour or repaint patches; mixed substrate boundaries, height edits, batched gravel and persistence.",
+    "session_goal": "Five total substrate types with local mixing, granular surface instances for gravel, native scale/performance checks and trial review.",
+    "player_asset": "quartz_white",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-sand-trial-v1/output/fine_sand_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "quartz_white",
+      "type": "background",
+      "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Warm ivory-white quartz aquarium sand. Clearly pale ivory rather than yellow beige; a few very pale gray and translucent quartz grains, delicate cool gray separations, no pure white blown-out areas. Fine rounded irregular mineral grains mostly 2-5 pixels across. Restrained low contrast and no large pebbles.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "quartz_white",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "aquasoil_dark",
+      "type": "background",
+      "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Dark umber-charcoal aquarium planting soil. Small rounded slightly irregular granules mostly 7-14 pixels across, porous matte earth surface, natural near-black brown and muted warm charcoal variation. Fine dark gaps, soft restrained highlights, no shiny spheres, no light sand grains, no orange soil or oversized stones. The first trial was too uniformly near black and failed the required color-variation check. Improve readability with visibly distinct medium dark brown granules, slightly lighter warm charcoal granules, small gray-brown lit planes, and darker narrow crevices. Most grain faces should sit around RGB 45-90, small restrained highlights around 110-130, gaps around 15-25. Preserve a dark overall bed and fine pixel-art granule construction; avoid a black photographic mass. Increase actual natural material variation, not procedural noise or bright white specks.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "aquasoil_dark",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "river_gravel",
+      "type": "background",
+      "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Natural fine river gravel, rounded water-worn small pebbles mostly 12-24 pixels across, a minority 8 pixels. A restrained mix of warm gray, buff, desaturated brown, slate gray and a few ivory pebbles; slightly unequal sizes and oval silhouettes, subtle mineral marks, dark gray-brown fine gaps. No bright colorful candy stones, no giant boulders, no loose isolated objects. STYLE CORRECTION: the first river gravel image looked too photographic. Render this as visibly hand-painted PIXEL ART, consistent with the supplied sand reference: deliberate square 2x2 or 3x3 pixel clusters, stepped pixel silhouettes on pebble edges, a few coherent flat pixel shading bands per pebble, no smooth anti-aliased curves, no photo microgranulation, no photoreal glossy highlights. Keep gravel shapes natural and unequal, with controlled gray and beige palette. The output must visibly look like game pixel artwork at native size.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "river_gravel",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "slate_chips",
+      "type": "background",
+      "description": "Create ONE seamless tileable aquarium substrate material, exact straight-down orthographic view of a flat densely packed surface, full bleed square 1024x1024. Match the supplied accepted sand illustration for fine deliberate PIXEL ART clusters, naturalistic painted material, controlled palette and readable grains. No photo, no smooth CGI, no uniform procedural noise. No borders, labels, inset, plants, fish, equipment, large rocks, sand hills or white studio background. All four image edges should tile continuously. Broad overall even color, no large blobs, no directional gradients, no large cast shadows. Very subtle diffuse grain shading; later real geometry supplies larger shadows. Fine dark slate aquarium gravel chips, flattened irregular subrounded angular mineral fragments mostly 10-22 pixels across, dark slate gray, cool charcoal and restrained pale gray exposed small planes. Moderately rounded worn corners, no dangerous needle spikes, no sharp black outlines, no regular polygons or uniform round balls. Dark fine gravel in small gaps. Fine readable pixel material details, no large terrain slabs.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "slate_chips",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

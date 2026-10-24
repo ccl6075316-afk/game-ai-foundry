@@ -1,0 +1,22 @@
+{
+  "schema_version":1,
+  "description":"Artwork-derived experimental volume and individual leaf reconstruction. Silhouettes and painted appearance are generated source data; depth is inferred, not a measured reconstruction.",
+  "sources": {
+    "masters":"projects/aquascape-source-v2/output",
+    "rock_back":"projects/aquascape-rock-v2-views/output/rock_back_nobg.png",
+    "wood_back":"projects/aquascape-wood-v2-views/output/wood_back_nobg.png",
+    "anubias_parts":"projects/aquascape-anubias-v2-leaves/output/anubias_leaves_nobg.png",
+    "fern_parts":"projects/aquascape-fern-v2-leaves/output/fern_leaves_nobg.png"
+  },
+  "solid_assets":[
+    {"id":"rock", "master":"rock_master_nobg.png", "back":"rock_back", "width_m":0.38,"depth_ratio":1.12,"grid_width":240},
+    {"id":"driftwood", "master":"driftwood_master_nobg.png", "back":"wood_back", "width_m":0.55,"depth_ratio":1.0,"grid_width":320}
+  ],
+  "plants":[
+    {"id":"anubias", "scientific_name":"Anubias barteri var. nana", "parts":"anubias_parts", "master":"anubias_master_nobg.png", "lengths_m":[0.066,0.06,0.046,0.063,0.057,0.04,0.055,0.051,0.045],"angles_degrees":[-76,-38,-14,58,80,9,-54,35,66],"depth_rotations_degrees":[-15,20,-14,18,-15,4,32,-28,16],"pitch_degrees":[0,22,-12,-8,16,3,36,-22,28],"base_y_m":0.018,"rhizome_length_m":0.095,"shell_thickness_m":0.0008},
+    {"id":"java_fern", "scientific_name":"Microsorum pteropus", "parts":"fern_parts", "master":"java_fern_master_nobg.png", "lengths_m":[0.25,0.28,0.24,0.20,0.17,0.22,0.14,0.17],"angles_degrees":[-12,4,19,-48,38,61,-67,55],"depth_rotations_degrees":[-20,10,-14,13,-19,5,40,-32],"pitch_degrees":[-12,16,5,26,-6,28,-22,-18],"base_y_m":0.016,"rhizome_length_m":0.095,"shell_thickness_m":0.0006}
+  ],
+  "rejected_auxiliary_views":["aquascape-rock-v2-views/rock_top","aquascape-rock-v2-views/rock_right","aquascape-wood-v2-views/wood_top","aquascape-wood-v2-views/wood_right","aquascape-rock-v2-top/rock_top_locked","aquascape-wood-v2-top/wood_top_locked"],
+  "rejection_reason":"Camera orientation not reliable enough for orthographic visual-hull constraints. Do not use as measured top/right geometry or label these as accepted three views.",
+  "user_acceptance":"pending"
+}

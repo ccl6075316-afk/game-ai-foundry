@@ -1,0 +1,16 @@
+{
+  "schema_version":1,
+  "description":"Native skeletal micro-current on existing generated-art plants. Not whole-plant rigid rotation or texture scrolling.",
+  "source_profile":"resources/aquascape/source-v2.json",
+  "source_models":"projects/fishing-2d/game/assets/aquascape-v2",
+  "clip":"WaterSway",
+  "duration_s":10.0,
+  "sample_fps":30,
+  "joints_at_leaf_fraction":[0.0,0.2,0.4,0.6,0.8],
+  "weight_fraction":[0.08,0.28,0.48,0.68,0.88],
+  "root_pin_fraction":0.08,
+  "plants":[
+    {"id":"anubias", "scientific_name":"Anubias barteri var. nana", "bend_degrees":[0.65,0.8,1.0,1.2], "sideways_ratio":0.35,"twist_ratio":0.30,"plant_phase":0.0,"tip_displacement_range_m":[0.0004,0.009]},
+    {"id":"java_fern", "scientific_name":"Microsorum pteropus", "bend_degrees":[1.6,2.0,2.4,2.8], "sideways_ratio":0.40,"twist_ratio":0.32,"plant_phase":0.4,"tip_displacement_range_m":[0.003,0.04]}
+  ]
+}

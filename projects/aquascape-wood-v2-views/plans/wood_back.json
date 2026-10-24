@@ -1,0 +1,120 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-wood-v2-views",
+      "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+      "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-matched scenery geometry.",
+      "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+      "player_asset": "wood_back",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/driftwood_master_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "side"
+    },
+    "asset": {
+      "name": "wood_back",
+      "type": "character",
+      "description": "View the EXACT same driftwood from the OPPOSITE BACK side, orthographic camera level. Preserve every major branch, the twisted S main limb, bulging root crotch, short upward fork, stabilizing roots and frayed broken ends. This reverses left-right relative to the front image: long main branch now reaches to viewer LEFT and knotted base is to viewer RIGHT. Reveal the actual rear grain and root connection, no redesign. IMPORTANT: exact same individual driftwood and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_back",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "wood_back",
+    "asset_type": "character",
+    "prompt": "Subject: Exact same driftwood individual seen from the opposite back side: twisted S-curved main limb, bulging root crotch, short upward fork, stabilizing roots, frayed broken ends. Reversed layout — long main branch reaches viewer LEFT, knotted base to viewer RIGHT; rear grain and root connection revealed.\nSilhouette: Full specimen with every branch tip inside frame, generous white margin, clean unbroken outline, readable twisted mass.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Naturalistic detailed pixel art matching the master reference; coherent painted volume, crisp deliberate clusters, restrained wood-tone palette; no CGI or photographic noise.\nView: Side view, profile facing right, readable silhouette for side-scroller gameplay; Side view, orthographic camera level, profile facing right; no three-quarter or top-down angle.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Pure flat white #FFFFFF studio background, no border, gradient, vignette, texture or cast shadow; no ground plane; single specimen only.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No redesign or added branches, no alternate wood, no labels or text, no cropped tips, no transparent or checkerboard background, no multi-view sheet, no scenery.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "3f4a2e3d082ca1da"
+  }
+}

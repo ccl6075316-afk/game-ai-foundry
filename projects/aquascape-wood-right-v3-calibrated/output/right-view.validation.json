@@ -1,0 +1,32 @@
+{
+  "command": "aquascape.inspect-orthographic-sheet",
+  "status": "done",
+  "next_action": "human_review",
+  "ok": true,
+  "input": "projects\\aquascape-wood-right-v3-calibrated\\output\\wood_right_end_raw.png",
+  "sha256": "f7136b34a40d8823314a2ca9baf271e4978cf0c8fe73eb21be8c1cc36c79b0d6",
+  "image_size": [
+    1024,
+    1024
+  ],
+  "regions": [
+    {
+      "bbox": [
+        191,
+        54,
+        833,
+        969
+      ],
+      "area": 176087,
+      "width": 642,
+      "height": 915,
+      "cx": 512.0
+    }
+  ],
+  "metrics": {},
+  "scope": "Region and printed-scale diagnostics only; these do not certify a true camera or consistent object geometry. No image resize or warping.",
+  "camera_visual_review": "pending",
+  "object_identity_visual_review": "pending",
+  "user_acceptance": "pending",
+  "failures": []
+}

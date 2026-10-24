@@ -1,0 +1,805 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-24T09:11:10+00:00",
+  "updated_at": "2026-10-24T09:17:44+00:00",
+  "brief": "projects\\aquascape-decor-fronts-v1\\brief.json",
+  "project": {
+    "title": "Aquascape ten ornaments front artwork v1",
+    "description": "Ten individually generated aquarium ornaments beyond natural rocks, wood and plants; each will receive separate full-resolution right and top artwork."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-decor-fronts-v1\\output",
+    "plans_dir": "projects\\aquascape-decor-fronts-v1\\plans",
+    "assets_manifest": "projects\\aquascape-decor-fronts-v1\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "shipwreck_front.prompt.craft",
+      "asset": "shipwreck_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset shipwreck_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\shipwreck_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\shipwreck_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "shipwreck_front"
+    },
+    {
+      "id": "shipwreck_front.image.generate",
+      "asset": "shipwreck_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "shipwreck_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\shipwreck_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\shipwreck_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\shipwreck_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\shipwreck_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\shipwreck_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.9375
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 89.77345775882007,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:12:36+00:00",
+      "finished_at": "2026-10-24T09:13:15+00:00",
+      "asset_id": "shipwreck_front"
+    },
+    {
+      "id": "stone_bridge_front.prompt.craft",
+      "asset": "stone_bridge_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset stone_bridge_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\stone_bridge_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\stone_bridge_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "stone_bridge_front"
+    },
+    {
+      "id": "stone_bridge_front.image.generate",
+      "asset": "stone_bridge_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "stone_bridge_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\stone_bridge_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\stone_bridge_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\stone_bridge_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\stone_bridge_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\stone_bridge_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.90364583333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 71.23636281435289,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:13:00+00:00",
+      "finished_at": "2026-10-24T09:13:43+00:00",
+      "asset_id": "stone_bridge_front"
+    },
+    {
+      "id": "terracotta_jar_front.prompt.craft",
+      "asset": "terracotta_jar_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset terracotta_jar_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\terracotta_jar_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\terracotta_jar_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "terracotta_jar_front"
+    },
+    {
+      "id": "terracotta_jar_front.image.generate",
+      "asset": "terracotta_jar_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "terracotta_jar_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\terracotta_jar_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\terracotta_jar_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\terracotta_jar_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\terracotta_jar_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\terracotta_jar_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.77994791666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 79.25441430712905,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:13:43+00:00",
+      "finished_at": "2026-10-24T09:14:25+00:00",
+      "asset_id": "terracotta_jar_front"
+    },
+    {
+      "id": "clay_pipe_front.prompt.craft",
+      "asset": "clay_pipe_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset clay_pipe_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\clay_pipe_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\clay_pipe_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "clay_pipe_front"
+    },
+    {
+      "id": "clay_pipe_front.image.generate",
+      "asset": "clay_pipe_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "clay_pipe_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\clay_pipe_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\clay_pipe_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\clay_pipe_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\clay_pipe_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\clay_pipe_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.88020833333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 77.47121497705218,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:16:59+00:00",
+      "finished_at": "2026-10-24T09:17:37+00:00",
+      "asset_id": "clay_pipe_front"
+    },
+    {
+      "id": "coconut_shelter_front.prompt.craft",
+      "asset": "coconut_shelter_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset coconut_shelter_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\coconut_shelter_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\coconut_shelter_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "coconut_shelter_front"
+    },
+    {
+      "id": "coconut_shelter_front.image.generate",
+      "asset": "coconut_shelter_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "coconut_shelter_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\coconut_shelter_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\coconut_shelter_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\coconut_shelter_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\coconut_shelter_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\coconut_shelter_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.9296875
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 98.67592724068008,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:11:48+00:00",
+      "finished_at": "2026-10-24T09:12:24+00:00",
+      "asset_id": "coconut_shelter_front"
+    },
+    {
+      "id": "ruin_arch_front.prompt.craft",
+      "asset": "ruin_arch_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset ruin_arch_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\ruin_arch_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\ruin_arch_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "ruin_arch_front"
+    },
+    {
+      "id": "ruin_arch_front.image.generate",
+      "asset": "ruin_arch_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "ruin_arch_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\ruin_arch_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\ruin_arch_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\ruin_arch_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\ruin_arch_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\ruin_arch_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.97916666666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 57.61921802100011,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:12:24+00:00",
+      "finished_at": "2026-10-24T09:13:00+00:00",
+      "asset_id": "ruin_arch_front"
+    },
+    {
+      "id": "broken_column_front.prompt.craft",
+      "asset": "broken_column_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset broken_column_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\broken_column_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\broken_column_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "broken_column_front"
+    },
+    {
+      "id": "broken_column_front.image.generate",
+      "asset": "broken_column_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "broken_column_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\broken_column_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\broken_column_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\broken_column_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\broken_column_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\broken_column_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.87760416666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 47.0762729801802,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:11:13+00:00",
+      "finished_at": "2026-10-24T09:11:48+00:00",
+      "asset_id": "broken_column_front"
+    },
+    {
+      "id": "stone_lantern_front.prompt.craft",
+      "asset": "stone_lantern_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset stone_lantern_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\stone_lantern_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\stone_lantern_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "stone_lantern_front"
+    },
+    {
+      "id": "stone_lantern_front.image.generate",
+      "asset": "stone_lantern_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "stone_lantern_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\stone_lantern_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\stone_lantern_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\stone_lantern_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\stone_lantern_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\stone_lantern_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.88671875
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 71.5076664293338,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:13:15+00:00",
+      "finished_at": "2026-10-24T09:13:52+00:00",
+      "asset_id": "stone_lantern_front"
+    },
+    {
+      "id": "treasure_chest_front.prompt.craft",
+      "asset": "treasure_chest_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset treasure_chest_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\treasure_chest_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\treasure_chest_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "treasure_chest_front"
+    },
+    {
+      "id": "treasure_chest_front.image.generate",
+      "asset": "treasure_chest_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "treasure_chest_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\treasure_chest_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\treasure_chest_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\treasure_chest_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\treasure_chest_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\treasure_chest_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.86328125
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 96.37999469412665,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:13:52+00:00",
+      "finished_at": "2026-10-24T09:14:30+00:00",
+      "asset_id": "treasure_chest_front"
+    },
+    {
+      "id": "iron_anchor_front.prompt.craft",
+      "asset": "iron_anchor_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --asset iron_anchor_front -o ../projects\\aquascape-decor-fronts-v1\\plans\\iron_anchor_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\iron_anchor_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:11:13+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:11:13+00:00",
+      "asset_id": "iron_anchor_front"
+    },
+    {
+      "id": "iron_anchor_front.image.generate",
+      "asset": "iron_anchor_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "iron_anchor_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-fronts-v1\\plans\\iron_anchor_front.json --output ../projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-fronts-v1\\plans\\iron_anchor_front.json",
+        "output": "../projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.01041666666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 81.15823649523618,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:11:49+00:00",
+      "finished_at": "2026-10-24T09:12:36+00:00",
+      "asset_id": "iron_anchor_front"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "shipwreck_front.prompt.craft",
+        "shipwreck_front.image.generate",
+        "stone_bridge_front.prompt.craft",
+        "stone_bridge_front.image.generate",
+        "terracotta_jar_front.prompt.craft",
+        "terracotta_jar_front.image.generate",
+        "clay_pipe_front.prompt.craft",
+        "clay_pipe_front.image.generate",
+        "coconut_shelter_front.prompt.craft",
+        "coconut_shelter_front.image.generate",
+        "ruin_arch_front.prompt.craft",
+        "ruin_arch_front.image.generate",
+        "broken_column_front.prompt.craft",
+        "broken_column_front.image.generate",
+        "stone_lantern_front.prompt.craft",
+        "stone_lantern_front.image.generate",
+        "treasure_chest_front.prompt.craft",
+        "treasure_chest_front.image.generate",
+        "iron_anchor_front.prompt.craft",
+        "iron_anchor_front.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-decor-fronts-v1\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-decor-fronts-v1\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-decor-fronts-v1\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "shipwreck_front",
+              "path": "assets/backgrounds/shipwreck_front.png"
+            },
+            {
+              "asset": "stone_bridge_front",
+              "path": "assets/backgrounds/stone_bridge_front.png"
+            },
+            {
+              "asset": "terracotta_jar_front",
+              "path": "assets/backgrounds/terracotta_jar_front.png"
+            },
+            {
+              "asset": "clay_pipe_front",
+              "path": "assets/backgrounds/clay_pipe_front.png"
+            },
+            {
+              "asset": "coconut_shelter_front",
+              "path": "assets/backgrounds/coconut_shelter_front.png"
+            },
+            {
+              "asset": "ruin_arch_front",
+              "path": "assets/backgrounds/ruin_arch_front.png"
+            },
+            {
+              "asset": "broken_column_front",
+              "path": "assets/backgrounds/broken_column_front.png"
+            },
+            {
+              "asset": "stone_lantern_front",
+              "path": "assets/backgrounds/stone_lantern_front.png"
+            },
+            {
+              "asset": "treasure_chest_front",
+              "path": "assets/backgrounds/treasure_chest_front.png"
+            },
+            {
+              "asset": "iron_anchor_front",
+              "path": "assets/backgrounds/iron_anchor_front.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-24T09:17:37+00:00",
+      "finished_at": "2026-10-24T09:17:44+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-decor-fronts-v1\\brief.json --project ../projects\\aquascape-decor-fronts-v1\\game --assemble-file ../projects\\aquascape-decor-fronts-v1\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-decor-fronts-v1\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:16:59+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-decor-fronts-v1\\game",
+  "godot_assemble_file": "../projects\\aquascape-decor-fronts-v1\\plans\\godot_brief.json"
+}

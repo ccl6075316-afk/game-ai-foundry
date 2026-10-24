@@ -1,0 +1,221 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-24T09:20:30+00:00",
+  "updated_at": "2026-10-24T09:37:01+00:00",
+  "brief": "projects\\aquascape-decor-iron_anchor-views-v1\\brief.json",
+  "project": {
+    "title": "iron_anchor independent right/top artwork",
+    "description": "Two independent full-resolution cameras derived from the reviewed original front ornament design."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-decor-iron_anchor-views-v1\\output",
+    "plans_dir": "projects\\aquascape-decor-iron_anchor-views-v1\\plans",
+    "assets_manifest": "projects\\aquascape-decor-iron_anchor-views-v1\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "iron_anchor_right.prompt.craft",
+      "asset": "iron_anchor_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-iron_anchor-views-v1\\brief.json --asset iron_anchor_right -o ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:34:24+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:34:24+00:00",
+      "asset_id": "iron_anchor_right"
+    },
+    {
+      "id": "iron_anchor_right.image.generate",
+      "asset": "iron_anchor_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "iron_anchor_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_right.json --output ../projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_right_raw.png --validate --reference-image ../projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_right.json",
+        "output": "../projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.08723958333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 52.081579108477854,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:36:08+00:00",
+      "finished_at": "2026-10-24T09:36:42+00:00",
+      "asset_id": "iron_anchor_right"
+    },
+    {
+      "id": "iron_anchor_top.prompt.craft",
+      "asset": "iron_anchor_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-decor-iron_anchor-views-v1\\brief.json --asset iron_anchor_top -o ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-24T09:34:24+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:34:24+00:00",
+      "asset_id": "iron_anchor_top"
+    },
+    {
+      "id": "iron_anchor_top.image.generate",
+      "asset": "iron_anchor_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "iron_anchor_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_top.json --output ../projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_top_raw.png --validate --reference-image ../projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\iron_anchor_top.json",
+        "output": "../projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-decor-iron_anchor-views-v1\\output\\iron_anchor_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.171875
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 41.155054953729646,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-24T09:36:08+00:00",
+      "finished_at": "2026-10-24T09:36:54+00:00",
+      "asset_id": "iron_anchor_top"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "iron_anchor_right.prompt.craft",
+        "iron_anchor_right.image.generate",
+        "iron_anchor_top.prompt.craft",
+        "iron_anchor_top.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-decor-iron_anchor-views-v1\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-decor-iron_anchor-views-v1\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "iron_anchor_right",
+              "path": "assets/backgrounds/iron_anchor_right.png"
+            },
+            {
+              "asset": "iron_anchor_top",
+              "path": "assets/backgrounds/iron_anchor_top.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-24T09:36:54+00:00",
+      "finished_at": "2026-10-24T09:37:01+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-decor-iron_anchor-views-v1\\brief.json --project ../projects\\aquascape-decor-iron_anchor-views-v1\\game --assemble-file ../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-decor-iron_anchor-views-v1\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-24T09:36:08+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-decor-iron_anchor-views-v1\\game",
+  "godot_assemble_file": "../projects\\aquascape-decor-iron_anchor-views-v1\\plans\\godot_brief.json"
+}

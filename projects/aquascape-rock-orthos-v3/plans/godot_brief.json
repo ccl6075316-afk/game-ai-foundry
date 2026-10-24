@@ -1,0 +1,60 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-rock-orthos-v3\\game",
+    "project_name": "aquascape-rock-orthos-v3",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "rock_three_views",
+        "image": "projects\\aquascape-rock-orthos-v3\\output\\rock_three_views_raw.png",
+        "display_size": {
+          "width": 3072,
+          "height": 1024
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 3072,
+      "height": 1024
+    }
+  }
+}

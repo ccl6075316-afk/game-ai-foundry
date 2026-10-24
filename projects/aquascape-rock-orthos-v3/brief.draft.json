@@ -1,0 +1,53 @@
+{
+  "project": {
+    "title": "aquascape-rock-orthos-v3",
+    "description": "Orthographic front/right/top construction study from the generated V2 master. Fix single-view inferred thickness before rebuilding 3D.",
+    "art_direction": "Source-matched naturalistic pixel art, strict orthographic construction views; prioritize same-object geometric consistency and camera correctness.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Review consistent projections of scenery before 3D reconstruction.",
+    "session_goal": "One valid three-view sheet with consistent length, height, depth and feature correspondence.",
+    "player_asset": "rock_three_views",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 3072,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png"
+  },
+  "assets": [
+    {
+      "id": "rock_three_views",
+      "name": "rock_three_views",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create ONE TECHNICAL THREE-VIEW MODEL SHEET of the exact single weathered slate-gray aquarium rock shown in the supplied artwork, using the supplied master image to identify the same object. This is a multi-view construction reference, not an attractive presentation illustration. Pure WHITE page, exactly THREE equal vertical panels in ONE HORIZONTAL ROW. Use small simple headers: FRONT above LEFT panel; RIGHT above MIDDLE panel; TOP above RIGHT panel. No extra views. Flat neutral diffuse light, no cast shadows, no horizon, no ground plane. Restrained source-matched painted pixel art, clearly readable contour and plane boundaries. The front has a high stepped shoulder on the LEFT, a long lower terraced mass extending RIGHT, one diagonal fissure near the right half, and a scooped upper-right notch. Retain the connected irregular stone, not a group of separate rocks. Approximate shared dimensions: LENGTH X = 38 cm, HEIGHT Y = 16 cm, DEPTH Z about 20 cm. ALL THREE VIEWS are true ORTHOGRAPHIC parallel projections of ONE coherent physical object. FRONT: camera exactly level at object center looking along -Z, eye elevation ZERO; X horizontal and Y vertical. Show no top-facing area from camera tilt. RIGHT: Look exactly from the RIGHT END along negative X, perpendicular to the end. Horizontal dimension in this panel is front-back DEPTH Z, only about 53% of the rock's length; vertical dimension is HEIGHT Y, exactly the same height as FRONT. The long left-to-right facade is FORESHORTENED AWAY. The right-hand scoop/notch is visible as the near end's real shape. Do not rotate back toward the broad front. TOP: Only a long irregular rock FOOTPRINT and UPPER planes are visible. The tall LEFT shoulder becomes a large top patch, the right notch cuts into the perimeter, and the diagonal fissure continues coherently across the top. All front-facing VERTICAL walls disappear from this strict plan. This is a flat overhead map of the rock, NOT a raised-front isometric rock. Scale consistency: FRONT and TOP must have identical X LENGTH on the page; FRONT and RIGHT must have identical Y HEIGHT; RIGHT horizontal depth equals TOP vertical depth. Keep object centered in each panel; fit all silhouettes with white margin. The master reference is a three-quarter concept and MUST be rotated into these strict technical cameras. In TOP there must be NO long visible vertical facade. In RIGHT there must be NO long visible left-right facade. Do not copy the same silhouette three times. No isometric or three-quarter view in ANY panel. No redesign or extra branches. No perspective foreshortening except the disappearance of axes in the orthographic projection.",
+      "display_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "aspect_ratio": "3:1",
+      "style_group": "aquascape_orthos",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

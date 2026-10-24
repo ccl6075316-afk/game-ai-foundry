@@ -1,0 +1,120 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-rock-v2-views",
+      "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+      "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-matched scenery geometry.",
+      "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+      "player_asset": "rock_back",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "side"
+    },
+    "asset": {
+      "name": "rock_top",
+      "type": "character",
+      "description": "View the EXACT same rock directly from ABOVE, orthographic top plan. Image horizontal corresponds to master's left-right: taller shoulder on LEFT, scooped notch near RIGHT. Its depth is about half its width. Show an irregular long broad footprint, the upper broken shelves and diagonal fissure. No vertical front wall in this TOP view. IMPORTANT: exact same individual rock and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "rock_top",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "rock_top",
+    "asset_type": "character",
+    "prompt": "Subject: The exact same rock viewed from directly above: irregular long broad footprint, depth about half its width; heavier taller mass on the LEFT, scooped notch near the RIGHT; broken upper shelves and one diagonal fissure visible.\nSilhouette: Long, broad, irregular plan contour; left lobe bulky, right side pinched by the notch; every tip fully inside frame with generous white margin.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Match the master reference exactly: naturalistic detailed pixel art, crisp deliberate clusters, coherent painted volume, restrained palette, same line weight; change only the viewing angle.\nView: Side view, profile facing right, readable silhouette for side-scroller gameplay; Orthographic top plan, looking straight down; image horizontal maps to the master's left-right.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Pure flat white background (#FFFFFF), uniform studio void; isolated with wide even margin; no ground plane, no ground contact shadow, no border, vignette or text.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No vertical front wall, no side elevation, no three-quarter angle, no perspective viewing, no scenery, no cast shadow, no labels, no transparent or checkerboard background, no multiple rocks, no CGI or photographic noise.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "d4daef9031b957ab"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "e85d29266549",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "1",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\pipeline\\jobs\\e85d29266549.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-substrates-v2\\pipeline\\jobs\\e85d29266549.log",
+  "pid": 51472,
+  "exit_code": 0,
+  "started_at": "2026-10-24T08:55:44+00:00",
+  "finished_at": "2026-10-24T08:56:57+00:00",
+  "error": null,
+  "worker_pid": 20580
+}

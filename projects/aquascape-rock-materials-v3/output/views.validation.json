@@ -1,0 +1,74 @@
+{
+  "command": "aquascape.inspect-orthographic-sheet",
+  "status": "done",
+  "next_action": "human_review",
+  "ok": true,
+  "input": "projects\\aquascape-rock-materials-v3\\output\\rock_material_views_raw.png",
+  "sha256": "45ad3e4369929fff1a3eb5e6869256c6794b15712cf31ea71caa00cb1d90d161",
+  "image_size": [
+    2135,
+    736
+  ],
+  "regions": [
+    {
+      "bbox": [
+        71,
+        236,
+        725,
+        503
+      ],
+      "area": 130705,
+      "width": 654,
+      "height": 267,
+      "cx": 398.0,
+      "candidate_view": "front"
+    },
+    {
+      "bbox": [
+        902,
+        237,
+        1213,
+        503
+      ],
+      "area": 61041,
+      "width": 311,
+      "height": 266,
+      "cx": 1057.5,
+      "candidate_view": "right"
+    },
+    {
+      "bbox": [
+        1440,
+        237,
+        2070,
+        517
+      ],
+      "area": 118331,
+      "width": 630,
+      "height": 280,
+      "cx": 1755.0,
+      "candidate_view": "top"
+    }
+  ],
+  "metrics": {
+    "front_top_length_ratio": 0.963302752293578,
+    "front_right_height_ratio": 0.9962546816479401,
+    "side_top_depth_ratio": 0.9003215434083601,
+    "uniform_scale_to_front": {
+      "front": 1.0,
+      "right": 1.0037593984962405,
+      "top": 1.0380952380952382
+    },
+    "depth_in_front_length_units": {
+      "from_right": 0.47732289439194314,
+      "from_top": 0.4444444444444445
+    },
+    "normalized_depth_disagreement": 0.06888094062486191,
+    "note": "Uniform per-view print-scale calibration only. Residual depth disagreement remains independent; no image warp or geometric approval."
+  },
+  "scope": "Region and printed-scale diagnostics only; these do not certify a true camera or consistent object geometry. No image resize or warping.",
+  "camera_visual_review": "pending",
+  "object_identity_visual_review": "pending",
+  "user_acceptance": "pending",
+  "failures": []
+}

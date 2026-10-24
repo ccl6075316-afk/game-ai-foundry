@@ -1,0 +1,454 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:02:34+00:00",
+  "updated_at": "2026-10-23T20:03:57+00:00",
+  "brief": "projects\\aquascape-plants-20-v5\\brief.json",
+  "project": {
+    "title": "aquascape-plants-20-v5",
+    "description": "Expand the approved scenery process to twenty distinct assets, reusing four existing assets and generating sixteen new designs. Fixed prompts and mechanical operations are deterministic; visual acceptance remains manual."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-plants-20-v5\\output",
+    "plans_dir": "projects\\aquascape-plants-20-v5\\plans",
+    "assets_manifest": "projects\\aquascape-plants-20-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "bucephalandra.prompt.craft",
+      "asset": "bucephalandra",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset bucephalandra -o ../projects\\aquascape-plants-20-v5\\plans\\bucephalandra.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\bucephalandra.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "bucephalandra"
+    },
+    {
+      "id": "bucephalandra.image.generate",
+      "asset": "bucephalandra",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "bucephalandra.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "running",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\bucephalandra.json --output ../projects\\aquascape-plants-20-v5\\output\\bucephalandra_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\bucephalandra.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\bucephalandra_raw.png"
+      },
+      "result": null,
+      "started_at": "2026-10-23T20:03:46+00:00",
+      "finished_at": null,
+      "asset_id": "bucephalandra"
+    },
+    {
+      "id": "crypt_wendtii.prompt.craft",
+      "asset": "crypt_wendtii",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset crypt_wendtii -o ../projects\\aquascape-plants-20-v5\\plans\\crypt_wendtii.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\crypt_wendtii.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "crypt_wendtii"
+    },
+    {
+      "id": "crypt_wendtii.image.generate",
+      "asset": "crypt_wendtii",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "crypt_wendtii.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "pending",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\crypt_wendtii.json --output ../projects\\aquascape-plants-20-v5\\output\\crypt_wendtii_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\crypt_wendtii.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\crypt_wendtii_raw.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null,
+      "asset_id": "crypt_wendtii"
+    },
+    {
+      "id": "crypt_crispatula.prompt.craft",
+      "asset": "crypt_crispatula",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset crypt_crispatula -o ../projects\\aquascape-plants-20-v5\\plans\\crypt_crispatula.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\crypt_crispatula.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "crypt_crispatula"
+    },
+    {
+      "id": "crypt_crispatula.image.generate",
+      "asset": "crypt_crispatula",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "crypt_crispatula.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "running",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\crypt_crispatula.json --output ../projects\\aquascape-plants-20-v5\\output\\crypt_crispatula_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\crypt_crispatula.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\crypt_crispatula_raw.png"
+      },
+      "result": null,
+      "started_at": "2026-10-23T20:03:57+00:00",
+      "finished_at": null,
+      "asset_id": "crypt_crispatula"
+    },
+    {
+      "id": "amazon_sword.prompt.craft",
+      "asset": "amazon_sword",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset amazon_sword -o ../projects\\aquascape-plants-20-v5\\plans\\amazon_sword.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\amazon_sword.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "amazon_sword"
+    },
+    {
+      "id": "amazon_sword.image.generate",
+      "asset": "amazon_sword",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "amazon_sword.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\amazon_sword.json --output ../projects\\aquascape-plants-20-v5\\output\\amazon_sword_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\amazon_sword.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\amazon_sword_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-plants-20-v5\\output\\amazon_sword_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.05989583333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 18
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 73.52369840950342,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:02:39+00:00",
+      "finished_at": "2026-10-23T20:03:57+00:00",
+      "asset_id": "amazon_sword"
+    },
+    {
+      "id": "dwarf_sagittaria.prompt.craft",
+      "asset": "dwarf_sagittaria",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset dwarf_sagittaria -o ../projects\\aquascape-plants-20-v5\\plans\\dwarf_sagittaria.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\dwarf_sagittaria.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "dwarf_sagittaria"
+    },
+    {
+      "id": "dwarf_sagittaria.image.generate",
+      "asset": "dwarf_sagittaria",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "dwarf_sagittaria.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "pending",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\dwarf_sagittaria.json --output ../projects\\aquascape-plants-20-v5\\output\\dwarf_sagittaria_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\dwarf_sagittaria.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\dwarf_sagittaria_raw.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null,
+      "asset_id": "dwarf_sagittaria"
+    },
+    {
+      "id": "vallisneria.prompt.craft",
+      "asset": "vallisneria",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset vallisneria -o ../projects\\aquascape-plants-20-v5\\plans\\vallisneria.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\vallisneria.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "vallisneria"
+    },
+    {
+      "id": "vallisneria.image.generate",
+      "asset": "vallisneria",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "vallisneria.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "pending",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\vallisneria.json --output ../projects\\aquascape-plants-20-v5\\output\\vallisneria_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\vallisneria.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\vallisneria_raw.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null,
+      "asset_id": "vallisneria"
+    },
+    {
+      "id": "aponogeton.prompt.craft",
+      "asset": "aponogeton",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset aponogeton -o ../projects\\aquascape-plants-20-v5\\plans\\aponogeton.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\aponogeton.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "aponogeton"
+    },
+    {
+      "id": "aponogeton.image.generate",
+      "asset": "aponogeton",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "aponogeton.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\aponogeton.json --output ../projects\\aquascape-plants-20-v5\\output\\aponogeton_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\aponogeton.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\aponogeton_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-plants-20-v5\\output\\aponogeton_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.13151041666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 22
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 55.09633297547985,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:02:39+00:00",
+      "finished_at": "2026-10-23T20:03:46+00:00",
+      "asset_id": "aponogeton"
+    },
+    {
+      "id": "lagenandra_red.prompt.craft",
+      "asset": "lagenandra_red",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-plants-20-v5\\brief.json --asset lagenandra_red -o ../projects\\aquascape-plants-20-v5\\plans\\lagenandra_red.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\lagenandra_red.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:02:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "lagenandra_red"
+    },
+    {
+      "id": "lagenandra_red.image.generate",
+      "asset": "lagenandra_red",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "lagenandra_red.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "pending",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-plants-20-v5\\plans\\lagenandra_red.json --output ../projects\\aquascape-plants-20-v5\\output\\lagenandra_red_raw.png --validate --reference-image ../projects\\aquascape-plants-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-plants-20-v5\\plans\\lagenandra_red.json",
+        "output": "../projects\\aquascape-plants-20-v5\\output\\lagenandra_red_raw.png"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null,
+      "asset_id": "lagenandra_red"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "bucephalandra.prompt.craft",
+        "bucephalandra.image.generate",
+        "crypt_wendtii.prompt.craft",
+        "crypt_wendtii.image.generate",
+        "crypt_crispatula.prompt.craft",
+        "crypt_crispatula.image.generate",
+        "amazon_sword.prompt.craft",
+        "amazon_sword.image.generate",
+        "dwarf_sagittaria.prompt.craft",
+        "dwarf_sagittaria.image.generate",
+        "vallisneria.prompt.craft",
+        "vallisneria.image.generate",
+        "aponogeton.prompt.craft",
+        "aponogeton.image.generate",
+        "lagenandra_red.prompt.craft",
+        "lagenandra_red.image.generate"
+      ],
+      "layer": 2,
+      "status": "pending",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-plants-20-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-plants-20-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-plants-20-v5\\game"
+      },
+      "result": null,
+      "started_at": null,
+      "finished_at": null,
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-plants-20-v5\\brief.json --project ../projects\\aquascape-plants-20-v5\\game --assemble-file ../projects\\aquascape-plants-20-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-plants-20-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:02:39+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-plants-20-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-plants-20-v5\\plans\\godot_brief.json"
+}

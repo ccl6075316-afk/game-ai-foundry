@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "9ed3f8ad5b05",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-bucephalandra-views-v5\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "2",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-bucephalandra-views-v5\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-bucephalandra-views-v5\\pipeline\\jobs\\9ed3f8ad5b05.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-bucephalandra-views-v5\\pipeline\\jobs\\9ed3f8ad5b05.log",
+  "pid": 35896,
+  "exit_code": 0,
+  "started_at": "2026-10-23T20:16:12+00:00",
+  "finished_at": "2026-10-23T20:17:19+00:00",
+  "error": null,
+  "worker_pid": 13652
+}

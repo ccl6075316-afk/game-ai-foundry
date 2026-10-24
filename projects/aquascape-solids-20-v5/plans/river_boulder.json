@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-solids-20-v5",
+      "description": "Expand the approved scenery process to twenty distinct assets, reusing four existing assets and generating sixteen new designs. Fixed prompts and mechanical operations are deterministic; visual acceptance remains manual.",
+      "art_direction": "Detailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-matched scenery in a rotating Godot catalogue.",
+      "session_goal": "Ten species of gently animated plants and ten static stone/wood designs including existing accepted trials.",
+      "player_asset": "river_boulder",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 2048,
+        "height": 2048
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-solids-20-v5/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (2048x2048). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "river_boulder",
+      "type": "background",
+      "description": "Make ONE square FOUR-VIEW technical production board for ONE exact aquarium scenery object. Design: One low asymmetrical water-worn river boulder with an offset flattened dome, one shallow diagonal seam, small worn chips and broad rounded sides. Warm gray-brown stone with pale quartz streaks, subtle cool shadows. Broad footprint, length 30 cm, height 17 cm, depth 21 cm. Not a perfect sphere, no rock pile or foliage.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nExactly four equal cells in a 2x2 layout with white gaps: HERO in UPPER LEFT, FRONT in UPPER RIGHT, RIGHT in LOWER LEFT, TOP in LOWER RIGHT. Only these small four labels at top of each cell. Same exact object in all cells, shared landmarks and material patterns.\nHERO is an attractive three-quarter reference showing the whole object and its natural material.\nFRONT is a strict level orthographic elevation, looking along the depth axis: world length X horizontal, height Y vertical. No camera tilt or perspective.\nRIGHT is a strict orthographic END view from the object's RIGHT end, looking along negative X. Horizontal dimension is the front-back DEPTH, not the object's long facade. Main horizontal limbs point at the viewer and foreshorten into broken end faces. Keep the height equal to FRONT.\nTOP is a strict overhead PLAN, looking vertically downward. Horizontal world X length equals FRONT; vertical world Z footprint depth equals RIGHT width. Tall upright portions become short foreshortened end faces, not tall branches. Do not show vertical front walls in TOP. TOP must not be a three-quarter object. No copied front silhouette in all cells.\nFit all four complete objects inside their own cell with margin. No redesign, no detached material swatches, no dimensions, no cut-off tips. The reference is for pixel drawing finish only; create the specified new distinctive object, not a copy of the reference rock or wood.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "river_boulder",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "river_boulder",
+    "asset_type": "background",
+    "prompt": "Make ONE square FOUR-VIEW technical production board for ONE exact aquarium scenery object. Design: One low asymmetrical water-worn river boulder with an offset flattened dome, one shallow diagonal seam, small worn chips and broad rounded sides. Warm gray-brown stone with pale quartz streaks, subtle cool shadows. Broad footprint, length 30 cm, height 17 cm, depth 21 cm. Not a perfect sphere, no rock pile or foliage.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nExactly four equal cells in a 2x2 layout with white gaps: HERO in UPPER LEFT, FRONT in UPPER RIGHT, RIGHT in LOWER LEFT, TOP in LOWER RIGHT. Only these small four labels at top of each cell. Same exact object in all cells, shared landmarks and material patterns.\nHERO is an attractive three-quarter reference showing the whole object and its natural material.\nFRONT is a strict level orthographic elevation, looking along the depth axis: world length X horizontal, height Y vertical. No camera tilt or perspective.\nRIGHT is a strict orthographic END view from the object's RIGHT end, looking along negative X. Horizontal dimension is the front-back DEPTH, not the object's long facade. Main horizontal limbs point at the viewer and foreshorten into broken end faces. Keep the height equal to FRONT.\nTOP is a strict overhead PLAN, looking vertically downward. Horizontal world X length equals FRONT; vertical world Z footprint depth equals RIGHT width. Tall upright portions become short foreshortened end faces, not tall branches. Do not show vertical front walls in TOP. TOP must not be a three-quarter object. No copied front silhouette in all cells.\nFit all four complete objects inside their own cell with margin. No redesign, no detached material swatches, no dimensions, no cut-off tips. The reference is for pixel drawing finish only; create the specified new distinctive object, not a copy of the reference rock or wood.",
+    "negative_hints": [
+      "Preserve strict panel layout and true orthographic cameras.",
+      "No extra subjects or scenery; keep complete connected parts."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "1:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "user_authorized_fixed_aquascape_template_v5",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "2048x2048",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 2048,
+      "height": 2048
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "0dcd1a79b046effd"
+  }
+}

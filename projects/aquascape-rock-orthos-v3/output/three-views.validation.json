@@ -1,0 +1,74 @@
+{
+  "command": "aquascape.inspect-orthographic-sheet",
+  "status": "done",
+  "next_action": "human_review",
+  "ok": true,
+  "input": "projects\\aquascape-rock-orthos-v3\\output\\rock_three_views_raw.png",
+  "sha256": "1dd64c14d1582f02cb2ade5895bdd2b67dca6bb3f73778dc073addc350975146",
+  "image_size": [
+    2138,
+    735
+  ],
+  "regions": [
+    {
+      "bbox": [
+        113,
+        200,
+        793,
+        476
+      ],
+      "area": 138565,
+      "width": 680,
+      "height": 276,
+      "cx": 453.0,
+      "candidate_view": "front"
+    },
+    {
+      "bbox": [
+        958,
+        200,
+        1291,
+        476
+      ],
+      "area": 66165,
+      "width": 333,
+      "height": 276,
+      "cx": 1124.5,
+      "candidate_view": "right"
+    },
+    {
+      "bbox": [
+        1465,
+        181,
+        2090,
+        481
+      ],
+      "area": 122517,
+      "width": 625,
+      "height": 300,
+      "cx": 1777.5,
+      "candidate_view": "top"
+    }
+  ],
+  "metrics": {
+    "front_top_length_ratio": 0.9191176470588235,
+    "front_right_height_ratio": 1.0,
+    "side_top_depth_ratio": 0.9009009009009009,
+    "uniform_scale_to_front": {
+      "front": 1.0,
+      "right": 1.0,
+      "top": 1.088
+    },
+    "depth_in_front_length_units": {
+      "from_right": 0.48970588235294116,
+      "from_top": 0.48000000000000004
+    },
+    "normalized_depth_disagreement": 0.019819819819819704,
+    "note": "Uniform per-view print-scale calibration only. Residual depth disagreement remains independent; no image warp or geometric approval."
+  },
+  "scope": "Region and printed-scale diagnostics only; these do not certify a true camera or consistent object geometry. No image resize or warping.",
+  "camera_visual_review": "pending",
+  "object_identity_visual_review": "pending",
+  "user_acceptance": "pending",
+  "failures": []
+}

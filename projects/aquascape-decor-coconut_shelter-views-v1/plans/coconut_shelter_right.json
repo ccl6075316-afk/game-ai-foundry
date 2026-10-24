@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "coconut_shelter independent right/top artwork",
+      "description": "Two independent full-resolution cameras derived from the reviewed original front ornament design.",
+      "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Reconstruct this reviewed ornament and place it freely in the substrate trial.",
+      "session_goal": "Source-consistent right/top donors; visual review before three-dimensional modeling.",
+      "player_asset": "coconut_shelter_right",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1024,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-decor-fronts-v1/output/coconut_shelter_front_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "coconut_shelter_right",
+      "type": "background",
+      "description": "Render ONE RIGHT view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One cut half coconut shell aquarium shelter resting cut-side down, 19 cm wide, 16 cm deep, about 11 cm tall. A low asymmetrical rounded dome with dark desaturated brown fibrous shell, coarse curved growth ridges and a few restrained tan worn fibers. One rounded doorway centered in the front lower face, about 40 percent of shell width and 55 percent of total height, open down to the contact plane. Thick shell edge visible around doorway, dark hollow interior, open underside; no windows, roof additions, cute face or plants. One connected natural shell object, no loose fibers sticking out.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic RIGHT END ELEVATION, camera at +X looking along -X. Horizontal image axis is -Z depth, vertical is Y. The front long horizontal X axis disappears into the image: ship/bridge/pipe/chest must be seen END-ON, not their long front again. For the pipe show the genuinely open round end mouth.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "coconut_shelter_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "coconut_shelter_right",
+    "asset_type": "background",
+    "prompt": "Render ONE RIGHT view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One cut half coconut shell aquarium shelter resting cut-side down, 19 cm wide, 16 cm deep, about 11 cm tall. A low asymmetrical rounded dome with dark desaturated brown fibrous shell, coarse curved growth ridges and a few restrained tan worn fibers. One rounded doorway centered in the front lower face, about 40 percent of shell width and 55 percent of total height, open down to the contact plane. Thick shell edge visible around doorway, dark hollow interior, open underside; no windows, roof additions, cute face or plants. One connected natural shell object, no loose fibers sticking out.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic RIGHT END ELEVATION, camera at +X looking along -X. Horizontal image axis is -Z depth, vertical is Y. The front long horizontal X axis disappears into the image: ship/bridge/pipe/chest must be seen END-ON, not their long front again. For the pipe show the genuinely open round end mouth.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+    "negative_hints": [
+      "One camera-specific full-resolution artwork; no packed views.",
+      "No isometric tilt in orthographic cameras."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "1:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "explicit_full_view_template",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1024x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 1024,
+      "height": 1024
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "7e8deb44bf1ea5bd"
+  }
+}

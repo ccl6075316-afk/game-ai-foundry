@@ -1,0 +1,94 @@
+{
+  "project": {
+    "title": "aquascape-rock-v2-views",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+    "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-matched scenery geometry.",
+    "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+    "player_asset": "rock_back",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "view": "side",
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png"
+  },
+  "assets": [
+    {
+      "id": "rock_back",
+      "name": "rock_back",
+      "type": "character",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true,
+      "description": "View the EXACT same rock from the OPPOSITE BACK elevation. Orthographic camera level to its center, no top view and no underside, flat broad rear face toward viewer. Keep the same long low stone with a taller LEFT-hand shoulder in the master front view (it appears on viewer RIGHT from the back), stepped shelves and right notch. The reverse must look like the rear of the same connected mass, not a new stone. Show its previously hidden rear rock planes. IMPORTANT: exact same individual rock and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible."
+    },
+    {
+      "id": "rock_top",
+      "name": "rock_top",
+      "type": "character",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true,
+      "description": "View the EXACT same rock directly from ABOVE, orthographic top plan. Image horizontal corresponds to master's left-right: taller shoulder on LEFT, scooped notch near RIGHT. Its depth is about half its width. Show an irregular long broad footprint, the upper broken shelves and diagonal fissure. No vertical front wall in this TOP view. IMPORTANT: exact same individual rock and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible."
+    },
+    {
+      "id": "rock_right",
+      "name": "rock_right",
+      "type": "character",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true,
+      "description": "View the EXACT same rock from its RIGHT END, orthographic camera level and perpendicular to the right end, no perspective, no three-quarter camera. The whole long object is foreshortened into a compact end elevation: depth about half master's width, height about half master's width. Retain the right scoop and slate mass; this is the end of the same object, not an alternative design. IMPORTANT: exact same individual rock and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible."
+    }
+  ]
+}

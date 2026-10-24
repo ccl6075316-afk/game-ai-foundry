@@ -1,0 +1,105 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-wood-orthos-v3-calibrated",
+      "description": "Repair the conflicting wood depth visible in the generated gray three-view study.",
+      "art_direction": "Strict neutral-gray orthographic engineering construction; same-object geometric consistency before material.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect coherent orthographic scenery projections.",
+      "session_goal": "Correct shared X/Y/Z extents and root footprint in the same-scale TOP/FRONT/RIGHT layout.",
+      "player_asset": "wood_orthographic_calibrated",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ]
+      },
+      "viewport": {
+        "width": 2048,
+        "height": 2048
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-wood-orthos-v3/output/wood_three_views_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (2048x2048). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "wood_orthographic_calibrated",
+      "type": "background",
+      "description": "Create a corrected MONOCHROME ORTHOGRAPHIC CONSTRUCTION DRAWING of the exact forked wood in the supplied three-view pencil study. Keep the same object identity and branch inventory. The old sheet has a real inconsistency: its TOP view root footprint is much deeper than its RIGHT view is wide. Correct this through physically consistent root/limb geometry. Do not merely copy the old three silhouettes.\nUse STANDARD ENGINEERING ALIGNMENT in a square white sheet: TOP in the upper-left quadrant, FRONT in the lower-left quadrant directly beneath TOP, RIGHT in the lower-right quadrant directly beside FRONT. Leave the upper-right quadrant blank. Small plain labels TOP, FRONT, RIGHT. Thin faint straight projection guide lines join shared extents. This layout is essential: TOP and FRONT have exactly the same left and right X coordinates and same printed X width; FRONT and RIGHT share the same top and bottom Y coordinates and same printed height. RIGHT horizontal front-back width equals TOP vertical depth at the SAME UNIFORM SCALE. No separate icon-fit scaling.\nObject: knotted thick root crotch on left, long shallow-S main limb to the right, one short upward fork, frayed left root, and two stabilizing root feet spreading in front/back. The roots cannot occupy a deep footprint in TOP while collapsing to an artificially narrow pair of feet in RIGHT. RIGHT must show the entire full front-back root spread, behind the trunk's broken oval end. Keep a true end-on trunk, not a long horizontal branch. The vertical fork appears above the end in RIGHT but becomes a short end-on stub/socket in TOP. Keep FRONT recognizable as the supplied object and match the location of every joint in all projections. Use light gray mass, thin dark contour and a few structural lines. No color, no bark texture, no painted lighting or cast shadow. No perspective, isometric, or three-quarter cameras. Do not add dimension numbers; the purpose is coherent projection, not invented measurements. Make the geometry internally consistent before adding fine details.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "wood_orthographic_calibrated",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "orthos",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "wood_orthographic_calibrated",
+    "asset_type": "background",
+    "prompt": "Create a corrected MONOCHROME ORTHOGRAPHIC CONSTRUCTION DRAWING of the exact forked wood in the supplied three-view pencil study. Keep the same object identity and branch inventory. The old sheet has a real inconsistency: its TOP view root footprint is much deeper than its RIGHT view is wide. Correct this through physically consistent root/limb geometry. Do not merely copy the old three silhouettes.\nUse STANDARD ENGINEERING ALIGNMENT in a square white sheet: TOP in the upper-left quadrant, FRONT in the lower-left quadrant directly beneath TOP, RIGHT in the lower-right quadrant directly beside FRONT. Leave the upper-right quadrant blank. Small plain labels TOP, FRONT, RIGHT. Thin faint straight projection guide lines join shared extents. This layout is essential: TOP and FRONT have exactly the same left and right X coordinates and same printed X width; FRONT and RIGHT share the same top and bottom Y coordinates and same printed height. RIGHT horizontal front-back width equals TOP vertical depth at the SAME UNIFORM SCALE. No separate icon-fit scaling.\nObject: knotted thick root crotch on left, long shallow-S main limb to the right, one short upward fork, frayed left root, and two stabilizing root feet spreading in front/back. The roots cannot occupy a deep footprint in TOP while collapsing to an artificially narrow pair of feet in RIGHT. RIGHT must show the entire full front-back root spread, behind the trunk's broken oval end. Keep a true end-on trunk, not a long horizontal branch. The vertical fork appears above the end in RIGHT but becomes a short end-on stub/socket in TOP. Keep FRONT recognizable as the supplied object and match the location of every joint in all projections. Use light gray mass, thin dark contour and a few structural lines. No color, no bark texture, no painted lighting or cast shadow. No perspective, isometric, or three-quarter cameras. Do not add dimension numbers; the purpose is coherent projection, not invented measurements. Make the geometry internally consistent before adding fine details.",
+    "negative_hints": [
+      "No separate icon-fit scales.",
+      "No perspective or oblique views.",
+      "No invented dimension numbers."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "1:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": true,
+      "min_color_variance": 20
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "agent_manual_projection_repair",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "2048x2048",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 2048,
+      "height": 2048
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "e7806c8a32e10299"
+  }
+}

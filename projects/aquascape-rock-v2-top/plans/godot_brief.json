@@ -1,0 +1,49 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-rock-v2-top\\game",
+    "project_name": "aquascape-rock-v2-top",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "ground",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.08,
+            0.9,
+            0.84
+          ]
+        },
+        {
+          "id": "edge",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.08
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "idle_still": "projects\\aquascape-rock-v2-top\\output\\rock_top_locked_nobg.png",
+    "character_asset": "rock_top_locked",
+    "character_display_size": {
+      "width": 1536,
+      "height": 1024
+    }
+  }
+}

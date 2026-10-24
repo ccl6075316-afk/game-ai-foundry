@@ -1,0 +1,100 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T17:27:06+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-wood-v2-views",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+    "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-matched scenery geometry.",
+    "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+    "player_asset": "wood_back",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/driftwood_master_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+    "view": "side"
+  },
+  "assets": [
+    {
+      "name": "wood_back",
+      "type": "character",
+      "description": "View the EXACT same driftwood from the OPPOSITE BACK side, orthographic camera level. Preserve every major branch, the twisted S main limb, bulging root crotch, short upward fork, stabilizing roots and frayed broken ends. This reverses left-right relative to the front image: long main branch now reaches to viewer LEFT and knotted base is to viewer RIGHT. Reveal the actual rear grain and root connection, no redesign. IMPORTANT: exact same individual driftwood and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_back",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "wood_top",
+      "type": "character",
+      "description": "View the EXACT same driftwood directly from ABOVE, orthographic top plan. Keep master's left-right orientation, the main long limb runs LEFT to RIGHT and the knotted swollen crotch stays left of center. The whole root's front-back footprint is roughly half its full length. Preserve the locations of main branch junctions and root forks, realistic twisting continuous growth, no new branches. IMPORTANT: exact same individual driftwood and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_top",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "wood_right",
+      "type": "character",
+      "description": "View the EXACT same driftwood from its RIGHT END, orthographic level end elevation. Its long main limb is strongly foreshortened pointing almost toward viewer; show irregular root crotch behind and the upward fork above. Preserve exact thick wood body and branch inventory; do not rotate to a pleasing broadside. This is an end view used to resolve depth. IMPORTANT: exact same individual driftwood and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_right",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:20:18+00:00",
+  "updated_at": "2026-10-23T20:21:42+00:00",
+  "brief": "projects\\aquascape-vallisneria-views-v5\\brief.json",
+  "project": {
+    "title": "aquascape-vallisneria-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-vallisneria-views-v5\\output",
+    "plans_dir": "projects\\aquascape-vallisneria-views-v5\\plans",
+    "assets_manifest": "projects\\aquascape-vallisneria-views-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "vallisneria_right.prompt.craft",
+      "asset": "vallisneria_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-vallisneria-views-v5\\brief.json --asset vallisneria_right -o ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:21+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:21+00:00",
+      "asset_id": "vallisneria_right"
+    },
+    {
+      "id": "vallisneria_right.image.generate",
+      "asset": "vallisneria_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "vallisneria_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_right.json --output ../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_right_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\vallisneria_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_right.json",
+        "output": "../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.17708333333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 58.69143780565124,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:21+00:00",
+      "finished_at": "2026-10-23T20:20:58+00:00",
+      "asset_id": "vallisneria_right"
+    },
+    {
+      "id": "vallisneria_top.prompt.craft",
+      "asset": "vallisneria_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-vallisneria-views-v5\\brief.json --asset vallisneria_top -o ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:21+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:21+00:00",
+      "asset_id": "vallisneria_top"
+    },
+    {
+      "id": "vallisneria_top.image.generate",
+      "asset": "vallisneria_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "vallisneria_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_top.json --output ../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_top_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\vallisneria_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_top.json",
+        "output": "../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.0859375
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 69.41675835365928,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:57+00:00",
+      "finished_at": "2026-10-23T20:21:36+00:00",
+      "asset_id": "vallisneria_top"
+    },
+    {
+      "id": "vallisneria_leaves.prompt.craft",
+      "asset": "vallisneria_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-vallisneria-views-v5\\brief.json --asset vallisneria_leaves -o ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_leaves.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:20:21+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:21+00:00",
+      "asset_id": "vallisneria_leaves"
+    },
+    {
+      "id": "vallisneria_leaves.image.generate",
+      "asset": "vallisneria_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "vallisneria_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_leaves.json --output ../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_leaves_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\vallisneria_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-vallisneria-views-v5\\plans\\vallisneria_leaves.json",
+        "output": "../projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-vallisneria-views-v5\\output\\vallisneria_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.18880208333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 6
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 48.200730792848425,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:20:21+00:00",
+      "finished_at": "2026-10-23T20:20:57+00:00",
+      "asset_id": "vallisneria_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "vallisneria_right.prompt.craft",
+        "vallisneria_right.image.generate",
+        "vallisneria_top.prompt.craft",
+        "vallisneria_top.image.generate",
+        "vallisneria_leaves.prompt.craft",
+        "vallisneria_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-vallisneria-views-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-vallisneria-views-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-vallisneria-views-v5\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-vallisneria-views-v5\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "vallisneria_right",
+              "path": "assets/backgrounds/vallisneria_right.png"
+            },
+            {
+              "asset": "vallisneria_top",
+              "path": "assets/backgrounds/vallisneria_top.png"
+            },
+            {
+              "asset": "vallisneria_leaves",
+              "path": "assets/backgrounds/vallisneria_leaves.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T20:21:36+00:00",
+      "finished_at": "2026-10-23T20:21:42+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-vallisneria-views-v5\\brief.json --project ../projects\\aquascape-vallisneria-views-v5\\game --assemble-file ../projects\\aquascape-vallisneria-views-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-vallisneria-views-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:20:21+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-vallisneria-views-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-vallisneria-views-v5\\plans\\godot_brief.json"
+}

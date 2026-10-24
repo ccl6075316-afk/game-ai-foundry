@@ -1,0 +1,57 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T17:29:44+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-rock-v2-top",
+    "description": "Correct rejected oblique auxiliary image with a true top camera.",
+    "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-driven scenery.",
+    "session_goal": "A true top projection suitable for depth estimation.",
+    "player_asset": "rock_top_locked",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+    "view": "top_down"
+  },
+  "assets": [
+    {
+      "name": "rock_top_locked",
+      "type": "character",
+      "description": "The exact same irregular slate rock from the reference, but viewed in a STRICT ORTHOGRAPHIC TOP PLAN. Camera optical axis vertical downward, elevation EXACTLY 90 degrees, no horizon, NO vertical front facade. Think top-view strategy-game prop, or looking straight down into the aquarium. Match distinctive tall lobe on LEFT, right-hand scooped notch and diagonal split, preserve actual irregular footprint. Width about twice front-back depth. Paint ONLY the upper horizontal and tilted rock faces; side-facing vertical walls reduce to thin contour edges, never large visible vertical walls. The front face seen in reference must DISAPPEAR behind the top edge in this view. This must be a real camera rotation, not a copy of the reference. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "rock_top_locked",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

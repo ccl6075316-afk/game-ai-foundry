@@ -1,0 +1,221 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:11:31+00:00",
+  "updated_at": "2026-10-23T20:12:39+00:00",
+  "brief": "projects\\aquascape-river_boulder-views-v5\\brief.json",
+  "project": {
+    "title": "aquascape-river_boulder-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-river_boulder-views-v5\\output",
+    "plans_dir": "projects\\aquascape-river_boulder-views-v5\\plans",
+    "assets_manifest": "projects\\aquascape-river_boulder-views-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "river_boulder_right.prompt.craft",
+      "asset": "river_boulder_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-river_boulder-views-v5\\brief.json --asset river_boulder_right -o ../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:11:59+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:11:59+00:00",
+      "asset_id": "river_boulder_right"
+    },
+    {
+      "id": "river_boulder_right.image.generate",
+      "asset": "river_boulder_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "river_boulder_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_right.json --output ../projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_right_raw.png --validate --reference-image ../projects\\aquascape-solids-fronts-v5\\output\\river_boulder_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_right.json",
+        "output": "../projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.08203125
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 73.74129698923053,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:11:59+00:00",
+      "finished_at": "2026-10-23T20:12:31+00:00",
+      "asset_id": "river_boulder_right"
+    },
+    {
+      "id": "river_boulder_top.prompt.craft",
+      "asset": "river_boulder_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-river_boulder-views-v5\\brief.json --asset river_boulder_top -o ../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:11:59+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:11:59+00:00",
+      "asset_id": "river_boulder_top"
+    },
+    {
+      "id": "river_boulder_top.image.generate",
+      "asset": "river_boulder_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "river_boulder_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_top.json --output ../projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_top_raw.png --validate --reference-image ../projects\\aquascape-solids-fronts-v5\\output\\river_boulder_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-river_boulder-views-v5\\plans\\river_boulder_top.json",
+        "output": "../projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-river_boulder-views-v5\\output\\river_boulder_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.11848958333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 71.45602354326027,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:11:59+00:00",
+      "finished_at": "2026-10-23T20:12:33+00:00",
+      "asset_id": "river_boulder_top"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "river_boulder_right.prompt.craft",
+        "river_boulder_right.image.generate",
+        "river_boulder_top.prompt.craft",
+        "river_boulder_top.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-river_boulder-views-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-river_boulder-views-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-river_boulder-views-v5\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-river_boulder-views-v5\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "river_boulder_right",
+              "path": "assets/backgrounds/river_boulder_right.png"
+            },
+            {
+              "asset": "river_boulder_top",
+              "path": "assets/backgrounds/river_boulder_top.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T20:12:33+00:00",
+      "finished_at": "2026-10-23T20:12:39+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-river_boulder-views-v5\\brief.json --project ../projects\\aquascape-river_boulder-views-v5\\game --assemble-file ../projects\\aquascape-river_boulder-views-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-river_boulder-views-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:11:59+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-river_boulder-views-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-river_boulder-views-v5\\plans\\godot_brief.json"
+}

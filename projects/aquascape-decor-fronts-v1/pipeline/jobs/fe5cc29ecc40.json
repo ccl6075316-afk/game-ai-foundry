@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "fe5cc29ecc40",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "1",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\pipeline\\jobs\\fe5cc29ecc40.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\pipeline\\jobs\\fe5cc29ecc40.log",
+  "pid": 50168,
+  "exit_code": 0,
+  "started_at": "2026-10-24T09:16:58+00:00",
+  "finished_at": "2026-10-24T09:17:44+00:00",
+  "error": null,
+  "worker_pid": 52592
+}

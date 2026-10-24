@@ -1,0 +1,117 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-rock-v2-top",
+      "description": "Correct rejected oblique auxiliary image with a true top camera.",
+      "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-driven scenery.",
+      "session_goal": "A true top projection suitable for depth estimation.",
+      "player_asset": "rock_top_locked",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "top_down"
+    },
+    "asset": {
+      "name": "rock_top_locked",
+      "type": "character",
+      "description": "The exact same irregular slate rock from the reference, but viewed in a STRICT ORTHOGRAPHIC TOP PLAN. Camera optical axis vertical downward, elevation EXACTLY 90 degrees, no horizon, NO vertical front facade. Think top-view strategy-game prop, or looking straight down into the aquarium. Match distinctive tall lobe on LEFT, right-hand scooped notch and diagonal split, preserve actual irregular footprint. Width about twice front-back depth. Paint ONLY the upper horizontal and tilted rock faces; side-facing vertical walls reduce to thin contour edges, never large visible vertical walls. The front face seen in reference must DISAPPEAR behind the top edge in this view. This must be a real camera rotation, not a copy of the reference. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "rock_top_locked",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "rock_top_locked",
+    "asset_type": "character",
+    "prompt": "Subject: Strict orthographic top plan of the identical irregular slate rock from the reference — a true 90-degree vertical camera rotation, not a copy of the reference framing. Only upper horizontal and tilted rock faces are painted; every side wall collapses to a thin contour edge.\nSilhouette: Preserve the actual irregular footprint: distinctive tall lobe on the left, right-hand scooped notch with diagonal split. Overall width roughly twice the front-to-back depth; clean unbroken outline.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Source-matched detailed naturalistic pixel art; carry over the master rock's exact palette, painted mineral material and detail density; identical rendering, no restyle, no added stylization.\nView: Top-down view, looking straight down, clear readable shapes from above; Top-down: camera axis vertical, elevation exactly 90 degrees, looking straight down into the aquarium; no horizon line, no vertical front facade.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Pure flat white #FFFFFF studio backdrop, uniform, no border or vignette; whole silhouette inside frame with margin; no cast shadow, no scenery, no text.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No oblique, three-quarter or tilted-down angle; no large visible vertical walls or front face; no horizon; no copied reference framing; no scenery, UI, or fake transparency.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "b39fd1dab5646c69"
+  }
+}

@@ -1,0 +1,239 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-24T09:16:56+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "Aquascape ten ornaments front artwork v1",
+    "description": "Ten individually generated aquarium ornaments beyond natural rocks, wood and plants; each will receive separate full-resolution right and top artwork.",
+    "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Freely place, rotate, scale and partially bury ten themed ornaments in the existing editable substrate trial.",
+    "session_goal": "Ten consistent original designs with complete silhouettes, deliberate openings and later independent side/top donors.",
+    "player_asset": "shipwreck_front",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "shipwreck_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One small grounded model of an old wooden sailing-boat wreck, 34 cm long, 13 cm deep, about 15 cm high. Broad boat hull with a raised curved bow at image right, lower blunt broken stern at left, exactly three intact painted plank bands and irregular broken gunwale. One short broken mast stump at center, no sails, ropes, flag or detached debris. The middle hull contains a shallow open cargo well with a solid low floor, visibly thick side planks and a broken rim. Muted gray umber timber, restrained honey worn edges and a few dark iron nail heads; natural asymmetry, not a cartoon pirate face. All parts connected to one stable hull.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "shipwreck_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "stone_bridge_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One small carved weathered gray-green aquarium stone footbridge, 30 cm wide, 13 cm deep and about 15 cm high. Exactly one broad semicircular arch passes fully under the curved deck from front to rear. Two broad uneven piers rest at left and right. A low solid stone coping along each long side, no separate thin balusters. The arch opening is about 45 percent of bridge width and reaches about 45 percent of total height; show the pure white background through the open underpass. Muted cool gray stone with restrained moss-colored surface staining, no separate moss plants, no water or landscape. Individual large worn masonry blocks, no decorative text.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "stone_bridge_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "terracotta_jar_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One upright unglazed terracotta jar, 17 cm wide, 15 cm deep, about 19 cm high. Broad rounded belly, narrower short neck and thick irregular rolled lip, one small chipped notch in the front-right lip. Open top with visibly thick ceramic walls and a dark warm clay interior; inner cavity stops at a solid bottom. No handles. Muted dusty reddish-brown clay, small worn buff patches and a few fine firing marks, no shiny glaze, engraved face, paint or ornament. Stable slightly flattened circular base. One whole jar, no broken shards around it.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "terracotta_jar_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "clay_pipe_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One short thick-walled unglazed reddish terracotta aquarium hiding pipe lying horizontally left to right, 25 cm long, 11 cm outside diameter, 7.5 cm inside diameter. Both ends genuinely open, one continuous round tunnel along the horizontal long axis. A slightly flattened contact underside, gently irregular rolled end rims, no elbows or side holes. This FRONT image shows ONLY the long tube side wall. Do not show a separate end-on circular ring anywhere. The right end view will be generated separately in a DIFFERENT FILE. Muted brick red and dusty ochre clay, subtle worn mineral stains, no metal bands, face, labels or detached objects.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable. CORRECTION: the previous image wrongly included a detached circular end-view diagram beside the tube. Produce ONLY ONE continuous long tube in side elevation, centered and filling the frame. No second view, no separate ring, no inset, no extra object. Visible crisp fine pixel clusters, not smooth photoreal clay.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "clay_pipe_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "coconut_shelter_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One cut half coconut shell aquarium shelter resting cut-side down, 19 cm wide, 16 cm deep, about 11 cm tall. A low asymmetrical rounded dome with dark desaturated brown fibrous shell, coarse curved growth ridges and a few restrained tan worn fibers. One rounded doorway centered in the front lower face, about 40 percent of shell width and 55 percent of total height, open down to the contact plane. Thick shell edge visible around doorway, dark hollow interior, open underside; no windows, roof additions, cute face or plants. One connected natural shell object, no loose fibers sticking out.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "coconut_shelter_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "ruin_arch_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One small freestanding ancient stone archway decoration, 22 cm wide, 9 cm deep, about 24 cm high. Two broad square weathered pale gray-beige piers on slightly wider integral feet, one thick low rounded arch joining them at top. One completely open front-to-rear passage about 42 percent of total width and 62 percent of total height, with pure white background visible through it. Upper left outer corner chipped, a few broad old masonry joints; understated carved border, no readable writing, statues, moss plant or separate rubble. Connected sturdy arch with realistic worn material, no perfect symmetrical plastic toy finish.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "ruin_arch_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "broken_column_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One small broken classical limestone column on an integral stepped square plinth, 15 cm wide, 13 cm deep and about 23 cm high. One thick short cylindrical shaft with exactly six broad shallow vertical flutes, irregular sloping broken top exposing granular stone, no capital. Lower shaft slightly chipped on the right, worn square base corners and one restrained diagonal crack. Muted warm gray ivory limestone with cool gray shadows and pale worn edges; no text, foliage, rubble or detached pieces. Stable grounded complete single prop, no cartoon simplification.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "broken_column_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "stone_lantern_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One compact weathered Japanese-style stone lantern aquarium ornament, 18 cm wide, 16 cm deep and about 23 cm high. Low thick square plinth, short broad central pedestal, one cubic hollow lamp chamber with one square opening on each of its four vertical sides, and a low broad gently hipped stone roof with a small blunt top knob. Lamp chamber openings pass through an empty unlit center; pure white background may show through opposing openings. No candle, flame, electric light, tassels or plants. Roof and pedestal connected by thick corner posts, no floating parts or thin spires. Restrained gray-green worn stone, painted mineral planes and fine pixel wear.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "stone_lantern_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "treasure_chest_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One small closed old wooden treasure chest aquarium ornament, 23 cm wide, 15 cm deep and about 16 cm high. Rectangular thick lower box and a gently domed closed lid with a clear continuous lid seam, two broad dark iron straps over the lid and sides, a small dull brass latch centered on the front. Uneven age-worn wooden planks, muted dark walnut brown with restrained honey exposed edges and dull rusty iron; no skulls, faces, gold coins, jewels, text or handles. Stable short integral corner feet, no detached accessories. Finished naturalistic pixel artwork, not a cartoon reward icon.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "treasure_chest_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "iron_anchor_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One compact old iron ship anchor aquarium ornament standing upright on its broad lower crown, 22 cm wide, 4 cm deep and about 27 cm high. One thick straight central shank, a fully open rounded eye ring at top, one short horizontal stock near upper third and exactly two curved lower arms ending in broad blunt triangular flukes. Stable blunt lower contact edge, no chain or rope, no detached parts. Entire anchor is a believable thick solid forged object with softly worn edges, dark muted blue-charcoal iron, restrained reddish rust patches and pale cool worn corners. Show white background through the eye ring, no cartoon emblem, lettering or thin sharp needles.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "iron_anchor_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

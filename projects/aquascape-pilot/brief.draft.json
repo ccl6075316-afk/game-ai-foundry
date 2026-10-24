@@ -1,0 +1,33 @@
+{
+  "project": {
+    "title": "Aquascape pilot — stone, wood and two identified plants",
+    "description": "First aquarium scenery material and 3D placement experiment. Produce a concept reference and an albedo atlas, then build reusable stone, branching driftwood, Anubias barteri var. nana and Microsorum pteropus meshes in a standalone Godot review scene alongside unchanged existing fish.",
+    "art_direction": "Detailed naturalistic pixel art matching the supplied silver arowana: restrained colors, crisp fine pixel clusters, carefully painted surfaces. Cool gray stone, muted ochre brown wood, olive and forest green leaves. No glossy plastic, photographic PBR, large flat polygon fills or blurred airbrush.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect aquarium scenery from multiple angles and compare texture mapping with gray and checker modes.",
+    "session_goal": "A reviewable isolated 3D scenery pilot with concept, production atlas, mapping tests, final scene and species names; no gameplay or existing fish asset changes.",
+    "player_asset": "aquascape_concept",
+    "controls": {"orbit": ["Mouse"], "zoom": ["Wheel"], "material": ["1", "2", "3"]},
+    "viewport": {"width": 1440, "height": 900},
+    "camera": {"mode": "static"},
+    "view": "side",
+    "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png"
+  },
+  "assets": [
+    {
+      "id": "aquascape_concept", "name": "aquascape_concept", "type": "background",
+      "usage": "world_background", "generate_method": "image",
+      "display_size": {"width": 1536, "height": 1024}, "aspect_ratio": "3:2",
+      "style_group": "aquascape", "style_anchor_kind": "visual_reference", "use_style_img2img": true,
+      "description": "CONCEPT REFERENCE, not a runtime texture. Draw a single aquarium-bottom diorama on a quiet deep teal backdrop: asymmetric group of three irregular cool gray layered stones at left, old forked brown driftwood reaching diagonally right, small attached Anubias barteri var. nana at front with compact broad oval dark-green leaves and exposed horizontal rhizome; taller Microsorum pteropus behind the wood with long simple undivided lanceolate slightly rippled green leaves arising individually from a creeping rhizome. Fine warm sandy gravel ground, plenty of open swimming space above. Three-quarter view. The supplied fish image is ONLY the pixel-art style reference, do not draw fish or scales on the scenery. Naturalistic crisp detailed pixel clusters, matching the fish illustration. No aquarium glass, pots, text, labels, UI, photorealism, smooth CGI or glossy plastic. Distinct plant leaf shapes must be readable. This concept defines the scenery pilot only."
+    },
+    {
+      "id": "aquascape_atlas", "name": "aquascape_atlas", "type": "texture",
+      "usage": "prop", "generate_method": "image",
+      "display_size": {"width": 1024, "height": 1024}, "aspect_ratio": "1:1",
+      "style_group": "aquascape", "style_anchor_kind": "visual_reference", "use_style_img2img": true,
+      "description": "PRODUCTION ALBEDO TEXTURE ATLAS, exact equal 2 by 2 grid, each quadrant fills its entire square, NO margins, gaps, borders, labels or lettering. Upper-left quadrant: close flat orthographic surface of cool muted gray aquarium rock, fine crisp pixel clusters with irregular geological slate mottling, subtle shallow cracks; no isolated rock silhouette, no perspective, no large black cracks. Upper-right quadrant: close flat brown aged driftwood grain running VERTICALLY bottom to top with thin dark branching fibers, restrained warm ochre highlights; NOT a log picture, no rings, no isolated silhouette. Lower-left quadrant: dark olive green broad Anubias leaf surface filling ALL the square, a thin central vertical midrib at EXACT horizontal center, subtle diagonal secondary veins, green edge to edge. Lower-right quadrant: lighter forest-green Java fern Microsorum leaf surface filling ALL the square, thin vertical central midrib at EXACT horizontal center and tiny oblique veins, green edge to edge. The leaf silhouettes will be made by real geometry, so do NOT draw leaves on a background: ALL lower pixels must be green texture. Lighting flat and diffuse with no directional cast shadows, no specular or AO. Match the supplied fish only in fine naturalistic pixel-art technique and subdued palette; NO fish/scales. No photographic noise, no smooth gradients. Four square usable material swatches, NOT a concept illustration."
+    }
+  ]
+}

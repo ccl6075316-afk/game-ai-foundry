@@ -1,0 +1,76 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-bucephalandra-views-v5\\game",
+    "project_name": "aquascape-bucephalandra-views-v5",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "bucephalandra_right",
+        "image": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_right_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "bucephalandra_top",
+        "image": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_top_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "bucephalandra_leaves",
+        "image": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_leaves_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1536
+    }
+  }
+}

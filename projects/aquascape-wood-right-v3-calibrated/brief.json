@@ -1,0 +1,57 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T18:16:09+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-wood-right-v3-calibrated",
+    "description": "Correct only the end projection while retaining previously reviewed front and top shapes.",
+    "art_direction": "Neutral gray construction drawing, strict orthographic end-on camera, same connected object.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect scenery projection consistency.",
+    "session_goal": "Right-end depth profile matching the existing TOP footprint after uniform print-scale calibration.",
+    "player_asset": "wood_right_end",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-wood-orthos-v3-calibrated/output/right-reference.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+    "view": "front"
+  },
+  "assets": [
+    {
+      "name": "wood_right_end",
+      "type": "background",
+      "description": "Generate ONE true RIGHT END orthographic elevation of the exact forked root shown in this grayscale end-view reference. Output neutral-gray pencil/clay technical mass on pure white, no frame, guide lines, labels, numbers or shadow. Keep the same connected root, one central broken oval end of the long main limb pointing directly toward viewer, one short upright branch above/behind, and two splayed stabilizing root feet below. This is a corrected END VIEW, never expose the long horizontal side of the main limb. Correct the proportions: OVERALL foreground silhouette WIDTH is about 0.76 times its HEIGHT. The central oval broken trunk end width about 0.30 times total HEIGHT, and its center about 0.52 of the height above the feet. The two root feet spread to the full 0.76-height width. The upper branch occupies the upper quarter of total height. Preserve the organic twists and frayed ends from the reference, with thick continuous crotches, not a diagram of pipes. Keep both root feet and their depth spread visible with natural occlusion. Do not add branches or a second oval end. The supplied guide has its feet a little too widely splayed: narrow the foot spread modestly while keeping height and central trunk-end size. This must remain a vertical END silhouette, taller than wide. Use generous blank white margin and no background scenery.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "wood_right_end",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "orthos",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

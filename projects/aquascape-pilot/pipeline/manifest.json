@@ -1,0 +1,215 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T16:21:13+00:00",
+  "updated_at": "2026-10-23T16:22:07+00:00",
+  "brief": "projects\\aquascape-pilot\\brief.json",
+  "project": {
+    "title": "Aquascape pilot — stone, wood and two identified plants",
+    "description": "First aquarium scenery material and 3D placement experiment. Produce a concept reference and an albedo atlas, then build reusable stone, branching driftwood, Anubias barteri var. nana and Microsorum pteropus meshes in a standalone Godot review scene alongside unchanged existing fish."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-pilot\\output",
+    "plans_dir": "projects\\aquascape-pilot\\plans",
+    "assets_manifest": "projects\\aquascape-pilot\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "aquascape_concept.prompt.craft",
+      "asset": "aquascape_concept",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-pilot\\brief.json --asset aquascape_concept -o ../projects\\aquascape-pilot\\plans\\aquascape_concept.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-pilot\\plans\\aquascape_concept.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-pilot\\plans\\aquascape_concept.json"
+      },
+      "started_at": "2026-10-23T16:21:23+00:00",
+      "finished_at": "2026-10-23T16:21:29+00:00",
+      "asset_id": "aquascape_concept"
+    },
+    {
+      "id": "aquascape_concept.image.generate",
+      "asset": "aquascape_concept",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "aquascape_concept.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-pilot\\plans\\aquascape_concept.json --output ../projects\\aquascape-pilot\\output\\aquascape_concept_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-pilot\\plans\\aquascape_concept.json",
+        "output": "../projects\\aquascape-pilot\\output\\aquascape_concept_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-pilot\\output\\aquascape_concept_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 61.865885416666664
+            },
+            {
+              "check": "forbid_uniform_white_studio",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 48.243308886103996,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T16:21:29+00:00",
+      "finished_at": "2026-10-23T16:21:58+00:00",
+      "asset_id": "aquascape_concept"
+    },
+    {
+      "id": "aquascape_atlas.prompt.craft",
+      "asset": "aquascape_atlas",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-pilot\\brief.json --asset aquascape_atlas -o ../projects\\aquascape-pilot\\plans\\aquascape_atlas.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-pilot\\plans\\aquascape_atlas.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-pilot\\plans\\aquascape_atlas.json"
+      },
+      "started_at": "2026-10-23T16:21:23+00:00",
+      "finished_at": "2026-10-23T16:21:27+00:00",
+      "asset_id": "aquascape_atlas"
+    },
+    {
+      "id": "aquascape_atlas.image.generate",
+      "asset": "aquascape_atlas",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "aquascape_atlas.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-pilot\\plans\\aquascape_atlas.json --output ../projects\\aquascape-pilot\\output\\aquascape_atlas_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-pilot\\plans\\aquascape_atlas.json",
+        "output": "../projects\\aquascape-pilot\\output\\aquascape_atlas_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-pilot\\output\\aquascape_atlas_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "texture",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 94.86848958333333
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            }
+          ],
+          "message": "Validation passed for asset type 'texture'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T16:21:29+00:00",
+      "finished_at": "2026-10-23T16:21:55+00:00",
+      "asset_id": "aquascape_atlas"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "aquascape_concept.prompt.craft",
+        "aquascape_concept.image.generate",
+        "aquascape_atlas.prompt.craft",
+        "aquascape_atlas.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-pilot\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-pilot\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-pilot\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-pilot\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "aquascape_concept",
+              "path": "assets/backgrounds/aquascape_concept.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T16:21:58+00:00",
+      "finished_at": "2026-10-23T16:22:07+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-pilot\\brief.json --project ../projects\\aquascape-pilot\\game --assemble-file ../projects\\aquascape-pilot\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-pilot\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T16:21:23+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-pilot\\game",
+  "godot_assemble_file": "../projects\\aquascape-pilot\\plans\\godot_brief.json"
+}

@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-basalt_column-views-v5",
+      "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+      "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+      "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+      "player_asset": "basalt_column_right",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1536
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-solids-fronts-v5/output/basalt_column_front_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "basalt_column_top",
+      "type": "background",
+      "description": "Render ONE TOP view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One broken upright basalt mass with three unequal naturally fractured shoulders, dark blue-charcoal stone, sparse lighter mineral edges and a blunt slanted broken top. Irregular chunky cross-section, not a regular hexagonal column or castle. Length 23 cm, height 30 cm, depth 20 cm. Grounded solid base, no vegetation or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is directly overhead at +Y, looking straight down -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal and Z depth vertical, image top is rear -Z, image bottom is front +Z. All height foreshortens away. Upright branches become short oval end faces; do not draw their full height upward on the page. For rock, show only footprint and upward-facing planes, with NO visible vertical front facade. For plants, show spread of foreshortened overlapping blades around the same crown, not another upright frontal plant. No isometric or three-quarter tilt.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "basalt_column_top",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "basalt_column_top",
+    "asset_type": "background",
+    "prompt": "Render ONE TOP view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One broken upright basalt mass with three unequal naturally fractured shoulders, dark blue-charcoal stone, sparse lighter mineral edges and a blunt slanted broken top. Irregular chunky cross-section, not a regular hexagonal column or castle. Length 23 cm, height 30 cm, depth 20 cm. Grounded solid base, no vegetation or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is directly overhead at +Y, looking straight down -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal and Z depth vertical, image top is rear -Z, image bottom is front +Z. All height foreshortens away. Upright branches become short oval end faces; do not draw their full height upward on the page. For rock, show only footprint and upward-facing planes, with NO visible vertical front facade. For plants, show spread of foreshortened overlapping blades around the same crown, not another upright frontal plant. No isometric or three-quarter tilt.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.\nCAMERA CORRECTION AFTER REJECTED RESULT: The previous result was an isometric photograph, which is WRONG. Draw a FLAT MAP from the zenith. The tall central column must project as ONLY its small irregular polygon END CAP. No long dark vertical front walls anywhere. The lower columns appear as adjacent polygonal footprints/end caps, surrounding the tall column footprint. It should look like a compact cluster of rock end-caps seen straight downward, with subtle cracks and painted top surfaces only. Preserve the exact grey basalt pixel material. No elevated camera angle, no visible side facades, no depiction of column HEIGHT on the page.",
+    "negative_hints": [
+      "One camera-specific full-resolution artwork; no packed views.",
+      "No isometric tilt in orthographic cameras."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "1:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "explicit_full_view_template",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1536",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 1536,
+      "height": 1536
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "cccce0eb1bb6a7c2"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-24T09:20:28+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "iron_anchor independent right/top artwork",
+    "description": "Two independent full-resolution cameras derived from the reviewed original front ornament design.",
+    "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Reconstruct this reviewed ornament and place it freely in the substrate trial.",
+    "session_goal": "Source-consistent right/top donors; visual review before three-dimensional modeling.",
+    "player_asset": "iron_anchor_right",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1536
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-decor-fronts-v1/output/iron_anchor_front_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "iron_anchor_right",
+      "type": "background",
+      "description": "Render ONE RIGHT view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One compact old iron ship anchor aquarium ornament standing upright on its broad lower crown, 22 cm wide, 4 cm deep and about 27 cm high. One thick straight central shank, a fully open rounded eye ring at top, one short horizontal stock near upper third and exactly two curved lower arms ending in broad blunt triangular flukes. Stable blunt lower contact edge, no chain or rope, no detached parts. Entire anchor is a believable thick solid forged object with softly worn edges, dark muted blue-charcoal iron, restrained reddish rust patches and pale cool worn corners. Show white background through the eye ring, no cartoon emblem, lettering or thin sharp needles.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic RIGHT END ELEVATION, camera at +X looking along -X. Horizontal image axis is -Z depth, vertical is Y. The front long horizontal X axis disappears into the image: ship/bridge/pipe/chest must be seen END-ON, not their long front again. For the pipe show the genuinely open round end mouth.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "iron_anchor_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "iron_anchor_top",
+      "type": "background",
+      "description": "Render ONE TOP view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One compact old iron ship anchor aquarium ornament standing upright on its broad lower crown, 22 cm wide, 4 cm deep and about 27 cm high. One thick straight central shank, a fully open rounded eye ring at top, one short horizontal stock near upper third and exactly two curved lower arms ending in broad blunt triangular flukes. Stable blunt lower contact edge, no chain or rope, no detached parts. Entire anchor is a believable thick solid forged object with softly worn edges, dark muted blue-charcoal iron, restrained reddish rust patches and pale cool worn corners. Show white background through the eye ring, no cartoon emblem, lettering or thin sharp needles.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic TOP PLAN, camera at +Y looking straight down -Y. X horizontal, Z depth vertical; rear -Z is image top and front +Z is image bottom. Height disappears: do not draw the upright facade or a three-quarter/isometric view. For the jar show its open mouth, thick walls and dark cavity with a solid bottom. For ship show its open cargo well and connected low hull; anchor appears as a narrow but finite forged thickness footprint.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "iron_anchor_top",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

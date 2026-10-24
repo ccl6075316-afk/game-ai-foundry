@@ -1,0 +1,124 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-24T09:27:42+00:00",
+  "brief": "projects\\aquascape-decor-ruin_arch-views-v1\\brief.json",
+  "output_dir": "projects\\aquascape-decor-ruin_arch-views-v1\\output",
+  "project": {
+    "title": "ruin_arch independent right/top artwork",
+    "description": "Two independent full-resolution cameras derived from the reviewed original front ornament design.",
+    "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "ruin_arch_right": {
+      "brief": {
+        "id": "ruin_arch_right",
+        "name": "ruin_arch_right",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Render ONE RIGHT view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One small freestanding ancient stone archway decoration, 22 cm wide, 9 cm deep, about 24 cm high. Two broad square weathered pale gray-beige piers on slightly wider integral feet, one thick low rounded arch joining them at top. One completely open front-to-rear passage about 42 percent of total width and 62 percent of total height, with pure white background visible through it. Upper left outer corner chipped, a few broad old masonry joints; understated carved border, no readable writing, statues, moss plant or separate rubble. Connected sturdy arch with realistic worn material, no perfect symmetrical plastic toy finish.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic RIGHT END ELEVATION, camera at +X looking along -X. Horizontal image axis is -Z depth, vertical is Y. The front long horizontal X axis disappears into the image: ship/bridge/pipe/chest must be seen END-ON, not their long front again. For the pipe show the genuinely open round end mouth.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ruin_arch_right.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-decor-ruin_arch-views-v1\\plans\\ruin_arch_right.json",
+          "path_repo": "projects\\aquascape-decor-ruin_arch-views-v1\\plans\\ruin_arch_right.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ruin_arch_right.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-decor-ruin_arch-views-v1\\output\\ruin_arch_right_raw.png",
+          "path_repo": "projects\\aquascape-decor-ruin_arch-views-v1\\output\\ruin_arch_right_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T09:27:41+00:00",
+        "note": ""
+      }
+    },
+    "ruin_arch_top": {
+      "brief": {
+        "id": "ruin_arch_top",
+        "name": "ruin_arch_top",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render ONE TOP view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One small freestanding ancient stone archway decoration, 22 cm wide, 9 cm deep, about 24 cm high. Two broad square weathered pale gray-beige piers on slightly wider integral feet, one thick low rounded arch joining them at top. One completely open front-to-rear passage about 42 percent of total width and 62 percent of total height, with pure white background visible through it. Upper left outer corner chipped, a few broad old masonry joints; understated carved border, no readable writing, statues, moss plant or separate rubble. Connected sturdy arch with realistic worn material, no perfect symmetrical plastic toy finish.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic TOP PLAN, camera at +Y looking straight down -Y. X horizontal, Z depth vertical; rear -Z is image top and front +Z is image bottom. Height disappears: do not draw the upright facade or a three-quarter/isometric view. For the jar show its open mouth, thick walls and dark cavity with a solid bottom. For ship show its open cargo well and connected low hull; anchor appears as a narrow but finite forged thickness footprint.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ruin_arch_top.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-decor-ruin_arch-views-v1\\plans\\ruin_arch_top.json",
+          "path_repo": "projects\\aquascape-decor-ruin_arch-views-v1\\plans\\ruin_arch_top.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ruin_arch_top.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-decor-ruin_arch-views-v1\\output\\ruin_arch_top_raw.png",
+          "path_repo": "projects\\aquascape-decor-ruin_arch-views-v1\\output\\ruin_arch_top_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T09:27:42+00:00",
+        "note": ""
+      }
+    }
+  }
+}

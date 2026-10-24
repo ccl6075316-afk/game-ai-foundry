@@ -1,0 +1,199 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T20:06:47+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-plants-fronts-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "bucephalandra_front",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1536
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-plants-20-v5/style-reference.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "bucephalandra_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Bucephalandra pygmaea 'Bukit Kelam'. Small creeping exposed reddish rhizome with fine attachment roots. Nine short-petioled dark olive-green elongated oval leathery leaves, 4-6 cm long, wavy entire margins, tiny sparse pale dots. Compact low spreading asymmetrical epiphyte. Not broad heart-shaped Anubias and not a fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "bucephalandra_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "crypt_wendtii_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Cryptocoryne wendtii 'Green'. One compact basal rosette with ten lanceolate medium-green crinkled leaves on slender petioles; visibly hammered blade texture and gently wavy margins, mature leaves spread outward lower, young leaves more upright. Fine buried-root bundle at the crown, no exposed long creeping rhizome. Leaf length about 10-18 cm. Not fern leaflets or grass.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "crypt_wendtii_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "crypt_crispatula_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Cryptocoryne crispatula. Basal rosette with nine long narrow strap-shaped hammered olive-green blades with strongly corrugated margins. Lengths vary 22-34 cm, widths 1.5-2.5 cm. Leaves rise in loose arcs, some twisting gently; visible crinkling across each blade. Rooted crown, not a creeping epiphyte or feather fern. No branched fronds.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "crypt_crispatula_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "amazon_sword_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Echinodorus grisebachii. Rooted basal crown with ten broad lanceolate sword leaves, vivid but restrained medium green, clear longitudinal midrib and parallel arching secondary veins. Longer inner leaves upright, older outer leaves spread in a full three-dimensional rosette. Blades 18-29 cm including petiole, width 3-5 cm. Smooth entire edges, no fern leaflets or strong corrugation, no horizontal rhizome.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "amazon_sword_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "dwarf_sagittaria_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Sagittaria subulata. Small dense rooted crown with eleven narrow light-green ribbon leaves of unequal length 6-12 cm, about 4-7 mm wide. Straight tapering entire blades with rounded-to-pointed tips and delicate longitudinal veins, outward arching older leaves, upright younger leaves. One short basal runner with a tiny daughter bud. Submerged ribbon form, NOT emergent arrow-shaped leaves or a broad-leaf fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "dwarf_sagittaria_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "vallisneria_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Vallisneria spiralis. One rooted rosette with ten long narrow grass-like ribbon leaves, 24-38 cm long and 5-10 mm wide. Longitudinal parallel veins and slightly rounded tapered tips. Medium-green leaves arch and softly twist, but are NOT tight corkscrew spirals: the species name does not imply every leaf is a corkscrew. No petiole/blade shoulder, no branched stems, no flowers.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "vallisneria_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "aponogeton_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Aponogeton crispus. Small brown basal tuber bearing nine translucent-looking but painted opaque light olive-green elongate leaves on narrow petioles. Blades have conspicuously wavy ruffled margins and fine cross-veins. Lengths 18-30 cm, blade width 2-4 cm. A few leaves bow outward, others upright. Correct single tuber base and root bundle; not a feather fern or a flat sword plant. No flowers or water surface.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "aponogeton_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "lagenandra_red_front",
+      "type": "background",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: Lagenandra meeboldii 'Red'. Thick short rhizome with eight broad ovate leaves on individual petioles, blades 6-12 cm long and 4-8 cm wide. Dusty muted red-violet, copper-pink and olive-green patches with contrasting green veins, reddish undersides, one younger pink leaf. Unequal gently cupped blades and clear basal shoulders, no serrations or fern leaflets. Natural subdued red aquatic plant, not neon purple or a flowering terrestrial plant.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "lagenandra_red_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Aquascape pilot — stone, wood and two identified plants",
+      "description": "First aquarium scenery material and 3D placement experiment. Produce a concept reference and an albedo atlas, then build reusable stone, branching driftwood, Anubias barteri var. nana and Microsorum pteropus meshes in a standalone Godot review scene alongside unchanged existing fish.",
+      "art_direction": "Detailed naturalistic pixel art matching the supplied silver arowana: restrained colors, crisp fine pixel clusters, carefully painted surfaces. Cool gray stone, muted ochre brown wood, olive and forest green leaves. No glossy plastic, photographic PBR, large flat polygon fills or blurred airbrush.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect aquarium scenery from multiple angles and compare texture mapping with gray and checker modes.",
+      "session_goal": "A reviewable isolated 3D scenery pilot with concept, production atlas, mapping tests, final scene and species names; no gameplay or existing fish asset changes.",
+      "player_asset": "aquascape_concept",
+      "controls": {
+        "orbit": [
+          "Mouse"
+        ],
+        "zoom": [
+          "Wheel"
+        ],
+        "material": [
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1440x900). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "side"
+    },
+    "asset": {
+      "name": "aquascape_atlas",
+      "type": "texture",
+      "description": "PRODUCTION ALBEDO TEXTURE ATLAS, exact equal 2 by 2 grid, each quadrant fills its entire square, NO margins, gaps, borders, labels or lettering. Upper-left quadrant: close flat orthographic surface of cool muted gray aquarium rock, fine crisp pixel clusters with irregular geological slate mottling, subtle shallow cracks; no isolated rock silhouette, no perspective, no large black cracks. Upper-right quadrant: close flat brown aged driftwood grain running VERTICALLY bottom to top with thin dark branching fibers, restrained warm ochre highlights; NOT a log picture, no rings, no isolated silhouette. Lower-left quadrant: dark olive green broad Anubias leaf surface filling ALL the square, a thin central vertical midrib at EXACT horizontal center, subtle diagonal secondary veins, green edge to edge. Lower-right quadrant: lighter forest-green Java fern Microsorum leaf surface filling ALL the square, thin vertical central midrib at EXACT horizontal center and tiny oblique veins, green edge to edge. The leaf silhouettes will be made by real geometry, so do NOT draw leaves on a background: ALL lower pixels must be green texture. Lighting flat and diffuse with no directional cast shadows, no specular or AO. Match the supplied fish only in fine naturalistic pixel-art technique and subdued palette; NO fish/scales. No photographic noise, no smooth gradients. Four square usable material swatches, NOT a concept illustration.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "id": "aquascape_atlas",
+      "usage": "prop",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "aquascape_atlas",
+    "asset_type": "texture",
+    "prompt": "Subject: Production albedo atlas, exact equal 2x2 grid, each quadrant fills its whole square: upper-left cool muted gray stone with irregular slate mottling and shallow cracks; upper-right aged ochre-brown driftwood grain running vertically with thin dark fibers; lower-left dark olive Anubias leaf surface; lower-right lighter forest-green Microsorum leaf surface. Both leaf quadrants green edge to edge with a thin vertical midrib at exact horizontal center and subtle oblique side veins.\nSilhouette: Four hard square swatches meeting flush at center; no drawn leaf or rock outlines — geometry supplies silhouettes.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Detailed naturalistic pixel art, crisp fine pixel clusters, restrained subdued palette, hand-painted surfaces, flat uniform diffuse light.\nView: Side view, profile facing right, readable silhouette for side-scroller gameplay; Flat orthographic top-down surface view, no perspective, no foreshortening.\nTechnical: Seamless tileable texture filling the frame; uniform lighting; no shadows; clean tile edges; not a white studio backdrop; Seamless quadrant edges, no margins, seams, borders, gutters or text; even value across swatches; no cast shadows, specular, AO or gradients.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No fish or scales, no rings or log silhouette, no large black cracks, no photographic noise, no smooth airbrush gradients, no labels or lettering, no checkerboard or transparency.",
+    "negative_hints": [
+      "Do not remove background — the full image is the texture."
+    ],
+    "validation": {
+      "asset_type": "texture",
+      "require_light_background": false
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "512x512",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1024,
+      "height": 1024
+    },
+    "anchor": "center",
+    "generation_input_fingerprint": "31b12a557a86fa66"
+  }
+}

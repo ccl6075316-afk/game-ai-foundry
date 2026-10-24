@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "seed": 2401,
+  "units": "meters",
+  "style": "naturalistic fine pixel-art, nearest source texture, diffuse rough surfaces",
+  "assets": [
+    {"id":"river_rock", "kind":"rock", "size_m":[0.32,0.23,0.25], "mapping":"local triplanar; no silhouette projection"},
+    {"id":"forked_driftwood", "kind":"wood", "size_m":[0.70,0.40,0.33], "mapping":"cylindrical UV; vertical texture follows arc length; independent end grain"},
+    {"id":"anubias_nana", "kind":"plant", "scientific_name":"Anubias barteri var. nana", "common_name_zh":"小水榕", "leaf_length_m":[0.045,0.072], "leaf_width_ratio":0.56, "petiole_m":[0.025,0.06], "rhizome":"exposed creeping, attach to rock/wood", "source":"https://tropica.com/en/plants/plantdetails/4548/4548"},
+    {"id":"java_fern", "kind":"plant", "scientific_name":"Microsorum pteropus", "common_name_zh":"爪哇蕨（铁皇冠）", "leaf_length_m":[0.16,0.28], "leaf_width_ratio":0.18, "petiole_m":[0.015,0.035], "rhizome":"exposed creeping, attach to rock/wood", "source":"https://tropica.com/en/plants/plantdetails/Microsorumpteropus(008)/4408"}
+  ],
+  "checks": ["original image and crop hashes", "source resolution preserved", "all applicable UVs finite", "no degenerate triangle", "leaf thickness and opposing normals", "root attachment visible", "wood grain direction", "mapping checker and gray views", "front/back/top/oblique GPU images", "same-light existing fish comparison"],
+  "limitations": ["Freshwater scenery pilot, not an ecosystem stock recommendation", "Aquarium object placement and collision integration are outside this pilot", "No user visual acceptance inferred from technical checks"]
+}

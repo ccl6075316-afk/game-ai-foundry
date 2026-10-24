@@ -1,0 +1,120 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T17:23:12+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "Aquascape V2 — generated individual artwork",
+    "description": "Correct the rejected scenery prototype by generating complete designed individual props first. The shape, silhouette, painted light, wear and species leaf forms must come from generated artwork and be retained during later 3D reconstruction. This stage produces four original art assets for direct fish-style comparison, not generic material swatches.",
+    "art_direction": "Match the supplied silver arowana illustration's detailed naturalistic PIXEL ART: deliberate crisp pixel clusters, rich carefully painted midtones, delicate highlights, restrained believable colors, readable asymmetrical silhouettes. Detailed hand-painted game sprite appearance with dimensional painted volume. NO low-poly CGI, NO procedural primitive look, NO 3D render, NO photographic grain, NO uniform noise or smooth airbrush. The fish reference establishes the exact drawing finish, not subject matter.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Review generated aquarium scenery artwork and later reconstruct its designed shapes in 3D.",
+    "session_goal": "Four complete isolated source illustrations, visually reviewed alongside the original fish before any model construction. Keep full native image resolution and source provenance.",
+    "player_asset": "rock_master",
+    "controls": {
+      "inspect": [
+        "Mouse"
+      ],
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+    "view": "side"
+  },
+  "assets": [
+    {
+      "name": "rock_master",
+      "type": "character",
+      "description": "Generate ONE COMPLETE aquarium rock as a finished detailed pixel-art game prop, isolated on pure white with ample clean margin. Camera is orthographic, looking at its broad front with a little top and right side visible. Asymmetrical weathered gray stone with a low spreading base, two broken terraced ridges, an offset higher shoulder on the left, a long diagonal split and a worn scooped notch on the upper right. Strong specific irregular outline with believable stone mass and small chipped shelves. Cool slate gray midtones, subtly warm pale weathering on upper edges, deep blue-gray crevices. Paint the actual rock's own facets, fissures and planes coherently, like the supplied fish's scales and head planes are coherently painted. Broad readable light-and-dark masses, crisp fine pixel clusters concentrated at edges and mineral accents. One roughly 30cm rock, not a group, not a spherical pebble and not a pile. No fish, no scales, no plants, no floor or water, no cast shadow. No text, no collage. Avoid a uniform noise texture and primitive faceted CGI. Preserve the supplied fish illustration's pixel drawing finish. This complete object artwork will define the later model silhouette; it is NOT a seamless texture.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "rock_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "driftwood_master",
+      "type": "character",
+      "description": "Generate ONE COMPLETE aged aquarium driftwood root as a finished detailed naturalistic pixel-art game prop, isolated on pure white with ample white margin. Orthographic broad side with a slight top/right view. A grounded irregular thick root crotch left of center, a short broad knotted root reaching down left, a sinuous main limb reaching up to the right in a shallow S with irregular blunt broken tip, and a shorter upward secondary fork. Two small irregular stabilizing roots near the base. About 55cm across, width about twice height. Unique believable natural wood silhouette: asymmetric twists, swelling branch crotches, scalloped broken ends, a small dark cavity near the root base, exposed fibers, darker weathered recesses. ALL branch junctions must blend in continuous natural wood growth. Desaturated deep umber and gray brown with muted honey-colored worn ridges, not bright orange. Paint grain that follows EACH twist and forks through the crotch, not straight vertical stripes. The supplied fish is the precise pixel-art finish reference only; no fish or scales. Readable painted volume and coherent crisp pixel clusters, no grainy photo or smooth CGI. NO tube/cone construction, NO symmetrical starburst, NO evenly tapered spikes, no geometric flat sawcut, no scene, no floor, no cast shadow, text or collage. This is the full designed object, NOT a bark texture.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "driftwood_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "anubias_master",
+      "type": "character",
+      "description": "Generate ONE complete small Anubias barteri var. nana clump, a finished naturalistic detailed PIXEL ART aquarium game prop isolated on pure white with generous margin. Camera orthographic slight top/right view. Correct species design: a short gently crooked creeping horizontal rhizome, about 9 distinct broad oval to ovate stiff leathery dark-green leaves on individual short petioles, rounded shoulders and gently pointed tips, unequal leaf sizes and organic overlapping, one curled younger light-green leaf. Each leaf has its own coherent central vein, subtle secondary veins, painted cup and slight curl, broad dark jade shadows and restrained olive-green highlights. The rhizome stays visible above the attachment surface, with a few fine hanging roots, no soil/pot/rock/wood. Total clump about 12cm tall, leaves 4–7cm long. Favor broad readable green color masses and deliberate crisp pixel clusters like the supplied fish art; details should support each leaf form rather than noisy random green speckling. DO NOT turn this into fern leaves, long grass, a rosette stemless bush or a symmetric radial arrangement. Entire plant including all roots and leaf tips visible; no scene, water, cast shadow, labels or text. No fish, no CGI, no photographic leaves. This whole artwork will determine leaf arrangement and contours for later 3D, not a green material swatch.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "anubias_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "java_fern_master",
+      "type": "character",
+      "description": "Generate ONE complete Microsorum pteropus clump, common Java fern / Tie Huang Guan, as a finished detailed naturalistic PIXEL ART aquarium game prop, isolated on pure white with generous margin. Orthographic broad front with a slight top/right view. Correct simple-leaved form, NOT Windelov cultivar: 8 to 10 individually recognizable long lanceolate undivided leathery green leaves from a short exposed creeping rhizome. Tallest blades upright at the back; two older blades arch outward, small newer blades closer to the rhizome; asymmetry and clear spaces between leaf groups. Leaf length 16–28cm, width 2–4cm, gentle tapered tip and slightly wavy whole margin, broad readable central midrib and subtle netted lateral veins. Paint each leaf's distinct folding, tilt, twisting light and dark planes in the supplied fish's naturalistic PIXEL ART finish. Dark forest green and muted olive highlights, no neon yellow or repeated green noise. Fine hanging roots remain visible; no pot, soil, rock, wood, background scenery or water. No featherlike fronds, serrated fern leaflets, split tips or radial identical spikes. Complete plant with all tips and roots visible. No fish, no CGI, no photographic detail, no cast shadow, no labels/text/collage. This is the complete designed source plant, not a generic leaf texture.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "java_fern_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

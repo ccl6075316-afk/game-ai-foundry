@@ -1,0 +1,54 @@
+{
+  "project": {
+    "title": "aquascape-fern-v2-leaves",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+    "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-matched scenery geometry.",
+    "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+    "player_asset": "fern_leaves",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "view": "side",
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/java_fern_master_raw.png"
+  },
+  "assets": [
+    {
+      "id": "fern_leaves",
+      "name": "fern_leaves",
+      "type": "character",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true,
+      "description": "Generate a PRODUCTION PART SHEET preserving the exact supplied Java fern / Microsorum pteropus plant's PIXEL ART drawing finish and painted green material. Exact 3 columns by 2 rows, pure white, NO grid lines, text or labels. Each equal cell contains ONE complete isolated LEAF BLADE with a short petiole stub, petiole DOWN and tip UP; every blade fully in cell with white margin and clear gaps. Six unique whole simple lanceolate blades from the same plant: tall mature gently waving upright blade; longer slightly twisted blade; broad mature lanceolate blade bent outward; thinner arching leaf; shorter young simple lanceolate leaf; older gently drooping blade. They are long, not wide Anubias leaves: length-width ratio around 6–8 for most leaves, never a feather frond. Subtle irregular whole margins, coherent bright central vein and secondary veins, dark forest green planes, muted olive highlights matching the original master. Keep distinctive source-painted folds and silhouette bends, no uniform green noise. No whole plant, roots, rhizome, pot, water or overlap across cells. These complete painted silhouettes will be traced as individual thick 3D leaf meshes. No material swatches. IMPORTANT: exact same individual Microsorum pteropus and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible."
+    }
+  ]
+}

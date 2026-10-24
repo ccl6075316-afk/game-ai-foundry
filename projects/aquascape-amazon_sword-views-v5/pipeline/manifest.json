@@ -1,0 +1,294 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:16:04+00:00",
+  "updated_at": "2026-10-23T20:17:52+00:00",
+  "brief": "projects\\aquascape-amazon_sword-views-v5\\brief.json",
+  "project": {
+    "title": "aquascape-amazon_sword-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-amazon_sword-views-v5\\output",
+    "plans_dir": "projects\\aquascape-amazon_sword-views-v5\\plans",
+    "assets_manifest": "projects\\aquascape-amazon_sword-views-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "amazon_sword_right.prompt.craft",
+      "asset": "amazon_sword_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-amazon_sword-views-v5\\brief.json --asset amazon_sword_right -o ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:39+00:00",
+      "asset_id": "amazon_sword_right"
+    },
+    {
+      "id": "amazon_sword_right.image.generate",
+      "asset": "amazon_sword_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "amazon_sword_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_right.json --output ../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_right_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\amazon_sword_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_right.json",
+        "output": "../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.19661458333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 63.24787893331691,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:16:39+00:00",
+      "finished_at": "2026-10-23T20:17:09+00:00",
+      "asset_id": "amazon_sword_right"
+    },
+    {
+      "id": "amazon_sword_top.prompt.craft",
+      "asset": "amazon_sword_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-amazon_sword-views-v5\\brief.json --asset amazon_sword_top -o ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:39+00:00",
+      "asset_id": "amazon_sword_top"
+    },
+    {
+      "id": "amazon_sword_top.image.generate",
+      "asset": "amazon_sword_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "amazon_sword_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_top.json --output ../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_top_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\amazon_sword_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_top.json",
+        "output": "../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.13151041666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 84.61946104950337,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:17:05+00:00",
+      "finished_at": "2026-10-23T20:17:46+00:00",
+      "asset_id": "amazon_sword_top"
+    },
+    {
+      "id": "amazon_sword_leaves.prompt.craft",
+      "asset": "amazon_sword_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-amazon_sword-views-v5\\brief.json --asset amazon_sword_leaves -o ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_leaves.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:39+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:39+00:00",
+      "asset_id": "amazon_sword_leaves"
+    },
+    {
+      "id": "amazon_sword_leaves.image.generate",
+      "asset": "amazon_sword_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "amazon_sword_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_leaves.json --output ../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_leaves_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\amazon_sword_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-amazon_sword-views-v5\\plans\\amazon_sword_leaves.json",
+        "output": "../projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\output\\amazon_sword_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.1171875
+            },
+            {
+              "check": "subject_regions",
+              "value": 6
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 61.62265412071926,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:16:39+00:00",
+      "finished_at": "2026-10-23T20:17:05+00:00",
+      "asset_id": "amazon_sword_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "amazon_sword_right.prompt.craft",
+        "amazon_sword_right.image.generate",
+        "amazon_sword_top.prompt.craft",
+        "amazon_sword_top.image.generate",
+        "amazon_sword_leaves.prompt.craft",
+        "amazon_sword_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-amazon_sword-views-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-amazon_sword-views-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-amazon_sword-views-v5\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-amazon_sword-views-v5\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "amazon_sword_right",
+              "path": "assets/backgrounds/amazon_sword_right.png"
+            },
+            {
+              "asset": "amazon_sword_top",
+              "path": "assets/backgrounds/amazon_sword_top.png"
+            },
+            {
+              "asset": "amazon_sword_leaves",
+              "path": "assets/backgrounds/amazon_sword_leaves.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T20:17:46+00:00",
+      "finished_at": "2026-10-23T20:17:52+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-amazon_sword-views-v5\\brief.json --project ../projects\\aquascape-amazon_sword-views-v5\\game --assemble-file ../projects\\aquascape-amazon_sword-views-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-amazon_sword-views-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:39+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-amazon_sword-views-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-amazon_sword-views-v5\\plans\\godot_brief.json"
+}

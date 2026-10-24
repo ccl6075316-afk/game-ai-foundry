@@ -1,0 +1,87 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T17:30:35+00:00",
+  "brief": "projects\\aquascape-rock-v2-top\\brief.json",
+  "output_dir": "projects\\aquascape-rock-v2-top\\output",
+  "project": {
+    "title": "aquascape-rock-v2-top",
+    "description": "Correct rejected oblique auxiliary image with a true top camera.",
+    "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "rock_top_locked": {
+      "brief": {
+        "id": "rock_top_locked",
+        "name": "rock_top_locked",
+        "type": "character",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "reference_still",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "The exact same irregular slate rock from the reference, but viewed in a STRICT ORTHOGRAPHIC TOP PLAN. Camera optical axis vertical downward, elevation EXACTLY 90 degrees, no horizon, NO vertical front facade. Think top-view strategy-game prop, or looking straight down into the aquarium. Match distinctive tall lobe on LEFT, right-hand scooped notch and diagonal split, preserve actual irregular footprint. Width about twice front-back depth. Paint ONLY the upper horizontal and tilted rock faces; side-facing vertical walls reduce to thin contour edges, never large visible vertical walls. The front face seen in reference must DISAPPEAR behind the top edge in this view. This must be a real camera rotation, not a copy of the reference. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "rock_top_locked.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-v2-top\\plans\\rock_top_locked.json",
+          "path_repo": "projects\\aquascape-rock-v2-top\\plans\\rock_top_locked.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "rock_top_locked.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-v2-top\\output\\rock_top_locked_raw.png",
+          "path_repo": "projects\\aquascape-rock-v2-top\\output\\rock_top_locked_raw.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.trim",
+          "next_consumer": "orchestrator",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "rock_top_locked.image.trim",
+          "stage": "image.trimmed",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-v2-top\\output\\rock_top_locked_trimmed.png",
+          "path_repo": "projects\\aquascape-rock-v2-top\\output\\rock_top_locked_trimmed.png",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.remove-bg",
+          "next_consumer": "orchestrator",
+          "usage": "reference_still"
+        },
+        {
+          "task_id": "rock_top_locked.image.remove-bg",
+          "stage": "image.nobg",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-v2-top\\output\\rock_top_locked_nobg.png",
+          "path_repo": "projects\\aquascape-rock-v2-top\\output\\rock_top_locked_nobg.png",
+          "role": "gameplay_ready",
+          "next_stage": "godot.assemble",
+          "next_consumer": "godot-assembler",
+          "usage": "reference_still",
+          "clip_name": "idle",
+          "loop": null
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

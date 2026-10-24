@@ -1,0 +1,179 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-24T20:36:17+00:00",
+  "brief": "projects\\aquarium-hall-materials-v3\\brief.json",
+  "output_dir": "projects\\aquarium-hall-materials-v3\\output",
+  "project": {
+    "title": "Aquarium hall generated pixel materials v3",
+    "description": "Replace smooth placeholder hall surfaces with three generated pixel-art material sources. Preserve editable parcels, tanks, partitions, collision, saves and all existing tank artwork.",
+    "art_direction": "Create actual hand-painted PIXEL ART material artwork matching the supplied accepted fish illustration: deliberate crisp square pixel clusters, restrained natural colors and coherent painted material changes. Design on a 256 by 256 logical pixel grid enlarged exactly 4x to a native 1024 by 1024 image. The pixel clusters must be visible and purposeful, not fine photographic grain, random noise or smooth gradients. This is a full-bleed seamless square ALBEDO TEXTURE for an editable 3D aquarium hall, seen perpendicular to its surface. All four edges must tile continuously. Flat neutral diffuse illumination, no perspective, no ambient occlusion, no cast shadows, no bevelled 3D preview, no sphere, no borders, no background, no labels or lettering. The input fish controls pixel illustration finish only; do not copy the fish, its silhouette or scales.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "hall_floor": {
+      "brief": {
+        "id": "hall_floor",
+        "name": "hall_floor",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "A clean public aquarium floor made of FOUR broad square worn stone tiles, arranged exactly 2x2. Muted slate gray with a restrained blue-green cast, thin dark gray grout, small stepped pixel edge chips and a few coherent mineral patches within each slab. Quiet broad material planes with sparse wear, no busy gravel, speckling, checkerboard colors, ornate motifs or dirty ruins. The complete repeat covers 2 by 2 meters; grout continues across all edges. Keep contrast moderate so the exhibited fish and ornaments remain the focus.\nCreate actual hand-painted PIXEL ART material artwork matching the supplied accepted fish illustration: deliberate crisp square pixel clusters, restrained natural colors and coherent painted material changes. Design on a 256 by 256 logical pixel grid enlarged exactly 4x to a native 1024 by 1024 image. The pixel clusters must be visible and purposeful, not fine photographic grain, random noise or smooth gradients. This is a full-bleed seamless square ALBEDO TEXTURE for an editable 3D aquarium hall, seen perpendicular to its surface. All four edges must tile continuously. Flat neutral diffuse illumination, no perspective, no ambient occlusion, no cast shadows, no bevelled 3D preview, no sphere, no borders, no background, no labels or lettering. The input fish controls pixel illustration finish only; do not copy the fish, its silhouette or scales.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "hall_floor.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\plans\\hall_floor.json",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\plans\\hall_floor.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "hall_floor.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\output\\hall_floor_raw.png",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\output\\hall_floor_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T20:36:15+00:00",
+        "note": ""
+      }
+    },
+    "hall_wall": {
+      "brief": {
+        "id": "hall_wall",
+        "name": "hall_wall",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Painted pale limestone-gray mineral plaster for a welcoming aquarium interior. An uninterrupted wall finish, NOT bricks, blocks or floor tiles. Readable small groups of square brush marks, broad subtle cool gray paint variations, occasional restrained pixel scratches. Mid-light neutral albedo so engine tint can produce cream or teal walls. No strong directional lighting, bold cracks, mold, high-contrast camouflage or isolated single-pixel noise. Complete repeat covers 2 by 2 meters.\nCreate actual hand-painted PIXEL ART material artwork matching the supplied accepted fish illustration: deliberate crisp square pixel clusters, restrained natural colors and coherent painted material changes. Design on a 256 by 256 logical pixel grid enlarged exactly 4x to a native 1024 by 1024 image. The pixel clusters must be visible and purposeful, not fine photographic grain, random noise or smooth gradients. This is a full-bleed seamless square ALBEDO TEXTURE for an editable 3D aquarium hall, seen perpendicular to its surface. All four edges must tile continuously. Flat neutral diffuse illumination, no perspective, no ambient occlusion, no cast shadows, no bevelled 3D preview, no sphere, no borders, no background, no labels or lettering. The input fish controls pixel illustration finish only; do not copy the fish, its silhouette or scales.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "hall_wall.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\plans\\hall_wall.json",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\plans\\hall_wall.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "hall_wall.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\output\\hall_wall_raw.png",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\output\\hall_wall_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T20:36:16+00:00",
+        "note": ""
+      }
+    },
+    "hall_wood": {
+      "brief": {
+        "id": "hall_wood",
+        "name": "hall_wood",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Dry maintained medium oak timber for a public aquarium viewing bench. Four continuous straight parallel planks run HORIZONTALLY along image X, with narrow dark plank joints; distinctive stepped pixel wood grain, occasional small knots and restrained warm gray-gold worn edges. Match the detailed painted timber finish of our aquarium ornaments, but this is cared-for indoor furniture, not rotten wreckage. No water, seaweed, nails, metal bands or silhouette. Keep wood brown rather than saturated orange. Seamless repeat covers 2 by 2 meters.\nCreate actual hand-painted PIXEL ART material artwork matching the supplied accepted fish illustration: deliberate crisp square pixel clusters, restrained natural colors and coherent painted material changes. Design on a 256 by 256 logical pixel grid enlarged exactly 4x to a native 1024 by 1024 image. The pixel clusters must be visible and purposeful, not fine photographic grain, random noise or smooth gradients. This is a full-bleed seamless square ALBEDO TEXTURE for an editable 3D aquarium hall, seen perpendicular to its surface. All four edges must tile continuously. Flat neutral diffuse illumination, no perspective, no ambient occlusion, no cast shadows, no bevelled 3D preview, no sphere, no borders, no background, no labels or lettering. The input fish controls pixel illustration finish only; do not copy the fish, its silhouette or scales.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "hall_wood.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\plans\\hall_wood.json",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\plans\\hall_wood.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "hall_wood.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquarium-hall-materials-v3\\output\\hall_wood_raw.png",
+          "path_repo": "projects\\aquarium-hall-materials-v3\\output\\hall_wood_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T20:36:17+00:00",
+        "note": ""
+      }
+    }
+  }
+}

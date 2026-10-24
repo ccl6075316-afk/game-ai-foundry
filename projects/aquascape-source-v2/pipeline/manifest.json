@@ -1,0 +1,774 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T17:23:14+00:00",
+  "updated_at": "2026-10-23T17:24:28+00:00",
+  "brief": "projects\\aquascape-source-v2\\brief.json",
+  "project": {
+    "title": "Aquascape V2 — generated individual artwork",
+    "description": "Correct the rejected scenery prototype by generating complete designed individual props first. The shape, silhouette, painted light, wear and species leaf forms must come from generated artwork and be retained during later 3D reconstruction. This stage produces four original art assets for direct fish-style comparison, not generic material swatches."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-source-v2\\output",
+    "plans_dir": "projects\\aquascape-source-v2\\plans",
+    "assets_manifest": "projects\\aquascape-source-v2\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "rock_master.prompt.craft",
+      "asset": "rock_master",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-source-v2\\brief.json --asset rock_master -o ../projects\\aquascape-source-v2\\plans\\rock_master.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\rock_master.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\plans\\rock_master.json"
+      },
+      "started_at": "2026-10-23T17:23:16+00:00",
+      "finished_at": "2026-10-23T17:23:20+00:00",
+      "asset_id": "rock_master"
+    },
+    {
+      "id": "rock_master.image.generate",
+      "asset": "rock_master",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "rock_master.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-source-v2\\plans\\rock_master.json --output ../projects\\aquascape-source-v2\\output\\rock_master_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\rock_master.json",
+        "output": "../projects\\aquascape-source-v2\\output\\rock_master_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\rock_master_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.10286458333334
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.10286458333334,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.5303812334751705,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 1.0,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 1.0,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 253.96002762563586,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                254,
+                254,
+                254,
+                254,
+                254
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:23:21+00:00",
+      "finished_at": "2026-10-23T17:23:56+00:00",
+      "asset_id": "rock_master"
+    },
+    {
+      "id": "rock_master.image.trim",
+      "asset": "rock_master",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "rock_master.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-source-v2\\output\\rock_master_raw.png --output ../projects\\aquascape-source-v2\\output\\rock_master_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\rock_master_raw.png",
+        "output": "../projects\\aquascape-source-v2\\output\\rock_master_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\rock_master_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:24:15+00:00",
+      "finished_at": "2026-10-23T17:24:17+00:00",
+      "asset_id": "rock_master"
+    },
+    {
+      "id": "rock_master.image.remove-bg",
+      "asset": "rock_master",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "rock_master.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-source-v2\\output\\rock_master_trimmed.png --output ../projects\\aquascape-source-v2\\output\\rock_master_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\rock_master_trimmed.png",
+        "output": "../projects\\aquascape-source-v2\\output\\rock_master_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": ""
+      },
+      "started_at": "2026-10-23T17:24:18+00:00",
+      "finished_at": "2026-10-23T17:24:19+00:00",
+      "asset_id": "rock_master"
+    },
+    {
+      "id": "driftwood_master.prompt.craft",
+      "asset": "driftwood_master",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-source-v2\\brief.json --asset driftwood_master -o ../projects\\aquascape-source-v2\\plans\\driftwood_master.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\driftwood_master.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\plans\\driftwood_master.json"
+      },
+      "started_at": "2026-10-23T17:23:16+00:00",
+      "finished_at": "2026-10-23T17:23:20+00:00",
+      "asset_id": "driftwood_master"
+    },
+    {
+      "id": "driftwood_master.image.generate",
+      "asset": "driftwood_master",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "driftwood_master.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-source-v2\\plans\\driftwood_master.json --output ../projects\\aquascape-source-v2\\output\\driftwood_master_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\driftwood_master.json",
+        "output": "../projects\\aquascape-source-v2\\output\\driftwood_master_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\driftwood_master_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.07421875
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.07421875,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.5322635609074664,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.999563419117647,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.00040785845588235296,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 1.0,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 253.933686506486,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                253,
+                254,
+                254,
+                255,
+                254,
+                254,
+                254
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:23:21+00:00",
+      "finished_at": "2026-10-23T17:23:47+00:00",
+      "asset_id": "driftwood_master"
+    },
+    {
+      "id": "driftwood_master.image.trim",
+      "asset": "driftwood_master",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "driftwood_master.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-source-v2\\output\\driftwood_master_raw.png --output ../projects\\aquascape-source-v2\\output\\driftwood_master_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\driftwood_master_raw.png",
+        "output": "../projects\\aquascape-source-v2\\output\\driftwood_master_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\driftwood_master_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:24:15+00:00",
+      "finished_at": "2026-10-23T17:24:18+00:00",
+      "asset_id": "driftwood_master"
+    },
+    {
+      "id": "driftwood_master.image.remove-bg",
+      "asset": "driftwood_master",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "driftwood_master.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-source-v2\\output\\driftwood_master_trimmed.png --output ../projects\\aquascape-source-v2\\output\\driftwood_master_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\driftwood_master_trimmed.png",
+        "output": "../projects\\aquascape-source-v2\\output\\driftwood_master_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": ""
+      },
+      "started_at": "2026-10-23T17:24:18+00:00",
+      "finished_at": "2026-10-23T17:24:20+00:00",
+      "asset_id": "driftwood_master"
+    },
+    {
+      "id": "anubias_master.prompt.craft",
+      "asset": "anubias_master",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-source-v2\\brief.json --asset anubias_master -o ../projects\\aquascape-source-v2\\plans\\anubias_master.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\anubias_master.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\plans\\anubias_master.json"
+      },
+      "started_at": "2026-10-23T17:23:16+00:00",
+      "finished_at": "2026-10-23T17:23:21+00:00",
+      "asset_id": "anubias_master"
+    },
+    {
+      "id": "anubias_master.image.generate",
+      "asset": "anubias_master",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "anubias_master.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-source-v2\\plans\\anubias_master.json --output ../projects\\aquascape-source-v2\\output\\anubias_master_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\anubias_master.json",
+        "output": "../projects\\aquascape-source-v2\\output\\anubias_master_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\anubias_master_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.09635416666666
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.09635416666666,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.5374530907972652,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.9996208639705882,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.00037339154411764703,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 1.0,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 253.91845149139553,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                253,
+                254,
+                254,
+                254,
+                254
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:23:21+00:00",
+      "finished_at": "2026-10-23T17:24:15+00:00",
+      "asset_id": "anubias_master"
+    },
+    {
+      "id": "anubias_master.image.trim",
+      "asset": "anubias_master",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "anubias_master.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-source-v2\\output\\anubias_master_raw.png --output ../projects\\aquascape-source-v2\\output\\anubias_master_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\anubias_master_raw.png",
+        "output": "../projects\\aquascape-source-v2\\output\\anubias_master_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\anubias_master_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:24:15+00:00",
+      "finished_at": "2026-10-23T17:24:17+00:00",
+      "asset_id": "anubias_master"
+    },
+    {
+      "id": "anubias_master.image.remove-bg",
+      "asset": "anubias_master",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "anubias_master.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-source-v2\\output\\anubias_master_trimmed.png --output ../projects\\aquascape-source-v2\\output\\anubias_master_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\anubias_master_trimmed.png",
+        "output": "../projects\\aquascape-source-v2\\output\\anubias_master_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": ""
+      },
+      "started_at": "2026-10-23T17:24:18+00:00",
+      "finished_at": "2026-10-23T17:24:19+00:00",
+      "asset_id": "anubias_master"
+    },
+    {
+      "id": "java_fern_master.prompt.craft",
+      "asset": "java_fern_master",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-source-v2\\brief.json --asset java_fern_master -o ../projects\\aquascape-source-v2\\plans\\java_fern_master.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\java_fern_master.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\plans\\java_fern_master.json"
+      },
+      "started_at": "2026-10-23T17:23:16+00:00",
+      "finished_at": "2026-10-23T17:23:21+00:00",
+      "asset_id": "java_fern_master"
+    },
+    {
+      "id": "java_fern_master.image.generate",
+      "asset": "java_fern_master",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "java_fern_master.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-source-v2\\plans\\java_fern_master.json --output ../projects\\aquascape-source-v2\\output\\java_fern_master_raw.png --validate --reference-image ../projects\\fishing-2d\\experiments\\blender-fish\\hammer-pair-121\\accepted\\great_hammerhead\\inputs\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-source-v2\\plans\\java_fern_master.json",
+        "output": "../projects\\aquascape-source-v2\\output\\java_fern_master_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\java_fern_master_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.08463541666666
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.08463541666666,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.5365705394545425,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.9995404411764706,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.0004365808823529412,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 0.9999035058955336,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 253.96631843396045,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 8.710087305816289e-05,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                254,
+                254,
+                254,
+                255,
+                254,
+                254
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:23:21+00:00",
+      "finished_at": "2026-10-23T17:23:45+00:00",
+      "asset_id": "java_fern_master"
+    },
+    {
+      "id": "java_fern_master.image.trim",
+      "asset": "java_fern_master",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "java_fern_master.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-source-v2\\output\\java_fern_master_raw.png --output ../projects\\aquascape-source-v2\\output\\java_fern_master_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\java_fern_master_raw.png",
+        "output": "../projects\\aquascape-source-v2\\output\\java_fern_master_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\output\\java_fern_master_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:24:15+00:00",
+      "finished_at": "2026-10-23T17:24:18+00:00",
+      "asset_id": "java_fern_master"
+    },
+    {
+      "id": "java_fern_master.image.remove-bg",
+      "asset": "java_fern_master",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "java_fern_master.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-source-v2\\output\\java_fern_master_trimmed.png --output ../projects\\aquascape-source-v2\\output\\java_fern_master_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-source-v2\\output\\java_fern_master_trimmed.png",
+        "output": "../projects\\aquascape-source-v2\\output\\java_fern_master_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": ""
+      },
+      "started_at": "2026-10-23T17:24:18+00:00",
+      "finished_at": "2026-10-23T17:24:20+00:00",
+      "asset_id": "java_fern_master"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "rock_master.prompt.craft",
+        "rock_master.image.generate",
+        "rock_master.image.trim",
+        "rock_master.image.remove-bg",
+        "driftwood_master.prompt.craft",
+        "driftwood_master.image.generate",
+        "driftwood_master.image.trim",
+        "driftwood_master.image.remove-bg",
+        "anubias_master.prompt.craft",
+        "anubias_master.image.generate",
+        "anubias_master.image.trim",
+        "anubias_master.image.remove-bg",
+        "java_fern_master.prompt.craft",
+        "java_fern_master.image.generate",
+        "java_fern_master.image.trim",
+        "java_fern_master.image.remove-bg"
+      ],
+      "layer": 4,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-source-v2\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-source-v2\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-source-v2\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-source-v2\\game",
+          "animations": [
+            {
+              "asset": "rock_master",
+              "animation_name": "idle",
+              "frame_count": "1",
+              "sprite_frames": "assets/sprites/rock_master_frames.tres",
+              "frames_dir": "assets/sprites/rock_master"
+            }
+          ],
+          "backgrounds": [],
+          "idle_still": "assets/sprites/idle_still.png",
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": "assets/sprites/rock_master_frames.tres"
+        }
+      },
+      "started_at": "2026-10-23T17:24:20+00:00",
+      "finished_at": "2026-10-23T17:24:28+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 5,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-source-v2\\brief.json --project ../projects\\aquascape-source-v2\\game --assemble-file ../projects\\aquascape-source-v2\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-source-v2\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T17:23:16+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-source-v2\\game",
+  "godot_assemble_file": "../projects\\aquascape-source-v2\\plans\\godot_brief.json"
+}

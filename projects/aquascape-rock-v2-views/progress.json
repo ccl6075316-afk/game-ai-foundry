@@ -1,0 +1,104 @@
+{
+  "progress_meta": {
+    "schema_version": 1,
+    "slug": "aquascape-rock-v2-views",
+    "brief_path": "E:\\game-ai-foundry\\projects\\aquascape-rock-v2-views\\brief.json",
+    "production_path": "E:\\game-ai-foundry\\projects\\aquascape-rock-v2-views\\production.json",
+    "project_path": "E:\\game-ai-foundry\\projects\\aquascape-rock-v2-views\\game",
+    "created_at": "2026-10-23T17:27:04.335225+00:00"
+  },
+  "phases": {
+    "production_derived": {
+      "status": "done",
+      "at": "2026-10-23T17:27:04.314913+00:00"
+    },
+    "scaffold": {
+      "status": "pending",
+      "at": null
+    },
+    "pipeline_run": {
+      "status": "pending",
+      "at": null
+    },
+    "godot_tasks": [
+      {
+        "id": "input_map",
+        "title": "Wire InputMap actions from brief.controls",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "InputMap contains: inspect, move_left, move_right"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "player_controller",
+        "title": "Implement RockBackController (CharacterBody2D) with brief.controls",
+        "status": "pending",
+        "depends_on": [
+          "input_map"
+        ],
+        "verify": [
+          "Player moves left/right when move actions pressed",
+          "Player collides with world layer"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "animation_states",
+        "title": "Bind SpriteFrames clips (idle) per animation_graphs",
+        "status": "pending",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "AnimatedSprite2D plays clip: idle"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "camera",
+        "title": "Configure camera: {'mode': 'static'}",
+        "status": "pending",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "Camera follows or frames player as specified in production.camera"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "session_goal",
+        "title": "Implement session goal: Source-matched supplementary views/parts for artwork-led 3D construction.",
+        "status": "pending",
+        "depends_on": [
+          "player_controller",
+          "animation_states",
+          "camera"
+        ],
+        "verify": [
+          "main scene loads without errors",
+          "Source-matched supplementary views/parts for artwork-led 3D construction."
+        ],
+        "last_error": null,
+        "updated_at": null
+      }
+    ],
+    "validation": {
+      "validate": "not_run",
+      "unit": "not_run",
+      "playtest": "not_run",
+      "regression": "not_run",
+      "last_failure": null,
+      "last_report": null,
+      "regression_snapshots": []
+    }
+  },
+  "memory": [],
+  "updated_at": "2026-10-23T17:27:04.336751+00:00"
+}

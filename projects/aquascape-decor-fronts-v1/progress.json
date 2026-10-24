@@ -1,0 +1,314 @@
+{
+  "progress_meta": {
+    "schema_version": 1,
+    "slug": "aquascape-ten-ornaments-front-artwork-v1",
+    "brief_path": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\brief.json",
+    "production_path": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\production.json",
+    "project_path": "E:\\game-ai-foundry\\projects\\aquascape-decor-fronts-v1\\game",
+    "created_at": "2026-10-24T09:11:10.954107+00:00"
+  },
+  "phases": {
+    "production_derived": {
+      "status": "done",
+      "at": "2026-10-24T09:11:10.896667+00:00"
+    },
+    "scaffold": {
+      "status": "pending",
+      "at": null
+    },
+    "pipeline_run": {
+      "status": "pending",
+      "at": null
+    },
+    "godot_tasks": [
+      {
+        "id": "input_map",
+        "title": "Wire InputMap actions from brief.controls",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "InputMap contains: inspect, move_left, move_right"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "player_controller",
+        "title": "Implement ShipwreckFrontController (CharacterBody2D) with brief.controls",
+        "status": "pending",
+        "depends_on": [
+          "input_map"
+        ],
+        "verify": [
+          "Player moves left/right when move actions pressed",
+          "Player collides with world layer"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "animation_states",
+        "title": "Bind SpriteFrames clips (idle) per animation_graphs",
+        "status": "pending",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "AnimatedSprite2D plays clip: idle"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "camera",
+        "title": "Configure camera: {'mode': 'static'}",
+        "status": "pending",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "Camera follows or frames player as specified in production.camera"
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "session_goal",
+        "title": "Implement session goal: Ten consistent original designs with complete silhouettes, deliberate openings and later independent side/top donors.",
+        "status": "pending",
+        "depends_on": [
+          "player_controller",
+          "animation_states",
+          "camera"
+        ],
+        "verify": [
+          "main scene loads without errors",
+          "Ten consistent original designs with complete silhouettes, deliberate openings and later independent side/top donors."
+        ],
+        "last_error": null,
+        "updated_at": null
+      },
+      {
+        "id": "delta_aquascape_decor_v1_1",
+        "title": "Generate and visually review ten original fronts with independent right and top source artwork.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add ten freely placeable three-view source-art aquarium ornaments beyond natural rocks, wood and pla"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T09:37:59.151677+00:00",
+        "source_change_id": "aquascape-decor-v1"
+      },
+      {
+        "id": "delta_aquascape_decor_v1_2",
+        "title": "Reconstruct ten bounded meshes with genuine cavities and native-resolution three-view painted materials.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add ten freely placeable three-view source-art aquarium ornaments beyond natural rocks, wood and pla"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T09:47:24.567216+00:00",
+        "source_change_id": "aquascape-decor-v1"
+      },
+      {
+        "id": "delta_aquascape_decor_v1_3",
+        "title": "Integrate ten selectable ornaments with placement, rotation, scaling, undo and isolated saves; verify native views and regressions.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add ten freely placeable three-view source-art aquarium ornaments beyond natural rocks, wood and pla"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T09:47:25.082810+00:00",
+        "source_change_id": "aquascape-decor-v1"
+      },
+      {
+        "id": "delta_aquascape_marine_showcase_v1_1",
+        "title": "Create a data-driven 6 x 3 x 2.8 metre shipwreck-and-ruins aquascape using existing generated sand and ornaments.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Compose a larger approximately six metre marine-themed aquarium using existing generated sand, stone"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:13:02.962376+00:00",
+        "source_change_id": "aquascape-marine-showcase-v1"
+      },
+      {
+        "id": "delta_aquascape_marine_showcase_v1_2",
+        "title": "Reuse four marine fish species, current material ownership and skeletal Swim controllers; arrange fifteen fish on bounded clear-water routes.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Compose a larger approximately six metre marine-themed aquarium using existing generated sand, stone"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:13:03.515705+00:00",
+        "source_change_id": "aquascape-marine-showcase-v1"
+      },
+      {
+        "id": "delta_aquascape_marine_showcase_v1_3",
+        "title": "Verify original asset hashes, terrain and fish/prop/tank clearance, visible skeletal motion and native overview/top/close screenshots; open interactive preview.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Compose a larger approximately six metre marine-themed aquarium using existing generated sand, stone"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:13:04.041809+00:00",
+        "source_change_id": "aquascape-marine-showcase-v1"
+      },
+      {
+        "id": "delta_aquarium_hall_3d_v1_1",
+        "title": "Replace active aquarium hall/tank routing with a 3D hall host while preserving hub navigation and legacy session data.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Replace normal 2D aquarium hall and tank routes with a controllable editable 3D hall. Add first-pers"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:55:23.454407+00:00",
+        "source_change_id": "aquarium-hall-3d-v1"
+      },
+      {
+        "id": "delta_aquarium_hall_3d_v1_2",
+        "title": "Build walkable room, collidable exhibits, hall placement tools, surface finishes, selection and reversible layout editing.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Replace normal 2D aquarium hall and tank routes with a controllable editable 3D hall. Add first-pers"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:55:24.015088+00:00",
+        "source_change_id": "aquarium-hall-3d-v1"
+      },
+      {
+        "id": "delta_aquarium_hall_3d_v1_3",
+        "title": "Embed existing 3D substrate/decor editor per tank, persist tank contents and layout in isolated validated per-slot saves.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Replace normal 2D aquarium hall and tank routes with a controllable editable 3D hall. Add first-pers"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:55:24.525436+00:00",
+        "source_change_id": "aquarium-hall-3d-v1"
+      },
+      {
+        "id": "delta_aquarium_hall_3d_v1_4",
+        "title": "Run native walk/edit/undo/persistence/route integration checks and review hall and in-tank screenshots; open preview.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Replace normal 2D aquarium hall and tank routes with a controllable editable 3D hall. Add first-pers"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T10:55:25.032511+00:00",
+        "source_change_id": "aquarium-hall-3d-v1"
+      },
+      {
+        "id": "delta_aquarium_hall_build_v2_1",
+        "title": "Implement connected fixed-parcel footprint, expansion previews, floor/perimeter collision rebuilds and camera navigation.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Indoor-only hall foundation slice: expand by adjacent standardized 6x7m parcels from the existing si"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T19:35:32.994991+00:00",
+        "source_change_id": "aquarium-hall-build-v2"
+      },
+      {
+        "id": "delta_aquarium_hall_build_v2_2",
+        "title": "Implement previewed tank placement and orthogonal solid/doorway partitions with editing and collision validation.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Indoor-only hall foundation slice: expand by adjacent standardized 6x7m parcels from the existing si"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T19:35:33.811162+00:00",
+        "source_change_id": "aquarium-hall-build-v2"
+      },
+      {
+        "id": "delta_aquarium_hall_build_v2_3",
+        "title": "Persist schema2 parcels and partitions, validate before load, preserve schema1 saves, undo and existing per-tank editing.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Indoor-only hall foundation slice: expand by adjacent standardized 6x7m parcels from the existing si"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T19:35:34.634406+00:00",
+        "source_change_id": "aquarium-hall-build-v2"
+      },
+      {
+        "id": "delta_aquarium_hall_build_v2_4",
+        "title": "Verify native mouse placement, parcel topology, wall/door collision, persistence, legacy hall and actual Main routes; review screenshots and open normal game.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Indoor-only hall foundation slice: expand by adjacent standardized 6x7m parcels from the existing si"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T19:35:35.481331+00:00",
+        "source_change_id": "aquarium-hall-build-v2"
+      },
+      {
+        "id": "delta_aquarium_hall_style_v3_1",
+        "title": "Generate and operator-review Foundry floor, wall and timber sources against accepted pixel illustration style; preserve native outputs and source lineage.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T20:41:23.486468+00:00",
+        "source_change_id": "aquarium-hall-style-v3"
+      },
+      {
+        "id": "delta_aquarium_hall_style_v3_2",
+        "title": "Apply generated hall materials with nearest sampling and consistent physical tiling to existing architecture and furniture, preserving saved finishes and gameplay.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T20:41:24.276999+00:00",
+        "source_change_id": "aquarium-hall-style-v3"
+      },
+      {
+        "id": "delta_aquarium_hall_style_v3_3",
+        "title": "Capture matched before/after hall, close wall/floor/furniture and first-person views; verify inherited assets unchanged and run existing build-tool/native route regression.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-24T20:41:25.064999+00:00",
+        "source_change_id": "aquarium-hall-style-v3"
+      }
+    ],
+    "validation": {
+      "validate": "not_run",
+      "unit": "not_run",
+      "playtest": "not_run",
+      "regression": "pass",
+      "last_failure": null,
+      "last_report": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\aquarium-hall-style-v3\\validation-report.json",
+      "regression_snapshots": []
+    }
+  },
+  "memory": [
+    "[2026-10-24T09:29:58Z] 从 production 同步新任务：delta_aquascape_decor_v1_1, delta_aquascape_decor_v1_2, delta_aquascape_decor_v1_3",
+    "[2026-10-24T10:05:32Z] 从 production 同步新任务：delta_aquascape_marine_showcase_v1_1, delta_aquascape_marine_showcase_v1_2, delta_aquascape_marine_showcase_v1_3",
+    "[2026-10-24T10:29:26Z] 从 production 同步新任务：delta_aquarium_hall_3d_v1_1, delta_aquarium_hall_3d_v1_2, delta_aquarium_hall_3d_v1_3, delta_aquarium_hall_3d_v1_4",
+    "[2026-10-24T19:24:54Z] 从 production 同步新任务：delta_aquarium_hall_build_v2_1, delta_aquarium_hall_build_v2_2, delta_aquarium_hall_build_v2_3, delta_aquarium_hall_build_v2_4",
+    "[2026-10-24T20:32:53Z] 从 production 同步新任务：delta_aquarium_hall_style_v3_1, delta_aquarium_hall_style_v3_2, delta_aquarium_hall_style_v3_3"
+  ],
+  "updated_at": "2026-10-24T20:41:25.819883+00:00"
+}

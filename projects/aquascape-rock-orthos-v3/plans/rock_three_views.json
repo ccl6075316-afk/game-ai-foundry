@@ -1,0 +1,108 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-rock-orthos-v3",
+      "description": "Orthographic front/right/top construction study from the generated V2 master. Fix single-view inferred thickness before rebuilding 3D.",
+      "art_direction": "Source-matched naturalistic pixel art, strict orthographic construction views; prioritize same-object geometric consistency and camera correctness.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Review consistent projections of scenery before 3D reconstruction.",
+      "session_goal": "One valid three-view sheet with consistent length, height, depth and feature correspondence.",
+      "player_asset": "rock_three_views",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 3072,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/rock_master_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (3072x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "rock_three_views",
+      "type": "background",
+      "description": "Create ONE TECHNICAL THREE-VIEW MODEL SHEET of the exact single weathered slate-gray aquarium rock shown in the supplied artwork, using the supplied master image to identify the same object. This is a multi-view construction reference, not an attractive presentation illustration. Pure WHITE page, exactly THREE equal vertical panels in ONE HORIZONTAL ROW. Use small simple headers: FRONT above LEFT panel; RIGHT above MIDDLE panel; TOP above RIGHT panel. No extra views. Flat neutral diffuse light, no cast shadows, no horizon, no ground plane. Restrained source-matched painted pixel art, clearly readable contour and plane boundaries. The front has a high stepped shoulder on the LEFT, a long lower terraced mass extending RIGHT, one diagonal fissure near the right half, and a scooped upper-right notch. Retain the connected irregular stone, not a group of separate rocks. Approximate shared dimensions: LENGTH X = 38 cm, HEIGHT Y = 16 cm, DEPTH Z about 20 cm. ALL THREE VIEWS are true ORTHOGRAPHIC parallel projections of ONE coherent physical object. FRONT: camera exactly level at object center looking along -Z, eye elevation ZERO; X horizontal and Y vertical. Show no top-facing area from camera tilt. RIGHT: Look exactly from the RIGHT END along negative X, perpendicular to the end. Horizontal dimension in this panel is front-back DEPTH Z, only about 53% of the rock's length; vertical dimension is HEIGHT Y, exactly the same height as FRONT. The long left-to-right facade is FORESHORTENED AWAY. The right-hand scoop/notch is visible as the near end's real shape. Do not rotate back toward the broad front. TOP: Only a long irregular rock FOOTPRINT and UPPER planes are visible. The tall LEFT shoulder becomes a large top patch, the right notch cuts into the perimeter, and the diagonal fissure continues coherently across the top. All front-facing VERTICAL walls disappear from this strict plan. This is a flat overhead map of the rock, NOT a raised-front isometric rock. Scale consistency: FRONT and TOP must have identical X LENGTH on the page; FRONT and RIGHT must have identical Y HEIGHT; RIGHT horizontal depth equals TOP vertical depth. Keep object centered in each panel; fit all silhouettes with white margin. The master reference is a three-quarter concept and MUST be rotated into these strict technical cameras. In TOP there must be NO long visible vertical facade. In RIGHT there must be NO long visible left-right facade. Do not copy the same silhouette three times. No isometric or three-quarter view in ANY panel. No redesign or extra branches. No perspective foreshortening except the disappearance of axes in the orthographic projection.",
+      "display_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "aspect_ratio": "3:1",
+      "generation_size": {
+        "width": 3072,
+        "height": 1024
+      },
+      "id": "rock_three_views",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_orthos",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "rock_three_views",
+    "asset_type": "background",
+    "prompt": "Create a BLACK PENCIL / GRAY CLAY ORTHOGRAPHIC ENGINEERING STUDY, NOT a colored illustration. Identify the exact connected object in the reference artwork and infer its physical 3D structure.\nA single connected long terraced rock, with higher shoulder on the left, a lower middle, a scooped notch at right and a diagonal crack across the right half. A roughly 38 cm long, 16 cm high and 20 cm deep irregular solid.\nOne white sheet, exactly 3 panels in a horizontal row: FRONT at left, RIGHT in middle, TOP at right. Use small plain labels above. Same world scale throughout. Simplified gray mass and thin black silhouette/structure lines ONLY, no wood grain, no mineral texture, no painted lighting, no isometric sketch.\nFRONT: strict orthographic ELEVATION. Camera exactly horizontal at mid-height. X is horizontal and Y is vertical. Horizontal upper surfaces become edges with NO visible area from camera tilt. No perspective.\nRIGHT is a compact irregular END profile about 20 cm wide and 16 cm tall. The long 38 cm facade cannot be seen from this direction. Show the rightmost scooped cross-section with the high left shoulder behind it.\nTOP shows only the winding outer footprint and terrace contours, like contours on an overhead MAP. No vertical facade is visible. The left shoulder is a closed patch seen from above, the right scoop is an inward contour. Imagine a CAD top viewport.\nThe reference is an angled beauty illustration. Discard its camera completely. Output three actual CAD-style viewports of one coherent object. Align FRONT and TOP X extents; align FRONT and RIGHT height; RIGHT width equals TOP vertical depth. Show all silhouettes on white with margin. Spatial coherence is more important than rendering detail. No repeated broadside silhouettes. No scenery, no ground, no shadows, no colors, no extra views.",
+    "negative_hints": [
+      "No isometric or three-quarter camera in any panel.",
+      "No colored texture, no scenery, no shadows.",
+      "Do not copy the source camera into TOP or RIGHT."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "3:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": true,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "agent_manual_orthographic_repair",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "3072x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 3072,
+      "height": 1024
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "899ff4b986af9046"
+  }
+}

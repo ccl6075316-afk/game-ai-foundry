@@ -1,0 +1,120 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Aquascape V2 — generated individual artwork",
+      "description": "Correct the rejected scenery prototype by generating complete designed individual props first. The shape, silhouette, painted light, wear and species leaf forms must come from generated artwork and be retained during later 3D reconstruction. This stage produces four original art assets for direct fish-style comparison, not generic material swatches.",
+      "art_direction": "Match the supplied silver arowana illustration's detailed naturalistic PIXEL ART: deliberate crisp pixel clusters, rich carefully painted midtones, delicate highlights, restrained believable colors, readable asymmetrical silhouettes. Detailed hand-painted game sprite appearance with dimensional painted volume. NO low-poly CGI, NO procedural primitive look, NO 3D render, NO photographic grain, NO uniform noise or smooth airbrush. The fish reference establishes the exact drawing finish, not subject matter.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Review generated aquarium scenery artwork and later reconstruct its designed shapes in 3D.",
+      "session_goal": "Four complete isolated source illustrations, visually reviewed alongside the original fish before any model construction. Keep full native image resolution and source provenance.",
+      "player_asset": "rock_master",
+      "controls": {
+        "inspect": [
+          "Mouse"
+        ],
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "side"
+    },
+    "asset": {
+      "name": "rock_master",
+      "type": "character",
+      "description": "Generate ONE COMPLETE aquarium rock as a finished detailed pixel-art game prop, isolated on pure white with ample clean margin. Camera is orthographic, looking at its broad front with a little top and right side visible. Asymmetrical weathered gray stone with a low spreading base, two broken terraced ridges, an offset higher shoulder on the left, a long diagonal split and a worn scooped notch on the upper right. Strong specific irregular outline with believable stone mass and small chipped shelves. Cool slate gray midtones, subtly warm pale weathering on upper edges, deep blue-gray crevices. Paint the actual rock's own facets, fissures and planes coherently, like the supplied fish's scales and head planes are coherently painted. Broad readable light-and-dark masses, crisp fine pixel clusters concentrated at edges and mineral accents. One roughly 30cm rock, not a group, not a spherical pebble and not a pile. No fish, no scales, no plants, no floor or water, no cast shadow. No text, no collage. Avoid a uniform noise texture and primitive faceted CGI. Preserve the supplied fish illustration's pixel drawing finish. This complete object artwork will define the later model silhouette; it is NOT a seamless texture.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "rock_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "rock_master",
+    "asset_type": "character",
+    "prompt": "Subject: One complete aquarium rock, roughly 30 cm, low spreading base, two broken terraced ridges, offset higher shoulder on the left, a long diagonal split and a worn scooped notch on the upper right, with small chipped shelves.\nSilhouette: Strong irregular asymmetrical outline, believable stone mass, terraced steps reading clearly at small size, distinct chipped ledge notches.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Detailed naturalistic pixel art matching the fish reference finish: deliberate crisp pixel clusters at edges and mineral accents, painted coherent facets and fissures, cool slate gray midtones, subtly warm pale weathering on upper planes, deep blue-gray crevices; no smooth airbrush.\nView: Side view, profile facing right, readable silhouette for side-scroller gameplay; Orthographic, broad front with a little top and right side visible.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Pure flat white #FFFFFF studio background, even light, ample clean margin, single centered object, no ground shadow or border.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No fish, scales, plants, floor, water, cast shadow, text or collage; not a group, pile or spherical pebble; no uniform noise, no faceted primitive CGI.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "29ab2418028ecd06"
+  }
+}

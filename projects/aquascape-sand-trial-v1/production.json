@@ -1,0 +1,313 @@
+{
+  "production_meta": {
+    "schema_version": 1,
+    "derived_at": "2026-10-24T08:18:54.389375+00:00",
+    "brief_path": "E:\\game-ai-foundry\\projects\\aquascape-sand-trial-v1\\brief.json",
+    "brief_meta": {
+      "contract_version": 1,
+      "frozen_at": "2026-10-24T08:18:52+00:00",
+      "source": "manual"
+    },
+    "genre_preset": "default_v1",
+    "preset_trace": [
+      "genre_preset.default_v1.world",
+      "genre_preset.default_v1.player",
+      "genre_preset.default_v1.physics_layers",
+      "brief.project.viewport",
+      "brief.project.controls",
+      "brief.project.player_asset",
+      "brief.animation_graphs"
+    ],
+    "applied_deltas": [
+      {
+        "change_id": "aquascape-sand-trial-v1",
+        "applied_at": "2026-10-24T08:39:42+00:00",
+        "tasks_added": [
+          "delta_aquascape_sand_trial_v1_1",
+          "delta_aquascape_sand_trial_v1_2",
+          "delta_aquascape_sand_trial_v1_3"
+        ],
+        "asset_tasks": [
+          "fine_sand"
+        ]
+      }
+    ]
+  },
+  "production_doc": {
+    "title": "Aquascape sand placement trial v1",
+    "slug": "aquascape-sand-placement-trial-v1",
+    "genre": "aquarium_exhibit",
+    "dimension": "3d",
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    },
+    "world": {
+      "gravity": 980,
+      "ground_y": 904
+    },
+    "player": {
+      "move_speed": 150,
+      "health": 1,
+      "hitbox": {
+        "width": 32,
+        "height": 32
+      },
+      "anchor": "bottom_center",
+      "asset": "fine_sand",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "collision_size": {
+        "width": 32,
+        "height": 32
+      }
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "physics_layers": {
+      "player": 1,
+      "world": 2
+    },
+    "input_map": [
+      {
+        "action": "inspect",
+        "keys": [
+          "Mouse"
+        ]
+      },
+      {
+        "action": "move_left",
+        "keys": [
+          "A"
+        ]
+      },
+      {
+        "action": "move_right",
+        "keys": [
+          "D"
+        ]
+      }
+    ],
+    "scenes": [
+      {
+        "path": "scenes/main.tscn",
+        "role": "main",
+        "root": {
+          "name": "Main",
+          "type": "Node2D"
+        },
+        "children": [
+          {
+            "name": "World",
+            "type": "Node2D",
+            "role": "level_root"
+          },
+          {
+            "name": "PlayerSpawn",
+            "type": "Marker2D",
+            "role": "spawn"
+          },
+          {
+            "name": "Camera2D",
+            "type": "Camera2D",
+            "role": "camera"
+          }
+        ]
+      },
+      {
+        "path": "scenes/player.tscn",
+        "role": "player",
+        "root": {
+          "name": "Player",
+          "type": "CharacterBody2D"
+        },
+        "children": [
+          {
+            "name": "CollisionShape2D",
+            "type": "CollisionShape2D",
+            "role": "hitbox"
+          },
+          {
+            "name": "AnimatedSprite2D",
+            "type": "AnimatedSprite2D",
+            "role": "sprite"
+          }
+        ],
+        "script": "scripts/FineSandController.cs",
+        "asset": "fine_sand"
+      }
+    ],
+    "systems": [
+      {
+        "id": "player_controller",
+        "script": "scripts/FineSandController.cs",
+        "node": "scenes/player.tscn",
+        "responsibility": "Input, movement, animation state, collision response"
+      },
+      {
+        "id": "game_state",
+        "script": "scripts/GameState.cs",
+        "node": "autoload",
+        "responsibility": "Score, health, win/lose flags, session progress"
+      }
+    ],
+    "collectible_items": [],
+    "animation_graphs": [],
+    "godot_tasks": [
+      {
+        "id": "input_map",
+        "title": "Wire InputMap actions from brief.controls",
+        "depends_on": [],
+        "verify": [
+          "InputMap contains: inspect, move_left, move_right"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "player_controller",
+        "title": "Implement FineSandController (CharacterBody2D) with brief.controls",
+        "depends_on": [
+          "input_map"
+        ],
+        "verify": [
+          "Player moves left/right when move actions pressed",
+          "Player collides with world layer"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "animation_states",
+        "title": "Bind SpriteFrames clips (idle) per animation_graphs",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "AnimatedSprite2D plays clip: idle"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "camera",
+        "title": "Configure camera: {'mode': 'static'}",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "Camera follows or frames player as specified in production.camera"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "session_goal",
+        "title": "Implement session goal: Playable isolated experiment with one sand, two rock types, undo and save/load plus measured native rendering evidence.",
+        "depends_on": [
+          "player_controller",
+          "animation_states",
+          "camera"
+        ],
+        "verify": [
+          "main scene loads without errors",
+          "Playable isolated experiment with one sand, two rock types, undo and save/load plus measured native rendering evidence."
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "delta_aquascape_sand_trial_v1_1",
+        "title": "Create isolated sand placement trial, 129x65 height samples in 16 local chunks, generated sand art and two existing rock types.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: 用户要求单独实验铺沙：一种沙子、两种石头。支持堆坡、吸沙、整平与独立石头摆放，验证对象数量和性能，沿用既有像素画风。"
+        ],
+        "source_change_id": "aquascape-sand-trial-v1"
+      },
+      {
+        "id": "delta_aquascape_sand_trial_v1_2",
+        "title": "Implement pour/remove/smooth, pick/move/rotate/scale/delete rocks, undo/redo and independent save/load.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: 用户要求单独实验铺沙：一种沙子、两种石头。支持堆坡、吸沙、整平与独立石头摆放，验证对象数量和性能，沿用既有像素画风。"
+        ],
+        "source_change_id": "aquascape-sand-trial-v1"
+      },
+      {
+        "id": "delta_aquascape_sand_trial_v1_3",
+        "title": "Native engine interaction tests, bounded object count, idle work and CPU/frame timing, screenshot visual review.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: 用户要求单独实验铺沙：一种沙子、两种石头。支持堆坡、吸沙、整平与独立石头摆放，验证对象数量和性能，沿用既有像素画风。"
+        ],
+        "source_change_id": "aquascape-sand-trial-v1"
+      }
+    ],
+    "validation": {
+      "acceptance_criteria": [
+        "main scene loads",
+        "godot validate passes",
+        "all brief.controls actions work in playtest harness",
+        "Playable isolated experiment with one sand, two rock types, undo and save/load plus measured native rendering evidence.",
+        "core loop: Pour, remove and smooth a local heightfield substrate; place, move, rotate and scale two existing rock types.",
+        "InputMap contains: inspect, move_left, move_right",
+        "Player moves left/right when move actions pressed",
+        "Player collides with world layer",
+        "AnimatedSprite2D plays clip: idle",
+        "Camera follows or frames player as specified in production.camera",
+        "main scene loads without errors",
+        "User intent satisfied: 用户要求单独实验铺沙：一种沙子、两种石头。支持堆坡、吸沙、整平与独立石头摆放，验证对象数量和性能，沿用既有像素画风。"
+      ],
+      "regression_checks": []
+    },
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "asset_display_sizes": {
+      "fine_sand": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    "scaffold": {
+      "main_scene": "scenes/main.tscn",
+      "scripts_dir": "scripts",
+      "autoloads": [
+        "GameState"
+      ],
+      "language": "csharp",
+      "engine": "godot4-dotnet"
+    }
+  }
+}

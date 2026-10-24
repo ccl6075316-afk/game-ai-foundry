@@ -1,0 +1,120 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Aquascape V2 — generated individual artwork",
+      "description": "Correct the rejected scenery prototype by generating complete designed individual props first. The shape, silhouette, painted light, wear and species leaf forms must come from generated artwork and be retained during later 3D reconstruction. This stage produces four original art assets for direct fish-style comparison, not generic material swatches.",
+      "art_direction": "Match the supplied silver arowana illustration's detailed naturalistic PIXEL ART: deliberate crisp pixel clusters, rich carefully painted midtones, delicate highlights, restrained believable colors, readable asymmetrical silhouettes. Detailed hand-painted game sprite appearance with dimensional painted volume. NO low-poly CGI, NO procedural primitive look, NO 3D render, NO photographic grain, NO uniform noise or smooth airbrush. The fish reference establishes the exact drawing finish, not subject matter.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Review generated aquarium scenery artwork and later reconstruct its designed shapes in 3D.",
+      "session_goal": "Four complete isolated source illustrations, visually reviewed alongside the original fish before any model construction. Keep full native image resolution and source provenance.",
+      "player_asset": "rock_master",
+      "controls": {
+        "inspect": [
+          "Mouse"
+        ],
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+      "view": "side"
+    },
+    "asset": {
+      "name": "anubias_master",
+      "type": "character",
+      "description": "Generate ONE complete small Anubias barteri var. nana clump, a finished naturalistic detailed PIXEL ART aquarium game prop isolated on pure white with generous margin. Camera orthographic slight top/right view. Correct species design: a short gently crooked creeping horizontal rhizome, about 9 distinct broad oval to ovate stiff leathery dark-green leaves on individual short petioles, rounded shoulders and gently pointed tips, unequal leaf sizes and organic overlapping, one curled younger light-green leaf. Each leaf has its own coherent central vein, subtle secondary veins, painted cup and slight curl, broad dark jade shadows and restrained olive-green highlights. The rhizome stays visible above the attachment surface, with a few fine hanging roots, no soil/pot/rock/wood. Total clump about 12cm tall, leaves 4–7cm long. Favor broad readable green color masses and deliberate crisp pixel clusters like the supplied fish art; details should support each leaf form rather than noisy random green speckling. DO NOT turn this into fern leaves, long grass, a rosette stemless bush or a symmetric radial arrangement. Entire plant including all roots and leaf tips visible; no scene, water, cast shadow, labels or text. No fish, no CGI, no photographic leaves. This whole artwork will determine leaf arrangement and contours for later 3D, not a green material swatch.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "anubias_master",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "anubias_master",
+    "asset_type": "character",
+    "prompt": "Subject: One Anubias barteri var. nana clump: short crooked creeping horizontal rhizome with about nine broad ovate leathery dark-green leaves on short petioles, unequal sizes, organic overlap, one curled pale young leaf, fine hanging roots, no substrate.\nSilhouette: Asymmetric readable clump, visible rhizome line, distinct leaf contours with rounded shoulders and gently pointed tips, every leaf tip and root inside frame.\nStyle lock: Soft style alignment with art direction; prefer cohesive look over literal copy.; Detailed hand-painted pixel art: deliberate crisp pixel clusters, dark jade shadow masses, restrained olive-green highlights, coherent central vein and subtle secondary veins per leaf, painted cup and curl; no smooth airbrush or uniform noise.\nView: Side view, profile facing right, readable silhouette for side-scroller gameplay; Orthographic view slightly above and from the right, rhizome running horizontally across the clump.\nTechnical: Pure flat white background (#FFFFFF), uniform studio backdrop; single object centered; mattable still; no environment scenery; Single plant isolated on pure flat white #FFFFFF studio backdrop, generous margin, centered, no ground shadow, vignette, border or gradient.\nNegatives: No spritesheet; no multiple action frames in one image; never transparent background or checkerboard; No fern fronds, long grass, rosette or radial symmetric bush, soil, pot, rock, wood, water, scene, labels, text, fish, CGI, photographic leaves, checkerboard or multiple plants.",
+    "negative_hints": [
+      "Do not prompt for transparent background or checkerboard.",
+      "Do not include multiple characters or action frames.",
+      "Do not include borders, frames, vignettes, gradients, or textured backdrops.",
+      "Character sprite only — not a prison scene, not environmental background, not item icon.",
+      "No prison walls, bars, cells, floors, or scenery behind the character."
+    ],
+    "validation": {
+      "asset_type": "character",
+      "require_pure_white_background": true,
+      "max_subject_regions": 1,
+      "forbid_spritesheet_layout": true
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      },
+      {
+        "step": "trim"
+      },
+      {
+        "step": "remove_bg",
+        "mode": "color"
+      },
+      {
+        "step": "validate_matting"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": true,
+    "animation_method": null,
+    "prompt_source": "llm",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": "gpt_image",
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "bottom_center",
+    "generation_input_fingerprint": "76541a47f26b52b5"
+  }
+}

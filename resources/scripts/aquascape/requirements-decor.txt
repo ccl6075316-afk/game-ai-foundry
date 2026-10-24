@@ -1,0 +1,2 @@
+# Optional ornament reconstruction dependency; core imaging packages use Foundry's venv.
+fast-simplification==0.2.0

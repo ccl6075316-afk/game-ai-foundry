@@ -1,0 +1,54 @@
+{
+  "project": {
+    "title": "aquascape-anubias-v2-leaves",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing.",
+    "art_direction": "Retain the supplied master artwork's naturalistic detailed pixel art, coherent painted volume, crisp deliberate clusters and restrained palette. No CGI or photographic noise.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-matched scenery geometry.",
+    "session_goal": "Source-matched supplementary views/parts for artwork-led 3D construction.",
+    "player_asset": "anubias_leaves",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "view": "side",
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/anubias_master_raw.png"
+  },
+  "assets": [
+    {
+      "id": "anubias_leaves",
+      "name": "anubias_leaves",
+      "type": "character",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true,
+      "description": "Generate a PRODUCTION PART SHEET that faithfully preserves the exact supplied Anubias plant's drawing finish and dark green painted material. Exact 3 columns by 2 rows on pure white, NO grid lines, text or labels. In each equal cell draw ONE complete isolated Anubias barteri var. nana LEAF BLADE plus a short petiole stub, with clear white gaps around all leaves; petiole DOWN, leaf tip UP, blade fully inside its cell. Six unique leaves taken from the same plant: broad mature oval front-facing, medium broad slightly cupped, smaller young oval, mature blade gently curled to one side, angled broad leaf with folded shoulder, narrow freshly unfolding young leaf. Show the FULL continuous leaf contour including the basal shoulders and stem junction. The first five remain broad ovate leaves with full believable width, not generic lanceolate fern. Paint the exact leaf vein pattern, broad light/dark planes, rim and curled edge from the original. Avoid new coarse dithering or speckle texture. All leaves have their own curved silhouette. No whole plant, roots, rhizome, pot, scenery or overlap across cells. These six painted leaf images will be traced into individually shaped thick 3D leaves; no generic surface swatches. IMPORTANT: exact same individual Anubias barteri var. nana and same painted style as reference. Isolated on pure white with generous white margin; no ground, cast shadow, labels or text. Keep all tips fully visible."
+    }
+  ]
+}

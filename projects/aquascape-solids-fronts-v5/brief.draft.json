@@ -1,0 +1,193 @@
+{
+  "project": {
+    "title": "aquascape-solids-fronts-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "river_boulder_front",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-solids-20-v5/style-reference.png"
+  },
+  "assets": [
+    {
+      "id": "river_boulder_front",
+      "name": "river_boulder_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One low asymmetrical water-worn river boulder with an offset flattened dome, one shallow diagonal seam, small worn chips and broad rounded sides. Warm gray-brown stone with pale quartz streaks, subtle cool shadows. Broad footprint, length 30 cm, height 17 cm, depth 21 cm. Not a perfect sphere, no rock pile or foliage.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "basalt_column_front",
+      "name": "basalt_column_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One broken upright basalt mass with three unequal naturally fractured shoulders, dark blue-charcoal stone, sparse lighter mineral edges and a blunt slanted broken top. Irregular chunky cross-section, not a regular hexagonal column or castle. Length 23 cm, height 30 cm, depth 20 cm. Grounded solid base, no vegetation or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "red_sandstone_front",
+      "name": "red_sandstone_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One low spreading weathered sandstone ledge with three tilted eroded strata, an off-center rounded upper shoulder and a chipped lower lip. Muted reddish ochre, dusty tan bands and cool umber recesses. Length 36 cm, height 17 cm, depth 23 cm. Real irregular layered rock, no arch holes or loose separate pebbles.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "pale_limestone_front",
+      "name": "pale_limestone_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One pale cream-gray limestone mass with an uneven lobed footprint, two low rounded eroded ridges and shallow pitted surface. Warm ivory worn edges, cool gray fissures and a darker small scoop on one side. Length 27 cm, height 21 cm, depth 21 cm. No deep holes, no coral texture, no symmetrical crystal or rock pile.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "root_stump_front",
+      "name": "root_stump_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One short old driftwood stump with a blunt broken upright trunk, a thick off-center root crotch and exactly three unequal flared supporting roots. Desaturated gray umber and warm honey exposed fibers, grain forks continuously through the crotch. Length 34 cm, height 29 cm, depth 26 cm. All roots thick and irregular, not cones or a starburst. No detached pieces, holes or leaves.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "twisted_branch_front",
+      "name": "twisted_branch_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One long low S-curved driftwood limb with a thick twisted knot near the left third and one short blunt side spur. Flattened worn contact underside, irregular broken ends with visible fibers, flowing grain spirals through the knot. Muted gray-brown with pale weathered ridges. Length 46 cm, height 15 cm, depth 18 cm. No extra upright branches, no uniform cylindrical log, no leaves or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "root_fan_front",
+      "name": "root_fan_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One grounded flattened root fan with one thick central knotted base and exactly four uneven broad gnarled roots spreading left/right and forward, some overlapping in front elevation but clearly separated in top view. Dark coffee brown with restrained pale worn fibers. Length 40 cm, height 19 cm, depth 29 cm. Broad irregular organic roots, no evenly tapered spikes, no extra thin twigs, no leaves or loose parts.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "weathered_log_front",
+      "name": "weathered_log_front",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create the definitive FRONT artwork of this NEW aquarium scenery design: One irregular low fallen log segment with partly peeled dark bark and a broad exposed gray-tan inner wood ridge, gently bowed rather than straight, one thick broken root nub at the left rear and splintered blunt ends. Length 38 cm, height 17 cm, depth 20 cm. Solid weathered wood with shallow natural scars, no through-holes, no perfect cylinder or geometric sawcut. Grain follows the curve, bark and exposed wood belong to the same object.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: strict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at the object's center. X is horizontal, Y vertical. No visible area of horizontal top planes from camera tilt; do not use a three-quarter/isometric camera. Preserve believable painted 3D volume and material.\nThe reference determines pixel drawing finish only; do not copy the reference species or existing prop design. Entire plant root crown/root tips or whole stone/wood base and all extremities must be visible. For a plant, show natural three-dimensional leaf arrangement, distinct leaf identities, anatomically correct base, no pot/soil/rock/wood. For wood, continuous grain through every fork and natural irregular blunt broken ends; no geometric tubes or spikes. One complete illustration, no auxiliary objects.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    }
+  ]
+}

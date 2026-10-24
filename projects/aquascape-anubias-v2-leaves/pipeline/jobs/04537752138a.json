@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "job_id": "04537752138a",
+  "status": "failed",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-anubias-v2-leaves\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "4",
+    "--auto-fix",
+    "--run-prompts"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-anubias-v2-leaves\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-anubias-v2-leaves\\pipeline\\jobs\\04537752138a.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-anubias-v2-leaves\\pipeline\\jobs\\04537752138a.log",
+  "pid": 33176,
+  "exit_code": 1,
+  "started_at": "2026-10-23T17:27:13+00:00",
+  "finished_at": "2026-10-23T17:28:31+00:00",
+  "error": null,
+  "worker_pid": 49328
+}

@@ -25,3 +25,12 @@
 # Portable hashes for retained reconstruction tools and species profiles.
 /resources/scripts/volume-fish/** -text whitespace=cr-at-eol
 /resources/volume-fish/** -text whitespace=cr-at-eol
+
+# Retained aquascape tools and source packages bind exact source bytes.
+/resources/aquascape/** -text whitespace=cr-at-eol
+/resources/scripts/aquascape/** -text whitespace=cr-at-eol
+/resources/runtime/godot/aquascape/** -text whitespace=cr-at-eol
+/projects/aquascape-*/** -text whitespace=cr-at-eol
+/projects/aquarium-hall-materials-*/** -text whitespace=cr-at-eol
+/projects/aquascape-*/**/*.png filter=lfs diff=lfs merge=lfs -text
+/projects/aquarium-hall-materials-*/**/*.png filter=lfs diff=lfs merge=lfs -text

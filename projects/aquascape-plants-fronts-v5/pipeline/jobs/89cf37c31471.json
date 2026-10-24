@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "89cf37c31471",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-plants-fronts-v5\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "4",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-plants-fronts-v5\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-plants-fronts-v5\\pipeline\\jobs\\89cf37c31471.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-plants-fronts-v5\\pipeline\\jobs\\89cf37c31471.log",
+  "pid": 44280,
+  "exit_code": 0,
+  "started_at": "2026-10-23T20:07:03+00:00",
+  "finished_at": "2026-10-23T20:12:43+00:00",
+  "error": null,
+  "worker_pid": 48516
+}

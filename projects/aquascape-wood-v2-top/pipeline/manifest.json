@@ -1,0 +1,256 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T17:29:50+00:00",
+  "updated_at": "2026-10-23T17:30:42+00:00",
+  "brief": "projects\\aquascape-wood-v2-top\\brief.json",
+  "project": {
+    "title": "aquascape-wood-v2-top",
+    "description": "Correct rejected oblique auxiliary image with a true top camera."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-wood-v2-top\\output",
+    "plans_dir": "projects\\aquascape-wood-v2-top\\plans",
+    "assets_manifest": "projects\\aquascape-wood-v2-top\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "wood_top_locked.prompt.craft",
+      "asset": "wood_top_locked",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-wood-v2-top\\brief.json --asset wood_top_locked -o ../projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json"
+      },
+      "started_at": "2026-10-23T17:29:52+00:00",
+      "finished_at": "2026-10-23T17:29:56+00:00",
+      "asset_id": "wood_top_locked"
+    },
+    {
+      "id": "wood_top_locked.image.generate",
+      "asset": "wood_top_locked",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "wood_top_locked.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json --output ../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png --validate --reference-image ../projects\\aquascape-source-v2\\output\\driftwood_master_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-wood-v2-top\\plans\\wood_top_locked.json",
+        "output": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.15625
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.15625,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.5332832311095858,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.9999597886029412,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 4.021139705882353e-05,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 1.0,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 253.951227651646,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                254,
+                254,
+                255,
+                254,
+                254,
+                254
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 1
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:29:56+00:00",
+      "finished_at": "2026-10-23T17:30:32+00:00",
+      "asset_id": "wood_top_locked"
+    },
+    {
+      "id": "wood_top_locked.image.trim",
+      "asset": "wood_top_locked",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "wood_top_locked.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png --output ../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_raw.png",
+        "output": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:30:32+00:00",
+      "finished_at": "2026-10-23T17:30:35+00:00",
+      "asset_id": "wood_top_locked"
+    },
+    {
+      "id": "wood_top_locked.image.remove-bg",
+      "asset": "wood_top_locked",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "wood_top_locked.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png --output ../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_trimmed.png",
+        "output": "../projects\\aquascape-wood-v2-top\\output\\wood_top_locked_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": ""
+      },
+      "started_at": "2026-10-23T17:30:35+00:00",
+      "finished_at": "2026-10-23T17:30:37+00:00",
+      "asset_id": "wood_top_locked"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "wood_top_locked.prompt.craft",
+        "wood_top_locked.image.generate",
+        "wood_top_locked.image.trim",
+        "wood_top_locked.image.remove-bg"
+      ],
+      "layer": 4,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-wood-v2-top\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-wood-v2-top\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-wood-v2-top\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-wood-v2-top\\game",
+          "animations": [
+            {
+              "asset": "wood_top_locked",
+              "animation_name": "idle",
+              "frame_count": "1",
+              "sprite_frames": "assets/sprites/wood_top_locked_frames.tres",
+              "frames_dir": "assets/sprites/wood_top_locked"
+            }
+          ],
+          "backgrounds": [],
+          "idle_still": "assets/sprites/idle_still.png",
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": "assets/sprites/wood_top_locked_frames.tres"
+        }
+      },
+      "started_at": "2026-10-23T17:30:37+00:00",
+      "finished_at": "2026-10-23T17:30:42+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 5,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-wood-v2-top\\brief.json --project ../projects\\aquascape-wood-v2-top\\game --assemble-file ../projects\\aquascape-wood-v2-top\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-wood-v2-top\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T17:29:52+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-wood-v2-top\\game",
+  "godot_assemble_file": "../projects\\aquascape-wood-v2-top\\plans\\godot_brief.json"
+}

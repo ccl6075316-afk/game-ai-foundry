@@ -1,0 +1,295 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T17:27:16+00:00",
+  "updated_at": "2026-10-23T17:32:24+00:00",
+  "brief": "projects\\aquascape-fern-v2-leaves\\brief.json",
+  "project": {
+    "title": "aquascape-fern-v2-leaves",
+    "description": "Source-matched supplementary artwork for the accepted operator-reviewed V2 individual. Follow the exact master identity and pixel-art drawing."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-fern-v2-leaves\\output",
+    "plans_dir": "projects\\aquascape-fern-v2-leaves\\plans",
+    "assets_manifest": "projects\\aquascape-fern-v2-leaves\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "fern_leaves.prompt.craft",
+      "asset": "fern_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-fern-v2-leaves\\brief.json --asset fern_leaves -o ../projects\\aquascape-fern-v2-leaves\\plans\\fern_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-fern-v2-leaves\\plans\\fern_leaves.json"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-fern-v2-leaves\\plans\\fern_leaves.json"
+      },
+      "started_at": "2026-10-23T17:27:18+00:00",
+      "finished_at": "2026-10-23T17:27:23+00:00",
+      "asset_id": "fern_leaves"
+    },
+    {
+      "id": "fern_leaves.image.generate",
+      "asset": "fern_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "fern_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-fern-v2-leaves\\plans\\fern_leaves.json --output ../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_raw.png --validate --reference-image ../projects\\aquascape-source-v2\\output\\java_fern_master_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-fern-v2-leaves\\plans\\fern_leaves.json",
+        "output": "../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "character",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.09765625
+            },
+            {
+              "check": "corner_brightness",
+              "value": 254.09765625,
+              "min": 240
+            },
+            {
+              "check": "corner_uniformity_std",
+              "value": 0.533732818117831,
+              "max": 22.0
+            },
+            {
+              "check": "edge_white_ratio",
+              "value": 0.9987419577205883,
+              "min": 0.88
+            },
+            {
+              "check": "edge_dark_ratio",
+              "value": 0.001206341911764706,
+              "max": 0.04
+            },
+            {
+              "check": "background_white_ratio",
+              "value": 1.0,
+              "min": 0.9
+            },
+            {
+              "check": "background_mean_brightness",
+              "value": 254.07868706504738,
+              "min": 238.0
+            },
+            {
+              "check": "background_dark_ratio",
+              "value": 0.0,
+              "max": 0.04
+            },
+            {
+              "check": "backdrop_probe_brightness",
+              "values": [
+                254,
+                254,
+                254,
+                255,
+                254,
+                255
+              ],
+              "min": 240,
+              "white_ratio": 1.0
+            },
+            {
+              "check": "require_pure_white_background",
+              "passed": true
+            },
+            {
+              "check": "subject_regions",
+              "value": 6
+            },
+            {
+              "check": "max_subject_regions",
+              "passed": true,
+              "max": 6
+            },
+            {
+              "check": "forbid_spritesheet_layout",
+              "passed": true
+            }
+          ],
+          "message": "Validation passed for asset type 'character'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T17:31:45+00:00",
+      "finished_at": "2026-10-23T17:32:13+00:00",
+      "asset_id": "fern_leaves"
+    },
+    {
+      "id": "fern_leaves.image.trim",
+      "asset": "fern_leaves",
+      "step": "image.trim",
+      "role": "orchestrator",
+      "depends_on": [
+        "fern_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py image trim --input ../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_raw.png --output ../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_trimmed.png",
+      "artifacts": {
+        "input": "../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_raw.png",
+        "output": "../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_trimmed.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_trimmed.png"
+      },
+      "started_at": "2026-10-23T17:32:13+00:00",
+      "finished_at": "2026-10-23T17:32:16+00:00",
+      "asset_id": "fern_leaves"
+    },
+    {
+      "id": "fern_leaves.image.remove-bg",
+      "asset": "fern_leaves",
+      "step": "image.remove-bg",
+      "role": "orchestrator",
+      "depends_on": [
+        "fern_leaves.image.trim"
+      ],
+      "layer": 3,
+      "status": "done",
+      "command": "python gamefactory.py image remove-bg --input ../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_trimmed.png --output ../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_nobg.png --mode color",
+      "artifacts": {
+        "input": "../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_trimmed.png",
+        "output": "../projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_nobg.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-fern-v2-leaves\\output\\fern_leaves_nobg.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "matting",
+          "checks": [
+            {
+              "check": "has_alpha",
+              "passed": true
+            },
+            {
+              "check": "edge_width_px",
+              "value": 2
+            },
+            {
+              "check": "edge_pixels_sampled",
+              "value": 13463
+            },
+            {
+              "check": "bright_edge_pixels",
+              "value": 13,
+              "ratio": 0.000966,
+              "max_ratio": 0.025,
+              "threshold": 220,
+              "passed": true
+            },
+            {
+              "check": "semi_transparent_bright",
+              "value": 0,
+              "max": 8,
+              "passed": true
+            },
+            {
+              "check": "outer_halo_pixels",
+              "value": 0,
+              "passed": true
+            }
+          ],
+          "message": "Matting edge validation passed (bright edge ratio 0.0010 ≤ 0.025).",
+          "next_action": null,
+          "retry_hints": []
+        }
+      },
+      "started_at": "2026-10-23T17:32:16+00:00",
+      "finished_at": "2026-10-23T17:32:18+00:00",
+      "asset_id": "fern_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "fern_leaves.prompt.craft",
+        "fern_leaves.image.generate",
+        "fern_leaves.image.trim",
+        "fern_leaves.image.remove-bg"
+      ],
+      "layer": 4,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-fern-v2-leaves\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-fern-v2-leaves\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-fern-v2-leaves\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-fern-v2-leaves\\game",
+          "animations": [
+            {
+              "asset": "fern_leaves",
+              "animation_name": "idle",
+              "frame_count": "1",
+              "sprite_frames": "assets/sprites/fern_leaves_frames.tres",
+              "frames_dir": "assets/sprites/fern_leaves"
+            }
+          ],
+          "backgrounds": [],
+          "idle_still": "assets/sprites/idle_still.png",
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": "assets/sprites/fern_leaves_frames.tres"
+        }
+      },
+      "started_at": "2026-10-23T17:32:18+00:00",
+      "finished_at": "2026-10-23T17:32:24+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 5,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-fern-v2-leaves\\brief.json --project ../projects\\aquascape-fern-v2-leaves\\game --assemble-file ../projects\\aquascape-fern-v2-leaves\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-fern-v2-leaves\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T17:31:45+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-fern-v2-leaves\\game",
+  "godot_assemble_file": "../projects\\aquascape-fern-v2-leaves\\plans\\godot_brief.json"
+}

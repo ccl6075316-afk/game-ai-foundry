@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-plants-20-v5",
+      "description": "Expand the approved scenery process to twenty distinct assets, reusing four existing assets and generating sixteen new designs. Fixed prompts and mechanical operations are deterministic; visual acceptance remains manual.",
+      "art_direction": "Detailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect source-matched scenery in a rotating Godot catalogue.",
+      "session_goal": "Ten species of gently animated plants and ten static stone/wood designs including existing accepted trials.",
+      "player_asset": "bucephalandra",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 2048,
+        "height": 2048
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-plants-20-v5/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (2048x2048). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "aponogeton",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Aponogeton crispus. Small brown basal tuber bearing nine translucent-looking but painted opaque light olive-green elongate leaves on narrow petioles. Blades have conspicuously wavy ruffled margins and fine cross-veins. Lengths 18-30 cm, blade width 2-4 cm. A few leaves bow outward, others upright. Correct single tuber base and root bundle; not a feather fern or a flat sword plant. No flowers or water surface.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "aponogeton",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "aponogeton",
+    "asset_type": "background",
+    "prompt": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Aponogeton crispus. Small brown basal tuber bearing nine translucent-looking but painted opaque light olive-green elongate leaves on narrow petioles. Blades have conspicuously wavy ruffled margins and fine cross-veins. Lengths 18-30 cm, blade width 2-4 cm. A few leaves bow outward, others upright. Correct single tuber base and root bundle; not a feather fern or a flat sword plant. No flowers or water surface.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+    "negative_hints": [
+      "Preserve strict panel layout and true orthographic cameras.",
+      "No extra subjects or scenery; keep complete connected parts."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "1:1",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "user_authorized_fixed_aquascape_template_v5",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "2048x2048",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 2048,
+      "height": 2048
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "265d627c8376d4a6"
+  }
+}

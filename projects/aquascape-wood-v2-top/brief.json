@@ -1,0 +1,57 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T17:29:48+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-wood-v2-top",
+    "description": "Correct rejected oblique auxiliary image with a true top camera.",
+    "art_direction": "Source-matched detailed naturalistic pixel-art. Retain the exact master individual and painted material.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-driven scenery.",
+    "session_goal": "A true top projection suitable for depth estimation.",
+    "player_asset": "wood_top_locked",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-source-v2/output/driftwood_master_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio.",
+    "view": "top_down"
+  },
+  "assets": [
+    {
+      "name": "wood_top_locked",
+      "type": "character",
+      "description": "The exact same forked driftwood from the reference viewed in STRICT ORTHOGRAPHIC TOP PLAN. Camera points VERTICALLY DOWN, elevation EXACTLY 90 degrees. Reveal the entire FRONT-BACK spread of stabilizing roots and the upper sides of the knotted root crotch. Tall upward fork must be strongly foreshortened into a short stub extending toward camera rather than towering above the main trunk. Keep master left-right orientation with knotted base LEFT and long sinuous main limb reaching RIGHT. This object is about twice as long as its front-back spread. Preserve source branch inventory and continuous natural grain. This must be a real camera rotation, not a copied broadside pose. White studio background, entire silhouette and margins, no scene, text or cast shadow.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "wood_top_locked",
+      "usage": "reference_still",
+      "generate_method": "image",
+      "style_group": "aquascape",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

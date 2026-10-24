@@ -1,0 +1,79 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-24T09:20:08+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "shipwreck independent right/top artwork",
+    "description": "Two independent full-resolution cameras derived from the reviewed original front ornament design.",
+    "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Reconstruct this reviewed ornament and place it freely in the substrate trial.",
+    "session_goal": "Source-consistent right/top donors; visual review before three-dimensional modeling.",
+    "player_asset": "shipwreck_right",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-decor-fronts-v1/output/shipwreck_front_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1024x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "shipwreck_right",
+      "type": "background",
+      "description": "Render ONE RIGHT view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One small grounded model of an old wooden sailing-boat wreck, 34 cm long, 13 cm deep, about 15 cm high. Broad boat hull with a raised curved bow at image right, lower blunt broken stern at left, exactly three intact painted plank bands and irregular broken gunwale. One short broken mast stump at center, no sails, ropes, flag or detached debris. The middle hull contains a shallow open cargo well with a solid low floor, visibly thick side planks and a broken rim. Muted gray umber timber, restrained honey worn edges and a few dark iron nail heads; natural asymmetry, not a cartoon pirate face. All parts connected to one stable hull.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic RIGHT END ELEVATION, camera at +X looking along -X. Horizontal image axis is -Z depth, vertical is Y. The front long horizontal X axis disappears into the image: ship/bridge/pipe/chest must be seen END-ON, not their long front again. For the pipe show the genuinely open round end mouth.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "id": "shipwreck_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "shipwreck_top",
+      "type": "background",
+      "description": "Render ONE TOP view of the EXACT SAME designed ornament shown in the supplied FRONT artwork, not a new similar object. Subject: One small grounded model of an old wooden sailing-boat wreck, 34 cm long, 13 cm deep, about 15 cm high. Broad boat hull with a raised curved bow at image right, lower blunt broken stern at left, exactly three intact painted plank bands and irregular broken gunwale. One short broken mast stump at center, no sails, ropes, flag or detached debris. The middle hull contains a shallow open cargo well with a solid low floor, visibly thick side planks and a broken rim. Muted gray umber timber, restrained honey worn edges and a few dark iron nail heads; natural asymmetry, not a cartoon pirate face. All parts connected to one stable hull.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic TOP PLAN, camera at +Y looking straight down -Y. X horizontal, Z depth vertical; rear -Z is image top and front +Z is image bottom. Height disappears: do not draw the upright facade or a three-quarter/isometric view. For the jar show its open mouth, thick walls and dark cavity with a solid bottom. For ship show its open cargo well and connected low hull; anchor appears as a narrow but finite forged thickness footprint.\nPreserve every actual source component, relative proportion, worn edge, opening, material color and landmark as the same physical object from the new direction. Actual reference proportions take priority over approximate descriptive dimensions. Infer hidden surfaces consistently; do not invent extra feet, posts, holes or decorations. Genuine tunnels remain open; jar and cargo-well cavities have solid bottoms. This is one full-resolution camera-specific art donor, no other views or annotations.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "shipwreck_top",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T18:17:01+00:00",
+  "brief": "projects\\aquascape-wood-right-v3-calibrated\\brief.json",
+  "output_dir": "projects\\aquascape-wood-right-v3-calibrated\\output",
+  "project": {
+    "title": "aquascape-wood-right-v3-calibrated",
+    "description": "Correct only the end projection while retaining previously reviewed front and top shapes.",
+    "art_direction": "Neutral gray construction drawing, strict orthographic end-on camera, same connected object.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "wood_right_end": {
+      "brief": {
+        "id": "wood_right_end",
+        "name": "wood_right_end",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Generate ONE true RIGHT END orthographic elevation of the exact forked root shown in this grayscale end-view reference. Output neutral-gray pencil/clay technical mass on pure white, no frame, guide lines, labels, numbers or shadow. Keep the same connected root, one central broken oval end of the long main limb pointing directly toward viewer, one short upright branch above/behind, and two splayed stabilizing root feet below. This is a corrected END VIEW, never expose the long horizontal side of the main limb. Correct the proportions: OVERALL foreground silhouette WIDTH is about 0.76 times its HEIGHT. The central oval broken trunk end width about 0.30 times total HEIGHT, and its center about 0.52 of the height above the feet. The two root feet spread to the full 0.76-height width. The upper branch occupies the upper quarter of total height. Preserve the organic twists and frayed ends from the reference, with thick continuous crotches, not a diagram of pipes. Keep both root feet and their depth spread visible with natural occlusion. Do not add branches or a second oval end. The supplied guide has its feet a little too widely splayed: narrow the foot spread modestly while keeping height and central trunk-end size. This must remain a vertical END silhouette, taller than wide. Use generous blank white margin and no background scenery.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "wood_right_end.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-right-v3-calibrated\\plans\\wood_right_end.json",
+          "path_repo": "projects\\aquascape-wood-right-v3-calibrated\\plans\\wood_right_end.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "wood_right_end.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-right-v3-calibrated\\output\\wood_right_end_raw.png",
+          "path_repo": "projects\\aquascape-wood-right-v3-calibrated\\output\\wood_right_end_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

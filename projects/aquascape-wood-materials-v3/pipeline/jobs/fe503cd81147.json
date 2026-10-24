@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "fe503cd81147",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-wood-materials-v3\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "4",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-wood-materials-v3\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-wood-materials-v3\\pipeline\\jobs\\fe503cd81147.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-wood-materials-v3\\pipeline\\jobs\\fe503cd81147.log",
+  "pid": 748,
+  "exit_code": 0,
+  "started_at": "2026-10-23T18:36:49+00:00",
+  "finished_at": "2026-10-23T18:38:47+00:00",
+  "error": null,
+  "worker_pid": 51040
+}

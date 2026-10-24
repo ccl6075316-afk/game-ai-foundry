@@ -1,0 +1,52 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-wood-right-v3-calibrated\\game",
+    "project_name": "aquascape-wood-right-v3-calibrated",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "wood_right_end",
+        "image": "projects\\aquascape-wood-right-v3-calibrated\\output\\wood_right_end_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "ground",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.08,
+            0.9,
+            0.84
+          ]
+        },
+        {
+          "id": "edge",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.08
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T18:13:23+00:00",
+  "brief": "projects\\aquascape-wood-orthos-v3-calibrated\\brief.json",
+  "output_dir": "projects\\aquascape-wood-orthos-v3-calibrated\\output",
+  "project": {
+    "title": "aquascape-wood-orthos-v3-calibrated",
+    "description": "Repair the conflicting wood depth visible in the generated gray three-view study.",
+    "art_direction": "Strict neutral-gray orthographic engineering construction; same-object geometric consistency before material.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "wood_orthographic_calibrated": {
+      "brief": {
+        "id": "wood_orthographic_calibrated",
+        "name": "wood_orthographic_calibrated",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 2048,
+          "height": 2048
+        },
+        "description": "Create a corrected MONOCHROME ORTHOGRAPHIC CONSTRUCTION DRAWING of the exact forked wood in the supplied three-view pencil study. Keep the same object identity and branch inventory. The old sheet has a real inconsistency: its TOP view root footprint is much deeper than its RIGHT view is wide. Correct this through physically consistent root/limb geometry. Do not merely copy the old three silhouettes.\nUse STANDARD ENGINEERING ALIGNMENT in a square white sheet: TOP in the upper-left quadrant, FRONT in the lower-left quadrant directly beneath TOP, RIGHT in the lower-right quadrant directly beside FRONT. Leave the upper-right quadrant blank. Small plain labels TOP, FRONT, RIGHT. Thin faint straight projection guide lines join shared extents. This layout is essential: TOP and FRONT have exactly the same left and right X coordinates and same printed X width; FRONT and RIGHT share the same top and bottom Y coordinates and same printed height. RIGHT horizontal front-back width equals TOP vertical depth at the SAME UNIFORM SCALE. No separate icon-fit scaling.\nObject: knotted thick root crotch on left, long shallow-S main limb to the right, one short upward fork, frayed left root, and two stabilizing root feet spreading in front/back. The roots cannot occupy a deep footprint in TOP while collapsing to an artificially narrow pair of feet in RIGHT. RIGHT must show the entire full front-back root spread, behind the trunk's broken oval end. Keep a true end-on trunk, not a long horizontal branch. The vertical fork appears above the end in RIGHT but becomes a short end-on stub/socket in TOP. Keep FRONT recognizable as the supplied object and match the location of every joint in all projections. Use light gray mass, thin dark contour and a few structural lines. No color, no bark texture, no painted lighting or cast shadow. No perspective, isometric, or three-quarter cameras. Do not add dimension numbers; the purpose is coherent projection, not invented measurements. Make the geometry internally consistent before adding fine details.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "wood_orthographic_calibrated.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-orthos-v3-calibrated\\plans\\wood_orthographic_calibrated.json",
+          "path_repo": "projects\\aquascape-wood-orthos-v3-calibrated\\plans\\wood_orthographic_calibrated.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "wood_orthographic_calibrated.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-orthos-v3-calibrated\\output\\wood_orthographic_calibrated_raw.png",
+          "path_repo": "projects\\aquascape-wood-orthos-v3-calibrated\\output\\wood_orthographic_calibrated_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

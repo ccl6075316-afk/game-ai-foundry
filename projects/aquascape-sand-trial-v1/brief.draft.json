@@ -1,0 +1,53 @@
+{
+  "project": {
+    "title": "Aquascape sand placement trial v1",
+    "description": "One generated fine sand material for an isolated interactive Godot substrate experiment. Reuse existing rock and river_boulder artwork/models. Only one sand material is generated.",
+    "art_direction": "Detailed naturalistic pixel art matching the supplied established fish and aquascape illustration style. Fine warm beige quartz sand, restrained colors, no smooth CGI or photo grain. Full-bleed seamless flat material.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Pour, remove and smooth a local heightfield substrate; place, move, rotate and scale two existing rock types.",
+    "session_goal": "Playable isolated experiment with one sand, two rock types, undo and save/load plus measured native rendering evidence.",
+    "player_asset": "fine_sand",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png"
+  },
+  "assets": [
+    {
+      "id": "fine_sand",
+      "name": "fine_sand",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Create one seamless tileable material image of clean fine natural aquarium sand, viewed exactly straight down, orthographic flat surface. Full bleed square texture, entire frame filled edge to edge with sand, no border, no white background, no isolated heap, no hills, no rock, no plant, no animal, no text. Match the supplied fish illustration ONLY for detailed naturalistic PIXEL ART drawing finish: deliberate tiny crisp pixel clusters and restrained believable palette. Warm pale beige quartz sand, small irregular rounded grains with subtle cream, gray-beige and muted honey variations; fine grains mostly 2-5 pixels across, occasional 6-8 pixel grains, no large pebbles. Broad overall uniform appearance with very low contrast, no large dark patches, no directional gradients or cast shadows, no concentric patterns, no obvious repeating motifs. Soft neutral diffuse light; restrained painted micro-shadows only to separate adjacent grains. All four edges should connect seamlessly for repeated tiling. This material will cover editable three-dimensional sand with real geometry shading; do not paint large-scale slopes or artificial lighting into the tile. Native 1024x1024.",
+      "display_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1024,
+        "height": 1024
+      },
+      "aspect_ratio": "1:1",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    }
+  ]
+}

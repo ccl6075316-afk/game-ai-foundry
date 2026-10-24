@@ -1,0 +1,179 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T20:21:01+00:00",
+  "brief": "projects\\aquascape-bucephalandra-views-v5\\brief.json",
+  "output_dir": "projects\\aquascape-bucephalandra-views-v5\\output",
+  "project": {
+    "title": "aquascape-bucephalandra-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "bucephalandra_right": {
+      "brief": {
+        "id": "bucephalandra_right",
+        "name": "bucephalandra_right",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Render ONE RIGHT view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: Bucephalandra pygmaea 'Bukit Kelam'. Small creeping exposed reddish rhizome with fine attachment roots. Nine short-petioled dark olive-green elongated oval leathery leaves, 4-6 cm long, wavy entire margins, tiny sparse pale dots. Compact low spreading asymmetrical epiphyte. Not broad heart-shaped Anubias and not a fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is exactly at the RIGHT END, looking along -X. Orthographic perpendicular end elevation. Horizontal image axis is front/back Z depth, vertical is Y height. The long X axis points straight at the viewer and disappears in projection: horizontal long limbs become short broken end faces. Do NOT show the long front facade again. Match FRONT height and branch elevations.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "bucephalandra_right.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_right.json",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_right.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "bucephalandra_right.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_right_raw.png",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_right_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T20:21:00+00:00",
+        "note": ""
+      }
+    },
+    "bucephalandra_top": {
+      "brief": {
+        "id": "bucephalandra_top",
+        "name": "bucephalandra_top",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render ONE TOP view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: Bucephalandra pygmaea 'Bukit Kelam'. Small creeping exposed reddish rhizome with fine attachment roots. Nine short-petioled dark olive-green elongated oval leathery leaves, 4-6 cm long, wavy entire margins, tiny sparse pale dots. Compact low spreading asymmetrical epiphyte. Not broad heart-shaped Anubias and not a fern.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is directly overhead at +Y, looking straight down -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal and Z depth vertical, image top is rear -Z, image bottom is front +Z. All height foreshortens away. Upright branches become short oval end faces; do not draw their full height upward on the page. For rock, show only footprint and upward-facing planes, with NO visible vertical front facade. For plants, show spread of foreshortened overlapping blades around the same crown, not another upright frontal plant. No isometric or three-quarter tilt.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "bucephalandra_top.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_top.json",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_top.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "bucephalandra_top.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_top_raw.png",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_top_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T20:21:00+00:00",
+        "note": ""
+      }
+    },
+    "bucephalandra_leaves": {
+      "brief": {
+        "id": "bucephalandra_leaves",
+        "name": "bucephalandra_leaves",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create a precise PART SHEET of SIX individually isolated full leaves from the EXACT SAME Bucephalandra pygmaea 'Bukit Kelam'. Small creeping exposed reddish rhizome with fine attachment roots. Nine short-petioled dark olive-green elongated oval leathery leaves, 4-6 cm long, wavy entire margins, tiny sparse pale dots. Compact low spreading asymmetrical epiphyte. Not broad heart-shaped Anubias and not a fern. in the source artwork.\nMatch its original fine naturalistic PIXEL ART finish, palette, specific leaf widths, venation, wrinkles and material. White background, no shadow or scenery.\nExactly 3 columns by 2 rows, ONE COMPLETE LEAF including its petiole/basal strip in each cell. Stems at BOTTOM, tips at TOP. All six connected leaves fully inside their cells with generous white gaps, no overlap or grid lines, no text, no roots or whole plant. Six different natural sizes and bends, not six copies: large mature blade, smaller mature blade, younger upright blade, gently cupped blade, sideways curled blade, unfolding young blade. Keep narrow ribbon species genuinely narrow and broad ovate species genuinely broad. Use only variations appropriate to this species; do not turn grass into a fern or add leaflets. This is a dedicated high-resolution leaf sheet only, not packed alongside other views. Its exact original painted silhouettes will become individually shaped 3D leaf shells.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "bucephalandra_leaves.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_leaves.json",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\plans\\bucephalandra_leaves.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "bucephalandra_leaves.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_leaves_raw.png",
+          "path_repo": "projects\\aquascape-bucephalandra-views-v5\\output\\bucephalandra_leaves_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T20:21:01+00:00",
+        "note": ""
+      }
+    }
+  }
+}

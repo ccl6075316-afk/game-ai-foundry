@@ -1,0 +1,63 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T18:03:16+00:00",
+  "brief": "projects\\aquascape-wood-orthos-v3\\brief.json",
+  "output_dir": "projects\\aquascape-wood-orthos-v3\\output",
+  "project": {
+    "title": "aquascape-wood-orthos-v3",
+    "description": "Orthographic front/right/top construction study from the generated V2 master. Fix single-view inferred thickness before rebuilding 3D.",
+    "art_direction": "Source-matched naturalistic pixel art, strict orthographic construction views; prioritize same-object geometric consistency and camera correctness.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "wood_three_views": {
+      "brief": {
+        "id": "wood_three_views",
+        "name": "wood_three_views",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 3072,
+          "height": 1024
+        },
+        "description": "Create ONE TECHNICAL THREE-VIEW MODEL SHEET of the exact single knotted forked aquarium driftwood shown in the supplied artwork, using the supplied master image to identify the same object. This is a multi-view construction reference, not an attractive presentation illustration. Pure WHITE page, exactly THREE equal vertical panels in ONE HORIZONTAL ROW. Use small simple headers: FRONT above LEFT panel; RIGHT above MIDDLE panel; TOP above RIGHT panel. No extra views. Flat neutral diffuse light, no cast shadows, no horizon, no ground plane. Restrained source-matched painted pixel art, clearly readable contour and plane boundaries. Retain the thick knotted root crotch LEFT of center, the long shallow-S main limb rising to the RIGHT, one shorter UPWARD fork, the frayed left broken root, and the two downward stabilizing root branches. Every fork emerges from the same connected continuous wood body, same number and locations of branch junctions in all three projections. Approximate shared dimensions: LENGTH X = 55 cm, HEIGHT Y = 30 cm, front-back DEPTH Z about 22 cm. ALL THREE VIEWS are true ORTHOGRAPHIC parallel projections of ONE coherent physical object. FRONT: camera exactly level at object center looking along -Z, eye elevation ZERO; X horizontal and Y vertical. Show no top-facing area from camera tilt. RIGHT: Look exactly from the RIGHT END along negative X, so the long main limb points at the viewer and collapses into its broken irregular end cross-section. Horizontal size is DEPTH Z, about 40% of FRONT length; height is identical to FRONT. Root crotch sits behind the broken main-limb end, upward fork above it and stabilizing roots below, with some deliberate occlusion. Do not expose the full broadside trunk again. TOP: The root's FRONT-BACK spread must become visible. The long main branch extends left-to-right on the page. The UPWARD fork points toward the top camera and is therefore strongly FORESHORTENED to a short thick stub/root socket, not still shown as a towering vertical branch. The two stabilizing roots separate in DEPTH around the base. Paint upper wood surfaces only; this cannot be a copied broadside rotated within the page. Scale consistency: FRONT and TOP must have identical X LENGTH on the page; FRONT and RIGHT must have identical Y HEIGHT; RIGHT horizontal depth equals TOP vertical depth. Keep object centered in each panel; fit all silhouettes with white margin. The master reference is a three-quarter concept and MUST be rotated into these strict technical cameras. In TOP there must be NO long visible vertical facade. In RIGHT there must be NO long visible left-right facade. Do not copy the same silhouette three times. No isometric or three-quarter view in ANY panel. No redesign or extra branches. No perspective foreshortening except the disappearance of axes in the orthographic projection.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "wood_three_views.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-orthos-v3\\plans\\wood_three_views.json",
+          "path_repo": "projects\\aquascape-wood-orthos-v3\\plans\\wood_three_views.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "wood_three_views.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-wood-orthos-v3\\output\\wood_three_views_raw.png",
+          "path_repo": "projects\\aquascape-wood-orthos-v3\\output\\wood_three_views_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null
+    }
+  }
+}

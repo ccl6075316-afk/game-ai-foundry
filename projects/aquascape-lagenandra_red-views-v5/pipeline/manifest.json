@@ -1,0 +1,294 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-23T20:16:10+00:00",
+  "updated_at": "2026-10-23T20:18:03+00:00",
+  "brief": "projects\\aquascape-lagenandra_red-views-v5\\brief.json",
+  "project": {
+    "title": "aquascape-lagenandra_red-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-lagenandra_red-views-v5\\output",
+    "plans_dir": "projects\\aquascape-lagenandra_red-views-v5\\plans",
+    "assets_manifest": "projects\\aquascape-lagenandra_red-views-v5\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "lagenandra_red_right.prompt.craft",
+      "asset": "lagenandra_red_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-lagenandra_red-views-v5\\brief.json --asset lagenandra_red_right -o ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:42+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:42+00:00",
+      "asset_id": "lagenandra_red_right"
+    },
+    {
+      "id": "lagenandra_red_right.image.generate",
+      "asset": "lagenandra_red_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "lagenandra_red_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_right.json --output ../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_right_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\lagenandra_red_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_right.json",
+        "output": "../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.11328125
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 69.18855662951545,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:16:42+00:00",
+      "finished_at": "2026-10-23T20:17:24+00:00",
+      "asset_id": "lagenandra_red_right"
+    },
+    {
+      "id": "lagenandra_red_top.prompt.craft",
+      "asset": "lagenandra_red_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-lagenandra_red-views-v5\\brief.json --asset lagenandra_red_top -o ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:42+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:42+00:00",
+      "asset_id": "lagenandra_red_top"
+    },
+    {
+      "id": "lagenandra_red_top.image.generate",
+      "asset": "lagenandra_red_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "lagenandra_red_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_top.json --output ../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_top_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\lagenandra_red_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_top.json",
+        "output": "../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.07942708333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 84.88226449325327,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:17:24+00:00",
+      "finished_at": "2026-10-23T20:17:58+00:00",
+      "asset_id": "lagenandra_red_top"
+    },
+    {
+      "id": "lagenandra_red_leaves.prompt.craft",
+      "asset": "lagenandra_red_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-lagenandra_red-views-v5\\brief.json --asset lagenandra_red_leaves -o ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_leaves.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-23T20:16:42+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:42+00:00",
+      "asset_id": "lagenandra_red_leaves"
+    },
+    {
+      "id": "lagenandra_red_leaves.image.generate",
+      "asset": "lagenandra_red_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "lagenandra_red_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_leaves.json --output ../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_leaves_raw.png --validate --reference-image ../projects\\aquascape-plants-fronts-v5\\output\\lagenandra_red_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\lagenandra_red_leaves.json",
+        "output": "../projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-lagenandra_red-views-v5\\output\\lagenandra_red_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.15494791666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 6
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 67.04009546367924,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-23T20:16:42+00:00",
+      "finished_at": "2026-10-23T20:17:25+00:00",
+      "asset_id": "lagenandra_red_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "lagenandra_red_right.prompt.craft",
+        "lagenandra_red_right.image.generate",
+        "lagenandra_red_top.prompt.craft",
+        "lagenandra_red_top.image.generate",
+        "lagenandra_red_leaves.prompt.craft",
+        "lagenandra_red_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-lagenandra_red-views-v5\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-lagenandra_red-views-v5\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-lagenandra_red-views-v5\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "lagenandra_red_right",
+              "path": "assets/backgrounds/lagenandra_red_right.png"
+            },
+            {
+              "asset": "lagenandra_red_top",
+              "path": "assets/backgrounds/lagenandra_red_top.png"
+            },
+            {
+              "asset": "lagenandra_red_leaves",
+              "path": "assets/backgrounds/lagenandra_red_leaves.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-23T20:17:58+00:00",
+      "finished_at": "2026-10-23T20:18:03+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-lagenandra_red-views-v5\\brief.json --project ../projects\\aquascape-lagenandra_red-views-v5\\game --assemble-file ../projects\\aquascape-lagenandra_red-views-v5\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-lagenandra_red-views-v5\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-23T20:16:42+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-lagenandra_red-views-v5\\game",
+  "godot_assemble_file": "../projects\\aquascape-lagenandra_red-views-v5\\plans\\godot_brief.json"
+}

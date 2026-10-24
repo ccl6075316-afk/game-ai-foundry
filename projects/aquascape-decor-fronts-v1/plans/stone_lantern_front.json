@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "Aquascape ten ornaments front artwork v1",
+      "description": "Ten individually generated aquarium ornaments beyond natural rocks, wood and plants; each will receive separate full-resolution right and top artwork.",
+      "art_direction": "Match the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Freely place, rotate, scale and partially bury ten themed ornaments in the existing editable substrate trial.",
+      "session_goal": "Ten consistent original designs with complete silhouettes, deliberate openings and later independent side/top donors.",
+      "player_asset": "shipwreck_front",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/hammer-pair-121/accepted/great_hammerhead/inputs/style-reference.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "stone_lantern_front",
+      "type": "background",
+      "description": "Create the definitive complete FRONT source artwork for this aquarium ornament: One compact weathered Japanese-style stone lantern aquarium ornament, 18 cm wide, 16 cm deep and about 23 cm high. Low thick square plinth, short broad central pedestal, one cubic hollow lamp chamber with one square opening on each of its four vertical sides, and a low broad gently hipped stone roof with a small blunt top knob. Lamp chamber openings pass through an empty unlit center; pure white background may show through opposing openings. No candle, flame, electric light, tassels or plants. Roof and pedestal connected by thick corner posts, no floating parts or thin spires. Restrained gray-green worn stone, painted mineral planes and fine pixel wear.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+      "display_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "aspect_ratio": "2:3",
+      "generation_size": {
+        "width": 1024,
+        "height": 1536
+      },
+      "id": "stone_lantern_front",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "stone_lantern_front",
+    "asset_type": "background",
+    "prompt": "Create the definitive complete FRONT source artwork for this aquarium ornament: One compact weathered Japanese-style stone lantern aquarium ornament, 18 cm wide, 16 cm deep and about 23 cm high. Low thick square plinth, short broad central pedestal, one cubic hollow lamp chamber with one square opening on each of its four vertical sides, and a low broad gently hipped stone roof with a small blunt top knob. Lamp chamber openings pass through an empty unlit center; pure white background may show through opposing openings. No candle, flame, electric light, tassels or plants. Roof and pedestal connected by thick corner posts, no floating parts or thin spires. Restrained gray-green worn stone, painted mineral planes and fine pixel wear.\nMatch the supplied established fish/aquascape illustration for detailed naturalistic PIXEL ART: deliberate fine crisp pixel clusters, coherent painted volume, restrained believable colors and readable material wear. No smooth CGI, photograph, low-poly render, chibi toy, uniform procedural noise or thick black comic outline. One complete isolated object on pure white, generous clean white margin, no floor or cast shadow, no water, fish, plants, text, labels or extra objects. No diagram, collage or packed views. Preserve full native resolution.\nStrict orthographic FRONT ELEVATION from +Z toward -Z, eye exactly level at object center. X horizontal, Y vertical. Do not tilt the camera or show an isometric view. Ship and pipe long axes run horizontally along X. Jar opens upward on Y; anchor broad face faces the camera.\nThe reference controls drawing finish only; do not copy the fish or add fish scales. This original whole-object drawing will define the exact later 3D design. Keep genuine openings and stable broad connections readable.",
+    "negative_hints": [
+      "One camera-specific full-resolution artwork; no packed views.",
+      "No isometric tilt in orthographic cameras."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "2:3",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "explicit_full_view_template",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1024x1536",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 1024,
+      "height": 1536
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "601cd816eb3ca9af"
+  }
+}

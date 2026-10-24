@@ -1,0 +1,199 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T20:02:21+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-plants-20-v5",
+    "description": "Expand the approved scenery process to twenty distinct assets, reusing four existing assets and generating sixteen new designs. Fixed prompts and mechanical operations are deterministic; visual acceptance remains manual.",
+    "art_direction": "Detailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect source-matched scenery in a rotating Godot catalogue.",
+    "session_goal": "Ten species of gently animated plants and ten static stone/wood designs including existing accepted trials.",
+    "player_asset": "bucephalandra",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 2048,
+      "height": 2048
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-plants-20-v5/style-reference.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (2048x2048). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "bucephalandra",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Bucephalandra pygmaea 'Bukit Kelam'. Small creeping exposed reddish rhizome with fine attachment roots. Nine short-petioled dark olive-green elongated oval leathery leaves, 4-6 cm long, wavy entire margins, tiny sparse pale dots. Compact low spreading asymmetrical epiphyte. Not broad heart-shaped Anubias and not a fern.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "bucephalandra",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "crypt_wendtii",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Cryptocoryne wendtii 'Green'. One compact basal rosette with ten lanceolate medium-green crinkled leaves on slender petioles; visibly hammered blade texture and gently wavy margins, mature leaves spread outward lower, young leaves more upright. Fine buried-root bundle at the crown, no exposed long creeping rhizome. Leaf length about 10-18 cm. Not fern leaflets or grass.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "crypt_wendtii",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "crypt_crispatula",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Cryptocoryne crispatula. Basal rosette with nine long narrow strap-shaped hammered olive-green blades with strongly corrugated margins. Lengths vary 22-34 cm, widths 1.5-2.5 cm. Leaves rise in loose arcs, some twisting gently; visible crinkling across each blade. Rooted crown, not a creeping epiphyte or feather fern. No branched fronds.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "crypt_crispatula",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "amazon_sword",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Echinodorus grisebachii. Rooted basal crown with ten broad lanceolate sword leaves, vivid but restrained medium green, clear longitudinal midrib and parallel arching secondary veins. Longer inner leaves upright, older outer leaves spread in a full three-dimensional rosette. Blades 18-29 cm including petiole, width 3-5 cm. Smooth entire edges, no fern leaflets or strong corrugation, no horizontal rhizome.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "amazon_sword",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "dwarf_sagittaria",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Sagittaria subulata. Small dense rooted crown with eleven narrow light-green ribbon leaves of unequal length 6-12 cm, about 4-7 mm wide. Straight tapering entire blades with rounded-to-pointed tips and delicate longitudinal veins, outward arching older leaves, upright younger leaves. One short basal runner with a tiny daughter bud. Submerged ribbon form, NOT emergent arrow-shaped leaves or a broad-leaf fern.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "dwarf_sagittaria",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "vallisneria",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Vallisneria spiralis. One rooted rosette with ten long narrow grass-like ribbon leaves, 24-38 cm long and 5-10 mm wide. Longitudinal parallel veins and slightly rounded tapered tips. Medium-green leaves arch and softly twist, but are NOT tight corkscrew spirals: the species name does not imply every leaf is a corkscrew. No petiole/blade shoulder, no branched stems, no flowers.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "vallisneria",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "aponogeton",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Aponogeton crispus. Small brown basal tuber bearing nine translucent-looking but painted opaque light olive-green elongate leaves on narrow petioles. Blades have conspicuously wavy ruffled margins and fine cross-veins. Lengths 18-30 cm, blade width 2-4 cm. A few leaves bow outward, others upright. Correct single tuber base and root bundle; not a feather fern or a flat sword plant. No flowers or water surface.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "aponogeton",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "lagenandra_red",
+      "type": "background",
+      "description": "Make ONE square technical ART PRODUCTION BOARD of exactly one submerged aquarium plant species: Lagenandra meeboldii 'Red'. Thick short rhizome with eight broad ovate leaves on individual petioles, blades 6-12 cm long and 4-8 cm wide. Dusty muted red-violet, copper-pink and olive-green patches with contrasting green veins, reddish undersides, one younger pink leaf. Unequal gently cupped blades and clear basal shoulders, no serrations or fern leaflets. Natural subdued red aquatic plant, not neon purple or a flowering terrestrial plant.\nDetailed naturalistic PIXEL ART matching the supplied approved aquarium artwork: deliberate crisp pixel clusters, subtle painted highlights, coherent broad material planes, believable asymmetry and restrained colors. Not CGI, not smooth airbrush, not photographic grain, not uniform noise. White background throughout, no water, floor, cast shadows, frames or diagram lines.\nThe reference establishes the drawing FINISH only. Do not copy its plant species or rock/wood subjects.\nLayout is strict: UPPER HALF (y=0 to 48%): THREE equal-width cells in one row, showing the SAME complete plant in FRONT, RIGHT SIDE and TOP views, with small labels FRONT / SIDE / TOP only above those views. FRONT camera level, SIDE perpendicular, TOP straight overhead. Root crown, roots and every leaf tip fully visible. Same leaf identities and same physical arrangement in all three views. TOP shows a spread of foreshortened leaves around the crown, not another front elevation.\nLOWER HALF (y=54% to 98%): EXACTLY SIX isolated full leaves from that plant, in a 3-column by 2-row regular layout. Each lower cell has ONE individual blade WITH ITS FULL PETIOLE OR BASAL STRIP, stem at BOTTOM, tip at TOP, no roots. Six distinct sizes, curvatures and ages, same palette and vein pattern as the plant above. The lower leaves have clean white gaps and do not touch each other or any panel boundary. Keep narrow ribbon leaves genuinely narrow. No whole plants in the lower cells. No extra miniatures, no dimension arrows, no other labels. Every lower leaf must be entirely connected from stem to tip and fully inside its cell. These exact generated leaf silhouettes and paint will be traced into 3D, so do not substitute texture swatches.",
+      "display_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 2048,
+        "height": 2048
+      },
+      "id": "lagenandra_red",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_catalog_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

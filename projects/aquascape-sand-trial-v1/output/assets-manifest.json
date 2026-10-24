@@ -1,0 +1,69 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-24T08:28:14+00:00",
+  "brief": "projects\\aquascape-sand-trial-v1\\brief.json",
+  "output_dir": "projects\\aquascape-sand-trial-v1\\output",
+  "project": {
+    "title": "Aquascape sand placement trial v1",
+    "description": "One generated fine sand material for an isolated interactive Godot substrate experiment. Reuse existing rock and river_boulder artwork/models. Only one sand material is generated.",
+    "art_direction": "Detailed naturalistic pixel art matching the supplied established fish and aquascape illustration style. Fine warm beige quartz sand, restrained colors, no smooth CGI or photo grain. Full-bleed seamless flat material.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "fine_sand": {
+      "brief": {
+        "id": "fine_sand",
+        "name": "fine_sand",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1024
+        },
+        "description": "Create one seamless tileable material image of clean fine natural aquarium sand, viewed exactly straight down, orthographic flat surface. Full bleed square texture, entire frame filled edge to edge with sand, no border, no white background, no isolated heap, no hills, no rock, no plant, no animal, no text. Match the supplied fish illustration ONLY for detailed naturalistic PIXEL ART drawing finish: deliberate tiny crisp pixel clusters and restrained believable palette. Warm pale beige quartz sand, small irregular rounded grains with subtle cream, gray-beige and muted honey variations; fine grains mostly 2-5 pixels across, occasional 6-8 pixel grains, no large pebbles. Broad overall uniform appearance with very low contrast, no large dark patches, no directional gradients or cast shadows, no concentric patterns, no obvious repeating motifs. Soft neutral diffuse light; restrained painted micro-shadows only to separate adjacent grains. All four edges should connect seamlessly for repeated tiling. This material will cover editable three-dimensional sand with real geometry shading; do not paint large-scale slopes or artificial lighting into the tile. Native 1024x1024.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "fine_sand.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-sand-trial-v1\\plans\\fine_sand.json",
+          "path_repo": "projects\\aquascape-sand-trial-v1\\plans\\fine_sand.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "fine_sand.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png",
+          "path_repo": "projects\\aquascape-sand-trial-v1\\output\\fine_sand_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T08:28:14+00:00",
+        "note": ""
+      }
+    }
+  }
+}

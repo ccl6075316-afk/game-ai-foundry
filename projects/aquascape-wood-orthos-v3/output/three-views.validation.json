@@ -1,0 +1,74 @@
+{
+  "command": "aquascape.inspect-orthographic-sheet",
+  "status": "done",
+  "next_action": "human_review",
+  "ok": true,
+  "input": "projects\\aquascape-wood-orthos-v3\\output\\wood_three_views_raw.png",
+  "sha256": "c8e219bd084266c933763780be366efedaa76c6f7ec952872659b2bfec42e3b2",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "regions": [
+    {
+      "bbox": [
+        74,
+        304,
+        653,
+        664
+      ],
+      "area": 70300,
+      "width": 579,
+      "height": 360,
+      "cx": 363.5,
+      "candidate_view": "front"
+    },
+    {
+      "bbox": [
+        720,
+        304,
+        883,
+        666
+      ],
+      "area": 25704,
+      "width": 163,
+      "height": 362,
+      "cx": 801.5,
+      "candidate_view": "right"
+    },
+    {
+      "bbox": [
+        954,
+        379,
+        1466,
+        621
+      ],
+      "area": 46594,
+      "width": 512,
+      "height": 242,
+      "cx": 1210.0,
+      "candidate_view": "top"
+    }
+  ],
+  "metrics": {
+    "front_top_length_ratio": 0.8842832469775475,
+    "front_right_height_ratio": 1.0055555555555555,
+    "side_top_depth_ratio": 1.4846625766871167,
+    "uniform_scale_to_front": {
+      "front": 1.0,
+      "right": 0.994475138121547,
+      "top": 1.130859375
+    },
+    "depth_in_front_length_units": {
+      "from_right": 0.2799645034780866,
+      "from_top": 0.47265625
+    },
+    "normalized_depth_disagreement": 0.40767840586454407,
+    "note": "Uniform per-view print-scale calibration only. Residual depth disagreement remains independent; no image warp or geometric approval."
+  },
+  "scope": "Region and printed-scale diagnostics only; these do not certify a true camera or consistent object geometry. No image resize or warping.",
+  "camera_visual_review": "pending",
+  "object_identity_visual_review": "pending",
+  "user_acceptance": "pending",
+  "failures": []
+}

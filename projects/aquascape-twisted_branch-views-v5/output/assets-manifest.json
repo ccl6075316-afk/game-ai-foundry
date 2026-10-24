@@ -1,0 +1,124 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-23T20:21:18+00:00",
+  "brief": "projects\\aquascape-twisted_branch-views-v5\\brief.json",
+  "output_dir": "projects\\aquascape-twisted_branch-views-v5\\output",
+  "project": {
+    "title": "aquascape-twisted_branch-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "twisted_branch_right": {
+      "brief": {
+        "id": "twisted_branch_right",
+        "name": "twisted_branch_right",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render ONE RIGHT view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One long low S-curved driftwood limb with a thick twisted knot near the left third and one short blunt side spur. Flattened worn contact underside, irregular broken ends with visible fibers, flowing grain spirals through the knot. Muted gray-brown with pale weathered ridges. Length 46 cm, height 15 cm, depth 18 cm. No extra upright branches, no uniform cylindrical log, no leaves or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is exactly at the RIGHT END, looking along -X. Orthographic perpendicular end elevation. Horizontal image axis is front/back Z depth, vertical is Y height. The long X axis points straight at the viewer and disappears in projection: horizontal long limbs become short broken end faces. Do NOT show the long front facade again. Match FRONT height and branch elevations.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "twisted_branch_right.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-twisted_branch-views-v5\\plans\\twisted_branch_right.json",
+          "path_repo": "projects\\aquascape-twisted_branch-views-v5\\plans\\twisted_branch_right.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "twisted_branch_right.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-twisted_branch-views-v5\\output\\twisted_branch_right_raw.png",
+          "path_repo": "projects\\aquascape-twisted_branch-views-v5\\output\\twisted_branch_right_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T20:21:17+00:00",
+        "note": ""
+      }
+    },
+    "twisted_branch_top": {
+      "brief": {
+        "id": "twisted_branch_top",
+        "name": "twisted_branch_top",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render ONE TOP view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One long low S-curved driftwood limb with a thick twisted knot near the left third and one short blunt side spur. Flattened worn contact underside, irregular broken ends with visible fibers, flowing grain spirals through the knot. Muted gray-brown with pale weathered ridges. Length 46 cm, height 15 cm, depth 18 cm. No extra upright branches, no uniform cylindrical log, no leaves or holes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is directly overhead at +Y, looking straight down -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal and Z depth vertical, image top is rear -Z, image bottom is front +Z. All height foreshortens away. Upright branches become short oval end faces; do not draw their full height upward on the page. For rock, show only footprint and upward-facing planes, with NO visible vertical front facade. For plants, show spread of foreshortened overlapping blades around the same crown, not another upright frontal plant. No isometric or three-quarter tilt.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "twisted_branch_top.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-twisted_branch-views-v5\\plans\\twisted_branch_top.json",
+          "path_repo": "projects\\aquascape-twisted_branch-views-v5\\plans\\twisted_branch_top.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "twisted_branch_top.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-twisted_branch-views-v5\\output\\twisted_branch_top_raw.png",
+          "path_repo": "projects\\aquascape-twisted_branch-views-v5\\output\\twisted_branch_top_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-23T20:21:18+00:00",
+        "note": ""
+      }
+    }
+  }
+}

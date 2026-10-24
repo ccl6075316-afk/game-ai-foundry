@@ -1,0 +1,79 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-23T20:11:44+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-weathered_log-views-v5",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "weathered_log_right",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1536
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-solids-fronts-v5/output/weathered_log_front_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "weathered_log_right",
+      "type": "background",
+      "description": "Render ONE RIGHT view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One irregular low fallen log segment with partly peeled dark bark and a broad exposed gray-tan inner wood ridge, gently bowed rather than straight, one thick broken root nub at the left rear and splintered blunt ends. Length 38 cm, height 17 cm, depth 20 cm. Solid weathered wood with shallow natural scars, no through-holes, no perfect cylinder or geometric sawcut. Grain follows the curve, bark and exposed wood belong to the same object.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is exactly at the RIGHT END, looking along -X. Orthographic perpendicular end elevation. Horizontal image axis is front/back Z depth, vertical is Y height. The long X axis points straight at the viewer and disappears in projection: horizontal long limbs become short broken end faces. Do NOT show the long front facade again. Match FRONT height and branch elevations.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "weathered_log_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "weathered_log_top",
+      "type": "background",
+      "description": "Render ONE TOP view of the EXACT SAME object in the supplied front artwork, not a new similar design. Subject: One irregular low fallen log segment with partly peeled dark bark and a broad exposed gray-tan inner wood ridge, gently bowed rather than straight, one thick broken root nub at the left rear and splintered blunt ends. Length 38 cm, height 17 cm, depth 20 cm. Solid weathered wood with shallow natural scars, no through-holes, no perfect cylinder or geometric sawcut. Grain follows the curve, bark and exposed wood belong to the same object.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera is directly overhead at +Y, looking straight down -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal and Z depth vertical, image top is rear -Z, image bottom is front +Z. All height foreshortens away. Upright branches become short oval end faces; do not draw their full height upward on the page. For rock, show only footprint and upward-facing planes, with NO visible vertical front facade. For plants, show spread of foreshortened overlapping blades around the same crown, not another upright frontal plant. No isometric or three-quarter tilt.\nKeep every source branch, knot, root foot, leaf identity, stone shoulder and fracture as the same physical object seen from the new camera. Match the source's painted material, color palette and fine pixel finish exactly. Infer hidden surfaces consistently, no new branches or decorative details. This single full-resolution image is a camera-specific material donor and form reference. One complete subject only; no labels, dimensions, inset, extra view or diagram.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "weathered_log_top",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

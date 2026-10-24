@@ -1,0 +1,132 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-decor-fronts-v1\\game",
+    "project_name": "Aquascape ten ornaments front artwork v1",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "shipwreck_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\shipwreck_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "stone_bridge_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\stone_bridge_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "terracotta_jar_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\terracotta_jar_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "clay_pipe_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\clay_pipe_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "coconut_shelter_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\coconut_shelter_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "ruin_arch_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\ruin_arch_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "broken_column_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\broken_column_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "stone_lantern_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\stone_lantern_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "treasure_chest_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\treasure_chest_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "iron_anchor_front",
+        "image": "projects\\aquascape-decor-fronts-v1\\output\\iron_anchor_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    }
+  }
+}

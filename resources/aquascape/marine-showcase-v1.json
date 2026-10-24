@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "title": "沉船与潮汐遗迹",
+  "tank_size_m": [6.0, 2.8, 3.0],
+  "substrate_scale": 5.0,
+  "theme": "Marine-themed decorative game exhibit, not a husbandry or regional biotope prescription. Existing freshwater plants are deliberately excluded.",
+  "props": [
+    {"id":"shipwreck","at":[-1.65,-0.54],"scale":4.2,"yaw":-0.12},
+    {"id":"ruin_arch","at":[1.55,-0.72],"scale":2.65,"yaw":0.09},
+    {"id":"broken_column","at":[2.16,-0.66],"scale":2.0,"yaw":-0.18},
+    {"id":"stone_bridge","at":[0.22,0.58],"scale":2.5,"yaw":-0.22},
+    {"id":"terracotta_jar","at":[1.83,0.21],"scale":1.85,"yaw":0.2},
+    {"id":"treasure_chest","at":[-1.80,0.60],"scale":2.15,"yaw":0.18},
+    {"id":"iron_anchor","at":[-0.78,-0.20],"scale":1.8,"yaw":-0.30},
+    {"id":"pale_limestone","at":[-2.49,-0.82],"scale":2.1,"yaw":0.3},
+    {"id":"rock","at":[-2.42,0.03],"scale":1.7,"yaw":-0.3},
+    {"id":"river_boulder","at":[-0.72,-0.90],"scale":1.7,"yaw":0.5},
+    {"id":"pale_limestone","at":[2.47,-0.87],"scale":1.65,"yaw":-0.7},
+    {"id":"rock","at":[0.93,-1.01],"scale":1.6,"yaw":0.6},
+    {"id":"river_boulder","at":[2.27,0.50],"scale":1.4,"yaw":0.1}
+  ],
+  "fish_species": [
+    {"id":"red_emperor","name_zh":"红皇帝鱼","count":3},
+    {"id":"red_seabream","name_zh":"真鲷","count":4},
+    {"id":"black_seabream","name_zh":"黑鲷","count":4},
+    {"id":"yellow_croaker","name_zh":"大黄鱼","count":4}
+  ],
+  "route": {"radii_m":[2.15,0.73],"water_layers_m":[1.50,1.94,2.37],"period_seconds":44.0,"vertical_amplitude_m":0.035}
+}

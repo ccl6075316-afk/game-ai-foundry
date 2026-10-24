@@ -1,0 +1,69 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-24T02:40:19+08:00",
+  "brief": "projects\\aquascape-rock-materials-v3\\brief.json",
+  "output_dir": "projects\\aquascape-rock-materials-v3\\output",
+  "project": {
+    "title": "aquascape-rock-materials-v3",
+    "description": "Generated matching-camera pixel material views for the reviewed three-view scenery trial.",
+    "art_direction": "Preserve the supplied source pixel artwork finish and exact three-view structure.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "rock_material_views": {
+      "brief": {
+        "id": "rock_material_views",
+        "name": "rock_material_views",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 3072,
+          "height": 1024
+        },
+        "description": "Paint the three BOTTOM grayscale orthographic views in the supplied reference, using the UPPER LEFT original artwork's exact pixel drawing finish and palette. The upper left artwork is only a material reference and must NOT appear in the output. Output ONE white 3072x1024 sheet containing exactly THREE separate views in a single row: FRONT left, RIGHT END middle, TOP right. Small labels FRONT / RIGHT / TOP at the top. Preserve the bottom drawings' silhouettes, cameras and branch/facet identities. Each object fully visible with generous white margin. No dimensions, rulers, diagram lines or other text. Strict orthographic: front is level elevation, side is narrow end-on, top is a flat overhead footprint, no vertical front walls in TOP. Do NOT rotate any gray view into the original artwork's three-quarter camera. Keep exact same object and distinctive landmarks. Refined naturalistic game PIXEL ART with crisp deliberate pixel clusters, broad coherent painted material planes and subtle detail; no CGI, no smooth airbrush or photographic noise. Flat neutral illumination shared by all views, no cast shadows, no scene, no water, no fish or plants. This is full surface artwork for three different projection donors, NOT a seamless material swatch. Cool slate gray stone with muted warm pale worn edges and deep blue-gray fissures. Preserve high terraced left shoulder, diagonal fracture and scooped lower right shoulder. Continue fractures between front, end and top; no moss, no brown wood. TOP must be overhead planes and footprint only.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "rock_material_views.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-materials-v3\\plans\\rock_material_views.json",
+          "path_repo": "projects\\aquascape-rock-materials-v3\\plans\\rock_material_views.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "rock_material_views.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-rock-materials-v3\\output\\rock_material_views_raw.png",
+          "path_repo": "projects\\aquascape-rock-materials-v3\\output\\rock_material_views_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-24T02:40:19+08:00",
+        "note": "Operator accepts generated pixel colors as experimental material donors only. Not user final acceptance or geometric camera approval. Shapes come from separately reviewed grayscale references; TOP rock shading and wood view correspondences remain imperfect."
+      }
+    }
+  }
+}
