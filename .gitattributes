@@ -43,3 +43,5 @@
 
 # Low-poly review source bytes are bound by experimental validation reports.
 /resources/runtime/godot/lowpoly-review/** -text whitespace=cr-at-eol
+# Archived shader helpers must not acquire CRLF from global autocrlf settings.
+/resources/runtime/godot/yellow-mouth-09[357]/FishHeadSource.gd -text whitespace=cr-at-eol
