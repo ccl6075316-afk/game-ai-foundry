@@ -35,6 +35,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 - 连接与交付：`projects/fishing-2d/docs/3d-fish/VALIDATION.md`。完整鳍基的绝对连接是每条鱼必检项。
 - 鳍形与原图不同、鳍根吞进身体或鳍纹混到鱼身：读 [references/fin-source-shape.md](references/fin-source-shape.md)。先分离原图整片鳍、独立确认边界，再比较实际UV/几何和装回身体后的可见面积；旧轮廓与接触通过均不代表来源形状正确。
 - 命令/配置：`docs/FISH-VOLUME-WORKFLOW.md`，需要时读 `volume <子命令> --help`。
+- 模型面数、材质、骨骼或大量鱼性能：读[实际装配与性能审计](references/performance-audit.md)，分开统计原GLB/最终组合、加载/持续游动；静止零面积或重合只列候选，不自动删。性能审计不修改鱼或替代外观/连接接受。
 
 ## 真正改变制作判断的规则
 

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "experimental_not_accepted",
+  "purpose": "Find visible quality loss across standardized body volumes and expected abundance; these are exploration levels, not production caps.",
+  "weld_distance_native": 0.0000001,
+  "minimum_node_triangles": 4,
+  "species": {
+    "bluegill": {
+      "label": "蓝鳃太阳鱼",
+      "role": "Small abundant, later population test priority",
+      "whole_fish_triangle_budgets": [300, 600, 1200],
+      "body_nodes": ["Closed_body"],
+      "node_budget_weights": {"Closed_body":0.60,"Source_lips139":0.10,"Eye_relief112_-1_0":0.04,"Eye_relief112_1_0":0.04,"Caudal":0.05,"Dorsal":0.05,"Anal":0.03,"Pectoral_left":0.025,"Pectoral_right":0.025,"Pelvic_left":0.02,"Pelvic_right":0.02}
+    },
+    "zander": {
+      "label": "梭鲈",
+      "role": "Ordinary bony fish, compare earlier low-poly study",
+      "whole_fish_triangle_budgets": [800, 1600, 3200],
+      "body_nodes": ["Closed_body"],
+      "node_budget_weights": {"Closed_body":0.60,"Source_lips139":0.10,"Eye_relief112_-1_0":0.04,"Eye_relief112_1_0":0.04,"Caudal":0.05,"Dorsal_soft":0.025,"Dorsal_spiny":0.025,"Anal":0.03,"Pectoral_left":0.025,"Pectoral_right":0.025,"Pelvic_left":0.02,"Pelvic_right":0.02}
+    },
+    "great_hammerhead": {
+      "label": "大双髻鲨",
+      "role": "Large rarer, protect transverse head and caudal silhouette",
+      "whole_fish_triangle_budgets": [2000, 4000, 8000],
+      "body_nodes": ["Closed_body", "Cephalofoil"],
+      "node_budget_weights": {"Closed_body":0.42,"Cephalofoil":0.24,"Textured_eye_-1":0.02,"Textured_eye_1":0.02,"Caudal":0.10,"FirstDorsal":0.06,"SecondDorsal":0.02,"Anal":0.01,"Pectoral_left":0.04,"Pectoral_right":0.04,"Pelvic_left":0.015,"Pelvic_right":0.015}
+    },
+    "whale_shark": {
+      "label": "鲸鲨",
+      "role": "Very large few individuals, wider quality allowance",
+      "whole_fish_triangle_budgets": [4000, 8000, 16000],
+      "body_nodes": ["Closed_body"],
+      "node_budget_weights": {"Closed_body":0.60,"Source_lips139":0.08,"Eye_relief112_-1_0":0.02,"Eye_relief112_1_0":0.02,"Caudal":0.07,"Dorsal_first":0.05,"Dorsal_second":0.02,"Anal":0.02,"Pectoral_left":0.04,"Pectoral_right":0.04,"Pelvic_left":0.02,"Pelvic_right":0.02}
+    }
+  },
+  "constraints": ["Preserve all visible nodes and surface roles, original four-weight rig and texture resolution.","Rebind original material reference tables with active UV guards.","Freeze each assembled baseline and compare original/candidates under shared cameras, lighting and action times.","No final fin thickness/tail repair, production replacement, material merging, bone reduction or population FPS claim in this experiment."]
+}

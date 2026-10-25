@@ -11,6 +11,8 @@
 
 鱼类3D新建、返修和批量推广，先读[完整生产SOP](resources/skills/fish-volume-production/references/production-sop.md)：准备材料与生图用途、各部位制作、动作、最终对照和证据按同一流程执行。每次修正回写通用方法、本鱼参数、本次证据；交付前运行 `volume sop-check --review <逐鱼清单> --output <报告> --json`，不能用清单通过替代实际看图或专项验证。清单用 `volume sop-init` 建立，字段与操作见SOP第9节。
 
+每轮准备完成/正式交付，由Agent主动执行[资产固化与导出收尾](resources/skills/fish-volume-production/references/final-asset-export.md)，不等待用户提醒。应属于模型的静态修正回写可编辑源和最终导出；保存引擎专用资源，正常实时动作保留。在冻结最终验收候选前完成固化，以新进程关闭实验静态构建链直接冷读导出成品并复核。未通过 `sop-check` 的固化/冷读项不能称正式完成；仅有实验预览或进程内缓存不算交付。
+
 ## 最小命令
 
 ```bash

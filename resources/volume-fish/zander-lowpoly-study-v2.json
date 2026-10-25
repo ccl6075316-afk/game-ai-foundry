@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "species": "zander",
+  "status": "experimental_not_accepted",
+  "whole_fish_triangle_budgets": [1000, 3000, 6000],
+  "weld_distance_native": 0.0000001,
+  "minimum_node_triangles": 12,
+  "node_budget_weights": {
+    "Closed_body": 0.66,
+    "Source_lips139": 0.08,
+    "Eye_relief112_-1_0": 0.03,
+    "Eye_relief112_1_0": 0.03,
+    "Anal": 0.025,
+    "Caudal": 0.025,
+    "Dorsal_soft": 0.025,
+    "Dorsal_spiny": 0.025,
+    "Pectoral_left": 0.025,
+    "Pectoral_right": 0.025,
+    "Pelvic_left": 0.025,
+    "Pelvic_right": 0.025
+  },
+  "constraints": [
+    "Preserve all visible nodes and material surface roles.",
+    "Transport UV, UV2, colors, normals and four-weight skinning by original surface barycentrics.",
+    "Rebind vertex-index material reference tables; UV lookup guards stay enabled.",
+    "Do not install until mouth, fin roots, body coverage, poses and visual gates pass."
+  ]
+}
