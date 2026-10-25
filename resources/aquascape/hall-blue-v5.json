@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "intent": "Dark blue architectural ambience, deep blue backing, restrained blue tank-edge spill and neutral-cool fish lighting. Native artwork and saved finishes remain unchanged.",
+  "ambient_color": "4778cc",
+  "walk_ambient": 0.12,
+  "build_ambient": 0.24,
+  "walk_fill": 0.025,
+  "build_fill": 0.05,
+  "fill_color": "5e8ac8",
+  "background": "040b1b",
+  "guide_color": "315c8a",
+  "tank_color": "c9dfef",
+  "fixture_color": "6c9db8",
+  "tank_energy": 0.82,
+  "tank_range_m": 4.2,
+  "tank_angle_degrees": 65.0,
+  "tank_edge_attenuation": 0.35,
+  "tank_attenuation": 0.65,
+  "tank_positions_x_m": [-1.5, 1.5],
+  "tank_front_z_m": 1.28,
+  "tank_tilt_degrees": -48.0,
+  "tank_shadow_count": 1,
+  "spill_color": "246bd2",
+  "spill_energy": 0.60,
+  "spill_range_m": 4.2,
+  "backdrop_upper": "164573",
+  "backdrop_lower": "041127",
+  "limitations": [
+    "Shaded fish, substrate and architecture respond to lighting; unshaded source-art props retain their authored colors.",
+    "Each tank uses two bounded spots (one casts shadows) and one short-range blue omni without shadows; no additional shadow map for spill.",
+    "Blue spill and backing are art-directed approximations, not simulated water transmission, glass refraction or realtime global illumination.",
+    "No global blue screen filter; source textures, native pixel sampling and saved material choices are retained."
+  ],
+  "references": [
+    "https://www.fluxstudio.net/projects/blacktip-reef-exhibit",
+    "https://oceanservice.noaa.gov/facts/oceanblue.html"
+  ]
+}

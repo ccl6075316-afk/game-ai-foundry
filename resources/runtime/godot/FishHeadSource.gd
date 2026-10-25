@@ -5,7 +5,7 @@ func apply(model: Node3D,species: String) -> int:
     if profiles.is_empty():profiles=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/head-source.json")).profiles
     if not profiles.has(species):return 0
     var p: Dictionary=profiles[species]
-    assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale head source coordinates")
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale head source coordinates")
     var mesh=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(mesh!=null)
     var skin=mesh.get_active_material(0) as ShaderMaterial

@@ -5,7 +5,7 @@ func apply(model: Node3D,species: String) -> int:
     if profiles.is_empty():profiles=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-pigment.json")).profiles
     if not profiles.has(species):return 0
     var p: Dictionary=profiles[species]
-    assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale mouth pigment profile")
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale mouth pigment profile")
     var mesh=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(mesh!=null and mesh.mesh.get_surface_count()==2,"Unexpected mouth surface inventory")
     var skin=mesh.get_active_material(p.skin_surface) as ShaderMaterial

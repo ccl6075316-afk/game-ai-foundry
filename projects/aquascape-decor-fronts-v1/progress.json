@@ -291,6 +291,126 @@
         "last_error": null,
         "updated_at": "2026-10-24T20:41:25.064999+00:00",
         "source_change_id": "aquarium-hall-style-v3"
+      },
+      {
+        "id": "delta_aquarium_hall_lighting_v4_1",
+        "title": "Implement shared bounded exhibit-lighting profile, tank-local lights and low guide fixtures, with construction and walking levels and a review-only legacy baseline toggle.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Adjust only aquarium hall presentation to the researched dark visitor hall and independently illumin"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T08:29:34.348214+00:00",
+        "source_change_id": "aquarium-hall-lighting-v4"
+      },
+      {
+        "id": "delta_aquarium_hall_lighting_v4_2",
+        "title": "Inspect matched actual Godot views and verify tank light transforms, mode switching, placement and saved layout preservation plus existing native/router regression; retain compact evidence and clean temporary results.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Adjust only aquarium hall presentation to the researched dark visitor hall and independently illumin"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T08:29:35.164662+00:00",
+        "source_change_id": "aquarium-hall-lighting-v4"
+      },
+      {
+        "id": "delta_aquarium_hall_blue_v5_1",
+        "title": "Implement configurable blue ambience, tank backing and local blue spill with neutral fish lighting; preserve source artwork and save data.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Create a trial dark-blue aquarium atmosphere from the previous V4 neutral dark hall: cool blue archi"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T10:58:57.762221+00:00",
+        "source_change_id": "aquarium-hall-blue-v5"
+      },
+      {
+        "id": "delta_aquarium_hall_blue_v5_2",
+        "title": "Review matched V4/V5 native build and walk views, verify inherited hall controls and route regression, record limitations and perform bounded artifact cleanup.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Create a trial dark-blue aquarium atmosphere from the previous V4 neutral dark hall: cool blue archi"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T10:58:58.565635+00:00",
+        "source_change_id": "aquarium-hall-blue-v5"
+      },
+      {
+        "id": "delta_aquarium_water_v6_1",
+        "title": "Implement tank-bounded adjustable water rendering and presets, including distance-dependent transmission, surface interface and restrained moving light patterns with native pixel sampling.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T11:34:03.859209+00:00",
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_water_v6_2",
+        "title": "Integrate per-tank water controls, validated backward-compatible persistence and undo, and reversible close inspection camera with water entry.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T11:34:04.646365+00:00",
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_water_v6_3",
+        "title": "Inspect actual effect-off/on, underwater and near/far boundary captures, run meaningful GPU/persistence and inherited hall/router regression, document approximation limits and clean experiment outputs.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T11:34:05.407371+00:00",
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_1",
+        "title": "Measure current shared gallery and hall cold/re-entry CPU construction and first-frame costs with bounded native profiling evidence.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T12:17:35.516115+00:00",
+        "source_change_id": "aquarium-loading-v7"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_2",
+        "title": "Fix measured redundant runtime work while preserving fish rendering and independent animation/material state with explicit cache invalidation.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T12:17:36.278484+00:00",
+        "source_change_id": "aquarium-loading-v7"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_3",
+        "title": "Verify before/after actual frame equivalence, instance independence, shared gallery and hall timings plus inherited controls/routes; record limits and clean temporary outputs.",
+        "status": "done",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "last_error": null,
+        "updated_at": "2026-10-25T12:17:37.041231+00:00",
+        "source_change_id": "aquarium-loading-v7"
       }
     ],
     "validation": {
@@ -299,7 +419,7 @@
       "playtest": "not_run",
       "regression": "pass",
       "last_failure": null,
-      "last_report": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\aquarium-hall-style-v3\\validation-report.json",
+      "last_report": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\aquarium-loading-v7\\validation-report.json",
       "regression_snapshots": []
     }
   },
@@ -308,7 +428,11 @@
     "[2026-10-24T10:05:32Z] 从 production 同步新任务：delta_aquascape_marine_showcase_v1_1, delta_aquascape_marine_showcase_v1_2, delta_aquascape_marine_showcase_v1_3",
     "[2026-10-24T10:29:26Z] 从 production 同步新任务：delta_aquarium_hall_3d_v1_1, delta_aquarium_hall_3d_v1_2, delta_aquarium_hall_3d_v1_3, delta_aquarium_hall_3d_v1_4",
     "[2026-10-24T19:24:54Z] 从 production 同步新任务：delta_aquarium_hall_build_v2_1, delta_aquarium_hall_build_v2_2, delta_aquarium_hall_build_v2_3, delta_aquarium_hall_build_v2_4",
-    "[2026-10-24T20:32:53Z] 从 production 同步新任务：delta_aquarium_hall_style_v3_1, delta_aquarium_hall_style_v3_2, delta_aquarium_hall_style_v3_3"
+    "[2026-10-24T20:32:53Z] 从 production 同步新任务：delta_aquarium_hall_style_v3_1, delta_aquarium_hall_style_v3_2, delta_aquarium_hall_style_v3_3",
+    "[2026-10-25T08:14:25Z] 从 production 同步新任务：delta_aquarium_hall_lighting_v4_1, delta_aquarium_hall_lighting_v4_2",
+    "[2026-10-25T10:54:11Z] 从 production 同步新任务：delta_aquarium_hall_blue_v5_1, delta_aquarium_hall_blue_v5_2",
+    "[2026-10-25T11:20:32Z] 从 production 同步新任务：delta_aquarium_water_v6_1, delta_aquarium_water_v6_2, delta_aquarium_water_v6_3",
+    "[2026-10-25T11:38:37Z] 从 production 同步新任务：delta_aquarium_loading_v7_1, delta_aquarium_loading_v7_2, delta_aquarium_loading_v7_3"
   ],
-  "updated_at": "2026-10-24T20:41:25.819883+00:00"
+  "updated_at": "2026-10-25T12:17:37.827086+00:00"
 }

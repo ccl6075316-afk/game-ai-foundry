@@ -17,7 +17,7 @@ func _load_png(spec: Dictionary, size: Vector2i) -> Image:
         last_error = "Expected a res:// raw PNG path"
         return null
     var expected: String = spec.get("sha256", "")
-    if expected.length() != 64 or FileAccess.get_sha256(path) != expected:
+    if expected.length() != 64 or preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(path) != expected:
         last_error = "Stale or missing PNG: " + path
         return null
     var image := Image.load_from_file(path)
@@ -163,7 +163,7 @@ func apply(model: Node3D, species: String, mode: int = 0, config_path: String = 
     var model_path: String = p.get("model_path", "")
     if not model_path.begins_with("res://") or not model_path.ends_with("/" + species + ".glb"):
         return _fail("Invalid species model path")
-    if str(p.get("model_sha256", "")).length() != 64 or FileAccess.get_sha256(model_path) != p.model_sha256:
+    if str(p.get("model_sha256", "")).length() != 64 or preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model_path) != p.model_sha256:
         return _fail("Stale model: " + species)
     # The caller must pass the actual instantiated scene, not a similarly named mesh.
     if model.scene_file_path != model_path:

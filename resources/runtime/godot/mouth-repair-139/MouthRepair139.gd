@@ -30,14 +30,14 @@ func apply(model:Node3D,species:String)->int:
     if not cfg.profiles.has(species):return 0
     assert(not species.ends_with("hammerhead"),"Hammerheads excluded by user")
     var p:Dictionary=cfg.profiles[species]
-    assert(FileAccess.get_sha256(model.scene_file_path)==p.source_model_sha256,"Stale rig/fin donor")
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path)==p.source_model_sha256,"Stale rig/fin donor")
     var before=fin_state(model,species)
     var auxiliary_before=auxiliary_state(model,species)
     var body=model.find_child("Closed_body",true,false) as MeshInstance3D;assert(body!=null and body.skin!=null)
     var skin=body.skin;var skel=body.skeleton
     for kind in ["body","lips"]:
         if not p.has(kind):continue
-        assert(FileAccess.get_sha256(p[kind].path)==p[kind].sha256,"Stale139 resource: "+kind)
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(p[kind].path)==p[kind].sha256,"Stale139 resource: "+kind)
         var mesh=load(p[kind].path) as ArrayMesh;assert(mesh!=null and mesh.get_surface_count()>0)
         var target=body
         if kind=="lips":
@@ -55,7 +55,7 @@ func apply(model:Node3D,species:String)->int:
         assert(species=="peacock_bass" and before.has(name),"Unreviewed fin replacement")
         var target=model.find_child(name,true,false) as MeshInstance3D
         var old_skin=target.skin;var old_skeleton=target.skeleton;var resource:Dictionary=p.fins[name]
-        assert(FileAccess.get_sha256(resource.path)==resource.sha256)
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(resource.path)==resource.sha256)
         var mesh=load(resource.path) as ArrayMesh;assert(mesh!=null and mesh.get_surface_count()>0)
         target.mesh=mesh
         for si in mesh.get_surface_count():target.set_surface_override_material(si,null)
@@ -70,26 +70,26 @@ func apply(model:Node3D,species:String)->int:
         node.hide()
     for name in p.get("preserved_visible_auxiliaries",[]):
         var node=model.find_child(name,true,false) as MeshInstance3D;assert(node!=null and node.visible,"Missing actual eye")
-    model.set_meta("mouth_repair139_receipt",{"species":species,"source_model_sha256":p.source_model_sha256,"config_sha256":FileAccess.get_sha256(CONFIG),
-        "helper_sha256":FileAccess.get_sha256(get_script().resource_path),"body_sha256":p.body.sha256,"lips_sha256":p.get("lips",{}).get("sha256",""),
+    model.set_meta("mouth_repair139_receipt",{"species":species,"source_model_sha256":p.source_model_sha256,"config_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(CONFIG),
+        "helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),"body_sha256":p.body.sha256,"lips_sha256":p.get("lips",{}).get("sha256",""),
         "source_reference_semantics":"Original material reference coordinates transported to new geometry; not asserted equal to the new geometric rest positions.","fins_original":before,"fins_active":active_fins,"auxiliary_unchanged":auxiliary_before})
     return 1
 func validate(model:Node3D,species:String)->Dictionary:
     var cfg=JSON.parse_string(FileAccess.get_file_as_string(CONFIG));assert(cfg.profiles.has(species))
     var p:Dictionary=cfg.profiles[species];var r:Dictionary=model.get_meta("mouth_repair139_receipt",{})
-    assert(not r.is_empty() and r.species==species and r.source_model_sha256==FileAccess.get_sha256(model.scene_file_path))
-    assert(r.config_sha256==FileAccess.get_sha256(CONFIG) and r.helper_sha256==FileAccess.get_sha256(get_script().resource_path))
+    assert(not r.is_empty() and r.species==species and r.source_model_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path))
+    assert(r.config_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(CONFIG) and r.helper_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path))
     assert(fin_state(model,species)==r.fins_active)
     for name in p.get("fins",{}):
         var resource:Dictionary=p.fins[name];var node=model.find_child(name,true,false) as MeshInstance3D
-        assert(FileAccess.get_sha256(resource.path)==resource.sha256 and node.mesh==load(resource.path))
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(resource.path)==resource.sha256 and node.mesh==load(resource.path))
         for si in node.mesh.get_surface_count():assert(node.get_surface_override_material(si)==null)
     assert(auxiliary_state(model,species)==r.auxiliary_unchanged)
     for name in p.get("retired_runtime_auxiliaries",[]):assert(not model.find_child(name,true,false).visible)
     for name in p.get("preserved_visible_auxiliaries",[]):assert(model.find_child(name,true,false).visible)
     for kind in ["body","lips"]:
         if not p.has(kind):continue
-        assert(FileAccess.get_sha256(p[kind].path)==p[kind].sha256)
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(p[kind].path)==p[kind].sha256)
         var node=model.find_child("Closed_body" if kind=="body" else "Source_lips139",true,false) as MeshInstance3D
         assert(node!=null and node.mesh==load(p[kind].path) and node.skin!=null)
         for si in node.mesh.get_surface_count():

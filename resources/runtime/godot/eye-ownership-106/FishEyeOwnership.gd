@@ -128,7 +128,7 @@ func _sampler_is_native_nearest(code: String, name: String) -> bool:
 
 func _load_png(spec: Dictionary, size: Vector2i) -> Image:
     var path: String = spec.get("path", "")
-    if not path.begins_with("res://") or not path.ends_with(".png") or str(spec.get("sha256", "")).length() != 64 or FileAccess.get_sha256(path) != spec.sha256:
+    if not path.begins_with("res://") or not path.ends_with(".png") or str(spec.get("sha256", "")).length() != 64 or preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(path) != spec.sha256:
         last_error = "Missing/stale PNG: " + path
         return null
     var image := Image.new()
@@ -200,7 +200,7 @@ func apply(model: Node3D, species: String, mode: int = 0, config_path: String = 
     var allowed = p.get("allowed_modes")
     if not allowed is Array or allowed.size() != 3 or float(allowed[0]) != 0.0 or float(allowed[1]) != 1.0 or float(allowed[2]) != 2.0 or p.get("mesh", "") != "Closed_body" or p.get("surface", -1) != 0:
         return _fail("Unsupported eye profile modes/surface")
-    if not p.get("model_path", "").begins_with("res://") or model.scene_file_path != p.model_path or FileAccess.get_sha256(p.model_path) != p.get("model_sha256", ""):
+    if not p.get("model_path", "").begins_with("res://") or model.scene_file_path != p.model_path or preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(p.model_path) != p.get("model_sha256", ""):
         return _fail("Frozen model hash or actual scene path mismatch")
     var matches: Array[MeshInstance3D] = []
     for node in model.find_children("*", "MeshInstance3D", true, false):
@@ -344,9 +344,9 @@ func apply(model: Node3D, species: String, mode: int = 0, config_path: String = 
         return _fail("Mesh/LOD/skeleton preservation check failed")
     last_receipt = {"species":species, "mode":mode,"probe":probe, "allowed_modes":[0,1,2], "color_repair_implemented":true,"accepted":false, "clean_source_sha256":p.clean_source.sha256,"clean_opaque_sha256":p.clean_opaque.sha256,"copies_outside_mask_rgba_equal":true,"copies_all_alpha_equal":true,
         "model_sha256":p.model_sha256, "source_sha256":p.source.sha256, "source_eye_mask_sha256":p.source_eye_mask.sha256,
-        "source_embedded_sha256":p.source_embedded_sha256, "projection":projection, "eye_layer_mask_sha256":p.eye_layer_mask.sha256, "fallback_eye_mask_sha256":p.fallback_eye_mask.sha256, "fallback_texture_sha256":p.opaque_skin.sha256, "lod_exception_receipt":model.get_meta("eye_lod_106_receipt"), "profile_sha256":FileAccess.get_sha256(config_path),
-        "input_profile_sha256":p.get("input_profile_sha256", ""), "helper_sha256":FileAccess.get_sha256(get_script().resource_path),
-        "template_sha256":FileAccess.get_sha256(template_path), "generated_shader_sha256":shader.code.sha256_text(), "source_base_level_all_rgba_equal":true,
+        "source_embedded_sha256":p.source_embedded_sha256, "projection":projection, "eye_layer_mask_sha256":p.eye_layer_mask.sha256, "fallback_eye_mask_sha256":p.fallback_eye_mask.sha256, "fallback_texture_sha256":p.opaque_skin.sha256, "lod_exception_receipt":model.get_meta("eye_lod_106_receipt"), "profile_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(config_path),
+        "input_profile_sha256":p.get("input_profile_sha256", ""), "helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),
+        "template_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(template_path), "generated_shader_sha256":shader.code.sha256_text(), "source_base_level_all_rgba_equal":true,
         "source_unused_mipmaps_removed_for_comparison":had_mips, "source_eye_mask_pixels":mask_count,
         "vertex_order_sha256":p.vertex_order_sha256, "mesh_before":before, "mesh_after":after, "mesh_unchanged":true,
         "lookup_format":"RGBAF", "lookup_size":[width,height], "lookup_mipmaps":false, "lookup_srgb":false,

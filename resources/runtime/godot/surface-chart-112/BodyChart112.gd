@@ -3,11 +3,11 @@ const CONFIG="res://assets/models/fish/motion/surface-charts112.json"
 const INCLUDE="BodyChart112.gdshaderinc"
 var last_error: String=""
 func apply(model: Node3D,species: String)->int:
-    var config=JSON.parse_string(FileAccess.get_file_as_string(CONFIG))
+    var config=preload("res://scripts/aquarium/FishRuntimeData.gd").read_json(CONFIG)
     assert(config is Dictionary and config.get("profiles") is Dictionary,"Missing112 chart config")
     if not config.profiles.has(species):return 0
     var p: Dictionary=config.profiles[species]
-    assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale112 model")
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale112 model")
     var body=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(body!=null)
     var material=body.get_active_material(int(p.surface)) as ShaderMaterial
@@ -28,7 +28,7 @@ func apply(model: Node3D,species: String)->int:
     if p.has("mouth_protection115"):
         var lip=preload("res://scripts/aquarium/LipMaterial115.gd").new()
         code=lip.wrap(code)
-        lip115={"helper_sha256":FileAccess.get_sha256(lip.get_script().resource_path),"template_sha256":FileAccess.get_sha256(lip.template_path())}
+        lip115={"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(lip.get_script().resource_path),"template_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(lip.template_path())}
     var shader=Shader.new();shader.code=code
     assert(not shader.get_shader_uniform_list().is_empty(),"112 chart shader failed")
     if model.has_meta("source_jaw112_receipt"):
@@ -46,7 +46,7 @@ func apply(model: Node3D,species: String)->int:
     rest.bind(model,body,int(p.surface),material)
     if p.has("mouth_protection115"):preload("res://scripts/aquarium/LipMaterial115.gd").new().bind(material,p)
     for kind in ["dorsal","ventral"]:
-        assert(FileAccess.get_sha256(p[kind].path)==p[kind].sha256,"Stale112 chart")
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(p[kind].path)==p[kind].sha256,"Stale112 chart")
         material.set_shader_parameter("chart112_"+kind,load(p[kind].path))
     var sections=PackedVector4Array()
     for row in p.sections:sections.append(Vector4(row[0],row[1],row[2],row[3]))
@@ -57,7 +57,7 @@ func apply(model: Node3D,species: String)->int:
     material.set_shader_parameter("chart112_longitudinal",Vector4(p.longitudinal_u[0],p.longitudinal_u[1],p.longitudinal_u[2],p.longitudinal_u[3]))
     material.set_shader_parameter("chart112_pixel_per_native",p.pixel_per_native)
     material.set_shader_parameter("chart112_height",p.chart_height)
-    var eyes=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/eye-relief112.json"))
+    var eyes=preload("res://scripts/aquarium/FishRuntimeData.gd").read_json("res://assets/models/fish/motion/eye-relief112.json")
     if eyes.profiles.has(species):
         var minimum=Vector2(INF,INF);var maximum=Vector2(-INF,-INF)
         for cap in eyes.profiles[species].caps:
@@ -65,6 +65,6 @@ func apply(model: Node3D,species: String)->int:
                 minimum=minimum.min(Vector2(point[0],point[1]));maximum=maximum.max(Vector2(point[0],point[1]))
         var center=(minimum+maximum)*.5;var radius=(maximum-minimum)*.55
         material.set_shader_parameter("chart112_eye_rect_native",Vector4(center.x,center.y,radius.x,radius.y))
-    model.set_meta("surface_chart_112_receipt",{"species":species,"model_sha256":p.model_sha256,"helper_sha256":FileAccess.get_sha256(get_script().resource_path),"template_sha256":FileAccess.get_sha256(template_path),"profile_sha256":FileAccess.get_sha256(CONFIG),"base_shader_code":original,"base_shader_sha256":original.sha256_text(),"generated_shader_sha256":code.sha256_text(),"geometry_changed":false,"surface":p.surface,"mesh":p.mesh})
+    model.set_meta("surface_chart_112_receipt",{"species":species,"model_sha256":p.model_sha256,"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),"template_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(template_path),"profile_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(CONFIG),"base_shader_code":original,"base_shader_sha256":original.sha256_text(),"generated_shader_sha256":code.sha256_text(),"geometry_changed":false,"surface":p.surface,"mesh":p.mesh})
     model.set_meta("lip_material115_receipt",lip115)
     return 1

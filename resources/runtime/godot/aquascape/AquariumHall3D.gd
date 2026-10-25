@@ -28,6 +28,18 @@ var floor_style := 0
 var wall_style := 0
 var floor_paint: ShaderMaterial
 var wall_paint: StandardMaterial3D
+var hall_lighting
+var water_renderer
+var water_panel
+var water_drag := false
+var inspecting := false
+var inspection_camera: Camera3D
+var inspection_tank_id := ""
+var inspection_fish := 0
+var inspection_distance := 2.4
+var inspection_yaw := 0.0
+var inspection_pitch := .08
+const WaterProfile=preload("res://scripts/aquarium/TankWaterProfile.gd")
 var pixel_materials := true
 var surface_materials: Array=[]
 var surface_art: Dictionary={}
@@ -70,6 +82,7 @@ const FLOOR_COLORS := [Color("778d8b"),Color("b4b5a5"),Color("4c626d")]
 const WALL_COLORS := [Color("d4d6c5"),Color("8daaad"),Color("b1b3a0")]
 
 func _ready() -> void:
+    preload("res://scripts/aquarium/FishAppearanceCache.gd").begin_entry()
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter=Control.MOUSE_FILTER_IGNORE
     _register_input()
@@ -83,6 +96,7 @@ func _ready() -> void:
     canvas.gui_input.connect(_canvas_input);add_child(canvas)
     _room()
     _player()
+    inspection_camera=Camera3D.new();inspection_camera.near=.025;inspection_camera.far=100;inspection_camera.fov=62;world.add_child(inspection_camera)
     _ui()
     _restore(_default_state())
     _mode(true)
@@ -141,13 +155,8 @@ func _collision(parent: Node3D,at: Vector3,size: Vector3,layer:=1) -> StaticBody
     return body
 
 func _room() -> void:
-    var env := WorldEnvironment.new();env.environment=Environment.new()
-    env.environment.background_mode=Environment.BG_COLOR;env.environment.background_color=Color("101f2b")
-    env.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
-    env.environment.ambient_light_color=Color("e0eee7");env.environment.ambient_light_energy=.64
-    world.add_child(env)
-    var light := DirectionalLight3D.new();light.rotation_degrees=Vector3(-63,-25,0)
-    light.light_color=Color("f2eed6");light.light_energy=.40;light.shadow_enabled=true;world.add_child(light)
+    hall_lighting=load("res://scripts/aquarium/HallLighting.gd").new();world.add_child(hall_lighting)
+    water_renderer=load("res://scripts/aquarium/TankWaterRenderer.gd").new();world.add_child(water_renderer)
     floor_paint=ShaderMaterial.new();floor_paint.shader=load("res://scripts/aquarium/HallFloor3D.gdshader")
     floor_paint.set_shader_parameter("floor_art",load(HALL_ART+"hall_floor.png"))
     wall_paint=_surface(WALL_COLORS[0],"hall_wall")
@@ -183,6 +192,10 @@ func _rebuild_room() -> void:
             if edge[0]==[0,1] and editing:size.y=.65;pos.y=.325
             _box(room_geometry,pos,size,wall_paint)
             size.y=.16;pos.y=.08;_box(room_geometry,pos,size+Vector3(.02,0,.02),trim)
+            var guide_pos: Vector3=edge[1]-Vector3(edge[0][0],0,edge[0][1])*.116
+            guide_pos.y=.23
+            var guide_size := Vector3(.022,.035,.52) if edge[2].x<1 else Vector3(.52,.035,.022)
+            hall_lighting.add_guide(room_geometry,guide_pos,guide_size)
     _refresh_parcel_hints()
 
 func _expand_at(at: Vector3) -> bool:
@@ -259,6 +272,7 @@ func _create(data: Dictionary) -> Dictionary:
         tank.fish_limit=int(data.fish_count);tank.initial_content=data.get("content",{}).duplicate(true)
         root.add_child(tank);tank.position.y=.43
         tank.apply_exterior_materials(_surface(Color("132e38"),"hall_floor",Color("456e79")),_surface(Color("48747c"),"hall_wall"))
+        hall_lighting.attach_tank(tank)
     elif data.kind=="wall":
         _wall_geometry(root,data)
     elif data.kind=="bench":
@@ -283,6 +297,7 @@ func _create(data: Dictionary) -> Dictionary:
     if data.kind=="wall":body=root.get_meta("wall_body")
     else:body=_collision(root,box.get_center(),box.size,2);body.set_meta("hall_id",data.id)
     var row := {"data":data.duplicate(true),"node":root,"body":body,"tank":tank}
+    if data.kind=="tank":row.data.water=WaterProfile.normalized(data.get("water",{}))
     root.transform=_transform(data)
     return row
 
@@ -326,6 +341,7 @@ func _restore(state: Dictionary) -> void:
                 if not data.get("content",{}).is_empty() and JSON.stringify(found.tank.content_state())!=JSON.stringify(data.content):found.tank.apply_content(data.content)
             found.data=data.duplicate(true);found.node.transform=_transform(data)
             if data.kind=="wall":_refresh_wall(found)
+        if data.kind=="tank":found.data.water=WaterProfile.normalized(data.get("water",{}))
         retained.append(found)
     for row in objects:
         if not retained.has(row):row.node.hide();row.body.collision_layer=0;row.node.queue_free()
@@ -471,7 +487,9 @@ func _selection() -> void:
     mesh.surface_end();selection_box.mesh=mesh;selection_box.transform=row.node.transform
 
 func _mode(value: bool) -> void:
+    _stop_inspection()
     editing=value;looking=false;dragging=false;orbiting=false;panning=false;_set_tool("")
+    hall_lighting.set_state(hall_lighting.enabled,editing)
     _rebuild_room()
     Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
     side.visible=editing;editor_camera.current=editing;eye.current=not editing
@@ -495,7 +513,7 @@ func _camera() -> void:
     editor_camera.look_at(camera_target)
 
 func _physics_process(delta: float) -> void:
-    if editing or active_editor!=null:return
+    if editing or inspecting or active_editor!=null:return
     var input := Input.get_vector("hall_left","hall_right","hall_forward","hall_back")
     var direction: Vector3=player.basis*Vector3(input.x,0,input.y)
     var speed := 5.0 if Input.is_physical_key_pressed(KEY_SHIFT) else 2.7
@@ -506,12 +524,16 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
     if active_editor!=null:return
+    if inspecting and event is InputEventMouseMotion and looking:
+        inspection_yaw-=event.relative.x*.004;inspection_pitch=clampf(inspection_pitch+event.relative.y*.003,-.65,.85)
+        _update_inspection();get_viewport().set_input_as_handled();return
     if event is InputEventMouseMotion and looking and not editing:
         player.rotation.y-=event.relative.x*.003
         eye.rotation.x=clampf(eye.rotation.x-event.relative.y*.003,-1.2,1.2)
         get_viewport().set_input_as_handled()
     if event is InputEventKey and event.pressed and not event.echo:
         if event.keycode==KEY_ESCAPE:
+            if inspecting:_stop_inspection();get_viewport().set_input_as_handled();return
             Input.mouse_mode=Input.MOUSE_MODE_VISIBLE;looking=false;_set_tool("");get_viewport().set_input_as_handled()
         if event.keycode==KEY_TAB:_mode(not editing);get_viewport().set_input_as_handled()
     if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_RIGHT and not event.pressed and looking:
@@ -522,6 +544,13 @@ func _input(event: InputEvent) -> void:
 
 func _canvas_input(event: InputEvent) -> void:
     if active_editor!=null:return
+    if inspecting:
+        if event is InputEventMouseButton:
+            if event.button_index==MOUSE_BUTTON_RIGHT:
+                looking=event.pressed;Input.mouse_mode=Input.MOUSE_MODE_CAPTURED if looking else Input.MOUSE_MODE_VISIBLE
+            if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+                inspection_distance=clampf(inspection_distance*(.88 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.14),.22,8.0);_update_inspection()
+        return
     if event is InputEventMouseMotion:
         pointer=event.position*Vector2(viewport.size)/canvas.size
         if editing:
@@ -579,6 +608,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
     if event.keycode==KEY_DELETE:_delete_selected()
 
 func _open_content_editor() -> bool:
+    _stop_inspection()
     if selected<0 or objects[selected].data.kind!="tank":notice="先选择一个展缸。";return false
     editor_object_id=objects[selected].data.id
     active_editor=load("res://scripts/aquarium/HallTankEditor.gd").new()
@@ -623,6 +653,7 @@ func _ui() -> void:
     _label(header,"室内建造 · 地块扩建 / 展缸 / 隔墙 · 独立保存",Vector2(32,55),17)
     _button(header,"返回海岸",Vector2(1725,26),160,_request_return)
     mode_button=_button(header,"切换逛馆  Tab",Vector2(1000,26),180,func():_mode(not editing))
+    _button(header,"展缸水体 / 近景",Vector2(780,26),200,_open_water_panel)
     _button(header,"保存大厅",Vector2(1195,26),150,_save_layout)
     _button(header,"读取大厅",Vector2(1360,26),150,func():_load_layout(save_path))
     _button(header,"撤销",Vector2(1525,26),85,_undo)
@@ -660,6 +691,58 @@ func _ui() -> void:
     var footer := ColorRect.new();footer.color=Color("102a34");footer.position=Vector2(0,995);footer.size=Vector2(1920,85);add_child(footer)
     status=_label(footer,notice,Vector2(30,10),18)
     _label(footer,"编辑：右键环绕 · 中键平移 · 滚轮缩放 · Q/E 转向 · Esc 取消 · Delete 删除   |   Tab 逛馆：WASD 行走 · 右键看向 · Shift 加速",Vector2(30,45),16)
+    water_panel=load("res://scripts/aquarium/TankWaterPanel.gd").new();add_child(water_panel);water_panel.hide()
+    water_panel.changed.connect(_water_changed);water_panel.preset_selected.connect(_water_preset)
+    water_panel.interaction_started.connect(func():if not water_drag:_remember();water_drag=true)
+    water_panel.interaction_ended.connect(func():water_drag=false)
+    water_panel.inspect_requested.connect(_start_inspection);water_panel.return_requested.connect(_stop_inspection)
+    water_panel.next_fish_requested.connect(func():inspection_fish+=1;_start_inspection(false))
+
+func _open_water_panel() -> void:
+    if selected<0 or objects[selected].tank==null:
+        for i in objects.size():
+            if objects[i].tank!=null:selected=i;break
+    if selected<0 or objects[selected].tank==null:notice="先放置一个展缸，再调整水体。";return
+    _set_tool("");dragging=false;_sync_panel();water_panel.show()
+
+func _water_changed(key: String,value: Variant) -> void:
+    if selected<0 or objects[selected].tank==null:return
+    var config: Dictionary=objects[selected].data.water.duplicate(true);config[key]=value
+    if not WaterProfile.valid(config):return
+    if not water_drag:_remember()
+    objects[selected].data.water=config
+    notice="已调整这个展缸的水体外观；可撤销并保存。"
+
+func _water_preset(index: int) -> void:
+    if selected<0 or objects[selected].tank==null:return
+    _remember();objects[selected].data.water=WaterProfile.preset(index);_sync_panel()
+
+func _start_inspection(reset: bool=true) -> void:
+    if selected<0 or objects[selected].tank==null:_open_water_panel()
+    if selected<0 or objects[selected].tank==null:return
+    inspection_tank_id=objects[selected].data.id;inspecting=true;looking=false;dragging=false
+    if reset:inspection_distance=2.4*objects[selected].node.scale.x;inspection_yaw=0;inspection_pitch=.08;inspection_fish=0
+    side.hide();editor_camera.current=false;eye.current=false;inspection_camera.current=true
+    Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+    notice="近景观察：滚轮推进缸内，右键环绕，Esc 返回。"
+    _update_inspection()
+
+func _update_inspection() -> void:
+    for row in objects:
+        if row.data.id!=inspection_tank_id or row.tank==null:continue
+        var target: Vector3=row.tank.global_transform*Vector3(0,1.4,0)
+        if not row.tank.fish.is_empty():target=row.tank.fish[posmod(inspection_fish,row.tank.fish.size())].carrier.global_position
+        var axis := Vector3(sin(inspection_yaw)*cos(inspection_pitch),sin(inspection_pitch),cos(inspection_yaw)*cos(inspection_pitch))
+        axis=row.node.global_basis.orthonormalized()*axis
+        inspection_camera.global_position=target+axis*inspection_distance
+        inspection_camera.look_at(target);return
+    _stop_inspection()
+
+func _stop_inspection() -> void:
+    if not inspecting:return
+    inspecting=false;looking=false;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+    inspection_camera.current=false;editor_camera.current=editing;eye.current=not editing;side.visible=editing
+    notice="已返回大厅视角。"
 
 func _fish_count_changed(value: float) -> void:
     if panel_sync or selected<0 or objects[selected].data.kind!="tank":return
@@ -682,9 +765,12 @@ func _sync_panel() -> void:
         size_spin.max_value=18 if data.kind=="wall" else 1.3;size_spin.step=.5 if data.kind=="wall" else .05
         size_spin.set_value_no_signal(float(data.length) if data.kind=="wall" else float(data.scale))
         fish_spin.editable=data.kind=="tank";fish_spin.set_value_no_signal(float(data.get("fish_count",0)))
+    if is_instance_valid(water_panel) and selected>=0 and objects[selected].tank!=null:water_panel.bind(objects[selected].data.water,objects[selected].data.name)
     panel_sync=false;_selection()
 
 func _process(delta: float) -> void:
+    if is_instance_valid(water_renderer):water_renderer.sync(objects,delta)
+    if inspecting:_update_inspection()
     statistics_clock+=delta
     if statistics_clock>.15:statistics_clock=0;status.text=notice
 
@@ -740,6 +826,7 @@ func _valid_state(data: Variant) -> bool:
             if absf(sin(float(row.yaw)*2))>.0001:return false
         if row.kind=="tank":
             tanks+=1
+            if row.has("water") and not WaterProfile.valid(row.water):return false
             if tanks>MAX_TANKS or not _finite_number(row.get("fish_count")) or row.fish_count!=int(row.fish_count) or row.fish_count<0 or row.fish_count>15 or not _valid_content(row.get("content")):return false
         if not _valid_placement(row,rows,"",cells):return false
         rows.append(row);ids.append(row.id)

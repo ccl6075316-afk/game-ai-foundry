@@ -70,6 +70,44 @@
           "delta_aquarium_hall_style_v3_3"
         ],
         "asset_tasks": []
+      },
+      {
+        "change_id": "aquarium-hall-lighting-v4",
+        "applied_at": "2026-10-25T08:14:25+00:00",
+        "tasks_added": [
+          "delta_aquarium_hall_lighting_v4_1",
+          "delta_aquarium_hall_lighting_v4_2"
+        ],
+        "asset_tasks": []
+      },
+      {
+        "change_id": "aquarium-hall-blue-v5",
+        "applied_at": "2026-10-25T10:54:11+00:00",
+        "tasks_added": [
+          "delta_aquarium_hall_blue_v5_1",
+          "delta_aquarium_hall_blue_v5_2"
+        ],
+        "asset_tasks": []
+      },
+      {
+        "change_id": "aquarium-water-v6",
+        "applied_at": "2026-10-25T11:20:32+00:00",
+        "tasks_added": [
+          "delta_aquarium_water_v6_1",
+          "delta_aquarium_water_v6_2",
+          "delta_aquarium_water_v6_3"
+        ],
+        "asset_tasks": []
+      },
+      {
+        "change_id": "aquarium-loading-v7",
+        "applied_at": "2026-10-25T11:38:37+00:00",
+        "tasks_added": [
+          "delta_aquarium_loading_v7_1",
+          "delta_aquarium_loading_v7_2",
+          "delta_aquarium_loading_v7_3"
+        ],
+        "asset_tasks": []
       }
     ]
   },
@@ -423,6 +461,106 @@
           "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration"
         ],
         "source_change_id": "aquarium-hall-style-v3"
+      },
+      {
+        "id": "delta_aquarium_hall_lighting_v4_1",
+        "title": "Implement shared bounded exhibit-lighting profile, tank-local lights and low guide fixtures, with construction and walking levels and a review-only legacy baseline toggle.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Adjust only aquarium hall presentation to the researched dark visitor hall and independently illumin"
+        ],
+        "source_change_id": "aquarium-hall-lighting-v4"
+      },
+      {
+        "id": "delta_aquarium_hall_lighting_v4_2",
+        "title": "Inspect matched actual Godot views and verify tank light transforms, mode switching, placement and saved layout preservation plus existing native/router regression; retain compact evidence and clean temporary results.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Adjust only aquarium hall presentation to the researched dark visitor hall and independently illumin"
+        ],
+        "source_change_id": "aquarium-hall-lighting-v4"
+      },
+      {
+        "id": "delta_aquarium_hall_blue_v5_1",
+        "title": "Implement configurable blue ambience, tank backing and local blue spill with neutral fish lighting; preserve source artwork and save data.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Create a trial dark-blue aquarium atmosphere from the previous V4 neutral dark hall: cool blue archi"
+        ],
+        "source_change_id": "aquarium-hall-blue-v5"
+      },
+      {
+        "id": "delta_aquarium_hall_blue_v5_2",
+        "title": "Review matched V4/V5 native build and walk views, verify inherited hall controls and route regression, record limitations and perform bounded artifact cleanup.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Create a trial dark-blue aquarium atmosphere from the previous V4 neutral dark hall: cool blue archi"
+        ],
+        "source_change_id": "aquarium-hall-blue-v5"
+      },
+      {
+        "id": "delta_aquarium_water_v6_1",
+        "title": "Implement tank-bounded adjustable water rendering and presets, including distance-dependent transmission, surface interface and restrained moving light patterns with native pixel sampling.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_water_v6_2",
+        "title": "Integrate per-tank water controls, validated backward-compatible persistence and undo, and reversible close inspection camera with water entry.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_water_v6_3",
+        "title": "Inspect actual effect-off/on, underwater and near/far boundary captures, run meaningful GPU/persistence and inherited hall/router regression, document approximation limits and clean experiment outputs.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu"
+        ],
+        "source_change_id": "aquarium-water-v6"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_1",
+        "title": "Measure current shared gallery and hall cold/re-entry CPU construction and first-frame costs with bounded native profiling evidence.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "source_change_id": "aquarium-loading-v7"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_2",
+        "title": "Fix measured redundant runtime work while preserving fish rendering and independent animation/material state with explicit cache invalidation.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "source_change_id": "aquarium-loading-v7"
+      },
+      {
+        "id": "delta_aquarium_loading_v7_3",
+        "title": "Verify before/after actual frame equivalence, instance independence, shared gallery and hall timings plus inherited controls/routes; record limits and clean temporary outputs.",
+        "status": "pending",
+        "depends_on": [],
+        "verify": [
+          "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
+        ],
+        "source_change_id": "aquarium-loading-v7"
       }
     ],
     "validation": {
@@ -442,7 +580,11 @@
         "User intent satisfied: Compose a larger approximately six metre marine-themed aquarium using existing generated sand, stone",
         "User intent satisfied: Replace normal 2D aquarium hall and tank routes with a controllable editable 3D hall. Add first-pers",
         "User intent satisfied: Indoor-only hall foundation slice: expand by adjacent standardized 6x7m parcels from the existing si",
-        "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration"
+        "User intent satisfied: User identified a visual style mismatch: existing fish and in-tank sand/decor are pixel illustration",
+        "User intent satisfied: Adjust only aquarium hall presentation to the researched dark visitor hall and independently illumin",
+        "User intent satisfied: Create a trial dark-blue aquarium atmosphere from the previous V4 neutral dark hall: cool blue archi",
+        "User intent satisfied: Add independently adjustable tank water appearance so large viewing windows convey a continuous volu",
+        "User intent satisfied: Investigate and fix severe cold and repeated entry latency in the shared fish gallery and editable h"
       ],
       "regression_checks": []
     },

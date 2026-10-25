@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "intent": "Dim visitor hall, independently illuminated exhibits, restrained construction fill.",
+  "ambient_color": "95adbf",
+  "walk_ambient": 0.055,
+  "build_ambient": 0.15,
+  "walk_fill": 0.025,
+  "build_fill": 0.05,
+  "fill_color": "b8c9d6",
+  "background": "070e18",
+  "guide_color": "536d74",
+  "tank_color": "d7eceb",
+  "tank_energy": 1.15,
+  "tank_range_m": 4.2,
+  "tank_angle_degrees": 65.0,
+  "tank_edge_attenuation": 0.35,
+  "tank_attenuation": 0.65,
+  "tank_positions_x_m": [-1.5, 1.5],
+  "tank_front_z_m": 1.28,
+  "tank_tilt_degrees": -48.0,
+  "tank_shadow_count": 1,
+  "limitations": [
+    "Materials are mixed: shaded fish surfaces, substrate and architecture respond to the lights; unshaded source-art props retain their authored colors.",
+    "Two bounded spotlights per tank, one shadow caster. No volumetric beams, realtime global illumination or simulated glass refraction.",
+    "Guide markers are low self-lit fixtures; room readability also uses restrained ambient fill."
+  ],
+  "references": [
+    "https://www.fluxstudio.net/projects/blacktip-reef-exhibit",
+    "https://ies.org/lda/creatures-of-habitat/"
+  ]
+}

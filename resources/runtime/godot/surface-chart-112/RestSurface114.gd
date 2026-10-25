@@ -54,11 +54,11 @@ func bind(model:Node3D,mesh:MeshInstance3D,surface:int,material:ShaderMaterial)-
     for key in ["positions","normals","uvs"]:
         material.set_shader_parameter("rest114_"+key,ImageTexture.create_from_image(t[key]));hashes[key]=digest(t[key].get_data())
     var receipt=snapshot(mesh)
-    receipt.merge({"mesh":str(mesh.name),"surface":surface,"model_sha256":FileAccess.get_sha256(model.scene_file_path),"helper_sha256":FileAccess.get_sha256(get_script().resource_path),"template_sha256":FileAccess.get_sha256(template_path()),"tables_sha256":hashes,"count":t.count,"size":[t.size.x,t.size.y]})
+    receipt.merge({"mesh":str(mesh.name),"surface":surface,"model_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path),"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),"template_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(template_path()),"tables_sha256":hashes,"count":t.count,"size":[t.size.x,t.size.y]})
     var records:Dictionary=model.get_meta("rest_surface114_receipts",{});records[str(mesh.name)+":"+str(surface)]=receipt;model.set_meta("rest_surface114_receipts",records)
 func validate(model:Node3D,mesh:MeshInstance3D,surface:int,material:ShaderMaterial)->Dictionary:
     var records:Dictionary=model.get_meta("rest_surface114_receipts",{});var key=str(mesh.name)+":"+str(surface);assert(records.has(key));var r:Dictionary=records[key]
-    assert(r.model_sha256==FileAccess.get_sha256(model.scene_file_path) and r.helper_sha256==FileAccess.get_sha256(get_script().resource_path) and r.template_sha256==FileAccess.get_sha256(template_path()))
+    assert(r.model_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path) and r.helper_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path) and r.template_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(template_path()))
     var actual=snapshot(mesh);assert(r.all_surface_arrays_sha256==actual.all_surface_arrays_sha256 and r.lods_sha256==actual.lods_sha256)
     var t=tables(mesh,surface);assert(int(material.get_shader_parameter("rest114_count"))==t.count and material.get_shader_parameter("rest114_size")==t.size and r.count==t.count and r.size==[t.size.x,t.size.y])
     for name in ["positions","normals","uvs"]:

@@ -7,7 +7,7 @@ func apply(model:Node3D,species:String)->int:
     var config="res://assets/models/fish/motion/head-lods112.json"
     var cfg=JSON.parse_string(FileAccess.get_file_as_string(config));assert(cfg.profiles.has(species))
     var p:Dictionary=cfg.profiles[species]
-    assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256)
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256)
     var body=model.find_child("Closed_body",true,false) as MeshInstance3D
     var original=body.mesh as ArrayMesh;assert(original!=null and original.get_blend_shape_count()==0)
     var frozen=original.get("_surfaces").duplicate(true);var lod_hash=HashingContext.new();lod_hash.start(HashingContext.HASH_SHA256)
@@ -23,7 +23,7 @@ func apply(model:Node3D,species:String)->int:
     for si in copy.get_surface_count():after_arrays.append(sha(copy.surface_get_arrays(si)))
     assert(before_arrays==after_arrays,"LOD suppression changed full-detail arrays")
     body.mesh=copy
-    last_receipt={"species":species,"model_sha256":p.model_sha256,"helper_sha256":FileAccess.get_sha256(get_script().resource_path),"config_sha256":FileAccess.get_sha256(config),"exception":"All regenerated head/body LOD tables are unreviewed and excluded; full-detail geometry retained. No LOD passed.","before_lod_counts":counts,"after_lod_counts":[0,0],"all_decoded_surface_arrays_before":before_arrays,"all_decoded_surface_arrays_after":after_arrays,"original_raw_surfaces_sha256":sha(frozen),"actual_after_raw_surfaces_sha256":sha(copy.get("_surfaces")),"source_mesh_resource_id":original.get_instance_id(),"runtime_mesh_resource_id":copy.get_instance_id(),"fin_objects_touched":false}
+    last_receipt={"species":species,"model_sha256":p.model_sha256,"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),"config_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(config),"exception":"All regenerated head/body LOD tables are unreviewed and excluded; full-detail geometry retained. No LOD passed.","before_lod_counts":counts,"after_lod_counts":[0,0],"all_decoded_surface_arrays_before":before_arrays,"all_decoded_surface_arrays_after":after_arrays,"original_raw_surfaces_sha256":sha(frozen),"actual_after_raw_surfaces_sha256":sha(copy.get("_surfaces")),"source_mesh_resource_id":original.get_instance_id(),"runtime_mesh_resource_id":copy.get_instance_id(),"fin_objects_touched":false}
     model.set_meta("head_lods112_receipt",last_receipt)
     if species=="black_seabream":model.set_meta("eye_lod_106_receipt",last_receipt)
     if species=="zander":model.set_meta("eye_lod_107_receipt",last_receipt)

@@ -5,6 +5,7 @@ var initial_content: Dictionary={}
 var content_snapshot: Dictionary={}
 var exterior_base: MeshInstance3D
 var exterior_rim: Array=[]
+var backdrop_paint: ShaderMaterial
 
 func _ready() -> void:
     layout=JSON.parse_string(FileAccess.get_file_as_string(LAYOUT))
@@ -19,8 +20,8 @@ func _environment() -> void:
     var rim := _solid(Color("48747c"))
     exterior_base=_box(Vector3(0,-.22,0),Vector3(6.16,.40,3.16),_solid(Color("132e38")))
     exterior_rim.append(_box(Vector3(0,-.012,0),Vector3(6.04,.025,3.04),rim))
-    var backdrop := ShaderMaterial.new();backdrop.shader=load("res://scripts/aquarium/MarineBackdrop.gdshader")
-    _box(Vector3(0,1.40,-1.52),Vector3(6.03,2.8,.025),backdrop)
+    backdrop_paint=ShaderMaterial.new();backdrop_paint.shader=load("res://scripts/aquarium/MarineBackdrop.gdshader")
+    _box(Vector3(0,1.40,-1.52),Vector3(6.03,2.8,.025),backdrop_paint)
     for y in [0.0,2.8]:
         for z in [-1.50,1.50]:exterior_rim.append(_box(Vector3(0,y,z),Vector3(6.08,.028,.028),rim))
         for x in [-3.0,3.0]:exterior_rim.append(_box(Vector3(x,y,0),Vector3(.028,.028,3.04),rim))
@@ -29,7 +30,8 @@ func _environment() -> void:
     var plane := PlaneMesh.new();plane.size=Vector2(6,3)
     var surface := MeshInstance3D.new();surface.mesh=plane;surface.position.y=2.775
     water_paint=ShaderMaterial.new();water_paint.shader=load("res://shaders/aquarium_lab_surface.gdshader")
-    water_paint.set_shader_parameter("strength",.10);water_paint.set_shader_parameter("pixel_size",.045)
+    # The shared water-volume pass handles the surface interface and interior.
+    water_paint.set_shader_parameter("strength",0.0);water_paint.set_shader_parameter("pixel_size",.045)
     surface.material_override=water_paint;add_child(surface)
 
 func apply_exterior_materials(base: Material,rim: Material) -> void:

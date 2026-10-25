@@ -1,17 +1,17 @@
 extends RefCounted
 const CONFIG="res://assets/models/fish/motion/eye-relief112.json"
 func apply(model: Node3D,species: String)->int:
-    var data=JSON.parse_string(FileAccess.get_file_as_string(CONFIG))
+    var data=preload("res://scripts/aquarium/FishRuntimeData.gd").read_json(CONFIG)
     assert(data is Dictionary and data.get("profiles") is Dictionary)
     if not data.profiles.has(species):return 0
     var p: Dictionary=data.profiles[species]
-    assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale eye relief112")
+    assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/"+species+".glb")==p.model_sha256,"Stale eye relief112")
     if p.has("support_body_resource"):
         var support:Dictionary=p.support_body_resource
-        assert(FileAccess.get_sha256(support.path)==support.sha256,"Stale current-body eye support")
+        assert(preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(support.path)==support.sha256,"Stale current-body eye support")
         var owner:String=p.get("support_owner","mouth-repair139")
         assert(owner in ["mouth-repair139","fin-source141"],"Unknown current-eye support owner")
-        var installed=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/"+owner+".json"))
+        var installed=preload("res://scripts/aquarium/FishRuntimeData.gd").read_json("res://assets/models/fish/motion/"+owner+".json")
         assert(installed.profiles[species].body==support,"Eye cap no longer matches installed body")
     var body=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(body!=null and body.skin!=null)
@@ -70,6 +70,6 @@ func apply(model: Node3D,species: String)->int:
         mesh.surface_set_material(0,material)
         var instance=MeshInstance3D.new();instance.name="Eye_relief112_"+str(cap.side);instance.mesh=mesh
         body.get_parent().add_child(instance);instance.transform=body.transform;instance.skin=body.skin;instance.skeleton=body.skeleton
-        instance.set_meta("decorative_relief112",{"underlying_body":p.mesh,"model_sha256":p.model_sha256,"profile_sha256":FileAccess.get_sha256(CONFIG),"source_rgba_sha256":p.get("source_rgba_sha256","")})
-    model.set_meta("eye_relief112_receipt",{"species":species,"caps":2,"underlying_body_intact":true,"model_sha256":p.model_sha256,"profile_sha256":FileAccess.get_sha256(CONFIG),"helper_sha256":FileAccess.get_sha256(get_script().resource_path)})
+        instance.set_meta("decorative_relief112",{"underlying_body":p.mesh,"model_sha256":p.model_sha256,"profile_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(CONFIG),"source_rgba_sha256":p.get("source_rgba_sha256","")})
+    model.set_meta("eye_relief112_receipt",{"species":species,"caps":2,"underlying_body_intact":true,"model_sha256":p.model_sha256,"profile_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(CONFIG),"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path)})
     return 2

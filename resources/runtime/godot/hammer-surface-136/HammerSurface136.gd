@@ -12,7 +12,7 @@ const MOUTHS={
 ## Candidate continuous source projection. Geometry and original pixels stay intact.
 func retain_reviewed_detail(model:Node3D,species:String)->void:
     var config=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/hammer-lods137.json")).profiles[species]
-    assert(config.model_sha256==FileAccess.get_sha256(model.scene_file_path))
+    assert(config.model_sha256==preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path))
     var rest=load("res://scripts/aquarium/RestSurface114.gd").new();var receipts=[]
     for mesh in model.find_children("*","MeshInstance3D",true,false):
         var before=rest.snapshot(mesh);assert(before==config.meshes[str(mesh.name)],"137 imported mesh changed; repeat LOD review")
@@ -21,7 +21,7 @@ func retain_reviewed_detail(model:Node3D,species:String)->void:
         var copy=source.duplicate(false) as ArrayMesh;copy.clear_surfaces();copy.set("_surfaces",raw);mesh.mesh=copy
         var after=rest.snapshot(mesh);assert(before.all_surface_arrays_sha256==after.all_surface_arrays_sha256)
         receipts.append({"mesh":str(mesh.name),"before":before,"after":after,"removed_lods_per_surface":removed,"base_arrays_identical":true})
-    model.set_meta("hammer_lod137_receipt",{"model_sha256":config.model_sha256,"config_sha256":FileAccess.get_sha256("res://assets/models/fish/motion/hammer-lods137.json"),"meshes":receipts})
+    model.set_meta("hammer_lod137_receipt",{"model_sha256":config.model_sha256,"config_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/motion/hammer-lods137.json"),"meshes":receipts})
 
 func wrap_source(original:String)->String:
     var include=FileAccess.get_file_as_string(get_script().resource_path.get_base_dir()+"/HammerSurface136.gdshaderinc")
@@ -45,14 +45,14 @@ func validate(model:Node3D,species:String,mesh:MeshInstance3D,si:int,material:Sh
     if material.get_shader_parameter("hammer137_ventral")!=(si==2) or material.get_shader_parameter("hammer137_mouth_curve")!=PackedVector4Array(MOUTHS[species]):return {"ok":false,"reason":"137 wrong mouth chart"}
     if material.get_shader_parameter("hammer137_bottom")!=body.mesh.surface_get_material(2).albedo_texture:return {"ok":false,"reason":"137 bottom source changed"}
     var lod_receipt:Dictionary=model.get_meta("hammer_lod137_receipt",{})
-    if lod_receipt.get("model_sha256","")!=FileAccess.get_sha256(model.scene_file_path) or lod_receipt.get("config_sha256","")!=FileAccess.get_sha256("res://assets/models/fish/motion/hammer-lods137.json"):return {"ok":false,"reason":"137 stale full-detail policy"}
+    if lod_receipt.get("model_sha256","")!=preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(model.scene_file_path) or lod_receipt.get("config_sha256","")!=preload("res://scripts/aquarium/FishRuntimeData.gd").sha256("res://assets/models/fish/motion/hammer-lods137.json"):return {"ok":false,"reason":"137 stale full-detail policy"}
     for item in lod_receipt.meshes:
         var target=model.find_child(item.mesh,true,false) as MeshInstance3D
         if load("res://scripts/aquarium/RestSurface114.gd").new().snapshot(target)!=item.after:return {"ok":false,"reason":"137 mesh or LOD table changed"}
         for raw in target.mesh.get("_surfaces"):
             if not raw.get("lods",[]).is_empty():return {"ok":false,"reason":"137 rejected generated LOD active"}
     var rest=load("res://scripts/aquarium/RestSurface114.gd").new().validate(model,mesh,si,material)
-    return {"ok":true,"species":species,"mesh":str(mesh.name),"surface":si,"model_sha256":rest.model_sha256,"helper_sha256":FileAccess.get_sha256(get_script().resource_path),"template_sha256":FileAccess.get_sha256(get_script().resource_path.get_base_dir()+"/HammerSurface136.gdshaderinc"),"generated_shader_sha256":material.shader.code.sha256_text(),"rest_tables":rest.tables_sha256}
+    return {"ok":true,"species":species,"mesh":str(mesh.name),"surface":si,"model_sha256":rest.model_sha256,"helper_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path),"template_sha256":preload("res://scripts/aquarium/FishRuntimeData.gd").sha256(get_script().resource_path.get_base_dir()+"/HammerSurface136.gdshaderinc"),"generated_shader_sha256":material.shader.code.sha256_text(),"rest_tables":rest.tables_sha256}
 
 func apply(model:Node3D,species:String)->int:
     if not PROJECTIONS.has(species):return 0

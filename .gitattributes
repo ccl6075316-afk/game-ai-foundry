@@ -40,3 +40,6 @@
 /projects/aquascape-*/**/*.png filter=lfs diff=lfs merge=lfs -text
 /projects/aquarium-hall-materials-*/**/*.png filter=lfs diff=lfs merge=lfs -text
 /resources/runtime/godot/finalized-fish/** -text whitespace=cr-at-eol
+
+# Low-poly review source bytes are bound by experimental validation reports.
+/resources/runtime/godot/lowpoly-review/** -text whitespace=cr-at-eol
