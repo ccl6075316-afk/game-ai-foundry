@@ -33,7 +33,12 @@ rows=[]
 for s,p in params.items():
  physical=frozen(p.get('physical_surface',p['native_surface']));v,t=arrays(physical);body=tree(v,t);inside=build(v,t)
  sv,st=arrays(frozen(p['native_surface']));support=tree(sv,st)
- span=float(v[:,0].max()-v[:,0].min());scale=float(motion[s]['real_length_cm'])/100/span
+ span=float(v[:,0].max()-v[:,0].min())
+ # A terminal body shell does not include the caudal fin. New candidates can
+ # freeze the actual whole-model TL used by the game instead of scaling TL to
+ # the shorter body. Legacy inputs retain their original report semantics.
+ display_span=float(p.get('display_length_native',span));assert np.isfinite(display_span) and display_span>=span-1e-6
+ scale=float(motion[s]['real_length_cm'])/100/display_span
  # Frozen engineering limits in actual display units; art height is separate.
  penetration_mm=.075;rim_extra_mm=.025;numeric_native=max(1e-7,float(np.abs(v).max())*1e-7)
  caps=[]
@@ -59,7 +64,7 @@ for s,p in params.items():
   limit_mm=peak*.015*scale*1000+rim_extra_mm
   ok=bool(minimum_mm>=-penetration_mm and base_error<=numeric_native and rim_mm<=limit_mm and area.min()>1e-14 and bone_ok and source_opaque and np.max(relief)<=peak*1.016)
   caps.append(dict(ok=ok,side=cap['side'],finite_probes=len(probes),signed_min_mm=minimum_mm,base_support_error_native=base_error,bvh_nearest_base_roundoff_native=bvh_base_error,base_error_method='Actual finite support triangle and nonnegative normalized barycentric identity',base_error_limit=numeric_native,rim_distance_mm=rim_mm,rim_limit_mm=limit_mm,peak_mm=peak*scale*1000,bones_weights_valid=bone_ok,native_source_opaque=source_opaque,minimum_area_native=float(area.min())))
- row=dict(species=s,ok=all(c['ok']for c in caps),caps=caps,physical_body_sha256=hashlib.sha256(raw(physical)).hexdigest(),support_sha256=p['native_surface']['sha256'],limits='75 micrometre finite-body penetration bound; rim separates deliberate15/1000 peak offset from25 micrometre numeric margin. Base error scales only float precision. Art height not anatomy; static finite probes are not continuous-time proof.')
+ row=dict(species=s,ok=all(c['ok']for c in caps),caps=caps,display_length_native=display_span,scale_m_per_native=scale,physical_body_sha256=hashlib.sha256(raw(physical)).hexdigest(),support_sha256=p['native_surface']['sha256'],limits='75 micrometre finite-body penetration bound; rim separates deliberate15/1000 peak offset from25 micrometre numeric margin. Base error scales only float precision. Art height not anatomy; static finite probes are not continuous-time proof.')
  rows.append(row);print(s,row['ok'],[(round(c['signed_min_mm'],4),round(c['rim_distance_mm'],4))for c in caps],flush=True)
 a.output.parent.mkdir(parents=True,exist_ok=True)
 a.output.write_text(json.dumps(dict(ok=all(r['ok']for r in rows),rows=rows,checker_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),parameters_sha256=hashlib.sha256(a.parameters.read_bytes()).hexdigest(),profiles_sha256=hashlib.sha256(a.profiles.read_bytes()).hexdigest()),indent=2)+'\n')

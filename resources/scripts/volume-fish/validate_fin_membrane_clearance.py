@@ -9,6 +9,7 @@ def main():
     p.add_argument('--checker-timeout',type=float,default=240,help='Seconds per Blender gate for dense candidate meshes; does not change geometric limits.')
     p.add_argument('--export-timeout',type=float,default=240,help='Seconds for the complete posed export; does not change pose coverage.')
     p.add_argument('--reuse-export',action='store_true',help='Resume checks on an existing complete export only after all current source/controller/candidate hashes match.')
+    p.add_argument('--membrane-workers',type=int,default=1,help='Parallel partitions of the same490 poses; checker, coverage and tolerances unchanged.')
     a=p.parse_args();assert a.checker_timeout>0;a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=True)
     scripts=Path(__file__).resolve().parent;plan=json.loads(a.plan.read_text(encoding='utf8'));spec=next(x for x in plan['items'] if x['species']==a.species)
     exporter=a.exporter.resolve() if a.exporter else scripts/'export_runtime_fin_roots.gd'
@@ -31,9 +32,14 @@ def main():
         for checker,label,extra in [('check_runtime_fin_attachment.py','roots',['--tolerance-cm','.10','--max-penetration-cm','.60']),('check_fin_membrane_collision.py','membranes',['--root-collar-mm',str(limits['root_collar_mm']),'--penetration-tolerance-mm',str(limits['penetration_tolerance_mm'])])]:
             target=folder/(label+'.validation.json')
             if target.exists():target.unlink()
-            run=subprocess.run([str(a.blender),'-b','--python',str(scripts/checker),'--','--export',str(export),'--output',str(target),*extra],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=a.checker_timeout)
-            (folder/(label+'.log')).write_text(run.stdout+run.stderr,encoding='utf8');assert target.exists(),'Missing '+label+' report'
-            data=json.loads(target.read_text(encoding='utf8'));checks.append({'check':label,'ok':run.returncode==0 and data['ok'],'report':str(target),'sha256':sha(target)})
+            if label=='membranes' and a.membrane_workers>1:
+                from partition_fin_membranes import run as partitioned
+                code,log=partitioned(a.blender,scripts/checker,export,target,extra,a.membrane_workers,a.checker_timeout)
+            else:
+                run=subprocess.run([str(a.blender),'-b','--python',str(scripts/checker),'--','--export',str(export),'--output',str(target),*extra],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=a.checker_timeout)
+                code=run.returncode;log=run.stdout+run.stderr
+            (folder/(label+'.log')).write_text(log,encoding='utf8');assert target.exists(),'Missing '+label+' report'
+            data=json.loads(target.read_text(encoding='utf8'));checks.append({'check':label,'ok':code==0 and data['ok'],'report':str(target),'sha256':sha(target)})
             assert data['model_sha256']==sha(spec['model']) and data['controller_sha256']==sha(a.game/spec.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')) and data['motion_config_sha256']==sha(a.game/'assets/models/fish/motion/motion.json'),'Runtime changed during validation'
             assert data['checker_sha256']==sha(scripts/checker),'Checker changed during validation'
         assert sha(export)==export_hash,'Posed export changed during checks'

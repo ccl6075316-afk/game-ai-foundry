@@ -1,0 +1,35 @@
+{
+  "kind": "rest_surface_distance_skin",
+  "species": "whale_shark",
+  "source_body": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-153\\baseline\\body.res",
+    "sha256": "db372553918386e91f4de8bc7be1ddc230ef6ed96fff366e0630a5eac515f303"
+  },
+  "flat_source": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-dorsal153r3\\output\\tex_whale_shark_dorsal153r3_raw.png",
+    "sha256": "c0ba7f908389db4afe0de7f26dc631e01c7dc4092aeedd93ff530fb9427b10ca"
+  },
+  "arc_lut": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-153\\arc-distance.rf32",
+    "sha256": "2c1175ce753fa58c496d0609f21404d273d0c4e52c466c80701651a122abb874"
+  },
+  "arc_size": [
+    512,
+    513
+  ],
+  "arc_x": [
+    -0.337414,
+    0.33462
+  ],
+  "head_keep": [
+    0.2,
+    0.3
+  ],
+  "native_extent": [
+    0.7,
+    0.35
+  ],
+  "native_origin_x": -0.35,
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-153\\candidate-r3",
+  "scope": "Posterior dorsal field153;152 head, belly, all geometry/eyes/lips/fins/control retained."
+}

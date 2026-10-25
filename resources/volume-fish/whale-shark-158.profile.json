@@ -1,0 +1,69 @@
+{
+  "species": "whale_shark",
+  "scientific_name": "Rhincodon typus",
+  "status": "pending",
+  "next_action": "human_review",
+  "user_appearance": "pending",
+  "baseline157_user_rejected": true,
+  "source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\whale-shark154\\originals\\top151.png",
+    "sha256": "62e29afa598148c353370236c5b0976ca35c5af8240c13d8b6f169d37c299e99"
+  },
+  "form": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\whale-shark-form-158.json",
+    "sha256": "11057d1fb07a7264ed5503f4c5317f1e64cc551d5e0bec3f8dd8da163d5a705c"
+  },
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\final-r1\\fish.glb",
+    "sha256": "a7e40c3fb0f0e906d631ce597d229a1cf296b29e4638e2976b62ef82db79c835"
+  },
+  "editable": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\final-r1\\whale_shark.blend",
+    "sha256": "5a1661b2cb7c3a8a4ae3ff3528516f1df10ecfde40c624f7931628d624df04d3"
+  },
+  "runtime": "E:\\game-ai-foundry\\projects\\whale-shark-158\\runtime\\game",
+  "scene": "res://scenes/whale_shark158_review.tscn",
+  "checks": {
+    "source-shape.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\source-shape.validation.json",
+      "sha256": "76acd1f1d64e91e3b82f76b51b9b6bc1f86a86187b04666cc033b385f9474704"
+    },
+    "packed-static-identity.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\packed-static-identity.validation.json",
+      "sha256": "5586a066343ca48c11336862cdcdc4df0e93fa6d954baa18d538f93ae01d7348"
+    },
+    "static-membrane.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\static-membrane.validation.json",
+      "sha256": "e56ed3c3ab59b0ecd83100842e2b5712d9bdf7b165f823f42ccb3bb7c2c2c176"
+    },
+    "local-membrane.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\local-membrane.validation.json",
+      "sha256": "709d018c876a334b7ba15e198bdc2100c8c1d6c8770c31b5356d118e4a7f9d9d"
+    },
+    "local-roots.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\local-roots.validation.json",
+      "sha256": "ea473dcc78cb3f7dfbb693de3e1aa11fb1e8dbf8e30d44c96b00b80dff071218"
+    },
+    "lip-contact.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\lip-contact.validation.json",
+      "sha256": "ea6e0f107ec2ab05ba241621480a57d5445f6ff7b2ab858781324f14ab477895"
+    },
+    "eye-contact.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\eye-contact.validation.json",
+      "sha256": "04719013524fc56912f53ea542f7e0ea652d910adf33cc418ed57b09048ee528"
+    },
+    "cold/cold.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\cold\\cold.validation.json",
+      "sha256": "6e48fcc09b3f999c2b1e66273ab017a451ffbee2d6fd2dfcec6032b7a8ba58c0"
+    },
+    "final-r1/editable.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-158\\final-r1\\editable.validation.json",
+      "sha256": "d26984effd76eca8d91d7833bed3ad4a00735ca00c7fbdfbb75f05e8e33d1fc8"
+    }
+  },
+  "remaining": [
+    "User shape review; full177/490/current077/GPU and final SOP gate after shape freeze"
+  ],
+  "known_projection_difference": "Strict top edge-on vertical caudal fin versus painted source caudal width. Full caudal retained in side view; not flattened into horizontal fin.",
+  "scope": "158 local repair and shape review, not final delivery. Current8 representative poses passed for all8fins, not full action coverage. Historical157 full checks retained and not rebound."
+}

@@ -29,8 +29,21 @@ def main():
  p.add_argument('--exporter',type=Path,help='Explicit frozen runtime exporter; defaults to the standard exporter')
  p.add_argument('--checker-timeout',type=float,default=180,help='Seconds per dense complete-root check; geometric limits unchanged.')
  p.add_argument('--discard-passing-samples',action='store_true',help='After a complete successful fish check, retain receipts and remove its regenerable dense pose JSON. Failed evidence is retained.')
+ p.add_argument('--reuse-full490-completion',type=Path,help='Bind this root gate to an already passing CURRENT490 completion after exact model/runtime/checker/export hashes; does not claim a new177 run.')
  a=p.parse_args();a.output=a.output.resolve();a.output.mkdir(parents=True,exist_ok=True);plan=json.loads(a.plan.read_text(encoding='utf8'));script=Path(__file__).parent;items=[r for r in plan['items'] if not a.species or r['species']==a.species];assert items,'No matching fish'
  exporter=a.exporter.resolve() if a.exporter else script/'export_runtime_fin_roots.gd'
+ if a.reuse_full490_completion:
+  try:
+   assert len(items)==1,'Reuse requires one explicit species';r=items[0];source=json.loads(a.reuse_full490_completion.read_text());assert source['ok'] and source['poses']==490 and source['model_sha256']==sha(r['model'])==r['model_sha256']
+   assert source['plan_sha256']==sha(a.plan) and source['exporter_sha256']==sha(exporter),'Different490 plan/exporter'
+   proof=next(x for x in source['checks']if x['check']=='roots');assert proof['ok'] and sha(proof['report'])==proof['sha256'];value=json.loads(Path(proof['report']).read_text());assert value['ok'] and len(value['samples'])==490 and value['checker_sha256']==sha(script/'check_runtime_fin_attachment.py') and value['export_script_sha256']==sha(exporter)
+   assert value['coverage_checker_sha256']==sha(script/'runtime_pose_coverage.py') and value['tolerance_cm']==.10 and value['max_penetration_cm']==.60,'Different coverage or root limits'
+   assert value['export_report_sha256']==source['export_sha256']==sha(value['export_report']),'Stale490 posed export'
+   for key,file in [('controller_sha256',r.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')),('exhibit_sha256','scripts/aquarium/VolumeFishExhibit.gd'),('motion_config_sha256','assets/models/fish/motion/motion.json')]:assert value[key]==sha(a.game/file),'Stale490 runtime'
+   assert set(value['summary'])==set(r['fins']) and value['model_sha256']==r['model_sha256'];assert all(v['failed_contact_samples']==0 for v in value['summary'].values())
+   result={'ok':True,'status':'done','next_action':'human_review','checks':[{'species':r['species'],'ok':True,'fins':len(r['fins']),'poses':490,'report':proof['report'],'report_sha256':proof['sha256']}],'plan_sha256':sha(a.plan),'reused_current_full490_completion':str(a.reuse_full490_completion),'reused_completion_sha256':sha(a.reuse_full490_completion),'scope':'Exact current490 root report includes177 coverage; no duplicate export or fabricated new177 run.'}
+  except Exception as e:result={'ok':False,'status':'failed','next_action':'fix_input','error':str(e)}
+  (a.output/'completion.validation.json').write_text(json.dumps(result,indent=2));print(json.dumps({'ok':result['ok'],'reused_current490':True}));return 0 if result['ok']else 1
  cmd=[str(a.godot),'--headless','--quit-after','120','--path',str(a.game.resolve()),'--script',str(exporter),'--',str(a.plan.resolve()),str(a.output),'completion']
  if a.species:cmd.append(a.species)
  try:

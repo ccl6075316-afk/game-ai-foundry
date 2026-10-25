@@ -8,6 +8,7 @@ from click.testing import CliRunner
 from PIL import Image
 from volume_cmds import volume_group
 from volume_sop import STAGES, INPUT_ROLES, initialize, check, sha, write
+from volume_finalization import COLD_CHECKS
 
 
 class SopTests(unittest.TestCase):
@@ -21,7 +22,7 @@ class SopTests(unittest.TestCase):
     def populated_fixture(self):
         # Synthetic artifacts exercise bookkeeping, never visual acceptance.
         for role in INPUT_ROLES:
-            path = self.root / (role + '.dat')
+            path = self.root / (role + ('.glb' if role == 'model' else '.dat'))
             path.write_text(role)
             self.data['candidate_files'][role] = {'path': path.name, 'sha256': sha(path)}
         geometry = self.root/'lips.json'
@@ -37,14 +38,29 @@ class SopTests(unittest.TestCase):
         Image.new('RGB', (2, 2)).save(paths['image'])
         write(paths['report'], {'ok': True})
         paths['video'].write_bytes(b'Fixture tests metadata only, not video decoding')
+        source = self.root/'editable.blend'
+        source.write_bytes(b'Synthetic authoring source, not a Blender file')
+        self.data['candidate_files']['editable_source'] = {'path':source.name, 'sha256':sha(source)}
+        self.data['stages']['runtime']['finalization'] = {
+            'state':'exported', 'editable_source_role':'editable_source', 'model_role':'model',
+            'entry_role':'model', 'static_parts':{name:{'geometry_uv_weights_role':'model',
+                'observation':'Synthetic declared model part'} for name in ('body','eyes','mouth','fins')},
+            'engine_resource_roles':[], 'runtime_behaviors':[]}
         frozen = {k: v['sha256'] for k, v in self.data['candidate_files'].items()}
+        self.cold_path = self.root/'final-cold.json'
+        self.cold = {'ok':True, 'kind':'fish_final_asset_cold_load', 'species':'fixture_only',
+            'bound_inputs':dict(frozen), 'entry_role':'model', 'fresh_process':True,
+            'static_builders_disabled':True, 'runtime_static_build_calls':0, 'errors':[],
+            'checks':{k:True for k in COLD_CHECKS}}
+        write(self.cold_path, self.cold)
         for stage, criteria in STAGES.items():
             entry = self.data['stages'][stage]
             entry.update(result='passed', method='Fixture method', reviewer='Test', observations='Fixture only')
             for criterion, kind in criteria.items():
                 eid = stage + '.' + criterion
                 entry['checks'][criterion] = [eid]
-                self.data['evidence'][eid] = {'path': paths[kind].name, 'sha256': sha(paths[kind]),
+                path = self.cold_path if criterion == 'final_asset_cold_load' else paths[kind]
+                self.data['evidence'][eid] = {'path': path.name, 'sha256': sha(path),
                     'kind': kind, 'bound_inputs': dict(frozen), 'observation': 'Fixture only'}
         write(self.review, self.data)
 
@@ -124,7 +140,7 @@ class SopTests(unittest.TestCase):
 
     def test_changed_candidate_and_old_binding_are_rejected(self):
         self.populated_fixture()
-        path = self.root/'model.dat'
+        path = self.root/'model.glb'
         path.write_text('new model')
         self.assertTrue(any(f['code'] == 'stale_artifact' for f in check(self.review)['failures']))
         self.data['candidate_files']['model']['sha256'] = sha(path)
@@ -144,7 +160,7 @@ class SopTests(unittest.TestCase):
     def test_no_overwrite_of_review_inputs_or_evidence(self):
         self.populated_fixture()
         with self.assertRaises(ValueError): initialize('replacement', self.review)
-        for target in [self.review, self.root/'model.dat', self.root/'view.png']:
+        for target in [self.review, self.root/'model.glb', self.root/'view.png']:
             before = target.read_bytes()
             with self.assertRaises(ValueError): check(self.review, target)
             self.assertEqual(before, target.read_bytes())
@@ -154,6 +170,77 @@ class SopTests(unittest.TestCase):
         self.data['evidence']['head.clay_front']['observation'] = 7
         write(self.review, self.data)
         self.assertTrue(any(f['code'] == 'missing_observation' for f in check(self.review)['failures']))
+
+    def test_old_review_without_final_export_is_blocked(self):
+        self.populated_fixture()
+        del self.data['stages']['runtime']['finalization']
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='asset_not_finalized' for f in check(self.review)['failures']))
+
+    def test_pending_export_and_static_eye_builder_cannot_be_final(self):
+        self.populated_fixture()
+        declaration=self.data['stages']['runtime']['finalization']
+        declaration['state']='experiment'
+        write(self.review,self.data)
+        self.assertFalse(check(self.review)['ok'])
+        declaration['state']='exported'
+        declaration['static_parts']['eyes']['geometry_uv_weights_role']='runtime_manifest'
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='static_part_not_in_model' for f in check(self.review)['failures']))
+
+    def test_generic_passed_report_does_not_prove_cold_final_asset(self):
+        self.populated_fixture()
+        evidence=self.data['evidence']['runtime.final_asset_cold_load']
+        evidence.update(path='gate.json',sha256=sha(self.root/'gate.json'))
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='invalid_final_asset_cold_load' for f in check(self.review)['failures']))
+
+    def test_warm_load_build_calls_wrong_species_binding_and_errors_block_final(self):
+        self.populated_fixture()
+        original=dict(self.cold)
+        for changes in ({'fresh_process':False}, {'static_builders_disabled':False},
+                        {'runtime_static_build_calls':1}, {'runtime_static_build_calls':False},
+                        {'species':'another_fish'}, {'bound_inputs':{}},
+                        {'entry_role':'runtime_manifest'}, {'errors':['shader failure']},
+                        {'checks':{'independent_load':True}}):
+            with self.subTest(changes=changes):
+                write(self.cold_path,{**original,**changes})
+                self.data['evidence']['runtime.final_asset_cold_load']['sha256']=sha(self.cold_path)
+                write(self.review,self.data)
+                self.assertTrue(any(f['code']=='invalid_final_asset_cold_load' for f in check(self.review)['failures']))
+
+    def test_missing_editable_source_and_empty_export_are_blocked(self):
+        self.populated_fixture()
+        self.data['stages']['runtime']['finalization']['editable_source_role']='missing_source'
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='missing_final_asset_role' for f in check(self.review)['failures']))
+        (self.root/'model.glb').write_bytes(b'')
+        self.data['candidate_files']['model']['sha256']=sha(self.root/'model.glb')
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='empty_final_asset' for f in check(self.review)['failures']))
+
+    def test_runtime_static_construction_is_not_an_allowed_behavior(self):
+        self.populated_fixture()
+        self.data['stages']['runtime']['finalization']['runtime_behaviors']=[
+            {'resource_role':'runtime_manifest','purpose':'static_geometry_build','observation':'Build eye at entry'}]
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='invalid_runtime_behavior' for f in check(self.review)['failures']))
+
+    def test_shader_animation_resources_can_remain_in_engine(self):
+        self.populated_fixture()
+        shader=self.root/'pixel.gdshader';shader.write_text('shader_type spatial;')
+        self.data['candidate_files']['pixel_shader']={'path':shader.name,'sha256':sha(shader)}
+        declaration=self.data['stages']['runtime']['finalization']
+        declaration['engine_resource_roles']=['pixel_shader']
+        declaration['runtime_behaviors']=[{'resource_role':'motion_config',
+            'purpose':'animation','observation':'Independent per-fish animation remains live'}]
+        frozen={k:v['sha256'] for k,v in self.data['candidate_files'].items()}
+        self.cold['bound_inputs']=frozen
+        write(self.cold_path,self.cold)
+        for row in self.data['evidence'].values():row['bound_inputs']=dict(frozen)
+        self.data['evidence']['runtime.final_asset_cold_load']['sha256']=sha(self.cold_path)
+        write(self.review,self.data)
+        self.assertTrue(check(self.review)['ok'])
 
 
 if __name__ == '__main__':

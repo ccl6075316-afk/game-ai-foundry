@@ -1,0 +1,54 @@
+{
+  "species": "whale_shark",
+  "status": "diagnostic_not_model_revision",
+  "source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\whale-shark154\\originals\\top151.png",
+    "sha256": "62e29afa598148c353370236c5b0976ca35c5af8240c13d8b6f169d37c299e99"
+  },
+  "actual_model_sha256": "54f1f7ad6b2f90dbda06717841a8cda5df5f913e5158065a9e5732b9744d46b2",
+  "primary_form_target": "First generated top151: horizontal pectoral planform and head outline, user-selected comparison; not biological truth.",
+  "secondary_constraint": "Existing side artwork: vertical placement/thickness/attachment, not unfolded horizontal fin shape.",
+  "source_fin_root_estimates": [
+    {
+      "fin": "Pectoral_left",
+      "endpoints_px": [
+        [
+          1241,
+          375
+        ],
+        [
+          1510,
+          333
+        ]
+      ]
+    },
+    {
+      "fin": "Pectoral_right",
+      "endpoints_px": [
+        [
+          1241,
+          699
+        ],
+        [
+          1510,
+          741
+        ]
+      ]
+    }
+  ],
+  "required_changes": [
+    "Preserve approximately correct lateral reach; widen posterior fin chord and full attachment baseline from independently segmented151 top silhouettes.",
+    "Fin leading root already approximately aligned; do not blindly shift entire fin farther forward. Tip currently about2.5%TL forward of artwork.",
+    "Head mostly close; refine angular front corners and local rear width, not another global scaling."
+  ],
+  "evidence": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-156\\top-audit.validation.json",
+    "sha256": "b8b6e8a83611829770d7621abc0219beda9032c55dd36cd81a909721ea822521"
+  },
+  "limits": [
+    "Original151 generated artwork is the user-requested style/form target, not anatomy evidence.",
+    "Source fin-root endpoints/contour are manual visible-image estimates; about15source-pixel uncertainty at attachment, not species morphometrics.",
+    "Measurements are2D orthographic projections. The photograph is oblique and is only used qualitatively.",
+    "This checks source fidelity, not fin attachment safety or full490 coverage."
+  ]
+}

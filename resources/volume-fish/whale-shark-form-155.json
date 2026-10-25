@@ -1,0 +1,82 @@
+{
+  "kind": "whale_head_pectoral_form_revision",
+  "species": "whale_shark",
+  "source_model": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-155\\runtime\\game\\assets\\models\\fish\\whale_shark.glb",
+    "sha256": "549b982560c0ced3ba1a58bed4d1cd1e22fe181e63e7ed639aef02590aae6522"
+  },
+  "body": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\body.bound.json",
+    "sha256": "fe2148190d05eac89a2112861006070b252eb1727c3c72813ca947ce0e5a2b19"
+  },
+  "lips": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\aligned-lips.mesh.json",
+    "sha256": "7438df88d784261c351d55f737ed96df387ab959c0cc2d9a49d107a26c4fd84e"
+  },
+  "fin_plan": "E:\\game-ai-foundry\\projects\\whale-shark-154\\fin.plan.json",
+  "head": {
+    "width_stations": [
+      [
+        0.1,
+        1.0
+      ],
+      [
+        0.24,
+        0.96
+      ],
+      [
+        0.34,
+        0.87
+      ],
+      [
+        0.51,
+        0.87
+      ]
+    ],
+    "round_front": {
+      "start_x": 0.31,
+      "end_x": 0.49,
+      "corner_retreat": 0.024,
+      "reference_half_width": 0.11
+    }
+  },
+  "pectoral": {
+    "Pectoral_left": {
+      "rotation_x_degrees": -40.0,
+      "translation": [
+        0.045,
+        0,
+        0
+      ]
+    },
+    "Pectoral_right": {
+      "rotation_x_degrees": 40.0,
+      "translation": [
+        0.045,
+        0,
+        0
+      ]
+    }
+  },
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-155\\geometry-r1",
+  "constraints": "User requests moderately narrower head, rounded existing front corners rather than added point, pectoral origin forward and shark-like horizontal neutral spread. Original154 white midline and aligned rows retained; shape before material acceptance.13%head gain and40deg fin correction are production choices to review, not biological measurements.",
+  "research": {
+    "taxon": "Rhincodon typus",
+    "sources": [
+      "https://www.fao.org/4/y4160e/y4160e31.pdf",
+      "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/whale-shark/",
+      "https://biogeodb.stri.si.edu/caribbean/en/thefishes/species/26"
+    ],
+    "observations": "Broad depressed head, short truncated snout; posterior3gill slits over pectoral bases. Actual same-species dorsal26_5746 and ventral26_5741 show lateral fin spread and curved head corners; exact angular plane and same-individual dimensions unknown.",
+    "photos": [
+      {
+        "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\references\\26_5746.jpg",
+        "sha256": "d813b4efab31c8888278c34a6e1c0a45e1bc47f2d0211e491ac66762873888da"
+      },
+      {
+        "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\references\\26_5741.jpg",
+        "sha256": "ba300b06538729392078842fa8b20773a853d74a596c4d48c06dd63748c443ab"
+      }
+    ]
+  }
+}

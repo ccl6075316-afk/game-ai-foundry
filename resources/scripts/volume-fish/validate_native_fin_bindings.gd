@@ -6,7 +6,7 @@ func base_pixels(texture:Texture2D)->PackedByteArray:
     im.clear_mipmaps();im.convert(Image.FORMAT_RGBA8);return im.get_data()
 func _initialize():call_deferred("run")
 func run():
-    var args=OS.get_cmdline_user_args();assert(args.size()==2);var plan=JSON.parse_string(FileAccess.get_file_as_string(args[0]));assert(not plan.items.is_empty())
+    var args=OS.get_cmdline_user_args();assert(args.size()>=2);var plan=JSON.parse_string(FileAccess.get_file_as_string(args[0]));assert(not plan.items.is_empty());var mutated=false
     var hall=load("res://scripts/aquarium/VolumeFishExhibit.gd").new();root.add_child(hall);hall.set_process(false);hall.paused=true;var rows=[]
     var ownership=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/surface-ownership.json")).profiles
     for spec in plan.items:
@@ -16,8 +16,17 @@ func run():
             var definition:Dictionary=spec.fins[name]
             for si in node.mesh.get_surface_count():
                 var original=node.mesh.surface_get_material(si) as StandardMaterial3D;var actual=node.get_active_material(si) as ShaderMaterial
-                assert(original!=null and actual!=null and actual.get_shader_parameter("source_texture")==original.albedo_texture,"Native fin chart rebound")
-                assert(actual.shader.resource_path=="res://scripts/aquarium/FishSurfaceOwnership.gdshader" and actual.get_shader_parameter("fin")==true)
+                assert(original!=null and actual!=null)
+                if e.model.has_meta("final_asset157_receipt"):
+                    var frozen:Dictionary=e.model.get_meta("final_asset157_receipt");assert(frozen.static_builders_disabled and frozen.static_build_calls==0)
+                    if "--mutate-native-pixel" in args and not mutated:
+                        var im=(actual.get_shader_parameter("source_texture")as Texture2D).get_image().duplicate();im.clear_mipmaps();im.convert(Image.FORMAT_RGBA8);im.set_pixel(0,0,Color(1,0,1,1));actual.set_shader_parameter("source_texture",ImageTexture.create_from_image(im));mutated=true
+                    assert(base_pixels(actual.get_shader_parameter("source_texture"))==base_pixels(original.albedo_texture),"Final portable native pixels changed")
+                    assert(actual.shader.code==load("res://scripts/aquarium/FishSurfaceOwnership.gdshader").code,"Final portable fin shader changed")
+                else:
+                    assert(actual.get_shader_parameter("source_texture")==original.albedo_texture,"Native fin chart rebound")
+                    assert(actual.shader.resource_path=="res://scripts/aquarium/FishSurfaceOwnership.gdshader")
+                assert(actual.get_shader_parameter("fin")==true)
                 assert(actual.get_shader_parameter("edge_count")==0 and is_zero_approx(actual.get_shader_parameter("ink_width")),"Native ink must not receive an extra contour")
                 assert(original.albedo_texture.get_size()==Vector2(definition.native_size[0],definition.native_size[1]),"Native fin resampled")
                 assert(node.mesh.get("_surfaces")[si].get("lods",[]).is_empty(),"This native full-detail branch cannot select rejected coarse fin geometry")

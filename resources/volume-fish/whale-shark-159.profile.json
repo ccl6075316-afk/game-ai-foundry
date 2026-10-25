@@ -1,0 +1,71 @@
+{
+  "species": "whale_shark",
+  "scientific_name": "Rhincodon typus",
+  "fin_section_class": "cartilaginous_foil",
+  "status": "pending",
+  "next_action": "human_review",
+  "user_appearance": "pending",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\fish.glb",
+    "sha256": "8a10d9ba17defee7c1e72ebe8bf31e2485aa2c433606e42ef7d863edfe24e261"
+  },
+  "blend": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\whale_shark.blend",
+    "sha256": "26e88cfe75fa2b7bacd6e2839334f455d6f3cb9be297f296e6c773fb5277a1c8"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\whale-shark-fin-volume-159.json",
+    "sha256": "c38cac372a406050f68c209e4ce0831d0b869d7976c559045dba79a08e9f47d3"
+  },
+  "source_plan": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\foil-r1\\candidate.plan.json",
+    "sha256": "d737cd2b110f6253bb0005fc98cc89fe4315aaf6e9eabd26ec0f64e12774f1a4"
+  },
+  "basal_contact_plan": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\fin.plan.json",
+    "sha256": "52c79c21a75eccc393eb33da52ba8e25be3f3e92e09d2360b6a608dfcd198cd8"
+  },
+  "runtime": "E:\\game-ai-foundry\\projects\\whale-shark-159\\runtime\\game",
+  "scene": "res://scenes/whale_shark159_review.tscn",
+  "checks": {
+    "volume-preservation.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\volume-preservation.validation.json",
+      "sha256": "aa3c8c1bd5706e22a5ca7ce63d30a635c27840229cfbbc446e90fa672878ab91"
+    },
+    "static-membrane-r5.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\static-membrane-r5.validation.json",
+      "sha256": "30c7e897eeceeda279fd2a925fcac1bbc0bf2463f403be1f761394a62d789245"
+    },
+    "local-membrane-r5.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\local-membrane-r5.validation.json",
+      "sha256": "967e643d8433c5824183a743e720a18e3f5d10de23147f910327d2e7eb9b344e"
+    },
+    "local-roots-r5.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\local-roots-r5.validation.json",
+      "sha256": "eadc5fa31d835858b61a4d1ef9e4f2b0a83ae14118058633f8e6cf9765701272"
+    },
+    "cold/cold.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\cold\\cold.validation.json",
+      "sha256": "a801ec013fe8e3b9be8a108f876d1dbb3d9df489517cc72fbf81d667eed7b89f"
+    },
+    "final-r1/editable.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\editable.validation.json",
+      "sha256": "d26984effd76eca8d91d7833bed3ad4a00735ca00c7fbdfbb75f05e8e33d1fc8"
+    },
+    "closeups-r5/capture.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\closeups-r5\\capture.validation.json",
+      "sha256": "75236f0358c0d99a7340112351325a53f16bcff3834042122305aa5e5190d54e"
+    },
+    "preview-r5/capture.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\preview-r5\\capture.validation.json",
+      "sha256": "5a879d98c2b613095e426364d67130dab186c21333ff79990c68fe712a54c20d"
+    }
+  },
+  "local_poses": 8,
+  "full177_490": "pending",
+  "full_body_GPU_SOP": "pending",
+  "thickness_evidence": "Qualitative species photos plus declared art ratio/caps, not measured species sections. Before158 paper-like1–2mm shell rejected. Current real paired vertex distances recorded independently.",
+  "scope": "Local159 volume repair, not complete fish certification. All8fins foil geometry in GLB/blend, root/free membrane8representative poses with unchanged frozen tolerances. Original body/eyes/lips/native images/UV/rig/animation preserved. Current158 physical reports not rebound to159.",
+  "user_disposition": "retain_current_as_is_user_requested",
+  "retention_note": "User requested commit/push current159 and defer whale work until the general fin issue is resolved. This is not full appearance or final-gate acceptance."
+}

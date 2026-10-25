@@ -23,6 +23,18 @@ def main():
         vs=values(d,b,prim['attributes']['POSITION']);ids=[x[0] for x in values(d,b,prim['indices'])];base=len(positions);positions.extend(Vector(v) for v in vs);triangles.extend(tuple(base+j for j in ids[i:i+3]) for i in range(0,len(ids),3))
         joints=values(d,b,prim['attributes']['JOINTS_0']);weights=values(d,b,prim['attributes']['WEIGHTS_0'])
         body_skin.extend(dict(zip(j,w)) for j,w in zip(joints,weights))
+    # A runtime replacement body is the actual contact surface. The imported
+    # GLB body can be a different, earlier mouth/head revision.
+    body_geometry=spec.get('repair_body_geometry')
+    if body_geometry:
+        source=Path(body_geometry);actual=json.loads(source.read_text(encoding='utf8'))
+        assert hashlib.sha256(source.read_bytes()).hexdigest()==spec['repair_body_geometry_sha256'],'Stale repair body geometry'
+        positions=[];triangles=[];body_skin=[]
+        for part in actual['parts']:
+            base=len(positions);positions.extend(Vector(v) for v in part['vertices'])
+            ids=part['triangles'];triangles.extend(tuple(base+j for j in ids[i:i+3]) for i in range(0,len(ids),3))
+            for i in range(len(part['vertices'])):
+                body_skin.append(dict(zip(part['joints'][i],part['weights'][i])))
     volume=sum(positions[a].dot(positions[c].cross(positions[e])) for a,c,e in triangles)/6
     if volume<0:triangles=[tuple(reversed(t)) for t in triangles]
     bvh=BVHTree.FromPolygons(positions,triangles,all_triangles=True)

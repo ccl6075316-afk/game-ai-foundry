@@ -1,0 +1,27 @@
+{
+  "species": "whale_shark",
+  "scientific_name": "Rhincodon typus",
+  "display_TL_cm": 800,
+  "base_anatomy_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\whale-shark-151.profile.json",
+    "sha256": "f244ae5efb353c8b74b09649b21c2d8c5597a99bd26a5570601639e28041a44f"
+  },
+  "source_top": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\whale-shark154\\originals\\top151.png",
+    "sha256": "62e29afa598148c353370236c5b0976ca35c5af8240c13d8b6f169d37c299e99"
+  },
+  "form_field": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\whale-shark-form-157.json",
+    "sha256": "0c4cc10eaa4304296435eb032bf63f4c961f23fd1d58cab3d871e8ba9bf0eb15"
+  },
+  "horizontal_fin_recipe": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-157\\fins.frozen.plan.json",
+    "sha256": "5f3b347e45c60d8ad1b8e41af432e57bb2c94872ddf96e54fd4e64dd5cfc761e"
+  },
+  "actual_all_fin_plan": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-157\\fin.plan.json",
+    "sha256": "aa63e40aade65b235d2e00356455636346f5ad99c908c1e5e5947f970b5f8008"
+  },
+  "constraints": "Top151 planform with side height; full source basal lines and two-sided finite horizontal shells, body-weighted roots and original fin-bone motion. Actual finite/whole490 gates bound separately.",
+  "unknown": "Exact individual cross-section, underside colour, wild fin amplitude and speed; production values are artistic/engineering choices."
+}

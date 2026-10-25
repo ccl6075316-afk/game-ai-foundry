@@ -68,18 +68,19 @@ varying float probe114_error;
 """
     var code: String=production.code.replace("render_mode","render_mode unshaded,depth_test_disabled,depth_draw_never,")
     if legacy:
-        var stable:String={"chart":"chart112_rest_position=rest114_position;chart112_rest_normal=rest114_normal;","front":"front112_rest=rest114_position;front112_normal=rest114_normal;"}.get(domain,"")
-        var posed:String={"chart":"chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;","front":"front112_rest=VERTEX;front112_normal=NORMAL;"}.get(domain,"")
+        var stable:String={"chart":"chart112_rest_position=rest114_position;chart112_rest_normal=rest114_normal;","front":"front112_rest=rest114_position;front112_normal=rest114_normal;","directional":"skin152_p=rest114_position;skin152_n=rest114_normal;"}.get(domain,"")
+        var posed:String={"chart":"chart112_rest_position=VERTEX;chart112_rest_normal=NORMAL;","front":"front112_rest=VERTEX;front112_normal=NORMAL;","directional":"skin152_p=VERTEX;skin152_n=NORMAL;"}.get(domain,"")
         assert(not stable.is_empty() and code.count(stable)==1)
         code=code.replace(stable,posed)
     code=code.replace("void vertex()",declaration+"\nvoid vertex()")
     var parser=load("res://scripts/aquarium/FishEyeOwnership.gd").new()
     var vertex: Dictionary=parser._stage_braces(code,"vertex")
-    var override: String={"chart":"chart112_rest_position=p.xyz;chart112_rest_normal=n.xyz;","front":"front112_rest=p.xyz;front112_normal=n.xyz;","jaw":"jaw112_rest=p.xyz;"}[domain]
+    var override: String={"chart":"chart112_rest_position=p.xyz;chart112_rest_normal=n.xyz;","front":"front112_rest=p.xyz;front112_normal=n.xyz;","jaw":"jaw112_rest=p.xyz;","directional":"skin152_p=p.xyz;skin152_n=n.xyz;"}[domain]
     var suffix: String="\nif(probe114_mode==1){"+override+"}\nPOSITION=vec4(UV.x*2.-1.,1.-UV.y*2.,0.,1.);\n"
     code=code.insert(vertex.close,suffix);code=code.insert(vertex.open,prefix)
     var fragment: Dictionary=parser._stage_braces(code,"fragment")
     var body_code: String=code.substr(fragment.open,fragment.close-fragment.open) if domain=="jaw" else "ALBEDO="+domain+"112_color(vec3(.15));"
+    if domain=="directional":body_code="ALBEDO=skin152_color(vec3(.15),UV);"
     code=code.substr(0,fragment.open)+body_code+"\nif(probe114_error>.5){ALBEDO=vec3(1.,0.,1.);}\n"+code.substr(fragment.close)
     shader.code=code;assert(not shader.get_shader_uniform_list().is_empty())
     var diagnostic:=ShaderMaterial.new();diagnostic.shader=shader
@@ -99,7 +100,11 @@ varying float probe114_error;
     var donor:=Image.create(512,256,false,Image.FORMAT_RGBA8)
     for y in 256:
         for x in 512:donor.set_pixel(x,y,Color(.15+.55*float((x/3)%2),.2+.5*float((y/3)%2),.3+.3*float(((x/3)+(y/3))%2)))
-    for parameter in {"chart":["chart112_dorsal","chart112_ventral"],"front":["front112_source"],"jaw":["source_texture"]}[domain]:diagnostic.set_shader_parameter(parameter,ImageTexture.create_from_image(donor))
+    for parameter in {"chart":["chart112_dorsal","chart112_ventral"],"front":["front112_source"],"jaw":["source_texture"],"directional":["skin152_top","skin152_bottom"]}[domain]:diagnostic.set_shader_parameter(parameter,ImageTexture.create_from_image(donor))
+    #153 adds a real flat surface-distance field; test it with the same nonuniform
+    #diagnostic donor while retaining its numeric arc LUT (not colour artwork).
+    if domain=="directional" and production.code.contains("uniform sampler2D skin153_flat"):
+        diagnostic.set_shader_parameter("skin153_flat",ImageTexture.create_from_image(donor))
     var records: Array=[]
     var references: Dictionary={}
     var failures: Array=[]

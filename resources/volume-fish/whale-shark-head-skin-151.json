@@ -1,0 +1,40 @@
+{
+  "species": "whale_shark",
+  "source_body": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\resources-r2\\body.res",
+    "sha256": "f2528a56c9d414857852b078039e57ae19b1ed39e07349e64d69178c5112e25f"
+  },
+  "source_image": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\skin\\body-with-attachment.png",
+    "sha256": "7cb5bb8b9a32842a45a8f1cf096fb8a0a78f9994b6056a49d71f8fe8f3d31ece"
+  },
+  "surface": 0,
+  "projection": "rest_triplanar",
+  "normal_power": 6,
+  "support_x": [
+    0.38,
+    0.425
+  ],
+  "protected_native_x_max": 0.37463271302644463,
+  "half_width": 0.25,
+  "donor_rects_px": {
+    "upper": [
+      1650,
+      165,
+      1720,
+      226
+    ],
+    "lower": [
+      1700,
+      310,
+      1780,
+      355
+    ]
+  },
+  "require_lip_continuity": true,
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-151\\generic-head-skin",
+  "notes": [
+    "Only whale151 anterior skin. Independent source eye/gills and native135 lip continuity stay protected.",
+    "Native XY/XZ/ZY texel density; head widths/geometry/UV/skin unchanged. Hidden skin artistic inference, appearance pending user review."
+  ]
+}

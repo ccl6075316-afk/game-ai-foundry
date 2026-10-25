@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "species": "whale_shark",
+  "real_length_cm": 800.0,
+  "head_sign": 1,
+  "base_clip": "Animation",
+  "body_bones": [
+    "body_00",
+    "body_01",
+    "body_02",
+    "body_03",
+    "body_04",
+    "body_05",
+    "body_06",
+    "body_07",
+    "body_08",
+    "body_09",
+    "body_10",
+    "body_11"
+  ],
+  "tank_size_m": [
+    128.0,
+    96.0,
+    112.0
+  ],
+  "path_radii_m": [
+    16.0,
+    10.0
+  ],
+  "vertical_amplitude_m": 4.0,
+  "envelope_radius_m": 24.0,
+  "period_seconds": 64.0,
+  "transition_seconds": 1.4,
+  "body_delay_seconds": 0.7,
+  "base_body_gain": 0.65,
+  "body_wave_radians": 0.028,
+  "body_wave_cycles": 0.65,
+  "bend_bias": 1.4,
+  "paired_fin_radians": 0.045,
+  "median_fin_radians": 0.023,
+  "actions": {
+    "Swim": {
+      "radius_scale": 1.0,
+      "bend_radians": 0.045,
+      "vertical_sign": 0,
+      "clip_speed": 1.0
+    },
+    "Turn": {
+      "radius_scale": 0.8,
+      "bend_radians": 0.16,
+      "vertical_sign": 0,
+      "clip_speed": 1.05
+    },
+    "Ascend": {
+      "radius_scale": 0.95,
+      "bend_radians": 0.07,
+      "vertical_sign": 1,
+      "clip_speed": 1.0
+    },
+    "Dive": {
+      "radius_scale": 0.95,
+      "bend_radians": 0.07,
+      "vertical_sign": -1,
+      "clip_speed": 1.0
+    }
+  },
+  "notes": [
+    "1518m whale-shark specific illustrative slow BCF motion, not measured biomechanics.",
+    "Independent full2.5amplitude/3frequency controls, all four actions and transitions require actual177/490 checks."
+  ]
+}

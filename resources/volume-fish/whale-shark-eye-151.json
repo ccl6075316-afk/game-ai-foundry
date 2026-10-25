@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scope": "151 whale-specific source circle and actual final body, accepted150 method. Subtle height is artist inference, not measured whale corneal depth. Whole fish remains pending game review.",
+  "species": {
+    "whale_shark": {
+      "enabled": true,
+      "model_sha256": "549b982560c0ced3ba1a58bed4d1cd1e22fe181e63e7ed639aef02590aae6522",
+      "display_length_native": 0.9946131408214569,
+      "source_size": [
+        2042,
+        577
+      ],
+      "height_over_radius": 0.12,
+      "footprint": 0.96,
+      "rings": 36,
+      "sectors": 192,
+      "center_uv": [
+        0.8660626836434868,
+        0.46013864818024264
+      ],
+      "radius_uv": [
+        0.008570029382957884,
+        0.030329289428076257
+      ],
+      "native_xy": {
+        "center": [
+          0.3660626836434868,
+          0.011263467189030362
+        ],
+        "radius": [
+          0.008570029382957884,
+          0.008570029382957884
+        ]
+      },
+      "native_surface": {
+        "path": "projects/whale-shark-151/eye-support/whale_shark/body.json",
+        "sha256": "6c6de557f08554c53f7275a5133b3c1a3e66b8bad8ecb955d7dbdb8a738627bf"
+      },
+      "physical_surface": {
+        "path": "projects/whale-shark-151/eye-support/whale_shark/body.json",
+        "sha256": "6c6de557f08554c53f7275a5133b3c1a3e66b8bad8ecb955d7dbdb8a738627bf"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/whale-shark-151/eye-support/whale_shark/body-source.png",
+        "sha256": "610cfc741ffdc7dfc2d703bf0a1ad0f5e32ac1a71cb5167f70ac684dbc8241b8"
+      }
+    }
+  }
+}

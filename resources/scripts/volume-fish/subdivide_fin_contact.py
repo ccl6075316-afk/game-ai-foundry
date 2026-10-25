@@ -37,6 +37,14 @@ def refine(rows,triangles,limit,near_surface,max_rounds=24):
                 if math.dist(pa,pb)<=limit:continue
                 mid=midpoint(rows[a],rows[b])
                 if rows[a]['root'] or rows[b]['root'] or near_surface(mid['POSITION']):edges[edge]=mid
+        # Longest-edge closure prevents a short marked edge from endlessly
+        # bisecting a skinny triangle across a longer unmarked edge. Include
+        # that triangle's longest edge in the same conforming refinement.
+        for tri in triangles:
+            candidates=[tuple(sorted((a,b))) for a,b in zip(tri,tri[1:]+tri[:1])]
+            if any(edge in edges for edge in candidates):
+                edge=max(candidates,key=lambda e:math.dist(rows[e[0]]['POSITION'],rows[e[1]]['POSITION']))
+                if edge not in edges:edges[edge]=midpoint(rows[edge[0]],rows[edge[1]])
         if not edges:return rows,triangles,{'rounds':iteration,'added_vertices':len(rows)-original,'max_contact_edge':limit}
         added={}
         for edge,row in edges.items():added[edge]=len(rows);rows.append(row)
@@ -46,6 +54,20 @@ def refine(rows,triangles,limit,near_surface,max_rounds=24):
             if all(m is not None for m in mids):
                 a,b,c=tri;ab,bc,ca=mids
                 rebuilt.extend([(a,ab,ca),(ab,b,bc),(ca,bc,c),(ab,bc,ca)])
+                continue
+            if sum(m is not None for m in mids)==2:
+                # A fixed sequential split can repeatedly create the long
+                # diagonal of a thin contact triangle. Split the common corner,
+                # then choose the shorter diagonal of the remaining quad.
+                for k in range(3):
+                    ab,ca=mids[k],mids[(k+2)%3]
+                    if ab is None or ca is None:continue
+                    a,b,c=tri[k],tri[(k+1)%3],tri[(k+2)%3]
+                    rebuilt.append((a,ab,ca))
+                    if math.dist(rows[ab]['POSITION'],rows[c]['POSITION'])<=math.dist(rows[b]['POSITION'],rows[ca]['POSITION']):
+                        rebuilt.extend([(ab,b,c),(ab,c,ca)])
+                    else:rebuilt.extend([(ab,b,ca),(b,c,ca)])
+                    break
                 continue
             pieces=[tri]
             for a,b in zip(tri,tri[1:]+tri[:1]):

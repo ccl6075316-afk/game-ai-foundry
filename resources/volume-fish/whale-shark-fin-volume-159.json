@@ -1,0 +1,82 @@
+{
+  "source": "E:\\game-ai-foundry\\projects\\whale-shark-158\\final-r1\\fish.glb",
+  "source_sha256": "a7e40c3fb0f0e906d631ce597d229a1cf296b29e4638e2976b62ef82db79c835",
+  "body": "E:\\game-ai-foundry\\projects\\whale-shark-158\\geometry-r1\\body.json",
+  "body_sha256": "834d1e2bd1ee660b9fb6cd16d1acbb506294655eb6d4d73aebf5209978e4bf02",
+  "fin_plan": "E:\\game-ai-foundry\\projects\\whale-shark-158\\fin.plan.json",
+  "meters_per_native": 8.043328276753666,
+  "root_inset_native": 2.5e-05,
+  "free_clearance_native": 0.00024,
+  "fins": [
+    {
+      "name": "Pectoral_left",
+      "normal_axis": 1,
+      "span_axis": 2,
+      "thickness_ratio": 0.08,
+      "max_thickness_mm": 85,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Pectoral_right",
+      "normal_axis": 1,
+      "span_axis": 2,
+      "thickness_ratio": 0.08,
+      "max_thickness_mm": 85,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Pelvic_left",
+      "normal_axis": 1,
+      "span_axis": 2,
+      "thickness_ratio": 0.08,
+      "max_thickness_mm": 35,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Pelvic_right",
+      "normal_axis": 1,
+      "span_axis": 2,
+      "thickness_ratio": 0.08,
+      "max_thickness_mm": 35,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Caudal",
+      "normal_axis": 2,
+      "span_axis": 1,
+      "thickness_ratio": 0.085,
+      "max_thickness_mm": 90,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Dorsal_first",
+      "normal_axis": 2,
+      "span_axis": 1,
+      "thickness_ratio": 0.085,
+      "max_thickness_mm": 70,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Dorsal_second",
+      "normal_axis": 2,
+      "span_axis": 1,
+      "thickness_ratio": 0.085,
+      "max_thickness_mm": 35,
+      "edge_mm": 1.2
+    },
+    {
+      "name": "Anal",
+      "normal_axis": 2,
+      "span_axis": 1,
+      "thickness_ratio": 0.085,
+      "max_thickness_mm": 35,
+      "edge_mm": 1.2
+    }
+  ],
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-159\\foil-r1",
+  "evidence": [
+    "https://biogeodb.stri.si.edu/caribbean/en/thefishes/species/26",
+    "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/whale-shark/"
+  ],
+  "inference": "Fin root/front is thick and foil tapers to free trailing edge/tip, qualitative same-species images. No measured species section thickness found. Ratio/caps are declared game art parameters, not anatomy measurements."
+}

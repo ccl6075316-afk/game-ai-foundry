@@ -1,0 +1,35 @@
+{
+  "kind": "rest_surface_distance_skin",
+  "species": "whale_shark",
+  "source_body": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-153\\baseline\\body.res",
+    "sha256": "db372553918386e91f4de8bc7be1ddc230ef6ed96fff366e0630a5eac515f303"
+  },
+  "flat_source": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-dorsal154\\output\\tex_whale_shark_dorsal154_raw.png",
+    "sha256": "6a856f5347bdcfb7933c406c47ca4d134d59a374b7f61fc8548d24b4319d1c35"
+  },
+  "arc_lut": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-153\\arc-distance.rf32",
+    "sha256": "2c1175ce753fa58c496d0609f21404d273d0c4e52c466c80701651a122abb874"
+  },
+  "arc_size": [
+    512,
+    513
+  ],
+  "arc_x": [
+    -0.337414,
+    0.33462
+  ],
+  "head_keep": [
+    0.2,
+    0.3
+  ],
+  "native_extent": [
+    0.7,
+    0.35
+  ],
+  "native_origin_x": -0.35,
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-154\\candidate-r1",
+  "scope": "154 original dorsal centreline and aligned rows restored.153 staggered source rejected.152 head/belly and all physical fish retained."
+}

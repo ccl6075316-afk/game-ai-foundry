@@ -1,0 +1,45 @@
+{
+  "kind": "directional_native_source_skin",
+  "species": "whale_shark",
+  "source_body": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-152\\baseline\\body.res",
+    "sha256": "16cba727230afc3bdd9ecfc2964e25ac8357a931de2e97bc45d570762b7d890b"
+  },
+  "top": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-152\\atlases-r3\\top.png",
+    "sha256": "409de4067b729292fbe02bf51e533747b26e1ead97f9e42e95127c42be1362f0"
+  },
+  "bottom": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-152\\atlases-r3\\bottom.png",
+    "sha256": "dff6ac9f5bc2c66d17289fdc5ce8969a0bf812c8f959c74ae31f38905643eafb"
+  },
+  "dorsal_blend": [
+    0.08,
+    0.55
+  ],
+  "ventral_blend": [
+    0.06,
+    0.43
+  ],
+  "output": "E:\\game-ai-foundry\\projects\\whale-shark-152\\candidate-r4",
+  "source_mapping": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-152\\atlases-r3\\source-mapping.validation.json",
+    "sha256": "7e325628830159a4373a99fe26272f90d46ced8abd37ce4015fc2686d8869989"
+  },
+  "constraints": "RGB only. Immutable rest lookup, actual geometry/UV/skin/LOD and original135 lips retained. Eyes and true lateral gills protected; generated front lip/eye/fin artwork not projected. Ventral field uses whole quiet off-centre band(-.48..-.28 of local body radius), excluding central shading stripe/vent/fin-root shapes. All donorRGB>=145 blocks dark contamination.",
+  "atlas_width": 2042,
+  "lateral_gill_x": [
+    0.16,
+    0.18,
+    0.3,
+    0.32
+  ],
+  "body_u_support": [
+    0.155,
+    0.17
+  ],
+  "attachment_mask": {
+    "path": "E:\\game-ai-foundry\\projects\\whale-shark-151\\skin\\body-owned-attachment-mask.png",
+    "sha256": "f948e752c73161b70d7da6dd22acffcfff901593f57a6d46ec9b499067154b5c"
+  }
+}

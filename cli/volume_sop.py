@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from volume_finalization import check_finalization, pending_finalization
 
 # Each key names an observation/evidence obligation, not a generic success score.
 STAGES = {
@@ -14,7 +15,7 @@ STAGES = {
     'skin': {'dorsal_material':'image','ventral_material':'image','hidden_fin_skin':'image','native_2d_donors_and_exclusions':'data','surface_opacity_inventory':'data','body_owned_fin_base_marks':'image'},
     'fins': {'complete_species_fin_inventory_and_roots':'data','source_cutout_and_shape_comparison':'image','installed_visibility_and_body_occlusion':'data','all_fin_root_gate':'report','whole_fin_membrane_gate':'report','expanded_fin_visual_review':'image'},
     'motion': {'native_loop':'report','swim':'image','turn':'image','ascend':'image','dive':'image','real_transitions_and_control_ranges':'report','jaw_or_other_action_branch':'data'},
-    'runtime': {'body_integrity_gpu_gate':'report','material_anchor_and_actual_lod':'report','motion_and_surface_gate':'report','cold_import_and_install_binding':'report'},
+    'runtime': {'body_integrity_gpu_gate':'report','material_anchor_and_actual_lod':'report','motion_and_surface_gate':'report','cold_import_and_install_binding':'report','final_asset_cold_load':'report','exported_vs_experiment_comparison':'image'},
     'presentation': {'source_style_final_comparison':'image','normal_and_close_game_views':'image','water_readability':'image','orbit_and_motion_video':'video','final_files_and_remaining_limits':'data'},
 }
 INPUT_ROLES = ('source_image','model','species_profile','runtime_manifest','motion_config')
@@ -93,6 +94,7 @@ def initialize(species: str, output: Path):
           'evidence':{},'stages':{stage:{'result':'pending','method':'','reviewer':'','observations':'','checks':{k:[] for k in checks}} for stage,checks in STAGES.items()},
           'scope':'Operator evidence record. No asset acceptance or user approval is created by initialization.'}
     data['stages']['mouth']['implementation'] = {'branch':'pending','upper':{},'lower':{}}
+    data['stages']['runtime']['finalization'] = pending_finalization()
     write(output,data)
     return data
 
@@ -132,6 +134,7 @@ def check(review: Path, output: Path | None=None):
             raise ValueError('Stage and checks must be objects: '+stage)
         if entry.get('result')!='passed':fail('stage_incomplete',stage)
         if stage == 'mouth':check_mouth_implementation(entry,candidates,artifact,fail)
+        if stage == 'runtime':check_finalization(data,entry,candidates,artifact,fail)
         for key in ['method','reviewer','observations']:
             if not isinstance(entry.get(key),str) or not entry[key].strip():fail('missing_review',stage+'.'+key)
         for criterion,kind in checks.items():
@@ -164,8 +167,9 @@ def check(review: Path, output: Path | None=None):
         rows.append({'stage':stage,'ok':len(failures)==start})
     report={'schema_version':1,'ok':not failures,'command':'volume.sop-check','status':'done' if not failures else 'blocked',
             'next_action':'human_review' if not failures else 'fix_input','species':data['species'],
-            'review_sha256':sha(review),'checker_sha256':sha(Path(__file__)), 'candidate_files':candidates,
+            'review_sha256':sha(review),'checker_sha256':sha(Path(__file__)),
+            'finalization_checker_sha256':sha(Path(__file__).with_name('volume_finalization.py')), 'candidate_files':candidates,
             'stages':rows,'evidence_count':len(used),'failures':failures,
-            'scope':'Checks required evidence, declared candidate bindings, actual named nonempty lip geometry exports, file freshness, successful report status and operator observations. Does not prove exported lip/runtime equivalence, anatomical alternatives, report semantics or visual quality; cold-import/specialized gates and visual review remain required. No asset/user acceptance.'}
+            'scope':'Checks required evidence, declared candidate bindings, named nonempty lip geometry, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics, anatomical alternatives or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance.'}
     if output:write(output,report)
     return report

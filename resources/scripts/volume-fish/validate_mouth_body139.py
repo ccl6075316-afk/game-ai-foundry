@@ -96,8 +96,24 @@ def validate(game,receipt,output,candidate_plan):
                 assert int((mask&(a[:,:,3]<128)).sum())==v['missing_pixels']==0,'Actual GPU body hole'
             source=game/f'assets/models/fish/{sp}.glb';assert sha(source)==row['model_sha256']==p['source_model_sha256']==opacity[sp]['model_sha256']
             d,b=read_glb(source);aux=[]
+            declared={x['node']:x for x in frozen_row.get('static_overlays',[])}
+            found_overlays=set()
             for node in d['nodes']:
                 if 'mesh' not in node or node['name']=='Closed_body' or node['name'] in own[sp]['fins'] or node['name'] in opacity[sp]['suppressed_auxiliary']:continue
+                if node['name'] in declared:
+                    layer=declared[node['name']];assert layer['underlying_body']=='Closed_body' and ('Source_lips139'==node['name'] or node['name'].startswith('Eye_relief112_')),'Unrecognized static overlay'
+                    ref=layer['geometry'];assert sha(ref['path'])==ref['sha256'],'Stale static overlay source';geometry=json.loads(Path(ref['path']).read_text())
+                    if layer['kind']=='lips':parts=geometry['parts']
+                    else:
+                        assert layer['kind']=='eye';caps=geometry['profiles'][sp]['caps'];parts=[next(c for c in caps if float(c['side'])==float(layer['side']))]
+                    actual=d['meshes'][node['mesh']]['primitives'];assert len(actual)==len(parts),'Static overlay surface count changed'
+                    for prim,part in zip(actual,parts):
+                        for key,field in [('POSITION','vertices'),('NORMAL','normals'),('TEXCOORD_0','uv'),('JOINTS_0','joints'),('WEIGHTS_0','weights')]:
+                            got=accessor(d,b,prim['attributes'][key]);want=np.asarray(part[field],dtype=got.dtype);assert np.array_equal(got,want),'Static overlay geometry/UV/skin differs: '+node['name']+'/'+field
+                        ids=np.asarray(part['triangles']if layer['kind']=='lips'else part['indices']).reshape(-1,3)
+                        if layer['kind']=='lips':ids=ids[:,[0,2,1]]
+                        assert np.array_equal(accessor(d,b,prim['indices']).ravel(),ids.ravel()),'Static overlay topology differs'
+                    found_overlays.add(node['name']);aux.append({'name':node['name'],'decorative_overlay':True,'underlying_closed_body':'Closed_body','exact_frozen_geometry_uv_skin':True});continue
                 parts=[]
                 for si,prim in enumerate(d['meshes'][node['mesh']]['primitives']):
                     parts.append({'vertices':accessor(d,b,prim['attributes']['POSITION']),'triangles':accessor(d,b,prim['indices'])})
@@ -106,6 +122,7 @@ def validate(game,receipt,output,candidate_plan):
                         donor=opacity[sp]['surfaces'][node['name']][str(si)];path=game/donor['texture'].removeprefix('res://');assert sha(path)==donor['texture_sha256']
                         assert np.all(np.asarray(Image.open(path).convert('RGBA'))[:,:,3]==255),'Transparent auxiliary donor'
                 aux.append({'name':node['name'],'closed':closed(parts)})
+            assert found_overlays==set(declared),'Declared static overlay missing from GLB'
             assert len(row['samples'])==16 and {v['action'] for v in row['samples']}=={'Swim','Turn','Ascend','Dive'}
             assert len(row['transitions'])==36 and len({(v['from'],v['to']) for v in row['transitions']})==12
             assert len(row['distances'])==3
