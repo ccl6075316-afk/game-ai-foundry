@@ -3,7 +3,7 @@
 Underlying opaque bodies remain intact. Each cap follows the original eye UV
 footprint and is a real skinned mesh, not a normal-map or flat billboard.
 """
-import argparse,hashlib,json
+import argparse,gzip,hashlib,json
 from pathlib import Path
 import numpy as np
 from freeze_surface_ownership import read_glb,accessor
@@ -44,7 +44,9 @@ def main():
                 frozen=row['native_surface'];support=Path(frozen['path'])
                 if not support.is_absolute():support=Path(__file__).resolve().parents[3]/support
                 assert sha(support)==frozen['sha256'],'Stale actual eye support body'
-                actual=json.loads(support.read_text())
+                # Frozen support arrays are retained inputs, not disposable
+                # cache. Allow lossless compression without changing arrays.
+                actual=json.loads(gzip.decompress(support.read_bytes()).decode('utf8') if support.suffix=='.gz' else support.read_text())
                 for part in actual['parts']:
                     vv=np.asarray(part['vertices']);vp.append(vv);up.append(np.asarray(part['uv']));npieces.append(np.asarray(part['normals']))
                     jp.append(np.asarray(part['joints']));wp.append(np.asarray(part['weights']))
@@ -63,7 +65,7 @@ def main():
                 theta=i*2*np.pi/sectors;r=ring/rings;samples.append((r*np.cos(theta),r*np.sin(theta)))
         caps=[];peak=[]
         for side in [-1,1]:
-            all_vertices=[];all_uv=[];all_normals=[];all_joints=[];all_weights=[];base=[]
+            all_vertices=[];all_uv=[];all_normals=[];all_joints=[];all_weights=[];base=[];support_faces=[];support_weights=[]
             if row.get('projection'):
                 calibration=row['projection'];size=np.asarray(row['source_size']);pixel=np.asarray(calibration['pixel_native_xy'])
                 anchor=np.asarray(calibration['anchor_rest_xy'])-[0,float(calibration['downshift_native_pixels'])*pixel[1]]
@@ -87,6 +89,11 @@ def main():
                 bary,valid=barycentric2(test,point);ids=np.flatnonzero(valid)
                 assert len(ids),(species,side,'Source eye sample outside body',tex.tolist())
                 z=np.sum(pos[selected[ids],2]*bary[ids],1)*side;pick=ids[z.argmax()];face=selected[pick];bw=bary[pick]
+                if row.get('clamp_surface_barycentric',False):
+                    # UV/XY edge lookup permits tiny negative roundoff. A cap
+                    # base must remain on the actual finite support triangle.
+                    bw=np.maximum(bw,0.);bw/=bw.sum()
+                    support_faces.append(face.tolist());support_weights.append(bw.tolist())
                 surface_point=np.sum(pos[face]*bw[:,None],0);n=np.sum(normal[face]*bw[:,None],0);n/=max(np.linalg.norm(n),1e-12)
                 if n[2]*side<.15:
                     n[2]=side*max(abs(n[2]),.15);n/=np.linalg.norm(n)
@@ -120,6 +127,8 @@ def main():
             for j in range(3):np.add.at(nn,tt[:,j],fn)
             nn/=np.maximum(np.linalg.norm(nn,axis=1)[:,None],1e-12)
             caps.append({'side':side,'vertices':all_vertices,'normals':nn.tolist(),'uv':all_uv,'joints':all_joints,'weights':all_weights,'indices':tt.reshape(-1).tolist(),'base_surface_points':base})
+            if row.get('clamp_surface_barycentric',False):
+                caps[-1]['support_faces']=support_faces;caps[-1]['support_barycentric']=support_weights
             peak.append(float(np.max(np.linalg.norm(vv-np.array(base),axis=1))))
         bone_names=[d['nodes'][i]['name'] for i in d['skins'][node['skin']]['joints']]
         profiles[species]={'model_sha256':row['model_sha256'],'mesh':node['name'],'source_surface':si,'source_size':row['source_size'],'source_center':row['center_uv'],'source_radius':row['radius_uv'],'bones':bone_names,'caps':caps}

@@ -88,7 +88,15 @@ func validate_relief(model:Node3D,mesh:MeshInstance3D):
     assert(p.model_sha256==FileAccess.get_sha256(model.scene_file_path) and p.profile_sha256==FileAccess.get_sha256("res://assets/models/fish/motion/eye-relief112.json"))
     var receipt:Dictionary=model.get_meta("eye_relief112_receipt",{});assert(receipt.helper_sha256==FileAccess.get_sha256("res://scripts/aquarium/EyeRelief112.gd"))
     var material=mesh.get_active_material(0) as StandardMaterial3D;assert(material!=null and material.transparency==BaseMaterial3D.TRANSPARENCY_DISABLED)
-    assert(material.albedo_texture==(body.get_active_material(0) as ShaderMaterial).get_shader_parameter("source_texture"))
+    if not p.get("source_rgba_sha256","").is_empty():
+        var image=material.albedo_texture.get_image().duplicate()
+        if image.is_compressed():assert(image.decompress()==OK)
+        image.clear_mipmaps()
+        image.convert(Image.FORMAT_RGBA8)
+        var context=HashingContext.new();context.start(HashingContext.HASH_SHA256);context.update(image.get_data())
+        assert(context.finish().hex_encode()==p.source_rgba_sha256,"Eye native-source pixels changed")
+    else:
+        assert(material.albedo_texture==(body.get_active_material(0) as ShaderMaterial).get_shader_parameter("source_texture"))
 func validate_front(model:Node3D,species:String,mesh:MeshInstance3D,surface:int,material:ShaderMaterial)->Dictionary:
     var key=str(mesh.name)+":"+str(surface);var records:Dictionary=model.get_meta("front_skin112_receipts",{});assert(records.has(key));var r:Dictionary=records[key]
     var config="res://assets/models/fish/motion/front-skin112.json";var helper="res://scripts/aquarium/FrontSkin112.gd";var template="res://scripts/aquarium/FrontSkin112.gdshaderinc"

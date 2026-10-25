@@ -64,6 +64,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 浅凸/立体眼制作与推广先读 [references/eye-volume.md](references/eye-volume.md)。148旗鱼是已获用户实际游戏确认的局部眼睛样板；支持面必须取当前头部，身体不挖洞，原画眼纹与实际蒙皮保留。先判断正常游戏大小的收益，不照搬物种尺寸或自动批量换眼。
 
+150全27鱼的眼睛推广已获用户整体外观接受：19条更新、8条保留合适原生眼。新鱼沿用同一执行卡、当前支持面与原像素守卫，逐物种定参数；按实际安装哈希记录接受范围，不修改历史pending证据，也不把本轮眼睛接受扩大为整鱼接受。
+
 出现背腹黑斑、拉丝、唇线错位、游动贴图滑转或眼睛重影时，读 [references/source-surface-repair.md](references/source-surface-repair.md)。先追踪实际材质与供体，再区分完整颌部、原图纹理和装饰叠层；不要用机械门通过替代用户指出部位的实际对照。用户认为当前效果最好时，绑定实际安装文件哈希保留对比基线；先在原截图上标注主观观察，不把未经确认的重复纹样升级为必须返修项。用户暂缓口内时保持口内实现，不让它阻塞外部展示审阅。
 
 新鱼走 `volume plan → build → validate → render`，实际查看源图、风格参考、灰模/贴图多视与Godot动作后，才用 `volume accept` 记录操作者审核。不能写成用户本人已接受。

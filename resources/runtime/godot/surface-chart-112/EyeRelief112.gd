@@ -9,14 +9,23 @@ func apply(model: Node3D,species: String)->int:
     if p.has("support_body_resource"):
         var support:Dictionary=p.support_body_resource
         assert(FileAccess.get_sha256(support.path)==support.sha256,"Stale current-body eye support")
-        var mouth=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-repair139.json"))
-        assert(mouth.profiles[species].body==support,"Eye cap no longer matches installed body")
+        var owner:String=p.get("support_owner","mouth-repair139")
+        assert(owner in ["mouth-repair139","fin-source141"],"Unknown current-eye support owner")
+        var installed=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/"+owner+".json"))
+        assert(installed.profiles[species].body==support,"Eye cap no longer matches installed body")
     var body=model.find_child(p.mesh,true,false) as MeshInstance3D
     assert(body!=null and body.skin!=null)
     var skin=body.get_active_material(int(p.source_surface)) as ShaderMaterial
     assert(skin!=null)
     var texture=skin.get_shader_parameter("source_texture") as Texture2D
     assert(texture!=null and texture.get_size()==Vector2(p.source_size[0],p.source_size[1]))
+    if p.has("source_rgba_sha256"):
+        var image=texture.get_image().duplicate()
+        if image.is_compressed():assert(image.decompress()==OK)
+        image.clear_mipmaps() # Compare original base pixels, not imported mip storage.
+        image.convert(Image.FORMAT_RGBA8)
+        var context=HashingContext.new();context.start(HashingContext.HASH_SHA256);context.update(image.get_data())
+        assert(context.finish().hex_encode()==p.source_rgba_sha256,"Native eye pixels changed")
     var skeleton=body.get_node(body.skeleton) as Skeleton3D
     assert(skeleton!=null)
     var bind_map: Array[int]=[]
@@ -61,6 +70,6 @@ func apply(model: Node3D,species: String)->int:
         mesh.surface_set_material(0,material)
         var instance=MeshInstance3D.new();instance.name="Eye_relief112_"+str(cap.side);instance.mesh=mesh
         body.get_parent().add_child(instance);instance.transform=body.transform;instance.skin=body.skin;instance.skeleton=body.skeleton
-        instance.set_meta("decorative_relief112",{"underlying_body":p.mesh,"model_sha256":p.model_sha256,"profile_sha256":FileAccess.get_sha256(CONFIG)})
+        instance.set_meta("decorative_relief112",{"underlying_body":p.mesh,"model_sha256":p.model_sha256,"profile_sha256":FileAccess.get_sha256(CONFIG),"source_rgba_sha256":p.get("source_rgba_sha256","")})
     model.set_meta("eye_relief112_receipt",{"species":species,"caps":2,"underlying_body_intact":true,"model_sha256":p.model_sha256,"profile_sha256":FileAccess.get_sha256(CONFIG),"helper_sha256":FileAccess.get_sha256(get_script().resource_path)})
     return 2

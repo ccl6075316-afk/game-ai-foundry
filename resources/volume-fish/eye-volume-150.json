@@ -1,0 +1,752 @@
+{
+  "schema_version": 1,
+  "scope": "All27 audited and batch eye appearance accepted by the user on2026-10-25;19 shallow-eye updates and8 suitable existing-volume cases retained. Art heights are species-specific choices, not anatomical measurements or whole-fish acceptance.",
+  "species": {
+    "african_catfish": {
+      "enabled": true,
+      "model_sha256": "e6816fd36c3f19f60bc2eedca03da30b400d277ed7ce45d09dab816ad03a06f7",
+      "source_size": [
+        2003,
+        514
+      ],
+      "height_over_radius": 0.14,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9052037328622451,
+        0.4436545944328046
+      ],
+      "radius_uv": [
+        0.01238814854641115,
+        0.04827521700089793
+      ],
+      "native_xy": {
+        "center": [
+          0.40520374389605496,
+          0.014459083960105399
+        ],
+        "radius": [
+          0.012388144792114622,
+          0.012388152317231662
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/african_catfish.json.gz",
+        "sha256": "b47dbce26ed13342f8e8f2940cef5054e08fe18af341c812be563c55018c4fb8"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/african_catfish.png",
+        "sha256": "4a53839376b9565b88a25c913603d3a194afdf101522e8e854e49d7d4e476010"
+      }
+    },
+    "arapaima": {
+      "enabled": true,
+      "model_sha256": "9d6d24c81dbe7318451c83cfc8378f4aa66cb8c16a81c2b56f22b0289af08319",
+      "source_size": [
+        1745,
+        396
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9216795239144809,
+        0.49728049728049734
+      ],
+      "radius_uv": [
+        0.010742120343839543,
+        0.047335858585858585
+      ],
+      "native_xy": {
+        "center": [
+          0.4216795096297248,
+          -0.0013483693486090868
+        ],
+        "radius": [
+          0.010742104975281807,
+          0.008788215588778894
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/arapaima.json.gz",
+        "sha256": "2c880f97a130cc64a5291b3612bc03447836e7bce34683bb2a6f427e395cdc1a"
+      },
+      "clamp_surface_barycentric": true,
+      "physical_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/physical/arapaima.json.gz",
+        "sha256": "17f71f6fcd4a047fdd398c4e47b45ec4b6bf85f1f08e7916759743609f61428d"
+      },
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/arapaima.png",
+        "sha256": "81b6b6c25a3f188b4e4fbe3710fae937ca5a0021c19973c435b811395ba408f6"
+      }
+    },
+    "atlantic_salmon": {
+      "enabled": true,
+      "model_sha256": "405f3492d06172ce1cdb822b7e441ed7c1368004d8c462e2801933f91c04c3e1",
+      "source_size": [
+        1795,
+        583
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9250786234162998,
+        0.5330050351352847
+      ],
+      "radius_uv": [
+        0.01433444154910594,
+        0.044134344049134064
+      ],
+      "native_xy": {
+        "center": [
+          0.42507862341791686,
+          -0.010715289218423196
+        ],
+        "radius": [
+          0.014334464724697987,
+          0.01432701020754785
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/atlantic_salmon.json.gz",
+        "sha256": "92a87054b16dadffe3bdbf3d9283c05eb030b199f4b03db96becc2c357d5d61d"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/atlantic_salmon.png",
+        "sha256": "31bd9f2f84448830e231fa2a41365f1f0304809d9001d70461ad5dcf4c8c7d72"
+      }
+    },
+    "black_seabream": {
+      "enabled": true,
+      "model_sha256": "c42765e1a8c975840ab43840ca69ff72cf3b483e9a40bfb0ae288330f38285bf",
+      "source_size": [
+        1986,
+        991
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9020644511581067,
+        0.45055499495459134
+      ],
+      "radius_uv": [
+        0.028449144008056395,
+        0.052976791120080725
+      ],
+      "native_xy": {
+        "center": [
+          0.40218385699895537,
+          0.024616143001681294
+        ],
+        "radius": [
+          0.025604229469493416,
+          0.02379154077331119
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/black_seabream.json.gz",
+        "sha256": "a8678ab9c54f1942296fdbaf241638526bd576c1468a15d4ca982326ff3a57a0"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/black_seabream.png",
+        "sha256": "6414c6e415014e5ba09853ffea9f9c6bc2bafbc50b2af05a089866de4e0f59bc"
+      }
+    },
+    "bluegill": {
+      "enabled": true,
+      "model_sha256": "8b27002aad23d69e690832ab060295b30d62b7d0a6a5f11a831d33fe07a79abb",
+      "source_size": [
+        1477,
+        868
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.8814379627405159,
+        0.470098112085625
+      ],
+      "radius_uv": [
+        0.038113984318693075,
+        0.06485524751003419
+      ],
+      "native_xy": {
+        "center": [
+          0.3814379917920293,
+          0.01757268616652752
+        ],
+        "radius": [
+          0.038113999870761944,
+          0.03811398091862098
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/bluegill.json.gz",
+        "sha256": "92dd251767d0212ad1f2a19cdd45e04d3a88beea8651864c8cc789fd216ff031"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/bluegill.png",
+        "sha256": "b9c4df275a032403d9c9f85d6abd714d8195b8d034d086decad2a117a62d7586"
+      }
+    },
+    "brown_trout": {
+      "enabled": true,
+      "model_sha256": "9cb562556fd32b1d876074bdd80d6f885e001223e882491f47b45e8731e2ef4b",
+      "source_size": [
+        1597,
+        534
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9138586462520452,
+        0.48329104748097135
+      ],
+      "radius_uv": [
+        0.02166107823136122,
+        0.06478041560952036
+      ],
+      "native_xy": {
+        "center": [
+          0.41385861642454236,
+          0.0055870890023279485
+        ],
+        "radius": [
+          0.021661077198150618,
+          0.021661078148466392
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/brown_trout.json.gz",
+        "sha256": "2aa28d1bbfe8cb853a7021b1434c71c4942f92b62415e05819ebe13faa2a798a"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/brown_trout.png",
+        "sha256": "cd94c942f82de44868aabe673506babf0fce700f031cba440f1b1f531bda4c39"
+      }
+    },
+    "carp": {
+      "enabled": true,
+      "model_sha256": "12f233a8322e7c8c96b0c851aeea105707f4defda5bfe62139d8b54d67c2775f",
+      "source_size": [
+        2028,
+        1015
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.8983584653559841,
+        0.4769426346734467
+      ],
+      "radius_uv": [
+        0.023377552968123685,
+        0.04670904179246782
+      ],
+      "native_xy": {
+        "center": [
+          0.3983584653577217,
+          0.011540052819632805
+        ],
+        "radius": [
+          0.023377540775665576,
+          0.023377554823241508
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/carp.json.gz",
+        "sha256": "898947bc2d2c12288578a61582a2f5dfdd2f26fd810d9d141293c802f8fd1222"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/carp.png",
+        "sha256": "a6c2f8c9ff9ce643ac9c8f48c3db8b00285daaa4ee7259a4efdba72b12f15e79"
+      }
+    },
+    "crucian": {
+      "enabled": true,
+      "model_sha256": "9efe36e7ff532ea61a5d7daf9bf781334e3529fe3cc02c22ce323688a9c27bdc",
+      "source_size": [
+        1908,
+        1073
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9090383444917833,
+        0.5334455701530229
+      ],
+      "radius_uv": [
+        0.030703996753905453,
+        0.05459760093797912
+      ],
+      "native_xy": {
+        "center": [
+          0.4090383566705653,
+          -0.01880876070175901
+        ],
+        "radius": [
+          0.03070399961476073,
+          0.030704005404579765
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/crucian.json.gz",
+        "sha256": "1b3191fafa0ff4af908de18de892381402582d397ac3f276090554bd63ae1411"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/crucian.png",
+        "sha256": "b2df81cf8384be02637d53fad9760729eaf57031f58b94ccd5a9c4d934240b04"
+      }
+    },
+    "grass_carp": {
+      "enabled": true,
+      "model_sha256": "c212875e6081cfaf68827da1546d81e2e1ad227271ea7b4744ae2fe981dd80d9",
+      "source_size": [
+        2010,
+        702
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9239913336543091,
+        0.4812379376895506
+      ],
+      "radius_uv": [
+        0.0190300914780934,
+        0.054487868762062304
+      ],
+      "native_xy": {
+        "center": [
+          0.42399132542622453,
+          0.006552717532047919
+        ],
+        "radius": [
+          0.019030066559149995,
+          0.019030089981118683
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/grass_carp.json.gz",
+        "sha256": "772e53eda347dab4679c25e66b5b9c1f7f0b4c2fd47ad965cca903dc17912b97"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/grass_carp.png",
+        "sha256": "dc3919afa4eaf31a3674488703549d5410ec2d3e507d2585d2296954439a35b5"
+      }
+    },
+    "hairtail": {
+      "enabled": true,
+      "model_sha256": "2f14016eedc5b3086780bee3a12ae483f0c68c853495353c426c3b0b5fafc69e",
+      "source_size": [
+        1869,
+        179
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.935300654401778,
+        0.565592322016903
+      ],
+      "radius_uv": [
+        0.01322742176674761,
+        0.13811201833548203
+      ],
+      "native_xy": {
+        "center": [
+          4.353006406259845,
+          -0.0628198206724254
+        ],
+        "radius": [
+          0.13227426174586973,
+          0.13227419739390095
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/hairtail.json.gz",
+        "sha256": "da82967bac999eb0c9cdedff603f2a93cdfe6c89b151e6c89b11cf6c4e1de137"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/hairtail.png",
+        "sha256": "459f1362981333e45411d6f020edfff951686dea48a57979b15f69fd65e8197a"
+      }
+    },
+    "mahi_mahi": {
+      "enabled": true,
+      "model_sha256": "9629f580f31d4239531eb4e1782ff4cb3ef6c036f89b6266474dab7d10c0a2d1",
+      "source_size": [
+        1974,
+        659
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9403111416151909,
+        0.5716089872240443
+      ],
+      "radius_uv": [
+        0.01562800274536719,
+        0.04681286406578882
+      ],
+      "native_xy": {
+        "center": [
+          0.44031114160128676,
+          -0.023905938498837057
+        ],
+        "radius": [
+          0.015628002841429477,
+          0.01562800304901121
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/mahi_mahi.json.gz",
+        "sha256": "60e667cb9787f6b629253c54714949208d5051440a350d5ac551d1b55817ef5a"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/mahi_mahi.png",
+        "sha256": "4c4e97006a76d0402790ebd4d48da9808892300999a9142267d2286bce2e2411"
+      }
+    },
+    "nile_tilapia": {
+      "enabled": true,
+      "model_sha256": "485ecf91d51cc2f9aa303289e674a3807de0051abad68221202551fd2d91879d",
+      "source_size": [
+        1961,
+        972
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.8954072148837822,
+        0.43620403557679543
+      ],
+      "radius_uv": [
+        0.030918392525209323,
+        0.06237753882915174
+      ],
+      "native_xy": {
+        "center": [
+          0.39540720828899795,
+          0.031621451835322154
+        ],
+        "radius": [
+          0.030918404960164327,
+          0.030918392522456227
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/nile_tilapia.json.gz",
+        "sha256": "2be0391ee6c8b39657425183f593a9dc194bba15bf226e0eb3916b2d6342c82d"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/nile_tilapia.png",
+        "sha256": "6b434697862a5abfac7ec557fbe4019ce48327c0ea805cde3774f238fe534b3f"
+      }
+    },
+    "pacific_bluefin_tuna": {
+      "enabled": true,
+      "source_size": [
+        2016,
+        747
+      ],
+      "center_uv": [
+        0.9315476190476191,
+        0.4886211512717537
+      ],
+      "radius_uv": [
+        0.015873015873015872,
+        0.04551539491298527
+      ],
+      "height_over_radius": 0.2,
+      "footprint": 0.96,
+      "rings": 12,
+      "sectors": 64,
+      "native_xy": {
+        "center": [
+          0.43154761904761907,
+          0.004216269841269841
+        ],
+        "radius": [
+          0.015873015873015872,
+          0.016865079365079364
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/pacific_bluefin_tuna.json.gz",
+        "sha256": "127ddde0d3404a327ac0de2403a1a0f3474b4f29e6e74da63b603dabaf163701"
+      },
+      "model_sha256": "c3d14b9a77c4a6b199053ba53dcda2e0fa9029fc7a345d157a9a1215550926ef",
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/pacific_bluefin_tuna.png",
+        "sha256": "b279da9c952d94097016a21f82fec4ddce45f11b91ca98b0eb7491a4b2a03272"
+      }
+    },
+    "rainbow_trout": {
+      "enabled": true,
+      "model_sha256": "d0099d20824e8f09ae99e049b3cd1c0c696ffbb07e25a7ad5ba68f315afa6d53",
+      "source_size": [
+        1990,
+        717
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.927103258226617,
+        0.47897602015566654
+      ],
+      "radius_uv": [
+        0.023395201815529256,
+        0.06493228955774508
+      ],
+      "native_xy": {
+        "center": [
+          0.4271032746455392,
+          0.007574971770054508
+        ],
+        "radius": [
+          0.02339518774327443,
+          0.02339520261652536
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/rainbow_trout.json.gz",
+        "sha256": "f18722a7dc77b3ef0ec936f29908df86b8dad3c0f45b1eacca7539989e286330"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/rainbow_trout.png",
+        "sha256": "ad4a8360028c2c8211f628ea3ce5bb2ade908603e2543aee9e7b6c07633bac32"
+      }
+    },
+    "red_emperor": {
+      "enabled": true,
+      "model_sha256": "96f803926574da31f954daa984aa24869c03492c525cb016c4b571f6f95bc733",
+      "source_size": [
+        1782,
+        956
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.8628796929872198,
+        0.4340126872722364
+      ],
+      "radius_uv": [
+        0.033424568263277936,
+        0.06230395464975029
+      ],
+      "native_xy": {
+        "center": [
+          0.3628796927739639,
+          0.03540059641773686
+        ],
+        "radius": [
+          0.033424584291956036,
+          0.03342457033883082
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/red_emperor.json.gz",
+        "sha256": "244a955c1e03127cb677e81450319423808658b9e64d14da6a998d9f393d1f62"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/red_emperor.png",
+        "sha256": "65583c64d77f87afe4c36580dbc2af0f649a0d53c6cf1246f2bd3a16fb208636"
+      }
+    },
+    "red_seabream": {
+      "enabled": true,
+      "model_sha256": "dab123c02624009227e5cf7df6e62643e6e521b95f987ea6aeb658201f944abd",
+      "source_size": [
+        2026,
+        1054
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.886,
+        0.438
+      ],
+      "radius_uv": [
+        0.04,
+        0.079
+      ],
+      "native_xy": {
+        "center": [
+          0.3859999999996454,
+          0.03225468445517266
+        ],
+        "radius": [
+          0.03199998393814834,
+          0.03287897505606313
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/red_seabream.json.gz",
+        "sha256": "b285570ab9f1470861cf7d1c416adce210c3da7aab2191a2651bf2e1e2c4f719"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/red_seabream.png",
+        "sha256": "d5c0db59650d9ca2e07658bd954a6bf39112d5dbeb708ff37013c12cd1905677"
+      }
+    },
+    "sea_bass": {
+      "enabled": true,
+      "model_sha256": "2330ca27218513120df513be50771b10f3fbbb2b8ca76224123232d6a3e34840",
+      "source_size": [
+        1985,
+        800
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9137401478833185,
+        0.4412903225806451
+      ],
+      "radius_uv": [
+        0.023024295116600306,
+        0.05712903225806451
+      ],
+      "native_xy": {
+        "center": [
+          0.4137401691663344,
+          0.023661327248050174
+        ],
+        "radius": [
+          0.023024319822634188,
+          0.023024295247897543
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/sea_bass.json.gz",
+        "sha256": "1ac160162637dd33bd379d869076d2204d337c34de137893cf168f9eff55d0a6"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/sea_bass.png",
+        "sha256": "72cb135584d272ef84b207a8c001b4f06d2048080d545de914c2a03100bdb62a"
+      }
+    },
+    "yellow_croaker": {
+      "enabled": true,
+      "model_sha256": "22b6b63605b72bf5963a9de979925a388f0e8cf2ba0aac369a196ddf0656114f",
+      "source_size": [
+        2014,
+        727
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9274433802095013,
+        0.4745174601765985
+      ],
+      "radius_uv": [
+        0.0252641189095685,
+        0.0699889071304965
+      ],
+      "native_xy": {
+        "center": [
+          0.4274434098868637,
+          0.009198512945373912
+        ],
+        "radius": [
+          0.025264118912090766,
+          0.025264116346161748
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/yellow_croaker.json.gz",
+        "sha256": "bb511d0246b2035f083271cb4d765326f088a3e3c2ec65ed070f03c4482a201d"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/yellow_croaker.png",
+        "sha256": "863bb8380c66f88717135d5b3ef9ec7dfe1213fad745164391d40c06d255f8ba"
+      }
+    },
+    "zander": {
+      "enabled": true,
+      "model_sha256": "714e9b315bbf0e9e77bf59a3cf35123b8de0c02f8c1c7f3a81bf0e5cbe697aa9",
+      "source_size": [
+        2024,
+        742
+      ],
+      "height_over_radius": 0.18,
+      "footprint": 0.93,
+      "rings": 12,
+      "sectors": 64,
+      "center_uv": [
+        0.9189723320158103,
+        0.5094339622641509
+      ],
+      "radius_uv": [
+        0.022727272727272728,
+        0.05525606469002695
+      ],
+      "native_xy": {
+        "center": [
+          0.4189723319785222,
+          -0.00889326877790892
+        ],
+        "radius": [
+          0.0227272727434968,
+          0.020256916941034122
+        ]
+      },
+      "native_surface": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/support/zander.json.gz",
+        "sha256": "b54cd2b90fe88e6c76c234374399a4dbdf89b18c8b15e09bd990485a8b6cc9ef"
+      },
+      "clamp_surface_barycentric": true,
+      "source_image": {
+        "path": "projects/fishing-2d/plans/reviews/eye-volume150/inputs/source/zander.png",
+        "sha256": "1415a61526306ca0877a18a0471d49120b4e4fc0af26c1b5fa502146fa38b510"
+      }
+    }
+  },
+  "acceptance_record": "projects/fishing-2d/plans/reviews/eye-volume150/acceptance150.json"
+}
