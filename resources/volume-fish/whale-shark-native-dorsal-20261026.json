@@ -1,0 +1,67 @@
+{
+  "source_body": "work/whale-shark-spots/metric-candidate/body.res",
+  "source_body_sha256": "6933dd4d237f7faf44fecc1d846582363a97f05fb27f0f67ac3ae8320a2d0dd6",
+  "source_image": "projects/whale-shark-top152r2/output/char_whale_shark_top152r2_nobg.png",
+  "source_image_sha256": "5288f052aeca756edecdebe6edb1198458bdde2bfdc2479ef9819a9b408c0ee4",
+  "output": "work/whale-shark-spots/native-distance-candidate",
+  "kind": "whale_shark_native_dorsal_review",
+  "species": "whale_shark",
+  "status": "pending",
+  "source_dimensions": [
+    2028,
+    937
+  ],
+  "source_x_span": [
+    0.12,
+    0.97
+  ],
+  "body_u_span": [
+    0.1626,
+    0.9961
+  ],
+  "source_center_y": 0.497,
+  "radius_knots": [
+    [
+      0.12,
+      0.034
+    ],
+    [
+      0.2,
+      0.057
+    ],
+    [
+      0.25,
+      0.069
+    ],
+    [
+      0.4,
+      0.119
+    ],
+    [
+      0.55,
+      0.16
+    ],
+    [
+      0.7,
+      0.202
+    ],
+    [
+      0.8,
+      0.215
+    ],
+    [
+      0.9,
+      0.191
+    ],
+    [
+      0.97,
+      0.146
+    ]
+  ],
+  "source_width_factor": 0.92,
+  "unseen_shoulder": "Reflect same-X native half-field beyond bounded visible donor edge; exclude centerline from repeat. Artistic extrapolation, not source-exact projected correspondence.",
+  "source_plan": "work/whale-shark-spots/native-distance.plan.json",
+  "builder": "resources/scripts/volume-fish/build_whale_shark_native_dorsal.gd",
+  "visual_acceptance": "pending",
+  "path_base": "../.."
+}

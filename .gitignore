@@ -31,3 +31,6 @@ progress.json
 
 # Cursor Superpowers SDD scratch (not product docs; those live under docs/superpowers/)
 .superpowers/
+
+# Whale session is retained in fishing-2d/plans/reviews/whale-shark-20261026.
+/work/whale-shark-spots/

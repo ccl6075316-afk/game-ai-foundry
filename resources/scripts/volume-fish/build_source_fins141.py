@@ -79,6 +79,16 @@ def main():
     offset=len(uv_vertices);uv_vertices.extend(Vector((u*w,v*h,0)) for u,v in part['uv']);uv_weights.extend(dict(zip(j,v)) for j,v in zip(part['joints'],part['weights']));ids=part['triangles'];uv_triangles.extend(tuple(offset+v for v in ids[k:k+3]) for k in range(0,len(ids),3))
    uv_index=BVHTree.FromPolygons(uv_vertices,uv_triangles,all_triangles=True)
   else:assert finbone is not None,('Explicit multi-bone transport required',name)
+  # Optional source-space foil: retain a thin complete basal strip and taper
+  # toward the real authored boundary. Parameters are artistic, not measured.
+  half_thickness=[]
+  for q,distance in zip(source,distances):
+   half=spec['thickness_native']/2
+   if spec.get('foil_thickness_ratio'):
+    edge_distance=nearest_line(q,raw_poly+[raw_poly[0]])[0]/ppu
+    free=min(spec['foil_max_thickness_native']/2,half+edge_distance*spec['foil_thickness_ratio'])
+    half+=(free-half)*smooth((distance-spec['root_band_px'])/spec['root_blend_px'])
+   half_thickness.append(half)
   for i,(q,distance) in enumerate(zip(source,distances)):
    xy=Vector(((q.x-cx)/ppu,(cy-q.y)/ppu,0.));_,basal=nearest_line(q,base);bp=Vector(((basal.x-cx)/ppu,(cy-basal.y)/ppu,0.));direction=Vector((0,0,side)) if paired else Vector((0,1 if dorsal else -1,0)) if not tail else Vector((-1,0,0));origin=bp+direction*2*native_width;hit,normal,face,_=bvh.ray_cast(origin,-direction,4.*native_width)
    if hit is None:hit,normal,face,_=bvh.find_nearest(bp)
@@ -94,7 +104,13 @@ def main():
    gain=1.-smooth((distance-spec['root_band_px'])/spec['root_blend_px'])
    segment=min(zip(base,base[1:]),key=lambda pair:nearest_line(basal,list(pair))[0]);st=(segment[1]-segment[0]).normalized();source_tangent=Vector((st.x,-st.y,0));source_delta=Vector(((q.x-basal.x)/ppu,-(q.y-basal.y)/ppu,0));tangent=(source_tangent-normal*source_tangent.dot(normal)).normalized();cross=normal.cross(tangent).normalized();source_perp=Vector((-source_tangent.y,source_tangent.x,0));perp=source_delta.dot(source_perp)
    if paired and cross.dot(source_perp)<0:cross=-cross
-   root_probe=hit+tangent*source_delta.dot(source_tangent)+cross*perp*.75;root_hit,root_normal,_,_=bvh.find_nearest(root_probe)
+   root_probe=hit+tangent*source_delta.dot(source_tangent)+cross*perp*.75
+   if paired and spec.get('paired_collar_outward',False):
+    # A ventral basal strip must turn toward its own side. At the belly
+    # meridian a projected tangent can otherwise carry left-root vertices
+    # across to the right side, creating a chord through the closed body.
+    root_probe.z=side*(abs(hit.z)+abs(root_probe.z-hit.z))
+   root_hit,root_normal,_,_=bvh.find_nearest(root_probe)
    if root_normal.dot(direction)<0:root_normal=-root_normal
    # A finite tangent collar must not collapse at a closest-triangle corner.
    # Keep the transported 2D patch finite; actual signed-distance gates still
@@ -103,14 +119,18 @@ def main():
    if spec.get('root_project_normal_only',False):basal_target=root_probe-root_normal*((root_probe-root_hit).dot(root_normal)+spec['root_inset_native'])
    if paired:
     sh,sn,sface,_=bvh.ray_cast(Vector((xy.x,xy.y,side*2)),Vector((0,0,-side)),4.)
-    depth=abs(sh.z) if sh is not None else abs(hit.z)
+    # A swept fin leaves the body's projected silhouette. Switching at that
+    # edge from a surface ray to the basal depth creates a fold and stretches
+    # the source root pixels. Explicit basal-plane transport stays continuous;
+    # the independent clearance projection below still protects the body.
+    depth=abs(hit.z) if spec.get('paired_depth_from_base',False) else (abs(sh.z) if sh is not None else abs(hit.z))
     xy.z=side*(depth+spec['free_clearance_native']+spec['spread_native']*smooth(distance/maxdist))
    # A finite source basal strip wraps onto the local body tangent surface.
    # Collapsing that whole strip onto one line would create zero-area faces.
    point=xy.lerp(basal_target,gain)
    if distance<=spec['root_band_px']+1e-6:point=basal_target;rootids.append(i)
    else:
-    half=spec['thickness_native']/2;minimum=half+spec.get('minimum_outer_clearance_native',.00035)+spec['free_clearance_native']*smooth((distance-spec['root_band_px'])/12.);clearance=minimum
+    half=half_thickness[i];minimum=half+spec.get('minimum_outer_clearance_native',.00035)+spec['free_clearance_native']*smooth((distance-spec['root_band_px'])/12.);clearance=minimum
     if paired:
      sh,sn,sface,_=bvh.ray_cast(Vector((point.x,point.y,side*2)),Vector((0,0,-side)),4.)
      if sh is not None:point.z=side*max(side*point.z,side*sh.z+clearance)
@@ -151,7 +171,7 @@ def main():
    n=(vertices[bb]-vertices[aa]).cross(vertices[cc]-vertices[aa])
    for j in [aa,bb,cc]:normals[j]+=n
   for i,n in enumerate(normals):normals[i]=n.normalized() if n.length>1e-12 else Vector((0,0,1))
-  n=len(vertices);half=spec['thickness_native']/2;solid=[q+normals[i]*half for i,q in enumerate(vertices)]+[q-normals[i]*half for i,q in enumerate(vertices)];allfaces=faces+[[n+c,n+b,n+a] for a,b,c in faces];edges={}
+  n=len(vertices);solid=[q+normals[i]*half_thickness[i] for i,q in enumerate(vertices)]+[q-normals[i]*half_thickness[i] for i,q in enumerate(vertices)];allfaces=faces+[[n+c,n+b,n+a] for a,b,c in faces];edges={}
   for face in faces:
    for a,b in zip(face,face[1:]+face[:1]):edges.setdefault(tuple(sorted((a,b))),[]).append((a,b))
   for es in edges.values():

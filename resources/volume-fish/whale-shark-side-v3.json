@@ -1,0 +1,194 @@
+{
+  "species": "whale_shark",
+  "baseline": "work/whale-shark-spots/side-model-v3/baseline",
+  "output": "work/whale-shark-spots/side-model-v3/geometry-r1",
+  "source": "work/whale-shark-spots/side-regeneration-20261026/whale-shark-side-v3-pixel.png",
+  "source_width": 1774,
+  "source_height": 887,
+  "source_left": 232,
+  "source_length": 1318,
+  "source_axis_y": 447,
+  "x_stations": [
+    [
+      -0.51,
+      -0.512
+    ],
+    [
+      -0.49853,
+      -0.5
+    ],
+    [
+      -0.33741,
+      -0.3566
+    ],
+    [
+      -0.13463,
+      -0.0448
+    ],
+    [
+      0.002,
+      0.1282
+    ],
+    [
+      0.2492,
+      0.235
+    ],
+    [
+      0.3589,
+      0.397
+    ],
+    [
+      0.37403,
+      0.417
+    ],
+    [
+      0.49621,
+      0.5
+    ],
+    [
+      0.51,
+      0.51
+    ]
+  ],
+  "top_px": [
+    [
+      421,
+      413
+    ],
+    [
+      500,
+      407
+    ],
+    [
+      560,
+      399
+    ],
+    [
+      650,
+      386
+    ],
+    [
+      750,
+      367
+    ],
+    [
+      850,
+      345
+    ],
+    [
+      950,
+      335
+    ],
+    [
+      1050,
+      334
+    ],
+    [
+      1150,
+      344
+    ],
+    [
+      1250,
+      362
+    ],
+    [
+      1350,
+      386
+    ],
+    [
+      1450,
+      415
+    ],
+    [
+      1510,
+      438
+    ],
+    [
+      1550,
+      454
+    ]
+  ],
+  "bottom_px": [
+    [
+      421,
+      448
+    ],
+    [
+      500,
+      460
+    ],
+    [
+      650,
+      490
+    ],
+    [
+      800,
+      524
+    ],
+    [
+      900,
+      541
+    ],
+    [
+      1000,
+      552
+    ],
+    [
+      1100,
+      565
+    ],
+    [
+      1200,
+      566
+    ],
+    [
+      1300,
+      559
+    ],
+    [
+      1400,
+      542
+    ],
+    [
+      1500,
+      510
+    ],
+    [
+      1540,
+      485
+    ],
+    [
+      1550,
+      473
+    ]
+  ],
+  "head_feature_drop": 0.12,
+  "paired": {
+    "Pectoral": {
+      "root_guard": 0.003,
+      "blend_span": 0.012,
+      "sweep_per_span": -0.85,
+      "drop_per_span": -0.75,
+      "fold_per_span": 0.22
+    },
+    "Pelvic": {
+      "root_guard": 0.002,
+      "blend_span": 0.008,
+      "sweep_per_span": 0,
+      "drop_per_span": -0.55,
+      "fold_per_span": 0.1
+    }
+  },
+  "dorsal_height_gain": {
+    "Dorsal_first": 1.08,
+    "Dorsal_second": 1
+  },
+  "constraints": "Source-pixel side landmarks; unseen transverse envelope preserved from approved top. Root-guard is deformation support, not validator selection; all old fin basal indices remain required. Widths not species measurements.",
+  "review_status": "rejected_model_trial",
+  "review_notes": "2026-10-26 user rejected fin white fringes and pointed mouth. These parameters are not an accepted shape template.",
+  "auxiliary_view_report": "work/whale-shark-spots/side-v3-multiview/validation-report.json",
+  "head_width_research": "work/whale-shark-spots/orbit-video-20261026/head-research.validation.json",
+  "head_width_adjustment_authorized_by_evidence": false,
+  "head_width_notes": "Do not widen based on generated frontal appearance alone. Broad/flat/short truncated muzzle supported qualitatively; numeric width correction remains unknown.",
+  "path_base": "../.."
+}

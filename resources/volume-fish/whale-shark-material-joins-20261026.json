@@ -1,0 +1,65 @@
+{
+  "source_body": "work/whale-shark-spots/native-distance-candidate/body.res",
+  "source_body_sha256": "6b814041721cc82c678be732d0b669d2d16616c595ca3b428c228f3691f900de",
+  "output": "work/whale-shark-spots/seams-final-candidate",
+  "kind": "whale_shark_lateral_pectoral_material_joins",
+  "species": "whale_shark",
+  "status": "pending",
+  "builder": "resources/scripts/volume-fish/build_whale_shark_material_joins.gd",
+  "crown_preserve_height_min": 0.7,
+  "side_blend_height": [
+    0.35,
+    0.7
+  ],
+  "flank_height": [
+    -0.32,
+    -0.08
+  ],
+  "fore_fade_x": [
+    0.31,
+    0.334
+  ],
+  "pectoral_x": [
+    0.09,
+    0.125,
+    0.235,
+    0.275
+  ],
+  "pectoral_height": [
+    -0.7,
+    -0.4,
+    0.1,
+    0.35
+  ],
+  "pectoral_normal_z": [
+    0.6,
+    0.85
+  ],
+  "pectoral_belly_suppression": 0.92,
+  "native_gill_height": [
+    -0.45,
+    -0.2
+  ],
+  "native_gill_u": [
+    0.705,
+    0.72
+  ],
+  "head_join_x": [
+    0.3,
+    0.33,
+    0.365,
+    0.375
+  ],
+  "head_join_normal_z": [
+    0.45,
+    0.8
+  ],
+  "parameter_basis": "Current pectoral medial surface measured x .111..249, y -.044..-.026; support blend is an artistic material boundary, not an anatomical measurement or complete fin-root contact proof.",
+  "preserved": [
+    "All source pixels and other uniforms",
+    "Upper crown height >= .70",
+    "Body/fin/eye/lip geometry, UVs, skin weights and LODs",
+    "Vertex/fragment entry and mouth final coverage"
+  ],
+  "path_base": "../.."
+}

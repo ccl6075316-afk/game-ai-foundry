@@ -1,0 +1,32 @@
+{
+  "source": "work/whale-shark-spots/metric-candidate/body.res",
+  "source_sha256": "6933dd4d237f7faf44fecc1d846582363a97f05fb27f0f67ac3ae8320a2d0dd6",
+  "scale_knots": [
+    [
+      -0.34,
+      0.58
+    ],
+    [
+      -0.08,
+      1.0
+    ],
+    [
+      0.13,
+      0.9
+    ],
+    [
+      0.3,
+      0.46
+    ]
+  ],
+  "extent_x": 0.7,
+  "phase": 0.03,
+  "output": "work/whale-shark-spots/combined-candidate",
+  "kind": "dorsal_art_scale_review",
+  "species": "whale_shark",
+  "scope": "Local20261026 material review candidate; native154 rows and centreline retained, tail/shoulder scales are art choices, not user acceptance. Main game binding unchanged.",
+  "metric_recipe": "work/whale-shark-spots/metric.plan.json",
+  "source_surface": "work/whale-shark-spots/surface.json",
+  "original_model_sha256": "8a10d9ba17defee7c1e72ebe8bf31e2485aa2c433606e42ef7d863edfe24e261",
+  "path_base": "../.."
+}
