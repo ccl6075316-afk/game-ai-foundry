@@ -1,0 +1,51 @@
+{
+  "species": "zander",
+  "date": "2026-10-27",
+  "scope": "user-cut lower jaw bridge, local sculpt smoothing, and textured game body resource",
+  "user_accepted_visual_candidate": "fish-reconnected-brush-v3-texture-preview.blend",
+  "editable_source_sha256": "2c63a7e6e0b54e81f681108acccec0f48f07c9be56eb9ad17a04dbf4e78196d4",
+  "export_glb_sha256": "7f68c3e752afe7dc43be9ef1b693fcc875ac4afc212fdc0df417a95917c3ea22",
+  "installed_body_res_sha256": "45583fc90627e3e31f683f620f6d666aff7801f25d3893d4917a2ffbe225e282",
+  "source_image_sha256": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+  "sculpt_smooth": {
+    "source": "user-sculpted fish-reconnected-v2.blend",
+    "target": "both lower-jaw roots and ventral seam",
+    "mask_inner_radius_mm": 6.5,
+    "mask_outer_radius_mm": 14.0,
+    "strength": 0.18,
+    "additional_inflate_strength": 0.08,
+    "changed_vertices": 2411,
+    "max_displacement_mm": 1.07,
+    "observation": "Small seam ripples softened; deep posterior mouth-corner depression remains. Stronger Inflate produced a new round bulge and was rejected."
+  },
+  "whole_region_smooth": {
+    "soft_vertex_group_count": 4948,
+    "light": {"factor": 0.25, "iterations": 3, "max_displacement_mm": 0.88},
+    "medium": {"factor": 0.55, "iterations": 6, "max_displacement_mm": 2.42},
+    "strong": {"factor": 1.25, "iterations": 12, "max_displacement_mm": 4.0},
+    "result": "all_not_adopted; light change visually slight, stronger settings move jaw shape without filling the deep corner"
+  },
+  "material": {
+    "uv_layer": "UVMap",
+    "sampling": "nearest",
+    "body_opaque": true,
+    "rejected_uv_layer": "UVMap.001 samples mostly transparent background",
+    "remaining_observation": "Oblique and frontal head/jaw areas retain stretched dark source stripes; user accepted the displayed textured candidate, but full front/source correspondence remains a recorded visual limitation."
+  },
+  "installed_runtime": {
+    "source_glb_role": "existing rig and fin donor",
+    "body_resource": "projects/fishing-2d/game/assets/models/fish/motion/mouth139/zander/body-sculpted-20261027.res",
+    "lips_resource": "removed for this accepted short-mouth body",
+    "eye_support_binding": "updated to installed body resource",
+    "static_assembly_remaining": true
+  },
+  "validation": {
+    "actual_body_gpu_077": "passed, 16 views/poses and current resource/skin binding",
+    "actual_fin_roots_177": "passed",
+    "actual_full_fin_490": "passed",
+    "fresh_game_body_load_and_four_actions": "passed",
+    "final_sop": "blocked; all-stage review and self-contained GLB cold finalization not complete"
+  },
+  "evidence": "projects/fishing-2d/plans/reviews/zander-manual-bridge-20261027/",
+  "not_a_cross_species_template": true
+}

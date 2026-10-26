@@ -3,7 +3,7 @@
 The GLB is checked only for unchanged auxiliaries, never as evidence for the
 replacement body. That body comes from the freshly exported active ArrayMesh.
 """
-import hashlib,json,re
+import hashlib,json,re,traceback
 from collections import Counter
 from pathlib import Path
 import numpy as np
@@ -78,7 +78,10 @@ def validate(game,receipt,output,candidate_plan):
             materials=row['materials'];assert len(materials)==len(active['parts'])
             for mat in materials:
                 if mat['kind']=='opaque_standard':
-                    assert mat['transparency_disabled'] and not mat['texture_present'] and mat['albedo_alpha']==1
+                    assert mat['transparency_disabled'] and mat['albedo_alpha']==1
+                    if mat['texture_present']:
+                        texture=mat['texture'];assert min(texture['size'])>0 and len(texture['base_data_sha256'])==64
+                    else:assert not mat.get('texture')
                     continue
                 assert mat['kind']=='opaque_shader'
                 path=Path(mat['shader']);assert sha(path)==mat['shader_sha256'];code=path.read_text()
@@ -129,5 +132,5 @@ def validate(game,receipt,output,candidate_plan):
             for v in row['samples']+row['transitions']+row['distances']:assert sha(v['file'])==v['sha256']
             records.append({'species':sp,'ok':True,'body_resource_sha256':p['body']['sha256'],'geometry_and_actual_bone_binding_match_frozen_candidate':True,'actual_shell':shell,'unchanged_auxiliaries':aux,'gpu_views':16,'missing_body_pixels':0,'actual_body_lod_counts':row['actual_body_lod_counts']})
         result={'ok':True,'records':records,'runtime_report':str(receipt),'runtime_report_sha256':sha(receipt),'candidate_plan_sha256':sha(candidate_plan),'checker_sha256':sha(__file__),'scope':'Active139 body closure, exact geometry/bone/weight match to frozen fin-gate candidate, actual per-surface materials and opaque donors, identical-pose GPU coverage, unchanged source auxiliaries. Original GLB is only a rig/fin/auxiliary donor. Discrete visibility, not continuous-time proof or visual acceptance.'}
-    except Exception as e:result={'ok':False,'error':str(e),'records':records}
+    except Exception as e:result={'ok':False,'error':str(e),'traceback':traceback.format_exc(),'records':records}
     output.mkdir(parents=True,exist_ok=True);(output/'completion.validation.json').write_text(json.dumps(result,indent=2));return result

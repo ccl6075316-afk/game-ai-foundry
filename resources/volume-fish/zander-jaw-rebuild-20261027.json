@@ -1,0 +1,33 @@
+{
+  "species": "zander",
+  "status": "rejected_not_installed",
+  "user_direction": "切除问题下巴及部分上口沿，从较高的连接边重建完整下巴，仅前端保留短小开口",
+  "experiment_source": "projects/fishing-2d/plans/reviews/zander-lower-jaw-v1/reproduction/zander-failure-replay.tar.xz",
+  "cut": {
+    "back_x_native": 0.38,
+    "upper_y_at_back_native": -0.03,
+    "upper_y_slope": 0.08
+  },
+  "v4": {
+    "method": "broad_old_tessellation_rebuild",
+    "removed_and_replaced_faces": 13095,
+    "result": "rejected_visible_junction_and_white_patch"
+  },
+  "v5": {
+    "method": "four_concentric_rings_to_chin_center",
+    "removed_old_faces": 13095,
+    "new_faces": 3285,
+    "center_native": [0.433, -0.054, 0.0],
+    "result": "rejected_fan_fold_and_unbound_material_index"
+  },
+  "v6": {
+    "method": "longitudinal_centerline_loft_on_centroid_selected_boundary",
+    "removed_old_faces": 13095,
+    "new_faces": 1279,
+    "boundary_x_reversals": [29, 66],
+    "result": "rejected_radiating_folds_and_unbound_material_index"
+  },
+  "not_a_template": true,
+  "next_method_to_test": "finite_triangle_cut_for_smooth_true_boundary_then_longitudinal_section_loft_with_separate_upper_edge_chin_bottom_cheek_and_width_constraints",
+  "evidence": "projects/fishing-2d/plans/reviews/zander-jaw-rebuild-20261027/repair.handoff.json"
+}

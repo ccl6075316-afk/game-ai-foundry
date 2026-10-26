@@ -25,8 +25,15 @@ func material_inventory(body:MeshInstance3D)->Array:
         var mat=body.get_active_material(si)
         if mat is StandardMaterial3D:
             assert(mat.transparency==BaseMaterial3D.TRANSPARENCY_DISABLED)
-            result.append({"surface":si,"kind":"opaque_standard","transparency_disabled":true,"albedo_alpha":mat.albedo_color.a,"texture_present":mat.albedo_texture!=null})
-            assert(mat.albedo_texture==null,"Textured standard body needs explicit donor inventory")
+            var texture_record={}
+            if mat.albedo_texture!=null:
+                var im:Image=mat.albedo_texture.get_image().duplicate()
+                assert(im!=null and not im.is_empty())
+                if im.is_compressed():assert(im.decompress()==OK)
+                im.clear_mipmaps();im.convert(Image.FORMAT_RGBA8)
+                var ctx=HashingContext.new();ctx.start(HashingContext.HASH_SHA256);ctx.update(im.get_data())
+                texture_record={"size":[im.get_width(),im.get_height()],"base_data_sha256":ctx.finish().hex_encode()}
+            result.append({"surface":si,"kind":"opaque_standard","transparency_disabled":true,"albedo_alpha":mat.albedo_color.a,"texture_present":mat.albedo_texture!=null,"texture":texture_record})
             continue
         assert(mat is ShaderMaterial)
         var code_path=out+"/body-surface-%d.gdshader"%si
