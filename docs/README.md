@@ -7,6 +7,7 @@
 | 需要 | 文档 |
 |---|---|
 | 外部 Agent 协议 | [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md) |
+| 鱼类与展厅的外部 Agent 分工、交接和 SOP 审计 | [`EXTERNAL-AGENT-WORK-SPLIT.md`](EXTERNAL-AGENT-WORK-SPLIT.md) |
 | CLI、Brief 字段、资产审查、matting | [`AI-HANDOFF.md`](AI-HANDOFF.md) |
 | 本机工具、配置、故障排查 | [`TOOLS.md`](TOOLS.md) |
 | 施工体系与验收 | [`CONSTRUCTION-SYSTEM.md`](CONSTRUCTION-SYSTEM.md) |
