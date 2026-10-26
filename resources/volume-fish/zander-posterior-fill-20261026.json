@@ -1,0 +1,36 @@
+{
+  "species": "zander",
+  "status": "rejected_not_installed",
+  "user_target": "后方口缝连黑线填成实体皮肤，前端保留短小开口，下巴完整连续。",
+  "shape_attempts": 3,
+  "parameters": {
+    "posterior_fill_cut_X_native": 0.47,
+    "working_geometry": "v2 chin/anterior small aperture used only as construction donor",
+    "front_aperture_ratio_nominal": 0.3333333333333333,
+    "atlas_old_size": [
+      76,
+      121
+    ],
+    "atlas_material_correction_size": [
+      97,
+      121
+    ],
+    "native_cream_source_rect_inclusive": [
+      1800,
+      450,
+      1820,
+      470
+    ]
+  },
+  "technical_results": {
+    "closed_directed_edges": true,
+    "old_empty_to_solid_probes": 24,
+    "atlas_original_rectangle_RGBA_differences": 0,
+    "original_records_sample_RGBA_differences": 0
+  },
+  "rejection": "Actual gray still has ridges/seams; actual material has visible patch border/gray line. Geometry versus normal contribution remains unknown. These technical checks do not establish continuous skin appearance.",
+  "baseline_unchanged_report": "projects/fishing-2d/plans/reviews/zander-lower-jaw-v1/rollback-cleanup.validation.json",
+  "evidence": "projects/fishing-2d/plans/reviews/zander-lower-jaw-v1",
+  "not_a_template": true,
+  "next_action": "Human architecture review before a fourth shape attempt; no automatic promotion, freeze or install."
+}

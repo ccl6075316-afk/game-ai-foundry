@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "reviewer": "independent /root/cleanup_review",
+  "ok": true,
+  "scope": "Cleanup and archival commit only; no fish model acceptance",
+  "archive_sha256": "9ee618d33a436357c6fd05b9d356c53c97a9f7f57ef3e77b409560bade5310e7",
+  "archive_member_count": 55,
+  "archive_hardlinks": 5,
+  "archive_bytes": 46166640,
+  "all_member_hashes_verified": true,
+  "safe_member_paths_and_internal_hardlinks": true,
+  "all_85_listed_removed_paths_absent": true,
+  "removed_bytes_including_two_caches": 145156802,
+  "net_freed_bytes": 98990162,
+  "validator_matches_HEAD": true,
+  "official_zander_resources_and_factory_paths_unchanged": true,
+  "approved_school_sources_match_canonical_installed_and_reviewed_hashes": true,
+  "whale_method_documentation_checked_against_existing_reports_and_tools_only": true,
+  "zander_model_verdict": "REJECTED; no fourth attempt, no installation",
+  "production_asset_acceptance": false
+}

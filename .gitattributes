@@ -49,3 +49,6 @@
 # Visitor builders and source-driven profiles use byte-bound validation.
 /resources/scripts/visitors/** -text whitespace=cr-at-eol
 /resources/visitors/** -text whitespace=cr-at-eol
+
+# Reviewed school runtime sources are bound by exact-byte validation reports.
+/resources/runtime/godot/fish-school/** -text whitespace=cr-at-eol
