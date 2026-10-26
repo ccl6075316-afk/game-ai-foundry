@@ -1,0 +1,2568 @@
+{
+  "schema_version": 2,
+  "source_review": "accepted_for_trial_by_agent",
+  "sources": {
+    "bodies": {
+      "path": "projects/fishing-2d/game/assets/visitors-v2/provenance/visitor_bodies_raw.png",
+      "sha256": "938831a0f0d1c704a2bf1853c8cb1ec92f4da1e3c544922d9b666f292465d392"
+    },
+    "adult_heads": {
+      "path": "projects/fishing-2d/game/assets/visitors-v2/provenance/visitor_adult_heads_raw.png",
+      "sha256": "0c557f3c623dbdcde2c2c02858a29b4d67bb21f8b3ccfccebbb7187ce552b712"
+    },
+    "child_heads": {
+      "path": "projects/fishing-2d/game/assets/visitors-v2/provenance/visitor_child_heads_raw.png",
+      "sha256": "52c7dbb6709504176b2c5ee8b399227e8f7310ca6d3669c6ebf1bb5a8c138965"
+    }
+  },
+  "donors": {
+    "adult_male/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        82,
+        244,
+        201,
+        394
+      ]
+    },
+    "adult_male/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        133,
+        1003,
+        172,
+        1134
+      ]
+    },
+    "adult_male/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        88,
+        279,
+        126,
+        385
+      ]
+    },
+    "adult_male/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        49,
+        281,
+        78,
+        353
+      ]
+    },
+    "adult_male/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        49,
+        281,
+        78,
+        353
+      ]
+    },
+    "adult_male/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        49,
+        281,
+        78,
+        353
+      ]
+    },
+    "adult_male/pants_front": {
+      "source": "bodies",
+      "rect": [
+        85,
+        410,
+        129,
+        700
+      ]
+    },
+    "adult_male/pants_side": {
+      "source": "bodies",
+      "rect": [
+        85,
+        410,
+        129,
+        700
+      ]
+    },
+    "adult_male/pants_back": {
+      "source": "bodies",
+      "rect": [
+        85,
+        410,
+        129,
+        700
+      ]
+    },
+    "adult_male/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        70,
+        721,
+        122,
+        747
+      ]
+    },
+    "adult_male/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        70,
+        721,
+        122,
+        747
+      ]
+    },
+    "adult_male/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        70,
+        721,
+        122,
+        747
+      ]
+    },
+    "adult_male/collar_front": {
+      "source": "bodies",
+      "rect": [
+        111,
+        248,
+        137,
+        275
+      ]
+    },
+    "adult_male/collar_side": {
+      "source": "bodies",
+      "rect": [
+        111,
+        248,
+        137,
+        275
+      ]
+    },
+    "adult_male/collar_back": {
+      "source": "bodies",
+      "rect": [
+        111,
+        248,
+        137,
+        275
+      ]
+    },
+    "adult_male/white/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        60,
+        156,
+        171,
+        285
+      ],
+      "facial_interior": true
+    },
+    "adult_male/white/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        326,
+        220,
+        352,
+        242
+      ],
+      "note": "Clean source profile cheek only; excludes ear, eye, hair and outline. Ear is geometry."
+    },
+    "adult_male/white/skin": {
+      "source": "adult_heads",
+      "rect": [
+        100,
+        298,
+        127,
+        315
+      ]
+    },
+    "adult_male/white/hair": {
+      "source": "adult_heads",
+      "rect": [
+        72,
+        109,
+        151,
+        143
+      ]
+    },
+    "adult_male/east_asian/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        472,
+        156,
+        576,
+        285
+      ],
+      "facial_interior": true
+    },
+    "adult_male/east_asian/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        739,
+        222,
+        762,
+        241
+      ],
+      "note": "Clean source profile cheek only; excludes ear, eye, hair and outline. Ear is geometry."
+    },
+    "adult_male/east_asian/skin": {
+      "source": "adult_heads",
+      "rect": [
+        511,
+        299,
+        537,
+        315
+      ]
+    },
+    "adult_male/east_asian/hair": {
+      "source": "adult_heads",
+      "rect": [
+        478,
+        113,
+        556,
+        146
+      ]
+    },
+    "adult_male/black/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        879,
+        153,
+        988,
+        286
+      ],
+      "facial_interior": true
+    },
+    "adult_male/black/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        1154,
+        222,
+        1176,
+        241
+      ],
+      "note": "Clean source profile cheek only; excludes ear, eye, hair and outline. Ear is geometry."
+    },
+    "adult_male/black/skin": {
+      "source": "adult_heads",
+      "rect": [
+        920,
+        299,
+        948,
+        316
+      ]
+    },
+    "adult_male/black/hair": {
+      "source": "adult_heads",
+      "rect": [
+        888,
+        112,
+        966,
+        145
+      ]
+    },
+    "adult_female/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        343,
+        266,
+        451,
+        382
+      ]
+    },
+    "adult_female/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        403,
+        1012,
+        439,
+        1120
+      ]
+    },
+    "adult_female/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        349,
+        293,
+        381,
+        372
+      ]
+    },
+    "adult_female/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        320,
+        296,
+        346,
+        369
+      ]
+    },
+    "adult_female/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        320,
+        296,
+        346,
+        369
+      ]
+    },
+    "adult_female/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        320,
+        296,
+        346,
+        369
+      ]
+    },
+    "adult_female/pants_front": {
+      "source": "bodies",
+      "rect": [
+        344,
+        405,
+        385,
+        706
+      ]
+    },
+    "adult_female/pants_side": {
+      "source": "bodies",
+      "rect": [
+        344,
+        405,
+        385,
+        706
+      ]
+    },
+    "adult_female/pants_back": {
+      "source": "bodies",
+      "rect": [
+        344,
+        405,
+        385,
+        706
+      ]
+    },
+    "adult_female/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        350,
+        728,
+        390,
+        747
+      ]
+    },
+    "adult_female/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        350,
+        728,
+        390,
+        747
+      ]
+    },
+    "adult_female/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        350,
+        728,
+        390,
+        747
+      ]
+    },
+    "adult_female/collar_front": {
+      "source": "bodies",
+      "rect": [
+        369,
+        271,
+        396,
+        301
+      ]
+    },
+    "adult_female/collar_side": {
+      "source": "bodies",
+      "rect": [
+        369,
+        271,
+        396,
+        301
+      ]
+    },
+    "adult_female/collar_back": {
+      "source": "bodies",
+      "rect": [
+        369,
+        271,
+        396,
+        301
+      ]
+    },
+    "adult_female/white/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        60,
+        452,
+        166,
+        570
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "adult_female/white/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        327,
+        521,
+        350,
+        540
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "adult_female/white/skin": {
+      "source": "adult_heads",
+      "rect": [
+        99,
+        584,
+        127,
+        600
+      ]
+    },
+    "adult_female/white/hair": {
+      "source": "adult_heads",
+      "rect": [
+        78,
+        407,
+        140,
+        432
+      ]
+    },
+    "adult_female/east_asian/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        472,
+        450,
+        576,
+        573
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "adult_female/east_asian/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        741,
+        522,
+        762,
+        540
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "adult_female/east_asian/skin": {
+      "source": "adult_heads",
+      "rect": [
+        510,
+        586,
+        536,
+        604
+      ]
+    },
+    "adult_female/east_asian/hair": {
+      "source": "adult_heads",
+      "rect": [
+        488,
+        410,
+        550,
+        438
+      ]
+    },
+    "adult_female/black/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        883,
+        450,
+        987,
+        574
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "adult_female/black/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        1154,
+        523,
+        1176,
+        541
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "adult_female/black/skin": {
+      "source": "adult_heads",
+      "rect": [
+        920,
+        585,
+        948,
+        603
+      ]
+    },
+    "adult_female/black/hair": {
+      "source": "adult_heads",
+      "rect": [
+        890,
+        411,
+        957,
+        439
+      ]
+    },
+    "elderly_male/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        598,
+        260,
+        718,
+        425
+      ]
+    },
+    "elderly_male/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        651,
+        1005,
+        701,
+        1159
+      ]
+    },
+    "elderly_male/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        605,
+        309,
+        640,
+        403
+      ]
+    },
+    "elderly_male/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        569,
+        282,
+        591,
+        421
+      ]
+    },
+    "elderly_male/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        569,
+        282,
+        591,
+        421
+      ]
+    },
+    "elderly_male/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        569,
+        282,
+        591,
+        421
+      ]
+    },
+    "elderly_male/pants_front": {
+      "source": "bodies",
+      "rect": [
+        603,
+        435,
+        646,
+        697
+      ]
+    },
+    "elderly_male/pants_side": {
+      "source": "bodies",
+      "rect": [
+        603,
+        435,
+        646,
+        697
+      ]
+    },
+    "elderly_male/pants_back": {
+      "source": "bodies",
+      "rect": [
+        603,
+        435,
+        646,
+        697
+      ]
+    },
+    "elderly_male/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        588,
+        718,
+        644,
+        748
+      ]
+    },
+    "elderly_male/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        588,
+        718,
+        644,
+        748
+      ]
+    },
+    "elderly_male/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        588,
+        718,
+        644,
+        748
+      ]
+    },
+    "elderly_male/collar_front": {
+      "source": "bodies",
+      "rect": [
+        635,
+        267,
+        657,
+        296
+      ]
+    },
+    "elderly_male/collar_side": {
+      "source": "bodies",
+      "rect": [
+        635,
+        267,
+        657,
+        296
+      ]
+    },
+    "elderly_male/collar_back": {
+      "source": "bodies",
+      "rect": [
+        635,
+        267,
+        657,
+        296
+      ]
+    },
+    "elderly_male/white/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        61,
+        710,
+        166,
+        860
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_male/white/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        331,
+        803,
+        350,
+        819
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_male/white/skin": {
+      "source": "adult_heads",
+      "rect": [
+        101,
+        874,
+        126,
+        889
+      ]
+    },
+    "elderly_male/white/hair": {
+      "source": "adult_heads",
+      "rect": [
+        93,
+        685,
+        132,
+        695
+      ]
+    },
+    "elderly_male/east_asian/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        473,
+        711,
+        576,
+        860
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_male/east_asian/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        742,
+        806,
+        759,
+        821
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_male/east_asian/skin": {
+      "source": "adult_heads",
+      "rect": [
+        511,
+        874,
+        536,
+        891
+      ]
+    },
+    "elderly_male/east_asian/hair": {
+      "source": "adult_heads",
+      "rect": [
+        501,
+        688,
+        540,
+        699
+      ]
+    },
+    "elderly_male/black/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        881,
+        711,
+        985,
+        864
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_male/black/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        1154,
+        801,
+        1173,
+        814
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_male/black/skin": {
+      "source": "adult_heads",
+      "rect": [
+        920,
+        879,
+        947,
+        893
+      ]
+    },
+    "elderly_male/black/hair": {
+      "source": "adult_heads",
+      "rect": [
+        909,
+        690,
+        949,
+        702
+      ]
+    },
+    "elderly_female/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        848,
+        293,
+        970,
+        473
+      ]
+    },
+    "elderly_female/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        898,
+        1032,
+        940,
+        1212
+      ]
+    },
+    "elderly_female/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        846,
+        324,
+        875,
+        455
+      ]
+    },
+    "elderly_female/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        820,
+        323,
+        846,
+        449
+      ]
+    },
+    "elderly_female/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        820,
+        323,
+        846,
+        449
+      ]
+    },
+    "elderly_female/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        820,
+        323,
+        846,
+        449
+      ]
+    },
+    "elderly_female/pants_front": {
+      "source": "bodies",
+      "rect": [
+        855,
+        485,
+        895,
+        698
+      ]
+    },
+    "elderly_female/pants_side": {
+      "source": "bodies",
+      "rect": [
+        855,
+        485,
+        895,
+        698
+      ]
+    },
+    "elderly_female/pants_back": {
+      "source": "bodies",
+      "rect": [
+        855,
+        485,
+        895,
+        698
+      ]
+    },
+    "elderly_female/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        854,
+        723,
+        893,
+        749
+      ]
+    },
+    "elderly_female/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        854,
+        723,
+        893,
+        749
+      ]
+    },
+    "elderly_female/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        854,
+        723,
+        893,
+        749
+      ]
+    },
+    "elderly_female/collar_front": {
+      "source": "bodies",
+      "rect": [
+        882,
+        294,
+        905,
+        322
+      ]
+    },
+    "elderly_female/collar_side": {
+      "source": "bodies",
+      "rect": [
+        882,
+        294,
+        905,
+        322
+      ]
+    },
+    "elderly_female/collar_back": {
+      "source": "bodies",
+      "rect": [
+        882,
+        294,
+        905,
+        322
+      ]
+    },
+    "elderly_female/white/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        61,
+        1027,
+        167,
+        1152
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_female/white/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        329,
+        1093,
+        348,
+        1110
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_female/white/skin": {
+      "source": "adult_heads",
+      "rect": [
+        100,
+        1167,
+        126,
+        1181
+      ]
+    },
+    "elderly_female/white/hair": {
+      "source": "adult_heads",
+      "rect": [
+        78,
+        986,
+        141,
+        1008
+      ]
+    },
+    "elderly_female/east_asian/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        473,
+        1028,
+        577,
+        1155
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_female/east_asian/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        742,
+        1095,
+        761,
+        1111
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_female/east_asian/skin": {
+      "source": "adult_heads",
+      "rect": [
+        510,
+        1169,
+        536,
+        1184
+      ]
+    },
+    "elderly_female/east_asian/hair": {
+      "source": "adult_heads",
+      "rect": [
+        490,
+        989,
+        548,
+        1012
+      ]
+    },
+    "elderly_female/black/head_front": {
+      "source": "adult_heads",
+      "rect": [
+        882,
+        1025,
+        987,
+        1156
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "elderly_female/black/head_side": {
+      "source": "adult_heads",
+      "rect": [
+        1155,
+        1096,
+        1177,
+        1114
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "elderly_female/black/skin": {
+      "source": "adult_heads",
+      "rect": [
+        919,
+        1170,
+        947,
+        1185
+      ]
+    },
+    "elderly_female/black/hair": {
+      "source": "adult_heads",
+      "rect": [
+        892,
+        987,
+        957,
+        1012
+      ]
+    },
+    "boy/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        1100,
+        370,
+        1207,
+        499
+      ]
+    },
+    "boy/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        1160,
+        1121,
+        1190,
+        1249
+      ]
+    },
+    "boy/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        1110,
+        374,
+        1198,
+        497
+      ]
+    },
+    "boy/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        1087,
+        397,
+        1107,
+        423
+      ]
+    },
+    "boy/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        1087,
+        397,
+        1107,
+        423
+      ]
+    },
+    "boy/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        1087,
+        397,
+        1107,
+        423
+      ]
+    },
+    "boy/pants_front": {
+      "source": "bodies",
+      "rect": [
+        1104,
+        513,
+        1147,
+        598
+      ]
+    },
+    "boy/pants_side": {
+      "source": "bodies",
+      "rect": [
+        1104,
+        513,
+        1147,
+        598
+      ]
+    },
+    "boy/pants_back": {
+      "source": "bodies",
+      "rect": [
+        1104,
+        513,
+        1147,
+        598
+      ]
+    },
+    "boy/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        1099,
+        723,
+        1140,
+        749
+      ]
+    },
+    "boy/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        1099,
+        723,
+        1140,
+        749
+      ]
+    },
+    "boy/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        1099,
+        723,
+        1140,
+        749
+      ]
+    },
+    "boy/collar_front": {
+      "source": "bodies",
+      "rect": [
+        1130,
+        365,
+        1166,
+        385
+      ]
+    },
+    "boy/collar_side": {
+      "source": "bodies",
+      "rect": [
+        1130,
+        365,
+        1166,
+        385
+      ]
+    },
+    "boy/collar_back": {
+      "source": "bodies",
+      "rect": [
+        1130,
+        365,
+        1166,
+        385
+      ]
+    },
+    "boy/white/head_front": {
+      "source": "child_heads",
+      "rect": [
+        57,
+        259,
+        202,
+        391
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "boy/white/head_side": {
+      "source": "child_heads",
+      "rect": [
+        393,
+        330,
+        418,
+        350
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "boy/white/skin": {
+      "source": "child_heads",
+      "rect": [
+        117,
+        403,
+        145,
+        426
+      ]
+    },
+    "boy/white/hair": {
+      "source": "child_heads",
+      "rect": [
+        66,
+        177,
+        190,
+        229
+      ]
+    },
+    "boy/east_asian/head_front": {
+      "source": "child_heads",
+      "rect": [
+        561,
+        254,
+        708,
+        393
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "boy/east_asian/head_side": {
+      "source": "child_heads",
+      "rect": [
+        897,
+        332,
+        920,
+        350
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "boy/east_asian/skin": {
+      "source": "child_heads",
+      "rect": [
+        620,
+        405,
+        648,
+        429
+      ]
+    },
+    "boy/east_asian/hair": {
+      "source": "child_heads",
+      "rect": [
+        568,
+        180,
+        694,
+        232
+      ]
+    },
+    "boy/black/head_front": {
+      "source": "child_heads",
+      "rect": [
+        1068,
+        238,
+        1223,
+        391
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "boy/black/head_side": {
+      "source": "child_heads",
+      "rect": [
+        1410,
+        333,
+        1440,
+        352
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "boy/black/skin": {
+      "source": "child_heads",
+      "rect": [
+        1129,
+        404,
+        1157,
+        427
+      ]
+    },
+    "boy/black/hair": {
+      "source": "child_heads",
+      "rect": [
+        1085,
+        182,
+        1204,
+        232
+      ]
+    },
+    "girl/shirt_front": {
+      "source": "bodies",
+      "rect": [
+        1353,
+        379,
+        1458,
+        491
+      ]
+    },
+    "girl/shirt_side": {
+      "source": "bodies",
+      "rect": [
+        1415,
+        1124,
+        1442,
+        1232
+      ]
+    },
+    "girl/shirt_back": {
+      "source": "bodies",
+      "rect": [
+        1363,
+        412,
+        1402,
+        483
+      ]
+    },
+    "girl/sleeve_front": {
+      "source": "bodies",
+      "rect": [
+        1340,
+        398,
+        1358,
+        429
+      ]
+    },
+    "girl/sleeve_side": {
+      "source": "bodies",
+      "rect": [
+        1340,
+        398,
+        1358,
+        429
+      ]
+    },
+    "girl/sleeve_back": {
+      "source": "bodies",
+      "rect": [
+        1340,
+        398,
+        1358,
+        429
+      ]
+    },
+    "girl/pants_front": {
+      "source": "bodies",
+      "rect": [
+        1359,
+        509,
+        1393,
+        599
+      ]
+    },
+    "girl/pants_side": {
+      "source": "bodies",
+      "rect": [
+        1359,
+        509,
+        1393,
+        599
+      ]
+    },
+    "girl/pants_back": {
+      "source": "bodies",
+      "rect": [
+        1359,
+        509,
+        1393,
+        599
+      ]
+    },
+    "girl/shoe_front": {
+      "source": "bodies",
+      "rect": [
+        1363,
+        722,
+        1399,
+        747
+      ]
+    },
+    "girl/shoe_side": {
+      "source": "bodies",
+      "rect": [
+        1363,
+        722,
+        1399,
+        747
+      ]
+    },
+    "girl/shoe_back": {
+      "source": "bodies",
+      "rect": [
+        1363,
+        722,
+        1399,
+        747
+      ]
+    },
+    "girl/collar_front": {
+      "source": "bodies",
+      "rect": [
+        1380,
+        382,
+        1414,
+        405
+      ]
+    },
+    "girl/collar_side": {
+      "source": "bodies",
+      "rect": [
+        1380,
+        382,
+        1414,
+        405
+      ]
+    },
+    "girl/collar_back": {
+      "source": "bodies",
+      "rect": [
+        1380,
+        382,
+        1414,
+        405
+      ]
+    },
+    "girl/white/head_front": {
+      "source": "child_heads",
+      "rect": [
+        55,
+        654,
+        206,
+        787
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "girl/white/head_side": {
+      "source": "child_heads",
+      "rect": [
+        433,
+        721,
+        450,
+        738
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "girl/white/skin": {
+      "source": "child_heads",
+      "rect": [
+        116,
+        800,
+        144,
+        824
+      ]
+    },
+    "girl/white/hair": {
+      "source": "child_heads",
+      "rect": [
+        80,
+        580,
+        170,
+        610
+      ]
+    },
+    "girl/east_asian/head_front": {
+      "source": "child_heads",
+      "rect": [
+        559,
+        653,
+        711,
+        788
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "girl/east_asian/head_side": {
+      "source": "child_heads",
+      "rect": [
+        939,
+        722,
+        955,
+        738
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "girl/east_asian/skin": {
+      "source": "child_heads",
+      "rect": [
+        620,
+        801,
+        648,
+        825
+      ]
+    },
+    "girl/east_asian/hair": {
+      "source": "child_heads",
+      "rect": [
+        585,
+        583,
+        675,
+        610
+      ]
+    },
+    "girl/black/head_front": {
+      "source": "child_heads",
+      "rect": [
+        1067,
+        632,
+        1221,
+        789
+      ],
+      "facial_interior": true,
+      "note": "Individual source skin/feature chart above neckline; central eyebrows, eyes, mouth, age lines and beard retained."
+    },
+    "girl/black/head_side": {
+      "source": "child_heads",
+      "rect": [
+        1452,
+        724,
+        1470,
+        741
+      ],
+      "note": "Clean profile cheek pixels excluding painted ear/eye/hair; ear modeled separately."
+    },
+    "girl/black/skin": {
+      "source": "child_heads",
+      "rect": [
+        1128,
+        800,
+        1156,
+        825
+      ]
+    },
+    "girl/black/hair": {
+      "source": "child_heads",
+      "rect": [
+        1090,
+        580,
+        1200,
+        612
+      ]
+    },
+    "adult_male/pelvis": {
+      "source": "bodies",
+      "rect": [
+        85,
+        414,
+        200,
+        478
+      ]
+    },
+    "adult_male/belt": {
+      "source": "bodies",
+      "rect": [
+        86,
+        395,
+        200,
+        410
+      ]
+    },
+    "adult_female/pelvis": {
+      "source": "bodies",
+      "rect": [
+        344,
+        404,
+        456,
+        483
+      ]
+    },
+    "adult_female/belt": {
+      "source": "bodies",
+      "rect": [
+        344,
+        385,
+        455,
+        401
+      ]
+    },
+    "elderly_male/pelvis": {
+      "source": "bodies",
+      "rect": [
+        602,
+        438,
+        718,
+        506
+      ]
+    },
+    "elderly_male/belt": {
+      "source": "bodies",
+      "rect": [
+        600,
+        414,
+        719,
+        431
+      ]
+    },
+    "elderly_female/pelvis": {
+      "source": "bodies",
+      "rect": [
+        854,
+        485,
+        958,
+        539
+      ]
+    },
+    "elderly_female/belt": {
+      "source": "bodies",
+      "rect": [
+        853,
+        465,
+        959,
+        481
+      ]
+    },
+    "boy/pelvis": {
+      "source": "bodies",
+      "rect": [
+        1103,
+        513,
+        1209,
+        561
+      ]
+    },
+    "boy/belt": {
+      "source": "bodies",
+      "rect": [
+        1102,
+        500,
+        1207,
+        514
+      ]
+    },
+    "girl/pelvis": {
+      "source": "bodies",
+      "rect": [
+        1357,
+        505,
+        1449,
+        555
+      ]
+    },
+    "girl/belt": {
+      "source": "bodies",
+      "rect": [
+        1357,
+        490,
+        1452,
+        506
+      ]
+    }
+  },
+  "archetypes": {
+    "adult_male": {
+      "body": {
+        "height": 1.68,
+        "head_height": 0.33,
+        "shoulder_y": 1.25,
+        "hip_y": 0.895,
+        "shoulder_half_width": 0.165,
+        "waist_half_width": 0.152,
+        "chest_depth": 0.115,
+        "leg_spacing": 0.073,
+        "head_half_width": 0.15,
+        "head_depth": 0.124,
+        "shorts": false
+      },
+      "hair": "short",
+      "collar": "folded",
+      "sleeve_fraction": 0.43,
+      "textures": {
+        "shirt_front": "adult_male/shirt_front",
+        "shirt_side": "adult_male/shirt_side",
+        "shirt_back": "adult_male/shirt_back",
+        "sleeve_front": "adult_male/sleeve_front",
+        "sleeve_side": "adult_male/sleeve_side",
+        "sleeve_back": "adult_male/sleeve_back",
+        "pants_front": "adult_male/pants_front",
+        "pants_side": "adult_male/pants_side",
+        "pants_back": "adult_male/pants_back",
+        "shoe_front": "adult_male/shoe_front",
+        "shoe_side": "adult_male/shoe_side",
+        "shoe_back": "adult_male/shoe_back",
+        "collar_front": "adult_male/collar_front",
+        "collar_side": "adult_male/collar_side",
+        "collar_back": "adult_male/collar_back",
+        "pelvis_front": "adult_male/pelvis",
+        "pelvis_side": "adult_male/pants_back",
+        "pelvis_back": "adult_male/pants_back",
+        "belt_front": "adult_male/belt",
+        "belt_side": "adult_male/belt",
+        "belt_back": "adult_male/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "adult_male/white/head_front",
+            "head_side": "adult_male/white/head_side",
+            "head_back": "adult_male/white/head_side",
+            "skin_front": "adult_male/white/head_side",
+            "hair_front": "adult_male/white/hair",
+            "skin_side": "adult_male/white/head_side",
+            "hair_side": "adult_male/white/hair",
+            "skin_back": "adult_male/white/head_side",
+            "hair_back": "adult_male/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.034,
+            "nose_width": 0.047,
+            "mouth": 0.011,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.937984496124031,
+            0.7906976744186046,
+            0.627906976744186,
+            0.3798449612403101,
+            0.21705426356589147,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "adult_male/east_asian/head_front",
+            "head_side": "adult_male/east_asian/head_side",
+            "head_back": "adult_male/east_asian/head_side",
+            "skin_front": "adult_male/east_asian/head_side",
+            "hair_front": "adult_male/east_asian/hair",
+            "skin_side": "adult_male/east_asian/head_side",
+            "hair_side": "adult_male/east_asian/hair",
+            "skin_back": "adult_male/east_asian/head_side",
+            "hair_back": "adult_male/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.03,
+            "nose_width": 0.048,
+            "mouth": 0.011,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.937984496124031,
+            0.7829457364341085,
+            0.627906976744186,
+            0.37209302325581395,
+            0.2248062015503876,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "adult_male/black/head_front",
+            "head_side": "adult_male/black/head_side",
+            "head_back": "adult_male/black/head_side",
+            "skin_front": "adult_male/black/head_side",
+            "hair_front": "adult_male/black/hair",
+            "skin_side": "adult_male/black/head_side",
+            "hair_side": "adult_male/black/hair",
+            "skin_back": "adult_male/black/head_side",
+            "hair_back": "adult_male/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.033,
+            "nose_width": 0.053,
+            "mouth": 0.014,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.9398496240601504,
+            0.7894736842105263,
+            0.6466165413533834,
+            0.39097744360902253,
+            0.22556390977443608,
+            0.0
+          ]
+        }
+      ]
+    },
+    "adult_female": {
+      "body": {
+        "height": 1.65,
+        "head_height": 0.312,
+        "shoulder_y": 1.24,
+        "hip_y": 0.935,
+        "shoulder_half_width": 0.167,
+        "waist_half_width": 0.151,
+        "chest_depth": 0.115,
+        "leg_spacing": 0.092,
+        "head_half_width": 0.137,
+        "head_depth": 0.119,
+        "shorts": false
+      },
+      "hair": "bob",
+      "collar": "folded",
+      "sleeve_fraction": 0.48,
+      "textures": {
+        "shirt_front": "adult_female/shirt_front",
+        "shirt_side": "adult_female/shirt_side",
+        "shirt_back": "adult_female/shirt_back",
+        "sleeve_front": "adult_female/sleeve_front",
+        "sleeve_side": "adult_female/sleeve_side",
+        "sleeve_back": "adult_female/sleeve_back",
+        "pants_front": "adult_female/pants_front",
+        "pants_side": "adult_female/pants_side",
+        "pants_back": "adult_female/pants_back",
+        "shoe_front": "adult_female/shoe_front",
+        "shoe_side": "adult_female/shoe_side",
+        "shoe_back": "adult_female/shoe_back",
+        "collar_front": "adult_female/collar_front",
+        "collar_side": "adult_female/collar_side",
+        "collar_back": "adult_female/collar_back",
+        "pelvis_front": "adult_female/pelvis",
+        "pelvis_side": "adult_female/pants_back",
+        "pelvis_back": "adult_female/pants_back",
+        "belt_front": "adult_female/belt",
+        "belt_side": "adult_female/belt",
+        "belt_back": "adult_female/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "adult_female/white/head_front",
+            "head_side": "adult_female/white/head_side",
+            "head_back": "adult_female/white/head_side",
+            "skin_front": "adult_female/white/head_side",
+            "hair_front": "adult_female/white/hair",
+            "skin_side": "adult_female/white/head_side",
+            "hair_side": "adult_female/white/hair",
+            "skin_back": "adult_female/white/head_side",
+            "hair_back": "adult_female/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.028,
+            "nose_width": 0.047,
+            "mouth": 0.005,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9491525423728814,
+            0.8135593220338984,
+            0.6440677966101694,
+            0.3983050847457627,
+            0.22033898305084745,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "adult_female/east_asian/head_front",
+            "head_side": "adult_female/east_asian/head_side",
+            "head_back": "adult_female/east_asian/head_side",
+            "skin_front": "adult_female/east_asian/head_side",
+            "hair_front": "adult_female/east_asian/hair",
+            "skin_side": "adult_female/east_asian/head_side",
+            "hair_side": "adult_female/east_asian/hair",
+            "skin_back": "adult_female/east_asian/head_side",
+            "hair_back": "adult_female/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.024,
+            "nose_width": 0.048,
+            "mouth": 0.005,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9349593495934959,
+            0.8048780487804879,
+            0.6504065040650406,
+            0.4065040650406504,
+            0.22764227642276422,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "adult_female/black/head_front",
+            "head_side": "adult_female/black/head_side",
+            "head_back": "adult_female/black/head_side",
+            "skin_front": "adult_female/black/head_side",
+            "hair_front": "adult_female/black/hair",
+            "skin_side": "adult_female/black/head_side",
+            "hair_side": "adult_female/black/hair",
+            "skin_back": "adult_female/black/head_side",
+            "hair_back": "adult_female/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.027,
+            "nose_width": 0.053,
+            "mouth": 0.008,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.9354838709677419,
+            0.8064516129032258,
+            0.6532258064516129,
+            0.4112903225806452,
+            0.22580645161290322,
+            0.0
+          ]
+        }
+      ]
+    },
+    "elderly_male": {
+      "body": {
+        "height": 1.62,
+        "head_height": 0.3,
+        "shoulder_y": 1.22,
+        "hip_y": 0.835,
+        "shoulder_half_width": 0.174,
+        "waist_half_width": 0.175,
+        "chest_depth": 0.137,
+        "leg_spacing": 0.096,
+        "head_half_width": 0.137,
+        "head_depth": 0.121,
+        "shorts": false
+      },
+      "hair": "receding",
+      "collar": "folded",
+      "sleeve_fraction": 0.92,
+      "textures": {
+        "shirt_front": "elderly_male/shirt_front",
+        "shirt_side": "elderly_male/shirt_side",
+        "shirt_back": "elderly_male/shirt_back",
+        "sleeve_front": "elderly_male/sleeve_front",
+        "sleeve_side": "elderly_male/sleeve_side",
+        "sleeve_back": "elderly_male/sleeve_back",
+        "pants_front": "elderly_male/pants_front",
+        "pants_side": "elderly_male/pants_side",
+        "pants_back": "elderly_male/pants_back",
+        "shoe_front": "elderly_male/shoe_front",
+        "shoe_side": "elderly_male/shoe_side",
+        "shoe_back": "elderly_male/shoe_back",
+        "collar_front": "elderly_male/collar_front",
+        "collar_side": "elderly_male/collar_side",
+        "collar_back": "elderly_male/collar_back",
+        "pelvis_front": "elderly_male/pelvis",
+        "pelvis_side": "elderly_male/pants_back",
+        "pelvis_back": "elderly_male/pants_back",
+        "belt_front": "elderly_male/belt",
+        "belt_side": "elderly_male/belt",
+        "belt_back": "elderly_male/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "elderly_male/white/head_front",
+            "head_side": "elderly_male/white/head_side",
+            "head_back": "elderly_male/white/head_side",
+            "skin_front": "elderly_male/white/head_side",
+            "hair_front": "elderly_male/white/hair",
+            "skin_side": "elderly_male/white/head_side",
+            "hair_side": "elderly_male/white/hair",
+            "skin_back": "elderly_male/white/head_side",
+            "hair_back": "elderly_male/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.028,
+            "nose_width": 0.047,
+            "mouth": 0.005,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.94,
+            0.8066666666666666,
+            0.6533333333333333,
+            0.4533333333333333,
+            0.29333333333333333,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "elderly_male/east_asian/head_front",
+            "head_side": "elderly_male/east_asian/head_side",
+            "head_back": "elderly_male/east_asian/head_side",
+            "skin_front": "elderly_male/east_asian/head_side",
+            "hair_front": "elderly_male/east_asian/hair",
+            "skin_side": "elderly_male/east_asian/head_side",
+            "hair_side": "elderly_male/east_asian/hair",
+            "skin_back": "elderly_male/east_asian/head_side",
+            "hair_back": "elderly_male/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.024,
+            "nose_width": 0.048,
+            "mouth": 0.005,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9395973154362416,
+            0.8053691275167785,
+            0.6644295302013423,
+            0.4563758389261745,
+            0.28859060402684567,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "elderly_male/black/head_front",
+            "head_side": "elderly_male/black/head_side",
+            "head_back": "elderly_male/black/head_side",
+            "skin_front": "elderly_male/black/head_side",
+            "hair_front": "elderly_male/black/hair",
+            "skin_side": "elderly_male/black/head_side",
+            "hair_side": "elderly_male/black/hair",
+            "skin_back": "elderly_male/black/head_side",
+            "hair_back": "elderly_male/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.027,
+            "nose_width": 0.053,
+            "mouth": 0.011,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.934640522875817,
+            0.803921568627451,
+            0.6535947712418301,
+            0.4444444444444444,
+            0.2875816993464052,
+            0.0
+          ]
+        }
+      ]
+    },
+    "elderly_female": {
+      "body": {
+        "height": 1.56,
+        "head_height": 0.31,
+        "shoulder_y": 1.16,
+        "hip_y": 0.79,
+        "shoulder_half_width": 0.17,
+        "waist_half_width": 0.186,
+        "chest_depth": 0.138,
+        "leg_spacing": 0.1,
+        "head_half_width": 0.14,
+        "head_depth": 0.124,
+        "shorts": false
+      },
+      "hair": "short_soft",
+      "collar": "folded",
+      "sleeve_fraction": 0.92,
+      "textures": {
+        "shirt_front": "elderly_female/shirt_front",
+        "shirt_side": "elderly_female/shirt_side",
+        "shirt_back": "elderly_female/shirt_back",
+        "sleeve_front": "elderly_female/sleeve_front",
+        "sleeve_side": "elderly_female/sleeve_side",
+        "sleeve_back": "elderly_female/sleeve_back",
+        "pants_front": "elderly_female/pants_front",
+        "pants_side": "elderly_female/pants_side",
+        "pants_back": "elderly_female/pants_back",
+        "shoe_front": "elderly_female/shoe_front",
+        "shoe_side": "elderly_female/shoe_side",
+        "shoe_back": "elderly_female/shoe_back",
+        "collar_front": "elderly_female/collar_front",
+        "collar_side": "elderly_female/collar_side",
+        "collar_back": "elderly_female/collar_back",
+        "pelvis_front": "elderly_female/pelvis",
+        "pelvis_side": "elderly_female/pants_back",
+        "pelvis_back": "elderly_female/pants_back",
+        "belt_front": "elderly_female/belt",
+        "belt_side": "elderly_female/belt",
+        "belt_back": "elderly_female/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "elderly_female/white/head_front",
+            "head_side": "elderly_female/white/head_side",
+            "head_back": "elderly_female/white/head_side",
+            "skin_front": "elderly_female/white/head_side",
+            "hair_front": "elderly_female/white/hair",
+            "skin_side": "elderly_female/white/head_side",
+            "hair_side": "elderly_female/white/hair",
+            "skin_back": "elderly_female/white/head_side",
+            "hair_back": "elderly_female/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.028,
+            "nose_width": 0.047,
+            "mouth": 0.005,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.928,
+            0.768,
+            0.6,
+            0.368,
+            0.184,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "elderly_female/east_asian/head_front",
+            "head_side": "elderly_female/east_asian/head_side",
+            "head_back": "elderly_female/east_asian/head_side",
+            "skin_front": "elderly_female/east_asian/head_side",
+            "hair_front": "elderly_female/east_asian/hair",
+            "skin_side": "elderly_female/east_asian/head_side",
+            "hair_side": "elderly_female/east_asian/hair",
+            "skin_back": "elderly_female/east_asian/head_side",
+            "hair_back": "elderly_female/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.024,
+            "nose_width": 0.048,
+            "mouth": 0.005,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9212598425196851,
+            0.7559055118110236,
+            0.5984251968503937,
+            0.3779527559055118,
+            0.1889763779527559,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "elderly_female/black/head_front",
+            "head_side": "elderly_female/black/head_side",
+            "head_back": "elderly_female/black/head_side",
+            "skin_front": "elderly_female/black/head_side",
+            "hair_front": "elderly_female/black/hair",
+            "skin_side": "elderly_female/black/head_side",
+            "hair_side": "elderly_female/black/hair",
+            "skin_back": "elderly_female/black/head_side",
+            "hair_back": "elderly_female/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.027,
+            "nose_width": 0.053,
+            "mouth": 0.008,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.9236641221374046,
+            0.7786259541984732,
+            0.6183206106870229,
+            0.3893129770992366,
+            0.21374045801526717,
+            0.0
+          ]
+        }
+      ]
+    },
+    "boy": {
+      "body": {
+        "height": 1.22,
+        "head_height": 0.26,
+        "shoulder_y": 0.885,
+        "hip_y": 0.57,
+        "shoulder_half_width": 0.145,
+        "waist_half_width": 0.14,
+        "chest_depth": 0.104,
+        "leg_spacing": 0.075,
+        "head_half_width": 0.126,
+        "head_depth": 0.115,
+        "shorts": true
+      },
+      "hair": "short",
+      "collar": "round",
+      "sleeve_fraction": 0.37,
+      "textures": {
+        "shirt_front": "boy/shirt_front",
+        "shirt_side": "boy/shirt_side",
+        "shirt_back": "boy/shirt_back",
+        "sleeve_front": "boy/sleeve_front",
+        "sleeve_side": "boy/sleeve_side",
+        "sleeve_back": "boy/sleeve_back",
+        "pants_front": "boy/pants_front",
+        "pants_side": "boy/pants_side",
+        "pants_back": "boy/pants_back",
+        "shoe_front": "boy/shoe_front",
+        "shoe_side": "boy/shoe_side",
+        "shoe_back": "boy/shoe_back",
+        "collar_front": "boy/collar_front",
+        "collar_side": "boy/collar_side",
+        "collar_back": "boy/collar_back",
+        "pelvis_front": "boy/pelvis",
+        "pelvis_side": "boy/pants_back",
+        "pelvis_back": "boy/pants_back",
+        "belt_front": "boy/belt",
+        "belt_side": "boy/belt",
+        "belt_back": "boy/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "boy/white/head_front",
+            "head_side": "boy/white/head_side",
+            "head_back": "boy/white/head_side",
+            "skin_front": "boy/white/head_side",
+            "hair_front": "boy/white/hair",
+            "skin_side": "boy/white/head_side",
+            "hair_side": "boy/white/hair",
+            "skin_back": "boy/white/head_side",
+            "hair_back": "boy/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.022959999999999998,
+            "nose_width": 0.047,
+            "mouth": 0.005,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9393939393939394,
+            0.7878787878787878,
+            0.6439393939393939,
+            0.3712121212121212,
+            0.14393939393939395,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "boy/east_asian/head_front",
+            "head_side": "boy/east_asian/head_side",
+            "head_back": "boy/east_asian/head_side",
+            "skin_front": "boy/east_asian/head_side",
+            "hair_front": "boy/east_asian/hair",
+            "skin_side": "boy/east_asian/head_side",
+            "hair_side": "boy/east_asian/hair",
+            "skin_back": "boy/east_asian/head_side",
+            "hair_back": "boy/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.01968,
+            "nose_width": 0.048,
+            "mouth": 0.005,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.935251798561151,
+            0.7841726618705036,
+            0.6474820143884892,
+            0.38848920863309355,
+            0.17266187050359713,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "boy/black/head_front",
+            "head_side": "boy/black/head_side",
+            "head_back": "boy/black/head_side",
+            "skin_front": "boy/black/head_side",
+            "hair_front": "boy/black/hair",
+            "skin_side": "boy/black/head_side",
+            "hair_side": "boy/black/hair",
+            "skin_back": "boy/black/head_side",
+            "hair_back": "boy/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.02214,
+            "nose_width": 0.053,
+            "mouth": 0.008,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.9477124183006536,
+            0.8235294117647058,
+            0.6993464052287581,
+            0.46405228758169936,
+            0.2679738562091503,
+            0.0
+          ]
+        }
+      ]
+    },
+    "girl": {
+      "body": {
+        "height": 1.2,
+        "head_height": 0.26,
+        "shoulder_y": 0.865,
+        "hip_y": 0.565,
+        "shoulder_half_width": 0.14,
+        "waist_half_width": 0.136,
+        "chest_depth": 0.101,
+        "leg_spacing": 0.073,
+        "head_half_width": 0.124,
+        "head_depth": 0.113,
+        "shorts": true
+      },
+      "hair": "ponytail",
+      "collar": "folded",
+      "sleeve_fraction": 0.38,
+      "textures": {
+        "shirt_front": "girl/shirt_front",
+        "shirt_side": "girl/shirt_side",
+        "shirt_back": "girl/shirt_back",
+        "sleeve_front": "girl/sleeve_front",
+        "sleeve_side": "girl/sleeve_side",
+        "sleeve_back": "girl/sleeve_back",
+        "pants_front": "girl/pants_front",
+        "pants_side": "girl/pants_side",
+        "pants_back": "girl/pants_back",
+        "shoe_front": "girl/shoe_front",
+        "shoe_side": "girl/shoe_side",
+        "shoe_back": "girl/shoe_back",
+        "collar_front": "girl/collar_front",
+        "collar_side": "girl/collar_side",
+        "collar_back": "girl/collar_back",
+        "pelvis_front": "girl/pelvis",
+        "pelvis_side": "girl/pants_back",
+        "pelvis_back": "girl/pants_back",
+        "belt_front": "girl/belt",
+        "belt_side": "girl/belt",
+        "belt_back": "girl/belt"
+      },
+      "appearances": [
+        {
+          "id": "white",
+          "textures": {
+            "head_front": "girl/white/head_front",
+            "head_side": "girl/white/head_side",
+            "head_back": "girl/white/head_side",
+            "skin_front": "girl/white/head_side",
+            "hair_front": "girl/white/hair",
+            "skin_side": "girl/white/head_side",
+            "hair_side": "girl/white/hair",
+            "skin_back": "girl/white/head_side",
+            "hair_back": "girl/white/hair"
+          },
+          "shape": {
+            "width": 1,
+            "depth": 1,
+            "cheek": 1,
+            "jaw": 1,
+            "nose": 0.022959999999999998,
+            "nose_width": 0.047,
+            "mouth": 0.005,
+            "hair_volume": 1.075,
+            "fringe": 0.6900000000000001,
+            "hairline_wave": 0.035,
+            "curl": 0.2,
+            "parting": 0.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9473684210526315,
+            0.7969924812030075,
+            0.6466165413533834,
+            0.37593984962406013,
+            0.18045112781954886,
+            0.0
+          ]
+        },
+        {
+          "id": "east_asian",
+          "textures": {
+            "head_front": "girl/east_asian/head_front",
+            "head_side": "girl/east_asian/head_side",
+            "head_back": "girl/east_asian/head_side",
+            "skin_front": "girl/east_asian/head_side",
+            "hair_front": "girl/east_asian/hair",
+            "skin_side": "girl/east_asian/head_side",
+            "hair_side": "girl/east_asian/hair",
+            "skin_back": "girl/east_asian/head_side",
+            "hair_back": "girl/east_asian/hair"
+          },
+          "shape": {
+            "width": 0.99,
+            "depth": 0.99,
+            "cheek": 1.025,
+            "jaw": 1.01,
+            "nose": 0.01968,
+            "nose_width": 0.048,
+            "mouth": 0.005,
+            "hair_volume": 1.055,
+            "fringe": 0.65,
+            "hairline_wave": 0.03,
+            "curl": 0.1,
+            "parting": 1.3
+          },
+          "face_uv_y": [
+            1.0,
+            0.9481481481481482,
+            0.7925925925925926,
+            0.6518518518518519,
+            0.37777777777777777,
+            0.1925925925925926,
+            0.0
+          ]
+        },
+        {
+          "id": "black",
+          "textures": {
+            "head_front": "girl/black/head_front",
+            "head_side": "girl/black/head_side",
+            "head_back": "girl/black/head_side",
+            "skin_front": "girl/black/head_side",
+            "hair_front": "girl/black/hair",
+            "skin_side": "girl/black/head_side",
+            "hair_side": "girl/black/hair",
+            "skin_back": "girl/black/head_side",
+            "hair_back": "girl/black/hair"
+          },
+          "shape": {
+            "width": 1.01,
+            "depth": 1.015,
+            "cheek": 1.01,
+            "jaw": 1.02,
+            "nose": 0.02214,
+            "nose_width": 0.053,
+            "mouth": 0.008,
+            "hair_volume": 1.1,
+            "fringe": 0.72,
+            "hairline_wave": 0.018,
+            "curl": 1,
+            "parting": 2.0
+          },
+          "face_uv_y": [
+            1.0,
+            0.9490445859872612,
+            0.8152866242038217,
+            0.7006369426751592,
+            0.4713375796178344,
+            0.31210191082802546,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "notes": [
+    "V1 rejected; new source calibrated reconstruction.",
+    "Body rear has no generated view: clean front cloth/hair donor reconstruction, pending actual rear visual review.",
+    "Group labels select reviewed individual portraits, never a generalized demographic anatomy rule."
+  ]
+}
