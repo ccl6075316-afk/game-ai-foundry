@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "production_status": "retired_2026-10-27_independent_lip_bands_no_longer_used",
   "method": "140 user-scoped head/upper lip and body source-ownership repairs",
   "supersedes": "139 bluegill/nile upper source-band coordinates and the unrequested140 lower-lip prototypes; preserve user-tolerated lower lips and other fish.",
   "hardware": {

@@ -7,11 +7,11 @@
   "user_appearance": "pending",
   "model": {
     "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\fish.glb",
-    "sha256": "8a10d9ba17defee7c1e72ebe8bf31e2485aa2c433606e42ef7d863edfe24e261"
+    "sha256": "89441be6195d6003f3a6977db132079be6575df0a4d1c4f6e9be7baa1a2fc42b"
   },
   "blend": {
     "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\whale_shark.blend",
-    "sha256": "26e88cfe75fa2b7bacd6e2839334f455d6f3cb9be297f296e6c773fb5277a1c8"
+    "sha256": "c01edf87579e0053222adf3729eaa502e5dc7833cb55ca316e57e60047de9c08"
   },
   "parameters": {
     "path": "E:\\game-ai-foundry\\resources\\volume-fish\\whale-shark-fin-volume-159.json",
@@ -50,7 +50,7 @@
     },
     "final-r1/editable.validation.json": {
       "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\final-r1\\editable.validation.json",
-      "sha256": "d26984effd76eca8d91d7833bed3ad4a00735ca00c7fbdfbb75f05e8e33d1fc8"
+      "sha256": "173df4b79971065ec265c9076150b8d5e2abaea1abeb07cd8427c58e797a10bd"
     },
     "closeups-r5/capture.validation.json": {
       "path": "E:\\game-ai-foundry\\projects\\whale-shark-159\\closeups-r5\\capture.validation.json",
@@ -65,7 +65,7 @@
   "full177_490": "pending",
   "full_body_GPU_SOP": "pending",
   "thickness_evidence": "Qualitative species photos plus declared art ratio/caps, not measured species sections. Before158 paper-like1–2mm shell rejected. Current real paired vertex distances recorded independently.",
-  "scope": "Local159 volume repair, not complete fish certification. All8fins foil geometry in GLB/blend, root/free membrane8representative poses with unchanged frozen tolerances. Original body/eyes/lips/native images/UV/rig/animation preserved. Current158 physical reports not rebound to159.",
+  "scope": "Local159 volume repair, not complete fish certification. All8fins foil geometry in GLB/blend, root/free membrane8representative poses with unchanged frozen tolerances. Original body/eyes/native images/UV/rig/animation preserved; independent lip mesh retired by user decision on 2026-10-27. Current158 physical reports not rebound to159.",
   "user_disposition": "retain_current_as_is_user_requested",
   "retention_note": "User requested commit/push current159 and defer whale work until the general fin issue is resolved. This is not full appearance or final-gate acceptance."
 }

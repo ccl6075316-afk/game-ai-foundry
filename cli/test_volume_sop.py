@@ -25,13 +25,10 @@ class SopTests(unittest.TestCase):
             path = self.root / (role + ('.glb' if role == 'model' else '.dat'))
             path.write_text(role)
             self.data['candidate_files'][role] = {'path': path.name, 'sha256': sha(path)}
-        geometry = self.root/'lips.json'
-        write(geometry, {'parts': [dict(name=name, vertices=[[0,0,0],[1,0,0],[0,1,0]],
-                                      triangles=[0,1,2]) for name in ('upper','lower')]})
-        self.data['candidate_files']['lip_geometry'] = {'path':geometry.name, 'sha256':sha(geometry)}
         self.data['stages']['mouth']['implementation'] = {
-            'branch':'source_lip_bands', **{name:{'resource_role':'model',
-                'geometry_role':'lip_geometry','part':name,'node':'Fixture_lips'} for name in ('upper','lower')}}
+            'branch':'integrated_jaw_cut','body_resource_role':'model',
+            'cut_line':'Fixture lower-lip boundary','upper_jaw':'Fixture upper volume',
+            'lower_jaw':'Fixture lower volume','method_reference':'Fixture method'}
         paths = {'data': self.root/'notes.txt', 'image': self.root/'view.png',
                  'report': self.root/'gate.json', 'video': self.root/'video.mp4'}
         paths['data'].write_text('Synthetic fixture')
@@ -80,38 +77,37 @@ class SopTests(unittest.TestCase):
         self.assertEqual(report['next_action'], 'human_review')
         self.assertNotIn('accepted', report)
 
-    def test_missing_lip_cover_is_rejected(self):
+    def test_missing_native_mouth_cover_is_rejected(self):
         self.populated_fixture()
         self.data['stages']['mouth']['checks']['native_pixel_cover_and_actual_uv_joins'] = []
         write(self.review, self.data)
         self.assertTrue(any(f['code'] == 'missing_evidence' for f in check(self.review)['failures']))
 
-    def test_pictures_and_passed_flags_cannot_replace_actual_lip_exports(self):
+    def test_pictures_and_passed_flags_cannot_replace_mouth_implementation(self):
         self.populated_fixture()
         del self.data['stages']['mouth']['implementation']
         write(self.review, self.data)
         self.assertTrue(any(f['code'] == 'missing_mouth_implementation' for f in check(self.review)['failures']))
 
-    def test_missing_lower_layer_and_duplicate_part_are_rejected(self):
+    def test_missing_integrated_jaw_details_are_rejected(self):
         self.populated_fixture()
         impl = self.data['stages']['mouth']['implementation']
-        impl['lower']['part'] = 'absent'
+        impl['lower_jaw'] = ''
         write(self.review, self.data)
-        self.assertTrue(any(f['code'] == 'invalid_lip_geometry' for f in check(self.review)['failures']))
-        impl['lower']['part'] = 'upper'
+        self.assertTrue(any(f['code'] == 'missing_integrated_jaw_detail' for f in check(self.review)['failures']))
+        impl['lower_jaw'] = 'Fixture lower volume'
+        impl['body_resource_role'] = 'missing'
         write(self.review, self.data)
-        self.assertTrue(any(f['code'] == 'duplicate_lip_layer' for f in check(self.review)['failures']))
+        self.assertTrue(any(f['code'] == 'missing_artifact' for f in check(self.review)['failures']))
 
-    def test_empty_or_collapsed_export_cannot_pass_with_fresh_hashes(self):
+    def test_retired_lip_layer_cannot_pass(self):
         self.populated_fixture()
-        path = self.root/'lips.json'
-        for vertices, triangles in [([], []), ([[0,0,0],[1,0,0],[2,0,0]], [0,1,2])]:
-            write(path, {'parts':[dict(name=n,vertices=vertices,triangles=triangles) for n in ('upper','lower')]})
-            self.data['candidate_files']['lip_geometry']['sha256'] = sha(path)
-            frozen = {k:v['sha256'] for k,v in self.data['candidate_files'].items()}
-            for row in self.data['evidence'].values():row['bound_inputs'] = dict(frozen)
-            write(self.review, self.data)
-            self.assertTrue(any(f['code'] == 'invalid_lip_geometry' for f in check(self.review)['failures']))
+        self.data['stages']['mouth']['implementation']['upper'] = {'node':'Source_lips139'}
+        write(self.review, self.data)
+        self.assertTrue(any(f['code'] == 'retired_lip_layer' for f in check(self.review)['failures']))
+        self.data['stages']['mouth']['implementation'] = {'branch':'source_lip_bands'}
+        write(self.review, self.data)
+        self.assertTrue(any(f['code'] == 'retired_lip_layer' for f in check(self.review)['failures']))
 
     def test_anatomical_branch_requires_explicit_basis(self):
         self.populated_fixture()
