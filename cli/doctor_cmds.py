@@ -51,6 +51,7 @@ def doctor_cmd(ctx: click.Context, as_json: bool) -> None:
         "provider_accounts_key",
         "godot_engine_path",
         "toolchain_bin_dir",
+        "toolchain_blender_path",
         "toolchain_dotnet_dir",
     ):
         click.echo(f"  {key}: {cfg[key]}")

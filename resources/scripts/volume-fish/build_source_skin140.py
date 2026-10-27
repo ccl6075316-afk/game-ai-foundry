@@ -27,11 +27,30 @@ def main():
    uv=accessor(d,b,part['attributes']['TEXCOORD_0']);tri=accessor(d,b,part['indices']).reshape(-1,3);fin=np.maximum(fin,raster(uv,tri,w,h))
  for polygon in cfg.get('painted_fin_polygons_px',[]):cv2.fillPoly(fin,[np.asarray(polygon,np.int32)],255)
  excluded=cv2.dilate(fin,np.ones((cfg['fin_margin_px']*2+1,)*2,np.uint8))>0
- part=json.loads(Path(cfg['body']).read_text())['parts'][0];body=raster(np.asarray(part['uv']),np.asarray(part['triangles']).reshape(-1,3),w,h)>0
+ if cfg.get('body'):
+  part=json.loads(Path(cfg['body']).read_text())['parts'][0];body=raster(np.asarray(part['uv']),np.asarray(part['triangles']).reshape(-1,3),w,h)>0
+ else:
+  body=np.zeros((h,w),bool)
+  for node in d['nodes']:
+   if node.get('name')!=cfg.get('body_node','Closed_body') or 'mesh' not in node:continue
+   for part in d['meshes'][node['mesh']]['primitives']:
+    uv=accessor(d,b,part['attributes']['TEXCOORD_0']);tri=accessor(d,b,part['indices']).reshape(-1,3)
+    body|=raster(uv,tri,w,h)>0
+  assert body.any(),'No actual GLB body UV coverage'
  opaque=original[:,:,3]>=250;interior=cv2.erode(opaque.astype(np.uint8),np.ones((cfg['outline_margin_px']*2+1,)*2,np.uint8))>0
  yy,xx=np.indices((h,w));head=xx>=round(cfg['head_start_u']*w)
  target=body&~head&(excluded|~interior)
  valid=body&~excluded&interior&~head
+ if cfg.get('repair_only_polygons_px'):
+  allowed=np.zeros((h,w),np.uint8)
+  for polygon in cfg['repair_only_polygons_px']:cv2.fillPoly(allowed,[np.asarray(polygon,np.int32)],1)
+  target&=allowed>0
+ if cfg.get('protected_body_marks_polygons_px'):
+  protected=np.zeros((h,w),np.uint8)
+  for polygon in cfg['protected_body_marks_polygons_px']:cv2.fillPoly(protected,[np.asarray(polygon,np.int32)],1)
+  target&=protected==0
+  valid&=protected==0
+ assert target.any(),'No scoped body repair target'
  for rect in cfg.get('protected_rects_px',[]):
   x0,y0,x1,y1=rect;valid[y0:y1,x0:x1]=False
  block=cfg['patch_px'];half=block//2;overlap=block//3;step=block-overlap
@@ -84,6 +103,6 @@ def main():
  donors=mapping[target];assert valid[donors[:,1],donors[:,0]].all();assert np.array_equal(result[target,:3],original[donors[:,1],donors[:,0],:3])
  Image.fromarray(result).save(out/'skin.png');np.savez_compressed(out/'donors.npz',xy=mapping,target=target,valid=valid,fin_excluded=excluded,body_uv=body)
  Image.fromarray(target.astype('uint8')*255).save(out/'repair-mask.png');Image.fromarray(valid.astype('uint8')*255).save(out/'safe-donors.png');Image.fromarray(excluded.astype('uint8')*255).save(out/'fin-exclusion.png')
- report={'ok':True,'species':cfg['species'],'plan_sha256':sha(a.plan),'builder_sha256':sha(__file__),'source_sha256':sha(cfg['source']),'source_modified':False,'repaired_pixels':int(target.sum()),'patches':patches,'fallback_thin_pixels':int(missing.sum()),'donors_outside_safe_domain':0,'outside_target_rgb_preserved':True,'native_source_rgb_exact':True,'outputs':{n:sha(out/n) for n in ['skin.png','donors.npz','repair-mask.png','safe-donors.png','fin-exclusion.png']},'method':'Native whole-patch matching and minimum-error overlap cuts; no interpolation or neural generation. Hidden skin is artistic reconstruction.','references':['https://graphics.cs.cmu.edu/people/efros/research/quilting.html','https://github.com/z-o-e/Texture-Synthesis/blob/master/ImageQuilting.py'],'scope':'Source/donor ownership gate only. Actual hidden-fin, tail-peduncle, belly, water, movement and GPU review still required.'}
+ report={'ok':True,'species':cfg['species'],'plan_sha256':sha(a.plan),'builder_sha256':sha(__file__),'source_sha256':sha(cfg['source']),'source_modified':False,'repaired_pixels':int(target.sum()),'patches':patches,'fallback_thin_pixels':int(missing.sum()),'donors_outside_safe_domain':0,'outside_target_rgb_preserved':True,'native_source_rgb_exact':True,'body_uv_source':'actual_glb' if not cfg.get('body') else 'exported_body_json','scoped_repair':bool(cfg.get('repair_only_polygons_px')),'protected_body_marks':bool(cfg.get('protected_body_marks_polygons_px')),'outputs':{n:sha(out/n) for n in ['skin.png','donors.npz','repair-mask.png','safe-donors.png','fin-exclusion.png']},'method':'Native whole-patch matching and minimum-error overlap cuts; no interpolation or neural generation. Hidden skin is artistic reconstruction.','references':['https://graphics.cs.cmu.edu/people/efros/research/quilting.html','https://github.com/z-o-e/Texture-Synthesis/blob/master/ImageQuilting.py'],'scope':'Source/donor ownership gate only. Actual hidden-fin, tail-peduncle, belly, water, movement and GPU review still required.'}
  (out/'skin.validation.json').write_text(json.dumps(report,indent=2));print(json.dumps({k:report[k] for k in ['ok','species','repaired_pixels','patches']}),flush=True)
 if __name__=='__main__':main()

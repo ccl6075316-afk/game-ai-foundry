@@ -39,6 +39,10 @@ def main():
     if 'mesh' not in n or n['name'] in own['profiles'][sp]['fins']:continue
     if n['name'] in profile.get('decorative_overlays',{}):
      layer=profile['decorative_overlays'][n['name']]
+     if sp=='zander' and n['name'] in {'Eye_relief112_-1_0','Eye_relief112_1_0'} and layer=={'underlying_body':'Closed_body','kind':'frozen_eye_relief160'}:
+      # A native skinned eye cap overlays the separately validated closed body.
+      assert len(d['meshes'][n['mesh']]['primitives'])==1 and n.get('skin')==0,'Invalid frozen eye overlay'
+      continue
      assert sp=='arapaima' and n['name']=='Frontal_head_overlay' and layer['underlying_body']=='Closed_body','Unrecognized decorative layer'
      mats=[d['materials'][p['material']] for p in d['meshes'][n['mesh']]['primitives']]
      assert len(mats)==17 and all(m.get('alphaMode') in ['MASK','BLEND'] for m in mats),'Missing authored alpha fusion'

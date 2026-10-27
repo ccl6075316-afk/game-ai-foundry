@@ -4,6 +4,8 @@ func source_image_for_species(species:String)->Image:
     return Image.load_from_file(get_script().resource_path.get_base_dir().path_join("../../../projects/fishing-2d/experiments/blender-fish/fin-source-141/source/"+species+"/source.png"))
 func fin_camera_side(name:String)->float:
     return -1. if name.ends_with("_right") or name.ends_with("_Far") or name.ends_with("_-1") else 1.
+func body_texture_override_for_species(_species:String)->String:
+    return ""
 func source_camera(e:Dictionary,side:float=1.):
     var tr:Transform3D=e.model.global_transform;var size:float=tr.basis.get_scale().x
     hall.camera.projection=Camera3D.PROJECTION_ORTHOGONAL;hall.camera.size=float(hall.viewport.size.y)/hall.viewport.size.x*size;hall.camera.near=.00001;hall.camera.global_position=tr*Vector3(0,0,2*side);hall.camera.look_at(tr*Vector3.ZERO,tr.basis.orthonormalized()*Vector3.UP)
@@ -16,6 +18,16 @@ func run():
         for tank in hall.tanks:tank.root.visible=tank.species==species
         for node in hall.world.find_children("*","MeshInstance3D",true,false):node.visible=e.model.is_ancestor_of(node) and intrinsic.get(node.get_instance_id(),false)
         for node in hall.world.find_children("*","Label3D",true,false):node.hide()
+        var body_texture_override=body_texture_override_for_species(species)
+        if not body_texture_override.is_empty():
+            var candidate_body=e.model.find_child("Closed_body",true,false) as MeshInstance3D
+            assert(candidate_body!=null and candidate_body.get_active_material(0) is StandardMaterial3D)
+            var candidate_image=Image.load_from_file(body_texture_override)
+            assert(candidate_image!=null and candidate_image.get_size()==source.get_size())
+            var candidate_material=candidate_body.get_active_material(0).duplicate() as StandardMaterial3D
+            candidate_material.albedo_texture=ImageTexture.create_from_image(candidate_image)
+            candidate_material.texture_filter=BaseMaterial3D.TEXTURE_FILTER_NEAREST
+            candidate_body.set_surface_override_material(0,candidate_material)
         e.player.stop();e.skeleton.reset_bone_poses();e.skeleton.force_update_all_bone_transforms();var stored=[];var files={};var bodies:Array=[];var body_profile=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/body-opacity.json")).profiles[species]
         for name in body_profile.surfaces:
             var body=e.model.find_child(name,true,false) as MeshInstance3D
@@ -27,6 +39,13 @@ func run():
         for mode in ["texture","clay","albedo"]:
             set_mode(e,stored,mode);var path=folder.path_join("source-canvas-"+mode+".png");await shot(path);files[path]=FileAccess.get_sha256(path)
         set_mode(e,stored,"texture")
+        for name in ownership[species].fins:
+            var hidden_fin=e.model.find_child(name,true,false) as MeshInstance3D
+            assert(hidden_fin!=null)
+            hidden_fin.hide()
+        var body_only_path=folder.path_join("body-only-source-canvas-texture.png")
+        await shot(body_only_path)
+        files[body_only_path]=FileAccess.get_sha256(body_only_path)
         var fin_records=[]
         for name in ownership[species].fins:
             var fin=e.model.find_child(name,true,false) as MeshInstance3D;assert(fin!=null)
@@ -47,5 +66,5 @@ func run():
         hall.viewport.size=Vector2i(1000,700);hall.camera.projection=Camera3D.PROJECTION_PERSPECTIVE;var r=region(e)
         for view in [{"name":"oblique","yaw":.65,"pitch":.2},{"name":"top","yaw":0.,"pitch":1.56},{"name":"bottom","yaw":0.,"pitch":-1.56},{"name":"opposite","yaw":PI,"pitch":.2}]:
             camera(e,r,false,view.yaw,view.pitch);var path=folder.path_join("whole-"+view.name+".png");await shot(path);files[path]=FileAccess.get_sha256(path)
-        rows.append({"species":species,"ok":true,"files":files,"fins":fin_records,"source_canvas":[source.get_width(),source.get_height()],"scope":"Original skeleton rest, fixed full source camera. Full cutout and body-occluded GPU masks separate; opposite side is mirrored, not independently researched art."})
+        rows.append({"species":species,"ok":true,"files":files,"fins":fin_records,"source_canvas":[source.get_width(),source.get_height()],"body_texture_override":{"path":body_texture_override,"sha256":FileAccess.get_sha256(body_texture_override)} if not body_texture_override.is_empty() else {},"scope":"Original skeleton rest, fixed full source camera. Full cutout and body-occluded GPU masks separate; opposite side is mirrored, not independently researched art."})
     var path=root_out.path_join("capture.validation.json");var f=FileAccess.open(path,FileAccess.WRITE);f.store_string(JSON.stringify({"ok":rows.size()==requested.size(),"rows":rows,"checker_sha256":FileAccess.get_sha256(get_script().resource_path),"fin_config_sha256":FileAccess.get_sha256("res://assets/models/fish/motion/fin-source141.json") if FileAccess.file_exists("res://assets/models/fish/motion/fin-source141.json") else "baseline"}));f.close();hall.queue_free();await process_frame;quit()

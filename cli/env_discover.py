@@ -14,6 +14,7 @@ from toolchain_paths import (
     resolve_dotnet,
     resolve_ffmpeg,
     resolve_ffprobe,
+    resolve_blender,
     resolve_godot,
     toolchain_bin_dir,
 )
@@ -86,6 +87,7 @@ def discover_tools(config: dict[str, Any] | None = None) -> dict[str, Any]:
         "dotnet": _tool("dotnet", resolve_dotnet(config)),
         "ffmpeg": _tool("ffmpeg", resolve_ffmpeg(config)),
         "ffprobe": _tool("ffprobe", resolve_ffprobe(config)),
+        "blender": _tool("blender", resolve_blender(config)),
     }
 
 
@@ -126,6 +128,7 @@ def discover_config(config: dict[str, Any] | None = None) -> dict[str, Any]:
         "provider_accounts_key": provider_key,
         "godot_engine_path": _key_status(loaded, "godot", "engine_path"),
         "toolchain_bin_dir": str(toolchain_bin_dir(loaded)),
+        "toolchain_blender_path": _key_status(loaded, "toolchain", "blender_path"),
         "toolchain_dotnet_dir": str(dotnet_root(loaded)),
     }
 
@@ -155,6 +158,7 @@ def discover_capabilities(
         "ffmpeg": tools["ffmpeg"]["available"],
         "ffprobe": tools["ffprobe"]["available"],
         "godot_assemble": tools["godot"]["available"],
+        "blender_volume": tools["blender"]["available"],
         "dotnet": tools["dotnet"]["available"],
         "toolchain": tools["ffmpeg"]["available"] or tools["godot"]["available"] or tools["dotnet"]["available"],
         "media_validate": has_module("asset_pipeline") and has_module("video_matting"),

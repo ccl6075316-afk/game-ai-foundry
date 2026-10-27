@@ -215,6 +215,13 @@ func run():
                 mesh.hide()
                 continue
             if opaque_profiles[species].get("decorative_overlays",{}).has(str(mesh.name)):
+                if species=="zander" and str(mesh.name) in ["Eye_relief112_-1_0","Eye_relief112_1_0"]:
+                    var frozen:Dictionary=entry.model.get_meta("final_asset160_receipt",{})
+                    var body=entry.model.find_child("Closed_body",true,false) as MeshInstance3D
+                    var eye_material=mesh.get_active_material(0) as StandardMaterial3D
+                    assert(frozen.get("static_build_calls",-1)==0 and body!=null and mesh.skin==body.skin and mesh.skeleton==body.skeleton)
+                    assert(eye_material!=null and eye_material.transparency==BaseMaterial3D.TRANSPARENCY_DISABLED and eye_material.albedo_texture!=null)
+                    continue
                 for si in mesh.mesh.get_surface_count():
                     var original=mesh.mesh.surface_get_material(si)
                     var active=mesh.get_active_material(si)

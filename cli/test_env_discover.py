@@ -23,7 +23,7 @@ class EnvDiscoverTest(unittest.TestCase):
     def test_tools_cover_core_toolchain(self) -> None:
         tools = discover_tools({})
         self.assertEqual(
-            {"python", "git", "godot", "dotnet", "ffmpeg", "ffprobe"},
+            {"python", "git", "godot", "dotnet", "ffmpeg", "ffprobe", "blender"},
             set(tools),
         )
 

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "species_fin_membrane_repair_experiment",
+  "species": "zander",
+  "status": "candidate_only",
+  "source_model_sha256": "70d58a604a05e69454500f84b2370c03343e9d6ee32fd4368fa0d9764f6ff467",
+  "plan_sha256": "5077c9c2bf50a3024aaa4336ec6997d6646d07e5cb0f8e92226ee168f0cd980e",
+  "maximum_outward_displacement_mm": 0.5,
+  "full_displacement_distance_from_root_mm": 1.0,
+  "outward_axes": {
+    "Pectoral_left": [0.0, 0.0, 1.0],
+    "Pectoral_right": [0.0, 0.0, -1.0],
+    "Pelvic_left": [0.0, -1.0, 0.0],
+    "Pelvic_right": [0.0, -1.0, 0.0]
+  },
+  "unchanged_limits": {
+    "root_collar_mm": 0.5,
+    "free_membrane_penetration_tolerance_mm": 0.02
+  },
+  "observation": "The 160 model has 0.127 mm pectoral and 0.151 mm pelvic non-basal penetration already at rest. This experimental offset leaves all frozen basal vertices fixed; it must be re-exported to editable source and checked through Godot 490 poses before installation."
+}

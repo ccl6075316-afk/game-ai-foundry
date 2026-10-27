@@ -29,6 +29,7 @@ from asset_review import get_review, resolve_canonical_path
 from assets_manifest import load_assets_manifest
 from brief import find_asset, load_brief_full
 from project_paths import default_paths_for_brief
+from toolchain_paths import resolve_blender
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BUILDER = REPO_ROOT / "resources/scripts/volume-fish/build_fish.py"
@@ -782,7 +783,12 @@ def run_builder(handoff_path: Path, blender: Path | None, *, render_only: bool =
     require(data.get("status") != "running", "This handoff already has a running builder; wait for that run before starting another")
     if render_only:
         validate_volume(handoff_path, check_visual=False)
-    executable = str(blender.expanduser().resolve()) if blender else shutil.which("blender")
+    if blender:
+        executable = str(blender.expanduser().resolve())
+    else:
+        config_path = Path.home() / ".gamefactory" / "config.json"
+        config = read_json(config_path) if config_path.is_file() else {}
+        executable = resolve_blender(config)
     if not executable or not Path(executable).is_file():
         raise VolumeError("Blender executable missing; pass --blender <executable>", code="dependency_missing")
     require(BUILDER.is_file(), "Bundled volume builder is missing")

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "species": "zander",
+  "source": "projects/fishing-2d/experiments/blender-fish/models/zander/082-source-inputs/char_zander_082_nobg.png",
+  "model": "projects/fishing-2d/experiments/zander-finalization-160/zander-membrane-candidate-v3.glb",
+  "opaque": "projects/fishing-2d/game/assets/models/fish/motion/final160/zander/body-opaque-donor.png",
+  "body_node": "Closed_body",
+  "output": "projects/fishing-2d/experiments/zander-finalization-160/work/translated-skin161",
+  "frozen_inputs": {
+    "projects/fishing-2d/experiments/blender-fish/models/zander/082-source-inputs/char_zander_082_nobg.png": "fd2d0c154c140aca906201fcd7c7f80e043221827f4c97a14b714e24fa825b67",
+    "projects/fishing-2d/experiments/zander-finalization-160/zander-membrane-candidate-v3.glb": "31973c01d28ad92953b40de1c591aa3ee958f60bd3d57327571599f67899bc53",
+    "projects/fishing-2d/game/assets/models/fish/motion/final160/zander/body-opaque-donor.png": "607e465211a418118b3eb1e76c230f5a12304d35af5a4306fac0236b7dccffa2",
+    "projects/fishing-2d/experiments/zander-finalization-160/work/current-body-texture.png": "6a80e5b194857d3e0b3bc33dad5dbf3b9f801875a55846e0d02716da0b991620"
+  },
+  "fins": [
+    "Pectoral_left",
+    "Pectoral_right"
+  ],
+  "painted_fin_polygons_px": [
+    [
+      [
+        1270,
+        395
+      ],
+      [
+        1320,
+        384
+      ],
+      [
+        1410,
+        391
+      ],
+      [
+        1490,
+        409
+      ],
+      [
+        1530,
+        425
+      ],
+      [
+        1505,
+        434
+      ],
+      [
+        1494,
+        451
+      ],
+      [
+        1490,
+        477
+      ],
+      [
+        1505,
+        491
+      ],
+      [
+        1460,
+        500
+      ],
+      [
+        1415,
+        513
+      ],
+      [
+        1380,
+        515
+      ],
+      [
+        1340,
+        495
+      ],
+      [
+        1310,
+        467
+      ],
+      [
+        1290,
+        439
+      ]
+    ]
+  ],
+  "repair_only_polygons_px": [
+    [
+      [
+        1248,
+        368
+      ],
+      [
+        1552,
+        368
+      ],
+      [
+        1552,
+        531
+      ],
+      [
+        1248,
+        531
+      ]
+    ]
+  ],
+  "protected_body_marks_polygons_px": [
+    [
+      [
+        1530,
+        425
+      ],
+      [
+        1505,
+        434
+      ],
+      [
+        1494,
+        451
+      ],
+      [
+        1490,
+        477
+      ],
+      [
+        1505,
+        491
+      ],
+      [
+        1540,
+        491
+      ],
+      [
+        1525,
+        477
+      ],
+      [
+        1529,
+        451
+      ],
+      [
+        1540,
+        434
+      ],
+      [
+        1565,
+        425
+      ]
+    ]
+  ],
+  "fin_margin_px": 9,
+  "outline_margin_px": 8,
+  "head_start_u": 0.79,
+  "patch_px": 33,
+  "vertical_distance_weight": 2.5,
+  "spatial_penalty": 0.0015,
+  "scope": "Current v3 pectoral moving-fin footprint only; preserve source PNG and body-owned attachment zone. Artistic inferred hidden skin; GPU review required.",
+  "method": "single_translated_safe_native_donor",
+  "body_texture": "projects/fishing-2d/experiments/zander-finalization-160/work/current-body-texture.png",
+  "donor_translation_px": [
+    -382,
+    -12
+  ],
+  "selection_note": "Compare original source, safe donor regions and rejected patch-quilt candidate; translation selected for a local candidate. Actual hidden-fin GPU and moving-fin review still decide acceptance."
+}

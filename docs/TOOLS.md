@@ -47,6 +47,7 @@ copy resources\config.example.json %USERPROFILE%\.gamefactory\config.json
 | `test.vision_model` | 视觉验收 |
 | `godot.engine_path` | Godot 可执行文件 |
 | `toolchain.bin_dir` | 工具链目录 |
+| `toolchain.blender_path` | Blender 可执行文件；鱼类体积构建默认读取此路径，`--blender` 可临时覆盖 |
 | `matting.*` | trim、color key、video frame 抠图参数 |
 
 凭据只保存在本机配置；不要写入 Brief、manifest、handoff、报告或日志。
@@ -67,6 +68,7 @@ python gamefactory.py setup provider upsert --provider <provider> --i-confirm --
 |---|---|---|
 | FFmpeg | 视频、拆帧、音频 | `setup check`、`setup install ffmpeg` |
 | Godot .NET | 导入、构建、运行 | `setup check`、`setup install godot` |
+| Blender | 鱼类体积构建与同姿态几何验证 | `doctor --json` 检查配置的 `toolchain.blender_path` |
 | .NET SDK | C# build / unit test | `setup check`、`setup install dotnet` |
 | Python 3.11+ | CLI 与确定性模块 | 当前运行环境 |
 | Provider API | prompt、图像、视频、vision | `doctor --json` |

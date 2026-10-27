@@ -17,6 +17,7 @@ ALLOWED_SET_KEYS: frozenset[str] = frozenset(
         "image.proxy",
         "proxy",
         "video.proxy",
+        "toolchain.blender_path",
     }
 )
 

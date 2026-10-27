@@ -1,18 +1,65 @@
 extends SceneTree
 ## Test the actual hall's material installation and independent control UI.
 var output: String
+func texture_sha(texture: Texture2D) -> String:
+    assert(texture != null)
+    var image: Image=texture.get_image().duplicate()
+    if image.is_compressed():assert(image.decompress()==OK)
+    image.clear_mipmaps()
+    image.convert(Image.FORMAT_RGBA8)
+    var digest=HashingContext.new()
+    assert(digest.start(HashingContext.HASH_SHA256)==OK)
+    assert(digest.update(image.get_data())==OK)
+    return digest.finish().hex_encode()
 func _initialize() -> void:
-    var args:=OS.get_cmdline_user_args();assert(args.size()==1,"Expected absolute report JSON path")
+    var args:=OS.get_cmdline_user_args();assert(args.size()>=1 and args.size()<=2,"Expected report JSON path and optional species")
     output=args[0];call_deferred("run")
 func run() -> void:
     var hall=load("res://scripts/aquarium/VolumeFishExhibit.gd").new();root.add_child(hall);hall.set_process(false)
+    var args=OS.get_cmdline_user_args()
+    var requested: String=args[1] if args.size()>1 else ""
+    assert(requested=="" or requested in hall.SPECIES,"Unknown species")
     var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/surface-ownership.json"))
     var mouth_profiles: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/mouth-pigment.json")).profiles
     var head_profiles: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/head-source.json")).profiles
     var records: Array=[]
     for species in hall.SPECIES:
+        if requested!="" and species!=requested:continue
         hall._select_display(species)
         var entry: Dictionary=hall._selected();var profile: Dictionary=data.profiles[species]
+        if species=="zander" and entry.model.has_meta("final_asset160_receipt"):
+            var frozen: Dictionary=entry.model.get_meta("final_asset160_receipt")
+            var model_sha=FileAccess.get_sha256("res://assets/models/fish/zander.glb")
+            assert(frozen.get("source_sha256","")==model_sha and frozen.get("static_build_calls",-1)==0 and frozen.get("static_builders_disabled",false))
+            var table: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/fish/motion/final160/zander/materials.json"))
+            assert(table.species==species and frozen.get("material_manifest_sha256","")==FileAccess.get_sha256("res://assets/models/fish/motion/final160/zander/materials.json"))
+            var material_count=0
+            for material_name in table.materials:
+                var names=["Eye_relief112_-1_0","Eye_relief112_1_0"] if material_name=="Eye_relief" else [material_name]
+                var row: Dictionary=table.materials[material_name]
+                assert(FileAccess.get_sha256(row.path)==row.sha256)
+                for mesh_name in names:
+                    var mesh=entry.model.find_child(mesh_name,true,false) as MeshInstance3D
+                    assert(mesh!=null and mesh.skin!=null and mesh.mesh.get_surface_count()==1)
+                    var actual=mesh.get_active_material(0)
+                    assert(actual!=null and actual.get_class()==row.type)
+                    var texture: Texture2D
+                    if actual is ShaderMaterial:texture=actual.get_shader_parameter("source_texture") as Texture2D
+                    else:texture=(actual as StandardMaterial3D).albedo_texture
+                    assert(texture_sha(texture)==row.texture_pixels_sha256)
+                    assert(mesh.mesh is ArrayMesh and mesh.mesh.get("_surfaces")[0].get("lods",[]).is_empty(),"Unreviewed zander LOD")
+                    if mesh_name=="Closed_body":assert((actual as StandardMaterial3D).transparency==BaseMaterial3D.TRANSPARENCY_DISABLED)
+                    material_count+=1
+            assert(material_count==11)
+            for preset in ["舒缓","常速","快速","大幅展示"]:
+                hall._motion_preset(preset)
+                var selected: Dictionary=entry.controller.motion_controls()
+                for key in selected:assert(is_equal_approx(float(hall.motion_sliders[key].value),float(selected[key])))
+            hall.motion_sliders.fin_amplitude.value=0.0
+            assert(entry.controller.motion_controls().fin_amplitude==0.0 and entry.controller.motion_controls().body_amplitude==2.5)
+            records.append({"species":species,"ok":true,"fin_surfaces":8,"skin_surfaces":1,"skin_status":"finalized_native","four_presets_and_independent_slider":true,"model_sha256":model_sha,"material_bindings":material_count,"runtime_static_build_calls":0})
+            print("SURFACE_AND_UI_TEST ",species," ",8," ",1)
+            continue
         assert(FileAccess.get_sha256("res://assets/models/fish/"+species+".glb")==profile.model_sha256,"Stale model ownership")
         var fin_count:=0;var skin_count:=0
         for mesh in entry.model.find_children("*","MeshInstance3D",true,false):

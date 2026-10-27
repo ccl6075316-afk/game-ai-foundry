@@ -42,6 +42,18 @@ def resolve_ffprobe(config: dict[str, Any] | None = None) -> str | None:
     return resolve_binary("ffprobe", config)
 
 
+def resolve_blender(config: dict[str, Any] | None = None) -> str | None:
+    """Prefer the configured Blender executable, then toolchain bin and PATH."""
+    config = config or {}
+    tc = config.get("toolchain") if isinstance(config.get("toolchain"), dict) else {}
+    configured = tc.get("blender_path")
+    if configured:
+        path = Path(os.path.expanduser(str(configured)))
+        if path.is_file():
+            return str(path)
+    return resolve_binary("blender", config)
+
+
 def _find_godot_binary(root: Path) -> Path | None:
     if sys.platform == "win32":
         console: Path | None = None
