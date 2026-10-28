@@ -75,6 +75,8 @@
 
 2026-10-28 海鲈鱼补充：Blender 内动作曲线逐帧相同、glTF channel 仅有浮点舍入差，仍不能证明 Godot 实际导入后的骨骼姿态相同。本鱼重导出后在 59 帧出现约 `0.00217` 的最大姿态差；提前冻结旧 Godot 导入的原生 `Animation`，在仅本鱼及候选 GLB 哈希的导入脚本中复用，差降至 `7.75e-7`。旧实际八片鳍 45 层 LOD 须逐层按顶点映射转移，身体和眼睛旧终态无 LOD；本鱼五张 `VERTEX_ID` 浮点查表逐像素重排。次级模型分门做源、动画、LOD、材质、画面，每门报告由主执行者核对；详见[执行卡](static-merge-secondary-model.md)与 `projects/fishing-2d/experiments/sea-bass-static-merge/`。这仍只是SOP第0.2节本地迁移检查点。
 
+2026-10-29 黑鲷补充：检查“独立唇带是否已去掉”须以当前安装 GLB 经正式装配后**可见网格**为准；材质名 `LipMaterial115` 只是口缘着色，不能按名称误判为独立唇带。黑鲷旧终态无独立唇带；其身体两张表面有六个依赖顶点序号的查表参数，必须按本鱼实际导入顶点重排。当前 28 鱼入口的可见唇带清单为零，逐鱼 SHA 与结果见 `projects/fishing-2d/experiments/black-seabream-static-merge/lip-band-audit.validation.json`；历史实验文件和正常嘴唇纹理不在该结论内。Pi 中 DeepSeek/Kimi K3 实际单次 `read` 工具调用成功，广义多步提示未形成有效调用，因此先区分工具安装与模型调用格式，再决定是否补工具；详见本鱼模型使用记录。这仍只是 SOP 第0.2节本地迁移检查点。
+
 ## 1. 每条鱼的材料包
 
 建模前按目标物种填写，不足项注明如何解决，不以其他鱼的比例补空。
