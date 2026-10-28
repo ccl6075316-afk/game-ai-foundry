@@ -79,6 +79,8 @@
 
 2026-10-29 红鲷补充：`VERTEX_ID` 数据纹理的每顶点步长须按该鱼实际 shader 参数读取。红鲷的 `mouth136_records` 用 `mouth136_stride=2`，重导入顶点顺序改变时须成对搬运两像素并更新尺寸，不能套用 `rest114` 的单像素规则。Blender 再导入候选 GLB 后，背鳍同一顶点三个面角被显示成零法线；旧新版 GLB 原始 `NORMAL` accessor 均非零，逐面原始法线差仍小于既定 `0.001` 容差。遇到此类矛盾先查实际导出数据，再决定修复，不能单凭重导入视图断言资产坏了或放宽容差。本鱼仍只完成 SOP 0.2 本地迁移检查点，参数和证据见 `projects/fishing-2d/experiments/red-seabream-static-merge/`。
 
+2026-10-29 黄花鱼补充：静态合并后恢复旧 LOD 时，鳍接缝可能有位置、UV、权重完全相同的重合顶点。只按这三项最近匹配会将多个旧顶点并到同一新顶点；应再按对应法线区分，并验证每个旧顶点均有新代表及旧 LOD 三角形的方向、位置。黄花鱼旧终态左右胸鳍 LOD 为零，其他鳍层数也必须逐鱼冻结。Blender 再导入眼盖法线与原始 GLB 法线略有差异时，直接比较旧新 GLB `NORMAL` accessor，不放宽既定容差。见 `projects/fishing-2d/experiments/yellow-croaker-static-merge/`；仍仅为 SOP 0.2 本地检查点。
+
 ## 1. 每条鱼的材料包
 
 建模前按目标物种填写，不足项注明如何解决，不以其他鱼的比例补空。
