@@ -1,0 +1,55 @@
+"""Record this material-only experiment, its real evidence and bounded cleanup."""
+from pathlib import Path
+import json,hashlib,subprocess,ast
+repo=Path(__file__).resolve().parents[3];game=repo/'projects/fishing-2d';trial=game/'experiments/nile-dorsal-route-trial';out=trial/'round7-upper-lip-continuity';old=trial/'round6-reference-repair'
+read=lambda p:json.loads(p.read_text(encoding='utf8'))
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+def bound(p):return {'path':str(p.relative_to(repo)).replace('\\','/'),'sha256':sha(p),'bytes':p.stat().st_size}
+v=read(out/'B-artifacts/validation.json');paint=read(out/'upper-lip-paint.plan.json');live=read(out/'three-live.validation.json');control=read(out/'three-interactive-input.validation.json');gate=read(out/'B-artifacts/fin-gate/completion.validation.json');diagnostic=read(out/'diagnostic-cold-render.validation.json')
+assert live['ok'] and control['ok'] and control['upper_lip_marking_toggle'] and gate['ok'] and gate['checks'][0]['poses']==177
+assert v['triangles']==1476 and v['geometry_topology_weights_unchanged'] and paint['outside_free_gutter_identical']
+assert sha(old/'B-artifacts/fish.blend')==paint['source_blend']
+for name,h in v['hashes'].items():assert sha(out/'B-artifacts'/name)==h
+seen=next(r for r in live['models'] if r['route']=='B');assert seen['model_sha256']==sha(out/'B-artifacts/fish.glb') and seen['triangles']==1476
+assert next(r for r in live['models'] if r['route']=='A')['model_sha256']==sha(old/'A-artifacts/fish.glb')
+report={'kind':'nile_upper_lip_front_continuity_review','ok':True,'status':'experimental_revision_for_user_review','next_action':'human_review','formal_acceptance':False,'user_visual_acceptance':'pending','user_direction':'Front view: continue existing left upper-lip outline AND lip fill along the actual upper lip to the right upper lip. Explicitly confirmed 2026-10-30.','routes':{'A':{'triangles':1492,'model':bound(old/'A-artifacts/fish.glb'),'editable_source':bound(old/'A-artifacts/fish.blend'),'body_closed':False,'root_certification':False},'B':{'triangles':1476,'model':bound(out/'B-artifacts/fish.glb'),'editable_source':bound(out/'B-artifacts/fish.blend'),'body_closed':'geometry unchanged from measured closed round6 body','root_gate':bound(out/'B-artifacts/fin-gate/completion.validation.json')}},'material':{'selected_upper_skin_faces':65,'actual_upper_boundary_edges':29,'source':'Original upper-lip cross-section at native u=.97, including inner/outer outlines and pale fill; no unrelated forehead/chin grey patch.','guide':bound(out/'upper-lip-guide.json'),'paint_plan':bound(out/'upper-lip-paint.plan.json'),'atlas_size':[1961,1024],'new_triangles':0,'new_texture_memory':0,'geometry_topology_weights_unchanged':True,'unselected_faces_uv_unchanged':True,'fins_and_tail_unchanged':True,'debug_cyan_line_exported':False},'prior_repair':bound(old/'review.validation.json'),'evidence':{name:bound(out/name) for name in ['B-upper-lip-front-marked.png','B-mouth-current-front.png','B-mouth-current-oblique.png','B-mouth-current-side.png','diagnostic-cold-render.validation.json','three-live.validation.json','three-interactive-input.validation.json']},'operator_visual_observations':['Viewed cold GLB front, guide front and oblique: pale band and dark edge follow upper-lip arch across the front; cyan guide follows actual mouth boundary.','Foregrounded the actual original/A/B window; B1476 and A1492 labels and front view visible.','No claim of user acceptance or formal whole-fish clearance.'],'reproduce':['Blender --background --python resources/scripts/volume-fish/mark_nile_upper_lip.py','venv Python resources/scripts/volume-fish/paint_nile_upper_lip.py','Blender --background --python resources/scripts/volume-fish/apply_nile_upper_lip.py','venv Python resources/scripts/volume-fish/open_nile_ab_review.py --smoke'],'remaining_formal_gates':['User visual acceptance','Full490 fin membrane/native checks','Body/GPU/head final checks','Full SOP finalization acceptance'],'new_generation_calls':0,'new_generation_fees':0}
+write(out/'review.validation.json',report)
+review=read(old/'sop-review.json')
+for key,p in {'model':out/'B-artifacts/fish.glb','editable_blend':out/'B-artifacts/fish.blend','runtime_manifest':out/'review.validation.json','upper_lip_atlas':out/'upper-lip-continuous-atlas.png','review_entry':repo/'resources/scripts/volume-fish/preview_nile_three_live.gd'}.items():review['candidate_files'][key]={'path':str(p),'sha256':sha(p)}
+review['derived_from']=str(old/'sop-review.json')
+for stage in review['stages'].values():stage['observations']='Material-only upper-lip experiment. User appearance and complete final gates remain pending; no formal stage acceptance.'
+write(out/'sop-review.json',review)
+run=subprocess.run([str(repo/'.venv/Scripts/python.exe'),'cli/gamefactory.py','volume','sop-check','--review',str(out/'sop-review.json'),'--output',str(out/'sop-check.validation.json'),'--json'],cwd=repo,capture_output=True,text=True,encoding='utf8');check=json.loads(run.stdout);assert not check['ok']
+
+note='''\n\n## 2026-10-30 当前续做：实际A嘴形参照与正面上唇连续材质\n\nround5被用户拒绝，不能恢复为当前成功候选：腹颈供体y被夹到一行造成糊带；假设的口缝参数与任意灰色小块不等于A实际嘴形；额头横向补色抹掉旧材料变化。round6-reference-repair已经改为原尺寸二维身体供体、恢复旧额头方向图，并从实际A量取完整上下颌包络、横宽和不对称口裂，重建B前部稀疏控制笼及切口，使用对应A实际表面UV与口内角色。B整鱼1476三角面且身体闭合，A1492但身体未闭合；尾巴/全部七鳍保留。证据见round6-reference-repair/review.validation.json。旧R5模型二进制已按哈希清理，保留拒绝原因、参数和唯一对照图，不能继续运行旧R5修复作为默认路线。\n\n用户随后明确确认“正面看鱼嘴，从左侧上唇接到右侧上唇”。当前唯一入口为round7-upper-lip-continuity/review.validation.json：仅B上唇65个皮肤三角面的UV和贴图修改；29条实际上唇边构成连续曲线，原画上唇u=.97的深色内外描边与浅色唇色一并沿曲线延伸。使用原1961×1024图集已确认空闲边栏，无新增面/材质槽/贴图尺寸；几何、拓扑、权重、七鳍、尾巴、下唇及未选面的UV均不变。B1476、A1492，整鱼优选1500与硬上限2000均满足。此次明确要求描边，所以保留/延伸上唇描边；不能把此前“避免黑色供体污染”误用成再次抹掉用户指定上唇。\n\n静态结果已保存R7 B的fish.blend和fish.glb；A直接读取R6源，不复制造新A。新Godot进程直接冷读导出，原生循环/四动作与鼠标操作已执行，B重新通过七鳍177姿态根区检查；不等于490鳍膜、身体GPU和正式SOP通过。当前sop-check仍未通过，用户外观接受待定。启动：仓库venv Python运行resources/scripts/volume-fish/open_nile_ab_review.py，默认R7；--round6仅回看R6。窗口新增“上唇正面”“上唇标定线 开/关”，青线只用于标定，未写入成品材质。\n'''
+for p in [game/'docs/3d-fish/HANDOFF-20261029-NILE-B.md',game/'docs/3d-fish/species/nile-tilapia.md']:
+ text=p.read_text(encoding='utf8')
+ if '## 2026-10-30 当前续做：实际A嘴形参照与正面上唇连续材质' not in text:p.write_text(text+note,encoding='utf8')
+method='''\n\n### 2026-10-30 补皮返工与正面唇线连续性\n\n删除黑纹不证明补皮成功；二维供体坐标被夹到同一行会产生糊带，必须同机位检查纹样尺度与二维变化。用户指定旧模型的嘴形时，量实际模型完整颌部包络、横宽和上下唇边界再拟合稀疏笼，不用任意口缝参数或无关灰块代替；测量射线须覆盖完整头部，不能因ROI裁短而制造假鼻突。旧额头材料的自然变化被拒绝替换时恢复实际来源，不能用固定横色带遮盖。\n\n用户要求左右唇线连接，先明确正面左右或侧面前后；沿实际外皮/口内公共边标定，再单独延伸既有上唇描边和唇内颜色。普通皮肤禁混描边的规则不取消用户明确指定的唇纹。可在原图集验证空闲区域设置局部UV岛，保持其他面UV、几何、蒙皮和纹理不变；标定图与自然材质分别展示。源图到未见正面的延伸属于制作推断，不能冒称神经网络生成或生物实测。保存blend/GLB后用新进程看正/斜/侧与标线，保留范围、哈希及待审项。罗非鱼实例见round6-reference-repair和round7-upper-lip-continuity/review.validation.json；不推广其尺寸和取色位置。\n'''
+for base in [repo/'resources/skills/fish-volume-production/references',Path.home()/'.codex/skills/fish-volume-production/references']:
+ for name in ['source-surface-repair.md','production-sop.md']:
+  p=base/name;content=p.read_text(encoding='utf8')
+  if '### 2026-10-30 补皮返工与正面唇线连续性' not in content:p.write_text(content+method,encoding='utf8')
+params=read(repo/'resources/volume-fish/nile-tilapia-review-fixes-20261030.json');params['round5_status']='user_rejected_do_not_resume_as_current';params['current_B_triangles']=1476;params['current_review']=str(out/'review.validation.json');params['current_upper_lip']={'direction':'front left to front right','guide_edges':29,'selected_skin_triangles':65,'source_anchor_u':.97,'band_native_px':32,'blend_start_u':.974,'blend_full_u':.982,'geometry_unchanged':True,'all_fins_unchanged':True,'source_plan':str(out/'upper-lip-paint.plan.json'),'user_visual_acceptance':'pending'};write(repo/'resources/volume-fish/nile-tilapia-review-fixes-20261030.json',params)
+state=read(trial/'next-round-plan.validation.json');state.update(next_round_status='round7_upper_lip_front_material_review',current_validation='round7-upper-lip-continuity/review.validation.json',authoritative_plan='docs/3d-fish/HANDOFF-20261029-NILE-B.md',formal_acceptance=False);state['current_AB'].update(B_triangles=1476,current_A='round6-reference-repair/A-artifacts',current_B='round7-upper-lip-continuity/B-artifacts',upper_lip_direction='front left to right',user_visual_acceptance='pending');state['latest_user_authorization']=report['user_direction'];state['plan_document_hashes']={k:sha(repo/k) for k in state['plan_document_hashes']};write(trial/'next-round-plan.validation.json',state)
+
+# Only exact reproducible duplicate captures and successful logs from this round.
+remove=[]
+for route in ['A','Original']:
+ for p in out.glob(route+'-*.png'):
+  if p.name not in [route+'-mouth-current-front.png',route+'-mouth-current-oblique.png']:remove.append(p)
+for p in [out/'B-artifacts/fish.blend1',out/'B-artifacts/fin-gate/export.log',out/'B-artifacts/fin-gate/nile_tilapia/check.log']:
+ if p.exists():remove.append(p)
+# Remove capture references only for duplicates; never leave broken evidence pointers.
+removed_names={str(p) for p in remove};diagnostic['captures']=[r for r in diagnostic['captures'] if str(Path(r['path'])) not in removed_names];write(out/'diagnostic-cold-render.validation.json',diagnostic)
+report['evidence']['diagnostic-cold-render.validation.json']=bound(out/'diagnostic-cold-render.validation.json');write(out/'review.validation.json',report)
+review['candidate_files']['runtime_manifest']['sha256']=sha(out/'review.validation.json');write(out/'sop-review.json',review)
+run=subprocess.run([str(repo/'.venv/Scripts/python.exe'),'cli/gamefactory.py','volume','sop-check','--review',str(out/'sop-review.json'),'--output',str(out/'sop-check.validation.json'),'--json'],cwd=repo,capture_output=True,text=True,encoding='utf8');assert not json.loads(run.stdout)['ok']
+previous=read(out/'cleanup.validation.json') if (out/'cleanup.validation.json').exists() else {};rows=previous.get('deleted',[])+[bound(p) for p in remove]
+write(out/'cleanup.validation.json',{'ok':False,'status':'prepared','deleted':rows})
+for p in remove:assert p.resolve().is_relative_to(out.resolve());p.unlink()
+kept=[bound(p) for p in sorted(out.rglob('*')) if p.is_file() and p.name not in ['cleanup.validation.json','three-navigation.validation.json']]
+write(out/'cleanup.validation.json',{'ok':True,'status':'done','deleted':rows,'deleted_bytes':sum(r['bytes'] for r in rows),'retained':kept,'retained_bytes':sum(r['bytes'] for r in kept),'scope':'Keep current B editable/exported asset, source guide/paint plan/atlas, unique B current views and A/original front+oblique comparators, cold runtime/root and SOP reports; remove duplicate other-route captures and successful logs. Navigation JSON is volatile.'})
+for p in (repo/'resources/scripts/volume-fish').glob('*nile*lip*.py'):ast.parse(p.read_text(encoding='utf8'))
+print(json.dumps({'ok':True,'A':1492,'B':1476,'user_visual_acceptance':'pending','deleted_bytes':sum(r['bytes'] for r in rows),'retained_bytes':sum(r['bytes'] for r in kept)}))

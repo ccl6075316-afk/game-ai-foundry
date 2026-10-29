@@ -31,6 +31,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 根据问题读取维护中的知识
 
+- 用户要求按视频对图快速建低面鱼，或进行A减面/B新建对照时：先读[参考图控制笼B执行卡](references/reference-cage-body.md)。必须实际看视频操作，保存链接、时间和融合后步骤，不能只把B概括为“低面/截面生成”后自行换方法。
+
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。
 - 口部：`projects/fishing-2d/docs/3d-fish/ORAL-JAWS.md` 的开头方法选择和069d结论。口位、下颌前突、口裂倾角、唇缘包合、开闭动作分别判断；不要把所有鱼套成上位口或孔雀鲈下颌。
 - 嘴像板片、喙或勺子，或侧面也对不上原画时：读 [references/mouth-repair.md](references/mouth-repair.md)，先检查完整颌部与参考姿态，不能继续只调唇厚/UV。
@@ -94,3 +96,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 本批常用间隙1mm、埋入6mm是已冻结工程界限，不是物种生物指标。新体型先确认容差适用；不能为了候选过关事后放宽。离散姿态检查不代表连续时间碰撞证明。
 
 交付可自由环绕、切鱼、选择动作的游戏视图，以及原图/模型对照。沉淀时把通用方法、物种数据与本次实际通过/失败的报告分别保存；不要把失败原型写成推荐模板。072证明保留检查漏报真实悬空；073在蓝鳃太阳鱼与褐鳟验证了显式完整鳍基，并用失败候选证明网格/尾根门确实拦截问题。
+
+
+## 低面B重建与无聊天交接
+
+按视频/原图先塑身体再独立鳍，或用户要求明天无重要信息丢失续做时，读[参考图低面鱼完整重建SOP](references/reference-cage-rebuild-sop.md)。罗非鱼当前完整逐步记录位于游戏docs/3d-fish/NILE-B-REBUILD-20261030.md；现有状态以next-round-plan.validation.json和当前review为准。保存来源、完整数值、真实方法、每个严重问题/失败及未接受状态，不把打开/另存现有B称从零重建。必要时只在全新work目录执行隔离复现，核对几何/UV/权重及贴图；模型可复现不代表用户接受或正式验收。

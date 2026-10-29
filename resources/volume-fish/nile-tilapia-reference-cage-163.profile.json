@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "species": "nile_tilapia",
+  "display_name": "尼罗罗非鱼",
+  "coordinate_space": "normalized_source_top_left",
+  "source_aspect_ratio": 2.0174897119341564,
+  "profile_review_status": "approved",
+  "real_length_cm": 40,
+  "style": {
+    "pixel_art": true,
+    "reference_image": "repo://projects/fishing-2d/game/assets/sprites/鱼_尼罗罗非鱼_角色/frame_0001.png",
+    "texture_filter": "nearest",
+    "roughness": 1.0
+  },
+  "body": {
+    "sections": [
+      [
+        0.149,
+        0.37448559670781895,
+        0.6141975308641975,
+        0.0031500615999999998
+      ],
+      [
+        0.17,
+        0.37448559670781895,
+        0.6121399176954733,
+        0.008164139378381164
+      ],
+      [
+        0.2,
+        0.37448559670781895,
+        0.6080246913580247,
+        0.017984233042513592
+      ],
+      [
+        0.235,
+        0.3395061728395062,
+        0.6244855967078189,
+        0.023833332329830575
+      ],
+      [
+        0.27,
+        0.3045267489711934,
+        0.6563786008230452,
+        0.029666666776131147
+      ],
+      [
+        0.31,
+        0.2602880658436214,
+        0.6995884773662552,
+        0.03633332977475005
+      ],
+      [
+        0.35,
+        0.23045267489711935,
+        0.7325102880658436,
+        0.0422857140744348
+      ],
+      [
+        0.39,
+        0.20473251028806586,
+        0.7654320987654321,
+        0.04796771326719082
+      ],
+      [
+        0.43,
+        0.18930041152263374,
+        0.7860082304526749,
+        0.0525714307807608
+      ],
+      [
+        0.47,
+        0.17386831275720166,
+        0.7942386831275721,
+        0.05657142913865639
+      ],
+      [
+        0.51,
+        0.16049382716049382,
+        0.808641975308642,
+        0.058857142228062834
+      ],
+      [
+        0.55,
+        0.14917695473251028,
+        0.8168724279835391,
+        0.060285714425378986
+      ],
+      [
+        0.6,
+        0.14094650205761317,
+        0.8199588477366255,
+        0.06094042942918831
+      ],
+      [
+        0.65,
+        0.1440329218106996,
+        0.815843621399177,
+        0.05957142842509983
+      ],
+      [
+        0.7,
+        0.15534979423868311,
+        0.8045267489711934,
+        0.05685714034541088
+      ],
+      [
+        0.75,
+        0.1779835390946502,
+        0.7849794238683128,
+        0.05283333288609168
+      ],
+      [
+        0.8,
+        0.22016460905349794,
+        0.75,
+        0.04693330869909838
+      ],
+      [
+        0.84,
+        0.2664609053497942,
+        0.7160493827160493,
+        0.040755763157552236
+      ],
+      [
+        0.88,
+        0.31893004115226337,
+        0.6800411522633745,
+        0.035506895991387656
+      ],
+      [
+        0.91,
+        0.3611111111111111,
+        0.6491769547325102,
+        0.03229827901396547
+      ],
+      [
+        0.94,
+        0.404320987654321,
+        0.5977366255144033,
+        0.026962270485032497
+      ],
+      [
+        0.965,
+        0.44135802469135804,
+        0.565843621399177,
+        0.022789916309034142
+      ],
+      [
+        0.982,
+        0.4577390946502058,
+        0.5520812071330591,
+        0.016841330181373293
+      ],
+      [
+        0.9915,
+        0.4897497942386833,
+        0.5429669410150891,
+        0.009409456160056399
+      ],
+      [
+        0.995,
+        0.5015432098765432,
+        0.5396090534979424,
+        0.006000984
+      ]
+    ],
+    "rings": 25,
+    "radial": 16
+  },
+  "rig": {
+    "spine": [
+      [
+        0.95,
+        0.5075
+      ],
+      [
+        0.8623333333333333,
+        0.4954666666666666
+      ],
+      [
+        0.7746666666666666,
+        0.4831
+      ],
+      [
+        0.6869999999999999,
+        0.4801214285714286
+      ],
+      [
+        0.5993333333333333,
+        0.4805380952380952
+      ],
+      [
+        0.5116666666666667,
+        0.4842380952380952
+      ],
+      [
+        0.42399999999999993,
+        0.4783571428571428
+      ],
+      [
+        0.3363333333333334,
+        0.46775
+      ],
+      [
+        0.2486666666666667,
+        0.4759944444444444
+      ],
+      [
+        0.16100000000000003,
+        0.4932941176470588
+      ]
+    ]
+  },
+  "fins": [],
+  "eyes": null,
+  "barbels": [],
+  "animation": {
+    "fps": 24,
+    "period_seconds": 2.4,
+    "body_amplitudes": [
+      0,
+      0.002,
+      0.004,
+      0.008,
+      0.012,
+      0.02,
+      0.028,
+      0.038,
+      0.05,
+      0.06
+    ],
+    "phase_step": 0.53
+  },
+  "body_uv_patches": [],
+  "notes": [
+    "082 author-calibrated against actually inspected accepted native side source 2f2018df6aff97da99f000ff13a5d999ca0287440e961444f4f0f1be89b071d1. Profile input approval only; no output acceptance.",
+    "Separate species contour, actual full fin baselines and mouth landmarks, not a morphed model template.",
+    "Hidden transverse widths are engineering priors; no comparable same-station biological measurements are claimed. Native texture dimensions and nearest retained.",
+    "Complete fin root collar inset0.45mm/native unit; later actual runtime uses physical units and frozen connection/membrane thresholds. All motion amplitudes are production settings, not measured biomechanics.",
+    "082f: authored fin polygon follows the complete species-specific source baseline. Inset zero places the root mid-surface on the actual body; original solid half-thickness <=0.25mm fits the unchanged 0.5mm basal seam. Original nearest projection, source, texture, thickness, free clearance, rig and motion unchanged. No adaptive refinement or radial chart opt-in.",
+    "082g final input: median root inset .0001 retains nonzero solid root shell without the zero-inset welded-edge singularity. Independent25-fin test closed25/25, max root vertex depth~.34mm. Paired/Caudal remain0; original free_clearance unchanged; no new builder code.",
+    "163 A/B trial: image-fitted sparse cage body; explicit artistic transverse dimensions; fins built separately from native cutouts. No dense-body reduction in B."
+  ],
+  "oral_jaws": {
+    "corner": [
+      0.95,
+      0.552
+    ],
+    "front": [
+      0.995,
+      0.502
+    ],
+    "gap": 0.0035,
+    "upper_retraction": 0,
+    "lower_projection": 0,
+    "lip_bevel": 0,
+    "front_pigment_band": [
+      0.6,
+      0.82
+    ]
+  }
+}

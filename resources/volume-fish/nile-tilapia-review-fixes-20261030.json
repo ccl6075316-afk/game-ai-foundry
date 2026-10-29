@@ -1,0 +1,48 @@
+{
+  "species": "nile_tilapia",
+  "status": "experimental_user_review_pending",
+  "preferred_max_triangles": 1500,
+  "hard_max_triangles": 2000,
+  "actual_triangles": {
+    "A": 1492,
+    "B": 1436
+  },
+  "mouth_B_gap_profile_native": [
+    [
+      0.95,
+      0.0003
+    ],
+    [
+      0.995,
+      0.01
+    ],
+    [
+      1.04,
+      0.012
+    ]
+  ],
+  "thickness_basis": "Actual saved mesh at40cm display scale; no biological measurement claim",
+  "tail_and_all_fins_unchanged": true,
+  "pectoral_cause": "Old ventral chart repeated old fin-ray remnants, not the whole-body neural donor.",
+  "repair_plan": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round5-user-review-fixes/repair.plan.validation.json",
+  "current_report": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round5-user-review-fixes/review.validation.json",
+  "formal_acceptance": false,
+  "round5_status": "user_rejected_do_not_resume_as_current",
+  "current_B_triangles": 1476,
+  "current_review": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\nile-dorsal-route-trial\\round7-upper-lip-continuity\\review.validation.json",
+  "current_upper_lip": {
+    "direction": "front left to front right",
+    "guide_edges": 29,
+    "selected_skin_triangles": 65,
+    "source_anchor_u": 0.97,
+    "band_native_px": 32,
+    "blend_start_u": 0.974,
+    "blend_full_u": 0.982,
+    "geometry_unchanged": true,
+    "all_fins_unchanged": true,
+    "source_plan": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\nile-dorsal-route-trial\\round7-upper-lip-continuity\\upper-lip-paint.plan.json",
+    "user_visual_acceptance": "not_accepted_user_explicitly_below_standard"
+  },
+  "continuation_sop": "projects/fishing-2d/docs/3d-fish/NILE-B-REBUILD-20261030.md",
+  "model_work_paused": true
+}

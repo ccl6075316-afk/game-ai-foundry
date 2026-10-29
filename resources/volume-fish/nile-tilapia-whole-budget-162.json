@@ -1,0 +1,55 @@
+{
+  "species": "nile_tilapia",
+  "scientific_name": "Oreochromis niloticus",
+  "display_length_cm": 40.0,
+  "status": "AB_textured_comparison_ready_not_installed",
+  "selected_production_route": "A_existing_geometry_material_and_B_new_whole_fish",
+  "latest_scope": "A1492 frozen geometry material complete; B1458 new image-fitted sparse body+seven fins material complete. Both below preferred1500; user visual review pending. A old body open, B closed;177 fin roots pass; formal gates incomplete.",
+  "route_correction": "User selected B before the pause. The 1500 preferred / 2000 hard whole-fish budget did not authorize switching to A. The round3 A-body/B-fin model is historical diagnostic evidence only.",
+  "budget_unit": "triangles",
+  "preferred_whole_fish_max": 1500,
+  "hard_whole_fish_max": 2000,
+  "count_scope": "Actual assembled body, all seven fins, both fin faces and edge walls, eyes, mouth and any other visible attachment",
+  "flat_eyes_allowed": true,
+  "round3_probe": {
+    "source_blend_sha256": "e5d5364e8768487765baac4c7df4a2ba9e2b035e9e7b5aba035dcb8050406bc4",
+    "body_comparator_triangles": 920,
+    "fin_boundary_vertices": {
+      "Dorsal": 40,
+      "Anal": 24,
+      "Caudal": 28,
+      "Pectoral_left": 12,
+      "Pectoral_right": 12,
+      "Pelvic_left": 10,
+      "Pelvic_right": 10
+    },
+    "actual_part_triangles": {
+      "Closed_body": 920,
+      "Dorsal": 164,
+      "Anal": 100,
+      "Caudal": 116,
+      "Pectoral_left": 52,
+      "Pectoral_right": 52,
+      "Pelvic_left": 44,
+      "Pelvic_right": 44
+    },
+    "whole_triangles": 1492,
+    "raised_eye_triangles": 0,
+    "candidate_glb_sha256": "4ac4aebdfb4cb93b8fa4d08a140856c143d75cd4d9fb79853b9594a636be5cab",
+    "body_method": "Old body collapse for bounded visual comparison only; not the desired source-and-section B construction",
+    "fin_method": "Per-fin isolated source contour simplified with root landmarks, CDT interior support, variable-thickness closed shell and safe interior sidewall UV"
+  },
+  "acceptance_limit": "Isolated cold GLB count and still images pass only the budget probe. Formal fish requires final Godot assembly count, static material migration, true body source, actual views/actions, all fin/body gates and SOP check.",
+  "round4_current_report": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round4-ab-textured/comparison.validation.json",
+  "round4_B_profile": "resources/volume-fish/nile-tilapia-reference-cage-163.profile.json",
+  "round4_actual_parts": {
+    "Closed_body_B": 886,
+    "Dorsal": 164,
+    "Anal": 100,
+    "Caudal": 116,
+    "Pectoral_left": 52,
+    "Pectoral_right": 52,
+    "Pelvic_left": 44,
+    "Pelvic_right": 44
+  }
+}

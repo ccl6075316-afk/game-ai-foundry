@@ -7,7 +7,7 @@ import bpy,bmesh,math
 from mathutils import Vector
 from volume_mouth import validate_oral_jaws,slit_v,jaw_shift
 
-def build_closed_oral_jaws(body,settings,aspect,weights):
+def build_closed_oral_jaws(body,settings,aspect,weights,gap_profile=None,cut_profile=None):
     validate_oral_jaws(settings)
     corner,front=settings['corner'],settings['front']
     original=[v.co.copy() for v in body.data.vertices]
@@ -85,10 +85,33 @@ def build_closed_oral_jaws(body,settings,aspect,weights):
         for u in candidates:
             if not samples or u-samples[-1]>1e-7:samples.append(u)
     else:samples=[start,end]
+    if gap_profile:
+        assert len(gap_profile)>=2 and all(b[0]>a[0] for a,b in zip(gap_profile,gap_profile[1:]))
+        assert all(math.isfinite(u) and math.isfinite(g) and g>0 for u,g in gap_profile)
+        samples=sorted(set(samples+[u for u,g in gap_profile if start<u<end]))
+    if cut_profile:
+        assert not gap_profile and len(cut_profile)>=2
+        assert all(b[0]>a[0] for a,b in zip(cut_profile,cut_profile[1:]))
+        assert all(all(math.isfinite(x) for x in r) and r[2]>r[1] for r in cut_profile)
+        samples=sorted(set([start,end]+[r[0] for r in cut_profile if start<r[0]<end]))
+    def cut_at(u):
+        if not cut_profile:
+            z=(.5-slit_v(settings,u))*aspect
+            return [z-gap_at(u)/2,z+gap_at(u)/2]
+        if u<=cut_profile[0][0]:return cut_profile[0][1:]
+        for a,b in zip(cut_profile,cut_profile[1:]):
+            if u<=b[0]:
+                t=(u-a[0])/(b[0]-a[0]);return [a[k]+(b[k]-a[k])*t for k in [1,2]]
+        return cut_profile[-1][1:]
+    def gap_at(u):
+        if not gap_profile:return settings['gap']
+        if u<=gap_profile[0][0]:return gap_profile[0][1]
+        for a,b in zip(gap_profile,gap_profile[1:]):
+            if u<=b[0]:return a[1]+(b[1]-a[1])*(u-a[0])/(b[0]-a[0])
+        return gap_profile[-1][1]
     for u in samples:
         for y in [-half_width,half_width]:
-            for sign in [-1,1]:
-                points.append((u-.5,y,(.5-slit_v(settings,u))*aspect+sign*settings['gap']/2))
+            for z in cut_at(u):points.append((u-.5,y,z))
     last=(len(samples)-1)*4
     faces=[(0,1,3,2),(last,last+2,last+3,last+1)]
     for i in range(len(samples)-1):
@@ -136,6 +159,6 @@ def build_closed_oral_jaws(body,settings,aspect,weights):
             'corner_source_uv':corner,'front_source_uv':front,'gap_native_units':settings['gap'],
             'upper_retraction_native_units':settings['upper_retraction'],'lower_projection_native_units':settings['lower_projection'],
             'lip_bevel_native_units':settings['lip_bevel'],'moved_shell_vertices':moved,'oral_faces':oral_faces,'lip_border_edges_before_bevel':len(border),
-            'slit_path':settings.get('slit_path'),'lip_roll':roll_metrics,
+            'slit_path':settings.get('slit_path'),'lip_roll':roll_metrics,'gap_profile':gap_profile,'cut_profile':cut_profile,
             'pre_cut':pre_cut,'boolean_solver':'MANIFOLD' if settings.get('slit_path') else 'EXACT',
             'original_body_vertices':len(original),'final_body_vertices':len(body.data.vertices),'articulated_jaw':False}
