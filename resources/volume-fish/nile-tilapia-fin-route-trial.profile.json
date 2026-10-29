@@ -1,0 +1,38 @@
+{
+  "kind": "single_fin_route_comparison",
+  "status": "experimental_not_installed",
+  "species": "nile_tilapia",
+  "scientific_name": "Oreochromis niloticus",
+  "fin": "Dorsal",
+  "fin_type": "ray_finned_dorsal_with_spiny_and_soft_regions",
+  "source_blend": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/nile-tilapia-static-merge/nile_tilapia-static.blend",
+  "source_sha256": "32ed543993bfc3927c17f1bc19e1b3d91a8b95d9aeb9adcc7da0727ad88f2c6b",
+  "installed_glb_sha256": "4ee2c552939b682463120b52e40f2f98e996c2dad8f91f9144ab7d6de51ad25a",
+  "display_length_cm": 40.0,
+  "runtime_scale": 0.402819722890854,
+  "budgets_triangles": [
+    300,
+    600,
+    1000
+  ],
+  "thickness": {
+    "kind": "variable_membrane_envelope_proxy",
+    "root_mm": 0.5,
+    "tip_mm": 0.12,
+    "root_t_over_display_TL": 0.00125,
+    "tip_t_over_display_TL": 0.0003,
+    "basis": "Artist/engineering trial, not measured Nile dorsal anatomy. Existing fin-bone weight controls a smooth root-to-free-region taper. Painted spines/rays retained in texture, not individually reconstructed."
+  },
+  "contour_max_error_pixels": 0.5,
+  "max_boundary_edge_pixels": 16.0,
+  "comparison_gates": {
+    "max_static_surface_error_mm": 0.3,
+    "max_representative_pose_error_mm": 0.5,
+    "closed_manifold_required": true
+  },
+  "scope": "Only Dorsal topology/thickness; all other source objects and installed model unchanged. Tail transition is documented and researched, not changed in this single-dorsal trial.",
+  "fallback_diagnostic_budgets": [
+    2000
+  ],
+  "fallback_reason": "At original 0.5-pixel physical contour tolerance, new silhouette alone needs474 mid boundary vertices (at least1892 closed-shell triangles). Retain failed few-hundred-face attempts; compare2000 without relaxing shape tolerance."
+}

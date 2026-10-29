@@ -4,6 +4,8 @@
 > 入口：先读 [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md)；环境问题读 [`TOOLS.md`](TOOLS.md)。
 > 本文只写确定性命令、文件契约、失败处理与验收规则。
 
+续做2026-10-29暂停的罗非鱼B路线鳍/材质实验时，先读[无上下文交接](../projects/fishing-2d/docs/3d-fish/HANDOFF-20261029-NILE-B.md)；游戏是独立仓库，需一并拉取。该工作尚未完成，保留现有身体，不重启A/B比较或整鱼重建。
+
 ## 1. 主路径
 
 ```text

@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "scope": "Paused experimental checkpoint integrity, portability and source review only; no modeling/rendering resumed",
+  "python_ast_files": 15,
+  "json_files_parsed": 54,
+  "secret_findings": [],
+  "source_control_scope": "Foundry tools/docs plus game experimental candidates/docs; no game production asset/script modifications",
+  "python_launcher_dry_run": "separate --check command; never launches window",
+  "fixes": [
+    "Round2 receipt now declares all seven fins and local tail geometry changed.",
+    "Cross-machine source fallback keeps SHA check.",
+    "Portable comparison launcher accepts existing Godot path."
+  ],
+  "not_executed_after_stop": [
+    "Blender modeling or rendering",
+    "Godot visual/physics tests",
+    "Full formal fish acceptance"
+  ],
+  "godot_parse_only": {
+    "ok": true,
+    "mode": "--check-only, no scene/model/render execution",
+    "initial_environment_issue": "First invocation omitted bundled dotnet PATH; corrected retry exited0 with no errors."
+  }
+}
