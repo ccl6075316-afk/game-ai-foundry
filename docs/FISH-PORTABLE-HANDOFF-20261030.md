@@ -1,4 +1,48 @@
+最新蓝鳃R15：R14两眼间断档被用户拒绝；已将眼区保护从整片侧图UV矩形改为实际左右侧眼支持，中央接续恢复。实际同机位中央1008像素改变、两虹膜窗口零改变；1494面/头型/嘴/鱼鳍保持。新源/077/490/072/动作/口裂门实跑通过；头/嘴/皮肤/呈现外观仍pending。默认正面中央对照入口experiments/bluegill-interocular-review-20261031/InterocularReview.gd。草鱼/鲫鱼继续冻结。
+
+最新：草鱼R4、鲫鱼R4用户确认结束冻结；蓝鳃R14材质候选1494面，实际几何/权重/鳍UV未改。新生全头图的正面眼与两侧形体被拒绝，只允许两眼间中央材质ROI；沿唇接原侧图、少量回色到内口缘。当前077/490/072/口裂射线/动作/源冷读实跑通过，头/嘴/皮肤/呈现SOP仍pending。预览入口 experiments/bluegill-lip-review-20261031/BluegillColorReview.gd。证据/清理读蓝鳃mouth-repair-20261031/lip-color-followup/validation-report.json。
+
+最新用户确认：草鱼和鲫鱼当前版本结束、冻结；仅继续蓝鳃沿唇补色与前端下搭修复。鲫鱼R4实际接受和全通过SOP读该鱼manifest/user-acceptance-r4.validation.json；旧R3拒绝保持。
+
+最新鲫鱼进展：头嘴R4候选1440三角，已实际完成077/490/072/动作/冷读；头型、嘴和呈现保持pending而非全绿。可在 `experiments/crucian-head-review-20261031/CrucianHeadReview.gd` 同视角切换本次修正/已拒绝R3。当前输入、负例、对照和清理见鲫鱼 `mouth-repair-20261031/head-followup/validation-report.json`。草鱼用户确认结束冻结，蓝鳃仍待沿唇补色；未替换正式游戏。
+
+2026-10-31最新用户审阅：草鱼当前R4确认结束并冻结；蓝鳃R11沿唇补色/前端下搭被否决；鲫鱼R3前吻鼓宽和头型偏离被否决。先逐条修鲫鱼，再处理蓝鳃。旧技术报告不能覆盖本次否决。
+
+> 当前状态（2026-10-31续做后）：三鱼已完成独立返修候选和实际/专项检查，蓝鳃1494、鲫鱼1454、草鱼1682面，均待用户看效果、未正式安装。当前入口与完整证据读 [三鱼返修交接](FISH-MOUTH-REPAIR-20261031.md)。三个旧拒绝哈希保持拒绝。
+
+以下为续做前检查点与历史记录，不能覆盖上面的当前索引。
+
+
+> 2026-10-31返修检查点：蓝鳃R8整鱼1494三角，源上下内缘实网格射线与490姿态鳍技术专项通过；正面下巴V形拉伸纹使嘴部外观继续失败。R9扩带又产生补丁，已拒绝。详细记录在 projects/fishing-2d/experiments/bluegill-portable-trial-20261030/mouth-repair-20261031/repair.validation.json；不是正式完成，不推广下一鱼。约169MB重复/可重建缓存已清理，唯一证据和资产保留。
 # 鱼类通用工具与DeepSeek审阅：无上下文交接
+
+## 当前：三条嘴部被用户否决（2026-10-31）
+
+用户实际检查列表后否决蓝鳃、鲫鱼、草鱼嘴部横缝、缺少约定下唇线/开口/颌部与左右原画接续、整块抹色。三条manifest已blocked/fix_input，旧嘴和整鱼图审通过撤回，旧账本/报告留历史快照。当前拒绝索引 `docs/anvil/knowledge/2026-10-31-three-mouth-user-rejection.validation.json` 优先于下方全部旧“完成”措辞。罗非鱼R11已确认状态不变。基础检查后先嘴、再全部鳍、再其余；整鱼1500优选/2000硬上限及全部旧要求同时生效，按 `mouth-first-review.md` 逐项实际检查。不能只靠再写SOP或自动填通过解决。当前从蓝鳃嘴部重审，不推进下一鱼。
+
+## 最新：草鱼完整候选（2026-10-31）
+
+草鱼已继续修复补皮和前端投影，当前1832三角/2546导出顶点/18骨，源固化与新进程冷读、完整七鳍490/072、身体077/GPU、头型正负例、真实四动作/过渡、24秒视频及九阶段SOP均通过，51项实际证据。整体外观待用户审阅，正式草鱼未替换。游戏 `experiments/grass-carp-portable-trial-20261030/{manifest.json,final-sop.validation.json,handoff.md}` 为当前状态，下方首轮blocked是历史。
+
+本次完整门发现稀疏身体与鳍根蒙皮采样不匹配；按本鱼源根地标/身体权重断点由23环增到38环、重建根投影，未单独移动鳍或改根带/物理限值，当前全部490通过。完整通过后复用相同模型/计划/冻结依赖的490供最终072，避免重复执行。站位配置和当前物种profile在Foundry resources；通用经验/联系表工具同步到本地。最新汇总：`docs/anvil/knowledge/2026-10-31-grass-portable-final.validation.json`。未请求commit/push。
+
+## 最新收敛与第三条实鱼（2026-10-30，优先于下方历史状态）
+
+- 鲫鱼上一轮残鳍/嘴端投影问题已修正，1526三角、2289导出顶点、18骨，当前候选完成源固化/新进程冷读、完整七鳍490/072、身体077/GPU、头型正负例、动作和九阶段SOP。用户整体外观待审，未替换正式鲫鱼。以游戏 `experiments/crucian-portable-trial-20261030/{manifest.json,production-review.json,sop.validation.json,handoff.md}` 为准。旧未完成报告归档为historical，不能再作为最新停点。
+- 配准补皮、显式普通源导出、有限前颌颜色图岛、局部截图/空图拦截、七阶段材质候选链、原export triangles适配已归入[本轮经验卡](../resources/skills/fish-volume-production/references/portable-material-lessons-20261030.md)，与本地技能同步。单次材质技术链约10.40秒，不含生图/人工/最终门，无token节省百分比声明。
+- 第三条草鱼已实际走过材料准备→归档来源校验→建模→validate→多视渲染/实际图审。新长身体型23环×12径向。首次口腔MANIFOLD四面共边失败，显式EXACT重建通过身体/七鳍闭合与机械八项；正面嘴部原画描边投影仍被图审拒绝，当前blocked/fix_input。只完成首轮试验，未通过完整门、未作正式成品交付。以游戏 `experiments/grass-carp-portable-trial-20261030/{manifest.json,handoff.md,local-review.validation.json}` 为准。
+- 当前权威汇总为 `docs/anvil/knowledge/2026-10-30-crucian-grass-portable.validation.json`。旧bluegill-crucian索引保留历史快照。未请求commit/push，本轮不提交。
+
+## 后续实鱼执行状态（2026-10-30，优先于下方早期交接）
+
+用户后来已明确授权：安装本人确认的罗非鱼R11，试做蓝鳃；这条完成后收敛脚本/本地技能，再尝试另一条。**当前已完成这些后续动作，不再适用下方早期“尚未开始/先讨论不选鱼”的停点。**本轮没有请求commit/push。
+
+- 罗非鱼R11已按用户确认正式替换；当前证据读游戏 `experiments/nile-dorsal-route-trial/round11-production-install/manifest.json`。GLTFDocument路径与已审入口一致，480骨架姿态矩阵0差异、四动作GPU逐RGBA相同；旧入口优化轨道的失败与回滚另存。
+- 蓝鳃1980面候选完成源固化/冷读、七鳍完整490/072、身体077/GPU、头型负例、动作/多视/水下及九阶段SOP，**用户整体外观仍待审，未装正式蓝鳃**。状态读游戏 `experiments/bluegill-portable-trial-20261030/manifest.json`、`sop.validation.json`、`handoff.md`。
+- 经验写回[实鱼收敛卡](../resources/skills/fish-volume-production/references/portable-production-lessons-20261030.md)，对应技能入口与SOP已和本地副本同步。当前60项portable快速测试通过，volume38项通过（1skip）。新工具不用Nile面数/clip/骨名/物种形态常量，但完整身体/490适配仍有明确库存范围。
+- 鲫鱼第二次试验已实际完成1526面源/冷导出/实际导入、查看器和四姿态局部鳍膜诊断。提前图审发现身体残鳍、嘴端取色，**未完成整鱼**；状态blocked/fix_input，完整门未跑，正式鲫鱼字节不变。读游戏 `experiments/crucian-portable-trial-20261030/handoff.md`，不要把局部成功提升成整鱼接受。
+
+最新索引为 `docs/anvil/knowledge/2026-10-30-bluegill-crucian-portable.validation.json`。下方保留早期工具/次级审阅史，旧460文件不变声明只适用于当时工具轮，不覆盖后来已授权的本轮修改。
 
 ## 当前读取入口
 

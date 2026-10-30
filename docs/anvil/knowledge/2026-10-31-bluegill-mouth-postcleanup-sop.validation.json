@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "command": "volume.sop-check",
+  "status": "done",
+  "next_action": "human_review",
+  "species": "bluegill",
+  "review_sha256": "d5b4f91a2d12dc424993fbeee4f7ad93d2d10944b631023c4f8a2e22dffab84b",
+  "checker_sha256": "fb187d091355900db6466d70d295d445b888ff18305f1d68b2a10debdca6c45a",
+  "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+  "candidate_files": {
+    "source_image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\output\\char_29c3596e8d_nobg.png",
+      "sha256": "bfba9d8f51fa664de911d3396cc8aa48c6a0e0654a23ea41ae6b71c8e9cfea77"
+    },
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r11\\source-run\\fish.glb",
+      "sha256": "8fab2250f40fc63ec6975516bea698d221713050911f989145f3d100fe1e938c"
+    },
+    "species_profile": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\bluegill-reference-cage-20261030.profile.json",
+      "sha256": "60651c95f0612acab16c66d09b0e8588657d8bca00752939e9cd8d2b60132db2"
+    },
+    "runtime_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\delivery-r11\\manifest.json",
+      "sha256": "7a83d370e3299c82e8f317b27ab2316e41bfa2896593ebea8b85f52587b3d389"
+    },
+    "motion_config": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\bluegill-reference-cage-native-motion-20261030.json",
+      "sha256": "f84147cbe8dd6f6f9173ce1301412831be8edbbd35a0605ae990bbf05e30e0e3"
+    },
+    "editable_source": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r11\\source-run\\source\\fish.blend",
+      "sha256": "714651512a1c3012986755ed5a75d5c82af7f2ea8c1a13551e97fcc627d613bb"
+    },
+    "controller": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\scripts\\aquarium\\FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "viewer": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\portable\\FishAssetViewer.gd",
+      "sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3"
+    },
+    "body_skin": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\generated-body\\body-source.png",
+      "sha256": "6674a3001199451f57d299fb3d3584925e88f5a8ca7c2d7acac83fbfb99754f3"
+    },
+    "front_color": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+      "sha256": "6efb421a6aa06be73c31b32fedd97a05ea3e5dab62b36065b658e11d048df6c1"
+    },
+    "front_assets_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+      "sha256": "885861f48c52b90b9f2362f397014fde6612cb5062352b39b84962a831750e0f"
+    },
+    "mouth_source_boundaries": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\bluegill-mouth-source-boundaries-20261031.json",
+      "sha256": "2d71cdee5bcf5703d26b20b8be4571edeed049f80a538a7450d2fbd58a1f22eb"
+    },
+    "mouth_surface_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-surface-plan-r11.json",
+      "sha256": "9711fa786dd05a0ea794d76b37ee44f3192b47a4d921384a1930fa47c7f77b41"
+    },
+    "final_spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r11\\source-run\\final-spec.json",
+      "sha256": "22a9daf17e5ffedfd04494c6f4f67f81a6c5b0b9d2f78b62fff0d76d40fdcd4b"
+    }
+  },
+  "stages": [
+    {
+      "stage": "preparation",
+      "ok": true
+    },
+    {
+      "stage": "head",
+      "ok": true
+    },
+    {
+      "stage": "mouth",
+      "ok": true
+    },
+    {
+      "stage": "eyes",
+      "ok": true
+    },
+    {
+      "stage": "skin",
+      "ok": true
+    },
+    {
+      "stage": "fins",
+      "ok": true
+    },
+    {
+      "stage": "motion",
+      "ok": true
+    },
+    {
+      "stage": "runtime",
+      "ok": true
+    },
+    {
+      "stage": "presentation",
+      "ok": true
+    }
+  ],
+  "evidence_count": 51,
+  "failures": [],
+  "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+}

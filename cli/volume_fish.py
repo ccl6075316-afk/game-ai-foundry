@@ -134,7 +134,7 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     require(data["profile_review_status"] == "approved", "Profile geometry must be calibrated to the source image and approved")
     number(data["source_aspect_ratio"], .1, 20, "source_aspect_ratio")
     number(data["real_length_cm"], .1, 1000, "real_length_cm")
-    body = keys(data["body"], {"sections", "rings", "radial"}, {"sections", "rings", "radial"}, "body")
+    body = keys(data["body"], {"sections", "rings", "radial", "ring_positions"}, {"sections", "rings", "radial"}, "body")
     require(isinstance(body["sections"], list) and 4 <= len(body["sections"]) <= 128, "body requires 4–128 sections")
     previous = -1.0
     for section in body["sections"]:
@@ -145,6 +145,11 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     for field, low, high in (("rings", 16, 256), ("radial", 12, 96)):
         number(body[field], low, high, field)
         require(type(body[field]) is int, f"{field} must be an integer")
+    if 'ring_positions' in body:
+        positions=body['ring_positions']
+        require(isinstance(positions,list) and len(positions)==body['rings'],'Explicit cage positions must match rings')
+        for value in positions:number(value,body['sections'][0][0],body['sections'][-1][0],'reference cage station')
+        require(positions[0]==body['sections'][0][0] and positions[-1]==body['sections'][-1][0] and all(a<b for a,b in zip(positions,positions[1:])),'Reference cage positions must span body and strictly increase')
     patches = data.get("body_uv_patches", [])
     if "cephalofoil" in data:
         head = keys(data["cephalofoil"], {"sections", "center_v", "mouth"}, {"sections", "center_v"}, "cephalofoil")
@@ -237,8 +242,10 @@ def validate_profile(data: dict, path: Path) -> tuple[dict, dict]:
     require(isinstance(data["fins"], list) and len(data["fins"]) <= 32, "At most 32 fins")
     names = set()
     for fin in data["fins"]:
-        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline"}
-        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline"}, "fin")
+        allowed = {"name", "polygon", "anchor", "tip", "paired", "root_depth", "tip_depth", "thickness", "amplitude", "phase", "axis", "vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline", "interior_grid"}
+        keys(fin, allowed, allowed - {"vertical_scale", "opaque", "source_rect", "root_attachment", "source_baseline", "interior_grid"}, "fin")
+        if 'interior_grid' in fin:
+            require(isinstance(fin['interior_grid'],list) and len(fin['interior_grid'])==2 and all(type(n)is int and 0<=n<=24 for n in fin['interior_grid']),'Invalid fin interior grid')
         if 'source_baseline' in fin:
             from volume_shape import validate_fin_baseline,fin_baseline_parameter
             try:

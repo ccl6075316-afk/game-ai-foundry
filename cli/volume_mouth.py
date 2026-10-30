@@ -6,7 +6,7 @@ width native units. This is a production simplification, not a skeletal simulato
 import math
 
 FIELDS={'corner','front','gap','upper_retraction','lower_projection','lip_bevel','front_pigment_band'}
-OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation','bill_tip_u'}
+OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation','bill_tip_u','boolean_solver','transverse_gap_arch','anterior_cap_rounding'}
 
 def validate_oral_jaws(data):
     def require(value,message):
@@ -14,6 +14,20 @@ def validate_oral_jaws(data):
     def finite(value,lo,hi):
         return isinstance(value,(int,float)) and not isinstance(value,bool) and math.isfinite(value) and lo<=value<=hi
     require(isinstance(data,dict) and FIELDS<=set(data) and not set(data)-FIELDS-OPTIONAL_FIELDS,'oral_jaws requires the documented geometry and pigment fields only')
+    if 'boolean_solver' in data:
+        require(data['boolean_solver'] in ('EXACT','MANIFOLD') and not data.get('separate_lower'),'Invalid joined oral boolean solver')
+    if 'transverse_gap_arch' in data:
+        arch=data['transverse_gap_arch']
+        require(isinstance(arch,dict) and set(arch)=={'upper','lower'} and
+                all(finite(arch[k],0,.003)for k in arch) and
+                0<sum(arch.values())<=.004 and not data.get('separate_lower'),
+                'Invalid transverse oral arch; small joined-cavity roof/floor offsets only')
+    if 'anterior_cap_rounding' in data:
+        cap=data['anterior_cap_rounding']
+        require(isinstance(cap,dict) and set(cap)=={'depth','support'} and
+                finite(cap['depth'],.0001,.003) and finite(cap['support'],.001,.03) and
+                cap['support']>=2*cap['depth'] and not data.get('separate_lower'),
+                'Invalid anterior cap rounding; finite existing-envelope support required')
     for name in ('corner','front'):
         point=data[name]
         require(isinstance(point,list) and len(point)==2 and all(finite(x,0,1) for x in point),'Invalid oral '+name)

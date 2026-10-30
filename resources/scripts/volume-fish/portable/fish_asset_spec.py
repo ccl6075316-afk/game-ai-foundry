@@ -148,7 +148,7 @@ def preflight(spec_path, root=ROOT):
         require(key in allowed and type(expected) is int and expected >= 0, 'Unknown/invalid expected count: ' + key)
         if key in inventory:
             require(inventory[key] == expected, f'Expected {key}={expected}, measured {inventory[key]}')
-    packing = json.loads(inputs['packing_report'].read_text())
+    packing = json.loads(inputs['packing_report'].read_text(encoding='utf8'))
     require(packing.get('atlas', {}).get('sha256') == spec['inputs']['atlas']['sha256'], 'Packing report does not bind atlas')
     parts = declared_parts(spec, packing, inventory)
     from glb_io import read_glb, arrays

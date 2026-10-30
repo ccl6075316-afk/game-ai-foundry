@@ -23,7 +23,9 @@ func _live_directory() -> String:
 	return directory.get_base_dir().path_join("round5-user-review-fixes") if "--revision5" in OS.get_cmdline_user_args() else directory
 
 func _model_path(route: String) -> String:
-	if route=="Original":return "res://assets/models/fish/nile_tilapia.glb"
+	if route=="Original":
+		var archive := directory.get_base_dir().path_join("round11-production-install/previous-nile-tilapia.glb")
+		return archive if FileAccess.file_exists(archive) else "res://assets/models/fish/nile_tilapia.glb"
 	if "--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args():
 		if route=="A":return directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
 		var candidate: String=_live_directory().path_join("final-artifacts/fish.glb" if "--revision11" in OS.get_cmdline_user_args() else "candidates-v2/merged-mask.glb")

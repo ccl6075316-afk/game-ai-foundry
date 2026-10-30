@@ -127,6 +127,14 @@ def check(review: Path, output: Path | None=None):
                 if evidence.get('bound_inputs')!=frozen:fail('stale_binding',label+' does not bind the full current candidate snapshot')
                 if not isinstance(evidence.get('observation'),str) or not evidence['observation'].strip():fail('missing_observation',label)
                 if path is None:continue
+                # Species cards have a stable repository identity. Rebinding all
+                # candidate hashes must not make another fish's card valid.
+                if stage == 'preparation' and criterion == 'research_and_measurements':
+                    identity = lambda value: value.lower().replace('-', '_')
+                    if path.parent.name == 'species' and identity(path.stem) != identity(data['species']):
+                        fail('wrong_species_research', label+': '+path.stem+' != '+data['species'])
+                    if evidence.get('species', data['species']) != data['species']:
+                        fail('wrong_species_research', label+': declared species mismatch')
                 used.add(eid)
                 if kind=='report':
                     try:

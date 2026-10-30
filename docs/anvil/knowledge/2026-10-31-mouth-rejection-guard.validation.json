@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "script": "projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\finalize_review.py",
+      "rejected_same_model": true
+    },
+    {
+      "script": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\finalize_release.py",
+      "rejected_same_model": true
+    },
+    {
+      "script": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\finalize_review.py",
+      "rejected_same_model": true
+    }
+  ]
+}

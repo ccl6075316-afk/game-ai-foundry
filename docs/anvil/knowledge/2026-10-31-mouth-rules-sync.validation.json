@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "files": [
+    {
+      "file": "SKILL.md",
+      "repository_sha256": "2f83a20719ce7d259125f0165d7e66a7cbde4c9d5ed3835b1ae95c8f1d40ef46",
+      "local_sha256": "2f83a20719ce7d259125f0165d7e66a7cbde4c9d5ed3835b1ae95c8f1d40ef46"
+    },
+    {
+      "file": "references/production-sop.md",
+      "repository_sha256": "cf106ff2579a047335e6bf0546018611fc1985ab09a66eb1079ed38f1d9e19af",
+      "local_sha256": "cf106ff2579a047335e6bf0546018611fc1985ab09a66eb1079ed38f1d9e19af"
+    },
+    {
+      "file": "references/mouth-execution.md",
+      "repository_sha256": "6955d3d0e1613d09781ebb6e219dfd52ec876c389158b132812d238c0db22a34",
+      "local_sha256": "6955d3d0e1613d09781ebb6e219dfd52ec876c389158b132812d238c0db22a34"
+    },
+    {
+      "file": "references/mouth-first-review.md",
+      "repository_sha256": "28a5b60195846fcc022df122531900d6393af0f6f92ace9439ad75dd1326fc7e",
+      "local_sha256": "28a5b60195846fcc022df122531900d6393af0f6f92ace9439ad75dd1326fc7e"
+    },
+    {
+      "file": "references/portable-material-lessons-20261030.md",
+      "repository_sha256": "1eb48f49efb95d065177e938e75fe1c7e4bab3973eb4ca8ce7982035a2f73488",
+      "local_sha256": "1eb48f49efb95d065177e938e75fe1c7e4bab3973eb4ca8ce7982035a2f73488"
+    },
+    {
+      "file": "references/mouth-repair-lessons-20261031.md",
+      "repository_sha256": "a2f8731dceefb6151d2358e5bdb8dcd788b125a06769a08c5ab7786bbb6ba830",
+      "local_sha256": "a2f8731dceefb6151d2358e5bdb8dcd788b125a06769a08c5ab7786bbb6ba830"
+    }
+  ],
+  "scope": "Rules, priority, simultaneous budget/quality constraints and explicitly failed repair lessons; no asset acceptance."
+}

@@ -18,11 +18,31 @@ class OralJawsTests(unittest.TestCase):
         validate_oral_context(self.data,self.profile['body'],self.profile['rig']['spine'])
         for u,v in (self.data['corner'],self.data['front']):self.assertAlmostEqual(slit_v(self.data,u),v)
         self.assertLess(slit_v(self.data,self.data['front'][0]),slit_v(self.data,self.data['corner'][0]))
+    def test_joined_boolean_solver_is_explicit_and_restricted(self):
+        for solver in ['EXACT','MANIFOLD']:
+            validate_oral_jaws({**self.data,'boolean_solver':solver})
+        for solver in ['FAST','exact',False,{},None]:
+            with self.subTest(solver=solver),self.assertRaises(ValueError):
+                validate_oral_jaws({**self.data,'boolean_solver':solver})
     def test_jaw_projection_and_unchanged_posterior(self):
         front=self.data['front'];corner=self.data['corner']
         self.assertLess(jaw_shift(self.data,front[0],front[1]-.01),0)
         self.assertGreater(jaw_shift(self.data,front[0],front[1]+.01),0)
         for v in [0,.5,1]:self.assertEqual(jaw_shift(self.data,corner[0]-.01,v),0)
+    def test_transverse_arch_rejects_unbounded_or_executable_configuration(self):
+        validate_oral_jaws({**self.data,'transverse_gap_arch':{'upper':.0016,'lower':.0012}})
+        for arch in [{'upper':float('nan'),'lower':.001},
+                     {'upper':True,'lower':.001}, {'upper':.003,'lower':.003},
+                     {'upper':-.001,'lower':.001}, {'upper':0,'lower':0},
+                     {'upper':.001,'lower':.001,'script':'bad'}]:
+            with self.subTest(arch=arch),self.assertRaises(ValueError):
+                validate_oral_jaws({**self.data,'transverse_gap_arch':arch})
+    def test_cap_rounding_requires_a_bounded_support_and_rejects_code(self):
+        validate_oral_jaws({**self.data,'anterior_cap_rounding':{'depth':.0015,'support':.006}})
+        for cap in [{'depth':.003,'support':.002},{'depth':True,'support':.01},
+                    {'depth':float('inf'),'support':.01},{'depth':.001,'support':.01,'script':'bad'}]:
+            with self.subTest(cap=cap),self.assertRaises(ValueError):
+                validate_oral_jaws({**self.data,'anterior_cap_rounding':cap})
     def test_rejects_nonfinite_or_executable_fields(self):
         for key,value in [('gap',float('nan')),('lip_bevel',True),('gap',0),('upper_retraction',-.01),('script','bad')]:
             data=copy.deepcopy(self.data);data[key]=value

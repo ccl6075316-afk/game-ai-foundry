@@ -1,0 +1,282 @@
+{
+  "ok": true,
+  "kind": "three_mouth_repair_review_candidates",
+  "status": "done",
+  "next_action": "human_review",
+  "client_date": "2026-10-31",
+  "user_acceptance": false,
+  "canonical_installs": false,
+  "cases": [
+    {
+      "species": "bluegill",
+      "status": "done",
+      "next_action": "human_review",
+      "user_acceptance": false,
+      "installed": false,
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\fish.glb",
+        "sha256": "86064abea887874cad655196b53b39b9f9432aac17616baa91452343b6d045a4"
+      },
+      "editable_source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\source\\fish.blend",
+        "sha256": "2da2e44e4925a3e2355718abc26ba4311c8417d8974492c45acf9632e6d17a2e"
+      },
+      "triangles": 1494,
+      "vertices": 1863,
+      "bones": 18,
+      "body_including_oral_triangles": 664,
+      "all_fin_triangles": 830,
+      "candidate_manifest": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\review-candidate-r15.manifest.json",
+        "sha256": "187cf7713b27b4caca687c18efa58de1be18454d6ed34c9167083f0acc8bf208"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\sop-r15.validation.json",
+        "sha256": "6495c1e16b09cf1f4166e7842fa0c031266cddd8593c0a9ea3fe780888ba62e7"
+      },
+      "mouth_review": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\delivery-r15\\mouth-operator-review.validation.json",
+        "sha256": "0d769362ef20c1ee467ad94c0b20e81cc2a1a3258ce126ab4edd06ac810dc2c3"
+      },
+      "fin490": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\delivery-r15\\fin490\\completion.validation.json",
+        "sha256": "d85e14d18da9b016648d9b381873a3cb9855c012ca0f7b58439d5f06f2f1fc8f"
+      },
+      "body077": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\delivery-r15\\body077\\completion.validation.json",
+        "sha256": "d3888fe53129fe15a798a956cf6a74fff59875ada9dceca15734c5d40ce6276b"
+      },
+      "source_cold": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\validation-report.json",
+        "sha256": "c0629550c8cfa7aaba1f579b956f9dcdddd0539c4a310f4e3562c3f76ee004ad"
+      },
+      "source_recipe": {
+        "path": "resources\\volume-fish\\bluegill-mouth-source-boundaries-20261031.json",
+        "sha256": "2d71cdee5bcf5703d26b20b8be4571edeed049f80a538a7450d2fbd58a1f22eb"
+      },
+      "front_color_recipe": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\bluegill-interocular-r15-20261031.json",
+        "sha256": "cb58b8618890d6f79bd25cfd4e44d2456bd2af6659cd32be57094309966afefe"
+      },
+      "front_color_image": {
+        "path": "projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+        "sha256": "6efb421a6aa06be73c31b32fedd97a05ea3e5dab62b36065b658e11d048df6c1"
+      },
+      "front_prompt": {
+        "path": "projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-imagegen-request.json",
+        "sha256": "011eb5ba4f8421a6bafc70fad738b90ef05cfa440bc2a5e6669b59b3d56b510a"
+      },
+      "front_source_review": {
+        "path": "projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+        "sha256": "885861f48c52b90b9f2362f397014fde6612cb5062352b39b84962a831750e0f"
+      },
+      "rejected_old_model": "4ec09636d5f577c7e2fee99e8fb6c7a07c0e6306852a17e7632ecbb348ac2349",
+      "appearance_result": "pending",
+      "followup": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\interocular-followup\\validation-report.json",
+        "sha256": "ad9f02f5c1c31dd6f111bdbf22e479aa97911ba805cd4dab28c51194901566fc"
+      },
+      "prior_user_review": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\interocular-followup\\user-r14-rejection.validation.json",
+        "sha256": "ec225277335b14fa65e6e254020a876369db6c2798dac33df9f402da261b0cd4"
+      },
+      "latest_user_feedback": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\interocular-followup\\user-positive-r15.validation.json",
+        "sha256": "f92e5ec0e2390279d3732ec12e2ad4c7de24adbc00bdb5fd5b621f9281528f63"
+      }
+    },
+    {
+      "species": "crucian",
+      "status": "done",
+      "next_action": "none",
+      "user_acceptance": true,
+      "installed": false,
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\fish.glb",
+        "sha256": "d182e9194718afd0cf411794154d8c6e4f05b3e5b20cee014dac8cbfd020b374"
+      },
+      "editable_source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\source\\fish.blend",
+        "sha256": "05a590d525b8a4f7e8bb118b04b5ca4538c5aa6f0007bf5857f87b456f56ee90"
+      },
+      "triangles": 1440,
+      "vertices": 2446,
+      "bones": 18,
+      "body_including_oral_triangles": 1028,
+      "all_fin_triangles": 412,
+      "candidate_manifest": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\review-candidate-r4.manifest.json",
+        "sha256": "ad6648dfa4afd2c8027f2045fe7518e906a58d591f3a8c0e009030edb7214814"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\sop-r4.validation.json",
+        "sha256": "1dd39b7fddc0a66901b4089016eb37a98e060ddab6446312ba32279d6038feae"
+      },
+      "mouth_review": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\mouth-operator-review.validation.json",
+        "sha256": "d605a5a557b32c43edbfa0392e406480f15b30c0ff15a447a58188e169708f02"
+      },
+      "fin490": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\fin490\\completion.validation.json",
+        "sha256": "d06251bcbfa9b84e67400b203f0680d1b61a733eff8f9f49f2c138c840fbc66f"
+      },
+      "body077": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\body077\\completion.validation.json",
+        "sha256": "2fca391845d92167de71ced8fdae97ddf99db92474317492536c1ef00686ea75"
+      },
+      "source_cold": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\validation-report.json",
+        "sha256": "9f6a9e0b1c6058e65fb9bee9064486d51461c4036a255d43639df3cff565e917"
+      },
+      "source_recipe": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\source-boundaries-r7.json",
+        "sha256": "7cb4c18ab7abcf713c37bfbc92b7fbc75f3925d5f8299f6789ab99e7dadfecbb"
+      },
+      "front_color_recipe": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-surface-plan-r4.json",
+        "sha256": "b609ded361214e170650fd8f5d3ab495f8881bed224dab3410d4193459b7b853"
+      },
+      "front_color_image": {
+        "path": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+        "sha256": "763c6e90459005a9a820e9645566632afaa7daeae4366fa8ee50cab15c2bea5a"
+      },
+      "front_prompt": {
+        "path": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-imagegen-request.json",
+        "sha256": "c1f0fbdd6bdb4c9df49e8b60f95e7b944ee48345fa16d1cb05ce38a9c6bbdb22"
+      },
+      "front_source_review": {
+        "path": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+        "sha256": "69ec062364bead90781f2ca2f04da014686dde6996496b5e0b58f8ff39af4665"
+      },
+      "rejected_old_model": "8ee4a961d35ecd5042b0a7b9a1906c46baa98653b33880be01e704f72ec164c7",
+      "user_review": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\user-acceptance-r4.validation.json",
+        "sha256": "5e55cd10041172dbbdb8a6a49b8f6275e12e9020170bbed2168f22c7ced1b45f"
+      },
+      "appearance_result": "accepted",
+      "followup": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\head-followup\\validation-report.json",
+        "sha256": "f2a7584b22ee618896738f1708097f347c396ac98967c079a9b88e205944db36"
+      }
+    },
+    {
+      "species": "grass_carp",
+      "status": "done",
+      "next_action": "none",
+      "user_acceptance": true,
+      "installed": false,
+      "model": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\fish.glb",
+        "sha256": "50b0b30d8932aebef6b68792c387c137af874b4821b8c49e31f5bf69910d93dc"
+      },
+      "editable_source": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\source\\fish.blend",
+        "sha256": "e179a95fdff1673a4b172ef1953c4df9f406f25a0e2a394821a1b9889a3a7f3b"
+      },
+      "triangles": 1682,
+      "vertices": 2422,
+      "bones": 18,
+      "body_including_oral_triangles": 1330,
+      "all_fin_triangles": 352,
+      "candidate_manifest": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\review-candidate-r4.manifest.json",
+        "sha256": "856f27172ad4e92f1d08973e0c0d119670afe1bfa4117c56f63aaf89de75381e"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\sop-r4.validation.json",
+        "sha256": "aa58dfef2ef330544e3532d210e6ed9c23c375ec7e548f933b75a5c277698820"
+      },
+      "mouth_review": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\mouth-operator-review.validation.json",
+        "sha256": "96d5effde1f389d063ac26fc15c2cedcf58de53eb6bc789abb1330ca070e02cf"
+      },
+      "fin490": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\fin490\\completion.validation.json",
+        "sha256": "7b6a9515ff858b83cfaccdedee6eccb0cf80d0ac286ed061b94b274521c1e531"
+      },
+      "body077": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\body077\\completion.validation.json",
+        "sha256": "9217fb012d3a0a16c2b73040e0d4f8f85d80e2c34f9964bb9392d4a9f44118bb"
+      },
+      "source_cold": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\validation-report.json",
+        "sha256": "aa54399e6ecf91b6f8280095918c734307a31091e04611abb62b2070bd90336a"
+      },
+      "source_recipe": {
+        "path": "resources\\volume-fish\\grass-carp-mouth-source-boundaries-20261031.json",
+        "sha256": "27ec7c81eda0a59bb67ef1142ce15041ccadf44b0182c26d298e99040f54069a"
+      },
+      "front_color_recipe": {
+        "path": "resources\\volume-fish\\grass-carp-mouth-front-chart-20261031.json",
+        "sha256": "52e7ce225f657de7155db2008f5215ba6e6f1bf0bc1b38b3253548be98d48773"
+      },
+      "front_color_image": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+        "sha256": "804e0036627c5464cd23031f1818bb099149b2daac5c7bfb08f3f7c321902a7e"
+      },
+      "front_prompt": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-imagegen-request.json",
+        "sha256": "177642f46e254273a795272bced5e203c89c7144fa3924ccc226a2f3d81a37e8"
+      },
+      "front_source_review": {
+        "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+        "sha256": "c316e0789ebc850e3cd936e6f39f638cc891af31f04cfb90a961ce17c7294e6d"
+      },
+      "rejected_old_model": "166b2f858300d59258d85d5b1f3fbee42c592134792ba0c92eb9ea084e688597",
+      "user_review": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\latest-user-review.validation.json",
+        "sha256": "bc6f6ee119b2a9c6bae2bb4b35f7093d4a014412d841535196ebc9cc73b67656"
+      }
+    }
+  ],
+  "accepted_nile_unchanged": {
+    "path": "projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+    "sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a"
+  },
+  "review_ui": {
+    "launch": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\latest-fish-overview-20261031\\launch.validation.json",
+      "sha256": "9ddd12f25500c69d0c5837d5118225faf41062ee8e079decfcf516b6f29ef412"
+    },
+    "script": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\latest-fish-overview-20261031\\LatestFishReview.gd",
+      "sha256": "0fdd29fc00fce6afdb1aa1bd7d8a877a5c5437009abb55dabc019c2a661598a8"
+    },
+    "catalog": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\latest-fish-overview-20261031\\viewer\\catalog.json",
+      "sha256": "bae44b0ece11954492717ab0e80910c7e8b2613e6814d5d6c58a790d0fdd0b8b"
+    },
+    "actual_gpu_smoke": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\latest-fish-overview-20261031\\viewer\\smoke\\viewer.validation.json",
+      "sha256": "9fd0ed7c917d1006bdc113de747b5fe8934db3863e8d3f207b862076edd214b6"
+    },
+    "checks": 53,
+    "scope": "Latest four whole fish; no historical negative entries."
+  },
+  "cleanup": {
+    "path": "docs\\anvil\\knowledge\\2026-10-31-mouth-repair-final-cleanup.validation.json",
+    "sha256": "9c78d4e59d63427d39137c91b3d38733041bcc5b76f3781cdeb7c45225377103"
+  },
+  "generation_mode": "built_in_imagegen_edit",
+  "scope": "Grass/crucian accepted/frozen; bluegill R15 fixes R14 central color-mask gap, same1494tri geometry. All head/mouth/skin/presentation appearance pending.",
+  "previous_review_ui": {
+    "script": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-interocular-review-20261031\\InterocularReview.gd",
+      "sha256": "e56ca4d5ba9191b96e0e7c9db1ace8285d3e8d2b069670ac1cc689154a30565a"
+    },
+    "catalog": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-interocular-review-20261031\\viewer\\catalog.json",
+      "sha256": "2706218db68b036cc2ff68793535f3a4b0cc67ce3bf0215cb425d2e2fb0c4002"
+    },
+    "actual_gpu_smoke": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-interocular-review-20261031\\viewer\\smoke\\viewer.validation.json",
+      "sha256": "da8ae278356c64074006dc5ce8ec33062b090e83c4a40b5f6ce406f1b1b45252"
+    },
+    "launch": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-interocular-review-20261031\\launch.validation.json",
+      "sha256": "43a34d0b4d36027ae254b08c4afd920672557a20b036a34314a438e3022476cb"
+    },
+    "checks": 159,
+    "scope": "R15/R14 central-material fixed-camera pair, accepted other fish unchanged."
+  }
+}

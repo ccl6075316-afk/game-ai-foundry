@@ -5,6 +5,14 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 # 从鱼类原图制作可审阅的3D鱼
 
+通用规则与最新方法见[四鱼经验收敛](references/four-fish-lessons-20261031.md)。当前制作状态只读逐鱼manifest和正式证据，不在技能入口反复叠加候选编号。
+
+基础检查后先嘴、再全部鳍、再其余；[嘴优先检查卡](references/mouth-first-review.md)要求实际口裂、下唇线、上下颌体积及沿左右唇缘补色。整鱼优选1500/硬上限2000三角，与头型、原眼、画风、身体不透明和动作等旧要求同时有效。用户指出过的遗漏保留负例与有效验证，不能修一项丢一项。
+
+受限中央材质：只采用获准的源ROI，原眼保护须限定实际侧向支持域，避免共享UV把中央也挡住；已确认唇缘可按实际3D曲线保护。各鱼独立确定参数。详见上面的经验表和[历史返修证据](references/mouth-repair-lessons-20261031.md)。操作者通过与用户接受分别记录。
+
+局部材质、供体配准与普通/法线保护源分支见[材质执行卡](references/portable-material-lessons-20261030.md)；实际clip/骨名/UTF8/面预算自动取证及纯身体补皮负例见[生产工具经验](references/portable-production-lessons-20261030.md)。
+
 ## 统一执行入口
 
 涉及新建/返修鱼嘴，开工先读[嘴部执行卡](references/mouth-execution.md)，选既有实现分支并记录本鱼参数差异；先稳定源口裂、灰模、沿下唇线切出的口腔缺口、同一身体结构中的上下颌体积、原像素接续和局部冷读，再冻结候选跑完整门。独立唇带已从正式鱼的运行装配中退役；`sop-check`须声明实际身体/颌资源和切口构造。相同适配再次失败时停止盲调，定位最小反例。

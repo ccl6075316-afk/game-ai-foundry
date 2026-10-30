@@ -1,0 +1,83 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "de2d68f48ee35cfb00657f33f22b1a5d7a0812a1b829d5191357139cd00b5d1f",
+  "profile": "resources\\volume-fish\\crucian-mouth-rounded-cap-20261031.profile.json",
+  "source": "projects\\fishing-2d\\experiments\\blender-fish\\models\\crucian\\082-source-inputs\\char_crucian_082_nobg.png",
+  "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+  "source_size": [
+    1908,
+    1073
+  ],
+  "upper_inner_edge_px": [
+    [
+      1800,
+      665
+    ],
+    [
+      1815,
+      655
+    ],
+    [
+      1830,
+      651
+    ],
+    [
+      1845,
+      645
+    ],
+    [
+      1860,
+      633
+    ],
+    [
+      1875,
+      624
+    ],
+    [
+      1895,
+      620
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1800,
+      671
+    ],
+    [
+      1815,
+      667
+    ],
+    [
+      1830,
+      665
+    ],
+    [
+      1845,
+      658
+    ],
+    [
+      1860,
+      646
+    ],
+    [
+      1875,
+      636
+    ],
+    [
+      1895,
+      635
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "Crucian own source lip boundaries; finite small upturned source opening; no barbels. Preserve all original seven fins, eye and transverse envelope. Smooth interpreted lip curves within clustered source edge ambiguity; no guarantee of exact hidden/ambiguous pixels. Own small transverse roof/floor arch is artistic, zero at measured original shell side entries; preserve original transverse head width."
+}

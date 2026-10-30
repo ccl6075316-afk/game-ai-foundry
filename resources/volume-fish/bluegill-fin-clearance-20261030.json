@@ -1,0 +1,24 @@
+{
+  "species": "bluegill",
+  "body": "Closed_body",
+  "runtime_length_cm": 19.1,
+  "whole_fish_triangle_limit": 2000,
+  "preferred_triangle_limit": 1500,
+  "max_triangles_per_fin": 220,
+  "root_inset_mm": 0.05,
+  "new_point_clearance_mm": 0.1,
+  "root_collar_mm": 0.5,
+  "penetration_tolerance_mm": 0.02,
+  "static_refinement_min_signed_mm": -0.2,
+  "static_free_target_mm": -0.005,
+  "derivation": "Own three actual diagnostic poses: tail now passes; bilateral pectoral finite edges still cut body0.107/0.123mm. Only failing root/free transition edges are split and projected to current closed body; original complete roots, all source contours and motion ranges retained. Newpoint0.10mm exterior, newroot0.05mm interior are construction values, not tolerance changes or species anatomy measures.",
+  "stages": {
+    "basal": {
+      "input_model_sha256": "c943234b3cb758b65510e63349061d92f41bf41b8e2e2ccdc35507c07f8c4469",
+      "targets": [
+        "Pectoral_left_mesh",
+        "Pectoral_right_mesh"
+      ]
+    }
+  }
+}

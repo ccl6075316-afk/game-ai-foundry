@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "command": "volume.sop-check",
+  "status": "done",
+  "next_action": "human_review",
+  "species": "crucian",
+  "review_sha256": "52ac63b9a5a38713de69ef9ff35bd137dfe0889fa4f885e87965cc25b2e8f87d",
+  "checker_sha256": "fb187d091355900db6466d70d295d445b888ff18305f1d68b2a10debdca6c45a",
+  "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+  "candidate_files": {
+    "source_image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\crucian\\082-source-inputs\\char_crucian_082_nobg.png",
+      "sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959"
+    },
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r3\\source-run\\fish.glb",
+      "sha256": "678486caac391d578c71ade9f93e98733a78221ba75ab65ebf7c28984f2ed90f"
+    },
+    "species_profile": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\crucian-mouth-rounded-cap-20261031.profile.json",
+      "sha256": "d702ced326df9c94de7dd9b4fb0d7e4fdd17519d0de093f4b58b2d01e3d75e06"
+    },
+    "runtime_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\delivery-r3\\manifest.json",
+      "sha256": "90c38d8eac62c6a8179c18ab450ca82039d4015c195cae0e3f8b1432e8028348"
+    },
+    "motion_config": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\crucian-reference-cage-native-motion-20261030.json",
+      "sha256": "8f3a8da2977f77b7e506b995142f230ed9af6ea1b362272a4ee7aad3540f8fde"
+    },
+    "editable_source": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r3\\source-run\\source\\fish.blend",
+      "sha256": "e3ab2db54630128493419d8c2e2ca74110dfc66dc5dedd58b7dfa766394b7ddf"
+    },
+    "controller": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\scripts\\aquarium\\FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "viewer": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\portable\\FishAssetViewer.gd",
+      "sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3"
+    },
+    "body_skin": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\completed-body\\body-source.png",
+      "sha256": "2311b834f4d1b48ea362ec409d9d5f3e7273071017de67193ee29badd3695491"
+    },
+    "front_color": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+      "sha256": "763c6e90459005a9a820e9645566632afaa7daeae4366fa8ee50cab15c2bea5a"
+    },
+    "front_assets_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+      "sha256": "69ec062364bead90781f2ca2f04da014686dde6996496b5e0b58f8ff39af4665"
+    },
+    "mouth_source_boundaries": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\source-boundaries-r5.json",
+      "sha256": "5a99e8adefc27f95b3d7980a471fc0bea3cc19f18fc6ab79a4d5f7803f5209b1"
+    },
+    "mouth_surface_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-surface-plan-r3.json",
+      "sha256": "1db1a3301e521018fdb6c565213f5e8994b6b80aacc2fe0c54f2be44ffae37af"
+    },
+    "final_spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\candidate-r3\\source-run\\final-spec.json",
+      "sha256": "222499a434fb8031fcd81192f392ec74b011b8edad8481778550bbb905e9db19"
+    }
+  },
+  "stages": [
+    {
+      "stage": "preparation",
+      "ok": true
+    },
+    {
+      "stage": "head",
+      "ok": true
+    },
+    {
+      "stage": "mouth",
+      "ok": true
+    },
+    {
+      "stage": "eyes",
+      "ok": true
+    },
+    {
+      "stage": "skin",
+      "ok": true
+    },
+    {
+      "stage": "fins",
+      "ok": true
+    },
+    {
+      "stage": "motion",
+      "ok": true
+    },
+    {
+      "stage": "runtime",
+      "ok": true
+    },
+    {
+      "stage": "presentation",
+      "ok": true
+    }
+  ],
+  "evidence_count": 51,
+  "failures": [],
+  "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+}

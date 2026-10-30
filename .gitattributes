@@ -30,6 +30,8 @@
 /resources/runtime/godot/mouth-repair-139/** -text whitespace=cr-at-eol
 /resources/skills/fish-volume-production/** -text whitespace=cr-at-eol
 /cli/volume_sop.py -text whitespace=cr-at-eol
+# This frozen helper is referenced by existing capture receipts.
+/resources/scripts/volume-fish/portable/ReviewCaptureBase.gd whitespace=cr-at-eol,-blank-at-eof
 
 # Retained aquascape tools and source packages bind exact source bytes.
 /resources/aquascape/** -text whitespace=cr-at-eol
@@ -65,3 +67,8 @@
 /work/fish-portable-tools/**/*.stdout.txt -whitespace
 /work/fish-portable-tools/**/*.log -whitespace
 /work/fish-portable-tools/deepseek-repro/phase4.diff -whitespace
+
+# Current fish receipts and recipes bind exact source bytes.
+/docs/anvil/knowledge/2026-10-31-* -text whitespace=cr-at-eol
+/docs/FISH-FOUR-CONSOLIDATION-20261031.md -text whitespace=cr-at-eol
+/cli/volume_sop.py -text whitespace=cr-at-eol

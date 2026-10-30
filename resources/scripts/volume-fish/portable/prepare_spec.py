@@ -22,7 +22,7 @@ def prepare(source_blend, reference_glb, atlas, packing_report, parts, output, s
         resolve_ref(refs[key])
     parts_path = Path(parts).resolve()
     require(parts_path.is_relative_to(ROOT) and parts_path.is_file(), 'parts must be a repository file')
-    raw = json.loads(parts_path.read_text())
+    raw = json.loads(parts_path.read_text(encoding='utf8'))
     rows = raw.get('parts') if isinstance(raw, dict) else raw
     require(isinstance(rows, list) and rows, 'Explicit nonempty parts array required')
     inputs = [*paths.values(), parts_path]
@@ -49,7 +49,7 @@ def prepare(source_blend, reference_glb, atlas, packing_report, parts, output, s
         check_path.write_text(json.dumps(spec, indent=2) + '\n')
         checked = preflight(check_path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    with target.open('x') as stream:
+    with target.open('x',encoding='utf8') as stream:
         stream.write(json.dumps(spec, indent=2, ensure_ascii=False) + '\n')
     return {'spec': str(target), 'sha256': sha(target), 'inventory': expected,
             'part_count': len(checked['summary']['parts']), 'source_mesh_name': spec['source_mesh_name'],

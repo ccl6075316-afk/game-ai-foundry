@@ -1,0 +1,86 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "81327ae4d89017d6bca382bf9a86759ec626ac36bc76d0c42f3517b5b527586f",
+  "profile": "resources/volume-fish/bluegill-reference-cage-20261030.profile.json",
+  "source": "projects\\fishing-2d\\output\\char_29c3596e8d_nobg.png",
+  "source_sha256": "bfba9d8f51fa664de911d3396cc8aa48c6a0e0654a23ea41ae6b71c8e9cfea77",
+  "source_size": [
+    1477,
+    868
+  ],
+  "upper_inner_edge_px": [
+    [
+      1355,
+      537
+    ],
+    [
+      1370,
+      534
+    ],
+    [
+      1385,
+      514
+    ],
+    [
+      1400,
+      495
+    ],
+    [
+      1420,
+      476
+    ],
+    [
+      1440,
+      463
+    ],
+    [
+      1460,
+      455
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1355,
+      539
+    ],
+    [
+      1370,
+      542
+    ],
+    [
+      1385,
+      531
+    ],
+    [
+      1400,
+      515
+    ],
+    [
+      1420,
+      499
+    ],
+    [
+      1440,
+      490
+    ],
+    [
+      1460,
+      482
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "Own source upper/lower boundaries; replace redundant u.93 interpolant with own lip controls. Keep all original envelope control stations, body-weight breaks, fins and total1500preferred/2000hard budget. Mouth remains under repair.",
+  "remove_interpolated_stations": [
+    0.93
+  ]
+}

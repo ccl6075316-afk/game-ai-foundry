@@ -1,5 +1,7 @@
 # 配置驱动的单材质源工具：下一鱼执行入口
 
+实鱼扩展：蓝鳃已执行显式完整根/490适配、077闭体/GPU、头型正负例、动作和多视；新入口与原工具边界见[蓝鳃经验](portable-production-lessons-20261030.md)。新增prepare_trial_spec/run_delivery_checks需要逐鱼明确解剖与配置，当前仅支持既有七鳍核，不把本页旧capabilities的任意库存不支持改写成普遍通过。
+
 本页对应 `resources/scripts/volume-fish/portable/` 的已执行实现，不再要求逐鱼修改面数、骨数、动画通道或七鳍常量。既有罗非鱼R11及其旧工具保留原字节；新工具是独立入口。它接在定型模型/单图集候选之后，不自动完成解剖建模、二维补皮或用户视觉审核。
 
 完整制作/固化顺序仍见[生产SOP](production-sop.md)和[单材质源固化SOP](single-material-source-finalization.md)。后者第2节描述的是冻结旧工具的限制；新任务优先按本页选择新入口，不去修改旧文件。

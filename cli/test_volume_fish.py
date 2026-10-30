@@ -117,6 +117,25 @@ class VolumeTests(unittest.TestCase):
         data['native_fin_cutouts']=False
         volume.validate_profile(data,self.profile) # Existing profiles retain their legacy gate.
 
+    def test_reference_cage_requires_complete_monotone_stations(self):
+        data=copy.deepcopy(self.profile_data)
+        lo=data['body']['sections'][0][0]; hi=data['body']['sections'][-1][0]
+        data['body'].update(rings=16,radial=16,ring_positions=[lo+(hi-lo)*i/15 for i in range(16)])
+        data['body']['ring_positions'][-1]=hi
+        volume.validate_profile(data,self.profile)
+        for values in ([lo]*16,data['body']['ring_positions'][:-1],list(reversed(data['body']['ring_positions']))):
+            bad=copy.deepcopy(data);bad['body']['ring_positions']=values
+            with self.assertRaises(volume.VolumeError):volume.validate_profile(bad,self.profile)
+
+    def test_reference_fin_grid_rejects_noninteger_or_unbounded_density(self):
+        data=copy.deepcopy(self.profile_data)
+        data['fins']=[{'name':'Dorsal','polygon':[[.2,.2],[.8,.2],[.5,.4]],'anchor':[.5,.4],'tip':[.5,.2],'paired':False,'root_depth':0.,'tip_depth':0.,'thickness':.001,'amplitude':.01,'phase':0.,'axis':[1,0,0]}]
+        data['fins'][0]['interior_grid']=[2,1]
+        volume.validate_profile(data,self.profile)
+        for grid in ([True,1],[-1,1],[25,1],[1.5,1],[2]):
+            data['fins'][0]['interior_grid']=grid
+            with self.assertRaisesRegex(volume.VolumeError,'interior grid'):volume.validate_profile(data,self.profile)
+
     def test_native_root_attachment_requires_paired_authored_roots(self):
         data=copy.deepcopy(self.profile_data)
         data['rest_shape_revision']={'source_handoff':'old.json','source_handoff_sha256':'a'*64,

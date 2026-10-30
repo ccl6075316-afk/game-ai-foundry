@@ -1,0 +1,734 @@
+{
+  "schema_version": 1,
+  "species": "crucian",
+  "display_name": "鲫鱼",
+  "coordinate_space": "normalized_source_top_left",
+  "source_aspect_ratio": 1.7781919850885368,
+  "profile_review_status": "approved",
+  "real_length_cm": 20,
+  "style": {
+    "pixel_art": true,
+    "reference_image": "repo://projects/fishing-2d/game/assets/sprites/鱼_鲫鱼_角色/frame_0001.png",
+    "texture_filter": "nearest",
+    "roughness": 1.0
+  },
+  "body": {
+    "sections": [
+      [
+        0.197,
+        0.4,
+        0.62,
+        0.009
+      ],
+      [
+        0.24,
+        0.401,
+        0.621,
+        0.019
+      ],
+      [
+        0.29,
+        0.365,
+        0.65,
+        0.03
+      ],
+      [
+        0.35,
+        0.31,
+        0.7,
+        0.042
+      ],
+      [
+        0.41,
+        0.27,
+        0.75,
+        0.052
+      ],
+      [
+        0.47,
+        0.23,
+        0.79,
+        0.059
+      ],
+      [
+        0.53,
+        0.209,
+        0.808,
+        0.062
+      ],
+      [
+        0.6,
+        0.204,
+        0.81,
+        0.062
+      ],
+      [
+        0.67,
+        0.218,
+        0.802,
+        0.059
+      ],
+      [
+        0.73,
+        0.247,
+        0.78,
+        0.055
+      ],
+      [
+        0.79,
+        0.305,
+        0.742,
+        0.048
+      ],
+      [
+        0.81,
+        0.32733333333333337,
+        0.7296666666666666,
+        0.04466666666666666
+      ],
+      [
+        0.85,
+        0.372,
+        0.705,
+        0.03828571428571429
+      ],
+      [
+        0.88,
+        0.4038,
+        0.6864,
+        0.0335
+      ],
+      [
+        0.9,
+        0.425,
+        0.674,
+        0.03166666666666666
+      ],
+      [
+        0.94,
+        0.47,
+        0.64,
+        0.028
+      ],
+      [
+        0.955,
+        0.4885,
+        0.625,
+        0.02475
+      ],
+      [
+        0.97,
+        0.507,
+        0.61,
+        0.0215
+      ],
+      [
+        0.9744999999999999,
+        0.514875,
+        0.6035312500000001,
+        0.019531250000000024
+      ],
+      [
+        0.986,
+        0.535,
+        0.587,
+        0.0145
+      ],
+      [
+        0.994,
+        0.5501111111111111,
+        0.578111111111111,
+        0.006500000000000001
+      ],
+      [
+        0.995,
+        0.552,
+        0.577,
+        0.0055
+      ]
+    ],
+    "rings": 22,
+    "radial": 12,
+    "ring_positions": [
+      0.197,
+      0.24,
+      0.29,
+      0.35,
+      0.41,
+      0.47,
+      0.53,
+      0.6,
+      0.67,
+      0.73,
+      0.79,
+      0.81,
+      0.85,
+      0.88,
+      0.9,
+      0.94,
+      0.955,
+      0.97,
+      0.9744999999999999,
+      0.986,
+      0.994,
+      0.995
+    ]
+  },
+  "rig": {
+    "spine": [
+      [
+        0.95,
+        0.5561666666666667
+      ],
+      [
+        0.8676666666666666,
+        0.5423866666666666
+      ],
+      [
+        0.7853333333333333,
+        0.5227222222222222
+      ],
+      [
+        0.703,
+        0.511925
+      ],
+      [
+        0.6206666666666667,
+        0.5078857142857143
+      ],
+      [
+        0.5383333333333333,
+        0.5083214285714286
+      ],
+      [
+        0.45599999999999996,
+        0.51
+      ],
+      [
+        0.3736666666666667,
+        0.5069722222222222
+      ],
+      [
+        0.29133333333333344,
+        0.5074444444444444
+      ],
+      [
+        0.20900000000000007,
+        0.5102790697674419
+      ]
+    ]
+  },
+  "fins": [
+    {
+      "name": "Dorsal",
+      "polygon": [
+        [
+          0.28,
+          0.375
+        ],
+        [
+          0.28,
+          0.354
+        ],
+        [
+          0.283,
+          0.303
+        ],
+        [
+          0.36,
+          0.207
+        ],
+        [
+          0.41,
+          0.135
+        ],
+        [
+          0.47,
+          0.005
+        ],
+        [
+          0.492,
+          0.027
+        ],
+        [
+          0.54,
+          0.087
+        ],
+        [
+          0.61,
+          0.204
+        ],
+        [
+          0.53,
+          0.209
+        ],
+        [
+          0.47,
+          0.23
+        ],
+        [
+          0.41,
+          0.27
+        ],
+        [
+          0.35,
+          0.31
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.28,
+          0.375
+        ],
+        [
+          0.35,
+          0.31
+        ],
+        [
+          0.41,
+          0.27
+        ],
+        [
+          0.47,
+          0.23
+        ],
+        [
+          0.53,
+          0.209
+        ],
+        [
+          0.61,
+          0.204
+        ]
+      ],
+      "anchor": [
+        0.44166666666666665,
+        0.26633333333333337
+      ],
+      "tip": [
+        0.47,
+        0.005
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0.0001,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Anal",
+      "polygon": [
+        [
+          0.277,
+          0.643
+        ],
+        [
+          0.327,
+          0.68
+        ],
+        [
+          0.393,
+          0.727
+        ],
+        [
+          0.351,
+          0.805
+        ],
+        [
+          0.294,
+          0.862
+        ],
+        [
+          0.279,
+          0.84
+        ],
+        [
+          0.274,
+          0.755
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.277,
+          0.643
+        ],
+        [
+          0.327,
+          0.68
+        ],
+        [
+          0.393,
+          0.727
+        ]
+      ],
+      "anchor": [
+        0.33233333333333337,
+        0.6833333333333332
+      ],
+      "tip": [
+        0.294,
+        0.862
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0.0001,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "polygon": [
+        [
+          0.197,
+          0.4
+        ],
+        [
+          0.17,
+          0.38
+        ],
+        [
+          0.048,
+          0.245
+        ],
+        [
+          0.006,
+          0.244
+        ],
+        [
+          0.024,
+          0.325
+        ],
+        [
+          0.08,
+          0.48
+        ],
+        [
+          0.085,
+          0.525
+        ],
+        [
+          0.04,
+          0.65
+        ],
+        [
+          0.004,
+          0.775
+        ],
+        [
+          0.033,
+          0.77
+        ],
+        [
+          0.14,
+          0.68
+        ],
+        [
+          0.197,
+          0.62
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.197,
+          0.62
+        ],
+        [
+          0.197,
+          0.4
+        ]
+      ],
+      "anchor": [
+        0.197,
+        0.51
+      ],
+      "tip": [
+        0.004,
+        0.775
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.045,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "surface_region": "posterior",
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral",
+      "polygon": [
+        [
+          0.772,
+          0.678
+        ],
+        [
+          0.715,
+          0.685
+        ],
+        [
+          0.66,
+          0.71
+        ],
+        [
+          0.64,
+          0.725
+        ],
+        [
+          0.68,
+          0.759
+        ],
+        [
+          0.727,
+          0.768
+        ],
+        [
+          0.763,
+          0.725
+        ],
+        [
+          0.772,
+          0.705
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.772,
+          0.678
+        ],
+        [
+          0.772,
+          0.705
+        ]
+      ],
+      "anchor": [
+        0.772,
+        0.6915
+      ],
+      "tip": [
+        0.64,
+        0.725
+      ],
+      "paired": true,
+      "root_depth": 0.045,
+      "tip_depth": 0.08,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic",
+      "polygon": [
+        [
+          0.49,
+          0.795
+        ],
+        [
+          0.54,
+          0.81
+        ],
+        [
+          0.595,
+          0.818
+        ],
+        [
+          0.57,
+          0.86
+        ],
+        [
+          0.51,
+          0.97
+        ],
+        [
+          0.481,
+          0.99
+        ],
+        [
+          0.474,
+          0.935
+        ],
+        [
+          0.48,
+          0.85
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.49,
+          0.795
+        ],
+        [
+          0.54,
+          0.81
+        ],
+        [
+          0.595,
+          0.818
+        ]
+      ],
+      "anchor": [
+        0.5416666666666666,
+        0.8076666666666666
+      ],
+      "tip": [
+        0.481,
+        0.99
+      ],
+      "paired": true,
+      "root_depth": 0.034,
+      "tip_depth": 0.068,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    }
+  ],
+  "eyes": null,
+  "barbels": [],
+  "animation": {
+    "fps": 24,
+    "period_seconds": 2.4,
+    "body_amplitudes": [
+      0,
+      0.002,
+      0.004,
+      0.008,
+      0.012,
+      0.02,
+      0.028,
+      0.038,
+      0.05,
+      0.06
+    ],
+    "phase_step": 0.53
+  },
+  "body_uv_patches": [],
+  "notes": [
+    "082 author-calibrated against actually inspected accepted native side source 6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959. Profile input approval only; no output acceptance.",
+    "Separate species contour, actual full fin baselines and mouth landmarks, not a morphed model template.",
+    "Hidden transverse widths are engineering priors; no comparable same-station biological measurements are claimed. Native texture dimensions and nearest retained.",
+    "Complete fin root collar inset0.45mm/native unit; later actual runtime uses physical units and frozen connection/membrane thresholds. All motion amplitudes are production settings, not measured biomechanics.",
+    "082e isolated input diagnostic: place actual pelvic baseline bend on polygon root boundary",
+    "082f: authored fin polygon follows the complete species-specific source baseline. Inset zero places the root mid-surface on the actual body; original solid half-thickness <=0.25mm fits the unchanged 0.5mm basal seam. Original nearest projection, source, texture, thickness, free clearance, rig and motion unchanged. No adaptive refinement or radial chart opt-in.",
+    "082g final input: median root inset .0001 retains nonzero solid root shell without the zero-inset welded-edge singularity. Independent25-fin test closed25/25, max root vertex depth~.34mm. Paired/Caudal remain0; original free_clearance unchanged; no new builder code.",
+    "2026-10-30 second portable trial after bluegill consolidation: source-driven sparse cage, original crucian fins/roots and mouth; own083b transverse target integrated as an artistic hypothesis. No old-body decimation, no bluegill shape or clearance values. All appearance/physical acceptance pending.",
+    "r2: current sparse body rejects old Pelvic .002native clearance at opposite-side nearest facet; retain full root band and source polygon, remove this old free-point displacement for local diagnosis. Current roots/membranes still require checks."
+  ],
+  "oral_jaws": {
+    "corner": [
+      0.955,
+      0.615
+    ],
+    "front": [
+      0.994,
+      0.565
+    ],
+    "gap": 0.0018,
+    "upper_retraction": 0,
+    "lower_projection": 0,
+    "lip_bevel": 0,
+    "front_pigment_band": [
+      0.6,
+      0.82
+    ],
+    "slit_path": [
+      [
+        0.955,
+        0.615
+      ],
+      [
+        0.9744999999999999,
+        0.59
+      ],
+      [
+        0.994,
+        0.565
+      ]
+    ]
+  },
+  "native_fin_cutouts": true
+}

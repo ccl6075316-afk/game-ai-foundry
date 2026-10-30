@@ -1,0 +1,232 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "c9b410819d779106b0f1b6735b7988479ff181c1c4143501d085bb6029284988",
+  "profile": "resources/volume-fish/grass-carp-mouth-source-r4-20261031.profile.json",
+  "source": "projects\\fishing-2d\\experiments\\blender-fish\\models\\grass_carp\\082-source-inputs\\char_grass_carp_082_nobg.png",
+  "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+  "source_size": [
+    2010,
+    702
+  ],
+  "upper_inner_edge_px": [
+    [
+      1918,
+      391
+    ],
+    [
+      1930,
+      384
+    ],
+    [
+      1945,
+      382
+    ],
+    [
+      1959.75,
+      368
+    ],
+    [
+      1975,
+      357
+    ],
+    [
+      1989.9,
+      353
+    ],
+    [
+      2000,
+      355
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1918,
+      399
+    ],
+    [
+      1930,
+      400
+    ],
+    [
+      1945,
+      398
+    ],
+    [
+      1959.75,
+      381
+    ],
+    [
+      1975,
+      374
+    ],
+    [
+      1989.9,
+      369
+    ],
+    [
+      2000,
+      369
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "R4 restores original dynamic body support rings. Whole fish1682 below old1832 and hard2000; complete mouth and color unchanged.",
+  "source_station_snaps": [
+    {
+      "original_x_px": 1960,
+      "snapped_x_px": 1959.75,
+      "delta_px": -0.25,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    },
+    {
+      "original_x_px": 1990,
+      "snapped_x_px": 1989.9,
+      "delta_px": -0.09999999999990905,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    }
+  ],
+  "front_color_image": {
+    "path": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+    "sha256": "804e0036627c5464cd23031f1818bb099149b2daac5c7bfb08f3f7c321902a7e",
+    "purpose": "Own grass carp frontal color only; no generated geometry or measurements."
+  },
+  "front_upper_edge_px": [
+    [
+      322,
+      590
+    ],
+    [
+      345,
+      520
+    ],
+    [
+      392,
+      475
+    ],
+    [
+      460,
+      435
+    ],
+    [
+      540,
+      414
+    ],
+    [
+      620,
+      420
+    ],
+    [
+      700,
+      437
+    ],
+    [
+      780,
+      440
+    ],
+    [
+      860,
+      433
+    ],
+    [
+      940,
+      414
+    ],
+    [
+      1020,
+      418
+    ],
+    [
+      1090,
+      445
+    ],
+    [
+      1140,
+      480
+    ],
+    [
+      1172,
+      520
+    ],
+    [
+      1187,
+      590
+    ]
+  ],
+  "front_lower_edge_px": [
+    [
+      322,
+      590
+    ],
+    [
+      380,
+      566
+    ],
+    [
+      460,
+      555
+    ],
+    [
+      540,
+      574
+    ],
+    [
+      620,
+      592
+    ],
+    [
+      700,
+      606
+    ],
+    [
+      780,
+      607
+    ],
+    [
+      860,
+      591
+    ],
+    [
+      940,
+      573
+    ],
+    [
+      1020,
+      556
+    ],
+    [
+      1100,
+      561
+    ],
+    [
+      1187,
+      590
+    ]
+  ],
+  "front_camera": {
+    "model_scale": 0.7638190918169113,
+    "width_m": 0.065,
+    "focus_y_m": -0.008,
+    "aspect_h_over_w": 0.6888888888888889
+  },
+  "front_start_u": 0.935,
+  "front_full_u": 0.975,
+  "side_full": 0.35,
+  "side_original": 0.85,
+  "cap_start_u": 0.985,
+  "cap_full_u": 0.995,
+  "oral_depth_u": [
+    0.954228855721393,
+    0.9950248756218906
+  ],
+  "upper_exterior_scale": 0.8,
+  "lower_exterior_scale": 0.45
+}

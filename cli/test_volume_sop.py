@@ -222,6 +222,19 @@ class SopTests(unittest.TestCase):
         write(self.review,self.data)
         self.assertTrue(any(f['code']=='invalid_runtime_behavior' for f in check(self.review)['failures']))
 
+    def test_copied_species_card_fails_even_with_current_hash_and_bindings(self):
+        self.populated_fixture()
+        folder=self.root/'species';folder.mkdir()
+        card=folder/'bluegill.md';card.write_text('Other species research')
+        row=self.data['evidence']['preparation.research_and_measurements']
+        row.update(path=str(card),sha256=sha(card))
+        write(self.review,self.data)
+        self.assertTrue(any(f['code']=='wrong_species_research' for f in check(self.review)['failures']))
+        own=folder/'fixture-only.md';card.rename(own)
+        row.update(path=str(own),sha256=sha(own))
+        write(self.review,self.data)
+        self.assertTrue(check(self.review)['ok'])
+
     def test_shader_animation_resources_can_remain_in_engine(self):
         self.populated_fixture()
         shader=self.root/'pixel.gdshader';shader.write_text('shader_type spatial;')

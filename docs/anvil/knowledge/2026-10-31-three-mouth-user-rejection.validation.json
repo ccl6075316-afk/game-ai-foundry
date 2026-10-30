@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "kind": "three_mouth_rejection_recording",
+  "scope": "User rejection recorded; no claim of repair completion.",
+  "fish": [
+    {
+      "species": "bluegill",
+      "model_sha256": "4ec09636d5f577c7e2fee99e8fb6c7a07c0e6306852a17e7632ecbb348ac2349",
+      "status": "blocked",
+      "rejection": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-review-rejection.validation.json",
+        "sha256": "92e6f7bec22c3f43aed917c6788e277173ca8761c443d67a6efa675fcc58abbd"
+      },
+      "current_sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-rejection-20261031\\current-sop.validation.json",
+        "sha256": "23c604ef17aede13fb0400ae477756f5d4ab84bb10cddccd27e0a418268b3a6f"
+      }
+    },
+    {
+      "species": "crucian",
+      "model_sha256": "8ee4a961d35ecd5042b0a7b9a1906c46baa98653b33880be01e704f72ec164c7",
+      "status": "blocked",
+      "rejection": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-review-rejection.validation.json",
+        "sha256": "dfbe4bdb3c6d142f3a9f094b6018134afc344672ef2dce6c8aa4f27fa4cbde83"
+      },
+      "current_sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-rejection-20261031\\current-sop.validation.json",
+        "sha256": "28dc9e2229514e323df83bbb86b9112e655d55ce144a20f6aea8f301dc87ca3b"
+      }
+    },
+    {
+      "species": "grass-carp",
+      "model_sha256": "166b2f858300d59258d85d5b1f3fbee42c592134792ba0c92eb9ea084e688597",
+      "status": "blocked",
+      "rejection": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-review-rejection.validation.json",
+        "sha256": "7e6b46da05f7cbd33506f420887017286903371abbeeef078afda99cd01c3b7f"
+      },
+      "current_sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-rejection-20261031\\current-sop.validation.json",
+        "sha256": "940fa3c81499e1cbf0b997745ed75779a8644b4935db1886275f86602f3c8d9a"
+      }
+    }
+  ]
+}

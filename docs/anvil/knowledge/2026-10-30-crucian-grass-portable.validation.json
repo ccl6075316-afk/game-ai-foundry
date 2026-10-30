@@ -1,0 +1,97 @@
+{
+  "ok": true,
+  "kind": "crucian_completion_and_grass_first_trial_consolidation",
+  "scope": "Crucian technical/operator candidate complete; grass first trial completed and rejected before final freeze. No user appearance acceptance or canonical installation.",
+  "crucian": {
+    "status": "done",
+    "next_action": "human_review",
+    "triangles": 1526,
+    "exported_vertices": 2289,
+    "user_acceptance": false,
+    "installed": false,
+    "manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\manifest.json",
+      "sha256": "7677d214ccbaaba47a0afb8f2ad5885430cf663ee446fc5915f6410853d24b01"
+    },
+    "sop": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\consolidation-sop.validation.json",
+      "sha256": "c1f9ce6e2190d7a9cf93668297b365fed1c639ab2f728f08f91af637b59fb548"
+    },
+    "delivery": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\release-delivery\\manifest.json",
+      "sha256": "6cde765d9773687c201ac36717827b3b07d3559575fb5beb772b1580fc56d175"
+    },
+    "byte_audit": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\current-byte-audit.validation.json",
+      "sha256": "674b268af542cd8b1cca34cc0ecdad4e810343b7acb2b7abfe073abe901052fc"
+    },
+    "cleanup": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\release-cleanup.validation.json",
+      "sha256": "966ea445e2a44ada6b5ff44018b38a3b8602e13148f1c6b14c60113a67842de9"
+    },
+    "retained_bytes": 176150149
+  },
+  "grass_carp": {
+    "status": "blocked",
+    "next_action": "fix_input",
+    "triangles": 1472,
+    "exported_vertices": 1356,
+    "trial_attempt_completed": true,
+    "full_fish_completed": false,
+    "user_acceptance": false,
+    "installed": false,
+    "manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\manifest.json",
+      "sha256": "54a3cb0b954bde20da27bfddceb0bcb47959f61cf56a77c1a50247f67b3a14fd"
+    },
+    "sop": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\sop.validation.json",
+      "sha256": "35eda81f1bda2b7f45cda777249ca04d799fb025f39d97c5d88fd8bbae3e67eb"
+    },
+    "visual_review": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\local-review.validation.json",
+      "sha256": "ff9aa9a283a6decd4ad7869352c3055beef1c8a4dde0ad82a993cb342e62c734"
+    },
+    "closure_failure": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\closure.validation.json",
+      "sha256": "bd393dcc68732f5b97bc379c4e417c4c9ae90517c05e680269b2cdcb1374676f"
+    },
+    "closure_current": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\closure-r2.validation.json",
+      "sha256": "3f423d63dcb338e5e63b7aad2d82d28a40ec09c966b4f486073985417179e4da"
+    },
+    "cleanup": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\cleanup.validation.json",
+      "sha256": "51c8b7ba31533467c4ef5665b6a4d68f4af0cca3bb91af61c23a024d125ab12f"
+    },
+    "retained_bytes": 18464482
+  },
+  "bluegill_current_byte_audit": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\current-byte-audit.validation.json",
+    "sha256": "0a33589886714311e8e36e565deed11267336882ccac2c6e11dd2a0e9d20c0b4"
+  },
+  "methods": {
+    "path": "E:\\game-ai-foundry\\resources\\skills\\fish-volume-production\\references\\portable-material-lessons-20261030.md",
+    "sha256": "06f135d45671ecd651428d932d01507315a6a5feca2a19139b74b952016eb56e"
+  },
+  "skill_sync": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\final-material-skill-sync.validation.json",
+    "sha256": "22d01b0e0411f5d98df878c36998fa5f9649226035c824cb584c0aa3fee5b591"
+  },
+  "tests": {
+    "portable": {
+      "ran": 62,
+      "failed": 0
+    },
+    "volume_and_mouth": {
+      "ran": 51,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "previous_index": {
+    "path": "E:\\game-ai-foundry\\docs\\anvil\\knowledge\\2026-10-30-bluegill-crucian-portable.validation.json",
+    "role": "Historical snapshot; old crucian blocked state is superseded."
+  },
+  "commit_push_requested": false
+}

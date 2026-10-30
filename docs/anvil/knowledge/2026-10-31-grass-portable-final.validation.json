@@ -1,0 +1,199 @@
+{
+  "ok": true,
+  "kind": "grass_portable_final_candidate_consolidation",
+  "date": "2026-10-31",
+  "status": "done",
+  "next_action": "human_review",
+  "user_acceptance": false,
+  "installed": false,
+  "inventory": {
+    "triangles": 1832,
+    "vertices": 2546,
+    "bones": 18,
+    "mesh_count": 1,
+    "surface_count": 1,
+    "parts": 10,
+    "atlas": [
+      2048,
+      2048
+    ]
+  },
+  "manifest": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\manifest.json",
+    "sha256": "b56006fcbb2675b322ac96adca6fe55f22a5dba78789c12b0f3f919fde1b7837"
+  },
+  "sop": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\final-sop.validation.json",
+    "sha256": "11001600c7bceb6e71734fec84c3c3a4784c79b6bc764cb79a676da9751b69f9"
+  },
+  "audit": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\post-cleanup-byte-audit.validation.json",
+    "sha256": "33776d67dccab720e3fbfd85a2425dc9f202dc4faefaa690a2f35d249a5a7d7c"
+  },
+  "source_density_regression": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\source-density.validation.json",
+    "sha256": "50ce4e0c1d42fe7348c930df6713e638cd7467f05e0fc9c59cf857ab24c729ae"
+  },
+  "source_report": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\material-r3\\source-run\\validation-report.json",
+    "sha256": "86a49b65db5aac5d59d96ea43e3863c8085178d56896cb191325d371e1feeb54"
+  },
+  "physical490": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\physical-r3\\completion.validation.json",
+    "sha256": "03221c25d98e156871131f2b37aaef57dc9d4e5870e55283a578f05e3a7ee70c"
+  },
+  "delivery": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\release-delivery\\manifest.json",
+    "sha256": "e6e1ac3df53b242c1c9cba40123c4a385e116dd1ea88d9e7d94b24d0717a4f98"
+  },
+  "cleanup": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\final-cleanup.validation.json",
+    "sha256": "a898d1b9ba2f93d7d54e9e9dab10159e2729e9553d683fcc5ed90f26a449da87"
+  },
+  "method_sync": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\method-skill-sync.validation.json",
+    "sha256": "268183255490138c89d50b0d039de632de2561f22dafcf7a8b1c61b58acff44a"
+  },
+  "imagegen_request": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\imagegen-request.json",
+    "sha256": "2c808f9d7e59ac998a4f4476706dc51bb597aec9cd6631dd7ed1641912c4ed44"
+  },
+  "method": {
+    "path": "E:\\game-ai-foundry\\resources\\skills\\fish-volume-production\\references\\portable-material-lessons-20261030.md",
+    "sha256": "a05ab5dd16841510233727e8ccb69006392757269469e625ca3c93f7b9f73625"
+  },
+  "current_evidence": 51,
+  "tests": {
+    "portable": {
+      "ran": 62,
+      "failed": 0
+    },
+    "volume_and_mouth": {
+      "ran": 51,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "retained_bytes": 115201359,
+  "formal_grass_unchanged_sha256": "24e52770061b0418365d120449afefa100544e6ab3064acb22f65e0b7604a94e",
+  "other_candidates_byte_audit": {
+    "bluegill": {
+      "ok": true,
+      "kind": "production_review_byte_integrity",
+      "review": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\production-review.json",
+      "review_sha256": "3f9cd2cd6a094dd1d8941a61f4bd98abb420f6b452fd1f16af1e3881e622faa6",
+      "evidence_count": 51,
+      "checked_files": 59,
+      "failures": [],
+      "scope": "Current candidate/evidence/frozen byte identity only; no new physical or visual acceptance."
+    },
+    "crucian": {
+      "ok": true,
+      "kind": "production_review_byte_integrity",
+      "review": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\production-review.json",
+      "review_sha256": "8c4a09dffe25b7fe543b5aeb3ffaf159824799b7f96bb63b0da92474ac34d741",
+      "evidence_count": 51,
+      "checked_files": 60,
+      "failures": [],
+      "scope": "Current candidate/evidence/frozen byte identity only; no new physical or visual acceptance."
+    }
+  },
+  "git": {
+    "foundry": {
+      "status_short": [
+        " M cli/test_volume_fish.py",
+        " M cli/test_volume_mouth.py",
+        " M cli/volume_fish.py",
+        " M cli/volume_mouth.py",
+        " M docs/FISH-PORTABLE-HANDOFF-20261030.md",
+        " M resources/scripts/volume-fish/build_fish.py",
+        " M resources/scripts/volume-fish/oral_jaws.py",
+        " M resources/scripts/volume-fish/pack_fish_material_atlas.py",
+        " M resources/scripts/volume-fish/portable/fish_asset_spec.py",
+        " M resources/scripts/volume-fish/portable/prepare_spec.py",
+        " M resources/scripts/volume-fish/portable/tests/test_prepare_spec.py",
+        " M resources/scripts/volume-fish/portable/view.py",
+        " M resources/scripts/volume-fish/preview_nile_three_live.gd",
+        " M resources/scripts/volume-fish/validate_fin_membrane_clearance.py",
+        " M resources/skills/fish-volume-production/SKILL.md",
+        " M resources/skills/fish-volume-production/references/portable-finalization-tools.md",
+        " M resources/skills/fish-volume-production/references/production-sop.md",
+        " M resources/volume-fish/motion/nile_tilapia-082.json",
+        "?? docs/anvil/knowledge/2026-10-30-bluegill-crucian-portable.validation.json",
+        "?? docs/anvil/knowledge/2026-10-30-crucian-grass-portable.validation.json",
+        "?? resources/scripts/volume-fish/apply_fin_envelope.py",
+        "?? resources/scripts/volume-fish/author_anterior_chart.py",
+        "?? resources/scripts/volume-fish/author_body_skin.py",
+        "?? resources/scripts/volume-fish/author_trial_pbr.py",
+        "?? resources/scripts/volume-fish/bake_existing_skin_patches.py",
+        "?? resources/scripts/volume-fish/diagnose_fin_envelope.py",
+        "?? resources/scripts/volume-fish/extract_material_inputs.gd",
+        "?? resources/scripts/volume-fish/portable/ReviewCaptureBase.gd",
+        "?? resources/scripts/volume-fish/portable/audit_review_bindings.py",
+        "?? resources/scripts/volume-fish/portable/capture_fish_review.gd",
+        "?? resources/scripts/volume-fish/portable/capture_local_skin.gd",
+        "?? resources/scripts/volume-fish/portable/capture_standalone_body.gd",
+        "?? resources/scripts/volume-fish/portable/check_head_form.py",
+        "?? resources/scripts/volume-fish/portable/export_fin_poses.gd",
+        "?? resources/scripts/volume-fish/portable/inspect_source_closure.py",
+        "?? resources/scripts/volume-fish/portable/logical_document.py",
+        "?? resources/scripts/volume-fish/portable/make_review_sheets.py",
+        "?? resources/scripts/volume-fish/portable/prepare_cage_trial.py",
+        "?? resources/scripts/volume-fish/portable/prepare_fin_validation.py",
+        "?? resources/scripts/volume-fish/portable/prepare_gate_adapters.py",
+        "?? resources/scripts/volume-fish/portable/prepare_pose_exporter.py",
+        "?? resources/scripts/volume-fish/portable/prepare_trial_spec.py",
+        "?? resources/scripts/volume-fish/portable/register_body_donor.py",
+        "?? resources/scripts/volume-fish/portable/run_delivery_checks.py",
+        "?? resources/scripts/volume-fish/portable/run_local_diagnostic.py",
+        "?? resources/scripts/volume-fish/portable/run_material_candidate.py",
+        "?? resources/scripts/volume-fish/portable/tests/test_body_registration.py",
+        "?? resources/scripts/volume-fish/portable/tests/test_delivery_adapters.py",
+        "?? resources/scripts/volume-fish/portable/validate_motion_controls.gd",
+        "?? resources/scripts/volume-fish/portable/validate_standalone_body.py",
+        "?? resources/scripts/volume-fish/prepare_bluegill_portable_spec.py",
+        "?? resources/scripts/volume-fish/prepare_bluegill_portable_trial.py",
+        "?? resources/scripts/volume-fish/prepare_crucian_portable_trial.py",
+        "?? resources/scripts/volume-fish/triangulate_export_mesh.py",
+        "?? resources/skills/fish-volume-production/references/portable-material-lessons-20261030.md",
+        "?? resources/skills/fish-volume-production/references/portable-production-lessons-20261030.md",
+        "?? resources/volume-fish/bluegill-fin-clearance-20261030.json",
+        "?? resources/volume-fish/bluegill-reference-cage-20261030.profile.json",
+        "?? resources/volume-fish/bluegill-reference-cage-motion-20261030.json",
+        "?? resources/volume-fish/bluegill-reference-cage-native-motion-20261030.json",
+        "?? resources/volume-fish/crucian-reference-cage-20261030.profile.json",
+        "?? resources/volume-fish/crucian-reference-cage-native-motion-20261030.json",
+        "?? resources/volume-fish/crucian-reference-cage-r2-20261030.profile.json",
+        "?? resources/volume-fish/grass-carp-cage-r3-20261030.json",
+        "?? resources/volume-fish/grass-carp-portable-trial-20261030.json",
+        "?? resources/volume-fish/grass_carp-reference-cage-20261030.profile.json",
+        "?? resources/volume-fish/grass_carp-reference-cage-native-motion-20261030.json",
+        "?? resources/volume-fish/grass_carp-reference-cage-r2-20261030.profile.json",
+        "?? resources/volume-fish/grass_carp-reference-cage-r3-20261030.profile.json"
+      ],
+      "lfs_status": "On branch codex/pure-workflow-toolkit\nObjects to be pushed to origin/codex/pure-workflow-toolkit:\n\n\nObjects to be committed:\n\n\nObjects not staged for commit:\n\n\tcli/test_volume_fish.py (Git: f85019e -> File: 8f3826f)\n\tcli/test_volume_mouth.py (Git: cb1fb5b -> File: 41ee932)\n\tcli/volume_fish.py (Git: d69febe -> File: 644848f)\n\tcli/volume_mouth.py (Git: 3ee7036 -> File: da3aaa4)\n\tdocs/FISH-PORTABLE-HANDOFF-20261030.md (Git: 2a99c82 -> File: 5f0096a)\n\tresources/scripts/volume-fish/build_fish.py (Git: d99375a -> File: f6030e0)\n\tresources/scripts/volume-fish/oral_jaws.py (Git: fd7916b -> File: dc29539)\n\tresources/scripts/volume-fish/pack_fish_material_atlas.py (Git: 9b518e8 -> File: 460e148)\n\tresources/scripts/volume-fish/portable/fish_asset_spec.py (Git: 83b4ff2 -> File: f07ca1f)\n\tresources/scripts/volume-fish/portable/prepare_spec.py (Git: 03f48ea -> File: 9ccf812)\n\tresources/scripts/volume-fish/portable/tests/test_prepare_spec.py (Git: 9c96614 -> File: 8460160)\n\tresources/scripts/volume-fish/portable/view.py (Git: a4d33cb -> File: 2f8e080)\n\tresources/scripts/volume-fish/preview_nile_three_live.gd (Git: c351e9a -> File: 3c671a0)\n\tresources/scripts/volume-fish/validate_fin_membrane_clearance.py (Git: f8ad9c8 -> File: 89b3af2)\n\tresources/skills/fish-volume-production/SKILL.md (Git: b531ddb -> File: 78b417b)\n\tresources/skills/fish-volume-production/references/portable-finalization-tools.md (Git: e0e373d -> File: 10d25cd)\n\tresources/skills/fish-volume-production/references/production-sop.md (Git: 78fe752 -> File: 2db4f16)\n\tresources/volume-fish/motion/nile_tilapia-082.json (Git: b82ece6 -> File: b82ece6)\n\n",
+      "diff_check": true,
+      "commit_push_requested": false
+    },
+    "game": {
+      "status_short": [
+        " M game/assets/models/fish/nile_tilapia.glb",
+        " M game/assets/models/fish/nile_tilapia.glb.import",
+        " M game/scripts/aquarium/FishSurfaceOwnership.gd",
+        " M game/scripts/aquarium/VolumeFishExhibit.gd",
+        "?? experiments/bluegill-portable-trial-20261030/",
+        "?? experiments/crucian-portable-trial-20261030/",
+        "?? experiments/grass-carp-portable-trial-20261030/",
+        "?? experiments/nile-dorsal-route-trial/round11-production-install/",
+        "?? game/assets/models/fish/nile_tilapia_atlas.png",
+        "?? game/assets/models/fish/nile_tilapia_atlas.png.import",
+        "?? game/scripts/aquarium/FinalizedNileTilapiaR11.gd",
+        "?? game/scripts/aquarium/FinalizedNileTilapiaR11.gd.uid"
+      ],
+      "lfs_status": "On branch main\nObjects to be pushed to origin/main:\n\n\nObjects to be committed:\n\n\nObjects not staged for commit:\n\n\tgame/assets/models/fish/nile_tilapia.glb (LFS: 4ee2c55 -> File: 2ec51a5)\n\tgame/assets/models/fish/nile_tilapia.glb.import (Git: 1f45b90 -> File: 8939fa2)\n\tgame/scripts/aquarium/FishSurfaceOwnership.gd (Git: e367b50 -> File: df6896d)\n\tgame/scripts/aquarium/VolumeFishExhibit.gd (Git: 27919db -> File: 2113a9a)\n\n",
+      "diff_check": true,
+      "commit_push_requested": false
+    }
+  },
+  "scope": "Current source/cold/specialized/operator candidate, not user acceptance or installation. Full490 reused only for identical current model/plan/exporter/frozen dependencies; dense pose/frame caches removed by explicit SHA receipt. No commit/push."
+}

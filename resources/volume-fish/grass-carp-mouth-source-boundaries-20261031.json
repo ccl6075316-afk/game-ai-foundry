@@ -1,0 +1,97 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "bd98ea12eb7896bea5a985acc3d89e210d0556ed324ac4a9a3be8cfc5cda8ba7",
+  "profile": "resources\\volume-fish\\grass-carp-mouth-source-r4-20261031.profile.json",
+  "source": "projects\\fishing-2d\\experiments\\blender-fish\\models\\grass_carp\\082-source-inputs\\char_grass_carp_082_nobg.png",
+  "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+  "source_size": [
+    2010,
+    702
+  ],
+  "upper_inner_edge_px": [
+    [
+      1918,
+      391
+    ],
+    [
+      1930,
+      384
+    ],
+    [
+      1945,
+      382
+    ],
+    [
+      1959.75,
+      368
+    ],
+    [
+      1975,
+      357
+    ],
+    [
+      1989.9,
+      353
+    ],
+    [
+      2000,
+      355
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1918,
+      399
+    ],
+    [
+      1930,
+      400
+    ],
+    [
+      1945,
+      398
+    ],
+    [
+      1959.75,
+      381
+    ],
+    [
+      1975,
+      374
+    ],
+    [
+      1989.9,
+      369
+    ],
+    [
+      2000,
+      369
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "Own independent mouth and head envelope; retain ALL original posterior support rings, fins, eyes and transverse width. No static-ring optimization acceptance; actual dynamic gates required.",
+  "source_station_snaps": [
+    {
+      "original_x_px": 1960,
+      "snapped_x_px": 1959.75,
+      "delta_px": -0.25,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    },
+    {
+      "original_x_px": 1990,
+      "snapped_x_px": 1989.9,
+      "delta_px": -0.09999999999990905,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    }
+  ]
+}

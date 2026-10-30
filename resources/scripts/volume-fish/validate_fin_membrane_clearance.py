@@ -23,15 +23,19 @@ def main():
             run=subprocess.run(cmd,capture_output=True,text=True,encoding='utf8',errors='replace',timeout=a.export_timeout);(a.output/'export.log').write_text(run.stdout+run.stderr,encoding='utf8');assert run.returncode==0 and 'ERROR:' not in run.stdout+run.stderr and export.exists(),'Full membrane export failed'
         exp=json.loads(export.read_text(encoding='utf8'));assert exp.get('fin_membrane_revision')==1 and len(exp['samples'])==490,'Incomplete full-fin pose coverage'
         assert exp['ok'] and exp['export_script_sha256']==sha(exporter) and exp['model_sha256']==sha(spec['model']),'Stale posed export'
+        if spec.get('motion_profile'):
+            assert sha(spec['motion_profile'])==spec['motion_profile_sha256']==exp.get('actual_motion_profile_sha256'),'Stale explicit native motion profile'
         assert exp['controller_sha256']==sha(a.game/spec.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')) and exp['exhibit_sha256']==sha(a.game/'scripts/aquarium/VolumeFishExhibit.gd') and exp['motion_config_sha256']==sha(a.game/'assets/models/fish/motion/motion.json'),'Stale posed runtime'
         if 'mouth_candidate' in spec:
             assert exp['candidate_input_sha256']==spec['mouth_candidate']['frozen_inputs'],'Different frozen candidate'
             for path,h in spec['mouth_candidate']['frozen_inputs'].items():assert sha(path)==h,'Stale frozen candidate'
         packed_bindings={}
         if spec.get('packed_parts_manifest'):
-            packed_bindings={spec['packed_parts_manifest']:spec['packed_parts_manifest_sha256'],str(scripts/'PackedFishValidation.gd'):sha(scripts/'PackedFishValidation.gd'),str(scripts/'packed_fish_parts.py'):sha(scripts/'packed_fish_parts.py')}
+            helper=Path(spec.get('packed_helper_script',scripts/'PackedFishValidation.gd')).resolve()
+            canonicalizer=Path(spec.get('packed_canonicalizer',scripts/'packed_fish_parts.py')).resolve()
+            packed_bindings={spec['packed_parts_manifest']:spec['packed_parts_manifest_sha256'],str(helper):sha(helper),str(canonicalizer):sha(canonicalizer)}
             assert all(sha(path)==h for path,h in packed_bindings.items()), 'Stale packed partition input'
-            assert exp['packed_parts_manifest_sha256']==spec['packed_parts_manifest_sha256'] and exp['packed_helper_sha256']==sha(scripts/'PackedFishValidation.gd'), 'Stale packed runtime partition mapping'
+            assert exp['packed_parts_manifest_sha256']==spec['packed_parts_manifest_sha256'] and exp['packed_helper_sha256']==sha(helper), 'Stale packed runtime partition mapping'
             assert exp['packed_partition_proof']['ok'] and exp['packed_partition_proof']['model_sha256']==spec['model_sha256'], 'Incomplete packed import proof'
         export_hash=sha(export)
         checks=[]

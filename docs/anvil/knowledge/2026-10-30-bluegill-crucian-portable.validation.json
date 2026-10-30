@@ -1,0 +1,81 @@
+{
+  "ok": true,
+  "kind": "portable_real_fish_consolidation_validation",
+  "bluegill": {
+    "status": "done",
+    "next_action": "human_review",
+    "user_acceptance": false,
+    "installed": false,
+    "manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\manifest.json",
+      "sha256": "2a2cc1b7d7e58d3beb5360c2a3eb5a91244e798187b64af5737903993cd6ab2a"
+    },
+    "sop": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\sop.validation.json",
+      "sha256": "225aad9adc0b8646ec7f8700cea50d72011c934a866170a4748f0be4ec5cf855"
+    },
+    "delivery": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\delivery\\manifest.json",
+      "sha256": "9823f47502de0fceb5187f3ce70d3847d2bb7f454120287526db396b839ffbcd"
+    },
+    "current_bound_evidence": 51,
+    "retained_bytes": 169720374,
+    "cleanup": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\cleanup.validation.json",
+      "sha256": "d34b71144dac2de0e90c9c87d726e85ca6412511ea28a9a084cb14b3995d3bb0"
+    }
+  },
+  "crucian": {
+    "trial_attempt_completed": true,
+    "full_fish_completed": false,
+    "status": "blocked",
+    "next_action": "fix_input",
+    "manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\manifest.json",
+      "sha256": "7c9b8f1cb695f36d5d84a66ad7886ad304a7d6eeb5c3862888fad6074568cca9"
+    },
+    "visual_review": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\local-review.validation.json",
+      "sha256": "91b19bbc7f3a2b62655b0436cb12a80bacd3eeca23dc2d5a02b2052515d13974"
+    },
+    "retained_bytes": 34540254,
+    "cleanup": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\cleanup.validation.json",
+      "sha256": "9a6c6ea0f4398c0e3003a30c1e359b652cee434a21c931c2d1b5f525f4b192fe"
+    }
+  },
+  "skill_sync": [
+    {
+      "file": "SKILL.md",
+      "sha256": "0e223fbb62e1091f48a64c5b87eea0952a040a1cb20561ba73c9ab958be6ebde"
+    },
+    {
+      "file": "references/production-sop.md",
+      "sha256": "06fa66956f8156bfc007080256a7aa01495d5cf6e1f7a5c19e14b77dc2ec1c03"
+    },
+    {
+      "file": "references/portable-finalization-tools.md",
+      "sha256": "10d25cdcac62cf3140afdfd953f4195c5ac1864f84104d8b78496d79ae845d3c"
+    },
+    {
+      "file": "references/portable-production-lessons-20261030.md",
+      "sha256": "9c92370eddeac24639a0654b7f12efd022f42b0d1c2b2d8374db2015246bfe04"
+    }
+  ],
+  "tests": {
+    "portable": {
+      "run": 60,
+      "passed": 60
+    },
+    "volume_cli": {
+      "run": 38,
+      "skipped": 1,
+      "result": "OK"
+    }
+  },
+  "git": {
+    "commit_or_push_requested": false,
+    "performed": false
+  },
+  "scope": "Technical/operator bluegill candidate and completed second trial, not user appearance approval; no physical gate or SOP pass transferred across fish."
+}

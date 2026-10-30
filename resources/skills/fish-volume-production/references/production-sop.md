@@ -1,7 +1,12 @@
 # 鱼类生产 SOP：准备 → 源图 → 形体 → 材质 → 动作 → 验收
 
+**累计质量要求**：基础检查 → 嘴部 → 全部鱼鳍 → 其余。先执行[嘴优先检查卡](mouth-first-review.md)，实际指出本鱼下唇线、开口、上下颌和左右/跨口缘补色；机械通过不代替看图。整鱼优选1500/硬上限2000三角与全部旧要求同时有效。
 
-> **需要完整重建与跨日交接时**：另读[参考图低面鱼重建SOP](reference-cage-rebuild-sop.md)，以及游戏 `docs/3d-fish/NILE-B-REBUILD-20261030.md` 的实际逐步案例。它保存材料、控制点/鳍/嘴/补色/导出/验证全链、严重问题和已实测复现命令；罗非鱼当前仍被用户明确认为未达标准，不能视作成功外观模板。
+[四鱼经验收敛](four-fish-lessons-20261031.md)汇总已暴露的遗漏、负例与有效验证：沿实际唇缘取色、完整头型对照、受限中央ROI与实际侧眼保护、动态删环失败、物种卡身份核对、每轮精确清理。参数逐鱼确定，当前状态只读逐鱼manifest，不从历史案例的完成措辞继承接受结论。
+
+局部修改先看局部效果并收齐问题，冻结后集中运行完整门；旧报告不改成新候选通过。历史方法与失败细节见[返修经验](mouth-repair-lessons-20261031.md)、[材质执行卡](portable-material-lessons-20261030.md)、[确定性工具经验](portable-production-lessons-20261030.md)。
+
+> **需要完整重建与跨日交接时**：另读[参考图低面鱼重建SOP](reference-cage-rebuild-sop.md)，以及游戏 `docs/3d-fish/NILE-B-REBUILD-20261030.md` 的实际逐步案例。它保存材料、控制点/鳍/嘴/补色/导出/验证全链、历史拒绝和复现命令。2026-10-30用户已接受最终R11并授权正式入口替换，实际绑定读 `experiments/nile-dorsal-route-trial/round11-production-install/manifest.json`；早期被拒版本不因此追认。
 
 适用：Game AI Foundry 新建、重建、局部返修和批量推广。本文是执行顺序；专题文档保存细节，物种 profile 保存参数，handoff / validation report 保存本次状态。执行前先定位 Foundry 根目录与目标游戏，下面代码路径均相对 Foundry 根目录，不能相对本机安装技能目录解析。
 

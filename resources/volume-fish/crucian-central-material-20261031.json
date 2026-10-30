@@ -1,0 +1,235 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "b62e537ef7e18f40a0016e72bebe090e1a7ff7e47e68b2bd789243c65d044a59",
+  "profile": "resources/volume-fish/crucian-smooth-head-joined-20261031.profile.json",
+  "source": "projects\\fishing-2d\\experiments\\blender-fish\\models\\crucian\\082-source-inputs\\char_crucian_082_nobg.png",
+  "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+  "source_size": [
+    1908,
+    1073
+  ],
+  "upper_inner_edge_px": [
+    [
+      1800,
+      665
+    ],
+    [
+      1815,
+      655
+    ],
+    [
+      1830,
+      651
+    ],
+    [
+      1845,
+      645
+    ],
+    [
+      1860,
+      633
+    ],
+    [
+      1875,
+      624
+    ],
+    [
+      1895,
+      620
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1800,
+      671
+    ],
+    [
+      1815,
+      667
+    ],
+    [
+      1830,
+      665
+    ],
+    [
+      1845,
+      658
+    ],
+    [
+      1860,
+      646
+    ],
+    [
+      1875,
+      636
+    ],
+    [
+      1895,
+      635
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "crucian own central-only material; original accepted geometry, eyes, lips/fins and budget retained. No bluegill species parameters or donor copied.",
+  "front_color_image": {
+    "path": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+    "sha256": "763c6e90459005a9a820e9645566632afaa7daeae4366fa8ee50cab15c2bea5a",
+    "purpose": "Own crucian frontal mouth/chin color only; generated hole geometry was changed and is not used."
+  },
+  "front_upper_edge_px": [
+    [
+      480,
+      875
+    ],
+    [
+      503,
+      749
+    ],
+    [
+      555,
+      678
+    ],
+    [
+      620,
+      624
+    ],
+    [
+      681,
+      598
+    ],
+    [
+      749,
+      591
+    ],
+    [
+      817,
+      598
+    ],
+    [
+      885,
+      625
+    ],
+    [
+      954,
+      684
+    ],
+    [
+      1002,
+      755
+    ],
+    [
+      1034,
+      875
+    ]
+  ],
+  "front_lower_edge_px": [
+    [
+      480,
+      875
+    ],
+    [
+      525,
+      803
+    ],
+    [
+      580,
+      808
+    ],
+    [
+      630,
+      835
+    ],
+    [
+      688,
+      853
+    ],
+    [
+      755,
+      858
+    ],
+    [
+      824,
+      851
+    ],
+    [
+      883,
+      832
+    ],
+    [
+      936,
+      805
+    ],
+    [
+      988,
+      805
+    ],
+    [
+      1034,
+      875
+    ]
+  ],
+  "front_camera": {
+    "model_scale": 0.20181634780386956,
+    "width_m": 0.025,
+    "focus_y_m": -0.007,
+    "aspect_h_over_w": 0.6888888888888889
+  },
+  "front_start_u": 0.925,
+  "front_full_u": 0.97,
+  "side_full": 0.35,
+  "side_original": 0.85,
+  "cap_start_u": 0.985,
+  "cap_full_u": 0.994,
+  "oral_depth_u": [
+    0.9433962264150944,
+    0.9931865828092243
+  ],
+  "upper_exterior_scale": 0.5,
+  "lower_exterior_scale": 0.25,
+  "interocular_material": {
+    "image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+      "sha256": "763c6e90459005a9a820e9645566632afaa7daeae4366fa8ee50cab15c2bea5a"
+    },
+    "roi_px": [
+      540,
+      24,
+      960,
+      450
+    ],
+    "head_start_u": 0.8,
+    "head_full_u": 0.875,
+    "side_full": 0.25,
+    "side_original": 0.65,
+    "source_v_top": 0.3,
+    "source_v_bottom": 0.54,
+    "source_v_fade_start": 0.5,
+    "source_v_fade_end": 0.55,
+    "protected_target_source_rects_px": [
+      [
+        1660,
+        500,
+        1815,
+        630
+      ]
+    ],
+    "target_protection_fade_px": 12,
+    "target_eye_lateral_support": {
+      "start": 0.2,
+      "full": 0.4
+    },
+    "preserve_mouth_rim_px": 12,
+    "mouth_protection_fade_px": 6,
+    "purpose": "Own existing generated central material only. No generated eye/lateral/geometry/mouth adoption. User authorized this bounded central repair after prior fish closure."
+  },
+  "chart_start_u": 0.8
+}

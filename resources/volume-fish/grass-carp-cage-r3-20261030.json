@@ -1,0 +1,58 @@
+{
+  "species": "grass_carp",
+  "accepted_handoff": "projects/fishing-2d/experiments/blender-fish/models/grass_carp/082f.handoff.json",
+  "original_profile": "resources/volume-fish/grass_carp-082f.profile.json",
+  "source": "projects/fishing-2d/experiments/blender-fish/models/grass_carp/082-source-inputs/char_grass_carp_082_nobg.png",
+  "output_profile": "resources/volume-fish/grass_carp-reference-cage-r3-20261030.profile.json",
+  "head_envelope": [
+    [
+      0.82,
+      0.037
+    ],
+    [
+      0.88,
+      0.0355
+    ],
+    [
+      0.94,
+      0.03
+    ],
+    [
+      0.975,
+      0.0225
+    ],
+    [
+      0.99,
+      0.014
+    ],
+    [
+      0.997,
+      0.0055
+    ]
+  ],
+  "radial": 12,
+  "fin_interior_grid": [
+    2,
+    1
+  ],
+  "baseline_spacing": 0.02,
+  "scope": "r3 grass own full fin-baseline/bone-break stations added to resolve sparse-body versus root skin interpolation, after full490 Anal and leftPelvic root gap failures. Same transverse/side envelope, thickness, source, root bands and physical limits. Body density and final physics remain to be verified.",
+  "additional_stations": [
+    0.2433333333333334,
+    0.247,
+    0.29,
+    0.33166666666666667,
+    0.356,
+    0.38,
+    0.42000000000000004,
+    0.44,
+    0.48,
+    0.5,
+    0.5083333333333333,
+    0.52,
+    0.538,
+    0.565,
+    0.5966666666666667
+  ],
+  "oral_boolean_solver": "EXACT"
+}

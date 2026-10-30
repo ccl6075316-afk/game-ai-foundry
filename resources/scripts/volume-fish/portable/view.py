@@ -78,7 +78,7 @@ def godot_errors(log_text):
 
 def prepare(spec_path, game=None, root=ROOT):
     spec_path = Path(spec_path).resolve()
-    spec = json.loads(spec_path.read_text())
+    spec = json.loads(spec_path.read_text(encoding='utf8'))
     if not isinstance(spec, dict):
         raise ValueError('Spec must be an object')
     if spec.get('kind') != 'fish_asset_finalization_spec' or spec.get('version') not in (1, 2):

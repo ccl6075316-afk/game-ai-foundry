@@ -1,0 +1,12 @@
+{
+  "species":"grass_carp",
+  "accepted_handoff":"projects/fishing-2d/experiments/blender-fish/models/grass_carp/082f.handoff.json",
+  "original_profile":"resources/volume-fish/grass_carp-082f.profile.json",
+  "source":"projects/fishing-2d/experiments/blender-fish/models/grass_carp/082-source-inputs/char_grass_carp_082_nobg.png",
+  "output_profile":"resources/volume-fish/grass_carp-reference-cage-20261030.profile.json",
+  "head_envelope":[[0.82,0.037],[0.88,0.0355],[0.94,0.03],[0.975,0.0225],[0.99,0.014],[0.997,0.0055]],
+  "radial":12,
+  "fin_interior_grid":[2,1],
+  "baseline_spacing":0.02,
+  "scope":"2026-10-30 third trial after crucian completion/consolidation. Independent accepted grass-carp side/source sections/fin polygons/full root bands; own083b transverse artistic envelope,76cm gameTL. No old-body topology or decimation, no crucian color/clearance or acceptance reused. Material/body-only/mouth views precede final physical freeze."
+}

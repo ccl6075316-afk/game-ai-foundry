@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "kind": "mouth_repair_round_closeout",
+  "status": "done",
+  "next_action": "human_review",
+  "batch": {
+    "path": "docs\\anvil\\knowledge\\2026-10-31-three-mouth-repair.validation.json",
+    "sha256": "bde91f680020d88cd57745219358bd2f251f1d11f4a71e7c26f835fe4b09ac94"
+  },
+  "postcleanup_sop_audits": [
+    {
+      "path": "docs\\anvil\\knowledge\\2026-10-31-bluegill-mouth-postcleanup-sop.validation.json",
+      "sha256": "80bb7b664b10d17b478bb211c8727f84cb845d1868a8e7b4744409a29cc87118"
+    },
+    {
+      "path": "docs\\anvil\\knowledge\\2026-10-31-crucian-mouth-postcleanup-sop.validation.json",
+      "sha256": "c226b86e756d14aea6c8394dbad53ae38b3bac228554f87528b807752176b74e"
+    },
+    {
+      "path": "docs\\anvil\\knowledge\\2026-10-31-grass-carp-mouth-postcleanup-sop.validation.json",
+      "sha256": "aa58dfef2ef330544e3532d210e6ed9c23c375ec7e548f933b75a5c277698820"
+    }
+  ],
+  "local_skill_sync": {
+    "path": "docs\\anvil\\knowledge\\2026-10-31-mouth-repair-local-sync.validation.json",
+    "sha256": "ad563afcbbfb89c3ce654d2399a8831d365e9f5e7ed8a87bf2278295cd8ccb30"
+  },
+  "visible_review_launch": {
+    "path": "projects\\fishing-2d\\experiments\\new-fish-mouth-review-20261031\\launch.validation.json",
+    "sha256": "88b7f09c3ecd751ec112e11f27847949ee0873a6dc660a514c7576ee4cf49979"
+  },
+  "handoff": {
+    "path": "docs\\FISH-MOUTH-REPAIR-20261031.md",
+    "sha256": "f7392952e555cb8f013573c98404adc1bbb873d6f0dbe999981bee9bd4919990"
+  },
+  "tests": {
+    "volume_mouth_and_fish": {
+      "run": 53,
+      "skipped": 1,
+      "result": "passed"
+    },
+    "portable": {
+      "run": 62,
+      "result": "passed"
+    },
+    "actual_review_ui": {
+      "checks": 127,
+      "result": "passed"
+    }
+  },
+  "git": {
+    "foundry_diff_check": true,
+    "game_diff_check": true,
+    "both_lfs_status_checked": true,
+    "preexisting_dirty_work_preserved": true,
+    "commit_push_requested": false,
+    "committed_or_pushed": false
+  },
+  "user_acceptance": false,
+  "canonical_installs": false,
+  "scope": "Three independent revised candidates and review window ready. Await user appearance review; keep rejected originals rejected and do not claim user approval."
+}

@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "files": [
+    {
+      "file": "SKILL.md",
+      "sha256": "cc5e9796d3370561c63eb13964b72395c1022e5de736e48c4a83ddd24067ed2d"
+    },
+    {
+      "file": "references/production-sop.md",
+      "sha256": "022d6ba847f320c706ddbb0522ff3a37a6b39dfa0b42ff6b4dd330301bb5a6ce"
+    },
+    {
+      "file": "references/mouth-execution.md",
+      "sha256": "cd7358f184bd432ffd70ea8abb32ebaa9a149be2a4efaf91900f01bdeb2bf99d"
+    },
+    {
+      "file": "references/mouth-first-review.md",
+      "sha256": "28a5b60195846fcc022df122531900d6393af0f6f92ace9439ad75dd1326fc7e"
+    },
+    {
+      "file": "references/portable-material-lessons-20261030.md",
+      "sha256": "1eb48f49efb95d065177e938e75fe1c7e4bab3973eb4ca8ce7982035a2f73488"
+    },
+    {
+      "file": "references/mouth-repair-lessons-20261031.md",
+      "sha256": "85d280fb1629a7d3b49791b2450b3ce5fd1126d5920f85199ee301827dd4afca"
+    }
+  ],
+  "scope": "Current mouth-first/all-constraints rules, actual repaired candidate boundaries and rejected static-ring optimization synchronized; no user acceptance."
+}

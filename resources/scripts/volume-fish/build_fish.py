@@ -52,9 +52,10 @@ def fin_source_geometry(fin,aspect):
         else:extra.extend(mids)
     points=polygon+extra
     xmin=min(v[0] for v in polygon);xmax=max(v[0] for v in polygon);ymin=min(v[1] for v in polygon);ymax=max(v[1] for v in polygon)
-    for i in range(1,13):
-        for j in range(1,7):
-            pt=[xmin+(xmax-xmin)*i/13,ymin+(ymax-ymin)*j/7]
+    grid=fin.get('interior_grid',[12,6])
+    for i in range(1,grid[0]+1):
+        for j in range(1,grid[1]+1):
+            pt=[xmin+(xmax-xmin)*i/(grid[0]+1),ymin+(ymax-ymin)*j/(grid[1]+1)]
             if inside(pt,polygon):points.append(Vector(pt))
     return polygon,points
 def polygons_overlap(a,b):
@@ -87,7 +88,7 @@ def validate_profile(p):
     require(number(p['real_length_cm'],.1,1000) and number(p['source_aspect_ratio'],.1,20),'Invalid length/aspect')
     style=p['style'];keys(style,'pixel_art reference_image texture_filter roughness','style')
     require(style['pixel_art'] is True and style['texture_filter']=='nearest' and style['roughness']==1,'Pixel style requires nearest, roughness 1')
-    body=p['body'];keys(body,'sections rings radial','body'); sections=body['sections']
+    body=p['body'];keys(body,'sections rings radial ring_positions','body'); sections=body['sections']
     require(4<=len(sections)<=128 and all(len(r)==4 and all(number(v,0,1) for v in r[:3]) and r[1]<r[2] and number(r[3],.0001,.3) for r in sections),'Invalid body sections')
     require(all(a[0]<b[0] for a,b in zip(sections,sections[1:])),'Sections must increase in source u')
     if p.get('cephalofoil'):
@@ -96,6 +97,10 @@ def validate_profile(p):
         require(all(len(r)==4 and number(r[0],-.3,.3) and 0<=r[1]<r[2]<=1 and number(r[3],.001,.05) for r in head['sections']),'Invalid head geometry')
         require(all(a[0]<b[0] for a,b in zip(head['sections'],head['sections'][1:])),'Head sections must increase laterally')
     require(isinstance(body['rings'],int) and 16<=body['rings']<=256 and isinstance(body['radial'],int) and 12<=body['radial']<=96,'Invalid ring detail')
+    if 'ring_positions' in body:
+        stations=body['ring_positions']
+        require(isinstance(stations,list) and len(stations)==body['rings'] and all(number(u,sections[0][0],sections[-1][0]) for u in stations),'Invalid explicit reference-cage stations')
+        require(stations[0]==sections[0][0] and stations[-1]==sections[-1][0] and all(a<b for a,b in zip(stations,stations[1:])),'Reference-cage stations must span the body and strictly increase')
     for patch in p.get('body_uv_patches',[]):
         keys(patch,'polygon offset','body UV patch')
         require(3<=len(patch['polygon'])<=128 and all(uvpoint(v) for v in patch['polygon']) and len(patch['offset'])==2 and all(number(v,-1,1) for v in patch['offset']),'Invalid body UV patch')
@@ -134,7 +139,9 @@ def validate_profile(p):
     fin_names=[f.get('name','')+suffix for f in p['fins'] for suffix in (['_left','_right'] if f.get('paired') else [''])]
     require(len(set(fin_names))==len(fin_names) and all(n!='root' and not n.startswith('body_') for n in fin_names),'Duplicate or reserved fin names')
     for f in p['fins']:
-        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment source_baseline','fin')
+        keys(f,'name polygon anchor tip paired root_depth tip_depth thickness amplitude phase axis vertical_scale opaque source_rect root_attachment source_baseline interior_grid','fin')
+        if 'interior_grid' in f:
+            require(isinstance(f['interior_grid'],list) and len(f['interior_grid'])==2 and all(type(n)is int and 0<=n<=24 for n in f['interior_grid']),'Invalid fin interior grid')
         if f.get('source_baseline'):validate_fin_baseline(f['source_baseline'])
         if 'root_attachment' in f:
             require('rest_shape_revision' not in p or f.get('paired') is True,'Native root_attachment supports authored paired fin roots only')
@@ -417,7 +424,7 @@ def build(h,p,source,outputs):
         return rows[-1][1:]
     verts=[];faces=[];coords=[];ws=[];N=p['body']['rings'];R=p['body']['radial'];lo=p['body']['sections'][0][0];hi=p['body']['sections'][-1][0]
     for i in range(N):
-        u=lo+(hi-lo)*i/(N-1);top,bottom,depth=section(u)
+        u=p['body']['ring_positions'][i] if 'ring_positions' in p['body'] else lo+(hi-lo)*i/(N-1);top,bottom,depth=section(u)
         for j in range(R):
             angle=math.tau*j/R;v=(top+bottom)/2-(bottom-top)/2*math.cos(angle)
             verts.append(xyz(u,v,depth*math.sin(angle)))

@@ -1,0 +1,198 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "73ee411558848a91ae5c964ff9424d9a20a4293dc4e069f8df64314fd70b360d",
+  "profile": "resources/volume-fish/crucian-mouth-rounded-cap-20261031.profile.json",
+  "source": "projects\\fishing-2d\\experiments\\blender-fish\\models\\crucian\\082-source-inputs\\char_crucian_082_nobg.png",
+  "source_sha256": "6f15fce0ee7b2fcc747854a341a8f05017704dcb0f260a3df71912630de84959",
+  "source_size": [
+    1908,
+    1073
+  ],
+  "upper_inner_edge_px": [
+    [
+      1800,
+      665
+    ],
+    [
+      1815,
+      655
+    ],
+    [
+      1830,
+      651
+    ],
+    [
+      1845,
+      645
+    ],
+    [
+      1860,
+      633
+    ],
+    [
+      1875,
+      624
+    ],
+    [
+      1895,
+      620
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1800,
+      671
+    ],
+    [
+      1815,
+      667
+    ],
+    [
+      1830,
+      665
+    ],
+    [
+      1845,
+      658
+    ],
+    [
+      1860,
+      646
+    ],
+    [
+      1875,
+      636
+    ],
+    [
+      1895,
+      635
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "R2 complete own frontal chin/forehead color chart; material-only exterior scales extend donor across the entire anterior support region and preserve lateral source. Not a calibrated geometry/camera measurement.",
+  "front_color_image": {
+    "path": "projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+    "sha256": "763c6e90459005a9a820e9645566632afaa7daeae4366fa8ee50cab15c2bea5a",
+    "purpose": "Own crucian frontal mouth/chin color only; generated hole geometry was changed and is not used."
+  },
+  "front_upper_edge_px": [
+    [
+      480,
+      875
+    ],
+    [
+      503,
+      749
+    ],
+    [
+      555,
+      678
+    ],
+    [
+      620,
+      624
+    ],
+    [
+      681,
+      598
+    ],
+    [
+      749,
+      591
+    ],
+    [
+      817,
+      598
+    ],
+    [
+      885,
+      625
+    ],
+    [
+      954,
+      684
+    ],
+    [
+      1002,
+      755
+    ],
+    [
+      1034,
+      875
+    ]
+  ],
+  "front_lower_edge_px": [
+    [
+      480,
+      875
+    ],
+    [
+      525,
+      803
+    ],
+    [
+      580,
+      808
+    ],
+    [
+      630,
+      835
+    ],
+    [
+      688,
+      853
+    ],
+    [
+      755,
+      858
+    ],
+    [
+      824,
+      851
+    ],
+    [
+      883,
+      832
+    ],
+    [
+      936,
+      805
+    ],
+    [
+      988,
+      805
+    ],
+    [
+      1034,
+      875
+    ]
+  ],
+  "front_camera": {
+    "model_scale": 0.20181634780386956,
+    "width_m": 0.025,
+    "focus_y_m": -0.007,
+    "aspect_h_over_w": 0.6888888888888889
+  },
+  "front_start_u": 0.925,
+  "front_full_u": 0.97,
+  "side_full": 0.35,
+  "side_original": 0.85,
+  "cap_start_u": 0.985,
+  "cap_full_u": 0.994,
+  "oral_depth_u": [
+    0.9433962264150944,
+    0.9931865828092243
+  ],
+  "upper_exterior_scale": 0.5,
+  "lower_exterior_scale": 0.25
+}

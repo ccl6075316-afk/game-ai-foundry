@@ -47,6 +47,19 @@ class PrepareSpecTests(unittest.TestCase):
             self.assertFalse(Path(ref['path']).is_absolute())
             self.assertEqual(ref['sha256'], sha(self.inputs[key]))
 
+    def test_utf8_parts_and_packing_on_non_utf8_hosts(self):
+        raw=json.loads(self.parts.read_text())
+        raw['parts'][0]['name']='鱼鳍·原像素'
+        self.parts.write_text(json.dumps(raw,ensure_ascii=False),encoding='utf8')
+        packing=self.inputs['packing_report']
+        report=json.loads(packing.read_text())
+        report['source_note']='像素画·nearest'
+        packing.write_text(json.dumps(report,ensure_ascii=False),encoding='utf8')
+        self.run_prepare()
+        spec=load_spec(self.output)
+        self.assertEqual(spec['parts'][0]['name'],'鱼鳍·原像素')
+        self.assertTrue(preflight(self.output)['ok'])
+
     def test_variable_clip_inventory_and_explicit_source_owner(self):
         path = self.inputs['reference_glb']
         doc, binary = read_glb(path)

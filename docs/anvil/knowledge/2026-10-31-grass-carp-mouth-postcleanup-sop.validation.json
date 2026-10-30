@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "command": "volume.sop-check",
+  "status": "done",
+  "next_action": "human_review",
+  "species": "grass_carp",
+  "review_sha256": "aab3e85d044203228bd57e0434720e7e2fe78f26d6a3676449d02efd9f6a3cbe",
+  "checker_sha256": "fb187d091355900db6466d70d295d445b888ff18305f1d68b2a10debdca6c45a",
+  "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+  "candidate_files": {
+    "source_image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\grass_carp\\082-source-inputs\\char_grass_carp_082_nobg.png",
+      "sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb"
+    },
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\fish.glb",
+      "sha256": "50b0b30d8932aebef6b68792c387c137af874b4821b8c49e31f5bf69910d93dc"
+    },
+    "species_profile": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\grass-carp-mouth-source-r4-20261031.profile.json",
+      "sha256": "53cffa28c9e13c6c69b8cd76e598ec533e4f55971724fa2f0ad77b7a2ede64b7"
+    },
+    "runtime_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\delivery-r4\\manifest.json",
+      "sha256": "5083c210f132a0d21b81a8db348c348696c9a79b04cf6de556f3c07c658cdba6"
+    },
+    "motion_config": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\grass_carp-reference-cage-native-motion-20261030.json",
+      "sha256": "e9c7458ff52e3ad4236a771206d89c3bec53d036b0725a2e865871498d46d668"
+    },
+    "editable_source": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\source\\fish.blend",
+      "sha256": "e179a95fdff1673a4b172ef1953c4df9f406f25a0e2a394821a1b9889a3a7f3b"
+    },
+    "controller": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\scripts\\aquarium\\FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "viewer": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\portable\\FishAssetViewer.gd",
+      "sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3"
+    },
+    "body_skin": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\completed-body\\body-source.png",
+      "sha256": "f4c40944a17ba7121babdd5c53f89208bd78ecda80e1fe20002c5b31859dc3d5"
+    },
+    "front_color": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\generated.png",
+      "sha256": "804e0036627c5464cd23031f1818bb099149b2daac5c7bfb08f3f7c321902a7e"
+    },
+    "front_assets_manifest": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-aux\\assets-manifest.json",
+      "sha256": "c316e0789ebc850e3cd936e6f39f638cc891af31f04cfb90a961ce17c7294e6d"
+    },
+    "mouth_source_boundaries": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\source-boundaries-r4.json",
+      "sha256": "27ec7c81eda0a59bb67ef1142ce15041ccadf44b0182c26d298e99040f54069a"
+    },
+    "mouth_surface_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\front-surface-plan-r4.json",
+      "sha256": "52e7ce225f657de7155db2008f5215ba6e6f1bf0bc1b38b3253548be98d48773"
+    },
+    "final_spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\candidate-r4\\source-run\\final-spec.json",
+      "sha256": "387e79277a218e4a735f01487b512864754de5607a052b7509be1899471e67fe"
+    }
+  },
+  "stages": [
+    {
+      "stage": "preparation",
+      "ok": true
+    },
+    {
+      "stage": "head",
+      "ok": true
+    },
+    {
+      "stage": "mouth",
+      "ok": true
+    },
+    {
+      "stage": "eyes",
+      "ok": true
+    },
+    {
+      "stage": "skin",
+      "ok": true
+    },
+    {
+      "stage": "fins",
+      "ok": true
+    },
+    {
+      "stage": "motion",
+      "ok": true
+    },
+    {
+      "stage": "runtime",
+      "ok": true
+    },
+    {
+      "stage": "presentation",
+      "ok": true
+    }
+  ],
+  "evidence_count": 51,
+  "failures": [],
+  "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+}

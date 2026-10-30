@@ -1,0 +1,251 @@
+{
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "blend_sha256": "1e118d7bfb2e7125d0b927dba2329282b5bbec0299a9a8febb74b460a7e38fe5",
+  "profile": "resources/volume-fish/bluegill-reference-cage-20261030.profile.json",
+  "source": "projects\\fishing-2d\\output\\char_29c3596e8d_nobg.png",
+  "source_sha256": "bfba9d8f51fa664de911d3396cc8aa48c6a0e0654a23ea41ae6b71c8e9cfea77",
+  "source_size": [
+    1477,
+    868
+  ],
+  "upper_inner_edge_px": [
+    [
+      1355,
+      537
+    ],
+    [
+      1370,
+      534
+    ],
+    [
+      1385,
+      514
+    ],
+    [
+      1400,
+      495
+    ],
+    [
+      1420,
+      476
+    ],
+    [
+      1440,
+      463
+    ],
+    [
+      1460,
+      455
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1355,
+      539
+    ],
+    [
+      1370,
+      542
+    ],
+    [
+      1385,
+      531
+    ],
+    [
+      1400,
+      515
+    ],
+    [
+      1420,
+      499
+    ],
+    [
+      1440,
+      490
+    ],
+    [
+      1460,
+      482
+    ]
+  ],
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "Bluegill lip source transport and bounded interocular material only.1494triangles and original geometry/fins unchanged. No new generated eye/lateral/mouth or geometry use.",
+  "skin_band_px": 24,
+  "blend_px": 5,
+  "start_u": 0.916723087339201,
+  "donor_end_x": 1440,
+  "front_blend_start_px": 1420,
+  "front_blend_full_px": 1450,
+  "oral_donor_start_px": 1385,
+  "front_color_image": {
+    "path": "projects/fishing-2d/experiments/bluegill-portable-trial-20261030/mouth-repair-20261031/front-aux/generated.png",
+    "sha256": "6efb421a6aa06be73c31b32fedd97a05ea3e5dab62b36065b658e11d048df6c1",
+    "purpose": "Material-only artistic front-color donor. Geometry/pixel registration failed and is not adopted. Semantic upper/lower rims transported by actual3D boundary arc, preserve source-side joins and all geometry."
+  },
+  "front_upper_edge_px": [
+    [
+      456,
+      865
+    ],
+    [
+      488,
+      680
+    ],
+    [
+      538,
+      506
+    ],
+    [
+      594,
+      402
+    ],
+    [
+      654,
+      343
+    ],
+    [
+      701,
+      318
+    ],
+    [
+      814,
+      318
+    ],
+    [
+      859,
+      343
+    ],
+    [
+      918,
+      402
+    ],
+    [
+      974,
+      506
+    ],
+    [
+      1019,
+      680
+    ],
+    [
+      1048,
+      865
+    ]
+  ],
+  "front_lower_edge_px": [
+    [
+      456,
+      865
+    ],
+    [
+      506,
+      731
+    ],
+    [
+      563,
+      639
+    ],
+    [
+      629,
+      574
+    ],
+    [
+      696,
+      537
+    ],
+    [
+      814,
+      537
+    ],
+    [
+      881,
+      574
+    ],
+    [
+      947,
+      639
+    ],
+    [
+      1005,
+      731
+    ],
+    [
+      1048,
+      865
+    ]
+  ],
+  "preserve_side_pixels": true,
+  "cap_blend_start_u": 0.985,
+  "cap_blend_full_u": 0.992,
+  "front_camera": {
+    "model_scale": 0.19269603490829468,
+    "width_m": 0.027,
+    "focus_y_m": -0.00578088,
+    "aspect_h_over_w": 0.6888888888888889
+  },
+  "front_start_u": 0.915,
+  "front_full_u": 0.96,
+  "side_full": 0.35,
+  "side_original": 0.8,
+  "cap_start_u": 0.985,
+  "cap_full_u": 0.992,
+  "oral_depth_u": [
+    0.9174001354096141,
+    0.988490182802979
+  ],
+  "lip_source_transport": {
+    "skin_band_px": 18,
+    "blend_px": 6,
+    "source_start_x": 1355,
+    "source_end_x": 1460,
+    "side_full": 0.4,
+    "side_original": 0.85,
+    "cap_start_u": 0.985,
+    "cap_full_u": 0.992,
+    "transport_oral": false,
+    "inner_lip_return_px": 3,
+    "inner_lip_fade_px": 3,
+    "inner_lip_source_across_scale": 0.5
+  },
+  "interocular_material": {
+    "image": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\lip-color-followup\\fullhead-aux\\generated.png",
+      "sha256": "802aedb0b9c0388d4a3b545a449947fdf676c37609fa3d968d6cb41557c1600c"
+    },
+    "roi_px": [
+      400,
+      130,
+      740,
+      610
+    ],
+    "head_start_u": 0.8,
+    "head_full_u": 0.87,
+    "side_full": 0.25,
+    "side_original": 0.65,
+    "source_v_top": 0.26,
+    "source_v_bottom": 0.51,
+    "source_v_fade_start": 0.48,
+    "source_v_fade_end": 0.54,
+    "purpose": "User authorized central interocular pixels only; do not use generated eyes/lateral anatomy/mouth.",
+    "protected_target_source_rects_px": [
+      [
+        1220,
+        326,
+        1355,
+        466
+      ]
+    ],
+    "target_protection_fade_px": 12
+  },
+  "chart_start_u": 0.8
+}
