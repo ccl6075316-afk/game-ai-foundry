@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "kind": "four_fish_postcleanup_closeout",
+  "technical_operator_only": true,
+  "checks": {
+    "crucian-postcleanup.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\crucian-postcleanup.validation.json",
+      "sha256": "0b282b3793cd8675108ead7898e4c5a3f74a4865e040021952cd856607875407"
+    },
+    "grass-postcleanup.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\grass-postcleanup.validation.json",
+      "sha256": "6e3bb01813450d61755038e7ee81969b3c24b285719102ee8ee465723994ed50"
+    },
+    "bluegill-postcleanup.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\bluegill-postcleanup.validation.json",
+      "sha256": "c0c7532b9d60b37a77ffe18f58c51b8aaaf5ca4b7b10f8168f6f70a61711adaa"
+    },
+    "crucian-preservation-fast.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\crucian-preservation-fast.validation.json",
+      "sha256": "31bf597b3a154f0341835064b4dd263c38165194c39e405313761ad1d900d136"
+    },
+    "grass-carp-preservation-fast.validation.json": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\grass-carp-preservation-fast.validation.json",
+      "sha256": "b0c9bdc7d6f25086e86fd13116b34fe74d04eba5427c8ac263671cfb91d76507"
+    }
+  },
+  "cleanup": {
+    "ok": true,
+    "kind": "four_fish_exact_experimental_cleanup",
+    "status": "done",
+    "plan": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\retention-plan-v2.json",
+      "sha256": "ce6b41b9b779f350f7cf6d164a34831a3865be9ec0e49cd052503fe61b40046f"
+    },
+    "pushed_baselines": {
+      "E:\\game-ai-foundry": "30566b1202e9ecabe691221854f5c1706c673f7c",
+      "E:\\game-ai-foundry\\projects\\fishing-2d": "cc12024727d952f7ac2cb87c0e4a8892ab9ee91f"
+    },
+    "removed_files": 2486,
+    "removed_bytes": 821294356,
+    "scope": "Current transitive file dependencies, accepted prior baselines, actual opening/mask negatives, all numeric/history records, representative failed views and current complete visual evidence retained. Unadopted candidate binaries/duplicate views are retired, not reclassified as accepted. No original source directory or unrelated experiment touched.",
+    "current_authoritative_dependencies_prechecked": true,
+    "tracked_files_deleted": 0,
+    "remaining_files": 4152,
+    "remaining_bytes": 651112281,
+    "unplanned_files": 0
+  },
+  "user_acceptance_scope": "Nile R11 whole fish previously accepted; Crucian/Grass R4 geometry/mouth previously closed, central-only extension authorized; Blue R15 central method liked, no invented whole-fish acceptance.",
+  "tests": {
+    "portable": 70,
+    "new_cleanup": 3,
+    "cli_volume": 151,
+    "cli_environment_skips": 4
+  },
+  "optimized_source_compare_actual_seconds": {
+    "crucian": 2.05,
+    "grass_carp": 1.72
+  },
+  "current_stage": "Current four assets/lesson consolidation committed and pushed before exact cleanup; commit/push this additional cleanup receipt before next fish."
+}
