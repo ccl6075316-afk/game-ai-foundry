@@ -1,0 +1,107 @@
+{
+  "species": "nile_tilapia",
+  "body": "Closed_body_B",
+  "runtime_length_cm": 40,
+  "whole_fish_triangle_limit": 2000,
+  "preferred_triangle_limit": 1500,
+  "max_triangles_per_fin": 600,
+  "root_inset_mm": 0.1,
+  "new_point_clearance_mm": 0.15,
+  "root_collar_mm": 0.5,
+  "penetration_tolerance_mm": 0.02,
+  "static_refinement_min_signed_mm": -0.35,
+  "static_free_target_mm": -0.005,
+  "scope": "Species-specific construction settings, not an acceptance record. Explicit plan/model SHA gates; output directory must be experiment/work/output, never installed assets. Run fresh actual Godot/kernel validation after each approved stage.",
+  "stages": {
+    "basal": {
+      "input_model_sha256": "aa136d010a3a70c6651c4e470daad34aa66975749633550aaed7fc5e994b6c3f",
+      "targets": [
+        "Dorsal",
+        "Anal",
+        "Pectoral_left",
+        "Pectoral_right"
+      ]
+    },
+    "transition": {
+      "input_model_sha256": "5a9cc0e9ad2988756cf69485ece38f62001405844a7408f5232369231bc2ce94",
+      "targets": [
+        "Pectoral_left",
+        "Pectoral_right"
+      ],
+      "lateral_vertex_ids": [
+        38,
+        39,
+        40,
+        41
+      ],
+      "physical_lateral_shift_mm": 0.25,
+      "transition_edge_mm": 0.45,
+      "posed_collision_edges": [
+        [
+          38,
+          40
+        ],
+        [
+          39,
+          41
+        ],
+        [
+          41,
+          50
+        ]
+      ],
+      "minimum_LBS_normal_gain": 0.9654195988589436,
+      "original_minimum_normal_gap_mm": 0.4087176967599435,
+      "original_tangent_budget_mm": 0.18828129050770517
+    },
+    "envelope": {
+      "input_model_sha256": "98f44f5c9614f1bd701e9b50fff58d56595dee13b7cab860cf41620adac30629",
+      "target": "Pectoral_right",
+      "physical_lateral_shift_mm": 0.1,
+      "gltf_vertices": [
+        34,
+        35,
+        53,
+        54,
+        58,
+        59,
+        66,
+        67,
+        86,
+        99,
+        100,
+        113,
+        114
+      ],
+      "blend_vertices": [
+        18,
+        29,
+        32,
+        37,
+        50,
+        61,
+        62,
+        72
+      ],
+      "bound_report_sha256": "2df32ff6e23770f1b4c6fd3598ec8791aebf50fceaf2978a5a0a060fcf663c16",
+      "failed_pose_count": 14,
+      "failed_surface_samples": 142,
+      "minimum_LBS_normal_gain": 0.971473780488247,
+      "predicted_worst_linearized_clearance_mm": 0.04728430020927295
+    }
+  },
+  "source_normal_export": {
+    "attribute": "_FOUNDRY_NORMAL_GLTF",
+    "storage": "FLOAT_VECTOR CORNER glTF-local coordinates",
+    "geometry_guard": "guard-v2 includes positions/triangles/UV/skin/materials, object basis/world/parent inverse and armature rest binding; rejects all non-ARMATURE modifiers",
+    "normal_guard": "SHA256 of authored float corner values",
+    "authoring_helper": "resources/scripts/volume-fish/restore_fin_source_normals.py",
+    "supported_exporter": "resources/scripts/volume-fish/export_source_with_frozen_normals.py",
+    "read_only_verifier": "resources/scripts/volume-fish/verify_fin_source_reexport.py",
+    "normal_component_tolerance": 0.001,
+    "strict_component_report": 1e-06,
+    "ordinary_Blender_export": "May quantize viewport INT16_2D normal components; use guarded production exporter",
+    "target_model_sha256": "2e947fb4116f3dbdfc9128080efec0907c5cb87a7f4795e0a6f8bb87c8cf859a",
+    "winding": "Only three cyclic triangle rotations; reversed face negative rejected"
+  }
+}

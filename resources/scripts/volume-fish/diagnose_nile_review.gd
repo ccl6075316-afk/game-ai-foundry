@@ -1,6 +1,9 @@
 extends "preview_nile_three_live.gd"
 var audit_dir: String
 func _model_path(route: String) -> String:
+	if "--revision8" in OS.get_cmdline_user_args():
+		if route=="B":return directory.get_base_dir().path_join(("round7-upper-lip-continuity" if "--lip-pixel-before" in OS.get_cmdline_user_args() else "round8-upper-lip-pixel-clusters")+"/B-artifacts/fish.glb")
+		if route=="A":return directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
 	if "--revision7" in OS.get_cmdline_user_args():
 		if route=="B":return directory.get_base_dir().path_join("round7-upper-lip-continuity/B-artifacts/fish.glb")
 		if route=="A":return directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
@@ -9,15 +12,22 @@ func _model_path(route: String) -> String:
 	return super._model_path(route)
 func _run() -> void:
 	live=false;motion_paused=true
-	audit_dir=directory.get_base_dir().path_join("round7-upper-lip-continuity" if "--revision7" in OS.get_cmdline_user_args() else "round6-reference-repair" if "--revision6" in OS.get_cmdline_user_args() else "round5-user-review-fixes")
+	audit_dir=directory.get_base_dir().path_join("round8-upper-lip-pixel-clusters" if "--revision8" in OS.get_cmdline_user_args() else "round7-upper-lip-continuity" if "--revision7" in OS.get_cmdline_user_args() else "round6-reference-repair" if "--revision6" in OS.get_cmdline_user_args() else "round5-user-review-fixes")
+	if "--revision8" in OS.get_cmdline_user_args() and "--lip-pixel-only" in OS.get_cmdline_user_args():audit_dir=audit_dir.path_join("before" if "--lip-pixel-before" in OS.get_cmdline_user_args() else "after")
 	DirAccess.make_dir_recursive_absolute(audit_dir)
-	for route in ["Original","A","B"]:
+	for route in (["B"] if "--lip-pixel-only" in OS.get_cmdline_user_args() else ["Original","A","B"]):
 		var box := SubViewportContainer.new();box.stretch=false;root.add_child(box)
 		var entry: Dictionary=_load(route,box)
 		if entry.is_empty():quit(2);return
 		entry.view.size=Vector2i(900,620);entries.append(entry)
 	await process_frame
 	for entry in entries:entry.player.stop();entry.skeleton.reset_bone_poses();entry.carrier.transform=Transform3D.IDENTITY
+	if "--lip-pixel-only" in OS.get_cmdline_user_args():
+		zoom=.065;pan_offset=Vector3(.191,-.006,0)
+		for view in [{"name":"side","dir":Vector3(0,0,1)},{"name":"oblique","dir":Vector3(.8,.1,1)},{"name":"front","dir":Vector3(1,.02,0)}]:
+			_set_direction(view.dir);await _audit_capture("mouth-"+view.name)
+		FileAccess.open(audit_dir.path_join("diagnostic-cold-render.validation.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
+		print("NILE_LIP_PIXEL_DIAGNOSTIC_OK");quit();return
 	_set_direction(Vector3(0,0,1));zoom=.52;pan_offset=Vector3.ZERO
 	await _audit_capture("whole-before")
 	zoom=.14;pan_offset=Vector3(.081,-.04,0)
@@ -33,7 +43,7 @@ func _run() -> void:
 		_set_direction(view.dir)
 		await _audit_capture("mouth-before-"+view.name)
 		_set_gray(true);await _audit_capture("mouth-before-"+view.name+"-clay");_set_gray(false)
-		if view.name=="front" and "--revision7" in OS.get_cmdline_user_args():
+		if view.name=="front" and ("--revision7" in OS.get_cmdline_user_args() or "--revision8" in OS.get_cmdline_user_args()):
 			var b: Dictionary=entries[2];var bm: MeshInstance3D=b.model.find_child("Closed_body_B",true,false)
 			var mat: StandardMaterial3D=bm.mesh.surface_get_material(0);var previous: Texture2D=mat.albedo_texture
 			mat.albedo_texture=ImageTexture.create_from_image(Image.load_from_file(audit_dir.path_join("upper-lip-marked-atlas.png")))
@@ -54,6 +64,7 @@ func _audit_capture(label: String) -> void:
 	if "--after" in OS.get_cmdline_user_args():label=label.replace("before","after")
 	if "--revision6" in OS.get_cmdline_user_args():label=label.replace("before","current")
 	if "--revision7" in OS.get_cmdline_user_args():label=label.replace("before","current")
+	if "--revision8" in OS.get_cmdline_user_args():label=label.replace("before","current")
 	_cameras();await process_frame;await RenderingServer.frame_post_draw
 	for entry in entries:
 		var path := audit_dir.path_join(entry.route+"-"+label+".png")

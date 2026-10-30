@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "kind": "fish_material_performance_experiment_profile",
+  "species": "nile_tilapia",
+  "state": "measured_isolated_experiment_not_installed",
+  "original_reviewed_asset": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round9-fin-clearance/final-B-artifacts/fish.glb",
+  "original_sha256": "2e947fb4116f3dbdfc9128080efec0907c5cb87a7f4795e0a6f8bb87c8cf859a",
+  "candidate_directory": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/candidates-v2",
+  "candidate_sha256": {
+    "merged-mask.glb": "b8a7794a87803aa0e01fa56a071a6166f9699f5f9bd2199acefb2d60dee16cec",
+    "merged-opaque.glb": "ec57d720629f015dd0781584388afb9c45fc959910fddc050900d63f1f1f1c37"
+  },
+  "geometry": {
+    "triangles": 1710,
+    "vertices": 1465,
+    "bones": 18,
+    "baseline_surfaces": 9,
+    "candidate_surfaces": 1,
+    "disconnected_parts_preserved": true,
+    "no_added_triangles": true
+  },
+  "materials": {
+    "atlas_native_pixel_size": [
+      2048,
+      2048
+    ],
+    "padding_px": 3,
+    "filter": "nearest without mipmaps",
+    "RGB_resampling": false,
+    "virtual_UV_crops": "Original sampler repeat/clamp domains, including body UV outside0..1, are expanded into atlas pixels before affine UV remap.",
+    "body_opacity": "Source OPAQUE material semantics preserved by alpha255 in its atlas region even in merged MASK control.",
+    "constant_mouth_color": "Textureless original linear factor encoded as padded sRGB8 atlas color. Explicit byte quantization is measured; no COLOR_0 or runtime recolor dependency.",
+    "float32_UV_limit": "4 nearest-boundary RGBA mismatches among210688 triangle-interior diagnostic samples, max address error0.000060918 originalpx. Not mathematical sampling equivalence."
+  },
+  "benchmark": {
+    "matrix": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/benchmark/controlled-v1",
+    "counts": [
+      100,
+      300,
+      1000
+    ],
+    "modes": [
+      "static",
+      "actual bone-controller motion"
+    ],
+    "variants": [
+      "baseline9",
+      "merged-mask",
+      "merged-opaque"
+    ],
+    "rounds": 2,
+    "second_round_variant_order_reversed": true,
+    "warmup_frames": 15,
+    "measured_frames_per_case": 60,
+    "viewport": [
+      1280,
+      720
+    ],
+    "rendering_method": "gl_compatibility",
+    "rendering_driver": "opengl3",
+    "vsync": "N/A: not explicitly measured/set for this controlled protocol; no buffer swap",
+    "real_length_cm": 40,
+    "fixed_simulation_delta_seconds": "1/60",
+    "model_scale": 0.402819722890854,
+    "layout": "Same40x25 slots,0.45x0.34m spacing andcamera, actualcontroller restoredtofixedhomeafterstep; shadows/water/AI/collision/automaticLOD disabled.",
+    "window_validity": "Ownwindowminimized/can_drawfalse is expected. Actual75drawsignals, per-sample1draw and exacttriangle/drawcounters, firstlastpose+GPUimage change verify real work.",
+    "rejected_window_matrices": [
+      "benchmark/matrix-v2",
+      "benchmark/matrix-v3"
+    ],
+    "adopted_method": "Controlled actualOpenGL GPU: automatic render loop disabled, one force_draw(false) and synchronous get_image per sample. Each60sample/15warmup,2rounds,36validatedcases; final3variantblockexplicitretry2afterinvalidwindowpostcondition.",
+    "swap_buffers": false,
+    "automatic_render_loop": false,
+    "readback_every_step": true,
+    "own_window_minimized": true,
+    "always_on_top": false,
+    "gpu_timer_available": false
+  },
+  "known_failed_attempts": [
+    "Original COLOR_0 constant mouth was ignored by actual Godot material.vertex_color_use_as_albedo=false and rendered white. Failed candidates and actual view evidence are retained.",
+    "matrix-v2 fourthcase became nondrawable and matrix-v3 fourthcase OS minimized despitealways-on-top; entirepartialmatrices excluded from final interpretation."
+  ],
+  "measurement_scope": "Completed independentlyvalidatedcontrolledactualGPU matrix only. Step includes forceddraw+wholeimage synchronousreadback; notFPS or pureGPU. MissingGPUtimer staysmissing. Zeroaddedface alpha control cannotcompare addedface cost.",
+  "delivery_limits": "No new editable blend, final source export/SOP approval, production replacement or whole-fish user approval is created by this profile. R9 remains the reviewed asset.",
+  "secondary_model": "PI runtime not located in three explicit roots; no new PI/DeepSeek/Kimi call or Codex token-saving claim.",
+  "result_reports": {
+    "validation-report.json": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/validation-report.json",
+      "sha256": "3a8d7ea5b4b5f063b48fa8ca411074172c2690ec43c31f42e174bfdb389efbb4"
+    },
+    "performance-review.md": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/performance-review.md",
+      "sha256": "474cd92054d6403ddf084466bb4d2843431ce7dbe32efff33809588b21c8a68d"
+    }
+  },
+  "alpha_mode_result": {
+    "count": 1000,
+    "mode": "motion",
+    "pooled_controlled_step_P50_reduction_percent": 0.6444030987330043,
+    "round_reductions_percent": [
+      -0.6597872573294193,
+      2.2034037486399383
+    ],
+    "conclusion": "No stable measured benefit fromdisablingcutout inthisexperiment. Doesnotjustifyblindfaceaddition; notproofthat addedfaces are alwaysmoreexpensive."
+  },
+  "material_packing_result": {
+    "same_geometry": true,
+    "draws_per_fish": [
+      9,
+      1
+    ],
+    "motion_controlled_step_P50_reduction_percent": {
+      "100": 75.6154388083736,
+      "300": 80.30670320404721,
+      "1000": 78.19597931769206
+    },
+    "scope": "Combinedmesh/surface/texturepackaging andcommonalpha pipeline, notpureGPU nor gameFPS."
+  },
+  "cleanup": {
+    "receipt": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/cleanup-execution.validation.json",
+    "receipt_sha256": "37a9e00489ce6fed2b17df2cdff71595b7b6abcfdc571681d6bb542fc7d423a7",
+    "removed_files": 168,
+    "removed_bytes": 45988084,
+    "kept": "Currentv2candidates, all144v3PNGs+6sheets+archivedsource, all36successfulcontrolledraw/execution/72PNG, failedcase/logs, uniquev1candidate and7white-mouthfailureviews."
+  },
+  "review": {
+    "independent": "All36cases/2160raw/432inputs/72PNG/tworounds/retry reviewedPASS; currentv2mouthnearparityactualGPU reviewpassed. Notwholefishuseracceptance.",
+    "record": ".ai/anvil/reviews/2026-10-30-nile-material-performance-review.md"
+  }
+}

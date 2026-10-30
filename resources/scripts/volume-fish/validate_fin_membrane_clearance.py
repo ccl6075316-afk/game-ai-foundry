@@ -27,6 +27,12 @@ def main():
         if 'mouth_candidate' in spec:
             assert exp['candidate_input_sha256']==spec['mouth_candidate']['frozen_inputs'],'Different frozen candidate'
             for path,h in spec['mouth_candidate']['frozen_inputs'].items():assert sha(path)==h,'Stale frozen candidate'
+        packed_bindings={}
+        if spec.get('packed_parts_manifest'):
+            packed_bindings={spec['packed_parts_manifest']:spec['packed_parts_manifest_sha256'],str(scripts/'PackedFishValidation.gd'):sha(scripts/'PackedFishValidation.gd'),str(scripts/'packed_fish_parts.py'):sha(scripts/'packed_fish_parts.py')}
+            assert all(sha(path)==h for path,h in packed_bindings.items()), 'Stale packed partition input'
+            assert exp['packed_parts_manifest_sha256']==spec['packed_parts_manifest_sha256'] and exp['packed_helper_sha256']==sha(scripts/'PackedFishValidation.gd'), 'Stale packed runtime partition mapping'
+            assert exp['packed_partition_proof']['ok'] and exp['packed_partition_proof']['model_sha256']==spec['model_sha256'], 'Incomplete packed import proof'
         export_hash=sha(export)
         checks=[]
         for checker,label,extra in [('check_runtime_fin_attachment.py','roots',['--tolerance-cm','.10','--max-penetration-cm','.60']),('check_fin_membrane_collision.py','membranes',['--root-collar-mm',str(limits['root_collar_mm']),'--penetration-tolerance-mm',str(limits['penetration_tolerance_mm'])])]:
@@ -44,6 +50,7 @@ def main():
             assert data['checker_sha256']==sha(scripts/checker),'Checker changed during validation'
         assert sha(export)==export_hash,'Posed export changed during checks'
         result={'ok':all(x['ok'] for x in checks),'species':a.species,'poses':490,'checks':checks,'plan_sha256':sha(a.plan),'model_sha256':sha(spec['model']),'exporter_sha256':sha(exporter),'export_sha256':export_hash,'reused_complete_export':a.reuse_export,'limit':'Discrete time and whole-surface samples; only frozen root seam collar excepted; not continuous collision proof.'}
+        if packed_bindings:result['packed_validation_bindings']=packed_bindings
     except Exception as e:result={'ok':False,'error':str(e)}
     (a.output/'completion.validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf8');print(json.dumps(result));return 0 if result['ok'] else 1
 if __name__=='__main__':sys.exit(main())

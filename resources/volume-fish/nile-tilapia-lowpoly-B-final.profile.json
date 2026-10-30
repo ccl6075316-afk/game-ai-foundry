@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "kind": "fish_B_authoring_recipe",
+  "species": "nile_tilapia",
+  "scientific_name": "Oreochromis niloticus",
+  "real_length_cm": 40,
+  "length_basis": "Existinggame reportedwholefish, notsame-individualTL/SLmeasurement",
+  "method": "Reference-image sparsebodycage + independentfins + integratedjawcut + offlineauthoredpixelmaterials",
+  "generic_volume_build_supported": false,
+  "body": {
+    "sections": [
+      [
+        0.149,
+        0.37448559670781895,
+        0.6141975308641975,
+        0.0031500615999999998
+      ],
+      [
+        0.17,
+        0.37448559670781895,
+        0.6121399176954733,
+        0.008164139378381164
+      ],
+      [
+        0.2,
+        0.37448559670781895,
+        0.6080246913580247,
+        0.017984233042513592
+      ],
+      [
+        0.235,
+        0.3395061728395062,
+        0.6244855967078189,
+        0.023833332329830575
+      ],
+      [
+        0.27,
+        0.3045267489711934,
+        0.6563786008230452,
+        0.029666666776131147
+      ],
+      [
+        0.31,
+        0.2602880658436214,
+        0.6995884773662552,
+        0.03633332977475005
+      ],
+      [
+        0.35,
+        0.23045267489711935,
+        0.7325102880658436,
+        0.0422857140744348
+      ],
+      [
+        0.39,
+        0.20473251028806586,
+        0.7654320987654321,
+        0.04796771326719082
+      ],
+      [
+        0.43,
+        0.18930041152263374,
+        0.7860082304526749,
+        0.0525714307807608
+      ],
+      [
+        0.47,
+        0.17386831275720166,
+        0.7942386831275721,
+        0.05657142913865639
+      ],
+      [
+        0.51,
+        0.16049382716049382,
+        0.808641975308642,
+        0.058857142228062834
+      ],
+      [
+        0.55,
+        0.14917695473251028,
+        0.8168724279835391,
+        0.060285714425378986
+      ],
+      [
+        0.6,
+        0.14094650205761317,
+        0.8199588477366255,
+        0.06094042942918831
+      ],
+      [
+        0.65,
+        0.1440329218106996,
+        0.815843621399177,
+        0.05957142842509983
+      ],
+      [
+        0.7,
+        0.15534979423868311,
+        0.8045267489711934,
+        0.05685714034541088
+      ],
+      [
+        0.75,
+        0.1779835390946502,
+        0.7849794238683128,
+        0.05283333288609168
+      ],
+      [
+        0.8,
+        0.22016460905349794,
+        0.75,
+        0.04693330869909838
+      ],
+      [
+        0.84,
+        0.2664609053497942,
+        0.7160493827160493,
+        0.040755763157552236
+      ],
+      [
+        0.88,
+        0.31893004115226337,
+        0.6800411522633745,
+        0.035506895991387656
+      ],
+      [
+        0.91,
+        0.3611111111111111,
+        0.6491769547325102,
+        0.03229827901396547
+      ],
+      [
+        0.94,
+        0.404320987654321,
+        0.5977366255144033,
+        0.026962270485032497
+      ],
+      [
+        0.965,
+        0.4415200617283951,
+        0.5655956790123456,
+        0.0221752528568751
+      ],
+      [
+        0.98,
+        0.4654049382716049,
+        0.5483237654320987,
+        0.015181210869107956
+      ],
+      [
+        0.9905,
+        0.49882916666666655,
+        0.5369597222222221,
+        0.006636638476868194
+      ],
+      [
+        0.9922225045204163,
+        0.5317169702859572,
+        0.5338353344834881,
+        0.0007474732367769275
+      ]
+    ],
+    "radial_points": 16,
+    "jaw_cut_profile": [
+      [
+        0.9405,
+        -0.029081259561448268,
+        -0.02898125956144827
+      ],
+      [
+        0.944,
+        -0.030729041305456443,
+        -0.028029041305456446
+      ],
+      [
+        0.95,
+        -0.02682460479347274,
+        -0.02247460479347274
+      ],
+      [
+        0.965,
+        -0.01811351351351351,
+        -0.012863513513513511
+      ],
+      [
+        0.98,
+        -0.012102422233554282,
+        -0.005802422233554282
+      ],
+      [
+        0.987,
+        -0.010947246302906655,
+        -0.0029972463029066553
+      ],
+      [
+        0.9905,
+        -0.011119658337582813,
+        0.00013034166241718617
+      ],
+      [
+        1.0323225045204163,
+        -0.011119658337582813,
+        0.00013034166241718617
+      ]
+    ],
+    "final_triangles": 904,
+    "dimension_basis": "R6 artistic/A-measured envelope; not biologicalmeasuredwidth"
+  },
+  "fins": {
+    "inventory": [
+      "Dorsal",
+      "Anal",
+      "Caudal",
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "structure": "Ray/spine/membrane regions distinguished in anatomyplan; fine rays/spines representedinpixeltexture",
+    "native_plan": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round2/fin-build.plan.json",
+      "sha256": "f45f8e94903ab59983a757e1901ff95f61bb4859302a08a4b41dcd6ada54e393"
+    },
+    "finite_contact_recipe": {
+      "path": "resources/volume-fish/nile-tilapia-fin-clearance-20261030.json",
+      "sha256": "0d3a0f72ce398e123b496e27841c06a67c481957d1b69b0796f78f00abe90631"
+    },
+    "source_microtips_approximated": true
+  },
+  "materials": {
+    "atlas_size": [
+      1961,
+      1024
+    ],
+    "sampling": "nearest",
+    "roughness": 1,
+    "metallic": 0,
+    "body_opacity": "OPAQUE",
+    "fins_alpha": "MASK0.5",
+    "mouth_brush_native_px": 6,
+    "upper_lip_plan": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round8-upper-lip-pixel-clusters/upper-lip-paint.plan.json",
+      "sha256": "01d6fd20c6b1e1ba9bf4e8b52862bfa25d76d2e80b8beaee64a71c24c712fba7"
+    },
+    "source_derived_atlas_provenance": "Retained2Dskin/directdonormaps; authoredatlas isdeclaredderivedmaterial, not originalcanonicalRGBA"
+  },
+  "budget": {
+    "preferred": 1500,
+    "hard": 2000,
+    "actual": 1710,
+    "body": 904,
+    "fins": 806,
+    "flat_painted_eyes": true
+  },
+  "runtime": {
+    "profile": "resources/volume-fish/motion/nile_tilapia-082.json",
+    "profile_sha256": "b82ece6c83d49601e983968ad3f7cbab42b71e650b0c06f5babb4dfe138730fc",
+    "controller": "projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+    "controller_sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+    "static_builder_required": false
+  },
+  "acceptance_scope": "Userexplicitlyacceptedmouth; fullassetoperatorSOPreview separately, no inferredwholefishuserapproval.",
+  "editable_source_export": {
+    "editable_source": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/nile-dorsal-route-trial/round9-fin-clearance/final-B-artifacts/fish.blend",
+      "sha256": "ba78cd884b3f01e79eb68a20aa9fc5df3cdc51dff61a3e6bab4ecb0015ec7591"
+    },
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/nile-dorsal-route-trial/round9-fin-clearance/final-B-artifacts/fish.glb",
+      "sha256": "2e947fb4116f3dbdfc9128080efec0907c5cb87a7f4795e0a6f8bb87c8cf859a"
+    },
+    "exporter": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/export_source_with_frozen_normals.py",
+      "sha256": "4038735dbe01b31b2aabc5aaa420e0a32d60db9c6e342475f0c4dcc5301127d6"
+    },
+    "procedure": "Blender -b --python export_source_with_frozen_normals.py -- --blend <fish.blend> --output <new.glb> --report <report.json>",
+    "source_attribute": "_FOUNDRY_NORMAL_GLTF FLOAT_VECTOR/CORNER, signed with geometry/UV/skin/transforms/rest rig and stream hashes",
+    "ordinary_File_Export_equivalence_claimed": false,
+    "after_source_edit": "Reauthor normals and invalidate old guards/reports; do not bypass stale signatures."
+  }
+}

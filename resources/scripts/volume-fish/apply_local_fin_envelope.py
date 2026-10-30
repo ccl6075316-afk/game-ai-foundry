@@ -1,0 +1,22 @@
+"""Independent-review approved final actual-failure envelope correction; no topology change."""
+import bpy,copy,hashlib,json,struct,sys
+from pathlib import Path
+from mathutils import Vector
+import argparse
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--plan',type=Path,required=True);p.add_argument('--config',type=Path,required=True);p.add_argument('--output',type=Path,required=True);args=p.parse_args(sys.argv[sys.argv.index('--')+1:]);repo=Path(__file__).resolve().parents[3];sys.path.insert(0,str(Path(__file__).resolve().parent));config=json.loads(args.config.read_text());base=args.output.resolve();assert base.is_relative_to(repo)and any(x in ('work','output','experiments')for x in base.relative_to(repo).parts),'Output must be a repository work/output/experiment directory';assert not any((base/x).exists()for x in ('fish.glb','fish.blend')),'Refuse overwriting existing assets';base.mkdir(parents=True,exist_ok=True)
+from patch_existing_fin_meshes import read,write
+from repair_fin_clearance import values
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();plan=json.loads(args.plan.read_text());spec=next(x for x in plan['items']if x['species']==config['species']);assert spec['membrane_clearance']['root_collar_mm']==config['root_collar_mm']and spec['membrane_clearance']['penetration_tolerance_mm']==config['penetration_tolerance_mm'],'Frozen collision limits mismatch';old=Path(spec['model']).parent;source_blend=Path(spec['model']).with_suffix('.blend');out=base;stage=config['stages']['envelope'];bound=stage;assert sha(spec['model'])==stage['input_model_sha256'];d,b=read(spec['model']);original=bytes(b);scale=config['runtime_length_cm']/100/spec['length_native'];name=stage['target'];node=next(n for n in d['nodes']if n.get('name')==name and'mesh'in n);pr=d['meshes'][node['mesh']]['primitives'][0];pts=[list(p)for p in values(d,b,pr['attributes']['POSITION'])]
+for i in bound['gltf_vertices']:pts[i][2]-=stage['physical_lateral_shift_mm']/1000/scale
+# Append only this fin's positions and recomputed normals. The entire old BIN and allotheraccessors remain byte-exact.
+def put(index,rows):
+ a=copy.deepcopy(d['accessors'][index]);b.extend(b'\0'*(-len(b)%4));off=len(b)
+ for row in rows:b.extend(struct.pack('<fff',*row))
+ a.update(bufferView=len(d['bufferViews']),byteOffset=0,count=len(rows),min=[min(q[k]for q in rows)for k in range(3)],max=[max(q[k]for q in rows)for k in range(3)]);d['bufferViews'].append({'buffer':0,'byteOffset':off,'byteLength':len(b)-off});d['accessors'].append(a);return len(d['accessors'])-1
+pr['attributes']['POSITION']=put(pr['attributes']['POSITION'],pts);ids=[q[0]for q in values(d,b,pr['indices'])];normals=[Vector()for _ in pts]
+for k in range(0,len(ids),3):
+ a,c,e=ids[k:k+3];n=(Vector(pts[c])-Vector(pts[a])).cross(Vector(pts[e])-Vector(pts[a]))
+ for i in(a,c,e):normals[i]+=n
+pr['attributes']['NORMAL']=put(pr['attributes']['NORMAL'],[tuple(n.normalized())if n.length>1e-12 else(0,0,1)for n in normals]);assert b[:len(original)]==original;write(out/'fish.glb',d,b);spec.update(model=str(out/'fish.glb'),model_sha256=sha(out/'fish.glb'));plan['scope']='Final reviewed right-only .10mm physical lateral correction to all full490 failure-envelope vertices; no topology/UV/weights/rootselection changes. All7 frozen root selections and fixed.5mm/.02mm gates retained.';(out/'fin-gate.plan.json').write_text(json.dumps(plan,indent=2));bpy.ops.wm.open_mainfile(filepath=str(source_blend));ob=bpy.data.objects[name]
+for i in bound['blend_vertices']:ob.data.vertices[i].co.y+=stage['physical_lateral_shift_mm']/1000/scale
+ob.data.update();from restore_fin_source_normals import apply_frozen_normals;source_normal_records=apply_frozen_normals(out/'fish.glb',[stage['target']]);bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'));report={'ok':True,'triangles':1710,'model_sha256':sha(out/'fish.glb'),'blend_sha256':sha(out/'fish.blend'),'base_model_sha256':stage['input_model_sha256'],'right_gltf_ids':bound['gltf_vertices'],'right_blend_ids':bound['blend_vertices'],'physical_lateral_shift_mm':stage['physical_lateral_shift_mm'],'bound_report_sha256':stage['bound_report_sha256'],'all_topology_UVs_weights_roots_unchanged':True,'all_other_meshes_materials_images_rig_animations_original_BIN_unchanged':True,'status':'Pending fresh actual-pose validation and final full gates'};(base/'final-envelope-repair.validation.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))

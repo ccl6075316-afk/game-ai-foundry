@@ -36,6 +36,7 @@ def main():
   try:
    assert len(items)==1,'Reuse requires one explicit species';r=items[0];source=json.loads(a.reuse_full490_completion.read_text());assert source['ok'] and source['poses']==490 and source['model_sha256']==sha(r['model'])==r['model_sha256']
    assert source['plan_sha256']==sha(a.plan) and source['exporter_sha256']==sha(exporter),'Different490 plan/exporter'
+   for path,h in source.get('packed_validation_bindings',{}).items():assert sha(path)==h,'Stale packed490 dependency'
    proof=next(x for x in source['checks']if x['check']=='roots');assert proof['ok'] and sha(proof['report'])==proof['sha256'];value=json.loads(Path(proof['report']).read_text());assert value['ok'] and len(value['samples'])==490 and value['checker_sha256']==sha(script/'check_runtime_fin_attachment.py') and value['export_script_sha256']==sha(exporter)
    assert value['coverage_checker_sha256']==sha(script/'runtime_pose_coverage.py') and value['tolerance_cm']==.10 and value['max_penetration_cm']==.60,'Different coverage or root limits'
    assert value['export_report_sha256']==source['export_sha256']==sha(value['export_report']),'Stale490 posed export'

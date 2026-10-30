@@ -36,8 +36,15 @@ def main():
     plan=json.loads(args.plan.read_text(encoding='utf8'));rows=[]
     for item in plan['items']:
         path=Path(item['source'] if args.baseline else item['target'])
-        doc,blob=read_glb(path)
-        nodes=[n for n in doc['nodes'] if n.get('name')=='Closed_body' and 'mesh' in n]
+        model_sha=hashlib.sha256(path.read_bytes()).hexdigest()
+        expected_sha=item.get('source_sha256' if args.baseline else 'target_sha256')
+        if expected_sha is not None:assert model_sha==expected_sha,'Stale head-envelope model'
+        if item.get('packed_parts_manifest') and not args.baseline:
+            from packed_fish_parts import logical_document
+            assert hashlib.sha256(Path(item['packed_parts_manifest']).read_bytes()).hexdigest()==item['packed_parts_manifest_sha256']
+            doc,blob,_=logical_document(path,item['body'],item['fins'])
+        else:doc,blob=read_glb(path)
+        nodes=[n for n in doc['nodes'] if n.get('name')==item.get('body','Closed_body') and 'mesh' in n]
         assert len(nodes)==1,'Ambiguous/missing reviewed body mesh'
         assert not any(k in nodes[0] for k in ['matrix','translation','rotation','scale'])
         triangles=[]
@@ -58,7 +65,7 @@ def main():
                            'error_native':measured-half_width,
                            'ok':abs(measured-half_width)<=tolerance})
         rows.append({'species':item['species'],'model':str(path),
-                     'model_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                     'model_sha256':model_sha,
                      'ok':all(x['ok'] for x in checks),'sections':checks})
     result={'ok':bool(rows) and all(x['ok'] for x in rows),'baseline_negative':args.baseline,
             'plan_sha256':hashlib.sha256(args.plan.read_bytes()).hexdigest(),

@@ -31,6 +31,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 根据问题读取维护中的知识
 
+- 已定型鱼做材质/补色从Godot回源、图集/单surface合并、源冷导出，或准备把此方法用于下一鱼：先读[单图集源固化完整SOP](references/single-material-source-finalization.md)。按输入卡→工具适配→候选→源→冷导出→冻结→一次完整门→实际图审/入口→SOP→清理执行。当前部分工具含罗非鱼硬编码，须逐项判适配；不默认重跑性能矩阵，也不把本鱼面数/骨数/七鳍结构当通用参数。
+
 - 用户要求按视频对图快速建低面鱼，或进行A减面/B新建对照时：先读[参考图控制笼B执行卡](references/reference-cage-body.md)。必须实际看视频操作，保存链接、时间和融合后步骤，不能只把B概括为“低面/截面生成”后自行换方法。
 
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。

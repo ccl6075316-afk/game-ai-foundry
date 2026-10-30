@@ -18,7 +18,12 @@ def main():
  p.add_argument('--source-body-plan',type=Path,help='Exact validated-baseline body arrays/material plus RGB-only attachment wrapper; requires the143 preservation/GPU capture contract.')
  p.add_argument('--mouth-runtime-report',type=Path,help='Fresh actual139 replacement mesh/material/GPU report; checks the replacement rather than the original GLB body.')
  p.add_argument('--mouth-candidate-plan',type=Path,help='Frozen139 geometry, skinning and resource bindings required with --mouth-runtime-report.')
+ p.add_argument('--standalone-plan',type=Path,help='Frozen complete GLB, exact body/fin inventory and motion dependencies; cold GPU validation without the installed factory.')
  a=p.parse_args()
+ if a.standalone_plan:
+  if a.mouth_runtime_report or a.mouth_candidate_plan or a.source_body_plan:raise ValueError('Standalone validation cannot use installed/replacement body contracts')
+  from validate_standalone_body import validate
+  result=validate(a.game.resolve(),a.godot.resolve(),a.standalone_plan.resolve(),a.output.resolve());print(json.dumps({'ok':result['ok'],'error':result.get('error')}));return 0 if result['ok'] else 1
  if a.mouth_runtime_report:
   from validate_mouth_body139 import validate
   if not a.mouth_candidate_plan:raise ValueError('--mouth-candidate-plan is required for actual139 body validation')

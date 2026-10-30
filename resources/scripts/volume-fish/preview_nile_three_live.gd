@@ -14,13 +14,26 @@ var upper_lip_original_texture: Texture2D
 const ORIGINAL_SHA := "4ee2c552939b682463120b52e40f2f98e996c2dad8f91f9144ab7d6de51ad25a"
 
 func _live_directory() -> String:
+	if "--revision11" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round11-single-material-finalization")
+	if "--revision10" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round10-material-performance")
+	if "--revision9" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round9-fin-clearance")
+	if "--revision8" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round8-upper-lip-pixel-clusters")
 	if "--revision7" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round7-upper-lip-continuity")
 	if "--revision6" in OS.get_cmdline_user_args():return directory.get_base_dir().path_join("round6-reference-repair")
 	return directory.get_base_dir().path_join("round5-user-review-fixes") if "--revision5" in OS.get_cmdline_user_args() else directory
 
 func _model_path(route: String) -> String:
 	if route=="Original":return "res://assets/models/fish/nile_tilapia.glb"
-	if "--revision7" in OS.get_cmdline_user_args():return _live_directory().path_join("B-artifacts/fish.glb") if route=="B" else directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
+	if "--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args():
+		if route=="A":return directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
+		var candidate: String=_live_directory().path_join("final-artifacts/fish.glb" if "--revision11" in OS.get_cmdline_user_args() else "candidates-v2/merged-mask.glb")
+		assert(FileAccess.file_exists(candidate));return candidate
+	if "--revision9" in OS.get_cmdline_user_args():
+		if route=="A":return directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
+		var final_path: String=_live_directory().path_join("final-B-artifacts/fish.glb")
+		assert(FileAccess.file_exists(final_path),"Frozen final Nile B R9 model missing: "+final_path)
+		return final_path
+	if "--revision7" in OS.get_cmdline_user_args() or "--revision8" in OS.get_cmdline_user_args():return _live_directory().path_join("B-artifacts/fish.glb") if route=="B" else directory.get_base_dir().path_join("round6-reference-repair/A-artifacts/fish.glb")
 	if "--revision6" in OS.get_cmdline_user_args():return _live_directory().path_join(route+"-artifacts/fish.glb")
 	if "--revision5" in OS.get_cmdline_user_args():return _live_directory().path_join(route+"-artifacts/fish.glb")
 	return super._model_path(route)
@@ -34,7 +47,7 @@ func _load(route: String, container: SubViewportContainer) -> Dictionary:
 				var mat: StandardMaterial3D=mesh.mesh.surface_get_material(si)
 				mat.shading_mode=BaseMaterial3D.SHADING_MODE_PER_PIXEL
 				mat.roughness=1.;mat.metallic=0.;mat.metallic_specular=0.
-				if str(mesh.name)!="Closed_body" and str(mesh.name)!="Closed_body_B":mat.diffuse_mode=BaseMaterial3D.DIFFUSE_LAMBERT
+				if not (route=="B" and ("--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args())) and str(mesh.name)!="Closed_body" and str(mesh.name)!="Closed_body_B":mat.diffuse_mode=BaseMaterial3D.DIFFUSE_LAMBERT
 		return entry
 	assert(FileAccess.get_sha256(_model_path(route))==ORIGINAL_SHA)
 	var view := SubViewport.new();view.size=Vector2i(640,700);view.own_world_3d=true;view.mesh_lod_threshold=0.;view.render_target_update_mode=SubViewport.UPDATE_ALWAYS;container.add_child(view)
@@ -126,6 +139,7 @@ func _whole_fish() -> void:
 	_set_gray(false);_reset_view()
 
 func _fin_thickness_view() -> void:
+	if "--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args():return
 	_rest();_set_gray(true)
 	for entry in entries:
 		for mesh in entry.model.find_children("*","MeshInstance3D",true,false):
@@ -141,12 +155,13 @@ func _detail_view(part: String) -> void:
 	else:zoom=.14;pan_offset=Vector3(.161,.017,0);_set_direction(Vector3(0,1,.001));state_label.text="两眼之间额头对照"
 
 func _toggle_upper_lip_marking() -> void:
-	if not "--revision7" in OS.get_cmdline_user_args():return
+	if not ("--revision7" in OS.get_cmdline_user_args() or "--revision8" in OS.get_cmdline_user_args() or "--revision9" in OS.get_cmdline_user_args()):return
 	var body: MeshInstance3D=entries[2].model.find_child("Closed_body_B",true,false)
 	var mat: StandardMaterial3D=body.mesh.surface_get_material(0)
 	if upper_lip_original_texture==null:upper_lip_original_texture=mat.albedo_texture
 	upper_lip_marked=not upper_lip_marked
-	mat.albedo_texture=ImageTexture.create_from_image(Image.load_from_file(_live_directory().path_join("upper-lip-marked-atlas.png"))) if upper_lip_marked else upper_lip_original_texture
+	var marking_dir: String=directory.get_base_dir().path_join("round8-upper-lip-pixel-clusters") if "--revision9" in OS.get_cmdline_user_args() else _live_directory()
+	mat.albedo_texture=ImageTexture.create_from_image(Image.load_from_file(marking_dir.path_join("upper-lip-marked-atlas.png"))) if upper_lip_marked else upper_lip_original_texture
 	_detail_view("upper-lip")
 	state_label.text="B 青线：实际上唇边界（仅标定）" if upper_lip_marked else "上唇正面 · 实际材质"
 
@@ -226,37 +241,44 @@ func _run() -> void:
 	_button(views,"放大",func():zoom=clampf(zoom/1.25,.025,2.))
 	_button(views,"缩小",func():zoom=clampf(zoom*1.25,.025,2.))
 	_button(views,"复位",_reset_view)
-	_button(views,"鳍厚度（放大）",_fin_thickness_view)
+	# Old isolated-fin and marked-R8-atlas diagnostics do not apply to the packed atlas.
+	if not ("--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args()):_button(views,"鳍厚度（放大）",_fin_thickness_view)
 	_button(views,"完整鱼",_whole_fish)
 	state_label=Label.new();state_label.text="静止对照";views.add_child(state_label)
 	var details := HBoxContainer.new();details.alignment=BoxContainer.ALIGNMENT_CENTER;panel.add_child(details)
 	_button(details,"腹颈近看",_detail_view.bind("belly"))
 	_button(details,"嘴部近看",_detail_view.bind("mouth"))
 	_button(details,"额头近看",_detail_view.bind("forehead"))
-	if "--revision7" in OS.get_cmdline_user_args():
+	if "--revision7" in OS.get_cmdline_user_args() or "--revision8" in OS.get_cmdline_user_args() or "--revision9" in OS.get_cmdline_user_args():
 		_button(details,"上唇正面",_detail_view.bind("upper-lip"))
 		_button(details,"上唇标定线 开/关",_toggle_upper_lip_marking)
+	elif "--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args():_button(details,"上唇正面",_detail_view.bind("upper-lip"))
 	var row := HBoxContainer.new();row.size_flags_vertical=Control.SIZE_EXPAND_FILL;panel.add_child(row)
 	for route in ["Original","A","B"]:
 		var col := VBoxContainer.new();col.size_flags_horizontal=Control.SIZE_EXPAND_FILL;col.size_flags_stretch_ratio=1.;row.add_child(col)
-		var label := Label.new();label.text="原版 · 116,994 面" if route=="Original" else route+" · "+str(JSON.parse_string(FileAccess.get_file_as_string(_model_path(route).get_base_dir().path_join("validation.json"))).triangles)+" 面";label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;col.add_child(label)
+		var label := Label.new();label.text=route;label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;col.add_child(label)
 		var note := Label.new();note.text="原游戏材质 · 凸眼" if route=="Original" else "新材质 · 平面眼";note.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;col.add_child(note)
 		var frame := Control.new();frame.size_flags_vertical=Control.SIZE_EXPAND_FILL;frame.size_flags_horizontal=Control.SIZE_EXPAND_FILL;col.add_child(frame)
 		var box := SubViewportContainer.new();box.stretch=true;box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);box.mouse_filter=Control.MOUSE_FILTER_IGNORE;frame.add_child(box)
 		var loaded: Dictionary=_load(route,box)
 		if loaded.is_empty():push_error("Unable to load "+route);quit(2);return
 		entries.append(loaded)
+		var actual_inventory: Dictionary=report.models[-1]
+		label.text=("原版" if route=="Original" else route)+" · "+str(actual_inventory.triangles)+" 面"+(" · 单材质" if route=="B" and ("--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args()) else "")
 		var surface := Control.new();surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);surface.mouse_filter=Control.MOUSE_FILTER_STOP;frame.add_child(surface);surface.gui_input.connect(_input_surface);surfaces_ui.append(surface)
 	var help := Label.new();help.text="任一鱼画面：左键拖动旋转 · 滚轮缩放 · 右键 / 中键拖动平移 · 双击复位（三个视图同步）";help.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;panel.add_child(help)
 	await process_frame;_rest();_reset_view();_cameras()
 	for i in 3:await process_frame
-	await RenderingServer.frame_post_draw
+	if smoke:RenderingServer.force_draw(false)
+	else:await RenderingServer.frame_post_draw
 	var path := _live_directory().path_join("three-live-preview.png");assert(root.get_texture().get_image().save_png(path)==OK)
 	report["kind"]="nile_three_textured_live_review";report["ok"]=true;report["scope"]="Original exact game materials via178 saved binding; A/B own embedded new materials. Same lights/cameras, all static geometry read unchanged."
 	report["original_binding"]=original_receipt;report["screenshot_sha256"]=FileAccess.get_sha256(path);report["entry_script_sha256"]=FileAccess.get_sha256(get_script().resource_path)
 	FileAccess.open(_live_directory().path_join("three-live.validation.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
 	print("NILE_THREE_LIVE_READY")
-	if smoke:await _smoke_inputs()
+	if smoke:
+		await _smoke_inputs()
+		await _shutdown()
 
 func _smoke_inputs() -> void:
 	var center := surfaces_ui[1].get_global_rect().get_center()
@@ -277,11 +299,18 @@ func _smoke_inputs() -> void:
 	var result := {"ok":true,"via_root_input":true,"zoom":zoom,"yaw":yaw,"pitch":pitch,"pan_distance":pan_offset.length(),"synchronized_views":3}
 	for action in ["Swim","Turn","Ascend","Dive"]:
 		_action(action)
-		for entry in entries:entry.controller.step(.2)
+		for entry in entries:
+			entry.controller.step(.2)
+			assert(entry.controller.snapshot().action==action and entry.controller.snapshot().pending_action=="")
 		await process_frame
 	_native();_set_gray(true);_set_gray(false);_rest();_reset_view();_cameras()
-	_fin_thickness_view();await process_frame;_whole_fish();_rest()
-	if "--revision7" in OS.get_cmdline_user_args():
+	if "--revision11" in OS.get_cmdline_user_args() or "--revision10" in OS.get_cmdline_user_args():
+		var packed_meshes: Array=entries[2].model.find_children("*","MeshInstance3D",true,false)
+		assert(packed_meshes.size()==1 and packed_meshes[0].mesh.get_surface_count()==1 and packed_meshes[0].visible)
+		result["packed_full_entry_meshes"]=1;result["packed_full_entry_surfaces"]=1
+		result["incompatible_fin_isolation_and_R8_marked_atlas_disabled"]=true
+	else:_fin_thickness_view();await process_frame;_whole_fish();_rest()
+	if "--revision7" in OS.get_cmdline_user_args() or "--revision8" in OS.get_cmdline_user_args() or "--revision9" in OS.get_cmdline_user_args():
 		_toggle_upper_lip_marking();await process_frame;assert(upper_lip_marked)
 		_toggle_upper_lip_marking();await process_frame;assert(not upper_lip_marked)
 		result["upper_lip_marking_toggle"]=true

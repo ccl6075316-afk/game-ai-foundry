@@ -1,13 +1,21 @@
 """Apply the marked upper-lip UV islands and atlas; geometry/rig stay frozen."""
-import bpy,json,hashlib,struct
+import bpy,json,hashlib,struct,sys
 from pathlib import Path
-repo=Path(__file__).resolve().parents[3];trial=repo/'projects/fishing-2d/experiments/nile-dorsal-route-trial';out=trial/'round7-upper-lip-continuity';source=trial/'round6-reference-repair/B-artifacts/fish.blend';target=out/'B-artifacts';target.mkdir(exist_ok=True)
+repo=Path(__file__).resolve().parents[3];trial=repo/'projects/fishing-2d/experiments/nile-dorsal-route-trial';pixel_clusters='--pixel-clusters' in sys.argv;out=trial/('round8-upper-lip-pixel-clusters' if pixel_clusters else 'round7-upper-lip-continuity');source=trial/'round6-reference-repair/B-artifacts/fish.blend';target=out/'B-artifacts';target.mkdir(exist_ok=True)
 read=lambda p:json.loads(p.read_text(encoding='utf8'))
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 plan=read(out/'upper-lip-paint.plan.json');assert sha(source)==plan['source_blend']
+guide_path=trial/plan.get('guide_path','round7-upper-lip-continuity/upper-lip-guide.json');assert sha(guide_path)==plan['guide_sha256']
+assert bool(plan.get('pixel_clusters',False))==pixel_clusters
 def geometry(ob):return hashlib.sha256(repr(([tuple(v.co) for v in ob.data.vertices],[tuple(p.vertices) for p in ob.data.polygons],[[tuple((ob.vertex_groups[g.group].name,g.weight)) for g in v.groups] for v in ob.data.vertices])).encode()).hexdigest()
-bpy.ops.wm.open_mainfile(filepath=str(source));meshes=[ob for ob in bpy.context.scene.objects if ob.type=='MESH'];frozen={ob.name:geometry(ob) for ob in meshes};body=bpy.data.objects['Closed_body_B'];mesh=body.data
-before_uv={f.index:[tuple(mesh.uv_layers.active.data[li].uv) for li in f.loop_indices] for f in mesh.polygons};selected=set()
+bpy.ops.wm.open_mainfile(filepath=str(source))
+# Blender 4.x cannot retain the source 5.x EEVEE identifier. This changes only
+# the editable file's renderer setting, never the model or glTF materials.
+host_renderer_adjustment=None
+if pixel_clusters and bpy.app.version<(5,0,0):
+ bpy.context.scene.render.engine='BLENDER_EEVEE_NEXT';host_renderer_adjustment='Source Blender 5.0.1 UI may warn on this host; editable renderer set to BLENDER_EEVEE_NEXT.'
+meshes=[ob for ob in bpy.context.scene.objects if ob.type=='MESH'];frozen={ob.name:geometry(ob) for ob in meshes};body=bpy.data.objects['Closed_body_B'];mesh=body.data
+before_uv={f.index:[tuple(mesh.uv_layers.active.data[li].uv) for li in f.loop_indices] for f in mesh.polygons};selected=set();material_slots=[m.name for m in mesh.materials];face_materials=[f.material_index for f in mesh.polygons]
 for row in plan['patches']:
  face=mesh.polygons[row['face_index']];assert list(face.vertices)==row['vertices'] and face.material_index==0
  for li,uv in zip(face.loop_indices,row['uv']):mesh.uv_layers.active.data[li].uv=uv
@@ -16,6 +24,8 @@ for f in mesh.polygons:
  if f.index not in selected:assert before_uv[f.index]==[tuple(mesh.uv_layers.active.data[li].uv) for li in f.loop_indices]
 image=bpy.data.images.load(str(out/'upper-lip-continuous-atlas.png'),check_existing=False);image.pack();nodes=[n for n in mesh.materials[0].node_tree.nodes if n.type=='TEX_IMAGE'];assert len(nodes)==1;nodes[0].image=image
 assert frozen=={ob.name:geometry(ob) for ob in meshes}
+assert material_slots==[m.name for m in mesh.materials] and face_materials==[f.material_index for f in mesh.polygons]
+assert len(selected)==65
 rig=next(ob for ob in bpy.context.scene.objects if ob.type=='ARMATURE');bpy.context.scene.frame_set(0)
 bpy.ops.wm.save_as_mainfile(filepath=str(target/'fish.blend'),check_existing=False)
 bpy.ops.object.select_all(action='DESELECT')
@@ -29,5 +39,6 @@ for mat in doc['materials']:
 for sampler in doc.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
 raw=json.dumps(doc,separators=(',',':')).encode();raw+=b' '*((-len(raw))%4);tail=data[20+n:];p.write_bytes(struct.pack('<III',0x46546c67,2,20+len(raw)+len(tail))+struct.pack('<II',len(raw),kind)+raw+tail)
 tris=sum(doc['accessors'][primitive['indices']]['count']//3 for m in doc['meshes'] for primitive in m['primitives']);assert tris==1476
-report={'kind':'nile_upper_lip_material_only','route':'B','triangles':tris,'formal_acceptance':False,'user_visual_acceptance':'pending','geometry_topology_weights_unchanged':True,'body_lower_lip_and_fins_unchanged':True,'changed_upper_skin_faces':len(selected),'unchanged_UV_on_all_other_faces':True,'source_guide':sha(out/'upper-lip-guide.json'),'source_paint_plan':sha(out/'upper-lip-paint.plan.json'),'texture_size':[1961,1024],'new_texture_memory':0,'new_triangles':0,'source_geometry_digests':frozen,'hashes':{name:sha(target/name) for name in ['fish.blend','fish.glb']}}
+report={'kind':'nile_upper_lip_material_only','route':'B','triangles':tris,'formal_acceptance':False,'user_visual_acceptance':'pending','geometry_topology_weights_unchanged':True,'body_lower_lip_and_fins_unchanged':True,'material_slots_and_face_assignments_unchanged':True,'changed_upper_skin_faces':len(selected),'unchanged_UV_on_all_other_faces':True,'source_guide':sha(guide_path),'source_paint_plan':sha(out/'upper-lip-paint.plan.json'),'texture_size':[1961,1024],'new_texture_memory':0,'new_triangles':0,'source_geometry_digests':frozen,'hashes':{name:sha(target/name) for name in ['fish.blend','fish.glb']}}
+report.update(export_host_blender_version=bpy.app.version_string,host_renderer_adjustment=host_renderer_adjustment)
 (target/'validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':True,'triangles':tris,'patched_faces':len(selected),'geometry_unchanged':True}))

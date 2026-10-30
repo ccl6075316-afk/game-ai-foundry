@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "kind": "nile_single_material_source_authoring_recipe",
+  "species": "nile_tilapia",
+  "inputs": {
+    "source_blend": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round9-fin-clearance/final-B-artifacts/fish.blend",
+      "sha256": "ba78cd884b3f01e79eb68a20aa9fc5df3cdc51dff61a3e6bab4ecb0015ec7591"
+    },
+    "authoring_reference_glb": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/candidates-v2/merged-mask.glb",
+      "sha256": "b8a7794a87803aa0e01fa56a071a6166f9699f5f9bd2199acefb2d60dee16cec"
+    },
+    "atlas": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/candidates-v2/atlas.png",
+      "sha256": "b1bf5462c1ceadd10e98df0c661b27e2fc25588406cdaf3ffad9804c4d3c8eff"
+    },
+    "packing_report": {
+      "path": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round10-material-performance/candidates-v2/packing.validation.json",
+      "sha256": "d79fa4e0df605b1bba0c9941add870ec138aecfd9f4fc3fe669663dc2eba6dab"
+    }
+  },
+  "expected": {
+    "triangles": 1710,
+    "vertices": 1465,
+    "bones": 18,
+    "meshes": 1,
+    "surfaces": 1,
+    "material_alpha_mode": "MASK",
+    "alpha_cutoff": 0.5,
+    "texture_nearest_no_mip": true,
+    "roughness": 1,
+    "metallic": 0,
+    "specular": 0
+  },
+  "source_mesh_name": "Anal",
+  "source_part_attribute": "_FOUNDRY_PART_ID",
+  "source_vertex_attribute": "_FOUNDRY_SOURCE_VERTEX",
+  "source_face_attribute": "foundry_logical_part_id",
+  "source_exact_uv_attribute": "_FOUNDRY_UV_GLTF",
+  "construction": "Keep original R9 rig/actions; author one disconnected source mesh from audited R10 primitive with exact source-owned float corner normals/UVs and logical part IDs. No runtime static construction.",
+  "ordinary_File_Export_equivalence_claimed": false,
+  "exporter": "resources/scripts/volume-fish/export_packed_fish_source.py",
+  "scope": "Current fish only. R9 input remains immutable; fresh source cold-export parity and actual final gates required.",
+  "source_material_guard_version": 2,
+  "logical_part_schema": 1,
+  "logical_part_count": 9,
+  "body_skin_triangles": 840,
+  "oral_triangles": 64,
+  "source_vertex_identity_count": 1465,
+  "source_row_compaction": "Only exporter-introduced duplicates ofthe SAME sourcevertex ID, afterallfinalbound POS/NORMAL/UV/JOINTS/WEIGHTS equality. Distinctsource IDs never weld.",
+  "source_owned_material_contract": {
+    "alphaMode": "MASK",
+    "alphaCutoff": 0.5,
+    "doubleSided": false,
+    "magFilter": 9728,
+    "minFilter": 9728,
+    "wrapS": 33071,
+    "wrapT": 33071,
+    "roughnessFactor": 1,
+    "metallicFactor": 0,
+    "specularFactor": 0
+  },
+  "material_guard": "UseNodes, explicit4nodeatlasUV/Color/Alpha/BSDF graph, node mutes, texture projection, imagealpha/colorspace, packedbytes andactualactive/renderUVMap; sourcechanges invalidateguard.",
+  "initial_recipe_snapshot": "projects/fishing-2d/experiments/nile-dorsal-route-trial/round11-single-material-finalization/authoring-recipe.initial.json"
+}
