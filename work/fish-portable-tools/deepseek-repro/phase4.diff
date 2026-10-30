@@ -1,0 +1,249 @@
+--- reviewed-source/fish_asset_spec.py
++++ portable/fish_asset_spec.py
+@@ -4,6 +4,9 @@
+ This is a technical authoring contract, not visual or production acceptance.
+ """
+ from __future__ import annotations
++if not __debug__:
++    raise RuntimeError('Optimized Python is unsupported: required validation assertions are disabled')
++
+ import argparse
+ import hashlib
+ import json
+@@ -35,7 +38,11 @@
+     return path
+ 
+ def load_spec(path, root=ROOT):
+-    spec = json.loads(Path(path).read_text())
++    return load_spec_snapshot(path, root)[0]
++
++def load_spec_snapshot(path, root=ROOT):
++    raw = Path(path).read_bytes()
++    spec = json.loads(raw)
+     require(spec.get('kind') == 'fish_asset_finalization_spec' and spec.get('version') in (1, 2), 'Unsupported fish asset spec kind/version')
+     require(isinstance(spec.get('inputs'), dict), 'inputs must be an object')
+     for key in ('source_blend', 'reference_glb', 'atlas', 'packing_report'):
+@@ -56,19 +63,20 @@
+         if 'opaque_uv' in part:
+             require(type(part['opaque_uv']) is bool, 'opaque_uv must be boolean')
+             require(part['opaque_uv'] or part['role'] not in ('body','body_skin','mouth','oral_cavity'), 'Body/mouth opacity cannot be disabled')
+-    return spec
++    return spec, hashlib.sha256(raw).hexdigest()
+ 
+ def input_paths(spec, root=ROOT):
+     return {key: resolve_ref(ref, root) for key, ref in spec['inputs'].items()}
+ 
+ def inspect_reference(path):
+-    from glb_io import read_glb, arrays
++    from glb_io import read_glb, arrays, validate_skin_attributes
+     import numpy as np
+     doc, binary = read_glb(path)
+     require(len(doc.get('meshes', [])) == 1, 'Only one packed mesh supported')
+     mesh = doc['meshes'][0]
+     require(len(mesh['primitives']) == 1, 'Only one packed surface supported')
+     p = mesh['primitives'][0]
++    require(type(p.get('material')) is int and p['material'] == 0, 'Packed primitive must bind material zero')
+     require(p.get('mode', 4) == 4 and 'indices' in p, 'Indexed triangle primitive required')
+     require(set(p['attributes']) == {'POSITION','NORMAL','TEXCOORD_0','JOINTS_0','WEIGHTS_0'}, 'Unsupported packed attributes')
+     attrs = {k: arrays(doc, binary, a) for k, a in p['attributes'].items()}
+@@ -85,7 +93,7 @@
+     require(all(clip_names) and len(clip_names) == len(set(clip_names)), 'Named unique clips required')
+     names = [doc['nodes'][j].get('name') for j in joints]
+     require(all(names) and len(names) == len(set(names)), 'Named unique joints required')
+-    require(np.max(attrs['JOINTS_0']) < len(joints), 'Invalid joint index')
++    validate_skin_attributes(doc, binary, p, len(joints))
+     from glb_io import material_semantics
+     material = material_semantics(doc)
+     wanted = {'alphaMode':'MASK','alphaCutoff':.5,'doubleSided':False,'roughnessFactor':1,'metallicFactor':0,'specularFactor':0,'magFilter':9728,'minFilter':9728,'wrapS':33071,'wrapT':33071,'baseColorFactor':[1,1,1,1],'texture_texCoord':0,'emissiveFactor':[0,0,0]}
+@@ -133,7 +141,7 @@
+     return [artifact_output(path, inputs, root) for path in paths]
+ 
+ def preflight(spec_path, root=ROOT):
+-    spec = load_spec(spec_path, root); inputs = input_paths(spec, root)
++    spec, spec_digest = load_spec_snapshot(spec_path, root); inputs = input_paths(spec, root)
+     inventory = inspect_reference(inputs['reference_glb'])
+     allowed = set(inventory) | {'source_mesh_objects'}
+     for key, expected in spec['expected'].items():
+@@ -154,7 +162,8 @@
+     image = doc['images'][0]; view = doc['bufferViews'][image['bufferView']]
+     payload = binary[view.get('byteOffset',0):view.get('byteOffset',0)+view['byteLength']]
+     require(hashlib.sha256(payload).hexdigest() == spec['inputs']['atlas']['sha256'], 'Atlas bytes differ from hash-bound reference image')
+-    return {'schema_version':1,'ok':True,'command':'fish_asset_preflight','stage':'validate','status':'done','next_action':'none','inputs':{k:str(v) for k,v in inputs.items()},'outputs':[], 'summary':{'inventory':inventory,'parts':parts, 'source_mesh_objects':'checked in Blender build, not inferred from GLB'},'failures':[]}
++    require(sha(spec_path) == spec_digest, 'Spec changed during preflight')
++    return {'schema_version':1,'ok':True,'command':'fish_asset_preflight','stage':'validate','status':'done','next_action':'none','inputs':{k:str(v) for k,v in inputs.items()},'outputs':[], 'summary':{'spec_sha256':spec_digest,'inventory':inventory,'parts':parts, 'source_mesh_objects':'checked in Blender build, not inferred from GLB'},'failures':[]}
+ 
+ def main():
+     p = argparse.ArgumentParser(description=__doc__); p.add_argument('--spec',type=Path,required=True); p.add_argument('--json',action='store_true'); args = p.parse_args()
+--- reviewed-source/build_source.py
++++ portable/build_source.py
+@@ -12,7 +12,7 @@
+ sys.path.insert(0,str(Path(__file__).resolve().parent))
+ 
+ 
+-from fish_asset_spec import ROOT, load_spec, input_paths, preflight, fresh_outputs, declared_parts, require
++from fish_asset_spec import ROOT, load_spec_snapshot, input_paths, preflight, fresh_outputs, declared_parts, require
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ def as_blender(v):return (v[0],-v[2],v[1])
+@@ -31,7 +31,8 @@
+     from restore_fin_source_normals import EXACT_NORMAL_ATTRIBUTE,geometry_signature,normal_attribute_signature
+     from export_packed_fish_source import EXACT_UV,PART_ID,SOURCE_VERTEX,FACE_PART,float_uv_signature,part_signature,material_signature
+     from export_source import export_source as export_packed_source
+-    recipe=load_spec(a.spec); inputs=input_paths(recipe); check=preflight(a.spec)
++    recipe,recipe_digest=load_spec_snapshot(a.spec); inputs=input_paths(recipe); check=preflight(a.spec)
++    require(check['summary']['spec_sha256']==recipe_digest,'Spec changed between load and preflight')
+     output=a.output.resolve()
+     fresh_outputs([output,output/'fish.blend',output/'fish.glb',output/'source-build.validation.json'],list(inputs.values())+[a.spec])
+     d,b=read(inputs['reference_glb']); pr=d['meshes'][0]['primitives'][0]
+@@ -104,5 +105,6 @@
+             if item.users==0:collection.remove(item)
+     output.mkdir(parents=True,exist_ok=True);source=output/'fish.blend';bpy.context.preferences.filepaths.save_version=0;bpy.ops.wm.save_as_mainfile(filepath=str(source));export=export_packed_source(output/'fish.glb')
+     for k,path in inputs.items():assert sha(path)==recipe['inputs'][k]['sha256'],k+' input changed'
+-    proof={'ok':True,'kind':'packed_editable_fish_source_authoring','recipe_sha256':sha(a.spec),'builder_sha256':sha(__file__),'input_files':recipe['inputs'],'output_blend_sha256':sha(source),'output_model_sha256':sha(output/'fish.glb'),'source_mesh':packed.name,'triangles':len(mesh.polygons),'vertices':len(mesh.vertices),'bones':len(rig.data.bones),'surfaces':len(mesh.materials),'logical_parts':parts,'rig_and_active_action_unchanged_by_authoring':True,'all_rig_rest_actions_unchanged':True,'derived_reference_inventory':check['summary']['inventory'],'source_owned_exact_normal_attribute':EXACT_NORMAL_ATTRIBUTE,'source_owned_exact_uv_attribute':EXACT_UV,'part_attribute':PART_ID,'source_vertex_attribute':SOURCE_VERTEX,'face_part_attribute':FACE_PART,'export_proof':export,'scope':'One-time source authoring from frozen assets, no old input writes. Full fresh source re-export and actual final gates still required.'};(output/'source-build.validation.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({'ok':True,'blend':sha(source),'model':sha(output/'fish.glb'),'parts':len(parts)}))
++    require(sha(a.spec)==recipe_digest,'Spec changed during source authoring')
++    proof={'ok':True,'kind':'packed_editable_fish_source_authoring','recipe_sha256':recipe_digest,'builder_sha256':sha(__file__),'input_files':recipe['inputs'],'output_blend_sha256':sha(source),'output_model_sha256':sha(output/'fish.glb'),'source_mesh':packed.name,'triangles':len(mesh.polygons),'vertices':len(mesh.vertices),'bones':len(rig.data.bones),'surfaces':len(mesh.materials),'logical_parts':parts,'rig_and_active_action_unchanged_by_authoring':True,'all_rig_rest_actions_unchanged':True,'derived_reference_inventory':check['summary']['inventory'],'source_owned_exact_normal_attribute':EXACT_NORMAL_ATTRIBUTE,'source_owned_exact_uv_attribute':EXACT_UV,'part_attribute':PART_ID,'source_vertex_attribute':SOURCE_VERTEX,'face_part_attribute':FACE_PART,'export_proof':export,'scope':'One-time source authoring from frozen assets, no old input writes. Full fresh source re-export and actual final gates still required.'};(output/'source-build.validation.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({'ok':True,'blend':sha(source),'model':sha(output/'fish.glb'),'parts':len(parts)}))
+ if __name__=='__main__':main()
+--- reviewed-source/verify_parity.py
++++ portable/verify_parity.py
+@@ -9,9 +9,9 @@
+ from PIL import Image
+ import sys
+ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+-from pack_fish_material_atlas import read_glb,arrays
+-from fish_asset_spec import load_spec,input_paths,preflight,fresh_outputs,require
+-from glb_io import material_semantics as guarded_material_semantics
++from pack_fish_material_atlas import arrays
++from fish_asset_spec import load_spec_snapshot,input_paths,preflight,fresh_outputs,require
++from glb_io import material_semantics as guarded_material_semantics,validate_skin_attributes,read_glb_snapshot
+ 
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ def skin_rows(d,b,pr,node):
+@@ -84,10 +84,13 @@
+     return {'original_named_nodes':len(old),'max_rest_component_error':maximum,'parents_and_skin_skeleton_references_equal':True,'allowed_editor_empty_nodes':sorted(extras)}
+ 
+ def verify(reference,candidate,spec=None,expected_parts=None):
+-    reference=Path(reference).resolve();candidate=Path(candidate).resolve();d,b=read_glb(reference);e,c=read_glb(candidate)
++    reference=Path(reference).resolve();candidate=Path(candidate).resolve();d,b,reference_digest=read_glb_snapshot(reference);e,c,candidate_digest=read_glb_snapshot(candidate)
+     assert len(d['meshes'])==len(e['meshes'])==1 and len(d['meshes'][0]['primitives'])==len(e['meshes'][0]['primitives'])==1
+     p=d['meshes'][0]['primitives'][0];q=e['meshes'][0]['primitives'][0];assert p.get('mode',4)==q.get('mode',4)==4,'Triangle primitive required';node=next(n for n in d['nodes']if 'mesh'in n);other=next(n for n in e['nodes']if 'mesh'in n)
++    require(all(type(primitive.get('material')) is int and primitive['material']==0 for primitive in (p,q)), 'Packed primitive must bind material zero')
+     assert node.get('mesh')==other.get('mesh')==node.get('skin')==other.get('skin')==0,'Packed owner must reference mesh/skin zero'
++    validate_skin_attributes(d,b,p,len(d['skins'][node['skin']]['joints']))
++    validate_skin_attributes(e,c,q,len(e['skins'][other['skin']]['joints']))
+     guarded_material_semantics(d);guarded_material_semantics(e)
+     rest=node_rest_parity(d,e,spec.get('allowed_editor_nodes',[]) if spec else ())
+     assert set(p['attributes'])==set(q['attributes'])=={'POSITION','NORMAL','TEXCOORD_0','JOINTS_0','WEIGHTS_0'}
+@@ -126,18 +129,21 @@
+             t,v,i=new_clips[name][key];assert times.shape==t.shape and vals.shape==v.shape and interp==i;time_error=max(time_error,float(np.max(np.abs(times-t))));value_error=max(value_error,float(np.max(np.abs(vals-v))))
+         assert time_error<=1e-6 and value_error<=1e-6;clip_report[name]={'channels':len(channels),'max_time_error':time_error,'max_value_error':value_error}
+     for i,_ in enumerate(e['accessors']):assert np.isfinite(arrays(e,c,i)).all(),'Nonfinite exported accessor'
+-    return {'ok':True,'kind':'packed_fish_complete_GLB_semantic_parity','reference':{'path':str(reference),'sha256':sha(reference)},'candidate':{'path':str(candidate),'sha256':sha(candidate)},'checker_sha256':sha(__file__),'triangles':len(iy),'vertices':len(uv),'bones':len(z_names),'single_mesh_single_surface':True,'attributes':attrs,'directed_triangles_equal':True,'node_rest_and_hierarchy':rest,'material_semantics':material,'atlas_RGBA_exact':True,'atlas_size':[new_pixels.shape[1],new_pixels.shape[0]],'PNG_bytes_equal':old_png==new_png,'reference_PNG_sha256':old_png,'candidate_PNG_sha256':new_png,'body_and_mouth_UV_domain_alpha_255':True,'logical_parts':parts,'IBMs_by_bone_name_max_component_error':ibm_error,'native_clips':clip_report,'finite_all_exported_accessors':True,'scope':'Complete raw GLB semantics at existing1e-6component limit; same source vertex identities, directed triangles, original node rest/parents and skin skeleton references. Does not replace actual Godot cold load/pose profile binding, specialized fin/body gates or visual review.'}
++    require(sha(reference)==reference_digest and sha(candidate)==candidate_digest, 'Reference or candidate changed during semantic verification')
++    return {'ok':True,'kind':'packed_fish_complete_GLB_semantic_parity','reference':{'path':str(reference),'sha256':reference_digest},'candidate':{'path':str(candidate),'sha256':candidate_digest},'checker_sha256':sha(__file__),'triangles':len(iy),'vertices':len(uv),'bones':len(z_names),'single_mesh_single_surface':True,'attributes':attrs,'directed_triangles_equal':True,'node_rest_and_hierarchy':rest,'material_semantics':material,'atlas_RGBA_exact':True,'atlas_size':[new_pixels.shape[1],new_pixels.shape[0]],'PNG_bytes_equal':old_png==new_png,'reference_PNG_sha256':old_png,'candidate_PNG_sha256':new_png,'body_and_mouth_UV_domain_alpha_255':True,'logical_parts':parts,'IBMs_by_bone_name_max_component_error':ibm_error,'native_clips':clip_report,'finite_all_exported_accessors':True,'scope':'Complete raw GLB semantics at existing1e-6component limit; same source vertex identities, directed triangles, original node rest/parents and skin skeleton references. Does not replace actual Godot cold load/pose profile binding, specialized fin/body gates or visual review.'}
+ 
+ def main():
+     p=argparse.ArgumentParser(description=__doc__)
+     for key in ('spec','candidate','output'):p.add_argument('--'+key,type=Path,required=True)
+     p.add_argument('--json',action='store_true')
+     a=p.parse_args()
+-    spec=load_spec(a.spec);inputs=input_paths(spec);check=preflight(a.spec)
++    spec,spec_digest=load_spec_snapshot(a.spec);inputs=input_paths(spec);check=preflight(a.spec)
++    require(check['summary']['spec_sha256']==spec_digest,'Spec changed between load and preflight')
+     fresh_outputs([a.output],list(inputs.values())+[a.spec,a.candidate])
+     r=verify(inputs['reference_glb'],a.candidate,spec,check['summary']['parts'])
+     for key,path in inputs.items():require(sha(path)==spec['inputs'][key]['sha256'],'Input changed: '+key)
+-    r['spec_sha256']=sha(a.spec);r['derived_reference_inventory']=check['summary']['inventory']
++    require(sha(a.spec)==spec_digest,'Spec changed during semantic verification')
++    r['spec_sha256']=spec_digest;r['derived_reference_inventory']=check['summary']['inventory']
+     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,indent=2)+'\n')
+     print(json.dumps({'ok':True,'report':str(a.output.resolve()),'triangles':r['triangles'],'bones':r['bones'],'native_clips':r['native_clips']}))
+ if __name__=='__main__':main()
+--- reviewed-source/glb_io.py
++++ portable/glb_io.py
+@@ -1,4 +1,7 @@
+ """Strict GLB/accessor readers shared with Blender preflight (no image dependency)."""
++if not __debug__:
++    raise RuntimeError('Optimized Python is unsupported: required validation assertions are disabled')
++
+ import hashlib
+ import json
+ from pathlib import Path
+@@ -11,7 +14,14 @@
+ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ 
+ def read_glb(path):
+-    raw=Path(path).read_bytes()
++    return read_glb_snapshot(path)[:2]
++
++def read_glb_snapshot(path):
++    raw = Path(path).read_bytes()
++    doc, binary = parse_glb_bytes(raw)
++    return doc, binary, hashlib.sha256(raw).hexdigest()
++
++def parse_glb_bytes(raw):
+     assert len(raw)>=20 and raw[:4]==b'glTF' and struct.unpack_from('<I',raw,4)[0]==2
+     assert struct.unpack_from('<I',raw,8)[0]==len(raw),'Truncated GLB'
+     offset=12;doc=None;binary=None
+@@ -34,6 +44,22 @@
+     return np.ndarray((a['count'],lanes),dtype=dtype,buffer=binary,offset=offset,strides=(stride,dtype.itemsize)).copy()
+ 
+ 
++def validate_skin_attributes(doc, binary, primitive, joint_count):
++    """Reject invalid raw slots before named effective-weight comparison."""
++    attrs = primitive['attributes']
++    joints = arrays(doc, binary, attrs['JOINTS_0'])
++    weights = arrays(doc, binary, attrs['WEIGHTS_0'])
++    count = doc['accessors'][attrs['POSITION']]['count']
++    if joints.shape != (count, 4) or weights.shape != (count, 4):
++        raise ValueError('Skin attributes require four slots per source vertex')
++    if not (np.isfinite(joints).all() and np.isfinite(weights).all()):
++        raise ValueError('Nonfinite skin attributes')
++    if joint_count <= 0 or not ((joints >= 0).all() and (joints < joint_count).all() and (joints == np.floor(joints)).all()):
++        raise ValueError('Joint indices must be nonnegative integers within the skin')
++    if not (weights >= 0).all() or not (np.abs(weights.sum(axis=1) - 1) < 1e-5).all():
++        raise ValueError('Skin weights must be nonnegative and normalized within 1e-5')
++
++
+ def material_semantics(d):
+     assert len(d['materials'])==1 and len(d['textures'])==1 and len(d['images'])==1
+     m=d['materials'][0]
+--- reviewed-source/run_source.py
++++ portable/run_source.py
+@@ -9,12 +9,13 @@
+ import subprocess
+ import sys
+ import time
+-from fish_asset_spec import ROOT,artifact_output,input_paths,load_spec,preflight,sha
++from fish_asset_spec import ROOT,artifact_output,input_paths,load_spec_snapshot,preflight,sha,require
+ from verify_parity import verify
+ 
+ 
+ def run(args):
+-    spec=load_spec(args.spec);inputs=input_paths(spec);baseline=preflight(args.spec)
++    spec,spec_digest=load_spec_snapshot(args.spec);inputs=input_paths(spec);baseline=preflight(args.spec)
++    require(baseline['summary']['spec_sha256']==spec_digest,'Spec changed between load and preflight')
+     output=artifact_output(args.output,list(inputs.values())+[args.spec])
+     source=output/'source';model=output/'fish.glb';here=Path(__file__).resolve().parent
+     stages=[('author',[str(args.blender),'--background','--python-exit-code','1','--python',str(here/'build_source.py'),'--','--spec',str(args.spec.resolve()),'--output',str(source),'--json']),
+@@ -22,7 +23,7 @@
+     planned={'ok':True,'kind':'portable_source_run_plan','dry_run':not args.execute,'spec':str(args.spec.resolve()),'output':str(output),'inventory':baseline['summary']['inventory'],'stages':[{'name':name,'argv':argv}for name,argv in stages],'after_processes':['verify full1e-6 GLB semantic parity','bind finalmodel hash into final spec','write validation report and manifest']}
+     if not args.execute:return planned
+     if not args.blender.is_file():raise ValueError('Configured Blender executable missing')
+-    output.mkdir(parents=True);manifest={'kind':'portable_source_manifest','version':1,'status':'running','next_action':'poll','input_spec':{'path':str(args.spec.resolve()),'sha256':sha(args.spec)},'input_files':spec['inputs'],'stages':[],'scope':'Technical portable source run only, no fish acceptance.'};manifest_path=output/'manifest.json'
++    output.mkdir(parents=True);manifest={'kind':'portable_source_manifest','version':1,'status':'running','next_action':'poll','input_spec':{'path':str(args.spec.resolve()),'sha256':spec_digest},'input_files':spec['inputs'],'stages':[],'scope':'Technical portable source run only, no fish acceptance.'};manifest_path=output/'manifest.json'
+     def save():manifest_path.write_text(json.dumps(manifest,indent=2)+'\n')
+     save();before={key:sha(path)for key,path in inputs.items()};started=time.time()
+     try:
+@@ -40,8 +41,10 @@
+             if result.returncode or 'Traceback (most recent call last)'in result.stdout+result.stderr:raise RuntimeError(name+' failed; see '+str(log))
+         proof=verify(inputs['reference_glb'],model,spec,baseline['summary']['parts'])
+         if before!={key:sha(path)for key,path in inputs.items()}or sha(args.spec)!=manifest['input_spec']['sha256']:raise RuntimeError('Read-only authoring input changed')
+-        if sha(model)!=sha(source/'fish.glb'):raise RuntimeError('Cold source export bytes differ from initial source export')
+-        final_spec={**spec,'model':{'path':str(model.relative_to(ROOT)),'sha256':sha(model)},'model_role':'final'};final_path=output/'final-spec.json';final_path.write_text(json.dumps(final_spec,indent=2)+'\n')
++        verified_digest=proof['candidate']['sha256'];model_digest=sha(model);source_digest=sha(source/'fish.glb')
++        if model_digest!=source_digest:raise RuntimeError('Cold source export bytes differ from initial source export')
++        if model_digest!=verified_digest or source_digest!=verified_digest:raise RuntimeError('Source outputs changed after semantic verification')
++        final_spec={**spec,'model':{'path':str(model.relative_to(ROOT)),'sha256':verified_digest},'model_role':'final'};final_path=output/'final-spec.json';final_path.write_text(json.dumps(final_spec,indent=2)+'\n')
+         proof.update(input_spec_sha256=manifest['input_spec']['sha256'],final_spec={'path':str(final_path.relative_to(ROOT)),'sha256':sha(final_path)},cold_export_bytes_equal=True,original_inputs_unchanged=True)
+         report=output/'validation-report.json';report.write_text(json.dumps(proof,indent=2)+'\n');manifest.update(status='done',next_action='human_review',model=final_spec['model'],final_spec=proof['final_spec'],validation_report={'path':str(report.relative_to(ROOT)),'sha256':sha(report)},elapsed_seconds=time.time()-started);save()
+         return {'ok':True,'status':'done','next_action':'human_review','manifest':str(manifest_path),'final_spec':str(final_path),'model':str(model),'report':str(report)}

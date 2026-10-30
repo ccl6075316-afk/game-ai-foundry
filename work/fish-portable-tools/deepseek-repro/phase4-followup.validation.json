@@ -1,0 +1,26 @@
+{
+  "kind": "anvil_debug_phase4_same_root_followup",
+  "strike": 1,
+  "phase4_review": "Initially REJECTED by independent reviewer for same-root runner latehash binding",
+  "phase1": "Real verify accepted original candidate, callback replaced both disposable exports, byteequality held while finalspechash drifted from proof.candidate hash. Reproduced beforefix with one focused failure.",
+  "phase2": "Runner recomputed finalmodel hash after validator, unlike consumed snapshot digest stored in semanticproof. Same latepathhash pattern as mainverifier.",
+  "phase3": "APPROVED by /root/portable_parts_validation and lead; onefix: compare both currentoutput digests against proof.candidate.sha, retainbyteequality, derive finalmodelhash from proofconsumed digest.",
+  "beforefix_runner_sha256": "0be0a2638c7cf9c50594eda402e997e26d4498bce602a664443cd5b610eaf18e",
+  "beforefix_archive": "work/fish-portable-tools/deepseek-repro/phase4-runner-before-final-binding.py",
+  "beforefix_test": "test_runner_output_swap_after_verify_rejected_before_final_spec: FAIL RuntimeError notraised",
+  "scope": "Same root fix only; no other features. No GPU, no Nile.",
+  "afterfix_focused": "PASS runner_output_swap regression",
+  "afterfix_full_suite": {
+    "passed": 55,
+    "failed": 0,
+    "errors": 0
+  },
+  "current_source_hashes": {
+    "fish_asset_spec.py": "83b4ff23a336931bdf941e65e29c8c65093f307cb691111fdc9f7900b942d5eb",
+    "build_source.py": "5d0677d672642630f69ec5d32c1c5288c4a86a1ad6c414d758158862874bc546",
+    "source_snapshot.py": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+    "verify_parity.py": "569d9879d683c8095602bd0e939655ef5cac23a7917a480627104969cb6f456a",
+    "glb_io.py": "6196d9704d5c346734a630c19ccd71f5828bc7a2f1803bf64e9e5eaabda273cc",
+    "run_source.py": "f5b4113d6b7f7c7fb8894162699e37c748dd9f568b1845f1c468f5a117a73bbc"
+  }
+}

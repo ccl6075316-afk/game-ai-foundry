@@ -1,0 +1,48 @@
+{
+  "ok": true,
+  "kind": "bounded_secondary_source_review",
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "reasoning_effort": "high",
+  "attempt": 3,
+  "generation_limit": "provider_default_no_manual_cap",
+  "elapsed_seconds": 196.729,
+  "usage": {
+    "prompt_tokens": 12033,
+    "completion_tokens": 30934,
+    "total_tokens": 42967,
+    "prompt_tokens_details": {
+      "cached_tokens": 11899
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 29953
+    },
+    "prompt_cache_hit_tokens": 11899,
+    "prompt_cache_miss_tokens": 134
+  },
+  "finish_reason": "stop",
+  "findings_text": "{\"verdict\":\"changes_required\",\"findings\":[{\"severity\":\"high\",\"file\":\"verify_parity.py\",\"line\":\"102-164\",\"trigger\":\"Running the verifier under `python -O` (assert-stripping interpreter); glb_io.py:15,35 and guarded material checks also use `assert`.\",\"consequence\":\"All parity checks in `verify()` disappear, so a nonmatching candidate can return `ok:true`; GLB bounds/material guards in `glb_io` are bypassed as well.\",\"fix\":\"Replace security/parity `assert`s with explicit `require()`/`raise` checks, including `read_glb`, `arrays`, and `material_semantics`; or refuse to run when `__debug__` is false.\"},{\"severity\":\"high\",\"file\":\"verify_parity.py\",\"line\":\"104-125\",\"trigger\":\"Candidate primitive omits `material` or references a different material while the single material definition and atlas pixels still match.\",\"consequence\":\"Material binding loss or wrong binding passes parity because only global `material_semantics` is compared; reported complete material preservation is false.\",\"fix\":\"Require `p.get('material') == q.get('material') == 0` (or compare exact primitive material indices) and validate mesh/material references.\"},{\"severity\":\"medium\",\"file\":\"verify_parity.py\",\"line\":\"24\",\"trigger\":\"Candidate drops small weights <=1e-7 or introduces negative weights; reference preflight only checks JOINTS max at fish_asset_spec.py:87.\",\"consequence\":\"Skin weights are not fully preserved and invalid weights can pass; deformation differences are hidden by name aggregation and the threshold.\",\"fix\":\"Validate JOINTS are nonnegative integers, WEIGHTS are nonnegative and normalized, and compare full per-vertex weights after mapping joint names, without silently discarding negative/small values except an explicit documented tolerance.\"},{\"severity\":\"medium\",\"file\":\"verify_parity.py\",\"line\":\"128-129\",\"trigger\":\"Candidate atlas is a different PNG byte payload with the same decoded RGBA (re-encoded, ancillary chunks changed, etc.).\",\"consequence\":\"Hash-bound atlas bytes are not enforced on output; `PNG_bytes_equal` is recorded but never asserted, so material/atlas provenance can differ.\",\"fix\":\"Require candidate image payload hash to equal the spec/reference atlas hash (or assert the recorded PNG-byte equality), not only decoded RGBA equality.\"},{\"severity\":\"medium\",\"file\":\"build_source.py\",\"line\":\"126\",\"trigger\":\"Spec file changes after `load_spec`/`preflight` but before proof creation; verify_parity.py around 166 has the same candidate-hash pattern.\",\"consequence\":\"`recipe_sha256`/`spec_sha256` can bind a different spec than was validated, and candidate hashes can describe bytes not actually verified, producing stale provenance.\",\"fix\":\"Read spec/candidate bytes once, hash and parse those exact bytes, and re-hash/compare before writing the proof/report.\"},{\"severity\":\"medium\",\"file\":\"build_source.py\",\"line\":\"51\",\"trigger\":\"Source blend has the same joint names as the reference but different bone rest transforms, parents, or skin skeleton.\",\"consequence\":\"Build checks only name sets and that the source rig is unchanged afterward; it can emit an ok build proof for a wrong rest/bind source. Only later verification catches it, so build-only acceptance is misleading.\",\"fix\":\"Before replacing meshes, compare source rig bone `matrix_local`/parents/use_deform and skin skeleton against hash-bound reference joints after the documented coordinate conversion, or make verification a mandatory gate.\"},{\"severity\":\"low\",\"file\":\"fish_asset_spec.py\",\"line\":\"139-143\",\"trigger\":\"Spec uses `expected: {}` or omits count keys such as vertices, triangles, bones, and clips.\",\"consequence\":\"Preflight performs no expected-count validation; a hash-bound spec can silently accept different inventory counts, weakening the stated portability contract.\",\"fix\":\"Require a nonempty known expected inventory (at least the intended count keys) and reject missing/unknown required counts.\"}],\"limits\":\"Read-only review of only the five supplied files; nothing executed. Missing modules (`patch_existing_fin_meshes`, `repair_fin_clearance`, `restore_fin_source_normals`, `export_packed_fish_source`, `export_source`, `pack_fish_material_atlas`) were not reviewed, so their behavior is uncertain. Line numbers are approximate. Blender/Godot runtime behavior and whether exact atlas byte preservation is contractually required may affect finding severity.\"}",
+  "inputs": [
+    {
+      "path": "resources/scripts/volume-fish/portable/fish_asset_spec.py",
+      "sha256": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/build_source.py",
+      "sha256": "612ecfa454c45e93e8e314342c6ffb7b15a7cfd35451a09b27cc476a914e9d17"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/source_snapshot.py",
+      "sha256": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/verify_parity.py",
+      "sha256": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/glb_io.py",
+      "sha256": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9"
+    }
+  ],
+  "scope": "Read-only review only; no image/key payload, code execution, next fish or animation migration."
+}

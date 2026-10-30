@@ -1,0 +1,413 @@
+{
+  "kind": "anvil_debug_investigation_phase1",
+  "ok": true,
+  "mode": "Normal",
+  "initial_mode": "Degraded Medium until first runtime witness",
+  "source_files_unchanged": true,
+  "source_hashes": {
+    "resources/scripts/volume-fish/portable/fish_asset_spec.py": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9",
+    "resources/scripts/volume-fish/portable/build_source.py": "612ecfa454c45e93e8e314342c6ffb7b15a7cfd35451a09b27cc476a914e9d17",
+    "resources/scripts/volume-fish/portable/source_snapshot.py": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+    "resources/scripts/volume-fish/portable/verify_parity.py": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be",
+    "resources/scripts/volume-fish/portable/glb_io.py": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9"
+  },
+  "results": [
+    {
+      "id": "1",
+      "case": "assert-stripping",
+      "normal": {
+        "accepted": false,
+        "exception": "AssertionError",
+        "message": "('POSITION', 0.125)"
+      },
+      "optimized": {
+        "returncode": 0,
+        "stdout": "{\"ok\": true, \"position_error\": 0.125}\n",
+        "stderr": ""
+      },
+      "confirmed": true
+    },
+    {
+      "id": "2",
+      "case": "primitive_material_missing",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/material_missing/candidate.glb",
+            "sha256": "d8adb44e1745bcde0e70194d3843e13e7cc063590e49fdf7726e52ee6d93ea59"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "confirmed": true
+    },
+    {
+      "id": "2",
+      "case": "primitive_material_bad_index",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/material_bad_index/candidate.glb",
+            "sha256": "ef0e1139333927fd58b43baddc09bd1ef200c99d8fa53e0958b4f0c7c0945df0"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "confirmed": true
+    },
+    {
+      "id": "3",
+      "case": "negative_weight_unused_slot",
+      "weights": [
+        1,
+        -0.5,
+        0,
+        0
+      ],
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/negative_weights/candidate.glb",
+            "sha256": "75b81a84d1fea938d712935dbd226bac8a89981730c5daeb7848ecaa44fa6ad8"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "candidate_inspection": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "confirmed": true
+    },
+    {
+      "id": "3",
+      "case": "unnormalized_positive_weights",
+      "candidate_only": {
+        "accepted": false,
+        "exception": "AssertionError",
+        "message": ""
+      },
+      "both_invalid_same": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/unnormalized_weights/candidate.glb",
+            "sha256": "6762c84c91efd4cb0230e788580ca516bf54d64cee175a0915b5d42baf74d83e"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "reference_inspection": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "confirmed": true
+    },
+    {
+      "id": "3",
+      "case": "small_weight_inside_tolerance",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/small_weight_tolerance/candidate.glb",
+            "sha256": "93dc2cceaca4d41de747705a3a429801938944059a911e61383d3bc96c0f7ddb"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "disposition": "expected acceptance inside declared1e-6 tolerance"
+    },
+    {
+      "id": "4",
+      "case": "different_PNG_same_RGBA",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/png_reencoding/candidate.glb",
+            "sha256": "d6950861827b4b40d70e83a3ab544d383140222874286f2ecc1d40037f4619fd"
+          },
+          "PNG_bytes_equal": false,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "disposition": "intentional semantic RGBA parity; report distinguishes PNG byte hashes, no false byte identity claim"
+    },
+    {
+      "id": "5",
+      "case": "candidate_mutation_after_read",
+      "candidate_before_sha256": "78d6e5ae25fbf7ebd07f488e926388a9d5f8cf021ac1b671f5e2c231f339630a",
+      "candidate_after_sha256": "b540bd0d09212af8ba72c08e5b7717230b9c44c173667024d85240d8e5664638",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/candidate_toctou/candidate.glb",
+            "sha256": "b540bd0d09212af8ba72c08e5b7717230b9c44c173667024d85240d8e5664638"
+          },
+          "PNG_bytes_equal": true,
+          "atlas_RGBA_exact": true,
+          "attributes": {
+            "POSITION": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "NORMAL": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "TEXCOORD_0": {
+              "rows": 3,
+              "max_component_error": 0.0
+            },
+            "JOINTS_WEIGHTS_by_bone_name": {
+              "rows": 3,
+              "max_component_error": 0.0
+            }
+          },
+          "triangles": 1,
+          "bones": 1
+        }
+      },
+      "confirmed": true,
+      "detail": "Verifier consumed POSITION0 but report binds replaced candidate POSITION.25 with0 measured component error."
+    },
+    {
+      "id": "5",
+      "case": "spec_mutation_before_late_report_hash",
+      "spec_before_sha256": "6a2f055980fa185e7eec0bcccba2cc2dacdcfac571935501e6df3d00d714e65b",
+      "spec_after_sha256": "d038a0a2272cf1de3907ab74ddabebe1d944f6be3ae5cdded3e76cb11760ed4d",
+      "observed": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true
+        }
+      },
+      "reported_spec_sha256": "d038a0a2272cf1de3907ab74ddabebe1d944f6be3ae5cdded3e76cb11760ed4d",
+      "reported_inventory": {
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 3,
+        "triangles": 1,
+        "bones": 1,
+        "clips": 0,
+        "animation_channels": 0,
+        "node_count": 3
+      },
+      "subsequent_preflight": {
+        "accepted": false,
+        "exception": "SpecError",
+        "message": "Expected triangles=999, measured 1"
+      },
+      "confirmed": true,
+      "stdout": "{\"ok\": true, \"report\": \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/cases/spec_toctou/raced-proof.validation.json\", \"triangles\": 1, \"bones\": 1, \"native_clips\": {}}\n"
+    },
+    {
+      "id": "6",
+      "case": "wrong_rest_source_build",
+      "reproduced": false,
+      "disposition": "No Blender run per task. Source authoring preserves its existing rig but does not prove rest equivalence; run_source mandatory cold parity rejects changed node rest/IBMs before final spec/manifestdone. Existing unit rest mutation negative and full source smoke cover gate; not a standalone build acceptance claim.",
+      "confidence": "Medium (static source trace, bounded by no Blender witness)"
+    },
+    {
+      "id": "7",
+      "case": "empty_expected",
+      "preflight": {
+        "accepted": true,
+        "exception": null,
+        "result": {
+          "ok": true,
+          "summary": {
+            "inventory": {
+              "mesh_count": 1,
+              "surface_count": 1,
+              "vertices": 3,
+              "triangles": 1,
+              "bones": 1,
+              "clips": 0,
+              "animation_channels": 0,
+              "node_count": 3
+            },
+            "parts": [
+              {
+                "part_id": 1,
+                "name": "Main",
+                "role": "body",
+                "logical_name": "Main",
+                "opaque_uv": true,
+                "source_node": "Body",
+                "source_surface": 0,
+                "source_vertex_start": 0,
+                "vertex_count": 3,
+                "index_start": 0,
+                "index_count": 3,
+                "source_model_sha256": "fa126b904aedfc64ccb91ee48ddde313b176d612898d3b717ea54617c4330941"
+              }
+            ],
+            "source_mesh_objects": "checked in Blender build, not inferred from GLB"
+          }
+        }
+      },
+      "mismatching_candidate": {
+        "accepted": false,
+        "exception": "AssertionError",
+        "message": "('POSITION', 0.125)"
+      },
+      "disposition": "Counts are measured from exact hashbound baseline, not bypassed; expected keys are optional extra assertions. No observed parity weakening."
+    }
+  ],
+  "scope": "Investigation only; no production source changes, no Blender/GPU/real fish.",
+  "proposed_fixes": "Pending phase1 adversarial review before pattern/hypothesis gate."
+}

@@ -1,0 +1,274 @@
+{
+  "actual_donor_rgba_sha256": "43ed93aeb0af25883119c3f28b7f8f4ba5a6f55d5e993ad70785e007874f8075",
+  "body_surfaces": 1,
+  "body_triangles": 4,
+  "engine": {
+    "build": "official",
+    "hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+    "hex": 263937,
+    "major": 4,
+    "minor": 7,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.7.1-stable (official)",
+    "timestamp": 0
+  },
+  "frozen_inputs": {
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/PackedFishParts.gd": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_body_gpu.gd": "864f96a6c0840b77235070944ef12a44e254ab658ae72aa1dd735d0413561d0a",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/glb_io.py": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/parts.py": "a92abe6c698f49ac04c7f7802f792d3832748a6aada7af1893ffc5c7a479a240",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_body_gpu.py": "e1f1baf25d7de025109bb4d868397791c1e11505582706d46c683dcea2b07003",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/portable-validation-complete/parts-manifest.json": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d"
+  },
+  "kind": "body_gpu_coverage_discrete_capture",
+  "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+  "negative": {
+    "actual": "negative-transparent-body.png",
+    "actual_sha256": "5b00beb441fbff68e78be8a595498cb6f89132837f82ebd641b57b1966e0472d",
+    "camera_digest": "643ec7b419694a4665afd135ac7d151ff589d597caeda434040be00699e0581c",
+    "injection": "Every actual body surface has zero alpha; original geometry/skin/pose/camera retained.",
+    "pose_digest": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+    "reference": "p0-v0-reference.png"
+  },
+  "ok": true,
+  "partition_proof": {
+    "actual_vertices": 11,
+    "logical_parts": 3,
+    "logical_surfaces": 3,
+    "manifest_sha256": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d",
+    "mapping_tolerances": {
+      "named_weight": 0.0000162590218966964,
+      "normal_component": 0.001,
+      "position": 0.000001,
+      "uv": 0.000001
+    },
+    "maximum_import_errors": {
+      "normal_component": 0.000105679035186768,
+      "position": 0.0,
+      "uv": 0.0,
+      "weight": 0.0
+    },
+    "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+    "ok": true,
+    "runtime_meshes": 1,
+    "runtime_surfaces": 1,
+    "source_arrays_modified": false,
+    "source_vertices": 11.0,
+    "triangles_consumed": 9,
+    "winding": "all triangles fixed glTF CCW to Godot CW reversal"
+  },
+  "plan_sha256": "4b598bb8e60fb2900464cad4be36aa6c8793991e353539adb1f7266f7f97670f",
+  "pose_digests": [
+    "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+    "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c"
+  ],
+  "poses": [
+    {
+      "clip": "Clip0",
+      "fraction": 0.0
+    },
+    {
+      "clip": "Clip0",
+      "fraction": 0.37
+    }
+  ],
+  "records": [
+    {
+      "actual": "p0-v0-actual.png",
+      "actual_sha256": "799142ce4fa8197fbcc64573ac5400f5b125a812ecb9ab187113d76f227119f3",
+      "camera_after": "643ec7b419694a4665afd135ac7d151ff589d597caeda434040be00699e0581c",
+      "camera_before": "643ec7b419694a4665afd135ac7d151ff589d597caeda434040be00699e0581c",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v0-reference.png",
+      "reference_sha256": "aad701fda697d1682b538d42bf898f99870d12ea522cc148b2b9b9cf5713af11",
+      "view": 0
+    },
+    {
+      "actual": "p0-v1-actual.png",
+      "actual_sha256": "0d82daabe32bda4e54dc78cecfb41f5fe33eec5406050b9544668014363e2be0",
+      "camera_after": "435118d16ce3fbd4c181b1b68925a4a1fa422dcf51a84ecefb506c03f9395b86",
+      "camera_before": "435118d16ce3fbd4c181b1b68925a4a1fa422dcf51a84ecefb506c03f9395b86",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v1-reference.png",
+      "reference_sha256": "7ac3bcd2d2384f84c12319f9c138fb8cd430027acbc70ec8b17ae85991b2e9c2",
+      "view": 1
+    },
+    {
+      "actual": "p0-v2-actual.png",
+      "actual_sha256": "c421569dc77d9d1e778bd2bb371fc742b01ebd16d5fcb5fb7e01645cb036f9db",
+      "camera_after": "05bdf43c045df826e5cbc1c546d6b4fa7d3b0c022cd59392b299c0a1243070a4",
+      "camera_before": "05bdf43c045df826e5cbc1c546d6b4fa7d3b0c022cd59392b299c0a1243070a4",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v2-reference.png",
+      "reference_sha256": "130e00a119289b18a847b86ece0cdb61ebd8c2275be98a822999a00682706a1e",
+      "view": 2
+    },
+    {
+      "actual": "p0-v3-actual.png",
+      "actual_sha256": "1278fee4a57f11e8808d24153d2c92fb2752a554207500290085536fe76be55d",
+      "camera_after": "04fd83a660bee6ab8fe0463b59da65e352a042d5b7251f1e34c346b103b76125",
+      "camera_before": "04fd83a660bee6ab8fe0463b59da65e352a042d5b7251f1e34c346b103b76125",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v3-reference.png",
+      "reference_sha256": "2ab15538efd1c55ddb27e4b0c467b66d06f7721a5a04d3e822d4972468f0cf52",
+      "view": 3
+    },
+    {
+      "actual": "p0-v4-actual.png",
+      "actual_sha256": "4e0ddccdda0f31bdde1b97bf1c5654944ecfc729ec56679cab0cf24a4c2e68b5",
+      "camera_after": "0107a519615452b7e474d6a270f14ac9e6973a66e8cf6fb90433f1bf14d450c2",
+      "camera_before": "0107a519615452b7e474d6a270f14ac9e6973a66e8cf6fb90433f1bf14d450c2",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v4-reference.png",
+      "reference_sha256": "48eec56659ceb92b42c6c0e82b80f39565387632c09b163483b8be051346f858",
+      "view": 4
+    },
+    {
+      "actual": "p0-v5-actual.png",
+      "actual_sha256": "2faa33f2d42442dfdc418519079663b62e67bdf7d903f9c1a3fdf6be3d90765e",
+      "camera_after": "7ad2106537f5ccc8458ec8f0530810a48a0f8510419e2a141eef1bf399e38131",
+      "camera_before": "7ad2106537f5ccc8458ec8f0530810a48a0f8510419e2a141eef1bf399e38131",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v5-reference.png",
+      "reference_sha256": "276cc839750644614c66ff294d3d4abac46442ea12a386eb5be371167f4ef491",
+      "view": 5
+    },
+    {
+      "actual": "p0-v6-actual.png",
+      "actual_sha256": "fff44d79f78a95a5782e299d716f1e885e31e42c9361e9d31b163e95890b63d0",
+      "camera_after": "7483c6852c837d2528705355e4b3038286dfd26e4e5c0266be846e4a9506e87b",
+      "camera_before": "7483c6852c837d2528705355e4b3038286dfd26e4e5c0266be846e4a9506e87b",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v6-reference.png",
+      "reference_sha256": "8ab3264bcc6609fae11d79b6fac36371a5f19588a89865856a8fe0ef8838add8",
+      "view": 6
+    },
+    {
+      "actual": "p0-v7-actual.png",
+      "actual_sha256": "4e33d26cd94bc16f59fd0844f7f25ebaf5ccca8bc8ca26f395ffba015172cdb0",
+      "camera_after": "d44f86e17000b57544d69ec82a0e6f201584edbf29d523ef748643bf19e850b2",
+      "camera_before": "d44f86e17000b57544d69ec82a0e6f201584edbf29d523ef748643bf19e850b2",
+      "pose": 0,
+      "pose_after": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "pose_before": "22764a998857c78ef2c31e63150792e56883187a88e57c673ac9d377b23d48f9",
+      "reference": "p0-v7-reference.png",
+      "reference_sha256": "d6ca517d9227bf58831d3a07c844fe851a375d4e5eea38913e1d665d61d06d68",
+      "view": 7
+    },
+    {
+      "actual": "p1-v0-actual.png",
+      "actual_sha256": "29d72e905a490ca61a87bd63811cee49017e0bdab9e12cf0d467af742a6b6de8",
+      "camera_after": "643ec7b419694a4665afd135ac7d151ff589d597caeda434040be00699e0581c",
+      "camera_before": "643ec7b419694a4665afd135ac7d151ff589d597caeda434040be00699e0581c",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v0-reference.png",
+      "reference_sha256": "73ee03bcd9105d938e0d6e184b5a08571d575a27374686854c6713f2e6db6e65",
+      "view": 0
+    },
+    {
+      "actual": "p1-v1-actual.png",
+      "actual_sha256": "5a0ba2a617faf8d13974ff13df7703a661598d97e468de2ca109c8657260ac25",
+      "camera_after": "435118d16ce3fbd4c181b1b68925a4a1fa422dcf51a84ecefb506c03f9395b86",
+      "camera_before": "435118d16ce3fbd4c181b1b68925a4a1fa422dcf51a84ecefb506c03f9395b86",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v1-reference.png",
+      "reference_sha256": "aa7e872e3a16caeb36949f5bdcec759fbbc11b2c15d75199b1296d382c708814",
+      "view": 1
+    },
+    {
+      "actual": "p1-v2-actual.png",
+      "actual_sha256": "c421569dc77d9d1e778bd2bb371fc742b01ebd16d5fcb5fb7e01645cb036f9db",
+      "camera_after": "05bdf43c045df826e5cbc1c546d6b4fa7d3b0c022cd59392b299c0a1243070a4",
+      "camera_before": "05bdf43c045df826e5cbc1c546d6b4fa7d3b0c022cd59392b299c0a1243070a4",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v2-reference.png",
+      "reference_sha256": "130e00a119289b18a847b86ece0cdb61ebd8c2275be98a822999a00682706a1e",
+      "view": 2
+    },
+    {
+      "actual": "p1-v3-actual.png",
+      "actual_sha256": "4a7bd63992884a5d7f5888d41b546d4c3adffa400782c425c3e4b05d4e3764d2",
+      "camera_after": "04fd83a660bee6ab8fe0463b59da65e352a042d5b7251f1e34c346b103b76125",
+      "camera_before": "04fd83a660bee6ab8fe0463b59da65e352a042d5b7251f1e34c346b103b76125",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v3-reference.png",
+      "reference_sha256": "01134970109b78d9afddeb87bcca5c76bb4f5285e16e7998c61f0171f7cdd45f",
+      "view": 3
+    },
+    {
+      "actual": "p1-v4-actual.png",
+      "actual_sha256": "8509d06e7e61e467fd57fe30edfcbe15ac6bfc2c36ee63a8087f37e335570f7a",
+      "camera_after": "0107a519615452b7e474d6a270f14ac9e6973a66e8cf6fb90433f1bf14d450c2",
+      "camera_before": "0107a519615452b7e474d6a270f14ac9e6973a66e8cf6fb90433f1bf14d450c2",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v4-reference.png",
+      "reference_sha256": "aaa957d371ca7c22061e3a9b253d67cd2d3786a22433fbc8ab79241d3d485012",
+      "view": 4
+    },
+    {
+      "actual": "p1-v5-actual.png",
+      "actual_sha256": "e2504b32202e0ec423b9c785252a51d0d43173bd11a5e52a6cd41bb35c410a9a",
+      "camera_after": "7ad2106537f5ccc8458ec8f0530810a48a0f8510419e2a141eef1bf399e38131",
+      "camera_before": "7ad2106537f5ccc8458ec8f0530810a48a0f8510419e2a141eef1bf399e38131",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v5-reference.png",
+      "reference_sha256": "2c035934aa1f8630ccf6ebabb046838d70324060d96f61aa2e5c4ba1f03a790e",
+      "view": 5
+    },
+    {
+      "actual": "p1-v6-actual.png",
+      "actual_sha256": "237398228b4dd35a84f897cdb167ce836279ef60864e97d1e95de00fc6e17557",
+      "camera_after": "7483c6852c837d2528705355e4b3038286dfd26e4e5c0266be846e4a9506e87b",
+      "camera_before": "7483c6852c837d2528705355e4b3038286dfd26e4e5c0266be846e4a9506e87b",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v6-reference.png",
+      "reference_sha256": "9714757a52bcd4ed4d8865d0d1369f5b4e279a7b6ccad28ace038d6a1b5ab835",
+      "view": 6
+    },
+    {
+      "actual": "p1-v7-actual.png",
+      "actual_sha256": "1b72fb90be10e7f0bf89b047e22bf28f6bc505e899b8a77c368d6199924d6f0f",
+      "camera_after": "d44f86e17000b57544d69ec82a0e6f201584edbf29d523ef748643bf19e850b2",
+      "camera_before": "d44f86e17000b57544d69ec82a0e6f201584edbf29d523ef748643bf19e850b2",
+      "pose": 1,
+      "pose_after": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "pose_before": "5c95035e36502b7231eeefe23277f449f2f313421a2f374924cf7b64b4c2d29c",
+      "reference": "p1-v7-reference.png",
+      "reference_sha256": "38973954abd3f08c110162d038acf351e2187528892cbf09aea0b6d9014bcd68",
+      "view": 7
+    }
+  ],
+  "runtime_meshes_after_cleanup": 1,
+  "scope": "Two discrete native poses, eight views. Actual same-pose body alpha coverage only; no closure/anatomy/full077/full490/continuous-time acceptance.",
+  "source_donor_rgba_sha256": "43ed93aeb0af25883119c3f28b7f8f4ba5a6f55d5e993ad70785e007874f8075"
+}

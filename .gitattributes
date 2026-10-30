@@ -52,3 +52,16 @@
 
 # Reviewed school runtime sources are bound by exact-byte validation reports.
 /resources/runtime/godot/fish-school/** -text whitespace=cr-at-eol
+
+# Portable fish tool evidence and linked review keep byte-bound validation.
+/work/fish-portable-tools/** -text whitespace=cr-at-eol
+/docs/anvil/knowledge/2026-10-30-fish-portable-tools.validation.json -text whitespace=cr-at-eol
+/.ai/anvil/reviews/2026-10-30-fish-portable-tools-review.md -text whitespace=cr-at-eol
+/.ai/anvil/reviews/2026-10-30-portable-secondary-debug-review.md -text whitespace=cr-at-eol
+/docs/FISH-PORTABLE-HANDOFF-20261030.md -text whitespace=cr-at-eol
+/docs/anvil/debug-sessions/2026-10-30-portable-secondary-review-session.md -text whitespace=cr-at-eol
+/docs/anvil/knowledge/2026-10-30-portable-validation-guards.md -text whitespace=cr-at-eol
+# Raw process logs and unified-diff context are signed evidence, not source style.
+/work/fish-portable-tools/**/*.stdout.txt -whitespace
+/work/fish-portable-tools/**/*.log -whitespace
+/work/fish-portable-tools/deepseek-repro/phase4.diff -whitespace

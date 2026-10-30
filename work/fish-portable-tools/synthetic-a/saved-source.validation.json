@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "kind": "synthetic_cold_source_rig_rest_action_parity",
+  "inputs": {
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/source.blend": "a2e9b94e8ab2064ce85cc087202520bfe367215ed4a821109cec96110d26bca6",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/authored/fish.blend": "80f9a6a7f5578b8f8e13579d4cb8853c1c55bdcacbcc4f9e37a1082fa3a8ef4f"
+  },
+  "all_rig_rest_pose_actions_NLA_equal": true
+}

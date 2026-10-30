@@ -1,0 +1,85 @@
+{
+  "kind": "portable_source_manifest",
+  "version": 1,
+  "status": "done",
+  "next_action": "human_review",
+  "input_spec": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/spec.json",
+    "sha256": "35df72cf0a2d8f0891409b9ab22fe5ac139f17a76cb41e133d3185046daff9f5"
+  },
+  "input_files": {
+    "source_blend": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/source.blend",
+      "sha256": "d1e725209c9c98ceb5da78475ce13fbe9f26ac2b8ff8f0dd2e509c37256ec999"
+    },
+    "reference_glb": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/merged-mask.glb",
+      "sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    },
+    "atlas": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/atlas.png",
+      "sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372"
+    },
+    "packing_report": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/packing.validation.json",
+      "sha256": "e544f6277d50626e8ce84ab7aa5d9b8a4f4401458d12186fcb6bd3b528753f7d"
+    }
+  },
+  "stages": [
+    {
+      "name": "author",
+      "argv": [
+        "/Users/czl/.gamefactory/toolchain/blender/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/build_source.py",
+        "--",
+        "--spec",
+        "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/spec.json",
+        "--output",
+        "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/run/source",
+        "--json"
+      ],
+      "returncode": 0,
+      "log": "work/fish-portable-tools/core-run-source-smoke/a/run/author.stdout.txt",
+      "log_sha256": "dd846cf1b369da625cf3b02e992d38a1e27777a914eb4d9c36741575c368719d"
+    },
+    {
+      "name": "cold_export",
+      "argv": [
+        "/Users/czl/.gamefactory/toolchain/blender/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/export_packed_fish_source.py",
+        "--",
+        "--blend",
+        "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/run/source/fish.blend",
+        "--output",
+        "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/run/fish.glb",
+        "--report",
+        "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/a/run/cold-export.validation.json"
+      ],
+      "returncode": 0,
+      "log": "work/fish-portable-tools/core-run-source-smoke/a/run/cold_export.stdout.txt",
+      "log_sha256": "37e5c3f6f902faece89854fa0b9f342b2af9552034ef39461a12ab9f901d7de6"
+    }
+  ],
+  "scope": "Technical portable source run only, no fish acceptance.",
+  "model": {
+    "path": "work/fish-portable-tools/core-run-source-smoke/a/run/fish.glb",
+    "sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b"
+  },
+  "final_spec": {
+    "path": "work/fish-portable-tools/core-run-source-smoke/a/run/final-spec.json",
+    "sha256": "9e07c222f063e83af644fac235b40ac97fc5923fa445d621bcd7ba668ca01381"
+  },
+  "validation_report": {
+    "path": "work/fish-portable-tools/core-run-source-smoke/a/run/validation-report.json",
+    "sha256": "fdd275d29cbe70bd22b02647cfecab04e373f1920521c1fe4d6f1491e3a5f342"
+  },
+  "elapsed_seconds": 1.0120790004730225
+}

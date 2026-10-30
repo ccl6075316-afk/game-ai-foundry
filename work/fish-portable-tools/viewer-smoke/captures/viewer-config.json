@@ -1,0 +1,64 @@
+{
+  "species": "synthetic_fixture",
+  "spec": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/spec.json",
+  "spec_sha256": "ab8d7504eabcc36d6df61df595409fd6e4d37802fe7bdbeb4acb4a3b62109157",
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/synthetic.glb",
+  "model_sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e",
+  "model_role": "final_model",
+  "game": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/game",
+  "model_scale": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "camera": {},
+  "focuses": {
+    "head": {
+      "mode": "bbox_relative",
+      "position": [
+        0.75,
+        0.5,
+        0.5
+      ]
+    }
+  },
+  "captures": [
+    {
+      "name": "front",
+      "time_seconds": 0
+    },
+    {
+      "name": "oblique",
+      "yaw_degrees": 35,
+      "pitch_degrees": 20,
+      "time_seconds": 0.5
+    }
+  ],
+  "native_clip": "SyntheticTranslate",
+  "controller": null,
+  "inventory": {
+    "mesh_count": 1,
+    "mesh_resource_count": 1,
+    "surface_count": 1,
+    "clips": [
+      "SyntheticTranslate"
+    ],
+    "skins": 0,
+    "nodes": 1
+  },
+  "input_paths": [
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/spec.json",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/synthetic.glb"
+  ],
+  "capabilities": {
+    "orbit": true,
+    "zoom": true,
+    "pan": true,
+    "native_animation": true,
+    "live_controller": false,
+    "part_diagnostics": false,
+    "part_diagnostics_reason": "No verified part diagnostic recipe configured; original materials remain intact"
+  },
+  "output": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures",
+  "mode": "capture"
+}

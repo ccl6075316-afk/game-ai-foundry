@@ -1,0 +1,132 @@
+{
+  "ok": true,
+  "kind": "portable_script_hash_inventory",
+  "algorithm": "sha256",
+  "scripts_and_tests": [
+    {
+      "path": "resources/scripts/volume-fish/portable/FishAssetViewer.gd",
+      "sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3",
+      "bytes": 13504
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/PackedFishParts.gd",
+      "sha256": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+      "bytes": 14090
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/build_source.py",
+      "sha256": "5d0677d672642630f69ec5d32c1c5288c4a86a1ad6c414d758158862874bc546",
+      "bytes": 11409
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/capture_body_gpu.gd",
+      "sha256": "864f96a6c0840b77235070944ef12a44e254ab658ae72aa1dd735d0413561d0a",
+      "bytes": 9249
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/evidence.py",
+      "sha256": "2e4e1d4d73b169e7a0dc5d0d2076d7d54ead7c5f6405ec98a993711cfdbf4460",
+      "bytes": 6861
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/export_source.py",
+      "sha256": "ea30f4c7a0731d95a38ba835c05119def3770f987ef35831742a4f6ec3375c1b",
+      "bytes": 1696
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/fish_asset_spec.py",
+      "sha256": "83b4ff23a336931bdf941e65e29c8c65093f307cb691111fdc9f7900b942d5eb",
+      "bytes": 11583
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/glb_io.py",
+      "sha256": "6196d9704d5c346734a630c19ccd71f5828bc7a2f1803bf64e9e5eaabda273cc",
+      "bytes": 4367
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/parts.py",
+      "sha256": "a92abe6c698f49ac04c7f7802f792d3832748a6aada7af1893ffc5c7a479a240",
+      "bytes": 12690
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/prepare_spec.py",
+      "sha256": "03f48eab1667c43f476709beb23eae65019a951c407d63f3105e40b666a866ec",
+      "bytes": 4513
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/prepare_validation.py",
+      "sha256": "b4756cf37e61ad2aac4a393952db2fc2e3a9c790049cfa7b89912a1fee191c31",
+      "bytes": 4504
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/run_source.py",
+      "sha256": "f5b4113d6b7f7c7fb8894162699e37c748dd9f568b1845f1c468f5a117a73bbc",
+      "bytes": 6205
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/source_snapshot.py",
+      "sha256": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+      "bytes": 2302
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/make_spec.py",
+      "sha256": "7654b941ca2cf120010d236c408171663506972c89e77def69e668cd40fc2128",
+      "bytes": 1203
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/make_synthetic.py",
+      "sha256": "5e123e00adba1eacaef69efb0b07532489db2e68cea8d71025d6e88304fce7cf",
+      "bytes": 2932
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/run_blender_smoke.py",
+      "sha256": "d0b0a7492ed71ce5ac21aed40b9ac8effc503e4d518f0ed37134970c5ba0ab47",
+      "bytes": 3429
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_asset_core.py",
+      "sha256": "4700a8cc5a2f1665f314efd3c3f8363e4746a3ea95c30b9801485044f03400da",
+      "bytes": 11708
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_guard_regressions.py",
+      "sha256": "c9b682d75fc438abfb116eab61327b4cd29dc6e7a3f724c5cfbbbc26168447bd",
+      "bytes": 10208
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_prepare_spec.py",
+      "sha256": "9c966149aafba761fc4cdd40a55a84e7f390371fce06763638a11302cc5a6dc3",
+      "bytes": 5404
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_view_evidence.py",
+      "sha256": "d85068aba4f11bfeb6a250faa134e3778658ba6268beb1db24a8af893d8048c2",
+      "bytes": 8553
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/verify_saved_source.py",
+      "sha256": "0a70c11d499eb05e543d8398c2930e3d7de9465d5d4094c40cb771aab73d7042",
+      "bytes": 1246
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/validate_body_gpu.py",
+      "sha256": "e1f1baf25d7de025109bb4d868397791c1e11505582706d46c683dcea2b07003",
+      "bytes": 7734
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/validate_import.gd",
+      "sha256": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+      "bytes": 9129
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/verify_parity.py",
+      "sha256": "569d9879d683c8095602bd0e939655ef5cac23a7917a480627104969cb6f456a",
+      "bytes": 13914
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/view.py",
+      "sha256": "a4d33cbf87c33f976810d1ebe31a9f3eeb4489bf0efbda7e702dec4c09331c81",
+      "bytes": 11427
+    }
+  ]
+}

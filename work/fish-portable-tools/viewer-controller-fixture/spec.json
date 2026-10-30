@@ -1,0 +1,30 @@
+{
+  "kind": "fish_asset_finalization_spec",
+  "version": 1,
+  "species": "synthetic_controller_fixture",
+  "game": "work/fish-portable-tools/viewer-smoke/game",
+  "model": {
+    "path": "work/fish-portable-tools/viewer-controller-fixture/unpacked.glb",
+    "sha256": "0588ac0307a183ddc17fadaa6310f804b253913d984b7c4e293d9451980c0444"
+  },
+  "motion": {
+    "runtime": {
+      "path": "resources/runtime/godot/VolumeFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "profile": {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/motion.json",
+      "sha256": "9d48bbcd31a74cd16fabc2d150cfe54dcdd94546f67f84319b51f2272638d48e"
+    },
+    "action": "Swim"
+  },
+  "viewer": {
+    "native_clip": "Clip0",
+    "captures": [
+      {
+        "name": "overview",
+        "time_seconds": 0
+      }
+    ]
+  }
+}

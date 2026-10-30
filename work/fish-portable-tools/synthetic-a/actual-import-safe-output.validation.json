@@ -1,0 +1,102 @@
+{
+  "actual_material": {
+    "alpha_factor": 1.0,
+    "nearest_without_mipmaps": true,
+    "same_material_used_by_diagnostics": true,
+    "transparency": 2,
+    "type": "StandardMaterial3D"
+  },
+  "actual_vertices": 11,
+  "body_opacity": {
+    "body_regions": [
+      {
+        "alpha_max": 255.0,
+        "alpha_min": 255.0,
+        "name": "body",
+        "source_node": "Piece0",
+        "source_surface": 0.0,
+        "texel_rectangle_inclusive": [
+          [
+            3.0,
+            3.0
+          ],
+          [
+            3.0,
+            3.0
+          ]
+        ],
+        "texels_checked": 1.0
+      }
+    ],
+    "image_embedded_sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372",
+    "material_alpha_mode": "MASK",
+    "ok": true,
+    "rgba_sha256": "43ed93aeb0af25883119c3f28b7f8f4ba5a6f55d5e993ad70785e007874f8075",
+    "scope": "Every texel in each declared body UV bounding rectangle is alpha255. This does not prove same-pose GPU coverage or anatomical integrity.",
+    "size": [
+      16.0,
+      16.0
+    ]
+  },
+  "body_probe": {
+    "same_actual_material": true,
+    "same_actual_skin": true,
+    "surfaces": 1,
+    "triangles": 4,
+    "validation_only": true
+  },
+  "command": "portable.validate_import",
+  "engine": {
+    "build": "official",
+    "hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+    "hex": 263937,
+    "major": 4,
+    "minor": 7,
+    "patch": 1,
+    "status": "stable",
+    "string": "4.7.1-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "helper_sha256": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+  "importer_script_sha256": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+  "logical_parts": 3,
+  "logical_surfaces": 3,
+  "manifest": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/portable-validation-complete/parts-manifest.json",
+  "manifest_sha256": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d",
+  "mapping_tolerances": {
+    "named_weight": 0.0000162590218966964,
+    "normal_component": 0.001,
+    "position": 0.000001,
+    "uv": 0.000001
+  },
+  "maximum_import_errors": {
+    "normal_component": 0.000105679035186768,
+    "position": 0.0,
+    "uv": 0.0,
+    "weight": 0.0
+  },
+  "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+  "native_smoke": {
+    "bones": 3,
+    "clips": 2,
+    "immutable_track_optimization_allowed": true,
+    "imported_tracks_resolved": 6,
+    "raw_channels_resolved": 18
+  },
+  "next_action": "none",
+  "ok": true,
+  "part_triangles": {
+    "Piece1": 1,
+    "Piece2": 4,
+    "body": 4
+  },
+  "runtime_meshes": 1,
+  "runtime_surfaces": 1,
+  "scope": "Cold actual GLTFDocument array/skin/oriented-triangle partition and native-track resolution only. Physical490, fin roots/membranes, body GPU integrity, anatomy, motion-controller behavior and visual acceptance are unsupported by this generic proof.",
+  "source_arrays_modified": false,
+  "source_vertices": 11.0,
+  "status": "done",
+  "triangles_consumed": 9,
+  "winding": "all triangles fixed glTF CCW to Godot CW reversal"
+}

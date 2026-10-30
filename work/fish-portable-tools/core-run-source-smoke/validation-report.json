@@ -1,0 +1,52 @@
+{
+  "ok": true,
+  "kind": "portable_synthetic_blender_source_and_cold_export_smoke",
+  "helpers": {
+    "resources/scripts/volume-fish/portable/build_source.py": "38b9bc60be252010d459a3e5520ff1000b13e08a92a92a6d5bac1c9850321bce",
+    "resources/scripts/volume-fish/portable/verify_parity.py": "8ec332dc2d607a0d9519d723a5b63ed0810ac6ecb518ea7e9bf0426feb78fd69",
+    "resources/scripts/volume-fish/portable/fish_asset_spec.py": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9",
+    "resources/scripts/volume-fish/portable/source_snapshot.py": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+    "resources/scripts/volume-fish/portable/glb_io.py": "140ad7116fe4a3f4a5cb450b73fa94f3398302da1062d6f3024883a5c0a919c9",
+    "resources/scripts/volume-fish/portable/run_source.py": "53ccc5b3ebf172138d7804d6135b3216123a032cb8ee5768b977c876a6452240",
+    "resources/scripts/volume-fish/export_packed_fish_source.py": "51470311f0f6eb849bfde1c1c2ed5646eaabf66cb91d458756bb90efabd2fabc"
+  },
+  "fixtures": [
+    {
+      "fixture": "a",
+      "inventory": {
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 11,
+        "triangles": 9,
+        "bones": 3,
+        "clips": 2,
+        "animation_channels": 18,
+        "node_count": 7
+      },
+      "parts": 3,
+      "cold_export_bytes_equal": true,
+      "original_inputs_unchanged": true,
+      "saved_rig_rest_pose_actions_NLA_equal": true,
+      "proof": "work/fish-portable-tools/core-run-source-smoke/a/run/validation-report.json"
+    },
+    {
+      "fixture": "b",
+      "inventory": {
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 7,
+        "triangles": 5,
+        "bones": 2,
+        "clips": 1,
+        "animation_channels": 6,
+        "node_count": 5
+      },
+      "parts": 2,
+      "cold_export_bytes_equal": true,
+      "original_inputs_unchanged": true,
+      "saved_rig_rest_pose_actions_NLA_equal": true,
+      "proof": "work/fish-portable-tools/core-run-source-smoke/b/run/validation-report.json"
+    }
+  ],
+  "scope": "Synthetic tool tests only; no fish acceptance or production gates."
+}

@@ -1,0 +1,1 @@
+{"candidates": {"merged-mask": {"sha256": "fa126b904aedfc64ccb91ee48ddde313b176d612898d3b717ea54617c4330941"}}, "atlas": {"sha256": "04655d04862d291ad6ff184a39064e9e3813ba06b027473ec8f4c8c299b2fc84"}, "parts": [{"node": "Body", "surface": 0, "new_vertex_range": [0, 3], "new_index_range": [0, 3]}]}

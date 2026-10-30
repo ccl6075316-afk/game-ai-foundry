@@ -1,0 +1,55 @@
+{
+  "species": "synthetic_controller_fixture",
+  "spec": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/spec.json",
+  "spec_sha256": "ea81a2183b3562ddd40107769c723658cbab2a1ab587bf808ef3daebebcf2e6b",
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/unpacked.glb",
+  "model_sha256": "0588ac0307a183ddc17fadaa6310f804b253913d984b7c4e293d9451980c0444",
+  "model_role": "final_model",
+  "game": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/game",
+  "model_scale": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "camera": {},
+  "focuses": {},
+  "captures": [
+    {
+      "name": "overview",
+      "time_seconds": 0
+    }
+  ],
+  "native_clip": "Clip0",
+  "controller": {
+    "runtime": "/Users/czl/projects/game-ai-foundry/resources/runtime/godot/VolumeFishMotion.gd",
+    "profile": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/motion.json",
+    "action": "Swim"
+  },
+  "inventory": {
+    "mesh_count": 2,
+    "mesh_resource_count": 2,
+    "surface_count": 2,
+    "clips": [
+      "Clip0"
+    ],
+    "skins": 1,
+    "nodes": 7
+  },
+  "input_paths": [
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/spec.json",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/unpacked.glb",
+    "/Users/czl/projects/game-ai-foundry/resources/runtime/godot/VolumeFishMotion.gd",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/motion.json"
+  ],
+  "capabilities": {
+    "orbit": true,
+    "zoom": true,
+    "pan": true,
+    "native_animation": true,
+    "live_controller": true,
+    "part_diagnostics": false,
+    "part_diagnostics_reason": "No verified part diagnostic recipe configured; original materials remain intact"
+  },
+  "output": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/smoke",
+  "mode": "smoke"
+}

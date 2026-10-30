@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "kind": "portable_core_cleanup_receipt",
+  "deleted_exact_paths": [
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__",
+      "files": 15,
+      "bytes": 219746,
+      "reason": "Rebuildable Python cache; no source, input or validation evidence"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/__pycache__",
+      "files": 4,
+      "bytes": 87148,
+      "reason": "Rebuildable Python cache; no source, input or validation evidence"
+    }
+  ],
+  "retained": "All original synthetic inputs, report-bound source/GLB outputs, small reports, reviewed-source archive and beforefix witnesses retained unchanged per lead final instruction. No reports moved or identities rewritten.",
+  "remaining_deepseek_repro_bytes": 213661,
+  "remaining_intermediate_two_fixture_bytes": 1838289,
+  "remaining_final_source_run_bytes": 475129
+}

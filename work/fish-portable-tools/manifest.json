@@ -1,0 +1,42 @@
+{
+  "kind": "fish_portable_tools_implementation_manifest",
+  "status": "done",
+  "next_action": "human_review",
+  "scope": "Reusable static source/export/import/view/evidence tooling and confirmed guard fixes only. No next fish, Nile production-asset edits, GPU animation, complete077/full490 or biological acceptance.",
+  "excluded": [
+    "next fish/new generation",
+    "Nile assets or frozen helpers",
+    "full490/performance matrix",
+    "GPU animation implementation"
+  ],
+  "baseline": {
+    "path": "work/fish-portable-tools/baseline.validation.json",
+    "sha256": "91f92f202b66f6a5e33d8037e8c4a02a085d5785bb52704213c9ea38961b829c"
+  },
+  "tasks": {
+    "core": "done",
+    "parts": "done",
+    "viewer_evidence": "done",
+    "secondary_review_and_confirmed_fixes": "done",
+    "independent_review": "done",
+    "current_native_validation": "done",
+    "handoff_docs_cleanup": "done"
+  },
+  "validation_report": {
+    "path": "docs/anvil/knowledge/2026-10-30-fish-portable-tools.validation.json",
+    "sha256": "4f1182267e031e0b6cbc21eb368d513d04ba6a5d52fa0c68e2d225826c3863c8"
+  },
+  "secondary_review": {
+    "path": "work/fish-portable-tools/deepseek-review-final.validation.json",
+    "sha256": "90292a9433b45edcb782895c30e2524f28325de690e388137b006311dc58660a"
+  },
+  "handoff": {
+    "path": "docs/FISH-PORTABLE-HANDOFF-20261030.md",
+    "sha256": "2a99c822001ceed26142c3d609ebdccf24b01de883bb94547ff7e71513dd51fe"
+  },
+  "scope_note": "Technical tool capabilities approved. No fish biological/user acceptance. User authorized commit+push after this checkpoint; next session starts from handoff.",
+  "submission_preflight_report": {
+    "path": "work/fish-portable-tools/delivery-checks.validation.json",
+    "sha256": "f51c87700f4834666a3c328e9803f513bb97d7e9ac2bd7ff67aeca385b90fbfd"
+  }
+}

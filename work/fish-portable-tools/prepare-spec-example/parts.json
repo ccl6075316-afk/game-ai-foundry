@@ -1,0 +1,26 @@
+{
+  "parts": [
+    {
+      "name": "Piece0_surface_0",
+      "role": "body",
+      "logical_name": "body",
+      "source_node": "Piece0",
+      "source_surface": 0
+    },
+    {
+      "name": "Piece1_surface_0",
+      "role": "aux",
+      "logical_name": "Piece1",
+      "source_node": "Piece1",
+      "source_surface": 0
+    },
+    {
+      "name": "Piece2_surface_0",
+      "role": "fin",
+      "logical_name": "Piece2",
+      "source_node": "Piece2",
+      "source_surface": 0
+    }
+  ],
+  "species": "synthetic-fixture-a"
+}

@@ -1,0 +1,33 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "reasoning_effort": "high",
+  "authorization": "User explicitly allowed the five-source-file read-only review on this turn.",
+  "initial_automatic_review_rejected": true,
+  "authorization_after_rejection": true,
+  "calls_sent": 2,
+  "final_review_received": false,
+  "status": "failed",
+  "reason": "Both responses finish_reason=length; all completion tokens reported as reasoning, no final findings_text. Stopped after one bounded retry.",
+  "usage": {
+    "prompt_tokens": 24066,
+    "completion_tokens": 32768,
+    "total_tokens": 56834,
+    "prompt_cache_hit_tokens": 11899,
+    "prompt_cache_miss_tokens": 12167
+  },
+  "elapsed_seconds": 204.241,
+  "attempts": [
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review-attempt1.validation.json",
+      "sha256": "d4c3d4eee129d6cd68443d61c4e2babd78dd35f9351eaa4dd47ccdd727311c33"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review.validation.json",
+      "sha256": "ff35609bcd79596274a5284608437db2d98cd633764c87c13e9f0014911ab83b"
+    }
+  ],
+  "new_code_changes": 0,
+  "provider_cost": "not reported; no price estimate inferred",
+  "limits": "These are DeepSeek API tokens, not measured Codex usage or savings. This failure does not prove model incapability; it shows this request/effort/output-budget combination did not return a usable final report."
+}

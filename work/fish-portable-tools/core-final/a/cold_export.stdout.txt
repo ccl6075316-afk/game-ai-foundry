@@ -1,0 +1,13 @@
+INFO Draco mesh compression is available, use library at /Users/czl/.gamefactory/toolchain/blender/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib
+19:02:35 | INFO: Starting glTF 2.0 export
+19:02:35 | INFO: Extracting primitive: Packed fish editable disconnected mesh
+19:02:35 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+19:02:35 | INFO: Primitives created: 1
+19:02:35 | INFO: Finished glTF 2.0 export in 0.016865015029907227 s
+
+{"ok": true, "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b", "blend_sha256": "2644c529b9efface4f402e09c5074c0b88a0bef3e30316fe5f63a06783e98378", "parts": 3}
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:33:39)
+Read blend: "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-final/a/source/fish.blend"
+
+Blender quit
+

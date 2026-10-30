@@ -1,0 +1,203 @@
+{
+  "ok": true,
+  "kind": "native_pixel_single_material_candidate_packing",
+  "scope": "Isolated GLB experiment. No editable blend claim, no final fish acceptance, no installation. Native pixel data unresampled; finite FLOAT32 UV interpolation can differ only at quantified boundary-near samples.",
+  "input_model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-b/unpacked.glb",
+  "input_sha256": "9a4f2cd10678b1bcb5666eeea408c1947d2f71016902a8f8698101bf77bf39a7",
+  "builder_sha256": "9b518e82712c06e3614e344a4d05f1c4aa8dcd3821a5a7902c17389b9f05fb85",
+  "candidates": {
+    "merged-mask": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-b/packed/merged-mask.glb",
+      "sha256": "be25d5a9028dd473df5740e576f66a37999cfb66102b3575399d11b6d6d91769"
+    },
+    "merged-opaque": {
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-b/packed/merged-opaque.glb",
+      "sha256": "3e3374359a80c15df6abdc3115d7da8474688ef20088568a0be40a02e8b844cd"
+    }
+  },
+  "atlas": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-b/packed/atlas.png",
+    "sha256": "178a0a3888744f07ff49b1b6aece43f945bdf09e5d8e6bd32a79ee0e0fcdde04",
+    "size": [
+      16,
+      8
+    ],
+    "padding_px": 3,
+    "resampled": false
+  },
+  "surface_count_before": 2,
+  "surface_count_after": 1,
+  "vertices": 7,
+  "triangles": 5,
+  "bones": 2,
+  "checks": {
+    "geometry_normals_joints_weights_exact": true,
+    "directed_indices_exact": true,
+    "animation_channels_sampling_exact": true,
+    "inverse_bind_matrices_exact": true,
+    "MASK_OPAQUE_differ_only_material_alpha_setting": true,
+    "input_unchanged": true,
+    "body_opaque_alpha_forced_in_atlas": true,
+    "constant_color_baked_sRGB8_without_vertex_color_dependency": true
+  },
+  "nearest_sampling_probe": {
+    "triangle_interior_samples": 0,
+    "RGBA_mismatches": 0,
+    "max_pixel_coordinate_error": 0.0,
+    "interpretation": "Floating point nearest-boundary probe; not a visual acceptance score. GPU view parity is independently required."
+  },
+  "parts": [
+    {
+      "node": "Piece0",
+      "surface": 0,
+      "source_material": "Fixture pixels",
+      "source_alpha_mode": "OPAQUE",
+      "vertices": 4,
+      "triangles": 4,
+      "new_vertex_range": [
+        0,
+        4
+      ],
+      "new_index_range": [
+        0,
+        12
+      ],
+      "old_UV_min": [
+        0.375,
+        0.625
+      ],
+      "old_UV_max": [
+        0.375,
+        0.625
+      ],
+      "atlas_placement": [
+        0,
+        0
+      ],
+      "virtual_crop_origin": [
+        0,
+        0
+      ],
+      "virtual_crop_size": [
+        7,
+        7
+      ],
+      "source_size": [
+        1,
+        1
+      ],
+      "source_wrap": [
+        33071,
+        33071
+      ],
+      "source_RGBA_sha256": null,
+      "constant_color_encoding": {
+        "source_linear_RGBA": [
+          0.800000011920929,
+          0.4000000059604645,
+          0.10000000149011612,
+          1.0
+        ],
+        "target_sRGB_RGB": [
+          0.9063317593127924,
+          0.6651850891023338,
+          0.34919021513783693
+        ],
+        "atlas_sRGB8_RGBA": [
+          231,
+          170,
+          89,
+          255
+        ],
+        "decoded_linear_RGB": [
+          0.799102738014409,
+          0.4019777798321958,
+          0.09989872824711389
+        ],
+        "linear_RGB_error": [
+          -0.0008972739065199464,
+          0.0019777738717313142,
+          -0.0001012732430022284
+        ],
+        "max_sRGB_encoding_error": 0.00148157756433287,
+        "scope": "RGBA8 constant-patch quantization, not final screen pixel error; actual GPU parity still required."
+      }
+    },
+    {
+      "node": "Piece1",
+      "surface": 0,
+      "source_material": "Fixture pixels",
+      "source_alpha_mode": "OPAQUE",
+      "vertices": 3,
+      "triangles": 1,
+      "new_vertex_range": [
+        4,
+        7
+      ],
+      "new_index_range": [
+        12,
+        15
+      ],
+      "old_UV_min": [
+        0.375,
+        0.625
+      ],
+      "old_UV_max": [
+        0.375,
+        0.625
+      ],
+      "atlas_placement": [
+        7,
+        0
+      ],
+      "virtual_crop_origin": [
+        0,
+        0
+      ],
+      "virtual_crop_size": [
+        7,
+        7
+      ],
+      "source_size": [
+        1,
+        1
+      ],
+      "source_wrap": [
+        33071,
+        33071
+      ],
+      "source_RGBA_sha256": null,
+      "constant_color_encoding": {
+        "source_linear_RGBA": [
+          0.800000011920929,
+          0.4000000059604645,
+          0.10000000149011612,
+          1.0
+        ],
+        "target_sRGB_RGB": [
+          0.9063317593127924,
+          0.6651850891023338,
+          0.34919021513783693
+        ],
+        "atlas_sRGB8_RGBA": [
+          231,
+          170,
+          89,
+          255
+        ],
+        "decoded_linear_RGB": [
+          0.799102738014409,
+          0.4019777798321958,
+          0.09989872824711389
+        ],
+        "linear_RGB_error": [
+          -0.0008972739065199464,
+          0.0019777738717313142,
+          -0.0001012732430022284
+        ],
+        "max_sRGB_encoding_error": 0.00148157756433287,
+        "scope": "RGBA8 constant-patch quantization, not final screen pixel error; actual GPU parity still required."
+      }
+    }
+  ]
+}

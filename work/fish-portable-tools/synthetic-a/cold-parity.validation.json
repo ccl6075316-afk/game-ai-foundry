@@ -1,0 +1,148 @@
+{
+  "ok": true,
+  "kind": "packed_fish_complete_GLB_semantic_parity",
+  "reference": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/merged-mask.glb",
+    "sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+  },
+  "candidate": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb",
+    "sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b"
+  },
+  "checker_sha256": "a81fa5991e1ba855afe9c1d5426ba5d6c95007bd92dd959c5035d88bb05ce3fb",
+  "triangles": 9,
+  "vertices": 11,
+  "bones": 3,
+  "single_mesh_single_surface": true,
+  "attributes": {
+    "POSITION": {
+      "rows": 11,
+      "max_component_error": 0.0
+    },
+    "NORMAL": {
+      "rows": 11,
+      "max_component_error": 0.0
+    },
+    "TEXCOORD_0": {
+      "rows": 11,
+      "max_component_error": 0.0
+    },
+    "JOINTS_WEIGHTS_by_bone_name": {
+      "rows": 11,
+      "max_component_error": 0.0
+    }
+  },
+  "directed_triangles_equal": true,
+  "node_rest_and_hierarchy": {
+    "original_named_nodes": 7,
+    "max_rest_component_error": 0.0,
+    "parents_and_skin_skeleton_references_equal": true,
+    "allowed_editor_empty_nodes": []
+  },
+  "material_semantics": {
+    "alphaMode": "MASK",
+    "alphaCutoff": 0.5,
+    "doubleSided": false,
+    "roughnessFactor": 1,
+    "metallicFactor": 0,
+    "baseColorFactor": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "texture_texCoord": 0,
+    "magFilter": 9728,
+    "minFilter": 9728,
+    "wrapS": 33071,
+    "wrapT": 33071,
+    "specularFactor": 0,
+    "emissiveFactor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "atlas_RGBA_exact": true,
+  "atlas_size": [
+    16,
+    16
+  ],
+  "PNG_bytes_equal": true,
+  "reference_PNG_sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372",
+  "candidate_PNG_sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372",
+  "body_and_mouth_UV_domain_alpha_255": true,
+  "logical_parts": [
+    {
+      "index_count": 12,
+      "index_start": 0,
+      "logical_name": "body",
+      "name": "Piece0_surface_0",
+      "opaque_uv": true,
+      "part_id": 1,
+      "role": "body",
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+      "source_node": "Piece0",
+      "source_surface": 0,
+      "source_vertex_start": 0,
+      "vertex_count": 4,
+      "vertex_start": 0
+    },
+    {
+      "index_count": 3,
+      "index_start": 12,
+      "logical_name": "Piece1",
+      "name": "Piece1_surface_0",
+      "opaque_uv": false,
+      "part_id": 2,
+      "role": "aux",
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+      "source_node": "Piece1",
+      "source_surface": 0,
+      "source_vertex_start": 4,
+      "vertex_count": 3,
+      "vertex_start": 4
+    },
+    {
+      "index_count": 12,
+      "index_start": 15,
+      "logical_name": "Piece2",
+      "name": "Piece2_surface_0",
+      "opaque_uv": false,
+      "part_id": 3,
+      "role": "fin",
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+      "source_node": "Piece2",
+      "source_surface": 0,
+      "source_vertex_start": 7,
+      "vertex_count": 4,
+      "vertex_start": 7
+    }
+  ],
+  "IBMs_by_bone_name_max_component_error": 0.0,
+  "native_clips": {
+    "Clip0": {
+      "channels": 9,
+      "max_time_error": 0.0,
+      "max_value_error": 0.0
+    },
+    "Clip1": {
+      "channels": 9,
+      "max_time_error": 0.0,
+      "max_value_error": 0.0
+    }
+  },
+  "finite_all_exported_accessors": true,
+  "scope": "Complete raw GLB semantics at existing1e-6component limit; same source vertex identities, directed triangles, original node rest/parents and skin skeleton references. Does not replace actual Godot cold load/pose profile binding, specialized fin/body gates or visual review.",
+  "spec_sha256": "12cb98016a4432e564f6d4fbf208e06fd937fafa960a586f3b3c020ccd76b1e0",
+  "derived_reference_inventory": {
+    "mesh_count": 1,
+    "surface_count": 1,
+    "vertices": 11,
+    "triangles": 9,
+    "bones": 3,
+    "clips": 2,
+    "animation_channels": 18,
+    "node_count": 7
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "kind": "fish_asset_evidence_validation",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "visual_review": "pending",
+  "reports": [
+    {
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures/viewer.validation.json",
+      "sha256": "cf3739c2b2c71dec897197fd4f4f0de4d89d37ae668e0e694e81a89b040fd748",
+      "technical_ok": true,
+      "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/synthetic.glb",
+      "runtime_inventory": {
+        "bone_count": 0,
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 3
+      },
+      "capture_count": 2
+    }
+  ],
+  "captures": [
+    {
+      "name": "front",
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures/front.png",
+      "sha256": "1b525fe3c9b1c2197766df4c8668b08c7f4b944f4cd91e92da56c496d2830b29",
+      "bytes": 27728,
+      "source_report": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures/viewer.validation.json",
+      "model_sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e",
+      "time_seconds": 0.0,
+      "camera": {
+        "distance": 4.22110847523554,
+        "pitch": 0.0,
+        "target": [
+          0.0,
+          0.5,
+          4.99999987368938e-06
+        ],
+        "yaw": 0.0
+      },
+      "visual_review": "pending"
+    },
+    {
+      "name": "oblique",
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures/oblique.png",
+      "sha256": "2c3cf2d1bf4b13a57a69534126afda600656f6e806d1f22248fd494cdbf68742",
+      "bytes": 28223,
+      "source_report": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/captures/viewer.validation.json",
+      "model_sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e",
+      "time_seconds": 0.5,
+      "camera": {
+        "distance": 4.22110847523554,
+        "pitch": 0.349065850398866,
+        "target": [
+          0.0,
+          0.649999976158142,
+          4.99999987368938e-06
+        ],
+        "yaw": 0.610865238198015
+      },
+      "visual_review": "pending"
+    }
+  ],
+  "summary": {
+    "report_count": 1,
+    "capture_count": 2,
+    "technical_reports_ok": true,
+    "capture_bytes": 55951,
+    "model_sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e"
+  },
+  "limitations": [
+    "Inventory and contact sheets do not perform visual review, species acceptance, fish geometry validation or SOP approval"
+  ],
+  "contact_sheet": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/evidence-nearest/contact-sheet.png",
+    "sha256": "e40d5e2b3f054ecd1de6c07975456378f930890cf3965593cfe8a2ca4dfdb8a0",
+    "width": 800,
+    "height": 340
+  }
+}

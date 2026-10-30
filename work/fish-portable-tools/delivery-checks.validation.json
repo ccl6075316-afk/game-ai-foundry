@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "kind": "portable_tools_submission_preflight",
+  "status": "done",
+  "validation_index": {
+    "path": "docs/anvil/knowledge/2026-10-30-fish-portable-tools.validation.json",
+    "sha256": "4f1182267e031e0b6cbc21eb368d513d04ba6a5d52fa0c68e2d225826c3863c8"
+  },
+  "index_linked_file_hashes_checked": 50,
+  "staged_snapshot_before_this_receipt_and_final_manifest_link": {
+    "file_count": 392,
+    "working_bytes": 8185342,
+    "index_byte_mismatches": [],
+    "credential_pattern_files": [],
+    "cached_diff_check": "pass"
+  },
+  "raw_machine_evidence_policy": "Hash-bound stdout/log/unified-diff files retain their bytes with narrowly scoped whitespace attributes; source style checks remain enabled.",
+  "task_evidence_retained": {
+    "files_at_check": 354,
+    "bytes_at_check": 7798539,
+    "note": "Includes original/current synthetic inputs, source/models, exact old source archive, negative cases and unique images; this receipt adds metadata only."
+  },
+  "game_worktree_clean": true,
+  "game_existing_commit": "ce39f8ca",
+  "next_action": "Commit and push Foundry, confirm game remote, verify both clean and remote-synced. Containing commit identifies this receipt; push result is verified after commit, not fabricated here."
+}

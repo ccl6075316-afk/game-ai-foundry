@@ -1,0 +1,54 @@
+{
+  "kind": "anvil_debug_investigation_phase3",
+  "mode": "Normal",
+  "phase2_gate": "APPROVED by /root/portable_parts_validation",
+  "implementation_changes": false,
+  "minimal_regression_draft": "work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py",
+  "beforefix": {
+    "tests": 8,
+    "failures": 7,
+    "errors": 0,
+    "positive_controls_passed": 1
+  },
+  "hypotheses": [
+    {
+      "id": "1",
+      "hypothesis": "Parity can falseaccept solely because -O removes assertbytecode; identicalgeometry input under normalruntime rejects.",
+      "test": "Samecandidate .125POSITIONerror, normalreject vs -Osuccess (return0).",
+      "alternatives_ruled_out": "No tolerance/library/data change; failure value is125000times tolerance.",
+      "single_fix": "Failclosed when __debug__ isfalse at sharedfish_asset_spec and directglb_io module entry. This covers all portable callers while retaining frozen siblingguards; do not claim frozen scripts independently support-O.",
+      "verification": "Optimized subprocess mustnonzero; normal suite andvalidcoldsmoke mustpass."
+    },
+    {
+      "id": "2",
+      "hypothesis": "Verifier checks definitions ratherthan primitiveownership, so materialabsence/outofrange isnever consulted.",
+      "test": "Delete onlyprimitive.material or changeonlyitsindex to999; bothcurrentlypass.",
+      "alternatives_ruled_out": "Changing globalalphaMode triggers existingrejection, proving semanticchecks run.",
+      "single_fix": "Require explicit integer primitive.material==0 for supportedone-material reference andcandidate in inspect_reference/verify. Keep definition/material-opacitychecks unchanged.",
+      "verification": "Bothmissing/outofrange mustreject; validindex0 stillpasses."
+    },
+    {
+      "id": "3",
+      "hypothesis": "Rawslot validity ismissing beforepositiveweight aggregation, allowingnegativeunusedslots todisappear andinvalidsameweightmass baseline tobetrusted.",
+      "test": "Candidate[1,-.5,0,0] currentlypasses; hashboundreference[.5,0,0,0] currentlypassespreflight.",
+      "alternatives_ruled_out": "Positive.5candidate-onlymass delta iscaught; positive5e-8 onSECONDnewbone ispermitted byexisting1e-6contract andMUSTremain permitted.",
+      "single_fix": "Sharedrawskin validity helper beforeinspect_reference andverify aggregation: finitewidth4 rows, nonnegativeinteger jointvalueswithin skin, nonnegativeweights andnormalizationusingexistingparts row-mass tolerance1e-5. Preservepositivefilter1e-7/namedweight tolerance1e-6 andduplicatepositiveaggregation; no removaloffilter or tighteningkeys inthisfix.",
+      "verification": "Negativeweights andinvalidbaseline reject; twobone tinypositive control andduplicatepositive existingtest pass."
+    },
+    {
+      "id": "5",
+      "hypothesis": "Proof hashes pathnamebytes readlater ratherthan theexactbytes consumed byJSON/GLBparsers, allowing avalidoldpayload tosigninvalidnewpayload.",
+      "test": "Deterministicimage callback swaps parsedcandidate bytes beforeproof; CLIverifycallback changes spec toexpectedtri999 beforefinalhash; bothcurrentlyproducepassingnewhash.",
+      "alternatives_ruled_out": "Nextnormalverify orpreflight rejects mutatedfile, provingthefinalbytes wereunverified, not equivalentencoding.",
+      "single_fix": "Add snapshotread APIs that parseandhash thesamebytes. Preserve existingread_glb/load_spec publicinterfaces through wrappers. verify retains ref/candidatesnapshotdigests, compares currentfilehash toconsumeddigest atfinish, returnsconsumedhash. Builder/CLIloadspec snapshot stores initialdigest, requires preflightdigest equal andfinishunchanged, recordsstoreddigest. Adopt sameinitialspecdigest inrun_source toclose itsload\u2192lateinitialmanifestgap. No GPU/animation/rest/PNG contract change.",
+      "verification": "Bothcallback regressions rejectbeforepassingproof; allvalidnormalpaths stillpass; finalfreshsmallsourcecoldsmoke afterfreeze."
+    }
+  ],
+  "dispositions": {
+    "4": "No fix: RGBA semanticparity intentionally permitsPNGcontainerreencoding andrecordsbyteidentityseparately.",
+    "6": "No fix: sourceauthoring proof explicitlynotfinalacceptance; mandatoryrun_source parity coversrigrest andIBM.",
+    "7": "No fix: optionalexpected countassertions augment measuredhashboundbaseline; noobserved paritybypass."
+  },
+  "phase4_plan": "After independentPhase3APPROVED androotapproval, transferfailingregressions intoportable/tests, implementone rootcausechangeat atime, run focusedtestaftereach, thenfullportabletests and1-2tinyactualsourcecoldsmokes, preservecurrenthashproof+compacthandoff, explicitscratchcleanup. No originaltools/assets edits orcommit bysubagent.",
+  "phase3_gate": "APPROVED by /root/portable_parts_validation; awaiting lead Phase4 authorization"
+}

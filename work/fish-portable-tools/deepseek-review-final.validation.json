@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "kind": "secondary_review_final_summary",
+  "status": "review_received",
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "reasoning_effort": "high",
+  "authorization": "User explicitly authorized five source files for read-only external review; later removed manually imposed generation caps.",
+  "calls_sent": 3,
+  "final_review_received": true,
+  "attempts": [
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review-attempt1.validation.json",
+      "sha256": "d4c3d4eee129d6cd68443d61c4e2babd78dd35f9351eaa4dd47ccdd727311c33"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review-attempt2.validation.json",
+      "sha256": "ff35609bcd79596274a5284608437db2d98cd633764c87c13e9f0014911ab83b"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review.validation.json",
+      "sha256": "788b3ad24a86ec856cb0c463017684415beecd0c52a91bfbbab913a495852d16"
+    }
+  ],
+  "generation_preference": "Do not pass manual max_tokens/max_completion_tokens; provider defaults/hard capacity remain. Native program timeouts are separate.",
+  "last_finish_reason": "stop",
+  "findings_reported": 7,
+  "confirmed_root_categories": 4,
+  "confirmed": [
+    "Optimized Python removed required assertions",
+    "Actual primitive material binding omitted",
+    "Invalid raw skin slots ignored before aggregation",
+    "Consumed bytes and late hashes could differ, including outer runner final binding"
+  ],
+  "other_dispositions": [
+    "PNG byte equality diagnostic; identical decoded RGBA mandatory",
+    "Source build is intermediate; mandatory final rest/IBM parity retained",
+    "Empty optional expected does not bypass immutable baseline comparison"
+  ],
+  "fix_state": "See phase4 report and independent debug review; summary does not grant implementation approval.",
+  "usage": {
+    "prompt_tokens": 36099,
+    "completion_tokens": 63702,
+    "total_tokens": 99801,
+    "prompt_cache_hit_tokens": 23798,
+    "prompt_cache_miss_tokens": 12301
+  },
+  "elapsed_seconds": 400.97,
+  "provider_cost": "not reported; no estimate inferred",
+  "limits": "API tokens are not Codex usage or measured savings. Reasoning content and credentials were not saved. Earlier two-failure summary retained as historical evidence only."
+}

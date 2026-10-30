@@ -1,0 +1,357 @@
+{
+  "ok": true,
+  "kind": "portable_tools_delivery_cleanup",
+  "status": "done",
+  "scope": "Delete only reconstructible fish-script Python bytecode. Preserve all report-bound inputs, old/current outputs, exact reviewed source and unique image evidence; do not clean unrelated ignored projects or asset stores.",
+  "deleted_exact_files": [
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/annotate_surface_observations.cpython-314.pyc",
+      "bytes": 8287,
+      "sha256": "c7cbc8f9007441ca5520305ab43d0a54f8d4e7d1f1e4b4fb57937714cdaec958"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/audit_mouth_source_alignment_108.cpython-314.pyc",
+      "bytes": 21008,
+      "sha256": "b79e9807b7693866e8d5d37ad2f28dc20e2235b9b6b8307da65bd1a97e25b2a6"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/audit_native_revision.cpython-314.pyc",
+      "bytes": 24971,
+      "sha256": "be78d8b873757628cecbe79b49b17e1647f4e7cb3ee4f6931154e18759a386b8"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/build_fish.cpython-311.pyc",
+      "bytes": 184449,
+      "sha256": "b8c38216912f815a52bae48b1a625f5491e900f3e46d6949f38ec9a7bc6cf541"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/build_fish.cpython-314.pyc",
+      "bytes": 141389,
+      "sha256": "c87cafb856318ff0303a95bdde4ea4d83797220de2ec0a2dcb9d6be296da4f90"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/build_surface_charts.cpython-314.pyc",
+      "bytes": 24080,
+      "sha256": "10e3097be23dc3ab0234ed3bc7836cef22f9c888bf11850b8fb8cc8b072a1755"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/check_fin_membrane_collision.cpython-311.pyc",
+      "bytes": 14049,
+      "sha256": "abaea526ba9f6c6cbac8194d819c189e8e9e609ac87e3f077d108dbc050c4275"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/check_head_form.cpython-314.pyc",
+      "bytes": 8385,
+      "sha256": "de8a1bf452b7e8f18f6b448bef6c80bf549e82bc9993f3c1ffc509ff951d1692"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/closed_body_index140.cpython-311.pyc",
+      "bytes": 4948,
+      "sha256": "e9042482468045b5065332317cfe8ca23ff1eb62edc2003dc20f2525290248dc"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/compare_fish_material_captures.cpython-314.pyc",
+      "bytes": 11827,
+      "sha256": "fc9429597352a91a055b992301a455b6adf3c1496ff331ff5fd34c21fb46b698"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/encode_friendly_previews.cpython-314.pyc",
+      "bytes": 9657,
+      "sha256": "847c69593508c39c541caf1a70ffce2d4bbfe4851fbf96aadcb5ff7098a53b27"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/export_packed_fish_source.cpython-311.pyc",
+      "bytes": 37017,
+      "sha256": "a978d23f222701e55cced37cb9dbe3169651c7bb122b53cef667024221975780"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/export_source_with_frozen_normals.cpython-311.pyc",
+      "bytes": 7500,
+      "sha256": "96c6ab0b9e905cc33c22b2cfe4c5b5082f5922fb7cd5629cb0416f1e5c2f985b"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/extend_mouth_corner117.cpython-314.pyc",
+      "bytes": 10791,
+      "sha256": "9766f3841440922c5decb135e2fd11e5b46c896622b1c766eb29ab737827bbd7"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/fair_head_transition127.cpython-314.pyc",
+      "bytes": 25523,
+      "sha256": "ed17f27e4c7109ff4ad5e0b93e13cbdf1614f1eab6e01e63442519dce1389fae"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/fin_tessellation.cpython-311.pyc",
+      "bytes": 7251,
+      "sha256": "6f549fef300765fb532f02280a8047f417784ef6692d3263cad98f48579cbac4"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/fin_tessellation.cpython-314.pyc",
+      "bytes": 5885,
+      "sha256": "38857d28dd50ac0ae5c2b141c13c0243c0a82d06df99d1dafc164599c9b51a6f"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/freeze_eye_features.cpython-314.pyc",
+      "bytes": 17930,
+      "sha256": "c1ad03be999ab3058d37253b583b2a2c80033dcddae7e2ac59fee04bc0405994"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/freeze_eye_features_107.cpython-314.pyc",
+      "bytes": 12121,
+      "sha256": "16fd93a550c575887f1d32e1f90922664527bb955b83c368f0a0aa4cb3deda9c"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/freeze_surface_ownership.cpython-311.pyc",
+      "bytes": 15145,
+      "sha256": "41f3ae2aaa6166e2cbd869c94ac263acdd6fb2957c8d8e10a1799977f68e544c"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/freeze_surface_ownership.cpython-314.pyc",
+      "bytes": 16697,
+      "sha256": "343e6af5340c870adf368ea3fa65667e1e5a067d1af3c0094bf067d06b66d9aa"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/inspect_lip_extent117.cpython-314.pyc",
+      "bytes": 12704,
+      "sha256": "087b8d04ce463c8e049d6d4df058f66da461908939469da76294eb3424dc9858"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/measure_anatomy.cpython-314.pyc",
+      "bytes": 13758,
+      "sha256": "e38f2eeb3cf34c55c2d6a70be81509a193720cab795f83c5370fd08bd537e587"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/measure_lip_binding115.cpython-314.pyc",
+      "bytes": 17288,
+      "sha256": "84127a9d17a58608e6d12fac7f7574bd282e8f9c6300ffb6ae05a5aa4a8ab79b"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/migrate_static_remaining.cpython-314.pyc",
+      "bytes": 19075,
+      "sha256": "96781cfc97ba81dbc720a54bdd2303215acaa02df26e58f73fb73aa468eb709d"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/oral_jaws.cpython-311.pyc",
+      "bytes": 21513,
+      "sha256": "dbb607d002fdc994cbc7644b082f3ba2e17c660ee269b480e1f1ae9bd49b0a3d"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/pack_fish_material_atlas.cpython-311.pyc",
+      "bytes": 45832,
+      "sha256": "6b8009f2f671d4d2ed0858db09a25076139a4f32908a902556049ecb69dc44e7"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/pack_fish_material_atlas.cpython-314.opt-1.pyc",
+      "bytes": 33674,
+      "sha256": "82e1c6febf03b4e8d837c457574e7f33eb9c1ed6a2b3c9069d7c9421687f3d78"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/pack_fish_material_atlas.cpython-314.pyc",
+      "bytes": 42368,
+      "sha256": "c979333a41ce69fbca770b7b3ab0f9d9d70bac810232612fde7f72be39dade32"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/packed_fish_parts.cpython-314.pyc",
+      "bytes": 21415,
+      "sha256": "47a78af0e19a434efe2b17787c4e8c842f2c2da2d0d55dc6d1f3c7a398cc60b5"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/partition_fin_membranes.cpython-314.pyc",
+      "bytes": 7548,
+      "sha256": "8994455fa9059aef99513719b25e900e5d46efe20e74803496bdd70df5883ca9"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/patch_existing_fin_meshes.cpython-311.pyc",
+      "bytes": 13268,
+      "sha256": "10379cba1d4342570bb4f77aa0bb705ecc7305a16e26e1ca79f140dd4e2cc942"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/patch_existing_fin_meshes.cpython-314.pyc",
+      "bytes": 11571,
+      "sha256": "5d8f1475f99106387f7043c964b82131560443d52e1e863683be69a52277601e"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/probe_mouth_field_108.cpython-314.pyc",
+      "bytes": 53371,
+      "sha256": "6541fff6f29f277ebe361341b290d4e8ceadc8671fd4d4c14879d4d5742ba040"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/probe_mouth_slit_stage1_108.cpython-314.pyc",
+      "bytes": 29311,
+      "sha256": "c8134f2d44f85d7d122b5aac6188840274af56dc3a09481e44f19797bd8b8b6e"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/rebuild_fin_uv.cpython-311.pyc",
+      "bytes": 16248,
+      "sha256": "d002d417a8503f705281bd49cc248d3f97e421af9ae58366ca7efd87fd93f609"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/rebuild_source_head.cpython-314.pyc",
+      "bytes": 50101,
+      "sha256": "acfa3b62e017951889bc945dd53170418549851e7ac23f0abd16f8c6cfa0cf6d"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/repair_body_fin_footprint.cpython-314.pyc",
+      "bytes": 10971,
+      "sha256": "331b512bb025eb43224bda97ca73a0065dbfee17ab6f621cbacf4efc70ecd74b"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/repair_fin_clearance.cpython-311.pyc",
+      "bytes": 34451,
+      "sha256": "1a56a7fef48537a96c0d057299f0069d12ac228e2bf7cd7a977f382821a52ee4"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/restore_fin_source_normals.cpython-311.pyc",
+      "bytes": 21069,
+      "sha256": "193c42be06bdcfbcfe646efb0d2c83cea02062ee47f29e6849562e6a5c3b2d1f"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/retarget_reviewed_side.cpython-314.pyc",
+      "bytes": 18197,
+      "sha256": "d123c74fc2a1d74cefcee85dec0772dac2208841ed4fbf4d6af2ccaf3e4ee252"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/revise_head_width.cpython-314.pyc",
+      "bytes": 14694,
+      "sha256": "53bc942584ff95c3ccd7b77967b866fce094132950534f9ba7f74c888a00c6b0"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/round_mouth_front122.cpython-314.pyc",
+      "bytes": 10141,
+      "sha256": "0a24f3cacbb3dfaac859f14ab61e4b575b65af66d320292bb52f8b258e64096d"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/run_fish_material_case.cpython-314.pyc",
+      "bytes": 10858,
+      "sha256": "780cb0bd8356738cdc0f21fb310ceda5a9045ff71022aa8217a6a035458a4512"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/run_fish_material_controlled_case.cpython-314.pyc",
+      "bytes": 13702,
+      "sha256": "89534246435e69dedeb8962cd90e31cafddffe7a242d5376a55358ba037bccdd"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/run_fish_material_matrix.cpython-314.pyc",
+      "bytes": 14636,
+      "sha256": "cfac8534640877116f957bfe69177b421a59972e58fd66facfaac6d3c86e3d3e"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/runtime_pose_coverage.cpython-311.pyc",
+      "bytes": 9480,
+      "sha256": "8cb42ffbee6d50061413154cca23ecf4b8953e61a43418108408765b20b20191"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/runtime_pose_coverage.cpython-314.pyc",
+      "bytes": 6533,
+      "sha256": "84c68caebf6c996cd241aeb02b533fbbf2c83bf2ff17786088d10fef1abaedeb"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/separate_jaw.cpython-311.pyc",
+      "bytes": 31398,
+      "sha256": "19b1b1aa90d52f1b592e4c65947951627312d0b8cb7717441ee0d57aba9beb40"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/source_fin_mask141.cpython-314.pyc",
+      "bytes": 4609,
+      "sha256": "ccabe8f0efb3004cae6e9fb79378e4da22492f7a86edaafb29622d81da5400b3"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/subdivide_fin_contact.cpython-311.pyc",
+      "bytes": 9589,
+      "sha256": "3f9af8ec1d838e21f6b05e14a89ae15be585a8fa787f100f4717fc06629ab79b"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/summarize_fish_material_matrix.cpython-314.pyc",
+      "bytes": 40230,
+      "sha256": "ce3d76e7c1802063aef5c8975c1e138431d3bcc58fd2815b96056490f8706e45"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/test_pack_fish_material_atlas.cpython-314.pyc",
+      "bytes": 15929,
+      "sha256": "329319ea3d101cc0f0e1f23328d71e35e975a53d8fb48d4f3834fe4d9f2458c6"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/test_run_fish_school_experiment.cpython-314.pyc",
+      "bytes": 17392,
+      "sha256": "89b082815f4a65da3d49e470d2706a12cd92ded616c969dda4b8369ddcdcc5a3"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/test_standalone_body.cpython-314.pyc",
+      "bytes": 3546,
+      "sha256": "fdc63f26b29307bbfe575d647527465242627172280a55a90fca12ba4a18e2a4"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/test_summarize_fish_material_matrix.cpython-314.pyc",
+      "bytes": 6060,
+      "sha256": "096fa7468b015b78e262bc23b299f840f195eef8286b48d099ecb621cdb1b0ae"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_fin_completion.cpython-314.pyc",
+      "bytes": 18077,
+      "sha256": "6843e06dd7a24e39bf55197bc58243c0d67d44ec5ee43cb4c13af81ae1319df0"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_fin_membrane_clearance.cpython-314.pyc",
+      "bytes": 13512,
+      "sha256": "5357a778826cb6d76661e2edc3fbe0fa8bcc4bb4db6e387f65b08dab3ec3ccbb"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_friendly_batch.cpython-314.pyc",
+      "bytes": 10606,
+      "sha256": "f188e6a842854a3a9dd37027708891fe2f051bd52a1683164015a029cc9bb3b5"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_head_trial119.cpython-314.pyc",
+      "bytes": 17470,
+      "sha256": "0a518de01c4b60b02ed711c9926875cb0b76534bddaf1a5e24cbdd60fd3fd2de"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_mouth_body139.cpython-314.pyc",
+      "bytes": 25104,
+      "sha256": "a116c08bfd297b29522578610684e2775cac38552f0557dd3b5d9d9f2a23d505"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_oral_cdt_108.cpython-314.pyc",
+      "bytes": 32617,
+      "sha256": "524e51a47aba4017381b272e41bdc18a59b67911153e5bc77ff4b792479c12f4"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_round_mouth122.cpython-314.pyc",
+      "bytes": 14136,
+      "sha256": "f73eb853df42b617f062b1fc3ac9d1b9f630f5095d596d5ed85e47a6ed92b2fd"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_source_fit115.cpython-314.pyc",
+      "bytes": 15125,
+      "sha256": "487e7713fc033015c9d3474d7e5ad639eded6f444cc00ed01e0416712d16705f"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/validate_standalone_body.cpython-314.pyc",
+      "bytes": 23771,
+      "sha256": "d6d850095b419ab02d180c8ee7818834435118336fe132cb3f0c96404e0d9bcf"
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/verify_packed_fish_parity.cpython-314.pyc",
+      "bytes": 28201,
+      "sha256": "e16a76982d19dababce306473acd6d0bf4a59eb2a2789cefa3b0abaa9c157140"
+    }
+  ],
+  "deleted_bytes": 1510059,
+  "prior_cleanup_receipts": [
+    "work/fish-portable-tools/final-cleanup.validation.json",
+    "work/fish-portable-tools/portable-parts-cleanup.validation.json",
+    "work/fish-portable-tools/deepseek-repro/phase4-cleanup.validation.json"
+  ],
+  "retained_work_files_at_check": 353,
+  "retained_work_bytes_at_check": 7782663,
+  "retention_count_note": "This snapshot precedes this receipt and final manifest/index metadata serialization; final staged receipt records the serialized total.",
+  "current_native_proof_files_and_sources_verified": 55,
+  "frozen_original_files_unchanged": 460,
+  "final_source_proof_spec_and_both_exports_same_digest": true,
+  "task_cache_paths_remaining": [],
+  "excluded_existing_ignored_history": [
+    "work/whale-shark-spots/ (previous task, existing documented evidence)",
+    "work/visitors-v1/",
+    "work/visitors-v2/"
+  ],
+  "production_assets_deleted": false
+}

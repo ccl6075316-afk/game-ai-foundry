@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "kind": "portable_core_tool_validation",
+  "helpers": {
+    "resources/scripts/volume-fish/portable/fish_asset_spec.py": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9",
+    "resources/scripts/volume-fish/portable/glb_io.py": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9",
+    "resources/scripts/volume-fish/portable/build_source.py": "612ecfa454c45e93e8e314342c6ffb7b15a7cfd35451a09b27cc476a914e9d17",
+    "resources/scripts/volume-fish/portable/export_source.py": "ea30f4c7a0731d95a38ba835c05119def3770f987ef35831742a4f6ec3375c1b",
+    "resources/scripts/volume-fish/portable/verify_parity.py": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be",
+    "resources/scripts/volume-fish/portable/source_snapshot.py": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+    "resources/scripts/volume-fish/portable/run_source.py": "c551158c58db5b3964afeeb2a4e80e95f9fa57547f054d37eeca0d3994bf0c57"
+  },
+  "unit_tests": {
+    "passed": 21,
+    "command": ".venv/bin/python -m unittest discover -s resources/scripts/volume-fish/portable/tests -p test_asset_core.py -v",
+    "negatives": [
+      "count mismatch",
+      "missing part",
+      "input hash stale",
+      "output alias/ancestor/outside whitelist",
+      "body opacity optout",
+      "transparent body pixels",
+      "unknown material maps",
+      "rest transform mutation",
+      "2e-6 geometry delta",
+      "duplicate-joint positive weight mass change",
+      "hierarchy cycle/out-of-range",
+      "runner failfast and stdout retention",
+      "runner timeout and stdout retention"
+    ]
+  },
+  "actual_Blender": {
+    "version": "4.5.3",
+    "fixtures": [
+      {
+        "fixture": "a",
+        "final_spec": {
+          "path": "work/fish-portable-tools/core-final/a/final-spec.json",
+          "sha256": "18ab77b6bdf8b81c034e918a0ff746d6529741c117fec7beeeaa21e742fdcdc4"
+        },
+        "report": {
+          "path": "work/fish-portable-tools/core-final/a/final-parity.validation.json",
+          "sha256": "996c7fa3b3b4cc130edb523566a3ce61aa9f094613896464a1c5de0c4b85b28c"
+        },
+        "vertices": 11,
+        "triangles": 9,
+        "bones": 3,
+        "clips": 2,
+        "parts": 3,
+        "max_attribute_error": 0.0,
+        "max_IBM_error": 0.0,
+        "atlas_RGBA_exact": true
+      },
+      {
+        "fixture": "b",
+        "final_spec": {
+          "path": "work/fish-portable-tools/core-final/b/final-spec.json",
+          "sha256": "86859f2a94d6b7241207793ae1839132f0e1811f6c5d5832a9aab157e5035b62"
+        },
+        "report": {
+          "path": "work/fish-portable-tools/core-final/b/final-parity.validation.json",
+          "sha256": "b2d13533be83340248aba0e0782558566ac631a88f8617d9a8b57c917d59efd4"
+        },
+        "vertices": 7,
+        "triangles": 5,
+        "bones": 2,
+        "clips": 1,
+        "parts": 2,
+        "max_attribute_error": 0.0,
+        "max_IBM_error": 0.0,
+        "atlas_RGBA_exact": true
+      }
+    ],
+    "source_save_and_cold_export_checked": true,
+    "original_source_and_inputs_readonly": true,
+    "saved_rig_rest_pose_actions_NLA_equal": true,
+    "cold_export_bytes_equal": true
+  },
+  "resolved_harness_failure": "Initial smoke summary used relative_path.relative_to(abs_root); corrected output resolution before final two-fixture run. No actual asset operations failed.",
+  "cleanup": {
+    "deleted_obsolete_synthetic_attempts_and_adaptation_scripts": [
+      {
+        "path": "work/fish-portable-tools/adapt_builder.py",
+        "files": 1,
+        "bytes": 4073
+      },
+      {
+        "path": "work/fish-portable-tools/adapt_parity.py",
+        "files": 1,
+        "bytes": 3370
+      },
+      {
+        "path": "work/fish-portable-tools/core-final-smoke",
+        "files": 14,
+        "bytes": 932758
+      },
+      {
+        "path": "work/fish-portable-tools/core-smoke",
+        "files": 29,
+        "bytes": 1821472
+      }
+    ],
+    "retained": "synthetic-a/b remain for peer imported plans; core-run-source-smoke raw input recipes and saved source evidence remain hash-bound by final core-final outputs; all tiny synthetic fixtures."
+  },
+  "scope": "Technical tools only. No Nile export, real fish generation, geometry/animation changes, production acceptance, GPU or full fish gates."
+}

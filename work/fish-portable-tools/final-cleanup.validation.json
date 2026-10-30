@@ -1,0 +1,774 @@
+{
+  "ok": true,
+  "kind": "portable_tools_final_retention",
+  "scope": "Keep tiny current synthetic source/input/export,actual reports/unique views and reproducer scripts; prior component receipts list discarded duplicates. Remove only task-owned regenerable Python bytecode caches.",
+  "removed_caches": [
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/glb_io.cpython-311.pyc",
+      "sha256": "cee631f1776b306bdce2abf24d8323f6b61a980bb9d48766b7681e888ba513a3",
+      "bytes": 6874
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/source_snapshot.cpython-311.pyc",
+      "sha256": "02aac284c4bfb80d5db1ea5ec7fe26ae07b726f1a7ec1de4e994ea758f189c17",
+      "bytes": 7200
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/evidence.cpython-314.pyc",
+      "sha256": "d3a95b67848fe5aca772578d151ad51c17450bb1e1bc53a545abc08f50ed6263",
+      "bytes": 11690
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/build_source.cpython-314.pyc",
+      "sha256": "683f9983c9f0d2f4dd16b3bd677a6ee1bf384abe53f97f32f6369730fc0fe7ba",
+      "bytes": 25600
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/glb_io.cpython-314.pyc",
+      "sha256": "9810d7aafa9969a1a41141c7c0e983bb24a6bb522f1cf7fc21881d1a15305a45",
+      "bytes": 6279
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/view.cpython-314.pyc",
+      "sha256": "5d156a0a72f3df66fdb00cd704c51ecad6e13ff0527ad21595c87f72f1d1d633",
+      "bytes": 20940
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/verify_parity.cpython-314.pyc",
+      "sha256": "cf4c7e51e081611e2d449b5694f973d198d8d7691de9def15543f5f0c5df4839",
+      "bytes": 31918
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/parts.cpython-314.pyc",
+      "sha256": "0cb9ba37f749d47a4df22ffc4937431389aad327d23fceddd63e6f12b5ddcfb3",
+      "bytes": 27553
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/prepare_spec.cpython-314.pyc",
+      "sha256": "a883a2957280864e6125bc9e1e92f781279b409106f5bd1fb2ee23174c58daa4",
+      "bytes": 7552
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/fish_asset_spec.cpython-314.pyc",
+      "sha256": "23d7387ab9265a8a92276cb83aa5088549309cf4cf267825497c27062ee88900",
+      "bytes": 23767
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/fish_asset_spec.cpython-311.pyc",
+      "sha256": "5cdc477d421a0547f2581923656387ce62cc143dd0c2342f66e3a493107e2ff4",
+      "bytes": 26709
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/run_source.cpython-314.pyc",
+      "sha256": "fa924e07c1d40f3d5037707fd1b133fe969685822c762e2c3bc833c80aa87e21",
+      "bytes": 11547
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/validate_body_gpu.cpython-314.pyc",
+      "sha256": "e0b138adc5726285b9f0a3939739206d1e4109714766547dc11905f88d7761f8",
+      "bytes": 15016
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/__pycache__/export_source.cpython-311.pyc",
+      "sha256": "71dd9e12220ef32c8a4ed427521bf9802b462c26b76593d6a69d0f588e671dc3",
+      "bytes": 4174
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/__pycache__/test_asset_core.cpython-314.pyc",
+      "sha256": "7c8a0a03d31e9f2ca2784597442b320f618c2170b9296890040aa1a0f8c40078",
+      "bytes": 29286
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/__pycache__/test_view_evidence.cpython-314.pyc",
+      "sha256": "70eca7cf5bf4be80a0eb923070b38fbbf1720c5ccf3103a6f65929b6bed43979",
+      "bytes": 19620
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/__pycache__/test_prepare_spec.cpython-314.pyc",
+      "sha256": "61d58b91e84f1ac247c10b3fc1be3b619780696e9cf044c706a6ad16a6adb64d",
+      "bytes": 12134
+    },
+    {
+      "path": "resources/scripts/volume-fish/__pycache__/test_portable_fish_parts.cpython-314.pyc",
+      "sha256": "901aabfe76f2dc573cb33d1e61b759516e429e7ea3ac5db6dd2723b91a67116a",
+      "bytes": 20984
+    }
+  ],
+  "removed_cache_bytes": 308843,
+  "component_cleanup_receipts": [
+    {
+      "path": "work/fish-portable-tools/core-validation-report.json",
+      "sha256": "bb56a34f7e95fccfc193bd68eeaba9688f25ecaedabad86a56c976c1c72d960f"
+    },
+    {
+      "path": "work/fish-portable-tools/portable-parts-cleanup.validation.json",
+      "sha256": "4d84f96421f33821e35079f2df315940c7e4943108e035f366f9cfca979489ae"
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/tools.validation.json",
+      "sha256": "93a621b06b8b2b2f3ea3fc45cd7eff7914f1911a59748a0094150d5c155b1b8a"
+    }
+  ],
+  "retained_work_files": [
+    {
+      "path": "work/fish-portable-tools/actual-import-safe-output.log",
+      "bytes": 2726
+    },
+    {
+      "path": "work/fish-portable-tools/baseline.validation.json",
+      "bytes": 61228
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/author.stdout.txt",
+      "bytes": 969
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/cold-export.validation.json",
+      "bytes": 3082
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/cold_export.stdout.txt",
+      "bytes": 950
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/final-parity.validation.json",
+      "bytes": 4209
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/final-spec.json",
+      "bytes": 1794
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/fish.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/source/fish.blend",
+      "bytes": 435375
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/source/fish.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/source/source-build.validation.json",
+      "bytes": 6503
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/a/validation-report.json",
+      "bytes": 4253
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/author.stdout.txt",
+      "bytes": 970
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/cold-export.validation.json",
+      "bytes": 2647
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/cold_export.stdout.txt",
+      "bytes": 950
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/final-parity.validation.json",
+      "bytes": 3668
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/final-spec.json",
+      "bytes": 1635
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/fish.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/source/fish.blend",
+      "bytes": 424121
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/source/fish.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/source/source-build.validation.json",
+      "bytes": 5628
+    },
+    {
+      "path": "work/fish-portable-tools/core-final/b/validation-report.json",
+      "bytes": 3714
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/atlas.png",
+      "bytes": 101
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/merged-mask.glb",
+      "bytes": 8292
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/merged-opaque.glb",
+      "bytes": 8276
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/packing.validation.json",
+      "bytes": 7013
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/author.stdout.txt",
+      "bytes": 970
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/cold-export.validation.json",
+      "bytes": 2980
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/cold_export.stdout.txt",
+      "bytes": 965
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/final-spec.json",
+      "bytes": 1809
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/fish.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/source/fish.blend",
+      "bytes": 435375
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/source/fish.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/source/source-build.validation.json",
+      "bytes": 6399
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/run/validation-report.json",
+      "bytes": 4283
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/saved-source.validation.json",
+      "bytes": 495
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/source.blend",
+      "bytes": 430633
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/spec.json",
+      "bytes": 1608
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/unpacked.glb",
+      "bytes": 9292
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/packed/atlas.png",
+      "bytes": 92
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/packed/merged-mask.glb",
+      "bytes": 5284
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/packed/merged-opaque.glb",
+      "bytes": 5268
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/packed/packing.validation.json",
+      "bytes": 5402
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/author.stdout.txt",
+      "bytes": 970
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/cold-export.validation.json",
+      "bytes": 2545
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/cold_export.stdout.txt",
+      "bytes": 965
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/final-spec.json",
+      "bytes": 1650
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/fish.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/source/fish.blend",
+      "bytes": 424121
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/source/fish.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/source/source-build.validation.json",
+      "bytes": 5524
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/run/validation-report.json",
+      "bytes": 3744
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/saved-source.validation.json",
+      "bytes": 495
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/source.blend",
+      "bytes": 415930
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/spec.json",
+      "bytes": 1449
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/b/unpacked.glb",
+      "bytes": 5512
+    },
+    {
+      "path": "work/fish-portable-tools/core-run-source-smoke/validation-report.json",
+      "bytes": 2133
+    },
+    {
+      "path": "work/fish-portable-tools/core-validation-report.json",
+      "bytes": 4321
+    },
+    {
+      "path": "work/fish-portable-tools/import-smoke-project/project.godot",
+      "bytes": 112
+    },
+    {
+      "path": "work/fish-portable-tools/portable-parts-cleanup.validation.json",
+      "bytes": 25230
+    },
+    {
+      "path": "work/fish-portable-tools/portable-parts-tests.validation.json",
+      "bytes": 14847
+    },
+    {
+      "path": "work/fish-portable-tools/prepare-spec-example/parts.json",
+      "bytes": 526
+    },
+    {
+      "path": "work/fish-portable-tools/prepare-spec-example/prepare.validation.json",
+      "bytes": 1743
+    },
+    {
+      "path": "work/fish-portable-tools/prepare-spec-example/prepared-spec.json",
+      "bytes": 1566
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/actual-import-safe-output.validation.json",
+      "bytes": 3127
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/authored/fish.blend",
+      "bytes": 435375
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/authored/fish.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/authored/source-build.validation.json",
+      "bytes": 6351
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/capture-plan.json",
+      "bytes": 1781
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/capture.log",
+      "bytes": 193
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/capture.validation.json",
+      "bytes": 14428
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/completion.validation.json",
+      "bytes": 15519
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/coverage-contact-sheet.jpg",
+      "bytes": 25433
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/godot.log",
+      "bytes": 193
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/negative-transparent-body.png",
+      "bytes": 1954
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v0-actual.png",
+      "bytes": 2432
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v0-reference.png",
+      "bytes": 2428
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v1-actual.png",
+      "bytes": 2432
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v1-reference.png",
+      "bytes": 2428
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v2-actual.png",
+      "bytes": 2425
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v2-reference.png",
+      "bytes": 2422
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v3-actual.png",
+      "bytes": 2431
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v3-reference.png",
+      "bytes": 2428
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v4-actual.png",
+      "bytes": 2467
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v4-reference.png",
+      "bytes": 2455
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v5-actual.png",
+      "bytes": 2696
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v5-reference.png",
+      "bytes": 2684
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v6-actual.png",
+      "bytes": 2652
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v6-reference.png",
+      "bytes": 2633
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v7-actual.png",
+      "bytes": 2488
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p0-v7-reference.png",
+      "bytes": 2465
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v0-actual.png",
+      "bytes": 2468
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v0-reference.png",
+      "bytes": 2457
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v1-actual.png",
+      "bytes": 2465
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v1-reference.png",
+      "bytes": 2454
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v2-actual.png",
+      "bytes": 2425
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v2-reference.png",
+      "bytes": 2422
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v3-actual.png",
+      "bytes": 2426
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v3-reference.png",
+      "bytes": 2423
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v4-actual.png",
+      "bytes": 2466
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v4-reference.png",
+      "bytes": 2456
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v5-actual.png",
+      "bytes": 2723
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v5-reference.png",
+      "bytes": 2712
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v6-actual.png",
+      "bytes": 2664
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v6-reference.png",
+      "bytes": 2649
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v7-actual.png",
+      "bytes": 2477
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/body-gpu-complete/p1-v7-reference.png",
+      "bytes": 2466
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/cold-export.validation.json",
+      "bytes": 2980
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/cold-parity.validation.json",
+      "bytes": 4196
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/cold.glb",
+      "bytes": 9224
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/packed/atlas.png",
+      "bytes": 101
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/packed/merged-mask.glb",
+      "bytes": 8292
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/packed/merged-opaque.glb",
+      "bytes": 8276
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/packed/packing.validation.json",
+      "bytes": 6965
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/parity.validation.json",
+      "bytes": 4205
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/portable-validation-complete/parts-manifest.json",
+      "bytes": 3456
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/portable-validation-complete/plan-set.validation.json",
+      "bytes": 5751
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/saved-source.validation.json",
+      "bytes": 469
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/source.blend",
+      "bytes": 430633
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/spec.json",
+      "bytes": 1560
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-a/unpacked.glb",
+      "bytes": 9292
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/authored/fish.blend",
+      "bytes": 424121
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/authored/fish.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/authored/source-build.validation.json",
+      "bytes": 5476
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/cold-export.validation.json",
+      "bytes": 2545
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/cold-parity.validation.json",
+      "bytes": 3655
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/cold.glb",
+      "bytes": 5996
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/packed/atlas.png",
+      "bytes": 92
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/packed/merged-mask.glb",
+      "bytes": 5284
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/packed/merged-opaque.glb",
+      "bytes": 5268
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/packed/packing.validation.json",
+      "bytes": 5354
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/parity.validation.json",
+      "bytes": 3664
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/source.blend",
+      "bytes": 415930
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/spec.json",
+      "bytes": 1401
+    },
+    {
+      "path": "work/fish-portable-tools/synthetic-b/unpacked.glb",
+      "bytes": 5512
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/motion.json",
+      "bytes": 585
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/prepare_view.py",
+      "bytes": 1223
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/smoke-overview.png",
+      "bytes": 37044
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/viewer-config.json",
+      "bytes": 2017
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/viewer.log",
+      "bytes": 155
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/viewer.validation.json",
+      "bytes": 2726
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/spec.json",
+      "bytes": 876
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/unpacked.glb",
+      "bytes": 7172
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/front.png",
+      "bytes": 27728
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/oblique.png",
+      "bytes": 28223
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/viewer-config.json",
+      "bytes": 1779
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/viewer.log",
+      "bytes": 155
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/viewer.validation.json",
+      "bytes": 2482
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/evidence-nearest/contact-sheet.png",
+      "bytes": 10210
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/evidence-nearest/evidence.validation.json",
+      "bytes": 2867
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/finalize_evidence.py",
+      "bytes": 3923
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/game/project.godot",
+      "bytes": 129
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/make_fixture.py",
+      "bytes": 2248
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/smoke-overview.png",
+      "bytes": 27721
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/viewer-config.json",
+      "bytes": 1743
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/viewer.log",
+      "bytes": 155
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/viewer.validation.json",
+      "bytes": 2205
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/spec.json",
+      "bytes": 826
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/synthetic.glb",
+      "bytes": 1128
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/tools.validation.json",
+      "bytes": 4916
+    }
+  ],
+  "retained_work_bytes_at_cleanup": 5037946,
+  "post_validation_secondary_review_reports": [
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review-attempt1.validation.json",
+      "sha256": "d4c3d4eee129d6cd68443d61c4e2babd78dd35f9351eaa4dd47ccdd727311c33"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-source-review.validation.json",
+      "sha256": "ff35609bcd79596274a5284608437db2d98cd633764c87c13e9f0014911ab83b"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-source-request.validation.json",
+      "sha256": "d25c723cb7819fdd935f32b8df637b572d113ca583a1a4b55bd0432aa2c8d84e"
+    },
+    {
+      "path": "work/fish-portable-tools/deepseek-review-summary.validation.json",
+      "sha256": "4b696e3bd2144e2f5f1471b85fc0ff563b39d2d728a52f933efd3ee36b1bdabb"
+    }
+  ],
+  "secondary_review_artifact_bytes": 5887
+}

@@ -1,0 +1,128 @@
+{
+  "ok": true,
+  "kind": "packed_fish_complete_GLB_semantic_parity",
+  "reference": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/b/packed/merged-mask.glb",
+    "sha256": "be25d5a9028dd473df5740e576f66a37999cfb66102b3575399d11b6d6d91769"
+  },
+  "candidate": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-final/b/fish.glb",
+    "sha256": "05225b96252c806d66b9747f71f56197cf7a6481acd15ee3f9af247929f6a77d"
+  },
+  "checker_sha256": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be",
+  "triangles": 5,
+  "vertices": 7,
+  "bones": 2,
+  "single_mesh_single_surface": true,
+  "attributes": {
+    "POSITION": {
+      "rows": 7,
+      "max_component_error": 0.0
+    },
+    "NORMAL": {
+      "rows": 7,
+      "max_component_error": 0.0
+    },
+    "TEXCOORD_0": {
+      "rows": 7,
+      "max_component_error": 0.0
+    },
+    "JOINTS_WEIGHTS_by_bone_name": {
+      "rows": 7,
+      "max_component_error": 0.0
+    }
+  },
+  "directed_triangles_equal": true,
+  "node_rest_and_hierarchy": {
+    "original_named_nodes": 5,
+    "max_rest_component_error": 0.0,
+    "parents_and_skin_skeleton_references_equal": true,
+    "allowed_editor_empty_nodes": []
+  },
+  "material_semantics": {
+    "alphaMode": "MASK",
+    "alphaCutoff": 0.5,
+    "doubleSided": false,
+    "roughnessFactor": 1,
+    "metallicFactor": 0,
+    "baseColorFactor": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "texture_texCoord": 0,
+    "magFilter": 9728,
+    "minFilter": 9728,
+    "wrapS": 33071,
+    "wrapT": 33071,
+    "specularFactor": 0,
+    "emissiveFactor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "atlas_RGBA_exact": true,
+  "atlas_size": [
+    16,
+    8
+  ],
+  "PNG_bytes_equal": true,
+  "reference_PNG_sha256": "178a0a3888744f07ff49b1b6aece43f945bdf09e5d8e6bd32a79ee0e0fcdde04",
+  "candidate_PNG_sha256": "178a0a3888744f07ff49b1b6aece43f945bdf09e5d8e6bd32a79ee0e0fcdde04",
+  "body_and_mouth_UV_domain_alpha_255": true,
+  "logical_parts": [
+    {
+      "index_count": 12,
+      "index_start": 0,
+      "logical_name": "body",
+      "name": "Piece0_surface_0",
+      "opaque_uv": true,
+      "part_id": 1,
+      "role": "body",
+      "source_model_sha256": "be25d5a9028dd473df5740e576f66a37999cfb66102b3575399d11b6d6d91769",
+      "source_node": "Piece0",
+      "source_surface": 0,
+      "source_vertex_start": 0,
+      "vertex_count": 4,
+      "vertex_start": 0
+    },
+    {
+      "index_count": 3,
+      "index_start": 12,
+      "logical_name": "Piece1",
+      "name": "Piece1_surface_0",
+      "opaque_uv": false,
+      "part_id": 2,
+      "role": "aux",
+      "source_model_sha256": "be25d5a9028dd473df5740e576f66a37999cfb66102b3575399d11b6d6d91769",
+      "source_node": "Piece1",
+      "source_surface": 0,
+      "source_vertex_start": 4,
+      "vertex_count": 3,
+      "vertex_start": 4
+    }
+  ],
+  "IBMs_by_bone_name_max_component_error": 0.0,
+  "native_clips": {
+    "Clip0": {
+      "channels": 6,
+      "max_time_error": 0.0,
+      "max_value_error": 0.0
+    }
+  },
+  "finite_all_exported_accessors": true,
+  "scope": "Complete raw GLB semantics at existing1e-6component limit; same source vertex identities, directed triangles, original node rest/parents and skin skeleton references. Does not replace actual Godot cold load/pose profile binding, specialized fin/body gates or visual review.",
+  "spec_sha256": "80212e8dff7748265b9857511386f141661d421431ef30479d5525911adfead1",
+  "derived_reference_inventory": {
+    "mesh_count": 1,
+    "surface_count": 1,
+    "vertices": 7,
+    "triangles": 5,
+    "bones": 2,
+    "clips": 1,
+    "animation_channels": 6,
+    "node_count": 5
+  }
+}

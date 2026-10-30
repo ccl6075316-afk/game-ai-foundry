@@ -1,0 +1,186 @@
+{
+  "ok": true,
+  "kind": "packed_editable_fish_source_authoring",
+  "recipe_sha256": "35df72cf0a2d8f0891409b9ab22fe5ac139f17a76cb41e133d3185046daff9f5",
+  "builder_sha256": "38b9bc60be252010d459a3e5520ff1000b13e08a92a92a6d5bac1c9850321bce",
+  "input_files": {
+    "source_blend": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/source.blend",
+      "sha256": "d1e725209c9c98ceb5da78475ce13fbe9f26ac2b8ff8f0dd2e509c37256ec999"
+    },
+    "reference_glb": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/merged-mask.glb",
+      "sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    },
+    "atlas": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/atlas.png",
+      "sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372"
+    },
+    "packing_report": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/packing.validation.json",
+      "sha256": "e544f6277d50626e8ce84ab7aa5d9b8a4f4401458d12186fcb6bd3b528753f7d"
+    }
+  },
+  "output_blend_sha256": "f77339fcb4fef284bc301883df309f3cce3826d117c354c8da3588a29abf2886",
+  "output_model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+  "source_mesh": "Piece0",
+  "triangles": 9,
+  "vertices": 11,
+  "bones": 3,
+  "surfaces": 1,
+  "logical_parts": [
+    {
+      "part_id": 1,
+      "name": "Piece0_surface_0",
+      "role": "body",
+      "logical_name": "body",
+      "opaque_uv": true,
+      "source_node": "Piece0",
+      "source_surface": 0,
+      "source_vertex_start": 0,
+      "vertex_count": 4,
+      "index_start": 0,
+      "index_count": 12,
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    },
+    {
+      "part_id": 2,
+      "name": "Piece1_surface_0",
+      "role": "aux",
+      "logical_name": "Piece1",
+      "opaque_uv": false,
+      "source_node": "Piece1",
+      "source_surface": 0,
+      "source_vertex_start": 4,
+      "vertex_count": 3,
+      "index_start": 12,
+      "index_count": 3,
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    },
+    {
+      "part_id": 3,
+      "name": "Piece2_surface_0",
+      "role": "fin",
+      "logical_name": "Piece2",
+      "opaque_uv": false,
+      "source_node": "Piece2",
+      "source_surface": 0,
+      "source_vertex_start": 7,
+      "vertex_count": 4,
+      "index_start": 15,
+      "index_count": 12,
+      "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    }
+  ],
+  "rig_and_active_action_unchanged_by_authoring": true,
+  "all_rig_rest_actions_unchanged": true,
+  "derived_reference_inventory": {
+    "mesh_count": 1,
+    "surface_count": 1,
+    "vertices": 11,
+    "triangles": 9,
+    "bones": 3,
+    "clips": 2,
+    "animation_channels": 18,
+    "node_count": 7
+  },
+  "source_owned_exact_normal_attribute": "_FOUNDRY_NORMAL_GLTF",
+  "source_owned_exact_uv_attribute": "_FOUNDRY_UV_GLTF",
+  "part_attribute": "_FOUNDRY_PART_ID",
+  "source_vertex_attribute": "_FOUNDRY_SOURCE_VERTEX",
+  "face_part_attribute": "foundry_logical_part_id",
+  "export_proof": {
+    "ok": true,
+    "kind": "source_owned_packed_fish_export",
+    "exporter_sha256": "51470311f0f6eb849bfde1c1c2ed5646eaabf66cb91d458756bb90efabd2fabc",
+    "output_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+    "mesh": "Piece0",
+    "triangles": 9,
+    "vertices": 11,
+    "surfaces": 1,
+    "parts": [
+      {
+        "index_count": 12,
+        "index_start": 0,
+        "logical_name": "body",
+        "name": "Piece0_surface_0",
+        "opaque_uv": true,
+        "part_id": 1,
+        "role": "body",
+        "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+        "source_node": "Piece0",
+        "source_surface": 0,
+        "source_vertex_start": 0,
+        "vertex_count": 4,
+        "vertex_start": 0
+      },
+      {
+        "index_count": 3,
+        "index_start": 12,
+        "logical_name": "Piece1",
+        "name": "Piece1_surface_0",
+        "opaque_uv": false,
+        "part_id": 2,
+        "role": "aux",
+        "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+        "source_node": "Piece1",
+        "source_surface": 0,
+        "source_vertex_start": 4,
+        "vertex_count": 3,
+        "vertex_start": 4
+      },
+      {
+        "index_count": 12,
+        "index_start": 15,
+        "logical_name": "Piece2",
+        "name": "Piece2_surface_0",
+        "opaque_uv": false,
+        "part_id": 3,
+        "role": "fin",
+        "source_model_sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+        "source_node": "Piece2",
+        "source_surface": 0,
+        "source_vertex_start": 7,
+        "vertex_count": 4,
+        "vertex_start": 7
+      }
+    ],
+    "exact_NORMAL_and_UV_source_streams": true,
+    "source_material_contract": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "magFilter": 9728,
+      "metallicFactor": 0,
+      "minFilter": 9728,
+      "roughnessFactor": 1,
+      "specularFactor": 0,
+      "wrapS": 33071,
+      "wrapT": 33071
+    },
+    "source_atlas_signature": "041b801458cf91f619f1e0d976ac8cf66b3f7dc63711815badf4a4afc781cf8a",
+    "source_guarded_normal_export": {
+      "ok": true,
+      "source_guards": {
+        "Piece0": {
+          "geometry_sha256": "585f984063574a89741ee1176423f4ed08106b0475622891ec8587c9f0f56840",
+          "normal_sha256": "1ef34f36bd203db6db6863f317cb8b0e87c78fccc347542e538f3d45f699f3e1"
+        }
+      },
+      "changed_only_NORMAL_bindings": [
+        "Piece0"
+      ],
+      "native_export_binary_prefix_unchanged": true,
+      "output_sha256": "59571fcc69159f7a0c8c0ef1a0e170240bba969b6cb137549d4febee70cc0f27"
+    },
+    "generated_BIN_unchanged_after_source_binding": false,
+    "source_row_compaction": {
+      "generated_rows": 11,
+      "source_rows": 11,
+      "merge_scope": "Only same source ID, after final POSITION/NORMAL/UV/JOINTS/WEIGHTS exact equality. Different source IDs never welded.",
+      "unused_streams_removed": true
+    },
+    "reference_GLB_read_during_export": false
+  },
+  "scope": "One-time source authoring from frozen assets, no old input writes. Full fresh source re-export and actual final gates still required."
+}

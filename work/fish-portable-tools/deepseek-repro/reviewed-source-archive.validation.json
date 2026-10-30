@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "kind": "secondary_review_consumed_source_archive",
+  "purpose": "Immutable pre-fix bytes consumed by DeepSeek and initial runtime witnesses; originals are hardened next. Frozen Nile tools/assets are separate and untouched.",
+  "files": [
+    {
+      "original_path": "resources/scripts/volume-fish/portable/fish_asset_spec.py",
+      "sha256": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/fish_asset_spec.py"
+    },
+    {
+      "original_path": "resources/scripts/volume-fish/portable/build_source.py",
+      "sha256": "612ecfa454c45e93e8e314342c6ffb7b15a7cfd35451a09b27cc476a914e9d17",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/build_source.py"
+    },
+    {
+      "original_path": "resources/scripts/volume-fish/portable/source_snapshot.py",
+      "sha256": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/source_snapshot.py"
+    },
+    {
+      "original_path": "resources/scripts/volume-fish/portable/verify_parity.py",
+      "sha256": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/verify_parity.py"
+    },
+    {
+      "original_path": "resources/scripts/volume-fish/portable/glb_io.py",
+      "sha256": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/glb_io.py"
+    },
+    {
+      "original_path": "resources/scripts/volume-fish/portable/run_source.py",
+      "sha256": "c551158c58db5b3964afeeb2a4e80e95f9fa57547f054d37eeca0d3994bf0c57",
+      "archive_path": "work/fish-portable-tools/deepseek-repro/reviewed-source/run_source.py"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "kind": "portable_prepare_spec_validation",
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "visual_review": "pending",
+  "unit_tests": {
+    "passed": 6,
+    "failed": 0,
+    "command": ".venv/bin/python -m unittest discover -s resources/scripts/volume-fish/portable/tests -p test_prepare_spec.py -v"
+  },
+  "sources": [
+    {
+      "path": "resources/scripts/volume-fish/portable/prepare_spec.py",
+      "sha256": "03f48eab1667c43f476709beb23eae65019a951c407d63f3105e40b666a866ec"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_prepare_spec.py",
+      "sha256": "9c966149aafba761fc4cdd40a55a84e7f390371fce06763638a11302cc5a6dc3"
+    }
+  ],
+  "actual_cpu_example": {
+    "spec": "work/fish-portable-tools/prepare-spec-example/prepared-spec.json",
+    "sha256": "d57ec6d67bde01fb6916b3951860482cb3d821bc795f621f8a27310822423b7d",
+    "expected": {
+      "mesh_count": 1,
+      "surface_count": 1,
+      "vertices": 11,
+      "triangles": 9,
+      "bones": 3,
+      "clips": 2,
+      "animation_channels": 18,
+      "node_count": 7
+    },
+    "part_count": 3,
+    "source_mesh_name": "Piece0"
+  },
+  "cleanup": {
+    "temporary_candidates": "TemporaryDirectory validation/test inputs removed automatically",
+    "retained": "Explicit synthetic parts, one prepared spec, this report",
+    "remaining_bytes": 2092
+  },
+  "limitations": [
+    "No anatomy inference or visual acceptance",
+    "Does not infer editable-source mesh-object count",
+    "Roles are arbitrary explicit nonempty strings; core load_spec/preflight owns schema and body opacity validation",
+    "Optional presentation configuration is passed through; runtime viewing remains a separate validation"
+  ]
+}

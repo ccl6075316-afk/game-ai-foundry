@@ -1,0 +1,72 @@
+{
+  "ok": true,
+  "schema_version": 1,
+  "kind": "fish_portable_validation_plan",
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb",
+  "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+  "packed_parts_manifest": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/final-current-validation/plan/parts-manifest.json",
+  "packed_parts_manifest_sha256": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d",
+  "spec": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/spec.json",
+  "spec_sha256": "12cb98016a4432e564f6d4fbf208e06fd937fafa960a586f3b3c020ccd76b1e0",
+  "source_references": {
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/source.blend": "a2e9b94e8ab2064ce85cc087202520bfe367215ed4a821109cec96110d26bca6",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/merged-mask.glb": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/atlas.png": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/packing.validation.json": "f728b6a0ec27b3312665a96fe9c3fdb54156be0f5af6913cfe8c2e8eb56dec2d"
+  },
+  "source_dependencies": {
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/spec.json": "12cb98016a4432e564f6d4fbf208e06fd937fafa960a586f3b3c020ccd76b1e0",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/source.blend": "a2e9b94e8ab2064ce85cc087202520bfe367215ed4a821109cec96110d26bca6",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/merged-mask.glb": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/atlas.png": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/packed/packing.validation.json": "f728b6a0ec27b3312665a96fe9c3fdb54156be0f5af6913cfe8c2e8eb56dec2d",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/parts.py": "a92abe6c698f49ac04c7f7802f792d3832748a6aada7af1893ffc5c7a479a240",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/glb_io.py": "6196d9704d5c346734a630c19ccd71f5828bc7a2f1803bf64e9e5eaabda273cc",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/fish_asset_spec.py": "83b4ff23a336931bdf941e65e29c8c65093f307cb691111fdc9f7900b942d5eb",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/PackedFishParts.gd": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_import.gd": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_body_gpu.gd": "864f96a6c0840b77235070944ef12a44e254ab658ae72aa1dd735d0413561d0a",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_body_gpu.py": "e1f1baf25d7de025109bb4d868397791c1e11505582706d46c683dcea2b07003",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/prepare_validation.py": "b4756cf37e61ad2aac4a393952db2fc2e3a9c790049cfa7b89912a1fee191c31",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/final-current-validation/plan/parts-manifest.json": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d"
+  },
+  "capabilities": {
+    "actual_import_partition": {
+      "supported": true,
+      "runner": "validate_import.gd"
+    },
+    "opaque_body_uv_rectangles": {
+      "supported": true,
+      "runner": "parts.py"
+    },
+    "full490_physical": {
+      "supported": false,
+      "reason": "Frozen production exporters remain species/part-specific; a reviewed anatomy adapter and per-species constraints are required."
+    },
+    "fin_root_signed_distance": {
+      "supported": false,
+      "reason": "No arbitrary-anatomy root/pose adapter implemented; old reports are not transferred."
+    },
+    "fin_membrane_clearance": {
+      "supported": false,
+      "reason": "No arbitrary-anatomy membrane/pose adapter implemented."
+    },
+    "body_gpu_coverage_discrete": {
+      "supported": true,
+      "runner": "validate_body_gpu.py",
+      "scope": "Two distinct native poses, eight matching views each, zero missing body pixels plus transparent negative. Separate explicit GPU execution required."
+    },
+    "body_integrity_full077": {
+      "supported": false,
+      "reason": "Discrete GPU alpha comparison does not establish closed body topology or all production integrity requirements."
+    },
+    "head_form_and_visual_acceptance": {
+      "supported": false,
+      "reason": "Requires species sources, independent views and actual visual review."
+    }
+  },
+  "formal_acceptance": false,
+  "next_action": "human_review",
+  "scope": "Input preparation only. Arbitrary inventory is supported by new import diagnostics. Original full physical exporters are not generalized; no gate results or prior passes copied."
+}

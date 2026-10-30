@@ -1,0 +1,35 @@
+{
+  "tests_run": 8,
+  "failures": [
+    {
+      "case": "test_candidate_swap_after_read_rejected (__main__.GuardRegressions.test_candidate_swap_after_read_rejected)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 65, in test_candidate_swap_after_read_rejected\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):self.verify()\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    },
+    {
+      "case": "test_hashbound_unnormalized_reference_rejected_in_preflight (__main__.GuardRegressions.test_hashbound_unnormalized_reference_rejected_in_preflight)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 56, in test_hashbound_unnormalized_reference_rejected_in_preflight\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):preflight(self.specpath)\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    },
+    {
+      "case": "test_optimized_python_refuses_mismatching_candidate (__main__.GuardRegressions.test_optimized_python_refuses_mismatching_candidate)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 36, in test_optimized_python_refuses_mismatching_candidate\n    self.assertNotEqual(result.returncode,0,'optimized verifier silently accepted .125 coordinate error')\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 == 0 : optimized verifier silently accepted .125 coordinate error\n"
+    },
+    {
+      "case": "test_primitive_missing_material_rejected (__main__.GuardRegressions.test_primitive_missing_material_rejected)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 39, in test_primitive_missing_material_rejected\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):self.verify()\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    },
+    {
+      "case": "test_primitive_out_of_range_material_rejected (__main__.GuardRegressions.test_primitive_out_of_range_material_rejected)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 42, in test_primitive_out_of_range_material_rejected\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):self.verify()\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    },
+    {
+      "case": "test_spec_swap_after_verification_rejected_before_report (__main__.GuardRegressions.test_spec_swap_after_verification_rejected_before_report)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 71, in test_spec_swap_after_verification_rejected_before_report\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):parity.main()\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    },
+    {
+      "case": "test_unused_negative_weight_slot_rejected (__main__.GuardRegressions.test_unused_negative_weight_slot_rejected)",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/deepseek-repro/test_guard_regressions_draft.py\", line 53, in test_unused_negative_weight_slot_rejected\n    with self.assertRaises((ValueError,AssertionError,RuntimeError)):self.verify()\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'ValueError'>, <class 'AssertionError'>, <class 'RuntimeError'>) not raised\n"
+    }
+  ],
+  "errors": [],
+  "success": false
+}

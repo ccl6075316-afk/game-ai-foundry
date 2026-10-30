@@ -1,0 +1,93 @@
+{
+  "ok": true,
+  "kind": "anvil_debug_phase4_final_validation",
+  "independent_gates": {
+    "phase1": "APPROVED",
+    "phase2": "APPROVED",
+    "phase3": "APPROVED",
+    "phase4": "APPROVED after one same-root runner followup",
+    "reviewer": "/root/portable_parts_validation",
+    "review_record": ".ai/anvil/reviews/2026-10-30-portable-secondary-debug-review.md"
+  },
+  "fixed_families": [
+    "Fail closed optimized Python instead of stripping required checks",
+    "Require primitive.material integer zero on reference and candidate",
+    "Validate raw skin slots before positive aggregation",
+    "Consume samebyte GLB/spec snapshot digests, reject drift, bind finalspec to verified digest"
+  ],
+  "preserved_contracts": {
+    "semantic_tolerance": 1e-06,
+    "positive_slot_filter": 1e-07,
+    "normalization_tolerance": 1e-05,
+    "RGBA_semantics_allow_PNG_container_reencoding": true,
+    "expected_count_keys_remain_optional": true,
+    "source_authoring_not_final_fish_acceptance": true
+  },
+  "current_core_hashes": {
+    "fish_asset_spec.py": "83b4ff23a336931bdf941e65e29c8c65093f307cb691111fdc9f7900b942d5eb",
+    "build_source.py": "5d0677d672642630f69ec5d32c1c5288c4a86a1ad6c414d758158862874bc546",
+    "source_snapshot.py": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd",
+    "verify_parity.py": "569d9879d683c8095602bd0e939655ef5cac23a7917a480627104969cb6f456a",
+    "glb_io.py": "6196d9704d5c346734a630c19ccd71f5828bc7a2f1803bf64e9e5eaabda273cc",
+    "run_source.py": "f5b4113d6b7f7c7fb8894162699e37c748dd9f568b1845f1c468f5a117a73bbc"
+  },
+  "complete_script_hash_inventory": {
+    "path": "work/fish-portable-tools/deepseek-repro/portable-script-hashes.validation.json",
+    "sha256": "bea10ce67d09e39c5424fd8ec9b7909b6f2f4d67672649ea23c17f34ef72877c"
+  },
+  "machine_unit_receipt": {
+    "path": "work/fish-portable-tools/deepseek-repro/phase4-unit-tests.validation.json",
+    "sha256": "c08f867dff263a63949406d6e7a2d349bb8b26c03ceefae38da0b6e35a4f0c57"
+  },
+  "tests_passed": 55,
+  "beforefix_regression_receipt": {
+    "path": "work/fish-portable-tools/deepseek-repro/phase3-beforefix.tests.json",
+    "sha256": "f2d0638f03df69b45cde16794fae4a65f72d327d7aa8880f60c4d3741495c592"
+  },
+  "diff_against_reviewed_archive": {
+    "path": "work/fish-portable-tools/deepseek-repro/phase4.diff",
+    "sha256": "e5545bf6f8c4b61b0cb3b4a287aa3bcbfe386187c78e8cf933784ad55d18108a"
+  },
+  "same_root_followup": {
+    "path": "work/fish-portable-tools/deepseek-repro/phase4-followup.validation.json",
+    "sha256": "a7fb882669fbbb463fa12784e9b66c50d3a5a00bca684c36a935766a3b5d5d06"
+  },
+  "strike_record": {
+    "runtime_fix_followups": 1,
+    "detail": "Independent Phase4 caught caller rehashing after validation; deterministic doubleoutputswap negative failed before narrow final-binding repair, then passed. No unrelated fixes."
+  },
+  "test_expectation_adjustment": "Existing duplicatepositiveweight mass.9 test now asserts explicit raw-validity ValueError; formerly expected downstream AssertionError. Rejection remains mandatory.",
+  "historical_two_fixture_smoke": {
+    "path": "work/fish-portable-tools/deepseek-final-source-smoke/validation-report.json",
+    "sha256": "8e4aa487162d9b7ede179595f3ff0cc42c43d7b5f22ac6b24dab9e8c15d18e2d"
+  },
+  "final_current_runner_source_cold_smoke": {
+    "manifest": {
+      "path": "work/fish-portable-tools/deepseek-final-source-run/manifest.json",
+      "sha256": "839a64d5b1d8ce2144e63e1214e881aefa3cb48adb33478d47c19007e89f9af3"
+    },
+    "proof": {
+      "path": "work/fish-portable-tools/deepseek-final-source-run/validation-report.json",
+      "sha256": "df1cd2bebc1f8db63e0dd0c86c47ac438597ea167464e2921ba06a0ab474ec68"
+    },
+    "final_spec": {
+      "path": "work/fish-portable-tools/deepseek-final-source-run/final-spec.json",
+      "sha256": "18ba50f9fcf55651d7dfef7e878249607f87e28de6c22158ae08410bc6677f0b"
+    },
+    "vertices": 11,
+    "triangles": 9,
+    "bones": 3,
+    "clips": 2,
+    "attribute_max_error": 0.0,
+    "IBM_max_error": 0.0,
+    "candidate_proof_spec_current_model_digest_equal": true,
+    "cold_export_bytes_equal": true,
+    "original_inputs_unchanged": true
+  },
+  "cleanup": {
+    "path": "work/fish-portable-tools/deepseek-repro/phase4-cleanup.validation.json",
+    "sha256": "45fd289c7a4b1a9a40a9b712441a8e5c36d5f8c45dfa1c2d60d19e186740c9e2"
+  },
+  "scope": "Tiny synthetic source tooling validation only. No real fish/Nile/source animation modification, no GPU or full physical acceptance, no commit by core subagent.",
+  "handoff": "Core code frozen. Lead owns final index, durable no-context handoff, both-repository commit+push and clean status. Reproduction regressions live in portable/tests/test_guard_regressions.py; archive preserves exact reviewed pre-fix files."
+}

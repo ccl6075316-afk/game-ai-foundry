@@ -1,0 +1,112 @@
+{
+  "captures": [
+    {
+      "camera": {
+        "distance": 1.25218310190793,
+        "pitch": 0.0,
+        "target": [
+          -0.0404644906520844,
+          0.0846056267619133,
+          0.447973132133484
+        ],
+        "yaw": 0.0
+      },
+      "name": "smoke-overview",
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/smoke/smoke-overview.png",
+      "sha256": "4c31a0f4f1036dd7848dad6d77ec0374fa55e5e31f252d188311afa932cce51e",
+      "time_seconds": 0.566666666666667,
+      "visual_review": "pending"
+    }
+  ],
+  "checks": [
+    {
+      "name": "direct_glb_load",
+      "passed": true
+    },
+    {
+      "name": "complete_scene_generated",
+      "passed": true
+    },
+    {
+      "name": "runtime_meshes_present",
+      "passed": true
+    },
+    {
+      "name": "runtime_mesh_count_preserved",
+      "passed": true
+    },
+    {
+      "name": "runtime_surface_count_preserved",
+      "passed": true
+    },
+    {
+      "name": "controller_script_loaded",
+      "passed": true
+    },
+    {
+      "name": "controller_configured",
+      "passed": true
+    },
+    {
+      "name": "controller_action_supported",
+      "passed": true
+    },
+    {
+      "name": "orbit_changes_camera",
+      "passed": true
+    },
+    {
+      "name": "pan_changes_target",
+      "passed": true
+    },
+    {
+      "name": "zoom_changes_distance",
+      "passed": true
+    },
+    {
+      "name": "native_clip_changes_pose",
+      "passed": true
+    },
+    {
+      "name": "requested_controller_available",
+      "passed": true
+    },
+    {
+      "name": "controller_changes_pose",
+      "passed": true
+    },
+    {
+      "name": "mesh_surface_inventory_unchanged",
+      "passed": true
+    },
+    {
+      "name": "capture_smoke-overview",
+      "passed": true
+    }
+  ],
+  "kind": "fish_asset_viewer_validation",
+  "limitations": [
+    "Viewer technical smoke is not fish acceptance, fin validation or SOP approval",
+    "Bounding box uses imported rest geometry; animation may extend outside it"
+  ],
+  "mode": "smoke",
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-controller-fixture/unpacked.glb",
+  "model_role": "final_model",
+  "model_sha256": "0588ac0307a183ddc17fadaa6310f804b253913d984b7c4e293d9451980c0444",
+  "next_action": "human_review",
+  "ok": true,
+  "part_diagnostics": {
+    "enabled": false,
+    "reason": "No verified part diagnostic recipe configured"
+  },
+  "runtime_inventory": {
+    "bone_count": 4,
+    "mesh_count": 2,
+    "surface_count": 2,
+    "vertices": 7
+  },
+  "schema_version": 1,
+  "spec_sha256": "ea81a2183b3562ddd40107769c723658cbab2a1ab587bf808ef3daebebcf2e6b",
+  "status": "done",
+  "visual_review": "pending"
+}

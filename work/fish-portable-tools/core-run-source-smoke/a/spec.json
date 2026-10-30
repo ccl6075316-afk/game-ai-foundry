@@ -1,0 +1,57 @@
+{
+  "kind": "fish_asset_finalization_spec",
+  "version": 1,
+  "inputs": {
+    "source_blend": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/source.blend",
+      "sha256": "d1e725209c9c98ceb5da78475ce13fbe9f26ac2b8ff8f0dd2e509c37256ec999"
+    },
+    "reference_glb": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/merged-mask.glb",
+      "sha256": "99e1f0f98cbfec29f2820faa359b0390ae61489109daeda0843a6046ee8ae8e4"
+    },
+    "atlas": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/atlas.png",
+      "sha256": "06654a42ce9c13035e6f2d55967459f577f83d3bc631b30d0d39c0d7d228d372"
+    },
+    "packing_report": {
+      "path": "work/fish-portable-tools/core-run-source-smoke/a/packed/packing.validation.json",
+      "sha256": "e544f6277d50626e8ce84ab7aa5d9b8a4f4401458d12186fcb6bd3b528753f7d"
+    }
+  },
+  "source_mesh_name": "Piece0",
+  "expected": {
+    "mesh_count": 1,
+    "surface_count": 1,
+    "vertices": 11,
+    "triangles": 9,
+    "bones": 3,
+    "clips": 2,
+    "animation_channels": 18,
+    "node_count": 7,
+    "source_mesh_objects": 3
+  },
+  "parts": [
+    {
+      "name": "Piece0_surface_0",
+      "role": "body",
+      "logical_name": "body",
+      "source_node": "Piece0",
+      "source_surface": 0
+    },
+    {
+      "name": "Piece1_surface_0",
+      "role": "aux",
+      "logical_name": "Piece1",
+      "source_node": "Piece1",
+      "source_surface": 0
+    },
+    {
+      "name": "Piece2_surface_0",
+      "role": "fin",
+      "logical_name": "Piece2",
+      "source_node": "Piece2",
+      "source_surface": 0
+    }
+  ]
+}

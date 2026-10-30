@@ -1,0 +1,25 @@
+{
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb",
+  "model_sha256": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+  "packed_parts_manifest": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/portable-validation-complete/parts-manifest.json",
+  "packed_parts_manifest_sha256": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d",
+  "poses": [
+    {
+      "clip": "Clip0",
+      "fraction": 0.0
+    },
+    {
+      "clip": "Clip0",
+      "fraction": 0.37
+    }
+  ],
+  "frozen_inputs": {
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/portable-validation-complete/parts-manifest.json": "5b3f126a6972e9ae8254d90646fb242bc18934b37893e95851f72c120c10eb7d",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/synthetic-a/cold.glb": "36ef760054b4ed5f1b2bd7a55bdb2efbc31c7cfe499300c9d07ddec5c083107b",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_body_gpu.py": "e1f1baf25d7de025109bb4d868397791c1e11505582706d46c683dcea2b07003",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_body_gpu.gd": "864f96a6c0840b77235070944ef12a44e254ab658ae72aa1dd735d0413561d0a",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/parts.py": "a92abe6c698f49ac04c7f7802f792d3832748a6aada7af1893ffc5c7a479a240",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/PackedFishParts.gd": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/glb_io.py": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9"
+  }
+}

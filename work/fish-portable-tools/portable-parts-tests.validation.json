@@ -1,0 +1,481 @@
+{
+  "kind": "portable_parts_synthetic_test_receipt",
+  "cases": [
+    {
+      "case": "small-none",
+      "expected_ok": true,
+      "ok": true,
+      "exit": 0,
+      "report": {
+        "actual_material": {
+          "alpha_factor": 1.0,
+          "nearest_without_mipmaps": true,
+          "same_material_used_by_diagnostics": true,
+          "transparency": 2,
+          "type": "StandardMaterial3D"
+        },
+        "actual_vertices": 12,
+        "body_opacity": {
+          "body_regions": [
+            {
+              "alpha_max": 255.0,
+              "alpha_min": 255.0,
+              "name": "part_0",
+              "source_node": "source_0",
+              "source_surface": 0.0,
+              "texel_rectangle_inclusive": [
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  5.0,
+                  5.0
+                ]
+              ],
+              "texels_checked": 25.0
+            }
+          ],
+          "image_embedded_sha256": "97942e8ad14f175feb27772d2e056b5ccf6a25dcefdd8c6ddbf4bc06edeb1e62",
+          "material_alpha_mode": "MASK",
+          "ok": true,
+          "rgba_sha256": "47d471b3188a0c444a8d7b28eac35e62886028004666c57d93d44b70b90bfcd9",
+          "scope": "Every texel in each declared body UV bounding rectangle is alpha255. This does not prove same-pose GPU coverage or anatomical integrity.",
+          "size": [
+            8.0,
+            8.0
+          ]
+        },
+        "body_probe": {
+          "same_actual_material": true,
+          "same_actual_skin": true,
+          "surfaces": 1,
+          "triangles": 2,
+          "validation_only": true
+        },
+        "command": "portable.validate_import",
+        "engine": {
+          "build": "official",
+          "hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+          "hex": 263937,
+          "major": 4,
+          "minor": 7,
+          "patch": 1,
+          "status": "stable",
+          "string": "4.7.1-stable (official)",
+          "timestamp": 0
+        },
+        "failures": [],
+        "helper_sha256": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+        "importer_script_sha256": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+        "logical_parts": 2,
+        "logical_surfaces": 2,
+        "manifest": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/parts-tests-om_uuomj/small-none.json",
+        "manifest_sha256": "d366f3b25449e0cbc9883b90523ecce041eba40e32f0c7da756ef27c22f74ac7",
+        "mapping_tolerances": {
+          "named_weight": 1.62590218966964e-05,
+          "normal_component": 0.001,
+          "position": 1e-06,
+          "uv": 1e-06
+        },
+        "maximum_import_errors": {
+          "normal_component": 1.52592547237873e-05,
+          "position": 0.0,
+          "uv": 0.0,
+          "weight": 0.0
+        },
+        "model_sha256": "c9fb0a0e6c54d35cf271665132fe2d249d916445670f66490774532b9081f912",
+        "native_smoke": {
+          "bones": 1,
+          "clips": 1,
+          "immutable_track_optimization_allowed": true,
+          "imported_tracks_resolved": 1,
+          "raw_channels_resolved": 1
+        },
+        "next_action": "none",
+        "ok": true,
+        "part_triangles": {
+          "part_0": 2,
+          "part_1": 2
+        },
+        "runtime_meshes": 1,
+        "runtime_surfaces": 1,
+        "scope": "Cold actual GLTFDocument array/skin/oriented-triangle partition and native-track resolution only. Physical490, fin roots/membranes, body GPU integrity, anatomy, motion-controller behavior and visual acceptance are unsupported by this generic proof.",
+        "source_arrays_modified": false,
+        "source_vertices": 12.0,
+        "status": "done",
+        "triangles_consumed": 4,
+        "winding": "all triangles fixed glTF CCW to Godot CW reversal"
+      }
+    },
+    {
+      "case": "small-normal",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Actual packed vertex unmatched by position/UV/normal/named skin: 0"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "small-winding",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Missing/duplicated/reversed imported triangle at 0"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "small-count",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Imported bone count differs from candidate baseline/spec"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "small-partition",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Duplicate explicit source surface"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "small-multiplicity",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Missing/duplicated/reversed imported triangle at 1"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "varied-none",
+      "expected_ok": true,
+      "ok": true,
+      "exit": 0,
+      "report": {
+        "actual_material": {
+          "alpha_factor": 1.0,
+          "nearest_without_mipmaps": true,
+          "same_material_used_by_diagnostics": true,
+          "transparency": 2,
+          "type": "StandardMaterial3D"
+        },
+        "actual_vertices": 36,
+        "body_opacity": {
+          "body_regions": [
+            {
+              "alpha_max": 255.0,
+              "alpha_min": 255.0,
+              "name": "part_0",
+              "source_node": "source_0",
+              "source_surface": 0.0,
+              "texel_rectangle_inclusive": [
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  5.0,
+                  5.0
+                ]
+              ],
+              "texels_checked": 25.0
+            },
+            {
+              "alpha_max": 255.0,
+              "alpha_min": 255.0,
+              "name": "part_1",
+              "source_node": "source_1",
+              "source_surface": 0.0,
+              "texel_rectangle_inclusive": [
+                [
+                  1.0,
+                  1.0
+                ],
+                [
+                  5.0,
+                  5.0
+                ]
+              ],
+              "texels_checked": 25.0
+            }
+          ],
+          "image_embedded_sha256": "97942e8ad14f175feb27772d2e056b5ccf6a25dcefdd8c6ddbf4bc06edeb1e62",
+          "material_alpha_mode": "MASK",
+          "ok": true,
+          "rgba_sha256": "47d471b3188a0c444a8d7b28eac35e62886028004666c57d93d44b70b90bfcd9",
+          "scope": "Every texel in each declared body UV bounding rectangle is alpha255. This does not prove same-pose GPU coverage or anatomical integrity.",
+          "size": [
+            8.0,
+            8.0
+          ]
+        },
+        "body_probe": {
+          "same_actual_material": true,
+          "same_actual_skin": true,
+          "surfaces": 2,
+          "triangles": 4,
+          "validation_only": true
+        },
+        "command": "portable.validate_import",
+        "engine": {
+          "build": "official",
+          "hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+          "hex": 263937,
+          "major": 4,
+          "minor": 7,
+          "patch": 1,
+          "status": "stable",
+          "string": "4.7.1-stable (official)",
+          "timestamp": 0
+        },
+        "failures": [],
+        "helper_sha256": "7fce905c74afbf2f86b7832e0da8506c1bd8c08cbbcd892d386631702df1631e",
+        "importer_script_sha256": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+        "logical_parts": 6,
+        "logical_surfaces": 6,
+        "manifest": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/parts-tests-om_uuomj/varied-none.json",
+        "manifest_sha256": "13aafd390cd307f62b1c7fbd27eb8575f759b625a6f480940800df9408a66b84",
+        "mapping_tolerances": {
+          "named_weight": 1.62590218966964e-05,
+          "normal_component": 0.001,
+          "position": 1e-06,
+          "uv": 1e-06
+        },
+        "maximum_import_errors": {
+          "normal_component": 1.52592547237873e-05,
+          "position": 0.0,
+          "uv": 0.0,
+          "weight": 0.0
+        },
+        "model_sha256": "7d670beda5c9575035a7f1a3ce040fd190e9e9d0593ef0a75d09eb6d9dd2c2a2",
+        "native_smoke": {
+          "bones": 4,
+          "clips": 1,
+          "immutable_track_optimization_allowed": true,
+          "imported_tracks_resolved": 1,
+          "raw_channels_resolved": 1
+        },
+        "next_action": "none",
+        "ok": true,
+        "part_triangles": {
+          "part_0": 2,
+          "part_1": 2,
+          "part_2": 2,
+          "part_3": 2,
+          "part_4": 2,
+          "part_5": 2
+        },
+        "runtime_meshes": 1,
+        "runtime_surfaces": 1,
+        "scope": "Cold actual GLTFDocument array/skin/oriented-triangle partition and native-track resolution only. Physical490, fin roots/membranes, body GPU integrity, anatomy, motion-controller behavior and visual acceptance are unsupported by this generic proof.",
+        "source_arrays_modified": false,
+        "source_vertices": 36.0,
+        "status": "done",
+        "triangles_consumed": 12,
+        "winding": "all triangles fixed glTF CCW to Godot CW reversal"
+      }
+    },
+    {
+      "case": "varied-normal",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Actual packed vertex unmatched by position/UV/normal/named skin: 0"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "varied-winding",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Missing/duplicated/reversed imported triangle at 0"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "varied-count",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Imported bone count differs from candidate baseline/spec"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "varied-partition",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Duplicate explicit source surface"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "varied-multiplicity",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Missing/duplicated/reversed imported triangle at 1"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "output-dangling-output-report.json",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "dangling_target_created": false,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Report basename must be fresh and cannot be a symlink or directory"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    },
+    {
+      "case": "output-existing-output-directory",
+      "expected_ok": false,
+      "ok": false,
+      "exit": 1,
+      "dangling_target_created": false,
+      "report": {
+        "command": "portable.validate_import",
+        "failures": [
+          {
+            "code": "portable_import_invalid",
+            "kind": "validation",
+            "message": "Report basename must be fresh and cannot be a symlink or directory"
+          }
+        ],
+        "next_action": "fix_input",
+        "ok": false,
+        "status": "failed"
+      }
+    }
+  ],
+  "scope": "Synthetic headless import tests only; no GPU or formal fish gate claim.",
+  "temporary_cleanup": "All synthetic GLBs, manifest mutations, projects, caches and process logs removed after receipt.",
+  "ok": true,
+  "tests_passed": 6,
+  "native_invocations": 14,
+  "dangling_symlink_target_created": false,
+  "source_dependencies": {
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_import.gd": "94d33c34f8a50c13f81159304a8aff4276d780657201d509640157c8d1709a75",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/test_portable_fish_parts.py": "88ba7243acea600afcae50cc165d231d0295ab17b585780deb4fbeb98f870ef4"
+  }
+}

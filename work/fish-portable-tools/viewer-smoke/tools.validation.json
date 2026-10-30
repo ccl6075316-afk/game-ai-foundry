@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "kind": "portable_viewer_tools_validation",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "visual_review": "pending",
+  "formal_fish_acceptance": false,
+  "unit_tests": {
+    "command": ".venv/bin/python -m unittest discover -s resources/scripts/volume-fish/portable/tests -p test_view_evidence.py -v",
+    "passed": 15,
+    "failed": 0
+  },
+  "sources": [
+    {
+      "path": "resources/scripts/volume-fish/portable/view.py",
+      "sha256": "a4d33cbf87c33f976810d1ebe31a9f3eeb4489bf0efbda7e702dec4c09331c81"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/FishAssetViewer.gd",
+      "sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/evidence.py",
+      "sha256": "2e4e1d4d73b169e7a0dc5d0d2076d7d54ead7c5f6405ec98a993711cfdbf4460"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/tests/test_view_evidence.py",
+      "sha256": "d85068aba4f11bfeb6a250faa134e3778658ba6268beb1db24a8af893d8048c2"
+    }
+  ],
+  "checks": [
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/viewer.validation.json",
+      "sha256": "43f2511865b43076113758b3b989371fbed4d307ea50e6940f60707abe6ec6e8",
+      "ok": true,
+      "check_count": 11,
+      "runtime_inventory": {
+        "bone_count": 0,
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 3
+      },
+      "visual_review": "pending"
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/viewer.validation.json",
+      "sha256": "cf3739c2b2c71dec897197fd4f4f0de4d89d37ae668e0e694e81a89b040fd748",
+      "ok": true,
+      "check_count": 7,
+      "runtime_inventory": {
+        "bone_count": 0,
+        "mesh_count": 1,
+        "surface_count": 1,
+        "vertices": 3
+      },
+      "visual_review": "pending"
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/evidence-nearest/evidence.validation.json",
+      "sha256": "1b187a714e1633e579886c6df3519a3329d1285da831b3308a0d76dd08cd4c2c",
+      "ok": true,
+      "check_count": 0,
+      "runtime_inventory": null,
+      "visual_review": "pending"
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/viewer.validation.json",
+      "sha256": "2afa02286820bc31dced4b25e009f972d557cc02c0f01a96c3ac209f04359c8c",
+      "ok": true,
+      "check_count": 16,
+      "runtime_inventory": {
+        "bone_count": 4,
+        "mesh_count": 2,
+        "surface_count": 2,
+        "vertices": 7
+      },
+      "visual_review": "pending"
+    }
+  ],
+  "human_observation": {
+    "observer": "implementing agent",
+    "observed": [
+      "Native smoke image visibly contains synthetic triangle with controls and pending-review label",
+      "Two-view contact sheet visibly shows the declared front and oblique synthetic views with labels/hashes",
+      "Controller smoke visibly contains two synthetic geometric pieces after actual normal controller steps"
+    ],
+    "scope": "Tool rendering inspection only; no fish assets or species reviewed"
+  },
+  "startup_failures_resolved": [
+    {
+      "run": "run1",
+      "cause": "Godot mono lacked DOTNET_ROOT and exceeded bounded 25-second timeout",
+      "fix": "Set documented DOTNET_ROOT for mono binary"
+    },
+    {
+      "run": "run2",
+      "cause": "GDScript SceneTree member paused redefinition and unknown notification constant",
+      "fix": "Use motion_paused and root.close_requested/window_input signals; subsequent renderer runs exit0"
+    }
+  ],
+  "limitations": [
+    "Part-color diagnostic explicitly disabled; no unproven marked atlas",
+    "Framing uses imported rest AABB transformed at current carrier pose, not exact posed skinned bounds",
+    "Optional controller API supported/tested: foundry_motion_v1 configure/set_action/step",
+    "No animal anatomy, fin completion, continuous animation proof, export implementation or SOP acceptance"
+  ],
+  "cleanup": {
+    "exact_removed_paths": [
+      "work/fish-portable-tools/viewer-smoke/run1",
+      "work/fish-portable-tools/viewer-smoke/run2",
+      "work/fish-portable-tools/viewer-smoke/evidence",
+      "work/fish-portable-tools/viewer-smoke/evidence-final",
+      "work/fish-portable-tools/viewer-controller-fixture/source.blend"
+    ],
+    "retained": "Current synthetic model/spec inputs, minimal project, reproduction producers, native/controller/capture logs and reports, representative screenshots and final contact sheet",
+    "remaining_bytes": 170236
+  },
+  "retained_runtime_logs_error_scan": [
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/run3/viewer.log",
+      "errors": []
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-smoke/captures/viewer.log",
+      "errors": []
+    },
+    {
+      "path": "work/fish-portable-tools/viewer-controller-fixture/smoke/viewer.log",
+      "errors": []
+    }
+  ]
+}

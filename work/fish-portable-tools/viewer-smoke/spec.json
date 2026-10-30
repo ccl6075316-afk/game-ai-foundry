@@ -1,0 +1,35 @@
+{
+  "kind": "fish_asset_finalization_spec",
+  "version": 1,
+  "species": "synthetic_fixture",
+  "model": {
+    "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/synthetic.glb",
+    "sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e"
+  },
+  "game": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/game",
+  "viewer": {
+    "native_clip": "SyntheticTranslate",
+    "focuses": {
+      "head": {
+        "mode": "bbox_relative",
+        "position": [
+          0.75,
+          0.5,
+          0.5
+        ]
+      }
+    },
+    "captures": [
+      {
+        "name": "front",
+        "time_seconds": 0
+      },
+      {
+        "name": "oblique",
+        "yaw_degrees": 35,
+        "pitch_degrees": 20,
+        "time_seconds": 0.5
+      }
+    ]
+  }
+}

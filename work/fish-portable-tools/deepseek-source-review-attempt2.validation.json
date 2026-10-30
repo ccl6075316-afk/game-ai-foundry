@@ -1,0 +1,48 @@
+{
+  "ok": false,
+  "kind": "bounded_secondary_source_review",
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "reasoning_effort": "high",
+  "attempt": 2,
+  "max_tokens": 24576,
+  "elapsed_seconds": 148.203,
+  "usage": {
+    "prompt_tokens": 12033,
+    "completion_tokens": 24576,
+    "total_tokens": 36609,
+    "prompt_tokens_details": {
+      "cached_tokens": 11899
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 24576
+    },
+    "prompt_cache_hit_tokens": 11899,
+    "prompt_cache_miss_tokens": 134
+  },
+  "finish_reason": "length",
+  "findings_text": "",
+  "inputs": [
+    {
+      "path": "resources/scripts/volume-fish/portable/fish_asset_spec.py",
+      "sha256": "e09fc1f2242e90a36539d004badf5da209c0a2c6954fab50ee898b3ab05ae7f9"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/build_source.py",
+      "sha256": "612ecfa454c45e93e8e314342c6ffb7b15a7cfd35451a09b27cc476a914e9d17"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/source_snapshot.py",
+      "sha256": "12bacb8c27f88dd4413575084039933d71ad379cdeff17da36c4538792e4fedd"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/verify_parity.py",
+      "sha256": "74b737b42ee97723f6b8a272feb0640b9220437f27064dacae71abd8f4f3d4be"
+    },
+    {
+      "path": "resources/scripts/volume-fish/portable/glb_io.py",
+      "sha256": "7d7ed31788ac6e1c9abffc2f5b7a0de2f0e2ecb29154bdf86b61e4016936cdf9"
+    }
+  ],
+  "scope": "Read-only audit of exactly the five previously authorized source files. No actions or fish acceptance."
+}

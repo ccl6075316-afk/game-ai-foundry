@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "kind": "synthetic_cold_source_rig_rest_action_parity",
+  "inputs": {
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/b/source.blend": "f7d956167ef5e372f2aba740193d7889d442bc6246bd7a6d7369627f56f54f6c",
+    "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/core-run-source-smoke/b/run/source/fish.blend": "d287eaadc94a006566987e4696d2360938e55ef96a51f44e9d83bf4314933140"
+  },
+  "all_rig_rest_pose_actions_NLA_equal": true
+}

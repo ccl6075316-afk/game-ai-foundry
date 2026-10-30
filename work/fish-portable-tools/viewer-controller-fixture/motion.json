@@ -1,0 +1,35 @@
+{
+  "species": "synthetic_controller_fixture",
+  "real_length_cm": 60,
+  "head_sign": -1,
+  "base_clip": "Clip0",
+  "body_bones": [
+    "Joint0",
+    "Joint1",
+    "Joint2",
+    "Joint3"
+  ],
+  "tank_size_m": [
+    20,
+    20,
+    20
+  ],
+  "path_radii_m": [
+    0.5,
+    0.3
+  ],
+  "vertical_amplitude_m": 0.1,
+  "envelope_radius_m": 3,
+  "period_seconds": 4,
+  "transition_seconds": 0.3,
+  "body_delay_seconds": 0.2,
+  "base_body_gain": 0.5,
+  "actions": {
+    "Swim": {
+      "vertical_sign": 1,
+      "radius_scale": 1,
+      "bend_radians": 0.1,
+      "clip_speed": 1
+    }
+  }
+}

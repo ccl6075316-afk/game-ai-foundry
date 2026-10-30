@@ -1,0 +1,91 @@
+{
+  "captures": [
+    {
+      "camera": {
+        "distance": 4.22110847523554,
+        "pitch": 0.0,
+        "target": [
+          0.0,
+          0.5,
+          0.00000499999987368938
+        ],
+        "yaw": 0.0
+      },
+      "name": "smoke-overview",
+      "path": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/run3/smoke-overview.png",
+      "time_seconds": 0.283333333333333,
+      "visual_review": "pending"
+    }
+  ],
+  "checks": [
+    {
+      "name": "direct_glb_load",
+      "passed": true
+    },
+    {
+      "name": "complete_scene_generated",
+      "passed": true
+    },
+    {
+      "name": "runtime_meshes_present",
+      "passed": true
+    },
+    {
+      "name": "runtime_mesh_count_preserved",
+      "passed": true
+    },
+    {
+      "name": "runtime_surface_count_preserved",
+      "passed": true
+    },
+    {
+      "name": "orbit_changes_camera",
+      "passed": true
+    },
+    {
+      "name": "pan_changes_target",
+      "passed": true
+    },
+    {
+      "name": "zoom_changes_distance",
+      "passed": true
+    },
+    {
+      "name": "native_clip_changes_pose",
+      "passed": true
+    },
+    {
+      "name": "mesh_surface_inventory_unchanged",
+      "passed": true
+    },
+    {
+      "name": "capture_smoke-overview",
+      "passed": true
+    }
+  ],
+  "kind": "fish_asset_viewer_validation",
+  "limitations": [
+    "Viewer technical smoke is not fish acceptance, fin validation or SOP approval",
+    "Bounding box uses imported rest geometry; animation may extend outside it"
+  ],
+  "mode": "smoke",
+  "model": "/Users/czl/projects/game-ai-foundry/work/fish-portable-tools/viewer-smoke/synthetic.glb",
+  "model_role": "final_model",
+  "model_sha256": "cbf1c324fc29fd1260096424a6dfcbdc34ce3babc00e1d4bc2bdf09324740a5e",
+  "next_action": "human_review",
+  "ok": true,
+  "part_diagnostics": {
+    "enabled": false,
+    "reason": "No verified part diagnostic recipe configured"
+  },
+  "runtime_inventory": {
+    "bone_count": 0,
+    "mesh_count": 1,
+    "surface_count": 1,
+    "vertices": 3
+  },
+  "schema_version": 1,
+  "spec_sha256": "ab8d7504eabcc36d6df61df595409fd6e4d37802fe7bdbeb4acb4a3b62109157",
+  "status": "done",
+  "visual_review": "pending"
+}
