@@ -19,4 +19,18 @@ class RegistrationTests(unittest.TestCase):
         Image.new('RGB',(288,288)).save(self.source)
         with self.assertRaises(AssertionError):register(self.source,self.generated,self.config,self.base/'out')
         self.assertFalse((self.base/'out').exists())
+    def test_feather_keeps_owned_pixels_and_does_not_restore_removed_fin_alpha(self):
+        image=np.asarray(Image.open(self.source).convert('RGBA')).copy()
+        image[90:110,90:145,:3]=[245,25,60]
+        image[105:110,105:110,3]=0
+        Image.fromarray(image).save(self.generated)
+        config=json.loads(self.config.read_text());config['completion_feather_px']=6
+        self.config.write_text(json.dumps(config))
+        register(self.source,self.generated,self.config,self.base/'out')
+        output=np.asarray(Image.open(self.base/'out/body-source.png'))
+        original=np.asarray(Image.open(self.source).convert('RGBA'))
+        np.testing.assert_array_equal(output[110:151,110:151],original[110:151,110:151])
+        self.assertTrue((output[106:109,106:109,3]==0).all())
+        np.testing.assert_array_equal(output[93:98,93:98],image[93:98,93:98])
+        self.assertTrue(np.any(output[109,120,:3]!=image[109,120,:3]))
 if __name__=='__main__':unittest.main()

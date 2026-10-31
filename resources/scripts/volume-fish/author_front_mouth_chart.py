@@ -92,6 +92,7 @@ def color(points,old_uv,role,surface_normal):
   back,front=cfg['oral_depth_u']
   depth=np.clip((front-u)/(front-back),0,1)
   across=.5+.5*points[:,1]/np.maximum(w,1e-7)
+  if cfg.get('oral_material_depth_reverse'):depth=1-depth
   oral_xy=bounded_roi_coordinates(across,depth,cfg['oral_material_roi_px'],[FW,FH])
   oral_xy=np.rint(oral_xy).astype(int)
   rgba=dp[FH-1-oral_xy[:,1],oral_xy[:,0]]
@@ -139,7 +140,7 @@ def color(points,old_uv,role,surface_normal):
    d=distance[mask]*W;across=d if role==0 else d*c.get('inner_lip_source_across_scale',.5)
    xy=side_curve_donor(phase[mask],transport[name][1][-1],across,curve,name=='upper')
    if role==0:
-    a=(1-smooth((d-(c['skin_band_px']-c['blend_px']))/c['blend_px']))*smooth((u[mask]-.905)/.025)
+    a=(1-smooth((d-(c['skin_band_px']-c['blend_px']))/c['blend_px']))*smooth((u[mask]-c.get('surface_start_u',.905))/c.get('surface_start_fade_u',.025))
     a*=np.maximum(1-smooth((side[mask]-c['side_full'])/(c['side_original']-c['side_full'])),smooth((u[mask]-c['cap_start_u'])/(c['cap_full_u']-c['cap_start_u'])))
    elif c.get('transport_oral',False):
     sx=xy[:,0];up=np.asarray(cfg['upper_inner_edge_px']);lo=np.asarray(cfg['lower_inner_edge_px']);depth=np.clip(d/18,0,1)

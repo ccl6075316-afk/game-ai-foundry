@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "kind": "second_of_five_brown_operator_production",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\candidate-r6\\source-run\\fish.glb",
+    "sha256": "e2e5b22da92fd8f2c3f2795fab7cf49c1206b0abaeb303b59fc33a1c1a0e5eba"
+  },
+  "motion_spec": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\motion-spec-r9.json",
+    "sha256": "e79d46a4a88942cce5c90c0184abb04ccd59572fe50f0a2751d04a353aac0d36"
+  },
+  "whole_triangles": 1998,
+  "fins": 8,
+  "portable_tests_passed": 83,
+  "report": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\post-cleanup-sop.validation.json",
+    "sha256": "ac4b1f6849a55e0ebb5f65a77ef2f943e7d1d934ef7aafeabf7f4ea4cca04418"
+  },
+  "lesson": "resources/skills/fish-volume-production/references/brown-trout-lessons-20261031.md",
+  "cleanup_removed_bytes": 802222558,
+  "user_acceptance": false,
+  "next": "Commit and push both repos, verify clean, then Atlantic salmon."
+}

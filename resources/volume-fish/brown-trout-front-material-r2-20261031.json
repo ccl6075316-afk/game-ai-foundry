@@ -1,0 +1,238 @@
+{
+  "species": "brown_trout",
+  "source_size": [
+    1597,
+    534
+  ],
+  "upper_inner_edge_px": [
+    [
+      1413,
+      351
+    ],
+    [
+      1420,
+      353
+    ],
+    [
+      1450,
+      349
+    ],
+    [
+      1480,
+      325
+    ],
+    [
+      1510,
+      303
+    ],
+    [
+      1540,
+      288
+    ],
+    [
+      1565,
+      279
+    ],
+    [
+      1583,
+      274
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1413,
+      355
+    ],
+    [
+      1420,
+      359
+    ],
+    [
+      1450,
+      355
+    ],
+    [
+      1480,
+      331
+    ],
+    [
+      1510,
+      315
+    ],
+    [
+      1540,
+      307
+    ],
+    [
+      1565,
+      298
+    ],
+    [
+      1583,
+      294
+    ]
+  ],
+  "source_mouth_card": "Own lower lip outline beneath full pale upper-jaw band, not the upper border of that band. Original 1413,351 corner preserved; no rainbow coordinates.",
+  "visual_review": "pending",
+  "blend_sha256": "d3fb2d40871a4c06004082e701d774034958a4b539b4c57b38034171f872b0b9",
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_mesh",
+    "Adipose_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "profile": "resources\\volume-fish\\brown-trout-source-head-r3-20261031.profile.json",
+  "source": "projects/fishing-2d/output/char_031dc4b44b_nobg.png",
+  "source_sha256": "5419c26072eaff9b02c052aa47f793efd61d2847b07470a1f31b90cc3c86da53",
+  "hard_triangles": 2000,
+  "preferred_triangles": 1500,
+  "scope": "Own original lower lip-edge trace beneath full pale upper-jaw band, real finite opening. No native image white mouth pixel treated as anatomy. All8original fins/roots unchanged; hidden body source registered/protected. Budget/gray/color/physical review pending. R2 own back-corner material support starts1413/W instead of legacy.905, geometry and2000whole budget unchanged.",
+  "front_color_image": {
+    "path": "projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\front-aux\\generated.png",
+    "sha256": "a9efd59bc2500652368245a5e68a09d3d05d8832ad594459a5b5bdb93ab7025c"
+  },
+  "front_upper_edge_px": [
+    [
+      420,
+      800
+    ],
+    [
+      470,
+      775
+    ],
+    [
+      550,
+      750
+    ],
+    [
+      640,
+      744
+    ],
+    [
+      730,
+      750
+    ],
+    [
+      810,
+      775
+    ],
+    [
+      860,
+      800
+    ]
+  ],
+  "front_lower_edge_px": [
+    [
+      420,
+      850
+    ],
+    [
+      470,
+      875
+    ],
+    [
+      550,
+      902
+    ],
+    [
+      640,
+      918
+    ],
+    [
+      730,
+      902
+    ],
+    [
+      810,
+      875
+    ],
+    [
+      860,
+      850
+    ]
+  ],
+  "front_camera": {
+    "model_scale": 0.7254511261984907,
+    "width_m": 0.065,
+    "focus_y_m": -0.018,
+    "aspect_h_over_w": 0.6888888888888889
+  },
+  "front_start_u": 0.875,
+  "front_full_u": 0.94,
+  "side_full": 0.35,
+  "side_original": 0.8,
+  "cap_start_u": 0.986,
+  "cap_full_u": 0.996,
+  "oral_depth_u": [
+    0.8847839699436444,
+    0.9912335629304947
+  ],
+  "upper_exterior_scale": 0.2,
+  "lower_exterior_scale": 0.2,
+  "protect_source_eyes_in_front_material": true,
+  "oral_material_roi_px": [
+    520,
+    790,
+    765,
+    865
+  ],
+  "oral_material_depth_reverse": true,
+  "lip_source_transport": {
+    "skin_band_px": 8,
+    "blend_px": 4,
+    "source_start_x": 1413,
+    "source_end_x": 1540,
+    "side_full": 0.4,
+    "side_original": 0.85,
+    "cap_start_u": 0.986,
+    "cap_full_u": 0.996,
+    "transport_oral": false,
+    "inner_lip_return_px": 2,
+    "inner_lip_fade_px": 2,
+    "inner_lip_source_across_scale": 0.5,
+    "surface_start_u": 0.8847839699436444,
+    "surface_start_fade_u": 0.02
+  },
+  "interocular_material": {
+    "image": {
+      "path": "projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\front-aux\\generated.png",
+      "sha256": "a9efd59bc2500652368245a5e68a09d3d05d8832ad594459a5b5bdb93ab7025c"
+    },
+    "roi_px": [
+      480,
+      170,
+      800,
+      650
+    ],
+    "head_start_u": 0.81,
+    "head_full_u": 0.91,
+    "side_full": 0.25,
+    "side_original": 0.65,
+    "source_v_top": 0.3,
+    "source_v_bottom": 0.6,
+    "source_v_fade_start": 0.57,
+    "source_v_fade_end": 0.64,
+    "protected_target_source_rects_px": [
+      [
+        1410,
+        216,
+        1508,
+        304
+      ]
+    ],
+    "target_protection_fade_px": 10,
+    "target_eye_lateral_support": {
+      "start": 0.2,
+      "full": 0.4
+    },
+    "preserve_mouth_rim_px": 12,
+    "mouth_protection_fade_px": 6,
+    "purpose": "Own golden/black-spotted central material only; source original lateral eye, pale lip band and actual head anatomy retained. Generated broad front shape not adopted."
+  },
+  "chart_start_u": 0.81
+}
