@@ -14,6 +14,7 @@ from patch_existing_fin_meshes import read as read_glb,write as write_glb
 from triangulate_export_mesh import triangulate_export_mesh
 from rim_material_transport import ordered_boundary,nearest_arc,side_curve_donor,bounded_roi_coordinates
 from interocular_material_mask import target_eye_material_allowance
+from fish_budget import check_triangle_budget
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def read(p):return json.loads(Path(p).read_text(encoding='utf8'))
 p=argparse.ArgumentParser()
@@ -107,7 +108,8 @@ def color(points,old_uv,role,surface_normal):
   source_xy=np.stack([old_uv[:,0]*W,(1-old_uv[:,1])*H],axis=1)
   amount*=target_eye_material_allowance(source_xy,side,c['protected_target_source_rects_px'],c['target_protection_fade_px'],support['start'],support['full'])
  amount*=valid
- assert not np.any((amount>.001)&(rgba[:,3]<.95))
+ bad=(amount>.001)&(rgba[:,3]<.95)
+ assert not np.any(bad),{'failure':'front donor samples transparent pixels','role':role,'donor_xy_px':(oral_xy if role==1 and cfg.get('oral_material_roi_px')else xy)[bad][:10].tolist(),'source_u':u[bad][:10].tolist()}
  result=original*(1-amount[:,None])+rgba*amount[:,None];result[:,3]=1
  if central is not None and role==0:
   # Only the explicitly allowed material BETWEEN the eyes. No generated eye,
@@ -197,8 +199,8 @@ for node in d['nodes']:
 for s in d['samplers']:s.update(magFilter=9728,minFilter=9728)
 write_glb(model,d,b);node=next(n for n in d['nodes']if n.get('name')==cfg['body'])
 roles={str(i):('mouth'if 'oral'in d['materials'][pr['material']].get('name','').lower()else'body_skin')for i,pr in enumerate(d['meshes'][node['mesh']]['primitives'])}
-triangles=sum(d['accessors'][pr['indices']]['count']//3 for m in d['meshes']for pr in m['primitives']);assert triangles<=cfg['hard_triangles']
-report={'ok':True,'kind':'complete_anterior_semantic_color_chart','input_blend_sha256':sha(a.blend),'config_sha256':sha(a.config),'image_sha256':sha(donor_path),'geometry_weights_triangles_unchanged':True,'whole_fish_triangles':triangles,'body_surface_roles':roles,'atlas_size':[aw,ah],'normal_export':proof,'model_sha256':sha(model),'blend_sha256':sha(out/'fish.blend'),'visual_review':'pending','scope':'Experimental full anterior chart using actual upper/lower mesh rims and reviewed color donor; no generated geometry, added mesh or runtime patch.'}
+triangles=sum(d['accessors'][pr['indices']]['count']//3 for m in d['meshes']for pr in m['primitives']);budget=check_triangle_budget(triangles,read(ROOT/cfg['profile'])['real_length_cm'],cfg['hard_triangles'])
+report={'ok':True,'kind':'complete_anterior_semantic_color_chart','input_blend_sha256':sha(a.blend),'config_sha256':sha(a.config),'image_sha256':sha(donor_path),'geometry_weights_triangles_unchanged':True,'whole_fish_triangles':triangles,'triangle_budget':budget,'body_surface_roles':roles,'atlas_size':[aw,ah],'normal_export':proof,'model_sha256':sha(model),'blend_sha256':sha(out/'fish.blend'),'visual_review':'pending','scope':'Experimental full anterior chart using actual upper/lower mesh rims and reviewed color donor; no generated geometry, added mesh or runtime patch.'}
 if transport:report['actual_3d_rim_transport']={'upper_edges':len(edge_ids['upper']),'lower_edges':len(edge_ids['lower']),'source':'own original side curve and complete across-lip pixels','no_transverse_only_height_collapse':True,'geometry_changed':False}
 if central is not None:
  assert central_count>0

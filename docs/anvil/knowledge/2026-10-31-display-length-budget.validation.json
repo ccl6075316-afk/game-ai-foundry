@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "kind": "actual_fish_length_budget_integration",
+  "positive": {
+    "ok": true,
+    "policy_id": "user-display-length-20261031",
+    "real_length_cm": 72.0,
+    "preferred_triangles": 1500,
+    "hard_triangles": 2000,
+    "triangles": 1998,
+    "effective_hard_triangles": 2000,
+    "preferred_met": false,
+    "scope": "All actual body, mouth/oral/jaws, complete fin faces/edges and extra layers. Technical count only; no visual/anatomical acceptance.",
+    "model_sha256": "e2e5b22da92fd8f2c3f2795fab7cf49c1206b0abaeb303b59fc33a1c1a0e5eba",
+    "actual_viewer_length_checked": true
+  },
+  "negative": {
+    "rejected": true,
+    "reason": "Actual viewer length differs from declared display length",
+    "false_positive_budget_report": false
+  },
+  "scope": "Existing Brown asset unchanged; current policy count and deliberately wrong viewer scale tested. Does not reaccept historical fish."
+}

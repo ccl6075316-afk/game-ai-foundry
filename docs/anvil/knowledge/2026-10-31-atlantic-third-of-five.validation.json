@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "kind": "third_of_five_atlantic_operator_production",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\candidate-r3\\source-run\\fish.glb",
+    "sha256": "4d9b75cee9dda2be1434be2959bedae344395ef799307004cc755bf0d9f170c5"
+  },
+  "whole_triangles": 1980,
+  "fins": 8,
+  "full_gates": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\delivery-r3\\manifest.json",
+    "sha256": "307d28ec5d9beda1117f2ba9369c28936b36f03cd09246be786d0bd9b846d371"
+  },
+  "post_cleanup_sop": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\post-cleanup-sop.validation.json",
+    "sha256": "bb35d8cddc43b118f9ed65817cc3d1cded5727078680ac73f6878e423281eca7"
+  },
+  "budget": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\delivery-r3\\budget.validation.json",
+    "sha256": "efea233134fe5315533cdd2d88b695fceb5d294a2634137b2b0954608ce477a6"
+  },
+  "lesson": "resources/skills/fish-volume-production/references/atlantic-salmon-lessons-20261031.md",
+  "cleanup_removed_bytes": 317606895,
+  "user_acceptance": false,
+  "next": "Commit+push both repositories before Sea bass"
+}

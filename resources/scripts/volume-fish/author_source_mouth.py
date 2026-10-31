@@ -11,6 +11,7 @@ ROOT=Path(__file__).resolve().parents[3];sys.path[:0]=[str(ROOT/'cli'),str(Path(
 from oral_jaws import build_closed_oral_jaws
 from export_source_with_frozen_normals import export_guarded,EXACT_NORMAL_ATTRIBUTE
 from patch_existing_fin_meshes import read as read_glb,write as write_glb
+from fish_budget import check_triangle_budget
 
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def read(p):return json.loads(Path(p).read_text(encoding='utf8'))
@@ -59,7 +60,7 @@ assert {n:fingerprint(bpy.data.objects[n])for n in fin_names}==frozen,'Existing 
 counts={}
 for ob in bpy.context.scene.objects:
     if ob.type=='MESH':ob.data.calc_loop_triangles();counts[ob.name]=len(ob.data.loop_triangles)
-total=sum(counts.values());assert total<=cfg['hard_triangles'],('Whole-fish budget exceeded',counts,total)
+total=sum(counts.values());budget=check_triangle_budget(total,profile['real_length_cm'],cfg['hard_triangles'])
 bm=bmesh.new();bm.from_mesh(mesh);closed=all(e.is_manifold for e in bm.edges);bm.free();assert closed
 bpy.context.scene.frame_set(0);bpy.context.preferences.filepaths.save_version=0;bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'))
 model=out/'fish.glb'
@@ -75,4 +76,4 @@ for node in d['nodes']:
 for sampler in d.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
 write_glb(model,d,b)
 exported=sum(d['accessors'][p['indices']]['count']//3 for m in d['meshes']for p in m['primitives']);assert exported==total
-report={'ok':True,'kind':'source_boundary_mouth_local_candidate','model_sha256':sha(model),'editable_source_sha256':sha(out/'fish.blend'),'config_sha256':sha(a.config),'whole_fish_triangles':total,'body_before_triangles':old_body_tri,'parts':counts,'hard_triangles':cfg['hard_triangles'],'preferred_triangles':cfg['preferred_triangles'],'all_existing_fins_exact':True,'body_closed':closed,'oral':oral,'normal_export':normal_export,'mouth_visual_review':'pending','remaining':['Source/lower-lip/actual opening multiview review','Separate left/right and cross-lip source pixel continuation','Current source/cold and all affected final gates'],'scope':'Experimental geometry replacement within whole-fish budget. Geometry/texture review required; no mouth or fish approval.'};(out/'authoring.validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':True,'triangles':total,'parts':counts,'visual_review':'pending'}))
+report={'ok':True,'kind':'source_boundary_mouth_local_candidate','model_sha256':sha(model),'editable_source_sha256':sha(out/'fish.blend'),'config_sha256':sha(a.config),'whole_fish_triangles':total,'body_before_triangles':old_body_tri,'parts':counts,'hard_triangles':cfg['hard_triangles'],'preferred_triangles':cfg['preferred_triangles'],'triangle_budget':budget,'all_existing_fins_exact':True,'body_closed':closed,'oral':oral,'normal_export':normal_export,'mouth_visual_review':'pending','remaining':['Source/lower-lip/actual opening multiview review','Separate left/right and cross-lip source pixel continuation','Current source/cold and all affected final gates'],'scope':'Experimental geometry replacement within whole-fish budget. Geometry/texture review required; no mouth or fish approval.'};(out/'authoring.validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':True,'triangles':total,'parts':counts,'visual_review':'pending'}))

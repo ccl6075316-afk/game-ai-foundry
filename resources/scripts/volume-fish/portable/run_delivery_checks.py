@@ -9,6 +9,8 @@ from pathlib import Path
 import numpy as np
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[3]
 sys.path.insert(0,str(HERE))
+sys.path.insert(0,str(ROOT/'cli'))
+from fish_budget import check_triangle_budget
 from fish_asset_spec import load_spec,resolve_ref,artifact_output
 from glb_io import read_glb,arrays
 from parts import read,sha
@@ -36,10 +38,16 @@ def prepare(config_file,out):
     assert sha(model)==fin['model_sha256']==manifest['model_sha256'] and sha(manifest_path)==fin['packed_parts_manifest_sha256']
     profile=read(path(config['geometry_profile']))
     check_fin_inventory(config['body'],manifest,fin,profile)
+    motion=read(resolve_ref(spec['motion']['profile']))
+    assert abs(motion['real_length_cm']-profile['real_length_cm'])<1e-6,'Display length differs between geometry and motion'
+    budget=check_triangle_budget(manifest['triangles'],motion['real_length_cm'])
     p={k:copy.deepcopy(fin[k])for k in ('species','model','model_sha256','motion_profile','motion_profile_sha256','motion_runtime','packed_parts_manifest','packed_parts_manifest_sha256','frozen_inputs')}
     scale=spec['viewer']['model_scale'];assert isinstance(scale,(int,float)) and scale>0
+    packed,buffer=read_glb(model);primitive=packed['meshes'][0]['primitives'][0];positions=arrays(packed,buffer,primitive['attributes']['POSITION'])
+    assert abs(float(positions[:,0].max()-positions[:,0].min())*scale-motion['real_length_cm']/100)<1e-5,'Actual viewer length differs from declared display length'
+    write(out/'budget.validation.json',dict(budget,model_sha256=sha(model),actual_viewer_length_checked=True))
     p.update(motion_runtime_sha256=sha(p['motion_runtime']),model_scale=scale,body=config['body'],fins=list(fin['fins']),expected_triangles=manifest['triangles'],expected_body_surfaces=sum(x['opaque_uv']for x in manifest['parts']),maximum_amplitude=2.5,pose_time=config['pose_time'])
-    dependencies=[config_file,fin_path,path(config['final_spec']),Path(__file__),HERE/'logical_document.py',HERE/'validate_standalone_body.py',HERE/'capture_standalone_body.gd',HERE/'validate_motion_controls.gd']
+    dependencies=[config_file,fin_path,path(config['final_spec']),Path(__file__),ROOT/'cli/fish_budget.py',HERE/'logical_document.py',HERE/'validate_standalone_body.py',HERE/'capture_standalone_body.gd',HERE/'validate_motion_controls.gd']
     p['frozen_inputs'].update({str(x.resolve()):sha(x)for x in dependencies});write(out/'body-motion.plan.json',p)
     sections=profile['body']['sections']
     target=[[u,float(np.interp(u,[s[0]for s in sections],[s[3]for s in sections]))]for u in config['head_stations']]
@@ -59,7 +67,7 @@ def prepare(config_file,out):
 def run(args):
     out=artifact_output(args.output);assert not out.exists();out.mkdir(parents=True)
     config,p=prepare(args.config.resolve(),out);game=path(config['game']);godot=str(args.godot.resolve());blender=str(args.blender.resolve())
-    status={'ok':False,'kind':'portable_delivery_gate_manifest','species':p['species'],'model':p['model'],'model_sha256':p['model_sha256'],'status':'running','next_action':'poll','formal_acceptance':False,'user_acceptance':False,'config_sha256':sha(args.config),'stages':[]};started=time.time()
+    status={'ok':False,'kind':'portable_delivery_gate_manifest','species':p['species'],'model':p['model'],'model_sha256':p['model_sha256'],'status':'running','next_action':'poll','formal_acceptance':False,'user_acceptance':False,'config_sha256':sha(args.config),'stages':[{'name':'budget','ok':True,'status':'done','report':str(out/'budget.validation.json'),'report_sha256':sha(out/'budget.validation.json')}]};started=time.time()
     def save():status['elapsed_seconds']=time.time()-started;write(out/'manifest.json',status)
     def stage(name,cmd,report,expect=False,timeout=900):
         row={'name':name,'argv':[str(x)for x in cmd],'status':'running'};status['stages'].append(row);save()
