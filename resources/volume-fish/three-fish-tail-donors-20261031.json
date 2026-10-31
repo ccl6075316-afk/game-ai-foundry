@@ -1,0 +1,95 @@
+{
+  "kind": "species_tail_and_outline_donor_revision",
+  "basis": "Repair explicitly omitted tail/root transition and thickness-side outline contamination. Dimensions are authored fit targets constrained by current species source silhouettes, not new biological measurements. Preserve head/mouth/eyes and forward body envelope.",
+  "species": {
+    "bluegill": {
+      "tail_end_width_mm": 1.6,
+      "body_blend_fraction": 0.065,
+      "caudal_taper_fraction": 0.055,
+      "caudal_edge_mm": 0.07,
+      "fin_proximal_mm": 0.26,
+      "fin_edge_mm": 0.07,
+      "wall_donor_boundary_exclusion_px": 7,
+      "body_outline_dark_luma_max": 95,
+      "body_donor_inset_px": 24,
+      "pectoral_extra_outset_mm": 0.1,
+      "extra_clearance_basis": "New finite normal thickness produced0.03684mm right pectoral BodyOnly penetration; symmetric additional0.1mm outward margin, all current490 limits unchanged."
+    },
+    "crucian": {
+      "tail_end_width_mm": 1.5,
+      "body_blend_fraction": 0.07,
+      "caudal_taper_fraction": 0.06,
+      "caudal_edge_mm": 0.065,
+      "fin_proximal_mm": 0.24,
+      "fin_edge_mm": 0.065,
+      "wall_donor_boundary_exclusion_px": 8,
+      "body_outline_dark_luma_max": 95,
+      "body_donor_inset_px": 28,
+      "clearance": {
+        "Anal": {
+          "root_mm": 0.2,
+          "free_mm": 0.4,
+          "transition_px": 20,
+          "direction": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "Pelvic": {
+          "root_mm": 0.35,
+          "free_mm": 0.55,
+          "transition_px": 20,
+          "direction": [
+            0,
+            -1,
+            0
+          ]
+        }
+      }
+    },
+    "grass_carp": {
+      "tail_end_width_mm": 4.5,
+      "body_blend_fraction": 0.075,
+      "caudal_taper_fraction": 0.065,
+      "caudal_edge_mm": 0.18,
+      "fin_proximal_mm": 0.7,
+      "fin_edge_mm": 0.18,
+      "wall_donor_boundary_exclusion_px": 7,
+      "body_outline_dark_luma_max": 95,
+      "body_donor_inset_px": 22,
+      "clearance": {
+        "Anal": {
+          "root_mm": 0.2,
+          "free_mm": 1.0,
+          "transition_px": 20,
+          "direction": [
+            0,
+            -1,
+            0
+          ]
+        },
+        "Pectoral": {
+          "root_mm": 0.15,
+          "free_mm": 1.0,
+          "transition_px": 20,
+          "direction": [
+            0,
+            0,
+            1
+          ]
+        },
+        "Pelvic": {
+          "root_mm": 0.35,
+          "free_mm": 1.1,
+          "transition_px": 20,
+          "direction": [
+            0,
+            -1,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

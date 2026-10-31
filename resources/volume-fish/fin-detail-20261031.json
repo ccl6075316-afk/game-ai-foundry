@@ -1,0 +1,27 @@
+{
+  "kind": "species_native_fin_detail_annotations",
+  "version": 1,
+  "basis": "Operator inspected original native source with pixel grids and current cutouts. Coordinates below are local to each frozen audit source_crop. New RGB remains original source pixels. Basal placement in3D remains inferred and must be checked on actual body.",
+  "preserve": ["user-approved transverse body", "mouth", "eyes", "body pixels", "original rig and animation"],
+  "repair_types": ["Anal", "Pectoral", "Pelvic"],
+  "retain_types": ["Dorsal", "Caudal"],
+  "padding_px": 24,
+  "root_blend_px": 14,
+  "species": {
+    "bluegill": {
+      "Anal": {"use_original_root": true, "max_layer_vertices": 30, "observation": "Preserve the original multi-ray free edge and rounded lower arc; avoid a coarse polygon clipping native fin pixels."},
+      "Pectoral": {"polygon": [[3,4],[30,5],[60,7],[90,9],[120,12],[141,17],[154,26],[162,42],[163,63],[162,88],[151,96],[132,100],[104,101],[77,98],[52,92],[33,82],[18,67],[8,48],[3,26]], "root": [[154,26],[162,48],[162,88]], "max_layer_vertices": 24, "observation": "Separate green fin and its pale root rim from orange adjacent body. Do not copy the body orange block onto the moving fin."},
+      "Pelvic": {"clip_root": [[-24,30],[0,30],[38,20],[72,12],[172,7],[222,2],[249,2]], "max_layer_vertices": 30, "observation": "Keep the source-visible rounded tip and dark split/ray feature; exclude the adjacent orange body strip. Hidden overlap is not inferred as an extra fin."}
+    },
+    "crucian": {
+      "Anal": {"use_original_root": true, "max_layer_vertices": 28, "observation": "Follow source black basal line and curved outer alpha edge, retaining native ray clusters."},
+      "Pectoral": {"polygon": [[2,55],[26,42],[57,29],[90,21],[122,13],[160,8],[200,4],[232,2],[254,2],[254,32],[239,52],[220,73],[199,90],[178,98],[148,101],[117,99],[84,93],[54,83],[28,69]], "root": [[254,2],[254,17],[254,32]], "max_layer_vertices": 26, "observation": "Trace the dark curved outer border rather than an eight-corner straight cut. Keep white body outside the moving patch."},
+      "Pelvic": {"clip_root": [[-24,27],[80,27],[130,27],[180,28],[233,29],[270,29]], "root": [[130,27],[180,28],[233,29]], "max_layer_vertices": 28, "observation": "Remove the disconnected body-colored sliver above the fin and recover the rounded lower free edge clipped by the previous diagonal."}
+    },
+    "grass_carp": {
+      "Anal": {"clip_root": [[-24,11],[0,11],[45,20],[80,27],[130,39],[180,48],[222,57],[260,65]], "root": [[45,17],[80,24],[130,36],[180,45],[222,54]], "max_layer_vertices": 25, "observation": "Keep the real curved fan outline and remove the white body wedge above the green fin base."},
+      "Pectoral": {"polygon": [[0,25],[10,17],[43,13],[50,7],[90,5],[135,3],[185,3],[220,4],[237,6],[243,10],[237,32],[225,49],[209,65],[188,82],[164,99],[142,111],[124,118],[100,110],[77,99],[53,83],[30,62],[10,45],[0,34]], "root": [[237,6],[243,10],[237,32],[225,49]], "max_layer_vertices": 25, "observation": "Follow the dark border of the green fan; exclude the white crescent belonging to the body instead of attaching it to the fin."},
+      "Pelvic": {"clip_root": [[-24,13],[0,13],[50,13],[95,12],[150,15],[192,19],[235,24]], "root": [[50,10],[95,9],[150,12],[192,16]], "max_layer_vertices": 25, "observation": "Remove the white/gray body strip at the top and preserve the complete rounded tip at original pixel density."}
+    }
+  }
+}

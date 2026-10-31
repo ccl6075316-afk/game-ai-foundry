@@ -1,0 +1,88 @@
+{
+  "kind": "source_owned_posterior_dorsal_body_rgb_repair",
+  "basis": "User confirms a remaining dark wedge immediately at the caudal-root dorsal body. Extend only the current material repair through the actual posterior body UV boundary; no left fade before the body cap. Prior posterior-skin-r3 is the baseline.",
+  "species": {
+    "bluegill": {
+      "mode": "continuous_previous_body_strip",
+      "longitudinal_interval_px": [
+        280,
+        420
+      ],
+      "lateral_fade_px": 24,
+      "strip_depth_px": 30,
+      "target_polygon_px": [
+        [
+          310,
+          315
+        ],
+        [
+          380,
+          280
+        ],
+        [
+          420,
+          250
+        ],
+        [
+          420,
+          380
+        ],
+        [
+          380,
+          425
+        ],
+        [
+          310,
+          480
+        ]
+      ],
+      "maximum_dark_luma": 48,
+      "maximum_dark_chroma": 30,
+      "minimum_donor_luma": 52,
+      "minimum_donor_chroma": 10,
+      "donor_inset_px": 24,
+      "donor_search_px": 80
+    },
+    "crucian": {
+      "mode": "continuous_previous_body_strip",
+      "longitudinal_interval_px": [
+        330,
+        600
+      ],
+      "lateral_fade_px": 30,
+      "strip_depth_px": 24,
+      "target_polygon_px": [
+        [
+          370,
+          365
+        ],
+        [
+          535,
+          330
+        ],
+        [
+          600,
+          300
+        ],
+        [
+          600,
+          440
+        ],
+        [
+          535,
+          500
+        ],
+        [
+          370,
+          590
+        ]
+      ],
+      "maximum_dark_luma": 42,
+      "maximum_dark_chroma": 28,
+      "minimum_donor_luma": 48,
+      "minimum_donor_chroma": 10,
+      "donor_inset_px": 28,
+      "donor_search_px": 80
+    }
+  }
+}

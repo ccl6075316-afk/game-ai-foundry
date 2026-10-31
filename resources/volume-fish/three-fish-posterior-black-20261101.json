@@ -1,0 +1,32 @@
+{
+  "kind": "source_owned_posterior_dorsal_body_rgb_repair",
+  "basis": "User identifies remaining dark posterior dorsal footprint in bluegill/crucian. Actual isolated body surface 0 retains it; other body surface is absent here. No shape or fin edits.",
+  "species": {
+    "bluegill": {
+      "mode": "continuous_previous_body_strip",
+      "longitudinal_interval_px": [368,610],
+      "lateral_fade_px": 24,
+      "strip_depth_px": 30,
+      "target_polygon_px": [[368,325],[380,290],[450,235],[530,188],[610,170],[610,245],[530,300],[450,350],[380,405],[368,410]],
+      "maximum_dark_luma": 48,
+      "maximum_dark_chroma": 30,
+      "minimum_donor_luma": 52,
+      "minimum_donor_chroma": 10,
+      "donor_inset_px": 24,
+      "donor_search_px": 80
+    },
+    "crucian": {
+      "mode": "continuous_previous_body_strip",
+      "longitudinal_interval_px": [522,900],
+      "lateral_fade_px": 30,
+      "strip_depth_px": 24,
+      "target_polygon_px": [[522,385],[535,340],[670,275],[785,232],[900,190],[900,295],[785,340],[670,385],[535,460],[522,465]],
+      "maximum_dark_luma": 42,
+      "maximum_dark_chroma": 28,
+      "minimum_donor_luma": 48,
+      "minimum_donor_chroma": 10,
+      "donor_inset_px": 28,
+      "donor_search_px": 80
+    }
+  }
+}

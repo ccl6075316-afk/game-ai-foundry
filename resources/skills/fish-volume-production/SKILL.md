@@ -5,6 +5,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 # 从鱼类原图制作可审阅的3D鱼
 
+用户认可宽度后继续修鳍，读[原像素鳍精修与有限根带](references/native-fin-detail-lessons-20261031.md)：原图独立边界、低面支撑、实际体表蒙皮、冷导出、全鳍490与继承问题分别记录。不能把旧UV插值当新轮廓的接触证明。
+
 通用规则与最新方法见[四鱼经验收敛](references/four-fish-lessons-20261031.md)。当前制作状态只读逐鱼manifest和正式证据，不在技能入口反复叠加候选编号。
 
 基础检查后先嘴、再全部鳍、再其余；[嘴优先检查卡](references/mouth-first-review.md)要求实际口裂、下唇线、上下颌体积及沿左右唇缘补色。整鱼按展示体长分档：≤120cm优选1500/硬上限2000；>120–300cm优选3500/上限4000；>300–600cm优选5500/上限6000；>600cm优选7500/上限8000。边界使用严格“超过”，计入所有部件；详见[展示体长预算](references/display-length-budget.md)，与头型、原眼、画风、身体不透明和动作等旧要求同时有效。用户指出过的遗漏保留负例与有效验证，不能修一项丢一项。
@@ -51,6 +53,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 - 用户要求按视频对图快速建低面鱼，或进行A减面/B新建对照时：先读[参考图控制笼B执行卡](references/reference-cage-body.md)。必须实际看视频操作，保存链接、时间和融合后步骤，不能只把B概括为“低面/截面生成”后自行换方法。
 
+- 鱼的头厚/体厚、俯视收尖、横截面或宽度数据任务：先读[宽度依据与HTML审阅完整方法](references/width-evidence-workflow.md)。保留原始实测/测位/长度口径、换算、定性与造型推断，逐鱼设参；四鱼已获用户认可的宽度案例与离线HTML/数据由该文索引，不能只复制上条鱼的增益曲线。
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。
 - 口部：`projects/fishing-2d/docs/3d-fish/ORAL-JAWS.md` 的开头方法选择和069d结论。口位、下颌前突、口裂倾角、唇缘包合、开闭动作分别判断；不要把所有鱼套成上位口或孔雀鲈下颌。
 - 嘴像板片、喙或勺子，或侧面也对不上原画时：读 [references/mouth-repair.md](references/mouth-repair.md)，先检查完整颌部与参考姿态，不能继续只调唇厚/UV。

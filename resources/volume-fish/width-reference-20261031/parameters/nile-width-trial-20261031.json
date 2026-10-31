@@ -1,0 +1,205 @@
+{
+  "kind": "single_fish_transverse_width_trial",
+  "species": "nile_tilapia",
+  "inputs": {
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+      "sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a"
+    },
+    "blend": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\nile-dorsal-route-trial\\round11-single-material-finalization\\final-artifacts\\fish.blend",
+      "sha256": "98c18cd9f1419eb7ed3b0b215742af97fa6b9437e87658ff305e67a1ee19ae82"
+    }
+  },
+  "coordinate": "glTF: X length, Y vertical unchanged, Z full transverse field",
+  "scope": "Head to shoulder only; full existing packed mesh, not split; tail s>=.40 unchanged. Fins crossing field move with continuous field, so old fin reports invalid for candidate. No installation.",
+  "source_evidence": "output/four-fish-width-study-20261031/empirical-measurements.json; all target placement/design inferred, not anatomy-certified",
+  "target_width_stations_cm": [
+    [
+      0.005,
+      1.35
+    ],
+    [
+      0.012,
+      1.8
+    ],
+    [
+      0.025,
+      2.5
+    ],
+    [
+      0.04,
+      3.4
+    ],
+    [
+      0.06,
+      4.2
+    ],
+    [
+      0.08,
+      4.9
+    ],
+    [
+      0.1,
+      5.3
+    ],
+    [
+      0.12,
+      5.44
+    ],
+    [
+      0.15,
+      5.4
+    ],
+    [
+      0.18,
+      5.35
+    ],
+    [
+      0.22,
+      5.25
+    ],
+    [
+      0.27,
+      5.1
+    ],
+    [
+      0.35,
+      4.9
+    ]
+  ],
+  "gain_stations": [
+    [
+      0,
+      1.9190831658593075
+    ],
+    [
+      0.005,
+      1.9190831658593075
+    ],
+    [
+      0.012,
+      1.4968077360098198
+    ],
+    [
+      0.025,
+      1.4740711253480878
+    ],
+    [
+      0.04,
+      1.7180381292925413
+    ],
+    [
+      0.06,
+      1.8443891378528348
+    ],
+    [
+      0.08,
+      1.9128542997054905
+    ],
+    [
+      0.1,
+      1.9281241126582211
+    ],
+    [
+      0.12,
+      1.8545873357982614
+    ],
+    [
+      0.15,
+      1.6625427785961464
+    ],
+    [
+      0.18,
+      1.4810781149299606
+    ],
+    [
+      0.22,
+      1.3028943507402797
+    ],
+    [
+      0.27,
+      1.1529577096854644
+    ],
+    [
+      0.35,
+      1.018570081139434
+    ],
+    [
+      0.4,
+      1
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "display_TL_cm": 40,
+  "model_scale": 0.40281972289085405,
+  "parts": [
+    {
+      "name": "Anal",
+      "role": "fin",
+      "vertex_start": 0,
+      "vertex_count": 105,
+      "changed_vertices": 0
+    },
+    {
+      "name": "Caudal",
+      "role": "fin",
+      "vertex_start": 105,
+      "vertex_count": 116,
+      "changed_vertices": 0
+    },
+    {
+      "name": "Closed_body_B",
+      "role": "body_skin",
+      "vertex_start": 221,
+      "vertex_count": 653,
+      "changed_vertices": 407
+    },
+    {
+      "name": "Oral_cavity",
+      "role": "mouth",
+      "vertex_start": 874,
+      "vertex_count": 74,
+      "changed_vertices": 72
+    },
+    {
+      "name": "Dorsal",
+      "role": "fin",
+      "vertex_start": 948,
+      "vertex_count": 186,
+      "changed_vertices": 77
+    },
+    {
+      "name": "Pectoral_left",
+      "role": "fin",
+      "vertex_start": 1134,
+      "vertex_count": 123,
+      "changed_vertices": 111
+    },
+    {
+      "name": "Pectoral_right",
+      "role": "fin",
+      "vertex_start": 1257,
+      "vertex_count": 120,
+      "changed_vertices": 108
+    },
+    {
+      "name": "Pelvic_left",
+      "role": "fin",
+      "vertex_start": 1377,
+      "vertex_count": 44,
+      "changed_vertices": 32
+    },
+    {
+      "name": "Pelvic_right",
+      "role": "fin",
+      "vertex_start": 1421,
+      "vertex_count": 44,
+      "changed_vertices": 32
+    }
+  ],
+  "formal_acceptance": false
+}

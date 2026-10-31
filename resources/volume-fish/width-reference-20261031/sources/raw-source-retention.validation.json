@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "files": [
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\crucian-zhejiang-survey-page91.txt",
+      "sha256": "811e9937a1b046849cca90dbd698ccf6a71e9f64298e96af22077ba5aeb7d734",
+      "source": "output\\four-fish-width-study-20261031\\sources\\crucian-zhejiang-survey-page91.txt"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\crucian-zhejiang-survey-page93.txt",
+      "sha256": "e788da0c14e27cfe5612f8bc9d8f64eb33def303858277392dc93aee9e6160b0",
+      "source": "output\\four-fish-width-study-20261031\\sources\\crucian-zhejiang-survey-page93.txt"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\crucian-zhejiang-survey.pdf",
+      "sha256": "62a619fe73de2c814ecdd8396b57aff9103f524d3a8bca58f6d10b5e75917d59",
+      "source": "output\\four-fish-width-study-20261031\\sources\\crucian-zhejiang-survey.pdf"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\grass-adults-2019-page5.txt",
+      "sha256": "888a1513057f54e0f5f157f6161e53c00d2a707c231acf68bd77fd4d4483f32d",
+      "source": "output\\four-fish-width-study-20261031\\sources\\grass-adults-2019-page5.txt"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\grass-adults-2019-page6.txt",
+      "sha256": "4aaf6b5f1b4d4bebf89a996f0fd1c471843eb1daab385844061810c936e9ac2e",
+      "source": "output\\four-fish-width-study-20261031\\sources\\grass-adults-2019-page6.txt"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\grass-adults-2019.pdf",
+      "sha256": "dd0ddb7c165c6f9dc500da7546d13c6e3ed3c9d9c3f8339a82c2526fe38f13fd",
+      "source": "output\\four-fish-width-study-20261031\\sources\\grass-adults-2019.pdf"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\grass-morphometry-2017.pdf",
+      "sha256": "5f4c3b49baac4f81a52c19980a5e25649520225f714b583c5fa573d3bbf75c8c",
+      "source": "output\\four-fish-width-study-20261031\\sources\\grass-morphometry-2017.pdf"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\README.txt",
+      "sha256": "0ccc380bb61370352d9ce7d1841c9c7aeed35e8288b80863a6a5e5cd0ae5c490",
+      "source": "output\\four-fish-width-study-20261031\\sources\\README.txt"
+    },
+    {
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw\\tilapia-growth-2022.html",
+      "sha256": "9d86bd3185c8aed7fb106750f9c42549f3afe49293fab1071c58a4140c46211d",
+      "source": "output\\four-fish-width-study-20261031\\sources\\tilapia-growth-2022.html"
+    }
+  ]
+}

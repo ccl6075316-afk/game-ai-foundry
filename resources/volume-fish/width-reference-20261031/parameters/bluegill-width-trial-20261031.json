@@ -1,0 +1,237 @@
+{
+  "kind": "single_fish_transverse_width_trial",
+  "species": "bluegill",
+  "label": "蓝鳃太阳鱼",
+  "inputs": {
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\fish.glb",
+      "sha256": "86064abea887874cad655196b53b39b9f9432aac17616baa91452343b6d045a4"
+    },
+    "blend": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\source\\fish.blend",
+      "sha256": "2da2e44e4925a3e2355718abc26ba4311c8417d8974492c45acf9632e6d17a2e"
+    },
+    "research": {
+      "path": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\pre-model-plan.json",
+      "sha256": "ec1f57402c4482cfa4338506d2c924cee3439c65961726ae0e875a92b261e165"
+    }
+  },
+  "coordinate": "glTF X length/Yheight fixed; Z only; full widths in cm",
+  "source_evidence": [
+    "FISHSHAPES-2022",
+    "BLUEGILL-YOKOGAWA-2013",
+    "BLUEGILL-MUSEUM"
+  ],
+  "basis": "保留深而侧扁的体型、小口和鳃盖后黑耳瓣。现有整体宽并非差一倍；试验以局部颅部和吻端过渡为主。FishShapes最大宽可能位于头，不能视作已测躯干。",
+  "evidence_grade": "D-authored experimental targets/longitudinal matching, constrained by separately recorded same-species evidence",
+  "scope": "Width only. No new/split/deleted mesh, no fin boundary/artwork or mouth reconstruction. Existing fins in field follow continuous deformation; old physical reports invalid.",
+  "target_width_stations_cm": [
+    [
+      0.005,
+      0.55
+    ],
+    [
+      0.012,
+      0.75
+    ],
+    [
+      0.025,
+      1.1
+    ],
+    [
+      0.04,
+      1.45
+    ],
+    [
+      0.06,
+      1.65
+    ],
+    [
+      0.08,
+      1.8
+    ],
+    [
+      0.1,
+      1.95
+    ],
+    [
+      0.12,
+      2.1
+    ],
+    [
+      0.15,
+      2.25
+    ],
+    [
+      0.16,
+      2.3
+    ],
+    [
+      0.18,
+      2.4
+    ],
+    [
+      0.22,
+      2.5111
+    ],
+    [
+      0.24,
+      2.5667
+    ],
+    [
+      0.27,
+      2.65
+    ],
+    [
+      0.35,
+      2.6808
+    ],
+    [
+      0.4,
+      2.7
+    ]
+  ],
+  "gain_stations": [
+    [
+      0,
+      3.0618217328526205
+    ],
+    [
+      0.005,
+      3.0618217328526205
+    ],
+    [
+      0.012,
+      2.213030325041432
+    ],
+    [
+      0.025,
+      1.7657628571029451
+    ],
+    [
+      0.04,
+      1.7559979326732902
+    ],
+    [
+      0.06,
+      1.553015752763432
+    ],
+    [
+      0.08,
+      1.397369525737262
+    ],
+    [
+      0.1,
+      1.3395791284972784
+    ],
+    [
+      0.12,
+      1.2987937107869745
+    ],
+    [
+      0.15,
+      1.2432304575906552
+    ],
+    [
+      0.16,
+      1.2324360316601521
+    ],
+    [
+      0.18,
+      1.2126936168336504
+    ],
+    [
+      0.22,
+      1.160071092904559
+    ],
+    [
+      0.24,
+      1.1382853183196189
+    ],
+    [
+      0.27,
+      1.1223743361753258
+    ],
+    [
+      0.35,
+      1.0563772641325966
+    ],
+    [
+      0.4,
+      1.0480898997862935
+    ],
+    [
+      0.5,
+      1
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "cutoff_s": 0.5,
+  "display_TL_cm": 19.1,
+  "model_scale": 0.19269603490829468,
+  "head_focus": [
+    0.07251476496458054,
+    0,
+    0
+  ],
+  "whole_width": 0.26739999999999997,
+  "head_width": 0.08022,
+  "front_width": 0.14325,
+  "motion_width": 0.2865,
+  "parts": [
+    {
+      "name": "Anal_mesh_0",
+      "role": "fin",
+      "changed_vertices": 0
+    },
+    {
+      "name": "Caudal_mesh_0",
+      "role": "fin",
+      "changed_vertices": 0
+    },
+    {
+      "name": "Closed_body_0",
+      "role": "body_skin",
+      "changed_vertices": 44
+    },
+    {
+      "name": "Closed_body_1",
+      "role": "body_skin",
+      "changed_vertices": 1038
+    },
+    {
+      "name": "Closed_body_2",
+      "role": "mouth",
+      "changed_vertices": 197
+    },
+    {
+      "name": "Dorsal_mesh_0",
+      "role": "fin",
+      "changed_vertices": 78
+    },
+    {
+      "name": "Pectoral_left_mesh_0",
+      "role": "fin",
+      "changed_vertices": 49
+    },
+    {
+      "name": "Pectoral_right_mesh_0",
+      "role": "fin",
+      "changed_vertices": 50
+    },
+    {
+      "name": "Pelvic_left_mesh_0",
+      "role": "fin",
+      "changed_vertices": 32
+    },
+    {
+      "name": "Pelvic_right_mesh_0",
+      "role": "fin",
+      "changed_vertices": 32
+    }
+  ],
+  "formal_acceptance": false
+}

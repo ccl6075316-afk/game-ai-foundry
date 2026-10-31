@@ -75,3 +75,8 @@
 
 # Byte-hashed display-length policy is a frozen runtime-gate dependency.
 cli/fish_budget.py -text
+
+# Accepted four-fish width research: original source PDFs retain their bytes.
+/resources/volume-fish/width-reference-20261031/sources/raw/*.pdf filter=lfs diff=lfs merge=lfs -text
+/resources/volume-fish/width-reference-20261031/sources/raw/** -whitespace
+/resources/volume-fish/width-reference-20261031/sources/** -whitespace

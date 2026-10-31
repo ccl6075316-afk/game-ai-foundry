@@ -1,0 +1,139 @@
+{
+  "ok": true,
+  "kind": "fish_width_workflow_permanent_archive",
+  "user_width_appearance_acceptance": [
+    {
+      "species": "bluegill",
+      "model_sha256": "4ee3ae99fe91198d7e750f4994e8e7100896078fdf7d97c72a6b39ad7509e06f"
+    },
+    {
+      "species": "crucian",
+      "model_sha256": "984a5638d8cb4217791aa31418e8bf2433bdd3020309ac6a12836f2d79a7ff96"
+    },
+    {
+      "species": "grass_carp",
+      "model_sha256": "7c1e327dd94036fea60c47ecf36e661f2b97153ad5ac886384b7f4bcbab020c2"
+    },
+    {
+      "species": "nile_tilapia",
+      "model_sha256": "0522b8a1d46ad55f689e65d8c2be6dc8be7a206b14c1f58e669b87e2453b655d"
+    }
+  ],
+  "formal_whole_fish_acceptance": false,
+  "method": "resources/skills/fish-volume-production/references/width-evidence-workflow.md",
+  "html": "resources/volume-fish/width-reference-20261031/report.html",
+  "files": [
+    {
+      "source": "output\\four-fish-width-study-20261031\\empirical-measurements.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\data\\empirical-measurements.json",
+      "bytes": 12637,
+      "sha256": "3eb3057a3148a22fb465db40a6859ed4f07dd1db81e0e955feb094a27a12b2ad"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\source-register.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\data\\source-register.json",
+      "bytes": 3717,
+      "sha256": "49afd60f9257658b67bdba70b7933899554ded4bc80219fed702bc97a23617bb"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\pre-model-plan.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\data\\pre-model-plan.json",
+      "bytes": 93554,
+      "sha256": "ec1f57402c4482cfa4338506d2c924cee3439c65961726ae0e875a92b261e165"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\baseline.validation.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\data\\baseline.validation.json",
+      "bytes": 620680,
+      "sha256": "edb746adde15c1e57690028f76e1ee983d9d6feb80e4b497058bfeff72965114"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\sources\\FishShapes_specimensv1.csv",
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\FishShapes_specimensv1.csv",
+      "bytes": 1662135,
+      "sha256": "7447fdc92c5fd5c9ecf1d9713bbd4207d2de7ab4b2ea0e320871041da8e34264"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\sources\\README.txt",
+      "path": "resources\\volume-fish\\width-reference-20261031\\sources\\README.txt",
+      "bytes": 42362,
+      "sha256": "0ccc380bb61370352d9ce7d1841c9c7aeed35e8288b80863a6a5e5cd0ae5c490"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\illustrations\\nile_tilapia\\output\\nile_tilapia_head_study_raw.png",
+      "path": "resources\\volume-fish\\width-reference-20261031\\images\\nile_tilapia-head-study.png",
+      "bytes": 1067544,
+      "sha256": "05ecae5e53076794d425e42b0d6559c3bb440f23377b901a6f2788d0d19ff07a"
+    },
+    {
+      "source": "resources\\volume-fish\\nile-width-trial-20261031.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\parameters\\nile-width-trial-20261031.json",
+      "bytes": 3922,
+      "sha256": "61e9bc7620f6bf38ee1d0059f83aefbd478d9c26c01bf6d113b4295f7db36319"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\illustrations\\bluegill\\output\\bluegill_head_study_raw.png",
+      "path": "resources\\volume-fish\\width-reference-20261031\\images\\bluegill-head-study.png",
+      "bytes": 916054,
+      "sha256": "877cc843d58f5d72661fae86380bdb556f489a47fc19f5cadbe103e89ea7d152"
+    },
+    {
+      "source": "resources\\volume-fish\\bluegill-width-trial-20261031.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\parameters\\bluegill-width-trial-20261031.json",
+      "bytes": 4662,
+      "sha256": "0a6b2f98898c2c931cf7ffe2c55cac2263650631f1ad6732093ee0a0ddd1c2fb"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\illustrations\\crucian\\output\\crucian_head_study_raw.png",
+      "path": "resources\\volume-fish\\width-reference-20261031\\images\\crucian-head-study.png",
+      "bytes": 1012581,
+      "sha256": "813cf068415b6088122c98c1fc7a0d974e684e23ed7dd6b1b8d1ce1ba869e417"
+    },
+    {
+      "source": "resources\\volume-fish\\crucian-width-trial-20261031.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\parameters\\crucian-width-trial-20261031.json",
+      "bytes": 4777,
+      "sha256": "a08f000f4ffa3c828e12c7d7b76eb067b6ec17bcf460a5face6a38608d228bce"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\illustrations\\grass_carp\\output\\grass_carp_head_study_raw.png",
+      "path": "resources\\volume-fish\\width-reference-20261031\\images\\grass_carp-head-study.png",
+      "bytes": 1020559,
+      "sha256": "4ba079f15224927f34e5af7c849f8814a43d4cbaec5bc65054195b8bdcd9a597"
+    },
+    {
+      "source": "resources\\volume-fish\\grass_carp-width-trial-20261031.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\parameters\\grass_carp-width-trial-20261031.json",
+      "bytes": 4801,
+      "sha256": "afd164a828fff00b5ca79a8f4c27b96141c2499de75359b44d1c5ea77020c160"
+    },
+    {
+      "source": "output\\four-fish-width-study-20261031\\report.html",
+      "path": "resources\\volume-fish\\width-reference-20261031\\report.html",
+      "sha256": "6213f640c21f37fa3e1a1a570a177aff4270081e265cd9646f9db325e5ab8298",
+      "note": "Only local references and archive notice changed; original research snapshot retained."
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-width-trial-20261031\\before-after-inventory.validation.json",
+      "path": "resources\\volume-fish\\width-reference-20261031\\data\\before-after-inventory.validation.json",
+      "bytes": 3746,
+      "sha256": "0a95471dea138f1b1dfb2493f58daf50407d1dffd27c40317c783e45889e179a"
+    }
+  ],
+  "original_raw_research": "output/four-fish-width-study-20261031",
+  "cases": [
+    "projects/fishing-2d/experiments/nile-width-trial-20261031",
+    "projects/fishing-2d/experiments/four-fish-width-trial-20261031"
+  ],
+  "next_fish_rule": "Reuse evidence workflow/tooling and HTML, independently research and set species dimensions; preserve unknowns.",
+  "raw_source_retention": {
+    "path": "resources\\volume-fish\\width-reference-20261031\\sources\\raw-source-retention.validation.json",
+    "sha256": "f1c231252656b5d62a94f7394a586f4793a0d653682da7539bf4902b48ad8834"
+  },
+  "accepted_fin_tail_revision": {
+    "date": "2026-11-01",
+    "fish_repository": "projects/fishing-2d",
+    "acceptance_record": "experiments/three-fish-fin-detail-20261031/user-appearance-acceptance.validation.json",
+    "formal_whole_fish_acceptance": false
+  }
+}

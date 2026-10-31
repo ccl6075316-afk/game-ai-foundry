@@ -1,0 +1,102 @@
+{
+  "ok": true,
+  "records": [
+    {
+      "id": "bluegill-trial",
+      "species": "bluegill",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-width-trial-20261031\\bluegill\\r1\\fish.glb",
+      "sha256": "4ee3ae99fe91198d7e750f4994e8e7100896078fdf7d97c72a6b39ad7509e06f",
+      "triangles": 1494,
+      "vertices": 1863,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "bluegill-original",
+      "species": "bluegill",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\fish.glb",
+      "sha256": "86064abea887874cad655196b53b39b9f9432aac17616baa91452343b6d045a4",
+      "triangles": 1494,
+      "vertices": 1863,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "crucian-trial",
+      "species": "crucian",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-width-trial-20261031\\crucian\\r1\\fish.glb",
+      "sha256": "984a5638d8cb4217791aa31418e8bf2433bdd3020309ac6a12836f2d79a7ff96",
+      "triangles": 1440,
+      "vertices": 2686,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "crucian-original",
+      "species": "crucian",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\central-material-20261031\\candidate\\source-run\\fish.glb",
+      "sha256": "2690e6c1f5c1fd77e73e888d6a0383cfc3f190c4dae93a5528ae91807454b9d1",
+      "triangles": 1440,
+      "vertices": 2686,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "grass_carp-trial",
+      "species": "grass_carp",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-width-trial-20261031\\grass_carp\\r1\\fish.glb",
+      "sha256": "7c1e327dd94036fea60c47ecf36e661f2b97153ad5ac886384b7f4bcbab020c2",
+      "triangles": 1682,
+      "vertices": 2602,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "grass_carp-original",
+      "species": "grass_carp",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\central-material-20261031\\candidate\\source-run\\fish.glb",
+      "sha256": "d29085a4121f69954ce5c5414295bcee64dd22ee114984f478068e91d6a42c3f",
+      "triangles": 1682,
+      "vertices": 2602,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "nile_tilapia-trial",
+      "species": "nile_tilapia",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\nile-width-trial-20261031\\r1\\fish.glb",
+      "sha256": "0522b8a1d46ad55f689e65d8c2be6dc8be7a206b14c1f58e669b87e2453b655d",
+      "triangles": 1710,
+      "vertices": 1465,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    },
+    {
+      "id": "nile_tilapia-original",
+      "species": "nile_tilapia",
+      "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+      "sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a",
+      "triangles": 1710,
+      "vertices": 1465,
+      "bones": 18,
+      "meshes": 1,
+      "surfaces": 1,
+      "animation_channels": 54
+    }
+  ],
+  "scope": "Actual GLB counts, width phase only; subsequent fin repair may change topology within budget."
+}

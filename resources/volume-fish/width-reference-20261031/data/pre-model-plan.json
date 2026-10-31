@@ -1,0 +1,1845 @@
+{
+  "version": "v1-pre-model-review",
+  "status": "research_and_experimental_parameters_ready_for_review",
+  "modeling_started": false,
+  "basis": "Research sources, actual baseline and explicitly authored uncertain W/H envelopes. All target station widths are proposals, not empirical individual measurements.",
+  "coordinate_contract": {
+    "s": "distance backward from most anterior visible model point / model all-part longitudinal X span",
+    "W": "full LEFT-RIGHT width, cm, excludes fins",
+    "H": "full dorsal-ventral height, cm, excludes fins",
+    "L": "current game display length; not interchangeable with source SL",
+    "mouth_width_warning": "FishShapes Mouth_width is distance between articular-quadrate joints, not lip aperture."
+  },
+  "species": {
+    "nile_tilapia": {
+      "label": "罗非鱼",
+      "latin": "Oreochromis niloticus",
+      "length": 40,
+      "basis": "优先实验鱼。已有明确眼后HW与W1-W4；先独立做颅部和鳃盖，躯干按解剖测位约束。本文工程曲线在W2、W3附近仍须按背/臀鳍基重新配准，不能冒充论文逐点复原。",
+      "shape": "Laterally compressed body; bony cranial top has rounded shoulders, lateral eyes, full cheeks/gill covers; a short blunt mouth, not a conical nose.",
+      "sourceids": [
+        "NILE-GROWTH-2022",
+        "FISHSHAPES-2022",
+        "NILE-SCAN-2015"
+      ],
+      "source_model": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+      "source_model_sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a",
+      "current_side_reference": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\nile-dorsal-route-trial\\round11-single-material-finalization\\final-sop\\review\\whole-left-texture.png",
+      "stations": [
+        {
+          "s": 0.005,
+          "x_from_nose_cm": 0.2,
+          "target_width_cm": 1.6,
+          "width_exploration_bracket_cm": [
+            1.44,
+            1.76
+          ],
+          "current_width_cm": 0.7034609150956264,
+          "target_height_cm": 1.0372655275335714,
+          "current_height_cm": 1.0372655275335714,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.012,
+          "x_from_nose_cm": 0.48,
+          "target_width_cm": 1.9,
+          "width_exploration_bracket_cm": [
+            1.71,
+            2.09
+          ],
+          "current_width_cm": 1.202559257743034,
+          "target_height_cm": 1.6289593861466265,
+          "current_height_cm": 1.6289593861466265,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.025,
+          "x_from_nose_cm": 1.0,
+          "target_width_cm": 2.5,
+          "width_exploration_bracket_cm": [
+            2.25,
+            2.75
+          ],
+          "current_width_cm": 1.6959832921288984,
+          "target_height_cm": 2.34529551853393,
+          "current_height_cm": 2.34529551853393,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.04,
+          "x_from_nose_cm": 1.6,
+          "target_width_cm": 3.4,
+          "width_exploration_bracket_cm": [
+            3.06,
+            3.74
+          ],
+          "current_width_cm": 1.9790014796703388,
+          "target_height_cm": 3.168301988367465,
+          "current_height_cm": 3.168301988367465,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.06,
+          "x_from_nose_cm": 2.4,
+          "target_width_cm": 4.2,
+          "width_exploration_bracket_cm": [
+            3.78,
+            4.62
+          ],
+          "current_width_cm": 2.2771767160207173,
+          "target_height_cm": 4.323352346153541,
+          "current_height_cm": 4.323352346153541,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.08,
+          "x_from_nose_cm": 3.2,
+          "target_width_cm": 4.9,
+          "width_exploration_bracket_cm": [
+            4.41,
+            5.39
+          ],
+          "current_width_cm": 2.561616951565219,
+          "target_height_cm": 5.57376931386296,
+          "current_height_cm": 5.57376931386296,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.1,
+          "x_from_nose_cm": 4.0,
+          "target_width_cm": 5.44,
+          "width_exploration_bracket_cm": [
+            4.896,
+            5.984
+          ],
+          "current_width_cm": 2.7487857058605627,
+          "target_height_cm": 6.579364418394149,
+          "current_height_cm": 6.579364418394149,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.12,
+          "x_from_nose_cm": 4.8,
+          "target_width_cm": 5.44,
+          "width_exploration_bracket_cm": [
+            4.896,
+            5.984
+          ],
+          "current_width_cm": 2.9332670912790886,
+          "target_height_cm": 7.513757431596896,
+          "current_height_cm": 7.513757431596896,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.15,
+          "x_from_nose_cm": 6.0,
+          "target_width_cm": 5.42,
+          "width_exploration_bracket_cm": [
+            4.607,
+            6.233
+          ],
+          "current_width_cm": 3.248036723939079,
+          "target_height_cm": 8.828734312156437,
+          "current_height_cm": 8.828734312156437,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.18,
+          "x_from_nose_cm": 7.2,
+          "target_width_cm": 5.4,
+          "width_exploration_bracket_cm": [
+            4.86,
+            5.94
+          ],
+          "current_width_cm": 3.6122335115680233,
+          "target_height_cm": 10.035148111879252,
+          "current_height_cm": 10.035148111879252,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.22,
+          "x_from_nose_cm": 8.8,
+          "target_width_cm": 5.3689,
+          "width_exploration_bracket_cm": [
+            4.564,
+            6.174
+          ],
+          "current_width_cm": 4.0294901862281085,
+          "target_height_cm": 11.383862364875291,
+          "current_height_cm": 11.383862364875291,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.24,
+          "x_from_nose_cm": 9.6,
+          "target_width_cm": 5.3533,
+          "width_exploration_bracket_cm": [
+            4.55,
+            6.156
+          ],
+          "current_width_cm": 4.218193563797788,
+          "target_height_cm": 11.995479081727984,
+          "current_height_cm": 11.995479081727984,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.27,
+          "x_from_nose_cm": 10.8,
+          "target_width_cm": 5.33,
+          "width_exploration_bracket_cm": [
+            4.797,
+            5.863
+          ],
+          "current_width_cm": 4.423405955966345,
+          "target_height_cm": 12.553233387101127,
+          "current_height_cm": 12.553233387101127,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.35,
+          "x_from_nose_cm": 14.0,
+          "target_width_cm": 4.8808,
+          "width_exploration_bracket_cm": [
+            4.149,
+            5.613
+          ],
+          "current_width_cm": 4.810665550394495,
+          "target_height_cm": 13.42843516418936,
+          "current_height_cm": 13.42843516418936,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.4,
+          "x_from_nose_cm": 16.0,
+          "target_width_cm": 4.6,
+          "width_exploration_bracket_cm": [
+            4.14,
+            5.06
+          ],
+          "current_width_cm": 4.904566619220941,
+          "target_height_cm": 13.535852403069248,
+          "current_height_cm": 13.535852403069248,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.5,
+          "x_from_nose_cm": 20.0,
+          "target_width_cm": 4.48,
+          "width_exploration_bracket_cm": [
+            3.808,
+            5.152
+          ],
+          "current_width_cm": 4.677213940957443,
+          "target_height_cm": 12.74676016847036,
+          "current_height_cm": 12.74676016847036,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.6,
+          "x_from_nose_cm": 24.0,
+          "target_width_cm": 3.2,
+          "width_exploration_bracket_cm": [
+            2.88,
+            3.52
+          ],
+          "current_width_cm": 3.9268694438954816,
+          "target_height_cm": 11.316103503940782,
+          "current_height_cm": 11.316103503940782,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.7,
+          "x_from_nose_cm": 28.0,
+          "target_width_cm": 2.4,
+          "width_exploration_bracket_cm": [
+            2.16,
+            2.64
+          ],
+          "current_width_cm": 2.7590603799841564,
+          "target_height_cm": 8.224777838083792,
+          "current_height_cm": 8.224777838083792,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.78,
+          "x_from_nose_cm": 31.2,
+          "target_width_cm": 1.81,
+          "width_exploration_bracket_cm": [
+            1.629,
+            1.991
+          ],
+          "current_width_cm": 1.6923301162683442,
+          "target_height_cm": 5.193549055222681,
+          "current_height_cm": 5.193549055222681,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.82,
+          "x_from_nose_cm": 32.8,
+          "target_width_cm": 0.8788,
+          "width_exploration_bracket_cm": [
+            0.747,
+            1.011
+          ],
+          "current_width_cm": 0.8787950484762086,
+          "target_height_cm": 4.722138577420933,
+          "current_height_cm": 4.722138577420933,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        }
+      ],
+      "cross_sections": {
+        "definition": "2D pre-model contour design only. Width factors multiply W/2 at normalized height t, from ventral0 to dorsal1. Mirror sides assumed; no 3D mesh is generated.",
+        "t": [
+          0,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          1
+        ],
+        "head_factors": [
+          0,
+          0.45,
+          0.88,
+          1,
+          0.9,
+          0.65,
+          0
+        ],
+        "trunk_factors": [
+          0,
+          0.55,
+          0.86,
+          1,
+          0.86,
+          0.55,
+          0
+        ],
+        "tail_factors": [
+          0,
+          0.35,
+          0.7,
+          1,
+          0.7,
+          0.35,
+          0
+        ],
+        "basis": "D-authored species-specific outline sketch; independent width and dorsal/ventral contour controls. Neither CT measurement nor approved reconstruction.",
+        "required_later_checks": [
+          "Eye-level width separate from maximum head width",
+          "Cheek/opercular fullness",
+          "Real mouth aperture and upper/lower jaw volume",
+          "No flattening or needle/beak front",
+          "Whole-rim natural transition; no added point on a flat cap"
+        ]
+      },
+      "illustration_prompt": "Create an EXPLORATORY anatomy concept sheet of 尼罗罗非鱼, Oreochromis niloticus. This is an AI illustration, not a real specimen photograph or scientific evidence. Three distinct evenly spaced panels on pure pale gray: LEFT a strict dorsal top head view including opercula and shoulder, CENTER a strict front head view, RIGHT a45degree head view. Use realistic neutral matte gray sculptural shading so transverse anatomy is visible; preserve species identity from attached game side reference but do NOT copy its narrow inferred 3D head shape or pixel texture. Body construction hypothesis for review: full fish length 40cm, trunk maximum LEFT-RIGHT width only 5.4cm, head width near eye plane about 4.9cm. These are scale ratios, not text to print. Anatomical constraint: Laterally compressed body; bony cranial top has rounded shoulders, lateral eyes, full cheeks/gill covers; a short blunt mouth, not a conical nose. Show forehead, lateral eyes, pre-eye cranial width, cheek, full opercular covers, upper and lower jaw as distinct integrated volumes. Do not taper the whole skull continuously to a needle. A small mouth must not collapse the pre-eye cranium. Use nearly closed natural mouth with a visible small slit; preserve upper/lower jaw mass. No tube lips, broad flat catfish head, beak, nose spike, cut-flat face or giant protruding eyes. Stop at shoulder; no need to show tail or extended fins. All three views must have the SAME head shape and mouth state. Do not print measurements, labels or fake scale bars; no text. High clarity form study, not an approved biological reconstruction.",
+      "illustration_brief": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\nile_tilapia\\brief.json",
+      "landmarks": [
+        {
+          "id": "lip_rim",
+          "s_proposed": 0.005,
+          "basis": "D experimental rim plane; not the foremost mathematical point",
+          "registration_uncertainty_s": null
+        },
+        {
+          "id": "eye_plane",
+          "s_current_side_approx": 0.1,
+          "basis": "Manual visual reading of current side screenshot, approximate; excludes eye globe projection from biological skull width",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "opercular_rear",
+          "s_current_side_approx": 0.24,
+          "basis": "Manual visual reading of current side screenshot; bluegill ear flap distinct from opercular body",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "Wmax",
+          "s_proposed": 0.1,
+          "basis": "D envelope maximum; not source measured location"
+        },
+        {
+          "id": "peduncle",
+          "s_proposed": 0.78,
+          "basis": "D inspection plane only; final must register actual caudal-fin base"
+        }
+      ],
+      "head_controls": {
+        "all_values_grade": "D-authored, full widths in cm, not a measurement of biological lips/eyes",
+        "lip_rim_plane_width_cm": 1.6,
+        "pre_eye_plane_s": 0.025,
+        "pre_eye_plane_width_cm": 2.5,
+        "eye_plane_skin_width_cm": 5.44,
+        "opercular_plane_skin_width_cm": 5.353,
+        "interorbital_bone_width_cm": null,
+        "lip_aperture_width_cm": null,
+        "eye_globe_depth_cm": null,
+        "unknown_rule": "Do not replace these null biological/optical controls with FishShapes jaw-joint width or generated-image pixels. Lip aperture must be proposed separately from a head envelope."
+      },
+      "shape_constraints": [
+        "Closed skin body except actual oral cavity",
+        "Independent upper/lower jaw, real oral opening, rounded integrated lip rim; no point appended to flat face",
+        "Keep pre-eye cranial mass independent of small mouth slit",
+        "Distinct forehead, eye plane, cheek, operculum, shoulder and trunk cross sections",
+        "Do not deform fins with body envelope; fin roots and motions require new validation after any future geometry change",
+        "Preserve source pixel-art lateral identity; AI gray concepts do not override it"
+      ],
+      "illustration_result": {
+        "file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\nile_tilapia\\output\\nile_tilapia_head_study_raw.png",
+        "workflow_status": "done/human_review",
+        "review": "operator viewed; illustration only; rejected as quantitative modeling authority",
+        "parameter_version": "v0.1 prompt, before v1 numeric revisions; therefore not a drawing of final station table",
+        "defects": [
+          "Lips too thick and lower jaw folds exaggerated",
+          "Gape differs across views; do not trace dimensions"
+        ],
+        "sha256": "05ecae5e53076794d425e42b0d6559c3bb440f23377b901a6f2788d0d19ff07a"
+      },
+      "target_summary": {
+        "max_envelope_width_cm": 5.44,
+        "current_max_skin_width_cm": 4.907959150360306,
+        "retained_current_max_height_cm": 13.557420482476573
+      },
+      "current_side_reference_sha256": "76cc284edbfcc169ffa1e9735298e1af124a39157d63844712dedebc14b77ee1",
+      "landmark_review": "Operator inspected current-side-reference-contact.png, same aspect ratio thumbnails; rough anterior eye/opercular registration only, not precise original-pixel annotation or biological measurement."
+    },
+    "bluegill": {
+      "label": "蓝鳃太阳鱼",
+      "latin": "Lepomis macrochirus",
+      "length": 19.1,
+      "basis": "保留深而侧扁的体型、小口和鳃盖后黑耳瓣。现有整体宽并非差一倍；试验以局部颅部和吻端过渡为主。FishShapes最大宽可能位于头，不能视作已测躯干。",
+      "shape": "Deep high but strongly laterally compressed body, compact rounded-wedge head with small terminal slightly upturned mouth; side-positioned eyes, no broad flat catfish forehead.",
+      "sourceids": [
+        "FISHSHAPES-2022",
+        "BLUEGILL-YOKOGAWA-2013",
+        "BLUEGILL-MUSEUM"
+      ],
+      "source_model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\source-run\\fish.glb",
+      "source_model_sha256": "86064abea887874cad655196b53b39b9f9432aac17616baa91452343b6d045a4",
+      "current_side_reference": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\bluegill-portable-trial-20261030\\mouth-repair-20261031\\candidate-r15\\local\\review\\whole-left-texture.png",
+      "stations": [
+        {
+          "s": 0.005,
+          "x_from_nose_cm": 0.096,
+          "target_width_cm": 0.55,
+          "width_exploration_bracket_cm": [
+            0.495,
+            0.605
+          ],
+          "current_width_cm": 0.17963162064552307,
+          "target_height_cm": 0.7880584001541138,
+          "current_height_cm": 0.7880584001541138,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.012,
+          "x_from_nose_cm": 0.229,
+          "target_width_cm": 0.75,
+          "width_exploration_bracket_cm": [
+            0.675,
+            0.825
+          ],
+          "current_width_cm": 0.3389018177986145,
+          "target_height_cm": 1.1646721363067627,
+          "current_height_cm": 1.1646721363067627,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.025,
+          "x_from_nose_cm": 0.478,
+          "target_width_cm": 1.1,
+          "width_exploration_bracket_cm": [
+            0.99,
+            1.21
+          ],
+          "current_width_cm": 0.6229602098464966,
+          "target_height_cm": 1.6791424751281738,
+          "current_height_cm": 1.6791424751281738,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.04,
+          "x_from_nose_cm": 0.764,
+          "target_width_cm": 1.45,
+          "width_exploration_bracket_cm": [
+            1.305,
+            1.595
+          ],
+          "current_width_cm": 0.8257412910461426,
+          "target_height_cm": 2.230656147003174,
+          "current_height_cm": 2.230656147003174,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.06,
+          "x_from_nose_cm": 1.146,
+          "target_width_cm": 1.65,
+          "width_exploration_bracket_cm": [
+            1.485,
+            1.815
+          ],
+          "current_width_cm": 1.0624489784240723,
+          "target_height_cm": 2.8717424869537354,
+          "current_height_cm": 2.8717424869537354,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.08,
+          "x_from_nose_cm": 1.528,
+          "target_width_cm": 1.8,
+          "width_exploration_bracket_cm": [
+            1.62,
+            1.98
+          ],
+          "current_width_cm": 1.2881345748901367,
+          "target_height_cm": 3.452383041381836,
+          "current_height_cm": 3.452383041381836,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.1,
+          "x_from_nose_cm": 1.91,
+          "target_width_cm": 1.95,
+          "width_exploration_bracket_cm": [
+            1.755,
+            2.145
+          ],
+          "current_width_cm": 1.4556810855865479,
+          "target_height_cm": 4.075338363647461,
+          "current_height_cm": 4.075338363647461,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.12,
+          "x_from_nose_cm": 2.292,
+          "target_width_cm": 2.1,
+          "width_exploration_bracket_cm": [
+            1.89,
+            2.31
+          ],
+          "current_width_cm": 1.6168849468231201,
+          "target_height_cm": 4.702909469604492,
+          "current_height_cm": 4.702909469604492,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.15,
+          "x_from_nose_cm": 2.865,
+          "target_width_cm": 2.25,
+          "width_exploration_bracket_cm": [
+            1.912,
+            2.587
+          ],
+          "current_width_cm": 1.8098012208938599,
+          "target_height_cm": 5.555307865142822,
+          "current_height_cm": 5.555307865142822,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.16,
+          "x_from_nose_cm": 3.0560000000000005,
+          "target_width_cm": 2.3,
+          "width_exploration_bracket_cm": [
+            1.955,
+            2.645
+          ],
+          "current_width_cm": 1.866222620010376,
+          "target_height_cm": 5.8250956535339355,
+          "current_height_cm": 5.8250956535339355,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.18,
+          "x_from_nose_cm": 3.438,
+          "target_width_cm": 2.4,
+          "width_exploration_bracket_cm": [
+            2.16,
+            2.64
+          ],
+          "current_width_cm": 1.9790654182434082,
+          "target_height_cm": 6.364670753479004,
+          "current_height_cm": 6.364670753479004,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.22,
+          "x_from_nose_cm": 4.202,
+          "target_width_cm": 2.5111,
+          "width_exploration_bracket_cm": [
+            2.134,
+            2.888
+          ],
+          "current_width_cm": 2.1646087169647217,
+          "target_height_cm": 7.149954795837402,
+          "current_height_cm": 7.149954795837402,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.24,
+          "x_from_nose_cm": 4.5840000000000005,
+          "target_width_cm": 2.5667,
+          "width_exploration_bracket_cm": [
+            2.182,
+            2.952
+          ],
+          "current_width_cm": 2.2548828125,
+          "target_height_cm": 7.524315357208252,
+          "current_height_cm": 7.524315357208252,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.27,
+          "x_from_nose_cm": 5.157,
+          "target_width_cm": 2.65,
+          "width_exploration_bracket_cm": [
+            2.385,
+            2.915
+          ],
+          "current_width_cm": 2.3610661029815674,
+          "target_height_cm": 7.825301647186279,
+          "current_height_cm": 7.825301647186279,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.35,
+          "x_from_nose_cm": 6.6850000000000005,
+          "target_width_cm": 2.6808,
+          "width_exploration_bracket_cm": [
+            2.279,
+            3.083
+          ],
+          "current_width_cm": 2.5377297401428223,
+          "target_height_cm": 8.016050338745117,
+          "current_height_cm": 8.016050338745117,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.4,
+          "x_from_nose_cm": 7.64,
+          "target_width_cm": 2.7,
+          "width_exploration_bracket_cm": [
+            2.43,
+            2.97
+          ],
+          "current_width_cm": 2.5761148929595947,
+          "target_height_cm": 7.986931324005127,
+          "current_height_cm": 7.986931324005127,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.5,
+          "x_from_nose_cm": 9.55,
+          "target_width_cm": 2.425,
+          "width_exploration_bracket_cm": [
+            2.061,
+            2.789
+          ],
+          "current_width_cm": 2.471904754638672,
+          "target_height_cm": 7.343845844268799,
+          "current_height_cm": 7.343845844268799,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.6,
+          "x_from_nose_cm": 11.46,
+          "target_width_cm": 2.15,
+          "width_exploration_bracket_cm": [
+            1.935,
+            2.365
+          ],
+          "current_width_cm": 2.1217761039733887,
+          "target_height_cm": 5.812844753265381,
+          "current_height_cm": 5.812844753265381,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.7,
+          "x_from_nose_cm": 13.37,
+          "target_width_cm": 1.25,
+          "width_exploration_bracket_cm": [
+            1.125,
+            1.375
+          ],
+          "current_width_cm": 1.2733354568481445,
+          "target_height_cm": 3.585909605026245,
+          "current_height_cm": 3.585909605026245,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.78,
+          "x_from_nose_cm": 14.898,
+          "target_width_cm": 0.5,
+          "width_exploration_bracket_cm": [
+            0.45,
+            0.55
+          ],
+          "current_width_cm": 0.4372917711734772,
+          "target_height_cm": 2.1664936542510986,
+          "current_height_cm": 2.1664936542510986,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        }
+      ],
+      "cross_sections": {
+        "definition": "2D pre-model contour design only. Width factors multiply W/2 at normalized height t, from ventral0 to dorsal1. Mirror sides assumed; no 3D mesh is generated.",
+        "t": [
+          0,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          1
+        ],
+        "head_factors": [
+          0,
+          0.35,
+          0.8,
+          1,
+          0.8,
+          0.46,
+          0
+        ],
+        "trunk_factors": [
+          0,
+          0.3,
+          0.7,
+          1,
+          0.75,
+          0.38,
+          0
+        ],
+        "tail_factors": [
+          0,
+          0.35,
+          0.7,
+          1,
+          0.7,
+          0.35,
+          0
+        ],
+        "basis": "D-authored species-specific outline sketch; independent width and dorsal/ventral contour controls. Neither CT measurement nor approved reconstruction.",
+        "required_later_checks": [
+          "Eye-level width separate from maximum head width",
+          "Cheek/opercular fullness",
+          "Real mouth aperture and upper/lower jaw volume",
+          "No flattening or needle/beak front",
+          "Whole-rim natural transition; no added point on a flat cap"
+        ]
+      },
+      "illustration_prompt": "Create an EXPLORATORY anatomy concept sheet of 蓝鳃太阳鱼, Lepomis macrochirus. This is an AI illustration, not a real specimen photograph or scientific evidence. Three distinct evenly spaced panels on pure pale gray: LEFT a strict dorsal top head view including opercula and shoulder, CENTER a strict front head view, RIGHT a45degree head view. Use realistic neutral matte gray sculptural shading so transverse anatomy is visible; preserve species identity from attached game side reference but do NOT copy its narrow inferred 3D head shape or pixel texture. Body construction hypothesis for review: full fish length 19.1cm, trunk maximum LEFT-RIGHT width only 2.58cm, head width near eye plane about 1.95cm. These are scale ratios, not text to print. Anatomical constraint: Deep high but strongly laterally compressed body, compact rounded-wedge head with small terminal slightly upturned mouth; side-positioned eyes, no broad flat catfish forehead. Show forehead, lateral eyes, pre-eye cranial width, cheek, full opercular covers, upper and lower jaw as distinct integrated volumes. Do not taper the whole skull continuously to a needle. A small mouth must not collapse the pre-eye cranium. Use nearly closed natural mouth with a visible small slit; preserve upper/lower jaw mass. No tube lips, broad flat catfish head, beak, nose spike, cut-flat face or giant protruding eyes. Stop at shoulder; no need to show tail or extended fins. All three views must have the SAME head shape and mouth state. Do not print measurements, labels or fake scale bars; no text. High clarity form study, not an approved biological reconstruction.",
+      "illustration_brief": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\brief.json",
+      "landmarks": [
+        {
+          "id": "lip_rim",
+          "s_proposed": 0.005,
+          "basis": "D experimental rim plane; not the foremost mathematical point",
+          "registration_uncertainty_s": null
+        },
+        {
+          "id": "eye_plane",
+          "s_current_side_approx": 0.11,
+          "basis": "Manual visual reading of current side screenshot, approximate; excludes eye globe projection from biological skull width",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "opercular_rear",
+          "s_current_side_approx": 0.26,
+          "basis": "Manual visual reading of current side screenshot; bluegill ear flap distinct from opercular body",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "Wmax",
+          "s_proposed": 0.4,
+          "basis": "D envelope maximum; not source measured location"
+        },
+        {
+          "id": "peduncle",
+          "s_proposed": 0.78,
+          "basis": "D inspection plane only; final must register actual caudal-fin base"
+        }
+      ],
+      "head_controls": {
+        "all_values_grade": "D-authored, full widths in cm, not a measurement of biological lips/eyes",
+        "lip_rim_plane_width_cm": 0.55,
+        "pre_eye_plane_s": 0.025,
+        "pre_eye_plane_width_cm": 1.1,
+        "eye_plane_skin_width_cm": 2.025,
+        "opercular_plane_skin_width_cm": 2.622,
+        "interorbital_bone_width_cm": null,
+        "lip_aperture_width_cm": null,
+        "eye_globe_depth_cm": null,
+        "unknown_rule": "Do not replace these null biological/optical controls with FishShapes jaw-joint width or generated-image pixels. Lip aperture must be proposed separately from a head envelope."
+      },
+      "shape_constraints": [
+        "Closed skin body except actual oral cavity",
+        "Independent upper/lower jaw, real oral opening, rounded integrated lip rim; no point appended to flat face",
+        "Keep pre-eye cranial mass independent of small mouth slit",
+        "Distinct forehead, eye plane, cheek, operculum, shoulder and trunk cross sections",
+        "Do not deform fins with body envelope; fin roots and motions require new validation after any future geometry change",
+        "Preserve source pixel-art lateral identity; AI gray concepts do not override it"
+      ],
+      "illustration_result": {
+        "file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\output\\bluegill_head_study_raw.png",
+        "workflow_status": "done/human_review",
+        "review": "operator viewed; illustration only; rejected as quantitative modeling authority",
+        "parameter_version": "v0.1 prompt, before v1 numeric revisions; therefore not a drawing of final station table",
+        "defects": [
+          "Mouth too large/thick for small-mouth identity",
+          "Frontal cranial shape generic; no verified matching3D shape"
+        ],
+        "sha256": "877cc843d58f5d72661fae86380bdb556f489a47fc19f5cadbe103e89ea7d152"
+      },
+      "target_summary": {
+        "max_envelope_width_cm": 2.7,
+        "current_max_skin_width_cm": 2.580543419984621,
+        "retained_current_max_height_cm": 8.049657821655273
+      },
+      "current_side_reference_sha256": "48bd73238eabf1720c959fb2b7df5a15ccb9806b6639d5aea1ace8a16f775d1a",
+      "landmark_review": "Operator inspected current-side-reference-contact.png, same aspect ratio thumbnails; rough anterior eye/opercular registration only, not precise original-pixel annotation or biological measurement."
+    },
+    "crucian": {
+      "label": "鲫鱼",
+      "latin": "Carassius auratus, wild-type single-tail, not a fancy goldfish",
+      "length": 20,
+      "basis": "更新：同种野生鲫15尾、3群体实测已找到。20cm试验体宽取2.8，接近NC群体按全长等比例的2.872；其余群体差异大，不能当统一鲫鱼标准。头宽调查仅作佐证。",
+      "shape": "Moderately side-compressed robust wild-type single-tail body, blunt scaleless broadly triangular head, broad interorbital region, small protrusible terminal mouth; no barbels and no fancy goldfish swollen head.",
+      "sourceids": [
+        "CRUCIAN-JIANGXI-2020",
+        "CRUCIAN-ZHEJIANG-SURVEY",
+        "CRUCIAN-AUSTRALIA-2024"
+      ],
+      "source_model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\central-material-20261031\\candidate\\source-run\\fish.glb",
+      "source_model_sha256": "2690e6c1f5c1fd77e73e888d6a0383cfc3f190c4dae93a5528ae91807454b9d1",
+      "current_side_reference": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\crucian-portable-trial-20261030\\central-material-20261031\\candidate\\local\\review\\whole-left-texture.png",
+      "stations": [
+        {
+          "s": 0.005,
+          "x_from_nose_cm": 0.1,
+          "target_width_cm": 0.7,
+          "width_exploration_bracket_cm": [
+            0.595,
+            0.805
+          ],
+          "current_width_cm": 0.392730176448822,
+          "target_height_cm": 0.8599460124969482,
+          "current_height_cm": 0.8599460124969482,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.012,
+          "x_from_nose_cm": 0.24,
+          "target_width_cm": 0.9,
+          "width_exploration_bracket_cm": [
+            0.765,
+            1.035
+          ],
+          "current_width_cm": 0.6363368034362793,
+          "target_height_cm": 1.131152868270874,
+          "current_height_cm": 1.131152868270874,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.025,
+          "x_from_nose_cm": 0.5,
+          "target_width_cm": 1.15,
+          "width_exploration_bracket_cm": [
+            0.977,
+            1.322
+          ],
+          "current_width_cm": 0.863836944103241,
+          "target_height_cm": 1.5629451274871826,
+          "current_height_cm": 1.5629451274871826,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.04,
+          "x_from_nose_cm": 0.8,
+          "target_width_cm": 1.55,
+          "width_exploration_bracket_cm": [
+            1.317,
+            1.782
+          ],
+          "current_width_cm": 0.9958427548408508,
+          "target_height_cm": 2.031169891357422,
+          "current_height_cm": 2.031169891357422,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.06,
+          "x_from_nose_cm": 1.2,
+          "target_width_cm": 1.9,
+          "width_exploration_bracket_cm": [
+            1.615,
+            2.185
+          ],
+          "current_width_cm": 1.1466734409332275,
+          "target_height_cm": 2.575453281402588,
+          "current_height_cm": 2.575453281402588,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.08,
+          "x_from_nose_cm": 1.6,
+          "target_width_cm": 2.1,
+          "width_exploration_bracket_cm": [
+            1.785,
+            2.415
+          ],
+          "current_width_cm": 1.2200067043304443,
+          "target_height_cm": 2.993415594100952,
+          "current_height_cm": 2.993415594100952,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.1,
+          "x_from_nose_cm": 2.0,
+          "target_width_cm": 2.2,
+          "width_exploration_bracket_cm": [
+            1.87,
+            2.53
+          ],
+          "current_width_cm": 1.2933400869369507,
+          "target_height_cm": 3.38148832321167,
+          "current_height_cm": 3.38148832321167,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.12,
+          "x_from_nose_cm": 2.4,
+          "target_width_cm": 2.35,
+          "width_exploration_bracket_cm": [
+            1.998,
+            2.702
+          ],
+          "current_width_cm": 1.3774099349975586,
+          "target_height_cm": 3.6476190090179443,
+          "current_height_cm": 3.6476190090179443,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.15,
+          "x_from_nose_cm": 3.0,
+          "target_width_cm": 2.5,
+          "width_exploration_bracket_cm": [
+            2.125,
+            2.875
+          ],
+          "current_width_cm": 1.5688384771347046,
+          "target_height_cm": 4.014096260070801,
+          "current_height_cm": 4.014096260070801,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.16,
+          "x_from_nose_cm": 3.2,
+          "target_width_cm": 2.55,
+          "width_exploration_bracket_cm": [
+            2.167,
+            2.932
+          ],
+          "current_width_cm": 1.6326481103897095,
+          "target_height_cm": 4.164640426635742,
+          "current_height_cm": 4.164640426635742,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.18,
+          "x_from_nose_cm": 3.6,
+          "target_width_cm": 2.65,
+          "width_exploration_bracket_cm": [
+            2.252,
+            3.047
+          ],
+          "current_width_cm": 1.7602672576904297,
+          "target_height_cm": 4.46572732925415,
+          "current_height_cm": 4.46572732925415,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.22,
+          "x_from_nose_cm": 4.4,
+          "target_width_cm": 2.7167,
+          "width_exploration_bracket_cm": [
+            2.309,
+            3.124
+          ],
+          "current_width_cm": 1.9987486600875854,
+          "target_height_cm": 5.196175575256348,
+          "current_height_cm": 5.196175575256348,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.24,
+          "x_from_nose_cm": 4.8,
+          "target_width_cm": 2.75,
+          "width_exploration_bracket_cm": [
+            2.338,
+            3.163
+          ],
+          "current_width_cm": 2.0920820236206055,
+          "target_height_cm": 5.556091785430908,
+          "current_height_cm": 5.556091785430908,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.27,
+          "x_from_nose_cm": 5.4,
+          "target_width_cm": 2.8,
+          "width_exploration_bracket_cm": [
+            2.38,
+            3.22
+          ],
+          "current_width_cm": 2.226895332336426,
+          "target_height_cm": 6.074090003967285,
+          "current_height_cm": 6.074090003967285,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.35,
+          "x_from_nose_cm": 7.0,
+          "target_width_cm": 2.8,
+          "width_exploration_bracket_cm": [
+            2.38,
+            3.22
+          ],
+          "current_width_cm": 2.4192302227020264,
+          "target_height_cm": 6.706061363220215,
+          "current_height_cm": 6.706061363220215,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.4,
+          "x_from_nose_cm": 8.0,
+          "target_width_cm": 2.8,
+          "width_exploration_bracket_cm": [
+            2.38,
+            3.22
+          ],
+          "current_width_cm": 2.5025227069854736,
+          "target_height_cm": 6.876222610473633,
+          "current_height_cm": 6.876222610473633,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.5,
+          "x_from_nose_cm": 10.0,
+          "target_width_cm": 2.525,
+          "width_exploration_bracket_cm": [
+            2.146,
+            2.904
+          ],
+          "current_width_cm": 2.4409687519073486,
+          "target_height_cm": 6.573361396789551,
+          "current_height_cm": 6.573361396789551,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.6,
+          "x_from_nose_cm": 12.0,
+          "target_width_cm": 2.25,
+          "width_exploration_bracket_cm": [
+            1.912,
+            2.587
+          ],
+          "current_width_cm": 2.034308910369873,
+          "target_height_cm": 5.284339904785156,
+          "current_height_cm": 5.284339904785156,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.7,
+          "x_from_nose_cm": 14.0,
+          "target_width_cm": 1.25,
+          "width_exploration_bracket_cm": [
+            1.062,
+            1.438
+          ],
+          "current_width_cm": 1.3021191358566284,
+          "target_height_cm": 3.4590518474578857,
+          "current_height_cm": 3.4590518474578857,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.78,
+          "x_from_nose_cm": 15.6,
+          "target_width_cm": 0.6,
+          "width_exploration_bracket_cm": [
+            0.51,
+            0.69
+          ],
+          "current_width_cm": 0.5981273055076599,
+          "target_height_cm": 2.4968953132629395,
+          "current_height_cm": 2.4968953132629395,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        }
+      ],
+      "cross_sections": {
+        "definition": "2D pre-model contour design only. Width factors multiply W/2 at normalized height t, from ventral0 to dorsal1. Mirror sides assumed; no 3D mesh is generated.",
+        "t": [
+          0,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          1
+        ],
+        "head_factors": [
+          0,
+          0.5,
+          0.85,
+          1,
+          0.9,
+          0.58,
+          0
+        ],
+        "trunk_factors": [
+          0,
+          0.48,
+          0.83,
+          1,
+          0.86,
+          0.5,
+          0
+        ],
+        "tail_factors": [
+          0,
+          0.35,
+          0.7,
+          1,
+          0.7,
+          0.35,
+          0
+        ],
+        "basis": "D-authored species-specific outline sketch; independent width and dorsal/ventral contour controls. Neither CT measurement nor approved reconstruction.",
+        "required_later_checks": [
+          "Eye-level width separate from maximum head width",
+          "Cheek/opercular fullness",
+          "Real mouth aperture and upper/lower jaw volume",
+          "No flattening or needle/beak front",
+          "Whole-rim natural transition; no added point on a flat cap"
+        ]
+      },
+      "illustration_prompt": "Create an EXPLORATORY anatomy concept sheet of 鲫鱼（现有C.auratus身份）, Carassius auratus, wild-type single-tail, not a fancy goldfish. This is an AI illustration, not a real specimen photograph or scientific evidence. Three distinct evenly spaced panels on pure pale gray: LEFT a strict dorsal top head view including opercula and shoulder, CENTER a strict front head view, RIGHT a45degree head view. Use realistic neutral matte gray sculptural shading so transverse anatomy is visible; preserve species identity from attached game side reference but do NOT copy its narrow inferred 3D head shape or pixel texture. Body construction hypothesis for review: full fish length 20cm, trunk maximum LEFT-RIGHT width only 2.6cm, head width near eye plane about 2.2cm. These are scale ratios, not text to print. Anatomical constraint: Moderately side-compressed robust wild-type single-tail body, blunt scaleless broadly triangular head, broad interorbital region, small protrusible terminal mouth; no barbels and no fancy goldfish swollen head. Show forehead, lateral eyes, pre-eye cranial width, cheek, full opercular covers, upper and lower jaw as distinct integrated volumes. Do not taper the whole skull continuously to a needle. A small mouth must not collapse the pre-eye cranium. Use nearly closed natural mouth with a visible small slit; preserve upper/lower jaw mass. No tube lips, broad flat catfish head, beak, nose spike, cut-flat face or giant protruding eyes. Stop at shoulder; no need to show tail or extended fins. All three views must have the SAME head shape and mouth state. Do not print measurements, labels or fake scale bars; no text. High clarity form study, not an approved biological reconstruction.",
+      "illustration_brief": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\crucian\\brief.json",
+      "landmarks": [
+        {
+          "id": "lip_rim",
+          "s_proposed": 0.005,
+          "basis": "D experimental rim plane; not the foremost mathematical point",
+          "registration_uncertainty_s": null
+        },
+        {
+          "id": "eye_plane",
+          "s_current_side_approx": 0.09,
+          "basis": "Manual visual reading of current side screenshot, approximate; excludes eye globe projection from biological skull width",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "opercular_rear",
+          "s_current_side_approx": 0.23,
+          "basis": "Manual visual reading of current side screenshot; bluegill ear flap distinct from opercular body",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "Wmax",
+          "s_proposed": 0.27,
+          "basis": "D envelope maximum; not source measured location"
+        },
+        {
+          "id": "peduncle",
+          "s_proposed": 0.78,
+          "basis": "D inspection plane only; final must register actual caudal-fin base"
+        }
+      ],
+      "head_controls": {
+        "all_values_grade": "D-authored, full widths in cm, not a measurement of biological lips/eyes",
+        "lip_rim_plane_width_cm": 0.7,
+        "pre_eye_plane_s": 0.025,
+        "pre_eye_plane_width_cm": 1.15,
+        "eye_plane_skin_width_cm": 2.15,
+        "opercular_plane_skin_width_cm": 2.733,
+        "interorbital_bone_width_cm": null,
+        "lip_aperture_width_cm": null,
+        "eye_globe_depth_cm": null,
+        "unknown_rule": "Do not replace these null biological/optical controls with FishShapes jaw-joint width or generated-image pixels. Lip aperture must be proposed separately from a head envelope."
+      },
+      "shape_constraints": [
+        "Closed skin body except actual oral cavity",
+        "Independent upper/lower jaw, real oral opening, rounded integrated lip rim; no point appended to flat face",
+        "Keep pre-eye cranial mass independent of small mouth slit",
+        "Distinct forehead, eye plane, cheek, operculum, shoulder and trunk cross sections",
+        "Do not deform fins with body envelope; fin roots and motions require new validation after any future geometry change",
+        "Preserve source pixel-art lateral identity; AI gray concepts do not override it"
+      ],
+      "illustration_result": {
+        "file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\crucian\\output\\crucian_head_study_raw.png",
+        "workflow_status": "done/human_review",
+        "review": "operator viewed; illustration only; rejected as quantitative modeling authority",
+        "parameter_version": "v0.1 prompt, before v1 numeric revisions; therefore not a drawing of final station table",
+        "defects": [
+          "Gold material instead of neutral gray",
+          "Right view cropped; not same-scale orthographic set",
+          "Jaw folds exaggerated"
+        ],
+        "sha256": "813cf068415b6088122c98c1fc7a0d974e684e23ed7dd6b1b8d1ce1ba869e417"
+      },
+      "target_summary": {
+        "max_envelope_width_cm": 2.8,
+        "current_max_skin_width_cm": 2.502522671868731,
+        "retained_current_max_height_cm": 6.877811908721924
+      },
+      "current_side_reference_sha256": "537fff5102ffc1b407f32884a19e40318985a4aaaa0efdd314fdea9585cd5f1f",
+      "landmark_review": "Operator inspected current-side-reference-contact.png, same aspect ratio thumbnails; rough anterior eye/opercular registration only, not precise original-pixel annotation or biological measurement."
+    },
+    "grass_carp": {
+      "label": "草鱼",
+      "latin": "Ctenopharyngodon idella",
+      "length": 76,
+      "basis": "前躯较圆、后躯侧扁；宽钝头与弓形端位口。10cm最大躯干是设计试验值，成人同测位W序列仍缺，不能按幼鱼数据宣布确定。",
+      "shape": "Elongate body with rounded anterior trunk, laterally compressed rear; broad blunt cranial head, smoothly arched terminal mouth, slightly overhanging upper jaw; no barbels or pointed beak.",
+      "sourceids": [
+        "GRASS-ADULT-2019",
+        "FISHSHAPES-2022",
+        "GRASS-FAO"
+      ],
+      "source_model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\central-material-20261031\\candidate\\source-run\\fish.glb",
+      "source_model_sha256": "d29085a4121f69954ce5c5414295bcee64dd22ee114984f478068e91d6a42c3f",
+      "current_side_reference": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\central-material-20261031\\candidate\\local\\review\\whole-left-texture.png",
+      "stations": [
+        {
+          "s": 0.005,
+          "x_from_nose_cm": 0.38,
+          "target_width_cm": 3.5,
+          "width_exploration_bracket_cm": [
+            2.975,
+            4.025
+          ],
+          "current_width_cm": 1.6698850393295288,
+          "target_height_cm": 2.749601125717163,
+          "current_height_cm": 2.749601125717163,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.012,
+          "x_from_nose_cm": 0.912,
+          "target_width_cm": 4.2,
+          "width_exploration_bracket_cm": [
+            3.57,
+            4.83
+          ],
+          "current_width_cm": 2.5144553184509277,
+          "target_height_cm": 3.7238223552703857,
+          "current_height_cm": 3.7238223552703857,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.025,
+          "x_from_nose_cm": 1.9,
+          "target_width_cm": 5,
+          "width_exploration_bracket_cm": [
+            4.25,
+            5.75
+          ],
+          "current_width_cm": 3.531299352645874,
+          "target_height_cm": 5.117217063903809,
+          "current_height_cm": 5.117217063903809,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.04,
+          "x_from_nose_cm": 3.04,
+          "target_width_cm": 6,
+          "width_exploration_bracket_cm": [
+            5.1,
+            6.9
+          ],
+          "current_width_cm": 4.019869804382324,
+          "target_height_cm": 6.270864963531494,
+          "current_height_cm": 6.270864963531494,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.06,
+          "x_from_nose_cm": 4.56,
+          "target_width_cm": 6.8,
+          "width_exploration_bracket_cm": [
+            5.78,
+            7.82
+          ],
+          "current_width_cm": 4.620723724365234,
+          "target_height_cm": 7.532928466796875,
+          "current_height_cm": 7.532928466796875,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.08,
+          "x_from_nose_cm": 6.08,
+          "target_width_cm": 7.4,
+          "width_exploration_bracket_cm": [
+            6.29,
+            8.51
+          ],
+          "current_width_cm": 4.89939022064209,
+          "target_height_cm": 8.717671394348145,
+          "current_height_cm": 8.717671394348145,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.1,
+          "x_from_nose_cm": 7.6,
+          "target_width_cm": 7.8,
+          "width_exploration_bracket_cm": [
+            6.63,
+            8.97
+          ],
+          "current_width_cm": 5.178056716918945,
+          "target_height_cm": 9.823246002197266,
+          "current_height_cm": 9.823246002197266,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.12,
+          "x_from_nose_cm": 9.12,
+          "target_width_cm": 8.2,
+          "width_exploration_bracket_cm": [
+            6.97,
+            9.43
+          ],
+          "current_width_cm": 5.432281494140625,
+          "target_height_cm": 10.8637113571167,
+          "current_height_cm": 10.8637113571167,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.15,
+          "x_from_nose_cm": 11.4,
+          "target_width_cm": 8.4,
+          "width_exploration_bracket_cm": [
+            7.14,
+            9.66
+          ],
+          "current_width_cm": 5.546281814575195,
+          "target_height_cm": 11.911476135253906,
+          "current_height_cm": 11.911476135253906,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.18,
+          "x_from_nose_cm": 13.68,
+          "target_width_cm": 8.6,
+          "width_exploration_bracket_cm": [
+            7.31,
+            9.89
+          ],
+          "current_width_cm": 5.684341907501221,
+          "target_height_cm": 12.547192573547363,
+          "current_height_cm": 12.547192573547363,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.22,
+          "x_from_nose_cm": 16.72,
+          "target_width_cm": 8.9111,
+          "width_exploration_bracket_cm": [
+            7.574,
+            10.248
+          ],
+          "current_width_cm": 6.2365827560424805,
+          "target_height_cm": 13.922952651977539,
+          "current_height_cm": 13.922952651977539,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.27,
+          "x_from_nose_cm": 20.52,
+          "target_width_cm": 9.3,
+          "width_exploration_bracket_cm": [
+            7.905,
+            10.695
+          ],
+          "current_width_cm": 6.823305130004883,
+          "target_height_cm": 15.165628433227539,
+          "current_height_cm": 15.165628433227539,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.35,
+          "x_from_nose_cm": 26.599999999999998,
+          "target_width_cm": 9.7308,
+          "width_exploration_bracket_cm": [
+            8.271,
+            11.19
+          ],
+          "current_width_cm": 7.425413131713867,
+          "target_height_cm": 15.398154258728027,
+          "current_height_cm": 15.398154258728027,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.4,
+          "x_from_nose_cm": 30.4,
+          "target_width_cm": 10,
+          "width_exploration_bracket_cm": [
+            8.5,
+            11.5
+          ],
+          "current_width_cm": 7.638191223144531,
+          "target_height_cm": 15.469799995422363,
+          "current_height_cm": 15.469799995422363,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.5,
+          "x_from_nose_cm": 38.0,
+          "target_width_cm": 9.35,
+          "width_exploration_bracket_cm": [
+            7.947,
+            10.752
+          ],
+          "current_width_cm": 7.505068302154541,
+          "target_height_cm": 14.844040870666504,
+          "current_height_cm": 14.844040870666504,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.6,
+          "x_from_nose_cm": 45.6,
+          "target_width_cm": 8.7,
+          "width_exploration_bracket_cm": [
+            7.395,
+            10.005
+          ],
+          "current_width_cm": 6.677961349487305,
+          "target_height_cm": 13.014403343200684,
+          "current_height_cm": 13.014403343200684,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.7,
+          "x_from_nose_cm": 53.2,
+          "target_width_cm": 5.3,
+          "width_exploration_bracket_cm": [
+            4.505,
+            6.095
+          ],
+          "current_width_cm": 4.921177864074707,
+          "target_height_cm": 10.342926025390625,
+          "current_height_cm": 10.342926025390625,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.78,
+          "x_from_nose_cm": 59.28,
+          "target_width_cm": 3.1,
+          "width_exploration_bracket_cm": [
+            2.635,
+            3.565
+          ],
+          "current_width_cm": 3.078191041946411,
+          "target_height_cm": 8.156391143798828,
+          "current_height_cm": 8.156391143798828,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Retained measured current game side silhouette; not real-fish height.",
+          "longitudinal_basis": "Engineering station, normalized visible model length; anatomical landmark correspondence still provisional.",
+          "bracket_definition": "Authored exploration bracket, NOT statistical confidence/population interval."
+        },
+        {
+          "s": 0.82,
+          "x_from_nose_cm": 62.31999999999999,
+          "target_width_cm": 2.089,
+          "width_exploration_bracket_cm": [
+            1.776,
+            2.402
+          ],
+          "current_width_cm": 2.0889642238616943,
+          "target_height_cm": 7.494724273681641,
+          "current_height_cm": 7.494724273681641,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        },
+        {
+          "s": 0.85,
+          "x_from_nose_cm": 64.6,
+          "target_width_cm": 1.4098,
+          "width_exploration_bracket_cm": [
+            1.198,
+            1.621
+          ],
+          "current_width_cm": 1.4098151922225952,
+          "target_height_cm": 7.579437255859375,
+          "current_height_cm": 7.579437255859375,
+          "evidence_grade": "D-authored-hypothesis",
+          "height_basis": "Existing game GLB side silhouette retained, not biological H",
+          "longitudinal_basis": "Engineering station; no automatic anatomical equivalence",
+          "bracket_definition": "Design exploration only, not CI"
+        }
+      ],
+      "cross_sections": {
+        "definition": "2D pre-model contour design only. Width factors multiply W/2 at normalized height t, from ventral0 to dorsal1. Mirror sides assumed; no 3D mesh is generated.",
+        "t": [
+          0,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          1
+        ],
+        "head_factors": [
+          0,
+          0.62,
+          0.94,
+          1,
+          0.91,
+          0.62,
+          0
+        ],
+        "trunk_factors": [
+          0,
+          0.6,
+          0.866,
+          1,
+          0.866,
+          0.6,
+          0
+        ],
+        "tail_factors": [
+          0,
+          0.35,
+          0.7,
+          1,
+          0.7,
+          0.35,
+          0
+        ],
+        "basis": "D-authored species-specific outline sketch; independent width and dorsal/ventral contour controls. Neither CT measurement nor approved reconstruction.",
+        "required_later_checks": [
+          "Eye-level width separate from maximum head width",
+          "Cheek/opercular fullness",
+          "Real mouth aperture and upper/lower jaw volume",
+          "No flattening or needle/beak front",
+          "Whole-rim natural transition; no added point on a flat cap"
+        ]
+      },
+      "illustration_prompt": "Create an EXPLORATORY anatomy concept sheet of 草鱼, Ctenopharyngodon idella. This is an AI illustration, not a real specimen photograph or scientific evidence. Three distinct evenly spaced panels on pure pale gray: LEFT a strict dorsal top head view including opercula and shoulder, CENTER a strict front head view, RIGHT a45degree head view. Use realistic neutral matte gray sculptural shading so transverse anatomy is visible; preserve species identity from attached game side reference but do NOT copy its narrow inferred 3D head shape or pixel texture. Body construction hypothesis for review: full fish length 76cm, trunk maximum LEFT-RIGHT width only 10.0cm, head width near eye plane about 7.8cm. These are scale ratios, not text to print. Anatomical constraint: Elongate body with rounded anterior trunk, laterally compressed rear; broad blunt cranial head, smoothly arched terminal mouth, slightly overhanging upper jaw; no barbels or pointed beak. Show forehead, lateral eyes, pre-eye cranial width, cheek, full opercular covers, upper and lower jaw as distinct integrated volumes. Do not taper the whole skull continuously to a needle. A small mouth must not collapse the pre-eye cranium. Use nearly closed natural mouth with a visible small slit; preserve upper/lower jaw mass. No tube lips, broad flat catfish head, beak, nose spike, cut-flat face or giant protruding eyes. Stop at shoulder; no need to show tail or extended fins. All three views must have the SAME head shape and mouth state. Do not print measurements, labels or fake scale bars; no text. High clarity form study, not an approved biological reconstruction.",
+      "illustration_brief": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\grass_carp\\brief.json",
+      "landmarks": [
+        {
+          "id": "lip_rim",
+          "s_proposed": 0.005,
+          "basis": "D experimental rim plane; not the foremost mathematical point",
+          "registration_uncertainty_s": null
+        },
+        {
+          "id": "eye_plane",
+          "s_current_side_approx": 0.07,
+          "basis": "Manual visual reading of current side screenshot, approximate; excludes eye globe projection from biological skull width",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "opercular_rear",
+          "s_current_side_approx": 0.2,
+          "basis": "Manual visual reading of current side screenshot; bluegill ear flap distinct from opercular body",
+          "registration_uncertainty_s": 0.02
+        },
+        {
+          "id": "Wmax",
+          "s_proposed": 0.4,
+          "basis": "D envelope maximum; not source measured location"
+        },
+        {
+          "id": "peduncle",
+          "s_proposed": 0.78,
+          "basis": "D inspection plane only; final must register actual caudal-fin base"
+        }
+      ],
+      "head_controls": {
+        "all_values_grade": "D-authored, full widths in cm, not a measurement of biological lips/eyes",
+        "lip_rim_plane_width_cm": 3.5,
+        "pre_eye_plane_s": 0.025,
+        "pre_eye_plane_width_cm": 5,
+        "eye_plane_skin_width_cm": 7.1,
+        "opercular_plane_skin_width_cm": 8.756,
+        "interorbital_bone_width_cm": null,
+        "lip_aperture_width_cm": null,
+        "eye_globe_depth_cm": null,
+        "unknown_rule": "Do not replace these null biological/optical controls with FishShapes jaw-joint width or generated-image pixels. Lip aperture must be proposed separately from a head envelope."
+      },
+      "shape_constraints": [
+        "Closed skin body except actual oral cavity",
+        "Independent upper/lower jaw, real oral opening, rounded integrated lip rim; no point appended to flat face",
+        "Keep pre-eye cranial mass independent of small mouth slit",
+        "Distinct forehead, eye plane, cheek, operculum, shoulder and trunk cross sections",
+        "Do not deform fins with body envelope; fin roots and motions require new validation after any future geometry change",
+        "Preserve source pixel-art lateral identity; AI gray concepts do not override it"
+      ],
+      "illustration_result": {
+        "file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\grass_carp\\output\\grass_carp_head_study_raw.png",
+        "workflow_status": "done/human_review",
+        "review": "operator viewed; illustration only; rejected as quantitative modeling authority",
+        "parameter_version": "v0.1 prompt, before v1 numeric revisions; therefore not a drawing of final station table",
+        "defects": [
+          "Views not at common scale",
+          "Lips and jaw folds exaggerated; gill-cover form only exploratory"
+        ],
+        "sha256": "4ba079f15224927f34e5af7c849f8814a43d4cbaec5bc65054195b8bdcd9a597"
+      },
+      "target_summary": {
+        "max_envelope_width_cm": 10,
+        "current_max_skin_width_cm": 7.638191031987027,
+        "retained_current_max_height_cm": 15.472467422485352
+      },
+      "current_side_reference_sha256": "368582c61a69a67bc64f658cc82ba1f8ac5d38a4b2bf897e4298b7adc8751919",
+      "landmark_review": "Operator inspected current-side-reference-contact.png, same aspect ratio thumbnails; rough anterior eye/opercular registration only, not precise original-pixel annotation or biological measurement."
+    }
+  },
+  "biological_dimensions_complete": false,
+  "build_authorized_by_this_file": false,
+  "parameter_use": "This is a complete experimental envelope proposal and evidence ledger, not a claim that all dimensions are measured. No final species profile or model acceptance; unresolved anatomical registration must be settled in a dedicated 2D cage review before mesh construction.",
+  "workflow": [
+    "Confirm species, gameTL, life stage/sex when known",
+    "Collect same-species data and native definitions; record unknowns and rejected sources",
+    "Register mouth rim, pre-eye, eyes, operculum, shoulder, dorsal/anal origin and caudal base on current side reference; do not substitute uniform length fractions",
+    "Build independent 2D transverse cages for head/shoulder/trunk/tail, with confidence/source per control; review top/front/45degree and lateral identity",
+    "Use generated views only to propose or falsify shapes; record mismatched views, never average images into scientific data",
+    "Freeze reviewed cage/parameters before actual modeling. Pilot Nile tilapia only; other fish remain independent",
+    "Future modeling must satisfy budget preferred1500/hard2000 whole fish, mouth-first, all-fin/root/motion/body-integrity and final exported cold-read review; none performed/claimed this turn"
+  ],
+  "priority_experiment": "Nile tilapia: strongest plane-defined head/body measurement evidence; current total body width close to selected biological scenario, so test independent anterior volume instead of blanket widening."
+}

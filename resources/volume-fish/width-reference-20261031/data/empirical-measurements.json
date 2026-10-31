@@ -1,0 +1,364 @@
+{
+  "definitions": {
+    "TL": "吻端至尾鳍后缘全长；与SL不可互换",
+    "SL": "吻端至尾鳍基标准长",
+    "W": "完整左右宽度，不是半宽、不含伸展鱼鳍",
+    "FishShapes_Max_fish_width": "整鱼最宽位置，可能在头部；不能直接当成躯干某测位",
+    "FishShapes_Mouth_width": "两侧关节骨—方骨关节间距，不是唇缘或口裂宽",
+    "ratio_of_group_means": "组均值之比，不是个体比值均值或置信区间"
+  },
+  "FishShapes": [
+    {
+      "species": "grass_carp",
+      "USNM": "198953",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 43.3,
+        "Standard_length": 139.48,
+        "Max_body_depth": 33.59,
+        "Max_fish_width": 22.86,
+        "Head_depth": 19.89,
+        "Lower_jaw_length": 12.02,
+        "Mouth_width": 9.91,
+        "Min_caudalpeduncle_depth": 16.44,
+        "Min_caudalpeduncle_width": 2.86
+      },
+      "W_over_SL": 0.16389446515629483,
+      "W_over_H": 0.6805596903840427,
+      "jaw_joint_span_over_SL": 0.07104961284772011,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "grass_carp",
+      "USNM": "86445",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 81.5,
+        "Standard_length": 168.09,
+        "Max_body_depth": 37.57,
+        "Max_fish_width": 28.79,
+        "Head_depth": 24.35,
+        "Lower_jaw_length": 14.26,
+        "Mouth_width": 10.76,
+        "Min_caudalpeduncle_depth": 17.4,
+        "Min_caudalpeduncle_width": 3.44
+      },
+      "W_over_SL": 0.17127729192694388,
+      "W_over_H": 0.7663029012509981,
+      "jaw_joint_span_over_SL": 0.06401332619430067,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "bluegill",
+      "USNM": "125686",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 169.9,
+        "Standard_length": 176.8,
+        "Max_body_depth": 81.46,
+        "Max_fish_width": 27.52,
+        "Head_depth": 45.92,
+        "Lower_jaw_length": 16.95,
+        "Mouth_width": 14.94,
+        "Min_caudalpeduncle_depth": 24.35,
+        "Min_caudalpeduncle_width": 8.06
+      },
+      "W_over_SL": 0.15565610859728504,
+      "W_over_H": 0.3378345200098208,
+      "jaw_joint_span_over_SL": 0.0845022624434389,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "bluegill",
+      "USNM": "244538",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 290.7,
+        "Standard_length": 185.45,
+        "Max_body_depth": 94.01,
+        "Max_fish_width": 36.44,
+        "Head_depth": 46.74,
+        "Lower_jaw_length": 21.22,
+        "Mouth_width": 20.44,
+        "Min_caudalpeduncle_depth": 28.57,
+        "Min_caudalpeduncle_width": 10.48
+      },
+      "W_over_SL": 0.1964950121326503,
+      "W_over_H": 0.3876183384746303,
+      "jaw_joint_span_over_SL": 0.11021838770558104,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "bluegill",
+      "USNM": "74910",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 306.3,
+        "Standard_length": 189.01,
+        "Max_body_depth": 107.68,
+        "Max_fish_width": 36.94,
+        "Head_depth": 62.68,
+        "Lower_jaw_length": 18.5,
+        "Mouth_width": 22.78,
+        "Min_caudalpeduncle_depth": 30.23,
+        "Min_caudalpeduncle_width": 9.78
+      },
+      "W_over_SL": 0.19543939474101898,
+      "W_over_H": 0.3430534918276374,
+      "jaw_joint_span_over_SL": 0.12052272366541454,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "nile_tilapia",
+      "USNM": "224834",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 192.12,
+        "Standard_length": 166.96,
+        "Max_body_depth": 66.2,
+        "Max_fish_width": 33.6,
+        "Head_depth": 39.0,
+        "Lower_jaw_length": 19.1,
+        "Mouth_width": 15.4,
+        "Min_caudalpeduncle_depth": 25.3,
+        "Min_caudalpeduncle_width": 6.4
+      },
+      "W_over_SL": 0.20124580737901293,
+      "W_over_H": 0.5075528700906344,
+      "jaw_joint_span_over_SL": 0.09223766171538093,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "nile_tilapia",
+      "USNM": "72857",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 284.6,
+        "Standard_length": 206.43,
+        "Max_body_depth": 93.86,
+        "Max_fish_width": 42.78,
+        "Head_depth": 56.48,
+        "Lower_jaw_length": 23.56,
+        "Mouth_width": 27.04,
+        "Min_caudalpeduncle_depth": 33.36,
+        "Min_caudalpeduncle_width": 10.22
+      },
+      "W_over_SL": 0.20723732015695392,
+      "W_over_H": 0.455785212017899,
+      "jaw_joint_span_over_SL": 0.1309887128808797,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    },
+    {
+      "species": "nile_tilapia",
+      "USNM": "88949",
+      "units": "mm, Total_weight in g",
+      "original": {
+        "Total_weight": 451.1,
+        "Standard_length": 206.67,
+        "Max_body_depth": 102.47,
+        "Max_fish_width": 48.82,
+        "Head_depth": 56.45,
+        "Lower_jaw_length": 24.62,
+        "Mouth_width": 29.45,
+        "Min_caudalpeduncle_depth": 34.82,
+        "Min_caudalpeduncle_width": 8.22
+      },
+      "W_over_SL": 0.2362219964194126,
+      "W_over_H": 0.4764321264760418,
+      "jaw_joint_span_over_SL": 0.14249770164997339,
+      "source": "https://zenodo.org/records/6642650",
+      "limits": "Adult-sized preserved Smithsonian specimens, n=2 or 3; not population bounds. TL unavailable. Head-width station unavailable."
+    }
+  ],
+  "FishShapes_summary": {
+    "nile_tilapia": {
+      "n": 3,
+      "W_over_SL": [
+        0.20124580737901293,
+        0.2362219964194126
+      ],
+      "W_over_H": [
+        0.455785212017899,
+        0.5075528700906344
+      ],
+      "jaw_joint_span_over_SL": [
+        0.09223766171538093,
+        0.14249770164997339
+      ]
+    },
+    "bluegill": {
+      "n": 3,
+      "W_over_SL": [
+        0.15565610859728504,
+        0.1964950121326503
+      ],
+      "W_over_H": [
+        0.3378345200098208,
+        0.3876183384746303
+      ],
+      "jaw_joint_span_over_SL": [
+        0.0845022624434389,
+        0.12052272366541454
+      ]
+    },
+    "grass_carp": {
+      "n": 2,
+      "W_over_SL": [
+        0.16389446515629483,
+        0.17127729192694388
+      ],
+      "W_over_H": [
+        0.6805596903840427,
+        0.7663029012509981
+      ],
+      "jaw_joint_span_over_SL": [
+        0.06401332619430067,
+        0.07104961284772011
+      ]
+    }
+  },
+  "nile_AA10_181d": {
+    "source": "https://www.scielo.br/j/bjb/a/4CGNRXRc6t8ndBgjccN37sz/?lang=en",
+    "table": "Table2 AA10, adjusted family means; experiment initially15/family, not a single individual",
+    "units": "cm",
+    "TL": 37.5,
+    "SL": 29.7,
+    "HL": 10.0,
+    "head_width_immediately_behind_eyes": 5.1,
+    "W1_dorsal_origin": 5.0,
+    "W2_dorsal_middle": 4.2,
+    "W3_anal_origin": 2.8,
+    "W4_peduncle_middle": 1.7,
+    "H1": 13.2,
+    "H2": 13.9,
+    "H3": 12.2,
+    "H4": 4.4,
+    "excluded": "Head-height printed1.1 is suspicious; not used. Torso is not used to reconcile independently adjusted means."
+  },
+  "nile_40cm_isometric_scenario": {
+    "TL": 40.0,
+    "SL": 31.68,
+    "HL": 10.6667,
+    "head_width_immediately_behind_eyes": 5.44,
+    "W1_dorsal_origin": 5.3333,
+    "W2_dorsal_middle": 4.48,
+    "W3_anal_origin": 2.9867,
+    "W4_peduncle_middle": 1.8133,
+    "H1": 14.08,
+    "H2": 14.8267,
+    "H3": 13.0133,
+    "H4": 4.6933,
+    "limits": "B-derived illustrative isometry of one family/time point, not measured40cm individual and not universal Nile tilapia."
+  },
+  "crucian_jiangxi_2020": {
+    "source": "https://www.sciengine.com/doi/pdf/5DD4229490634637B5A3C7B452E5269E",
+    "doi": "10.13836/j.jjau.2020087",
+    "location": "PDF page3 / journal757, Table1; methods page3",
+    "identity": "Wild Carassius auratus; live anesthetized fish measured before cooking/dissection. Three populations, n15 total.",
+    "local_pdf": "Download429; web-indexed full table and methods read; no local PDF fabricated.",
+    "groups": [
+      {
+        "group": "PX",
+        "n": 5,
+        "TL_mean_cm": 16.8,
+        "SL_mean_cm": 14,
+        "HL_mean_cm": 3.4,
+        "W_mean_cm": 2.4,
+        "H_mean_cm": 5.4,
+        "W_observed_range_cm": [
+          2.1,
+          2.7
+        ],
+        "W_mean_over_TL_mean": 0.14285714285714285,
+        "W_mean_over_H_mean": 0.4444444444444444,
+        "W_20cm_isometric_scenario": 2.8571428571428568
+      },
+      {
+        "group": "NC",
+        "n": 6,
+        "TL_mean_cm": 19.5,
+        "SL_mean_cm": 15.8,
+        "HL_mean_cm": 4.3,
+        "W_mean_cm": 2.8,
+        "H_mean_cm": 6.2,
+        "W_observed_range_cm": [
+          2.6,
+          3.0
+        ],
+        "W_mean_over_TL_mean": 0.14358974358974358,
+        "W_mean_over_H_mean": 0.4516129032258064,
+        "W_20cm_isometric_scenario": 2.8717948717948714
+      },
+      {
+        "group": "RC",
+        "n": 4,
+        "TL_mean_cm": 17.2,
+        "SL_mean_cm": 13.4,
+        "HL_mean_cm": 3.7,
+        "W_mean_cm": 1.7,
+        "H_mean_cm": 5.2,
+        "W_observed_range_cm": [
+          1.4,
+          2.0
+        ],
+        "W_mean_over_TL_mean": 0.09883720930232558,
+        "W_mean_over_H_mean": 0.3269230769230769,
+        "W_20cm_isometric_scenario": 1.9767441860465116
+      }
+    ]
+  },
+  "crucian_head_survey": {
+    "source": "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web1756/site/attach/-1/1711021503559785406.pdf",
+    "location": "PDF93 / printed88 Table4-22; species list PDF91 labels 鲫 Cyprinus auratus (old combination)",
+    "n": 2,
+    "reported_length_cm": 12.75,
+    "W_cm": 2.19,
+    "H_cm": 4.67,
+    "HL_cm": 2.67,
+    "HW_cm": 2.16,
+    "HH_cm": 2.26,
+    "HW_over_W": 0.9863013698630138,
+    "HW_over_HL": 0.8089887640449439,
+    "limits": "B-caution: table aggregation undefined, length endpoint and head-width plane undefined; do not convert to20cm TL. N2 is corroboration of head fullness only; not population interval."
+  },
+  "grass_adult_2019": {
+    "source": "https://www.ijsr.net/archive/v8i6/ART20198881.pdf",
+    "location": "PDF5 / printed1903 Table1 female n20",
+    "SL_range_cm": [
+      37,
+      69.9
+    ],
+    "HW_over_TL_observed_range": [
+      0.103,
+      0.125
+    ],
+    "HW_over_TL_mean": 0.111,
+    "HL_over_TL_range": [
+      0.186,
+      0.222
+    ],
+    "HL_over_TL_mean": 0.198,
+    "head_depth_over_TL_range": [
+      0.127,
+      0.178
+    ],
+    "HW_76cm_scenario_cm": [
+      7.828,
+      9.5
+    ],
+    "limits": "B-caution: unspecified HW plane; several unrelated table rows have means outside bounds; maleHWlower1.3% suspicious, excluded. FemaleHW is provisional corroboration, not sole authority. Small FishShapes grass specimens not extrapolated as adult truth."
+  },
+  "unmeasured": [
+    "Same-individual detailed head/trunk cross-section outlines",
+    "All four biological lip-aperture widths and pre-eye cranial widths",
+    "Bluegill plane-defined head-width series",
+    "Sex, population and reproductive condition of game designs"
+  ]
+}

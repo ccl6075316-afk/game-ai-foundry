@@ -1,0 +1,7 @@
+{
+  "kind": "species_fin_cage_settings",
+  "basis": "Native alpha carries pixel detail. Circumscribed supports are cages, not anatomical measurements. Clearance includes finite shell and motion margin.",
+  "bluegill": {"support_sides": 12, "basal_seed_limit": 6, "free_clearance_mm": 0.3, "outward_mm": {"Pectoral_left_mesh": 0.15, "Pectoral_right_mesh": 0.15}, "outset_basis": "Current490 BodyOnly right pectoral finite face penetrated0.05061mm; symmetric0.15mm outward translation preserves native patch and rig, full current gate required."},
+  "crucian": {"support_sides": 12, "basal_seed_limit": 6, "free_clearance_mm": 0.3, "translation_mm": {"Anal_mesh": [0, -0.3, 0]}, "translation_basis": "Current490 independent body/fin motion reached0.14274mm anal finite-face penetration;0.3mm ventral clearance is an authored fit, not a measured anatomical value. Full current gate required."},
+  "grass_carp": {"support_sides": 10, "basal_seed_limit": 4, "free_clearance_mm": 0.3}
+}
