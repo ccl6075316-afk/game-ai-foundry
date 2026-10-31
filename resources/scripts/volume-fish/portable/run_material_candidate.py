@@ -7,6 +7,7 @@ import argparse,json,subprocess,sys,time
 from pathlib import Path
 from fish_asset_spec import ROOT,artifact_output
 from parts import read,sha
+from task_power import keep_system_awake
 HERE=Path(__file__).resolve().parent
 def run(a):
     config=read(a.config);inputs={k:(ROOT/config[k]).resolve()for k in ['input_blend','authoring_script','authoring_config','parts_file','root_plan','rename_report','review_settings']}
@@ -19,7 +20,13 @@ def run(a):
     try:
         stage('author',[blend,'--background','--python-exit-code','1','--python',str(inputs['authoring_script']),'--','--blend',str(inputs['input_blend']),'--config',str(inputs['authoring_config']),'--output',str(out/'author')])
         stage('pack',[py,str(HERE.parent/'pack_fish_material_atlas.py'),'--model',str(out/'author/fish.glb'),'--output',str(out/'packing')])
-        stage('spec',[py,str(HERE/'prepare_spec.py'),'--source-blend',str(out/'author/fish.blend'),'--reference-glb',str(out/'packing/merged-mask.glb'),'--atlas',str(out/'packing/atlas.png'),'--packing-report',str(out/'packing/packing.validation.json'),'--parts',str(inputs['parts_file']),'--output',str(out/'spec.json'),'--json'])
+        parts_file=inputs['parts_file']
+        if config.get('use_author_surface_roles'):
+            from material_parts import from_author_report
+            parts_file=out/'parts-and-view.json'
+            parts=from_author_report(read(inputs['parts_file']),read(out/'packing/packing.validation.json'),read(out/'author/authoring.validation.json'),read(inputs['authoring_config'])['body'],sha(out/'author/fish.glb'))
+            parts_file.write_text(json.dumps(parts,indent=2)+'\n',encoding='utf8')
+        stage('spec',[py,str(HERE/'prepare_spec.py'),'--source-blend',str(out/'author/fish.blend'),'--reference-glb',str(out/'packing/merged-mask.glb'),'--atlas',str(out/'packing/atlas.png'),'--packing-report',str(out/'packing/packing.validation.json'),'--parts',str(parts_file),'--output',str(out/'spec.json'),'--json'])
         stage('source',[py,str(HERE/'run_source.py'),'--spec',str(out/'spec.json'),'--blender',blend,'--output',str(out/'source-run'),'--execute','--json'])
         stage('part-plan',[py,str(HERE/'prepare_validation.py'),'--model',str(out/'source-run/fish.glb'),'--spec',str(out/'source-run/final-spec.json'),'--output',str(out/'plans'),'--json'])
         stage('fin-plan',[py,str(HERE/'prepare_fin_validation.py'),'--root-plan',str(inputs['root_plan']),'--spec',str(out/'source-run/final-spec.json'),'--parts-manifest',str(out/'plans/parts-manifest.json'),'--mesh-renames',str(inputs['rename_report']),'--root-collar-mm','0.5','--penetration-tolerance-mm','0.02','--output',str(out/'fin.plan.json')])
@@ -36,4 +43,6 @@ def run(a):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for k in ['config','output','blender','godot']:p.add_argument('--'+k,type=Path,required=True)
-    p.add_argument('--json',action='store_true');raise SystemExit(run(p.parse_args()))
+    p.add_argument('--json',action='store_true')
+    with keep_system_awake():
+        raise SystemExit(run(p.parse_args()))

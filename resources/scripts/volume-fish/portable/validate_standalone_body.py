@@ -42,8 +42,8 @@ def inspect_model(plan):
         doc,blob,opacity=logical_document(plan['model'],plan['body'],plan['fins'],plan['packed_parts_manifest'])
     else:doc,blob=read_glb(Path(plan['model']))
     mesh_nodes=[n for n in doc['nodes'] if 'mesh' in n]
-    assert len(plan['fins'])==7 and len(set(plan['fins']))==7 and plan['body'] not in plan['fins'], 'Explicit seven-fin inventory required'
-    assert {n['name'] for n in mesh_nodes}=={plan['body'],*plan['fins']} and len(mesh_nodes)==8, 'Unexpected/empty body or fin inventory'
+    assert plan['fins'] and len(set(plan['fins']))==len(plan['fins']) and plan['body'] not in plan['fins'], 'Explicit complete species fin inventory required'
+    assert {n['name'] for n in mesh_nodes}=={plan['body'],*plan['fins']} and len(mesh_nodes)==1+len(plan['fins']), 'Unexpected/empty body or fin inventory'
     bodies=[n for n in mesh_nodes if n['name']==plan['body']];assert len(bodies)==1
     body=bodies[0];assert 'skin' in body and doc.get('skins') and doc.get('animations'), 'Missing actual rig/animation'
     primitives=doc['meshes'][body['mesh']]['primitives'];assert len(primitives)==plan['expected_body_surfaces']>0

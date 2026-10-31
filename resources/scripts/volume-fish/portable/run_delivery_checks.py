@@ -1,4 +1,4 @@
-"""Execute explicit portable seven-fin delivery gates; stop on the first failure.
+"""Execute explicit species-inventory delivery gates; stop on the first failure.
 
 Config contains final_spec, fin_plan, ordinary_reference, geometry_profile,
 head_stations, head_tolerance, pose_time, details and review_sources. All input
@@ -12,6 +12,7 @@ sys.path.insert(0,str(HERE))
 from fish_asset_spec import load_spec,resolve_ref,artifact_output
 from glb_io import read_glb,arrays
 from parts import read,sha
+from task_power import keep_system_awake
 
 def write(p,v):p.write_text(json.dumps(v,indent=2)+'\n',encoding='utf8')
 def path(v):return (ROOT/v).resolve()
@@ -19,17 +20,28 @@ def dump_glb(p,doc,blob):
     j=json.dumps(doc,separators=(',',':')).encode();j+=b' '*(-len(j)%4);blob+=b'\0'*(-len(blob)%4)
     p.write_bytes(struct.pack('<4sII',b'glTF',2,28+len(j)+len(blob))+struct.pack('<I4s',len(j),b'JSON')+j+struct.pack('<I4s',len(blob),b'BIN\0')+blob)
 
+def check_fin_inventory(body, manifest, authored, profile):
+    expected={f['name']+suffix for f in profile['fins'] for suffix in (['_left','_right'] if f['paired'] else [''])}
+    actual=manifest['fin_names']
+    assert expected and len(actual)==len(set(actual)) and body not in actual
+    assert manifest['body_names']==[body] and set(actual)==set(authored['fins'])
+    # author_trial_pbr's explicit collision-avoidance rename only. Do not infer
+    # species anatomy from a fixed seven-fin count or silently omit adipose fins.
+    original=[n if n in expected else n.removesuffix('_mesh') for n in actual]
+    assert len(original)==len(set(original)) and set(original)==expected, 'Fin inventory differs from own species profile'
+
 def prepare(config_file,out):
     config=read(config_file);spec=load_spec(path(config['final_spec']));fin_path=path(config['fin_plan']);fin=read(fin_path)['items'][0]
     model=resolve_ref(spec['model']);manifest_path=Path(fin['packed_parts_manifest']);manifest=read(manifest_path)
     assert sha(model)==fin['model_sha256']==manifest['model_sha256'] and sha(manifest_path)==fin['packed_parts_manifest_sha256']
-    assert manifest['body_names']==[config['body']] and set(manifest['fin_names'])==set(fin['fins']) and len(fin['fins'])==7
+    profile=read(path(config['geometry_profile']))
+    check_fin_inventory(config['body'],manifest,fin,profile)
     p={k:copy.deepcopy(fin[k])for k in ('species','model','model_sha256','motion_profile','motion_profile_sha256','motion_runtime','packed_parts_manifest','packed_parts_manifest_sha256','frozen_inputs')}
     scale=spec['viewer']['model_scale'];assert isinstance(scale,(int,float)) and scale>0
     p.update(motion_runtime_sha256=sha(p['motion_runtime']),model_scale=scale,body=config['body'],fins=list(fin['fins']),expected_triangles=manifest['triangles'],expected_body_surfaces=sum(x['opaque_uv']for x in manifest['parts']),maximum_amplitude=2.5,pose_time=config['pose_time'])
     dependencies=[config_file,fin_path,path(config['final_spec']),Path(__file__),HERE/'logical_document.py',HERE/'validate_standalone_body.py',HERE/'capture_standalone_body.gd',HERE/'validate_motion_controls.gd']
     p['frozen_inputs'].update({str(x.resolve()):sha(x)for x in dependencies});write(out/'body-motion.plan.json',p)
-    profile=read(path(config['geometry_profile']));sections=profile['body']['sections']
+    sections=profile['body']['sections']
     target=[[u,float(np.interp(u,[s[0]for s in sections],[s[3]for s in sections]))]for u in config['head_stations']]
     ordinary=path(config['ordinary_reference']);doc,blob=read_glb(ordinary);blob=bytearray(blob);node=next(n for n in doc['nodes']if n.get('name')==p['body']and'mesh'in n)
     for prim in doc['meshes'][node['mesh']]['primitives']:
@@ -80,4 +92,5 @@ def run(args):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     for k in ['config','output','godot','blender']:parser.add_argument('--'+k,type=Path,required=True)
-    raise SystemExit(run(parser.parse_args()))
+    with keep_system_awake():
+        raise SystemExit(run(parser.parse_args()))

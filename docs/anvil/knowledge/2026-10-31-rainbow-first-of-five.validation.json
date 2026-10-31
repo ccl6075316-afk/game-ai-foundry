@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "kind": "first_of_five_rainbow_closeout",
+  "current": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\manifest.json",
+    "sha256": "a85545519b4287f4d32d2b9ab5da3d0937db5892d47bac707d2c34fed5efb352"
+  },
+  "sop_postcleanup": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\postcleanup-sop.validation.json",
+    "sha256": "986d1c3aaf1ba744286c44ba5f5e8e17240f734ac1cb32a7e6ce87ff29d3fd9d"
+  },
+  "lessons": {
+    "path": "E:\\game-ai-foundry\\resources\\skills\\fish-volume-production\\references\\species-inventory-and-oral-donor.md",
+    "sha256": "302dc62d46745a4877f0f65e442303fd31236931870b946422992a6fa1685bad"
+  },
+  "tests": {
+    "portable": 80,
+    "failed": 0,
+    "actual_author_surface_adaptation_equals_reviewed_inventory": true
+  },
+  "cleanup_bytes": 245739177,
+  "retained_actual_bytes": 124162852,
+  "user_acceptance": false,
+  "canonical_installed": false
+}

@@ -51,6 +51,9 @@ def generate_review():
         text = text[:pos] + 'import sys\nsys.path.append(str(Path(__file__).resolve().parent.parent))\n' + text[pos:]
         text = replace(text, 'from packed_fish_parts import logical_document', 'from logical_document import logical_document')
         if name.startswith('validate'):
+            text = replace(text, "len(plan['fins'])==7 and len(set(plan['fins']))==7", "plan['fins'] and len(set(plan['fins']))==len(plan['fins'])")
+            text = replace(text, "'Explicit seven-fin inventory required'", "'Explicit complete species fin inventory required'")
+            text = replace(text, 'len(mesh_nodes)==8', "len(mesh_nodes)==1+len(plan['fins'])")
             text = replace(text, "logical_document(plan['model'],plan['body'],plan['fins'])", "logical_document(plan['model'],plan['body'],plan['fins'],plan['packed_parts_manifest'])")
             text = text.replace("Path(__file__).with_name('freeze_surface_ownership.py')", "Path(__file__).parent.parent/'freeze_surface_ownership.py'")
             text = text.replace("Path(__file__).with_name('validate_body_integrity.py')", "Path(__file__).parent.parent/'validate_body_integrity.py'")

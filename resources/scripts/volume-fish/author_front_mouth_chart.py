@@ -85,11 +85,26 @@ def color(points,old_uv,role,surface_normal):
  valid=(fx>=0)&(fx<FW)&(y>=0)&(y<FH)
  xy=np.stack([np.clip(np.rint(fx),0,FW-1),np.clip(np.rint(y),0,FH-1)],axis=1).astype(int)
  rgba=dp[FH-1-xy[:,1],xy[:,0]]
+ if role==1 and cfg.get('oral_material_roi_px'):
+  # Mouth-wall color has its own measured donor domain. Projecting the full
+  # head width into a small reference aperture otherwise samples white cheeks
+  # onto the roof/floor and stretches the lip outline through the cavity.
+  back,front=cfg['oral_depth_u']
+  depth=np.clip((front-u)/(front-back),0,1)
+  across=.5+.5*points[:,1]/np.maximum(w,1e-7)
+  oral_xy=bounded_roi_coordinates(across,depth,cfg['oral_material_roi_px'],[FW,FH])
+  oral_xy=np.rint(oral_xy).astype(int)
+  rgba=dp[FH-1-oral_xy[:,1],oral_xy[:,0]]
+  valid=np.ones(len(points),dtype=bool)
  amount=smooth((u-cfg['front_start_u'])/(cfg['front_full_u']-cfg['front_start_u']))*(1-smooth((side-cfg['side_full'])/(cfg['side_original']-cfg['side_full'])))
  # Preserve the side surface but include the actual rounded anterior cap.
  cap=smooth((u-cfg['cap_start_u'])/(cfg['cap_full_u']-cfg['cap_start_u']))
  amount=np.maximum(amount,cap)
  if role==1:amount=np.ones(len(points))
+ if role==0 and cfg.get('protect_source_eyes_in_front_material'):
+  c=cfg['interocular_material'];support=c['target_eye_lateral_support']
+  source_xy=np.stack([old_uv[:,0]*W,(1-old_uv[:,1])*H],axis=1)
+  amount*=target_eye_material_allowance(source_xy,side,c['protected_target_source_rects_px'],c['target_protection_fade_px'],support['start'],support['full'])
  amount*=valid
  assert not np.any((amount>.001)&(rgba[:,3]<.95))
  result=original*(1-amount[:,None])+rgba*amount[:,None];result[:,3]=1
