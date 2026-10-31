@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "species": "sea_bass",
+  "manifest": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\manifest.json",
+    "sha256": "6a9a05c3c757d67866c9f327441f1402b3ce8d5c47b369ed927db02d9b7e56e3"
+  },
+  "sop": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\post-cleanup-sop.validation.json",
+    "sha256": "c798f6b591b0ec15d9975de30f7fb7a5a2ee8dd5c4b3542e91a6568df423c40e"
+  },
+  "whole_fish_triangles": 1986,
+  "real_length_cm": 60,
+  "applicable_fins": 8,
+  "portable_tests": 91,
+  "cleanup_removed_bytes": 602884943,
+  "retained_bytes": 143982784,
+  "lessons": "resources/skills/fish-volume-production/references/sea-bass-lessons-20261031.md",
+  "user_acceptance": false,
+  "installed": false
+}

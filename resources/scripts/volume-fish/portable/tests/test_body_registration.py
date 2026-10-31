@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from fish_asset_spec import ROOT
-from register_body_donor import register,sha
+from register_body_donor import register,sha,completion_weights
 class RegistrationTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory(prefix='skin-register-',dir=ROOT/'work/fish-portable-tools');self.base=Path(self.tmp.name)
@@ -19,6 +19,14 @@ class RegistrationTests(unittest.TestCase):
         Image.new('RGB',(288,288)).save(self.source)
         with self.assertRaises(AssertionError):register(self.source,self.generated,self.config,self.base/'out')
         self.assertFalse((self.base/'out').exists())
+    def test_requested_erased_artifact_cannot_remain_protected_or_half_blended(self):
+        protected=np.ones((30,40),dtype=bool);protected[5:25,5:35]=False
+        for rect in [[0,0,3,3],[5,10,7,15]]:
+            with self.assertRaisesRegex(AssertionError,'Required completion pixels'):completion_weights(protected,6,[rect])
+    def test_requested_artifact_inside_complete_donor_is_accepted(self):
+        protected=np.ones((30,40),dtype=bool);protected[5:25,5:35]=False
+        amount=completion_weights(protected,6,[[12,12,20,18]])
+        self.assertTrue((amount[12:18,12:20]==1).all());self.assertTrue((amount[protected]==0).all())
     def test_feather_keeps_owned_pixels_and_does_not_restore_removed_fin_alpha(self):
         image=np.asarray(Image.open(self.source).convert('RGBA')).copy()
         image[90:110,90:145,:3]=[245,25,60]
