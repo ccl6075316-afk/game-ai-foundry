@@ -2,6 +2,13 @@ extends Control
 ## Editable hall host. Separate per-slot creative layout; legacy game data is
 ## never rewritten as if these decorative fish were purchased inventory.
 signal return_requested
+const LayoutStore=preload("res://scripts/aquarium/hall/HallLayoutStore.gd")
+const WalkController=preload("res://scripts/aquarium/hall/HallWalkController.gd")
+var editor_input=preload("res://scripts/aquarium/hall/HallEditorInput.gd").new()
+var layout_rules=preload("res://scripts/aquarium/hall/HallLayoutRules.gd").new()
+var document=preload("res://scripts/aquarium/hall/HallLayoutDocument.gd").new()
+var build_commands: RefCounted
+var scene_projection: RefCounted
 var save_path := "user://aquarium-hall-3d-preview-v1.json"
 var read_only := false
 var viewport: SubViewport
@@ -24,8 +31,12 @@ var camera_target := Vector3(1.8,1.0,-.6)
 var pending_kind := ""
 var pointer := Vector2.ZERO
 var notice := "自由布展：点击选取，拖动移动，Q/E 旋转；Tab 切换逛馆。"
-var floor_style := 0
-var wall_style := 0
+var floor_style: int:
+    get:return document.style("floor_style")
+    set(value):document.set_style_for_legacy_review("floor_style",value)
+var wall_style: int:
+    get:return document.style("wall_style")
+    set(value):document.set_style_for_legacy_review("wall_style",value)
 var floor_paint: ShaderMaterial
 var wall_paint: StandardMaterial3D
 var hall_lighting
@@ -50,9 +61,14 @@ var status: Label
 var mode_button: Button
 var size_spin: SpinBox
 var fish_spin: SpinBox
+var visitor_spin: SpinBox
+var visitor_crowd
 var selection_box: MeshInstance3D
-var history: Array=[]
-var future: Array=[]
+var edit_history=preload("res://scripts/aquarium/hall/HallEditHistory.gd").new()
+var history: Array:
+    get:return edit_history.past
+var future: Array:
+    get:return edit_history.future
 var panel_sync := false
 var active_editor
 var editor_object_id := ""
@@ -63,7 +79,8 @@ var id_serial := 1
 var statistics_clock := 0.0
 var saved_digest := ""
 const Footprint = preload("res://scripts/aquarium/HallFootprint.gd")
-var parcels: Array=Footprint.initial()
+var parcels: Array:
+    get:return document.parcels()
 var room_geometry: Node3D
 var build_preview: Node3D
 var parcel_hints: Node3D
@@ -94,15 +111,19 @@ func _ready() -> void:
     canvas.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;canvas.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
     canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     canvas.gui_input.connect(_canvas_input);add_child(canvas)
+    build_commands=preload("res://scripts/aquarium/hall/HallBuildCommands.gd").new(document,layout_rules,edit_history)
     _room()
     _player()
     inspection_camera=Camera3D.new();inspection_camera.near=.025;inspection_camera.far=100;inspection_camera.fov=62;world.add_child(inspection_camera)
     _ui()
+    visitor_crowd=preload("res://scripts/aquarium/visitors/HallVisitorCrowd.gd").new()
+    world.add_child(visitor_crowd)
     _restore(_default_state())
     _mode(true)
     saved_digest=JSON.stringify(_state()).sha256_text()
     if FileAccess.file_exists(save_path):
         if not _load_layout(save_path):notice="大厅存档无效，已保留默认布局。"
+    if not visitor_crowd.resources_ready:notice="游客暂不可用："+visitor_crowd.resource_error
     _sync_panel()
     DisplayServer.window_set_title("潮汐馆 · 可编辑 3D 大厅")
 
@@ -144,15 +165,10 @@ func _set_pixel_materials(enabled: bool) -> void:
     _finishes()
 
 func _box(parent: Node3D,at: Vector3,size: Vector3,paint: Material) -> MeshInstance3D:
-    var node := MeshInstance3D.new();var box := BoxMesh.new();box.size=size
-    node.mesh=box;node.material_override=paint;node.position=at;parent.add_child(node)
-    return node
+    return scene_projection._box(parent,at,size,paint)
 
 func _collision(parent: Node3D,at: Vector3,size: Vector3,layer:=1) -> StaticBody3D:
-    var body := StaticBody3D.new();body.collision_layer=layer;body.collision_mask=0;parent.add_child(body)
-    var shape := CollisionShape3D.new();var box := BoxShape3D.new();box.size=size
-    shape.shape=box;shape.position=at;body.add_child(shape)
-    return body
+    return scene_projection._collision(parent,at,size,layer)
 
 func _room() -> void:
     hall_lighting=load("res://scripts/aquarium/HallLighting.gd").new();world.add_child(hall_lighting)
@@ -160,6 +176,7 @@ func _room() -> void:
     floor_paint=ShaderMaterial.new();floor_paint.shader=load("res://scripts/aquarium/HallFloor3D.gdshader")
     floor_paint.set_shader_parameter("floor_art",load(HALL_ART+"hall_floor.png"))
     wall_paint=_surface(WALL_COLORS[0],"hall_wall")
+    scene_projection=preload("res://scripts/aquarium/hall/HallSceneProjection.gd").new(world,layout_rules,_surface,hall_lighting)
     _rebuild_room()
     editor_camera=Camera3D.new();editor_camera.projection=Camera3D.PROJECTION_ORTHOGONAL
     editor_camera.near=.04;editor_camera.far=100;world.add_child(editor_camera)
@@ -170,39 +187,16 @@ func _room() -> void:
     parcel_hints=Node3D.new();world.add_child(parcel_hints)
 
 func _clear_geometry(node: Node3D) -> void:
-    for child in node.get_children():
-        if child is StaticBody3D:child.collision_layer=0
-        node.remove_child(child);child.queue_free()
+    scene_projection._clear_geometry(node)
 
 func _rebuild_room() -> void:
-    if not is_instance_valid(room_geometry):room_geometry=Node3D.new();world.add_child(room_geometry)
-    _clear_geometry(room_geometry)
-    var trim := _surface(Color("24434c"),"hall_wall")
-    for cell in parcels:
-        var rect: Rect2=Footprint.rect(cell)
-        var center := rect.get_center()
-        _box(room_geometry,Vector3(center.x,-.12,center.y),Vector3(6,.24,7),floor_paint)
-        _collision(room_geometry,Vector3(center.x,-.12,center.y),Vector3(6,.24,7))
-        var edges := [[[-1,0],Vector3(rect.position.x,2.3,center.y),Vector3(.2,4.6,7)],[[1,0],Vector3(rect.end.x,2.3,center.y),Vector3(.2,4.6,7)],[[0,-1],Vector3(center.x,2.3,rect.position.y),Vector3(6,4.6,.2)],[[0,1],Vector3(center.x,2.3,rect.end.y),Vector3(6,4.6,.2)]]
-        for edge in edges:
-            if Footprint.has(parcels,[cell[0]+edge[0][0],cell[1]+edge[0][1]]):continue
-            _collision(room_geometry,edge[1],edge[2])
-            # A low south cutaway keeps the build view legible; collision remains full height.
-            var size: Vector3=edge[2];var pos: Vector3=edge[1]
-            if edge[0]==[0,1] and editing:size.y=.65;pos.y=.325
-            _box(room_geometry,pos,size,wall_paint)
-            size.y=.16;pos.y=.08;_box(room_geometry,pos,size+Vector3(.02,0,.02),trim)
-            var guide_pos: Vector3=edge[1]-Vector3(edge[0][0],0,edge[0][1])*.116
-            guide_pos.y=.23
-            var guide_size := Vector3(.022,.035,.52) if edge[2].x<1 else Vector3(.52,.035,.022)
-            hall_lighting.add_guide(room_geometry,guide_pos,guide_size)
+    scene_projection.rebuild_room(parcels,editing,floor_paint,wall_paint)
+    room_geometry=scene_projection.room_geometry
     _refresh_parcel_hints()
 
 func _expand_at(at: Vector3) -> bool:
-    var cell: Array=Footprint.at(at)
-    if not Footprint.can_add(parcels,cell):notice="只能扩建相邻的空地块；起始 6 块，最多 24 块。";return false
-    _remember();parcels.append(cell);_rebuild_room();_fit_hall();_sync_panel()
-    notice="已增加一块 6×7 米地基；外墙已更新，可继续点相邻地块。"
+    if not _execute_build("expand",{"cell":Footprint.at(at)}):return false
+    _fit_hall();notice="已增加一块 6×7 米地基；外墙已更新，可继续点相邻地块。"
     return true
 
 func _fit_hall() -> void:
@@ -239,127 +233,63 @@ func _default_state() -> Dictionary:
     ]}
 
 func _bounds(data: Dictionary) -> AABB:
-    if data.kind=="wall":return AABB(Vector3(-float(data.length)/2,0,-.09),Vector3(float(data.length),3.2,.18))
-    if data.kind=="tank":return AABB(Vector3(-3.1,0,-1.6),Vector3(6.2,3.3,3.2))
-    if data.kind=="bench":return AABB(Vector3(-1,0,-.34),Vector3(2,.72,.68))
-    return AABB(Vector3(-.55,0,-.55),Vector3(1.1,1.6,1.1))
+    return layout_rules._bounds(data)
 
 func _transform(data: Dictionary) -> Transform3D:
-    return Transform3D(Basis(Vector3.UP,float(data.yaw)).scaled(Vector3.ONE*float(data.scale)),Vector3(float(data.at[0]),0,float(data.at[1])))
+    return layout_rules._transform(data)
 
 func _valid_placement(data: Dictionary,rows: Array,ignore_id: String="",cells: Array=[]) -> bool:
-    placement_error=""
-    var box: AABB=_transform(data)*_bounds(data)
-    if not Footprint.contains(parcels if cells.is_empty() else cells,box):placement_error="超出已扩建地基或贴到外墙。";return false
-    for row in rows:
-        var other: Dictionary=row.data if row.has("data") else row
-        if other.id==ignore_id:continue
-        var occupied: AABB=_transform(other)*_bounds(other)
-        if data.kind=="wall" and other.kind=="wall":
-            # T and cross junctions are intentional; overlapping parallel walls are not.
-            var axis: Vector3=_transform(data).basis.x.normalized()
-            var parallel: bool=absf(axis.dot(_transform(other).basis.x.normalized()))>.99
-            if not parallel:continue
-            if box.intersection(occupied).get_volume()>.002:placement_error="这里已有一段重叠隔墙。";return false
-        elif box.grow(.12).intersects(occupied):placement_error="与展缸、家具或隔墙重叠。";return false
-    return true
+    var valid := layout_rules._valid_placement(data,rows,ignore_id,parcels if cells.is_empty() else cells)
+    placement_error=layout_rules.placement_error
+    return valid
 
 func _create(data: Dictionary) -> Dictionary:
-    var root := Node3D.new();root.name=data.id;world.add_child(root)
-    var tank
-    if data.kind=="tank":
-        tank=load("res://scripts/aquarium/HallTank3D.gd").new()
-        tank.fish_limit=int(data.fish_count);tank.initial_content=data.get("content",{}).duplicate(true)
-        root.add_child(tank);tank.position.y=.43
-        tank.apply_exterior_materials(_surface(Color("132e38"),"hall_floor",Color("456e79")),_surface(Color("48747c"),"hall_wall"))
-        hall_lighting.attach_tank(tank)
-    elif data.kind=="wall":
-        _wall_geometry(root,data)
-    elif data.kind=="bench":
-        var wood := _surface(Color("806547"),"hall_wood",Color.WHITE);var metal := _surface(Color("24434c"),"hall_wall")
-        _box(root,Vector3(0,.48,0),Vector3(2,.12,.64),wood)
-        _box(root,Vector3(0,.69,.27),Vector3(2,.08,.12),wood)
-        for x in [-.72,.72]:_box(root,Vector3(x,.22,0),Vector3(.12,.44,.48),metal)
-    else:
-        _box(root,Vector3(0,.36,0),Vector3(1.0,.72,1.0),_surface(Color("526c70"),"hall_floor",Color("a8b9b8")))
-        var catalog: Array=JSON.parse_string(FileAccess.get_file_as_string("res://assets/aquascape-decor-v1/catalog.json")).assets
-        for spec in catalog:
-            if spec.id!="stone_lantern":continue
-            var model: Node3D=(load(spec.model) as PackedScene).instantiate();root.add_child(model)
-            var paint := ShaderMaterial.new();paint.shader=load("res://scripts/aquarium/ThreeViewArtwork.gdshader")
-            for v in ["front","right","top"]:paint.set_shader_parameter(v+"_art",load(spec.material_dir+"/stone_lantern-"+v+".png"))
-            var d: Dictionary=spec.projection_bounds;paint.set_shader_parameter("projection_size",Vector3(d.width,d.height,d.depth))
-            for mesh in model.find_children("*","MeshInstance3D",true,false):
-                for s in mesh.mesh.get_surface_count():mesh.set_surface_override_material(s,paint)
-            model.scale=Vector3.ONE*2;model.position.y=.72
-    var box := _bounds(data)
-    var body: StaticBody3D
-    if data.kind=="wall":body=root.get_meta("wall_body")
-    else:body=_collision(root,box.get_center(),box.size,2);body.set_meta("hall_id",data.id)
-    var row := {"data":data.duplicate(true),"node":root,"body":body,"tank":tank}
-    if data.kind=="tank":row.data.water=WaterProfile.normalized(data.get("water",{}))
-    root.transform=_transform(data)
-    return row
+    return scene_projection._create(data)
 
 func _wall_geometry(root: Node3D,data: Dictionary) -> void:
-    var body := StaticBody3D.new();body.collision_layer=2;body.collision_mask=0;body.set_meta("hall_id",data.id);root.add_child(body);root.set_meta("wall_body",body)
-    var length: float=data.length
-    var pieces: Array=[]
-    if data.get("door",false):
-        var wing: float=(length-1.2)/2
-        pieces=[[Vector3(-(length+1.2)/4,1.6,0),Vector3(wing,3.2,.18)],[Vector3((length+1.2)/4,1.6,0),Vector3(wing,3.2,.18)],[Vector3(0,2.7,0),Vector3(1.2,1,.18)]]
-    else:pieces=[[Vector3(0,1.6,0),Vector3(length,3.2,.18)]]
-    for piece in pieces:
-        _box(root,piece[0],piece[1],wall_paint)
-        var shape := CollisionShape3D.new();var box := BoxShape3D.new();box.size=piece[1];shape.shape=box;shape.position=piece[0];body.add_child(shape)
-    var trim := _surface(Color("35535b"),"hall_wall")
-    _box(root,Vector3(0,3.16,0),Vector3(length,.08,.22),trim)
+    scene_projection._wall_geometry(root,data)
 
 func _refresh_wall(row: Dictionary) -> void:
-    _clear_geometry(row.node);_wall_geometry(row.node,row.data);row.body=row.node.get_meta("wall_body")
+    scene_projection._refresh_wall(row)
 
 func _state() -> Dictionary:
-    var rows: Array=[]
-    for row in objects:
-        var data: Dictionary=row.data.duplicate(true)
-        if data.kind=="tank":data.content=row.tank.content_state()
-        rows.append(data)
-    return {"schema_version":2,"parcels":parcels.duplicate(true),"floor_style":floor_style,"wall_style":wall_style,"objects":rows}
+    return document.snapshot()
 
 func _restore(state: Dictionary) -> void:
-    parcels=state.get("parcels",Footprint.initial()).duplicate(true)
-    _rebuild_room()
-    var retained: Array=[]
-    for data in state.objects:
-        var found: Dictionary={}
-        for row in objects:
-            if row.data.id==data.id and row.data.kind==data.kind:found=row;break
-        if found.is_empty():found=_create(data)
-        else:
-            if data.kind=="tank":
-                if int(data.fish_count)!=int(found.data.fish_count):found.tank.set_fish_count(int(data.fish_count))
-                if not data.get("content",{}).is_empty() and JSON.stringify(found.tank.content_state())!=JSON.stringify(data.content):found.tank.apply_content(data.content)
-            found.data=data.duplicate(true);found.node.transform=_transform(data)
-            if data.kind=="wall":_refresh_wall(found)
-        if data.kind=="tank":found.data.water=WaterProfile.normalized(data.get("water",{}))
-        retained.append(found)
-    for row in objects:
-        if not retained.has(row):row.node.hide();row.body.collision_layer=0;row.node.queue_free()
-    objects=retained;selected=-1
-    floor_style=int(state.floor_style);wall_style=int(state.wall_style)
+    if not document.replace(state,layout_rules):notice="布局无效，当前场景保持不变。";return
+    _apply_document(true)
+
+func _apply_document(reset_selection: bool=false,change: Dictionary={}) -> void:
+    if reset_selection or change.get("kind")=="expand":_rebuild_room()
+    objects=scene_projection.apply_layout(objects,document.snapshot(),change)
+    document.materialize_initial_content(scene_projection.initial_contents(objects),layout_rules)
+    for row in objects:row.data=document.object_data(row.data.id)
+    if reset_selection or selected>=objects.size():selected=-1
     _finishes();_sync_panel()
+    var spatial: bool=reset_selection or change.get("kind") in ["add","remove","expand"]
+    for field in change.get("fields",[]):
+        if field in ["at","yaw","scale","length"]:spatial=true
+    if spatial:_visitor_layout_changed()
+
+func _execute_build(kind: String,payload: Dictionary,remember: bool=true) -> bool:
+    var result: Dictionary=build_commands.execute(kind,payload,remember)
+    if not result.ok:notice=result.error;return false
+    _apply_document(false,result)
+    return true
+
+func _change_finish(key: String) -> void:
+    _execute_build("style",{"key":key,"value":(document.style(key)+1)%3})
 
 func _remember() -> void:
-    history.append(_state());if history.size()>20:history.pop_front()
-    future.clear()
+    build_commands.remember()
 
 func _undo() -> void:
-    if history.is_empty():return
-    future.append(_state());_restore(history.pop_back());notice="已撤销。"
+    if not build_commands.undo():return
+    _apply_document(true);notice="已撤销。"
 
 func _redo() -> void:
-    if future.is_empty():return
-    history.append(_state());_restore(future.pop_back());notice="已重做。"
+    if not build_commands.redo():return
+    _apply_document(true);notice="已重做。"
 
 func _finishes() -> void:
     floor_paint.set_shader_parameter("tile_color",FLOOR_COLORS[floor_style])
@@ -385,27 +315,23 @@ func _pick(screen: Vector2) -> int:
 
 func _move_selected(at: Vector3) -> bool:
     if selected<0:return false
-    var data: Dictionary=objects[selected].data.duplicate(true)
-    data.at=[snappedf(at.x,.25),snappedf(at.z,.25)]
-    if not _valid_placement(data,objects,data.id):notice=placement_error;return false
-    objects[selected].data=data;objects[selected].node.transform=_transform(data)
-    _selection();_sync_panel();return true
+    return _execute_build("patch",{"id":objects[selected].data.id,"patch":{"at":[snappedf(at.x,.25),snappedf(at.z,.25)]}},false)
 
 func _rotate_selected(direction: float) -> bool:
     if selected<0:return false
-    var data: Dictionary=objects[selected].data.duplicate(true);data.yaw+=(PI/2 if data.kind=="wall" else deg_to_rad(15))*direction
-    if not _valid_placement(data,objects,data.id):notice="旋转后会碰到其他物件或墙。";return false
-    _remember();objects[selected].data=data;objects[selected].node.transform=_transform(data);_selection();_sync_panel();return true
+    var data: Dictionary=objects[selected].data
+    if not _execute_build("patch",{"id":data.id,"patch":{"yaw":data.yaw+(PI/2 if data.kind=="wall" else deg_to_rad(15))*direction}}):
+        notice="旋转后会碰到其他物件或墙。";return false
+    return true
 
 func _resize_selected(value: float) -> bool:
     if panel_sync or selected<0:return false
-    var data: Dictionary=objects[selected].data.duplicate(true)
-    if data.kind=="wall":data.length=snappedf(clampf(value,3 if data.get("door",false) else .5,18),.5)
-    else:data.scale=clampf(value,.4,1.3)
-    if not _valid_placement(data,objects,data.id):notice="放大后空间不足。";_sync_panel();return false
-    _remember();objects[selected].data=data;objects[selected].node.transform=_transform(data)
-    if data.kind=="wall":_refresh_wall(objects[selected])
-    _selection();_sync_panel();return true
+    var data: Dictionary=objects[selected].data
+    var patch: Dictionary={}
+    if data.kind=="wall":patch.length=snappedf(clampf(value,3 if data.get("door",false) else .5,18),.5)
+    else:patch.scale=clampf(value,.4,1.3)
+    if not _execute_build("patch",{"id":data.id,"patch":patch}):notice="放大后空间不足。";_sync_panel();return false
+    return true
 
 func _candidate(kind: String,at: Vector3) -> Dictionary:
     var preset := [.5,.65,1.0]
@@ -419,8 +345,8 @@ func _add_at(kind: String,at: Vector3) -> bool:
     if kind=="tank" and objects.filter(func(r):return r.data.kind=="tank").size()>=MAX_TANKS:notice="本版最多 8 个展缸。";return false
     var id: String="hall-%d-%d" % [Time.get_unix_time_from_system(),id_serial];id_serial+=1
     var data := _candidate(kind,at);data.id=id
-    if not _valid_placement(data,objects):notice=placement_error;return false
-    _remember();objects.append(_create(data));selected=objects.size()-1;_set_tool("");_sync_panel();notice="已添加，可拖动调整位置。";return true
+    if not _execute_build("add",{"object":data}):return false
+    selected=objects.size()-1;_set_tool("");_sync_panel();notice="已添加，可拖动调整位置。";return true
 
 func _wall_candidate(start: Vector3,finish: Vector3) -> Dictionary:
     start=Vector3(snappedf(start.x,.5),0,snappedf(start.z,.5))
@@ -434,9 +360,9 @@ func _commit_wall(start: Vector3,finish: Vector3) -> bool:
     var data := _wall_candidate(start,finish)
     if data.length<(3 if data.door else .5):notice="门洞隔墙至少 3 米。" if data.door else "请拉出至少半米长的直墙。";return false
     if objects.size()>=MAX_OBJECTS:notice="大厅最多 80 件物品。";return false
-    if not _valid_placement(data,objects):notice=placement_error;return false
     data.id="wall-%d-%d" % [Time.get_unix_time_from_system(),id_serial];id_serial+=1
-    _remember();objects.append(_create(data));selected=objects.size()-1;wall_anchor=null;_sync_panel()
+    if not _execute_build("add",{"object":data}):return false
+    selected=objects.size()-1;wall_anchor=null;_sync_panel()
     notice="隔墙已建好；可继续画下一段，按 Esc 结束。"
     return true
 
@@ -474,8 +400,8 @@ func _preview(at: Variant) -> void:
 
 func _delete_selected() -> void:
     if selected<0:return
-    _remember();var row: Dictionary=objects[selected]
-    row.node.hide();row.body.collision_layer=0;row.node.queue_free();objects.remove_at(selected);selected=-1;_sync_panel();notice="已删除，可撤销。"
+    var id: String=objects[selected].data.id
+    if _execute_build("remove",{"id":id}):selected=-1;_sync_panel();notice="已删除，可撤销。"
 
 func _selection() -> void:
     selection_box.visible=editing and selected>=0
@@ -514,13 +440,7 @@ func _camera() -> void:
 
 func _physics_process(delta: float) -> void:
     if editing or inspecting or active_editor!=null:return
-    var input := Input.get_vector("hall_left","hall_right","hall_forward","hall_back")
-    var direction: Vector3=player.basis*Vector3(input.x,0,input.y)
-    var speed := 5.0 if Input.is_physical_key_pressed(KEY_SHIFT) else 2.7
-    player.velocity.x=direction.x*speed;player.velocity.z=direction.z*speed
-    if not player.is_on_floor():player.velocity.y-=18*delta
-    else:player.velocity.y=0
-    player.move_and_slide()
+    WalkController.tick(player,delta)
 
 func _input(event: InputEvent) -> void:
     if active_editor!=null:return
@@ -551,61 +471,16 @@ func _canvas_input(event: InputEvent) -> void:
             if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
                 inspection_distance=clampf(inspection_distance*(.88 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.14),.22,8.0);_update_inspection()
         return
-    if event is InputEventMouseMotion:
-        pointer=event.position*Vector2(viewport.size)/canvas.size
-        if editing:
-            if panning:
-                var right := editor_camera.global_basis.x;var forward := Vector3(right.z,0,-right.x)
-                camera_target+=(-right*event.relative.x+forward*event.relative.y)*view_size/1080;_camera()
-            if orbiting:yaw-=event.relative.x*.005;pitch=clampf(pitch+event.relative.y*.004,.4,1.35);_camera()
-            if dragging and selected>=0:
-                var at: Variant=_floor_hit(pointer)
-                if at!=null:_move_selected(at+drag_offset)
-            _preview(_floor_hit(pointer))
-    if not event is InputEventMouseButton:return
-    pointer=event.position*Vector2(viewport.size)/canvas.size
-    if event.button_index==MOUSE_BUTTON_RIGHT:
-        if editing:orbiting=event.pressed
-        elif event.pressed:looking=true;Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
-    if event.button_index==MOUSE_BUTTON_MIDDLE and editing:panning=event.pressed
-    if not editing:
-        if event.button_index==MOUSE_BUTTON_LEFT and event.pressed:selected=_pick(pointer);_sync_panel()
+    if editing:
+        editor_input.canvas_input(self,event)
         return
-    if event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
-        view_size=clampf(view_size*(.9 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.1),10,65);_camera();_preview(_floor_hit(pointer))
-    if event.button_index==MOUSE_BUTTON_LEFT:
-        if not event.pressed:dragging=false;return
-        var at: Variant=_floor_hit(pointer)
-        if pending_kind=="parcel":
-            if at!=null:_expand_at(at);_preview(_floor_hit(pointer))
-        elif pending_kind=="wall":
-            if at!=null:
-                if wall_anchor==null:
-                    var marker := AABB(Vector3(at.x-.01,0,at.z-.01),Vector3(.02,.1,.02))
-                    if Footprint.contains(parcels,marker):wall_anchor=at;notice="已选起点，点击终点建墙；Esc 取消。"
-                    else:notice="起点需要在已扩建地基内。"
-                else:_commit_wall(wall_anchor,at)
-                _preview(at)
-        elif pending_kind!="":
-            if at!=null:_add_at(pending_kind,at)
-        else:
-            selected=_pick(pointer);_sync_panel()
-            if selected>=0 and at!=null:_remember();drag_offset=objects[selected].node.position-at;dragging=true
+    if event is InputEventMouseButton:
+        pointer=event.position*Vector2(viewport.size)/canvas.size
+        if event.button_index==MOUSE_BUTTON_RIGHT and event.pressed:looking=true;Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+        if event.button_index==MOUSE_BUTTON_LEFT and event.pressed:selected=_pick(pointer);_sync_panel()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-    if active_editor!=null or not editing or not event is InputEventKey or not event.pressed or event.echo:return
-    if event.ctrl_pressed:
-        if event.keycode==KEY_Z:_undo()
-        if event.keycode==KEY_Y:_redo()
-        if event.keycode==KEY_S:_save_layout()
-        return
-    if pending_kind!="":
-        if event.keycode in [KEY_Q,KEY_E] and pending_kind in ["tank","bench","plinth"]:
-            pending_yaw+=deg_to_rad(15)*(-1 if event.keycode==KEY_Q else 1);_preview(_floor_hit(pointer))
-        return
-    if event.keycode==KEY_Q:_rotate_selected(-1)
-    if event.keycode==KEY_E:_rotate_selected(1)
-    if event.keycode==KEY_DELETE:_delete_selected()
+    editor_input.key_input(self,event)
 
 func _open_content_editor() -> bool:
     _stop_inspection()
@@ -620,18 +495,18 @@ func _open_content_editor() -> bool:
         if child is CanvasItem and child.visible:editor_hidden.append(child);child.hide()
     editor_backdrop=ColorRect.new();editor_backdrop.color=Color("0c2028");editor_backdrop.size=Vector2(1920,1080);add_child(editor_backdrop)
     viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
+    visitor_crowd.set_paused(true)
     add_child(active_editor);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
     return true
 
 func _apply_content_editor(state: Dictionary) -> void:
-    for row in objects:
-        if row.data.id!=editor_object_id:continue
-        _remember();row.tank.apply_content(state);row.data.content=state.duplicate(true);break
+    if not _execute_build("patch",{"id":editor_object_id,"patch":{"content":state}}):return
     _close_content_editor();notice="缸内布景已应用；保存大厅可一起保存。"
 
 func _close_content_editor() -> void:
     if is_instance_valid(active_editor):active_editor.hide();active_editor.queue_free()
     active_editor=null
+    visitor_crowd.set_paused(false)
     if is_instance_valid(editor_backdrop):editor_backdrop.hide();editor_backdrop.queue_free()
     for child in editor_hidden:
         if is_instance_valid(child):child.show()
@@ -640,63 +515,8 @@ func _close_content_editor() -> void:
     DisplayServer.window_set_title("潮汐馆 · 可编辑 3D 大厅")
     editor_camera.current=editing;eye.current=not editing
 
-func _button(parent: Control,text: String,at: Vector2,width: float,callback: Callable) -> Button:
-    var button := Button.new();button.text=text;button.position=at;button.custom_minimum_size=Vector2(width,40)
-    button.focus_mode=Control.FOCUS_NONE;button.pressed.connect(callback);parent.add_child(button);return button
-
-func _label(parent: Control,text: String,at: Vector2,size:=18) -> Label:
-    var label := Label.new();label.text=text;label.position=at;label.add_theme_font_size_override("font_size",size);label.modulate=Color("d3e0d7");parent.add_child(label);return label
-
 func _ui() -> void:
-    var header := ColorRect.new();header.name="HallHeader";header.color=Color("102a34");header.position=Vector2.ZERO;header.size=Vector2(1920,96);add_child(header)
-    _label(header,"潮汐馆  /  可编辑 3D 大厅",Vector2(30,12),28)
-    _label(header,"室内建造 · 地块扩建 / 展缸 / 隔墙 · 独立保存",Vector2(32,55),17)
-    _button(header,"返回海岸",Vector2(1725,26),160,_request_return)
-    mode_button=_button(header,"切换逛馆  Tab",Vector2(1000,26),180,func():_mode(not editing))
-    _button(header,"展缸水体 / 近景",Vector2(780,26),200,_open_water_panel)
-    _button(header,"保存大厅",Vector2(1195,26),150,_save_layout)
-    _button(header,"读取大厅",Vector2(1360,26),150,func():_load_layout(save_path))
-    _button(header,"撤销",Vector2(1525,26),85,_undo)
-    _button(header,"重做",Vector2(1620,26),85,_redo)
-    side=ColorRect.new();side.color=Color("14313b");side.position=Vector2(1570,108);side.size=Vector2(330,866);add_child(side)
-    _label(side,"大厅建造",Vector2(18,10),24)
-    parcel_label=_label(side,"",Vector2(18,47),17)
-    _button(side,"＋ 扩建相邻地块  6×7 m",Vector2(18,77),294,func():_set_tool("parcel"))
-    tank_size_choice=OptionButton.new();tank_size_choice.position=Vector2(18,127);tank_size_choice.size=Vector2(294,36)
-    for label in ["小缸  3×1.5 m","中缸  3.9×1.95 m","标准缸  6×3 m"]:tank_size_choice.add_item(label)
-    tank_size_choice.select(1);side.add_child(tank_size_choice)
-    _button(side,"＋ 放置所选规格展缸",Vector2(18,169),294,func():_set_tool("tank"))
-    wall_choice=OptionButton.new();wall_choice.position=Vector2(18,218);wall_choice.size=Vector2(294,36);wall_choice.add_item("实心隔墙  高 3.2 m");wall_choice.add_item("门洞隔墙  通道宽 1.2 m")
-    wall_choice.item_selected.connect(func(index):wall_with_door=index==1;wall_anchor=null);side.add_child(wall_choice)
-    _button(side,"＋ 画隔墙  起点 → 终点",Vector2(18,260),294,func():_set_tool("wall"))
-    _button(side,"＋ 长凳",Vector2(18,309),142,func():_set_tool("bench"))
-    _button(side,"＋ 展示台",Vector2(170,309),142,func():_set_tool("plinth"))
-    _button(side,"选择 / 取消建造  Esc",Vector2(18,358),294,func():_set_tool(""))
-    tool_label=_label(side,"选择物件进行编辑",Vector2(18,403),17)
-    detail=_label(side,"未选中物件",Vector2(18,434),18)
-    _button(side,"Q  左转",Vector2(18,490),142,func():_rotate_selected(-1))
-    _button(side,"E  右转",Vector2(170,490),142,func():_rotate_selected(1))
-    _label(side,"物件倍率 / 隔墙长度（米）",Vector2(18,536),17)
-    size_spin=SpinBox.new();size_spin.position=Vector2(18,562);size_spin.custom_minimum_size=Vector2(294,34);size_spin.min_value=.4;size_spin.max_value=1.3;size_spin.step=.05;size_spin.value=1
-    size_spin.value_changed.connect(_resize_selected);side.add_child(size_spin)
-    _label(side,"展示海鱼数量（0～15）",Vector2(18,603),17)
-    fish_spin=SpinBox.new();fish_spin.position=Vector2(18,629);fish_spin.custom_minimum_size=Vector2(294,34);fish_spin.max_value=15;fish_spin.step=1
-    fish_spin.value_changed.connect(_fish_count_changed);side.add_child(fish_spin)
-    _button(side,"编辑选中缸内的沙子与摆件",Vector2(18,674),294,_open_content_editor)
-    _button(side,"删除选中物件",Vector2(18,720),294,_delete_selected)
-    _button(side,"更换地砖",Vector2(18,766),142,func():_remember();floor_style=(floor_style+1)%3;_finishes())
-    _button(side,"更换墙色",Vector2(170,766),142,func():_remember();wall_style=(wall_style+1)%3;_finishes())
-    _button(side,"俯视全馆",Vector2(18,812),142,func():pitch=1.30;yaw=.01;_fit_hall())
-    _button(side,"斜视全馆",Vector2(170,812),142,func():pitch=.83;yaw=.48;_fit_hall())
-    var footer := ColorRect.new();footer.color=Color("102a34");footer.position=Vector2(0,995);footer.size=Vector2(1920,85);add_child(footer)
-    status=_label(footer,notice,Vector2(30,10),18)
-    _label(footer,"编辑：右键环绕 · 中键平移 · 滚轮缩放 · Q/E 转向 · Esc 取消 · Delete 删除   |   Tab 逛馆：WASD 行走 · 右键看向 · Shift 加速",Vector2(30,45),16)
-    water_panel=load("res://scripts/aquarium/TankWaterPanel.gd").new();add_child(water_panel);water_panel.hide()
-    water_panel.changed.connect(_water_changed);water_panel.preset_selected.connect(_water_preset)
-    water_panel.interaction_started.connect(func():if not water_drag:_remember();water_drag=true)
-    water_panel.interaction_ended.connect(func():water_drag=false)
-    water_panel.inspect_requested.connect(_start_inspection);water_panel.return_requested.connect(_stop_inspection)
-    water_panel.next_fish_requested.connect(func():inspection_fish+=1;_start_inspection(false))
+    preload("res://scripts/aquarium/hall/HallEditorPanel.gd").new().build(self)
 
 func _open_water_panel() -> void:
     if selected<0 or objects[selected].tank==null:
@@ -708,14 +528,12 @@ func _open_water_panel() -> void:
 func _water_changed(key: String,value: Variant) -> void:
     if selected<0 or objects[selected].tank==null:return
     var config: Dictionary=objects[selected].data.water.duplicate(true);config[key]=value
-    if not WaterProfile.valid(config):return
-    if not water_drag:_remember()
-    objects[selected].data.water=config
-    notice="已调整这个展缸的水体外观；可撤销并保存。"
+    if _execute_build("patch",{"id":objects[selected].data.id,"patch":{"water":config}},not water_drag):
+        notice="已调整这个展缸的水体外观；可撤销并保存。"
 
 func _water_preset(index: int) -> void:
     if selected<0 or objects[selected].tank==null:return
-    _remember();objects[selected].data.water=WaterProfile.preset(index);_sync_panel()
+    _execute_build("patch",{"id":objects[selected].data.id,"patch":{"water":WaterProfile.preset(index)}})
 
 func _start_inspection(reset: bool=true) -> void:
     if selected<0 or objects[selected].tank==null:_open_water_panel()
@@ -746,7 +564,7 @@ func _stop_inspection() -> void:
 
 func _fish_count_changed(value: float) -> void:
     if panel_sync or selected<0 or objects[selected].data.kind!="tank":return
-    _remember();objects[selected].data.fish_count=int(value);objects[selected].tank.set_fish_count(int(value));notice="已调整这个展缸的展示海鱼数量。"
+    if _execute_build("patch",{"id":objects[selected].data.id,"patch":{"fish_count":int(value)}}):notice="已调整这个展缸的展示海鱼数量。"
 
 func _sync_panel() -> void:
     if not is_instance_valid(detail):return
@@ -768,6 +586,9 @@ func _sync_panel() -> void:
     if is_instance_valid(water_panel) and selected>=0 and objects[selected].tank!=null:water_panel.bind(objects[selected].data.water,objects[selected].data.name)
     panel_sync=false;_selection()
 
+func _visitor_layout_changed() -> void:
+    if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects)
+
 func _process(delta: float) -> void:
     if is_instance_valid(water_renderer):water_renderer.sync(objects,delta)
     if inspecting:_update_inspection()
@@ -775,70 +596,16 @@ func _process(delta: float) -> void:
     if statistics_clock>.15:statistics_clock=0;status.text=notice
 
 func _finite_number(value: Variant) -> bool:
-    return (value is int or value is float) and is_finite(float(value))
+    return layout_rules._finite_number(value)
 
 func _valid_content(data: Variant) -> bool:
-    if not data is Dictionary:return false
-    if data.is_empty():return true
-    if data.get("schema_version")!=3 or data.get("sand")!="fine_sand":return false
-    if not data.get("grid") is Array or data.grid.size()!=2 or data.grid[0]!=129 or data.grid[1]!=65:return false
-    if not data.get("heights") is Array or data.heights.size()!=8385 or not data.get("materials") is Array or data.materials.size()!=8385:return false
-    for h in data.heights:
-        if not _finite_number(h) or h<0 or h>.24:return false
-    for m in data.materials:
-        if not _finite_number(m) or m!=int(m) or m<0 or m>4:return false
-    if not data.get("rocks") is Array or data.rocks.size()>80:return false
-    var ids: Array=[]
-    for path in ["res://assets/aquascape-v5/catalog.json","res://assets/aquascape-decor-v1/catalog.json"]:
-        for row in JSON.parse_string(FileAccess.get_file_as_string(path)).assets:
-            if not row.get("animated",false):ids.append(row.id)
-    for row in data.rocks:
-        if not row is Dictionary or row.get("id") not in ids or not row.get("position") is Array or row.position.size()!=3:return false
-        for p in row.position:
-            if not _finite_number(p):return false
-        if absf(row.position[0])>.61 or absf(row.position[2])>.31 or row.position[1]< -.5 or row.position[1]>.5:return false
-        if not _finite_number(row.get("scale")) or row.scale<.04 or row.scale>3 or not _finite_number(row.get("yaw")):return false
-    var choice: Variant=data.get("selected_substrate",0)
-    return _finite_number(choice) and choice==int(choice) and choice>=0 and choice<=4
+    return layout_rules._valid_content(data)
 
 func _valid_state(data: Variant) -> bool:
-    if not data is Dictionary:return false
-    var version: Variant=data.get("schema_version")
-    if not _finite_number(version) or version!=int(version) or int(version) not in [1,2] or not data.get("objects") is Array or data.objects.size()>MAX_OBJECTS:return false
-    var cells: Array=Footprint.initial()
-    if data.schema_version==2:
-        if not Footprint.valid(data.get("parcels")):return false
-        cells=data.parcels
-    for key in ["floor_style","wall_style"]:
-        if not _finite_number(data.get(key)) or data[key]!=int(data[key]) or data[key]<0 or data[key]>2:return false
-    var ids: Array=[];var rows: Array=[];var tanks := 0
-    for row in data.objects:
-        if not row is Dictionary or not row.get("id") is String or row.id.is_empty() or row.id in ids:return false
-        if row.get("kind") not in ["tank","bench","plinth","wall"] or not row.get("name") is String or row.name.length()>80:return false
-        if data.schema_version==1 and row.kind=="wall":return false
-        if not row.get("at") is Array or row.at.size()!=2:return false
-        for x in row.at:
-            if not _finite_number(x):return false
-        if not _finite_number(row.get("yaw")) or not _finite_number(row.get("scale")) or row.scale<.4 or row.scale>1.3:return false
-        if row.kind=="wall":
-            if not _finite_number(row.get("length")) or not row.get("door") is bool or row.scale!=1:return false
-            if row.length<(3 if row.door else .5) or row.length>18:return false
-            if absf(sin(float(row.yaw)*2))>.0001:return false
-        if row.kind=="tank":
-            tanks+=1
-            if row.has("water") and not WaterProfile.valid(row.water):return false
-            if tanks>MAX_TANKS or not _finite_number(row.get("fish_count")) or row.fish_count!=int(row.fish_count) or row.fish_count<0 or row.fish_count>15 or not _valid_content(row.get("content")):return false
-        if not _valid_placement(row,rows,"",cells):return false
-        rows.append(row);ids.append(row.id)
-    return true
+    return layout_rules._valid_state(data)
 
 func _write_layout(path: String) -> bool:
-    var state := _state()
-    if not _valid_state(state):return false
-    var file := FileAccess.open(path+".tmp",FileAccess.WRITE)
-    if file==null:return false
-    file.store_string(JSON.stringify(state,"",true,true));file.close()
-    return DirAccess.rename_absolute(path+".tmp",path)==OK
+    return LayoutStore.write_layout(path,_state(),layout_rules)
 
 func _save_layout() -> void:
     if read_only:notice="当前为只读预览，不写入游戏存档。";return
@@ -848,8 +615,8 @@ func _save_layout() -> void:
 
 func _load_layout(path: String) -> bool:
     if not FileAccess.file_exists(path):notice="还没有大厅存档。";return false
-    var state: Variant=JSON.parse_string(FileAccess.get_file_as_string(path))
-    if not _valid_state(state):notice="存档无效，当前布局保持不变。";return false
+    var state: Variant=LayoutStore.read_layout(path,layout_rules)
+    if state==null:notice="存档无效，当前布局保持不变。";return false
     _remember();_set_tool("");_restore(state);_fit_hall();saved_digest=JSON.stringify(_state()).sha256_text();notice="已读取地块、隔墙与全部展缸。旧版布局仅在主动保存时升级。";return true
 
 func _request_return() -> void:

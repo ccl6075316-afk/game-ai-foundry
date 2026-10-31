@@ -5,6 +5,11 @@ from datetime import datetime,timezone
 from catalog_workflows import call
 
 NAMES=['AquariumHall3D.gd','AquariumHall3DReview.gd','HallTank3D.gd','HallTankEditor.gd','HallFloor3D.gdshader','HallFootprint.gd','HallBuildReview.gd','HallStyleReview.gd','HallLighting.gd','HallLightingReview.gd','HallBlueBackdrop.gdshader','HallBlueReview.gd','TankWaterProfile.gd','TankWaterRenderer.gd','TankWaterVolume.gdshader','TankWaterPanel.gd','TankWaterReview.gd','FishRuntimeData.gd','FishAppearanceCache.gd','FishLoadingReview.gd']
+# Modules belong to the same reviewed source deployment as the host.
+NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','HallEditHistory.gd','HallWalkController.gd','HallEditorPanel.gd','HallEditorInput.gd','HallLayoutDocument.gd','HallBuildCommands.gd','HallSceneProjection.gd']]
+
+NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV2.gdshader']]
+
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -100,7 +105,9 @@ def main():
             report['cleanup']={'deleted_files':sum(len(r['remove']) for r in receipts),'deleted_bytes':sum(row['bytes'] for r in receipts for row in r['remove']),'retained_bytes_excluding_this_report':sum(p.stat().st_size for p in review.rglob('*') if p.is_file() and p.name!='validation-report.json')}
         (review/'validation-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps({'ok':True,'native_checks':len(native['checks']),'router_checks':len(router['checks']),'hashes':len(hashes)}));return 0
     if not a.godot:raise ValueError('--godot required')
-    for name in NAMES:shutil.copyfile(source/name,game/'scripts/aquarium'/name)
+    for name in NAMES:
+        target=game/'scripts/aquarium'/name;target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(source/name,target)
     inherited={}
     for name in ['EditableSandBed.gd','EditableSubstrateBed.gd','SubstrateGravel.gd','SandPlacementLab.gd','SubstratePlacementLab.gd','DecorPlacementLab.gd','MarineShowcase.gd','VolumeFishExhibit.gd','FishSurfaceOwnership.gd']:
         path=game/'scripts/aquarium'/name;inherited[path.relative_to(root).as_posix()]=sha(path)
