@@ -23,7 +23,8 @@ class SopTests(unittest.TestCase):
         # Synthetic artifacts exercise bookkeeping, never visual acceptance.
         for role in INPUT_ROLES:
             path = self.root / (role + ('.glb' if role == 'model' else '.dat'))
-            path.write_text(role)
+            if role=='species_profile':write(path,{'species':'fixture_only','fins':[{'name':'Fixture_fin','paired':False,'root_attachment':{'root_band':.065}}]})
+            else:path.write_text(role)
             self.data['candidate_files'][role] = {'path': path.name, 'sha256': sha(path)}
         self.data['stages']['mouth']['implementation'] = {
             'branch':'integrated_jaw_cut','body_resource_role':'model',
@@ -38,6 +39,7 @@ class SopTests(unittest.TestCase):
         source = self.root/'editable.blend'
         source.write_bytes(b'Synthetic authoring source, not a Blender file')
         self.data['candidate_files']['editable_source'] = {'path':source.name, 'sha256':sha(source)}
+        self.data['candidate_files']['material_author_model']=dict(self.data['candidate_files']['model'])
         self.data['stages']['runtime']['finalization'] = {
             'state':'exported', 'editable_source_role':'editable_source', 'model_role':'model',
             'entry_role':'model', 'static_parts':{name:{'geometry_uv_weights_role':'model',
@@ -50,6 +52,13 @@ class SopTests(unittest.TestCase):
             'static_builders_disabled':True, 'runtime_static_build_calls':0, 'errors':[],
             'checks':{k:True for k in COLD_CHECKS}}
         write(self.cold_path, self.cold)
+        self.fin_volume_path=self.root/'fin-volume.json'
+        self.fin_volume={'ok':True,'kind':'actual_authored_fin_volume_and_tail_section','species':'fixture_only','model_sha256':frozen['model'],'profile_sha256':frozen['species_profile'],'original_basal_domains_preserved':True,
+            'current':{'ok':True,'fin_inventory':['Fixture_fin'],'fins':[{'name':'Fixture_fin','ok':True,'proximal_to_distal_median_ratio':2,
+                'final_geometry_correspondence':{'maximum_bidirectional_position_error_native':0},'zones':{z:{'samples':2}for z in ('proximal','middle','distal')},'source_root_band':.065,'attachment_contact':{'ok':True},'missing_opposing_ray_count':0}],
+                'tail_cross_section':{'ok':True,'sections':[{'fixture':True}],'maximum_width_error_mm':.1,'tolerance_mm':.4}},'rejected_original':{'ok':False}}
+        write(self.fin_volume_path,self.fin_volume)
+        self.lip_path=self.root/'native-lip.json';self.lip={'ok':True,'kind':'complete_anterior_semantic_color_chart','species':'fixture_only','source_sha256':frozen['source_image'],'model_sha256':frozen['material_author_model'],'geometry_weights_triangles_unchanged':True,'actual_3d_rim_transport':{'upper_edges':2,'lower_edges':2},'complete_native_lip_ownership':{'protected_texels':20,'maximum_front_weight_inside_complete_lip':0,'maximum_central_weight_inside_complete_lip':0,'domain':{'upper_width_px':8,'lower_width_px':10,'outer_fade_px':3}}};write(self.lip_path,self.lip)
         for stage, criteria in STAGES.items():
             entry = self.data['stages'][stage]
             entry.update(result='passed', method='Fixture method', reviewer='Test', observations='Fixture only')
@@ -57,6 +66,8 @@ class SopTests(unittest.TestCase):
                 eid = stage + '.' + criterion
                 entry['checks'][criterion] = [eid]
                 path = self.cold_path if criterion == 'final_asset_cold_load' else paths[kind]
+                if criterion=='actual_normal_thickness_and_tail_section':path=self.fin_volume_path
+                if criterion=='complete_native_lip_domain_and_front_exclusion':path=self.lip_path
                 self.data['evidence'][eid] = {'path': path.name, 'sha256': sha(path),
                     'kind': kind, 'bound_inputs': dict(frozen), 'observation': 'Fixture only'}
         write(self.review, self.data)
@@ -76,6 +87,26 @@ class SopTests(unittest.TestCase):
         self.assertTrue(report['ok'], report['failures'])
         self.assertEqual(report['next_action'], 'human_review')
         self.assertNotIn('accepted', report)
+
+    def test_generic_pass_flag_cannot_replace_actual_fin_volume(self):
+        self.populated_fixture();write(self.fin_volume_path,{'ok':True})
+        self.data['evidence']['fins.actual_normal_thickness_and_tail_section']['sha256']=sha(self.fin_volume_path);write(self.review,self.data)
+        self.assertTrue(any(f['code']=='missing_actual_fin_volume'for f in check(self.review)['failures']))
+
+    def test_generic_or_partially_generated_lip_cannot_pass(self):
+        self.populated_fixture();self.lip['complete_native_lip_ownership']['maximum_front_weight_inside_complete_lip']=.01;write(self.lip_path,self.lip);self.data['evidence']['mouth.complete_native_lip_domain_and_front_exclusion']['sha256']=sha(self.lip_path);write(self.review,self.data)
+        self.assertTrue(any(f['code']=='incomplete_native_lip_domain'for f in check(self.review)['failures']))
+
+    def test_changed_root_domain_is_rejected(self):
+        self.populated_fixture();self.fin_volume['current']['fins'][0]['source_root_band']=.9;write(self.fin_volume_path,self.fin_volume);self.data['evidence']['fins.actual_normal_thickness_and_tail_section']['sha256']=sha(self.fin_volume_path);write(self.review,self.data)
+        self.assertTrue(any(f['code']=='unverified_fin_attachment_volume'for f in check(self.review)['failures']))
+
+    def test_constant_shell_stale_model_and_nonfailing_negative_are_rejected(self):
+        self.populated_fixture()
+        self.fin_volume['model_sha256']='0'*64;self.fin_volume['rejected_original']['ok']=True;self.fin_volume['current']['fins'][0]['proximal_to_distal_median_ratio']=1
+        write(self.fin_volume_path,self.fin_volume);self.data['evidence']['fins.actual_normal_thickness_and_tail_section']['sha256']=sha(self.fin_volume_path);write(self.review,self.data)
+        codes={f['code']for f in check(self.review)['failures']}
+        self.assertTrue({'wrong_fin_volume_binding','fin_volume_negative_not_rejected','insufficient_actual_fin_taper'}<=codes)
 
     def test_missing_native_mouth_cover_is_rejected(self):
         self.populated_fixture()

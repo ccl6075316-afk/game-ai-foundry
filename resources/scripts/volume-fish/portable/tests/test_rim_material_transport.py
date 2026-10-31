@@ -2,9 +2,20 @@ import sys,unittest
 from pathlib import Path
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
-from rim_material_transport import ordered_boundary,nearest_arc,side_curve_donor,bounded_roi_coordinates
+from rim_material_transport import ordered_boundary,nearest_arc,side_curve_donor,bounded_roi_coordinates,native_lip_ownership
 
 class RimMaterialTransportTest(unittest.TestCase):
+    def test_generated_color_has_zero_ownership_through_entire_native_lip(self):
+        # The old8px band faded4px INSIDE the lip, reintroducing front color.
+        distance=np.array([0.,4.,8.,11.,12.,14.,16.]);weight=native_lip_ownership(distance,12.,4.)
+        native=np.array([.2,.3,.4]);wrong_front=np.array([1.,0.,1.])
+        baked=native[None,:]*weight[:,None]+wrong_front[None,:]*(1-weight[:,None])
+        np.testing.assert_array_equal(baked[distance<=12],np.tile(native,((distance<=12).sum(),1)))
+        self.assertGreater(weight[-2],0);self.assertEqual(weight[-1],0)
+    def test_distinct_upper_lower_domains_and_invalid_width(self):
+        np.testing.assert_array_equal(native_lip_ownership(np.array([12.,12.]),np.array([12.,14.]),4),[1.,1.])
+        for width in [0,-1,float('nan')]:
+            with self.assertRaises(ValueError):native_lip_ownership(np.array([0.]),width,4)
     def test_actual_longitudinal_phase_survives_same_transverse_coordinate(self):
         # A projected-Y-only lookup collapses these two distinct lip positions.
         c=np.array([[0,-1,0],[1,-1,1],[2,0,2],[1,1,1],[0,1,0]],float)

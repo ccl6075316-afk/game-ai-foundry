@@ -4,11 +4,15 @@ from pathlib import Path
 from PIL import Image,ImageDraw
 from parts import read,sha,fresh_output
 
-def compose(plan_path,review,cutouts):
- plan=read(plan_path);capture=read(review/'review-capture.validation.json')
+def compose(plan_path,review,cutouts,fin_review=None):
+ capture_path=review/'review-capture.validation.json'
+ if not capture_path.is_file():capture_path=review/'local-capture.validation.json'
+ plan=read(plan_path);capture=read(capture_path);fin_review=fin_review or review
  assert capture['ok'] and capture['model_sha256']==sha(plan['model'])==plan['model_sha256']
  source=Path(plan['review_sources'][0]['path']);assert sha(source)==plan['review_sources'][0]['sha256']
- inputs={str(source):sha(source)};outputs={}
+ inputs={str(source):sha(source),str(capture_path):sha(capture_path)};outputs={}
+ if fin_review!=review:
+  fin_capture=fin_review/'fin-volume-capture.validation.json';f=read(fin_capture);assert f['ok']and f['model_sha256']==plan['model_sha256'];inputs[str(fin_capture)]=sha(fin_capture)
  def load(p):
   inputs[str(p.resolve())]=sha(p);return Image.open(p).convert('RGBA')
  src=load(source);actual=load(review/'whole-left-texture.png');w,h=actual.size
@@ -24,14 +28,15 @@ def compose(plan_path,review,cutouts):
   for row,name in enumerate(names):
    base=name.removesuffix('_mesh').removesuffix('_left').removesuffix('_right')
    matches=list(cutouts.glob(base+'-*.png'));assert len(matches)==1,(base,matches)
-   for col,(label,p) in enumerate([('source native cutout',matches[0]),('cold isolated texture',review/f'fin-{name}-left-texture.png'),('cold isolated clay',review/f'fin-{name}-oblique-clay.png')]):
+   for col,(label,p) in enumerate([('source native cutout',matches[0]),('cold isolated texture',fin_review/f'fin-{name}-left-texture.png'),('cold isolated clay',fin_review/f'fin-{name}-oblique-clay.png')]):
     image=load(p);image.thumbnail((440,290),Image.Resampling.NEAREST);x=col*450+(450-image.width)//2;y=row*325+30+(290-image.height)//2
     sheet.paste(image,(x,y),image);draw.text((col*450+8,row*325+8),name+' | '+label,fill='white')
   target=review/f'fin-source-comparison-{page}.jpg';assert not target.exists();sheet.save(target,quality=94);outputs[target.name]=sha(target)
- receipt={'ok':True,'kind':'actual_source_capture_composition','model_sha256':plan['model_sha256'],'inputs':inputs,'outputs':outputs,'source_scale_to_capture_pixels':scale,'scope':'Whole source and actual rest capture share fixed canvas/orthographic scale; no independent silhouette fit. Individual fin thumbnails have separate framing and are not area/size proof. Composition is not appearance/anatomy approval.'}
+ receipt={'ok':True,'kind':'actual_source_capture_composition','model_sha256':plan['model_sha256'],'inputs':inputs,'outputs':outputs,'source_scale_to_capture_pixels':scale,'diagnostic_only':capture.get('diagnostic_only',False),'scope':'Whole source and actual rest capture share fixed canvas/orthographic scale; no independent silhouette fit. Individual fin thumbnails have separate framing and are not area/size proof. Composition is not appearance/anatomy approval.'}
  target=review/'source-composition.validation.json';assert not target.exists();target.write_text(json.dumps(receipt,indent=2)+'\n');return receipt
 
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__)
  for k in ['plan','review','cutouts']:p.add_argument('--'+k,type=Path,required=True)
- a=p.parse_args();fresh_output(a.review/'source-composition.validation.json');r=compose(a.plan,a.review.resolve(),a.cutouts.resolve());print(json.dumps({'ok':r['ok'],'outputs':list(r['outputs'])}))
+ p.add_argument('--isolated-fin-review',type=Path)
+ a=p.parse_args();fresh_output(a.review/'source-composition.validation.json');r=compose(a.plan,a.review.resolve(),a.cutouts.resolve(),a.isolated_fin_review.resolve()if a.isolated_fin_review else None);print(json.dumps({'ok':r['ok'],'outputs':list(r['outputs'])}))

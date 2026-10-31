@@ -1,0 +1,67 @@
+{
+  "species": "atlantic_salmon",
+  "body": "Closed_body",
+  "input_blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\mouth-r3\\fish.blend",
+  "input_blend_sha256": "7749bafca38f263b93dc099a0869e3ae51889b8c6b9ca03c69ba2d497a0b24e0",
+  "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\output\\char_d036b02230_nobg.png",
+  "source_sha256": "dad9cede1784b5ef4a7fb65872ea6ea3bb48996db31f882aa474984c7d90652c",
+  "source_size": [
+    1795,
+    583
+  ],
+  "baseline_profile": "resources\\volume-fish\\atlantic-salmon-cage-r3-20261031.profile.json",
+  "profile": "resources\\volume-fish\\atlantic-salmon-feedback-20261031.profile.json",
+  "model_scale": 0.7403118813670034,
+  "head_join_interval": null,
+  "fins": {
+    "Dorsal": {
+      "root_mm": 1.8,
+      "mid_mm": 0.8,
+      "edge_mm": 0.22,
+      "camber_mm": 0.0
+    },
+    "Adipose": {
+      "root_mm": 1.5,
+      "mid_mm": 0.9,
+      "edge_mm": 0.28,
+      "camber_mm": 0.0
+    },
+    "Anal": {
+      "root_mm": 1.5,
+      "mid_mm": 0.7,
+      "edge_mm": 0.22,
+      "camber_mm": 0.0
+    },
+    "Pectoral": {
+      "root_mm": 1.9,
+      "mid_mm": 0.85,
+      "edge_mm": 0.24,
+      "camber_mm": 0.35
+    },
+    "Pelvic": {
+      "root_mm": 1.6,
+      "mid_mm": 0.75,
+      "edge_mm": 0.23,
+      "camber_mm": 0.35
+    },
+    "Caudal": {
+      "root_basis": "Actual finite current posterior body cross-section, variable with height",
+      "edge_mm": 0.28,
+      "taper_length_u": 0.048
+    }
+  },
+  "root_inset_mm": 0.1,
+  "free_clearance_mm": 0.2,
+  "tail_overlap_mm": 0.1,
+  "scope": "Explicit art hypotheses for visible per-fin root/mid/edge taper, not biological thickness measurements. All original source root bands/UV/rig, basically accepted mouth shape and display triangle limits retained; actual shape/physics pending.",
+  "root_surface_offset_mm": 0.1,
+  "paired_root_surface_offset_mm": -0.1,
+  "median_body_station_roots": [
+    "Dorsal",
+    "Adipose"
+  ],
+  "reallocate_interior_fins": [
+    "Pectoral",
+    "Pelvic"
+  ]
+}

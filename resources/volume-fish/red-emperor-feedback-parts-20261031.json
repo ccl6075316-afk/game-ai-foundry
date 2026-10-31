@@ -1,0 +1,57 @@
+{
+  "species": "red_emperor",
+  "body": "Closed_body",
+  "input_blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\mouth-r6\\fish.blend",
+  "input_blend_sha256": "e79d0c9d5304b0bb46182f773ef53ea9796b97a56b61f8ade06985c2355fccb1",
+  "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\output\\char_90bafdb630_nobg.png",
+  "source_sha256": "739baf0fdecb22bee55d351c6c1e344f7417eec8fccc63070f766b186f8d3231",
+  "source_size": [
+    1782,
+    956
+  ],
+  "baseline_profile": "resources\\volume-fish\\red-emperor-cage-r6-20261031.profile.json",
+  "profile": "resources\\volume-fish\\red-emperor-feedback-20261031.profile.json",
+  "model_scale": 0.6033859959091457,
+  "head_join_interval": null,
+  "fins": {
+    "Dorsal": {
+      "root_mm": 2.4,
+      "mid_mm": 1.0,
+      "edge_mm": 0.26,
+      "camber_mm": 0.0
+    },
+    "Anal": {
+      "root_mm": 1.8,
+      "mid_mm": 0.8,
+      "edge_mm": 0.24,
+      "camber_mm": 0.0
+    },
+    "Pectoral": {
+      "root_mm": 2.2,
+      "mid_mm": 1.0,
+      "edge_mm": 0.26,
+      "camber_mm": 0.35
+    },
+    "Pelvic": {
+      "root_mm": 1.9,
+      "mid_mm": 0.8,
+      "edge_mm": 0.24,
+      "camber_mm": 0.35
+    },
+    "Caudal": {
+      "root_basis": "Actual finite current posterior body cross-section, variable with height",
+      "edge_mm": 0.28,
+      "taper_length_u": 0.055
+    }
+  },
+  "root_inset_mm": 0.1,
+  "free_clearance_mm": 0.2,
+  "tail_overlap_mm": 0.1,
+  "scope": "Explicit art hypotheses for visible per-fin root/mid/edge taper, not biological thickness measurements. All original source root bands/UV/rig, basically accepted mouth shape and display triangle limits retained; actual shape/physics pending.",
+  "root_surface_offset_mm": 0.1,
+  "paired_root_surface_offset_mm": -0.03,
+  "median_body_station_roots": [
+    "Dorsal",
+    "Anal"
+  ]
+}

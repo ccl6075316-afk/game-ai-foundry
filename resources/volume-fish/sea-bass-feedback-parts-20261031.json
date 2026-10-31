@@ -1,0 +1,70 @@
+{
+  "species": "sea_bass",
+  "body": "Closed_body",
+  "input_blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\mouth-skin-r4\\fish.blend",
+  "input_blend_sha256": "deb077fd1c0200f83912025942c58ffddd672e73527c44456078de0a20c01310",
+  "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\sea_bass\\082-source-inputs\\char_sea_bass_082_nobg.png",
+  "source_sha256": "7add2141512f57e0d189c2abc84a58b8582f9f30bc7086f2c57b328ce25bd6b1",
+  "source_size": [
+    1985,
+    800
+  ],
+  "baseline_profile": "resources\\volume-fish\\sea-bass-cage-r3-20261031.profile.json",
+  "profile": "resources\\volume-fish\\sea-bass-feedback-20261031.profile.json",
+  "model_scale": 0.6024187644009337,
+  "head_join_interval": [
+    0.7,
+    0.86
+  ],
+  "fins": {
+    "Dorsal_spiny": {
+      "root_mm": 2.0,
+      "mid_mm": 0.9,
+      "edge_mm": 0.24,
+      "camber_mm": 0.0
+    },
+    "Dorsal_soft": {
+      "root_mm": 1.5,
+      "mid_mm": 0.7,
+      "edge_mm": 0.22,
+      "camber_mm": 0.0
+    },
+    "Anal": {
+      "root_mm": 1.4,
+      "mid_mm": 0.65,
+      "edge_mm": 0.22,
+      "camber_mm": 0.0
+    },
+    "Pectoral": {
+      "root_mm": 1.8,
+      "mid_mm": 0.8,
+      "edge_mm": 0.24,
+      "camber_mm": 0.35
+    },
+    "Pelvic": {
+      "root_mm": 1.5,
+      "mid_mm": 0.7,
+      "edge_mm": 0.23,
+      "camber_mm": 0.35
+    },
+    "Caudal": {
+      "root_basis": "Actual finite current posterior body cross-section, variable with height",
+      "edge_mm": 0.25,
+      "taper_length_u": 0.045
+    }
+  },
+  "root_inset_mm": 0.1,
+  "free_clearance_mm": 0.2,
+  "tail_overlap_mm": 0.1,
+  "scope": "Explicit art hypotheses for visible per-fin root/mid/edge taper, not biological thickness measurements. All original source root bands/UV/rig, basically accepted mouth shape and display triangle limits retained; actual shape/physics pending.",
+  "root_surface_offset_mm": 0.1,
+  "reallocate_interior_fins": [
+    "Dorsal_spiny",
+    "Dorsal_soft",
+    "Anal"
+  ],
+  "paired_root_surface_offset_mm": -0.03,
+  "median_body_station_roots": [
+    "Dorsal_spiny"
+  ]
+}

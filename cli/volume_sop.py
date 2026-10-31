@@ -9,15 +9,47 @@ from volume_finalization import check_finalization, pending_finalization
 STAGES = {
     'preparation': {'research_and_measurements':'data','source_views_and_purposes':'data','accepted_source_provenance':'data','landmarks_and_part_inventory':'image','native_fin_cutouts_and_part_ownership':'data'},
     'head': {'source_pose_comparison':'image','clay_side':'image','clay_front':'image','clay_top':'image','clay_bottom':'image','clay_oblique':'image','transverse_constraints':'data'},
-    'mouth': {'structure_branch_and_constraints':'data','whole_snout_and_chin':'image','integrated_upper_lower_jaws_and_cut':'image','misplaced_outline_ownership':'image','native_pixel_cover_and_actual_uv_joins':'image','source_donors_and_mouth_gap':'data'},
+    'mouth': {'structure_branch_and_constraints':'data','whole_snout_and_chin':'image','integrated_upper_lower_jaws_and_cut':'image','misplaced_outline_ownership':'image','native_pixel_cover_and_actual_uv_joins':'image','source_donors_and_mouth_gap':'data','complete_native_lip_domain_and_front_exclusion':'report'},
     'eyes': {'source_eye_and_ownership_domains':'image','opposite_and_top_views':'image','overlay_attachment_and_lod':'data'},
     'skin': {'dorsal_material':'image','ventral_material':'image','hidden_fin_skin':'image','native_2d_donors_and_exclusions':'data','surface_opacity_inventory':'data','body_owned_fin_base_marks':'image'},
-    'fins': {'complete_species_fin_inventory_and_roots':'data','source_cutout_and_shape_comparison':'image','installed_visibility_and_body_occlusion':'data','all_fin_root_gate':'report','whole_fin_membrane_gate':'report','expanded_fin_visual_review':'image'},
+    'fins': {'complete_species_fin_inventory_and_roots':'data','source_cutout_and_shape_comparison':'image','installed_visibility_and_body_occlusion':'data','all_fin_root_gate':'report','whole_fin_membrane_gate':'report','expanded_fin_visual_review':'image','actual_normal_thickness_and_tail_section':'report','fin_volume_end_on_and_top_clay':'image'},
     'motion': {'native_loop':'report','swim':'image','turn':'image','ascend':'image','dive':'image','real_transitions_and_control_ranges':'report','jaw_or_other_action_branch':'data'},
     'runtime': {'body_integrity_gpu_gate':'report','material_anchor_and_actual_lod':'report','motion_and_surface_gate':'report','cold_import_and_install_binding':'report','final_asset_cold_load':'report','exported_vs_experiment_comparison':'image'},
     'presentation': {'source_style_final_comparison':'image','normal_and_close_game_views':'image','water_readability':'image','orbit_and_motion_video':'video','final_files_and_remaining_limits':'data'},
 }
 INPUT_ROLES = ('source_image','model','species_profile','runtime_manifest','motion_config')
+
+
+def check_native_lip_report(report,candidates,species,fail,label):
+    if report.get('kind')!='complete_anterior_semantic_color_chart':fail('missing_actual_native_lip_domain',label);return
+    if report.get('species')!=species or report.get('source_sha256')!=candidates.get('source_image',{}).get('sha256')or report.get('model_sha256')!=candidates.get('material_author_model',{}).get('sha256'):fail('wrong_native_lip_binding',label)
+    if not candidates.get('material_author_model'):fail('missing_material_author_model',label)
+    lip=report.get('complete_native_lip_ownership',{});domain=lip.get('domain',{});rim=report.get('actual_3d_rim_transport',{})
+    if not(lip.get('protected_texels',0)>0 and lip.get('maximum_front_weight_inside_complete_lip')==0 and lip.get('maximum_central_weight_inside_complete_lip')==0 and all(domain.get(k,0)>0 for k in['upper_width_px','lower_width_px','outer_fade_px'])and rim.get('upper_edges',0)>0 and rim.get('lower_edges',0)>0 and report.get('geometry_weights_triangles_unchanged')is True):fail('incomplete_native_lip_domain',label)
+
+
+def check_fin_volume_report(report, candidates, species, fail, label, profile):
+    """Reject generic passed JSON, constant shells, wrong fish/model or old negatives."""
+    if report.get('kind')!='actual_authored_fin_volume_and_tail_section':
+        fail('missing_actual_fin_volume',label);return
+    if report.get('model_sha256')!=candidates.get('model',{}).get('sha256') or report.get('species')!=species:
+        fail('wrong_fin_volume_binding',label)
+    if report.get('profile_sha256')!=candidates.get('species_profile',{}).get('sha256')or report.get('original_basal_domains_preserved')is not True:fail('changed_fin_volume_domain',label)
+    current=report.get('current',{});negative=report.get('rejected_original',{})
+    if current.get('ok')is not True or negative.get('ok')is not False:fail('fin_volume_negative_not_rejected',label)
+    inventory=current.get('fin_inventory',[]);rows=current.get('fins',[])
+    expected={f['name']+suffix:f for f in profile.get('fins',[])for suffix in(['_left','_right']if f.get('paired')else[''])}
+    if not inventory or len(inventory)!=len(set(inventory)) or len(rows)!=len(inventory)or {r.get('name')for r in rows}!=set(inventory)or {n.removesuffix('_mesh')for n in inventory}!=set(expected):fail('incomplete_fin_volume_inventory',label)
+    for row in rows:
+        correspondence=row.get('final_geometry_correspondence',{})
+        if row.get('ok')is not True or row.get('proximal_to_distal_median_ratio',0)<1.5 or row.get('missing_opposing_ray_count',1)!=0 or not correspondence or correspondence.get('maximum_bidirectional_position_error_native',1)>2e-6:
+            fail('insufficient_actual_fin_taper',label+': '+str(row.get('name')))
+        zones=row.get('zones',{})
+        if any(not zones.get(zone,{}).get('samples')for zone in ('proximal','middle','distal')):fail('missing_fin_thickness_zones',label)
+        original=expected.get(str(row.get('name','')).removesuffix('_mesh'),{}).get('root_attachment',{})
+        if row.get('source_root_band')!=original.get('root_band')or row.get('attachment_contact',{}).get('ok')is not True:fail('unverified_fin_attachment_volume',label)
+    tail=current.get('tail_cross_section',{})
+    if tail.get('ok')is not True or not tail.get('sections') or tail.get('maximum_width_error_mm',1e10)>tail.get('tolerance_mm',0):fail('discontinuous_tail_root_volume',label)
 
 def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -138,8 +170,13 @@ def check(review: Path, output: Path | None=None):
                 used.add(eid)
                 if kind=='report':
                     try:
-                        if read(path).get('ok') is not True:fail('failed_report',label)
-                    except (ValueError,AttributeError):fail('invalid_report',label)
+                        content=read(path)
+                        if content.get('ok') is not True:fail('failed_report',label)
+                        if stage=='fins'and criterion=='actual_normal_thickness_and_tail_section':
+                            profile=read(resolve(candidates['species_profile']['path']))
+                            check_fin_volume_report(content,candidates,data['species'],fail,label,profile)
+                        if stage=='mouth'and criterion=='complete_native_lip_domain_and_front_exclusion':check_native_lip_report(content,candidates,data['species'],fail,label)
+                    except (ValueError,AttributeError,OSError,KeyError,TypeError):fail('invalid_report',label)
                 elif kind=='image':
                     from PIL import Image
                     try:

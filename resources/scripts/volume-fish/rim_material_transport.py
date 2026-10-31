@@ -5,6 +5,12 @@ The supplied 2D side-source curve remains a two-dimensional color donor.
 """
 import numpy as np
 
+def native_lip_ownership(distance_px,width_px,fade_px):
+    """Complete semantic lip is native-only; any fade lies OUTSIDE its boundary."""
+    if not(np.all(np.isfinite(width_px))and np.all(np.asarray(width_px)>0)and np.isfinite(fade_px)and fade_px>0):raise ValueError('Positive traced lip width and outer fade required')
+    t=np.clip((np.asarray(distance_px)-width_px)/fade_px,0,1)
+    return 1-t*t*(3-2*t)
+
 def ordered_boundary(coords,edges):
     adjacent={}
     for a,b in edges:

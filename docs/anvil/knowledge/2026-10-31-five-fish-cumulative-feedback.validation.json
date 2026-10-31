@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "kind": "five_fish_cumulative_feedback_operator_candidates",
+  "manifest": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-repair-20261031\\manifest.json",
+    "sha256": "8a9af5b4f65d70de3aa05f00f4f360df592da33d2cf9b9f27e66d4da66769b7a"
+  },
+  "items": [
+    {
+      "species": "rainbow_trout",
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\fish.glb",
+        "sha256": "db750dfedcbc791539774b02c8c30a6077f2d24feae5dd8cdd211a6e6f3a3408"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\source\\fish.blend",
+        "sha256": "4afa7bfc789e519dd1a02a96206ed8ad45ef02d6280a1298ce0176db78713e3b"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\sop-post-cleanup-r5.validation.json",
+        "sha256": "3a005ef080418c599be001f3c8961123995bde21a2600ce07108f269a683db0c"
+      },
+      "runtime": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\delivery-r5\\manifest.json",
+        "sha256": "b60269d1d5e60bd5b1979e64298498f88eb9ba046be0f226c7a70ada2a092135"
+      },
+      "triangles": 1720,
+      "real_length_cm": 60,
+      "remaining_feedback_bytes": 222306294
+    },
+    {
+      "species": "brown_trout",
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\feedback-20261031\\candidate-r12\\source-run\\fish.glb",
+        "sha256": "5955a47a52e736976a65a6cafbe4606c041ac764bdc2897ac227a908ef395eb0"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\feedback-20261031\\candidate-r12\\source-run\\source\\fish.blend",
+        "sha256": "a27d120d159f777000a1219648bc799d51831741df1ecd3d3115b44e21cd6c81"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\feedback-20261031\\sop-post-cleanup-r12.validation.json",
+        "sha256": "9d68eb5ee5de214138f29f4bbfd1696216da8e9cfde06db8d77a1f379c50520f"
+      },
+      "runtime": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\feedback-20261031\\delivery-r12\\manifest.json",
+        "sha256": "d9231661a1c859f0ea49ceba72faa27ff444084d8230e73c4ee46f246f2d0513"
+      },
+      "triangles": 1996,
+      "real_length_cm": 72,
+      "remaining_feedback_bytes": 184326511
+    },
+    {
+      "species": "atlantic_salmon",
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\candidate-r7\\source-run\\fish.glb",
+        "sha256": "fe10f49d0081f5c6e2cd4b3747203ba9a629542bbf4c7fe6fa0d2ee0c23f01b9"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\candidate-r7\\source-run\\source\\fish.blend",
+        "sha256": "795067033f3156891d47d8170b9dc41c292ca8fd472b0b2de32d6e20390856dc"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\sop-post-cleanup-r7.validation.json",
+        "sha256": "ef85bb452c5ccec3ed1bee00b66e0a756234ca85f679001073f304575b666e4f"
+      },
+      "runtime": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\delivery-r7\\manifest.json",
+        "sha256": "23c4e09de58fa0e922f2811e829e95d5fd4ad2c02cff0da945bff00c8b0d8596"
+      },
+      "triangles": 1996,
+      "real_length_cm": 73.66,
+      "remaining_feedback_bytes": 178121883
+    },
+    {
+      "species": "sea_bass",
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\feedback-20261031\\candidate-r15\\source-run\\fish.glb",
+        "sha256": "0860426c667dd3c6b19c9b404f7369c879afc39f3e9800da4658ada77d4ccd1e"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\feedback-20261031\\candidate-r15\\source-run\\source\\fish.blend",
+        "sha256": "dbc4b3102fa749c8a4da07ff012e34eaebe08b2a7b9d9ba9332ab85f394884fb"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\feedback-20261031\\sop-post-cleanup-r15.validation.json",
+        "sha256": "0944b5a2554e30eb4df262c17666996311c2e36b55813fd27df00bf61023f035"
+      },
+      "runtime": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\sea-bass-portable-trial-20261031\\feedback-20261031\\delivery-r15\\manifest.json",
+        "sha256": "aceac092af51f7ee357ecd5ab5473ec06d5be4f6a73c7cafc285a7752259c6f1"
+      },
+      "triangles": 1976,
+      "real_length_cm": 60,
+      "remaining_feedback_bytes": 151963945
+    },
+    {
+      "species": "red_emperor",
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\fish.glb",
+        "sha256": "830c4067f60bc16987cfa4e162edbdf2ddd497da6db263a142df77aa333b432e"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\source\\fish.blend",
+        "sha256": "ca2b62af56d022bdd333cbc46e626fc0640b5c499d27d68a363d75fe10edc97d"
+      },
+      "sop": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\feedback-20261031\\sop-post-cleanup-r5.validation.json",
+        "sha256": "91e238d009cf1b02fc107866a0c08bd4b9ec55f3926e09aacb77061afeed19e6"
+      },
+      "runtime": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\feedback-20261031\\delivery-r5\\manifest.json",
+        "sha256": "964c200eabcfad42e472201057d5f52a1d8af418c4dd916bef7c4e249e3d8d62"
+      },
+      "triangles": 1992,
+      "real_length_cm": 60,
+      "remaining_feedback_bytes": 140863029
+    }
+  ],
+  "interactive_gpu_smoke": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-list-20261031\\feedback-20261031\\gpu-smoke\\viewer.validation.json",
+    "sha256": "e2a60f8f4a6b2832c48e5a50798ee5fd24d010965ad627be73b3ef0d2d5b0699"
+  },
+  "portable_tests_passed": 99,
+  "sop_tests_passed": 25,
+  "cleanup_removed_bytes_total": 2430745661,
+  "remaining_feedback_bytes": 877581662,
+  "formal_acceptance": false,
+  "user_acceptance": false,
+  "installed": false,
+  "limits": [
+    "All five satisfy2000 hard budget, preferred1500 not met.",
+    "Per-fin thickness values are art hypotheses.",
+    "Macro oral facets and mirrored cheek/gill/chin projections remain.",
+    "Discrete490 poses do not prove continuous clearance."
+  ]
+}

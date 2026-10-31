@@ -1,0 +1,1045 @@
+{
+  "schema_version": 1,
+  "species": "sea_bass",
+  "display_name": "海鲈",
+  "coordinate_space": "normalized_source_top_left",
+  "source_aspect_ratio": 2.48125,
+  "profile_review_status": "approved",
+  "real_length_cm": 60,
+  "style": {
+    "pixel_art": true,
+    "reference_image": "repo://projects/fishing-2d/game/assets/sprites/鱼_海鲈_角色/frame_0001.png",
+    "texture_filter": "nearest",
+    "roughness": 1.0
+  },
+  "body": {
+    "sections": [
+      [
+        0.127,
+        0.395,
+        0.632,
+        0.009
+      ],
+      [
+        0.139,
+        0.395,
+        0.6310943396226415,
+        0.010584905660377359
+      ],
+      [
+        0.18,
+        0.395,
+        0.628,
+        0.016
+      ],
+      [
+        0.22911111111111115,
+        0.3786296296296296,
+        0.6541925925925927,
+        0.022548148148148154
+      ],
+      [
+        0.24,
+        0.375,
+        0.66,
+        0.024
+      ],
+      [
+        0.263,
+        0.36251428571428573,
+        0.6777428571428572,
+        0.02695714285714286
+      ],
+      [
+        0.267,
+        0.36034285714285713,
+        0.6808285714285714,
+        0.027471428571428577
+      ],
+      [
+        0.3,
+        0.34242857142857147,
+        0.7062857142857143,
+        0.031714285714285716
+      ],
+      [
+        0.31,
+        0.337,
+        0.714,
+        0.033
+      ],
+      [
+        0.3192222222222222,
+        0.3321253968253969,
+        0.7194015873015872,
+        0.03392222222222222
+      ],
+      [
+        0.34,
+        0.3211428571428571,
+        0.7315714285714285,
+        0.036000000000000004
+      ],
+      [
+        0.36,
+        0.31057142857142855,
+        0.7432857142857143,
+        0.038
+      ],
+      [
+        0.38,
+        0.3,
+        0.755,
+        0.04
+      ],
+      [
+        0.39,
+        0.2965,
+        0.758875,
+        0.040625
+      ],
+      [
+        0.401,
+        0.29264999999999997,
+        0.7631375,
+        0.0413125
+      ],
+      [
+        0.4093333333333333,
+        0.28973333333333334,
+        0.7663666666666666,
+        0.041833333333333333
+      ],
+      [
+        0.445,
+        0.27725,
+        0.7801875,
+        0.0440625
+      ],
+      [
+        0.46,
+        0.272,
+        0.786,
+        0.045
+      ],
+      [
+        0.48,
+        0.267,
+        0.791,
+        0.0455
+      ],
+      [
+        0.4994444444444444,
+        0.2621388888888889,
+        0.7958611111111111,
+        0.04598611111111111
+      ],
+      [
+        0.54,
+        0.252,
+        0.806,
+        0.047
+      ],
+      [
+        0.5895555555555556,
+        0.24456666666666665,
+        0.8109555555555555,
+        0.04638055555555556
+      ],
+      [
+        0.6,
+        0.243,
+        0.8119999999999999,
+        0.04625
+      ],
+      [
+        0.62,
+        0.24,
+        0.814,
+        0.046
+      ],
+      [
+        0.632,
+        0.24,
+        0.8134,
+        0.0457
+      ],
+      [
+        0.67,
+        0.24,
+        0.8115,
+        0.04475
+      ],
+      [
+        0.6796666666666666,
+        0.24,
+        0.8110166666666667,
+        0.04450833333333333
+      ],
+      [
+        0.7,
+        0.2275,
+        0.81,
+        0.044
+      ],
+      [
+        0.704,
+        0.22688063685431514,
+        0.8065160153812352,
+        0.04377142857142857
+      ],
+      [
+        0.746,
+        0.22688063685431514,
+        0.7928827149418649,
+        0.04137142857142857
+      ],
+      [
+        0.748,
+        0.22695821198804264,
+        0.7922408655762077,
+        0.04125714285714285
+      ],
+      [
+        0.7697777777777778,
+        0.23545041957308802,
+        0.7829697665338666,
+        0.040012698412698416
+      ],
+      [
+        0.769778,
+        0.23545050622826744,
+        0.7829696719308152,
+        0.04001268571428572
+      ],
+      [
+        0.77,
+        0.23563063685431512,
+        0.7896298677878845,
+        0.04
+      ],
+      [
+        0.83,
+        0.27313063685431516,
+        0.748886595784463,
+        0.035
+      ],
+      [
+        0.8598888888888888,
+        0.29739851114530647,
+        0.7350023888626539,
+        0.03141333333333334
+      ],
+      [
+        0.859889,
+        0.2973986013604526,
+        0.7350023372485017,
+        0.0314133310880647
+      ],
+      [
+        0.88,
+        0.325,
+        0.7125,
+        0.031006939709186554
+      ],
+      [
+        0.92,
+        0.36875,
+        0.67375,
+        0.027852891013026237
+      ],
+      [
+        0.94,
+        0.395,
+        0.65,
+        0.026186620816588402
+      ],
+      [
+        0.95,
+        0.405625,
+        0.63625,
+        0.025348031893372536
+      ],
+      [
+        0.96,
+        0.41625,
+        0.6225,
+        0.02430800534784794
+      ],
+      [
+        0.975,
+        0.43625,
+        0.5875,
+        0.022807583212852478
+      ],
+      [
+        0.98,
+        0.444375,
+        0.5743750000000001,
+        0.021801981143653393
+      ],
+      [
+        0.985,
+        0.4525,
+        0.56125,
+        0.020796379074454308
+      ],
+      [
+        0.9934508816120907,
+        0.4725,
+        0.5425,
+        0.015789198624172093
+      ],
+      [
+        0.995,
+        0.5025,
+        0.535,
+        0.013265837320698595
+      ],
+      [
+        0.996,
+        0.50875,
+        0.53375,
+        0.011050610020877394
+      ],
+      [
+        0.9979848866498741,
+        0.52,
+        0.5225,
+        0.0003
+      ]
+    ],
+    "rings": 47,
+    "radial": 12,
+    "ring_positions": [
+      0.127,
+      0.139,
+      0.18,
+      0.22911111111111115,
+      0.24,
+      0.263,
+      0.267,
+      0.3,
+      0.31,
+      0.3192222222222222,
+      0.34,
+      0.36,
+      0.38,
+      0.39,
+      0.401,
+      0.4093333333333333,
+      0.445,
+      0.46,
+      0.48,
+      0.4994444444444444,
+      0.54,
+      0.5895555555555556,
+      0.6,
+      0.62,
+      0.632,
+      0.67,
+      0.6796666666666666,
+      0.7,
+      0.704,
+      0.746,
+      0.748,
+      0.7697777777777778,
+      0.77,
+      0.83,
+      0.8598888888888888,
+      0.88,
+      0.92,
+      0.94,
+      0.95,
+      0.96,
+      0.975,
+      0.98,
+      0.985,
+      0.9934508816120907,
+      0.995,
+      0.996,
+      0.9979848866498741
+    ]
+  },
+  "rig": {
+    "spine": [
+      [
+        0.95,
+        0.5235
+      ],
+      [
+        0.8598888888888888,
+        0.5170922222222222
+      ],
+      [
+        0.7697777777777778,
+        0.5215111111111111
+      ],
+      [
+        0.6796666666666666,
+        0.5255083333333334
+      ],
+      [
+        0.5895555555555556,
+        0.5277611111111111
+      ],
+      [
+        0.4994444444444444,
+        0.529
+      ],
+      [
+        0.4093333333333333,
+        0.52805
+      ],
+      [
+        0.3192222222222222,
+        0.525763492063492
+      ],
+      [
+        0.22911111111111115,
+        0.5164111111111112
+      ],
+      [
+        0.139,
+        0.5130471698113208
+      ]
+    ]
+  },
+  "fins": [
+    {
+      "name": "Dorsal_spiny",
+      "polygon": [
+        [
+          0.48,
+          0.267
+        ],
+        [
+          0.54,
+          0.252
+        ],
+        [
+          0.6,
+          0.24
+        ],
+        [
+          0.67,
+          0.24
+        ],
+        [
+          0.68,
+          0.23
+        ],
+        [
+          0.665,
+          0.162
+        ],
+        [
+          0.639,
+          0.101
+        ],
+        [
+          0.622,
+          0.043
+        ],
+        [
+          0.606,
+          0.082
+        ],
+        [
+          0.588,
+          0.007
+        ],
+        [
+          0.565,
+          0.071
+        ],
+        [
+          0.548,
+          0.035
+        ],
+        [
+          0.53,
+          0.109
+        ],
+        [
+          0.514,
+          0.093
+        ],
+        [
+          0.493,
+          0.184
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.48,
+          0.267
+        ],
+        [
+          0.54,
+          0.252
+        ],
+        [
+          0.6,
+          0.24
+        ],
+        [
+          0.67,
+          0.24
+        ]
+      ],
+      "anchor": [
+        0.5725,
+        0.24975
+      ],
+      "tip": [
+        0.588,
+        0.007
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0.0001,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Dorsal_soft",
+      "polygon": [
+        [
+          0.267,
+          0.355
+        ],
+        [
+          0.3,
+          0.343
+        ],
+        [
+          0.34,
+          0.32
+        ],
+        [
+          0.39,
+          0.29
+        ],
+        [
+          0.445,
+          0.276
+        ],
+        [
+          0.412,
+          0.207
+        ],
+        [
+          0.364,
+          0.106
+        ],
+        [
+          0.341,
+          0.084
+        ],
+        [
+          0.32,
+          0.124
+        ],
+        [
+          0.288,
+          0.22
+        ],
+        [
+          0.27,
+          0.29
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.267,
+          0.355
+        ],
+        [
+          0.3,
+          0.343
+        ],
+        [
+          0.34,
+          0.32
+        ],
+        [
+          0.39,
+          0.29
+        ],
+        [
+          0.445,
+          0.276
+        ]
+      ],
+      "anchor": [
+        0.3484,
+        0.3168
+      ],
+      "tip": [
+        0.341,
+        0.084
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0.0001,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Anal",
+      "polygon": [
+        [
+          0.263,
+          0.687
+        ],
+        [
+          0.3,
+          0.71
+        ],
+        [
+          0.36,
+          0.748
+        ],
+        [
+          0.401,
+          0.767
+        ],
+        [
+          0.371,
+          0.821
+        ],
+        [
+          0.314,
+          0.914
+        ],
+        [
+          0.298,
+          0.91
+        ],
+        [
+          0.271,
+          0.79
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.263,
+          0.687
+        ],
+        [
+          0.3,
+          0.71
+        ],
+        [
+          0.36,
+          0.748
+        ],
+        [
+          0.401,
+          0.767
+        ]
+      ],
+      "anchor": [
+        0.331,
+        0.728
+      ],
+      "tip": [
+        0.298,
+        0.91
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0.0001,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "polygon": [
+        [
+          0.127,
+          0.395
+        ],
+        [
+          0.1,
+          0.36
+        ],
+        [
+          0.016,
+          0.23
+        ],
+        [
+          0.002,
+          0.218
+        ],
+        [
+          0.025,
+          0.379
+        ],
+        [
+          0.05,
+          0.491
+        ],
+        [
+          0.043,
+          0.574
+        ],
+        [
+          0.005,
+          0.818
+        ],
+        [
+          0.03,
+          0.821
+        ],
+        [
+          0.09,
+          0.721
+        ],
+        [
+          0.127,
+          0.632
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.127,
+          0.632
+        ],
+        [
+          0.127,
+          0.395
+        ]
+      ],
+      "anchor": [
+        0.127,
+        0.5135000000000001
+      ],
+      "tip": [
+        0.005,
+        0.818
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.045,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "surface_region": "posterior",
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral",
+      "polygon": [
+        [
+          0.748,
+          0.578
+        ],
+        [
+          0.7,
+          0.558
+        ],
+        [
+          0.65,
+          0.549
+        ],
+        [
+          0.619,
+          0.559
+        ],
+        [
+          0.628,
+          0.62
+        ],
+        [
+          0.68,
+          0.699
+        ],
+        [
+          0.727,
+          0.703
+        ],
+        [
+          0.746,
+          0.663
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.748,
+          0.578
+        ],
+        [
+          0.746,
+          0.663
+        ]
+      ],
+      "anchor": [
+        0.747,
+        0.6205
+      ],
+      "tip": [
+        0.619,
+        0.559
+      ],
+      "paired": true,
+      "root_depth": 0.036,
+      "tip_depth": 0.078,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic",
+      "polygon": [
+        [
+          0.632,
+          0.806
+        ],
+        [
+          0.67,
+          0.808
+        ],
+        [
+          0.704,
+          0.801
+        ],
+        [
+          0.689,
+          0.85
+        ],
+        [
+          0.647,
+          0.95
+        ],
+        [
+          0.622,
+          0.99
+        ],
+        [
+          0.619,
+          0.936
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.632,
+          0.806
+        ],
+        [
+          0.67,
+          0.808
+        ],
+        [
+          0.704,
+          0.801
+        ]
+      ],
+      "anchor": [
+        0.6686666666666667,
+        0.805
+      ],
+      "tip": [
+        0.622,
+        0.99
+      ],
+      "paired": true,
+      "root_depth": 0.03,
+      "tip_depth": 0.068,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    }
+  ],
+  "eyes": null,
+  "barbels": [],
+  "animation": {
+    "fps": 24,
+    "period_seconds": 2.4,
+    "body_amplitudes": [
+      0,
+      0.002,
+      0.004,
+      0.008,
+      0.012,
+      0.02,
+      0.028,
+      0.038,
+      0.05,
+      0.06
+    ],
+    "phase_step": 0.53
+  },
+  "body_uv_patches": [],
+  "notes": [
+    "082 author-calibrated against actually inspected accepted native side source 7add2141512f57e0d189c2abc84a58b8582f9f30bc7086f2c57b328ce25bd6b1. Profile input approval only; no output acceptance.",
+    "Separate species contour, actual full fin baselines and mouth landmarks, not a morphed model template.",
+    "Hidden transverse widths are engineering priors; no comparable same-station biological measurements are claimed. Native texture dimensions and nearest retained.",
+    "Complete fin root collar inset0.45mm/native unit; later actual runtime uses physical units and frozen connection/membrane thresholds. All motion amplitudes are production settings, not measured biomechanics.",
+    "082f: authored fin polygon follows the complete species-specific source baseline. Inset zero places the root mid-surface on the actual body; original solid half-thickness <=0.25mm fits the unchanged 0.5mm basal seam. Original nearest projection, source, texture, thickness, free clearance, rig and motion unchanged. No adaptive refinement or radial chart opt-in.",
+    "082g final input: median root inset .0001 retains nonzero solid root shell without the zero-inset welded-edge singularity. Independent25-fin test closed25/25, max root vertex depth~.34mm. Paired/Caudal remain0; original free_clearance unchanged; no new builder code.",
+    "Fourth of five: own accepted082g source,8fins incl separate spiny/soft dorsals. Own091 user-improvement-approved actual transverse cross sections retained as artistic starting envelope, not biology or whole-fish acceptance. Full source jaw/eye/body/fin and new gates pending.",
+    "Own091 improvement-approved head width sections and full source chin retained; only tinyterminalwidth bump clamped0.016507. Native actual upperjaw ends before lowerjaw, so upper lip trace stops1972 and complete chin reaches1980. Original full source head sparse alpha controls, last single-column bounds407..427; no head-source shader. Old two slit-only collinear stations removed, all original body/rig/fin bases kept. New full review pending.",
+    "Actual R1 gray review rejected terminal flat mandibular block. R3 existing anterior shoulder u>=.985 withdrawn into an oblate elliptical cap ending within original source opaque extent1981/1985; no appended mesh/spike, no extra rings/triangles, eye/anterior cranium before.985 unchanged. Terminal column uses own opaque lowerjaw center416..418px, complete projected chin retained. New source/gray/color/head/body/fin/motion review pending.",
+    "2026-10-31 user feedback: source side shoulder recalibrated where requested. Complete fins/tail volume is now authored by explicit per-fin repair config; scalar thickness is distal membrane construction only, not root thickness. Existing mouth/rig retained."
+  ],
+  "oral_jaws": {
+    "corner": [
+      0.9269521410579346,
+      0.621875
+    ],
+    "front": [
+      0.9934508816120907,
+      0.4975
+    ],
+    "gap": 0.005,
+    "upper_retraction": 0,
+    "lower_projection": 0,
+    "lip_bevel": 0,
+    "front_pigment_band": [
+      0.6,
+      0.82
+    ],
+    "slit_path": [
+      [
+        0.9269521410579346,
+        0.621875
+      ],
+      [
+        0.9345088161209067,
+        0.605
+      ],
+      [
+        0.947103274559194,
+        0.580625
+      ],
+      [
+        0.9571788413098237,
+        0.55875
+      ],
+      [
+        0.9672544080604534,
+        0.54125
+      ],
+      [
+        0.9773299748110831,
+        0.52375
+      ],
+      [
+        0.9874055415617129,
+        0.51
+      ],
+      [
+        0.9934508816120907,
+        0.4975
+      ]
+    ],
+    "boolean_solver": "EXACT"
+  },
+  "native_fin_cutouts": true
+}

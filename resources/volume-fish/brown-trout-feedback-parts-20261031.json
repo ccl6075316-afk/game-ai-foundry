@@ -1,0 +1,71 @@
+{
+  "species": "brown_trout",
+  "body": "Closed_body",
+  "input_blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\brown-trout-portable-trial-20261031\\mouth-r6\\fish.blend",
+  "input_blend_sha256": "177f6226427469b89253e0bfa24e9965c3488bfb5863389d31f2b596248dff4b",
+  "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\output\\char_031dc4b44b_nobg.png",
+  "source_sha256": "5419c26072eaff9b02c052aa47f793efd61d2847b07470a1f31b90cc3c86da53",
+  "source_size": [
+    1597,
+    534
+  ],
+  "baseline_profile": "resources\\volume-fish\\brown-trout-source-head-r6-20261031.profile.json",
+  "profile": "resources\\volume-fish\\brown-trout-feedback-20261031.profile.json",
+  "model_scale": 0.7254511261984907,
+  "head_join_interval": null,
+  "fins": {
+    "Dorsal": {
+      "root_mm": 2.1,
+      "mid_mm": 1.0,
+      "edge_mm": 0.25,
+      "camber_mm": 0.0,
+      "remove_collinear_outline_ids": [
+        1,
+        2,
+        3
+      ]
+    },
+    "Adipose": {
+      "root_mm": 1.9,
+      "mid_mm": 1.1,
+      "edge_mm": 0.32,
+      "camber_mm": 0.0
+    },
+    "Anal": {
+      "root_mm": 1.6,
+      "mid_mm": 0.75,
+      "edge_mm": 0.23,
+      "camber_mm": 0.0
+    },
+    "Pectoral": {
+      "root_mm": 2.0,
+      "mid_mm": 0.9,
+      "edge_mm": 0.25,
+      "camber_mm": 0.35
+    },
+    "Pelvic": {
+      "root_mm": 1.7,
+      "mid_mm": 0.8,
+      "edge_mm": 0.24,
+      "camber_mm": 0.35
+    },
+    "Caudal": {
+      "root_basis": "Actual finite current posterior body cross-section, variable with height",
+      "edge_mm": 0.28,
+      "taper_length_u": 0.05,
+      "remove_collinear_outline_ids": [
+        11
+      ]
+    }
+  },
+  "root_inset_mm": 0.1,
+  "free_clearance_mm": 0.2,
+  "tail_overlap_mm": 0.1,
+  "scope": "Explicit art hypotheses for visible per-fin root/mid/edge taper, not biological thickness measurements. All original source root bands/UV/rig, basically accepted mouth shape and display triangle limits retained; actual shape/physics pending.",
+  "root_surface_offset_mm": 0.1,
+  "paired_root_surface_offset_mm": 0.0,
+  "median_body_station_roots": [
+    "Dorsal"
+  ],
+  "reallocate_interior_fins": []
+}

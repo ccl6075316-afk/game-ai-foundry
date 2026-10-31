@@ -1,0 +1,65 @@
+{
+  "species": "rainbow_trout",
+  "body": "Closed_body",
+  "input_blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\mouth-r4\\fish.blend",
+  "input_blend_sha256": "601ce8e3d56b7650db9598bc189c2a0e17190023088c0b7c5ddc79591a39cb77",
+  "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\rainbow_trout\\082-source-inputs\\char_rainbow_trout_082_nobg.png",
+  "source_sha256": "d3195994e5d0a68d2cd86395375f736df1fb5f92e3543e86b77bc23ae39f29cb",
+  "source_size": [
+    1990,
+    717
+  ],
+  "baseline_profile": "resources\\volume-fish\\rainbow-trout-source-head-r3-20261031.profile.json",
+  "profile": "resources\\volume-fish\\rainbow-trout-feedback-20261031.profile.json",
+  "model_scale": 0.6036217558641618,
+  "head_join_interval": [
+    0.62,
+    0.85
+  ],
+  "fins": {
+    "Dorsal": {
+      "root_mm": 1.8,
+      "mid_mm": 0.8,
+      "edge_mm": 0.22,
+      "camber_mm": 0.0
+    },
+    "Adipose": {
+      "root_mm": 1.6,
+      "mid_mm": 1.0,
+      "edge_mm": 0.3,
+      "camber_mm": 0.0
+    },
+    "Anal": {
+      "root_mm": 1.3,
+      "mid_mm": 0.65,
+      "edge_mm": 0.2,
+      "camber_mm": 0.0
+    },
+    "Pectoral": {
+      "root_mm": 1.8,
+      "mid_mm": 0.8,
+      "edge_mm": 0.22,
+      "camber_mm": 0.35
+    },
+    "Pelvic": {
+      "root_mm": 1.5,
+      "mid_mm": 0.7,
+      "edge_mm": 0.22,
+      "camber_mm": 0.35
+    },
+    "Caudal": {
+      "root_basis": "Actual finite current posterior body cross-section, variable with height",
+      "edge_mm": 0.25,
+      "taper_length_u": 0.045
+    }
+  },
+  "root_inset_mm": 0.1,
+  "free_clearance_mm": 0.2,
+  "tail_overlap_mm": 0.1,
+  "scope": "Explicit art hypotheses for visible per-fin root/mid/edge taper, not biological thickness measurements. All original source root bands/UV/rig, basically accepted mouth shape and display triangle limits retained; actual shape/physics pending.",
+  "root_surface_offset_mm": 0.1,
+  "paired_root_surface_offset_mm": -0.1,
+  "median_body_station_roots": [
+    "Dorsal"
+  ]
+}
