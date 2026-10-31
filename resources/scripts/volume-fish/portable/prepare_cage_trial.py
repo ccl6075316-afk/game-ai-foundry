@@ -13,7 +13,8 @@ def prepare(config_path,out):
     source=(ROOT/config['source']).resolve();assert sha(source)==old['source']['sha256']
     artifact_dir=accepted.parent/(accepted.stem+'-artifacts');reference=ROOT/profile['style']['reference_image'].removeprefix('repo://')
     archive={'accepted_handoff':str(accepted),'profile':str(original),'blend':str(artifact_dir/'fish.blend'),'glb':str(artifact_dir/'fish.glb'),'source':str(source),'reference':str(reference),'review_images':{key:str(artifact_dir/'review'/({'style_comparison':'style-comparison.png','master_comparison':'master-comparison.png'}.get(key,key+'.png')))for key in old['style_review']['hashes']['review_images']}}
-    assert all(Path(v).is_file()for k,v in archive.items()if k!='review_images')and all(Path(v).is_file()for v in archive['review_images'].values())
+    missing=[str(v)for k,v in archive.items()if k!='review_images'and not Path(v).is_file()]+[str(v)for v in archive['review_images'].values()if not Path(v).is_file()]
+    assert not missing,'Missing actual accepted archive files: '+', '.join(missing)
     envelope=config['head_envelope'];sections=profile['body']['sections'];extra=config.get('additional_stations',[])
     assert all(isinstance(u,(int,float))and not isinstance(u,bool)and sections[0][0]<=u<=sections[-1][0]for u in extra),'Additional stations must stay within this species body'
     positions=sorted({s[0]for s in sections}|{s[0]for s in envelope}|{s[0]for s in profile['oral_jaws']['slit_path']}|set(extra));assert min(positions)==sections[0][0]and max(positions)==sections[-1][0]

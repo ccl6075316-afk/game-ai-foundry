@@ -611,7 +611,17 @@ def build(h,p,source,outputs):
             scale=f.get('vertical_scale',1)
             def finpos(u,v,depth):return xyz(u,f['anchor'][1]+(v-f['anchor'][1])*scale,depth)
             attachment=f.get('root_attachment')
-            posterior_bvh=None
+            posterior_bvh=None;flank_bvh=None
+            if attachment and f['paired']:
+                # The ventral center edge is shared by both flanks. A nearest
+                # query can return the opposite face's normal at that same edge,
+                # even for a point strictly on this fin's side. Select actual
+                # triangles of the requested flank before measuring/projecting;
+                # do not move the root, shrink its domain or weaken tolerances.
+                body_object.data.calc_loop_triangles();fv=[v.co.copy() for v in body_object.data.vertices]
+                ff=[tuple(t.vertices)for t in body_object.data.loop_triangles if all(fv[i].y*side>=-1e-8 for i in t.vertices)]
+                require(bool(ff),'No matching body flank for fin: '+name)
+                flank_bvh=BVHTree.FromPolygons(fv,ff,all_triangles=True)
             if attachment and attachment.get('surface_region')=='posterior':
                 body_object.data.calc_loop_triangles();pv=[v.co.copy() for v in body_object.data.vertices];rear=min(v.x for v in pv);span=max(v.x for v in pv)-rear
                 pf=[tuple(t.vertices) for t in body_object.data.loop_triangles if max(pv[i].x for i in t.vertices)<=rear+.025*span and (pv[t.vertices[1]]-pv[t.vertices[0]]).cross(pv[t.vertices[2]]-pv[t.vertices[0]]).normalized().x<-.5]
@@ -622,6 +632,8 @@ def build(h,p,source,outputs):
                 if gain<=0 and not attachment.get('surface_clearance'):return point
                 if posterior_bvh:
                     hit,normal,face,_=posterior_bvh.find_nearest(point);found=face is not None
+                elif flank_bvh:
+                    hit,normal,face,_=flank_bvh.find_nearest(point);found=face is not None
                 elif attachment.get('surface_clearance') and not f['paired']:
                     vertical=1 if f['tip'][1]<f['anchor'][1] else -1
                     origin=Vector((point.x,point.y,vertical*2.))

@@ -11,6 +11,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 受限中央材质：只采用获准的源ROI，原眼保护须限定实际侧向支持域，避免共享UV把中央也挡住；已确认唇缘可按实际3D曲线保护。各鱼独立确定参数。详见上面的经验表和[历史返修证据](references/mouth-repair-lessons-20261031.md)。操作者通过与用户接受分别记录。
 
+正面/中央供体先按[部位材质对应卡](references/source-zone-review.md)核对原图同部位：额头不能误借躯干鳞片，完整头顶、纹样归属和实际模型覆盖分别审核。保留用户拒绝供体与SHA绑定；该守卫不代替看图。复用旧源在辅助生图之前先验完整实际归档。
+
 局部材质、供体配准与普通/法线保护源分支见[材质执行卡](references/portable-material-lessons-20261030.md)；实际clip/骨名/UTF8/面预算自动取证及纯身体补皮负例见[生产工具经验](references/portable-production-lessons-20261030.md)。
 
 ## 统一执行入口

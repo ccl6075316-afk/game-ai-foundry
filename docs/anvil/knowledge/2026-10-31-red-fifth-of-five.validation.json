@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "species": "red_emperor",
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\candidate-r4\\source-run\\fish.glb",
+    "sha256": "38e7dccab7915b32e3253c6a22f7a9e9d003c2fcc3d77e28fd8f46f00f87dfe2"
+  },
+  "manifest": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\manifest.json",
+    "sha256": "2333d31301ec49b614a22a899a2a4d1bd4c83cbacf6435c59f19363eb66f276a"
+  },
+  "sop": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\post-cleanup-sop.validation.json",
+    "sha256": "f077db377b12efb97a8a4ae5d8d357475d0765ab843770244772d83366c59c38"
+  },
+  "triangles": 2000,
+  "preferred_met": false,
+  "real_length_cm": 60,
+  "fins": 7,
+  "bones": 18,
+  "portable_tests": 95,
+  "volume_cli_tests": {
+    "ran": 151,
+    "skipped": 4,
+    "passed": true
+  },
+  "source_archive_actual_positive": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\accepted-archive-preflight\\validation-report.json",
+    "sha256": "96f0bc196ff52824a713d0470eabb0106ecb5da3c07837a89e3e12a7ec9d3502"
+  },
+  "source_archive_actual_missing_negative": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\yellow-croaker-portable-trial-20261031\\accepted-archive-preflight\\validation-report.json",
+    "sha256": "3c713a4932d52e8056eaff7285538a1a99793a86ab8efa629c1fcfd07cbd0179"
+  },
+  "explicit_user_rejection": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\red-emperor-portable-trial-20261031\\front-material-zone-review.validation.json",
+    "sha256": "a994438e6e787561c3ca59a1356b0c8ddae7c971b8d479f5f3392e6189a8b2e0"
+  },
+  "cleanup_removed_bytes": 558004237,
+  "retained_bytes": 146286096,
+  "user_acceptance": false,
+  "installed": false,
+  "five_cycle": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\four-fish-20261031\\cycle.manifest.json",
+    "sha256": "26f92d67e6b024cec209cb137ebd2655dc323f1d0b18698d0598559f0f9607e4"
+  },
+  "interactive_list": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-list-20261031\\manifest.json",
+    "sha256": "d61d8faf81fba0d1f70d781c15b933eb93e9c7bbd50d55b1e6bf1fed16a9acb1"
+  }
+}

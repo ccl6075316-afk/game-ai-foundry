@@ -49,7 +49,15 @@ def prepare(config_file,out):
     p.update(motion_runtime_sha256=sha(p['motion_runtime']),model_scale=scale,body=config['body'],fins=list(fin['fins']),expected_triangles=manifest['triangles'],expected_body_surfaces=sum(x['opaque_uv']for x in manifest['parts']),maximum_amplitude=2.5,pose_time=config['pose_time'])
     dependencies=[config_file,fin_path,path(config['final_spec']),Path(__file__),ROOT/'cli/fish_budget.py',HERE/'logical_document.py',HERE/'validate_standalone_body.py',HERE/'capture_standalone_body.gd',HERE/'validate_motion_controls.gd']
     p['frozen_inputs'].update({str(x.resolve()):sha(x)for x in dependencies});write(out/'body-motion.plan.json',p)
-    sections=profile['body']['sections']
+    # A Boolean opening can remove the widest latitude of a construction cage.
+    # Keep the independently frozen desired outer envelope distinct from the
+    # cage used to produce it; do not fit the target to measured output or relax
+    # its tolerance. Legacy recipes use their geometry profile as before.
+    envelope_path=path(config.get('head_envelope_profile',config['geometry_profile']))
+    envelope_profile=read(envelope_path)
+    assert envelope_profile['species']==profile['species'] and envelope_profile['real_length_cm']==profile['real_length_cm'],'Head envelope species/display length differs'
+    p['frozen_inputs'][str(envelope_path)]=sha(envelope_path)
+    sections=envelope_profile['body']['sections']
     target=[[u,float(np.interp(u,[s[0]for s in sections],[s[3]for s in sections]))]for u in config['head_stations']]
     ordinary=path(config['ordinary_reference']);doc,blob=read_glb(ordinary);blob=bytearray(blob);node=next(n for n in doc['nodes']if n.get('name')==p['body']and'mesh'in n)
     for prim in doc['meshes'][node['mesh']]['primitives']:
@@ -57,7 +65,7 @@ def prepare(config_file,out):
         offset=v.get('byteOffset',0)+a.get('byteOffset',0);stride=v.get('byteStride',12)
         for i,row in enumerate(values):struct.pack_into('<3f',blob,offset+i*stride,*row)
     negative=out/'negative-narrow-head.glb';dump_glb(negative,doc,blob)
-    write(out/'head.plan.json',{'items':[dict(species=p['species'],target=str(model),target_sha256=sha(model),source=str(negative),source_sha256=sha(negative),body=p['body'],fins=p['fins'],packed_parts_manifest=str(manifest_path),packed_parts_manifest_sha256=sha(manifest_path),target_half_width_envelope=target,envelope_halfwidth_tolerance_native=config['head_tolerance'])],'basis':{'profile':str(path(config['geometry_profile'])),'sha256':sha(path(config['geometry_profile'])),'scope':'Independent original species artistic construction envelope; synthetic90% width negative. Not a biological measurement or a visual verdict.'}})
+    write(out/'head.plan.json',{'items':[dict(species=p['species'],target=str(model),target_sha256=sha(model),source=str(negative),source_sha256=sha(negative),body=p['body'],fins=p['fins'],packed_parts_manifest=str(manifest_path),packed_parts_manifest_sha256=sha(manifest_path),target_half_width_envelope=target,envelope_halfwidth_tolerance_native=config['head_tolerance'])],'basis':{'profile':str(envelope_path),'sha256':sha(envelope_path),'geometry_profile':str(path(config['geometry_profile'])),'geometry_profile_sha256':sha(path(config['geometry_profile'])),'scope':'Independently frozen own-species artistic outer envelope; may differ from uncut construction cage. Synthetic90% width negative. Not a biological measurement or a visual verdict.'}})
     p.update(whole_camera_size=config['whole_camera_size'],details=config['details'],review_sources=[])
     for ref in config['review_sources']:
         q=path(ref);p['review_sources'].append({'path':str(q),'sha256':sha(q)})

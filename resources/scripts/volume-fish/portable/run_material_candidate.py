@@ -9,13 +9,16 @@ from fish_asset_spec import ROOT,artifact_output
 from parts import read,sha
 from task_power import keep_system_awake
 from candidate_profile_binding import check_profiles
+from material_reference_review import check_reference_review
 HERE=Path(__file__).resolve().parent
 def run(a):
     config=read(a.config);inputs={k:(ROOT/config[k]).resolve()for k in ['input_blend','authoring_script','authoring_config','parts_file','root_plan','rename_report','review_settings']}
-    assert all(p.is_file()for p in inputs.values());binding=check_profiles(inputs['authoring_config'],inputs['root_plan'],inputs['review_settings']);out=artifact_output(a.output,[a.config,*inputs.values()]);assert not out.exists();out.mkdir(parents=True)
-    source_hashes={str(p):sha(p)for p in [a.config.resolve(),*inputs.values(),Path(binding['profile']['path']),Path(__file__).resolve(),HERE/'candidate_profile_binding.py']};manifest={'ok':False,'kind':'portable_material_candidate_run','status':'running','next_action':'poll','source_inputs':source_hashes,'stages':[],'formal_acceptance':False};started=time.time()
+    assert all(p.is_file()for p in inputs.values());binding=check_profiles(inputs['authoring_config'],inputs['root_plan'],inputs['review_settings']);material_review=check_reference_review(inputs['authoring_config']);out=artifact_output(a.output,[a.config,*inputs.values()]);assert not out.exists();out.mkdir(parents=True)
+    review_inputs=[Path(material_review['report']['path'])]if material_review else[]
+    source_hashes={str(p):sha(p)for p in [a.config.resolve(),*inputs.values(),*review_inputs,Path(binding['profile']['path']),Path(__file__).resolve(),HERE/'candidate_profile_binding.py',HERE/'material_reference_review.py']};manifest={'ok':False,'kind':'portable_material_candidate_run','status':'running','next_action':'poll','source_inputs':source_hashes,'stages':[],'formal_acceptance':False};started=time.time()
     def save():manifest['elapsed_seconds']=time.time()-started;(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf8')
     manifest['authoring_profile_binding']=binding
+    manifest['material_reference_review']=material_review
     def stage(name,argv,timeout=300):
         row={'name':name,'argv':[str(v)for v in argv],'status':'running'};manifest['stages'].append(row);save();proc=subprocess.run(argv,cwd=ROOT,capture_output=True,timeout=timeout);log=proc.stdout.decode('utf8',errors='replace')+proc.stderr.decode('utf8',errors='replace');(out/(name+'.log')).write_text(log,encoding='utf8');assert proc.returncode==0 and not any(s in log for s in ['Traceback','SCRIPT ERROR','ERROR:','Parse Error','Assertion failed']),name+': '+log[-1400:];row.update(status='done',ok=True);save();print(json.dumps({'stage':name,'ok':True}),flush=True)
     py=sys.executable;helper=str(HERE);blend=str(a.blender.resolve());godot=str(a.godot.resolve());review=read(inputs['review_settings']);game=(ROOT/review['game']).resolve()
