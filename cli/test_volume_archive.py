@@ -15,10 +15,13 @@ class ArchiveTests(unittest.TestCase):
         f = self.fixture
         f.setUp()
         self.addCleanup(f.tearDown)
+        f.add_sop_fixture_fin()
         f.plan()
         with patch('volume_fish.subprocess.run', side_effect=f.successful_builder):
             self.assertEqual(f.invoke('build', '--handoff', f.handoff, '--blender', __import__('sys').executable)[0].exit_code, 0)
             self.assertEqual(f.invoke('render', '--handoff', f.handoff, '--blender', __import__('sys').executable)[0].exit_code, 0)
+        from test_volume_sop import attach_complete_fixture
+        attach_complete_fixture(f.handoff)
         self.assertEqual(f.invoke('accept', '--handoff', f.handoff, '--note', 'Fixture operator inspected all review images.')[0].exit_code, 0)
         old = v.read_json(f.handoff)
         self.spec = {'accepted_handoff': str(f.handoff), 'profile': str(f.profile),
@@ -43,6 +46,10 @@ class ArchiveTests(unittest.TestCase):
         f.manifest.unlink()
         h = self.plan()
         self.assertEqual(h['style_visual_review'], 'pending')
+        ledger=v.read_json(Path(h['production']['review']))
+        self.assertEqual(ledger['task_type'],'rebuild')
+        self.assertEqual(ledger['evidence'],{})
+        self.assertTrue(all(row['result']=='pending' for row in ledger['stages'].values()))
         self.assertEqual(h['next_action'], 'run')
         self.assertEqual(v.fresh_handoff(self.target)['source']['sha256'], v.sha(f.source))
         self.assertEqual(old_bytes, f.handoff.read_bytes())

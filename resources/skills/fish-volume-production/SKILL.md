@@ -15,6 +15,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 局部材质、供体配准与普通/法线保护源分支见[材质执行卡](references/portable-material-lessons-20261030.md)；实际clip/骨名/UTF8/面预算自动取证及纯身体补皮负例见[生产工具经验](references/portable-production-lessons-20261030.md)。
 
+[整鱼工作流强制门](references/production-workflow-gates.md)规定自动逐鱼清单、局部完成范围、实时接受/交付阻断及跨日迁移；技术 done 不代表整鱼完成。
+
 ## 统一执行入口
 
 鱼鳍数量不同、前颌新增图表surface、口内出现白色长条或长任务自动睡眠时，读[物种清单与口内供体](references/species-inventory-and-oral-donor.md)。执行本鱼清单和实际供体域，不继续套固定7鳍或旧surface数量。

@@ -285,3 +285,103 @@ class SopTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class ProductionExitTests(unittest.TestCase):
+    setUp = SopTests.setUp
+    populated_fixture = SopTests.populated_fixture
+    def production(self):
+        return {'review':str(self.review),'species':'fixture_only','task_type':'new'}
+
+    def test_cached_success_and_passed_text_cannot_replace_missing_evidence(self):
+        from volume_sop import production_status
+        self.populated_fixture()
+        self.assertTrue(production_status(self.production())['ok'])
+        self.data['stages']['fins']['checks']['actual_normal_thickness_and_tail_section']=[]
+        self.data['ok']=True
+        self.data['status']='done'
+        write(self.review,self.data)
+        result=production_status(self.production())
+        self.assertFalse(result['ok'])
+        self.assertIn('missing_evidence',{f['code'] for f in result['failures']})
+
+    def test_resume_detects_standard_model_and_identity_changes(self):
+        from volume_sop import production_status
+        self.populated_fixture()
+        model=self.root/self.data['candidate_files']['model']['path']
+        model.write_bytes(b'new candidate')
+        self.assertFalse(production_status(self.production())['ok'])
+        self.populated_fixture()
+        self.data['standard']['version']='historical'
+        write(self.review,self.data)
+        self.assertIn('stale_standard',{f['code'] for f in production_status(self.production())['failures']})
+        self.assertFalse(production_status(dict(self.production(),species='another_fish'))['ok'])
+        other=self.root/'other.glb';other.write_bytes(b'other valid candidate')
+        self.assertIn('wrong_current_candidate',{f['code'] for f in production_status(self.production(),{'model':other})['failures']})
+
+    def test_declared_standard_cannot_remove_required_criterion(self):
+        from volume_sop import production_status
+        self.populated_fixture()
+        self.data['standard']['criteria']['fins'].pop('actual_normal_thickness_and_tail_section')
+        self.data['stages']['fins']['checks'].pop('actual_normal_thickness_and_tail_section')
+        write(self.review,self.data)
+        result=production_status(self.production())
+        self.assertIn('actual_normal_thickness_and_tail_section', STAGES['fins'])
+        self.assertIn('stale_standard',{f['code'] for f in result['failures']})
+        self.assertIn('missing_evidence',{f['code'] for f in result['failures']})
+
+    def test_delivery_exit_uses_live_complete_sop_after_technical_success(self):
+        import sys, importlib.util
+        portable=Path(__file__).resolve().parents[1]/'resources/scripts/volume-fish/portable'
+        sys.path.insert(0,str(portable))
+        spec=importlib.util.spec_from_file_location('delivery_exit_under_test',portable/'run_delivery_checks.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        self.populated_fixture()
+        status={'stages':[{'name':'fin490','ok':True}], 'formal_acceptance':False}
+        expected={'model':self.root/self.data['candidate_files']['model']['path']}
+        module.finish_delivery(status,self.production(),expected)
+        self.assertTrue(status['ok'])
+        self.fin_volume_path.write_text('{"ok":true,"status":"done"}')
+        module.finish_delivery(status,self.production(),expected)
+        self.assertFalse(status['ok'])
+        self.assertEqual(status['status'],'blocked')
+        self.assertTrue(status['specialized_checks_ok'])
+        self.assertFalse(status['formal_acceptance'])
+        self.assertIn('stale_artifact',{f['code'] for f in status['failures']})
+
+
+def attach_complete_fixture(handoff):
+    """Synthetic evidence only. Exercise acceptance wiring without pretending art QA."""
+    import volume_fish as v
+    h=v.read_json(handoff)
+    fixture=SopTests()
+    fixture.root=handoff.parent
+    fixture.review=Path(h['production']['review'])
+    fixture.review.unlink()
+    species=v.read_json(Path(h['profile']))['species']
+    fixture.data=initialize(species,fixture.review,h['production']['task_type'])
+    fixture.populated_fixture()
+    d=fixture.data
+    for role,path in {'model':h['outputs']['glb'],'editable_source':h['outputs']['blend'],
+                      'source_image':h['source_image'],'species_profile':h['profile']}.items():
+        d['candidate_files'][role]={'path':str(path),'sha256':sha(Path(path))}
+    d['candidate_files']['material_author_model']=dict(d['candidate_files']['model'])
+    frozen={k:r['sha256'] for k,r in d['candidate_files'].items()}
+    fixture.cold.update(species=species,bound_inputs=frozen)
+    write(fixture.cold_path,fixture.cold)
+    fins=v.read_json(Path(h['profile']))['fins']
+    rows=[]
+    for fin in fins:
+        for suffix in (['_left','_right'] if fin.get('paired') else ['']):
+            row=dict(fixture.fin_volume['current']['fins'][0])
+            row.update(name=fin['name']+suffix,source_root_band=fin.get('root_attachment',{}).get('root_band'))
+            rows.append(row)
+    fixture.fin_volume.update(species=species,model_sha256=frozen['model'],profile_sha256=frozen['species_profile'])
+    fixture.fin_volume['current'].update(fins=rows,fin_inventory=[r['name'] for r in rows])
+    write(fixture.fin_volume_path,fixture.fin_volume)
+    fixture.lip.update(species=species,source_sha256=frozen['source_image'],model_sha256=frozen['model'])
+    write(fixture.lip_path,fixture.lip)
+    for evidence in d['evidence'].values():
+        evidence['bound_inputs']=frozen
+        evidence['sha256']=sha(fixture.root/evidence['path'])
+    write(fixture.review,d)

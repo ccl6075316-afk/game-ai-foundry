@@ -99,6 +99,8 @@ def plan_archive(archive, profile, output):
     v.require(not output.exists() and output not in (archive, profile), "Choose a new handoff output")
     h = snapshot(archive, profile, output)
     v.require(output not in {v.resolve_file(value, archive.parent) for key, value in v.read_json(archive).items() if key != "review_images"}, "Handoff must not overwrite archive inputs")
+    from volume_sop import start_production
+    h["production"] = start_production(output, v.read_json(profile)["species"], "rebuild", {"source_image":h["source_image"],"species_profile":profile})
     v.write_json(output, h)
     return h
 

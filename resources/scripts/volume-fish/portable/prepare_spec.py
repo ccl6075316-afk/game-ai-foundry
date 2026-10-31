@@ -11,7 +11,7 @@ from glb_io import read_glb
 PRESENTATION = ('species', 'game', 'motion', 'camera', 'viewer')
 
 
-def prepare(source_blend, reference_glb, atlas, packing_report, parts, output, source_mesh_name=None):
+def prepare(source_blend, reference_glb, atlas, packing_report, parts, output, source_mesh_name=None, task_type="rebuild"):
     paths = {key: Path(value).resolve() for key, value in
              {'source_blend': source_blend, 'reference_glb': reference_glb,
               'atlas': atlas, 'packing_report': packing_report}.items()}
@@ -48,6 +48,9 @@ def prepare(source_blend, reference_glb, atlas, packing_report, parts, output, s
         check_path = Path(temporary) / 'candidate.json'
         check_path.write_text(json.dumps(spec, indent=2) + '\n')
         checked = preflight(check_path)
+    sys.path.insert(0, str(ROOT/'cli'))
+    from volume_sop import start_production
+    spec['production'] = start_production(target, spec.get('species', 'unspecified'), task_type)
     target.parent.mkdir(parents=True, exist_ok=True)
     with target.open('x',encoding='utf8') as stream:
         stream.write(json.dumps(spec, indent=2, ensure_ascii=False) + '\n')
@@ -61,6 +64,7 @@ def main(argv=None):
     for name in ('source-blend', 'reference-glb', 'atlas', 'packing-report', 'parts', 'output'):
         parser.add_argument('--' + name, required=True, type=Path)
     parser.add_argument('--source-mesh-name')
+    parser.add_argument('--task-type',choices=['new','rebuild','repair','local_godot_static_merge'],default='rebuild')
     parser.add_argument('--json', action='store_true')
     args = parser.parse_args(argv)
     result = {'schema_version': 1, 'command': 'portable-prepare-spec', 'stage': 'validate',
@@ -70,7 +74,7 @@ def main(argv=None):
                         ('source_blend', 'reference_glb', 'atlas', 'packing_report', 'parts', 'output')}
     try:
         result['summary'] = prepare(args.source_blend, args.reference_glb, args.atlas,
-                                    args.packing_report, args.parts, args.output, args.source_mesh_name)
+                                    args.packing_report, args.parts, args.output, args.source_mesh_name, args.task_type)
         result.update(ok=True, status='done', next_action='none', outputs=[result['summary']['spec']])
     except (ValueError, AssertionError, OSError, KeyError, TypeError, StopIteration) as error:
         result['failures'].append({'kind': 'validation', 'code': 'spec_preparation_invalid', 'message': str(error)})

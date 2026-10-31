@@ -479,6 +479,8 @@ def plan_volume(brief: Path, assets_manifest: Path, asset: str, profile: Path, o
             revision_source(profile_data["rest_shape_revision"], profile.parent, data)
         except ValueError as exc:
             raise VolumeError(str(exc)) from exc
+    from volume_sop import start_production
+    data["production"] = start_production(output, profile_data["species"], candidates={"source_image":data["source_image"], "species_profile":profile})
     write_json(output, data)
     return data
 
@@ -773,7 +775,11 @@ def validate_volume(handoff_path: Path, *, require_run: bool = False, check_visu
         review = data.get("style_review", {})
         require(review.get("note", "").strip() and review.get("reviewer") == "command_operator", "Visual review record incomplete")
         require(review.get("hashes") == review_fingerprint(data), "Visual review is stale; render and review again")
-    return data, {"checks": checks, "style_visual_review": visual, "validation_report": data["outputs"]["validation_report"]}
+    from volume_sop import handoff_production
+    _, production = handoff_production(data, handoff_path)
+    if visual == "accepted" and check_visual:
+        require(production["ok"], "Accepted production evidence is stale/incomplete; review again")
+    return data, {"production":production, "completion_scope":data.get("completion_scope","mechanical_preview"), "checks": checks, "style_visual_review": visual, "validation_report": data["outputs"]["validation_report"]}
 
 
 def run_builder(handoff_path: Path, blender: Path | None, *, render_only: bool = False) -> tuple[dict, dict]:
@@ -814,7 +820,9 @@ def run_builder(handoff_path: Path, blender: Path | None, *, render_only: bool =
         data, summary = validate_volume(handoff_path, require_run=True)
         if render_only:
             summary["review"] = {key: value["path"] for key, value in validated_render(data).items()}
-        data.update(status="done", next_action="human_review", style_visual_review="pending", failures=[])
+        from volume_sop import handoff_production
+        data["production"], data["production_status"] = handoff_production(data, handoff_path, create=True)
+        data.update(completion_scope="mechanical_preview", status="done", next_action="human_review", style_visual_review="pending", failures=[])
         write_json(handoff_path, data)
         return data, summary
     except Exception as exc:
@@ -867,7 +875,15 @@ def review_fingerprint(data: dict) -> dict:
 def accept_volume(handoff_path: Path, note: str) -> tuple[dict, dict]:
     require(isinstance(note, str) and bool(note.strip()), "A nonempty visual review note is required")
     data, summary = validate_volume(handoff_path)
+    from volume_sop import handoff_production
+    data['production'], data['production_status'] = handoff_production(data, handoff_path, create=True)
+    if not data['production_status']['ok']:
+        data.update(completion_scope='mechanical_preview', next_action='fix_input', style_visual_review='pending')
+        data.pop('style_review', None)
+        write_json(handoff_path, data)
+        raise VolumeError('Full production SOP blocked: ' + json.dumps(data['production_status']['failures'], ensure_ascii=False), code='sop_incomplete')
     hashes = review_fingerprint(data)
+    data['completion_scope']='whole_fish_operator_review'
     data.update(style_visual_review="accepted", next_action="none", style_review={
         "reviewer": "command_operator", "note": note.strip(), "updated_at": datetime.now(timezone.utc).isoformat(),
         "glb_sha256": hashes["glb_sha256"], "source_sha256": hashes["source_sha256"],

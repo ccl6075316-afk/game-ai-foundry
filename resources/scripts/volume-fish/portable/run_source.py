@@ -22,8 +22,13 @@ def run(args):
             ('cold_export',[str(args.blender),'--background','--python-exit-code','1','--python',str(here/'export_source.py'),'--','--blend',str(source/'fish.blend'),'--output',str(model),'--report',str(output/'cold-export.validation.json')])]
     planned={'ok':True,'kind':'portable_source_run_plan','dry_run':not args.execute,'spec':str(args.spec.resolve()),'output':str(output),'inventory':baseline['summary']['inventory'],'stages':[{'name':name,'argv':argv}for name,argv in stages],'after_processes':['verify full1e-6 GLB semantic parity','bind finalmodel hash into final spec','write validation report and manifest']}
     if not args.execute:return planned
+    sys.path.insert(0,str(ROOT/'cli'))
+    from volume_sop import start_production, production_status
+    production=spec.get('production') or start_production(args.spec, spec.get('species','unspecified'), 'rebuild')
     if not args.blender.is_file():raise ValueError('Configured Blender executable missing')
     output.mkdir(parents=True);manifest={'kind':'portable_source_manifest','version':1,'status':'running','next_action':'poll','input_spec':{'path':str(args.spec.resolve()),'sha256':spec_digest},'input_files':spec['inputs'],'stages':[],'scope':'Technical portable source run only, no fish acceptance.'};manifest_path=output/'manifest.json'
+    manifest['production']=production
+    manifest['completion_scope']='source_parity_only'
     def save():manifest_path.write_text(json.dumps(manifest,indent=2)+'\n')
     save();before={key:sha(path)for key,path in inputs.items()};started=time.time()
     try:
@@ -46,8 +51,9 @@ def run(args):
         if model_digest!=verified_digest or source_digest!=verified_digest:raise RuntimeError('Source outputs changed after semantic verification')
         final_spec={**spec,'model':{'path':str(model.relative_to(ROOT)),'sha256':verified_digest},'model_role':'final'};final_path=output/'final-spec.json';final_path.write_text(json.dumps(final_spec,indent=2)+'\n')
         proof.update(input_spec_sha256=manifest['input_spec']['sha256'],final_spec={'path':str(final_path.relative_to(ROOT)),'sha256':sha(final_path)},cold_export_bytes_equal=True,original_inputs_unchanged=True)
+        manifest['production_status']=production_status(production, {'model':model,'editable_source':source/'fish.blend'})
         report=output/'validation-report.json';report.write_text(json.dumps(proof,indent=2)+'\n');manifest.update(status='done',next_action='human_review',model=final_spec['model'],final_spec=proof['final_spec'],validation_report={'path':str(report.relative_to(ROOT)),'sha256':sha(report)},elapsed_seconds=time.time()-started);save()
-        return {'ok':True,'status':'done','next_action':'human_review','manifest':str(manifest_path),'final_spec':str(final_path),'model':str(model),'report':str(report)}
+        return {'completion_scope':'source_parity_only','production':manifest['production_status'],'ok':True,'status':'done','next_action':'human_review','manifest':str(manifest_path),'final_spec':str(final_path),'model':str(model),'report':str(report)}
     except Exception as error:
         manifest.update(status='failed',next_action='fix_input',failure={'kind':'validation','code':'portable_source_run_failed','message':str(error)},elapsed_seconds=time.time()-started);save();raise
 

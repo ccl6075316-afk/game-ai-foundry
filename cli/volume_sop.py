@@ -92,10 +92,26 @@ def check_mouth_implementation(entry, candidates, artifact, fail):
         if not isinstance(impl.get(key), str) or not impl[key].strip():
             fail('missing_integrated_jaw_detail', 'mouth.implementation.' + key)
 
-def initialize(species: str, output: Path):
+STANDARD_VERSION = '2026-10-31-complete-production-v1'
+TASK_TYPES = ('new', 'rebuild', 'repair', 'local_godot_static_merge')
+
+
+def standard_snapshot():
+    root = Path(__file__).resolve().parents[1]
+    refs = root / 'resources/skills/fish-volume-production/references'
+    paths = [refs / name for name in ('production-sop.md', 'fin-types-thickness-tail.md',
+             'source-surface-repair.md', 'final-asset-export.md', 'mouth-first-review.md',
+             'production-workflow-gates.md')]
+    paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py')]
+    return {'version': STANDARD_VERSION, 'files': {str(p.relative_to(root)): sha(p) for p in paths},
+            'criteria': json.loads(json.dumps(STAGES))}
+
+
+def initialize(species: str, output: Path, task_type='new'):
     if output.exists():raise ValueError('Review already exists; update its evidence without overwriting it')
     if not species.strip():raise ValueError('Species is required')
-    data={'schema_version':1,'kind':'fish_production_sop_review','species':species,
+    if task_type not in TASK_TYPES:raise ValueError('Unknown production task type')
+    data={'standard':standard_snapshot(),'task_type':task_type,'schema_version':1,'kind':'fish_production_sop_review','species':species,
           'candidate_files':{k:{'path':'','sha256':''} for k in INPUT_ROLES},
           'evidence':{},'stages':{stage:{'result':'pending','method':'','reviewer':'','observations':'','checks':{k:[] for k in checks}} for stage,checks in STAGES.items()},
           'scope':'Operator evidence record. No asset acceptance or user approval is created by initialization.'}
@@ -123,6 +139,8 @@ def check(review: Path, output: Path | None=None):
     if not isinstance(data,dict):raise ValueError('Review must be an object')
     if data.get('kind')!='fish_production_sop_review' or data.get('schema_version')!=1 or not data.get('species'):
         raise ValueError('Unsupported/incomplete SOP review')
+    if data.get('standard') != standard_snapshot():fail('stale_standard','Reconcile current standards and evidence; do not merely rebind hashes')
+    if data.get('task_type') not in TASK_TYPES:fail('missing_task_type','Declare production scope; retained parts still require evidence')
     candidates=data.get('candidate_files',{})
     if not isinstance(candidates,dict) or not isinstance(data.get('evidence'),dict) or not isinstance(data.get('stages'),dict):
         raise ValueError('Candidate files, evidence and stages must be objects')
@@ -131,6 +149,10 @@ def check(review: Path, output: Path | None=None):
             if isinstance(row,dict) and row.get('path') and resolve(row['path']).resolve()==output.resolve():
                 raise ValueError('Output must not overwrite candidate or evidence files')
     for role in INPUT_ROLES:artifact(candidates.get(role),role)
+    try:
+        profile_path=resolve(candidates['species_profile']['path'])
+        if read(profile_path).get('species')!=data['species']:fail('wrong_species_profile','species_profile')
+    except (OSError,ValueError,KeyError,TypeError):fail('invalid_species_profile','species_profile')
     for role,row in candidates.items():
         if role not in INPUT_ROLES:artifact(row,role)
     frozen={k:v.get('sha256') for k,v in candidates.items() if isinstance(v,dict)}
@@ -184,7 +206,7 @@ def check(review: Path, output: Path | None=None):
                     except Exception:fail('invalid_image',label)
                 elif kind=='video' and (path.suffix.lower() not in ['.mp4','.webm','.mov','.mkv'] or path.stat().st_size==0):
                     fail('invalid_video',label)
-        rows.append({'stage':stage,'ok':len(failures)==start})
+        rows.append({'stage':stage,'ok':len(failures)==start,'failures':failures[start:]})
     report={'schema_version':1,'ok':not failures,'command':'volume.sop-check','status':'done' if not failures else 'blocked',
             'next_action':'human_review' if not failures else 'fix_input','species':data['species'],
             'review_sha256':sha(review),'checker_sha256':sha(Path(__file__)),
@@ -193,3 +215,58 @@ def check(review: Path, output: Path | None=None):
             'scope':'Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance.'}
     if output:write(output,report)
     return report
+
+
+def start_production(owner: Path, species: str, task_type='new', candidates=None):
+    """Create once; never overwrite a resumed ledger or inherit archive approval."""
+    review = owner.resolve().with_name(owner.stem + '-sop-review.json')
+    if not review.exists():
+        data = initialize(species, review, task_type)
+        for role, value in (candidates or {}).items():
+            path = Path(value).resolve()
+            data['candidate_files'][role] = {'path':str(path),'sha256':sha(path)}
+        write(review, data)
+    return {'review':str(review), 'species':species, 'task_type':task_type}
+
+
+def production_status(production, expected=None):
+    """Live gate for status/resume/accept; a cached passed report is never authority."""
+    failures=[]
+    try:
+        review=Path(production['review'])
+        report=check(review)
+        failures.extend(report['failures'])
+        data=read(review)
+        for key in ('species','task_type'):
+            if data.get(key)!=production.get(key):
+                failures.append({'kind':'validation','code':'wrong_production_identity','message':key})
+        for role, value in (expected or {}).items():
+            row=data['candidate_files'].get(role,{})
+            path=Path(row.get('path',''))
+            if not path.is_absolute():path=review.parent/path
+            target=Path(value).resolve()
+            if path.resolve()!=target or row.get('sha256')!=sha(target):
+                failures.append({'kind':'validation','code':'wrong_current_candidate','message':role})
+        if data.get('species') in ('unspecified','unknown',''):
+            failures.append({'kind':'validation','code':'missing_species','message':'Explicit target species required'})
+        stages=report['stages']
+    except (OSError,ValueError,KeyError,TypeError) as exc:
+        failures.append({'kind':'validation','code':'missing_production_review','message':str(exc)})
+        stages=[]
+    return {'ok':not failures,'status':'done' if not failures else 'blocked',
+            'next_action':'human_review' if not failures else 'fix_input',
+            'formal_acceptance':False,'user_acceptance':False,
+            'standard_version':STANDARD_VERSION,'stages':stages,'failures':failures}
+
+
+def handoff_production(data, owner, create=False):
+    """Legacy candidates may preview, but must adopt a full ledger before acceptance."""
+    profile=read(Path(data['profile']))
+    production=data.get('production')
+    if not production:
+        production = start_production(owner, profile['species'], 'rebuild') if create else {
+            'review':str(owner.resolve().with_name(owner.stem+'-sop-review.json')),
+            'species':profile['species'],'task_type':'rebuild'}
+    return production, production_status(production, {
+        'model':data['outputs']['glb'],'source_image':data['source_image'],
+        'species_profile':data['profile'],'editable_source':data['outputs']['blend']})

@@ -50,6 +50,7 @@ FAILURE_KIND_BY_CODE = {
     "production_invalid": "validation",
     "manifest_missing": "validation",
     "manifest_invalid": "validation",
+    "sop_incomplete": "validation",
     "progress_invalid": "validation",
     "unsupported_stage": "config",
     "config_read": "config",

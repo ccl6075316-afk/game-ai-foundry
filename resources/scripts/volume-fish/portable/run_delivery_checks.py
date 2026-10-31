@@ -72,10 +72,28 @@ def prepare(config_file,out):
     p['frozen_inputs'].update({str(HERE/name):sha(HERE/name)for name in ['capture_fish_review.gd','ReviewCaptureBase.gd']});write(out/'review.plan.json',p)
     return config,p
 
+def finish_delivery(status, production, expected):
+    from volume_sop import production_status
+    status['production_status']=production_status(production, expected)
+    complete=status['production_status']['ok']
+    status.update(ok=complete,status='done' if complete else 'blocked',
+        next_action='human_review' if complete else 'fix_input',specialized_checks_ok=True,
+        completion_scope='whole_fish_operator_review' if complete else 'specialized_checks_only')
+    if not complete:status['failures']=status['production_status']['failures']
+
+
 def run(args):
     out=artifact_output(args.output);assert not out.exists();out.mkdir(parents=True)
     config,p=prepare(args.config.resolve(),out);game=path(config['game']);godot=str(args.godot.resolve());blender=str(args.blender.resolve())
     status={'ok':False,'kind':'portable_delivery_gate_manifest','species':p['species'],'model':p['model'],'model_sha256':p['model_sha256'],'status':'running','next_action':'poll','formal_acceptance':False,'user_acceptance':False,'config_sha256':sha(args.config),'stages':[{'name':'budget','ok':True,'status':'done','report':str(out/'budget.validation.json'),'report_sha256':sha(out/'budget.validation.json')}]};started=time.time()
+    from volume_sop import start_production, production_status
+    spec=load_spec(path(config['final_spec']))
+    production=config.get('production') or spec.get('production') or start_production(args.config, p['species'], 'rebuild')
+    expected_production={'model':p['model'],'species_profile':path(config['geometry_profile']),
+        'delivery_config':args.config.resolve(),'final_spec':path(config['final_spec']),
+        'motion_config':resolve_ref(spec['motion']['profile']),'motion_runtime':resolve_ref(spec['motion']['runtime'])}
+    status.update(production=production,completion_scope='specialized_checks_only')
+    status['production_status']=production_status(production, expected_production)
     def save():status['elapsed_seconds']=time.time()-started;write(out/'manifest.json',status)
     def stage(name,cmd,report,expect=False,timeout=900):
         row={'name':name,'argv':[str(x)for x in cmd],'status':'running'};status['stages'].append(row);save()
@@ -100,13 +118,15 @@ def run(args):
         stage('review',[godot,'--path',str(game),'--rendering-method','gl_compatibility','--audio-driver','Dummy','--position','-3000,-3000','--disable-render-loop','--script',str(HERE/'capture_fish_review.gd'),'--',str(out/'review.plan.json'),str(review)],review/'review-capture.validation.json',timeout=180)
         stage('fin490',[py,str(HERE.parent/'validate_fin_membrane_clearance.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'fin490'),'--species',p['species'],'--exporter',str(HERE/'export_fin_poses.gd'),'--checker-timeout','600','--export-timeout','300','--membrane-workers','4'],out/'fin490/completion.validation.json')
         stage('root072',[py,str(HERE.parent/'validate_fin_completion.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'root072'),'--species',p['species'],'--exporter',str(HERE/'export_fin_poses.gd'),'--reuse-full490-completion',str(out/'fin490/completion.validation.json')],out/'root072/completion.validation.json')
-        assert sha(p['model'])==p['model_sha256'];status.update(ok=True,status='done',next_action='human_review')
+        assert sha(p['model'])==p['model_sha256']
+        finish_delivery(status,production, expected_production)
     except Exception as e:
         status.update(status='failed',next_action='fix_input',failure={'kind':'validation','code':'delivery_gate_failed','message':str(e)[:2400]})
-    save();print(json.dumps({'ok':status['ok'],'manifest':str(out/'manifest.json'),'failure':status.get('failure')}));return 0 if status['ok']else 1
+    save();print(json.dumps({'ok':status['ok'],'manifest':str(out/'manifest.json'),'production_status':status.get('production_status'),'completion_scope':status['completion_scope'],'failure':status.get('failure')}));return 0 if status['ok'] or (getattr(args,'checks_only',False) and status.get('specialized_checks_ok')) else 1
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     for k in ['config','output','godot','blender']:parser.add_argument('--'+k,type=Path,required=True)
+    parser.add_argument('--checks-only',action='store_true',help='Allow technical-only exit 0; whole-fish status remains blocked until SOP passes')
     with keep_system_awake():
         raise SystemExit(run(parser.parse_args()))

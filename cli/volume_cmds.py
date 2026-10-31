@@ -12,6 +12,8 @@ from workflow.contract import build_response, emit_response, make_failure
 def _execute(command: str, inputs: dict, action, as_json: bool) -> None:
     try:
         data, summary = action()
+        summary.setdefault("completion_scope", data.get("completion_scope", "production_plan"))
+        if "production_status" in data:summary.setdefault("production", data["production_status"])
         payload = build_response(command=command, ok=True, stage="assets" if command != "validate" else "validate",
                                  status="pending" if command == "plan" else "done",
                                  next_action="run" if command == "plan" else ("none" if summary.get("style_visual_review") == "accepted" else "human_review"),
@@ -19,7 +21,7 @@ def _execute(command: str, inputs: dict, action, as_json: bool) -> None:
     except Exception as exc:
         payload = build_response(command=command, ok=False, stage="assets" if command != "validate" else "validate",
                                  status=exc.status if isinstance(exc, VolumeError) else "blocked", next_action="fix_input",
-                                 inputs=inputs, failures=[make_failure(exc.code if isinstance(exc, VolumeError) else "manifest_invalid", str(exc))])
+                                 inputs=inputs, failures=[make_failure(exc.code if isinstance(exc, VolumeError) else "manifest_invalid", str(exc), kind="validation" if isinstance(exc, VolumeError) and exc.code == "sop_incomplete" else None)])
     emit_response(payload, as_json=as_json)
     if not payload["ok"]:
         raise click.exceptions.Exit(1)
@@ -31,14 +33,15 @@ def volume_group() -> None:
 
 
 @volume_group.command("sop-init")
+@click.option("--task-type", type=click.Choice(["new","rebuild","repair","local_godot_static_merge"]), default="new", show_default=True)
 @click.option("--species", required=True)
 @click.option("--output", required=True, type=click.Path(path_type=Path))
 @click.option("--json", "as_json", is_flag=True)
-def sop_init_cmd(species: str, output: Path, as_json: bool) -> None:
+def sop_init_cmd(species: str, output: Path, as_json: bool, task_type: str) -> None:
     """Create an unapproved complete fish production evidence checklist."""
     from volume_sop import initialize
     try:
-        data=initialize(species,output)
+        data=initialize(species,output,task_type)
         payload=build_response(command="volume.sop-init",ok=True,stage="validate",status="pending",next_action="human_review",
             inputs={"species":species},outputs=[str(output.resolve())],summary={"stages":list(data['stages']),"accepted":False})
     except Exception as exc:

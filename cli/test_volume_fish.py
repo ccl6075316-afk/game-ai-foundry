@@ -468,7 +468,14 @@ class VolumeTests(unittest.TestCase):
                 self.assertIn('project.view=front', data['failures'][0]['message'])
                 self.assertFalse(self.handoff.exists())
 
+    def add_sop_fixture_fin(self):
+        self.profile_data['fins']=[{'name':'Dorsal','polygon':[[.2,.2],[.8,.2],[.5,.4]],
+            'anchor':[.5,.4],'tip':[.5,.2],'paired':False,'root_depth':0.,'tip_depth':0.,
+            'thickness':.001,'amplitude':.01,'phase':0.,'axis':[1,0,0]}]
+        self.save_inputs()
+
     def test_accept_requires_fresh_render_records_operator_and_rebuild_resets(self):
+        self.add_sop_fixture_fin()
         self.plan()
         with patch('volume_fish.subprocess.run',side_effect=self.successful_builder):
             self.invoke('build','--handoff',self.handoff,'--blender',sys.executable)
@@ -484,6 +491,11 @@ class VolumeTests(unittest.TestCase):
             result,_ = self.invoke('accept','--handoff',self.handoff,'--note','reviewed')
             self.assertEqual(result.exit_code,1)
             front.write_bytes(original)
+            result,blocked = self.invoke('accept','--handoff',self.handoff,'--note','Local render is insufficient')
+            self.assertEqual(result.exit_code,1)
+            self.assertEqual(blocked['failures'][0]['code'],'sop_incomplete')
+            from test_volume_sop import attach_complete_fixture
+            attach_complete_fixture(self.handoff)
             result,data = self.invoke('accept','--handoff',self.handoff,'--note','Reviewed source, reference and all angles')
             self.assertEqual(result.exit_code,0,result.output)
             self.assertEqual(data['next_action'],'none')
@@ -492,6 +504,15 @@ class VolumeTests(unittest.TestCase):
             result,data = self.invoke('validate','--handoff',self.handoff)
             self.assertEqual(result.exit_code,0,result.output)
             self.assertEqual(data['next_action'],'none')
+            # Cached accepted state must not hide a missing obligation on resume.
+            review_path=Path(volume.read_json(self.handoff)['production']['review'])
+            review_before=review_path.read_bytes()
+            review=volume.read_json(review_path)
+            review['stages']['fins']['checks']['actual_normal_thickness_and_tail_section']=[]
+            volume.write_json(review_path,review)
+            self.assertEqual(self.invoke('validate','--handoff',self.handoff)[0].exit_code,1)
+            self.assertEqual(self.invoke('accept','--handoff',self.handoff,'--note','cached done')[0].exit_code,1)
+            review_path.write_bytes(review_before)
             Image.new('RGB',(8,4),'red').save(front)
             result,_ = self.invoke('validate','--handoff',self.handoff)
             self.assertEqual(result.exit_code,1)
