@@ -72,3 +72,6 @@
 /docs/anvil/knowledge/2026-10-31-* -text whitespace=cr-at-eol
 /docs/FISH-FOUR-CONSOLIDATION-20261031.md -text whitespace=cr-at-eol
 /cli/volume_sop.py -text whitespace=cr-at-eol
+
+# Byte-hashed display-length policy is a frozen runtime-gate dependency.
+cli/fish_budget.py -text

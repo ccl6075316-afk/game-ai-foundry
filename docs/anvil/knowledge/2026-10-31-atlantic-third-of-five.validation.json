@@ -12,8 +12,8 @@
     "sha256": "307d28ec5d9beda1117f2ba9369c28936b36f03cd09246be786d0bd9b846d371"
   },
   "post_cleanup_sop": {
-    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\post-cleanup-sop.validation.json",
-    "sha256": "bb35d8cddc43b118f9ed65817cc3d1cded5727078680ac73f6878e423281eca7"
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\final-records-sop.validation.json",
+    "sha256": "6edaa6c1e4f0e36d99114b4183e6c90284d0c1a90b48f5746f73b7e40ebe525b"
   },
   "budget": {
     "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\delivery-r3\\budget.validation.json",
