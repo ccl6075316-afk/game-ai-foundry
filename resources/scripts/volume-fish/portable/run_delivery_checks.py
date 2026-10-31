@@ -69,7 +69,10 @@ def prepare(config_file,out):
     p.update(whole_camera_size=config['whole_camera_size'],details=config['details'],review_sources=[])
     for ref in config['review_sources']:
         q=path(ref);p['review_sources'].append({'path':str(q),'sha256':sha(q)})
-    p['frozen_inputs'].update({str(HERE/name):sha(HERE/name)for name in ['capture_fish_review.gd','ReviewCaptureBase.gd']});write(out/'review.plan.json',p)
+    capture=path(config.get('review_capture_script',str(HERE/'capture_fish_review.gd')))
+    exporter=path(config.get('fin_pose_exporter',str(HERE/'export_fin_poses.gd')))
+    assert capture.is_file()and exporter.is_file(),'Explicit review/export scripts must exist'
+    p['frozen_inputs'].update({str(q):sha(q)for q in [capture,exporter,HERE/'ReviewCaptureBase.gd']});write(out/'review.plan.json',p)
     return config,p
 
 def finish_delivery(status, production, expected):
@@ -115,9 +118,11 @@ def run(args):
             label='negative-head'if negative else'head';report=out/(label+'.validation.json')
             stage(label,[py,str(HERE/'check_head_form.py'),'--plan',str(out/'head.plan.json'),'--output',str(report)]+(['--baseline']if negative else[]),report,expect=negative)
         review=out/'review';review.mkdir()
-        stage('review',[godot,'--path',str(game),'--rendering-method','gl_compatibility','--audio-driver','Dummy','--position','-3000,-3000','--disable-render-loop','--script',str(HERE/'capture_fish_review.gd'),'--',str(out/'review.plan.json'),str(review)],review/'review-capture.validation.json',timeout=180)
-        stage('fin490',[py,str(HERE.parent/'validate_fin_membrane_clearance.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'fin490'),'--species',p['species'],'--exporter',str(HERE/'export_fin_poses.gd'),'--checker-timeout','600','--export-timeout','300','--membrane-workers','4'],out/'fin490/completion.validation.json')
-        stage('root072',[py,str(HERE.parent/'validate_fin_completion.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'root072'),'--species',p['species'],'--exporter',str(HERE/'export_fin_poses.gd'),'--reuse-full490-completion',str(out/'fin490/completion.validation.json')],out/'root072/completion.validation.json')
+        capture=path(config.get('review_capture_script',str(HERE/'capture_fish_review.gd')))
+        exporter=path(config.get('fin_pose_exporter',str(HERE/'export_fin_poses.gd')))
+        stage('review',[godot,'--path',str(game),'--rendering-method','gl_compatibility','--audio-driver','Dummy','--position','-3000,-3000','--disable-render-loop','--script',str(capture),'--',str(out/'review.plan.json'),str(review)],review/'review-capture.validation.json',timeout=180)
+        stage('fin490',[py,str(HERE.parent/'validate_fin_membrane_clearance.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'fin490'),'--species',p['species'],'--exporter',str(exporter),'--checker-timeout','600','--export-timeout','300','--membrane-workers','4'],out/'fin490/completion.validation.json')
+        stage('root072',[py,str(HERE.parent/'validate_fin_completion.py'),'--plan',str(path(config['fin_plan'])),'--game',str(game),'--godot',godot,'--blender',blender,'--output',str(out/'root072'),'--species',p['species'],'--exporter',str(exporter),'--reuse-full490-completion',str(out/'fin490/completion.validation.json')],out/'root072/completion.validation.json')
         assert sha(p['model'])==p['model_sha256']
         finish_delivery(status,production, expected_production)
     except Exception as e:

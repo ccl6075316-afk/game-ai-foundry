@@ -1,0 +1,116 @@
+{
+  "species": "atlantic_salmon",
+  "label": "大西洋鲑",
+  "scientific_name": "Salmo salar",
+  "inputs": {
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\candidate-r7\\source-run\\fish.glb",
+      "sha256": "fe10f49d0081f5c6e2cd4b3747203ba9a629542bbf4c7fe6fa0d2ee0c23f01b9"
+    },
+    "blend": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\candidate-r7\\source-run\\source\\fish.blend",
+      "sha256": "795067033f3156891d47d8170b9dc41c292ca8fd472b0b2de32d6e20390856dc"
+    },
+    "spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\feedback-20261031\\candidate-r7\\source-run\\final-spec.json",
+      "sha256": "5a2b9cc4758a272804130f806a53fa4703683682694c7d024c48953017982d2a"
+    },
+    "baseline_audit": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\width-detail-20261031\\baseline-width.validation.json",
+      "sha256": "4745a4ca42db3ed6e74ccf79ee124b16d077d44420b583603772453549097073"
+    }
+  },
+  "coordinate": "glTF X longitudinal/Yheight fixed; Z transverse only. s from anterior over visible whole model TL.",
+  "scope": "Own-species width proposal only. Preserve X/Y side silhouette, topology/UV/material/source RGB/skin/rig/native animation; tail s>=.80 unchanged. Old physical/width gates superseded, user review pending.",
+  "source_evidence": [
+    "https://zenodo.org/records/6642650"
+  ],
+  "evidence_grade": "D-authored independent station targets constrained by recorded same-species A data; matching lip/head transverse positions unknown.",
+  "basis": "同种2标本W/H约0.440–0.568；躯干取中间推断，不借用虹鳟头宽或制作明显钩颌。",
+  "cutoff_s": 0.8,
+  "target_width_stations_cm": [
+    [
+      0.005,
+      1.5
+    ],
+    [
+      0.012,
+      1.8
+    ],
+    [
+      0.025,
+      2.4
+    ],
+    [
+      0.04,
+      2.9
+    ],
+    [
+      0.06,
+      3.5
+    ],
+    [
+      0.08,
+      3.95
+    ],
+    [
+      0.1,
+      4.3
+    ],
+    [
+      0.12,
+      4.7
+    ],
+    [
+      0.15,
+      5.25
+    ],
+    [
+      0.18,
+      5.8
+    ],
+    [
+      0.22,
+      6.35
+    ],
+    [
+      0.27,
+      6.9
+    ],
+    [
+      0.32,
+      7.25
+    ],
+    [
+      0.37,
+      7.45
+    ],
+    [
+      0.42,
+      7.45
+    ],
+    [
+      0.48,
+      7.2
+    ],
+    [
+      0.55,
+      6.65
+    ],
+    [
+      0.62,
+      5.85
+    ],
+    [
+      0.7,
+      4.3
+    ]
+  ],
+  "unmeasured": {
+    "lip_width_cm": null,
+    "interorbital_bone_width_cm": null,
+    "exact_eyeline_head_width_cm": null,
+    "sex": null,
+    "population": null
+  }
+}

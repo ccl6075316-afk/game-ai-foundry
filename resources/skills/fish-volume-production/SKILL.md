@@ -121,4 +121,6 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 低面B重建与无聊天交接
 
+用户指出鳍漏抠、余边、白边或相邻材质边时，按[原像素精确切鳍执行卡](references/precise-native-fin-cutouts.md)处理；精细化不等于加分辨率。保留原RGB、完整根带、两面alpha覆盖、实际法线渐薄、尾柄截面、嘴优先及总预算；对实际蒙皮数组先验证顶点重排对应，不能直接沿用源面编号。
+
 按视频/原图先塑身体再独立鳍，或用户要求明天无重要信息丢失续做时，读[参考图低面鱼完整重建SOP](references/reference-cage-rebuild-sop.md)。罗非鱼当前完整逐步记录位于游戏docs/3d-fish/NILE-B-REBUILD-20261030.md；现有状态以next-round-plan.validation.json和当前review为准。保存来源、完整数值、真实方法、每个严重问题/失败及未接受状态，不把打开/另存现有B称从零重建。必要时只在全新work目录执行隔离复现，核对几何/UV/权重及贴图；模型可复现不代表用户接受或正式验收。

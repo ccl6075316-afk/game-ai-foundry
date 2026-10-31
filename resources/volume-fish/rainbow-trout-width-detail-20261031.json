@@ -1,0 +1,116 @@
+{
+  "species": "rainbow_trout",
+  "label": "虹鳟",
+  "scientific_name": "Oncorhynchus mykiss",
+  "inputs": {
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\fish.glb",
+      "sha256": "db750dfedcbc791539774b02c8c30a6077f2d24feae5dd8cdd211a6e6f3a3408"
+    },
+    "blend": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\source\\fish.blend",
+      "sha256": "4afa7bfc789e519dd1a02a96206ed8ad45ef02d6280a1298ce0176db78713e3b"
+    },
+    "spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\feedback-20261031\\candidate-r5\\source-run\\final-spec.json",
+      "sha256": "d4bd90417b3555dc8c27db3a483d4b413776c4ecb4f1ca9f5f41119c18b5d9aa"
+    },
+    "baseline_audit": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\rainbow-trout-portable-trial-20261031\\width-detail-20261031\\baseline-width.validation.json",
+      "sha256": "3ddb58a174e9456a2fadd3d95a59f8a9977a536e202ed6a4c2b00fd6d0287dae"
+    }
+  },
+  "coordinate": "glTF X longitudinal/Yheight fixed; Z transverse only. s from anterior over visible whole model TL.",
+  "scope": "Own-species width proposal only. Preserve X/Y side silhouette, topology/UV/material/source RGB/skin/rig/native animation; tail s>=.80 unchanged. Old physical/width gates superseded, user review pending.",
+  "source_evidence": [
+    "https://zenodo.org/records/6642650"
+  ],
+  "evidence_grade": "D-authored independent station targets constrained by recorded same-species A data; matching lip/head transverse positions unknown.",
+  "basis": "同种3标本W/H约0.484–0.490；用其约束最宽体段，保持普通端位圆钝吻，无繁殖期钩颌。",
+  "cutoff_s": 0.8,
+  "target_width_stations_cm": [
+    [
+      0.005,
+      1.8
+    ],
+    [
+      0.012,
+      2.45
+    ],
+    [
+      0.025,
+      3.1
+    ],
+    [
+      0.04,
+      3.6
+    ],
+    [
+      0.06,
+      4.1
+    ],
+    [
+      0.08,
+      4.6
+    ],
+    [
+      0.1,
+      5.0
+    ],
+    [
+      0.12,
+      5.35
+    ],
+    [
+      0.15,
+      5.7
+    ],
+    [
+      0.18,
+      6.05
+    ],
+    [
+      0.22,
+      6.3
+    ],
+    [
+      0.27,
+      6.5
+    ],
+    [
+      0.32,
+      6.5
+    ],
+    [
+      0.37,
+      6.5
+    ],
+    [
+      0.42,
+      6.45
+    ],
+    [
+      0.48,
+      6.3
+    ],
+    [
+      0.55,
+      5.9
+    ],
+    [
+      0.62,
+      5.1
+    ],
+    [
+      0.7,
+      3.9
+    ]
+  ],
+  "unmeasured": {
+    "lip_width_cm": null,
+    "interorbital_bone_width_cm": null,
+    "exact_eyeline_head_width_cm": null,
+    "sex": null,
+    "population": null
+  }
+}
