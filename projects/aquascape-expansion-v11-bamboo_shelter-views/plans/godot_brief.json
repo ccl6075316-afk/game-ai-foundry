@@ -1,0 +1,68 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-expansion-v11-bamboo_shelter-views\\game",
+    "project_name": "aquascape-expansion-v11-bamboo_shelter-views",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "bamboo_shelter_right",
+        "image": "projects\\aquascape-expansion-v11-bamboo_shelter-views\\output\\bamboo_shelter_right_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "bamboo_shelter_top",
+        "image": "projects\\aquascape-expansion-v11-bamboo_shelter-views\\output\\bamboo_shelter_top_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1536
+    }
+  }
+}

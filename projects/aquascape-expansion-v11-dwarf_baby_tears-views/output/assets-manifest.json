@@ -1,0 +1,69 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-31T12:12:56+00:00",
+  "brief": "projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\brief.json",
+  "output_dir": "projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\output",
+  "project": {
+    "title": "aquascape-expansion-v11-dwarf_baby_tears-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "dwarf_baby_tears_leaves": {
+      "brief": {
+        "id": "dwarf_baby_tears_leaves",
+        "name": "dwarf_baby_tears_leaves",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Illustrate separated normal foliage samples from this same Hemianthus callitrichoides. A low creeping carpet patch of tiny rounded bright green leaves on fine branching runners, naturally uneven low cushion.. Match the supplied whole plant exactly in pixel drawing finish, colour, leaf shape and anatomy. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nOn pure white, show complete ordinary leaves or complete representative foliage sprigs/fronds with their natural basal attachment, enough clean white space to isolate them. Preserve the species-specific fan divisions, fern divisions, needle whorls or moss sprigs where applicable. No whole plant, roots, text, grid or other objects. Native detailed pixel illustration, no photo or smooth CGI.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "dwarf_baby_tears_leaves.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\plans\\dwarf_baby_tears_leaves.json",
+          "path_repo": "projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\plans\\dwarf_baby_tears_leaves.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "dwarf_baby_tears_leaves.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\output\\dwarf_baby_tears_leaves_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-dwarf_baby_tears-views\\output\\dwarf_baby_tears_leaves_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:12:56+00:00",
+        "note": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "0b743575ac4b",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-mopani_wood-views\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "2",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-mopani_wood-views\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-mopani_wood-views\\pipeline\\jobs\\0b743575ac4b.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-mopani_wood-views\\pipeline\\jobs\\0b743575ac4b.log",
+  "pid": 46296,
+  "exit_code": 0,
+  "started_at": "2026-10-31T12:07:16+00:00",
+  "finished_at": "2026-10-31T12:07:58+00:00",
+  "error": null,
+  "worker_pid": 46548
+}

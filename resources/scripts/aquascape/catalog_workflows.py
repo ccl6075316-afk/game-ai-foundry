@@ -10,7 +10,8 @@ from pathlib import Path
 def call(root,args):
     # Detached Windows children may inherit pipe handles. File capture waits only
     # for the CLI parent, not for unrelated EOF from the whole detached subtree.
-    with tempfile.TemporaryFile() as stdout,tempfile.TemporaryFile() as stderr:
+    scratch=root/'work/aquascape-cli';scratch.mkdir(parents=True,exist_ok=True)
+    with tempfile.TemporaryFile(dir=scratch) as stdout,tempfile.TemporaryFile(dir=scratch) as stderr:
         result=subprocess.run([str(root/'.venv/Scripts/python.exe'),str(root/'cli/gamefactory.py'),*args],cwd=root,stdout=stdout,stderr=stderr)
         stdout.seek(0);out=stdout.read().decode('utf-8');stderr.seek(0);err=stderr.read().decode('utf-8')
     try:data=json.loads(out)

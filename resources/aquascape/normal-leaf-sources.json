@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scope": "Visual selection among existing painted source references only. These indices are not target leaf counts or instructions for future generated clumps.",
+  "review": "Viewed both full-resolution source contact sheets. Exclude painted rolled lips, hooked side leaves and unfolding leaves; retain ordinary mature and upright blades. Keep characteristic species width, surface wrinkles and colours.",
+  "plants": {
+    "anubias": [
+      0,
+      1,
+      2
+    ],
+    "java_fern": [
+      0,
+      1,
+      2
+    ],
+    "bucephalandra": [
+      0,
+      1,
+      2
+    ],
+    "crypt_wendtii": [
+      0,
+      1,
+      2
+    ],
+    "crypt_crispatula": [
+      0,
+      2
+    ],
+    "amazon_sword": [
+      0,
+      1,
+      2
+    ],
+    "dwarf_sagittaria": [
+      0,
+      1,
+      2
+    ],
+    "vallisneria": [
+      1,
+      2,
+      5
+    ],
+    "aponogeton": [
+      0,
+      1,
+      2
+    ],
+    "lagenandra_red": [
+      0,
+      1,
+      2
+    ]
+  },
+  "source_sha256": {
+    "anubias": "a0c264965fe31915a3ba04a362da3612ffa2ad947c47bfc272fc712ec47d95e3",
+    "java_fern": "84939b2b0d79c5de2d9cb1b233c10b9f6eab6866f90709b803cda72ddf2f0c75",
+    "bucephalandra": "7e6fca51cceb01058b9d7334018c8c279b93b67b7badfb71c861ac0cbbeae9b5",
+    "crypt_wendtii": "8310a3a633a8b5a7643981a967cabf385b56b922e95013ff6116743c093222d6",
+    "crypt_crispatula": "d913a979d44789ae8f3b49451ffbb9c074af23bd3bc91d710b61f4b67a33981c",
+    "amazon_sword": "be9018777368154746f7c35a7b38faa8befbb2114723cbeb99d328e7fc783b8b",
+    "dwarf_sagittaria": "d00f11d7139a685c6fde1b2d3001c5f85af7fcdc08cf314f49254c856fa18f03",
+    "vallisneria": "d6d02482f55011e9b20ebb14ea7b40463378777c46e3e30196ce1ebf935e9a53",
+    "aponogeton": "ae7e417b6d2f5475f2164542276ce525bc1806c305fa289a0109c37e09444a1a",
+    "lagenandra_red": "868c9ec22e8389c7d365c80c0e6a965063e4b85062f006b9a9b6cace5a2ed26b"
+  }
+}

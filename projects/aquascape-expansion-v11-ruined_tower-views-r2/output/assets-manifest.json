@@ -1,0 +1,124 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-31T12:17:54+00:00",
+  "brief": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\brief.json",
+  "output_dir": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\output",
+  "project": {
+    "title": "aquascape-expansion-v11-ruined_tower-views-r2",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "ruined_tower_right": {
+      "brief": {
+        "id": "ruined_tower_right",
+        "name": "ruined_tower_right",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render the EXACT SAME object from the supplied front artwork: . A small aquarium ornament of an old mossy grey stone castle tower, squat round masonry tower with a broken crenellated top, a large arched swim-through doorway at the base, restrained worn stone carving, no flags or scenery.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera exactly at the RIGHT END looking along -X. Orthographic perpendicular END ELEVATION. X length disappears into the screen; horizontal image dimension is Z depth and vertical is Y height. Long front limbs become foreshortened cross-sections. Do not repeat the long front facade. No camera tilt.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ruined_tower_right.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-ruined_tower-views-r2\\plans\\ruined_tower_right.json",
+          "path_repo": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\plans\\ruined_tower_right.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ruined_tower_right.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-ruined_tower-views-r2\\output\\ruined_tower_right_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\output\\ruined_tower_right_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:17:54+00:00",
+        "note": ""
+      }
+    },
+    "ruined_tower_top": {
+      "brief": {
+        "id": "ruined_tower_top",
+        "name": "ruined_tower_top",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render the EXACT SAME object from the supplied front artwork: . A small aquarium ornament of an old mossy grey stone castle tower, squat round masonry tower with a broken crenellated top, a large arched swim-through doorway at the base, restrained worn stone carving, no flags or scenery.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera directly above at +Y, looking STRAIGHT VERTICALLY DOWN -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal, Z depth vertical. Height Y disappears into the screen. Do not draw the object standing upright: no tall front facade, no front doorway facade. A vertical tower appears as its circular roof footprint with its broken upper rim; a vertical trunk becomes an end-grain cross-section surrounded by roots. A horizontal tube appears as its long roof and has no visible front circular interior. This is an overhead plan, not a 3/4 perspective illustration. No tilt.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ruined_tower_top.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-ruined_tower-views-r2\\plans\\ruined_tower_top.json",
+          "path_repo": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\plans\\ruined_tower_top.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ruined_tower_top.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-ruined_tower-views-r2\\output\\ruined_tower_top_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-ruined_tower-views-r2\\output\\ruined_tower_top_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:17:54+00:00",
+        "note": ""
+      }
+    }
+  }
+}

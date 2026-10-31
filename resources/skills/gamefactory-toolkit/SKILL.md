@@ -180,6 +180,10 @@ python gamefactory.py test regression --project <project>
 
 ## 关键规则
 
+水草艺术描述按2026-10-31最新要求只描述自然的物种整簇及其正常叶形/叶宽/颜色/生长方式，不规定叶片数、固定叶片变体或外张/弯曲角度，不安排统一的侧卷/翘起/展开嫩叶。布局依据已审核整簇来源；旧逐叶角度数组仅可用于历史复现，不能作为新植物模板。当前正常叶片修正入口 `resources/scripts/aquascape/normalize_plant_leaves.py`，逐来源选择已实际看过的正常叶原画并固化GLB，维持面数门与根部/循环验证。
+
+2026-10-31 用户追加批量摆缸预算：所有当前及未来水草/石木/摆件执行 `resources/aquascape/geometry-budgets.json`，按完整实例所有三角面合计。石400/600、木800/1200、带状草整丛400/600、宽叶整丛700/1000、复杂摆件1200/2000（优选/硬上限）；不按单叶拆预算，不静默升档。新鱼最新优选1500/硬上限2000覆盖旧体长档。造景末端运行 `optimize_scenery.py --deploy` 和 `validate_scenery_budget.py`，原尺寸画风、主体轮廓、根部连接、洞口和正常动作仍需实际对照。shader水流实例化目前独立实验，不自动替换所有骨骼行为。
+
 已有游动的鱼类追加转身时，除下面的连续动作规则，还应读取 [鱼类转向复用流程](../../../docs/FISH-TURN-WORKFLOW.md)，复用相位规划、深度水域边界和当前帧轮廓校正；每条鱼独立确定素材、首尾相位、镜像资格、时长及曝光需求。
 
 1. `validate` before matting：图像验证失败时只修 prompt/Brief，不做 trim 或 remove-bg。

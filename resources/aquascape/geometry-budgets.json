@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "unit": "triangles_per_complete_placed_instance",
+  "policy": "All visible shells, reverse sides, rims, roots, mouths and attachments count. No silent budget increase. Native-resolution artwork and species silhouettes must survive visual comparison.",
+  "types": {
+    "gravel": {"preferred": 150, "hard_limit": 300},
+    "rock": {"preferred": 400, "hard_limit": 600},
+    "large_rock": {"preferred": 700, "hard_limit": 1000},
+    "ribbon_plant": {"preferred": 400, "hard_limit": 600},
+    "broadleaf_plant": {"preferred": 700, "hard_limit": 1000},
+    "wood": {"preferred": 800, "hard_limit": 1200},
+    "decor": {"preferred": 1200, "hard_limit": 2000},
+    "fish": {"preferred": 1500, "hard_limit": 2000}
+  },
+  "ribbon_plants": ["crypt_crispatula", "dwarf_sagittaria", "vallisneria"],
+  "scope": "Current scenery and all future new/rebuilt scenery. Fish policy records the user's latest limit; this scenery change does not modify fish assets."
+}

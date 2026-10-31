@@ -55,9 +55,9 @@ Keep every source branch, knot, root foot, leaf identity, stone shoulder and fra
                 size=(1024,1536) if kind=='plants' and view=='right' else (1536,1536)
                 rows.append(asset(s['id']+'_'+view,prompt,size))
             if kind=='plants':
-                prompt=f'''Create a precise PART SHEET of SIX individually isolated full leaves from the EXACT SAME {desc} in the source artwork.
+                prompt=f'''Create isolated normal leaf references from the EXACT SAME {desc} in the source artwork.
 Match its original fine naturalistic PIXEL ART finish, palette, specific leaf widths, venation, wrinkles and material. White background, no shadow or scenery.
-Exactly 3 columns by 2 rows, ONE COMPLETE LEAF including its petiole/basal strip in each cell. Stems at BOTTOM, tips at TOP. All six connected leaves fully inside their cells with generous white gaps, no overlap or grid lines, no text, no roots or whole plant. Six different natural sizes and bends, not six copies: large mature blade, smaller mature blade, younger upright blade, gently cupped blade, sideways curled blade, unfolding young blade. Keep narrow ribbon species genuinely narrow and broad ovate species genuinely broad. Use only variations appropriate to this species; do not turn grass into a fern or add leaflets. This is a dedicated high-resolution leaf sheet only, not packed alongside other views. Its exact original painted silhouettes will become individually shaped 3D leaf shells.'''
+Show complete ordinary leaves, including their natural petiole or basal strip, separated by clean white space. Let the accepted whole plant determine the useful references and their variety. Preserve the species' characteristic blade shape, width, venation and colour. Natural gently extended foliage, with no deliberately curled, hooked, flipped-up or unfolding showcase leaf. No prescribed leaf count, fixed arrangement, spread angle or bend angle. No text, grid lines, roots, whole plants or extra views. Keep narrow ribbon species narrow and broad ovate species broad. Preserve the original native painting resolution.'''
                 rows.append(asset(s['id']+'_leaves',prompt,(1536,1024)))
             save_brief(root/f'projects/aquascape-{s["id"]}-views-v5',rows,reference)
 

@@ -1,0 +1,6 @@
+numpy
+scipy
+Pillow
+opencv-python
+scikit-image
+pymeshlab==2025.7.post1

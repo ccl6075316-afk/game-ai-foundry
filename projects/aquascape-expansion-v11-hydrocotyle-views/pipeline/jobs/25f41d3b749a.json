@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "job_id": "25f41d3b749a",
+  "status": "done",
+  "argv": [
+    "E:\\game-ai-foundry\\.venv\\Scripts\\python.exe",
+    "E:\\game-ai-foundry\\cli\\gamefactory.py",
+    "workflow",
+    "run",
+    "--manifest",
+    "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-hydrocotyle-views\\pipeline\\manifest.json",
+    "--stage",
+    "assets",
+    "--jobs",
+    "2",
+    "--auto-fix"
+  ],
+  "cwd": "E:\\game-ai-foundry",
+  "jobs_dir": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-hydrocotyle-views\\pipeline\\jobs",
+  "job_file": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-hydrocotyle-views\\pipeline\\jobs\\25f41d3b749a.json",
+  "log_file": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-hydrocotyle-views\\pipeline\\jobs\\25f41d3b749a.log",
+  "pid": 42596,
+  "exit_code": 0,
+  "started_at": "2026-10-31T12:06:56+00:00",
+  "finished_at": "2026-10-31T12:07:46+00:00",
+  "error": null,
+  "worker_pid": 42472
+}

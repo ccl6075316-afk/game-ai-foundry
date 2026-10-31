@@ -1,0 +1,221 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-31T12:07:13+00:00",
+  "updated_at": "2026-10-31T12:08:11+00:00",
+  "brief": "projects\\aquascape-expansion-v11-spider_wood-views\\brief.json",
+  "project": {
+    "title": "aquascape-expansion-v11-spider_wood-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-expansion-v11-spider_wood-views\\output",
+    "plans_dir": "projects\\aquascape-expansion-v11-spider_wood-views\\plans",
+    "assets_manifest": "projects\\aquascape-expansion-v11-spider_wood-views\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "spider_wood_right.prompt.craft",
+      "asset": "spider_wood_right",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-spider_wood-views\\brief.json --asset spider_wood_right -o ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_right.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_right.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:07:14+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:07:14+00:00",
+      "asset_id": "spider_wood_right"
+    },
+    {
+      "id": "spider_wood_right.image.generate",
+      "asset": "spider_wood_right",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "spider_wood_right.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_right.json --output ../projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_right_raw.png --validate --reference-image ../projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_right.json",
+        "output": "../projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_right_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_right_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 0.0
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 76.55918643782397,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:07:14+00:00",
+      "finished_at": "2026-10-31T12:08:05+00:00",
+      "asset_id": "spider_wood_right"
+    },
+    {
+      "id": "spider_wood_top.prompt.craft",
+      "asset": "spider_wood_top",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-spider_wood-views\\brief.json --asset spider_wood_top -o ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_top.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_top.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:07:14+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:07:14+00:00",
+      "asset_id": "spider_wood_top"
+    },
+    {
+      "id": "spider_wood_top.image.generate",
+      "asset": "spider_wood_top",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "spider_wood_top.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_top.json --output ../projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_top_raw.png --validate --reference-image ../projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\spider_wood_top.json",
+        "output": "../projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_top_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-spider_wood-views\\output\\spider_wood_top_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.17708333333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 61.79013307020994,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:07:14+00:00",
+      "finished_at": "2026-10-31T12:07:58+00:00",
+      "asset_id": "spider_wood_top"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "spider_wood_right.prompt.craft",
+        "spider_wood_right.image.generate",
+        "spider_wood_top.prompt.craft",
+        "spider_wood_top.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-spider_wood-views\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-spider_wood-views\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "spider_wood_right",
+              "path": "assets/backgrounds/spider_wood_right.png"
+            },
+            {
+              "asset": "spider_wood_top",
+              "path": "assets/backgrounds/spider_wood_top.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-31T12:08:05+00:00",
+      "finished_at": "2026-10-31T12:08:11+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-expansion-v11-spider_wood-views\\brief.json --project ../projects\\aquascape-expansion-v11-spider_wood-views\\game --assemble-file ../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-spider_wood-views\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:07:14+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-expansion-v11-spider_wood-views\\game",
+  "godot_assemble_file": "../projects\\aquascape-expansion-v11-spider_wood-views\\plans\\godot_brief.json"
+}

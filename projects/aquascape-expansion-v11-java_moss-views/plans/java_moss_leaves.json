@@ -1,0 +1,107 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "image-generator",
+  "context": {
+    "project": {
+      "title": "aquascape-expansion-v11-java_moss-views",
+      "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+      "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+      "dimension": "3d",
+      "genre": "aquarium_exhibit",
+      "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+      "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+      "player_asset": "java_moss_leaves",
+      "controls": {
+        "move_left": [
+          "A"
+        ],
+        "move_right": [
+          "D"
+        ],
+        "inspect": [
+          "Mouse"
+        ]
+      },
+      "viewport": {
+        "width": 1536,
+        "height": 1024
+      },
+      "camera": {
+        "mode": "static"
+      },
+      "visual_reference": "E:/game-ai-foundry/projects/aquascape-expansion-v11-plants/output/java_moss_front_raw.png",
+      "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1024). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+    },
+    "asset": {
+      "name": "java_moss_leaves",
+      "type": "background",
+      "description": "Illustrate separated normal foliage samples from this same Taxiphyllum barbieri. A natural loose low moss tuft with fine irregular branching green strands and minute moss foliage, an airy irregular cushion, no stone or wood.. Match the supplied whole plant exactly in pixel drawing finish, colour, leaf shape and anatomy. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nOn pure white, show complete ordinary leaves or complete representative foliage sprigs/fronds with their natural basal attachment, enough clean white space to isolate them. Preserve the species-specific fan divisions, fern divisions, needle whorls or moss sprigs where applicable. No whole plant, roots, text, grid or other objects. Native detailed pixel illustration, no photo or smooth CGI.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "java_moss_leaves",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  },
+  "plan": {
+    "asset_name": "java_moss_leaves",
+    "asset_type": "background",
+    "prompt": "Illustrate separated normal foliage samples from this same Taxiphyllum barbieri. A natural loose low moss tuft with fine irregular branching green strands and minute moss foliage, an airy irregular cushion, no stone or wood.. Match the supplied whole plant exactly in pixel drawing finish, colour, leaf shape and anatomy. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nOn pure white, show complete ordinary leaves or complete representative foliage sprigs/fronds with their natural basal attachment, enough clean white space to isolate them. Preserve the species-specific fan divisions, fern divisions, needle whorls or moss sprigs where applicable. No whole plant, roots, text, grid or other objects. Native detailed pixel illustration, no photo or smooth CGI.",
+    "negative_hints": [
+      "One camera-specific full-resolution artwork; no packed views.",
+      "No isometric tilt in orthographic cameras."
+    ],
+    "validation": {
+      "asset_type": "background",
+      "aspect_ratio": "3:2",
+      "require_light_background": false,
+      "forbid_uniform_white_studio": false,
+      "min_color_variance": 20.0
+    },
+    "pipeline": [
+      {
+        "step": "generate_image"
+      },
+      {
+        "step": "validate"
+      }
+    ],
+    "requires_reference_image": true,
+    "requires_background_removal": false,
+    "animation_method": null,
+    "prompt_source": "explicit_full_view_template",
+    "role": "prompt-crafter",
+    "skill_refs": [
+      "asset-planner",
+      "asset-gen"
+    ],
+    "video_prompt": null,
+    "video_model": null,
+    "video_duration": null,
+    "video_resolution": null,
+    "video_ratio": null,
+    "video_generate_audio": null,
+    "video_watermark": null,
+    "reference_image": null,
+    "image_size": "1536x1024",
+    "image_model": "openai/gpt-image-2",
+    "prompt_profile_id": null,
+    "display_size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "anchor": "top_left",
+    "generation_input_fingerprint": "28a4196bcbac78ea"
+  }
+}

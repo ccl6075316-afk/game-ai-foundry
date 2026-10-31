@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 
 
-def inspect(path):
+def inspect(path,allow_alpha_mask=False):
     raw=path.read_bytes();size=struct.unpack_from('<I',raw,12)[0]
     d=json.loads(raw[20:20+size]);binary=raw[28+size:]
     def read(index):
@@ -41,7 +41,8 @@ def inspect(path):
         image=Image.open(io.BytesIO(binary[offset:offset+view['byteLength']])).convert('RGBA');a=np.asarray(image)
         opaque=bool((a[:,:,3]==255).all())
         textures.append({'name':im['name'],'size':list(image.size),'opaque':opaque})
-        if not opaque:failed.append(im['name']+': unexpected transparency')
+        masked=allow_alpha_mask and all(mat.get('alphaMode')=='MASK' and mat.get('alphaCutoff',.5)==.5 for mat in d['materials'])
+        if not opaque and not masked:failed.append(im['name']+': unexpected transparency')
     return {'path':str(path),'sha256':hashlib.sha256(raw).hexdigest(),'ok':not failed,'meshes':meshes,'textures':textures,'open_edges':boundary,'nonmanifold_edges':nonmanifold,'failures':failed}
 
 

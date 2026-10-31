@@ -24,6 +24,14 @@ def main():
     commands.append([python,scripts/'validate_plant_current.py','--root',root,'--input',repaired/'plants','--config',repaired/'plant-motion.json','--output',repaired/'motion.validation.json'])
     commands.append([python,scripts/'audit_leaf_contours.py','--root',root,'--output',review/'contour-after'])
     commands.append([python,scripts/'validate_art_models.py','--input',rebuilt/'plants','--output',rebuilt/'geometry.validation.json'])
+    # Dense source reconstruction is an intermediate only. Every current and
+    # future runtime catalog must pass the shared complete-instance budget gate.
+    budgeted=root/'projects/fishing-2d/game/assets/aquascape-v9'
+    commands.append([python,scripts/'optimize_scenery.py','--root',root,'--input',out/'catalog.json','--output',budgeted,'--report',review/'budget-build.validation.json','--deploy'])
+    commands.append([python,scripts/'build_shader_plants.py','--input',budgeted/'plants','--output',budgeted/'shader-plants'])
+    natural=root/'projects/fishing-2d/game/assets/aquascape-v10'
+    commands.append([python,scripts/'normalize_plant_leaves.py','--root',root,'--input',out/'catalog.json','--output',natural,'--report',review/'natural-leaf-build.validation.json','--deploy'])
+    commands.append([python,scripts/'build_shader_plants.py','--input',natural/'plants','--output',natural/'shader-plants'])
     if a.godot:
         commands.extend([[a.godot,'--headless','--path',root/'projects/fishing-2d/game','--editor','--import','--quit'],[a.godot,'--path',root/'projects/fishing-2d/game','--windowed','--resolution','1440x900','res://scenes/aquascape_catalog_lab.tscn','--','--capture-dir='+str(review/'godot')]])
         commands.append([a.godot,'--path',root/'projects/fishing-2d/game','--windowed','--resolution','1440x900','res://scenes/aquascape_edge_review.tscn','--','--capture-dir='+str(review/'rim-rebuild/godot')])

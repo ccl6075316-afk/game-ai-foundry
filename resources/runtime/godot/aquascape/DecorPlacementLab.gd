@@ -6,34 +6,39 @@ var decor_focus := false
 var decor_target := Vector3.ZERO
 
 func _ready() -> void:
-    decor_entries=JSON.parse_string(FileAccess.get_file_as_string("res://assets/aquascape-decor-v1/catalog.json")).assets
+    for path in ["res://assets/aquascape-decor-v1/catalog.json","res://assets/aquascape-v5/catalog.json"]:
+        for row in JSON.parse_string(FileAccess.get_file_as_string(path)).assets:
+            if not row.get("animated",false):decor_entries.append(row)
     super._ready()
     for row in decor_entries:rock_specs[row.id]=row
-    DisplayServer.window_set_title("潮汐馆 · 十种小装饰与自由布缸")
+    DisplayServer.window_set_title("潮汐馆 · %d种造景与自由布缸" % decor_entries.size())
     for arg in OS.get_cmdline_user_args():
         if arg=="--decor-demo":_decor_gallery()
+        if arg.begins_with("--catalog-check-dir="):call_deferred("_catalog_check",arg.trim_prefix("--catalog-check-dir="))
 
 func _ui() -> void:
     super._ui()
     for label in find_children("*","Label",true,false):
         if label.text.begins_with("A Q U A S C A P E"):label.text="A Q U A S C A P E   /   小装饰布缸实验"
-        if label.text.begins_with("五种底材"):label.text="十种独立装饰 · 五种底床 · 拖动摆放、旋转、缩放与埋沙"
+        if label.text.begins_with("五种底材"):label.text="%d种造景 · 五种底床 · 上方列表可滚动，选择石头、沉木和人工摆件" % decor_entries.size()
     var strip := ColorRect.new()
     strip.position=Vector2(26,214)
     strip.size=Vector2(1080,86)
     strip.color=Color("132c31")
     add_child(strip)
+    var scroll := ScrollContainer.new();scroll.size=Vector2(1080,86);strip.add_child(scroll)
+    var grid := GridContainer.new();grid.columns=5;grid.add_theme_constant_override("h_separation",10);grid.add_theme_constant_override("v_separation",6);scroll.add_child(grid)
     for i in decor_entries.size():
         var row: Dictionary=decor_entries[i]
         var id: String=row.id
-        var button := _button(strip,row.name_zh,Vector2(10+(i%5)*214,5+(i/5)*40),204,func():_set_tool(id))
+        var button := _button(grid,row.name_zh,Vector2.ZERO,204,func():_set_tool(id))
         button.custom_minimum_size.y=34
         button.toggle_mode=true
         decor_buttons.append(button)
     tool_buttons.select.text="4  选取 / 移动摆件"
     for button in find_children("*","Button",true,false):
         if button.text=="混铺示例":
-            button.text="十种展台"
+            button.text="造景总览"
             for connection in button.get_signal_connection_list("pressed"):button.pressed.disconnect(connection.callable)
             button.pressed.connect(func():_remember();_decor_gallery())
 
@@ -143,9 +148,34 @@ func _decor_gallery() -> void:
     for z in BED.NZ:
         for x in BED.NX:bed.material_ids[z*BED.NX+x]=clampi(int(x/float(BED.NX)*5),0,4)
     bed.rebuild_all()
-    for i in decor_entries.size():_add_rock(decor_entries[i].id,Vector3((i%5-2)*.235,0,(i/5-.5)*.29),.55,0)
+    var rows: int=ceili(decor_entries.size()/5.0)
+    for i in decor_entries.size():
+        var spec: Dictionary=decor_entries[i];var box: Dictionary=spec.projection_bounds
+        var factor: float=minf(.55,minf(.18/box.width,(.48/rows)/box.depth))
+        _add_rock(spec.id,Vector3((i%5-2)*.235,0,(float(i/5)-(rows-1)*.5)*(.50/rows)),factor,0)
     yaw=.12;pitch=.62;view_size=1.32;_camera()
-    notice="十种装饰展台 · 选上方物件摆放，4 选取移动 · Q/E 旋转 · Shift＋滚轮缩放"
+    notice="%d种造景总览 · 选上方物件摆放，4 选取移动 · Q/E 旋转 · Shift＋滚轮缩放" % decor_entries.size()
+
+func _catalog_check(directory: String) -> void:
+    DirAccess.make_dir_recursive_absolute(directory)
+    var failures: Array=[];var added: Array=[]
+    for row in decor_entries:
+        if row.get("geometry_revision","")!="budget-first-v11":continue
+        _set_tool(row.id)
+        if ghost==null or ghost_id!=row.id:failures.append(row.id+": selection failed")
+        _add_rock(row.id,Vector3((added.size()%5-2)*.20,0,(added.size()/5-.5)*.24),.45,0)
+        added.append(row.id)
+    _set_tool("select")
+    var path := directory+"/placement-state.json"
+    var wrote: bool=_write_save(path);var restored: bool=wrote and _read_save(path)
+    for id in added:
+        if rocks.filter(func(r):return r.id==id).is_empty():failures.append(id+": missing after restore")
+    if not restored:failures.append("Placement state roundtrip failed")
+    for i in 5:await get_tree().process_frame
+    await RenderingServer.frame_post_draw
+    get_viewport().get_texture().get_image().save_png(directory+"/placement.png")
+    var okay: bool=failures.is_empty() and added.size()==10 and decor_entries.size()==30
+    var file := FileAccess.open(directory+"/placement.validation.json",FileAccess.WRITE);file.store_string(JSON.stringify({"command":"aquascape.expansion-placement-roundtrip","ok":okay,"status":"done" if okay else "failed","next_action":"human_review" if okay else "fix_input","catalog_entries":decor_entries.size(),"new_ids":added,"selection_placement_and_restore":restored,"outputs":[path,directory+"/placement.png"],"failures":failures,"user_acceptance":"pending"},"  "));file.close();get_tree().quit(0 if okay else 1)
 
 func _focus_decor(index: int,view: String) -> void:
     decor_focus=true

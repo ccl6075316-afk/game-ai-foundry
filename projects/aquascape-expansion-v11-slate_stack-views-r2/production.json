@@ -1,0 +1,272 @@
+{
+  "production_meta": {
+    "schema_version": 1,
+    "derived_at": "2026-10-31T12:11:08.956646+00:00",
+    "brief_path": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-slate_stack-views-r2\\brief.json",
+    "brief_meta": {
+      "contract_version": 1,
+      "frozen_at": "2026-10-31T12:11:07+00:00",
+      "source": "manual"
+    },
+    "genre_preset": "default_v1",
+    "preset_trace": [
+      "genre_preset.default_v1.world",
+      "genre_preset.default_v1.player",
+      "genre_preset.default_v1.physics_layers",
+      "brief.project.viewport",
+      "brief.project.controls",
+      "brief.project.player_asset",
+      "brief.animation_graphs"
+    ]
+  },
+  "production_doc": {
+    "title": "aquascape-expansion-v11-slate_stack-views-r2",
+    "slug": "aquascape-expansion-v11-slate-stack-views-r2",
+    "genre": "aquarium_exhibit",
+    "dimension": "3d",
+    "viewport": {
+      "width": 1536,
+      "height": 1536
+    },
+    "world": {
+      "gravity": 980,
+      "ground_y": 1416
+    },
+    "player": {
+      "move_speed": 150,
+      "health": 1,
+      "hitbox": {
+        "width": 32,
+        "height": 32
+      },
+      "anchor": "bottom_center",
+      "asset": "slate_stack_right",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "collision_size": {
+        "width": 32,
+        "height": 32
+      }
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "physics_layers": {
+      "player": 1,
+      "world": 2
+    },
+    "input_map": [
+      {
+        "action": "inspect",
+        "keys": [
+          "Mouse"
+        ]
+      },
+      {
+        "action": "move_left",
+        "keys": [
+          "A"
+        ]
+      },
+      {
+        "action": "move_right",
+        "keys": [
+          "D"
+        ]
+      }
+    ],
+    "scenes": [
+      {
+        "path": "scenes/main.tscn",
+        "role": "main",
+        "root": {
+          "name": "Main",
+          "type": "Node2D"
+        },
+        "children": [
+          {
+            "name": "World",
+            "type": "Node2D",
+            "role": "level_root"
+          },
+          {
+            "name": "PlayerSpawn",
+            "type": "Marker2D",
+            "role": "spawn"
+          },
+          {
+            "name": "Camera2D",
+            "type": "Camera2D",
+            "role": "camera"
+          }
+        ]
+      },
+      {
+        "path": "scenes/player.tscn",
+        "role": "player",
+        "root": {
+          "name": "Player",
+          "type": "CharacterBody2D"
+        },
+        "children": [
+          {
+            "name": "CollisionShape2D",
+            "type": "CollisionShape2D",
+            "role": "hitbox"
+          },
+          {
+            "name": "AnimatedSprite2D",
+            "type": "AnimatedSprite2D",
+            "role": "sprite"
+          }
+        ],
+        "script": "scripts/SlateStackRightController.cs",
+        "asset": "slate_stack_right"
+      }
+    ],
+    "systems": [
+      {
+        "id": "player_controller",
+        "script": "scripts/SlateStackRightController.cs",
+        "node": "scenes/player.tscn",
+        "responsibility": "Input, movement, animation state, collision response"
+      },
+      {
+        "id": "game_state",
+        "script": "scripts/GameState.cs",
+        "node": "autoload",
+        "responsibility": "Score, health, win/lose flags, session progress"
+      }
+    ],
+    "collectible_items": [],
+    "animation_graphs": [],
+    "godot_tasks": [
+      {
+        "id": "input_map",
+        "title": "Wire InputMap actions from brief.controls",
+        "depends_on": [],
+        "verify": [
+          "InputMap contains: inspect, move_left, move_right"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "player_controller",
+        "title": "Implement SlateStackRightController (CharacterBody2D) with brief.controls",
+        "depends_on": [
+          "input_map"
+        ],
+        "verify": [
+          "Player moves left/right when move actions pressed",
+          "Player collides with world layer"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "animation_states",
+        "title": "Bind SpriteFrames clips (idle) per animation_graphs",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "AnimatedSprite2D plays clip: idle"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "camera",
+        "title": "Configure camera: {'mode': 'static'}",
+        "depends_on": [
+          "player_controller"
+        ],
+        "verify": [
+          "Camera follows or frames player as specified in production.camera"
+        ],
+        "status": "pending"
+      },
+      {
+        "id": "session_goal",
+        "title": "Implement session goal: Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+        "depends_on": [
+          "player_controller",
+          "animation_states",
+          "camera"
+        ],
+        "verify": [
+          "main scene loads without errors",
+          "Distinct source-matched generated props and plant anatomy with explicit species and independent views."
+        ],
+        "status": "pending"
+      }
+    ],
+    "validation": {
+      "acceptance_criteria": [
+        "main scene loads",
+        "godot validate passes",
+        "all brief.controls actions work in playtest harness",
+        "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+        "core loop: Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+        "InputMap contains: inspect, move_left, move_right",
+        "Player moves left/right when move actions pressed",
+        "Player collides with world layer",
+        "AnimatedSprite2D plays clip: idle",
+        "Camera follows or frames player as specified in production.camera",
+        "main scene loads without errors"
+      ],
+      "regression_checks": []
+    },
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "asset_display_sizes": {
+      "slate_stack_right": {
+        "width": 1536,
+        "height": 1536
+      },
+      "slate_stack_top": {
+        "width": 1536,
+        "height": 1536
+      }
+    },
+    "scaffold": {
+      "main_scene": "scenes/main.tscn",
+      "scripts_dir": "scripts",
+      "autoloads": [
+        "GameState"
+      ],
+      "language": "csharp",
+      "engine": "godot4-dotnet"
+    }
+  }
+}

@@ -29,6 +29,7 @@ def main():
         if hashlib.sha256(Path(row['output']).read_bytes()).hexdigest()!=row['sha256']:raise ValueError('Stale model build')
         rows.append({'id':row['id'],'name_zh':row['name_zh'],'model':'res://assets/aquascape-decor-v1/'+row['id']+'.glb','material_dir':'res://assets/aquascape-decor-v1','projection_bounds':row['projection_bounds']})
     (out/'catalog.json').write_text(json.dumps({'schema_version':1,'assets':rows,'user_acceptance':'pending'},ensure_ascii=False,indent=2),encoding='utf-8')
+    run([root/'.venv/Scripts/python.exe',root/'resources/scripts/aquascape/optimize_scenery.py','--root',root,'--input',out/'catalog.json','--output',game/'assets/aquascape-v9','--report',review/'budget-build.validation.json','--deploy'],'budget')
     for target in out.glob('*.png'):
         if target.with_suffix('.png.import').exists():continue
         uri='res://'+target.relative_to(game).as_posix();cache='res://.godot/imported/'+target.name+'-'+hashlib.md5(uri.encode()).hexdigest()+'.ctex';target.with_suffix('.png.import').write_text('[remap]\nimporter="texture"\ntype="CompressedTexture2D"\npath="'+cache+'"\nmetadata={"vram_texture":false}\n[deps]\nsource_file="'+uri+'"\ndest_files=["'+cache+'"]\n[params]\ncompress/mode=0\nmipmaps/generate=false\nprocess/size_limit=0\ndetect_3d/compress_to=0\n',encoding='utf-8')

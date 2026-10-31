@@ -1,0 +1,148 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-31T12:06:46+00:00",
+  "updated_at": "2026-10-31T12:07:20+00:00",
+  "brief": "projects\\aquascape-expansion-v11-water_sprite-views\\brief.json",
+  "project": {
+    "title": "aquascape-expansion-v11-water_sprite-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-expansion-v11-water_sprite-views\\output",
+    "plans_dir": "projects\\aquascape-expansion-v11-water_sprite-views\\plans",
+    "assets_manifest": "projects\\aquascape-expansion-v11-water_sprite-views\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "water_sprite_leaves.prompt.craft",
+      "asset": "water_sprite_leaves",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-water_sprite-views\\brief.json --asset water_sprite_leaves -o ../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\water_sprite_leaves.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\water_sprite_leaves.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:06:47+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:06:47+00:00",
+      "asset_id": "water_sprite_leaves"
+    },
+    {
+      "id": "water_sprite_leaves.image.generate",
+      "asset": "water_sprite_leaves",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "water_sprite_leaves.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\water_sprite_leaves.json --output ../projects\\aquascape-expansion-v11-water_sprite-views\\output\\water_sprite_leaves_raw.png --validate --reference-image ../projects\\aquascape-expansion-v11-plants\\output\\water_sprite_front_raw.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\water_sprite_leaves.json",
+        "output": "../projects\\aquascape-expansion-v11-water_sprite-views\\output\\water_sprite_leaves_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-water_sprite-views\\output\\water_sprite_leaves_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.02213541666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 5
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 65.89141992656566,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:06:47+00:00",
+      "finished_at": "2026-10-31T12:07:14+00:00",
+      "asset_id": "water_sprite_leaves"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "water_sprite_leaves.prompt.craft",
+        "water_sprite_leaves.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-water_sprite-views\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-water_sprite-views\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "water_sprite_leaves",
+              "path": "assets/backgrounds/water_sprite_leaves.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-31T12:07:14+00:00",
+      "finished_at": "2026-10-31T12:07:20+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-expansion-v11-water_sprite-views\\brief.json --project ../projects\\aquascape-expansion-v11-water_sprite-views\\game --assemble-file ../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-water_sprite-views\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:06:47+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-expansion-v11-water_sprite-views\\game",
+  "godot_assemble_file": "../projects\\aquascape-expansion-v11-water_sprite-views\\plans\\godot_brief.json"
+}

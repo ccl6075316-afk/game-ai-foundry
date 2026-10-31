@@ -30,7 +30,10 @@ def reviewed(project,asset):
 
 
 def crop_white(path,output,keep_all=False):
-    image=Image.open(path).convert('RGBA');a=np.array(image);mask=a[:,:,:3].min(2)<235
+    image=Image.open(path).convert('RGBA');a=np.array(image)
+    # Native provider alpha is authoritative. Transparent RGB may contain dark
+    # colour bleed and must not become a giant opaque rectangle during cropping.
+    mask=(a[:,:,3]>128) if (a[:,:,3]<255).any() else (a[:,:,:3].min(2)<235)
     # A one-pixel closing only joins pixel-cluster cracks, not separate leaves.
     labels,n=ndi.label(mask);sizes=np.bincount(labels.ravel());sizes[0]=0
     if keep_all:mask=np.isin(labels,np.flatnonzero(sizes>max(40,image.width*image.height*.00015)))
@@ -54,41 +57,30 @@ def extract(root,catalog,review):
 
 
 def plant_profile(s):
-    count=s['leaf_count'];L=s['max_length_m'];rhizome=s['growth_form']=='rhizome'
-    factors=[1,.94,.87,.72,.80,.63,.90,.69,.76,.58,.67]
-    lengths=[L*factors[i] for i in range(count)]
-    if rhizome:
-        angles=[-62,-28,-7,45,66,12,-42,26,54,-18,35][:count]
-        pitch=[6,18,-7,12,-12,4,27,-18,16,9,-14][:count]
-        yaw=[-20,14,-9,25,-22,6,34,-31,17,11,-14][:count]
-        span=min(.08,L*.45)
-        at=[[(i/(count-1)-.5)*span,.014,.003*math.sin(i*2.4)] for i in range(count)]
-    else:
-        angles=[-6,9,-24,44,-42,30,13,-57,52,-33,19][:count]
-        pitch=[-13,8,22,-16,25,34,-27,-8,-29,19,7][:count]
-        yaw=[-10,16,-22,32,-38,15,40,-27,24,47,-48][:count]
-        span=.018
-        at=[[math.cos(i*2.399)*.004,.012+(i%2)*.001,math.sin(i*2.399)*.004] for i in range(count)]
-    result={'id':s['id'],'scientific_name':s['scientific_name'],'growth_form':s['growth_form'],'parts':s['id']+'_parts','lengths_m':lengths,'angles_degrees':angles,'pitch_degrees':pitch,'depth_rotations_degrees':yaw,'attachments_m':at,'base_y_m':.014 if rhizome else .012,'rhizome_length_m':span,'shell_thickness_m':.00065 if s['motion']=='stiff' else .00045}
-    if not rhizome:
-        # The generated top drawings show a radial crown. Rotate outward first,
-        # then distribute around Y; Euler yaw before inclination yields a fan.
-        azimuth=[0,145,-120,65,-65,180,110,-150,35,-30,80]
-        incline=[8,30,42,55,62,26,38,48,33,52,40]
-        result['rotation_matrices']=[(rotation(0,azimuth[i],0)@rotation(0,0,-incline[i])@rotation((i%3-1)*7,0,0)).tolist() for i in range(count)]
-        result['arrangement_basis']='Radial crown inferred from separately generated top artwork; individual blades retain traced paint.'
-    result.update(s.get('profile_overrides',{}))
-    return result
+    # Reproduce an existing accepted source layout only. New plants must derive
+    # their own construction profile from the approved whole clump, rather
+    # than inheriting a leaf count or shared per-leaf angle arrays.
+    root=Path(__file__).resolve().parents[3]
+    profiles=root/'projects/fishing-2d/game/assets/aquascape-v5/plant-profiles.json'
+    if profiles.exists():
+        existing=next((row for row in load(profiles)['plants'] if row['id']==s['id']),None)
+        if existing is not None:return existing
+    provided=s.get('source_layout_profile')
+    if provided:
+        profile=load(root/provided)
+        if profile.get('id')!=s['id']:raise ValueError('Source clump profile identity mismatch')
+        return profile
+    raise ValueError('New plant needs a reviewed whole-clump source layout; do not invent a fixed leaf count or a shared angle pattern: '+s['id'])
 
 
 def build_plant(root,s,profile,review,output):
     folder=review/'sources'/s['id'];images=split_leaves(folder/f'{s["id"]}-leaves.png');g=Glb()
     mats=[g.material(donor(im),f'generated_leaf_{i+1}') for i,im in enumerate(images)]
     for i,length in enumerate(profile['lengths_m']):
-        v,f,uv=leaf_shell(images[i%6],length,profile['shell_thickness_m'],.11+(.09 if i%2 else -.025))
+        v,f,uv=leaf_shell(images[i%len(images)],length,profile['shell_thickness_m'],profile.get('rest_bend_ratio',.025))
         R=np.asarray(profile['rotation_matrices'][i]) if 'rotation_matrices' in profile else rotation(profile['pitch_degrees'][i],profile['depth_rotations_degrees'][i],-profile['angles_degrees'][i])
         v=v@R.T+profile['attachments_m'][i]
-        g.mesh(v,f,uv,mats[i%6],f'traced_leaf_{i+1}')
+        g.mesh(v,f,uv,mats[i%len(mats)],f'traced_leaf_{i+1}')
     master=Image.open(folder/f'{s["id"]}-front.png').convert('RGBA');w,h=master.size
     root_crop=master.crop((int(w*.25),int(h*.60),int(w*.75),h))
     root_pixels=np.array(root_crop)

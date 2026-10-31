@@ -22,7 +22,7 @@ def remesh(source,parts,output,static):
     leaves=split_leaves(parts);reports=[]
     for mesh in g.doc['meshes']:
         if not mesh['name'].startswith('traced_leaf_'):continue
-        leaf_id=int(mesh['name'].rsplit('_',1)[1])-1;image=leaves[leaf_id%6];mask=foreground(image);h,w=mask.shape
+        leaf_id=int(mesh['name'].rsplit('_',1)[1])-1;image=leaves[leaf_id%len(leaves)];mask=foreground(image);h,w=mask.shape
         old=mesh['primitives'][0];attrs=old['attributes'];uv=array(doc,binary,attrs['TEXCOORD_0']);position=array(doc,binary,attrs['POSITION'])
         triangle_uv=uv.reshape(-1,3,2);signed=cross(triangle_uv[:,1]-triangle_uv[:,0],triangle_uv[:,2]-triangle_uv[:,0])
         front=np.repeat(signed<-.00000001,3);back=np.repeat(signed>.00000001,3)
@@ -55,7 +55,7 @@ def remesh(source,parts,output,static):
         t=np.clip(1-uvs[:,1],0,1);knots=np.array([.08,.28,.48,.68,.88]);low=np.clip(np.searchsorted(knots,t,side='right')-1,0,3);high=low+1;blend=np.clip((t-knots[low])/(knots[high]-knots[low]),0,1)
         ids=np.zeros((len(positions),4),dtype='uint16');weights=np.zeros((len(positions),4),dtype='float32');ids[:,0]=joints[low];ids[:,1]=joints[high];weights[:,0]=1-blend;weights[:,1]=blend
         mesh['primitives']=[{'attributes':{'POSITION':g.accessor(positions,'VEC3'),'NORMAL':g.accessor(normals,'VEC3'),'TEXCOORD_0':g.accessor(uvs,'VEC2'),'JOINTS_0':append(g,ids,'VEC4',5123,34962),'WEIGHTS_0':append(g,weights,'VEC4',5126,34962)},'material':old['material'],'mode':4}]
-        reports.append({'mesh':mesh['name'],'source_surface_fit_error_m':residual,'triangles':len(closed),'source_part':leaf_id%6+1,**detail})
+        reports.append({'mesh':mesh['name'],'source_surface_fit_error_m':residual,'triangles':len(closed),'source_part':leaf_id%len(leaves)+1,**detail})
     g.doc.setdefault('extras',{})['leaf_uv_pixel_centers']=True
     g.doc['asset']['generator']='Foundry intact leaf polygon reconstruction'
     output.parent.mkdir(parents=True,exist_ok=True);g.save(output)

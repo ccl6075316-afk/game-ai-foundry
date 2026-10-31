@@ -22,15 +22,20 @@ func _ready() -> void:
                 if entries[i].id==arg.trim_prefix("--focus="):_focus(i)
         if arg.begins_with("--prop-scale="):_resize_selected(float(arg.trim_prefix("--prop-scale=")))
 
+func _catalog_entries() -> Array:
+    return JSON.parse_string(FileAccess.get_file_as_string("res://assets/aquascape-v5/catalog.json")).assets
+
 func _build() -> void:
-    DisplayServer.window_set_title("潮汐馆 · 20 种缸底置景")
-    entries=JSON.parse_string(FileAccess.get_file_as_string("res://assets/aquascape-v5/catalog.json")).assets
+    entries=_catalog_entries()
+    DisplayServer.window_set_title("潮汐馆 · %d 种缸底置景" % entries.size())
     scenery=Node3D.new()
     world.add_child(scenery)
     plant_current=preload("res://scripts/aquarium/PlantCurrent.gd").new()
     add_child(plant_current)
-    _box(Vector3(0,-.028,0),Vector3(3.3,.05,2.55),_solid(Color("344c48")))
-    _box(Vector3(0,-.004,0),Vector3(3.25,.012,2.50),_solid(Color("857c61")))
+    var gallery_rows: int=ceili(entries.size()/5.0)
+    var gallery_depth: float=maxf(2.55,gallery_rows*.57+.3)
+    _box(Vector3(0,-.028,0),Vector3(3.3,.05,gallery_depth),_solid(Color("344c48")))
+    _box(Vector3(0,-.004,0),Vector3(3.25,.012,gallery_depth-.05),_solid(Color("857c61")))
     for i in entries.size():
         var row: Dictionary=entries[i]
         var model: Node3D=(load(row.model) as PackedScene).instantiate()
@@ -63,7 +68,8 @@ func _build() -> void:
                 mesh.set_surface_override_material(surface,material)
             art_originals[mesh]=originals
         bounds[row.id]=box
-        var home := Vector3((i%5-2)*.62,.009-box.position.y,(i/5-1.5)*.57)
+        var home := Vector3((i%5-2)*.62,.009-box.position.y,(float(i/5)-(gallery_rows-1)*.5)*.57)
+        if row.get("deformation","")=="shader":home.y=.009
         homes[row.id]=home
         model.position=home
         var label := Label3D.new()
@@ -76,7 +82,14 @@ func _build() -> void:
         label.position=home+Vector3(0,-.004,.22)
         scenery.add_child(label)
         labels[row.id]=label
-        if row.animated:plant_current.attach(row.id,model)
+        if row.animated:
+            if row.get("deformation","")=="shader":
+                plant_current.attach_shader(row.id,model,row)
+                for mesh in model.find_children("*","MeshInstance3D",true,false):
+                    var originals: Array=[]
+                    for surface in mesh.mesh.get_surface_count():originals.append(mesh.get_surface_override_material(surface))
+                    art_originals[mesh]=originals
+            else:plant_current.attach(row.id,model)
     plant_current.apply_at(0)
     _overview(0)
 
@@ -87,8 +100,8 @@ func _ui() -> void:
     header.offset_bottom=100
     header.mouse_filter=Control.MOUSE_FILTER_IGNORE
     add_child(header)
-    _label(header,"A Q U A S C A P E   /   20 种缸底置景",Vector2(26,14),26,Color("e9dfc2"))
-    selection_label=_label(header,"10 种骨骼水草 · 5 种石头 · 5 种木材",Vector2(26,56),18,Color("b9d2c1"))
+    _label(header,"A Q U A S C A P E   /   %d 种缸底置景" % entries.size(),Vector2(26,14),26,Color("e9dfc2"))
+    selection_label=_label(header,"水草、石头与沉木 · 点击右侧逐件查看",Vector2(26,56),18,Color("b9d2c1"))
     var buttons := HBoxContainer.new()
     buttons.position=Vector2(775,25)
     header.add_child(buttons)
@@ -150,7 +163,7 @@ func _overview(value: int) -> void:
         visible_index+=1
     yaw=.07;pitch=1.02;view_size=2.85 if value==0 else 2.35
     target=Vector3(.30,.13,0)
-    if is_instance_valid(selection_label):selection_label.text=["10 种骨骼水草 · 5 种石头 · 5 种木材","水草 · 点击右侧查看名称、学名与独立模型","石头与木材 · 独立三向原画贴图"][value]
+    if is_instance_valid(selection_label):selection_label.text=["%d种水草 · %d种石木造景" % [entries.filter(func(r):return r.animated).size(),entries.filter(func(r):return not r.animated).size()],"水草 · 点击右侧查看名称、学名与独立模型","石头与木材 · 独立三向原画贴图"][value]
     _camera()
 
 func _focus(index: int) -> void:
@@ -238,7 +251,7 @@ func _capture(directory: String) -> void:
     var root_motion := 0.0
     var tip_motion: Dictionary={}
     for row in entries:
-        if row.animated:tip_motion[row.id]=0.0
+        if row.animated and row.get("deformation","")!="shader":tip_motion[row.id]=0.0
     for frame in 41:
         await _settle(frame*.25)
         var probes: Array=plant_current.sample_probes()

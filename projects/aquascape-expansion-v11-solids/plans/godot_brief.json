@@ -1,0 +1,132 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-expansion-v11-solids\\game",
+    "project_name": "aquascape-expansion-v11-solids",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "dragon_stone_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "lava_rock_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "slate_stack_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "quartz_rock_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "spider_wood_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "mopani_wood_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "mangrove_root_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "bamboo_shelter_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "slate_cave_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "asset": "ruined_tower_front",
+        "image": "projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    }
+  }
+}

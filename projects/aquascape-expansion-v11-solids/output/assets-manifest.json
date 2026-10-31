@@ -1,0 +1,564 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-31T12:06:35+00:00",
+  "brief": "projects\\aquascape-expansion-v11-solids\\brief.json",
+  "output_dir": "projects\\aquascape-expansion-v11-solids\\output",
+  "project": {
+    "title": "aquascape-expansion-v11-solids",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "dragon_stone_front": {
+      "brief": {
+        "id": "dragon_stone_front",
+        "name": "dragon_stone_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A single ochre-brown aquarium dragon stone, deeply eroded irregular grooves and pitted ridges, rugged upright asymmetric form, broad stable base.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "dragon_stone_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "dragon_stone_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:31+00:00",
+        "note": ""
+      }
+    },
+    "lava_rock_front": {
+      "brief": {
+        "id": "lava_rock_front",
+        "name": "lava_rock_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A dark reddish black porous volcanic lava rock, rounded irregular squat form, rough large natural pores in painted texture.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "lava_rock_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "lava_rock_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:32+00:00",
+        "note": ""
+      }
+    },
+    "slate_stack_front": {
+      "brief": {
+        "id": "slate_stack_front",
+        "name": "slate_stack_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A naturally fractured low broad slate outcrop, thin horizontal blue-grey sedimentary shelves stepping down asymmetrically, stable broad footprint, one coherent rock.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "slate_stack_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "slate_stack_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:32+00:00",
+        "note": ""
+      }
+    },
+    "quartz_rock_front": {
+      "brief": {
+        "id": "quartz_rock_front",
+        "name": "quartz_rock_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A chunky milky white aquarium quartz rock with broad angular translucent-looking mineral faces and warm grey veins, irregular blunt facets, no long crystal spikes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "quartz_rock_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "quartz_rock_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:33+00:00",
+        "note": ""
+      }
+    },
+    "spider_wood_front": {
+      "brief": {
+        "id": "spider_wood_front",
+        "name": "spider_wood_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A pale tan aquarium spiderwood root, graceful arching fine branching root limbs connected to a compact central knot, natural blunt weathered tips, stable root feet.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "spider_wood_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "spider_wood_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:33+00:00",
+        "note": ""
+      }
+    },
+    "mopani_wood_front": {
+      "brief": {
+        "id": "mopani_wood_front",
+        "name": "mopani_wood_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A dense gnarled low mopani driftwood, contrasting honey tan smooth worn face and very dark brown underside, compact twisting solid trunk with short stout root feet.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "mopani_wood_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "mopani_wood_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:34+00:00",
+        "note": ""
+      }
+    },
+    "mangrove_root_front": {
+      "brief": {
+        "id": "mangrove_root_front",
+        "name": "mangrove_root_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A dark russet mangrove root with a raised central trunk supported by natural arching stilt roots, visible open spaces beneath roots, broad stable footprint, weathered blunt ends.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "mangrove_root_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "mangrove_root_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:34+00:00",
+        "note": ""
+      }
+    },
+    "bamboo_shelter_front": {
+      "brief": {
+        "id": "bamboo_shelter_front",
+        "name": "bamboo_shelter_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A short weathered hollow bamboo section lying horizontally, olive golden bamboo skin and a distinct raised bamboo node near the back, large open circular front entrance and visible dark inner wall, stable flat underside.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "bamboo_shelter_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "bamboo_shelter_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:35+00:00",
+        "note": ""
+      }
+    },
+    "slate_cave_front": {
+      "brief": {
+        "id": "slate_cave_front",
+        "name": "slate_cave_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A small aquarium shelter assembled from flat dark grey slate, a low slab roof resting on natural stone side walls, clearly open broad low front entrance and deep inner chamber, no door.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "slate_cave_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "slate_cave_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:35+00:00",
+        "note": ""
+      }
+    },
+    "ruined_tower_front": {
+      "brief": {
+        "id": "ruined_tower_front",
+        "name": "ruined_tower_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1024
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: . A small aquarium ornament of an old mossy grey stone castle tower, squat round masonry tower with a broken crenellated top, a large arched swim-through doorway at the base, restrained worn stone carving, no flags or scenery.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. \nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ruined_tower_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ruined_tower_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:35+00:00",
+        "note": ""
+      }
+    }
+  }
+}

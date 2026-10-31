@@ -7,6 +7,20 @@ var players: Array=[]
 var models: Dictionary={}
 var probes: Array=[]
 var failures: Array=[]
+var shader_paints: Array=[]
+var shader_species: Array=[]
+
+func attach_shader(id: String, model: Node3D, row: Dictionary) -> void:
+    var metadata: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(row.shader_metadata))
+    var data: Dictionary=metadata.outputs.filter(func(r):return r.id==id)[0]
+    for mesh in model.find_children("*","MeshInstance3D",true,false):
+        for surface in mesh.mesh.get_surface_count():
+            var native: StandardMaterial3D=mesh.mesh.surface_get_material(surface)
+            var paint := ShaderMaterial.new();paint.shader=load("res://scripts/aquarium/PlantSway.gdshader")
+            var a: Array=data.anchor_min;var b: Array=data.anchor_size
+            paint.set_shader_parameter("anchor_min",Vector3(a[0],a[1],a[2]));paint.set_shader_parameter("anchor_size",Vector3(b[0],b[1],b[2]));paint.set_shader_parameter("artwork",native.albedo_texture);paint.set_shader_parameter("amplitude",.18)
+            mesh.set_surface_override_material(surface,paint);shader_paints.append(paint)
+    shader_species.append(id)
 
 func attach(id: String, model: Node3D) -> void:
     models[id]=model
@@ -30,6 +44,7 @@ func _process(delta: float) -> void:
 
 func apply_at(seconds: float) -> void:
     current_time=fposmod(seconds,duration)
+    for paint in shader_paints:paint.set_shader_parameter("clock",current_time)
     for player in players:
         player.seek(current_time,true)
         player.advance(0)

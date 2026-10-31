@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "plants": [
+    {
+      "id": "bacopa_round",
+      "name_zh": "圆叶节节菜",
+      "scientific_name": "Bacopa rotundifolia",
+      "morphology": "Fresh green fleshy round to broadly oval paired leaves along upright branching stems. A natural loose stem clump.",
+      "height_m": 0.3,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "dwarf_baby_tears",
+      "name_zh": "迷你矮珍珠",
+      "scientific_name": "Hemianthus callitrichoides",
+      "morphology": "A low creeping carpet patch of tiny rounded bright green leaves on fine branching runners, naturally uneven low cushion.",
+      "height_m": 0.065,
+      "growth_form": "carpet",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "ammannia_gracilis",
+      "name_zh": "红柳",
+      "scientific_name": "Ammannia gracilis",
+      "morphology": "A natural upright stem clump, narrow elongated copper-red to salmon leaves with green lower foliage. Open branching habit.",
+      "height_m": 0.38,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "water_sprite",
+      "name_zh": "水蕨",
+      "scientific_name": "Ceratopteris thalictroides",
+      "morphology": "A rooted water sprite with delicate finely divided fresh green fronds and a soft airy fern outline. Ordinary submerged foliage.",
+      "height_m": 0.32,
+      "growth_form": "fern",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "java_moss",
+      "name_zh": "爪哇莫丝",
+      "scientific_name": "Taxiphyllum barbieri",
+      "morphology": "A natural loose low moss tuft with fine irregular branching green strands and minute moss foliage, an airy irregular cushion, no stone or wood.",
+      "height_m": 0.1,
+      "growth_form": "moss",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "cabomba",
+      "name_zh": "绿菊水草",
+      "scientific_name": "Cabomba caroliniana",
+      "morphology": "A natural clump of upright slender stems with distinctive bright green fan-shaped finely divided submerged foliage, delicate open fans.",
+      "height_m": 0.36,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "hornwort",
+      "name_zh": "金鱼藻",
+      "scientific_name": "Ceratophyllum demersum",
+      "morphology": "A natural submerged stem bunch with dark green forked needle-like foliage in whorls, a bushy bottlebrush silhouette. Rootless stems gathered at the base, no invented root bundle.",
+      "height_m": 0.36,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "hydrocotyle",
+      "name_zh": "三裂天胡荽",
+      "scientific_name": "Hydrocotyle tripartita",
+      "morphology": "A low spreading patch on creeping runners, fresh green small three-lobed clover-like leaves on slender petioles. Normal gently extended foliage.",
+      "height_m": 0.11,
+      "growth_form": "carpet",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "rotala",
+      "name_zh": "圆叶宫廷",
+      "scientific_name": "Rotala rotundifolia",
+      "morphology": "A natural slender stem clump with small narrow elongated submerged leaves, green lower growth transitioning to warm pink-orange shoot tips. Delicate branching silhouette.",
+      "height_m": 0.34,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    },
+    {
+      "id": "ludwigia_rubin",
+      "name_zh": "红叶丁香",
+      "scientific_name": "Ludwigia repens Rubin",
+      "morphology": "A natural branching stem clump with broad oval pointed leaves, rich burgundy and ruby red upper foliage and olive green lower foliage. Ordinary flat leaves.",
+      "height_m": 0.28,
+      "growth_form": "stem",
+      "category": "plant",
+      "budget_type": "broadleaf_plant"
+    }
+  ],
+  "solids": [
+    {
+      "id": "dragon_stone",
+      "name_zh": "黄龙石",
+      "category": "rock",
+      "shape": "A single ochre-brown aquarium dragon stone, deeply eroded irregular grooves and pitted ridges, rugged upright asymmetric form, broad stable base.",
+      "width_m": 0.32,
+      "budget_type": "rock",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "lava_rock",
+      "name_zh": "火山熔岩石",
+      "category": "rock",
+      "shape": "A dark reddish black porous volcanic lava rock, rounded irregular squat form, rough large natural pores in painted texture.",
+      "width_m": 0.3,
+      "budget_type": "rock",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "slate_stack",
+      "name_zh": "青灰叠层石",
+      "category": "rock",
+      "shape": "A naturally fractured low broad slate outcrop, thin horizontal blue-grey sedimentary shelves stepping down asymmetrically, stable broad footprint, one coherent rock.",
+      "width_m": 0.38,
+      "budget_type": "rock",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "quartz_rock",
+      "name_zh": "乳白石英岩",
+      "category": "rock",
+      "shape": "A chunky milky white aquarium quartz rock with broad angular translucent-looking mineral faces and warm grey veins, irregular blunt facets, no long crystal spikes.",
+      "width_m": 0.28,
+      "budget_type": "rock",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "spider_wood",
+      "name_zh": "蛛根沉木",
+      "category": "wood",
+      "shape": "A pale tan aquarium spiderwood root, graceful arching fine branching root limbs connected to a compact central knot, natural blunt weathered tips, stable root feet.",
+      "width_m": 0.42,
+      "budget_type": "wood",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "mopani_wood",
+      "name_zh": "双色莫帕尼木",
+      "category": "wood",
+      "shape": "A dense gnarled low mopani driftwood, contrasting honey tan smooth worn face and very dark brown underside, compact twisting solid trunk with short stout root feet.",
+      "width_m": 0.37,
+      "budget_type": "wood",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "mangrove_root",
+      "name_zh": "红树支根木",
+      "category": "wood",
+      "shape": "A dark russet mangrove root with a raised central trunk supported by natural arching stilt roots, visible open spaces beneath roots, broad stable footprint, weathered blunt ends.",
+      "width_m": 0.4,
+      "budget_type": "wood",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "bamboo_shelter",
+      "name_zh": "竹节躲避屋",
+      "category": "decor",
+      "shape": "A short weathered hollow bamboo section lying horizontally, olive golden bamboo skin and a distinct raised bamboo node near the back, large open circular front entrance and visible dark inner wall, stable flat underside.",
+      "width_m": 0.25,
+      "budget_type": "decor",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "slate_cave",
+      "name_zh": "石板躲避洞",
+      "category": "decor",
+      "shape": "A small aquarium shelter assembled from flat dark grey slate, a low slab roof resting on natural stone side walls, clearly open broad low front entrance and deep inner chamber, no door.",
+      "width_m": 0.3,
+      "budget_type": "decor",
+      "views_revision": "-r2"
+    },
+    {
+      "id": "ruined_tower",
+      "name_zh": "残破城堡塔",
+      "category": "decor",
+      "shape": "A small aquarium ornament of an old mossy grey stone castle tower, squat round masonry tower with a broken crenellated top, a large arched swim-through doorway at the base, restrained worn stone carving, no flags or scenery.",
+      "width_m": 0.25,
+      "budget_type": "decor",
+      "views_revision": "-r2"
+    }
+  ],
+  "plant_art_policy": "A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.",
+  "research": [
+    {
+      "url": "https://store.steampowered.com/app/4941890/Fish_Game__Plant_Variety_Pack_1/",
+      "evidence": "Official game list includes Bacopa rotundifolia, Hemianthus callitrichoides and Ammannia gracilis. Avoid duplicating existing sword/crypt/vallisneria forms."
+    },
+    {
+      "url": "https://store.steampowered.com/news/posts/?enddate=1785859255&feed=steam_community_announcements",
+      "evidence": "Fish Game developer announcement adds Ceratopteris thalictroides (Water Sprite)."
+    },
+    {
+      "url": "https://tropica.com/en/plants/1-2-grow",
+      "evidence": "Aquarium producer lists Hydrocotyle tripartita and Taxiphyllum barbieri."
+    },
+    {
+      "url": "https://tropica.com/en/guide/get-the-right-start/supporting-plants",
+      "evidence": "Aquarium producer lists fan-stem Cabomba and Ceratophyllum demersum."
+    },
+    {
+      "url": "https://tropica.com/ProductMedia/Layouts/L010/702_UK.pdf",
+      "evidence": "Aquarium producer layout uses Ludwigia repens Rubin and Rotala rotundifolia."
+    }
+  ],
+  "research_scope": "Game lists establish examples, not frequency statistics across all games. Additional species selected from real aquarium planting references for distinct silhouettes. No third-party game art is copied.",
+  "user_acceptance": "pending"
+}

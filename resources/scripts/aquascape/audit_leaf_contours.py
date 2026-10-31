@@ -19,7 +19,7 @@ for row in catalog['assets']:
     results=[]
     leaf_count=sum(m['name'].startswith('traced_leaf_') for m in doc['meshes'])
     for leaf_id in range(leaf_count):
-        leaf=leaves[leaf_id%6]
+        leaf=leaves[leaf_id%len(leaves)]
         prim=next(m for m in doc['meshes'] if m['name']=='traced_leaf_'+str(leaf_id+1))['primitives'][0]
         uv=array(doc,binary,prim['attributes']['TEXCOORD_0']).reshape(-1,3,2)
         h,w=foreground(leaf).shape;mask=foreground(leaf)

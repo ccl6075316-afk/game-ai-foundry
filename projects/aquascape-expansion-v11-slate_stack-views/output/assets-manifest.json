@@ -1,0 +1,129 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-31T13:11:56+00:00",
+  "brief": "projects\\aquascape-expansion-v11-slate_stack-views\\brief.json",
+  "output_dir": "projects\\aquascape-expansion-v11-slate_stack-views\\output",
+  "project": {
+    "title": "aquascape-expansion-v11-slate_stack-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "slate_stack_right": {
+      "brief": {
+        "id": "slate_stack_right",
+        "name": "slate_stack_right",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render the EXACT SAME object from the supplied front artwork: . A naturally fractured low broad slate outcrop, thin horizontal blue-grey sedimentary shelves stepping down asymmetrically, stable broad footprint, one coherent rock.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nOrthographic RIGHT end elevation looking along the long X axis. Show the end, not the long front again.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "slate_stack_right.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-slate_stack-views\\plans\\slate_stack_right.json",
+          "path_repo": "projects\\aquascape-expansion-v11-slate_stack-views\\plans\\slate_stack_right.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "slate_stack_right.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-slate_stack-views\\output\\slate_stack_right_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-slate_stack-views\\output\\slate_stack_right_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "replaced",
+        "source": "regenerate",
+        "updated_at": "2026-10-31T13:11:56+00:00",
+        "note": ""
+      }
+    },
+    "slate_stack_top": {
+      "brief": {
+        "id": "slate_stack_top",
+        "name": "slate_stack_top",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1536,
+          "height": 1536
+        },
+        "description": "Render the EXACT SAME object from the supplied front artwork: . A naturally fractured low broad slate outcrop, thin horizontal blue-grey sedimentary shelves stepping down asymmetrically, stable broad footprint, one coherent rock.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nStrict orthographic TOP plan, looking vertically down. Height disappears; show the footprint and upward faces, not another front elevation.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "slate_stack_top.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-slate_stack-views\\plans\\slate_stack_top.json",
+          "path_repo": "projects\\aquascape-expansion-v11-slate_stack-views\\plans\\slate_stack_top.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "slate_stack_top.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-slate_stack-views\\output\\slate_stack_top_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-slate_stack-views\\output\\slate_stack_top_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "replaced",
+        "source": "regenerate",
+        "updated_at": "2026-10-31T13:11:56+00:00",
+        "note": ""
+      }
+    }
+  },
+  "artifact_retention": {
+    "retired_originals": true,
+    "reason": "Rejected cameras superseded by reviewed r2 inputs; source hashes, parameters and failure evidence retained.",
+    "receipt": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\aquascape-expansion-v11\\commit-retention.validation.json"
+  }
+}

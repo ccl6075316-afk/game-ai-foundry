@@ -1,0 +1,832 @@
+{
+  "manifest_version": 1,
+  "created_at": "2026-10-31T12:00:31+00:00",
+  "updated_at": "2026-10-31T12:03:38+00:00",
+  "brief": "projects\\aquascape-expansion-v11-solids\\brief.json",
+  "project": {
+    "title": "aquascape-expansion-v11-solids",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail."
+  },
+  "paths": {
+    "repo_root": ".",
+    "cli_dir": "cli",
+    "output_dir": "projects\\aquascape-expansion-v11-solids\\output",
+    "plans_dir": "projects\\aquascape-expansion-v11-solids\\plans",
+    "assets_manifest": "projects\\aquascape-expansion-v11-solids\\output\\assets-manifest.json",
+    "workdir": "cli"
+  },
+  "tasks": [
+    {
+      "id": "dragon_stone_front.prompt.craft",
+      "asset": "dragon_stone_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset dragon_stone_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "dragon_stone_front"
+    },
+    {
+      "id": "dragon_stone_front.image.generate",
+      "asset": "dragon_stone_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "dragon_stone_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\dragon_stone_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\dragon_stone_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.08072916666666
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 84.96900981186846,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:00:34+00:00",
+      "finished_at": "2026-10-31T12:01:06+00:00",
+      "asset_id": "dragon_stone_front"
+    },
+    {
+      "id": "lava_rock_front.prompt.craft",
+      "asset": "lava_rock_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset lava_rock_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "lava_rock_front"
+    },
+    {
+      "id": "lava_rock_front.image.generate",
+      "asset": "lava_rock_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "lava_rock_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\lava_rock_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\lava_rock_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.02734375
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 100.02618053324,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:00:34+00:00",
+      "finished_at": "2026-10-31T12:01:10+00:00",
+      "asset_id": "lava_rock_front"
+    },
+    {
+      "id": "slate_stack_front.prompt.craft",
+      "asset": "slate_stack_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset slate_stack_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "slate_stack_front"
+    },
+    {
+      "id": "slate_stack_front.image.generate",
+      "asset": "slate_stack_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "slate_stack_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_stack_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\slate_stack_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.06640625
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 74.44359142401424,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:02:16+00:00",
+      "finished_at": "2026-10-31T12:02:45+00:00",
+      "asset_id": "slate_stack_front"
+    },
+    {
+      "id": "quartz_rock_front.prompt.craft",
+      "asset": "quartz_rock_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset quartz_rock_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "quartz_rock_front"
+    },
+    {
+      "id": "quartz_rock_front.image.generate",
+      "asset": "quartz_rock_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "quartz_rock_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\quartz_rock_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\quartz_rock_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.1015625
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 45.02254519499895,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25",
+        "network_retries": [
+          {
+            "attempt": 1,
+            "exit_code": 1,
+            "wait_seconds": 2.0,
+            "stderr_tail": "OFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))\nstyle img2img strength=0.25\nError: Images API request failed: HTTPSConnectionPool(host='api.apilio.ai', port=443): Max retries exceeded with url: /v1/images/generations (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))"
+          }
+        ],
+        "attempts": 2
+      },
+      "started_at": "2026-10-31T12:01:10+00:00",
+      "finished_at": "2026-10-31T12:02:12+00:00",
+      "asset_id": "quartz_rock_front"
+    },
+    {
+      "id": "spider_wood_front.prompt.craft",
+      "asset": "spider_wood_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset spider_wood_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "spider_wood_front"
+    },
+    {
+      "id": "spider_wood_front.image.generate",
+      "asset": "spider_wood_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "spider_wood_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\spider_wood_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\spider_wood_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.08984375
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 59.1752556491838,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:02:41+00:00",
+      "finished_at": "2026-10-31T12:03:31+00:00",
+      "asset_id": "spider_wood_front"
+    },
+    {
+      "id": "mopani_wood_front.prompt.craft",
+      "asset": "mopani_wood_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset mopani_wood_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "mopani_wood_front"
+    },
+    {
+      "id": "mopani_wood_front.image.generate",
+      "asset": "mopani_wood_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "mopani_wood_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\mopani_wood_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\mopani_wood_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.04817708333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 87.54229617256999,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25\nimage generate retry 1/2 in 2s: Images API request failed: HTTPSConnectionPool(host='api.apilio.ai', port=443): Max retries exceeded with url: /v1/images/generations (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))\nstyle img2img strength=0.25",
+        "network_retries": [
+          {
+            "attempt": 1,
+            "exit_code": 1,
+            "wait_seconds": 2.0,
+            "stderr_tail": "OFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))\nstyle img2img strength=0.25\nError: Images API request failed: HTTPSConnectionPool(host='api.apilio.ai', port=443): Max retries exceeded with url: /v1/images/generations (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))"
+          }
+        ],
+        "attempts": 2
+      },
+      "started_at": "2026-10-31T12:01:06+00:00",
+      "finished_at": "2026-10-31T12:02:04+00:00",
+      "asset_id": "mopani_wood_front"
+    },
+    {
+      "id": "mangrove_root_front.prompt.craft",
+      "asset": "mangrove_root_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset mangrove_root_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "mangrove_root_front"
+    },
+    {
+      "id": "mangrove_root_front.image.generate",
+      "asset": "mangrove_root_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "mangrove_root_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\mangrove_root_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\mangrove_root_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.1328125
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 83.81630750127464,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25\nimage generate retry 1/2 in 2s: Images API request failed: HTTPSConnectionPool(host='api.apilio.ai', port=443): Max retries exceeded with url: /v1/images/generations (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))\nstyle img2img strength=0.25",
+        "network_retries": [
+          {
+            "attempt": 1,
+            "exit_code": 1,
+            "wait_seconds": 2.0,
+            "stderr_tail": "OFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))\nstyle img2img strength=0.25\nError: Images API request failed: HTTPSConnectionPool(host='api.apilio.ai', port=443): Max retries exceeded with url: /v1/images/generations (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)')))"
+          }
+        ],
+        "attempts": 2
+      },
+      "started_at": "2026-10-31T12:01:06+00:00",
+      "finished_at": "2026-10-31T12:02:16+00:00",
+      "asset_id": "mangrove_root_front"
+    },
+    {
+      "id": "bamboo_shelter_front.prompt.craft",
+      "asset": "bamboo_shelter_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset bamboo_shelter_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "bamboo_shelter_front"
+    },
+    {
+      "id": "bamboo_shelter_front.image.generate",
+      "asset": "bamboo_shelter_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "bamboo_shelter_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\bamboo_shelter_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\bamboo_shelter_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 253.9921875
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 88.95181197631013,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:00:34+00:00",
+      "finished_at": "2026-10-31T12:01:06+00:00",
+      "asset_id": "bamboo_shelter_front"
+    },
+    {
+      "id": "slate_cave_front.prompt.craft",
+      "asset": "slate_cave_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset slate_cave_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "slate_cave_front"
+    },
+    {
+      "id": "slate_cave_front.image.generate",
+      "asset": "slate_cave_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "slate_cave_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\slate_cave_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\slate_cave_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.06380208333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 89.47353208927582,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:02:12+00:00",
+      "finished_at": "2026-10-31T12:02:45+00:00",
+      "asset_id": "slate_cave_front"
+    },
+    {
+      "id": "ruined_tower_front.prompt.craft",
+      "asset": "ruined_tower_front",
+      "step": "prompt.craft",
+      "role": "prompt-crafter",
+      "depends_on": [],
+      "layer": 0,
+      "status": "done",
+      "command": "python gamefactory.py prompt craft --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --asset ruined_tower_front -o ../projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json"
+      },
+      "result": {
+        "source": "reconcile",
+        "reconciled_at": "2026-10-31T12:00:34+00:00"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "ruined_tower_front"
+    },
+    {
+      "id": "ruined_tower_front.image.generate",
+      "asset": "ruined_tower_front",
+      "step": "image.generate",
+      "role": "image-generator",
+      "depends_on": [
+        "ruined_tower_front.prompt.craft"
+      ],
+      "layer": 1,
+      "status": "done",
+      "command": "python gamefactory.py image generate --plan-file ../projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json --output ../projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png --validate --reference-image ../projects\\aquascape-solids-20-v5\\style-reference.png --model openai/gpt-image-2 --tier default",
+      "artifacts": {
+        "plan": "../projects\\aquascape-expansion-v11-solids\\plans\\ruined_tower_front.json",
+        "output": "../projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\output\\ruined_tower_front_raw.png",
+        "parsed": {
+          "ok": true,
+          "asset_type": "background",
+          "checks": [
+            {
+              "check": "corner_brightness",
+              "value": 254.12239583333334
+            },
+            {
+              "check": "subject_regions",
+              "value": 1
+            },
+            {
+              "check": "min_color_variance",
+              "passed": true,
+              "value": 84.74850976773536,
+              "min": 20.0
+            }
+          ],
+          "message": "Validation passed for asset type 'background'.",
+          "next_action": null,
+          "retry_hints": []
+        },
+        "stderr": "style img2img strength=0.25"
+      },
+      "started_at": "2026-10-31T12:02:04+00:00",
+      "finished_at": "2026-10-31T12:02:41+00:00",
+      "asset_id": "ruined_tower_front"
+    },
+    {
+      "id": "brief.godot.assemble",
+      "asset": "brief",
+      "step": "godot.assemble",
+      "role": "godot-assembler",
+      "depends_on": [
+        "dragon_stone_front.prompt.craft",
+        "dragon_stone_front.image.generate",
+        "lava_rock_front.prompt.craft",
+        "lava_rock_front.image.generate",
+        "slate_stack_front.prompt.craft",
+        "slate_stack_front.image.generate",
+        "quartz_rock_front.prompt.craft",
+        "quartz_rock_front.image.generate",
+        "spider_wood_front.prompt.craft",
+        "spider_wood_front.image.generate",
+        "mopani_wood_front.prompt.craft",
+        "mopani_wood_front.image.generate",
+        "mangrove_root_front.prompt.craft",
+        "mangrove_root_front.image.generate",
+        "bamboo_shelter_front.prompt.craft",
+        "bamboo_shelter_front.image.generate",
+        "slate_cave_front.prompt.craft",
+        "slate_cave_front.image.generate",
+        "ruined_tower_front.prompt.craft",
+        "ruined_tower_front.image.generate"
+      ],
+      "layer": 2,
+      "status": "done",
+      "command": "python gamefactory.py godot assemble --assemble-file ../projects\\aquascape-expansion-v11-solids\\plans\\godot_brief.json --validate",
+      "artifacts": {
+        "assemble_file": "../projects\\aquascape-expansion-v11-solids\\plans\\godot_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-solids\\game"
+      },
+      "result": {
+        "exit_code": 0,
+        "stdout_tail": "OK",
+        "parsed": {
+          "project_path": "E:\\game-ai-foundry\\projects\\aquascape-expansion-v11-solids\\game",
+          "animations": [],
+          "backgrounds": [
+            {
+              "asset": "dragon_stone_front",
+              "path": "assets/backgrounds/dragon_stone_front.png"
+            },
+            {
+              "asset": "lava_rock_front",
+              "path": "assets/backgrounds/lava_rock_front.png"
+            },
+            {
+              "asset": "slate_stack_front",
+              "path": "assets/backgrounds/slate_stack_front.png"
+            },
+            {
+              "asset": "quartz_rock_front",
+              "path": "assets/backgrounds/quartz_rock_front.png"
+            },
+            {
+              "asset": "spider_wood_front",
+              "path": "assets/backgrounds/spider_wood_front.png"
+            },
+            {
+              "asset": "mopani_wood_front",
+              "path": "assets/backgrounds/mopani_wood_front.png"
+            },
+            {
+              "asset": "mangrove_root_front",
+              "path": "assets/backgrounds/mangrove_root_front.png"
+            },
+            {
+              "asset": "bamboo_shelter_front",
+              "path": "assets/backgrounds/bamboo_shelter_front.png"
+            },
+            {
+              "asset": "slate_cave_front",
+              "path": "assets/backgrounds/slate_cave_front.png"
+            },
+            {
+              "asset": "ruined_tower_front",
+              "path": "assets/backgrounds/ruined_tower_front.png"
+            }
+          ],
+          "main_scene": "scenes/main.tscn",
+          "sprite_frames": null
+        }
+      },
+      "started_at": "2026-10-31T12:03:32+00:00",
+      "finished_at": "2026-10-31T12:03:38+00:00",
+      "asset_id": "brief"
+    },
+    {
+      "id": "brief.godot.dev-context",
+      "asset": "brief",
+      "step": "godot.dev-context",
+      "role": "godot-developer",
+      "depends_on": [
+        "brief.godot.assemble"
+      ],
+      "layer": 3,
+      "status": "skipped",
+      "command": "python gamefactory.py godot dev-context --brief ../projects\\aquascape-expansion-v11-solids\\brief.json --project ../projects\\aquascape-expansion-v11-solids\\game --assemble-file ../projects\\aquascape-expansion-v11-solids\\plans\\godot_brief.json -o ../plans\\dev_brief.json",
+      "artifacts": {
+        "dev_handoff": "../plans\\dev_brief.json",
+        "project_path": "projects\\aquascape-expansion-v11-solids\\game"
+      },
+      "result": {
+        "source": "skip_role",
+        "reason": "Pass 4 — external implementation workflow (use --run-game-dev for dev-context only)"
+      },
+      "started_at": null,
+      "finished_at": "2026-10-31T12:00:34+00:00",
+      "asset_id": "brief"
+    }
+  ],
+  "godot_project": "projects\\aquascape-expansion-v11-solids\\game",
+  "godot_assemble_file": "../projects\\aquascape-expansion-v11-solids\\plans\\godot_brief.json"
+}

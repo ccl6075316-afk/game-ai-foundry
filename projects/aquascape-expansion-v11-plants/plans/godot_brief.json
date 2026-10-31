@@ -1,0 +1,132 @@
+{
+  "handoff_version": 1,
+  "producer_role": "prompt-crafter",
+  "consumer_role": "godot-assembler",
+  "context": {},
+  "plan": {
+    "project_path": "projects\\aquascape-expansion-v11-plants\\game",
+    "project_name": "aquascape-expansion-v11-plants",
+    "template": "dotnet",
+    "main_scene": "scenes/main.tscn",
+    "animations": [],
+    "backgrounds": [
+      {
+        "asset": "bacopa_round_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\bacopa_round_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "dwarf_baby_tears_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\dwarf_baby_tears_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "ammannia_gracilis_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\ammannia_gracilis_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "water_sprite_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\water_sprite_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "java_moss_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\java_moss_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "cabomba_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\cabomba_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "hornwort_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\hornwort_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "hydrocotyle_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\hydrocotyle_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "rotala_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\rotala_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      },
+      {
+        "asset": "ludwigia_rubin_front",
+        "image": "projects\\aquascape-expansion-v11-plants\\output\\ludwigia_rubin_front_raw.png",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        }
+      }
+    ],
+    "props": [],
+    "layout": {
+      "coord_space": "viewport_norm",
+      "regions": [
+        {
+          "id": "sky",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.0,
+            "y1": 0.35
+          }
+        },
+        {
+          "id": "playable",
+          "kind": "rect",
+          "rect_norm": [
+            0.05,
+            0.25,
+            0.9,
+            0.45
+          ]
+        },
+        {
+          "id": "ground",
+          "kind": "band",
+          "band_norm": {
+            "y0": 0.65,
+            "y1": 1.0
+          }
+        }
+      ],
+      "placements": []
+    },
+    "viewport": {
+      "width": 1024,
+      "height": 1536
+    }
+  }
+}

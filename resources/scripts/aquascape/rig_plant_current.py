@@ -73,14 +73,14 @@ def rig(root,config,spec,output):
         is_leaf=mesh['name'].startswith('traced_leaf_')
         leaf_id=int(mesh['name'].rsplit('_',1)[1])-1 if is_leaf else -1
         if is_leaf:
-            length=plant['lengths_m'][leaf_id];im=images[leaf_id%6];m=foreground(im);h,w=m.shape
+            length=plant['lengths_m'][leaf_id];im=images[leaf_id%len(images)];m=foreground(im);h,w=m.shape
             stem=m[max(0,h-4):].nonzero()[1].mean();tip=m[:4].nonzero()[1].mean()
             dx=(tip-stem)*length/max(1,h-1)
             axis_angle=math.atan2(dx,length)
             base_rotation=np.asarray(plant['rotation_matrices'][leaf_id]) if 'rotation_matrices' in plant else rotation(plant['pitch_degrees'][leaf_id],plant['depth_rotations_degrees'][leaf_id],-plant['angles_degrees'][leaf_id])
             alignment=rotation(0,0,math.degrees(axis_angle));basis=base_rotation@alignment
             at=np.asarray(plant['attachments_m'][leaf_id]) if 'attachments_m' in plant else np.array([(leaf_id/(len(plant['lengths_m'])-1)-.5)*plant['rhizome_length_m'],plant['base_y_m'],.003*math.sin(leaf_id*2.4)])
-            bend=.11+(.09 if leaf_id%2 else -.025)
+            bend=plant.get('rest_bend_ratio',.025)
             chain=[];centers=[]
             for segment,t in enumerate(config['joints_at_leaf_fraction']):
                 local=np.array([dx*t,length*t,bend*length*t*t+math.sin(math.pi*t)*length*.025])

@@ -1,0 +1,53 @@
+{
+  "project": {
+    "title": "aquascape-expansion-v11-bacopa_round-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "bacopa_round_leaves",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1024
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-expansion-v11-plants/output/bacopa_round_front_raw.png"
+  },
+  "assets": [
+    {
+      "id": "bacopa_round_leaves",
+      "name": "bacopa_round_leaves",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Illustrate separated normal foliage samples from this same Bacopa rotundifolia. Fresh green fleshy round to broadly oval paired leaves along upright branching stems. A natural loose stem clump.. Match the supplied whole plant exactly in pixel drawing finish, colour, leaf shape and anatomy. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nOn pure white, show complete ordinary leaves or complete representative foliage sprigs/fronds with their natural basal attachment, enough clean white space to isolate them. Preserve the species-specific fan divisions, fern divisions, needle whorls or moss sprigs where applicable. No whole plant, roots, text, grid or other objects. Native detailed pixel illustration, no photo or smooth CGI.",
+      "display_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1024
+      },
+      "aspect_ratio": "3:2",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    }
+  ]
+}

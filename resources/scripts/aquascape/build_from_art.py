@@ -130,9 +130,14 @@ def split_leaves(path):
     for i in range(1,n+1):
         ys,xs=np.nonzero(labels==i)
         if len(xs)>800:regions.append((ys.mean(),xs.mean(),xs.min(),ys.min(),xs.max()+1,ys.max()+1,i))
-    assert len(regions)==6,f'Expected six isolated leaves, got {len(regions)} in {path}'
+    if not regions:raise ValueError(f'No usable isolated normal leaves found in {path}')
     regions.sort()
-    regions=sorted(regions[:3],key=lambda r:r[1])+sorted(regions[3:],key=lambda r:r[1])
+    # Infer visual rows; the art is not required to contain a fixed leaf count.
+    gaps=np.diff([r[0] for r in regions]);heights=[r[5]-r[3] for r in regions]
+    if len(gaps) and gaps.max()>np.median(heights)*.5:
+        split=int(gaps.argmax())+1
+        regions=sorted(regions[:split],key=lambda r:r[1])+sorted(regions[split:],key=lambda r:r[1])
+    else:regions=sorted(regions,key=lambda r:r[1])
     leaves=[]
     for _,_,x0,y0,x1,y1,i in regions:
         a=np.asarray(image.crop((x0,y0,x1,y1))).copy()
@@ -226,13 +231,13 @@ def plant(spec,root,config,output):
     mats=[g.material(donor(im),f'generated_leaf_{i+1}') for i,im in enumerate(images)]
     L=spec['rhizome_length_m'];base=spec['base_y_m'];count=len(spec['lengths_m'])
     for i,length in enumerate(spec['lengths_m']):
-        image=images[i%6]
-        v,f,uv=leaf_shell(image,length,spec['shell_thickness_m'],.11+(.09 if i%2 else -.025))
+        image=images[i%len(images)]
+        v,f,uv=leaf_shell(image,length,spec['shell_thickness_m'],spec.get('rest_bend_ratio',.025))
         angle=spec['angles_degrees'][i]
         R=rotation(spec['pitch_degrees'][i],spec['depth_rotations_degrees'][i],-angle)
         at=np.array([(i/(count-1)-.5)*L,base,0.003*math.sin(i*2.4)])
         v=v@R.T+at
-        g.mesh(v,f,uv,mats[i%6],f'traced_leaf_{i+1}')
+        g.mesh(v,f,uv,mats[i%len(mats)],f'traced_leaf_{i+1}')
     master=root/config['sources']['masters']/spec['master'];im=Image.open(master).convert('RGBA')
     # Sample only existing rhizome paint from the master, never synthesize a replacement texture.
     w,h=im.size;crop=im.crop((int(w*.40),int(h*.58),int(w*.69),int(h*.67)))

@@ -1,0 +1,564 @@
+{
+  "manifest_version": 1,
+  "updated_at": "2026-10-31T12:06:31+00:00",
+  "brief": "projects\\aquascape-expansion-v11-plants\\brief.json",
+  "output_dir": "projects\\aquascape-expansion-v11-plants\\output",
+  "project": {
+    "title": "aquascape-expansion-v11-plants",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d"
+  },
+  "assets": {
+    "bacopa_round_front": {
+      "brief": {
+        "id": "bacopa_round_front",
+        "name": "bacopa_round_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Bacopa rotundifolia. Fresh green fleshy round to broadly oval paired leaves along upright branching stems. A natural loose stem clump.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "bacopa_round_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\bacopa_round_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\bacopa_round_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "bacopa_round_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\bacopa_round_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\bacopa_round_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:27+00:00",
+        "note": ""
+      }
+    },
+    "dwarf_baby_tears_front": {
+      "brief": {
+        "id": "dwarf_baby_tears_front",
+        "name": "dwarf_baby_tears_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Hemianthus callitrichoides. A low creeping carpet patch of tiny rounded bright green leaves on fine branching runners, naturally uneven low cushion.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "dwarf_baby_tears_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\dwarf_baby_tears_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\dwarf_baby_tears_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "dwarf_baby_tears_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\dwarf_baby_tears_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\dwarf_baby_tears_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:27+00:00",
+        "note": ""
+      }
+    },
+    "ammannia_gracilis_front": {
+      "brief": {
+        "id": "ammannia_gracilis_front",
+        "name": "ammannia_gracilis_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Ammannia gracilis. A natural upright stem clump, narrow elongated copper-red to salmon leaves with green lower foliage. Open branching habit.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ammannia_gracilis_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\ammannia_gracilis_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\ammannia_gracilis_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ammannia_gracilis_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\ammannia_gracilis_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\ammannia_gracilis_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:28+00:00",
+        "note": ""
+      }
+    },
+    "water_sprite_front": {
+      "brief": {
+        "id": "water_sprite_front",
+        "name": "water_sprite_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Ceratopteris thalictroides. A rooted water sprite with delicate finely divided fresh green fronds and a soft airy fern outline. Ordinary submerged foliage.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "water_sprite_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\water_sprite_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\water_sprite_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "water_sprite_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\water_sprite_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\water_sprite_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:28+00:00",
+        "note": ""
+      }
+    },
+    "java_moss_front": {
+      "brief": {
+        "id": "java_moss_front",
+        "name": "java_moss_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Taxiphyllum barbieri. A natural loose low moss tuft with fine irregular branching green strands and minute moss foliage, an airy irregular cushion, no stone or wood.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "java_moss_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\java_moss_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\java_moss_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "java_moss_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\java_moss_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\java_moss_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:28+00:00",
+        "note": ""
+      }
+    },
+    "cabomba_front": {
+      "brief": {
+        "id": "cabomba_front",
+        "name": "cabomba_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Cabomba caroliniana. A natural clump of upright slender stems with distinctive bright green fan-shaped finely divided submerged foliage, delicate open fans.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "cabomba_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\cabomba_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\cabomba_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "cabomba_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\cabomba_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\cabomba_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:29+00:00",
+        "note": ""
+      }
+    },
+    "hornwort_front": {
+      "brief": {
+        "id": "hornwort_front",
+        "name": "hornwort_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Ceratophyllum demersum. A natural submerged stem bunch with dark green forked needle-like foliage in whorls, a bushy bottlebrush silhouette. Rootless stems gathered at the base, no invented root bundle.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "hornwort_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\hornwort_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\hornwort_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "hornwort_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\hornwort_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\hornwort_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:29+00:00",
+        "note": ""
+      }
+    },
+    "hydrocotyle_front": {
+      "brief": {
+        "id": "hydrocotyle_front",
+        "name": "hydrocotyle_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Hydrocotyle tripartita. A low spreading patch on creeping runners, fresh green small three-lobed clover-like leaves on slender petioles. Normal gently extended foliage.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "hydrocotyle_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\hydrocotyle_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\hydrocotyle_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "hydrocotyle_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\hydrocotyle_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\hydrocotyle_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:30+00:00",
+        "note": ""
+      }
+    },
+    "rotala_front": {
+      "brief": {
+        "id": "rotala_front",
+        "name": "rotala_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Rotala rotundifolia. A natural slender stem clump with small narrow elongated submerged leaves, green lower growth transitioning to warm pink-orange shoot tips. Delicate branching silhouette.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "rotala_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\rotala_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\rotala_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "rotala_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\rotala_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\rotala_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:30+00:00",
+        "note": ""
+      }
+    },
+    "ludwigia_rubin_front": {
+      "brief": {
+        "id": "ludwigia_rubin_front",
+        "name": "ludwigia_rubin_front",
+        "type": "background",
+        "production_wave": 1,
+        "availability": "ready",
+        "placeholder_reason": "",
+        "usage": "world_background",
+        "usage_description": "",
+        "generate_method": "image",
+        "display_size": {
+          "width": 1024,
+          "height": 1536
+        },
+        "description": "Create ONE definitive FRONT artwork of a new aquarium asset: Ludwigia repens Rubin. A natural branching stem clump with broad oval pointed leaves, rich burgundy and ruby red upper foliage and olive green lower foliage. Ordinary flat leaves.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera: orthographic front elevation, eye level, no isometric tilt. Complete object including base and extremities, clean margins. A natural clump of the species, ordinary gently extended foliage. No prescribed leaf count, arrangement, spread/bend angle, curled, hooked, flipped-up or unfolding showcase leaf.\nNo pot, substrate, floor, water, labels, extra objects or extra views. Reference is drawing finish only; create the specified new subject.",
+        "reference_asset": "",
+        "animation_method": "",
+        "animation_name": "",
+        "animation_loop": null,
+        "action": ""
+      },
+      "stages": [
+        {
+          "task_id": "ludwigia_rubin_front.prompt.craft",
+          "stage": "prompt.plan",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\plans\\ludwigia_rubin_front.json",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\plans\\ludwigia_rubin_front.json",
+          "role": "pipeline_intermediate",
+          "next_stage": "image.generate",
+          "next_consumer": "image-generator",
+          "usage": "world_background"
+        },
+        {
+          "task_id": "ludwigia_rubin_front.image.generate",
+          "stage": "image.raw",
+          "status": "done",
+          "path_cli": "../projects\\aquascape-expansion-v11-plants\\output\\ludwigia_rubin_front_raw.png",
+          "path_repo": "projects\\aquascape-expansion-v11-plants\\output\\ludwigia_rubin_front_raw.png",
+          "role": "gameplay_ready",
+          "next_stage": null,
+          "next_consumer": "godot-assembler",
+          "notes": "Pure-white validate must pass before trim/matte.",
+          "usage": "world_background"
+        }
+      ],
+      "runtime": null,
+      "review": {
+        "status": "accepted",
+        "source": "pipeline",
+        "updated_at": "2026-10-31T12:06:31+00:00",
+        "note": ""
+      }
+    }
+  }
+}

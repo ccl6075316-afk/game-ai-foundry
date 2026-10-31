@@ -1,0 +1,73 @@
+{
+  "project": {
+    "title": "aquascape-expansion-v11-bamboo_shelter-views-r2",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "bamboo_shelter_right",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1536
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-expansion-v11-solids/output/bamboo_shelter_front_raw.png"
+  },
+  "assets": [
+    {
+      "id": "bamboo_shelter_right",
+      "name": "bamboo_shelter_right",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Render the EXACT SAME object from the supplied front artwork: . A short weathered hollow bamboo section lying horizontally, olive golden bamboo skin and a distinct raised bamboo node near the back, large open circular front entrance and visible dark inner wall, stable flat underside.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera exactly at the RIGHT END looking along -X. Orthographic perpendicular END ELEVATION. X length disappears into the screen; horizontal image dimension is Z depth and vertical is Y height. Long front limbs become foreshortened cross-sections. Do not repeat the long front facade. No camera tilt.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    },
+    {
+      "id": "bamboo_shelter_top",
+      "name": "bamboo_shelter_top",
+      "type": "background",
+      "usage": "world_background",
+      "generate_method": "image",
+      "description": "Render the EXACT SAME object from the supplied front artwork: . A short weathered hollow bamboo section lying horizontally, olive golden bamboo skin and a distinct raised bamboo node near the back, large open circular front entrance and visible dark inner wall, stable flat underside.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nCamera directly above at +Y, looking STRAIGHT VERTICALLY DOWN -Y. True ORTHOGRAPHIC TOP PLAN: X horizontal, Z depth vertical. Height Y disappears into the screen. Do not draw the object standing upright: no tall front facade, no front doorway facade. A vertical tower appears as its circular roof footprint with its broken upper rim; a vertical trunk becomes an end-grain cross-section surrounded by roots. A horizontal tube appears as its long roof and has no visible front circular interior. This is an overhead plan, not a 3/4 perspective illustration. No tilt.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "use_style_img2img": true,
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference"
+    }
+  ]
+}

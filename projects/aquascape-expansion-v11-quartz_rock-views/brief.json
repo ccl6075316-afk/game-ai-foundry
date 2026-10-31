@@ -1,0 +1,79 @@
+{
+  "brief_meta": {
+    "contract_version": 1,
+    "frozen_at": "2026-10-31T12:07:09+00:00",
+    "source": "manual"
+  },
+  "project": {
+    "title": "aquascape-expansion-v11-quartz_rock-views",
+    "description": "Twenty-asset scenery expansion using independently generated full-resolution cameras. Reuse accepted four existing assets. Code automation reduces repeated Codex work in 3D construction, not artwork detail.",
+    "art_direction": "Match the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.",
+    "dimension": "3d",
+    "genre": "aquarium_exhibit",
+    "gameplay_loop": "Inspect twenty scenery assets in a native Godot catalogue, including ten animated plant species.",
+    "session_goal": "Distinct source-matched generated props and plant anatomy with explicit species and independent views.",
+    "player_asset": "quartz_rock_right",
+    "controls": {
+      "move_left": [
+        "A"
+      ],
+      "move_right": [
+        "D"
+      ],
+      "inspect": [
+        "Mouse"
+      ]
+    },
+    "viewport": {
+      "width": 1536,
+      "height": 1536
+    },
+    "camera": {
+      "mode": "static"
+    },
+    "visual_reference": "E:/game-ai-foundry/projects/aquascape-expansion-v11-solids/output/quartz_rock_front_raw.png",
+    "visual_reference_usage": "North-star full-screen mock at project viewport resolution (1536x1536). Align palette, line weight, and mood with art_direction — not pixel-perfect. Do NOT use as img2img input for character/icon sprites; those use assets[].display_size on white studio."
+  },
+  "assets": [
+    {
+      "name": "quartz_rock_right",
+      "type": "background",
+      "description": "Render the EXACT SAME object from the supplied front artwork: . A chunky milky white aquarium quartz rock with broad angular translucent-looking mineral faces and warm grey veins, irregular blunt facets, no long crystal spikes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nOrthographic RIGHT end elevation looking along the long X axis. Show the end, not the long front again.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "quartz_rock_right",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    },
+    {
+      "name": "quartz_rock_top",
+      "type": "background",
+      "description": "Render the EXACT SAME object from the supplied front artwork: . A chunky milky white aquarium quartz rock with broad angular translucent-looking mineral faces and warm grey veins, irregular blunt facets, no long crystal spikes.\nMatch the supplied approved aquarium pixel illustration finish: fine deliberate crisp pixel clusters, broad coherent painted color masses, natural material planes, subtle detailed highlights and restrained color. No smooth CGI, no photo noise, no uniform speckling. Isolated on pure white, no floor, water, cast shadow or scenery. No labels, panels, collage, text or extra views. One complete object fills most of this image with clean margins. Keep source resolution: this is one full-resolution artwork, not a multi-view sheet.\nStrict orthographic TOP plan, looking vertically down. Height disappears; show the footprint and upward faces, not another front elevation.\nKeep the same physical branches, holes, roof, openings and broken edges. Infer hidden surfaces consistently. One complete object with clean margins; no labels, diagrams or extra views.",
+      "display_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "aspect_ratio": "1:1",
+      "generation_size": {
+        "width": 1536,
+        "height": 1536
+      },
+      "id": "quartz_rock_top",
+      "usage": "world_background",
+      "generate_method": "image",
+      "style_group": "aquascape_full_views_v5",
+      "style_anchor_kind": "visual_reference",
+      "use_style_img2img": true
+    }
+  ]
+}

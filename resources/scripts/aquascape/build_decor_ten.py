@@ -19,7 +19,8 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 
 def source_image(path):
-    image=Image.open(path).convert('RGB');rgb=np.array(image);mask=rgb.min(2)<236
+    rgba=Image.open(path).convert('RGBA');a=np.array(rgba);image=rgba.convert('RGB');rgb=np.array(image)
+    mask=(a[:,:,3]>128) if (a[:,:,3]<255).any() else (rgb.min(2)<236)
     labels,_=ndi.label(mask);counts=np.bincount(labels.ravel());counts[0]=0
     mask=labels==counts.argmax()
     holes=ndi.binary_fill_holes(mask)&~mask;labels,_=ndi.label(holes);sizes=np.bincount(labels.ravel());small=sizes<max(64,int(mask.sum()*.0005));small[0]=False;mask|=small[labels]
@@ -27,8 +28,8 @@ def source_image(path):
     box=(int(xx.min()),int(yy.min()),int(xx.max()+1),int(yy.max()+1))
     return image.crop(box),mask[box[1]:box[3],box[0]:box[2]],box
 
-def source_for(root,id,view):
-    project=root/('projects/aquascape-decor-fronts-v1' if view=='front' else f'projects/aquascape-decor-{id}-views-v1')
+def source_for(root,id,view,projects=None):
+    project=root/(projects[view] if projects else ('projects/aquascape-decor-fronts-v1' if view=='front' else f'projects/aquascape-decor-{id}-views-v1'))
     asset=read(project/'output/assets-manifest.json')['assets'][id+'_'+view]
     if asset.get('review',{}).get('status')!='accepted':raise ValueError('Unreviewed source: '+id+' '+view)
     stage=next(s for s in asset['stages'] if s['stage']=='image.raw' and s['status']=='done')
@@ -86,6 +87,15 @@ def carve(field,X,Y,Z,width,height,depth,spec,fm,rm):
         mast=np.minimum(w*.038-np.abs(X),d*.08-np.abs(Z))
         well=np.minimum(well,-mast)
         field=np.minimum(field,-well)
+    elif kind=='box_tunnel':
+        cavity=np.minimum(w*.32-np.abs(X),h*.23-np.abs(Y-h*.35))
+        field=np.minimum(field,-cavity)
+    elif kind=='arched_tunnel':
+        # Vertical sides and a round crown; passage continues through Z.
+        arch=np.minimum(w*.20-np.abs(X),Y-h*.02)
+        cap=(1-np.sqrt((X/(w*.20))**2+((Y-h*.33)/(h*.23))**2))*min(w*.20,h*.23)
+        arch=np.minimum(arch,np.where(Y<=h*.33,h,cap))
+        field=np.minimum(field,-arch)
     return field.astype('float32')
 
 def ray_hits(vertices,faces,origin,direction,length):
@@ -102,6 +112,9 @@ def semantic_checks(v,f,w,h,d,spec,fm):
         tests.append({'name':name,'origin_m':origin,'direction':direction,'length_m':length,'expected':expected,'surface_hits_m':hits,'ok':okay})
     if kind=='pipe':test('open_end_to_end_tunnel',[-w,.5*h,0],[1,0,0],w*2,'empty')
     if kind=='arch':test('open_front_to_back_passage',[0,.25*h,d],[0,0,-1],d*2,'empty')
+    if kind in ['box_tunnel','arched_tunnel']:
+        test('open_front_to_back_passage',[0,.30*h,d],[0,0,-1],d*2,'empty')
+        test('solid_roof',[0,h*1.2,0],[0,-1,0],h*.95,'solid')
     if kind=='jar':
         test('open_top_to_inside',[0,h*1.2,0],[0,-1,0],h*.7,'empty')
         test('solid_jar_bottom',[0,h*1.2,0],[0,-1,0],h*1.5,'solid')
@@ -124,12 +137,15 @@ def semantic_checks(v,f,w,h,d,spec,fm):
     return tests
 
 def build(root,spec,out):
-    id=spec['id'];paths={view:source_for(root,id,view) for view in ['front','right','top']};refs={view:source_image(path) for view,path in paths.items()};fm,rm,tm=[refs[v][1] for v in ['front','right','top']]
+    id=spec['id'];paths={view:source_for(root,id,view,spec.get('source_projects')) for view in ['front','right','top']};refs={view:source_image(path) for view,path in paths.items()};fm,rm,tm=[refs[v][1] for v in ['front','right','top']]
+    if spec.get('fill_silhouette_holes',False):fm,rm,tm=[ndi.binary_fill_holes(m) for m in [fm,rm,tm]]
     w=spec['width_m'];h=w*fm.shape[0]/fm.shape[1];d_right=h*rm.shape[1]/rm.shape[0];d_top=w*tm.shape[0]/tm.shape[1];d=(d_right+d_top)*.5
     step=w/spec.get('resolution',150);x=np.arange(-w/2-3*step,w/2+3.1*step,step);y=np.arange(-3*step,h+3.1*step,step);z=np.arange(-d/2-3*step,d/2+3.1*step,step);X=x[:,None,None];Y=y[None,:,None];Z=z[None,None,:]
     front=sample_sdf(fm,(X+w/2)/w,1-Y/h,w/fm.shape[1]);right=sample_sdf(rm,(d/2-Z)/d,1-Y/h,h/rm.shape[0]);top=sample_sdf(tm,(X+w/2)/w,(Z+d/2)/d,w/tm.shape[1]);field=np.minimum(np.minimum(front,right),top).astype('float32')
     field=ndi.gaussian_filter(field,spec.get('smoothing_voxels',.65));field=carve(field,X,Y,Z,w,h,d,spec,fm,rm)
-    labels,n=ndi.label(field>0);counts=np.bincount(labels.ravel());counts[0]=0;threshold=max(8,int(counts.max()*.0003));keep=counts>=threshold;keep[0]=False;discarded=int(counts[~keep].sum());field[(labels>0)&~keep[labels]]=-step
+    labels,n=ndi.label(field>0);counts=np.bincount(labels.ravel());counts[0]=0;threshold=max(8,int(counts.max()*.0003));keep=counts>=threshold;keep[0]=False
+    if spec.get('largest_component_only',False):keep[:]=False;keep[counts.argmax()]=True
+    discarded=int(counts[~keep].sum());field[(labels>0)&~keep[labels]]=-step
     verts,faces,_,_=marching_cubes(field,0,spacing=(step,)*3,allow_degenerate=False);verts+=np.array([x[0],y[0],z[0]])
     volume=np.einsum('ij,ij->i',verts[faces[:,0]],np.cross(verts[faces[:,1]],verts[faces[:,2]])).sum()/6
     if volume<0:faces=faces[:,[0,2,1]]
