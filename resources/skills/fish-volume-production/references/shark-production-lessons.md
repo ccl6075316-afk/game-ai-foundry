@@ -58,3 +58,9 @@
 5. 通用方法、本种profile、本次manifest/handoff/验证三层都记录；保留旧负例、实际同机位图和唯一视频，清理可重建帧/密集姿态并核验Git/LFS。提交含commit+push，检查Foundry和独立游戏仓库。
 
 首例可编辑源、GLB、实拍和全部报告索引：游戏`experiments/blacktip-lowpoly-20261101/HANDOFF.md`；关键修订`surface-mouth-continuity-20261101/`。历史3758/3950等被拒候选不因后续认可追认为通过。
+
+## 下一条首次迁移的记录边界
+
+路氏双髻鲨的新试验在游戏`experiments/scalloped-lowpoly-20261101`，尚非完整鱼。Motani2023论文图2与作者仓库`validation.zip/Sphyrna_lewini`已实际取得/核对；通用Sphyrna示例的文档标S.tudes，故未采用该示例数值。原CSV的FL_m与代码body.axis.l口径保留，不擅改为TL/SL；约0.565m体轴的小标本只在标本尺度试验，不能直接当250cm成体比例。完整历史审核包经`volume replan`复用原画像素，自动产生新pending清单；旧源/模型接受不转成新几何通过。
+
+本次先做静态头身/口部及实际有限网格宽度核算。独立头片与前躯干重叠留折面、非结构化中面留放射三角痕，均保留负例；只让后方核心接头翼并采用结构展/弦格后改善，但头颈仍有局部折面、原生嘴域/全部鳍/眼/蒙皮动作尚待完成。该试验不作为新合格鲨鱼或成熟通用头翼生成器；下一轮从manifest明确待办继续。
