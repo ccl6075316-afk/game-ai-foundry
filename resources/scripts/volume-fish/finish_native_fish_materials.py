@@ -9,6 +9,8 @@ import bpy,numpy as np
 ROOT=Path(__file__).resolve().parents[3];sys.path[:0]=[str(Path(__file__).parent/'portable'),str(ROOT/'cli')]
 from source_snapshot import rig_action_snapshot
 from fish_budget import check_triangle_budget
+sys.path.insert(0,str(Path(__file__).parent))
+from native_fin_wall_chart import bake as bake_native_wall
 from glb_io import read_glb
 sys.path.insert(0,str(Path(__file__).parent))
 from patch_existing_fin_meshes import write as write_glb
@@ -35,6 +37,12 @@ for name in cfg['fins']:
  for _ in range(cfg['wall_inset_pixels']):
   pad=np.pad(inner,1);inner=np.logical_and.reduce([pad[dy:dy+H,dx:dx+W]for dy in range(3)for dx in range(3)])
  yy,xx=np.where(inner);assert len(xx)>0;safe=np.c_[xx,yy];center=np.mean(safe,axis=0);uv=ob.data.uv_layers.active.data;changes=[]
+ if cfg.get('wall_native_alpha_ownership'):
+  ob.data.materials.clear();ob.data.materials.append(canonical(name+'_native_caps',image,True))
+  for f in ob.data.polygons:f.material_index=0
+  proof=bake_native_wall(ob,image,safe,cfg['wall_inset_pixels'],cfg['source_pixels_per_native_unit'],canonical)
+  records.append({'name':name,**proof,'scope':'Native tissue RGB with original cap-domain alpha on finite sidewalls; support margins cannot become detached opaque outlines.'})
+  continue
  for f in ob.data.polygons:
   q=np.array([uv[li].uv[:]for li in f.loop_indices]);area=sum(np.cross(q[i]-q[0],q[i+1]-q[0])for i in range(1,len(q)-1))
   if abs(area)>1e-10:continue

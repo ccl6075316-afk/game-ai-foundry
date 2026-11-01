@@ -55,6 +55,7 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
     fractions=sorted(set(round((q.z-bottom)/(top-bottom),6)for q in cap_vertices))
     assert len(fractions)>=5
     a,b=map(Vector,fin['source_baseline']);assert abs(a.x-b.x)<1e-7
+    assert a.y>b.y,'Caudal section baseline must run source bottom to top; reversed endpoints invert the complete body section'
     # The source baseline runs bottom -> top. Match every height knot of the
     # actual finite body section, rather than inscribing an unrelated polygon.
     mids=[a.lerp(b,q)for q in fractions[1:-1]]

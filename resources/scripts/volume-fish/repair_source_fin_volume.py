@@ -17,8 +17,10 @@ from closed_body_index140 import build as inside_index
 from fish_budget import check_triangle_budget
 from caudal_cross_section import rebuild as rebuild_caudal,junction_normals
 from triangulate_export_mesh import triangulate_export_mesh
+from conform_source_fin_faces import conform as conform_finite_faces
 sys.path.insert(0,str(Path(__file__).parent/'portable'))
 from source_snapshot import rig_action_snapshot
+from patch_existing_fin_meshes import read as read_glb,write as write_glb
 from resample_median_root import resample as resample_median,add_crest
 
 def read(p):return json.loads(Path(p).read_text(encoding='utf8'))
@@ -46,6 +48,18 @@ p=argparse.ArgumentParser(description=__doc__)
 for k in ['blend','config','output']:p.add_argument('--'+k,type=Path,required=True)
 a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);cfg=read(a.config);source=a.blend.resolve();out=a.output.resolve();assert out.is_relative_to(ROOT/'projects/fishing-2d/experiments')and not out.exists();assert sha(source)==cfg['input_blend_sha256']
 bpy.ops.wm.open_mainfile(filepath=str(source));bpy.context.scene.frame_set(0);rig=next(o for o in bpy.data.objects if o.type=='ARMATURE');rig.data.pose_position='REST';bpy.context.view_layer.update();body=bpy.data.objects[cfg['body']];profile=read(ROOT/cfg['profile']);oldprofile=read(ROOT/cfg['baseline_profile']);W,H=cfg['source_size'];aspect=H/W;scale=cfg['model_scale'];frozen={o.name:static(o)for o in bpy.data.objects if o.type=='MESH'}
+object_names=cfg.get('object_names',{})
+finite_fin_names=set(cfg.get('finite_face_repair',{}).get('fin_names',[f['name']for f in profile['fins']if f['name']!='Caudal']))
+assert not cfg.get('finite_face_repair') or finite_fin_names and finite_fin_names<={f['name']for f in profile['fins']if f['name']!='Caudal'},'Explicit finite-face repair fin inventory invalid'
+logical_names=[f['name']+suffix for f in profile['fins'] for suffix in (['_left','_right']if f['paired']else[''])]
+assert not set(object_names)-set(logical_names),'Unknown explicit fin object mapping'
+resolved_names={name:object_names.get(name,name+'_mesh')for name in logical_names}
+assert len(set(resolved_names.values()))==len(logical_names),'Fin mappings must be one-to-one'
+assert all(name in bpy.data.objects and bpy.data.objects[name].type=='MESH'for name in resolved_names.values()),'Mapped fin mesh missing'
+for name,side in cfg.get('median_fin_sides',{}).items():
+ fin=next(f for f in profile['fins']if f['name']==name)
+ assert not fin['paired'] and side in ('dorsal','ventral'),'Explicit median fin side required'
+ assert (fin['tip'][1]<fin['anchor'][1])==(side=='dorsal'),'Anatomical free tip disagrees with explicit median fin side: '+name
 rig_snapshot=rig_action_snapshot();actions=hashlib.sha256(json.dumps(rig_snapshot,sort_keys=True).encode()).hexdigest()
 oldsec=np.array(oldprofile['body']['sections']);sec=np.array(profile['body']['sections']);head_changed=0
 if cfg.get('head_join_interval'):
@@ -120,7 +134,7 @@ def conform_basal_faces(ob,band):
 
 for fin in profile['fins']:
  for suffix in (['_left','_right']if fin['paired']else['']):
-  name=fin['name']+suffix+'_mesh';ob=bpy.data.objects[name];settings=cfg['fins'][fin['name']];tail_rebuild=None;old_median=old_shell_median(ob)
+  name=resolved_names[fin['name']+suffix];ob=bpy.data.objects[name];settings=cfg['fins'][fin['name']];tail_rebuild=None;old_median=old_shell_median(ob)
   median_reallocation=resample_median(ob,fin,next(f for f in oldprofile['fins']if f['name']==fin['name']),bv,aspect,W,H,settings)if fin['name']in cfg.get('median_body_station_roots',[])else None
   allocation=reallocate_interior_pair(ob,fin['root_attachment']['root_band'])if fin['name']in cfg.get('reallocate_interior_fins',[])else None
   expected_static=static(ob)
@@ -140,6 +154,7 @@ for fin in profile['fins']:
    # source plane is XZ; legacy cap-smoothed extrusion directions are not
    # the membrane normal and must not be scaled into a folded thick foil.
    if not fin['paired']:n=np.array([0.,1. if n[1]>=0 else-1.,0.])
+   if fin['paired']and settings.get('native_xz_foil'):n=np.array([0.,1. if n[1]>=0 else-1.,0.])
    full=tapered(t,settings['root_mm'],settings['mid_mm'],settings['edge_mm']);half=full/2000/scale
    camber=settings.get('camber_mm',0)/1000/scale*math.sin(math.pi*max(0.,min(1.,t)))**2
    if fin['paired']:center+=n*camber*(1 if n[1]*(-1 if suffix=='_left'else 1)>0 else-1)
@@ -166,9 +181,20 @@ for fin in profile['fins']:
       direction=1 if fin['tip'][1]<fin['anchor'][1]else-1;hit,normal,face,_=tree.ray_cast(Vector((point.x,point.y,direction*2)),Vector((0,0,-direction)),4.)
       if hit is None:hit,normal,face,_=tree.find_nearest(point)
      else:
-      hit,normal,face,_=flank.find_nearest(point);face=flank_ids[face]
+      if settings.get('native_xz_foil'):
+       hit,normal,face,_=tree.ray_cast(Vector((point.x,side*2,point.z)),Vector((0,-side,0)),4)
+       assert hit is not None and abs(normal.y)>.1,'Native XZ root must resolve to its actual flank'
+      else:hit,normal,face,_=flank.find_nearest(point);face=flank_ids[face]
      offset=cfg.get('paired_root_surface_offset_mm',-cfg['root_inset_mm'])if fin['paired']else cfg.get('root_surface_offset_mm',-cfg['root_inset_mm'])
-     if median_reallocation:
+     if fin['paired'] and 'root_layer_offsets_mm'in settings:
+      offsets=settings['root_layer_offsets_mm'];assert len(offsets)==2 and offsets[0]<offsets[1] and max(abs(v)for v in offsets)<=.5,'Explicit bounded inboard/outboard basal layers required'
+      # Both foil layers share one anatomical root domain, but must retain a
+      # finite separation. A single surface offset can collapse/fold the caps.
+      outboard=int((proposed[1]-proposed[0]).dot(normal)>0)
+      offset=offsets[int((vi==j)==bool(outboard))]
+     if fin['paired']and settings.get('native_xz_foil'):
+      point=hit+Vector((0,side*offset/1000/scale/abs(normal.y),0))
+     elif median_reallocation:
       assert abs(normal.z)>.1;point=hit+Vector((0,0,(1 if fin['tip'][1]<fin['anchor'][1]else-1)*offset/1000/scale/abs(normal.z)))
      else:point=hit+normal*(offset/1000/scale)
      skin_to_body(ob,vi,hit,face)
@@ -182,6 +208,8 @@ for fin in profile['fins']:
    raise AssertionError(name+' UV or topology changed')
   crest=add_crest(ob,fin,tree,scale,cfg['root_inset_mm'],skin_to_body)if median_reallocation else None
   adaptation=conform_basal_faces(ob,rootband)if fin['name']!='Caudal'else None
+  whole_limit=check_triangle_budget(0,profile['real_length_cm'],species=profile['species'],anatomical_group=profile.get('anatomical_group'))['hard_triangles']
+  finite_faces=conform_finite_faces(ob,fin,tree,inside,scale,cfg,skin_to_body,whole_limit)if cfg.get('finite_face_repair')and fin['name']in finite_fin_names else None
   ts=np.array([v.value for v in ob.data.attributes['foundry_fin_source_t'].data]);roots=[i for i,t in enumerate(ts)if t<=rootband+1e-7]
   # Use measured local two-surface separation, not AABB or requested parameters.
   distribution=[]
@@ -189,18 +217,22 @@ for fin in profile['fins']:
    values=[float(np.linalg.norm(new[i]-new[j])*scale*1000)for i,j,t in pairs if a0<=t<b0]
    distribution.append({'zone':label,'pairs':len(values),'measured_pair_distance_mm_min_median_max':np.percentile(values,[0,50,100]).tolist()if values else None})
   points=[ob.data.vertices[i].co for i in roots];frozen_roots[name]={'ids':roots,'rest_points_gltf':[[q.x,q.z,-q.y]for q in points],'vertices':len(ob.data.vertices),'rule':'Complete original persisted source_t basal band retained; tapered volume and current actual body support, no root selection shrink','source_baseline':fin['source_baseline'],'source_t_max':rootband}
-  records.append({'name':name,'parameters_art_hypothesis':settings,'measurements':distribution,'geometry_changed':True,'native_uv_topology_unchanged':static(ob)==frozen[name],'source_quads_frozen_to_existing_export_triangles':True,'interior_reallocation':allocation,'caudal_section_rebuild':tail_rebuild,'median_root_reallocation':median_reallocation,'crest_support':crest,'finite_basal_adaptation':adaptation,'old_shell_mm_median':old_median})
+  records.append({'name':name,'parameters_art_hypothesis':settings,'measurements':distribution,'geometry_changed':True,'native_uv_topology_unchanged':static(ob)==frozen[name],'source_quads_frozen_to_existing_export_triangles':True,'interior_reallocation':allocation,'caudal_section_rebuild':tail_rebuild,'median_root_reallocation':median_reallocation,'crest_support':crest,'finite_basal_adaptation':adaptation,'finite_free_face_adaptation':finite_faces,'old_shell_mm_median':old_median})
 assert static(body)==frozen[cfg['body']]
-normal_repair=junction_normals(body,bpy.data.objects['Caudal_mesh'],root_x)
+normal_repair=junction_normals(body,bpy.data.objects[resolved_names['Caudal']],root_x)
 triangles=0
 for ob in bpy.data.objects:
  if ob.type=='MESH':ob.data.calc_loop_triangles();triangles+=len(ob.data.loop_triangles)
-try:budget=check_triangle_budget(triangles,profile['real_length_cm'])
+try:budget=check_triangle_budget(triangles,profile['real_length_cm'],species=profile['species'],anatomical_group=profile.get('anatomical_group'))
 except ValueError as error:
  out.mkdir(parents=True);(out/'budget-failure.validation.json').write_text(json.dumps({'ok':False,'status':'failed','next_action':'fix_input','triangles':triangles,'error':str(error),'config_sha256':sha(a.config),'records':records,'scope':'Rejected before saving any model. Reallocate topology within the original complete fin/rig/body constraints; no increased budget.'},indent=2)+'\n',encoding='utf8');(out/'effective-config.json').write_bytes((json.dumps(cfg,ensure_ascii=False,indent=2)+'\n').encode('utf8'));raise
 assert rig_action_snapshot()==rig_snapshot,'Rig, actual keyframes or action bindings changed'
 out.mkdir(parents=True);bpy.context.preferences.filepaths.save_version=0;rig.data.pose_position='POSE';bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'))
 bpy.ops.export_scene.gltf(filepath=str(out/'fish.glb'),export_format='GLB',export_animations=True,export_yup=True,export_skins=True)
+if profile.get('style',{}).get('pixel_art') and profile['style'].get('texture_filter')=='nearest':
+ doc,blob=read_glb(out/'fish.glb')
+ for sampler in doc.get('samplers',[]):sampler.update(magFilter=9728,minFilter=9728)
+ write_glb(out/'fish.glb',doc,blob)
 allpoints=[o.matrix_world@v.co for o in bpy.data.objects if o.type=='MESH'for v in o.data.vertices];length=max(q.x for q in allpoints)-min(q.x for q in allpoints)
 rootplan={'kind':'authored_fin_completion_plan','items':[{'species':profile['species'],'model':str(out/'fish.glb'),'model_sha256':sha(out/'fish.glb'),'body':cfg['body'],'body_bones':[f'body_{i:02d}'for i in range(len(profile['rig']['spine']))],'length_native':length,'scale_cm':profile['real_length_cm']/length,'fins':frozen_roots,'handoff':str(a.config.resolve()),'profile':str((ROOT/cfg['profile']).resolve()),'profile_sha256':sha(ROOT/cfg['profile']),'source_sha256':cfg['source_sha256']}]}
 (out/'authored-roots.plan.json').write_text(json.dumps(rootplan,indent=2)+'\n',encoding='utf8')

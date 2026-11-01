@@ -13,6 +13,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 用户认可宽度后继续修鳍，读[原像素鳍精修与有限根带](references/native-fin-detail-lessons-20261031.md)：原图独立边界、低面支撑、实际体表蒙皮、冷导出、全鳍490与继承问题分别记录。不能把旧UV插值当新轮廓的接触证明。
 
+新原画鳍壳、近根动作穿体或特写证据异常，读[食人鱼本轮方法](references/piranha-production-lessons-20261102.md)：嘴结构先审源、鳍尖与方向独立标注、侧壁RGB/alpha分开、实际近根蒙皮与相机单位检查。先完成局部实际图审再冻结完整门；不复制本鱼厚度、鳍数、宽度或接受结论。
+
 通用规则与最新方法见[四鱼经验收敛](references/four-fish-lessons-20261031.md)。当前制作状态只读逐鱼manifest和正式证据，不在技能入口反复叠加候选编号。
 
 基础检查后先嘴、再全部鳍、再其余；[嘴优先检查卡](references/mouth-first-review.md)要求实际口裂、下唇线、上下颌体积及沿左右唇缘补色。整鱼按展示体长分档：≤120cm优选1500/硬上限2000；>120–300cm优选3500/上限4000；>300–600cm优选5500/上限6000；>600cm优选7500/上限8000。边界使用严格“超过”，计入所有部件；详见[展示体长预算](references/display-length-budget.md)，与头型、原眼、画风、身体不透明和动作等旧要求同时有效。用户指出过的遗漏保留负例与有效验证，不能修一项丢一项。

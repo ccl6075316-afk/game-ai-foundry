@@ -32,6 +32,15 @@ def check_fin_inventory(body, manifest, authored, profile):
     original=[n if n in expected else n.removesuffix('_mesh') for n in actual]
     assert len(original)==len(set(original)) and set(original)==expected, 'Fin inventory differs from own species profile'
 
+def check_detail_cameras(positions, scale, details):
+    """Centers and orthographic sizes are game meters, not native GLB units."""
+    lower=positions.min(0)*scale;upper=positions.max(0)*scale
+    for detail in details:
+        center=np.asarray(detail['at'],float);size=float(detail['size'])
+        assert center.shape==(3,)and np.isfinite(center).all()and np.isfinite(size)and size>0,'Finite detail center in game meters and positive camera size required'
+        separation=np.maximum(np.maximum(lower-center,center-upper),0.)
+        assert np.linalg.norm(separation)<=size/2,'Detail camera misses the actual model bounds; at uses game meters: '+detail['name']
+
 def prepare(config_file,out):
     config=read(config_file);spec=load_spec(path(config['final_spec']));fin_path=path(config['fin_plan']);fin=read(fin_path)['items'][0]
     model=resolve_ref(spec['model']);manifest_path=Path(fin['packed_parts_manifest']);manifest=read(manifest_path)
@@ -67,6 +76,9 @@ def prepare(config_file,out):
     negative=out/'negative-narrow-head.glb';dump_glb(negative,doc,blob)
     write(out/'head.plan.json',{'items':[dict(species=p['species'],target=str(model),target_sha256=sha(model),source=str(negative),source_sha256=sha(negative),body=p['body'],fins=p['fins'],packed_parts_manifest=str(manifest_path),packed_parts_manifest_sha256=sha(manifest_path),target_half_width_envelope=target,envelope_halfwidth_tolerance_native=config['head_tolerance'])],'basis':{'profile':str(envelope_path),'sha256':sha(envelope_path),'geometry_profile':str(path(config['geometry_profile'])),'geometry_profile_sha256':sha(path(config['geometry_profile'])),'scope':'Independently frozen own-species artistic outer envelope; may differ from uncut construction cage. Synthetic90% width negative. Not a biological measurement or a visual verdict.'}})
     p.update(whole_camera_size=config['whole_camera_size'],details=config['details'],review_sources=[])
+    # Detail centers use game meters, unlike native GLB source coordinates.
+    # A nonempty screenshot or successful process does not prove useful focus.
+    check_detail_cameras(positions,scale,p['details'])
     for ref in config['review_sources']:
         q=path(ref);p['review_sources'].append({'path':str(q),'sha256':sha(q)})
     capture=path(config.get('review_capture_script',str(HERE/'capture_fish_review.gd')))

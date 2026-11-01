@@ -8,6 +8,7 @@ from pathlib import Path
 from parts import read,sha,require,fresh_output
 from glb_io import read_glb,arrays
 from fish_asset_spec import ROOT
+from view import focus as validate_focus
 
 def prepare(model,packing_file,role_file,motion_template,species,length_cm,runtime,motion_output,output):
     model=Path(model).resolve();packing_file=Path(packing_file).resolve();role_file=Path(role_file).resolve();runtime=Path(runtime).resolve()
@@ -25,6 +26,8 @@ def prepare(model,packing_file,role_file,motion_template,species,length_cm,runti
     require(len(profile['body_bones'])==len(set(profile['body_bones'])),'Aliased duplicate body bones')
     profile.update(base_clip=clips,real_length_cm=length_cm)
     body=roles['body'];surfaces={int(k):v for k,v in roles['body_surfaces'].items()};fins=roles['fin_nodes']
+    focuses=roles.get('focuses',{});require(isinstance(focuses,dict),'Viewer focuses must be a mapping')
+    for item in focuses.values():validate_focus(item)
     require(len(fins)==len(set(fins)) and body not in fins,'Unique explicit anatomical inventory required')
     parts=[];seen=set()
     for row in packing['parts']:

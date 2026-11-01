@@ -44,7 +44,12 @@ p=argparse.ArgumentParser(description=__doc__)
 for name in ['config','output']:p.add_argument('--'+name,type=Path,required=True)
 a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);cfg=read(a.config);out=a.output.resolve();assert out.is_relative_to(ROOT/'projects/fishing-2d/experiments')and not out.exists()
 source=ROOT/cfg['blend'];assert sha(source)==cfg['blend_sha256'];maskfile=ROOT/cfg['masks'];assert sha(maskfile)==cfg['masks_sha256'];masks=read(maskfile);profile=read(ROOT/cfg['profile']);W,H=masks['source_size'] if 'source_size'in masks else cfg['source_size'];aspect=H/W
-bpy.ops.wm.open_mainfile(filepath=str(source));bpy.context.scene.frame_set(0);frozen_rig=rig_action_snapshot();replace={f['name']+suffix+'_mesh'for f in profile['fins']for suffix in(['_left','_right']if f['paired']else[''])};protected={o.name:mesh_snapshot(o)for o in bpy.data.objects if o.type=='MESH'and o.name not in replace};records=[]
+bpy.ops.wm.open_mainfile(filepath=str(source));bpy.context.scene.frame_set(0);frozen_rig=rig_action_snapshot()
+logical_names=[f['name']+s for f in profile['fins']for s in(['_left','_right']if f['paired']else[''])]
+object_names=cfg.get('object_names',{});assert not set(object_names)-set(logical_names)
+resolved_names={n:object_names.get(n,n+'_mesh')for n in logical_names}
+assert len(set(resolved_names.values()))==len(logical_names) and all(n in bpy.data.objects and bpy.data.objects[n].type=='MESH'for n in resolved_names.values()),'Explicit one-to-one fin mesh mapping required'
+replace=set(resolved_names.values());protected={o.name:mesh_snapshot(o)for o in bpy.data.objects if o.type=='MESH'and o.name not in replace};records=[]
 oldcuts=read(ROOT/cfg['initial_validation'])['metrics']['native_fin_cutouts']
 for fin in profile['fins']:
  rec=next(r for r in masks['fins']if r['name']==fin['name']);imagefile=Path(rec['image']);assert sha(imagefile)==rec['image_sha256'];image=bpy.data.images.load(str(imagefile),check_existing=False);image.pack()
@@ -71,7 +76,7 @@ for fin in profile['fins']:
  maximum=max(root_distance(v)for v in polygon);fin['root_attachment']['root_band']=rec['root_band_px']/maximum
  ts=[fin_baseline_parameter(v,fin['source_baseline'],fin['polygon'],aspect)for v in dv]
  for suffix in(['_left','_right']if fin['paired']else['']):
-  ob=bpy.data.objects[fin['name']+suffix+'_mesh'];functions=layer_samplers(ob,oldcuts[fin['name']]['native_crop_top_left']);positions=[];weights=[]
+  ob=bpy.data.objects[resolved_names[fin['name']+suffix]];functions=layer_samplers(ob,oldcuts[fin['name']]['native_crop_top_left']);positions=[];weights=[]
   for fn in functions:
    for point in q:
     co,skin=fn(point);positions.append(co);weights.append(skin)

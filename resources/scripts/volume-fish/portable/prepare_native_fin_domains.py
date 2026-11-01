@@ -32,6 +32,22 @@ def prepare(config, output):
         ImageDraw.Draw(mask).polygon([tuple(p-lo)for p in polygon],fill=255)
         raw=np.array(original);result=raw.copy()
         selected=np.asarray(mask)>0
+        if fin.get('polygon_margin_px',0):
+            import cv2
+            radius=fin['polygon_margin_px']
+            require(type(radius)is int and 0<radius<=32,'Bounded native polygon margin required')
+            selected=cv2.dilate(selected.astype('uint8'),np.ones((2*radius+1,2*radius+1),np.uint8))>0
+        if fin.get('source_side'):
+            c=fin['source_side'];line=np.asarray(c['polyline_px'],float)
+            require(c['side'] in ('above','below','left','right'),'Explicit source side required')
+            transpose=c['side'] in ('left','right')
+            if transpose:line=line[:,::-1]
+            line=line[np.argsort(line[:,0])]
+            require(len(line)>=2 and np.all(np.diff(line[:,0])>0),'Independent monotone root polyline required')
+            yy,xx=np.indices(selected.shape);u,v=(yy+lo[1]+.5,xx+lo[0]+.5)if transpose else(xx+lo[0]+.5,yy+lo[1]+.5)
+            boundary=np.interp(u,line[:,0],line[:,1]);offset=float(c.get('inside_root_px',0))
+            require(0<=offset<=4,'Only a finite native root ownership margin is allowed')
+            selected&=(v<=boundary+offset)if c['side'] in ('above','left')else(v>=boundary-offset)
         if fin.get('grabcut'):
             import cv2
             outer=cv2.dilate(selected.astype('uint8'),np.ones((11,11),np.uint8))
