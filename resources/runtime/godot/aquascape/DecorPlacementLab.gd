@@ -126,6 +126,7 @@ func _read_save(path: String) -> bool:
         var choice: Variant=data.get("selected_substrate",0)
         if not (choice is float or choice is int) or not is_finite(choice) or choice!=int(choice) or choice<0 or choice>4:return false
     for row in data.rocks:
+        if not row is Dictionary or not preload("res://scripts/aquarium/editor/PropTransform.gd").valid(row):return false
         if not row is Dictionary or not rock_specs.has(row.get("id")):return false
         if not row.get("position") is Array or row.position.size()!=3:return false
         for p in row.position:

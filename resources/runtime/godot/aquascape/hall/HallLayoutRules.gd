@@ -51,6 +51,7 @@ func _valid_content(data: Variant) -> bool:
         for row in JSON.parse_string(FileAccess.get_file_as_string(path)).assets:
             if not row.get("animated",false):ids.append(row.id)
     for row in data.rocks:
+        if not row is Dictionary or not preload("res://scripts/aquarium/editor/PropTransform.gd").valid(row):return false
         if not row is Dictionary or row.get("id") not in ids or not row.get("position") is Array or row.position.size()!=3:return false
         for p in row.position:
             if not _finite_number(p):return false

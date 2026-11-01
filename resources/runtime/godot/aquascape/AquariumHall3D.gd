@@ -98,6 +98,8 @@ const MAX_TANKS := 8
 const FLOOR_COLORS := [Color("778d8b"),Color("b4b5a5"),Color("4c626d")]
 const WALL_COLORS := [Color("d4d6c5"),Color("8daaad"),Color("b1b3a0")]
 
+var build_editor: RefCounted
+
 func _ready() -> void:
     preload("res://scripts/aquarium/FishAppearanceCache.gd").begin_entry()
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -107,7 +109,7 @@ func _ready() -> void:
     viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
     add_child(viewport)
     world=Node3D.new();viewport.add_child(world)
-    canvas=TextureRect.new();canvas.texture=viewport.get_texture()
+    canvas=preload("res://scripts/aquarium/editor/BuildDropCanvas.gd").new();canvas.texture=viewport.get_texture()
     canvas.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;canvas.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
     canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     canvas.gui_input.connect(_canvas_input);add_child(canvas)
@@ -116,6 +118,7 @@ func _ready() -> void:
     _player()
     inspection_camera=Camera3D.new();inspection_camera.near=.025;inspection_camera.far=100;inspection_camera.fov=62;world.add_child(inspection_camera)
     _ui()
+    build_editor=preload("res://scripts/aquarium/editor/BuildEditorBridge.gd").new();build_editor.setup(self,false)
     visitor_crowd=preload("res://scripts/aquarium/visitors/HallVisitorCrowd.gd").new()
     world.add_child(visitor_crowd)
     _restore(_default_state())
@@ -444,6 +447,11 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
     if active_editor!=null:return
+    if build_editor!=null and build_editor.gizmo.dragging and (event is InputEventMouseMotion or event is InputEventMouseButton):
+        var local_event: InputEvent=event.duplicate()
+        local_event.position=get_global_transform_with_canvas().affine_inverse()*event.position
+        if build_editor.input_event(local_event):get_viewport().set_input_as_handled();return
+    if editing and build_editor!=null and build_editor.key(event):get_viewport().set_input_as_handled();return
     if inspecting and event is InputEventMouseMotion and looking:
         inspection_yaw-=event.relative.x*.004;inspection_pitch=clampf(inspection_pitch+event.relative.y*.003,-.65,.85)
         _update_inspection();get_viewport().set_input_as_handled();return
@@ -472,6 +480,7 @@ func _canvas_input(event: InputEvent) -> void:
                 inspection_distance=clampf(inspection_distance*(.88 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.14),.22,8.0);_update_inspection()
         return
     if editing:
+        if build_editor!=null and build_editor.input_event(event):return
         editor_input.canvas_input(self,event)
         return
     if event is InputEventMouseButton:
@@ -487,6 +496,7 @@ func _open_content_editor() -> bool:
     if selected<0 or objects[selected].data.kind!="tank":notice="先选择一个展缸。";return false
     editor_object_id=objects[selected].data.id
     active_editor=load("res://scripts/aquarium/HallTankEditor.gd").new()
+    active_editor.metric_scale=float(objects[selected].data.scale)*5.0
     active_editor.initial_state=objects[selected].tank.content_state()
     active_editor.apply_requested.connect(_apply_content_editor)
     active_editor.cancel_requested.connect(_close_content_editor)
@@ -590,6 +600,7 @@ func _visitor_layout_changed() -> void:
     if is_instance_valid(visitor_crowd):visitor_crowd.set_layout(parcels,objects)
 
 func _process(delta: float) -> void:
+    if build_editor!=null:build_editor.tick()
     if is_instance_valid(water_renderer):water_renderer.sync(objects,delta)
     if inspecting:_update_inspection()
     statistics_clock+=delta

@@ -97,6 +97,6 @@ func apply_content(state: Dictionary) -> void:
         for mesh in model.find_children("*","MeshInstance3D",true,false):
             for s in mesh.mesh.get_surface_count():mesh.set_surface_override_material(s,paints[row.id])
         model.scale=Vector3.ONE*float(row.scale)*5
-        model.rotation.y=float(row.yaw)
+        preload("res://scripts/aquarium/editor/PropTransform.gd").apply(model,row,5.0)
         model.position=Vector3(float(row.position[0]),float(row.position[1]),float(row.position[2]))*5
         props.append({"id":row.id,"node":model,"bounds":box})

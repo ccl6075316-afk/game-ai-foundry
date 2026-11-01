@@ -1,5 +1,6 @@
 shader_type spatial;
 render_mode unshaded, fog_disabled, cull_disabled, depth_test_disabled, depth_draw_never;
+#include "res://scripts/aquarium/passage/PassageDryVolume.gdshaderinc"
 uniform sampler2D scene_color : hint_screen_texture, repeat_disable, filter_nearest;
 uniform sampler2D scene_depth : hint_depth_texture, repeat_disable, filter_nearest;
 uniform int water_count = 0;
@@ -48,7 +49,7 @@ void fragment(){
         if(i>=water_count){break;}
         vec3 p=local_point(origin,i);vec3 d=local_direction(direction,i);
         vec2 segment=interval(p,d,distance_to_hit);
-        float length_in_water=max(0.0,segment.y-segment.x);
+        float length_in_water=passage_wet_length(origin,direction,segment);
         if(length_in_water<0.0001){continue;}
         covered=true;
         vec4 optics=water_optics[i];vec4 tint=water_color[i];
@@ -60,7 +61,7 @@ void fragment(){
         vec3 sample_local=local_point(hit,i);
         vec3 entry=p+d*segment.x;
         bool camera_inside=inside_water(p);
-        bool hit_inside=inside_water(sample_local);
+        bool hit_inside=inside_water(sample_local)&&!passage_contains(hit);
         float top_interface=(!camera_inside&&abs(entry.y-2.775)<0.008)?1.0:0.0;
         vec2 wave_p=entry.xz*water_extra[i].x;
         vec2 wave=vec2(sin(wave_p.x*2.4+clock*0.45+sin(wave_p.y)),cos(wave_p.y*2.8-clock*0.35));
@@ -69,7 +70,7 @@ void fragment(){
             vec2 offset=wave*optics.z*mix(0.00045,0.0025,top_interface);
             vec2 uv=clamp(SCREEN_UV+offset,vec2(0.001),vec2(0.999));
             vec3 shifted_hit=unproject(uv,texture(scene_depth,uv).r,INV_PROJECTION_MATRIX,INV_VIEW_MATRIX);
-            if(inside_water(local_point(shifted_hit,i))){color=mix(color,texture(scene_color,uv).rgb,0.6);}
+            if(inside_water(local_point(shifted_hit,i))&&!passage_contains(shifted_hit)){color=mix(color,texture(scene_color,uv).rgb,0.6);}
         }
         if(hit_inside&&optics.w>0.001){
             // A world-anchored approximation on visible opaque surfaces, including fish.

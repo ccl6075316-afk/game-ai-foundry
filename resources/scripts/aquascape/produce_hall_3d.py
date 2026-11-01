@@ -10,6 +10,12 @@ NAMES += ['hall/'+name for name in ['HallLayoutRules.gd','HallLayoutStore.gd','H
 
 NAMES += ['visitors/'+name for name in ['HallVisitorCrowd.gd','HallVisitorNavigation.gd','VisitorMaterialV2.gdshader']]
 
+NAMES += ['passage/'+name for name in ['PassageRoute.gd','PassageSession.gd','PassageMesh.gd','PassageWorld.gd','PassagePanel.gd','PassageLab.gd','PassageDryVolume.gdshaderinc','PassageOuterGlass.gdshader']]
+
+NAMES += ['editor/'+name for name in ['BuildAssetCard.gd','BuildDropCanvas.gd','BuildPalette.gd','PropTransform.gd','EditorGizmo.gd','BuildEditorBridge.gd','BuildInspector.gd','BuildThumbnailService.gd']]
+# Shared tank editor and its drop canvas host are part of the same dependency set.
+NAMES += ['SandPlacementLab.gd','DecorPlacementLab.gd']
+
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 

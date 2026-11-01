@@ -52,7 +52,7 @@ func _ready() -> void:
     add_child(viewport)
     world=Node3D.new()
     viewport.add_child(world)
-    canvas=TextureRect.new()
+    canvas=preload("res://scripts/aquarium/editor/BuildDropCanvas.gd").new()
     canvas.texture=viewport.get_texture()
     canvas.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
     canvas.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST

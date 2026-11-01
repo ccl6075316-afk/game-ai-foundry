@@ -18,7 +18,9 @@ func _ready() -> void:
     position=Vector2(24,130);size=Vector2(310,650)
     var style := StyleBoxFlat.new();style.bg_color=Color("102734");style.border_color=Color("36596d");style.set_border_width_all(1);style.content_margin_left=16;style.content_margin_right=16;style.content_margin_top=14;style.content_margin_bottom=14
     add_theme_stylebox_override("panel",style)
-    var list := VBoxContainer.new();list.add_theme_constant_override("separation",9);add_child(list)
+    var scroll := ScrollContainer.new();scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;add_child(scroll)
+    var list := VBoxContainer.new();list.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    list.add_theme_constant_override("separation",9);scroll.add_child(list)
     title=Label.new();title.add_theme_font_size_override("font_size",20);list.add_child(title)
     var hint := Label.new();hint.text="逐缸调节 · 保存到大厅布局";hint.add_theme_font_size_override("font_size",14);list.add_child(hint)
     enabled_box=CheckBox.new();enabled_box.text="启用水体效果";list.add_child(enabled_box)

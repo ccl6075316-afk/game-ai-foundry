@@ -6,6 +6,22 @@ var clock := 0.0
 var frozen := false
 var enabled := true
 var count := 0
+const Passage=preload("res://scripts/aquarium/passage/PassageRoute.gd")
+var dry_route: Dictionary={}
+var dry_path := PackedVector3Array()
+
+func set_dry_route(route: Dictionary,path: PackedVector3Array) -> void:
+    dry_route=route.duplicate(true);dry_path=path.duplicate()
+    apply_dry_parameters(paint)
+
+func apply_dry_parameters(material: ShaderMaterial) -> void:
+    var starts := PackedVector4Array();var ends := PackedVector4Array()
+    for i in 48:
+        starts.append(Vector4(dry_path[i].x,dry_path[i].y,dry_path[i].z,0) if i<dry_path.size()-1 else Vector4.ZERO)
+        ends.append(Vector4(dry_path[i+1].x,dry_path[i+1].y,dry_path[i+1].z,0) if i<dry_path.size()-1 else Vector4.ZERO)
+    material.set_shader_parameter("dry_count",maxi(0,dry_path.size()-1))
+    material.set_shader_parameter("dry_a",starts);material.set_shader_parameter("dry_b",ends)
+    if not dry_route.is_empty():material.set_shader_parameter("dry_profile",Vector4(dry_route.width,dry_route.height,1 if dry_route.section=="arch" else 0,.35))
 
 func _ready() -> void:
     quad=MeshInstance3D.new();quad.name="TankWaterComposite"
@@ -52,4 +68,5 @@ func ray_length(tank: Node3D,origin: Vector3,direction: Vector3,hit_distance: fl
         else:
             var a: float=(lo[axis]-p[axis])/d[axis];var b: float=(hi[axis]-p[axis])/d[axis]
             enter=maxf(enter,minf(a,b));leave=minf(leave,maxf(a,b))
-    return maxf(0,leave-enter)
+    if dry_route.is_empty():return maxf(0,leave-enter)
+    return Passage.wet_length(dry_route,dry_path,origin,direction,Vector2(enter,leave))
