@@ -122,6 +122,8 @@ Unix：`./gamefactory setup ensure-python --json`，之后 `./gamefactory …`�
 
 ## 失败分类与修复建议
 
+命令被拒绝或需要清理实验产物时，按需读取[命令拒绝与实验清理](../fish-volume-production/references/command-rejection-recovery.md)，先核对本仓库已有执行器与成功案例；不把 `blocked by policy` 一律归因于语法，也不把换写法当作自动获得执行许可。
+
 | `code` / 状态 | `kind` | 含义 | 修复建议 |
 |---|---|---|---|
 | `workflow_error` | `unknown` | 路径、JSON 或未分类错误 | 检查 `inputs` 与文件存在性，修正后重试 |

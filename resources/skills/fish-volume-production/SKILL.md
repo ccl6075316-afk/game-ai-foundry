@@ -21,6 +21,8 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 ## 统一执行入口
 
+实验清理、命令拒绝或准备更换执行方式时，按需读[命令拒绝与实验清理](references/command-rejection-recovery.md)：先查已有受限清理脚本，区分调用错误与审批拒绝，记录实际成功范围，不重复盲试。
+
 鱼鳍数量不同、前颌新增图表surface、口内出现白色长条或长任务自动睡眠时，读[物种清单与口内供体](references/species-inventory-and-oral-donor.md)。执行本鱼清单和实际供体域，不继续套固定7鳍或旧surface数量。
 
 涉及新建/返修鱼嘴，开工先读[嘴部执行卡](references/mouth-execution.md)，选既有实现分支并记录本鱼参数差异；先稳定源口裂、灰模、沿下唇线切出的口腔缺口、同一身体结构中的上下颌体积、原像素接续和局部冷读，再冻结候选跑完整门。独立唇带已从正式鱼的运行装配中退役；`sop-check`须声明实际身体/颌资源和切口构造。相同适配再次失败时停止盲调，定位最小反例。
