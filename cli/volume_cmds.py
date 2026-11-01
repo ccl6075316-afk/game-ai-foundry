@@ -43,7 +43,9 @@ def sop_init_cmd(species: str, output: Path, as_json: bool, task_type: str) -> N
     try:
         data=initialize(species,output,task_type)
         payload=build_response(command="volume.sop-init",ok=True,stage="validate",status="pending",next_action="human_review",
-            inputs={"species":species},outputs=[str(output.resolve())],summary={"stages":list(data['stages']),"accepted":False})
+            inputs={"species":species},outputs=[str(output.resolve())],summary={"stages":list(data['stages']),"accepted":False,
+                "required_reading":[str((Path(__file__).resolve().parents[1]/"resources/skills/fish-volume-production/references"/name).resolve())
+                    for name in ("production-sop.md","red-seabream-lowpoly-trial-lessons-20261101.md")]})
     except Exception as exc:
         payload=build_response(command="volume.sop-init",ok=False,stage="validate",status="blocked",next_action="fix_input",failures=[make_failure("manifest_invalid",str(exc))])
     emit_response(payload,as_json=as_json)

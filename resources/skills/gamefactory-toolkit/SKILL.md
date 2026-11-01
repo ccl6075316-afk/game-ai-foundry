@@ -4,6 +4,8 @@
 
 鱼类3D新建、返修或推广任务，进入volume前先读取仓库 `resources/skills/fish-volume-production/references/production-sop.md`，按其完整材料/制作/动作/验收顺序选择已有方法；此SOP不改变下面的来源与job状态合同。
 
+同时读[真鲷经验的跨鱼执行表](../fish-volume-production/references/red-seabream-lowpoly-trial-lessons-20261101.md#跨鱼执行表开工先读)，把本鱼适用风险和验证画面落实到现有handoff/逐鱼清单。它是下一条鱼的主动检查入口，历史数值和接受结论不照搬。
+
 ## CLI 入口（必读）
 
 不要依赖系统 PATH 里的裸 `python`（Windows 常落到 Microsoft Store 占位程序）。首次在本仓库执行：
