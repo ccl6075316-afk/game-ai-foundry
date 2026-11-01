@@ -517,6 +517,9 @@ def fresh_handoff(path: Path) -> dict:
     if "accepted_archive" in data:
         from volume_archive import fresh_archive
         return fresh_archive(data, path)
+    if "accepted_source_archive" in data:
+        from volume_source_archive import fresh_source_archive
+        return fresh_source_archive(data, path)
     brief = resolve_file(data["brief"]["path"], path.parent)
     profile = resolve_file(data["profile"], path.parent)
     require(data["profile_snapshot"]["path"] == str(profile), "Profile pointer changed")

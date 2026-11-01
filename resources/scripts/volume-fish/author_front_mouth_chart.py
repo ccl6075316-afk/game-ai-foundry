@@ -32,7 +32,7 @@ image=next(n.image for n in mesh.materials[0].node_tree.nodes if n.type=='TEX_IM
 donor_path=ROOT/cfg['front_color_image']['path'];assert sha(donor_path)==cfg['front_color_image']['sha256']
 donor=bpy.data.images.load(str(donor_path),check_existing=False);donor.pack();FW,FH=donor.size;dp=np.asarray(donor.pixels[:]).reshape(FH,FW,4)
 sections=read(ROOT/cfg['profile'])['body']['sections']
-roof_spans=native_skin_spans(pixels,read(ROOT/cfg['profile']))if cfg.get('body_roof_material')else None
+roof_spans=native_skin_spans(pixels,read(ROOT/cfg['profile']),cfg['body_roof_material'].get('exclude_paired_fins',False),cfg['body_roof_material'].get('source_is_clean_body',False))if cfg.get('body_roof_material')else None
 roof_proof={'sample_count':0,'source_min_px':[1e10,1e10],'source_max_px':[-1e10,-1e10],'pixel_density_min':1e10,'pixel_density_max':0.}
 bm=bmesh.new();bm.from_mesh(mesh);bm.normal_update();bm.verts.ensure_lookup_table();chains={};edge_ids={}
 for name,sign in [('upper',-1),('lower',1)]:
@@ -47,6 +47,14 @@ transport={name:ordered_boundary(coords,edges)for name,edges in edge_ids.items()
 central_boundaries={name:ordered_boundary(coords,edges)for name,edges in edge_ids.items()}if cfg.get('interocular_material',{}).get('preserve_mouth_rim_px')else{}
 central=None;central_count=0;central_min=np.array([np.inf,np.inf]);central_max=np.array([-np.inf,-np.inf])
 lip_proof={'protected_texels':0,'maximum_front_weight_inside_complete_lip':0.,'maximum_central_weight_inside_complete_lip':0.,'native_donor_min_px':[1e10,1e10],'native_donor_max_px':[-1e10,-1e10]}
+skin_zone_proof={c['name']:{'sample_count':0,'source_min_px':[1e10,1e10],'source_max_px':[-1e10,-1e10]}for c in cfg.get('native_skin_zones',[])}
+skin_zone_images={}
+for zone in cfg.get('native_skin_zones',[]):
+ if not zone.get('image'):continue
+ ref=zone['image'];zp=ROOT/ref['path'];assert sha(zp)==ref['sha256']
+ zi=bpy.data.images.load(str(zp),check_existing=False);zi.pack();ZW,ZH=zi.size
+ skin_zone_images[zone['name']]=(np.asarray(zi.pixels[:]).reshape(ZH,ZW,4),ZW,ZH)
+ skin_zone_proof[zone['name']]['image_reference']=ref
 if cfg.get('interocular_material'):
  c=cfg['interocular_material'];cp=ROOT/c['image']['path'];assert sha(cp)==c['image']['sha256']
  ci=bpy.data.images.load(str(cp),check_existing=False);ci.pack();CW,CH=ci.size;central=np.asarray(ci.pixels[:]).reshape(CH,CW,4)
@@ -118,6 +126,7 @@ def color(points,old_uv,role,surface_normal):
  cap=smooth((u-cfg['cap_start_u'])/(cfg['cap_full_u']-cfg['cap_start_u']))
  amount=np.maximum(amount,cap)
  if role==1:amount=np.ones(len(points))
+ if role==0 and cfg.get('disable_full_front_skin'):amount=np.zeros(len(points))
  if role==0 and cfg.get('protect_source_eyes_in_front_material'):
   c=cfg['interocular_material'];support=c['target_eye_lateral_support']
   source_xy=np.stack([old_uv[:,0]*W,(1-old_uv[:,1])*H],axis=1)
@@ -135,7 +144,12 @@ def color(points,old_uv,role,surface_normal):
   c=cfg['interocular_material'];v=.5-points[:,2]/(H/W)
   xf=.5+.5*points[:,1]/np.maximum(w,1e-7)
   yf=(v-c['source_v_top'])/(c['source_v_bottom']-c['source_v_top'])
-  cxy=bounded_roi_coordinates(xf,yf,c['roi_px'],[CW,CH]);ix=np.rint(cxy).astype(int)
+  if c.get('mapping')=='native_tile':
+   x0,y0,x1,y1=c['roi_px'];assert 0<=x0<x1<=CW and 0<=y0<y1<=CH
+   density=c.get('pixel_density',1.);assert 0<density<=2
+   cxy=np.stack([x0+np.mod((u-c['head_start_u'])*W*density,x1-x0),y0+np.mod(points[:,1]*W*density+(y1-y0)*.5,y1-y0)],axis=1);ix=np.floor(cxy).astype(int)
+  else:
+   cxy=bounded_roi_coordinates(xf,yf,c['roi_px'],[CW,CH]);ix=np.rint(cxy).astype(int)
   ca=smooth((u-c['head_start_u'])/(c['head_full_u']-c['head_start_u']))*(1-smooth((side-c['side_full'])/(c['side_original']-c['side_full'])))*(1-smooth((v-c['source_v_fade_start'])/(c['source_v_fade_end']-c['source_v_fade_start'])))
   if c.get('target_eye_lateral_support'):
    support=c['target_eye_lateral_support'];source_xy=np.stack([old_uv[:,0]*W,(1-old_uv[:,1])*H],axis=1)
@@ -153,6 +167,30 @@ def color(points,old_uv,role,surface_normal):
   take=ca>.001
   if take.any():central_count+=int(take.sum());central_min=np.minimum(central_min,cxy[take].min(axis=0));central_max=np.maximum(central_max,cxy[take].max(axis=0))
   result=result*(1-ca[:,None])+central[CH-1-ix[:,1],ix[:,0]]*ca[:,None]
+ if role==0:
+  for c in cfg.get('native_skin_zones',[]):
+   # The unseen skin uses a reviewed, two-dimensional native skin patch.
+   # It cannot sample a second mouth, painted barbels, or a generated face.
+   v=.5-points[:,2]/(H/W);start,full,end,stop=c['target_v_window']
+   ca=smooth((u-c['head_start_u'])/(c['head_full_u']-c['head_start_u']))*(1-smooth((side-c['side_full'])/(c['side_original']-c['side_full'])))
+   ca*=smooth((v-start)/(full-start))*(1-smooth((v-end)/(stop-end)))
+   if lip_zone is not None:ca*=1-lip_zone
+   zone_pixels,ZW,ZH=skin_zone_images.get(c['name'],(pixels,W,H))
+   if c.get('mapping')=='native_tile':
+    x0,y0,x1,y1=c['source_roi_px'];assert 0<=x0<x1<=ZW and 0<=y0<y1<=ZH
+    density=c.get('pixel_density',1.);assert 0<density<=2
+    # A real longitudinal/transverse 2D chart avoids mirrored latitude bands
+    # on the underside. Repeat this explicitly reviewed native tissue at its
+    # original pixel scale rather than stretching a narrow donor into rings.
+    cxy=np.stack([x0+np.mod((u-c['head_start_u'])*W*density,x1-x0),y0+np.mod(points[:,1]*W*density+(y1-y0)*.5,y1-y0)],axis=1)
+    ix=np.floor(cxy).astype(int)
+   else:
+    cxy=bounded_roi_coordinates(.5+.5*points[:,1]/np.maximum(w,1e-7),(v-full)/(end-full),c['source_roi_px'],[ZW,ZH]);ix=np.rint(cxy).astype(int)
+   native=zone_pixels[ZH-1-ix[:,1],ix[:,0]];take=ca>.001
+   assert not np.any(take&(native[:,3]<.95)),'Native skin zone contains transparent source'
+   if take.any():
+    proof=skin_zone_proof[c['name']];proof['sample_count']+=int(take.sum());proof['source_min_px']=np.minimum(proof['source_min_px'],cxy[take].min(axis=0)).tolist();proof['source_max_px']=np.maximum(proof['source_max_px'],cxy[take].max(axis=0)).tolist()
+   result=result*(1-ca[:,None])+native*ca[:,None]
  if transport and(role==0 or cfg['lip_source_transport'].get('inner_lip_return_px',0)>0 or cfg['lip_source_transport'].get('transport_oral',False)):
   c=cfg['lip_source_transport'];near=lip_near or{name:nearest_arc(points,b)for name,b in transport.items()};choose=lip_choose if lip_choose is not None else near['upper'][0]<=near['lower'][0]
   for name,flag in [('upper',True),('lower',False)]:
@@ -207,6 +245,19 @@ for role in [0,1]:
 for t in tiles:
  f=mesh.polygons[t['face']];f.material_index=2+t['role']
  for li,q in zip(f.loop_indices,t['q']):mesh.uv_layers.active.data[li].uv=((q[0]+t['at'][0]+.5)/aw,(q[1]+t['at'][1]+.5)/ah)
+appendage_uv=[]
+for c in cfg.get('native_appendage_uv',[]):
+ ob=bpy.data.objects[c['node']];count=c['ring_vertices'];path=np.asarray(c['source_ring_centers_px'],float)
+ assert len(ob.data.vertices)==count*len(path) and count>=3
+ source_uv=[]
+ for i in range(len(ob.data.vertices)):
+  ring,side=divmod(i,count);xy=path[ring]+[math.cos(side*math.tau/count)*c['source_half_width_px'],0]
+  ix,iy=np.rint(xy).astype(int);assert 0<=ix<W and 0<=iy<H and pixels[H-1-iy,ix,3]>.95,'Appendage donor must be opaque own-source tissue'
+  source_uv.append(((xy[0]+.5)/W,1-(xy[1]+.5)/H))
+ for loop in ob.data.loops:ob.data.uv_layers.active.data[loop.index].uv=source_uv[loop.vertex_index]
+ ob.data.materials.clear();ob.data.materials.append(mesh.materials[0])
+ for f in ob.data.polygons:f.material_index=0
+ appendage_uv.append(c)
 assert fingerprint()==frozen
 out.mkdir();bpy.context.preferences.filepaths.save_version=0;bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'))
 model=out/'fish.glb'
@@ -232,7 +283,13 @@ if lip_proof['protected_texels']:
  assert lip_proof['maximum_front_weight_inside_complete_lip']==0 and lip_proof['maximum_central_weight_inside_complete_lip']==0
  report['complete_native_lip_ownership']=dict(lip_proof,domain=cfg['lip_source_transport']['complete_native_lip'],scope='Actual baked texel contribution, native lip transport crosses center. Semantic domain still requires real source/material image review.')
 if roof_proof['sample_count']:report['native_body_roof_material']=dict(roof_proof,parameters=cfg['body_roof_material'],native_side_UV_unchanged=True,scope='Native side-skin 2D donor baked per surface texel; finite source spans exclude median-fin polygons. No global dark-color removal, generated material or geometry edits. Actual pixel style and transitions still require review.')
+if roof_proof['sample_count']and cfg['body_roof_material'].get('material_reference'):
+ ref=cfg['body_roof_material']['material_reference'];assert sha(ROOT/ref['path'])==ref['sha256']
+ report['native_body_roof_material'].update(material_reference=ref,scope='Declared derived 2D skin donor baked per surface texel. Legacy field name does not imply original RGB: see explicit native/generated origin. Actual pixel style and transitions require visual review; geometry unchanged.')
 if central is not None:
  assert central_count>0
  report['restricted_generated_material']={'image':cfg['interocular_material']['image'],'allowed_roi_px':cfg['interocular_material']['roi_px'],'actual_sample_min_px':central_min.tolist(),'actual_sample_max_px':central_max.tolist(),'sample_count':central_count,'generated_eye_lateral_mouth_samples':0,'scope':'Strict central interocular donor only, no generated geometry.'}
+if skin_zone_proof:report['native_skin_zones']={'parameters':cfg['native_skin_zones'],'actual_sampling':skin_zone_proof,'scope':'Explicit 2D skin patches with protected complete native lip domain. Optional image references retain declared generated/native provenance; legacy zones use body source. Appearance and original lateral junctions still require visual review.'}
+report['full_generated_front_skin_enabled']=not cfg.get('disable_full_front_skin',False)
+if appendage_uv:report['native_appendage_uv']=appendage_uv
 (out/'authoring.validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':True,'triangles':triangles,'roles':roles,'atlas':[aw,ah]}))

@@ -133,7 +133,9 @@ func run() -> void:
                 var native_time:=native_clip.length*float(phase)/25.
                 player.seek(native_time,true);player.advance(0.);sample(entry,"Native",native_time)
             player.stop();skeleton.reset_bone_poses();skeleton.force_update_all_bone_transforms()
-        var controller=load("res://scripts/aquarium/FoundryFishMotion.gd").new();assert(controller.configure(carrier,model,player,skeleton,profile).ok);entry.controller=controller
+        var controller_path: String=spec.get("motion_runtime","res://scripts/aquarium/FoundryFishMotion.gd")
+        if spec.has("motion_runtime_sha256"):assert(FileAccess.get_sha256(controller_path)==spec.motion_runtime_sha256,"Stale explicit motion runtime")
+        var controller=load(controller_path).new();assert(controller.configure(carrier,model,player,skeleton,profile).ok);entry.controller=controller
         for action in ["Swim","Turn","Ascend","Dive"]:
             controller.set_action(action,true);controller.step(0.)
             for phase in 16:
@@ -164,7 +166,7 @@ func run() -> void:
                 var fraction:=float(k)/31.
                 controller.set_motion_controls({"body_amplitude":2.5*(1.-fraction),"body_frequency":.35+2.65*fraction,"fin_amplitude":2.5*fraction,"fin_frequency":3.-2.65*fraction})
                 controller.step(.0625);sample(entry,"Clearance:ControlSweep",float(k+1)*.0625)
-        var report={"ok":true,"model":path,"model_sha256":FileAccess.get_sha256(path),"selection":"Frozen explicit full basal bands and source basal polylines; seven points per root edge","expected_fins":spec.fins.keys(),"controller_source":"res://scripts/aquarium/FoundryFishMotion.gd","controller_sha256":FileAccess.get_sha256("res://scripts/aquarium/FoundryFishMotion.gd"),"exhibit_sha256":FileAccess.get_sha256("res://scripts/aquarium/VolumeFishExhibit.gd"),"motion_config_sha256":FileAccess.get_sha256("res://assets/models/fish/motion/motion.json"),"export_script_sha256":FileAccess.get_sha256(get_script().resource_path),"engine_version":Engine.get_version_info().string,"sample_limit":"Static rest;16 samples per four actions;four samples per four consecutive transitions. Unsampled instants are not certified.","body_triangles":faces.size(),"samples":samples}
+        var report={"ok":true,"model":path,"model_sha256":FileAccess.get_sha256(path),"selection":"Frozen explicit full basal bands and source basal polylines; seven points per root edge","expected_fins":spec.fins.keys(),"controller_source":controller_path,"controller_sha256":FileAccess.get_sha256(controller_path),"exhibit_sha256":FileAccess.get_sha256("res://scripts/aquarium/VolumeFishExhibit.gd"),"motion_config_sha256":FileAccess.get_sha256("res://assets/models/fish/motion/motion.json"),"export_script_sha256":FileAccess.get_sha256(get_script().resource_path),"engine_version":Engine.get_version_info().string,"sample_limit":"Static rest;16 samples per four actions;four samples per four consecutive transitions. Unsampled instants are not certified.","body_triangles":faces.size(),"samples":samples}
         if entry.has("packed_partition_proof"):
             report["packed_partition_proof"]=entry.packed_partition_proof
             report["packed_parts_manifest_sha256"]=FileAccess.get_sha256(spec.packed_parts_manifest)

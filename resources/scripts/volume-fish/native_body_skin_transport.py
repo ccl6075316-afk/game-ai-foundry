@@ -10,11 +10,11 @@ def smooth(q):
     q=np.clip(q,0,1);return q*q*(3-2*q)
 
 
-def native_skin_spans(pixels,profile):
+def native_skin_spans(pixels,profile,exclude_paired=False,source_is_clean_body=False):
     H,W,_=pixels.shape;valid=pixels[::-1,:,3]>.95
     yy,xx=np.mgrid[:H,:W];xx=(xx+.5)/W;yy=(yy+.5)/H
-    for fin in profile['fins']:
-        if fin['paired']:continue
+    for fin in ([] if source_is_clean_body else profile['fins']):
+        if fin['paired']and not exclude_paired:continue
         polygon=fin['polygon'];inside=np.zeros((H,W),dtype=bool)
         for (ax,ay),(bx,by)in zip(polygon,polygon[1:]+polygon[:1]):
             if abs(by-ay)<1e-12:continue

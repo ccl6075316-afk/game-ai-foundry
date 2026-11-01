@@ -14,6 +14,13 @@ class OralJawsTests(unittest.TestCase):
     def setUp(self):
         self.profile=json.loads((Path(__file__).resolve().parents[1]/'resources/volume-fish/peacock-bass-oral-jaws-060b.profile.json').read_text(encoding='utf-8'))
         self.data=self.profile['oral_jaws']
+    def test_lowpoly_cutter_resolution_is_explicit_and_bounded(self):
+        for count in [4,8,64,128]:
+            validate_oral_jaws({**self.data,'cutter_subdivisions':count})
+        for count in [0,3,129,8.0,True,None,'8']:
+            with self.subTest(count=count),self.assertRaises(ValueError):
+                validate_oral_jaws({**self.data,'cutter_subdivisions':count})
+
     def test_context_and_landmarks(self):
         validate_oral_context(self.data,self.profile['body'],self.profile['rig']['spine'])
         for u,v in (self.data['corner'],self.data['front']):self.assertAlmostEqual(slit_v(self.data,u),v)

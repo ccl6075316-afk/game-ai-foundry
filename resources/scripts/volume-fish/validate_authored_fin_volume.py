@@ -29,7 +29,13 @@ def measure(blend,cfg,profile,packed=None):
             if volume<0:triangles=[tuple(reversed(t))for t in triangles]
             tree=BVHTree.FromPolygons(vertices,triangles,all_triangles=True);ts=[x.value for x in mesh.attributes['foundry_fin_source_t'].data];uv=mesh.uv_layers.active.data;probes=[];missing=[];attachment_rays=[];band=fin['root_attachment']['root_band']
             for tri in mesh.loop_triangles:
-                xyz=[vertices[i]for i in tri.vertices];q=np.array([uv[i].uv[:]for i in tri.loops]);a,b=q[1]-q[0],q[2]-q[0]
+                xyz=[vertices[i]for i in tri.vertices]
+                if all(n in mesh.attributes for n in ['foundry_fin_source_u','foundry_fin_source_v']):
+                    # Wall material may have a finite tissue-color chart. Its
+                    # anatomical source domain remains a zero-area edge.
+                    q=np.array([[mesh.attributes['foundry_fin_source_u'].data[i].value,mesh.attributes['foundry_fin_source_v'].data[i].value]for i in tri.vertices])
+                else:q=np.array([uv[i].uv[:]for i in tri.loops])
+                a,b=q[1]-q[0],q[2]-q[0]
                 if abs(a[0]*b[1]-a[1]*b[0])<1e-10:continue # closing rim has no source area
                 normal=(xyz[1]-xyz[0]).cross(xyz[2]-xyz[0]).normalized()*(1 if volume>0 else-1)
                 for bary in[(1/3,1/3,1/3),(.8,.1,.1),(.1,.8,.1),(.1,.1,.8)]:

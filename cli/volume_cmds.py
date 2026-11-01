@@ -82,6 +82,21 @@ def replan_cmd(archive_inputs: Path, profile: Path, output: Path, as_json: bool)
     _execute("plan", {"archive_inputs": str(archive_inputs.resolve()), "profile": str(profile.resolve()), "output": str(output.resolve())}, action, as_json)
 
 
+@volume_group.command("source-replan")
+@click.option("--archive-inputs", required=True, type=click.Path(path_type=Path))
+@click.option("--profile", required=True, type=click.Path(path_type=Path))
+@click.option("--output", required=True, type=click.Path(path_type=Path))
+@click.option("--json", "as_json", is_flag=True)
+def source_replan_cmd(archive_inputs: Path, profile: Path, output: Path, as_json: bool) -> None:
+    """Reuse accepted source pixels only; old model review is never inherited."""
+    from volume_source_archive import plan_source_archive
+    def action():
+        data = plan_source_archive(archive_inputs, profile, output)
+        return data, {"accepted_source_archive": data["accepted_source_archive"], "style_visual_review": "pending"}
+    _execute("plan", {"archive_inputs": str(archive_inputs.resolve()), "profile": str(profile.resolve()),
+                     "output": str(output.resolve())}, action, as_json)
+
+
 @volume_group.command("plan")
 @click.option("--brief", required=True, type=click.Path(path_type=Path))
 @click.option("--assets-manifest", required=True, type=click.Path(path_type=Path))

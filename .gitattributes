@@ -102,3 +102,6 @@ cli/fish_budget.py -text
 # Historical shark authors retain the exact bytes referenced by their reports.
 /resources/scripts/volume-fish/build_shark_source_cage.py whitespace=cr-at-eol,-blank-at-eof
 /resources/scripts/volume-fish/shark_fin_cages.py whitespace=cr-at-eol,-blank-at-eof
+# Accepted-source-only fish archive validator is a byte-bound provenance input.
+/cli/volume_source_archive.py -text whitespace=cr-at-eol
+/cli/test_volume_source_archive.py -text whitespace=cr-at-eol

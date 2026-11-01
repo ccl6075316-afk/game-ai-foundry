@@ -6,6 +6,15 @@ from native_body_skin_transport import native_skin_spans,native_roof_coordinates
 
 
 class NativeBodySkinTest(unittest.TestCase):
+    def test_clean_body_does_not_recut_the_removed_fin_footprint(self):
+        pixels=np.ones((100,20,4));fin={'paired':True,'polygon':[[0,.7],[1,.7],[1,1],[0,1]]}
+        clean=native_skin_spans(pixels,{'fins':[fin]},exclude_paired=True,source_is_clean_body=True)
+        np.testing.assert_array_equal(clean,np.tile([0.,99.],(20,1)))
+    def test_connected_paired_fin_cannot_become_ventral_skin(self):
+        pixels=np.ones((100,20,4));fin={'paired':True,'polygon':[[0,.7],[1,.7],[1,1],[0,1]]}
+        old=native_skin_spans(pixels,{'fins':[fin]})
+        current=native_skin_spans(pixels,{'fins':[fin]},exclude_paired=True)
+        self.assertTrue(np.all(old[:,1]==99));self.assertTrue(np.all(current[:,1]==69))
     def test_isolated_fin_fragment_cannot_expand_body_donor_into_transparency(self):
         # Old min/max spans bridged the transparent gap to a disconnected fin.
         pixels=np.zeros((100,20,4));pixels[10:80,:,3]=1;pixels[90:95,:,3]=1

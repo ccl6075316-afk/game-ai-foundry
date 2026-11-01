@@ -6,7 +6,7 @@ width native units. This is a production simplification, not a skeletal simulato
 import math
 
 FIELDS={'corner','front','gap','upper_retraction','lower_projection','lip_bevel','front_pigment_band'}
-OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation','bill_tip_u','boolean_solver','transverse_gap_arch','anterior_cap_rounding'}
+OPTIONAL_FIELDS={'slit_path','lip_roll','separate_lower','upper_lip_rounding','articulation','bill_tip_u','boolean_solver','transverse_gap_arch','anterior_cap_rounding','cutter_subdivisions'}
 
 def validate_oral_jaws(data):
     def require(value,message):
@@ -14,6 +14,9 @@ def validate_oral_jaws(data):
     def finite(value,lo,hi):
         return isinstance(value,(int,float)) and not isinstance(value,bool) and math.isfinite(value) and lo<=value<=hi
     require(isinstance(data,dict) and FIELDS<=set(data) and not set(data)-FIELDS-OPTIONAL_FIELDS,'oral_jaws requires the documented geometry and pigment fields only')
+    if 'cutter_subdivisions' in data:
+        require(type(data['cutter_subdivisions']) is int and 4<=data['cutter_subdivisions']<=128,
+                'Oral cutter subdivisions must be an integer from4 through128')
     if 'boolean_solver' in data:
         require(data['boolean_solver'] in ('EXACT','MANIFOLD') and not data.get('separate_lower'),'Invalid joined oral boolean solver')
     if 'transverse_gap_arch' in data:

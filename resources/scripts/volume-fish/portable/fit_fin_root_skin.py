@@ -16,10 +16,12 @@ def skin(row,mat):
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  for k in ['candidate','compact','bindings','output']:p.add_argument('--'+k,type=Path,required=True)
+ p.add_argument('--full-export',type=Path,help='Actual complete export when it is outside candidate/delivery')
  a=p.parse_args();C=a.candidate.resolve();out=a.output.resolve();assert not out.exists();rest=read(a.compact/'rest-skin.json');bindings=read(a.bindings);assert sha(a.compact/'rest-skin.json')==bindings['compact_rest_sha256'];report=read(a.compact/'export.validation.json');rows=report['samples'];mat=np.array([read(r['posed_mesh_json'])['joint_matrices_m_per_native']for r in rows]);assert len(rows)==490;body=np.concatenate([skin(r,mat)for r in rest['surfaces']if r['body']],axis=1);source=C/'source-run/fish.glb';doc,blob=read_glb(source);pr=doc['meshes'][0]['primitives'][0];values={k:arrays(doc,blob,v)for k,v in pr['attributes'].items()};j_names=[doc['nodes'][j]['name']for j in doc['skins'][0]['joints']];j_map={i:j_names.index(n)for i,n in enumerate(rest['joint_names'])if n in j_names};changes=[];metrics=[];equivalence=[]
  # Verify compact actual skin against representative full Godot exports,
  # including each original failure; no pose schedule is synthesized here.
- old=read(C/'delivery/fin490'/doc.get('extras',{}).get('species',read(C/'source-run/final-spec.json')['species'])/'export.validation.json')
+ old=read(a.full_export or C/'delivery/fin490'/doc.get('extras',{}).get('species',read(C/'source-run/final-spec.json')['species'])/'export.validation.json')
+ assert rest['model_sha256']==old['model_sha256']==sha(source),'Compact/full/model identities differ'
  sample_ids=sorted(set([0,len(rows)-1,*np.linspace(0,len(rows)-1,17).round().astype(int).tolist()]))
  for i in sample_ids:
   assert rows[i]['action']==old['samples'][i]['action']and abs(rows[i]['seconds']-old['samples'][i]['seconds'])<1e-6;actual=read(old['samples'][i]['posed_mesh_json']);error=float(np.max(abs(np.array(actual['body_vertices_m'])-body[i])));assert error<5e-7,(i,error);equivalence.append({'sample':i,'body_max_position_error_m':error})

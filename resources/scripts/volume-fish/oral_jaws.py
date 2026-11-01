@@ -80,7 +80,8 @@ def build_closed_oral_jaws(body,settings,aspect,weights,gap_profile=None,cut_pro
     half_width=max(abs(v.co.y) for v in body.data.vertices)+.02
     points=[]
     if settings.get('slit_path'):
-        candidates=sorted([start,end]+[p[0] for p in settings['slit_path']]+[start+(front[0]-start)*i/64 for i in range(65)])
+        subdivisions=settings.get('cutter_subdivisions',64)
+        candidates=sorted([start,end]+[p[0] for p in settings['slit_path']]+[start+(front[0]-start)*i/subdivisions for i in range(subdivisions+1)])
         samples=[]
         for u in candidates:
             if not samples or u-samples[-1]>1e-7:samples.append(u)

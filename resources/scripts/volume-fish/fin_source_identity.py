@@ -8,7 +8,18 @@ from volume_shape import fin_baseline_parameter
 class OriginalFinSource:
     def __init__(self,ob,fin,aspect,W,H):
         polygon,points=fin_source_geometry(fin,aspect)
-        dv,_,df,*_=delaunay_2d_cdt(points,[(i,(i+1)%len(polygon))for i in range(len(polygon))],[list(range(len(polygon)))],1,1e-7)
+        if all(name in ob.data.attributes for name in ['foundry_fin_source_u','foundry_fin_source_v']):
+            # New annotated cages carry their actual source coordinates. Their
+            # seed inventory need not match the legacy regular-grid builder.
+            assert len(ob.data.vertices)%2==0 and 'foundry_native_source_crop'in ob,'Explicit two-layer source contract required'
+            count=len(ob.data.vertices)//2
+            coords=np.array([[a.value,b.value]for a,b in zip(ob.data.attributes['foundry_fin_source_u'].data,ob.data.attributes['foundry_fin_source_v'].data)])
+            assert np.max(np.abs(coords[:count]-coords[count:]))<1e-7,'Different source coordinates across layers'
+            dv=coords[:count];ob.data.calc_loop_triangles()
+            df=[tuple(t.vertices)for t in ob.data.loop_triangles if all(i<count for i in t.vertices)]
+            assert df and {i for f in df for i in f}==set(range(count)),'Incomplete authored source cap'
+        else:
+            dv,_,df,*_=delaunay_2d_cdt(points,[(i,(i+1)%len(polygon))for i in range(len(polygon))],[list(range(len(polygon)))],1,1e-7)
         self.count=len(dv);assert len(ob.data.vertices)==2*self.count,'Original source point inventory differs; explicit mapping required'
         self.points=np.array(dv);self.triangles=df;self.W=W;self.H=H
         ts=ob.data.attributes['foundry_fin_source_t'];self.identity_error=max(abs(fin_baseline_parameter(q,fin['source_baseline'],polygon,aspect)-ts.data[i].value)for i,q in enumerate(dv));assert self.identity_error<1e-5,'Source geometric point identities differ'

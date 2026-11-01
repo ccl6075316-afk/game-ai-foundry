@@ -24,7 +24,12 @@ from resample_median_root import resample as resample_median,add_crest
 def read(p):return json.loads(Path(p).read_text(encoding='utf8'))
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def recalc(ob):
- bm=bmesh.new();bm.from_mesh(ob.data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(ob.data);bm.free();ob.data.update();ob.data.calc_loop_triangles()
+ bm=bmesh.new();bm.from_mesh(ob.data);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces))
+ # Blender's seed-face heuristic can choose inward normals on a thin foil.
+ # Signed volume fixes global orientation without changing surface topology.
+ if bm.calc_volume(signed=True)<0:bmesh.ops.reverse_faces(bm,faces=list(bm.faces))
+ assert bm.calc_volume(signed=True)>0,ob.name+' has no positive closed volume'
+ bm.to_mesh(ob.data);bm.free();ob.data.update();ob.data.calc_loop_triangles()
 def static(ob):return {'uv':[[list(x.uv)for x in l.data]for l in ob.data.uv_layers],'faces':[list(f.vertices)for f in ob.data.polygons]}
 def vertex_uv(ob):
  rows=[[]for _ in ob.data.vertices]
@@ -171,7 +176,10 @@ for fin in profile['fins']:
    pairs.append((i,j,t))
   for v,q in zip(ob.data.vertices,new):v.co=q
   recalc(ob)
-  if not tail_rebuild:assert static(ob)==expected_static,name+' UV or topology changed'
+  if not tail_rebuild and static(ob)!=expected_static:
+   out.mkdir(parents=True,exist_ok=True)
+   (out/'topology-failure.validation.json').write_text(json.dumps({'ok':False,'name':name,'reason':'UV or literal face inventory changed during normal recalculation','before':expected_static,'after':static(ob),'positions_before':old.tolist(),'positions_after':new.tolist(),'scope':'Rejected diagnostic only; no accepted model saved.'},indent=2)+'\n',encoding='utf8')
+   raise AssertionError(name+' UV or topology changed')
   crest=add_crest(ob,fin,tree,scale,cfg['root_inset_mm'],skin_to_body)if median_reallocation else None
   adaptation=conform_basal_faces(ob,rootband)if fin['name']!='Caudal'else None
   ts=np.array([v.value for v in ob.data.attributes['foundry_fin_source_t'].data]);roots=[i for i,t in enumerate(ts)if t<=rootband+1e-7]

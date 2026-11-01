@@ -11,3 +11,5 @@
 红皇帝鱼实际本次证据位于游戏`experiments/red-emperor-portable-trial-20261031/front-material-zone-review.validation.json`、`front-source-zone-comparison.jpg`与`rejected-front-binding.validation.json`。新图仅为操作者限定材质参考，用户没有因此接受新模型。
 
 **来源预检也要前移。** 复用旧侧图时，先运行`portable/audit_source_archive.py --handoff <已接受handoff> --profile <当时profile> --source <实际原图> --output <新审核目录> --json`，核对实际blend/GLB/全部接受图/源图/风格参考及历史SHA，再生成辅助材料、做新笼。它调用现有`volume_archive`合同，不补造缺失的旧文件；只有accepted文字而缺原接受文件应停在恢复来源。大黄鱼082h本地缺blend和5张接受图，保留明确失败，不计入五条完成数。可查资料不能冒充恢复了历史二进制证据。
+
+**小幅缩眼也要量整眼并看正常距离。** 用户说眼睛吓人、再小一点时，先冻结现有眼中心、虹膜/外框与瞳孔比例及原头型；整眼缩放，空出区域补本部位皮肤，不能只缩瞳孔或缩头。生成提示中的“10%”不是实际尺寸保证：真鲷第二次缩眼的生成结果缩得偏多，须量实际虹膜外框、校准供体后再局部采用。采用区外RGBA和alpha保留，测中心漂移，贴回后同时看左右、斜视、正常观看距离和固定同机位前后。具体像素/比例属于本鱼反馈，不升级成物种标准或全鱼统一眼尺寸。跨鱼参数与用户接受均重新建立。

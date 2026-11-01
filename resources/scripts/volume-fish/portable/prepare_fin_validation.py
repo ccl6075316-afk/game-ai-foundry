@@ -19,6 +19,7 @@ require(0<=a.root_collar_mm<=1 and 0<=a.penetration_tolerance_mm<=.02,'Freeze bo
 out=artifact_output(a.output,[model,profile,runtime,a.root_plan,a.spec,a.parts_manifest,a.mesh_renames])
 helper=Path(__file__).with_name('PackedFishParts.gd');canonicalizer=Path(__file__).with_name('parts.py')
 item.update(model=str(model),model_sha256=sha(model),motion_profile=str(profile),motion_profile_sha256=sha(profile),motion_runtime=str(runtime),packed_parts_manifest=str(a.parts_manifest.resolve()),packed_parts_manifest_sha256=sha(a.parts_manifest),packed_helper_script=str(helper),packed_canonicalizer=str(canonicalizer),membrane_clearance={'root_collar_mm':a.root_collar_mm,'penetration_tolerance_mm':a.penetration_tolerance_mm},scope='Source full-band selection and actual portable part adapter. No prior physical passes transferred; same177/490 schedule and original collision kernels.')
+item.update(motion_runtime_sha256=sha(runtime),controller_script=str(runtime))
 dependencies=[model,profile,runtime,a.root_plan,a.spec,a.parts_manifest,a.mesh_renames,helper,canonicalizer,Path(__file__).with_name('export_fin_poses.gd')]
 item['frozen_inputs']={str(x.resolve()):sha(x)for x in dependencies}
 out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps({'kind':'portable_authored_fin_validation_plan','items':[item]},indent=2)+'\n',encoding='utf8')

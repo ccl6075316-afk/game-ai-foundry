@@ -17,8 +17,16 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
     original_fin=original_fin or fin
     assert not fin['paired']and fin.get('vertical_scale',1)==1 and fin['root_depth']==fin['tip_depth']==0,'Explicit native XZ caudal branch only'
     opoly,opoints=fin_source_geometry(original_fin,aspect)
-    odv,_,odf,*_=delaunay_2d_cdt(opoints,[(i,(i+1)%len(opoly))for i in range(len(opoly))],[list(range(len(opoly)))],1,1e-7)
-    ON=len(odv);assert len(old.vertices)==2*ON,'Original source point inventory differs; explicit remapping required'
+    persisted=all(name in old.attributes for name in ['foundry_fin_source_u','foundry_fin_source_v'])
+    if persisted:
+        assert len(old.vertices)%2==0 and 'foundry_native_source_crop'in ob,'Explicit authored two-layer source contract required'
+        ON=len(old.vertices)//2;source=np.array([[a.value,b.value]for a,b in zip(old.attributes['foundry_fin_source_u'].data,old.attributes['foundry_fin_source_v'].data)])
+        assert np.max(np.abs(source[:ON]-source[ON:]))<1e-7,'Source coordinates differ across caudal layers'
+        odv=[Vector(q)for q in source[:ON]];odf=[tuple(t.vertices)for t in old.loop_triangles if all(i<ON for i in t.vertices)]
+        assert len(odf)>0 and set(i for f in odf for i in f)==set(range(ON)),'Incomplete authored source cap'
+    else:
+        odv,_,odf,*_=delaunay_2d_cdt(opoints,[(i,(i+1)%len(opoly))for i in range(len(opoly))],[list(range(len(opoly)))],1,1e-7)
+        ON=len(odv);assert len(old.vertices)==2*ON,'Original source point inventory differs; explicit remapping required'
     old_ts=old.attributes['foundry_fin_source_t'];identity_error=max(abs(fin_baseline_parameter(q,original_fin['source_baseline'],opoly,aspect)-old_ts.data[i].value)for i,q in enumerate(odv));assert identity_error<1e-5,'Original source point identity differs'
     old_uv=[None]*len(old.vertices)
     for l,v in zip(old.loops,old.uv_layers.active.data):old_uv[l.vertex_index]=np.array(v.uv)
@@ -67,6 +75,7 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
     # the normalized JSON calculation in float64 shifts integer pixel bounds
     # by one pixel for some sources, corrupting UV and barycentric identities.
     poly=np.array([Vector(q)for q in fin['polygon']]);left=max(0,math.floor(poly[:,0].min()*W)-2);right=min(W,math.ceil(poly[:,0].max()*W)+2);up=max(0,math.floor(poly[:,1].min()*H)-2);down=min(H,math.ceil(poly[:,1].max()*H)+2)
+    if persisted:left,up,right,down=map(int,ob['foundry_native_source_crop'])
     image=next(n.image for n in old.materials[0].node_tree.nodes if n.type=='TEX_IMAGE');assert list(image.size)==[right-left,down-up],(ob.name,'Native crop bounds differ',list(image.size),[left,up,right,down])
     layer_sign=1 if np.median([old.vertices[i].co.y-old.vertices[i+ON].co.y for i in range(ON)])>0 else-1
     for layer,sign in enumerate([layer_sign,-layer_sign]):
@@ -83,6 +92,14 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
             # End knots are deliberately finite (.25mm total edge), avoiding
             # a collapsed two-sided shell while covering the body cap tips.
             x=u-.5+overlap/1000/scale*(1-s)**2
+            if settings.get('conform_complete_basal_band') and t<=fin['root_attachment']['root_band']+1e-7:
+                # The source collar includes points just beyond the baseline
+                # endpoints. Support that entire frozen domain on the finite
+                # body cap, rather than leaving its end triangles outside it.
+                fraction=max(0.,min(1.,t/fin['root_attachment']['root_band']))
+                x=root_x+overlap/1000/scale*(1-.5*fraction)
+                z=max(bottom,min(top,z))
+                h=max(edge,float(np.interp(z,heights,widths)))
             ids,weights=original_mapping(q);ids=tuple(i+layer*ON for i in ids)
             # Geometry source domain and texture UV are distinct. Keep the
             # actual original UV mapping, including reviewed half-texel/opaque
@@ -101,6 +118,10 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
         for li in f.loop_indices:uv.data[li].uv=uvs[mesh.loops[li].vertex_index]
     attr=mesh.attributes.new('foundry_fin_source_t','FLOAT','POINT')
     for i,t in enumerate(ts):attr.data[i].value=t
+    if persisted:
+        for name,axis in [('foundry_fin_source_u',0),('foundry_fin_source_v',1)]:
+            attr=mesh.attributes.new(name,'FLOAT','POINT')
+            for i,q in enumerate(list(dv)*2):attr.data[i].value=q[axis]
     # Entire original anatomical band, with new complete section support.
     ob.data=mesh
     for i,p in enumerate(coords):
@@ -114,7 +135,7 @@ def rebuild(ob,fin,cap_vertices,root_x,zmid,aspect,W,H,scale,settings,overlap,sk
             for bone,w in mix.items():
                 if w>0:(ob.vertex_groups.get(bone)or ob.vertex_groups.new(name=bone)).add([i],w/total,'REPLACE')
     bm=bmesh.new();bm.from_mesh(mesh);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));assert all(e.is_manifold for e in bm.edges);bm.to_mesh(mesh);bm.free();mesh.calc_loop_triangles()
-    return {'old_triangles':old_count,'new_triangles':len(mesh.loop_triangles),'complete_body_section_knots':len(fractions),'reallocated_interior_samples':True,'outline_removed':removed,'free_outline_native_UV_preserved_except_reported_subpixel_point':True,'native_crop_bounds_top_left':[left,up,right,down],'original_source_point_identity_error':identity_error,'original_source_points':ON,'geometry_domain_is_not_UV_domain':True,'actual_original_UV_and_skin_transferred':True}
+    return {'old_triangles':old_count,'new_triangles':len(mesh.loop_triangles),'complete_body_section_knots':len(fractions),'complete_basal_band_conformed':settings.get('conform_complete_basal_band',False),'reallocated_interior_samples':True,'outline_removed':removed,'free_outline_native_UV_preserved_except_reported_subpixel_point':True,'native_crop_bounds_top_left':[left,up,right,down],'original_source_point_identity_error':identity_error,'original_source_points':ON,'geometry_domain_is_not_UV_domain':True,'actual_original_UV_and_skin_transferred':True}
 
 
 def junction_normals(body,tail,root_x):

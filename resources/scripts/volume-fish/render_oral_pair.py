@@ -7,6 +7,8 @@ p=argparse.ArgumentParser()
 p.add_argument('--baseline',required=True);p.add_argument('--candidate',required=True);p.add_argument('--output',required=True)
 p.add_argument('--target',nargs=3,type=float,default=[.44,0,-.045]);p.add_argument('--scale',type=float,default=.24)
 p.add_argument('--inspect-separate-jaw',action='store_true')
+p.add_argument('--unlit',action='store_true',help='Review actual albedo with the original alpha, without light shading')
+p.add_argument('--texture-only',action='store_true')
 a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True)
 files={}
 for label,path in [('before',a.baseline),('after',a.candidate)]:
@@ -22,7 +24,17 @@ for label,path in [('before',a.baseline),('after',a.candidate)]:
     light=bpy.data.objects.new('Fixed light',lightdata);scene.collection.objects.link(light);light.location=(0,-2,3)
     light.rotation_euler=(-light.location).to_track_quat('-Z','Y').to_euler()
     clay=bpy.data.materials.new('Fixed gray');clay.diffuse_color=(.5,.5,.5,1)
-    for gray in [True,False]:
+    if a.unlit:
+        for mat in bpy.data.materials:
+            if not mat.use_nodes:continue
+            for bsdf in [n for n in mat.node_tree.nodes if n.type=='BSDF_PRINCIPLED']:
+                base=bsdf.inputs['Base Color'];emission=bsdf.inputs['Emission Color']
+                if base.links:
+                    source=base.links[0].from_socket;mat.node_tree.links.new(source,emission)
+                    for link in list(base.links):mat.node_tree.links.remove(link)
+                else:emission.default_value=base.default_value
+                base.default_value=(0,0,0,1);bsdf.inputs['Emission Strength'].default_value=1;bsdf.inputs['Specular IOR Level'].default_value=0
+    for gray in ([False]if a.texture_only else[True,False]):
         scene.view_layers[0].material_override=clay if gray else None
         for view,direction in [('side',(0,-3,0)),('oblique',(2,-3,.65)),('front',(3,0,0))]:
             target=Vector(a.target);camera.location=target+Vector(direction)
@@ -57,4 +69,4 @@ for label,path in [('before',a.baseline),('after',a.candidate)]:
         camera.location=target+Vector((2,-3,.65));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
         scene.render.filepath=str(out/'exploded.png');bpy.ops.render.render(write_still=True);files['exploded']=scene.render.filepath
 sha=lambda path:hashlib.sha256(Path(path).read_bytes()).hexdigest()
-(out/'comparison.validation.json').write_text(json.dumps({'scope':'Fixed camera, light and frame; qualitative morphology review, not anatomy acceptance. Optional exploded view translates jaw down0.05 native units in render memory only; model remains unchanged.','baseline_sha256':sha(a.baseline),'candidate_sha256':sha(a.candidate),'target':a.target,'orthographic_scale':a.scale,'frame':0,'files':files},indent=2),encoding='utf-8')
+(out/'comparison.validation.json').write_text(json.dumps({'scope':'Fixed camera, light and frame; qualitative morphology review, not anatomy acceptance. Optional exploded view translates jaw down0.05 native units in render memory only; model remains unchanged.','baseline_sha256':sha(a.baseline),'candidate_sha256':sha(a.candidate),'target':a.target,'orthographic_scale':a.scale,'frame':0,'unlit':a.unlit,'files':files},indent=2),encoding='utf-8')

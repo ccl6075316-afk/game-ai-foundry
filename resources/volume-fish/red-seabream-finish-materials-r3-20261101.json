@@ -1,0 +1,17 @@
+{
+  "body": "Closed_body",
+  "blend_sha256": "d3257673b5ed0cf890eb1c7dc224c0ab4b54488323bf2c3551e5131ab0d388af",
+  "body_receipt": "projects\\fishing-2d\\experiments\\red-seabream-lowpoly-sop-20261101\\body-receipt-r3\\body-materials.json",
+  "body_receipt_sha256": "7b62964e4bf116f01bb20ed1046b81cb5cca9f91559bb2a7cf1f11c887ce473c",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "wall_inset_pixels": 6,
+  "real_length_cm": 30
+}
