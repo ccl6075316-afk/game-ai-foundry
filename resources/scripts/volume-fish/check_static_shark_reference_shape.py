@@ -6,12 +6,13 @@ sys.path.insert(0,str(Path(__file__).parent/'portable'))
 from glb_io import read_glb,arrays,sha
 
 def check(model,reference,out):
- cfg=json.loads(reference.read_text());doc,blob=read_glb(model);vertices=[];faces=[]
+ cfg=json.loads(reference.read_text());doc,blob=read_glb(model);vertices=[];faces=[];whole_triangles=sum(int(doc['accessors'][p['indices']]['count'])//3 for m in doc['meshes']for p in m['primitives'])
  for node in doc['nodes']:
-  if 'mesh'not in node:continue
+  if 'mesh'not in node or node.get('name')!='Reference_head_body':continue
   assert node.get('translation',[0,0,0])==[0,0,0] and node.get('scale',[1,1,1])==[1,1,1]
   for prim in doc['meshes'][node['mesh']]['primitives']:
    v=arrays(doc,blob,prim['attributes']['POSITION']);v=v[:,[0,2,1]];v[:,1]*=-1;tri=arrays(doc,blob,prim['indices']).reshape(-1,3);off=len(vertices);vertices.extend(v.tolist());faces.extend((tri+off).tolist())
+ assert vertices and faces,'Explicit actual body mesh missing; fins cannot stand in for body width'
  v=np.array(vertices);tri=np.array(faces);edges=np.unique(np.sort(np.concatenate([tri[:,[0,1]],tri[:,[1,2]],tri[:,[2,0]]]),axis=1),axis=0);a,b=v[edges[:,0]],v[edges[:,1]];axis=cfg['reference_body_axis_m'];rows=[]
  for t in np.linspace(.15,.999,401):
   x=axis*(.5-t);m=(a[:,0]-x)*(b[:,0]-x)<0;p,q=a[m],b[m];hits=p+(q-p)*((x-p[:,0])/(q[:,0]-p[:,0]))[:,None];assert len(hits);rows.append(dict(t=float(t),width_m=float(hits[:,1].max()-hits[:,1].min())))

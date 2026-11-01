@@ -16,18 +16,28 @@ func run() -> void:
 	var light:=DirectionalLight3D.new();light.rotation_degrees=Vector3(-45,-35,0);light.light_energy=.65;world.add_child(light)
 	var doc:=GLTFDocument.new();var state:=GLTFState.new();assert(doc.append_from_file(cfg.model,state)==OK)
 	var model=doc.generate_scene(state);world.add_child(model)
+	for player in model.find_children("*","AnimationPlayer",true,false):player.stop()
+	for skeleton in model.find_children("*","Skeleton3D",true,false):skeleton.reset_bone_poses();skeleton.force_update_all_bone_transforms()
 	var camera:=Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.current=true;camera.near=.001;camera.far=3;camera.keep_aspect=Camera3D.KEEP_WIDTH;world.add_child(camera)
 	var count:=0
 	for node in model.find_children("*","MeshInstance3D",true,false):
-		for si in node.mesh.get_surface_count():count+=node.mesh.surface_get_arrays(si)[Mesh.ARRAY_INDEX].size()/3
+		if cfg.has("only_meshes"):node.visible=cfg.only_meshes.has(node.name)
+		for si in node.mesh.get_surface_count():
+			count+=node.mesh.surface_get_arrays(si)[Mesh.ARRAY_INDEX].size()/3
+			if cfg.get("diagnostic_material_mode","")=="clay":
+				var clay:=StandardMaterial3D.new();clay.albedo_color=Color(.65,.65,.65);clay.roughness=1;clay.cull_mode=BaseMaterial3D.CULL_BACK;node.set_surface_override_material(si,clay)
+			elif cfg.get("diagnostic_material_mode","")=="unlit":
+				var native=node.get_active_material(si).duplicate();assert(native is StandardMaterial3D);native.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;node.set_surface_override_material(si,native)
 	assert(count==int(cfg.triangles))
 	var captures: Array=[]
 	for region in cfg.regions:
+		for node in model.find_children("*","MeshInstance3D",true,false):
+			var visible_names: Array=region.get("only_meshes",cfg.get("only_meshes",[]));node.visible=visible_names.is_empty() or visible_names.has(node.name)
 		var point:=Vector3(region.at[0],region.at[1],region.at[2]);camera.size=float(region.size)
-		for v in [{"name":"side","dir":Vector3(0,0,1)},{"name":"front","dir":Vector3(1,0,0)},{"name":"top","dir":Vector3(0,1,.001)},{"name":"bottom","dir":Vector3(0,-1,.001)},{"name":"oblique","dir":Vector3(.7,.4,1)},{"name":"under-oblique","dir":Vector3(.7,-.6,1)}]:
+		for v in [{"name":"side","dir":Vector3(0,0,1)},{"name":"other-side","dir":Vector3(0,0,-1)},{"name":"front","dir":Vector3(1,0,0)},{"name":"rear","dir":Vector3(-1,0,0)},{"name":"top","dir":Vector3(0,1,.001)},{"name":"bottom","dir":Vector3(0,-1,.001)},{"name":"oblique","dir":Vector3(.7,.4,1)},{"name":"under-oblique","dir":Vector3(.7,-.6,1)}]:
 			camera.position=point+v.dir.normalized();camera.look_at(point,Vector3.UP if absf(v.dir.y)<.99 else Vector3(0,0,-1))
 			for i in 3:await process_frame;RenderingServer.force_draw(true)
 			var path=destination.path_join(str(region.name)+"-"+v.name+".png");assert(view.get_texture().get_image().save_png(path)==OK)
-			captures.append({"path":path,"sha256":FileAccess.get_sha256(path)})
-	FileAccess.open(destination.path_join("capture.validation.json"),FileAccess.WRITE).store_string(JSON.stringify({"ok":true,"kind":"direct_static_shape_trial_gpu_capture","model_sha256":cfg.model_sha256,"triangles":count,"captures":captures,"runtime_static_build_calls":0,"rigged":false,"complete_fish":false,"formal_acceptance":false},"  ")+"\n")
+			captures.append({"path":path,"sha256":FileAccess.get_sha256(path),"region":region,"view":v.name})
+	FileAccess.open(destination.path_join("capture.validation.json"),FileAccess.WRITE).store_string(JSON.stringify({"ok":true,"kind":"direct_static_shape_trial_gpu_capture","model_sha256":cfg.model_sha256,"triangles":count,"captures":captures,"runtime_static_build_calls":0,"diagnostic_material_mode":cfg.get("diagnostic_material_mode","native"),"rigged":not model.find_children("*","Skeleton3D",true,false).is_empty(),"complete_fish":false,"formal_acceptance":false},"  ")+"\n")
 	print("STATIC_SHAPE_TRIAL_CAPTURE_OK");quit()

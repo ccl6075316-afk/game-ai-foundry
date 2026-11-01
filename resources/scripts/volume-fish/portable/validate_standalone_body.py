@@ -43,7 +43,31 @@ def inspect_model(plan):
     else:doc,blob=read_glb(Path(plan['model']))
     mesh_nodes=[n for n in doc['nodes'] if 'mesh' in n]
     assert plan['fins'] and len(set(plan['fins']))==len(plan['fins']) and plan['body'] not in plan['fins'], 'Explicit complete species fin inventory required'
-    assert {n['name'] for n in mesh_nodes}=={plan['body'],*plan['fins']} and len(mesh_nodes)==1+len(plan['fins']), 'Unexpected/empty body or fin inventory'
+    overlays=plan.get('decorative_overlays',{})
+    assert isinstance(overlays,dict) and not set(overlays)&{plan['body'],*plan['fins']}, 'Ambiguous decorative overlay inventory'
+    assert {n['name'] for n in mesh_nodes}=={plan['body'],*plan['fins'],*overlays} and len(mesh_nodes)==1+len(plan['fins'])+len(overlays), 'Unexpected/empty body, fin or declared overlay inventory'
+    overlay_proofs=[]
+    for name,definition in overlays.items():
+        assert definition.get('kind')=='closed_skinned_eye_lens' and definition.get('underlying_body')==plan['body'], 'Only explicit closed eye lenses over the independently closed body are supported'
+        node=next(n for n in mesh_nodes if n['name']==name)
+        assert 'skin' in node and 'rigid_bone' in definition, 'Eye must have an explicit actual rigid head support'
+        skin=doc['skins'][node['skin']];joint_names=[doc['nodes'][j]['name']for j in skin['joints']]
+        eye_edges=Counter();eye_directions=Counter();eye_triangles=0
+        for prim in doc['meshes'][node['mesh']]['primitives']:
+            attrs=prim['attributes'];pos=accessor(doc,blob,attrs['POSITION']);tri=accessor(doc,blob,prim['indices']).reshape(-1,3);weights=accessor(doc,blob,attrs['WEIGHTS_0']);joints=accessor(doc,blob,attrs['JOINTS_0']);assert np.isfinite(pos).all() and np.isfinite(weights).all() and np.all(weights>=0) and np.all(abs(weights.sum(axis=1)-1)<1e-5)
+            for js,ws in zip(joints,weights):assert all(joint_names[int(j)]==definition['rigid_bone']for j,w in zip(js,ws)if w>1e-7), 'Eye support differs from declared actual head bone'
+            points=[tuple(round(float(x),7)for x in v)for v in pos]
+            for face in tri:
+                q=[points[i]for i in face];assert len(set(q))==3, 'Degenerate eye lens'
+                for a,b in zip(q,q[1:]+q[:1]):edge=tuple(sorted([a,b]));eye_edges[edge]+=1;eye_directions[edge]+=1 if a<b else -1
+            eye_triangles+=len(tri);mat=doc['materials'][prim['material']];pbr=mat.get('pbrMetallicRoughness',{});assert mat.get('alphaMode','OPAQUE')=='OPAQUE' and pbr.get('baseColorFactor',[1,1,1,1])[3]==1, 'Nonopaque eye lens'
+            if 'baseColorTexture'in pbr:
+                image=doc['images'][doc['textures'][pbr['baseColorTexture']['index']]['source']];assert 'bufferView'in image and 'uri'not in image
+                view=doc['bufferViews'][image['bufferView']];offset=view.get('byteOffset',0);rgba=np.array(Image.open(io.BytesIO(blob[offset:offset+view['byteLength']])).convert('RGBA'))
+                uv=accessor(doc,blob,attrs['TEXCOORD_0']);height,width=rgba.shape[:2];x0=max(0,int(np.floor(uv[:,0].min()*width)));x1=min(width,int(np.floor(uv[:,0].max()*width))+1);y0=max(0,int(np.floor(uv[:,1].min()*height)));y1=min(height,int(np.floor(uv[:,1].max()*height))+1)
+                assert x1>x0 and y1>y0 and np.all(rgba[y0:y1,x0:x1,3]==255),'Transparent pixels in the complete eye UV bounding domain'
+        assert eye_edges and all(n==2 for n in eye_edges.values()) and all(n==0 for n in eye_directions.values()), 'Declared eye lens is not an oriented closed mesh'
+        overlay_proofs.append(dict(name=name,triangles=eye_triangles,underlying_body=plan['body'],rigid_bone=definition['rigid_bone'],closed_opaque=True))
     bodies=[n for n in mesh_nodes if n['name']==plan['body']];assert len(bodies)==1
     body=bodies[0];assert 'skin' in body and doc.get('skins') and doc.get('animations'), 'Missing actual rig/animation'
     primitives=doc['meshes'][body['mesh']]['primitives'];assert len(primitives)==plan['expected_body_surfaces']>0
@@ -90,7 +114,7 @@ def inspect_model(plan):
         surfaces.append({'surface':si,'triangles':len(tri),'vertices':len(pos),'material':mat.get('name',''),'opaque':True,'unit_normals_and_winding_agree':True,'texture':image_info})
     assert edges and all(n==2 for n in edges.values()), 'Open/nonmanifold welded body'
     assert all(n==0 for n in directions.values()), 'Inconsistent body winding'
-    return {'triangles':triangle_count,'welded_edges':len(edges),'surfaces':surfaces,**({'packed_body_opacity':opacity,'analysis_projection_only':True} if packed else {})}
+    return {'triangles':triangle_count,'welded_edges':len(edges),'surfaces':surfaces,'decorative_overlay_proofs':overlay_proofs,**({'packed_body_opacity':opacity,'analysis_projection_only':True} if packed else {})}
 
 
 def missing_pixels(actual,reference):
@@ -135,3 +159,11 @@ def validate(game,godot,plan_path,output):
     result.update(plan_sha256=sha(plan_path),checker_sha256=sha(__file__),capture_script_sha256=sha(capture),validation_dependencies=validation_dependencies)
     (output/'completion.validation.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8')
     return result
+
+
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    for key in ['game','godot','plan','output']:parser.add_argument('--'+key,type=Path,required=True)
+    args=parser.parse_args();result=validate(args.game.resolve(),args.godot.resolve(),args.plan.resolve(),args.output.resolve())
+    print(json.dumps(dict(ok=result['ok'],error=result.get('error'))));raise SystemExit(0 if result['ok']else 1)

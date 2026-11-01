@@ -83,8 +83,10 @@ func run() -> void:
 		for mesh in model.find_children("*","MeshInstance3D",true,false):
 			names.append(str(mesh.name));mesh.visible=mesh==body
 			for s in mesh.mesh.get_surface_count():triangles+=(mesh.mesh.surface_get_arrays(s)[Mesh.ARRAY_INDEX] as PackedInt32Array).size()/3
-		assert(names.size()==plan.fins.size()+1 and triangles==int(plan.expected_triangles))
+		var overlays: Dictionary=plan.get("decorative_overlays",{})
+		assert(names.size()==plan.fins.size()+1+overlays.size() and triangles==int(plan.expected_triangles))
 		for name in plan.fins:assert(names.has(name))
+		for name in overlays:assert(names.has(name) and overlays[name].underlying_body==plan.body)
 	assert(body.mesh.get_surface_count()==int(plan.expected_body_surfaces))
 	var materials: Array=[]
 	for s in body.mesh.get_surface_count():
