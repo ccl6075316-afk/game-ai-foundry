@@ -1,0 +1,52 @@
+{
+  "species": "rainbow_trout",
+  "label": "虹鳟",
+  "scientific_name": "Oncorhynchus mykiss",
+  "inputs": {
+    "baseline_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-head-evidence-20261101\\rainbow_trout-head-reference-r4\\config.json",
+      "sha256": "ff21841f6e759c1833b71701cee95da4a498e4722241049e70d81e57fcbfb729"
+    },
+    "csv": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\width-reference-20261031\\sources\\FishShapes_specimensv1.csv",
+      "sha256": "7447fdc92c5fd5c9ecf1d9713bbd4207d2de7ab4b2ea0e320871041da8e34264"
+    },
+    "reference": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-side-top-video-20261101\\retry-r2\\rainbow_trout\\width-reference-5.25s.png",
+      "sha256": "14064948bcd42e12145df5829f69677b6e883b3eed7881d00e1135454d3dfefe"
+    }
+  },
+  "body_axis_cm": 52.87726593017578,
+  "reference_axis": "y",
+  "reference_axis_pixels": [
+    824,
+    252
+  ],
+  "corridor": [
+    410,
+    585
+  ],
+  "fin_exclusion_corridors": [
+    {
+      "axis_range": [
+        490,
+        540
+      ],
+      "body_bounds": [
+        425,
+        553
+      ]
+    },
+    {
+      "axis_range": [
+        615,
+        690
+      ],
+      "body_bounds": [
+        436,
+        557
+      ]
+    }
+  ],
+  "source_scope": "User-requested side-to-top video fallback local shape proposal, independent from measured same-species global maximum. Existing real photo/model references remain qualitative cross-checks. Not a scanned or accepted anatomical head curve."
+}

@@ -1,0 +1,31 @@
+{
+  "species": "brown_trout",
+  "label": "褐鳟",
+  "scientific_name": "Salmo trutta",
+  "inputs": {
+    "baseline_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-head-evidence-20261101\\brown_trout-head-reference-r4\\config.json",
+      "sha256": "6fd7df3bf66074ca7bde382ecd05a3bc8067e3551c483e0eb0b3092bf9dbe642"
+    },
+    "csv": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\width-reference-20261031\\sources\\FishShapes_specimensv1.csv",
+      "sha256": "7447fdc92c5fd5c9ecf1d9713bbd4207d2de7ab4b2ea0e320871041da8e34264"
+    },
+    "reference": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-side-top-video-20261101\\retry-r2\\brown_trout\\end-frame.png",
+      "sha256": "82df29fd0bf5c4e90ff0a45d188fa0a3f9aac3c326be8c0755f16a30b926f779"
+    }
+  },
+  "body_axis_cm": 61.91545486450195,
+  "reference_axis": "x",
+  "reference_axis_pixels": [
+    829,
+    215
+  ],
+  "corridor": [
+    412,
+    540
+  ],
+  "fin_exclusion_corridors": [],
+  "source_scope": "User-requested side-to-top video fallback local shape proposal, independent from measured same-species global maximum. Existing real photo/model references remain qualitative cross-checks. Not a scanned or accepted anatomical head curve."
+}

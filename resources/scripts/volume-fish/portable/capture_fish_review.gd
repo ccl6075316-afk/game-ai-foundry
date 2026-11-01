@@ -11,11 +11,13 @@ var frame_rows: Array=[]
 const PACKED_PARTS = preload("PackedFishParts.gd")
 var packed_partition: Dictionary={}
 var packed_probes: Dictionary={}
-var static_check=load("res://../../../resources/scripts/volume-fish/portable/validate_motion_controls.gd")
+var static_check
 
 func _initialize() -> void:
 	var args: PackedStringArray=OS.get_cmdline_user_args();assert(args.size()==2)
 	plan_path=args[0];review_out=args[1].simplify_path()
+	var tool_dir: String=get_script().resource_path.get_base_dir()
+	static_check=load(tool_dir.path_join("validate_motion_controls.gd"))
 	assert(plan_path.is_absolute_path() and review_out.is_absolute_path() and review_out.contains("/experiments/"))
 	assert(DisplayServer.get_name()!="headless","Visual evidence requires actual GPU")
 	plan=JSON.parse_string(FileAccess.get_file_as_string(plan_path));bindings=plan.frozen_inputs.duplicate()
@@ -24,7 +26,7 @@ func _initialize() -> void:
 		assert(source.path.is_absolute_path() and FileAccess.get_sha256(source.path)==source.sha256,"Stale visual comparison source")
 		bindings[source.path]=source.sha256
 	for path in bindings:assert(FileAccess.get_sha256(path)==bindings[path],"Stale review input")
-	for path in [get_script().resource_path,"res://../../../resources/scripts/volume-fish/portable/ReviewCaptureBase.gd","res://../../../resources/scripts/volume-fish/portable/validate_motion_controls.gd","res://scripts/aquarium/FoundryFishMotion.gd","res://scripts/aquarium/TankWaterRenderer.gd","res://scripts/aquarium/TankWaterProfile.gd","res://scripts/aquarium/TankWaterVolume.gdshader"]:bindings[ProjectSettings.globalize_path(path)]=FileAccess.get_sha256(path)
+	for path in [get_script().resource_path,tool_dir.path_join("ReviewCaptureBase.gd"),tool_dir.path_join("validate_motion_controls.gd"),"res://scripts/aquarium/FoundryFishMotion.gd","res://scripts/aquarium/TankWaterRenderer.gd","res://scripts/aquarium/TankWaterProfile.gd","res://scripts/aquarium/TankWaterVolume.gdshader"]:bindings[ProjectSettings.globalize_path(path)]=FileAccess.get_sha256(path)
 	if plan.has("packed_parts_manifest"):
 		assert(FileAccess.get_sha256(plan.packed_parts_manifest)==plan.packed_parts_manifest_sha256)
 		bindings[plan.packed_parts_manifest]=plan.packed_parts_manifest_sha256

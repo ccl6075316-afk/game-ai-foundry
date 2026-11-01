@@ -27,7 +27,9 @@ def compose(plan_path,review,cutouts,fin_review=None):
   names=plan['fins'][page*4:page*4+4];sheet=Image.new('RGB',(1350,325*len(names)),(37,52,60));draw=ImageDraw.Draw(sheet)
   for row,name in enumerate(names):
    base=name.removesuffix('_mesh').removesuffix('_left').removesuffix('_right')
-   matches=list(cutouts.glob(base+'-*.png'));assert len(matches)==1,(base,matches)
+   matches=list(cutouts.glob(base+'-*.png'))
+   if (cutouts/(base+'.png')).is_file():matches.append(cutouts/(base+'.png'))
+   assert len(matches)==1,(base,matches)
    for col,(label,p) in enumerate([('source native cutout',matches[0]),('cold isolated texture',fin_review/f'fin-{name}-left-texture.png'),('cold isolated clay',fin_review/f'fin-{name}-oblique-clay.png')]):
     image=load(p);image.thumbnail((440,290),Image.Resampling.NEAREST);x=col*450+(450-image.width)//2;y=row*325+30+(290-image.height)//2
     sheet.paste(image,(x,y),image);draw.text((col*450+8,row*325+8),name+' | '+label,fill='white')
