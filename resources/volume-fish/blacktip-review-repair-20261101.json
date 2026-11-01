@@ -1,0 +1,357 @@
+{
+  "species": "blacktip_reef_shark",
+  "side_source": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/source.png",
+  "front_source": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/front_source.png",
+  "clean_side": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/native-charts-r3/side-body.png",
+  "legacy_profile": "resources/volume-fish/blacktip-reef-shark-review-055.profile.json",
+  "baseline": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/cold-candidate-r14",
+  "angular_height": 768,
+  "back_donor_rects_px": [
+    [
+      1230,
+      211,
+      1330,
+      243
+    ],
+    [
+      1450,
+      240,
+      1540,
+      275
+    ]
+  ],
+  "belly_donor_rects_px": [
+    [
+      980,
+      405,
+      1100,
+      445
+    ],
+    [
+      1510,
+      395,
+      1600,
+      425
+    ]
+  ],
+  "fin_ventral_donor_rect_px": [
+    980,
+    405,
+    1100,
+    445
+  ],
+  "paired_fin_domains": [
+    {
+      "name": "Pectoral",
+      "polygon": [
+        [
+          0.7306434,
+          0.6407767
+        ],
+        [
+          0.7241003,
+          0.6731392
+        ],
+        [
+          0.697928,
+          0.7556634
+        ],
+        [
+          0.6706652,
+          0.8349515
+        ],
+        [
+          0.6368593,
+          0.9271845
+        ],
+        [
+          0.5965104,
+          0.9886731
+        ],
+        [
+          0.5910578,
+          0.9724919
+        ],
+        [
+          0.6046892,
+          0.8899676
+        ],
+        [
+          0.6112323,
+          0.8171521
+        ],
+        [
+          0.612868,
+          0.7394822
+        ],
+        [
+          0.6673937,
+          0.6634304
+        ]
+      ],
+      "protected_tip_px": [
+        [
+          1076,
+          575
+        ],
+        [
+          1120,
+          565
+        ],
+        [
+          1155,
+          592
+        ],
+        [
+          1120,
+          617
+        ],
+        [
+          1075,
+          617
+        ]
+      ]
+    },
+    {
+      "name": "Pelvic",
+      "polygon": [
+        [
+          0.4585605,
+          0.7297735
+        ],
+        [
+          0.4432933,
+          0.7686084
+        ],
+        [
+          0.4231189,
+          0.8042071
+        ],
+        [
+          0.3920393,
+          0.8349515
+        ],
+        [
+          0.3876772,
+          0.8122977
+        ],
+        [
+          0.3805889,
+          0.7669903
+        ],
+        [
+          0.3794984,
+          0.7152104
+        ],
+        [
+          0.3991276,
+          0.6909385
+        ],
+        [
+          0.4296619,
+          0.7022654
+        ]
+      ],
+      "protected_tip_px": [
+        [
+          690,
+          480
+        ],
+        [
+          735,
+          475
+        ],
+        [
+          770,
+          503
+        ],
+        [
+          716,
+          521
+        ],
+        [
+          691,
+          510
+        ]
+      ]
+    }
+  ],
+  "head_photo_measurements": [
+    {
+      "photo_x": 400,
+      "upper_y": 411,
+      "lower_y": 589,
+      "u": 0.7679371770521423,
+      "half_width_native": 0.07045821590297349
+    },
+    {
+      "photo_x": 350,
+      "upper_y": 416,
+      "lower_y": 607,
+      "u": 0.8075204444133633,
+      "half_width_native": 0.07560404065993223
+    },
+    {
+      "photo_x": 300,
+      "upper_y": 425,
+      "lower_y": 620,
+      "u": 0.8471037117745844,
+      "half_width_native": 0.07718737135438107
+    },
+    {
+      "photo_x": 250,
+      "upper_y": 434,
+      "lower_y": 626,
+      "u": 0.8866869791358054,
+      "half_width_native": 0.07599987333354444
+    },
+    {
+      "photo_x": 210,
+      "upper_y": 443,
+      "lower_y": 625,
+      "u": 0.9183535930247824,
+      "half_width_native": 0.07204154659742233
+    },
+    {
+      "photo_x": 180,
+      "upper_y": 454,
+      "lower_y": 621,
+      "u": 0.942103553441515,
+      "half_width_native": 0.06610405649323918
+    },
+    {
+      "photo_x": 150,
+      "upper_y": 472,
+      "lower_y": 610,
+      "u": 0.9658535138582476,
+      "half_width_native": 0.05462490895848507
+    },
+    {
+      "photo_x": 125,
+      "upper_y": 507,
+      "lower_y": 591,
+      "u": 0.9856451475388581,
+      "half_width_native": 0.03324994458342569
+    },
+    {
+      "photo_x": 115,
+      "upper_y": 529,
+      "lower_y": 579,
+      "u": 0.9935618010111024,
+      "half_width_native": 0.019791633680610533
+    },
+    {
+      "photo_x": 111,
+      "upper_y": 550,
+      "lower_y": 550,
+      "u": 0.9967284624,
+      "half_width_native": 0.0
+    }
+  ],
+  "head_photo": {
+    "path": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/sources/chumbe-blacktip-top.jpg",
+    "url": "https://chumbeisland.com/chumbe-big-five/",
+    "photographer": "Ali Maah / Unsplash, photo credited by Chumbe",
+    "species_source": "Same conservation article explicitly identifies Carcharhinus melanopterus",
+    "registration": {
+      "nose_px": [
+        111,
+        550
+      ],
+      "eye_px": [
+        206,
+        470
+      ],
+      "model_nose_u": 0.9967284624,
+      "model_source_eye_u": 0.9214830971,
+      "pixels_per_native_u": 1263.16
+    },
+    "limitations": "Manual projected photograph ratio, not specimen dimensions. Camera projection, bending and water refraction unknown. Widths use the photographed head, interpolated only between marked stations; posterior body is retained."
+  },
+  "head_start_u": 0.7679371770521423,
+  "front_cap_ring_u": 0.9935,
+  "front_cap_pole_u": 0.9967284624,
+  "front_fin_measurements": {
+    "body_left_right_px": [
+      205,
+      687
+    ],
+    "pectoral_proximal_vertical_edges_px": [
+      [
+        690,
+        530
+      ],
+      [
+        690,
+        558
+      ]
+    ],
+    "pectoral_outer_vertical_edges_px": [
+      [
+        780,
+        580
+      ],
+      [
+        780,
+        598
+      ]
+    ],
+    "model_head_width_native": 0.156,
+    "projected_full_thickness_native": [
+      0.009062240663900415,
+      0.005825726141078838
+    ],
+    "method": "Own accepted front artwork, vertical outline distance. Projection/dihedral contributes, so a visible envelope constraint, not a true normal tissue measurement."
+  },
+  "fin_full_thickness_native": {
+    "FirstDorsal": [
+      0.021,
+      0.011,
+      0.0008
+    ],
+    "SecondDorsal": [
+      0.01,
+      0.005,
+      0.0007
+    ],
+    "CaudalUpper": [
+      0.015,
+      0.007,
+      0.0008
+    ],
+    "CaudalLower": [
+      0.011,
+      0.005,
+      0.0007
+    ],
+    "Pectoral": [
+      0.0115,
+      0.0065,
+      0.0008
+    ],
+    "Pelvic": [
+      0.007,
+      0.0038,
+      0.0007
+    ],
+    "Anal": [
+      0.009,
+      0.0045,
+      0.0007
+    ]
+  },
+  "fin_thickness_status": "Frontal projected envelope constrains Pectoral. Full chord profiles for unobserved sections remain explicit shape parameters, not biological thickness data.",
+  "fin_curve_max_displacement_native": 0.0065,
+  "fin_curve_weight": 0.22,
+  "fin_edge_pair_splits": 8,
+  "root_offset_native": 8e-05,
+  "triangle_budget": {
+    "preferred": 3500,
+    "hard": 4000
+  },
+  "formal_acceptance": false,
+  "head_support_planes_u": [
+    0.942103553441515,
+    0.9658535138582476
+  ]
+}

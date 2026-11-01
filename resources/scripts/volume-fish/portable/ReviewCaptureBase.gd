@@ -24,7 +24,10 @@ func _load(route: String, container: SubViewportContainer) -> Dictionary:
 			count+=(mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_INDEX] as PackedInt32Array).size()/3
 			var mat: StandardMaterial3D=mesh.mesh.surface_get_material(surface)
 			assert(mat!=null)
-			assert(mat.texture_filter==BaseMaterial3D.TEXTURE_FILTER_NEAREST)
+			# Constant oral-cavity colors have no sampled image. glTF has no
+			# sampler for such a material; require nearest on actual image slots.
+			if mat.albedo_texture!=null or mat.emission_texture!=null:
+				assert(mat.texture_filter==BaseMaterial3D.TEXTURE_FILTER_NEAREST)
 			materials.append({"name":mat.resource_name,"texture":mat.albedo_texture!=null,"alpha":mat.transparency})
 	var controller=load(load_plan.motion_runtime).new()
 	var profile: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(str(load_plan.motion_profile)))

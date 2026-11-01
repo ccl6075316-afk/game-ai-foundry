@@ -1,0 +1,7 @@
+# Python-side contour preparation and actual-pose skin fitting. Blender supplies
+# its own bpy/bmesh/mathutils and NumPy; do not add these to Blender's sys.path.
+numpy>=1.26
+Pillow>=10
+scipy>=1.11
+shapely>=2.1
+opencv-python-headless>=4.8

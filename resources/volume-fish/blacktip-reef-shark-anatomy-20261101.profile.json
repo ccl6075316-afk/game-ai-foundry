@@ -1,0 +1,488 @@
+{
+  "species": "blacktip_reef_shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "anatomical_group": "shark",
+  "real_length_cm": 150,
+  "construction_settings": {
+    "source_profile": "resources/volume-fish/blacktip-reef-shark-review-055.profile.json",
+    "side": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_pixel040_nobg.png",
+    "front": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_front040_nobg.png",
+    "rig_source": "projects/fishing-2d/experiments/blender-fish/models/blacktip_reef_shark/055-reviewed.handoff-artifacts/fish.blend",
+    "body_stations_before_mouth": [
+      0.1483097056,
+      0.19084,
+      0.24537,
+      0.3108,
+      0.38168,
+      0.45256,
+      0.52345,
+      0.59978,
+      0.67067,
+      0.74155,
+      0.81243,
+      0.86
+    ],
+    "body_stations_after_mouth": [
+      0.978,
+      0.98855,
+      0.9967284624
+    ],
+    "mouth": {
+      "theta_start_pi": 0.78,
+      "theta_end_pi": 1.22,
+      "corner_u": 0.912,
+      "anterior_u": 0.956,
+      "half_gap_u": 0.0025,
+      "cavity_depth_native": 0.012,
+      "cavity_roof_arch_native": 0.002
+    },
+    "head_half_width_controls": [
+      [
+        0.98855,
+        0.032
+      ],
+      [
+        0.9967284624,
+        0.015
+      ]
+    ],
+    "evidence_grade": "D source-matched engineering candidate; mouth and head measurements not new biological data",
+    "side_sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+    "front_sha256": "b1e194b615c83b711d0028510da47f1932c895d7c325caaf0976c0e215bce96d",
+    "fin_cages": "resources/volume-fish/blacktip-fin-cages-20261101.json",
+    "mouth_operator_review": "projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\mouth-operator-review.json",
+    "native_charts": {
+      "side": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/native-charts-r2/side-body.png",
+      "front": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/native-charts-r2/front-body.png",
+      "fin_eye": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/native-charts-r2/native-fin-eye.png"
+    },
+    "eyes_in_native_body_skin": true,
+    "triangle_budget": {
+      "preferred": 3500,
+      "hard": 4000,
+      "policy_id": "user-shark-minimum-tier-20261101"
+    },
+    "body_longitudinal_refinement": 3
+  },
+  "triangle_policy": {
+    "ok": true,
+    "policy_id": "user-shark-minimum-tier-20261101",
+    "real_length_cm": 150,
+    "preferred_triangles": 3500,
+    "hard_triangles": 4000,
+    "anatomical_group": "shark",
+    "species": "blacktip_reef_shark",
+    "triangles": 3944,
+    "effective_hard_triangles": 4000,
+    "preferred_met": false,
+    "scope": "All actual body, mouth/oral/jaws, complete fin faces/edges and extra layers. Technical count only; no visual/anatomical acceptance."
+  },
+  "width_evidence_grade": "Own-species calibrated projected photograph, manual silhouette measurements; not specimen dimensions. Posterior body remains the earlier artistic cage.",
+  "fin_inventory": [
+    "FirstDorsal",
+    "SecondDorsal",
+    "Pectoral_left",
+    "Pectoral_right",
+    "Pelvic_left",
+    "Pelvic_right",
+    "Anal",
+    "Caudal"
+  ],
+  "anatomical_fins": 8,
+  "fin_regions": 8,
+  "source_rig_bones": 18,
+  "formal_acceptance": false,
+  "source_finalization": {
+    "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fish.glb",
+    "sha256": "f87b661e0d19fb803d5271284319b45c7c2721498a9ebf1b14cfe2e85f5785fd",
+    "editable_source": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fish.blend",
+      "sha256": "4d8ee4099c22a166f28b91dea8750af3d5727358d5bdbdc80c385d0d6caa83f4"
+    },
+    "triangles": 3944,
+    "bones": 18,
+    "body_surfaces": 3,
+    "fin_regions": 8,
+    "operator_scope": "Rounded actual underside mouth and continuous caudal foil; final current gates separate; user acceptance pending."
+  },
+  "jaw_action_branch": {
+    "kind": "static integrated subterminal jaw in four locomotion actions",
+    "jaw_tracks": 0,
+    "feeding_action": "not included in this locomotion candidate",
+    "constraint": "True finite recess and upper/lower body volume retained; no separate lip band or artificial opening track"
+  },
+  "remaining_limits": [
+    "The same-species specimen is preserved and photographed; manual side and ventral projections constrain ratios, not true3D metrology or normal tissue thickness.",
+    "Fin normal thickness and smooth taper remain explicit engineering parameters, constrained by own frontal artwork. No generated top view or biological thickness dataset is claimed.",
+    "Existing shark locomotion has C.limbatus proxy ancestry; four locomotion actions and transitions are reviewed, not a species-specific measured kinematic model.",
+    "No separate feeding/jaw action is supplied. The integrated finite mouth recess remains static during locomotion.",
+    "User whole-fish appearance acceptance remains pending."
+  ],
+  "base_cage_body_sections_before_user_review": [
+    [
+      0.14830970556161396,
+      0.4854368932038835,
+      0.6084142394822006,
+      0.008
+    ],
+    [
+      0.19083969465648856,
+      0.4692556634304207,
+      0.6148867313915858,
+      0.014
+    ],
+    [
+      0.24536532170119957,
+      0.45307443365695793,
+      0.6440129449838188,
+      0.024
+    ],
+    [
+      0.3107960741548528,
+      0.4336569579288026,
+      0.6715210355987055,
+      0.036
+    ],
+    [
+      0.3816793893129771,
+      0.3964401294498382,
+      0.7087378640776699,
+      0.045
+    ],
+    [
+      0.4525627044711014,
+      0.36084142394822005,
+      0.7443365695792881,
+      0.052
+    ],
+    [
+      0.5234460196292258,
+      0.33171521035598706,
+      0.7669902912621359,
+      0.059
+    ],
+    [
+      0.5997818974918212,
+      0.3074433656957929,
+      0.7799352750809061,
+      0.064
+    ],
+    [
+      0.6706652126499455,
+      0.3074433656957929,
+      0.7815533980582524,
+      0.066
+    ],
+    [
+      0.7415485278080698,
+      0.32038834951456313,
+      0.7669902912621359,
+      0.06
+    ],
+    [
+      0.8124318429661941,
+      0.36084142394822005,
+      0.7330097087378641,
+      0.078
+    ],
+    [
+      0.8724100327153762,
+      0.40129449838187703,
+      0.6877022653721683,
+      0.078
+    ],
+    [
+      0.9214830970556162,
+      0.44660194174757284,
+      0.6456310679611651,
+      0.064
+    ],
+    [
+      0.965103598691385,
+      0.4886731391585761,
+      0.598705501618123,
+      0.04
+    ],
+    [
+      0.9885496183206107,
+      0.5145631067961165,
+      0.5663430420711975,
+      0.032
+    ],
+    [
+      0.9967284623773174,
+      0.5323624595469255,
+      0.5501618122977346,
+      0.015
+    ]
+  ],
+  "head_reference": {
+    "path": "projects/fishing-2d/experiments/blacktip-lowpoly-20261101/sources/chumbe-blacktip-top.jpg",
+    "url": "https://chumbeisland.com/chumbe-big-five/",
+    "photographer": "Ali Maah / Unsplash, photo credited by Chumbe",
+    "species_source": "Same conservation article explicitly identifies Carcharhinus melanopterus",
+    "registration": {
+      "nose_px": [
+        111,
+        550
+      ],
+      "eye_px": [
+        206,
+        470
+      ],
+      "model_nose_u": 0.9967284624,
+      "model_source_eye_u": 0.9214830971,
+      "pixels_per_native_u": 1263.16
+    },
+    "limitations": "Manual projected photograph ratio, not specimen dimensions. Camera projection, bending and water refraction unknown. Widths use the photographed head, interpolated only between marked stations; posterior body is retained.",
+    "measurements": [
+      {
+        "photo_x": 400,
+        "upper_y": 411,
+        "lower_y": 589,
+        "u": 0.7679371770521423,
+        "half_width_native": 0.07045821590297349
+      },
+      {
+        "photo_x": 350,
+        "upper_y": 416,
+        "lower_y": 607,
+        "u": 0.8075204444133633,
+        "half_width_native": 0.07560404065993223
+      },
+      {
+        "photo_x": 300,
+        "upper_y": 425,
+        "lower_y": 620,
+        "u": 0.8471037117745844,
+        "half_width_native": 0.07718737135438107
+      },
+      {
+        "photo_x": 250,
+        "upper_y": 434,
+        "lower_y": 626,
+        "u": 0.8866869791358054,
+        "half_width_native": 0.07599987333354444
+      },
+      {
+        "photo_x": 210,
+        "upper_y": 443,
+        "lower_y": 625,
+        "u": 0.9183535930247824,
+        "half_width_native": 0.07204154659742233
+      },
+      {
+        "photo_x": 180,
+        "upper_y": 454,
+        "lower_y": 621,
+        "u": 0.942103553441515,
+        "half_width_native": 0.06610405649323918
+      },
+      {
+        "photo_x": 150,
+        "upper_y": 472,
+        "lower_y": 610,
+        "u": 0.9658535138582476,
+        "half_width_native": 0.05462490895848507
+      },
+      {
+        "photo_x": 125,
+        "upper_y": 507,
+        "lower_y": 591,
+        "u": 0.9856451475388581,
+        "half_width_native": 0.03324994458342569
+      },
+      {
+        "photo_x": 115,
+        "upper_y": 529,
+        "lower_y": 579,
+        "u": 0.9935618010111024,
+        "half_width_native": 0.019791633680610533
+      },
+      {
+        "photo_x": 111,
+        "upper_y": 550,
+        "lower_y": 550,
+        "u": 0.9967284624,
+        "half_width_native": 0.0
+      }
+    ],
+    "support_planes_u": [
+      0.942103553441515,
+      0.9658535138582476
+    ],
+    "actual_check": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\repair-user-review-20261101\\cold-r6\\head.validation.json",
+      "sha256": "d57aa3310898b55f77f81e6a7f0f87edd15c4bcbfddc9f634b2f5328b4bee39c"
+    }
+  },
+  "authoring_current": {
+    "repair_config": {
+      "path": "E:\\game-ai-foundry\\resources\\volume-fish\\blacktip-review-repair-20261101.json",
+      "sha256": "f7af0c7f692b44a8f83c58b6f7ea44af60db893c7249d82784347a89b8be4be6"
+    },
+    "base_candidate": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\cold-candidate-r14\\fish.blend",
+      "sha256": "46ac139efc5466f1a5e17773b6d0526056a2a6141b7f5e22f8a863b75bbf5990"
+    },
+    "shape_tool": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\repair_shark_review.py",
+      "sha256": "fdc55537e9d7489a0fd64ca6424f394ba54eed36a6061d23c24c2d7860f800a9"
+    },
+    "skin_tool": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\bake_shark_review_skin.py",
+      "sha256": "d92f6d81122fd35654760559b5aa1b9fcba0e5e6b7b5d3a866b998767f7a5baa"
+    },
+    "lower_layer_tool": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\correct_shark_fin_ventral.py",
+      "sha256": "fe9f00727ea4b51525042d050707e6557727fbcadcc49440dd1e3297f745ce37"
+    },
+    "actual_layer_receipt": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\repair-user-review-20261101\\author-r10\\ventral-ownership.validation.json",
+      "sha256": "53b366e805192eebf5f26f32738f997c139983e23e435886b1a782e08fbc6ef0"
+    },
+    "front_projected_fin_envelope": {
+      "body_left_right_px": [
+        205,
+        687
+      ],
+      "pectoral_proximal_vertical_edges_px": [
+        [
+          690,
+          530
+        ],
+        [
+          690,
+          558
+        ]
+      ],
+      "pectoral_outer_vertical_edges_px": [
+        [
+          780,
+          580
+        ],
+        [
+          780,
+          598
+        ]
+      ],
+      "model_head_width_native": 0.156,
+      "projected_full_thickness_native": [
+        0.009062240663900415,
+        0.005825726141078838
+      ],
+      "method": "Own accepted front artwork, vertical outline distance. Projection/dihedral contributes, so a visible envelope constraint, not a true normal tissue measurement."
+    },
+    "thickness_uncertainty": "Frontal projected envelope constrains Pectoral. Full chord profiles for unobserved sections remain explicit shape parameters, not biological thickness data."
+  },
+  "fin_continuity": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\fin-continuity-20261101\\parameters.json",
+    "sha256": "57ec418c45f008f5e0227bc6ba42f5c741284c053dba0a431a15cf36bc0d4b0a"
+  },
+  "previous_fin_appearance_user_rejected": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\repair-user-review-20261101\\cold-r6\\fish.glb",
+    "sha256": "95822cde6a70a16339d0ec559e357d0150874931461cb13acf80f448afbb7126"
+  },
+  "fins": [
+    {
+      "name": "FirstDorsal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_explicit_baseline_cap",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    },
+    {
+      "name": "SecondDorsal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_explicit_baseline_cap",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    },
+    {
+      "name": "Pectoral",
+      "paired": true,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_explicit_baseline_cap",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    },
+    {
+      "name": "Pelvic",
+      "paired": true,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_explicit_baseline_cap",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    },
+    {
+      "name": "Anal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_explicit_baseline_cap",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    },
+    {
+      "name": "Caudal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.0,
+        "method": "complete_body_intersection_cap_and_authored_posterior_section",
+        "data": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fin-authoring.json"
+      }
+    }
+  ],
+  "current_reference_completion_parameters": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\parameters.json",
+  "reference_completion": {
+    "parameters": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\parameters.json",
+      "sha256": "cd0c53a2ab35bbdb7381456dfa744fce8bcf58c2fde7e8c0ce36d8e870a3051d"
+    },
+    "paired_span": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\paired-fin-calibration.validation.json",
+      "sha256": "c93f864b34b45d72e8d703e0a82fa8f612b6b0324b35a83adb2c5734cd42d391"
+    },
+    "tail_plan": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\whole-tail-plan.json",
+      "sha256": "c952b736020601fe32338528dc1c479260af8ff5ab76a53cbb2958acc589e325"
+    },
+    "tail_section_target": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\tail-section-target.json",
+      "sha256": "984102b7b22ee67466da37d1a1a67eb64cb985949152d6d6ccfa404192760821"
+    },
+    "specimen": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\sources\\melanopterus-specimen-three-views.jpg",
+      "sha256": "a6e4718ce7ff823e18166fd8e0c9981e09b66fa48c382adf4925048acbfc820a"
+    }
+  },
+  "surface_mouth_repair": {
+    "parameters": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\parameters.json",
+      "sha256": "c2dfef5a331a794056ff13923eb5eda2684a9069aed1691610cd19108c496183"
+    },
+    "tail_plan": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\continuous-tail-plan.json",
+      "sha256": "38af9191ab592d4d1b7619c593c32830d6586f3435085b36b934658bfc66ad39"
+    },
+    "frozen_tail_section": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\tail-section-target.json",
+      "sha256": "984102b7b22ee67466da37d1a1a67eb64cb985949152d6d6ccfa404192760821"
+    },
+    "rejected_model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\anatomy-completion-20261101\\final-candidate-r5\\fish.glb",
+      "sha256": "5172c24ba4777192b4bfb309e03243d4a4c0d850ae8e59db4dcb0e4948152ba3"
+    },
+    "mouth_material_author": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\mouth-material-r1\\fish.glb",
+      "sha256": "6f45fc880b62e14719c1b184b617afea38d38390adb7d419399c4dba4b8fa18a"
+    },
+    "scope": "Mouth is actual underside oral arc, not nose. Native outline preserved; continuous span envelope and constrained chord ridge replace multiple independent thickness peaks. All existing transverse coordinates/eyes retained. Fin tissue thickness remains engineering design, not measured biological data."
+  }
+}

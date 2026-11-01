@@ -1,0 +1,38 @@
+{
+  "source_profile": "resources/volume-fish/blacktip-reef-shark-review-055.profile.json",
+  "side": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_pixel040_nobg.png",
+  "front": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_front040_nobg.png",
+  "rig_source": "projects/fishing-2d/experiments/blender-fish/models/blacktip_reef_shark/055-reviewed.handoff-artifacts/fish.blend",
+  "body_stations_before_mouth": [
+    0.1483097056,
+    0.19084,
+    0.24537,
+    0.3108,
+    0.38168,
+    0.45256,
+    0.52345,
+    0.59978,
+    0.67067,
+    0.74155,
+    0.81243,
+    0.86
+  ],
+  "body_stations_after_mouth": [
+    0.978,
+    0.98855,
+    0.9967284624
+  ],
+  "mouth": {
+    "theta_start_pi": 0.78,
+    "theta_end_pi": 1.22,
+    "corner_u": 0.912,
+    "anterior_u": 0.956,
+    "half_gap_u": 0.0025,
+    "cavity_depth_native": 0.012,
+    "cavity_roof_arch_native": 0.002
+  },
+  "head_half_width_controls": [[0.98855, 0.032], [0.9967284624, 0.015]],
+  "evidence_grade": "D source-matched engineering candidate; mouth and head measurements not new biological data",
+  "side_sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+  "front_sha256": "b1e194b615c83b711d0028510da47f1932c895d7c325caaf0976c0e215bce96d"
+}

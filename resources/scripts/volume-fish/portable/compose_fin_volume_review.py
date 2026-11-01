@@ -9,7 +9,7 @@ def compose(directory):
     assert report['ok'];inputs={str(capture.resolve()):sha(capture)};outputs={}
     views=['front-clay','top-clay','oblique-clay']
     for page in range((len(report['fin_inventory'])+3)//4):
-        names=report['fin_inventory'][page*4:page*4+4]
+        names=list(report['fin_inventory'])[page*4:page*4+4]
         sheet=Image.new('RGB',(1800,440*len(names)),(37,52,60));draw=ImageDraw.Draw(sheet)
         for row,name in enumerate(names):
             for col,view in enumerate(views):

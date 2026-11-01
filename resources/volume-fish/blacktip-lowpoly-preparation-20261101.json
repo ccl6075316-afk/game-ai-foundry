@@ -1,0 +1,156 @@
+{
+  "species": "blacktip_reef_shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "display_TL_cm": 150,
+  "budget": {
+    "policy_id": "user-shark-minimum-tier-20261101",
+    "preferred_total": 3500,
+    "hard_limit_total": 4000,
+    "body_and_mouth_target": 1300,
+    "all_fin_faces_including_walls_target": 2000,
+    "eyes_and_other_reserve": 200,
+    "note": "User 2026-11-01: shark minimum3500/4000 tier, including<=120cm; >300/600cm use higher display tiers. Allocation only; no need to reach preferred count."
+  },
+  "reference_ranges": [
+    {
+      "measurement": "眼长",
+      "TL_percent": [
+        2,
+        3
+      ],
+      "scaled_150cm_range_cm": [
+        3,
+        4.5
+      ],
+      "source": "FAO1984"
+    },
+    {
+      "measurement": "第二背鳍高",
+      "TL_percent": [
+        3.4,
+        4.1
+      ],
+      "scaled_150cm_range_cm": [
+        5.1,
+        6.15
+      ],
+      "source": "FAO1984"
+    },
+    {
+      "measurement": "胸鳍弯曲前缘长",
+      "TL_percent": [
+        17,
+        19
+      ],
+      "scaled_150cm_range_cm": [
+        25.5,
+        28.5
+      ],
+      "source": "FAO1984"
+    }
+  ],
+  "unknown": [
+    "same-specimen TL-matched head/body widths",
+    "whole-fin root/mid/edge thickness",
+    "species-specific stiffness values",
+    "sex and geographic population"
+  ],
+  "fins": [
+    {
+      "name": "左右胸鳍",
+      "anatomical_count": 2,
+      "support": "基软骨、辐状软骨、角质鳍条与皮肤组织",
+      "model_constraint": "有限翼型截面；厚根、较饱满前缘、渐薄后缘及梢；保持完整后掠轮廓",
+      "motion": "根随体表，远端有限扭转；不套辐鳍鱼柔软鳍膜摆幅",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 240
+    },
+    {
+      "name": "第一背鳍",
+      "anatomical_count": 1,
+      "support": "背鳍基软骨与辐状软骨/角质鳍条；具体骨架长度未知",
+      "model_constraint": "高背鳍有实体厚根和渐薄截面，保留原黑尖和近端白色带",
+      "motion": "以稳定面处理，不自动按软鳍膜扇动",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 100
+    },
+    {
+      "name": "第二背鳍",
+      "anatomical_count": 1,
+      "support": "同类支撑，独立形状和根线",
+      "model_constraint": "独立校准高度5.10–6.15cm为150cm情景换算，短游离后端",
+      "motion": "独立核查，不缩放第一背鳍充数",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 60
+    },
+    {
+      "name": "左右腹鳍",
+      "anatomical_count": 2,
+      "support": "腹鳍带/基软骨与辐状软骨等；性别未知，不新增鳍脚",
+      "model_constraint": "独立根线和有限渐薄截面，不照抄胸鳍厚度",
+      "motion": "小幅姿态变化，完整鳍基跟随身体",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 120
+    },
+    {
+      "name": "臀鳍",
+      "anatomical_count": 1,
+      "support": "基软骨、辐状软骨及角质鳍条支撑",
+      "model_constraint": "保留本鱼轮廓、后端与第二背鳍的相对位置",
+      "motion": "独立核查根区与自由缘",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 60
+    },
+    {
+      "name": "完整异尾（上下两叶）",
+      "anatomical_count": 1,
+      "mesh_regions": 2,
+      "support": "尾部脊柱向上叶延续；上下叶的支撑和形体不等同",
+      "model_constraint": "先做完整异尾；上叶厚轴连接尾柄，下叶独立截面；不做对称尾或等厚双薄片",
+      "motion": "尾柄和上叶轴连续传权；上下叶相位与幅度独立核验",
+      "measured_thickness_mm": null,
+      "triangles_target_total": 240
+    }
+  ],
+  "sources": [
+    {
+      "id": "FAO1984",
+      "url": "https://www.fao.org/4/ad123e/ad123e28.pdf",
+      "locator": "printed page488 / PDF page2",
+      "grade": "same_species_reference_range",
+      "scope": "short blunt snout; fin outline/placement; eye length2–3%TL, second dorsal height3.4–4.1%TL, pectoral curved anterior margin17–19%TL; no specimen N here; not whole-fin thickness"
+    },
+    {
+      "id": "Florida",
+      "url": "https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/blacktip-reef-shark/",
+      "grade": "same_species_qualitative",
+      "scope": "round short snout, black fin tips and white highlights, first dorsal/pectoral positional relationship; web tool readable, direct local fetch SSL failure retained"
+    },
+    {
+      "id": "Hoffmann2020",
+      "url": "https://doi.org/10.1002/jmor.21269",
+      "dataset": "https://doi.org/10.5061/dryad.j3tx95x9b",
+      "grade": "comparative_shark_pectoral_only",
+      "scope": "hydrofoil-shaped pectoral section and interspecific skeletal variation. No numerical thickness transferred to melanopterus. Dataset page readable, spreadsheet retrieval403; not treated as examined data"
+    },
+    {
+      "id": "FAO2013",
+      "url": "https://www.fao.org/4/i3477e/i3477e.pdf",
+      "locator": "printed page14 / PDF page25",
+      "grade": "shark_general_anatomy",
+      "scope": "basals/radials for precaudal fins; caudal support differs, with expanded vertebral neural/haemal arches. General anatomy, not target-species thickness"
+    },
+    {
+      "id": "SICB",
+      "url": "https://sicb.org/abstracts/anatomy-and-flexural-stiffness-of-shark-pectoral-fins-in-an-ecomorphological-context/",
+      "grade": "meeting_abstract_comparative",
+      "scope": "basal cartilage, radials, ceratotrichia and different fin stiffness across sharks; no universal stiffness assigned"
+    }
+  ],
+  "source_image_sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a",
+  "baseline_model_sha256": "e72e75ba35c0a574d045f458a5a8f11e86181b6ff7e5246f409dc9fc837dcd19",
+  "baseline_sections_file": "baseline.validation.json",
+  "mouth_priority": "First create/verify a source-matched subterminal mouth under the blunt snout, real upper/lower jaw volume and inner cavity. Do not reuse an end-of-snout teleost slit or independent lip ribbon. No fin completion claim before mouth evidence.",
+  "new_model_status": "not_built",
+  "user_new_appearance_acceptance": false
+}

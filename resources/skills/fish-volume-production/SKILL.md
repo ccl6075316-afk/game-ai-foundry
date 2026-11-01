@@ -5,6 +5,10 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 # 从鱼类原图制作可审阅的3D鱼
 
+制作下一条鲨鱼先读[鲨鱼可复用制作经验](references/shark-production-lessons.md)：同种来源与俯/腹视描述、连续实体鳍/尾柄、实际口弧与鼻端分离、背腹材质和冷读动作。复用方法和负例，物种库存、头翼/吻型、宽度、鳍形与厚度逐种重定；首例用户认可不转移到其他鲨鱼。
+
+鲨鱼出现尖吻、鳍片硬直/薄、曲根上下色分错、背腹拼块或预览闪烁时，读[黑鳍礁鲨本轮图审返修](references/blacktip-review-lessons-20261101.md)：实拍测位必须落到实际有限截面，完整鳍基与上下组织层独立识别，隐藏供体的派生色与原像素声明分开，预览深度范围也核对。当前候选仍待整鱼外观和正式SOP，不作为其他鲨鱼接受模板。
+
 用户认可宽度后继续修鳍，读[原像素鳍精修与有限根带](references/native-fin-detail-lessons-20261031.md)：原图独立边界、低面支撑、实际体表蒙皮、冷导出、全鳍490与继承问题分别记录。不能把旧UV插值当新轮廓的接触证明。
 
 通用规则与最新方法见[四鱼经验收敛](references/four-fish-lessons-20261031.md)。当前制作状态只读逐鱼manifest和正式证据，不在技能入口反复叠加候选编号。
