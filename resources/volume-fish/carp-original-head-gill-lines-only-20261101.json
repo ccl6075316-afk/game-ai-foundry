@@ -1,0 +1,87 @@
+{
+  "species": "carp",
+  "model": "projects/fishing-2d/experiments/carp-lowpoly-sop-20261031/fin-edge-repair-20261101/round2/fish.glb",
+  "model_sha256": "e35ec86ee37751bf6b7ddf48a88299822e57555d310bf2cba5af8e7bbf732aae",
+  "native_density": 2028,
+  "chart_bounds": [
+    0.8,
+    0.94,
+    -0.06,
+    0.06
+  ],
+  "reference_capture": {
+    "width": 900,
+    "height": 620,
+    "focus_x_m": 0.13357,
+    "camera_size_m": 0.075,
+    "model_scale": 0.31062123447069107
+  },
+  "gill_line_polygons_capture_px": [
+    [
+      [
+        566,
+        310
+      ],
+      [
+        612,
+        258
+      ],
+      [
+        625,
+        250
+      ],
+      [
+        625,
+        370
+      ],
+      [
+        612,
+        362
+      ]
+    ],
+    [
+      [
+        632,
+        310
+      ],
+      [
+        665,
+        263
+      ],
+      [
+        679,
+        255
+      ],
+      [
+        679,
+        365
+      ],
+      [
+        665,
+        357
+      ]
+    ],
+    [
+      [
+        689,
+        310
+      ],
+      [
+        722,
+        265
+      ],
+      [
+        737,
+        258
+      ],
+      [
+        737,
+        362
+      ],
+      [
+        722,
+        355
+      ]
+    ]
+  ]
+}

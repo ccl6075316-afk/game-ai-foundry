@@ -1,0 +1,102 @@
+{
+  "species": "carp",
+  "model": "projects/fishing-2d/experiments/carp-lowpoly-sop-20261031/gill-region-cleanup-20261101/candidate/fish.glb",
+  "model_sha256": "4b753f19b375a10189f556c6c04de3f49d765e75e74f05d6263d432bce4d0d07",
+  "native_density": 2028,
+  "chart_bounds": [
+    0.7,
+    0.955,
+    -0.07,
+    0.07
+  ],
+  "reference_capture": {
+    "width": 900,
+    "height": 620,
+    "focus_x_m": 0.13357,
+    "camera_size_m": 0.075,
+    "model_scale": 0.31062123447069107
+  },
+  "gill_line_polygons_capture_px": [],
+  "line_margin_native_px": 1,
+  "inpaint_radius_px": 5,
+  "scope": "Generated underside skin texture with naturally narrowing chin transition. Actual mouth-boundary35native-pixel protection prevents native lip recoloring. No generated geometry adopted. Native side gills/eyes/barbels/fins and outside scoped mask exact.",
+  "gill_region_uvz_polygon": [
+    [
+      0.735,
+      -0.022
+    ],
+    [
+      0.755,
+      -0.037
+    ],
+    [
+      0.83,
+      -0.036
+    ],
+    [
+      0.89,
+      -0.032
+    ],
+    [
+      0.914,
+      -0.024
+    ],
+    [
+      0.926,
+      -0.023
+    ],
+    [
+      0.94,
+      -0.014
+    ],
+    [
+      0.948,
+      -0.004
+    ],
+    [
+      0.949,
+      0
+    ],
+    [
+      0.948,
+      0.004
+    ],
+    [
+      0.94,
+      0.014
+    ],
+    [
+      0.926,
+      0.023
+    ],
+    [
+      0.914,
+      0.024
+    ],
+    [
+      0.89,
+      0.032
+    ],
+    [
+      0.83,
+      0.036
+    ],
+    [
+      0.755,
+      0.037
+    ],
+    [
+      0.735,
+      0.022
+    ]
+  ],
+  "retain_adjacent_pixel_detail": 0,
+  "generated_texture": {
+    "path": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\generated-underside-material-20261101\\head-underside-generated.png",
+    "sha256": "6158d13efe2c9021b7e88bb17ce58e320a4d8e59e3263c4c56b6725051940038",
+    "feather_native_px": 8,
+    "review": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\generated-underside-material-20261101\\material-source.validation.json",
+    "review_sha256": "67e43ea7c755bdd051b8d96a7195fcd3dc54fa64d3c1d0ed25e3b014cd65268a"
+  },
+  "protect_actual_mouth_rim_native": 0.0175
+}

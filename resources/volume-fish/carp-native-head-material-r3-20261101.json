@@ -1,0 +1,40 @@
+{
+  "species": "carp",
+  "model": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\fin-edge-repair-20261101\\round2\\fish.glb",
+  "model_sha256": "e35ec86ee37751bf6b7ddf48a88299822e57555d310bf2cba5af8e7bbf732aae",
+  "profile": "resources/volume-fish/carp-sop-final-20261031.profile.json",
+  "head_start_u": 0.69,
+  "head_full_u": 0.75,
+  "lip_fade_start_u": 0.935,
+  "lip_protected_u": 0.952,
+  "ventral_start": 0.18,
+  "ventral_full": 0.5,
+  "side_full": 0.62,
+  "side_protected": 0.94,
+  "plain_RGB": [
+    188,
+    158,
+    84
+  ],
+  "native_material": {
+    "source": "projects/fishing-2d/experiments/blender-fish/models/carp/082-source-inputs/char_carp_082_nobg.png",
+    "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+    "roi_px": [
+      1745,
+      565,
+      1840,
+      605
+    ],
+    "target_u_range": [
+      0.75,
+      0.935
+    ],
+    "scope": "Clean native cheek microtexture, illumination normalized and quilted by native patch overlap cuts at original source pixel density. No enlarged patch, regular mirrored tiling, random RGB or gill donors.",
+    "normalize_illumination": true,
+    "illumination_sigma_px": 2,
+    "detail_gain": 1.5,
+    "source_pixel_density": 2028,
+    "material_tile": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\native-head-material-20261101\\skin-material\\skin.png",
+    "material_tile_sha256": "f4ae408d03935c6fc6e6f05b9620a7391533716c1eb6e5006091dbf3a3883ba0"
+  }
+}

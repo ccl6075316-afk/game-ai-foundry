@@ -1,0 +1,72 @@
+{
+  "species": "carp",
+  "model": "projects/fishing-2d/experiments/carp-lowpoly-sop-20261031/fin-edge-repair-20261101/round2/fish.glb",
+  "model_sha256": "e35ec86ee37751bf6b7ddf48a88299822e57555d310bf2cba5af8e7bbf732aae",
+  "native_density": 2028,
+  "chart_bounds": [
+    0.7,
+    0.94,
+    -0.07,
+    0.07
+  ],
+  "reference_capture": {
+    "width": 900,
+    "height": 620,
+    "focus_x_m": 0.13357,
+    "camera_size_m": 0.075,
+    "model_scale": 0.31062123447069107
+  },
+  "gill_line_polygons_capture_px": [],
+  "line_margin_native_px": 1,
+  "inpaint_radius_px": 5,
+  "adjacent_native_donor_uvz": [
+    0.916,
+    0.938,
+    -0.016,
+    0.016
+  ],
+  "scope": "User explicitly confirmed BOTH central triangular shadows and rear neck-side curved false-gill markings must be removed from underside; preserve true lateral opercula. Complete anatomical underside-only region, clean adjacent original skin donor, original outside mask exact.",
+  "gill_region_uvz_polygon": [
+    [
+      0.735,
+      -0.022
+    ],
+    [
+      0.755,
+      -0.037
+    ],
+    [
+      0.83,
+      -0.036
+    ],
+    [
+      0.89,
+      -0.032
+    ],
+    [
+      0.914,
+      -0.024
+    ],
+    [
+      0.914,
+      0.024
+    ],
+    [
+      0.89,
+      0.032
+    ],
+    [
+      0.83,
+      0.036
+    ],
+    [
+      0.755,
+      0.037
+    ],
+    [
+      0.735,
+      0.022
+    ]
+  ],
+  "retain_adjacent_pixel_detail": 0.9
+}

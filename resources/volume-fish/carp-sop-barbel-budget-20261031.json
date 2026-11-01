@@ -1,0 +1,22 @@
+{
+  "species": "carp",
+  "real_length_cm": 31,
+  "blend_sha256": "97bfc601f9f76191529b56213640f103dfc7034896af07079ea5d85920377208",
+  "nodes": [
+    "Barbel_0_-1",
+    "Barbel_0_1",
+    "Barbel_1_-1",
+    "Barbel_1_1"
+  ],
+  "old_sides": 8,
+  "new_sides": 6,
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ]
+}

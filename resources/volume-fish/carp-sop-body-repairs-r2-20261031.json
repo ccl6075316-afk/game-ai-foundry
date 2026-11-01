@@ -1,0 +1,76 @@
+{
+  "source": "projects/fishing-2d/experiments/blender-fish/models/carp/082-source-inputs/char_carp_082_nobg.png",
+  "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+  "masks": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\native-fins-r5\\masks.validation.json",
+  "masks_sha256": "234b4541da66e26a50842cc44706c4e7755e2e5cee98526d2764ba42cff36546",
+  "repairs": [
+    {
+      "fin": "Pectoral",
+      "offset_px": [
+        -330,
+        -20
+      ],
+      "edge_expansion_px": 3,
+      "protected_root_width_px": 5
+    },
+    {
+      "fin": "Pelvic",
+      "donor_roi_px": [
+        1140,
+        745,
+        1240,
+        790
+      ],
+      "edge_expansion_px": 3,
+      "protected_root_width_px": 4
+    },
+    {
+      "name": "far_pectoral",
+      "fin": "Pectoral",
+      "footprint_polygon_px": [
+        [
+          1400,
+          780
+        ],
+        [
+          1480,
+          762
+        ],
+        [
+          1585,
+          752
+        ],
+        [
+          1585,
+          810
+        ],
+        [
+          1540,
+          905
+        ],
+        [
+          1495,
+          937
+        ],
+        [
+          1430,
+          914
+        ],
+        [
+          1425,
+          850
+        ]
+      ],
+      "donor_roi_px": [
+        1130,
+        690,
+        1260,
+        790
+      ],
+      "edge_expansion_px": 3,
+      "protected_root_width_px": 5
+    }
+  ],
+  "body_alpha_profile": "resources/volume-fish/carp-sop-fin-volume-r1-20261031.profile.json",
+  "body_alpha_preserve_head_from_x": 1650
+}

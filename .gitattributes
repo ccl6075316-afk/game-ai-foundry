@@ -94,3 +94,7 @@ cli/fish_budget.py -text
 # Review metadata must keep the same bytes on every platform.
 /.gitattributes text eol=lf
 /docs/MAINTENANCE-ARCHITECTURE.md text eol=lf
+
+# Frozen carp repair toolchain binds exact bytes.
+/work/carp-frozen-tools-20261101/** -text whitespace=cr-at-eol
+/work/carp-frozen-tools-20261101/volume-fish/portable/ReviewCaptureBase.gd whitespace=cr-at-eol,-blank-at-eof

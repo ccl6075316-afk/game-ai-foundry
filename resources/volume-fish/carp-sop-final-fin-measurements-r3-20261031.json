@@ -1,0 +1,47 @@
+{
+  "species": "carp",
+  "input_blend_sha256": "3c6a59e9aecf2d9974359ad0c1d5c60a233f6cba9e74ba2a9dc2d334670e069b",
+  "body": "Closed_body",
+  "profile": "resources\\volume-fish\\carp-sop-final-20261031.profile.json",
+  "baseline_profile": "resources\\volume-fish\\carp-sop-fin-volume-r1-20261031.profile.json",
+  "source_size": [
+    2028,
+    1015
+  ],
+  "model_scale": 0.31062123447069107,
+  "root_inset_mm": 0.12,
+  "free_clearance_mm": 0.35,
+  "tail_overlap_mm": 0.12,
+  "source_sha256": "4c906786e60da829b7a4ba4b7fec8a85bf1655a04a5ae76187826d6af397444c",
+  "fins": {
+    "Dorsal": {
+      "root_mm": 0.8,
+      "mid_mm": 0.35,
+      "edge_mm": 0.15
+    },
+    "Anal": {
+      "root_mm": 0.65,
+      "mid_mm": 0.3,
+      "edge_mm": 0.14
+    },
+    "Pectoral": {
+      "root_mm": 0.9,
+      "mid_mm": 0.42,
+      "edge_mm": 0.16,
+      "camber_mm": 0.25
+    },
+    "Pelvic": {
+      "root_mm": 0.75,
+      "mid_mm": 0.35,
+      "edge_mm": 0.14,
+      "camber_mm": 0.18
+    },
+    "Caudal": {
+      "root_mm": 5.58,
+      "mid_mm": 0.4,
+      "edge_mm": 0.16,
+      "taper_length_u": 0.055
+    }
+  },
+  "thickness_basis": "Species structure qualitative only. These are explicit artistic construction values in millimeters, not measured membrane or ray dimensions. Caudal actual root envelope comes from own finite body section."
+}

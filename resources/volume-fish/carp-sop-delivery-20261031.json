@@ -1,0 +1,51 @@
+{
+  "species": "carp",
+  "final_spec": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\portable\\source-run\\final-spec.json",
+  "fin_plan": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\portable\\fin-gate.plan.json",
+  "ordinary_reference": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\candidate-r1\\fish.glb",
+  "geometry_profile": "resources/volume-fish/carp-sop-fin-volume-r1-20261031.profile.json",
+  "head_stations": [
+    0.85,
+    0.9,
+    0.94,
+    0.9566,
+    0.97,
+    0.985
+  ],
+  "head_tolerance": 0.002,
+  "pose_time": 0.6,
+  "body": "Closed_body",
+  "game": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\review-game",
+  "whole_camera_size": 0.38,
+  "details": [
+    {
+      "name": "head",
+      "at": [
+        0.13357,
+        -0.00932,
+        0
+      ],
+      "size": 0.075
+    },
+    {
+      "name": "tail-junction",
+      "at": [
+        -0.0963,
+        -0.0024,
+        0
+      ],
+      "size": 0.1
+    }
+  ],
+  "review_sources": [
+    "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\source-audit\\validation-report.json",
+    "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\preparation.validation.json",
+    "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\native-fins-r5\\masks.validation.json",
+    "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\body-skin-r2\\texture-inputs.json"
+  ],
+  "production": {
+    "review": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\portable\\spec-sop-review.json",
+    "species": "carp",
+    "task_type": "rebuild"
+  }
+}

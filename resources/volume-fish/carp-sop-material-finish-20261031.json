@@ -1,0 +1,18 @@
+{
+  "species": "carp",
+  "blend_sha256": "0db0bde6f4c9a7db45cc6a9f93f12a379c3370999ded4e15652d6300fd79231d",
+  "body": "Closed_body",
+  "body_receipt": "projects\\fishing-2d\\experiments\\carp-lowpoly-sop-20261031\\head-material-r5\\transfer-r2\\body-materials.json",
+  "body_receipt_sha256": "a4e9ad761cc52b5f9e3204bc23b33d02f58ee9a404d149753b85a0caf3dd43c0",
+  "real_length_cm": 31,
+  "wall_inset_pixels": 8,
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ]
+}
