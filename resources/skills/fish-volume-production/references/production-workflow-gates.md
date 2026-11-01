@@ -8,6 +8,8 @@
 
 继续旧 spec 的 `run_source.py` 会补建清单；继续旧 handoff 构建/接受时也会补建。只读 `volume validate` 不创建文件，实时返回完整 production 检查；跨日先 validate 或 sop-check，不信任 manifest 内缓存的 production_status。局部制作不要求未实施项预先通过，保留 pending；“保留部件”同样要求证据，不是豁免。local_godot_static_merge 只说明任务范围，不会在完整出口减免检查。
 
+长任务前先执行[生产SOP第0.1节的开跑前证据表](production-sop.md)：来源/实际功能清单→二维供体预检→局部多视及代表动作→冻结→完整门→精简归档。手工逐鱼记录在候选切换、局部通过/失败、长任务起止和暂停/恢复时立即更新当前文件/哈希、通过范围、剩余项和卡点；不重写CLI job状态或把技术`done`当整鱼完成。用户暂停制作而只要求优化SOP时，保全当前检查点，不启动旧鱼重验。
+
 ## 状态与出口
 
 - `volume build/render/validate` 的技术成功保留 done/human_review，明确 `completion_scope=mechanical_preview`，并返回 production.status=blocked 及逐阶段失败。此 done 仅允许局部审阅，不表示整鱼完成。
@@ -25,6 +27,8 @@ candidate_files 的每一项填写实际文件路径和 SHA256。证据 bound_in
 标准快照记录标准版本、全部必需 criteria、SOP/鳍型/补皮/导出/嘴检查卡和检查器文件哈希。新增条目或这些文件变化会返回 stale_standard；不得自动升级快照或批量重绑历史证据。应逐项审核差异、补实施/补验证后，显式更新 standard；保留历史报告和接受范围。模型、配置、运行文件或任一证据字节变化会触发 stale_artifact/stale_binding/wrong_current_candidate。无法实现的生成器能力留作 pending/blocked，不用技术构建成功代替。
 
 现有三鱼候选、历史报告和认可宽度档案不作修改。旧清单无 standard/task_type 会在新检查中失败；可在原候选之外建立新清单完成迁移，旧报告保留原状。此标准采用保守失效：标准文件的文字编辑也会要求重新核对，尚不自动推断哪些证据可安全保留。
+
+仅流程文案改变也会触发上述标准哈希失效。恢复工作时先逐项审阅差异：缺的新要求补实际证据，已覆盖且输入/判据未变的专项说明保留依据，再显式更新清单标准；不为文案改动无差别重跑昂贵物理门，也不批量重签历史通过。专项报告复用仍须实际工具支持并满足当前绑定检查，不能手改模型SHA。用户暂停制作、仅要求改SOP期间，不自动迁移旧鱼或启动重验。
 
 ## 验证与边界
 

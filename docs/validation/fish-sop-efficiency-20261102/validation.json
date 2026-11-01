@@ -1,0 +1,81 @@
+{
+  "ok": true,
+  "kind": "fish_sop_efficiency_revision_validation",
+  "scope": "SOP/skill updates and read-only2D preflight only. Fish production remains paused; no Blender/Godot production, model/material changes, installation, cleanup or migration of historical fish reviews performed.",
+  "changes": {
+    "resources/skills/fish-volume-production/SKILL.md": "145e8d6417a58445ea98f4adb1511ea6b0079a599fbfec7cb4d9be6e78d88529",
+    "resources/skills/fish-volume-production/references/production-sop.md": "30e01506dd3392701f53dac1a26e4cf822cbb3569e6ce6abdde23591707d8973",
+    "resources/skills/fish-volume-production/references/production-workflow-gates.md": "dba7d4c955270a0179cbc6affd50b53c7beb1ad30545c87656c4d89e0fe67d0b",
+    "resources/skills/fish-volume-production/references/mouth-material-continuity.md": "a920f2b0961bccc76e3d65e2a8c04f4698489d1bcbaa3c0c23e01de7f6ab168b",
+    "resources/skills/fish-volume-production/references/command-rejection-recovery.md": "483385828a4430d17caa8c640302d34d79b7fc5d04ebbde3729ebebf0dbd2445",
+    "resources/skills/fish-volume-production/references/piranha-production-lessons-20261102.md": "a9221f4dabca6fbb1b4edcf86635d24775ab4dfe846aa221d2f5604c88252df5",
+    "resources/skills/gamefactory-toolkit/SKILL.md": "7cf0ef30357ea300b151a4e00f60c6a55ae445bc1b6c1151dff2ac2d55cc71da"
+  },
+  "code": {
+    "resources\\scripts\\volume-fish\\portable\\check_native_lip_donor.py": "f52b2e2336cbfa0bd9e8c2d062785004548e2367d112b1b08934de352cda0fb2",
+    "resources\\scripts\\volume-fish\\portable\\tests\\test_native_lip_donor.py": "d740a11481265aa0a8d2eb69b82599006801cd5c701c1ab2e047d37eb201795f"
+  },
+  "validation": {
+    "native_lip_donor_tests": 7,
+    "existing_volume_sop_tests": 29,
+    "fish_skill_quick_validate": "passed",
+    "toolkit_quick_validate": "Existing CLI one-pager has no YAML frontmatter; host-skill validator is inapplicable. Its links and instruction consistency checked instead.",
+    "relative_links_checked": 87,
+    "missing_links": [],
+    "git_diff_check": "passed",
+    "relative_links_scope": "This staged SOP/skill revision"
+  },
+  "actual_read_only_replays": {
+    "piranha-positive-final.json": "7fe5c689ff7553ac58ed75a7b754a8e6e1caec7594cfc7cfba8dfd342245601f",
+    "peacock-negative-final.json": "b982c9cc04b9955fd99931f8b0adadf6a0832e945d16708bfc833c33d76faa43"
+  },
+  "production_pause": {
+    "peacock_model_sha256_unchanged_since_user_pause": "0f9bb5849021e2022a452c925a71911e5aae13b085c5ac6540ce4b9ee2585ff6",
+    "peacock_material_output_exists": false,
+    "fish_status": "paused"
+  },
+  "local_sync": {
+    "root": "C:\\Users\\admin\\.codex\\skills\\fish-volume-production",
+    "reference_files_exact": [
+      "references/production-sop.md",
+      "references/production-workflow-gates.md",
+      "references/mouth-material-continuity.md",
+      "references/command-rejection-recovery.md",
+      "references/piranha-production-lessons-20261102.md"
+    ],
+    "index": "Only this task paragraph updated; concurrent skill edits preserved."
+  },
+  "limitations": [
+    "The2D footprint is conservative, especially on cell boundaries, and does not prove semantic tissue or actual3D baked sample correctness.",
+    "This preflight is an explicit SOP command; the author is not automatically wired to invoke it. Existing author opacity/bounds assertions remain unchanged.",
+    "SOP text hashes changed. Historical fish passes remain historical; review differences before explicit standard migration, do not auto-rebind or rerun costly gates during this pause.",
+    "No new AGENTS.md global rule or unsupported CLI status/schema added."
+  ],
+  "shared_index_scope": "SKILL hash binds this change staged against HEAD; concurrent unstaged width/black-seabream edits are preserved and excluded.",
+  "cleanup": {
+    "status": "retained_pending",
+    "files": [
+      {
+        "path": "work\\sop-optimization-20261102\\peacock-negative-final.json",
+        "bytes": 2672,
+        "sha256": "b982c9cc04b9955fd99931f8b0adadf6a0832e945d16708bfc833c33d76faa43"
+      },
+      {
+        "path": "work\\sop-optimization-20261102\\peacock-negative.json",
+        "bytes": 2320,
+        "sha256": "216ac9e6853bff8cb3a23693fcf2f1c27756d3312e5880c033d5d203a2bc9604"
+      },
+      {
+        "path": "work\\sop-optimization-20261102\\piranha-positive-final.json",
+        "bytes": 2209,
+        "sha256": "7fe5c689ff7553ac58ed75a7b754a8e6e1caec7594cfc7cfba8dfd342245601f"
+      },
+      {
+        "path": "work\\sop-optimization-20261102\\piranha-positive.json",
+        "bytes": 1857,
+        "sha256": "51325e3a5de18074a12d9d6d205bde09d2cca49ec1b8ad96d0d4d48a475daf70"
+      }
+    ],
+    "automatic_review": "Deletion rejected before execution with blocked by policy; detailed reason not supplied. No equivalent retry attempted. Final useful receipts are also retained in this validation directory."
+  }
+}
