@@ -28,5 +28,17 @@ class NativeBodySkinTest(unittest.TestCase):
         outside=np.array([[.4,0,.3],[0,0,0]])
         self.assertTrue(np.all(native_roof_coordinates(outside,sections,100,100,spans,c)[1]==0))
 
+    def test_bilateral_belly_coverage_uses_same_tissue_band_on_both_sides(self):
+        sections=[[0,.2,.8,.05],[1,.2,.8,.05]];spans=np.tile([20.,80.],(100,1))
+        c={'latitude_fade_start':.5,'latitude_full':.93,'longitudinal_window':[.1,.2,.7,.8],'pixel_density':1.,'transverse_source_fraction':.1,'dorsal_center_fraction':.19,'ventral_center_fraction':.82,'transverse_mapping':'bilateral_inward'}
+        for z in [-.3,.3]:
+            points=np.array([[0,-.02,z],[0,0,z],[0,.02,z]])
+            xy,amount,_=native_roof_coordinates(points,sections,100,100,spans,c)
+            np.testing.assert_array_equal(xy[0],xy[-1])
+            self.assertTrue(np.all(amount==1))
+            self.assertNotEqual(xy[0,1],xy[1,1]) # Real2D tissue, not flat/one-column fill.
+            center=xy[1,1]
+            self.assertLess(abs(xy[0,1]-50),abs(center-50)) # Both sides travel toward body interior.
+
 
 if __name__=='__main__':unittest.main()

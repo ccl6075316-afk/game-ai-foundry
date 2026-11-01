@@ -58,13 +58,16 @@ for fin in profile['fins']:
  # Three source-local support points retain a controllable finite root band.
  for q in root[np.linspace(0,len(root)-1,min(3,len(root))).round().astype(int)]:
   direction=center-q;extra.append(q+direction/max(np.linalg.norm(direction),1e-9)*8)
- seeds=np.r_[polygon,np.array(extra)];vs=[Vector(q/[W,H])for q in seeds];npoly=len(polygon)
+ additional=np.asarray(cfg.get('additional_source_seeds_px',{}).get(fin['name'],[]),float).reshape(-1,2)
+ assert len(additional)<=32 and np.isfinite(additional).all(),'Bounded explicit source supports required'
+ seeds=np.r_[polygon,np.array(extra),additional];vs=[Vector(q/[W,H])for q in seeds];npoly=len(polygon)
  dv,de,df,*_=delaunay_2d_cdt(vs,[(i,(i+1)%npoly)for i in range(npoly)],[list(range(npoly))],1,1e-8)
  # CDT returns isolated input seeds outside a concave domain as well. They
  # have no source-face UV and must not become unreferenced mesh vertices.
  used=sorted({i for f in df for i in f});remap={old:new for new,old in enumerate(used)}
  unused_seed_count=len(dv)-len(used);dv=[dv[i]for i in used];df=[tuple(remap[i]for i in f)for f in df]
  q=np.array(dv)*[W,H];N=len(q);assert len(df)>0
+ assert all(np.linalg.norm(q-p,axis=1).min()<.01 for p in additional),'Declared source support lies outside the realized fin domain'
  fin['source_baseline']=(root/[W,H]).tolist();fin['polygon']=(polygon/[W,H]).tolist()
  span=max(fin_baseline_parameter(v,fin['source_baseline'],fin['polygon'],aspect)for v in dv);assert span>0
  # This conversion is the frozen physical source-distance definition used by the checker.
@@ -104,7 +107,7 @@ for fin in profile['fins']:
   for i,mix in enumerate(weights):
    for bone,w in mix.items():(ob.vertex_groups.get(bone)or ob.vertex_groups.new(name=bone)).add([i],w,'REPLACE')
   ob['foundry_native_source_crop']=rec['crop'];bm=bmesh.new();bm.from_mesh(mesh);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));assert all(e.is_manifold for e in bm.edges);bm.to_mesh(mesh);bm.free();mesh.calc_loop_triangles()
-  records.append({'name':ob.name,'layer_vertices':N,'triangles':len(mesh.loop_triangles),'unreferenced_CDT_seeds_removed':unused_seed_count,'native_source_crop':rec['crop'],'source_t_max':fin['root_attachment']['root_band'],'native_mask_sha256':rec['image_sha256'],'physical_review':'pending'})
+  records.append({'name':ob.name,'layer_vertices':N,'triangles':len(mesh.loop_triangles),'additional_source_supports':len(additional),'unreferenced_CDT_seeds_removed':unused_seed_count,'native_source_crop':rec['crop'],'source_t_max':fin['root_attachment']['root_band'],'native_mask_sha256':rec['image_sha256'],'physical_review':'pending'})
 assert rig_action_snapshot()==frozen_rig
 assert all(mesh_snapshot(bpy.data.objects[n])==v for n,v in protected.items()),'Protected body/mouth/barbels changed'
 triangles=0

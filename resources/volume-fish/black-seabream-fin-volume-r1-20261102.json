@@ -1,0 +1,55 @@
+{
+  "input_blend_sha256": "13ca39a6995c36d63d4c9554093f8122a34a4968f79cb17aaf936713a1c02172",
+  "body": "Closed_body",
+  "profile": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\native-fin-cages-r2\\profile.json",
+  "baseline_profile": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\native-fin-cages-r2\\profile.json",
+  "source_size": [
+    1986,
+    991
+  ],
+  "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "model_scale": 0.3515933194327241,
+  "root_inset_mm": 0.18,
+  "free_clearance_mm": 0.55,
+  "tail_overlap_mm": 0.16,
+  "median_body_station_roots": [
+    "Dorsal",
+    "Anal"
+  ],
+  "median_fin_sides": {
+    "Dorsal": "dorsal",
+    "Anal": "ventral"
+  },
+  "fins": {
+    "Dorsal": {
+      "root_mm": 0.75,
+      "mid_mm": 0.3,
+      "edge_mm": 0.09
+    },
+    "Anal": {
+      "root_mm": 0.6,
+      "mid_mm": 0.26,
+      "edge_mm": 0.08
+    },
+    "Pectoral": {
+      "root_mm": 0.85,
+      "mid_mm": 0.32,
+      "edge_mm": 0.09,
+      "camber_mm": 0.2
+    },
+    "Pelvic": {
+      "root_mm": 0.7,
+      "mid_mm": 0.25,
+      "edge_mm": 0.08,
+      "camber_mm": 0.15
+    },
+    "Caudal": {
+      "root_mm": 0.95,
+      "mid_mm": 0.34,
+      "edge_mm": 0.1,
+      "taper_length_u": 0.1,
+      "conform_complete_basal_band": true
+    }
+  },
+  "parameter_basis": "Black-seabream35cm native-source experiment. Tissue support/ray/membrane distinctions from same-species photos and ray-finned branch; finite taper/camber numbers are explicit art proxy hypotheses, not measured biological fin thickness. Actual tail basal volume is derived from current body cap. Roots and all poses remain to validate."
+}

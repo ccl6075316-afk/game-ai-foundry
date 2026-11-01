@@ -1,0 +1,56 @@
+{
+  "image": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\generated\\head-top-r2.png",
+  "image_sha256": "8e1c26c6119d1f9c7b6d5f24242e312270396afa3d9cea543a1b33998814236f",
+  "correspondence": [
+    {
+      "landmark": "opercular-neck",
+      "source_u": 0.76,
+      "center_px": [
+        550,
+        508
+      ]
+    },
+    {
+      "landmark": "eye-plane",
+      "source_u": 0.8987915407854985,
+      "center_px": [
+        1010,
+        513
+      ]
+    },
+    {
+      "landmark": "oral-plane",
+      "source_u": 0.995,
+      "center_px": [
+        1254,
+        513
+      ]
+    }
+  ],
+  "sample_source_u": [
+    0.76,
+    0.78,
+    0.8,
+    0.83,
+    0.86,
+    0.8987915407854985,
+    0.92,
+    0.94,
+    0.96,
+    0.975,
+    0.985,
+    0.995
+  ],
+  "label_samples": [
+    0,
+    2,
+    5,
+    8,
+    11
+  ],
+  "maximum_half_scan_px": 380,
+  "foreground_rgb_max_threshold": 20,
+  "foreground_alpha_min": 200,
+  "camera_limitations": "Explicitly GENERATED orthographic head reference after same-species public CC0 previews could not supply top-width sections; public download401. Not a real specimen, scan, biological or calibrated measurement. Small image asymmetry and landmark uncertainty remain.",
+  "landmark_observations": "Full blunt snout with clear empty margin, bilateral lateral eyes and complete opercular rear visible. Source head span fixed from original native art: rear opercular station.76, eye1785/1986, oral.995. Generated neck-eye-oral matching uses measured pixel landmarks. First whole-fish generation rejected for clipped snout and invalid tail projection; no geometry or RGB adopted from it."
+}

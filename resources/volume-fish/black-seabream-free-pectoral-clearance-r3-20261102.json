@@ -1,0 +1,21 @@
+{
+  "blend_sha256": "2af6ef51b1fa704f7744076d4078f16f18212815f8a0669fbed58a6fb990366c",
+  "profile": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\native-fin-cages-r3\\profile.json",
+  "free_offsets_mm": {
+    "Pectoral_left_mesh": 1.1,
+    "Pectoral_right_mesh": 1.1
+  },
+  "model_scale": 0.3515933194327241,
+  "real_length_cm": 35,
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "diagnosis": "Actual490 after bounded native basal support rows: complete roots and other5fins pass, paired free chords retain0.145/0.249mm penetration. Apply1.1mm outward to both paired foil layers only outside unchanged native8px root domain; current normal-ray and all490 recheck required."
+}

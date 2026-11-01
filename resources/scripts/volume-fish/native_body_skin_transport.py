@@ -39,6 +39,9 @@ def native_roof_coordinates(points,sections,W,H,spans,cfg):
     # density only where the available own-species source skin is narrower.
     density=np.minimum(cfg['pixel_density'],cfg['transverse_source_fraction']*height/np.maximum(width*W,1e-9))
     center=np.where(q<0,cfg['dorsal_center_fraction'],cfg['ventral_center_fraction'])
-    y=bounds[:,0]+height*center+points[:,1]*W*density
+    mapping=cfg.get('transverse_mapping','continuous_signed')
+    assert mapping in ['continuous_signed','bilateral_inward']
+    transverse=points[:,1] if mapping=='continuous_signed' else np.where(q<0,1.,-1.)*np.abs(points[:,1])
+    y=bounds[:,0]+height*center+transverse*W*density
     y=np.clip(y,bounds[:,0]+3,bounds[:,1]-3)
     return np.stack([u*W,y],axis=1),amount,density

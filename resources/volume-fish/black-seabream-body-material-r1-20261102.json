@@ -1,0 +1,10 @@
+{
+  "source": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\source-inputs\\char_black_seabream_082_nobg.png",
+  "generated": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\generated\\body-only-r1.png",
+  "profile": "resources\\volume-fish\\black-seabream-sop-cage-r3-20261102.profile.json",
+  "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "generated_sha256": "97003b36d7a176fd9b345ee9ebd192a31c8aea83b571a39973290fe03bebecbd",
+  "profile_sha256": "0c85cd3ff49a5b0b5694d09d721d2eb8a3269a18f03f57911a3a4f11f79c43a1",
+  "protected_head_from_x": 1490,
+  "blend_start_x": 1480
+}

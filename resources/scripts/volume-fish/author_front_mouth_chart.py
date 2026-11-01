@@ -76,6 +76,8 @@ def actual_rim_z(y,name):
  return answer
 def color(points,old_uv,role,surface_normal):
  global central_count,central_min,central_max
+ if cfg.get('bilateral_color_coordinates',False):
+  points=points.copy();points[:,1]=np.abs(points[:,1])
  original=pixels[np.clip((old_uv[:,1]*H).astype(int),0,H-1),np.clip((old_uv[:,0]*W).astype(int),0,W-1)]
  if roof_spans is not None and role==0:
   rxy,ra,density=native_roof_coordinates(points,sections,W,H,roof_spans,cfg['body_roof_material']);take=ra>.001
@@ -291,5 +293,6 @@ if central is not None:
  report['restricted_generated_material']={'image':cfg['interocular_material']['image'],'allowed_roi_px':cfg['interocular_material']['roi_px'],'actual_sample_min_px':central_min.tolist(),'actual_sample_max_px':central_max.tolist(),'sample_count':central_count,'generated_eye_lateral_mouth_samples':0,'scope':'Strict central interocular donor only, no generated geometry.'}
 if skin_zone_proof:report['native_skin_zones']={'parameters':cfg['native_skin_zones'],'actual_sampling':skin_zone_proof,'scope':'Explicit 2D skin patches with protected complete native lip domain. Optional image references retain declared generated/native provenance; legacy zones use body source. Appearance and original lateral junctions still require visual review.'}
 report['full_generated_front_skin_enabled']=not cfg.get('disable_full_front_skin',False)
+report['bilateral_color_coordinates']=cfg.get('bilateral_color_coordinates',False)
 if appendage_uv:report['native_appendage_uv']=appendage_uv
 (out/'authoring.validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8');print(json.dumps({'ok':True,'triangles':triangles,'roles':roles,'atlas':[aw,ah]}))

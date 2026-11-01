@@ -1,0 +1,35 @@
+{
+  "species": "black_seabream",
+  "scientific_name": "Acanthopagrus schlegelii",
+  "status": "user_accepted",
+  "model": {
+    "path": "projects\\fishing-2d\\game\\assets\\models\\fish\\black_seabream.glb",
+    "sha256": "670071c6725f5fc3c99597c7129375f1eff3490c5464c06781b2607a16db6022"
+  },
+  "editable_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\thickness-symmetry-20261102\\candidate-r3\\source-run\\source\\fish.blend",
+    "sha256": "c6d0892771d387a20f341c1f22c8fb614791653c46140dae50cb86f1680520e3"
+  },
+  "geometry_profile": {
+    "path": "resources\\volume-fish\\black-seabream-approved-20261102.profile.json",
+    "sha256": "f025b08fcd33b3bff817b1f8cac6ffe86af4ea81a4ec45e28171ca523db09048"
+  },
+  "real_length_cm": 35,
+  "length_basis": "Existing reported_whole_fish display; biological TL/SL/FL unknown",
+  "triangles": 1904,
+  "preferred_triangles": 1500,
+  "hard_triangles": 2000,
+  "preferred_met": false,
+  "logical_fins": 7,
+  "actual_meshes": 1,
+  "actual_surfaces": 1,
+  "bones": 18,
+  "native_clips": 1,
+  "source_image_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "appearance_acceptance": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\release-20261102\\user-acceptance.json",
+    "sha256": "299f999901fd19847dea47a70d194669db8d0b14cdf2b24456de318c5a6d7250"
+  },
+  "method_scope": "User-selected accepted related red-seabream thickness with anatomical anchors and visible-length normalization; bilateral inward hidden skin/roof mapping. Native source lips/eyes/lateral gill and complete own7fin source domains retained. Art proportions and hidden tissue, not species biological measurements.",
+  "runtime_scope": "Actual canonical VolumeFishExhibit first/cache entry matches directGLB arrays, embeddedRGBA, PBR/noLOD and four actions/transitions; no static builder calls. Old black171/import/material/candidate chain retired."
+}

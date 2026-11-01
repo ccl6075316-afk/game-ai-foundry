@@ -63,7 +63,7 @@ description: Build or repair rigged 3D fish from existing fish artwork in Game A
 
 - 用户要求按视频对图快速建低面鱼，或进行A减面/B新建对照时：先读[参考图控制笼B执行卡](references/reference-cage-body.md)。必须实际看视频操作，保存链接、时间和融合后步骤，不能只把B概括为“低面/截面生成”后自行换方法。
 
-- 鱼的头厚/体厚、俯视收尖、横截面或宽度数据任务：先读[宽度依据与HTML审阅完整方法](references/width-evidence-workflow.md)。保留原始实测/测位/长度口径、换算、定性与造型推断，逐鱼设参；四鱼已获用户认可的宽度案例与离线HTML/数据由该文索引，不能只复制上条鱼的增益曲线。
+- 鱼的头厚/体厚、俯视收尖、横截面或宽度数据任务：先读[宽度依据与HTML审阅完整方法](references/width-evidence-workflow.md)。同种资料不足时用户允许近缘参考，指定已满意样板优先；记录实际参考SHA、部位映射、归一化和限制，不能默认复制增益或继承接受。左右侧腹覆盖不一致、近根自由面穿体及接受后正式接入，按[黑鲷经验与代码入口](references/black-seabream-production-lessons-20261102.md)执行；默认旧行为保留，按本鱼条件启用新选项。
 - 制作前：`projects/fishing-2d/docs/3d-fish/PREPARATION.md`、物种卡与 `ANATOMY-RESEARCH.md`。确定学名、测位、源图姿态；形态或验证方法不清时先查目标物种资料。区分资料实测、制作推断与未知。
 - 口部：`projects/fishing-2d/docs/3d-fish/ORAL-JAWS.md` 的开头方法选择和069d结论。口位、下颌前突、口裂倾角、唇缘包合、开闭动作分别判断；不要把所有鱼套成上位口或孔雀鲈下颌。
 - 嘴像板片、喙或勺子，或侧面也对不上原画时：读 [references/mouth-repair.md](references/mouth-repair.md)，先检查完整颌部与参考姿态，不能继续只调唇厚/UV。

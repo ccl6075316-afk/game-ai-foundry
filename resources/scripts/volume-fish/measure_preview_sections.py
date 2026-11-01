@@ -13,7 +13,10 @@ def measure(config_path, output):
     image=Path(cfg['image']); raw=image.read_bytes()
     assert hashlib.sha256(raw).hexdigest()==cfg['image_sha256']
     assert cfg['camera_limitations'] and cfg['landmark_observations']
-    im=Image.open(image).convert('RGB'); pixels=np.asarray(im);draw=ImageDraw.Draw(im)
+    raw=Image.open(image).convert('RGBA');alpha=np.asarray(raw)[:,:,3]
+    im=raw.convert('RGB'); pixels=np.asarray(im);draw=ImageDraw.Draw(im)
+    section_mode=cfg.get('section_mode','first_background')
+    assert section_mode in ('first_background','outermost_foreground')
     marks=cfg['correspondence']; us=[m['source_u']for m in marks]
     xy=np.array([m['center_px']for m in marks],float)
     assert all(a<b for a,b in zip(us,us[1:]))
@@ -29,7 +32,11 @@ def measure(config_path, output):
             last=center.copy()
             for distance in np.arange(0,cfg['maximum_half_scan_px'],.5):
                 pt=center+sign*distance*normal;x,y=np.rint(pt).astype(int)
-                if not(0<=x<pixels.shape[1]and 0<=y<pixels.shape[0])or max(pixels[y,x])<cfg['foreground_rgb_max_threshold']:break
+                if not(0<=x<pixels.shape[1]and 0<=y<pixels.shape[0]):break
+                foreground=max(pixels[y,x])>=cfg['foreground_rgb_max_threshold'] and alpha[y,x]>=cfg.get('foreground_alpha_min',0)
+                if not foreground:
+                    if section_mode=='outermost_foreground':continue
+                    break
                 last=pt
             ends.append(last)
         width=float(np.linalg.norm(ends[1]-ends[0]));assert width>2
@@ -44,7 +51,7 @@ def measure(config_path, output):
     report={'ok':True,'kind':'actual_preview_projected_section_measurement','image':str(image),'image_sha256':cfg['image_sha256'],
             'config':str(Path(config_path).resolve()),'config_sha256':hashlib.sha256(Path(config_path).read_bytes()).hexdigest(),
             'image_head_axis_length_px':float(length),'source_u_interval':[us[0],us[-1]],'correspondence':marks,'rows':rows,
-            'camera_limitations':cfg['camera_limitations'],'landmark_observations':cfg['landmark_observations'],
+            'camera_limitations':cfg['camera_limitations'],'landmark_observations':cfg['landmark_observations'],'section_mode':section_mode,
             'conversion':'Measured projected width / measured piecewise neck-eye-mouth image axis length * source-art head u-span / 2.',
             'overlay':str(overlay),'scope':'Traceable projected reference proportions only. Not orthographic scan dimensions or biological measurements; actual candidate head review remains required.'}
     (output/'head-sections.validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')

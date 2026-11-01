@@ -1,0 +1,21 @@
+{
+  "blend_sha256": "b1911af437622d0ff30777330a97ece6e7c32e7ffcd0caa7e842610d7078a336",
+  "profile": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\native-fin-cages-r2\\profile.json",
+  "free_offsets_mm": {
+    "Pectoral_left_mesh": 1.1,
+    "Pectoral_right_mesh": 1.1
+  },
+  "model_scale": 0.3515933194327241,
+  "real_length_cm": 35,
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "source_sha256": "162e96afe723addb52a5675ac7308a3bd172491b82f975db6855d7073760d924",
+  "diagnosis": "Actual490: complete frozen roots pass; only left/right pectoral free basal chords penetrate in490poses, max0.595826/0.653453mm. Outward1.1mm applies only t>original rootband, both layers equally; no root reprojection, silhouette XZ/UV/weights, body/other fins and action range remain unchanged. New current posed gates and normal-ray taper recheck required."
+}

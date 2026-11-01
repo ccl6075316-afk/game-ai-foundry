@@ -1,0 +1,17 @@
+{
+  "body": "Closed_body",
+  "blend_sha256": "0e75c3f73b1f9521fe0c2891718821de142082b80092374d6378083148e736d3",
+  "body_receipt": "projects\\fishing-2d\\experiments\\black-seabream-lowpoly-sop-20261102\\body-receipt-r2\\body-materials.json",
+  "body_receipt_sha256": "61f9fd95530f8a6e8a29282b5f5a770ce1c836ad1959ae10cb9cb2f6e4a7b2c6",
+  "fins": [
+    "Dorsal_mesh",
+    "Anal_mesh",
+    "Caudal_mesh",
+    "Pectoral_left_mesh",
+    "Pectoral_right_mesh",
+    "Pelvic_left_mesh",
+    "Pelvic_right_mesh"
+  ],
+  "wall_inset_pixels": 6,
+  "real_length_cm": 35
+}

@@ -69,6 +69,13 @@ def prepare(config, output):
                 ids=np.flatnonzero((raw[a:z,col,:3].max(axis=1)<=c['dark_max_channel'])&(raw[a:z,col,3]>127))
                 require(len(ids)>0,f'No original edge in explicit source strip at {x}')
                 y=a+int(ids[0]);selected[:y,col]=False;edge_trace.append([x,y+int(lo[1])])
+        native_edges=[]
+        for boundary in fin.get('native_edge_paths',[]):
+            from native_source_edge import trace
+            edge=trace(raw,crop,boundary);native_edges.append(edge)
+            for x,y in edge['points_px']:
+                if edge['side']=='above':selected[:y-int(lo[1]),x-int(lo[0])]=False
+                else:selected[y-int(lo[1])+1:,x-int(lo[0])]=False
         result[:,:,3]=np.where(selected,raw[:,:,3],0)
         require(np.array_equal(result[:,:,:3],raw[:,:,:3]),'Source RGB changed')
         dest=out/(fin['name']+'.png');Image.fromarray(result).save(dest)
@@ -76,6 +83,7 @@ def prepare(config, output):
              'size':list(original.size),'root_px':(np.asarray(fin['root_px'])-lo).tolist(),
              'source_RGB_exact':True,'native_pixels':int((result[:,:,3]>127).sum())}
         if edge_trace:row['actual_native_edge_trace_px']=edge_trace
+        if native_edges:row['native_edge_paths']=native_edges
         rows.append(row)
         for col,pic in enumerate([original,Image.fromarray(result)]):
             bg=Image.new('RGBA',pic.size,'#566b77');bg.alpha_composite(pic)
