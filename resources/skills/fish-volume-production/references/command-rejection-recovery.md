@@ -27,6 +27,12 @@
 
 ## 本地成功案例与适用限制
 
+**鱼类交付姿态/帧缓存已有独立入口**：`resources/scripts/maintenance/clear_reviewed_fish_delivery_cache.ps1 -Plan <output中的审核清单>` 默认预演，`-Apply` 才执行。它不扩展普通缓存脚本白名单；只接受已完成交付下的 `fin490/<物种>/sample-NNN.json` 与 `review/frames/frame-NNNN.jpg`。清单须由当前 `prune_delivery_cache.plan()` 重新计算，绑定当前交付/模型/专项报告、已验证归档与保留的极值/代表相位。执行器拒绝归档保留项、已跟踪文件、未忽略文件、越界路径、目录联接和活动工程，不递归删目录。
+
+2026-11-01用户再次要求处理后，该入口实际删除3653文件、950986575字节；237个保留姿态/帧重新验哈希通过。记录见游戏 `plans/reviews/five-fish-width-detail-20261031/cleanup-20261101/`。此前拒绝记录仍保留，不能改写成当时已通过。
+
+本次可复用的调用问题：Windows Git `check-ignore --stdin` 不接受本次测试中的驱动器绝对路径，使用仓库相对路径；PowerShell文本管道的CRLF会使该Git把CR当路径字符，显式传LF后才正确识别。批量查询同时异步读取stdout/stderr，避免大清单写stdin与输出管道互等；不要为绕开误判取消Git检查。3653目标的完整预演约8秒。新缓存目录的忽略规则也须限定实际可重建路径，不能用全实验目录忽略来掩盖待提交源资产。
+
 2026-11-01 维护记录 `docs/MAINTENANCE-ARCHITECTURE.md`“本地盘点与清理”：首次内联删除返回 `blocked by policy`；用户随后要求检查执行方式，新增上述专用脚本与更严格预检后，实际删除1643文件、257342402字节，未修改权限配置。证据见游戏 `plans/reviews/maintenance-20261101/evidence/cleanup-execution.json`、`cleanup-verification.json`，历史路径迁移见该轮 `artifact-relocation.json`。
 
-该案例证明这个特定范围的清理入口曾实际成功；**首次拒绝的具体原因仍未知**，不能推广为“只要把被拒命令装进脚本就可执行”。之后的907 MiB鱼类姿态/帧缓存清理属于另一类产物，不能据此回填已删除或已解决。
+这些案例证明各自特定范围的清理入口曾实际成功；**首次审批拒绝的具体原因仍未知**，不能推广为“只要把被拒命令装进脚本就可执行”，也不能混用不同产物的白名单。
