@@ -69,16 +69,22 @@ def prepare(source, output, radial=12):
             f,r=float(front(np.clip(y,ys[0],ys[-1]))),float(rear(np.clip(y,ys[0],ys[-1])))
             q=np.clip((f-x)/max(f-r,1e-9),0,1)
             h=half*math.sin(math.pi*q)**.65
-        top,bottom=head_z+h,head_z-h
+        local_mid=head_z
+        if cfg.get('head_mid_z_from_side'):
+            local_mid=float(bt(np.clip(t,0,1))+bb(np.clip(t,0,1)))/2
+            if in_head:
+                edge=cfg.get('head_edge_thickness_fraction',0.)
+                h=(float(bt(np.clip(t,0,1))-bb(np.clip(t,0,1)))/2)*(edge+(1-edge)*math.sin(math.pi*q)**.65)
+        top,bottom=local_mid+h,local_mid-h
         if in_body:
             mid=float(bt(t)+bb(t))/2;bh=float(bt(t)-bb(t))/2*math.sqrt(max(0,1-(y/w)**2))
             if in_head:
                 g=np.clip((t-.075)/.045,0,1);g=g*g*(3-2*g)
-                top=smax(top,head_z*(1-g)+(mid+bh)*g)
-                bottom=-smax(-bottom,-(head_z*(1-g)+(mid-bh)*g))
+                top=smax(top,local_mid*(1-g)+(mid+bh)*g)
+                bottom=-smax(-bottom,-(local_mid*(1-g)+(mid-bh)*g))
             else: top,bottom=mid+bh,mid-bh
         # Boundary is a shared anatomical edge, except the open posterior ring.
-        if i<len(ordered) and abs(x-join_x)>1e-8:
+        if i<len(ordered) and abs(x-join_x)>1e-8 and not cfg.get('head_edge_thickness_fraction',0):
             mid=(top+bottom)/2;top=bottom=mid
         layers.append([top,bottom])
     report=dict(kind='sparse_shared_cephalofoil_neck_cage',reference=str(source.resolve()),

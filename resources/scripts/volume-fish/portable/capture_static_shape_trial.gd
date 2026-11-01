@@ -18,7 +18,7 @@ func run() -> void:
 	var model=doc.generate_scene(state);world.add_child(model)
 	for player in model.find_children("*","AnimationPlayer",true,false):player.stop()
 	for skeleton in model.find_children("*","Skeleton3D",true,false):skeleton.reset_bone_poses();skeleton.force_update_all_bone_transforms()
-	var camera:=Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.current=true;camera.near=.001;camera.far=3;camera.keep_aspect=Camera3D.KEEP_WIDTH;world.add_child(camera)
+	var camera:=Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.current=true;camera.near=.001;camera.far=cfg.get("camera_far",3.);camera.keep_aspect=Camera3D.KEEP_WIDTH;world.add_child(camera)
 	var count:=0
 	for node in model.find_children("*","MeshInstance3D",true,false):
 		if cfg.has("only_meshes"):node.visible=cfg.only_meshes.has(node.name)
@@ -35,7 +35,7 @@ func run() -> void:
 			var visible_names: Array=region.get("only_meshes",cfg.get("only_meshes",[]));node.visible=visible_names.is_empty() or visible_names.has(node.name)
 		var point:=Vector3(region.at[0],region.at[1],region.at[2]);camera.size=float(region.size)
 		for v in [{"name":"side","dir":Vector3(0,0,1)},{"name":"other-side","dir":Vector3(0,0,-1)},{"name":"front","dir":Vector3(1,0,0)},{"name":"rear","dir":Vector3(-1,0,0)},{"name":"top","dir":Vector3(0,1,.001)},{"name":"bottom","dir":Vector3(0,-1,.001)},{"name":"oblique","dir":Vector3(.7,.4,1)},{"name":"under-oblique","dir":Vector3(.7,-.6,1)}]:
-			camera.position=point+v.dir.normalized();camera.look_at(point,Vector3.UP if absf(v.dir.y)<.99 else Vector3(0,0,-1))
+			camera.position=point+v.dir.normalized()*float(cfg.get("camera_distance",1.));camera.look_at(point,Vector3.UP if absf(v.dir.y)<.99 else Vector3(0,0,-1))
 			for i in 3:await process_frame;RenderingServer.force_draw(true)
 			var path=destination.path_join(str(region.name)+"-"+v.name+".png");assert(view.get_texture().get_image().save_png(path)==OK)
 			captures.append({"path":path,"sha256":FileAccess.get_sha256(path),"region":region,"view":v.name})

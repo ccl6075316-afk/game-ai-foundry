@@ -18,7 +18,19 @@ for fin in c['fins']:
     if fin['mask']=='Cfin':
         # Complete horizontal connected intervals; never bridge a transparent notch.
         yy,xx=np.where(mask);lo,hi=int(yy.min()),int(yy.max());sections=[]
-        for y in np.linspace(lo+1,hi-1,17):
-            xs=np.where(mask[int(round(y))])[0];runs=np.split(xs,np.where(np.diff(xs)>1)[0]+1);assert len(runs)==1,(y,'split chord requires explicit interval topology');x0,x1=int(xs.min()),int(xs.max());sections.append([[float(x0+(x1-x0)*q),float(y)]for q in chords])
+        levels_y=list(np.linspace(lo+1,hi-1,17))
+        if fin.get('body_section_support'):
+            ref=json.loads(Path(c['reference']).read_text());rear=ref['body_stations'][-1];mid=(rear['top_z_m']+rear['bottom_z_m'])/2;half=(rear['top_z_m']-rear['bottom_z_m'])/2;scale=c['metres_per_source_pixel'];height=ref['source_canvas']['height'];extra=sorted(set(round(height/2-(mid+half*np.cos(i*np.pi/4))/scale,7)for i in range(8)))
+            removable=levels_y[1:-1]
+            for y in extra:removable.remove(min(removable,key=lambda q:abs(q-y)))
+            levels_y=sorted([levels_y[0],levels_y[-1],*removable,*extra])
+        for y in levels_y:
+            xs=np.where(mask[int(round(y))])[0];runs=np.split(xs,np.where(np.diff(xs)>1)[0]+1)
+            # A one/two-pixel detached stair-step is raster noise, not a chord.
+            # Never bridge a genuine notch or a second substantial interval.
+            native_project=json.loads(Path(c['reference']).read_text()).get('kind')=='project_art_shark_shape_input'
+            minimum_run=int(c.get('maximum_detached_raster_run_pixels',2 if native_project else 0))
+            substantial=[run for run in runs if len(run)>minimum_run];assert len(substantial)==1,(y,'split chord requires explicit interval topology')
+            xs=substantial[0];x0,x1=int(xs.min()),int(xs.max());sections.append([[float(x0+(x1-x0)*q),float(y)]for q in chords])
     records.append(dict(fin,source_path=str(path.resolve()),source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),root_curve_px=root,leading_curve_px=leading,trailing_curve_px=trailing,sections_px=sections,tip_actual_px=poly[tip].tolist(),source_black_area_pixels=int(mask.sum())))
-r=dict(c,rows=records,scope='Same-species validation masks. Placement/roll and normal thickness are declared engineering pose choices checked against published orthogonal figure; no unseen tissue metrology. Generic Sphyrna example parameters are not imported. Whole-fish source/material/rig/pose gates remain pending.');assert not a.output.exists();a.output.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(fins=len(records),anatomical_count=sum(2 if r['paired']else 1 for r in records))))
+r=dict(c,rows=records,scope=c.get('source_scope','Same-species validation masks.')+' Placement/roll and normal thickness are declared engineering pose choices checked against published orthogonal figure; no unseen tissue metrology. Generic Sphyrna example parameters are not imported. Whole-fish source/material/rig/pose gates remain pending.');assert not a.output.exists();a.output.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(fins=len(records),anatomical_count=sum(2 if r['paired']else 1 for r in records))))

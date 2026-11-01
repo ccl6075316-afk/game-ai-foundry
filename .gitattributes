@@ -105,3 +105,25 @@ cli/fish_budget.py -text
 # Accepted-source-only fish archive validator is a byte-bound provenance input.
 /cli/volume_source_archive.py -text whitespace=cr-at-eol
 /cli/test_volume_source_archive.py -text whitespace=cr-at-eol
+
+# Art-driven shark rebuild: retain exact hash-bound source bytes.
+/resources/scripts/volume-fish/author_reference_shark_eyes.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/build_continuous_shark_head_patch.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/build_reference_shark_fin_lofts.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/conform_shark_tail_root_cage.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/prepare_continuous_shark_head_patch.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/prepare_reference_shark_fin_charts.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/prepare_reference_shark_fin_lofts.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/validate_reference_shark_volume.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/author_project_shark_skin.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/check_project_art_head_depth.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/check_project_art_tail_section.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/prepare_project_art_shark.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/prune_ordinary_source_materials.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/repair_ordinary_source_slivers.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/reproject_project_head_side.py -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/portable/capture_fish_review.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/portable/capture_static_shape_trial.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/portable/export_reference_shark_poses.gd -text whitespace=cr-at-eol
+/resources/scripts/volume-fish/portable/capture_distance_material_review.gd -text whitespace=cr-at-eol
+/resources/volume-fish/scalloped-hammerhead-project-art-20261102.profile.json -text whitespace=cr-at-eol

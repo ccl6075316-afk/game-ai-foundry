@@ -140,7 +140,7 @@ func run() -> void:
             player.stop();skeleton.reset_bone_poses();skeleton.force_update_all_bone_transforms()
         var controller_path: String=spec.get("motion_runtime","res://scripts/aquarium/FoundryFishMotion.gd")
         if spec.has("motion_runtime_sha256"):assert(FileAccess.get_sha256(controller_path)==spec.motion_runtime_sha256,"Stale explicit motion runtime")
-        var controller=load(controller_path).new();assert(controller.configure(carrier,model,player,skeleton,profile).ok);entry.controller=controller
+        var controller=load(controller_path).new();var configured: Dictionary=controller.configure(carrier,model,player,skeleton,profile);assert(configured.ok,JSON.stringify(configured));entry.controller=controller
         for action in ["Swim","Turn","Ascend","Dive"]:
             controller.set_action(action,true);controller.step(0.)
             for phase in 16:

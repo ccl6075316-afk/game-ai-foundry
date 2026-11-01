@@ -31,7 +31,11 @@ for row in layout['rows']:
     original=np.array(Image.open(row['source_path']).convert('RGB'));mask=original.max(2)<80;H,W=mask.shape
     for role in (['upper','lower']if row['paired']else['side']):
         is_lower=role=='lower';source=Path(c['ventral_source']if is_lower else c['side_source']);paint=np.array(Image.open(source).convert('RGBA'));SH,SW=paint.shape[:2];allowed=np.zeros((SH,SW),np.uint8)
-        if is_lower:
+        native_side=c.get('project_native_side',False) and not is_lower
+        if native_side:
+            assert (SH,SW)==(H,W),'Native source canvas must match inverse-X mask'
+            allowed=mask[:,::-1].astype(np.uint8)
+        elif is_lower:
             spec=c['ventral_fins'][row['name']];xa,ya=spec['root_endpoints_px'][0];xb,yb=spec['root_endpoints_px'][1];yy,xx=np.indices((SH,SW));root_y=ya+(yb-ya)*(xx-xa)/(xb-xa);x0,y0,x1,y1=spec['roi_px'];allowed=((paint[:,:,3]>250)&(xx>=x0)&(xx<x1)&(yy>=y0)&(yy<root_y)).astype(np.uint8);contours,_=cv2.findContours(allowed,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE);poly=max(contours,key=cv2.contourArea)[:,0,:].astype(float);ends=spec['root_endpoints_px'];tip=spec['tip_px']
         elif row['name']=='Caudal':
             yy,xx=np.indices((SH,SW));allowed=((paint[:,:,3]>250)&(xx<=c['tail_boundary_correspondence']['art_root_x_px'])).astype(np.uint8);contours,_=cv2.findContours(allowed,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE);poly=max(contours,key=cv2.contourArea)[:,0,:].astype(float)
@@ -39,7 +43,9 @@ for row in layout['rows']:
             f=next(f for f in profile['fins']if f['name']==row['name']);poly=np.array(f['polygon'])*[SW,SH];cv2.fillPoly(allowed,[np.rint(poly).astype(np.int32)],1);ends=[poly[-1].tolist(),poly[0].tolist()] if row['name']not in['FirstDorsal','SecondDorsal']else[poly[len(poly)//2].tolist(),poly[len(poly)//2-1].tolist()];tip=np.array(f['tip'])*[SW,SH]
         allowed=(allowed>0)&(paint[:,:,3]>250);assert allowed.sum()>100;interior=binary_erosion(allowed,iterations=4);assert interior.any();nearest=distance_transform_edt(~interior,return_distances=False,return_indices=True)
         y,x=np.indices((H,W));queries=np.stack([x.ravel(),y.ravel()],1).astype(float)
-        if row['name']=='Caudal':
+        if native_side:
+            donor=np.stack([SW-1-queries[:,0],queries[:,1]],1)
+        elif row['name']=='Caudal':
             contours,_=cv2.findContours(mask.astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE);reference_poly=max(contours,key=cv2.contourArea)[:,0,:];tc=c['tail_boundary_correspondence'];refpaths=feature_segments(reference_poly,tc['reference_features_px']);artpaths=feature_segments(poly,tc['art_features_px']);controls={}
             for rp,ap in zip(refpaths,artpaths):
                 for t in np.linspace(0,1,31):controls[tuple(np.round(sample(rp,t),5))]=sample(ap,t)

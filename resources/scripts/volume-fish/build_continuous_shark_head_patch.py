@@ -33,9 +33,9 @@ skin=mat('Diagnostic gray; native skin not yet applied',(.52,.57,.6,1));oral=mat
 im=bpy.data.images.new('Diagnostic constant',1,1);im.pixels=[.38,.42,.45,1];im.pack();tex=skin.node_tree.nodes.new('ShaderNodeTexImage');tex.image=im;tex.interpolation='Closest';skin.node_tree.links.new(tex.outputs['Color'],next(n for n in skin.node_tree.nodes if n.type=='BSDF_PRINCIPLED').inputs['Base Color'])
 xy=np.array(c['points_xy']);nb=c['boundary_count'];boundary=list(range(nb))
 cv,ce,cf,_,_,_=delaunay_2d_cdt([Vector(p) for p in xy],[],[boundary],2,1e-9,False)
-v=[];faces=[];maps=[{},{}];dedup={};max_cdt_error=0
+v=[];faces=[];maps=[{},{}];dedup={};max_cdt_error=0;cdt_float_tolerance=max(5e-8,4*np.finfo(np.float32).eps*float(np.abs(xy).max()))
 for i,p in enumerate(cv):
-    d=np.linalg.norm(xy-np.array(p),axis=1);source=int(d.argmin());max_cdt_error=max(max_cdt_error,float(d[source]));assert d[source]<5e-8,(tuple(p),float(d[source])) # Vector/CDT uses float32.
+    d=np.linalg.norm(xy-np.array(p),axis=1);source=int(d.argmin());max_cdt_error=max(max_cdt_error,float(d[source]));assert d[source]<cdt_float_tolerance,(tuple(p),float(d[source])) # Vector/CDT uses float32.
     for layer in [0,1]:
         co=(float(p.x),float(p.y),c['layers_z'][source][layer]);key=tuple(round(x,10) for x in co)
         if key not in dedup:dedup[key]=len(v);v.append(co)
@@ -45,6 +45,8 @@ edge_counts=Counter(tuple(sorted((a,b))) for f in cf for a,b in zip(f,f[1:]+f[:1
 bad_diagonals={e for e,count in edge_counts.items() if count==2 and all(maps[0][i]==maps[1][i] for i in e)}
 def interior(p,z):
     hr=cfg['head_transverse_stations'];hy=[r['y_m'] for r in hr];front=np.interp(p[1],hy,[r['front_x_m'] for r in hr]);rear=np.interp(p[1],hy,[r['rear_x_m'] for r in hr]);q=np.clip((front-p[0])/(front-rear),0,1);half=cfg['head_span_m']*cfg['cross_section_and_head_thickness']['head_projected_full_thickness_over_span']/2;h=half*math.sin(math.pi*q)**c['head_thickness_power'];assert h>1e-6
+    if cfg.get('head_mid_z_from_side'):
+        t=(cfg['reference_body_axis_m']/2-p[0])/cfg['reference_body_axis_m'];rows=cfg['body_stations'];top=np.interp(t,[r['t']for r in rows],[r['top_z_m']for r in rows]);bottom=np.interp(t,[r['t']for r in rows],[r['bottom_z_m']for r in rows]);z=(top+bottom)/2;edge=cfg.get('head_edge_thickness_fraction',0.);h=(top-bottom)/2*(edge+(1-edge)*math.sin(math.pi*q)**c['head_thickness_power']);assert h>1e-6
     ids=[]
     for sign in [1,-1]:ids.append(len(v));v.append((float(p[0]),float(p[1]),z+sign*h))
     return ids

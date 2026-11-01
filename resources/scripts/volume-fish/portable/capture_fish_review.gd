@@ -39,7 +39,7 @@ func _model_path(_route: String) -> String:return plan.model
 func _cameras() -> void:
 	for entry in entries:
 		var basis: Basis=entry.carrier.global_basis;var point: Vector3=entry.carrier.global_position+basis*focus
-		entry.camera.keep_aspect=Camera3D.KEEP_WIDTH;entry.camera.size=zoom;entry.camera.position=point+basis*direction*2.
+		entry.camera.keep_aspect=Camera3D.KEEP_WIDTH;entry.camera.size=zoom;entry.camera.position=point+basis*direction*float(plan.get("camera_distance",2.))
 		entry.camera.look_at(point,basis*Vector3.UP if absf(direction.y)<.99 else basis*Vector3(0,0,-1))
 
 func settle() -> void:

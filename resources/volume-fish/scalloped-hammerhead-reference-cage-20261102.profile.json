@@ -1,6 +1,6 @@
 {
   "kind": "shark_reference_shape_trial_profile",
-  "status": "experimental_not_approved",
+  "status": "rejected_geometry_source_workflow",
   "species": "scalloped_hammerhead",
   "scientific_name": "Sphyrna lewini",
   "anatomical_group": "shark",
@@ -34572,5 +34572,24 @@
     "Native lips/eyes/gills/main fin interiors and derived de-lit body/edge/seal/tail-attachment skin are declared separately.",
     "Whole production SOP, canonical game installation, same-canvas whole-source audit, three-distance/actual-LOD review and underwater orbit/action video remain separate from these current technical checks."
   ],
-  "scope": "Complete anatomy/native-rig standalone review candidate. No whole-fish formal acceptance, no user appearance acceptance and no canonical installation."
+  "scope": "Complete anatomy/native-rig standalone review candidate. No whole-fish formal acceptance, no user appearance acceptance and no canonical installation.",
+  "reuse_as_geometry_baseline": false,
+  "user_source_correction": {
+    "date": "2026-11-02",
+    "kind": "user_source_contract_rejection",
+    "ok": false,
+    "status": "blocked",
+    "next_action": "fix_input",
+    "model_sha256": "e1e30da00ec93346b3c9a990716def7f07cf9363904a12443aa3db6c538c86c6",
+    "reason": "User clarified primary reason: project generated materials/style must share the project test-generated standard form. External finished/scanned outlines were wrongly made the geometry source and project artwork was forced onto them.",
+    "allowed": [
+      "Study external construction/topology/anatomical structure.",
+      "Use labelled source measurements or declared close-relative thickness references for calibration."
+    ],
+    "required": "Project test-generated/accepted artwork and corresponding generated views define the standard form, geometry, part ownership, UV and material together.",
+    "forbidden": "Adopt external finished/scanned model geometry or projected whole body/head/fin outlines as the production shape, then change/stretch/repeat project materials to fit.",
+    "reuse_as_geometry_baseline": false,
+    "technical_results": "Retain as historical measurements of this exact rejected candidate; not artwork/style/source-contract acceptance.",
+    "assets_unchanged": true
+  }
 }

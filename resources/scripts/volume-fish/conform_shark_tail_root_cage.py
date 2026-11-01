@@ -44,6 +44,23 @@ for origin in range(len(rows)):
     if len(group)>1:
         edges=[edge for edge in bm.edges if len(edge.link_faces)==2 and all(face[tag]==origin for face in edge.link_faces)]
         bmesh.ops.beautify_fill(bm,faces=group,edges=edges)
+sliver_rotations=0
+for _ in range(20):
+    thin=[f for f in bm.faces if f.calc_area()<1e-9]
+    if not thin:break
+    changed=False
+    for face in thin:
+        if not face.is_valid:continue
+        candidates=[e for e in face.edges if len(e.link_faces)==2 and all(f[tag]==face[tag] for f in e.link_faces)]
+        if not candidates:continue
+        edge=max(candidates,key=lambda e:e.calc_length());origin=face[tag];result=bmesh.ops.rotate_edges(bm,edges=[edge],use_ccw=False)
+        for e in result['edges']:
+            for f in e.link_faces:f[tag]=origin
+        sliver_rotations+=1;changed=True
+    if not changed:break
+if any(f.calc_area()<1e-9 and min(e.calc_length()for e in f.edges)>=2e-7 for f in bm.faces):
+    (out/'support-slivers.json').write_text(json.dumps([dict(area=f.calc_area(),source_face=f[tag],vertices=[list(v.co)for v in f.verts])for f in bm.faces if f.calc_area()<1e-9],indent=2))
+assert all(f.calc_area()>=1e-9 or min(e.calc_length()for e in f.edges)<2e-7 for f in bm.faces),'Unresolved finite support sliver'
 assert all(e.is_manifold for e in bm.edges),'Body support refinement opened the body';bm.faces.ensure_lookup_table();origins=[face[tag]for face in bm.faces]
 mesh=bpy.data.meshes.new('Reference shared tail-cap support cage');bm.to_mesh(mesh);bm.free();mesh.update()
 for material in old.materials:mesh.materials.append(material)

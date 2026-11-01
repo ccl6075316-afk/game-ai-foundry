@@ -13,6 +13,11 @@ args=sys.argv[sys.argv.index('--')+1:];cp=Path(args[0]).resolve();out=Path(args[
 def material(name,rgba):
     m=bpy.data.materials.new(name);m.use_nodes=True;p=next(n for n in m.node_tree.nodes if n.type=='BSDF_PRINCIPLED');p.inputs['Base Color'].default_value=rgba;p.inputs['Roughness'].default_value=1;p.inputs['Specular IOR Level'].default_value=0;return m
 dark=material('Fin gray diagnostic; native fin chart pending',(.36,.40,.42,1));light=material('Paired fin underside diagnostic; native chart pending',(.83,.80,.74,1))
+seed_auth=json.loads((src/'fin-authoring.json').read_text())
+if c.get('replace_named_fins'):
+    replace=set(c['replace_named_fins']);assert replace=={r['name']for r in c['rows']}
+    records=[r for r in seed_auth['fins']if r['name']not in replace]
+    for name in replace:assert name in bpy.data.objects;bpy.data.objects.remove(bpy.data.objects[name],do_unlink=True)
 def build(name,v,f):
     me=bpy.data.meshes.new(name);me.from_pydata(v,[],f);me.update();ob=bpy.data.objects.new(name,me);bpy.context.collection.objects.link(ob);return ob
 def close(ob):
@@ -31,11 +36,30 @@ for row in c['rows']:
         name=row['name']+('_left'if side<0 else'_right')if paired else row['name'];verts=[];qs=[];flags=[];ss=[];faces=[]
         if row['name']=='Caudal':
             rotation=math.radians(row['plane_rotation_degrees']);co=math.cos(rotation);si=math.sin(rotation);source_lo=float(sections[:,:,1].min());source_hi=float(sections[:,:,1].max());root_y=float(leading[1]);chords=np.array(row['chord_levels'])
+            rear=min(p.x for p in bv);cap_triangles=[ids for ids in bt if all(abs(bv[i].x-rear)<1e-7 for i in ids)]
+            def body_half(z):
+                values=[]
+                for ids in cap_triangles:
+                    for i,j in zip(ids,ids[1:]+ids[:1]):
+                        a,b=bv[i],bv[j]
+                        if abs(a.z-z)<1e-7:values.append(abs(a.y))
+                        if (a.z-z)*(b.z-z)<0:values.append(abs(a.y+(b.y-a.y)*(z-a.z)/(b.z-a.z)))
+                return max(values,default=0)
+            if row.get('body_section_support'):
+                for section in sections:
+                    z=row['anchor_z_m']-(section[0,1]-leading[1])*scale
+                    if body_half(z)>1e-7:
+                        pixel_x=leading[0]+(axis*(.5-onset)-rear)/scale
+                        if section[0,0]<pixel_x<section[-1,0]:section[1,0]=pixel_x
             for layer in [-1,1]:
                 for section in sections:
                     y=float(section[0,1]);s=(root_y-y)/max(root_y-source_lo,1)if y<root_y else(y-root_y)/max(source_hi-root_y,1);envelope=row['root_full_thickness_m']/2*max(0,1-s)**.7
                     for j,q in enumerate(section):
-                        dx=-(q[0]-leading[0])*scale;dz=-(q[1]-leading[1])*scale;x=axis*(.5-onset)+co*dx-si*dz;z=row['anchor_z_m']+si*dx+co*dz;shape=max(0,math.sin(math.pi*chords[j]))**.65;half=c['edge_full_thickness_m']/2+envelope*shape;verts.append((x,layer*half,z));qs.append(q.tolist());ss.append(float(s));flags.append(False)
+                        dx=-(q[0]-leading[0])*scale;dz=-(q[1]-leading[1])*scale;x=axis*(.5-onset)+co*dx-si*dz;z=row['anchor_z_m']+si*dx+co*dz;shape=max(0,math.sin(math.pi*chords[j]))**.65;half=c['edge_full_thickness_m']/2+envelope*shape
+                        if row.get('body_section_support'):
+                            support=body_half(z);blend=np.clip((x-(rear-.065))/.04,0,1);blend=blend*blend*(3-2*blend)
+                            if support>0:half=half*(1-blend)+max(c['edge_full_thickness_m']/2,support)*blend
+                        verts.append((x,layer*half,z));qs.append(q.tolist());ss.append(float(s));flags.append(False)
         else:
             for layer in [-1,1]:
                 for k,section in enumerate(sections):
@@ -44,9 +68,16 @@ for row in c['rows']:
                         x=axis*(.5-onset)-(q[0]-leading[0])*scale;base_y=float(np.interp(q[0],root[:,0],root[:,1]));span=(q[1]-base_y)*scale;chord=row['chord_levels'][j];half=c['edge_full_thickness_m']/2+(row['root_full_thickness_m']-c['edge_full_thickness_m'])/2*(1-s)**1.1*max(0,math.sin(math.pi*chord))**.65
                         if paired:
                             t=(axis/2-x)/axis;rows=cfg['body_stations'];mid=float(np.interp(t,[r['t']for r in rows],[(r['top_z_m']+r['bottom_z_m'])/2 for r in rows]));z=mid+row['root_z_offset_m'];h,_=surface(x,z,side);angle=math.radians(row['roll_degrees']);normal=Vector((0,side*math.sin(angle),math.cos(angle)));p=Vector((x,h.y+side*span*math.cos(angle),z-span*math.sin(angle)))+normal*layer*half
+                            if row.get('project_source_projection'):
+                                source_z=(row['source_canvas_height_px']/2-base_y)*scale
+                                ztop=float(np.interp(t,[r['t']for r in rows],[r['top_z_m']for r in rows]));zbottom=float(np.interp(t,[r['t']for r in rows],[r['bottom_z_m']for r in rows]));margin=(ztop-zbottom)*.10
+                                z=float(np.clip(source_z,zbottom+margin,ztop-margin));h,_=surface(x,z,side);projected_span=span/max(math.sin(angle),.1)
+                                p=Vector((x,h.y+side*projected_span*math.cos(angle),source_z-span+(z-source_z)*(1-s)**2))+normal*layer*half
                             if k==0:p,n=surface(p.x,p.z,side);p.y-=side*.003
                         else:
                             h,_=surface(x,ventral=row['ventral'],y=layer*half);normal=Vector((0,1,0));p=Vector((x,layer*half,h.z-span))+normal*0
+                            if row.get('project_source_projection'):p.z=(row['source_canvas_height_px']/2-q[1])*scale
+                            p.z+=(-1 if row['ventral'] else 1)*row.get('near_root_clearance_m',0)*math.sin(math.pi*s)**.5*(1-s)
                             if k==0:p,n=surface(p.x,ventral=row['ventral'],y=p.y);p.z+=.003 if row['ventral']else-.003
                         verts.append(tuple(p));qs.append(q.tolist());ss.append(float(s));flags.append(k==0)
         offset=ns*nc
@@ -92,9 +123,12 @@ for row in c['rows']:
         # Original free-face source attributes survive the exact root cut.
         # New basal-only attributes are not used as painted-source coordinates.
         ob.data.calc_loop_triangles();records.append(dict(name=name,paired=paired,vertices=len(ob.data.vertices),triangles=len(ob.data.loop_triangles),root_ids=sorted(roots),root_points_native=[tuple(ob.data.vertices[i].co)for i in sorted(roots)],source_sha256=row['source_sha256'],source_root_curve_px=row['root_curve_px'],construction='Continuous span/chord closed foil. All layers and sealing counted; caudal is one connected outline/interval surface, actual whole-body finite intersection cap.',normal_thickness_basis='Engineering representation; not biological measurement',native_fin_material='pending',rig='pending'))
-assert len(records)==8 and len({r['name']for r in records})==8;total=len(body.data.loop_triangles)+sum(r['triangles']for r in records);print(json.dumps(dict(pre_export_triangles=total,fin_triangles={r['name']:r['triangles']for r in records})),flush=True);assert total<=4000,total
+extra_mesh_triangles=0
+for o in bpy.context.scene.objects:
+    if o.type=='MESH'and o.name!=body.name and o.name not in {r['name']for r in records}:o.data.calc_loop_triangles();extra_mesh_triangles+=len(o.data.loop_triangles)
+assert len(records)==8 and len({r['name']for r in records})==8;total=len(body.data.loop_triangles)+sum(r['triangles']for r in records)+extra_mesh_triangles;print(json.dumps(dict(pre_export_triangles=total,fin_triangles={r['name']:r['triangles']for r in records})),flush=True);assert total<=4000,total
 bpy.ops.object.select_all(action='DESELECT')
 for o in bpy.context.scene.objects:
-    if o.type=='MESH':o.select_set(True)
+    if o.type in ['MESH','ARMATURE']:o.select_set(True)
 bpy.context.view_layer.objects.active=body;bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'));bpy.ops.export_scene.gltf(filepath=str(out/'fish.glb'),export_format='GLB',use_selection=True,export_animations=True,export_yup=True,export_def_bones=False)
 (out/'fin-authoring.json').write_text(json.dumps(dict(body_triangles=len(body.data.loop_triangles),whole_triangles=total,fins=records),indent=2)+'\n');r=dict(ok=True,kind='static_reference_shark_all_fin_lofts',model_sha256=sha(out/'fish.glb'),input_sha256=sha(cp),triangles=total,body_triangles=len(body.data.loop_triangles),inventory=[r['name']for r in records],complete_static_mesh_inventory=True,source_contour_and_all_fin_contact_validation='pending',native_fin_material='pending',rig='pending',motions='pending',formal_acceptance=False);(out/'authoring.validation.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))
