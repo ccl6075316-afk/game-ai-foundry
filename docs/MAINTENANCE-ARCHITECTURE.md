@@ -83,3 +83,5 @@ Foundry的1255个旧LFS缓存候选未通过远端副本确认，因此全部保
 已修复盘点脚本对Python3.11及缺失独立游戏仓库的兼容问题，并使来源测试在独立Foundry克隆中仍检查通用来源、仅按需跳过跨仓部署对照。本机游戏仓库存在，来源3项测试全部实际执行。新增6项盘点测试通过，Brief98、workflow13、.NET213及游戏构建复验通过。
 
 两轮原始验证材料已移动到游戏仓库各自审核目录的 `evidence/`，没有保留第二份副本；原始运行路径由 `artifact-relocation.json` 对应到正式归档。提交审查见 `plans/reviews/maintenance-phase2-20261101/submission-review/validation-report.json`。本次只提交维护重构、清理工具和这些记录；工作区中的其他鱼类未提交工作保留。
+
+2026-11-02提交追加实绩：12个新保留对象全部上传并经Git LFS远端确认，上传缓存收尾后正常status/diff/status三次不再生成副本。临时硬链接删除改变源ctime，初次检查曾触发12个独立缓存重生；已先正常刷新索引，再按远端/工作区SHA精确删除独立副本，没有使用assume-unchanged、skip-worktree或关闭过滤器。原11173个候选均按精确保留或远端确认依据清完，提交阶段追加删除1857个、6126571833字节。最新实测fish约34.4GiB（Git/LFS约12.5），Foundry自身约13.3GiB，总计约47.7GiB，包含同期新形体实验的增长。各次快照、更正和最终证据见游戏 history-curation/submission-review/cache-stabilization.validation.json、completion.validation.json。当前两仓库另有新建的尼罗罗非鱼形体制作代码/profile/实验目录仍在进行，本轮不提交或清除，不能为声称全局status为空而隐藏活动改动。
