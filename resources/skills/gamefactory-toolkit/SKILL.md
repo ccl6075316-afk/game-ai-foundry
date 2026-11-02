@@ -1,6 +1,13 @@
+---
+name: gamefactory-toolkit
+description: Operate Game AI Foundry CLI workflows using durable manifests, source review and explicit job recovery; route fish and aquascape work to their production skills. Use for this repository's asset workflows, not generic software tasks.
+---
+
 # gamefactory-toolkit
 
 供外部 Agent 使用的通用工具箱协议。正文使用中文；命令、路径、JSON 字段与枚举值使用英文。
+
+3D制作从[鱼/水草/布景知识入口](../../../docs/3D-ASSET-KNOWLEDGE.md)选路线；水草、石木、人工摆件和底床使用[aquascape-production](../aquascape-production/SKILL.md)。每轮结束在原handoff完成知识收尾卡，不等到提交才补通用方法、对象参数和本次证据。
 
 鱼类3D新建、返修或推广任务，进入volume前先读取仓库 `resources/skills/fish-volume-production/references/production-sop.md`，按其完整材料/制作/动作/验收顺序选择已有方法；此SOP不改变下面的来源与job状态合同。
 
@@ -188,7 +195,7 @@ python gamefactory.py test regression --project <project>
 
 水草艺术描述按2026-10-31最新要求只描述自然的物种整簇及其正常叶形/叶宽/颜色/生长方式，不规定叶片数、固定叶片变体或外张/弯曲角度，不安排统一的侧卷/翘起/展开嫩叶。布局依据已审核整簇来源；旧逐叶角度数组仅可用于历史复现，不能作为新植物模板。当前正常叶片修正入口 `resources/scripts/aquascape/normalize_plant_leaves.py`，逐来源选择已实际看过的正常叶原画并固化GLB，维持面数门与根部/循环验证。
 
-2026-10-31 用户追加批量摆缸预算：所有当前及未来水草/石木/摆件执行 `resources/aquascape/geometry-budgets.json`，按完整实例所有三角面合计。石400/600、木800/1200、带状草整丛400/600、宽叶整丛700/1000、复杂摆件1200/2000（优选/硬上限）；不按单叶拆预算，不静默升档。新鱼最新优选1500/硬上限2000覆盖旧体长档。造景末端运行 `optimize_scenery.py --deploy` 和 `validate_scenery_budget.py`，原尺寸画风、主体轮廓、根部连接、洞口和正常动作仍需实际对照。shader水流实例化目前独立实验，不自动替换所有骨骼行为。
+2026-10-31 用户追加批量摆缸预算：所有当前及未来水草/石木/摆件执行 `resources/aquascape/geometry-budgets.json`，按完整实例所有三角面合计。石400/600、木800/1200、带状草整丛400/600、宽叶整丛700/1000、复杂摆件1200/2000（优选/硬上限）；不按单叶拆预算，不静默升档。鱼类按[展示体长预算与鲨鱼例外](../fish-volume-production/references/display-length-budget.md)执行，2026-11-02用户已再次确认普通鱼继续按体长分档；造景JSON的fish行不覆盖更长普通鱼或鲨鱼规则。造景末端运行 `optimize_scenery.py --deploy` 和 `validate_scenery_budget.py`，原尺寸画风、主体轮廓、根部连接、洞口和正常动作仍需实际对照。shader水流实例化按V10/V11的实际目录与当前证据记录，不自动替换所有骨骼行为；V9未修复实际摆动前的性能结果不证明有效动态性能。
 
 已有游动的鱼类追加转身时，除下面的连续动作规则，还应读取 [鱼类转向复用流程](../../../docs/FISH-TURN-WORKFLOW.md)，复用相位规划、深度水域边界和当前帧轮廓校正；每条鱼独立确定素材、首尾相位、镜像资格、时长及曝光需求。
 

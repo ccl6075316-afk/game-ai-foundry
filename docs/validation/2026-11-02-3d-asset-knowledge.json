@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "command": "maintenance.3d-asset-knowledge-review",
+  "date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "scope": "Documentation, skill routing, current rule reconciliation and local source links. User confirmed ordinary-fish length tiers and clarified sharks as 3000-4000 starting range with increases for longer fish; maintained entrypoints synchronized. Existing code behavior verified with representative length boundaries. No model generation/export, asset acceptance, production deployment, cleanup deletion or Git commit/push.",
+  "inputs": {
+    "foundry_head": "1e8e9d6bce4da3710a30a9b5a036d324ec8fdaaf",
+    "fishing_head": "534cae87e89b1313d4bc095072e40ef861048e62"
+  },
+  "checks": {
+    "skill_format": [
+      {
+        "skill": "fish-volume-production",
+        "ok": true,
+        "result": "Skill is valid!",
+        "errors": ""
+      },
+      {
+        "skill": "aquascape-production",
+        "ok": true,
+        "result": "Skill is valid!",
+        "errors": ""
+      },
+      {
+        "skill": "gamefactory-toolkit",
+        "ok": true,
+        "result": "Skill is valid!",
+        "errors": ""
+      }
+    ],
+    "markdown_links": {
+      "documents": 59,
+      "local_links": 298,
+      "fragment_links": 17,
+      "missing_targets": [],
+      "missing_fragments": []
+    },
+    "fish_reference_index": {
+      "reference_files": 46,
+      "unindexed": []
+    },
+    "local_skill_links": [
+      {
+        "skill": "fish-volume-production",
+        "local_path": "/Users/czl/.codex/skills/fish-volume-production",
+        "repository_path": "/Users/czl/projects/game-ai-foundry/resources/skills/fish-volume-production",
+        "is_symlink": true,
+        "same_source": true,
+        "sha256": "ac85e4097f23922dc02264adb54d280e37087ee278d43380ae69dc0335c17901"
+      },
+      {
+        "skill": "aquascape-production",
+        "local_path": "/Users/czl/.codex/skills/aquascape-production",
+        "repository_path": "/Users/czl/projects/game-ai-foundry/resources/skills/aquascape-production",
+        "is_symlink": true,
+        "same_source": true,
+        "sha256": "057d5bfadeaa34b4bf3861997eeb4b81ec040ad2535d9eeb7784fbd7addb1f5b"
+      },
+      {
+        "skill": "gamefactory-toolkit",
+        "local_path": "/Users/czl/.codex/skills/gamefactory-toolkit",
+        "repository_path": "/Users/czl/projects/game-ai-foundry/resources/skills/gamefactory-toolkit",
+        "is_symlink": true,
+        "same_source": true,
+        "sha256": "d0498add38ce96543a1104e496c8d0dbff1bb9adfe3cead6e69408f2032a9adb"
+      }
+    ],
+    "catalog_inventory": {
+      "catalogs": [
+        {
+          "path": "projects/fishing-2d/game/assets/aquascape-v5/catalog.json",
+          "assets": 37,
+          "sha256": "7fb5de152d9afa4066ca0c8f7b4a45a0b4a2960b3936fb026f624185edbe68c6"
+        },
+        {
+          "path": "projects/fishing-2d/game/assets/aquascape-decor-v1/catalog.json",
+          "assets": 13,
+          "sha256": "38238e0f9b3479761c23eda7fea706a95be20e163067caf6a5bc3ef383307cbf"
+        }
+      ],
+      "plants": 20,
+      "static_scenery": 30,
+      "total": 50,
+      "source_report": "projects/fishing-2d/plans/reviews/aquascape-expansion-v11/production.handoff.json",
+      "source_report_sha256": "1fe4a8e8d0796bccf65444571314378ebaf55fc993ae7599eaf454fca2d35cd9",
+      "reported_user_acceptance": "accepted_for_commit"
+    },
+    "fish_skill_size": {
+      "before_characters": 12803,
+      "after_characters": 4319,
+      "before_lines": 136,
+      "after_lines": 54,
+      "moved_component_rules": 16
+    },
+    "diff_whitespace": [
+      {
+        "repository": "/Users/czl/projects/game-ai-foundry",
+        "ok": true,
+        "output": ""
+      },
+      {
+        "repository": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d",
+        "ok": true,
+        "output": ""
+      }
+    ],
+    "shark_policy_examples": {
+      "source": "cli/fish_budget.py",
+      "source_sha256": "b26d8d685f1c5b12702ac19ded78e0ecdce3c266aeb7ef30e1b9c945f6cf0998",
+      "observed": [
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 100,
+          "preferred_triangles": 3500,
+          "hard_triangles": 4000,
+          "anatomical_group": "shark",
+          "species": null
+        },
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 300,
+          "preferred_triangles": 3500,
+          "hard_triangles": 4000,
+          "anatomical_group": "shark",
+          "species": null
+        },
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 300.001,
+          "preferred_triangles": 5500,
+          "hard_triangles": 6000,
+          "anatomical_group": "shark",
+          "species": null
+        },
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 600,
+          "preferred_triangles": 5500,
+          "hard_triangles": 6000,
+          "anatomical_group": "shark",
+          "species": null
+        },
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 600.001,
+          "preferred_triangles": 7500,
+          "hard_triangles": 8000,
+          "anatomical_group": "shark",
+          "species": null
+        },
+        {
+          "policy_id": "user-shark-minimum-tier-20261101",
+          "real_length_cm": 800,
+          "preferred_triangles": 7500,
+          "hard_triangles": 8000,
+          "anatomical_group": "shark",
+          "species": null
+        }
+      ],
+      "conclusion": "Starting preferred 3500/hard 4000 is within the user-described 3000-4000 starting range. Existing implementation raises larger fish to 5500/6000 and 7500/8000, including strict 300cm/600cm boundaries. No code edits required."
+    },
+    "publication_staging": {
+      "selected_scope": "SOP, skills, knowledge navigation and three fishing documentation entrypoints only",
+      "whitespace_fix": "Removed an extra trailing blank line in newly added component-quality-rules.md found by staged diff checking."
+    }
+  },
+  "reviewed_recent_method_commits": [
+    "1e8e9d6",
+    "60e485a",
+    "b64a7cd",
+    "08d8106",
+    "4a9f688",
+    "b22e9d2",
+    "8e55171"
+  ],
+  "navigation_walkthroughs": [
+    {
+      "request": "下一条鲨鱼",
+      "route": "fish skill → SOP + red seabream risks → shark source correction + width evidence + shark budget → mouth/full fins → finalization/SOP",
+      "observation": "Rejected scan-outline candidate is not recommended; relative thickness references remain permitted within declared roles."
+    },
+    {
+      "request": "水草不动或翘叶修复",
+      "route": "aquascape skill → SOP 3/5 → normal-leaf sources or live MultiMesh motion → actual root/leaf/pause tests → final GLB + runtime evidence",
+      "observation": "No unnecessary regeneration; moving clock/water or single-mesh closeup cannot prove actual instanced leaf motion."
+    },
+    {
+      "request": "V11目录上追加造景",
+      "route": "aquascape SOP 1/4/8 → actual merged catalog → explicit batch adaptation + complete-instance budget → native review/placement roundtrip",
+      "observation": "Historical V5/V1 producers are not offered as current registry overwrite commands."
+    }
+  ],
+  "outputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "db5cccc55d678b66fa7b2cf864d8e7abebb7984da03d9a50a08ef2e77beac7e0",
+      "bytes": 16247
+    },
+    {
+      "path": "docs/3D-ASSET-KNOWLEDGE.md",
+      "sha256": "ad571426e5db6d4a3b0d8efdc33df26b1ef6f8087776597c910f3115c7905cb7",
+      "bytes": 8682
+    },
+    {
+      "path": "docs/AI-HANDOFF.md",
+      "sha256": "0db4845d0904b47690458e6bf21297d9dc30d971e8c5f4364c7ea5e60c2ec02a",
+      "bytes": 16014
+    },
+    {
+      "path": "docs/FISH-VOLUME-WORKFLOW.md",
+      "sha256": "fd2fa6e6a99695d472bf5c06487ec8298bea41edb24610cd1a6c16781bddccd4",
+      "bytes": 77659
+    },
+    {
+      "path": "resources/aquascape/ORTHOGRAPHIC-METHOD.md",
+      "sha256": "795368529d762df9398ae3a8a224443be8e16943b7d70b119ded66fd179dddbf",
+      "bytes": 4625
+    },
+    {
+      "path": "resources/aquascape/PLANT-CURRENT-METHOD.md",
+      "sha256": "802e6f1a0e781eb71ef50275b27ee3877966854ee055ad79ee681ae3f90a3e32",
+      "bytes": 2930
+    },
+    {
+      "path": "resources/skills/fish-volume-production/SKILL.md",
+      "sha256": "ac85e4097f23922dc02264adb54d280e37087ee278d43380ae69dc0335c17901",
+      "bytes": 8065
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/component-quality-rules.md",
+      "sha256": "3ead19f18bf0f9f9902537af49c2ed1c420cab853ddb15f9f0f3c31efd979e64",
+      "bytes": 10264
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/knowledge-index.md",
+      "sha256": "70e946b122335a467ad6fb9ae5d40be412d784a4bb0c53b1b4d8ae703bc21e73",
+      "bytes": 8341
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/production-sop.md",
+      "sha256": "c526b5a011a6d5561a3c50ce666ae229f5086f2120cc06704b6d2d8c955d928f",
+      "bytes": 102366
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/width-evidence-workflow.md",
+      "sha256": "10bb0e4a73e41d15ab5eb86a0c93f0c4aa573acf952e8c77bc6bfba0d6751a1d",
+      "bytes": 21192
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/shark-production-lessons.md",
+      "sha256": "9de14af74fa7c3b6506f027eac51e52ce195723718f93b6dbc12ebaac94c0b30",
+      "bytes": 19485
+    },
+    {
+      "path": "resources/skills/gamefactory-toolkit/SKILL.md",
+      "sha256": "d0498add38ce96543a1104e496c8d0dbff1bb9adfe3cead6e69408f2032a9adb",
+      "bytes": 18880
+    },
+    {
+      "path": "resources/skills/aquascape-production/SKILL.md",
+      "sha256": "057d5bfadeaa34b4bf3861997eeb4b81ec040ad2535d9eeb7784fbd7addb1f5b",
+      "bytes": 4176
+    },
+    {
+      "path": "resources/skills/aquascape-production/references/production-sop.md",
+      "sha256": "4dc6c7669a76fe4967f8b3fe8f06d310b7bcf2d1fa0d172e54fdb4c16c73d5ee",
+      "bytes": 13768
+    },
+    {
+      "path": "projects/fishing-2d/docs/3d-fish/README.md",
+      "sha256": "4603764445f82a01c00307ef399fa1802425140a7a21eacbbd742b89ccfede6c",
+      "bytes": 7605
+    },
+    {
+      "path": "projects/fishing-2d/docs/AQUASCAPE-CATALOG-V5.md",
+      "sha256": "fffa7c9470623f098f5463722020ab95f93c8df37a646fc55b99dbf317de435a",
+      "bytes": 22566
+    },
+    {
+      "path": "projects/fishing-2d/docs/AQUASCAPE-DECOR-V1.md",
+      "sha256": "c6fc898fd8d7090889b3b11028a9623f135c95966d1c2d2c94614aef5aa19214",
+      "bytes": 6491
+    },
+    {
+      "path": "resources/skills/fish-volume-production/references/display-length-budget.md",
+      "sha256": "5d7eeeba70357471469e0c0841075bba4785e4ea02055c8a53526b8a1dd015d3",
+      "bytes": 3871
+    }
+  ],
+  "preexisting_changes_outside_scope": {
+    "foundry": [
+      ".gitattributes",
+      "README.md",
+      "docs/MAINTENANCE-ARCHITECTURE.md",
+      "resources/fish-database/"
+    ],
+    "fishing": [
+      "plans/reviews/local-cleanup-20261102/HANDOFF.md",
+      "plans/reviews/local-cleanup-20261102/mac-storage-audit/"
+    ]
+  },
+  "retention": {
+    "retained": "Existing models, sources, histories, reports and unique evidence preserved. New maintained documents and this compact report retained.",
+    "deleted_files": 0,
+    "temporary_artifact_files_created": 0,
+    "dependency_resolution": "Repository environment lacked PyYAML; official skill validator ran with existing cached PyYAML on PYTHONPATH. No dependency installation.",
+    "local_links": "Three non-copying symlinks point at repository skill directories. No duplicate reference trees.",
+    "new_maintained_document_and_report_bytes": 58852
+  },
+  "limitations": [
+    "Link and metadata checks do not validate visual correctness, anatomy, plant motion, fin contact or model readiness.",
+    "Navigation walkthroughs are document review, not independent agent or engine execution.",
+    "Scenery has technical component gates but no comprehensive automated SOP/visual/finalization checker.",
+    "Historical batch scripts retain Windows-specific or fixed-batch assumptions; these are documented, not ported here.",
+    "No historical asset acceptance or report input hash was rewritten."
+  ],
+  "open_decisions": [],
+  "concurrent_changes_observed_and_preserved": [
+    "work/fish-motion-reconstruction-20261102/"
+  ],
+  "resolved_decisions": [
+    {
+      "topic": "ordinary_fish_triangle_policy",
+      "date": "2026-11-02",
+      "user_answer": "普通鱼继续按体长分档",
+      "resolution": "Ordinary fish retain display-length tiers: <=120cm 1500/2000, >120 to <=300cm 3500/4000, >300 to <=600cm 5500/6000, >600cm 7500/8000. Sharks retain minimum 3500/4000 and larger tiers. Retired the older flat-limit override in maintained entrypoints. Existing code already matches; no model or algorithm changes."
+    },
+    {
+      "topic": "shark_starting_range_clarification",
+      "date": "2026-11-02",
+      "user_answer": "鲨鱼3000-4000起，但是如果体长长就再往上加",
+      "resolution": "Clarified the minimum starting budget tier, not a universal 4000-triangle ceiling. Existing <=300cm preferred 3500/hard 4000 is a concrete value within the starting range; >300 to <=600cm remains 5500/6000, >600cm remains 7500/8000. Documented consistently in AGENTS, budget card, SOP, skill, knowledge index and shark execution card. No actual model minimum enforced by padding topology."
+    }
+  ]
+}

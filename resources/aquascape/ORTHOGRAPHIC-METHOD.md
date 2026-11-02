@@ -1,5 +1,7 @@
 # 置景原画到三维：正交视图方法
 
+本页维护相机与空间对应专题。当前全链读[造景skill](../skills/aquascape-production/SKILL.md)和[生产SOP](../skills/aquascape-production/references/production-sop.md)，预算/源固化/当前目录不由V2/V3历史试作推定。
+
 用户于 2026-10-24 指出：当前拼贴正面尚可，但场景物体需要原画、侧视和俯视来判断真实空间形态。单张轮廓鼓起后贴正背绘制的 V2 只是验证，不能当通用实体建模方法。
 
 ## 固定对象与坐标

@@ -1,6 +1,8 @@
 # Game AI Foundry — CLI 与文件契约手册
 
 > 读者：使用本仓库的外部 Agent 与维护者。
+> 3D鱼/水草/布景：读[当前知识导航与每轮收尾卡](3D-ASSET-KNOWLEDGE.md)，按对象选择生产skill，方法/参数/本次证据分别回写。
+
 > 入口：先读 [`../resources/skills/gamefactory-toolkit/SKILL.md`](../resources/skills/gamefactory-toolkit/SKILL.md)；环境问题读 [`TOOLS.md`](TOOLS.md)。
 > 本文只写确定性命令、文件契约、失败处理与验收规则。
 

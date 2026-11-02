@@ -1,5 +1,7 @@
 # 单图鱼类实体建模与游戏展示
 
+当前制作从[鱼类skill](../resources/skills/fish-volume-production/SKILL.md)与[生产SOP](../resources/skills/fish-volume-production/references/production-sop.md)进入；[知识索引](../resources/skills/fish-volume-production/references/knowledge-index.md)按问题区分执行卡、物种实例和已替代路线。本页保存CLI合同与历史演进，不按候选编号选择推荐方法。每轮结束执行[知识收尾卡](3D-ASSET-KNOWLEDGE.md#每轮修改后的知识收尾卡)。
+
 **实际执行先读[完整鱼类生产SOP](../resources/skills/fish-volume-production/references/production-sop.md)。** 它把已有提交中的有效方法按“材料包 → 源图审核 → 头/嘴/眼 → 身体背腹材质 → 全部鳍 → 骨骼动作 → 整鱼验收”串联，规定每阶段输入、产物、验证和失败回退。本文保留CLI及专项技术合同；历史章节不作为相互独立的可选步骤。
 
 2026-10-27 起所有鱼取消独立唇带。嘴的默认实体方法是沿本鱼下唇线裁切连续身体，保留有限口腔缺口并构建有体积的上下颌；已有独立开合颌按物种结构保留。旧139—147唇带脚本、参数和验收描述仅供历史复盘，不能作为新鱼或返修鱼的生产入口。
