@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "date": "2026-11-02",
+  "scope": "Commit/push paused R3 candidate, not final asset acceptance; no geometry edits or repeated expensive gates.",
+  "syntax_files": 7,
+  "secret_scan_files": 100,
+  "security_findings": [],
+  "resume_input_hashes": true,
+  "candidate_role_hashes": true,
+  "recorded_native_checks_verified": true,
+  "expected_open_failures_preserved": [
+    "pectoral thin-edge diagnostic",
+    "whole-fish SOP"
+  ],
+  "production_unchanged_sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a",
+  "current_model_sha256": "189989cfd33f1e5f0b7ef0a519b3e78cc058400875f1499bf0b29c0dd4085fff",
+  "lfs_attributes": "experiments/nile-database-shape-20261102/candidate-r3/fish.glb: filter: lfs\nexperiments/nile-database-shape-20261102/candidate-r3/fish.blend: filter: lfs\nexperiments/nile-database-shape-20261102/candidate-r3/review.mp4: filter: lfs\nexperiments/nile-database-shape-20261102/before-after.png: filter: lfs\n",
+  "review": "anvil-lead self-review of complete new source writer and experiment interfaces; no delegated agent used"
+}

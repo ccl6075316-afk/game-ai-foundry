@@ -1,0 +1,479 @@
+{
+  "species": "nile_tilapia",
+  "body": {
+    "source_name": "NileTilapia",
+    "reference_body_length": 2.056685535,
+    "target_body_length": 0.8432225286960602,
+    "reference_axis_scale": 0.4099909851780331,
+    "anchor_target_to_reference": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.06,
+        0.06
+      ],
+      [
+        0.133,
+        0.128
+      ],
+      [
+        0.293,
+        0.32
+      ],
+      [
+        1.0,
+        1.0
+      ]
+    ],
+    "anchor_basis": [
+      "outer lip/snouted body start",
+      "oral corner neighborhood",
+      "painted-eye longitudinal center to mean reference eye-center; approximate +/-0.02 body length",
+      "anterior pectoral-body attachment",
+      "posterior body endpoint/caudal attachment"
+    ],
+    "unknowns": "Biological identity, age, exact SL and exact opercular correspondence remain unknown; this is user-selected game-model shape reference.",
+    "stations": [
+      {
+        "t": 0.002,
+        "reference_t": 0.002,
+        "target_width_native": 0.01907542467194521,
+        "gain": 1.533324365366779
+      },
+      {
+        "t": 0.01,
+        "reference_t": 0.01,
+        "target_width_native": 0.0664366751918645,
+        "gain": 2.7821029073079107
+      },
+      {
+        "t": 0.02,
+        "reference_t": 0.02,
+        "target_width_native": 0.08818551382133957,
+        "gain": 2.5420140349961233
+      },
+      {
+        "t": 0.04,
+        "reference_t": 0.04,
+        "target_width_native": 0.10865859187207817,
+        "gain": 2.319673118178896
+      },
+      {
+        "t": 0.06,
+        "reference_t": 0.06,
+        "target_width_native": 0.1215382300746648,
+        "gain": 2.280239886210233
+      },
+      {
+        "t": 0.09,
+        "reference_t": 0.08794520547945205,
+        "target_width_native": 0.14615550714862507,
+        "gain": 2.344344319586504
+      },
+      {
+        "t": 0.128,
+        "reference_t": 0.12334246575342465,
+        "target_width_native": 0.16583926019468676,
+        "gain": 2.365883587001007
+      },
+      {
+        "t": 0.16,
+        "reference_t": 0.16040000000000001,
+        "target_width_native": 0.1797346326399387,
+        "gain": 2.335142694516278
+      },
+      {
+        "t": 0.2,
+        "reference_t": 0.20840000000000003,
+        "target_width_native": 0.19326742386063128,
+        "gain": 2.2321402343826158
+      },
+      {
+        "t": 0.26,
+        "reference_t": 0.28040000000000004,
+        "target_width_native": 0.20577922644692498,
+        "gain": 2.0528189949297073
+      },
+      {
+        "t": 0.32,
+        "reference_t": 0.345968882602546,
+        "target_width_native": 0.19964258656458583,
+        "gain": 1.8131137651531497
+      },
+      {
+        "t": 0.4,
+        "reference_t": 0.4229137199434229,
+        "target_width_native": 0.20292345827656114,
+        "gain": 1.710886192728879
+      },
+      {
+        "t": 0.5,
+        "reference_t": 0.519094766619519,
+        "target_width_native": 0.1986032434106072,
+        "gain": 1.6398419857103863
+      },
+      {
+        "t": 0.6,
+        "reference_t": 0.6152758132956152,
+        "target_width_native": 0.1783476935577825,
+        "gain": 1.5507894164131952
+      },
+      {
+        "t": 0.7,
+        "reference_t": 0.7114568599717114,
+        "target_width_native": 0.1525250182663883,
+        "gain": 1.5454961381930252
+      },
+      {
+        "t": 0.8,
+        "reference_t": 0.8076379066478077,
+        "target_width_native": 0.12073974363916563,
+        "gain": 1.6111132950424638
+      },
+      {
+        "t": 0.9,
+        "reference_t": 0.9038189533239037,
+        "target_width_native": 0.08665624189281183,
+        "gain": 1.8396049766437492
+      },
+      {
+        "t": 0.96,
+        "reference_t": 0.9615275813295614,
+        "target_width_native": 0.0634082516861237,
+        "gain": 2.5711384131577204
+      },
+      {
+        "t": 0.985,
+        "reference_t": 0.9855728429985854,
+        "target_width_native": 0.05065095490054331,
+        "gain": 4.104582138258874
+      },
+      {
+        "t": 0.998,
+        "reference_t": 0.9980763790664781,
+        "target_width_native": 0.04297635330086026,
+        "gain": 6.048361642635407
+      }
+    ],
+    "gain_range": [
+      1.533324365366779,
+      6.048361642635408
+    ]
+  },
+  "fins": [
+    {
+      "name": "Anal",
+      "complete_root_vertices": 15,
+      "reference_free_vector_extents_gltf_native": [
+        0.10943310665081658,
+        0.1304027451367014,
+        0.016877225071602414
+      ],
+      "current_transported_free_vector_extents": [
+        0.07858049869537354,
+        0.10490630567073822,
+        0.002782862569504915
+      ],
+      "requested_axis_ratios": [
+        1.3926242320635656,
+        1.2430401042429897,
+        6.064699441699327
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        1.2430401042429897,
+        1.0
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Caudal",
+      "complete_root_vertices": 4,
+      "reference_free_vector_extents_gltf_native": [
+        0.22666661363756863,
+        0.11910425409294556,
+        0.020897312510376312
+      ],
+      "current_transported_free_vector_extents": [
+        0.14942944049835205,
+        0.07783027738332748,
+        0.011701954358340127
+      ],
+      "requested_axis_ratios": [
+        1.5168805616994088,
+        1.5303074599919084,
+        1.7857967883358339
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        1.4,
+        1.0
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Dorsal",
+      "complete_root_vertices": 33,
+      "reference_free_vector_extents_gltf_native": [
+        0.09798401819170333,
+        0.1663051045222285,
+        0.01019000343912604
+      ],
+      "current_transported_free_vector_extents": [
+        0.08980362117290497,
+        0.09839029610157013,
+        0.004573107393493872
+      ],
+      "requested_axis_ratios": [
+        1.091092061900801,
+        1.690259213678437,
+        2.228244946450041
+      ],
+      "applied_axis_ratios": [
+        1.091092061900801,
+        1.4,
+        1.0
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Pectoral_left",
+      "complete_root_vertices": 4,
+      "reference_free_vector_extents_gltf_native": [
+        0.32057544689384376,
+        0.05602235762600272,
+        0.10455798543427068
+      ],
+      "current_transported_free_vector_extents": [
+        0.1669093556702137,
+        0.0745098264887929,
+        0.0571323355491835
+      ],
+      "requested_axis_ratios": [
+        1.920655948892702,
+        0.7518787825177542,
+        1.8301017178662315
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        0.85,
+        1.8
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Pectoral_right",
+      "complete_root_vertices": 4,
+      "reference_free_vector_extents_gltf_native": [
+        0.32057544689384376,
+        0.05602235762600272,
+        0.10455900549184179
+      ],
+      "current_transported_free_vector_extents": [
+        0.1669093556702137,
+        0.0745098264887929,
+        0.0571323355491835
+      ],
+      "requested_axis_ratios": [
+        1.920655948892702,
+        0.7518787825177542,
+        1.8301195721611994
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        0.85,
+        1.8
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Pelvic_left",
+      "complete_root_vertices": 6,
+      "reference_free_vector_extents_gltf_native": [
+        0.11178700060373979,
+        0.10043222785826361,
+        0.06366941072828589
+      ],
+      "current_transported_free_vector_extents": [
+        0.0489581823348999,
+        0.0885045975446701,
+        0.04061259709513491
+      ],
+      "requested_axis_ratios": [
+        2.2833159907583473,
+        1.134768482592934,
+        1.5677256635211103
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        1.134768482592934,
+        1.5677256635211103
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    },
+    {
+      "name": "Pelvic_right",
+      "complete_root_vertices": 6,
+      "reference_free_vector_extents_gltf_native": [
+        0.11178700060373979,
+        0.10043222785826361,
+        0.06366941052329039
+      ],
+      "current_transported_free_vector_extents": [
+        0.0489581823348999,
+        0.0885045975446701,
+        0.04061259689991224
+      ],
+      "requested_axis_ratios": [
+        2.2833159907583473,
+        1.134768482592934,
+        1.567725666009503
+      ],
+      "applied_axis_ratios": [
+        1.25,
+        1.134768482592934,
+        1.567725666009503
+      ],
+      "limits": [
+        [
+          0.8,
+          1.25
+        ],
+        [
+          0.85,
+          1.4
+        ],
+        [
+          1.0,
+          1.8
+        ]
+      ],
+      "basis": "Reference 3D free vectors from inspected fin component and nearest-body candidate root band; target keeps own full original root band and original closed-shell thickness. Bounded first artistic candidate, not exact surface copy."
+    }
+  ],
+  "clearance_repair": {
+    "revision": 3,
+    "reference_failure": "candidate-r1/local-membranes.validation.json",
+    "paired_pectoral_whole_offset_native": 0.0012,
+    "paired_pectoral_free_offset_native": 0.012,
+    "transition_distance_native": 0.035,
+    "same_complete_root_domain_and_tolerances": true
+  },
+  "triangles": 1710,
+  "formal_acceptance": false,
+  "reference_id": "fishing-master-cdn-cnformal1-20261102-niletilapia",
+  "reference_obj": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4.obj",
+    "sha256": "afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4"
+  },
+  "baseline_model": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+    "sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a"
+  },
+  "baseline_blend": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/nile-dorsal-route-trial/round11-single-material-finalization/final-artifacts/fish.blend",
+    "sha256": "98c18cd9f1419eb7ed3b0b215742af97fa6b9437e87658ff305e67a1ee19ae82"
+  },
+  "candidate_model": {
+    "path": "projects/fishing-2d/experiments/nile-database-shape-20261102/candidate-r3/fish.glb",
+    "sha256": "189989cfd33f1e5f0b7ef0a519b3e78cc058400875f1499bf0b29c0dd4085fff"
+  },
+  "candidate_blend": {
+    "path": "projects/fishing-2d/experiments/nile-database-shape-20261102/candidate-r3/fish.blend",
+    "sha256": "3f348281c644f2594c0c9ab949692b4a633cf86569f75eaa00619b2e0e63c9a6"
+  },
+  "whole_budget": {
+    "display_length_cm": 40,
+    "preferred": 1500,
+    "hard": 2000,
+    "actual": 1710
+  },
+  "stage": "experimental_candidate_not_installed",
+  "known_limit": "Whole fish SOP and pectoral thin-edge diagnostic not fully cleared. Current490,077,cold parity and head gate passed; user visual acceptance pending."
+}
