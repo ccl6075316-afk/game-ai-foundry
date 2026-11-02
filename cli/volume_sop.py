@@ -21,6 +21,9 @@ INPUT_ROLES = ('source_image','model','species_profile','runtime_manifest','moti
 
 
 def check_native_lip_report(report,candidates,species,fail,label):
+    if report.get('kind')=='preserved_complete_anterior_native_chart':
+        from volume_packed_acceptance import check_preserved_chart
+        check_preserved_chart(report,candidates,species,fail,label);return
     if report.get('kind')!='complete_anterior_semantic_color_chart':fail('missing_actual_native_lip_domain',label);return
     if report.get('species')!=species or report.get('source_sha256')!=candidates.get('source_image',{}).get('sha256')or report.get('model_sha256')!=candidates.get('material_author_model',{}).get('sha256'):fail('wrong_native_lip_binding',label)
     if not candidates.get('material_author_model'):fail('missing_material_author_model',label)
@@ -30,6 +33,9 @@ def check_native_lip_report(report,candidates,species,fail,label):
 
 def check_fin_volume_report(report, candidates, species, fail, label, profile):
     """Reject generic passed JSON, constant shells, wrong fish/model or old negatives."""
+    if report.get('kind')=='actual_packed_source_fin_volume_and_tail_section':
+        from volume_packed_acceptance import check_packed_volume
+        check_packed_volume(report,candidates,species,fail,label,profile);return
     if report.get('kind')!='actual_authored_fin_volume_and_tail_section':
         fail('missing_actual_fin_volume',label);return
     if report.get('model_sha256')!=candidates.get('model',{}).get('sha256') or report.get('species')!=species:
@@ -102,7 +108,8 @@ def standard_snapshot():
     paths = [refs / name for name in ('production-sop.md', 'fin-types-thickness-tail.md',
              'source-surface-repair.md', 'final-asset-export.md', 'mouth-first-review.md',
              'production-workflow-gates.md')]
-    paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py')]
+    paths += [Path(__file__), Path(__file__).with_name('volume_finalization.py'),
+              Path(__file__).with_name('volume_packed_acceptance.py')]
     return {'version': STANDARD_VERSION, 'files': {str(p.relative_to(root)): sha(p) for p in paths},
             'criteria': json.loads(json.dumps(STAGES))}
 

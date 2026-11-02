@@ -140,3 +140,8 @@ cli/fish_budget.py -text
 # Historical migrated CSV evidence is hashed as original bytes (CRLF).
 /resources/fish-database/catalogs/fishing-master-xiaomi-20260814/fish-catalog.csv -text whitespace=cr-at-eol
 /resources/fish-database/catalogs/fishing-master-xiaomi-20260814/all-indexed-objects.csv -text whitespace=cr-at-eol
+
+# Packed-source SOP implementation is part of byte-bound production snapshots.
+/cli/volume_packed_acceptance.py -text whitespace=cr-at-eol
+/cli/test_volume_packed_acceptance.py -text whitespace=cr-at-eol
+/resources/scripts/maintenance/clear_accepted_nile_trials.py -text whitespace=cr-at-eol

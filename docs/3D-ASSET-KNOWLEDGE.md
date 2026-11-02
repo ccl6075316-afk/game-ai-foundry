@@ -2,6 +2,8 @@
 
 2026-11-02 梳理。本文负责导航、规则归属和每轮知识收尾；不保存第二套资产状态。模型是否可交付，仍读当前 manifest、progress、handoff、assets-manifest 和 validation report。
 
+2026-11-03 罗非鱼已由用户整鱼接受并装入正式入口。当前交接为游戏 `plans/reviews/nile-tilapia-release-20261103/HANDOFF.md`，参数为 `resources/volume-fish/nile-tilapia-final-20261103.json`；默认后续只改动作，静态形体/材质/蒙皮/骨架冻结。独立交互入口为 `resources/scripts/volume-fish/open_nile_final.py`。历史实验已精简，不能从旧轮次的“当前/待审”恢复制作。
+
 ## 按任务进入
 
 | 任务 | Skill | 执行 SOP | 参数与知识 |

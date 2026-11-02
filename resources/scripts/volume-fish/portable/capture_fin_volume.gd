@@ -9,7 +9,7 @@ func _run() -> void:
 	entry.player.stop();entry.skeleton.reset_bone_poses();entry.carrier.transform=Transform3D.IDENTITY
 	var frozen: String=static_check.static_binding_digest(entry.model)
 	var logical: Dictionary=PACKED_PARTS.surfaces(entry,plan) if plan.has("packed_parts_manifest") else {"ok":true,"packed":false,"surfaces":PACKED_PARTS.ordinary_surfaces(entry)}
-	assert(logical.ok)
+	assert(logical.ok, JSON.stringify(logical))
 	var fin_names: Array=[]
 	for name in plan.fins:fin_names.append(name)
 	var probes: Dictionary=PACKED_PARTS.make_probes(entry,logical,fin_names) if logical.packed else {}

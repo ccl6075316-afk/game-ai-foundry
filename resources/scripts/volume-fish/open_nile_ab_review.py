@@ -2,6 +2,10 @@
 from pathlib import Path
 import json,sys,subprocess,os
 repo=Path(__file__).resolve().parents[3]
+if not any(arg.startswith('--round') for arg in sys.argv[1:]):
+ from open_nile_final import main
+ main()
+ raise SystemExit(0)
 sys.path.insert(0,str(repo/'cli'))
 from toolchain_paths import resolve_godot
 config=Path.home()/'.gamefactory/config.json'
