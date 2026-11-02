@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "ace-fishing-wild-catch-official",
+  "title": "钓鱼发烧友 / Ace Fishing: Wild Catch 官方产品入口",
+  "source_kind": "official_product_page",
+  "origin": {
+    "urls": [
+      "https://apps.apple.com/us/app/ace-fishing-wild-catch/id694972182",
+      "https://play.google.com/store/apps/details?id=com.com2us.acefishing.normal.freefull.google.global.android.common"
+    ],
+    "publisher": "Com2uS"
+  },
+  "retrieved_on": "2026-11-02",
+  "artifact_ids": [],
+  "official_count_description": "Hundreds",
+  "unknowns": [
+    "Exact current species count and complete list unknown",
+    "APK and game model inventory not obtained",
+    "Ace Fishing: Crew is a separate game, excluded from this source"
+  ]
+}

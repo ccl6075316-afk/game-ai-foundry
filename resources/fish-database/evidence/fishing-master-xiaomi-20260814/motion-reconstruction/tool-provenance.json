@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-02",
+  "scope": "Research tool provenance; no Android game launch",
+  "il2cpp_dumper": {
+    "version": "6.7.46",
+    "url": "https://github.com/Perfare/Il2CppDumper/releases/download/v6.7.46/Il2CppDumper-net6-v6.7.46.zip",
+    "archive_sha256": "db9bbbc538e33abfb057c7757ae5d6c1f16a05fdc0d13af8a5a67ea31faaba0c",
+    "metadata_version": 31,
+    "code_registration": "0x3a1cee0",
+    "metadata_registration": "0x3b5a500",
+    "outcome": "Successful metadata/type/RVA mapping after relocation; generic protection warning is preserved in log excerpt, not silently ignored",
+    "configuration": {
+      "GenerateDummyDll": false,
+      "RequireAnyKey": false
+    },
+    "command": "DOTNET_ROLL_FORWARD=Major DOTNET_CLI_TELEMETRY_OPTOUT=1 work/fish-motion-reconstruction-20261102/dotnet/dotnet work/fish-motion-reconstruction-20261102/dumper/Il2CppDumper.dll work/fish-motion-reconstruction-20261102/libil2cpp.so work/fish-motion-reconstruction-20261102/global-metadata.dat work/fish-motion-reconstruction-20261102/dump"
+  },
+  "dotnet_runtime": {
+    "version": "8.0.33",
+    "platform": "osx-arm64",
+    "installed_scope": "temporary work directory, not global",
+    "url": "https://builds.dotnet.microsoft.com/dotnet/Runtime/8.0.33/dotnet-runtime-8.0.33-osx-arm64.tar.gz",
+    "release_metadata": "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/8.0/releases.json",
+    "archive_sha512": "0be37b64ea1f49651bbaa3dd08e89476919ceb98bd6b39d28883439c16c1d9cbcccf5cf01f67c913095e9f23235dc621125a551a6e736be4ebddbf060eb82758",
+    "archive_hash_verified": true
+  },
+  "analysis_packages": {
+    "capstone": "5.0.9",
+    "pyelftools": "0.33",
+    "unicorn": "2.1.4",
+    "UnityPy": "1.25.4; only earlier container exploration, not required for native replay"
+  },
+  "python": "3.14.5 (main, May 10 2026, 19:20:57) [Clang 22.1.3 ]",
+  "primary_documentation": {
+    "disassembler": "https://www.capstone-engine.org/",
+    "emulator": "https://www.unicorn-engine.org/",
+    "il2cpp_dumper": "https://github.com/Perfare/Il2CppDumper",
+    "lua_jit_dump_format": "https://github.com/LuaJIT/LuaJIT/blob/v2.1/src/lj_bcdump.h"
+  },
+  "unsuccessful_or_unused_methods": [
+    {
+      "method": "LJD",
+      "source_url": "https://codeload.github.com/Dr-MTN/luajit-decompiler/zip/refs/heads/master",
+      "archive_sha256": "176477898aa8824af446b712ec5284379b09fbd6df1f0ba8e4d1f6976a7f89e4",
+      "result": "Original version byte 0x80 unsupported. Changing only disposable copy header to v1/v2 failed AST parsing (IndexError/assert). No accepted decompiled Lua output; original x32/x64 scripts untouched."
+    },
+    {
+      "method": "Ghidra/JDK optional exploration",
+      "release_url": "https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build",
+      "result": "Incomplete archive failed expected hash; JDK download/API attempts stalled or returned 403. Optional retries cancelled. No Ghidra/JDK output used; partial/sparse archives removed after research."
+    },
+    {
+      "method": "Git clone tool acquisition",
+      "result": "TLS failure; LJD source obtained via hashed archive instead"
+    },
+    {
+      "method": "Native harness fixtures",
+      "result": "Initial fixture pointer indirection and cached Flee-entry instrumentation corrected; null/low-page memory-read guard installed, Flee calls counted at original call site. Final 395 comparisons pass. These corrections affect research fixtures only."
+    }
+  ],
+  "reproduction": {
+    "required_for_native_replay": [
+      "retained APK",
+      "Python",
+      "unicorn==2.1.4",
+      "pyelftools==0.33"
+    ],
+    "not_required_for_native_replay": [
+      "Dumper",
+      ".NET",
+      "Ghidra",
+      "JDK",
+      "Lua decompiler",
+      "Capstone"
+    ],
+    "elf_import_resolution": "Resolved expf PLT entry 0x3a16bb0 through .rela.plt/.dynsym/.plt, not a guessed exp approximation"
+  }
+}

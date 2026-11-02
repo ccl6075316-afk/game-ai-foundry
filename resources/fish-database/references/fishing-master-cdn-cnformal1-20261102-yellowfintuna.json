@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-yellowfintuna",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_yellowfintuna",
+    "fishing-master-cdn-cnformal1-20261102:obj-f1671fa42317d8d0b09d29bb5185ea964ff866c1a705ebdf8a040696dd9c5c60"
+  ],
+  "species_binding": {
+    "source_name": "YellowfinTuna",
+    "name_hint_zh": "黄鳍金枪鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/KeyWest/YellowfinTuna/YellowfinTuna.prefab",
+    "preferred_bundle": "bundles/b_fish_yellowfintuna.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 3,
+    "requested_prefab_variants": 3,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-409f3492b49e5b029c7bb032ff24f55a:-6832202678051698901",
+        "bundle": "bundles/b_fish_yellowfintuna.unity3d",
+        "name": "YellowfinTuna",
+        "vertices": 3675,
+        "triangles": 5590,
+        "uvs": 3675,
+        "submeshes": 1,
+        "sha256": "f1671fa42317d8d0b09d29bb5185ea964ff866c1a705ebdf8a040696dd9c5c60",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f1671fa42317d8d0b09d29bb5185ea964ff866c1a705ebdf8a040696dd9c5c60.obj",
+        "bytes": 647884,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-yellowfintuna",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

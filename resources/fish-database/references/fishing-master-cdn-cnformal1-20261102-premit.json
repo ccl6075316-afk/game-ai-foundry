@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-premit",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_common_dependency_0",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_premit",
+    "fishing-master-cdn-cnformal1-20261102:obj-bfd60ee998222c1dbd63b1f664207e3e1ad94d274c046823f59943df01be0832"
+  ],
+  "species_binding": {
+    "source_name": "Premit",
+    "name_hint_zh": "Premit（疑似Permit拼写，待核）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/ViequesIsland/Premit/Premit.prefab",
+    "preferred_bundle": "bundles/b_fish_premit.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-f0f6207d68ae16aaa1b32425a94e0b42:2518449585118762505",
+        "bundle": "bundles/b_fish_premit.unity3d",
+        "name": "Premit",
+        "vertices": 1853,
+        "triangles": 2867,
+        "uvs": 1853,
+        "submeshes": 1,
+        "sha256": "bfd60ee998222c1dbd63b1f664207e3e1ad94d274c046823f59943df01be0832",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/bfd60ee998222c1dbd63b1f664207e3e1ad94d274c046823f59943df01be0832.obj",
+        "bytes": 319524,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-premit",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

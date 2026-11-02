@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-goldentrevally",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_goldentrevally",
+    "fishing-master-cdn-cnformal1-20261102:obj-b3fd56892b1ecb3aaf76778a73cf9fb3ab5d67bc7a4d52d0b17d55230d735376"
+  ],
+  "species_binding": {
+    "source_name": "GoldenTrevally",
+    "name_hint_zh": "黄金鲹",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/TheGreatBarrierReef/GoldenTrevally/GoldenTrevally.prefab",
+    "preferred_bundle": "bundles/b_fish_goldentrevally.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-dfadb3cbcc7ba9522ce8cd0bf2eef0d9:-4280241064380960194",
+        "bundle": "bundles/b_fish_goldentrevally.unity3d",
+        "name": "GoldenTrevally",
+        "vertices": 3506,
+        "triangles": 5942,
+        "uvs": 3506,
+        "submeshes": 3,
+        "sha256": "b3fd56892b1ecb3aaf76778a73cf9fb3ab5d67bc7a4d52d0b17d55230d735376",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/b3fd56892b1ecb3aaf76778a73cf9fb3ab5d67bc7a4d52d0b17d55230d735376.obj",
+        "bytes": 641666,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-goldentrevally",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

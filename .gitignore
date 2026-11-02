@@ -34,3 +34,6 @@ progress.json
 
 # Whale session is retained in fishing-2d/plans/reviews/whale-shark-20261026.
 /work/whale-shark-spots/
+
+# Versioned fish reference inputs and durable status override generic media/status ignores.
+!/resources/fish-database/**

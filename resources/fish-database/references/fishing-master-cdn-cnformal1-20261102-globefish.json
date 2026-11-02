@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-globefish",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_globefish",
+    "fishing-master-cdn-cnformal1-20261102:obj-f8cf96e085dc515c2f044909e14109b03c89cc25b69a8fc426ad839b7026d768"
+  ],
+  "species_binding": {
+    "source_name": "GlobeFish",
+    "name_hint_zh": "河豚（泛称）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Nile/GlobeFish/GlobeFish.prefab",
+    "preferred_bundle": "bundles/b_fish_globefish.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-a807f48a4927b5bebe3b857cb11da276:2390976207556473740",
+        "bundle": "bundles/b_fish_globefish.unity3d",
+        "name": "GlobeFish",
+        "vertices": 1907,
+        "triangles": 3150,
+        "uvs": 1907,
+        "submeshes": 3,
+        "sha256": "f8cf96e085dc515c2f044909e14109b03c89cc25b69a8fc426ad839b7026d768",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f8cf96e085dc515c2f044909e14109b03c89cc25b69a8fc426ad839b7026d768.obj",
+        "bytes": 335879,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-globefish",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

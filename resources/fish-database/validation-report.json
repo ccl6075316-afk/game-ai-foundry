@@ -1,0 +1,1607 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "checked_on": "2026-11-02",
+  "scope": "Fish database acquisition/readability/integrity and source-bound native algorithm reconstruction; not biological accuracy, game runtime, performance or production fish acceptance",
+  "source_count": 3,
+  "reference_count": 326,
+  "artifact_count": 1261,
+  "artifact_bytes": 3083042770,
+  "catalog_record_counts": {
+    "catalogs/fishing-master-xiaomi-20260814/entries.jsonl": 325,
+    "catalogs/fishing-master-cdn-cnformal1-20261102/resource-bundles.jsonl": 734,
+    "catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.jsonl": 325
+  },
+  "collection_report": "evidence/fishing-master-cdn-cnformal1-20261102/collection-report.json",
+  "collection_summary": {
+    "target_base_names": 325,
+    "acquired_base_names": 325,
+    "target_prefabs": 646,
+    "acquired_prefabs": 646,
+    "verified_resource_bundles": 661,
+    "verified_resource_bytes": 822778961,
+    "unique_mesh_objects": 593,
+    "readable_mesh_objects": 593,
+    "unique_obj_files": 588,
+    "obj_export_bytes": 289542312,
+    "decoded_texture_objects": 1858,
+    "prefabs_with_resolved_skin_bones": 644,
+    "prefabs_using_mesh_renderer_without_skin_bones": 2
+  },
+  "schema_validator": "jsonschema 4.26.0, Draft 2020-12",
+  "checks": [
+    {
+      "check": "JSON parsing, Draft 2020-12 schemas, source/reference/artifact links",
+      "ok": true,
+      "sources": 3,
+      "references": 326,
+      "artifacts": 1257
+    },
+    {
+      "check": "Every retained artifact length/SHA256 and available source MD5",
+      "ok": true,
+      "bytes": 3082963240
+    },
+    {
+      "check": "LFS filter and no text normalization for every artifact",
+      "ok": true,
+      "paths": 1257
+    },
+    {
+      "check": "All unique OBJ exports have finite coordinates, nonempty triangles and valid vertex/UV/normal indices",
+      "ok": true,
+      "files": 588
+    },
+    {
+      "check": "325 base names and all 646 exact prefabs resolve actual meshes, materials, decoded textures and recorded rig/animator references",
+      "ok": true
+    },
+    {
+      "check": "Current HTML file links, retained script syntax, historical migration hashes and root diff whitespace",
+      "ok": true
+    },
+    {
+      "check": "Post-collection documentation links, method-script hashes/syntax and temporary-directory cleanup",
+      "ok": true
+    },
+    {
+      "check": "All 593 meshes have UV0; all 591 weighted meshes decode to finite, normalized weights with valid bind-pose indices; all assigned controller clip references resolve",
+      "ok": true
+    },
+    {
+      "check": "Additional rig/animation evidence hashes, JSON uniqueness, helper syntax and cleanup",
+      "ok": true
+    },
+    {
+      "check": "Aquarium script original bytes/SHA256, LFS attributes, evidence/source links and temporary research cleanup",
+      "ok": true
+    },
+    {
+      "check": "Native motion reconstruction: canonical 330 kernel + 65 full-step ARM64 comparisons, original slice identity for 70 methods, baseline hashes, source links, strict JSON/Python syntax, LFS and cleanup",
+      "ok": true
+    }
+  ],
+  "failures": [],
+  "earlier_cleanup": {
+    "work_directory": "work/fish-database-20261102",
+    "removed": [
+      {
+        "path": "cdn-cnformal2-FilesMD5.txt",
+        "bytes": 512983,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "cdn-cnformal3-FilesMD5.txt",
+        "bytes": 509304,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "cdn-cnformal3-FilesMD5_V2.txt",
+        "bytes": 509231,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "cdn-cnformal3-FilesMD5_V2.txt.zip",
+        "bytes": 166685,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "cdn-probes.json",
+        "bytes": 2413,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "deps",
+        "bytes": 25641268,
+        "reason": "Temporary parser/schema dependencies and download cache"
+      },
+      {
+        "path": "dex-resource-endpoints.json",
+        "bytes": 1441,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "lua-cdn-owners.json",
+        "bytes": 2481,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "lua-update-observations.json",
+        "bytes": 5402,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "remote-fish-download.json",
+        "bytes": 1058,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "remote-manager-details.json",
+        "bytes": 16270,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "resource-environments.json",
+        "bytes": 2955,
+        "reason": "Exploration detail or unadopted/redundant CDN candidate; retained conclusions in canonical evidence"
+      },
+      {
+        "path": "uv-cache",
+        "bytes": 34491691,
+        "reason": "Temporary parser/schema dependencies and download cache"
+      }
+    ],
+    "cleanup_plan_bytes_removed": 2305,
+    "removed_logical_bytes": 61865487,
+    "work_directory_remaining": false,
+    "retention": "Single full APK, original sample bundles, one reviewed CrucianCarp OBJ/preview, one adopted CDN manifest, indexes, source hashes, extraction evidence and compatibility symlinks retained; no full APK extraction tree",
+    "canonical_file_bytes_before_final_report_update": 1968126018
+  },
+  "git": {
+    "lfs_attributes_verified_for_all_artifacts": true,
+    "committed_or_pushed_by_this_task": false
+  },
+  "limitations": [
+    "Counts refer to resource names/variants and objects, not deduplicated biological species",
+    "All 646 exact prefab container paths and hierarchy, assigned meshes/materials/textures resolved; all selected mesh geometries exported and all selected textures decoded",
+    "644 skinned prefabs resolve skin bone pointers; 2 use MeshRenderer without skin bone bindings; no actual animation playback review",
+    "Mesh exports are rest mesh-local geometry; no body-fin segmentation, scene transform baking or biological width validation",
+    "This snapshot is separate from the retained APK; active runtime channel/latest live version and production asset reuse authorization are not established"
+  ],
+  "cleanup": {
+    "work_directory": "work/fish-database-complete-20261102",
+    "removed": [
+      {
+        "path": "work/fish-database-complete-20261102/__pycache__",
+        "logical_bytes": 25465,
+        "reason": "Temporary dependencies/cache"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/acquire.py",
+        "logical_bytes": 5131,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/deps",
+        "logical_bytes": 25685942,
+        "reason": "Temporary dependencies/cache"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/inspection-summary.json",
+        "logical_bytes": 254,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/object-index.json",
+        "logical_bytes": 38241022,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/plan.json",
+        "logical_bytes": 61287,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/resolve_prefabs.py",
+        "logical_bytes": 14402,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/uv-cache",
+        "logical_bytes": 35359227,
+        "reason": "Temporary dependencies/cache"
+      },
+      {
+        "path": "work/fish-database-complete-20261102/validate_collection.py",
+        "logical_bytes": 11047,
+        "reason": "Reconstructible object index, plan, intermediate summary or working script; canonical scripts and reports retained"
+      }
+    ],
+    "removed_logical_bytes": 99405639,
+    "work_directory_remaining": false,
+    "retained": "Original APK, source-coherent 661 verified bundles, frozen manifests/dependency/map, 588 unique OBJ exports, legacy sample/preview, per-fish source/reference/index records, parse/decode evidence and reproducible method scripts",
+    "remaining_canonical_file_bytes_before_final_report_write": 3093052041
+  },
+  "rig_animation_audit": {
+    "report_path": "evidence/fishing-master-cdn-cnformal1-20261102/rig-animation-report.json",
+    "ok": true,
+    "summary": {
+      "target_mesh_objects": 593,
+      "meshes_with_uv0": 593,
+      "meshes_with_readable_skinning_data": 591,
+      "meshes_without_skin_weight_rows": 2,
+      "controllers_in_dependency_closure": 720,
+      "controllers_assigned_to_target_prefabs": 605,
+      "all_assigned_controllers_parsed": true,
+      "all_assigned_controller_clip_references_resolved": true,
+      "animation_clips_in_dependency_closure": 757
+    },
+    "method_note": "Independent packed-skin decoding with 1/31 quantization; bone/clip references and original metadata checked, no runtime playback",
+    "cleanup": {
+      "removed": [
+        {
+          "path": "work/fish-rig-animation-20261102/controller-sample.json",
+          "logical_bytes": 19967
+        },
+        {
+          "path": "work/fish-rig-animation-20261102/decoder-primary-source.json",
+          "logical_bytes": 509
+        },
+        {
+          "path": "work/fish-rig-animation-20261102/deps",
+          "logical_bytes": 23002312
+        },
+        {
+          "path": "work/fish-rig-animation-20261102/uv-cache",
+          "logical_bytes": 29311127
+        }
+      ],
+      "canonical_helper_cache_bytes_removed": 2266,
+      "removed_logical_bytes": 52336181,
+      "work_directory_remaining": false,
+      "retained": "Per-mesh skinning inventory, controller/clip inventories, source-bound audit report and independent decoder; original packages/OBJ retained unchanged"
+    }
+  },
+  "aquarium_motion_investigation": {
+    "report_path": "evidence/fishing-master-xiaomi-20260814/aquarium-motion-report.json",
+    "ok": true,
+    "full_algorithm_reconstructed": false,
+    "runtime_tested": false,
+    "cleanup": {
+      "removed": [
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1005967103343201335.lua.bytes",
+          "logical_bytes": 279
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1045933080822356740.lua.bytes",
+          "logical_bytes": 638
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1133441429889224625.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1157695022435965797.lua.bytes",
+          "logical_bytes": 1017
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1220094465136569604.lua.bytes",
+          "logical_bytes": 2007
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1320703105653952449.lua.bytes",
+          "logical_bytes": 1024
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1470993359495128060.lua.bytes",
+          "logical_bytes": 15916
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1583446066353246540.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1836587735360258283.lua.bytes",
+          "logical_bytes": 2328
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1891217246423530852.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-1949027469759041524.lua.bytes",
+          "logical_bytes": 2166
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2008586047711598157.lua.bytes",
+          "logical_bytes": 15916
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2009508265248694129.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2019596075476609519.lua.bytes",
+          "logical_bytes": 5027
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2036468042935232583.lua.bytes",
+          "logical_bytes": 1683
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2090772687689362768.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2173485182488840464.lua.bytes",
+          "logical_bytes": 1579
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2203830383213012490.lua.bytes",
+          "logical_bytes": 1854
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2254039496094662625.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2286591586840646588.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2333232056402369857.lua.bytes",
+          "logical_bytes": 1102
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-237449110836577870.lua.bytes",
+          "logical_bytes": 2861
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2386174811270747013.lua.bytes",
+          "logical_bytes": 452
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2406360246666769525.lua.bytes",
+          "logical_bytes": 463
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2407281425320973169.lua.bytes",
+          "logical_bytes": 562
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2413559970645567675.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2421691576675622432.lua.bytes",
+          "logical_bytes": 2861
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2468776616963164480.lua.bytes",
+          "logical_bytes": 6146
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2520455999488337869.lua.bytes",
+          "logical_bytes": 2061
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2559838748373858578.lua.bytes",
+          "logical_bytes": 7629
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2575545282161026364.lua.bytes",
+          "logical_bytes": 10934
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2594903710928760001.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2604291079176291103.lua.bytes",
+          "logical_bytes": 581
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2707866129992543706.lua.bytes",
+          "logical_bytes": 2067
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2737892963824903223.lua.bytes",
+          "logical_bytes": 110
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2743720578075822789.lua.bytes",
+          "logical_bytes": 449
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2774165181524424894.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-2936635797151600105.lua.bytes",
+          "logical_bytes": 1583
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3006689429431496176.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3071678385515454916.lua.bytes",
+          "logical_bytes": 671
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3089864695559468625.lua.bytes",
+          "logical_bytes": 1964
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-310616702798574123.lua.bytes",
+          "logical_bytes": 4944
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3225942519278155783.lua.bytes",
+          "logical_bytes": 276
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3252457170613454893.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-330107683945537316.lua.bytes",
+          "logical_bytes": 5755
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3315527414303943488.lua.bytes",
+          "logical_bytes": 638
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3317561812463969257.lua.bytes",
+          "logical_bytes": 279
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-340737151899505079.lua.bytes",
+          "logical_bytes": 10546
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3483976181944564615.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3493575285312183064.lua.bytes",
+          "logical_bytes": 111
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3510711196292767761.lua.bytes",
+          "logical_bytes": 6483
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3580232683943933681.lua.bytes",
+          "logical_bytes": 3320
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3607081701402314005.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3613509142467164592.lua.bytes",
+          "logical_bytes": 3369
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3681933848807768302.lua.bytes",
+          "logical_bytes": 10934
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-3964995531158746835.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4015734028238456592.lua.bytes",
+          "logical_bytes": 252
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4066208378546319716.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4096331581456568604.lua.bytes",
+          "logical_bytes": 1296
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4163054329056884798.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4192678595986370016.lua.bytes",
+          "logical_bytes": 2060
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4239242621782018607.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4282230302612405186.lua.bytes",
+          "logical_bytes": 1205
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4344841567839175312.lua.bytes",
+          "logical_bytes": 3754
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4348859657306122120.lua.bytes",
+          "logical_bytes": 452
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4366639922420000214.lua.bytes",
+          "logical_bytes": 4852
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4379093460603247485.lua.bytes",
+          "logical_bytes": 6483
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4415605646369828658.lua.bytes",
+          "logical_bytes": 6627
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4443430891543955795.lua.bytes",
+          "logical_bytes": 1864
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4459149317200615607.lua.bytes",
+          "logical_bytes": 2414
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4462903468171110430.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4521106594636675114.lua.bytes",
+          "logical_bytes": 6627
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-452867401068804376.lua.bytes",
+          "logical_bytes": 8190
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4543745921965176040.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4544352639318022339.lua.bytes",
+          "logical_bytes": 11084
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4575073915160554196.lua.bytes",
+          "logical_bytes": 112
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4586326678575712042.lua.bytes",
+          "logical_bytes": 13476
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4617552447667627458.lua.bytes",
+          "logical_bytes": 463
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-481037650090065437.lua.bytes",
+          "logical_bytes": 921
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-4916438319528064255.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5069265904629245537.lua.bytes",
+          "logical_bytes": 7933
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5167503221951280631.lua.bytes",
+          "logical_bytes": 120
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-521035837480497041.lua.bytes",
+          "logical_bytes": 1079
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5232637479570730441.lua.bytes",
+          "logical_bytes": 1081
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5246220679118941196.lua.bytes",
+          "logical_bytes": 5222
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5286259151966571757.lua.bytes",
+          "logical_bytes": 277
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5344465109358379634.lua.bytes",
+          "logical_bytes": 1044
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5359568343560436524.lua.bytes",
+          "logical_bytes": 119
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5399562733201817932.lua.bytes",
+          "logical_bytes": 253
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5544456220135726220.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5552002523307699452.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5552291373311768770.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5584155067441610623.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5633387233330236772.lua.bytes",
+          "logical_bytes": 1242
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-566008616083094513.lua.bytes",
+          "logical_bytes": 1081
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5746996534284647929.lua.bytes",
+          "logical_bytes": 1044
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-583248840308196377.lua.bytes",
+          "logical_bytes": 122
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-5926047046603234561.lua.bytes",
+          "logical_bytes": 122
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6045480808654091646.lua.bytes",
+          "logical_bytes": 2038
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6089849475225156109.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6161208003593790112.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6202455882271758903.lua.bytes",
+          "logical_bytes": 2729
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6236541248007927607.lua.bytes",
+          "logical_bytes": 2060
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6279775360441505119.lua.bytes",
+          "logical_bytes": 2930
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6360647841391614494.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6395552812842612506.lua.bytes",
+          "logical_bytes": 4186
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6440393038142573242.lua.bytes",
+          "logical_bytes": 1683
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6444612552041216950.lua.bytes",
+          "logical_bytes": 1242
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6579953039524243747.lua.bytes",
+          "logical_bytes": 153
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6596653195607619257.lua.bytes",
+          "logical_bytes": 8190
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6614775407485893662.lua.bytes",
+          "logical_bytes": 295
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6627738960109823763.lua.bytes",
+          "logical_bytes": 253
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-668800673922393943.lua.bytes",
+          "logical_bytes": 13476
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6705415059717854976.lua.bytes",
+          "logical_bytes": 1161
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6867797776525073026.lua.bytes",
+          "logical_bytes": 3500
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-689096284331210325.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6891450010967073951.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6911867760582696361.lua.bytes",
+          "logical_bytes": 8167
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6994972610706649586.lua.bytes",
+          "logical_bytes": 1579
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-6997554394296869114.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7009073492655867527.lua.bytes",
+          "logical_bytes": 112
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7042047520575616400.lua.bytes",
+          "logical_bytes": 7188
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7054318820328618042.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7057911922323624353.lua.bytes",
+          "logical_bytes": 2208
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7132079431937574886.lua.bytes",
+          "logical_bytes": 3007
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7216704614631087684.lua.bytes",
+          "logical_bytes": 2363
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-726324541067533149.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7269907988903350448.lua.bytes",
+          "logical_bytes": 3221
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7288561177870406572.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7405855540689083935.lua.bytes",
+          "logical_bytes": 7188
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7418522084909074143.lua.bytes",
+          "logical_bytes": 439
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7482037338466610487.lua.bytes",
+          "logical_bytes": 115
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7628129007659923120.lua.bytes",
+          "logical_bytes": 5755
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7692499310378841546.lua.bytes",
+          "logical_bytes": 39091
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-774836558733757935.lua.bytes",
+          "logical_bytes": 4186
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7820340072268589832.lua.bytes",
+          "logical_bytes": 2529
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7830624640429233027.lua.bytes",
+          "logical_bytes": 14586
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-7846597566585608839.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-791140588914827791.lua.bytes",
+          "logical_bytes": 10546
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-795846686850885272.lua.bytes",
+          "logical_bytes": 2706
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8044318776535990476.lua.bytes",
+          "logical_bytes": 4852
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8084336962789316738.lua.bytes",
+          "logical_bytes": 439
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8115820037654141496.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8193002520067342019.lua.bytes",
+          "logical_bytes": 4002
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8356487148619768243.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8376160102955315518.lua.bytes",
+          "logical_bytes": 2253
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8392252163972587268.lua.bytes",
+          "logical_bytes": 8167
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8441614025096084703.lua.bytes",
+          "logical_bytes": 2529
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8460076027235157452.lua.bytes",
+          "logical_bytes": 9091
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8469598430228954445.lua.bytes",
+          "logical_bytes": 547
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-855948564496902358.lua.bytes",
+          "logical_bytes": 205
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8621352325231314723.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8684452746561882847.lua.bytes",
+          "logical_bytes": 70
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8731786209039313337.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8771130850852252092.lua.bytes",
+          "logical_bytes": 1085
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8775975699450282793.lua.bytes",
+          "logical_bytes": 557
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8822305548141372187.lua.bytes",
+          "logical_bytes": 1065
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8830955839238575525.lua.bytes",
+          "logical_bytes": 1964
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8905105626895748349.lua.bytes",
+          "logical_bytes": 2414
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8944835628994344774.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8962420172805709323.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8968807610722794188.lua.bytes",
+          "logical_bytes": 629
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-8996441016403189996.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-9008561280044352670.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-9134456575613309531.lua.bytes",
+          "logical_bytes": 121
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-9210233076180189611.lua.bytes",
+          "logical_bytes": 252
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-9219280603604742337.lua.bytes",
+          "logical_bytes": 2274
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-9220562743725482076.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-923942130941572448.lua.bytes",
+          "logical_bytes": 277
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-956498960556086949.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/-998767465894168568.lua.bytes",
+          "logical_bytes": 8053
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1320193056815607596.lua.bytes",
+          "logical_bytes": 205
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1345380772241425561.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1381642488563534667.lua.bytes",
+          "logical_bytes": 1065
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/143087241537803085.lua.bytes",
+          "logical_bytes": 629
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1454564511511578412.lua.bytes",
+          "logical_bytes": 3754
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1489235298216579438.lua.bytes",
+          "logical_bytes": 7601
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1537571460250116760.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1751760129739598267.lua.bytes",
+          "logical_bytes": 1864
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/1788330290347820852.lua.bytes",
+          "logical_bytes": 976
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2000102706714234039.lua.bytes",
+          "logical_bytes": 11255
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2063502928827457300.lua.bytes",
+          "logical_bytes": 1121
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2137202212470046380.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2144043174708886657.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2366034820987065463.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/238919855365918725.lua.bytes",
+          "logical_bytes": 2208
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2471103743821075350.lua.bytes",
+          "logical_bytes": 976
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2506826379937382856.lua.bytes",
+          "logical_bytes": 3007
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2515267252636623400.lua.bytes",
+          "logical_bytes": 156
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2635198155322872140.lua.bytes",
+          "logical_bytes": 1461
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2639971009911608445.lua.bytes",
+          "logical_bytes": 4066
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2659605118346024379.lua.bytes",
+          "logical_bytes": 2729
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2823717330785651624.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2826971794389131380.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2836482770598778048.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2891585003285383408.lua.bytes",
+          "logical_bytes": 5027
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/2929349923643777064.lua.bytes",
+          "logical_bytes": 921
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/30663231189942298.lua.bytes",
+          "logical_bytes": 652
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3107099754958729798.lua.bytes",
+          "logical_bytes": 7933
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3126173303074410924.lua.bytes",
+          "logical_bytes": 558
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3204126840594339275.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3369382532715236002.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/339758625253400337.lua.bytes",
+          "logical_bytes": 116
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3450046985242440728.lua.bytes",
+          "logical_bytes": 29529
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/35272550033619167.lua.bytes",
+          "logical_bytes": 2067
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3651367977139519988.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3728533005381591273.lua.bytes",
+          "logical_bytes": 9491
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3791966740775389514.lua.bytes",
+          "logical_bytes": 7601
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3861467044973799407.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3865964693197343919.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3881613008014558264.lua.bytes",
+          "logical_bytes": 2038
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3887724612797186595.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3910143453869743304.lua.bytes",
+          "logical_bytes": 9491
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/3991050025404428980.lua.bytes",
+          "logical_bytes": 562
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4197417296902930275.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4259680254832984775.lua.bytes",
+          "logical_bytes": 1583
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4276805065426171246.lua.bytes",
+          "logical_bytes": 1135
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4420162420850017638.lua.bytes",
+          "logical_bytes": 2166
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4454914672527724773.lua.bytes",
+          "logical_bytes": 2930
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4487604965093362828.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4506236755069498569.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4506614107670712306.lua.bytes",
+          "logical_bytes": 28003
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4532334438445304794.lua.bytes",
+          "logical_bytes": 652
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4599455369352710291.lua.bytes",
+          "logical_bytes": 11084
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4611413211846510385.lua.bytes",
+          "logical_bytes": 217
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4614815298216104751.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4658669947483806884.lua.bytes",
+          "logical_bytes": 110
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4661006441413110207.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4683780057660058790.lua.bytes",
+          "logical_bytes": 9091
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4686160197680683162.lua.bytes",
+          "logical_bytes": 3221
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4728094607497206198.lua.bytes",
+          "logical_bytes": 7629
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4770567307017281517.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4837113233488868688.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4894813791092482186.lua.bytes",
+          "logical_bytes": 2706
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4918457874046688190.lua.bytes",
+          "logical_bytes": 111
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/4993602148004632425.lua.bytes",
+          "logical_bytes": 1017
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5007777484112183095.lua.bytes",
+          "logical_bytes": 120
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5058109520198149816.lua.bytes",
+          "logical_bytes": 2357
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5063327664845587774.lua.bytes",
+          "logical_bytes": 28003
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5065780729461766624.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5110259900153532616.lua.bytes",
+          "logical_bytes": 1382
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5210974110472033358.lua.bytes",
+          "logical_bytes": 117
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5220131679166555543.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/523844433573973415.lua.bytes",
+          "logical_bytes": 111
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5295413394408514580.lua.bytes",
+          "logical_bytes": 1161
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5305422857664406480.lua.bytes",
+          "logical_bytes": 3021
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5319044511315308136.lua.bytes",
+          "logical_bytes": 1382
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5385054253639635660.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5416197400008727492.lua.bytes",
+          "logical_bytes": 111
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5424943721206408696.lua.bytes",
+          "logical_bytes": 3500
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/544606483151530129.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5512153567710165847.lua.bytes",
+          "logical_bytes": 3148
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5556735778263182803.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5611751263350668700.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5685675241851715351.lua.bytes",
+          "logical_bytes": 1135
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5700365707840740332.lua.bytes",
+          "logical_bytes": 279
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5786981391799465612.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5806703887670732060.lua.bytes",
+          "logical_bytes": 115
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/5875526131127308925.lua.bytes",
+          "logical_bytes": 39091
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6002975331443279127.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6070965807642672870.lua.bytes",
+          "logical_bytes": 2007
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6085519886616506993.lua.bytes",
+          "logical_bytes": 449
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6236566655785430555.lua.bytes",
+          "logical_bytes": 114
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6270229163053370293.lua.bytes",
+          "logical_bytes": 3021
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6292362578821562833.lua.bytes",
+          "logical_bytes": 2274
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6376351681857241837.lua.bytes",
+          "logical_bytes": 276
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6387827274833810703.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/642303666460816204.lua.bytes",
+          "logical_bytes": 118
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6557990969188202323.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6587601976735762494.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6604851600616414163.lua.bytes",
+          "logical_bytes": 3134
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6691932316638642000.lua.bytes",
+          "logical_bytes": 547
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6704961245202810066.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6789630372015278558.lua.bytes",
+          "logical_bytes": 1296
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/684207039034847264.lua.bytes",
+          "logical_bytes": 1461
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/687400477847821599.lua.bytes",
+          "logical_bytes": 3148
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/6880985996927017888.lua.bytes",
+          "logical_bytes": 1102
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/697663595773254074.lua.bytes",
+          "logical_bytes": 4944
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7051759286942814301.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7099636953309251548.lua.bytes",
+          "logical_bytes": 11255
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7162254588023483178.lua.bytes",
+          "logical_bytes": 3320
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7182195974774837039.lua.bytes",
+          "logical_bytes": 581
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7211302004744128569.lua.bytes",
+          "logical_bytes": 1085
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7220082742189232785.lua.bytes",
+          "logical_bytes": 8053
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7230921530932935222.lua.bytes",
+          "logical_bytes": 558
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7234478661772874275.lua.bytes",
+          "logical_bytes": 2061
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/725850463010320171.lua.bytes",
+          "logical_bytes": 671
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7283294454863394710.lua.bytes",
+          "logical_bytes": 2363
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7325594784177821911.lua.bytes",
+          "logical_bytes": 1079
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7463686496806479786.lua.bytes",
+          "logical_bytes": 14586
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7470450571371404277.lua.bytes",
+          "logical_bytes": 2328
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/755881835076283073.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7627363283533305209.lua.bytes",
+          "logical_bytes": 6439
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7648953153663184907.lua.bytes",
+          "logical_bytes": 119
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7706716961451405827.lua.bytes",
+          "logical_bytes": 3134
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7801644940578899361.lua.bytes",
+          "logical_bytes": 3369
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7842329348171514223.lua.bytes",
+          "logical_bytes": 5222
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/7986363792784364869.lua.bytes",
+          "logical_bytes": 1121
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8054368292366903651.lua.bytes",
+          "logical_bytes": 217
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8140976507907957634.lua.bytes",
+          "logical_bytes": 29529
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8154682682124017475.lua.bytes",
+          "logical_bytes": 122
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8229135685856015653.lua.bytes",
+          "logical_bytes": 1854
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8253046314309979025.lua.bytes",
+          "logical_bytes": 4066
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/831028155440038763.lua.bytes",
+          "logical_bytes": 295
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8319743238054962464.lua.bytes",
+          "logical_bytes": 121
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8340176822342834181.lua.bytes",
+          "logical_bytes": 1205
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8354297374862923797.lua.bytes",
+          "logical_bytes": 2253
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8371665227480216363.lua.bytes",
+          "logical_bytes": 1024
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8482607740530671017.lua.bytes",
+          "logical_bytes": 6439
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8543826267370195367.lua.bytes",
+          "logical_bytes": 70
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8621602514315238687.lua.bytes",
+          "logical_bytes": 156
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8631652319203245123.lua.bytes",
+          "logical_bytes": 2357
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8697255430178865163.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8699049664761392187.lua.bytes",
+          "logical_bytes": 4002
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8724462366052848688.lua.bytes",
+          "logical_bytes": 153
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8820681111781482466.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8840964448625809693.lua.bytes",
+          "logical_bytes": 557
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/8956690921310348503.lua.bytes",
+          "logical_bytes": 74
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/9056454327804036128.lua.bytes",
+          "logical_bytes": 279
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/9116597348134193214.lua.bytes",
+          "logical_bytes": 122
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/9180469955872640392.lua.bytes",
+          "logical_bytes": 6146
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/969957353643950961.lua.bytes",
+          "logical_bytes": 45
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/deps",
+          "logical_bytes": 22961305
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/lua-observations.json",
+          "logical_bytes": 684943
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/metadata-motion-contexts.json",
+          "logical_bytes": 12132
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/metadata-names.json",
+          "logical_bytes": 571
+        },
+        {
+          "path": "work/fish-aquarium-motion-20261102/uv-cache",
+          "logical_bytes": 29311127
+        }
+      ],
+      "removed_logical_bytes": 53847166,
+      "work_directory_remaining": false,
+      "retained": "Two original architecture-specific AquariumController bytecode files, source-bound module/string/metadata report and official announcement URLs; no full Lua bundle duplicate or unpacked APK tree"
+    },
+    "scale_and_construction_scope": "Multi-fish/group interfaces and indexed building/slot content found; large-scale capacity/performance and current free aquascaping unverified"
+  },
+  "native_motion_reconstruction": {
+    "report_path": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reconstruction-report.json",
+    "ok": true,
+    "summary": {
+      "mapped_types": 15,
+      "mapped_methods": 70,
+      "native_code_bytes": 20420,
+      "native_constant_bytes": 52,
+      "kernel_tests": 330,
+      "kernel_passed": 330,
+      "whole_step_tests": 65,
+      "whole_step_passed": 65,
+      "total_passed": 395,
+      "whole_step_max_absolute_component_error": 1.7768129234596586e-07
+    },
+    "runtime_tested": false,
+    "cleanup_complete": true
+  }
+}

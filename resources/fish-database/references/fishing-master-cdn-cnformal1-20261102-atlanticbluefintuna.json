@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-atlanticbluefintuna",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_atlanticbluefintuna",
+    "fishing-master-cdn-cnformal1-20261102:obj-b45f546fac18fc70e858b5bd6c0c74418da9629e57cf22cf5fc4412027d875df"
+  ],
+  "species_binding": {
+    "source_name": "AtlanticBluefinTuna",
+    "name_hint_zh": "大西洋蓝鳍金枪鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/MediterraneanSea/AtlanticBluefinTuna/AtlanticBluefinTuna.prefab",
+    "preferred_bundle": "bundles/b_fish_atlanticbluefintuna.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-b7729ab7581a1c71a6aa63cfaa63a646:443739803480238262",
+        "bundle": "bundles/b_fish_atlanticbluefintuna.unity3d",
+        "name": "AtlanticBluefinTuna",
+        "vertices": 3234,
+        "triangles": 5344,
+        "uvs": 3234,
+        "submeshes": 1,
+        "sha256": "b45f546fac18fc70e858b5bd6c0c74418da9629e57cf22cf5fc4412027d875df",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/b45f546fac18fc70e858b5bd6c0c74418da9629e57cf22cf5fc4412027d875df.obj",
+        "bytes": 587473,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-atlanticbluefintuna",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

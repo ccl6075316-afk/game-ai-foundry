@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-laketrout",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_laketrout",
+    "fishing-master-cdn-cnformal1-20261102:obj-a22e84d8be095361f0d32e8ba634fbde9f91c65934cb21f1a6e82dc4c620f503"
+  ],
+  "species_binding": {
+    "source_name": "LakeTrout",
+    "name_hint_zh": "湖红点鲑",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Campbell/LakeTrout/LakeTrout.prefab",
+    "preferred_bundle": "bundles/b_fish_laketrout.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-4faa7073cd7efb0965b963a0eb33dded:4531280377797635509",
+        "bundle": "bundles/b_fish_laketrout.unity3d",
+        "name": "LakeTrout",
+        "vertices": 1963,
+        "triangles": 3082,
+        "uvs": 1963,
+        "submeshes": 3,
+        "sha256": "a22e84d8be095361f0d32e8ba634fbde9f91c65934cb21f1a6e82dc4c620f503",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/a22e84d8be095361f0d32e8ba634fbde9f91c65934cb21f1a6e82dc4c620f503.obj",
+        "bytes": 339022,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-laketrout",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

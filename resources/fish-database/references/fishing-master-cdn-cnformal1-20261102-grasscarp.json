@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-grasscarp",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_grasscarp",
+    "fishing-master-cdn-cnformal1-20261102:obj-2dbcffeeef1c1d22a8a62f1332c7f5e5cb8233b75603341a087e2a1da849d80a"
+  ],
+  "species_binding": {
+    "source_name": "GrassCarp",
+    "name_hint_zh": "草鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/HongHu/GrassCarp/GrassCarp.prefab",
+    "preferred_bundle": "bundles/b_fish_grasscarp.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-b50bd5bccc49f5c15d88642a8031ad0b:6027446769334768360",
+        "bundle": "bundles/b_fish_grasscarp.unity3d",
+        "name": "GrassCarp",
+        "vertices": 1914,
+        "triangles": 2996,
+        "uvs": 1914,
+        "submeshes": 3,
+        "sha256": "2dbcffeeef1c1d22a8a62f1332c7f5e5cb8233b75603341a087e2a1da849d80a",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/2dbcffeeef1c1d22a8a62f1332c7f5e5cb8233b75603341a087e2a1da849d80a.obj",
+        "bytes": 331726,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-grasscarp",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

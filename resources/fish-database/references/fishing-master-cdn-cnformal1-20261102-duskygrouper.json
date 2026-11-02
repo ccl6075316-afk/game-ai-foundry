@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-duskygrouper",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_common_dependency_2",
+    "fishing-master-cdn-cnformal1-20261102:b_common_dependency_fbx",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_duskygrouper",
+    "fishing-master-cdn-cnformal1-20261102:obj-d82e1e1f6882c8cc786124de523aa70b3b3c84c080075d55fd033edf7d5fbf2f"
+  ],
+  "species_binding": {
+    "source_name": "DuskyGrouper",
+    "name_hint_zh": "暗色石斑鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Malta/DuskyGrouper/DuskyGrouper.prefab",
+    "preferred_bundle": "bundles/b_fish_duskygrouper.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 4,
+    "requested_prefab_variants": 4,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-d25451dac32fa5daf7fd241464e7398b:-7765622118585138110",
+        "bundle": "bundles/b_common_dependency_fbx.unity3d",
+        "name": "DuskyGrouper",
+        "vertices": 2309,
+        "triangles": 3750,
+        "uvs": 2309,
+        "submeshes": 3,
+        "sha256": "d82e1e1f6882c8cc786124de523aa70b3b3c84c080075d55fd033edf7d5fbf2f",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/d82e1e1f6882c8cc786124de523aa70b3b3c84c080075d55fd033edf7d5fbf2f.obj",
+        "bytes": 409520,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-duskygrouper",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

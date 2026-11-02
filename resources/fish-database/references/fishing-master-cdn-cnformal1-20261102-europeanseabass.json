@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-europeanseabass",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_europeanseabass",
+    "fishing-master-cdn-cnformal1-20261102:obj-300c2704a4b47c497e7a470d93c83a08f550f8de97a0e365764251b19e476acb"
+  ],
+  "species_binding": {
+    "source_name": "EuropeanSeabass",
+    "name_hint_zh": "欧洲海鲈",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/MediterraneanSea/EuropeanSeabass/EuropeanSeabass.prefab",
+    "preferred_bundle": "bundles/b_fish_europeanseabass.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-44272139dab12e6f100bcfe4a0a6a94e:7113891206958984845",
+        "bundle": "bundles/b_fish_europeanseabass.unity3d",
+        "name": "EuropeanSeabass",
+        "vertices": 3233,
+        "triangles": 5262,
+        "uvs": 3233,
+        "submeshes": 3,
+        "sha256": "300c2704a4b47c497e7a470d93c83a08f550f8de97a0e365764251b19e476acb",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/300c2704a4b47c497e7a470d93c83a08f550f8de97a0e365764251b19e476acb.obj",
+        "bytes": 578063,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-europeanseabass",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

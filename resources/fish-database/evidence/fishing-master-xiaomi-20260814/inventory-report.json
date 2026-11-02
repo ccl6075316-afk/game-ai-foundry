@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "scope": "Resource index of Xiaomi channel APK last modified 2026-08-14; not a live-server species census",
+  "source": {
+    "store_page": "https://game.xiaomi.com/game/62384429",
+    "apk_url": "https://s1.g.mi.com/download/AppStore/0c3864b7122a54cbcbe07e26e45260c7e004a6832/com.xuejing.smallfish.mi.apk",
+    "package_name": "com.xuejing.smallfish.mi",
+    "apk_bytes": 1963275862,
+    "apk_full_sha256": null,
+    "apk_etag": "004a68322f5815e85c2e34235be07947675b74db",
+    "last_modified": "2026-08-14T07:00:43Z",
+    "central_directory_http_range": "bytes=-456278",
+    "central_directory_sha256": "1bf96d6873e2a73f9573534ac177f5bb2c192ccf4b8192b70ab84f3ade635a67"
+  },
+  "map_entry": {
+    "path": "assets/bundles/InBundleAssetsMap.txt",
+    "range": "bytes=81118817-84925391",
+    "bytes": 3806508,
+    "sha256": "6bfa1eb2644b605856742ce70dabe691733754cb77870c8b2532506d4af4fbe7",
+    "crc32": 4172202236,
+    "crc32_verified": true
+  },
+  "counts": {
+    "prefab_index_entries": 684,
+    "base_names_including_nonfish": 352,
+    "prop_base_names": 18,
+    "other_animal_base_names": 9,
+    "fish_base_name_identifiers": 325,
+    "fish_prefab_entries_including_variants": 646,
+    "mesh_samples_actually_exported": 1,
+    "fish_base_names_with_attached_same_prefix_bundle": 107,
+    "attached_same_prefix_fish_bundle_entries": 143,
+    "fish_base_names_with_exact_prefab_bundle": 94,
+    "exact_prefab_entries_whose_bundle_is_attached": 115
+  },
+  "count_method": "Keep only Fish/<area>/<identifier>/<file>.prefab index entries; group case-insensitively by identifier before first underscore; exclude Present prop directory and nine named nonfish animal IDs. This is a lexical inventory, not biological or geometry deduplication. Local availability: count APK b_fish_<base>[_suffix].unity3d filenames by the same lexical base; this may include texture-only/derivative bundles and does not prove that every fish mesh/prefab is locally complete. Exact prefab bundle matches are recorded separately.",
+  "unknowns": [
+    "325 is not a verified biological species count: aliases, generic group names and L-number codes remain separate",
+    "684/646 prefab records are not proven distinct meshes; skin/material-only or shared-model variants may exist",
+    "Index references can include resources absent from this APK, future content or unused content",
+    "Chinese labels are search hints from English resource IDs, not verified official localization or scientific names",
+    "Live server total and current unlockability unknown",
+    "Ace Fishing: Wild Catch current total, complete list and APK inventory unknown; Crew is a different game and is not substituted"
+  ],
+  "aliases_to_check": [
+    [
+      "Bluefish",
+      "Tailor"
+    ],
+    [
+      "Pikeperch",
+      "Zander"
+    ],
+    [
+      "BlackBass",
+      "LargemouthBass"
+    ],
+    [
+      "AfricanSharptoothCatfish",
+      "NorthAfricanCatfish"
+    ],
+    [
+      "Skipjack",
+      "SkipjackTuna"
+    ],
+    [
+      "BluefinTuna",
+      "AtlanticBluefinTuna"
+    ],
+    [
+      "Carp",
+      "CommonCarp"
+    ]
+  ],
+  "files": [
+    "fish-catalog.csv",
+    "all-indexed-objects.csv",
+    "fish-prefab-index-evidence.txt",
+    "fish-catalog.html"
+  ],
+  "cleanup": {
+    "deleted_files": [
+      {
+        "path": "work/mobile-fish-inventory-20261102/asset-map-zip-entry.bin",
+        "bytes": 3806575
+      }
+    ],
+    "retained_evidence": "684 original fish prefab mapping lines in fish-prefab-index-evidence.txt; complete map source hash and remote byte range retained",
+    "temporary_work_directory_absent": true
+  },
+  "other_game": {
+    "name": "钓鱼发烧友 / Ace Fishing: Wild Catch",
+    "official_store": "https://apps.apple.com/us/app/ace-fishing-wild-catch/id694972182",
+    "official_description_count": "Hundreds",
+    "current_exact_count": null,
+    "complete_fish_list": null,
+    "not_substituted_with": "Ace Fishing: Crew"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-niletilapia",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_niletilapia",
+    "fishing-master-cdn-cnformal1-20261102:obj-afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4"
+  ],
+  "species_binding": {
+    "source_name": "NileTilapia",
+    "name_hint_zh": "尼罗罗非鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/CongoRiver/NileTilapia/NileTilapia.prefab",
+    "preferred_bundle": "bundles/b_fish_niletilapia.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 3,
+    "requested_prefab_variants": 3,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-fe6cdaef129431e67a68c405fbdf84c1:-1203990376361084931",
+        "bundle": "bundles/b_fish_niletilapia.unity3d",
+        "name": "NileTilapia",
+        "vertices": 1848,
+        "triangles": 2980,
+        "uvs": 1848,
+        "submeshes": 3,
+        "sha256": "afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4.obj",
+        "bytes": 321527,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-niletilapia",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

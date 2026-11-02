@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-threshershark",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_threshershark",
+    "fishing-master-cdn-cnformal1-20261102:obj-a27f102a284fa496b70d983bd5a7a813fbb5fea026bae692fb3d52ce56f45b9f"
+  ],
+  "species_binding": {
+    "source_name": "ThresherShark",
+    "name_hint_zh": "长尾鲨",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/TheGreatBarrierReef/ThresherShark/ThresherShark.prefab",
+    "preferred_bundle": "bundles/b_fish_threshershark.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 3,
+    "requested_prefab_variants": 3,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-a3d030b184aced81a57219ba04a49a5d:-7619175788429398185",
+        "bundle": "bundles/b_fish_threshershark.unity3d",
+        "name": "ThresherShark",
+        "vertices": 5498,
+        "triangles": 7420,
+        "uvs": 5498,
+        "submeshes": 1,
+        "sha256": "a27f102a284fa496b70d983bd5a7a813fbb5fea026bae692fb3d52ce56f45b9f",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/a27f102a284fa496b70d983bd5a7a813fbb5fea026bae692fb3d52ce56f45b9f.obj",
+        "bytes": 930587,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-threshershark",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

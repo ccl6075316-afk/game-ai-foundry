@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-biwatrout",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_biwatrout",
+    "fishing-master-cdn-cnformal1-20261102:obj-450e8515c7069a37191064f56289882db85fa753318475c960093c2c434884c5"
+  ],
+  "species_binding": {
+    "source_name": "Biwatrout",
+    "name_hint_zh": "琵琶湖鳟",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/LakeBiwa/Biwatrout/Biwatrout.prefab",
+    "preferred_bundle": "bundles/b_fish_biwatrout.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-bb272e11ba20fd3a011764e90f173670:3816809225130583419",
+        "bundle": "bundles/b_fish_biwatrout.unity3d",
+        "name": "Biwatrout",
+        "vertices": 2372,
+        "triangles": 3416,
+        "uvs": 2372,
+        "submeshes": 3,
+        "sha256": "450e8515c7069a37191064f56289882db85fa753318475c960093c2c434884c5",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/450e8515c7069a37191064f56289882db85fa753318475c960093c2c434884c5.obj",
+        "bytes": 400555,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-biwatrout",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

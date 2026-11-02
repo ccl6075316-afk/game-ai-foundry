@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-hongkonggrouper",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_hongkonggrouper",
+    "fishing-master-cdn-cnformal1-20261102:obj-3770da10c7b0d08e381527e71d44200c69aca6e2f677104b313aa751f141272e"
+  ],
+  "species_binding": {
+    "source_name": "HongKongGrouper",
+    "name_hint_zh": "赤点石斑鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/NanjiIslands/HongKongGrouper/HongKongGrouper.prefab",
+    "preferred_bundle": "bundles/b_fish_hongkonggrouper.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-2a6e1dd73e606073b3893e1556cba576:-6867305019452446904",
+        "bundle": "bundles/b_fish_hongkonggrouper.unity3d",
+        "name": "HongKongGrouper",
+        "vertices": 2837,
+        "triangles": 4690,
+        "uvs": 2837,
+        "submeshes": 3,
+        "sha256": "3770da10c7b0d08e381527e71d44200c69aca6e2f677104b313aa751f141272e",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/3770da10c7b0d08e381527e71d44200c69aca6e2f677104b313aa751f141272e.obj",
+        "bytes": 512114,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-hongkonggrouper",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

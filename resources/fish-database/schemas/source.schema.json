@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fish database source",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "source_kind", "origin", "retrieved_on", "artifact_ids", "unknowns"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "title": {"type": "string", "minLength": 1},
+    "source_kind": {"enum": ["scientific_measurement", "specimen_scan", "photograph", "video", "game_resource", "user_approved_reference", "official_product_page"]},
+    "origin": {"type": "object", "required": ["urls", "publisher"], "properties": {"urls": {"type": "array", "items": {"type": "string"}}, "publisher": {"type": ["string", "null"]}}},
+    "retrieved_on": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "artifact_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "unknowns": {"type": "array", "items": {"type": "string"}}
+  }
+}

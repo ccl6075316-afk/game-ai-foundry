@@ -1,0 +1,46 @@
+{
+  "retrieved_on": "2026-11-02",
+  "source_configuration_apk_sha256": "8a6f23099eb334f2d4a7a7a02058c1cf021551dd7e892cbf426c4c511b5ac7b7",
+  "configuration_entry": "assets/bin/Data/f47775a3a8e034a4f819df69f2824a58",
+  "configuration_textasset": "update_allplatform",
+  "configuration_bytes_sha256": "e32feed7cc6d557fe3f44980e867dbeedcc88d6b9e8791d7dbc39c2fe05e1f73",
+  "probes": [
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal1/FilesMD5_V2.txt.zip",
+      "status": 404
+    },
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal1/FilesMD5.txt",
+      "status": 200,
+      "bytes_read": 512983,
+      "content_type": "text/plain",
+      "sha256": "491ca29e78323d0be55daf00b3f5e0ee6d8f49efda79c3075845af311f3048a0"
+    },
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal2/FilesMD5_V2.txt.zip",
+      "status": 404
+    },
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal2/FilesMD5.txt",
+      "status": 200,
+      "bytes_read": 512983,
+      "content_type": "text/plain",
+      "sha256": "491ca29e78323d0be55daf00b3f5e0ee6d8f49efda79c3075845af311f3048a0"
+    },
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal3/FilesMD5_V2.txt.zip",
+      "status": 200,
+      "bytes_read": 166685,
+      "content_type": "application/zip",
+      "sha256": "1b2b2d9c6030683ccf2daeb80f1dffce05b71399eab24613a78722696dfb9551"
+    },
+    {
+      "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal3/FilesMD5.txt",
+      "status": 200,
+      "bytes_read": 509304,
+      "content_type": "text/plain",
+      "sha256": "8bc432624fc5e87d7826cfaaea38d2a513dcc1ca24512a5d8dfa8d4a025d04eb"
+    }
+  ],
+  "interpretation": "Configured public Android CDN roots responded. Channel1/2 manifests equal; channel3 differs. These are separate from the acquired APK snapshot; active channel selection and latest live game version remain unknown."
+}

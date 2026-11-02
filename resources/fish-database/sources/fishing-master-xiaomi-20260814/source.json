@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-xiaomi-20260814",
+  "title": "欢乐钓鱼大师：小米渠道 Android 安装包 2026-08-14",
+  "source_kind": "game_resource",
+  "origin": {
+    "urls": [
+      "https://game.xiaomi.com/game/62384429",
+      "https://s1.g.mi.com/download/AppStore/0c3864b7122a54cbcbe07e26e45260c7e004a6832/com.xuejing.smallfish.mi.apk"
+    ],
+    "publisher": "北京雪境科技有限公司",
+    "channel": "小米游戏中心"
+  },
+  "retrieved_on": "2026-11-02",
+  "version": {
+    "store_version": "1.0.0.265409",
+    "version_origin": "official channel store page; Android manifest not yet independently parsed",
+    "package_name": "com.xuejing.smallfish.mi",
+    "http_last_modified": "2026-08-14T07:00:43Z",
+    "http_etag": "004a68322f5815e85c2e34235be07947675b74db"
+  },
+  "artifact_ids": [
+    "fishing-master-xiaomi-20260814:apk",
+    "fishing-master-xiaomi-20260814:apk-central-directory",
+    "fishing-master-xiaomi-20260814:aquarium-controller-x32",
+    "fishing-master-xiaomi-20260814:aquarium-controller-x64",
+    "fishing-master-xiaomi-20260814:cruciancarp-obj",
+    "fishing-master-xiaomi-20260814:cruciancarp-original-bundle",
+    "fishing-master-xiaomi-20260814:cruciancarp-preview",
+    "fishing-master-xiaomi-20260814:fish-flock-native-code",
+    "fishing-master-xiaomi-20260814:fish-flock-native-constants"
+  ],
+  "evidence_paths": [
+    "evidence/fishing-master-xiaomi-20260814/aquarium-controller-strings.json",
+    "evidence/fishing-master-xiaomi-20260814/aquarium-motion-metadata.json",
+    "evidence/fishing-master-xiaomi-20260814/aquarium-motion-report.json",
+    "evidence/fishing-master-xiaomi-20260814/inventory-report.json",
+    "evidence/fishing-master-xiaomi-20260814/migration.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/README.md",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/kernel-validation-report.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/native-evidence.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/our-code-inputs.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reconstruction-report.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/steering-validation-report.json",
+    "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/tool-provenance.json"
+  ],
+  "usage": {
+    "reference_purpose": "研究鱼体比例、部位结构、建模表达及水族箱鱼群运动算法",
+    "rights_holder": "原游戏权利人",
+    "redistribution_license": null,
+    "production_asset_reuse_authorization": null
+  },
+  "unknowns": [
+    "Current server resource set and live biological species total unknown",
+    "Game geometry biological accuracy unknown",
+    "Source permission for redistribution and direct production asset reuse not established"
+  ],
+  "package_sha256": "8a6f23099eb334f2d4a7a7a02058c1cf021551dd7e892cbf426c4c511b5ac7b7",
+  "package_bytes": 1963275862
+}

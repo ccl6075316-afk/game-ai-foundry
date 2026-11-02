@@ -1,0 +1,17 @@
+[
+  {
+    "path": "projects/fishing-2d/game/scripts/aquarium/fish_school/FishSchoolSimulation.gd",
+    "sha256": "cf661ad047e0d83360b4467f2e30d9991ea85c1c2cc81155d3f57a11e68020b0",
+    "bytes": 13226
+  },
+  {
+    "path": "projects/fishing-2d/game/scripts/aquarium/fish_school/FishSchoolMotionAdapter.gd",
+    "sha256": "3167bf65193b3328f1edf41d16972aa4b9a65e6e705f780d99f8254cb31cc3e1",
+    "bytes": 6950
+  },
+  {
+    "path": "projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+    "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+    "bytes": 22917
+  }
+]

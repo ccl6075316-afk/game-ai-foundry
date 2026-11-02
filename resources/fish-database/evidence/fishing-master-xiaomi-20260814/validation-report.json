@@ -1,0 +1,1540 @@
+{
+  "schema_version": 1,
+  "kind": "external_game_fish_reference_feasibility",
+  "date": "2026-11-02",
+  "status": "sample_mesh_export_verified_biological_accuracy_unknown",
+  "not_a_model_acceptance": true,
+  "source": {
+    "store_page": "https://game.xiaomi.com/game/62384429",
+    "apk_url": "https://s1.g.mi.com/download/AppStore/0c3864b7122a54cbcbe07e26e45260c7e004a6832/com.xuejing.smallfish.mi.apk",
+    "package_name": "com.xuejing.smallfish.mi",
+    "apk_bytes": 1963275862,
+    "apk_full_sha256": null,
+    "apk_etag": "004a68322f5815e85c2e34235be07947675b74db",
+    "last_modified": "2026-08-14T07:00:43Z",
+    "central_directory_http_range": "bytes=-456278",
+    "central_directory_sha256": "1bf96d6873e2a73f9573534ac177f5bb2c192ccf4b8192b70ab84f3ade635a67"
+  },
+  "findings": {
+    "zip_entries": 4880,
+    "fish_named_bundle_count": 169,
+    "count_is_not_species_count": true,
+    "engine_evidence": "libunity.so and UnityFS resource sample; inner header 2022.3.62f1",
+    "fish_named_bundles": [
+      {
+        "name": "assets/bundles/b_fish_abaaba.unity3d",
+        "compressed_bytes": 1281326,
+        "uncompressed_bytes": 1281326,
+        "local_header_offset": 745170743,
+        "zip_method": 0,
+        "crc32": 1025460875
+      },
+      {
+        "name": "assets/bundles/b_fish_africanbonytongue.unity3d",
+        "compressed_bytes": 1232540,
+        "uncompressed_bytes": 1232540,
+        "local_header_offset": 746452138,
+        "zip_method": 0,
+        "crc32": 4202209109
+      },
+      {
+        "name": "assets/bundles/b_fish_africanpompano.unity3d",
+        "compressed_bytes": 67182,
+        "uncompressed_bytes": 67182,
+        "local_header_offset": 747684756,
+        "zip_method": 0,
+        "crc32": 2423345973
+      },
+      {
+        "name": "assets/bundles/b_fish_africantigerfish.unity3d",
+        "compressed_bytes": 1263588,
+        "uncompressed_bytes": 1263588,
+        "local_header_offset": 747752014,
+        "zip_method": 0,
+        "crc32": 3602300460
+      },
+      {
+        "name": "assets/bundles/b_fish_alligatorgar.unity3d",
+        "compressed_bytes": 339447,
+        "uncompressed_bytes": 339447,
+        "local_header_offset": 749015680,
+        "zip_method": 0,
+        "crc32": 2384138481
+      },
+      {
+        "name": "assets/bundles/b_fish_angolianwalkingcatfish.unity3d",
+        "compressed_bytes": 1173667,
+        "uncompressed_bytes": 1173667,
+        "local_header_offset": 749355199,
+        "zip_method": 0,
+        "crc32": 2570541655
+      },
+      {
+        "name": "assets/bundles/b_fish_animatorcontrollers.unity3d",
+        "compressed_bytes": 59741,
+        "uncompressed_bytes": 59741,
+        "local_header_offset": 750528951,
+        "zip_method": 0,
+        "crc32": 899019922
+      },
+      {
+        "name": "assets/bundles/b_fish_arctogadusglacialis_goldhalf.unity3d",
+        "compressed_bytes": 1435385,
+        "uncompressed_bytes": 1435385,
+        "local_header_offset": 750588773,
+        "zip_method": 0,
+        "crc32": 4003622135
+      },
+      {
+        "name": "assets/bundles/b_fish_arctogadusglacialis_half.unity3d",
+        "compressed_bytes": 1452508,
+        "uncompressed_bytes": 1452508,
+        "local_header_offset": 752024249,
+        "zip_method": 0,
+        "crc32": 4026209305
+      },
+      {
+        "name": "assets/bundles/b_fish_atlanticmackerel_d_b02.unity3d",
+        "compressed_bytes": 575522,
+        "uncompressed_bytes": 575522,
+        "local_header_offset": 753476844,
+        "zip_method": 0,
+        "crc32": 2910104619
+      },
+      {
+        "name": "assets/bundles/b_fish_bandedcatfish.unity3d",
+        "compressed_bytes": 1314659,
+        "uncompressed_bytes": 1314659,
+        "local_header_offset": 754052450,
+        "zip_method": 0,
+        "crc32": 3100312071
+      },
+      {
+        "name": "assets/bundles/b_fish_bandedjewelfish.unity3d",
+        "compressed_bytes": 1226124,
+        "uncompressed_bytes": 1226124,
+        "local_header_offset": 755367183,
+        "zip_method": 0,
+        "crc32": 3698575930
+      },
+      {
+        "name": "assets/bundles/b_fish_bartailflathead.unity3d",
+        "compressed_bytes": 1238860,
+        "uncompressed_bytes": 1238860,
+        "local_header_offset": 756593384,
+        "zip_method": 0,
+        "crc32": 1119513067
+      },
+      {
+        "name": "assets/bundles/b_fish_bigeyetrevally.unity3d",
+        "compressed_bytes": 8783,
+        "uncompressed_bytes": 8783,
+        "local_header_offset": 757832320,
+        "zip_method": 0,
+        "crc32": 879230359
+      },
+      {
+        "name": "assets/bundles/b_fish_bigheadcarp.unity3d",
+        "compressed_bytes": 8683,
+        "uncompressed_bytes": 8683,
+        "local_header_offset": 757841179,
+        "zip_method": 0,
+        "crc32": 4179283541
+      },
+      {
+        "name": "assets/bundles/b_fish_bigheadcarp_monster.unity3d",
+        "compressed_bytes": 1244613,
+        "uncompressed_bytes": 1244613,
+        "local_header_offset": 757849935,
+        "zip_method": 0,
+        "crc32": 107329665
+      },
+      {
+        "name": "assets/bundles/b_fish_bigmouthbuffalo.unity3d",
+        "compressed_bytes": 579050,
+        "uncompressed_bytes": 579050,
+        "local_header_offset": 759094629,
+        "zip_method": 0,
+        "crc32": 4076411565
+      },
+      {
+        "name": "assets/bundles/b_fish_blackcarp.unity3d",
+        "compressed_bytes": 602939,
+        "uncompressed_bytes": 602939,
+        "local_header_offset": 759673754,
+        "zip_method": 0,
+        "crc32": 3809394001
+      },
+      {
+        "name": "assets/bundles/b_fish_blackcarp_monster.unity3d",
+        "compressed_bytes": 1165395,
+        "uncompressed_bytes": 1165395,
+        "local_header_offset": 760276763,
+        "zip_method": 0,
+        "crc32": 701177884
+      },
+      {
+        "name": "assets/bundles/b_fish_blacksaddledcoralgrouper.unity3d",
+        "compressed_bytes": 1203766,
+        "uncompressed_bytes": 1203766,
+        "local_header_offset": 761442235,
+        "zip_method": 0,
+        "crc32": 1253970088
+      },
+      {
+        "name": "assets/bundles/b_fish_blackspottuskfish.unity3d",
+        "compressed_bytes": 1062876,
+        "uncompressed_bytes": 1062876,
+        "local_header_offset": 762646086,
+        "zip_method": 0,
+        "crc32": 754755872
+      },
+      {
+        "name": "assets/bundles/b_fish_bluegill.unity3d",
+        "compressed_bytes": 628985,
+        "uncompressed_bytes": 628985,
+        "local_header_offset": 763709040,
+        "zip_method": 0,
+        "crc32": 2341349614
+      },
+      {
+        "name": "assets/bundles/b_fish_bombayduck.unity3d",
+        "compressed_bytes": 8745,
+        "uncompressed_bytes": 8745,
+        "local_header_offset": 764338093,
+        "zip_method": 0,
+        "crc32": 1111604042
+      },
+      {
+        "name": "assets/bundles/b_fish_bowl.unity3d",
+        "compressed_bytes": 81329,
+        "uncompressed_bytes": 81329,
+        "local_header_offset": 764346909,
+        "zip_method": 0,
+        "crc32": 1333121064
+      },
+      {
+        "name": "assets/bundles/b_fish_bracelet.unity3d",
+        "compressed_bytes": 999606,
+        "uncompressed_bytes": 999606,
+        "local_header_offset": 764428305,
+        "zip_method": 0,
+        "crc32": 1309641425
+      },
+      {
+        "name": "assets/bundles/b_fish_californiacorbina.unity3d",
+        "compressed_bytes": 1299793,
+        "uncompressed_bytes": 1299793,
+        "local_header_offset": 765427982,
+        "zip_method": 0,
+        "crc32": 1432570571
+      },
+      {
+        "name": "assets/bundles/b_fish_californiacorbina_d_b01.unity3d",
+        "compressed_bytes": 569651,
+        "uncompressed_bytes": 569651,
+        "local_header_offset": 766727853,
+        "zip_method": 0,
+        "crc32": 3938913469
+      },
+      {
+        "name": "assets/bundles/b_fish_californiasheephead.unity3d",
+        "compressed_bytes": 1212854,
+        "uncompressed_bytes": 1212854,
+        "local_header_offset": 767297587,
+        "zip_method": 0,
+        "crc32": 2450624709
+      },
+      {
+        "name": "assets/bundles/b_fish_californiasheephead_d_b01.unity3d",
+        "compressed_bytes": 463820,
+        "uncompressed_bytes": 463820,
+        "local_header_offset": 768510522,
+        "zip_method": 0,
+        "crc32": 2390157294
+      },
+      {
+        "name": "assets/bundles/b_fish_caribbeanqueensnapper.unity3d",
+        "compressed_bytes": 1181201,
+        "uncompressed_bytes": 1181201,
+        "local_header_offset": 768974428,
+        "zip_method": 0,
+        "crc32": 4199593320
+      },
+      {
+        "name": "assets/bundles/b_fish_caribbeanqueensnapper_d_b01.unity3d",
+        "compressed_bytes": 567550,
+        "uncompressed_bytes": 567550,
+        "local_header_offset": 770155713,
+        "zip_method": 0,
+        "crc32": 223506571
+      },
+      {
+        "name": "assets/bundles/b_fish_caribbeanqueensnapper_rare.unity3d",
+        "compressed_bytes": 599995,
+        "uncompressed_bytes": 599995,
+        "local_header_offset": 770723350,
+        "zip_method": 0,
+        "crc32": 320910610
+      },
+      {
+        "name": "assets/bundles/b_fish_chestgold.unity3d",
+        "compressed_bytes": 1019716,
+        "uncompressed_bytes": 1019716,
+        "local_header_offset": 771323431,
+        "zip_method": 0,
+        "crc32": 2258648943
+      },
+      {
+        "name": "assets/bundles/b_fish_chestnormal.unity3d",
+        "compressed_bytes": 1031292,
+        "uncompressed_bytes": 1031292,
+        "local_header_offset": 772343216,
+        "zip_method": 0,
+        "crc32": 3467569308
+      },
+      {
+        "name": "assets/bundles/b_fish_chestsilver.unity3d",
+        "compressed_bytes": 1029220,
+        "uncompressed_bytes": 1029220,
+        "local_header_offset": 773374580,
+        "zip_method": 0,
+        "crc32": 1148811631
+      },
+      {
+        "name": "assets/bundles/b_fish_chinesestingray.unity3d",
+        "compressed_bytes": 9486,
+        "uncompressed_bytes": 9486,
+        "local_header_offset": 774403872,
+        "zip_method": 0,
+        "crc32": 3504102741
+      },
+      {
+        "name": "assets/bundles/b_fish_clownfish.unity3d",
+        "compressed_bytes": 274809,
+        "uncompressed_bytes": 274809,
+        "local_header_offset": 774413434,
+        "zip_method": 0,
+        "crc32": 1090119004
+      },
+      {
+        "name": "assets/bundles/b_fish_coalfish_d_b02.unity3d",
+        "compressed_bytes": 584783,
+        "uncompressed_bytes": 584783,
+        "local_header_offset": 774688313,
+        "zip_method": 0,
+        "crc32": 974294584
+      },
+      {
+        "name": "assets/bundles/b_fish_cod_d_b02.unity3d",
+        "compressed_bytes": 538969,
+        "uncompressed_bytes": 538969,
+        "local_header_offset": 775273171,
+        "zip_method": 0,
+        "crc32": 1621779464
+      },
+      {
+        "name": "assets/bundles/b_fish_coinsgold.unity3d",
+        "compressed_bytes": 18728,
+        "uncompressed_bytes": 18728,
+        "local_header_offset": 775812209,
+        "zip_method": 0,
+        "crc32": 1717515734
+      },
+      {
+        "name": "assets/bundles/b_fish_coinssilver.unity3d",
+        "compressed_bytes": 18468,
+        "uncompressed_bytes": 18468,
+        "local_header_offset": 775831008,
+        "zip_method": 0,
+        "crc32": 3335131259
+      },
+      {
+        "name": "assets/bundles/b_fish_commoncarp.unity3d",
+        "compressed_bytes": 9356,
+        "uncompressed_bytes": 9356,
+        "local_header_offset": 775849548,
+        "zip_method": 0,
+        "crc32": 2686642368
+      },
+      {
+        "name": "assets/bundles/b_fish_commonling_d_b02.unity3d",
+        "compressed_bytes": 573556,
+        "uncompressed_bytes": 573556,
+        "local_header_offset": 775858976,
+        "zip_method": 0,
+        "crc32": 2295191617
+      },
+      {
+        "name": "assets/bundles/b_fish_commonpandora_d_b02.unity3d",
+        "compressed_bytes": 589159,
+        "uncompressed_bytes": 589159,
+        "local_header_offset": 776432608,
+        "zip_method": 0,
+        "crc32": 2632105705
+      },
+      {
+        "name": "assets/bundles/b_fish_congereel_d_b02.unity3d",
+        "compressed_bytes": 586073,
+        "uncompressed_bytes": 586073,
+        "local_header_offset": 777021847,
+        "zip_method": 0,
+        "crc32": 1270893351
+      },
+      {
+        "name": "assets/bundles/b_fish_crescentsweetlips.unity3d",
+        "compressed_bytes": 1137034,
+        "uncompressed_bytes": 1137034,
+        "local_header_offset": 777607997,
+        "zip_method": 0,
+        "crc32": 3077300262
+      },
+      {
+        "name": "assets/bundles/b_fish_cruciancarp.unity3d",
+        "compressed_bytes": 1240156,
+        "uncompressed_bytes": 1240156,
+        "local_header_offset": 778745110,
+        "zip_method": 0,
+        "crc32": 499672710
+      },
+      {
+        "name": "assets/bundles/b_fish_cruciancarp_rare.unity3d",
+        "compressed_bytes": 1266902,
+        "uncompressed_bytes": 1266902,
+        "local_header_offset": 779985340,
+        "zip_method": 0,
+        "crc32": 2845160586
+      },
+      {
+        "name": "assets/bundles/b_fish_davidvases.unity3d",
+        "compressed_bytes": 729541,
+        "uncompressed_bytes": 729541,
+        "local_header_offset": 781252318,
+        "zip_method": 0,
+        "crc32": 739117383
+      },
+      {
+        "name": "assets/bundles/b_fish_dolphin.unity3d",
+        "compressed_bytes": 1245323,
+        "uncompressed_bytes": 1245323,
+        "local_header_offset": 781981929,
+        "zip_method": 0,
+        "crc32": 1700248949
+      },
+      {
+        "name": "assets/bundles/b_fish_dolphin_d_b01.unity3d",
+        "compressed_bytes": 541727,
+        "uncompressed_bytes": 541727,
+        "local_header_offset": 783227319,
+        "zip_method": 0,
+        "crc32": 59429558
+      },
+      {
+        "name": "assets/bundles/b_fish_dolphinfish_rare.unity3d",
+        "compressed_bytes": 9314,
+        "uncompressed_bytes": 9314,
+        "local_header_offset": 783769119,
+        "zip_method": 0,
+        "crc32": 3711929552
+      },
+      {
+        "name": "assets/bundles/b_fish_dolphinfish_rare_b01.unity3d",
+        "compressed_bytes": 1291551,
+        "uncompressed_bytes": 1291551,
+        "local_header_offset": 783778510,
+        "zip_method": 0,
+        "crc32": 497435246
+      },
+      {
+        "name": "assets/bundles/b_fish_driftbottle.unity3d",
+        "compressed_bytes": 1414033,
+        "uncompressed_bytes": 1414033,
+        "local_header_offset": 785070143,
+        "zip_method": 0,
+        "crc32": 3110786352
+      },
+      {
+        "name": "assets/bundles/b_fish_duskytailgrouper.unity3d",
+        "compressed_bytes": 1143086,
+        "uncompressed_bytes": 1143086,
+        "local_header_offset": 786484249,
+        "zip_method": 0,
+        "crc32": 3796230532
+      },
+      {
+        "name": "assets/bundles/b_fish_electriccatfish.unity3d",
+        "compressed_bytes": 1109733,
+        "uncompressed_bytes": 1109733,
+        "local_header_offset": 787627414,
+        "zip_method": 0,
+        "crc32": 146165421
+      },
+      {
+        "name": "assets/bundles/b_fish_flameangelfish.unity3d",
+        "compressed_bytes": 64011,
+        "uncompressed_bytes": 64011,
+        "local_header_offset": 788737225,
+        "zip_method": 0,
+        "crc32": 188655374
+      },
+      {
+        "name": "assets/bundles/b_fish_flounder.unity3d",
+        "compressed_bytes": 1183992,
+        "uncompressed_bytes": 1183992,
+        "local_header_offset": 788801311,
+        "zip_method": 0,
+        "crc32": 2180823160
+      },
+      {
+        "name": "assets/bundles/b_fish_flounder_d_b01.unity3d",
+        "compressed_bytes": 489157,
+        "uncompressed_bytes": 489157,
+        "local_header_offset": 789985372,
+        "zip_method": 0,
+        "crc32": 4011785302
+      },
+      {
+        "name": "assets/bundles/b_fish_giantoarfish.unity3d",
+        "compressed_bytes": 1215663,
+        "uncompressed_bytes": 1215663,
+        "local_header_offset": 790474605,
+        "zip_method": 0,
+        "crc32": 2696727546
+      },
+      {
+        "name": "assets/bundles/b_fish_giantoarfish_monster.unity3d",
+        "compressed_bytes": 13800,
+        "uncompressed_bytes": 13800,
+        "local_header_offset": 791690343,
+        "zip_method": 0,
+        "crc32": 4267443044
+      },
+      {
+        "name": "assets/bundles/b_fish_globefish.unity3d",
+        "compressed_bytes": 1212166,
+        "uncompressed_bytes": 1212166,
+        "local_header_offset": 791704224,
+        "zip_method": 0,
+        "crc32": 2009960719
+      },
+      {
+        "name": "assets/bundles/b_fish_grasscarp.unity3d",
+        "compressed_bytes": 1236428,
+        "uncompressed_bytes": 1236428,
+        "local_header_offset": 792916462,
+        "zip_method": 0,
+        "crc32": 3224068888
+      },
+      {
+        "name": "assets/bundles/b_fish_grasscarp_rare.unity3d",
+        "compressed_bytes": 1261659,
+        "uncompressed_bytes": 1261659,
+        "local_header_offset": 794152960,
+        "zip_method": 0,
+        "crc32": 1826003313
+      },
+      {
+        "name": "assets/bundles/b_fish_greenlandshark_d_b02.unity3d",
+        "compressed_bytes": 304420,
+        "uncompressed_bytes": 304420,
+        "local_header_offset": 795414695,
+        "zip_method": 0,
+        "crc32": 1398928730
+      },
+      {
+        "name": "assets/bundles/b_fish_greyspottedpuffer.unity3d",
+        "compressed_bytes": 1281656,
+        "uncompressed_bytes": 1281656,
+        "local_header_offset": 795719196,
+        "zip_method": 0,
+        "crc32": 1855885297
+      },
+      {
+        "name": "assets/bundles/b_fish_haddock_d_b02.unity3d",
+        "compressed_bytes": 575127,
+        "uncompressed_bytes": 575127,
+        "local_header_offset": 797000932,
+        "zip_method": 0,
+        "crc32": 2671233508
+      },
+      {
+        "name": "assets/bundles/b_fish_harlequintuskfish.unity3d",
+        "compressed_bytes": 1241184,
+        "uncompressed_bytes": 1241184,
+        "local_header_offset": 797576135,
+        "zip_method": 0,
+        "crc32": 3290781395
+      },
+      {
+        "name": "assets/bundles/b_fish_herring_d_b02.unity3d",
+        "compressed_bytes": 576571,
+        "uncompressed_bytes": 576571,
+        "local_header_offset": 798817396,
+        "zip_method": 0,
+        "crc32": 2979248727
+      },
+      {
+        "name": "assets/bundles/b_fish_hongkonggrouper.unity3d",
+        "compressed_bytes": 1224095,
+        "uncompressed_bytes": 1224095,
+        "local_header_offset": 799394043,
+        "zip_method": 0,
+        "crc32": 2323667090
+      },
+      {
+        "name": "assets/bundles/b_fish_horseeyejack.unity3d",
+        "compressed_bytes": 9283,
+        "uncompressed_bytes": 9283,
+        "local_header_offset": 800618215,
+        "zip_method": 0,
+        "crc32": 938707407
+      },
+      {
+        "name": "assets/bundles/b_fish_humpbackgrouper.unity3d",
+        "compressed_bytes": 1218378,
+        "uncompressed_bytes": 1218378,
+        "local_header_offset": 800627571,
+        "zip_method": 0,
+        "crc32": 2071107465
+      },
+      {
+        "name": "assets/bundles/b_fish_japanesescad.unity3d",
+        "compressed_bytes": 9332,
+        "uncompressed_bytes": 9332,
+        "local_header_offset": 801846026,
+        "zip_method": 0,
+        "crc32": 259143658
+      },
+      {
+        "name": "assets/bundles/b_fish_japaneseseabass.unity3d",
+        "compressed_bytes": 1251594,
+        "uncompressed_bytes": 1251594,
+        "local_header_offset": 801855432,
+        "zip_method": 0,
+        "crc32": 690016846
+      },
+      {
+        "name": "assets/bundles/b_fish_keeljawedneedlefish.unity3d",
+        "compressed_bytes": 970596,
+        "uncompressed_bytes": 970596,
+        "local_header_offset": 803107102,
+        "zip_method": 0,
+        "crc32": 468857984
+      },
+      {
+        "name": "assets/bundles/b_fish_keygold.unity3d",
+        "compressed_bytes": 25509,
+        "uncompressed_bytes": 25509,
+        "local_header_offset": 804077780,
+        "zip_method": 0,
+        "crc32": 1828874483
+      },
+      {
+        "name": "assets/bundles/b_fish_keysilver.unity3d",
+        "compressed_bytes": 30761,
+        "uncompressed_bytes": 30761,
+        "local_header_offset": 804103357,
+        "zip_method": 0,
+        "crc32": 3287503766
+      },
+      {
+        "name": "assets/bundles/b_fish_kingsleysrobber.unity3d",
+        "compressed_bytes": 1271269,
+        "uncompressed_bytes": 1271269,
+        "local_header_offset": 804134189,
+        "zip_method": 0,
+        "crc32": 3634358436
+      },
+      {
+        "name": "assets/bundles/b_fish_l014.unity3d",
+        "compressed_bytes": 1249986,
+        "uncompressed_bytes": 1249986,
+        "local_header_offset": 805405533,
+        "zip_method": 0,
+        "crc32": 34061298
+      },
+      {
+        "name": "assets/bundles/b_fish_l034.unity3d",
+        "compressed_bytes": 1356422,
+        "uncompressed_bytes": 1356422,
+        "local_header_offset": 806655586,
+        "zip_method": 0,
+        "crc32": 3314805058
+      },
+      {
+        "name": "assets/bundles/b_fish_l350.unity3d",
+        "compressed_bytes": 1342069,
+        "uncompressed_bytes": 1342069,
+        "local_header_offset": 808012074,
+        "zip_method": 0,
+        "crc32": 3661240589
+      },
+      {
+        "name": "assets/bundles/b_fish_l600.unity3d",
+        "compressed_bytes": 1406451,
+        "uncompressed_bytes": 1406451,
+        "local_header_offset": 809354209,
+        "zip_method": 0,
+        "crc32": 465312291
+      },
+      {
+        "name": "assets/bundles/b_fish_ladyfish.unity3d",
+        "compressed_bytes": 8313,
+        "uncompressed_bytes": 8313,
+        "local_header_offset": 810760727,
+        "zip_method": 0,
+        "crc32": 4012520169
+      },
+      {
+        "name": "assets/bundles/b_fish_ladyfish_d_b01.unity3d",
+        "compressed_bytes": 310948,
+        "uncompressed_bytes": 310948,
+        "local_header_offset": 810769109,
+        "zip_method": 0,
+        "crc32": 1868931090
+      },
+      {
+        "name": "assets/bundles/b_fish_largeheadhairtail.unity3d",
+        "compressed_bytes": 1078650,
+        "uncompressed_bytes": 1078650,
+        "local_header_offset": 811080132,
+        "zip_method": 0,
+        "crc32": 953671671
+      },
+      {
+        "name": "assets/bundles/b_fish_lionfish.unity3d",
+        "compressed_bytes": 1312962,
+        "uncompressed_bytes": 1312962,
+        "local_header_offset": 812158862,
+        "zip_method": 0,
+        "crc32": 735732578
+      },
+      {
+        "name": "assets/bundles/b_fish_lionfish_d_b01.unity3d",
+        "compressed_bytes": 608158,
+        "uncompressed_bytes": 608158,
+        "local_header_offset": 813471894,
+        "zip_method": 0,
+        "crc32": 4225173073
+      },
+      {
+        "name": "assets/bundles/b_fish_lionfish_elite.unity3d",
+        "compressed_bytes": 1332736,
+        "uncompressed_bytes": 1332736,
+        "local_header_offset": 814080126,
+        "zip_method": 0,
+        "crc32": 976388638
+      },
+      {
+        "name": "assets/bundles/b_fish_lionfish_elite_b01.unity3d",
+        "compressed_bytes": 1179663,
+        "uncompressed_bytes": 1179663,
+        "local_header_offset": 815412936,
+        "zip_method": 0,
+        "crc32": 3549003583
+      },
+      {
+        "name": "assets/bundles/b_fish_lobster_d_b02.unity3d",
+        "compressed_bytes": 583071,
+        "uncompressed_bytes": 583071,
+        "local_header_offset": 816592679,
+        "zip_method": 0,
+        "crc32": 2582286437
+      },
+      {
+        "name": "assets/bundles/b_fish_longnosebutterflyfish.unity3d",
+        "compressed_bytes": 1125488,
+        "uncompressed_bytes": 1125488,
+        "local_header_offset": 817175823,
+        "zip_method": 0,
+        "crc32": 861834708
+      },
+      {
+        "name": "assets/bundles/b_fish_milkfish.unity3d",
+        "compressed_bytes": 8184,
+        "uncompressed_bytes": 8184,
+        "local_header_offset": 818301392,
+        "zip_method": 0,
+        "crc32": 547262078
+      },
+      {
+        "name": "assets/bundles/b_fish_needlefish.unity3d",
+        "compressed_bytes": 7978,
+        "uncompressed_bytes": 7978,
+        "local_header_offset": 818309644,
+        "zip_method": 0,
+        "crc32": 457670123
+      },
+      {
+        "name": "assets/bundles/b_fish_needlefish_rare.unity3d",
+        "compressed_bytes": 1011110,
+        "uncompressed_bytes": 1011110,
+        "local_header_offset": 818317694,
+        "zip_method": 0,
+        "crc32": 2932542945
+      },
+      {
+        "name": "assets/bundles/b_fish_nilecarp.unity3d",
+        "compressed_bytes": 1249256,
+        "uncompressed_bytes": 1249256,
+        "local_header_offset": 819328882,
+        "zip_method": 0,
+        "crc32": 3996427884
+      },
+      {
+        "name": "assets/bundles/b_fish_niletilapia.unity3d",
+        "compressed_bytes": 1180856,
+        "uncompressed_bytes": 1180856,
+        "local_header_offset": 820578208,
+        "zip_method": 0,
+        "crc32": 2626226154
+      },
+      {
+        "name": "assets/bundles/b_fish_northafricancatfish.unity3d",
+        "compressed_bytes": 1196155,
+        "uncompressed_bytes": 1196155,
+        "local_header_offset": 821759136,
+        "zip_method": 0,
+        "crc32": 3025829362
+      },
+      {
+        "name": "assets/bundles/b_fish_northernwhiting.unity3d",
+        "compressed_bytes": 1212037,
+        "uncompressed_bytes": 1212037,
+        "local_header_offset": 822955371,
+        "zip_method": 0,
+        "crc32": 3869442951
+      },
+      {
+        "name": "assets/bundles/b_fish_nursehound_d_b02.unity3d",
+        "compressed_bytes": 591869,
+        "uncompressed_bytes": 591869,
+        "local_header_offset": 824167485,
+        "zip_method": 0,
+        "crc32": 980617497
+      },
+      {
+        "name": "assets/bundles/b_fish_orecopper.unity3d",
+        "compressed_bytes": 839762,
+        "uncompressed_bytes": 839762,
+        "local_header_offset": 824759433,
+        "zip_method": 0,
+        "crc32": 329966702
+      },
+      {
+        "name": "assets/bundles/b_fish_oregold.unity3d",
+        "compressed_bytes": 846664,
+        "uncompressed_bytes": 846664,
+        "local_header_offset": 825599266,
+        "zip_method": 0,
+        "crc32": 3764124651
+      },
+      {
+        "name": "assets/bundles/b_fish_oresilver.unity3d",
+        "compressed_bytes": 827305,
+        "uncompressed_bytes": 827305,
+        "local_header_offset": 826446000,
+        "zip_method": 0,
+        "crc32": 3496499087
+      },
+      {
+        "name": "assets/bundles/b_fish_orientalsweetlips.unity3d",
+        "compressed_bytes": 1103966,
+        "uncompressed_bytes": 1103966,
+        "local_header_offset": 827273377,
+        "zip_method": 0,
+        "crc32": 4248204781
+      },
+      {
+        "name": "assets/bundles/b_fish_ornatethreadfinbream.unity3d",
+        "compressed_bytes": 1189176,
+        "uncompressed_bytes": 1189176,
+        "local_header_offset": 828377422,
+        "zip_method": 0,
+        "crc32": 1239435043
+      },
+      {
+        "name": "assets/bundles/b_fish_pacificpompano.unity3d",
+        "compressed_bytes": 9148,
+        "uncompressed_bytes": 9148,
+        "local_header_offset": 829566680,
+        "zip_method": 0,
+        "crc32": 432833770
+      },
+      {
+        "name": "assets/bundles/b_fish_pacificpompano_rare.unity3d",
+        "compressed_bytes": 1214396,
+        "uncompressed_bytes": 1214396,
+        "local_header_offset": 829575904,
+        "zip_method": 0,
+        "crc32": 3114582804
+      },
+      {
+        "name": "assets/bundles/b_fish_pebblyfish.unity3d",
+        "compressed_bytes": 1311868,
+        "uncompressed_bytes": 1311868,
+        "local_header_offset": 830790380,
+        "zip_method": 0,
+        "crc32": 3441426067
+      },
+      {
+        "name": "assets/bundles/b_fish_porcelain.unity3d",
+        "compressed_bytes": 722054,
+        "uncompressed_bytes": 722054,
+        "local_header_offset": 832102320,
+        "zip_method": 0,
+        "crc32": 2922484741
+      },
+      {
+        "name": "assets/bundles/b_fish_porcelain_01.unity3d",
+        "compressed_bytes": 516897,
+        "uncompressed_bytes": 516897,
+        "local_header_offset": 832824446,
+        "zip_method": 0,
+        "crc32": 2305915032
+      },
+      {
+        "name": "assets/bundles/b_fish_porcelain_02.unity3d",
+        "compressed_bytes": 536754,
+        "uncompressed_bytes": 536754,
+        "local_header_offset": 833341417,
+        "zip_method": 0,
+        "crc32": 1583842718
+      },
+      {
+        "name": "assets/bundles/b_fish_porcelain_03.unity3d",
+        "compressed_bytes": 25950,
+        "uncompressed_bytes": 25950,
+        "local_header_offset": 833878246,
+        "zip_method": 0,
+        "crc32": 981953635
+      },
+      {
+        "name": "assets/bundles/b_fish_porcelain_04.unity3d",
+        "compressed_bytes": 39180,
+        "uncompressed_bytes": 39180,
+        "local_header_offset": 833904270,
+        "zip_method": 0,
+        "crc32": 1161289572
+      },
+      {
+        "name": "assets/bundles/b_fish_porgyscup.unity3d",
+        "compressed_bytes": 1092873,
+        "uncompressed_bytes": 1092873,
+        "local_header_offset": 833943524,
+        "zip_method": 0,
+        "crc32": 377100333
+      },
+      {
+        "name": "assets/bundles/b_fish_porgyscup_d_b01.unity3d",
+        "compressed_bytes": 475814,
+        "uncompressed_bytes": 475814,
+        "local_header_offset": 835036469,
+        "zip_method": 0,
+        "crc32": 3445071014
+      },
+      {
+        "name": "assets/bundles/b_fish_quit.unity3d",
+        "compressed_bytes": 248193,
+        "uncompressed_bytes": 248193,
+        "local_header_offset": 835512358,
+        "zip_method": 0,
+        "crc32": 2023551105
+      },
+      {
+        "name": "assets/bundles/b_fish_rainbowrunner.unity3d",
+        "compressed_bytes": 1162851,
+        "uncompressed_bytes": 1162851,
+        "local_header_offset": 835760617,
+        "zip_method": 0,
+        "crc32": 953977690
+      },
+      {
+        "name": "assets/bundles/b_fish_rainbowrunner_elite.unity3d",
+        "compressed_bytes": 626972,
+        "uncompressed_bytes": 626972,
+        "local_header_offset": 836923543,
+        "zip_method": 0,
+        "crc32": 1497642128
+      },
+      {
+        "name": "assets/bundles/b_fish_redfish.unity3d",
+        "compressed_bytes": 1194990,
+        "uncompressed_bytes": 1194990,
+        "local_header_offset": 837550596,
+        "zip_method": 0,
+        "crc32": 429318521
+      },
+      {
+        "name": "assets/bundles/b_fish_redfish_d_b01.unity3d",
+        "compressed_bytes": 581746,
+        "uncompressed_bytes": 581746,
+        "local_header_offset": 838745654,
+        "zip_method": 0,
+        "crc32": 1949756444
+      },
+      {
+        "name": "assets/bundles/b_fish_redmouthgrouper.unity3d",
+        "compressed_bytes": 1111724,
+        "uncompressed_bytes": 1111724,
+        "local_header_offset": 839327474,
+        "zip_method": 0,
+        "crc32": 1869991994
+      },
+      {
+        "name": "assets/bundles/b_fish_redsnapper.unity3d",
+        "compressed_bytes": 1291073,
+        "uncompressed_bytes": 1291073,
+        "local_header_offset": 840439276,
+        "zip_method": 0,
+        "crc32": 3162133709
+      },
+      {
+        "name": "assets/bundles/b_fish_redsnapper_d_b01.unity3d",
+        "compressed_bytes": 576363,
+        "uncompressed_bytes": 576363,
+        "local_header_offset": 841730421,
+        "zip_method": 0,
+        "crc32": 593584262
+      },
+      {
+        "name": "assets/bundles/b_fish_sailfish_d_b02.unity3d",
+        "compressed_bytes": 572204,
+        "uncompressed_bytes": 572204,
+        "local_header_offset": 842306863,
+        "zip_method": 0,
+        "crc32": 3768331148
+      },
+      {
+        "name": "assets/bundles/b_fish_sharpbelly.unity3d",
+        "compressed_bytes": 1273400,
+        "uncompressed_bytes": 1273400,
+        "local_header_offset": 842879144,
+        "zip_method": 0,
+        "crc32": 1742961046
+      },
+      {
+        "name": "assets/bundles/b_fish_sheepshead.unity3d",
+        "compressed_bytes": 1233350,
+        "uncompressed_bytes": 1233350,
+        "local_header_offset": 844152616,
+        "zip_method": 0,
+        "crc32": 733433186
+      },
+      {
+        "name": "assets/bundles/b_fish_sheepshead_d_b01.unity3d",
+        "compressed_bytes": 591780,
+        "uncompressed_bytes": 591780,
+        "local_header_offset": 845386038,
+        "zip_method": 0,
+        "crc32": 1683398676
+      },
+      {
+        "name": "assets/bundles/b_fish_silvertrevally.unity3d",
+        "compressed_bytes": 8696,
+        "uncompressed_bytes": 8696,
+        "local_header_offset": 845977896,
+        "zip_method": 0,
+        "crc32": 3702283305
+      },
+      {
+        "name": "assets/bundles/b_fish_skate.unity3d",
+        "compressed_bytes": 9460,
+        "uncompressed_bytes": 9460,
+        "local_header_offset": 845986668,
+        "zip_method": 0,
+        "crc32": 2099436637
+      },
+      {
+        "name": "assets/bundles/b_fish_skate_elite.unity3d",
+        "compressed_bytes": 933158,
+        "uncompressed_bytes": 933158,
+        "local_header_offset": 845996196,
+        "zip_method": 0,
+        "crc32": 1462230227
+      },
+      {
+        "name": "assets/bundles/b_fish_skipjacktuna.unity3d",
+        "compressed_bytes": 8453,
+        "uncompressed_bytes": 8453,
+        "local_header_offset": 846929426,
+        "zip_method": 0,
+        "crc32": 1329226345
+      },
+      {
+        "name": "assets/bundles/b_fish_skipjacktuna_d_b02.unity3d",
+        "compressed_bytes": 563171,
+        "uncompressed_bytes": 563171,
+        "local_header_offset": 846937953,
+        "zip_method": 0,
+        "crc32": 26281694
+      },
+      {
+        "name": "assets/bundles/b_fish_smallmouthbass.unity3d",
+        "compressed_bytes": 554940,
+        "uncompressed_bytes": 554940,
+        "local_header_offset": 847501203,
+        "zip_method": 0,
+        "crc32": 2366957243
+      },
+      {
+        "name": "assets/bundles/b_fish_smallyellowcroaker.unity3d",
+        "compressed_bytes": 1245041,
+        "uncompressed_bytes": 1245041,
+        "local_header_offset": 848056220,
+        "zip_method": 0,
+        "crc32": 3125124483
+      },
+      {
+        "name": "assets/bundles/b_fish_snakehead.unity3d",
+        "compressed_bytes": 9134,
+        "uncompressed_bytes": 9134,
+        "local_header_offset": 849301341,
+        "zip_method": 0,
+        "crc32": 1294485788
+      },
+      {
+        "name": "assets/bundles/b_fish_snakehead_elite.unity3d",
+        "compressed_bytes": 1353275,
+        "uncompressed_bytes": 1353275,
+        "local_header_offset": 849310546,
+        "zip_method": 0,
+        "crc32": 376526472
+      },
+      {
+        "name": "assets/bundles/b_fish_snook.unity3d",
+        "compressed_bytes": 1309376,
+        "uncompressed_bytes": 1309376,
+        "local_header_offset": 850663899,
+        "zip_method": 0,
+        "crc32": 992812990
+      },
+      {
+        "name": "assets/bundles/b_fish_snook_d_b01.unity3d",
+        "compressed_bytes": 542715,
+        "uncompressed_bytes": 542715,
+        "local_header_offset": 851973340,
+        "zip_method": 0,
+        "crc32": 2784549716
+      },
+      {
+        "name": "assets/bundles/b_fish_snook_elite.unity3d",
+        "compressed_bytes": 1328851,
+        "uncompressed_bytes": 1328851,
+        "local_header_offset": 852516127,
+        "zip_method": 0,
+        "crc32": 1543121725
+      },
+      {
+        "name": "assets/bundles/b_fish_spadenoseshark.unity3d",
+        "compressed_bytes": 1048634,
+        "uncompressed_bytes": 1048634,
+        "local_header_offset": 853845051,
+        "zip_method": 0,
+        "crc32": 2315929992
+      },
+      {
+        "name": "assets/bundles/b_fish_spottedbass.unity3d",
+        "compressed_bytes": 525859,
+        "uncompressed_bytes": 525859,
+        "local_header_offset": 854893762,
+        "zip_method": 0,
+        "crc32": 1147662584
+      },
+      {
+        "name": "assets/bundles/b_fish_swordfish_d_b02.unity3d",
+        "compressed_bytes": 527301,
+        "uncompressed_bytes": 527301,
+        "local_header_offset": 855419695,
+        "zip_method": 0,
+        "crc32": 1196633229
+      },
+      {
+        "name": "assets/bundles/b_fish_tailor.unity3d",
+        "compressed_bytes": 8649,
+        "uncompressed_bytes": 8649,
+        "local_header_offset": 855947073,
+        "zip_method": 0,
+        "crc32": 1796835315
+      },
+      {
+        "name": "assets/bundles/b_fish_tarwhine.unity3d",
+        "compressed_bytes": 1336008,
+        "uncompressed_bytes": 1336008,
+        "local_header_offset": 855955789,
+        "zip_method": 0,
+        "crc32": 2612055871
+      },
+      {
+        "name": "assets/bundles/b_fish_tigershark.unity3d",
+        "compressed_bytes": 7965,
+        "uncompressed_bytes": 7965,
+        "local_header_offset": 857291868,
+        "zip_method": 0,
+        "crc32": 670181183
+      },
+      {
+        "name": "assets/bundles/b_fish_tigershark_monster.unity3d",
+        "compressed_bytes": 1027551,
+        "uncompressed_bytes": 1027551,
+        "local_header_offset": 857299905,
+        "zip_method": 0,
+        "crc32": 4086661285
+      },
+      {
+        "name": "assets/bundles/b_fish_tiresbig.unity3d",
+        "compressed_bytes": 908510,
+        "uncompressed_bytes": 908510,
+        "local_header_offset": 858327535,
+        "zip_method": 0,
+        "crc32": 1161662754
+      },
+      {
+        "name": "assets/bundles/b_fish_treasuremap.unity3d",
+        "compressed_bytes": 1151835,
+        "uncompressed_bytes": 1151835,
+        "local_header_offset": 859236114,
+        "zip_method": 0,
+        "crc32": 2566350845
+      },
+      {
+        "name": "assets/bundles/b_fish_tripletailwrasse.unity3d",
+        "compressed_bytes": 1146070,
+        "uncompressed_bytes": 1146070,
+        "local_header_offset": 860388023,
+        "zip_method": 0,
+        "crc32": 336919446
+      },
+      {
+        "name": "assets/bundles/b_fish_vundu.unity3d",
+        "compressed_bytes": 1222715,
+        "uncompressed_bytes": 1222715,
+        "local_header_offset": 861534170,
+        "zip_method": 0,
+        "crc32": 745095860
+      },
+      {
+        "name": "assets/bundles/b_fish_wahoo.unity3d",
+        "compressed_bytes": 8829,
+        "uncompressed_bytes": 8829,
+        "local_header_offset": 862756951,
+        "zip_method": 0,
+        "crc32": 3355212723
+      },
+      {
+        "name": "assets/bundles/b_fish_whitebass.unity3d",
+        "compressed_bytes": 427690,
+        "uncompressed_bytes": 427690,
+        "local_header_offset": 862765845,
+        "zip_method": 0,
+        "crc32": 2803452514
+      },
+      {
+        "name": "assets/bundles/b_fish_whitemarlin.unity3d",
+        "compressed_bytes": 1077014,
+        "uncompressed_bytes": 1077014,
+        "local_header_offset": 863193606,
+        "zip_method": 0,
+        "crc32": 2182933513
+      },
+      {
+        "name": "assets/bundles/b_fish_whitemarlin_d_b01.unity3d",
+        "compressed_bytes": 438101,
+        "uncompressed_bytes": 438101,
+        "local_header_offset": 864270694,
+        "zip_method": 0,
+        "crc32": 1048879431
+      },
+      {
+        "name": "assets/bundles/b_fish_whitemarlin_monster.unity3d",
+        "compressed_bytes": 1193071,
+        "uncompressed_bytes": 1193071,
+        "local_header_offset": 864708873,
+        "zip_method": 0,
+        "crc32": 1894417905
+      },
+      {
+        "name": "assets/bundles/b_fish_whitemarlin_monster_b01.unity3d",
+        "compressed_bytes": 1209998,
+        "uncompressed_bytes": 1209998,
+        "local_header_offset": 865902023,
+        "zip_method": 0,
+        "crc32": 4034958920
+      },
+      {
+        "name": "assets/bundles/b_fish_whiteperch_goldhalf.unity3d",
+        "compressed_bytes": 1819684,
+        "uncompressed_bytes": 1819684,
+        "local_header_offset": 867112106,
+        "zip_method": 0,
+        "crc32": 4282907745
+      },
+      {
+        "name": "assets/bundles/b_fish_whiteperch_half.unity3d",
+        "compressed_bytes": 1049113,
+        "uncompressed_bytes": 1049113,
+        "local_header_offset": 868931872,
+        "zip_method": 0,
+        "crc32": 2097507439
+      },
+      {
+        "name": "assets/bundles/b_fish_wolffish_d_b02.unity3d",
+        "compressed_bytes": 598870,
+        "uncompressed_bytes": 598870,
+        "local_header_offset": 869981061,
+        "zip_method": 0,
+        "crc32": 2748189238
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowcheekwrasse.unity3d",
+        "compressed_bytes": 1179908,
+        "uncompressed_bytes": 1179908,
+        "local_header_offset": 870580006,
+        "zip_method": 0,
+        "crc32": 1780246893
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowcroaker.unity3d",
+        "compressed_bytes": 1245985,
+        "uncompressed_bytes": 1245985,
+        "local_header_offset": 871759992,
+        "zip_method": 0,
+        "crc32": 3873561494
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowedgedlyretail.unity3d",
+        "compressed_bytes": 1169687,
+        "uncompressed_bytes": 1169687,
+        "local_header_offset": 873006053,
+        "zip_method": 0,
+        "crc32": 1473137629
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowfinseabream.unity3d",
+        "compressed_bytes": 8938,
+        "uncompressed_bytes": 8938,
+        "local_header_offset": 874175819,
+        "zip_method": 0,
+        "crc32": 2485392530
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowfintuna.unity3d",
+        "compressed_bytes": 1265346,
+        "uncompressed_bytes": 1265346,
+        "local_header_offset": 874184834,
+        "zip_method": 0,
+        "crc32": 4139080563
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowfintuna_d_b01.unity3d",
+        "compressed_bytes": 560580,
+        "uncompressed_bytes": 560580,
+        "local_header_offset": 875450254,
+        "zip_method": 0,
+        "crc32": 2080250330
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowfintuna_monster.unity3d",
+        "compressed_bytes": 1206839,
+        "uncompressed_bytes": 1206839,
+        "local_header_offset": 876010916,
+        "zip_method": 0,
+        "crc32": 1037411959
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowgoosefish.unity3d",
+        "compressed_bytes": 13322,
+        "uncompressed_bytes": 13322,
+        "local_header_offset": 877217839,
+        "zip_method": 0,
+        "crc32": 2195178387
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowperch.unity3d",
+        "compressed_bytes": 478846,
+        "uncompressed_bytes": 478846,
+        "local_header_offset": 877231238,
+        "zip_method": 0,
+        "crc32": 3525631511
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowtailsnapper.unity3d",
+        "compressed_bytes": 1157553,
+        "uncompressed_bytes": 1157553,
+        "local_header_offset": 877710158,
+        "zip_method": 0,
+        "crc32": 326899007
+      },
+      {
+        "name": "assets/bundles/b_fish_yellowtailsnapper_d_b01.unity3d",
+        "compressed_bytes": 545796,
+        "uncompressed_bytes": 545796,
+        "local_header_offset": 878867789,
+        "zip_method": 0,
+        "crc32": 3766366308
+      }
+    ]
+  },
+  "sample": {
+    "entry": {
+      "name": "assets/bundles/b_fish_cruciancarp.unity3d",
+      "compressed_bytes": 1240156,
+      "uncompressed_bytes": 1240156,
+      "local_header_offset": 778745110,
+      "zip_method": 0,
+      "crc32": 499672710
+    },
+    "http_range": "bytes=778745110-779985339",
+    "resource_bytes": 1240156,
+    "sha256": "17ca43654a97f3c0c59da04a6f64ace0be3ffd2568865752f222eb3738135b35",
+    "crc32_verified": true,
+    "outer_prefix_bytes": 32,
+    "file": "cruciancarp.unity3d",
+    "species_identity": "game resource name only; not independently verified",
+    "parser": "UnityPy 1.25.4",
+    "parse_adjustment": "Skip 32-byte duplicate UnityFS prefix; preserved original bytes and source hash",
+    "meshes": [
+      {
+        "name": "CrucianCarp",
+        "path_id": 2094825725672363868,
+        "obj_file": "CrucianCarp.obj",
+        "sha256": "cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7",
+        "vertex_count": 1928,
+        "submeshes": [
+          {
+            "topology": 0,
+            "index_count": 6738,
+            "first_byte": 0
+          },
+          {
+            "topology": 0,
+            "index_count": 1638,
+            "first_byte": 13476
+          },
+          {
+            "topology": 0,
+            "index_count": 582,
+            "first_byte": 16752
+          }
+        ],
+        "triangle_count": 2986,
+        "vertex_count_note": "Counted from parsed OBJ; compressed mesh leaves raw m_VertexData.m_VertexCount at zero"
+      }
+    ],
+    "object_inventory": "sample-objects.json",
+    "preview": "mesh-preview.png"
+  },
+  "other_game": {
+    "name": "钓鱼发烧友 / Ace Fishing: Wild Catch",
+    "official_store_page": "https://play.google.com/store/apps/details?id=com.com2us.acefishing.normal.freefull.google.global.android.common",
+    "package_obtained": false
+  },
+  "limits": [
+    "No biological width measurement or accuracy claim established",
+    "No source code decompilation performed",
+    "No current game asset modified or reference accepted",
+    "A full APK SHA256 is unknown because only byte ranges were read",
+    "A shape reference requires species verification, neutral pose and transform checks, consistent length definition, head and body cross-sections excluding fins; finalized user reference remains priority",
+    "OBJ is mesh-local rest geometry; game scene transforms, skin pose, body-vs-fin segmentation, exact biological species and width accuracy are not yet validated"
+  ],
+  "cleanup": {
+    "retained": [
+      "CrucianCarp.obj",
+      "all-indexed-objects.csv",
+      "apk-central-directory.bin",
+      "cruciancarp.unity3d",
+      "fish-catalog.csv",
+      "fish-catalog.html",
+      "fish-prefab-index-evidence.txt",
+      "inventory-report.json",
+      "mesh-preview.png",
+      "sample-objects.json",
+      "validation-report.json"
+    ],
+    "deleted": [
+      {
+        "path": "work/mobile-fish-reference-20261102/deps",
+        "bytes": 25879762
+      },
+      {
+        "path": "work/mobile-fish-reference-20261102/cruciancarp-zip-entry.bin",
+        "bytes": 1240230
+      },
+      {
+        "path": "work/mobile-fish-reference-20261102/cruciancarp.unity3d",
+        "bytes": 1240156
+      }
+    ],
+    "temporary_work_directory_absent": true,
+    "retained_files": [
+      {
+        "file": "CrucianCarp.obj",
+        "bytes": 331644,
+        "sha256": "cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7"
+      },
+      {
+        "file": "all-indexed-objects.csv",
+        "bytes": 127358,
+        "sha256": "5831b1c0ed7ad53b6b9aed4443d5aefa18e20fe3283bcf2170c3c067490122bf"
+      },
+      {
+        "file": "apk-central-directory.bin",
+        "bytes": 456278,
+        "sha256": "1bf96d6873e2a73f9573534ac177f5bb2c192ccf4b8192b70ab84f3ade635a67"
+      },
+      {
+        "file": "cruciancarp.unity3d",
+        "bytes": 1240156,
+        "sha256": "17ca43654a97f3c0c59da04a6f64ace0be3ffd2568865752f222eb3738135b35"
+      },
+      {
+        "file": "fish-catalog.csv",
+        "bytes": 120754,
+        "sha256": "96324480cf4d43bcefb03ac378610b0e0aa085768231ed5a07de9eaf0c6f5264"
+      },
+      {
+        "file": "fish-catalog.html",
+        "bytes": 50666,
+        "sha256": "ef0a022c3d74d440baddb2ad41e51a09691f450c8d28e8ab2d9a4f4d3240024a"
+      },
+      {
+        "file": "fish-prefab-index-evidence.txt",
+        "bytes": 74912,
+        "sha256": "bf455dd0c9730857ed69078d5a11c652a0179f015d8809c942b59fe3bb6eb58a"
+      },
+      {
+        "file": "inventory-report.json",
+        "bytes": 3977,
+        "sha256": "58984a0ace8f67ae856570e9cd6b4ef627176cf6e4173e3aa70fcac1c92a8b59"
+      },
+      {
+        "file": "mesh-preview.png",
+        "bytes": 65516,
+        "sha256": "b2253cca3d10dbf85bdfe89f540617d2368069eb67bc17a3f131315cbeff4c59"
+      },
+      {
+        "file": "sample-objects.json",
+        "bytes": 7543,
+        "sha256": "b745ef50382906e51b4dd64d68ba661f5e94da66bb545308fdc985a4cae4f63d"
+      }
+    ]
+  },
+  "reproduction": {
+    "input_range": "bytes=778745110-779985339 of source APK URL",
+    "local_zip_header": "30 bytes + filenameLength + extraLength, method 0, verify CRC32=499672710",
+    "unityfs": "Skip duplicate first 32 bytes of preserved sample; UnityPy.load(sample_bytes[32:])",
+    "export": "obj.parse_as_object().export() for Mesh objects with UnityPy 1.25.4",
+    "views": "Mesh-local side y/z from +x, top y/x from +z, front x/z from -y. Painter depth sort, flat gray, no pose baking; illustrative preview only",
+    "comparison_order": "Verify species and rest pose/transforms; use consistent TL/SL; exclude fins; compare Wmax/L and peak position first, then continuous W(t)/Wmax across head and body; anatomical landmarks require independent mapping"
+  },
+  "inventory_followup": {
+    "report": "inventory-report.json",
+    "catalog": "fish-catalog.html",
+    "csv": "fish-catalog.csv",
+    "scope": "2026-08 APK index; not verified current live-server species count",
+    "fish_base_name_identifiers": 325,
+    "fish_prefab_entries_including_variants": 646,
+    "local_same_prefix_fish_base_names": 107,
+    "actual_exported_mesh_samples": 1
+  }
+}

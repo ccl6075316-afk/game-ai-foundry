@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-zebrabullheadshark",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_zebrabullheadshark",
+    "fishing-master-cdn-cnformal1-20261102:obj-44b059420d3aa4feefd8fd53105d4d38c97fa412a85a0807a34321218aed2770"
+  ],
+  "species_binding": {
+    "source_name": "ZebraBullheadShark",
+    "name_hint_zh": "斑纹虎鲨",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/NanaoIsland/ZebraBullheadShark/ZebraBullheadShark.prefab",
+    "preferred_bundle": "bundles/b_fish_zebrabullheadshark.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-06c32ecac54656c3974455ffc0b87c7c:6946199931640143435",
+        "bundle": "bundles/b_fish_zebrabullheadshark.unity3d",
+        "name": "ZebraBullheadShark",
+        "vertices": 3388,
+        "triangles": 5492,
+        "uvs": 3388,
+        "submeshes": 3,
+        "sha256": "44b059420d3aa4feefd8fd53105d4d38c97fa412a85a0807a34321218aed2770",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/44b059420d3aa4feefd8fd53105d4d38c97fa412a85a0807a34321218aed2770.obj",
+        "bytes": 612968,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-zebrabullheadshark",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

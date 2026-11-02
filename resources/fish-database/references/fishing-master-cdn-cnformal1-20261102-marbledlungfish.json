@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-marbledlungfish",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_marbledlungfish",
+    "fishing-master-cdn-cnformal1-20261102:obj-f0f06cfec04e259e5551011a6a90c24da5e4b4e840af3466f72179fe35beb1ff"
+  ],
+  "species_binding": {
+    "source_name": "MarbledLungfish",
+    "name_hint_zh": "大理石肺鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Nile/MarbledLungfish/MarbledLungfish.prefab",
+    "preferred_bundle": "bundles/b_fish_marbledlungfish.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-e6c4c316acd1f1a0d4a7fd331f891ab2:3114585003728441946",
+        "bundle": "bundles/b_fish_marbledlungfish.unity3d",
+        "name": "MarbledLungfish",
+        "vertices": 2560,
+        "triangles": 4138,
+        "uvs": 2560,
+        "submeshes": 1,
+        "sha256": "f0f06cfec04e259e5551011a6a90c24da5e4b4e840af3466f72179fe35beb1ff",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f0f06cfec04e259e5551011a6a90c24da5e4b4e840af3466f72179fe35beb1ff.obj",
+        "bytes": 456860,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-marbledlungfish",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-ischikauia",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_ischikauia",
+    "fishing-master-cdn-cnformal1-20261102:obj-4028c27b18b749a6d768d4210d992e0b08318080dc43690a06bd16fcb61c3749"
+  ],
+  "species_binding": {
+    "source_name": "Ischikauia",
+    "name_hint_zh": "Ischikauia（属名，待核种）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/LakeBiwa/Ischikauia/Ischikauia.prefab",
+    "preferred_bundle": "bundles/b_fish_ischikauia.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-dcbe6a21d93189c2cfe4c6a9458696e6:-6040400174332484940",
+        "bundle": "bundles/b_fish_ischikauia.unity3d",
+        "name": "Ischikauia",
+        "vertices": 1932,
+        "triangles": 3058,
+        "uvs": 1932,
+        "submeshes": 3,
+        "sha256": "4028c27b18b749a6d768d4210d992e0b08318080dc43690a06bd16fcb61c3749",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/4028c27b18b749a6d768d4210d992e0b08318080dc43690a06bd16fcb61c3749.obj",
+        "bytes": 334033,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-ischikauia",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

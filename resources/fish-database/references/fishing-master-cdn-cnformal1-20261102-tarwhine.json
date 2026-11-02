@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-tarwhine",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_tarwhine",
+    "fishing-master-cdn-cnformal1-20261102:obj-d4af2c99cc6536aaf4e562556485139f46510d25bd02da15be6c3109eef229db"
+  ],
+  "species_binding": {
+    "source_name": "Tarwhine",
+    "name_hint_zh": "黄鳍棘鲷",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/NanjiIslands/Tarwhine/Tarwhine.prefab",
+    "preferred_bundle": "bundles/b_fish_tarwhine.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-cca1ddd3f89e9c99ec54a04a7543fac3:4509602145641620124",
+        "bundle": "bundles/b_fish_tarwhine.unity3d",
+        "name": "Tarwhine",
+        "vertices": 2670,
+        "triangles": 4178,
+        "uvs": 2670,
+        "submeshes": 3,
+        "sha256": "d4af2c99cc6536aaf4e562556485139f46510d25bd02da15be6c3109eef229db",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/d4af2c99cc6536aaf4e562556485139f46510d25bd02da15be6c3109eef229db.obj",
+        "bytes": 469679,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-tarwhine",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

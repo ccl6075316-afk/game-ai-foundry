@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-clownfish",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_clownfish",
+    "fishing-master-cdn-cnformal1-20261102:obj-a98b9a0b03312c60a4343cf7dc167613196804b9ec876fb11699619c95ad4d2d"
+  ],
+  "species_binding": {
+    "source_name": "Clownfish",
+    "name_hint_zh": "小丑鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/OrnamentalFish/Clownfish/Clownfish.prefab",
+    "preferred_bundle": "bundles/b_fish_clownfish.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-c18240879881729fca6feb78be9b91dc:-2263000613115421587",
+        "bundle": "bundles/b_fish_clownfish.unity3d",
+        "name": "Clownfish",
+        "vertices": 236,
+        "triangles": 272,
+        "uvs": 236,
+        "submeshes": 2,
+        "sha256": "a98b9a0b03312c60a4343cf7dc167613196804b9ec876fb11699619c95ad4d2d",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/a98b9a0b03312c60a4343cf7dc167613196804b9ec876fb11699619c95ad4d2d.obj",
+        "bytes": 35301,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "mesh_renderer_without_skin_bones",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-clownfish",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

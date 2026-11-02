@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "source_id": "fishing-master-xiaomi-20260814",
+  "checked_on": "2026-11-02",
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "scope": "Native motion algorithm reconstruction and source-bound synthetic ARM64 validation; no game runtime or production-asset acceptance",
+  "readme": "README.md",
+  "native_evidence": "native-evidence.json",
+  "tool_provenance": "tool-provenance.json",
+  "source": {
+    "apk_sha256": "8a6f23099eb334f2d4a7a7a02058c1cf021551dd7e892cbf426c4c511b5ac7b7",
+    "native_entry": "lib/arm64-v8a/libil2cpp.so",
+    "native_sha256": "83ea8e5b7a353991f3ca10d0a3e16cfa9f734273e7e35596b5901a2b4b79757f",
+    "native_bytes": 65823160,
+    "metadata_entry": "assets/bin/Data/Managed/Metadata/global-metadata.dat",
+    "metadata_sha256": "b2ec6ff11b15fd55017007cfec852344e78d3b3a13be78d8f5140c78b678d454",
+    "metadata_version": 31
+  },
+  "summary": {
+    "mapped_types": 15,
+    "mapped_methods": 70,
+    "native_code_bytes": 20420,
+    "native_constant_bytes": 52,
+    "kernel_tests": 330,
+    "kernel_passed": 330,
+    "whole_step_tests": 65,
+    "whole_step_passed": 65,
+    "total_passed": 395,
+    "whole_step_max_absolute_component_error": 1.7768129234596586e-07
+  },
+  "claims": [
+    {
+      "claim": "Anchor-seeded cohesion, same-priority alignment/separation, per-collider point avoidance, higher-priority fleeing, exponential direction blend and in-place integration",
+      "confidence": "native_executed_fixture",
+      "rva": "0x207dfa8",
+      "bytes": 3672,
+      "readable_reconstruction": "reference_model.py",
+      "report": "steering-validation-report.json"
+    },
+    {
+      "claim": "Separation singularity and opposite-direction interpolation stall reproduced from original instructions",
+      "confidence": "native_executed_fixture",
+      "rvas": [
+        "0x207ee1c",
+        "0x207de90",
+        "0x207eb80"
+      ],
+      "report": "kernel-validation-report.json"
+    },
+    {
+      "claim": "Path selection, group anchor smoothing, collider cache conversion, Transform writeback and CPU update dispatch",
+      "confidence": "native_static_trace",
+      "rvas": [
+        "0x207ac48",
+        "0x207aebc",
+        "0x207d33c",
+        "0x207b9ac",
+        "0x207d2a0",
+        "0x207ee4c"
+      ]
+    },
+    {
+      "claim": "AquariumController links speed/turn ranges, volume, scare hooks and idle_aquarium; exact live values/control flow not recovered",
+      "confidence": "lua_constants_only",
+      "evidence": "evidence/fishing-master-xiaomi-20260814/aquarium-controller-strings.json"
+    },
+    {
+      "claim": "Soft group anchor, layered parameters, external-control state handoff worth adapting; preserve our fixed-step spatial grid, work caps and motion constraints",
+      "confidence": "proposed_adaptation",
+      "baseline_inputs": "our-code-inputs.json"
+    }
+  ],
+  "observed_source_quirks": [
+    "Priority group index list accumulates duplicates across fish within a group; Flee call counts 6/18/40 for 2x2/3x3/4x4 fixtures",
+    "Neighbour count break exits only current group; no global visit cap/spatial index in recovered loop",
+    "In-place update and obstacle loop order affect result",
+    "Zero-distance separation produces NaN",
+    "Final direction blend is not renormalized and can stall at 180 degrees",
+    "Avoidance tests a frame-dependent future point, not swept fish volume; box rotation/sphere local center not represented by recovered cache conversion"
+  ],
+  "our_baseline_inputs": "our-code-inputs.json",
+  "production_changes_made": false,
+  "full_algorithm_reconstructed": false,
+  "core_native_steering_reconstructed": true,
+  "runtime_tested": false,
+  "limitations": [
+    "Ace Fishing APK not acquired; its algorithms not reconstructed",
+    "Modified LuaJIT v0x80 controller not fully decompiled; live per-fish values and scare activation unknown",
+    "Unity initialization, collider extraction and worker scheduling not executed",
+    "Skeletal motion and heading/velocity coupling not reconstructed or played",
+    "No same-screen capacity/FPS benchmark or fish/fin-volume clearance acceptance",
+    "Default values are game world units, not biological measurements; source geometry/asset acceptance unchanged"
+  ],
+  "failures": [],
+  "cleanup": {
+    "status": "done",
+    "work_directory": "work/fish-motion-reconstruction-20261102",
+    "removed": [
+      {
+        "path": "work/fish-motion-reconstruction-20261102/AquariumController-version1.luajit",
+        "file_count": 1,
+        "logical_bytes": 29529,
+        "allocated_bytes": 32768,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/AquariumController-version2.luajit",
+        "file_count": 1,
+        "logical_bytes": 29529,
+        "allocated_bytes": 32768,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/FishFlock-dump.cs",
+        "file_count": 1,
+        "logical_bytes": 12628,
+        "allocated_bytes": 16384,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/Il2CppDumper-net6-v6.7.46.zip",
+        "file_count": 1,
+        "logical_bytes": 406027,
+        "allocated_bytes": 409600,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/__pycache__",
+        "file_count": 2,
+        "logical_bytes": 22323,
+        "allocated_bytes": 24576,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/canonical-replay.log",
+        "file_count": 1,
+        "logical_bytes": 1252,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dependency-install.log",
+        "file_count": 1,
+        "logical_bytes": 70605,
+        "allocated_bytes": 73728,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/deps",
+        "file_count": 827,
+        "logical_bytes": 73210365,
+        "allocated_bytes": 76619776,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dotnet",
+        "file_count": 188,
+        "logical_bytes": 78104440,
+        "allocated_bytes": 78487552,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dotnet-release.json",
+        "file_count": 1,
+        "logical_bytes": 1334384,
+        "allocated_bytes": 1335296,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dotnet-runtime.tar.gz",
+        "file_count": 1,
+        "logical_bytes": 29113192,
+        "allocated_bytes": 29114368,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/download_tools.py",
+        "file_count": 1,
+        "logical_bytes": 2424,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dump",
+        "file_count": 4,
+        "logical_bytes": 142064050,
+        "allocated_bytes": 142073856,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dumper",
+        "file_count": 17,
+        "logical_bytes": 909259,
+        "allocated_bytes": 942080,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dumper-assets-links.json",
+        "file_count": 1,
+        "logical_bytes": 412,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/dumper.log",
+        "file_count": 1,
+        "logical_bytes": 290,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/elf-imports.json",
+        "file_count": 1,
+        "logical_bytes": 58242,
+        "allocated_bytes": 61440,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/fish-flock-arm64.asm",
+        "file_count": 1,
+        "logical_bytes": 165655,
+        "allocated_bytes": 167936,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/fish-flock-functions.json",
+        "file_count": 1,
+        "logical_bytes": 9242,
+        "allocated_bytes": 12288,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/full-native-step-verification.json",
+        "file_count": 1,
+        "logical_bytes": 16913,
+        "allocated_bytes": 20480,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/full-step-test.log",
+        "file_count": 1,
+        "logical_bytes": 1252,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ghidra-assets-links.json",
+        "file_count": 1,
+        "logical_bytes": 102,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ghidra.zip",
+        "file_count": 1,
+        "logical_bytes": 569712708,
+        "allocated_bytes": 32235520,
+        "reason": "Unsuccessful, incomplete optional download, no analytical output used; sparse logical length is not downloaded/allocated length"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/global-metadata.dat",
+        "file_count": 1,
+        "logical_bytes": 12752924,
+        "allocated_bytes": 12754944,
+        "reason": "Reconstructible original APK entry; original APK and source-bound slices retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/jdk-oracle25.tar.gz",
+        "file_count": 1,
+        "logical_bytes": 209362645,
+        "allocated_bytes": 12582912,
+        "reason": "Unsuccessful, incomplete optional download, no analytical output used; sparse logical length is not downloaded/allocated length"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/libil2cpp.so",
+        "file_count": 1,
+        "logical_bytes": 65823160,
+        "allocated_bytes": 65826816,
+        "reason": "Reconstructible original APK entry; original APK and source-bound slices retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/libtolua.so",
+        "file_count": 1,
+        "logical_bytes": 841760,
+        "allocated_bytes": 843776,
+        "reason": "Reconstructible original APK entry; original APK and source-bound slices retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ljd",
+        "file_count": 106,
+        "logical_bytes": 936235,
+        "allocated_bytes": 1196032,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ljd-original.log",
+        "file_count": 1,
+        "logical_bytes": 1056,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ljd-source.zip",
+        "file_count": 1,
+        "logical_bytes": 138636,
+        "allocated_bytes": 139264,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ljd-v1.log",
+        "file_count": 1,
+        "logical_bytes": 1673,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/ljd.log",
+        "file_count": 1,
+        "logical_bytes": 1742,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/native-kernel-verification.json",
+        "file_count": 1,
+        "logical_bytes": 116382,
+        "allocated_bytes": 118784,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/our-implementation-inputs.json",
+        "file_count": 1,
+        "logical_bytes": 599,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/reference_model.py",
+        "file_count": 1,
+        "logical_bytes": 3047,
+        "allocated_bytes": 4096,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/tool-download-cache-distinct.log",
+        "file_count": 1,
+        "logical_bytes": 0,
+        "allocated_bytes": 0,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/tool-download.log",
+        "file_count": 1,
+        "logical_bytes": 0,
+        "allocated_bytes": 0,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/uv-cache",
+        "file_count": 1123,
+        "logical_bytes": 80235606,
+        "allocated_bytes": 84418560,
+        "reason": "Temporary tool runtime, dependencies, downloaded source or cache; versions and provenance retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/verify_full_step.py",
+        "file_count": 1,
+        "logical_bytes": 7037,
+        "allocated_bytes": 8192,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      },
+      {
+        "path": "work/fish-motion-reconstruction-20261102/verify_native_kernels.py",
+        "file_count": 1,
+        "logical_bytes": 6193,
+        "allocated_bytes": 8192,
+        "reason": "Disposable modified-header candidate, reconstructible full dump, working script, duplicate report/log or download; canonical conclusions, scripts and required evidence retained"
+      }
+    ],
+    "removed_logical_bytes": 1265503518,
+    "removed_allocated_file_bytes": 539602944,
+    "canonical_cache_logical_bytes_removed": 0,
+    "work_directory_remaining": false,
+    "retained": "Original APK unchanged; 20,420-byte native code and 52-byte constants (LFS), target disassembly/type/hash map, readable core, deterministic verification/preparation/validation scripts, 395 case results, source/tool provenance and baseline hashes",
+    "retained_database_logical_bytes": 3095492898,
+    "retained_motion_text_evidence_bytes": 424340
+  },
+  "method_files": [
+    {
+      "path": "prepare_native_input.py",
+      "bytes": 1794,
+      "sha256": "bc938665d5479c1e621dbc95b93ccdc43a0c4bba8ac469054a94ba9dfec985d5"
+    },
+    {
+      "path": "reference_model.py",
+      "bytes": 3046,
+      "sha256": "6e9432972244c3187a3169252192cef7e7d94bfa847638a830c4372ff06accaa"
+    },
+    {
+      "path": "validate_reconstruction.py",
+      "bytes": 3849,
+      "sha256": "c111d2e1c128bad92bbb887a4c76491cd1c98f69c7689a26b7aa45f6deb1c177"
+    },
+    {
+      "path": "verify_full_step.py",
+      "bytes": 7037,
+      "sha256": "4178c1da23e86f4919590d4f59a9cffe961320a4936b0269963770d577d0e7a7"
+    },
+    {
+      "path": "verify_native_kernels.py",
+      "bytes": 6607,
+      "sha256": "8b7ef1ad3f595dc8ee35b3e393afd9e9bacdd7c16e6c8ee6b3972f0bcfc47d8e"
+    }
+  ],
+  "validation_checks": [
+    {
+      "check": "Canonical entry preparation and all 395 native comparisons rerun from archived scripts",
+      "ok": true
+    },
+    {
+      "check": "All 70 method byte ranges and constant slices match original native input; strict JSON, Python syntax, links and source-bound artifacts valid",
+      "ok": true
+    },
+    {
+      "check": "New artifacts use LFS with text normalization disabled; 3 comparison baseline SHA256 still match",
+      "ok": true
+    },
+    {
+      "check": "Reviewed temporary outputs cleaned after evidence archival; no native research work directory remains",
+      "ok": true
+    },
+    {
+      "check": "Pre-commit all1261 artifact SHA256/length and LFS rechecked; historical CSV newline bytes preserved; whitespace-only cleanup leaves reference-model AST identical",
+      "ok": true
+    }
+  ]
+}

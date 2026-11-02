@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cruciancarp-rest-mesh",
+  "source_id": "fishing-master-xiaomi-20260814",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-xiaomi-20260814:cruciancarp-original-bundle",
+    "fishing-master-xiaomi-20260814:cruciancarp-obj",
+    "fishing-master-xiaomi-20260814:cruciancarp-preview"
+  ],
+  "species_binding": {
+    "source_name": "CrucianCarp",
+    "name_hint_zh": "鲫鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "mesh_name": "CrucianCarp",
+    "vertex_count": 1928,
+    "triangle_count": 2986,
+    "submesh_count": 3,
+    "parser": "UnityPy 1.25.4",
+    "source_entry": "assets/bundles/b_fish_cruciancarp.unity3d",
+    "source_entry_crc32": 499672710,
+    "original_bundle_sha256": "17ca43654a97f3c0c59da04a6f64ace0be3ffd2568865752f222eb3738135b35",
+    "exported_obj_sha256": "cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7",
+    "unityfs_prefix_skipped_bytes": 32,
+    "coordinate_basis": "mesh-local rest geometry; no scene transform or pose baking",
+    "preview_projection": "side y/z from +x; top y/x from +z; front x/z from -y; all fins included"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "技术提取成功和本次灰模查看不构成用户对该模型的形态接受"
+  },
+  "unknowns": [
+    "Specific biological species not independently identified",
+    "Mouth and individual fin anatomy not validated",
+    "Fins not segmented from body for measurements",
+    "Scene node scaling, bone transforms and rest pose need verification",
+    "No biological width values or normalized body-section measurements established"
+  ]
+}

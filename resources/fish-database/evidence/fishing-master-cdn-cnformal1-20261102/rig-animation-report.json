@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-02",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "scope": "Original UV, bind poses, per-vertex skin weights, controller states and clip metadata; no playback/runtime behaviour approval",
+  "summary": {
+    "target_mesh_objects": 593,
+    "meshes_with_uv0": 593,
+    "meshes_with_readable_skinning_data": 591,
+    "meshes_without_skin_weight_rows": 2,
+    "controllers_in_dependency_closure": 720,
+    "controllers_assigned_to_target_prefabs": 605,
+    "all_assigned_controllers_parsed": true,
+    "all_assigned_controller_clip_references_resolved": true,
+    "animation_clips_in_dependency_closure": 757
+  },
+  "cruciancarp_example": {
+    "base_name": "CrucianCarp",
+    "controller": {
+      "object_key": "CAB-717097faea15042f938c63469ffb54e0:-7353842092841390253",
+      "bundle": "bundles/b_fish_animatorcontrollers.unity3d",
+      "name": "FishAnimator",
+      "assigned_to_target_prefab": true,
+      "states": [
+        {
+          "name": "idle",
+          "path": "Base Layer.idle",
+          "loop": true,
+          "speed": 1.0,
+          "clip_indices": [
+            0
+          ],
+          "transitions": []
+        },
+        {
+          "name": "jump",
+          "path": "Base Layer.jump",
+          "loop": false,
+          "speed": 1.0,
+          "clip_indices": [
+            1
+          ],
+          "transitions": []
+        },
+        {
+          "name": "up",
+          "path": "Base Layer.up",
+          "loop": true,
+          "speed": 1.0,
+          "clip_indices": [
+            2
+          ],
+          "transitions": [
+            {
+              "destination_state_index": 3,
+              "duration": 0.25,
+              "has_exit_time": true
+            }
+          ]
+        },
+        {
+          "name": "show",
+          "path": "Base Layer.show",
+          "loop": true,
+          "speed": 1.0,
+          "clip_indices": [
+            3
+          ],
+          "transitions": []
+        },
+        {
+          "name": "shake",
+          "path": "Base Layer.shake",
+          "loop": false,
+          "speed": 1.0,
+          "clip_indices": [
+            4
+          ],
+          "transitions": [
+            {
+              "destination_state_index": 3,
+              "duration": 0.25,
+              "has_exit_time": true
+            }
+          ]
+        },
+        {
+          "name": "idle_aquarium",
+          "path": "Base Layer.idle_aquarium",
+          "loop": true,
+          "speed": 1.0,
+          "clip_indices": [
+            5
+          ],
+          "transitions": []
+        }
+      ],
+      "clip_keys": [
+        "CAB-b24dc565a6d5c457787311b570cb85d7:-7386930063305343824",
+        "CAB-b24dc565a6d5c457787311b570cb85d7:-2693553311764450786",
+        "CAB-b24dc565a6d5c457787311b570cb85d7:-7915421864220805174",
+        "CAB-b24dc565a6d5c457787311b570cb85d7:4068495925881098970",
+        "CAB-b24dc565a6d5c457787311b570cb85d7:-6898239397679119118",
+        "CAB-b24dc565a6d5c457787311b570cb85d7:8626867781156664188"
+      ],
+      "clips_resolved": true
+    },
+    "clips": [
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:-7386930063305343824",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "idle",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 3.200000286102295,
+        "duration": 3.200000286102295,
+        "loop": true,
+        "legacy": false,
+        "generic_binding_count": 219,
+        "binding_type_counts": {
+          "4": 219
+        },
+        "binding_attribute_counts": {
+          "1": 58,
+          "2": 149,
+          "3": 12
+        }
+      },
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:-2693553311764450786",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "jump",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 1.4666666984558105,
+        "duration": 1.4666666984558105,
+        "loop": false,
+        "legacy": false,
+        "generic_binding_count": 103,
+        "binding_type_counts": {
+          "4": 103
+        },
+        "binding_attribute_counts": {
+          "1": 8,
+          "2": 93,
+          "3": 2
+        }
+      },
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:-7915421864220805174",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "up",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 0.8666667342185974,
+        "duration": 0.8666667342185974,
+        "loop": true,
+        "legacy": false,
+        "generic_binding_count": 49,
+        "binding_type_counts": {
+          "4": 49
+        },
+        "binding_attribute_counts": {
+          "1": 18,
+          "2": 20,
+          "3": 11
+        }
+      },
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:4068495925881098970",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "show",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 2.3333334922790527,
+        "duration": 2.3333334922790527,
+        "loop": true,
+        "legacy": false,
+        "generic_binding_count": 268,
+        "binding_type_counts": {
+          "4": 268
+        },
+        "binding_attribute_counts": {
+          "1": 99,
+          "2": 147,
+          "3": 22
+        }
+      },
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:-6898239397679119118",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "shake",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 1.2666667699813843,
+        "duration": 1.2666667699813843,
+        "loop": false,
+        "legacy": false,
+        "generic_binding_count": 302,
+        "binding_type_counts": {
+          "4": 302
+        },
+        "binding_attribute_counts": {
+          "1": 129,
+          "2": 149,
+          "3": 24
+        }
+      },
+      {
+        "object_key": "CAB-b24dc565a6d5c457787311b570cb85d7:8626867781156664188",
+        "bundle": "bundles/b_common_dependency_anim_1.unity3d",
+        "name": "idle_aquarium",
+        "sample_rate": 30.0,
+        "start_time": 0.0,
+        "stop_time": 3.200000286102295,
+        "duration": 3.200000286102295,
+        "loop": true,
+        "legacy": false,
+        "generic_binding_count": 194,
+        "binding_type_counts": {
+          "4": 194
+        },
+        "binding_attribute_counts": {
+          "1": 48,
+          "2": 139,
+          "3": 7
+        }
+      }
+    ],
+    "meshes": [
+      {
+        "object_key": "CAB-56b4fbf642c6091e942e3d1604bfa179:2094825725672363868",
+        "bundle": "bundles/b_fish_cruciancarp.unity3d",
+        "name": "CrucianCarp",
+        "vertices": 1928,
+        "uv0_count": 1928,
+        "bind_pose_count": 25,
+        "weight_rows": 1928,
+        "bone_index_rows": 1928,
+        "maximum_weight_sum_error": 0.0,
+        "invalid_weight_values": 0,
+        "invalid_weighted_bone_indices": 0,
+        "maximum_nonzero_influences": 4,
+        "skinning_data_readable": true,
+        "decoder": "Independent packed-integer decoder: (31-sum)/31 fourth influence; entire streams consumed exactly"
+      }
+    ],
+    "materials": [
+      {
+        "name": "CrucianCarp_bantou02_mat",
+        "shader_key": "CAB-be9ab8611fa88771dfda79b7661938da:-6748955418836905115",
+        "texture_slots": {
+          "_BaseMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_BumpMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-288118014549101905",
+          "_MainTex": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_MetallicGlossMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-627428273611246428"
+        },
+        "shader_name": null,
+        "texture_names": {
+          "_BaseMap": "CrucianCarp_D",
+          "_BumpMap": "CrucianCarp_N",
+          "_MainTex": "CrucianCarp_D",
+          "_MetallicGlossMap": "CrucianCarp_M"
+        }
+      },
+      {
+        "name": "CrucianCarp_mat",
+        "shader_key": "CAB-be9ab8611fa88771dfda79b7661938da:-6748955418836905115",
+        "texture_slots": {
+          "_BaseMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_BumpMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-288118014549101905",
+          "_MainTex": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_MetallicGlossMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-627428273611246428"
+        },
+        "shader_name": null,
+        "texture_names": {
+          "_BaseMap": "CrucianCarp_D",
+          "_BumpMap": "CrucianCarp_N",
+          "_MainTex": "CrucianCarp_D",
+          "_MetallicGlossMap": "CrucianCarp_M"
+        }
+      },
+      {
+        "name": "CrucianCarp_bantou_mat",
+        "shader_key": "CAB-be9ab8611fa88771dfda79b7661938da:-6748955418836905115",
+        "texture_slots": {
+          "_BaseMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_BumpMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-288118014549101905",
+          "_MainTex": "CAB-56b4fbf642c6091e942e3d1604bfa179:1303363515516461428",
+          "_MetallicGlossMap": "CAB-56b4fbf642c6091e942e3d1604bfa179:-627428273611246428"
+        },
+        "shader_name": null,
+        "texture_names": {
+          "_BaseMap": "CrucianCarp_D",
+          "_BumpMap": "CrucianCarp_N",
+          "_MainTex": "CrucianCarp_D",
+          "_MetallicGlossMap": "CrucianCarp_M"
+        }
+      }
+    ]
+  },
+  "unknowns": [
+    "Actual animation playback, transitions in game and runtime movement/turning code not traced",
+    "Shader-driven or procedural additions not excluded by existence of baked clips",
+    "OBJ exports preserve geometry/UV/normals, not rigs, weights or animation; these remain in original source bundles"
+  ],
+  "mesh_skinning_failures": [],
+  "decoder_note": {
+    "unpatched_parser": "UnityPy 1.25.4 MeshHelper.decompress_compressed_mesh fourth-weight branch",
+    "initial_affected_meshes": 583,
+    "corrected_expression": "(31 - integer_sum) / 31.0",
+    "independently_decoded_compressed_meshes": 591,
+    "helper_path": "evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/decode_compressed_skin.py",
+    "helper_sha256": "8bebbcae1c4a5bba744b9f092d69542fe2e22d571a50833f75b4bf5e166303f3",
+    "scope": "Research-side decode only; no original bundle, OBJ, production code or installed library changed",
+    "primary_reference": {
+      "url": "https://raw.githubusercontent.com/Perfare/AssetStudio/master/AssetStudio/Classes/Mesh.cs",
+      "sha256": "4604f3065f42c3bf9f54d19307abb1576e13ea4b5026cf72bc5ce9e3e4c1a607",
+      "retrieved_on": "2026-11-02",
+      "verified_normalization_expression": "See verified_lines",
+      "verified_lines": [
+        {
+          "line": 1009,
+          "expression": "m_Skin[bonePos].weight[j] = weights[i] / 31.0f;"
+        },
+        {
+          "line": 1030,
+          "expression": "m_Skin[bonePos].weight[j] = (31 - sum) / 31.0f;"
+        }
+      ]
+    }
+  },
+  "source_manifest_sha256": "491ca29e78323d0be55daf00b3f5e0ee6d8f49efda79c3075845af311f3048a0",
+  "input_evidence": [
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/bundle-inventory.jsonl",
+      "sha256": "64badb47dac2de1aff2f1231b56d6460f1829a914a09b72a233acec6cc896246"
+    },
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/mesh-inventory.jsonl",
+      "sha256": "e5164f15cbabf7db68e9a24743ea10be766d3d26e5eceb222a04649c52f04862"
+    },
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl",
+      "sha256": "c6fa9fdadd37a0a9ed346a5c9f74cf592917eb3f8c190a79aa835f2ce93aa15d"
+    }
+  ],
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "state_distribution": {
+    "assigned_controller_count": 605,
+    "state_occurrence_counts": {
+      "idle": 587,
+      "jump": 587,
+      "up": 587,
+      "show": 587,
+      "shake": 587,
+      "idle_aquarium": 543,
+      "idle_battle": 5,
+      "struggle": 11,
+      "struggle2": 1,
+      "dive": 2,
+      "jump_03": 2,
+      "jump_02": 2,
+      "jump_01": 2,
+      "AnimFish_05": 1,
+      "AnimFish_BlackMarlin_Elite": 1,
+      "CongerEel_Monster_B02": 1,
+      "AnimFish_DogtoothTuna_A27_Monster": 1,
+      "AnimFish_Dolphinfish_Rare_B01": 1,
+      "AnimFish_Grayling_Rare": 3,
+      "AnimFish_GreenlandShark": 1,
+      "Manta_Monster_B03": 1,
+      "AnimFish_06": 2,
+      "Nursehound_Rare": 1,
+      "Lobster_Rare": 1,
+      "AnimFish_04": 2,
+      "AnimFish_Swordfish_Elite": 1,
+      "AnimFish_WhiteMarlin_Monster_B01": 1
+    },
+    "controllers_with_up_show_shake": 587,
+    "controllers_with_idle_aquarium": 543,
+    "interpretation": "Standard states emphasize up/show/shake plus idle/jump; many also include idle_aquarium. Naming and configured transitions suggest catch/display/shaking and aquarium uses, but semantic assignment of each clip and proportions of actual gameplay usage require playback/runtime evidence. No claim that all animations are hanging struggle."
+  }
+}

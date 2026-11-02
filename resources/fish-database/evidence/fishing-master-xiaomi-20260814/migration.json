@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "original_directory": "output/research/mobile-fish-reference-20261102",
+  "canonical_root": "resources/fish-database",
+  "file_map": {
+    "apk-central-directory.bin": {
+      "path": "artifacts/fishing-master-xiaomi-20260814/apk-central-directory.bin",
+      "sha256": "1bf96d6873e2a73f9573534ac177f5bb2c192ccf4b8192b70ab84f3ade635a67",
+      "bytes": 456278
+    },
+    "validation-report.json": {
+      "path": "evidence/fishing-master-xiaomi-20260814/validation-report.json",
+      "sha256": "fbac4ea9e739858005479e59e34594e405505ebd3228440a2cdf642a1e3e4496",
+      "bytes": 49377
+    },
+    "cruciancarp.unity3d": {
+      "path": "artifacts/fishing-master-xiaomi-20260814/cruciancarp.unity3d",
+      "sha256": "17ca43654a97f3c0c59da04a6f64ace0be3ffd2568865752f222eb3738135b35",
+      "bytes": 1240156
+    },
+    "CrucianCarp.obj": {
+      "path": "artifacts/fishing-master-xiaomi-20260814/CrucianCarp.obj",
+      "sha256": "cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7",
+      "bytes": 331644
+    },
+    "inventory-report.json": {
+      "path": "evidence/fishing-master-xiaomi-20260814/inventory-report.json",
+      "sha256": "58984a0ace8f67ae856570e9cd6b4ef627176cf6e4173e3aa70fcac1c92a8b59",
+      "bytes": 3977
+    },
+    "fish-catalog.html": {
+      "path": "catalogs/fishing-master-xiaomi-20260814/fish-catalog.html",
+      "sha256": "ef0a022c3d74d440baddb2ad41e51a09691f450c8d28e8ab2d9a4f4d3240024a",
+      "bytes": 50666
+    },
+    "sample-objects.json": {
+      "path": "evidence/fishing-master-xiaomi-20260814/sample-objects.json",
+      "sha256": "b745ef50382906e51b4dd64d68ba661f5e94da66bb545308fdc985a4cae4f63d",
+      "bytes": 7543
+    },
+    "mesh-preview.png": {
+      "path": "artifacts/fishing-master-xiaomi-20260814/mesh-preview.png",
+      "sha256": "b2253cca3d10dbf85bdfe89f540617d2368069eb67bc17a3f131315cbeff4c59",
+      "bytes": 65516
+    },
+    "fish-prefab-index-evidence.txt": {
+      "path": "evidence/fishing-master-xiaomi-20260814/fish-prefab-index-evidence.txt",
+      "sha256": "bf455dd0c9730857ed69078d5a11c652a0179f015d8809c942b59fe3bb6eb58a",
+      "bytes": 74912
+    },
+    "fish-catalog.csv": {
+      "path": "catalogs/fishing-master-xiaomi-20260814/fish-catalog.csv",
+      "sha256": "96324480cf4d43bcefb03ac378610b0e0aa085768231ed5a07de9eaf0c6f5264",
+      "bytes": 120754
+    },
+    "all-indexed-objects.csv": {
+      "path": "catalogs/fishing-master-xiaomi-20260814/all-indexed-objects.csv",
+      "sha256": "5831b1c0ed7ad53b6b9aed4443d5aefa18e20fe3283bcf2170c3c067490122bf",
+      "bytes": 127358
+    }
+  },
+  "archived_report_resolution": "Original reports preserve their historical bytes. Relative filenames in those reports resolve via this file_map, not their new containing directory. Current state is in root manifest/handoff/validation-report and assets-manifest.",
+  "compatibility": "Old ignored output paths are relative symlinks to canonical files; no duplicate asset bytes retained."
+}

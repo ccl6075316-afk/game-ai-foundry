@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-redfinflyingfish",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_redfinflyingfish",
+    "fishing-master-cdn-cnformal1-20261102:obj-52215422389ebb87f23d411056852159c10eef6a09471b94c85d6f9a833a739c"
+  ],
+  "species_binding": {
+    "source_name": "RedfinFlyingFish",
+    "name_hint_zh": "红鳍飞鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/SkeletonCoast/RedfinFlyingFish/RedfinFlyingFish.prefab",
+    "preferred_bundle": "bundles/b_fish_redfinflyingfish.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-4fff675cfd9982160eb70fa93b6695cd:-2920022250108401443",
+        "bundle": "bundles/b_fish_redfinflyingfish.unity3d",
+        "name": "RedfinFlyingFish",
+        "vertices": 3370,
+        "triangles": 5700,
+        "uvs": 3370,
+        "submeshes": 3,
+        "sha256": "52215422389ebb87f23d411056852159c10eef6a09471b94c85d6f9a833a739c",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/52215422389ebb87f23d411056852159c10eef6a09471b94c85d6f9a833a739c.obj",
+        "bytes": 616569,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-redfinflyingfish",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-whitemarlin",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_whitemarlin",
+    "fishing-master-cdn-cnformal1-20261102:obj-abf550157b880eb6378de11f982e8f5b14ee30b1a04c68a3faf0a5af79c910e4"
+  ],
+  "species_binding": {
+    "source_name": "WhiteMarlin",
+    "name_hint_zh": "白枪鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/KeyWest/WhiteMarlin/WhiteMarlin.prefab",
+    "preferred_bundle": "bundles/b_fish_whitemarlin.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 3,
+    "requested_prefab_variants": 3,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-55486cd93c8dbe407abeb4b317c64a8d:5509252069120735382",
+        "bundle": "bundles/b_fish_whitemarlin.unity3d",
+        "name": "WhiteMarlin",
+        "vertices": 2049,
+        "triangles": 3007,
+        "uvs": 2049,
+        "submeshes": 3,
+        "sha256": "abf550157b880eb6378de11f982e8f5b14ee30b1a04c68a3faf0a5af79c910e4",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/abf550157b880eb6378de11f982e8f5b14ee30b1a04c68a3faf0a5af79c910e4.obj",
+        "bytes": 350377,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-whitemarlin",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

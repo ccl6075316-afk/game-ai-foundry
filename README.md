@@ -73,6 +73,7 @@ python gamefactory.py run-game --project projects/fishing-2d/game --skip-build
 - 工具与配置：[`docs/TOOLS.md`](docs/TOOLS.md)
 - 迭代与 Delta：[`docs/ITERATIVE-PRODUCTION.md`](docs/ITERATIVE-PRODUCTION.md)
 - 文档索引：[`docs/README.md`](docs/README.md)
+- 鱼类资料数据库：[`resources/fish-database/README.md`](resources/fish-database/README.md)（来源、鱼名索引、模型参考、测量与核验记录）
 
 ## Prerequisites
 

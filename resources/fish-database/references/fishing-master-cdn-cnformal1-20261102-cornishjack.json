@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-cornishjack",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_cornishjack",
+    "fishing-master-cdn-cnformal1-20261102:obj-7d158f6ef1658679b92563e9a302dc4a7388757913a23f3944b3fabbad8814ad"
+  ],
+  "species_binding": {
+    "source_name": "CornishJack",
+    "name_hint_zh": "Cornish Jack（象鼻鱼类，待核）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/CongoRiver/CornishJack/CornishJack.prefab",
+    "preferred_bundle": "bundles/b_fish_cornishjack.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-d57b7a852c0c7968f7ba848beffbdd51:8315531869558538451",
+        "bundle": "bundles/b_fish_cornishjack.unity3d",
+        "name": "CornishJack",
+        "vertices": 1753,
+        "triangles": 2766,
+        "uvs": 1753,
+        "submeshes": 3,
+        "sha256": "7d158f6ef1658679b92563e9a302dc4a7388757913a23f3944b3fabbad8814ad",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/7d158f6ef1658679b92563e9a302dc4a7388757913a23f3944b3fabbad8814ad.obj",
+        "bytes": 304248,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-cornishjack",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

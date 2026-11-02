@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Traceable fish shape measurement",
+  "type": "object",
+  "required": ["schema_version", "id", "reference_id", "source_sha256", "evidence_kind", "length_basis", "normalization", "body_selection", "pose_and_transforms", "stations", "method", "unknowns"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string"},
+    "reference_id": {"type": "string"},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evidence_kind": {"enum": ["biological_measurement", "scan_geometry", "photo_inference", "game_model_geometry", "approved_model_geometry"]},
+    "length_basis": {"type": "object", "required": ["definition", "unit", "value"], "properties": {"definition": {"enum": ["TL", "SL", "snout_to_caudal_base", "explicit_other"]}, "unit": {"type": "string"}, "value": {"type": "number", "exclusiveMinimum": 0}}},
+    "normalization": {"type": "object", "required": ["maximum_body_width_over_length", "maximum_width_position_over_length", "width_curve_basis"], "properties": {"maximum_body_width_over_length": {"type": "number", "exclusiveMinimum": 0}, "maximum_width_position_over_length": {"type": "number", "minimum": 0, "maximum": 1}, "width_curve_basis": {"const": "W(t)/Wmax"}}},
+    "body_selection": {"type": "object", "required": ["included_surfaces", "fin_exclusion_method"], "properties": {"included_surfaces": {"type": "array", "minItems": 1, "items": {"type": "string"}}, "fin_exclusion_method": {"type": "string", "minLength": 1}}},
+    "pose_and_transforms": {"type": "object", "required": ["pose", "node_and_bone_transform_handling"]},
+    "stations": {"type": "array", "minItems": 2, "items": {"type": "object", "required": ["position_over_length", "width_over_maximum", "anatomical_landmark"], "properties": {"position_over_length": {"type": "number", "minimum": 0, "maximum": 1}, "width_over_maximum": {"type": "number", "minimum": 0, "maximum": 1}, "anatomical_landmark": {"type": ["string", "null"]}}}},
+    "method": {"type": "string", "minLength": 1},
+    "unknowns": {"type": "array", "items": {"type": "string"}}
+  }
+}

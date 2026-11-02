@@ -1,0 +1,38 @@
+{
+  "url": "https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal1/bundles/b_fish_rainbowtrout.unity3d",
+  "headers": {
+    "Content-Type": "binary/octet-stream",
+    "Last-Modified": "Fri, 08 Aug 2025 00:08:24 GMT",
+    "ETag": "\"1901c42f68ecef63cc35ff812d500682\""
+  },
+  "bytes": 1006146,
+  "sha256": "aeb331dbc92b5d3776d98361eede212e614d1525c55aa67346bf246037523cd3",
+  "manifest_md5": "1901C42F68ECEF63CC35FF812D500682",
+  "manifest_bytes": 1006146,
+  "dlc_tag": "DLC_FISH_rainbowtrout",
+  "unity_objects": {
+    "Transform": 25,
+    "GameObject": 25,
+    "Material": 3,
+    "MonoScript": 2,
+    "MonoBehaviour": 2,
+    "Texture2D": 3,
+    "Animator": 1,
+    "AssetBundle": 1,
+    "Mesh": 1,
+    "SkinnedMeshRenderer": 1
+  },
+  "meshes": [
+    {
+      "name": "Rainbowtrout",
+      "path_id": 2425217506060891504,
+      "vertices": 1826,
+      "triangles": 2976,
+      "export_sha256": "05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e"
+    }
+  ],
+  "bundle_prefix_skipped": 32,
+  "local_apk_entry_present": false,
+  "local_apk_entry_absence_verified": true,
+  "local_apk_sha256": "8a6f23099eb334f2d4a7a7a02058c1cf021551dd7e892cbf426c4c511b5ac7b7"
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-rainbowtrout-rest-mesh",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:obj-05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e",
+    "fishing-master-cdn-cnformal1-20261102:rainbowtrout-original-bundle"
+  ],
+  "species_binding": {
+    "source_name": "Rainbowtrout",
+    "name_hint_zh": "虹鳟",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Campbell/Rainbowtrout/Rainbowtrout.prefab",
+    "preferred_bundle": "bundles/b_fish_rainbowtrout.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-37149eea34b657b41292471c5bce990d:2425217506060891504",
+        "bundle": "bundles/b_fish_rainbowtrout.unity3d",
+        "name": "Rainbowtrout",
+        "vertices": 1826,
+        "triangles": 2976,
+        "uvs": 1826,
+        "submeshes": 3,
+        "sha256": "05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e.obj",
+        "bytes": 321661,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-rainbowtrout",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ],
+  "prior_sample_facts": {
+    "parser": "UnityPy 1.25.4",
+    "unityfs_prefix_skipped_bytes": 32,
+    "original_bundle_sha256": "aeb331dbc92b5d3776d98361eede212e614d1525c55aa67346bf246037523cd3",
+    "vertex_count": 1826,
+    "triangle_count": 2976,
+    "object_types": {
+      "Transform": 25,
+      "GameObject": 25,
+      "Material": 3,
+      "MonoScript": 2,
+      "MonoBehaviour": 2,
+      "Texture2D": 3,
+      "Animator": 1,
+      "AssetBundle": 1,
+      "Mesh": 1,
+      "SkinnedMeshRenderer": 1
+    },
+    "coordinate_basis": "mesh-local rest geometry; scene and skeleton transformations not baked",
+    "download_md5_matches_remote_manifest": true,
+    "missing_from_acquired_apk": true,
+    "sample_last_modified": "Fri, 08 Aug 2025 00:08:24 GMT",
+    "parse_evidence": "evidence/fishing-master-cdn-cnformal1-20261102/rainbowtrout-download.json"
+  }
+}

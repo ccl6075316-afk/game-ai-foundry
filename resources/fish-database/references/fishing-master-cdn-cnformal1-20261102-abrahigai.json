@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-abrahigai",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_abrahigai",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:obj-e0732a6239cb9baf2ca523630122eb0bdfaa0336480174f09560bfd06a5d7a50"
+  ],
+  "species_binding": {
+    "source_name": "AbraHigai",
+    "name_hint_zh": "AbraHigai（待核名）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/LakeBiwa/AbraHigai/AbraHigai.prefab",
+    "preferred_bundle": "bundles/b_fish_abrahigai.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-0a8446fb909b01fc687b4c4569b8492e:6663476985641232128",
+        "bundle": "bundles/b_fish_abrahigai.unity3d",
+        "name": "AbraHigai",
+        "vertices": 2086,
+        "triangles": 3286,
+        "uvs": 2086,
+        "submeshes": 3,
+        "sha256": "e0732a6239cb9baf2ca523630122eb0bdfaa0336480174f09560bfd06a5d7a50",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/e0732a6239cb9baf2ca523630122eb0bdfaa0336480174f09560bfd06a5d7a50.obj",
+        "bytes": 362923,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-abrahigai",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

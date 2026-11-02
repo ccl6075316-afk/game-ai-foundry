@@ -1,0 +1,390 @@
+{
+  "unitypy": "1.25.4",
+  "types": {
+    "GameObject": 30,
+    "Transform": 30,
+    "MonoScript": 2,
+    "SkinnedMeshRenderer": 1,
+    "Texture2D": 3,
+    "AssetBundle": 1,
+    "Mesh": 1,
+    "Material": 3,
+    "Animator": 1,
+    "MonoBehaviour": 2
+  },
+  "objects": [
+    {
+      "type": "GameObject",
+      "id": -8943222175357750349,
+      "name": "HH_mouth"
+    },
+    {
+      "type": "GameObject",
+      "id": -8749082801575811710,
+      "name": "Bone001"
+    },
+    {
+      "type": "GameObject",
+      "id": -8156218076023397105,
+      "name": "Bone005"
+    },
+    {
+      "type": "GameObject",
+      "id": -7840089014668049957,
+      "name": "Bone009"
+    },
+    {
+      "type": "Transform",
+      "id": -7610247919856391029,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -7189462308718378678,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -6826639779514923051,
+      "name": "Bone090"
+    },
+    {
+      "type": "MonoScript",
+      "id": -6821179323767187808,
+      "name": "FishInfo"
+    },
+    {
+      "type": "SkinnedMeshRenderer",
+      "id": -6339203028579842140,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -6097668032437579534,
+      "name": "Bone022"
+    },
+    {
+      "type": "Transform",
+      "id": -5653578055936578853,
+      "name": null
+    },
+    {
+      "type": "MonoScript",
+      "id": -5580257839271697951,
+      "name": "DynamicMaterialController"
+    },
+    {
+      "type": "Transform",
+      "id": -5373287090696554538,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -5337842193815190612,
+      "name": "Bone_eyeR_LB"
+    },
+    {
+      "type": "Transform",
+      "id": -4972545299744558007,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -4485934727194370791,
+      "name": "Bone024"
+    },
+    {
+      "type": "GameObject",
+      "id": -4433525337931805653,
+      "name": "Bone020"
+    },
+    {
+      "type": "Transform",
+      "id": -4406921372769415745,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -4151428848489480326,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -3833990472933806744,
+      "name": "CrucianCarp"
+    },
+    {
+      "type": "GameObject",
+      "id": -3788679946978562164,
+      "name": "Bone021"
+    },
+    {
+      "type": "GameObject",
+      "id": -3360985744234165026,
+      "name": "Bone029"
+    },
+    {
+      "type": "GameObject",
+      "id": -3189679170992963041,
+      "name": "BN_head"
+    },
+    {
+      "type": "Transform",
+      "id": -3189527293424444818,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -2583906302285485966,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -2239571221881723211,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -2236590384737400146,
+      "name": "Bone091"
+    },
+    {
+      "type": "GameObject",
+      "id": -2143268825017429599,
+      "name": "Bone023"
+    },
+    {
+      "type": "GameObject",
+      "id": -1973220697041426053,
+      "name": "Bone025"
+    },
+    {
+      "type": "Transform",
+      "id": -1880147044880017754,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -1542303870410962631,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": -1152544327049052931,
+      "name": "CrucianCarp"
+    },
+    {
+      "type": "Texture2D",
+      "id": -627428273611246428,
+      "name": "CrucianCarp_M"
+    },
+    {
+      "type": "GameObject",
+      "id": -351458631325625881,
+      "name": "Bone031"
+    },
+    {
+      "type": "Transform",
+      "id": -314794770481341988,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": -314521048789766894,
+      "name": null
+    },
+    {
+      "type": "Texture2D",
+      "id": -288118014549101905,
+      "name": "CrucianCarp_N"
+    },
+    {
+      "type": "Transform",
+      "id": -236952171040408667,
+      "name": null
+    },
+    {
+      "type": "AssetBundle",
+      "id": 1,
+      "name": "b_fish_cruciancarp.unity3d"
+    },
+    {
+      "type": "Transform",
+      "id": 258575784694389574,
+      "name": null
+    },
+    {
+      "type": "Texture2D",
+      "id": 1303363515516461428,
+      "name": "CrucianCarp_D"
+    },
+    {
+      "type": "GameObject",
+      "id": 1630711271384153173,
+      "name": "Bone006"
+    },
+    {
+      "type": "Transform",
+      "id": 1720464218225790562,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 1926218938770822499,
+      "name": "Bone026"
+    },
+    {
+      "type": "Mesh",
+      "id": 2094825725672363868,
+      "name": "CrucianCarp"
+    },
+    {
+      "type": "Transform",
+      "id": 2181687537795835315,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 2352045441974512123,
+      "name": "000"
+    },
+    {
+      "type": "Material",
+      "id": 2460867363937601215,
+      "name": "CrucianCarp_bantou02_mat"
+    },
+    {
+      "type": "Transform",
+      "id": 2526934846485634791,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 2673429796199600999,
+      "name": "Bone004"
+    },
+    {
+      "type": "GameObject",
+      "id": 3327266882005810346,
+      "name": "Bone013"
+    },
+    {
+      "type": "Animator",
+      "id": 3467495127615381315,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 4260804294707664088,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 4383015470981735180,
+      "name": null
+    },
+    {
+      "type": "MonoBehaviour",
+      "id": 4403832310654045383,
+      "name": ""
+    },
+    {
+      "type": "Material",
+      "id": 4658572397396808668,
+      "name": "CrucianCarp_mat"
+    },
+    {
+      "type": "Material",
+      "id": 4707271058115753212,
+      "name": "CrucianCarp_bantou_mat"
+    },
+    {
+      "type": "Transform",
+      "id": 5161500488285039524,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 5210099687839166608,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 5240540309365258168,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 5731989130049048483,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 5739376130695115293,
+      "name": "Bone007"
+    },
+    {
+      "type": "Transform",
+      "id": 6220901855711485690,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 6358591235756563033,
+      "name": "Bone012"
+    },
+    {
+      "type": "Transform",
+      "id": 6469232811912299903,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 6471166123043537629,
+      "name": "Bone_eyeL_LB"
+    },
+    {
+      "type": "Transform",
+      "id": 6515920697736461090,
+      "name": null
+    },
+    {
+      "type": "Transform",
+      "id": 6540209036681462112,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 6866090625355384060,
+      "name": "Bone037"
+    },
+    {
+      "type": "Transform",
+      "id": 7032042346090082183,
+      "name": null
+    },
+    {
+      "type": "GameObject",
+      "id": 7408096539681722973,
+      "name": "Bone010"
+    },
+    {
+      "type": "GameObject",
+      "id": 7840335428408681343,
+      "name": "Bone036"
+    },
+    {
+      "type": "MonoBehaviour",
+      "id": 8574633908400672179,
+      "name": ""
+    },
+    {
+      "type": "GameObject",
+      "id": 9005954153014166604,
+      "name": "Bone035"
+    }
+  ],
+  "container_paths": [
+    "assets/inbundle/fish/honghu/cruciancarp/cruciancarp.prefab"
+  ]
+}

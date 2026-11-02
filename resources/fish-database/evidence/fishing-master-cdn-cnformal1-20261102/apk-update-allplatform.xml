@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all_platform_config>
+    <!--备用CDN服务-->
+    <remote_backups>
+        <backup remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/" backup_ip="https://158-xxdyw-volcdn.bjxuejing.cn/"/>
+    </remote_backups>
+    <!--默认pc内部版本不更新-->
+	<localhost
+        remote_ip="http://localhost:8090/"
+        remote_root="http://localhost:8090/knight_res/test/">
+    </localhost>
+	<!--IOS苹果 aws CDN-->
+    <ios-cnformal1
+            remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+            remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_ios/cnformal1/">
+    </ios-cnformal1>
+    <ios-cnformal3
+            remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+            remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_ios/cnformal3/">
+    </ios-cnformal3>
+	<ios-cninhouse1
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_ios/cninhouse1/">
+    </ios-cninhouse1>
+	<ios-cninhouse2
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_ios/cninhouse2/">
+    </ios-cninhouse2>
+	<ios-cninhouse3
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_ios/cninhouse3/">
+    </ios-cninhouse3>
+	<!--安卓外部 aws CDN -->
+    <android-cnformal1
+            remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+            remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal1/">
+    </android-cnformal1>
+    <android-cnformal2
+            remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+            remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal2/">
+    </android-cnformal2>
+    <android-cnformal3
+            remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+            remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cnformal3/">
+    </android-cnformal3>
+	<!--安卓内部 CDN -->
+	<android-cninhouse1
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cninhouse1/">
+    </android-cninhouse1>
+	<android-cninhouse2
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cninhouse2/">
+    </android-cninhouse2>
+	<android-cninhouse3
+        remote_ip="https://158-xxdyw-hwcdn.bjxuejing.cn/"
+        remote_root="https://158-xxdyw-hwcdn.bjxuejing.cn/158-xxdyw/knight_res_android/cninhouse3/">
+    </android-cninhouse3>
+</all_platform_config>

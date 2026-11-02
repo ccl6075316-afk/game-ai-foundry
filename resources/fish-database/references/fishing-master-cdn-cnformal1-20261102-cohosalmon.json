@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-cohosalmon",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_cohosalmon",
+    "fishing-master-cdn-cnformal1-20261102:obj-78ba3ec04a9bd44b2c9de365a07fd079737a84be3ea9c42b1c956e046ace17b0"
+  ],
+  "species_binding": {
+    "source_name": "CohoSalmon",
+    "name_hint_zh": "银鲑",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/BeringSea/CohoSalmon/CohoSalmon.prefab",
+    "preferred_bundle": "bundles/b_fish_cohosalmon.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-ddc0b2904f1aa83a29dd81536eb17b86:5371705875877816606",
+        "bundle": "bundles/b_fish_cohosalmon.unity3d",
+        "name": "CohoSalmon",
+        "vertices": 2300,
+        "triangles": 3018,
+        "uvs": 2300,
+        "submeshes": 2,
+        "sha256": "78ba3ec04a9bd44b2c9de365a07fd079737a84be3ea9c42b1c956e046ace17b0",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/78ba3ec04a9bd44b2c9de365a07fd079737a84be3ea9c42b1c956e046ace17b0.obj",
+        "bytes": 379900,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-cohosalmon",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

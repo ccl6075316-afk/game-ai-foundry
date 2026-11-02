@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-jackcrevalle",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_jackcrevalle",
+    "fishing-master-cdn-cnformal1-20261102:obj-d267c218661e521872c7cdbcf08b8d70d573cb3dd087fb88d68e57c5fd96582c"
+  ],
+  "species_binding": {
+    "source_name": "JackCrevalle",
+    "name_hint_zh": "克氏鲹",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Malta/JackCrevalle/JackCrevalle.prefab",
+    "preferred_bundle": "bundles/b_fish_jackcrevalle.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 3,
+    "requested_prefab_variants": 3,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-9660acd6e9909c315f3ddef739265869:-3570950008782377281",
+        "bundle": "bundles/b_fish_jackcrevalle.unity3d",
+        "name": "JackCrevalle",
+        "vertices": 2079,
+        "triangles": 3193,
+        "uvs": 2079,
+        "submeshes": 3,
+        "sha256": "d267c218661e521872c7cdbcf08b8d70d573cb3dd087fb88d68e57c5fd96582c",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/d267c218661e521872c7cdbcf08b8d70d573cb3dd087fb88d68e57c5fd96582c.obj",
+        "bytes": 356420,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-jackcrevalle",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

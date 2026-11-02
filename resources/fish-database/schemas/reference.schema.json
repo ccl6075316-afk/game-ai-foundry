@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fish shape reference",
+  "type": "object",
+  "required": ["schema_version", "id", "source_id", "reference_kind", "artifact_ids", "species_binding", "verified_facts", "anatomical_correspondence", "measurement_ids", "unknowns"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string"},
+    "source_id": {"type": "string"},
+    "reference_kind": {"enum": ["biological_measurement", "specimen_scan", "photographic_reference", "game_shape_reference", "user_approved_shape_reference"]},
+    "artifact_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "species_binding": {"type": "object", "required": ["source_name", "scientific_name", "verification"], "properties": {"source_name": {"type": "string"}, "scientific_name": {"type": ["string", "null"]}, "verification": {"enum": ["unverified", "verified"]}}},
+    "verified_facts": {"type": "object"},
+    "anatomical_correspondence": {"type": "array", "items": {"type": "object", "required": ["part", "evidence", "unknowns"]}},
+    "measurement_ids": {"type": "array", "items": {"type": "string"}},
+    "unknowns": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-sharpbelly",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_sharpbelly",
+    "fishing-master-cdn-cnformal1-20261102:obj-ff64fc02a5baedc2449430819e13721383c46dff65f63877348809c0917cb945"
+  ],
+  "species_binding": {
+    "source_name": "Sharpbelly",
+    "name_hint_zh": "䱗／白条类",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/HongHu/Sharpbelly/Sharpbelly.prefab",
+    "preferred_bundle": "bundles/b_fish_sharpbelly.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-8c8ed0073aae414ffcbff02090e7d65a:1200616975053500716",
+        "bundle": "bundles/b_fish_sharpbelly.unity3d",
+        "name": "Sharpbelly",
+        "vertices": 1916,
+        "triangles": 2986,
+        "uvs": 1916,
+        "submeshes": 3,
+        "sha256": "ff64fc02a5baedc2449430819e13721383c46dff65f63877348809c0917cb945",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/ff64fc02a5baedc2449430819e13721383c46dff65f63877348809c0917cb945.obj",
+        "bytes": 331675,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-sharpbelly",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

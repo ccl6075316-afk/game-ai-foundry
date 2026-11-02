@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-silvercarp",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_silvercarp",
+    "fishing-master-cdn-cnformal1-20261102:obj-d9911b7823dfe8be8e41adbe95ff59e0c9dbfb4a19d4c65a6dd7c3dff494e8e7"
+  ],
+  "species_binding": {
+    "source_name": "SilverCarp",
+    "name_hint_zh": "鲢鱼",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/Altay/SilverCarp/SilverCarp.prefab",
+    "preferred_bundle": "bundles/b_fish_silvercarp.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-6e0597b994d3dc5216884462899d68ce:7255311164105809841",
+        "bundle": "bundles/b_fish_silvercarp.unity3d",
+        "name": "SilverCarp",
+        "vertices": 3196,
+        "triangles": 5028,
+        "uvs": 3196,
+        "submeshes": 3,
+        "sha256": "d9911b7823dfe8be8e41adbe95ff59e0c9dbfb4a19d4c65a6dd7c3dff494e8e7",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/d9911b7823dfe8be8e41adbe95ff59e0c9dbfb4a19d4c65a6dd7c3dff494e8e7.obj",
+        "bytes": 567176,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-silvercarp",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

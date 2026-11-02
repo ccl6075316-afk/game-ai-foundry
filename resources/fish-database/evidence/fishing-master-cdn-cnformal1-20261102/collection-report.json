@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "checked_on": "2026-11-02",
+  "scope": "325 lexical base fish names from Xiaomi APK index; source-coherent cnformal1 snapshot acquisition, prefab resolution and geometry/texture readability",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "source_manifest_sha256": "491ca29e78323d0be55daf00b3f5e0ee6d8f49efda79c3075845af311f3048a0",
+  "summary": {
+    "target_base_names": 325,
+    "acquired_base_names": 325,
+    "target_prefabs": 646,
+    "acquired_prefabs": 646,
+    "verified_resource_bundles": 661,
+    "verified_resource_bytes": 822778961,
+    "unique_mesh_objects": 593,
+    "readable_mesh_objects": 593,
+    "unique_obj_files": 588,
+    "obj_export_bytes": 289542312,
+    "decoded_texture_objects": 1858,
+    "prefabs_with_resolved_skin_bones": 644,
+    "prefabs_using_mesh_renderer_without_skin_bones": 2
+  },
+  "missing_base_names": [],
+  "missing_prefabs": [],
+  "base_names_with_only_suffixed_prefabs": [
+    "DogtoothTuna",
+    "Dolphinfish",
+    "Manta"
+  ],
+  "read_errors": [],
+  "mesh_errors": [],
+  "texture_errors": [],
+  "limitations": [
+    "Counts refer to resource names/variants and objects, not deduplicated biological species",
+    "All 646 exact prefab container paths and hierarchy, assigned meshes/materials/textures resolved; all selected mesh geometries exported and all selected textures decoded",
+    "644 skinned prefabs resolve skin bone pointers; 2 use MeshRenderer without skin bone bindings; no actual animation playback review",
+    "Mesh exports are rest mesh-local geometry; no body-fin segmentation, scene transform baking or biological width validation",
+    "This snapshot is separate from the retained APK; active runtime channel/latest live version and production asset reuse authorization are not established"
+  ],
+  "method_scripts": [
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/acquire.py",
+      "sha256": "d927e5f7d38ab56c8edefaa1ac6c40c549f3ef2d6476ec611053404bd3eaea93",
+      "bytes": 5131
+    },
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/resolve_prefabs.py",
+      "sha256": "3cb7511921c54a4c257346340da89bd09ef195c9a0fb05bec9a18be1f37435a3",
+      "bytes": 14402
+    },
+    {
+      "path": "evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/validate_collection.py",
+      "sha256": "9fce35e8aba9b86470d0397fcfccb78438878d7c513bf5089199dc41d40649d9",
+      "bytes": 11047
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "source_id": "fishing-master-xiaomi-20260814",
+  "checked_on": "2026-11-02",
+  "ok": true,
+  "status": "done",
+  "next_action": "none",
+  "scope": "Confirm aquarium feature and locate aquarium movement modules; not a complete algorithm decompilation or runtime reproduction",
+  "public_feature_evidence": [
+    {
+      "url": "https://www.taptap.cn/moment/611498304831750660",
+      "publisher_account": "欢乐钓鱼大师玲玲（《欢乐钓鱼大师》官方）",
+      "published_on": "2024-11-29",
+      "observed": "Official update describes renewed aquarium where caught fish can be raised and sold; old aquarium purchases/levels compensated."
+    },
+    {
+      "url": "https://www.taptap.cn/moment/651821116087601537",
+      "publisher_account": "欢乐钓鱼大师官方",
+      "published_period": "2025 anniversary",
+      "observed": "Anniversary event includes a permanent aquarium skin."
+    }
+  ],
+  "apk_sha256": "8a6f23099eb334f2d4a7a7a02058c1cf021551dd7e892cbf426c4c511b5ac7b7",
+  "local_evidence": [
+    "evidence/fishing-master-xiaomi-20260814/aquarium-controller-strings.json",
+    "evidence/fishing-master-xiaomi-20260814/aquarium-motion-metadata.json"
+  ],
+  "retained_script_artifact_ids": [
+    "fishing-master-xiaomi-20260814:aquarium-controller-x64",
+    "fishing-master-xiaomi-20260814:aquarium-controller-x32"
+  ],
+  "modules_found": [
+    "AquariumController",
+    "FishFlock.FishFlockController",
+    "FishFlock.FishGroup",
+    "FishPath"
+  ],
+  "supported_design_features": [
+    {
+      "feature": "Path/target-point movement and groups",
+      "evidence": [
+        "fishPaths",
+        "prePositions",
+        "targetPositions",
+        "currentTargetPosIndex",
+        "isIndexLoop",
+        "AddFishGroup",
+        "groupAnchor"
+      ],
+      "confidence": "Follow-up native static trace recovers random/manual/follow-target selection and group-anchor smoothing; see native_reconstruction"
+    },
+    {
+      "feature": "Speed/turning ranges and movement volume",
+      "evidence": [
+        "speedMin",
+        "speedMax",
+        "rotationSpeedMin",
+        "rotationspeedMax",
+        "swimmingAreaWidth",
+        "swimmingAreaHeight",
+        "swimmingAreaDepth"
+      ],
+      "confidence": "AquariumController constants explicitly reference configuration/property names; exact per-fish values not decoded"
+    },
+    {
+      "feature": "Neighbour separation, collision and fleeing interfaces",
+      "evidence": [
+        "GetSeparationVector",
+        "neighbourDistance",
+        "fleeRadius",
+        "CreateCollisionData",
+        "UpdateCollisionData",
+        "lookAheadSteps",
+        "Flee"
+      ],
+      "confidence": "Follow-up ARM64 execution recovers core separation/collision/flee formulas; see native_reconstruction; live Unity behaviour untested"
+    },
+    {
+      "feature": "Click/scare interaction hooks",
+      "evidence": [
+        "TryScaredFish",
+        "AddScaredFishGo",
+        "ScreenPointToRay",
+        "__scaredFishGroupComp"
+      ],
+      "confidence": "Aquarium controller contains named hooks and dependencies; behaviour not runtime-tested"
+    },
+    {
+      "feature": "Water animation selection",
+      "evidence": [
+        "idle_aquarium",
+        "Animator",
+        "HasState",
+        "Play"
+      ],
+      "confidence": "AquariumController string references align with existing serialized animation evidence; no playback test"
+    }
+  ],
+  "interpretation": "AquariumController links aquarium to FishFlock. Follow-up native reconstruction recovers core steering formulas, path/anchor and collision-cache logic; 395 synthetic native comparisons pass. Full Lua control flow, live configuration, worker timing and game/animation playback remain unverified.",
+  "native_algorithm_candidate": "lib/arm64-v8a/libil2cpp.so",
+  "unknowns": [
+    "Full AquariumController control flow, live per-fish parameters, initialization and worker scheduling remain unverified; see native reconstruction for recovered core mathematics",
+    "No proof that this is standard Reynolds Boids, NavMesh or a particular spline solely from package-wide type names",
+    "No runtime verification of obstacle avoidance, boundary smoothness, fish-size clearance or motion/animation speed coupling",
+    "Current-account feature unlock/access conditions not tested; official feature existence and packaged implementation confirmed"
+  ],
+  "scale_and_construction": {
+    "checked_on": "2026-11-02",
+    "same_scene_group_support": {
+      "evidence": [
+        "fishGroups",
+        "crowdNum",
+        "GetFishCount",
+        "isGather",
+        "GetOrnamentalFisheUsedNum",
+        "GetCommonFisheUsedNum"
+      ],
+      "interpretation": "Aquarium controller maintains multiple groups and fish counts and references crowdNum/isGather configuration. Supports group/multiple-fish design; no numeric same-screen capacity inferred from names."
+    },
+    "rendering_execution_options": {
+      "metadata_entry": "assets/bin/Data/Managed/Metadata/global-metadata.dat",
+      "names": [
+        {
+          "name": "FlockRenderingMode",
+          "entry_byte_offset": 1195833
+        },
+        {
+          "name": "INSTANCING",
+          "entry_byte_offset": 1195852
+        },
+        {
+          "name": "FlockComputationMode",
+          "entry_byte_offset": 1195863
+        },
+        {
+          "name": "CPU",
+          "entry_byte_offset": 1195884
+        },
+        {
+          "name": "CPU_AND_ONE_THREAD",
+          "entry_byte_offset": 1195888
+        },
+        {
+          "name": "GPU",
+          "entry_byte_offset": 1195907
+        }
+      ],
+      "caution": "Presence of instancing/GPU/CPU options does not prove the shipping aquarium enables a mode or meets any fish-count/FPS target."
+    },
+    "construction_evidence": {
+      "apk_index_entry": "assets/bundles/InBundleAssetsMap.txt",
+      "index_sha256": "6bfa1eb2644b605856742ce70dabe691733754cb77870c8b2532506d4af4fbe7",
+      "building_prefab_count": 26,
+      "building_entries": [
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bar_1.prefab|bundles/b_aqua_bar_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bar_2.prefab|bundles/b_aqua_bar_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bar_3.prefab|bundles/b_aqua_bar_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bell_1.prefab|bundles/b_aqua_bell_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bell_2.prefab|bundles/b_aqua_bell_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bell_3.prefab|bundles/b_aqua_bell_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bulletin_1.prefab|bundles/b_aqua_bulletin_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bulletin_2.prefab|bundles/b_aqua_bulletin_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Bulletin_3.prefab|bundles/b_aqua_bulletin_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Carriage_1.prefab|bundles/b_aqua_carriage_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Carriage_2.prefab|bundles/b_aqua_carriage_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Carriage_3.prefab|bundles/b_aqua_carriage_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/Default.prefab|bundles/b_aqua_default.unity3d",
+        "Assets/InBundle/Aquarium/Building/H01_crab.prefab|bundles/b_aqua_h01_crab.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Hotel_1.prefab|bundles/b_aqua_hotel_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Hotel_2.prefab|bundles/b_aqua_hotel_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Hotel_3.prefab|bundles/b_aqua_hotel_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Police_1.prefab|bundles/b_aqua_police_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Police_2.prefab|bundles/b_aqua_police_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Police_3.prefab|bundles/b_aqua_police_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Station_1.prefab|bundles/b_aqua_station_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Station_2.prefab|bundles/b_aqua_station_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Station_3.prefab|bundles/b_aqua_station_3.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Train_1.prefab|bundles/b_aqua_train_1.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Train_2.prefab|bundles/b_aqua_train_2.unity3d",
+        "Assets/InBundle/Aquarium/Building/USAWestern_Aquarium/Train_3.prefab|bundles/b_aqua_train_3.unity3d"
+      ],
+      "building_ui_module_entries": [
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/AquariumBuildPanel.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/Components/AquariumBuildLVUpNormalComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/AquariumBuildMainPanel.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/Components/AquariumBuildMainItemComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/Components/AquariumBuildLVUpNormalComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/Components/AquariumBuildMainItemComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/AquariumBuildMainPanel.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/AquariumBuildPanel.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/Components/AquariumBuildSkinItemComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/Components/AquariumBuildSkinItemComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x32/Lua/View/Aquarium/Components/AquariumBuildLVUpUnlockComp.bytes|bundles/b_lua.unity3d",
+        "Assets/_LuaBuild/Lua/x64/Lua/View/Aquarium/Components/AquariumBuildLVUpUnlockComp.bytes|bundles/b_lua.unity3d"
+      ],
+      "controller_references": [
+        "GetNextUnlockSlotId",
+        "GetBuildings",
+        "slotId",
+        "buildings",
+        "aquarium_skin",
+        "ResetBuildings",
+        "GetSlotIdByClickPos"
+      ],
+      "interpretation": "Indexed building/level variants, build UI and slot/skin references establish construction-system content in the package. They may include the old aquarium and do not establish current enabled features or free object placement."
+    },
+    "public_context": [
+      {
+        "url": "https://www.taptap.cn/moment/529309501921167434",
+        "kind": "player firsthand guide, 2024; historical",
+        "observation": "Guide reports aquarium income used for building/facility upgrades; not current-version proof."
+      },
+      {
+        "url": "https://www.taptap.cn/moment/611498304831750660",
+        "kind": "official update, 2024-11-29",
+        "observation": "Aquarium overhaul compensates old aquarium fish purchases/levels; old and new systems must be distinguished."
+      },
+      {
+        "url": "https://www.taptap.cn/moment/651821116087601537",
+        "kind": "official anniversary announcement, 2025",
+        "observation": "Permanent aquarium skin rewards; supports themed aquarium skins, not proof of free aquascaping."
+      }
+    ],
+    "unresolved": [
+      "Maximum simultaneously rendered fish, species distribution, crowdNum values and device/FPS conditions",
+      "Stored/farmed fish limits versus actually rendered fish counts",
+      "Whether construction upgrade/slot modules remain enabled after aquarium overhaul",
+      "Free placement, rotation/scaling of plants/rocks/wood or user-created tank layouts not established"
+    ]
+  },
+  "native_reconstruction": {
+    "report": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reconstruction-report.json",
+    "view": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/README.md",
+    "core_native_steering_reconstructed": true,
+    "native_comparison_tests_passed": 395,
+    "runtime_tested": false
+  }
+}

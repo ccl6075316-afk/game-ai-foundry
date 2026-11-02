@@ -127,3 +127,16 @@ cli/fish_budget.py -text
 /resources/scripts/volume-fish/portable/export_reference_shark_poses.gd -text whitespace=cr-at-eol
 /resources/scripts/volume-fish/portable/capture_distance_material_review.gd -text whitespace=cr-at-eol
 /resources/volume-fish/scalloped-hammerhead-project-art-20261102.profile.json -text whitespace=cr-at-eol
+
+# Fish information database: indexes stay text; retained source bytes use LFS.
+/resources/fish-database/**/*.json text eol=lf
+/resources/fish-database/**/*.jsonl text eol=lf
+/resources/fish-database/**/*.csv text eol=lf
+/resources/fish-database/**/*.html text eol=lf
+/resources/fish-database/**/*.md text eol=lf
+/resources/fish-database/**/*.txt text eol=lf
+/resources/fish-database/artifacts/** filter=lfs diff=lfs merge=lfs -text
+
+# Historical migrated CSV evidence is hashed as original bytes (CRLF).
+/resources/fish-database/catalogs/fishing-master-xiaomi-20260814/fish-catalog.csv -text whitespace=cr-at-eol
+/resources/fish-database/catalogs/fishing-master-xiaomi-20260814/all-indexed-objects.csv -text whitespace=cr-at-eol

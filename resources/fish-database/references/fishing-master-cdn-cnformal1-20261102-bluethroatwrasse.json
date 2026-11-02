@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-bluethroatwrasse",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_bluethroatwrasse",
+    "fishing-master-cdn-cnformal1-20261102:obj-d9e072d0a5a273827552bd9369cf199531bc93a89b714fbad336eae4f7f96de6"
+  ],
+  "species_binding": {
+    "source_name": "BluethroatWrasse",
+    "name_hint_zh": "蓝喉隆头鱼（直译）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/TheGreatBarrierReef/BluethroatWrasse/BluethroatWrasse.prefab",
+    "preferred_bundle": "bundles/b_fish_bluethroatwrasse.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-4fb63d4c13678f7a77c5f7ff95a033dd:-2507553776961226198",
+        "bundle": "bundles/b_fish_bluethroatwrasse.unity3d",
+        "name": "BluethroatWrasse",
+        "vertices": 3229,
+        "triangles": 4692,
+        "uvs": 3229,
+        "submeshes": 3,
+        "sha256": "d9e072d0a5a273827552bd9369cf199531bc93a89b714fbad336eae4f7f96de6",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/d9e072d0a5a273827552bd9369cf199531bc93a89b714fbad336eae4f7f96de6.obj",
+        "bytes": 554553,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-bluethroatwrasse",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

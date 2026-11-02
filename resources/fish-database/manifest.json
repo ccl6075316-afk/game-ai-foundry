@@ -1,0 +1,1385 @@
+{
+  "schema_version": 1,
+  "database_id": "foundry-fish-information",
+  "created_on": "2026-11-02",
+  "sources": [
+    {
+      "id": "fishing-master-xiaomi-20260814",
+      "path": "sources/fishing-master-xiaomi-20260814/source.json"
+    },
+    {
+      "id": "ace-fishing-wild-catch-official",
+      "path": "sources/ace-fishing-wild-catch-official/source.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102",
+      "path": "sources/fishing-master-cdn-cnformal1-20261102/source.json"
+    }
+  ],
+  "catalogs": [
+    {
+      "source_id": "fishing-master-xiaomi-20260814",
+      "path": "catalogs/fishing-master-xiaomi-20260814/entries.jsonl",
+      "record_count": 325,
+      "count_unit": "lexical fish base-name identifier; not biological species or unique geometry",
+      "view": "catalogs/fishing-master-xiaomi-20260814/fish-catalog.html"
+    },
+    {
+      "source_id": "fishing-master-cdn-cnformal1-20261102",
+      "path": "catalogs/fishing-master-cdn-cnformal1-20261102/resource-bundles.jsonl",
+      "record_count": 734,
+      "count_unit": "b_fish_ bundle entries, including variants/nonfish/props; not species"
+    },
+    {
+      "source_id": "fishing-master-cdn-cnformal1-20261102",
+      "path": "catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.jsonl",
+      "record_count": 325,
+      "count_unit": "availability for the 325 lexical base fish names from the APK index; not biological species",
+      "view": "catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.html"
+    }
+  ],
+  "references": [
+    {
+      "id": "fishing-master-cruciancarp-rest-mesh",
+      "path": "references/fishing-master-cruciancarp-rest-mesh.json"
+    },
+    {
+      "id": "fishing-master-cdn-rainbowtrout-rest-mesh",
+      "path": "references/fishing-master-cdn-rainbowtrout-rest-mesh.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-abaaba",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-abaaba.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-abrahigai",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-abrahigai.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africanbigeyecatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africanbigeyecatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africanbonytongue",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africanbonytongue.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africancoris",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africancoris.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africanpike",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africanpike.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africanpompano",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africanpompano.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africansharptoothcatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africansharptoothcatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-africantigerfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-africantigerfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-alligatorgar",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-alligatorgar.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-amurpike",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-amurpike.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-amursturgeon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-amursturgeon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-anchovy",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-anchovy.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-angelshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-angelshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-angolianwalkingcatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-angolianwalkingcatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-anthias",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-anthias.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-arabiansanddiver",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-arabiansanddiver.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-arapaima",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-arapaima.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-arcticchar",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-arcticchar.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-arctogadusglacialis",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-arctogadusglacialis.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-asiaticbrooklamprey",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-asiaticbrooklamprey.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-asp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-asp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlanticbluefintuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlanticbluefintuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlanticbonito",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlanticbonito.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlanticbumper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlanticbumper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlanticmackerel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlanticmackerel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlanticsalmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlanticsalmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-atlantictorpedo",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-atlantictorpedo.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-axillarywrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-axillarywrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bandedcatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bandedcatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bandedjewelfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bandedjewelfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bandedtilapia",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bandedtilapia.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bartailflathead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bartailflathead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bartlettsanthias",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bartlettsanthias.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-baskingshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-baskingshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-beluga",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-beluga.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-biara",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-biara.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bicuda",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bicuda.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bigeyetrevally",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bigeyetrevally.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bigeyetuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bigeyetuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bigheadcarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bigheadcarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bigmouthbuffalo",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bigmouthbuffalo.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-biwatrout",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-biwatrout.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blackbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blackbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blackcarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blackcarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blackfintuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blackfintuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blackmarlin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blackmarlin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blacksaddledcoralgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blacksaddledcoralgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blackspottuskfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blackspottuskfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blacktipshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blacktipshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-blobsculpin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-blobsculpin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluefintrevally",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluefintrevally.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluefintuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluefintuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluegill",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluegill.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluemarlin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluemarlin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluesucker",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluesucker.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluesurgeonfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluesurgeonfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bluethroatwrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bluethroatwrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bombayduck",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bombayduck.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bonito",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bonito.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bowfin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bowfin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-brambleshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-brambleshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-browntrout",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-browntrout.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bulldogfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bulldogfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bullhead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bullhead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-bullshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-bullshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-burbot",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-burbot.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-californiacorbina",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-californiacorbina.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-californiasheephead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-californiasheephead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-canarywrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-canarywrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-carcharoclesmegalodon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-carcharoclesmegalodon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-caribbeanladyfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-caribbeanladyfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-caribbeanqueensnapper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-caribbeanqueensnapper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-carp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-carp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-caspianwhitefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-caspianwhitefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-channelcatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-channelcatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-chinesemahseer",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-chinesemahseer.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-chinesestingray",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-chinesestingray.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-chumsalmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-chumsalmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-clearheadicefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-clearheadicefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-clownfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-clownfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-clowntang",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-clowntang.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-clowntrigger",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-clowntrigger.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-coalfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-coalfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-cobia",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-cobia.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-cod",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-cod.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-cohosalmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-cohosalmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-commoncarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-commoncarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-commonling",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-commonling.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-commonpandora",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-commonpandora.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-commonroach",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-commonroach.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-congereel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-congereel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-congobichir",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-congobichir.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-coraltrout",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-coraltrout.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-cornishjack",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-cornishjack.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-crappie",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-crappie.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-crescentsweetlips",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-crescentsweetlips.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-cruciancarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-cruciancarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dentex",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dentex.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-doctorfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-doctorfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dogtoothtuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dogtoothtuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dollyvarden",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dollyvarden.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dolphinfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dolphinfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dunkleosteus",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dunkleosteus.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-duskygrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-duskygrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-duskytailgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-duskytailgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-dwarfsnakehead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-dwarfsnakehead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-electriccatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-electriccatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-electriceel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-electriceel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-elephantfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-elephantfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-eurasianminnow",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-eurasianminnow.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-europeaneel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-europeaneel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-europeanflounder",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-europeanflounder.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-europeanperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-europeanperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-europeanseabass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-europeanseabass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-eyetailbowfin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-eyetailbowfin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-fanray",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-fanray.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-flagtailedprochilodus",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-flagtailedprochilodus.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-flameangelfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-flameangelfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-flounder",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-flounder.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-flyingfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-flyingfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-freshwaterdum",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-freshwaterdum.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-garrickleerfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-garrickleerfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-giantgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-giantgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-giantlakebiwacatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-giantlakebiwacatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-giantoarfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-giantoarfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-gianttrevally",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-gianttrevally.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-giltheadbream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-giltheadbream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-giraffecatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-giraffecatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-globefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-globefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-goldblotchgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-goldblotchgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-goldenshiner",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-goldenshiner.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-goldentrevally",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-goldentrevally.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-goliathgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-goliathgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-goliathtigerfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-goliathtigerfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-grasscarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-grasscarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-grayling",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-grayling.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-graysnapper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-graysnapper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-greatbarracuda",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-greatbarracuda.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-greatwhitecatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-greatwhitecatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-greenlandshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-greenlandshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-greyspottedpuffer",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-greyspottedpuffer.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-guineanburrfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-guineanburrfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-guiyuoneiros",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-guiyuoneiros.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-haddock",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-haddock.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-halibut",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-halibut.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-hammerheadshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hammerheadshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-harlequintuskfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-harlequintuskfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-helicoprion",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-helicoprion.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-herring",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-herring.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-hoevenswrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hoevenswrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-honeycombgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-honeycombgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-hongkonggrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hongkonggrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-horseeyejack",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-horseeyejack.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-houndfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-houndfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-humpbackgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-humpbackgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-humpheadwrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-humpheadwrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-hybridstripedbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-hybridstripedbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-indianthreadfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-indianthreadfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-ischikauia",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-ischikauia.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-iwatokonamazu",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-iwatokonamazu.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-jackcrevalle",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-jackcrevalle.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-jacunda",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-jacunda.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-japanesecarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-japanesecarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-japanesescad",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-japanesescad.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-japaneseseabass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-japaneseseabass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kahawai",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kahawai.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kalugasturgeon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kalugasturgeon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kambacatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kambacatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-keeljawedneedlefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-keeljawedneedlefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kelpgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kelpgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-khadarywhitefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-khadarywhitefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kingsleysrobber",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kingsleysrobber.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-kob",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-kob.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-koi",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-koi.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-l014",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-l014.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-l034",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-l034.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-l350",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-l350.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-l600",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-l600.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-labrezigzag",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-labrezigzag.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-ladyfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-ladyfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-laketrout",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-laketrout.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-lakewhitefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-lakewhitefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-lamprey",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-lamprey.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-largeheadhairtail",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-largeheadhairtail.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-largemouthbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-largemouthbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-leatherjacket",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-leatherjacket.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-leopardcoralgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-leopardcoralgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-leuciscus",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-leuciscus.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-lingcod",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-lingcod.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-lionfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-lionfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-littletunny",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-littletunny.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-longjawthryssa",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-longjawthryssa.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-longnosebutterflyfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-longnosebutterflyfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-loweramurgrayling",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-loweramurgrayling.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-makoshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-makoshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-manta",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-manta.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-maraenawhitefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-maraenawhitefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-marbledlungfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-marbledlungfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-milkfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-milkfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-mirrorcarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-mirrorcarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-morwong",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-morwong.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-mountiancarps",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-mountiancarps.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nasefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nasefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-needlefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-needlefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nigorobuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nigorobuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nilecarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nilecarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nileperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nileperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-niletilapia",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-niletilapia.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-northafricancatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-northafricancatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-northernpike",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-northernpike.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-northernwhiting",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-northernwhiting.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nursehound",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nursehound.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-nurseshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-nurseshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-oceansunfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-oceansunfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-orangethroatdarter",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-orangethroatdarter.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-orientalsweetlips",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-orientalsweetlips.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-orinocopeacockbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-orinocopeacockbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-ornatethreadfinbream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-ornatethreadfinbream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-oscar",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-oscar.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pacificpompano",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pacificpompano.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-paddlefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-paddlefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pariscatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pariscatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-parrotfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-parrotfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pebblyfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pebblyfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pikeeel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pikeeel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pikeperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pikeperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pinksalmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pinksalmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-piraiba",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-piraiba.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-pollock",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-pollock.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-porgyscup",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-porgyscup.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-premit",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-premit.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-rainbowrunner",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-rainbowrunner.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redbreastsunfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redbreastsunfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redeyepiranha",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redeyepiranha.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redfinflyingfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redfinflyingfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redmouthgrouper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redmouthgrouper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redmullet",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redmullet.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redsnapper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redsnapper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-redwrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-redwrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-ripsawcatfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-ripsawcatfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-rockfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-rockfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-russiansturgeon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-russiansturgeon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-rustyjobfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-rustyjobfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sailfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sailfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-salmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-salmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-salmontrout",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-salmontrout.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-samsonfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-samsonfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-shad",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-shad.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sharpbelly",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sharpbelly.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sharpsnoutedlenok",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sharpsnoutedlenok.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sheepshead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sheepshead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-shortbillspearfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-shortbillspearfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-shorttailredsnapper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-shorttailredsnapper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-siberiantaimen",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-siberiantaimen.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-silvercarp",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-silvercarp.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-silverperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-silverperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-silvertrevally",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-silvertrevally.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-skate",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-skate.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-skipjack",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-skipjack.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-skipjacktuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-skipjacktuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sliverarowana",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sliverarowana.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-slivercroaker",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-slivercroaker.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-smallmouthbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-smallmouthbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-smallyellowcroaker",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-smallyellowcroaker.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-smoothlumpfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-smoothlumpfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-snakehead",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-snakehead.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-snook",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-snook.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sockeyesalmon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sockeyesalmon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sohalsurgeonfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sohalsurgeonfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sorubim",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sorubim.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spadenoseshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spadenoseshark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spanishmackerel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spanishmackerel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sphyraenaafra",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sphyraenaafra.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spinydogfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spinydogfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spottedbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spottedbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spottedeagleray",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spottedeagleray.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-spottedgar",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-spottedgar.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sterlet",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sterlet.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-stripedbass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-stripedbass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-sweetlips",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-sweetlips.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-swinhonssleeper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-swinhonssleeper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-swordfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-swordfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tailor",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tailor.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tarpon",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tarpon.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tarwhine",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tarwhine.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tesselataeel",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tesselataeel.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-threshershark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-threshershark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tigershark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tigershark.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tilapia",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tilapia.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-trahira",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-trahira.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tripletailwrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tripletailwrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tripodfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tripodfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-tubgurnard",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-tubgurnard.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-ussuricisco",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-ussuricisco.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-variegatedlizardfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-variegatedlizardfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-vimbabream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-vimbabream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-vundu",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-vundu.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-wahoo",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-wahoo.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-walleye",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-walleye.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-warmouth",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-warmouth.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-westafricanlungfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-westafricanlungfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-whiteamurbream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-whiteamurbream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-whitebass",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-whitebass.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-whitemarlin",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-whitemarlin.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-whiteperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-whiteperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-whitespottedguitarfish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-whitespottedguitarfish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-wolffish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-wolffish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-wrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-wrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-xenacanthus",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-xenacanthus.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowcheekwrasse",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowcheekwrasse.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowcroaker",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowcroaker.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowedgedlyretail",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowedgedlyretail.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowfinseabream",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowfinseabream.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowfintuna",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowfintuna.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowgoosefish",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowgoosefish.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowperch",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowperch.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yellowtailsnapper",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yellowtailsnapper.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-yunnanlabeo",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-yunnanlabeo.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-zander",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-zander.json"
+    },
+    {
+      "id": "fishing-master-cdn-cnformal1-20261102-zebrabullheadshark",
+      "path": "references/fishing-master-cdn-cnformal1-20261102-zebrabullheadshark.json"
+    }
+  ],
+  "asset_manifest": "assets-manifest.json",
+  "validation_report": "validation-report.json",
+  "handoff": "handoff.md",
+  "measurement_records": [],
+  "progress": "progress.json",
+  "collection": {
+    "source_id": "fishing-master-cdn-cnformal1-20261102",
+    "target_base_name_count": 325,
+    "target_prefab_count": 646,
+    "planned_resource_count": 661,
+    "note": "Source-coherent CDN dependency closure; APK retained independently",
+    "report": "evidence/fishing-master-cdn-cnformal1-20261102/collection-report.json",
+    "availability_catalog": "catalogs/fishing-master-cdn-cnformal1-20261102/collection-status.jsonl",
+    "counts": {
+      "target_base_names": 325,
+      "acquired_base_names": 325,
+      "target_prefabs": 646,
+      "acquired_prefabs": 646,
+      "verified_resource_bundles": 661,
+      "verified_resource_bytes": 822778961,
+      "unique_mesh_objects": 593,
+      "readable_mesh_objects": 593,
+      "unique_obj_files": 588,
+      "obj_export_bytes": 289542312,
+      "decoded_texture_objects": 1858,
+      "prefabs_with_resolved_skin_bones": 644,
+      "prefabs_using_mesh_renderer_without_skin_bones": 2
+    }
+  },
+  "rig_animation_report": "evidence/fishing-master-cdn-cnformal1-20261102/rig-animation-report.json",
+  "aquarium_motion_report": "evidence/fishing-master-xiaomi-20260814/aquarium-motion-report.json",
+  "motion_reconstruction": {
+    "source_id": "fishing-master-xiaomi-20260814",
+    "report": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reconstruction-report.json",
+    "view": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/README.md",
+    "readable_core": "evidence/fishing-master-xiaomi-20260814/motion-reconstruction/reference_model.py",
+    "scope": "欢乐钓鱼大师 native core; Ace Fishing not acquired"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-houndfish",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_houndfish",
+    "fishing-master-cdn-cnformal1-20261102:obj-4ea47d8269e646742746d7a257854ee2c619c7c8fe12d13ce00808d004ec2ff7"
+  ],
+  "species_binding": {
+    "source_name": "Houndfish",
+    "name_hint_zh": "猎犬鱼／鳄形圆颌针鱼类",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/SkeletonCoast/Houndfish/Houndfish.prefab",
+    "preferred_bundle": "bundles/b_fish_houndfish.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 2,
+    "requested_prefab_variants": 2,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-3655ab985008a74676af24c968e41d3f:-6505428272044643306",
+        "bundle": "bundles/b_fish_houndfish.unity3d",
+        "name": "Houndfish",
+        "vertices": 5246,
+        "triangles": 7838,
+        "uvs": 5246,
+        "submeshes": 1,
+        "sha256": "4ea47d8269e646742746d7a257854ee2c619c7c8fe12d13ce00808d004ec2ff7",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/4ea47d8269e646742746d7a257854ee2c619c7c8fe12d13ce00808d004ec2ff7.obj",
+        "bytes": 921871,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-houndfish",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}

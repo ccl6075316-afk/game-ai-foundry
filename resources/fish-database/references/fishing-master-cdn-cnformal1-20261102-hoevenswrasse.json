@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "fishing-master-cdn-cnformal1-20261102-hoevenswrasse",
+  "source_id": "fishing-master-cdn-cnformal1-20261102",
+  "reference_kind": "game_shape_reference",
+  "artifact_ids": [
+    "fishing-master-cdn-cnformal1-20261102:b_fish_animatorcontrollers",
+    "fishing-master-cdn-cnformal1-20261102:b_fish_hoevenswrasse",
+    "fishing-master-cdn-cnformal1-20261102:obj-6f97ee4c90f7c4c538f53a2e3a8ebd2c4dba0b0271fb875bc6ef242392a913c1"
+  ],
+  "species_binding": {
+    "source_name": "HoevensWrasse",
+    "name_hint_zh": "霍氏隆头鱼（直译）",
+    "scientific_name": null,
+    "verification": "unverified"
+  },
+  "verified_facts": {
+    "parser": "UnityPy 1.25.4",
+    "preferred_prefab": "Assets/InBundle/Fish/NanaoIsland/HoevensWrasse/HoevensWrasse.prefab",
+    "preferred_bundle": "bundles/b_fish_hoevenswrasse.unity3d",
+    "prefab_container_and_hierarchy_resolved": true,
+    "acquired_prefab_variants": 1,
+    "requested_prefab_variants": 1,
+    "mesh_objects": [
+      {
+        "object_key": "CAB-81d45371cb1703e701439b90286bef9b:4019827819085898505",
+        "bundle": "bundles/b_fish_hoevenswrasse.unity3d",
+        "name": "HoevensWrasse",
+        "vertices": 2997,
+        "triangles": 5034,
+        "uvs": 2997,
+        "submeshes": 3,
+        "sha256": "6f97ee4c90f7c4c538f53a2e3a8ebd2c4dba0b0271fb875bc6ef242392a913c1",
+        "export_path": "artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/6f97ee4c90f7c4c538f53a2e3a8ebd2c4dba0b0271fb875bc6ef242392a913c1.obj",
+        "bytes": 543802,
+        "coordinate_basis": "mesh-local rest geometry; node and bone transforms not baked",
+        "ok": true
+      }
+    ],
+    "materials_resolved": true,
+    "texture_objects_decoded": 3,
+    "rigging_status": "skin_bones_resolved",
+    "animator_references_resolved": true,
+    "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
+    "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-hoevenswrasse",
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+  },
+  "anatomical_correspondence": [],
+  "measurement_ids": [],
+  "user_acceptance": {
+    "accepted": false,
+    "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
+  },
+  "unknowns": [
+    "Biological species identity and real-world proportion accuracy unverified",
+    "Mouth, fin and body anatomical correspondence not reviewed",
+    "Scene/bone transforms and animation playback not validated for measurements",
+    "No fin-excluded normalized body-width measurements established",
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ]
+}
