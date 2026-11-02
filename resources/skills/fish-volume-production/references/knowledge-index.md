@@ -6,6 +6,7 @@
 
 | 判断 | 维护入口 | 使用边界 |
 |---|---|---|
+| 参数与方法的本地参考 | [本地鱼资料库](../../../fish-database/README.md)、[SOP 0.5](production-sop.md#05-本地鱼资料库与建模方法选择2026-11-02用户补充) | 可替代重复搜索，缺口再外查；不绑定参考模型建法，不继承形态接受 |
 | 来源与 workflow | [工具箱](../../gamefactory-toolkit/SKILL.md)、[新源图排错](new-species-source-review.md) | 已接受源可复用，真实归档/审核先核验，不能补造生成记录 |
 | 来源用途与固定画布 | [部位质量守卫](component-quality-rules.md)、[侧面投影](side-projection-review.md) | 同开口/姿态/画布比较，不独立拟合局部掩盖误差 |
 | 本鱼部位库存 | [物种清单与口内供体](species-inventory-and-oral-donor.md) | 不固定七鳍、八鳍或旧 surface/骨数 |
