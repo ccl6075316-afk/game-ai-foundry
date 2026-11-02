@@ -1,0 +1,214 @@
+"""Read-only local-reference trial; no model export or production mutation.
+
+Run with repository Python; --deps points to UnityPy 1.25.4 installed in work/.
+Retained outputs contain exact source hashes, selections and model-only ratios.
+"""
+from pathlib import Path
+import argparse, hashlib, io, json, sys
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+ROOT = next(p for p in Path(__file__).resolve().parents if (p/'cli/gamefactory.py').is_file())
+OUT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT/'resources/scripts/volume-fish/portable'))
+from glb_io import read_glb, arrays
+parser = argparse.ArgumentParser()
+parser.add_argument('--deps', required=True)
+args = parser.parse_args()
+sys.path.insert(0, str(Path(args.deps).resolve()))
+import UnityPy
+sys.path.insert(0,str(ROOT/'resources/fish-database/evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts'))
+from decode_compressed_skin import decode_compressed_skin
+
+DB = ROOT/'resources/fish-database'
+SID = 'fishing-master-cdn-cnformal1-20261102'
+REFID = SID+'-niletilapia'
+REF = json.loads((DB/f'references/{REFID}.json').read_text())
+OBJ = DB/REF['verified_facts']['mesh_objects'][0]['export_path']
+BUNDLE = DB/f'artifacts/{SID}/b_fish_niletilapia.unity3d'
+OWN = ROOT/'projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb'
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+assert sha(OBJ) == 'afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4'
+assert sha(OWN) == '2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a'
+assert sha(BUNDLE) == '8a4c375b968d1728fce1910b535c50c8d0d724749f8abec4dab86d6d7e43d6e7'
+
+def components(v, f):
+    _, inv = np.unique(np.round(v,6),axis=0,return_inverse=True)
+    parent=np.arange(inv.max()+1)
+    def find(i):
+        while parent[i]!=i: parent[i]=parent[parent[i]]; i=parent[i]
+        return i
+    for t in inv[f]:
+        for i in t[1:]: parent[find(i)]=find(t[0])
+    labels=np.array([find(i) for i in inv[f[:,0]]])
+    return sorted([np.flatnonzero(labels==i) for i in np.unique(labels)],key=len,reverse=True)
+
+v=[]; uv=[]; f=[]; fu=[]; groups=[]; group=-1
+for line in OBJ.read_text().splitlines():
+    if line.startswith('v '): v.append(list(map(float,line.split()[1:])))
+    elif line.startswith('vt '): uv.append(list(map(float,line.split()[1:])))
+    elif line.startswith('g NileTilapia_'): group=int(line.split('_')[-1])
+    elif line.startswith('f '):
+        row=[x.split('/') for x in line.split()[1:]]
+        f.append([int(x[0])-1 for x in row]); fu.append([int(x[1])-1 for x in row]); groups.append(group)
+rv=np.array(v); rf=np.array(f); ruv=np.array(uv); rfu=np.array(fu); groups=np.array(groups)
+body_ids=np.flatnonzero(groups==2); cc=components(rv,rf[body_ids]); assert [len(c) for c in cc]==[1804,108,108]
+ref_body=body_ids[cc[0]]; eye_ids=np.concatenate([body_ids[c] for c in cc[1:]])
+
+# Resolve source default transforms and verify the bind-space measurement basis.
+raw=BUNDLE.read_bytes(); env=UnityPy.load(raw[32:] if raw[32:40]==b'UnityFS\0' else raw)
+trees={o.path_id:o.read_typetree() for o in env.objects if o.type.name in ('Transform','GameObject','SkinnedMeshRenderer','Mesh')}
+types={o.path_id:o.type.name for o in env.objects}
+transforms={k:d for k,d in trees.items() if types[k]=='Transform'}
+renderer=next(d for k,d in trees.items() if types[k]=='SkinnedMeshRenderer')
+mesh=trees[renderer['m_Mesh']['m_PathID']]
+def trs(d):
+    x,y,z,w=[d['m_LocalRotation'][k] for k in 'xyzw']; q=np.array([x,y,z,w]); q/=np.linalg.norm(q); x,y,z,w=q
+    r=np.array([[1-2*(y*y+z*z),2*(x*y-z*w),2*(x*z+y*w)],[2*(x*y+z*w),1-2*(x*x+z*z),2*(y*z-x*w)],[2*(x*z-y*w),2*(y*z+x*w),1-2*(x*x+y*y)]])
+    m=np.eye(4);m[:3,:3]=r@np.diag([d['m_LocalScale'][k] for k in 'xyz']);m[:3,3]=[d['m_LocalPosition'][k] for k in 'xyz'];return m
+worlds={}
+def world(i):
+    if not i:return np.eye(4)
+    if i not in worlds: worlds[i]=world(transforms[i]['m_Father']['m_PathID'])@trs(transforms[i])
+    return worlds[i]
+mesh_tf=next(k for k,d in transforms.items() if d['m_GameObject']['m_PathID']==renderer['m_GameObject']['m_PathID'])
+wm=world(mesh_tf); bones=[p['m_PathID'] for p in renderer['m_Bones']]
+ibms=np.array([[[d[f'e{i}{j}'] for j in range(4)] for i in range(4)] for d in mesh['m_BindPose']])
+skin=np.array([np.linalg.inv(wm)@world(k)@ibms[i] for i,k in enumerate(bones)])
+mesh_obj=next(o.read() for o in env.objects if o.type.name=='Mesh')
+weights,joints=decode_compressed_skin(mesh_obj.m_CompressedMesh,len(rv)); weights=np.array(weights);joints=np.array(joints)
+# UnityPy OBJ exporter mirrors local X. Convert back before source skinning.
+rawv=rv.copy();rawv[:,0]*=-1; hom=np.c_[rawv,np.ones(len(rawv))]
+deformed=np.zeros((len(rv),4))
+for slot in range(4):deformed+=np.einsum('nij,nj->ni',skin[joints[:,slot]],hom)*weights[:,slot,None]
+bind_delta=float(np.max(np.linalg.norm(deformed[:,:3]-rawv,axis=1)))
+bind_relative=bind_delta/np.ptp(rawv[:,1])
+assert bind_relative < 1e-4, f'Prefab default pose differs from mesh bind space: {bind_relative}'
+singular=np.linalg.svd(wm[:3,:3],compute_uv=False);assert np.ptp(singular)<1e-5
+texture=next(o.read().image.convert('RGBA') for o in env.objects if o.type.name=='Texture2D' and o.path_id==-1606991339488515840)
+rdiffuse=np.array(texture)
+
+doc,binary=read_glb(OWN);p=doc['meshes'][0]['primitives'][0]
+ov=arrays(doc,binary,p['attributes']['POSITION']);of=arrays(doc,binary,p['indices']).reshape(-1,3)
+ouv=arrays(doc,binary,p['attributes']['TEXCOORD_0']);ofu=of.copy()
+parts=doc['extras']['geometry_parts']; own_body=np.concatenate([np.arange(q['index_start']//3,(q['index_start']+q['index_count'])//3) for q in parts if q['role']=='body_skin'])
+imview=doc['bufferViews'][doc['images'][0]['bufferView']];offset=imview.get('byteOffset',0)
+odiffuse=np.array(Image.open(io.BytesIO(binary[offset:offset+imview['byteLength']])).convert('RGBA'))
+own_transforms=[{k:n[k] for k in ('name','matrix','translation','rotation','scale') if k in n} for n in doc['nodes'] if 'mesh' in n]
+assert all(not any(k in n for k in ('matrix','translation','rotation','scale')) for n in doc['nodes'] if 'mesh' in n)
+# Common axes: X snout -> tail, Y up, Z transverse. Only rigid axis/sign conversion.
+ov[:,0]*=-1;rv=rv[:,[1,2,0]]
+
+def normalize(v,face_ids,faces):
+    body=v[np.unique(faces[face_ids])];start=float(body[:,0].min());end=float(body[:,0].max());length=end-start
+    q=v.copy();q[:,0]=(q[:,0]-start)/length;q[:,1]=(q[:,1]-(body[:,1].min()+body[:,1].max())/2)/length;q[:,2]/=length
+    return q,{'snout':start,'caudal_body_endpoint':end,'length':length,'definition':'explicit_other: longitudinal extent of selected body surface, excluding fins and eyes; SL-like engineering proxy, not biological SL'}
+on,ol=normalize(ov,own_body,of);rn,rl=normalize(rv,ref_body,rf)
+
+def section(v,f,t):
+    tris=v[f]; pts=[]
+    for i,j in ((0,1),(1,2),(2,0)):
+        a=tris[:,i];b=tris[:,j];cross=(a[:,0]-t)*(b[:,0]-t)<0
+        aa=a[cross];bb=b[cross]
+        if len(aa):pts.append(aa+(t-aa[:,0,None])/(bb[:,0,None]-aa[:,0,None])*(bb-aa))
+    if not pts:return None
+    q=np.concatenate(pts);return {'width':float(np.ptp(q[:,2])),'height':float(np.ptp(q[:,1])),'left':float(q[:,2].min()),'right':float(q[:,2].max())}
+stations=np.linspace(.001,.999,499)
+def measure(v,f):
+    samples=[section(v,f,float(t)) for t in stations];w=np.array([s['width'] for s in samples]);peak=int(np.argmax(w));m=float(w[peak]);return {'maximum_body_width_over_length':m,'maximum_width_position_over_length':float(stations[peak]),'width_curve_basis':'W(t)/Wmax','stations':[{'position_over_length':float(t),'width_over_maximum':s['width']/m,'width_over_length':s['width'],'height_over_length':s['height'],'anatomical_landmark':None} for t,s in zip(stations,samples)]}
+om=measure(on,of[own_body]);rm=measure(rn,rf[ref_body])
+# Retain representative stations and the measured peak, not dense sampling caches.
+for measured in (om,rm):
+    full=measured['stations'];peak=max(range(len(full)),key=lambda i:full[i]['width_over_length'])
+    keep=sorted(set(range(0,len(full),10))|{len(full)-1,peak})
+    measured['stations']=[full[i] for i in keep]
+    measured['computation']='499 finite-triangle sections; representative every tenth section plus final station and measured peak retained. Dense intermediate samples only in memory.'
+common=[.02,.05,.1,.15,.2,.3,.5,.7,.9,.97]
+table=[]
+for t in common:
+    a=section(on,of[own_body],t)['width'];b=section(rn,rf[ref_body],t)['width'];table.append({'engineering_t':t,'our_width_over_body_length':a,'reference_width_over_body_length':b,'reference_divided_by_our':b/a,'our_width_over_maximum':a/om['maximum_body_width_over_length'],'reference_width_over_maximum':b/rm['maximum_body_width_over_length']})
+font=lambda n:ImageFont.truetype('/System/Library/Fonts/STHeiti Medium.ttc',n)
+
+def render(v,faces,uv,uvfaces,tex,size,view='side',head=False,cutoffs=None):
+    # Orthographic, CPU z-buffer. Uniform geometry scale, per-pixel nearest texels.
+    w,h=size; a=v.copy()
+    if view=='side': basis=np.array([[1,0,0],[0,1,0],[0,0,1]])
+    elif view=='top':basis=np.array([[1,0,0],[0,0,1],[0,1,0]])
+    elif view=='front':basis=np.array([[0,0,1],[0,1,0],[-1,0,0]])
+    else:
+        u=np.array([.85,0,-.5268]);u/=np.linalg.norm(u);n=np.array([.42,.6,.68]);n-=u*np.dot(n,u);n/=np.linalg.norm(n);up=np.cross(n,u);basis=np.array([u,up,n])
+    q=a@basis.T
+    scale=(w*.8/1.28) if not head else w*.8/.48
+    center=np.array([.5,0,0]) if not head else np.array([.1,0,0]);center=center@basis.T
+    q[:,:2]=(q[:,:2]-center[:2])*scale;q[:,0]+=w/2;q[:,1]=h/2-q[:,1]
+    img=np.full((h,w,3),245,dtype=np.uint8);zbuf=np.full((h,w),-np.inf)
+    light=np.array([-.3,.7,.64]);light/=np.linalg.norm(light)
+    for i,inds in enumerate(faces):
+        xyz=q[inds];xmin=max(0,int(np.floor(xyz[:,0].min())));xmax=min(w-1,int(np.ceil(xyz[:,0].max())));ymin=max(0,int(np.floor(xyz[:,1].min())));ymax=min(h-1,int(np.ceil(xyz[:,1].max())))
+        if xmin>xmax or ymin>ymax:continue
+        x,y=np.meshgrid(np.arange(xmin,xmax+1)+.5,np.arange(ymin,ymax+1)+.5)
+        a0,b0,c0=xyz;den=(b0[1]-c0[1])*(a0[0]-c0[0])+(c0[0]-b0[0])*(a0[1]-c0[1])
+        if abs(den)<1e-10:continue
+        wa=((b0[1]-c0[1])*(x-c0[0])+(c0[0]-b0[0])*(y-c0[1]))/den;wb=((c0[1]-a0[1])*(x-c0[0])+(a0[0]-c0[0])*(y-c0[1]))/den;wc=1-wa-wb
+        depth=wa*a0[2]+wb*b0[2]+wc*c0[2];mask=(wa>=-1e-8)&(wb>=-1e-8)&(wc>=-1e-8)&(depth>zbuf[ymin:ymax+1,xmin:xmax+1])
+        if not mask.any():continue
+        n=np.cross(v[inds[1]]-v[inds[0]],v[inds[2]]-v[inds[0]]);n/=max(np.linalg.norm(n),1e-10);shade=.55+.45*abs(float(n@light))
+        if tex is None:color=np.broadcast_to(np.array([111,145,157])*shade,(*x.shape,3));alpha=np.ones(x.shape,bool)
+        else:
+            coords=uv[uvfaces[i]];s=wa*coords[0,0]+wb*coords[1,0]+wc*coords[2,0];t=wa*coords[0,1]+wb*coords[1,1]+wc*coords[2,1]
+            tx=np.clip((s*tex.shape[1]).astype(int),0,tex.shape[1]-1)
+            # glTF texture V points down; OBJ texture V points up.
+            ty=np.clip(((t if tex is odiffuse else 1-t)*tex.shape[0]).astype(int),0,tex.shape[0]-1)
+            rgba=tex[ty,tx];alpha=rgba[:,:,3]>=128;color=rgba[:,:,:3]*shade
+            if cutoffs is not None:alpha=rgba[:,:,3]/255>=cutoffs[i]
+        mask&=alpha;patch=img[ymin:ymax+1,xmin:xmax+1];patch[mask]=np.clip(color[mask],0,255).astype(np.uint8);zbuf[ymin:ymax+1,xmin:xmax+1][mask]=depth[mask]
+    return Image.fromarray(img)
+
+def montage(name,head=False):
+    views=['side','top','front','oblique'];pw=520;ph=430 if head else 360
+    image=Image.new('RGB',(pw*4,ph*2+125),'#f5f5f5');draw=ImageDraw.Draw(image)
+    draw.text((24,15),'尼罗罗非鱼：已定稿低模与本地资料库模型  '+('头部灰模' if head else '同光照贴图多视'),font=font(28),fill='#192b38')
+    draw.text((24,54),'两者均以去鳍身体轴长归一化；非生物实测。'+('灰模仅留身体，库内双眼已排除；吻端在左。' if head else '原始纹理各自保留；不比较不同画风的颜色优劣。'),font=font(20),fill='#556575')
+    for row,(label,v,f,uv,fu,tex,body) in enumerate([('我们 R11 · 1710面',on,of,ouv,ofu,odiffuse,own_body),('资料库 · 2980面',rn,rf,ruv,rfu,rdiffuse,ref_body)]):
+        for col,view in enumerate(views):
+            ids=body if head else np.arange(len(f));cutoffs=None if tex is odiffuse else np.array([.028,.157,-1.])[groups[ids]]
+            im=render(v,f[ids],uv,fu[ids],None if head else tex,(pw,ph),view,head=head,cutoffs=cutoffs)
+            image.paste(im,(col*pw,100+row*ph));draw.text((col*pw+16,100+row*ph+8),label+' / '+{'side':'侧','top':'俯','front':'正','oblique':'斜'}[view],font=font(20),fill='#203242')
+    image.save(OUT/name)
+montage('comparison.png');montage('head-comparison.png',True)
+
+body_image=Image.new('RGB',(1600,740),'#f5f5f5');bd=ImageDraw.Draw(body_image)
+bd.text((25,12),'本地资料库试用：尼罗罗非鱼的身体横向轮廓',font=font(30),fill='#203242')
+bd.text((25,57),'去鳍、去独立眼球；两者身体轴长都归一化为1。上：我们定稿　下：资料库参考',font=font(22),fill='#556575')
+for row,(label,v,f,ids,m) in enumerate([('我们 R11',on,of,own_body,om),('资料库 NileTilapia',rn,rf,ref_body,rm)]):
+    for col,view in enumerate(['side','top']):
+        im=render(v,f[ids],np.zeros((len(v),2)),f[ids],None,(800,290),view)
+        body_image.paste(im,(col*800,105+row*300))
+        bd.text((col*800+24,110+row*300),label+' · '+('侧视' if view=='side' else '俯视'),font=font(23),fill='#203242')
+    bd.text((830,350+row*300),f'最大横宽/身体轴长 {m["maximum_body_width_over_length"]:.1%}',font=font(22),fill='#203242')
+bd.text((25,710),'这是两款游戏模型的造型差异，不是生物实测；本轮保持定稿模型。',font=font(20),fill='#556575')
+body_image.save(OUT/'body-comparison.png')
+
+# Keep normalized, fin/eye-excluded finite-triangle measurements traceable.
+bone_names=[trees[transforms[k]['m_GameObject']['m_PathID']]['m_Name'] for k in bones]
+report={'schema_version':1,'command':'research.local_fish_database_trial','ok':True,'status':'done','next_action':'human_review','completion_scope':'Read-only reference usability and model comparison; no model modification or new fish acceptance','species':'nile_tilapia','reference_id':REFID,'inputs':[{'path':str(p.relative_to(ROOT)),'sha256':sha(p),'bytes':p.stat().st_size} for p in (OWN,OBJ,BUNDLE,DB/f'references/{REFID}.json')],
+'source_transform_check':{'basis':'mesh-local bind/rest geometry, not runtime animation; OBJ mirrors Unity X','source_mesh_world_matrix':wm.tolist(),'mesh_world_singular_values':singular.tolist(),'bone_count':len(bones),'bone_names':bone_names,'bind_to_prefab_max_vertex_delta':bind_delta,'bind_to_prefab_delta_over_whole_mesh_length':bind_relative,'skinning_decoder':'retained independent packed decoder; weights sum to one','own_mesh_nodes':own_transforms,'own_measurement_pose':'raw GLB POSITION bind coordinates; animation intentionally not evaluated'},
+'selection':{'ours':{'body_parts':['Closed_body_B'],'body_triangles':len(own_body),'whole_triangles':len(of),'excluded':'all seven fins; oral cavity excluded from outer-body measurement; flat textured eyes add no separate volume'},'reference':{'body_group':'NileTilapia_2','body_triangles':len(ref_body),'excluded_eye_components_triangles':[108,108],'whole_triangles':len(rf),'excluded':'groups 0/1 fins and two disconnected eye spheres; body largest welded component in group 2','weld_tolerance_for_component_labels_only':1e-6}},
+'length_basis':{'ours':ol,'reference':rl,'common_basis':'Each selected body surface longitudinal extent normalized to 1; snout and posterior body endpoint only, not full-fish TL or measured SL. t is engineering position, not anatomical landmark.'},
+'normalization':{'ours':om,'reference':rm},'comparison_stations':table,
+'unknowns':['Database model biological species unverified; game prefab name only.','No biological dimensions or age/sex verified.','Posterior body endpoints may correspond differently to caudal peduncle/base; SL-like proxy, not anatomical registration.','Engineering stations are not registered eye/opercular landmarks; no automated repair multipliers derived.','Database runtime animation/shader effects and fin-root contact were not validated; texture render is software diagnostic, not original Unity or Godot.','No copied topology, UV, skinning, texture or production geometry; no author construction process inferred.'],
+'findings':['Local catalog resolved exact unsuffixed NileTilapia prefab and original bundle/OBJ without online fish search.','Group 2 includes 1804 body triangles plus two 108-triangle eye spheres; raw group bounds are unsuitable for body-width claims.','Reference anterior transverse envelope is broader/blunter than the approved R11 mesh; difference is a modeling reference, not biological correctness or an automatic repair decision.','Reference has 2980 triangles versus approved R11 1710; maintain current <=120cm 2000 hard cap instead of copying reference topology.'],
+'outputs':['comparison.png','head-comparison.png','body-comparison.png','report.html','validation-report.json','compare.py'],'failures':[]}
+(OUT/'validation-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+rows=''.join(f'<tr><td>{r["engineering_t"]:.0%}</td><td>{r["our_width_over_body_length"]:.4f}</td><td>{r["reference_width_over_body_length"]:.4f}</td><td>{r["reference_divided_by_our"]:.2f}×</td></tr>' for r in table)
+def path_for(m,color,relative=False):
+    key='width_over_maximum' if relative else 'width_over_length';scale=205 if relative else 700
+    pts=' '.join(f'{60+s["position_over_length"]*800:.2f},{240-s[key]*scale:.2f}' for s in m['stations']);return f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3"/>'
+def plot(relative=False):
+    title='局部宽度 / 各自最大体宽 W(t)/Wmax' if relative else '横宽 / 去鳍身体轴长 W/L'
+    return f'<svg viewBox="0 0 920 300"><path d="M60 20V240H870" fill="none" stroke="#aaa"/>{path_for(om,"#0b8396",relative)}{path_for(rm,"#d7743b",relative)}<text x="60" y="275">吻端 t=0</text><text x="710" y="275">身体后端 t=1</text><text x="60" y="20">{title}</text></svg>'
+curve=plot()+plot(True)
+html='''<!doctype html><meta charset="utf-8"><title>尼罗罗非鱼 · 本地资料库试用</title><style>body{font:16px/1.65 system-ui;max-width:1200px;margin:40px auto;padding:0 24px;color:#203242;background:#f7f8fa}section{background:white;padding:24px;margin:20px 0;border-radius:16px}img{width:100%}table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #ddd;text-align:left}code{font-size:12px;overflow-wrap:anywhere}a{color:#0b8396}</style><h1>用已定稿尼罗罗非鱼试用本地资料库</h1><p>2026-11-02 · 一次本地查询、实际加载、多视与有限三角截面对照。生产模型保持原字节。</p><section><h2>这次能直接得到什么</h2><p>库内已有对应名称的完整模型，能查看嘴、头身厚度、七鳍布局及骨架结构。身体组中还包含两只独立眼球，排除后才量体宽。两者前吻横向轮廓差异明显，可作为后续造型讨论的依据。</p><p>我们的 R11 为1710面、18骨、7鳍；库内为2980面、26个蒙皮绑定。建法继续按项目原画与预算选择，不复制参考拓扑。库内模型名尚未核准生物学物种；比例只是模型造型事实。</p></section><section><h2>贴图多视</h2><img src="comparison.png"><p>使用相同光照与正交投影，nearest取样；这是软件对照图，未模拟原游戏shader或运行时动作。各自去鳍身体轴长归一化。</p></section><section><h2>头部灰模</h2><img src="head-comparison.png"><p>仅留身体，库内眼球已排除；口腔内部不用于外皮测宽。侧/俯/正/斜同时看，避免将眼球或侧影当作颅部厚度。</p></section><section><h2>去鳍、去眼的横宽曲线</h2><p><span style="color:#0b8396">蓝：我们已定稿</span>　<span style="color:#d7743b">橙：本地库参考</span></p>'''+curve+f'''<p>最大横宽/身体轴长：我们 {om['maximum_body_width_over_length']:.4f}，参考 {rm['maximum_body_width_over_length']:.4f}。最大宽位置：我们 {om['maximum_width_position_over_length']:.1%}，参考 {rm['maximum_width_position_over_length']:.1%}。</p><table><thead><tr><th>工程位置 t</th><th>我们 W/L</th><th>参考 W/L</th><th>参考/我们</th></tr></thead><tbody>{rows}</tbody></table><p>t由各自身体前后端定义，不是同名解剖测位。两模型尾柄终点、年龄、姿态与物种精度未完全配准；此表不作为自动放大头部的倍率，更不称生物实测。</p></section><section><h2>本轮结论与复现</h2><p>数据库已经可以替代本轮重复搜索，为头吻包络、部位划分和方法选择提供可量取的参考。当前定稿不因与另一款游戏造型不同而自动修改；如后续采用某段比例，先按原画标嘴角、眼位、鳃盖、尾基，再制定逐鱼目标和复验范围。</p><p>实际源哈希、节点/蒙皮核对、完整499站、眼球排除及已知限制见 <a href="validation-report.json">验证记录</a>；<a href="compare.py">复现脚本</a> 只读生产模型，输出在本目录。UnityPy固定为1.25.4，临时安装到work目录；运行 <code>.venv/bin/python output/fish-database-nile-trial-20261102/compare.py --deps work/fish-database-nile-trial-20261102/deps</code>。</p></section>'''
+(OUT/'report.html').write_text(html)
+assert sha(OWN)==report['inputs'][0]['sha256']
+print(json.dumps({'ok':True,'triangles':[len(of),len(rf)],'body_triangles':[len(own_body),len(ref_body)],'max_width_over_body_length':[om['maximum_body_width_over_length'],rm['maximum_body_width_over_length']],'source_bind_delta_relative':bind_relative,'stations':table,'out':str(OUT)},ensure_ascii=False))

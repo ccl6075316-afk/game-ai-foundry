@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "former_directory": "output/fish-database-nile-trial-20261102",
+  "current_directory": "resources/fish-database/evidence/niletilapia-local-trial-20261102",
+  "same_volume_move": true,
+  "source_files_sha256": {
+    "comparison.png": "55f0e9648bd6af13274b764fa1baf081a2b8168b8a1949e447fd9359b74534ec",
+    "head-comparison.png": "c42365ae0b1a85196f679f2f9d160386211390f9d6fe48cc0709ee8d94d10d3f",
+    "body-comparison.png": "023f259b3a9b914d6f60ff436897ea029c818c06351b91bba0c6d833b0235327",
+    "report.html": "1935ec9d320701bfacdb25c82d59efd94fa72b936f105e4a4ca04c7e6a80e4f3",
+    "compare.py": "cc06f46f0b6f94daf4da73fbc0d803abe4b70d834afcdc9395a3a39bfed33289"
+  },
+  "snapshot_rename": {
+    "compare.py": "compare.py.snapshot"
+  },
+  "production_model_and_original_inputs_unchanged": true,
+  "measurement_stations": 52,
+  "note": "Original validation references remain provenance; use this map for current retained output locations. Recipe requires temporary UnityPy 1.25.4 dependencies and is a method snapshot, not a directly replayable destructive/production command.",
+  "owned_generated_bytecode_removed": [
+    {
+      "path": "resources/fish-database/evidence/fishing-master-cdn-cnformal1-20261102/collection-scripts/__pycache__/decode_compressed_skin.cpython-314.pyc",
+      "bytes": 2266,
+      "sha256": "d045557d317c8260775db9ec275ada766122f9b0f54950e6ec3794c40c88dd5f"
+    }
+  ]
+}

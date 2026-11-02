@@ -1,0 +1,1039 @@
+{
+  "schema_version": 1,
+  "command": "research.local_fish_database_trial",
+  "ok": true,
+  "status": "done",
+  "next_action": "human_review",
+  "completion_scope": "Read-only reference usability and model comparison; no model modification or new fish acceptance",
+  "species": "nile_tilapia",
+  "reference_id": "fishing-master-cdn-cnformal1-20261102-niletilapia",
+  "inputs": [
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+      "sha256": "2ec51a58e8d273910f22cf5414cb4969e92b00827131e829d942ecb15f96e28a",
+      "bytes": 3585712
+    },
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4.obj",
+      "sha256": "afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4",
+      "bytes": 321527
+    },
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/b_fish_niletilapia.unity3d",
+      "sha256": "8a4c375b968d1728fce1910b535c50c8d0d724749f8abec4dab86d6d7e43d6e7",
+      "bytes": 1158736
+    },
+    {
+      "path": "resources/fish-database/references/fishing-master-cdn-cnformal1-20261102-niletilapia.json",
+      "sha256": "0c2d54ccf93ebed7529fbd0b685513b3513170939f4f33654f965ebe3b56ea75",
+      "bytes": 3749
+    }
+  ],
+  "source_transform_check": {
+    "basis": "mesh-local bind/rest geometry, not runtime animation; OBJ mirrors Unity X",
+    "source_mesh_world_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -2.489495898316818e-08
+      ],
+      [
+        0.0,
+        2.220446049250313e-16,
+        0.9999999999999998,
+        -0.35434797406196594
+      ],
+      [
+        0.0,
+        -0.9999999999999998,
+        2.220446049250313e-16,
+        -0.5695303082466125
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "mesh_world_singular_values": [
+      1.0,
+      0.9999999999999998,
+      0.9999999999999998
+    ],
+    "bone_count": 26,
+    "bone_names": [
+      "BN_head",
+      "Bone021",
+      "Bone001",
+      "Bone004",
+      "Bone013",
+      "Bone025",
+      "Bone023",
+      "Bone024",
+      "Bone026",
+      "Bone005",
+      "Bone028",
+      "Bone039",
+      "Bone022",
+      "Bone006",
+      "Bone007",
+      "Bone037",
+      "Bone029",
+      "Bone030",
+      "Bone031",
+      "Bone009",
+      "Bone012",
+      "Bone090",
+      "Bone010",
+      "Bone091",
+      "Bone_eyeR_LB",
+      "Bone_eyeL_LB"
+    ],
+    "bind_to_prefab_max_vertex_delta": 3.2074286674524295e-07,
+    "bind_to_prefab_delta_over_whole_mesh_length": 1.2291150430677234e-07,
+    "skinning_decoder": "retained independent packed decoder; weights sum to one",
+    "own_mesh_nodes": [
+      {
+        "name": "Anal"
+      }
+    ],
+    "own_measurement_pose": "raw GLB POSITION bind coordinates; animation intentionally not evaluated"
+  },
+  "selection": {
+    "ours": {
+      "body_parts": [
+        "Closed_body_B"
+      ],
+      "body_triangles": 840,
+      "whole_triangles": 1710,
+      "excluded": "all seven fins; oral cavity excluded from outer-body measurement; flat textured eyes add no separate volume"
+    },
+    "reference": {
+      "body_group": "NileTilapia_2",
+      "body_triangles": 1804,
+      "excluded_eye_components_triangles": [
+        108,
+        108
+      ],
+      "whole_triangles": 2980,
+      "excluded": "groups 0/1 fins and two disconnected eye spheres; body largest welded component in group 2",
+      "weld_tolerance_for_component_labels_only": 1e-06
+    }
+  },
+  "length_basis": {
+    "ours": {
+      "snout": -0.49222251772880554,
+      "caudal_body_endpoint": 0.35100001096725464,
+      "length": 0.8432225286960602,
+      "definition": "explicit_other: longitudinal extent of selected body surface, excluding fins and eyes; SL-like engineering proxy, not biological SL"
+    },
+    "reference": {
+      "snout": -1.19730866,
+      "caudal_body_endpoint": 0.859376875,
+      "length": 2.056685535,
+      "definition": "explicit_other: longitudinal extent of selected body surface, excluding fins and eyes; SL-like engineering proxy, not biological SL"
+    },
+    "common_basis": "Each selected body surface longitudinal extent normalized to 1; snout and posterior body endpoint only, not full-fish TL or measured SL. t is engineering position, not anatomical landmark."
+  },
+  "normalization": {
+    "ours": {
+      "maximum_body_width_over_length": 0.14452120661735535,
+      "maximum_width_position_over_length": 0.4659317269076305,
+      "width_curve_basis": "W(t)/Wmax",
+      "stations": [
+        {
+          "position_over_length": 0.001,
+          "width_over_maximum": 0.05958127024636615,
+          "width_over_length": 0.008610757067799568,
+          "height_over_length": 0.007601149380207062,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.02104016064257028,
+          "width_over_maximum": 0.2913842735290897,
+          "width_over_length": 0.04211120679974556,
+          "height_over_length": 0.05764298513531685,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.04108032128514056,
+          "width_over_maximum": 0.3872451270042214,
+          "width_over_length": 0.055965133011341095,
+          "height_over_length": 0.08502761274576187,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.06112048192771084,
+          "width_over_maximum": 0.4403487844808156,
+          "width_over_length": 0.06363973766565323,
+          "height_over_length": 0.1125783622264862,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.08116064257028112,
+          "width_over_maximum": 0.4898298258706827,
+          "width_over_length": 0.07079079747200012,
+          "height_over_length": 0.14376430213451385,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.10120080321285141,
+          "width_over_maximum": 0.5355358588934094,
+          "width_over_length": 0.07739628851413727,
+          "height_over_length": 0.17378613352775574,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.12124096385542169,
+          "width_over_maximum": 0.5651976037087209,
+          "width_over_length": 0.08168303966522217,
+          "height_over_length": 0.19797196984291077,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.14128112449799196,
+          "width_over_maximum": 0.5976110190135662,
+          "width_over_length": 0.08636746555566788,
+          "height_over_length": 0.22125250101089478,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.16132128514056224,
+          "width_over_maximum": 0.6340029245295274,
+          "width_over_length": 0.09162686765193939,
+          "height_over_length": 0.2432241141796112,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.1813614457831325,
+          "width_over_maximum": 0.6706637333386674,
+          "width_over_length": 0.09692513197660446,
+          "height_over_length": 0.26511043310165405,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.20140160642570282,
+          "width_over_maximum": 0.7134944704698198,
+          "width_over_length": 0.10311508178710938,
+          "height_over_length": 0.28503817319869995,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2214417670682731,
+          "width_over_maximum": 0.7563252076009722,
+          "width_over_length": 0.10930503159761429,
+          "height_over_length": 0.30496591329574585,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.24148192771084337,
+          "width_over_maximum": 0.79233829766481,
+          "width_over_length": 0.1145096868276596,
+          "height_over_length": 0.3217911422252655,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2615220883534137,
+          "width_over_maximum": 0.8250635603662116,
+          "width_over_length": 0.11923918128013611,
+          "height_over_length": 0.3371201753616333,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2815622489959839,
+          "width_over_maximum": 0.8577888230676133,
+          "width_over_length": 0.12396867573261261,
+          "height_over_length": 0.3524491786956787,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3016024096385542,
+          "width_over_maximum": 0.8830653201980398,
+          "width_over_length": 0.12762166559696198,
+          "height_over_length": 0.3628041744232178,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3216425702811245,
+          "width_over_maximum": 0.9053838811035015,
+          "width_over_length": 0.13084717094898224,
+          "height_over_length": 0.3711840510368347,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3416827309236948,
+          "width_over_maximum": 0.9277024420089633,
+          "width_over_length": 0.1340726763010025,
+          "height_over_length": 0.37956392765045166,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.361722891566265,
+          "width_over_maximum": 0.944523332825359,
+          "width_over_length": 0.1365036517381668,
+          "height_over_length": 0.3850044906139374,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.38176305220883533,
+          "width_over_maximum": 0.9595785147093607,
+          "width_over_length": 0.13867944478988647,
+          "height_over_length": 0.3895009756088257,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.40180321285140563,
+          "width_over_maximum": 0.9746336965933623,
+          "width_over_length": 0.14085523784160614,
+          "height_over_length": 0.39399752020835876,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.4218433734939759,
+          "width_over_maximum": 0.9837341346541489,
+          "width_over_length": 0.14217044413089752,
+          "height_over_length": 0.396047443151474,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.4418835341365462,
+          "width_over_maximum": 0.9913274563666257,
+          "width_over_length": 0.14326784014701843,
+          "height_over_length": 0.3974781632423401,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.46192369477911643,
+          "width_over_maximum": 0.9989207780791025,
+          "width_over_length": 0.14436523616313934,
+          "height_over_length": 0.3989088833332062,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.4659317269076305,
+          "width_over_maximum": 1.0,
+          "width_over_length": 0.14452120661735535,
+          "height_over_length": 0.3990510106086731,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.48196385542168674,
+          "width_over_maximum": 0.9970948546055979,
+          "width_over_length": 0.1441013514995575,
+          "height_over_length": 0.3972523808479309,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.502004016064257,
+          "width_over_maximum": 0.9934633197555042,
+          "width_over_length": 0.143576517701149,
+          "height_over_length": 0.39500412344932556,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5220441767068273,
+          "width_over_maximum": 0.9898318880125015,
+          "width_over_length": 0.14305169880390167,
+          "height_over_length": 0.3927558362483978,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5420843373493975,
+          "width_over_maximum": 0.9806782466927885,
+          "width_over_length": 0.14172880351543427,
+          "height_over_length": 0.3882136344909668,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5621244979919678,
+          "width_over_maximum": 0.9707734702155577,
+          "width_over_length": 0.14029735326766968,
+          "height_over_length": 0.383359432220459,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5821646586345381,
+          "width_over_maximum": 0.957819095309514,
+          "width_over_length": 0.13842517137527466,
+          "height_over_length": 0.3774563670158386,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6022048192771084,
+          "width_over_maximum": 0.9419716385387086,
+          "width_over_length": 0.13613487780094147,
+          "height_over_length": 0.37055832147598267,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6222449799196786,
+          "width_over_maximum": 0.9243879614635185,
+          "width_over_length": 0.13359366357326508,
+          "height_over_length": 0.3638095557689667,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.642285140562249,
+          "width_over_maximum": 0.8966546285701088,
+          "width_over_length": 0.1295856088399887,
+          "height_over_length": 0.3579334020614624,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6623253012048193,
+          "width_over_maximum": 0.8689215018908809,
+          "width_over_length": 0.12557758390903473,
+          "height_over_length": 0.3520572781562805,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6823654618473896,
+          "width_over_maximum": 0.8379277165676804,
+          "width_over_length": 0.12109832465648651,
+          "height_over_length": 0.3437929153442383,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7024056224899599,
+          "width_over_maximum": 0.8060087513174509,
+          "width_over_length": 0.1164853572845459,
+          "height_over_length": 0.3348509669303894,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.72244578313253,
+          "width_over_maximum": 0.7710106474568533,
+          "width_over_length": 0.11142738908529282,
+          "height_over_length": 0.32359403371810913,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7424859437751004,
+          "width_over_maximum": 0.7316157479171852,
+          "width_over_length": 0.10573399066925049,
+          "height_over_length": 0.30903148651123047,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7625261044176707,
+          "width_over_maximum": 0.6921368676519443,
+          "width_over_length": 0.10002845525741577,
+          "height_over_length": 0.2944231629371643,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.782566265060241,
+          "width_over_maximum": 0.6508672234312102,
+          "width_over_length": 0.09406411647796631,
+          "height_over_length": 0.2788386344909668,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8026064257028113,
+          "width_over_maximum": 0.609597579210476,
+          "width_over_length": 0.08809977769851685,
+          "height_over_length": 0.2632541060447693,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8226465863453815,
+          "width_over_maximum": 0.5649718507331017,
+          "width_over_length": 0.08165041357278824,
+          "height_over_length": 0.24351432919502258,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8426867469879518,
+          "width_over_maximum": 0.5187498182737522,
+          "width_over_length": 0.07497034966945648,
+          "height_over_length": 0.2217981368303299,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8627269076305221,
+          "width_over_maximum": 0.47252788892149367,
+          "width_over_length": 0.06829030066728592,
+          "height_over_length": 0.20093217492103577,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8827670682730924,
+          "width_over_maximum": 0.42630601112278055,
+          "width_over_length": 0.06161025911569595,
+          "height_over_length": 0.18195338547229767,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9028072289156627,
+          "width_over_maximum": 0.3800541807141486,
+          "width_over_length": 0.054925888776779175,
+          "height_over_length": 0.16402295231819153,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9228473895582329,
+          "width_over_maximum": 0.33370723401412195,
+          "width_over_length": 0.04822777211666107,
+          "height_over_length": 0.14942383766174316,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9428875502008032,
+          "width_over_maximum": 0.27988863196893093,
+          "width_over_length": 0.0404498428106308,
+          "height_over_length": 0.13750874996185303,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9629277108433735,
+          "width_over_maximum": 0.18910795508325176,
+          "width_over_length": 0.02733010984957218,
+          "height_over_length": 0.13887132704257965,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9829678714859438,
+          "width_over_maximum": 0.10797637486603812,
+          "width_over_length": 0.015604875981807709,
+          "height_over_length": 0.14008097350597382,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.999,
+          "width_over_maximum": 0.05500237455630441,
+          "width_over_length": 0.007949009537696838,
+          "height_over_length": 0.14085960388183594,
+          "anatomical_landmark": null
+        }
+      ],
+      "computation": "499 finite-triangle sections; representative every tenth section plus final station and measured peak retained. Dense intermediate samples only in memory."
+    },
+    "reference": {
+      "maximum_body_width_over_length": 0.24618658254744896,
+      "maximum_width_position_over_length": 0.2655301204819277,
+      "width_curve_basis": "W(t)/Wmax",
+      "stations": [
+        {
+          "position_over_length": 0.001,
+          "width_over_maximum": 0.04594493471412662,
+          "width_over_length": 0.011311026462636486,
+          "height_over_length": 0.03542097500633602,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.02104016064257028,
+          "width_over_maximum": 0.4306809788945659,
+          "width_over_length": 0.10602787836224317,
+          "height_over_length": 0.08012918300321353,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.04108032128514056,
+          "width_over_maximum": 0.5248357759753313,
+          "width_over_length": 0.12920752608600533,
+          "height_over_length": 0.11374674170966793,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.06112048192771084,
+          "width_over_maximum": 0.5920655886409675,
+          "width_over_length": 0.1457586039114635,
+          "height_over_length": 0.14959078762437972,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.08116064257028112,
+          "width_over_maximum": 0.6781340252904904,
+          "width_over_length": 0.16694749819541116,
+          "height_over_length": 0.17890870968006273,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.10120080321285141,
+          "width_over_maximum": 0.74487179086968,
+          "width_over_length": 0.1833774406302046,
+          "height_over_length": 0.20460854815556737,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.12124096385542169,
+          "width_over_maximum": 0.7937526961735355,
+          "width_over_length": 0.19541126365878628,
+          "height_over_length": 0.2286218361696029,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.14128112449799196,
+          "width_over_maximum": 0.8387300036542664,
+          "width_over_length": 0.20648407327965324,
+          "height_over_length": 0.2541961301492094,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.16132128514056224,
+          "width_over_maximum": 0.8671203212656363,
+          "width_over_length": 0.21347338854983303,
+          "height_over_length": 0.27918135739204775,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.1813614457831325,
+          "width_over_maximum": 0.895037263618524,
+          "width_over_length": 0.2203461651828646,
+          "height_over_length": 0.3015864147403655,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.20140160642570282,
+          "width_over_maximum": 0.9216955655809428,
+          "width_over_length": 0.22690908143951044,
+          "height_over_length": 0.3207607299012172,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2214417670682731,
+          "width_over_maximum": 0.947910370741665,
+          "width_over_length": 0.23336281473417586,
+          "height_over_length": 0.34069238845046956,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.24148192771084337,
+          "width_over_maximum": 0.9715874749499991,
+          "width_over_length": 0.23919180010384544,
+          "height_over_length": 0.36030511992790604,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2615220883534137,
+          "width_over_maximum": 0.9952645791583331,
+          "width_over_length": 0.24502078547351502,
+          "height_over_length": 0.3782491649489935,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2655301204819277,
+          "width_over_maximum": 1.0,
+          "width_over_length": 0.24618658254744896,
+          "height_over_length": 0.3818325181577366,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.2815622489959839,
+          "width_over_maximum": 0.9905158923652362,
+          "width_over_length": 0.2438517225003343,
+          "height_over_length": 0.40128374291233526,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3016024096385542,
+          "width_over_maximum": 0.9759961466629223,
+          "width_over_length": 0.24027715592642362,
+          "height_over_length": 0.4129421674352353,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3216425702811245,
+          "width_over_maximum": 0.9826141215771319,
+          "width_over_length": 0.24190641255393763,
+          "height_over_length": 0.4241314567003438,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.3416827309236948,
+          "width_over_maximum": 0.9653976972025474,
+          "width_over_length": 0.23766795987347208,
+          "height_over_length": 0.4336612490082519,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.361722891566265,
+          "width_over_maximum": 0.9481812728279629,
+          "width_over_length": 0.23342950719300654,
+          "height_over_length": 0.4404771413465615,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.38176305220883533,
+          "width_over_maximum": 0.9435465055823671,
+          "width_over_length": 0.23228848968391042,
+          "height_over_length": 0.44520549358974193,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.40180321285140563,
+          "width_over_maximum": 0.9599157511933317,
+          "width_over_length": 0.23631837831975364,
+          "height_over_length": 0.4478381802288357,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.4218433734939759,
+          "width_over_maximum": 0.976627475867531,
+          "width_over_length": 0.24043258070576862,
+          "height_over_length": 0.4488706365719106,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.4418835341365462,
+          "width_over_maximum": 0.99333920054173,
+          "width_over_length": 0.24454678309178357,
+          "height_over_length": 0.447293978058016,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.46192369477911643,
+          "width_over_maximum": 0.9900887247543215,
+          "width_over_length": 0.24374655956602825,
+          "height_over_length": 0.445325496889166,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.48196385542168674,
+          "width_over_maximum": 0.9805176040897245,
+          "width_over_length": 0.24139027807846186,
+          "height_over_length": 0.44353557922662457,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.502004016064257,
+          "width_over_maximum": 0.9703896632936924,
+          "width_over_length": 0.2388969149456438,
+          "height_over_length": 0.44174514027195505,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5220441767068273,
+          "width_over_maximum": 0.9543478126425932,
+          "width_over_length": 0.23494762655611312,
+          "height_over_length": 0.4400135011293336,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5420843373493975,
+          "width_over_maximum": 0.9383059619914942,
+          "width_over_length": 0.2309983381665825,
+          "height_over_length": 0.43828186198671215,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5621244979919678,
+          "width_over_maximum": 0.922264111340395,
+          "width_over_length": 0.22704904977705181,
+          "height_over_length": 0.4365502228440907,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.5821646586345381,
+          "width_over_maximum": 0.9016406532211704,
+          "width_over_length": 0.22197183110236945,
+          "height_over_length": 0.43435047366612556,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6022048192771084,
+          "width_over_maximum": 0.8759139827078869,
+          "width_over_length": 0.21563827000837998,
+          "height_over_length": 0.43163779444591643,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6222449799196786,
+          "width_over_maximum": 0.8501873121946039,
+          "width_over_length": 0.2093047089143906,
+          "height_over_length": 0.4289251152257074,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.642285140562249,
+          "width_over_maximum": 0.8248549312691034,
+          "width_over_length": 0.20306821662655145,
+          "height_over_length": 0.4262770383222347,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6623253012048193,
+          "width_over_maximum": 0.800194946240159,
+          "width_over_length": 0.19699725918660438,
+          "height_over_length": 0.42311897911455576,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.6823654618473896,
+          "width_over_maximum": 0.7755349612112145,
+          "width_over_length": 0.19092630174665728,
+          "height_over_length": 0.4182688942484234,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7024056224899599,
+          "width_over_maximum": 0.7494300454022367,
+          "width_over_length": 0.18449962173595616,
+          "height_over_length": 0.4046627295706839,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.72244578313253,
+          "width_over_maximum": 0.7169081895764393,
+          "width_over_length": 0.17649317719210228,
+          "height_over_length": 0.38440537703399436,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7424859437751004,
+          "width_over_maximum": 0.684386333750642,
+          "width_over_length": 0.16848673264824837,
+          "height_over_length": 0.3636757370046879,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.7625261044176707,
+          "width_over_maximum": 0.6518827589060681,
+          "width_over_length": 0.1604847886366875,
+          "height_over_length": 0.342454606816477,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.782566265060241,
+          "width_over_maximum": 0.6206722879589064,
+          "width_over_length": 0.15280118945450932,
+          "height_over_length": 0.31892332036710497,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8026064257028113,
+          "width_over_maximum": 0.5894618170117448,
+          "width_over_length": 0.14511759027233118,
+          "height_over_length": 0.29539203391773294,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8226465863453815,
+          "width_over_maximum": 0.5580344867370208,
+          "width_over_length": 0.1373806032334069,
+          "height_over_length": 0.267946125775261,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8426867469879518,
+          "width_over_maximum": 0.5263036429029357,
+          "width_over_length": 0.1295688952285467,
+          "height_over_length": 0.24058613715655036,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8627269076305221,
+          "width_over_maximum": 0.49457279906885077,
+          "width_over_length": 0.12175718722368652,
+          "height_over_length": 0.2132481767891495,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.8827670682730924,
+          "width_over_maximum": 0.4573396091816896,
+          "width_over_length": 0.11259087544802607,
+          "height_over_length": 0.19076004349591025,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9028072289156627,
+          "width_over_maximum": 0.4193567951725568,
+          "width_over_length": 0.1032400162715823,
+          "height_over_length": 0.16686185799058514,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9228473895582329,
+          "width_over_maximum": 0.382096072939662,
+          "width_over_length": 0.09406692640181619,
+          "height_over_length": 0.15974142397309932,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9428875502008032,
+          "width_over_maximum": 0.3443388898229166,
+          "width_over_length": 0.0847716145236864,
+          "height_over_length": 0.15572938957711913,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9629277108433735,
+          "width_over_maximum": 0.30252819090865896,
+          "width_over_length": 0.07447838144406496,
+          "height_over_length": 0.1627222671885768,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.9829678714859438,
+          "width_over_maximum": 0.25169735431955526,
+          "width_over_length": 0.061964511496165706,
+          "height_over_length": 0.18170191922889414,
+          "anatomical_landmark": null
+        },
+        {
+          "position_over_length": 0.999,
+          "width_over_maximum": 0.20429416162396535,
+          "width_over_length": 0.05029448148460022,
+          "height_over_length": 0.13148577234419512,
+          "anatomical_landmark": null
+        }
+      ],
+      "computation": "499 finite-triangle sections; representative every tenth section plus final station and measured peak retained. Dense intermediate samples only in memory."
+    }
+  },
+  "comparison_stations": [
+    {
+      "engineering_t": 0.02,
+      "our_width_over_body_length": 0.041141215711832047,
+      "reference_width_over_body_length": 0.10458154380399157,
+      "reference_divided_by_our": 2.5420139389297223,
+      "our_width_over_maximum": 0.28467251744417316,
+      "reference_width_over_maximum": 0.42480602607103884
+    },
+    {
+      "engineering_t": 0.05,
+      "our_width_over_body_length": 0.05938102304935455,
+      "reference_width_over_body_length": 0.13274532935703812,
+      "reference_divided_by_our": 2.235484040864483,
+      "our_width_over_maximum": 0.4108810356571128,
+      "reference_width_over_maximum": 0.53920619061948
+    },
+    {
+      "engineering_t": 0.1,
+      "our_width_over_body_length": 0.07713942974805832,
+      "reference_width_over_body_length": 0.18265637588360223,
+      "reference_divided_by_our": 2.3678730382136366,
+      "our_width_over_maximum": 0.5337585504132841,
+      "reference_width_over_maximum": 0.741942854860491
+    },
+    {
+      "engineering_t": 0.15,
+      "our_width_over_body_length": 0.08865567296743393,
+      "reference_width_over_body_length": 0.20952491565471543,
+      "reference_divided_by_our": 2.3633559888680855,
+      "our_width_over_maximum": 0.6134440407916397,
+      "reference_width_over_maximum": 0.8510817831200548
+    },
+    {
+      "engineering_t": 0.2,
+      "our_width_over_body_length": 0.10268215835094452,
+      "reference_width_over_body_length": 0.2264500718656488,
+      "reference_divided_by_our": 2.20534974626939,
+      "our_width_over_maximum": 0.710498900156661,
+      "reference_width_over_maximum": 0.9198310871470982
+    },
+    {
+      "engineering_t": 0.3,
+      "our_width_over_body_length": 0.12736374139785767,
+      "reference_width_over_body_length": 0.24087995577128996,
+      "reference_divided_by_our": 1.8912757518549286,
+      "our_width_over_maximum": 0.8812806395609123,
+      "reference_width_over_maximum": 0.9784446953962804
+    },
+    {
+      "engineering_t": 0.5,
+      "our_width_over_body_length": 0.14362899959087372,
+      "reference_width_over_body_length": 0.23926962473965216,
+      "reference_divided_by_our": 1.6658865926881767,
+      "our_width_over_maximum": 0.9938264629298045,
+      "reference_width_over_maximum": 0.9719035954915876
+    },
+    {
+      "engineering_t": 0.7,
+      "our_width_over_body_length": 0.11703910678625107,
+      "reference_width_over_body_length": 0.18546071598079955,
+      "reference_divided_by_our": 1.5846046767898452,
+      "our_width_over_maximum": 0.8098403654775188,
+      "reference_width_over_maximum": 0.7533339715825278
+    },
+    {
+      "engineering_t": 0.9,
+      "our_width_over_body_length": 0.05586417391896248,
+      "reference_width_over_body_length": 0.10454988612415428,
+      "reference_divided_by_our": 1.8715015150106062,
+      "our_width_over_maximum": 0.3865465506863117,
+      "reference_width_over_maximum": 0.4246774338483852
+    },
+    {
+      "engineering_t": 0.97,
+      "our_width_over_body_length": 0.022700050845742226,
+      "reference_width_over_body_length": 0.07084583966987393,
+      "reference_divided_by_our": 3.1209551093654158,
+      "our_width_over_maximum": 0.1570707259997109,
+      "reference_width_over_maximum": 0.2877729522737877
+    }
+  ],
+  "unknowns": [
+    "Database model biological species unverified; game prefab name only.",
+    "No biological dimensions or age/sex verified.",
+    "Posterior body endpoints may correspond differently to caudal peduncle/base; SL-like proxy, not anatomical registration.",
+    "Engineering stations are not registered eye/opercular landmarks; no automated repair multipliers derived.",
+    "Database runtime animation/shader effects and fin-root contact were not validated; texture render is software diagnostic, not original Unity or Godot.",
+    "No copied topology, UV, skinning, texture or production geometry; no author construction process inferred."
+  ],
+  "findings": [
+    "Local catalog resolved exact unsuffixed NileTilapia prefab and original bundle/OBJ without online fish search.",
+    "Group 2 includes 1804 body triangles plus two 108-triangle eye spheres; raw group bounds are unsuitable for body-width claims.",
+    "Reference anterior transverse envelope is broader/blunter than the approved R11 mesh; difference is a modeling reference, not biological correctness or an automatic repair decision.",
+    "Reference has 2980 triangles versus approved R11 1710; maintain current <=120cm 2000 hard cap instead of copying reference topology."
+  ],
+  "outputs": [
+    "comparison.png",
+    "head-comparison.png",
+    "body-comparison.png",
+    "report.html",
+    "validation-report.json",
+    "compare.py"
+  ],
+  "failures": [],
+  "checks": {
+    "source_hashes_current": true,
+    "canonical_matches_original_user_acceptance": true,
+    "measurement_required_fields_and_ranges": true,
+    "measurement_reference_and_manifest_links": true,
+    "report_links_exist": true,
+    "reference_identity_and_user_acceptance_not_promoted": true,
+    "reviewed_images": [
+      "comparison.png",
+      "head-comparison.png",
+      "body-comparison.png"
+    ],
+    "render_limitations": "Software orthographic diagnostics; reference body opaque, fin alpha thresholds by actual material; original Unity shader/runtime not reproduced."
+  },
+  "cleanup": {
+    "deleted": [
+      {
+        "path": "work/fish-database-nile-trial-20261102",
+        "file_count": 710,
+        "bytes": 23592070
+      },
+      {
+        "path": "output/fish-database-nile-trial-20261102/part-diagnostic.png",
+        "file_count": 1,
+        "bytes": 97924
+      }
+    ],
+    "dense_station_arrays_written": false,
+    "remaining_trial_files": [
+      "comparison.png",
+      "head-comparison.png",
+      "body-comparison.png",
+      "report.html",
+      "validation-report.json",
+      "compare.py"
+    ],
+    "remaining_trial_bytes_excluding_report": 879574,
+    "production_files_changed": false,
+    "unrelated_cleanup_not_touched": true,
+    "remaining_trial_bytes": 919164
+  },
+  "outputs_sha256": {
+    "comparison.png": "55f0e9648bd6af13274b764fa1baf081a2b8168b8a1949e447fd9359b74534ec",
+    "head-comparison.png": "c42365ae0b1a85196f679f2f9d160386211390f9d6fe48cc0709ee8d94d10d3f",
+    "body-comparison.png": "023f259b3a9b914d6f60ff436897ea029c818c06351b91bba0c6d833b0235327",
+    "report.html": "1935ec9d320701bfacdb25c82d59efd94fa72b936f105e4a4ca04c7e6a80e4f3",
+    "compare.py": "cc06f46f0b6f94daf4da73fbc0d803abe4b70d834afcdc9395a3a39bfed33289"
+  }
+}

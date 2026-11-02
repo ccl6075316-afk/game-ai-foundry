@@ -45,17 +45,33 @@
     "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-niletilapia",
     "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
   },
-  "anatomical_correspondence": [],
-  "measurement_ids": [],
+  "anatomical_correspondence": [
+    {
+      "part": "outer body for static transverse comparison",
+      "selection": "NileTilapia_2 largest position-welded connected component, 1804 triangles",
+      "excluded": "submeshes 0/1 fins and two 108-triangle eye spheres",
+      "landmark_registration": "snout and posterior body endpoints are engineering proxies; internal anatomical stations unregistered"
+    }
+  ],
+  "measurement_ids": [
+    "niletilapia-game-model-body-width-bind-20261102"
+  ],
   "user_acceptance": {
     "accepted": false,
     "note": "来源资源已取得，预制体/几何/贴图技术读取通过；未进行逐鱼形态审核或用户验收"
   },
   "unknowns": [
     "Biological species identity and real-world proportion accuracy unverified",
-    "Mouth, fin and body anatomical correspondence not reviewed",
-    "Scene/bone transforms and animation playback not validated for measurements",
-    "No fin-excluded normalized body-width measurements established",
+    "Static bind-space body/fin/eye selection reviewed for this trial only; complete anatomical/fin-root acceptance not performed",
+    "Static normalized game-model body widths measured in linked measurement; biological width accuracy and runtime pose behavior remain unverified",
     "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
+  ],
+  "local_trials": [
+    {
+      "date": "2026-11-02",
+      "measurement_id": "niletilapia-game-model-body-width-bind-20261102",
+      "report": "../evidence/niletilapia-local-trial-20261102/validation-report.json",
+      "scope": "Read-only comparison with approved R11 Nile tilapia; static model reference only; no anatomy/user acceptance or runtime animation validation"
+    }
   ]
 }

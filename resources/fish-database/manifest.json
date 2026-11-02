@@ -1347,7 +1347,12 @@
   "asset_manifest": "assets-manifest.json",
   "validation_report": "validation-report.json",
   "handoff": "handoff.md",
-  "measurement_records": [],
+  "measurement_records": [
+    {
+      "id": "niletilapia-game-model-body-width-bind-20261102",
+      "path": "measurements/niletilapia-game-model-body-width-bind-20261102.json"
+    }
+  ],
   "progress": "progress.json",
   "collection": {
     "source_id": "fishing-master-cdn-cnformal1-20261102",
