@@ -236,6 +236,25 @@ def build_closed_oral_jaws(body,settings,aspect,weights,gap_profile=None,cut_pro
     if settings.get('slit_path') or settings.get('lip_roll'):bmesh.ops.triangulate(bm,faces=list(bm.faces))
     bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=1e-6)
     bmesh.ops.dissolve_degenerate(bm,edges=list(bm.edges),dist=1e-7)
+    # Boolean intersection can leave a zero-volume double-sided triangular flap.
+    # Remove only exact opposite faces on the SAME vertex identities, attached
+    # through one edge; never fill a hole or merge nearby anatomical surfaces.
+    bm.verts.index_update();bm.normal_update()
+    duplicate_groups={}
+    for face in bm.faces:
+        if len(face.verts)==3:
+            duplicate_groups.setdefault(tuple(sorted(v.index for v in face.verts)),[]).append(face)
+    lamina_faces=[]
+    for group in duplicate_groups.values():
+        if len(group)!=2 or group[0].normal.dot(group[1].normal)>-.999999:continue
+        outside=[e for e in group[0].edges if any(f not in group for f in e.link_faces)]
+        if len(outside)==1 and len(outside[0].link_faces)==4:lamina_faces.extend(group)
+    if lamina_faces:
+        bmesh.ops.delete(bm,geom=lamina_faces,context='FACES_ONLY')
+        loose=[e for e in bm.edges if not e.link_faces]
+        if loose:bmesh.ops.delete(bm,geom=loose,context='EDGES')
+        isolated=[v for v in bm.verts if not v.link_edges]
+        if isolated:bmesh.ops.delete(bm,geom=isolated,context='VERTS')
     if settings.get('slit_path') or settings.get('lip_roll'):
         for edge in bm.edges:
             if any(f.material_index in oral_indices for f in edge.link_faces) and any(f.material_index not in oral_indices for f in edge.link_faces):edge.smooth=False
@@ -255,5 +274,5 @@ def build_closed_oral_jaws(body,settings,aspect,weights,gap_profile=None,cut_pro
             'upper_retraction_native_units':settings['upper_retraction'],'lower_projection_native_units':settings['lower_projection'],
             'lip_bevel_native_units':settings['lip_bevel'],'moved_shell_vertices':moved,'oral_faces':oral_faces,'lip_border_edges_before_bevel':len(border),
             'slit_path':settings.get('slit_path'),'lip_roll':roll_metrics,'gap_profile':gap_profile,'cut_profile':cut_profile,'transverse_gap_arch':arch,'anterior_cap_rounding':cap_metrics,
-            'pre_cut':pre_cut,'boolean_solver':solver,
+            'pre_cut':pre_cut,'boolean_solver':solver,'removed_exact_opposite_lamina_faces':len(lamina_faces),
             'original_body_vertices':len(original),'final_body_vertices':len(body.data.vertices),'articulated_jaw':False}

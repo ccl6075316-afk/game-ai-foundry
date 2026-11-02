@@ -1,0 +1,102 @@
+{
+  "species": "atlantic_salmon",
+  "label": "澶цタ娲嬮矐",
+  "scientific_name": "Salmo salar",
+  "inputs": {
+    "model": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\width-detail-20261031\\fin-r15\\source-run\\fish.glb",
+      "sha256": "2c1f371740d9dac0c260741c04a2e9680163770447d7bdf97d1c73379234d902"
+    },
+    "blend": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\width-detail-20261031\\fin-r15\\source-run\\source\\fish.blend",
+      "sha256": "20301dd61152f9f44561f3aeeaaaccad8aeb26f379c68c1489ba13d39749e513"
+    },
+    "spec": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\width-detail-20261031\\fin-r15\\source-run\\final-spec.json",
+      "sha256": "7c90eb835ecc4f667c249cdb231909284c2e6619ffd8ae4915be4af7f446f2c2"
+    },
+    "baseline_audit": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\atlantic-salmon-portable-trial-20261031\\width-detail-20261031\\fin-r15\\width-final.validation.json",
+      "sha256": "c5455b377d75821031a8bea7c11d41cce87da06e65317245dc00311fdb1f5b9f"
+    },
+    "head_evidence": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-head-evidence-20261101\\atlantic-head-audit.validation.json",
+      "sha256": "07fb2dd25daac36d35269c65cef3d6cee554113383c57280ff2bb4e47c9676aa"
+    }
+  },
+  "coordinate": "glTF X longitudinal/Yheight fixed; Z transverse only. s from anterior over visible whole model TL.",
+  "scope": "Evidence-led local head/shoulder transverse repair. Continuous snout-to-eye widening; posterior s>=.37 unchanged. Preserve XY/topology/native RGB/UV/rig/actions and open jaw structure. Local trial, all affected final gates pending.",
+  "source_evidence": [
+    "https://apps-afsc.fisheries.noaa.gov/Publications/AFSC-TM/NOAA-TM-AFSC-96.pdf",
+    "https://www.hi.no/en/hi/temasider/species/salmon-atlantic"
+  ],
+  "evidence_grade": "D-authored head stations constrained by same-species NOAA HW/IOW measurements; scaled comparable-size scenarios are B, not population limits or precise target anatomy.",
+  "basis": "Original82specimens,28valid within+/-10% displayTL73.66cm: scaled median maxHW7.7458cm, bonyIOW5.7081cm. Existing whole-head eye-plane3.8615cm contradicts the reference span. Proposed whole eye section~6.1cm includes D-level allowance outside bonyIOW; head max~7.75cm and neck~7.8cm keep a smooth head/shoulder transition. No generated anatomy.",
+  "cutoff_s": 0.37,
+  "target_width_stations_cm": [
+    [
+      0.005,
+      2.25
+    ],
+    [
+      0.012,
+      2.95
+    ],
+    [
+      0.025,
+      3.75
+    ],
+    [
+      0.04,
+      4.55
+    ],
+    [
+      0.06,
+      5.4
+    ],
+    [
+      0.08,
+      6.15
+    ],
+    [
+      0.1,
+      6.7
+    ],
+    [
+      0.12,
+      7.1
+    ],
+    [
+      0.15,
+      7.5
+    ],
+    [
+      0.18,
+      7.72
+    ],
+    [
+      0.22,
+      7.8
+    ],
+    [
+      0.27,
+      7.78
+    ],
+    [
+      0.32,
+      7.55
+    ]
+  ],
+  "unmeasured": {
+    "exact_same_individual_lip_width_cm": null,
+    "exact_painted_orbit_bony_margin": null,
+    "sex": null,
+    "population": null,
+    "head_curve_between_measured_domains": "D inference from accepted side landmarks and real qualitative head photograph; no fitted frontal AI geometry"
+  },
+  "revision": 2,
+  "rejected_revision_1": "First2.5% locked at old width made snout look pinched/beak-like. No geometry extension or topology additions; use a coherent smooth gain through original snout and jaw.",
+  "head_evidence_status": "blocked_missing_reference_proportions",
+  "eligible_for_new_build": false,
+  "restriction": "Historical r2 proposal only. Direct reference-derived snout/eye/opercle/shoulder proportions required before replacement targets or builds."
+}

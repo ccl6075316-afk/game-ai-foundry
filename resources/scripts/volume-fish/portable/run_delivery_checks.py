@@ -49,7 +49,7 @@ def prepare(config_file,out):
     check_fin_inventory(config['body'],manifest,fin,profile)
     motion=read(resolve_ref(spec['motion']['profile']))
     assert abs(motion['real_length_cm']-profile['real_length_cm'])<1e-6,'Display length differs between geometry and motion'
-    budget=check_triangle_budget(manifest['triangles'],motion['real_length_cm'])
+    budget=check_triangle_budget(manifest['triangles'],motion['real_length_cm'],species=motion['species'],anatomical_group=profile.get('anatomical_group'))
     p={k:copy.deepcopy(fin[k])for k in ('species','model','model_sha256','motion_profile','motion_profile_sha256','motion_runtime','packed_parts_manifest','packed_parts_manifest_sha256','frozen_inputs')}
     scale=spec['viewer']['model_scale'];assert isinstance(scale,(int,float)) and scale>0
     packed,buffer=read_glb(model);primitive=packed['meshes'][0]['primitives'][0];positions=arrays(packed,buffer,primitive['attributes']['POSITION'])

@@ -1,5 +1,13 @@
 # Foundry / fishing-2d 维护记录与代码边界
 
+## 2026-11-02 未提交残留收尾
+
+用户要求剩余有价值内容提交并推送，其余清理。本轮发现提交/归档后的展开副本及被Git忽略的密集采样仍在本地。按精确路径、SHA和Git状态处理四个实验目录、imagegen输出、五鱼重复atlas和普通缓存：实际删除11334文件、3090989646字节；保留独有来源/方法/配置/模型与必要证据归档670769912字节，逻辑净减少2420219734字节。既有跟踪资产、原始来源、归档与当前游戏导入缓存保持原状。
+
+证据与恢复方法在游戏 `plans/reviews/local-cleanup-20261102/HANDOFF.md`、`validation-report.json`、逐文件计划及执行报告。新精确清理器 `clear_reviewed_archived_files.ps1` 默认预演，显式Apply；限制在本次六个明确目录、未跟踪文件，校验归档、逐文件大小/SHA、路径边界和reparse点后逐文件删除，只清空目录。它不扩大旧缓存清理器白名单。测试13项通过，既有Python改动通过语法检查；维护提交不构成新增鱼类外观/动作接受。
+
+最后删除本轮output临时报告副本的命令被自动审批检查在启动前拒绝，`blocked by policy`原因未知，未绕过重试。`output/local-cleanup-20261102`尚有12文件、8043637字节；交付保留此未完成项。
+
 2026-11-01：本轮按用户请求盘点两个独立Git仓库，保留所有既有未提交鱼类工作。详见游戏 `projects/fishing-2d/GODOT-ARCHITECTURE.md` 和 `plans/reviews/maintenance-20261101/production.handoff.json`。
 
 ## Foundry代码
