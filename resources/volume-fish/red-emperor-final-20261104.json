@@ -1,0 +1,39 @@
+{
+  "species": "red_emperor",
+  "scientific_name": null,
+  "real_length_cm": 60.0,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_emperor.glb",
+    "sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_emperor\\fish.blend",
+    "sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020"
+  },
+  "accepted_model_sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084",
+  "accepted_source_sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion/controller/animation only by default; preserve all static geometry, complete fins, UV/pixels, weights and skeleton/rest data unless user explicitly reopens.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "quote": "非常好，完美，把它们直接归类到跟罗飞鱼一样，就是彻底把它定下来。然后如果你还没有完成表B导出，呃GiaoB导出的话，把它们也导出来，替换游戏里的角色。它们其他一些跟这几条鱼有关的一些实验都可以去掉了，这个就可以作为成品了。然后把它提交上去就行了。",
+    "scope": "Whole current five-fish preview accepted as finished assets, authorized installation, cleanup, commit and push. Not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261103\\red_emperor.profile.json",
+    "sha256": "e830283309647435c4f45b3c24f4ba28697b25f02fd5be5c9767a6e9a084375f"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\red_emperor\\parameters.json",
+    "sha256": "7e06a5842868e25dcba5946e859dbae69bb76fe470068384151a5eb132ceee0f"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_emperor\\frozen-static.json",
+    "sha256": "e1214967a0525f393aa431e36c39f02c051cde52beab618b1bd7a7685fdc6757"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\red_emperor\\references\\red_emperor.validation.json",
+    "sha256": "dd17bf747f25741d69e006fea68f72387f3b9c499cd538990698a64482f50978"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+}

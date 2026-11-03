@@ -1,5 +1,7 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+2026-11-04：虹鳟、褐鳟、大西洋鲑、海鲈、红皇帝鱼已获整鱼成品接受，静态冻结、默认只改动作。索引为 [五鱼正式入口](../resources/volume-fish/final-five-fish-20261104.json)，游戏交接为 `projects/fishing-2d/plans/reviews/five-fish-release-20261104/HANDOFF.md`。当前源和正式GLB、逐鱼证据迁移表与清理字节均在该交接中；旧实验路径仅作历史来源，不再是运行入口。
+
 2026-11-02 梳理。本文负责导航、规则归属和每轮知识收尾；不保存第二套资产状态。模型是否可交付，仍读当前 manifest、progress、handoff、assets-manifest 和 validation report。
 
 2026-11-03 罗非鱼已由用户整鱼接受并装入正式入口。当前交接为游戏 `plans/reviews/nile-tilapia-release-20261103/HANDOFF.md`，参数为 `resources/volume-fish/nile-tilapia-final-20261103.json`；默认后续只改动作，静态形体/材质/蒙皮/骨架冻结。独立交互入口为 `resources/scripts/volume-fish/open_nile_final.py`。历史实验已精简，不能从旧轮次的“当前/待审”恢复制作。

@@ -1,0 +1,104 @@
+{
+  "status": "finished",
+  "user_acceptance_date": "2026-11-04",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion only by default, same finished-static category as accepted Nile tilapia R5. Explicit user reopening required for static changes.",
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md",
+  "fish": [
+    {
+      "species": "rainbow_trout",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\rainbow-trout-final-20261104.json",
+        "sha256": "fe0a53d180f6bd64a23e9ab06e5e704dedd973a6ecd5bcf651d59ce34e25854f"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\rainbow_trout.glb",
+        "sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\rainbow_trout\\fish.blend",
+        "sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\rainbow_trout\\frozen-static.json",
+        "sha256": "1b5338b092ae9a44ac0cb608937df45c175f6f0629d30cc447c3a94a8f33809d"
+      }
+    },
+    {
+      "species": "brown_trout",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\brown-trout-final-20261104.json",
+        "sha256": "056eb0c775bf55f7980ae97e98d3daa90f2fa8866d94af92f10f3c7641d5759d"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\brown_trout.glb",
+        "sha256": "4962904703412f912c0990d4899d1956442110a57a32c5c175d397d426895204"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\brown_trout\\fish.blend",
+        "sha256": "bd33fb605b638752e01ab46ef537967cfb4e75220fdd63426a7a6e3e079a8390"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\brown_trout\\frozen-static.json",
+        "sha256": "62314bfa25dddf57399ae298300bb197c25a4bf2456347c5a6ce00e5200ccd5a"
+      }
+    },
+    {
+      "species": "atlantic_salmon",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\atlantic-salmon-final-20261104.json",
+        "sha256": "f4f8e9e256e80da7183858bb462739073dc6dd65b4784dc5496e892230a75996"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\atlantic_salmon.glb",
+        "sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_salmon\\fish.blend",
+        "sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_salmon\\frozen-static.json",
+        "sha256": "7cda05f4622724211ac481836f756429f8cd8ed9bee807ff13f3dae6f4d66347"
+      }
+    },
+    {
+      "species": "sea_bass",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\sea-bass-final-20261104.json",
+        "sha256": "92e05ba2dd4443e74a367d6edc65003fc55a086df427856515640709ca50ebac"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\sea_bass.glb",
+        "sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\sea_bass\\fish.blend",
+        "sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\sea_bass\\frozen-static.json",
+        "sha256": "e5c7a70b2af42aeb8103f392172bcedf47719a35162a36bf1644b17260b4f375"
+      }
+    },
+    {
+      "species": "red_emperor",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\red-emperor-final-20261104.json",
+        "sha256": "6ad9e7cb770001c2cd5e1a278649e339371d5790ad81ffb74d8adeb17e6d37cc"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_emperor.glb",
+        "sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_emperor\\fish.blend",
+        "sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_emperor\\frozen-static.json",
+        "sha256": "e1214967a0525f393aa431e36c39f02c051cde52beab618b1bd7a7685fdc6757"
+      }
+    }
+  ]
+}

@@ -27,3 +27,16 @@ m.normals_split_custom_set(ns);m.update();after=(rig_action_snapshot(),float_uv_
 m['foundry_normal_geometry_sha256']=geometry_signature(ob);m['foundry_exact_normal_sha256']=normal_attribute_signature(ob);m['foundry_reference_form_plan_sha256']=sha(a.plan)
 bpy.context.preferences.filepaths.save_version=0;bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'));proof=export_packed_source(out/'fish.glb')
 result={'ok':True,'kind':'frozen_reference_form_source_authoring','plan_sha256':sha(a.plan),'blend_sha256':sha(out/'fish.blend'),'model_sha256':sha(out/'fish.glb'),'same_topology_UV_pixels_weights_rig_actions':True,'proof':proof,'formal_acceptance':False};(out/'source-authoring.validation.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'ok':True,'stage':plan['stage'],'triangles':proof['triangles'],'model':str(out/'fish.glb')}))
+xy=np.flatnonzero(np.any(old[:,:2]!=new[:,:2],axis=1))
+if len(xy):
+ receipt={'ok':True,'kind':'explicit_finite_fin_XY_delta','model_sha256':sha(out/'fish.glb'),'plan':{'path':str(a.plan.resolve()),'sha256':sha(a.plan)},'vertices':[{'vertex':int(i),'old_XY':old[i,:2].tolist(),'new_XY':new[i,:2].tolist()}for i in xy],'scope':'Enumerated source-owned subpixel fin correction; not XY-exact. Whole current source/physical/visual rechecks remain mandatory.','formal_acceptance':False};(out/'xy-authoring.validation.json').write_text(json.dumps(receipt,indent=2)+'\n')
+else:
+ for filename in ['xy-authoring.validation.json','xy-preservation.validation.json']:
+  parent=Path(plan['inputs']['model']['path']).parent/filename
+  if parent.exists():
+   inherited=json.loads(parent.read_text());assert inherited['model_sha256']==plan['inputs']['model']['sha256'];receipt={'ok':True,'kind':'inherited_enumerated_XY_delta_not_new_authoring','model_sha256':sha(out/'fish.glb'),'parent_XY_receipt':{'path':str(parent),'sha256':sha(parent)},'geometry_authoring':{'path':str(out/'source-authoring.validation.json'),'sha256':sha(out/'source-authoring.validation.json')},'vertices':inherited['vertices'],'scope':'This step leaves every XY row exact to its parent; previous explicitly enumerated source-owned XY correction preserved, no new acceptance.'};(out/'xy-preservation.validation.json').write_text(json.dumps(receipt,indent=2)+'\n');break
+for filename in ['skin-authoring.validation.json','skin-preservation.validation.json']:
+ parent=Path(plan['inputs']['model']['path']).parent/filename
+ if parent.exists():
+  inherited=json.loads(parent.read_text());assert inherited['model_sha256']==plan['inputs']['model']['sha256']
+  report={'ok':True,'kind':'inherited_enumerated_skin_delta_not_new_skin_fit','model_sha256':sha(out/'fish.glb'),'parent_skin_receipt':{'path':str(parent),'sha256':sha(parent)},'geometry_authoring':{'path':str(out/'source-authoring.validation.json'),'sha256':sha(out/'source-authoring.validation.json')},'changed_root_vertices':inherited['changed_root_vertices'],'scope':'Exact same weight guard in this geometry author preserves the previously enumerated root fit. No new fit or acceptance inferred.'};(out/'skin-preservation.validation.json').write_text(json.dumps(report,indent=2)+'\n');break

@@ -1,0 +1,39 @@
+{
+  "species": "sea_bass",
+  "scientific_name": null,
+  "real_length_cm": 60.0,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\sea_bass.glb",
+    "sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\sea_bass\\fish.blend",
+    "sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19"
+  },
+  "accepted_model_sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef",
+  "accepted_source_sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion/controller/animation only by default; preserve all static geometry, complete fins, UV/pixels, weights and skeleton/rest data unless user explicitly reopens.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "quote": "非常好，完美，把它们直接归类到跟罗飞鱼一样，就是彻底把它定下来。然后如果你还没有完成表B导出，呃GiaoB导出的话，把它们也导出来，替换游戏里的角色。它们其他一些跟这几条鱼有关的一些实验都可以去掉了，这个就可以作为成品了。然后把它提交上去就行了。",
+    "scope": "Whole current five-fish preview accepted as finished assets, authorized installation, cleanup, commit and push. Not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261103\\sea_bass.profile.json",
+    "sha256": "94b72466e94dbbe9fd0579cf7a4914a081a0bf7bc5182e9b01283af7d2e2c84f"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\sea_bass\\parameters.json",
+    "sha256": "6c3afa360ec6b12537b06a2b13369a96314913c17d78bd51742e206eb066c52a"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\sea_bass\\frozen-static.json",
+    "sha256": "e5c7a70b2af42aeb8103f392172bcedf47719a35162a36bf1644b17260b4f375"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\sea_bass\\references\\sea_bass.validation.json",
+    "sha256": "22591ac1767870fe0ce641510cfd2fb29ee8c46b9992896c82d60805ef940bf5"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+}

@@ -1,0 +1,39 @@
+{
+  "species": "atlantic_salmon",
+  "scientific_name": null,
+  "real_length_cm": 73.66,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\atlantic_salmon.glb",
+    "sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_salmon\\fish.blend",
+    "sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a"
+  },
+  "accepted_model_sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466",
+  "accepted_source_sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion/controller/animation only by default; preserve all static geometry, complete fins, UV/pixels, weights and skeleton/rest data unless user explicitly reopens.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "quote": "非常好，完美，把它们直接归类到跟罗飞鱼一样，就是彻底把它定下来。然后如果你还没有完成表B导出，呃GiaoB导出的话，把它们也导出来，替换游戏里的角色。它们其他一些跟这几条鱼有关的一些实验都可以去掉了，这个就可以作为成品了。然后把它提交上去就行了。",
+    "scope": "Whole current five-fish preview accepted as finished assets, authorized installation, cleanup, commit and push. Not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261103\\atlantic_salmon.profile.json",
+    "sha256": "fc5e5df9dd8b803f30736cf8ec1d0ca0fc7b4607a67f98f09c8fda11ee843162"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\atlantic_salmon\\parameters.json",
+    "sha256": "b5abe62dc8afdbd2622bc7ae6b8664a343ff1b615217e50af8e2461b5d93a70f"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\atlantic_salmon\\frozen-static.json",
+    "sha256": "7cda05f4622724211ac481836f756429f8cd8ed9bee807ff13f3dae6f4d66347"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\atlantic_salmon\\references\\atlantic_salmon.validation.json",
+    "sha256": "2de70a8072f87dc0572c2e7e694a4abcf0272c0908e442f6e487cf8938d43378"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+}

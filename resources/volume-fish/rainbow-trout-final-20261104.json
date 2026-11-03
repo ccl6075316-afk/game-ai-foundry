@@ -1,0 +1,39 @@
+{
+  "species": "rainbow_trout",
+  "scientific_name": null,
+  "real_length_cm": 60.0,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\rainbow_trout.glb",
+    "sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\rainbow_trout\\fish.blend",
+    "sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03"
+  },
+  "accepted_model_sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554",
+  "accepted_source_sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion/controller/animation only by default; preserve all static geometry, complete fins, UV/pixels, weights and skeleton/rest data unless user explicitly reopens.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "quote": "非常好，完美，把它们直接归类到跟罗飞鱼一样，就是彻底把它定下来。然后如果你还没有完成表B导出，呃GiaoB导出的话，把它们也导出来，替换游戏里的角色。它们其他一些跟这几条鱼有关的一些实验都可以去掉了，这个就可以作为成品了。然后把它提交上去就行了。",
+    "scope": "Whole current five-fish preview accepted as finished assets, authorized installation, cleanup, commit and push. Not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261103\\rainbow_trout.profile.json",
+    "sha256": "2845c22674bef5ef947f31fcf864d5ada299fe017d2775c8ed938248800ea62a"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\rainbow_trout\\parameters.json",
+    "sha256": "10e42e536a49ff685d39dc64f9679c080339e617902b7bb48f28edf306e0515d"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\rainbow_trout\\frozen-static.json",
+    "sha256": "1b5338b092ae9a44ac0cb608937df45c175f6f0629d30cc447c3a94a8f33809d"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\rainbow_trout\\references\\rainbow_trout.validation.json",
+    "sha256": "023714d98c1d3ec725138c99a49eeff33460159b9753c944fc36e8a652528339"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-release-20261104\\HANDOFF.md"
+}
