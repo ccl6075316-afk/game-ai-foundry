@@ -1,0 +1,1819 @@
+{
+  "schema_version": 1,
+  "species": "grass_carp",
+  "display_name": "草鱼",
+  "coordinate_space": "normalized_source_top_left",
+  "source_aspect_ratio": 2.8632478632478633,
+  "profile_review_status": "approved",
+  "real_length_cm": 76,
+  "style": {
+    "pixel_art": true,
+    "reference_image": "repo://projects/fishing-2d/game/assets/sprites/鱼_草鱼_角色/frame_0001.png",
+    "texture_filter": "nearest",
+    "roughness": 1.0
+  },
+  "body": {
+    "sections": [
+      [
+        0.143,
+        0.35,
+        0.635,
+        0.008
+      ],
+      [
+        0.19,
+        0.35,
+        0.63,
+        0.015
+      ],
+      [
+        0.2433333333333334,
+        0.3233333333333333,
+        0.6477777777777778,
+        0.023888888888888904
+      ],
+      [
+        0.247,
+        0.3215,
+        0.649,
+        0.0245
+      ],
+      [
+        0.25,
+        0.32,
+        0.65,
+        0.025
+      ],
+      [
+        0.29,
+        0.29714285714285715,
+        0.6728571428571428,
+        0.030714285714285715
+      ],
+      [
+        0.32,
+        0.28,
+        0.69,
+        0.041017057349384364
+      ],
+      [
+        0.33166666666666667,
+        0.27416666666666667,
+        0.6958333333333333,
+        0.04253034745368524
+      ],
+      [
+        0.356,
+        0.262,
+        0.708,
+        0.045626250604022964
+      ],
+      [
+        0.38,
+        0.25,
+        0.72,
+        0.04865682850538806
+      ],
+      [
+        0.39,
+        0.245,
+        0.725,
+        0.04999253101914629
+      ],
+      [
+        0.42000000000000004,
+        0.23214285714285712,
+        0.7357142857142858,
+        0.05415048653511433
+      ],
+      [
+        0.44,
+        0.2235714285714286,
+        0.7428571428571429,
+        0.05714403762103474
+      ],
+      [
+        0.46,
+        0.215,
+        0.75,
+        0.0603394421010506
+      ],
+      [
+        0.48,
+        0.2112857142857143,
+        0.7571428571428571,
+        0.0633848869717969
+      ],
+      [
+        0.5,
+        0.20757142857142857,
+        0.7642857142857142,
+        0.0662653402979919
+      ],
+      [
+        0.5083333333333333,
+        0.20602380952380955,
+        0.7672619047619048,
+        0.06733082342481576
+      ],
+      [
+        0.52,
+        0.20385714285714288,
+        0.7714285714285715,
+        0.06882587964702486
+      ],
+      [
+        0.53,
+        0.202,
+        0.775,
+        0.06996958789476972
+      ],
+      [
+        0.538,
+        0.20177142857142857,
+        0.7755714285714286,
+        0.07082581922488347
+      ],
+      [
+        0.565,
+        0.201,
+        0.7775,
+        0.073393960206048
+      ],
+      [
+        0.5966666666666667,
+        0.2000952380952381,
+        0.7797619047619048,
+        0.07567345827230768
+      ],
+      [
+        0.6,
+        0.2,
+        0.78,
+        0.0758758616980512
+      ],
+      [
+        0.67,
+        0.2,
+        0.776,
+        0.07843031976523264
+      ],
+      [
+        0.74,
+        0.207,
+        0.774,
+        0.07893885692548867
+      ],
+      [
+        0.8,
+        0.25,
+        0.746,
+        0.08050476351427524
+      ],
+      [
+        0.82,
+        0.2666666666666666,
+        0.734,
+        0.07449898259302383
+      ],
+      [
+        0.86,
+        0.2849002849002849,
+        0.7222222222222222,
+        0.06764288476847358
+      ],
+      [
+        0.88,
+        0.3034188034188034,
+        0.7065527065527065,
+        0.06319045227461588
+      ],
+      [
+        0.91,
+        0.33760683760683763,
+        0.6809116809116809,
+        0.05587470498142854
+      ],
+      [
+        0.94,
+        0.3732193732193732,
+        0.6495726495726496,
+        0.04539113140520311
+      ],
+      [
+        0.95,
+        0.38603988603988604,
+        0.6396011396011396,
+        0.04149898255184276
+      ],
+      [
+        0.954228855721393,
+        0.3945868945868946,
+        0.6353276353276354,
+        0.03928511932988028
+      ],
+      [
+        0.9601990049751243,
+        0.40028490028490027,
+        0.6296296296296297,
+        0.03659323005178288
+      ],
+      [
+        0.965,
+        0.40883190883190884,
+        0.6196581196581197,
+        0.03436717569515413
+      ],
+      [
+        0.9676616915422885,
+        0.4116809116809117,
+        0.6182336182336182,
+        0.033039568113910234
+      ],
+      [
+        0.975,
+        0.42450142450142453,
+        0.6068376068376068,
+        0.029589506673584176
+      ],
+      [
+        0.9815,
+        0.4358974358974359,
+        0.5911680911680912,
+        0.02555854028352452
+      ],
+      [
+        0.9825870646766169,
+        0.4358974358974359,
+        0.5883190883190883,
+        0.02475501825781476
+      ],
+      [
+        0.99,
+        0.4544159544159544,
+        0.5683760683760684,
+        0.01785083489191684
+      ],
+      [
+        0.9950248756218906,
+        0.46438746438746437,
+        0.5555555555555556,
+        0.007898365316275732
+      ],
+      [
+        0.996,
+        0.47435897435897434,
+        0.5541310541310541,
+        0.006714285714285714
+      ],
+      [
+        0.997,
+        0.4757834757834758,
+        0.5527065527065527,
+        0.0055
+      ]
+    ],
+    "rings": 43,
+    "radial": 12,
+    "ring_positions": [
+      0.143,
+      0.19,
+      0.2433333333333334,
+      0.247,
+      0.25,
+      0.29,
+      0.32,
+      0.33166666666666667,
+      0.356,
+      0.38,
+      0.39,
+      0.42000000000000004,
+      0.44,
+      0.46,
+      0.48,
+      0.5,
+      0.5083333333333333,
+      0.52,
+      0.53,
+      0.538,
+      0.565,
+      0.5966666666666667,
+      0.6,
+      0.67,
+      0.74,
+      0.8,
+      0.82,
+      0.86,
+      0.88,
+      0.91,
+      0.94,
+      0.95,
+      0.954228855721393,
+      0.9601990049751243,
+      0.965,
+      0.9676616915422885,
+      0.975,
+      0.9815,
+      0.9825870646766169,
+      0.99,
+      0.9950248756218906,
+      0.996,
+      0.997
+    ]
+  },
+  "rig": {
+    "spine": [
+      [
+        0.95,
+        0.511
+      ],
+      [
+        0.8616666666666666,
+        0.5051666666666667
+      ],
+      [
+        0.7733333333333333,
+        0.4946666666666667
+      ],
+      [
+        0.685,
+        0.4885357142857143
+      ],
+      [
+        0.5966666666666667,
+        0.48992857142857144
+      ],
+      [
+        0.5083333333333333,
+        0.48664285714285715
+      ],
+      [
+        0.42000000000000004,
+        0.48392857142857143
+      ],
+      [
+        0.33166666666666667,
+        0.485
+      ],
+      [
+        0.2433333333333334,
+        0.4855555555555555
+      ],
+      [
+        0.15500000000000003,
+        0.49186170212765956
+      ]
+    ]
+  },
+  "fins": [
+    {
+      "name": "Anal_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "closing_faces": [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ],
+      "source_baseline": [
+        [
+          496.46999999999997,
+          454.194
+        ],
+        [
+          582.9,
+          468.23400000000004
+        ],
+        [
+          715.56,
+          498.41999999999996
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Caudal_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "closing_faces": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83
+      ],
+      "source_baseline": [
+        [
+          287.42999999999995,
+          445.77
+        ],
+        [
+          287.42999999999995,
+          245.7
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Dorsal_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "closing_faces": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "source_baseline": [
+        [
+          763.8,
+          175.5
+        ],
+        [
+          884.4,
+          156.546
+        ],
+        [
+          1005.0,
+          145.314
+        ],
+        [
+          1081.38,
+          143.91
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Pectoral_left_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "closing_faces": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "source_baseline": [
+        [
+          1595.94,
+          436.644
+        ],
+        [
+          1595.94,
+          477.36
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Pectoral_right_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "closing_faces": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "source_baseline": [
+        [
+          1595.94,
+          436.644
+        ],
+        [
+          1595.94,
+          477.36
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Pelvic_left_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "closing_faces": [
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135
+      ],
+      "source_baseline": [
+        [
+          964.8,
+          535.626
+        ],
+        [
+          1045.2,
+          544.0500000000001
+        ],
+        [
+          1135.6499999999999,
+          544.0500000000001
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    },
+    {
+      "name": "Pelvic_right_mesh",
+      "paired": false,
+      "skin_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "closing_faces": [
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135
+      ],
+      "source_baseline": [
+        [
+          964.8,
+          535.626
+        ],
+        [
+          1045.2,
+          544.0500000000001
+        ],
+        [
+          1135.6499999999999,
+          544.0500000000001
+        ]
+      ],
+      "source_parameter": "Native original mask distance from full original baseline, normalized by complete fin extent; posterior-tail axial parameter. No contact-derived root subset.",
+      "original_root_inventory_reference": "Full frozen fin.plan explicit bank, independently unchanged; thickness zones do not redefine attachment domain."
+    }
+  ],
+  "eyes": null,
+  "barbels": [],
+  "animation": {
+    "fps": 24,
+    "period_seconds": 2.4,
+    "body_amplitudes": [
+      0,
+      0.002,
+      0.004,
+      0.008,
+      0.012,
+      0.02,
+      0.028,
+      0.038,
+      0.05,
+      0.06
+    ],
+    "phase_step": 0.53
+  },
+  "body_uv_patches": [],
+  "notes": [
+    "082 author-calibrated against actually inspected accepted native side source 0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb. Profile input approval only; no output acceptance.",
+    "Separate species contour, actual full fin baselines and mouth landmarks, not a morphed model template.",
+    "Hidden transverse widths are engineering priors; no comparable same-station biological measurements are claimed. Native texture dimensions and nearest retained.",
+    "Complete fin root collar inset0.45mm/native unit; later actual runtime uses physical units and frozen connection/membrane thresholds. All motion amplitudes are production settings, not measured biomechanics.",
+    "082e isolated input diagnostic: median inset zero to keep full solid membrane within frozen physical seam budget",
+    "082f: authored fin polygon follows the complete species-specific source baseline. Inset zero places the root mid-surface on the actual body; original solid half-thickness <=0.25mm fits the unchanged 0.5mm basal seam. Original nearest projection, source, texture, thickness, free clearance, rig and motion unchanged. No adaptive refinement or radial chart opt-in.",
+    "r3 grass own full fin-baseline/bone-break stations added to resolve sparse-body versus root skin interpolation, after full490 Anal and leftPelvic root gap failures. Same transverse/side envelope, thickness, source, root bands and physical limits. Body density and final physics remain to be verified.",
+    "Transverse outer envelope from independently inspected library body sections, excluding fins/eyes; fixed old own-body axis registration, project XY preserved. Third-party art, not biological measurement.",
+    "Transverse outer envelope from independently inspected library body sections, excluding fins/eyes; fixed old own-body axis registration, project XY preserved. Third-party art, not biological measurement."
+  ],
+  "oral_jaws": {
+    "corner": [
+      0.965,
+      0.568
+    ],
+    "front": [
+      0.996,
+      0.523
+    ],
+    "gap": 0.0035,
+    "upper_retraction": 0,
+    "lower_projection": 0,
+    "lip_bevel": 0,
+    "front_pigment_band": [
+      0.6,
+      0.82
+    ],
+    "slit_path": [
+      [
+        0.965,
+        0.568
+      ],
+      [
+        0.9815,
+        0.5455
+      ],
+      [
+        0.996,
+        0.523
+      ]
+    ],
+    "boolean_solver": "EXACT",
+    "transverse_gap_arch": {
+      "upper": 0.0011,
+      "lower": 0.0008
+    },
+    "anterior_cap_rounding": {
+      "depth": 0.0012,
+      "support": 0.005
+    }
+  },
+  "native_fin_cutouts": true,
+  "mouth_repair_source_envelope": {
+    "original_profile": "resources\\volume-fish\\grass_carp-reference-cage-r3-20261030.profile.json",
+    "original_profile_sha256": "393ac6c0f501d5e1d77ec1f144efa576f110988f31cbbcc9cff1e4d41a988c5c",
+    "source_sha256": "0ef26c7f7d51d9a33d9812bbbe27d05e27a954cdfb72da7f05d18bb01ebcfebb",
+    "transverse_widths_preserved": true,
+    "measurements": [
+      {
+        "u": 0.86,
+        "source_x": 1729,
+        "source_top_bottom_px": [
+          200,
+          507
+        ]
+      },
+      {
+        "u": 0.88,
+        "source_x": 1769,
+        "source_top_bottom_px": [
+          213,
+          496
+        ]
+      },
+      {
+        "u": 0.91,
+        "source_x": 1829,
+        "source_top_bottom_px": [
+          237,
+          478
+        ]
+      },
+      {
+        "u": 0.94,
+        "source_x": 1889,
+        "source_top_bottom_px": [
+          262,
+          456
+        ]
+      },
+      {
+        "u": 0.95,
+        "source_x": 1910,
+        "source_top_bottom_px": [
+          271,
+          449
+        ]
+      },
+      {
+        "u": 0.954228855721393,
+        "source_x": 1918,
+        "source_top_bottom_px": [
+          277,
+          446
+        ]
+      },
+      {
+        "u": 0.9601990049751243,
+        "source_x": 1930,
+        "source_top_bottom_px": [
+          281,
+          442
+        ]
+      },
+      {
+        "u": 0.965,
+        "source_x": 1940,
+        "source_top_bottom_px": [
+          287,
+          435
+        ]
+      },
+      {
+        "u": 0.9676616915422885,
+        "source_x": 1945,
+        "source_top_bottom_px": [
+          289,
+          434
+        ]
+      },
+      {
+        "u": 0.975,
+        "source_x": 1960,
+        "source_top_bottom_px": [
+          298,
+          426
+        ]
+      },
+      {
+        "u": 0.9815,
+        "source_x": 1973,
+        "source_top_bottom_px": [
+          306,
+          415
+        ]
+      },
+      {
+        "u": 0.9825870646766169,
+        "source_x": 1975,
+        "source_top_bottom_px": [
+          306,
+          413
+        ]
+      },
+      {
+        "u": 0.99,
+        "source_x": 1990,
+        "source_top_bottom_px": [
+          319,
+          399
+        ]
+      },
+      {
+        "u": 0.9950248756218906,
+        "source_x": 2000,
+        "source_top_bottom_px": [
+          326,
+          390
+        ]
+      },
+      {
+        "u": 0.996,
+        "source_x": 2002,
+        "source_top_bottom_px": [
+          333,
+          389
+        ]
+      },
+      {
+        "u": 0.997,
+        "source_x": 2004,
+        "source_top_bottom_px": [
+          334,
+          388
+        ]
+      }
+    ],
+    "removed_exact_collinear_posterior_rings": [],
+    "removal_tolerance": 1e-12,
+    "rig_weight_breaks_retained": true,
+    "scope": "Own entire anterior head alpha fromu.86, avoiding a mismatched late correction notch. Original lateral widths and original eye UV placement retained; unchanged source7fins. Exactly redundant posterior rings only removed.",
+    "reverted_ring_optimization": {
+      "restored_positions": [
+        0.247,
+        0.29,
+        0.356,
+        0.38,
+        0.44,
+        0.48,
+        0.5,
+        0.52,
+        0.538,
+        0.565
+      ],
+      "reason": "Static linear geometry plus linear weights is not equality after interpolated skinning. Current final R3 actual490 shows Anal/Pelvic root gaps and pelvic penetration. Keep original dynamic support tessellation.",
+      "failed_report": "projects\\fishing-2d\\experiments\\grass-carp-portable-trial-20261030\\mouth-repair-20261031\\delivery-r3\\fin490\\completion.validation.json"
+    }
+  },
+  "source_station_snaps": [
+    {
+      "original_x_px": 1960,
+      "snapped_x_px": 1959.75,
+      "delta_px": -0.25,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    },
+    {
+      "original_x_px": 1990,
+      "snapped_x_px": 1989.9,
+      "delta_px": -0.09999999999990905,
+      "reason": "Share actual body-envelope station with cutter; avoid nearly coincident exact-Boolean planes. Within0.5originalsourcepixel; no tolerance relaxation."
+    }
+  ],
+  "original_five_fin_anatomy": [
+    {
+      "name": "Dorsal",
+      "polygon": [
+        [
+          0.38,
+          0.25
+        ],
+        [
+          0.38,
+          0.19
+        ],
+        [
+          0.411,
+          0.006
+        ],
+        [
+          0.433,
+          0.023
+        ],
+        [
+          0.48,
+          0.081
+        ],
+        [
+          0.514,
+          0.16
+        ],
+        [
+          0.538,
+          0.205
+        ],
+        [
+          0.5,
+          0.207
+        ],
+        [
+          0.44,
+          0.223
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.38,
+          0.25
+        ],
+        [
+          0.44,
+          0.223
+        ],
+        [
+          0.5,
+          0.207
+        ],
+        [
+          0.538,
+          0.205
+        ]
+      ],
+      "anchor": [
+        0.4645,
+        0.22125
+      ],
+      "tip": [
+        0.411,
+        0.006
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Anal",
+      "polygon": [
+        [
+          0.247,
+          0.647
+        ],
+        [
+          0.29,
+          0.667
+        ],
+        [
+          0.356,
+          0.71
+        ],
+        [
+          0.34,
+          0.765
+        ],
+        [
+          0.294,
+          0.855
+        ],
+        [
+          0.266,
+          0.91
+        ],
+        [
+          0.256,
+          0.9
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.247,
+          0.647
+        ],
+        [
+          0.29,
+          0.667
+        ],
+        [
+          0.356,
+          0.71
+        ]
+      ],
+      "anchor": [
+        0.2976666666666667,
+        0.6746666666666666
+      ],
+      "tip": [
+        0.266,
+        0.91
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.018,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Caudal",
+      "polygon": [
+        [
+          0.143,
+          0.35
+        ],
+        [
+          0.106,
+          0.3
+        ],
+        [
+          0.015,
+          0.173
+        ],
+        [
+          0.005,
+          0.177
+        ],
+        [
+          0.025,
+          0.32
+        ],
+        [
+          0.058,
+          0.465
+        ],
+        [
+          0.064,
+          0.495
+        ],
+        [
+          0.022,
+          0.68
+        ],
+        [
+          0.002,
+          0.85
+        ],
+        [
+          0.02,
+          0.85
+        ],
+        [
+          0.09,
+          0.74
+        ],
+        [
+          0.143,
+          0.635
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.143,
+          0.635
+        ],
+        [
+          0.143,
+          0.35
+        ]
+      ],
+      "anchor": [
+        0.143,
+        0.4925
+      ],
+      "tip": [
+        0.002,
+        0.85
+      ],
+      "paired": false,
+      "root_depth": 0,
+      "tip_depth": 0,
+      "thickness": 0.00055,
+      "amplitude": 0.045,
+      "phase": 0.8,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "surface_region": "posterior",
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pectoral",
+      "polygon": [
+        [
+          0.794,
+          0.622
+        ],
+        [
+          0.738,
+          0.633
+        ],
+        [
+          0.674,
+          0.65
+        ],
+        [
+          0.69,
+          0.7
+        ],
+        [
+          0.735,
+          0.78
+        ],
+        [
+          0.773,
+          0.745
+        ],
+        [
+          0.794,
+          0.68
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.794,
+          0.622
+        ],
+        [
+          0.794,
+          0.68
+        ]
+      ],
+      "anchor": [
+        0.794,
+        0.651
+      ],
+      "tip": [
+        0.674,
+        0.65
+      ],
+      "paired": true,
+      "root_depth": 0.04,
+      "tip_depth": 0.078,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Pelvic",
+      "polygon": [
+        [
+          0.48,
+          0.763
+        ],
+        [
+          0.52,
+          0.775
+        ],
+        [
+          0.565,
+          0.775
+        ],
+        [
+          0.54,
+          0.85
+        ],
+        [
+          0.491,
+          0.984
+        ],
+        [
+          0.477,
+          0.996
+        ],
+        [
+          0.471,
+          0.924
+        ],
+        [
+          0.473,
+          0.82
+        ]
+      ],
+      "source_baseline": [
+        [
+          0.48,
+          0.763
+        ],
+        [
+          0.52,
+          0.775
+        ],
+        [
+          0.565,
+          0.775
+        ]
+      ],
+      "anchor": [
+        0.5216666666666666,
+        0.771
+      ],
+      "tip": [
+        0.477,
+        0.996
+      ],
+      "paired": true,
+      "root_depth": 0.033,
+      "tip_depth": 0.068,
+      "thickness": 0.00055,
+      "amplitude": 0.035,
+      "phase": 1.3,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "root_attachment": {
+        "mode": "body_surface",
+        "root_band": 0.065,
+        "blend_end": 0.28,
+        "inset": 0,
+        "surface_clearance": 0.002,
+        "baseline_spacing": 0.02
+      },
+      "interior_grid": [
+        2,
+        1
+      ]
+    }
+  ],
+  "tail_root_height_domain": [
+    -0.04714930057525635,
+    0.05238810181617737
+  ],
+  "rejected_fin_model_sha256": "a91399fa3e92a366f9122f33bc52f6cedf895616c478f38147ded664af5a226e"
+}

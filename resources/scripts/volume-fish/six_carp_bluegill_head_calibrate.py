@@ -1,0 +1,13 @@
+"""Calibrate one finite carp head plane to its pre-existing independent library target."""
+import sys,json,hashlib
+from pathlib import Path
+import numpy as np
+from scipy.interpolate import PchipInterpolator
+from scipy.optimize import brentq
+HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2];sys.path[:0]=[str(HERE),str(HERE/'portable')]
+from glb_io import read_glb,arrays
+from audit_transverse_width import section
+base=ROOT/'projects/fishing-2d/experiments/six-fish-database-20261104/carp';old=base/'width-r2';out=base/'width-r3';out.mkdir(exist_ok=True);d,b=read_glb(old/'fish.glb');p=d['meshes'][0]['primitives'][0];v=arrays(d,b,p['attributes']['POSITION']);norm=arrays(d,b,p['attributes']['NORMAL']);idx=arrays(d,b,p['indices']).reshape(-1);body=np.concatenate([idx[q['index_start']:q['index_start']+q['index_count']]for q in d['extras']['geometry_parts']if q['role']in ['body_skin','mouth']]);receipt=base/'delivery-r2/head.validation.json';r=json.loads(receipt.read_text());failed=[x for x in r['species'][0]['sections']if not x['ok']];assert len(failed)==1;row=failed[0];plane=row['source_u']-.5;target=row['target_half_width'];xs=[.47,plane,.495]
+def error(g):
+ f=PchipInterpolator(xs,[1,g,1],extrapolate=False);gain=np.where((v[:,0]>=xs[0])&(v[:,0]<=xs[-1]),f(np.clip(v[:,0],xs[0],xs[-1])),1);new=v.copy();new[:,2]*=gain;return np.ptp(section(new,body,plane)[:,2])/2-target
+solved=brentq(error,1,1.6,xtol=1e-10);f=PchipInterpolator(xs,[1,solved,1]);gain=np.where((v[:,0]>=xs[0])&(v[:,0]<=xs[-1]),f(np.clip(v[:,0],xs[0],xs[-1])),1);derivative=np.where((v[:,0]>=xs[0])&(v[:,0]<=xs[-1]),f.derivative()(np.clip(v[:,0],xs[0],xs[-1])),0);new=v.copy();new[:,2]*=gain;n=norm.astype(float).copy();n[:,0]-=v[:,2]*derivative/gain*norm[:,2];n[:,2]/=gain;n/=np.linalg.norm(n,axis=1)[:,None];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();plan={'kind':'single_fish_transverse_width_trial','stage':'independent_finite_anterior_calibration_r3','species':'carp','inputs':{k:{'path':str(p),'sha256':sha(p)}for k,p in [('model',old/'fish.glb'),('blend',old/'fish.blend'),('independent_target_failure',receipt)]},'scope':'Only local anterior transverse field calibrated to frozen library head target; original target and tolerance unchanged. XY/UV/material/topology/skin/rig/clips guarded unchanged from corrected-mouth r2.','finite_calibration':{'source_u':row['source_u'],'target_half_width':target,'native_X_field':xs,'peak_gain':solved,'error_after':float(error(solved))},'old_positions_gltf':v.tolist(),'new_positions_gltf':new.tolist(),'new_normals_gltf':n.astype('float32').tolist(),'formal_acceptance':False};(out/'deformation.plan.json').write_text(json.dumps(plan,indent=2)+'\n',encoding='utf8');print(plan['finite_calibration'])

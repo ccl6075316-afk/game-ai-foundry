@@ -1,0 +1,53 @@
+{
+  "species": "grass_carp",
+  "real_length_cm": 76,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\grass_carp.glb",
+    "sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\grass_carp\\fish.blend",
+    "sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264"
+  },
+  "accepted_model_sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970",
+  "accepted_source_sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion only by default; all static geometry/complete fins/UV/material/skin/skeleton rest data frozen unless explicitly reopened by user.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "scope": "User explicitly accepted all current six fish as finished assets, authorized installation, retirement of related experiments, commit and push. No biological measurement claim.",
+    "authorization": "Explicit user authorization communicated by root for this release; exact user wording maintained in root batch handoff."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261104\\grass_carp.profile.json",
+    "sha256": "f1450a4051b94936d7151c22aeaaa89e988bc24fe92cc864ce06813398f85187"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\parameters.json",
+    "sha256": "a1a004b60e67f63047c4d9592c6ab00e25e1ce8cd79280b6f597737b029e05c2"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\grass_carp\\frozen-static.json",
+    "sha256": "381c336e3b79ce812268b3b8698431402cb2687cd3b9ed3aa45378c318bc9942"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\history\\database-preflight.validation.json",
+    "sha256": "c9432049d7242e6c3164079a41eb93a6669f8fda70b9034edc2537258d7a4058"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\HANDOFF.md",
+  "status": "finished",
+  "installed": true,
+  "formal_acceptance": true,
+  "canonical_entry": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\canonical-load.validation.json",
+    "sha256": "35056c7d0662cd693355edabfd70258ebb2e09ab23f7de5217232a288c9d44a2"
+  },
+  "current_pixels": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\canonical-pixels.validation.json",
+    "sha256": "d86109cf72b8717c88c0bb6cf6b007ea1f2fd1595a578d53c027c3790f01d09a"
+  },
+  "source_cold_export": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\grass_carp\\source-cold-export.validation.json",
+    "sha256": "e8708e94669591c91e11012fd4877a8b8e92cdcdac72575b9e5fee6f354883e7"
+  }
+}

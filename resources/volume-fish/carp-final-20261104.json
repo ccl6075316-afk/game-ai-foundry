@@ -1,0 +1,49 @@
+{
+  "species": "carp",
+  "real_length_cm": 31,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\carp.glb",
+    "sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\carp\\fish.blend",
+    "sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9"
+  },
+  "accepted_model_sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3",
+  "accepted_source_sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Default motion/controller/animation only; explicit user reopening needed for static geometry, complete fins, UV/material, skin and skeleton/rest changes.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "instruction_summary": "User explicitly accepts all six current database revisions as finished fish, authorizes canonical installation, retirement of old experiments and commit+push.",
+    "scope": "Whole current appearance; third-party game art remains artistic reference, not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261104\\carp.profile.json",
+    "sha256": "b9d0f5efcf4b8dd61203d09e60ded573a7b921d4589c5ed4c0d55e637ede366c"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\carp\\parameters.json",
+    "sha256": "a73ca556a42ef9b4c28e65945b8e5a794e7413329923464d5bd4b64094c236e4"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\carp\\frozen-static.json",
+    "sha256": "68e6bb370ea2d9fe47a1232f2a0c9a929a17f511710b42043fbaaaaac9845b45"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\carp\\HANDOFF.md",
+  "status": "finished",
+  "installed": true,
+  "formal_acceptance": true,
+  "canonical_entry": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\carp\\canonical-load.validation.json",
+    "sha256": "4e6aa41cebecbe7aff15b76a96454db65ee346e94df265389c62c3bb84def41f"
+  },
+  "current_pixels": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\carp\\canonical-pixels.validation.json",
+    "sha256": "fe242dddb9a5a6edb119766a0b613a4c9f5da7f48c44fa716ae063d17e2bb2f8"
+  },
+  "source_cold_export": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\carp\\source-cold-export.validation.json",
+    "sha256": "82207b7160578e7f469bf6ca6e9815d6c2597997a9d1f282de702332981a945c"
+  }
+}

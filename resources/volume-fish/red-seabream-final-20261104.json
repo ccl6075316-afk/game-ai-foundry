@@ -1,0 +1,37 @@
+{
+  "species": "red_seabream",
+  "real_length_cm": 30.0,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_seabream.glb",
+    "sha256": "0727db84762ac66a9be123df93c6b0cab1c06764ed673dbd983e9c4141028440"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_seabream\\fish.blend",
+    "sha256": "03e59f212f27e1fad3adaedc10efb5f9b36ba82388909948298c7cdc729b14a7"
+  },
+  "accepted_model_sha256": "0727db84762ac66a9be123df93c6b0cab1c06764ed673dbd983e9c4141028440",
+  "accepted_source_sha256": "03e59f212f27e1fad3adaedc10efb5f9b36ba82388909948298c7cdc729b14a7",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion only by default; explicit user reopening required for geometry/complete fins/UV/material/skin/skeleton changes.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "scope": "Explicit user six-fish finished release authorization after floating-fin-frame correction; installation/cleanup/commit+push authorized. No biological measurement claim."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261104\\red_seabream.profile.json",
+    "sha256": "d0524803c0dae514d42c9b110053781b2e34c2612ebace50c45cd823169c3d34"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\red_seabream\\production-data.json",
+    "sha256": "19c53c7831b69124c5e6b1a08003f544c4629b977bbd15e3b0f93a574e4cf334"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_seabream\\frozen-static.json",
+    "sha256": "4a9404b2a47d40a9bedb826bc9fece5c431000d49b6bc2c2a00feaf7f32bebe6"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\red_seabream\\library-decision.validation.json",
+    "sha256": "986935d6e1bdff101f4332982c1ff6f72e5dd25daa73c271ff2f0d931ad09345"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\red_seabream\\HANDOFF.md"
+}

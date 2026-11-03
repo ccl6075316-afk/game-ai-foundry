@@ -1,0 +1,129 @@
+{
+  "status": "finished",
+  "user_acceptance_date": "2026-11-04",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion only by default, same finished-static category as accepted Nile tilapia R5. Explicit user reopening required for static changes.",
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\HANDOFF.md",
+  "fish": [
+    {
+      "species": "red_seabream",
+      "name": "真鲷",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\red-seabream-final-20261104.json",
+        "sha256": "7f0a06003dd04eb1b69df2777101eee2e123e9edef18481d8634791991546cd8"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_seabream.glb",
+        "sha256": "0727db84762ac66a9be123df93c6b0cab1c06764ed673dbd983e9c4141028440"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_seabream\\fish.blend",
+        "sha256": "03e59f212f27e1fad3adaedc10efb5f9b36ba82388909948298c7cdc729b14a7"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\red_seabream\\frozen-static.json",
+        "sha256": "4a9404b2a47d40a9bedb826bc9fece5c431000d49b6bc2c2a00feaf7f32bebe6"
+      }
+    },
+    {
+      "species": "black_seabream",
+      "name": "黑鲷",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\black-seabream-final-20261104.json",
+        "sha256": "46d1e5b9c79244f57076ce8db8b1e0e0de4c5131c3c0d2c925724d1d4ab0d9f6"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\black_seabream.glb",
+        "sha256": "c20abaa9bf06dc2027e7a628d55649c07ebd154e458fe93d6b5d5819605823d9"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\black_seabream\\fish.blend",
+        "sha256": "6c64c01b6c2f58b8c8fd8ffd61e49d494b1a9c8fe438a656f0ef7a73d0fc14dc"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\black_seabream\\frozen-static.json",
+        "sha256": "ddb56286b135661cd2bd3ec97661d3ffc16aa8994a8b7ccff4c4b35c1a654f0f"
+      }
+    },
+    {
+      "species": "crucian",
+      "name": "鲫鱼",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\crucian-final-20261104.json",
+        "sha256": "a9452a8f88cb5ba51788268b0b108260a21fbf3d0a6edf12476ba4c32c6ba771"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\crucian.glb",
+        "sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\crucian\\fish.blend",
+        "sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\crucian\\frozen-static.json",
+        "sha256": "ecba3ba911e7490a28860ff7afa0bac98c40a1b41d5ef09f544ded73d64707ae"
+      }
+    },
+    {
+      "species": "grass_carp",
+      "name": "草鱼",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\grass-carp-final-20261104.json",
+        "sha256": "66052f391e778d260e6fbe68951cb1c6c41e6fd72740cca248201b40cb1e981c"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\grass_carp.glb",
+        "sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\grass_carp\\fish.blend",
+        "sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\grass_carp\\frozen-static.json",
+        "sha256": "381c336e3b79ce812268b3b8698431402cb2687cd3b9ed3aa45378c318bc9942"
+      }
+    },
+    {
+      "species": "carp",
+      "name": "鲤鱼",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\carp-final-20261104.json",
+        "sha256": "3c594ba9df19e4dec9b20f211491f6ea8ba2063d9232daf230d6c3a37aa568d6"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\carp.glb",
+        "sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\carp\\fish.blend",
+        "sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\carp\\frozen-static.json",
+        "sha256": "68e6bb370ea2d9fe47a1232f2a0c9a929a17f511710b42043fbaaaaac9845b45"
+      }
+    },
+    {
+      "species": "bluegill",
+      "name": "蓝鳃太阳鱼",
+      "metadata": {
+        "path": "E:\\game-ai-foundry\\resources\\volume-fish\\bluegill-final-20261104.json",
+        "sha256": "861c69730b1992d5426b029d9f00c1600d61b29242ded4498c0dc61d823b0875"
+      },
+      "model": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\bluegill.glb",
+        "sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396"
+      },
+      "source": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\bluegill\\fish.blend",
+        "sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c"
+      },
+      "static_freeze": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\bluegill\\frozen-static.json",
+        "sha256": "c500ba3e4e717225c4926bf56b279fabbdce3a6aad8141f20bd578e5ca480922"
+      }
+    }
+  ]
+}

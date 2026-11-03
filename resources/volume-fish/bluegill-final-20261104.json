@@ -1,0 +1,49 @@
+{
+  "species": "bluegill",
+  "real_length_cm": 19.1,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\bluegill.glb",
+    "sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\bluegill\\fish.blend",
+    "sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c"
+  },
+  "accepted_model_sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+  "accepted_source_sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Default motion/controller/animation only; explicit user reopening needed for static geometry, complete fins, UV/material, skin and skeleton/rest changes.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "instruction_summary": "User explicitly accepts all six current database revisions as finished fish, authorizes canonical installation, retirement of old experiments and commit+push.",
+    "scope": "Whole current appearance; third-party game art remains artistic reference, not biological measurement."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261104\\bluegill.profile.json",
+    "sha256": "8f0c30562ea8b53f07599bc719b37cf939dd098c03fdec5b15dbed57d44641e0"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\bluegill\\parameters.json",
+    "sha256": "5c4d6a9ec5cc0f75cc724492bc9285404d413dedff7ccb246a0fdd8643407f53"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\bluegill\\frozen-static.json",
+    "sha256": "c500ba3e4e717225c4926bf56b279fabbdce3a6aad8141f20bd578e5ca480922"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\bluegill\\HANDOFF.md",
+  "status": "finished",
+  "installed": true,
+  "formal_acceptance": true,
+  "canonical_entry": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\bluegill\\canonical-load.validation.json",
+    "sha256": "9dad8e0303cb1401d734e6675ed0dee0bd33395adc6870232941917e40b39112"
+  },
+  "current_pixels": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\bluegill\\canonical-pixels.validation.json",
+    "sha256": "d4a73fdd5a5d1d550ded281d71e4f9e5b483fcd773bae31d41c6991d9be922d8"
+  },
+  "source_cold_export": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\bluegill\\source-cold-export.validation.json",
+    "sha256": "cf742b4169cc99bb5f755b044c62d23b969c5c62de43af1155643547d8092d19"
+  }
+}

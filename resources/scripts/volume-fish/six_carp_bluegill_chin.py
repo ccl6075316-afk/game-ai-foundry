@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path(__file__).with_name('six_cyprinid_grass_chin.py');s=p.read_text(encoding='utf8').replace("s='grass_carp'","s='bluegill'").replace("root/'width-r2/fish.glb'","root/'width-r5/fish.glb'").replace("root/'native-lips-r3/material.validation.json'","root/'native-lips-r1/material.validation.json'").replace("(points[:,0]-.24)/.06","(points[:,0]-.20)/.08").replace("(.72-side)/.32","(.80-side)/.40").replace("(point[0]-.24)*2010","(point[0]-.20)*1477").replace("point[2]*2010","point[2]*1477").replace("[.24,.30]","[.20,.28]").replace("[.40,.72]","[.40,.80]")
+exec(compile(s,str(Path(__file__).resolve()),'exec'))

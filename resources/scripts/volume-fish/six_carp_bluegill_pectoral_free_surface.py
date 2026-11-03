@@ -1,0 +1,11 @@
+import json,hashlib,sys
+from pathlib import Path
+import numpy as np
+HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2];sys.path.insert(0,str(HERE/'portable'))
+from glb_io import read_glb,arrays
+base=ROOT/'projects/fishing-2d/experiments/six-fish-database-20261104/bluegill';old=base/'width-r4';out=base/'width-r5';out.mkdir();d,b=read_glb(old/'fish.glb');p=d['meshes'][0]['primitives'][0];v=arrays(d,b,p['attributes']['POSITION']);n=arrays(d,b,p['attributes']['NORMAL']);new=v.copy();pl=json.loads((base/'gates-r4/fin.plan.json').read_text())['items'][0];scale=pl['scale_cm']/100;rows=[]
+for part in d['extras']['geometry_parts']:
+ name=part.get('logical_name')
+ if name not in ['Pectoral_left_mesh','Pectoral_right_mesh']:continue
+ ids=np.arange(part['vertex_start'],part['vertex_start']+part['vertex_count']); roots=np.array(pl['fins'][name]['ids']);dist=np.min(np.linalg.norm(v[ids,None,:]-v[ids[roots]][None,:,:],axis=2),axis=1); free=ids[dist>1e-7];sign=np.sign(v[ids,2].mean());new[free,2]+=sign*.0011/scale;rows.append({'part':name,'full_frozen_root_vertices':roots.tolist(),'protected_geometric_duplicate_vertices':np.flatnonzero(dist<1e-7).tolist(),'free_vertices':(free-part['vertex_start']).tolist(),'free_surface_restoration_outward_mm':1.1})
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();inputs={'model':old/'fish.glb','blend':old/'fish.blend','failed_membranes':base/'delivery-r4/fin490/bluegill/membranes.validation.json','passed_roots':base/'delivery-r4/fin490/bluegill/roots.validation.json'};plan={'kind':'single_fish_transverse_width_trial','stage':'full_root_preserving_pectoral_free_surface_restore_r5','species':'bluegill','inputs':{k:{'path':str(p),'sha256':sha(p)}for k,p in inputs.items()},'scope':'Previous whole-fin1.1mm inward contact fit caused free-face penetration. Keep every original root vertex plus exact geometric duplicates fixed; restore free vertices outward1.1mm to pre-contact silhouette, yielding a finite basal rotation. Same topology, UV, pixels, root domain and tolerances; full current490 required.','parts':rows,'old_positions_gltf':v.tolist(),'new_positions_gltf':new.tolist(),'new_normals_gltf':n.tolist(),'formal_acceptance':False};(out/'deformation.plan.json').write_text(json.dumps(plan,indent=2)+'\n',encoding='utf8')

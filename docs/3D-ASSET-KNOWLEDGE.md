@@ -83,3 +83,7 @@
 ## 本轮验证记录
 
 [知识梳理 validation report](validation/2026-11-02-3d-asset-knowledge.json)记录技能格式、维护入口链接、参考覆盖、本机同步和改动范围；不充当鱼、草或布景的模型验收报告。
+
+## 2026-11-04 六鱼成品入口
+
+真鲷、黑鲷、鲫鱼、草鱼、鲤鱼、蓝鳃太阳鱼均已安装、获用户整鱼接受并冻结。当前 [六鱼索引](../resources/volume-fish/final-six-fish-20261104.json) 与 [游戏收尾卡](../projects/fishing-2d/plans/reviews/six-fish-release-20261104/HANDOFF.md) 包含逐鱼参数、实际当前验证和精确清理收据；旧六鱼资料库实验路径已退役。默认后续只改动作，静态重新开启须有用户明确要求。

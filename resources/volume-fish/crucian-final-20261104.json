@@ -1,0 +1,53 @@
+{
+  "species": "crucian",
+  "real_length_cm": 20,
+  "accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\crucian.glb",
+    "sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b"
+  },
+  "accepted_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\crucian\\fish.blend",
+    "sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60"
+  },
+  "accepted_model_sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b",
+  "accepted_source_sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60",
+  "appearance_and_rig_frozen": true,
+  "future_scope": "Motion only by default; all static geometry/complete fins/UV/material/skin/skeleton rest data frozen unless explicitly reopened by user.",
+  "user_acceptance": {
+    "date": "2026-11-04",
+    "scope": "User explicitly accepted all current six fish as finished assets, authorized installation, retirement of related experiments, commit and push. No biological measurement claim.",
+    "authorization": "Explicit user authorization communicated by root for this release; exact user wording maintained in root batch handoff."
+  },
+  "shape_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\database-revision-20261104\\crucian.profile.json",
+    "sha256": "1f2114dec1c726f46bae585b1da25ef08f11bc748b81dc86ee4ffef1e67cf6d0"
+  },
+  "parameters": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\parameters.json",
+    "sha256": "65c654513a75ed579d5ab4a51a3cb15ad7259055d906400aab8c9324b462a9f1"
+  },
+  "static_freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\assets\\source\\fish\\crucian\\frozen-static.json",
+    "sha256": "ecba3ba911e7490a28860ff7afa0bac98c40a1b41d5ef09f544ded73d64707ae"
+  },
+  "reference": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\history\\database-preflight.validation.json",
+    "sha256": "84401e89fd62d2192348355cc5ca1f5a598c1221dd9ee0f58b25567acf536713"
+  },
+  "release_handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\HANDOFF.md",
+  "status": "finished",
+  "installed": true,
+  "formal_acceptance": true,
+  "canonical_entry": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\canonical-load.validation.json",
+    "sha256": "02ae55294eadfdae66510a373aaa3df612e4a7c7b9e8af1bc67f3e0cabfc1b94"
+  },
+  "current_pixels": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\canonical-pixels.validation.json",
+    "sha256": "1d33854e12831b06b2d68e17db684ffee931efc50b6c3591f86d46d08645134a"
+  },
+  "source_cold_export": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\crucian\\source-cold-export.validation.json",
+    "sha256": "4d261e598522a381422809a27b23b92715951e313e850e2a15789017adbc23b9"
+  }
+}
