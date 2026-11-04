@@ -1,0 +1,5678 @@
+{
+  "kind": "explicit_landmark_finite_foil_sections",
+  "reference_sha256": "f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8",
+  "model_sha256": "45d643edde11c92b5469b342ef520715b3ef628753534d80ef6babcb08ecbbb2",
+  "config_sha256": "877bc47fabbde0d9f4d9a1dbcd082a597f388a85946d7c2ff562f98e275784bf",
+  "checker_sha256": "4dd83b5bbcfa943c2db2dfa3949f9d8f4099c0895f34bbb45373c481cdaffa6a",
+  "length_normalization": "Whole longitudinal finite extent; both models normalized independently. Each fin has independent actual root/tip frame. Ratios t/c and t/L reported separately.",
+  "unknowns": [
+    "Library exact biological species and tissue accuracy unknown.",
+    "Root landmarks are reviewed game-mesh engineering landmarks, not anatomical dissection.",
+    "Chord-normal thickness differs from surface-normal rays; both are reported by separate gates."
+  ],
+  "fins": [
+    {
+      "name": "FirstDorsal",
+      "library": {
+        "frame": {
+          "origin": [
+            0.33899999999999997,
+            0.0355,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9848752255891149,
+              -0.17326508598327015,
+              0.0
+            ],
+            [
+              0.17326508598327017,
+              0.9848752255891149,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "span_over_length": 0.11506625552299492
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.07253418434394193,
+            "maximum_thickness_over_length": 0.0095737962,
+            "median_thickness_over_length": 0.0083882246,
+            "peak_t_over_c": 0.13199012695314888,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0036013712,
+                  0.0036015215
+                ],
+                "thickness_over_length": 0.0072028927
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0045867653,
+                  0.0045867653
+                ],
+                "thickness_over_length": 0.0091735306
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0047868981,
+                  0.0047868981
+                ],
+                "thickness_over_length": 0.0095737962
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0047103748,
+                  0.0047103748
+                ],
+                "thickness_over_length": 0.0094207496
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0044635713,
+                  0.0044635713
+                ],
+                "thickness_over_length": 0.0089271426
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0041941123,
+                  0.0041941123
+                ],
+                "thickness_over_length": 0.0083882246
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0036856716,
+                  0.0036857665
+                ],
+                "thickness_over_length": 0.007371438100000001
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0024490608,
+                  0.0024494862
+                ],
+                "thickness_over_length": 0.004898547
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.001224292,
+                  0.0012249815
+                ],
+                "thickness_over_length": 0.0024492735
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.050074899579769225,
+            "maximum_thickness_over_length": 0.0061656578,
+            "median_thickness_over_length": 0.005899532,
+            "peak_t_over_c": 0.12312871022692953,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0022548056,
+                  0.0022550162
+                ],
+                "thickness_over_length": 0.0045098218
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0030169118,
+                  0.0030169118
+                ],
+                "thickness_over_length": 0.0060338236
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0030569164,
+                  0.0030569164
+                ],
+                "thickness_over_length": 0.0061138328
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0030828289,
+                  0.0030828289
+                ],
+                "thickness_over_length": 0.0061656578
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0030162974,
+                  0.0030162974
+                ],
+                "thickness_over_length": 0.0060325948
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.002949766,
+                  0.002949766
+                ],
+                "thickness_over_length": 0.005899532
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0026279499,
+                  0.0026280506
+                ],
+                "thickness_over_length": 0.0052560005
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0017274387,
+                  0.0017278574
+                ],
+                "thickness_over_length": 0.0034552961
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0008634809,
+                  0.0008641671
+                ],
+                "thickness_over_length": 0.001727648
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.031304309384378864,
+            "maximum_thickness_over_length": 0.004102671,
+            "median_thickness_over_length": 0.0032088208,
+            "peak_t_over_c": 0.1310577067720673,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0012121323,
+                  0.001212382
+                ],
+                "thickness_over_length": 0.0024245142999999997
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0015628646,
+                  0.0015628646
+                ],
+                "thickness_over_length": 0.0031257292
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0016044104,
+                  0.0016044104
+                ],
+                "thickness_over_length": 0.0032088208
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.001744905,
+                  0.001744905
+                ],
+                "thickness_over_length": 0.00348981
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0018981202,
+                  0.0018981202
+                ],
+                "thickness_over_length": 0.0037962404
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0020513355,
+                  0.0020513355
+                ],
+                "thickness_over_length": 0.004102671
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0016347497,
+                  0.0016350058
+                ],
+                "thickness_over_length": 0.0032697555
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.001146528,
+                  0.0011470649
+                ],
+                "thickness_over_length": 0.0022935929
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0005730256,
+                  0.0005737709
+                ],
+                "thickness_over_length": 0.0011467965
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.01745309951708949,
+            "maximum_thickness_over_length": 0.0022787038,
+            "median_thickness_over_length": 0.0017121394,
+            "peak_t_over_c": 0.1305615542825943,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0006586072,
+                  0.000658722
+                ],
+                "thickness_over_length": 0.0013173292
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0008560697,
+                  0.0008560697
+                ],
+                "thickness_over_length": 0.0017121394
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0009545854,
+                  0.0009545854
+                ],
+                "thickness_over_length": 0.0019091708
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0010469687,
+                  0.0010469687
+                ],
+                "thickness_over_length": 0.0020939374
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0011393519,
+                  0.0011393519
+                ],
+                "thickness_over_length": 0.0022787038
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0009730089,
+                  0.0009731937
+                ],
+                "thickness_over_length": 0.0019462026
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0007297899,
+                  0.0007301667
+                ],
+                "thickness_over_length": 0.0014599565999999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0004865708,
+                  0.0004871398
+                ],
+                "thickness_over_length": 0.0009737106
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0002433518,
+                  0.0002441129
+                ],
+                "thickness_over_length": 0.0004874647
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.33624206816197943,
+            0.053018758803392255,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9971780422384064,
+              -0.07507297834493193,
+              0.0
+            ],
+            [
+              0.07507297834493203,
+              0.9971780422384066,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              0.9999999999999999
+            ]
+          ],
+          "span_over_length": 0.11202379246091984
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.07584807183241102,
+            "maximum_thickness_over_length": 0.0033136075000000003,
+            "median_thickness_over_length": 0.0027065454,
+            "peak_t_over_c": 0.043687432256966696,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0005813781,
+                  0.0005813754
+                ],
+                "thickness_over_length": 0.0011627535
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0010907982,
+                  0.0010907945
+                ],
+                "thickness_over_length": 0.0021815927000000002
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0013532736,
+                  0.0013532718
+                ],
+                "thickness_over_length": 0.0027065454
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0015051912,
+                  0.0015051908
+                ],
+                "thickness_over_length": 0.003010382
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0016568039,
+                  0.0016568036
+                ],
+                "thickness_over_length": 0.0033136075000000003
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0015515697,
+                  0.0015515695
+                ],
+                "thickness_over_length": 0.0031031392
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0014481324,
+                  0.0014481322
+                ],
+                "thickness_over_length": 0.0028962646
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0011161077,
+                  0.0011161076
+                ],
+                "thickness_over_length": 0.0022322153
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0005906901,
+                  0.0005906901
+                ],
+                "thickness_over_length": 0.0011813802
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.054627601491950714,
+            "maximum_thickness_over_length": 0.002317509,
+            "median_thickness_over_length": 0.0019532418,
+            "peak_t_over_c": 0.04242377363651013,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0004569299,
+                  0.0004569299
+                ],
+                "thickness_over_length": 0.0009138598
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0008009631,
+                  0.0008009631
+                ],
+                "thickness_over_length": 0.0016019262
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0009766209,
+                  0.0009766209
+                ],
+                "thickness_over_length": 0.0019532418
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.001076723,
+                  0.001076723
+                ],
+                "thickness_over_length": 0.002153446
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0011587545,
+                  0.0011587545
+                ],
+                "thickness_over_length": 0.002317509
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0010793409,
+                  0.0010793409
+                ],
+                "thickness_over_length": 0.0021586818
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0010003593,
+                  0.0010003593
+                ],
+                "thickness_over_length": 0.0020007186
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0007494695,
+                  0.0007494695
+                ],
+                "thickness_over_length": 0.001498939
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0003982626,
+                  0.0003982626
+                ],
+                "thickness_over_length": 0.0007965252
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.03969788732990742,
+            "maximum_thickness_over_length": 0.0013370614,
+            "median_thickness_over_length": 0.0011367178,
+            "peak_t_over_c": 0.033680920823025526,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0003090995,
+                  0.0003090995
+                ],
+                "thickness_over_length": 0.000618199
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0004853858,
+                  0.0004853858
+                ],
+                "thickness_over_length": 0.0009707716
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0005857303,
+                  0.0005857303
+                ],
+                "thickness_over_length": 0.0011714606
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0006324237,
+                  0.0006324237
+                ],
+                "thickness_over_length": 0.0012648474
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0006685307,
+                  0.0006685307
+                ],
+                "thickness_over_length": 0.0013370614
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0006206076,
+                  0.0006206076
+                ],
+                "thickness_over_length": 0.0012412152
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0005683589,
+                  0.0005683589
+                ],
+                "thickness_over_length": 0.0011367178
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0004395479,
+                  0.0004395479
+                ],
+                "thickness_over_length": 0.0008790958
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0002566434,
+                  0.0002566434
+                ],
+                "thickness_over_length": 0.0005132868
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.027249126259871748,
+            "maximum_thickness_over_length": 0.0007101268,
+            "median_thickness_over_length": 0.0006116418,
+            "peak_t_over_c": 0.026060534683850164,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001861879,
+                  0.0001861879
+                ],
+                "thickness_over_length": 0.0003723758
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0002787523,
+                  0.0002787523
+                ],
+                "thickness_over_length": 0.0005575046
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0003236838,
+                  0.0003236838
+                ],
+                "thickness_over_length": 0.0006473676
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0003474705,
+                  0.0003474705
+                ],
+                "thickness_over_length": 0.000694941
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0003550634,
+                  0.0003550634
+                ],
+                "thickness_over_length": 0.0007101268
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0003366886,
+                  0.0003366886
+                ],
+                "thickness_over_length": 0.0006733772
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0003058209,
+                  0.0003058209
+                ],
+                "thickness_over_length": 0.0006116418
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0002598719,
+                  0.0002598719
+                ],
+                "thickness_over_length": 0.0005197438
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001712034,
+                  0.0001712034
+                ],
+                "thickness_over_length": 0.0003424068
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "SecondDorsal",
+      "library": {
+        "frame": {
+          "origin": [
+            0.5994999999999999,
+            -0.0015,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9899494936611664,
+              -0.14142135623730936,
+              0.0
+            ],
+            [
+              0.14142135623730945,
+              0.9899494936611666,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              0.9999999999999999
+            ]
+          ],
+          "span_over_length": 0.040446507883870525
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.042871612144272306,
+            "maximum_thickness_over_length": 0.0053115404,
+            "median_thickness_over_length": 0.0050534208,
+            "peak_t_over_c": 0.12389411394480596,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0018833202,
+                  0.0018833202
+                ],
+                "thickness_over_length": 0.0037666404
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0025267104,
+                  0.0025267104
+                ],
+                "thickness_over_length": 0.0050534208
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0026557702,
+                  0.0026557702
+                ],
+                "thickness_over_length": 0.0053115404
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0026434385,
+                  0.0026434385
+                ],
+                "thickness_over_length": 0.005286877
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0026311067,
+                  0.0026311067
+                ],
+                "thickness_over_length": 0.0052622134
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0026267861,
+                  0.0026267861
+                ],
+                "thickness_over_length": 0.0052535722
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0020944538,
+                  0.0020947029
+                ],
+                "thickness_over_length": 0.0041891567
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0014891287,
+                  0.0014896613
+                ],
+                "thickness_over_length": 0.0029787900000000003
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0008897612,
+                  0.0008904961
+                ],
+                "thickness_over_length": 0.0017802573
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.026183268425694885,
+            "maximum_thickness_over_length": 0.0028658268,
+            "median_thickness_over_length": 0.00260588,
+            "peak_t_over_c": 0.10945259978267756,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0011093001,
+                  0.0011093001
+                ],
+                "thickness_over_length": 0.0022186002
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.00130294,
+                  0.00130294
+                ],
+                "thickness_over_length": 0.00260588
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0013453087,
+                  0.0013453087
+                ],
+                "thickness_over_length": 0.0026906174
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0013876775,
+                  0.0013876775
+                ],
+                "thickness_over_length": 0.002775355
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0014300462,
+                  0.0014300462
+                ],
+                "thickness_over_length": 0.0028600924
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0014329134,
+                  0.0014329134
+                ],
+                "thickness_over_length": 0.0028658268
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0012018019,
+                  0.0012019977
+                ],
+                "thickness_over_length": 0.0024037996
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0008299031,
+                  0.0008304179
+                ],
+                "thickness_over_length": 0.0016603210000000002
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0004400822,
+                  0.0004408749
+                ],
+                "thickness_over_length": 0.0008809571
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.013239016267582804,
+            "maximum_thickness_over_length": 0.0015784488,
+            "median_thickness_over_length": 0.0014339882,
+            "peak_t_over_c": 0.11922704588444433,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0005542359,
+                  0.0005544125
+                ],
+                "thickness_over_length": 0.0011086484
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0007332406,
+                  0.0007332406
+                ],
+                "thickness_over_length": 0.0014664812
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0007612325,
+                  0.0007612325
+                ],
+                "thickness_over_length": 0.001522465
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0007892244,
+                  0.0007892244
+                ],
+                "thickness_over_length": 0.0015784488
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0007781584,
+                  0.0007781584
+                ],
+                "thickness_over_length": 0.0015563168
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0007169941,
+                  0.0007169941
+                ],
+                "thickness_over_length": 0.0014339882
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0005729525,
+                  0.0005731981
+                ],
+                "thickness_over_length": 0.0011461506
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0003842697,
+                  0.0003848932
+                ],
+                "thickness_over_length": 0.0007691629
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001919827,
+                  0.0001927763
+                ],
+                "thickness_over_length": 0.000384759
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.006313601616169429,
+            "maximum_thickness_over_length": 0.000917084,
+            "median_thickness_over_length": 0.0006189385,
+            "peak_t_over_c": 0.14525528466213405,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001612952,
+                  0.0001618609
+                ],
+                "thickness_over_length": 0.00032315610000000004
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0003336348,
+                  0.0003338611
+                ],
+                "thickness_over_length": 0.0006674959
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000458542,
+                  0.000458542
+                ],
+                "thickness_over_length": 0.000917084
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0004305526,
+                  0.0004305526
+                ],
+                "thickness_over_length": 0.0008611052
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0003811854,
+                  0.0003812692
+                ],
+                "thickness_over_length": 0.0007624546000000001
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0003093414,
+                  0.0003095971
+                ],
+                "thickness_over_length": 0.0006189385
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0002374974,
+                  0.0002379251
+                ],
+                "thickness_over_length": 0.00047542250000000004
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0001656534,
+                  0.000166253
+                ],
+                "thickness_over_length": 0.0003319064
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -8.63768e-05,
+                  8.71517e-05
+                ],
+                "thickness_over_length": 0.0001735285
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.7026336346521549,
+            0.014168161640449437,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9980045258233163,
+              -0.0631424297614332,
+              0.0
+            ],
+            [
+              0.06314242976143328,
+              0.9980045258233163,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "span_over_length": 0.03730772864546867
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.040879145272937706,
+            "maximum_thickness_over_length": 0.0012880221999999998,
+            "median_thickness_over_length": 0.0011310007,
+            "peak_t_over_c": 0.03150805114442253,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002940398,
+                  0.0002940392
+                ],
+                "thickness_over_length": 0.000588079
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0004956029,
+                  0.0004955985
+                ],
+                "thickness_over_length": 0.0009912014
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000565508,
+                  0.0005654927
+                ],
+                "thickness_over_length": 0.0011310007
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.000635413,
+                  0.0006353869
+                ],
+                "thickness_over_length": 0.0012707999
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.000644022,
+                  0.0006440002
+                ],
+                "thickness_over_length": 0.0012880221999999998
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0006180353,
+                  0.0006180282
+                ],
+                "thickness_over_length": 0.0012360635
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0005713159,
+                  0.0005713212
+                ],
+                "thickness_over_length": 0.0011426371
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0004036236,
+                  0.0004036284
+                ],
+                "thickness_over_length": 0.0008072520000000001
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0002359312,
+                  0.0002359356
+                ],
+                "thickness_over_length": 0.0004718668
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.027289663458756448,
+            "maximum_thickness_over_length": 0.0009388606999999999,
+            "median_thickness_over_length": 0.0008140435,
+            "peak_t_over_c": 0.03440352796651097,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002188691,
+                  0.0002188669
+                ],
+                "thickness_over_length": 0.000437736
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0003554667,
+                  0.0003554657
+                ],
+                "thickness_over_length": 0.0007109324
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000407024,
+                  0.0004070195
+                ],
+                "thickness_over_length": 0.0008140435
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0004497368,
+                  0.0004497313
+                ],
+                "thickness_over_length": 0.0008994681
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0004694318,
+                  0.0004694289
+                ],
+                "thickness_over_length": 0.0009388606999999999
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0004478966,
+                  0.0004478967
+                ],
+                "thickness_over_length": 0.0008957933000000001
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0004263614,
+                  0.0004263646
+                ],
+                "thickness_over_length": 0.000852726
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0003177602,
+                  0.0003177631
+                ],
+                "thickness_over_length": 0.0006355233
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001986877,
+                  0.0001986898
+                ],
+                "thickness_over_length": 0.00039737750000000004
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.01652413000257781,
+            "maximum_thickness_over_length": 0.0005929594,
+            "median_thickness_over_length": 0.0005259584999999999,
+            "peak_t_over_c": 0.0358844550307639,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001588135,
+                  0.0001588134
+                ],
+                "thickness_over_length": 0.0003176269
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0002334963,
+                  0.0002334962
+                ],
+                "thickness_over_length": 0.0004669925
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0002629795,
+                  0.000262979
+                ],
+                "thickness_over_length": 0.0005259584999999999
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0002861819,
+                  0.0002861815
+                ],
+                "thickness_over_length": 0.0005723634
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0002964796,
+                  0.0002964798
+                ],
+                "thickness_over_length": 0.0005929594
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0002844457,
+                  0.0002844461
+                ],
+                "thickness_over_length": 0.0005688918
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0002725033,
+                  0.0002725037
+                ],
+                "thickness_over_length": 0.000545007
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.000210681,
+                  0.0002106811
+                ],
+                "thickness_over_length": 0.00042136210000000003
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001454781,
+                  0.0001454782
+                ],
+                "thickness_over_length": 0.0002909563
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.00996001634994406,
+            "maximum_thickness_over_length": 0.0003554292,
+            "median_thickness_over_length": 0.0003312558,
+            "peak_t_over_c": 0.035685604070519045,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001212723,
+                  0.0001212723
+                ],
+                "thickness_over_length": 0.0002425446
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0001504044,
+                  0.0001504044
+                ],
+                "thickness_over_length": 0.0003008088
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0001656279,
+                  0.0001656279
+                ],
+                "thickness_over_length": 0.0003312558
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0001744002,
+                  0.0001744002
+                ],
+                "thickness_over_length": 0.0003488004
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0001777146,
+                  0.0001777146
+                ],
+                "thickness_over_length": 0.0003554292
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0001715548,
+                  0.0001715548
+                ],
+                "thickness_over_length": 0.0003431096
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0001663458,
+                  0.0001663458
+                ],
+                "thickness_over_length": 0.0003326916
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0001322107,
+                  0.0001322107
+                ],
+                "thickness_over_length": 0.0002644214
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.000106243,
+                  0.000106243
+                ],
+                "thickness_over_length": 0.000212486
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pectoral_left",
+      "library": {
+        "frame": {
+          "origin": [
+            0.2535,
+            -0.07200000000000001,
+            -0.056
+          ],
+          "basis": [
+            [
+              0.9343967987907048,
+              -0.35209154737041076,
+              0.0541679303646786
+            ],
+            [
+              -0.09473141784165982,
+              -0.39217201369195664,
+              -0.9150011312290847
+            ],
+            [
+              0.34340731046876644,
+              0.849842723065336,
+              -0.3997984056615317
+            ]
+          ],
+          "span_over_length": 0.11238738724621225
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.06668686038671176,
+            "maximum_thickness_over_length": 0.0147996712,
+            "median_thickness_over_length": 0.0104427462,
+            "peak_t_over_c": 0.221927844768488,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0148507268,
+                  -0.0062079333
+                ],
+                "thickness_over_length": 0.008642793499999999
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0134996964,
+                  -0.0030569502
+                ],
+                "thickness_over_length": 0.0104427462
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0124438038,
+                  0.0003795304
+                ],
+                "thickness_over_length": 0.0128233342
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0113879112,
+                  0.00341176
+                ],
+                "thickness_over_length": 0.0147996712
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0088342569,
+                  0.0044789697
+                ],
+                "thickness_over_length": 0.0133132266
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0057863596,
+                  0.0050746718
+                ],
+                "thickness_over_length": 0.010861031399999999
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0030466428,
+                  0.0055932208
+                ],
+                "thickness_over_length": 0.008639863599999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  3.04685e-05,
+                  0.0055410092
+                ],
+                "thickness_over_length": 0.005510540699999999
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0027301619,
+                  0.0055789026
+                ],
+                "thickness_over_length": 0.0028487407000000005
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.0461681500682872,
+            "maximum_thickness_over_length": 0.0072318737000000004,
+            "median_thickness_over_length": 0.0059536877999999994,
+            "peak_t_over_c": 0.15664205061938485,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0106661893,
+                  -0.0058631087
+                ],
+                "thickness_over_length": 0.0048030806
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.009816028,
+                  -0.0038623402
+                ],
+                "thickness_over_length": 0.0059536877999999994
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0089825119,
+                  -0.0025151343
+                ],
+                "thickness_over_length": 0.0064673776
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0081534694,
+                  -0.0011679285
+                ],
+                "thickness_over_length": 0.0069855409
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0073244269,
+                  -9.25532e-05
+                ],
+                "thickness_over_length": 0.0072318737000000004
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0057345612,
+                  0.000294817
+                ],
+                "thickness_over_length": 0.0060293782
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0038799077,
+                  0.0005791537
+                ],
+                "thickness_over_length": 0.0044590614
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0020252541,
+                  0.0008634904
+                ],
+                "thickness_over_length": 0.0028887444999999997
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001943531,
+                  0.0012109845
+                ],
+                "thickness_over_length": 0.0014053376
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.0323008347058364,
+            "maximum_thickness_over_length": 0.0038342376999999997,
+            "median_thickness_over_length": 0.0033432553000000004,
+            "peak_t_over_c": 0.11870398195335788,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0083944115,
+                  -0.0053058206
+                ],
+                "thickness_over_length": 0.0030885909000000003
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0078104231,
+                  -0.0044671678
+                ],
+                "thickness_over_length": 0.0033432553000000004
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.007195757,
+                  -0.0036957886
+                ],
+                "thickness_over_length": 0.0034999683999999997
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0065810909,
+                  -0.0029244093
+                ],
+                "thickness_over_length": 0.0036566816000000004
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0059372629,
+                  -0.0021348948
+                ],
+                "thickness_over_length": 0.0038023681000000004
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0052844658,
+                  -0.0014502281
+                ],
+                "thickness_over_length": 0.0038342376999999997
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0040488047,
+                  -0.001040598
+                ],
+                "thickness_over_length": 0.0030082067
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.002636439,
+                  -0.0006309678
+                ],
+                "thickness_over_length": 0.0020054712
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0012240732,
+                  -0.0002213376
+                ],
+                "thickness_over_length": 0.0010027356
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.02266310633175747,
+            "maximum_thickness_over_length": 0.0020956169,
+            "median_thickness_over_length": 0.0018787527000000003,
+            "peak_t_over_c": 0.09246821107940723,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0056311405,
+                  -0.0040452645
+                ],
+                "thickness_over_length": 0.001585876
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0053197662,
+                  -0.003519469
+                ],
+                "thickness_over_length": 0.0018002972000000003
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0048724262,
+                  -0.0029936735
+                ],
+                "thickness_over_length": 0.0018787527000000003
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0044250861,
+                  -0.0024678781
+                ],
+                "thickness_over_length": 0.001957208
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0039777461,
+                  -0.0019475745
+                ],
+                "thickness_over_length": 0.0020301716
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0035357432,
+                  -0.0014401263
+                ],
+                "thickness_over_length": 0.0020956169
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0028747137,
+                  -0.0008256549
+                ],
+                "thickness_over_length": 0.0020490587999999997
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0019167184,
+                  -0.0004708146
+                ],
+                "thickness_over_length": 0.0014459038
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0008373517,
+                  -9.29219e-05
+                ],
+                "thickness_over_length": 0.0007444298
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.25766923243879336,
+            -0.05662932937421715,
+            -0.04325348873668193
+          ],
+          "basis": [
+            [
+              0.9929547098148622,
+              -0.11621551744486217,
+              -0.023127856829068715
+            ],
+            [
+              -0.09916026795142588,
+              -0.7081045055666828,
+              -0.6991103278138331
+            ],
+            [
+              0.06487052887316709,
+              0.6964782571632705,
+              -0.7146396656935081
+            ]
+          ],
+          "span_over_length": 0.1293582533619876
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.0743831333960625,
+            "maximum_thickness_over_length": 0.0036274893999999995,
+            "median_thickness_over_length": 0.0030624781,
+            "peak_t_over_c": 0.048767633660778555,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0051428825,
+                  0.0068095196
+                ],
+                "thickness_over_length": 0.0016666371
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0062308393,
+                  0.0090973719
+                ],
+                "thickness_over_length": 0.0028665326
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0070048651,
+                  0.0103055174
+                ],
+                "thickness_over_length": 0.0033006523
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0072152364,
+                  0.0108427258
+                ],
+                "thickness_over_length": 0.0036274893999999995
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.0069603719,
+                  0.0105635096
+                ],
+                "thickness_over_length": 0.0036031377
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  0.0064459574,
+                  0.0098309201
+                ],
+                "thickness_over_length": 0.0033849627
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0057575905,
+                  0.0088200686
+                ],
+                "thickness_over_length": 0.0030624781
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0038616761,
+                  0.0059439952
+                ],
+                "thickness_over_length": 0.0020823190999999996
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0019657617,
+                  0.0030679218
+                ],
+                "thickness_over_length": 0.0011021601
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.06732027679338448,
+            "maximum_thickness_over_length": 0.0026160562000000012,
+            "median_thickness_over_length": 0.0021861975999999997,
+            "peak_t_over_c": 0.038859855077973765,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.006527558,
+                  0.0077834057
+                ],
+                "thickness_over_length": 0.0012558476999999998
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0062465683,
+                  0.0083568446
+                ],
+                "thickness_over_length": 0.0021102763
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0061487676,
+                  0.0085261646
+                ],
+                "thickness_over_length": 0.0023773970000000007
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0057858758,
+                  0.008401932
+                ],
+                "thickness_over_length": 0.0026160562000000012
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.0052027893,
+                  0.0077892171
+                ],
+                "thickness_over_length": 0.0025864278
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  0.0041957505,
+                  0.0066003986
+                ],
+                "thickness_over_length": 0.0024046480999999993
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0028747915,
+                  0.0050609891
+                ],
+                "thickness_over_length": 0.0021861975999999997
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0007996276,
+                  0.0023351544
+                ],
+                "thickness_over_length": 0.0015355268
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0012145495,
+                  -0.0003725712
+                ],
+                "thickness_over_length": 0.0008419783000000001
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.056047932829432184,
+            "maximum_thickness_over_length": 0.0015725022999999998,
+            "median_thickness_over_length": 0.0013101801000000002,
+            "peak_t_over_c": 0.028056383538452984,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0054988668,
+                  0.0062876504
+                ],
+                "thickness_over_length": 0.0007887835999999997
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0046027385,
+                  0.0058749915
+                ],
+                "thickness_over_length": 0.001272253
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0037276507,
+                  0.005201713
+                ],
+                "thickness_over_length": 0.0014740623
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0023022184,
+                  0.0038158194
+                ],
+                "thickness_over_length": 0.0015136009999999998
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.000813741,
+                  0.0023862433
+                ],
+                "thickness_over_length": 0.0015725022999999998
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0003306983,
+                  0.0011451041
+                ],
+                "thickness_over_length": 0.0014758024
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.002125412,
+                  -0.0008152319
+                ],
+                "thickness_over_length": 0.0013101801000000002
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0018335244,
+                  -0.0006569998
+                ],
+                "thickness_over_length": 0.0011765246
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0012447989,
+                  -0.0006158005
+                ],
+                "thickness_over_length": 0.0006289984
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.039642724475826674,
+            "maximum_thickness_over_length": 0.0007797527999999999,
+            "median_thickness_over_length": 0.000615916,
+            "peak_t_over_c": 0.019669505825097296,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0005162844,
+                  -0.0001184184
+                ],
+                "thickness_over_length": 0.00039786600000000003
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.001989698,
+                  -0.0014947272
+                ],
+                "thickness_over_length": 0.0004949707999999998
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0030142684,
+                  -0.0023988913
+                ],
+                "thickness_over_length": 0.0006153771000000003
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0031401156,
+                  -0.0024191135
+                ],
+                "thickness_over_length": 0.0007210021000000001
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0025775783,
+                  -0.0018226113
+                ],
+                "thickness_over_length": 0.0007549670000000003
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0020265578,
+                  -0.001246805
+                ],
+                "thickness_over_length": 0.0007797527999999999
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.001487391,
+                  -0.0007709959
+                ],
+                "thickness_over_length": 0.0007163951
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0009390163,
+                  -0.0003231003
+                ],
+                "thickness_over_length": 0.000615916
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.000402612,
+                  1.92096e-05
+                ],
+                "thickness_over_length": 0.0004218216
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pectoral_right",
+      "library": {
+        "frame": {
+          "origin": [
+            0.2535,
+            -0.07200000000000001,
+            0.056
+          ],
+          "basis": [
+            [
+              0.9343967987907048,
+              -0.35209154737041076,
+              -0.0541679303646786
+            ],
+            [
+              -0.09473141784165982,
+              -0.39217201369195664,
+              0.9150011312290847
+            ],
+            [
+              -0.34340731046876644,
+              -0.849842723065336,
+              -0.3997984056615317
+            ]
+          ],
+          "span_over_length": 0.11238738724621225
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.06668686038671176,
+            "maximum_thickness_over_length": 0.0147996712,
+            "median_thickness_over_length": 0.0104427462,
+            "peak_t_over_c": 0.221927844768488,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0062079333,
+                  0.0148507268
+                ],
+                "thickness_over_length": 0.008642793499999999
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0030569502,
+                  0.0134996964
+                ],
+                "thickness_over_length": 0.0104427462
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0003795304,
+                  0.0124438038
+                ],
+                "thickness_over_length": 0.0128233342
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.00341176,
+                  0.0113879112
+                ],
+                "thickness_over_length": 0.0147996712
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0044789697,
+                  0.0088342569
+                ],
+                "thickness_over_length": 0.0133132266
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0050746718,
+                  0.0057863596
+                ],
+                "thickness_over_length": 0.010861031399999999
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0055932208,
+                  0.0030466428
+                ],
+                "thickness_over_length": 0.008639863599999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0055410092,
+                  -3.04685e-05
+                ],
+                "thickness_over_length": 0.005510540699999999
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0055789026,
+                  -0.0027301619
+                ],
+                "thickness_over_length": 0.0028487407000000005
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.0461681500682872,
+            "maximum_thickness_over_length": 0.0072318737000000004,
+            "median_thickness_over_length": 0.0059536877999999994,
+            "peak_t_over_c": 0.15664205061938485,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0058631087,
+                  0.0106661893
+                ],
+                "thickness_over_length": 0.0048030806
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0038623402,
+                  0.009816028
+                ],
+                "thickness_over_length": 0.0059536877999999994
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0025151343,
+                  0.0089825119
+                ],
+                "thickness_over_length": 0.0064673776
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0011679285,
+                  0.0081534694
+                ],
+                "thickness_over_length": 0.0069855409
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  9.25532e-05,
+                  0.0073244269
+                ],
+                "thickness_over_length": 0.0072318737000000004
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.000294817,
+                  0.0057345612
+                ],
+                "thickness_over_length": 0.0060293782
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0005791537,
+                  0.0038799077
+                ],
+                "thickness_over_length": 0.0044590614
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0008634904,
+                  0.0020252541
+                ],
+                "thickness_over_length": 0.0028887444999999997
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0012109845,
+                  0.0001943531
+                ],
+                "thickness_over_length": 0.0014053376
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.0323008347058364,
+            "maximum_thickness_over_length": 0.0038342376999999997,
+            "median_thickness_over_length": 0.0033432553000000004,
+            "peak_t_over_c": 0.11870398195335788,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0053058206,
+                  0.0083944115
+                ],
+                "thickness_over_length": 0.0030885909000000003
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0044671678,
+                  0.0078104231
+                ],
+                "thickness_over_length": 0.0033432553000000004
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0036957886,
+                  0.007195757
+                ],
+                "thickness_over_length": 0.0034999683999999997
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0029244093,
+                  0.0065810909
+                ],
+                "thickness_over_length": 0.0036566816000000004
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.0021348948,
+                  0.0059372629
+                ],
+                "thickness_over_length": 0.0038023681000000004
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  0.0014502281,
+                  0.0052844658
+                ],
+                "thickness_over_length": 0.0038342376999999997
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.001040598,
+                  0.0040488047
+                ],
+                "thickness_over_length": 0.0030082067
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0006309678,
+                  0.002636439
+                ],
+                "thickness_over_length": 0.0020054712
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0002213376,
+                  0.0012240732
+                ],
+                "thickness_over_length": 0.0010027356
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.02266310633175747,
+            "maximum_thickness_over_length": 0.0020956169,
+            "median_thickness_over_length": 0.0018787527000000003,
+            "peak_t_over_c": 0.09246821107940723,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0040452645,
+                  0.0056311405
+                ],
+                "thickness_over_length": 0.001585876
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.003519469,
+                  0.0053197662
+                ],
+                "thickness_over_length": 0.0018002972000000003
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0029936735,
+                  0.0048724262
+                ],
+                "thickness_over_length": 0.0018787527000000003
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0024678781,
+                  0.0044250861
+                ],
+                "thickness_over_length": 0.001957208
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.0019475745,
+                  0.0039777461
+                ],
+                "thickness_over_length": 0.0020301716
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  0.0014401263,
+                  0.0035357432
+                ],
+                "thickness_over_length": 0.0020956169
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0008256549,
+                  0.0028677963
+                ],
+                "thickness_over_length": 0.0020421414
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0004708146,
+                  0.0019167184
+                ],
+                "thickness_over_length": 0.0014459038
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  9.29219e-05,
+                  0.0008373517
+                ],
+                "thickness_over_length": 0.0007444298
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.2576692204768499,
+            -0.05656577257838351,
+            0.04339960238021621
+          ],
+          "basis": [
+            [
+              0.9930408994388269,
+              -0.11473947983889185,
+              0.02654475104471934
+            ],
+            [
+              -0.10070197036435675,
+              -0.7104037637129229,
+              0.6965526582156223
+            ],
+            [
+              -0.06106459863506676,
+              -0.6943783869539818,
+              -0.7170144841805666
+            ]
+          ],
+          "span_over_length": 0.1291840057855995
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.07440524206442417,
+            "maximum_thickness_over_length": 0.003622649299999999,
+            "median_thickness_over_length": 0.0030668115999999994,
+            "peak_t_over_c": 0.04868809239090049,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0068410664,
+                  -0.0051797334
+                ],
+                "thickness_over_length": 0.001661333
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.009104189,
+                  -0.0062416657
+                ],
+                "thickness_over_length": 0.0028625233
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0102848721,
+                  -0.0069891863
+                ],
+                "thickness_over_length": 0.0032956858
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0107956819,
+                  -0.0071730326
+                ],
+                "thickness_over_length": 0.003622649299999999
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0104962394,
+                  -0.0068936461
+                ],
+                "thickness_over_length": 0.003602593299999999
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0097363957,
+                  -0.0063522005
+                ],
+                "thickness_over_length": 0.0033841952000000005
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0087068684,
+                  -0.0056400568
+                ],
+                "thickness_over_length": 0.0030668115999999994
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0058001537,
+                  -0.0037159432
+                ],
+                "thickness_over_length": 0.0020842105000000006
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0028934389,
+                  -0.0017918296
+                ],
+                "thickness_over_length": 0.0011016092999999998
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.06732548055248586,
+            "maximum_thickness_over_length": 0.0026146581,
+            "median_thickness_over_length": 0.0021892545,
+            "peak_t_over_c": 0.03883608521682448,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.007871085,
+                  -0.0066165697
+                ],
+                "thickness_over_length": 0.0012545153
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0084206888,
+                  -0.0063117295
+                ],
+                "thickness_over_length": 0.0021089592999999993
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0085676883,
+                  -0.0061913141
+                ],
+                "thickness_over_length": 0.002376374199999999
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.008419533,
+                  -0.0058048749
+                ],
+                "thickness_over_length": 0.0026146581
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0077865498,
+                  -0.0051988391
+                ],
+                "thickness_over_length": 0.0025877107
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0065730519,
+                  -0.0041674021
+                ],
+                "thickness_over_length": 0.0024056497999999996
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0050120812,
+                  -0.0028228267
+                ],
+                "thickness_over_length": 0.0021892545
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0022575677,
+                  -0.0007197682
+                ],
+                "thickness_over_length": 0.0015377995
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0004776115,
+                  0.0013202097
+                ],
+                "thickness_over_length": 0.0008425981999999999
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.05606121904675354,
+            "maximum_thickness_over_length": 0.0015715388000000002,
+            "median_thickness_over_length": 0.0013119369,
+            "peak_t_over_c": 0.02803254775265196,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0064060219,
+                  -0.0056167246
+                ],
+                "thickness_over_length": 0.0007892973000000001
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0059734749,
+                  -0.0047006391
+                ],
+                "thickness_over_length": 0.0012728358000000002
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0052822816,
+                  -0.0038068417
+                ],
+                "thickness_over_length": 0.0014754399000000001
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0038773451,
+                  -0.0023623282
+                ],
+                "thickness_over_length": 0.0015150169
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0024259527,
+                  -0.0008544139
+                ],
+                "thickness_over_length": 0.0015715388000000002
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0011631283,
+                  0.0003149281
+                ],
+                "thickness_over_length": 0.0014780563999999999
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0008195243,
+                  0.0021314612
+                ],
+                "thickness_over_length": 0.0013119369
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0006777457,
+                  0.0018530122
+                ],
+                "thickness_over_length": 0.0011752665
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0006553643,
+                  0.0012835598
+                ],
+                "thickness_over_length": 0.0006281955
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.03972108980988575,
+            "maximum_thickness_over_length": 0.0007799209999999998,
+            "median_thickness_over_length": 0.0006177806000000003,
+            "peak_t_over_c": 0.01963493458343869,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  5.156e-06,
+                  0.0004050106
+                ],
+                "thickness_over_length": 0.00039985460000000004
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0013996595,
+                  0.0018970612
+                ],
+                "thickness_over_length": 0.0004974017
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  0.0023378855,
+                  0.0029556661
+                ],
+                "thickness_over_length": 0.0006177806000000003
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  0.0023702996,
+                  0.0030919237
+                ],
+                "thickness_over_length": 0.0007216241000000002
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  0.0017873365,
+                  0.0025426078
+                ],
+                "thickness_over_length": 0.0007552713
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  0.0012248514,
+                  0.0020047724
+                ],
+                "thickness_over_length": 0.0007799209999999998
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0007624805,
+                  0.0014787862
+                ],
+                "thickness_over_length": 0.0007163057
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0003279125,
+                  0.0009436268
+                ],
+                "thickness_over_length": 0.0006157143
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -1.1904e-06,
+                  0.000420516
+                ],
+                "thickness_over_length": 0.0004217064
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pelvic_left",
+      "library": {
+        "frame": {
+          "origin": [
+            0.44999999999999996,
+            -0.0854,
+            -0.0386
+          ],
+          "basis": [
+            [
+              0.9548823821339675,
+              -0.27138762439597,
+              0.12061672195376436
+            ],
+            [
+              -0.07506829988261744,
+              -0.6135113308585908,
+              -0.7861097870277751
+            ],
+            [
+              0.2873401932255444,
+              0.7415878938014242,
+              -0.6062037686490197
+            ]
+          ],
+          "span_over_length": 0.023011777862608964
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": false,
+            "chord_over_length": 0.11223145539942889,
+            "maximum_thickness_over_length": 0.012525534999999999,
+            "median_thickness_over_length": 0.0050571748,
+            "peak_t_over_c": 0.11160449586456792,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0267403002
+                ],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0063102561,
+                  0.0188357911
+                ],
+                "thickness_over_length": 0.012525534999999999
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  0.0007675537,
+                  0.001815768
+                ],
+                "thickness_over_length": 0.0010482142999999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0004088743,
+                  0.0054446915
+                ],
+                "thickness_over_length": 0.0058535658
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0007040711,
+                  0.0049648549
+                ],
+                "thickness_over_length": 0.0042607838
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": false,
+            "chord_over_length": 0.10905205879093571,
+            "maximum_thickness_over_length": 0.0045553876,
+            "median_thickness_over_length": 0.00421872505,
+            "peak_t_over_c": 0.04177259604729846,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0005899429,
+                  0.0039654447
+                ],
+                "thickness_over_length": 0.0045553876
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  7.00107e-05,
+                  0.0039520732
+                ],
+                "thickness_over_length": 0.0038820624999999997
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.02069054163746952,
+            "maximum_thickness_over_length": 0.0032077854,
+            "median_thickness_over_length": 0.0026361686,
+            "peak_t_over_c": 0.15503631834320197,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0006893622,
+                  0.0016665636
+                ],
+                "thickness_over_length": 0.0023559258
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0008132852,
+                  0.0023945002
+                ],
+                "thickness_over_length": 0.0032077854
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0007448695,
+                  0.0023623787
+                ],
+                "thickness_over_length": 0.0031072482
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0006764538,
+                  0.0023302572
+                ],
+                "thickness_over_length": 0.003006711
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0006080381,
+                  0.002284981
+                ],
+                "thickness_over_length": 0.0028930191
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.000423175,
+                  0.0022129936
+                ],
+                "thickness_over_length": 0.0026361686
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0002342853,
+                  0.0021410062
+                ],
+                "thickness_over_length": 0.0023752915
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0001444994,
+                  0.0019714625
+                ],
+                "thickness_over_length": 0.0018269631
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0008469336,
+                  0.0018035074
+                ],
+                "thickness_over_length": 0.0009565737999999999
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.01415940885638757,
+            "maximum_thickness_over_length": 0.0024058175,
+            "median_thickness_over_length": 0.0019517956,
+            "peak_t_over_c": 0.1699094591025028,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0009727698,
+                  0.0013007343
+                ],
+                "thickness_over_length": 0.0022735041
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0010898498,
+                  0.0013159677
+                ],
+                "thickness_over_length": 0.0024058175
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.00104303,
+                  0.0012939856
+                ],
+                "thickness_over_length": 0.0023370156
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.000946544,
+                  0.0012450893
+                ],
+                "thickness_over_length": 0.0021916333000000002
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0007437943,
+                  0.0012080013
+                ],
+                "thickness_over_length": 0.0019517956
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0004090586,
+                  0.0011992889
+                ],
+                "thickness_over_length": 0.0016083475000000002
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -7.43229e-05,
+                  0.0011905765
+                ],
+                "thickness_over_length": 0.0012648994
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0002604128,
+                  0.0011452399
+                ],
+                "thickness_over_length": 0.0008848271
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0005949099,
+                  0.0010892751
+                ],
+                "thickness_over_length": 0.0004943652
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.5473018902476888,
+            -0.05469926681421006,
+            -0.01984051296354086
+          ],
+          "basis": [
+            [
+              0.9887859171569633,
+              0.13213730753363903,
+              0.0695855012903069
+            ],
+            [
+              0.14662972115485412,
+              -0.7706423291933719,
+              -0.6201694327596808
+            ],
+            [
+              -0.028321986267077923,
+              0.6234181040146131,
+              -0.7813755388292574
+            ]
+          ],
+          "span_over_length": 0.047774121426154136
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.04957892874192511,
+            "maximum_thickness_over_length": 0.0019484164,
+            "median_thickness_over_length": 0.0017105894000000001,
+            "peak_t_over_c": 0.039299283978929,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0006118727,
+                  0.001488178
+                ],
+                "thickness_over_length": 0.0008763053
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  0.0002553512,
+                  0.0017768557
+                ],
+                "thickness_over_length": 0.0015215045
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -4.18853e-05,
+                  0.0016687041
+                ],
+                "thickness_over_length": 0.0017105894000000001
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0003391217,
+                  0.0015605526
+                ],
+                "thickness_over_length": 0.0018996743
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0005337338,
+                  0.0014146826
+                ],
+                "thickness_over_length": 0.0019484164
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0005914873,
+                  0.0012593143
+                ],
+                "thickness_over_length": 0.0018508016
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0006811731,
+                  0.0010663025
+                ],
+                "thickness_over_length": 0.0017474756
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0006385048,
+                  0.0005873143
+                ],
+                "thickness_over_length": 0.0012258191
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0005473764,
+                  0.0001458154
+                ],
+                "thickness_over_length": 0.0006931918000000001
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.03097571926422564,
+            "maximum_thickness_over_length": 0.0013056275,
+            "median_thickness_over_length": 0.0011156689,
+            "peak_t_over_c": 0.04215003012078206,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.000406926,
+                  0.0009614092
+                ],
+                "thickness_over_length": 0.0005544832
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  9.395e-06,
+                  0.0009644083
+                ],
+                "thickness_over_length": 0.0009550133
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000231495,
+                  0.0008841739
+                ],
+                "thickness_over_length": 0.0011156689
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0004697085,
+                  0.0007699581
+                ],
+                "thickness_over_length": 0.0012396666
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0006718663,
+                  0.0006337612
+                ],
+                "thickness_over_length": 0.0013056275
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0007790415,
+                  0.0004626252
+                ],
+                "thickness_over_length": 0.0012416667
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0009362163,
+                  0.0002386792
+                ],
+                "thickness_over_length": 0.0011748955
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0009828638,
+                  -0.0001176632
+                ],
+                "thickness_over_length": 0.0008652005999999999
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0010051119,
+                  -0.0004980182
+                ],
+                "thickness_over_length": 0.0005070937
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.017855385753828616,
+            "maximum_thickness_over_length": 0.0007581646,
+            "median_thickness_over_length": 0.0006715113,
+            "peak_t_over_c": 0.04246139570731098,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  0.0002354595,
+                  0.0006270141
+                ],
+                "thickness_over_length": 0.0003915546
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  1.10074e-05,
+                  0.0005863176
+                ],
+                "thickness_over_length": 0.0005753102000000001
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0001471876,
+                  0.0005243237
+                ],
+                "thickness_over_length": 0.0006715113
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0003054603,
+                  0.0004181571
+                ],
+                "thickness_over_length": 0.0007236174
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0004510919,
+                  0.0003070727
+                ],
+                "thickness_over_length": 0.0007581646
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0005537853,
+                  0.000164658
+                ],
+                "thickness_over_length": 0.0007184433
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0006706527,
+                  6.1281e-06
+                ],
+                "thickness_over_length": 0.0006767808
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0007428024,
+                  -0.0002083454
+                ],
+                "thickness_over_length": 0.000534457
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0007974888,
+                  -0.0004471675
+                ],
+                "thickness_over_length": 0.0003503213
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.007247241305326628,
+            "maximum_thickness_over_length": 0.0003866695,
+            "median_thickness_over_length": 0.0003423416,
+            "peak_t_over_c": 0.05335402585750842,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -1.13465e-05,
+                  0.00021669
+                ],
+                "thickness_over_length": 0.0002280365
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0001020344,
+                  0.0002021635
+                ],
+                "thickness_over_length": 0.0003041979
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000172248,
+                  0.0001700936
+                ],
+                "thickness_over_length": 0.0003423416
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0002357371,
+                  0.0001290393
+                ],
+                "thickness_over_length": 0.0003647764
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0002981439,
+                  8.85256e-05
+                ],
+                "thickness_over_length": 0.0003866695
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0003427755,
+                  2.85278e-05
+                ],
+                "thickness_over_length": 0.00037130329999999996
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0003879513,
+                  -3.04296e-05
+                ],
+                "thickness_over_length": 0.0003575217
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.000420175,
+                  -0.0001131213
+                ],
+                "thickness_over_length": 0.0003070537
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0004458823,
+                  -0.0002100955
+                ],
+                "thickness_over_length": 0.00023578679999999998
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Pelvic_right",
+      "library": {
+        "frame": {
+          "origin": [
+            0.44999999999999996,
+            -0.0854,
+            0.0386
+          ],
+          "basis": [
+            [
+              0.9548823821339675,
+              -0.27138762439597,
+              -0.12061672195376436
+            ],
+            [
+              -0.07506829988261744,
+              -0.6135113308585908,
+              0.7861097870277751
+            ],
+            [
+              -0.2873401932255444,
+              -0.7415878938014242,
+              -0.6062037686490197
+            ]
+          ],
+          "span_over_length": 0.023011777862608964
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": false,
+            "chord_over_length": 0.11223145539942889,
+            "maximum_thickness_over_length": 0.012525534999999999,
+            "median_thickness_over_length": 0.0050571748,
+            "peak_t_over_c": 0.11160449586456792,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0267403002
+                ],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0188357911,
+                  -0.0063102561
+                ],
+                "thickness_over_length": 0.012525534999999999
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.001815768,
+                  -0.0007675537
+                ],
+                "thickness_over_length": 0.0010482142999999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0054446915,
+                  0.0004088743
+                ],
+                "thickness_over_length": 0.0058535658
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0049648549,
+                  -0.0007040711
+                ],
+                "thickness_over_length": 0.0042607838
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": false,
+            "chord_over_length": 0.10905205879093571,
+            "maximum_thickness_over_length": 0.0045553876,
+            "median_thickness_over_length": 0.00421872505,
+            "peak_t_over_c": 0.04177259604729846,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0039654447,
+                  0.0005899429
+                ],
+                "thickness_over_length": 0.0045553876
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0039520732,
+                  -7.00107e-05
+                ],
+                "thickness_over_length": 0.0038820624999999997
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.02069054163746952,
+            "maximum_thickness_over_length": 0.0032077854,
+            "median_thickness_over_length": 0.0026361686,
+            "peak_t_over_c": 0.15503631834320197,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0016665636,
+                  0.0006893622
+                ],
+                "thickness_over_length": 0.0023559258
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0023945002,
+                  0.0008132852
+                ],
+                "thickness_over_length": 0.0032077854
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0023623787,
+                  0.0007448695
+                ],
+                "thickness_over_length": 0.0031072482
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0023302572,
+                  0.0006764538
+                ],
+                "thickness_over_length": 0.003006711
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.002284981,
+                  0.0006080381
+                ],
+                "thickness_over_length": 0.0028930191
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0022129936,
+                  0.000423175
+                ],
+                "thickness_over_length": 0.0026361686
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0021410062,
+                  0.0002342853
+                ],
+                "thickness_over_length": 0.0023752915
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0019714625,
+                  -0.0001444994
+                ],
+                "thickness_over_length": 0.0018269631
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0018035074,
+                  -0.0008469336
+                ],
+                "thickness_over_length": 0.0009565737999999999
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.01415940885638757,
+            "maximum_thickness_over_length": 0.0024058175,
+            "median_thickness_over_length": 0.0019517956,
+            "peak_t_over_c": 0.1699094591025028,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0013007343,
+                  0.0009727698
+                ],
+                "thickness_over_length": 0.0022735041
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0013159677,
+                  0.0010898498
+                ],
+                "thickness_over_length": 0.0024058175
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0012939856,
+                  0.00104303
+                ],
+                "thickness_over_length": 0.0023370156
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0012450893,
+                  0.000946544
+                ],
+                "thickness_over_length": 0.0021916333000000002
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0012080013,
+                  0.0007437943
+                ],
+                "thickness_over_length": 0.0019517956
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0011992889,
+                  0.0004090586
+                ],
+                "thickness_over_length": 0.0016083475000000002
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0011905765,
+                  7.43229e-05
+                ],
+                "thickness_over_length": 0.0012648994
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0011452399,
+                  -0.0002604128
+                ],
+                "thickness_over_length": 0.0008848271
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0010892751,
+                  -0.0005949099
+                ],
+                "thickness_over_length": 0.0004943652
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.5473018902476888,
+            -0.05475572120614285,
+            0.019715588407517956
+          ],
+          "basis": [
+            [
+              0.9887387699345115,
+              0.13036851198883098,
+              -0.07348262318539815
+            ],
+            [
+              0.14755225006858866,
+              -0.7672911874388979,
+              0.6240933961982796
+            ],
+            [
+              0.024979558204376424,
+              -0.6279078632732864,
+              -0.7778867121319724
+            ]
+          ],
+          "span_over_length": 0.04798085298569646
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.04955428004372216,
+            "maximum_thickness_over_length": 0.0019476435,
+            "median_thickness_over_length": 0.0017100214999999999,
+            "peak_t_over_c": 0.03930323472123049,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0014924324,
+                  -0.0006155968
+                ],
+                "thickness_over_length": 0.0008768356000000001
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0017985748,
+                  -0.0002778327
+                ],
+                "thickness_over_length": 0.0015207421
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0017112966,
+                  -1.2751e-06
+                ],
+                "thickness_over_length": 0.0017100214999999999
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0016240184,
+                  0.0002752824
+                ],
+                "thickness_over_length": 0.0018993007999999999
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0014986959,
+                  0.0004489476
+                ],
+                "thickness_over_length": 0.0019476435
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0013642552,
+                  0.0004860732
+                ],
+                "thickness_over_length": 0.0018503284000000002
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0011918007,
+                  0.0005555844
+                ],
+                "thickness_over_length": 0.0017473851000000002
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0007334888,
+                  0.0004915336
+                ],
+                "thickness_over_length": 0.0012250224
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0003132799,
+                  0.0003795315
+                ],
+                "thickness_over_length": 0.0006928114
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.030878034565261232,
+            "maximum_thickness_over_length": 0.001302064,
+            "median_thickness_over_length": 0.0011128291,
+            "peak_t_over_c": 0.04216796885980765,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0009437845,
+                  -0.0003903459
+                ],
+                "thickness_over_length": 0.0005534386
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0009597981,
+                  -6.8089e-06
+                ],
+                "thickness_over_length": 0.0009529892000000001
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0008924263,
+                  0.0002204028
+                ],
+                "thickness_over_length": 0.0011128291
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0007908398,
+                  0.0004457095
+                ],
+                "thickness_over_length": 0.0012365493
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0006678696,
+                  0.0006341944
+                ],
+                "thickness_over_length": 0.001302064
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0005089387,
+                  0.0007293926
+                ],
+                "thickness_over_length": 0.0012383313000000002
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.000298673,
+                  0.0008732304
+                ],
+                "thickness_over_length": 0.0011719034
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  4.40003e-05,
+                  0.0009067133
+                ],
+                "thickness_over_length": 0.000862713
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0004110697,
+                  0.0009168861
+                ],
+                "thickness_over_length": 0.0005058164
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.01775600356296428,
+            "maximum_thickness_over_length": 0.0007530891,
+            "median_thickness_over_length": 0.0006673911,
+            "peak_t_over_c": 0.04241320955638936,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0005867538,
+                  -0.000197919
+                ],
+                "thickness_over_length": 0.00038883480000000007
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0005536697,
+                  1.78653e-05
+                ],
+                "thickness_over_length": 0.0005715350000000001
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0004993869,
+                  0.0001680042
+                ],
+                "thickness_over_length": 0.0006673911
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.000399894,
+                  0.0003185616
+                ],
+                "thickness_over_length": 0.0007184556
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0002968159,
+                  0.0004562732
+                ],
+                "thickness_over_length": 0.0007530891
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.000161495,
+                  0.0005520123
+                ],
+                "thickness_over_length": 0.0007135073
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -1.12645e-05,
+                  0.0006608881
+                ],
+                "thickness_over_length": 0.0006721526000000001
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0001944742,
+                  0.0007254833
+                ],
+                "thickness_over_length": 0.0005310091
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0004244824,
+                  0.0007725532
+                ],
+                "thickness_over_length": 0.0003480708
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.00697484278751033,
+            "maximum_thickness_over_length": 0.0003785919,
+            "median_thickness_over_length": 0.000336027,
+            "peak_t_over_c": 0.054279632033848085,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001667109,
+                  6.02414e-05
+                ],
+                "thickness_over_length": 0.00022695229999999999
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0001556445,
+                  0.0001446359
+                ],
+                "thickness_over_length": 0.0003002804
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0001271099,
+                  0.0002089171
+                ],
+                "thickness_over_length": 0.000336027
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -9.09634e-05,
+                  0.0002674066
+                ],
+                "thickness_over_length": 0.00035837
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -5.44642e-05,
+                  0.0003241277
+                ],
+                "thickness_over_length": 0.0003785919
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  2.329e-07,
+                  0.0003643582
+                ],
+                "thickness_over_length": 0.0003641253
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  5.4093e-05,
+                  0.0004049838
+                ],
+                "thickness_over_length": 0.00035089079999999997
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  0.0001315098,
+                  0.000432792
+                ],
+                "thickness_over_length": 0.0003012822
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  0.0002219086,
+                  0.0004546722
+                ],
+                "thickness_over_length": 0.0002327636
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Caudal",
+      "library": {
+        "frame": {
+          "origin": [
+            0.724,
+            -0.043,
+            0.0
+          ],
+          "basis": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "span_over_length": 0.155
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.15218715213889833,
+            "maximum_thickness_over_length": 0.011255887999999999,
+            "median_thickness_over_length": 0.0071746428000000004,
+            "peak_t_over_c": 0.07396082942485817,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0029918396,
+                  0.0029924936
+                ],
+                "thickness_over_length": 0.0059843332
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0035870403,
+                  0.0035876025
+                ],
+                "thickness_over_length": 0.0071746428000000004
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.003476519,
+                  0.0034770296
+                ],
+                "thickness_over_length": 0.0069535486
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0045522016,
+                  0.0045525167
+                ],
+                "thickness_over_length": 0.0091047183
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0056278842,
+                  0.0056280038
+                ],
+                "thickness_over_length": 0.011255887999999999
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0056143059,
+                  0.0056143823
+                ],
+                "thickness_over_length": 0.0112286882
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0041237081,
+                  0.0041239977
+                ],
+                "thickness_over_length": 0.0082477058
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0027489798,
+                  0.0027494907
+                ],
+                "thickness_over_length": 0.0054984705
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0013742515,
+                  0.0013749838
+                ],
+                "thickness_over_length": 0.0027492352999999997
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.16483192307632727,
+            "maximum_thickness_over_length": 0.0083553363,
+            "median_thickness_over_length": 0.0042704491,
+            "peak_t_over_c": 0.05069003712424667,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0010672514,
+                  0.0010679732
+                ],
+                "thickness_over_length": 0.0021352246
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0021349796,
+                  0.0021354695
+                ],
+                "thickness_over_length": 0.0042704491
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0032027079,
+                  0.0032029658
+                ],
+                "thickness_over_length": 0.0064056736999999996
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0041776569,
+                  0.0041776794
+                ],
+                "thickness_over_length": 0.0083553363
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0030470156,
+                  0.0030472593
+                ],
+                "thickness_over_length": 0.0060942749
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0017303025,
+                  0.0017308145
+                ],
+                "thickness_over_length": 0.0034611169999999997
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.000462425,
+                  0.0004632391
+                ],
+                "thickness_over_length": 0.0009256640999999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [],
+                "thickness_over_length": null
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [],
+                "thickness_over_length": null
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.09319824914342908,
+            "maximum_thickness_over_length": 0.0082564136,
+            "median_thickness_over_length": 0.0047167369,
+            "peak_t_over_c": 0.08858979300451929,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0005817111,
+                  0.0005825201
+                ],
+                "thickness_over_length": 0.0011642312
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0013267344,
+                  0.0013273896
+                ],
+                "thickness_over_length": 0.002654124
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0019731412,
+                  0.0019736509
+                ],
+                "thickness_over_length": 0.0039467921
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0026195479,
+                  0.0026199123
+                ],
+                "thickness_over_length": 0.0052394602000000005
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0034511692,
+                  0.0034513494
+                ],
+                "thickness_over_length": 0.0069025186
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0041281909,
+                  0.0041282227
+                ],
+                "thickness_over_length": 0.0082564136
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0034143989,
+                  0.003414358
+                ],
+                "thickness_over_length": 0.0068287569
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0023581647,
+                  0.0023585722
+                ],
+                "thickness_over_length": 0.0047167369
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.001237593,
+                  0.0012381818
+                ],
+                "thickness_over_length": 0.0024757748
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.06311223610309996,
+            "maximum_thickness_over_length": 0.0023732685,
+            "median_thickness_over_length": 0.0019479436,
+            "peak_t_over_c": 0.037603936202213396,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002430655,
+                  0.0002439204
+                ],
+                "thickness_over_length": 0.0004869859
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0004866079,
+                  0.0004873639
+                ],
+                "thickness_over_length": 0.0009739718
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0007301502,
+                  0.0007308075
+                ],
+                "thickness_over_length": 0.0014609577
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0009736926,
+                  0.000974251
+                ],
+                "thickness_over_length": 0.0019479436
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0011864077,
+                  0.0011868608
+                ],
+                "thickness_over_length": 0.0023732685
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.001174041,
+                  0.0011743408
+                ],
+                "thickness_over_length": 0.0023483818
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0011616742,
+                  0.0011618208
+                ],
+                "thickness_over_length": 0.002323495
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0011177205,
+                  0.0011177369
+                ],
+                "thickness_over_length": 0.0022354574
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0004620052,
+                  0.0004624369
+                ],
+                "thickness_over_length": 0.0009244421
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.826557705690022,
+            0.003608956689717451,
+            0.0
+          ],
+          "basis": [
+            [
+              0.874475902016494,
+              -0.4850689608627203,
+              0.0
+            ],
+            [
+              0.48506896086272017,
+              0.8744759020164939,
+              0.0
+            ],
+            [
+              -0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "span_over_length": 0.19571773937965578
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.06251734680662908,
+            "maximum_thickness_over_length": 0.0176992452,
+            "median_thickness_over_length": 0.0144287414,
+            "peak_t_over_c": 0.2831093465105791,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0035393695,
+                  0.0035393695
+                ],
+                "thickness_over_length": 0.007078739
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0064097039,
+                  0.0064097039
+                ],
+                "thickness_over_length": 0.0128194078
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0076296633,
+                  0.0076296633
+                ],
+                "thickness_over_length": 0.0152593266
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0088496226,
+                  0.0088496226
+                ],
+                "thickness_over_length": 0.0176992452
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0086386904,
+                  0.0086386904
+                ],
+                "thickness_over_length": 0.0172773808
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0083119435,
+                  0.0083119435
+                ],
+                "thickness_over_length": 0.016623887
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0072143707,
+                  0.0072143707
+                ],
+                "thickness_over_length": 0.0144287414
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0048588911,
+                  0.0048588911
+                ],
+                "thickness_over_length": 0.0097177822
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0024894289,
+                  0.0024894289
+                ],
+                "thickness_over_length": 0.0049788578
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.04917967781049552,
+            "maximum_thickness_over_length": 0.0130917164,
+            "median_thickness_over_length": 0.0107655458,
+            "peak_t_over_c": 0.26620175208236263,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0026054739,
+                  0.0026054739
+                ],
+                "thickness_over_length": 0.0052109478
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0047146187,
+                  0.0047146187
+                ],
+                "thickness_over_length": 0.0094292374
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0056325991,
+                  0.0056325991
+                ],
+                "thickness_over_length": 0.0112651982
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0065458582,
+                  0.0065458582
+                ],
+                "thickness_over_length": 0.0130917164
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0064084203,
+                  0.0064084203
+                ],
+                "thickness_over_length": 0.0128168406
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0062360122,
+                  0.0062360122
+                ],
+                "thickness_over_length": 0.0124720244
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0053827729,
+                  0.0053827729
+                ],
+                "thickness_over_length": 0.0107655458
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0036158311,
+                  0.0036158311
+                ],
+                "thickness_over_length": 0.0072316622
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0018480532,
+                  0.0018480532
+                ],
+                "thickness_over_length": 0.0036961064
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.040361341044728404,
+            "maximum_thickness_over_length": 0.0078718792,
+            "median_thickness_over_length": 0.0062078238,
+            "peak_t_over_c": 0.19503512510340995,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0020279163,
+                  0.0020279163
+                ],
+                "thickness_over_length": 0.0040558326
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0031039119,
+                  0.0031039119
+                ],
+                "thickness_over_length": 0.0062078238
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.00372492,
+                  0.00372492
+                ],
+                "thickness_over_length": 0.00744984
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0039359396,
+                  0.0039359396
+                ],
+                "thickness_over_length": 0.0078718792
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0038976596,
+                  0.0038976596
+                ],
+                "thickness_over_length": 0.0077953192
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0038600941,
+                  0.0038600941
+                ],
+                "thickness_over_length": 0.0077201882
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0029802808,
+                  0.0029802808
+                ],
+                "thickness_over_length": 0.0059605616
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.002032692,
+                  0.002032692
+                ],
+                "thickness_over_length": 0.004065384
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0010851033,
+                  0.0010851033
+                ],
+                "thickness_over_length": 0.0021702066
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.019644879373825974,
+            "maximum_thickness_over_length": 0.0042652966,
+            "median_thickness_over_length": 0.0032329046,
+            "peak_t_over_c": 0.21712001987056767,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0010545447,
+                  0.0010545447
+                ],
+                "thickness_over_length": 0.0021090894
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0015511952,
+                  0.0015511952
+                ],
+                "thickness_over_length": 0.0031023904
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0019410275,
+                  0.0019410275
+                ],
+                "thickness_over_length": 0.003882055
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0020994247,
+                  0.0020994247
+                ],
+                "thickness_over_length": 0.0041988494
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0021326483,
+                  0.0021326483
+                ],
+                "thickness_over_length": 0.0042652966
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0021293024,
+                  0.0021293024
+                ],
+                "thickness_over_length": 0.0042586048
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0016164523,
+                  0.0016164523
+                ],
+                "thickness_over_length": 0.0032329046
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0011043933,
+                  0.0011043933
+                ],
+                "thickness_over_length": 0.0022087866
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0005923342,
+                  0.0005923342
+                ],
+                "thickness_over_length": 0.0011846684
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Anal",
+      "library": {
+        "frame": {
+          "origin": [
+            0.58455,
+            -0.064705,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9955207630234976,
+              0.09454316680286029,
+              0.0
+            ],
+            [
+              0.09454316680285983,
+              -0.9955207630234975,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ],
+          "span_over_length": 0.01255893270512263
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.032081382822039,
+            "maximum_thickness_over_length": 0.0060781345,
+            "median_thickness_over_length": 0.0053140082,
+            "peak_t_over_c": 0.18945986629430744,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0026530305,
+                  0.002652467
+                ],
+                "thickness_over_length": 0.0053054975
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0030390823,
+                  0.0030390522
+                ],
+                "thickness_over_length": 0.0060781345
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0029312999,
+                  0.0029312999
+                ],
+                "thickness_over_length": 0.0058625998
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.002794152,
+                  0.002794152
+                ],
+                "thickness_over_length": 0.005588304
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0026570041,
+                  0.0026570041
+                ],
+                "thickness_over_length": 0.0053140082
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.002683722,
+                  0.002683722
+                ],
+                "thickness_over_length": 0.005367444
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0024339256,
+                  0.0024339256
+                ],
+                "thickness_over_length": 0.0048678512
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0020528541,
+                  0.0020528541
+                ],
+                "thickness_over_length": 0.0041057082
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0016180329,
+                  0.0016180329
+                ],
+                "thickness_over_length": 0.0032360658
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.028701019285842785,
+            "maximum_thickness_over_length": 0.0039820316,
+            "median_thickness_over_length": 0.0030843566,
+            "peak_t_over_c": 0.13874181820309767,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0008429935,
+                  0.0008424856
+                ],
+                "thickness_over_length": 0.0016854791
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0015312908,
+                  0.0015311766
+                ],
+                "thickness_over_length": 0.0030624674000000003
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0017576067,
+                  0.0017576067
+                ],
+                "thickness_over_length": 0.0035152134
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0018927921,
+                  0.0018927921
+                ],
+                "thickness_over_length": 0.0037855842
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0019910158,
+                  0.0019910158
+                ],
+                "thickness_over_length": 0.0039820316
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0018610182,
+                  0.0018610182
+                ],
+                "thickness_over_length": 0.0037220364
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0015421783,
+                  0.0015421783
+                ],
+                "thickness_over_length": 0.0030843566
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0009141429,
+                  0.0009141429
+                ],
+                "thickness_over_length": 0.0018282858
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0005977588,
+                  0.0005977588
+                ],
+                "thickness_over_length": 0.0011955176
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.024893913842108435,
+            "maximum_thickness_over_length": 0.0025624568,
+            "median_thickness_over_length": 0.002059873,
+            "peak_t_over_c": 0.10293507144969569,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0006099614,
+                  0.0006093385
+                ],
+                "thickness_over_length": 0.0012192999
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0011409062,
+                  0.0011408015
+                ],
+                "thickness_over_length": 0.0022817077
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0012812284,
+                  0.0012812284
+                ],
+                "thickness_over_length": 0.0025624568
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.001190675,
+                  0.001190675
+                ],
+                "thickness_over_length": 0.00238135
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0011103057,
+                  0.0011103057
+                ],
+                "thickness_over_length": 0.0022206114
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0010299365,
+                  0.0010299365
+                ],
+                "thickness_over_length": 0.002059873
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0008961233,
+                  0.0008961233
+                ],
+                "thickness_over_length": 0.0017922466
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0006265087,
+                  0.0006265087
+                ],
+                "thickness_over_length": 0.0012530174
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0004778086,
+                  0.0004778086
+                ],
+                "thickness_over_length": 0.0009556172
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.022355760484216922,
+            "maximum_thickness_over_length": 0.0019562208,
+            "median_thickness_over_length": 0.0015161843,
+            "peak_t_over_c": 0.08750410442897186,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002882574,
+                  0.0002875396
+                ],
+                "thickness_over_length": 0.0005757970000000001
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0004451717,
+                  0.0004445825
+                ],
+                "thickness_over_length": 0.0008897542
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.00060203,
+                  0.0006015784
+                ],
+                "thickness_over_length": 0.0012036084
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.000758194,
+                  0.0007579903
+                ],
+                "thickness_over_length": 0.0015161843
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0008718402,
+                  0.0008718402
+                ],
+                "thickness_over_length": 0.0017436804
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0008380042,
+                  0.0008380042
+                ],
+                "thickness_over_length": 0.0016760084
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.00093465,
+                  0.00093465
+                ],
+                "thickness_over_length": 0.0018693
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0009781104,
+                  0.0009781104
+                ],
+                "thickness_over_length": 0.0019562208
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0004593236,
+                  0.0004593236
+                ],
+                "thickness_over_length": 0.0009186472
+              }
+            ]
+          }
+        ]
+      },
+      "current": {
+        "frame": {
+          "origin": [
+            0.7255061982315587,
+            -0.038148298755661225,
+            0.0
+          ],
+          "basis": [
+            [
+              0.9887289927458837,
+              0.14971632811323685,
+              0.0
+            ],
+            [
+              0.14971632811323687,
+              -0.9887289927458837,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ],
+          "span_over_length": 0.029897990470770422
+        },
+        "rows": [
+          {
+            "s": 0.25,
+            "valid": true,
+            "chord_over_length": 0.03272302171975791,
+            "maximum_thickness_over_length": 0.0014699901,
+            "median_thickness_over_length": 0.0012249187,
+            "peak_t_over_c": 0.044922199196305614,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002933495,
+                  0.0002933556
+                ],
+                "thickness_over_length": 0.0005867051
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0005056936,
+                  0.0005056996
+                ],
+                "thickness_over_length": 0.0010113931999999998
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0006124575,
+                  0.0006124612
+                ],
+                "thickness_over_length": 0.0012249187
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0006778037,
+                  0.0006777971
+                ],
+                "thickness_over_length": 0.0013556008
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0007350101,
+                  0.00073498
+                ],
+                "thickness_over_length": 0.0014699901
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0006894491,
+                  0.0006894387
+                ],
+                "thickness_over_length": 0.0013788878
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0006494161,
+                  0.0006494188
+                ],
+                "thickness_over_length": 0.0012988348999999999
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0005064472,
+                  0.0005064555
+                ],
+                "thickness_over_length": 0.0010129027
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0002883392,
+                  0.0002883519
+                ],
+                "thickness_over_length": 0.0005766911
+              }
+            ]
+          },
+          {
+            "s": 0.5,
+            "valid": true,
+            "chord_over_length": 0.02107120261939638,
+            "maximum_thickness_over_length": 0.0010044158,
+            "median_thickness_over_length": 0.0008600114000000001,
+            "peak_t_over_c": 0.04766770165626044,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0002143597,
+                  0.0002143583
+                ],
+                "thickness_over_length": 0.000428718
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.000346199,
+                  0.0003461985
+                ],
+                "thickness_over_length": 0.0006923974999999999
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0004300126,
+                  0.0004299988
+                ],
+                "thickness_over_length": 0.0008600114000000001
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0004683493,
+                  0.0004683229
+                ],
+                "thickness_over_length": 0.0009366722
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0005022156,
+                  0.0005022002
+                ],
+                "thickness_over_length": 0.0010044158
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0004839381,
+                  0.0004839309
+                ],
+                "thickness_over_length": 0.000967869
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0004481466,
+                  0.0004481466
+                ],
+                "thickness_over_length": 0.0008962932
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0003656088,
+                  0.0003656096
+                ],
+                "thickness_over_length": 0.0007312184
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0002182841,
+                  0.0002182783
+                ],
+                "thickness_over_length": 0.00043656239999999996
+              }
+            ]
+          },
+          {
+            "s": 0.75,
+            "valid": true,
+            "chord_over_length": 0.012796295260386021,
+            "maximum_thickness_over_length": 0.0006072193000000001,
+            "median_thickness_over_length": 0.0005403684,
+            "peak_t_over_c": 0.04745274219170231,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.000158584,
+                  0.0001585773
+                ],
+                "thickness_over_length": 0.0003171613
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0002264898,
+                  0.000226483
+                ],
+                "thickness_over_length": 0.0004529728
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.000270186,
+                  0.0002701824
+                ],
+                "thickness_over_length": 0.0005403684
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.000288518,
+                  0.0002885173
+                ],
+                "thickness_over_length": 0.0005770352999999999
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0003036099,
+                  0.0003036094
+                ],
+                "thickness_over_length": 0.0006072193000000001
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0002925239,
+                  0.0002925245
+                ],
+                "thickness_over_length": 0.0005850484
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0002719419,
+                  0.0002719418
+                ],
+                "thickness_over_length": 0.0005438837
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0002274909,
+                  0.0002274904
+                ],
+                "thickness_over_length": 0.0004549813
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001536669,
+                  0.0001536669
+                ],
+                "thickness_over_length": 0.0003073338
+              }
+            ]
+          },
+          {
+            "s": 0.9,
+            "valid": true,
+            "chord_over_length": 0.007042560832615775,
+            "maximum_thickness_over_length": 0.0003530844,
+            "median_thickness_over_length": 0.0003272336,
+            "peak_t_over_c": 0.050135796962488724,
+            "probes": [
+              {
+                "chord_fraction": 0.1,
+                "hits": [
+                  -0.0001119572,
+                  0.0001119572
+                ],
+                "thickness_over_length": 0.0002239144
+              },
+              {
+                "chord_fraction": 0.2,
+                "hits": [
+                  -0.0001418171,
+                  0.0001418171
+                ],
+                "thickness_over_length": 0.0002836342
+              },
+              {
+                "chord_fraction": 0.3,
+                "hits": [
+                  -0.0001636168,
+                  0.0001636168
+                ],
+                "thickness_over_length": 0.0003272336
+              },
+              {
+                "chord_fraction": 0.4,
+                "hits": [
+                  -0.0001709602,
+                  0.0001709602
+                ],
+                "thickness_over_length": 0.0003419204
+              },
+              {
+                "chord_fraction": 0.5,
+                "hits": [
+                  -0.0001765422,
+                  0.0001765422
+                ],
+                "thickness_over_length": 0.0003530844
+              },
+              {
+                "chord_fraction": 0.6,
+                "hits": [
+                  -0.0001749838,
+                  0.0001749838
+                ],
+                "thickness_over_length": 0.0003499676
+              },
+              {
+                "chord_fraction": 0.7,
+                "hits": [
+                  -0.0001648166,
+                  0.0001648165
+                ],
+                "thickness_over_length": 0.0003296331
+              },
+              {
+                "chord_fraction": 0.8,
+                "hits": [
+                  -0.0001506324,
+                  0.0001506323
+                ],
+                "thickness_over_length": 0.0003012647
+              },
+              {
+                "chord_fraction": 0.9,
+                "hits": [
+                  -0.0001157708,
+                  0.0001157708
+                ],
+                "thickness_over_length": 0.0002315416
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "formal_acceptance": false
+}

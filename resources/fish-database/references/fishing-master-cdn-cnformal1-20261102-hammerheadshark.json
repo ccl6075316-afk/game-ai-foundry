@@ -43,9 +43,34 @@
     "animator_references_resolved": true,
     "coordinate_basis": "mesh-local rest geometry; scene/bone transforms not baked",
     "coverage_id": "fishing-master-cdn-cnformal1-20261102:base-hammerheadshark",
-    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl"
+    "prefab_inventory": "evidence/fishing-master-cdn-cnformal1-20261102/prefab-inventory.jsonl",
+    "default_prefab_bind_pose_check": {
+      "maximum_vertex_delta": 1.470279815333856e-07,
+      "relative_to_whole_length": 9.027588778061132e-08,
+      "isotropic_mesh_world_scale": true,
+      "evidence": "evidence/hammerhead-local-sections-20261103/sections.json"
+    }
   },
-  "anatomical_correspondence": [],
+  "anatomical_correspondence": [
+    {
+      "scope": "Head-wing thickness sections only, family-level shape reference; exact species unverified",
+      "evidence": "evidence/hammerhead-local-sections-20261103/sections.json",
+      "normalized_half_span_stations": [
+        0.55,
+        0.7,
+        0.85
+      ],
+      "body_width_measurement": false
+    },
+    {
+      "scope": "Fin foil game-mesh section reference only, exact species unknown; local chord-normal thickness and t/c at25/50/75/90% span. Pelvic proximal merged-body stations invalid and excluded.",
+      "evidence": "evidence/hammerhead-fin-sections-20261104/sections.json",
+      "definition": "evidence/hammerhead-fin-sections-20261104/definition.json",
+      "reference_sha256": "f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8",
+      "normalization": "Whole finite longitudinal extent1.62865174, per-fin root/tip frames. Local chord-normal cuts, not AABB thickness, not normal-ray tissue thickness.",
+      "acceptance_transferred": false
+    }
+  ],
   "measurement_ids": [],
   "user_acceptance": {
     "accepted": false,
@@ -54,8 +79,28 @@
   "unknowns": [
     "Biological species identity and real-world proportion accuracy unverified",
     "Mouth, fin and body anatomical correspondence not reviewed",
-    "Scene/bone transforms and animation playback not validated for measurements",
     "No fin-excluded normalized body-width measurements established",
-    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified"
-  ]
+    "CDN snapshot equivalence to acquired Xiaomi APK and latest live game remains unverified",
+    "Default prefab pose matches bind geometry; runtime animation playback and motion-linked deformation remain unvalidated."
+  ],
+  "full_head_section_evidence": {
+    "path": "evidence/hammerhead-local-sections-20261103/full-head-sections.json",
+    "sha256": "2a43e5146424a7cc490e86493d8100d551da2f80cc2efdab1e63cc34e9078ed8",
+    "scope": "Both sides,23 span positions x17 chord fractions; game-model full-head finite thickness only. Engineering head/neck posterior interface at normalized x=.108, open-jaw central envelope declared. No biological/species acceptance.",
+    "reference_bilateral_max_height_over_length_delta": 5.516000000024834e-07
+  },
+  "head_reference_scope_20261103": {
+    "user_scope": "General head style/proportions and smooth inner transition permitted; trunk height independently researched for S.lewini.",
+    "species": "Unverified; user suspects S.mokarran, not established identification.",
+    "eye_components": "Two64-triangle eye components excluded before defining head span; body+fins3040tri.",
+    "registered_neck_to_head_span": 0.42121244742577546,
+    "normalization": "Original full longitudinal extent1.62865174; X snout->tail,Y up,Z transverse; head scalar upper/lower fields, not mesh copying. Engineering neck minimum not anatomical PCL.",
+    "actual_usage": "Own geometry R11 head/neck only; former library trunk gain not adopted.",
+    "evidence_paths": [
+      "projects/fishing-2d/experiments/scalloped-art-rebuild-20261102/form-r6-preparation-20261103/measurements.json",
+      "projects/fishing-2d/experiments/scalloped-art-rebuild-20261102/form-cold-r11-20261103/form-measurements.json",
+      "projects/fishing-2d/experiments/scalloped-art-rebuild-20261102/species-recheck-20261103/research.validation.json"
+    ],
+    "acceptance_transferred": false
+  }
 }

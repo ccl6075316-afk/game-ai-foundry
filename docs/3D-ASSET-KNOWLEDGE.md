@@ -1,5 +1,7 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+2026-11-04：路氏双髻鲨已获整鱼成品接受，3994三角面、18骨、完整8鳍；静态形体/UV/像素/蒙皮/骨架冻结，默认后续只改动作。正式参数 [scalloped-hammerhead-final-20261104.json](../resources/volume-fish/scalloped-hammerhead-final-20261104.json)，原逐鱼账本已迁入游戏 `plans/reviews/scalloped-hammerhead-release-20261104/HANDOFF.md`；正式GLB和普通blend可独立冷读，旧两轮实验退役，不能从旧候选继续制作。
+
 2026-11-04：虹鳟、褐鳟、大西洋鲑、海鲈、红皇帝鱼已获整鱼成品接受，静态冻结、默认只改动作。索引为 [五鱼正式入口](../resources/volume-fish/final-five-fish-20261104.json)，游戏交接为 `projects/fishing-2d/plans/reviews/five-fish-release-20261104/HANDOFF.md`。当前源和正式GLB、逐鱼证据迁移表与清理字节均在该交接中；旧实验路径仅作历史来源，不再是运行入口。
 
 2026-11-02 梳理。本文负责导航、规则归属和每轮知识收尾；不保存第二套资产状态。模型是否可交付，仍读当前 manifest、progress、handoff、assets-manifest 和 validation report。

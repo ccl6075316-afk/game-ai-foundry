@@ -16,9 +16,13 @@ model=out/'fish.glb';bpy.ops.export_scene.gltf(filepath=str(model),export_format
 for i in range(len(a['accessors'])):
  x=arrays(a,ab,i);y=arrays(b,bb,i);assert x.shape==y.shape and np.isfinite(y).all();error=float(np.max(abs(x.astype(float)-y)))if x.size else 0;assert error<=1e-6,(i,error);errors.append(error)
 for k in['nodes','skins','animations','meshes','materials','textures']:assert a.get(k)==b.get(k),k
-assert a.get('samplers')==b.get('samplers'),'Unexpected source sampler change'
+# Source exports may retain Blender mip defaults; final nearest policy is explicit below.
+assert len(a.get('samplers',[]))==len(b.get('samplers',[])),'Unexpected sampler count'
+for x,y in zip(a.get('samplers',[]),b.get('samplers',[])):
+ assert {k:v for k,v in x.items()if k not in ['magFilter','minFilter']}=={k:v for k,v in y.items()if k not in ['magFilter','minFilter']},'Unexpected sampler wrap/binding change'
 sampler_before=[dict(s)for s in b.get('samplers',[])]
 for s in b.get('samplers',[]):s.update(magFilter=9728,minFilter=9728)
+assert a.get('samplers')==b.get('samplers'),'Final nearest samplers differ from accepted reference'
 sys.path.insert(0,str(HERE));from patch_existing_fin_meshes import write
 write(model,b,bytearray(bb))
 for x,y in zip(a['images'],b['images']):

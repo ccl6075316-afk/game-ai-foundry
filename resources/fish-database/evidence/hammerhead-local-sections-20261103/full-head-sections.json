@@ -1,0 +1,7429 @@
+{
+  "kind": "game_model_full_head_section_reference",
+  "reference_species": "Unverified game-name HammerheadShark; family shape reference, not biological measurement",
+  "normalization": "Full longitudinal whole-fish rest extent = 1, no head rescaling. Span fractions independently refer to each original head silhouette.",
+  "reference_posterior_boundary": {
+    "x_from_snout_over_length": 0.108,
+    "definition": "Engineering head/neck boundary at the minimum transverse width after the wide cephalofoil; central sections truncated here, outside the neck use the frontmost connected cut interval if shorter. Not a biological landmark."
+  },
+  "reference_half_span_over_length": 0.13522113344528908,
+  "limitations": [
+    "Reference jaw open, project near-closed: central ventral mouth envelope is not a direct target.",
+    "Fin triangles remain in the library body group, but head interval is before their roots.",
+    "Finite triangles only; no tissue thickness, species or user acceptance claim."
+  ],
+  "inputs": [
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8.obj",
+      "sha256": "f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8"
+    }
+  ],
+  "rows": [
+    {
+      "side": -1,
+      "half_span_fraction": 0,
+      "reference_front": 0.006960601736412362,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0007772429000000025,
+            "bottom": -0.0362211178,
+            "top": -0.0354438749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003886214000000006,
+            "bottom": -0.0380333523,
+            "top": -0.0341471383,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0077724282000000006,
+            "bottom": -0.0402986456,
+            "top": -0.0325262174,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014374239300000001,
+            "bottom": -0.0439233963,
+            "top": -0.029549157,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.019586580600000004,
+            "bottom": -0.0474254855,
+            "top": -0.0278389049,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.023643457099999998,
+            "bottom": -0.0497721098,
+            "top": -0.0261286527,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0306616746,
+            "bottom": -0.0532209078,
+            "top": -0.0225592332,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0379872203,
+            "bottom": -0.056395907,
+            "top": -0.0184086867,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0377319308,
+            "bottom": -0.051990071,
+            "top": -0.0142581402,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0692500855,
+            "bottom": -0.0794380986,
+            "top": -0.0101880131,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0755071204,
+            "bottom": -0.0817792774,
+            "top": -0.006272157,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.08090902,
+            "bottom": -0.0834852977,
+            "top": -0.0025762777,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.08337801989999999,
+            "bottom": -0.0843336156,
+            "top": -0.0009555957,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0857479133,
+            "bottom": -0.0850828269,
+            "top": 0.0006650864,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.08793464409999999,
+            "bottom": -0.0856488756,
+            "top": 0.0022857685,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0890274362,
+            "bottom": -0.0859319,
+            "top": 0.0030955362,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0898793685,
+            "bottom": -0.0861583195,
+            "top": 0.003721049,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.05,
+      "reference_front": 0.003936426885562552,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008005062000000021,
+            "bottom": -0.0361562434,
+            "top": -0.0353557372,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003882540400000002,
+            "bottom": -0.0379372777,
+            "top": -0.0340547373,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007550067800000004,
+            "bottom": -0.0401038171,
+            "top": -0.0325537493,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0132057857,
+            "bottom": -0.0427999486,
+            "top": -0.0295941629,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.018004379199999997,
+            "bottom": -0.045837101,
+            "top": -0.0278327218,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.023073388499999996,
+            "bottom": -0.0491446692,
+            "top": -0.0260712807,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0290379439,
+            "bottom": -0.052696692,
+            "top": -0.0236587481,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0359416609,
+            "bottom": -0.0555869319,
+            "top": -0.019645271,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0371288791,
+            "bottom": -0.052499375,
+            "top": -0.0153704959,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0668797142,
+            "bottom": -0.0782966797,
+            "top": -0.0114169655,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0728968639,
+            "bottom": -0.0808115631,
+            "top": -0.0079146992,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0783638762,
+            "bottom": -0.0825698936,
+            "top": -0.0042060174,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.08041050999999999,
+            "bottom": -0.0832677078,
+            "top": -0.0028571978,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0826910402,
+            "bottom": -0.0839162934,
+            "top": -0.0012252532,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0849432212,
+            "bottom": -0.0844992843,
+            "top": 0.0004439369,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.08606931179999999,
+            "bottom": -0.0847907798,
+            "top": 0.001278532,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.08685474680000001,
+            "bottom": -0.0850239762,
+            "top": 0.0018307706,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.1,
+      "reference_front": 0.0016979427514592115,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008500961000000029,
+            "bottom": -0.0360804994,
+            "top": -0.0352304033,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004250480699999996,
+            "bottom": -0.0382294556,
+            "top": -0.0339789749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008070888200000001,
+            "bottom": -0.0404920208,
+            "top": -0.0324211326,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013904839199999998,
+            "bottom": -0.0433046073,
+            "top": -0.0293997681,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0177719463,
+            "bottom": -0.0453723834,
+            "top": -0.0276004371,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.021927411299999998,
+            "bottom": -0.0483961698,
+            "top": -0.0264687585,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.027947676199999997,
+            "bottom": -0.0521772746,
+            "top": -0.0242295984,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0343070146,
+            "bottom": -0.0548423957,
+            "top": -0.0205353811,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.040953693,
+            "bottom": -0.0572661711,
+            "top": -0.0163124781,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0636790118,
+            "bottom": -0.0759169965,
+            "top": -0.0122379847,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0707900246,
+            "bottom": -0.0798756457,
+            "top": -0.0090856211,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0758017093,
+            "bottom": -0.0813939496,
+            "top": -0.0055922403,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0778923677,
+            "bottom": -0.0821067743,
+            "top": -0.0042144066,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.079959573,
+            "bottom": -0.0827961459,
+            "top": -0.0028365729,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0821723982,
+            "bottom": -0.0835577262,
+            "top": -0.001385328,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.08340573629999999,
+            "bottom": -0.0839385164,
+            "top": -0.0005327801,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0842835074,
+            "bottom": -0.0842431485,
+            "top": 4.03589e-05,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.15,
+      "reference_front": 0.0003466792236186409,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009056602999999996,
+            "bottom": -0.0361000647,
+            "top": -0.0351944044,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004528301700000001,
+            "bottom": -0.038405152,
+            "top": -0.0338768503,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.009056603399999995,
+            "bottom": -0.041286511,
+            "top": -0.0322299076,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014910337700000002,
+            "bottom": -0.0441199122,
+            "top": -0.0292095745,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0180723298,
+            "bottom": -0.0462139729,
+            "top": -0.0281416431,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.021301449200000003,
+            "bottom": -0.0483080336,
+            "top": -0.0270065844,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.026648322399999997,
+            "bottom": -0.0513847894,
+            "top": -0.024736467,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0324814668,
+            "bottom": -0.0537778274,
+            "top": -0.0212963606,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0392757896,
+            "bottom": -0.0563238586,
+            "top": -0.017048069,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.039457108399999996,
+            "bottom": -0.0530017037,
+            "top": -0.0135445953,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.06576994850000001,
+            "bottom": -0.0762363971,
+            "top": -0.0104664486,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.07036212530000001,
+            "bottom": -0.0782441801,
+            "top": -0.0078820548,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.07260257769999999,
+            "bottom": -0.0791349448,
+            "top": -0.0065323671,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0749956267,
+            "bottom": -0.0801783061,
+            "top": -0.0051826794,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0774097461,
+            "bottom": -0.08128984,
+            "top": -0.0038800939,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0779881502,
+            "bottom": -0.0816338809,
+            "top": -0.0036457307,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0787607944,
+            "bottom": -0.0819091137,
+            "top": -0.0031483193,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.2,
+      "reference_front": 0.00021055275004976226,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009068055999999977,
+            "bottom": -0.0364116543,
+            "top": -0.0355048487,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004534027600000004,
+            "bottom": -0.0387196562,
+            "top": -0.0341856286,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008416884399999998,
+            "bottom": -0.0409534878,
+            "top": -0.0325366034,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014539804699999999,
+            "bottom": -0.0436518948,
+            "top": -0.0291120901,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.017352902,
+            "bottom": -0.0458408123,
+            "top": -0.0284879103,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.020270134000000002,
+            "bottom": -0.0479755377,
+            "top": -0.0277054037,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0248204272,
+            "bottom": -0.0502528429,
+            "top": -0.0254324157,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0305169439,
+            "bottom": -0.0526489069,
+            "top": -0.022131963,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0375334974,
+            "bottom": -0.0554117969,
+            "top": -0.0178782995,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.041645739,
+            "bottom": -0.0576394174,
+            "top": -0.0159936784,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0593127466,
+            "bottom": -0.072224386,
+            "top": -0.0129116394,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.06369026359999999,
+            "bottom": -0.0750395931,
+            "top": -0.0113493295,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.06601939600000001,
+            "bottom": -0.0760173311,
+            "top": -0.0099979351,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0681506048,
+            "bottom": -0.0770386927,
+            "top": -0.0088880879,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0697672038,
+            "bottom": -0.0781859726,
+            "top": -0.0084187688,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0705755033,
+            "bottom": -0.0787596126,
+            "top": -0.0081841093,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0714764536,
+            "bottom": -0.0792185245,
+            "top": -0.0077420709,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.25,
+      "reference_front": 7.442627648088363e-05,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009079508000000014,
+            "bottom": -0.0367232438,
+            "top": -0.035815293,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004004026899999999,
+            "bottom": -0.0384651111,
+            "top": -0.0344610842,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007525780900000001,
+            "bottom": -0.0402008555,
+            "top": -0.0326750746,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0140529558,
+            "bottom": -0.0431560113,
+            "top": -0.0291030555,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.016958055599999997,
+            "bottom": -0.0453476932,
+            "top": -0.0283896376,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019435264600000002,
+            "bottom": -0.0471999341,
+            "top": -0.0277646695,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.023363552500000002,
+            "bottom": -0.049491917,
+            "top": -0.0261283645,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.028552420900000004,
+            "bottom": -0.0515199864,
+            "top": -0.0229675655,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.034057235,
+            "bottom": -0.0542485494,
+            "top": -0.0201913144,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.037710916399999996,
+            "bottom": -0.0561536779,
+            "top": -0.0184427615,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0416104132,
+            "bottom": -0.0577627894,
+            "top": -0.0161523762,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0544590316,
+            "bottom": -0.0692756358,
+            "top": -0.0148166042,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0574376318,
+            "bottom": -0.0713348991,
+            "top": -0.0138972673,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0601035954,
+            "bottom": -0.0735309509,
+            "top": -0.0134273555,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0619932728,
+            "bottom": -0.0749507165,
+            "top": -0.0129574437,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0628416882,
+            "bottom": -0.075564176,
+            "top": -0.0127224878,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.063719121,
+            "bottom": -0.0760549435,
+            "top": -0.0123358225,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.3,
+      "reference_front": 0.0006986386376757374,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008044102999999955,
+            "bottom": -0.0367078431,
+            "top": -0.0359034328,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003992743600000001,
+            "bottom": -0.0381871959,
+            "top": -0.0341944523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007595395399999996,
+            "bottom": -0.0399129013,
+            "top": -0.0323175059,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014100187299999997,
+            "bottom": -0.0429380561,
+            "top": -0.0288378688,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0167142984,
+            "bottom": -0.0449308137,
+            "top": -0.0282165153,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019020150599999997,
+            "bottom": -0.0466153125,
+            "top": -0.0275951619,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.022589345,
+            "bottom": -0.0489418,
+            "top": -0.026352455,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0264959802,
+            "bottom": -0.0506453498,
+            "top": -0.0241493696,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.030539426900000003,
+            "bottom": -0.0530203116,
+            "top": -0.0224808847,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0338221197,
+            "bottom": -0.0546270025,
+            "top": -0.0208048828,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0375995591,
+            "bottom": -0.0569473651,
+            "top": -0.019347806,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.04066470999999999,
+            "bottom": -0.0599399109,
+            "top": -0.0192752009,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.041221397199999996,
+            "bottom": -0.0605412173,
+            "top": -0.0193198201,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0467091954,
+            "bottom": -0.0655813656,
+            "top": -0.0188721702,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0500089953,
+            "bottom": -0.0684335157,
+            "top": -0.0184245204,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.051477282400000005,
+            "bottom": -0.0698595907,
+            "top": -0.0183823083,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.052643178799999996,
+            "bottom": -0.0710004507,
+            "top": -0.0183572719,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.35,
+      "reference_front": 0.002240014816914359,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.000792855000000002,
+            "bottom": -0.036735965,
+            "top": -0.03594311,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003964274900000002,
+            "bottom": -0.0382229538,
+            "top": -0.0342586789,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007928549899999998,
+            "bottom": -0.0400816898,
+            "top": -0.0321531399,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014244731700000002,
+            "bottom": -0.0429404622,
+            "top": -0.0286957305,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0164058676,
+            "bottom": -0.0446007633,
+            "top": -0.0281948957,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.018617693,
+            "bottom": -0.0462731376,
+            "top": -0.0276554446,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.021853111100000003,
+            "bottom": -0.0484296535,
+            "top": -0.0265765424,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0248809897,
+            "bottom": -0.0500913386,
+            "top": -0.0252103489,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0271696343,
+            "bottom": -0.0505800243,
+            "top": -0.02341039,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0291335864,
+            "bottom": -0.0518104002,
+            "top": -0.0226768138,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0319199009,
+            "bottom": -0.0533059179,
+            "top": -0.021386017,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.031610752199999995,
+            "bottom": -0.0547352177,
+            "top": -0.0231244655,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.029887802999999998,
+            "bottom": -0.0553142414,
+            "top": -0.0254264384,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0309034915,
+            "bottom": -0.0565033096,
+            "top": -0.0255998181,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.033847817399999994,
+            "bottom": -0.0596643812,
+            "top": -0.0258165638,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0352153001,
+            "bottom": -0.0612446967,
+            "top": -0.0260293966,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0363658342,
+            "bottom": -0.0625089491,
+            "top": -0.0261431149,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.4,
+      "reference_front": 0.0037813909961529803,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0007812996000000003,
+            "bottom": -0.0367640869,
+            "top": -0.0359827873,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0039064984,
+            "bottom": -0.0382294039,
+            "top": -0.0343229055,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007783869699999994,
+            "bottom": -0.0400349737,
+            "top": -0.032251104,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013948522300000002,
+            "bottom": -0.0427099592,
+            "top": -0.0287614369,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0158717755,
+            "bottom": -0.0443597545,
+            "top": -0.028487979,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0176103252,
+            "bottom": -0.0458182729,
+            "top": -0.0282079477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.020617417899999997,
+            "bottom": -0.0477621876,
+            "top": -0.0271447697,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.023348401,
+            "bottom": -0.0491786648,
+            "top": -0.0258302638,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.025015588799999995,
+            "bottom": -0.0493302914,
+            "top": -0.0243147026,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0241572426,
+            "bottom": -0.048656285,
+            "top": -0.0244990424,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0259174992,
+            "bottom": -0.0493871428,
+            "top": -0.0234696436,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.020883925499999997,
+            "bottom": -0.0479330354,
+            "top": -0.0270491099,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.016766381400000002,
+            "bottom": -0.0459482795,
+            "top": -0.0291818981,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009020915400000003,
+            "bottom": -0.0427186773,
+            "top": -0.0336977619,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008166003999999998,
+            "bottom": -0.0429348652,
+            "top": -0.0347688612,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.006754972200000001,
+            "bottom": -0.0424638688,
+            "top": -0.0357088966,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.005695273200000003,
+            "bottom": -0.0420793204,
+            "top": -0.0363840472,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.45,
+      "reference_front": 0.0052954654328128195,
+      "reference_rear": 0.09459772250908054,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0006323675999999959,
+            "bottom": -0.0366973345,
+            "top": -0.0360649669,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003214282900000004,
+            "bottom": -0.037896559,
+            "top": -0.0346822761,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0064963734999999995,
+            "bottom": -0.0394059277,
+            "top": -0.0329095542,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012698961999999998,
+            "bottom": -0.0420630724,
+            "top": -0.0293641104,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014812293900000002,
+            "bottom": -0.0434767397,
+            "top": -0.0286644458,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0160911915,
+            "bottom": -0.0445213183,
+            "top": -0.0284301268,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0184985065,
+            "bottom": -0.0464599952,
+            "top": -0.0279614887,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.020369323400000004,
+            "bottom": -0.0475834269,
+            "top": -0.0272141035,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.021997768400000003,
+            "bottom": -0.0480186562,
+            "top": -0.0260208878,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.021758437199999998,
+            "bottom": -0.047937281,
+            "top": -0.0261788438,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0210301557,
+            "bottom": -0.0473669555,
+            "top": -0.0263367998,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0192723447,
+            "bottom": -0.0465617335,
+            "top": -0.0272893888,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.016852740100000003,
+            "bottom": -0.0453416878,
+            "top": -0.0284889477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.014525509000000002,
+            "bottom": -0.0437609527,
+            "top": -0.0292354437,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008695506899999997,
+            "bottom": -0.0407429529,
+            "top": -0.032047446,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0043251695000000034,
+            "bottom": -0.0389324974,
+            "top": -0.0346073279,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008537372999999973,
+            "bottom": -0.0374720394,
+            "top": -0.0366183021,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.5,
+      "reference_front": 0.006687927361311266,
+      "reference_rear": 0.0928608530380435,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0006102081999999967,
+            "bottom": -0.0365591002,
+            "top": -0.035948892,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0030510407999999947,
+            "bottom": -0.037700184,
+            "top": -0.0346491432,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.006102081599999996,
+            "bottom": -0.0391265388,
+            "top": -0.0330244572,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.011975777900000002,
+            "bottom": -0.0417508631,
+            "top": -0.0297750852,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014000437600000002,
+            "bottom": -0.0427549486,
+            "top": -0.028754511,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.015202274299999999,
+            "bottom": -0.0437306773,
+            "top": -0.028528403,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.017606189400000003,
+            "bottom": -0.0456821348,
+            "top": -0.0280759454,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.018730210200000003,
+            "bottom": -0.0463532269,
+            "top": -0.0276230167,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019714503199999997,
+            "bottom": -0.0471264087,
+            "top": -0.0274119055,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0196207471,
+            "bottom": -0.0469851851,
+            "top": -0.027364438,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0189328029,
+            "bottom": -0.0462497734,
+            "top": -0.0273169705,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.017245706500000003,
+            "bottom": -0.0456561444,
+            "top": -0.0284104379,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.015740898700000002,
+            "bottom": -0.0448724344,
+            "top": -0.0291315357,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.014237037000000001,
+            "bottom": -0.0440887244,
+            "top": -0.0298516874,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008282953000000003,
+            "bottom": -0.0412443035,
+            "top": -0.0329613505,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.004141476500000005,
+            "bottom": -0.0393999635,
+            "top": -0.035258487,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008282952999999968,
+            "bottom": -0.0379244915,
+            "top": -0.0370961962,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.55,
+      "reference_front": 0.008080389289809713,
+      "reference_rear": 0.09190571314880511,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0005979788999999971,
+            "bottom": -0.0364278484,
+            "top": -0.0358298695,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0031170924000000003,
+            "bottom": -0.0377012642,
+            "top": -0.0345841718,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0062658825999999945,
+            "bottom": -0.039293034,
+            "top": -0.0330271514,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012099957799999998,
+            "bottom": -0.0420130683,
+            "top": -0.0299131105,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014165987299999998,
+            "bottom": -0.0429912358,
+            "top": -0.0288252485,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0153580541,
+            "bottom": -0.0439694033,
+            "top": -0.0286113492,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.017734613099999998,
+            "bottom": -0.0459056515,
+            "top": -0.0281710384,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0191341123,
+            "bottom": -0.0468645611,
+            "top": -0.0277304488,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0200651479,
+            "bottom": -0.0475532627,
+            "top": -0.0274881148,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0197839798,
+            "bottom": -0.0472259203,
+            "top": -0.0274419405,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0180777927,
+            "bottom": -0.0457916707,
+            "top": -0.027713878,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.016265729000000003,
+            "bottom": -0.0450693729,
+            "top": -0.0288036439,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.014158573399999996,
+            "bottom": -0.0438508817,
+            "top": -0.0296923083,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.011847090499999997,
+            "bottom": -0.0424280632,
+            "top": -0.0305809727,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.006416166199999997,
+            "bottom": -0.040284332,
+            "top": -0.0338681658,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0031836763000000004,
+            "bottom": -0.0388001357,
+            "top": -0.0356164594,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006367352000000021,
+            "bottom": -0.0376518296,
+            "top": -0.0370150944,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.6,
+      "reference_front": 0.009801596495046186,
+      "reference_rear": 0.09246127181964192,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009035454999999984,
+            "bottom": -0.0366133329,
+            "top": -0.0357097874,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004338951899999999,
+            "bottom": -0.0387331815,
+            "top": -0.0343942296,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007482726100000003,
+            "bottom": -0.0403028167,
+            "top": -0.0328200906,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012848849300000003,
+            "bottom": -0.042598202,
+            "top": -0.0297493527,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014700272,
+            "bottom": -0.0435627674,
+            "top": -0.0288624954,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.015870433099999998,
+            "bottom": -0.0445220035,
+            "top": -0.0286515704,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.018178957500000002,
+            "bottom": -0.046408678,
+            "top": -0.0282297205,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019652059599999997,
+            "bottom": -0.0474478119,
+            "top": -0.0277957523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0200122527,
+            "bottom": -0.0475715106,
+            "top": -0.0275592579,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0195655608,
+            "bottom": -0.0472882891,
+            "top": -0.0277227283,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.017533993799999998,
+            "bottom": -0.0458170037,
+            "top": -0.0282830099,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.015061771600000003,
+            "bottom": -0.0445288101,
+            "top": -0.0294670385,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012880670400000002,
+            "bottom": -0.0433818138,
+            "top": -0.0305011434,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010753327799999997,
+            "bottom": -0.0424635236,
+            "top": -0.0317101958,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005915593300000001,
+            "bottom": -0.040544241,
+            "top": -0.0346286477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0030370072999999984,
+            "bottom": -0.039124881,
+            "top": -0.0360878737,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006278810000000037,
+            "bottom": -0.0379905327,
+            "top": -0.0373626517,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.65,
+      "reference_front": 0.011536184537964785,
+      "reference_rear": 0.09286828006770223,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008890339000000025,
+            "bottom": -0.0364976643,
+            "top": -0.0356086304,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0044451691,
+            "bottom": -0.0387593706,
+            "top": -0.0343142015,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008620447699999999,
+            "bottom": -0.041316613,
+            "top": -0.0326961653,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0135949951,
+            "bottom": -0.0431826794,
+            "top": -0.0295876843,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.015218812000000002,
+            "bottom": -0.044119111,
+            "top": -0.028900299,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0163545359,
+            "bottom": -0.0450472976,
+            "top": -0.0286927617,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.018625983699999998,
+            "bottom": -0.0469036707,
+            "top": -0.028277687,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019835375000000002,
+            "bottom": -0.0476979873,
+            "top": -0.0278626123,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019847851,
+            "bottom": -0.0475906505,
+            "top": -0.0277427995,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.019096972000000004,
+            "bottom": -0.0473910546,
+            "top": -0.0282940826,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0172653137,
+            "bottom": -0.046007301,
+            "top": -0.0287419873,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014405237499999998,
+            "bottom": -0.0446235474,
+            "top": -0.0302183099,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012275788000000003,
+            "bottom": -0.043486505,
+            "top": -0.031210717,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010225670300000003,
+            "bottom": -0.0424287943,
+            "top": -0.032203124,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005617745399999999,
+            "bottom": -0.0404948543,
+            "top": -0.0348771089,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.002825575900000002,
+            "bottom": -0.0391204744,
+            "top": -0.0362948985,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005651152000000007,
+            "bottom": -0.0379942453,
+            "top": -0.0374291301,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.7,
+      "reference_front": 0.013270772580883385,
+      "reference_rear": 0.09396773941702731,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008820912999999986,
+            "bottom": -0.0363868096,
+            "top": -0.0355047183,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004402506199999996,
+            "bottom": -0.0386229038,
+            "top": -0.0342203976,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008596474800000004,
+            "bottom": -0.0412114716,
+            "top": -0.0326149968,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013984374899999999,
+            "bottom": -0.0435448793,
+            "top": -0.0295605044,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.015588915600000003,
+            "bottom": -0.0443951148,
+            "top": -0.0288061992,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0167186128,
+            "bottom": -0.0452453503,
+            "top": -0.0285267375,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.019146482899999998,
+            "bottom": -0.0471142969,
+            "top": -0.027967814,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0198795975,
+            "bottom": -0.0472884881,
+            "top": -0.0274088906,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019870881599999998,
+            "bottom": -0.0470944559,
+            "top": -0.0272235743,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.020079860900000003,
+            "bottom": -0.0475806718,
+            "top": -0.0275008109,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0183878257,
+            "bottom": -0.0463056518,
+            "top": -0.0279178261,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.015014315599999998,
+            "bottom": -0.044932704,
+            "top": -0.0299183884,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012583559899999996,
+            "bottom": -0.043694422,
+            "top": -0.0311108621,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010163729900000001,
+            "bottom": -0.0425322654,
+            "top": -0.0323685355,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005697839200000006,
+            "bottom": -0.0406097398,
+            "top": -0.0349119006,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.002980150300000005,
+            "bottom": -0.0392451003,
+            "top": -0.03626495,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005960300999999987,
+            "bottom": -0.0379434196,
+            "top": -0.0373473895,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.75,
+      "reference_front": 0.017653397921681913,
+      "reference_rear": 0.09705135646392028,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.001595387100000005,
+            "bottom": -0.038115593,
+            "top": -0.0365202059,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.005474632200000003,
+            "bottom": -0.0401531119,
+            "top": -0.0346784797,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008849157999999996,
+            "bottom": -0.04206694,
+            "top": -0.033217782,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013874859599999997,
+            "bottom": -0.0438263613,
+            "top": -0.0299515017,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0164700825,
+            "bottom": -0.0447588721,
+            "top": -0.0282887896,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.018273236,
+            "bottom": -0.0458569268,
+            "top": -0.0275836908,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.019507810499999997,
+            "bottom": -0.0464436112,
+            "top": -0.0269358007,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.020232122400000004,
+            "bottom": -0.04669162,
+            "top": -0.0264594976,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.020977438300000005,
+            "bottom": -0.0473811983,
+            "top": -0.02640376,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.020804422300000004,
+            "bottom": -0.0474216094,
+            "top": -0.0266171871,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.018225454199999998,
+            "bottom": -0.0462091938,
+            "top": -0.0279837396,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014292036799999998,
+            "bottom": -0.0445168902,
+            "top": -0.0302248534,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012255490600000002,
+            "bottom": -0.0436461511,
+            "top": -0.0313906605,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010096043199999995,
+            "bottom": -0.0427064628,
+            "top": -0.0326104196,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005009912999999998,
+            "bottom": -0.0399243563,
+            "top": -0.0349144433,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0028087372999999957,
+            "bottom": -0.0389063509,
+            "top": -0.0360976136,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006743838999999988,
+            "bottom": -0.0379220143,
+            "top": -0.0372476304,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.8,
+      "reference_front": 0.02330453830556593,
+      "reference_rear": 0.10130059287339069,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0013755087,
+            "bottom": -0.0400509802,
+            "top": -0.0386754715,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.006576365600000002,
+            "bottom": -0.0414084747,
+            "top": -0.0348321091,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.010892118299999996,
+            "bottom": -0.0430549727,
+            "top": -0.0321628544,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.015002572999999998,
+            "bottom": -0.0446747193,
+            "top": -0.0296721463,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0181762424,
+            "bottom": -0.0460483867,
+            "top": -0.0278721443,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019092681800000004,
+            "bottom": -0.0462721769,
+            "top": -0.0271794951,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.020292658999999998,
+            "bottom": -0.0459243875,
+            "top": -0.0256317285,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.022187444400000002,
+            "bottom": -0.0471900857,
+            "top": -0.0250026413,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.022739266600000002,
+            "bottom": -0.0479169175,
+            "top": -0.0251776509,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0210015229,
+            "bottom": -0.0471115851,
+            "top": -0.0261100622,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0181892083,
+            "bottom": -0.045910729,
+            "top": -0.0277215207,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014492851299999998,
+            "bottom": -0.0444964525,
+            "top": -0.0300036012,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012633594599999999,
+            "bottom": -0.0438412538,
+            "top": -0.0312076592,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009756810900000003,
+            "bottom": -0.0423424518,
+            "top": -0.0325856409,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005975810299999995,
+            "bottom": -0.0405276255,
+            "top": -0.0345518152,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0033123825999999967,
+            "bottom": -0.0393446902,
+            "top": -0.0360323076,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006624765000000019,
+            "bottom": -0.0378791781,
+            "top": -0.0372167016,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.85,
+      "reference_front": 0.030700341575463613,
+      "reference_rear": 0.10280571948651451,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0034912929999999995,
+            "bottom": -0.0375577679,
+            "top": -0.0340664749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0082345318,
+            "bottom": -0.0391804221,
+            "top": -0.0309458903,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0144530535,
+            "bottom": -0.0441868569,
+            "top": -0.0297338034,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0188821442,
+            "bottom": -0.0456410138,
+            "top": -0.0267588696,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0201535506,
+            "bottom": -0.0460675521,
+            "top": -0.0259140015,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019318210699999998,
+            "bottom": -0.0437006248,
+            "top": -0.0243824141,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.024644702900000003,
+            "bottom": -0.047500379,
+            "top": -0.0228556761,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.025436100500000003,
+            "bottom": -0.0482821265,
+            "top": -0.022846026,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.024433826899999997,
+            "bottom": -0.0481261545,
+            "top": -0.0236923276,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0216305695,
+            "bottom": -0.0470068626,
+            "top": -0.0253762931,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0183067672,
+            "bottom": -0.0456910653,
+            "top": -0.0273842981,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0146541314,
+            "bottom": -0.0442178742,
+            "top": -0.0295637428,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0126192272,
+            "bottom": -0.0434311253,
+            "top": -0.0308118981,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009658821599999999,
+            "bottom": -0.0419550997,
+            "top": -0.0322962781,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005917764299999996,
+            "bottom": -0.0405682613,
+            "top": -0.034650497,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0029311664999999987,
+            "bottom": -0.0390678958,
+            "top": -0.0361367293,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005862332999999956,
+            "bottom": -0.0378451726,
+            "top": -0.0372589393,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.9,
+      "reference_front": 0.033788745661481163,
+      "reference_rear": 0.10078685973956293,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0026879558000000026,
+            "bottom": -0.037744829,
+            "top": -0.0350568732,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0085608592,
+            "bottom": -0.040023378,
+            "top": -0.0314625188,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.012256450299999999,
+            "bottom": -0.0421551961,
+            "top": -0.0298987458,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.017011718299999996,
+            "bottom": -0.0442884009,
+            "top": -0.0272766826,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.020774061099999998,
+            "bottom": -0.0462792207,
+            "top": -0.0255051596,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0229078015,
+            "bottom": -0.0470880112,
+            "top": -0.0241802097,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0258823529,
+            "bottom": -0.0483913769,
+            "top": -0.022509024,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0261583158,
+            "bottom": -0.0486969576,
+            "top": -0.0225386418,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.025455997900000003,
+            "bottom": -0.0485571164,
+            "top": -0.0231011185,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0226748419,
+            "bottom": -0.0474146529,
+            "top": -0.024739811,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.019045047,
+            "bottom": -0.0459259885,
+            "top": -0.0268809415,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0148296227,
+            "bottom": -0.0440339785,
+            "top": -0.0292043558,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012636976599999999,
+            "bottom": -0.0430882107,
+            "top": -0.0304512341,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0095494177,
+            "bottom": -0.0417615134,
+            "top": -0.0322120957,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0060348322,
+            "bottom": -0.0402641539,
+            "top": -0.0342293217,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0033344346999999996,
+            "bottom": -0.0389835954,
+            "top": -0.0356491607,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008522168000000066,
+            "bottom": -0.0378276385,
+            "top": -0.0369754217,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.925,
+      "reference_front": 0.036953043056275045,
+      "reference_rear": 0.09754040044434532,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0034832275999999995,
+            "bottom": -0.0361440453,
+            "top": -0.0326608177,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0090682354,
+            "bottom": -0.0405949428,
+            "top": -0.0315267074,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.011740704800000001,
+            "bottom": -0.0418532697,
+            "top": -0.0301125649,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.017085643299999998,
+            "bottom": -0.0443699234,
+            "top": -0.0272842801,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0204958864,
+            "bottom": -0.0463828581,
+            "top": -0.0258869717,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0223838906,
+            "bottom": -0.0470654624,
+            "top": -0.0246815718,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.024775047599999996,
+            "bottom": -0.0480696431,
+            "top": -0.0232945955,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.024224634999999998,
+            "bottom": -0.0480064531,
+            "top": -0.0237818181,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0226322668,
+            "bottom": -0.0475105792,
+            "top": -0.0248783124,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0198469076,
+            "bottom": -0.0462271666,
+            "top": -0.026380259,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.016550183200000002,
+            "bottom": -0.0447950094,
+            "top": -0.0282448262,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.012867951499999999,
+            "bottom": -0.0431264377,
+            "top": -0.0302584862,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0110925926,
+            "bottom": -0.042269739,
+            "top": -0.0311771464,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.008686575699999997,
+            "bottom": -0.041223562,
+            "top": -0.0325369863,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0054190216999999985,
+            "bottom": -0.0395056322,
+            "top": -0.0340866105,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.003604731299999997,
+            "bottom": -0.0387107159,
+            "top": -0.0351059846,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0007706718999999987,
+            "bottom": -0.0377545704,
+            "top": -0.0369838985,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.95,
+      "reference_front": 0.04404508897950564,
+      "reference_rear": 0.09047320091264355,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.004008907900000004,
+            "bottom": -0.0386897054,
+            "top": -0.0346807975,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.012077301300000003,
+            "bottom": -0.0418421288,
+            "top": -0.0297648275,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.013951214,
+            "bottom": -0.0427513822,
+            "top": -0.0288001682,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0168971204,
+            "bottom": -0.0441675541,
+            "top": -0.0272704337,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.019019796099999996,
+            "bottom": -0.0449899498,
+            "top": -0.0259701537,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0202154359,
+            "bottom": -0.0455234655,
+            "top": -0.0253080296,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0205032722,
+            "bottom": -0.0458931993,
+            "top": -0.0253899271,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019643225200000003,
+            "bottom": -0.045739894,
+            "top": -0.0260966688,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0186269547,
+            "bottom": -0.0455865887,
+            "top": -0.026959634,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.016297632900000004,
+            "bottom": -0.0443615357,
+            "top": -0.0280639028,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.013435579500000003,
+            "bottom": -0.0428335722,
+            "top": -0.0293979927,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.009973153999999998,
+            "bottom": -0.0412700834,
+            "top": -0.0312969294,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0079904206,
+            "bottom": -0.040373779,
+            "top": -0.0323833584,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0057190035,
+            "bottom": -0.0392023245,
+            "top": -0.033483321,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0030071446999999987,
+            "bottom": -0.037608297,
+            "top": -0.0346011523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.001651215399999996,
+            "bottom": -0.0368112833,
+            "top": -0.0351600679,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0004987681999999993,
+            "bottom": -0.036168211,
+            "top": -0.0356694428,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.975,
+      "reference_front": 0.04797754571542874,
+      "reference_rear": 0.06363641816530921,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0004128340999999952,
+            "bottom": -0.036007749,
+            "top": -0.0355949149,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0020641706999999995,
+            "bottom": -0.0366204917,
+            "top": -0.034556321,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.004128341200000003,
+            "bottom": -0.0373864199,
+            "top": -0.0332580787,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0083617637,
+            "bottom": -0.0390165602,
+            "top": -0.0306547965,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.010447627500000004,
+            "bottom": -0.0404691958,
+            "top": -0.0300215683,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0111059708,
+            "bottom": -0.0406632387,
+            "top": -0.0295572679,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0123388377,
+            "bottom": -0.0410617634,
+            "top": -0.0287229257,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0132778874,
+            "bottom": -0.0415320115,
+            "top": -0.0282541241,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.013710819100000004,
+            "bottom": -0.0420022597,
+            "top": -0.0282914406,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.013433571499999998,
+            "bottom": -0.0417939887,
+            "top": -0.0283604172,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.012349743100000005,
+            "bottom": -0.0411482863,
+            "top": -0.0287985432,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.010312613500000001,
+            "bottom": -0.0405806109,
+            "top": -0.0302679974,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.009294048600000004,
+            "bottom": -0.0402967731,
+            "top": -0.0310027245,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.008275483699999996,
+            "bottom": -0.0400129354,
+            "top": -0.0317374517,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0063680141,
+            "bottom": -0.0388401929,
+            "top": -0.0324721788,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0032048951000000006,
+            "bottom": -0.03606887,
+            "top": -0.0328639749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006409789999999999,
+            "bottom": -0.0338518117,
+            "top": -0.0332108327,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": -1,
+      "half_span_fraction": 0.99,
+      "reference_front": 0.05094663934192333,
+      "reference_rear": 0.060593812743307746,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.00020521500000000165,
+            "bottom": -0.0354702919,
+            "top": -0.0352650769,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0010260747999999986,
+            "bottom": -0.035783594,
+            "top": -0.0347575192,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.002052149600000004,
+            "bottom": -0.0361752216,
+            "top": -0.034123072,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0041042991,
+            "bottom": -0.0369584768,
+            "top": -0.0328541777,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.005518648899999999,
+            "bottom": -0.037741732,
+            "top": -0.0322230831,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0060273900000000005,
+            "bottom": -0.0380538354,
+            "top": -0.0320264454,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.006884318399999999,
+            "bottom": -0.0385174884,
+            "top": -0.03163317,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.007651760600000002,
+            "bottom": -0.0389811414,
+            "top": -0.0313293808,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.008237299599999998,
+            "bottom": -0.0394447944,
+            "top": -0.0312074948,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0082153799,
+            "bottom": -0.0393009888,
+            "top": -0.0310856089,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.007465704599999998,
+            "bottom": -0.0388845648,
+            "top": -0.0314188602,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.006283668800000003,
+            "bottom": -0.0384681409,
+            "top": -0.0321844721,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.005692650899999999,
+            "bottom": -0.0382599289,
+            "top": -0.032567278,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.004786320899999995,
+            "bottom": -0.0377364048,
+            "top": -0.0329500839,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.002393160499999998,
+            "bottom": -0.0357260503,
+            "top": -0.0333328898,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0011965801999999984,
+            "bottom": -0.034720873,
+            "top": -0.0335242928,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0002393160000000033,
+            "bottom": -0.0339167312,
+            "top": -0.0336774152,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0,
+      "reference_front": 0.006960722705825784,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0007772418000000017,
+            "bottom": -0.0362211203,
+            "top": -0.0354438785,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0038862095000000013,
+            "bottom": -0.0380333528,
+            "top": -0.0341471433,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007772418900000001,
+            "bottom": -0.0402986433,
+            "top": -0.0325262244,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014374308800000003,
+            "bottom": -0.043923464,
+            "top": -0.0295491552,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0195866439,
+            "bottom": -0.047425549,
+            "top": -0.0278389051,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0236434799,
+            "bottom": -0.0497721349,
+            "top": -0.026128655,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.030661749999999998,
+            "bottom": -0.0532209288,
+            "top": -0.0225591788,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.037987302699999996,
+            "bottom": -0.0563959399,
+            "top": -0.0184086372,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.037731996,
+            "bottom": -0.0519900917,
+            "top": -0.0142580957,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0692502025,
+            "bottom": -0.0794381452,
+            "top": -0.0101879427,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0755072299,
+            "bottom": -0.0817793212,
+            "top": -0.0062720913,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0809091352,
+            "bottom": -0.0834853334,
+            "top": -0.0025761982,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0833781322,
+            "bottom": -0.0843336503,
+            "top": -0.0009555181,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0857480355,
+            "bottom": -0.0850828735,
+            "top": 0.000665162,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0879347637,
+            "bottom": -0.0856489216,
+            "top": 0.0022858421,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0890275685,
+            "bottom": -0.0859319456,
+            "top": 0.0030956229,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0898794998,
+            "bottom": -0.0861583648,
+            "top": 0.003721135,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.05,
+      "reference_front": 0.003936522465901305,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008005055000000066,
+            "bottom": -0.0361562455,
+            "top": -0.03535574,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003882522499999999,
+            "bottom": -0.0379372543,
+            "top": -0.0340547318,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0075499568,
+            "bottom": -0.0401037278,
+            "top": -0.032553771,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013205645499999998,
+            "bottom": -0.0427998593,
+            "top": -0.0295942138,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0180043644,
+            "bottom": -0.0458371387,
+            "top": -0.0278327743,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.023073341400000003,
+            "bottom": -0.0491446762,
+            "top": -0.0260713348,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.029037983899999998,
+            "bottom": -0.0526966958,
+            "top": -0.0236587119,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.03594177429999999,
+            "bottom": -0.0555869781,
+            "top": -0.0196452038,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0371288774,
+            "bottom": -0.05249931,
+            "top": -0.0153704326,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0668797994,
+            "bottom": -0.0782967047,
+            "top": -0.0114169053,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0728970449,
+            "bottom": -0.0808116217,
+            "top": -0.0079145768,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.07836407249999999,
+            "bottom": -0.0825699761,
+            "top": -0.0042059036,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.08041070560000001,
+            "bottom": -0.0832677923,
+            "top": -0.0028570867,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0826912811,
+            "bottom": -0.0839163798,
+            "top": -0.0012250987,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0849434601,
+            "bottom": -0.0844993702,
+            "top": 0.0004440899,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0860695496,
+            "bottom": -0.0847908654,
+            "top": 0.0012786842,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.08685498430000001,
+            "bottom": -0.0850240616,
+            "top": 0.0018309227,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.1,
+      "reference_front": 0.0016979427514592115,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008500961000000029,
+            "bottom": -0.0360804994,
+            "top": -0.0352304033,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004250480699999996,
+            "bottom": -0.0382294556,
+            "top": -0.0339789749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0080708242,
+            "bottom": -0.0404919623,
+            "top": -0.0324211381,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013904741200000001,
+            "bottom": -0.0433045457,
+            "top": -0.0293998045,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.017771845100000003,
+            "bottom": -0.0453723186,
+            "top": -0.0276004735,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.021927411299999998,
+            "bottom": -0.0483961598,
+            "top": -0.0264687485,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0279477052,
+            "bottom": -0.0521772935,
+            "top": -0.0242295883,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0343070368,
+            "bottom": -0.0548424038,
+            "top": -0.020535367,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0409537059,
+            "bottom": -0.0572661711,
+            "top": -0.0163124652,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0636790316,
+            "bottom": -0.0759169965,
+            "top": -0.0122379649,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0707900427,
+            "bottom": -0.0798756457,
+            "top": -0.009085603,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0758017555,
+            "bottom": -0.0813939564,
+            "top": -0.0055922009,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0778924151,
+            "bottom": -0.0821067838,
+            "top": -0.0042143687,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0799596162,
+            "bottom": -0.0827961527,
+            "top": -0.0028365365,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0821724521,
+            "bottom": -0.0835577301,
+            "top": -0.001385278,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0834057886,
+            "bottom": -0.0839385188,
+            "top": -0.0005327302,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0842835594,
+            "bottom": -0.0842431497,
+            "top": 4.04097e-05,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.15,
+      "reference_front": 0.0003466792236186409,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009056602999999996,
+            "bottom": -0.0361000647,
+            "top": -0.0351944044,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004528301700000001,
+            "bottom": -0.038405152,
+            "top": -0.0338768503,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.009056603399999995,
+            "bottom": -0.041286511,
+            "top": -0.0322299076,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014910336700000002,
+            "bottom": -0.0441199112,
+            "top": -0.0292095745,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.018072325599999998,
+            "bottom": -0.0462139687,
+            "top": -0.0281416431,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0213014418,
+            "bottom": -0.0483080262,
+            "top": -0.0270065844,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.026648322399999997,
+            "bottom": -0.0513847894,
+            "top": -0.024736467,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0324814668,
+            "bottom": -0.0537778274,
+            "top": -0.0212963606,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0392757896,
+            "bottom": -0.0563238586,
+            "top": -0.017048069,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.039457108399999996,
+            "bottom": -0.0530017037,
+            "top": -0.0135445953,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.06576994850000001,
+            "bottom": -0.0762363971,
+            "top": -0.0104664486,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.070362195,
+            "bottom": -0.0782441801,
+            "top": -0.0078819851,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0726026508,
+            "bottom": -0.0791349448,
+            "top": -0.006532294,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0749957032,
+            "bottom": -0.0801783061,
+            "top": -0.0051826029,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0774098419,
+            "bottom": -0.08128984,
+            "top": -0.0038799981,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0779881655,
+            "bottom": -0.0816338809,
+            "top": -0.0036457154,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0787607944,
+            "bottom": -0.0819091137,
+            "top": -0.0031483193,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.2,
+      "reference_front": 0.00021055275004976226,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009068055999999977,
+            "bottom": -0.0364116543,
+            "top": -0.0355048487,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004534027600000004,
+            "bottom": -0.0387196562,
+            "top": -0.0341856286,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008416884399999998,
+            "bottom": -0.0409534878,
+            "top": -0.0325366034,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014539804699999999,
+            "bottom": -0.0436518948,
+            "top": -0.0291120901,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.017352902,
+            "bottom": -0.0458408123,
+            "top": -0.0284879103,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.020270134000000002,
+            "bottom": -0.0479755377,
+            "top": -0.0277054037,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0248204272,
+            "bottom": -0.0502528429,
+            "top": -0.0254324157,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0305169439,
+            "bottom": -0.0526489069,
+            "top": -0.022131963,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0375334974,
+            "bottom": -0.0554117969,
+            "top": -0.0178782995,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.041645739,
+            "bottom": -0.0576394174,
+            "top": -0.0159936784,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0593127466,
+            "bottom": -0.072224386,
+            "top": -0.0129116394,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0636904941,
+            "bottom": -0.0750395931,
+            "top": -0.011349099,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0660196299,
+            "bottom": -0.0760173311,
+            "top": -0.0099977012,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.06815087069999999,
+            "bottom": -0.0770386927,
+            "top": -0.008887822,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0697673086,
+            "bottom": -0.0781859726,
+            "top": -0.008418664,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0705755276,
+            "bottom": -0.0787596126,
+            "top": -0.008184085,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0714764536,
+            "bottom": -0.0792185245,
+            "top": -0.0077420709,
+            "hits": 4
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.25,
+      "reference_front": 7.442627648088363e-05,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009079508000000014,
+            "bottom": -0.0367232438,
+            "top": -0.035815293,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004004026899999999,
+            "bottom": -0.0384651111,
+            "top": -0.0344610842,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007525780900000001,
+            "bottom": -0.0402008555,
+            "top": -0.0326750746,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0140529558,
+            "bottom": -0.0431560113,
+            "top": -0.0291030555,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.016958055599999997,
+            "bottom": -0.0453476932,
+            "top": -0.0283896376,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019435264600000002,
+            "bottom": -0.0471999341,
+            "top": -0.0277646695,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.023363552500000002,
+            "bottom": -0.049491917,
+            "top": -0.0261283645,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.028552420900000004,
+            "bottom": -0.0515199864,
+            "top": -0.0229675655,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.034057235,
+            "bottom": -0.0542485494,
+            "top": -0.0201913144,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.037710916399999996,
+            "bottom": -0.0561536779,
+            "top": -0.0184427615,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.041610537,
+            "bottom": -0.0577627894,
+            "top": -0.0161522524,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.054459423,
+            "bottom": -0.0692756358,
+            "top": -0.0148162128,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0574380682,
+            "bottom": -0.0713348991,
+            "top": -0.0138968309,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0601038705,
+            "bottom": -0.0735309509,
+            "top": -0.0134270804,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0619933866,
+            "bottom": -0.0749507165,
+            "top": -0.0129573299,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0628417213,
+            "bottom": -0.075564176,
+            "top": -0.0127224547,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.063719121,
+            "bottom": -0.0760549435,
+            "top": -0.0123358225,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.3,
+      "reference_front": 0.0006986386376757374,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008044102999999955,
+            "bottom": -0.0367078431,
+            "top": -0.0359034328,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003992743600000001,
+            "bottom": -0.0381871959,
+            "top": -0.0341944523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007595395399999996,
+            "bottom": -0.0399129013,
+            "top": -0.0323175059,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014100187299999997,
+            "bottom": -0.0429380561,
+            "top": -0.0288378688,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0167142984,
+            "bottom": -0.0449308137,
+            "top": -0.0282165153,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019020150599999997,
+            "bottom": -0.0466153125,
+            "top": -0.0275951619,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.022589345,
+            "bottom": -0.0489418,
+            "top": -0.026352455,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0264959802,
+            "bottom": -0.0506453498,
+            "top": -0.0241493696,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.030539426900000003,
+            "bottom": -0.0530203116,
+            "top": -0.0224808847,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0338221197,
+            "bottom": -0.0546270025,
+            "top": -0.0208048828,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0375997129,
+            "bottom": -0.0569473651,
+            "top": -0.0193476522,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0406651365,
+            "bottom": -0.0599399109,
+            "top": -0.0192747744,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0412219488,
+            "bottom": -0.0605412173,
+            "top": -0.0193192685,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0467095065,
+            "bottom": -0.0655813656,
+            "top": -0.0188718591,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0500090659,
+            "bottom": -0.0684335157,
+            "top": -0.0184244498,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.051477282400000005,
+            "bottom": -0.0698595907,
+            "top": -0.0183823083,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.052643178799999996,
+            "bottom": -0.0710004507,
+            "top": -0.0183572719,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.35,
+      "reference_front": 0.002240014816914359,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.000792855000000002,
+            "bottom": -0.036735965,
+            "top": -0.03594311,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003964274900000002,
+            "bottom": -0.0382229538,
+            "top": -0.0342586789,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007928549899999998,
+            "bottom": -0.0400816898,
+            "top": -0.0321531399,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.014244731700000002,
+            "bottom": -0.0429404622,
+            "top": -0.0286957305,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0164058676,
+            "bottom": -0.0446007633,
+            "top": -0.0281948957,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.018617693,
+            "bottom": -0.0462731376,
+            "top": -0.0276554446,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.021853111100000003,
+            "bottom": -0.0484296535,
+            "top": -0.0265765424,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0248809897,
+            "bottom": -0.0500913386,
+            "top": -0.0252103489,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0271696343,
+            "bottom": -0.0505800243,
+            "top": -0.02341039,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0291335864,
+            "bottom": -0.0518104002,
+            "top": -0.0226768138,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0319200349,
+            "bottom": -0.0533059179,
+            "top": -0.021385883,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0316110267,
+            "bottom": -0.0547352177,
+            "top": -0.023124191,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.029887959,
+            "bottom": -0.0553142414,
+            "top": -0.0254262824,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.030903548600000004,
+            "bottom": -0.0565033096,
+            "top": -0.025599761,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.033847817399999994,
+            "bottom": -0.0596643812,
+            "top": -0.0258165638,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0352153001,
+            "bottom": -0.0612446967,
+            "top": -0.0260293966,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0363658342,
+            "bottom": -0.0625089491,
+            "top": -0.0261431149,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.4,
+      "reference_front": 0.0037813909961529803,
+      "reference_rear": 0.108,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0007812996000000003,
+            "bottom": -0.0367640869,
+            "top": -0.0359827873,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0039064984,
+            "bottom": -0.0382294039,
+            "top": -0.0343229055,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007783869699999994,
+            "bottom": -0.0400349737,
+            "top": -0.032251104,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013948522300000002,
+            "bottom": -0.0427099592,
+            "top": -0.0287614369,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0158717755,
+            "bottom": -0.0443597545,
+            "top": -0.028487979,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0176103252,
+            "bottom": -0.0458182729,
+            "top": -0.0282079477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.020617417899999997,
+            "bottom": -0.0477621876,
+            "top": -0.0271447697,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.023348401,
+            "bottom": -0.0491786648,
+            "top": -0.0258302638,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.025015588799999995,
+            "bottom": -0.0493302914,
+            "top": -0.0243147026,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0241572426,
+            "bottom": -0.048656285,
+            "top": -0.0244990424,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0259177032,
+            "bottom": -0.0493871428,
+            "top": -0.0234694396,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.020884019799999997,
+            "bottom": -0.0479330354,
+            "top": -0.0270490156,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0167663816,
+            "bottom": -0.0459482795,
+            "top": -0.0291818979,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009020915400000003,
+            "bottom": -0.0427186773,
+            "top": -0.0336977619,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008166003999999998,
+            "bottom": -0.0429348652,
+            "top": -0.0347688612,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.006754972200000001,
+            "bottom": -0.0424638688,
+            "top": -0.0357088966,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.005695273200000003,
+            "bottom": -0.0420793204,
+            "top": -0.0363840472,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.45,
+      "reference_front": 0.0052954654328128195,
+      "reference_rear": 0.09459772250908054,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0006323675999999959,
+            "bottom": -0.0366973345,
+            "top": -0.0360649669,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.003214282900000004,
+            "bottom": -0.037896559,
+            "top": -0.0346822761,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0064963734999999995,
+            "bottom": -0.0394059277,
+            "top": -0.0329095542,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012698961999999998,
+            "bottom": -0.0420630724,
+            "top": -0.0293641104,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014812293900000002,
+            "bottom": -0.0434767397,
+            "top": -0.0286644458,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0160911915,
+            "bottom": -0.0445213183,
+            "top": -0.0284301268,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0184985065,
+            "bottom": -0.0464599952,
+            "top": -0.0279614887,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.020369323400000004,
+            "bottom": -0.0475834269,
+            "top": -0.0272141035,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.021997768400000003,
+            "bottom": -0.0480186562,
+            "top": -0.0260208878,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.021758437199999998,
+            "bottom": -0.047937281,
+            "top": -0.0261788438,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0210301557,
+            "bottom": -0.0473669555,
+            "top": -0.0263367998,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0192723718,
+            "bottom": -0.0465617335,
+            "top": -0.0272893617,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.016852740100000003,
+            "bottom": -0.0453416878,
+            "top": -0.0284889477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.014525509000000002,
+            "bottom": -0.0437609527,
+            "top": -0.0292354437,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008695506899999997,
+            "bottom": -0.0407429529,
+            "top": -0.032047446,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0043251695000000034,
+            "bottom": -0.0389324974,
+            "top": -0.0346073279,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008537372999999973,
+            "bottom": -0.0374720394,
+            "top": -0.0366183021,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.5,
+      "reference_front": 0.006687927361311266,
+      "reference_rear": 0.0928608530380435,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0006102081999999967,
+            "bottom": -0.0365591002,
+            "top": -0.035948892,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0030510407999999947,
+            "bottom": -0.037700184,
+            "top": -0.0346491432,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.006102081599999996,
+            "bottom": -0.0391265388,
+            "top": -0.0330244572,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.011975777900000002,
+            "bottom": -0.0417508631,
+            "top": -0.0297750852,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014000437600000002,
+            "bottom": -0.0427549486,
+            "top": -0.028754511,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.015202274299999999,
+            "bottom": -0.0437306773,
+            "top": -0.028528403,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.017606189400000003,
+            "bottom": -0.0456821348,
+            "top": -0.0280759454,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.018730210200000003,
+            "bottom": -0.0463532269,
+            "top": -0.0276230167,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019714503199999997,
+            "bottom": -0.0471264087,
+            "top": -0.0274119055,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0196207471,
+            "bottom": -0.0469851851,
+            "top": -0.027364438,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0189328029,
+            "bottom": -0.0462497734,
+            "top": -0.0273169705,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.017245706500000003,
+            "bottom": -0.0456561444,
+            "top": -0.0284104379,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.015740898700000002,
+            "bottom": -0.0448724344,
+            "top": -0.0291315357,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.014237037000000001,
+            "bottom": -0.0440887244,
+            "top": -0.0298516874,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.008282953000000003,
+            "bottom": -0.0412443035,
+            "top": -0.0329613505,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.004141476500000005,
+            "bottom": -0.0393999635,
+            "top": -0.035258487,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008282952999999968,
+            "bottom": -0.0379244915,
+            "top": -0.0370961962,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.55,
+      "reference_front": 0.008080389289809713,
+      "reference_rear": 0.09190571314880511,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0005979788999999971,
+            "bottom": -0.0364278484,
+            "top": -0.0358298695,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0031170924000000003,
+            "bottom": -0.0377012642,
+            "top": -0.0345841718,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0062658825999999945,
+            "bottom": -0.039293034,
+            "top": -0.0330271514,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012099957799999998,
+            "bottom": -0.0420130683,
+            "top": -0.0299131105,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014165987299999998,
+            "bottom": -0.0429912358,
+            "top": -0.0288252485,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0153580541,
+            "bottom": -0.0439694033,
+            "top": -0.0286113492,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.017734613099999998,
+            "bottom": -0.0459056515,
+            "top": -0.0281710384,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0191341123,
+            "bottom": -0.0468645611,
+            "top": -0.0277304488,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0200651479,
+            "bottom": -0.0475532627,
+            "top": -0.0274881148,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0197839798,
+            "bottom": -0.0472259203,
+            "top": -0.0274419405,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0180777927,
+            "bottom": -0.0457916707,
+            "top": -0.027713878,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.016265729000000003,
+            "bottom": -0.0450693729,
+            "top": -0.0288036439,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.014158573399999996,
+            "bottom": -0.0438508817,
+            "top": -0.0296923083,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.011847090499999997,
+            "bottom": -0.0424280632,
+            "top": -0.0305809727,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.006416166199999997,
+            "bottom": -0.040284332,
+            "top": -0.0338681658,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0031836763000000004,
+            "bottom": -0.0388001357,
+            "top": -0.0356164594,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006367352000000021,
+            "bottom": -0.0376518296,
+            "top": -0.0370150944,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.6,
+      "reference_front": 0.009801596495046186,
+      "reference_rear": 0.09246127181964192,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0009035454999999984,
+            "bottom": -0.0366133329,
+            "top": -0.0357097874,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004338951899999999,
+            "bottom": -0.0387331815,
+            "top": -0.0343942296,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.007482726100000003,
+            "bottom": -0.0403028167,
+            "top": -0.0328200906,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.012848849300000003,
+            "bottom": -0.042598202,
+            "top": -0.0297493527,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.014700272,
+            "bottom": -0.0435627674,
+            "top": -0.0288624954,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.015870433099999998,
+            "bottom": -0.0445220035,
+            "top": -0.0286515704,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.018178957500000002,
+            "bottom": -0.046408678,
+            "top": -0.0282297205,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019652059599999997,
+            "bottom": -0.0474478119,
+            "top": -0.0277957523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0200122527,
+            "bottom": -0.0475715106,
+            "top": -0.0275592579,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0195655608,
+            "bottom": -0.0472882891,
+            "top": -0.0277227283,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.017533993799999998,
+            "bottom": -0.0458170037,
+            "top": -0.0282830099,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.015061771600000003,
+            "bottom": -0.0445288101,
+            "top": -0.0294670385,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012880672099999997,
+            "bottom": -0.0433818155,
+            "top": -0.0305011434,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010753365299999998,
+            "bottom": -0.0424635611,
+            "top": -0.0317101958,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005915641999999999,
+            "bottom": -0.0405442897,
+            "top": -0.0346286477,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0030370236999999953,
+            "bottom": -0.0391248974,
+            "top": -0.0360878737,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006278810000000037,
+            "bottom": -0.0379905327,
+            "top": -0.0373626517,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.65,
+      "reference_front": 0.011536184537964785,
+      "reference_rear": 0.09286831584734395,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0008890341999999996,
+            "bottom": -0.0364976645,
+            "top": -0.0356086303,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.004445170999999998,
+            "bottom": -0.0387593718,
+            "top": -0.0343142008,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008620450500000001,
+            "bottom": -0.0413166144,
+            "top": -0.0326961639,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013594998599999998,
+            "bottom": -0.0431826802,
+            "top": -0.0295876816,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.015218813599999999,
+            "bottom": -0.0441191123,
+            "top": -0.0289002987,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0163545379,
+            "bottom": -0.0450472992,
+            "top": -0.0286927613,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0186259867,
+            "bottom": -0.0469036731,
+            "top": -0.0282776864,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0198353755,
+            "bottom": -0.0476979871,
+            "top": -0.0278626116,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019847849600000002,
+            "bottom": -0.0475906503,
+            "top": -0.0277428007,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.019096966999999996,
+            "bottom": -0.047391051,
+            "top": -0.028294084,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0172653086,
+            "bottom": -0.0460072968,
+            "top": -0.0287419882,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014405225700000003,
+            "bottom": -0.0446235426,
+            "top": -0.0302183169,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0122757712,
+            "bottom": -0.0434864956,
+            "top": -0.0312107244,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010225652500000001,
+            "bottom": -0.0424287844,
+            "top": -0.0322031319,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0056177087000000014,
+            "bottom": -0.0404948406,
+            "top": -0.0348771319,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0028255699999999995,
+            "bottom": -0.0391204767,
+            "top": -0.0362949067,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005651139999999985,
+            "bottom": -0.0379942405,
+            "top": -0.0374291265,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.7,
+      "reference_front": 0.013270772580883385,
+      "reference_rear": 0.09396783131385307,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.000882092299999998,
+            "bottom": -0.0363868102,
+            "top": -0.0355047179,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0044025109000000034,
+            "bottom": -0.0386229067,
+            "top": -0.0342203958,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0085964844,
+            "bottom": -0.0412114775,
+            "top": -0.0326149931,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013984383699999998,
+            "bottom": -0.0435448813,
+            "top": -0.0295604976,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.015588919400000002,
+            "bottom": -0.0443951177,
+            "top": -0.0288061983,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.016718617999999998,
+            "bottom": -0.0452453542,
+            "top": -0.0285267362,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.019146492499999997,
+            "bottom": -0.0471143046,
+            "top": -0.0279678121,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019879599300000002,
+            "bottom": -0.0472884873,
+            "top": -0.027408888,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.019870879400000003,
+            "bottom": -0.0470944547,
+            "top": -0.0272235753,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0200798505,
+            "bottom": -0.0475806633,
+            "top": -0.0275008128,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0183878022,
+            "bottom": -0.0463056409,
+            "top": -0.0279178387,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.015014281299999998,
+            "bottom": -0.0449326915,
+            "top": -0.0299184102,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0125835126,
+            "bottom": -0.0436943978,
+            "top": -0.0311108852,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010163685200000001,
+            "bottom": -0.0425322472,
+            "top": -0.032368562,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005697811099999998,
+            "bottom": -0.0406097697,
+            "top": -0.0349119586,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0029801467999999998,
+            "bottom": -0.0392451225,
+            "top": -0.0362649757,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005960294000000033,
+            "bottom": -0.0379434188,
+            "top": -0.0373473894,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.75,
+      "reference_front": 0.017653397921681913,
+      "reference_rear": 0.09705135646392028,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.001595387100000005,
+            "bottom": -0.038115593,
+            "top": -0.0365202059,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.005474632200000003,
+            "bottom": -0.0401531119,
+            "top": -0.0346784797,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.008849157999999996,
+            "bottom": -0.04206694,
+            "top": -0.033217782,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.013874859599999997,
+            "bottom": -0.0438263613,
+            "top": -0.0299515017,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0164700825,
+            "bottom": -0.0447588721,
+            "top": -0.0282887896,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.018273236,
+            "bottom": -0.0458569268,
+            "top": -0.0275836908,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0195078663,
+            "bottom": -0.046443667,
+            "top": -0.0269358007,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.020232122400000004,
+            "bottom": -0.04669162,
+            "top": -0.0264594976,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.020977438300000005,
+            "bottom": -0.0473811983,
+            "top": -0.02640376,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.020804422300000004,
+            "bottom": -0.0474216094,
+            "top": -0.0266171871,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.018225454199999998,
+            "bottom": -0.0462091938,
+            "top": -0.0279837396,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014292036799999998,
+            "bottom": -0.0445168902,
+            "top": -0.0302248534,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012255490600000002,
+            "bottom": -0.0436461511,
+            "top": -0.0313906605,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.010096043199999995,
+            "bottom": -0.0427064628,
+            "top": -0.0326104196,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005009912999999998,
+            "bottom": -0.0399243563,
+            "top": -0.0349144433,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0028087372999999957,
+            "bottom": -0.0389063509,
+            "top": -0.0360976136,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006743838999999988,
+            "bottom": -0.0379220143,
+            "top": -0.0372476304,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.8,
+      "reference_front": 0.02330453830556593,
+      "reference_rear": 0.10130059287339069,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0013755087,
+            "bottom": -0.0400509802,
+            "top": -0.0386754715,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.006576365600000002,
+            "bottom": -0.0414084747,
+            "top": -0.0348321091,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.010892118299999996,
+            "bottom": -0.0430549727,
+            "top": -0.0321628544,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.015002572999999998,
+            "bottom": -0.0446747193,
+            "top": -0.0296721463,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0181762424,
+            "bottom": -0.0460483867,
+            "top": -0.0278721443,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019092681200000003,
+            "bottom": -0.0462721763,
+            "top": -0.0271794951,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.020292658999999998,
+            "bottom": -0.0459243875,
+            "top": -0.0256317285,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.022187444400000002,
+            "bottom": -0.0471900857,
+            "top": -0.0250026413,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.022739266600000002,
+            "bottom": -0.0479169175,
+            "top": -0.0251776509,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0210015229,
+            "bottom": -0.0471115851,
+            "top": -0.0261100622,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0181892083,
+            "bottom": -0.045910729,
+            "top": -0.0277215207,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.014492851299999998,
+            "bottom": -0.0444964525,
+            "top": -0.0300036012,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012633594599999999,
+            "bottom": -0.0438412538,
+            "top": -0.0312076592,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009756810900000003,
+            "bottom": -0.0423424518,
+            "top": -0.0325856409,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005975810299999995,
+            "bottom": -0.0405276255,
+            "top": -0.0345518152,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0033123825999999967,
+            "bottom": -0.0393446902,
+            "top": -0.0360323076,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006624765000000019,
+            "bottom": -0.0378791781,
+            "top": -0.0372167016,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.85,
+      "reference_front": 0.030700341575463613,
+      "reference_rear": 0.10280571948651451,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0034912929999999995,
+            "bottom": -0.0375577679,
+            "top": -0.0340664749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0082345318,
+            "bottom": -0.0391804221,
+            "top": -0.0309458903,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.0144530535,
+            "bottom": -0.0441868569,
+            "top": -0.0297338034,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0188821442,
+            "bottom": -0.0456410138,
+            "top": -0.0267588696,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.020153550200000002,
+            "bottom": -0.0460675517,
+            "top": -0.0259140015,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.019318210699999998,
+            "bottom": -0.0437006248,
+            "top": -0.0243824141,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.024644702900000003,
+            "bottom": -0.047500379,
+            "top": -0.0228556761,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.025436100500000003,
+            "bottom": -0.0482821265,
+            "top": -0.022846026,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.024433826899999997,
+            "bottom": -0.0481261545,
+            "top": -0.0236923276,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0216305695,
+            "bottom": -0.0470068626,
+            "top": -0.0253762931,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.0183067672,
+            "bottom": -0.0456910653,
+            "top": -0.0273842981,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0146541314,
+            "bottom": -0.0442178742,
+            "top": -0.0295637428,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0126192272,
+            "bottom": -0.0434311253,
+            "top": -0.0308118981,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.009658821599999999,
+            "bottom": -0.0419550997,
+            "top": -0.0322962781,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.005917764299999996,
+            "bottom": -0.0405682613,
+            "top": -0.034650497,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0029311664999999987,
+            "bottom": -0.0390678958,
+            "top": -0.0361367293,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0005862332999999956,
+            "bottom": -0.0378451726,
+            "top": -0.0372589393,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.9,
+      "reference_front": 0.033788745661481163,
+      "reference_rear": 0.10078685973956293,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0026879558000000026,
+            "bottom": -0.037744829,
+            "top": -0.0350568732,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0085608592,
+            "bottom": -0.040023378,
+            "top": -0.0314625188,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.012256450299999999,
+            "bottom": -0.0421551961,
+            "top": -0.0298987458,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.017011718299999996,
+            "bottom": -0.0442884009,
+            "top": -0.0272766826,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.020774061099999998,
+            "bottom": -0.0462792207,
+            "top": -0.0255051596,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0229078015,
+            "bottom": -0.0470880112,
+            "top": -0.0241802097,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0258823529,
+            "bottom": -0.0483913769,
+            "top": -0.022509024,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0261583158,
+            "bottom": -0.0486969576,
+            "top": -0.0225386418,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.025455997900000003,
+            "bottom": -0.0485571164,
+            "top": -0.0231011185,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0226748419,
+            "bottom": -0.0474146529,
+            "top": -0.024739811,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.019045047,
+            "bottom": -0.0459259885,
+            "top": -0.0268809415,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.0148296227,
+            "bottom": -0.0440339785,
+            "top": -0.0292043558,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.012636976599999999,
+            "bottom": -0.0430882107,
+            "top": -0.0304512341,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0095494177,
+            "bottom": -0.0417615134,
+            "top": -0.0322120957,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0060348322,
+            "bottom": -0.0402641539,
+            "top": -0.0342293217,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0033344346999999996,
+            "bottom": -0.0389835954,
+            "top": -0.0356491607,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0008522168000000066,
+            "bottom": -0.0378276385,
+            "top": -0.0369754217,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.925,
+      "reference_front": 0.036953043056275045,
+      "reference_rear": 0.09754040044434532,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0034832275999999995,
+            "bottom": -0.0361440453,
+            "top": -0.0326608177,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0090682354,
+            "bottom": -0.0405949428,
+            "top": -0.0315267074,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.011740704800000001,
+            "bottom": -0.0418532697,
+            "top": -0.0301125649,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.017085643299999998,
+            "bottom": -0.0443699234,
+            "top": -0.0272842801,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.0204958864,
+            "bottom": -0.0463828581,
+            "top": -0.0258869717,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0223838906,
+            "bottom": -0.0470654624,
+            "top": -0.0246815718,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.024775047599999996,
+            "bottom": -0.0480696431,
+            "top": -0.0232945955,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.024224634999999998,
+            "bottom": -0.0480064531,
+            "top": -0.0237818181,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0226322668,
+            "bottom": -0.0475105792,
+            "top": -0.0248783124,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0198469076,
+            "bottom": -0.0462271666,
+            "top": -0.026380259,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.016550183200000002,
+            "bottom": -0.0447950094,
+            "top": -0.0282448262,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.012867951499999999,
+            "bottom": -0.0431264377,
+            "top": -0.0302584862,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0110925926,
+            "bottom": -0.042269739,
+            "top": -0.0311771464,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.008686575699999997,
+            "bottom": -0.041223562,
+            "top": -0.0325369863,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0054190216999999985,
+            "bottom": -0.0395056322,
+            "top": -0.0340866105,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.003604731299999997,
+            "bottom": -0.0387107159,
+            "top": -0.0351059846,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0007706718999999987,
+            "bottom": -0.0377545704,
+            "top": -0.0369838985,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.95,
+      "reference_front": 0.04404508897950564,
+      "reference_rear": 0.09047320091264355,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.004008907900000004,
+            "bottom": -0.0386897054,
+            "top": -0.0346807975,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.012077301300000003,
+            "bottom": -0.0418421288,
+            "top": -0.0297648275,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.013951214,
+            "bottom": -0.0427513822,
+            "top": -0.0288001682,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0168971204,
+            "bottom": -0.0441675541,
+            "top": -0.0272704337,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.019019796099999996,
+            "bottom": -0.0449899498,
+            "top": -0.0259701537,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0202154359,
+            "bottom": -0.0455234655,
+            "top": -0.0253080296,
+            "hits": 6
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0205032722,
+            "bottom": -0.0458931993,
+            "top": -0.0253899271,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.019643225200000003,
+            "bottom": -0.045739894,
+            "top": -0.0260966688,
+            "hits": 4
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.0186269547,
+            "bottom": -0.0455865887,
+            "top": -0.026959634,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.016297632900000004,
+            "bottom": -0.0443615357,
+            "top": -0.0280639028,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.013435579500000003,
+            "bottom": -0.0428335722,
+            "top": -0.0293979927,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.009973153999999998,
+            "bottom": -0.0412700834,
+            "top": -0.0312969294,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.0079904206,
+            "bottom": -0.040373779,
+            "top": -0.0323833584,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.0057190035,
+            "bottom": -0.0392023245,
+            "top": -0.033483321,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0030071446999999987,
+            "bottom": -0.037608297,
+            "top": -0.0346011523,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.001651215399999996,
+            "bottom": -0.0368112833,
+            "top": -0.0351600679,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0004987681999999993,
+            "bottom": -0.036168211,
+            "top": -0.0356694428,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.975,
+      "reference_front": 0.04797754571542874,
+      "reference_rear": 0.06363641816530921,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.0004128340999999952,
+            "bottom": -0.036007749,
+            "top": -0.0355949149,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0020641706999999995,
+            "bottom": -0.0366204917,
+            "top": -0.034556321,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.004128341200000003,
+            "bottom": -0.0373864199,
+            "top": -0.0332580787,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0083617637,
+            "bottom": -0.0390165602,
+            "top": -0.0306547965,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.010447627500000004,
+            "bottom": -0.0404691958,
+            "top": -0.0300215683,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0111059708,
+            "bottom": -0.0406632387,
+            "top": -0.0295572679,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.0123388377,
+            "bottom": -0.0410617634,
+            "top": -0.0287229257,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.0132778874,
+            "bottom": -0.0415320115,
+            "top": -0.0282541241,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.013710819100000004,
+            "bottom": -0.0420022597,
+            "top": -0.0282914406,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.013433571499999998,
+            "bottom": -0.0417939887,
+            "top": -0.0283604172,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.012349743100000005,
+            "bottom": -0.0411482863,
+            "top": -0.0287985432,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.010312613500000001,
+            "bottom": -0.0405806109,
+            "top": -0.0302679974,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.009294048600000004,
+            "bottom": -0.0402967731,
+            "top": -0.0310027245,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.008275483699999996,
+            "bottom": -0.0400129354,
+            "top": -0.0317374517,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.0063680141,
+            "bottom": -0.0388401929,
+            "top": -0.0324721788,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0032048951000000006,
+            "bottom": -0.03606887,
+            "top": -0.0328639749,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0006409789999999999,
+            "bottom": -0.0338518117,
+            "top": -0.0332108327,
+            "hits": 2
+          }
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "half_span_fraction": 0.99,
+      "reference_front": 0.05094663934192333,
+      "reference_rear": 0.060593812743307746,
+      "samples": [
+        {
+          "chord_fraction": 0.005,
+          "reference": {
+            "height": 0.00020521500000000165,
+            "bottom": -0.0354702919,
+            "top": -0.0352650769,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.025,
+          "reference": {
+            "height": 0.0010260747999999986,
+            "bottom": -0.035783594,
+            "top": -0.0347575192,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.05,
+          "reference": {
+            "height": 0.002052149600000004,
+            "bottom": -0.0361752216,
+            "top": -0.034123072,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.1,
+          "reference": {
+            "height": 0.0041042991,
+            "bottom": -0.0369584768,
+            "top": -0.0328541777,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.15,
+          "reference": {
+            "height": 0.005518648899999999,
+            "bottom": -0.037741732,
+            "top": -0.0322230831,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.2,
+          "reference": {
+            "height": 0.0060273900000000005,
+            "bottom": -0.0380538354,
+            "top": -0.0320264454,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.3,
+          "reference": {
+            "height": 0.006884318399999999,
+            "bottom": -0.0385174884,
+            "top": -0.03163317,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.4,
+          "reference": {
+            "height": 0.007651760600000002,
+            "bottom": -0.0389811414,
+            "top": -0.0313293808,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.5,
+          "reference": {
+            "height": 0.008237299599999998,
+            "bottom": -0.0394447944,
+            "top": -0.0312074948,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.6,
+          "reference": {
+            "height": 0.0082153799,
+            "bottom": -0.0393009888,
+            "top": -0.0310856089,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.7,
+          "reference": {
+            "height": 0.007465704599999998,
+            "bottom": -0.0388845648,
+            "top": -0.0314188602,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.8,
+          "reference": {
+            "height": 0.006283668800000003,
+            "bottom": -0.0384681409,
+            "top": -0.0321844721,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.85,
+          "reference": {
+            "height": 0.005692650899999999,
+            "bottom": -0.0382599289,
+            "top": -0.032567278,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.9,
+          "reference": {
+            "height": 0.004786320899999995,
+            "bottom": -0.0377364048,
+            "top": -0.0329500839,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.95,
+          "reference": {
+            "height": 0.002393160499999998,
+            "bottom": -0.0357260503,
+            "top": -0.0333328898,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.975,
+          "reference": {
+            "height": 0.0011965801999999984,
+            "bottom": -0.034720873,
+            "top": -0.0335242928,
+            "hits": 2
+          }
+        },
+        {
+          "chord_fraction": 0.995,
+          "reference": {
+            "height": 0.0002393160000000033,
+            "bottom": -0.0339167312,
+            "top": -0.0336774152,
+            "hits": 2
+          }
+        }
+      ]
+    }
+  ]
+}

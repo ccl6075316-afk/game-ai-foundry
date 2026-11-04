@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "kind": "game_model_head_wing_sections",
+  "reference_id": "fishing-master-cdn-cnformal1-20261102-hammerheadshark",
+  "evidence_kind": "game_model_geometry",
+  "source_files": [
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8.obj",
+      "sha256": "f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8"
+    },
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/b_fish_hammerheadshark.unity3d",
+      "sha256": "0041043cd1229bdb8038d67aaa4aabbffdc2254477252e24bb6b4a25ac7b88af"
+    }
+  ],
+  "pose_and_transforms": {
+    "mesh_world_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -1.1242265784972005e-08
+      ],
+      [
+        0.0,
+        2.220446049250313e-16,
+        0.9999999999999998,
+        0.03012625128030777
+      ],
+      [
+        0.0,
+        -0.9999999999999998,
+        2.220446049250313e-16,
+        -0.25719308853149414
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "singular_values": [
+      1.0,
+      0.9999999999999998,
+      0.9999999999999998
+    ],
+    "bind_to_default_max_delta": 1.470279815333856e-07,
+    "bind_to_default_relative_delta": 9.027588778061132e-08,
+    "bone_names": [
+      "Bone001",
+      "Bone079",
+      "Bone004",
+      "BN_head",
+      "Bone080",
+      "Bone081",
+      "Bone003",
+      "Bone021",
+      "Bone082",
+      "Bone005",
+      "Bone006",
+      "Bone007",
+      "Bone074",
+      "Bone075",
+      "Bone076",
+      "Bone077",
+      "Bone078",
+      "Bone083",
+      "Bone084"
+    ]
+  },
+  "length_basis": {
+    "definition": "explicit_other",
+    "detail": "Each whole-fish longitudinal rest extent normalized to 1; engineering TL-like, not biological TL. No separate head scaling.",
+    "mesh_local_unit_value": 1.628651738
+  },
+  "head_wing_sections": {
+    "head_half_span_over_whole_length": 0.13522113344528908,
+    "definition": "Actual vertical intersections of finite rest triangles at positive lateral head-wing stations; exclude central body and eye-end extrema. Not tissue measurements.",
+    "sections": [
+      {
+        "half_span_fraction": 0.55,
+        "z": 0.07437162339490899,
+        "front_x": 0.008080389289809713,
+        "rear_x": 0.09190571314880511,
+        "chord_over_whole_length": 0.0838253238589954,
+        "stations": [
+          {
+            "chord_t": 0.005,
+            "x": 0.00849951590910469,
+            "thickness_over_whole_length": 0.0005979788938930072,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.05,
+            "x": 0.012271655482759483,
+            "thickness_over_whole_length": 0.006265882652205228,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.15,
+            "x": 0.020654187868659024,
+            "thickness_over_whole_length": 0.014165987232869211,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.3,
+            "x": 0.03322798644750833,
+            "thickness_over_whole_length": 0.017734613073702873,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.5,
+            "x": 0.04999305121930741,
+            "thickness_over_whole_length": 0.020065147852950625,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.7,
+            "x": 0.06675811599110648,
+            "thickness_over_whole_length": 0.018077792685565267,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.85,
+            "x": 0.0793319145699558,
+            "thickness_over_whole_length": 0.014158573350555623,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.95,
+            "x": 0.08771444695585533,
+            "thickness_over_whole_length": 0.006416166186332929,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.995,
+            "x": 0.09148658652951012,
+            "thickness_over_whole_length": 0.0006367352622113562,
+            "surface_hits": 2
+          }
+        ]
+      },
+      {
+        "half_span_fraction": 0.7,
+        "z": 0.09465479341170235,
+        "front_x": 0.013270772580883385,
+        "rear_x": 0.09396783131385307,
+        "chord_over_whole_length": 0.08069705873296969,
+        "stations": [
+          {
+            "chord_t": 0.005,
+            "x": 0.013674257874548233,
+            "thickness_over_whole_length": 0.0008820922900334427,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.05,
+            "x": 0.01730562551753187,
+            "thickness_over_whole_length": 0.008596484322853842,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.15,
+            "x": 0.025375331390828836,
+            "thickness_over_whole_length": 0.01558891944579065,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.3,
+            "x": 0.03747989020077429,
+            "thickness_over_whole_length": 0.019146492436283902,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.5,
+            "x": 0.05361930194736823,
+            "thickness_over_whole_length": 0.019870879444427267,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.7,
+            "x": 0.06975871369396217,
+            "thickness_over_whole_length": 0.018387802132571705,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.85,
+            "x": 0.08186327250390761,
+            "thickness_over_whole_length": 0.01258351257600408,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.95,
+            "x": 0.08993297837720458,
+            "thickness_over_whole_length": 0.005697811105693312,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.995,
+            "x": 0.09356434602018822,
+            "thickness_over_whole_length": 0.0005960293461417521,
+            "surface_hits": 2
+          }
+        ]
+      },
+      {
+        "half_span_fraction": 0.85,
+        "z": 0.11493796342849572,
+        "front_x": 0.030700341575463613,
+        "rear_x": 0.10280571948651451,
+        "chord_over_whole_length": 0.0721053779110509,
+        "stations": [
+          {
+            "chord_t": 0.005,
+            "x": 0.03106086846501887,
+            "thickness_over_whole_length": 0.003491293013971636,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.05,
+            "x": 0.03430561047101616,
+            "thickness_over_whole_length": 0.014453053589667315,
+            "surface_hits": 4
+          },
+          {
+            "chord_t": 0.15,
+            "x": 0.041516148262121244,
+            "thickness_over_whole_length": 0.02015355022654923,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.3,
+            "x": 0.05233195494877888,
+            "thickness_over_whole_length": 0.0246447029220052,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.5,
+            "x": 0.06675303053098906,
+            "thickness_over_whole_length": 0.02443382698267054,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.7,
+            "x": 0.08117410611319924,
+            "thickness_over_whole_length": 0.018306767200625854,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.85,
+            "x": 0.09198991279985688,
+            "thickness_over_whole_length": 0.01261922719839018,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.95,
+            "x": 0.09920045059096197,
+            "thickness_over_whole_length": 0.005917764266574178,
+            "surface_hits": 2
+          },
+          {
+            "chord_t": 0.995,
+            "x": 0.10244519259695926,
+            "thickness_over_whole_length": 0.000586233298246891,
+            "surface_hits": 2
+          }
+        ]
+      }
+    ]
+  },
+  "selection": "Positive transverse stations at55/70/85% of head half span, triangles in the anterior .14 of whole length; main material. No claim of complete body/fin partition.",
+  "method": "resources/scripts/volume-fish/inspect_hammerhead_library.py; finite vertical triangle intersections, no AABB thickness",
+  "unknowns": [
+    "Exact reference species, age, sex and biological proportions unverified",
+    "Body and fin geometry not yet partitioned; no fin-excluded body-width claim",
+    "Library runtime motion and mouth animation unreviewed",
+    "Software diagnostic shading is not original-game or Godot rendering"
+  ],
+  "biological_species_unverified": true,
+  "no_production_geometry_copied": true,
+  "schema_note": "The existing measurement.schema.json is for fin-excluded body width and is not applicable to these wing thickness sections; do not fill invented Wmax/peak values to fit it."
+}
