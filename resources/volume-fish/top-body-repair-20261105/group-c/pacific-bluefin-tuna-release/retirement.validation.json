@@ -1,0 +1,23 @@
+{
+  "kind": "accepted_tuna_experiment_retirement",
+  "authorization": "User requested finished assets directly submitted and no GB history; parent confirmed273check actual canonical-entry bridge before retirement.",
+  "removed_root": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/pacific_bluefin_tuna",
+  "deleted_files": 1978,
+  "deleted_bytes": 1239603443,
+  "by_extension": {
+    ".json": 1332,
+    ".png": 465,
+    ".glb": 20,
+    ".blend": 23,
+    ".log": 30,
+    ".jpg": 107,
+    ".mp4": 1
+  },
+  "retained": [
+    "Canonical current source/model/motion same SHA as final r22",
+    "Formal compact full numeric gates, original SOP58 SHA, complete current root domains and parameters",
+    "Shared fish library, native2D/icons and29page PDF untouched"
+  ],
+  "no_backup_archive": true,
+  "historical_evidence_status": "Old experimental models/blends/images/videos/dense poses/duplicate reports retired after acceptance. Historical locators/SHA are provenance, not replayable validation."
+}

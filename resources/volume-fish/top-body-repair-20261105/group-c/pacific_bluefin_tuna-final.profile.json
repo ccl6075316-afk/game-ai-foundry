@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "species": "pacific_bluefin_tuna",
+  "fins": [
+    {
+      "name": "Anal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_01",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_02",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_03",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_04",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_05",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_06",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_07",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Anal_finlet_08",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Caudal",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_01",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_02",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_03",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_04",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_05",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_06",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_07",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_finlet_08",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_first",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Dorsal_second",
+      "paired": false,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Pectoral",
+      "paired": true,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    },
+    {
+      "name": "Pelvic",
+      "paired": true,
+      "root_attachment": {
+        "root_band": 0.055,
+        "selection": "Whole original source_t basal band, both layers and every closing cap; inserted edge support inherits native t."
+      },
+      "source_baseline": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      }
+    }
+  ]
+}

@@ -181,13 +181,47 @@
         "sha256": "5dafba86f1a16ca40345edb21426eefb0d378dca2179e090ac0c4c759ca59a09"
       },
       "acceptance_basis": "User explicitly instructed technically completed repairs to be finished and committed/pushed without another visual review."
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "c250664c8700472d4d6d424a7e7d2e3b9119fcf553345ec30134feffc01f9115",
+        "bytes": 7809834
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+        "bytes": 7908876
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/pacific_bluefin_tuna.json",
+        "sha256": "86f5e436ebb3f8e871af61da09bc28e328da9fe5fc93eaa05d105cf41a2fb599"
+      },
+      "triangles": 3976,
+      "model_scale": 1.8071706384061994,
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/pacific_bluefin_tuna.validation.json",
+        "sha256": "798eac31807e705da5c768fe8390558a34482030bff75cfe1d4decfcdea0eea0"
+      },
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/complete-root-domains.json",
+        "sha256": "54d89dfffbc875f52ab9431bb620bede3ae9161e8a026230745fce6fcfd9182f"
+      },
+      "species_profile": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/pacific_bluefin_tuna-final.profile.json",
+        "sha256": "4d51f5aecbf40de6a4cb2b86f77d93e3ca74132a995b27dbe75dd98308bcff2b"
+      },
+      "acceptance_basis": "User explicitly instructed repaired and technically checked fish to be finished and committed/pushed directly without further visual review."
     }
   ],
   "acceptance_scope": "Only completed fish rows below. Other requested species remain pending and are not admitted by this release.",
   "pending_species": [
     "yellow_croaker",
     "zander",
-    "pacific_bluefin_tuna",
     "blacktip_reef_shark"
   ]
 }

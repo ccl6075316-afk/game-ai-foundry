@@ -1,0 +1,22 @@
+{
+  "kind": "accepted_arapaima_experiment_retirement",
+  "authorization": "User finished-asset acceptance and cleanup; parent confirms actual canonical34 entry passed and committed game f32afdb2/root0d5513f.",
+  "removed_root": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima",
+  "deleted_files": 978,
+  "deleted_bytes": 421364779,
+  "by_extension": {
+    ".json": 707,
+    ".jpg": 107,
+    ".blend": 2,
+    ".glb": 2,
+    ".png": 154,
+    ".mp4": 1,
+    ".log": 5
+  },
+  "retained": [
+    "Canonical current fish.blend / arapaima.glb / current motion profile",
+    "Current formal profile, complete-root-domains.json, release.validation.json and method files",
+    "Original shared fish library and 29-page PDF untouched"
+  ],
+  "historical_evidence_status": "Experiment images/models/videos/dense posed arrays and duplicate receipt trees retired. Historical SHA and conclusions remain provenance, not available for replay. No archive/backup created."
+}

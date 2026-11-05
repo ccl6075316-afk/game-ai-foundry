@@ -1,0 +1,9 @@
+# Pacific bluefin tuna body repair
+
+Final candidate: r22, full original-source/native-pixel repair; parent installed exact source/model/motion bytes; actual current-entry passed273 checks, errors[]. Formal profile is ../pacific_bluefin_tuna-final.profile.json. The current release.validation.json records complete numerical gates and the original SOP58 evidence SHA. complete-root-domains.json retains every final original/support root identity.
+
+All24 finite fin shells self/ray/taper/contact/tail gates, full490 roots and membranes, current077, native loop, five controls×96 phases/four transitions, strict724-face/1802-row anterior native chart and fresh110-check cold engine load passed. Independent repeat source export exactly matched the final GLB. Full raw body boundary124 breakpoints: max1.3684056%Wmax; fixed401 target max1.2194822%. Reference is generic Bluefin artistic model, not verified Pacific biological measurement.
+
+Methods: keep complete native support/depth order; when sparsely subdividing closing edges, replay original topology to retain actual intermediate fractions instead of using integer layer tags. Normal-miter uses the true native positive/negative skins and physical normal-half thickness targets. Root margin uses the real current Godot LBS derivative on failed/peak poses and preserves entire cap/layer spacing, not a tolerance/domain change. Every current static gate precedes the full posed gate. Source-owned exact exporter reads current blend weights and explicit source point identities, not an old GLB.
+
+Following the passed parent current-entry bridge, experiment BLEND/GLB/captures/videos/dense samples retire. Historical locators and SHA are provenance; these compact records do not claim deleted evidence is replayable. Future repairs begin at canonical source/model.
