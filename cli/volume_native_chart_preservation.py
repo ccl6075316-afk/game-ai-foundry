@@ -42,7 +42,7 @@ def load_bound(ref):
     return json.loads(path.read_text(encoding='utf-8-sig'))
 
 
-def _material(doc, binary, index):
+def _material(doc, binary, index, role=None):
     """Resolve image/sampler ownership instead of comparing texture table IDs."""
     material = copy.deepcopy(doc['materials'][index])
 
@@ -72,9 +72,74 @@ def _material(doc, binary, index):
             for item in value:
                 resolve(item)
     resolve(material)
-    require('baseColorTexture' in material.get('pbrMetallicRoughness', {}),
-            'Missing native base-colour image')
+    pbr = material.get('pbrMetallicRoughness', {})
+    if 'baseColorTexture' not in pbr:
+        require(role == 'mouth', 'Missing native base-colour image')
+        rgba = np.asarray(pbr.get('baseColorFactor', []), dtype=float)
+        require(rgba.shape == (4,) and np.isfinite(rgba).all()
+                and ((rgba >= 0) & (rgba <= 1)).all() and rgba[3] == 1
+                and material.get('alphaMode', 'OPAQUE') == 'OPAQUE',
+                'Missing explicit opaque constant oral colour')
     return material
+
+
+def _same_material(a, b):
+    # Preserve raw snapshot dictionaries; only this actual glTF default has
+    # two equivalent serializations. MASK/BLEND and every other field differ.
+    a, b = copy.deepcopy(a), copy.deepcopy(b)
+    a.setdefault('alphaMode', 'OPAQUE')
+    b.setdefault('alphaMode', 'OPAQUE')
+    return a == b
+
+
+def _constant_oral_chart(doc, binary, primitive, positions, uv, faces, names):
+    """Lossless chart of constant cavity corners, independent of normal splits."""
+    attrs = primitive['attributes']
+    require(names and 'JOINTS_0' in attrs and 'WEIGHTS_0' in attrs,
+            'Missing actual constant oral skin identity')
+    joints = _io.arrays(doc, binary, attrs['JOINTS_0'])
+    weights = _io.arrays(doc, binary, attrs['WEIGHTS_0'])
+    require(joints.shape == weights.shape and weights.ndim == 2
+            and len(weights) == len(positions) and np.isfinite(weights).all()
+            and (weights >= 0).all() and (abs(weights.sum(axis=1) - 1) < 1e-5).all()
+            and joints.min() >= 0 and joints.max() < len(names),
+            'Invalid actual constant oral skin')
+    keys = []
+    runtime_skin = {}
+    for p, q, js, ws in zip(positions, uv, joints, weights):
+        # Exact FLOAT weights within ONE model. Runtime quantization must not
+        # merge distinct deformation vertices that happen to share a bin.
+        skin = tuple(sorted((names[int(j)], float(w)) for j, w in zip(js, ws) if w > 0))
+        key = (tuple(p), tuple(q), skin)
+        # Godot's glTF importer normalizes FLOAT weights before packing. Its
+        # accumulator and division are float32 in the original four-slot order.
+        # Sorting named weights first, or using Python's double sum, can change
+        # a stored UNORM16 bin at a boundary.
+        values = np.asarray(ws, dtype=np.float32)
+        total = np.float32(0)
+        for value in values:
+            total = np.float32(total + value)
+        normalized = np.asarray(values / total, dtype=np.float32)
+        bins = sorted((names[int(j)], int(np.float32(w * np.float32(65535))))
+                      for j, w in zip(js, normalized) if w > 0)
+        bins = [[name, value] for name, value in bins if value > 0]
+        require(key not in runtime_skin or runtime_skin[key] == bins,
+                'Different runtime skin within constant oral aliases')
+        runtime_skin[key] = bins
+        keys.append(key)
+    unique = sorted(set(keys))
+    lookup = {key: i for i, key in enumerate(unique)}
+    aliases = [[] for _ in unique]
+    for i, key in enumerate(keys):
+        aliases[lookup[key]].append(i)
+    mapped = np.asarray([lookup[key] for key in keys], dtype=np.int64)[faces]
+    require(all(len(set(row)) == 3 for row in mapped), 'Collapsed constant oral face')
+    extra = {'constant_oral_alias_chart': True, 'source_draw_vertex_count': len(positions),
+             'source_draw_rows': aliases,
+             'alias_basis': 'exact POSITION, UV and named source FLOAT weights within this model',
+             'named_skin_float': [[[n, w] for n, w in key[2]] for key in unique],
+             'named_skin_runtime_unorm16': [runtime_skin[key] for key in unique]}
+    return np.asarray([key[0] for key in unique]), np.asarray([key[1] for key in unique]), mapped, extra
 
 
 def extract_chart(path):
@@ -82,14 +147,19 @@ def extract_chart(path):
     doc, binary, digest = _io.read_glb_snapshot(path_of(path))
     parts = []
 
-    def append(part_id, role, primitive, positions, uv, faces):
+    def append(part_id, role, primitive, positions, uv, faces, joint_names=None):
         require(role in ('body_skin', 'mouth') and len(positions) == len(uv), 'Invalid body chart')
         require(np.isfinite(positions).all() and np.isfinite(uv).all(), 'Nonfinite chart')
         require(faces.size and faces.min() >= 0 and faces.max() < len(positions), 'Invalid chart faces')
+        material = _material(doc, binary, primitive['material'], role)
+        extra = {}
+        if role == 'mouth' and 'baseColorTexture' not in material.get('pbrMetallicRoughness', {}):
+            positions, uv, faces, extra = _constant_oral_chart(
+                doc, binary, primitive, positions, uv, faces, joint_names)
         parts.append({'id': part_id, 'role': role,
                       'positions': positions.tolist(), 'uv': uv.tolist(),
                       'indices': faces.tolist(),
-                      'material_signature': _material(doc, binary, primitive['material'])})
+                      'material_signature': material, **extra})
 
     if doc.get('extras', {}).get('geometry_parts'):
         layout = 'packed_anterior'
@@ -113,6 +183,8 @@ def extract_chart(path):
         nodes = [node for node in doc['nodes'] if node.get('name') == 'Closed_body']
         require(len(nodes) == 1, 'Missing or ambiguous complete body node')
         node = nodes[0]
+        joint_names = ([doc['nodes'][j]['name'] for j in doc['skins'][node['skin']]['joints']]
+                       if 'skin' in node else [])
         require('matrix' not in node and node.get('translation', [0, 0, 0]) == [0, 0, 0]
                 and node.get('rotation', [0, 0, 0, 1]) == [0, 0, 0, 1]
                 and node.get('scale', [1, 1, 1]) == [1, 1, 1], 'Unsupported body transform')
@@ -122,7 +194,7 @@ def extract_chart(path):
             append('surface:' + str(index), role, primitive,
                    _io.arrays(doc, binary, primitive['attributes']['POSITION']),
                    _io.arrays(doc, binary, primitive['attributes']['TEXCOORD_0']),
-                   _io.arrays(doc, binary, primitive['indices']).reshape(-1, 3))
+                   _io.arrays(doc, binary, primitive['indices']).reshape(-1, 3), joint_names)
     require({part['role'] for part in parts} == {'body_skin', 'mouth'}, 'Incomplete body/oral ownership')
     require(len({part['id'] for part in parts}) == len(parts), 'Duplicate chart part')
     return {'layout': layout, 'model_sha256': digest, 'parts': parts}
@@ -244,8 +316,13 @@ def validate_preserved_domain(report, candidates, species):
             and len(mapping) == len(set(mapping.values())), 'Incomplete or noninjective protected row map')
     for (old_part, old_row), (new_part, new_row) in mapping.items():
         a, b = old_parts[old_part], new_parts[new_part]
-        require(a['role'] == b['role'] and a['material_signature'] == b['material_signature'], 'Changed protected material/image')
+        require(a['role'] == b['role'] and _same_material(a['material_signature'], b['material_signature']),
+                'Changed protected material/image')
         require(a['uv'][old_row] == b['uv'][new_row], 'Changed protected native UV')
+        if a.get('constant_oral_alias_chart') or b.get('constant_oral_alias_chart'):
+            require(a.get('constant_oral_alias_chart') and b.get('constant_oral_alias_chart')
+                    and a['named_skin_runtime_unorm16'][old_row] == b['named_skin_runtime_unorm16'][new_row],
+                    'Changed constant oral deformation identity')
 
     def triangles(chart, selected, transform):
         return Counter((part['role'], _cycle(tuple(transform((part['id'], int(v))) for v in face)))
