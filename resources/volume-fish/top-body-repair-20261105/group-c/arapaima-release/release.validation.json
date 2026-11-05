@@ -1,0 +1,5041 @@
+{
+  "kind": "accepted_body_repair_compact_release",
+  "species": "arapaima",
+  "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+  "source_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+  "motion_sha256": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4",
+  "model_scale": 2.017816135742422,
+  "triangles": 3734,
+  "complete_fins": 7,
+  "source_full_X_span_native": 0.9911705851554871,
+  "body_length_difference_note": "Original full POSITION X span .9911696 to .9911706 ~1ppm from physical foil layer restoration; current reviewed scale used by every final gate. Not claimed identical TL.",
+  "prior_sop": {
+    "ok": true,
+    "sha256": "f0d05ceeb439d7f9896d9d9a6bab10ec3ca33b33ae8cd7f9e76a60f7d39c9d88",
+    "review_sha256": "e10cd7238bddcfe63dc6cd94831573ad8ecd1dcd2fc94c23d4d82d7a70bc8d0f",
+    "evidence": [
+      {
+        "key": "preparation_research_and_measurements_research",
+        "sha256": "15ca80b6054f099af913a7c0008f6d8469cd73c0376433ff29040cee658a6b33",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/reference-envelope.json"
+      },
+      {
+        "key": "preparation_source_views_and_purposes_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "preparation_accepted_source_provenance_accepted",
+        "sha256": "7a444e10ac13afe69945089c60202e0489fa791e6b53ff3fe4d65eb4cfa0dd37",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/accepted-native-chart.json"
+      },
+      {
+        "key": "preparation_landmarks_and_part_inventory_fin_comp",
+        "sha256": "e19560bdbe18008f012b3272f64f5dae8b8de0c754ced1e965594e14fd21339f",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fin-volume-review.jpg"
+      },
+      {
+        "key": "preparation_native_fin_cutouts_and_part_ownership_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "head_source_pose_comparison_source_comp",
+        "sha256": "be35c8b61a2877efba0efb491a5d6af5da28b6a7b9b3dcf5c9a045cf5e1d4320",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/source-final-comparison.jpg"
+      },
+      {
+        "key": "head_clay_side_head-left-clay",
+        "sha256": "71e7818cbec12b18900d47bb592f4ba9547d8e0cd8f10b7936d33541c1323be4",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-left-clay.png"
+      },
+      {
+        "key": "head_clay_front_head-front-clay",
+        "sha256": "5bf403b301c0f08e313344ea5628df2c1483c347f1bc926784b941d829f877e5",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-front-clay.png"
+      },
+      {
+        "key": "head_clay_top_head-top-clay",
+        "sha256": "192cf72a7e204ba893d0bb122564ca72acdb36742e8b321c7161658c696b0a65",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-top-clay.png"
+      },
+      {
+        "key": "head_clay_bottom_head-bottom-clay",
+        "sha256": "631d3b56df59f6249a389a17e8e32e3bf98c3ca94801701062d1dd5e8674073b",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-bottom-clay.png"
+      },
+      {
+        "key": "head_clay_oblique_head-oblique-clay",
+        "sha256": "2a4674008f85711b63b2d057c27d0fbbfe3f7fb4ef5ab674ea0e754156f019d6",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-oblique-clay.png"
+      },
+      {
+        "key": "head_transverse_constraints_body_shape",
+        "sha256": "b1e80dbf88649e59d51435469a1feb2d79807a2418bc0ba7ec3b882e710f5f01",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/whole-boundary.validation.json"
+      },
+      {
+        "key": "mouth_structure_branch_and_constraints_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "mouth_whole_snout_and_chin_head-front-texture",
+        "sha256": "672204b2fd2079e2298fe3483af8bab9521ce3b62feec7360ee6778633c331de",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-front-texture.png"
+      },
+      {
+        "key": "mouth_integrated_upper_lower_jaws_and_cut_head-oblique-clay",
+        "sha256": "2a4674008f85711b63b2d057c27d0fbbfe3f7fb4ef5ab674ea0e754156f019d6",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-oblique-clay.png"
+      },
+      {
+        "key": "mouth_misplaced_outline_ownership_head-bottom-texture",
+        "sha256": "2260faaba76dbeb7777ea29dd7b5bb72345716107bd3f6a2ff8a97c15337a08c",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-bottom-texture.png"
+      },
+      {
+        "key": "mouth_native_pixel_cover_and_actual_uv_joins_head-oblique-texture",
+        "sha256": "83d15f04bf8556d0a8f3ac0481bc6aa0b84adb36b9d400cc76843e4aa80fe82e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-oblique-texture.png"
+      },
+      {
+        "key": "mouth_source_donors_and_mouth_gap_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "mouth_complete_native_lip_domain_and_front_exclusion_lip",
+        "sha256": "20e5d18a241523f56ec210aeafa4922f9e1ac018643de787c9a60d145882dcdf",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/native-chart-preservation.validation.json"
+      },
+      {
+        "key": "eyes_source_eye_and_ownership_domains_head-left-texture",
+        "sha256": "754fddf0be0fd16824a230ea92291ce77016a3d2d1d1b589f0737cb73276a18f",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-left-texture.png"
+      },
+      {
+        "key": "eyes_opposite_and_top_views_head-right-texture",
+        "sha256": "a2c3cf32d55ebaf3003a92c54739be79ea8dad5beff8ce559db3959193064d48",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-right-texture.png"
+      },
+      {
+        "key": "eyes_opposite_and_top_views_head-top-texture",
+        "sha256": "942a0c2f97e9feae533684466e09583dc3780b91063d3747bea87f9e8ee2770c",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-top-texture.png"
+      },
+      {
+        "key": "eyes_overlay_attachment_and_lod_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "skin_dorsal_material_whole-top-texture",
+        "sha256": "5cc0cb7b9cda52d2ae785424706f0ba640c69fcc2687aa29f06214e273e39165",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/whole-top-texture.png"
+      },
+      {
+        "key": "skin_ventral_material_whole-bottom-texture",
+        "sha256": "1b51b8b2f3cc0daebc876ef4178bdfb1d29bc82df7089a4cbbfb32c635a585de",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/whole-bottom-texture.png"
+      },
+      {
+        "key": "skin_hidden_fin_skin_fin-Pectoral_right-right-texture",
+        "sha256": "243b88e6da68f30795581d66e142518f3aeef04b084d026dfabfe9fab001ce5e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/fin-Pectoral_right-right-texture.png"
+      },
+      {
+        "key": "skin_native_2d_donors_and_exclusions_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "skin_surface_opacity_inventory_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "skin_body_owned_fin_base_marks_whole-right-texture",
+        "sha256": "b2877708f34e160307751e801ae0c0e080023572de36c9281d600e5160f46360",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/whole-right-texture.png"
+      },
+      {
+        "key": "fins_complete_species_fin_inventory_and_roots_root_domains",
+        "sha256": "59e86382f42ab0aababe677a357c8eb1b782cbdfaf494d6ee608c79d11dfd6ff",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/root-domains.json"
+      },
+      {
+        "key": "fins_source_cutout_and_shape_comparison_source_comp",
+        "sha256": "be35c8b61a2877efba0efb491a5d6af5da28b6a7b9b3dcf5c9a045cf5e1d4320",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/source-final-comparison.jpg"
+      },
+      {
+        "key": "fins_source_cutout_and_shape_comparison_fin_comp",
+        "sha256": "e19560bdbe18008f012b3272f64f5dae8b8de0c754ced1e965594e14fd21339f",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fin-volume-review.jpg"
+      },
+      {
+        "key": "fins_installed_visibility_and_body_occlusion_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "fins_all_fin_root_gate_roots",
+        "sha256": "811d25b599013dec814a48fca2fffe2a54492f3f566bf782a769d17df810a69e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/arapaima/roots.validation.json"
+      },
+      {
+        "key": "fins_whole_fin_membrane_gate_membranes",
+        "sha256": "b9ab75983f474ba94aa12c5e21f13157817f5f42e4205c1017ae2dfad47ca804",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/arapaima/membranes.validation.json"
+      },
+      {
+        "key": "fins_expanded_fin_visual_review_fin_comp",
+        "sha256": "e19560bdbe18008f012b3272f64f5dae8b8de0c754ced1e965594e14fd21339f",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fin-volume-review.jpg"
+      },
+      {
+        "key": "fins_actual_normal_thickness_and_tail_section_volume",
+        "sha256": "38a6a52579f26d78060d0026590f25064bcef49a4678e7d12a1c9c3d959aa07e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fin-volume.validation.json"
+      },
+      {
+        "key": "fins_fin_volume_end_on_and_top_clay_fin-Caudal-front-clay",
+        "sha256": "89e68e453ab40ebc0cabf954ed93beddd9b27ff2ddb875dc31d217a7c97b15ca",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/fin-Caudal-front-clay.png"
+      },
+      {
+        "key": "fins_fin_volume_end_on_and_top_clay_fin-Caudal-top-clay",
+        "sha256": "71d5ea74cf7b8ba39d7c04d3619ee810393339b6085dc7c1608615766555ed17",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/fin-Caudal-top-clay.png"
+      },
+      {
+        "key": "motion_native_loop_native",
+        "sha256": "ac20f5aa046c91f62592066978473390453697b6c66074cc395b46dd841de351",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/native-loop.validation.json"
+      },
+      {
+        "key": "motion_swim_actions",
+        "sha256": "5e3c3845f70759af584457e1cca4d7f5252f5fec7562fd40e801928b49f681ac",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/actions-review.jpg"
+      },
+      {
+        "key": "motion_turn_actions",
+        "sha256": "5e3c3845f70759af584457e1cca4d7f5252f5fec7562fd40e801928b49f681ac",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/actions-review.jpg"
+      },
+      {
+        "key": "motion_ascend_actions",
+        "sha256": "5e3c3845f70759af584457e1cca4d7f5252f5fec7562fd40e801928b49f681ac",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/actions-review.jpg"
+      },
+      {
+        "key": "motion_dive_actions",
+        "sha256": "5e3c3845f70759af584457e1cca4d7f5252f5fec7562fd40e801928b49f681ac",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/actions-review.jpg"
+      },
+      {
+        "key": "motion_real_transitions_and_control_ranges_motion",
+        "sha256": "469cfc70e534e5285216085b3ba7dbb1ac2d443311a2122c32545498a08f435e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/motion.validation.json"
+      },
+      {
+        "key": "motion_jaw_or_other_action_branch_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      },
+      {
+        "key": "runtime_body_integrity_gpu_gate_body077",
+        "sha256": "d3aaf465caf2ec7eb083fcd1d014d19566d18926712aa973a4994aebf9e04f06",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/body077/completion.validation.json"
+      },
+      {
+        "key": "runtime_material_anchor_and_actual_lod_gpu",
+        "sha256": "1a48065827cb18cab7e8c7aec08a0ff919bf54e862f1d444206f8c0f9033a444",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/review-capture.validation.json"
+      },
+      {
+        "key": "runtime_motion_and_surface_gate_surface",
+        "sha256": "2ff897e7f691b892860fdad290b34517282916dae5f1abec20d81eb1a35a68fc",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/completion.validation.json"
+      },
+      {
+        "key": "runtime_cold_import_and_install_binding_cold",
+        "sha256": "efaee0c26e0291ee828367079afd492e50fc85f12bc1ab6531e59ad5b412bcc5",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/final-cold-load.validation.json"
+      },
+      {
+        "key": "runtime_final_asset_cold_load_cold",
+        "sha256": "efaee0c26e0291ee828367079afd492e50fc85f12bc1ab6531e59ad5b412bcc5",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/final-cold-load.validation.json"
+      },
+      {
+        "key": "runtime_exported_vs_experiment_comparison_source_comp",
+        "sha256": "be35c8b61a2877efba0efb491a5d6af5da28b6a7b9b3dcf5c9a045cf5e1d4320",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/source-final-comparison.jpg"
+      },
+      {
+        "key": "presentation_source_style_final_comparison_source_comp",
+        "sha256": "be35c8b61a2877efba0efb491a5d6af5da28b6a7b9b3dcf5c9a045cf5e1d4320",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/source-final-comparison.jpg"
+      },
+      {
+        "key": "presentation_normal_and_close_game_views_whole-left-texture",
+        "sha256": "be93e310deab5b683d2b7d9333e297adcb05caa30faf1dd67599a6859a92548e",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/whole-left-texture.png"
+      },
+      {
+        "key": "presentation_normal_and_close_game_views_head-left-texture",
+        "sha256": "754fddf0be0fd16824a230ea92291ce77016a3d2d1d1b589f0737cb73276a18f",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/head-left-texture.png"
+      },
+      {
+        "key": "presentation_water_readability_water-natural-freshwater-oblique",
+        "sha256": "75c2add3a977f22171c70a633718c87e43a8d489400d77fddbeaac66413d9480",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/gpu-review/water-natural-freshwater-oblique.png"
+      },
+      {
+        "key": "presentation_orbit_and_motion_video_video",
+        "sha256": "9898023a052f5f048a2c9cfc556b2a15178a71ce735ddb294f3b5490b97adc19",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/motion-review.mp4"
+      },
+      {
+        "key": "presentation_final_files_and_remaining_limits_notes",
+        "sha256": "56aa4797f9b9eb492e74774e9a0e95e2a47b03dbd717cd7e624fabc81bf826d2",
+        "criterion": null,
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/production-notes.json"
+      }
+    ],
+    "media_status": "Experiment media and dense pose exports retired after user authorizes finished asset. Prior passed receipts and SHA are historical, not replayable evidence."
+  },
+  "gates": {
+    "fin-self.validation.json": {
+      "ok": true,
+      "sha256": "7f4cc65e77aeeabd963cf870c6dca0a5dc48d3974b4fe4f04981397fb84bed35",
+      "numerical_results": {
+        "ok": true,
+        "kind": "actual_complete_native_fin_finite_self_intersection",
+        "source_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+        "kernel_sha256": "751009c9de6f91da5f5ff9e55640c43a32b15f893b53ad403f3e4fc4aaa2d472",
+        "fins": [
+          {
+            "name": "Anal",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 4287,
+              "finite_plane_candidate_pairs": 371,
+              "candidate_pairs_with_shared_indices": 214,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Caudal",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 545,
+              "finite_plane_candidate_pairs": 41,
+              "candidate_pairs_with_shared_indices": 2,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Dorsal",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 5226,
+              "finite_plane_candidate_pairs": 460,
+              "candidate_pairs_with_shared_indices": 104,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Pectoral_left",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 2251,
+              "finite_plane_candidate_pairs": 140,
+              "candidate_pairs_with_shared_indices": 24,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Pectoral_right",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 2239,
+              "finite_plane_candidate_pairs": 137,
+              "candidate_pairs_with_shared_indices": 30,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Pelvic_left",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 2255,
+              "finite_plane_candidate_pairs": 225,
+              "candidate_pairs_with_shared_indices": 48,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          },
+          {
+            "name": "Pelvic_right",
+            "zero_area_triangles": [],
+            "result": {
+              "bvh_candidate_pairs": 2254,
+              "finite_plane_candidate_pairs": 207,
+              "candidate_pairs_with_shared_indices": 45,
+              "illegal_intersections": [],
+              "ok": true
+            }
+          }
+        ],
+        "formal_acceptance": false
+      }
+    },
+    "fin-volume.validation.json": {
+      "ok": true,
+      "sha256": "38a6a52579f26d78060d0026590f25064bcef49a4678e7d12a1c9c3d959aa07e",
+      "numerical_results": {
+        "ok": true,
+        "kind": "actual_authored_fin_volume_and_tail_section",
+        "species": "arapaima",
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "profile_sha256": "898c7aeb3605059c323d46144985994092cfea40c898c8e3615eefa563346a7f",
+        "baseline_profile_sha256": "898c7aeb3605059c323d46144985994092cfea40c898c8e3615eefa563346a7f",
+        "original_basal_domains_preserved": true,
+        "config_sha256": "8f5cdaea0dcca856b34e99f2eeaabbc1cbfc7272f4994f1db3d7cada5c4fb460",
+        "checker_sha256": "920ce57b44b238aee7e3456221fd697455f068708f1ced582dff8c8d5c73ff14",
+        "kernel_sha256": "d7cf677a79d12555548fa30133814d21df47314ce6640cba704ba1e3b43267fa",
+        "current": {
+          "ok": true,
+          "blend_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+          "fin_inventory": [
+            "Dorsal",
+            "Anal",
+            "Caudal",
+            "Pectoral_left",
+            "Pectoral_right",
+            "Pelvic_left",
+            "Pelvic_right"
+          ],
+          "fins": [
+            {
+              "name": "Dorsal",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.0010360005740131905,
+                    0.8768621252529379,
+                    8.731291501052706
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.8328322902193405,
+                    1.2396528427642401,
+                    1.6996373240003673
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.29563847578328584,
+                    0.5388087534509569,
+                    0.848763821610007
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 1.627408834093396,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 206,
+                "finite_contact_samples": 3246,
+                "maximum_gap_mm": 0.10236991113842163,
+                "maximum_inset_mm": 0.22774107532812396,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 304
+              }
+            },
+            {
+              "name": "Anal",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.023917574433120054,
+                    0.7729083910970918,
+                    1.978964399642482
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.225358714218487,
+                    1.084875594317197,
+                    1.698819620688044
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.2521922615136836,
+                    0.5066226966867325,
+                    0.8501366047634739
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 1.5256094844385062,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 86,
+                "finite_contact_samples": 926,
+                "maximum_gap_mm": 0.08666589230484027,
+                "maximum_inset_mm": 0.1610255523645306,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 264
+              }
+            },
+            {
+              "name": "Caudal",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.21591174216224823,
+                    7.511027985544963,
+                    15.680484257201678
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.23731543761105922,
+                    0.2499997489947281,
+                    5.982603310459152
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.24619442474838363,
+                    1.9705405991163196,
+                    3.642423345334196
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 3.811658581869996,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 200,
+                "maximum_gap_mm": 0.12743708508968143,
+                "maximum_inset_mm": 0.019002851810890595,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 38
+              }
+            },
+            {
+              "name": "Pectoral_left",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.04994740258729803,
+                    0.496515568974098,
+                    3.089054315228928
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.07575073488135968,
+                    0.34784010262866727,
+                    1.654475483146004
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.07575014027880027,
+                    0.2218349085913216,
+                    0.8378358780975778
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 2.23822108128532,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 200,
+                "maximum_gap_mm": 0.10090287246812933,
+                "maximum_inset_mm": 0.05498770320446451,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 88
+              }
+            },
+            {
+              "name": "Pectoral_right",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.05060251880348349,
+                    0.4951470434685876,
+                    2.9864188076065292
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.07574782059474132,
+                    0.34783120561259306,
+                    1.6544764227648632
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.07574437043174224,
+                    0.22182154838566567,
+                    0.8378292420393838
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 2.232186399707705,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 220,
+                "maximum_gap_mm": 0.10090287246812933,
+                "maximum_inset_mm": 0.06215925238857128,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 88
+              }
+            },
+            {
+              "name": "Pelvic_left",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.0608596221653785,
+                    0.4064465973839704,
+                    3.341221472837679
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.04000380158966072,
+                    0.2435533469949155,
+                    0.5279587983038512
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.07423833023801583,
+                    0.0988754009971942,
+                    0.3514194779024346
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 4.1106948066436075,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 10,
+                "finite_contact_samples": 90,
+                "maximum_gap_mm": 0.20180421805561227,
+                "maximum_inset_mm": 0.15674050864586914,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 86
+              }
+            },
+            {
+              "name": "Pelvic_right",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.06052214850904963,
+                    0.40476297656660476,
+                    3.3168804113822756
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.04001331156022517,
+                    0.2435577955029526,
+                    0.5279525146027295
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.0742314078897007,
+                    0.09885996702335263,
+                    0.35147788108715916
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 4.094306206586048,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 10,
+                "finite_contact_samples": 90,
+                "maximum_gap_mm": 0.20180468786504197,
+                "maximum_inset_mm": 0.15675555722916293,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": {
+                "maximum_bidirectional_position_error_native": 0.0,
+                "final_UV_split_vertices": 86
+              }
+            }
+          ],
+          "tail_cross_section": {
+            "ok": true,
+            "maximum_width_error_mm": 0.32966886690498376,
+            "tolerance_mm": 0.4,
+            "sections": [
+              {
+                "z_native": -0.0378224,
+                "body_width_mm": 2.1310222003848332e-15,
+                "tail_root_width_mm": 0.32966886690498587,
+                "difference_mm": 0.32966886690498376
+              },
+              {
+                "z_native": -0.0352487,
+                "body_width_mm": 6.659119729422242,
+                "tail_root_width_mm": 6.638502899689495,
+                "difference_mm": 0.020616829732747102
+              },
+              {
+                "z_native": -0.0279194,
+                "body_width_mm": 12.304448026388467,
+                "tail_root_width_mm": 12.278728428792954,
+                "difference_mm": 0.025719597595513236
+              },
+              {
+                "z_native": -0.0169503,
+                "body_width_mm": 16.076536661702875,
+                "tail_root_width_mm": 16.047069747338284,
+                "difference_mm": 0.02946691436458812
+              },
+              {
+                "z_native": -0.0040115,
+                "body_width_mm": 17.40111736768648,
+                "tail_root_width_mm": 17.370174876974076,
+                "difference_mm": 0.03094249071240724
+              },
+              {
+                "z_native": 0.0089274,
+                "body_width_mm": 16.076536661702875,
+                "tail_root_width_mm": 16.047253106131887,
+                "difference_mm": 0.029283555570989547
+              },
+              {
+                "z_native": 0.0198964,
+                "body_width_mm": 12.304448026388467,
+                "tail_root_width_mm": 12.279422346086266,
+                "difference_mm": 0.02502568030220226
+              },
+              {
+                "z_native": 0.0272257,
+                "body_width_mm": 6.659119729422242,
+                "tail_root_width_mm": 6.639645940181423,
+                "difference_mm": 0.019473789240819057
+              },
+              {
+                "z_native": 0.0297994,
+                "body_width_mm": 0.0,
+                "tail_root_width_mm": 0.32929945648798475,
+                "difference_mm": 0.32929945648798475
+              }
+            ],
+            "complete_basal_band_retained": true
+          },
+          "scope": "Actual source normal rays, finite posterior section and optional final GLB geometry correspondence. End-on/full outline/camber images and full posed roots/membranes remain separate."
+        },
+        "rejected_original": {
+          "ok": false,
+          "blend_sha256": "5dc4360398cfb7e46f97bae6677af030ba2839b15c86cd606ef0727b409ed32c",
+          "fin_inventory": [
+            "Dorsal",
+            "Anal",
+            "Caudal",
+            "Pectoral_left",
+            "Pectoral_right",
+            "Pelvic_left",
+            "Pelvic_right"
+          ],
+          "fins": [
+            {
+              "name": "Dorsal",
+              "ok": false,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.0010360705407495413,
+                    0.4538387850979215,
+                    6.008241280845131
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.8134196471334288,
+                    0.8768621839791166,
+                    0.876862301431474
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.8768620665267592,
+                    0.8768621839791166,
+                    0.876862301431474
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 0.5175713964975027,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 206,
+                "finite_contact_samples": 3246,
+                "maximum_gap_mm": 0.10236991113842163,
+                "maximum_inset_mm": 0.22774107532812396,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Anal",
+              "ok": false,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.01979657678909877,
+                    0.7728218874358557,
+                    1.7800647049780196
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.7182279175669218,
+                    0.7729022542114169,
+                    0.7729084498232706
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.7401211544414387,
+                    0.7729007273307705,
+                    0.7729037517289739
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 0.9998979947978738,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 86,
+                "finite_contact_samples": 926,
+                "maximum_gap_mm": 0.08666589230484027,
+                "maximum_inset_mm": 0.1610255523645306,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Caudal",
+              "ok": false,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    1.673108594935752,
+                    9.31572879383668,
+                    16.36770269853124
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    5.082088099397904,
+                    7.5110282204496785,
+                    10.812940974748878
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    6.78657785162898,
+                    8.3442888022268,
+                    9.453042814700005
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 1.1164197470431076,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 200,
+                "maximum_gap_mm": 0.12743708508968143,
+                "maximum_inset_mm": 0.019002851810890595,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Pectoral_left",
+              "ok": false,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.04238309271999544,
+                    0.21439693708634971,
+                    0.4527161167395701
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.12335864587202058,
+                    0.2842394895914435,
+                    0.43907566975881956
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.12331465262339632,
+                    0.2406803375394144,
+                    0.43909695799860105
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 0.8907953980712676,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 200,
+                "maximum_gap_mm": 0.10090287246812933,
+                "maximum_inset_mm": 0.05498770320446451,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Pectoral_right",
+              "ok": false,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.04147348293799484,
+                    0.23853046756697288,
+                    0.4540099719088539
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.12299496198805732,
+                    0.28347258442370216,
+                    0.4378654700311046
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.12300312492689766,
+                    0.24003333654704911,
+                    0.437865088310943
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 0.9937389155952442,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 20,
+                "finite_contact_samples": 220,
+                "maximum_gap_mm": 0.10090287246812933,
+                "maximum_inset_mm": 0.06215925238857128,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Pelvic_left",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.07681588094766713,
+                    0.2696372105742767,
+                    3.8643202115805186
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.08132161030513906,
+                    0.16045601700618806,
+                    0.38985244383740225
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.12905363907449827,
+                    0.17009328390375617,
+                    0.2996175561108812
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 1.5852313764889474,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 10,
+                "finite_contact_samples": 90,
+                "maximum_gap_mm": 0.20180421805561227,
+                "maximum_inset_mm": 0.15674050864586914,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            },
+            {
+              "name": "Pelvic_right",
+              "ok": true,
+              "zones": {
+                "proximal": {
+                  "min_median_max_mm": [
+                    0.07416913611795371,
+                    0.2686826752655649,
+                    3.8155131193614227
+                  ]
+                },
+                "middle": {
+                  "min_median_max_mm": [
+                    0.0809791632755509,
+                    0.15979716066649619,
+                    0.38478011696698794
+                  ]
+                },
+                "distal": {
+                  "min_median_max_mm": [
+                    0.1285204200533788,
+                    0.16936794952976741,
+                    0.2984060056810559
+                  ]
+                }
+              },
+              "source_root_band": 0.055,
+              "proximal_to_distal_median_ratio": 1.5863844134119502,
+              "missing_opposing_ray_count": 0,
+              "missing_opposing_rays": [],
+              "attachment_contact": {
+                "ok": true,
+                "source_root_band": 0.055,
+                "complete_original_root_vertices": 10,
+                "finite_contact_samples": 90,
+                "maximum_gap_mm": 0.20180468786504197,
+                "maximum_inset_mm": 0.15675555722916293,
+                "tolerance_mm": 0.5,
+                "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+              },
+              "final_geometry_correspondence": null
+            }
+          ],
+          "tail_cross_section": {
+            "ok": true,
+            "maximum_width_error_mm": 0.32966886690498376,
+            "tolerance_mm": 0.4,
+            "sections": [
+              {
+                "z_native": -0.0378224,
+                "body_width_mm": 2.1310222003848332e-15,
+                "tail_root_width_mm": 0.32966886690498587,
+                "difference_mm": 0.32966886690498376
+              },
+              {
+                "z_native": -0.0352487,
+                "body_width_mm": 6.659119729422242,
+                "tail_root_width_mm": 6.638502899689495,
+                "difference_mm": 0.020616829732747102
+              },
+              {
+                "z_native": -0.0279194,
+                "body_width_mm": 12.304448026388467,
+                "tail_root_width_mm": 12.278728428792954,
+                "difference_mm": 0.025719597595513236
+              },
+              {
+                "z_native": -0.0169503,
+                "body_width_mm": 16.076536661702875,
+                "tail_root_width_mm": 16.047069747338284,
+                "difference_mm": 0.02946691436458812
+              },
+              {
+                "z_native": -0.0040115,
+                "body_width_mm": 17.40111736768648,
+                "tail_root_width_mm": 17.370174876974076,
+                "difference_mm": 0.03094249071240724
+              },
+              {
+                "z_native": 0.0089274,
+                "body_width_mm": 16.076536661702875,
+                "tail_root_width_mm": 16.047253106131887,
+                "difference_mm": 0.029283555570989547
+              },
+              {
+                "z_native": 0.0198964,
+                "body_width_mm": 12.304448026388467,
+                "tail_root_width_mm": 12.279422346086266,
+                "difference_mm": 0.02502568030220226
+              },
+              {
+                "z_native": 0.0272257,
+                "body_width_mm": 6.659119729422242,
+                "tail_root_width_mm": 6.639645940181423,
+                "difference_mm": 0.019473789240819057
+              },
+              {
+                "z_native": 0.0297994,
+                "body_width_mm": 0.0,
+                "tail_root_width_mm": 0.32929945648798475,
+                "difference_mm": 0.32929945648798475
+              }
+            ],
+            "complete_basal_band_retained": true
+          },
+          "scope": "Actual source normal rays, finite posterior section and optional final GLB geometry correspondence. End-on/full outline/camber images and full posed roots/membranes remain separate."
+        },
+        "negative_authoring": {
+          "source_sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+          "negative_sha256": "5dc4360398cfb7e46f97bae6677af030ba2839b15c86cd606ef0727b409ed32c",
+          "fins": [
+            {
+              "fin": "Dorsal",
+              "constant_free_thickness_mm": 0.8768621252529379,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                144,
+                145,
+                146,
+                147,
+                148,
+                149,
+                150,
+                151,
+                153,
+                154,
+                155,
+                156,
+                157,
+                158,
+                159,
+                160,
+                161,
+                162,
+                163,
+                164,
+                165,
+                166,
+                167,
+                168,
+                169,
+                170,
+                171,
+                172,
+                173,
+                174,
+                175,
+                176,
+                177,
+                178,
+                179,
+                180,
+                181,
+                182,
+                183,
+                184,
+                185,
+                186,
+                187,
+                188,
+                189,
+                190,
+                191,
+                192,
+                193,
+                296,
+                297,
+                298,
+                299,
+                300,
+                301,
+                302,
+                303
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Anal",
+              "constant_free_thickness_mm": 0.7729083910970918,
+              "changed_free_vertices": [
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                94,
+                95,
+                96,
+                97,
+                98,
+                99,
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+                114,
+                115,
+                116,
+                117,
+                118,
+                119,
+                120,
+                121,
+                122,
+                123,
+                124,
+                125,
+                126,
+                127,
+                128,
+                129,
+                130,
+                131,
+                175,
+                176,
+                177,
+                178,
+                179,
+                180,
+                181,
+                182,
+                183,
+                184,
+                185,
+                186,
+                187,
+                188,
+                189,
+                190,
+                191,
+                192,
+                193,
+                194,
+                195,
+                196,
+                197,
+                198,
+                199,
+                200,
+                201,
+                202,
+                203,
+                204,
+                205,
+                206,
+                207,
+                208,
+                209,
+                210,
+                211,
+                212,
+                213,
+                214,
+                215,
+                216,
+                217,
+                218,
+                219,
+                220,
+                221,
+                222,
+                223,
+                224,
+                225,
+                226,
+                227,
+                228,
+                229,
+                230,
+                231,
+                232,
+                233,
+                234,
+                235,
+                236,
+                237,
+                238,
+                239,
+                240,
+                241,
+                242,
+                243,
+                244,
+                245,
+                246,
+                247,
+                248,
+                249,
+                250,
+                251,
+                252,
+                253,
+                254,
+                255,
+                256,
+                257,
+                258,
+                259,
+                260,
+                261,
+                262,
+                263
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Caudal",
+              "constant_free_thickness_mm": 7.511027985544963,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Pectoral_left",
+              "constant_free_thickness_mm": 0.496515568974098,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Pectoral_right",
+              "constant_free_thickness_mm": 0.4951470434685876,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Pelvic_left",
+              "constant_free_thickness_mm": 0.4064465973839704,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85
+              ],
+              "complete_root_coordinates_exact": true
+            },
+            {
+              "fin": "Pelvic_right",
+              "constant_free_thickness_mm": 0.40476297656660476,
+              "changed_free_vertices": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85
+              ],
+              "complete_root_coordinates_exact": true
+            }
+          ],
+          "rejected_by_taper": [
+            "Dorsal",
+            "Anal",
+            "Caudal",
+            "Pectoral_left",
+            "Pectoral_right"
+          ],
+          "root_contact_retained_all_fins": true
+        },
+        "scope": "Fresh actual normal rays on all source fins with bidirectional current GLB correspondence, original full static roots and finite body/tail sections; newly constructed constant-free-shell negative preserves roots and is rejected by taper. Full490/visual checks remain separate."
+      }
+    },
+    "motion.validation.json": {
+      "ok": true,
+      "sha256": "469cfc70e534e5285216085b3ba7dbb1ac2d443311a2122c32545498a08f435e",
+      "numerical_results": {
+        "cases_per_species": 5,
+        "checks": [
+          {
+            "actions": 4,
+            "actual_transition_snapshots": [
+              {
+                "action": "Turn",
+                "action_phase": 0.0625,
+                "basal_support": {
+                  "gain": 0.0,
+                  "mesh_array_changes": 0,
+                  "runtime_body_geometry_queries": 0,
+                  "support_bones": 6
+                },
+                "base_clip_time": 1.175,
+                "bend_radians": 0.314402459871197,
+                "body_clock": 1.175,
+                "bone_overlays": [
+                  {
+                    "bone": "body_00",
+                    "delay_seconds": 0.0,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0,
+                    "yaw_radians": 0.0
+                  },
+                  {
+                    "bone": "body_01",
+                    "delay_seconds": 0.0973063785640877,
+                    "pitch_radians": 0.0,
+                    "wave_radians": -0.000782852463322023,
+                    "yaw_radians": 0.024957431241936
+                  },
+                  {
+                    "bone": "body_02",
+                    "delay_seconds": 0.194612757128176,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0130417773591362,
+                    "yaw_radians": 0.0378782518934884
+                  },
+                  {
+                    "bone": "body_03",
+                    "delay_seconds": 0.291919135692263,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0297118609047806,
+                    "yaw_radians": 0.0457101702347326
+                  },
+                  {
+                    "bone": "body_04",
+                    "delay_seconds": 0.389225514256351,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0369473883386802,
+                    "yaw_radians": 0.0113785237420102
+                  },
+                  {
+                    "bone": "body_05",
+                    "delay_seconds": 0.486531900262239,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0264189054460651,
+                    "yaw_radians": -0.0473740518203192
+                  },
+                  {
+                    "bone": "body_06",
+                    "delay_seconds": 0.583838293709925,
+                    "pitch_radians": 0.0,
+                    "wave_radians": -0.00359502999095021,
+                    "yaw_radians": -0.0430872052264712
+                  },
+                  {
+                    "bone": "body_07",
+                    "delay_seconds": 0.68114470948301,
+                    "pitch_radians": 0.0,
+                    "wave_radians": -0.0467208506968269,
+                    "yaw_radians": -0.037732865656594
+                  },
+                  {
+                    "bone": "body_08",
+                    "delay_seconds": 0.769865305532966,
+                    "pitch_radians": 0.0,
+                    "wave_radians": -0.0803410277379807,
+                    "yaw_radians": -0.0339128898825742
+                  },
+                  {
+                    "bone": "body_09",
+                    "delay_seconds": 0.85,
+                    "pitch_radians": 0.0,
+                    "wave_radians": -0.0935902515833601,
+                    "yaw_radians": -0.0323710701730715
+                  }
+                ],
+                "bone_poses": {
+                  "body_00": [
+                    0.50080144405365,
+                    -0.499197363853455,
+                    -0.499197244644165,
+                    -0.50080144405365
+                  ],
+                  "body_01": [
+                    6.64935939642675e-10,
+                    -2.18461408962867e-08,
+                    0.0299978628754616,
+                    0.999549984931946
+                  ],
+                  "body_02": [
+                    2.78006284659682e-09,
+                    1.47372860442863e-11,
+                    0.0688906833529472,
+                    0.997624218463898
+                  ],
+                  "body_03": [
+                    4.11408240807987e-09,
+                    6.06333039332441e-11,
+                    0.108790181577206,
+                    0.994064748287201
+                  ],
+                  "body_04": [
+                    2.63785260301574e-09,
+                    6.47563461186884e-11,
+                    0.0848437696695328,
+                    0.996394276618958
+                  ],
+                  "body_05": [
+                    -1.14425546815511e-09,
+                    -3.32605054609303e-11,
+                    0.00286762625910342,
+                    0.999995946884155
+                  ],
+                  "body_06": [
+                    -2.54831555857038e-09,
+                    -5.92477455985119e-11,
+                    -0.0350947305560112,
+                    0.999384045600891
+                  ],
+                  "body_07": [
+                    -4.6054871027934e-09,
+                    -1.3061214436394e-11,
+                    -0.102541044354439,
+                    0.994728803634644
+                  ],
+                  "body_08": [
+                    -6.21809137513196e-09,
+                    1.89789364779536e-10,
+                    -0.172450736165047,
+                    0.985018193721771
+                  ],
+                  "body_09": [
+                    -6.83818113245138e-09,
+                    4.56675031124121e-10,
+                    -0.222249925136566,
+                    0.974989771842957
+                  ]
+                },
+                "computed_skin_envelope_m": 1.98802365527471,
+                "envelope_radius_m": 4.4,
+                "fin_clock": 3.34790904816305,
+                "fin_tracks": 15,
+                "head_path_local": [
+                  0.678228795528412,
+                  0.0,
+                  0.871817469596863
+                ],
+                "head_world": [
+                  0.678228795528412,
+                  0.0,
+                  0.871817409992218
+                ],
+                "heading": [
+                  0.964643180370331,
+                  0.0,
+                  -0.263559460639954
+                ],
+                "inside_envelope": true,
+                "loop_seconds": 16.0,
+                "max_bend_rad": 0.125961321756432,
+                "motion_controls": {
+                  "body_amplitude": 2.49977390038736,
+                  "body_frequency": 1.0,
+                  "fin_amplitude": 1.0,
+                  "fin_frequency": 2.99969853384981
+                },
+                "pending_action": "",
+                "pitch": 0.0,
+                "position": [
+                  -0.233657360076904,
+                  0.00809440668672323,
+                  1.12096261978149
+                ],
+                "ready": true,
+                "species": "arapaima",
+                "state": "steady",
+                "tail_world": [
+                  -0.732312798500061,
+                  2.42143869400024e-07,
+                  1.76687037944794
+                ],
+                "time": 1.1,
+                "transition_remaining": 0.0,
+                "yaw": 0.266710280257016
+              },
+              {
+                "action": "Ascend",
+                "action_phase": 0.0625,
+                "basal_support": {
+                  "gain": 0.0,
+                  "mesh_array_changes": 0,
+                  "runtime_body_geometry_queries": 0,
+                  "support_bones": 6
+                },
+                "base_clip_time": 0.25,
+                "bend_radians": 0.393231144605164,
+                "body_clock": 2.25,
+                "bone_overlays": [
+                  {
+                    "bone": "body_00",
+                    "delay_seconds": 0.0,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0,
+                    "yaw_radians": 0.0
+                  },
+                  {
+                    "bone": "body_01",
+                    "delay_seconds": 0.0973063785640877,
+                    "pitch_radians": 0.0394582915142118,
+                    "wave_radians": 0.00345032379729015,
+                    "yaw_radians": -0.0090341883115355
+                  },
+                  {
+                    "bone": "body_02",
+                    "delay_seconds": 0.194612757128176,
+                    "pitch_radians": 0.013659149945066,
+                    "wave_radians": -0.00885868005416315,
+                    "yaw_radians": -0.0153435750278715
+                  },
+                  {
+                    "bone": "body_03",
+                    "delay_seconds": 0.291919135692263,
+                    "pitch_radians": -0.0350359223722966,
+                    "wave_radians": -0.0275633869798719,
+                    "yaw_radians": -0.0232340810878136
+                  },
+                  {
+                    "bone": "body_04",
+                    "delay_seconds": 0.389225514256351,
+                    "pitch_radians": -0.04,
+                    "wave_radians": -0.0401676307859722,
+                    "yaw_radians": -0.0338501178372887
+                  },
+                  {
+                    "bone": "body_05",
+                    "delay_seconds": 0.486531900262239,
+                    "pitch_radians": -0.04,
+                    "wave_radians": -0.0365995485566341,
+                    "yaw_radians": -0.037831364752568
+                  },
+                  {
+                    "bone": "body_06",
+                    "delay_seconds": 0.583838293709925,
+                    "pitch_radians": -0.04,
+                    "wave_radians": -0.0122670210212455,
+                    "yaw_radians": -0.00123005396571818
+                  },
+                  {
+                    "bone": "body_07",
+                    "delay_seconds": 0.68114470948301,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0294732240419374,
+                    "yaw_radians": 0.0780762804884404
+                  },
+                  {
+                    "bone": "body_08",
+                    "delay_seconds": 0.769865305532966,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0687381843047172,
+                    "yaw_radians": 0.0917387738337918
+                  },
+                  {
+                    "bone": "body_09",
+                    "delay_seconds": 0.85,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0907524007033572,
+                    "yaw_radians": 0.102892709300137
+                  }
+                ],
+                "bone_poses": {
+                  "body_00": [
+                    0.498915433883667,
+                    -0.501082301139832,
+                    -0.501082301139832,
+                    -0.498915433883667
+                  ],
+                  "body_01": [
+                    -0.0493022240698338,
+                    0.000251634686719626,
+                    -0.00509808957576752,
+                    0.998770952224731
+                  ],
+                  "body_02": [
+                    -0.0170637685805559,
+                    0.000564723566640168,
+                    -0.0330719687044621,
+                    0.999307215213776
+                  ],
+                  "body_03": [
+                    0.0436557047069073,
+                    -0.00330855185166001,
+                    -0.0754982009530067,
+                    0.996184408664703
+                  ],
+                  "body_04": [
+                    0.0496426522731781,
+                    -0.00578999472782016,
+                    -0.115703381597996,
+                    0.992025673389435
+                  ],
+                  "body_05": [
+                    0.049590703099966,
+                    -0.00621921895071864,
+                    -0.124280720949173,
+                    0.990987539291382
+                  ],
+                  "body_06": [
+                    0.0499219447374344,
+                    -0.00239089410752058,
+                    -0.0477780364453793,
+                    0.997606813907623
+                  ],
+                  "body_07": [
+                    0.0496267601847649,
+                    0.00592469284310937,
+                    0.118395105004311,
+                    0.991707921028137
+                  ],
+                  "body_08": [
+                    0.0488160327076912,
+                    0.0107197286561131,
+                    0.214215904474258,
+                    0.975506842136383
+                  ],
+                  "body_09": [
+                    0.047797717154026,
+                    0.0146046597510576,
+                    0.291849732398987,
+                    0.955157458782196
+                  ]
+                },
+                "computed_skin_envelope_m": 1.98802365527471,
+                "envelope_radius_m": 4.4,
+                "fin_clock": 6.57287588471612,
+                "fin_tracks": 15,
+                "head_path_local": [
+                  1.78440368175507,
+                  0.497488468885422,
+                  0.977473080158234
+                ],
+                "head_world": [
+                  1.78440368175507,
+                  0.497488468885422,
+                  0.977473080158234
+                ],
+                "heading": [
+                  0.717743992805481,
+                  0.522622346878052,
+                  -0.460118979215622
+                ],
+                "inside_envelope": true,
+                "loop_seconds": 16.0,
+                "max_bend_rad": 0.193645110003494,
+                "motion_controls": {
+                  "body_amplitude": 2.49999992415203,
+                  "body_frequency": 1.0,
+                  "fin_amplitude": 1.0,
+                  "fin_frequency": 2.99999989886937
+                },
+                "pending_action": "",
+                "pitch": 0.549923876314199,
+                "position": [
+                  1.10235226154327,
+                  0.0103497207164764,
+                  1.41471087932587
+                ],
+                "ready": true,
+                "species": "arapaima",
+                "state": "steady",
+                "tail_world": [
+                  0.342584490776062,
+                  -0.154236167669296,
+                  1.30779361724854
+                ],
+                "time": 2.1,
+                "transition_remaining": 0.0,
+                "yaw": 0.570066810636867
+              },
+              {
+                "action": "Dive",
+                "action_phase": 0.0625,
+                "basal_support": {
+                  "gain": 0.0,
+                  "mesh_array_changes": 0,
+                  "runtime_body_geometry_queries": 0,
+                  "support_bones": 6
+                },
+                "base_clip_time": 1.25,
+                "bend_radians": 0.142568589471927,
+                "body_clock": 3.25,
+                "bone_overlays": [
+                  {
+                    "bone": "body_00",
+                    "delay_seconds": 0.0,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0,
+                    "yaw_radians": 0.0
+                  },
+                  {
+                    "bone": "body_01",
+                    "delay_seconds": 0.0973063785640877,
+                    "pitch_radians": -0.04,
+                    "wave_radians": -0.00345032379729015,
+                    "yaw_radians": -0.00701288889272035
+                  },
+                  {
+                    "bone": "body_02",
+                    "delay_seconds": 0.194612757128175,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.00885868005416309,
+                    "yaw_radians": -0.0105795287126765
+                  },
+                  {
+                    "bone": "body_03",
+                    "delay_seconds": 0.291919135692263,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0275633869798719,
+                    "yaw_radians": -0.013222669671305
+                  },
+                  {
+                    "bone": "body_04",
+                    "delay_seconds": 0.389225514256351,
+                    "pitch_radians": -0.0256755703751872,
+                    "wave_radians": 0.0401676307859723,
+                    "yaw_radians": -0.0152927092491445
+                  },
+                  {
+                    "bone": "body_05",
+                    "delay_seconds": 0.486531900262238,
+                    "pitch_radians": 0.0280795904349733,
+                    "wave_radians": 0.0365995485566341,
+                    "yaw_radians": -0.0169668998583487
+                  },
+                  {
+                    "bone": "body_06",
+                    "delay_seconds": 0.583838293709925,
+                    "pitch_radians": 0.04,
+                    "wave_radians": 0.0122670210212457,
+                    "yaw_radians": -0.018313668814411
+                  },
+                  {
+                    "bone": "body_07",
+                    "delay_seconds": 0.681144709483009,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0294732240419375,
+                    "yaw_radians": -0.019432726582745
+                  },
+                  {
+                    "bone": "body_08",
+                    "delay_seconds": 0.769865305532966,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0687381843047171,
+                    "yaw_radians": -0.0204159509230754
+                  },
+                  {
+                    "bone": "body_09",
+                    "delay_seconds": 0.85,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0907524007033572,
+                    "yaw_radians": -0.0213315467675007
+                  }
+                ],
+                "bone_poses": {
+                  "body_00": [
+                    0.501082301139832,
+                    -0.498915433883667,
+                    -0.498915433883667,
+                    -0.501082301139832
+                  ],
+                  "body_01": [
+                    0.0499735809862614,
+                    -0.000747408892493695,
+                    -0.0149352829903364,
+                    0.99863862991333
+                  ],
+                  "body_02": [
+                    0.0499791577458382,
+                    3.39330144925043e-05,
+                    0.000678092474117875,
+                    0.998750030994415
+                  ],
+                  "body_03": [
+                    0.0499565750360489,
+                    0.00150273879989982,
+                    0.0300297252833843,
+                    0.998298704624176
+                  ],
+                  "body_04": [
+                    0.0320409946143627,
+                    0.00175376050174236,
+                    0.0546249449253082,
+                    0.99799120426178
+                  ],
+                  "body_05": [
+                    -0.0350367575883865,
+                    -0.00197331351228058,
+                    0.0561974830925465,
+                    0.997802793979645
+                  ],
+                  "body_06": [
+                    -0.0499654561281204,
+                    -0.00117072637658566,
+                    0.0233950149267912,
+                    0.998476266860962
+                  ],
+                  "body_07": [
+                    -0.0499274060130119,
+                    0.00227417796850204,
+                    -0.0454456433653831,
+                    0.997715771198273
+                  ],
+                  "body_08": [
+                    -0.0495765917003155,
+                    0.0063307979144156,
+                    -0.126510441303253,
+                    0.990705370903015
+                  ],
+                  "body_09": [
+                    -0.0490359105169773,
+                    0.00966421607881784,
+                    -0.1931232213974,
+                    0.979900717735291
+                  ]
+                },
+                "computed_skin_envelope_m": 1.98802365527471,
+                "envelope_radius_m": 4.4,
+                "fin_clock": 9.57287587497612,
+                "fin_tracks": 15,
+                "head_path_local": [
+                  2.27980494499207,
+                  -0.497488468885422,
+                  0.498408555984497
+                ],
+                "head_world": [
+                  2.27980494499207,
+                  -0.497488468885422,
+                  0.498408615589142
+                ],
+                "heading": [
+                  0.421883523464203,
+                  -0.602403938770294,
+                  -0.677586734294891
+                ],
+                "inside_envelope": true,
+                "loop_seconds": 16.0,
+                "max_bend_rad": 0.112083947470858,
+                "motion_controls": {
+                  "body_amplitude": 2.49999999997456,
+                  "body_frequency": 1.0,
+                  "fin_amplitude": 1.0,
+                  "fin_frequency": 2.99999999996607
+                },
+                "pending_action": "",
+                "pitch": -0.646509443116188,
+                "position": [
+                  1.88357186317444,
+                  0.0784304440021515,
+                  1.13479828834534
+                ],
+                "ready": true,
+                "species": "arapaima",
+                "state": "steady",
+                "tail_world": [
+                  1.80035257339478,
+                  0.73478364944458,
+                  1.55150103569031
+                ],
+                "time": 3.1,
+                "transition_remaining": 0.0,
+                "yaw": 1.01390553608616
+              },
+              {
+                "action": "Swim",
+                "action_phase": 0.0625,
+                "basal_support": {
+                  "gain": 0.0,
+                  "mesh_array_changes": 0,
+                  "runtime_body_geometry_queries": 0,
+                  "support_bones": 6
+                },
+                "base_clip_time": 0.25,
+                "bend_radians": 0.178777847905091,
+                "body_clock": 4.25,
+                "bone_overlays": [
+                  {
+                    "bone": "body_00",
+                    "delay_seconds": 0.0,
+                    "pitch_radians": 0.0,
+                    "wave_radians": 0.0,
+                    "yaw_radians": 0.0
+                  },
+                  {
+                    "bone": "body_01",
+                    "delay_seconds": 0.0973063785640882,
+                    "pitch_radians": 0.04,
+                    "wave_radians": 0.00345032379729015,
+                    "yaw_radians": -0.00729949315223331
+                  },
+                  {
+                    "bone": "body_02",
+                    "delay_seconds": 0.194612757128175,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0088586800541631,
+                    "yaw_radians": -0.011570873905357
+                  },
+                  {
+                    "bone": "body_03",
+                    "delay_seconds": 0.291919135692264,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0275633869798719,
+                    "yaw_radians": -0.0153863897678878
+                  },
+                  {
+                    "bone": "body_04",
+                    "delay_seconds": 0.389225514256351,
+                    "pitch_radians": 0.04,
+                    "wave_radians": -0.0401676307859723,
+                    "yaw_radians": -0.0191339941192013
+                  },
+                  {
+                    "bone": "body_05",
+                    "delay_seconds": 0.486531900262238,
+                    "pitch_radians": -0.0301618143651501,
+                    "wave_radians": -0.0365995485566341,
+                    "yaw_radians": -0.0211674081618476
+                  },
+                  {
+                    "bone": "body_06",
+                    "delay_seconds": 0.583838293709925,
+                    "pitch_radians": -0.04,
+                    "wave_radians": -0.0122670210212456,
+                    "yaw_radians": 0.00289871779583836
+                  },
+                  {
+                    "bone": "body_07",
+                    "delay_seconds": 0.68114470948301,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0294732240419376,
+                    "yaw_radians": 0.0304659230867011
+                  },
+                  {
+                    "bone": "body_08",
+                    "delay_seconds": 0.769865305532965,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.068738184304717,
+                    "yaw_radians": 0.0338866795803162
+                  },
+                  {
+                    "bone": "body_09",
+                    "delay_seconds": 0.85,
+                    "pitch_radians": -0.04,
+                    "wave_radians": 0.0907524007033574,
+                    "yaw_radians": 0.0369683683357086
+                  }
+                ],
+                "bone_poses": {
+                  "body_00": [
+                    0.498915433883667,
+                    -0.501082301139832,
+                    -0.501082301139832,
+                    -0.498915433883667
+                  ],
+                  "body_01": [
+                    -0.049978956580162,
+                    0.000146714359289035,
+                    -0.00293227680958807,
+                    0.998746037483215
+                  ],
+                  "body_02": [
+                    -0.049959059804678,
+                    0.00141756620723754,
+                    -0.0283276923000813,
+                    0.998348414897919
+                  ],
+                  "body_03": [
+                    -0.0498709119856358,
+                    0.00328791048377752,
+                    -0.0657033994793892,
+                    0.996586799621582
+                  ],
+                  "body_04": [
+                    -0.0497407615184784,
+                    0.00487588252872229,
+                    -0.0974363759160042,
+                    0.993986070156097
+                  ],
+                  "body_05": [
+                    0.0374899469316006,
+                    -0.00391040788963437,
+                    -0.103668972849846,
+                    0.993897438049316
+                  ],
+                  "body_06": [
+                    0.0499336197972298,
+                    -0.00213321810588241,
+                    -0.0426288060843945,
+                    0.997840106487274
+                  ],
+                  "body_07": [
+                    0.0498912930488586,
+                    0.0029625128954649,
+                    0.0592008717358112,
+                    0.996994137763977
+                  ],
+                  "body_08": [
+                    0.0494629703462124,
+                    0.00716465199366212,
+                    0.143173605203629,
+                    0.988434791564941
+                  ],
+                  "body_09": [
+                    0.0488376654684544,
+                    0.0106207672506571,
+                    0.212238326668739,
+                    0.975939095020294
+                  ]
+                },
+                "computed_skin_envelope_m": 1.98802365527471,
+                "envelope_radius_m": 4.4,
+                "fin_clock": 12.5728758749728,
+                "fin_tracks": 15,
+                "head_path_local": [
+                  2.69791841506958,
+                  -1.26824962055054e-15,
+                  -0.0628157034516335
+                ],
+                "head_world": [
+                  2.69791841506958,
+                  0.0,
+                  -0.0628157258033752
+                ],
+                "heading": [
+                  -0.0662151500582695,
+                  2.91080596070969e-05,
+                  -0.99780535697937
+                ],
+                "inside_envelope": true,
+                "loop_seconds": 16.0,
+                "max_bend_rad": 0.127720769039066,
+                "motion_controls": {
+                  "body_amplitude": 2.49999999999999,
+                  "body_frequency": 1.0,
+                  "fin_amplitude": 1.0,
+                  "fin_frequency": 2.99999999999999
+                },
+                "pending_action": "",
+                "pitch": 2.91080595003065e-05,
+                "position": [
+                  2.76051211357117,
+                  0.00806689076125622,
+                  0.880419194698334
+                ],
+                "ready": true,
+                "species": "arapaima",
+                "state": "transition",
+                "tail_world": [
+                  2.31597304344177,
+                  -0.29979333281517,
+                  1.51475596427917
+                ],
+                "time": 4.1,
+                "transition_remaining": 4.44089209850063e-16,
+                "yaw": 1.6370599583406
+              }
+            ],
+            "cases": {
+              "fast_body": {
+                "fin_peak_rad": 0.130000948905945,
+                "neutral_error_rad": 0.0,
+                "pivot_translation_error": 0.0
+              },
+              "fast_fins": {
+                "fin_peak_rad": 0.129999116063118,
+                "neutral_error_rad": 0.0,
+                "pivot_translation_error": 0.0
+              },
+              "low": {
+                "fin_peak_rad": 0.130000948905945,
+                "neutral_error_rad": 0.0,
+                "pivot_translation_error": 0.0
+              },
+              "wide": {
+                "fin_peak_rad": 0.650000393390656,
+                "neutral_error_rad": 0.0,
+                "pivot_translation_error": 0.0
+              },
+              "zero": {
+                "fin_peak_rad": 0.0,
+                "neutral_error_rad": 0.0,
+                "pivot_translation_error": 0.0
+              }
+            },
+            "declared_normal_posture_auxiliary_count": 6,
+            "fin_tracks": 15,
+            "fixed_pivot_original_driver_count": 26,
+            "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+            "ok": true,
+            "rest_arrays_uv_materials_unchanged": true,
+            "smooth_parameter_change": true,
+            "species": "arapaima",
+            "static_arrays_uv_material_digest": "e3f0672f2e333106d13f7c2928522b0c8e8dfe95a4f5a18d0f274ff726a77428"
+          }
+        ],
+        "controller_sha256": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66",
+        "direct_GLTFDocument": true,
+        "frozen_inputs": {
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/eye-binding.validation.json": "2eb6fe72675c5e7d2ae4e70469f0218c921edef40b67ce718cc7a6e14bcbc69b",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.blend": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.glb": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/motion-profile.json": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/root-domains.json": "59e86382f42ab0aababe677a357c8eb1b782cbdfaf494d6ee608c79d11dfd6ff",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/reference-envelope.json": "15ca80b6054f099af913a7c0008f6d8469cd73c0376433ff29040cee658a6b33",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/ArapaimaBasalSupportMotion20261105.gd": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66",
+          "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/validate_group_c_motion.gd": "101a0b61e348934e237d37bc6693870854565ff1268a7e80636b991de8d13807"
+        },
+        "kind": "standalone_motion_controls",
+        "motion_config_sha256": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4",
+        "ok": true,
+        "samples_per_case": 96,
+        "scope": "Same five control cases ×96 phases and four transitions as installed validation; finite discrete coverage, not full membrane/visual acceptance.",
+        "standalone_plan_sha256": "427821271437653e9a5ea51fa54a3c078fdfe292e76ae02552042c9fa0e7c705",
+        "static_builders": false,
+        "transitions": [
+          "Turn",
+          "Ascend",
+          "Dive",
+          "Swim"
+        ],
+        "validator_sha256": "101a0b61e348934e237d37bc6693870854565ff1268a7e80636b991de8d13807"
+      }
+    },
+    "native-loop.validation.json": {
+      "ok": true,
+      "sha256": "ac20f5aa046c91f62592066978473390453697b6c66074cc395b46dd841de351",
+      "numerical_results": {
+        "ok": true,
+        "kind": "actual_native_clip_loop_and_posed_coverage",
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "clip": "Animation",
+        "channels": [
+          {
+            "node": "root",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "root",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "root",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_00",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_00",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_00",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_01",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_01",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_01",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_02",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_02",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_02",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_03",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_03",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_03",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_04",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_04",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_04",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_05",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_05",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_05",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_06",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_06",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_06",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_07",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_07",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_07",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_08",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_08",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_08",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_09",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_09",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "body_09",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Caudal",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Caudal",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Caudal",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Dorsal",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Dorsal",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Dorsal",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Anal",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Anal",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Anal",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_07",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_07",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_07",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_07",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_07",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_07",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_05",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_05",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_left_bodyframe_body_05",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_05",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_05",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pelvic_right_bodyframe_body_05",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_03",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_03",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_03",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_03",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_03",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_03",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_03",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_03",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_03",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_03",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_03",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_03",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_02",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_02",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_02",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_02",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_02",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_02",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_01",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_01",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_left_bodyframe_body_01",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_01",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_01",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "Pectoral_right_bodyframe_body_01",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_01",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_01",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_L_01",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_01",
+            "path": "translation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_01",
+            "path": "rotation",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          },
+          {
+            "node": "AuxP_R_01",
+            "path": "scale",
+            "duration": 2.0,
+            "loop_endpoint_error": 0.0
+          }
+        ],
+        "actual_native_poses": 25,
+        "actual_nonconstant_native_meshes": true,
+        "export_report_sha256": "9a522e518de7f388702b6bd8094dbaec8605296c8bf29b6ac2488c7af3dd502f",
+        "scope": "Actual final animation sampler endpoints plus independently exported25 native poses. No continuous collision proof."
+      }
+    },
+    "whole-boundary.validation.json": {
+      "ok": true,
+      "sha256": "b1e80dbf88649e59d51435469a1feb2d79807a2418bc0ba7ec3b882e710f5f01",
+      "numerical_results": {
+        "kind": "finite_static_whole_body_boundary_audit",
+        "ok": true,
+        "species": "arapaima",
+        "inputs": {
+          "species": "arapaima",
+          "reference_role": "Raw declared artistic reference only; not biological measurement; smoothed construction target is independently recorded by assigned group.",
+          "before": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+            "sha256": "64c4c37525f3961beed0d23ff155010861e0e0024fbfaf1ae97654b110ec6887",
+            "selection": {
+              "mode": "named_nodes",
+              "names": [
+                "Closed_body"
+              ]
+            }
+          },
+          "candidate": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.glb",
+            "sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+            "selection": {
+              "mode": "named_nodes",
+              "names": [
+                "Closed_body"
+              ]
+            }
+          },
+          "reference": {
+            "path": "/Users/czl/projects/game-ai-foundry/resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/f511bcecd7db3d917139cb8b5a22f65357f49e425b691dd9c2e85e6c5e91061c.obj",
+            "sha256": "f511bcecd7db3d917139cb8b5a22f65357f49e425b691dd9c2e85e6c5e91061c",
+            "axes": [
+              "-Y",
+              "+Z",
+              "+X"
+            ],
+            "selection": {
+              "group": "Arapaima_0",
+              "component": 0
+            }
+          }
+        },
+        "checker_sha256": "3d3e2823dcee12ad54e667bccc7f6571cb1fafed7090195126173e2fcaea9fa5",
+        "registration": {
+          "before": {
+            "nose_x": 0.49288877844810486,
+            "length": 0.9097941815853119,
+            "basis": "fin-excluded nose to posterior body cap; engineering axis"
+          },
+          "candidate": {
+            "nose_x": 0.49288877844810486,
+            "length": 0.9097941815853119,
+            "basis": "fin-excluded nose to posterior body cap; engineering axis"
+          },
+          "reference": {
+            "nose_x": 0.461552888,
+            "length": 2.423008748,
+            "basis": "fin-excluded nose to posterior body cap; engineering axis"
+          }
+        },
+        "registration_overlap": [
+          0.0,
+          1.0
+        ],
+        "boundary_breakpoints": 148,
+        "summary": {
+          "before": {
+            "Wmax_over_registered_length": 0.20224353671073914,
+            "peak_t_from_nose": 0.4551492929458618,
+            "max_abs_width_difference_over_reference_Wmax": 0.9437940443911984,
+            "worst_difference_t": 0.6740270827945025
+          },
+          "candidate": {
+            "Wmax_over_registered_length": 0.12239042669534683,
+            "peak_t_from_nose": 0.32192859053611755,
+            "max_abs_width_difference_over_reference_Wmax": 0.015083108612273018,
+            "worst_difference_t": 0.0019969125278294086
+          },
+          "reference": {
+            "Wmax_over_registered_length": 0.12277957528859898,
+            "peak_t_from_nose": 0.3475661632237739
+          }
+        },
+        "columns": [
+          "t_from_nose",
+          "before_W_over_L",
+          "candidate_W_over_L",
+          "reference_W_over_L"
+        ],
+        "boundary_widths": [
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            5.077368041384034e-05,
+            0.008174652587127722,
+            0.002966847283233362,
+            0.0018149239300190747
+          ],
+          [
+            0.00013283049338497221,
+            0.015541456294110433,
+            0.006398341947201113,
+            0.0047480749694661
+          ],
+          [
+            0.0003219378995709121,
+            0.025436602532863617,
+            0.013064713217318058,
+            0.01150778894003623
+          ],
+          [
+            0.0004328870049956573,
+            0.02897974295839107,
+            0.013929675732564881,
+            0.015473705627743774
+          ],
+          [
+            0.0005933968932367861,
+            0.034105598381441615,
+            0.015181015579997924,
+            0.016538064807656905
+          ],
+          [
+            0.0008270213729701936,
+            0.04053120269731181,
+            0.01750497605180269,
+            0.01808725509357329
+          ],
+          [
+            0.0010991354938596487,
+            0.047000713646411896,
+            0.020433880388736725,
+            0.01989167453293883
+          ],
+          [
+            0.0014099031686782837,
+            0.05304937406263302,
+            0.023321209658413177,
+            0.021952410049847108
+          ],
+          [
+            0.00175958639010787,
+            0.05941484997233712,
+            0.02593766884952743,
+            0.024271198947332658
+          ],
+          [
+            0.0018763658590614796,
+            0.06140938401222229,
+            0.026712022721767426,
+            0.025045576782668447
+          ],
+          [
+            0.0019969125278294086,
+            0.06446377586808476,
+            0.02769683301448822,
+            0.02584493534504153
+          ],
+          [
+            0.0020594965482215754,
+            0.0660495195816748,
+            0.027965149469446032,
+            0.026259937045872598
+          ],
+          [
+            0.00206128042191267,
+            0.0660947190826619,
+            0.027977282450788375,
+            0.0262717661136
+          ],
+          [
+            0.0020645439782837737,
+            0.06617741054235074,
+            0.02799050471022109,
+            0.02629340712413718
+          ],
+          [
+            0.002066095592454076,
+            0.0662167250894357,
+            0.02800014056265354,
+            0.026303696052775417
+          ],
+          [
+            0.002076053759083152,
+            0.06646904349327087,
+            0.028036382712871954,
+            0.02636972977931343
+          ],
+          [
+            0.002076234956180253,
+            0.06646918207028915,
+            0.028037042168839794,
+            0.02637093131770952
+          ],
+          [
+            0.0020762349561802536,
+            0.06646918207028915,
+            0.028037042168839794,
+            0.026370931317709522
+          ],
+          [
+            0.003486143005869155,
+            0.06754746012601326,
+            0.035101100633388845,
+            0.03572019068087987
+          ],
+          [
+            0.003653485777674942,
+            0.06767544154910113,
+            0.035939537667574586,
+            0.03657093383304616
+          ],
+          [
+            0.003781525418162346,
+            0.06777336448431015,
+            0.03658105432987213,
+            0.03693585024816731
+          ],
+          [
+            0.004198950715363026,
+            0.06810352951288223,
+            0.037783775478601456,
+            0.03812552355914742
+          ],
+          [
+            0.009952525608241558,
+            0.07355181127786636,
+            0.054284580051898956,
+            0.054523366571264
+          ],
+          [
+            0.011076696286034202,
+            0.07510042545685823,
+            0.057203749933698235,
+            0.05772728320335392
+          ],
+          [
+            0.011303137987852097,
+            0.07541236281394958,
+            0.057791758328676224,
+            0.05789306528687853
+          ],
+          [
+            0.012480039149522781,
+            0.0766031502232183,
+            0.058700483481688714,
+            0.05875469600735954
+          ],
+          [
+            0.012698301114141941,
+            0.07682956755161285,
+            0.05887327715754509,
+            0.058914489556684824
+          ],
+          [
+            0.013471207581460476,
+            0.07762509797421525,
+            0.05948031258963153,
+            0.05948034842231355
+          ],
+          [
+            0.013471797108650208,
+            0.07762569420601298,
+            0.05948066231585174,
+            0.05948078002587871
+          ],
+          [
+            0.013847942227841923,
+            0.0779887146324417,
+            0.05963419768162709,
+            0.05975616270083036
+          ],
+          [
+            0.013873656548822947,
+            0.07802177163551652,
+            0.05964469378399835,
+            0.05977498862235644
+          ],
+          [
+            0.013995823062417874,
+            0.07817882259628382,
+            0.05972305876050404,
+            0.05986442894628137
+          ],
+          [
+            0.014100195492902833,
+            0.07834787368667265,
+            0.05979000953794797,
+            0.05994084189870759
+          ],
+          [
+            0.016833996400237083,
+            0.0827757865190506,
+            0.062130607664585114,
+            0.06194230720620565
+          ],
+          [
+            0.020528584718704224,
+            0.0871725082397461,
+            0.06487105786800385,
+            0.06464718243141367
+          ],
+          [
+            0.023390927930731505,
+            0.08817083076513564,
+            0.06651303609380167,
+            0.06674275589532457
+          ],
+          [
+            0.024128439093856716,
+            0.0884280584811483,
+            0.06693610809510676,
+            0.06721071475058496
+          ],
+          [
+            0.02724565166276689,
+            0.08951527384752862,
+            0.06872429168602863,
+            0.06816172875374858
+          ],
+          [
+            0.02725026677354239,
+            0.08951688349693229,
+            0.0687269391363313,
+            0.06816413881358459
+          ],
+          [
+            0.03065393678843975,
+            0.09070400893688202,
+            0.0706794485449791,
+            0.07068059623636239
+          ],
+          [
+            0.036149680614471436,
+            0.09262079745531082,
+            0.07463087141513824,
+            0.07474380015571173
+          ],
+          [
+            0.03708398497288463,
+            0.09294148628946468,
+            0.07513305156577803,
+            0.07543456545539472
+          ],
+          [
+            0.040777553148149,
+            0.09420925953843577,
+            0.07711831108635094,
+            0.07576724712675284
+          ],
+          [
+            0.042193244292068395,
+            0.09469517864860295,
+            0.07787923228457833,
+            0.07621263304252585
+          ],
+          [
+            0.042196294141237975,
+            0.09469622547297633,
+            0.07788087155094973,
+            0.07621447002930284
+          ],
+          [
+            0.04628183125321511,
+            0.09609853738721966,
+            0.08007681083332835,
+            0.07985161595462799
+          ],
+          [
+            0.051465452653825905,
+            0.09787775364441466,
+            0.08286296049898911,
+            0.08280667090682745
+          ],
+          [
+            0.052022844552993774,
+            0.09806907176971436,
+            0.08316255360841751,
+            0.08310510914004228
+          ],
+          [
+            0.05263694375753403,
+            0.0981982871890068,
+            0.0834653377532959,
+            0.08343390954402238
+          ],
+          [
+            0.05764711873834308,
+            0.09925244123073075,
+            0.08447062063014575,
+            0.08611645260143319
+          ],
+          [
+            0.06972051411867142,
+            0.10179271548986435,
+            0.08689312636852264,
+            0.08689275800127352
+          ],
+          [
+            0.07237429503494305,
+            0.10235107840867544,
+            0.08689666260107597,
+            0.0870633930538331
+          ],
+          [
+            0.07791738957166672,
+            0.10351736098527908,
+            0.08690404891967773,
+            0.08691019617910206
+          ],
+          [
+            0.08589869014717011,
+            0.10537182411047309,
+            0.0866886332487618,
+            0.08668961356115182
+          ],
+          [
+            0.08589869014717012,
+            0.1053718241104731,
+            0.0866886332487618,
+            0.08668961356115182
+          ],
+          [
+            0.08589869014717014,
+            0.1053718241104731,
+            0.08668863324876179,
+            0.08668961356115182
+          ],
+          [
+            0.08796916902065277,
+            0.10585290193557739,
+            0.08663275092840195,
+            0.08663239085089264
+          ],
+          [
+            0.0898158848285675,
+            0.10628198832273483,
+            0.08658206462860107,
+            0.08658135237618964
+          ],
+          [
+            0.09220693205685446,
+            0.10683755026022745,
+            0.08736260358059354,
+            0.08651526998118787
+          ],
+          [
+            0.10209866613149643,
+            0.10913590341806412,
+            0.0905916839838028,
+            0.09059241142213356
+          ],
+          [
+            0.10952140937132102,
+            0.11086057916029063,
+            0.09336996988091022,
+            0.09365189258491277
+          ],
+          [
+            0.11309017986059189,
+            0.11168978363275528,
+            0.0947057381272316,
+            0.09471034160855482
+          ],
+          [
+            0.13280010741422218,
+            0.11688288212647206,
+            0.1009616983755054,
+            0.10055603934616913
+          ],
+          [
+            0.1402067393064499,
+            0.11883435398340225,
+            0.10331257432699203,
+            0.10333584757507822
+          ],
+          [
+            0.14056889712810516,
+            0.11892978101968765,
+            0.10513818264007568,
+            0.10347177025997059
+          ],
+          [
+            0.1507909561545048,
+            0.12387219679585233,
+            0.10727235475684344,
+            0.10730824603079946
+          ],
+          [
+            0.15079417327277206,
+            0.12387375228834527,
+            0.10727302643014179,
+            0.10730960651778473
+          ],
+          [
+            0.15390835819631965,
+            0.12537947600372248,
+            0.10792320919793146,
+            0.10877487966873821
+          ],
+          [
+            0.16304043553052217,
+            0.12979488027493177,
+            0.10982981380317665,
+            0.1111044593958134
+          ],
+          [
+            0.1630404355305222,
+            0.1297948802749318,
+            0.10982981380317665,
+            0.11110445939581341
+          ],
+          [
+            0.16304043553052222,
+            0.1297948802749318,
+            0.10982981380317666,
+            0.11110445939581341
+          ],
+          [
+            0.1714984001782894,
+            0.13388434774928382,
+            0.11159567646051936,
+            0.11326207395104296
+          ],
+          [
+            0.17821480777801066,
+            0.13713176383192277,
+            0.11299793502576076,
+            0.1132532880097987
+          ],
+          [
+            0.17822043321567688,
+            0.13713448375868093,
+            0.11299910951048844,
+            0.11325387538627046
+          ],
+          [
+            0.18834692281515444,
+            0.1420306912472473,
+            0.11511332854288973,
+            0.11538241875138289
+          ],
+          [
+            0.1900306493043899,
+            0.14284478127956388,
+            0.11546485871076582,
+            0.11425342341934072
+          ],
+          [
+            0.19003064930438993,
+            0.1428447812795639,
+            0.11546485871076584,
+            0.11425342341934071
+          ],
+          [
+            0.19003064930438995,
+            0.1428447812795639,
+            0.11546485871076584,
+            0.1142534234193407
+          ],
+          [
+            0.19084679575010982,
+            0.1432393928491963,
+            0.11532674050428227,
+            0.11370616973332252
+          ],
+          [
+            0.19084682710065315,
+            0.14323940800736695,
+            0.11532673519876285,
+            0.11370614871172709
+          ],
+          [
+            0.19093823241120217,
+            0.14328360300846957,
+            0.1153112664827961,
+            0.11364485837176186
+          ],
+          [
+            0.19151140684201937,
+            0.1435607361908832,
+            0.115214266949438,
+            0.11362281305308766
+          ],
+          [
+            0.20319528877735138,
+            0.14920996129512787,
+            0.11323697865009308,
+            0.11490338474125891
+          ],
+          [
+            0.20906537494680147,
+            0.15204817837140003,
+            0.11421689204739599,
+            0.11554675534336949
+          ],
+          [
+            0.23399662971496582,
+            0.16410256922245026,
+            0.11837875097990036,
+            0.11837773630231048
+          ],
+          [
+            0.2383102976729327,
+            0.16618825013658892,
+            0.11870244469514488,
+            0.11886755969731232
+          ],
+          [
+            0.2669711112976074,
+            0.18004590272903442,
+            0.12085312604904175,
+            0.1206699115783445
+          ],
+          [
+            0.2677095369694472,
+            0.18005932344992243,
+            0.12086629056040221,
+            0.120716347904824
+          ],
+          [
+            0.2787815034389496,
+            0.1802605539560318,
+            0.12106367945671082,
+            0.12113131041047316
+          ],
+          [
+            0.3058627128819595,
+            0.18566132274903663,
+            0.12189641052304033,
+            0.1221462779464963
+          ],
+          [
+            0.32192859053611755,
+            0.1888653188943863,
+            0.12239042669534683,
+            0.12239025002874684
+          ],
+          [
+            0.3475661632237739,
+            0.19397819073875153,
+            0.1222930165650189,
+            0.12277957528859898
+          ],
+          [
+            0.3669653534889221,
+            0.19784694910049438,
+            0.12221930921077728,
+            0.12216897186480535
+          ],
+          [
+            0.3875200284666904,
+            0.19887173743975387,
+            0.12123878770059555,
+            0.12152199873114118
+          ],
+          [
+            0.4098605811595917,
+            0.1999855637550354,
+            0.12017307430505753,
+            0.12017306120610077
+          ],
+          [
+            0.4275320131861117,
+            0.20086661366859324,
+            0.1182844452910225,
+            0.11910604831212934
+          ],
+          [
+            0.4551492929458618,
+            0.20224353671073914,
+            0.11533285677433014,
+            0.11532874817755392
+          ],
+          [
+            0.46557796909778226,
+            0.20146361860048262,
+            0.1131819087460746,
+            0.11390238612543382
+          ],
+          [
+            0.4977925717830658,
+            0.19905441999435425,
+            0.10653754323720932,
+            0.10653758556065862
+          ],
+          [
+            0.5040397774081828,
+            0.19858722041184668,
+            0.10476405396542243,
+            0.1051093691717864
+          ],
+          [
+            0.5345342607900482,
+            0.19630667919714562,
+            0.09610712119071348,
+            0.09624220019530859
+          ],
+          [
+            0.5433332920074463,
+            0.19564864039421082,
+            0.09360920637845993,
+            0.09358175829594773
+          ],
+          [
+            0.5664727026400319,
+            0.19161080905802458,
+            0.08597186073620974,
+            0.08658541335154932
+          ],
+          [
+            0.5857245326042175,
+            0.18825136125087738,
+            0.07961764186620712,
+            0.07961802097331935
+          ],
+          [
+            0.5982558264374868,
+            0.1860646527360441,
+            0.07570067771965039,
+            0.07508284476899463
+          ],
+          [
+            0.6305039010944586,
+            0.18043736952190675,
+            0.06562074871092406,
+            0.06559017583214163
+          ],
+          [
+            0.6315171718597412,
+            0.1802605539560318,
+            0.06530402600765228,
+            0.06529190550064017
+          ],
+          [
+            0.6348658415986865,
+            0.17945146380360194,
+            0.06442375240748716,
+            0.06430617802547156
+          ],
+          [
+            0.6370322803308344,
+            0.178928018859588,
+            0.06385425497389266,
+            0.06366845667698762
+          ],
+          [
+            0.6606837426077671,
+            0.17321346152469255,
+            0.05763693303092839,
+            0.05755811656811147
+          ],
+          [
+            0.6736564636230469,
+            0.1700790524482727,
+            0.05422675982117653,
+            0.05420662241469354
+          ],
+          [
+            0.6740270827945025,
+            0.16998950511972863,
+            0.05415119858316085,
+            0.05411087318946815
+          ],
+          [
+            0.6852250242061445,
+            0.16728390914457372,
+            0.05186818037617649,
+            0.051830183916971945
+          ],
+          [
+            0.7119207264207532,
+            0.16083381427350327,
+            0.04642550373019754,
+            0.04639305941127374
+          ],
+          [
+            0.713402271270752,
+            0.16047585010528564,
+            0.0461234487593174,
+            0.046107078859502965
+          ],
+          [
+            0.7181274435910537,
+            0.15889272773442853,
+            0.04521095431264526,
+            0.04519498538668436
+          ],
+          [
+            0.7410339799515788,
+            0.151218118705803,
+            0.04078739347621473,
+            0.04077336837823149
+          ],
+          [
+            0.7410416880711853,
+            0.15121553617637148,
+            0.04078590493445193,
+            0.04077188049057276
+          ],
+          [
+            0.7488614184730957,
+            0.1485956126488957,
+            0.03927580962310023,
+            0.03926244875447722
+          ],
+          [
+            0.7491560191428578,
+            0.14849690960080453,
+            0.039218918264029845,
+            0.039207882990452164
+          ],
+          [
+            0.7505969405174255,
+            0.1480141431093216,
+            0.038940656930208206,
+            0.038940996374862216
+          ],
+          [
+            0.7911520705743651,
+            0.13442656383806506,
+            0.03146719956260753,
+            0.03142939886736224
+          ],
+          [
+            0.7921379208564758,
+            0.13409626483917236,
+            0.03128552809357643,
+            0.03128164454369073
+          ],
+          [
+            0.7933145018921739,
+            0.13360351237018384,
+            0.0311090504598339,
+            0.031105304445879844
+          ],
+          [
+            0.827537477016449,
+            0.119270920753479,
+            0.02597588114440441,
+            0.025976135610336196
+          ],
+          [
+            0.8336411288928619,
+            0.11671471184462058,
+            0.025311529570250898,
+            0.02506135070710029
+          ],
+          [
+            0.8362705168409074,
+            0.11561352438607424,
+            0.02502533401753683,
+            0.024791643142182594
+          ],
+          [
+            0.8701319009847834,
+            0.10143237946374586,
+            0.021339693959011488,
+            0.02131833618153562
+          ],
+          [
+            0.8708735704421997,
+            0.10112176835536957,
+            0.021258966997265816,
+            0.02124225997395953
+          ],
+          [
+            0.8740459190451095,
+            0.09935032637100391,
+            0.020930785469622862,
+            0.020916858613009022
+          ],
+          [
+            0.8956181234554916,
+            0.08730439026145491,
+            0.01869912688344745,
+            0.019161261402098742
+          ],
+          [
+            0.8967514458185522,
+            0.08667154215204334,
+            0.01858188394738426,
+            0.019017638120536688
+          ],
+          [
+            0.9022206501748874,
+            0.08361753408716638,
+            0.018016091197177914,
+            0.018324538696407155
+          ],
+          [
+            0.9030794089398806,
+            0.08313800250940863,
+            0.017927252044030072,
+            0.01821571021483953
+          ],
+          [
+            0.9154694080352783,
+            0.07621941715478897,
+            0.01664549857378006,
+            0.0166455547263107
+          ],
+          [
+            0.9200511842312176,
+            0.07366095365066465,
+            0.016303013672525193,
+            0.016064916988900613
+          ],
+          [
+            0.933862030506134,
+            0.0659489780664444,
+            0.015270661562681198,
+            0.015262549862585108
+          ],
+          [
+            0.938627245930191,
+            0.06262286573038557,
+            0.015137729660449123,
+            0.014985705697501676
+          ],
+          [
+            0.9594354629516602,
+            0.048098765313625336,
+            0.014557257294654846,
+            0.0145550848564877
+          ],
+          [
+            0.9698101420143944,
+            0.0408572308127795,
+            0.01360126262562172,
+            0.014340383471038132
+          ],
+          [
+            0.9778037463977659,
+            0.03527768839240497,
+            0.012864676642512864,
+            0.012754839040720452
+          ],
+          [
+            0.9778295571050316,
+            0.03525967249754928,
+            0.012862298265466135,
+            0.012750721504895252
+          ],
+          [
+            0.9779540300369263,
+            0.03517279028892517,
+            0.012850828468799591,
+            0.012735697026343843
+          ],
+          [
+            0.9927832121883862,
+            0.020385968852762275,
+            0.010582625158481332,
+            0.010945743774836085
+          ],
+          [
+            0.993325323314103,
+            0.01984540630975365,
+            0.010499706340885576,
+            0.010880308367660931
+          ],
+          [
+            0.9945959254126474,
+            0.01857843378519395,
+            0.010305360903856052,
+            0.010726940613833839
+          ],
+          [
+            1.0,
+            0.013189796358346939,
+            0.009478778578341007,
+            0.010074642949658884
+          ]
+        ],
+        "scope": "Static finite geometry compared to raw declared artistic reference; no shape acceptance. Every projected boundary slope breakpoint is included, with no dense sampling cache. Does not judge biological identity, landmark registration, alpha coverage or motion.",
+        "formal_acceptance": false
+      }
+    },
+    "finite-envelope.validation.json": {
+      "ok": true,
+      "sha256": "e852fbe569817f9acaeb8519b0953be62d844b1be4530cde763e0ff02528f5ab",
+      "numerical_results": {
+        "ok": true,
+        "kind": "independent_body_finite_envelope_verification",
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "reference_envelope_sha256": "15ca80b6054f099af913a7c0008f6d8469cd73c0376433ff29040cee658a6b33",
+        "maximum_error_over_reference_Wmax": 0.013368239772619092,
+        "p95_error_over_reference_Wmax": 0.00855044441043033,
+        "max_width_over_bodylength": 0.12238690942222988,
+        "peak_t": 0.322855,
+        "tolerance_over_Wmax": 0.02,
+        "target_unchanged": true
+      }
+    },
+    "full490/completion.validation.json": {
+      "ok": true,
+      "sha256": "2ff897e7f691b892860fdad290b34517282916dae5f1abec20d81eb1a35a68fc",
+      "numerical_results": {
+        "ok": true,
+        "species": "arapaima",
+        "poses": 490,
+        "checks": [
+          {
+            "check": "roots",
+            "ok": true,
+            "report": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/arapaima/roots.validation.json",
+            "sha256": "811d25b599013dec814a48fca2fffe2a54492f3f566bf782a769d17df810a69e"
+          },
+          {
+            "check": "membranes",
+            "ok": true,
+            "report": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/arapaima/membranes.validation.json",
+            "sha256": "b9ab75983f474ba94aa12c5e21f13157817f5f42e4205c1017ae2dfad47ca804"
+          }
+        ],
+        "plan_sha256": "c664957ce63ddcf6a688def6ab48b88d1588f46a369cad7e49f60f62a2042dfa",
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "exporter_sha256": "0dffe432a891ca54447c6138954c05c5ed0a6b5ab1bb9760e808fdac53ccaa99",
+        "export_sha256": "9a522e518de7f388702b6bd8094dbaec8605296c8bf29b6ac2488c7af3dd502f",
+        "reused_complete_export": true,
+        "limit": "Discrete time and whole-surface samples; only frozen root seam collar excepted; not continuous collision proof."
+      }
+    },
+    "body077/completion.validation.json": {
+      "ok": true,
+      "sha256": "d3aaf465caf2ec7eb083fcd1d014d19566d18926712aa973a4994aebf9e04f06",
+      "numerical_results": {
+        "ok": true,
+        "kind": "standalone_body_integrity_077",
+        "formal_acceptance": false,
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "species": "arapaima",
+        "geometry": {
+          "triangles": 3734,
+          "welded_edges": 2493,
+          "surfaces": [
+            {
+              "surface": 0,
+              "triangles": 126,
+              "material": "Arapaima original body with finite fin-footprint restoration body opaque donor.002",
+              "opaque": true,
+              "unit_normals_and_winding_agree": true,
+              "texture": {
+                "embedded_sha256": "75c9231a43f8eaf876c1029ffae9ce88a69c6554e15ee2af608d6bf1377f234d",
+                "rgba_sha256": "d56f9d257c9c9ca8b7c9d2ba4404686db52cefdf46faabf0c21d46677ec66554",
+                "size": [
+                  1745,
+                  396
+                ]
+              }
+            },
+            {
+              "surface": 1,
+              "triangles": 1063,
+              "material": "Front skin source chart body opaque donor.002",
+              "opaque": true,
+              "unit_normals_and_winding_agree": true,
+              "texture": {
+                "embedded_sha256": "83c990f6c4e953d4111d18ee662dcf3a067056e4390a27d5f9039f1e6daf9a88",
+                "rgba_sha256": "723782e4ddbf757fe457d69fe6f8ed25953ffbee5a9ff81c14762de66ed3c0d4",
+                "size": [
+                  1024,
+                  8192
+                ]
+              }
+            },
+            {
+              "surface": 2,
+              "triangles": 149,
+              "material": "Front mouth oral chart body opaque donor.002",
+              "opaque": true,
+              "unit_normals_and_winding_agree": true,
+              "texture": {
+                "embedded_sha256": "83c990f6c4e953d4111d18ee662dcf3a067056e4390a27d5f9039f1e6daf9a88",
+                "rgba_sha256": "723782e4ddbf757fe457d69fe6f8ed25953ffbee5a9ff81c14762de66ed3c0d4",
+                "size": [
+                  1024,
+                  8192
+                ]
+              }
+            },
+            {
+              "surface": 3,
+              "triangles": 162,
+              "material": "Arapaima original red posterior dorsal chart.001",
+              "opaque": true,
+              "unit_normals_and_winding_agree": true,
+              "texture": {
+                "embedded_sha256": "9fa9a37d60cdbee12a44eb8a4c7623d73bfaa869c5b134e93d385f0338df53d1",
+                "rgba_sha256": "6ee94b6744afc7cb7641e5403d8b587716ce4cb82a188612e48f3f5dbce2f0f0",
+                "size": [
+                  512,
+                  2048
+                ]
+              }
+            },
+            {
+              "surface": 4,
+              "triangles": 162,
+              "material": "Arapaima original red posterior ventral chart",
+              "opaque": true,
+              "unit_normals_and_winding_agree": true,
+              "texture": {
+                "embedded_sha256": "f5af316211bd769d28d194ea49b40f101a18ff69a3ed74104b50784febf1323a",
+                "rgba_sha256": "af348f4b39f31fd68e7b2b0163d759561a5959375c22f1c5fee22581bd232540",
+                "size": [
+                  512,
+                  2048
+                ]
+              }
+            }
+          ],
+          "decorative_overlay_proofs": [
+            {
+              "name": "Eye_support_left",
+              "triangles": 96,
+              "underlying_body": "Closed_body",
+              "support": {
+                "ok": true,
+                "binding_vertices": 50,
+                "maximum_position_error_native": 4.350296337897763e-08,
+                "actual_body_barycentric_named_weights": true,
+                "binding_report_sha256": "2eb6fe72675c5e7d2ae4e70469f0218c921edef40b67ce718cc7a6e14bcbc69b"
+              },
+              "closed_opaque": true
+            },
+            {
+              "name": "Eye_support_right",
+              "triangles": 96,
+              "underlying_body": "Closed_body",
+              "support": {
+                "ok": true,
+                "binding_vertices": 50,
+                "maximum_position_error_native": 4.3766876123552564e-08,
+                "actual_body_barycentric_named_weights": true,
+                "binding_report_sha256": "2eb6fe72675c5e7d2ae4e70469f0218c921edef40b67ce718cc7a6e14bcbc69b"
+              },
+              "closed_opaque": true
+            }
+          ]
+        },
+        "negative_control": {
+          "actual": "negative-transparent-body.png",
+          "actual_sha256": "5b00beb441fbff68e78be8a595498cb6f89132837f82ebd641b57b1966e0472d",
+          "injection": "All actual body surfaces use alpha-scissor material with zero alpha; geometry/pose/camera unchanged.",
+          "reference": "p0-v0-closed.png",
+          "missing_body_pixels": 25521
+        },
+        "frozen_inputs": {
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.blend": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/reference-envelope.json": "15ca80b6054f099af913a7c0008f6d8469cd73c0376433ff29040cee658a6b33",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/root-domains.json": "59e86382f42ab0aababe677a357c8eb1b782cbdfaf494d6ee608c79d11dfd6ff",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/eye-binding.validation.json": "2eb6fe72675c5e7d2ae4e70469f0218c921edef40b67ce718cc7a6e14bcbc69b",
+          "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/validate_closed_supported_eyes.py": "97ea030415860da1642064994e70a69be7346276cc0ab5b7430cd6c33df0d009",
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/pacific_bluefin_tuna_20261104/eye_binding_guard.py": "58f5c8c4d50743b5a1eed3b6d19a3c879494fbf72701e4b19819f3f2b1fa9317",
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/pacific_bluefin_tuna_20261104/validate_body_supported_eyes.py": "cdf27a9f11e87281a282b7ad90d4bf7c195f16234f9d9f1c29cf8bbb3ca9baa2",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.glb": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/motion-profile.json": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4",
+          "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/ArapaimaBasalSupportMotion20261105.gd": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66"
+        },
+        "motion": {
+          "bone_count": 32,
+          "configure": {
+            "basal_support_bones": 6,
+            "computed_skin_envelope_m": 1.98802365527471,
+            "envelope_radius_m": 4.4,
+            "failures": [],
+            "ok": true,
+            "total_bones": 32
+          },
+          "direct_GLTFDocument": true,
+          "materials": [
+            {
+              "name": "Arapaima original body with finite fin-footprint restoration body opaque donor.002",
+              "rgba_sha256": "d56f9d257c9c9ca8b7c9d2ba4404686db52cefdf46faabf0c21d46677ec66554",
+              "surface": 0,
+              "texture": true,
+              "transparency": 0
+            },
+            {
+              "name": "Front skin source chart body opaque donor.002",
+              "rgba_sha256": "723782e4ddbf757fe457d69fe6f8ed25953ffbee5a9ff81c14762de66ed3c0d4",
+              "surface": 1,
+              "texture": true,
+              "transparency": 0
+            },
+            {
+              "name": "Front mouth oral chart body opaque donor.002",
+              "rgba_sha256": "723782e4ddbf757fe457d69fe6f8ed25953ffbee5a9ff81c14762de66ed3c0d4",
+              "surface": 2,
+              "texture": true,
+              "transparency": 0
+            },
+            {
+              "name": "Arapaima original red posterior dorsal chart.001",
+              "rgba_sha256": "6ee94b6744afc7cb7641e5403d8b587716ce4cb82a188612e48f3f5dbce2f0f0",
+              "surface": 3,
+              "texture": true,
+              "transparency": 0
+            },
+            {
+              "name": "Arapaima original red posterior ventral chart",
+              "rgba_sha256": "af348f4b39f31fd68e7b2b0163d759561a5959375c22f1c5fee22581bd232540",
+              "surface": 4,
+              "texture": true,
+              "transparency": 0
+            }
+          ],
+          "settle_frames_per_capture": 3,
+          "snapshots": [
+            {
+              "action": "Turn",
+              "action_phase": 0.234375,
+              "basal_support": {
+                "gain": 1.0,
+                "mesh_array_changes": 0,
+                "runtime_body_geometry_queries": 0,
+                "support_bones": 6
+              },
+              "base_clip_time": 0.3125,
+              "bend_radians": 0.520457494664253,
+              "body_clock": 4.3125,
+              "bone_overlays": [
+                {
+                  "bone": "body_00",
+                  "delay_seconds": 0.0,
+                  "pitch_radians": 0.0,
+                  "wave_radians": 0.0,
+                  "yaw_radians": 0.0
+                },
+                {
+                  "bone": "body_01",
+                  "delay_seconds": 0.0973063785640877,
+                  "pitch_radians": 0.0,
+                  "wave_radians": 0.00553356337815035,
+                  "yaw_radians": -0.0242370861098907
+                },
+                {
+                  "bone": "body_02",
+                  "delay_seconds": 0.194612757128175,
+                  "pitch_radians": 0.0,
+                  "wave_radians": -0.00498809701128271,
+                  "yaw_radians": -0.0372468789398905
+                },
+                {
+                  "bone": "body_03",
+                  "delay_seconds": 0.291919135692264,
+                  "pitch_radians": 0.0,
+                  "wave_radians": -0.0246018329606609,
+                  "yaw_radians": -0.0472852312009465
+                },
+                {
+                  "bone": "body_04",
+                  "delay_seconds": 0.389225514256351,
+                  "pitch_radians": 0.0,
+                  "wave_radians": -0.0411594889485073,
+                  "yaw_radians": -0.0554113329575959
+                },
+                {
+                  "bone": "body_05",
+                  "delay_seconds": 0.486531900262238,
+                  "pitch_radians": 0.0,
+                  "wave_radians": -0.0435591628549064,
+                  "yaw_radians": -0.062072167780116
+                },
+                {
+                  "bone": "body_06",
+                  "delay_seconds": 0.583838293709925,
+                  "pitch_radians": 0.0,
+                  "wave_radians": -0.0250039806458347,
+                  "yaw_radians": -0.0675121474693326
+                },
+                {
+                  "bone": "body_07",
+                  "delay_seconds": 0.68114470948301,
+                  "pitch_radians": 0.0,
+                  "wave_radians": 0.0138125100503528,
+                  "yaw_radians": -0.0719057714187219
+                },
+                {
+                  "bone": "body_08",
+                  "delay_seconds": 0.769865305532965,
+                  "pitch_radians": 0.0,
+                  "wave_radians": 0.0561337051670534,
+                  "yaw_radians": -0.0757000604803274
+                },
+                {
+                  "bone": "body_09",
+                  "delay_seconds": 0.85,
+                  "pitch_radians": 0.0,
+                  "wave_radians": 0.0845415116171375,
+                  "yaw_radians": -0.0790868183074317
+                }
+              ],
+              "bone_poses": {
+                "body_00": [
+                  0.498722732067108,
+                  -0.501274049282074,
+                  -0.501274049282074,
+                  -0.498722732067108
+                ],
+                "body_01": [
+                  -5.80616332790385e-10,
+                  -2.18545057606434e-08,
+                  -0.0201884042471647,
+                  0.999796271324158
+                ],
+                "body_02": [
+                  -2.30661467703897e-09,
+                  1.51096539793838e-12,
+                  -0.0534233413636684,
+                  0.998572051525116
+                ],
+                "body_03": [
+                  -3.92239352109414e-09,
+                  3.72772472612137e-11,
+                  -0.0991988331079483,
+                  0.995067715644836
+                ],
+                "body_04": [
+                  -5.26249310794924e-09,
+                  1.15042017578837e-10,
+                  -0.142088294029236,
+                  0.989853978157043
+                ],
+                "body_05": [
+                  -5.75178304984547e-09,
+                  1.88109541832127e-10,
+                  -0.163988023996353,
+                  0.986462295055389
+                ],
+                "body_06": [
+                  -5.04044184168606e-09,
+                  1.82670781279093e-10,
+                  -0.151287212967873,
+                  0.988489866256714
+                ],
+                "body_07": [
+                  -3.17033754804186e-09,
+                  8.13948283773236e-11,
+                  -0.0981266498565674,
+                  0.995173990726471
+                ],
+                "body_08": [
+                  -1.06898090379559e-09,
+                  -2.64476223039989e-12,
+                  -0.0219820849597454,
+                  0.999758422374725
+                ],
+                "body_09": [
+                  2.97773250501621e-10,
+                  1.25589903060552e-11,
+                  0.0489501729607582,
+                  0.998801231384277
+                ]
+              },
+              "computed_skin_envelope_m": 1.98802365527471,
+              "envelope_radius_m": 4.4,
+              "fin_clock": 4.3125,
+              "fin_tracks": 15,
+              "head_path_local": [
+                1.61219930648804,
+                0.0,
+                0.094096451997757
+              ],
+              "head_world": [
+                1.61219930648804,
+                0.0,
+                0.0940964818000793
+              ],
+              "heading": [
+                0.164007440209389,
+                0.0,
+                -0.986459136009216
+              ],
+              "inside_envelope": true,
+              "loop_seconds": 16.0,
+              "max_bend_rad": 0.105631330635022,
+              "motion_controls": {
+                "body_amplitude": 2.5,
+                "body_frequency": 1.0,
+                "fin_amplitude": 2.5,
+                "fin_frequency": 1.0
+              },
+              "pending_action": "",
+              "pitch": 0.0,
+              "position": [
+                1.45716154575348,
+                0.00809440668672323,
+                1.02660536766052
+              ],
+              "ready": true,
+              "species": "arapaima",
+              "state": "steady",
+              "tail_world": [
+                0.535915613174438,
+                5.58793544769287e-09,
+                1.06873714923859
+              ],
+              "time": 3.75,
+              "transition_remaining": 0.0,
+              "yaw": 1.40604458854034
+            }
+          ],
+          "static_builders": false
+        },
+        "method": "Welded closed body, opaque embedded donors; exact same posed body with opaque double-sided reference, zero missing pixels. No mouth exemption.",
+        "limits": "Two discrete poses, eight views each; maximum amplitude control at one declared runtime phase, not exhaustive continuous coverage.",
+        "plan_sha256": "46c25270734e4d9f3f4de3a341c90a714553442af260e76b85b49bbf99a7997c",
+        "checker_sha256": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+        "capture_script_sha256": "ac77115bcc72afc23e039f21e2c4ddcaa8f52ed2e783b3c2c7ec6a69902cdb8c",
+        "validation_dependencies": {
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_standalone_body.py": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_standalone_body.gd": "ac77115bcc72afc23e039f21e2c4ddcaa8f52ed2e783b3c2c7ec6a69902cdb8c",
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/freeze_surface_ownership.py": "0af6e04b00240c6404c503669b3c63259debd907c39a606c1f9c80d408c25104",
+          "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/validate_body_integrity.py": "6537611d49a6a614d9c0e2688c2c9ff19d73fa96228248cafc9c9320808f817d"
+        },
+        "inspection_dispatch": {
+          "existing_mixed_kernel": "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/pacific_bluefin_tuna_20261104/validate_body_supported_eyes.py",
+          "dependencies": {
+            "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/validate_closed_supported_eyes.py": "97ea030415860da1642064994e70a69be7346276cc0ab5b7430cd6c33df0d009",
+            "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/pacific_bluefin_tuna_20261104/eye_binding_guard.py": "58f5c8c4d50743b5a1eed3b6d19a3c879494fbf72701e4b19819f3f2b1fa9317",
+            "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/pacific_bluefin_tuna_20261104/validate_body_supported_eyes.py": "cdf27a9f11e87281a282b7ad90d4bf7c195f16234f9d9f1c29cf8bbb3ca9baa2"
+          },
+          "portable_capture_and_physical_contract_unchanged": true
+        }
+      }
+    },
+    "sop.validation.json": {
+      "ok": true,
+      "sha256": "f0d05ceeb439d7f9896d9d9a6bab10ec3ca33b33ae8cd7f9e76a60f7d39c9d88",
+      "numerical_results": {
+        "schema_version": 1,
+        "ok": true,
+        "command": "volume.sop-check",
+        "status": "done",
+        "next_action": "human_review",
+        "species": "arapaima",
+        "review_sha256": "e10cd7238bddcfe63dc6cd94831573ad8ecd1dcd2fc94c23d4d82d7a70bc8d0f",
+        "checker_sha256": "7b7636be2d91987200295536b8385edfc2285f81eb0de1049d5f40637b4146c8",
+        "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+        "candidate_files": {
+          "source_image": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/arapaima_char_ac510a4e97_nobg.png",
+            "sha256": "3255e62f66dc9644a84e6eb570bd5af8bc9a2f03ddd08ade795b13c35a4d56e7"
+          },
+          "model": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.glb",
+            "sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a"
+          },
+          "species_profile": {
+            "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/arapaima-final.profile.json",
+            "sha256": "898c7aeb3605059c323d46144985994092cfea40c898c8e3615eefa563346a7f"
+          },
+          "runtime_manifest": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/runtime-manifest.json",
+            "sha256": "ee6ab5da32244cdd4a503785ed437444e28ebcc701724b702a48a3c6f8e8ed5a"
+          },
+          "motion_config": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/motion-profile.json",
+            "sha256": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4"
+          },
+          "editable_blend": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.blend",
+            "sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd"
+          },
+          "motion_controller": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/ArapaimaBasalSupportMotion20261105.gd",
+            "sha256": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66"
+          },
+          "base_motion_controller": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/ReleasedCarpMotion20261104.gd",
+            "sha256": "4793964005685e0970d491138fcd6df32f71d8dfaba3e1727c6e909dbe014b20"
+          },
+          "foundation_motion_controller": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+            "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+          },
+          "source_export_report": {
+            "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/exact-export.validation.json",
+            "sha256": "1faed39261aa5709d572d4806e0265f39aadfaef62ede64883bcb541e1b90118"
+          }
+        },
+        "stages": [
+          {
+            "stage": "preparation",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "head",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "mouth",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "eyes",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "skin",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "fins",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "motion",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "runtime",
+            "ok": true,
+            "failures": []
+          },
+          {
+            "stage": "presentation",
+            "ok": true,
+            "failures": []
+          }
+        ],
+        "evidence_count": 58,
+        "failures": [],
+        "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+      }
+    },
+    "full490_roots": {
+      "schema_version": 1,
+      "command": "volume.fin.check-runtime-attachment",
+      "stage": "validate",
+      "status": "done",
+      "next_action": "human_review",
+      "ok": true,
+      "failures": [],
+      "model": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/fish.glb",
+      "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+      "export_report": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/arapaima/candidate-r18/full490/arapaima/export.validation.json",
+      "export_report_sha256": "9a522e518de7f388702b6bd8094dbaec8605296c8bf29b6ac2488c7af3dd502f",
+      "root_selection": "Frozen explicit full basal bands and source basal polylines; seven points per root edge",
+      "controller_source": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/ArapaimaBasalSupportMotion20261105.gd",
+      "controller_sha256": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66",
+      "exhibit_sha256": "505172c038b887b64a91c6455bfc47cda0ee58e43522443e970220a9d12d1cf8",
+      "motion_config_sha256": "5b6b15a58231a7277971650cc6a3651f3f6a455c42dc6c983da0a8e6d2ce33bb",
+      "export_script_sha256": "0dffe432a891ca54447c6138954c05c5ed0a6b5ab1bb9760e808fdac53ccaa99",
+      "engine_version": "4.7.1-stable (official)",
+      "sample_limit": "490 discrete poses: original 177, native clip 25, four dense independent control mixes 256, control sweep 32. Full fin surfaces exported; not continuous proof.",
+      "checker_sha256": "c606e5737018f289d3d0339e11534ee6485df00425c62e5ac695c707def4a3da",
+      "coverage_checker_sha256": "05a56ceff67c39bb8b84228315fcc6f26c7ebcb18fa222a3bb8e4ea45c99e824",
+      "tolerance_cm": 0.05,
+      "max_penetration_cm": 0.05,
+      "body_triangles": 1662,
+      "method": "Actual Godot exhibit four-action controller bone poses and imported GLB skin inverse-bind matrices. CPU linear-blend-skin body triangles and root vertices/edge points; exact posed body triangle BVH signed nearest distances in carrier-local meters, converted to cm. This measures root contact, not tank containment.",
+      "summary": {
+        "Anal": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.021549308439716697,
+          "maximum_signed_distance_cm": 0.04471750871744007
+        },
+        "Caudal": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.0028994247259106487,
+          "maximum_signed_distance_cm": 0.012751556641887873
+        },
+        "Dorsal": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.03339146787766367,
+          "maximum_signed_distance_cm": 0.03509208036120981
+        },
+        "Pectoral_left": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.029181595891714096,
+          "maximum_signed_distance_cm": 0.04469349805731326
+        },
+        "Pectoral_right": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.044135304051451385,
+          "maximum_signed_distance_cm": 0.03993537393398583
+        },
+        "Pelvic_left": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.026693701511248946,
+          "maximum_signed_distance_cm": 0.025946766254492104
+        },
+        "Pelvic_right": {
+          "samples": 490,
+          "fully_detached_samples": 0,
+          "failed_contact_samples": 0,
+          "minimum_signed_distance_cm": -0.0199489964870736,
+          "maximum_signed_distance_cm": 0.026532122865319252
+        }
+      },
+      "coverage": {
+        "poses": {
+          "Static": 1,
+          "Native": 25,
+          "Swim": 16,
+          "Turn": 16,
+          "Ascend": 16,
+          "Dive": 16,
+          "Transition:Turn": 4,
+          "Transition:Ascend": 4,
+          "Transition:Dive": 4,
+          "Transition:Swim": 4,
+          "Range:Neutral": 16,
+          "Range:WideSlow": 16,
+          "Range:WideFast": 16,
+          "Range:FinsOnly": 16,
+          "Range:BodyOnly": 16,
+          "RangeTransition:Neutral": 4,
+          "RangeTransition:WideSlow": 4,
+          "RangeTransition:WideFast": 4,
+          "RangeTransition:FinsOnly": 4,
+          "Clearance:MixedLow": 64,
+          "Clearance:MixedMid": 64,
+          "Clearance:Independent": 64,
+          "Clearance:MaxDense": 64,
+          "Clearance:ControlSweep": 32
+        },
+        "expected_fins": [
+          "Anal",
+          "Caudal",
+          "Dorsal",
+          "Pectoral_left",
+          "Pectoral_right",
+          "Pelvic_left",
+          "Pelvic_right"
+        ],
+        "all_expected_fins_present_in_every_sample": true
+      },
+      "original_receipt_sha256": "811d25b599013dec814a48fca2fffe2a54492f3f566bf782a769d17df810a69e"
+    },
+    "full490_membranes": {
+      "ok": true,
+      "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+      "controller_sha256": "ea418d7aff47c9098434cf1b38744901f30725c2b030c184576541266e5e0b66",
+      "motion_config_sha256": "5b6b15a58231a7277971650cc6a3651f3f6a455c42dc6c983da0a8e6d2ce33bb",
+      "checker_sha256": "efd93d9e2f3868f6e9de712e2d8ecd90012fd17e28133cdcef649eca710531fd",
+      "root_collar_mm": 0.5,
+      "penetration_tolerance_mm": 0.02,
+      "method": "Full fin triangles: both solid faces, vertices, edge quarter points, centroids and interior barycentric points. Posed body BVH distance, closed-body oriented ray/AABB inside classification. Complete frozen basal surface seam collar excluded only within the same frozen depth bound; no deeply embedded root exemption. Discrete surface/time samples, not continuous proof.",
+      "poses": 490,
+      "summary": {
+        "Anal": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Caudal": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Dorsal": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Pectoral_left": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Pectoral_right": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Pelvic_left": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        },
+        "Pelvic_right": {
+          "failed_poses": 0,
+          "worst_penetration_mm": 0.0,
+          "worst_pose": null
+        }
+      },
+      "original_receipt_sha256": "b9ab75983f474ba94aa12c5e21f13157817f5f42e4205c1017ae2dfad47ca804"
+    }
+  },
+  "methods": [
+    "Source/native UV and named skin preservation; source-owned precise weight exporter.",
+    "Opposed foil layer vector retained, median root depth supported by true finite body. Arapaima Dorsal native XY stable, positive original relief gain .15 and offset -135um; source t<=.055 complete cap, short transition to .25. Parameters species-local.",
+    "Static normal rays/self intersections before full 490 roots and full finite membrane; original complete basal identity and thresholds unchanged."
+  ],
+  "scope": "User reopened body top shape. Local fish library art reference, not biological measurement. Current source/GLB/profile canonical; root independently checks actual game cold entry."
+}

@@ -65,6 +65,41 @@
         }
       ],
       "authoring_parameters_scope": "Adopted numerical reference/axis/width design provenance only. Original source SHA/path is historical after canonical replacement; do not replay retired candidates. Maintain current source/GLB; original fin domain profile remains the per-fin source definition."
+    },
+    {
+      "species": "arapaima",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+        "bytes": 6418454
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "bytes": 6632472
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/arapaima.json",
+        "sha256": "1b212577bc4028c7f6db1f5a3c30edcb4b733f243f5a2fc2ef85401327c147a4"
+      },
+      "triangles": 3734,
+      "model_scale": 2.017816135742422,
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/arapaima.validation.json",
+        "sha256": "e99690e7d9223f81d6dd92255b446be6f92ff8c782969642714e54898930c433"
+      },
+      "species_profile": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-final.profile.json",
+        "sha256": "898c7aeb3605059c323d46144985994092cfea40c898c8e3615eefa563346a7f"
+      },
+      "root_domains": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-release/complete-root-domains.json",
+        "sha256": "59e86382f42ab0aababe677a357c8eb1b782cbdfaf494d6ee608c79d11dfd6ff"
+      },
+      "acceptance_basis": "User explicitly instructed repaired and technically checked fish to be finished and committed/pushed directly without further visual review."
     }
   ],
   "acceptance_scope": "Only completed fish rows below. Other requested species remain pending and are not admitted by this release.",
@@ -74,7 +109,6 @@
     "piranha",
     "yellow_croaker",
     "zander",
-    "arapaima",
     "pacific_bluefin_tuna",
     "blacktip_reef_shark"
   ]
