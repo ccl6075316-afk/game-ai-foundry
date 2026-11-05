@@ -1,0 +1,31 @@
+{
+  "kind": "accepted_black_seabream_experiment_retirement",
+  "scope": "Exact owned OUT/black_seabream subtree, after final R10 SOP69-evidence and installation/commit. Retire r8/r9/r10 dense pose meshes, duplicate source/model/control input, media, negative/proposal blends and rebuildable cache. Canonical source/model, original2D source, shared database and original29page PDF retained.",
+  "deleted_files": 1774,
+  "deleted_bytes": 748288677,
+  "retained": [
+    {
+      "role": "model",
+      "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+      "sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+      "bytes": 9166568
+    },
+    {
+      "role": "source",
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+      "sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2",
+      "bytes": 9028694
+    }
+  ],
+  "formal_record": {
+    "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/black_seabream.validation.json",
+    "sha256": "b96b6661547b1657855d1cd3f46908eb5d41e5665b300e66b4021acb816e8a9a"
+  },
+  "source_domain": {
+    "path": "resources/volume-fish/top-body-repair-20261105/group-a/final/black_seabream/source-domain.json",
+    "sha256": "06ddc2516d925f227f36f22e93fa3e635e80fa149f7ff4fd6d3be48b07dc972d"
+  },
+  "remaining_target_bytes": 0,
+  "actual_group_a_remaining_bytes": 1887429082,
+  "historical_complete_delete_manifest_sha256": "a695f9aa2aebe51999bfd067d15826320db83a219959f685ef707044a7b5af13"
+}
