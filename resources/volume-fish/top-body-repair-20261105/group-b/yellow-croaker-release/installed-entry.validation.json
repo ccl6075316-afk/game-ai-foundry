@@ -1,0 +1,2154 @@
+{
+  "checks": [
+    {
+      "check": "red_seabream actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "red_seabream finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "red_seabream exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "red_seabream reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "red_seabream exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "red_seabream exact controller",
+      "ok": true
+    },
+    {
+      "check": "red_seabream one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "red_seabream nearest Anal_mesh:0",
+      "ok": true
+    },
+    {
+      "check": "red_seabream action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "red_seabream actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "red_seabream exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "red_seabream real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "red_seabream Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "red_seabream real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "red_seabream Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "red_seabream real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "red_seabream Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "red_seabream real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "red_seabream Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "red_seabream Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "red_seabream actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "black_seabream actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "black_seabream finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "black_seabream exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "black_seabream reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "black_seabream exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "black_seabream exact controller",
+      "ok": true
+    },
+    {
+      "check": "black_seabream one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "black_seabream nearest Anal_mesh:0",
+      "ok": true
+    },
+    {
+      "check": "black_seabream action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "black_seabream actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "black_seabream exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "black_seabream real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "black_seabream Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "black_seabream real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "black_seabream Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "black_seabream real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "black_seabream Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "black_seabream real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "black_seabream Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "black_seabream Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "black_seabream actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "piranha actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "piranha finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "piranha exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "piranha reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "piranha exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "piranha exact controller",
+      "ok": true
+    },
+    {
+      "check": "piranha one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "piranha nearest Adipose_mesh:0",
+      "ok": true
+    },
+    {
+      "check": "piranha action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "piranha actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "piranha exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "piranha real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "piranha Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "piranha real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "piranha Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "piranha real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "piranha Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "piranha real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "piranha Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "piranha Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "piranha actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass exact controller",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Dorsal_soft:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Dorsal_spiny:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass single jaw owner",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "peacock_bass actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker exact controller",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Closed_body:3",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Closed_body:4",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Dorsal:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Native_eye_-1:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Native_eye_1:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "yellow_croaker actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "zander actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "zander finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "zander exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "zander reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "zander exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "zander exact controller",
+      "ok": true
+    },
+    {
+      "check": "zander one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:3",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Dorsal_soft:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Dorsal_spiny:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Eye_relief112_-1_0:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Eye_relief112_1_0:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "zander action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "zander actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "zander exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "zander actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "arapaima actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "arapaima finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "arapaima exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "arapaima reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "arapaima exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "arapaima exact controller",
+      "ok": true
+    },
+    {
+      "check": "arapaima one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Closed_body:3",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Closed_body:4",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Dorsal:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Eye_support_left:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Eye_support_right:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "arapaima action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "arapaima actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "arapaima exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "arapaima real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "arapaima Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "arapaima real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "arapaima Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "arapaima real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "arapaima Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "arapaima real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "arapaima Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "arapaima Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "arapaima actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna exact controller",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_01:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_02:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_03:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_04:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_05:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_06:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_07:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Anal_finlet_08:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_01:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_02:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_03:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_04:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_05:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_06:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_07:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_finlet_08:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_first:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Dorsal_second:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Eye_relief112_-1_0:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Eye_relief112_1_0:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "pacific_bluefin_tuna actual upper lip hook placement",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark exact controller",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest FirstDorsal:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark nearest SecondDorsal:0",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "blacktip_reef_shark actual upper lip hook placement",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "fish": [
+    {
+      "display_scale": 0.301204830408096,
+      "inventory": {
+        "logical_fins": 7.0,
+        "materials": "reviewed embedded nearest MASK atlas; no geometry/UV/material patch",
+        "model_sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1",
+        "runtime_static_build_calls": 0,
+        "species": "red_seabream",
+        "static_builders_disabled": true,
+        "triangles": 1652.0
+      },
+      "model_sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.149548187851906,
+            -0.0109120933339,
+            0.000126511658891104
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.149548187851906,
+            -0.0109120933339,
+            0.000126511658891104
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.149548187851906,
+            -0.0109120933339,
+            0.000126511658891104
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.149548187851906,
+            -0.0109120933339,
+            0.000126511658891104
+          ]
+        }
+      ],
+      "recipe_sha256": "d8085ac0da4f8303cd7329d7fb97d4236dd7586c140afbe7125f1e2cfd85a683",
+      "species": "red_seabream",
+      "static_digest": "d7bd2fe68007ed377fc94a250c395ae0a97199feeedacb3a59736f292df9b8b2",
+      "table_scale": 0.30120482172855
+    },
+    {
+      "display_scale": 0.351593315601349,
+      "inventory": {
+        "logical_fins": 7.0,
+        "materials": "reviewed embedded nearest MASK atlas; no geometry/UV/material patch",
+        "model_sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+        "runtime_static_build_calls": 0,
+        "species": "black_seabream",
+        "static_builders_disabled": true,
+        "triangles": 1952.0
+      },
+      "model_sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.174578085541725,
+            -0.0117727313190699,
+            0.00104403903242201
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.174578085541725,
+            -0.0117727313190699,
+            0.00104403903242201
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.174578085541725,
+            -0.0117727313190699,
+            0.00104403903242201
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.174578085541725,
+            -0.0117727313190699,
+            0.00104403903242201
+          ]
+        }
+      ],
+      "recipe_sha256": "e7b52ace9a59d5533dadc31cc1251842b7055092c32e4da0a1fc397a4193fea6",
+      "species": "black_seabream",
+      "static_digest": "84bd76fa5977fd68ee46c1b151c3952dc53df69012f3bdca2411f21623685897",
+      "table_scale": 0.351593319432724
+    },
+    {
+      "display_scale": 0.178137362003326,
+      "inventory": {
+        "actual_surfaces": 1,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 1,
+        "model_sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Adipose_mesh",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "piranha",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 1988
+      },
+      "model_sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.0884475186467171,
+            -0.00934751611202955,
+            -0.000000000207253242345828
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.0884475186467171,
+            -0.00934751611202955,
+            -0.000000000207253242345828
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.0884475186467171,
+            -0.00934751611202955,
+            -0.000000000207253242345828
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.0884475186467171,
+            -0.00934751611202955,
+            -0.000000000207253242345828
+          ]
+        }
+      ],
+      "recipe_sha256": "0510c27668ab97a4791c19c86edbe5f43865503baeeb6ac96c20f9535a7c11d3",
+      "species": "piranha",
+      "static_digest": "e332ba8a4cb937c8b115e898ec835134e36836e04f3d1840663cf3fa3ae43298",
+      "table_scale": 0.178137360836722
+    },
+    {
+      "display_scale": 0.502211153507233,
+      "inventory": {
+        "actual_surfaces": 10,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 9,
+        "model_sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_soft",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_spiny",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "peacock_bass",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 1842
+      },
+      "model_sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.248933866620064,
+            -0.0167219527065754,
+            -0.0000173961652762955
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.248933866620064,
+            -0.0167219508439302,
+            -0.0000246801537286956
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.248933881521225,
+            -0.0167219508439302,
+            -0.0000171333649632288
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.248933881521225,
+            -0.0167219489812851,
+            0.000000633577769804106
+          ]
+        }
+      ],
+      "recipe_sha256": "50dab0a1dd71dc1d84c2e43f511d997ef4a36209dae7b4e9578dbf142d2c5a9f",
+      "species": "peacock_bass",
+      "static_digest": "b035e77a5793f5cc1cb7d5c26f9f0d4379ed8e8b7d9ced6797c1ffd14aaeef7c",
+      "table_scale": 0.502211173472528
+    },
+    {
+      "display_scale": 0.602098286151886,
+      "inventory": {
+        "actual_surfaces": 14,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 10,
+        "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 2
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 3
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 4
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Native_eye_-1",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Native_eye_1",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "yellow_croaker",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 2000
+      },
+      "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.297710508108139,
+            -0.00452352128922939,
+            0.00322618219070137
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.297710508108139,
+            -0.00452352128922939,
+            0.00322618219070137
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.297710508108139,
+            -0.00452352128922939,
+            0.00322618219070137
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.297710508108139,
+            -0.00452352128922939,
+            0.00322618219070137
+          ]
+        }
+      ],
+      "recipe_sha256": "69f7e450691403ac2cdd2ddf8271baf1e20e6fe340e9cf2f6682522a36d7f31a",
+      "species": "yellow_croaker",
+      "static_digest": "17ff1e06aa3cd4e6b702f8850ab7da3daa33255b61c27f2611f463bfb63cfc44",
+      "table_scale": 0.602098309098813
+    },
+    {
+      "display_scale": 0.503640294075012,
+      "inventory": {
+        "actual_surfaces": 14,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 11,
+        "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 2
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 3
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_soft",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_spiny",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_relief112_-1_0",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_relief112_1_0",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "zander",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 2000
+      },
+      "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.248856514692307,
+            -0.00972471665591002,
+            0.00436840625479817
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.248856484889984,
+            -0.00972471665591002,
+            0.00436899112537503
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.248781785368919,
+            -0.0114996004849672,
+            0.00424690451472998
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.248873561620712,
+            -0.00794794131070375,
+            0.0042916052043438
+          ]
+        }
+      ],
+      "recipe_sha256": "08d47c4c7456b653f7f0f176ee730839c300203191c50e260053f6bf1c7e32b4",
+      "species": "zander",
+      "static_digest": "433238e95ebf7f6f68092804a3cd529c93277059d547bb99822660bd93560d84",
+      "table_scale": 0.503640320726227
+    },
+    {
+      "display_scale": 2.01781606674194,
+      "inventory": {
+        "actual_surfaces": 14,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 10,
+        "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 2
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 3
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 4
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_support_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_support_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "arapaima",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 3734
+      },
+      "model_sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.999651551246643,
+            0.00829094089567661,
+            -0.000084764658822678
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.999651551246643,
+            0.00829094648361206,
+            -0.000120273558422923
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.999651551246643,
+            0.00829093623906374,
+            -0.0000834800812299363
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.999651610851288,
+            0.00829094089567661,
+            0.0000030989472179499
+          ]
+        }
+      ],
+      "recipe_sha256": "bc7cc849d2653d674fe551fa042882a10094158ddd7e47eb04b45b3d1f448794",
+      "species": "arapaima",
+      "static_digest": "c1d047a5dc71c66ddb425cb5f6871a9e357fe6ac828fa71e37a56b84bd138c63",
+      "table_scale": 2.01781613574242
+    },
+    {
+      "display_scale": 1.80717062950134,
+      "inventory": {
+        "actual_surfaces": 29,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 27,
+        "model_sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_01",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_02",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_03",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_04",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_05",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_06",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_07",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Anal_finlet_08",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 2
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_01",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_02",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_03",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_04",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_05",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_06",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_07",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_finlet_08",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_first",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Dorsal_second",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_relief112_-1_0",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Eye_relief112_1_0",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "pacific_bluefin_tuna",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 3976
+      },
+      "model_sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.893646478652954,
+            -0.0104393251240253,
+            0.000000000107408533456255
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.893646478652954,
+            -0.0104393251240253,
+            0.000000000107408533456255
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.893646478652954,
+            -0.0104393251240253,
+            0.000000000107408533456255
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.893646478652954,
+            -0.0104393251240253,
+            0.000000000107408533456255
+          ]
+        }
+      ],
+      "recipe_sha256": "7f013ca4478d30a67ffb0cf48ded474b2f29a487ed26fa09697cb4fc611f7cf4",
+      "species": "pacific_bluefin_tuna",
+      "static_digest": "58a4a43cc23a708266152fd2e576c0643024cf634832050db4d6d0d211b0cd0d",
+      "table_scale": 1.8071706384062
+    },
+    {
+      "display_scale": 1.50739729404449,
+      "inventory": {
+        "actual_surfaces": 11,
+        "materials": "reviewed GLB; nearest-only engine binding",
+        "mesh_count": 9,
+        "model_sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+        "nearest_binding": [
+          {
+            "effective_filter": 0,
+            "mesh": "Anal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Caudal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 3,
+            "surface": 1
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Closed_body",
+            "source_filter": 0,
+            "surface": 2
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "FirstDorsal",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pectoral_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_left",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "Pelvic_right",
+            "source_filter": 0,
+            "surface": 0
+          },
+          {
+            "effective_filter": 0,
+            "mesh": "SecondDorsal",
+            "source_filter": 0,
+            "surface": 0
+          }
+        ],
+        "species": "blacktip_reef_shark",
+        "static_build_calls": 0,
+        "static_builders_disabled": true,
+        "triangles": 3930
+      },
+      "model_sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+      "mouth_poses": [
+        {
+          "action": "Swim",
+          "position": [
+            0.678044140338898,
+            -0.0849803984165192,
+            0.0000771319973864593
+          ]
+        },
+        {
+          "action": "Turn",
+          "position": [
+            0.678043007850647,
+            -0.0849803984165192,
+            -0.0000365610831067897
+          ]
+        },
+        {
+          "action": "Ascend",
+          "position": [
+            0.677985668182373,
+            -0.0853304266929626,
+            -0.000231590922339819
+          ]
+        },
+        {
+          "action": "Dive",
+          "position": [
+            0.67808198928833,
+            -0.0846285298466682,
+            -0.000142951641464606
+          ]
+        }
+      ],
+      "recipe_sha256": "16a43fdb4b080055fa8e149065d60dc38c7f302377327dc2b270b2a2af508b9a",
+      "species": "blacktip_reef_shark",
+      "static_digest": "55f01ed995085ebc1076836b24b9b62e1c8222c08f5870bf43fcf6d0252abba3",
+      "table_scale": 1.50739726568946
+    }
+  ],
+  "fresh_process": true,
+  "kind": "repaired_nine_actual_canonical_entries",
+  "ok": true,
+  "physics_490_077_repeated": false,
+  "user_acceptance": false
+}

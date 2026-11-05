@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "kind": "preserved_complete_anterior_native_chart",
+  "species": "yellow_croaker",
+  "layout": "ordinary_multimesh",
+  "source_sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+  "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "baseline_native_chart": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow_croaker.accepted-native-mouth-baseline.json",
+    "sha256": "6bddd1c630846fa9806a9c4e9270fdd38d9a40643aae4a07398322222d2e2088"
+  },
+  "vertex_correspondence": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/mouth-proof/native-anterior-source-row-correspondence.json",
+    "sha256": "2fad4ac32cc2f4433f8490f5a413851cfd0b87bd477cf8fce58cc3bbfc0f1722"
+  },
+  "preservation_domain": {
+    "scope": "complete_anterior",
+    "all_vertices_x_gte": 0.4
+  },
+  "complete_body_chart_preserved": false,
+  "complete_anterior_chart_preserved": true,
+  "actual_3d_rim_transport": {
+    "upper_edges": 52,
+    "lower_edges": 50,
+    "commissure_edges": 2
+  },
+  "auxiliary_color_contribution_changes": 0,
+  "scope": "Complete native oral chart, all shared upper/lower lip neighbours and conservative entire anterior domain preserved; shoulder material is independently rebuilt and is not mislabelled as whole-body preservation.",
+  "actual_protected_domain": {
+    "protected_faces": 514,
+    "protected_vertices": 1542,
+    "rim_counts": {
+      "upper": 52,
+      "lower": 50,
+      "commissure": 2
+    }
+  }
+}

@@ -1,0 +1,1466 @@
+{
+  "schema_version": 1,
+  "kind": "technically_complete_body_repair_compact_release",
+  "species": "zander",
+  "installation": "Installed exact current source/model bytes and original motion profile by parent; fresh actual nine-fish canonical entry276checks passed, errors[]. Strict actual lip/Fishing/hook/four actions/static resources passed.",
+  "final_model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+  "final_source_sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+  "final_motion_profile_sha256": "eccf18bc7002dbdbae8e5a156da01de3aa5d4d46805568123e352792de795396",
+  "species_fin_profile": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/zander-lowpoly-20261104/adopted-method.json",
+    "sha256": "6efc83969c5b4830a1d1327b3399d34e6979ad3d962baf20cb914397b47173f8"
+  },
+  "current_repair_profile": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/zander-final.profile.json",
+    "sha256": "d320e556874b252859e004c5691514f23072b39b70927c7c24e5a1e5147c350e"
+  },
+  "canonical_targets": {
+    "source": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+    "model": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+    "motion_profile": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander.json",
+    "runtime": "res://scripts/aquarium/FoundryFishMotion.gd",
+    "source_model_install_same_bytes": true,
+    "mouth_anchor": "surface1/index1200;2actual shared roof edges, strict original semantic rebind",
+    "model_scale_exact": 0.503640320726227
+  },
+  "model_scale": 0.503640320726227,
+  "length_native": 0.9927719831466675,
+  "triangles": 2000,
+  "body_triangles": 1222,
+  "fin_triangles": 726,
+  "eye_triangles": 52,
+  "body_surfaces": 4,
+  "total_surfaces": 14,
+  "total_meshes": 11,
+  "complete_fins": 8,
+  "closed_supported_eyes": 2,
+  "sop": {
+    "ok": true,
+    "stages": 9,
+    "evidence_count": 54,
+    "original_review_sha256": "ad0b4a4642e166b85d3ad9a102094d8ce0f3031d95927b68fdb5864bda5fea88",
+    "original_report_sha256": "fd9b57b9d9d81054cc3faa915a38281fbe1ef1e626d3a950a7e204b27d759db7",
+    "evidence": [
+      {
+        "id": "preparation_research_and_measurements",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/zander-final.profile.json",
+        "sha256": "d320e556874b252859e004c5691514f23072b39b70927c7c24e5a1e5147c350e"
+      },
+      {
+        "id": "preparation_source_views_and_purposes",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "preparation_accepted_source_provenance",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "preparation_landmarks_and_part_inventory",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/source-comparison.jpg",
+        "sha256": "162cf8e1c73db08bee20ad7582b28bf5ec6cf0fa2a4741e1960c40318d98408b"
+      },
+      {
+        "id": "preparation_native_fin_cutouts_and_part_ownership",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "head_source_pose_comparison",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/source-comparison.jpg",
+        "sha256": "162cf8e1c73db08bee20ad7582b28bf5ec6cf0fa2a4741e1960c40318d98408b"
+      },
+      {
+        "id": "head_clay_side",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-left-clay.png",
+        "sha256": "631413676d8535c1e3164022b907956440b559ee927509ac7b382cf97c38077a"
+      },
+      {
+        "id": "head_clay_front",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-front-clay.png",
+        "sha256": "c681dd61126b15632fa3e272fa92c22c2b202eabb7cda891b36029f116f7ebec"
+      },
+      {
+        "id": "head_clay_top",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-top-clay.png",
+        "sha256": "a1e829ea3f8854363c9989375069ca431483641b7683b1cae97f9ac74cc9479a"
+      },
+      {
+        "id": "head_clay_bottom",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-bottom-clay.png",
+        "sha256": "a47d13dc2ba7dedd052d17257b892d3a27dda18d5ef69aa36cbaef48a7846c63"
+      },
+      {
+        "id": "head_clay_oblique",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-oblique-clay.png",
+        "sha256": "1546d7d439f1fe712763744f041a08d409fc4a46edd544d12e33bb95f3f77c93"
+      },
+      {
+        "id": "head_transverse_constraints",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/body-projection.validation.json",
+        "sha256": "0b5fbeca5311285be89139394091549b8dcf0ff25367eb8aaaa5837db28d325f"
+      },
+      {
+        "id": "mouth_structure_branch_and_constraints",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "mouth_whole_snout_and_chin",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-left-clay.png",
+        "sha256": "631413676d8535c1e3164022b907956440b559ee927509ac7b382cf97c38077a"
+      },
+      {
+        "id": "mouth_integrated_upper_lower_jaws_and_cut",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-oblique-clay.png",
+        "sha256": "1546d7d439f1fe712763744f041a08d409fc4a46edd544d12e33bb95f3f77c93"
+      },
+      {
+        "id": "mouth_misplaced_outline_ownership",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-right-texture.png",
+        "sha256": "e2e5d61e6995da72ddbcc2b5a2b510437d74fd52823e1f44f1b9dcaebd571559"
+      },
+      {
+        "id": "mouth_native_pixel_cover_and_actual_uv_joins",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-bottom-texture.png",
+        "sha256": "3c02990fae822d353d6cf3039bb08cbc39926d46b64acec53e7c1920ec23ac60"
+      },
+      {
+        "id": "mouth_source_donors_and_mouth_gap",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "mouth_complete_native_lip_domain_and_front_exclusion",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/native-anterior/native-anterior-preservation.validation.json",
+        "sha256": "3e3a8d7611085fd37e43dd5b47fc4de69b395ce1437ffdbd8f0ec65dfad82ce5"
+      },
+      {
+        "id": "eyes_source_eye_and_ownership_domains",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/head-left-texture.png",
+        "sha256": "5c745a90bb4c622809e71567ef43bd816130c9e177d3d4c9ee3e4526ca323c80"
+      },
+      {
+        "id": "eyes_opposite_and_top_views",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/head-body-review.jpg",
+        "sha256": "59b88be5a6ebd9c0faf9bf13759fd10ecb6a9252fafe4419d8609ba38064f62b"
+      },
+      {
+        "id": "eyes_overlay_attachment_and_lod",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/native-eyes-preflight.validation.json",
+        "sha256": "cd92e1f4ec15bb7a5b5477349f73364ba6dca3dfe51c38c4093258e901f29463"
+      },
+      {
+        "id": "skin_dorsal_material",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/body-without-fins-top-texture.png",
+        "sha256": "d01ad0bf941bd32e2891f8c2f2dbca05649f8d6d866d1641383eae8c3cb28280"
+      },
+      {
+        "id": "skin_ventral_material",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/body-without-fins-bottom-texture.png",
+        "sha256": "5570d24de290b1dbb300f7a2ca72ad56c434dcbbfff572cf3e688b11129c9127"
+      },
+      {
+        "id": "skin_hidden_fin_skin",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/body-without-fins-left-texture.png",
+        "sha256": "5fa1da8237f973d459baa52a66d42932fa07d3e27cf7cc81fb8a0dbe65f7c050"
+      },
+      {
+        "id": "skin_native_2d_donors_and_exclusions",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "skin_surface_opacity_inventory",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/body077/completion.validation.json",
+        "sha256": "49451533480effe3275f7e0e3b0f24ca32287d07ad4fada10072671b526687b8"
+      },
+      {
+        "id": "skin_body_owned_fin_base_marks",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/body-without-fins-right-texture.png",
+        "sha256": "62c59314b9b0211575ecb4a973ef5afc5d329c3b4e5d3f716348735dfc71910d"
+      },
+      {
+        "id": "fins_complete_species_fin_inventory_and_roots",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin.plan.json",
+        "sha256": "14f056101bc8902ffaf1809e77007c97ff4bebc83233ee07c999c6a03b534245"
+      },
+      {
+        "id": "fins_source_cutout_and_shape_comparison",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/source-comparison.jpg",
+        "sha256": "162cf8e1c73db08bee20ad7582b28bf5ec6cf0fa2a4741e1960c40318d98408b"
+      },
+      {
+        "id": "fins_installed_visibility_and_body_occlusion",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "fins_all_fin_root_gate",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/full490/zander/roots.validation.json",
+        "sha256": "0570756a6c92980a358e42f6387aee424eb098aab028720760560e42cd8b6861"
+      },
+      {
+        "id": "fins_whole_fin_membrane_gate",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/full490/completion.validation.json",
+        "sha256": "0d285eae0a61237e199914ac72c61a21c5faf321b3ab1f1490314fd8f8023b30"
+      },
+      {
+        "id": "fins_expanded_fin_visual_review",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin-review.jpg",
+        "sha256": "b617c5e5d086a83cabc36b4d109c93c48fbd7586e9c79bfbdb230453769dded3"
+      },
+      {
+        "id": "fins_actual_normal_thickness_and_tail_section",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin-volume.validation.json",
+        "sha256": "f32671578c6f30c142e850af23872f76d1b6d5025f34f349aab9145c98c726f1"
+      },
+      {
+        "id": "fins_fin_volume_end_on_and_top_clay",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin-review.jpg",
+        "sha256": "b617c5e5d086a83cabc36b4d109c93c48fbd7586e9c79bfbdb230453769dded3"
+      },
+      {
+        "id": "motion_native_loop",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/full490/completion.validation.json",
+        "sha256": "0d285eae0a61237e199914ac72c61a21c5faf321b3ab1f1490314fd8f8023b30"
+      },
+      {
+        "id": "motion_swim",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/frames/frame-0035.jpg",
+        "sha256": "fd5ce3326517272334d79c74a486283e1e52cd0e7ed518e729223df665eddc97"
+      },
+      {
+        "id": "motion_turn",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/frames/frame-0047.jpg",
+        "sha256": "d948c89ae334dfa18d7bfb47ef478d78b875995e67930e505301141e540a8c1c"
+      },
+      {
+        "id": "motion_ascend",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/frames/frame-0059.jpg",
+        "sha256": "9cc78563c701bbed67878d01f010dae20e109ecae783af2807b9c0e39c8a1e61"
+      },
+      {
+        "id": "motion_dive",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/frames/frame-0071.jpg",
+        "sha256": "bf59209f0b0f735bafb3aed8eb705351c156920639b1068d5a53e58c973d9904"
+      },
+      {
+        "id": "motion_real_transitions_and_control_ranges",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/motion-controls.validation.json",
+        "sha256": "92370ddb41345402aacf98ce8e596c5eecd6a795e0aac928ac0585bce645f481"
+      },
+      {
+        "id": "motion_jaw_or_other_action_branch",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      },
+      {
+        "id": "runtime_body_integrity_gpu_gate",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/body077/completion.validation.json",
+        "sha256": "49451533480effe3275f7e0e3b0f24ca32287d07ad4fada10072671b526687b8"
+      },
+      {
+        "id": "runtime_material_anchor_and_actual_lod",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/review-capture.validation.json",
+        "sha256": "111840cdb4a52fe91fba10f3dd6be9535487c300d47a5ecbdbd3efca85108869"
+      },
+      {
+        "id": "runtime_motion_and_surface_gate",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/motion-controls.validation.json",
+        "sha256": "92370ddb41345402aacf98ce8e596c5eecd6a795e0aac928ac0585bce645f481"
+      },
+      {
+        "id": "runtime_cold_import_and_install_binding",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/final-cold-load.validation.json",
+        "sha256": "b52dcd0269d386a7220dd476dff7dc67f4a6774798ee5e44e60659e7dbe36742"
+      },
+      {
+        "id": "runtime_final_asset_cold_load",
+        "kind": "report",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/final-cold-load.validation.json",
+        "sha256": "b52dcd0269d386a7220dd476dff7dc67f4a6774798ee5e44e60659e7dbe36742"
+      },
+      {
+        "id": "runtime_exported_vs_experiment_comparison",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/source-comparison.jpg",
+        "sha256": "162cf8e1c73db08bee20ad7582b28bf5ec6cf0fa2a4741e1960c40318d98408b"
+      },
+      {
+        "id": "presentation_source_style_final_comparison",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/source-comparison.jpg",
+        "sha256": "162cf8e1c73db08bee20ad7582b28bf5ec6cf0fa2a4741e1960c40318d98408b"
+      },
+      {
+        "id": "presentation_normal_and_close_game_views",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/head-body-review.jpg",
+        "sha256": "59b88be5a6ebd9c0faf9bf13759fd10ecb6a9252fafe4419d8609ba38064f62b"
+      },
+      {
+        "id": "presentation_water_readability",
+        "kind": "image",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/gpu-review/water-natural-freshwater-oblique.png",
+        "sha256": "c9ad3eb4520b7896d116ae27c3716352c07a9345399f231aa2eeca4a4e67a13e"
+      },
+      {
+        "id": "presentation_orbit_and_motion_video",
+        "kind": "video",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-review.mp4",
+        "sha256": "d64b445d58c204dadb96d51cd83c29e77e4dc1006589d3cc201875487024394b"
+      },
+      {
+        "id": "presentation_final_files_and_remaining_limits",
+        "kind": "data",
+        "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/production-notes.json",
+        "sha256": "3a51b06cadeb47748fcb8835cd9beb2e8a3cb658c4052f03951059acd7ff2f6b"
+      }
+    ],
+    "retired_media_rule": "These are original run receipts; all media/experiment locators retire after canonical bridge. This does not claim old SOP replayability.",
+    "standard_reconciliation": "Read production-sop commit43c7a553: distinguish image style/shape purpose from actual surface colour donation, and multiview white-model painting only when native donors lack natural coverage. Current repair reuses accepted native pixels and existing reviewed r21 shoulder atlas, no new generated donor images; current opposite/top/bottom/hidden-fin/head/fin-back texture views are natural and separately reviewed. Same-species library OBJ is geometric width evidence only and supplies no colour. Current repair does not adopt whale shark trial style or its acceptance."
+  },
+  "gate_run_receipts": {
+    "root490": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/full490/zander/roots.validation.json",
+      "sha256": "0570756a6c92980a358e42f6387aee424eb098aab028720760560e42cd8b6861",
+      "ok_at_frozen_current_run": true
+    },
+    "membrane490": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/full490/zander/membranes.validation.json",
+      "sha256": "7edfa297cb0b5dc19a76e326b4cd480fe75cf8bf2c6848b0d31869d8523c6ef8",
+      "ok_at_frozen_current_run": true
+    },
+    "volume": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin-volume.validation.json",
+      "sha256": "f32671578c6f30c142e850af23872f76d1b6d5025f34f349aab9145c98c726f1",
+      "ok_at_frozen_current_run": true
+    },
+    "static_self": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/fin-self.validation.json",
+      "sha256": "c98ad1b07ccbe4bfa241ddcf97d21eafa46bc52f0bc03ef0039dd0647c03bde9",
+      "ok_at_frozen_current_run": true
+    },
+    "body077": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/body077/completion.validation.json",
+      "sha256": "49451533480effe3275f7e0e3b0f24ca32287d07ad4fada10072671b526687b8",
+      "ok_at_frozen_current_run": true
+    },
+    "motion": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/motion-controls.validation.json",
+      "sha256": "92370ddb41345402aacf98ce8e596c5eecd6a795e0aac928ac0585bce645f481",
+      "ok_at_frozen_current_run": true
+    },
+    "native_anterior": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/native-anterior/native-anterior-preservation.validation.json",
+      "sha256": "3e3a8d7611085fd37e43dd5b47fc4de69b395ce1437ffdbd8f0ec65dfad82ce5",
+      "ok_at_frozen_current_run": true
+    },
+    "source_export": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/repeat-source-export.validation.json",
+      "sha256": "5276eaf360c4eaa923e79f25c562096d17490af814ddfd0d22e2e2bdac25a977",
+      "ok_at_frozen_current_run": true
+    },
+    "cold": {
+      "original_path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/final-cold-load.validation.json",
+      "sha256": "b52dcd0269d386a7220dd476dff7dc67f4a6774798ee5e44e60659e7dbe36742",
+      "ok_at_frozen_current_run": true
+    }
+  },
+  "core_numbers": {
+    "complete490_roots": {
+      "Anal": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.3559745382517576,
+        "max_mm": 0.39003274287097156
+      },
+      "Caudal": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.12556863657664508,
+        "max_mm": 0.07620303949806839
+      },
+      "Dorsal_soft": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.4290291981305927,
+        "max_mm": 0.40032490505836904
+      },
+      "Dorsal_spiny": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.47606645966880023,
+        "max_mm": 0.3392852086108178
+      },
+      "Pectoral_left": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.2282948262291029,
+        "max_mm": 0.2840321103576571
+      },
+      "Pectoral_right": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.2765234385151416,
+        "max_mm": 0.20343466894701123
+      },
+      "Pelvic_left": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.31924896757118404,
+        "max_mm": 0.36646699300035834
+      },
+      "Pelvic_right": {
+        "poses": 490,
+        "failed_contact_samples": 0,
+        "min_mm": -0.2584121248219162,
+        "max_mm": 0.24939642753452063
+      }
+    },
+    "complete490_membranes": {
+      "Anal": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Caudal": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Dorsal_soft": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Dorsal_spiny": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Pectoral_left": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Pectoral_right": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Pelvic_left": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      },
+      "Pelvic_right": {
+        "failed_poses": 0,
+        "worst_penetration_mm": 0.0,
+        "worst_pose": null
+      }
+    },
+    "root_limits_mm": [
+      -0.5,
+      0.5
+    ],
+    "membrane_root_collar_mm": 0.5,
+    "membrane_penetration_tolerance_mm": 0.02,
+    "normal_fin_volume": {
+      "Dorsal_spiny": {
+        "taper_ratio": 3.3037664636947297,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 74,
+            "min_median_max_mm": [
+              0.32703974906602445,
+              0.49866575888721454,
+              0.6495857496600315
+            ]
+          },
+          "middle": {
+            "samples": 104,
+            "min_median_max_mm": [
+              0.18794871196666957,
+              0.2521131093226069,
+              0.344716251776017
+            ]
+          },
+          "distal": {
+            "samples": 76,
+            "min_median_max_mm": [
+              0.10764721726573312,
+              0.15093856190111493,
+              0.18094421784257278
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 21,
+          "finite_contact_samples": 261,
+          "maximum_gap_mm": 0.08723623938630039,
+          "maximum_inset_mm": 0.329965400174187,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 83,
+          "final_UV_split_vertices": 245
+        }
+      },
+      "Dorsal_soft": {
+        "taper_ratio": 4.226173903257452,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 46,
+            "min_median_max_mm": [
+              0.317325426584794,
+              0.47823697865027215,
+              0.5582913051447081
+            ]
+          },
+          "middle": {
+            "samples": 82,
+            "min_median_max_mm": [
+              0.15926381738414053,
+              0.22336286998902796,
+              0.34135074791328324
+            ]
+          },
+          "distal": {
+            "samples": 52,
+            "min_median_max_mm": [
+              0.09254578585392909,
+              0.1131607429314862,
+              0.15788502554755207
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 30,
+          "finite_contact_samples": 410,
+          "maximum_gap_mm": 0.19589673308374786,
+          "maximum_inset_mm": 0.35082740819534464,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 70,
+          "final_UV_split_vertices": 260
+        }
+      },
+      "Anal": {
+        "taper_ratio": 3.8185661136692017,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 44,
+            "min_median_max_mm": [
+              0.2965980950043378,
+              0.4820539300203156,
+              0.5817928424144225
+            ]
+          },
+          "middle": {
+            "samples": 50,
+            "min_median_max_mm": [
+              0.1593400822427571,
+              0.21859920392440468,
+              0.27799084734096524
+            ]
+          },
+          "distal": {
+            "samples": 44,
+            "min_median_max_mm": [
+              0.09099838462493884,
+              0.12623951390934995,
+              0.15206369942704412
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 20,
+          "finite_contact_samples": 270,
+          "maximum_gap_mm": 0.07080295794258208,
+          "maximum_inset_mm": 0.15127037231815058,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 54,
+          "final_UV_split_vertices": 254
+        }
+      },
+      "Caudal": {
+        "taper_ratio": 5.654049905909048,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 36,
+            "min_median_max_mm": [
+              0.13082403157842992,
+              0.6401929327349987,
+              9.376269898192538
+            ]
+          },
+          "middle": {
+            "samples": 56,
+            "min_median_max_mm": [
+              0.1357069466834675,
+              0.2076354818878539,
+              2.6576359884635825
+            ]
+          },
+          "distal": {
+            "samples": 44,
+            "min_median_max_mm": [
+              0.10044161726805961,
+              0.11322732260745222,
+              0.14299564210368518
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 14,
+          "finite_contact_samples": 134,
+          "maximum_gap_mm": 0.04499499134975039,
+          "maximum_inset_mm": 0.11982204557530493,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 44,
+          "final_UV_split_vertices": 116
+        }
+      },
+      "Pectoral_left": {
+        "taper_ratio": 2.1977810689939505,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 38,
+            "min_median_max_mm": [
+              0.19553528446872592,
+              0.27315562892052087,
+              0.5260703331534677
+            ]
+          },
+          "middle": {
+            "samples": 34,
+            "min_median_max_mm": [
+              0.14141073140454313,
+              0.2478083296305149,
+              0.3304659364795314
+            ]
+          },
+          "distal": {
+            "samples": 22,
+            "min_median_max_mm": [
+              0.09048282362702968,
+              0.12428700600536147,
+              0.1690175841733735
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 10,
+          "finite_contact_samples": 90,
+          "maximum_gap_mm": 0.21217666396993268,
+          "maximum_inset_mm": 0.17780259855524605,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 30,
+          "final_UV_split_vertices": 168
+        }
+      },
+      "Pectoral_right": {
+        "taper_ratio": 1.5099990586648002,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 38,
+            "min_median_max_mm": [
+              0.17893349623764332,
+              0.2871293650093885,
+              0.7738538180905323
+            ]
+          },
+          "middle": {
+            "samples": 34,
+            "min_median_max_mm": [
+              0.1789350353132064,
+              0.3519928251439426,
+              0.4947809562716327
+            ]
+          },
+          "distal": {
+            "samples": 22,
+            "min_median_max_mm": [
+              0.13634257023315993,
+              0.19015201589812875,
+              0.259544220534929
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 10,
+          "finite_contact_samples": 90,
+          "maximum_gap_mm": 0.15978810019373707,
+          "maximum_inset_mm": 0.17659435094891016,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 30,
+          "final_UV_split_vertices": 96
+        }
+      },
+      "Pelvic_left": {
+        "taper_ratio": 2.1523192058440137,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 26,
+            "min_median_max_mm": [
+              0.2699011143926795,
+              0.35013003068741955,
+              0.5779876613079711
+            ]
+          },
+          "middle": {
+            "samples": 36,
+            "min_median_max_mm": [
+              0.2066890237058679,
+              0.2793537207388726,
+              0.38794498535170613
+            ]
+          },
+          "distal": {
+            "samples": 36,
+            "min_median_max_mm": [
+              0.11113219003681868,
+              0.16267569872384197,
+              0.2226315452550365
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 10,
+          "finite_contact_samples": 130,
+          "maximum_gap_mm": 0.2720472603727947,
+          "maximum_inset_mm": 0.2734514836008304,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 34,
+          "final_UV_split_vertices": 66
+        }
+      },
+      "Pelvic_right": {
+        "taper_ratio": 2.177876709122216,
+        "missing_opposing_rays": 0,
+        "source_root_band": 0.065,
+        "normal_thickness_zones": {
+          "proximal": {
+            "samples": 26,
+            "min_median_max_mm": [
+              0.22135147412242323,
+              0.35428941904131855,
+              0.577987192256371
+            ]
+          },
+          "middle": {
+            "samples": 36,
+            "min_median_max_mm": [
+              0.20669632332139568,
+              0.2793537353967351,
+              0.38794108636027963
+            ]
+          },
+          "distal": {
+            "samples": 36,
+            "min_median_max_mm": [
+              0.11113200681353735,
+              0.1626765268930735,
+              0.22263157457076152
+            ]
+          }
+        },
+        "attachment_contact": {
+          "ok": true,
+          "source_root_band": 0.065,
+          "complete_original_root_vertices": 10,
+          "finite_contact_samples": 130,
+          "maximum_gap_mm": 0.14574844769718182,
+          "maximum_inset_mm": 0.20186871271508833,
+          "tolerance_mm": 0.5,
+          "scope": "Complete original root domain, actual closed body, finite static vertex/edge/face samples. Full posed072/490 remain required; no root selection/collar change."
+        },
+        "source_GLB_position_correspondence": {
+          "maximum_bidirectional_position_error_native": 0.0,
+          "source_vertices": 34,
+          "final_UV_split_vertices": 73
+        }
+      }
+    },
+    "tail_section": {
+      "ok": true,
+      "maximum_width_error_mm": 0.14691487120670824,
+      "tolerance_mm": 0.4,
+      "sections": [
+        {
+          "z_native": -0.0373933,
+          "body_width_mm": 1.8110943105784717e-07,
+          "tail_root_width_mm": 0.14691505231613927,
+          "difference_mm": 0.14691487120670824
+        },
+        {
+          "z_native": -0.0330468,
+          "body_width_mm": 5.754211989559288,
+          "tail_root_width_mm": 5.771745607425575,
+          "difference_mm": 0.017533617866288022
+        },
+        {
+          "z_native": -0.0271149,
+          "body_width_mm": 8.374466031658358,
+          "tail_root_width_mm": 8.38400847072234,
+          "difference_mm": 0.009542439063984574
+        },
+        {
+          "z_native": -0.0209989,
+          "body_width_mm": 9.964100666728706,
+          "tail_root_width_mm": 9.970673017750414,
+          "difference_mm": 0.006572351021706958
+        },
+        {
+          "z_native": -0.0047048,
+          "body_width_mm": 11.348543050681588,
+          "tail_root_width_mm": 11.352020599245316,
+          "difference_mm": 0.003477548563726476
+        },
+        {
+          "z_native": 0.011561,
+          "body_width_mm": 9.451020130944197,
+          "tail_root_width_mm": 9.456766013046389,
+          "difference_mm": 0.00574588210219171
+        },
+        {
+          "z_native": 0.025662,
+          "body_width_mm": 1.7595306114051414e-06,
+          "tail_root_width_mm": 0.11854909816386937,
+          "difference_mm": 0.11854733863325796
+        }
+      ],
+      "complete_basal_band_retained": true
+    },
+    "constant_free_shell_negative_rejected_fins": [
+      "Dorsal_spiny",
+      "Dorsal_soft",
+      "Anal",
+      "Caudal",
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "constant_free_shell_original_roots_preserved": true,
+    "finite_static_self": {
+      "Anal": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Caudal": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Dorsal_soft": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Dorsal_spiny": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Pectoral_left": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Pectoral_right": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Pelvic_left": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      },
+      "Pelvic_right": {
+        "illegal_intersections": 0,
+        "zero_triangles": 0
+      }
+    },
+    "body077_ok": true,
+    "body077_geometry": {
+      "triangles": 2000,
+      "welded_edges": 1833,
+      "surfaces": [
+        {
+          "surface": 0,
+          "triangles": 226,
+          "vertices": 634,
+          "material": "Native pixel art · nearest · matte.001",
+          "opaque": true,
+          "unit_normals_and_winding_agree": true,
+          "texture": {
+            "embedded_sha256": "c46a9910ed9857ac0cea54c780cfa9fa21f113875f71e040bd5e1822ae451760",
+            "rgba_sha256": "073686eef10deb7aab1d4e18054dfeaa36fc2546da3d6a0e42dd590fd6f5e6e0",
+            "size": [
+              2024,
+              742
+            ]
+          }
+        },
+        {
+          "surface": 1,
+          "triangles": 684,
+          "vertices": 2052,
+          "material": "Front skin source chart",
+          "opaque": true,
+          "unit_normals_and_winding_agree": true,
+          "texture": {
+            "embedded_sha256": "3a04bdaabd052ced5796d5f5daf90ff2e15661d0ceb6ab6589a45fe40947e4b1",
+            "rgba_sha256": "73cbfb563fe1aca0bae4959ed19904369db84ae86094acbcbaa30e464efa5072",
+            "size": [
+              1024,
+              2048
+            ]
+          }
+        },
+        {
+          "surface": 2,
+          "triangles": 264,
+          "vertices": 792,
+          "material": "Front mouth oral chart",
+          "opaque": true,
+          "unit_normals_and_winding_agree": true,
+          "texture": {
+            "embedded_sha256": "3a04bdaabd052ced5796d5f5daf90ff2e15661d0ceb6ab6589a45fe40947e4b1",
+            "rgba_sha256": "73cbfb563fe1aca0bae4959ed19904369db84ae86094acbcbaa30e464efa5072",
+            "size": [
+              1024,
+              2048
+            ]
+          }
+        },
+        {
+          "surface": 3,
+          "triangles": 48,
+          "vertices": 144,
+          "material": "Current canonical posterior shoulder chart",
+          "opaque": true,
+          "unit_normals_and_winding_agree": true,
+          "texture": {
+            "embedded_sha256": "17e1918c71f24e0efa52b2ac39dfb08a8e194dde0dd341425a1f351c58103412",
+            "rgba_sha256": "8dd227cfc42a89536040dbe739f1a5c15cffadb1409e2c94d47481e5813528ff",
+            "size": [
+              1024,
+              1024
+            ]
+          }
+        }
+      ],
+      "decorative_overlay_proofs": [
+        {
+          "ok": true,
+          "kind": "native_body_supported_eye",
+          "name": "Eye_relief112_-1_0",
+          "physical_vertices": 15,
+          "triangles": 26,
+          "boundary_edges": 0,
+          "closed": true,
+          "export_rows": 78,
+          "original_physical_topology_oriented_UV_corner_identity": true,
+          "native_RGB_alpha_preserved": true,
+          "native_opaque_UV_domain": {
+            "actual_finite_nearest_UV_opaque": true,
+            "excluded_unsampled_bbox_corner_texels": 3
+          },
+          "actual_nearest_finite_body_named_skin": true,
+          "relief_not_enlarged": true,
+          "maximum_named_weight_error": 2.189289938225869e-08,
+          "maximum_relief_native": 0.0033892009575783822,
+          "underlying_body_independently_closed": true,
+          "binding_report_sha256": "59a9aad4d7a7804eed04aef7c0c9605a65bd72f9a232f85ebc5ee138db44286a"
+        },
+        {
+          "ok": true,
+          "kind": "native_body_supported_eye",
+          "name": "Eye_relief112_1_0",
+          "physical_vertices": 15,
+          "triangles": 26,
+          "boundary_edges": 0,
+          "closed": true,
+          "export_rows": 78,
+          "original_physical_topology_oriented_UV_corner_identity": true,
+          "native_RGB_alpha_preserved": true,
+          "native_opaque_UV_domain": {
+            "actual_finite_nearest_UV_opaque": true,
+            "excluded_unsampled_bbox_corner_texels": 3
+          },
+          "actual_nearest_finite_body_named_skin": true,
+          "relief_not_enlarged": true,
+          "maximum_named_weight_error": 2.9224544562111987e-08,
+          "maximum_relief_native": 0.003393423049513486,
+          "underlying_body_independently_closed": true,
+          "binding_report_sha256": "59a9aad4d7a7804eed04aef7c0c9605a65bd72f9a232f85ebc5ee138db44286a"
+        }
+      ]
+    },
+    "body077_coverage_records": [
+      {
+        "actual": "p0-v0-actual.png",
+        "actual_sha256": "32cea016a6ae26fce6a391b36451692c9502bfd0b5ee7666094ed34515173940",
+        "camera_after": "49a3edfab51eac61bc9913b9bbf362266fb63c04574451339708785a0c140ec3",
+        "camera_before": "49a3edfab51eac61bc9913b9bbf362266fb63c04574451339708785a0c140ec3",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v0-closed.png",
+        "reference_sha256": "2ef1e819b4cf73b0a2d097f5570bf1680cf96a626558003666bb1b9f5950f80f",
+        "view": 0,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v1-actual.png",
+        "actual_sha256": "8196c2b4cdbc1773a619b8eb062c35826191602b0a6d6580e49b448d95cdb7dd",
+        "camera_after": "724da9b7c6a038c7a7900f9819005e9c19110317b5a1bb9f70daa82c67202c6d",
+        "camera_before": "724da9b7c6a038c7a7900f9819005e9c19110317b5a1bb9f70daa82c67202c6d",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v1-closed.png",
+        "reference_sha256": "158557a6a480210628061ab9202230c3ed28b895fc449bfcf357ea51fe6392aa",
+        "view": 1,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v2-actual.png",
+        "actual_sha256": "865d2979b17827c2a1e85401d3f9d158fc5bcd9212357e9a74c9cdd447b952d9",
+        "camera_after": "ea22af8c1e87f6920f8df409d6b41bc44a7a7f3e4ce27acc57caf3091d76c367",
+        "camera_before": "ea22af8c1e87f6920f8df409d6b41bc44a7a7f3e4ce27acc57caf3091d76c367",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v2-closed.png",
+        "reference_sha256": "8ba56a278191de64156c305122382e8d72b964867d901c9ab0c100690a35652a",
+        "view": 2,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v3-actual.png",
+        "actual_sha256": "113335df6c9d2599005e014893a27a798df1f4641421cb2ab3c70602227a10ff",
+        "camera_after": "6d972a4cc4039f163e795aeb5b5afbfa3e3516d168d90014bfc41f5eff3fc75a",
+        "camera_before": "6d972a4cc4039f163e795aeb5b5afbfa3e3516d168d90014bfc41f5eff3fc75a",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v3-closed.png",
+        "reference_sha256": "9d4b985515265067c664eb6ca54ba49d810e8f7ed6f9900f52c0a17e8aec4980",
+        "view": 3,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v4-actual.png",
+        "actual_sha256": "c40db14c5d4871fda1e80f8d0404c073c87b3fd7d08a15b26d91e5da9682316e",
+        "camera_after": "1325b1767e4c59db2e77d1d9f76e56856015fd7215295dad84b10031d3e57e07",
+        "camera_before": "1325b1767e4c59db2e77d1d9f76e56856015fd7215295dad84b10031d3e57e07",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v4-closed.png",
+        "reference_sha256": "01960edac89f10e2745bb58af6f46efebcd84c0d1ac87ca624abaced93f61481",
+        "view": 4,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v5-actual.png",
+        "actual_sha256": "efd634acfcde8e1f0133d1c9e90727be99de076ad025da5dd0e1ca32076f2c53",
+        "camera_after": "b2f36c240092d10c7124b995f45dd974a7b0c25c30f7693031aa68a6fd39bac9",
+        "camera_before": "b2f36c240092d10c7124b995f45dd974a7b0c25c30f7693031aa68a6fd39bac9",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v5-closed.png",
+        "reference_sha256": "15ce1027f5612d98b95c7902087d86f2965a8743fcfc64b76d7497187e410d5f",
+        "view": 5,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v6-actual.png",
+        "actual_sha256": "2cd66fcf08e4b3c3ed1e74e35f44891e5f90f785518de4d7937574b6d474d291",
+        "camera_after": "e63af42303f09125a628a3057dab6b5990f49696134c29b9adb2ef229f8ca9c0",
+        "camera_before": "e63af42303f09125a628a3057dab6b5990f49696134c29b9adb2ef229f8ca9c0",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v6-closed.png",
+        "reference_sha256": "9fc1764dddc51b7839976cf3d42a673bd5888abd546175b151d43bedc33df626",
+        "view": 6,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p0-v7-actual.png",
+        "actual_sha256": "88ad37a032cd51bdbb2d851db2897c5cfab360ca5d8712159b64206605bd55af",
+        "camera_after": "39660efa8694262dcad348c40cbb3b853028d545f5ba3ad4ea8019d726d4f16a",
+        "camera_before": "39660efa8694262dcad348c40cbb3b853028d545f5ba3ad4ea8019d726d4f16a",
+        "pose": 0,
+        "pose_after": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "pose_before": "1c193d78b18c2268019a9d38cbc48442919cce703451e1d63d03a9f5eb0eddd4",
+        "reference": "p0-v7-closed.png",
+        "reference_sha256": "f08cda96ad28f995abc0de50ac00e427a3ed1c2b64d3e2ab151a8718c7a491e7",
+        "view": 7,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v0-actual.png",
+        "actual_sha256": "f4b41a78cc97d57c8941e2d859673b5040537a3db4d7420c8e146488e0619fcb",
+        "camera_after": "06d262b02c5f0043fee893be24832e7a67a949109a71922ad4167384d6819afd",
+        "camera_before": "06d262b02c5f0043fee893be24832e7a67a949109a71922ad4167384d6819afd",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v0-closed.png",
+        "reference_sha256": "eb1d02535f45094dd00959f15fbb515768b07366545722eb4a10587c8a171b74",
+        "view": 0,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v1-actual.png",
+        "actual_sha256": "509f2fa70c26803213bc4c029bee3fa8ee1dd1c27a17c4fc2d03e9836be4cf71",
+        "camera_after": "6e31e464fb524ef6f8c9f36dc362b316824f0f3baba0f6f80b18111f9e296366",
+        "camera_before": "6e31e464fb524ef6f8c9f36dc362b316824f0f3baba0f6f80b18111f9e296366",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v1-closed.png",
+        "reference_sha256": "cb791b7821808db6d538292517f3f55fadb7e12fb6a73dbf43caddc1b6901d2e",
+        "view": 1,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v2-actual.png",
+        "actual_sha256": "a83124dd7a49153866dae15efd7bde487b281b3c43ce5e4e3352382057e822c7",
+        "camera_after": "babbf69cab9dfe812c5dffe0ca92517abb855eff94e52c5e7383c3e0a1f5515f",
+        "camera_before": "babbf69cab9dfe812c5dffe0ca92517abb855eff94e52c5e7383c3e0a1f5515f",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v2-closed.png",
+        "reference_sha256": "0bcff1bc7827235f015383fed244e22696e0a7035dd682ef969c2aff66fa0900",
+        "view": 2,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v3-actual.png",
+        "actual_sha256": "becc9ca492ac0ecfb94c5d069f64f5a237568de34a5f22a1a1748cfcf71b8252",
+        "camera_after": "0f28f2d160c46198f96ad5168a9346154bc74d391be14df9b7b8b79a15170466",
+        "camera_before": "0f28f2d160c46198f96ad5168a9346154bc74d391be14df9b7b8b79a15170466",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v3-closed.png",
+        "reference_sha256": "ba4b29e040a47adbeff66bbff6c0c104755cc25ccb87464be1882e8667adaf97",
+        "view": 3,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v4-actual.png",
+        "actual_sha256": "f4406e28316cf4f977265bf397149af95574238db347ff206d481e5897fa7511",
+        "camera_after": "38a684484e28269599c70237ca5c6126eccefa8e44fce9b5dbd1da4359a1d20c",
+        "camera_before": "38a684484e28269599c70237ca5c6126eccefa8e44fce9b5dbd1da4359a1d20c",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v4-closed.png",
+        "reference_sha256": "b2291c3327b703b0ca65149456ed91756dbefb428b4fbdefde390fa0576405e3",
+        "view": 4,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v5-actual.png",
+        "actual_sha256": "20202f1a218fa6ccadc84db283f6a1d0c496c9db5eb86c5d5c910e8f346fc032",
+        "camera_after": "1382692d55f7dd1f4b6e460d343359575b98fb41a94045be6d212290ce020b7a",
+        "camera_before": "1382692d55f7dd1f4b6e460d343359575b98fb41a94045be6d212290ce020b7a",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v5-closed.png",
+        "reference_sha256": "b1045cfafb8f935309cc50b09bfb94ac0f7f6d04e65ff6bbc0cb25dade44c95f",
+        "view": 5,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v6-actual.png",
+        "actual_sha256": "483547197da31f0b08098b27709a013b0dcde47e68153f53c1da81f090360358",
+        "camera_after": "06a0cbce1bc60e28cc7b09e1eca3a34a8f74edce4dd47bbbabc664ef3fd73ef7",
+        "camera_before": "06a0cbce1bc60e28cc7b09e1eca3a34a8f74edce4dd47bbbabc664ef3fd73ef7",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v6-closed.png",
+        "reference_sha256": "a150553f265814fbad400fe3ab346ca02ee106c2a6764fa42e0f52a3ae90502e",
+        "view": 6,
+        "missing_body_pixels": 0
+      },
+      {
+        "actual": "p1-v7-actual.png",
+        "actual_sha256": "58d19839706103c0e4995c6bca47d778688dab3624a8d8e43a49df5f33baf27e",
+        "camera_after": "7ba0ab1e9c6d151028833d3cfaa7524511224e91edd50881d3051ff7d5e44f2a",
+        "camera_before": "7ba0ab1e9c6d151028833d3cfaa7524511224e91edd50881d3051ff7d5e44f2a",
+        "pose": 1,
+        "pose_after": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "pose_before": "e87db6100d8c5225a338910f001467aa229f9b4bff9124b34960d3c9a542afe1",
+        "reference": "p1-v7-closed.png",
+        "reference_sha256": "1570ab75e20029019188e703d54c2156cab5724316ebed4d09e7908dae102e84",
+        "view": 7,
+        "missing_body_pixels": 0
+      }
+    ],
+    "body077_negative_control": {
+      "actual": "negative-transparent-body.png",
+      "actual_sha256": "5b00beb441fbff68e78be8a595498cb6f89132837f82ebd641b57b1966e0472d",
+      "injection": "All actual body surfaces use alpha-scissor material with zero alpha; geometry/pose/camera unchanged.",
+      "reference": "p0-v0-closed.png",
+      "missing_body_pixels": 23498
+    },
+    "closed_native_eyes": [
+      {
+        "ok": true,
+        "kind": "native_body_supported_eye",
+        "name": "Eye_relief112_-1_0",
+        "physical_vertices": 15,
+        "triangles": 26,
+        "boundary_edges": 0,
+        "closed": true,
+        "export_rows": 78,
+        "original_physical_topology_oriented_UV_corner_identity": true,
+        "native_RGB_alpha_preserved": true,
+        "native_opaque_UV_domain": {
+          "actual_finite_nearest_UV_opaque": true,
+          "excluded_unsampled_bbox_corner_texels": 3
+        },
+        "actual_nearest_finite_body_named_skin": true,
+        "relief_not_enlarged": true,
+        "maximum_named_weight_error": 2.189289938225869e-08,
+        "maximum_relief_native": 0.0033892009575783822,
+        "underlying_body_independently_closed": true,
+        "binding_report_sha256": "59a9aad4d7a7804eed04aef7c0c9605a65bd72f9a232f85ebc5ee138db44286a"
+      },
+      {
+        "ok": true,
+        "kind": "native_body_supported_eye",
+        "name": "Eye_relief112_1_0",
+        "physical_vertices": 15,
+        "triangles": 26,
+        "boundary_edges": 0,
+        "closed": true,
+        "export_rows": 78,
+        "original_physical_topology_oriented_UV_corner_identity": true,
+        "native_RGB_alpha_preserved": true,
+        "native_opaque_UV_domain": {
+          "actual_finite_nearest_UV_opaque": true,
+          "excluded_unsampled_bbox_corner_texels": 3
+        },
+        "actual_nearest_finite_body_named_skin": true,
+        "relief_not_enlarged": true,
+        "maximum_named_weight_error": 2.9224544562111987e-08,
+        "maximum_relief_native": 0.003393423049513486,
+        "underlying_body_independently_closed": true,
+        "binding_report_sha256": "59a9aad4d7a7804eed04aef7c0c9605a65bd72f9a232f85ebc5ee138db44286a"
+      }
+    ],
+    "motion_cases": 5,
+    "motion_phases_per_case": 96,
+    "motion_fin_tracks": 8,
+    "motion_wide_fin_peak_rad": 0.449999123811722,
+    "transitions": [
+      "Turn",
+      "Ascend",
+      "Dive",
+      "Swim"
+    ],
+    "native_clip_pose_count": 25,
+    "all_original_19_bone_axes_pivots_native_clips_retained": true,
+    "cold_checks": 62,
+    "repeat_source_export_byte_identical": true,
+    "body_projection": {
+      "before": {
+        "Wmax_over_registered_length": 0.13461126387119293,
+        "peak_t_from_nose": 0.3369999825954437,
+        "max_abs_width_difference_over_reference_Wmax": 0.04646696755002258,
+        "worst_difference_t": 0.000759698508772999
+      },
+      "candidate": {
+        "Wmax_over_registered_length": 0.13461126387119293,
+        "peak_t_from_nose": 0.3369999825954437,
+        "max_abs_width_difference_over_reference_Wmax": 0.04646696755002258,
+        "worst_difference_t": 0.000759698508772999
+      },
+      "reference": {
+        "Wmax_over_registered_length": 0.13469995030714044,
+        "peak_t_from_nose": 0.33551248094735986
+      }
+    },
+    "body_projection_breakpoints": 117,
+    "body_reallocation": {
+      "kind": "actual_final_body_nonextreme_budget_reallocation_surface_measurement",
+      "before_model_sha256": "b6e3d8d8837d383fe3fe4ba5370761ea59531747fc324d640a9c66d8b0501fc7",
+      "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+      "maximum_bidirectional_finite_surface_probe_mm": 2.44801336947157,
+      "old_to_new_mm": 2.44801336947157,
+      "new_to_old_mm": 2.269764145845779,
+      "probe_counts": [
+        3508,
+        3482
+      ],
+      "scope": "Actual posterior/flank vertices, all face centres and quarter edges; anterior>=.35 static geometry retained. Discrete finite probes, not exact continuous Hausdorff bound. Full top projection and true tail cap independently unchanged; current grey multi-view internally reviewed. No acceptance threshold invented."
+    },
+    "free_source_identity": {
+      "ok": true,
+      "kind": "current_free_source_skin_vs_original_accepted_GLB_and_native_source",
+      "source_sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+      "accepted_model_sha256": "b48c597ed4bd00bf816f0a49a1701b19aaf713174de55d7b4f6b355738df59b0",
+      "free_vertices_checked": 254,
+      "changed_free_vertices": [],
+      "maximum_original_source_GLB_error": 5.664814307237975e-05,
+      "maximum_current_free_named_error": 0.0,
+      "invalid_current_entries": 0
+    },
+    "native_anterior": {
+      "protected_faces": 948,
+      "protected_vertices": 2844,
+      "rim_counts": {
+        "upper": 52,
+        "lower": 30,
+        "commissure": 0
+      }
+    }
+  },
+  "methods": {
+    "parameters": "zander-final.profile.json",
+    "complete_roots": "zander-release/complete-root-domains.json",
+    "source_exporter": "export_zander_source.py",
+    "source_export_skin_helper": "zander_source_exact_skin.py",
+    "source_export_method": "SOURCE-EXPORT.md",
+    "body_skin": "Original body same-X field was already correct; retopo index is not anatomy. Original accepted fin carriers were non-X distributions; newbody finite support required six complete roots rebind to actual authored X field; all254 free named bindings preserved. No LP/SDF skin optimizer.",
+    "finite_support": "Actual fin root long chord crossed body kink. Add complete3layer Anal support, reparameterize internal Spiny3layer group, retain full root domain and true thickness. Reallocate only nonextreme circumferential body supports to required longitudinal spine stations; do not delete longitudinal stations/axis extrema/true12point tail cap.",
+    "normal_field": "Unit-normalize interpolated shader vectors; no direction or geometric change. Exact current-source NORMAL and tiny source weight export, normal/skin primitive owner names distinguished.",
+    "opaque_eye_domain": "Original3transparent unused bbox-corner texels lie outside every actual nearest texel-cell/UV-triangle intersection. Exact SAT domain opacity, accepted oriented physical15V26F/UV/PNG identity and nearest-body mixed skin; original portable077 closed body/opaque/GPU kernel remains unchanged."
+  },
+  "operator_review": {
+    "ok": true,
+    "kind": "current_internal_operator_visual_review",
+    "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+    "reviewer": "C internal operator",
+    "observations": "C operator actually reviewed current whole top/oblique clay and texture, head left/right/front/top/bottom/oblique, complete8fin end-on/top/oblique contact sheet, and native/four-action/four-transition motion contact sheet. Continuous body/real open mouth, native pixel colour, intact source fin silhouettes, no detached/folded roots or visible new holes observed. User waived a further presentation; this is internal operator review, not a new user image acceptance.",
+    "evidence": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/review-sheets.validation.json",
+      "sha256": "ebbb507768f4945c67dfb88fb0699e6ddf4f1e1793dae2c911f3f6cf39105aa3"
+    },
+    "remaining_limits": "Finite/discrete collision sampling is not continuous proof; art reference is not biological measurement; protected extreme mouth width differs from raw art; final official installation and actual game mouth/hook entry are parent-owned. Experiments/media are retired after exact canonical bridge; source/art/library/PDF retained."
+  },
+  "current_canonical_entry_bridge": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/zander-release/canonical-entry.validation.json",
+    "sha256": "d9032947da0234187bfe9127b4b325f51520059a35b1516b78efbc998a33f002"
+  },
+  "retention": {
+    "current_canonical_files_only": true,
+    "minimum_necessary_source_embedded_textures": true,
+    "no_duplicate_models_or_media_in_formal_record": true,
+    "experiments_not_for_staging": true,
+    "historical_paths_and_hashes_are_provenance_not_replay": true,
+    "cleanup_receipt": "zander-release/retirement.validation.json"
+  },
+  "limits": "Current discrete490+five96phase motion checks are not continuous-time proof. Library ART not biological measurement. Raw extreme snout max4.646697%Wmax at t=.0007597 is original mouth-design difference; complete domain is not falsely labelled2%. Internal current gray/model/style/mouth/fins/motion/water reviewed; user waived further presentation and authorized completion-based installation/commit+push."
+}

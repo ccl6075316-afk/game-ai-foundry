@@ -1,0 +1,1083 @@
+{
+  "standard": {
+    "version": "2026-10-31-complete-production-v1",
+    "files": {
+      "resources/skills/fish-volume-production/references/production-sop.md": "0a2db867242650de076c0d280d5abe1d10fdc87de8b7218646a01b575cfdd533",
+      "resources/skills/fish-volume-production/references/fin-types-thickness-tail.md": "d01c5b3f894076fc57d6f39c2739420525331742276d75a4d4534574956dd2b3",
+      "resources/skills/fish-volume-production/references/source-surface-repair.md": "0695300f5b79df9ebd543d55a46b7fdbe92c79247a37984cb05765b6a15d956d",
+      "resources/skills/fish-volume-production/references/final-asset-export.md": "b2428bc63ed5b107b561eceed6e61068686e2b435f95191683863929b5456e4e",
+      "resources/skills/fish-volume-production/references/mouth-first-review.md": "a6fb778b09adf3a9dbe49a60eadfd39846a05be644a8f72208fa0a8db8484dbb",
+      "resources/skills/fish-volume-production/references/production-workflow-gates.md": "dba7d4c955270a0179cbc6affd50b53c7beb1ad30545c87656c4d89e0fe67d0b",
+      "cli/volume_sop.py": "7b7636be2d91987200295536b8385edfc2285f81eb0de1049d5f40637b4146c8",
+      "cli/volume_finalization.py": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+      "cli/volume_packed_acceptance.py": "7846babdbf9ec5e8c6346c1b3a7a841e3b9f630cb19cb61f433f39911249e004"
+    },
+    "criteria": {
+      "preparation": {
+        "research_and_measurements": "data",
+        "source_views_and_purposes": "data",
+        "accepted_source_provenance": "data",
+        "landmarks_and_part_inventory": "image",
+        "native_fin_cutouts_and_part_ownership": "data"
+      },
+      "head": {
+        "source_pose_comparison": "image",
+        "clay_side": "image",
+        "clay_front": "image",
+        "clay_top": "image",
+        "clay_bottom": "image",
+        "clay_oblique": "image",
+        "transverse_constraints": "data"
+      },
+      "mouth": {
+        "structure_branch_and_constraints": "data",
+        "whole_snout_and_chin": "image",
+        "integrated_upper_lower_jaws_and_cut": "image",
+        "misplaced_outline_ownership": "image",
+        "native_pixel_cover_and_actual_uv_joins": "image",
+        "source_donors_and_mouth_gap": "data",
+        "complete_native_lip_domain_and_front_exclusion": "report"
+      },
+      "eyes": {
+        "source_eye_and_ownership_domains": "image",
+        "opposite_and_top_views": "image",
+        "overlay_attachment_and_lod": "data"
+      },
+      "skin": {
+        "dorsal_material": "image",
+        "ventral_material": "image",
+        "hidden_fin_skin": "image",
+        "native_2d_donors_and_exclusions": "data",
+        "surface_opacity_inventory": "data",
+        "body_owned_fin_base_marks": "image"
+      },
+      "fins": {
+        "complete_species_fin_inventory_and_roots": "data",
+        "source_cutout_and_shape_comparison": "image",
+        "installed_visibility_and_body_occlusion": "data",
+        "all_fin_root_gate": "report",
+        "whole_fin_membrane_gate": "report",
+        "expanded_fin_visual_review": "image",
+        "actual_normal_thickness_and_tail_section": "report",
+        "fin_volume_end_on_and_top_clay": "image"
+      },
+      "motion": {
+        "native_loop": "report",
+        "swim": "image",
+        "turn": "image",
+        "ascend": "image",
+        "dive": "image",
+        "real_transitions_and_control_ranges": "report",
+        "jaw_or_other_action_branch": "data"
+      },
+      "runtime": {
+        "body_integrity_gpu_gate": "report",
+        "material_anchor_and_actual_lod": "report",
+        "motion_and_surface_gate": "report",
+        "cold_import_and_install_binding": "report",
+        "final_asset_cold_load": "report",
+        "exported_vs_experiment_comparison": "image"
+      },
+      "presentation": {
+        "source_style_final_comparison": "image",
+        "normal_and_close_game_views": "image",
+        "water_readability": "image",
+        "orbit_and_motion_video": "video",
+        "final_files_and_remaining_limits": "data"
+      }
+    }
+  },
+  "task_type": "repair",
+  "schema_version": 1,
+  "kind": "fish_production_sop_review",
+  "species": "yellow_croaker",
+  "candidate_files": {
+    "source_image": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker_char_yellow_croaker_082r2_nobg.png",
+      "sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09"
+    },
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+      "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+    },
+    "species_profile": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/yellow-croaker-lowpoly-r2-20261104.profile.json",
+      "sha256": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427"
+    },
+    "runtime_manifest": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/runtime-manifest.json",
+      "sha256": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5"
+    },
+    "motion_config": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker.json",
+      "sha256": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3"
+    },
+    "editable_blend": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+      "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+    },
+    "motion_controller": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "source_export_report": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/source-export.validation.json",
+      "sha256": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+    }
+  },
+  "evidence": {
+    "observations": {
+      "kind": "data",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/operator-observations.json",
+      "sha256": "42d90bdc8dc88f57a7cf509cdb8622dc135b07be37575590ea1e1ecf5797b703",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual sources, measured differences, real visual observations and limitations, including late cutout-water preflight failure."
+    },
+    "reference": {
+      "kind": "data",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow_croaker.reference-target.json",
+      "sha256": "e598dcfd9dc9bdd1e70c71744a1a6398439e53f830ccd92482a3b272b6af4faa",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Original frozen same-species artistic full continuous body target, normalization and unknowns."
+    },
+    "inventory": {
+      "kind": "data",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/complete-root-domains.json",
+      "sha256": "0daae55cefa5dd73ea9ede9cdeec36a4a8f0fb0d58c7422283d563a23a879a22",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "All7 actual source-owned fin roots at fulloriginalband.065, current canonicalidentity."
+    },
+    "volume": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/fin-volume.validation.json",
+      "sha256": "3ada5a5d631e501cca6f5af5776027c0cec83516639ae3185be14220ecfefb4c",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh R33 actual normal rays/taper/tail+constant-shell negative, currentmodel/profile hashes."
+    },
+    "physics": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/physics-applicability.validation.json",
+      "sha256": "4efe10a7ed9e1fcc61656f221026d08bde11a36bd4553adb10490eecae361284",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 complete490/072 results retained by exact currentnonmaterial arrays/BIN/PNG/rig/clip/domain/controller/profile proof plus fresh actual currentbonepose binding; no fake new490 capture."
+    },
+    "lip": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/mouth-proof/native-anterior-preservation.validation.json",
+      "sha256": "449af659b9580903a21f614690306c4e9140b6f4b40bf392b9a7e8d6b0e49c4e",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh actual canonicalR33 strict completeanterior+wholeoral+rimmapping."
+    },
+    "body": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/body077.validation.json",
+      "sha256": "52d74f6dfc29056c1ffd2087292a4365514a020d482a9704be206d04fcd4a18a",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "FreshR33 closedbody/5 opaque surfaces/strict original openeyes/16GPUviews/2poses/transparentnegative."
+    },
+    "motion": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/motion-controls.validation.json",
+      "sha256": "5473039b45b281e5b6d4ad142fad5ac79d5f066a323686acbdef0ab6a45ee5d3",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh R33 actual5x96 controlranges/4 real transitions/staticarraypreservation."
+    },
+    "installed": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/installed-entry.validation.json",
+      "sha256": "557205941632c2b34e00ccf9ec353b1e25612ad49f33a32b0eca04240f11f150",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh actual9canonicalentry276checks include currentR33 model/profile/scale/controllers/Fishing/lip/hook; physics gates separate."
+    },
+    "cold": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/final-cold-load.validation.json",
+      "sha256": "be886afb1d415b3fdcbad8ee14fb4a0b101bb466469f3966e762b8466af5da67",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh independentcanonicalGLTF process reads all8 exact candidate roles with nostaticbuilders and actual source-export binding."
+    },
+    "lod": {
+      "kind": "report",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/distance-review/distance-material.validation.json",
+      "sha256": "423c4a5957a38aa3b58ce4101c9d117a684cf6951b98067dcf9084f1e9c5f9b8",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual same-geometryR32 serialized LOD inventory and nearest native materials at3 perspective distances/2 thresholds; restored currentMASK separately verified in freshR33 water."
+    },
+    "video": {
+      "kind": "video",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/source-controls-orbit.mp4",
+      "sha256": "6ff4428a2d826256fc5061255630efc9d25da59e77dac794349b63f3941c8a38",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual priorR32 288 native-engine frames/24s at12fps: native+4actions+transitions and orbit. Geometry/PNG/animationexact toR33; newMASK is fresh currentwater, not falsely claimed in this historical movie."
+    },
+    "source2d": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker_char_yellow_croaker_082r2_nobg.png",
+      "sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual retained native2D source, no generated replacement."
+    },
+    "water": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r33/canonical-water/water-natural-freshwater-oblique.png",
+      "sha256": "3763c315569ecc92cd0b7fb882aa8156e32270a346b2879b01c4c8312069b7fc",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Fresh current canonicalR33 realdisplay entry, sameSwim.375/waterpreset3, MASK restoresallfin inventory acrossviews; publicwater unchanged."
+    },
+    "whole-left-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/whole-left-texture.png",
+      "sha256": "f5427d3d45a6e9e7578dcd78617b9dbc5d6893222c94e04dc086142c66ee02c6",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "whole-right-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/whole-right-texture.png",
+      "sha256": "1ee4014c833ff9293cdab1ec6c2c101acd1a3df2b13806793f6d15b2d1058022",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "whole-top-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/whole-top-texture.png",
+      "sha256": "1763883951e89747b508aa7e9db04a2c3f5b822a8242ad12c1e090a43c72b032",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "whole-bottom-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/whole-bottom-texture.png",
+      "sha256": "660c0a734298fd8472d4d448655131d7fccad7281934e7592bc59d735a99b30c",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "whole-oblique-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/whole-oblique-texture.png",
+      "sha256": "4e76bae782e389a4677a62830fb3232a50c1fa599b1ea2fb2770811aff2e7ae8",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-left-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-left-texture.png",
+      "sha256": "ca142015da284ed282d734969503f52094eb03f94396664d9fc63d423d2179ae",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-right-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-right-texture.png",
+      "sha256": "28679e9fab7e2a5f05e9bf6e1c35c28ef2993fbbf4d1f7e8dbb5591335cbfce4",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-top-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-top-texture.png",
+      "sha256": "c10d5cb6292edb49de365c4646cc935508827e115bcd17a47a6379d65425a64d",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "mouth-left-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/mouth-left-texture.png",
+      "sha256": "ecbddb808ba8e692927f13d0be2d6434f6afee0d0dd0ff739d77bd67eab4501a",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "mouth-front-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/mouth-front-texture.png",
+      "sha256": "2ac3978a47f8b4e6cbef05bff545ac7358393cdc486a21dd5a7121681c006449",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "mouth-bottom-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/mouth-bottom-texture.png",
+      "sha256": "53ddf7e9f89df8211258706d10822d94c0e9bad2399dc4c28770482c22fafd15",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "mouth-oblique-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/mouth-oblique-texture.png",
+      "sha256": "27ef20304e9112100d039a9cf56fca57f55c310229925f44ba43a9243676bc31",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "body-without-fins-left-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/body-without-fins-left-texture.png",
+      "sha256": "316125a6ab591a396f4cbe863e859a716f5410d2c9274e6ac20b3ed23e1b3ae4",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-left-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-left-clay.png",
+      "sha256": "fe2ef231aa3b97b64cf9866cb86d75538aa635a697def9d844b6d8541f8e4319",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-front-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-front-clay.png",
+      "sha256": "012ee2488cb4a85c6e939cb20d1ae9a40ecf74c05ba99b539afb100466047756",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-top-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-top-clay.png",
+      "sha256": "414888ebe6c3d8f4eb21d6af779d092844c9474a22c248e8aec809e99a7f3e6a",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-bottom-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-bottom-clay.png",
+      "sha256": "17a91523d0e479b2500675d431980ab366f6d3ff5f21b7bbcc1bb8469ca81fc3",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "head-oblique-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/head-oblique-clay.png",
+      "sha256": "2548ba0819ee3aee422a3258d2cc3dd3defd9a64d33c0a0fd7177694428988a6",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "fin-Caudal-front-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/fin-Caudal-front-clay.png",
+      "sha256": "99417bf37fe0587feeaf8c614ae61ecbb85ef792d65165dbe6f66fdb510c72fa",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "fin-Dorsal-top-clay": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/fin-Dorsal-top-clay.png",
+      "sha256": "10ecd679d8237c85be784904ee8336eac19f358c87688b0ddf040fbc849af179",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "fin-Pectoral_left-left-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/fin-Pectoral_left-left-texture.png",
+      "sha256": "b747966b317464a3bd4d2e77c553532e0615b1e2b3597fe152e6ded28185a2c3",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "fin-Pelvic_right-oblique-texture": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gpu-review/fin-Pelvic_right-oblique-texture.png",
+      "sha256": "219edfdfaf2afe87608f13d990a6843d8918b1f5d36003761c9de97a44723adf",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual R32 image retained under exact166-accessor/fullBIN/9PNG/rig/animation equivalence; R33 material-only MASK/culling applicability is explicit, not a claim of new image capture."
+    },
+    "far-lod0-left": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/distance-review/far-lod0-left.png",
+      "sha256": "be46a4c22d00120ba1bc02d04a767398717397658d02a4b7a16eff49ec58eeaa",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual priorR32 perspective distance/LOD capture under explicit samegeometry/PNG proof; currentMASKwater checkedfresh."
+    },
+    "normal-lod0-oblique": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/distance-review/normal-lod0-oblique.png",
+      "sha256": "0f38d90e310baafd51c64db13c659a08feea26695d4c24a2c52a3d4906546e3a",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual priorR32 perspective distance/LOD capture under explicit samegeometry/PNG proof; currentMASKwater checkedfresh."
+    },
+    "close-head-lod0-oblique": {
+      "kind": "image",
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/distance-review/close-head-lod0-oblique.png",
+      "sha256": "06d65a7d20f409e907824313297928fad7d071fbae5993668bc81d39aed43bcd",
+      "bound_inputs": {
+        "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+        "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+        "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+        "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+        "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+        "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+      },
+      "species": "yellow_croaker",
+      "observation": "Actual priorR32 perspective distance/LOD capture under explicit samegeometry/PNG proof; currentMASKwater checkedfresh."
+    }
+  },
+  "stages": {
+    "preparation": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Reviewed original whole continuous body silhouette, repaired source R8 shoulder maximum; full grey top/front/oblique and native sides. Posterior point budget keeps complete 169 top/164 side min/max envelope events exactly; off-axis finite surface max0.2642mm at2 removed points, nearestroot24.03mm. Separate earlier tail interior patch max2.63mm with full old boundary retained. No uniform2% biological claim.",
+      "checks": {
+        "research_and_measurements": [
+          "reference",
+          "observations"
+        ],
+        "source_views_and_purposes": [
+          "observations"
+        ],
+        "accepted_source_provenance": [
+          "observations"
+        ],
+        "landmarks_and_part_inventory": [
+          "whole-left-texture",
+          "source2d"
+        ],
+        "native_fin_cutouts_and_part_ownership": [
+          "inventory",
+          "observations"
+        ]
+      }
+    },
+    "head": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Reviewed original whole continuous body silhouette, repaired source R8 shoulder maximum; full grey top/front/oblique and native sides. Posterior point budget keeps complete 169 top/164 side min/max envelope events exactly; off-axis finite surface max0.2642mm at2 removed points, nearestroot24.03mm. Separate earlier tail interior patch max2.63mm with full old boundary retained. No uniform2% biological claim.",
+      "checks": {
+        "source_pose_comparison": [
+          "source2d",
+          "head-left-texture"
+        ],
+        "clay_side": [
+          "head-left-clay"
+        ],
+        "clay_front": [
+          "head-front-clay"
+        ],
+        "clay_top": [
+          "head-top-clay"
+        ],
+        "clay_bottom": [
+          "head-bottom-clay"
+        ],
+        "clay_oblique": [
+          "head-oblique-clay"
+        ],
+        "transverse_constraints": [
+          "reference",
+          "observations"
+        ]
+      }
+    },
+    "mouth": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Original integrated upper/lower volume and real opening maintained; current strict complete anterior+wholeoral+all rimneighbours514faces1542rows, upper52/lower50/commissure2.",
+      "checks": {
+        "structure_branch_and_constraints": [
+          "observations"
+        ],
+        "whole_snout_and_chin": [
+          "mouth-left-texture"
+        ],
+        "integrated_upper_lower_jaws_and_cut": [
+          "mouth-oblique-texture"
+        ],
+        "misplaced_outline_ownership": [
+          "mouth-bottom-texture"
+        ],
+        "native_pixel_cover_and_actual_uv_joins": [
+          "mouth-front-texture"
+        ],
+        "source_donors_and_mouth_gap": [
+          "observations"
+        ],
+        "complete_native_lip_domain_and_front_exclusion": [
+          "lip"
+        ]
+      },
+      "implementation": {
+        "branch": "integrated_jaw_cut",
+        "body_resource_role": "model",
+        "cut_line": "Actual original full native shared upper/lower oral seam with current strict514face protecteddomain.",
+        "upper_jaw": "Integrated real opaqueupperjaw volume, retainedsourcecut/UV/RGB and currenttransverseform.",
+        "lower_jaw": "Integrated lowerjaw/floor volume and originalforwardrim retained; no added lipstrip or pinch-to-zero cap.",
+        "method_reference": "mouth-first-review.md; fresh complete_anterior nativepreservation + actual grey/native views."
+      }
+    },
+    "eyes": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Original open25physicalV/36F/12boundary caps retain topology/UV/PNG/relief; actual finitebody supports and namedweights maxerror2.83e-8.",
+      "checks": {
+        "source_eye_and_ownership_domains": [
+          "head-left-texture",
+          "source2d"
+        ],
+        "opposite_and_top_views": [
+          "head-right-texture",
+          "head-top-texture"
+        ],
+        "overlay_attachment_and_lod": [
+          "observations"
+        ]
+      }
+    },
+    "skin": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Original protected anterior/oral chart retained. Shoulder and8 posterior new triangles copy actual same old finite face nativeRGBA pixels with no interpolation between UV islands; old images retained; native nearest/no mip.",
+      "checks": {
+        "dorsal_material": [
+          "whole-top-texture"
+        ],
+        "ventral_material": [
+          "whole-bottom-texture"
+        ],
+        "hidden_fin_skin": [
+          "body-without-fins-left-texture"
+        ],
+        "native_2d_donors_and_exclusions": [
+          "observations"
+        ],
+        "surface_opacity_inventory": [
+          "observations"
+        ],
+        "body_owned_fin_base_marks": [
+          "body-without-fins-left-texture"
+        ]
+      }
+    },
+    "fins": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Complete7 fins, all original source_t basal bands.065 retained. Original longitudinal positions/axes, original side shape protected; paired freefin andpivot move transversely together. True normal-thickness rays all0 misses, taper>=1.511, tail section passed; current fin shell negative rejected.",
+      "checks": {
+        "complete_species_fin_inventory_and_roots": [
+          "inventory"
+        ],
+        "source_cutout_and_shape_comparison": [
+          "source2d",
+          "fin-Pectoral_left-left-texture"
+        ],
+        "installed_visibility_and_body_occlusion": [
+          "observations"
+        ],
+        "all_fin_root_gate": [
+          "physics"
+        ],
+        "whole_fin_membrane_gate": [
+          "physics"
+        ],
+        "expanded_fin_visual_review": [
+          "whole-oblique-texture",
+          "fin-Pelvic_right-oblique-texture"
+        ],
+        "actual_normal_thickness_and_tail_section": [
+          "volume"
+        ],
+        "fin_volume_end_on_and_top_clay": [
+          "fin-Caudal-front-clay",
+          "fin-Dorsal-top-clay"
+        ]
+      }
+    },
+    "motion": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Current actual source nativeclip/controller/profile unchanged. Fresh5cases96phases and4transitions pass; actual new transition bone quaternions equal the geometry-verified prior candidate.",
+      "checks": {
+        "native_loop": [
+          "motion"
+        ],
+        "swim": [
+          "whole-left-texture"
+        ],
+        "turn": [
+          "whole-oblique-texture"
+        ],
+        "ascend": [
+          "whole-oblique-texture"
+        ],
+        "dive": [
+          "whole-oblique-texture"
+        ],
+        "real_transitions_and_control_ranges": [
+          "motion"
+        ],
+        "jaw_or_other_action_branch": [
+          "observations"
+        ]
+      }
+    },
+    "runtime": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Reviewed original whole continuous body silhouette, repaired source R8 shoulder maximum; full grey top/front/oblique and native sides. Posterior point budget keeps complete 169 top/164 side min/max envelope events exactly; off-axis finite surface max0.2642mm at2 removed points, nearestroot24.03mm. Separate earlier tail interior patch max2.63mm with full old boundary retained. No uniform2% biological claim.",
+      "checks": {
+        "body_integrity_gpu_gate": [
+          "body"
+        ],
+        "material_anchor_and_actual_lod": [
+          "lod"
+        ],
+        "motion_and_surface_gate": [
+          "motion"
+        ],
+        "cold_import_and_install_binding": [
+          "installed"
+        ],
+        "final_asset_cold_load": [
+          "cold"
+        ],
+        "exported_vs_experiment_comparison": [
+          "whole-left-texture",
+          "water"
+        ]
+      },
+      "finalization": {
+        "state": "exported",
+        "editable_source_role": "editable_blend",
+        "model_role": "model",
+        "entry_role": "model",
+        "static_parts": {
+          "body": {
+            "geometry_uv_weights_role": "model",
+            "observation": "Actual current canonicalGLB/source contains complete body; no retired staticconstructor."
+          },
+          "eyes": {
+            "geometry_uv_weights_role": "model",
+            "observation": "Actual current canonicalGLB/source contains complete eyes; no retired staticconstructor."
+          },
+          "mouth": {
+            "geometry_uv_weights_role": "model",
+            "observation": "Actual current canonicalGLB/source contains complete mouth; no retired staticconstructor."
+          },
+          "fins": {
+            "geometry_uv_weights_role": "model",
+            "observation": "Actual current canonicalGLB/source contains complete fins; no retired staticconstructor."
+          }
+        },
+        "engine_resource_roles": [],
+        "runtime_behaviors": [
+          {
+            "purpose": "animation",
+            "resource_role": "motion_controller",
+            "observation": "Only actual reviewed source-native loops, bone motion, actions and ordinarybehavior; no staticmodel construction."
+          }
+        ]
+      }
+    },
+    "presentation": {
+      "result": "passed",
+      "method": "Actual current canonical/source-only validation and operator review. Prior geometry media/490 explicitly retained via complete exact material-only equivalence; currentMASK/water/077/cold/entry fresh.",
+      "reviewer": "bass_croaker_zander; root independently reviewed form/currentwater and canonical entries",
+      "observations": "Reviewed original whole continuous body silhouette, repaired source R8 shoulder maximum; full grey top/front/oblique and native sides. Posterior point budget keeps complete 169 top/164 side min/max envelope events exactly; off-axis finite surface max0.2642mm at2 removed points, nearestroot24.03mm. Separate earlier tail interior patch max2.63mm with full old boundary retained. No uniform2% biological claim.",
+      "checks": {
+        "source_style_final_comparison": [
+          "source2d",
+          "whole-left-texture"
+        ],
+        "normal_and_close_game_views": [
+          "normal-lod0-oblique",
+          "close-head-lod0-oblique"
+        ],
+        "water_readability": [
+          "water"
+        ],
+        "orbit_and_motion_video": [
+          "video"
+        ],
+        "final_files_and_remaining_limits": [
+          "observations"
+        ]
+      }
+    }
+  },
+  "scope": "Current installed R33 technical completion under user conditional product acceptance. All prior geometry/media lineage explicitly declared; no substituted old model SHA or invented new490 run."
+}

@@ -1,0 +1,1138 @@
+{
+  "actions": [
+    {
+      "action": "Swim",
+      "action_phase": 0.03125,
+      "base_clip_time": 0.375,
+      "bend_radians": 0.0561609808801753,
+      "body_clock": 0.375,
+      "bone_overlays": [
+        {
+          "bone": "body_00",
+          "delay_seconds": 0.0,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0,
+          "yaw_radians": 0.0
+        },
+        {
+          "bone": "body_01",
+          "delay_seconds": 0.0622482279491388,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.00261318852468923,
+          "yaw_radians": -0.00230451644510978
+        },
+        {
+          "bone": "body_02",
+          "delay_seconds": 0.124470878808468,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.00503093047919818,
+          "yaw_radians": -0.00359387574620806
+        },
+        {
+          "bone": "body_03",
+          "delay_seconds": 0.186682353739325,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0169729066264179,
+          "yaw_radians": -0.00465473365803517
+        },
+        {
+          "bone": "body_04",
+          "delay_seconds": 0.24890455505242,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0234321551648916,
+          "yaw_radians": -0.00559155986249438
+        },
+        {
+          "bone": "body_05",
+          "delay_seconds": 0.311117148621581,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0167975439313929,
+          "yaw_radians": -0.00645074666388109
+        },
+        {
+          "bone": "body_06",
+          "delay_seconds": 0.373325393092291,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.00462758386755446,
+          "yaw_radians": -0.00725806726483926
+        },
+        {
+          "bone": "body_07",
+          "delay_seconds": 0.435534991428985,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0347341663646896,
+          "yaw_radians": -0.00802854641230718
+        },
+        {
+          "bone": "body_08",
+          "delay_seconds": 0.497750752730912,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0611006529446477,
+          "yaw_radians": -0.00877385202488085
+        },
+        {
+          "bone": "body_09",
+          "delay_seconds": 0.56,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.069686628715895,
+          "yaw_radians": -0.00950508280241954
+        }
+      ],
+      "bone_poses": {
+        "body_00": [
+          -0.482017159461975,
+          0.499676525592804,
+          0.499676525592804,
+          0.51798278093338
+        ],
+        "body_01": [
+          -0.00711723556742072,
+          0.00715368939563632,
+          0.000789322482887655,
+          0.999948799610138
+        ],
+        "body_02": [
+          -0.0161571633070707,
+          0.0161054227501154,
+          -0.00439203018322587,
+          0.999730169773102
+        ],
+        "body_03": [
+          -0.00519067933782935,
+          0.00561017543077469,
+          -0.0132001917809248,
+          0.999883651733398
+        ],
+        "body_04": [
+          0.00492891622707248,
+          -0.00425978051498532,
+          -0.0198825597763062,
+          0.999781131744385
+        ],
+        "body_05": [
+          0.00764613226056099,
+          -0.00744641572237015,
+          -0.0215153228491545,
+          0.999711632728577
+        ],
+        "body_06": [
+          0.0020902818068862,
+          -0.00221783225424588,
+          -0.0125831058248878,
+          0.999916195869446
+        ],
+        "body_07": [
+          0.00436375709250569,
+          -0.00422913953661919,
+          0.00580194173380733,
+          0.999964714050293
+        ],
+        "body_08": [
+          -0.0264078937470913,
+          0.0257981605827808,
+          0.028959708288312,
+          0.998898684978485
+        ],
+        "body_09": [
+          0.0173081960529089,
+          -0.0190662983804941,
+          0.0485925674438477,
+          0.998486697673798
+        ]
+      },
+      "computed_skin_envelope_m": 0.571549328729395,
+      "envelope_radius_m": 1.14,
+      "fin_clock": 0.375,
+      "fin_tracks": 7,
+      "head_path_local": [
+        0.128759607672691,
+        0.0,
+        0.382506251335144
+      ],
+      "head_world": [
+        0.128759637475014,
+        0.0,
+        0.382506251335144
+      ],
+      "heading": [
+        0.993162989616394,
+        0.0,
+        -0.116736114025116
+      ],
+      "inside_envelope": true,
+      "loop_seconds": 12.0,
+      "max_bend_rad": 0.0601815459134755,
+      "motion_controls": {
+        "body_amplitude": 1.0,
+        "body_frequency": 1.0,
+        "fin_amplitude": 1.0,
+        "fin_frequency": 1.0
+      },
+      "pending_action": "",
+      "pitch": 0.0,
+      "position": [
+        -0.140332147479057,
+        0.00434682797640562,
+        0.414135217666626
+      ],
+      "ready": true,
+      "species": "yellow_croaker",
+      "state": "steady",
+      "tail_world": [
+        -0.35035040974617,
+        0.000165268313139677,
+        0.407901525497437
+      ],
+      "time": 0.375,
+      "transition_remaining": 0.0,
+      "yaw": 0.117002882109423
+    },
+    {
+      "action": "Turn",
+      "action_phase": 0.03125,
+      "base_clip_time": 0.4125,
+      "bend_radians": 0.189531501538469,
+      "body_clock": 0.4125,
+      "bone_overlays": [
+        {
+          "bone": "body_00",
+          "delay_seconds": 0.0,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0,
+          "yaw_radians": 0.0
+        },
+        {
+          "bone": "body_01",
+          "delay_seconds": 0.0622482279491388,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.00317620172679479,
+          "yaw_radians": -0.00777634013694083
+        },
+        {
+          "bone": "body_02",
+          "delay_seconds": 0.124470878808468,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.00393939340233183,
+          "yaw_radians": -0.0121267054921029
+        },
+        {
+          "bone": "body_03",
+          "delay_seconds": 0.186682353739325,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0162974796333486,
+          "yaw_radians": -0.0157069246174843
+        },
+        {
+          "bone": "body_04",
+          "delay_seconds": 0.24890455505242,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0242160620054115,
+          "yaw_radians": -0.0188772555675976
+        },
+        {
+          "bone": "body_05",
+          "delay_seconds": 0.311117148621581,
+          "pitch_radians": 0.0,
+          "wave_radians": -0.0195226631373571,
+          "yaw_radians": -0.021773605878854
+        },
+        {
+          "bone": "body_06",
+          "delay_seconds": 0.373325393092291,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.000498444632222622,
+          "yaw_radians": -0.0245077787655197
+        },
+        {
+          "bone": "body_07",
+          "delay_seconds": 0.435534991428985,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0307583752402061,
+          "yaw_radians": -0.0270929562706942
+        },
+        {
+          "bone": "body_08",
+          "delay_seconds": 0.497750752730912,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0593406594172208,
+          "yaw_radians": -0.0296033011109133
+        },
+        {
+          "bone": "body_09",
+          "delay_seconds": 0.56,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0718412894268379,
+          "yaw_radians": -0.0320666336983625
+        }
+      ],
+      "bone_poses": {
+        "body_00": [
+          -0.482017159461975,
+          0.499676525592804,
+          0.499676525592804,
+          0.51798278093338
+        ],
+        "body_01": [
+          -0.00718550104647875,
+          0.0070853759534657,
+          -0.00157774717081338,
+          0.999947905540466
+        ],
+        "body_02": [
+          -0.016176437959075,
+          0.016085447743535,
+          -0.00791805610060692,
+          0.999708414077759
+        ],
+        "body_03": [
+          -0.0051127034239471,
+          0.00568734807893634,
+          -0.0180573295801878,
+          0.999807775020599
+        ],
+        "body_04": [
+          0.00504162395372987,
+          -0.00414560735225677,
+          -0.0266441777348518,
+          0.999623715877533
+        ],
+        "body_05": [
+          0.00768634211272001,
+          -0.00740263424813747,
+          -0.0305846426635981,
+          0.999475240707397
+        ],
+        "body_06": [
+          0.00203184178099036,
+          -0.0022753719240427,
+          -0.0240165255963802,
+          0.999706923961639
+        ],
+        "body_07": [
+          0.0042119137942791,
+          -0.00438091065734625,
+          -0.00737153692170978,
+          0.999954402446747
+        ],
+        "body_08": [
+          -0.0262746009975672,
+          0.0259474460035563,
+          0.0152441803365946,
+          0.999201714992523
+        ],
+        "body_09": [
+          0.0175472889095545,
+          -0.0188464764505625,
+          0.0359953641891479,
+          0.999020218849182
+        ]
+      },
+      "computed_skin_envelope_m": 0.571549328729395,
+      "envelope_radius_m": 1.14,
+      "fin_clock": 0.4125,
+      "fin_tracks": 7,
+      "head_path_local": [
+        0.0836937502026558,
+        0.0,
+        0.248629063367844
+      ],
+      "head_world": [
+        0.0836937725543976,
+        0.0,
+        0.248629048466682
+      ],
+      "heading": [
+        0.993163168430328,
+        0.0,
+        -0.116734057664871
+      ],
+      "inside_envelope": true,
+      "loop_seconds": 12.0,
+      "max_bend_rad": 0.0430933175730091,
+      "motion_controls": {
+        "body_amplitude": 1.0,
+        "body_frequency": 1.0,
+        "fin_amplitude": 1.0,
+        "fin_frequency": 1.0
+      },
+      "pending_action": "",
+      "pitch": 0.0,
+      "position": [
+        -0.185398072004318,
+        0.00434682797640562,
+        0.2802574634552
+      ],
+      "ready": true,
+      "species": "yellow_croaker",
+      "state": "steady",
+      "tail_world": [
+        -0.394817143678665,
+        0.000165263190865517,
+        0.250862658023834
+      ],
+      "time": 0.375,
+      "transition_remaining": 0.0,
+      "yaw": 0.117000822265638
+    },
+    {
+      "action": "Ascend",
+      "action_phase": 0.03125,
+      "base_clip_time": 0.375,
+      "bend_radians": 0.063175102205697,
+      "body_clock": 0.375,
+      "bone_overlays": [
+        {
+          "bone": "body_00",
+          "delay_seconds": 0.0,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0,
+          "yaw_radians": 0.0
+        },
+        {
+          "bone": "body_01",
+          "delay_seconds": 0.0622482279491388,
+          "pitch_radians": 0.000795561395221023,
+          "wave_radians": 0.00261318852468923,
+          "yaw_radians": -0.0025934197193675
+        },
+        {
+          "bone": "body_02",
+          "delay_seconds": 0.124470878808468,
+          "pitch_radians": 0.000643276495566003,
+          "wave_radians": -0.00503093047919818,
+          "yaw_radians": -0.0040425089390263
+        },
+        {
+          "bone": "body_03",
+          "delay_seconds": 0.186682353739325,
+          "pitch_radians": 0.000496659540123567,
+          "wave_radians": -0.0169729066264179,
+          "yaw_radians": -0.00523520637010799
+        },
+        {
+          "bone": "body_04",
+          "delay_seconds": 0.24890455505242,
+          "pitch_radians": 0.000355917159537755,
+          "wave_radians": -0.0234321551648916,
+          "yaw_radians": -0.00629227350310025
+        },
+        {
+          "bone": "body_05",
+          "delay_seconds": 0.311117148621581,
+          "pitch_radians": 0.000213060480120153,
+          "wave_radians": -0.0167975439313929,
+          "yaw_radians": -0.00725669126098647
+        },
+        {
+          "bone": "body_06",
+          "delay_seconds": 0.373325393092291,
+          "pitch_radians": 0.0000737472455159538,
+          "wave_radians": 0.00462758386755446,
+          "yaw_radians": -0.00816132397681116
+        },
+        {
+          "bone": "body_07",
+          "delay_seconds": 0.435534991428985,
+          "pitch_radians": -0.0000652331850014565,
+          "wave_radians": 0.0347341663646896,
+          "yaw_radians": -0.0090319129573278
+        },
+        {
+          "bone": "body_08",
+          "delay_seconds": 0.497750752730912,
+          "pitch_radians": -0.000207589930914243,
+          "wave_radians": 0.0611006529446477,
+          "yaw_radians": -0.00987103710280084
+        },
+        {
+          "bone": "body_09",
+          "delay_seconds": 0.56,
+          "pitch_radians": -0.000346915889416433,
+          "wave_radians": 0.069686628715895,
+          "yaw_radians": -0.0106907283761687
+        }
+      ],
+      "bone_poses": {
+        "body_00": [
+          -0.482017159461975,
+          0.499676525592804,
+          0.499676525592804,
+          0.51798278093338
+        ],
+        "body_01": [
+          -0.00751900300383568,
+          0.00714932940900326,
+          0.000656464602798223,
+          0.999945998191833
+        ],
+        "body_02": [
+          -0.0164799820631742,
+          0.0161055885255337,
+          -0.00461455574259162,
+          0.9997239112854
+        ],
+        "body_03": [
+          -0.00543429795652628,
+          0.00561811123043299,
+          -0.0134942410513759,
+          0.999878406524658
+        ],
+        "body_04": [
+          0.00475686229765415,
+          -0.00425026100128889,
+          -0.0202356688678265,
+          0.999774932861328
+        ],
+        "body_05": [
+          0.00754143157973886,
+          -0.00744215166196227,
+          -0.0219186712056398,
+          0.999703705310822
+        ],
+        "body_06": [
+          0.00205110898241401,
+          -0.00221963017247617,
+          -0.0130345011129975,
+          0.999910533428192
+        ],
+        "body_07": [
+          0.00439060339704156,
+          -0.00423475680872798,
+          0.00529995234683156,
+          0.999967396259308
+        ],
+        "body_08": [
+          -0.0262989476323128,
+          0.0258072707802057,
+          0.0284124929457903,
+          0.998917043209076
+        ],
+        "body_09": [
+          0.0174926947802305,
+          -0.0190477073192596,
+          0.048003938049078,
+          0.998512327671051
+        ]
+      },
+      "computed_skin_envelope_m": 0.571549328729395,
+      "envelope_radius_m": 1.14,
+      "fin_clock": 0.375,
+      "fin_tracks": 7,
+      "head_path_local": [
+        0.115883648395538,
+        0.0526743866503239,
+        0.34425562620163
+      ],
+      "head_world": [
+        0.1158836632967,
+        0.0526743941009045,
+        0.34425562620163
+      ],
+      "heading": [
+        0.905199646949768,
+        0.411454409360886,
+        -0.106390036642551
+      ],
+      "inside_envelope": true,
+      "loop_seconds": 12.0,
+      "max_bend_rad": 0.0589959003397263,
+      "motion_controls": {
+        "body_amplitude": 1.0,
+        "body_frequency": 1.0,
+        "fin_amplitude": 1.0,
+        "fin_frequency": 1.0
+      },
+      "pending_action": "",
+      "pitch": 0.424049220274526,
+      "position": [
+        -0.131151244044304,
+        -0.0548449717462063,
+        0.373290151357651
+      ],
+      "ready": true,
+      "species": "yellow_croaker",
+      "state": "steady",
+      "tail_world": [
+        -0.320846050977707,
+        -0.144923135638237,
+        0.363518536090851
+      ],
+      "time": 0.375,
+      "transition_remaining": 0.0,
+      "yaw": 0.116995371988209
+    },
+    {
+      "action": "Dive",
+      "action_phase": 0.03125,
+      "base_clip_time": 0.375,
+      "bend_radians": 0.063175102205697,
+      "body_clock": 0.375,
+      "bone_overlays": [
+        {
+          "bone": "body_00",
+          "delay_seconds": 0.0,
+          "pitch_radians": 0.0,
+          "wave_radians": 0.0,
+          "yaw_radians": 0.0
+        },
+        {
+          "bone": "body_01",
+          "delay_seconds": 0.0622482279491388,
+          "pitch_radians": -0.000795561395221023,
+          "wave_radians": 0.00261318852468923,
+          "yaw_radians": -0.0025934197193675
+        },
+        {
+          "bone": "body_02",
+          "delay_seconds": 0.124470878808468,
+          "pitch_radians": -0.000643276495566003,
+          "wave_radians": -0.00503093047919818,
+          "yaw_radians": -0.0040425089390263
+        },
+        {
+          "bone": "body_03",
+          "delay_seconds": 0.186682353739325,
+          "pitch_radians": -0.000496659540123567,
+          "wave_radians": -0.0169729066264179,
+          "yaw_radians": -0.00523520637010799
+        },
+        {
+          "bone": "body_04",
+          "delay_seconds": 0.24890455505242,
+          "pitch_radians": -0.000355917159537755,
+          "wave_radians": -0.0234321551648916,
+          "yaw_radians": -0.00629227350310025
+        },
+        {
+          "bone": "body_05",
+          "delay_seconds": 0.311117148621581,
+          "pitch_radians": -0.000213060480120153,
+          "wave_radians": -0.0167975439313929,
+          "yaw_radians": -0.00725669126098647
+        },
+        {
+          "bone": "body_06",
+          "delay_seconds": 0.373325393092291,
+          "pitch_radians": -0.0000737472455159538,
+          "wave_radians": 0.00462758386755446,
+          "yaw_radians": -0.00816132397681116
+        },
+        {
+          "bone": "body_07",
+          "delay_seconds": 0.435534991428985,
+          "pitch_radians": 0.0000652331850014565,
+          "wave_radians": 0.0347341663646896,
+          "yaw_radians": -0.0090319129573278
+        },
+        {
+          "bone": "body_08",
+          "delay_seconds": 0.497750752730912,
+          "pitch_radians": 0.000207589930914243,
+          "wave_radians": 0.0611006529446477,
+          "yaw_radians": -0.00987103710280084
+        },
+        {
+          "bone": "body_09",
+          "delay_seconds": 0.56,
+          "pitch_radians": 0.000346915889416433,
+          "wave_radians": 0.069686628715895,
+          "yaw_radians": -0.0106907283761687
+        }
+      ],
+      "bone_poses": {
+        "body_00": [
+          -0.482017159461975,
+          0.499676525592804,
+          0.499676525592804,
+          0.51798278093338
+        ],
+        "body_01": [
+          -0.00672379322350025,
+          0.00714971963316202,
+          0.000633517280220985,
+          0.999951720237732
+        ],
+        "body_02": [
+          -0.0158368069678545,
+          0.0161027275025845,
+          -0.0046181189827621,
+          0.999734282493591
+        ],
+        "body_03": [
+          -0.00493775214999914,
+          0.00561146717518568,
+          -0.0134864179417491,
+          0.999881148338318
+        ],
+        "body_04": [
+          0.00511265452951193,
+          -0.00425748340785503,
+          -0.0202298238873482,
+          0.999773263931274
+        ],
+        "body_05": [
+          0.00775443250313401,
+          -0.00744681665673852,
+          -0.0219177063554525,
+          0.999702036380768
+        ],
+        "body_06": [
+          0.00212484900839627,
+          -0.00222059013321996,
+          -0.0130348680540919,
+          0.999910295009613
+        ],
+        "body_07": [
+          0.00432537542656064,
+          -0.00423510698601604,
+          0.00530070764943957,
+          0.999967634677887
+        ],
+        "body_08": [
+          -0.0265063643455505,
+          0.0258011724799871,
+          0.0284102912992239,
+          0.998911678791046
+        ],
+        "body_09": [
+          0.0171462949365377,
+          -0.0190643593668938,
+          0.0479973293840885,
+          0.998518288135529
+        ]
+      },
+      "computed_skin_envelope_m": 0.571549328729395,
+      "envelope_radius_m": 1.14,
+      "fin_clock": 0.375,
+      "fin_tracks": 7,
+      "head_path_local": [
+        0.115883648395538,
+        -0.0526743866503239,
+        0.34425562620163
+      ],
+      "head_world": [
+        0.1158836632967,
+        -0.0526743903756142,
+        0.34425562620163
+      ],
+      "heading": [
+        0.905199646949768,
+        -0.411454409360886,
+        -0.106390036642551
+      ],
+      "inside_envelope": true,
+      "loop_seconds": 12.0,
+      "max_bend_rad": 0.0589959003397263,
+      "motion_controls": {
+        "body_amplitude": 1.0,
+        "body_frequency": 1.0,
+        "fin_amplitude": 1.0,
+        "fin_frequency": 1.0
+      },
+      "pending_action": "",
+      "pitch": -0.424049220274526,
+      "position": [
+        -0.127598658204079,
+        0.0627686381340027,
+        0.372872620820999
+      ],
+      "ready": true,
+      "species": "yellow_croaker",
+      "state": "steady",
+      "tail_world": [
+        -0.32071927189827,
+        0.145228177309036,
+        0.363503515720367
+      ],
+      "time": 0.375,
+      "transition_remaining": 0.0,
+      "yaw": 0.116995371988209
+    }
+  ],
+  "actual_checks": [
+    {
+      "check": "Fresh candidate role source_image",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role model",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role species_profile",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role runtime_manifest",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role motion_config",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role editable_blend",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role motion_controller",
+      "ok": true
+    },
+    {
+      "check": "Fresh candidate role source_export_report",
+      "ok": true
+    },
+    {
+      "check": "Independent GLTFDocument append",
+      "ok": true
+    },
+    {
+      "check": "Independent full model generated",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Anal0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Anal0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Caudal0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Caudal0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Closed_body0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Closed_body0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Closed_body1",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Closed_body1",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Closed_body2",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Closed_body2",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Closed_body3",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Closed_body3",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Closed_body4",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Closed_body4",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Dorsal0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Dorsal0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Native_eye_-10",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Native_eye_-10",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Native_eye_10",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Native_eye_10",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Pectoral_left0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Pectoral_left0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Pectoral_right0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Pectoral_right0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Pelvic_left0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Pelvic_left0",
+      "ok": true
+    },
+    {
+      "check": "Actual StandardMaterial Pelvic_right0",
+      "ok": true
+    },
+    {
+      "check": "Actual nearest donor Pelvic_right0",
+      "ok": true
+    },
+    {
+      "check": "Actual complete triangle budget",
+      "ok": true
+    },
+    {
+      "check": "Exact ordinary body/fin/overlay inventory",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Dorsal",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Anal",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Caudal",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Pectoral_left",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Pectoral_right",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Pelvic_left",
+      "ok": true
+    },
+    {
+      "check": "Complete fin Pelvic_right",
+      "ok": true
+    },
+    {
+      "check": "Complete decorative overlay Native_eye_-1",
+      "ok": true
+    },
+    {
+      "check": "Complete decorative overlay Native_eye_1",
+      "ok": true
+    },
+    {
+      "check": "One actual rig/player",
+      "ok": true
+    },
+    {
+      "check": "Actual reviewed controller configured",
+      "ok": true
+    },
+    {
+      "check": "Actual action accepted Swim",
+      "ok": true
+    },
+    {
+      "check": "Actual action executed Swim",
+      "ok": true
+    },
+    {
+      "check": "Actual action accepted Turn",
+      "ok": true
+    },
+    {
+      "check": "Actual action executed Turn",
+      "ok": true
+    },
+    {
+      "check": "Actual action accepted Ascend",
+      "ok": true
+    },
+    {
+      "check": "Actual action executed Ascend",
+      "ok": true
+    },
+    {
+      "check": "Actual action accepted Dive",
+      "ok": true
+    },
+    {
+      "check": "Actual action executed Dive",
+      "ok": true
+    },
+    {
+      "check": "Configure and actions preserve actual geometry/UV/skin/material resources",
+      "ok": true
+    },
+    {
+      "check": "Exact fresh editable-source export binding",
+      "ok": true
+    }
+  ],
+  "actual_materials": [
+    {
+      "alpha_mode": 2,
+      "material": "Anal_native_source",
+      "mesh": "Anal",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Caudal_native_source",
+      "mesh": "Caudal",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Yellow croaker native clean side skin",
+      "mesh": "Closed_body",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Front skin source chart",
+      "mesh": "Closed_body",
+      "surface": 1,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Front mouth oral chart",
+      "mesh": "Closed_body",
+      "surface": 2,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Current canonical posterior shoulder chart",
+      "mesh": "Closed_body",
+      "surface": 3,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Current posterior internal body chart",
+      "mesh": "Closed_body",
+      "surface": 4,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Dorsal_native_source",
+      "mesh": "Dorsal",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Yellow croaker native clean side skin",
+      "mesh": "Native_eye_-1",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 0,
+      "material": "Yellow croaker native clean side skin",
+      "mesh": "Native_eye_1",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Pectoral_left_native_source",
+      "mesh": "Pectoral_left",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Pectoral_right_native_source",
+      "mesh": "Pectoral_right",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Pelvic_left_native_source",
+      "mesh": "Pelvic_left",
+      "surface": 0,
+      "texture": true
+    },
+    {
+      "alpha_mode": 2,
+      "material": "Pelvic_right_native_source",
+      "mesh": "Pelvic_right",
+      "surface": 0,
+      "texture": true
+    }
+  ],
+  "actual_mesh_inventory": [
+    "Anal",
+    "Caudal",
+    "Closed_body",
+    "Dorsal",
+    "Native_eye_-1",
+    "Native_eye_1",
+    "Pectoral_left",
+    "Pectoral_right",
+    "Pelvic_left",
+    "Pelvic_right"
+  ],
+  "actual_triangles": 2000,
+  "bound_inputs": {
+    "editable_blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+    "model": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+    "motion_config": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+    "motion_controller": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+    "runtime_manifest": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5",
+    "source_export_report": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f",
+    "source_image": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09",
+    "species_profile": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427"
+  },
+  "checks": {
+    "export_matches_candidate": true,
+    "independent_load": true,
+    "materials_complete": true,
+    "rig_and_motion": true
+  },
+  "context_sha256": "a63bf347864fb8fb7497cd76f2d6f24b6e3279dfed9c536d83f332269449f9ab",
+  "direct_GLTFDocument": true,
+  "entry_role": "model",
+  "errors": [],
+  "fresh_process": true,
+  "kind": "fish_final_asset_cold_load",
+  "ok": true,
+  "runtime_static_build_calls": 0,
+  "species": "yellow_croaker",
+  "static_arrays_uv_material_digest": "4334690a6f82ae12d30f378ce13f97e93568729c26b84daeaf0853ed8adf580c",
+  "static_builders_disabled": true
+}

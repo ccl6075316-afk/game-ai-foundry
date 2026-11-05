@@ -1,0 +1,286 @@
+{
+  "kind": "installed_actual_canonical_entry_compact",
+  "ok": true,
+  "full_fresh_run_sha256": "11aa247471843e55938ca9c731f517b4ad95adda9f62fdd18947422c437a8312",
+  "original_report": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/root-review/nine-entry-final-three-installed.validation.json",
+  "fresh_process": true,
+  "full_check_count": 276,
+  "errors": [],
+  "owned_fish": {
+    "display_scale": 0.503640294075012,
+    "inventory": {
+      "actual_surfaces": 14,
+      "materials": "reviewed GLB; nearest-only engine binding",
+      "mesh_count": 11,
+      "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+      "nearest_binding": [
+        {
+          "effective_filter": 0,
+          "mesh": "Anal",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Caudal",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Closed_body",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Closed_body",
+          "source_filter": 0,
+          "surface": 1
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Closed_body",
+          "source_filter": 0,
+          "surface": 2
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Closed_body",
+          "source_filter": 0,
+          "surface": 3
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Dorsal_soft",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Dorsal_spiny",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Eye_relief112_-1_0",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Eye_relief112_1_0",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Pectoral_left",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Pectoral_right",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Pelvic_left",
+          "source_filter": 0,
+          "surface": 0
+        },
+        {
+          "effective_filter": 0,
+          "mesh": "Pelvic_right",
+          "source_filter": 0,
+          "surface": 0
+        }
+      ],
+      "species": "zander",
+      "static_build_calls": 0,
+      "static_builders_disabled": true,
+      "triangles": 2000
+    },
+    "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+    "mouth_poses": [
+      {
+        "action": "Swim",
+        "position": [
+          0.248856514692307,
+          -0.00972471665591002,
+          0.00436840625479817
+        ]
+      },
+      {
+        "action": "Turn",
+        "position": [
+          0.248856484889984,
+          -0.00972471665591002,
+          0.00436899112537503
+        ]
+      },
+      {
+        "action": "Ascend",
+        "position": [
+          0.248781785368919,
+          -0.0114996004849672,
+          0.00424690451472998
+        ]
+      },
+      {
+        "action": "Dive",
+        "position": [
+          0.248873561620712,
+          -0.00794794131070375,
+          0.0042916052043438
+        ]
+      }
+    ],
+    "recipe_sha256": "08d47c4c7456b653f7f0f176ee730839c300203191c50e260053f6bf1c7e32b4",
+    "species": "zander",
+    "static_digest": "433238e95ebf7f6f68092804a3cd529c93277059d547bb99822660bd93560d84",
+    "table_scale": 0.503640320726227
+  },
+  "owned_checks": [
+    {
+      "check": "zander actual canonical GLB hash",
+      "ok": true
+    },
+    {
+      "check": "zander finalized branch selected",
+      "ok": true
+    },
+    {
+      "check": "zander exact finalizer without static builders",
+      "ok": true
+    },
+    {
+      "check": "zander reviewed display scale",
+      "ok": true
+    },
+    {
+      "check": "zander exact motion profile",
+      "ok": true
+    },
+    {
+      "check": "zander exact controller",
+      "ok": true
+    },
+    {
+      "check": "zander one skeleton and player",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Anal:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Caudal:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:1",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:2",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Closed_body:3",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Dorsal_soft:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Dorsal_spiny:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Eye_relief112_-1_0:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Eye_relief112_1_0:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pectoral_left:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pectoral_right:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pelvic_left:0",
+      "ok": true
+    },
+    {
+      "check": "zander nearest Pelvic_right:0",
+      "ok": true
+    },
+    {
+      "check": "zander action changes retain static geometry UV skin rig",
+      "ok": true
+    },
+    {
+      "check": "zander actual Fishing configure",
+      "ok": true
+    },
+    {
+      "check": "zander exact body-owned upper lip",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Swim",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Swim",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Turn",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Turn",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Ascend",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Ascend",
+      "ok": true
+    },
+    {
+      "check": "zander real skinned lip Dive",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing owns world transform Dive",
+      "ok": true
+    },
+    {
+      "check": "zander Fishing actions retain static arrays",
+      "ok": true
+    },
+    {
+      "check": "zander actual upper lip hook placement",
+      "ok": true
+    }
+  ],
+  "retention": "Original full multi-fish report/log locators become provenance after retirement; this compact current canonical row/checks is retained."
+}

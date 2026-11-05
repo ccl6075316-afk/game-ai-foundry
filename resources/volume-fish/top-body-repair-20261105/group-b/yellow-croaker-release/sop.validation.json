@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "ok": true,
+  "command": "volume.sop-check",
+  "status": "done",
+  "next_action": "human_review",
+  "species": "yellow_croaker",
+  "review_sha256": "a89795f0c8ab1bc4124282c1dcde7cb2efa767d7881c4d038c5f7ec031bae06f",
+  "checker_sha256": "7b7636be2d91987200295536b8385edfc2285f81eb0de1049d5f40637b4146c8",
+  "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+  "candidate_files": {
+    "source_image": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker_char_yellow_croaker_082r2_nobg.png",
+      "sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09"
+    },
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+      "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+    },
+    "species_profile": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/yellow-croaker-lowpoly-r2-20261104.profile.json",
+      "sha256": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427"
+    },
+    "runtime_manifest": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/runtime-manifest.json",
+      "sha256": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5"
+    },
+    "motion_config": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker.json",
+      "sha256": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3"
+    },
+    "editable_blend": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+      "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+    },
+    "motion_controller": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "source_export_report": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/source-export.validation.json",
+      "sha256": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+    }
+  },
+  "stages": [
+    {
+      "stage": "preparation",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "head",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "mouth",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "eyes",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "skin",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "fins",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "motion",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "runtime",
+      "ok": true,
+      "failures": []
+    },
+    {
+      "stage": "presentation",
+      "ok": true,
+      "failures": []
+    }
+  ],
+  "evidence_count": 37,
+  "failures": [],
+  "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+}

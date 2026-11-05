@@ -1,6 +1,6 @@
 {
   "kind": "source_owned_fish_shape_repair_release",
-  "status": "partial_release",
+  "status": "finished",
   "user_acceptance": true,
   "user_instruction": "On completion of repairs and necessary checks, treat as finished and commit/push directly; no further user visual review. Submit only final assets, necessary code and compact records, no experimental payloads.",
   "date": "2026-11-05",
@@ -220,12 +220,135 @@
         "sha256": "4d51f5aecbf40de6a4cb2b86f77d93e3ca74132a995b27dbe75dd98308bcff2b"
       },
       "acceptance_basis": "User explicitly instructed repaired and technically checked fish to be finished and committed/pushed directly without further visual review."
+    },
+    {
+      "species": "blacktip_reef_shark",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd",
+        "bytes": 2063296
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+        "bytes": 2016804
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/blacktip_reef_shark.json",
+        "sha256": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea"
+      },
+      "model_scale": 1.5073972656894612,
+      "triangles": 3930,
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/blacktip_reef_shark-mouth-anchor.json",
+        "sha256": "16a43fdb4b080055fa8e149065d60dc38c7f302377327dc2b270b2a2af508b9a"
+      },
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-a/final/blacktip_reef_shark/source-domain.json",
+        "sha256": "9bdf59971911e0898951aa694f5ff124d0a3846ee07bd3adc5d49e094ca7cf15"
+      },
+      "species_profile": {
+        "path": "resources/volume-fish/blacktip-reef-shark-anatomy-20261101.profile.json",
+        "sha256": "6ea6224b520e77eb493278db1bd8090a0a3fcb08588905c478d8ef506cc39e1e"
+      },
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/blacktip_reef_shark.validation.json",
+        "sha256": "408e1371ac9c00ef65d4738e16182a20280211cf427cc48ec489b083f5a1daf4"
+      },
+      "acceptance_basis": "On completion of repairs and necessary checks, treat as finished and commit/push directly; no further user visual review. Submit only final assets, necessary code and compact records, no experimental payloads."
+    },
+    {
+      "species": "zander",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+        "bytes": 7268564
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+        "bytes": 7397664
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander.json",
+        "sha256": "eccf18bc7002dbdbae8e5a156da01de3aa5d4d46805568123e352792de795396"
+      },
+      "model_scale": 0.503640320726227,
+      "triangles": 2000,
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/zander-mouth-anchor.json",
+        "sha256": "08d47c4c7456b653f7f0f176ee730839c300203191c50e260053f6bf1c7e32b4"
+      },
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/complete-root-domains.json",
+        "sha256": "68d512f2392487981b9777793a61217a6e1dab61a22e9db036236fd56e4aed14"
+      },
+      "species_profile": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-c/zander-final.profile.json",
+        "sha256": "d320e556874b252859e004c5691514f23072b39b70927c7c24e5a1e5147c350e"
+      },
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/zander.validation.json",
+        "sha256": "e422a2fda5c02b0a3cf88f47d720ca6327879875d747cf73c99750928bb92a57"
+      },
+      "acceptance_basis": "On completion of repairs and necessary checks, treat as finished and commit/push directly; no further user visual review. Submit only final assets, necessary code and compact records, no experimental payloads."
+    },
+    {
+      "species": "yellow_croaker",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "bytes": 6641605
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "bytes": 6843648
+      },
+      "motion_profile": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker.json",
+        "sha256": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3"
+      },
+      "model_scale": 0.6020983090988126,
+      "triangles": 2000,
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker-mouth-anchor.json",
+        "sha256": "69f7e450691403ac2cdd2ddf8271baf1e20e6fe340e9cf2f6682522a36d7f31a"
+      },
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/complete-root-domains.json",
+        "sha256": "0daae55cefa5dd73ea9ede9cdeec36a4a8f0fb0d58c7422283d563a23a879a22"
+      },
+      "species_profile": {
+        "path": "resources/volume-fish/yellow-croaker-lowpoly-r2-20261104.profile.json",
+        "sha256": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427"
+      },
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/yellow_croaker.validation.json",
+        "sha256": "c97aa98c9e258e37cc5485965cbabe0946fbe28069dea3764094dd24a5f6354d"
+      },
+      "acceptance_basis": "On completion of repairs and necessary checks, treat as finished and commit/push directly; no further user visual review. Submit only final assets, necessary code and compact records, no experimental payloads."
     }
   ],
-  "acceptance_scope": "Only completed fish rows below. Other requested species remain pending and are not admitted by this release.",
-  "pending_species": [
-    "yellow_croaker",
-    "zander",
-    "blacktip_reef_shark"
-  ]
+  "acceptance_scope": "All nine explicitly requested repairs are technically completed, installed and accepted under the user instruction. Existing limitations remain in the per-fish records; unrelated15 fish stay unchanged.",
+  "pending_species": [],
+  "completed_date": "2026-11-06",
+  "source_and_model_bytes": 123251558,
+  "actual_canonical_entry": {
+    "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/canonical-entry.validation.json",
+    "sha256": "557205941632c2b34e00ccf9ec353b1e25612ad49f33a32b0eca04240f11f150"
+  },
+  "retirement": {
+    "path": "resources/volume-fish/top-body-repair-20261105/retirement.validation.json",
+    "sha256": "c23a5c3b6c38b53790249dcf303e19a3e88fae4e9d1b8f1daf2c9d38861ec39d"
+  }
 }

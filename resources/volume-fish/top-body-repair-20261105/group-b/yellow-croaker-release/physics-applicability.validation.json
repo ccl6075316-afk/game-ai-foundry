@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "kind": "exact_material_only_current_model_geometry_validation_applicability",
+  "species": "yellow_croaker",
+  "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "original_model_sha256": "de220ab296f1c0009ac6fc1c86f8d4473cde67cafb2c367420fb94b40b1272e1",
+  "original_490_completion": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/full490/completion.validation.json",
+    "sha256": "6a7a9ebd28edd5dd9e0592a0431d3293d404c9fe9a8c97bcaaa0580668defbae"
+  },
+  "original_072": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/gate072/completion.validation.json",
+    "sha256": "7c10a6e175d75f33dc09066fc6805100b540850c2d43ce40ecd0c835b87bdfc7"
+  },
+  "original_static_self": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r32/fin-self.validation.json",
+    "sha256": "3d9c13057b83998d58302a6a023fe9ce08f12c3564be4f0204ff9a2e0e7a877e"
+  },
+  "exact_nonmaterial_equivalence": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/material-only-equivalence.validation.json",
+    "sha256": "4cdbe84c1e898c5ec4e0b5fe081965c6f642c7e8479ff5598d2a277cc7c9c9a0"
+  },
+  "all_current_complete_root_domain_coordinates_identical": true,
+  "current_profile_SHA": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+  "current_controller_SHA": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+  "original_actual_pose_count": 490,
+  "new_490_pose_capture_performed": false,
+  "old_report_bytes_and_hashes_unchanged": true,
+  "scope": "Applies original actually sampled490 root/membrane and072 results to this material-only current model by exact166 accessor/9PNG/full BIN, all nodes/skins/IBMs/animation, complete root domain, and unchanged controller/profile identity. This is an explicit applicability proof, not a new490 run or rewritten old model SHA. Fresh current mouth/077/export/cold/entry/water are separate.",
+  "fresh_actual_current_bone_pose_binding": {
+    "current_motion_report": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/motion-controls.validation.json",
+      "sha256": "5473039b45b281e5b6d4ad142fad5ac79d5f066a323686acbdef0ab6a45ee5d3"
+    },
+    "five_96_phase_control_case_metrics_exact": true,
+    "actual_four_transition_bone_quaternions_exact": true,
+    "native_animation_and_all_skin_bind_matrices_exact_in_GLTF": true
+  }
+}

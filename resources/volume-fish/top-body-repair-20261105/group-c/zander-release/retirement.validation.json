@@ -1,0 +1,33 @@
+{
+  "kind": "accepted_zander_experiment_retirement",
+  "authorization": "Parent verified installed same a348/7f16 and actual nine-fish276 pass; explicit user finished-asset cleanup.",
+  "deleted_files": 1845,
+  "deleted_bytes": 1004862408,
+  "earlier_zander_operations": [
+    {
+      "operation": "zander_rejected_C1_C2_C4",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/rejected-heavy-retirement.validation.json",
+      "receipt_sha256": "c7228f6a71342dfba9d88ee01c768b0c51024b8e45f37820d148444da73e47d3",
+      "deleted_files": 12,
+      "deleted_bytes": 47378718,
+      "by_species": {}
+    },
+    {
+      "operation": "zander_accidental_C3_dense487",
+      "deleted_files": 487,
+      "deleted_bytes": 267544738,
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c3/same-bad-poses/zander/export.validation.json",
+      "receipt_sha256": "0b577e33fe991f73e43aeeaefb1114c2bdb98d972b8c00ebbdb5273c82bad3d9"
+    },
+    {
+      "operation": "zander_final_repeat_export",
+      "deleted_files": 1,
+      "deleted_bytes": 7397664,
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/repeat-equivalence.validation.json",
+      "receipt_sha256": "ce74d5d671e7e597f79dfedf0b91320a51a888cac84f1edd765b58ccf5fbe31b"
+    }
+  ],
+  "retained": "Only canonical current source/model/motion, formal profile125root domains/core numbers/method/source-owned exporters; no duplicate media/models/dense arrays.",
+  "historical_evidence_status": "Original SOP9/54 and490/077 receipt SHA retained; old paths are provenance, not replayable.",
+  "group_C_receipt": "group-c-retirement.validation.json"
+}

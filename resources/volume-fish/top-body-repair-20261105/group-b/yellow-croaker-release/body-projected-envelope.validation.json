@@ -1,0 +1,49 @@
+{
+  "kind": "actual_complete_projected_finite_body_before_after",
+  "input_source_report": "body-finite-before-after.json",
+  "views": {
+    "top": {
+      "symmetric_difference_area_native2": 2.479519768204841e-27,
+      "maximum_bidirectional_boundary_distance_native": 0.07342345504398264,
+      "old_bounds": [
+        -0.36000001430511475,
+        -0.07952514290809631,
+        0.49800458550453186,
+        0.07952514290809631
+      ],
+      "new_bounds": [
+        -0.36000001430511475,
+        -0.07952514290809631,
+        0.49800458550453186,
+        0.07952514290809631
+      ],
+      "complete_envelope_events": 169,
+      "maximum_outer_min_max_envelope_error_native": 0.0,
+      "old_maximum_full_width_native": 0.15905028581619263,
+      "new_maximum_full_width_native": 0.15905028581619263,
+      "raw_union_boundary_distance_caveat": "Raw Hausdorff includes floating zero-area internal seams; complete edge-arrangement outer min/max envelope is independently evaluated at every old/new union boundary and vertex X event."
+    },
+    "side": {
+      "symmetric_difference_area_native2": 0.0,
+      "maximum_bidirectional_boundary_distance_native": 0.0,
+      "old_bounds": [
+        -0.36000001430511475,
+        -0.11226265877485275,
+        0.49800458550453186,
+        0.10323832929134369
+      ],
+      "new_bounds": [
+        -0.36000001430511475,
+        -0.11226265877485275,
+        0.49800458550453186,
+        0.10323832929134369
+      ],
+      "complete_envelope_events": 164,
+      "maximum_outer_min_max_envelope_error_native": 0.0,
+      "old_maximum_full_width_native": 0.21514001488685608,
+      "new_maximum_full_width_native": 0.21514001488685608,
+      "raw_union_boundary_distance_caveat": "Raw Hausdorff includes floating zero-area internal seams; complete edge-arrangement outer min/max envelope is independently evaluated at every old/new union boundary and vertex X event."
+    }
+  },
+  "formal_acceptance": false
+}

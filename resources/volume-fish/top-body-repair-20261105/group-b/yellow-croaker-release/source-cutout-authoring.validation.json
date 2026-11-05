@@ -1,0 +1,253 @@
+{
+  "kind": "source_owned_original_cutout_material_restoration",
+  "input_source_sha256": "f13aabb3aff95d753719c62885fa5b2b514314bc8c37aa5dad8f606620dd8c69",
+  "original_accepted_source_sha256": "1e07ebdd0d7a882f53e2a6b122f38a92aa188471a6e2140c2ac55546d8101d12",
+  "output_source_sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+  "original_source_material_audit": [
+    {
+      "name": "Anal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Caudal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Dorsal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pectoral_left_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pectoral_right_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pelvic_left_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pelvic_right_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    }
+  ],
+  "current_r32_source_material_audit": [
+    {
+      "name": "Anal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Caudal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Dorsal_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pectoral_left_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pectoral_right_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pelvic_left_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    },
+    {
+      "name": "Pelvic_right_native_source",
+      "culling": false,
+      "surface_render_method": "DITHERED",
+      "alpha_links": [
+        {
+          "node": "\u56fe\u50cf\u7eb9\u7406",
+          "type": "TEX_IMAGE",
+          "socket": "Alpha",
+          "operation": null
+        }
+      ],
+      "custom_contracts": {}
+    }
+  ],
+  "changes": [
+    {
+      "material": "Anal_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Caudal_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Dorsal_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Pectoral_left_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Pectoral_right_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Pelvic_left_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    },
+    {
+      "material": "Pelvic_right_native_source",
+      "alpha_input_source": "\u56fe\u50cf\u7eb9\u7406:Alpha",
+      "threshold": 0.5,
+      "original_RGBA_UV_unchanged": true
+    }
+  ],
+  "mesh_geometry_UV_normals_named_skin_rig_signatures_exact": true,
+  "public_water_unchanged": true,
+  "formal_acceptance": false
+}

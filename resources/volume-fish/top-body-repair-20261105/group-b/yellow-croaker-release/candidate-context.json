@@ -1,0 +1,53 @@
+{
+  "species": "yellow_croaker",
+  "candidate_files": {
+    "source_image": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker_char_yellow_croaker_082r2_nobg.png",
+      "sha256": "f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09"
+    },
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+      "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730"
+    },
+    "species_profile": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/yellow-croaker-lowpoly-r2-20261104.profile.json",
+      "sha256": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427"
+    },
+    "runtime_manifest": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/runtime-manifest.json",
+      "sha256": "17495aaeea3695ff01d813121aeb28529797807ac78ed7f9da8270c3a1243bd5"
+    },
+    "motion_config": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker.json",
+      "sha256": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3"
+    },
+    "editable_blend": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+      "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38"
+    },
+    "motion_controller": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/scripts/aquarium/FoundryFishMotion.gd",
+      "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+    },
+    "source_export_report": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/source-export.validation.json",
+      "sha256": "9266e4b45aff20f595f13a0a13ed602a3d52d3095b5b3645633cd6fbf292b64f"
+    }
+  },
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal",
+    "Anal",
+    "Caudal",
+    "Pectoral_left",
+    "Pectoral_right",
+    "Pelvic_left",
+    "Pelvic_right"
+  ],
+  "decorative_overlays": [
+    "Native_eye_-1",
+    "Native_eye_1"
+  ],
+  "triangles": 2000,
+  "model_scale": 0.6020983090988126
+}

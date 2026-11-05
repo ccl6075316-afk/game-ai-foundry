@@ -1,0 +1,1651 @@
+{
+  "kind": "group_C_independent_cleanup_operations_cumulative",
+  "actor": "C arapaima_tuna_shark",
+  "prior_independent_operations": [
+    {
+      "operation": "initial_rejected_candidates",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-20261105.json",
+      "receipt_sha256": "c2b86215667bf8c43b803fd2b41274e71432f356ce301683a03cb8c5a59311fe",
+      "deleted_files": 68,
+      "deleted_bytes": 155534849,
+      "by_species": {
+        "arapaima": 81811834,
+        "pacific_bluefin_tuna": 62830802,
+        "blacktip_reef_shark": 10892213
+      }
+    },
+    {
+      "operation": "failed_dense1461",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-dense-failures-20261105.json",
+      "receipt_sha256": "98eee5b0b205df427eeb109091388345d3d59d081a7b1d62e3cfabbf995b2014",
+      "deleted_files": 1461,
+      "deleted_bytes": 1062192056,
+      "by_species": {
+        "arapaima": 1062192056
+      }
+    },
+    {
+      "operation": "failed_tuna_dense980",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-tuna-failed-poses-20261105.json",
+      "receipt_sha256": "4490a9641a6c5866bd095495bf8e0bd3869cd4bd714849944483917a6a3d76b6",
+      "deleted_files": 980,
+      "deleted_bytes": 757191034,
+      "by_species": {
+        "pacific_bluefin_tuna": 757191034
+      }
+    },
+    {
+      "operation": "arapaima_superseded936",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-arapaima-superseded-20261105.json",
+      "receipt_sha256": "0e14965426205ce30f5a9b0dd5804f5e42d1517d100fcc2fa7c408994c2de47e",
+      "deleted_files": 936,
+      "deleted_bytes": 549410935,
+      "by_species": {
+        "arapaima": 549410935
+      }
+    },
+    {
+      "operation": "accepted_arapaima_current",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/arapaima-release/retirement.validation.json",
+      "receipt_sha256": "2719bc29568dfee5ca9ba7c09d4e15682913d24273df38c0873ff04d756c637b",
+      "deleted_files": 978,
+      "deleted_bytes": 421364779,
+      "by_species": {}
+    },
+    {
+      "operation": "accepted_tuna_current",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/retirement.validation.json",
+      "receipt_sha256": "bc9480b88532999f72222645e58ae0e8ddb87749d4a41fbd9e27b35b0c77a5d4",
+      "deleted_files": 1978,
+      "deleted_bytes": 1239603443,
+      "by_species": {}
+    },
+    {
+      "operation": "initial_source_exact_duplicates1",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/HANDOFF.md",
+      "receipt_sha256": "cea7b4b2d41c60eb149990086d6452d4f1d53a94d9b3121430bfd163798b51f7",
+      "deleted_files": null,
+      "deleted_bytes": 14537440,
+      "evidence": "Original contemporaneous exact deletion byte note; independent operation, old individual paths not retained."
+    },
+    {
+      "operation": "initial_source_exact_duplicates2",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/HANDOFF.md",
+      "receipt_sha256": "cea7b4b2d41c60eb149990086d6452d4f1d53a94d9b3121430bfd163798b51f7",
+      "deleted_files": null,
+      "deleted_bytes": 14537456,
+      "evidence": "Original contemporaneous exact deletion byte note; independent operation, old individual paths not retained."
+    },
+    {
+      "operation": "arapaima_formal_media_duplicates",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/HANDOFF.md",
+      "receipt_sha256": "cea7b4b2d41c60eb149990086d6452d4f1d53a94d9b3121430bfd163798b51f7",
+      "deleted_files": null,
+      "deleted_bytes": 9418878,
+      "evidence": "Original contemporaneous exact deletion byte note; independent operation, old individual paths not retained."
+    },
+    {
+      "operation": "tuna_final_repeat_export",
+      "deleted_files": 1,
+      "deleted_bytes": 7908876,
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/release.validation.json",
+      "receipt_sha256": "316922c0ec39d2c55550555a2314f0601629bffc05a99dc1df25a768b47161d4"
+    },
+    {
+      "operation": "zander_rejected_C1_C2_C4",
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/rejected-heavy-retirement.validation.json",
+      "receipt_sha256": "c7228f6a71342dfba9d88ee01c768b0c51024b8e45f37820d148444da73e47d3",
+      "deleted_files": 12,
+      "deleted_bytes": 47378718,
+      "by_species": {}
+    },
+    {
+      "operation": "zander_accidental_C3_dense487",
+      "deleted_files": 487,
+      "deleted_bytes": 267544738,
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c3/same-bad-poses/zander/export.validation.json",
+      "receipt_sha256": "0b577e33fe991f73e43aeeaefb1114c2bdb98d972b8c00ebbdb5273c82bad3d9"
+    },
+    {
+      "operation": "zander_final_repeat_export",
+      "deleted_files": 1,
+      "deleted_bytes": 7397664,
+      "original_receipt": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander/candidate-c15/repeat-equivalence.validation.json",
+      "receipt_sha256": "ce74d5d671e7e597f79dfedf0b91320a51a888cac84f1edd765b58ccf5fbe31b"
+    }
+  ],
+  "current_exact_operations": [
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/capture_local.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 6543,
+      "exact_inventory_sha256": "f6ebbdaf7c957d4574b323abce7a0e697ad837374c6b105ca3d0dd7e20ba898f",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 6543
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "c08e49d463aae30c5165b03ba2c95bbfd226f6040f925dc477bdc2a0009404d9"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/test_zander_spiny_supported_skin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2217,
+      "exact_inventory_sha256": "d7c616d71e48268d7f8ce1d13ca0907cfc034527279258df35eef16b24df7c6e",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2217
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "1b83455c6b77221fe236bebbd91de19cbdc1e9b73a736dc938bcab19d8037489"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/check_zander_longitudinal_skin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2058,
+      "exact_inventory_sha256": "46e3fdbcbebfcc906336e5e1ff5a770de6e78673f153bf3b1100ebb3a2b8a1da",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2058
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "acb5b932260a2bbe9098c1667424aed8e5db9a7a1c7bf6fd908b136efd4cad2c"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/capture_final_review.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 11965,
+      "exact_inventory_sha256": "22149f2b7dbfee764bb3e84dd68f8cf5d0dd3743b614b382d21fc3859850bc76",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 11965
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "ddfa6b39fd7833fa398e9bc0752d5fb4ec38ebd1e21d66ea34a621ee5b7a50e9"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander.native-eyes.accepted-baseline.json",
+      "deleted_files": 1,
+      "deleted_bytes": 249193,
+      "exact_inventory_sha256": "ad74316a005d0af28dbd7d83f43c0fa6993cb2299404e2eae08465391b566a07",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 249193
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "2535b7bcc9c43b97f5965f1a99e50c1b518f0a3b4a32b42893bd531615eecc85"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/reallocate_zander_posterior_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5579,
+      "exact_inventory_sha256": "3efc5ed508da7876f56736e712c0720048e1692da5eee416a6c5ef4bf575a075",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5579
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "b04121ccdcfccb6f7d90c29119a8b02d2e52bab42d1aecd1c3a2142773fdefc5"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_zander_source_identity.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2003,
+      "exact_inventory_sha256": "d070c60c5792af803d24f7da29e36215917c8f7fd1f47da80090930e58305286",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2003
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "217ded134a93fbdcfc7ffb95ccf82b381266348a33b07509ab3a1b58b5935177"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_check_local_roots.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2772,
+      "exact_inventory_sha256": "abde373b96056df3d90353375166f0fa48ba35626d05f9bd3d3ccab5c5565de1",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2772
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "b38e463bbb0b4087bc02e86a28543b0ef04e9bc81a51867911300efed0c14f0a"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_zander_dorsal_native_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3822,
+      "exact_inventory_sha256": "2872893901ada02a498fe6deed60543400c86259ac9cf202b52e09bb1454fc28",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3822
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6894e63f66342da34c5b299ca27d744532a213f43307579c260c1ee3ac614dfb"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/normalize_zander_final_normals.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1836,
+      "exact_inventory_sha256": "811e2eb1a84c56d8ac6da6be13cc991289490e09e0b42a7c232bb86fcaf5ceef",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1836
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "74b29b67debdc216c5e3640cd7f3a343d4f89b6d7313cc5c080172dc96514169"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_positive_native_relief.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7740,
+      "exact_inventory_sha256": "0613b89c2d7ccadf55ea099543ad3675332db3d309685ba7a5ec00bf0e317922",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7740
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6a1d6bfb8ddc0469ce32f7ab408e94b4004a4235222c9ca99b5fedaa2aa0a2ca"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_generate_anterior_native_proof.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5214,
+      "exact_inventory_sha256": "c533d96316ca2c44ffc4926c8955810fbd17ef6c242b767d2a6c240bf6b0dd93",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5214
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "d744b55c6d6d6fcb6025c8efc9dc196071df158c8a9e70dcdf22d84c6a65e4a2"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_zander_final_source.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5301,
+      "exact_inventory_sha256": "abbf250e8a68e3a9f5b84f288afe71974e6c885b4a2d5a9c3c3b4fe537618cde",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5301
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "4f7cc39c861538e22508835c615c20cc7ba160c2111604f09dd0db23678f52af"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_median_root_offset.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3937,
+      "exact_inventory_sha256": "d79ec0ded67f4f537940e21453e290279065324a621240d93027650a50d9c6e8",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3937
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "1bd856a31f404898ca43c0becce45825896d1a25d30f8a6df237c65ec197d2e0"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/project_complete_root_caps.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7265,
+      "exact_inventory_sha256": "cd53b4a7c0f8a165821b6e5ac8c5f995d7a136bdabafeaa788b200b54c9e9df1",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7265
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "80aae51dba0eadd32abb846de58eb6ebcea2be0881f6d6778dafc55c420028e2"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/refine_tuna_outline.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3461,
+      "exact_inventory_sha256": "8d68aa37a3e59c651eb60d5b53b3af20e788a6c64a396053e453b46c2b11d2ce",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3461
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "90f1e674a492d9e3c366a18b27716044e90c72cb2b8d794d3cc3e018c487150b"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/test_zander_paired_supported_skin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3276,
+      "exact_inventory_sha256": "a961da3811a8384a4b005665b74277f86ff1da38f10888ccf0446ee127d7421a",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3276
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "fe9a709916a5aac6538f295bb8e689848d03d8a48fe9610be8b0a4b8b58af1ec"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_blacktip_caudal_outline.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3540,
+      "exact_inventory_sha256": "3b7575a9d4b2a9062a9843a44c64c944fd2c2a36faf41458331aa5e5c31c207b",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3540
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "523d5648e2f42266507a2584d1530bd73fa148eb9668c29c3ffd4e0a9c149319"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_final_context.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3125,
+      "exact_inventory_sha256": "9c348ffdc7f68d58f53959db93afcc225b9cb8c4d37b12053d3f0d1369fa04a2",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3125
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "fc01736101c37250ccc370e04c45704e3b0a2c10b27f274620aca93672ec2545"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_tuna_native_cap_order.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5134,
+      "exact_inventory_sha256": "e5c33a477315272b0ef41646b386c53145125b23711d4b647c40ba3802a3947b",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5134
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "77b96c1f66c333db13db6b3dddb24210921c5ea93dbe48df20fa6d3fb1fecb12"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/transport_zander_canonical_chart.py",
+      "deleted_files": 1,
+      "deleted_bytes": 9510,
+      "exact_inventory_sha256": "9f2b46d9bde733b6dd4b003e2aa734a6e066d910b5ab77ed25e61779189fc623",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 9510
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "a26f229dec9a518ae6dddb940ba93943dfd3a22b5586eac1085a97e8a709a2a8"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/export_blacktip_static_meshes.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1018,
+      "exact_inventory_sha256": "150f37e6fde7e26020e8715983006b4b559fda533101355f5ec0a3cdaffc475f",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1018
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6aac333f6c6d9f234fde63b64679f76272d3bcb94746254df7e9578c5c849f3d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/probe_tuna_root_frames.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1988,
+      "exact_inventory_sha256": "5cedbf69c65afbcc3ef92cf9d3eddcad934b55e618c0df1611f653b37a75fc9f",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1988
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "19abb35db341536cb035b82403e9cff88714494a15263fec3c8b69813ba8e824"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/probe_sources.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1578,
+      "exact_inventory_sha256": "e4be80687724a2019f6c2c23b8105bf006e998939a59ae1bab8ce17b86474354",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1578
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "0edb6c394cedfe608a3c094c0f7b300fed170911480c9c50d47a12a5ed12987e"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/draw_blacktip_cap_domains.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2805,
+      "exact_inventory_sha256": "c578281567d4404594bff35080a1a9b8adbbdb548fa66089ea9a1a35714e1ad1",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2805
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "49b0be9040c1804190c4346678a20dd275312cd270095de60bc4fb80f4cfc2b8"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_validate_ordinary_fin_volume.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5298,
+      "exact_inventory_sha256": "1729064c23a28ab2d1d4b2182ce206e62e0b63ab868ff1cb86da0ee84b645984",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5298
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "84004200db8d15df5ce02a1cdbc49f3e89ed938f9a42db0ede8605a04c523f19"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/measure_blacktip_fins.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4748,
+      "exact_inventory_sha256": "4589eb87af32feff857210cdb7899bba095a81e228f70e03e710a0343d737602",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4748
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "20f0c79efb57f06c5942ec90e84d58b644628f76444c61edcbb252d299ee769b"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/insert_zander_native_root_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 6604,
+      "exact_inventory_sha256": "3f40ce24332b3e37b674dca6f568deb4a4633615bf853eedcc513580dfc600c7",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 6604
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "82ec413d763d1630b0b547fd2693d859f02aa16b2fc98ca72b6b8f86a440509d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/optimize_finite_root_offsets.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3455,
+      "exact_inventory_sha256": "0f4aa7ca7e388944e4a787ba300041ba90802cf57a0612451a2ce86132934f8b",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3455
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "46a9bfad2caf3bc23831dfd42dd8f6813a4bd15d370d980595a5528e8d6f7051"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_root_margins.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3992,
+      "exact_inventory_sha256": "74ea1662690226281e33f9d19d11b9b2e3e782c90f6e9d8041332f59d38b5a9a",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3992
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "ac3fde4680691126167cabd6b03975f3d3ac99607c1588c2841a5e3076dcd0e2"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_native_eye_support_guard.py",
+      "deleted_files": 1,
+      "deleted_bytes": 11397,
+      "exact_inventory_sha256": "eb172c215ddb326cec0102571053664a5f86e48f9b5bb98cf78a3b89eaea78ec",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 11397
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "22225c57178d50c7eb00d68a8fb90c5820832636bd47f5d0d20e9ecc0e383cc4"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/insert_zander_Anal_body_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 6007,
+      "exact_inventory_sha256": "f4d1244f4fb1894ee1ea454ccf39409f3a77dbdbc11a1374fc952bd205231eb5",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 6007
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "c8639ffeaae938cb3146d5970f1c987759a3b21e17f9109b08e076862ab96e3d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/body_reference.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5043,
+      "exact_inventory_sha256": "d8295d87adb5ff56dc6745a9dea39b4798076609ab4289cb5a227bd1b579e205",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5043
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "4ae430ee13fb796570b78ddb6a8426c62448b01a2657d285a0c67ec1c60f3c67"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/run_full_root_stage.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2747,
+      "exact_inventory_sha256": "41a04091f6cc706e26719845bc28790ad6155c71c7c4c619012976c36f91f114",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2747
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "d9febc42c25f596e7c1c6076a420fa71e422428b9bbf8859dc258180b86f3efb"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/correct_finite_normals_and_basal_clearance.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4810,
+      "exact_inventory_sha256": "d36a8ad13c87fe9e40a2cd59972d0137c5fd394f27e81f315414d2952f578ed7",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4810
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "e4d777741f9bc19df39723ca7c227614530583990c3b8ab56b51b736aee24d71"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/__pycache__",
+      "deleted_files": 7,
+      "deleted_bytes": 136503,
+      "exact_inventory_sha256": "928574814f2cd75e1a60e53a3b7b8982c12bfc992ced4f7eb1b605f4ff58c98a",
+      "by_extension": {
+        ".pyc": 7
+      },
+      "bytes_by_extension": {
+        ".pyc": 136503
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/audit_blacktip_static_fins.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2202,
+      "exact_inventory_sha256": "777b99167463ca72d20910f489e08e4d422f78d4401035b70a1f3fbce71c76f4",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2202
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "3d16b4e6c02c1e9bbf0fbed3800b8bcf601bfe08ac0549bcb185cfde12acf460"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_finite_cap_frames.py",
+      "deleted_files": 1,
+      "deleted_bytes": 8697,
+      "exact_inventory_sha256": "be59e892cd838e7ae324479d9b86db96a1fdf4d87450502753c991c7f5e2327a",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 8697
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "3d31c945d7e2011d76ca6a175d5a4a3a9e528a11309f61e90372c21a4abff114"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/spread_tuna_paired_foils.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4778,
+      "exact_inventory_sha256": "d817e03c421e670b634bcb7ae4758beb8ef859e691eecc89616e2ff890f141fc",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4778
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6ef346d02e00245bd3c5aa928debb389c49dab3189917356ee51c30565890f23"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_source_free_foils.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4258,
+      "exact_inventory_sha256": "8c0498bbc6a532bcd1e8705109620e95f926f41b6d9e73c6558071d151d398a9",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4258
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "910e99709a27ef1e7fcf09225dcc6d022cb4cf378bee26890cf2363b1750f786"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_validate_native_eyes.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2240,
+      "exact_inventory_sha256": "84921c19c6cd2a38d0851f12cbf07912acace333136b33e6b3908061b6d7fbef",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2240
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "90ebff20e875a5b372d66b002a5676f2a5de61ae24a92e5e158f8e7e014ae61d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/author_root_group_registration.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5580,
+      "exact_inventory_sha256": "267e9429661324af92f1121b311fcce941ff3a69e56728e5188bcc7d43480241",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5580
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "cc01da02f87ece4230ae96a1f6caf0a144f79a18d641305458ca6f18fef57744"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/validate_closed_supported_eyes.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1873,
+      "exact_inventory_sha256": "132ff573a5cec13cd64d079abc4ce54b63f190d68adc2986ba4bd8bd5d945048",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1873
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "97ea030415860da1642064994e70a69be7346276cc0ab5b7430cd6c33df0d009"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_native_chart.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2094,
+      "exact_inventory_sha256": "d57bc33bef8d904a883094f30718ece81a507ca63acc95cdc5f133f89be83679",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2094
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "c1cd58e7fc9058a6d92df2805267032357c55c618a5b24ee60619f0453f5aab1"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_tuna_anal_support_and_open_chest.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4604,
+      "exact_inventory_sha256": "808c6bf3c72ec6ed0e2bea68327dff6168ef6f8cb4e88c957459d4ef2d81959f",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4604
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "d259067d39d01357f018db9c4981814d0d547253846ea32a2fffdd1248cda08a"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_tuna_native_chart.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2808,
+      "exact_inventory_sha256": "81d7df637a5258522d615d7f8d87251dbb035909ae1c6019e4ab743df8fda248",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2808
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "5f7a78e584f8e61537c91d8596aab21dee06031b07867eeaa879b437afc6fc93"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/validate_group_c_motion.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 11581,
+      "exact_inventory_sha256": "24856ce5f1326ea09292e51d14cbe07663282c534636a7026dcf05ed240e8744",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 11581
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "101a0b61e348934e237d37bc6693870854565ff1268a7e80636b991de8d13807"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/reallocate_zander_supports.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7320,
+      "exact_inventory_sha256": "9a7c32f6772006a47f3fb45a6c78553d1c8cd7818e3ada9455796b98988ee897",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7320
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "a329e936337f089a568c128606276d499a37ac88d5cda6f5e08ffbd9e835c7cf"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/bind_final_eye_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5107,
+      "exact_inventory_sha256": "f60f07a8ec8087174c5eacc6d35c70692a4761144f385c5883208c14958b5748",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5107
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "5be8b9e87a27b90802f4a6fb9bcdbfab592991c9498dc9afe343c7425de68c50"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander.accepted-native-mouth-baseline.json",
+      "deleted_files": 1,
+      "deleted_bytes": 334682,
+      "exact_inventory_sha256": "f254f9b74edeb9597ed218dbed9bd501f333e22f172668535a2999b03a6dd176",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 334682
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "56be48ef94151725c333920851b1b3fb758b3d1d3a8ed52030e91f2044687dba"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/optimize_tuna_transverse_root.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3534,
+      "exact_inventory_sha256": "be20f1fd8275f0d3a6dffb38db632e2f7f71e73966eb4f05593e1df37873fb92",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3534
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "2917c7093f5e40e2dfc4b4d9c1ef96841c7f47154304fe333c79aa2a888e1ea3"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/author_body_width.py",
+      "deleted_files": 1,
+      "deleted_bytes": 9904,
+      "exact_inventory_sha256": "31c78b285f85fa013383a65118b7007b4110c59de664914319ee256c98989d17",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 9904
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "14d4ca55ba289221a9aedf00fd4070c9d8b66acc81fa9ab4833cbf1f50198205"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_native_root_skin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4292,
+      "exact_inventory_sha256": "5ce1a9920d56f71ab03f72d70a929320413b458587c1d54d88ddc7f10b62f359",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4292
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "c62dca9e54663acd5ce65a5e531d773c3151b9c001aa728d6492315595bc53d8"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/solve_tuna_anal_uniform_margin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2447,
+      "exact_inventory_sha256": "74e91d38135fbcd258a095fe56d9fb39b7719264e28d0a0234425226ef4e5665",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2447
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "959a69a870aa5504de5fa98c59392d01cee7024fa8dc2037327a5e4d0c35ca1d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/prepare_body_plan.py",
+      "deleted_files": 1,
+      "deleted_bytes": 676,
+      "exact_inventory_sha256": "4afc8c24f86e264f15c67a0da8615d5667979a059294eea7e39533d87e116f95",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 676
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "a5789496560f5bf6ab449a974c212a89573bf472eda8148db2ea8732fb1197ff"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/freeze_blacktip_uv_caps.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4225,
+      "exact_inventory_sha256": "0e6fe28132e1df7acea304bbdee138468d9434828c4966ff46366852de44d0f7",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4225
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "0a97cf9db2eb0dedf132aab106e19b9a3aef32a22b262a919db77908c27f5eae"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/restore_zander_median_native_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3586,
+      "exact_inventory_sha256": "6d9406555fe7eefd5a2987e3ab3fb418663b987c1205e29f270da45b3c848476",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3586
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "dd6a8a8bfcd403fc585247d2c2d0b04fe5164dcf0d9853e4212a78a88b105add"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/test_zander_soft_supported_skin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2222,
+      "exact_inventory_sha256": "02b3c86f5337421277e7497a72bf6722e27abfe423507e67ff951661af4d8eae",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2222
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "07ad945cbdd224c5850cfbb849c31298d792a088d9d8ac25e76718679590c84e"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_freeze_native_eye_proof.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3381,
+      "exact_inventory_sha256": "84abb99b3f5870ccc3c9bcf725496e1da45e830e648a054e62b3b4972b3554e4",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3381
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "f7e5d297a50b78e76e6b803dec6c1042ec7b5415757a7a5f367de38d746ce692"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander.deformation.plan.json",
+      "deleted_files": 1,
+      "deleted_bytes": 71828,
+      "exact_inventory_sha256": "6fc873c544cc3e2046a19282d26ba2cdacb99a5f8afe8cc41748e1644c5a3d03",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 71828
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "671cbdbb123c543b670a258efc913f3b65656fd0553103edec985ce24c21c811"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/transport_zander_actual_root_cross_sections.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3645,
+      "exact_inventory_sha256": "b51421c22ccdfa4ebaa26d98bdf268307039cf75a0ae0f74ab2f9151237c1839",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3645
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "18a19fd7cc52a66d7568f62d0e5074bc55a1f00232cf4944f8857d4ea5956e26"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_final_root_margins.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3652,
+      "exact_inventory_sha256": "650388cec68e67a61fb41f6a6450bcc1314514501f704a21ac5ea392a5d89337",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3652
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "7eb21da0673eba2e877e854447a032151298ae966b3463871628e3265d4cdaf4"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/inspect_candidate_roots.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3188,
+      "exact_inventory_sha256": "d2e131c2e1c0d0df7505a3f00faf2506f9f7df7f51cbc68fab51720c2042e7d7",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3188
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "98121278829d0d85ce830bc1249a7d44c95e572b15c30aaa2885149cebd933bb"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/inspect_zander_fin_identity.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1730,
+      "exact_inventory_sha256": "af6471039404963198dce097a58acbb80b2199771801b322b0462207d51bfac3",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1730
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "340bbeab3060ad4e5909249ac1cb72f2986d4ed97a70ae1f9ec99ac7958e4bb4"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/finalize_exact_export.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3357,
+      "exact_inventory_sha256": "c3472ef963dd543ab59fceee49f65b039c10c52bb0d5f2175bc403070c5563d6",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3357
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "49895f24d19404ad5c78b1d9e03646ec363638b6afeb5222aaf13bdad8509ff1"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/measure_zander_bad_body_spans.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3361,
+      "exact_inventory_sha256": "9c2d650c333b67b2550b9126dda388125676624a85faaaf10e110ce3c2de19d9",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3361
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "0d68c6247cd4bb8ab7312dbbe204d2532908ede4a03565d98f8f328e9944ab58"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_skin_basis.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 15646,
+      "exact_inventory_sha256": "33597df02bac9449c1f9254753f2ea11cd58b87da6582852c047f7b4d1ef1163",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 15646
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "e9e2565e0166c731af6bfb24b0a067c5bcd8600b6c84022379db140c105bdc24"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/author_blacktip_fins.py",
+      "deleted_files": 1,
+      "deleted_bytes": 17157,
+      "exact_inventory_sha256": "b89bb01fb6b43814186514d6bb82301d27898d8c033a88a343dc60f8c851a240",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 17157
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "650cf10ec47e839bea44f1af01f0f364ba0d194bdd1738ad1a3570ab361c4524"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/seal_tuna_review.py",
+      "deleted_files": 1,
+      "deleted_bytes": 14025,
+      "exact_inventory_sha256": "fb2231e4516f7626ee14d29a1e519f400e504d11206cde0ad77311e909d818f9",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 14025
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "3866594d1aa5559f31dd156a5563ae3ef3f620d7db58c6f77f858a0d909f1f24"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/probe_root_edge_failures.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1285,
+      "exact_inventory_sha256": "bd79a3c240ba6efceb95cc8ad147a5c6bfbc3f837d09b622d35bb81b29f3ad90",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1285
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "78da262088df476ec946641fca72ec5be2ec84ba6ed381ad924f0d58a1272ebc"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/prepare_review.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7313,
+      "exact_inventory_sha256": "d4580f70e085cbac40f4e1569f5bf0918e11960583f249edc4d77cb908455a7b",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7313
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "bcc859152d86089bb240cc5affad1397bd8642e5f59f9dbf13f3ea53a8a0b252"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_anal_margin.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3385,
+      "exact_inventory_sha256": "ba4b0cfe298a25c8683da2489384a9489ad285bf304d9d135cb6188cfd8a314d",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3385
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "93489ee552492cc2243d7ba2b6034fba81d4a4766e2e8d4fb5bd67e679110fdd"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_final_cold_load.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 4962,
+      "exact_inventory_sha256": "ecb330e6e6d526d1cd9f859840af134a7e481b51c13392a44c63019c31c05425",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 4962
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "c9986aecf846dcf4edafbab3b03e7770b857f40ad01e78513dc7eb6f09f940d2"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/transport_tuna_complete_cap_footprint.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7799,
+      "exact_inventory_sha256": "867406cf05f1e28c2008afb3ba30dd2b59b971e4ebd372f1df9ede52eab75ddb",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7799
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "1705e6baf59208b350d112d92a70ee39d8e46d6de73014de8c16f7248e145916"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/validate_ordinary_fin_volume.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5453,
+      "exact_inventory_sha256": "097d25279d772e05557da3c1cfd79412e46ef4415e287ec668a37a2ba889c9f0",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5453
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "920ce57b44b238aee7e3456221fd697455f068708f1ced582dff8c8d5c73ff14"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/repair_tuna_foil_normal_miter.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5896,
+      "exact_inventory_sha256": "e0dc80ff7ad3667f50432d2ee8773631f15398023431f0eb15a7244585d554f3",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5896
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6e527f48a69e1e182cc55e72abfbea2fe17b570492649c0e8ca2f1dde7b02c54"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_export_exact.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3257,
+      "exact_inventory_sha256": "6bc4d3fd5637766c872bcc9d502d8b1de72179efaf7dcfd512e7bada182aa0ad",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3257
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "9809f2259b0c69ffab2260fd6ea0d1a4ca14a8bed90efd5d40544790d30f8bc4"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/export_root_optimization.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1071,
+      "exact_inventory_sha256": "fa422d5c5b1645016b010bd8636ab6a6c8886cd2d23342e7743bc129dda9a37f",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1071
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "a8b339e6b7014953943726145cd251dd8651b0ad20e8b23b7b7faa9eb8a9191f"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/final_cold_load.gd",
+      "deleted_files": 1,
+      "deleted_bytes": 4907,
+      "exact_inventory_sha256": "45c648cf9336d5ff095a2d706d8bafca6f83b805d978671a85ac62dc4b6f2743",
+      "by_extension": {
+        ".gd": 1
+      },
+      "bytes_by_extension": {
+        ".gd": 4907
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "7dc50638e40b5c4c8e8c0acbd098392ede88189292915774f819efaddc7ff6a8"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/calibrate_finite_width.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4819,
+      "exact_inventory_sha256": "69bf73cb23ed74c0bf478dc1e263a8f24cd598dbbd54e49c834bb59c38b49616",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4819
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "12c4cbf75542406c908798c37a4d43f2321d0b6919c0db659a1f01f9119b813d"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/seal_arapaima_review.py",
+      "deleted_files": 1,
+      "deleted_bytes": 13778,
+      "exact_inventory_sha256": "4b95ed3c1df9651e80f5494f1a677e9ff20c539ae76c520f4ad66301409b7a2c",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 13778
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "afe5ea3099ef693f730152e48956497f8461cd12c759bbafdb331676684edf43"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/repair_zander_last_median_support.py",
+      "deleted_files": 1,
+      "deleted_bytes": 6281,
+      "exact_inventory_sha256": "948e1b41132807d09177b1b5411757f352eb95ae81169ac3d2bb6fa97108c8fc",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 6281
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "dadd482efd369a5ac70a4bd2132d0b05654dac742a0f609414967230829a0b25"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/audit_source_fin_self.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1521,
+      "exact_inventory_sha256": "a4f097e5f50853812280326b5186a7ef09b817146506dc45a414e4697c236ab4",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1521
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "9790f1d93a995028c179ca66e749858f2d64cc78a49e7dfaf6d14422a41b106c"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/transport_dorsal_native_cap.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4914,
+      "exact_inventory_sha256": "697c469bd0416391c4911ac6fee53bb55f2188b6d52213c12d2ffb9a2f397954",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4914
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "239525006ec9fa99f33bcdde28acb5ca45b4e2b09ef3af41efd2736c6c7939eb"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/refine_finite_root_edges.py",
+      "deleted_files": 1,
+      "deleted_bytes": 8502,
+      "exact_inventory_sha256": "4cad3a161173212ab57eccc4e171787422e5251aeea0ba8992d40fe12e2c00b1",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 8502
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "1f92964bfa73c082a3d259cec7dcf2abd46a84378db57acb9b94d63af397c889"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/reallocate_zander_foot_supports.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7597,
+      "exact_inventory_sha256": "1fd0d9a38e1d73fe8c363a34dd25ec1c66e4cea6199efc56b2dad63047f67f03",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7597
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "9768bfce79678315108668f019fb0c119a836eb1167c3cf61bf9a0a5cb1ccb00"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/inspect_local_pose_roots.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1230,
+      "exact_inventory_sha256": "69517d41a44981aa120ce6998d858e5ef30f9ed10132723d58fac0c31341e7a1",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1230
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "84ede73886710c41803ce8c0d34f48d569d76f5e204f51677406c90f528e2d16"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/zander_freeze_roots.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3281,
+      "exact_inventory_sha256": "769d9e13f2b1b4a1b20ee90d6334ad8f0dd4d7fd7b765168c3d147fe0468db27",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3281
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "6dba6bf824cf473dddcaa5a7c0e821e98f61715138c6032965c4022392ed6852"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/optimize_tuna_rigid_cap.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3761,
+      "exact_inventory_sha256": "4bc151c9f415838e68ceb63822e5428cb2273f739e3476435d07fac256579e0b",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3761
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "bd14e020e2491ef0c3b45559e9eb9dfc9b729c386564358602b3d399742eca03"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/author_tuna_transverse_root.py",
+      "deleted_files": 1,
+      "deleted_bytes": 5235,
+      "exact_inventory_sha256": "c32b4bcbb01ed5eca769ab4c7c90c9159b72e5b5c9e8811699f5d31df699ddaf",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 5235
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "e247d31774bcd1af5012a93d7193494cb10d927e362f2e4fb5b57fd0727936aa"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/publish_arapaima_records.py",
+      "deleted_files": 1,
+      "deleted_bytes": 4163,
+      "exact_inventory_sha256": "9714a7f3d192ea314ca41e8a8c01d65e6e6a6f0c6c82588906856fa38b8c8b31",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 4163
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "ffe95b3e779643e81cf2f70df411e49bff8bb80da225c558783a40632b2dc061"
+    },
+    {
+      "target": "resources/volume-fish/top-body-repair-20261105/group-c/register_tuna_native_lateral_relief.py",
+      "deleted_files": 1,
+      "deleted_bytes": 7711,
+      "exact_inventory_sha256": "5559c490505360dedc135131813ea67dcefbf4c0aafa20f9be2788586208ea96",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 7711
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive.",
+      "deleted_file_sha256": "16743fbb76678a08c9e9ea489e6475e4e599fd8ab6f7c089a4c36d39ad7819be"
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-20261105.json",
+      "deleted_files": 1,
+      "deleted_bytes": 35912,
+      "exact_inventory_sha256": "53beb9b945b5803746c0808ee03844f5d021d5279913981f778aaaf39010f61c",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 35912
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/retire_failed_candidates.py",
+      "deleted_files": 1,
+      "deleted_bytes": 2086,
+      "exact_inventory_sha256": "a2307382aefd38f18f778961da6fac740cf6e36ca452970437aa769ee46d504a",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 2086
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/canonical-source-inventory.json",
+      "deleted_files": 1,
+      "deleted_bytes": 137841,
+      "exact_inventory_sha256": "957c481fd32da3a6116db779543ee1ea7aa257f131888a3a6db498e691c4deff",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 137841
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-tuna-failed-poses-20261105.json",
+      "deleted_files": 1,
+      "deleted_bytes": 266437,
+      "exact_inventory_sha256": "a7073ba60b30e2c2f5ceccfa810638e2a26d09788673d01f7e8344da8482ad1e",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 266437
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-dense-failures-20261105.json",
+      "deleted_files": 1,
+      "deleted_bytes": 616895,
+      "exact_inventory_sha256": "e74e268c11a8a1c5045e13793f6d642c2830f577f5bf84ec14ff65cbbfe9257d",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 616895
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/retire_failed_dense_poses.py",
+      "deleted_files": 1,
+      "deleted_bytes": 1749,
+      "exact_inventory_sha256": "76d7bd12fd034047c0477ac6add07a043fa53566a32213af90e3548fc919e6c7",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 1749
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/cleanup-arapaima-superseded-20261105.json",
+      "deleted_files": 1,
+      "deleted_bytes": 194887,
+      "exact_inventory_sha256": "153414bbfc5ecf53cff4ff59c148dbc07d3aba359129558faa5a8d27265afed2",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 194887
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/diag-game",
+      "deleted_files": 3,
+      "deleted_bytes": 63823,
+      "exact_inventory_sha256": "987b2df2ff5e55a58f93ee367cd611d9689dc9489f0f1e91624e661b43f8564d",
+      "by_extension": {
+        ".json": 1,
+        ".godot": 1,
+        "symlink": 1
+      },
+      "bytes_by_extension": {
+        ".json": 63579,
+        ".godot": 176,
+        "symlink": 68
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/manifest.json",
+      "deleted_files": 1,
+      "deleted_bytes": 2721,
+      "exact_inventory_sha256": "537e4ca42f1dce880d37b767ab78af8a088d5b0079a79b9140635b63b8a945df",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 2721
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip-baseline",
+      "deleted_files": 1,
+      "deleted_bytes": 68783,
+      "exact_inventory_sha256": "f4d82977a30dac1712cfe7de1df356c1033d4618d1efb66c3e635553ba48d3f1",
+      "by_extension": {
+        ".json": 1
+      },
+      "bytes_by_extension": {
+        ".json": 68783
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/zander",
+      "deleted_files": 1845,
+      "deleted_bytes": 1004862408,
+      "exact_inventory_sha256": "259cf9c0e2ea4fb470ce8a5a26ae166e47381885082c17b657f9145db5c7ef51",
+      "by_extension": {
+        ".md": 1,
+        ".py": 11,
+        ".json": 1500,
+        ".log": 29,
+        ".glb": 12,
+        ".blend": 20,
+        ".png": 163,
+        ".jpg": 108,
+        ".mp4": 1
+      },
+      "bytes_by_extension": {
+        ".md": 3871,
+        ".py": 34715,
+        ".json": 753661769,
+        ".log": 93398,
+        ".glb": 88775468,
+        ".blend": 145364226,
+        ".png": 10570299,
+        ".jpg": 5184161,
+        ".mp4": 1174501
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/update_state.py",
+      "deleted_files": 1,
+      "deleted_bytes": 3165,
+      "exact_inventory_sha256": "1df2fef3125a61abc87adc8b38fdef5af4f5ba4a0987c445e252dde92b7bfef4",
+      "by_extension": {
+        ".py": 1
+      },
+      "bytes_by_extension": {
+        ".py": 3165
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/HANDOFF.md",
+      "deleted_files": 1,
+      "deleted_bytes": 15262,
+      "exact_inventory_sha256": "34c9d8cf615e8edc0b344b9175e1532d13bd5f25afdcdb244f99fa531c0861b0",
+      "by_extension": {
+        ".md": 1
+      },
+      "bytes_by_extension": {
+        ".md": 15262
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    },
+    {
+      "target": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip-reference-grid.png",
+      "deleted_files": 1,
+      "deleted_bytes": 27429,
+      "exact_inventory_sha256": "5b4193a72e6f1303063beba1bab8d39144d0766eca44d3db39c40a12b08e4e42",
+      "by_extension": {
+        ".png": 1
+      },
+      "bytes_by_extension": {
+        ".png": 27429
+      },
+      "scope": "Exact declared whole retired directory or listed file; symlinks unlinked without following targets; no archive."
+    }
+  ],
+  "prior_deleted_bytes": 4554020866,
+  "current_deleted_bytes": 1007530683,
+  "total_deleted_bytes": 5561551549,
+  "no_double_counting": "Only independent actual deletion operations summed. Early C shark included; A post-transfer shark species cleanup and parent/root-review cleanup excluded.",
+  "current_remaining_resources": [
+    "resources/volume-fish/top-body-repair-20261105/group-c/SOURCE-EXPORT.md",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander_source_exact_skin.py",
+    "resources/volume-fish/top-body-repair-20261105/group-c/export_exact_ordinary_source.py",
+    "resources/volume-fish/top-body-repair-20261105/group-c/ZANDER-METHOD.md",
+    "resources/volume-fish/top-body-repair-20261105/group-c/export_zander_source.py",
+    "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-final.profile.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-final.profile.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/pacific_bluefin_tuna-final.profile.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/group-c-retirement.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-release/release.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-release/complete-root-domains.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/arapaima-release/retirement.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/release.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/complete-root-domains.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/retirement.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/pacific-bluefin-tuna-release/HANDOFF.md",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/canonical-entry.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/release.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/complete-root-domains.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/retirement.validation.json",
+    "resources/volume-fish/top-body-repair-20261105/group-c/zander-release/HANDOFF.md"
+  ],
+  "remaining_experiment_scope": [
+    "blacktip_reef_shark",
+    "HANDOFF.md"
+  ],
+  "retained_canonical_source_model_motion": true,
+  "shared_library_2D_icons_PDF_untouched": true,
+  "no_archive_created": true,
+  "root_review_untouched": true,
+  "root_owned_wrapper_handling": "Protected/excluded from C deletion; root removed it independently. C does not count its bytes.",
+  "C_shark_scope_only": {
+    "early_rejected_files": 23,
+    "early_deleted_bytes": 10892213,
+    "current_C_owned_external_baseline_and_reference_deleted_bytes": 96212,
+    "total_C_shark_specific_bytes": 10988425,
+    "excluded": "A post-transfer species tree, A101author scripts and root-owned wrapper; shared initial3fish inventory is counted as C shared data, not allocated to shark."
+  }
+}

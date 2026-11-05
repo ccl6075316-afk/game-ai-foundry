@@ -1,0 +1,306 @@
+{
+  "ok": true,
+  "kind": "fresh_exact_source_normal_and_skin_multimesh_export",
+  "source_sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+  "output_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "guarded_mesh_owners": {
+    "Anal": {
+      "geometry": "b6ae7c9f77258fc062fe2954c98dacd49cd53bba885b6b045b7f74005883b0f2",
+      "normal": "043463d6c1b04619ecb248370723044f95b2b12764b3d96f520a83cdcd9aa229"
+    },
+    "Caudal": {
+      "geometry": "2f5e450013a12f2d973f72539f76195665248f425cde5a3661ff34181bacfcb8",
+      "normal": "78da04166d5de459d47af978d938dff89bef672da34a7c5fc2c7d249d3681ef2"
+    },
+    "Closed_body": {
+      "geometry": "173fac5a1e528a16fe1c381825a4a36d32a533017b089e34eabe12c6b7356d1a",
+      "normal": "d5cd66163d1da9b3a3ea5c74db70892360dbb96342f7ecb9696666c9be5954e4"
+    },
+    "Dorsal": {
+      "geometry": "cbc1ce3dcd40aaaea777b4cdb2ddc316cd9f2f66347915f33a6e1bdca4422ef4",
+      "normal": "efbf89185c9ed320a59cd8849b1f6ac47079712ba31ad005fecaa7e7ba678911"
+    },
+    "Native_eye_-1": {
+      "geometry": "7d2277f70c744b35ce7ef72dc1cf5621e5adb7095337cda1258ce8a10e81af31",
+      "normal": "4cedd9fea7fcf03dd0c6f7f898afa35e1c315ece5c77d5366c11cc9fe9a4c379"
+    },
+    "Native_eye_1": {
+      "geometry": "4fc6c76b6307091a905bb123fdafc55444be0972604f64313bf88928b3e07cba",
+      "normal": "43dbefd8a8d6968bf60ea7145a203357b256a81f0f1be0afd945b71db52f8a27"
+    },
+    "Pectoral_left": {
+      "geometry": "e331150d262b2514ec72db8239e460e7e5df12e358e5ce0ceb77f0c17e4a2772",
+      "normal": "2fc892633e4b067f15294c5a3071a5735297d8684e17fd0b15d677fa5ec39a4e"
+    },
+    "Pectoral_right": {
+      "geometry": "1d02309c89c6f821be2983f7829b0080acbc650376e000aa627a7744077ca754",
+      "normal": "8fa78ccc28f456cf6f7875aacc8ea0770d47af324df6c909c792ba4cf67c7786"
+    },
+    "Pelvic_left": {
+      "geometry": "a68766989619efb072503692ee80974807953e7181aa907a73d5328b52c77565",
+      "normal": "8241d667771204f19469ad068d4958c82d82843bfb537254b4774e6dee8ef3ad"
+    },
+    "Pelvic_right": {
+      "geometry": "bc16e5ddf79844d35a0ac3172f5b5c692614270ee2a769351b19708c8858f92e",
+      "normal": "814f97bb6426d021324e2d8eeff88f31ddbf6e6190beeefcb477df42f3c202b8"
+    }
+  },
+  "normal_attribute": "_FOUNDRY_NORMAL_GLTF",
+  "source_owned_skin_proof": {
+    "ok": true,
+    "kind": "source_owned_exact_ordinary_skin_export",
+    "source_vertex_identity_used": true,
+    "temporary_marker_removed": true,
+    "no_target_model_read": true,
+    "static_builders_disabled": true,
+    "rows": [
+      {
+        "mesh": "Anal",
+        "source_vertices": 60,
+        "export_rows": 232,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      },
+      {
+        "mesh": "Caudal",
+        "source_vertices": 42,
+        "export_rows": 128,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      },
+      {
+        "mesh": "Closed_body",
+        "source_vertices": 530,
+        "export_rows": 150,
+        "rows_corrected_from_source": 12,
+        "preserved_sub_0001_influences": 12
+      },
+      {
+        "mesh": "Closed_body",
+        "source_vertices": 530,
+        "export_rows": 2220,
+        "rows_corrected_from_source": 120,
+        "preserved_sub_0001_influences": 132
+      },
+      {
+        "mesh": "Closed_body",
+        "source_vertices": 530,
+        "export_rows": 306,
+        "rows_corrected_from_source": 12,
+        "preserved_sub_0001_influences": 144
+      },
+      {
+        "mesh": "Closed_body",
+        "source_vertices": 530,
+        "export_rows": 174,
+        "rows_corrected_from_source": 2,
+        "preserved_sub_0001_influences": 146
+      },
+      {
+        "mesh": "Closed_body",
+        "source_vertices": 530,
+        "export_rows": 24,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 146
+      },
+      {
+        "mesh": "Dorsal",
+        "source_vertices": 120,
+        "export_rows": 691,
+        "rows_corrected_from_source": 67,
+        "preserved_sub_0001_influences": 67
+      },
+      {
+        "mesh": "Native_eye_-1",
+        "source_vertices": 25,
+        "export_rows": 108,
+        "rows_corrected_from_source": 3,
+        "preserved_sub_0001_influences": 3
+      },
+      {
+        "mesh": "Native_eye_1",
+        "source_vertices": 25,
+        "export_rows": 108,
+        "rows_corrected_from_source": 3,
+        "preserved_sub_0001_influences": 3
+      },
+      {
+        "mesh": "Pectoral_left",
+        "source_vertices": 62,
+        "export_rows": 302,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      },
+      {
+        "mesh": "Pectoral_right",
+        "source_vertices": 62,
+        "export_rows": 301,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      },
+      {
+        "mesh": "Pelvic_left",
+        "source_vertices": 52,
+        "export_rows": 202,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      },
+      {
+        "mesh": "Pelvic_right",
+        "source_vertices": 52,
+        "export_rows": 203,
+        "rows_corrected_from_source": 0,
+        "preserved_sub_0001_influences": 0
+      }
+    ],
+    "ignored_deleted_group_entries": [],
+    "model_sha256": "77959707da4ad8854115b15a3931e156c45810b7e0e4e48332ad55e40bbc937a",
+    "exporter_sha256": "170e22f837f1f41892dfc31a1a8047f4d280a2f5b21f384b4a8b0a832affb5c1",
+    "native_clip_name": "Swim",
+    "limit": "Preserves source float weights; actual Godot GPU storage/UNORM16 conversion and all physical/visual checks remain separate."
+  },
+  "mesh_bone_name_collisions_disambiguated": true,
+  "native_material_semantics": [
+    {
+      "material": "Anal_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Caudal_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Yellow croaker native clean side skin",
+      "alpha_mode": "OPAQUE",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Front skin source chart",
+      "alpha_mode": "OPAQUE",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Front mouth oral chart",
+      "alpha_mode": "OPAQUE",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Current posterior internal body chart",
+      "alpha_mode": "OPAQUE",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Dorsal_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Pectoral_left_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Pectoral_right_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Pelvic_left_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    },
+    {
+      "material": "Pelvic_right_native_source",
+      "alpha_mode": "MASK",
+      "double_sided": false,
+      "source_owned_explicit_defaults": true
+    }
+  ],
+  "exporter_sha256": "ed1801da6c86f08954c896a6b6cb8ad0b282ea2d47268233b13ee0f8ae506678",
+  "skin_helper_sha256": "170e22f837f1f41892dfc31a1a8047f4d280a2f5b21f384b4a8b0a832affb5c1",
+  "source_unchanged_on_disk": true,
+  "actual_source_cutout_contracts_verified": {
+    "Anal_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Anal_native_source",
+      "mesh": "Anal",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Caudal_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Caudal_native_source",
+      "mesh": "Caudal",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Dorsal_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Dorsal_native_source",
+      "mesh": "Dorsal",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Pectoral_left_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Pectoral_left_native_source",
+      "mesh": "Pectoral_left",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Pectoral_right_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Pectoral_right_native_source",
+      "mesh": "Pectoral_right",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Pelvic_left_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Pelvic_left_native_source",
+      "mesh": "Pelvic_left",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    },
+    "Pelvic_right_native_source": {
+      "alphaCutoff": 0.5,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "material": "Pelvic_right_native_source",
+      "mesh": "Pelvic_right",
+      "mipmaps": false,
+      "nearest": true,
+      "source_alpha_method": "Native existing alpha -> Math GREATER_THAN(.5) -> Principled Alpha"
+    }
+  }
+}

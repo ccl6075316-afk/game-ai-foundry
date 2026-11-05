@@ -1,0 +1,105 @@
+{
+  "kind": "accepted_GLTF_vs_source_material_finalization_gap",
+  "original_and_current_GLTF": [
+    {
+      "model_sha256": "a031a190e17704383a6d0d517089fc3ca00ad34cf3ecbfbe14d019c49f0d4ea8",
+      "materials": [
+        {
+          "name": "Anal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Caudal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Dorsal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Pectoral_left_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Pectoral_right_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Pelvic_left_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        },
+        {
+          "name": "Pelvic_right_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": 0.5,
+          "doubleSided": false
+        }
+      ]
+    },
+    {
+      "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+      "materials": [
+        {
+          "name": "Anal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Caudal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Dorsal_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Pectoral_left_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Pectoral_right_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Pelvic_left_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        },
+        {
+          "name": "Pelvic_right_native_source",
+          "alphaMode": "MASK",
+          "alphaCutoff": null,
+          "doubleSided": false
+        }
+      ]
+    }
+  ],
+  "original_source_sha256": "1e07ebdd0d7a882f53e2a6b122f38a92aa188471a6e2140c2ac55546d8101d12",
+  "source_audit_and_current_fix": "source-cutout-authoring.validation.json",
+  "root_cause": "Original acceptedGLB alreadyMASK/.5/cull but original blend lacked threshold/cull/contract. This round geometry didnot delete a threshold. Ordinary source export exposed incomplete historical sourcefinalization. Existing cutout-water-preflight was missed before fullvalidation; this workflow error caused avoidable late discovery.",
+  "fix": "Current actual source ImageAlpha -> MathGREATER_THAN(.5) -> BSDFAlpha; backfacecull true => GLTF doubleSided false; explicit sourceexportcontract and coldassertions. No publicwater edits.",
+  "preflight_reference": "docs/FISH-VOLUME-WORKFLOW.md#cutout-water-preflight",
+  "original_audit_models_are_temporary_not_retained": true
+}

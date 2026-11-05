@@ -1,0 +1,278 @@
+{
+  "kind": "finished_nine_fish_repair_precise_retirement",
+  "date": "2026-11-06",
+  "authorization": "User directed technically completed repairs to be treated as finished, committed/pushed, and associated experimental media/models/dense samples and author chains retired. Current24 accepted assets/source pixels/icons/shared database/reference PDF remain.",
+  "agent_nonoverlapping_totals": [
+    {
+      "actor": "A",
+      "deleted_bytes": 8710249889,
+      "receipt": "resources/volume-fish/top-body-repair-20261105/group-a/final/blacktip_reef_shark/retirement-receipt.json",
+      "sha256": "04222d66cb3cca27f5a8af862ec5659bc96069944ed17c1d4e6595fcb383410a"
+    },
+    {
+      "actor": "B",
+      "deleted_bytes": 4685760399,
+      "receipt": "resources/volume-fish/top-body-repair-20261105/group-b/yellow-croaker-release/retirement-receipt.json",
+      "sha256": "3ace16471c3f5a4cdefd375695e34b1e8822d2c13d0ba3b05fdde531696e9470"
+    },
+    {
+      "actor": "C",
+      "deleted_bytes": 5561551549,
+      "receipt": "resources/volume-fish/top-body-repair-20261105/group-c/group-c-retirement.validation.json",
+      "sha256": "00d636a65ac090a54bc8b2c38d7a102783084e8054f2e266696dba30434b54e4"
+    }
+  ],
+  "root_prior_nonoverlapping_operations": [
+    {
+      "operation": "accepted_peacock_tree",
+      "deleted_bytes": 76062574,
+      "receipt": "resources/volume-fish/top-body-repair-20261105/group-b/peacock-bass-release/retirement.validation.json",
+      "receipt_sha256": "f8a413ca70d0a146727f76d2bce09f4774e64fd1e9fc4ac079a0f0990812aad8"
+    },
+    {
+      "operation": "completed-fixture-cleanup.validation.json",
+      "deleted_bytes": 150204,
+      "original_receipt_sha256": "833fb324085e76a49c1e1493232b296592e58cc0b4dd983c30b5b684a51e2801",
+      "original_locator_retired": true
+    },
+    {
+      "operation": "blacktip-final-negative-retirement.json",
+      "deleted_bytes": 6546918,
+      "original_receipt_sha256": "2a085159b8730e0dcf6ade9bca7ca573e20381d5f0da05739da758a2e7a5cc8b",
+      "original_locator_retired": true
+    },
+    {
+      "operation": "blacktip-volume-adapter-negative-cleanup.json",
+      "deleted_bytes": 4366240,
+      "original_receipt_sha256": "35c1f3fde624148c4287bce58db9c0d5aec2b298f93101f387187f06daff9d81",
+      "original_locator_retired": true
+    },
+    {
+      "operation": "preliminary-receipt-retirement.json",
+      "deleted_bytes": 17871,
+      "original_receipt_sha256": "d2fc0abdef49b40d22a42b4d6f504440cba9b5daeb8145f8104e284825be0005",
+      "original_locator_retired": true
+    },
+    {
+      "operation": "constant-oral-actual-after.validation.json",
+      "deleted_bytes": 6050380,
+      "original_receipt_sha256": "7432abf6d948834303ebf1a2d6b118af4b328c032d30d446902f89aa1424a6ad",
+      "original_locator_retired": true,
+      "retained_compact_negative_results": {
+        "ok": true,
+        "positive": {
+          "protected_faces": 1730,
+          "protected_vertices": 1215,
+          "rim_counts": {
+            "upper": 2,
+            "lower": 2,
+            "commissure": 24
+          }
+        },
+        "negative_tests": [
+          {
+            "case": "changed-oral-rgb",
+            "rejected": true,
+            "reason": "Changed protected material/image",
+            "actual_model_sha256": "9f6785c1093454466d4efb3e2ebe042a4838cd86cc8d116dbb05f980d4df3809",
+            "honest_updated_binding": true
+          },
+          {
+            "case": "missing-body-image",
+            "rejected": true,
+            "reason": "Missing native base-colour image",
+            "actual_model_sha256": "7d60e2bd340db9ac60ba241e1d9cf803dfc9fb2d03764382750934d963ff2f75",
+            "honest_updated_binding": true
+          },
+          {
+            "case": "dropped-oral-face",
+            "rejected": true,
+            "reason": "Incomplete closed upper/lower native lip seam",
+            "actual_model_sha256": "46707e1d966b13c3e3c050351ec83b70c291b0baa91a5893d2242da3173d4a9c",
+            "honest_updated_binding": true
+          }
+        ],
+        "temporary_negative_bytes_deleted": 6050380
+      }
+    },
+    {
+      "operation": "volume-adapter-retirement.json",
+      "deleted_bytes": 13848,
+      "original_receipt_sha256": "6f163fb576d512cbec99852336e4383abb826224738f4ce50ae0d03a8ad54549",
+      "original_locator_retired": true
+    }
+  ],
+  "root_final_experiment_tree": {
+    "target": "projects/fishing-2d/experiments/top-body-repair-20261105",
+    "deleted_files": 160,
+    "deleted_bytes": 12801397,
+    "exact_inventory_sha256": "68e8db58f440c5d3530a50b1e3cb27113e097bf2d2a5b3c0ac3e64aa197ddd4d",
+    "scope": "Entire explicitly owned untracked repair experiment tree after all three agents ended; residual text receipts, local review outputs and logs. Symlinks unlinked without following targets. No archive."
+  },
+  "deleted_bytes_total": 19063563638,
+  "retained_nine_source_model_bytes": 123251558,
+  "retained_current_assets": [
+    {
+      "species": "peacock_bass",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "82c8bf589f29c38287af91d34b1dab0dc90238ea967f14f5b5a489978e2f4f7e",
+        "bytes": 6214218
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+        "bytes": 5288564
+      }
+    },
+    {
+      "species": "arapaima",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "b18ab48156d092383b8638961235ff938c0e9cbf1ae426460525bdf81c97c5cd",
+        "bytes": 6418454
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "e540c264bf6d784504a3e098a92881a7b562602c5256f3c3e333f3371432e37a",
+        "bytes": 6632472
+      }
+    },
+    {
+      "species": "black_seabream",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+        "sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2",
+        "bytes": 9028694
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+        "sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+        "bytes": 9166568
+      }
+    },
+    {
+      "species": "red_seabream",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+        "sha256": "7b381777fb5f1be3fc436ad22e9fd1057781b90fb3ff486e43f4c98a4d22ebee",
+        "bytes": 8766767
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+        "sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1",
+        "bytes": 8875716
+      }
+    },
+    {
+      "species": "piranha",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "285fe85139fc6868776c3745006badb353e5f6b3fc12e7f48672c92d0961c666",
+        "bytes": 7413238
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438",
+        "bytes": 7496576
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "c250664c8700472d4d6d424a7e7d2e3b9119fcf553345ec30134feffc01f9115",
+        "bytes": 7809834
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "1cd673adbd16fdf8bffc1252093a5a9fbb09891144228cc4cb67c83fa8adadfc",
+        "bytes": 7908876
+      }
+    },
+    {
+      "species": "blacktip_reef_shark",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd",
+        "bytes": 2063296
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+        "bytes": 2016804
+      }
+    },
+    {
+      "species": "zander",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+        "bytes": 7268564
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+        "bytes": 7397664
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+        "bytes": 6641605
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+        "bytes": 6843648
+      }
+    }
+  ],
+  "protected_other_species_count": 15,
+  "protected_other_source_model_files": 30,
+  "preserved_reference_pdf": {
+    "path": "docs/reviews/fish-reference-comparison-20261105.pdf",
+    "sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
+    "bytes": 11359091
+  },
+  "source_pixels_icons_database": "Outside every deletion target; producing agents verified their protected references. No current canonical or unique original input deleted.",
+  "evidence_lifecycle": "Old experiment paths/SHA are provenance, not replayable or newly revalidated after retirement. Current source exporters, complete current root domains, parameters, core numeric outcomes and methods remain versioned.",
+  "post_cleanup_actual_entry": {
+    "ok": true,
+    "fresh_process": true,
+    "fish": 9,
+    "checks": 276,
+    "errors": [],
+    "log_error_count": 0,
+    "canonical_report": {
+      "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/canonical-entry.validation.json",
+      "sha256": "557205941632c2b34e00ccf9ec353b1e25612ad49f33a32b0eca04240f11f150"
+    },
+    "scope": "Actual current canonical display/Fishing/upperlip/hook/4actions/static identity after all experiment paths removed; does not repeat490/077 or reproduce retired media."
+  },
+  "last_post_cleanup_probe_retirement": {
+    "files": [
+      {
+        "path": "output/fish-shape-release-20261106/post-cleanup-entry.validation.json",
+        "bytes": 53085,
+        "sha256": "557205941632c2b34e00ccf9ec353b1e25612ad49f33a32b0eca04240f11f150"
+      },
+      {
+        "path": "output/fish-shape-release-20261106-post-cleanup.log",
+        "bytes": 125,
+        "sha256": "c8710705105a386c5ae33e6d354422ae64f821c73406dd1d428bec2f6898126b"
+      }
+    ],
+    "deleted_bytes": 53210
+  },
+  "gross_deletion_event_bytes": 19063624479,
+  "restored_protected_numeric_parameter": {
+    "path": "resources/volume-fish/top-body-repair-20261105/group-b/peacock_bass.deformation.plan.json",
+    "sha256": "6c6bfa755b85ef6d867a6194461476a41895a0ce05b1e90c5cfbdb39dbbeb06c",
+    "bytes": 60841,
+    "reason": "Referenced by the current accepted peacock manifest. Retained valuable numerical authoring parameters, not an experimental model or media. B gross removal receipt remains historical; subtract this restored file from final net reduction."
+  },
+  "deletion_total_definition": "Net removed bytes after restoring the still-referenced peacock numerical parameter file; actor receipts retain their original gross deletion events."
+}

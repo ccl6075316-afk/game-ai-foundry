@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "kind": "native_ordinary_eyes_finite_support_preflight",
+  "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "eyes": [
+    {
+      "ok": true,
+      "kind": "native_body_supported_eye",
+      "name": "Native_eye_-1",
+      "physical_vertices": 25,
+      "triangles": 36,
+      "boundary_edges": 12,
+      "closed": false,
+      "export_rows": 108,
+      "original_physical_topology_oriented_UV_corner_identity": true,
+      "native_RGB_alpha_preserved": true,
+      "actual_nearest_finite_body_named_skin": true,
+      "relief_not_enlarged": true,
+      "maximum_named_weight_error": 2.822326250484508e-08,
+      "maximum_relief_native": 0.004260131328796688,
+      "underlying_body_independently_closed": true,
+      "binding_report_sha256": "f6fcc61ccb92a783b63aff9a83a8223b082577fd412e9d6fca3fd68bbbccaf17"
+    },
+    {
+      "ok": true,
+      "kind": "native_body_supported_eye",
+      "name": "Native_eye_1",
+      "physical_vertices": 25,
+      "triangles": 36,
+      "boundary_edges": 12,
+      "closed": false,
+      "export_rows": 108,
+      "original_physical_topology_oriented_UV_corner_identity": true,
+      "native_RGB_alpha_preserved": true,
+      "actual_nearest_finite_body_named_skin": true,
+      "relief_not_enlarged": true,
+      "maximum_named_weight_error": 2.7048148831809726e-08,
+      "maximum_relief_native": 0.004260385013893729,
+      "underlying_body_independently_closed": true,
+      "binding_report_sha256": "f6fcc61ccb92a783b63aff9a83a8223b082577fd412e9d6fca3fd68bbbccaf17"
+    }
+  ],
+  "GPU_gate_pending": true
+}

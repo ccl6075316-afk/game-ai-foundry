@@ -84,3 +84,5 @@
 此检查器**不自动把任意Godot修补算法翻译为Blender，也不启动导出/Godot或证明未披露调用不存在**；逐鱼实际回写、导出、关闭builder的冷读与视觉/专项验证由执行者按上述顺序主动完成。报告字段不是对内容真实性的自动证明。
 
 现有 `volume accept` 记录建模/原画风格阶段的操作者接受，是后续动作生产的输入，不能改为要求尚未制作的运行时全套证据而制造循环依赖。它不等于整鱼最终交付；最终交付必须另通过包含本门的 `volume sop-check`，不能只拿旧的accept状态宣称完成。
+
+2026-11-06 材质源合同负例：已接受GLB的MASK/alphaCutoff/单面设置，不能证明其blend已固化同样语义。大黄鱼旧GLB为MASK/.5/单面，而旧blend仍为图片Alpha直连+DITHERED/双面；源重导才暴露差异。收尾须对照已接受GLB、当前blend实际节点/合同及新进程冷导GLB三者的透明与剔除设置，并实看水体。按既有 `docs/FISH-VOLUME-WORKFLOW.md#cutout-water-preflight` 将裁边阈值真正落源；不改公共水体掩盖该差异。

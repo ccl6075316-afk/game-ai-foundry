@@ -1,0 +1,349 @@
+{
+  "kind": "current_zander_body_width_and_complete_root_repair_parameters",
+  "species": "zander",
+  "source_sha256": "a3486d9be217b4cc68ffc24c0d246c11d48fa0edaf809f1699508b0bc5ae1965",
+  "model_sha256": "7f169be9a2e3ebeeeed35a4883ee1f92dc41fbd3d1d14e51e8117616c4a9ccb5",
+  "model_scale": 0.503640320726227,
+  "display_length_cm": 50,
+  "length_native": 0.9927719831466675,
+  "base_fin_profile": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/zander-lowpoly-20261104/adopted-method.json",
+    "sha256": "6efc83969c5b4830a1d1327b3399d34e6979ad3d962baf20cb914397b47173f8"
+  },
+  "reference": {
+    "path": "/Users/czl/projects/game-ai-foundry/resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/db51e8767b50886bb07e650d731cdad0068086c2c26d9d2fa2e57783e4805ded.obj",
+    "sha256": "db51e8767b50886bb07e650d731cdad0068086c2c26d9d2fa2e57783e4805ded",
+    "selection": {
+      "group": "Zander_0",
+      "face_record": {
+        "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/registration-and-selections.json",
+        "sha256": "05ffbb0cd83ecf281fc0409a2835a6937d664854bc5dfd0c9f08ece84e66a706",
+        "species": "zander"
+      }
+    },
+    "axes": [
+      "-Y",
+      "+Z",
+      "+X"
+    ],
+    "axis": {
+      "nose_x": 1.01582527,
+      "length": 2.51305723,
+      "longitudinal_factor": 1,
+      "basis": "Visible reference length for width; independent declared nose/body-cap longitudinal correspondence"
+    }
+  },
+  "actual_body_projection": {
+    "before": {
+      "Wmax_over_registered_length": 0.13461126387119293,
+      "peak_t_from_nose": 0.3369999825954437,
+      "max_abs_width_difference_over_reference_Wmax": 0.04646696755002258,
+      "worst_difference_t": 0.000759698508772999
+    },
+    "candidate": {
+      "Wmax_over_registered_length": 0.13461126387119293,
+      "peak_t_from_nose": 0.3369999825954437,
+      "max_abs_width_difference_over_reference_Wmax": 0.04646696755002258,
+      "worst_difference_t": 0.000759698508772999
+    },
+    "reference": {
+      "Wmax_over_registered_length": 0.13469995030714044,
+      "peak_t_from_nose": 0.33551248094735986
+    }
+  },
+  "body_finite_boundary_breakpoints": 117,
+  "body_supports": {
+    "reallocated_nonextreme_old_body_vertices": [
+      12,
+      18,
+      24,
+      30,
+      19
+    ],
+    "original_longitudinal_stations_top_side_extrema_and_true_12point_tail_cap_preserved": true,
+    "new_body_spine_support_X": [
+      -0.2,
+      -0.07,
+      0.05,
+      0.11,
+      -0.11
+    ],
+    "new_body_support_skin": "Original actual same-X station field; r21 existing body skin was already correct, never restore retopo indexes as anatomy.",
+    "maximum_bidirectional_probe_mm": 2.44801336947157
+  },
+  "fin_roots": {
+    "root_band": 0.065,
+    "inventory": {
+      "Dorsal_spiny": 21,
+      "Dorsal_soft": 30,
+      "Anal": 20,
+      "Caudal": 14,
+      "Pectoral_left": 10,
+      "Pectoral_right": 10,
+      "Pelvic_left": 10,
+      "Pelvic_right": 10
+    },
+    "Anal_complete_new_3layer_support_X": -0.15104758739471436,
+    "Spiny_interior_3layer_root_X_reparameterized_from_point17_to": 0.1596900373697281,
+    "root_endpoints_and_all_free_shape_longitudinal_positions_retained": true,
+    "Spiny_common_outward_native": 0.0005,
+    "Anal_root_cap_curve": {
+      "outer_UV_mate_common_Z_native": -0.00014,
+      "closing_middle_Z_native": 6e-05,
+      "true_Y_thickness_retained": true
+    },
+    "actual_body_X_carrier_rebuilt_only_complete_roots": [
+      "Dorsal_spiny",
+      "Dorsal_soft",
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "all_254_free_named_skin_exact_to_native_source": true,
+    "old_GLTF_tiny_filtering_max_error": 5.664814307237975e-05
+  },
+  "budget": {
+    "total_triangles": 2000,
+    "body_triangles": 1222,
+    "fin_triangles": 726,
+    "eye_triangles": 52,
+    "meshes": 11,
+    "body_surfaces": 4,
+    "all_surfaces": 14
+  },
+  "limits": {
+    "root_outer_gap_mm": 0.5,
+    "root_embedding_mm": 0.5,
+    "membrane_collar_mm": 0.5,
+    "membrane_penetration_mm": 0.02,
+    "tail_section_mm": 0.4,
+    "discrete_time_only": true
+  },
+  "scope": "Same-species local art reference, not biological metrology. Raw4.646697% Wmax mismatch is preserved extreme mouth design, at t=.0007597; not a false complete2% statement.",
+  "authored_body_X_weight_field_stations": [
+    {
+      "x": -0.367,
+      "named_weights": {
+        "body_09": 1.0
+      }
+    },
+    {
+      "x": -0.32,
+      "named_weights": {
+        "body_08": 0.3912980258464813,
+        "body_09": 0.6087019443511963
+      }
+    },
+    {
+      "x": -0.26,
+      "named_weights": {
+        "body_07": 0.06210223274926344,
+        "body_08": 0.9378977417945862
+      }
+    },
+    {
+      "x": -0.19,
+      "named_weights": {
+        "body_07": 0.8447249531745911,
+        "body_08": 0.15527503564953804
+      }
+    },
+    {
+      "x": -0.11,
+      "named_weights": {
+        "body_06": 0.7391305565834045,
+        "body_07": 0.2608694409330686
+      }
+    },
+    {
+      "x": -0.03,
+      "named_weights": {
+        "body_05": 0.6335449516773224,
+        "body_06": 0.3664550532897313
+      }
+    },
+    {
+      "x": 0.05,
+      "named_weights": {
+        "body_04": 0.5279473513364792,
+        "body_05": 0.4720526561141014
+      }
+    },
+    {
+      "x": 0.13,
+      "named_weights": {
+        "body_03": 0.42236510664224625,
+        "body_04": 0.577634871006012
+      }
+    },
+    {
+      "x": 0.21,
+      "named_weights": {
+        "body_02": 0.31676757087310153,
+        "body_03": 0.6832324266433716
+      }
+    },
+    {
+      "x": 0.29,
+      "named_weights": {
+        "body_01": 0.21117020025849342,
+        "body_02": 0.7888297835985819
+      }
+    },
+    {
+      "x": 0.35,
+      "named_weights": {
+        "body_01": 0.8819969644149145,
+        "body_02": 0.11800302813450496
+      }
+    },
+    {
+      "x": 0.4,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.41,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.42,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.43,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.431,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.432,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.434,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.44,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.45,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.46,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.47,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.48,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.485,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.49,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.492,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.493,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.493254,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.4935,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.494,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.4942,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    },
+    {
+      "x": 0.4942542,
+      "named_weights": {
+        "body_00": 0.32918789982795715,
+        "body_01": 0.6708120703697205
+      }
+    }
+  ]
+}

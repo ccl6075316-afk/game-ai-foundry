@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "kind": "current_repair_operator_observations",
+  "species": "yellow_croaker",
+  "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "reference": "Same-species local YellowCroaker/SmallYellowCroaker exact artistic OBJ, D-grade, not biological measurement; whole-TL transverse scaling and explicitbody longitudinal registration.",
+  "shape": "Reviewed original whole continuous body silhouette, repaired source R8 shoulder maximum; full grey top/front/oblique and native sides. Posterior point budget keeps complete 169 top/164 side min/max envelope events exactly; off-axis finite surface max0.2642mm at2 removed points, nearestroot24.03mm. Separate earlier tail interior patch max2.63mm with full old boundary retained. No uniform2% biological claim.",
+  "known_reference_limit": "Frozen raw internal residual max4.3045% Wmax; anterior7.2928% difference is actual original shared lower oral-floor lip endpoint, not compressed to a zero-width library cap.",
+  "mouth": "Original integrated upper/lower volume and real opening maintained; current strict complete anterior+wholeoral+all rimneighbours514faces1542rows, upper52/lower50/commissure2.",
+  "eyes": "Original open25physicalV/36F/12boundary caps retain topology/UV/PNG/relief; actual finitebody supports and namedweights maxerror2.83e-8.",
+  "skin": "Original protected anterior/oral chart retained. Shoulder and8 posterior new triangles copy actual same old finite face nativeRGBA pixels with no interpolation between UV islands; old images retained; native nearest/no mip.",
+  "fins": "Complete7 fins, all original source_t basal bands.065 retained. Original longitudinal positions/axes, original side shape protected; paired freefin andpivot move transversely together. True normal-thickness rays all0 misses, taper>=1.511, tail section passed; current fin shell negative rejected.",
+  "motion": "Current actual source nativeclip/controller/profile unchanged. Fresh5cases96phases and4transitions pass; actual new transition bone quaternions equal the geometry-verified prior candidate.",
+  "water": "Actual canonical VolumeFishExhibit Swimp.375+preset3 same camera now shows complete fin inventory across views, including tail; natural camera/body occlusion is not simultaneous visibility of all7. Publicwater code untouched.",
+  "cutout_root_cause": "Old accepted GLB a031.. had7MASK/.5/doubleSidedfalse, but accepted blend1e07.. had direct ImageAlpha/DITHERED/no cull/no source contract. Geometry scripts did not remove a threshold; ordinary re-export exposed incomplete historic source finalization. This round also missed the existing cutout-water preflight before full gates, a workflow failure corrected by actual sourceGT(.5)+cull and checked source-only export contract.",
+  "media_lineage": "R32 grey/source/head/motion imagery is retained solely for byte-identical geometry/UV/RGB/animation after explicit exact material-only proof; it is not claimed to be newly renderedR33. CurrentR33 MASK water/077/cold/entry are fresh. User requested no new large presentation.",
+  "scope": "User accepts product conditional on technical completion; no further user visual approval requested. Old accepted release remains immutable."
+}

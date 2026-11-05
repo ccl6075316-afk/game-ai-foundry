@@ -147,3 +147,5 @@ actual scalar precision and importer normalization, and prove a boundary case
 against the actual runtime. This exception applies only to preserved explicit
 opaque constant oral materials; all native body/image/oriented-rim protections
 remain mandatory. Models and pixels were not modified by this checker repair.
+
+Lifecycle after final delivery: local R24 chart snapshots, negative GLBs and logs mentioned above were retired under the user instruction. Their locators are historical, not runnable fixtures. The committed in-memory47-test regression suite remains runnable; compact actual-model positive/negative findings and cleanup totals remain in the final retirement record.

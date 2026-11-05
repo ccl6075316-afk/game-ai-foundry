@@ -1,0 +1,438 @@
+{
+  "kind": "completed_blacktip_and_group_a_retirement_receipt",
+  "authorization": "User accepted completed repairs after necessary checks, authorized install/commit/push and retirement of historical experiment media/models/dense data. Parent confirmed exact canonical install, compact proof and actual9fish276checks, explicitly authorized current R24/private runtime cleanup before final commit.",
+  "current_canonical": {
+    "source": {
+      "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+      "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd"
+    },
+    "model": {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+      "sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43"
+    },
+    "combined_bytes": 4080100
+  },
+  "formal_three_files": {
+    "source-domain.json": "9bdf59971911e0898951aa694f5ff124d0a3846ee07bd3adc5d49e094ca7cf15",
+    "numeric-evidence.json": "7435659033b4248beef1b3d954d471075a799a1fc93513ce7b219fe3627786c3",
+    "README.md": "546249b48b403d1467e07ff9bf09b952bf7cdc6b507232974c64b025d9c96929"
+  },
+  "formal_three_total_bytes": 231708,
+  "formal_game_record": {
+    "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/blacktip_reef_shark.validation.json",
+    "sha256": "408e1371ac9c00ef65d4738e16182a20280211cf427cc48ec489b083f5a1daf4"
+  },
+  "actual_final_outcome": {
+    "SOP_stages": 9,
+    "SOP_evidence_count": 60,
+    "entry_fish": 9,
+    "entry_checks": 276,
+    "entry_errors": [],
+    "roots_and_membrane_poses": 490,
+    "fin_count": 8,
+    "body077_missing_pixels": 0,
+    "body077_negative_missing_pixels": 18398,
+    "normal_ray_misses_all_fins": 0,
+    "zero_area_all_meshes": 0,
+    "tail_same_X_error_mm": 0.09839110912301365,
+    "tail_tolerance_mm": 0.4,
+    "tail_contact_limit": "11actual-body-plane point/segment contacts retained as scoped, no positive-area/free fold claim; not genericself0."
+  },
+  "source_export": {
+    "maintenance_entry": "resources/volume-fish/top-body-repair-20261105/group-c/export_exact_ordinary_source.py",
+    "maintenance_entry_sha256": "ee29e9edff089f01bbe7715c97382de772a93f820b515802111bd7ba860b07d8",
+    "required_inputs": [
+      "Current canonical editable blend only (all used image pixels packed; ARMATURE modifiers only)",
+      "Current canonical motion JSON only"
+    ],
+    "canonical_motion_profile": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/blacktip_reef_shark.json",
+    "operation": [
+      "<Blender5-compatible executable>",
+      "--background",
+      "--python",
+      "resources/volume-fish/top-body-repair-20261105/group-c/export_exact_ordinary_source.py",
+      "--",
+      "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+      "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/blacktip_reef_shark.json",
+      "projects/fishing-2d/experiments/<fresh-authorized-maintenance-run>/fish.glb",
+      "projects/fishing-2d/experiments/<fresh-authorized-maintenance-run>/source-export.validation.json"
+    ],
+    "preconditions": "Use a new empty authorized experiment output directory, no output/report overwrite; Blender observed5.0.1 can read current source. No old candidate or old GLB/donor/assembly input.",
+    "source_only_method": "Export current source geometry/UV/normals/rig/material/images/native clip; a temporary integer source-vertex marker restores actual source normalized named skin weights discarded below.0001 by default exporter, then removes marker. Only just-generated output is read for those source-owned attributes; no old GLB normals or skin donor copied. Normals have no target-model compensation. Emit equivalent explicit OPAQUE/false defaults and nearest samplers.",
+    "actual_fresh_source_only_result": {
+      "ok": true,
+      "kind": "source_owned_exact_ordinary_skin_export",
+      "source_vertex_identity_used": true,
+      "temporary_marker_removed": true,
+      "no_target_model_read": true,
+      "static_builders_disabled": true,
+      "rows": [
+        {
+          "mesh": "Anal",
+          "source_vertices": 87,
+          "export_rows": 87,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Caudal",
+          "source_vertices": 340,
+          "export_rows": 409,
+          "rows_corrected_from_source": 30,
+          "preserved_sub_0001_influences": 34
+        },
+        {
+          "mesh": "Closed_body",
+          "source_vertices": 867,
+          "export_rows": 854,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Closed_body",
+          "source_vertices": 867,
+          "export_rows": 242,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Closed_body",
+          "source_vertices": 867,
+          "export_rows": 302,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "FirstDorsal",
+          "source_vertices": 139,
+          "export_rows": 143,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Pectoral_left",
+          "source_vertices": 118,
+          "export_rows": 173,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Pectoral_right",
+          "source_vertices": 118,
+          "export_rows": 174,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Pelvic_left",
+          "source_vertices": 112,
+          "export_rows": 170,
+          "rows_corrected_from_source": 0,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "Pelvic_right",
+          "source_vertices": 112,
+          "export_rows": 170,
+          "rows_corrected_from_source": 1,
+          "preserved_sub_0001_influences": 0
+        },
+        {
+          "mesh": "SecondDorsal",
+          "source_vertices": 90,
+          "export_rows": 90,
+          "rows_corrected_from_source": 1,
+          "preserved_sub_0001_influences": 1
+        }
+      ],
+      "ignored_deleted_group_entries": [],
+      "model_sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43",
+      "exporter_sha256": "ee29e9edff089f01bbe7715c97382de772a93f820b515802111bd7ba860b07d8",
+      "native_clip_name": "Swim",
+      "limit": "Preserves source float weights; actual Godot GPU storage/UNORM16 conversion and all physical/visual checks remain separate.",
+      "source_blend": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/candidate-r24/fish.blend",
+        "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd"
+      },
+      "motion_profile": {
+        "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/candidate-r24/motion-profile.json",
+        "sha256": "a9008ea8c4f7a41d919f9e9603cc709a7246c6df93152986d95e16ec4fd56eea"
+      },
+      "fresh_process": true
+    },
+    "actual_source_metadata": {
+      "kind": "read_only_current_canonical_source_dependencies",
+      "source_sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd",
+      "source_bytes_unchanged": true,
+      "used_images": [
+        {
+          "name": "body-angular.png",
+          "size": [
+            1834,
+            768
+          ],
+          "packed": true,
+          "source": "FILE",
+          "filepath_metadata": "E:/game-ai-foundry/projects/fishing-2d/experiments/blacktip-lowpoly-20261101/repair-user-review-20261101/charts-r2/body-angular.png",
+          "users": 1
+        },
+        {
+          "name": "Own complete native shark lip chart.001",
+          "size": [
+            2048,
+            256
+          ],
+          "packed": true,
+          "source": "FILE",
+          "filepath_metadata": "",
+          "users": 1
+        },
+        {
+          "name": "fin-two-sided.png.001",
+          "size": [
+            3668,
+            618
+          ],
+          "packed": true,
+          "source": "FILE",
+          "filepath_metadata": "E:/game-ai-foundry/projects/fishing-2d/experiments/blacktip-lowpoly-20261101/repair-user-review-20261101/ventral-layer-r3/fin-two-sided.png",
+          "users": 1
+        },
+        {
+          "name": "fin-two-sided.png.002",
+          "size": [
+            3668,
+            618
+          ],
+          "packed": true,
+          "source": "FILE",
+          "filepath_metadata": "E:/game-ai-foundry/projects/fishing-2d/experiments/blacktip-lowpoly-20261101/repair-user-review-20261101/ventral-layer-r3/fin-two-sided.png",
+          "users": 1
+        }
+      ],
+      "all_used_images_packed": true,
+      "meshes": [
+        {
+          "name": "Closed_body",
+          "vertices": 867,
+          "faces": 1730,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "FirstDorsal",
+          "vertices": 139,
+          "faces": 274,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "SecondDorsal",
+          "vertices": 90,
+          "faces": 176,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Pectoral_left",
+          "vertices": 118,
+          "faces": 232,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Pectoral_right",
+          "vertices": 118,
+          "faces": 232,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Pelvic_left",
+          "vertices": 112,
+          "faces": 220,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Pelvic_right",
+          "vertices": 112,
+          "faces": 220,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Anal",
+          "vertices": 87,
+          "faces": 170,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        },
+        {
+          "name": "Caudal",
+          "vertices": 340,
+          "faces": 676,
+          "modifiers": [
+            "ARMATURE"
+          ]
+        }
+      ]
+    },
+    "limitations": "This is actual source-only provenance, not a replacement for new impact-based roots/membranes077/material/visual/SOP after a future edit. Historical original-run paths in this receipt are retired provenance; current canonical source and permanent exporter are maintenance inputs."
+  },
+  "nonoverlapping_deleted_batches": [
+    {
+      "id": "original_group_a_three_fish",
+      "files": null,
+      "bytes": 3979153906,
+      "scope": "Original accepted three-fish cumulative retirement; counts555112458+789455752+748288677+1886297019 once only."
+    },
+    {
+      "id": "invalid_empty_diagnostic_export",
+      "files": 490,
+      "bytes": 33320,
+      "scope": "After shark takeover, first deliberately rejected partial-fin response wrote empty pose files after assert; separately removed before later dense/candidate batches."
+    },
+    {
+      "id": "shark_old_dense",
+      "files": 2450,
+      "bytes": 2240304587,
+      "receipt_path": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/older-dense.cleanup.json",
+      "receipt_sha256": "d49ab474646b850568680dcb60ed2c4d6c1398f07e0671fd4804808e8d4bc443"
+    },
+    {
+      "id": "completed_guard_probe",
+      "files": 5,
+      "bytes": 4557927,
+      "receipt_path": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/material-runtime-probe.cleanup.json",
+      "receipt_sha256": "c2bd60bf8b502ab4368ad092f7781a403db7d70c7a1e624b46a44d8b02bdf8a9"
+    },
+    {
+      "id": "group_a_onceoff_source_code",
+      "files": 101,
+      "bytes": 733211,
+      "receipt_path": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/group-a-onceoff-scripts.cleanup.json",
+      "receipt_sha256": "e418f31e973011920f203f8e7151e3de1ae910ed8ee4a86be352462ff9fe892e"
+    },
+    {
+      "id": "shark_old_candidates",
+      "files": 1436,
+      "bytes": 590026687,
+      "receipt_path": "projects/fishing-2d/experiments/top-body-repair-20261105/group-c/blacktip_reef_shark/older-candidates.cleanup.json",
+      "receipt_sha256": "0e20afcfd9016e9e11e27a7ceb0fe255df515916ce648564975fd5530ee1482c"
+    },
+    {
+      "id": "final_R24_evidence_private_runtime_and_residual_cache",
+      "files": 1801,
+      "bytes": 1895440251,
+      "scope": "All remaining blacktip experiment payloads including current R24 duplicate source/GLB,media,dense poses,local metadata/probes/private runtime and A rebuildable pycache; preserves canonical/formal/art/library/PDF and compact receipts."
+    }
+  ],
+  "shark_and_additional_cleanup_bytes_after_three_fish": 4731095983,
+  "all_group_a_cleanup_total_bytes": 8710249889,
+  "C_early_or_outside_shark_retirement_included": false,
+  "last_batch_manifest_sha256": "b343caae0cb36c68973b85c55e0b70c368aa6bf8b6c884fc58260700f394d804",
+  "last_batch_manifest_retention": "Exact validated target list used during execution, retained locally outside versioned assets; compact formal receipt keeps counts/hash, not dense file payloads.",
+  "protected_verified_before_after": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+      "bytes": 8766767,
+      "sha256": "7b381777fb5f1be3fc436ad22e9fd1057781b90fb3ff486e43f4c98a4d22ebee"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+      "bytes": 8875716,
+      "sha256": "86e10fcaae8f3a0268f3afa7ca73caf550746fdf50d9c5d40467df59fd1d18f1"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+      "bytes": 9028694,
+      "sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+      "bytes": 9166568,
+      "sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+      "bytes": 7413238,
+      "sha256": "285fe85139fc6868776c3745006badb353e5f6b3fc12e7f48672c92d0961c666"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+      "bytes": 7496576,
+      "sha256": "fb2ab1899686f70b99056b9776b5e4184dd929926e7a4bf8d9e488c8e98b7438"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+      "bytes": 2063296,
+      "sha256": "c663b9a4347c5327ad01c561d9cbe5da93d93ba292855712b28c1cdb863217bd"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+      "bytes": 2016804,
+      "sha256": "f9ffc6f9c71155cdf126cd82bf3b1c88d634d61963b64896796fd59e88428e43"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_Own complete native shark lip chart.png",
+      "bytes": 159549,
+      "sha256": "0589cc237d795a609f93b422d1c96831765f27fb59638049b783a4e4266e203c"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_blacktip_reef_shark_char_blacktip_front040_nobg.png",
+      "bytes": 312006,
+      "sha256": "b1e194b615c83b711d0028510da47f1932c895d7c325caaf0976c0e215bce96d"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_fin-two-sided.png",
+      "bytes": 657191,
+      "sha256": "a1fbb39c1c7210c4e88cbfd57f2d112d7737abeb360d8d50a628ee99852318ce"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_blacktip_reef_shark_char_blacktip_pixel040_nobg.png",
+      "bytes": 631928,
+      "sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_body-angular.png",
+      "bytes": 962574,
+      "sha256": "2707ebd61a5f84133c870bbe184432153c849ac8a526da56b4e7c5e2b282f54b"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_front040_nobg.png",
+      "bytes": 312006,
+      "sha256": "b1e194b615c83b711d0028510da47f1932c895d7c325caaf0976c0e215bce96d"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark_char_blacktip_pixel040_nobg.png",
+      "bytes": 631928,
+      "sha256": "46bcbb995edb66055ffa159f753077bfe15fc2454f892ed7a4b2c6ce18b4b56a"
+    },
+    {
+      "path": "docs/reviews/fish-reference-comparison-20261105.pdf",
+      "bytes": 11359091,
+      "sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d"
+    },
+    {
+      "path": "resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/ef7b01b1f17e6c2d564df7f26350692af8df94bf21ea562d8d1ba068dcda86c3.obj",
+      "bytes": 984250,
+      "sha256": "ef7b01b1f17e6c2d564df7f26350692af8df94bf21ea562d8d1ba068dcda86c3"
+    },
+    {
+      "path": "resources/volume-fish/top-body-repair-20261105/group-c/export_exact_ordinary_source.py",
+      "bytes": 5479,
+      "sha256": "ee29e9edff089f01bbe7715c97382de772a93f820b515802111bd7ba860b07d8"
+    }
+  ],
+  "status": "executed",
+  "experiment_reports_status": "Retired. Historical numeric successes/source hashes are outcomes at freeze, not reproducible current proof paths after cleanup."
+}

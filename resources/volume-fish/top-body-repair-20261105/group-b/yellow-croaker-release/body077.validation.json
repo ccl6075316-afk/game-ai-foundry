@@ -1,0 +1,614 @@
+{
+  "ok": true,
+  "kind": "standalone_body_integrity_077",
+  "formal_acceptance": false,
+  "model_sha256": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+  "species": "yellow_croaker",
+  "geometry": {
+    "triangles": 2000,
+    "welded_edges": 1584,
+    "surfaces": [
+      {
+        "surface": 0,
+        "triangles": 144,
+        "vertices": 150,
+        "material": "Yellow croaker native clean side skin",
+        "opaque": true,
+        "unit_normals_and_winding_agree": true,
+        "texture": {
+          "embedded_sha256": "3d167bf8eb5311b6bcddd93923d39ba98020ab941eb13ce206fc3795747a32b0",
+          "rgba_sha256": "595bc22aad6d541ef3d0775a6af5adb1988f47a67e3e26e6fb077462be58dae3",
+          "size": [
+            2014,
+            727
+          ]
+        }
+      },
+      {
+        "surface": 1,
+        "triangles": 740,
+        "vertices": 2220,
+        "material": "Front skin source chart",
+        "opaque": true,
+        "unit_normals_and_winding_agree": true,
+        "texture": {
+          "embedded_sha256": "bb85b7bc049913a37ed87263464af4468a396e37cba1a3b249b9a4c1683ef2ff",
+          "rgba_sha256": "1785daaa1dbca3704ff951cfea323619493273f02fcae1643136d25209286e89",
+          "size": [
+            1024,
+            8192
+          ]
+        }
+      },
+      {
+        "surface": 2,
+        "triangles": 102,
+        "vertices": 306,
+        "material": "Front mouth oral chart",
+        "opaque": true,
+        "unit_normals_and_winding_agree": true,
+        "texture": {
+          "embedded_sha256": "bb85b7bc049913a37ed87263464af4468a396e37cba1a3b249b9a4c1683ef2ff",
+          "rgba_sha256": "1785daaa1dbca3704ff951cfea323619493273f02fcae1643136d25209286e89",
+          "size": [
+            1024,
+            8192
+          ]
+        }
+      },
+      {
+        "surface": 3,
+        "triangles": 62,
+        "vertices": 174,
+        "material": "Current canonical posterior shoulder chart",
+        "opaque": true,
+        "unit_normals_and_winding_agree": true,
+        "texture": {
+          "embedded_sha256": "2b215e161a302e5da5702743f1787c68749f0b8906181a7ab88bb9b24393c484",
+          "rgba_sha256": "a241673967e33316d13595b7260f42320594d13351d45d457877fa7144c71f56",
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      },
+      {
+        "surface": 4,
+        "triangles": 8,
+        "vertices": 24,
+        "material": "Current posterior internal body chart",
+        "opaque": true,
+        "unit_normals_and_winding_agree": true,
+        "texture": {
+          "embedded_sha256": "51c88f51d20b21fc530f7ad0f5ba459385ba34367ee5ac7c95c90792fe48871a",
+          "rgba_sha256": "15c8d96ce80aee32cc8cb646410dc401271db89f1136d90ceb86b93292255fac",
+          "size": [
+            512,
+            64
+          ]
+        }
+      }
+    ],
+    "decorative_overlay_proofs": [
+      {
+        "ok": true,
+        "kind": "native_body_supported_eye",
+        "name": "Native_eye_-1",
+        "physical_vertices": 25,
+        "triangles": 36,
+        "boundary_edges": 12,
+        "closed": false,
+        "export_rows": 108,
+        "original_physical_topology_oriented_UV_corner_identity": true,
+        "native_RGB_alpha_preserved": true,
+        "actual_nearest_finite_body_named_skin": true,
+        "relief_not_enlarged": true,
+        "maximum_named_weight_error": 2.822326250484508e-08,
+        "maximum_relief_native": 0.004260131328796688,
+        "underlying_body_independently_closed": true,
+        "binding_report_sha256": "f6fcc61ccb92a783b63aff9a83a8223b082577fd412e9d6fca3fd68bbbccaf17"
+      },
+      {
+        "ok": true,
+        "kind": "native_body_supported_eye",
+        "name": "Native_eye_1",
+        "physical_vertices": 25,
+        "triangles": 36,
+        "boundary_edges": 12,
+        "closed": false,
+        "export_rows": 108,
+        "original_physical_topology_oriented_UV_corner_identity": true,
+        "native_RGB_alpha_preserved": true,
+        "actual_nearest_finite_body_named_skin": true,
+        "relief_not_enlarged": true,
+        "maximum_named_weight_error": 2.7048148831809726e-08,
+        "maximum_relief_native": 0.004260385013893729,
+        "underlying_body_independently_closed": true,
+        "binding_report_sha256": "f6fcc61ccb92a783b63aff9a83a8223b082577fd412e9d6fca3fd68bbbccaf17"
+      }
+    ]
+  },
+  "records": [
+    {
+      "actual": "p0-v0-actual.png",
+      "actual_sha256": "4097e91558579c1e59e80e70d3afbe001423529cb62f833037127248a06a512b",
+      "camera_after": "e020aa2aa9ffa0586bada05f89f06a9b8255f12820f8c1f5a2b60b7fa5c41764",
+      "camera_before": "e020aa2aa9ffa0586bada05f89f06a9b8255f12820f8c1f5a2b60b7fa5c41764",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v0-closed.png",
+      "reference_sha256": "0b189dd365e3f94d87f0f13f39dfe415fec37e24ef1d59c1ddb34f6089291827",
+      "view": 0,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v1-actual.png",
+      "actual_sha256": "60ebec3c3a07272366e11ac3e204e1f5bbf25be5cd34329f6c35033ab14809d9",
+      "camera_after": "4ebcaf775db7ee3a9f961ed79d7f7de8aa3ec7fb8f767c1b7f5ac0b76eabd8dd",
+      "camera_before": "4ebcaf775db7ee3a9f961ed79d7f7de8aa3ec7fb8f767c1b7f5ac0b76eabd8dd",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v1-closed.png",
+      "reference_sha256": "7612bd65afe83c37104d0faf9383b898bc2b9ec3c025396b4cf096dbffbcf5af",
+      "view": 1,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v2-actual.png",
+      "actual_sha256": "e3412606131cc7e53d005e8266772bdc7ad4548243166998a1979230a858c2ca",
+      "camera_after": "d1a039c60fea554a38cf51cdf3e6e07ed64f2beff626f7979d410b9c2118aa91",
+      "camera_before": "d1a039c60fea554a38cf51cdf3e6e07ed64f2beff626f7979d410b9c2118aa91",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v2-closed.png",
+      "reference_sha256": "72b0bfff94b4c91fcf38e63f0bfb172be9ea67216aacfa2a729f5e170368f187",
+      "view": 2,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v3-actual.png",
+      "actual_sha256": "4094a1632a9114310691d453cb365d9b22aa0360c29ef3acb993bb96b2f130b3",
+      "camera_after": "81e18318864ec0157feda075595e009cc6f34c45343f14c31f64d3f596a70565",
+      "camera_before": "81e18318864ec0157feda075595e009cc6f34c45343f14c31f64d3f596a70565",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v3-closed.png",
+      "reference_sha256": "72b0bfff94b4c91fcf38e63f0bfb172be9ea67216aacfa2a729f5e170368f187",
+      "view": 3,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v4-actual.png",
+      "actual_sha256": "f73a63b51016f80e737700f12845c0f176b0fbcb20595feb2c6c69e1f79e30bb",
+      "camera_after": "3a6b5f5d338d55f0ac5fc58fdbf38b6a3378d405d1c2a42f9f955c6bf152d158",
+      "camera_before": "3a6b5f5d338d55f0ac5fc58fdbf38b6a3378d405d1c2a42f9f955c6bf152d158",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v4-closed.png",
+      "reference_sha256": "0ded4ef5062c0cb2935f31c71142dbb557b9ed5b4be693a669785e4c1764606d",
+      "view": 4,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v5-actual.png",
+      "actual_sha256": "a4d23575bb218e5bdb5dfec279d75adf9aa76ec06157c0f2f17bbc875a5ea06e",
+      "camera_after": "e6a0b54ff45a950b85a6b55f5f71750788432924a109c84ee42206b8747cf8d2",
+      "camera_before": "e6a0b54ff45a950b85a6b55f5f71750788432924a109c84ee42206b8747cf8d2",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v5-closed.png",
+      "reference_sha256": "85859d68fe364ad6f01f623caa3678b7a48d3f8dbfd867c9f3ecb2dc690029c2",
+      "view": 5,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v6-actual.png",
+      "actual_sha256": "cb981fb9262de3a44a47cae0017af3388339cf1d3159cfb80dfb91aa741b033e",
+      "camera_after": "b213b3f099212219f9fe9fce1372ac13c58f3758bf746aff586009a985d60885",
+      "camera_before": "b213b3f099212219f9fe9fce1372ac13c58f3758bf746aff586009a985d60885",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v6-closed.png",
+      "reference_sha256": "03f6085a568d32e4250e5d29fb1d3e2456403a8005b03f6b28e80229e049da82",
+      "view": 6,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p0-v7-actual.png",
+      "actual_sha256": "14e64074b35e08dfb56e0db616b1198f7fce071710aabc620fe7c256fa0f2d0d",
+      "camera_after": "0c930c3cc034bac5ea139856edc497c9eabbe57dcac95abe0a8d8237b96b2dd9",
+      "camera_before": "0c930c3cc034bac5ea139856edc497c9eabbe57dcac95abe0a8d8237b96b2dd9",
+      "pose": 0,
+      "pose_after": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "pose_before": "00b4b82e96779a3aa183e00d4ffd3d254d1e5181193366d2cebf776267254527",
+      "reference": "p0-v7-closed.png",
+      "reference_sha256": "472bb4a3e3f40955a8e948bfa2f61b5273d443a139f695c35d508d68f95d5a44",
+      "view": 7,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v0-actual.png",
+      "actual_sha256": "17d98d110d30d6e8137044b7f58c8f66c60dd5fa0fa198343892f552b2b9016d",
+      "camera_after": "fa4a04ec72239342ec2e14809fe9493bf21fa4ece465d8bb45d0eb16a37a89b8",
+      "camera_before": "fa4a04ec72239342ec2e14809fe9493bf21fa4ece465d8bb45d0eb16a37a89b8",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v0-closed.png",
+      "reference_sha256": "7d563a945c86f23cd0ce2cdfc900a1aeebf1456dbb4fb08234c769c80f6606be",
+      "view": 0,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v1-actual.png",
+      "actual_sha256": "d89302cfda7ce85adc0d6540268732e7ab1773a5f6b191520d4442d0f6f79e5d",
+      "camera_after": "433a6da15b19193acc3e4cc7b1abaed6ab8586edf8b637269595e01feef0446d",
+      "camera_before": "433a6da15b19193acc3e4cc7b1abaed6ab8586edf8b637269595e01feef0446d",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v1-closed.png",
+      "reference_sha256": "e067b969745a4cbe1a2c7602f73be4a7ff661b0cfdf1c9b422e6ec3eda6aa10b",
+      "view": 1,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v2-actual.png",
+      "actual_sha256": "4ba315d7e8e43ca361c7cbbe6654fe88ec93016ece7a14a08b216e33e2c3a476",
+      "camera_after": "829838fc1c9648a764d0db0ce4e397d860c0fa813dbd2ecc45ee1aaeb1dcb84e",
+      "camera_before": "829838fc1c9648a764d0db0ce4e397d860c0fa813dbd2ecc45ee1aaeb1dcb84e",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v2-closed.png",
+      "reference_sha256": "2a4b3eea0dbaa21a25a2f107db1435d4669feb1360eadf9a1cf092204948b901",
+      "view": 2,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v3-actual.png",
+      "actual_sha256": "372919e980546209ed42e905747f0b070dd72983c5af4b8b08df7702434fe68c",
+      "camera_after": "9f7c60f6cdd322be3800a7af3f8fa301c44bec95d5d3f18611f0f3e8ff2f302d",
+      "camera_before": "9f7c60f6cdd322be3800a7af3f8fa301c44bec95d5d3f18611f0f3e8ff2f302d",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v3-closed.png",
+      "reference_sha256": "531549d8a65bd216bb96456d7ee0d66f2e36dca0d1eaa4dcb2a46d0dcbd80233",
+      "view": 3,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v4-actual.png",
+      "actual_sha256": "f128f85872d292ad5cf9a9e57fca798f86b1eca7edc9a2bc37a9eab2b4e22f92",
+      "camera_after": "d8a98aeea5420a0719d227aedade068a68fde239c57e3bf1fcc8666c09d24e33",
+      "camera_before": "d8a98aeea5420a0719d227aedade068a68fde239c57e3bf1fcc8666c09d24e33",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v4-closed.png",
+      "reference_sha256": "b3bcf391b96a2edd92e582ac28e95396673ac237db172c5530244a7823e8ac78",
+      "view": 4,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v5-actual.png",
+      "actual_sha256": "fd549c17340c184bf7684d355e8516cf295847f71912e11b44c8e9c61d4d756a",
+      "camera_after": "e8842a441a2926fc5f9b421795bcdc44ea2bb87e62cf4f7dc10a6324151322c0",
+      "camera_before": "e8842a441a2926fc5f9b421795bcdc44ea2bb87e62cf4f7dc10a6324151322c0",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v5-closed.png",
+      "reference_sha256": "68c96bd2cd1f38efce3ac78b69ee3ae2da52a10ed008000fae8e4376b570503c",
+      "view": 5,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v6-actual.png",
+      "actual_sha256": "a8ae9c36978a1d43f4d75cf418b24602b6c7b731bdf162f4cc9808fe8ca06bf5",
+      "camera_after": "36054bdacbb203eff5dbeda10de3dacc8231ae2cae922466512333c66e9f660a",
+      "camera_before": "36054bdacbb203eff5dbeda10de3dacc8231ae2cae922466512333c66e9f660a",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v6-closed.png",
+      "reference_sha256": "9173ee670a302a6754b12966d6110e0fcd259d3e09a4753d9ddae929336c8cbf",
+      "view": 6,
+      "missing_body_pixels": 0
+    },
+    {
+      "actual": "p1-v7-actual.png",
+      "actual_sha256": "11fd65ece37d2d6631df239bff8dd9f4e85e862982b0f441542d5607634db372",
+      "camera_after": "3acc79eee19438c98a7f5c466ccb98bff6e3c3255b014e8cd07f6d79e8278ac9",
+      "camera_before": "3acc79eee19438c98a7f5c466ccb98bff6e3c3255b014e8cd07f6d79e8278ac9",
+      "pose": 1,
+      "pose_after": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "pose_before": "19ec3263b14d50e18aee9653140296ea9bdf695bc347cde8dacbb9e745a23740",
+      "reference": "p1-v7-closed.png",
+      "reference_sha256": "2edc636ea65273dbb785ff3a2a62f52f556559b183a2d203a768ea8ab5210848",
+      "view": 7,
+      "missing_body_pixels": 0
+    }
+  ],
+  "negative_control": {
+    "actual": "negative-transparent-body.png",
+    "actual_sha256": "5b00beb441fbff68e78be8a595498cb6f89132837f82ebd641b57b1966e0472d",
+    "injection": "All actual body surfaces use alpha-scissor material with zero alpha; geometry/pose/camera unchanged.",
+    "reference": "p0-v0-closed.png",
+    "missing_body_pixels": 28767
+  },
+  "frozen_inputs": {
+    "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r33/fish.blend": "6ffdc0dadcbc7fad906a9555119cbe68c527a9fb56145bcd022659ef12ff5d38",
+    "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r33/cold-fish.glb": "bbe3eeb8f7914ea6e707e2d42255820ef37a3fe3ce63cb6a8c55e389832bc730",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/yellow-croaker-lowpoly-r2-20261104.profile.json": "0ec9badba740a392dd05f0705a8501dcb10f1982e6080f8dddfb8e3cc65a1427",
+    "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/yellow_croaker.json": "12b5f9a4961fb3f428e97428676c3909acd67e3deb871bc96872858d62b115b3",
+    "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/runtime-project/scripts/aquarium/FoundryFishMotion.gd": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/freeze_roots.py": "e8d12f060847cbcdeec96840960ff5dc674dc9b879981f74d0f401c64e82fafe",
+    "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/experiments/top-body-repair-20261105/group-b/yellow_croaker/candidate-r33/native-eye-support.binding.json": "f6fcc61ccb92a783b63aff9a83a8223b082577fd412e9d6fca3fd68bbbccaf17",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/yellow_croaker.native-eyes.accepted-baseline.json": "f953afc65436a30f9b08990fe7fc7fa79bb9906db889b5d40770525f432931c9",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/native_eye_support_guard.py": "8f66a7d6f16ecb4feb611bf56df6ab61ad41a4e6d63ae3ae301bd228bd076ee4",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/validate_native_eyes.py": "b542478f5006dc40ae20f4525478d5de767aadead75e48adfaae126efb817cd7"
+  },
+  "motion": {
+    "bone_count": 18,
+    "configure": {
+      "computed_skin_envelope_m": 0.571549328729395,
+      "envelope_radius_m": 1.14,
+      "failures": [],
+      "ok": true
+    },
+    "direct_GLTFDocument": true,
+    "materials": [
+      {
+        "name": "Yellow croaker native clean side skin",
+        "rgba_sha256": "595bc22aad6d541ef3d0775a6af5adb1988f47a67e3e26e6fb077462be58dae3",
+        "surface": 0,
+        "texture": true,
+        "transparency": 0
+      },
+      {
+        "name": "Front skin source chart",
+        "rgba_sha256": "1785daaa1dbca3704ff951cfea323619493273f02fcae1643136d25209286e89",
+        "surface": 1,
+        "texture": true,
+        "transparency": 0
+      },
+      {
+        "name": "Front mouth oral chart",
+        "rgba_sha256": "1785daaa1dbca3704ff951cfea323619493273f02fcae1643136d25209286e89",
+        "surface": 2,
+        "texture": true,
+        "transparency": 0
+      },
+      {
+        "name": "Current canonical posterior shoulder chart",
+        "rgba_sha256": "a241673967e33316d13595b7260f42320594d13351d45d457877fa7144c71f56",
+        "surface": 3,
+        "texture": true,
+        "transparency": 0
+      },
+      {
+        "name": "Current posterior internal body chart",
+        "rgba_sha256": "15c8d96ce80aee32cc8cb646410dc401271db89f1136d90ceb86b93292255fac",
+        "surface": 4,
+        "texture": true,
+        "transparency": 0
+      }
+    ],
+    "settle_frames_per_capture": 3,
+    "snapshots": [
+      {
+        "action": "Turn",
+        "action_phase": 0.0308333333333333,
+        "base_clip_time": 0.407,
+        "bend_radians": 0.189520376789193,
+        "body_clock": 0.407,
+        "bone_overlays": [
+          {
+            "bone": "body_00",
+            "delay_seconds": 0.0,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.0,
+            "yaw_radians": 0.0
+          },
+          {
+            "bone": "body_01",
+            "delay_seconds": 0.0622482279491388,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.0030953893618309,
+            "yaw_radians": -0.00777292287760189
+          },
+          {
+            "bone": "body_02",
+            "delay_seconds": 0.124470878808468,
+            "pitch_radians": 0.0,
+            "wave_radians": -0.00410207940430661,
+            "yaw_radians": -0.0121215863787867
+          },
+          {
+            "bone": "body_03",
+            "delay_seconds": 0.186682353739325,
+            "pitch_radians": 0.0,
+            "wave_radians": -0.0164063992330077,
+            "yaw_radians": -0.0157033464131028
+          },
+          {
+            "bone": "body_04",
+            "delay_seconds": 0.24890455505242,
+            "pitch_radians": 0.0,
+            "wave_radians": -0.0241153283952127,
+            "yaw_radians": -0.0188698979603932
+          },
+          {
+            "bone": "body_05",
+            "delay_seconds": 0.311117148621581,
+            "pitch_radians": 0.0,
+            "wave_radians": -0.0191339821616662,
+            "yaw_radians": -0.0217693705114482
+          },
+          {
+            "bone": "body_06",
+            "delay_seconds": 0.373325393092291,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.00110528834227696,
+            "yaw_radians": -0.0244991161485688
+          },
+          {
+            "bone": "body_07",
+            "delay_seconds": 0.435534991428985,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.0313607092265078,
+            "yaw_radians": -0.0270886435860129
+          },
+          {
+            "bone": "body_08",
+            "delay_seconds": 0.497750752730912,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.0596345228010314,
+            "yaw_radians": -0.0296043676626561
+          },
+          {
+            "bone": "body_09",
+            "delay_seconds": 0.56,
+            "pitch_radians": 0.0,
+            "wave_radians": 0.0715675551434959,
+            "yaw_radians": -0.0320911252506222
+          }
+        ],
+        "bone_poses": {
+          "body_00": [
+            -0.482017159461975,
+            0.499676525592804,
+            0.499676525592804,
+            0.51798278093338
+          ],
+          "body_01": [
+            -0.00726626580581069,
+            0.00700444867834449,
+            -0.00438000820577145,
+            0.999939560890198
+          ],
+          "body_02": [
+            -0.0162419769912958,
+            0.0160143058747053,
+            -0.0201969519257545,
+            0.999535799026489
+          ],
+          "body_03": [
+            -0.00467366632074118,
+            0.00611714227125049,
+            -0.0452573001384735,
+            0.998945772647858
+          ],
+          "body_04": [
+            0.00570429442450404,
+            -0.0034656310454011,
+            -0.0666583478450775,
+            0.99775356054306
+          ],
+          "body_05": [
+            0.00787818059325218,
+            -0.00717421621084213,
+            -0.07596305757761,
+            0.997053742408752
+          ],
+          "body_06": [
+            0.00185139931272715,
+            -0.00244955974631011,
+            -0.0589763559401035,
+            0.998254716396332
+          ],
+          "body_07": [
+            0.00410039024427533,
+            -0.00449143256992102,
+            -0.0170057788491249,
+            0.999836921691895
+          ],
+          "body_08": [
+            -0.0265094228088856,
+            0.0256771314889193,
+            0.0397628359496593,
+            0.998527407646179
+          ],
+          "body_09": [
+            0.0165031626820564,
+            -0.0197672061622143,
+            0.0899308919906616,
+            0.995615065097809
+          ]
+        },
+        "computed_skin_envelope_m": 0.571549328729395,
+        "envelope_radius_m": 1.14,
+        "fin_clock": 0.407,
+        "fin_tracks": 7,
+        "head_path_local": [
+          0.0825919210910797,
+          0.0,
+          0.248757690191269
+        ],
+        "head_world": [
+          0.0825919508934021,
+          0.0,
+          0.248757690191269
+        ],
+        "heading": [
+          0.993346095085144,
+          0.0,
+          -0.115167647600174
+        ],
+        "inside_envelope": true,
+        "loop_seconds": 12.0,
+        "max_bend_rad": 0.0429852263556059,
+        "motion_controls": {
+          "body_amplitude": 2.5,
+          "body_frequency": 1.0,
+          "fin_amplitude": 2.5,
+          "fin_frequency": 1.0
+        },
+        "pending_action": "",
+        "pitch": 0.0,
+        "position": [
+          -0.186549425125122,
+          0.00434682797640562,
+          0.279961705207825
+        ],
+        "ready": true,
+        "species": "yellow_croaker",
+        "state": "steady",
+        "tail_world": [
+          -0.379587471485138,
+          0.000165273435413837,
+          0.172109007835388
+        ],
+        "time": 0.37,
+        "transition_remaining": 0.0,
+        "yaw": 0.11542375948913
+      }
+    ],
+    "static_builders": false
+  },
+  "method": "Welded closed body, opaque embedded donors; exact same posed body with opaque double-sided reference, zero missing pixels. No mouth exemption.",
+  "limits": "Two discrete poses, eight views each; maximum amplitude control at one declared runtime phase, not exhaustive continuous coverage.",
+  "base_checker_sha256": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+  "body_kernel_sha256": "4bae9884da13b48367cce080d4a451dc209ac82f46bc44d292c60749c22b785f",
+  "adapter_scope": "Unchanged portable077 body/opaque/GPU; ordinary native physical eye identity, open/closed inventory and actual finite-body mixed skin",
+  "plan_sha256": "887a5cad91eb68cb38d60b0518365e8e9dc44ad9794d3c6f0cb7d853045f07cf",
+  "checker_sha256": "b542478f5006dc40ae20f4525478d5de767aadead75e48adfaae126efb817cd7",
+  "capture_script_sha256": "ac77115bcc72afc23e039f21e2c4ddcaa8f52ed2e783b3c2c7ec6a69902cdb8c",
+  "validation_dependencies": {
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/validate_native_eyes.py": "b542478f5006dc40ae20f4525478d5de767aadead75e48adfaae126efb817cd7",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/validate_standalone_body.py": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+    "/Users/czl/projects/game-ai-foundry/resources/volume-fish/top-body-repair-20261105/group-b/native_eye_support_guard.py": "8f66a7d6f16ecb4feb611bf56df6ab61ad41a4e6d63ae3ae301bd228bd076ee4",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/portable/capture_standalone_body.gd": "ac77115bcc72afc23e039f21e2c4ddcaa8f52ed2e783b3c2c7ec6a69902cdb8c",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/freeze_surface_ownership.py": "0af6e04b00240c6404c503669b3c63259debd907c39a606c1f9c80d408c25104",
+    "/Users/czl/projects/game-ai-foundry/resources/scripts/volume-fish/validate_body_integrity.py": "6537611d49a6a614d9c0e2688c2c9ff19d73fa96228248cafc9c9320808f817d"
+  }
+}
