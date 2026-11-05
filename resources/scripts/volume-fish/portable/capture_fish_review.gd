@@ -46,6 +46,10 @@ func settle() -> void:
 	_cameras()
 	for i in 3:await process_frame;RenderingServer.force_draw(not plan.has("packed_parts_manifest"))
 
+func whole_focus() -> Vector3:
+	var p: Array=plan.get("whole_focus",[0,0,0])
+	return Vector3(float(p[0]),float(p[1]),float(p[2]))
+
 func photo(label: String) -> void:
 	await settle()
 	var path: String=review_out.path_join(label+".png");assert(_view_image(entries[0]).save_png(path)==OK)
@@ -64,7 +68,7 @@ func photo_views(label: String) -> void:
 func movie_frame(label: String, phase: int, native: bool=false, transition: bool=false) -> void:
 	var entry: Dictionary=entries[0]
 	var n: int=frame_rows.size();var orbit: float=TAU*float(n)/288.
-	direction=Vector3(.45*sin(orbit),.2,.9*cos(orbit)).normalized();zoom=float(plan.whole_camera_size)*1.15;focus=Vector3.ZERO
+	direction=Vector3(.45*sin(orbit),.2,.9*cos(orbit)).normalized();zoom=float(plan.whole_camera_size)*1.15;focus=whole_focus()
 	await settle()
 	var relative: String="frames/frame-%04d.jpg"%n;var path: String=review_out.path_join(relative)
 	assert(_view_image(entry).save_jpg(path,.88)==OK)
@@ -90,7 +94,7 @@ func _run() -> void:
 	if plan.has("packed_parts_manifest"):packed_partition=PACKED_PARTS.surfaces(entry,plan)
 	var frozen_static: String=static_check.static_binding_digest(entry.model)
 	entry.player.stop();entry.skeleton.reset_bone_poses();entry.carrier.transform=Transform3D.IDENTITY
-	zoom=float(plan.whole_camera_size);focus=Vector3.ZERO;await photo_views("whole")
+	zoom=float(plan.whole_camera_size);focus=whole_focus();await photo_views("whole")
 	for detail in plan.details:
 		zoom=float(detail.size);focus=Vector3(float(detail.at[0]),float(detail.at[1]),float(detail.at[2]));await photo_views(detail.name)
 	var part_meshes: Dictionary={}
@@ -101,13 +105,15 @@ func _run() -> void:
 	else:
 		for mesh in entry.model.find_children("*","MeshInstance3D",true,false):part_meshes[str(mesh.name)]=mesh
 	for mesh in entry.model.find_children("*","MeshInstance3D",true,false):mesh.visible=mesh==part_meshes[plan.body]
-	zoom=float(plan.whole_camera_size);focus=Vector3.ZERO;await photo_views("body-without-fins")
+	zoom=float(plan.whole_camera_size);focus=whole_focus();await photo_views("body-without-fins")
 	for fin in plan.fins:
 		var selected: MeshInstance3D=part_meshes[fin];assert(selected!=null)
 		for mesh in entry.model.find_children("*","MeshInstance3D",true,false):mesh.visible=mesh==selected
 		var bounds: AABB=selected.get_aabb();focus=entry.carrier.global_transform.affine_inverse()*(selected.global_transform*bounds.get_center())
 		zoom=maxf(.035,bounds.size.length()*float(plan.model_scale)*1.7)
-		for view in [views()[0],views()[1],views()[6]]:
+		var selected_views: Array=[views()[0],views()[1],views()[6]]
+		if plan.get("expanded_fin_volume_views",false):selected_views=[views()[0],views()[1],views()[2],views()[4],views()[6]]
+		for view in selected_views:
 			direction=view.dir
 			for clay in [false,true]:_set_gray(clay);await photo("fin-"+fin+"-"+view.name+("-clay" if clay else "-texture"))
 	_set_gray(false)
@@ -142,7 +148,7 @@ func _run() -> void:
 	var water=load("res://scripts/aquarium/TankWaterRenderer.gd").new();world.add_child(water);await process_frame
 	var config: Dictionary=load("res://scripts/aquarium/TankWaterProfile.gd").preset(3)
 	water.sync([{"tank":tank,"data":{"water":config}}],0.);water.frozen=true;assert(water.count==1)
-	zoom=float(plan.whole_camera_size);focus=Vector3.ZERO
+	zoom=float(plan.whole_camera_size);focus=whole_focus()
 	for view in [views()[0],views()[6]]:direction=view.dir;await photo("water-natural-freshwater-"+view.name)
 	for saved in shading:saved[0].shading_mode=saved[1]
 	assert(static_check.static_binding_digest(entry.model)==frozen_static,"Review changed static model/material bindings")

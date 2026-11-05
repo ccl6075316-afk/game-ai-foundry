@@ -1,5 +1,7 @@
 # 3D 鱼、水草与布景：知识维护入口
 
+2026-11-05 双髻鲨返修候选：大双髻鲨/无沟双髻鲨的自身原画、有限头颈、浅眼、完整鳍根及尾柄截面经验见[有限鳍根与尾截面卡](../resources/skills/fish-volume-production/references/hammerhead-finite-cap-lessons-20261105.md)。独立候选通过技术/操作者证据门，等待用户看效果；未安装、未冻结，不继承路氏双髻鲨的成品接受。
+
 2026-11-05：新11鱼获用户成品接受，共24条成品；安装与参数入口为[十一鱼正式入口](../resources/volume-fish/final-eleven-fish-20261105.json)。用户要求相关旧实验图/模型/密集重放数据退休，仅保留重要文字；[成品保留规则](../resources/skills/fish-volume-production/references/accepted-fish-retention-20261105.md)覆盖旧历史图片保留要求。[完整29页对照PDF](reviews/fish-reference-comparison-20261105.pdf)作为明确要求的交付保留，逐鱼参照角色、差异与未知见[对照文字记录](reviews/fish-reference-comparison-20261105/README.md)。历史删除不代表重新验收，也不修改当前24条成品静态字节。
 
 2026-11-04：路氏双髻鲨已获整鱼成品接受，3994三角面、18骨、完整8鳍；静态形体/UV/像素/蒙皮/骨架冻结，默认后续只改动作。正式参数 [scalloped-hammerhead-final-20261104.json](../resources/volume-fish/scalloped-hammerhead-final-20261104.json)，原逐鱼账本已迁入游戏 `plans/reviews/scalloped-hammerhead-release-20261104/HANDOFF.md`；正式GLB和普通blend可独立冷读，旧两轮实验退役，不能从旧候选继续制作。

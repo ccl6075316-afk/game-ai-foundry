@@ -105,15 +105,16 @@ for sign,phases in [(1,np.linspace(-math.pi/2,math.pi/2,17)),(-1,np.linspace(mat
 hits=[]
 for x,y in outline:
     hit,_,_,_=tree.ray_cast(Vector((x,y,-1)),Vector((0,0,1)),2);assert hit is not None;hits.append(hit.z)
-roof=max(hits)+mouth['recess_depth_m'];n=len(outline);vv=[(x,y,z) for z in [-.25,roof] for x,y in outline];ff=[tuple(range(n-1,-1,-1)),tuple(n+i for i in range(n))]+[(i,(i+1)%n,n+(i+1)%n,n+i) for i in range(n)]
+roof=max(hits)+mouth['recess_depth_m'];floor=min(v.co.z for v in body.data.vertices)-mouth['recess_depth_m'];n=len(outline);vv=[(x,y,z) for z in [floor,roof] for x,y in outline];ff=[tuple(range(n-1,-1,-1)),tuple(n+i for i in range(n))]+[(i,(i+1)%n,n+(i+1)%n,n+i) for i in range(n)]
 cutter=obj('Temporary actual oral subtraction',vv,ff);cutter.data.materials.append(skin);cutter.data.materials.append(oral)
 for f in cutter.data.polygons:f.material_index=1
 bpy.context.view_layer.objects.active=body;mod=body.modifiers.new('Integrated finite oral volume','BOOLEAN');mod.operation='DIFFERENCE';mod.solver='EXACT';mod.object=cutter;bpy.ops.object.modifier_apply(modifier=mod.name);bpy.data.objects.remove(cutter,do_unlink=True);recalc(body)
-for f in body.data.polygons:f.use_smooth=True
+for f in body.data.polygons:f.use_smooth=(f.material_index!=1) # Oral facets must not average across the sharp inner rim.
 tree=BVHTree.FromPolygons([v.co.copy() for v in body.data.vertices],[tuple(t.vertices) for t in body.data.loop_triangles],all_triangles=True);probes=[]
 for a in np.linspace(-1.2,1.2,9):
     x=corner+(center-corner)*math.cos(a);y=half*math.sin(a);hit,_,fi,_=tree.ray_cast(Vector((x,y,-1)),Vector((0,0,1)),2);assert hit is not None
     mi=body.data.polygons[body.data.loop_triangles[fi].polygon_index].material_index;probes.append(dict(x=x,y=y,z=hit.z,roof_hit=mi==1 and abs(hit.z-roof)<1e-5))
+(out/'mouth-probes.validation.json').write_text(json.dumps(dict(ok=all(p['roof_hit'] for p in probes),cutter_floor_m=floor,cutter_roof_m=roof,probes=probes),indent=2)+'\n')
 assert all(p['roof_hit'] for p in probes)
 bpy.ops.object.select_all(action='DESELECT');body.select_set(True);bpy.context.view_layer.objects.active=body
 bpy.ops.wm.save_as_mainfile(filepath=str(out/'fish.blend'));bpy.ops.export_scene.gltf(filepath=str(out/'fish.glb'),export_format='GLB',use_selection=True,export_animations=True,export_yup=True,export_def_bones=False)

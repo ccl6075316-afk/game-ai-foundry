@@ -18,10 +18,18 @@ def half_width(triangles,x,z):
         for a,b in zip(tri,np.roll(tri,-1,axis=0)):
             if abs(a[0]-x)<1e-7:hits.append(a)
             if (a[0]-x)*(b[0]-x)<0:hits.append(a+(b-a)*(x-a[0])/(b[0]-a[0]))
-        if len(hits)>=2:segments.append(hits[:2])
+        unique=[]
+        for hit in hits:
+            if not any(np.linalg.norm(hit-old)<1e-10 for old in unique):unique.append(hit)
+        if len(unique)==2:segments.append(unique)
+        elif len(unique)>2:
+            # A cap triangle lies in the section plane. Every finite boundary
+            # edge participates; choosing its first two vertices drops edges.
+            segments.extend(zip(unique,np.roll(unique,-1,axis=0)))
     widths=[]
     for a,b in segments:
         if abs(a[2]-z)<1e-7:widths.append(abs(a[1]))
+        if abs(b[2]-z)<1e-7:widths.append(abs(b[1]))
         if (a[2]-z)*(b[2]-z)<0:widths.append(abs(a[1]+(b[1]-a[1])*(z-a[2])/(b[2]-a[2])))
     return max(widths,default=0)
 

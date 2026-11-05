@@ -34,62 +34,66 @@ for row in c['rows']:
     assert sha(row['source_path'])==row['source_sha256'];root=np.array(row['root_curve_px']);root=root[np.argsort(root[:,0])];leading=np.array(row['root_endpoints_px'][0]);onset=row['onset_t'];paired=row['paired'];sections=np.array(row['sections_px']);nc=sections.shape[1];ns=sections.shape[0]
     for side in ([-1,1]if paired else[1]):
         name=row['name']+('_left'if side<0 else'_right')if paired else row['name'];verts=[];qs=[];flags=[];ss=[];faces=[]
-        if row['name']=='Caudal':
-            rotation=math.radians(row['plane_rotation_degrees']);co=math.cos(rotation);si=math.sin(rotation);source_lo=float(sections[:,:,1].min());source_hi=float(sections[:,:,1].max());root_y=float(leading[1]);chords=np.array(row['chord_levels'])
-            rear=min(p.x for p in bv);cap_triangles=[ids for ids in bt if all(abs(bv[i].x-rear)<1e-7 for i in ids)]
-            def body_half(z):
-                values=[]
-                for ids in cap_triangles:
-                    for i,j in zip(ids,ids[1:]+ids[:1]):
-                        a,b=bv[i],bv[j]
-                        if abs(a.z-z)<1e-7:values.append(abs(a.y))
-                        if (a.z-z)*(b.z-z)<0:values.append(abs(a.y+(b.y-a.y)*(z-a.z)/(b.z-a.z)))
-                return max(values,default=0)
-            if row.get('body_section_support'):
-                for section in sections:
-                    z=row['anchor_z_m']-(section[0,1]-leading[1])*scale
-                    if body_half(z)>1e-7:
-                        pixel_x=leading[0]+(axis*(.5-onset)-rear)/scale
-                        if section[0,0]<pixel_x<section[-1,0]:section[1,0]=pixel_x
-            for layer in [-1,1]:
-                for section in sections:
-                    y=float(section[0,1]);s=(root_y-y)/max(root_y-source_lo,1)if y<root_y else(y-root_y)/max(source_hi-root_y,1);envelope=row['root_full_thickness_m']/2*max(0,1-s)**.7
-                    for j,q in enumerate(section):
-                        dx=-(q[0]-leading[0])*scale;dz=-(q[1]-leading[1])*scale;x=axis*(.5-onset)+co*dx-si*dz;z=row['anchor_z_m']+si*dx+co*dz;shape=max(0,math.sin(math.pi*chords[j]))**.65;half=c['edge_full_thickness_m']/2+envelope*shape
-                        if row.get('body_section_support'):
-                            support=body_half(z);blend=np.clip((x-(rear-.065))/.04,0,1);blend=blend*blend*(3-2*blend)
-                            if support>0:half=half*(1-blend)+max(c['edge_full_thickness_m']/2,support)*blend
-                        verts.append((x,layer*half,z));qs.append(q.tolist());ss.append(float(s));flags.append(False)
+        if row.get('boundary_cdt',False):
+            sys.path.insert(0,str(Path(__file__).parent));from native_shark_caudal import build as caudal_cdt
+            verts,faces,qs,ss,offset=caudal_cdt(row,dict(metres_per_source_pixel=scale,axis=axis,edge_full_thickness_m=c['edge_full_thickness_m']),bv);flags=[False]*len(verts)
         else:
-            for layer in [-1,1]:
-                for k,section in enumerate(sections):
-                    s=row['span_levels'][k]
-                    for j,q in enumerate(section):
-                        x=axis*(.5-onset)-(q[0]-leading[0])*scale;base_y=float(np.interp(q[0],root[:,0],root[:,1]));span=(q[1]-base_y)*scale;chord=row['chord_levels'][j];half=c['edge_full_thickness_m']/2+(row['root_full_thickness_m']-c['edge_full_thickness_m'])/2*(1-s)**1.1*max(0,math.sin(math.pi*chord))**.65
-                        if paired:
-                            t=(axis/2-x)/axis;rows=cfg['body_stations'];mid=float(np.interp(t,[r['t']for r in rows],[(r['top_z_m']+r['bottom_z_m'])/2 for r in rows]));z=mid+row['root_z_offset_m'];h,_=surface(x,z,side);angle=math.radians(row['roll_degrees']);normal=Vector((0,side*math.sin(angle),math.cos(angle)));p=Vector((x,h.y+side*span*math.cos(angle),z-span*math.sin(angle)))+normal*layer*half
-                            if row.get('project_source_projection'):
-                                source_z=(row['source_canvas_height_px']/2-base_y)*scale
-                                ztop=float(np.interp(t,[r['t']for r in rows],[r['top_z_m']for r in rows]));zbottom=float(np.interp(t,[r['t']for r in rows],[r['bottom_z_m']for r in rows]));margin=(ztop-zbottom)*.10
-                                z=float(np.clip(source_z,zbottom+margin,ztop-margin));h,_=surface(x,z,side);projected_span=span/max(math.sin(angle),.1)
-                                p=Vector((x,h.y+side*projected_span*math.cos(angle),source_z-span+(z-source_z)*(1-s)**2))+normal*layer*half
-                            if k==0:p,n=surface(p.x,p.z,side);p.y-=side*.003
-                        else:
-                            h,_=surface(x,ventral=row['ventral'],y=layer*half);normal=Vector((0,1,0));p=Vector((x,layer*half,h.z-span))+normal*0
-                            if row.get('project_source_projection'):p.z=(row['source_canvas_height_px']/2-q[1])*scale
-                            p.z+=(-1 if row['ventral'] else 1)*row.get('near_root_clearance_m',0)*math.sin(math.pi*s)**.5*(1-s)
-                            if k==0:p,n=surface(p.x,ventral=row['ventral'],y=p.y);p.z+=.003 if row['ventral']else-.003
-                        verts.append(tuple(p));qs.append(q.tolist());ss.append(float(s));flags.append(k==0)
-        offset=ns*nc
-        normal=Vector((0,side*math.sin(math.radians(row['roll_degrees'])),math.cos(math.radians(row['roll_degrees']))))if paired else Vector((0,1,0))
-        minimum_pair_separation=min((Vector(verts[i+offset])-Vector(verts[i])).dot(normal)for i in range(offset));assert minimum_pair_separation>1e-8,(name,'Crossed foil layers before body subtraction',minimum_pair_separation)
-        for layer in range(2):
-            off=layer*offset
-            for k in range(ns-1):
-                for j in range(nc-1):
-                    ids=(off+k*nc+j,off+k*nc+j+1,off+(k+1)*nc+j+1,off+(k+1)*nc+j);faces.append(ids if layer else ids[::-1])
-        boundary=list(range(nc))+[k*nc+nc-1 for k in range(1,ns)]+list(range((ns-1)*nc+nc-2,(ns-1)*nc-1,-1))+[k*nc for k in range(ns-2,0,-1)]
-        for a,b in zip(boundary,boundary[1:]+boundary[:1]):faces.append((a,b,b+offset,a+offset))
+            if row['name']=='Caudal':
+                rotation=math.radians(row['plane_rotation_degrees']);co=math.cos(rotation);si=math.sin(rotation);source_lo=float(sections[:,:,1].min());source_hi=float(sections[:,:,1].max());root_y=float(leading[1]);chords=np.array(row['chord_levels'])
+                rear=min(p.x for p in bv);cap_triangles=[ids for ids in bt if all(abs(bv[i].x-rear)<1e-7 for i in ids)]
+                def body_half(z):
+                    values=[]
+                    for ids in cap_triangles:
+                        for i,j in zip(ids,ids[1:]+ids[:1]):
+                            a,b=bv[i],bv[j]
+                            if abs(a.z-z)<1e-7:values.append(abs(a.y))
+                            if (a.z-z)*(b.z-z)<0:values.append(abs(a.y+(b.y-a.y)*(z-a.z)/(b.z-a.z)))
+                    return max(values,default=0)
+                if row.get('body_section_support'):
+                    for section in sections:
+                        z=row['anchor_z_m']-(section[0,1]-leading[1])*scale
+                        if body_half(z)>1e-7:
+                            pixel_x=leading[0]+(axis*(.5-onset)-rear)/scale
+                            if section[0,0]<pixel_x<section[-1,0]:section[1,0]=pixel_x
+                for layer in [-1,1]:
+                    for section in sections:
+                        y=float(section[0,1]);s=(root_y-y)/max(root_y-source_lo,1)if y<root_y else(y-root_y)/max(source_hi-root_y,1);envelope=row['root_full_thickness_m']/2*max(0,1-s)**.7
+                        for j,q in enumerate(section):
+                            dx=-(q[0]-leading[0])*scale;dz=-(q[1]-leading[1])*scale;x=axis*(.5-onset)+co*dx-si*dz;z=row['anchor_z_m']+si*dx+co*dz;shape=max(0,math.sin(math.pi*chords[j]))**.65;half=c['edge_full_thickness_m']/2+envelope*shape
+                            if row.get('body_section_support'):
+                                support=body_half(z);blend=np.clip((x-(rear-.065))/.04,0,1);blend=blend*blend*(3-2*blend)
+                                if support>0:half=half*(1-blend)+max(c['edge_full_thickness_m']/2,support)*blend
+                            verts.append((x,layer*half,z));qs.append(q.tolist());ss.append(float(s));flags.append(False)
+            else:
+                for layer in [-1,1]:
+                    for k,section in enumerate(sections):
+                        s=row['span_levels'][k]
+                        for j,q in enumerate(section):
+                            x=axis*(.5-onset)-(q[0]-leading[0])*scale;base_y=float(np.interp(q[0],root[:,0],root[:,1]));span=(q[1]-base_y)*scale;chord=row['chord_levels'][j];half=c['edge_full_thickness_m']/2+(row['root_full_thickness_m']-c['edge_full_thickness_m'])/2*(1-s)**1.1*max(0,math.sin(math.pi*chord))**.65
+                            if paired:
+                                t=(axis/2-x)/axis;rows=cfg['body_stations'];mid=float(np.interp(t,[r['t']for r in rows],[(r['top_z_m']+r['bottom_z_m'])/2 for r in rows]));z=mid+row['root_z_offset_m'];h,_=surface(x,z,side);angle=math.radians(row['roll_degrees']);normal=Vector((0,side*math.sin(angle),math.cos(angle)));p=Vector((x,h.y+side*span*math.cos(angle),z-span*math.sin(angle)))+normal*layer*half
+                                if row.get('project_source_projection'):
+                                    source_z=(row['source_canvas_height_px']/2-base_y)*scale
+                                    ztop=float(np.interp(t,[r['t']for r in rows],[r['top_z_m']for r in rows]));zbottom=float(np.interp(t,[r['t']for r in rows],[r['bottom_z_m']for r in rows]));margin=(ztop-zbottom)*.10
+                                    z=float(np.clip(source_z,zbottom+margin,ztop-margin));h,_=surface(x,z,side);projected_span=span/max(math.sin(angle),.1)
+                                    p=Vector((x,h.y+side*projected_span*math.cos(angle),source_z-span+(z-source_z)*(1-s)**2))+normal*layer*half
+                                if k==0:p,n=surface(p.x,p.z,side);p.y-=side*.003
+                            else:
+                                h,_=surface(x,ventral=row['ventral'],y=layer*half);normal=Vector((0,1,0));p=Vector((x,layer*half,h.z-span))+normal*0
+                                if row.get('project_source_projection'):p.z=(row['source_canvas_height_px']/2-q[1])*scale
+                                p.z+=(-1 if row['ventral'] else 1)*row.get('near_root_clearance_m',0)*math.sin(math.pi*s)**.5*(1-s)
+                                if k==0:p,n=surface(p.x,ventral=row['ventral'],y=p.y);p.z+=.003 if row['ventral']else-.003
+                            verts.append(tuple(p));qs.append(q.tolist());ss.append(float(s));flags.append(k==0)
+            offset=ns*nc
+            normal=Vector((0,side*math.sin(math.radians(row['roll_degrees'])),math.cos(math.radians(row['roll_degrees']))))if paired else Vector((0,1,0))
+            minimum_pair_separation=min((Vector(verts[i+offset])-Vector(verts[i])).dot(normal)for i in range(offset));assert minimum_pair_separation>1e-8,(name,'Crossed foil layers before body subtraction',minimum_pair_separation)
+            for layer in range(2):
+                off=layer*offset
+                for k in range(ns-1):
+                    for j in range(nc-1):
+                        ids=(off+k*nc+j,off+k*nc+j+1,off+(k+1)*nc+j+1,off+(k+1)*nc+j);faces.append(ids if layer else ids[::-1])
+            boundary=list(range(nc))+[k*nc+nc-1 for k in range(1,ns)]+list(range((ns-1)*nc+nc-2,(ns-1)*nc-1,-1))+[k*nc for k in range(ns-2,0,-1)]
+            for a,b in zip(boundary,boundary[1:]+boundary[:1]):faces.append((a,b,b+offset,a+offset))
         ob=build(name,verts,faces);ob.data.materials.append(dark);ob.data.materials.append(light);close(ob)
         for f in ob.data.polygons:f.material_index=1 if paired and all(i<offset for i in f.vertices)else 0;f.use_smooth=True
         for key,values in [('source_mask_x_px',[q[0]for q in qs]),('source_mask_y_px',[q[1]for q in qs]),('source_span_t',ss),('source_layer_sign',[-1.]*offset+[1.]*offset)]:
@@ -126,7 +130,7 @@ for row in c['rows']:
 extra_mesh_triangles=0
 for o in bpy.context.scene.objects:
     if o.type=='MESH'and o.name!=body.name and o.name not in {r['name']for r in records}:o.data.calc_loop_triangles();extra_mesh_triangles+=len(o.data.loop_triangles)
-assert len(records)==8 and len({r['name']for r in records})==8;total=len(body.data.loop_triangles)+sum(r['triangles']for r in records)+extra_mesh_triangles;print(json.dumps(dict(pre_export_triangles=total,fin_triangles={r['name']:r['triangles']for r in records})),flush=True);assert total<=4000,total
+assert len(records)==8 and len({r['name']for r in records})==8;total=len(body.data.loop_triangles)+sum(r['triangles']for r in records)+extra_mesh_triangles;print(json.dumps(dict(pre_export_triangles=total,fin_triangles={r['name']:r['triangles']for r in records})),flush=True);assert total<=c.get('whole_hard_limit',4000),total
 bpy.ops.object.select_all(action='DESELECT')
 for o in bpy.context.scene.objects:
     if o.type in ['MESH','ARMATURE']:o.select_set(True)

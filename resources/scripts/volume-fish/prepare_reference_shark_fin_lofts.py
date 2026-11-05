@@ -15,7 +15,7 @@ for fin in c['fins']:
     paths=[walk(ids[0],ids[1],step)for step in [1,-1]];free=next(path for path in paths if any(np.linalg.norm(np.array(q)-poly[tip])<.1 for q in path));root=next(path for path in paths if path is not free);it=min(range(len(free)),key=lambda i:np.linalg.norm(np.array(free[i])-poly[tip]));leading=free[:it+1];trailing=free[it:][::-1];levels=fin['span_levels'];chords=fin['chord_levels'];sections=[]
     for s in levels:
         left,right=np.array(sample(leading,s)),np.array(sample(trailing,s));sections.append([sample(root,q)if s==0 else (left*(1-q)+right*q).tolist()for q in chords])
-    if fin['mask']=='Cfin':
+    if fin['mask']=='Cfin' and not fin.get('boundary_cdt',False):
         # Complete horizontal connected intervals; never bridge a transparent notch.
         yy,xx=np.where(mask);lo,hi=int(yy.min()),int(yy.max());sections=[]
         levels_y=list(np.linspace(lo+1,hi-1,17))
@@ -32,5 +32,13 @@ for fin in c['fins']:
             minimum_run=int(c.get('maximum_detached_raster_run_pixels',2 if native_project else 0))
             substantial=[run for run in runs if len(run)>minimum_run];assert len(substantial)==1,(y,'split chord requires explicit interval topology')
             xs=substantial[0];x0,x1=int(xs.min()),int(xs.max());sections.append([[float(x0+(x1-x0)*q),float(y)]for q in chords])
+    if fin.get('boundary_cdt',False):
+        work=mask.copy();a0,b0=np.array(fin['root_endpoints_px']);xattach=float(a0[0]);cv2.rectangle(work,(int(np.floor(xattach-3)),int(np.ceil(min(a0[1],b0[1])))),(int(np.ceil(xattach+3)),int(np.floor(max(a0[1],b0[1])))),1,-1)
+        n,labels,stats,_=cv2.connectedComponentsWithStats(work);assert n==2,'Undeclared disconnected caudal component'
+        con,_=cv2.findContours(work,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE);boundary=cv2.approxPolyDP(max(con,key=cv2.contourArea),1.1,True)[:,0,:].astype(float);points=boundary.tolist();lo=boundary.min(0);hi=boundary.max(0)
+        for y in np.linspace(lo[1],hi[1],11)[1:-1]:
+            for x in np.linspace(lo[0],hi[0],7)[1:-1]:
+                if cv2.pointPolygonTest(boundary.astype(np.float32),(float(x),float(y)),True)>4:points.append([float(x),float(y)])
+        fin=dict(fin,cdt_points_px=points,cdt_boundary_count=len(boundary),cdt_scope='Entire concave native contour including terminal notch. Only3px basal extension for exact body intersection.1.1px contour simplification; no bridging of multiple intervals.')
     records.append(dict(fin,source_path=str(path.resolve()),source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),root_curve_px=root,leading_curve_px=leading,trailing_curve_px=trailing,sections_px=sections,tip_actual_px=poly[tip].tolist(),source_black_area_pixels=int(mask.sum())))
 r=dict(c,rows=records,scope=c.get('source_scope','Same-species validation masks.')+' Placement/roll and normal thickness are declared engineering pose choices checked against published orthogonal figure; no unseen tissue metrology. Generic Sphyrna example parameters are not imported. Whole-fish source/material/rig/pose gates remain pending.');assert not a.output.exists();a.output.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(fins=len(records),anatomical_count=sum(2 if r['paired']else 1 for r in records))))

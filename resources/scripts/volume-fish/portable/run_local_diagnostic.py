@@ -38,7 +38,7 @@ def run(a):
         data=read(report);result['checks'].append({'name':name,'ok':data.get('ok')is True,'report':str(report),'sha256':sha(report)});return data
     try:
         export=out/a.species/'export.validation.json'
-        data=invoke('export',[str(a.godot.resolve()),'--headless','--path',str(a.game.resolve()),'--script',str(HERE/'export_fin_poses.gd'),'--',str(plan_path),str(out),'envelope',a.species,'--membranes'],export)
+        data=invoke('export',[str(a.godot.resolve()),'--headless','--path',str(a.game.resolve()),'--script',str(a.exporter.resolve() if a.exporter else HERE/'export_fin_poses.gd'),'--',str(plan_path),str(out),'envelope',a.species,'--membranes'],export)
         observed=[(row['action'],float(row['seconds']))for row in data['samples']]
         assert len(observed)==len(expected) and all(any(label==other and abs(t-seconds)<1e-5 for other,seconds in observed)for label,t in expected),'Diagnostic missed declared poses: '+str(observed)
         assert data['model_sha256']==item['model_sha256'];result['actual_poses']=observed
@@ -52,4 +52,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for k in ['plan','godot','game','blender','output']:p.add_argument('--'+k,type=Path,required=True)
     p.add_argument('--extra-poses',type=Path,help='Own previously failed exact scheduled poses; all must actually be exported')
+    p.add_argument('--exporter',type=Path,help='Explicit ordinary multi-surface adapter; same diagnostic schedule and physical checker')
     p.add_argument('--species',required=True);p.add_argument('--json',action='store_true');raise SystemExit(run(p.parse_args()))

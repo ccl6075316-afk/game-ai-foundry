@@ -36,7 +36,7 @@ for first in adj[lo]:
 paths.sort(key=lambda path:path[0][:,0].mean(),reverse=True);rims=dict(zip(['upper','lower'],paths));rows=ref['body_stations'];ts=[r['t']for r in rows];axis=ref['reference_body_axis_m'];top_head=ref['head_transverse_stations'];head_top_center=(top_head[0]['project_top_row_px']+top_head[-1]['project_top_row_px'])/2;head_span=ref['head_span_m'];native_samples=[];tiles=[];protected=0
 def view_xy(role,points,u):
     w,h,_=images[role];lo,hi=bounds[role];x=np.clip(u*(w-1),0,w-1);mid=(np.interp(x,np.arange(w),lo)+np.interp(x,np.arange(w),hi))/2
-    if role=='dorsal':y=head_top_center+points[:,1]/length*w
+    if role=='dorsal'and not c.get('dorsal_head_span_registration'):y=head_top_center+points[:,1]/length*w
     else:
         # Generated views can have different canvas aspect; head span registers
         # transverse physical landmarks rather than stretching an unrelated fish.
@@ -51,7 +51,8 @@ for face in mesh.polygons:
     points=coords[list(face.vertices)];ex=points[1]-points[0];ex/=np.linalg.norm(ex);normal=np.cross(points[1]-points[0],points[2]-points[0]);normal/=np.linalg.norm(normal);ey=np.cross(normal,ex);q=np.stack([(points-points[0])@ex,(points-points[0])@ey],1)*density;q-=np.floor(q.min(0))-2;tw,th=np.ceil(q.max(0)+3).astype(int);xx,yy=np.meshgrid(np.arange(tw),np.arange(th));local=np.stack([xx.ravel(),yy.ravel()],1);beta=np.c_[np.ones(len(local)),(local-q[0])@np.linalg.inv(np.column_stack([q[1]-q[0],q[2]-q[0]])).T];beta[:,0]-=beta[:,1:].sum(1);in_face=(beta.min(1)>=-1e-6);b=np.maximum(beta,0);b/=b.sum(1)[:,None];p=b@points;u=p[:,0]/length+origin;v=.5-p[:,2]/(aspect*length);t=(axis/2-p[:,0])/axis;zt=np.interp(t,ts,[r['top_z_m']for r in rows]);zb=np.interp(t,ts,[r['bottom_z_m']for r in rows]);mid=(zt+zb)/2;half=np.maximum((zt-zb)/2,1e-6);height=(p[:,2]-mid)/half;side_color=sample('side',np.stack([u*images['side'][0],v*images['side'][1]],1))
     # Own-source occluded footprints only; preserve native lateral gills and
     # all unaffected body pigment, rather than replacing the entire side skin.
-    patch=((u>.685)&(u<.79)&(v>.60))|((u>.86)&(v>.50))
+    patch=np.zeros(len(u),dtype=bool)
+    for a0,a1,b0,b1 in c.get('default_side_patch_rects',[[.685,.79,.60,1.],[.86,1.,.50,1.]]):patch|=(u>a0)&(u<a1)&(v>b0)&(v<b1)
     for name,a0,a1,b0,b1 in c['additional_side_patch_rects']:
         patch|=(u>a0)&(u<a1)&(v>b0)&(v<b1)
     if patch.any():

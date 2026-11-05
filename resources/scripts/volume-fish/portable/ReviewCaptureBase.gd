@@ -10,7 +10,7 @@ func _load(route: String, container: SubViewportContainer) -> Dictionary:
 	environment.environment.background_mode=Environment.BG_COLOR;environment.environment.background_color=Color("25343c")
 	environment.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;environment.environment.ambient_light_color=Color.WHITE;environment.environment.ambient_light_energy=.65;world.add_child(environment)
 	var light := DirectionalLight3D.new();light.rotation_degrees=Vector3(-45,-35,0);light.light_energy=.65;world.add_child(light)
-	var camera := Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.001;camera.far=10;camera.current=true;world.add_child(camera)
+	var camera := Camera3D.new();camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.001;camera.far=maxf(10.,float(load_plan.get("camera_distance",2.))*3.);camera.current=true;world.add_child(camera)
 	var path: String = load_plan.model
 	var doc := GLTFDocument.new();var state := GLTFState.new();assert(doc.append_from_file(path,state)==OK)
 	var model := doc.generate_scene(state);assert(model!=null)
