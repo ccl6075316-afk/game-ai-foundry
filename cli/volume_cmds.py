@@ -99,6 +99,21 @@ def source_replan_cmd(archive_inputs: Path, profile: Path, output: Path, as_json
                      "output": str(output.resolve())}, action, as_json)
 
 
+@volume_group.command("reviewed-source-plan")
+@click.option("--review", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--profile", required=True, type=click.Path(exists=True, path_type=Path))
+@click.option("--output", required=True, type=click.Path(path_type=Path))
+@click.option("--json", "as_json", is_flag=True)
+def reviewed_source_plan_cmd(review: Path, profile: Path, output: Path, as_json: bool) -> None:
+    """Plan from a new explicit review of existing pixels; inherit no model approval."""
+    from volume_reviewed_source import plan_reviewed_source
+    def action():
+        data = plan_reviewed_source(review, profile, output)
+        return data, {"reviewed_source_receipt": data["reviewed_source_receipt"], "style_visual_review": "pending"}
+    _execute("plan", {"review": str(review.resolve()), "profile": str(profile.resolve()),
+                      "output": str(output.resolve())}, action, as_json)
+
+
 @volume_group.command("plan")
 @click.option("--brief", required=True, type=click.Path(path_type=Path))
 @click.option("--assets-manifest", required=True, type=click.Path(path_type=Path))

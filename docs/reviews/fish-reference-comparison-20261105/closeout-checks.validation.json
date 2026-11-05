@@ -1,0 +1,867 @@
+{
+  "ok": true,
+  "scope": "CLI existing-pixels/source-archive/packed acceptance and geometric limit plumbing; no fish mesh or 490-pose checks rerun for history deletion.",
+  "unittest": {
+    "cwd": "cli",
+    "command": "../.venv/Scripts/python.exe -m unittest test_volume_fish test_volume_source_archive test_volume_reviewed_source test_volume_packed_acceptance",
+    "tests": 66,
+    "skipped": 1,
+    "result": "OK",
+    "note": "Initial package-style invocation could not resolve existing top-level imports; rerun from documented cli context passed."
+  },
+  "limit_contract": {
+    "ok": true,
+    "scope": "Real runner mains with synthetic hashed fixture and intercepted subprocesses; parser, command units, report reuse only. No fish/geometry/exporter/kernel or490 sample evaluation.",
+    "checks": [
+      {
+        "name": "parser_units_and_fail_closed",
+        "ok": true,
+        "details": {
+          "invalid_declarations_rejected": 53,
+          "legacy_cm": [
+            0.1,
+            0.6
+          ],
+          "declared_0_5mm_cm": [
+            0.05,
+            0.05
+          ],
+          "cm_fields": [
+            "outer_gap_cm",
+            "max_embedding_cm"
+          ]
+        }
+      },
+      {
+        "name": "legacy_real_runner_commands_and_reuse",
+        "ok": true,
+        "details": {
+          "normal_072_root_cm": [
+            0.1,
+            0.6
+          ],
+          "full490_root_cm": [
+            0.1,
+            0.6
+          ],
+          "membrane_mm": [
+            0.5,
+            0.02
+          ],
+          "exact_490_reuse_ok": true,
+          "reuse_launched_processes": 0
+        }
+      },
+      {
+        "name": "strict-mm_real_runner_commands_and_reuse",
+        "ok": true,
+        "details": {
+          "normal_072_root_cm": [
+            0.05,
+            0.05
+          ],
+          "full490_root_cm": [
+            0.05,
+            0.05
+          ],
+          "membrane_mm": [
+            0.5,
+            0.02
+          ],
+          "exact_490_reuse_ok": true,
+          "reuse_launched_processes": 0
+        }
+      },
+      {
+        "name": "strict-mm_reject_legacy_limit_receipts",
+        "ok": true,
+        "details": {
+          "072_reuse_rejected": true,
+          "fresh_072_wrong_limits_rejected": true,
+          "fresh_490_wrong_limits_rejected": true
+        }
+      },
+      {
+        "name": "strict-cm_real_runner_commands_and_reuse",
+        "ok": true,
+        "details": {
+          "normal_072_root_cm": [
+            0.05,
+            0.05
+          ],
+          "full490_root_cm": [
+            0.05,
+            0.05
+          ],
+          "membrane_mm": [
+            0.5,
+            0.02
+          ],
+          "exact_490_reuse_ok": true,
+          "reuse_launched_processes": 0
+        }
+      },
+      {
+        "name": "strict-cm_reject_legacy_limit_receipts",
+        "ok": true,
+        "details": {
+          "072_reuse_rejected": true,
+          "fresh_072_wrong_limits_rejected": true,
+          "fresh_490_wrong_limits_rejected": true
+        }
+      },
+      {
+        "name": "malformed_plan_fails_before_export",
+        "ok": true,
+        "details": {
+          "both_runners": true,
+          "subprocesses": 0
+        }
+      }
+    ],
+    "inputs": {
+      "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\test_fin_attachment_limits.py": "29f1d80d9399d129268d38905bb5e09d52b6d5dcf0e234ba13bab4e1c68c22d5",
+      "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\fin_attachment_limits.py": "6507d6573ea20f7e7afd05de4e7fe9e217df027900823b3e7ba251e831d69b67",
+      "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\validate_fin_completion.py": "d3c01b69fe9d9f9231f35f36a8a35686eb0061b514b68d2603458192a505f82a",
+      "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\validate_fin_membrane_clearance.py": "70f5e835a668a54ead68137bbcd4145c2c97e86497cfaa7d76cd939410bdfcc3"
+    },
+    "fixture_cleaned": true,
+    "cleanup": {
+      "fixture_root": "E:\\game-ai-foundry\\work\\eleven-fish-release-20261105\\limit-final-check\\fixture-0uwqe2iz",
+      "files": [
+        {
+          "path_relative_to_fixture": "fish.glb",
+          "bytes": 33
+        },
+        {
+          "path_relative_to_fixture": "game\\assets\\models\\fish\\motion\\motion.json",
+          "bytes": 37
+        },
+        {
+          "path_relative_to_fixture": "game\\scripts\\aquarium\\FoundryFishMotion.gd",
+          "bytes": 37
+        },
+        {
+          "path_relative_to_fixture": "game\\scripts\\aquarium\\VolumeFishExhibit.gd",
+          "bytes": 37
+        },
+        {
+          "path_relative_to_fixture": "legacy.json",
+          "bytes": 333
+        },
+        {
+          "path_relative_to_fixture": "out-1\\completion.validation.json",
+          "bytes": 1056
+        },
+        {
+          "path_relative_to_fixture": "out-1\\export.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-1\\test\\check.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-1\\test\\contact.validation.json",
+          "bytes": 3048
+        },
+        {
+          "path_relative_to_fixture": "out-1\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-10\\completion.validation.json",
+          "bytes": 1060
+        },
+        {
+          "path_relative_to_fixture": "out-10\\export.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-10\\test\\check.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-10\\test\\contact.validation.json",
+          "bytes": 3051
+        },
+        {
+          "path_relative_to_fixture": "out-10\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-11\\completion.validation.json",
+          "bytes": 1066
+        },
+        {
+          "path_relative_to_fixture": "out-11\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-11\\test\\membranes.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-11\\test\\membranes.validation.json",
+          "bytes": 3001
+        },
+        {
+          "path_relative_to_fixture": "out-11\\test\\roots.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-11\\test\\roots.validation.json",
+          "bytes": 3051
+        },
+        {
+          "path_relative_to_fixture": "out-12\\completion.validation.json",
+          "bytes": 902
+        },
+        {
+          "path_relative_to_fixture": "out-13\\completion.validation.json",
+          "bytes": 165
+        },
+        {
+          "path_relative_to_fixture": "out-14\\completion.validation.json",
+          "bytes": 165
+        },
+        {
+          "path_relative_to_fixture": "out-14\\export.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-14\\test\\check.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-14\\test\\contact.validation.json",
+          "bytes": 3049
+        },
+        {
+          "path_relative_to_fixture": "out-14\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-15\\completion.validation.json",
+          "bytes": 113
+        },
+        {
+          "path_relative_to_fixture": "out-15\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-15\\test\\roots.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-15\\test\\roots.validation.json",
+          "bytes": 3049
+        },
+        {
+          "path_relative_to_fixture": "out-16\\completion.validation.json",
+          "bytes": 243
+        },
+        {
+          "path_relative_to_fixture": "out-17\\completion.validation.json",
+          "bytes": 191
+        },
+        {
+          "path_relative_to_fixture": "out-2\\completion.validation.json",
+          "bytes": 1184
+        },
+        {
+          "path_relative_to_fixture": "out-2\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-2\\test\\membranes.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-2\\test\\membranes.validation.json",
+          "bytes": 3000
+        },
+        {
+          "path_relative_to_fixture": "out-2\\test\\roots.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-2\\test\\roots.validation.json",
+          "bytes": 3048
+        },
+        {
+          "path_relative_to_fixture": "out-3\\completion.validation.json",
+          "bytes": 900
+        },
+        {
+          "path_relative_to_fixture": "out-4\\completion.validation.json",
+          "bytes": 1059
+        },
+        {
+          "path_relative_to_fixture": "out-4\\export.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-4\\test\\check.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-4\\test\\contact.validation.json",
+          "bytes": 3050
+        },
+        {
+          "path_relative_to_fixture": "out-4\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-5\\completion.validation.json",
+          "bytes": 1064
+        },
+        {
+          "path_relative_to_fixture": "out-5\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-5\\test\\membranes.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-5\\test\\membranes.validation.json",
+          "bytes": 3000
+        },
+        {
+          "path_relative_to_fixture": "out-5\\test\\roots.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-5\\test\\roots.validation.json",
+          "bytes": 3050
+        },
+        {
+          "path_relative_to_fixture": "out-6\\completion.validation.json",
+          "bytes": 900
+        },
+        {
+          "path_relative_to_fixture": "out-7\\completion.validation.json",
+          "bytes": 165
+        },
+        {
+          "path_relative_to_fixture": "out-8\\completion.validation.json",
+          "bytes": 165
+        },
+        {
+          "path_relative_to_fixture": "out-8\\export.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-8\\test\\check.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-8\\test\\contact.validation.json",
+          "bytes": 3048
+        },
+        {
+          "path_relative_to_fixture": "out-8\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-9\\completion.validation.json",
+          "bytes": 113
+        },
+        {
+          "path_relative_to_fixture": "out-9\\test\\export.validation.json",
+          "bytes": 2456
+        },
+        {
+          "path_relative_to_fixture": "out-9\\test\\roots.log",
+          "bytes": 0
+        },
+        {
+          "path_relative_to_fixture": "out-9\\test\\roots.validation.json",
+          "bytes": 3048
+        },
+        {
+          "path_relative_to_fixture": "strict-cm.json",
+          "bytes": 377
+        },
+        {
+          "path_relative_to_fixture": "strict-mm.json",
+          "bytes": 402
+        }
+      ],
+      "deleted_files": 65,
+      "deleted_bytes": 75820
+    }
+  },
+  "root_cleanup": {
+    "ok": true,
+    "scope": "root accepted fish historical experiments and optional source art copies",
+    "deleted_files": 8597,
+    "deleted_bytes": 1310766554,
+    "protected_sha_checks": 68,
+    "surviving_planned_files": 0,
+    "policy": "Explicit user2026-11-05. No Git history rewriting, no shared database or game2D/sprite/icon deletion. Complete PDF retained."
+  },
+  "root_cleanup_full_plan_sha256": "528b5b5c0070b5eb52445e1d5609fa98760c64265c58b4ee188600c6c64acedd",
+  "retention": "Exact leaf plan preflighted SHA/bytes; useful compact checkpoints retained. Full transient deletion plan not a production dependency and is retired after final summary.",
+  "root_cleanup_scopes": [
+    {
+      "scope": "output/043-motion-frame-cache",
+      "deleted_files": 334,
+      "deleted_bytes": 23997015
+    },
+    {
+      "scope": "output/african-catfish-dorsal-peer-20261105",
+      "deleted_files": 4,
+      "deleted_bytes": 49908
+    },
+    {
+      "scope": "output/african-catfish-eye-readonly-20261105",
+      "deleted_files": 12,
+      "deleted_bytes": 2361277
+    },
+    {
+      "scope": "output/arapaima-library-material-view-20261105",
+      "deleted_files": 9,
+      "deleted_bytes": 5373219
+    },
+    {
+      "scope": "output/arapaima-mouth-058",
+      "deleted_files": 1295,
+      "deleted_bytes": 189118017
+    },
+    {
+      "scope": "output/arapaima-paired-frame-second-view-20261105",
+      "deleted_files": 6,
+      "deleted_bytes": 72749
+    },
+    {
+      "scope": "output/blacktip-eye-reference-20261104",
+      "deleted_files": 2,
+      "deleted_bytes": 3814782
+    },
+    {
+      "scope": "output/blacktip-review-055",
+      "deleted_files": 699,
+      "deleted_bytes": 125411993
+    },
+    {
+      "scope": "output/blacktip-rootwall-second-view-20261105",
+      "deleted_files": 4,
+      "deleted_bytes": 25037
+    },
+    {
+      "scope": "output/fin-attachment-limit-contract-20261105",
+      "deleted_files": 3,
+      "deleted_bytes": 14561
+    },
+    {
+      "scope": "output/fin-surface-exporter-20261105",
+      "deleted_files": 10,
+      "deleted_bytes": 13901
+    },
+    {
+      "scope": "output/fish-production-cycle-20261031",
+      "deleted_files": 38,
+      "deleted_bytes": 829017
+    },
+    {
+      "scope": "output/fish-reference-compare-20261105",
+      "deleted_files": 623,
+      "deleted_bytes": 162990828
+    },
+    {
+      "scope": "output/fish-replacement-056",
+      "deleted_files": 3104,
+      "deleted_bytes": 486532194
+    },
+    {
+      "scope": "output/fish-session-quarantine",
+      "deleted_files": 128,
+      "deleted_bytes": 99512424
+    },
+    {
+      "scope": "output/fish-status-audit-20261104",
+      "deleted_files": 1,
+      "deleted_bytes": 28754
+    },
+    {
+      "scope": "output/five-final-viewer",
+      "deleted_files": 3,
+      "deleted_bytes": 24781
+    },
+    {
+      "scope": "output/five-fish-delivery-cleanup-20261101",
+      "deleted_files": 7,
+      "deleted_bytes": 2447061
+    },
+    {
+      "scope": "output/four-fish-top-nano-20261031",
+      "deleted_files": 131,
+      "deleted_bytes": 12765503
+    },
+    {
+      "scope": "output/four-fish-width-study-20261031",
+      "deleted_files": 101,
+      "deleted_bytes": 18335330
+    },
+    {
+      "scope": "output/hairtail-adapter-check-20261104",
+      "deleted_files": 4,
+      "deleted_bytes": 2862
+    },
+    {
+      "scope": "output/hairtail-exact-contact-cache-20261105",
+      "deleted_files": 3,
+      "deleted_bytes": 1453
+    },
+    {
+      "scope": "output/list-click-scroll-20261105",
+      "deleted_files": 6,
+      "deleted_bytes": 17831
+    },
+    {
+      "scope": "output/list-nearest-materials-20261105",
+      "deleted_files": 13,
+      "deleted_bytes": 25714
+    },
+    {
+      "scope": "output/local-cleanup-20261102",
+      "deleted_files": 12,
+      "deleted_bytes": 8043637
+    },
+    {
+      "scope": "output/mahi-057",
+      "deleted_files": 666,
+      "deleted_bytes": 110054472
+    },
+    {
+      "scope": "output/six-cyprinid-reference-20261104",
+      "deleted_files": 2,
+      "deleted_bytes": 3337
+    },
+    {
+      "scope": "output/six-fish-carp-bluegill-20261104",
+      "deleted_files": 2,
+      "deleted_bytes": 3354
+    },
+    {
+      "scope": "output/three-fish-retention-restore-check-20261101",
+      "deleted_files": 1,
+      "deleted_bytes": 2814909
+    },
+    {
+      "scope": "work/carp-frozen-tools-20261101",
+      "deleted_files": 598,
+      "deleted_bytes": 4092143
+    },
+    {
+      "scope": "work/carp-submit-20261101",
+      "deleted_files": 4,
+      "deleted_bytes": 370827
+    },
+    {
+      "scope": "work/fish-portable-tools",
+      "deleted_files": 652,
+      "deleted_bytes": 9501389
+    },
+    {
+      "scope": "work/fishing-history-reset-20261102",
+      "deleted_files": 7,
+      "deleted_bytes": 33100
+    },
+    {
+      "scope": "work/lip-retirement-160-body",
+      "deleted_files": 1,
+      "deleted_bytes": 101
+    },
+    {
+      "scope": "work/sop-optimization-20261102",
+      "deleted_files": 4,
+      "deleted_bytes": 9058
+    },
+    {
+      "scope": "work/zander-rebuild-20261027",
+      "deleted_files": 86,
+      "deleted_bytes": 7774055
+    },
+    {
+      "scope": "optional_provenance_art_or_duplicate_pdf",
+      "deleted_files": 22,
+      "deleted_bytes": 34299961
+    }
+  ],
+  "current_canonical48_post_cleanup_unchanged": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/atlantic_salmon/fish.blend",
+      "bytes": 4625903,
+      "sha256": "321e12925299eee714db9a6c4b30ada3eafb008a777e31a63fbe8d5b35adda4a"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+      "bytes": 9019985,
+      "sha256": "6c64c01b6c2f58b8c8fd8ffd61e49d494b1a9c8fe438a656f0ef7a73d0fc14dc"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/bluegill/fish.blend",
+      "bytes": 2899016,
+      "sha256": "b0b7579aec931b34c281ff9cacfad099ec901db8f3ee110e30e0880a106e3f5c"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/brown_trout/fish.blend",
+      "bytes": 4136413,
+      "sha256": "bd33fb605b638752e01ab46ef537967cfb4e75220fdd63426a7a6e3e079a8390"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/carp/fish.blend",
+      "bytes": 7302831,
+      "sha256": "ab5880faa264a4bd439af9ab526db425e144eede883e48e58838645848f21ee9"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/crucian/fish.blend",
+      "bytes": 3352279,
+      "sha256": "2ee178a44a9f09592a7d4d15c170b3756b55c15100832da5eefcdaa5f197ea60"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/grass_carp/fish.blend",
+      "bytes": 2664888,
+      "sha256": "c73fe13153c5145467afbfc84c56b36be7770840a31c3bb8ba12fb1774570264"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/nile_tilapia/fish.blend",
+      "bytes": 4802840,
+      "sha256": "b1339d45cf3c8e0bbd64d16f49532bf8b55b613106875c8b82e054108e1bd4be"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/rainbow_trout/fish.blend",
+      "bytes": 6255761,
+      "sha256": "ef2b79c971dab6b9c9eaf85060819ee39ec4f544948eb09a74916c2985b98d03"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_emperor/fish.blend",
+      "bytes": 7163255,
+      "sha256": "71911119ee86ebf0d34b5bef64f99f35ff7c851fbad801beb007b792d89d7020"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/red_seabream/fish.blend",
+      "bytes": 8756113,
+      "sha256": "03e59f212f27e1fad3adaedc10efb5f9b36ba82388909948298c7cdc729b14a7"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/scalloped_hammerhead/fish.blend",
+      "bytes": 4197647,
+      "sha256": "fcf342cc60c02b9b544633d31a977547b80228186a759370045c20c8dad03504"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/sea_bass/fish.blend",
+      "bytes": 7022923,
+      "sha256": "80c23443f1b2afa9bafa2b81bb37f3069df2fe7d60eebb0d2e0d402fc7b6ae19"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+      "bytes": 2037669,
+      "sha256": "b030f4de339a12a275163c9a150de8496bcba856cd72ad76dd71a319559952f4"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+      "bytes": 7396808,
+      "sha256": "1013206016a63176626bc504920cbf3eba21516ad8b2efd204ceec4b4fbf6838"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+      "bytes": 6176105,
+      "sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+      "bytes": 11337728,
+      "sha256": "5a2155ce0d567caa69d15b15a7afe13d491975ed11352a38dda3e220c7d70f55"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+      "bytes": 9188784,
+      "sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+      "bytes": 5867062,
+      "sha256": "1e07ebdd0d7a882f53e2a6b122f38a92aa188471a6e2140c2ac55546d8101d12"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+      "bytes": 6689333,
+      "sha256": "1a4394c915d0a5750cfaa056306be32b0d0c4ee14485a071949e547566ecb64a"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+      "bytes": 4404472,
+      "sha256": "0fbfde27751a4a00f90df0c2eced0507e68dc07547d7b5483df3e37523d48b02"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+      "bytes": 5363370,
+      "sha256": "06c4bf27846cdbc634be1953590b5a865a4c602d0e68f63a26d7f8cc1151b936"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+      "bytes": 6401529,
+      "sha256": "fe1d19f4e55475c197717c3ce419d36ec16e72b210aadc479b3c1b3165f634e6"
+    },
+    {
+      "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+      "bytes": 7786367,
+      "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/atlantic_salmon.glb",
+      "bytes": 4629920,
+      "sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+      "bytes": 9162780,
+      "sha256": "c20abaa9bf06dc2027e7a628d55649c07ebd154e458fe93d6b5d5819605823d9"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/bluegill.glb",
+      "bytes": 2835784,
+      "sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/brown_trout.glb",
+      "bytes": 4132976,
+      "sha256": "4962904703412f912c0990d4899d1956442110a57a32c5c175d397d426895204"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/carp.glb",
+      "bytes": 7381324,
+      "sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/crucian.glb",
+      "bytes": 3299308,
+      "sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/grass_carp.glb",
+      "bytes": 2553736,
+      "sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/nile_tilapia.glb",
+      "bytes": 3581704,
+      "sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/rainbow_trout.glb",
+      "bytes": 6358980,
+      "sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/red_emperor.glb",
+      "bytes": 7258424,
+      "sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/red_seabream.glb",
+      "bytes": 8869000,
+      "sha256": "0727db84762ac66a9be123df93c6b0cab1c06764ed673dbd983e9c4141028440"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/scalloped_hammerhead.glb",
+      "bytes": 4431908,
+      "sha256": "06f07e304dd2b702f0d12043bc1153d257c7172691d4d31c038535c92cebbfad"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/sea_bass.glb",
+      "bytes": 7136828,
+      "sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+      "bytes": 1998144,
+      "sha256": "a5e8184972c17c3740bcf6bb52e95f69c1695d674cd30dc52110e1964f68a0a6"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+      "bytes": 7492004,
+      "sha256": "40bcab889088894369296eabc96060e1d41fbe101e225fa8d7b7f6050edede89"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+      "bytes": 5246444,
+      "sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+      "bytes": 11329444,
+      "sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+      "bytes": 8367588,
+      "sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+      "bytes": 5957232,
+      "sha256": "a031a190e17704383a6d0d517089fc3ca00ad34cf3ecbfbe14d019c49f0d4ea8"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+      "bytes": 6727812,
+      "sha256": "b48c597ed4bd00bf816f0a49a1701b19aaf713174de55d7b4f6b355738df59b0"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+      "bytes": 3166724,
+      "sha256": "a5ae53ae77b395b63bfa248142cd859059ab1253b6849ac4b6847d38cb3651ee"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+      "bytes": 5417556,
+      "sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+      "bytes": 6608324,
+      "sha256": "64c4c37525f3961beed0d23ff155010861e0e0024fbfaf1ae97654b110ec6887"
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+      "bytes": 7876260,
+      "sha256": "9d8c91fd7bd21127faa612fcab3a7fe9a974902fc7497e3abf1b864345cdfea4"
+    }
+  ],
+  "current_canonical48_retained_bytes": 286669285,
+  "initial_local_lfs_cache_bytes": {
+    "foundry": 3478415456,
+    "game": 17328009920
+  },
+  "temporary_closeout_artifacts_retired": {
+    "ok": true,
+    "scopes": [
+      {
+        "scope": "work/eleven-fish-release-20261105",
+        "deleted_files": 48,
+        "deleted_bytes": 67774413
+      },
+      {
+        "scope": "output/eleven-fish-game-integration-audit-20261105",
+        "deleted_files": 52,
+        "deleted_bytes": 4491538
+      }
+    ],
+    "plan_sha256": "149c416feee0b0fdcb7e6a58af5df84b5504c6bdf88339c562c1fbf62406e28b",
+    "protected_final_sha_files": 81,
+    "remaining_files": 0
+  },
+  "historical_working_data_net_bytes_released": 14555410307,
+  "game_final_checks": {
+    "passed": 520,
+    "fish": 11,
+    "runtime_dependency_reads": 216,
+    "current_handoff": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/HANDOFF.md"
+  }
+}

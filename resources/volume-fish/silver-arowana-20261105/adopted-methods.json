@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "kind": "adopted_species_authoring_resources",
+  "species": "silver_arowana",
+  "model_sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71",
+  "author_entry": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\silver_arowana\\author_source.py",
+  "full_profile": "E:\\game-ai-foundry\\resources\\volume-fish\\silver-arowana-20261105\\authoring.profile.json",
+  "body_profile": "E:\\game-ai-foundry\\resources\\volume-fish\\silver-arowana-20261105\\cage.profile.json",
+  "prepared_source": "E:\\game-ai-foundry\\resources\\volume-fish\\silver-arowana-20261105\\prepared-source.blend",
+  "public_readonly_dependencies": {
+    "resources\\scripts\\volume-fish\\oral_jaws.py": "93413d84878d8ff82fb87c754c1cb2e3585af88e843f4f25f2a73c1289b2da1c",
+    "resources\\scripts\\volume-fish\\build_fish.py": "0452d46dde33e6ebff973369897ae343833d3ab21ff22e19043ede25cfbd8354",
+    "resources\\scripts\\volume-fish\\validate_authored_fin_volume.py": "d7cf677a79d12555548fa30133814d21df47314ce6640cba704ba1e3b43267fa",
+    "resources\\scripts\\volume-fish\\portable\\export_fin_poses.gd": "0dffe432a891ca54447c6138954c05c5ed0a6b5ab1bb9760e808fdac53ccaa99",
+    "resources\\scripts\\volume-fish\\portable\\export_fin_skin_matrices.gd": "72a0724e697cc404ab651394266588637cd9b6c7db2c6047ff2799fda2d17193",
+    "resources\\scripts\\volume-fish\\portable\\validate_standalone_body.py": "1a73badcd756005eb10e5e70530ea3bcc084c5db2f084d0cb16843cb65ab4fd7",
+    "resources\\scripts\\volume-fish\\portable\\ReviewCaptureBase.gd": "7c4071f529e0904afae5fcd167cd817d0f2fdfd73f8506fdc0dfdb18b83f1719",
+    "resources\\scripts\\volume-fish\\portable\\validate_motion_controls.gd": "99c85373cd2da7739259b91637748aa5124623833149e270f62b44a712f8078f",
+    "resources\\scripts\\volume-fish\\zander\\exact_shared_halfspace.py": "70eec9e98eec6e4fb8d9b2b844ccd31fc02162001af565784599e0086f00e58c"
+  },
+  "private_files": {
+    "resources\\scripts\\volume-fish\\silver_arowana\\author_source.py": "fabfb96e7150fee62a585677a45543f06f58f51be31dbc307b324cb7d33280af",
+    "resources\\scripts\\volume-fish\\silver_arowana\\bind_root_and_proximal.py": "e31d6dd71778a29cfb5c0ce1cd78348e22a8ce77337375b8f0760e6632625f95",
+    "resources\\scripts\\volume-fish\\silver_arowana\\check_aux_support.py": "d2bf98622ed586011f2d4e2228180ce2febdd3aa62dd499557dd354fb57dcde6",
+    "resources\\scripts\\volume-fish\\silver_arowana\\check_fin_self_intersection.py": "765b3c3828e940f876351ad342667e1a71418111d0531dab5d913405a1347fe0",
+    "resources\\scripts\\volume-fish\\silver_arowana\\export_aux_poses.gd": "376861af3729c992c7ec7e212c3d590d569cc7650457efab155a55becf6d1c36",
+    "resources\\scripts\\volume-fish\\silver_arowana\\export_rest_skin.gd": "c367593de127e1a1f55ac927e7999096022212cd3c1df641c796ad73785259d1",
+    "resources\\scripts\\volume-fish\\silver_arowana\\export_source.py": "65b232f6141dfc016c48f1c47f8e888d8aed169cff6866087a0494db58f379c8",
+    "resources\\scripts\\volume-fish\\silver_arowana\\fit_root_and_proximal.py": "fb6755dc0e9e40392d554d2e4aa6936a7ebdaadc11c35c56168d202e599184a9",
+    "resources\\scripts\\volume-fish\\silver_arowana\\source_fin_strips.py": "b39d186bcae7333d528c672cf45dab1ee9e17b814a60a41dec2a00641945b8cc",
+    "resources\\scripts\\volume-fish\\silver_arowana\\tail_finite_sections.py": "012efec539e213c27e84412c25515048df877153c59081124304ef7e88996543",
+    "resources\\scripts\\volume-fish\\silver_arowana\\validate_body.py": "110fe8fb6a784e8dbaf92fa88eb83b3ab172720079bdb1da39a6a65fcb9f016a",
+    "resources\\scripts\\volume-fish\\silver_arowana\\validate_fin_volume.py": "7b36e435d0b508b37f173140ec96e1a71ce60b322ac5e61e90de3748e3d69296"
+  },
+  "profile_files": {
+    "resources\\volume-fish\\silver-arowana-20261105\\authoring.profile.json": "629987662b7c1d6b61bbae01600723ab63adf619f8896358d36de8171a29070a",
+    "resources\\volume-fish\\silver-arowana-20261105\\cage.profile.json": "95d1c8e29277931f99ffbef5b079e0992a87b6cb6319cbe8ef2390dd804534d1",
+    "resources\\volume-fish\\silver-arowana-20261105\\prepared-source.blend": "4883b0a9bf89c16d0f6e1aea34fcc6997c2ff55c68fd433293bc46737fe0bec5"
+  },
+  "minimal_private_differences": [
+    "Resources author recreates three explicit adopted finite fin shells/UV/fourbone weights atop packed prepared ordinary body/material/rig source; no experiment import.",
+    "Source-only process-local Closest minfilter9728 override; Blender addon untouched. SourceMathROUND alpha givesMASK.5/culling.",
+    "077 explicit closedmixedeyelens/skinnedbarbel kinds; originalbodykernel inventory projection only removes4aux node mesh tags, allbuffers/accessors/images unchanged; GPU actualcompleteoriginal.",
+    "Normal-volume adapter uses unchanged shared opposingray/contact kernel on7ordinaryfin objects; aggregate retains exact4+3 measuredparts, truefinite tail supplements oldvertexprofile.",
+    "LPskinfit<=4actualbodybones on fulloriginalroot/proximalfiniteface support, allcoincidentUVseams sameweights, independent odd/evenheldout.",
+    "Self uses doubleAABB/bothway6segments/coplanararea, strict exactrational sharedcontact/80digitfallback, allsame-name surfaces merged.",
+    "Auxactual24 and490matrix-body equivalence; completeeye16rim+rear andbarbel8root support, outwardnormal basedonsignedbodyvolume."
+  ],
+  "recovery_proof": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\silver_arowana\\lowpoly-r4-fin-20261104\\barbel-root-r24\\resource-recovery.validation.json",
+  "user_acceptance": false
+}

@@ -1,8 +1,0 @@
-{
-  "species": "nile_tilapia",
-  "stage": "retired_after_user_acceptance",
-  "current_profile": "resources/volume-fish/nile-tilapia-final-20261103.json",
-  "current_handoff": "projects/fishing-2d/plans/reviews/nile-tilapia-release-20261103/HANDOFF.md",
-  "historical_model_sha256": "189989cfd33f1e5f0b7ef0a519b3e78cc058400875f1499bf0b29c0dd4085fff",
-  "restore_historical_recipe": "Foundry Git history before this release; retired trial objects are not current construction inputs."
-}

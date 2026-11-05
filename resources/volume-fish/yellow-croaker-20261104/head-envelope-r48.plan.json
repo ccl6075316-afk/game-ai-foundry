@@ -1,0 +1,67 @@
+{
+  "kind": "qualitatively_reviewed_retained_native_head_envelope",
+  "items": [
+    {
+      "species": "yellow_croaker",
+      "body": "Closed_body",
+      "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\yellow-croaker-portable-trial-20261031\\r34-cold\\fish.glb",
+      "source_sha256": "205aadf37e6d7a04d44725b112baef4bb6f72603b12cdf32ddb6be1c358311b8",
+      "target": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\yellow-croaker-portable-trial-20261031\\r48-cold\\fish.glb",
+      "target_sha256": "a031a190e17704383a6d0d517089fc3ca00ad34cf3ecbfbe14d019c49f0d4ea8",
+      "envelope_halfwidth_tolerance_native": 0.0005,
+      "target_half_width_envelope": [
+        [
+          0.8,
+          0.04730774451452387
+        ],
+        [
+          0.86,
+          0.0396362182493309
+        ],
+        [
+          0.9,
+          0.03349899661225605
+        ],
+        [
+          0.9274433802,
+          0.02861925865284704
+        ],
+        [
+          0.95,
+          0.024293160954392216
+        ],
+        [
+          0.97,
+          0.018236783005335724
+        ],
+        [
+          0.98,
+          0.014847866628771765
+        ],
+        [
+          0.985,
+          0.011559253696253985
+        ],
+        [
+          0.99,
+          0.008783125571734681
+        ],
+        [
+          0.995,
+          0.00593153184008637
+        ]
+      ]
+    }
+  ],
+  "reference_source_cage": {
+    "path": "projects\\fishing-2d\\experiments\\yellow-croaker-portable-trial-20261031\\mouth-source-r7\\fish.blend",
+    "sha256": "5e729a20580301e6e3623337e48d8425434ad4965800a676b22fd8ac9baa9c87"
+  },
+  "global_width_report": {
+    "path": "resources\\volume-fish\\yellow-croaker-20261104\\same-species-width-r34.validation.json",
+    "sha256": "2e85b21fb214f917e9c11e678e08d23ad5241df5a9e00f872342b208e0af3c42"
+  },
+  "basis": "R7 native-source mouth/head curvature retained after actual same-species institutional qualitative snout and source/clay review; conditional globalY1.278587647 from3same-speciesW/SL records. Local W(t)/Wmax is a retained artist cage, not independently measured biological curve. BaselineR34 only negative for known globalnarrowness, not newly labeled as biologicalneedle.",
+  "visual_scope": "R45 frontal/top/oblique clay retains blunt finite lips, actual upper/lower source endpoints, smooth broad-eye-before-snout taper without extra tip/beak or skull shrinking. Literal sourceupper2002/lower2010 relation held; lower extension is accepted2D stylization, not inferred biologicaljawlength. Independent eye-only same-camera attributes prove remaining thin eye-edge projections are true eye volume.",
+  "limitations": "24.6–27.3cm SL specimens conditionally proportionally mapped to60cm display fish; local head curve/sex/population/allometry unknown. Check proves frozen engineering envelope; source/clay judgement and wholefish acceptance separate."
+}

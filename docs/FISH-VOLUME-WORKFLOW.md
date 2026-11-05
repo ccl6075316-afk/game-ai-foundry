@@ -467,6 +467,28 @@ Windows 图生图命令的来源核验必须保留参数中的反斜杠；用禁
 079头吻横向修订见项目 `docs/3d-fish/HEAD-TRANSVERSE.md`。可用 `revise_head_width.py` 追加局部POSITION/NORMAL，保留原UV/骨骼/动画流；先冻结物种自己的截面站，禁止受影响区含鳍，正/俯/斜与原侧面分别对照，之后重冻运行时材质/身体供体并跑身体与完整鳍面门。
 
 
+<a id="existing-pixels-review"></a>
+
+## 2026-11-04：现存原画复用与生成参考分离
+
+先区分当前建模原画、风格参考、历史生成参考和旧模型。历史生成参考可能与风格参考是两张图；`volume source-replan` 的 archive-inputs 可在原四个必填字段之外增加 `generation_reference`，按历史 `generation_reference_sha256` 独立核验，不能用另一张相似图替代。旧四字段合同继续适用于二者相同的来源。历史文件与接受记录只读保留。
+
+原画字节与历史接受记录一致、但旧生成参考确实缺失时，先记录缺失及实际寻源结果，再对当前原画和风格图进行新的实际图审。使用独立 `volume reviewed-source-plan --review <当前审核receipt.json> --profile <本鱼profile.json> --output <新handoff.json> --json`；先读该子命令 `--help`。receipt 的 `kind=fish_existing_pixels_review`、`schema_version=1`，包含本鱼身份/展示体长、当前原画及风格图路径/SHA、操作者带时区时间/逐项观察/实际审图证据，以及历史接受handoff和历史profile的路径/SHA。具体字段与拒绝条件见 `cli/volume_reviewed_source.py`，正负例见 `cli/test_volume_reviewed_source.py`。
+
+该入口明确记为 `operator_existing_pixel_review`，不补造raw、Brief、生成job或旧模型审核。当前像素仍须与历史已接受source SHA相同，物种与体长按历史profile实际内容和快照核对；receipt、原画、风格图、审图证据或profile改变后，旧计划失效。新制作清单全部pending，旧模型批准和用户整鱼接受均不继承，辅助视图仍走各自的独立来源门。后续嘴、完整鳍、身体/材质、动作、源固化、冷读及完整SOP照常完成。
+
+首个实际应用为大黄鱼原账本 `projects/fishing-2d/experiments/yellow-croaker-portable-trial-20261031/HANDOFF.md`：采用原画SHA `f58fc0238a07f5c7c3e1ceb8e46396563f248237e3f7827681aa80304ea2de09`，历史生成参考缺失及新审核凭据分别保留。该方法打通来源恢复，不表示本鱼造型或成品已接受。
+
+<a id="cutout-water-preflight"></a>
+
+## 2026-11-04：完整验证前核对鳍材质与水体合成
+
+冻结候选前，读取真实GLB的 `alphaMode/alphaCutoff`、nearest采样以及Godot实际有效材质，并看本鱼正常水体中的代表姿态。身体077、鳍物理检查和普通背景画面通过，不证明含水体 `screen_texture`/深度合成的完整画面正确。孔雀鲈candidate-r3的六个共享鳍材质导成BLEND、Godot transparency为4，水体中八鳍变暗，胸鳍位置出现背景色缺口；该现象不是身体网格的真实洞。
+
+对只需要原画alpha裁边的鳍，在Blender源的原Alpha链加入 `Math GREATER_THAN(0.5)`，保留原RGBA图片、UV、两侧/封边和全部骨骼权重。Blender5.0.1普通冷导出可据此得到MASK；glTF省略alphaCutoff时默认0.5。源材质同时保存 `foundry_export_contract_json`，由实际新进程导出/加载核验合同，不能只在预览Godot中临时改透明模式。已有图集源合同实现可查 `build_packed_fish_source.py`、`portable/build_source.py` 和 `export_packed_fish_source.py`；复用模式方法不要求合并全鱼材质或改变原有发光/画风。完整几何不需要alpha裁边的OPAQUE鳍可保留；有意半透明则须证明其实际水体合成正确，不能机械统一换模式。
+
+本鱼candidate-r4中113个几何/UV/法线/蒙皮/动画数组和PNG载荷与r3逐项一致，仅六个鳍材质BLEND改为MASK。实际水体左、斜视确认八鳍与被遮身体恢复，当前490根/面、077及动作等重新通过；完整账本及用户接受仍按本鱼原handoff读取。材料变化后的旧报告保留原字节，按影响重新验证并记录适用性，不改旧SHA冒充新验。紧凑前后证据位于游戏 `experiments/four-fish-current-standard-20261101/peacock_bass/candidate-r3/final-review/` 和 `candidate-r4/final-review/`；后续清理按原逐鱼恢复映射查证。
+
 ## 083：头型优先于贴图便利
 
 纺锤身体、口位、吻端俯视形状、口裂宽和眼前头宽独立查证。旧profile approved及鳍/身体技术门不能代替灰模正/俯/斜视的同种吻型审核。使用 `check_head_form.py` 对预先冻结的物种宽度包络作检查，并以旧尖头作负例；该门不替代生物学证据。材质不适配应修UV/供体，而不是擅自压尖头部。083b四鱼规则、可复用范围与失败候选详见目标游戏 `docs/3d-fish/HEAD-TRANSVERSE.md`。087补充：批量问题列出全部现用鱼逐项决定；邻色补口缝仍须保留上下唇体积，禁止固定高度假横线。`revise_lip_rim.py`沿真实公共边滚边并记录副UV，参见知识库087节与 `mouth-pigment-087.json`，不能将086失败外观当推荐模板。

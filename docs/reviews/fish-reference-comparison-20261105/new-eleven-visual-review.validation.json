@@ -1,0 +1,514 @@
+{
+  "historical_evidence": true,
+  "media_retired_by_user_on": "2026-11-05",
+  "current_pdf": "docs/reviews/fish-reference-comparison-20261105.pdf",
+  "original_report_sha256": "18b3ae4c0ba52af4b2ad05a3b9cb65161f1cf847db18abda56751929f7206259",
+  "report": {
+    "ok": true,
+    "kind": "operator_actual_image_review_new_eleven_reference_pairs",
+    "review_method": "Every pair's grey and native 2400x1240 sheet was actually opened using view_image; side/top current, actual reference and overlay panels were inspected together.",
+    "species_count": 11,
+    "pair_count": 13,
+    "actual_images_viewed": 26,
+    "assets_modified": false,
+    "new_rendering_or_physical_validation": false,
+    "sop_modified": false,
+    "user_acceptance": false,
+    "display_issues": [],
+    "summary": "本轮26张展示图未发现明确头尾反向、侧俯混淆、可见部件被画框截断、明显材质错位或不透明矩形假卡片；13组均存在可见轮廓或鳍姿差异。该结论仅审核本轮图片展示，不接受任何鱼的形态。",
+    "limitations": [
+      "Whole-mesh longitudinal span is uniformly normalized and each full bounding box centered. This is not matched biological TL/SL or head/eye/peduncle landmark registration.",
+      "Visible projection silhouettes include fins, eyes, barbels, mouths and original rest poses. Different projected fin spread cannot by itself establish a wrong body-width target or missing fin.",
+      "No visible clipping means visible projected parts fit the panels; it does not prove the inventory of occluded anatomical fins.",
+      "Native texture colors and brightness differ between art sources and shading. Color difference is not treated as geometric difference or rendering failure.",
+      "The new display-only reference registration is -Y nose and +Z dorsal in raw OBJ, as supplied by the root registration audit. Historical unknown orientation fields are not reinterpreted as this display being unregistered.",
+      "No models, source records, renderer or SOP were changed. No new research, rendering, physics,077 or490 checks were run."
+    ],
+    "pairs": [
+      {
+        "id": "blacktip_reef_shark--r01",
+        "side_shape_difference": "主体侧影有大面积重合；当前高背鳍比参考更靠尾侧，形状更宽直三角，尾鳍两叶的外缘和腹侧小鳍轮廓也不同。参考前腹段略更饱满。",
+        "top_shape_difference": "头与躯干包络较接近，仍有少量肩背宽度差；参考双胸鳍明显更外展、更向头侧伸出，当前较短且更后掠。",
+        "pose_or_material_note": "胸鳍投影差含原静息姿态因素；原材质色调不同未计作形体差。",
+        "species": "blacktip_reef_shark",
+        "label": "黑鳍礁鲨",
+        "reference_name": "BlacktipShark",
+        "reference_role": "auxiliary_qualitative_comparison_no_shape_adoption",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\blacktip_reef_shark--r01.json",
+          "sha256": "712c2e188b24452c2a25e15535c850522554e2f2256f463acaea4d60ccc24166"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\blacktip_reef_shark--r01-grey.png",
+            "sha256": "85c70e78639a4c191fd26e79d28f94f3cc57b13704fec925a3585d82cf326eaa"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\blacktip_reef_shark--r01-native.png",
+            "sha256": "4084fc48627b462b2e27c1c31c92537c5f66133bdb195685552cda9107da77a9"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "piranha--r01",
+        "side_shape_difference": "参考整体侧影更高，背鳍及臀鳍更高大，背腹更圆厚；当前侧影更低长，尾鳍轮廓更尖直，口裂及上下颌张开形状不同。",
+        "top_shape_difference": "参考中后躯向头部的宽度更饱满；当前从尾柄到中躯明显更窄，参考胸鳍展开幅度也更大。",
+        "pose_or_material_note": "参考张口及配对鳍静息姿态与当前不同。天然纹理与当前像素风格不同，本轮未把色差视为几何问题。",
+        "species": "piranha",
+        "label": "红腹食人鱼",
+        "reference_name": "RedeyePiranha",
+        "reference_role": "auxiliary_qualitative_comparison_no_numerical_shape_target",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\piranha--r01.json",
+          "sha256": "da0910ae3446838dafbb46e232ef516a0067161769f02502408df741bef2aad7"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\piranha--r01-grey.png",
+            "sha256": "724914d436b8415321e79189d507eae56cd3bfe4a11ed4adb6ffdb8b4d114fd5"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\piranha--r01-native.png",
+            "sha256": "4826e7cf53469bd73ac25736355e9328b6130c23fc8dff2e0b500f37eb5dc356"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "peacock_bass--r01",
+        "side_shape_difference": "参考后段圆形软背鳍瓣更高、更大，尾扇上下外缘也更满；当前这一背鳍瓣较小且更靠尾，前方棘背轮廓与参考不同，口张开形状不相同。",
+        "top_shape_difference": "中躯轮廓部分接近；当前吻端收得更快、更尖，参考头部向唇缘较钝宽，参考胸鳍更长、更外展。",
+        "pose_or_material_note": "参考是OrinocoPeacockBass相关属级艺术模型；不同口形与鳍姿不自动转成同种生物误差或返修要求。",
+        "species": "peacock_bass",
+        "label": "孔雀鲈",
+        "reference_name": "OrinocoPeacockBass",
+        "reference_role": "related_genus_auxiliary_head_envelope_and_body_crosscheck",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\peacock_bass--r01.json",
+          "sha256": "ff9fffde81b4bd2c4ed27fbef8b04152087f2a3b7399df14ed7f392a1a440a32"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\peacock_bass--r01-grey.png",
+            "sha256": "a5f14a2623a7bf2d274ace301b9c7c9fd6896c25625668c5339b85947a678f32"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\peacock_bass--r01-native.png",
+            "sha256": "43a3f35e34904379a6c7f1bdc3a93ae48e5461aaf066ea34f30c715776401dc4"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "mahi_mahi--r01",
+        "side_shape_difference": "参考背鳍前方峰更高、过渡更圆，当前背鳍上缘较直、峰较低；参考前腹及腹鳍投影更深，当前身体侧影更浅。尾叶曲线也有区别。",
+        "top_shape_difference": "身体横向包络大部分接近，仍能看到尾柄和肩部少量差异；参考胸鳍较大且弯曲外展，当前胸鳍更贴近身体。",
+        "pose_or_material_note": "俯视接近不等于无差异；该图并未作吻/眼/尾柄解剖配准，胸鳍差异含静息姿态。",
+        "species": "mahi_mahi",
+        "label": "鲯鳅（鬼头刀）",
+        "reference_name": "Dolphinfish / Dolphinfish_Rare",
+        "reference_role": "primary_adopted_artistic_transverse_width_target",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\mahi_mahi--r01.json",
+          "sha256": "5f88310d401996a6f8f124a7d9de1437451c841355195b14e80932f852c023ff"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\mahi_mahi--r01-grey.png",
+            "sha256": "c814732fc5e6aff0ae14da3031795e1aaa9b84817a6a4fad2814d1dbbde2b0cb"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\mahi_mahi--r01-native.png",
+            "sha256": "c27e13d37ace4b3ee5d4cb6dc026e5de87c852e4815438946737a0e561c75441"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "african_catfish--r01",
+        "side_shape_difference": "当前背鳍上缘更平顺，尾鳍更圆整；参考背鳍后段有更明显起伏，前腹及中后躯投影略更深，配对鳍的前后位置和轮廓不同。",
+        "top_shape_difference": "当前和AfricanSharptoothCatfish的身体宽度包络大部分重合；参考胸鳍更宽大、伸向两侧，当前胸鳍较小且更后掠，须的长短和方向也不同。",
+        "pose_or_material_note": "当前身体宽度曾采用该艺术参考，但这里包含全部鳍及须的完整轴归一，不等于同一鼻—尾基轴的重新测量。",
+        "species": "african_catfish",
+        "label": "非洲鲶鱼",
+        "reference_name": "AfricanSharptoothCatfish",
+        "reference_role": "primary_adopted_artistic_body_width_envelope",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\african_catfish--r01.json",
+          "sha256": "4830b18d31c39f28a8b9512eea980e2319898edc6731ae6b58d5ce6f5cec1cba"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\african_catfish--r01-grey.png",
+            "sha256": "c4f8b80ab07cbcdfcf967bf86d76d1dec775a4e7e0521233645083c02ff6bf23"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\african_catfish--r01-native.png",
+            "sha256": "b084838392c1f86b8b84ffde44bf3219d9d4fc53fab3b5e4402520ef1fbc8d69"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "african_catfish--r02",
+        "side_shape_difference": "对NorthAfricanCatfish，当前头吻在等长框内更前伸、背鳍前段延伸更向前，尾鳍更饱满圆；参考嘴与头更短窄，背/臀鳍上缘更低直。",
+        "top_shape_difference": "当前头端更圆宽，参考胸鳍更长、明显弯曲外展；参考长须向尾侧画出大弧，当前须较短且更直。",
+        "pose_or_material_note": "参考标签正确标为曾查看、未选为造型目标；长须参与完整mesh边界会影响本轮等长对齐，不能由头端相对位置直接计算生物头长误差。",
+        "species": "african_catfish",
+        "label": "非洲鲶鱼",
+        "reference_name": "NorthAfricanCatfish",
+        "reference_role": "auxiliary_inspected_alternative_not_selected_as_shape_target",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\african_catfish--r02.json",
+          "sha256": "ed95be9012c773fe26374dc0c150c676c4f03241d98f6494729593da14daa40b"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\african_catfish--r02-grey.png",
+            "sha256": "effbffdc1afcce0852ce9dca68de07c36a57c92d09de1952d8049a3f33bcbb17"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\african_catfish--r02-native.png",
+            "sha256": "614e8fdd7e1f2aed31ff64fd4bc812c98842f9a041bedcddc7abd86ab24affb3"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "yellow_croaker--r01",
+        "side_shape_difference": "参考侧影更高背，棘背与软背鳍的上缘更高、基部更长；当前身体更浅长，尾鳍为较小菱形尖尾，参考尾扇更大且外缘较圆。臀鳍和腹鳍也更大、更深。",
+        "top_shape_difference": "当前头部到吻端更窄，参考头肩更宽；当前胸鳍较贴体，参考胸鳍为更长且外展的尖叶。",
+        "pose_or_material_note": "标签明确YellowCroaker/SmallYellowCroaker是同一OBJ，未错列成两份独立模型。原图色调不同不计作几何差。",
+        "species": "yellow_croaker",
+        "label": "大黄鱼",
+        "reference_name": "YellowCroaker / SmallYellowCroaker (same exact OBJ)",
+        "reference_role": "auxiliary_visual_structural_comparison_no_width_adoption",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\yellow_croaker--r01.json",
+          "sha256": "dd21f486ff3ef2e0021f12e9d7f2de9a93d1500e6518b0d818a6f653a2e84f01"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\yellow_croaker--r01-grey.png",
+            "sha256": "ef8125cea8921faffa8efd96d0f5e30d5a03f687aca22a20f73f30a0f12330b5"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\yellow_croaker--r01-native.png",
+            "sha256": "98bc643ce32926985884cbc2bf1850095b013f351add44f4b05792dba6854673"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "zander--r01",
+        "side_shape_difference": "主体侧影大致接近，但参考的两背鳍、臀鳍及尾扇外缘更宽满，当前背鳍更低、尾叶更尖直。",
+        "top_shape_difference": "当前吻部收窄更急，头和中躯横向明显比参考窄；参考胸鳍及其他配对鳍更外展。",
+        "pose_or_material_note": "本轮图确实是长轴横置的侧视/俯视，没有沿用历史top.png的端视误标。投影窄宽结论只针对本轮完整框归一后的可见包络。",
+        "species": "zander",
+        "label": "梭鲈",
+        "reference_name": "Zander",
+        "reference_role": "auxiliary_qualitative_mouth_head_fin_comparison",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\zander--r01.json",
+          "sha256": "b96df764d01da39238dd31d05fb15bdea339559fe392f401030af59254773c0a"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\zander--r01-grey.png",
+            "sha256": "1327d3a3e38497380f5e20f2a4bc1c8b936eedaf6a3bc8ed8129b5a9125be44f"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\zander--r01-native.png",
+            "sha256": "26cf920f41f2b80b88325aa26dcb9699faa390a6f200ee5b9ba6a2e9f85e2a6e"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "hairtail--r01",
+        "side_shape_difference": "带状躯干大面积重合；参考背鳍上缘有更明显的尖齿及局部缺刻，当前连续背鳍更平顺。头背与下颌端的高度、口开形状仍有小差别。",
+        "top_shape_difference": "细长身体的横宽轮廓接近，吻部、胸鳍投影和尾丝微小走向仍不一致；未见尾丝被画框截断。",
+        "pose_or_material_note": "整条长轴占满横向取景使俯视身体很细，小牙、鳍根厚度等细节不能在这张总图上作可靠结论；这不是裁切或错误视向。",
+        "species": "hairtail",
+        "label": "带鱼",
+        "reference_name": "LargeheadHairtail",
+        "reference_role": "primary_adopted_artistic_body_width_curve_and_auxiliary_pectoral_tooth_reference",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\hairtail--r01.json",
+          "sha256": "069a214c25b5019ec9841086171ff39043e371f0edf6fd615057eb9d5d4ec46a"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\hairtail--r01-grey.png",
+            "sha256": "9302d82cfdf04fe58b1fa2506193901ac44f1ae7a2a1b407a267dcfcea429b1a"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\hairtail--r01-native.png",
+            "sha256": "6a7bf0a8ec82ba3445699b7d4fe1a1abc950d9c20506cf562a9c5319902156fc"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "silver_arowana--r01",
+        "side_shape_difference": "参考嘴张得更大且下颌上翘角更陡；当前尾鳍更大更向腹侧展开，背鳍更短圆，臀鳍后段更深，参考背/臀鳍更长低。",
+        "top_shape_difference": "身体包络有较大重合，头端/眼外缘仍有局部差异；参考胸鳍是宽大的外展弯叶，当前胸鳍近乎边缘朝上投影成细线。",
+        "pose_or_material_note": "胸鳍细线是当前投影视角/鳍姿可见结果，不能据此宣称缺鳍。参考名称保留原拼写SliverArowana，标签与来源一致。",
+        "species": "silver_arowana",
+        "label": "银龙鱼",
+        "reference_name": "SliverArowana (original library spelling)",
+        "reference_role": "auxiliary_qualitative_shape_comparison_no_width_adoption",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\silver_arowana--r01.json",
+          "sha256": "b124e4a9fd291e01122e9e55a69345512b2cac62cf19c6f1d03363800fe6a9b2"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\silver_arowana--r01-grey.png",
+            "sha256": "b97034d997d87e23a40060980e751c299b49923347229a2ce35ad7908afdf457"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\silver_arowana--r01-native.png",
+            "sha256": "448d44bdf14fd3230efd035a39b44a3b76aaf261d389b03f41cdcd0de903709e"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "arapaima--r01",
+        "side_shape_difference": "当前头背到口部的下降较缓、口位更高，参考头吻更长低并向下收；当前尾扇更高、更圆，参考背/臀鳍大片后缘形成不同的背腹包络。",
+        "top_shape_difference": "当前中躯尤其尾柄前方的横宽明显大于参考，参考从窄后躯向前逐步放宽，当前更早形成宽椭圆躯干；当前吻端也更平钝。",
+        "pose_or_material_note": "这是本轮显著可见差异，不因当前技术门完成而当作无差异，也不由此自动否定或接受艺术头身。材质正常显示，没有把红色分布差异计作体积差。",
+        "species": "arapaima",
+        "label": "巨骨舌鱼",
+        "reference_name": "Arapaima",
+        "reference_role": "auxiliary_qualitative_inventory_and_shape_reference_not_geometry_target",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\arapaima--r01.json",
+          "sha256": "e8ac202b3f40352c787618535cf58d85eecf7fe8440a607ec21f11a13977a87f"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\arapaima--r01-grey.png",
+            "sha256": "9857ce457d46fa641bb0447b4e746affab25df2db3d6badc777abf60d7e48fee"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\arapaima--r01-native.png",
+            "sha256": "ed45c16d978dd09b532d27f0414ed89770898781cfb71a42913456af1d2ba668"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "pacific_bluefin_tuna--r01",
+        "side_shape_difference": "对泛称BluefinTuna，当前前腹较浅、口开更小；参考两背鳍的高低和前后分布不同，参考靠头侧背鳍更高、基部更长，当前高三角背鳍较靠尾。臀鳍与尾叶曲率也不同。",
+        "top_shape_difference": "参考头躯整体较宽、前躯更饱满，胸鳍外展成较大的弯三角；当前躯干更窄，胸鳍近边缘投影为细长线。",
+        "pose_or_material_note": "这是泛称BluefinTuna对照，不升级为已核准的太平洋同种生物模型。鱼色、条点和亮度不同不作为几何结论。",
+        "species": "pacific_bluefin_tuna",
+        "label": "太平洋蓝鳍金枪鱼",
+        "reference_name": "BluefinTuna",
+        "reference_role": "qualitative_compared_reference_no_documented_primary_auxiliary_priority",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\pacific_bluefin_tuna--r01.json",
+          "sha256": "10acf502976f1909eb8e156c8e1f06fe4a3a1111c08d74310cc6e776604fb09a"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\pacific_bluefin_tuna--r01-grey.png",
+            "sha256": "e98c6d5eb1d7dc241bf28e023437ff8924bbc75dfd6c64cac99d626a8d21fa88"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\pacific_bluefin_tuna--r01-native.png",
+            "sha256": "32f835b6a961cc66f00ac35318bba33036d537de229291fa2a582343039dfe83"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      },
+      {
+        "id": "pacific_bluefin_tuna--r02",
+        "side_shape_difference": "对AtlanticBluefinTuna，身体侧影较泛称参考更接近，仍有背鳍高度/基部长度、臀鳍大小及尾叶厚宽区别；当前口开更小，参考尾鳍更宽满。",
+        "top_shape_difference": "中躯包络部分接近；参考前躯更宽，尾柄两侧有更明显横向隆起，当前尾柄较细直。参考胸鳍明显外展，当前投影细长。",
+        "pose_or_material_note": "参考来源正确标为AtlanticBluefinTuna，不将其和泛称BluefinTuna混为同一参考，也不写成太平洋同种。",
+        "species": "pacific_bluefin_tuna",
+        "label": "太平洋蓝鳍金枪鱼",
+        "reference_name": "AtlanticBluefinTuna",
+        "reference_role": "qualitative_compared_reference_no_documented_primary_auxiliary_priority",
+        "pair_config": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\pacific_bluefin_tuna--r02.json",
+          "sha256": "16cdee42a80a32389f2d12c8823ccf3f7fd56478231279d6cc329608c87baf83"
+        },
+        "images_viewed": [
+          {
+            "mode": "grey",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\pacific_bluefin_tuna--r02-grey.png",
+            "sha256": "1b9f08a31313b7695b4bac6d17c3c970084865c377654b26d3d01bf58cf08119"
+          },
+          {
+            "mode": "native",
+            "actually_viewed": true,
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\pacific_bluefin_tuna--r02-native.png",
+            "sha256": "e5c98c4e5816b8d2555ab9875e7bd4149e46a631c69331d41a4a5e454ce0e192"
+          }
+        ],
+        "display_checks": {
+          "head_right_tail_left_both": true,
+          "side_dorsal_up_and_true_top_consistent": true,
+          "visible_body_fins_barbels_filament_fit_panels": true,
+          "no_obvious_material_uv_misalignment_or_rectangular_alpha_card": true,
+          "source_label_corresponds_to_manifest": true
+        },
+        "display_issues": []
+      }
+    ],
+    "inputs": [
+      {
+        "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\comparison-manifest.json",
+        "sha256": "ced2e5afb77ff7b5d276b75aa978475fccc4820033613488e17136b2bfc399c5"
+      },
+      {
+        "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\inputs-new-eleven.json",
+        "sha256": "b46f94909eb036525775bb7c28be1236c700ae89556d9c8a7247f02166be3c80"
+      }
+    ],
+    "cleanup": {
+      "new_images_created": 0,
+      "temporary_files_created": 0,
+      "deleted_bytes": 0,
+      "retained_scope": "Only this compact review receipt added; preexisting images/assets untouched."
+    }
+  }
+}

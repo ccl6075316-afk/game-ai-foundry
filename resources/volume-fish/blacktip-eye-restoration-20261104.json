@@ -1,0 +1,124 @@
+{
+  "species": "blacktip_reef_shark",
+  "kind": "native_eye_volume_restoration",
+  "baseline_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fish.glb",
+    "sha256": "f87b661e0d19fb803d5271284319b45c7c2721498a9ebf1b14cfe2e85f5785fd"
+  },
+  "old_actual_eye_measurements": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\old-eye-measurements.json",
+    "sha256": "70c4664c9a9772a5a33aa904b06f408dde0c1f4430c3e9c3da5ebf3e3a936d5c"
+  },
+  "author": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\author_integrated.py",
+    "sha256": "41d70e6a7dbec53ad29ba1b4b3ec54a5c2e9663eb21a66824da6485056400245"
+  },
+  "current_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r3\\fish.glb",
+    "sha256": "e44065fea6ad2b3fcdf80f6416e9eace8d10fa387581aa15217f81dfdb65df6d"
+  },
+  "triangles": 3996,
+  "preferred": 3500,
+  "hard": 4000,
+  "display_length_cm": 150,
+  "user_acceptance": false,
+  "eyes": [
+    {
+      "side_blender_y": -1,
+      "integrated_body": true,
+      "center_source_uv": [
+        0.920392584514722,
+        0.5275080906148867
+      ],
+      "radius_native": 0.014721919302071973,
+      "height_native": 0.0013142302632331848,
+      "inserted_support_ids": [
+        841,
+        842,
+        843,
+        844,
+        845,
+        846,
+        847,
+        848,
+        849,
+        850,
+        851,
+        852,
+        853
+      ],
+      "moved_vertices": [
+        {
+          "source_vertex": 627,
+          "lateral_offset_native": 0.0003280955989156945,
+          "r2": 0.5003516350265336
+        },
+        {
+          "source_vertex": 628,
+          "lateral_offset_native": 8.300954838965022e-08,
+          "r2": 0.9920525410434781
+        },
+        {
+          "source_vertex": 841,
+          "lateral_offset_native": 0.0013142302632315427,
+          "r2": 6.246733078201894e-13
+        },
+        {
+          "source_vertex": 848,
+          "lateral_offset_native": 1.3434913565661128e-15,
+          "r2": 0.9999989889288775
+        }
+      ],
+      "support_method": "Existing finite head triangles subdivided with exact barycentricUV/skin; all original boundary/support coordinates retained outside own source footprint."
+    },
+    {
+      "side_blender_y": 1,
+      "integrated_body": true,
+      "center_source_uv": [
+        0.920392584514722,
+        0.5275080906148867
+      ],
+      "radius_native": 0.014721919302071973,
+      "height_native": 0.0013142302632331848,
+      "inserted_support_ids": [
+        854,
+        855,
+        856,
+        857,
+        858,
+        859,
+        860,
+        861,
+        862,
+        863,
+        864,
+        865,
+        866
+      ],
+      "moved_vertices": [
+        {
+          "source_vertex": 614,
+          "lateral_offset_native": 8.300954838965022e-08,
+          "r2": 0.9920525410434781
+        },
+        {
+          "source_vertex": 615,
+          "lateral_offset_native": 0.0003280955989156945,
+          "r2": 0.5003516350265336
+        },
+        {
+          "source_vertex": 854,
+          "lateral_offset_native": 0.0013142302632315427,
+          "r2": 6.246733078201894e-13
+        },
+        {
+          "source_vertex": 861,
+          "lateral_offset_native": 1.3434913565661128e-15,
+          "r2": 0.9999989889288775
+        }
+      ],
+      "support_method": "Existing finite head triangles subdivided with exact barycentricUV/skin; all original boundary/support coordinates retained outside own source footprint."
+    }
+  ],
+  "method": "Same-species historical native footprint and measured central source domain height; integrated local finite body subdivision and shallow relief. Original outside-eye body coordinates,8fins/materials/rig/actions exact. No other fish dimensions copied."
+}

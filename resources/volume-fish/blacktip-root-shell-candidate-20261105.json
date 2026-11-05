@@ -1,0 +1,89 @@
+{
+  "kind": "blacktip_reef_shark_eye_and_root_shell_candidate_parameters",
+  "species": "Carcharhinus melanopterus",
+  "display_length_cm": 150,
+  "preferred_triangles": 3500,
+  "hard_triangles": 4000,
+  "current_triangles": 3848,
+  "current_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fish.glb",
+    "sha256": "a5e8184972c17c3740bcf6bb52e95f69c1695d674cd30dc52110e1964f68a0a6"
+  },
+  "editable_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fish.blend",
+    "sha256": "b030f4de339a12a275163c9a150de8496bcba856cd72ad76dd71a319559952f4"
+  },
+  "old_installed_basically_accepted_model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\surface-mouth-continuity-20261101\\candidate-r2\\fish.glb",
+    "sha256": "f87b661e0d19fb803d5271284319b45c7c2721498a9ebf1b14cfe2e85f5785fd"
+  },
+  "eye_parameters_historical": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\blacktip-eye-restoration-20261104.json",
+    "sha256": "3bb50b300df728bd26d74bd9790422009ead33bd68b73de1aec41227b32316c0"
+  },
+  "eye_retention_scope": "Historical eye150 shallow volume retained, original full eye pixels/footprint. Nov1 basically-approved whole appearance preserved outside authorized eye/root internals; current candidate not user accepted.",
+  "median_root_chart": {
+    "fins": [
+      "FirstDorsal",
+      "SecondDorsal",
+      "Anal"
+    ],
+    "complete_original_boundary_exact": true,
+    "body_support_grid": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\root-supported-grid.plan.json",
+      "sha256": "adcd4c42a184042106956db9d4fe9a47fb6e09c60dea2125417e75c0e4545004"
+    },
+    "own_longitudinal_levels": "Actual own source boundary x levels merged only within0.0001native for technical interior grid; quarter/half/threequarter chord support from actual own closed body. Not biological tissue dimensions or cross-fish preset.",
+    "old_new_complete_domain_and_contact": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\root-domain-and-local-contact.validation.json",
+      "sha256": "1a38a06630c72d87427b5c3a19700fd1163699f9c161385d0c73c484ef89d870"
+    }
+  },
+  "caudal_repairs": {
+    "method": "Preserve actual original body segmentation; remove four interior near-boundary Boolean samples and reconnect only their complete local star domains; flip two thin root ears to follow original boundary/support order. Do not replace whole tail with one graph triangulation.",
+    "initial_removed_source_ids": [
+      319,
+      321
+    ],
+    "second_removed_source_ids_after_first_reindex": [
+      295,
+      303
+    ],
+    "first_local_disks": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r20\\caudal-local-repair.validation.json",
+      "sha256": "7fffb5e6fa7f8c91daf4f8a53729cfaafacd5e5d6fb2654922e4edef9a9236ac"
+    },
+    "second_local_disks": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\local-root-connectivity.validation.json",
+      "sha256": "8636bac2b3b7f1b78503b936380cf8af376488306a1fb2af0251e39b300a55d1"
+    },
+    "body_only_precision": "Complementary uint16 weights with upward float32 representation and float32sum1; preserve own fin gain. Recheck actual Godot imported integers.",
+    "positions": "All retained original caudal vertices, original root boundary and all free faces/UV exact."
+  },
+  "right_pelvic": {
+    "method": "Original own fin influence gain unchanged; remaining nonroot body contribution uses actual fin-parent body_04 frame. Complete root weights unchanged.",
+    "authoring": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r14\\repair.validation.json",
+      "sha256": "6ca850b6fa5e42592f395bd310f4b6842589dcdc2d6d74a1bfd066dec1385e63"
+    }
+  },
+  "finite_self_kernel": {
+    "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\blacktip-20261105\\finite_edge_kernel.py",
+    "sha256": "751009c9de6f91da5f5ff9e55640c43a32b15f893b53ad403f3e4fc4aaa2d472"
+  },
+  "narrowphase_controls": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\finite-edge-kernel-controls.validation.json",
+    "sha256": "701c068031d8e8fabfccf191f170836f01a0578becb7d215299318807205f677"
+  },
+  "exact_shared_halfspace": {
+    "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\zander\\exact_shared_halfspace.py",
+    "sha256": "70eec9e98eec6e4fb8d9b2b844ccd31fc02162001af565784599e0086f00e58c"
+  },
+  "common_method": "resources/skills/fish-volume-production/references/fin-shell-self-intersection.md",
+  "library_scope": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\library-comparison-applicability.validation.json",
+    "sha256": "079629697836acaf7a4f967d20e8534b474888b314725254e453d7baea881d99"
+  },
+  "formal_acceptance": false,
+  "final_validation": "pending"
+}

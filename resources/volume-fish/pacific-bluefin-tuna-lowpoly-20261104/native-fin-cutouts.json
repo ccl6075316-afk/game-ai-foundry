@@ -1,0 +1,376 @@
+{
+  "Dorsal_first": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_first-native-cutout.png",
+    "sha256": "c334a14fd9f1773561e625b69cf43e58fcde9451215772b90002530ad6707738",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      1321,
+      115,
+      1502,
+      183
+    ],
+    "opaque_pixels": 4432,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_second": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_second-native-cutout.png",
+    "sha256": "791912ca2c53200d081f54044ee65261e08cf8a094602ed1538df984855d30cd",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      808,
+      0,
+      1045,
+      238
+    ],
+    "opaque_pixels": 18653,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal-native-cutout.png",
+    "sha256": "e574b2cc9453c30e5046e0c631acb7d1787bfa9ad8dff251209a74a29c441dec",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      754,
+      568,
+      922,
+      717
+    ],
+    "opaque_pixels": 8590,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Caudal": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Caudal-native-cutout.png",
+    "sha256": "8536a92ff1a885e46ed0edbe8ec01c9e6a499ce0788ec5f94ea4503d38c5dd43",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      1,
+      85,
+      251,
+      715
+    ],
+    "opaque_pixels": 41126,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Pectoral": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Pectoral-native-cutout.png",
+    "sha256": "d7ca2685aa368e933ff754ea6eaab1b49c53c8e0f36d923f5c0b031e4f9d314d",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      1201,
+      371,
+      1564,
+      479
+    ],
+    "opaque_pixels": 21952,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Pelvic": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Pelvic-native-cutout.png",
+    "sha256": "a34546b79c776ee41a7218cef026a7b669832c0a6e0e3ef6bc354da06c88e593",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      1422,
+      629,
+      1539,
+      747
+    ],
+    "opaque_pixels": 4526,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_01": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_01-native-cutout.png",
+    "sha256": "41a190a9476e1fdac306caf55aad7ef82abc9cd63f768d94da15e299c42490cf",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      273,
+      351,
+      302,
+      377
+    ],
+    "opaque_pixels": 266,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_02": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_02-native-cutout.png",
+    "sha256": "e50353236f8c7ec6d7cc4b100fbf891f9ed92896a913704313928cbaae65940e",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      326,
+      333,
+      365,
+      363
+    ],
+    "opaque_pixels": 396,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_03": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_03-native-cutout.png",
+    "sha256": "45db28b40c7cada873e11f55436ef5a58b87a4a07fcab85bff893e270836cb5b",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      383,
+      317,
+      429,
+      351
+    ],
+    "opaque_pixels": 613,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_04": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_04-native-cutout.png",
+    "sha256": "335d5e215ed966e0e260fe0151215909ef2a3b1056826dbcf0cc9f775e1dd4dc",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      454,
+      298,
+      499,
+      331
+    ],
+    "opaque_pixels": 614,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_05": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_05-native-cutout.png",
+    "sha256": "ed6968d482bf06306078f4950f6da102bc51729383cf7c0fbc7618674c599107",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      522,
+      280,
+      567,
+      312
+    ],
+    "opaque_pixels": 571,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_06": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_06-native-cutout.png",
+    "sha256": "bfb4ccfa9f0a1135978e85449660a4fca90303305d908a50e6d0514b752fba05",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      592,
+      260,
+      632,
+      292
+    ],
+    "opaque_pixels": 559,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_07": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_07-native-cutout.png",
+    "sha256": "ac9767d3d2bc2b21192ac6b766aef2545067a5e005a3202a2f347423972541c3",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      666,
+      237,
+      707,
+      269
+    ],
+    "opaque_pixels": 552,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Dorsal_finlet_08": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Dorsal_finlet_08-native-cutout.png",
+    "sha256": "e33930e4d71bdadc435b4be55efde8611990c2e63f9c36f2950486881bc4fdc9",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      738,
+      221,
+      780,
+      252
+    ],
+    "opaque_pixels": 571,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_01": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_01-native-cutout.png",
+    "sha256": "4858e515886a79bb6258da80646029033d2101c2d2783a2c247cc741333b2155",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      273,
+      418,
+      302,
+      442
+    ],
+    "opaque_pixels": 238,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_02": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_02-native-cutout.png",
+    "sha256": "21d986f9b9dfb509ba3ce37091ea58641b845f2cda8b44a21253486405418dbb",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      326,
+      427,
+      362,
+      458
+    ],
+    "opaque_pixels": 399,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_03": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_03-native-cutout.png",
+    "sha256": "f7ae6a2bee4f5eac23f4c5cb539bdff664b48e2ecb324028e1e52c000b978d7f",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      391,
+      442,
+      427,
+      473
+    ],
+    "opaque_pixels": 447,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_04": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_04-native-cutout.png",
+    "sha256": "23e64658d6f846707f1def32af24561f10cdd41d0e8628eb85d9bfc7cd5494f1",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      459,
+      464,
+      496,
+      495
+    ],
+    "opaque_pixels": 448,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_05": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_05-native-cutout.png",
+    "sha256": "0516db802f5772335e8882d3703033bf4117e4d4cf7b8fbf4b8e8d75661437c0",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      529,
+      487,
+      565,
+      514
+    ],
+    "opaque_pixels": 420,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_06": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_06-native-cutout.png",
+    "sha256": "85e3983cc5f065d1b6a4518ae76e38d667edfdbb41ac1b486ff41990f49ccecf",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      594,
+      505,
+      632,
+      538
+    ],
+    "opaque_pixels": 503,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_07": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_07-native-cutout.png",
+    "sha256": "2be82d31a115b675108be316a7049aaf0566ee6c3f185a96595f978211225f56",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      661,
+      527,
+      701,
+      562
+    ],
+    "opaque_pixels": 576,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "Anal_finlet_08": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\cage-r2.handoff-artifacts\\Anal_finlet_08-native-cutout.png",
+    "sha256": "2d535d806150a6e44951dc8117290446e07bcb0a11ab21fdfc16eaa83656a4c0",
+    "original_source_size": [
+      2016,
+      747
+    ],
+    "native_crop_top_left": [
+      732,
+      553,
+      770,
+      582
+    ],
+    "opaque_pixels": 414,
+    "resampled": false,
+    "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  }
+}

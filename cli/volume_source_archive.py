@@ -11,7 +11,7 @@ def snapshot(archive, profile, output):
     import volume_fish as v
     spec = v.read_json(archive)
     required = {"historical_handoff", "historical_profile", "source", "reference"}
-    v.keys(spec, required, required, "reviewed source archive")
+    v.keys(spec, required | {"generation_reference"}, required, "reviewed source archive")
     files = {k: v.resolve_file(value, archive.parent) for k, value in spec.items()}
     old = v.read_json(files["historical_handoff"])
     v.require(old.get("kind") == "fish_volume_handoff", "Historical source handoff required")
@@ -30,10 +30,18 @@ def snapshot(archive, profile, output):
               and style.get("roughness") == 1 and style.get("source_sha256") == info["sha256"]
               and style.get("style_reference_sha256") == ref_hash, "Historical style reference mismatch")
     if source.get("generation_reference_required"):
+        # Some historical jobs used a generation image distinct from the style
+        # reference. Keep the four-field archive compatible, but verify an
+        # explicit relocation against its own immutable historical receipt.
+        generation_reference = files.get("generation_reference", files["reference"])
+        v.image_info(generation_reference)
         proof = source.get("generation_reference_evidence", {})
-        v.require(source.get("generation_reference_sha256") == ref_hash
+        v.require(source.get("generation_reference_sha256") == v.sha(generation_reference)
                   and proof.get("kind") == "pipeline_task" and proof.get("task_id") == source["generation_task_id"]
                   and proof.get("command_sha256"), "Historical generation reference missing")
+    else:
+        v.require("generation_reference" not in files,
+                  "Generation reference mapping requires historical generation reference evidence")
     p, reference = v.validate_profile(v.read_json(profile), profile)
     import hashlib
     archived_profile = files["historical_profile"]
@@ -52,7 +60,7 @@ def snapshot(archive, profile, output):
               "Outputs must not overwrite source archive inputs")
     relocated_source = {**copy.deepcopy(source), "path": str(files["source"])}
     if source.get("generation_reference_required"):
-        relocated_source["generation_reference_image"] = str(files["reference"])
+        relocated_source["generation_reference_image"] = str(generation_reference)
     return {"schema_version": 1, "kind": "fish_volume_handoff", "status": "pending", "next_action": "run",
             "asset": old["asset"], "source": relocated_source,
             "source_image": str(files["source"]), "source_review": copy.deepcopy(review),

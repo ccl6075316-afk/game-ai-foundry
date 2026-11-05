@@ -1,0 +1,291 @@
+{
+  "kind": "isolated_reviewable_fish_candidate_not_installed",
+  "species": "african_catfish",
+  "display_name": "非洲鲶鱼",
+  "display_length_cm": 90,
+  "preferred_triangles": 1500,
+  "hard_triangles": 2000,
+  "actual_triangles": 2000,
+  "editable_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\fish.blend",
+    "sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d"
+  },
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\fish.glb",
+    "sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02"
+  },
+  "profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\african-catfish-library-complete-fins-20261104.profile.json",
+    "sha256": "d3b59f375ce608ef5dc481c0c54f69ef80a8a831b99d22c512aa52010bc7c329"
+  },
+  "motion_profile": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\motion\\african-catfish-current-20261104.json",
+    "sha256": "00e66e0e6554bf1071dbc40a7f9cbd3c9425c0e80c5557ea6639d2796b1f7877"
+  },
+  "motion_runtime": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\scripts\\aquarium\\FoundryFishMotion.gd",
+    "sha256": "d93e40b4bf12ac8bb005486bdab125d6b5ca924f76682f824d5a6ebda277bac1"
+  },
+  "accepted_original_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\african_catfish_char_african_catfish_082_nobg.png",
+    "sha256": "b8992e2a9613ef9a1049b80853e3151ed47bce8343b6baae6c22f620e213736f"
+  },
+  "author_entry": {
+    "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\restore_frozen_source.py",
+    "sha256": "aaede5f0fbd8df5059a536d5f618af5e80863ff5d33d3dc5f55ac4c7f4ba77de"
+  },
+  "cold_export_entry": {
+    "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\source_alpha_contract.py",
+    "sha256": "eb59b7a7219fb7f6bb181b6fd3ab56a615728f40967ad80d0602b085c2bca26f"
+  },
+  "authoring_phases": [
+    "New profile-driven lowcage with own true mouthgap and anterior support rounding",
+    "Actual librarybody-only W(s) engineering normalization; posterior source9curve/finite BODY cap and preserved x303 section",
+    "Complete7sourceRGBA fins with realroot bands/foil/camber/mixed bindings; source-ownedMASK5 + originalemission",
+    "New lowbudget body cage allocation and own paired/median sameU finite root reparameterization; actual490-constrained thicknessdirection LP",
+    "Complete8sourcecolored closedbarbels and old150 accepted shalloweye relief;23v32tri finiteBODY-supported eye+8newBODYcontrols",
+    "Authentic original semanticUV central generatedskin fixedphysicalYZ rebake; exactRGBdelta transfer; fullnative lip/eye/gill preservation",
+    "Only Anal root/free quad opposite diagonals reconnected;2000tri frozen, fullcurrent scope proofs"
+  ],
+  "owned_early_author_provenance": [
+    {
+      "original": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\build_own_cavity.py",
+        "sha256": "dd3071061fbd5abd63e010bd547cbd242d8db43b97d54e883c633ebd6ea32fe6"
+      },
+      "owned_resource": {
+        "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\build_own_cavity.py",
+        "sha256": "dd3071061fbd5abd63e010bd547cbd242d8db43b97d54e883c633ebd6ea32fe6"
+      },
+      "minimal_path_diff": []
+    },
+    {
+      "original": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\curved_tail_support.py",
+        "sha256": "d95e32c41f36f6cd126713fac90e703decdaadc462b0a83e065f4c42690693e3"
+      },
+      "owned_resource": {
+        "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\curved_tail_support.py",
+        "sha256": "7a28eddd55150be218651226dda35b9a312900fdd82bec53075f558636a021db"
+      },
+      "minimal_path_diff": [
+        "--- ",
+        "+++ ",
+        "@@ -195,7 +195,7 @@",
+        "         except ValueError:",
+        "             import json",
+        "             from pathlib import Path",
+        "-            (Path(__file__).resolve().parent/'tail-cap-duplicate.validation.json').write_text(json.dumps({'indices':f,'points':[list(v.co)for v in verts],'source':[[v[su],v[sv],v[st]]for v in verts],'boundary':[{'p':list(v.co),'source':[v[su],v[sv],v[st]]}for v in loop]},indent=2),encoding='utf8');raise",
+        "+            (Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish')/'tail-cap-duplicate.validation.json').write_text(json.dumps({'indices':f,'points':[list(v.co)for v in verts],'source':[[v[su],v[sv],v[st]]for v in verts],'boundary':[{'p':list(v.co),'source':[v[su],v[sv],v[st]]}for v in loop]},indent=2),encoding='utf8');raise",
+        "         face.material_index=0;face.smooth=True",
+        "         for l in face.loops:l[uvlayer].uv=boundary_uv[l.vert]",
+        "     loose=[e for e in bm.edges if not e.link_faces]",
+        "@@ -204,7 +204,7 @@",
+        "         import json",
+        "         from pathlib import Path",
+        "         failure={'failure':'curved cap constrained patch nonmanifold','boundary_yz':[list(q)for q in polygon],'cap_seeds_yz':[list(q)for q in seeds], 'bad_edges':[{'points':[list(v.co)for v in e.verts],'faces':len(e.link_faces)}for e in bm.edges if not e.is_manifold], 'triangles':len(faces)}",
+        "-        (Path(__file__).resolve().parent/'tail-cap-topology-failure.validation.json').write_text(json.dumps(failure,indent=2),encoding='utf8')",
+        "+        (Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish')/'tail-cap-topology-failure.validation.json').write_text(json.dumps(failure,indent=2),encoding='utf8')",
+        "         raise AssertionError('Curved cap patch must close shell')",
+        "     bm.verts.index_update();new_ids=[v.index for v in new_cap];endpoint_ids=[(v.index,h,f)for v,h,f in endpoint_support+rim_support];bm.to_mesh(mesh);bm.free()",
+        "     for i in new_ids:",
+        "@@ -231,7 +231,7 @@",
+        "         if iteration==0:",
+        "             import json",
+        "             from pathlib import Path",
+        "-            (Path(__file__).resolve().parent/'tail-cap-initial-bad.validation.json').write_text(json.dumps({'minimum_bad_faces':bad_details,'cap_vertices_added':len(new_ids)},indent=2),encoding='utf8')",
+        "+            (Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish')/'tail-cap-initial-bad.validation.json').write_text(json.dumps({'minimum_bad_faces':bad_details,'cap_vertices_added':len(new_ids)},indent=2),encoding='utf8')",
+        "         if not marked:break",
+        "         assert added+len(marked)<=64,('Bounded own curved-root refinement exceeded',history)",
+        "         bm=bmesh.new();bm.from_mesh(mesh);bm.verts.ensure_lookup_table();original=list(bm.verts);layer=bm.verts.layers.float['foundry_fin_source_t'];new=[]",
+        "@@ -251,7 +251,7 @@",
+        "     else:",
+        "         import json",
+        "         from pathlib import Path",
+        "-        (Path(__file__).resolve().parent/'tail-cap-finite-failure.validation.json').write_text(json.dumps({'ok':False,'history':history,'added_vertices':added,'marked_edges_last':marked,'root_source_domain_unchanged':True,'minimum_bad_faces':bad_details[:6]},indent=2),encoding='utf8')",
+        "+        (Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish')/'tail-cap-finite-failure.validation.json').write_text(json.dumps({'ok':False,'history':history,'added_vertices':added,'marked_edges_last':marked,'root_source_domain_unchanged':True,'minimum_bad_faces':bad_details[:6]},indent=2),encoding='utf8')",
+        "         raise AssertionError(('Own curved-root finite faces did not converge',history))",
+        "     return {'kind':'own_nine_point_curved_root_finite_flank_support',",
+        "             'source_baseline':fin['source_baseline'],'root_band':band,"
+      ]
+    },
+    {
+      "original": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\author_own_fin_volume.py",
+        "sha256": "0e3b1e6d48a4a0b20531ca72bb33d8efbb95d3795ba13fc4fda949f42efffe97"
+      },
+      "owned_resource": {
+        "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\author_own_fin_volume.py",
+        "sha256": "51e0b5cb7b1b34fb098cd63980bde01a69c39492bec4199cc52ecb37bcdb56c6"
+      },
+      "minimal_path_diff": [
+        "--- ",
+        "+++ ",
+        "@@ -1,6 +1,6 @@",
+        " from pathlib import Path",
+        " import sys,json,runpy",
+        "-R=Path('E:/game-ai-foundry');O=Path(__file__).resolve().parent;sys.path[:0]=[str(O),str(R/'cli'),str(R/'resources/scripts/volume-fish')]",
+        "+R=Path('E:/game-ai-foundry');O=Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish');sys.path[:0]=[str(Path(__file__).resolve().parent),str(O),str(R/'cli'),str(R/'resources/scripts/volume-fish')]",
+        " import curved_tail_support,caudal_cross_section",
+        " curved_tail_support.PROFILE=json.loads((R/'resources/volume-fish/african-catfish-library-complete-fins-20261104.profile.json').read_text(encoding='utf8'))",
+        " caudal_cross_section.rebuild=curved_tail_support.rebuild"
+      ]
+    },
+    {
+      "original": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\author_curved_body_tail_r2.py",
+        "sha256": "d679c354e5d93f72c7f78a73ecf91200920e4e757df6b2c1623a308c81375e4c"
+      },
+      "owned_resource": {
+        "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\author_curved_body_tail_r2.py",
+        "sha256": "7517fbbe9e4adc53324a64ca8a9be283a138a58319e08eca8198401e3991a974"
+      },
+      "minimal_path_diff": [
+        "--- ",
+        "+++ ",
+        "@@ -2,7 +2,7 @@",
+        " from pathlib import Path",
+        " from mathutils import Vector",
+        " from mathutils.bvhtree import BVHTree",
+        "-R=Path('E:/game-ai-foundry');O=Path(__file__).resolve().parent;source=O/'consistent-median-source/fish.blend';bpy.ops.wm.open_mainfile(filepath=str(source));body=bpy.data.objects['Closed_body'];snapshot=json.loads((O/'original-body-uv.snapshot.json').read_text());lookup={tuple(sorted(f['vertices'])):f for f in snapshot['faces']};assert len(body.data.vertices)==len(snapshot['vertices']);assert np.max(abs(np.array([v.co[:]for v in body.data.vertices])-np.array(snapshot['vertices'])))<1e-7",
+        "+R=Path('E:/game-ai-foundry');O=Path('E:\\\\game-ai-foundry\\\\projects\\\\fishing-2d\\\\experiments\\\\four-fish-current-standard-20261101\\\\african_catfish');source=O/'consistent-median-source/fish.blend';bpy.ops.wm.open_mainfile(filepath=str(source));body=bpy.data.objects['Closed_body'];snapshot=json.loads((O/'original-body-uv.snapshot.json').read_text());lookup={tuple(sorted(f['vertices'])):f for f in snapshot['faces']};assert len(body.data.vertices)==len(snapshot['vertices']);assert np.max(abs(np.array([v.co[:]for v in body.data.vertices])-np.array(snapshot['vertices'])))<1e-7",
+        " for f in body.data.polygons:",
+        "  row=lookup[tuple(sorted(f.vertices))];mapping=dict(zip(row['vertices'],row['uv']));f.material_index=row['role']",
+        "  for li in f.loop_indices:body.data.uv_layers.active.data[li].uv=mapping[body.data.loops[li].vertex_index]"
+      ]
+    }
+  ],
+  "public_upstream_hashes_unchanged_by_this_fish": {
+    "build_fish.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\build_fish.py",
+      "sha256": "0452d46dde33e6ebff973369897ae343833d3ab21ff22e19043ede25cfbd8354"
+    },
+    "oral_jaws.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\oral_jaws.py",
+      "sha256": "93413d84878d8ff82fb87c754c1cb2e3585af88e843f4f25f2a73c1289b2da1c"
+    },
+    "repair_source_fin_volume.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\repair_source_fin_volume.py",
+      "sha256": "07734b5e646a406754e7086963f7a2e754f8ed112de9edf8d1d998e243c9513d"
+    },
+    "caudal_cross_section.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\caudal_cross_section.py",
+      "sha256": "db7fe90bb5ef83958e470ea3d6371a95f4799984fb8dadbf2c44377dfba86727"
+    },
+    "author_front_mouth_chart.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\author_front_mouth_chart.py",
+      "sha256": "c6bbbe0a65fc9907d1e9a6a36b1a3eaa6f6f723c3e5066c0d23506e98f2b5dfe"
+    },
+    "validate_authored_fin_volume.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\validate_authored_fin_volume.py",
+      "sha256": "d7cf677a79d12555548fa30133814d21df47314ce6640cba704ba1e3b43267fa"
+    },
+    "check_head_form.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\check_head_form.py",
+      "sha256": "b67467328f3fab80f7940a4b3bdc4aa9f02ad696f03d2c9d713f0aadd3b4e58c"
+    },
+    "check_runtime_fin_attachment.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\check_runtime_fin_attachment.py",
+      "sha256": "c606e5737018f289d3d0339e11534ee6485df00425c62e5ac695c707def4a3da"
+    },
+    "check_fin_membrane_collision.py": {
+      "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\check_fin_membrane_collision.py",
+      "sha256": "efd93d9e2f3868f6e9de712e2d8ecd90012fd17e28133cdcef649eca710531fd"
+    }
+  },
+  "frozen_parameters": {
+    "mouth": {
+      "gap_corner_to_front": [
+        [
+          0.946,
+          0.0002
+        ],
+        [
+          0.949,
+          0.0005
+        ],
+        [
+          0.952,
+          0.0016
+        ],
+        [
+          0.955,
+          0.003
+        ],
+        [
+          0.983,
+          0.003
+        ]
+      ],
+      "anterior_depth_native": 0.003,
+      "anterior_support_native": 0.015,
+      "cutter_segments": 8,
+      "bevel": 0,
+      "domain": "Integrated continuous BODY with actual cavity/upperlower jaws, no addedlipring/separatejawbone."
+    },
+    "width_target_report": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\width-target.validation.json",
+      "sha256": "f717cdec97ca4daab9f9dbc90cadccd8876e5018054270a114c7befc8792786c"
+    },
+    "fin_source_domains": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\fin-domains-final\\masks.validation.json",
+      "sha256": "c8c33dc3b92632c887b422003c972c89d2954ac90750f34cb489d444e0de6a25"
+    },
+    "current_fin_plan": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\fin.plan.json",
+      "sha256": "3d61b8ba4ae34fada68ab4696a280fd2ab93b4be16e1b4437666137615946d50"
+    },
+    "tail_source9curve_profile": true,
+    "central_skin_config": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\material-fixed-yz-r1.config.json",
+      "sha256": "7aa2d6e41ce462b4affe32b5ef1f8232f8d46a7fd1d588e27b0b91b923b6c05e"
+    },
+    "central_skin_semantic_input": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\material-source-r2\\fish.blend",
+      "sha256": "4f2caf07f0eccc2db09b14e8a3f7a4b75d881f7c6c6df0803cc0d21470d66433"
+    },
+    "central_skin_delta_application": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\fixed-yz-material-r1\\fixed-yz-chart.validation.json",
+      "sha256": "e0812d38790259bd6ce22de6b4f9ec0e2ddf665b9d30cdb4cf80c46e515aeeed"
+    },
+    "actual_eye_source_profile": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\finite-eye-support-8.plan.json",
+      "sha256": "b35918b09f4ff1899b112059afe9494dfe66a22bebea3ad8a1ec7832b04754a7"
+    },
+    "finite_BODY_support_delta": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\eye-finite-support-r3\\body-support-row.validation.json",
+      "sha256": "1928a93bc88e3311e71ffa5e07401b8b3ef8a9a77fc8559a0fca30bec3ab3162"
+    },
+    "finite_Anal_final_delta": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\anal-diagonal.validation.json",
+      "sha256": "fb016b38cf0b1b652a9871ca164564e4890fb91e5771a5177a2eb428b82f5239"
+    },
+    "actual_swept_thickness_solutions": {
+      "concentrated-fin-r8": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\concentrated-fin-r8\\thickness-direction.validation.json",
+        "sha256": "5cfbe6514432de7afccb534fc4fa2115fa15999a79c2517fc75b25605725f44c"
+      },
+      "concentrated-fin-r17": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\concentrated-fin-r17\\thickness-direction.validation.json",
+        "sha256": "c558ad3a380977476515ff0c8fbca988026a92153c33ec547c7dcd12b52e667c"
+      },
+      "concentrated-fin-r19": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\concentrated-fin-r19\\thickness-direction.validation.json",
+        "sha256": "fc0224398fd93dd58b397215098cf0dd31290ef650f2d01e4b29209e2f3b0a21"
+      }
+    }
+  },
+  "strict_current_domain_receipt": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\strict-domain-retention.validation.json",
+    "sha256": "5461f242851249582587ce8830b807457d7a0e446d25335c043ca597c41b2c39"
+  },
+  "handoff": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\handoff.md",
+  "SOP_review": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\sop-review.json",
+  "user_acceptance": false,
+  "installed": false,
+  "scope": "Editable final lowcage source owns all body/mouth/7fin/8barbel/2eye static geometry/UV/material/skin/18bone rig. Source restore entry is recoverable through Foundry resources and yields byteidenticalordinaryGLB; historical phase tools/parameters retained for explanation/repair, not claimed as a single from-scratch replay of retired experimental output paths. Local library meshes are artistic references, adult biological accuracy andwholefish useracceptance unclaimed.",
+  "method_reference": {
+    "path": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\african-catfish-20261104\\AUTHORING.md",
+    "sha256": "b62d848cb1c44fc17511c97733e73ce51708ffc65dd17bf772fc5119c478ef5e"
+  }
+}

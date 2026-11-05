@@ -1,0 +1,324 @@
+{
+  "historical_evidence": true,
+  "media_retired_by_user_on": "2026-11-05",
+  "current_pdf": "docs/reviews/fish-reference-comparison-20261105.pdf",
+  "original_report_sha256": "35d926ce28c03fbd4fa28be52ebf619750cca385af34938b2b9d388038b74618",
+  "report": {
+    "ok": true,
+    "current_pdf_sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
+    "previous_pdf_sha256": "93abd873727f459069323a6783132aaaafca970a4dcd6ada5fda2895eeff0e53",
+    "only_authoring_change": "Cover says companion review webpage rather than incorrectly saying same-directory webpage. No model render or comparison image changed.",
+    "unaffected_page_pixel_equivalence": [
+      {
+        "page": 2,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "db009c9b752f2a6b68c81edb69fda394935aaaa9cc8e1d504c210fe9aeee8b09",
+        "new_sha256": "db009c9b752f2a6b68c81edb69fda394935aaaa9cc8e1d504c210fe9aeee8b09"
+      },
+      {
+        "page": 3,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "2413b744edbb9102c327a42f0e7019083a451aa11f56e8970bbbf8012499f9ad",
+        "new_sha256": "2413b744edbb9102c327a42f0e7019083a451aa11f56e8970bbbf8012499f9ad"
+      },
+      {
+        "page": 4,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "98f3e4407754aa17f9ce91e35d2e41352fd7e4639f5dc6ff7f3c927fe522748a",
+        "new_sha256": "98f3e4407754aa17f9ce91e35d2e41352fd7e4639f5dc6ff7f3c927fe522748a"
+      },
+      {
+        "page": 5,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "e1e2aacd5383f145aa4db0c7f359ef95405667987b1d014bf0bc651848b3f558",
+        "new_sha256": "e1e2aacd5383f145aa4db0c7f359ef95405667987b1d014bf0bc651848b3f558"
+      },
+      {
+        "page": 6,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "f12bd67acaef5d68f786f9b411c1287e53a00949bce9a348a5ab81f65f83f1de",
+        "new_sha256": "f12bd67acaef5d68f786f9b411c1287e53a00949bce9a348a5ab81f65f83f1de"
+      },
+      {
+        "page": 7,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "da3f59fcda35f94476d6fb81ffb80a710c48c8bf83806bc95a2915feaf3f14ab",
+        "new_sha256": "da3f59fcda35f94476d6fb81ffb80a710c48c8bf83806bc95a2915feaf3f14ab"
+      },
+      {
+        "page": 8,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "05f8b50cef12604ae0a8bd85f8d11df9c945cca33dbade02e026ee0c982c093f",
+        "new_sha256": "05f8b50cef12604ae0a8bd85f8d11df9c945cca33dbade02e026ee0c982c093f"
+      },
+      {
+        "page": 9,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "2601945e29d861bb8df1e953cfe1cbf67d8dd03d9cb6615cc992b74622c3dc0c",
+        "new_sha256": "2601945e29d861bb8df1e953cfe1cbf67d8dd03d9cb6615cc992b74622c3dc0c"
+      },
+      {
+        "page": 10,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "a04b8b31e11cc440ccff96537dcc8dbaed084e4c097f3b14d0f1a33da00aeafa",
+        "new_sha256": "a04b8b31e11cc440ccff96537dcc8dbaed084e4c097f3b14d0f1a33da00aeafa"
+      },
+      {
+        "page": 11,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "2af71ab53f9be09d3e059ba3ff3741f8ebd8b5d7b79a7f4e852467b8bd25744a",
+        "new_sha256": "2af71ab53f9be09d3e059ba3ff3741f8ebd8b5d7b79a7f4e852467b8bd25744a"
+      },
+      {
+        "page": 12,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "a087430a8e20e09026fd71babadb55121d5dd0aadcdeb5b0d6dc3626d13e82b2",
+        "new_sha256": "a087430a8e20e09026fd71babadb55121d5dd0aadcdeb5b0d6dc3626d13e82b2"
+      },
+      {
+        "page": 13,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "5560238907743b187582fcbca2bbfa6a7eeff4dcb63c54e27a2f02e2477fb91d",
+        "new_sha256": "5560238907743b187582fcbca2bbfa6a7eeff4dcb63c54e27a2f02e2477fb91d"
+      },
+      {
+        "page": 14,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "6a2d44d05deaac4ddba41e83d186d53a41f30f34e9d0bbd02d5b7e758ddbd3cb",
+        "new_sha256": "6a2d44d05deaac4ddba41e83d186d53a41f30f34e9d0bbd02d5b7e758ddbd3cb"
+      },
+      {
+        "page": 15,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "f77f4bad3047f908ca2d0422cb2ee7a4c5bdedc87276bef170778bb42fe9b30c",
+        "new_sha256": "f77f4bad3047f908ca2d0422cb2ee7a4c5bdedc87276bef170778bb42fe9b30c"
+      },
+      {
+        "page": 16,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "69f28ac2455b8969a827737afbec2ed76d5356b3fcaf272556343014c4d31dca",
+        "new_sha256": "69f28ac2455b8969a827737afbec2ed76d5356b3fcaf272556343014c4d31dca"
+      },
+      {
+        "page": 17,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "38d42e5a53b76dff2f67b9c66a1323d3ce9cfe3dadcb95c659b7f60a01c9e9a7",
+        "new_sha256": "38d42e5a53b76dff2f67b9c66a1323d3ce9cfe3dadcb95c659b7f60a01c9e9a7"
+      },
+      {
+        "page": 18,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "17a095887a144767dcb3f52d2b1003ebac14ca5aeabb316e696a2a1bffaa318c",
+        "new_sha256": "17a095887a144767dcb3f52d2b1003ebac14ca5aeabb316e696a2a1bffaa318c"
+      },
+      {
+        "page": 19,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "68f71dc7f1c44d13e2cb5e1b4360e59c3d689797fdb1f11d401f9d07097ca4ff",
+        "new_sha256": "68f71dc7f1c44d13e2cb5e1b4360e59c3d689797fdb1f11d401f9d07097ca4ff"
+      },
+      {
+        "page": 20,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "3960777e7fd31b7092e905ec92526efd66452b1499ddcceb90633a70bd8219c4",
+        "new_sha256": "3960777e7fd31b7092e905ec92526efd66452b1499ddcceb90633a70bd8219c4"
+      },
+      {
+        "page": 21,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "40fc48fa7fa09f71ba1649efd8a04262072c2130f7bd32f7422c12375bd5f216",
+        "new_sha256": "40fc48fa7fa09f71ba1649efd8a04262072c2130f7bd32f7422c12375bd5f216"
+      },
+      {
+        "page": 22,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "27770308c5fb5ca7c9c013438557ccf2b1e7e568db4a0dcf354e359a7febcd65",
+        "new_sha256": "27770308c5fb5ca7c9c013438557ccf2b1e7e568db4a0dcf354e359a7febcd65"
+      },
+      {
+        "page": 23,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "6a6f61526757bf8e2a47e40a665079860b15739ea0fa7d590646bfbe92a15197",
+        "new_sha256": "6a6f61526757bf8e2a47e40a665079860b15739ea0fa7d590646bfbe92a15197"
+      },
+      {
+        "page": 24,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "23bc6b327821d3bc03fb5b6b8e3f39b005213e27044f371641bba3fd2347a34b",
+        "new_sha256": "23bc6b327821d3bc03fb5b6b8e3f39b005213e27044f371641bba3fd2347a34b"
+      },
+      {
+        "page": 25,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "4fe2278582b03347d08b36da1dcdbfcb2fd80a006139936d06ca85877e788a48",
+        "new_sha256": "4fe2278582b03347d08b36da1dcdbfcb2fd80a006139936d06ca85877e788a48"
+      },
+      {
+        "page": 26,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "43f74efb750afe699d92951707218a97eb68e167714a251c32073493c8bc23ae",
+        "new_sha256": "43f74efb750afe699d92951707218a97eb68e167714a251c32073493c8bc23ae"
+      },
+      {
+        "page": 27,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "8ecec75b93ebe2bd37fe8a6c853603dc23f4e4524adaac5f05418553d12d645a",
+        "new_sha256": "8ecec75b93ebe2bd37fe8a6c853603dc23f4e4524adaac5f05418553d12d645a"
+      },
+      {
+        "page": 28,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "0e4dc9203a315032bb318d3aa67bfc92ff753b5fd3804dc697932e01a491b175",
+        "new_sha256": "0e4dc9203a315032bb318d3aa67bfc92ff753b5fd3804dc697932e01a491b175"
+      },
+      {
+        "page": 29,
+        "rendered_pixels_unchanged": true,
+        "old_sha256": "4bcca4c91d4e9f489525f585d4ecd7a039c58fc7579b1a2ba5f5773570a98319",
+        "new_sha256": "4bcca4c91d4e9f489525f585d4ecd7a039c58fc7579b1a2ba5f5773570a98319"
+      }
+    ],
+    "all27_embedded_comparison_images_lossless": [
+      {
+        "pair": "nile_tilapia--r01",
+        "page": 2,
+        "exact_RGB": true
+      },
+      {
+        "pair": "rainbow_trout--r01",
+        "page": 3,
+        "exact_RGB": true
+      },
+      {
+        "pair": "brown_trout--r01",
+        "page": 4,
+        "exact_RGB": true
+      },
+      {
+        "pair": "atlantic_salmon--r01",
+        "page": 5,
+        "exact_RGB": true
+      },
+      {
+        "pair": "sea_bass--r01",
+        "page": 6,
+        "exact_RGB": true
+      },
+      {
+        "pair": "red_emperor--r01",
+        "page": 7,
+        "exact_RGB": true
+      },
+      {
+        "pair": "red_seabream--r02",
+        "page": 8,
+        "exact_RGB": true
+      },
+      {
+        "pair": "black_seabream--r01",
+        "page": 9,
+        "exact_RGB": true
+      },
+      {
+        "pair": "black_seabream--r02",
+        "page": 10,
+        "exact_RGB": true
+      },
+      {
+        "pair": "crucian--r01",
+        "page": 11,
+        "exact_RGB": true
+      },
+      {
+        "pair": "grass_carp--r01",
+        "page": 12,
+        "exact_RGB": true
+      },
+      {
+        "pair": "carp--r01",
+        "page": 13,
+        "exact_RGB": true
+      },
+      {
+        "pair": "bluegill--r01",
+        "page": 14,
+        "exact_RGB": true
+      },
+      {
+        "pair": "scalloped_hammerhead--r01",
+        "page": 15,
+        "exact_RGB": true
+      },
+      {
+        "pair": "blacktip_reef_shark--r01",
+        "page": 16,
+        "exact_RGB": true
+      },
+      {
+        "pair": "piranha--r01",
+        "page": 17,
+        "exact_RGB": true
+      },
+      {
+        "pair": "peacock_bass--r01",
+        "page": 18,
+        "exact_RGB": true
+      },
+      {
+        "pair": "mahi_mahi--r01",
+        "page": 19,
+        "exact_RGB": true
+      },
+      {
+        "pair": "african_catfish--r01",
+        "page": 20,
+        "exact_RGB": true
+      },
+      {
+        "pair": "african_catfish--r02",
+        "page": 21,
+        "exact_RGB": true
+      },
+      {
+        "pair": "yellow_croaker--r01",
+        "page": 22,
+        "exact_RGB": true
+      },
+      {
+        "pair": "zander--r01",
+        "page": 23,
+        "exact_RGB": true
+      },
+      {
+        "pair": "hairtail--r01",
+        "page": 24,
+        "exact_RGB": true
+      },
+      {
+        "pair": "silver_arowana--r01",
+        "page": 25,
+        "exact_RGB": true
+      },
+      {
+        "pair": "arapaima--r01",
+        "page": 26,
+        "exact_RGB": true
+      },
+      {
+        "pair": "pacific_bluefin_tuna--r01",
+        "page": 27,
+        "exact_RGB": true
+      },
+      {
+        "pair": "pacific_bluefin_tuna--r02",
+        "page": 28,
+        "exact_RGB": true
+      }
+    ],
+    "current_cover": {
+      "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pdf-qa-final\\page-01.png",
+      "sha256": "9118351338079a57ae22a292c64774fc4d915945fccb02be56217039d99b12d4",
+      "root_visual_review": "passed: root actually viewed the final cover PNG; typography, directory wording, category/page table, notices and footer all readable without overlap or clipping."
+    }
+  }
+}

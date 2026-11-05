@@ -1,0 +1,54 @@
+{
+  "species": "arapaima",
+  "scope": "Posterior top artistic RGB/UV only; not anatomy or user acceptance. Original native source pixels, no library material copied.",
+  "original_source": "projects/fishing-2d/game/assets/models/fish/arapaima_char_ac510a4e97_nobg.png",
+  "original_source_sha256": "3255e62f66dc9644a84e6eb570bd5af8bc9a2f03ddd08ade795b13c35a4d56e7",
+  "native_donor": {
+    "roi": [
+      320,
+      160,
+      600,
+      240
+    ],
+    "size": [
+      1024,
+      256
+    ],
+    "block": 32,
+    "overlap": 8,
+    "seed": 1105,
+    "rgba_source_xy_exact": true
+  },
+  "chart": {
+    "density_texels_per_native": 1745,
+    "atlas_width": 512,
+    "padding": 3,
+    "top_normal_z_feather": [
+      0.45,
+      0.85
+    ],
+    "posterior_native_U_feather": [
+      0.42,
+      0.53
+    ],
+    "selected_source_material_slots": [
+      0,
+      2
+    ],
+    "selected_polygon_normal_z_min": 0.3,
+    "selected_polygon_center_x_max": 0.06
+  },
+  "source_data_invariants": [
+    "POS/polygons/splitNormals/namedSkin",
+    "head/mouth/eyes/fins",
+    "opaque alpha/cull semantics"
+  ],
+  "stages": [
+    "prepare_red_scale_donor.py",
+    "extract_posterior_uv_input.py",
+    "bake_posterior_rgb_atlas.py",
+    "inject_posterior_uv_library.py"
+  ],
+  "coverage_guard": "check_body_rgb_preservation.py",
+  "user_acceptance": false
+}

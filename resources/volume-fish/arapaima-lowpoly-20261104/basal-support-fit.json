@@ -1,0 +1,43 @@
+{
+  "diagnostic_only": true,
+  "formal_acceptance": false,
+  "kind": "joint_fixed_basal_support_linear_necessary_fit",
+  "feasible": true,
+  "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+  "stats": [
+    {
+      "fin": "Pectoral_left",
+      "signed_baseline_normal_alignment_min_max": [
+        0.0026746960477360914,
+        0.9999999991015779
+      ],
+      "nonpositive_count": 0,
+      "constraints": 36018
+    },
+    {
+      "fin": "Pectoral_right",
+      "signed_baseline_normal_alignment_min_max": [
+        0.00902167637527978,
+        0.999999999101578
+      ],
+      "nonpositive_count": 0,
+      "constraints": 72036
+    }
+  ],
+  "constraints": 72133,
+  "maximum_baseline_oriented_volume_retention_fraction": 0.12729872869623537,
+  "chosen_baseline_retention_fraction": 0.11456885582661185,
+  "body_linear_margin_mm": 0.25,
+  "scope": "First-order signed finite-tissue orientation and measured body constraints together. Actual nonlinear full shell/self/contact mandatory; no source/controller changed.",
+  "delta_gltf_left": [
+    -0.0007490157301410777,
+    -0.000562485780186023,
+    -3.8460950065915485e-06
+  ],
+  "rotation_gltf_left": [
+    0.15719262479113613,
+    0.21270872957911072,
+    0.04287394465850376
+  ],
+  "maximum_constraint_violation": 4.163336342344337e-17
+}

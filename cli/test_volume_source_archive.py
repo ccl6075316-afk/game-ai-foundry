@@ -49,6 +49,53 @@ class SourceArchiveTests(unittest.TestCase):
             v.write_json(f.handoff,h)
             with self.subTest(field=field),self.assertRaises(v.VolumeError):self.plan()
 
+    def distinct_generation_reference(self):
+        from PIL import Image
+        image = self.f.root / 'generation.png'
+        Image.new('RGB', (8,4), 'red').save(image)
+        old = v.read_json(self.f.handoff); source = old['source']
+        source.update(generation_reference_required=True, generation_reference_image='/old/generation.png',
+                      generation_reference_sha256=v.sha(image),
+                      generation_reference_evidence={'kind':'pipeline_task','task_id':source['generation_task_id'],
+                                                     'command_sha256':'fixture-command'})
+        v.write_json(self.f.handoff, old)
+        mapping = v.read_json(self.mapping); mapping['generation_reference'] = str(image)
+        v.write_json(self.mapping, mapping)
+        return image
+
+    def test_distinct_generation_and_style_references_verified_and_preserved(self):
+        image = self.distinct_generation_reference(); old = self.f.handoff.read_bytes()
+        h = self.plan()
+        self.assertEqual(h['source']['generation_reference_image'], str(image))
+        self.assertEqual(h['style_contract']['style_reference_image'], str(self.f.reference))
+        self.assertEqual(h['accepted_source_archive']['fingerprint']['generation_reference'], v.sha(image))
+        self.assertEqual(v.fresh_handoff(self.target)['source'], h['source'])
+        self.assertEqual(self.f.handoff.read_bytes(), old)
+
+    def test_distinct_reference_missing_mapping_or_wrong_hash_rejected(self):
+        image = self.distinct_generation_reference(); mapping = v.read_json(self.mapping)
+        del mapping['generation_reference']; v.write_json(self.mapping, mapping)
+        with self.assertRaises(v.VolumeError): self.plan()
+        mapping['generation_reference'] = str(self.f.reference); v.write_json(self.mapping, mapping)
+        with self.assertRaises(v.VolumeError): self.plan()
+        mapping['generation_reference'] = str(image); v.write_json(self.mapping, mapping)
+        image.write_bytes(image.read_bytes() + b'changed')
+        with self.assertRaises(v.VolumeError): self.plan()
+
+    def test_distinct_generation_reference_changes_rejected_after_plan(self):
+        image = self.distinct_generation_reference(); self.plan()
+        original = image.read_bytes(); image.write_bytes(original + b'changed')
+        with self.assertRaises(v.VolumeError): v.fresh_handoff(self.target)
+        image.write_bytes(original)
+        mapping = v.read_json(self.mapping); mapping['generation_reference'] = str(self.f.reference)
+        v.write_json(self.mapping, mapping)
+        with self.assertRaises(v.VolumeError): v.fresh_handoff(self.target)
+
+    def test_mapping_cannot_invent_historical_generation_reference(self):
+        mapping = v.read_json(self.mapping); mapping['generation_reference'] = str(self.f.reference)
+        v.write_json(self.mapping, mapping)
+        with self.assertRaises(v.VolumeError): self.plan()
+
     def test_changed_source_and_reference_rejected(self):
         for p in [self.f.source,self.f.reference]:
             original=p.read_bytes();p.write_bytes(original+b'changed')

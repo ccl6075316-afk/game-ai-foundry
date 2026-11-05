@@ -1,5 +1,7 @@
 # Game AI Foundry — External Agent One-pager
 
+**2026-11-05 十一鱼成品接受与历史退休**：用户明确本轮黑鳍礁鲨、红腹食人鱼、孔雀鲈、鲯鳅（鬼头刀）、非洲鲇鱼、大黄鱼、梭鲈、带鱼、银龙鱼、巨骨舌鱼、太平洋蓝鳍金枪鱼算成品，授权安装、提交推送并清理相关实验历史。连同原13条共24条成品，默认静态冻结，后续以正式 `assets/source/fish/<species>/fish.blend` 和 `game/assets/models/fish/<species>.glb` 为基础维护，不恢复旧实验链。入口为 `resources/volume-fish/final-eleven-fish-20261105.json` 和游戏 `plans/reviews/eleven-fish-release-20261105/HANDOFF.md`。按用户明确要求，旧实验图片/视频、旧模型/供体、密集姿态/网格数据和重复导出退休，只保留有价值的方法、问题、节点和核心数值文字；本条覆盖下文这些成品鱼须继续保留历史代表图片或唯一旧实验输入的要求。保留29页 `docs/reviews/fish-reference-comparison-20261105.pdf`，当前成品/可编辑源、内嵌纹理、游戏实际2D/图标及共享鱼资料库继续保留。历史路径/SHA仅作溯源，不能将已退休证据说成可重放或重新验证通过；新改动仍按影响逐鱼复验。见[成品保留规则](resources/skills/fish-volume-production/references/accepted-fish-retention-20261105.md)。
+
 **2026-11-04 六鱼成品冻结**：真鲷、黑鲷、鲫鱼、草鱼、鲤鱼、蓝鳃太阳鱼已全部获用户整鱼接受、安装并固化，与罗非鱼R5同类。真鲷/黑鲷鳍厚度侧壁UV浮线已修复并逐鱼复验；默认后续只改动作，外形、完整鳍、UV/材质、蒙皮和骨架静态数据冻结，重新开启须有明确用户要求。正式入口为 `resources/volume-fish/final-six-fish-20261104.json` 和游戏 `plans/reviews/six-fish-release-20261104/HANDOFF.md`。当前源 `assets/source/fish/<species>/fish.blend`，游戏成品 `game/assets/models/fish/<species>.glb`；旧实验和四条旧运行时静态装配链已退役。每轮只保留必要输入、完整数值与少量代表图，按精确清单清理重复/密集实验产物。
 
 **2026-11-04 五鱼成品冻结**：用户整鱼接受虹鳟、褐鳟、大西洋鲑、海鲈、红皇帝鱼当前资料库调整版，授权安装、清理旧实验和提交推送。与罗非鱼R5同类：默认后续只改动作；外形、完整鳍、UV/材质、蒙皮和骨架静态数据冻结，重开须有明确用户要求。统一入口 `resources/volume-fish/final-five-fish-20261104.json`；游戏交接 `plans/reviews/five-fish-release-20261104/HANDOFF.md`，可编辑源 `assets/source/fish/<species>/fish.blend`。不再恢复旧实验装配链；动作修改仍按影响复验鳍根、鳍面、身体与切换。资料库艺术模型不升级为生物实测，红皇帝鱼近似参考的限制继续保留。

@@ -1,0 +1,1055 @@
+{
+  "historical_evidence": true,
+  "media_retired_by_user_on": "2026-11-05",
+  "current_pdf": "docs/reviews/fish-reference-comparison-20261105.pdf",
+  "original_report_sha256": "b18c2e1d833aecee7979ce399eec79919dee7ba7cacf0ac3369fcc5c5ebd7d05",
+  "report": {
+    "ok": true,
+    "kind": "frozen_thirteen_existing_comparison_sheet_visual_review",
+    "scope": "Actual human-like image inspection only of14existing pairs/28existing sheets for13frozen fish. No rendering, physical validation, fish repair, SOP edit, new anatomical research or user acceptance.",
+    "comparison_manifest": {
+      "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\comparison-manifest.json",
+      "sha256": "ced2e5afb77ff7b5d276b75aa978475fccc4820033613488e17136b2bfc399c5"
+    },
+    "reviewed_pair_count": 14,
+    "reviewed_image_count": 28,
+    "reviewed_species_count": 13,
+    "pairs": [
+      {
+        "id": "nile_tilapia--r01",
+        "species": "nile_tilapia",
+        "reference_name": "NileTilapia",
+        "reference_role": "adopted_head_body_width_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\nile_tilapia--r01.json",
+          "sha256": "185a1e5da904d6ef8228c6c7ec417c8c593337e6fa38337162b30a359d30807d"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\nile_tilapia.glb",
+          "sha256": "7b861cf5c2c154a3c6d5e693cf8e1e14fae9230b88fd229acbfc77c5ed5005c6",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4.obj",
+          "sha256": "afe3d501e22be85cde71fe3d6ca7219500239479907ce1c33a359a1358b6d7b4",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\nile_tilapia--r01-grey.png",
+            "sha256": "cbfa7b95d85d1317070cb49136ead0013af47f2be13a15373c18e3facd01000d",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\nile_tilapia--r01-native.png",
+            "sha256": "6d3aa57a753414ebfb9febcdfd677c6d762713ae6d1aabe55fdf925dbf552940",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "侧视参考的背鳍、臀鳍投影和腹鳍下展较大，当前尾缘与尾柄过渡更直。",
+          "俯视身体主体的重叠范围较大，但胸鳍展开长度、尾根和前额轮廓仍有可见差别。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "rainbow_trout--r01",
+        "species": "rainbow_trout",
+        "reference_name": "Rainbowtrout",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\rainbow_trout--r01.json",
+          "sha256": "d5067ff37ea129f544e2088db68220bcb4f04e5f1dadae68973a2919b46cf41a"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\rainbow_trout.glb",
+          "sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e.obj",
+          "sha256": "05f79e37fd8a96f719306bc7fa99fc61d12f385c2f4a5d0a0b9cf6784498ee2e",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\rainbow_trout--r01-grey.png",
+            "sha256": "eaa56a6cc957bc6326df89df27918803e711a9ed03bfc3885f36d0c131c4cf74",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\rainbow_trout--r01-native.png",
+            "sha256": "46a6494290bd74658aa88403c7dbc571cd4c273f80aaaecd7c8b4c6b214d0b60",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前尾叉较深，参考尾缘更接近平直的展开扇形；胸鳍在当前模型上较贴身，参考下展更明显。",
+          "俯视主体头宽及躯干包络较接近，鳍的外展范围和背鳍投影位置仍不同。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "brown_trout--r01",
+        "species": "brown_trout",
+        "reference_name": "BrownTrout",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\brown_trout--r01.json",
+          "sha256": "b38474c54df35c2784102761152bd1aac8ec2ea1567e89575f1a0e3cea2dcbf4"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\brown_trout.glb",
+          "sha256": "4962904703412f912c0990d4899d1956442110a57a32c5c175d397d426895204",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\dd73922ce77fa40fe7632f99a8cde015fac1e3f931ee7eabde726b6e044c0a3a.obj",
+          "sha256": "dd73922ce77fa40fe7632f99a8cde015fac1e3f931ee7eabde726b6e044c0a3a",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\brown_trout--r01-grey.png",
+            "sha256": "87f5a92593edf0305397bed5b9e8dacde673bcfc9b94ef94f5189cfee6b196cd",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\brown_trout--r01-native.png",
+            "sha256": "6302339ca9df3cee3b531abada25f5588470619fcfb88df48ff2d36501234246",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "参考的背鳍、臀鳍、尾鳍投影更展开，静息口裂也更大；当前额部到吻端的侧面弧线更平顺。",
+          "俯视身体轮廓有大面积重叠，但参考成对鳍更外展，头部边缘与尾部轮廓仍有细小可见差别。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "atlantic_salmon--r01",
+        "species": "atlantic_salmon",
+        "reference_name": "AtlanticSalmon",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\atlantic_salmon--r01.json",
+          "sha256": "b3729c15fae4d6d5b06eac84339b2693842ef25fae786c19bda4fba3acdd62ad"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\atlantic_salmon.glb",
+          "sha256": "535657192a3517290f5bf96f9abe740cc0e120b1a82eee72c686f7bb4141d466",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\03608d2f50236010dd6aa9157e724537679a78e29e64a5c46662e47dac7e162b.obj",
+          "sha256": "03608d2f50236010dd6aa9157e724537679a78e29e64a5c46662e47dac7e162b",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\atlantic_salmon--r01-grey.png",
+            "sha256": "3a807d93ec828d1d5f5a80cefc61932bdba41b8c0701ce7dec79fd10b9aa9e4d",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\atlantic_salmon--r01-native.png",
+            "sha256": "8e51cd108c94846d598c41f5b09e0a18da189ac038ddd41b6cc338ff1e485202",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "参考腹部侧轮廓略向下扩展，尾叶形状及口裂开合与当前不同；当前脂鳍、臀鳍的外轮廓也不同。",
+          "俯视参考胸鳍明显更外展，身体主体包络较接近；这不是把鳍静息展开差写成身体宽度误差。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "sea_bass--r01",
+        "species": "sea_bass",
+        "reference_name": "EuropeanSeabass",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\sea_bass--r01.json",
+          "sha256": "d41f644dfd706e9f35040b86091ca67db09354f75d35f232925d3861058da7a7"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\sea_bass.glb",
+          "sha256": "4683886f983b60b6f216a4d77ce15157dbb584317047c5bba6f8612a49fadcef",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\300c2704a4b47c497e7a470d93c83a08f550f8de97a0e365764251b19e476acb.obj",
+          "sha256": "300c2704a4b47c497e7a470d93c83a08f550f8de97a0e365764251b19e476acb",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\sea_bass--r01-grey.png",
+            "sha256": "4c629acedfc815bf467306ed5e8aa7e6c92a3b09a5503a4d5b73469e8a143a63",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\sea_bass--r01-native.png",
+            "sha256": "88f4ce6428419cd4c35e2bc75fc77c73d9c298dd4bec2389b47e4034bc9396f2",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前腹侧身体及臀鳍投影更向下，参考背鳍和上尾叶轮廓更高、更展开。",
+          "俯视参考胸鳍大幅外展，当前较收拢；主体头部和躯干宽度轮廓有较大重叠。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "red_emperor--r01",
+        "species": "red_emperor",
+        "reference_name": "ShortTailRedSnapper",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\red_emperor--r01.json",
+          "sha256": "f71e64fa5050b9fa508b82260dda7bbedf2e77ebe2f40db5788b353d5d880a88"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_emperor.glb",
+          "sha256": "0b7a766d7490715cd4245405e1951ddc8ade738da4997dde890c0373d88d9084",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\1fea56b514f02d1248d9b3658aa3ad4fb7b31e4ac020a4f8a8a8fb6033ec7802.obj",
+          "sha256": "1fea56b514f02d1248d9b3658aa3ad4fb7b31e4ac020a4f8a8a8fb6033ec7802",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\red_emperor--r01-grey.png",
+            "sha256": "5fe49f1c19c1e6a268555cf7d8b501a82201e88456ec27b34cb4d1e3dd297b29",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\red_emperor--r01-native.png",
+            "sha256": "8f5dffde5c690ea5481d84958a3d928760c1ca66be7e22ded55d012cbf92038f",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前背部及连续背鳍基部侧轮廓更高，参考背鳍的分段起伏更明显；尾叶和腹鳍外轮廓也不同。",
+          "俯视主体宽度包络较接近，参考胸鳍较长且更外展。参考标签为近缘ShortTailRedSnapper，不能把这种对比写成同种实测。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "red_seabream--r02",
+        "species": "red_seabream",
+        "reference_name": "GiltheadBream",
+        "reference_role": "reviewed_later_comparator_not_adopted_shape_target",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\red_seabream--r02.json",
+          "sha256": "06faf354a248fac625193b4bea5e508e847f0a938efba1c4db511f810f386485"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\red_seabream.glb",
+          "sha256": "0727db84762ac66a9be123df93c6b0cab1c06764ed673dbd983e9c4141028440",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\d4e742c91fa23bac9ae3300a04fc9b04d3353fc43ea17d366b2c1bb93bde7fd1.obj",
+          "sha256": "d4e742c91fa23bac9ae3300a04fc9b04d3353fc43ea17d366b2c1bb93bde7fd1",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\red_seabream--r02-grey.png",
+            "sha256": "f08048c083560deb5b82a7529c1782268640d2ff0d86a820c651b58bafa73c8d",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\red_seabream--r02-native.png",
+            "sha256": "ce321f6db62f82085c91340d2812ddde20cedcd669a419943e656b18c4e2370b",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前额背弧线较高、尾叶轮廓不同；Gilthead参考嘴部更前突且口裂更张开。",
+          "俯视当前主体较窄，Gilthead胸鳍明显细长外展；此来源仅为后续比较而未据此改形，图片标题已明确。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "black_seabream--r01",
+        "species": "black_seabream",
+        "reference_name": "Accepted red seabream 2026-11-01 original thickness reference",
+        "reference_role": "primary_user_designated_adopted_related_shape_reference",
+        "reference_kind": "accepted_project_fish_3d_related_species",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\black_seabream--r01.json",
+          "sha256": "1433e852b52329afb6dc68409c1eb597489785f8987d7bbe06fcf2e6db017754"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\black_seabream.glb",
+          "sha256": "c20abaa9bf06dc2027e7a628d55649c07ebd154e458fe93d6b5d5819605823d9",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\six-fish-release-20261104\\red_seabream\\history\\pre-wall-model.glb",
+          "sha256": "62c6db3c7aa77f66f485f45624895622fc041273b3485ccfca397663700769b5",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\black_seabream--r01-grey.png",
+            "sha256": "3366e176f45b80304b71f21b62a1b467f69620f0112f27fef3b27052f74acb8c",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\black_seabream--r01-native.png",
+            "sha256": "e533a379f215d9dbe1ca1828613a09109bc879480bfe3993185230035c4d672c",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前与实际采用的旧真鲷在俯视头身厚度轮廓上较接近，吻端及尾柄边缘仍有可见偏差。",
+          "侧视背鳍棘峰、臀鳍和腹鳍轮廓不同；参考腹鳍更长。黑灰与红色像素材质的差别单独可见，不作为几何差异。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "black_seabream--r02",
+        "species": "black_seabream",
+        "reference_name": "YellowfinSeabream",
+        "reference_role": "reviewed_later_comparator_not_adopted_shape_target",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\black_seabream--r02.json",
+          "sha256": "38eeb0e545de6c49ee05b94226ef8029b72ab2a2cb043c99fdffac37f6a6525f"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\black_seabream.glb",
+          "sha256": "c20abaa9bf06dc2027e7a628d55649c07ebd154e458fe93d6b5d5819605823d9",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\7326727f550841c3487ad752915a42e5444a67e9476e2933f678978e2471a564.obj",
+          "sha256": "7326727f550841c3487ad752915a42e5444a67e9476e2933f678978e2471a564",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\black_seabream--r02-grey.png",
+            "sha256": "081eb453d44ba80a539d3bdc4a69ec4adf9252c095299badc6dc112b9465ab21",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\black_seabream--r02-native.png",
+            "sha256": "61640de16d529a3d2c5c8535fae7bd54ca9d4c3353fdd73deeb0d737b6ccfd7d",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "Yellowfin参考侧面体高与背鳍、腹侧鳍的展开投影更大。",
+          "俯视参考胸鳍更长、向外展开；吻部到鳃盖的边缘与当前不完全重合。标题已标后续比较、未据此改形。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "crucian--r01",
+        "species": "crucian",
+        "reference_name": "CrucianCarp",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\crucian--r01.json",
+          "sha256": "9263dae433a4d34797e5ba35dc290ecbf38506171f2d32a22c74723da8e5e9db"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\crucian.glb",
+          "sha256": "b5b3a0ce35eb65092bb710e741f26e7131f889d12af7ed55c746ff0e9b74e83b",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7.obj",
+          "sha256": "cae7bfde3152ddc7c87752c83a6e04225b7b6a2c92066c1879964a161d6b74b7",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\crucian--r01-grey.png",
+            "sha256": "bcde7c4730d084250f420d2bebd03544859b5d0cf886ba89a1fd1b537f1c4509",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\crucian--r01-native.png",
+            "sha256": "d2b7ed15741efa53acce7c3f06649e74fe82980213cd01273841f0c67c327a56",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "参考的下侧成对鳍及臀鳍更圆、更展开，尾叉较浅；当前背鳍尖峰和尾叶轮廓更折线化。",
+          "俯视身体主体大部重叠，参考胸鳍更外展，鼻端与肩部的有限轮廓仍有细小差别。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "grass_carp--r01",
+        "species": "grass_carp",
+        "reference_name": "GrassCarp",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\grass_carp--r01.json",
+          "sha256": "3f2e6608676323eed965f308aa953908686d81feb991df6e82cc0f1d8e700e40"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\grass_carp.glb",
+          "sha256": "6e0d5d2cc04e8bfe63386839533e81e0dbd58630ce81ea4c366ac26f50e1e970",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\2dbcffeeef1c1d22a8a62f1332c7f5e5cb8233b75603341a087e2a1da849d80a.obj",
+          "sha256": "2dbcffeeef1c1d22a8a62f1332c7f5e5cb8233b75603341a087e2a1da849d80a",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\grass_carp--r01-grey.png",
+            "sha256": "f469fd32a85f07be32a6c3d6e13aaef2823bdbb273125388b6e7e8d38c46d97b",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\grass_carp--r01-native.png",
+            "sha256": "e24d7449b8363ebd709efc1b761b2f79fbdfecac53c4ce04e67695e99dc96832",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前背鳍较低且偏后，参考背鳍更高、较直立；参考腹侧身体及下展鳍的投影较大。",
+          "俯视主体宽度包络较接近，参考胸鳍外展更大，当前鳍更靠后收拢。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "carp--r01",
+        "species": "carp",
+        "reference_name": "CommonCarp",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\carp--r01.json",
+          "sha256": "132d5fb4e88b68d2819718b1ca7dfef48311c2565902f2b315ca1c85d94eadf9"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\carp.glb",
+          "sha256": "cc6739b60ac82d4118a567e989b97e3bd31ef2a1e1a54ca7abbdbe21d61d1ce3",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\48c098bbd5d687edeebd2f0e75d5e8d4e8fc25ba7c7ac66eb1ac7d0cbdba0b27.obj",
+          "sha256": "48c098bbd5d687edeebd2f0e75d5e8d4e8fc25ba7c7ac66eb1ac7d0cbdba0b27",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\carp--r01-grey.png",
+            "sha256": "39456968b53a1de3ad6f2b3002e4dd25a5b7b89de7f82d952f980593b4236ca2",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\carp--r01-native.png",
+            "sha256": "8c50f23acf9b1885b5afb1957d7289d8a850655a138392ed992e84477a949af2",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前背鳍的高点更偏后，参考背鳍前部更陡直；侧面前额、腹线及下侧鳍的位置/轮廓不同。",
+          "俯视主体轮廓大面积重叠，但参考胸鳍/腹鳍向外展开得更多，当前更贴近身体。"
+        ],
+        "warnings": [],
+        "failures": []
+      },
+      {
+        "id": "bluegill--r01",
+        "species": "bluegill",
+        "reference_name": "Bluegill",
+        "reference_role": "adopted_transverse_shape_reference",
+        "reference_kind": "third_party_game_art_3d",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\bluegill--r01.json",
+          "sha256": "9b434587324bc09c81668b429c44ddadeb1e42711adaa3f865376aa344644272"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\bluegill.glb",
+          "sha256": "4e666881650fdca7e2f51b70d44e01cc17bc77fa69a23e6a2ec1ad47c11df396",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\49bec05884b3c9ebff4e4e18690707b4c2f480abcf0c6316c779bd3bca7e1d5f.obj",
+          "sha256": "49bec05884b3c9ebff4e4e18690707b4c2f480abcf0c6316c779bd3bca7e1d5f",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\bluegill--r01-grey.png",
+            "sha256": "d8af3793e987af43875e39a9fbf91e126eb3fdb3c028cba619882e7a8de2a676",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\bluegill--r01-native.png",
+            "sha256": "869753c77b4d6144193c2fbe30833205b15ac3742873efe6b7d4ac4451e6b51c",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前前腹部轮廓略向外，参考臀鳍和尾缘更圆且明显半透明，背鳍棘条更细长。",
+          "俯视主体轮廓较接近，但参考成对鳍伸出更远。参考鳍缘的羽化/条状透明边在灰模和原材质都可见，不能据其像素边界推断有限面误差。"
+        ],
+        "warnings": [
+          {
+            "code": "SOURCE_ALPHA_FEATHERING",
+            "severity": "interpretation_limit",
+            "detail": "Reference fin edges are visibly feathered/partly transparent in both modes. No rectangular alpha card observed; alpha-preserved outline is not exact geometric boundary."
+          }
+        ],
+        "failures": []
+      },
+      {
+        "id": "scalloped_hammerhead--r01",
+        "species": "scalloped_hammerhead",
+        "reference_name": "HammerheadShark (precise species unverified)",
+        "reference_role": "adopted_auxiliary_head_neck_eye_and_fin_thickness_reference",
+        "reference_kind": "third_party_game_art_3d_family_level",
+        "pair_input": {
+          "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pairs\\scalloped_hammerhead--r01.json",
+          "sha256": "6826219107fc06170faa4402aee1c1c037bf3a8142024933708417de29963dec"
+        },
+        "current_model_declared": {
+          "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\scalloped_hammerhead.glb",
+          "sha256": "06f07e304dd2b702f0d12043bc1153d257c7172691d4d31c038535c92cebbfad",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "+X",
+            "+Y",
+            "+Z"
+          ],
+          "alpha_policy": "preserve_embedded"
+        },
+        "reference_model_declared": {
+          "path": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8.obj",
+          "sha256": "f516b1aa036a3161d9504b4b29a8523861e22d658d417078e60c6e95ca44f6a8",
+          "uniform_scale": 1,
+          "pose": "bind_rest",
+          "canonical_from_source_axes": [
+            "-Y",
+            "+Z",
+            "+X"
+          ],
+          "alpha_policy": "explicit_obj_recipe"
+        },
+        "images": [
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\scalloped_hammerhead--r01-grey.png",
+            "sha256": "f376df0d3b085e646650afe0568c478bc7cc41df135016c711146e67c1f6a71a",
+            "mode": "grey",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          },
+          {
+            "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\sheets\\scalloped_hammerhead--r01-native.png",
+            "sha256": "0c0bf99cde1eca4e3229184bf9b3e3db0c4f20ea12fc5df4b495999e59d7b1f4",
+            "mode": "native",
+            "dimensions": [
+              2400,
+              1240
+            ],
+            "actually_opened_with_view_image": true
+          }
+        ],
+        "display_checks": {
+          "same_visible_head_tail_direction": true,
+          "side_top_rows_correct": true,
+          "whole_body_and_fin_frame_coverage": true,
+          "no_obvious_rectangular_alpha_card": true,
+          "no_obvious_whole_surface_texture_misalignment": true,
+          "visible_reference_name_and_role_match_source_entry": true,
+          "pair_source_hash_matches_comparison_manifest": true
+        },
+        "observations": [
+          "当前头部侧面更低、口部闭合，参考保持张嘴姿态；当前前躯背部较饱满，尾上叶更直立，背鳍及成对鳍静息投影不同。",
+          "俯视锤头后缘/颈部收接、前躯宽度及胸鳍前后指向仍有可见差别。来源标签保留确切物种未核准，未冒称同种侧影目标。"
+        ],
+        "warnings": [],
+        "failures": []
+      }
+    ],
+    "failures": [],
+    "global_observations": [
+      "All28sheets were actually opened using view_image; in the reviewed images both models face right in side and top rows. Current/reference/overlay columns are consistent and no visible body/fin is cut by the sheet frame.",
+      "No obvious swapped source label, upside-down side/top, rectangular alpha card, or wholesale UV/texture displacement found in these sheet views. This display result is not anatomical acceptance.",
+      "Overlay compares complete-mesh visible rest projections after uniform whole-axis length registration. Body landmarks and fin positions were not anatomically matched; differences include genuine source fin shapes, rest spread, mouth gape and original alpha.",
+      "Color/style/specular differences are visually separate from gray silhouette differences; original pixel art versus detailed library texture is not treated as geometric error."
+    ],
+    "interpretation_limits": [
+      "Equal complete-mesh longitudinal extent and bbox centering differ from historical body-only/landmark-normalized adoption. The figures reveal current visible differences but do not numerically revalidate old width targets.",
+      "Thin edge-on top-view fins and source semitransparent feathered edges can produce internal hairlines/alpha fragments in projections; no continuous solid-body/fin contact conclusion is drawn.",
+      "True red-seabream primary source remains4historical oblique previews with uncalibrated cameras. No orthographic side/top or pixel-difference evaluation is asserted for those. The3D r02Gilthead comparison is explicitly secondary, not replacement for the missing primary mesh.",
+      "These are original static/bind poses; no motion/intersection/077/490 test or user acceptance is implied."
+    ],
+    "new_renders": false,
+    "production_assets_modified": false,
+    "physics_or_sop_rerun": false,
+    "user_acceptance": false,
+    "new_output_files": [
+      "frozen-visual-review.validation.json"
+    ],
+    "cleanup": "No temporary images, mesh, dense samples or cache created by this review; existing sheets retained untouched."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "profile": "resources/volume-fish/mahi-mahi-20261104/production.profile.json",
+  "model_scale": 1.1998139550683433,
+  "body": "Closed_body",
+  "object_names": {
+    "Dorsal": "Dorsal",
+    "Anal": "Anal",
+    "Caudal": "Caudal",
+    "Pectoral_left": "Pectoral_left",
+    "Pectoral_right": "Pectoral_right",
+    "Pelvic_left": "Pelvic_left",
+    "Pelvic_right": "Pelvic_right"
+  },
+  "attachment_outer_gap_mm": 1.0,
+  "attachment_embed_mm": 0.5,
+  "attachment_contact_tolerance_mm": 0.5,
+  "tail_cross_section_tolerance_mm": 0.4,
+  "upstream": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\validate_authored_fin_volume.py",
+  "upstream_sha256": "d7cf677a79d12555548fa30133814d21df47314ce6640cba704ba1e3b43267fa",
+  "baseline_profile": "resources\\volume-fish\\mahi-mahi-20261104\\basal-domains-r29.json"
+}

@@ -145,3 +145,12 @@ cli/fish_budget.py -text
 /cli/volume_packed_acceptance.py -text whitespace=cr-at-eol
 /cli/test_volume_packed_acceptance.py -text whitespace=cr-at-eol
 /resources/scripts/maintenance/clear_accepted_nile_trials.py -text whitespace=cr-at-eol
+
+# Accepted20261105 byte-bound release inputs.
+/docs/reviews/fish-reference-comparison-20261105.pdf filter=lfs diff=lfs merge=lfs -text
+
+# New source review and adopted controller byte snapshots.
+/cli/volume_reviewed_source.py -text whitespace=cr-at-eol
+/cli/test_volume_reviewed_source.py -text whitespace=cr-at-eol
+/resources/runtime/godot/peacock-final-20261104/PeacockMotion.gd -text whitespace=cr-at-eol
+/resources/runtime/godot/peacock-final-20261104/ValidatePeacockJaw.gd -text whitespace=cr-at-eol

@@ -1,6 +1,7 @@
 """Blocking full-fin/body collision and root-contact gate on actual game skinning."""
 import argparse,hashlib,json,subprocess,sys
 from pathlib import Path
+from fin_attachment_limits import attachment_limits_cm,root_checker_arguments,require_report_limits
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -14,6 +15,7 @@ def main():
     scripts=Path(__file__).resolve().parent;plan=json.loads(a.plan.read_text(encoding='utf8'));spec=next(x for x in plan['items'] if x['species']==a.species)
     exporter=a.exporter.resolve() if a.exporter else scripts/'export_runtime_fin_roots.gd'
     try:
+        attachment_limits_cm(spec)
         limits=spec['membrane_clearance'];assert 'root_collar_mm' in limits and 'penetration_tolerance_mm' in limits,'Freeze full-membrane limits before candidates'
         assert sha(spec['model'])==spec['model_sha256'],'Stale model plan'
         folder=a.output/a.species;folder.mkdir(exist_ok=True);export=folder/'export.validation.json'
@@ -39,7 +41,7 @@ def main():
             assert exp['packed_partition_proof']['ok'] and exp['packed_partition_proof']['model_sha256']==spec['model_sha256'], 'Incomplete packed import proof'
         export_hash=sha(export)
         checks=[]
-        for checker,label,extra in [('check_runtime_fin_attachment.py','roots',['--tolerance-cm','.10','--max-penetration-cm','.60']),('check_fin_membrane_collision.py','membranes',['--root-collar-mm',str(limits['root_collar_mm']),'--penetration-tolerance-mm',str(limits['penetration_tolerance_mm'])])]:
+        for checker,label,extra in [('check_runtime_fin_attachment.py','roots',root_checker_arguments(spec)),('check_fin_membrane_collision.py','membranes',['--root-collar-mm',str(limits['root_collar_mm']),'--penetration-tolerance-mm',str(limits['penetration_tolerance_mm'])])]:
             target=folder/(label+'.validation.json')
             if target.exists():target.unlink()
             if label=='membranes' and a.membrane_workers>1:
@@ -50,6 +52,7 @@ def main():
                 code=run.returncode;log=run.stdout+run.stderr
             (folder/(label+'.log')).write_text(log,encoding='utf8');assert target.exists(),'Missing '+label+' report'
             data=json.loads(target.read_text(encoding='utf8'));checks.append({'check':label,'ok':code==0 and data['ok'],'report':str(target),'sha256':sha(target)})
+            if label=='roots':require_report_limits(data,spec)
             assert data['model_sha256']==sha(spec['model']) and data['controller_sha256']==sha(a.game/spec.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')) and data['motion_config_sha256']==sha(a.game/'assets/models/fish/motion/motion.json'),'Runtime changed during validation'
             assert data['checker_sha256']==sha(scripts/checker),'Checker changed during validation'
         assert sha(export)==export_hash,'Posed export changed during checks'

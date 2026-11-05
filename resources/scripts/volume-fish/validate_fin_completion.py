@@ -6,6 +6,7 @@ static pose, four actions and transitions, not preservation or tank bounds.
 """
 import argparse,hashlib,json,subprocess,sys
 from pathlib import Path
+from fin_attachment_limits import attachment_limits_cm,root_checker_arguments,require_report_limits
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def discard_passing_samples(export,directory):
  """Preflight the entire set before deleting any passing pose evidence."""
@@ -38,7 +39,8 @@ def main():
    assert source['plan_sha256']==sha(a.plan) and source['exporter_sha256']==sha(exporter),'Different490 plan/exporter'
    for path,h in source.get('packed_validation_bindings',{}).items():assert sha(path)==h,'Stale packed490 dependency'
    proof=next(x for x in source['checks']if x['check']=='roots');assert proof['ok'] and sha(proof['report'])==proof['sha256'];value=json.loads(Path(proof['report']).read_text());assert value['ok'] and len(value['samples'])==490 and value['checker_sha256']==sha(script/'check_runtime_fin_attachment.py') and value['export_script_sha256']==sha(exporter)
-   assert value['coverage_checker_sha256']==sha(script/'runtime_pose_coverage.py') and value['tolerance_cm']==.10 and value['max_penetration_cm']==.60,'Different coverage or root limits'
+   assert value['coverage_checker_sha256']==sha(script/'runtime_pose_coverage.py'),'Different coverage checker'
+   require_report_limits(value,r)
    assert value['export_report_sha256']==source['export_sha256']==sha(value['export_report']),'Stale490 posed export'
    for key,file in [('controller_sha256',r.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')),('exhibit_sha256','scripts/aquarium/VolumeFishExhibit.gd'),('motion_config_sha256','assets/models/fish/motion/motion.json')]:assert value[key]==sha(a.game/file),'Stale490 runtime'
    assert set(value['summary'])==set(r['fins']) and value['model_sha256']==r['model_sha256'];assert all(v['failed_contact_samples']==0 for v in value['summary'].values())
@@ -48,12 +50,14 @@ def main():
  cmd=[str(a.godot),'--headless','--quit-after','120','--path',str(a.game.resolve()),'--script',str(exporter),'--',str(a.plan.resolve()),str(a.output),'completion']
  if a.species:cmd.append(a.species)
  try:
-  for r in items:assert sha(r['model'])==r['model_sha256'],'Stale model selection '+r['species']
+  for r in items:
+   attachment_limits_cm(r)
+   assert sha(r['model'])==r['model_sha256'],'Stale model selection '+r['species']
   run=subprocess.run(cmd,capture_output=True,text=True,encoding='utf8',errors='replace',timeout=600);(a.output/'export.log').write_text(run.stdout+run.stderr,encoding='utf8');assert run.returncode==0 and 'SCRIPT ERROR' not in run.stderr and 'ERROR:' not in run.stderr,run.stdout+run.stderr
   reports=[]
   for r in items:
    d=a.output/r['species'];export=d/'export.validation.json';report=d/'contact.validation.json'
-   run=subprocess.run([str(a.blender),'-b','--python',str(script/'check_runtime_fin_attachment.py'),'--','--export',str(export),'--output',str(report),'--tolerance-cm','.10','--max-penetration-cm','.60'],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=a.checker_timeout);(d/'check.log').write_text(run.stdout+run.stderr,encoding='utf8');value=json.loads(report.read_text());assert value['model_sha256']==r['model_sha256'];assert value['export_script_sha256']==sha(exporter);assert value['checker_sha256']==sha(script/'check_runtime_fin_attachment.py')
+   run=subprocess.run([str(a.blender),'-b','--python',str(script/'check_runtime_fin_attachment.py'),'--','--export',str(export),'--output',str(report),*root_checker_arguments(r)],capture_output=True,text=True,encoding='utf8',errors='replace',timeout=a.checker_timeout);(d/'check.log').write_text(run.stdout+run.stderr,encoding='utf8');value=json.loads(report.read_text());assert value['model_sha256']==r['model_sha256'];assert value['export_script_sha256']==sha(exporter);assert value['checker_sha256']==sha(script/'check_runtime_fin_attachment.py');require_report_limits(value,r)
    for key,file in [('controller_sha256',r.get('controller_script','res://scripts/aquarium/FoundryFishMotion.gd').removeprefix('res://')),('exhibit_sha256','scripts/aquarium/VolumeFishExhibit.gd'),('motion_config_sha256','assets/models/fish/motion/motion.json')]:assert value[key]==sha(a.game/file),'Runtime changed during validation'
    assert sha(r['model'])==r['model_sha256'],'Model changed during validation'
    if a.discard_passing_samples and run.returncode==0 and value['ok']:

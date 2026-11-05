@@ -1,0 +1,18 @@
+{
+  "model_scale": 0.503640320726227,
+  "body": "Closed_body",
+  "profile": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\zander-finalization-160\\lowpoly-20261104\\native-fins-authored\\profile.json",
+  "baseline_profile": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\zander-finalization-160\\lowpoly-20261104\\native-fins-authored\\profile.json",
+  "object_names": {
+    "Dorsal_spiny": "Dorsal_spiny",
+    "Dorsal_soft": "Dorsal_soft",
+    "Anal": "Anal",
+    "Caudal": "Caudal",
+    "Pectoral_left": "Pectoral_left",
+    "Pectoral_right": "Pectoral_right",
+    "Pelvic_left": "Pelvic_left",
+    "Pelvic_right": "Pelvic_right"
+  },
+  "attachment_contact_tolerance_mm": 0.5,
+  "tail_cross_section_tolerance_mm": 0.4
+}

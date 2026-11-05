@@ -1,0 +1,189 @@
+{
+  "species": "pacific_bluefin_tuna",
+  "scientific_name": "Thunnus orientalis",
+  "display_length_cm": 180,
+  "length_basis": "game-selected TL, not measured individual",
+  "preferred_triangles": 3500,
+  "hard_triangles": 4000,
+  "actual_triangles": 3852,
+  "actual_bones": 35,
+  "fin_regions": 24,
+  "source": {
+    "path": "projects/pelagic-pacific_bluefin_tuna-145r4/output/char_pacific_bluefin_tuna_side145r4_nobg.png",
+    "sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de"
+  },
+  "construction": {
+    "method": "Independent native image sparse extrusion, real integrated jaw cut, all24 independent native fin caps; no old high-poly decimation",
+    "body_stations": 39,
+    "radial": 20,
+    "mouth_edges": "mouth-r4.config.json upper/lower independently traced; old1880,445 outer lip incision rejected",
+    "head_station_restore": {
+      "u": 0.9930555555555556,
+      "target_halfwidth": 0.010178571428571427,
+      "prior_sparse_cage_prediction": 0.00904663518,
+      "method": "bisect actual body then restore original sections width gain, preserve source X/Z mouth lines; unchanged head gate .0005"
+    },
+    "head_transverse_basis": "Historical declared art inference; local generic/Atlantic library meshes inspected but not biological Pacific measurements"
+  },
+  "fins": {
+    "main_root_mid_edge_mm": [
+      0.8,
+      0.4,
+      0.12
+    ],
+    "finlet_root_mid_edge_mm": [
+      0.45,
+      0.2,
+      0.07
+    ],
+    "tail": "actual finite20-radial body cap, edge .12mm, complete original root domain; observed finite max width error .120mm",
+    "source_root_band": 0.055,
+    "static_root_contact_mm": 0.5,
+    "root_collar_mm": 0.5,
+    "membrane_penetration_tolerance_mm": 0.005,
+    "source_root_support_inset_mm": 0.04,
+    "paired_root_normal_layer_offsets_mm": [
+      -0.22,
+      0.14
+    ],
+    "left_right_pectoral_free_outward_mm": 1.2,
+    "left_right_pectoral_whole_outward_mm": 0.32,
+    "anal_downward_mm": 0.06,
+    "anal_finlet06_downward_mm": 0.1,
+    "final_shell_methods": {
+      "paired_pelvic": "UVcounterparts share actual midpointXZ; Y/UV/t/skin retained, max.147834mm correction",
+      "nonpaired": "Actual original cutout crop provenance, source depth graph registered to own actual body root line, nativeUV/t retained; no legacy max-clearance fold",
+      "anal_and_dorsal03": "Actual finiteXZ CDT and complete root envelope/native points; source geometry domain differs from UV domain explicitly",
+      "anal_root": "9complete native basal-edge supports at≤.006native spacing, actual finite body height and actual body-barycentric skin; old long wall chord repaired",
+      "pectoral": "17nativeUVpoints/16complete boundary edges, both caps/walls use same complete source boundary, actual root support normals/weights. Final whole outward since shell reconstruction=.30mm; original root domain.055 unchanged",
+      "self_gate": "All24 full shells incl walls; doubleAABB, finite six-edge double/coplanar positive area, exact legal shared-plane vertex rule, degeneracy blocked. R40all24×490 and R41affected2×490 joined by exact25mesh/material/rig/actual490matrix preservation."
+    },
+    "final_pectoral_extra_outward_mm": 0.3
+  },
+  "material": {
+    "contract": "body OPAQUE; fins real alpha GreaterThan(.5) nodes plus source-owned MASK/.5/cull contract; original .35 emissive image retained; nearest min/mag9728",
+    "lip": "full native24px bands+5px fade; actual3D arc mapped at2016px/native unit into full2D source strip, reflected native phase; complete front/generated exclusion",
+    "body": "body-material-support original XY quilt and pectoral mask; roof/body u overlap in body-r21.config.json; latitude from own source sections, original side dots/eyes/gills retained",
+    "generated": "Dedicated two-half central forehead/chin skin only; no geometry or biological claim"
+  },
+  "editable_source": "projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\ordinary-final-r41\\source\\fish.blend",
+  "candidate_glb": "projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\ordinary-final-r41\\fish.glb",
+  "adopted_private_files": {
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\audit_eye_finite.py": "5eb871b4e9d072abf05eb4bce69b0a96726f980135b70b5c9a2d0a06dad5d3de",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\audit_eye_uv_support_r40.py": "0804f27eb9ff367828d37627c1c2ce8e66339662a73411df512077ff19197208",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_alpha_nodes_r26.py": "358cef9ff18647dc2fffadfa9350120591a41081425c4e17f05a1847c02ce726",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_cutout_r25.py": "5c52cc1a00bdb3cc279d1cb71e47145e59bac2e55415beff16a66316b8a503a3",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_fin_volume_r13.py": "4a45c06ec3325df21ebbe356e02a50fb8541449ec963b1f1e37fbe3808bc00ff",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_stage.py": "09982756059ffebfd8cff8487070c344219abe2988182f57a5ca1adf9d14f13c",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_tuna_body_r19.py": "36c33aa577305dcf526062d81071f58aa65d262739cc22761295a1b8ea57837f",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\author_tuna_chart_r11.py": "b50d243424ee98837cd4e9d3a15995bc42679d7dac9d632469a3fa261f2ad76b",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\capture_final_water_representatives.gd": "e1c4bf5adb348f1dbe975bf0ed077b63442446be333d8c37e50ff6d2af344335",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\check_cap_layers.py": "163012ef8e4a11ef79032daf59089a34e1813edec1dede9bebf902b199fb09e2",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\check_dynamic_self.py": "ad048ffbc791f4a51201a17dba934c6c902106fd303e4a883b34e55142ea2090",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\check_eye_support.py": "440ca6fbd9211e2b193a254c7314f833ca334ace120f6c37301fcc311b63831e",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\clearance_r16.py": "1a2a6b2c19c3ced1ba59558bef55dec75af3b09d1322fe00470ecdeef2c18394",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\clearance_r18.py": "bcdbf6d4b28b1e470fcbfad8f4eca9ef8e904c1a5fb3abf4773b04c0edc46f0d",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\conform_r15.py": "6f42ce02b92cf90838715b3df13817f20fcb9998dc154064b2f7ee7fd98ad1d0",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\entry.py": "20d0c76968d8ef8575feac154500bee2c27a23df0024538f931868ed058ff3fd",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\export_affected_pectoral_poses.gd": "ccc195f1ee23e1412871cd3c6bcaff4c1d55b76939428a2ae1b958fc9945e2b4",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\export_eye_fin_poses.gd": "bb52a63bc00f58363b56096db71b71dfcf971ab97947d47c6a419cd5b0bba589",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\export_ordinary_source.py": "c51bc21566c8755ee817d261d054d2b51fccd9df800fa72915aa5d7fa9616702",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\eye_binding_guard.py": "58f5c8c4d50743b5a1eed3b6d19a3c879494fbf72701e4b19819f3f2b1fa9317",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\final_gate_aggregate.py": "ba09b15d062853e915a0003f1e521ae428c814fcb894df6845a651d15da91315",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\final_pectoral_offset_r41.py": "82b4d47756b70c448c1840fd41074eaba57e5f37226a445a735cfa77b76f13d0",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\finite_self_intersection.py": "6a6bfcfd17b65bca0f54c0552ec187064d145cde743d303580bcab340e0ec2a2",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\material_r5.py": "d4ac63fc9ab5fb25e6163e70a97126a02ac8f238f785b01a4e30c8d194ff8af7",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\merge_body_r22.py": "74d5159e1ce867816dbfc04ada7410c559da73ca7cd8b3b6d79e6557177588ff",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\part_preservation.py": "8fed8f691bf705b0f1e97ebe3463de4eb5b1255311ec5326bd8f136748c56042",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\prepare.py": "abb0b01d6c287916d846741ddb86500fd8cf6a6b02f4b003ac613eaf0e312187",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\rebuild_pectoral_shell_r39.py": "79a599d5c5fc09c152e336997c28b7e20121ab46c5ea272d823e683be1764bf8",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\refine_anal_root_r38.py": "0f76cfb85a23eb21f98947337168381788cdc98c4783b9f32913de5dacb0e61c",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\repair_batch_r23.py": "e1345abf177bf7849f29a5f524deaa11afab5651ecc9d713275eb22590f2e581",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\repair_native_caps_r35.py": "b9dbcb4d8f0daa2ac8a2ff5a4c8027dba0c4c5f06bf2026507a090299ae02d63",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\repair_pelvic_cap_r28.py": "4c7f0b46d7b43bdc93379edf656c1f644da0601d21a2abb3031e3af3abec0bc3",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\repair_preview.py": "e171686a9e0fb2cee6c191ebe4cef6b16d2e0b0fab5b8b6fd89a77097c780127",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\repair_root_triangulation_r36.py": "0c480f81b82e8815bcaa130493a0d77e2257dfbebc79cd26a695d2cbec01f760",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\restore_eye_lenses_r40.py": "84b015edc8527c1ac587c91cb4b082738d1b5b19138f79e5dc2ae233223b6d51",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\restore_head_station_r24.py": "10b05d72d8fa0b024efe467e42b745b59a89f1da21a336168f82bf2bbc474a8c",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\revise_r2.py": "36c83a23f3a953c97a77959c0a55ee9a4a18b40e1015c718a7efbd6f6e157063",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\strict_clock_coverage.py": "dca7ff01ddb5f52176c7e66045e00b900ac6056d791888d4251bc0909df780e5",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\validate_affected_volume_r41.py": "05171d37b8db1ab2824a2501d38885f28bceee4b963af3babd4ef9a119852e62",
+    "resources\\scripts\\volume-fish\\pacific_bluefin_tuna_20261104\\validate_body_supported_eyes.py": "cdf27a9f11e87281a282b7ad90d4bf7c195f16234f9d9f1c29cf8bbb3ca9baa2"
+  },
+  "private_differences": [
+    "Complete22 source types→24 explicit physical fins; preserve35 native bones and Swim",
+    "Color author uses preserved constant oral color; native real-arc2D lip phase; full original side-eye triangles excluded from baking",
+    "Color author adds actual body-section latitude and u stop, preventing head/body material empty window",
+    "Ordinary source exporter honors saved nearest and material MASK/OPAQUE contracts; no single-surface/emission guard bypass",
+    "Nonrigid closed eye guard verifies actual exported host triangles, barycentric named weights and actual closed opaque lens; public body/GPU kernels unchanged. Derived exporter adds same-pose eyes without changing public490 schedule or integer body face indices.",
+    "Actual native cap boundary/wall reconnection eliminates real pectoral root-wall crossings; complete original source/root domains retained",
+    "Full finite anterior-eye75um/rim/peak gate replaces retired broad.6mm vertex/rim-only check; body-edge aware eye supports avoid broad density increase",
+    "Canonical runtime counts AND exact490 clocks anchored to actualGLB native duration/frozen profile; all24actual primitives aggregated with complete GPU equivalence",
+    "Final25unchanged mesh-corner/material/rig/animation and all490 matrices exact. Reused reports keep original SHA; only changed pectorals run new490 root/membrane/self."
+  ],
+  "public_dependencies": {
+    "resources\\scripts\\volume-fish\\build_fish.py": "0452d46dde33e6ebff973369897ae343833d3ab21ff22e19043ede25cfbd8354",
+    "resources\\scripts\\volume-fish\\oral_jaws.py": "93413d84878d8ff82fb87c754c1cb2e3585af88e843f4f25f2a73c1289b2da1c",
+    "resources\\scripts\\volume-fish\\author_source_mouth.py": "5df84946dadc107921ffc940762ce421aedecec11a5bb13d36a33a7117656776",
+    "resources\\scripts\\volume-fish\\caudal_cross_section.py": "db7fe90bb5ef83958e470ea3d6371a95f4799984fb8dadbf2c44377dfba86727",
+    "resources\\scripts\\volume-fish\\validate_authored_fin_volume.py": "d7cf677a79d12555548fa30133814d21df47314ce6640cba704ba1e3b43267fa",
+    "resources\\scripts\\volume-fish\\portable\\export_fin_poses.gd": "0dffe432a891ca54447c6138954c05c5ed0a6b5ab1bb9760e808fdac53ccaa99",
+    "resources\\runtime\\godot\\VolumeFishMotion.gd": "4793964005685e0970d491138fcd6df32f71d8dfaba3e1727c6e909dbe014b20",
+    "resources\\scripts\\volume-fish\\portable\\export_fin_skin_matrices.gd": "72a0724e697cc404ab651394266588637cd9b6c7db2c6047ff2799fda2d17193",
+    "resources\\scripts\\volume-fish\\runtime_pose_coverage.py": "05a56ceff67c39bb8b84228315fcc6f26c7ebcb18fa222a3bb8e4ea45c99e824",
+    "resources\\scripts\\volume-fish\\validate_eye_contact150.py": "695d90be2f95f0add1229ea70512662ba693b5ba7142f8fed14785db4f7cc6fa",
+    "resources\\skills\\fish-volume-production\\references\\fin-shell-self-intersection.md": "58f3abfd29f445a0566b96fd21f389fc0ac8aa993b2fe2e041b3646e9a3fec3c"
+  },
+  "limitations": [
+    "Ordinary27 mesh/29 surfaces, no single-surface or measured crowd-performance claim",
+    "No user whole-fish acceptance or formal installation. Source145/eye150 acceptance scopes remain separate.",
+    "Generic BluefinTuna/Atlantic library identity and biological dimensions are not verified Pacific measurements; transverse envelope remains art inference.",
+    "R40continuous reference movie plus R41actual4actions/4half-transitions and normal/near/far captures; no new R41continuous movie claimed.",
+    "490discrete poses and finite probes do not establish continuous-time collision freedom.",
+    "Adopted stage replay uses explicit declared native inputs/configs and guarded existing output names; current ordinary source cold export tested, no newly tested from-zero rebuild claim."
+  ],
+  "actual_meshes": 27,
+  "actual_surfaces": 29,
+  "eyes": {
+    "method": "Actual body finite edge×original native eye ellipse intersections plus12base angles,32rim+12inner+2centers, closed88tri/eye; actual finite host barycentric named skin; body geometry/custom loopnormals untouched",
+    "per_eye_triangles": 88,
+    "per_eye_vertices": 46,
+    "per_eye_outer_ring_vertices": 32,
+    "inner_ring_relative_radius": 0.55,
+    "old_peak_relief_native": 0.0030917320400476456,
+    "old_min_rim_offset_native": 4.5639124437002465e-05,
+    "back_center_inset_native": 3.5e-05,
+    "full_eye_frame_gltf_uv": [
+      [
+        0.9163095355033875,
+        0.444926381111145
+      ],
+      [
+        0.9467856884002686,
+        0.5323159098625183
+      ]
+    ],
+    "legacy_profile_eyes_null": "Legacy builder branch only; final restored runtime eye inventory is explicit here and source bindings, never an exemption",
+    "binding_report": "projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\ordinary-final-r40\\source\\eye-authoring.validation.json",
+    "binding_report_sha256": "f49aff0d96b7f58babc022756e83057325bbc24136d5f587d03354aed510c163",
+    "new_engineering_rim_offset_native": 2e-05,
+    "finite_front_triangles_per_eye": 56,
+    "finite_back_triangles_per_eye": 32,
+    "original150_intrusion_limit_mm": 0.075,
+    "rim_limit_method": "1.5% actual original5.59mm peak+25um",
+    "peak_limit_method": "1.6% actual original peak+25um",
+    "actual490_front_signed_min_mm": 0.022901009288034402,
+    "actual490_rim_max_mm": 0.04875221202382818
+  },
+  "complete_profile": [
+    "final-r24.profile.json",
+    "motion.profile.json",
+    "eye-lenses-final.json",
+    "native-fin-cutouts.json",
+    "production-parameters.json"
+  ],
+  "editable_source_sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307",
+  "candidate_glb_sha256": "9d8c91fd7bd21127faa612fcab3a7fe9a974902fc7497e3abf1b864345cdfea4",
+  "status": "technical_candidate_pending_user_whole_fish_review",
+  "installed": false
+}

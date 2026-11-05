@@ -1,0 +1,94 @@
+{
+  "ok": true,
+  "kind": "failed_dynamic_outer_root_foil_local_repair",
+  "input_sha256": "3a62ec46bc2f5dbf732a5f0ac4b3dde65645f347b69cbc47b3400e39eff698ee",
+  "output_sha256": "1e07ebdd0d7a882f53e2a6b122f38a92aa188471a6e2140c2ac55546d8101d12",
+  "whole_triangles": 2000,
+  "parameters": [
+    {
+      "fin": "Pectoral_left",
+      "changed_outer_root_vertices": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "maximum_delta_mm": 0.16846656724733713,
+      "target_actual_body_normal_gap_mm": 0.25
+    },
+    {
+      "fin": "Pelvic_left",
+      "changed_outer_root_vertices": [
+        26,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "maximum_delta_mm": 0.3806737017829834,
+      "target_actual_body_normal_gap_mm": 0.23
+    },
+    {
+      "fin": "Pelvic_right",
+      "changed_outer_root_vertices": [
+        0,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "maximum_delta_mm": 0.38066921580100416,
+      "target_actual_body_normal_gap_mm": 0.23
+    }
+  ],
+  "preserved": "All source baselines/fullrootbands/sourceUV/freevertices/innerrootlayer/materials/RGBA/skin/rig/motion/body/eyes/mouth/other4fins exact; only three finiteouter basal foil layers Y adjusted. No tolerance/animation change.",
+  "frozen_limits_mm": {
+    "outer_gap": 0.5,
+    "embedding": 0.5,
+    "root_collar": 0.5,
+    "free_penetration": 0.02
+  },
+  "scope": "Local repair from real490 gap witnesses. Affected strict roots/membranes/self/normal and cold final counterpart pending."
+}

@@ -1,0 +1,50 @@
+{
+  "items": [
+    {
+      "species": "peacock_bass",
+      "target": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r4\\fish.glb",
+      "target_sha256": "c1203bbc52178fe162947e838183900500968429bee45b64bcab07daf6d5d721",
+      "source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r3\\synthetic-pinched-head-negative.glb",
+      "body": "Closed_body",
+      "target_half_width_envelope": [
+        [
+          0.8,
+          0.070224189150724
+        ],
+        [
+          0.84,
+          0.06474430691696165
+        ],
+        [
+          0.87,
+          0.06036407394085296
+        ],
+        [
+          0.9,
+          0.05267279518830121
+        ],
+        [
+          0.94,
+          0.041046000320691584
+        ],
+        [
+          0.97,
+          0.027800312428980355
+        ],
+        [
+          0.985,
+          0.01797191281229374
+        ]
+      ],
+      "envelope_halfwidth_tolerance_native": 0.012,
+      "evidence": {
+        "reference": "resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\8aee5194fdb8db65405f37ee81b7a3540bf0de5c572920dcc767b049b4bbe9f1.obj",
+        "reference_sha256": "8aee5194fdb8db65405f37ee81b7a3540bf0de5c572920dcc767b049b4bbe9f1",
+        "normalization": "Own empirical body max-width anchored; related Cichla game-art nose-to-peduncle sections, detached eyes excluded. Open-mouth height not adopted.",
+        "landmarks": "Original project eye plane u~.87 corresponds library body-axis nose fraction~.15. Tailpeduncle/nose axis matched.",
+        "uncertainty": "12mm native halfwidth (~6mm at50cm) engineering tolerance for uncalibrated genus-level art/rest registration; not biological accuracy. Original project side silhouette is authoritative."
+      },
+      "source_sha256": "44c6a9e704d805f5b58d178eb238192c0b24b74cdcd3763db2851b371313a0fc"
+    }
+  ]
+}

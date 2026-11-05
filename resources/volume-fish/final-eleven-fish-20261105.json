@@ -1,0 +1,280 @@
+{
+  "kind": "accepted_eleven_fish_final_release",
+  "date": "2026-11-05",
+  "user_acceptance": true,
+  "installed": true,
+  "static_frozen": true,
+  "maintenance": "Use current canonical editable source; future motion changes require impact checks. Static reopening requires explicit user request.",
+  "total_triangles": 27168,
+  "fish": [
+    {
+      "species": "blacktip_reef_shark",
+      "triangles": 3848,
+      "length_cm": 150,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/blacktip_reef_shark/fish.blend",
+        "sha256": "b030f4de339a12a275163c9a150de8496bcba856cd72ad76dd71a319559952f4"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "sha256": "a5e8184972c17c3740bcf6bb52e95f69c1695d674cd30dc52110e1964f68a0a6"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\sop-r21.validation.json",
+        "sha256": "215a1698cf451aa758b8c5a7de30264b5907e2e14015933c513e635b9fd53ba7",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "piranha",
+      "triangles": 1940,
+      "length_cm": 17.75,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/piranha/fish.blend",
+        "sha256": "1013206016a63176626bc504920cbf3eba21516ad8b2efd204ceec4b4fbf6838"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/piranha.glb",
+        "sha256": "40bcab889088894369296eabc96060e1d41fbe101e225fa8d7b7f6050edede89"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\piranha\\eye-volume-20261104\\fin-collar-r5\\post-cleanup-sop.validation.json",
+        "sha256": "d44455a6ded1a3a1a65ab621af6fea3993e0d0bf922d7740071b2506b6e8d270",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "peacock_bass",
+      "triangles": 1842,
+      "length_cm": 50,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r6\\sop.validation.json",
+        "sha256": "43c6a556ecab62d6ac2477defff72309eaa7c5deb3394c20f5611d6be90ce695",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "mahi_mahi",
+      "triangles": 1970,
+      "length_cm": 120,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/mahi_mahi/fish.blend",
+        "sha256": "5a2155ce0d567caa69d15b15a7afe13d491975ed11352a38dda3e220c7d70f55"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/mahi_mahi.glb",
+        "sha256": "3fc100704119caf59ce4f15450f52527e663c2f9d5541d8a6dcf5db3ddcb763b"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\mahi_mahi\\final-sop.validation.json",
+        "sha256": "cb015bc2f1a75c43933272ebf0f0165c3f476732146fc0b751859398b4831c27",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "african_catfish",
+      "triangles": 2000,
+      "length_cm": 90.0,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/african_catfish/fish.blend",
+        "sha256": "17c2e025d8667720428f3a144571db13f6204a75ffbfdf24a507b68f8b130f9d"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/african_catfish.glb",
+        "sha256": "0be4ad46a8d9102631a9ffc5819c4e0e0c3df5afdf3776741b1466b16d351d02"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\african_catfish\\anal-diagonal-r1\\sop-check.validation.json",
+        "sha256": "689926c9da0e7cf25faa1b366870288d55aa6a1a38b5eb04275c9e24d00da738",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "yellow_croaker",
+      "triangles": 2000,
+      "length_cm": 60,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/yellow_croaker/fish.blend",
+        "sha256": "1e07ebdd0d7a882f53e2a6b122f38a92aa188471a6e2140c2ac55546d8101d12"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/yellow_croaker.glb",
+        "sha256": "a031a190e17704383a6d0d517089fc3ca00ad34cf3ecbfbe14d019c49f0d4ea8"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\yellow-croaker-portable-trial-20261031\\r48-sop-check.validation.json",
+        "sha256": "5530a8901a779b81316fa998a1771858762171c986b3c268f9593950daf7b4c8",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "zander",
+      "triangles": 1998,
+      "length_cm": 50.0,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/zander/fish.blend",
+        "sha256": "1a4394c915d0a5750cfaa056306be32b0d0c4ee14485a071949e547566ecb64a"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/zander.glb",
+        "sha256": "b48c597ed4bd00bf816f0a49a1701b19aaf713174de55d7b4f6b355738df59b0"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\zander-finalization-160\\lowpoly-20261104\\root-band-patch-r4\\sop.validation.json",
+        "sha256": "35fb001c3009b56d80a949d121b11803ba090103d22700c124ce3ec92046d67a",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "hairtail",
+      "triangles": 2000,
+      "length_cm": 100,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/hairtail/fish.blend",
+        "sha256": "0fbfde27751a4a00f90df0c2eced0507e68dc07547d7b5483df3e37523d48b02"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/hairtail.glb",
+        "sha256": "a5ae53ae77b395b63bfa248142cd859059ab1253b6849ac4b6847d38cb3651ee"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\hairtail-static-merge\\lowpoly-20261104\\sop-final.validation.json",
+        "sha256": "3b976a1b80506dac04f0a2f2771680e286ef4ad50dab074bf13e7e9838ec547e",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "silver_arowana",
+      "triangles": 1984,
+      "length_cm": 70,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/silver_arowana/fish.blend",
+        "sha256": "06c4bf27846cdbc634be1953590b5a865a4c602d0e68f63a26d7f8cc1151b936"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/silver_arowana.glb",
+        "sha256": "c40dd8db8d18db24a9d3b6c8672d8a9bf34bdefb309a8e7f9874a928478f0a71"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\silver_arowana\\lowpoly-r4-fin-20261104\\barbel-root-r24\\sop.validation.json",
+        "sha256": "dcb1b0c17422a9d20f4793592d9531ffe26b079cb064d51506989b1b8a3aacb8",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "arapaima",
+      "triangles": 3734,
+      "length_cm": 200,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/arapaima/fish.blend",
+        "sha256": "fe1d19f4e55475c197717c3ce419d36ec16e72b210aadc479b3c1b3165f634e6"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/arapaima.glb",
+        "sha256": "64c4c37525f3961beed0d23ff155010861e0e0024fbfaf1ae97654b110ec6887"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\arapaima-static-merge\\lowpoly-20261104\\ventral-skin-r74\\sop.validation.json",
+        "sha256": "09f246f6ab282e28b878c664b97bbb4699675832aac7b22ab55f5b5016ed9049",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    },
+    {
+      "species": "pacific_bluefin_tuna",
+      "triangles": 3852,
+      "length_cm": 180,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/pacific_bluefin_tuna/fish.blend",
+        "sha256": "bb39ccdafceb6411b32f1c7e1b54211a35b67552058c4204e21cab202c3b1307"
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/pacific_bluefin_tuna.glb",
+        "sha256": "9d8c91fd7bd21127faa612fcab3a7fe9a974902fc7497e3abf1b864345cdfea4"
+      },
+      "frozen_SOP": {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\pacific-bluefin-tuna-static-merge\\lowpoly-20261104\\ordinary-final-r41\\sop.validation.json",
+        "sha256": "1988f04da183f46d6f0773b034515d83dbdc4c213bf22a1b61bcb987e1b79776",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "retired_historical_evidence": true,
+        "note": "Passed before user acceptance and historical media retirement; not a fresh post-cleanup SOP pass."
+      }
+    }
+  ],
+  "game_handoff": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/HANDOFF.md",
+  "current_source_audit": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/keeper-current-final.json",
+  "original13_unchanged": true,
+  "comparison_pdf": {
+    "path": "docs/reviews/fish-reference-comparison-20261105.pdf",
+    "bytes": 11359091,
+    "sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
+    "pages": 29
+  },
+  "retention_policy": "resources/skills/fish-volume-production/references/accepted-fish-retention-20261105.md",
+  "reference_role_records": "docs/reviews/fish-reference-comparison-20261105/reference-roles-and-model-sha.json",
+  "historical_media_and_model_retirement_authorized": true,
+  "status": "finished",
+  "appearance_and_rig_frozen": true,
+  "budget_basis": "2026-11-02 confirmed display-length tiers and shark exception, including full fish geometry; preferred budget is not a lower bound.",
+  "current_canonical_cold_validation": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/canonical-cold.validation.json",
+  "current_runtime_file_inventory": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/runtime-files.json",
+  "game_admission": {
+    "checks": 520,
+    "fish_ready": 11,
+    "runtime_dependency_reads": 216,
+    "all_dependencies_res_scheme": true,
+    "script_errors": 0,
+    "experiment_or_foundry_absolute_dependency_reads": 0,
+    "mouth_semantics": "11 own actual upper-lip recipes, no body-maxX fallback; imported multibone skin identity compares exact same UNORM16 bins."
+  },
+  "game_commit": "d9238cbc8e67361d47a4145dfd93f8e978d66c75"
+}

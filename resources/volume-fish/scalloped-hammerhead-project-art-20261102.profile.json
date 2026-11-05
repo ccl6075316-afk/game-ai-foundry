@@ -1,7 +1,0 @@
-{
-  "species": "scalloped_hammerhead",
-  "status": "retired",
-  "approved": false,
-  "superseded_by": "resources/volume-fish/scalloped-hammerhead-final-20261104.json",
-  "reason": "2026-11-04 whole-fish user acceptance and final installation. Historical experiment paths are retired; use ordinary final blend/GLB and migrated original SOP ledger."
-}

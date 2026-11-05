@@ -1,0 +1,30 @@
+{
+  "historical_evidence": true,
+  "media_retired_by_user_on": "2026-11-05",
+  "current_pdf": "docs/reviews/fish-reference-comparison-20261105.pdf",
+  "original_report_sha256": "57b5f95122f59f538935767e18c2c729e516e7b9b55c30e5419cb21357ec3788",
+  "report": {
+    "ok": true,
+    "pdf": "E:\\game-ai-foundry\\output\\pdf\\fish-model-reference-comparison-20261105.pdf",
+    "sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
+    "pages": 29,
+    "images_lossless_in_pdf": true,
+    "source_pair_sheets": 27,
+    "historical_preview_images": 4,
+    "visual_qa": "passed: all29 pages actually viewed in two independent portions; cover text amended and root reviewed; other28 final page rasters exactly identical to reviewed pages.",
+    "visual_review_reports": [
+      {
+        "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pdf-qa-first.validation.json",
+        "sha256": "bd66a29b2021a220eb5de79f69b77e0bccb1940bba8d45e0ad52505bde008715"
+      },
+      {
+        "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pdf-qa-last.validation.json",
+        "sha256": "4bd4d3b1b669b83da16b91424f93a76956b5ea2cec655d529efd53f60d684ae7"
+      },
+      {
+        "path": "E:\\game-ai-foundry\\output\\fish-reference-compare-20261105\\pdf-final-amendment.validation.json",
+        "sha256": "35d926ce28c03fbd4fa28be52ebf619750cca385af34938b2b9d388038b74618"
+      }
+    ]
+  }
+}

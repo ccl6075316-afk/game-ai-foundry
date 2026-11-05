@@ -1,0 +1,163 @@
+{
+  "species": "peacock_bass",
+  "method": "Only16rightpectoralrootwalltriangles→16shorttriangles following exact full existing basal chain",
+  "author": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\peacock-20261104\\repair_right_pectoral_root_wall.py",
+  "author_sha256": "609d1bc5e993cf84b97226239d667bf367ec62f0c2218d85bcb41777adff7355",
+  "parameters_and_repair": {
+    "ok": true,
+    "kind": "right_pectoral_complete_root_wall_retriangulation",
+    "input_sha256": "6ff2f60af7700acaad2bd169d3e0e4225cbd48fa04ebd57c46430e3f4edefb3b",
+    "model_sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00",
+    "blend_sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53",
+    "whole_triangles": 1842,
+    "root_wall_faces_removed": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      68,
+      69,
+      70,
+      71,
+      78,
+      79
+    ],
+    "complete_outer_cap_root_edges": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        41
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        41,
+        7
+      ]
+    ],
+    "new_root_wall_triangles": [
+      [
+        5,
+        4,
+        24
+      ],
+      [
+        5,
+        24,
+        25
+      ],
+      [
+        6,
+        5,
+        25
+      ],
+      [
+        6,
+        25,
+        26
+      ],
+      [
+        41,
+        6,
+        26
+      ],
+      [
+        41,
+        26,
+        40
+      ],
+      [
+        8,
+        7,
+        27
+      ],
+      [
+        8,
+        27,
+        28
+      ],
+      [
+        9,
+        8,
+        28
+      ],
+      [
+        9,
+        28,
+        29
+      ],
+      [
+        10,
+        9,
+        29
+      ],
+      [
+        10,
+        29,
+        30
+      ],
+      [
+        11,
+        10,
+        30
+      ],
+      [
+        11,
+        30,
+        31
+      ],
+      [
+        7,
+        41,
+        40
+      ],
+      [
+        7,
+        40,
+        27
+      ]
+    ],
+    "original_positions_uv_weights_and_source_t_preserved": true,
+    "all_other_parts_unchanged": true,
+    "scope": "Only right finite rootwall follows existing complete outer/inner basal chains. Dynamic self/root/body/membrane/volume and visual gates pending; no old report rebinding."
+  },
+  "scope_proof": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r6\\root-wall-scope.validation.json",
+    "sha256": "0c5e7bb5d0b90a85e521c34dcec259e402a2fb6a6a3f12dfdc0f69499a508851"
+  },
+  "all8_actual490_self_report": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\fin-self-audit-r6-20261104\\all-fin-self-intersection.validation.json",
+    "sha256": "cae0e2eae2bad8867e8c75faf96b7ae15223b0248361053ef05d18da71d390a1"
+  },
+  "kernel_controls": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\fin-self-audit-r6-20261104\\filter-controls.validation.json",
+    "sha256": "8b67a03717207bed55189adf224ef586c43e8bd5873efd76149b46b651e486b3"
+  }
+}

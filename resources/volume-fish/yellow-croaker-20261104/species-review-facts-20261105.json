@@ -1,0 +1,23 @@
+{
+  "species": "Larimichthys crocea",
+  "checked_at": "2026-11-05",
+  "barbels": "not_applicable",
+  "barbel_basis": {
+    "scope": "Genus-level explicit diagnostic key, not a target-specimen thickness measurement",
+    "url": "https://www.fao.org/4/y0770e/y0770e34.pdf",
+    "publication": "K.Sasaki 2001 Sciaenidae, FAO Living Marine Resources of Western Central Pacific Vol5, printed3121/PDF5",
+    "key_route": "14b: No mental barbel; 15b; 16a; 17b: Larimichthys"
+  },
+  "head_form": {
+    "url": "https://fishdb.sinica.edu.tw/taxon/382473-fishdb",
+    "scope": "Same-species institutional qualitative description: blunt-pointed head, terminal oblique mouth and snout not projecting. Does not establish numerical transverse thickness. Current clay head review remains pending."
+  },
+  "retracted_evidence": {
+    "url": "https://www.museum.kagoshima-u.ac.jp/staff/motomura/TFG_lowres.pdf",
+    "old_label": "Matsunuma2011 p140 Larimichthys crocea, specimenKAUM-I16977",
+    "reason": "Seah etal2015 Zootaxa3956(2):271-280 identifies this exact account/specimen as Larimichthys terengganui; not target-species evidence. All earlier same-species attribution withdrawn.",
+    "correction_url": "https://www.mapress.com/zootaxa/2015/f/zt03956p280.pdf",
+    "doi": "10.11646/zootaxa.3956.2.7"
+  },
+  "local_database_limit": "YellowCroaker/SmallYellowCroaker same OBJ, identity unverified; no biological width/eye/fin acceptance inherited."
+}

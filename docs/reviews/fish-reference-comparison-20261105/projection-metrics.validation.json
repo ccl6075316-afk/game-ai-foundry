@@ -1,0 +1,552 @@
+{
+  "historical_evidence": true,
+  "media_retired_by_user_on": "2026-11-05",
+  "current_pdf": "docs/reviews/fish-reference-comparison-20261105.pdf",
+  "original_report_sha256": "cf7f5679bbb67ed1926c269e6c3511f3f1d9164f794be8749c6a9c2ac68d396f",
+  "report": {
+    "ok": true,
+    "scope": "Pixel-set statistics of actual clean RGBA projections; not a shape acceptance score.",
+    "pairs": {
+      "nile_tilapia--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 218570,
+          "reference_pixels": 238052,
+          "intersection_pixels": 210094,
+          "union_pixels": 246528,
+          "intersection_over_union": 0.8522115134994808,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 91480,
+          "reference_pixels": 89287,
+          "intersection_pixels": 83515,
+          "union_pixels": 97252,
+          "intersection_over_union": 0.8587484062024431,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "rainbow_trout--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 199971,
+          "reference_pixels": 197744,
+          "intersection_pixels": 182443,
+          "union_pixels": 215272,
+          "intersection_over_union": 0.8474999070942807,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 99249,
+          "reference_pixels": 92438,
+          "intersection_pixels": 89957,
+          "union_pixels": 101730,
+          "intersection_over_union": 0.8842720927946525,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "brown_trout--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 197834,
+          "reference_pixels": 235022,
+          "intersection_pixels": 193268,
+          "union_pixels": 239588,
+          "intersection_over_union": 0.8066681135950048,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 116681,
+          "reference_pixels": 120363,
+          "intersection_pixels": 112694,
+          "union_pixels": 124350,
+          "intersection_over_union": 0.9062645757941294,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "atlantic_salmon--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 181403,
+          "reference_pixels": 185746,
+          "intersection_pixels": 167012,
+          "union_pixels": 200137,
+          "intersection_over_union": 0.834488375462808,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 92234,
+          "reference_pixels": 98475,
+          "intersection_pixels": 90726,
+          "union_pixels": 99983,
+          "intersection_over_union": 0.9074142604242721,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "sea_bass--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 226089,
+          "reference_pixels": 222377,
+          "intersection_pixels": 194096,
+          "union_pixels": 254370,
+          "intersection_over_union": 0.7630459566772811,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 111137,
+          "reference_pixels": 108800,
+          "intersection_pixels": 99967,
+          "union_pixels": 119970,
+          "intersection_over_union": 0.8332666499958323,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "red_emperor--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 185960,
+          "reference_pixels": 160486,
+          "intersection_pixels": 146322,
+          "union_pixels": 200124,
+          "intersection_over_union": 0.7311566828566289,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 78098,
+          "reference_pixels": 78149,
+          "intersection_pixels": 72054,
+          "union_pixels": 84193,
+          "intersection_over_union": 0.8558193674058413,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "red_seabream--r02": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 194048,
+          "reference_pixels": 182446,
+          "intersection_pixels": 164438,
+          "union_pixels": 212056,
+          "intersection_over_union": 0.7754461085750933,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 66771,
+          "reference_pixels": 93816,
+          "intersection_pixels": 66302,
+          "union_pixels": 94285,
+          "intersection_over_union": 0.7032083576390731,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "black_seabream--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 196459,
+          "reference_pixels": 194077,
+          "intersection_pixels": 186097,
+          "union_pixels": 204439,
+          "intersection_over_union": 0.9102813064043553,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 64830,
+          "reference_pixels": 66798,
+          "intersection_pixels": 63187,
+          "union_pixels": 68441,
+          "intersection_over_union": 0.923233149720197,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "black_seabream--r02": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 140673,
+          "reference_pixels": 162065,
+          "intersection_pixels": 137346,
+          "union_pixels": 165392,
+          "intersection_over_union": 0.830427106510593,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 46497,
+          "reference_pixels": 55093,
+          "intersection_pixels": 44771,
+          "union_pixels": 56819,
+          "intersection_over_union": 0.787958253401151,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "crucian--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 143396,
+          "reference_pixels": 161426,
+          "intersection_pixels": 138627,
+          "union_pixels": 166195,
+          "intersection_over_union": 0.8341225668642258,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 57476,
+          "reference_pixels": 60502,
+          "intersection_pixels": 56813,
+          "union_pixels": 61165,
+          "intersection_over_union": 0.9288481974985694,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "grass_carp--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 185203,
+          "reference_pixels": 193900,
+          "intersection_pixels": 170302,
+          "union_pixels": 208801,
+          "intersection_over_union": 0.8156186991441612,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 108265,
+          "reference_pixels": 110250,
+          "intersection_pixels": 105454,
+          "union_pixels": 113061,
+          "intersection_over_union": 0.932717736443159,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "carp--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 199446,
+          "reference_pixels": 196211,
+          "intersection_pixels": 165192,
+          "union_pixels": 230465,
+          "intersection_over_union": 0.7167769509469984,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 85218,
+          "reference_pixels": 90458,
+          "intersection_pixels": 80761,
+          "union_pixels": 94915,
+          "intersection_over_union": 0.8508771005636622,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "bluegill--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 186271,
+          "reference_pixels": 188065,
+          "intersection_pixels": 174829,
+          "union_pixels": 199507,
+          "intersection_over_union": 0.876305092051908,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 43608,
+          "reference_pixels": 48552,
+          "intersection_pixels": 42931,
+          "union_pixels": 49229,
+          "intersection_over_union": 0.8720672774177822,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "scalloped_hammerhead--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 115313,
+          "reference_pixels": 106871,
+          "intersection_pixels": 88653,
+          "union_pixels": 133531,
+          "intersection_over_union": 0.6639132486089373,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 109248,
+          "reference_pixels": 112941,
+          "intersection_pixels": 100260,
+          "union_pixels": 121929,
+          "intersection_over_union": 0.822281819747558,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "blacktip_reef_shark--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 104425,
+          "reference_pixels": 101837,
+          "intersection_pixels": 88977,
+          "union_pixels": 117285,
+          "intersection_over_union": 0.75863921217547,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 91140,
+          "reference_pixels": 102305,
+          "intersection_pixels": 79722,
+          "union_pixels": 113723,
+          "intersection_over_union": 0.7010191430053727,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "piranha--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 114909,
+          "reference_pixels": 162396,
+          "intersection_pixels": 113534,
+          "union_pixels": 163771,
+          "intersection_over_union": 0.6932484994290808,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 39729,
+          "reference_pixels": 54070,
+          "intersection_pixels": 39198,
+          "union_pixels": 54601,
+          "intersection_over_union": 0.7178989395798612,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "peacock_bass--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 244362,
+          "reference_pixels": 255207,
+          "intersection_pixels": 222225,
+          "union_pixels": 277344,
+          "intersection_over_union": 0.8012612495673244,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 96432,
+          "reference_pixels": 119465,
+          "intersection_pixels": 95135,
+          "union_pixels": 120762,
+          "intersection_over_union": 0.7877892052135606,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "mahi_mahi--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 175703,
+          "reference_pixels": 219229,
+          "intersection_pixels": 167940,
+          "union_pixels": 226992,
+          "intersection_over_union": 0.739849862550222,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 97225,
+          "reference_pixels": 94888,
+          "intersection_pixels": 90061,
+          "union_pixels": 102052,
+          "intersection_over_union": 0.8825010778818642,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "african_catfish--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 162017,
+          "reference_pixels": 173778,
+          "intersection_pixels": 154944,
+          "union_pixels": 180851,
+          "intersection_over_union": 0.8567494788527572,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 125053,
+          "reference_pixels": 121802,
+          "intersection_pixels": 107172,
+          "union_pixels": 139683,
+          "intersection_over_union": 0.7672515624664419,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "african_catfish--r02": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 164173,
+          "reference_pixels": 136814,
+          "intersection_pixels": 132665,
+          "union_pixels": 168322,
+          "intersection_over_union": 0.7881619752617008,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 126725,
+          "reference_pixels": 117899,
+          "intersection_pixels": 106766,
+          "union_pixels": 137858,
+          "intersection_over_union": 0.7744635784647971,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "yellow_croaker--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 150919,
+          "reference_pixels": 191492,
+          "intersection_pixels": 142027,
+          "union_pixels": 200384,
+          "intersection_over_union": 0.7087741536250399,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 67313,
+          "reference_pixels": 72834,
+          "intersection_pixels": 57263,
+          "union_pixels": 82884,
+          "intersection_over_union": 0.6908812316007915,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "zander--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 195365,
+          "reference_pixels": 232535,
+          "intersection_pixels": 191915,
+          "union_pixels": 235985,
+          "intersection_over_union": 0.8132508422145476,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 66447,
+          "reference_pixels": 102993,
+          "intersection_pixels": 66363,
+          "union_pixels": 103077,
+          "intersection_over_union": 0.6438196687912919,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "hairtail--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 62731,
+          "reference_pixels": 62169,
+          "intersection_pixels": 57032,
+          "union_pixels": 67868,
+          "intersection_over_union": 0.8403371250073672,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 16815,
+          "reference_pixels": 17011,
+          "intersection_pixels": 16556,
+          "union_pixels": 17270,
+          "intersection_over_union": 0.9586566299942096,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "silver_arowana--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 187000,
+          "reference_pixels": 189673,
+          "intersection_pixels": 160228,
+          "union_pixels": 216445,
+          "intersection_over_union": 0.7402712005359329,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 81812,
+          "reference_pixels": 85997,
+          "intersection_pixels": 74388,
+          "union_pixels": 93421,
+          "intersection_over_union": 0.7962663640937262,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "arapaima--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 166657,
+          "reference_pixels": 163992,
+          "intersection_pixels": 143662,
+          "union_pixels": 186987,
+          "intersection_over_union": 0.7682994004930824,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 139914,
+          "reference_pixels": 82943,
+          "intersection_pixels": 82682,
+          "union_pixels": 140175,
+          "intersection_over_union": 0.589848403780988,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "pacific_bluefin_tuna--r01": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 171521,
+          "reference_pixels": 201840,
+          "intersection_pixels": 159845,
+          "union_pixels": 213516,
+          "intersection_over_union": 0.7486324209895278,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 111525,
+          "reference_pixels": 142164,
+          "intersection_pixels": 110313,
+          "union_pixels": 143376,
+          "intersection_over_union": 0.7693965517241379,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      },
+      "pacific_bluefin_tuna--r02": {
+        "side": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 174491,
+          "reference_pixels": 184944,
+          "intersection_pixels": 162402,
+          "union_pixels": 197033,
+          "intersection_over_union": 0.8242375642658843,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        },
+        "top": {
+          "alpha_threshold": 0.10196078431372549,
+          "ours_pixels": 113462,
+          "reference_pixels": 133714,
+          "intersection_pixels": 109203,
+          "union_pixels": 137973,
+          "intersection_over_union": 0.7914809419234198,
+          "scope": "Visible complete-fish projection including fins, eyes and rest-pose differences. Not isolated body width, biological error or an acceptance score."
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+> 2026-11-05 历史制作记录退役说明：本批十一鱼已获用户成品接受，旧实验图片、模型、密集数据与候选专用重放链已按授权清理。本页旧路径/命令仅为历史方法记录，不是当前可运行入口或仍存在的图证据。以后从canonical fish.blend修改；当前依赖与保留方法见 `resources/volume-fish/eleven-fish-release-20261105/METHODS.md` 和游戏正式release/history-new-eleven.md。
+
 # 梭鲈110局部嘴型/材质候选
 
 这是绑定新GLB的107/109运行时分支，避免改写已冻结的历史实验。模型由 `resources/scripts/volume-fish/retract_static_lower_jaw.py --plan resources/volume-fish/mouth-zander-110.json` 产生；只在已有静态嘴裂下方局部后收X，并将皮肤UV0的上下唇窄带分别对齐源画标注。Y/Z、上颌/眼区几何、全鳍、骨骼、权重、动画与图片流保留。参数是制作约束，不是通用解剖比例；不新增开合颌动画。

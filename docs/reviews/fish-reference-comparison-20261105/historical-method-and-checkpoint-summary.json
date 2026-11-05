@@ -1,0 +1,855 @@
+{
+  "retired_by_explicit_user_request": true,
+  "note": "Original outcomes remain historical, not fresh revalidation. Only compact scalars retained; no mesh/pose dumps. New accepted fish production issues are described in game release/history-new-eleven.md; original13 in13-history-summary.md. Only up to2 important checkpoints per historical root are retained; full per-round scalar inventory retired.",
+  "checkpoints": [
+    {
+      "historical_path": "output/african-catfish-dorsal-peer-20261105/diagnosis.validation.json",
+      "sha256": "412357b17c6e5ba21e7e69bf649504f928f4e2d364a1fabd027c2fca7d96bf02",
+      "scalars": {
+        "kind": "read_only_one_dorsal_cap_layout_second_opinion_not_asset_validation",
+        "source_map_max_error_native": 5.495323932940015e-16,
+        "actual_triangle": 38,
+        "scope": "Only actual minimum pose0/105 and adjacent cap triangles; all3body surfaces merged. No source/GLB/profile/finplan edits, no new samples or490gates. Rest-pulled normal flip does not itself prove physicalself crossing.",
+        "stopped_scope": "Author newer dorsal490 already cleared; stop oldr17 exploration, retain only located longchord and realcap semantics."
+      }
+    },
+    {
+      "historical_path": "output/african-catfish-dorsal-peer-20261105/retention.validation.json",
+      "sha256": "134356e6748b2554409ec8948a4b5823e00e82665d643c75d24479f9398b452f",
+      "scalars": {
+        "kind": "read_only_minimum_peer_review_retention",
+        "all_A_bound_source_model_rest_unchanged": true,
+        "new_actual_poses_exported": 0,
+        "full490_or_total_gates_run": 0,
+        "deleted_files": 0,
+        "deleted_bytes": 0,
+        "retained_bytes_excluding_receipt": 48775,
+        "scope": "Only compact selected source/actual two-pose data plus reproducible read-only script and handoff; no dense samples/models copied."
+      }
+    },
+    {
+      "historical_path": "output/african-catfish-eye-readonly-20261105/audit.validation.json",
+      "sha256": "1a471ebec531dc7d8daec59d3f61e3aa38cb76a31d068938056ae5c90242deed",
+      "scalars": {
+        "ok": true,
+        "kind": "read_only_african_catfish_existing_eye_issue_second_review",
+        "task_scope": "One existing worst eye pose92 plus old150static actual geometry/source comparison; no source/model/adapter/A-directory writes, no490export or wholefish gate. PiranhaR5 frozen unchanged.",
+        "read_only": true,
+        "model_changed": false,
+        "a_directory_written": false
+      }
+    },
+    {
+      "historical_path": "output/african-catfish-eye-readonly-20261105/cleanup.validation.json",
+      "sha256": "626c7203a021709c63c7ed65b7a5c7020b419fc5deb498f7bd25fe3487ba742f",
+      "scalars": {
+        "ok": true,
+        "read_only_input_hashes_rechecked": true,
+        "removed_bytes": 10998,
+        "scope": "Only redundant enlarged source crop removed; complete compact numerical evidence, source native crop, one contact and scripts retained. No new model/pose/video or archive created.",
+        "remaining_bytes_at_measurement": 2360257
+      }
+    },
+    {
+      "historical_path": "output/arapaima-library-material-view-20261105/inputs.json",
+      "sha256": "18ddc89af42b0cc3bee0cf190a1387d2354918f6a885f146f360ced09f952730",
+      "scalars": {
+        "ok": true,
+        "kind": "library_arapaima_original_material_preview_inputs",
+        "source_bundle": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\b_fish_arapaima.unity3d",
+        "source_sha256": "054aa49baf5200dd9cde39b062045495056d0be23abca86ddd9a4713fa071b2c",
+        "mesh_obj": "E:\\game-ai-foundry\\resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\mesh-exports\\f511bcecd7db3d917139cb8b5a22f65357f49e425b691dd9c2e85e6c5e91061c.obj",
+        "mesh_sha256": "f511bcecd7db3d917139cb8b5a22f65357f49e425b691dd9c2e85e6c5e91061c",
+        "parser": "UnityPy 1.25.3",
+        "bind_to_default_max_delta_native": 3.6791075090243466e-07,
+        "preview_scope": "Original3096tri mesh/UV and original diffuse, neutral PBR lighting. Original Unity custom shader/packed metal-normal-map appearance not reproduced. Static bind verified against default skeleton pose, no animation or biological claim."
+      }
+    },
+    {
+      "historical_path": "output/arapaima-library-material-view-20261105/render.validation.json",
+      "sha256": "ae9f0acccbe62c9f75758d31663522f4f3632ea57e67a22183b6edbb793c78c6",
+      "scalars": {
+        "ok": true,
+        "kind": "read_only_library_original_diffuse_preview",
+        "input_receipt_sha256": "18ddc89af42b0cc3bee0cf190a1387d2354918f6a885f146f360ced09f952730",
+        "mesh_sha256": "f511bcecd7db3d917139cb8b5a22f65357f49e425b691dd9c2e85e6c5e91061c",
+        "vertices": 2050,
+        "triangles": 3096,
+        "original_submesh_material_slots": 3,
+        "original_UV_and_diffuse": true,
+        "original_alpha_clips": true,
+        "shape_changes": "Rigid axis rotation, translation and uniform display scale only.",
+        "renderer": "Blender5 Cycles neutral area lights,24samples",
+        "scope": "Original library texture preview, not original-game custom shader/reflections/normal-metal maps or a project candidate."
+      }
+    },
+    {
+      "historical_path": "output/arapaima-mouth-058/baseline-anatomy.validation.json",
+      "sha256": "0523a396b68305c3383e22521724b43578f8f9834f7a0ec372c28ac70056f2f9",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.anatomy.measure",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\arapaima\\044-arapaima-v11.handoff-artifacts\\fish.blend",
+        "blend_sha256": "766e47aaa922d338b5cee117e431d1f099cadfda3b22898af1cdf7da566877da",
+        "profile_sha256": "350d2c1f44aa0d59f94ccbc52886e6d26634022eec88c2c81ef7cafa338d8c54",
+        "target_total_length_cm": 200,
+        "cm_per_unit": 201.74242752646612,
+        "method": "Native rest-mesh world-space edge/plane intersections at X=u-.5. Visible body/head/cephalofoil envelope; paired-fin spans excluded. Closed_body perimeter orders single star-convex contour points; no circle approximation and no mixed-shell perimeter.",
+        "anatomy_acceptance": "pending"
+      }
+    },
+    {
+      "historical_path": "output/arapaima-mouth-058/baseline-parts.validation.json",
+      "sha256": "43f884c2b9cd10c8f88d31ef4695eb971759852610ef18f28b585f487ab13c78",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.parts.measure",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "style_visual_review": "pending",
+        "blend_sha256": "766e47aaa922d338b5cee117e431d1f099cadfda3b22898af1cdf7da566877da",
+        "profile_sha256": "350d2c1f44aa0d59f94ccbc52886e6d26634022eec88c2c81ef7cafa338d8c54",
+        "real_length_cm": 200,
+        "cm_per_unit": 201.74242752646612
+      }
+    },
+    {
+      "historical_path": "output/arapaima-paired-frame-second-view-20261105/diagnostic.validation.json",
+      "sha256": "28adf114580a610031d6d28b2794543060c71fe1accf1fd5ec4ada467824e33b",
+      "scalars": {
+        "ok": true,
+        "kind": "read_only_single_pair_LBS_frame_and_shell_Jacobian_diagnostic",
+        "paired_source_weights_exact": true,
+        "published_crossing_reproduced_below_m": 1e-12,
+        "scope": "Only Pectoral_left triangles29/82; existing static/native0/Turn5s matrices. Counterfactuals are mathematical point replacements, not a candidate or complete fin/body validation. Positive cone proves local orientation for these points/poses only; finite probes test this single pair, never490/all neighbours/body feasibility."
+      }
+    },
+    {
+      "historical_path": "output/arapaima-paired-frame-second-view-20261105/retention.validation.json",
+      "sha256": "2316a4943c5cb2b48783e328a748e693fe5592b86c04fb36fb946fb8feac5450",
+      "scalars": {
+        "ok": true,
+        "retained_bytes_before_receipt": 72161,
+        "deleted_bytes": 0,
+        "scope": "single left pectoral pair, three preexisting matrix samples, source read-only"
+      }
+    },
+    {
+      "historical_path": "output/blacktip-review-055/baseline-anatomy.validation.json",
+      "sha256": "87525571b1a9fb7716e040b81df0fac98711c9a7ca6fd9dde3e42104732d84f1",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.anatomy.measure",
+        "ok": false,
+        "status": "failed",
+        "next_action": "fix_input",
+        "blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\blacktip_reef_shark\\041-eye.handoff-artifacts\\fish.blend",
+        "blend_sha256": "05b81390774018a5d7618a5f24cf85ef97274076dcb39659d61e64389a34d4b0",
+        "profile_sha256": "ca3eeacdbf4b2ae3b14aae3afdfb01d3245f919cfb9b76925339be1274223e55",
+        "target_total_length_cm": 150,
+        "cm_per_unit": 150.73973108349446,
+        "method": "Native rest-mesh world-space edge/plane intersections at X=u-.5. Visible body/head/cephalofoil envelope; paired-fin spans excluded. Closed_body perimeter orders single star-convex contour points; no circle approximation and no mixed-shell perimeter.",
+        "anatomy_acceptance": "pending"
+      }
+    },
+    {
+      "historical_path": "output/blacktip-review-055/baseline-runtime-contact.validation.json",
+      "sha256": "b57df8aa63b249213d1100c70408c6fc26d5d9c02f10eebb5726b9efec498f31",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.fin.check-runtime-attachment",
+        "stage": "validate",
+        "status": "done",
+        "next_action": "human_review",
+        "ok": false,
+        "model": "E:/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/blacktip_reef_shark.glb",
+        "model_sha256": "5190f78e2cc6dfc37ca1d2b708102f46be6a38d5c65f37dd45582c0f63810929",
+        "export_report": "E:\\game-ai-foundry\\output\\blacktip-review-055\\baseline-skin\\export.validation.json",
+        "export_report_sha256": "be0975e8da32ecef6bc59d007897f8fb1e10e7a0b223c3f525d8fc481759eedb",
+        "root_selection": "Own-fin bone weight<=.05 for legacy source t<=.05",
+        "controller_source": "res://scripts/aquarium/FoundryFishMotion.gd",
+        "controller_sha256": "0d5e854a43ec4f0a19983484d7d880141b3bb13a54505fcb422e2c0aae3aecfe",
+        "exhibit_sha256": "67879f8bd38df331937f53a1bf55731bc8f702d58271deb0175863433900e01c",
+        "motion_config_sha256": "9637da5c6a297621d68c15585c5566b5bb8d8ab46ee2f4e4176f24aacf978181",
+        "export_script_sha256": "796dcd3d628eae7b02d792025e6461ebf2804fe060894522058351487304d712",
+        "engine_version": "4.6.1-stable (official)",
+        "sample_limit": "Eight equally spaced sample times per action; between-sample contact is not proven.",
+        "checker_sha256": "c41785ca6361b987a42e328c67b8927c6f1b88535958911f09effaa0d5cdf2ea",
+        "tolerance_cm": 0.1,
+        "body_triangles": 16508,
+        "method": "Actual Godot exhibit four-action controller bone poses and imported GLB skin inverse-bind matrices. CPU linear-blend-skin body triangles and root vertices/edge points; exact posed body triangle BVH signed nearest distances in carrier-local meters, converted to cm. This measures root contact, not tank containment."
+      }
+    },
+    {
+      "historical_path": "output/blacktip-rootwall-second-view-20261105/retention.validation.json",
+      "sha256": "b13bc7aad80b867d232ca5e92027a6b1bc9b206b89b6c81642be7487cb5f6f35",
+      "scalars": {
+        "ok": true,
+        "scope": "read-only single historical actual pose; no candidate modified",
+        "retained_bytes_before_receipt": 24403,
+        "deleted_bytes": 0
+      }
+    },
+    {
+      "historical_path": "output/blacktip-rootwall-second-view-20261105/second-view.validation.json",
+      "sha256": "171bcba3d36f0cbabbafdbf731274c15a3a753fa63ac42150e6e46105b6d1f72",
+      "scalars": {
+        "ok": true,
+        "kind": "read_only_blacktip_first_dorsal_single_pose_failure_confirmation",
+        "scope": "One stable actual pose only, source read-only. Shared vertex contact excluded. No candidate written, no490/whole-fish tests."
+      }
+    },
+    {
+      "historical_path": "output/fin-attachment-limit-contract-20261105/retention.validation.json",
+      "sha256": "850cae2f84fe0e53076002dea55299a3c1793709fece62b24e2c8b64f935aacc",
+      "scalars": {
+        "ok": true,
+        "retained_bytes_before_receipt": 13607,
+        "synthetic_fixture_deleted_files": 65,
+        "synthetic_fixture_deleted_bytes": 75561,
+        "deletion_manifest": "validation.json#cleanup",
+        "cache_deleted_bytes": 36077,
+        "fish_files_changed": 0
+      }
+    },
+    {
+      "historical_path": "output/fin-attachment-limit-contract-20261105/validation.json",
+      "sha256": "69eb420d95aa0a5cf72b4a7848910bde2318d25561791473caf8c50b0f2ef8d5",
+      "scalars": {
+        "ok": true,
+        "scope": "Real runner mains with synthetic hashed fixture and intercepted subprocesses; parser, command units, report reuse only. No fish/geometry/exporter/kernel or490 sample evaluation.",
+        "fixture_cleaned": true
+      }
+    },
+    {
+      "historical_path": "output/fin-surface-exporter-20261105/negative-missing-planned-fin/export.validation.json",
+      "sha256": "fbf1676a0f571f803092813714816f2a242188211344921b43ef4bc19a10c9bc",
+      "scalars": {
+        "base_exporter_sha256": "0dffe432a891ca54447c6138954c05c5ed0a6b5ab1bb9760e808fdac53ccaa99",
+        "merge_scope": "Each surface uses its own actual skin bindings and pose transform first; only world-metre coordinates/indices/root samples are concatenated. Native bindings are never merged.",
+        "merged_surface_revision": 1,
+        "ok": false
+      }
+    },
+    {
+      "historical_path": "output/fin-surface-exporter-20261105/negative-missing-planned-fin/surface-inventory.actual.json",
+      "sha256": "92b2072f64eaed60f394ecf641011dbb1783673912e247103dd8be6060804eeb",
+      "scalars": {
+        "kind": "actual_prepared_fin_surface_inventory",
+        "model_sha256": "2553f95e83a0228308072636e12b74736e91f06d0d6c6db0e01599b5d5f7c31a",
+        "ok": false,
+        "prepared_matches_original_source": false
+      }
+    },
+    {
+      "historical_path": "output/fish-production-cycle-20261031/bluegill-postcleanup.validation.json",
+      "sha256": "c0c7532b9d60b37a77ffe18f58c51b8aaaf5ca4b7b10f8168f6f70a61711adaa",
+      "scalars": {
+        "schema_version": 1,
+        "ok": true,
+        "command": "volume.sop-check",
+        "status": "done",
+        "next_action": "human_review",
+        "species": "bluegill",
+        "review_sha256": "375f44a945d8fcd966afedf19ae72551e5dbddd56b54616552d86a66c0d8983a",
+        "checker_sha256": "eba0373b1228e0046dabad429908cda67892623bd124144758cc486d2b932360",
+        "finalization_checker_sha256": "937461e4e86398f409c01ffd6f375afa0584fbe1033f349e0162e364aa7ecc56",
+        "evidence_count": 51,
+        "scope": "Checks required evidence, declared candidate bindings, integrated jaw-cut resource and description or justified anatomical branch, final asset declarations and bound fresh-process/no-static-builder report fields, file freshness and operator observations. Does not export assets, run Godot, prove undisclosed-builder absence, report semantics or visual quality. Actual cold-load capture, specialized gates and visual review remain required. No asset/user acceptance."
+      }
+    },
+    {
+      "historical_path": "output/fish-production-cycle-20261031/brown-push.validation.json",
+      "sha256": "f55dc0409cf75a2381ad7af7ac017dea0cc63f1511544061a8438d7b42cae9a0",
+      "scalars": {
+        "ok": true,
+        "kind": "brown_per_fish_two_repo_push"
+      }
+    },
+    {
+      "historical_path": "output/fish-reference-compare-20261105/closeout.validation.json",
+      "sha256": "7e954b92c2d010bed468ea7d6175049fe4b594eb17e59638f29c321584fc98d7",
+      "scalars": {
+        "ok": true,
+        "assets_modified": false,
+        "committed_or_pushed": false,
+        "fish": 24,
+        "actual_3d_reference_pairs": 27,
+        "model_pngs": 216,
+        "pdf_pages": 29,
+        "all27_sheets_lossless_in_final_pdf": true,
+        "all29_pdf_pages_visually_reviewed": true,
+        "html_actual_browser_interactions": "not verified: automatic approval rejected browser binding because current Windows URL could not be determined reliably; no bypass; PDF and direct PNGs provided.",
+        "primary_reference_gap": "Red seabream primary CC0 mesh not acquired; original4 oblique previews shown explicitly, secondary Gilthead is separately identified."
+      }
+    },
+    {
+      "historical_path": "output/fish-reference-compare-20261105/pdf-final-amendment.validation.json",
+      "sha256": "35d926ce28c03fbd4fa28be52ebf619750cca385af34938b2b9d388038b74618",
+      "scalars": {
+        "ok": true,
+        "current_pdf_sha256": "5dcd4cdce11d74a5dc853f57b074f68d8f4e9a79dc1ecdee0351d0d99b81180d",
+        "previous_pdf_sha256": "93abd873727f459069323a6783132aaaafca970a4dcd6ada5fda2895eeff0e53",
+        "only_authoring_change": "Cover says companion review webpage rather than incorrectly saying same-directory webpage. No model render or comparison image changed."
+      }
+    },
+    {
+      "historical_path": "output/fish-replacement-056/installation.validation.json",
+      "sha256": "013a935412b3553df2f13b58997bcfa131929244f58da068b4cb0b17e0ea2b0a",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.install-reviewed-models",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "arapaima_retained_sha256": "8d5d1678c3beebcdaa123fd1a8c607615138ee8f9ec9f232dffcc72d14b2886e"
+      }
+    },
+    {
+      "historical_path": "output/fish-replacement-056/blacktip-runtime-contact.validation.json",
+      "sha256": "c221b45f2d776758904c36daed507de57f0dcc7b149482ef4fcf3855fe7f5270",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.fin.check-runtime-attachment",
+        "stage": "validate",
+        "status": "done",
+        "next_action": "human_review",
+        "ok": true,
+        "model": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/models/blacktip_reef_shark/055-reviewed.handoff-artifacts/fish.glb",
+        "model_sha256": "f19216bd68bd10602d74313a0a25ef3f47b902a8f7905790e1eb4ef71485f11a",
+        "export_report": "E:\\game-ai-foundry\\output\\fish-replacement-056\\blacktip-skin\\export.validation.json",
+        "export_report_sha256": "f048594be24f3fa4e36e8d200993fad6220035cbdab7821fa51177844eb44ecb",
+        "root_selection": "Own-fin bone weight exactly0 for projected root band",
+        "controller_source": "res://scripts/aquarium/FoundryFishMotion.gd",
+        "controller_sha256": "0d5e854a43ec4f0a19983484d7d880141b3bb13a54505fcb422e2c0aae3aecfe",
+        "exhibit_sha256": "67879f8bd38df331937f53a1bf55731bc8f702d58271deb0175863433900e01c",
+        "motion_config_sha256": "9637da5c6a297621d68c15585c5566b5bb8d8ab46ee2f4e4176f24aacf978181",
+        "export_script_sha256": "796dcd3d628eae7b02d792025e6461ebf2804fe060894522058351487304d712",
+        "engine_version": "4.6.1-stable (official)",
+        "sample_limit": "Eight equally spaced sample times per action; between-sample contact is not proven.",
+        "checker_sha256": "c41785ca6361b987a42e328c67b8927c6f1b88535958911f09effaa0d5cdf2ea",
+        "tolerance_cm": 0.1,
+        "body_triangles": 16508,
+        "method": "Actual Godot exhibit four-action controller bone poses and imported GLB skin inverse-bind matrices. CPU linear-blend-skin body triangles and root vertices/edge points; exact posed body triangle BVH signed nearest distances in carrier-local meters, converted to cm. This measures root contact, not tank containment."
+      }
+    },
+    {
+      "historical_path": "output/fish-session-quarantine/projects/fishing-2d/experiments/blender-fish/models/mahi_mahi/057.handoff-artifacts/validation.json",
+      "sha256": "e022d6f76d80e9aa1213d2facb59f39257643e5f5b62b323ea8d8f79d77c8aff",
+      "scalars": {
+        "schema_version": 1,
+        "run_id": "098a44d0b5a346e192287bcecd4fefda",
+        "ok": false,
+        "status": "failed",
+        "next_action": "fix_input",
+        "style_visual_review": "pending",
+        "source_sha256": "fd9e6eeb1ef3c2f02d96cb66b1ae69d596f692c58ad8e312d74057334d0bebde",
+        "profile_sha256": "7cddd23b8ac6664e8f30032d5aa65d76982352159f87d5b6d8184f5dac84744d",
+        "style_reference_sha256": "d1940c55f6ceb0056c7689e66f794dd8c04fd563ca304519203d21fcfe2f24c9",
+        "front_source_sha256": "adf04abfa636634f3a4a327507e0f16d3c28def61a773d9349e2d76c74a33715",
+        "top_source_sha256": "533089e35289274dfc32852d0d2226f93be01ad8101b3fd6667ab92c6c40cdcc",
+        "bottom_source_sha256": "7bbf8fb972cc346cbcf4023fed8d7efba51801031c229bcc95e19d43e33a00f6"
+      }
+    },
+    {
+      "historical_path": "output/fish-session-quarantine/projects/fishing-2d/experiments/blender-fish/models/mahi_mahi/057c.handoff-artifacts/validation.json",
+      "sha256": "42e1debda3358bdc9b9b90982589637de48f7d4e9d3a8e347f2bfd9d366cdc0a",
+      "scalars": {
+        "schema_version": 1,
+        "run_id": "a8b59ef261c34280bd491158cbbeb883",
+        "ok": false,
+        "status": "failed",
+        "next_action": "fix_input",
+        "style_visual_review": "pending",
+        "source_sha256": "fd9e6eeb1ef3c2f02d96cb66b1ae69d596f692c58ad8e312d74057334d0bebde",
+        "profile_sha256": "3be8584feb67f2da99070b0674cbb4cb80e225e6eeead9b5045c9b0517f4a35a",
+        "style_reference_sha256": "d1940c55f6ceb0056c7689e66f794dd8c04fd563ca304519203d21fcfe2f24c9",
+        "front_source_sha256": "adf04abfa636634f3a4a327507e0f16d3c28def61a773d9349e2d76c74a33715",
+        "top_source_sha256": "533089e35289274dfc32852d0d2226f93be01ad8101b3fd6667ab92c6c40cdcc",
+        "bottom_source_sha256": "7bbf8fb972cc346cbcf4023fed8d7efba51801031c229bcc95e19d43e33a00f6",
+        "traceback": "Traceback (most recent call last):\n  File \"E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\build_fish.py\", line 653, in main\n    checks,metrics=(revise_native(h,p,source,outputs) if p.get(\"rest_shape_revision\") else build(h,p,source,outputs));report.update(checks=checks,metrics=metrics,glb_sha256=sha(outputs['glb']),blend_sha256=sha(outputs['blend']));passed=all(checks.values());report.update(ok=passed,status='done' if passed else 'failed',next_action='human_review' if passed else 'fix_input')\n                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\build_fish.py\", line 373, in build\n    tu,tv=opaque_uv(tu,tv,(top+bottom)/2)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\build_fish.py\", line 168, in opaque_uv\n    raise ValueError('Body UV cannot find opaque source pixels: review contour profile')\nValueError: Body UV cannot find opaque source pixels: review contour profile\n"
+      }
+    },
+    {
+      "historical_path": "output/fish-status-audit-20261104/fish-status-audit.json",
+      "sha256": "7f7c347fcb40de3aa05041d6d4a756064a01de9fc5cd346462aa8fcd4717161c",
+      "scalars": {
+        "kind": "derived_all_fish_status_audit",
+        "date": "2026-11-04T01:51:45.503580+08:00",
+        "scope": "Read-only reconciliation of durable manifests/handoffs/validation reports and installed model SHA. This snapshot does not create acceptance, rerun old gates, or resume paused production. Original source records remain authoritative.",
+        "count": 28
+      }
+    },
+    {
+      "historical_path": "output/five-final-viewer/20261104-012517-980389/catalog.json",
+      "sha256": "cfab30bb98ea540f61c560ff9144d2d53c98ca4646580963bd4a4e54db893058",
+      "scalars": {
+        "kind": "existing_fish_review_list",
+        "mode": "interactive",
+        "output": "E:\\game-ai-foundry\\output\\five-final-viewer\\20261104-012517-980389"
+      }
+    },
+    {
+      "historical_path": "output/five-final-viewer/20261104-012517-980389/viewer.validation.json",
+      "sha256": "63ad760d5229085d939143a610fd53c9ca8e757f689114b37abd6259d085fc3f",
+      "scalars": {
+        "kind": "fish_asset_viewer_validation",
+        "mode": "interactive",
+        "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\rainbow_trout.glb",
+        "model_role": "final_model",
+        "model_sha256": "21ada1433018b188f418695a1fa2b6106463395f0b2b1540c00b1b6774661554",
+        "next_action": "human_review",
+        "ok": true,
+        "schema_version": 1,
+        "spec_sha256": "e69755f4fb1271cc4a972e52c23e78edb3a9fbdfa5548e31dce34c675ae9251b",
+        "status": "done",
+        "visual_review": "pending"
+      }
+    },
+    {
+      "historical_path": "output/five-fish-delivery-cleanup-20261101/execution.validation.json",
+      "sha256": "c3f68845c4c3c0621f0e39a66408235bae60663dd554ef2a89784e5ce1154279",
+      "scalars": {
+        "ok": true,
+        "apply": true,
+        "plan": "E:\\game-ai-foundry\\output\\five-fish-delivery-cleanup-20261101\\plan.json",
+        "plan_sha256": "812035a43265b61f3a7ac0da65abd63667565a2f63b67f932d386d6895d65b36",
+        "eligible_files": 3653,
+        "eligible_bytes": 950986575,
+        "deleted_files": 3653,
+        "deleted_bytes": 950986575
+      }
+    },
+    {
+      "historical_path": "output/five-fish-delivery-cleanup-20261101/negative/outside-workspace/plan.json",
+      "sha256": "14554da7a1f8525c321b1687615c8765b7a265091c547810ccb87439088a0f1d",
+      "scalars": {
+        "kind": "reviewed_fish_delivery_cache_cleanup",
+        "workspace": "E:\\game-ai-foundry",
+        "scope_root": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\five-fish-head-evidence-20261101",
+        "retention_report": "E:\\game-ai-foundry\\projects\\fishing-2d\\plans\\reviews\\five-fish-width-detail-20261031\\final-width-release-retention.validation.json",
+        "authorization": "User explicitly requested to handle cleanup with documented safer procedure, then continue production.",
+        "scope": "Regenerated from current passing deliveries, preserves archived source/evidence, all extrema and20 phases; no recursive directory removal."
+      }
+    },
+    {
+      "historical_path": "output/four-fish-top-nano-20261031/bluegill/brief-freeze.validation.json",
+      "sha256": "93508e13316b0e6f5af23a834b2195f0c6861a56089fbe7a3521756b3d3e1dc1",
+      "scalars": {
+        "ok": true,
+        "input": "E:\\game-ai-foundry\\output\\four-fish-top-nano-20261031\\bluegill\\draft.json",
+        "output": "E:\\game-ai-foundry\\output\\four-fish-top-nano-20261031\\bluegill\\brief.json"
+      }
+    },
+    {
+      "historical_path": "output/four-fish-top-nano-20261031/bluegill/pipeline/jobs/e34008d041f2.json",
+      "sha256": "6d5fa41aa9f6fe168e62282cc9b19bb408914fbd302b37bfaafb93046bcd1d04",
+      "scalars": {
+        "schema_version": 1,
+        "job_id": "e34008d041f2",
+        "status": "failed",
+        "cwd": "E:\\game-ai-foundry",
+        "jobs_dir": "E:\\game-ai-foundry\\output\\four-fish-top-nano-20261031\\bluegill\\pipeline\\jobs",
+        "job_file": "E:\\game-ai-foundry\\output\\four-fish-top-nano-20261031\\bluegill\\pipeline\\jobs\\e34008d041f2.json",
+        "log_file": "E:\\game-ai-foundry\\output\\four-fish-top-nano-20261031\\bluegill\\pipeline\\jobs\\e34008d041f2.log",
+        "pid": 39356,
+        "exit_code": 1,
+        "started_at": "2026-10-31T11:16:11+00:00",
+        "finished_at": "2026-10-31T11:16:18+00:00",
+        "error": null,
+        "worker_pid": 24184
+      }
+    },
+    {
+      "historical_path": "output/four-fish-width-study-20261031/illustrations/bluegill/brief-freeze.validation.json",
+      "sha256": "1612ec8228f89bc3283fd444551f79019d0ef2419e78d4d64a020627f88f15d7",
+      "scalars": {
+        "ok": true,
+        "input": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\draft.json",
+        "output": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\brief.json"
+      }
+    },
+    {
+      "historical_path": "output/four-fish-width-study-20261031/illustrations/bluegill/pipeline/jobs/cd3994979f51.json",
+      "sha256": "25319e8fac9fa8148e426bbfcb5f8fce75b2eb7be770c75a21687aed432a9bc2",
+      "scalars": {
+        "schema_version": 1,
+        "job_id": "cd3994979f51",
+        "status": "done",
+        "cwd": "E:\\game-ai-foundry",
+        "jobs_dir": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\pipeline\\jobs",
+        "job_file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\pipeline\\jobs\\cd3994979f51.json",
+        "log_file": "E:\\game-ai-foundry\\output\\four-fish-width-study-20261031\\illustrations\\bluegill\\pipeline\\jobs\\cd3994979f51.log",
+        "pid": 24292,
+        "exit_code": 0,
+        "started_at": "2026-10-31T11:53:51+00:00",
+        "finished_at": "2026-10-31T11:54:19+00:00",
+        "error": null,
+        "worker_pid": 39728
+      }
+    },
+    {
+      "historical_path": "output/hairtail-adapter-check-20261104/cleanup-execution.json",
+      "sha256": "4855632effa8fb87a59bea72f257f101f8cce59526216589e955e2d964bfd2b0",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": true,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\hairtail-adapter-check-20261104\\cleanup-plan.json",
+        "eligible_files": 1,
+        "eligible_bytes": 40435.0,
+        "deleted_files": 1,
+        "deleted_bytes": 40435
+      }
+    },
+    {
+      "historical_path": "output/hairtail-adapter-check-20261104/cleanup-preflight.json",
+      "sha256": "35b54ae0d33b7875f7c68e2724b6a0d8517cf22bcce46cd0d62d35c19e73ef87",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": false,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\hairtail-adapter-check-20261104\\cleanup-plan.json",
+        "eligible_files": 1,
+        "eligible_bytes": 40435.0,
+        "deleted_files": 0,
+        "deleted_bytes": 0
+      }
+    },
+    {
+      "historical_path": "output/hairtail-exact-contact-cache-20261105/cleanup-execution.json",
+      "sha256": "0dea8e8847ad94a6f6133c31211386440e28ca8b1ad6800a8e620fba79109ab1",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": true,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\hairtail-exact-contact-cache-20261105\\cleanup-plan.json",
+        "eligible_files": 1,
+        "eligible_bytes": 17571.0,
+        "deleted_files": 1,
+        "deleted_bytes": 17571
+      }
+    },
+    {
+      "historical_path": "output/hairtail-exact-contact-cache-20261105/cleanup-preflight.json",
+      "sha256": "e73b95b9d0b818909cf5208b3dbe5ff8a9f54f004825c2c34ff2c5d82a7fc3d9",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": false,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\hairtail-exact-contact-cache-20261105\\cleanup-plan.json",
+        "eligible_files": 1,
+        "eligible_bytes": 17571.0,
+        "deleted_files": 0,
+        "deleted_bytes": 0
+      }
+    },
+    {
+      "historical_path": "output/list-click-scroll-20261105/binding.validation.json",
+      "sha256": "a0777008b57c04f97d312a6aec2b6cd4ac02f819e575fc8aa18995b75e66a56e",
+      "scalars": {
+        "ok": true,
+        "viewer_sha256": "cc3b89bac304e7f1db2fc8d24b688413c78812f8516ae5652a9fa952836b5945",
+        "previous_viewer_sha256": "375fe7777f79334baaf0d0a39f012fdd31cc2beaf2478f1e9951ddc78c04747d",
+        "only_delta": "Replace smoke click position with scroll helper and add that helper; reversing these bytes recreates previous exact SHA. Nearest binding and gray implementation unchanged.",
+        "unchanged_helper_sha256": "1e0ea68d39e7773ea08553a3b960a25ac65240461f50f97495391bd982d7c890",
+        "unchanged_gray_base_sha256": "ad1891876f2ff2e3e939ded54983e965ede5f9d4f5f79ef57ef8c7394365d2c3",
+        "fixture_sha256": "7f7192b33035014a9cb56de5869124373d57451cc3a2353ea396c2c72a75c3de",
+        "actual_display_server": "Windows"
+      }
+    },
+    {
+      "historical_path": "output/list-click-scroll-20261105/retention.validation.json",
+      "sha256": "0243dc79681d94f1c52cd3b86980e6fa1764cee65e5fd8d62a375d7d20dd6515",
+      "scalars": {
+        "ok": true,
+        "deleted_bytes": 11024,
+        "retained_bytes_before_receipt": 17033
+      }
+    },
+    {
+      "historical_path": "output/list-nearest-materials-20261105/bad-array/viewer.validation.json",
+      "sha256": "e200416cd311980abf24de5420e9b1d6d17adb49e8ecd204ed8877b7029e6679",
+      "scalars": {
+        "kind": "fish_asset_viewer_validation",
+        "mode": "material_fixture",
+        "model": null,
+        "model_role": "synthetic fixture, no fish",
+        "model_sha256": null,
+        "next_action": "human_review",
+        "ok": false,
+        "schema_version": 1,
+        "spec_sha256": null,
+        "status": "failed",
+        "visual_review": "pending"
+      }
+    },
+    {
+      "historical_path": "output/list-nearest-materials-20261105/bad-empty/viewer.validation.json",
+      "sha256": "e200416cd311980abf24de5420e9b1d6d17adb49e8ecd204ed8877b7029e6679",
+      "scalars": {
+        "kind": "fish_asset_viewer_validation",
+        "mode": "material_fixture",
+        "model": null,
+        "model_role": "synthetic fixture, no fish",
+        "model_sha256": null,
+        "next_action": "human_review",
+        "ok": false,
+        "schema_version": 1,
+        "spec_sha256": null,
+        "status": "failed",
+        "visual_review": "pending"
+      }
+    },
+    {
+      "historical_path": "output/local-cleanup-20261102/caches/cleanup-execution.json",
+      "sha256": "ea55b97fb54382ee17a7f9c355f7aec0f1d6bc34a60d9ad0e36ee1c75f481106",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": true,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\local-cleanup-20261102\\caches\\cleanup-plan.json",
+        "eligible_files": 473,
+        "eligible_bytes": 30171533.0,
+        "deleted_files": 473,
+        "deleted_bytes": 30171533
+      }
+    },
+    {
+      "historical_path": "output/local-cleanup-20261102/caches/cleanup-preflight.json",
+      "sha256": "44189be7d64a503e7fff7eae0935813dd9ae741a6b72b3bb6bf2d494795432d5",
+      "scalars": {
+        "command": "maintenance.clear-reviewed-caches",
+        "apply": false,
+        "ok": true,
+        "plan": "E:\\game-ai-foundry\\output\\local-cleanup-20261102\\caches\\cleanup-plan.json",
+        "eligible_files": 473,
+        "eligible_bytes": 30171533.0,
+        "deleted_files": 0,
+        "deleted_bytes": 0
+      }
+    },
+    {
+      "historical_path": "output/mahi-057/final-anatomy.validation.json",
+      "sha256": "2d38ed6346006eed3a83b56c3631b676b20ec0e175b25770a9315ff9a7bdf472",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.anatomy.measure",
+        "ok": true,
+        "status": "done",
+        "next_action": "human_review",
+        "blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\mahi_mahi\\057e.handoff-artifacts\\fish.blend",
+        "blend_sha256": "5ca5752fc06931222f16895ee58ce9e7e14b52fe3f95b7d86de1f101b0fb3a09",
+        "profile_sha256": "32983785023a12e2fc7ecceac47915b5785bd2c3b7c5875e6cf5c2e8ab592e0b",
+        "target_total_length_cm": 120,
+        "cm_per_unit": 120.60301449740705,
+        "method": "Native rest-mesh world-space edge/plane intersections at X=u-.5. Visible body/head/cephalofoil envelope; paired-fin spans excluded. Closed_body perimeter orders single star-convex contour points; no circle approximation and no mixed-shell perimeter.",
+        "anatomy_acceptance": "pending"
+      }
+    },
+    {
+      "historical_path": "output/mahi-057/final-native-contact.validation.json",
+      "sha256": "a48e950a7dab2ac555a3e9ab0d7180244b980abfddf26951d2ab38481a3cdf47",
+      "scalars": {
+        "schema_version": 1,
+        "command": "volume.fin.check-attachment",
+        "stage": "validate",
+        "status": "done",
+        "next_action": "human_review",
+        "ok": true,
+        "blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\mahi_mahi\\057e.handoff-artifacts\\fish.blend",
+        "blend_sha256": "5ca5752fc06931222f16895ee58ce9e7e14b52fe3f95b7d86de1f101b0fb3a09",
+        "profile": "E:\\game-ai-foundry\\resources\\volume-fish\\mahi-mahi-057e.profile.json",
+        "profile_sha256": "32983785023a12e2fc7ecceac47915b5785bd2c3b7c5875e6cf5c2e8ab592e0b",
+        "cm_per_unit": 120.60301449740705,
+        "tolerance_cm": 0.1,
+        "method": "Exact evaluated Closed_body triangle BVH signed nearest distances. Actual proximal root vertices plus 1/4,1/2,3/4 points on edges wholly in the root band. Negative means embedded. Positive above tolerance means exposed. No whole-mesh nearest-point shortcut.",
+        "scope": "Rest + native Blender clip; Godot four-action overlays require separate runtime skin audit."
+      }
+    },
+    {
+      "historical_path": "output/six-cyprinid-reference-20261104/crucian-transform.validation.json",
+      "sha256": "e36e7ea6cdd01e5b269dd1b1c882e895a8812458886ff23d4b8a05d26d22e9a1",
+      "scalars": {
+        "ok": true,
+        "kind": "local_unity_bind_geometry_reference_transform_audit",
+        "bundle": "resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\b_fish_cruciancarp.unity3d",
+        "bundle_sha256": "a41c0a10c1d973a92bebe8abb87299217ddb81f528cb105546db0c99cec8e063",
+        "parser": "UnityPy 1.25.4",
+        "prefix_skipped": 32,
+        "renderer_path_id": -6339203028579842140,
+        "mesh_path_id": 2094825725672363868,
+        "anisotropy_ratio": 1.0,
+        "ratio_scope": "Rotation/uniform scale preserve intrinsic length-width ratios of mesh-local bind geometry. OBJ axes are chosen by actual body/fin inspection."
+      }
+    },
+    {
+      "historical_path": "output/six-cyprinid-reference-20261104/grass_carp-transform.validation.json",
+      "sha256": "03420005595ca835ef7d526c8d5ed666fb25231b00ef795b25b7beb7d4c203bd",
+      "scalars": {
+        "ok": true,
+        "kind": "local_unity_bind_geometry_reference_transform_audit",
+        "bundle": "resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\b_fish_grasscarp.unity3d",
+        "bundle_sha256": "c3f5a9844934d7ac34c5872a7c84070a22f7b9e1acc27d8b8d1b1c55c2d12dff",
+        "parser": "UnityPy 1.25.4",
+        "prefix_skipped": 32,
+        "renderer_path_id": 3150504860836565204,
+        "mesh_path_id": 6027446769334768360,
+        "anisotropy_ratio": 1.0,
+        "ratio_scope": "Rotation/uniform scale preserve intrinsic length-width ratios of mesh-local bind geometry. OBJ axes are chosen by actual body/fin inspection."
+      }
+    },
+    {
+      "historical_path": "output/six-fish-carp-bluegill-20261104/bluegill-transform.validation.json",
+      "sha256": "ce31b2a5917169ec4d03c709782f35c1fd7ba5d397c1827ff5907a955c65b588",
+      "scalars": {
+        "ok": true,
+        "kind": "local_unity_bind_geometry_reference_transform_audit",
+        "bundle": "resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\b_fish_bluegill.unity3d",
+        "bundle_sha256": "505150e78d8fee7d721094ba083d96937c2c77131dd2570384562e014161d221",
+        "parser": "UnityPy 1.25.4",
+        "prefix_skipped": 32,
+        "renderer_path_id": -3763626456051600091,
+        "mesh_path_id": 4309684266297557246,
+        "anisotropy_ratio": 1.0,
+        "ratio_scope": "Rotation/uniform scale preserve intrinsic length-width ratios of mesh-local bind geometry. OBJ axes are chosen by actual body/fin inspection."
+      }
+    },
+    {
+      "historical_path": "output/six-fish-carp-bluegill-20261104/carp-transform.validation.json",
+      "sha256": "d11ce13a81965008937f5f8670241806ea67bfedfad3f319c84fc033942cc264",
+      "scalars": {
+        "ok": true,
+        "kind": "local_unity_bind_geometry_reference_transform_audit",
+        "bundle": "resources\\fish-database\\artifacts\\fishing-master-cdn-cnformal1-20261102\\b_fish_commoncarp.unity3d",
+        "bundle_sha256": "ded4cd0836c61149087ec6923e9175978452d03511fd66f11d0515585bab3e08",
+        "parser": "UnityPy 1.25.4",
+        "prefix_skipped": 32,
+        "renderer_path_id": 391885132046157114,
+        "mesh_path_id": 2016450447038955787,
+        "anisotropy_ratio": 1.0,
+        "ratio_scope": "Rotation/uniform scale preserve intrinsic length-width ratios of mesh-local bind geometry. OBJ axes are chosen by actual body/fin inspection."
+      }
+    },
+    {
+      "historical_path": "work/carp-frozen-tools-20261101/snapshot.validation.json",
+      "sha256": "beb20548e9580602ab8e88e57102e37a27d7d9d55edc48fdfc4977542111a544",
+      "scalars": {
+        "ok": true,
+        "kind": "immutable_tool_snapshot",
+        "reason": "Concurrent change to run_delivery_checks.py interrupted candidate-r3 motion hash guard. Freeze full volume-fish tool module tree without changing its root-depth/layout. CLI, actual fish/runtime inputs remain separately hash-bound."
+      }
+    },
+    {
+      "historical_path": "work/carp-submit-20261101/submission.validation.json",
+      "sha256": "210df91bf8352fc1dddbc0b4eb9ca56bb16e103162ab8e7cc4adb9c49bc5916a",
+      "scalars": {
+        "ok": true,
+        "push_confirmation": "both_pushes_successful",
+        "scope": "Current carp local material appearance accepted; unrelated ongoing work left untouched.",
+        "retention": "Current accepted model/source/generated image/reports/stills/video plus lossless hash-verified historical archive. Earlier 354.9MiB dense-pose/frame cleanup retained. Submission helper plans and receipt kept for reproducibility."
+      }
+    },
+    {
+      "historical_path": "work/fish-portable-tools/deepseek-review-summary.validation.json",
+      "sha256": "4b696e3bd2144e2f5f1471b85fc0ff563b39d2d728a52f933efd3ee36b1bdabb",
+      "scalars": {
+        "provider": "DeepSeek",
+        "model": "deepseek-flash",
+        "reasoning_effort": "high",
+        "authorization": "User explicitly allowed the five-source-file read-only review on this turn.",
+        "initial_automatic_review_rejected": true,
+        "authorization_after_rejection": true,
+        "calls_sent": 2,
+        "final_review_received": false,
+        "status": "failed",
+        "reason": "Both responses finish_reason=length; all completion tokens reported as reasoning, no final findings_text. Stopped after one bounded retry.",
+        "elapsed_seconds": 204.241,
+        "new_code_changes": 0,
+        "provider_cost": "not reported; no price estimate inferred",
+        "limits": "These are DeepSeek API tokens, not measured Codex usage or savings. This failure does not prove model incapability; it shows this request/effort/output-budget combination did not return a usable final report."
+      }
+    },
+    {
+      "historical_path": "work/fish-portable-tools/baseline.validation.json",
+      "sha256": "91f92f202b66f6a5e33d8037e8c4a02a085d5785bb52704213c9ea38961b829c",
+      "scalars": {
+        "ok": true,
+        "kind": "portable_tools_frozen_baseline",
+        "scope": "Preserve historical tools and reviewed Nile source/model/runtime/SOP; new portable entries only."
+      }
+    },
+    {
+      "historical_path": "work/lip-retirement-160-body/whale_shark/completion.validation.json",
+      "sha256": "8d7fa589bbd92fad046b1d4f90596279148ff106b012a0a2086b65cefc93880c",
+      "scalars": {
+        "ok": false,
+        "error": "'Eye_relief112_-1_0'"
+      }
+    },
+    {
+      "historical_path": "work/sop-optimization-20261102/peacock-negative-final.json",
+      "sha256": "b982c9cc04b9955fd99931f8b0adadf6a0832e945d16708bfc833c33d76faa43",
+      "scalars": {
+        "ok": false,
+        "kind": "native_lip_donor_2d_preflight",
+        "alpha_minimum": 0.95,
+        "sampling": "Nearest np.rint; top-left image pixels, equivalent to author H-1-y lookup",
+        "scope": "Conservative complete outward source-strip footprint, including fade and inner return. No geometry/source/config writes. A pass does not validate tissue ownership, actual 3D phase/domain, baked texels, appearance or SOP. A boundary-only rejection needs actual sample evidence; do not weaken the author opacity/bounds guards.",
+        "checker_sha256": "f52b2e2336cbfa0bd9e8c2d062785004548e2367d112b1b08934de352cda0fb2"
+      }
+    },
+    {
+      "historical_path": "work/sop-optimization-20261102/piranha-positive-final.json",
+      "sha256": "7fe5c689ff7553ac58ed75a7b754a8e6e1caec7594cfc7cfba8dfd342245601f",
+      "scalars": {
+        "ok": true,
+        "kind": "native_lip_donor_2d_preflight",
+        "alpha_minimum": 0.95,
+        "sampling": "Nearest np.rint; top-left image pixels, equivalent to author H-1-y lookup",
+        "scope": "Conservative complete outward source-strip footprint, including fade and inner return. No geometry/source/config writes. A pass does not validate tissue ownership, actual 3D phase/domain, baked texels, appearance or SOP. A boundary-only rejection needs actual sample evidence; do not weaken the author opacity/bounds guards.",
+        "checker_sha256": "f52b2e2336cbfa0bd9e8c2d062785004548e2367d112b1b08934de352cda0fb2"
+      }
+    },
+    {
+      "historical_path": "work/zander-rebuild-20261027/candidate.validation.json",
+      "sha256": "04aadfe8f876944c1e2b390153b7de59a0df9f67697e8207e785596a76539bb9",
+      "scalars": {
+        "candidate": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blender-fish\\models\\zander\\manual-edit-20261027\\fish-reconnected-v2.blend",
+        "sha256": "cce5bd262639671b8c9fd571c8df4b9e7f1f988a7bf877106939928ef2339f2a",
+        "vertices": 26718,
+        "faces": 53432,
+        "nonmanifold_or_open_edges": 0,
+        "opposed_face_winding_mismatches": 0,
+        "min_face_area": 7.847943961358794e-10,
+        "faces_below_1e_minus_10_m2": 0,
+        "vertex_weight_sum_min": 0.9999999264255166,
+        "vertex_weight_sum_max": 1.000000064726919,
+        "unweighted_vertices": 0,
+        "uv_layers": 2,
+        "status": "geometry_checked_visual_pending"
+      }
+    },
+    {
+      "historical_path": "work/zander-rebuild-20261027/cold-read.validation.json",
+      "sha256": "53533ffa319945d0ae19adbe6ef5db5898554f53e51a933056539a323038543b",
+      "scalars": {
+        "body_surfaces": 1,
+        "body_vertices": 26877,
+        "kind": "cold_read_geometry_only",
+        "ok": true,
+        "scope": "Direct GLB import in a fresh Godot headless process; no game materials, runtime animations or GPU visual acceptance.",
+        "skeleton_bones": 19,
+        "skin": true,
+        "source": "E:/game-ai-foundry/projects/fishing-2d/experiments/blender-fish/models/zander/manual-edit-20261027/fish-reconnected-v2.glb",
+        "source_sha256": "2948577b0fc1a8952e27ec8811b7a2b05fb0fdbcbf4ed8ea606c159342986d25"
+      }
+    }
+  ],
+  "retired_full_checkpoint_excerpt_count": 439,
+  "retired_full_excerpt_sha256": "808affee3b9bd67a33208fbf91a77a7f39a4b65856c9c54afa2e214e73e8bb53"
+}

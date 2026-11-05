@@ -1,0 +1,438 @@
+{
+  "species": "peacock_bass",
+  "display_length_cm": 50,
+  "whole_triangles": 1842,
+  "preferred_triangles": 1500,
+  "hard_triangles": 2000,
+  "review_status": "complete independent candidate; awaiting user whole-fish acceptance; public asset unchanged",
+  "source_roles": {
+    "original_source_image": "Accepted1817x805 original is the geometry/fin/eye/head source authority.",
+    "source_image": "body-clean-native-size.png is the actual derived material author input on same1817x805 canvas; original head x>.74 and full lipRGBA retained. It does not inherit source approval."
+  },
+  "methods": [
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\resume_native_lip.py",
+      "source_sha256": "b250796437f221adf737b740dd25cb52aec283b3c87c479cd127b8941e85224b",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\resume_native_lip.py",
+      "resource_sha256": "e13b2560949b3a05cc0fd6533464ffd08a7527a8c816076222980bac9ac38a27",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\restore_articulated_jaw.py",
+      "source_sha256": "c09e2ae5720ffe46cb3330a02074e96e281c2fae627c766cdadf45c363b08f0a",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\restore_articulated_jaw.py",
+      "resource_sha256": "a6b1b5eaf67294a22242e97fcb0875065f867a139a141a17ae975c127773e646",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\conform_paired_root_caps.py",
+      "source_sha256": "892a2a0027ae9b7ba505b28d88f18875dd5f18252da45c21f9d3828be264b41d",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\conform_paired_root_caps.py",
+      "resource_sha256": "e498a1b5e008a3cd899d2d21ecbf72eaeb15b5b07372a193cfee553c8e68f02e",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\prepare_clean_body_skin.py",
+      "source_sha256": "562fc50c4709789322380523053aa4901712415dcbf8e36101dcd94b5f03d158",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\prepare_clean_body_skin.py",
+      "resource_sha256": "4273d77638c67c00359ad04b72da1c32c40fa59ff32241b9d191a10fba060ee3",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\prepare_body_rebake.py",
+      "source_sha256": "df96eac10be9334ca96c0a8589c0406d5040ca2c42283a745569303e4278481c",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\prepare_body_rebake.py",
+      "resource_sha256": "8205e2a071b141ced05499fdfc60f86be04b9a3e114cfc1d0f15e1fa07243d3b",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\graft_body_material.py",
+      "source_sha256": "6857f280ac8e6cbc66decfe171a1546b6bfdccb9e483f6798feb432161949a33",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\graft_body_material.py",
+      "resource_sha256": "344243f313b2ebd9a577ca3c59e788ad4038d96fe352c0d6824454f9438650e6",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\prepare_skin_fit.py",
+      "source_sha256": "c9ed8417e946eb9df497ac46b6db8b52b6adbeba6f08f2e2a827d74a291a8304",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\prepare_skin_fit.py",
+      "resource_sha256": "de6e43d64a77cddb5c76eb80190d290b681e45100e6fd5e971be7e74823d8c52",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\fit_peacock_proximal_skin.py",
+      "source_sha256": "9ba19d78a7e682f06110c8f5f5abe8ae92ad740cb83910547785f3b429d0561d",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\fit_peacock_proximal_skin.py",
+      "resource_sha256": "9ba19d78a7e682f06110c8f5f5abe8ae92ad740cb83910547785f3b429d0561d",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\refine_failed_root_edges.py",
+      "source_sha256": "b70590310c65b03368d0c29de7c551480502bf55aa3dadc773316ec71eeaa9d0",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\refine_failed_root_edges.py",
+      "resource_sha256": "b2c1d1cc0c59321b52f11758568e66ff7a65aba33d5480d438301275cc5d2a69",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\prepare_fin_volume.py",
+      "source_sha256": "418255f77b7a4c74452e54cd769806c17a875f1903c3de3970d3693b702fa138",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\prepare_fin_volume.py",
+      "resource_sha256": "01a1c267feb864beb54994388c9a75ba36cf0438392a567051a53d08963d43e8",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\validate_multimesh_fin_volume.py",
+      "source_sha256": "a6b1493c5b53487b903ff52de7718de4aa3c263d4e3c96f3c1fb38470e154aeb",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\validate_multimesh_fin_volume.py",
+      "resource_sha256": "a6b1493c5b53487b903ff52de7718de4aa3c263d4e3c96f3c1fb38470e154aeb",
+      "only_difference": "ROOT/BASE path prolog if present; algorithm, actual inputs, outputs and thresholds identical",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\prepare_paired_clearance.py",
+      "source_sha256": "323d0baea267e6e6fdc8393fd448898e41ea176aa54745f85ae34233282e8395",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\prepare_paired_clearance.py",
+      "resource_sha256": "ab272818c74a078f71909d61979fd0c8814cc76f582cf5e51d35d6d338d65691",
+      "only_difference": "Resolved ROOT/BASE path prolog only; generated adapter still targets own game experiment directory",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\clear_paired_local.py",
+      "source_sha256": "531ec43b3cea6e7fbacefab1007e25311f257bf5baab219691603008779496d1",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\clear_paired_local.py",
+      "resource_sha256": "a14cd1b79a807fd64d6b4ba4117f8b9f46665e871b4baea88b9d6b3acc5996d7",
+      "only_difference": "Resolved ROOT/BASE path prolog only; generated adapter still targets own game experiment directory",
+      "unchanged_except_prolog": true
+    },
+    {
+      "source": "projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\compare_local_library.py",
+      "source_sha256": "0e84e13f8d1047a5bb7af8dd82197be57f1bfc3288374d7f3f4d78053ce7f179",
+      "resource": "resources\\scripts\\volume-fish\\peacock-20261104\\compare_local_library.py",
+      "resource_sha256": "b3b16baa45c801667a8ee0357eebe2c9643453d9d439a2507de1dcb2e4ad215b",
+      "only_difference": "Resolved ROOT/BASE path prolog only; generated adapter still targets own game experiment directory",
+      "unchanged_except_prolog": true
+    }
+  ],
+  "public_dependencies": {
+    "author_front_mouth_chart.py": "c6bbbe0a65fc9907d1e9a6a36b1a3eaa6f6f723c3e5066c0d23506e98f2b5dfe",
+    "repair_source_fin_volume.py": "07734b5e646a406754e7086963f7a2e754f8ed112de9edf8d1d998e243c9513d",
+    "freeze_authored_fin_roots.py": "0b8d580be804ebb7ebb98b586bf0d8eccf170ce0c7b3fe672cedb20854c26845",
+    "fit_shark_proximal_skin.py": "23c39f81118aa5b3522bef4a8196e8d1f5635dae9c1756a906551689f031d962",
+    "author_shark_skin_fit.py": "b615651a0ffeac9dfc65714f3d5efba7a32c2cdc4ef34c825d6bc1bcb7577943",
+    "cold_export_ordinary_fish.py": "6e9126b36323ff888cb34e80c97b690564e65ed48dd5342dba8b910e059df56c"
+  },
+  "configs": {
+    "mouth-native-material-r2.config.json": "945ef8f0d08840b446cfae7448ad61fe75eee39ca6e285604e82ed1187e987c1",
+    "mouth-native-material-r5.config.json": "b1b36a78b4bc9fdb4700fdcc112cb38275f588f645b9a4325fdb47ed51493b88",
+    "body-material-r1.config.json": "0ad9399a420abf62ac1ddef66a6f7966684372a9fd261f0e9aa961ce5e98e077",
+    "fin-volume-repair-r2.config.json": "7ebc1981101a642ec0b62969863200058a8bf785ea3ad0ae52e017342c665c0f",
+    "proximal-skin-fit-r1.plan.json": "34c9ecfcfb68fb4bf2c78c99282fe0138b4296a81e87e0514f691e85b5198acd"
+  },
+  "source": {
+    "blend": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r6\\fish.blend",
+    "blend_sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53",
+    "model": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r6\\fish.glb",
+    "model_sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00"
+  },
+  "fin_parameters": {
+    "logical_fins": [
+      "Dorsal_soft",
+      "Dorsal_spiny",
+      "Anal",
+      "Caudal",
+      "Pectoral_left",
+      "Pectoral_right",
+      "Pelvic_left",
+      "Pelvic_right"
+    ],
+    "source_root_domains": "Original complete source_baseline distance band stored as foundry_fin_source_t; not narrowed",
+    "paired_root_layer_offsets_mm": [
+      0.03,
+      0.15
+    ],
+    "median_root_surface_offset_mm": 0.05,
+    "root_mid_edge_mm": {
+      "paired": [
+        0.65,
+        0.27,
+        0.07
+      ],
+      "median": [
+        0.6,
+        0.24,
+        0.07
+      ]
+    },
+    "free_clearance_mm": 0.35,
+    "tail_overlap_mm": 0.05,
+    "tail_taper_u": 0.12,
+    "additional_fitted_weights": 165,
+    "root_edge_refinement": {
+      "fins_edges": {
+        "Pectoral_right": [
+          26,
+          27
+        ],
+        "Pelvic_left": [
+          2,
+          7
+        ],
+        "Pelvic_right": [
+          18,
+          23
+        ]
+      },
+      "new_vertices": 6,
+      "new_triangles": 12,
+      "new_root_position": "actual finite body at sameXZ, barycentric body weights, unchanged source band"
+    },
+    "Dorsal_soft_only_upward_mm": 0.08
+  },
+  "mouth": {
+    "full_upper_width_px": 22,
+    "full_lower_width_px": 30,
+    "outer_fade_px": 6,
+    "safe_envelope_slope": 0.25,
+    "jaw_original_pivot_blender": [
+      0.4166207314,
+      0,
+      -0.0811777413
+    ],
+    "maximum_degrees": 18,
+    "normal_amount": 1,
+    "helper": "FoundryJawMotion.gd",
+    "single_chain_required": true
+  },
+  "limits": [
+    "Orinoco library game art near-relative Cichla identity unverified; not biology.",
+    "Head targets normalized to empirical whole width with engineering tolerance, not measured local target widths.",
+    "Discrete490 poses and finite surface samples do not prove continuous clearance.",
+    "No public install or user appearance acceptance."
+  ],
+  "final_native_cutout_material": {
+    "script": "resources/scripts/volume-fish/peacock-20261104/finalize_cutout_material.py",
+    "script_sha256": "6b7b875c69aa79c9136f1af7c558b24583105da929eeba847ad51d9b1afde5fd",
+    "source_graph": "TextureAlpha -> GREATER_THAN0.5 -> Principled Alpha",
+    "contract": "foundry_export_contract_json MASK cutoff0.5 nearest",
+    "gltf_default_cutoff": 0.5,
+    "evidence": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\cutout-final-r2\\material-finalization.validation.json"
+  },
+  "additional_configs": {
+    "paired-clearance-r1.config.json": "85c824c2a7ad33e1b6bdfe6cfa06efd98e0b53b33ea272538828dc5660c8f12f",
+    "mouth.config.json": "33b59141c5814dbc029eb94e7ad25908d6a7a68298c13a768d1c7c19d42adec7",
+    "native-motion.json": "02ee415e8173cf10576d58b73cb3a0542e3abd3780ae6f3eb5ca31af0448a2a9",
+    "head-envelope.json": "f4e85e4a8f6a080be1a2b6d431d4355ce987bb9d644bc5564b68f198eb6f8853"
+  },
+  "integrated_eyes": {
+    "species": "peacock_bass",
+    "implementation": "integrated closed-body local shallow eye refinement, no overlay",
+    "parent_source": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r4\\fish.blend",
+    "parent_source_sha256": "2edc7312e94541c505009e708d5ccf04a4cc6d32664759c72533ebbb569b8b93",
+    "current_source_sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53",
+    "current_model_sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00",
+    "whole_triangles": 1842,
+    "body_triangles": 990,
+    "new_vertices": 74,
+    "new_triangles": 148,
+    "center_source_uv": [
+      0.8750687947165658,
+      0.4434782608695652
+    ],
+    "radius_native": [
+      0.02328602969646454,
+      0.024092014878988266
+    ],
+    "normal_height_native": 0.003167438320815563,
+    "normal_height_at50cm_mm": 1.5907229159986367,
+    "radial_profile": "(1-r²)², zero height and slope on full original footprint boundary",
+    "sectors": 12,
+    "rings": [
+      0.55,
+      1.0
+    ],
+    "support": "Original finite Closed_body face barycentric UV, materials and body skin <=4, actual final position correspondence; body remains welded closed",
+    "legacy_acceptance": {
+      "path": "projects/fishing-2d/plans/reviews/eye-volume150/acceptance150.json",
+      "sha256": "18988e0ddfdaea401386addd83fe351b5926a21df7d4388e5a21dce9e6ec257b",
+      "scope": "peacock_bass explicitly in retained_species of batch eye appearance acceptance, no per-fish or whole-fish acceptance inferred"
+    },
+    "position_scope": "Relief follows current full original eye pixels, no RGBA move. Historical061c eye center was moved40sourcepx down; current lip/head original authority is retained instead of silently moving painted eye. Only old relative shallow footprint/height restored.",
+    "author_script": {
+      "path": "resources\\scripts\\volume-fish\\peacock-20261104\\restore_integrated_eye_volume.py",
+      "sha256": "2c33084c38b8b560d99ec38c92a784a8c6c041dfb7f4987071946c80985d38f3"
+    }
+  },
+  "root_wall_r6": {
+    "species": "peacock_bass",
+    "method": "Only16rightpectoralrootwalltriangles→16shorttriangles following exact full existing basal chain",
+    "author": "E:\\game-ai-foundry\\resources\\scripts\\volume-fish\\peacock-20261104\\repair_right_pectoral_root_wall.py",
+    "author_sha256": "609d1bc5e993cf84b97226239d667bf367ec62f0c2218d85bcb41777adff7355",
+    "parameters_and_repair": {
+      "ok": true,
+      "kind": "right_pectoral_complete_root_wall_retriangulation",
+      "input_sha256": "6ff2f60af7700acaad2bd169d3e0e4225cbd48fa04ebd57c46430e3f4edefb3b",
+      "model_sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00",
+      "blend_sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53",
+      "whole_triangles": 1842,
+      "root_wall_faces_removed": [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        68,
+        69,
+        70,
+        71,
+        78,
+        79
+      ],
+      "complete_outer_cap_root_edges": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          41
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          41,
+          7
+        ]
+      ],
+      "new_root_wall_triangles": [
+        [
+          5,
+          4,
+          24
+        ],
+        [
+          5,
+          24,
+          25
+        ],
+        [
+          6,
+          5,
+          25
+        ],
+        [
+          6,
+          25,
+          26
+        ],
+        [
+          41,
+          6,
+          26
+        ],
+        [
+          41,
+          26,
+          40
+        ],
+        [
+          8,
+          7,
+          27
+        ],
+        [
+          8,
+          27,
+          28
+        ],
+        [
+          9,
+          8,
+          28
+        ],
+        [
+          9,
+          28,
+          29
+        ],
+        [
+          10,
+          9,
+          29
+        ],
+        [
+          10,
+          29,
+          30
+        ],
+        [
+          11,
+          10,
+          30
+        ],
+        [
+          11,
+          30,
+          31
+        ],
+        [
+          7,
+          41,
+          40
+        ],
+        [
+          7,
+          40,
+          27
+        ]
+      ],
+      "original_positions_uv_weights_and_source_t_preserved": true,
+      "all_other_parts_unchanged": true,
+      "scope": "Only right finite rootwall follows existing complete outer/inner basal chains. Dynamic self/root/body/membrane/volume and visual gates pending; no old report rebinding."
+    },
+    "scope_proof": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\candidate-r6\\root-wall-scope.validation.json",
+      "sha256": "0c5e7bb5d0b90a85e521c34dcec259e402a2fb6a6a3f12dfdc0f69499a508851"
+    },
+    "all8_actual490_self_report": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\fin-self-audit-r6-20261104\\all-fin-self-intersection.validation.json",
+      "sha256": "cae0e2eae2bad8867e8c75faf96b7ae15223b0248361053ef05d18da71d390a1"
+    },
+    "kernel_controls": {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\four-fish-current-standard-20261101\\peacock_bass\\fin-self-audit-r6-20261104\\filter-controls.validation.json",
+      "sha256": "8b67a03717207bed55189adf224ef586c43e8bd5873efd76149b46b651e486b3"
+    }
+  }
+}

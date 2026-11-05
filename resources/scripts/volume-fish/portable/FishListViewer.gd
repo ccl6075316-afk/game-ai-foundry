@@ -1,4 +1,5 @@
 extends "FishAssetViewer.gd"
+const ENGINE_MATERIAL_BINDINGS=preload("EngineMaterialBindings.gd")
 ## List wrapper around the frozen complete-GLB viewer; no asset writes/builders.
 var catalog: Dictionary
 var world: Node3D
@@ -63,12 +64,14 @@ func run() -> void:
     var environment:=WorldEnvironment.new();environment.environment=Environment.new();environment.environment.background_mode=Environment.BG_COLOR;environment.environment.background_color=Color("25343c");environment.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;environment.environment.ambient_light_color=Color.WHITE;environment.environment.ambient_light_energy=.8;world.add_child(environment)
     var light:=DirectionalLight3D.new();light.rotation_degrees=Vector3(-35,-35,0);light.light_energy=.8;world.add_child(light)
     fish_list.select(0);_select_fish(0)
+    if closing:return
     if catalog.get("mode","")=="smoke":await _catalog_smoke();_finish()
 
 func _button(parent: Control,text: String,callback: Callable) -> Button:
     var button:=Button.new();button.text=text;button.pressed.connect(callback);button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(button);return button
 
 func _select_fish(index: int) -> void:
+    if closing:return
     ready_for_input=false
     if controller!=null:controller=null
     if is_instance_valid(carrier):carrier.free()
@@ -78,6 +81,7 @@ func _select_fish(index: int) -> void:
     var doc:=GLTFDocument.new();var state:=GLTFState.new();assert(doc.append_from_file(config.model,state)==OK)
     model=doc.generate_scene(state);assert(model!=null)
     carrier=Node3D.new();world.add_child(carrier);carrier.add_child(model);model.scale=_v(config.model_scale);_collect(model);assert(not meshes.is_empty())
+    if not _apply_engine_materials():return
     inventory=_inventory();assert(inventory.mesh_count==int(config.inventory.mesh_count)and inventory.surface_count==int(config.inventory.surface_count))
     bounds=_world_bounds();camera_node.near=maxf(bounds.size.length()*.0005,.0001);camera_node.far=maxf(bounds.size.length()*100.,100.)
     base_distance=maxf(bounds.size.length()/(2.*tan(deg_to_rad(camera_node.fov*.5)))*1.15,.05);_apply_camera({});_start_native()
@@ -86,6 +90,18 @@ func _select_fish(index: int) -> void:
     tracked_center=bounds.get_center()
     info.text=entry.label+"\n"+entry.status+"\n"+str(int(entry.triangles))+" 面 · "+str(entry.length_cm)+" cm"
     _check("loaded_"+str(entry.id),true)
+
+func _apply_engine_materials() -> bool:
+    if not config.has("engine_materials"):return true
+    var binding: Dictionary=ENGINE_MATERIAL_BINDINGS.apply(meshes,config)
+    var helper_script: Script=ENGINE_MATERIAL_BINDINGS
+    checks.append({"name":"explicit_engine_materials_nearest","passed":binding.get("ok",false),"binding":binding,"helper_sha256":FileAccess.get_sha256(helper_script.resource_path)})
+    if not binding.get("ok",false):
+        ready_for_input=false
+        push_error(str(binding.get("error","Invalid engine material binding")))
+        _finish()
+        return false
+    return true
 
 func _advance(delta: float) -> void:
     super._advance(delta)
@@ -106,8 +122,9 @@ func _input(event: InputEvent) -> bool:
 func _catalog_smoke() -> void:
     await process_frame;await process_frame
     for i in catalog.entries.size():
-        var rect: Rect2=fish_list.get_item_rect(i);var p: Vector2=fish_list.global_position+rect.get_center()
+        var p:=_smoke_list_item_point(i);await process_frame
         var click:=InputEventMouseButton.new();click.position=p;click.global_position=p;click.button_index=MOUSE_BUTTON_LEFT;click.pressed=true;root.push_input(click);await process_frame
+        if closing:return
         click.pressed=false;root.push_input(click);await process_frame
         _check("list_click_"+str(i),selected_index==i)
         var old_pose:=_pose_signature()
@@ -121,6 +138,12 @@ func _catalog_smoke() -> void:
     var old_distance:=distance;var wheel:=InputEventMouseButton.new();wheel.position=center;wheel.global_position=center;wheel.button_index=MOUSE_BUTTON_WHEEL_UP;wheel.pressed=true;root.push_input(wheel);await process_frame;_check("root_wheel_zooms",distance<old_distance)
     _check("inventory_kept",_inventory()==inventory)
     fish_list.select(0);_select_fish(0);await _save_capture("list-overview")
+
+func _smoke_list_item_point(index: int) -> Vector2:
+    var rect:=fish_list.get_item_rect(index)
+    var bar:=fish_list.get_v_scroll_bar()
+    bar.value=clampf(rect.get_center().y-fish_list.size.y*.5,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
+    return fish_list.global_position+rect.get_center()-Vector2(0,bar.value)
 
 func _finish() -> void:
     if closing:return

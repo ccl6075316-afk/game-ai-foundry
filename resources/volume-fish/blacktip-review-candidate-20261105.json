@@ -1,0 +1,155 @@
+{
+  "kind": "fish_final_review_candidate",
+  "species": "blacktip_reef_shark",
+  "scientific_name": "Carcharhinus melanopterus",
+  "status": "technical_complete_waiting_user_whole_fish_review",
+  "user_acceptance": false,
+  "installed": false,
+  "display_length_cm": 150,
+  "triangles": 3848,
+  "budget": {
+    "preferred": 3500,
+    "hard": 4000,
+    "category": "shark <=300cm display band",
+    "note": "Budget is justified starting band, not a mathematical minimum; no fill triangles."
+  },
+  "inventory": {
+    "meshes": 9,
+    "surfaces": 11,
+    "bones": 18,
+    "fins": 8,
+    "integrated_shallow_eyes": 2,
+    "eye_relief_mm": 1.981055874
+  },
+  "model": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fish.glb",
+    "sha256": "a5e8184972c17c3740bcf6bb52e95f69c1695d674cd30dc52110e1964f68a0a6"
+  },
+  "editable_source": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fish.blend",
+    "sha256": "b030f4de339a12a275163c9a150de8496bcba856cd72ad76dd71a319559952f4"
+  },
+  "catalog": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\catalog.json",
+    "sha256": "db0468dd62dec6d44308bb4946a3e05bca63be4ffe7ba8e88c560810611fbbf5"
+  },
+  "viewer_spec": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\viewer-spec.json",
+    "sha256": "d86903a2c74dfaafa7c8a33267bc3db8233392a2b1a2ce74bec5f85e24cf55bf"
+  },
+  "parameters_at_freeze": {
+    "path": "E:\\game-ai-foundry\\resources\\volume-fish\\blacktip-root-shell-candidate-20261105.json",
+    "sha256": "d615daffba3dcdbf693342db9394002733d4d845bc2a7877de3f8fe98212ef0e"
+  },
+  "freeze": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\candidate-freeze.json",
+    "sha256": "1d8794fb53db40dc4f48d2e6dae0eff171d2e3233a96bb1ab26ad03acff9f2ed"
+  },
+  "sop": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\sop-r21.validation.json",
+    "sha256": "215a1698cf451aa758b8c5a7de30264b5907e2e14015933c513e635b9fd53ba7"
+  },
+  "operator_review": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\production-review.json",
+    "sha256": "53af1368235a894ed4f7d26ea56675f82eb66f9769ebea0a2be329acdac76862"
+  },
+  "full490_root_and_membrane": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-full-fin\\completion.validation.json",
+    "sha256": "78b5f4d2037be1facb4223c61ca91b75f3bb683c4aeb87135fb7d491db67ecdb"
+  },
+  "strict_root_limits": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-strict-root-limits.validation.json",
+    "sha256": "5a5c19d5fa340fde5524b3ff90a64c857c548aafe0ac0ffd57ec4deb2d4a75a6"
+  },
+  "all8_actual490_finite_self": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-all-fin-self.validation.json",
+    "sha256": "241ac5996375fb37a5814ce3b36b5361c691f85c5afd29db8cd11ffa68f01069"
+  },
+  "fin_volume_tail_section": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fin-volume-current.validation.json",
+    "sha256": "3103968480482d706aa48ecb3a8be4e6d93b9477fda2c39a600fe91472ed7752"
+  },
+  "body077": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-body077\\completion.validation.json",
+    "sha256": "b5b089fb6fa39c47ac5bb1c6d71b0cd8e598b24e7990d361fc14122744a56d33"
+  },
+  "motion": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-controls.validation.json",
+    "sha256": "536038ce986e56238dc74e4048a8910e77766d0c61b30210b0ad587e099a7d6e"
+  },
+  "viewer_37controls": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\viewer-smoke\\viewer.validation.json",
+    "sha256": "97f542c3fc36f046453c3eacbdffc411cccd3222ba5a0afdb40fc8fdc92acdbf"
+  },
+  "cold": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-asset-cold-load.validation.json",
+    "sha256": "a436474f4055fb5f660ca79fa5a0319b5ab4aad8aabfa14fb6c2e92f5728fcd7"
+  },
+  "body_head_eye_rig_applicability": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\rig-and-eye-head-applicability.validation.json",
+    "sha256": "91c0c9fdf86b53f1b3ea37ece80767040a4d621c97f7941895257352fdbc6aa1"
+  },
+  "library_scope": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\library-comparison-applicability.validation.json",
+    "sha256": "079629697836acaf7a4f967d20e8534b474888b314725254e453d7baea881d99"
+  },
+  "limits": [
+    "All490 are discrete actual poses, not a continuous-time guarantee",
+    "Local library review only artist broad multi-view silhouette; species identity unverified, no fin-excluded body-width or part-by-part anatomical approval",
+    "User Nov1 basically approved original3944 appearance; new3848eye/root candidate still requires whole-fish acceptance"
+  ],
+  "installed_previous_unchanged": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\game\\assets\\models\\fish\\blacktip_reef_shark.glb",
+    "sha256": "f87b661e0d19fb803d5271284319b45c7c2721498a9ebf1b14cfe2e85f5785fd"
+  },
+  "visuals": [
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\whole-water.jpg",
+      "sha256": "5d4d19d0f0cf2b65c417499a7d21a85d3ce80a3bd220461798f6173b22a862ca"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\head-clay.jpg",
+      "sha256": "3fd4c334ddf99e10870147e9d870d57c44cefceeecd769a5779a5db5a0424661"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\mouth-current.jpg",
+      "sha256": "9d63121a622bb59f899d470a3b4245dacef6d14ddef94bf2264a1e092884e137"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\body-current.jpg",
+      "sha256": "b24e1c21937dadbf72c870ae05fe6ecfbb09dfa717fb7f93979a4bc62d2479b4"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\fins-clay.jpg",
+      "sha256": "3bd0fbdd28fa13c0346bf20bbdca340a879216081351805d5d2937e5ec0abc75"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\actions.jpg",
+      "sha256": "9cd47d256cd775f4b492db4bade7adf665334b3a510ea44a6f5a45793b5467ff"
+    },
+    {
+      "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\transitions.jpg",
+      "sha256": "0f5f7b932eaf23140df929686e8ef81a5cc64911b4cb3d6362201f0bbfe53297"
+    }
+  ],
+  "movie": {
+    "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\candidate-r21\\final-review\\actions.mp4",
+    "sha256": "9c0f0f8e4bd6550b8e2bf2826383e4576aae739a9e08f0835406e0e47b158348"
+  },
+  "cleanup": {
+    "receipts": [
+      {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\cleanup-frozen-local-round-20261105.json",
+        "sha256": "82ef5bcab5df181547e44e0820c10c72164594dffd59723a15344a6b507bdb40"
+      },
+      {
+        "path": "E:\\game-ai-foundry\\projects\\fishing-2d\\experiments\\blacktip-lowpoly-20261101\\finish-review-20261104\\eye-restoration-20261104\\cleanup-final-r21-20261105.json",
+        "sha256": "7ebb292a1148c99f89fc553ccd6e12f1b7dd99f398eecd3337c18c1724d27114"
+      }
+    ],
+    "deleted_bytes": 968474634,
+    "deleted_files": 5561,
+    "current_candidate_retained_bytes": 26074881,
+    "scope": "Only own isolated experiment. Complete numeric reports, currentsourceGLB, nativeinputs, compact490+7actualfullsamples, representativeimages/video preserved; no archive duplication; no other fish or officialentry edits."
+  }
+}

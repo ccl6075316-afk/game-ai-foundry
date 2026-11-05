@@ -1,0 +1,83 @@
+{
+  "blend_sha256": "f143fdd8ecb300b552711a6b8f2ce9e34e2391030323a45679393622fde660c9",
+  "profile": "projects/fishing-2d/experiments/pacific-bluefin-tuna-static-merge/lowpoly-20261104/cage-r2.profile.json",
+  "source": "projects/pelagic-pacific_bluefin_tuna-145r4/output/char_pacific_bluefin_tuna_side145r4_nobg.png",
+  "source_sha256": "335713669986433f51b7bbe0893d287717bef8c59dbd89d124b4d151833dd1de",
+  "source_size": [
+    2016,
+    747
+  ],
+  "body": "Closed_body",
+  "fins": [
+    "Dorsal_first",
+    "Dorsal_second",
+    "Anal",
+    "Caudal",
+    "Pectoral_left",
+    "Pectoral_right",
+    "Pelvic_left",
+    "Pelvic_right",
+    "Dorsal_finlet_01",
+    "Dorsal_finlet_02",
+    "Dorsal_finlet_03",
+    "Dorsal_finlet_04",
+    "Dorsal_finlet_05",
+    "Dorsal_finlet_06",
+    "Dorsal_finlet_07",
+    "Dorsal_finlet_08",
+    "Anal_finlet_01",
+    "Anal_finlet_02",
+    "Anal_finlet_03",
+    "Anal_finlet_04",
+    "Anal_finlet_05",
+    "Anal_finlet_06",
+    "Anal_finlet_07",
+    "Anal_finlet_08"
+  ],
+  "upper_inner_edge_px": [
+    [
+      1940,
+      419
+    ],
+    [
+      1960,
+      410
+    ],
+    [
+      1980,
+      396
+    ],
+    [
+      2000,
+      386
+    ],
+    [
+      2011,
+      385
+    ]
+  ],
+  "lower_inner_edge_px": [
+    [
+      1940,
+      420
+    ],
+    [
+      1960,
+      420
+    ],
+    [
+      1980,
+      409
+    ],
+    [
+      2000,
+      409
+    ],
+    [
+      2011,
+      413
+    ]
+  ],
+  "preferred_triangles": 3500,
+  "hard_triangles": 4000
+}

@@ -1,5 +1,9 @@
 # 鱼类制作知识索引
 
+2026-11-05已接受24条成品的历史保留与退休，先读[用户授权的成品保留规则](accepted-fish-retention-20261105.md)。当前源与成品、运行依赖、完整对照PDF和有用文字保留，旧实验图片/模型/密集重放数据退休；旧路径不再是可重放验收入口。
+
+正式游戏挂钩/口缘位置检查见[本鱼口缘recipe与导入权重身份](runtime-mouth-anchor-identity-20261105.md)：ready不等于真实上唇，不能用body-maxX回退；已实证UNORM16导入须比较同编码bin身份。
+
 本文按当前任务找方法；不维护第二份鱼状态清单。先读 [生产 SOP 0—10 节](production-sop.md) 与 [真鲷跨鱼执行表](red-seabream-lowpoly-trial-lessons-20261101.md#跨鱼执行表开工先读)。SOP 后半的日期/编号段落保留历史经验，其完成措辞、旧参数和旧报告不自动适用于当前鱼。
 
 ## 当前规则与主线
@@ -7,7 +11,7 @@
 | 判断 | 维护入口 | 使用边界 |
 |---|---|---|
 | 参数与方法的本地参考 | [本地鱼资料库](../../../fish-database/README.md)、[SOP 0.5](production-sop.md#05-本地鱼资料库与建模方法选择2026-11-02用户补充) | 可替代重复搜索，缺口再外查；不绑定参考模型建法，不继承形态接受 |
-| 来源与 workflow | [工具箱](../../gamefactory-toolkit/SKILL.md)、[新源图排错](new-species-source-review.md) | 已接受源可复用，真实归档/审核先核验，不能补造生成记录 |
+| 来源与 workflow | [工具箱](../../gamefactory-toolkit/SKILL.md)、[新源图排错](new-species-source-review.md)、[现存原画重新审阅入口](../../../../docs/FISH-VOLUME-WORKFLOW.md#existing-pixels-review) | 已接受源可复用；生成参考与风格参考独立核验，缺历史输入须如实记录并走当前审核，不能补造生成记录 |
 | 来源用途与固定画布 | [部位质量守卫](component-quality-rules.md)、[侧面投影](side-projection-review.md) | 同开口/姿态/画布比较，不独立拟合局部掩盖误差 |
 | 本鱼部位库存 | [物种清单与口内供体](species-inventory-and-oral-donor.md) | 不固定七鳍、八鳍或旧 surface/骨数 |
 | 总面预算 | [展示体长及鲨鱼例外](display-length-budget.md) | 11月2日再次确认普通鱼继续按体长分档；真实整鱼最终装配，优选不是下限 |
@@ -22,7 +26,7 @@
 | 眼纹归属、浅凸眼、实际支持面 | [眼睛执行卡](eye-volume.md) | [源表面返修](source-surface-repair.md)、游戏 `docs/3d-fish/MOTION-AND-SURFACES.md` |
 | 背腹、中央、下巴、补色或贴图滑动 | [部位供体卡](source-zone-review.md)、[源表面返修](source-surface-repair.md) | [材质方法](portable-material-lessons-20261030.md)、[嘴部接续](mouth-material-continuity.md) |
 | 鳍原图边界、余边/白边/漏抠 | [原图整鳍分离](fin-source-shape.md)、[精确原像素切鳍](precise-native-fin-cutouts.md) | [鳍精修与有限根带](native-fin-detail-lessons-20261031.md) |
-| 鳍型、组织厚度、尾柄/尾根 | [鳍型厚度与尾柄](fin-types-thickness-tail.md) | [有限鳍面接触返修](finite-fin-contact-repair.md) |
+| 鳍型、组织厚度、尾柄/尾根 | [鳍型厚度与尾柄](fin-types-thickness-tail.md) | [有限鳍面接触返修](finite-fin-contact-repair.md)、[鳍壳静态与动态自交](fin-shell-self-intersection.md) |
 | 体表根、自由鳍膜、运动控制与身体透明缺块 | [部位质量守卫](component-quality-rules.md) | 游戏 `VALIDATION.md`、`MOTION-AND-SURFACES.md`、`BODY-INTEGRITY.md`；原生/实际引擎均验 |
 
 宽度先按同口径长度与最大横宽/峰位定整体，再核局部 W(t)/Wmax、解剖测位和连续轮廓，直接量冷 GLB 有限网格。2026-11-02 允许体型接近的同属/同科或已审模型作近缘厚度参考，指定样板优先；保存来源 SHA、对应与未知，不冒充同种生物实测。外部扫描可校核结构/测量，不能替代项目原画主体和鳍形后再强贴皮肤。缺资料不再机械要求一律生俯视图。
@@ -33,7 +37,7 @@
 |---|---|---|
 | 原图控制笼低面新建 B | [控制笼方法](reference-cage-body.md)、[完整重建 SOP](reference-cage-rebuild-sop.md) | 真正按参考逐段塑形，不能拿旧身体减面冒充 B 新建 |
 | 配置驱动作者/源/冷导出/实际部位 | [通用工具](portable-finalization-tools.md)、[生产工具经验](portable-production-lessons-20261030.md) | 先看 capabilities 与适配范围，不把工具单测等同整鱼完成 |
-| 图集/单 surface 与源固化 | [单材质源固化](single-material-source-finalization.md)、[最终导出](final-asset-export.md) | 静态几何/UV/权重/材质进源，保留有向三角/法线/蒙皮和部位身份 |
+| 图集/单 surface 与源固化 | [单材质源固化](single-material-source-finalization.md)、[最终导出](final-asset-export.md)、[cutout水体预检](../../../../docs/FISH-VOLUME-WORKFLOW.md#cutout-water-preflight) | 静态几何/UV/权重/材质进源，保留有向三角/法线/蒙皮和部位身份；冻结前核真实alpha模式及水体合成 |
 | 旧 Godot 静态装配的本地迁移 | [次级模型卡](static-merge-secondary-model.md)、SOP 0.2 | 只在用户限定本地迁移范围，不能套新鱼、主动修鳍或正式交付 |
 | 完整验收、暂停、续做与正式接入 | [工作流完成门](production-workflow-gates.md)、[最终导出](final-asset-export.md) | `sop-check` 账本、专项、实际图审与用户接受不同；真实游戏入口及导入缓存冷读 |
 | 性能盘点 | [实际装配性能审计](performance-audit.md) | 有测量问题才跑，加载/持续游动分开，不为静态材料改动默认重跑矩阵 |
