@@ -863,5 +863,31 @@
     "fish": 11,
     "runtime_dependency_reads": 216,
     "current_handoff": "projects/fishing-2d/plans/reviews/eleven-fish-release-20261105/HANDOFF.md"
-  }
+  },
+  "remote_verified_lfs_cache_prune": {
+    "ok": true,
+    "command": "git lfs prune --recent --verify-remote --verify-unreachable --when-unverified=continue",
+    "current_checkout_stashes_unpushed_and_other_worktrees_protected": true,
+    "remote_verified_deleted_objects": {
+      "foundry": 3,
+      "game": 10783
+    },
+    "repos": {
+      "foundry": {
+        "remaining_local_objects": 1473,
+        "remaining_cache_bytes": 3479264969,
+        "before_prune_bytes": 3489774547,
+        "deleted_cache_bytes": 10509578
+      },
+      "game": {
+        "remaining_local_objects": 3901,
+        "remaining_cache_bytes": 6168610096,
+        "before_prune_bytes": 18776772897,
+        "deleted_cache_bytes": 12608162801
+      }
+    },
+    "current_canonical48_and_runtime32_and_pdf_unchanged": true,
+    "new22_asset_and_pdf_cache_objects_present": true
+  },
+  "known_working_data_and_lfs_net_bytes_released": 25713960618
 }
