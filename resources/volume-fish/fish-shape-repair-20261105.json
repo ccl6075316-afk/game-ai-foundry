@@ -100,12 +100,38 @@
         "sha256": "59e86382f42ab0aababe677a357c8eb1b782cbdfaf494d6ee608c79d11dfd6ff"
       },
       "acceptance_basis": "User explicitly instructed repaired and technically checked fish to be finished and committed/pushed directly without further visual review."
+    },
+    {
+      "species": "black_seabream",
+      "status": "finished",
+      "user_acceptance": true,
+      "static_frozen": true,
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/black_seabream/fish.blend",
+        "sha256": "f8e84b15b3521f7b8765d25335db403b5a6fb853d1cb3f634556a2c623820cd2",
+        "bytes": 9028694
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/black_seabream.glb",
+        "sha256": "36922aa0769d17749e926a35bcb731f7d17a8236836b222c5c9a8d21011c4c43",
+        "bytes": 9166568
+      },
+      "triangles": 1952,
+      "model_scale": 0.3515933194327241,
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/black_seabream.validation.json",
+        "sha256": "b96b6661547b1657855d1cd3f46908eb5d41e5665b300e66b4021acb816e8a9a"
+      },
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-a/final/black_seabream/source-domain.json",
+        "sha256": "06ddc2516d925f227f36f22e93fa3e635e80fa149f7ff4fd6d3be48b07dc972d"
+      },
+      "acceptance_basis": "User explicitly instructed completed necessary technical repair to be finished and committed/pushed directly without further visual review."
     }
   ],
   "acceptance_scope": "Only completed fish rows below. Other requested species remain pending and are not admitted by this release.",
   "pending_species": [
     "red_seabream",
-    "black_seabream",
     "piranha",
     "yellow_croaker",
     "zander",
