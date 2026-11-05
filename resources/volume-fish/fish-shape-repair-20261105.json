@@ -1,0 +1,81 @@
+{
+  "kind": "source_owned_fish_shape_repair_release",
+  "status": "partial_release",
+  "user_acceptance": true,
+  "user_instruction": "On completion of repairs and necessary checks, treat as finished and commit/push directly; no further user visual review. Submit only final assets, necessary code and compact records, no experimental payloads.",
+  "date": "2026-11-05",
+  "requested_body_species": [
+    "red_seabream",
+    "black_seabream",
+    "piranha",
+    "peacock_bass",
+    "yellow_croaker",
+    "zander",
+    "arapaima",
+    "pacific_bluefin_tuna"
+  ],
+  "requested_fin_species": [
+    "blacktip_reef_shark"
+  ],
+  "game_handoff": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/HANDOFF.md",
+  "fish": [
+    {
+      "species": "peacock_bass",
+      "status": "finished",
+      "source": {
+        "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+        "sha256": "82c8bf589f29c38287af91d34b1dab0dc90238ea967f14f5b5a489978e2f4f7e",
+        "bytes": 6214218
+      },
+      "model": {
+        "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+        "sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+        "bytes": 5288564
+      },
+      "triangles": 1842,
+      "model_scale": 0.5022111734725277,
+      "previous_source_sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53",
+      "previous_model_sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00",
+      "mouth_recipe": {
+        "path": "projects/fishing-2d/game/assets/models/fish/motion/eleven20261105/peacock_bass-mouth-anchor.json",
+        "sha256": "50dab0a1dd71dc1d84c2e43f511d997ef4a36209dae7b4e9578dbf142d2c5a9f"
+      },
+      "user_acceptance": true,
+      "static_frozen": true,
+      "validation_record": {
+        "path": "projects/fishing-2d/plans/reviews/fish-shape-repair-20261105/peacock_bass.validation.json",
+        "sha256": "63d0da20b7e731886748c834fe17282fe0da95d9679bf287b5f06f7a72863d62"
+      },
+      "acceptance_basis": "User explicitly instructed repair+necessary checks completion to be treated as finished and directly committed/pushed, without another visual review.",
+      "authoring_parameters": [
+        {
+          "path": "resources/volume-fish/top-body-repair-20261105/group-b/peacock_bass.reference-target.json",
+          "sha256": "aeea5afab20b9d77ed9b5b0eee48171c990f79d281dcbaea7bc80905dde59d07",
+          "bytes": 49933
+        },
+        {
+          "path": "resources/volume-fish/top-body-repair-20261105/group-b/peacock_bass.deformation.plan.json",
+          "sha256": "6c6bfa755b85ef6d867a6194461476a41895a0ce05b1e90c5cfbdb39dbbeb06c",
+          "bytes": 60841
+        },
+        {
+          "path": "resources/volume-fish/top-body-repair-20261105/group-b/registration-and-selections.json",
+          "sha256": "05ffbb0cd83ecf281fc0409a2835a6937d664854bc5dfd0c9f08ece84e66a706",
+          "bytes": 130546
+        }
+      ],
+      "authoring_parameters_scope": "Adopted numerical reference/axis/width design provenance only. Original source SHA/path is historical after canonical replacement; do not replay retired candidates. Maintain current source/GLB; original fin domain profile remains the per-fin source definition."
+    }
+  ],
+  "acceptance_scope": "Only completed fish rows below. Other requested species remain pending and are not admitted by this release.",
+  "pending_species": [
+    "red_seabream",
+    "black_seabream",
+    "piranha",
+    "yellow_croaker",
+    "zander",
+    "arapaima",
+    "pacific_bluefin_tuna",
+    "blacktip_reef_shark"
+  ]
+}

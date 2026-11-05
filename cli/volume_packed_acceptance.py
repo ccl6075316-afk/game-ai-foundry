@@ -20,6 +20,9 @@ def _arrays(path):
  return d,b,pr,{k:m.arrays(d,b,a)for k,a in pr['attributes'].items()},m.arrays(d,b,pr['indices']).reshape(-1,3)
 
 def check_preserved_chart(report,candidates,species,fail,label):
+ if report.get('layout')in ('ordinary_multimesh','packed_anterior'):
+  from volume_native_chart_preservation import check_preserved_domain
+  check_preserved_domain(report,candidates,species,fail,label);return
  try:
   assert report['ok']and report['species']==species
   assert report['model_sha256']==candidates['model']['sha256'] and report['source_sha256']==candidates['source_image']['sha256']

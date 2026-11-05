@@ -1,0 +1,1534 @@
+{
+  "kind": "whole_transverse_reference_target",
+  "species": "peacock_bass",
+  "inputs": {
+    "model": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+      "sha256": "48ebacb1a051170a6ae3f1bc1dd73c87aa847f2b3b0ffaaf2345e939d2331d00"
+    },
+    "blend": {
+      "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+      "sha256": "1eba5897a73041ec40d029f214c7b58799b49a378a579bf17213f23c58ff4d53"
+    },
+    "reference": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/fish-database/artifacts/fishing-master-cdn-cnformal1-20261102/mesh-exports/8aee5194fdb8db65405f37ee81b7a3540bf0de5c572920dcc767b049b4bbe9f1.obj",
+      "sha256": "8aee5194fdb8db65405f37ee81b7a3540bf0de5c572920dcc767b049b4bbe9f1"
+    }
+  },
+  "evidence_grade": "D artistic reference; no biological dimensional claim",
+  "reference_name": "OrinocoPeacockBass",
+  "normalization": "Engineering nose-to-caudal endpoint visible length (TL-like, not calibrated biological TL); explicit common axis; body width excludes paired fins and detached eyes. Original project XY retained.",
+  "reference_body_selection": {
+    "method": "largest welded connected body component of first skin group, detached eyes and all other fin groups excluded",
+    "retained": {
+      "faces": 2140,
+      "bounds": [
+        [
+          -0.22597759,
+          -1.15411472,
+          0.0912568185
+        ],
+        [
+          0.225977833,
+          0.857232368,
+          0.798989755
+        ]
+      ]
+    },
+    "excluded": [
+      {
+        "faces": 120,
+        "bounds": [
+          [
+            -0.162901708,
+            -0.897639199,
+            0.453924199
+          ],
+          [
+            -0.075618151,
+            -0.800167892,
+            0.551854724
+          ]
+        ]
+      },
+      {
+        "faces": 120,
+        "bounds": [
+          [
+            0.0756183943,
+            -0.897639199,
+            0.453924199
+          ],
+          [
+            0.162901951,
+            -0.800167892,
+            0.551854724
+          ]
+        ]
+      }
+    ]
+  },
+  "axis": {
+    "source_nose": 0.4966978430747986,
+    "source_caudal_end": -0.49889928102493286,
+    "source_length": 0.9955971240997314,
+    "reference_raw_nose_y": -1.15411472,
+    "reference_raw_caudal_y": 1.25350761,
+    "reference_length": 2.4076223299999997,
+    "source_body_s_max": 0.8463239226052166,
+    "reference_body_s_max": 0.8354080550498966
+  },
+  "display_length_cm": 50.0,
+  "reference_stations": [
+    {
+      "s_visible_axis": 0.005,
+      "old_width_over_axis": 0.021584134334709182,
+      "reference_width_over_axis": 0.033352097031144674,
+      "gain": 1.5452135589015297
+    },
+    {
+      "s_visible_axis": 0.008515999676172455,
+      "old_width_over_axis": 0.027821232493471054,
+      "reference_width_over_axis": 0.03861523924290026,
+      "gain": 1.3879773030171212
+    },
+    {
+      "s_visible_axis": 0.012031999352344908,
+      "old_width_over_axis": 0.03363877185377507,
+      "reference_width_over_axis": 0.04387838145465584,
+      "gain": 1.3043990323247086
+    },
+    {
+      "s_visible_axis": 0.015547999028517365,
+      "old_width_over_axis": 0.036293754291871226,
+      "reference_width_over_axis": 0.049224593132916154,
+      "gain": 1.3562827570015556
+    },
+    {
+      "s_visible_axis": 0.01906399870468982,
+      "old_width_over_axis": 0.0402401715074404,
+      "reference_width_over_axis": 0.054839936457232494,
+      "gain": 1.3628156740607478
+    },
+    {
+      "s_visible_axis": 0.022579998380862273,
+      "old_width_over_axis": 0.04414607332673624,
+      "reference_width_over_axis": 0.060455279781548826,
+      "gain": 1.369437307234644
+    },
+    {
+      "s_visible_axis": 0.02609599805703473,
+      "old_width_over_axis": 0.047340703510808685,
+      "reference_width_over_axis": 0.06607062310586517,
+      "gain": 1.3956409222093653
+    },
+    {
+      "s_visible_axis": 0.029611997733207183,
+      "old_width_over_axis": 0.050280627949844,
+      "reference_width_over_axis": 0.07037974690084753,
+      "gain": 1.3997388213021689
+    },
+    {
+      "s_visible_axis": 0.033127997409379634,
+      "old_width_over_axis": 0.052709194148345136,
+      "reference_width_over_axis": 0.07370408463109906,
+      "gain": 1.398315527717342
+    },
+    {
+      "s_visible_axis": 0.03664399708555209,
+      "old_width_over_axis": 0.05455375023092231,
+      "reference_width_over_axis": 0.07702842236135062,
+      "gain": 1.4119729997533543
+    },
+    {
+      "s_visible_axis": 0.04015999676172454,
+      "old_width_over_axis": 0.05627999633335869,
+      "reference_width_over_axis": 0.08035276009160215,
+      "gain": 1.427732148659983
+    },
+    {
+      "s_visible_axis": 0.043675996437897,
+      "old_width_over_axis": 0.05788965522111285,
+      "reference_width_over_axis": 0.0836770978218537,
+      "gain": 1.4454585625401333
+    },
+    {
+      "s_visible_axis": 0.047191996114069455,
+      "old_width_over_axis": 0.05936954998415369,
+      "reference_width_over_axis": 0.08700143555210524,
+      "gain": 1.4654218463055013
+    },
+    {
+      "s_visible_axis": 0.050707995790241905,
+      "old_width_over_axis": 0.06084944502818153,
+      "reference_width_over_axis": 0.09032577328235677,
+      "gain": 1.4844140852973058
+    },
+    {
+      "s_visible_axis": 0.05422399546641436,
+      "old_width_over_axis": 0.06232933578491222,
+      "reference_width_over_axis": 0.0952647637006322,
+      "gain": 1.5284097367790739
+    },
+    {
+      "s_visible_axis": 0.05773999514258681,
+      "old_width_over_axis": 0.0638092265416429,
+      "reference_width_over_axis": 0.10040514558736897,
+      "gain": 1.5735208061461616
+    },
+    {
+      "s_visible_axis": 0.06125599481875927,
+      "old_width_over_axis": 0.06528911729837358,
+      "reference_width_over_axis": 0.10554552747410575,
+      "gain": 1.6165868347056824
+    },
+    {
+      "s_visible_axis": 0.06477199449493173,
+      "old_width_over_axis": 0.06676900805510427,
+      "reference_width_over_axis": 0.11004617831245495,
+      "gain": 1.64816254603684
+    },
+    {
+      "s_visible_axis": 0.06828799417110419,
+      "old_width_over_axis": 0.06839756975772979,
+      "reference_width_over_axis": 0.1126487844113219,
+      "gain": 1.6469705694271566
+    },
+    {
+      "s_visible_axis": 0.07180399384727663,
+      "old_width_over_axis": 0.07025078196549178,
+      "reference_width_over_axis": 0.11525139051018886,
+      "gain": 1.6405709272645825
+    },
+    {
+      "s_visible_axis": 0.07531999352344909,
+      "old_width_over_axis": 0.07210399417325378,
+      "reference_width_over_axis": 0.11785399660905582,
+      "gain": 1.6345002514822202
+    },
+    {
+      "s_visible_axis": 0.07883599319962155,
+      "old_width_over_axis": 0.07395720638101577,
+      "reference_width_over_axis": 0.12045660270792279,
+      "gain": 1.6287338124610806
+    },
+    {
+      "s_visible_axis": 0.082351992875794,
+      "old_width_over_axis": 0.0758104185887778,
+      "reference_width_over_axis": 0.12305920880678975,
+      "gain": 1.623249298678931
+    },
+    {
+      "s_visible_axis": 0.08586799255196646,
+      "old_width_over_axis": 0.07766363079653979,
+      "reference_width_over_axis": 0.12482631683906702,
+      "gain": 1.6072686218608843
+    },
+    {
+      "s_visible_axis": 0.08938399222813892,
+      "old_width_over_axis": 0.07951684300430177,
+      "reference_width_over_axis": 0.12571564243912975,
+      "gain": 1.580993883677307
+    },
+    {
+      "s_visible_axis": 0.09289999190431136,
+      "old_width_over_axis": 0.0813700552120638,
+      "reference_width_over_axis": 0.1266049680391925,
+      "gain": 1.5559159657596282
+    },
+    {
+      "s_visible_axis": 0.09641599158048382,
+      "old_width_over_axis": 0.08330508602423642,
+      "reference_width_over_axis": 0.12749429363925524,
+      "gain": 1.5304502969021916
+    },
+    {
+      "s_visible_axis": 0.09993199125665628,
+      "old_width_over_axis": 0.08531061761303683,
+      "reference_width_over_axis": 0.12697931849297128,
+      "gain": 1.4884351097883366
+    },
+    {
+      "s_visible_axis": 0.10344799093282873,
+      "old_width_over_axis": 0.08731614920183722,
+      "reference_width_over_axis": 0.12879884377890144,
+      "gain": 1.4750861662620298
+    },
+    {
+      "s_visible_axis": 0.10696399060900119,
+      "old_width_over_axis": 0.08932168079063765,
+      "reference_width_over_axis": 0.1306183690648316,
+      "gain": 1.4623366679696705
+    },
+    {
+      "s_visible_axis": 0.11047999028517363,
+      "old_width_over_axis": 0.09132721237943803,
+      "reference_width_over_axis": 0.13333143857364482,
+      "gain": 1.4599311103430097
+    },
+    {
+      "s_visible_axis": 0.11399598996134609,
+      "old_width_over_axis": 0.09333274396823844,
+      "reference_width_over_axis": 0.13614503937543015,
+      "gain": 1.4587060616342848
+    },
+    {
+      "s_visible_axis": 0.11751198963751855,
+      "old_width_over_axis": 0.09533827555703883,
+      "reference_width_over_axis": 0.13925850257657854,
+      "gain": 1.4606777997915765
+    },
+    {
+      "s_visible_axis": 0.121027989313691,
+      "old_width_over_axis": 0.09734380714583923,
+      "reference_width_over_axis": 0.1420115622524623,
+      "gain": 1.4588659147027447
+    },
+    {
+      "s_visible_axis": 0.12454398898986346,
+      "old_width_over_axis": 0.0991186896466599,
+      "reference_width_over_axis": 0.14423912853289597,
+      "gain": 1.4552162568641922
+    },
+    {
+      "s_visible_axis": 0.1280599886660359,
+      "old_width_over_axis": 0.100486400142694,
+      "reference_width_over_axis": 0.14646669481332963,
+      "gain": 1.457577290114305
+    },
+    {
+      "s_visible_axis": 0.13157598834220838,
+      "old_width_over_axis": 0.10185411063872812,
+      "reference_width_over_axis": 0.14869426109376332,
+      "gain": 1.4598749148296537
+    },
+    {
+      "s_visible_axis": 0.13509198801838082,
+      "old_width_over_axis": 0.10322182113476222,
+      "reference_width_over_axis": 0.150921827374197,
+      "gain": 1.4621116515388695
+    },
+    {
+      "s_visible_axis": 0.13860798769455326,
+      "old_width_over_axis": 0.10458953163079633,
+      "reference_width_over_axis": 0.15314939365463065,
+      "gain": 1.4642898889274298
+    },
+    {
+      "s_visible_axis": 0.14212398737072574,
+      "old_width_over_axis": 0.10595724212683046,
+      "reference_width_over_axis": 0.15402443620968959,
+      "gain": 1.4536470855415702
+    },
+    {
+      "s_visible_axis": 0.14563998704689818,
+      "old_width_over_axis": 0.10732495262286458,
+      "reference_width_over_axis": 0.15460607515136704,
+      "gain": 1.4405417507580587
+    },
+    {
+      "s_visible_axis": 0.14915598672307065,
+      "old_width_over_axis": 0.10869266311889868,
+      "reference_width_over_axis": 0.15518771409304455,
+      "gain": 1.4277662322367153
+    },
+    {
+      "s_visible_axis": 0.1526719863992431,
+      "old_width_over_axis": 0.11006037361493279,
+      "reference_width_over_axis": 0.15576935303472206,
+      "gain": 1.415308234185274
+    },
+    {
+      "s_visible_axis": 0.15618798607541554,
+      "old_width_over_axis": 0.11142808411096689,
+      "reference_width_over_axis": 0.15635099197639957,
+      "gain": 1.4031560645043102
+    },
+    {
+      "s_visible_axis": 0.159703985751588,
+      "old_width_over_axis": 0.11279579460700105,
+      "reference_width_over_axis": 0.15693263091807702,
+      "gain": 1.3912985981867136
+    },
+    {
+      "s_visible_axis": 0.16321998542776045,
+      "old_width_over_axis": 0.11402637228076878,
+      "reference_width_over_axis": 0.15751426985975453,
+      "gain": 1.3813845578802146
+    },
+    {
+      "s_visible_axis": 0.16673598510393292,
+      "old_width_over_axis": 0.11518957225197497,
+      "reference_width_over_axis": 0.15831660476634168,
+      "gain": 1.3744004919128197
+    },
+    {
+      "s_visible_axis": 0.17025198478010536,
+      "old_width_over_axis": 0.11635277222318115,
+      "reference_width_over_axis": 0.15950341659465844,
+      "gain": 1.3708604749761202
+    },
+    {
+      "s_visible_axis": 0.17376798445627784,
+      "old_width_over_axis": 0.11751597219438736,
+      "reference_width_over_axis": 0.16069022842297526,
+      "gain": 1.3673905378340554
+    },
+    {
+      "s_visible_axis": 0.17728398413245028,
+      "old_width_over_axis": 0.11867917216559354,
+      "reference_width_over_axis": 0.16187704025129201,
+      "gain": 1.3639886198854194
+    },
+    {
+      "s_visible_axis": 0.18079998380862272,
+      "old_width_over_axis": 0.11984237213679971,
+      "reference_width_over_axis": 0.16306385207960883,
+      "gain": 1.360652740530469
+    },
+    {
+      "s_visible_axis": 0.1843159834847952,
+      "old_width_over_axis": 0.1210055721080059,
+      "reference_width_over_axis": 0.16425066390792564,
+      "gain": 1.3573809953257399
+    },
+    {
+      "s_visible_axis": 0.18783198316096764,
+      "old_width_over_axis": 0.12216877207921208,
+      "reference_width_over_axis": 0.1654374757362424,
+      "gain": 1.354171552358533
+    },
+    {
+      "s_visible_axis": 0.1913479828371401,
+      "old_width_over_axis": 0.12333197205041828,
+      "reference_width_over_axis": 0.16691410294678533,
+      "gain": 1.3533725292136787
+    },
+    {
+      "s_visible_axis": 0.19486398251331255,
+      "old_width_over_axis": 0.1244441822525647,
+      "reference_width_over_axis": 0.16854559611587266,
+      "gain": 1.3543871080594372
+    },
+    {
+      "s_visible_axis": 0.198379982189485,
+      "old_width_over_axis": 0.12539245398079724,
+      "reference_width_over_axis": 0.17017708928496,
+      "gain": 1.357155744882552
+    },
+    {
+      "s_visible_axis": 0.20189598186565746,
+      "old_width_over_axis": 0.1263407257090298,
+      "reference_width_over_axis": 0.17180858245404734,
+      "gain": 1.3598828207598928
+    },
+    {
+      "s_visible_axis": 0.2054119815418299,
+      "old_width_over_axis": 0.12728899743726235,
+      "reference_width_over_axis": 0.17344007562313468,
+      "gain": 1.3625692645479361
+    },
+    {
+      "s_visible_axis": 0.20892798121800238,
+      "old_width_over_axis": 0.1282372691654949,
+      "reference_width_over_axis": 0.17507156879222202,
+      "gain": 1.365215977628826
+    },
+    {
+      "s_visible_axis": 0.21244398089417482,
+      "old_width_over_axis": 0.12918554089372747,
+      "reference_width_over_axis": 0.17637890340872736,
+      "gain": 1.3653145869770582
+    },
+    {
+      "s_visible_axis": 0.21595998057034727,
+      "old_width_over_axis": 0.13013381262196,
+      "reference_width_over_axis": 0.17716428568467252,
+      "gain": 1.3614008697288882
+    },
+    {
+      "s_visible_axis": 0.21947598024651974,
+      "old_width_over_axis": 0.13108208435019256,
+      "reference_width_over_axis": 0.17794966796061773,
+      "gain": 1.3575437775708235
+    },
+    {
+      "s_visible_axis": 0.22299197992269218,
+      "old_width_over_axis": 0.13203035607842512,
+      "reference_width_over_axis": 0.1787350502365629,
+      "gain": 1.3537420904204447
+    },
+    {
+      "s_visible_axis": 0.22650797959886465,
+      "old_width_over_axis": 0.13297862780665767,
+      "reference_width_over_axis": 0.17952043251250804,
+      "gain": 1.3499946229970063
+    },
+    {
+      "s_visible_axis": 0.2300239792750371,
+      "old_width_over_axis": 0.1333741752249996,
+      "reference_width_over_axis": 0.18030581478845326,
+      "gain": 1.3518795110393813
+    },
+    {
+      "s_visible_axis": 0.23353997895120954,
+      "old_width_over_axis": 0.13363492773151897,
+      "reference_width_over_axis": 0.1810911970643984,
+      "gain": 1.3551187562896885
+    },
+    {
+      "s_visible_axis": 0.237055978627382,
+      "old_width_over_axis": 0.13389568023803836,
+      "reference_width_over_axis": 0.18177361094733874,
+      "gain": 1.357576365601814
+    },
+    {
+      "s_visible_axis": 0.24057197830355445,
+      "old_width_over_axis": 0.1341564327445577,
+      "reference_width_over_axis": 0.18159793532958796,
+      "gain": 1.3536282354448246
+    },
+    {
+      "s_visible_axis": 0.24408797797972692,
+      "old_width_over_axis": 0.13441718525107707,
+      "reference_width_over_axis": 0.18142225971183717,
+      "gain": 1.3496954230440072
+    },
+    {
+      "s_visible_axis": 0.24760397765589937,
+      "old_width_over_axis": 0.13467793775759646,
+      "reference_width_over_axis": 0.1812465840940864,
+      "gain": 1.3457778394283682
+    },
+    {
+      "s_visible_axis": 0.2511199773320718,
+      "old_width_over_axis": 0.1349386902641158,
+      "reference_width_over_axis": 0.18107090847633567,
+      "gain": 1.3418753963146164
+    },
+    {
+      "s_visible_axis": 0.25463597700824425,
+      "old_width_over_axis": 0.13519944277063517,
+      "reference_width_over_axis": 0.1808952328585849,
+      "gain": 1.33798800610053
+    },
+    {
+      "s_visible_axis": 0.25815197668441675,
+      "old_width_over_axis": 0.13546019527715453,
+      "reference_width_over_axis": 0.1804291044116088,
+      "gain": 1.331971388661052
+    },
+    {
+      "s_visible_axis": 0.2616679763605892,
+      "old_width_over_axis": 0.1357209477836739,
+      "reference_width_over_axis": 0.18158299537885647,
+      "gain": 1.3379142891654592
+    },
+    {
+      "s_visible_axis": 0.26518397603676164,
+      "old_width_over_axis": 0.13598170029019327,
+      "reference_width_over_axis": 0.18242372646012722,
+      "gain": 1.3415314418838993
+    },
+    {
+      "s_visible_axis": 0.2686999757129341,
+      "old_width_over_axis": 0.13624245279671263,
+      "reference_width_over_axis": 0.1827317673387518,
+      "gain": 1.3412248795271313
+    },
+    {
+      "s_visible_axis": 0.2722159753891065,
+      "old_width_over_axis": 0.13650320530323196,
+      "reference_width_over_axis": 0.18249672875466033,
+      "gain": 1.336940977680759
+    },
+    {
+      "s_visible_axis": 0.275731975065279,
+      "old_width_over_axis": 0.13676395780975134,
+      "reference_width_over_axis": 0.1822616901705689,
+      "gain": 1.3326734111051994
+    },
+    {
+      "s_visible_axis": 0.27924797474145147,
+      "old_width_over_axis": 0.1370247103162707,
+      "reference_width_over_axis": 0.1825639662485069,
+      "gain": 1.3323433841029528
+    },
+    {
+      "s_visible_axis": 0.2827639744176239,
+      "old_width_over_axis": 0.13730788261193191,
+      "reference_width_over_axis": 0.18289872773954602,
+      "gain": 1.332033706007002
+    },
+    {
+      "s_visible_axis": 0.28627997409379635,
+      "old_width_over_axis": 0.1378428419777027,
+      "reference_width_over_axis": 0.18323348923058513,
+      "gain": 1.3292927409333652
+    },
+    {
+      "s_visible_axis": 0.2897959737699688,
+      "old_width_over_axis": 0.13837780134347347,
+      "reference_width_over_axis": 0.1835682507216243,
+      "gain": 1.3265729686366505
+    },
+    {
+      "s_visible_axis": 0.2933119734461413,
+      "old_width_over_axis": 0.13891276070924427,
+      "reference_width_over_axis": 0.18390301221266342,
+      "gain": 1.323874144273811
+    },
+    {
+      "s_visible_axis": 0.29682797312231374,
+      "old_width_over_axis": 0.13944772007501505,
+      "reference_width_over_axis": 0.1842377737037026,
+      "gain": 1.3211960267589387
+    },
+    {
+      "s_visible_axis": 0.3003439727984862,
+      "old_width_over_axis": 0.13998267944078585,
+      "reference_width_over_axis": 0.1845725351947417,
+      "gain": 1.3185383786914713
+    },
+    {
+      "s_visible_axis": 0.3038599724746586,
+      "old_width_over_axis": 0.14051763880655663,
+      "reference_width_over_axis": 0.18490729668578082,
+      "gain": 1.3159009662860415
+    },
+    {
+      "s_visible_axis": 0.30737597215083107,
+      "old_width_over_axis": 0.1410525981723274,
+      "reference_width_over_axis": 0.18524205817682,
+      "gain": 1.3132835593039218
+    },
+    {
+      "s_visible_axis": 0.31089197182700357,
+      "old_width_over_axis": 0.1415875575380982,
+      "reference_width_over_axis": 0.1855768196678591,
+      "gain": 1.3106859309860213
+    },
+    {
+      "s_visible_axis": 0.314407971503176,
+      "old_width_over_axis": 0.142122516903869,
+      "reference_width_over_axis": 0.1857858608586591,
+      "gain": 1.3072232669811483
+    },
+    {
+      "s_visible_axis": 0.31792397117934845,
+      "old_width_over_axis": 0.1426574762696398,
+      "reference_width_over_axis": 0.18597012676974484,
+      "gain": 1.303612902966536
+    },
+    {
+      "s_visible_axis": 0.3214399708555209,
+      "old_width_over_axis": 0.14319243563541056,
+      "reference_width_over_axis": 0.18615439268083056,
+      "gain": 1.3000295152099206
+    },
+    {
+      "s_visible_axis": 0.32495597053169334,
+      "old_width_over_axis": 0.14372739500118134,
+      "reference_width_over_axis": 0.18633865859191628,
+      "gain": 1.2964728024910261
+    },
+    {
+      "s_visible_axis": 0.32847197020786584,
+      "old_width_over_axis": 0.14426235436695214,
+      "reference_width_over_axis": 0.186522924503002,
+      "gain": 1.292942468057564
+    },
+    {
+      "s_visible_axis": 0.3319879698840383,
+      "old_width_over_axis": 0.14479731373272292,
+      "reference_width_over_axis": 0.18670719041408773,
+      "gain": 1.2894382195426983
+    },
+    {
+      "s_visible_axis": 0.3355039695602107,
+      "old_width_over_axis": 0.1453322730984937,
+      "reference_width_over_axis": 0.18689145632517346,
+      "gain": 1.2859597688843312
+    },
+    {
+      "s_visible_axis": 0.33901996923638317,
+      "old_width_over_axis": 0.14585123625358687,
+      "reference_width_over_axis": 0.18707572223625918,
+      "gain": 1.2826474909749592
+    },
+    {
+      "s_visible_axis": 0.34253596891255567,
+      "old_width_over_axis": 0.14634171088228015,
+      "reference_width_over_axis": 0.1872599881473449,
+      "gain": 1.2796077551531437
+    },
+    {
+      "s_visible_axis": 0.3460519685887281,
+      "old_width_over_axis": 0.14683218551097346,
+      "reference_width_over_axis": 0.18744425405843063,
+      "gain": 1.276588327049195
+    },
+    {
+      "s_visible_axis": 0.34956796826490055,
+      "old_width_over_axis": 0.14732266013966674,
+      "reference_width_over_axis": 0.18762851996951635,
+      "gain": 1.2735890038344293
+    },
+    {
+      "s_visible_axis": 0.353083967941073,
+      "old_width_over_axis": 0.14781313476836003,
+      "reference_width_over_axis": 0.18755200142172718,
+      "gain": 1.268845300626649
+    },
+    {
+      "s_visible_axis": 0.35659996761724544,
+      "old_width_over_axis": 0.14830360939705334,
+      "reference_width_over_axis": 0.18722622451315757,
+      "gain": 1.262452244246441
+    },
+    {
+      "s_visible_axis": 0.36011596729341794,
+      "old_width_over_axis": 0.14879408402574662,
+      "reference_width_over_axis": 0.18690044760458796,
+      "gain": 1.2561013351327033
+    },
+    {
+      "s_visible_axis": 0.3636319669695904,
+      "old_width_over_axis": 0.1492845586544399,
+      "reference_width_over_axis": 0.18657467069601835,
+      "gain": 1.2497921578607245
+    },
+    {
+      "s_visible_axis": 0.3671479666457628,
+      "old_width_over_axis": 0.1497750332831332,
+      "reference_width_over_axis": 0.18624889378744872,
+      "gain": 1.2435243024474292
+    },
+    {
+      "s_visible_axis": 0.37066396632193527,
+      "old_width_over_axis": 0.1502655079118265,
+      "reference_width_over_axis": 0.1859231168788791,
+      "gain": 1.2372973642625689
+    },
+    {
+      "s_visible_axis": 0.3741799659981077,
+      "old_width_over_axis": 0.15075598254051978,
+      "reference_width_over_axis": 0.1855973399703095,
+      "gain": 1.2311109439416454
+    },
+    {
+      "s_visible_axis": 0.3776959656742802,
+      "old_width_over_axis": 0.1512464571692131,
+      "reference_width_over_axis": 0.18527156306173986,
+      "gain": 1.2249646473005302
+    },
+    {
+      "s_visible_axis": 0.38121196535045265,
+      "old_width_over_axis": 0.15173693179790634,
+      "reference_width_over_axis": 0.18494578615317026,
+      "gain": 1.2188580852517417
+    },
+    {
+      "s_visible_axis": 0.3847279650266251,
+      "old_width_over_axis": 0.15222740642659965,
+      "reference_width_over_axis": 0.18462000924460065,
+      "gain": 1.212790873722334
+    },
+    {
+      "s_visible_axis": 0.38824396470279754,
+      "old_width_over_axis": 0.15271788105529296,
+      "reference_width_over_axis": 0.18423331354445321,
+      "gain": 1.2063637360038395
+    },
+    {
+      "s_visible_axis": 0.39175996437897,
+      "old_width_over_axis": 0.15320835568398622,
+      "reference_width_over_axis": 0.18375186199975685,
+      "gain": 1.1993592724065971
+    },
+    {
+      "s_visible_axis": 0.3952759640551425,
+      "old_width_over_axis": 0.15348280384757543,
+      "reference_width_over_axis": 0.18327041045506046,
+      "gain": 1.194077811069097
+    },
+    {
+      "s_visible_axis": 0.3987919637313149,
+      "old_width_over_axis": 0.15363436720093895,
+      "reference_width_over_axis": 0.1827889589103641,
+      "gain": 1.1897660806015735
+    },
+    {
+      "s_visible_axis": 0.40230796340748737,
+      "old_width_over_axis": 0.15378593055430245,
+      "reference_width_over_axis": 0.18230750736566773,
+      "gain": 1.1854628489651995
+    },
+    {
+      "s_visible_axis": 0.4058239630836598,
+      "old_width_over_axis": 0.153937493907666,
+      "reference_width_over_axis": 0.18182605582097136,
+      "gain": 1.1811680910567073
+    },
+    {
+      "s_visible_axis": 0.40933996275983225,
+      "old_width_over_axis": 0.1540890572610295,
+      "reference_width_over_axis": 0.18134460427627502,
+      "gain": 1.1768817818715975
+    },
+    {
+      "s_visible_axis": 0.41285596243600475,
+      "old_width_over_axis": 0.15424062061439303,
+      "reference_width_over_axis": 0.18086315273157863,
+      "gain": 1.1726038965036512
+    },
+    {
+      "s_visible_axis": 0.4163719621121772,
+      "old_width_over_axis": 0.15439218396775653,
+      "reference_width_over_axis": 0.18038170118688227,
+      "gain": 1.1683344101444502
+    },
+    {
+      "s_visible_axis": 0.41988796178834964,
+      "old_width_over_axis": 0.15454374732112006,
+      "reference_width_over_axis": 0.1799002496421859,
+      "gain": 1.1640732980828956
+    },
+    {
+      "s_visible_axis": 0.4234039614645221,
+      "old_width_over_axis": 0.15469531067448358,
+      "reference_width_over_axis": 0.17941879809748956,
+      "gain": 1.1598205357047324
+    },
+    {
+      "s_visible_axis": 0.4269199611406945,
+      "old_width_over_axis": 0.1548468740278471,
+      "reference_width_over_axis": 0.1789373465527932,
+      "gain": 1.155576098492074
+    },
+    {
+      "s_visible_axis": 0.430435960816867,
+      "old_width_over_axis": 0.1549984373812106,
+      "reference_width_over_axis": 0.1784558950080968,
+      "gain": 1.1513399620229319
+    },
+    {
+      "s_visible_axis": 0.43395196049303947,
+      "old_width_over_axis": 0.15515000073457413,
+      "reference_width_over_axis": 0.1779212143365903,
+      "gain": 1.1467690202655716
+    },
+    {
+      "s_visible_axis": 0.4374679601692119,
+      "old_width_over_axis": 0.15530156408793763,
+      "reference_width_over_axis": 0.17732056882277208,
+      "gain": 1.1417822471019445
+    },
+    {
+      "s_visible_axis": 0.44098395984538435,
+      "old_width_over_axis": 0.1554531274413012,
+      "reference_width_over_axis": 0.17671992330895386,
+      "gain": 1.136805197924905
+    },
+    {
+      "s_visible_axis": 0.4444999595215568,
+      "old_width_over_axis": 0.15560469079466469,
+      "reference_width_over_axis": 0.17611927779513564,
+      "gain": 1.1318378443201427
+    },
+    {
+      "s_visible_axis": 0.4480159591977293,
+      "old_width_over_axis": 0.1557562541480282,
+      "reference_width_over_axis": 0.17551863228131742,
+      "gain": 1.1268801579839445
+    },
+    {
+      "s_visible_axis": 0.45153195887390174,
+      "old_width_over_axis": 0.15563919643402113,
+      "reference_width_over_axis": 0.1749179867674992,
+      "gain": 1.1238684777047843
+    },
+    {
+      "s_visible_axis": 0.4550479585500742,
+      "old_width_over_axis": 0.15549726131855673,
+      "reference_width_over_axis": 0.17431734125368098,
+      "gain": 1.1210315845792862
+    },
+    {
+      "s_visible_axis": 0.4585639582262466,
+      "old_width_over_axis": 0.15535532620309234,
+      "reference_width_over_axis": 0.17371669573986276,
+      "gain": 1.1181895077917512
+    },
+    {
+      "s_visible_axis": 0.46207995790241907,
+      "old_width_over_axis": 0.1552133910876279,
+      "reference_width_over_axis": 0.17311605022604454,
+      "gain": 1.1153422331215572
+    },
+    {
+      "s_visible_axis": 0.46559595757859157,
+      "old_width_over_axis": 0.1550714559721635,
+      "reference_width_over_axis": 0.17251540471222632,
+      "gain": 1.112489746296018
+    },
+    {
+      "s_visible_axis": 0.469111957254764,
+      "old_width_over_axis": 0.15492952085669912,
+      "reference_width_over_axis": 0.1719147591984081,
+      "gain": 1.109632032990145
+    },
+    {
+      "s_visible_axis": 0.47262795693093645,
+      "old_width_over_axis": 0.15478758574123472,
+      "reference_width_over_axis": 0.17131411368458987,
+      "gain": 1.1067690788264073
+    },
+    {
+      "s_visible_axis": 0.4761439566071089,
+      "old_width_over_axis": 0.15464565062577032,
+      "reference_width_over_axis": 0.17071346817077165,
+      "gain": 1.103900869374491
+    },
+    {
+      "s_visible_axis": 0.47965995628328134,
+      "old_width_over_axis": 0.15450371551030592,
+      "reference_width_over_axis": 0.17011282265695343,
+      "gain": 1.1010273901510563
+    },
+    {
+      "s_visible_axis": 0.48317595595945384,
+      "old_width_over_axis": 0.1543617803948415,
+      "reference_width_over_axis": 0.16945843885067086,
+      "gain": 1.097800494508509
+    },
+    {
+      "s_visible_axis": 0.4866919556356263,
+      "old_width_over_axis": 0.15421984527937713,
+      "reference_width_over_axis": 0.16877885685162583,
+      "gain": 1.0944042677897539
+    },
+    {
+      "s_visible_axis": 0.4902079553117987,
+      "old_width_over_axis": 0.15407791016391273,
+      "reference_width_over_axis": 0.1680992748525808,
+      "gain": 1.0910017839270518
+    },
+    {
+      "s_visible_axis": 0.49372395498797117,
+      "old_width_over_axis": 0.15393597504844833,
+      "reference_width_over_axis": 0.16741969285353578,
+      "gain": 1.0875930256123933
+    },
+    {
+      "s_visible_axis": 0.4972399546641436,
+      "old_width_over_axis": 0.15379403993298393,
+      "reference_width_over_axis": 0.16674011085449075,
+      "gain": 1.0841779754738747
+    },
+    {
+      "s_visible_axis": 0.5007559543403161,
+      "old_width_over_axis": 0.1536521048175195,
+      "reference_width_over_axis": 0.16606052885544575,
+      "gain": 1.0807566160754047
+    },
+    {
+      "s_visible_axis": 0.5042719540164885,
+      "old_width_over_axis": 0.1534247536819311,
+      "reference_width_over_axis": 0.1653809468564007,
+      "gain": 1.0779287102474762
+    },
+    {
+      "s_visible_axis": 0.507787953692661,
+      "old_width_over_axis": 0.1528403946567944,
+      "reference_width_over_axis": 0.16470136485735568,
+      "gain": 1.0776036350023521
+    },
+    {
+      "s_visible_axis": 0.5113039533688335,
+      "old_width_over_axis": 0.15225603563165768,
+      "reference_width_over_axis": 0.16402178285831065,
+      "gain": 1.0772760644781072
+    },
+    {
+      "s_visible_axis": 0.5148199530450059,
+      "old_width_over_axis": 0.15167167660652098,
+      "reference_width_over_axis": 0.16334220085926565,
+      "gain": 1.0769459698333876
+    },
+    {
+      "s_visible_axis": 0.5183359527211784,
+      "old_width_over_axis": 0.15108731758138427,
+      "reference_width_over_axis": 0.1626626188602206,
+      "gain": 1.07661332178064
+    },
+    {
+      "s_visible_axis": 0.5218519523973508,
+      "old_width_over_axis": 0.15050295855624754,
+      "reference_width_over_axis": 0.1619830368611756,
+      "gain": 1.0762780905774527
+    },
+    {
+      "s_visible_axis": 0.5253679520735233,
+      "old_width_over_axis": 0.14991859953111084,
+      "reference_width_over_axis": 0.16130345486213055,
+      "gain": 1.0759402460176875
+    },
+    {
+      "s_visible_axis": 0.5288839517496957,
+      "old_width_over_axis": 0.14933424050597413,
+      "reference_width_over_axis": 0.16062387286308555,
+      "gain": 1.0755997574224097
+    },
+    {
+      "s_visible_axis": 0.5323999514258682,
+      "old_width_over_axis": 0.14874988148083743,
+      "reference_width_over_axis": 0.15994429086404052,
+      "gain": 1.075256593630599
+    },
+    {
+      "s_visible_axis": 0.5359159511020406,
+      "old_width_over_axis": 0.14816552245570072,
+      "reference_width_over_axis": 0.15914104052247552,
+      "gain": 1.0740760595641021
+    },
+    {
+      "s_visible_axis": 0.539431950778213,
+      "old_width_over_axis": 0.14758116343056402,
+      "reference_width_over_axis": 0.1583357464869326,
+      "gain": 1.0728723287333923
+    },
+    {
+      "s_visible_axis": 0.5429479504543856,
+      "old_width_over_axis": 0.1469968044054273,
+      "reference_width_over_axis": 0.15753045245138964,
+      "gain": 1.07165902747729
+    },
+    {
+      "s_visible_axis": 0.546463950130558,
+      "old_width_over_axis": 0.14641244538029058,
+      "reference_width_over_axis": 0.15672515841584672,
+      "gain": 1.070436041203806
+    },
+    {
+      "s_visible_axis": 0.5499799498067305,
+      "old_width_over_axis": 0.1458280863551539,
+      "reference_width_over_axis": 0.15591986438030375,
+      "gain": 1.0692032534841887
+    },
+    {
+      "s_visible_axis": 0.5534959494829029,
+      "old_width_over_axis": 0.14524372733001717,
+      "reference_width_over_axis": 0.15511457034476084,
+      "gain": 1.0679605460159771
+    },
+    {
+      "s_visible_axis": 0.5570119491590754,
+      "old_width_over_axis": 0.14465936830488044,
+      "reference_width_over_axis": 0.15430927630921792,
+      "gain": 1.0667077985851532
+    },
+    {
+      "s_visible_axis": 0.5605279488352478,
+      "old_width_over_axis": 0.14389276571460283,
+      "reference_width_over_axis": 0.15350398227367495,
+      "gain": 1.0667942999868043
+    },
+    {
+      "s_visible_axis": 0.5640439485114203,
+      "old_width_over_axis": 0.14292138655846603,
+      "reference_width_over_axis": 0.15269868823813204,
+      "gain": 1.0684103472202626
+    },
+    {
+      "s_visible_axis": 0.5675599481875927,
+      "old_width_over_axis": 0.14195000740232921,
+      "reference_width_over_axis": 0.15189339420258913,
+      "gain": 1.0700485120235137
+    },
+    {
+      "s_visible_axis": 0.5710759478637651,
+      "old_width_over_axis": 0.14097862824619245,
+      "reference_width_over_axis": 0.15108810016704616,
+      "gain": 1.07170925158386
+    },
+    {
+      "s_visible_axis": 0.5745919475399376,
+      "old_width_over_axis": 0.14000724909005563,
+      "reference_width_over_axis": 0.15028280613150324,
+      "gain": 1.0733930357765842
+    },
+    {
+      "s_visible_axis": 0.5781079472161101,
+      "old_width_over_axis": 0.1390358699339188,
+      "reference_width_over_axis": 0.14947751209596027,
+      "gain": 1.0751003476081689
+    },
+    {
+      "s_visible_axis": 0.5816239468922826,
+      "old_width_over_axis": 0.13806449077778202,
+      "reference_width_over_axis": 0.14867221806041736,
+      "gain": 1.0768316836782366
+    },
+    {
+      "s_visible_axis": 0.585139946568455,
+      "old_width_over_axis": 0.13709311162164517,
+      "reference_width_over_axis": 0.14786692402487442,
+      "gain": 1.0785875546611214
+    },
+    {
+      "s_visible_axis": 0.5886559462446275,
+      "old_width_over_axis": 0.1361217324655084,
+      "reference_width_over_axis": 0.14706162998933148,
+      "gain": 1.0803684858080622
+    },
+    {
+      "s_visible_axis": 0.5921719459207999,
+      "old_width_over_axis": 0.1351503533093716,
+      "reference_width_over_axis": 0.1458732374796617,
+      "gain": 1.079340407980617
+    },
+    {
+      "s_visible_axis": 0.5956879455969724,
+      "old_width_over_axis": 0.1341789741532348,
+      "reference_width_over_axis": 0.14465859533607583,
+      "gain": 1.0781018132607953
+    },
+    {
+      "s_visible_axis": 0.5992039452731448,
+      "old_width_over_axis": 0.133207594997098,
+      "reference_width_over_axis": 0.14344395319248995,
+      "gain": 1.076845154329338
+    },
+    {
+      "s_visible_axis": 0.6027199449493172,
+      "old_width_over_axis": 0.13223621584096124,
+      "reference_width_over_axis": 0.1422293110489041,
+      "gain": 1.0755700330986593
+    },
+    {
+      "s_visible_axis": 0.6062359446254897,
+      "old_width_over_axis": 0.13126483668482442,
+      "reference_width_over_axis": 0.14101466890531822,
+      "gain": 1.0742760396975453
+    },
+    {
+      "s_visible_axis": 0.6097519443016621,
+      "old_width_over_axis": 0.13029345752868762,
+      "reference_width_over_axis": 0.13980002676173237,
+      "gain": 1.0729627520319016
+    },
+    {
+      "s_visible_axis": 0.6132679439778347,
+      "old_width_over_axis": 0.12932207837255075,
+      "reference_width_over_axis": 0.13858538461814646,
+      "gain": 1.0716297353257036
+    },
+    {
+      "s_visible_axis": 0.6167839436540071,
+      "old_width_over_axis": 0.12804782237379442,
+      "reference_width_over_axis": 0.1373707424745606,
+      "gain": 1.0728081112816656
+    },
+    {
+      "s_visible_axis": 0.6202999433301796,
+      "old_width_over_axis": 0.12667191404734468,
+      "reference_width_over_axis": 0.13615610033097475,
+      "gain": 1.07487205316946
+    },
+    {
+      "s_visible_axis": 0.623815943006352,
+      "old_width_over_axis": 0.12529600572089494,
+      "reference_width_over_axis": 0.1349414581873889,
+      "gain": 1.076981324432479
+    },
+    {
+      "s_visible_axis": 0.6273319426825245,
+      "old_width_over_axis": 0.12392009739444518,
+      "reference_width_over_axis": 0.13372681604380304,
+      "gain": 1.0791374349726541
+    },
+    {
+      "s_visible_axis": 0.6308479423586969,
+      "old_width_over_axis": 0.12254418906799543,
+      "reference_width_over_axis": 0.1325121739002172,
+      "gain": 1.0813419625037535
+    },
+    {
+      "s_visible_axis": 0.6343639420348693,
+      "old_width_over_axis": 0.12116828074154568,
+      "reference_width_over_axis": 0.13129753175663134,
+      "gain": 1.0835965564015186
+    },
+    {
+      "s_visible_axis": 0.6378799417110418,
+      "old_width_over_axis": 0.11979237241509594,
+      "reference_width_over_axis": 0.13008288961304543,
+      "gain": 1.0859029418191297
+    },
+    {
+      "s_visible_axis": 0.6413959413872142,
+      "old_width_over_axis": 0.11841646408864617,
+      "reference_width_over_axis": 0.12885199710802064,
+      "gain": 1.0881256934978438
+    },
+    {
+      "s_visible_axis": 0.6449119410633867,
+      "old_width_over_axis": 0.11704055576219638,
+      "reference_width_over_axis": 0.1275998585971159,
+      "gain": 1.0902191788662894
+    },
+    {
+      "s_visible_axis": 0.6484279407395592,
+      "old_width_over_axis": 0.11566464743574659,
+      "reference_width_over_axis": 0.12634772008621112,
+      "gain": 1.0923624710514865
+    },
+    {
+      "s_visible_axis": 0.6519439404157317,
+      "old_width_over_axis": 0.11428873910929684,
+      "reference_width_over_axis": 0.1250955815753064,
+      "gain": 1.094557368908189
+    },
+    {
+      "s_visible_axis": 0.6554599400919041,
+      "old_width_over_axis": 0.1129128307828471,
+      "reference_width_over_axis": 0.12384344306440165,
+      "gain": 1.0968057589715043
+    },
+    {
+      "s_visible_axis": 0.6589759397680766,
+      "old_width_over_axis": 0.11153692245639733,
+      "reference_width_over_axis": 0.12259130455349693,
+      "gain": 1.0991096208649744
+    },
+    {
+      "s_visible_axis": 0.662491939444249,
+      "old_width_over_axis": 0.11016101412994758,
+      "reference_width_over_axis": 0.12133916604259219,
+      "gain": 1.1014710331139352
+    },
+    {
+      "s_visible_axis": 0.6660079391204214,
+      "old_width_over_axis": 0.10878510580349784,
+      "reference_width_over_axis": 0.12008702753168746,
+      "gain": 1.1038921794000427
+    },
+    {
+      "s_visible_axis": 0.6695239387965939,
+      "old_width_over_axis": 0.1073986970378901,
+      "reference_width_over_axis": 0.11883488902078274,
+      "gain": 1.1064835263211616
+    },
+    {
+      "s_visible_axis": 0.6730399384727663,
+      "old_width_over_axis": 0.10562712446783441,
+      "reference_width_over_axis": 0.11758275050987799,
+      "gain": 1.1131870824116232
+    },
+    {
+      "s_visible_axis": 0.6765559381489388,
+      "old_width_over_axis": 0.10385555189777879,
+      "reference_width_over_axis": 0.11633061199897327,
+      "gain": 1.1201193376110814
+    },
+    {
+      "s_visible_axis": 0.6800719378251113,
+      "old_width_over_axis": 0.1020839793277231,
+      "reference_width_over_axis": 0.11507847348806849,
+      "gain": 1.127292198500891
+    },
+    {
+      "s_visible_axis": 0.6835879375012838,
+      "old_width_over_axis": 0.10031240675766749,
+      "reference_width_over_axis": 0.11382633497716377,
+      "gain": 1.134718412769648
+    },
+    {
+      "s_visible_axis": 0.6871039371774562,
+      "old_width_over_axis": 0.09854083418761186,
+      "reference_width_over_axis": 0.1124259493232439,
+      "gain": 1.1409072213575557
+    },
+    {
+      "s_visible_axis": 0.6906199368536287,
+      "old_width_over_axis": 0.09676926161755624,
+      "reference_width_over_axis": 0.1109066324567843,
+      "gain": 1.146093610749048
+    },
+    {
+      "s_visible_axis": 0.6941359365298011,
+      "old_width_over_axis": 0.09499768904750061,
+      "reference_width_over_axis": 0.10938731559032469,
+      "gain": 1.1514734377973026
+    },
+    {
+      "s_visible_axis": 0.6976519362059735,
+      "old_width_over_axis": 0.09322611647744498,
+      "reference_width_over_axis": 0.1078679987238651,
+      "gain": 1.1570577301690192
+    },
+    {
+      "s_visible_axis": 0.701167935882146,
+      "old_width_over_axis": 0.09145454390738932,
+      "reference_width_over_axis": 0.10634868185740551,
+      "gain": 1.1628583700018078
+    },
+    {
+      "s_visible_axis": 0.7046839355583184,
+      "old_width_over_axis": 0.0896829713373337,
+      "reference_width_over_axis": 0.10482936499094592,
+      "gain": 1.1688881782990947
+    },
+    {
+      "s_visible_axis": 0.7081999352344909,
+      "old_width_over_axis": 0.08791139876727808,
+      "reference_width_over_axis": 0.10331004812448631,
+      "gain": 1.1751610095292881
+    },
+    {
+      "s_visible_axis": 0.7117159349106633,
+      "old_width_over_axis": 0.08613982619722246,
+      "reference_width_over_axis": 0.10179073125802672,
+      "gain": 1.1816918578982334
+    },
+    {
+      "s_visible_axis": 0.7152319345868359,
+      "old_width_over_axis": 0.08436825362716678,
+      "reference_width_over_axis": 0.10027141439156709,
+      "gain": 1.1884969770107872
+    },
+    {
+      "s_visible_axis": 0.7187479342630083,
+      "old_width_over_axis": 0.08259668105711115,
+      "reference_width_over_axis": 0.09875521752936392,
+      "gain": 1.195631788898152
+    },
+    {
+      "s_visible_axis": 0.7222639339391808,
+      "old_width_over_axis": 0.08082510848705553,
+      "reference_width_over_axis": 0.0973416119919991,
+      "gain": 1.2043486710270086
+    },
+    {
+      "s_visible_axis": 0.7257799336153532,
+      "old_width_over_axis": 0.07907946346518999,
+      "reference_width_over_axis": 0.09592800645463428,
+      "gain": 1.2130583877426138
+    },
+    {
+      "s_visible_axis": 0.7292959332915256,
+      "old_width_over_axis": 0.07739307655219586,
+      "reference_width_over_axis": 0.09451440091726948,
+      "gain": 1.2212255298253527
+    },
+    {
+      "s_visible_axis": 0.7328119329676981,
+      "old_width_over_axis": 0.07570668963920171,
+      "reference_width_over_axis": 0.09310079537990466,
+      "gain": 1.2297565224896072
+    },
+    {
+      "s_visible_axis": 0.7363279326438705,
+      "old_width_over_axis": 0.0740203027262076,
+      "reference_width_over_axis": 0.09168718984253985,
+      "gain": 1.2386762342985813
+    },
+    {
+      "s_visible_axis": 0.739843932320043,
+      "old_width_over_axis": 0.07233391581321348,
+      "reference_width_over_axis": 0.09027358430517504,
+      "gain": 1.2480118529499609
+    },
+    {
+      "s_visible_axis": 0.7433599319962154,
+      "old_width_over_axis": 0.07064752890021937,
+      "reference_width_over_axis": 0.08885997876781024,
+      "gain": 1.2577931620695981
+    },
+    {
+      "s_visible_axis": 0.7468759316723879,
+      "old_width_over_axis": 0.06896114198722526,
+      "reference_width_over_axis": 0.08744637323044542,
+      "gain": 1.2680528586177482
+    },
+    {
+      "s_visible_axis": 0.7503919313485604,
+      "old_width_over_axis": 0.0672747550742311,
+      "reference_width_over_axis": 0.08603276769308058,
+      "gain": 1.27882691803414
+    },
+    {
+      "s_visible_axis": 0.7539079310247329,
+      "old_width_over_axis": 0.06558836816123698,
+      "reference_width_over_axis": 0.08461916215571574,
+      "gain": 1.2901550157139912
+    },
+    {
+      "s_visible_axis": 0.7574239307009053,
+      "old_width_over_axis": 0.06390198124824287,
+      "reference_width_over_axis": 0.08302388181036138,
+      "gain": 1.2992379921341535
+    },
+    {
+      "s_visible_axis": 0.7609399303770777,
+      "old_width_over_axis": 0.06221559433524871,
+      "reference_width_over_axis": 0.08138803980308167,
+      "gain": 1.3081614131100676
+    },
+    {
+      "s_visible_axis": 0.7644559300532502,
+      "old_width_over_axis": 0.060529207422254594,
+      "reference_width_over_axis": 0.07975219779580195,
+      "gain": 1.3175820598384325
+    },
+    {
+      "s_visible_axis": 0.7679719297294226,
+      "old_width_over_axis": 0.058842820509260485,
+      "reference_width_over_axis": 0.07811635578852223,
+      "gain": 1.3275426825644523
+    },
+    {
+      "s_visible_axis": 0.7714879294055951,
+      "old_width_over_axis": 0.05761623977666908,
+      "reference_width_over_axis": 0.07648051378124252,
+      "gain": 1.3274124461730712
+    },
+    {
+      "s_visible_axis": 0.7750039290817675,
+      "old_width_over_axis": 0.05656265101984449,
+      "reference_width_over_axis": 0.07484467177396281,
+      "gain": 1.323217183503373
+    },
+    {
+      "s_visible_axis": 0.77851992875794,
+      "old_width_over_axis": 0.0555090622630199,
+      "reference_width_over_axis": 0.07320882976668308,
+      "gain": 1.318862664618544
+    },
+    {
+      "s_visible_axis": 0.7820359284341124,
+      "old_width_over_axis": 0.0544554735061953,
+      "reference_width_over_axis": 0.07157298775940338,
+      "gain": 1.31433964578897
+    },
+    {
+      "s_visible_axis": 0.785551928110285,
+      "old_width_over_axis": 0.05340188474937067,
+      "reference_width_over_axis": 0.06993714575212359,
+      "gain": 1.309638153790963
+    },
+    {
+      "s_visible_axis": 0.7890679277864574,
+      "old_width_over_axis": 0.05234829599254608,
+      "reference_width_over_axis": 0.06819011351436516,
+      "gain": 1.3026233656979933
+    },
+    {
+      "s_visible_axis": 0.7925839274626298,
+      "old_width_over_axis": 0.05129470723572146,
+      "reference_width_over_axis": 0.06636448802264472,
+      "gain": 1.2937882210277774
+    },
+    {
+      "s_visible_axis": 0.7960999271388023,
+      "old_width_over_axis": 0.05024111847889687,
+      "reference_width_over_axis": 0.0645388625309243,
+      "gain": 1.2845825189587097
+    },
+    {
+      "s_visible_axis": 0.7996159268149747,
+      "old_width_over_axis": 0.04918752972207227,
+      "reference_width_over_axis": 0.06271323703920387,
+      "gain": 1.2749824476560796
+    },
+    {
+      "s_visible_axis": 0.8031319264911472,
+      "old_width_over_axis": 0.047502058646978255,
+      "reference_width_over_axis": 0.06088761154748344,
+      "gain": 1.2817889009818038
+    },
+    {
+      "s_visible_axis": 0.8066479261673196,
+      "old_width_over_axis": 0.044294249930030706,
+      "reference_width_over_axis": 0.059148389613169594,
+      "gain": 1.3353514216089717
+    },
+    {
+      "s_visible_axis": 0.8101639258434921,
+      "old_width_over_axis": 0.04108644121308315,
+      "reference_width_over_axis": 0.05740993879158593,
+      "gain": 1.397296458309582
+    },
+    {
+      "s_visible_axis": 0.8136799255196645,
+      "old_width_over_axis": 0.0378786324961356,
+      "reference_width_over_axis": 0.055671487970002265,
+      "gain": 1.4697333114040458
+    },
+    {
+      "s_visible_axis": 0.817195925195837,
+      "old_width_over_axis": 0.034670823779188044,
+      "reference_width_over_axis": 0.0539330371484186,
+      "gain": 1.5555741476437932
+    },
+    {
+      "s_visible_axis": 0.8207119248720095,
+      "old_width_over_axis": 0.03146301506224028,
+      "reference_width_over_axis": 0.052173280839341474,
+      "gain": 1.6582416127676272
+    },
+    {
+      "s_visible_axis": 0.824227924548182,
+      "old_width_over_axis": 0.028255206345292726,
+      "reference_width_over_axis": 0.05026747077434421,
+      "gain": 1.7790516253907553
+    },
+    {
+      "s_visible_axis": 0.8277439242243544,
+      "old_width_over_axis": 0.02504739762834517,
+      "reference_width_over_axis": 0.04863289201851076,
+      "gain": 1.9416345258748477
+    },
+    {
+      "s_visible_axis": 0.8312599239005268,
+      "old_width_over_axis": 0.021839588911397617,
+      "reference_width_over_axis": 0.04705624516175279,
+      "gain": 2.1546305359802416
+    },
+    {
+      "s_visible_axis": 0.8347759235766993,
+      "old_width_over_axis": 0.01863178019445006,
+      "reference_width_over_axis": 0.04547959830499482,
+      "gain": 2.4409690233755574
+    },
+    {
+      "s_visible_axis": 0.8382919232528717,
+      "old_width_over_axis": 0.015423971477502506,
+      "reference_width_over_axis": 0.043902951448236846,
+      "gain": 2.846410310877062
+    },
+    {
+      "s_visible_axis": 0.8418079229290442,
+      "old_width_over_axis": 0.012216162760554953,
+      "reference_width_over_axis": 0.04232630459147888,
+      "gain": 3.4647790325901067
+    },
+    {
+      "s_visible_axis": 0.8453239226052166,
+      "old_width_over_axis": 0.009008354043607399,
+      "reference_width_over_axis": 0.04074965773472091,
+      "gain": 4.523540875221052
+    }
+  ],
+  "baseline_global": {
+    "width_over_axis": 0.1557562541480282,
+    "peak_s": 0.4480159591977293
+  },
+  "target_global": {
+    "width_over_axis": 0.18762851996951635,
+    "peak_s": 0.34956796826490055
+  },
+  "scope": "Entire transverse body through tail base, preserve project XY, topology/UV/material/weights/rig/animations. Paired-fin spread is not an acceptance target.",
+  "formal_acceptance": false
+}

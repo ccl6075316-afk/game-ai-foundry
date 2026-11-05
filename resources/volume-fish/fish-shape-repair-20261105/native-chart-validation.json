@@ -1,0 +1,159 @@
+{
+  "ok": true,
+  "kind": "actual_native_chart_positive_and_negative_suite",
+  "cases": [
+    {
+      "case": "actual ordinary full body",
+      "accepted": true,
+      "expected": true,
+      "ok": true,
+      "failures": []
+    },
+    {
+      "case": "wrong declared model",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "wrong declared model"
+        ]
+      ]
+    },
+    {
+      "case": "wrong actual source",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "wrong actual source"
+        ]
+      ]
+    },
+    {
+      "case": "actual changed UV with honest new model hash",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "actual changed UV with honest new model hash"
+        ]
+      ]
+    },
+    {
+      "case": "actual missing oral face",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "actual missing oral face"
+        ]
+      ]
+    },
+    {
+      "case": "actual missing oral ownership",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "actual missing oral ownership"
+        ]
+      ]
+    },
+    {
+      "case": "actual changed embedded RGB with honest new hash",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "actual changed embedded RGB with honest new hash"
+        ]
+      ]
+    },
+    {
+      "case": "actual complete anterior domain",
+      "accepted": true,
+      "expected": true,
+      "ok": true,
+      "failures": []
+    },
+    {
+      "case": "anterior mislabelled whole body",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "anterior mislabelled whole body"
+        ]
+      ]
+    },
+    {
+      "case": "incomplete protected row map",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "incomplete protected row map"
+        ]
+      ]
+    },
+    {
+      "case": "fake lower rim count",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "fake lower rim count"
+        ]
+      ]
+    },
+    {
+      "case": "unaccepted baseline model",
+      "accepted": false,
+      "expected": false,
+      "ok": true,
+      "failures": [
+        [
+          "invalid_preserved_native_lip_chart",
+          "unaccepted baseline model"
+        ]
+      ]
+    }
+  ],
+  "checker_sha256": "c645c23cc2422f66637826d44757c363416babab27d20b4ca3ef91822bf8fcfd",
+  "dispatcher_sha256": "7846babdbf9ec5e8c6346c1b3a7a841e3b9f630cb19cb61f433f39911249e004",
+  "model_sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+  "temporary_bytes_deleted": 24976171,
+  "regression_suite": {
+    "command": ".venv/bin/python -m unittest cli/test_volume_packed_acceptance.py cli/test_volume_sop.py",
+    "tests": 37,
+    "passed": true,
+    "independent_repeat_passed": true
+  },
+  "independent_review": {
+    "reviewer": "group-b",
+    "phase1": "APPROVED Q1-Q5",
+    "phase2": "APPROVED Q1-Q4",
+    "phase3": "APPROVED Q1-Q5",
+    "phase4": "APPROVED Q1-Q6",
+    "scope": "Explicit layout/native-chart preservation only. No geometry, rig, motion or other gate acceptance is implied."
+  },
+  "retention": "Actual current source/model tests were completed and compact results retained. Temporary modified GLBs/baselines were deleted; no experimental payload is needed in Git."
+}
