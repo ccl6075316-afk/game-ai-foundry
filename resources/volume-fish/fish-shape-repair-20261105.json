@@ -64,7 +64,11 @@
           "bytes": 130546
         }
       ],
-      "authoring_parameters_scope": "Adopted numerical reference/axis/width design provenance only. Original source SHA/path is historical after canonical replacement; do not replay retired candidates. Maintain current source/GLB; original fin domain profile remains the per-fin source definition."
+      "authoring_parameters_scope": "Adopted numerical reference/axis/width design provenance only. Original source SHA/path is historical after canonical replacement; do not replay retired candidates. Maintain current source/GLB; original fin domain profile remains the per-fin source definition.",
+      "source_domain": {
+        "path": "resources/volume-fish/top-body-repair-20261105/group-b/peacock-bass-release/complete-root-domains.json",
+        "sha256": "5f8473fe65cd23d24bbf3d6ced60c1a9a7f49da0de698dc7244aec80b419d183"
+      }
     },
     {
       "species": "arapaima",

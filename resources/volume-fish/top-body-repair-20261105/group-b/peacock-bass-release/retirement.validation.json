@@ -1,0 +1,35 @@
+{
+  "kind": "accepted_peacock_bass_experiment_retirement",
+  "authorization": "User authorized finished models, direct commit/push and removal of experiments; owning agent confirmed no active croaker/zander input depends on this subtree.",
+  "removed_root": "projects/fishing-2d/experiments/top-body-repair-20261105/group-b/peacock_bass",
+  "deleted_files": 572,
+  "deleted_bytes": 76062574,
+  "by_extension": {
+    ".json": 66,
+    ".glb": 1,
+    ".jpg": 291,
+    ".blend": 2,
+    ".mp4": 1,
+    ".log": 17,
+    ".png": 194
+  },
+  "retained_canonical_assets": [
+    {
+      "path": "projects/fishing-2d/assets/source/fish/peacock_bass/fish.blend",
+      "sha256": "82c8bf589f29c38287af91d34b1dab0dc90238ea967f14f5b5a489978e2f4f7e",
+      "bytes": 6214218
+    },
+    {
+      "path": "projects/fishing-2d/game/assets/models/fish/peacock_bass.glb",
+      "sha256": "02ee71055093b5d9ebc3b041603f5d808cf8de39266071a4be71d38079425bdd",
+      "bytes": 5288564
+    }
+  ],
+  "retained_root_domains": {
+    "path": "resources/volume-fish/top-body-repair-20261105/group-b/peacock-bass-release/complete-root-domains.json",
+    "sha256": "5f8473fe65cd23d24bbf3d6ced60c1a9a7f49da0de698dc7244aec80b419d183"
+  },
+  "removed_manifest_sha256": "a72eed3a35c3453e12ccc38770b72429f49c143d439acf6bf5dab5b800d514f7",
+  "scope": "Entire explicitly identified accepted-species experiment subtree, including historical candidates, control/negative models, dense490 pose data and repeated media. Canonical source/GLB, original game2D/icons, shared fish library, original29-page PDF and active other species inputs remain.",
+  "historical_evidence_status": "Original SOP67 passed before authorized retirement; historical media/model/pose SHA are provenance and not replayable current assets. No backup archive created."
+}
