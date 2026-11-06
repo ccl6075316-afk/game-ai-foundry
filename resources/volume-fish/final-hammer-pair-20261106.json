@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "accepted_finished",
+  "user_accepted": true,
+  "static_frozen": true,
+  "future_scope": "Motion only unless user explicitly reopens static data.",
+  "handoff": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/plans/reviews/hammer-pair-release-20261106/HANDOFF.md",
+  "manifest": {
+    "path": "/Users/czl/projects/game-ai-foundry/projects/fishing-2d/plans/reviews/hammer-pair-release-20261106/manifest.json",
+    "sha256": "6d55d34a0a0b7bbdc034be89896dbb493ce0a386cbc19b60dd9aea8590ff0c68"
+  },
+  "fish": {
+    "great": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/great-hammerhead-final-20261106.json",
+      "sha256": "343d26708c53fd9ae3f7180c8c6b8f010b08b3e5378fa4cd410be9e6773ba5e5"
+    },
+    "smooth": {
+      "path": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/smooth-hammerhead-final-20261106.json",
+      "sha256": "d0091c653e7ee8c3bfc361507683dccedbf5c1601eebc331c3276c943cc86407"
+    }
+  }
+}

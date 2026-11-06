@@ -1,5 +1,7 @@
 # Game AI Foundry — External Agent One-pager
 
+**2026-11-06 双髻鲨成品冻结**：用户整鱼接受大双髻鲨/无沟双髻鲨 R42 并要求提交推送；普通源与GLB已固化安装，静态外形、完整鳍、UV/材质、蒙皮及骨架冻结，默认只改动作。入口 `resources/volume-fish/final-hammer-pair-20261106.json` 与游戏 `plans/reviews/hammer-pair-release-20261106/HANDOFF.md`；正式入口精确绑定R42，不恢复旧静态实验装配。当前完整490/077、厚度/尾截面、源冷导出、正式/缓存/钓鱼入口及SOP已通过；清理与历史溯源范围见交接。
+
 **2026-11-06 指定九鱼返修完成**：用户重开真鲷、黑鲷、红腹食人鱼、孔雀鲈、大黄鱼、梭鲈、巨骨舌鱼、太平洋蓝鳍金枪鱼的俯视体形及黑鳍礁鲨的鳍位/尺寸，并明确必要检查通过即按成品直接提交推送，无需再次展示。九条均已完成逐鱼检查、源固化和正式安装，再次静态冻结；当前维护入口为 `resources/volume-fish/fish-shape-repair-20261105.json` 与游戏 `plans/reviews/fish-shape-repair-20261105/HANDOFF.md`。原接受manifest保留历史SHA，不再代表返修后的当前字节。大黄鱼已把旧GLB正确、旧blend遗漏的MASK/.5/单面合同真正落源，公共水体未改；真鲷旧基底重叠及黑鳍11个尾根点/线接触等限制如实见逐鱼记录，不声称全self0。当前源/GLB、原图、图标、资料库及29页PDF保留，实验模型/媒体/稠密数据和一次性作者链退休，不恢复旧实验链。
 
 **2026-11-05 十一鱼成品接受与历史退休**：用户明确本轮黑鳍礁鲨、红腹食人鱼、孔雀鲈、鲯鳅（鬼头刀）、非洲鲇鱼、大黄鱼、梭鲈、带鱼、银龙鱼、巨骨舌鱼、太平洋蓝鳍金枪鱼算成品，授权安装、提交推送并清理相关实验历史。连同原13条共24条成品，默认静态冻结，后续以正式 `assets/source/fish/<species>/fish.blend` 和 `game/assets/models/fish/<species>.glb` 为基础维护，不恢复旧实验链。入口为 `resources/volume-fish/final-eleven-fish-20261105.json` 和游戏 `plans/reviews/eleven-fish-release-20261105/HANDOFF.md`。按用户明确要求，旧实验图片/视频、旧模型/供体、密集姿态/网格数据和重复导出退休，只保留有价值的方法、问题、节点和核心数值文字；本条覆盖下文这些成品鱼须继续保留历史代表图片或唯一旧实验输入的要求。保留29页 `docs/reviews/fish-reference-comparison-20261105.pdf`，当前成品/可编辑源、内嵌纹理、游戏实际2D/图标及共享鱼资料库继续保留。历史路径/SHA仅作溯源，不能将已退休证据说成可重放或重新验证通过；新改动仍按影响逐鱼复验。见[成品保留规则](resources/skills/fish-volume-production/references/accepted-fish-retention-20261105.md)。

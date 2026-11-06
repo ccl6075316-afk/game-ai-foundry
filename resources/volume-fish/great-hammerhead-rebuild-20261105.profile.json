@@ -7287,5 +7287,8 @@
     "pectoral": "Small full-root relocation to measured blue-white boundary, exact finite body/cap support",
     "tail": "Shared finite upper/lower/width envelope across both body and caudal; complete cap retained",
     "rejected": "R32 material-only root whitening rejected by user"
-  }
+  },
+  "status": "historical_superseded",
+  "current_profile": "/Users/czl/projects/game-ai-foundry/resources/volume-fish/great-hammerhead-final-20261106.json",
+  "history_note": "R40 historical parameters only; retired experiment paths are not current entry. User accepted R42 final; use final profile and canonical source."
 }
